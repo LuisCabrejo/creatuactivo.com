@@ -1,0 +1,389 @@
+{
+  "pending_activations": [
+    {
+      "id": "cbbd0a2f-260c-412c-a1a2-1ccc22c2d9d4",
+      "invited_by": "6b7cfe68-ad3a-41ae-9094-682f6c486791",
+      "name": "Justin Cabrejo",
+      "email": null,
+      "whatsapp": "573206805737",
+      "gano_excel_id": null,
+      "plan_type": "estrategico",
+      "status": "pending",
+      "approved_by": null,
+      "approved_at": null,
+      "rejection_reason": null,
+      "created_at": "2026-08-13T20:55:03.747485+00:00",
+      "cedula": "1007442448",
+      "ciudad": "Villavicencio",
+      "source": "queswa",
+      "fingerprint_id": "wa_573206805737"
+    }
+  ],
+  "prospects": [
+    {
+      "id": "916b3b91-6315-44b9-9f98-91af915df532",
+      "constructor_id": "6b7cfe68-ad3a-41ae-9094-682f6c486791",
+      "fingerprint_id": "wa_573206805737",
+      "cookie_id": null,
+      "first_url": null,
+      "last_url": null,
+      "device_info": {
+        "name": "Crea Tu Activo",
+        "phone": "573206805737",
+        "channel": "whatsapp",
+        "invited_by": "luis-cabrejo-1288",
+        "message_count": 7,
+        "interest_level": 16,
+        "momento_optimo": "caliente",
+        "consent_granted": true,
+        "consent_timestamp": "2026-08-13T20:47:35.422Z",
+        "patrocinador_nombre": "Luis Cabrejo Parra"
+      },
+      "visits": 1,
+      "is_returning": false,
+      "stage": "expansion",
+      "created_at": "2026-08-13T20:41:27.332324+00:00",
+      "updated_at": "2026-08-13T20:56:10.82569+00:00",
+      "user_id": null,
+      "source": "whatsapp_inbound"
+    }
+  ],
+  "nexus_conversations": [
+    {
+      "id": "c5631f32-fac1-479f-b8ef-e10a27211c34",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hola Queswa 👋 vengo del enlace de luis-cabrejo",
+          "timestamp": "2026-08-13T20:41:29.027Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Hola. Un gusto saludarle. 🤝\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo.\n\nLe explico cómo se construye un *canal de distribución* en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:\n\n⚙️ Se arma una sola vez.\n🔑 Usted es el dueño.\n🔄 Le paga cada vez que hay consumo.\n\nMientras conversamos, usted ya está viendo cómo le podría ayudar:\nAsí es como asisto a cientos de personas a construir su propio canal, las 24 horas.\n\n¿Por dónde prefiere empezar?",
+          "timestamp": "2026-08-13T20:41:29.027Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-13T20:41:29.138927+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "2eeb232c-4853-4e9b-990a-f44281e95ca7",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Cómo funciona",
+          "timestamp": "2026-08-13T20:41:57.252Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Con gusto. El modelo funciona creando un canal de distribución apoyado en productos premium de bienestar que el cliente incorpora a su rutina.\n\nLa ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.\n\nY al ser productos funcionales con resultados reales para el bienestar y la vitalidad diaria —gracias al Ganoderma—, el cliente nota la diferencia y no vuelve al producto genérico. Cuando se le acaba, vuelve a pedir. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.\n\nPara que usted dirija sin cargar con la operación, el trabajo pesado lo asumimos nosotros:\n\n*Gano Excel* pone las fábricas, la investigación y la logística — 30 años, más de 60 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.\n\n*Yo* explico y atiendo a toda hora, sin que usted tenga que repetirle lo mismo a cada interesado.\n\nA usted le quedan dos cosas: compartir este mismo acceso con quien desee, y recibir sus comisiones en su cuenta bancaria cada viernes.\n\n¿Quiere ver cómo se gana?",
+          "timestamp": "2026-08-13T20:41:57.252Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-13T20:41:57.580364+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "8dfd21c8-039a-40b7-9b4f-c2ab0e0296b5",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Si",
+          "timestamp": "2026-08-13T20:42:50.879Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Con gusto. Su flujo de ganancias se alimenta de dos formas: el consumo recurrente, y la expansión empresarial — cuando nuevos socios compran su paquete y abren su propio canal.\n\nEmpecemos por la primera, que es la que construye su seguridad financiera: su red de clientes vuelve a pedir, y usted recibe una comisión sobre todo ese movimiento cada viernes.\n\nEs el efecto bola de nieve, un principio financiero conocido: usted empieza con las compras de sus primeros clientes, y cada distribuidor que abre su canal aporta el consumo de su propia red de clientes.\n\nEl volumen crece por impulso propio, y Gano Excel le liquida por cada transacción que ocurre dentro de su estructura.\n\nEs un ingreso que ya no exige que usted esté encima del negocio.\n\n¿Le explico la segunda, la de la compra de paquetes empresariales?",
+          "timestamp": "2026-08-13T20:42:50.879Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio",
+          "consent_granted": true,
+          "consent_timestamp": "2026-08-13T20:42:44.173Z"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_compensacion.txt"
+        ]
+      },
+      "created_at": "2026-08-13T20:42:50.879+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "f890f5e7-5775-4090-9efa-8ebb81a20e27",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explicame el principio financiero bola de nieve",
+          "timestamp": "2026-08-13T20:45:05.092Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Buena pregunta. El principio es simple: un ingreso pequeño que se reinvierte o se multiplica genera un ingreso más grande, que a su vez genera uno mayor todavía — y así sin que usted tenga que empujar cada vez con más fuerza.\n\nEn su canal funciona así: usted comparte su enlace con diez personas. Esas diez tienen su propio círculo, y algunas lo comparten también. Cada mes que pasa, hay más personas consumiendo dentro de su estructura — sin que usted haya hecho nada adicional ese mes.\n\nLo que hace que funcione aquí es que el producto es de consumo recurrente: el café, los suplementos, el cacao — se acaban y se vuelven a pedir. No es una compra de una sola vez. Eso convierte cada cliente nuevo en un ingreso que se repite solo.\n\n¿Le muestro cómo se ve ese crecimiento con números reales?",
+          "timestamp": "2026-08-13T20:45:05.092Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_inicial.txt"
+        ]
+      },
+      "created_at": "2026-08-13T20:45:05.092+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "aa3eb86f-b9eb-42bd-9478-28e96ed9028c",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Cómo entra el dinero",
+          "timestamp": "2026-08-13T20:46:02.045Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Buena pregunta, y la más importante.\n\nEl dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos premium con ganoderma.\n\nSe vende de dos formas: *al detal*, a quien solo quiere consumirlo, y en *paquetes empresariales*, a quien arranca su propio canal. De cada venta a usted le queda un porcentaje.\n\nY no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que usted tenga que volver a hacer nada.\n\nQuien le consigna es *Gano Excel*, y lo hace en *su cuenta bancaria cada viernes*. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco.\n\n¿Le muestro cómo se ve en números?",
+          "timestamp": "2026-08-13T20:46:02.045Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-13T20:46:02.157704+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "c2bdc514-0029-4daf-a6b5-4b7c608c75a7",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Si",
+          "timestamp": "2026-08-13T20:46:38.443Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfecto. Para mostrarle los números con precisión necesito saber en qué paquete entraría usted — porque el nivel de entrada define el porcentaje de comisión que le corresponde.\n\nLos tres paquetes de inicio son:\n\n| Paquete | Inversión |\n|---|---|\n| Inicial | $900.000 COP |\n| Empresarial | $2.250.000 COP |\n| Visionario | $4.500.000 COP |\n\n¿Con cuál de los tres quiere que le arme el ejemplo?",
+          "timestamp": "2026-08-13T20:46:38.443Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio",
+          "consent_granted": true,
+          "consent_timestamp": "2026-08-13T20:46:33.713Z"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_inicial.txt"
+        ]
+      },
+      "created_at": "2026-08-13T20:46:38.443+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "9c598548-c820-4bbf-af0a-1c47b3c87ed2",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Qué debo hacer yo",
+          "timestamp": "2026-08-13T20:47:02.150Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Me gusta esa pregunta — es la que de verdad importa. 🪢\n\nSu día a día se resume en dos acciones:\n\n📲 *Compartir:* usted pasa un enlace a quien quiera.\n🤝 *Recibir:* usted saluda a quien llega con interés.\n\nEntre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.\n\nY como es así de sencillo, quien entra con usted hace exactamente lo mismo. De ahí salen la multiplicación de su negocio y el aumento de su facturación.\n\n¿Le muestro los productos que mueven todo esto?",
+          "timestamp": "2026-08-13T20:47:02.150Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-13T20:47:02.799901+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "cfde1530-050c-4f0a-bfee-2b8ecc7e4107",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Si",
+          "timestamp": "2026-08-13T20:47:42.085Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Claro que sí. El portafolio tiene cuatro categorías:\n\n**1. Cafés y bebidas calientes** — la línea principal: café negro, café con leche, chocolate, té. Todos con ganoderma.\n\n**2. Bebidas funcionales** — jugos y mezclas con propósitos específicos: energía, digestión, bienestar general.\n\n**3. Suplementos avanzados** — cápsulas de dosis terapéutica, para quien quiere el efecto más concentrado.\n\n**4. Cuidado personal** — productos de uso externo con los mismos activos de la línea.\n\nLa categoría que más mueve ventas recurrentes es la de cafés: es consumo diario, y quien lo prueba lo repite.\n\n¿Le muestro los suplementos avanzados con precios y todo?",
+          "timestamp": "2026-08-13T20:47:42.085Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 0,
+          "momento_optimo": "frio",
+          "consent_granted": true,
+          "consent_timestamp": "2026-08-13T20:47:35.422Z"
+        },
+        "search_method": "category_direct",
+        "documents_used": [
+          "/knowledge_base/catalogo_productos.txt"
+        ]
+      },
+      "created_at": "2026-08-13T20:47:42.085+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "04d70a9d-da68-4e78-8c1b-8ac78f2563ae",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Muéstrame un ejemplo del binario con números",
+          "timestamp": "2026-08-13T20:48:38.193Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ganocafé a la semana* — cuatro al mes.\n\nSu canal se ordena en *dos centros de negocio*.\n\nY ojo con la cuenta: esos clientes no los consigue usted solo. Son los de sus socios, sumados — diez distribuidores con diez clientes cada uno ya llegan a cien.\n\n*10 clientes en cada centro*\n≈ $428.000 COP al mes\n\n*100 clientes en cada centro*\n≈ $4.300.000 COP al mes\n\nCalculado al *17%*, la tarifa que da el paquete Visionario. Y no espera fin de mes: se le liquida *cada viernes*, a medida que las compras ocurren.\n\n¿Quiere que le muestre cómo se ve el GEN5, que es la comisión directa por cada paquete empresarial que se compra en su canal?",
+          "timestamp": "2026-08-13T20:48:38.193Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 3,
+          "momento_optimo": "frio"
+        },
+        "search_method": "fragment_vector_search",
+        "documents_used": [
+          "/knowledge_base/arsenal_conversacional_compensacion.txt"
+        ]
+      },
+      "created_at": "2026-08-13T20:48:38.193+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "85b8423e-0492-4998-9b13-db44c6e67991",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Cuánto se gana, deme un ejemplo del gen5",
+          "timestamp": "2026-08-13T20:50:48.105Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Le pongo un ejemplo con números redondos.\n\nUsted arranca con el *ESP-3 Visionario*, y en su canal se compran *5 paquetes ESP-3* en cada una de las primeras cinco generaciones.\n\n*Generación 1* — 5 paquetes\n$675.000 × 5 = *$3.375.000*\n\n*Generación 2* — 5 paquetes\n$90.000 × 5 = *$450.000*\n\n*Generación 3* — 5 paquetes\n$90.000 × 5 = *$450.000*\n\n*Generación 4* — 5 paquetes\n$90.000 × 5 = *$450.000*\n\n*Generación 5* — 5 paquetes\n$180.000 × 5 = *$900.000*\n\n*Total: $5.625.000 COP*\n\nY se liquida cada viernes, a medida que cada compra ocurre — no espera a que se complete nada.\n\n¿Le explico cuáles son las tres formas de empezar?",
+          "timestamp": "2026-08-13T20:50:48.105Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 13,
+          "momento_optimo": "caliente"
+        },
+        "search_method": "paquete_direct",
+        "documents_used": [
+          "/knowledge_base/arsenal_compensacion.txt"
+        ]
+      },
+      "created_at": "2026-08-13T20:50:48.105+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "0ce64214-f1b5-4c2d-8cae-350ce5f36fb4",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Me interesa iniciar, qué hago",
+          "timestamp": "2026-08-13T20:51:58.927Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Con gusto. Le ayudo a dejarlo andando ahora mismo.\n\nPara radicar su vinculación necesito cuatro datos:\n\n• Nombre completo, como aparece en su documento\n• Número de identificación\n• La ciudad donde está\n• Cuál de los tres paquetes de inicio quiere\n\nLa ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá — así conoce el lugar y a la gente. Si no hay, le llega a su dirección.\n\nCon eso queda radicado, y le aviso a Luis Cabrejo para que le confirme y coordinen el pago.",
+          "timestamp": "2026-08-13T20:51:58.927Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-13T20:51:59.010044+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "0ec9c29c-ad42-4df2-bc06-457c0bf34008",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Justin Cabrejo\n1007442448\nVillavicencio \nEl de la mitad",
+          "timestamp": "2026-08-13T20:55:07.692Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Listo, Justin. Su vinculación quedó radicada.\n\n*ESP-2 Empresarial* · Villavicencio\n\nYa le avisé a Luis Cabrejo. Le confirma la aceptación y coordinan el pago directamente — ese paso lo cierra una persona, no yo.\n\nMientras tanto, si le queda alguna duda, aquí sigo.",
+          "timestamp": "2026-08-13T20:55:07.692Z"
+        }
+      ],
+      "metadata": {},
+      "created_at": "2026-08-13T20:55:07.794559+00:00",
+      "constructor_id": null
+    },
+    {
+      "id": "8a5c8b31-7049-4a86-a258-b6ab8d9ae3e4",
+      "fingerprint_id": "wa_573206805737",
+      "session_id": "wa_573206805737",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Cuál es el precio del Ganocafé 3 en 1",
+          "timestamp": "2026-08-13T20:56:15.458Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Claro que sí, Justin.\n\nEl *Ganocafé 3 en 1* está en *$110.900 COP* — viene en caja de 20 sobres, y su beneficio principal es energía sin nerviosismo, gracias al extracto de Ganoderma lucidum.\n\n¿Le muestro la línea completa de los 9 productos?",
+          "timestamp": "2026-08-13T20:56:15.458Z"
+        }
+      ],
+      "metadata": {
+        "api_version": "v13.0_flujo_14_mensajes",
+        "prospect_data": {
+          "interest_level": 16,
+          "momento_optimo": "caliente"
+        },
+        "search_method": "category_direct",
+        "documents_used": [
+          "/knowledge_base/catalogo_productos.txt"
+        ]
+      },
+      "created_at": "2026-08-13T20:56:15.458+00:00",
+      "constructor_id": null
+    }
+  ]
+}

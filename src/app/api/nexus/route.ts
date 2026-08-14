@@ -4665,7 +4665,7 @@ Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ga
 
 Su canal se ordena en *dos centros de negocio*.
 
-Y ojo con la cuenta: esos clientes no los consigue usted solo. Son los de sus socios, sumados — diez distribuidores con diez clientes cada uno ya llegan a cien.
+Y ojo con la cuenta: esos clientes no los consigue usted solo. Son los de sus socios, sumados — ejemplo: diez distribuidores con diez clientes cada uno ya llegan a cien.
 
 *10 clientes en cada centro*
 ≈ ${r('$428.000 COP', '$95 USD')} al mes

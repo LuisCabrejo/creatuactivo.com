@@ -105,7 +105,7 @@ const RE_PREGUNTA = /\?|^(qu[eé]|cu[aá]l|cu[aá]nto|c[oó]mo|por qu[eé]|cuand
  * entregar sus datos merece respuesta, no un formulario que insiste.
  */
 const RE_PEDIDO_INFO =
-  /expl[ií]c|expl[ií]qu|cu[eé]nt[aeo]|mu[eé]stre?|mu[eé]str[ea]|d[ií]game|h[aá]bl[aeo]me|h[aá]blem|inf[oó]rme|quiero saber|no entiendo|me interesa saber|d[eé]jeme ver|antes de/i;
+  /expl[ií]c|expl[ií]qu|cu[eé]nt[aeo]|mu[eé]stre?|mu[eé]str[ea]|d[ií]game|h[aá]bl[aeo]me|h[aá]blem|inf[oó]rme|quiero saber|no entiendo|me interesa saber|d[eé]jeme ver|antes de|dame (la )?(info|informaci[oó]n)|a[uú]n no|ahora no|todav[ií]a no|despu[eé]s|luego\b|m[aá]s tarde|primero/i;
 
 /** ¿El mensaje del bot estaba pidiendo justamente este dato? */
 function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolean {
@@ -510,6 +510,27 @@ export async function radicarPreAfiliacion(
  * prospecto sin socio —el que llega por un anuncio, o el que escribe sin el
  * enlace de nadie— hace que el endpoint devuelva 500. Aquí el aviso sale igual.
  */
+/**
+ * Interés declarado sin cédula todavía: la persona eligió paquete y dio su
+ * nombre, pero quiso seguir preguntando. El equipo recibe lo que ya hay para
+ * que el socio la contacte en persona — el cierre humano es parte del diseño,
+ * no un fallo del bot.
+ */
+async function avisarInteresParcial(datos: DatosRadicacion, whatsapp: string, socio?: string): Promise<void> {
+  const equipo = process.env.WHATSAPP_EQUIPO || '573206805737';
+  try {
+    const r = await sendTemplate(equipo, 'pre_afiliacion_nueva', 'es', [
+      socio || 'equipo',
+      `${datos.nombre} (${whatsapp}) · sin cédula aún`,
+      datos.paquete || '—',
+      `${datos.ciudad || '—'} — INTERÉS DECLARADO, sigue preguntando; contactar en persona`,
+    ]);
+    console.log(`📨 [Cierre WA] Interés parcial avisado al equipo: ${r.ok ? 'enviado' : r.error}`);
+  } catch (err) {
+    console.error('❌ [Cierre WA] No se pudo avisar el interés parcial:', err);
+  }
+}
+
 async function avisarAlEquipo(datos: DatosRadicacion, whatsapp: string): Promise<void> {
   const equipo = process.env.WHATSAPP_EQUIPO || '573206805737';
   try {
@@ -591,6 +612,16 @@ export async function gestionarCierre(params: {
       RE_PREGUNTA.test(texto) || RE_PEDIDO_INFO.test(texto) || texto.split(/\s+/).length > 6;
     if (esDigresion) {
       console.log(`❓ [Cierre WA] digresión ("${texto.slice(0, 40)}") — le devuelvo el turno al motor`);
+      // La persona ya declaró interés y dio parte de sus datos, pero decidió
+      // preguntar antes de entregar la cédula. Eso NO se pierde (decisión del
+      // Director, 14 ago 2026): en la PRIMERA digresión se le avisa al equipo
+      // con lo que ya hay —nombre, paquete, ciudad, WhatsApp— para que el socio
+      // pueda contactarla en persona. La radicación no depende de insistir.
+      // "Primera" = hasta ahora el bot ha pedido datos UNA sola vez.
+      const vecesPedido = turnosBot.filter((t) => RE_BOT_PIDIO_DATOS.test(t)).length;
+      if (vecesPedido === 1 && datos.nombre && datos.paquete && !datos.cedula) {
+        await avisarInteresParcial(datos, params.whatsapp, socio);
+      }
       return null;
     }
 

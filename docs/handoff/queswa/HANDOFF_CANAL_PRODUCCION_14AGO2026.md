@@ -54,7 +54,7 @@ Las descripciones de `NavigationList` admiten **máximo 20 caracteres**; las nue
 
 1. **Resultado de la prueba del Director** — si falla un punto, esa es la tarea. No darle nada por cerrado sin verlo en la conversación real (leer la BD, no confiar en el resumen).
 2. **Decisión abierta del Director**: ¿guardarraíl de salida que detecte «de por vida» / «ingreso inmediato» / tablas de personas por generación en la respuesta antes de enviarla? Propuesto, no aprobado — tiene filo (FREQ_05/herencia usa durabilidad legítimamente). **La evidencia ya es fuerte**: en la prueba de las 15:45, dos composiciones se colaron pese a las puertas — la tabla precio+comisión (turno 9, «la ganancia de comprar paquetes empresariales» no matchea ningún pin) y la pirámide de 3.125 personas (turno 10, cerrada con el fix de `gn5`). El turno 9 sigue abierto: no hay puerta para esa fórmula y el modelo compone con cifras de `arsenal_12_niveles` en USD.
-3. **Decisión abierta**: el simulador de renta ofrece la tarifa **«Kit de Inicio — 10%»**, pero los arsenales presentan tres formas de empezar sin el Kit. O se decide ofrecerlo (y FREQ_03 lo refleja) o se quita del Flow.
+3. ~~Kit de Inicio~~ **DECIDIDO (14 ago, 16:47)**: el Director aprobó que el Kit de Inicio se ofrezca como forma de empezar («me parece bien») — se queda en el Flow y en las respuestas. Si se toca FREQ_03, evaluar si el Kit entra a la tabla del candado (hoy son tres formas ESP).
 4. **Los ~19 cierres pendientes** de la revisión respuesta por respuesta (ver handoff del arsenal).
 5. **Barrido de «dirigir»**: ~14 instancias de cara al prospecto en los arsenales (6 inicial, 7 avanzado, 1 compensación).
 6. «yo ya hice multinivel» resuelve a STORY_03 (0.405) en vez de NET_01.

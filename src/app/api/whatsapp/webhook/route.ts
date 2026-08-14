@@ -584,6 +584,22 @@ export async function POST(request: Request) {
         else console.warn(`⚠️ [WA Webhook] Flow junto a la oferta no se pudo enviar: ${enviado.error}`);
       }
 
+      // GEN5 explicado con cifras y sin ejemplo dictado → el simulador va en su
+      // pantalla (decisión del Director, 14 ago 2026: al explicar el GEN5 también
+      // se ofrece la herramienta, no solo en el camino de renta).
+      const _explicaGen5 = /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+      if (flowSimulador && _explicaGen5 && !dictoEjemplo && !_ofreceNumeros) {
+        const enviado = await sendFlow(
+          phoneNumber,
+          flowSimulador,
+          'Y si quiere verlo con sus propios números: elija el paquete y cuántos se compran, y el resultado sale al instante. Se cuenta por paquetes comprados, no por personas.',
+          'Abrir el simulador',
+          { screen: 'GEN_MENU' },
+        );
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador GEN5 ofrecido junto a la explicación');
+        else console.warn(`⚠️ [WA Webhook] Flow GEN5 junto a la explicación no se pudo enviar: ${enviado.error}`);
+      }
+
       if (flowSimulador && queswaReply.includes('Le pongo el ejemplo con un supuesto modesto')) {
         const enviado = await sendFlow(
           phoneNumber,

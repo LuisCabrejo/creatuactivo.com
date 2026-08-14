@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     default: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
     template: '%s | CreaTuActivo'
   },
-  description: 'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La IA explica y atiende por usted; se liquida cada viernes.',
+  description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
@@ -131,14 +131,14 @@ export const metadata: Metadata = {
     alternateLocale: ['pt_BR'],
     url: baseUrl,
     title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
-    description: 'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La IA explica y atiende por usted; se liquida cada viernes.',
+    description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
-    description: 'Un negocio de distribución de café y productos de consumo diario, dirigido desde su celular. La IA explica y atiende por usted; se liquida cada viernes.',
+    description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
     creator: '@creatuactivo',
   },
 

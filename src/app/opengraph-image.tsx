@@ -105,7 +105,7 @@ export default async function Image() {
             lineHeight: 1.5,
           }}
         >
-          Café y productos de consumo diario, dirigido desde su celular. La inteligencia artificial explica y atiende por usted; se liquida cada viernes.
+          Café y suplementos premium, manejado desde su celular. La inteligencia artificial explica y atiende por usted; se liquida cada viernes.
         </div>
 
         {/* Footer - Byline */}

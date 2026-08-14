@@ -10,7 +10,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'CreaTuActivo · Prueba',
   description:
-    'Distribuya productos de consumo diario. La parte difícil —explicar y atender— la hace una inteligencia artificial en WhatsApp.',
+    'Distribuya café y suplementos premium. La parte difícil —explicar y atender— la hace una inteligencia artificial en WhatsApp.',
   robots: { index: false, follow: false },
 }
 

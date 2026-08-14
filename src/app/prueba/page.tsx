@@ -154,8 +154,8 @@ export default function PruebaPage() {
               maxWidth: 680,
             }}
           >
-            Un negocio de distribución de café y productos de consumo diario, que usted
-            dirige desde el celular. La parte difícil —explicar, atender, responder a
+            Un negocio de distribución de café y suplementos premium, que usted
+            maneja desde el celular. La parte difícil —explicar, atender, responder a
             toda hora— la hace una inteligencia artificial por WhatsApp. Y lo que
             produce{' '}
             <strong style={{ color: 'var(--color-text-primary)' }}>
@@ -209,16 +209,16 @@ export default function PruebaPage() {
       {/* ═══ DE DÓNDE SALE EL DINERO — orden WHY_02: dinero → recurrencia → dos fuerzas ═══ */}
       <Section>
         <Eyebrow>De dónde sale el dinero</Eyebrow>
-        <H2>De café que las personas se toman todos los días.</H2>
+        <H2>Del producto que se vende. De nada más.</H2>
         <Body>
-          Los productos son de consumo diario —café, bebidas y suplementos con Ganoderma—
-          y los fabrica y los despacha <strong style={{ color: 'var(--color-text-primary)' }}>
+          El producto es concreto —café, bebidas y suplementos premium con Ganoderma—
+          y lo fabrica y lo despacha <strong style={{ color: 'var(--color-text-primary)' }}>
           Gano Excel</strong>, una empresa con más de 30 años y presencia en más de 60 países.
           Usted no compra inventario ni entrega pedidos.
         </Body>
         <Body mt>
-          La ganancia sale de las ventas, y de nada más. Cada vez que alguien compra dentro
-          de su negocio, a usted le queda un porcentaje, y se lo liquidan en{' '}
+          La ganancia sale de las ventas, y de nada más. Cada vez que se vende producto
+          por su canal, a usted le queda un porcentaje, y se lo liquidan en{' '}
           <strong style={{ color: 'var(--color-text-primary)' }}>
             su cuenta bancaria cada viernes
           </strong>
@@ -226,10 +226,10 @@ export default function PruebaPage() {
         </Body>
         <Body mt>
           Y lo que casi nadie ve a la primera: <strong style={{ color: 'var(--color-text-primary)' }}>
-          el café se acaba</strong>. La persona que quedó contenta vuelve a pedir el mes
-          siguiente, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el ingreso
-          deja de depender de sus horas y empieza a depender de cuántas personas ya están
-          consumiendo.
+          el cliente nota la diferencia</strong>. Quien lo prueba no vuelve al producto genérico:
+          cuando se le acaba, vuelve a pedir el mismo, y esa venta ya no le cuesta trabajo
+          a usted. Ahí es donde el ingreso deja de depender de su presencia y empieza a
+          depender de cuántos clientes ya están consumiendo.
         </Body>
         <div
           style={{
@@ -259,9 +259,9 @@ export default function PruebaPage() {
         <Eyebrow>Por qué ahora sí</Eyebrow>
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
         <Body>
-          Distribuir productos de consumo diario siempre ha sido rentable. Pero exigía algo
-          que a casi nadie le gusta: explicar mil veces lo mismo, insistir, atender, estar
-          pendiente a toda hora. Nadie tiene la vida para dedicarse a eso todo el día.
+          Distribuir productos que las personas consumen todos los días siempre ha sido
+          buen negocio. Pero exigía algo que a casi nadie le gusta ni tiene cómo hacer:
+          explicarle a cada persona, responder a toda hora, estar pendiente de cada uno. Nadie tiene la vida para dedicarse a eso todo el día.
         </Body>
         <Body mt>
           Eso fue lo que cambió. Hoy el peso se reparte en dos: la fábrica y la entrega ya
@@ -348,10 +348,9 @@ export default function PruebaPage() {
       {/* ═══ EL PRODUCTO — test Beto: imagen concreta, autoridad intacta ═══ */}
       <Section elevated>
         <Eyebrow>El producto</Eyebrow>
-        <H2>Un hábito que no cambia genera un ingreso que jamás se detiene.</H2>
+        <H2>Un producto que funciona genera un ingreso que se repite.</H2>
         <Body>
-          No le pedimos a nadie adoptar un hábito nuevo: el café ya se toma todos los días.
-          Este lleva Ganoderma, un extracto respaldado por más de 2.000 estudios
+          El café y los suplementos son productos premium de bienestar. Llevan Ganoderma, un extracto respaldado por más de 2.000 estudios
           científicos, que{' '}
           <strong style={{ color: 'var(--color-text-primary)' }}>
             se disuelve por completo en el agua
@@ -359,8 +358,9 @@ export default function PruebaPage() {
           — el cuerpo lo aprovecha todo, no se queda nada en el fondo de la taza.
         </Body>
         <Body mt>
-          Quien lo prueba y le sienta bien, lo vuelve a pedir. Y esa recompra, mes tras
-          mes, es la base de todo lo que leyó arriba.
+          El cliente que nota la diferencia no vuelve al producto genérico: cuando se le
+          acaba, vuelve a pedir el mismo. Y esa recompra es la base de todo lo que leyó
+          arriba.
         </Body>
       </Section>
 

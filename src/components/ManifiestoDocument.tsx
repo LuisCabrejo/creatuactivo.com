@@ -210,7 +210,7 @@ export default function ManifiestoDocument({
                   Pero detrás de la cifra hay una idea más grande, y es la que de verdad nos mueve:
                   <span className="text-[#E5E5E5]"> volver normal que cualquier persona, en paralelo a lo
                   que ya hace, tenga un ingreso que no dependa de su presencia</span>. Hoy eso parece
-                  privilegio de pocos. Mañana, depender únicamente de sus horas se verá tan absurdo como
+                  privilegio de pocos. Mañana, depender únicamente de su presencia se verá tan absurdo como
                   hoy se ve una casa sin internet — y <span className="text-[#C5A059]">CreaTuActivo.com
                   será el estándar que volvió normal ese cambio</span>.
                 </p>
@@ -219,7 +219,7 @@ export default function ManifiestoDocument({
                   largo del continente americano. No peleamos por una tajada del mercado de hoy;
                   construimos la categoría que lo redefine — eliminando la fricción de la distribución
                   en 15 países de América y abriendo paso a la abundancia a través del
-                  <span className="text-[#E5E5E5]"> consumo diario</span>. Aquí, la única forma de ganar
+                  <span className="text-[#E5E5E5]"> consumo recurrente</span>. Aquí, la única forma de ganar
                   es haciendo ganar a otros.
                 </p>
               </div>

@@ -4587,7 +4587,19 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
       const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bgen[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso/i;
-      if (!esDocCompensacion && !preguntaSobreCifras.test(latestUserMessage)) return '';
+      // Aceptación de una oferta previa — va ANTES de la guarda de salida (14 ago
+      // 2026). En la prueba del Director, "¿Le muestro cómo se ve en números?" →
+      // "Sí" no entregó el ejemplo: el "Sí" no matchea preguntaSobreCifras, la
+      // recuperación se había ido a arsenal_inicial (esDocCompensacion falso), y
+      // esta guarda salía antes de llegar a _aceptaEjemplo, declarado 60 líneas
+      // más abajo. El modelo, sin pin, respondió pidiendo el paquete — rompiendo
+      // la regla del prompt: al "sí" se entrega lo ofrecido, no otra pregunta.
+      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n/i.test(_ultimoBotMsg);
+      // (?![a-záéíóúñ]) y no \b: en JS la í no es carácter de palabra, así que
+      // "sí" CON tilde —como lo escribe el teclado del teléfono— nunca cerraba
+      // el \b y la aceptación solo funcionaba escrita "Si" a secas.
+      const _aceptaEjemplo = _ofrecioEjemplo && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií] por favor|as[ií] es)(?![a-záéíóúñ])/i.test(latestUserMessage.trim());
+      if (!esDocCompensacion && !preguntaSobreCifras.test(latestUserMessage) && !_aceptaEjemplo) return '';
 
       // ── WhatsApp: ejemplo de RENTA (Binario) — dictado, en clientes ──────
       // Sin este pin, el modelo compuso una proyección de $7.65M mensuales
@@ -4599,8 +4611,13 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // Solo cuando PIDEN el ejemplo. "¿Qué es el binario?" recibe primero el
       // concepto (COMP_BIN_01, sin cifras) — doctrina del 7 ago: el ejemplo
       // gráfico llega después de que el concepto existe, nunca antes.
-      const esRenta = /binario|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
-        && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage);
+      // Quien acepta con "sí" no repite el nombre del bono: el tipo de ejemplo se
+      // hereda de la OFERTA. Sin esto, aceptar el ejemplo de renta entregaba el
+      // de GEN5 — esRenta solo miraba el mensaje del usuario.
+      const _ofrecioRenta = /binario|regal[ií]a|renta|recurrente|clientes consumiendo|cien clientes/i.test(_ultimoBotMsg);
+      const esRenta = (/binario|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
+        && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage))
+        || (_aceptaEjemplo && _ofrecioRenta);
       if (tenantId === 'whatsapp' && esRenta) {
         const esCO2 = visitorCountry === 'CO';
         const r = (cop: string, usd: string) => (esCO2 ? cop : usd);
@@ -4649,8 +4666,6 @@ STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin p
       // aceptó: nadie contesta "¿le muestro un ejemplo con números?" repitiendo
       // la palabra números — contesta "sí". Sin esto, el pin exige un pedido
       // explícito que la conversación acaba de volver innecesario.
-      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros/i.test(_ultimoBotMsg);
-      const _aceptaEjemplo = _ofrecioEjemplo && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií] por favor|as[ií] es)\b/i.test(latestUserMessage.trim());
       if (tenantId === 'whatsapp' && (preguntaSobreCifras.test(latestUserMessage) || _aceptaEjemplo)) {
         const esCO = visitorCountry === 'CO';
         const c = (cop: number, usd: number) =>

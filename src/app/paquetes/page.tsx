@@ -92,7 +92,7 @@ function Hero() {
           marginBottom: '24px',
           textShadow: '0 1px 8px rgba(0,0,0,0.9)',
         }}>
-          REF · ACTIVACION_EMPRESA_DIGITAL
+          Paquetes de Activación · Gano Excel
         </p>
 
         {/* H1 — alineado a la regla unificada (Inter uppercase letter-spacing 0.08em, token --color-brand) */}
@@ -123,7 +123,7 @@ function Hero() {
           marginTop: '32px',
           textShadow: '0 1px 8px rgba(0,0,0,1)',
         }}>
-          ↓ Auditoría completa de las variables técnicas
+          ↓ Los tres niveles, con todos los números a la vista
         </p>
       </div>
     </section>
@@ -465,13 +465,13 @@ function Faq() {
             fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
             letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
           }}>
-            Variables Técnicas
+            Preguntas Frecuentes
           </span>
           <h2 style={{
             fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px',
             fontFamily: 'var(--font-serif)', color: C.white,
           }}>
-            Auditoría de transparencia.
+            Todo a la vista.
           </h2>
         </div>
         <div>

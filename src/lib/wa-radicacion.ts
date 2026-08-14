@@ -516,12 +516,22 @@ export async function radicarPreAfiliacion(
  * que el socio la contacte en persona — el cierre humano es parte del diseño,
  * no un fallo del bot.
  */
-async function avisarInteresParcial(datos: DatosRadicacion, whatsapp: string, socio?: string): Promise<void> {
+const ETIQUETA_CORTA: Record<string, string> = {
+  nombre: 'nombre', cedula: 'cédula', ciudad: 'ciudad', paquete: 'paquete',
+};
+
+async function avisarInteresParcial(
+  datos: DatosRadicacion,
+  faltantes: readonly (keyof DatosRadicacion)[],
+  whatsapp: string,
+  socio?: string,
+): Promise<void> {
   const equipo = process.env.WHATSAPP_EQUIPO || '573206805737';
+  const pendiente = faltantes.map((f) => ETIQUETA_CORTA[f]).join(', ') || '—';
   try {
     const r = await sendTemplate(equipo, 'pre_afiliacion_nueva', 'es', [
       socio || 'equipo',
-      `${datos.nombre} (${whatsapp}) · sin cédula aún`,
+      `${datos.nombre || 'Sin nombre'} (${whatsapp}) · falta: ${pendiente}`,
       datos.paquete || '—',
       `${datos.ciudad || '—'} — INTERÉS DECLARADO, sigue preguntando; contactar en persona`,
     ]);
@@ -619,8 +629,9 @@ export async function gestionarCierre(params: {
       // pueda contactarla en persona. La radicación no depende de insistir.
       // "Primera" = hasta ahora el bot ha pedido datos UNA sola vez.
       const vecesPedido = turnosBot.filter((t) => RE_BOT_PIDIO_DATOS.test(t)).length;
-      if (vecesPedido === 1 && datos.nombre && datos.paquete && !datos.cedula) {
-        await avisarInteresParcial(datos, params.whatsapp, socio);
+      const algoCapturado = Boolean(datos.nombre || datos.paquete || datos.ciudad);
+      if (vecesPedido === 1 && algoCapturado) {
+        await avisarInteresParcial(datos, faltantes, params.whatsapp, socio);
       }
       return null;
     }

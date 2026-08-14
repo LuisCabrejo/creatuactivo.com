@@ -48,7 +48,7 @@ const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px
 const WA_BASE = 'https://wa.me/573215193909?text=';
 const waLink = (pkg: string) =>
   WA_BASE + encodeURIComponent(
-    `Hola equipo directivo. He completado mi diagnóstico y solicito la activación de mi empresa digital con el paquete ${pkg}. Mi nombre es `
+    `Hola, Queswa. Quiero activar mi empresa digital con el paquete ${pkg}. Mi nombre es `
   );
 
 // ============================================================================
@@ -92,7 +92,7 @@ function Hero() {
           marginBottom: '24px',
           textShadow: '0 1px 8px rgba(0,0,0,0.9)',
         }}>
-          REF · ACTIVACION_BASE_OPERATIVA
+          REF · ACTIVACION_EMPRESA_DIGITAL
         </p>
 
         {/* H1 — alineado a la regla unificada (Inter uppercase letter-spacing 0.08em, token --color-brand) */}
@@ -141,7 +141,7 @@ function Framing() {
           fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
           letterSpacing: '0.2em', textTransform: 'uppercase', color: C.gold,
         }}>
-          Asignación de Capital
+          Destino del Capital
         </span>
         <h2 style={{
           fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: '16px', marginBottom: '28px',
@@ -162,7 +162,7 @@ function Framing() {
             <span style={{ color: C.white }}>bebidas enriquecidas y suplementos Gano Excel</span>{' '}
             — un activo tangible que activa sus derechos de cobro en{' '}
             <span style={{ color: C.white, fontWeight: 600 }}>15 países de América</span>.
-            El Respaldo Operativo absorbe el trabajo pesado; usted dirige.
+            El Respaldo Operativo absorbe el trabajo pesado; usted decide.
           </p>
         </div>
       </div>
@@ -376,7 +376,7 @@ function Niveles() {
               'Todo lo del ESP-1',
               'Mayor capacidad de activación',
               'Acompañamiento prioritario',
-              'Capitalización de Organización — Nivel Empresarial',
+              'Capitalización de su canal — Nivel Empresarial',
             ]}
           />
           <PackageCard
@@ -393,7 +393,7 @@ function Niveles() {
               'Todo lo del ESP-2',
               'Apalancamiento estratégico (17%)',
               'Acompañamiento VIP',
-              'Capitalización de Organización — Nivel Visionario',
+              'Capitalización de su canal — Nivel Visionario',
             ]}
           />
         </div>
@@ -477,11 +477,11 @@ function Faq() {
         <div>
           <FaqItem
             q="¿Qué cubre exactamente su capital inicial?"
-            a="Su capital se convierte en inventario físico: bebidas enriquecidas y suplementos Gano Excel, productos de alta rotación. No hay cuota de membresía ni pago por software. La activación incluye acceso de por vida al ecosistema CreaTuActivo y a la plataforma Queswa, sin costos adicionales."
+            a="Su capital se convierte en inventario físico: bebidas enriquecidas y suplementos Gano Excel, productos de alta rotación. No hay cuota de membresía. La activación incluye el acceso al ecosistema CreaTuActivo y a la plataforma Queswa, con el Subsidio de Activación Tecnológica incluido: 1, 2 o 3 meses de plan tecnológico según su paquete."
           />
           <FaqItem
             q="¿Cuál es el consumo mensual para mantenerla activa?"
-            a="Para mantener su empresa digital activa, se requiere un consumo mensual de 50 CV (puntos de volumen), unos $450.000 COP. No es una cuota de software: es producto del mismo valor que usted y su organización consumen, manteniendo el flujo activo en su canal."
+            a="Para mantener su empresa digital activa, se requiere una compra mensual de 50 PV — en producto, unas tres o cuatro cajas. No es una cuota de software: es producto que usted consume o comparte con sus clientes, manteniendo el flujo activo en su canal."
           />
           <FaqItem
             q="¿Puedo subir de nivel más adelante?"
@@ -489,7 +489,7 @@ function Faq() {
           />
           <FaqItem
             q="¿Hay costos ocultos o comisiones no declaradas?"
-            a="No. Todo funciona con transparencia total. No hay costos de renovación, mantenimiento técnico, hosting ni herramientas adicionales. Su capital inicial y su consumo mensual son lo único que se requiere para acceder al 100% del ecosistema."
+            a="No. Todo está declarado: su capital inicial, su compra mensual de producto y, terminado el Subsidio de Activación, la cuota del plan tecnológico que usted elija. No hay costos de renovación, hosting ni herramientas adicionales."
           />
         </div>
       </div>
@@ -508,7 +508,7 @@ function CtaFinal() {
           fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
           letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
         }}>
-          Decisión Directiva
+          La Decisión
         </span>
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', marginTop: '16px', marginBottom: '20px',
@@ -516,13 +516,13 @@ function CtaFinal() {
         }}>
           Los tres niveles están definidos.
           <br />
-          <span style={{ color: C.gold }}>Su elección es directiva.</span>
+          <span style={{ color: C.gold }}>Usted decide el nivel.</span>
         </h2>
         <p style={{
           fontSize: '1rem', color: C.muted, lineHeight: 1.75, marginBottom: '36px',
         }}>
           Determine el nivel que necesita hoy.
-          La Dirección asume la fricción administrativa — su único paso es la autorización.
+          El equipo de creatuactivo.com asume el trámite administrativo — usted decide y autoriza.
         </p>
         <a
           href={waLink('el nivel que corresponde a mi perfil')}

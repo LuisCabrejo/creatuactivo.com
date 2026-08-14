@@ -11,24 +11,27 @@ import { CheckCircle, Layers, Cpu, BarChart2, Globe } from 'lucide-react';
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
 
+// Caché local sincronizado con tokens del sistema (globals.css) — mismo patrón que /paquetes.
+// Razón de no usar var(--…) directo: los hex se concatenan con alpha (ej. `${C.gold}18`).
+// Si los tokens cambian en globals.css, actualizar también aquí.
 const C = {
-  gold: '#E5C279',
-  goldDark: '#D4AF37',
-  cyan: '#38BDF8',
-  obsidian: '#0F1115',
+  gold: '#C5A059',       // var(--color-brand)
+  goldDark: '#D4AF37',   // var(--color-brand-hover)
+  cyan: '#22D3EE',       // Acento data (consistente con Home y /paquetes)
+  obsidian: '#0F1115',   // var(--color-bg-primary)
   gunmetal: '#16181D',
-  surface: '#1A1D23',
-  textMain: '#E5E5E5',
-  textMuted: '#A3A3A3',
-  textDim: '#64748B',
-  success: '#10B981',
-  bronze: '#CD7F32',
-  silver: '#94A3B8',
+  surface: '#1A1D23',    // var(--color-bg-surface)
+  textMain: '#E0DFDB',   // var(--color-text-primary)
+  textMuted: '#878681',  // var(--color-text-muted)
+  textDim: '#475569',    // var(--color-titanium-dark)
+  success: '#408A71',    // var(--color-success) — verde salvia
+  bronze: '#B38B59',     // var(--color-brand-muted) — nivel base
+  silver: '#94A3B8',     // var(--color-titanium) — nivel intermedio
 };
 
 const WA_PLANES = 'https://wa.me/573215193909?text=';
 const waLink = (plan: string) =>
-  WA_PLANES + encodeURIComponent(`Hola equipo directivo. He completado mi diagnóstico en Queswa y solicito la activación del ${plan}. Mi nombre es `);
+  WA_PLANES + encodeURIComponent(`Hola, Queswa. Quiero activar el ${plan} para mi empresa digital. Mi nombre es `);
 
 // ============================================================================
 // PLAN CARD
@@ -72,7 +75,8 @@ function PlanCard({
     display: 'flex',
     flexDirection: 'column',
     background: highlighted ? 'rgba(26,29,35,0.98)' : 'rgba(22,24,29,0.85)',
-    border: `1px solid ${highlighted ? borderColor + '55' : C.gold + '18'}`,
+    // Borde glass neutro; el dorado/metal queda para el borde superior y el hover (BRANDING.md)
+    border: `1px solid ${highlighted ? borderColor + '55' : 'rgba(255,255,255,0.07)'}`,
     borderTop: `4px solid ${borderColor}`,
     transition: 'transform 0.25s ease, box-shadow 0.25s ease',
   };
@@ -96,7 +100,7 @@ function PlanCard({
           <div style={{ color: accentColor }}>{icon}</div>
           <span style={{
             fontSize: '0.6rem',
-            fontFamily: "'Roboto Mono', monospace",
+            fontFamily: 'var(--font-mono)',
             letterSpacing: '0.15em',
             color: accentColor,
             textTransform: 'uppercase',
@@ -128,7 +132,7 @@ function PlanCard({
           </span>
           <span style={{ fontSize: '0.85rem', color: C.textMuted, marginLeft: '0.25rem' }}>{priceLabel}</span>
           {priceCOP && (
-            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: 'var(--font-mono)', marginTop: '0.2rem' }}>
               ~ ${priceCOP} COP/mes
             </p>
           )}
@@ -151,7 +155,7 @@ function PlanCard({
         }}>
           {metrics.map((m, i) => (
             <div key={i}>
-              <p style={{ fontSize: '0.6rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", marginBottom: '0.15rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <p style={{ fontSize: '0.6rem', color: C.textDim, fontFamily: 'var(--font-mono)', marginBottom: '0.15rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 {m.label}
               </p>
               <p style={{ fontSize: '0.85rem', fontWeight: 700, color: accentColor, fontFamily: 'var(--font-sans)' }}>
@@ -180,16 +184,16 @@ function PlanCard({
             style={{
               display: 'block', width: '100%', textAlign: 'center',
               fontWeight: 700, padding: '12px 20px',
-              background: C.obsidian, color: borderColor,
-              border: `2px solid ${borderColor}`,
+              background: 'transparent', color: borderColor,
+              border: `1.5px solid ${borderColor}`,
               textDecoration: 'none',
               fontFamily: 'var(--font-sans)',
               fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
               transition: 'background 0.2s, color 0.2s',
               boxSizing: 'border-box',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = borderColor; e.currentTarget.style.color = '#000'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = C.obsidian; e.currentTarget.style.color = borderColor; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = `${borderColor}12`; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
           >
             {ctaText}
           </a>
@@ -199,16 +203,16 @@ function PlanCard({
             style={{
               display: 'block', width: '100%', textAlign: 'center',
               fontWeight: 700, padding: '12px 20px',
-              background: C.obsidian, color: borderColor,
-              border: `2px solid ${borderColor}`,
+              background: 'transparent', color: borderColor,
+              border: `1.5px solid ${borderColor}`,
               textDecoration: 'none',
               fontFamily: 'var(--font-sans)',
               fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
               transition: 'background 0.2s, color 0.2s',
               boxSizing: 'border-box',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = borderColor; e.currentTarget.style.color = '#000'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = C.obsidian; e.currentTarget.style.color = borderColor; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = `${borderColor}12`; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
           >
             {ctaText}
           </Link>
@@ -227,7 +231,7 @@ export default function PlanesTecnologicosPage() {
     <>
       <style dangerouslySetInnerHTML={{ __html: `
         .spec-label-planes {
-          font-family: 'Roboto Mono', monospace;
+          font-family: var(--font-mono);
           font-size: 0.65rem;
           letter-spacing: 0.18em;
           color: ${C.cyan};
@@ -262,11 +266,15 @@ export default function PlanesTecnologicosPage() {
           padding: '8rem 1.5rem 4rem',
         }}>
           <span className="spec-label-planes">TECNOLOGÍA QUESWA — PLANES DE SUSCRIPCIÓN</span>
+          {/* H1 — regla unificada institucional (Inter uppercase, token --color-brand), igual que /paquetes */}
           <h1 style={{
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            color: C.gold,
+            fontSize: 'clamp(1.8rem, 5vw, 3.2rem)',
+            color: 'var(--color-brand)',
             lineHeight: 1.1,
-            fontFamily: "'Playfair Display', Georgia, serif",
+            fontFamily: 'var(--font-sans)',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
             marginBottom: '1rem',
           }}>
             La tecnología que trabaja<br />
@@ -275,8 +283,8 @@ export default function PlanesTecnologicosPage() {
           <div className="planes-hero-line" />
           <p style={{ fontSize: '1.05rem', color: C.textMuted, lineHeight: 1.85, maxWidth: '600px', margin: '0 auto' }}>
             La tecnología Queswa hace el 90% del trabajo pesado.
-            La cuota mensual es lo que cuesta tener un sistema que funciona las 24 horas:
-            conversa con cada interesado y acompaña a su organización, sin que usted tenga que estar presente.
+            La cuota mensual es lo que cuesta tener un sistema que explica, atiende
+            y madura en cada interesado la decisión de avanzar, las 24 horas.
           </p>
         </section>
 
@@ -301,7 +309,7 @@ export default function PlanesTecnologicosPage() {
                   price="$25"
                   priceCOP="112.500"
                   priceLabel="USD / mes"
-                  profile="La tecnología Queswa para empezar. Para Propietarios que inician su empresa digital."
+                  profile="La tecnología Queswa para empezar. Para quien inicia su empresa digital."
                   metrics={[
                     { label: 'Prospectos', value: '200' },
                     { label: 'Conversaciones', value: '100/mes' },
@@ -331,7 +339,7 @@ export default function PlanesTecnologicosPage() {
                   price="$49"
                   priceCOP="220.500"
                   priceLabel="USD / mes"
-                  profile="El estándar para Propietarios con su empresa digital activa. Capacidad de crecimiento intermedia."
+                  profile="El estándar para quien ya tiene su empresa digital activa y un canal en crecimiento."
                   metrics={[
                     { label: 'Prospectos', value: '500' },
                     { label: 'Conversaciones', value: '500/mes' },
@@ -341,7 +349,7 @@ export default function PlanesTecnologicosPage() {
                   features={[
                     'Todo lo del Plan Inicial +',
                     'Centro de Mando Queswa en Tiempo Real',
-                    'Panel para dirigir su organización (hasta 3 negocios)',
+                    'Panel para ver crecer su canal (hasta 3 negocios)',
                     'La Academia — Nivel Avanzado',
                     'Exportación de datos — analíticas avanzadas',
                     'Soporte prioritario por canal directo',
@@ -355,14 +363,14 @@ export default function PlanesTecnologicosPage() {
                   highlighted
                 />
 
-                {/* PLAN ELITE — Plan Director */}
+                {/* PLAN ELITE — Plan Multiplicación */}
                 <PlanCard
                   tag="PLAN ELITE — $99 USD/MES"
-                  title="Plan Director"
+                  title="Plan Multiplicación"
                   price="$99"
                   priceCOP="445.500"
                   priceLabel="USD / mes"
-                  profile="Para quienes dirigen su empresa digital en varios mercados internacionales a la vez."
+                  profile="Para quien multiplica su empresa digital en varios países a la vez."
                   metrics={[
                     { label: 'Prospectos', value: 'Ilimitados' },
                     { label: 'Conversaciones', value: 'Ilimitadas' },
@@ -371,17 +379,17 @@ export default function PlanesTecnologicosPage() {
                   ]}
                   features={[
                     'Todo lo del Plan Crecimiento +',
-                    'Panel para dirigir 10+ negocios',
+                    'Panel completo para 10+ negocios',
                     'Acceso completo 24/7 sin restricciones',
                     'La Academia — Nivel Multiplicación',
-                    'Valor Patrimonial de Red — Nivel Visionario',
+                    'Valor patrimonial de su red de clientes y socios — Nivel Visionario',
                     'Soporte dedicado + sesión estratégica 1-a-1',
                   ]}
                   borderColor={C.goldDark}
                   accentColor={C.gold}
                   icon={<Globe size={18} />}
-                  ctaText="ACTIVAR PLAN DIRECTOR"
-                  ctaHref={waLink('Plan Director ($99 USD / $445.500 COP/mes)')}
+                  ctaText="ACTIVAR PLAN MULTIPLICACIÓN"
+                  ctaHref={waLink('Plan Multiplicación ($99 USD / $445.500 COP/mes)')}
                   ctaExternal
                 />
 
@@ -392,7 +400,7 @@ export default function PlanesTecnologicosPage() {
                 textAlign: 'center',
                 marginTop: '3rem',
                 color: C.textDim,
-                fontFamily: "'Roboto Mono', monospace",
+                fontFamily: 'var(--font-mono)',
                 fontSize: '0.75rem',
                 lineHeight: 1.8,
                 maxWidth: '600px',
@@ -420,23 +428,23 @@ export default function PlanesTecnologicosPage() {
                 fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
                 fontWeight: 700,
                 color: C.textMain,
-                fontFamily: "'Playfair Display', Georgia, serif",
+                fontFamily: 'var(--font-serif)',
               }}>
-                Lo que el sistema hace mientras usted duerme.
+                Lo que el sistema hace sin que usted esté presente.
               </h2>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
               {[
-                { icon: <Cpu size={28} />, color: C.cyan, title: 'Conversa por usted', body: 'Queswa conversa con cada interesado y reconoce a quién está listo, antes de que usted invierta un minuto de atención.' },
+                { icon: <Cpu size={28} />, color: C.cyan, title: 'Conversa con cada interesado', body: 'Queswa reconoce a quién está listo y madura la decisión de avanzar, antes de que usted invierta un minuto de atención.' },
                 { icon: <BarChart2 size={28} />, color: C.gold, title: 'Atrae y prepara', body: 'El sistema capta, educa y prepara prospectos 24/7, eliminando la búsqueda y el seguimiento manual.' },
-                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Su empresa digital funciona en más de 60 países a la vez, sin requerir su presencia física en ningún mercado.' },
-                { icon: <Layers size={28} />, color: C.bronze, title: 'Multiplica sin cuello de botella', body: 'La formación de cada persona nueva ocurre sola. Su tiempo deja de ser el límite de su organización.' },
+                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Gano Excel fabrica y despacha en más de 60 países: su canal puede crecer donde usted no está, sin requerir su presencia física.' },
+                { icon: <Layers size={28} />, color: C.bronze, title: 'Multiplica sin cuello de botella', body: 'Queswa forma a cada socio nuevo. Su tiempo deja de ser el límite de su canal.' },
               ].map((item, i) => (
                 <div key={i} style={{
                   padding: '1.75rem',
                   background: 'rgba(22,24,29,0.7)',
-                  border: `1px solid ${C.gold}18`,
+                  border: '1px solid rgba(255,255,255,0.07)',
                   borderTop: `3px solid ${item.color}`,
                 }}>
                   <div style={{ color: item.color, marginBottom: '1rem' }}>{item.icon}</div>
@@ -468,7 +476,7 @@ export default function PlanesTecnologicosPage() {
                 fontWeight: 700,
                 marginBottom: '1.25rem',
                 color: C.textMain,
-                fontFamily: "'Playfair Display', Georgia, serif",
+                fontFamily: 'var(--font-serif)',
               }}>
                 El sistema ya está listo para usted.
               </h2>
@@ -520,11 +528,11 @@ VER LOS PAQUETES DE ACTIVACIÓN →
           <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
             <div style={{ textAlign: 'center' }}>
               <p style={{ fontWeight: 600, color: C.gold, fontFamily: 'var(--font-sans)', fontSize: '1.125rem' }}>CreaTuActivo</p>
-              <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: "'Roboto Mono', monospace", marginTop: '0.25rem' }}>
-                SISTEMA DE ARQUITECTURA DE ACTIVOS
+              <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: 'var(--font-mono)', marginTop: '0.25rem' }}>
+                TECNOLOGÍA PARA SU EMPRESA DIGITAL
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: "'Roboto Mono', monospace" }}>
+            <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: 'var(--font-mono)' }}>
               <Link href="/blog" style={{ color: C.textMuted, textDecoration: 'none' }}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>BLOG</Link>
@@ -532,7 +540,7 @@ VER LOS PAQUETES DE ACTIVACIÓN →
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>PRIVACIDAD</Link>
             </div>
-            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: "'Roboto Mono', monospace", letterSpacing: '0.1em' }}>
+            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
               © 2026 CREATUACTIVO.COM · TODOS LOS DERECHOS RESERVADOS
             </p>
           </div>

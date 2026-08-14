@@ -4615,7 +4615,11 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // hereda de la OFERTA. Sin esto, aceptar el ejemplo de renta entregaba el
       // de GEN5 — esRenta solo miraba el mensaje del usuario.
       const _ofrecioRenta = /binario|regal[ií]a|renta|recurrente|clientes consumiendo|cien clientes/i.test(_ultimoBotMsg);
-      const esRenta = (/binario|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
+      // b[ia]+n[a-z]?r[a-z]?i?o y no "binario" literal: en la prueba del Director
+      // "bianrio" —un dedo trocado— no matcheó, el pin no disparó y el modelo
+      // compuso una proyección a 18 meses con "de por vida" e "ingreso
+      // inmediato". Un error de tipeo no puede costar el candado (14 ago 2026).
+      const esRenta = (/b[ia]+n[a-z]?r[a-z]?i?o|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
         && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage))
         || (_aceptaEjemplo && _ofrecioRenta);
       if (tenantId === 'whatsapp' && esRenta) {
@@ -4738,7 +4742,7 @@ ${filasGen5}`;
       // Disparar cuando: se pide ejemplo explícito, O el doc recuperado es de compensación GEN5/Binario
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
-      const pideEjemploComision = /ejemplo.*(gen5?|binario|velocidad|comisi|ingreso|gana)|dame.*(gen5?|binario|velocidad|n[uú]mero|cifra|cu[aá]nto)|gen5?.*(ejemplo|gr[aá]fico|n[uú]mero)|binario.*(ejemplo|gr[aá]fico|n[uú]mero)/i.test(latestUserMessage);
+      const pideEjemploComision = /ejemplo.*(gen5?|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|comisi|ingreso|gana)|dame.*(gen5?|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|n[uú]mero|cifra|cu[aá]nto)|gen5?.*(ejemplo|gr[aá]fico|n[uú]mero)|b[ia]+n[a-z]?r[a-z]?i?o.*(ejemplo|gr[aá]fico|n[uú]mero)/i.test(latestUserMessage);
       const esConsultaCompensacion = esDocCompensacion && /gen[\s.-]?5|binario|bono|comisi[oó]n|ingreso\s*(inmediato|recurrente)|cu[aá]nto\s*(gano|se\s*gana|paga)|ganancias|n[uú]meros/i.test(latestUserMessage);
       if (!pideEjemploComision && !esConsultaCompensacion && closingState !== 2) return '';
       const monedaCO = visitorCountry === 'CO';

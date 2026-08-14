@@ -130,6 +130,22 @@ Clases canónicas en [globals.css](src/app/globals.css). **Nunca** fondo dorado 
 
 > **Fuente de verdad completa del vocabulario.** CLAUDE.md conserva la doctrina de migración + las prohibiciones más frecuentes en su sección "Queswa Vocabulary — Tabla Canónica"; las **tablas completas** viven aquí. Toda edición de copy de cara al prospecto pasa el test "abuela de 75 años" y usa el **léxico accesible** (columna en negrita), no el canon interno.
 
+### ⚠️ Addendum 8–14 ago 2026 — decisiones POSTERIORES a las tablas de abajo (mandan sobre ellas)
+
+Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las actualizan. La lista completa con razones vive en CLAUDE.md § "Léxico y voz".
+
+| Se retira | Se dice | Razón corta |
+|---|---|---|
+| **Propietario** (cargo) | **socio**; y a él en 2ª persona, sin título: *usted es el dueño* | El rol no se nombra como cargo; lo que hace se dice con verbos: decide · comparte · ve crecer |
+| **dirigir / dirija** (el usuario) | ser dueño de / decidir | *Dirigir* evoca hojas de cálculo y pide una identidad que el lector aún no se atribuye |
+| **su organización** | **su canal** — y cuando el colectivo hace algo humano (comprar, pedir), nombrar a quién: *sus clientes, sus socios* | Un canal es un conducto y no consume |
+| **de por vida · renta vitalicia · perpetuo** | la recompensa se nombra por su **repetición**: *cobra cada vez que su canal mueve producto* | Duración garantizada = promesa de ingreso (Meta + Estatuto del Consumidor). Única casa legítima de la durabilidad: FREQ_05 (herencia) |
+| **ingreso inmediato · paga rápido · Capitalización Inmediata** | cada vía por lo que la mueve: **Bono GEN5 = compra de paquetes empresariales · Binario = consumo recurrente** | Nombrar un bono por velocidad es falso (la compra de paquete es esporádica) y siembra "se gana por traer gente" |
+| **acciones encadenadas a un pago fechado** (*"usted comparte… y cobra el viernes"*) | la cadencia semanal se cita solo como **hecho** de cómo liquida Gano, nunca como recompensa de lo que el lector haga | Promesa de ingreso fechada. El viernes como hecho es legítimo (WHY_04) |
+| transacción | **compra** | Palabra de extracto bancario; *compra* nombra lo que ocurre |
+
+**Trampas del barrido web** (no migrar a ciegas): la **metadata de `/servilleta` conserva léxico viejo a propósito** (SEO intencional — ver memoria `project_servilleta_metadata_seo`) · **`/12-niveles` y las páginas del reto no se migran** (tono deliberado — memoria `project_reto_12niveles_no_migrar`) · los identificadores de código (`constructor_id`, `constructor_slugs`) **no se tocan**. Inventario vivo del léxico viejo en páginas: `grep -rln "Propietario\|su organización\|dirigir\|Base Operativa" src/app --include="*.tsx" | grep -v .bak`.
+
 ### 7.1. Vocabulario APROBADO (doctrina canónica)
 
 > 🔁 **Las filas marcadas 🪶 son CANON INTERNO ya migrado de cara al prospecto (jun 2026).** El "Término" sigue vivo en arsenales profundos + system prompt sin migrar, pero en copy que ve el prospecto va el **reemplazo accesible en negrita dentro de "Uso"** — NO uses el término canónico ni "corrijas" copy accesible hacia él. Ver [[project_migracion_lexico_accesible]].

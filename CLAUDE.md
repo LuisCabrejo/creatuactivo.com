@@ -305,7 +305,7 @@ Webhook `/api/whatsapp/webhook` (Node, 30s) → adaptador de canal: extrae núme
    - ⚠️ **Dos thresholds que no son intercambiables**: 0.40 clasifica el arsenal; 0.30 es el de `searchArsenalFragments` para traer fragmentos. Declarar rota una recuperación de 0.38 midiendo contra 0.40 es un error ya cometido
    - **Candado solitario (14 ago 2026)**: si el fragmento que encabeza la recuperación trae `<verbatim_lock>`, se entrega SOLO — los demás se descartan del contexto. Un casi-empate (Δ0.017) hacía que el modelo mezclara dos fragmentos
 
-   **Falso positivo conocido (resuelto Mar 2026)**: `COMP_MODELO_01` tiene "¿Cómo funciona el negocio?" como trigger → el vector lo confundía con WHY_02. El override en PASO 0.5 lo corrige.
+   **Falso positivo conocido (resuelto Mar 2026)**: `COMP_MODELO_01` tiene "¿Cómo funciona el negocio?" como trigger → el vector lo confundía con WHY_02. El override en PASO 1.5 lo corrige (⚠️ el comentario en `route.ts` conserva el nombre viejo `PASO 0.5` — buscar por `OVERRIDE CRÍTICO`, no por número).
 
    **Excepción ecommerce (Mar 2026)**: `isSimpleQueryEarly` retorna siempre `false` cuando `tenantId === 'ecommerce'`. En ganocafe.online cualquier query puede ser sobre un producto — no hay queries "simples". Esto garantiza que mensajes de 1–3 palabras ("el té", "cereal", "jabón") igualmente pasen por vector search.
 

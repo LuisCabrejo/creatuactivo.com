@@ -3944,7 +3944,27 @@ ${summaryParts.join('\n')}
     // Aquí la conversación se colapsa en una consulta autónoma ANTES de buscar.
     // Degrada con gracia: si falla, se busca con el mensaje original.
     let consultaRecuperacion = latestUserMessage;
-    if (tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+
+    // ── Aceptación pelada: se busca con la OFERTA, no con el "sí" (14 ago 2026) ──
+    // Determinístico y ANTES del CQR: cuando el mensaje es solo una aceptación,
+    // la consulta correcta ya está escrita — es la pregunta con la que el bot
+    // cerró su turno anterior. El CQR (Haiku) intentaba reconstruirla y a veces
+    // erraba el tema: un "sí" a "¿le muestro los productos?" recuperó fragmentos
+    // de COMPENSACIÓN, y el modelo compuso una lista de productos con las
+    // alucinaciones documentadas (Ganocafé Cocoa, Ganoté) y hasta etiquetas
+    // <verbatim_lock> inventadas alrededor de su propia respuesta. Cero costo,
+    // cero latencia, y no puede errar el tema: la oferta es literal.
+    const _aceptacionPelada = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií],? por favor|as[ií] es|vale|perfecto)(?![a-záéíóúñ])[!. ]*$/i
+      .test((latestUserMessage || '').trim());
+    if (_aceptacionPelada && _ultimoBotMsg) {
+      const _preguntas = _ultimoBotMsg.match(/¿[^?]{5,160}\?/g);
+      if (_preguntas && _preguntas.length) {
+        consultaRecuperacion = _preguntas[_preguntas.length - 1];
+        console.log(`🔁 [Aceptación] Se busca con la oferta del bot: "${consultaRecuperacion.slice(0, 80)}"`);
+      }
+    }
+
+    if (!_aceptacionPelada && tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       const historialPrevio = (Array.isArray(messages) ? messages : [])
         .slice(0, -1)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -4586,7 +4606,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // Disparar si la query es sobre cifras/ganancias O si el doc recuperado es de compensación
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
-      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bgen[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso/i;
+      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso/i;
       // Aceptación de una oferta previa — va ANTES de la guarda de salida (14 ago
       // 2026). En la prueba del Director, "¿Le muestro cómo se ve en números?" →
       // "Sí" no entregó el ejemplo: el "Sí" no matchea preguntaSobreCifras, la
@@ -4621,8 +4641,8 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // RENTA. El GEN5 solo se dicta cuando alguien lo nombra —gen5 o paquetes—
       // en su mensaje o en la oferta que aceptó. Doce años de campo: el GEN5
       // explicado primero siembra "se gana por traer gente".
-      const _nombraGen5 = /gen[\s.-]?5|paquete/i.test(latestUserMessage)
-        || (_aceptaEjemplo && /gen[\s.-]?5|paquete/i.test(_ultimoBotMsg));
+      const _nombraGen5 = /ge?n[\s.-]?5|paquete/i.test(latestUserMessage)
+        || (_aceptaEjemplo && /ge?n[\s.-]?5|paquete/i.test(_ultimoBotMsg));
       // b[ia]+n[a-z]?r[a-z]?i?o y no "binario" literal: en la prueba del Director
       // "bianrio" —un dedo trocado— no matcheó, el pin no disparó y el modelo
       // compuso una proyección a 18 meses con "de por vida" e "ingreso
@@ -4750,7 +4770,7 @@ ${filasGen5}`;
       // Disparar cuando: se pide ejemplo explícito, O el doc recuperado es de compensación GEN5/Binario
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
-      const pideEjemploComision = /ejemplo.*(gen5?|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|comisi|ingreso|gana)|dame.*(gen5?|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|n[uú]mero|cifra|cu[aá]nto)|gen5?.*(ejemplo|gr[aá]fico|n[uú]mero)|b[ia]+n[a-z]?r[a-z]?i?o.*(ejemplo|gr[aá]fico|n[uú]mero)/i.test(latestUserMessage);
+      const pideEjemploComision = /ejemplo.*(ge?n[\s.-]?5|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|comisi|ingreso|gana)|dame.*(ge?n[\s.-]?5|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|n[uú]mero|cifra|cu[aá]nto)|ge?n[\s.-]?5.*(ejemplo|gr[aá]fico|n[uú]mero)|b[ia]+n[a-z]?r[a-z]?i?o.*(ejemplo|gr[aá]fico|n[uú]mero)/i.test(latestUserMessage);
       const esConsultaCompensacion = esDocCompensacion && /gen[\s.-]?5|binario|bono|comisi[oó]n|ingreso\s*(inmediato|recurrente)|cu[aá]nto\s*(gano|se\s*gana|paga)|ganancias|n[uú]meros/i.test(latestUserMessage);
       if (!pideEjemploComision && !esConsultaCompensacion && closingState !== 2) return '';
       const monedaCO = visitorCountry === 'CO';

@@ -18,7 +18,7 @@ import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: '¿Qué es Queswa.app? El Centro de Mando con IA de CreaTuActivo · Luis Cabrejo',
-  description: 'Queswa es el Centro de Mando con inteligencia artificial de CreaTuActivo. Una plataforma de IA que asume el 90% del trabajo pesado de su negocio — usted solo dirige.',
+  description: 'Queswa es el Centro de Mando con inteligencia artificial de CreaTuActivo. Una plataforma de IA que asume el 90% del trabajo pesado de su negocio — usted solo decide.',
   keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, centro de mando creatuactivo, queswa ia, inteligencia artificial creatuactivo',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   openGraph: {
@@ -51,7 +51,7 @@ const jsonLd = {
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       url: 'https://queswa.app',
-      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para Propietarios que dirigen y multiplican su negocio con el Método Comprobado.',
+      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para socios que manejan y multiplican su negocio con el Método Comprobado.',
       creator: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       provider: { '@id': 'https://creatuactivo.com/#organization' },
     },
@@ -89,7 +89,7 @@ export default function TecnologiaPage() {
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(229, 194, 121, 0.08) 0%, transparent 50%)'
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 50%)'
           }}
         />
 
@@ -97,7 +97,7 @@ export default function TecnologiaPage() {
           {/* Hero Section */}
           <IndustrialHeader
             title="TECNOLOGÍA QUE TRABAJA POR USTED"
-            subtitle="Construya una estructura de ingresos recurrentes — usted dirige; Queswa ejecuta."
+            subtitle="Construya una estructura de ingresos recurrentes — usted decide; Queswa hace el trabajo."
             refCode="SISTEMA_QUESWA_V3"
             imageSrc="/images/servilleta/engranajes.webp"
             imageAlt="Engranajes industriales - ecosistema Queswa"
@@ -124,9 +124,9 @@ export default function TecnologiaPage() {
                 </h2>
                 <p className="text-[#E5E5E5] leading-relaxed mb-4">
                   <strong>Queswa.app</strong> es el Centro de Mando con inteligencia artificial de
-                  <strong>CreaTuActivo.com</strong>: el entorno desde donde cada Propietario dirige y
+                  <strong>CreaTuActivo.com</strong>: el entorno desde donde cada socio maneja y
                   multiplica su negocio. La inteligencia artificial asume el trabajo pesado
-                  —explica, convierte y hace seguimiento las 24 horas—; usted solo dirige.
+                  —explica, convierte y hace seguimiento las 24 horas—; usted solo decide.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
                   Fue concebida por <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#C5A059', fontWeight: 600, textDecoration: 'none' }}>Luis Cabrejo</a>,
@@ -135,7 +135,7 @@ export default function TecnologiaPage() {
                   por usted —las 24 horas— al mejor presentador, al mejor cerrador y al mejor mentor,
                   para que cualquier persona, sin experiencia, logre lo que antes solo conseguían unos
                   pocos. Su acceso está en <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a>,
-                  de uso exclusivo para Propietarios activos.
+                  de uso exclusivo para socios activos.
                 </p>
               </div>
             </div>
@@ -160,7 +160,7 @@ export default function TecnologiaPage() {
               <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
                 La inteligencia artificial que explica, convierte y multiplica su negocio las
                 24 horas — haciendo a escala lo que una sola persona jamás podría sola. Asume el
-                90% del trabajo pesado; usted dirige.
+                90% del trabajo pesado; usted decide.
               </p>
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function TecnologiaPage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
+                <div className="p-6  bg-[#0B0C0C] border border-[rgba(197,160,89,0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#1</div>
                   <h3 className="text-xl font-semibold mb-3">Su día tiene 24 horas</h3>
                   <p className="text-[#A3A3A3]">
@@ -188,7 +188,7 @@ export default function TecnologiaPage() {
                   </p>
                 </div>
 
-                <div className="p-6  bg-[#0B0C0C] border border-[rgba(229, 194, 121, 0.15)]">
+                <div className="p-6  bg-[#0B0C0C] border border-[rgba(197,160,89,0.15)]">
                   <div className="text-[#6B7280] text-4xl font-bold mb-4">#2</div>
                   <h3 className="text-xl font-semibold mb-3">Y el detalle se escapa</h3>
                   <p className="text-[#A3A3A3]">
@@ -221,7 +221,7 @@ export default function TecnologiaPage() {
 
               <div className="grid md:grid-cols-3 gap-6">
                 {/* Explica */}
-                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
+                <div className="p-6  bg-[#16181D] border border-[rgba(197,160,89,0.15)] text-center">
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Bot className="w-7 h-7 text-[#C5A059]" />
                   </div>
@@ -230,7 +230,7 @@ export default function TecnologiaPage() {
                 </div>
 
                 {/* Convierte */}
-                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
+                <div className="p-6  bg-[#16181D] border border-[rgba(197,160,89,0.15)] text-center">
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Target className="w-7 h-7 text-[#C5A059]" />
                   </div>
@@ -239,7 +239,7 @@ export default function TecnologiaPage() {
                 </div>
 
                 {/* Multiplica */}
-                <div className="p-6  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] text-center">
+                <div className="p-6  bg-[#16181D] border border-[rgba(197,160,89,0.15)] text-center">
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="w-7 h-7 text-[#C5A059]" />
                   </div>
@@ -281,7 +281,7 @@ export default function TecnologiaPage() {
                   },
                   {
                     step: '4',
-                    title: 'Usted dirige',
+                    title: 'Usted decide',
                     description: 'Dedica su tiempo a quienes ya decidieron avanzar. Lo demás, ya está hecho.'
                   }
                 ].map((item, i) => (
@@ -320,7 +320,7 @@ export default function TecnologiaPage() {
 
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Sin Queswa */}
-                <div className="p-8  bg-[#16181D] border border-[rgba(229, 194, 121, 0.15)] opacity-60">
+                <div className="p-8  bg-[#16181D] border border-[rgba(197,160,89,0.15)] opacity-60">
                   <h3 className="text-xl font-semibold mb-6 text-[#6B7280]">Una sola persona</h3>
                   <ul className="space-y-4 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
@@ -390,7 +390,7 @@ export default function TecnologiaPage() {
           </section>
 
           {/* Footer */}
-          <footer className="px-6 py-12 border-t border-[rgba(229, 194, 121, 0.15)]">
+          <footer className="px-6 py-12 border-t border-[rgba(197,160,89,0.15)]">
             <div className="max-w-5xl mx-auto text-center">
               <p className="text-sm text-[#64748B]">
                 © 2026 CreaTuActivo.com ·

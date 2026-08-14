@@ -13,8 +13,8 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
-  title: 'Blog - Recursos para Construir su Soberanía Financiera | CreaTuActivo',
-  description: 'Artículos y guías sobre arquitectura de activos, apalancamiento estratégico y estrategias para construir flujos de caja autosustentables.',
+  title: 'Blog - Ideas para Construir Ingresos Recurrentes | CreaTuActivo',
+  description: 'Artículos y guías sobre ingresos recurrentes, canales de distribución y la tecnología que hace el trabajo pesado por usted.',
 };
 
 const articles = [
@@ -30,7 +30,7 @@ const articles = [
   {
     slug: 'empleo-vs-activos',
     image: '/images/blog/thumb-blog-system.jpg',
-    label: 'ARQUITECTURA DE ACTIVOS',
+    label: 'INGRESOS RECURRENTES',
     cardTitle: 'La ingeniería detrás del flujo de caja autosustentable',
     excerpt: 'Por qué trabajar más horas no es la respuesta. El concepto de apalancamiento estratégico y cómo construir activos.',
     category: 'Educación Financiera',

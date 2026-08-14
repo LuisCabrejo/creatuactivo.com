@@ -1,0 +1,923 @@
+{
+ "version": "6.3",
+ "screens": [
+  {
+   "id": "INICIO",
+   "title": "Simulador",
+   "terminal": false,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "NavigationList",
+      "name": "tipo_ingreso",
+      "list-items": [
+       {
+        "id": "gen5",
+        "main-content": {
+         "title": "Bono GEN5",
+         "description": "Compra de paquetes"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "GEN_MENU"
+         },
+         "payload": {}
+        }
+       },
+       {
+        "id": "renta",
+        "main-content": {
+         "title": "Ingreso recurrente",
+         "description": "Consumo de clientes"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RENTA_MENU"
+         },
+         "payload": {}
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "GEN_MENU",
+   "title": "Bono GEN5",
+   "terminal": false,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "NavigationList",
+      "name": "paquetes",
+      "list-items": [
+       {
+        "id": "ESP-3",
+        "main-content": {
+         "title": "ESP-3 Visionario",
+         "description": "$675.000 en Gen 1"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RESULTADO_ESP_TRES"
+         },
+         "payload": {}
+        }
+       },
+       {
+        "id": "ESP-2",
+        "main-content": {
+         "title": "ESP-2 Empresarial",
+         "description": "$337.500 en Gen 1"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RESULTADO_ESP_DOS"
+         },
+         "payload": {}
+        }
+       },
+       {
+        "id": "ESP-1",
+        "main-content": {
+         "title": "ESP-1 Inicial",
+         "description": "$112.500 en Gen 1"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RESULTADO_ESP_UNO"
+         },
+         "payload": {}
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RENTA_MENU",
+   "title": "Renta recurrente",
+   "terminal": false,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "NavigationList",
+      "name": "tarifas",
+      "list-items": [
+       {
+        "id": "DIEZ",
+        "main-content": {
+         "title": "Kit de Inicio — 10%"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RENTA_DIEZ"
+         },
+         "payload": {}
+        }
+       },
+       {
+        "id": "QUINCE",
+        "main-content": {
+         "title": "ESP-1 Inicial — 15%"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RENTA_QUINCE"
+         },
+         "payload": {}
+        }
+       },
+       {
+        "id": "DIECISEIS",
+        "main-content": {
+         "title": "ESP-2 Empresarial — 16%"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RENTA_DIECISEIS"
+         },
+         "payload": {}
+        }
+       },
+       {
+        "id": "DIECISIETE",
+        "main-content": {
+         "title": "ESP-3 Visionario — 17%",
+         "description": "Tarifa más alta"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "RENTA_DIECISIETE"
+         },
+         "payload": {}
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RESULTADO_ESP_TRES",
+   "title": "ESP-3 Visionario",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "escenario",
+      "init-values": {
+       "cantidad": "5"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "cantidad",
+        "label": "Paquetes comprados en cada generación",
+        "required": true,
+        "data-source": [
+         {
+          "id": "1",
+          "title": "1 paquete"
+         },
+         {
+          "id": "3",
+          "title": "3 paquetes"
+         },
+         {
+          "id": "5",
+          "title": "5 paquetes"
+         },
+         {
+          "id": "10",
+          "title": "10 paquetes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '1'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 1 paquete\n$675.000 × 1 = $675.000\n\nGeneración 2 · 1 paquete\n$90.000 × 1 = $90.000\n\nGeneración 3 · 1 paquete\n$90.000 × 1 = $90.000\n\nGeneración 4 · 1 paquete\n$90.000 × 1 = $90.000\n\nGeneración 5 · 1 paquete\n$180.000 × 1 = $180.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $1.125.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '3'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 3 paquetes\n$675.000 × 3 = $2.025.000\n\nGeneración 2 · 3 paquetes\n$90.000 × 3 = $270.000\n\nGeneración 3 · 3 paquetes\n$90.000 × 3 = $270.000\n\nGeneración 4 · 3 paquetes\n$90.000 × 3 = $270.000\n\nGeneración 5 · 3 paquetes\n$180.000 × 3 = $540.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $3.375.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '5'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 5 paquetes\n$675.000 × 5 = $3.375.000\n\nGeneración 2 · 5 paquetes\n$90.000 × 5 = $450.000\n\nGeneración 3 · 5 paquetes\n$90.000 × 5 = $450.000\n\nGeneración 4 · 5 paquetes\n$90.000 × 5 = $450.000\n\nGeneración 5 · 5 paquetes\n$180.000 × 5 = $900.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $5.625.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '10'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 10 paquetes\n$675.000 × 10 = $6.750.000\n\nGeneración 2 · 10 paquetes\n$90.000 × 10 = $900.000\n\nGeneración 3 · 10 paquetes\n$90.000 × 10 = $900.000\n\nGeneración 4 · 10 paquetes\n$90.000 × 10 = $900.000\n\nGeneración 5 · 10 paquetes\n$180.000 × 10 = $1.800.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $11.250.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Se liquida cada viernes, a medida que cada compra ocurre. No espera a que se complete nada."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "paquete": "ESP-3",
+          "cantidad": "${form.cantidad}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RESULTADO_ESP_DOS",
+   "title": "ESP-2 Empresarial",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "escenario",
+      "init-values": {
+       "cantidad": "5"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "cantidad",
+        "label": "Paquetes comprados en cada generación",
+        "required": true,
+        "data-source": [
+         {
+          "id": "1",
+          "title": "1 paquete"
+         },
+         {
+          "id": "3",
+          "title": "3 paquetes"
+         },
+         {
+          "id": "5",
+          "title": "5 paquetes"
+         },
+         {
+          "id": "10",
+          "title": "10 paquetes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '1'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 1 paquete\n$337.500 × 1 = $337.500\n\nGeneración 2 · 1 paquete\n$45.000 × 1 = $45.000\n\nGeneración 3 · 1 paquete\n$45.000 × 1 = $45.000\n\nGeneración 4 · 1 paquete\n$45.000 × 1 = $45.000\n\nGeneración 5 · 1 paquete\n$90.000 × 1 = $90.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $562.500 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '3'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 3 paquetes\n$337.500 × 3 = $1.012.500\n\nGeneración 2 · 3 paquetes\n$45.000 × 3 = $135.000\n\nGeneración 3 · 3 paquetes\n$45.000 × 3 = $135.000\n\nGeneración 4 · 3 paquetes\n$45.000 × 3 = $135.000\n\nGeneración 5 · 3 paquetes\n$90.000 × 3 = $270.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $1.687.500 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '5'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 5 paquetes\n$337.500 × 5 = $1.687.500\n\nGeneración 2 · 5 paquetes\n$45.000 × 5 = $225.000\n\nGeneración 3 · 5 paquetes\n$45.000 × 5 = $225.000\n\nGeneración 4 · 5 paquetes\n$45.000 × 5 = $225.000\n\nGeneración 5 · 5 paquetes\n$90.000 × 5 = $450.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $2.812.500 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '10'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 10 paquetes\n$337.500 × 10 = $3.375.000\n\nGeneración 2 · 10 paquetes\n$45.000 × 10 = $450.000\n\nGeneración 3 · 10 paquetes\n$45.000 × 10 = $450.000\n\nGeneración 4 · 10 paquetes\n$45.000 × 10 = $450.000\n\nGeneración 5 · 10 paquetes\n$90.000 × 10 = $900.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $5.625.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Se liquida cada viernes, a medida que cada compra ocurre. No espera a que se complete nada."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "paquete": "ESP-2",
+          "cantidad": "${form.cantidad}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RESULTADO_ESP_UNO",
+   "title": "ESP-1 Inicial",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "escenario",
+      "init-values": {
+       "cantidad": "5"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "cantidad",
+        "label": "Paquetes comprados en cada generación",
+        "required": true,
+        "data-source": [
+         {
+          "id": "1",
+          "title": "1 paquete"
+         },
+         {
+          "id": "3",
+          "title": "3 paquetes"
+         },
+         {
+          "id": "5",
+          "title": "5 paquetes"
+         },
+         {
+          "id": "10",
+          "title": "10 paquetes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '1'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 1 paquete\n$112.500 × 1 = $112.500\n\nGeneración 2 · 1 paquete\n$22.500 × 1 = $22.500\n\nGeneración 3 · 1 paquete\n$22.500 × 1 = $22.500\n\nGeneración 4 · 1 paquete\n$22.500 × 1 = $22.500\n\nGeneración 5 · 1 paquete\n$45.000 × 1 = $45.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $225.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '3'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 3 paquetes\n$112.500 × 3 = $337.500\n\nGeneración 2 · 3 paquetes\n$22.500 × 3 = $67.500\n\nGeneración 3 · 3 paquetes\n$22.500 × 3 = $67.500\n\nGeneración 4 · 3 paquetes\n$22.500 × 3 = $67.500\n\nGeneración 5 · 3 paquetes\n$45.000 × 3 = $135.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $675.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '5'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 5 paquetes\n$112.500 × 5 = $562.500\n\nGeneración 2 · 5 paquetes\n$22.500 × 5 = $112.500\n\nGeneración 3 · 5 paquetes\n$22.500 × 5 = $112.500\n\nGeneración 4 · 5 paquetes\n$22.500 × 5 = $112.500\n\nGeneración 5 · 5 paquetes\n$45.000 × 5 = $225.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $1.125.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.cantidad} == '10'",
+        "then": [
+         {
+          "type": "TextBody",
+          "text": "Generación 1 · 10 paquetes\n$112.500 × 10 = $1.125.000\n\nGeneración 2 · 10 paquetes\n$22.500 × 10 = $225.000\n\nGeneración 3 · 10 paquetes\n$22.500 × 10 = $225.000\n\nGeneración 4 · 10 paquetes\n$22.500 × 10 = $225.000\n\nGeneración 5 · 10 paquetes\n$45.000 × 10 = $450.000"
+         },
+         {
+          "type": "TextHeading",
+          "text": "Total: $2.250.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Se liquida cada viernes, a medida que cada compra ocurre. No espera a que se complete nada."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "paquete": "ESP-1",
+          "cantidad": "${form.cantidad}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RENTA_DIEZ",
+   "title": "Kit de Inicio — 10%",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "renta",
+      "init-values": {
+       "clientes": "10"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "clientes",
+        "label": "Clientes en cada centro de negocio",
+        "required": true,
+        "data-source": [
+         {
+          "id": "10",
+          "title": "10 clientes"
+         },
+         {
+          "id": "25",
+          "title": "25 clientes"
+         },
+         {
+          "id": "50",
+          "title": "50 clientes"
+         },
+         {
+          "id": "100",
+          "title": "100 clientes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '10'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $252.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '25'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $630.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '50'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $1.260.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '100'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $2.520.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "tipo": "renta",
+          "tarifa": "Kit de Inicio — 10%",
+          "clientes": "${form.clientes}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RENTA_QUINCE",
+   "title": "ESP-1 Inicial — 15%",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "renta",
+      "init-values": {
+       "clientes": "10"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "clientes",
+        "label": "Clientes en cada centro de negocio",
+        "required": true,
+        "data-source": [
+         {
+          "id": "10",
+          "title": "10 clientes"
+         },
+         {
+          "id": "25",
+          "title": "25 clientes"
+         },
+         {
+          "id": "50",
+          "title": "50 clientes"
+         },
+         {
+          "id": "100",
+          "title": "100 clientes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '10'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $378.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '25'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $945.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '50'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $1.890.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '100'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $3.780.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "tipo": "renta",
+          "tarifa": "ESP-1 Inicial — 15%",
+          "clientes": "${form.clientes}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RENTA_DIECISEIS",
+   "title": "ESP-2 Empresarial — 16%",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "renta",
+      "init-values": {
+       "clientes": "10"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "clientes",
+        "label": "Clientes en cada centro de negocio",
+        "required": true,
+        "data-source": [
+         {
+          "id": "10",
+          "title": "10 clientes"
+         },
+         {
+          "id": "25",
+          "title": "25 clientes"
+         },
+         {
+          "id": "50",
+          "title": "50 clientes"
+         },
+         {
+          "id": "100",
+          "title": "100 clientes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '10'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $403.200 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '25'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $1.008.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '50'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $2.016.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '100'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $4.032.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "tipo": "renta",
+          "tarifa": "ESP-2 Empresarial — 16%",
+          "clientes": "${form.clientes}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "RENTA_DIECISIETE",
+   "title": "ESP-3 Visionario — 17%",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "renta",
+      "init-values": {
+       "clientes": "10"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "clientes",
+        "label": "Clientes en cada centro de negocio",
+        "required": true,
+        "data-source": [
+         {
+          "id": "10",
+          "title": "10 clientes"
+         },
+         {
+          "id": "25",
+          "title": "25 clientes"
+         },
+         {
+          "id": "50",
+          "title": "50 clientes"
+         },
+         {
+          "id": "100",
+          "title": "100 clientes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '10'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $428.400 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '25'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $1.071.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '50'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $2.142.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.clientes} == '100'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $4.284.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "tipo": "renta",
+          "tarifa": "ESP-3 Visionario — 17%",
+          "clientes": "${form.clientes}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

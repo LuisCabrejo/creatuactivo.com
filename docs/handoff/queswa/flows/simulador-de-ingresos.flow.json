@@ -13,21 +13,6 @@
       "name": "tipo_ingreso",
       "list-items": [
        {
-        "id": "gen5",
-        "main-content": {
-         "title": "Bono GEN5",
-         "description": "Compra de paquetes"
-        },
-        "on-click-action": {
-         "name": "navigate",
-         "next": {
-          "type": "screen",
-          "name": "GEN_MENU"
-         },
-         "payload": {}
-        }
-       },
-       {
         "id": "renta",
         "main-content": {
          "title": "Ingreso recurrente",
@@ -38,6 +23,21 @@
          "next": {
           "type": "screen",
           "name": "RENTA_MENU"
+         },
+         "payload": {}
+        }
+       },
+       {
+        "id": "gen5",
+        "main-content": {
+         "title": "Bono GEN5",
+         "description": "Compra de paquetes"
+        },
+        "on-click-action": {
+         "name": "navigate",
+         "next": {
+          "type": "screen",
+          "name": "GEN_MENU"
          },
          "payload": {}
         }

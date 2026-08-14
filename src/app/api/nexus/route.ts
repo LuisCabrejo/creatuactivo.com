@@ -3964,7 +3964,13 @@ ${summaryParts.join('\n')}
       }
     }
 
-    if (!_aceptacionPelada && tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+    // Si el mensaje ya matchea un patrón del clasificador, se basta solo — el
+    // CQR no tiene nada que reconstruir y sí mucho que dañar: a "hay formación?"
+    // (2 palabras, pasaba el gate) Haiku le inyectó el contexto de la radicación
+    // en curso, la mandó a compensación/paquetes, y la respuesta compuesta se
+    // quedó sin la Maestría que FREQ_08 tiene calibrada (prueba 19:19).
+    const _yaClasificaPorPatron = clasificarDocumentoHibrido(latestUserMessage) !== null;
+    if (!_aceptacionPelada && !_yaClasificaPorPatron && tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       const historialPrevio = (Array.isArray(messages) ? messages : [])
         .slice(0, -1)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -4614,7 +4620,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // esta guarda salía antes de llegar a _aceptaEjemplo, declarado 60 líneas
       // más abajo. El modelo, sin pin, respondió pidiendo el paquete — rompiendo
       // la regla del prompt: al "sí" se entrega lo ofrecido, no otra pregunta.
-      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n|cu[aá]nto genera cada paquete|quiere ver c[oó]mo se gana/i.test(_ultimoBotMsg);
+      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n|cu[aá]nto genera cada paquete|quiere ver c[oó]mo se gana|bola de nieve en n[uú]meros/i.test(_ultimoBotMsg);
       // (?![a-záéíóúñ]) y no \b: en JS la í no es carácter de palabra, así que
       // "sí" CON tilde —como lo escribe el teclado del teléfono— nunca cerraba
       // el \b y la aceptación solo funcionaba escrita "Si" a secas.

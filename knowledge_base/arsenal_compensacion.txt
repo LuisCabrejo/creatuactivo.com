@@ -79,9 +79,9 @@ Es el efecto bola de nieve, un principio financiero conocido: usted empieza con 
 El volumen crece por impulso propio, y Gano Excel le liquida por cada compra que ocurre dentro de su estructura.
 
 Es un ingreso que ya no exige que usted esté encima del negocio.
-
-¿Le explico la segunda, la de la compra de paquetes empresariales?
 </verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le muestro esa bola de nieve en números?
 
 **[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, estructuradas para corto, mediano y largo plazo. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas corren en paralelo desde el dia uno. Las otras diez se detallan solo si preguntan por el plan completo.
 

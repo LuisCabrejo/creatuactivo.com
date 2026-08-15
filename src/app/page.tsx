@@ -18,7 +18,9 @@
  * - Estante premium de bienestar (14 ago 2026): CERO "consumo diario" — ese marco
  *   planta la comparación con el supermercado (arsenal WHY_02, fijado 8 ago).
  * - El candado se AFIRMA, nunca se niega (jamás nombrar "la nube").
- * - Qué hace usted: Compartir · Recibir · Multiplicar (rename v6.5).
+ * - Qué hace usted: DOS movimientos —Compartir · Recibir— y la multiplicación
+ *   como consecuencia, nunca como tercer paso (doctrina 8 ago; corregido 14 ago:
+ *   la web decía tres y Queswa decía dos en la misma pregunta).
  * - Producto test Beto ("no se queda nada en el fondo de la taza") · dos puertas ·
  *   anticlímax honesto + cierre Vélez ("un viernes en que entra algo que no le debe
  *   nada a nadie").
@@ -304,10 +306,10 @@ export default function HomePage() {
         </Body>
       </Section>
 
-      {/* ═══ QUÉ HACE USTED — Compartir · Recibir · Multiplicar ═══ */}
+      {/* ═══ QUÉ HACE USTED — Compartir · Recibir (la multiplicación es consecuencia) ═══ */}
       <Section>
         <Eyebrow>Qué hace usted</Eyebrow>
-        <H2>Tres movimientos. Ninguno le exige dejar lo que hace hoy.</H2>
+        <H2>Dos movimientos. Ninguno le exige dejar lo que hace hoy.</H2>
 
         {[
           {
@@ -319,11 +321,6 @@ export default function HomePage() {
             n: '02',
             t: 'Recibir',
             d: 'Cuando alguien ya decidió, entra usted: lo recibe de persona a persona y le da la bienvenida. Es lo único que una máquina no hace — y es justo lo que mejor le sale a un ser humano.',
-          },
-          {
-            n: '03',
-            t: 'Multiplicar',
-            d: 'A cada socio que entra con usted, Queswa lo forma desde el día uno. Con una llamada puede abrir un punto de distribución en otro país. Su negocio crece sin que usted cargue la enseñanza.',
           },
         ].map((item) => (
           <div
@@ -374,6 +371,59 @@ export default function HomePage() {
             </div>
           </div>
         ))}
+
+        {/* ⚠️ "Las dos acciones nunca van solas": entre una y otra va QUIÉN hace el
+            trabajo. Sin este beat, dos acciones tan simples se leen como una
+            promesa sin causa — la forma exacta de una estafa, y el primero de los
+            tres desafíos del modelo. Es el mismo beat de EAM_01, en la voz de la
+            home: Queswa en TERCERA persona, porque la página la comparten todos
+            los socios y aquí el agente no está hablando. */}
+        <p
+          style={{
+            fontSize: '1.05rem',
+            lineHeight: 1.75,
+            color: 'var(--color-text-body)',
+            marginTop: '1.5rem',
+          }}
+        >
+          Entre las dos está{' '}
+          <strong style={{ color: 'var(--color-text-primary)' }}>Queswa</strong>: conversa
+          con cada persona que llega, resuelve sus dudas y madura su decisión de avanzar.
+          Cuando alguien está listo, le avisa.
+        </p>
+
+        {/* La multiplicación NO es un tercer movimiento (doctrina 8 ago 2026): se
+            nombra como CONSECUENCIA de que los dos anteriores sean sencillos —
+            como tarea suma peso, como consecuencia lo quita. El texto ecoa casi
+            verbatim el cierre de EAM_01, que es lo que Queswa responde en
+            WhatsApp a "¿qué debo hacer yo?": la web y el canal no pueden
+            contradecirse en la pregunta más identitaria de todas. Va sin número
+            y con otro tratamiento visual a propósito — el ojo debe leer "esto no
+            es algo que usted hace". */}
+        <div
+          style={{
+            marginTop: '2rem',
+            padding: '1.5rem',
+            borderLeft: `2px solid ${GOLD}`,
+            background: 'rgba(197,160,89,0.04)',
+          }}
+        >
+          <p
+            style={{
+              fontSize: '1.05rem',
+              lineHeight: 1.75,
+              color: 'var(--color-text-body)',
+              margin: 0,
+            }}
+          >
+            Y como es así de sencillo, quien entra con usted hace exactamente lo mismo.{' '}
+            <strong style={{ color: 'var(--color-text-primary)' }}>
+              De ahí salen la multiplicación de su negocio y el aumento de su facturación
+            </strong>{' '}
+            — con Queswa formando a cada socio nuevo desde el día uno, y con la
+            posibilidad de abrir un punto de distribución en otro país con una llamada.
+          </p>
+        </div>
       </Section>
 
       {/* ═══ EL PRODUCTO — test Beto: imagen concreta, autoridad intacta ═══ */}

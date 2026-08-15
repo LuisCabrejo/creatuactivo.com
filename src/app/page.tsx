@@ -18,6 +18,11 @@
  * - Estante premium de bienestar (14 ago 2026): CERO "consumo diario" — ese marco
  *   planta la comparación con el supermercado (arsenal WHY_02, fijado 8 ago).
  * - El candado se AFIRMA, nunca se niega (jamás nombrar "la nube").
+ * - La recompensa se nombra por su REPETICIÓN, no por su fecha (14 ago 2026):
+ *   "usted cobra cada vez que su canal mueve producto". El viernes sobrevive
+ *   SOLO donde es hecho verificable del mecanismo —el quote box, la sección del
+ *   dinero, el cierre Vélez—; pegado a lo que la persona debe hacer se vuelve
+ *   promesa de ingreso fechada. Eran ocho menciones, quedan cinco.
  * - Qué hace usted: DOS movimientos —Compartir · Recibir— y la multiplicación
  *   como consecuencia, nunca como tercer paso (doctrina 8 ago; corregido 14 ago:
  *   la web decía tres y Queswa decía dos en la misma pregunta).
@@ -45,7 +50,7 @@ export const dynamic = 'force-static'
 export const metadata = {
   title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
   description:
-    'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
+    'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; usted cobra cada vez que se vende.',
   // Canonical explícito: cada socio comparte /?ref=xyz — sin canonical, Google
   // trata cada variante como URL distinta con contenido duplicado.
   alternates: { canonical: 'https://creatuactivo.com' },
@@ -186,10 +191,9 @@ export default function HomePage() {
           >
             Un negocio de distribución de café y suplementos premium, que usted
             maneja desde el celular. La parte difícil —explicar, atender, responder a
-            toda hora— la hace una inteligencia artificial por WhatsApp. Y lo que
-            produce{' '}
+            toda hora— la hace una inteligencia artificial por WhatsApp. Y{' '}
             <strong style={{ color: 'var(--color-text-primary)' }}>
-              se liquida en su cuenta bancaria cada viernes
+              usted cobra cada vez que su canal mueve producto
             </strong>
             .
           </p>
@@ -291,7 +295,7 @@ export default function HomePage() {
         <Eyebrow>Por qué ahora sí</Eyebrow>
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
         <Body>
-          Distribuir productos que las personas consumen todos los días siempre ha sido
+          Distribuir productos que las personas vuelven a pedir siempre ha sido
           buen negocio. Pero exigía algo que a casi nadie le gusta ni tiene cómo hacer:
           explicarle a cada persona, responder a toda hora, estar pendiente de cada uno.
           Nadie tiene la vida para dedicarse a eso todo el día.
@@ -471,8 +475,8 @@ export default function HomePage() {
             }}
           >
             Y ya está. Eso es todo el negocio: un producto que las personas vuelven a
-            pedir, una tecnología que atiende por usted, y un porcentaje que cae los
-            viernes.
+            pedir, una tecnología que atiende por usted, y un porcentaje que entra cada
+            vez que se vende.
           </p>
 
           <H2>Al final, esto es algo suyo.</H2>

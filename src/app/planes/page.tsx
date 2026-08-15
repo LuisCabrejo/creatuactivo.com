@@ -1,551 +1,609 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * PLANES TECNOLÓGICOS — PROTOCOLO DE SUSCRIPCIÓN QUESWA
- * v3.0 - Lujo Clínico / Hoja de Especificaciones SaaS
+ * /planes — Planes tecnológicos Queswa v4.0
+ *
+ * Reescrita desde cero (14 ago 2026) — decisiones del Director en sesión:
+ *  1. Eje de la escalera: los planes se diferencian por DÓNDE y QUÉ TAN RÁPIDO
+ *     le llega al socio el trabajo que Queswa ya hizo — nunca por cuotas de uso
+ *     inventadas (la v3 prometía "200 prospectos / 100 conversaciones" que
+ *     ninguna línea de código aplicaba).
+ *  2. TRES planes: Enlace (gratis) · Radar ($99.000) · Canal ($199.000).
+ *     El cuarto ($99 USD / número propio) queda para cuando exista su
+ *     diferenciador real (App Review de Meta).
+ *  3. Nombres por lo que llega, no cargos: Enlace · Radar · Canal.
+ *  4. COP redondo como unidad principal; USD pequeño como referencia.
+ *
+ * Reglas que esta página respeta:
+ *  - El aviso de pre-afiliación por WhatsApp NUNCA se cobra (está en el gratis).
+ *  - Al vencer el subsidio, el socio cae al plan Enlace: conserva su enlace, sus
+ *    reels, a Queswa atendiendo y sus prospectos. Nadie queda por fuera.
+ *  - Los avisos hablan de la actividad del negocio (visitas, reels, conversaciones)
+ *    — jamás de un pago con fecha o monto (promesa de ingreso).
+ *  - Léxico arsenal ago 2026: canal de distribución · socios/clientes · usted decide.
  */
 
 'use client';
 
-import React from 'react';
-import { CheckCircle, Layers, Cpu, BarChart2, Globe } from 'lucide-react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
+import { CheckCircle, ChevronDown, Link2, Radar, MessageSquareText } from 'lucide-react';
 
-// Caché local sincronizado con tokens del sistema (globals.css) — mismo patrón que /paquetes.
-// Razón de no usar var(--…) directo: los hex se concatenan con alpha (ej. `${C.gold}18`).
-// Si los tokens cambian en globals.css, actualizar también aquí.
+// Caché local sincronizado con tokens del sistema (globals.css) — patrón /paquetes.
 const C = {
   gold: '#C5A059',       // var(--color-brand)
-  goldDark: '#D4AF37',   // var(--color-brand-hover)
-  cyan: '#22D3EE',       // Acento data (consistente con Home y /paquetes)
-  obsidian: '#0F1115',   // var(--color-bg-primary)
-  gunmetal: '#16181D',
+  goldHover: '#D4AF37',  // var(--color-brand-hover)
+  cyan: '#22D3EE',       // acento data (consistente con Home)
+  white: '#E0DFDB',      // var(--color-text-primary)
+  body: '#C8C7C2',       // var(--color-text-body)
+  muted: '#878681',      // var(--color-text-muted)
+  mutedDark: '#475569',  // var(--color-titanium-dark)
+  bg: '#0F1115',         // var(--color-bg-primary)
   surface: '#1A1D23',    // var(--color-bg-surface)
-  textMain: '#E0DFDB',   // var(--color-text-primary)
-  textMuted: '#878681',  // var(--color-text-muted)
-  textDim: '#475569',    // var(--color-titanium-dark)
-  success: '#408A71',    // var(--color-success) — verde salvia
-  bronze: '#B38B59',     // var(--color-brand-muted) — nivel base
-  silver: '#94A3B8',     // var(--color-titanium) — nivel intermedio
+  success: '#408A71',    // var(--color-success)
+  bronze: '#B38B59',     // var(--color-brand-muted)
+  silver: '#94A3B8',     // var(--color-titanium)
 };
 
-const WA_PLANES = 'https://wa.me/573215193909?text=';
+const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
+
+const WA_BASE = 'https://wa.me/573215193909?text=';
 const waLink = (plan: string) =>
-  WA_PLANES + encodeURIComponent(`Hola, Queswa. Quiero activar el ${plan} para mi canal de distribución. Mi nombre es `);
+  WA_BASE + encodeURIComponent(
+    `Hola, Queswa. Quiero activar el ${plan} para mi canal de distribución. Mi nombre es `
+  );
 
-// ============================================================================
-// PLAN CARD
-// ============================================================================
+// ════════════════════════════════════════════════════════════════════════════
+// LOS TRES PLANES — el eje es por dónde le llega el trabajo ya hecho.
+// ════════════════════════════════════════════════════════════════════════════
 
-function PlanCard({
-  tag,
-  title,
-  price,
-  priceCOP,
-  priceLabel,
-  profile,
-  metrics,
-  features,
-  borderColor,
-  accentColor,
-  icon,
-  ctaText,
-  ctaHref,
-  ctaExternal = false,
-  highlighted = false,
-}: {
+interface Plan {
+  codigo: string;
+  nombre: string;
+  precioCOP: string | null;   // null = gratis
+  precioUSD: string | null;
   tag: string;
-  title: string;
-  price: string;
-  priceCOP?: string;
-  priceLabel: string;
-  profile: string;
-  metrics: { label: string; value: string }[];
-  features: string[];
-  borderColor: string;
-  accentColor: string;
+  color: string;
   icon: React.ReactNode;
-  ctaText: string;
-  ctaHref: string;
-  ctaExternal?: boolean;
-  highlighted?: boolean;
-}) {
-  const cardStyle: React.CSSProperties = {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    background: highlighted ? 'rgba(26,29,35,0.98)' : 'rgba(22,24,29,0.85)',
-    // Borde glass neutro; el dorado/metal queda para el borde superior y el hover (BRANDING.md)
-    border: `1px solid ${highlighted ? borderColor + '55' : 'rgba(255,255,255,0.07)'}`,
-    borderTop: `4px solid ${borderColor}`,
-    transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-  };
+  destacado?: boolean;
+  features: string[];
+  cta: { texto: string; href: string; externo: boolean };
+}
+
+const PLANES: Plan[] = [
+  {
+    codigo: 'PLAN 01',
+    nombre: 'Enlace',
+    precioCOP: null,
+    precioUSD: null,
+    tag: 'Todo lo que hace funcionar el sistema',
+    color: '#94A3B8',
+    icon: <Link2 size={18} />,
+    features: [
+      'Su enlace personal y sus reels por nicho',
+      'Queswa conversa con sus prospectos a toda hora',
+      'Radar de conversaciones en el Centro de Mando',
+      'Avisos al instante en el Centro de Mando',
+      'Aviso por WhatsApp cuando alguien deja lista su pre-afiliación — este nunca se cobra',
+    ],
+    cta: { texto: 'Incluido con su activación →', href: '/paquetes', externo: false },
+  },
+  {
+    codigo: 'PLAN 02',
+    nombre: 'Radar',
+    precioCOP: '99.000',
+    precioUSD: '22',
+    tag: 'El día arranca informado',
+    color: '#B38B59',
+    icon: <Radar size={18} />,
+    features: [
+      'Todo lo del plan Enlace',
+      'El parte diario por WhatsApp: cada mañana, quién visitó, quién terminó el reel, quién habló con Queswa y quién volvió',
+      'Analíticas completas de su canal',
+      'La Academia — nivel avanzado',
+    ],
+    cta: { texto: 'Activar plan Radar →', href: waLink('plan Radar ($99.000 COP/mes)'), externo: true },
+  },
+  {
+    codigo: 'PLAN 03',
+    nombre: 'Canal',
+    precioCOP: '199.000',
+    precioUSD: '44',
+    tag: 'Su negocio, en el bolsillo',
+    color: '#C5A059',
+    icon: <MessageSquareText size={18} />,
+    destacado: true,
+    features: [
+      'Todo lo del plan Radar',
+      'Las señales de alta intención le llegan al instante por WhatsApp: alguien abrió Queswa, preguntó por precios, volvió otra vez',
+      'Queswa le responde a usted por WhatsApp: quién está listo hoy, el resumen de cualquier conversación, el mensaje listo para enviar',
+      'Soporte prioritario del equipo',
+    ],
+    cta: { texto: 'Activar plan Canal →', href: waLink('plan Canal ($199.000 COP/mes)'), externo: true },
+  },
+];
+
+// ════════════════════════════════════════════════════════════════════════════
+// HERO
+// ════════════════════════════════════════════════════════════════════════════
+
+function Hero() {
+  return (
+    <section style={{
+      textAlign: 'center', maxWidth: '60rem', margin: '0 auto',
+      padding: '8rem 1.5rem 3.5rem',
+    }}>
+      <p style={{
+        fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase',
+        color: C.cyan, fontFamily: 'var(--font-mono)', marginBottom: 24,
+      }}>
+        Tecnología Queswa · Planes
+      </p>
+
+      <h1 style={{
+        fontSize: 'clamp(1.8rem, 5vw, 3.2rem)', lineHeight: 1.1, marginBottom: 24,
+        fontFamily: 'var(--font-sans)', fontWeight: 700,
+        color: 'var(--color-brand)', letterSpacing: '0.08em', textTransform: 'uppercase',
+      }}>
+        La tecnología que trabaja<br />por su canal de distribución
+      </h1>
+
+      <p style={{
+        fontSize: '1.05rem', color: C.body, lineHeight: 1.85,
+        maxWidth: 620, margin: '0 auto',
+      }}>
+        Queswa conversa con cada interesado, resuelve sus dudas y madura su decisión,
+        a toda hora. Los planes definen una sola cosa:{' '}
+        <strong style={{ color: C.white }}>por dónde y qué tan rápido le llega a usted
+        ese trabajo ya hecho</strong>.
+      </p>
+
+      <p style={{
+        fontSize: '0.78rem', color: C.muted, fontFamily: 'var(--font-mono)',
+        letterSpacing: '0.1em', marginTop: 32,
+      }}>
+        ↓ Tres planes, todos los números a la vista
+      </p>
+    </section>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CARDS
+// ════════════════════════════════════════════════════════════════════════════
+
+function PlanCard({ p }: { p: Plan }) {
+  const [hover, setHover] = useState(false);
 
   return (
     <div
-      style={cardStyle}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.boxShadow = `0 16px 40px ${borderColor}22`;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = 'none';
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        position: 'relative',
+        background: p.destacado ? 'rgba(197,160,89,0.05)' : 'rgba(0,0,0,0.65)',
+        border: p.destacado ? `1px solid ${C.gold}` : '1px solid rgba(255,255,255,0.07)',
+        borderTop: `3px solid ${p.color}`,
+        padding: '28px 24px',
+        display: 'flex', flexDirection: 'column', gap: 16,
+        clipPath: CLIP_CARD,
+        transform: hover ? 'translateY(-4px)' : 'none',
+        transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+        boxShadow: hover ? `0 18px 40px ${p.color}30` : 'none',
+        height: '100%', boxSizing: 'border-box',
       }}
     >
-      <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+      {p.destacado && (
+        <div style={{
+          position: 'absolute', top: 12, right: 12,
+          fontSize: '0.62rem', fontFamily: 'var(--font-mono)',
+          letterSpacing: '0.15em', textTransform: 'uppercase',
+          color: C.bg, background: C.gold, padding: '4px 8px', fontWeight: 700,
+        }}>
+          ★ Recomendado
+        </div>
+      )}
 
-        {/* Tag + icon */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem' }}>
-          <div style={{ color: accentColor }}>{icon}</div>
+      <div>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6,
+          color: p.color,
+        }}>
+          {p.icon}
           <span style={{
-            fontSize: '0.6rem',
-            fontFamily: 'var(--font-mono)',
-            letterSpacing: '0.15em',
-            color: accentColor,
-            textTransform: 'uppercase',
+            fontSize: '0.65rem', fontFamily: 'var(--font-mono)',
+            letterSpacing: '0.18em', textTransform: 'uppercase',
           }}>
-            {tag}
+            {p.codigo}
           </span>
         </div>
-
-        {/* Metal bar + title */}
-        <div style={{ marginBottom: '1.25rem' }}>
-          <div style={{ width: '28px', height: '3px', background: borderColor, marginBottom: '0.5rem' }} />
-          <h3 style={{
-            fontSize: '1.2rem',
-            fontWeight: 700,
-            color: C.textMain,
-            fontFamily: 'var(--font-sans)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.06em',
-            lineHeight: 1.2,
-          }}>
-            {title}
-          </h3>
-        </div>
-
-        {/* Price */}
-        <div style={{ marginBottom: '1rem' }}>
-          <span style={{ fontSize: '2.2rem', fontWeight: 800, color: C.gold, fontFamily: 'var(--font-sans)' }}>
-            {price}
-          </span>
-          <span style={{ fontSize: '0.85rem', color: C.textMuted, marginLeft: '0.25rem' }}>{priceLabel}</span>
-          {priceCOP && (
-            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: 'var(--font-mono)', marginTop: '0.2rem' }}>
-              ~ ${priceCOP} COP/mes
-            </p>
-          )}
-        </div>
-
-        {/* Profile */}
-        <p style={{ fontSize: '0.85rem', color: C.textMuted, lineHeight: 1.6, marginBottom: '1.25rem' }}>
-          {profile}
+        <h3 style={{
+          fontFamily: 'var(--font-sans)', fontSize: '1.2rem',
+          letterSpacing: '0.06em', textTransform: 'uppercase',
+          color: C.white, fontWeight: 600, margin: 0, lineHeight: 1.2,
+        }}>
+          {p.nombre}
+        </h3>
+        <p style={{
+          fontSize: '0.8rem', color: C.muted, margin: '6px 0 0',
+          fontFamily: 'var(--font-serif)', fontStyle: 'italic',
+        }}>
+          {p.tag}
         </p>
+      </div>
 
-        {/* Metrics grid */}
+      {/* Precio — COP manda; el gratis se dice con la palabra */}
+      <div>
+        {p.precioCOP ? (
+          <>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+              <span style={{
+                fontFamily: 'var(--font-serif)', fontSize: '2.1rem',
+                fontWeight: 700, color: C.gold, lineHeight: 1,
+              }}>
+                ${p.precioCOP}
+              </span>
+              <span style={{ fontSize: '0.8rem', color: C.muted, fontFamily: 'var(--font-mono)' }}>
+                COP / mes
+              </span>
+            </div>
+            <p style={{
+              fontSize: '0.72rem', color: C.mutedDark, fontFamily: 'var(--font-mono)',
+              margin: '6px 0 0', letterSpacing: '0.05em',
+            }}>
+              ≈ ${p.precioUSD} USD · se cancela cuando quiera
+            </p>
+          </>
+        ) : (
+          <>
+            <span style={{
+              fontFamily: 'var(--font-serif)', fontSize: '2.1rem',
+              fontWeight: 700, color: C.white, lineHeight: 1,
+            }}>
+              Gratis
+            </span>
+            <p style={{
+              fontSize: '0.72rem', color: C.mutedDark, fontFamily: 'var(--font-mono)',
+              margin: '6px 0 0', letterSpacing: '0.05em',
+            }}>
+              Para siempre · sin tarjeta
+            </p>
+          </>
+        )}
+      </div>
+
+      <ul style={{
+        listStyle: 'none', padding: 0, margin: 0,
+        display: 'flex', flexDirection: 'column', gap: 10, flex: 1,
+      }}>
+        {p.features.map((f, i) => (
+          <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+            <CheckCircle size={15} color={C.success} style={{ flexShrink: 0, marginTop: 3 }} />
+            <span style={{ fontSize: '0.86rem', color: C.body, lineHeight: 1.5 }}>{f}</span>
+          </li>
+        ))}
+      </ul>
+
+      {p.cta.externo ? (
+        <a
+          href={p.cta.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cta-base"
+          style={{
+            background: p.destacado ? `${p.color}12` : 'transparent',
+            color: p.color,
+            border: p.destacado ? `2px solid ${p.color}` : `1.5px solid ${p.color}`,
+            padding: '0.875rem 1.5rem', fontSize: '0.85rem', marginTop: 'auto',
+            boxShadow: p.destacado ? `0 0 24px ${p.color}20` : 'none',
+          }}
+        >
+          {p.cta.texto}
+        </a>
+      ) : (
+        <Link
+          href={p.cta.href}
+          className="cta-base"
+          style={{
+            background: 'transparent', color: p.color,
+            border: `1.5px solid ${p.color}`,
+            padding: '0.875rem 1.5rem', fontSize: '0.85rem', marginTop: 'auto',
+          }}
+        >
+          {p.cta.texto}
+        </Link>
+      )}
+    </div>
+  );
+}
+
+function Planes() {
+  return (
+    <section style={{ padding: '0 24px 40px' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '0.5rem',
-          padding: '0.75rem',
-          background: C.obsidian,
-          border: `1px solid ${borderColor}25`,
-          marginBottom: '1.5rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 20, alignItems: 'stretch',
         }}>
-          {metrics.map((m, i) => (
-            <div key={i}>
-              <p style={{ fontSize: '0.6rem', color: C.textDim, fontFamily: 'var(--font-mono)', marginBottom: '0.15rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                {m.label}
-              </p>
-              <p style={{ fontSize: '0.85rem', fontWeight: 700, color: accentColor, fontFamily: 'var(--font-sans)' }}>
-                {m.value}
+          {PLANES.map((p) => <PlanCard key={p.nombre} p={p} />)}
+        </div>
+
+        {/* Subsidio — el puente con /paquetes */}
+        <div style={{
+          textAlign: 'center', marginTop: 40, maxWidth: 640,
+          margin: '40px auto 0', color: C.mutedDark,
+          fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
+          lineHeight: 1.8, letterSpacing: '0.05em',
+        }}>
+          <p style={{ margin: 0 }}>
+            Los paquetes ESP-1, ESP-2 y ESP-3 incluyen el plan tecnológico por 1, 2 y 3 meses.
+          </p>
+          <p style={{ margin: '4px 0 0' }}>
+            Al terminar, usted elige su plan — y si no elige, pasa al plan Enlace sin perder
+            su enlace ni sus prospectos.
+          </p>
+          <p style={{ marginTop: 12 }}>
+            <Link
+              href="/paquetes"
+              style={{ color: C.gold, textDecoration: 'none' }}
+            >
+              VER LOS PAQUETES DE ACTIVACIÓN →
+            </Link>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// QUÉ HACE LA TECNOLOGÍA — el trabajo que usted no hace
+// ════════════════════════════════════════════════════════════════════════════
+
+function QueHace() {
+  const items = [
+    {
+      title: 'Conversa por usted',
+      body: 'Queswa atiende a cada interesado a toda hora: explica el negocio, resuelve dudas y madura su decisión de avanzar.',
+    },
+    {
+      title: 'Le avisa a tiempo',
+      body: 'Cada visita, cada reel terminado y cada conversación quedan en su Centro de Mando — y según su plan, en su WhatsApp.',
+    },
+    {
+      title: 'Forma a sus socios',
+      body: 'Cada socio que entra con usted recibe la misma tecnología y la misma formación desde el día uno, sin que usted cargue la enseñanza.',
+    },
+    {
+      title: 'Funciona en 15 países',
+      body: 'Su canal de distribución opera en 15 países de América sin requerir su presencia en ninguno.',
+    },
+  ];
+
+  return (
+    <section style={{ padding: '64px 24px', background: 'rgba(13,13,13,0.6)' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 44 }}>
+          <span style={{
+            fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
+            letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
+          }}>
+            Qué paga la cuota
+          </span>
+          <h2 style={{
+            fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: 16,
+            fontFamily: 'var(--font-serif)', color: C.white,
+          }}>
+            El trabajo que usted no tiene que hacer.
+          </h2>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: 20,
+        }}>
+          {items.map((item) => (
+            <div key={item.title} style={{
+              padding: '1.6rem', background: 'rgba(22,24,29,0.7)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderTop: `3px solid ${C.gold}`,
+            }}>
+              <h3 style={{
+                fontSize: '0.95rem', fontWeight: 700, color: C.white,
+                fontFamily: 'var(--font-sans)', textTransform: 'uppercase',
+                letterSpacing: '0.05em', margin: '0 0 0.6rem',
+              }}>
+                {item.title}
+              </h3>
+              <p style={{ fontSize: '0.875rem', color: C.muted, lineHeight: 1.65, margin: 0 }}>
+                {item.body}
               </p>
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
 
-        {/* Features */}
-        <ul style={{ flexGrow: 1, marginBottom: '2rem' }}>
-          {features.map((f, i) => (
-            <li key={i} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.65rem' }}>
-              <CheckCircle style={{ width: 16, height: 16, color: C.success, marginRight: '0.6rem', marginTop: '2px', flexShrink: 0 }} />
-              <span style={{ fontSize: '0.875rem', color: C.textMuted, lineHeight: 1.4 }}>{f}</span>
-            </li>
-          ))}
-        </ul>
+// ════════════════════════════════════════════════════════════════════════════
+// FAQ
+// ════════════════════════════════════════════════════════════════════════════
 
-        {/* CTA */}
-        {ctaExternal ? (
-          <a
-            href={ctaHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'block', width: '100%', textAlign: 'center',
-              fontWeight: 700, padding: '12px 20px',
-              background: 'transparent', color: borderColor,
-              border: `1.5px solid ${borderColor}`,
-              textDecoration: 'none',
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
-              transition: 'background 0.2s, color 0.2s',
-              boxSizing: 'border-box',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = `${borderColor}12`; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
-          >
-            {ctaText}
-          </a>
-        ) : (
-          <Link
-            href={ctaHref}
-            style={{
-              display: 'block', width: '100%', textAlign: 'center',
-              fontWeight: 700, padding: '12px 20px',
-              background: 'transparent', color: borderColor,
-              border: `1.5px solid ${borderColor}`,
-              textDecoration: 'none',
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.85rem', letterSpacing: '0.1em', textTransform: 'uppercase',
-              transition: 'background 0.2s, color 0.2s',
-              boxSizing: 'border-box',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = `${borderColor}12`; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
-          >
-            {ctaText}
-          </Link>
-        )}
+function FaqItem({ q, a }: { q: string; a: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderBottom: '1px solid rgba(197,160,89,0.15)' }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          textAlign: 'left', padding: '20px 0', background: 'transparent', border: 0,
+          cursor: 'pointer', color: C.white, fontFamily: 'var(--font-serif)', fontSize: '1.02rem',
+        }}
+      >
+        <span>{q}</span>
+        <ChevronDown
+          size={18} color={C.cyan}
+          style={{
+            marginLeft: '1rem', transition: 'transform 0.3s ease',
+            transform: open ? 'rotate(180deg)' : 'none', flexShrink: 0,
+          }}
+        />
+      </button>
+      <div style={{
+        overflow: 'hidden', maxHeight: open ? 500 : 0, opacity: open ? 1 : 0,
+        transition: 'max-height 0.3s ease, opacity 0.3s ease',
+      }}>
+        <p style={{ paddingBottom: 20, color: C.muted, lineHeight: 1.75, fontSize: '0.92rem', margin: 0 }}>
+          {a}
+        </p>
       </div>
     </div>
   );
 }
 
-// ============================================================================
-// MAIN PAGE
-// ============================================================================
-
-export default function PlanesTecnologicosPage() {
+function Faq() {
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: `
-        .spec-label-planes {
-          font-family: var(--font-mono);
-          font-size: 0.65rem;
-          letter-spacing: 0.18em;
-          color: ${C.cyan};
-          text-transform: uppercase;
-          margin-bottom: 0.75rem;
-          display: block;
-        }
-        .planes-hero-line {
-          width: 60px; height: 1px;
-          background: ${C.cyan};
-          margin: 1.5rem auto;
-        }
-      `}} />
-
-      <div style={{
-        backgroundColor: C.obsidian,
-        color: C.textMain,
-        minHeight: '100vh',
-        backgroundImage: `linear-gradient(rgba(15,17,21,0.70), rgba(15,17,21,0.70)), url('/images/servilleta/hormigon-tile.webp')`,
-        backgroundSize: 'cover, 600px 600px',
-        backgroundRepeat: 'no-repeat, repeat',
-      }}>
-        <StrategicNavigation />
-
-        {/* ═══════════════════════════════════════════════════
-            HERO — texto
-            ═══════════════════════════════════════════════════ */}
-        <section style={{
-          textAlign: 'center',
-          maxWidth: '60rem',
-          margin: '0 auto',
-          padding: '8rem 1.5rem 4rem',
-        }}>
-          <span className="spec-label-planes">TECNOLOGÍA QUESWA — PLANES DE SUSCRIPCIÓN</span>
-          {/* H1 — regla unificada institucional (Inter uppercase, token --color-brand), igual que /paquetes */}
-          <h1 style={{
-            fontSize: 'clamp(1.8rem, 5vw, 3.2rem)',
-            color: 'var(--color-brand)',
-            lineHeight: 1.1,
-            fontFamily: 'var(--font-sans)',
-            fontWeight: 700,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            marginBottom: '1rem',
+    <section style={{ padding: '72px 24px' }}>
+      <div style={{ maxWidth: 760, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <span style={{
+            fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
+            letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
           }}>
-            La tecnología que trabaja<br />
-            <span style={{ color: C.textMain }}>por su canal de distribución.</span>
-          </h1>
-          <div className="planes-hero-line" />
-          <p style={{ fontSize: '1.05rem', color: C.textMuted, lineHeight: 1.85, maxWidth: '600px', margin: '0 auto' }}>
-            La tecnología Queswa hace el 90% del trabajo pesado.
-            La cuota mensual es lo que cuesta tener un sistema que explica, atiende
-            y madura en cada interesado la decisión de avanzar, las 24 horas.
-          </p>
-        </section>
-
-        <main style={{ position: 'relative', zIndex: 10, padding: '0 1rem 4rem' }}>
-
-          {/* ═══════════════════════════════════════════════════
-              GRID DE PLANES
-              ═══════════════════════════════════════════════════ */}
-          <section style={{ padding: '2rem 0 5rem' }}>
-            <div style={{ maxWidth: '88rem', margin: '0 auto' }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                gap: '1.75rem',
-                alignItems: 'stretch',
-              }}>
-
-                {/* PLAN BASE — Plan Inicial */}
-                <PlanCard
-                  tag="PLAN BASE — $25 USD/MES"
-                  title="Plan Inicial"
-                  price="$25"
-                  priceCOP="112.500"
-                  priceLabel="USD / mes"
-                  profile="La tecnología Queswa para empezar. Para quien inicia su canal de distribución."
-                  metrics={[
-                    { label: 'Prospectos', value: '200' },
-                    { label: 'Conversaciones', value: '100/mes' },
-                    { label: 'Negocios', value: '1' },
-                    { label: 'Queswa', value: '5 min/chat' },
-                  ]}
-                  features={[
-                    'Acceso base a la plataforma CreaTuActivo',
-                    'El Método Comprobado — Nivel Fundamentos',
-                    'La Academia — Nivel Fundamentos',
-                    'Analíticas básicas',
-                    'Eliminación de marca corporativa',
-                    'Soporte vía comunidad',
-                  ]}
-                  borderColor={C.bronze}
-                  accentColor={C.bronze}
-                  icon={<Cpu size={18} />}
-                  ctaText="ACTIVAR PLAN INICIAL"
-                  ctaHref={waLink('Plan Inicial ($25 USD / $112.500 COP/mes)')}
-                  ctaExternal
-                />
-
-                {/* PLAN PRO — Plan Crecimiento */}
-                <PlanCard
-                  tag="PLAN PRO — $49 USD/MES"
-                  title="Plan Crecimiento"
-                  price="$49"
-                  priceCOP="220.500"
-                  priceLabel="USD / mes"
-                  profile="El estándar para quien ya tiene su canal de distribución activo y en crecimiento."
-                  metrics={[
-                    { label: 'Prospectos', value: '500' },
-                    { label: 'Conversaciones', value: '500/mes' },
-                    { label: 'Negocios', value: 'Hasta 3' },
-                    { label: 'Queswa', value: '10 min/chat' },
-                  ]}
-                  features={[
-                    'Todo lo del Plan Inicial +',
-                    'Centro de Mando Queswa en Tiempo Real',
-                    'Panel para ver crecer su canal (hasta 3 negocios)',
-                    'La Academia — Nivel Avanzado',
-                    'Exportación de datos — analíticas avanzadas',
-                    'Soporte prioritario por canal directo',
-                  ]}
-                  borderColor={C.silver}
-                  accentColor={C.silver}
-                  icon={<BarChart2 size={18} />}
-                  ctaText="ACTIVAR PLAN CRECIMIENTO"
-                  ctaHref={waLink('Plan Crecimiento ($49 USD / $220.500 COP/mes)')}
-                  ctaExternal
-                  highlighted
-                />
-
-                {/* PLAN ELITE — Plan Multiplicación */}
-                <PlanCard
-                  tag="PLAN ELITE — $99 USD/MES"
-                  title="Plan Multiplicación"
-                  price="$99"
-                  priceCOP="445.500"
-                  priceLabel="USD / mes"
-                  profile="Para quien multiplica su canal de distribución en varios países a la vez."
-                  metrics={[
-                    { label: 'Prospectos', value: 'Ilimitados' },
-                    { label: 'Conversaciones', value: 'Ilimitadas' },
-                    { label: 'Negocios', value: '10+' },
-                    { label: 'Queswa', value: 'Sin límites' },
-                  ]}
-                  features={[
-                    'Todo lo del Plan Crecimiento +',
-                    'Panel completo para 10+ negocios',
-                    'Acceso completo 24/7 sin restricciones',
-                    'La Academia — Nivel Multiplicación',
-                    'Valor patrimonial de su red de clientes y socios — Nivel Visionario',
-                    'Soporte dedicado + sesión estratégica 1-a-1',
-                  ]}
-                  borderColor={C.goldDark}
-                  accentColor={C.gold}
-                  icon={<Globe size={18} />}
-                  ctaText="ACTIVAR PLAN MULTIPLICACIÓN"
-                  ctaHref={waLink('Plan Multiplicación ($99 USD / $445.500 COP/mes)')}
-                  ctaExternal
-                />
-
-              </div>
-
-              {/* Nota subsidio */}
-              <div style={{
-                textAlign: 'center',
-                marginTop: '3rem',
-                color: C.textDim,
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                lineHeight: 1.8,
-                maxWidth: '600px',
-                margin: '3rem auto 0',
-              }}>
-                <p>Los paquetes ESP-1, ESP-2 y ESP-3 incluyen Subsidio de Activación Tecnológica (1, 2 y 3 meses respectivamente).</p>
-                <p style={{ marginTop: '0.5rem' }}>
-                  <Link href="/paquetes" style={{ color: C.gold, textDecoration: 'none' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.75')}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
-                    VER LOS PAQUETES DE ACTIVACIÓN →
-                  </Link>
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* ═══════════════════════════════════════════════════
-              BLOQUE DE VALOR — Qué hace la tecnología
-              ═══════════════════════════════════════════════════ */}
-          <section style={{ padding: '4rem 1rem 5rem', maxWidth: '72rem', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-              <span className="spec-label-planes">QUÉ HACE LA TECNOLOGÍA</span>
-              <h2 style={{
-                fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
-                fontWeight: 700,
-                color: C.textMain,
-                fontFamily: 'var(--font-serif)',
-              }}>
-                Lo que el sistema hace sin que usted esté presente.
-              </h2>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
-              {[
-                { icon: <Cpu size={28} />, color: C.cyan, title: 'Conversa con cada interesado', body: 'Queswa reconoce a quién está listo y madura la decisión de avanzar, antes de que usted invierta un minuto de atención.' },
-                { icon: <BarChart2 size={28} />, color: C.gold, title: 'Atrae y prepara', body: 'El sistema capta, educa y prepara prospectos 24/7, eliminando la búsqueda y el seguimiento manual.' },
-                { icon: <Globe size={28} />, color: C.silver, title: 'Alcance Internacional', body: 'Gano Excel fabrica y despacha en más de 60 países: su canal puede crecer donde usted no está, sin requerir su presencia física.' },
-                { icon: <Layers size={28} />, color: C.bronze, title: 'Multiplica sin cuello de botella', body: 'Queswa forma a cada socio nuevo. Su tiempo deja de ser el límite de su canal.' },
-              ].map((item, i) => (
-                <div key={i} style={{
-                  padding: '1.75rem',
-                  background: 'rgba(22,24,29,0.7)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  borderTop: `3px solid ${item.color}`,
-                }}>
-                  <div style={{ color: item.color, marginBottom: '1rem' }}>{item.icon}</div>
-                  <h3 style={{
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    color: C.textMain,
-                    fontFamily: 'var(--font-sans)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    marginBottom: '0.6rem',
-                  }}>
-                    {item.title}
-                  </h3>
-                  <p style={{ fontSize: '0.875rem', color: C.textMuted, lineHeight: 1.65 }}>{item.body}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* ═══════════════════════════════════════════════════
-              FINAL CTA
-              ═══════════════════════════════════════════════════ */}
-          <section style={{ textAlign: 'center', padding: '4rem 1rem 6rem' }}>
-            <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
-              <span className="spec-label-planes">EL SIGUIENTE PASO</span>
-              <h2 style={{
-                fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
-                fontWeight: 700,
-                marginBottom: '1.25rem',
-                color: C.textMain,
-                fontFamily: 'var(--font-serif)',
-              }}>
-                El sistema ya está listo para usted.
-              </h2>
-              <p style={{
-                fontSize: '1.05rem',
-                color: C.textMuted,
-                lineHeight: 1.8,
-                maxWidth: '520px',
-                margin: '0 auto 2.5rem',
-              }}>
-                El primer paso es activar su canal de distribución.
-                El plan tecnológico se incluye con su paquete de productos.
-              </p>
-              <Link
-                href="/paquetes"
-                style={{
-                  display: 'inline-block',
-                  padding: '16px 44px',
-                  background: 'rgba(197, 160, 89, 0.1)',
-                  border: '1.5px solid rgba(197, 160, 89, 0.4)',
-                  color: C.gold,
-                  fontWeight: 700,
-                  fontSize: '0.95rem',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  textDecoration: 'none',
-                  fontFamily: 'var(--font-sans)',
-                  transition: 'transform 0.2s, box-shadow 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = `0 12px 35px ${C.goldDark}50`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-VER LOS PAQUETES DE ACTIVACIÓN →
-              </Link>
-            </div>
-          </section>
-        </main>
-
-        {/* ═══════════════════════════════════════════════════
-            FOOTER
-            ═══════════════════════════════════════════════════ */}
-        <footer style={{ padding: '2.5rem 1.5rem', borderTop: `1px solid ${C.gold}18`, zIndex: 10, position: 'relative' }}>
-          <div style={{ maxWidth: '80rem', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ fontWeight: 600, color: C.gold, fontFamily: 'var(--font-sans)', fontSize: '1.125rem' }}>CreaTuActivo</p>
-              <p style={{ fontSize: '0.75rem', color: C.textMuted, fontFamily: 'var(--font-mono)', marginTop: '0.25rem' }}>
-                TECNOLOGÍA PARA SU CANAL DE DISTRIBUCIÓN
-              </p>
-            </div>
-            <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: C.textMuted, fontFamily: 'var(--font-mono)' }}>
-              <Link href="/blog" style={{ color: C.textMuted, textDecoration: 'none' }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>BLOG</Link>
-              <Link href="/privacidad" style={{ color: C.textMuted, textDecoration: 'none' }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>PRIVACIDAD</Link>
-            </div>
-            <p style={{ fontSize: '0.75rem', color: C.textDim, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
-              © 2026 CREATUACTIVO.COM · TODOS LOS DERECHOS RESERVADOS
-            </p>
-          </div>
-        </footer>
+            Preguntas Frecuentes
+          </span>
+          <h2 style={{
+            fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginTop: 16,
+            fontFamily: 'var(--font-serif)', color: C.white,
+          }}>
+            Todo a la vista.
+          </h2>
+        </div>
+        <div>
+          <FaqItem
+            q="¿Por qué hay un plan gratis?"
+            a="Porque el sistema no se apaga. Su enlace, sus reels, Queswa atendiendo a sus prospectos y su Centro de Mando funcionan siempre — son parte de su activación, no un alquiler. Los planes pagos suman una cosa concreta: el trabajo ya hecho le llega a su WhatsApp, sin que usted tenga que entrar a buscarlo."
+          />
+          <FaqItem
+            q="¿Qué pasa cuando termina el periodo incluido en mi paquete?"
+            a="Usted elige el plan que quiere — y si no elige ninguno, pasa al plan Enlace. No pierde su enlace, ni sus reels, ni sus prospectos, ni el historial de conversaciones. Se queda con menos comodidad, nunca por fuera."
+          />
+          <FaqItem
+            q="¿El aviso de una pre-afiliación se cobra?"
+            a="No, nunca. Cuando alguien deja listos sus datos para activarse, ese aviso le llega por WhatsApp esté en el plan que esté. Si usted no se entera de una activación, perdemos todos — por eso ese aviso no tiene precio."
+          />
+          <FaqItem
+            q="¿Puedo cambiar de plan o cancelarlo?"
+            a="Sí, en cualquier momento y sin permanencia. El plan se paga mes a mes; al cancelarlo pasa al plan Enlace y todo lo suyo queda en su lugar."
+          />
+          <FaqItem
+            q="¿En qué moneda se paga?"
+            a="En pesos colombianos. El valor en dólares que aparece junto a cada plan es una referencia para socios fuera de Colombia."
+          />
+        </div>
       </div>
-    </>
+    </section>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CTA FINAL + FOOTER
+// ════════════════════════════════════════════════════════════════════════════
+
+function CtaFinal() {
+  return (
+    <section style={{ padding: '90px 24px', textAlign: 'center', background: 'rgba(13,13,13,0.6)' }}>
+      <div style={{ maxWidth: 640, margin: '0 auto' }}>
+        <span style={{
+          fontSize: '0.75rem', fontFamily: 'var(--font-mono)',
+          letterSpacing: '0.2em', textTransform: 'uppercase', color: C.cyan,
+        }}>
+          El primer paso
+        </span>
+        <h2 style={{
+          fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', marginTop: 16, marginBottom: 20,
+          fontFamily: 'var(--font-serif)', color: C.white, lineHeight: 1.3,
+        }}>
+          El plan viene después.
+          <br />
+          <span style={{ color: C.gold }}>Primero, active su canal.</span>
+        </h2>
+        <p style={{ fontSize: '1rem', color: C.muted, lineHeight: 1.75, marginBottom: 36 }}>
+          Su paquete de activación incluye el plan tecnológico por 1, 2 o 3 meses —
+          tiempo de sobra para ver el sistema trabajando con sus propios prospectos.
+        </p>
+        <Link
+          href="/paquetes"
+          className="cta-base cta-primary"
+          style={{ padding: '1.125rem 2.5rem', fontSize: '0.95rem' }}
+        >
+          Ver los paquetes de activación →
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer style={{
+      padding: '40px 24px', borderTop: '1px solid rgba(197,160,89,0.15)', textAlign: 'center',
+    }}>
+      <p style={{
+        fontFamily: 'var(--font-sans)', color: C.gold, fontSize: '1rem',
+        letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700, margin: '0 0 6px',
+      }}>
+        CreaTuActivo
+      </p>
+      <p style={{
+        fontFamily: 'var(--font-mono)', color: C.muted, fontSize: '0.7rem',
+        letterSpacing: '0.08em', marginBottom: 20,
+      }}>
+        Tecnología para su canal de distribución
+      </p>
+      <div style={{
+        display: 'flex', justifyContent: 'center', gap: 32,
+        fontSize: '0.78rem', fontFamily: 'var(--font-mono)', marginBottom: 16,
+      }}>
+        <Link href="/blog" style={{ color: C.muted, textDecoration: 'none' }}>BLOG</Link>
+        <Link href="/privacidad" style={{ color: C.muted, textDecoration: 'none' }}>PRIVACIDAD</Link>
+      </div>
+      <p style={{
+        fontFamily: 'var(--font-mono)', color: C.mutedDark, fontSize: '0.65rem',
+        letterSpacing: '0.1em', margin: 0,
+      }}>
+        © 2026 CREATUACTIVO.COM
+      </p>
+    </footer>
+  );
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// PAGE
+// ════════════════════════════════════════════════════════════════════════════
+
+export default function PlanesPage() {
+  return (
+    <div style={{
+      backgroundColor: C.bg, color: C.white,
+      fontFamily: 'var(--font-sans)', minHeight: '100vh',
+      backgroundImage: `linear-gradient(rgba(15,17,21,0.70), rgba(15,17,21,0.70)), url('/images/servilleta/hormigon-tile.webp')`,
+      backgroundSize: 'cover, 600px 600px',
+      backgroundRepeat: 'no-repeat, repeat',
+    }}>
+      <StrategicNavigation />
+      <main>
+        <Hero />
+        <Planes />
+        <QueHace />
+        <Faq />
+        <CtaFinal />
+      </main>
+      <Footer />
+    </div>
   );
 }

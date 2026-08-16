@@ -25,6 +25,16 @@ import {
 } from '@/lib/wa-apertura';
 import { gestionarCierre } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
+import {
+  detectarEmergencia,
+  clasificarPreguntaSalud,
+  detectarClaimSaludEnSalida,
+  esRechazoSalud,
+  RESPUESTA_EMERGENCIA,
+  RECHAZO_SALUD_ESTANDAR,
+  RECHAZO_SALUD_GRAVE,
+  RECHAZO_SALUD_CORTO,
+} from '@/lib/wa-guardarrail-salud';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -36,8 +46,8 @@ export const maxDuration = 30;
 // mueve por el canal — sin contar personas y sin "mes a mes" pegado al ingreso
 // (Gano liquida cada viernes; lo mensual es el consumo, no el pago).
 const RESPUESTA_CORRECTIVA =
-  'Permítame precisarlo bien: usted dirige un canal de distribución de productos de consumo ' +
-  'diario —café, bebidas y suplementos—, y de cada venta que se mueve por ese canal le queda ' +
+  'Permítame precisarlo bien: usted dirige un canal de distribución de productos premium ' +
+  'de bienestar —café, bebidas y suplementos—, y de cada venta que se mueve por ese canal le queda ' +
   'un porcentaje, liquidado en su cuenta cada viernes.\n\n¿Quiere que le cuente cómo se vería en su caso?';
 
 // ─── Supabase client con service role (garantiza insert sin RLS) ──────────────
@@ -275,6 +285,38 @@ export async function POST(request: Request) {
       }
     }
 
+    // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────
+    // Va ANTES de la apertura a propósito: un primer contacto que escribe sobre
+    // una condición de salud no puede recibir el saludo comercial con botones —
+    // recibe la derivación. Ver HANDOFF_GUARDARRAIL_SALUD_AGO2026.md y los
+    // detectores en src/lib/wa-guardarrail-salud.ts. Los botones de la apertura y
+    // el cierre de radicación nunca matchean estos patrones, así que el resto del
+    // flujo determinístico no se altera.
+    const emergencia = detectarEmergencia(messageText);
+    if (emergencia) {
+      console.error(`🆘 [WA Guardrail Salud] EMERGENCIA detectada ("${emergencia}") — ${phoneNumber}. Derivado a línea 123, cero producto.`);
+      await sendWhatsAppMessage(phoneNumber, RESPUESTA_EMERGENCIA);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, RESPUESTA_EMERGENCIA);
+      return new Response('OK', { status: 200 });
+    }
+
+    const saludEntrada = clasificarPreguntaSalud(messageText);
+    if (saludEntrada) {
+      // Reincidencia: si esta conversación ya recibió un rechazo de salud, se
+      // endurece a la versión corta (la marca de "conversación contaminada" del
+      // handoff, en su forma v1).
+      const reincide = saludEntrada.nivel === 'comun'
+        && await hayRechazoSaludPrevio(supabase, waFingerprint);
+      const rechazo = saludEntrada.nivel === 'grave'
+        ? RECHAZO_SALUD_GRAVE
+        : (reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR);
+
+      console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${saludEntrada.nivel}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
+      await sendWhatsAppMessage(phoneNumber, rechazo);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
+      return new Response('OK', { status: 200 });
+    }
+
     // ─── 1.5 Apertura dictada (solo primer contacto) ──────────────────────────
     // El primer mensaje NO lo genera el modelo: es copy calibrado, nombra al socio
     // que refirió (dato que solo vive aquí) y va como lista interactiva, que el
@@ -374,6 +416,18 @@ export async function POST(request: Request) {
         // retroactivo (limpia también los turnos envenenados que ya están en BD).
         if (rol === 'assistant' && detectarModeloInventado(m.content)) {
           historial.push({ role: 'assistant', content: RESPUESTA_CORRECTIVA });
+          turnosSaneados++;
+          continue;
+        }
+
+        // Mismo saneamiento para claims de salud: si un turno viejo quedó en BD
+        // con un claim bloqueado (o anterior al guardarraíl), el modelo debe
+        // recordar el rechazo que la persona vio, no su propio claim — si no, el
+        // turno siguiente elabora sobre la infracción. Los rechazos propios
+        // (esRechazoSalud) nunca disparan detectarClaimSaludEnSalida, así que no
+        // hay riesgo de re-sanear lo ya saneado.
+        if (rol === 'assistant' && detectarClaimSaludEnSalida(m.content)) {
+          historial.push({ role: 'assistant', content: RECHAZO_SALUD_ESTANDAR });
           turnosSaneados++;
           continue;
         }
@@ -520,6 +574,19 @@ export async function POST(request: Request) {
       console.error(`🚨 [WA Guardrail] BLOQUEADO — término "${violacion}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
+      return new Response('OK', { status: 200 });
+    }
+
+    // Guardarraíl de salud — SALIDA. Atrapa lo que la capa de entrada no vio
+    // (formulación creativa, fragmento del corpus con ciencia, composición del
+    // modelo). El borrador se DESCARTA y se reemplaza por el rechazo — nunca se
+    // corrige ni se reintenta la generación (reintentar entrena al sistema a
+    // bordear el límite). Res. 3096/2007 art. 5.3: "sugieran o impliquen".
+    const claimSalud = detectarClaimSaludEnSalida(queswaReply);
+    if (claimSalud) {
+      console.error(`🚨 [WA Guardrail Salud] BLOQUEADO — claim "${claimSalud}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
+      await sendWhatsAppMessage(phoneNumber, RECHAZO_SALUD_ESTANDAR);
+      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, RECHAZO_SALUD_ESTANDAR);
       return new Response('OK', { status: 200 });
     }
 
@@ -717,6 +784,65 @@ function detectarModeloInventado(texto: string): string | null {
 }
 
 /**
+ * Persiste un turno dictado por el webhook (guardarraíl de salud, emergencia).
+ * Mismo patrón que la apertura y las respuestas de botón: sin esto el motor
+ * reconstruye el hilo sin el rechazo y el turno siguiente pierde el contexto de
+ * que la pregunta de salud ya fue derivada.
+ */
+async function persistirTurnoDictado(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+  textoUsuario: string,
+  textoAsistente: string,
+): Promise<void> {
+  try {
+    await supabase.from('nexus_conversations').insert({
+      fingerprint_id: fingerprint,
+      session_id: fingerprint,
+      messages: [
+        { role: 'user',      content: textoUsuario,   timestamp: new Date().toISOString() },
+        { role: 'assistant', content: textoAsistente, timestamp: new Date().toISOString() },
+      ],
+    });
+  } catch (err) {
+    console.error('⚠️ [WA Guardrail Salud] No se pudo persistir el turno dictado:', err);
+  }
+}
+
+/**
+ * ¿Esta conversación ya recibió un rechazo de salud? Define la reincidencia:
+ * al segundo intento se responde con la versión corta en vez de repetir el
+ * discurso completo. Best-effort — si la consulta falla, se asume que no.
+ */
+async function hayRechazoSaludPrevio(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+): Promise<boolean> {
+  try {
+    const { data } = await supabase
+      .from('nexus_conversations')
+      .select('messages')
+      .eq('fingerprint_id', fingerprint)
+      .order('created_at', { ascending: false })
+      .limit(12);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    for (const fila of ((data || []) as any[])) {
+      if (!Array.isArray(fila.messages)) continue;
+      for (const m of fila.messages) {
+        if (m?.role === 'assistant' && typeof m.content === 'string' && esRechazoSalud(m.content)) {
+          return true;
+        }
+      }
+    }
+  } catch (err) {
+    console.error('⚠️ [WA Guardrail Salud] Error consultando reincidencia:', err);
+  }
+  return false;
+}
+
+/**
  * Deja el registro de la conversación igual a lo que el prospecto realmente vio.
  *
  * El motor persiste su respuesta en `nexus_conversations` desde `onFinal`, o sea
@@ -737,6 +863,7 @@ async function corregirTurnoEnvenenado(
   supabase: any,
   fingerprint: string,
   textoBloqueado: string,
+  reemplazo: string = RESPUESTA_CORRECTIVA,
 ): Promise<void> {
   const objetivo = textoBloqueado.trim();
 
@@ -762,7 +889,7 @@ async function corregirTurnoEnvenenado(
         if (idx === -1) continue;
 
         const messages = [...fila.messages];
-        messages[idx] = { ...messages[idx], content: RESPUESTA_CORRECTIVA, guardrail_bloqueo: objetivo };
+        messages[idx] = { ...messages[idx], content: reemplazo, guardrail_bloqueo: objetivo };
 
         await supabase.from('nexus_conversations').update({ messages }).eq('id', fila.id);
         console.log(`🧽 [WA Guardrail] Turno corregido en BD (intento ${intento}) — fila ${fila.id}`);

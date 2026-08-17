@@ -437,16 +437,15 @@ La ventaja de entrar aquí es de posición. Cuando la puerta se abra al público
 ---
 
 ### **FREQ_07: "¿Los productos son reales? ¿Tienen respaldo científico? / ¿Están aprobados? / ¿Tienen registro sanitario? / ¿Eso sí sirve o es puro cuento?"**
-**[Concepto Nuclear]:** La pregunta es de **credibilidad del producto** y se responde con lo verificable: fabricante de 30 años en más de 60 países, **registros INVIMA vigentes en Colombia**, **certificación de la TGA de Australia** —de los reguladores más estrictos— y los **2.000+ estudios** del Ganoderma lucidum. ⚠️ El nombre **Gano Excel** se dice aquí: quien duda de que el producto exista necesita el nombre del fabricante. ⚠️ El marco es el **producto premium y su respaldo** — categoría propia, extracto propio, regulador estricto. ⚠️ El catálogo con precios es **PROD_OVERVIEW**, el detalle del hongo es **CIENCIA_01** y el fundador (Dr. Leow Soon Seng, micólogo, investigador desde 1983) es **CIENCIA_05**, los tres en `catalogo_productos`.
+**[Concepto Nuclear]:** Quien pregunta esto sospecha una estafa por internet, y lo que desarma esa sospecha **no es una credencial: es un dato que él pueda comprobar solo**. Por eso la respuesta entrega números de registro sanitario del INVIMA consultables en línea, la afiliación a ACOVEDI y las nueve oficinas abiertas al público — dirección física contra el miedo al fraude digital, que es el mismo criterio con el que la Ley 1700 separa el comercio del fraude. ⚠️ **El respaldo se demuestra, no se adjetiva.** Se retiraron (17 ago 2026) la mención de estudios publicados —evidencia que nadie va a leer y que además convierte un alimento en argumento clínico— y la tabla de certificaciones internacionales, que el sitio del fabricante en Colombia no publica: a un escéptico no se le entrega un dato que no puede verificar. El detalle del hongo vive en CIENCIA_01 y el fundador en CIENCIA_05, ambos en `catalogo_productos`.
 
-Sí, y es lo más fácil de comprobar de todo esto.
+Sí, y es de lo más fácil de comprobar de todo esto.
 
-Los fabrica **Gano Excel**, con 30 años y presencia en más de 60 países. En Colombia la línea tiene registros **INVIMA** vigentes, y además certificación de la **TGA de Australia**, que es de los reguladores más estrictos del mundo.
+Los fabrica Gano Excel, con 30 años de operación y presencia en más de 60 países. En Colombia cada producto tiene su registro sanitario del INVIMA, con número propio —el jabón es el NSOC99970-20CO, el Shoko Rico el NSA-0010766-2021— y esos números se consultan en la página del INVIMA sin pedirle permiso a nadie.
 
-La ciencia es la del **Ganoderma lucidum**: más de **2.000 estudios publicados** y treinta años de investigación moderna. Gano Excel lo cultiva y lo extrae con tecnología propia, desarrollada por su fundador — un micólogo que investiga este hongo desde 1983.
+La empresa está afiliada a ACOVEDI, el gremio de venta directa, y tiene nueve oficinas abiertas al público en el país. Si quiere, va y los recoge en persona.
 
 **Pregunta de seguimiento:** ¿Le muestro el catálogo?
-
 ---
 
 ### **FREQ_08: "¿Hay capacitación? / ¿Hay formación? / ¿Dan entrenamiento? / ¿Me enseñan? / ¿Cómo aprendo a hacer esto? / ¿Qué pasa si no sé hacer esto?"**

@@ -289,6 +289,12 @@ hay que editar el arsenal y el archivo, en sincronía. Requiere aprobación del 
 
 ### 4.4 ⚠️ La apertura promete ingreso
 
+> ✅ **RESUELTO — SE CONSERVA (Director, 17 ago 2026).** Revisada con el Director: la frase es
+> aspiración sin cifra ni plazo (*"con el potencial de"*), coherente con el frame de upgrade del
+> 2 ago (ingreso en paralelo, medido contra lo que ya se tiene), y la línea 🔄 le pone la causa.
+> La "decisión del 15 ago" que este documento registra no se sostuvo al revisarla con contexto.
+> El criterio quedó anotado en `wa-apertura.ts`. **No volver a proponerla como corrección.**
+
 `src/lib/wa-apertura.ts`, primer mensaje de toda conversación:
 
 > "Le explico cómo se construye un *canal de distribución* en paralelo a su actividad, **con el

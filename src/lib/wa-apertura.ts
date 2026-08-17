@@ -260,6 +260,13 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     // • "ingresos actuales", no "ingresos": el ancla concreta es el sueldo que
     //   la persona tiene HOY en su cuenta — sin "actuales" la comparación flota.
     //   (Y "su actividad" perdió el "actual" para no repetirlo a tres palabras.)
+    //   ⚠️ REVISADA Y CONSERVADA (Director, 17 ago 2026). Un handoff externo la
+    //   marcó como "promesa de ingreso comparativa" a retirar. Decisión: se
+    //   queda. Es aspiración sin cifra ni plazo ("con el potencial de"), y
+    //   quien monta un negocio aspira como mínimo a sus ingresos actuales —
+    //   decirlo no promete, ubica; y la línea 🔄 le pone la causa. Es el frame
+    //   de UPGRADE del 2 ago (ingreso en paralelo, medido contra lo que ya
+    //   tiene). No volver a "corregirla" por una regla anterior a esa decisión.
     // • Los pictogramas son funcionales, no decorativos: ⚙️ mecanismo · 🔑
     //   propiedad · 🔄 ciclo. Se descartó 👑 (la corona es el emoji del estatus
     //   prometido — el estante del multinivel); la llave dice lo mismo sin humo:

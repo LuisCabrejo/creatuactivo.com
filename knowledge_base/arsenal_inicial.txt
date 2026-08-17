@@ -32,7 +32,7 @@
 <verbatim_lock>
 Con gusto, se lo digo sin rodeos. 🪢
 
-CreaTuActivo es una **empresa de tecnología**, y lo que hacemos se resume en algo concreto: usted monta su propio negocio de distribución de café y suplementos, lo maneja desde el celular, y nosotros le ponemos la inteligencia artificial que hace la parte comercial por usted.
+CreaTuActivo es una **empresa de tecnología**, y lo que hacemos se resume en algo concreto: usted monta su propio negocio de distribución de café y suplementos, lo maneja desde el celular, y nosotros le ponemos la inteligencia artificial que explica y atiende a cada interesado, a toda hora.
 
 Le cuento por qué existimos. Distribuir productos que la gente consume todos los días siempre ha sido buen negocio. Pero exigía algo que a la mayoría no le gusta ni tiene cómo hacer: explicarle a cada persona, responder a toda hora, estar pendiente de cada uno. No era falta de ganas. Era que nadie tiene la vida para estar ahí todo el día.
 

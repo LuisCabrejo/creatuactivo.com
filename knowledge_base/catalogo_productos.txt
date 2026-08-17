@@ -190,7 +190,7 @@ El café puro es **Ganocafé Clásico** (no existe ningún producto llamado "Gan
 
 ---
 
-### BEB_02: "¿Para qué sirve el Ganocafé 3en1?" / "¿Qué beneficios tiene el Ganocafé?" / "¿Para qué sirve el café 3 en 1?"
+### BEB_02: "¿Para qué sirve el Ganocafé 3en1?" / "¿Qué beneficios tiene el Ganocafé?" / "¿Para qué sirve el café 3 en 1?" / "¿Para qué sirve el ganocafé?"
 **[Concepto Nuclear]:** El villano es **la energía prestada**: el café común la entrega a las siete y la cobra a las once, y los intereses son los nervios y el estómago. Marco financiero — el registro sube tomando prestado el léxico de las finanzas, no el del gremio. ⚠️ **El villano se puede pintar con crudeza porque es el café corriente, no nuestro producto**; lo nuestro se afirma siempre como AUSENCIA de ese costo, nunca como una acción del producto sobre un órgano del lector: describir lo que no ocurre es la fórmula segura, y atribuirle al producto un efecto corporal es una declaración de propiedad. ⚠️ "Amortigua la cafeína" es la formulación del propio fabricante. ⚠️ **El cuarto ingrediente** es el remate: el nombre promete tres (café, crema no láctea, azúcar) y el valor está en el que no cabe en el nombre. ⚠️ NO comparar el precio con "el café de la esquina" — en Colombia hay tinto de $1.000 y el dato se lee como mentira.
 
 Con gusto. El café común no le da energía: se la presta. Y le cobra intereses — los nervios alterados y el estómago resentido a media mañana.
@@ -201,7 +201,7 @@ El Ganoderma que Gano Excel cultiva y extrae desde hace 30 años amortigua la ca
 
 Usted no cambia de hábito: eleva el que ya tiene. La pregunta ya no es si va a tomar café hoy — es qué espera que ese café haga por usted.
 
-La caja trae 20 sobres y cuesta $110.900 COP.
+La caja trae 20 sobres —uno cada mañana, le alcanza para veinte— y cuesta $110.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro la línea completa?
 ---
@@ -324,6 +324,30 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 ---
 
 ## PREGUNTAS FRECUENTES
+
+### SUP_02: "¿Qué es el CordyGold? / ¿Para qué sirve el Cordygold? / ¿Cuánto cuesta el CordyGold? / cápsulas de cordyceps / cordigold / cordygol"
+**[Concepto Nuclear]:** Es el **único producto de la línea cuyo ingrediente principal no es el Ganoderma**, y ese es justamente su argumento: quien ya toma el café busca algo distinto, no más de lo mismo. La ficha oficial del fabricante declara **Cordyceps sinensis, 500 mg por cápsula** — la concentración por cápsula más alta del portafolio. ⚠️ El posicionamiento es de **rendimiento físico y resistencia**, que es el terreno donde la categoría entera ubica al Cordyceps; se nombra como apoyo, nunca como efecto garantizado, y sin plazos. ⚠️ Vivía dentro de la tabla de SUP_01 y no tenía puerta propia: preguntar por él recuperaba el plan de compensación (medido 17 ago 2026).
+
+Con gusto. El CordyGold es el único de la línea que no gira alrededor del Ganoderma: su ingrediente es el **Cordyceps sinensis**, 500 mg por cápsula — la concentración más alta de todo el portafolio.
+
+El Cordyceps es el hongo que la gente asocia con el rendimiento físico y el aguante. Por eso este es el que suele buscar quien entrena, quien tiene jornadas largas de pie, o quien ya toma el café y quiere sumar algo distinto en vez de más de lo mismo.
+
+Viene en frasco de 90 cápsulas, una al día, y cuesta $336.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro los otros dos suplementos de la línea?
+
+---
+
+### FAQ_05: "¿Cuánto dura una caja? / ¿Cuántos sobres trae? / ¿Para cuánto alcanza? / ¿Cuánto rinde? / ¿Cuánto me dura?"
+**[Concepto Nuclear]:** Pregunta de rendimiento, y quien la hace **está calculando el gasto mensual antes de comprar** — o sea que está cerca. Se responde con las cifras y sin argumentar; el precio se ofrece al final, cuando ya sabe cuánto le rinde. ⚠️ **El fragmento se mantiene CORTO a propósito**: la consulta es breve y genérica, así que un texto largo diluye la señal del vector y la pregunta termina en otro arsenal — fue lo que pasó hasta el 17 ago 2026, cuando "cuánto dura una caja" recuperaba el plan de compensación. Las presentaciones salen del back office; si cambian allá, cambian aquí.
+
+Con gusto. Las bebidas vienen en cajas de sobres individuales: la mayoría trae 20 —uno cada mañana, veinte mañanas—, el Ganocafé Clásico trae 30, el Gano C'Real 15 y el Reskine 10.
+
+Los suplementos vienen en frascos de 90 cápsulas, una al día: le rinden tres meses.
+
+**Pregunta de seguimiento:** ¿Le muestro los precios de la línea?
+
+---
 
 ### FAQ_01: "¿Es seguro el consumo diario?"
 **[Concepto Nuclear]:** 2,000 años de uso. Perfil de seguridad excelente.

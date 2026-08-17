@@ -26,6 +26,11 @@ import {
 import { gestionarCierre } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import {
+  slugDesdeNombre,
+  normalizarWhatsApp,
+  mensajeDeBienvenida,
+} from '@/lib/wa-onboarding';
+import {
   detectarEmergencia,
   clasificarPreguntaSalud,
   detectarClaimSaludEnSalida,
@@ -283,6 +288,35 @@ export async function POST(request: Request) {
           .update(patch)
           .eq('fingerprint_id', waFingerprint);
       }
+    }
+
+    // ─── 1.35 Comando de activación del Director ──────────────────────────────
+    // Cuando alguien paga, el Director escribe al WABA desde su propio número:
+    //   ACTIVAR Diego Giraldo 3001234567
+    // y en segundos esa persona recibe su enlace en su chat, sin instalar nada.
+    // Va ANTES del guardarraíl y del registro de prospecto a propósito: quien
+    // manda el comando no es un prospecto y no debe pasar por esas capas.
+    const admins = (process.env.WA_ADMIN_NUMBERS || '573203415438,573206805737')
+      .split(',').map((n) => n.trim()).filter(Boolean);
+    const mComando = /^\s*activar\s+(.+?)\s+(\d[\d\s-]{6,})\s*$/i.exec(messageText);
+
+    if (mComando && admins.includes(phoneNumber)) {
+      const nombre  = mComando[1].trim();
+      const destino = normalizarWhatsApp(mComando[2]);
+      const corto   = nombre.split(/\s+/)[0];
+      const resultado = await activarCanal(supabase, nombre, destino);
+
+      if (resultado.ok) {
+        const enviado = await sendText(destino, mensajeDeBienvenida(corto, resultado.slug));
+        await sendWhatsAppMessage(phoneNumber, enviado.ok
+          ? `Listo. ${nombre} ya tiene su canal: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://creatuactivo.com'}/${resultado.slug}\n\nLe llegó el enlace a su WhatsApp.`
+          // Fuera de ventana: Meta rechaza el texto libre. Se dice qué hacer, no que falló.
+          : `El canal de ${nombre} quedó creado (/${resultado.slug}), pero WhatsApp no me deja escribirle todavía.\n\nPídale que le mande cualquier mensaje al ${process.env.WHATSAPP_DISPLAY_NUMBER || 'número de Queswa'} y repita el comando.`);
+      } else {
+        await sendWhatsAppMessage(phoneNumber, `No pude crear el canal de ${nombre}: ${resultado.error}`);
+      }
+      console.log(`🎫 [WA Admin] ACTIVAR "${nombre}" → ${destino} · ${resultado.ok ? resultado.slug : resultado.error}`);
+      return new Response('OK', { status: 200 });
     }
 
     // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────
@@ -1005,4 +1039,51 @@ async function resolverPatrocinador(
   }
 
   return null;
+}
+
+/**
+ * Crea el canal de un socio nuevo: slug único + registro en `constructor_slugs`.
+ *
+ * El slug sale del nombre y, si ya existe, se le suma un sufijo numérico — dos
+ * "Juan Pérez" no pueden pelearse la misma URL. `constructor_id` se genera aquí
+ * porque el enlace tiene que existir el mismo día del pago, y el perfil completo
+ * (foto, frase) se llena después desde el Centro de Mando sin tocar esta fila.
+ */
+async function activarCanal(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  nombre: string,
+  whatsapp: string,
+): Promise<{ ok: true; slug: string } | { ok: false; error: string }> {
+  if (!whatsapp || whatsapp.length < 10) return { ok: false, error: 'el número no parece completo' };
+
+  try {
+    // Si ese número ya tiene canal, se devuelve el suyo en vez de crear otro:
+    // el comando repetido es lo normal cuando el primer envío cayó fuera de ventana.
+    const { data: previo } = await supabase
+      .from('constructor_slugs').select('slug').eq('whatsapp', whatsapp).maybeSingle();
+    if (previo?.slug) return { ok: true, slug: previo.slug };
+
+    const base = slugDesdeNombre(nombre);
+    let slug = base;
+    for (let i = 2; i <= 20; i++) {
+      const { data: ocupado } = await supabase
+        .from('constructor_slugs').select('slug').eq('slug', slug).maybeSingle();
+      if (!ocupado) break;
+      slug = `${base}${i}`;
+    }
+
+    const { error } = await supabase.from('constructor_slugs').insert({
+      slug,
+      display_name: nombre,
+      whatsapp,
+      constructor_id: crypto.randomUUID(),
+      activado_en: new Date().toISOString(),
+    });
+    if (error) return { ok: false, error: error.message };
+
+    return { ok: true, slug };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : 'error inesperado' };
+  }
 }

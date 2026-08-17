@@ -19,6 +19,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { notificarDueño, type EventoDueño } from '@/lib/wa-onboarding'
 
 export const runtime = 'edge'
 
@@ -86,6 +87,34 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`✅ [track/engagement] fingerprint=${fingerprint.slice(0, 12)}… nicho=${nicho} keys=${Object.keys(data).join(',')}`)
+
+    // ─── Aviso por WhatsApp al dueño del canal (solo los primeros) ───────────
+    // El push de queswa.app ya sale por el webhook de Supabase y es el canal
+    // permanente. Esto lo acompaña SOLO durante el arranque: ver el primer
+    // movimiento de un conocido en el teléfono, sin abrir ninguna aplicación,
+    // es el momento que convierte a un dueño nuevo en uno que comparte.
+    // `notificarDueño` se autolimita por tope y por ventana de 24 h; aquí solo
+    // se traduce el evento y se blinda para que nunca tumbe el tracking.
+    const evento: EventoDueño | null =
+      queswa_opened === true ? 'escribio'
+      : completed === true   ? 'completo'
+      : (typeof pct === 'number' && pct >= 50 && (di.reel_pct ?? 0) < 50) ? 'vio_mitad'
+      : (typeof visit_count === 'number' && visit_count > (di.visit_count ?? 0) && (di.visit_count ?? 0) > 0) ? 'volvio'
+      : (!di.reel_pct && typeof pct === 'number') ? 'abrio'
+      : null
+
+    if (evento) {
+      try {
+        const { data: p } = await supabase
+          .from('prospects').select('constructor_id')
+          .eq('fingerprint_id', fingerprint).maybeSingle()
+        const r = await notificarDueño(supabase, (p as any)?.constructor_id, evento)
+        if (r !== 'enviado') console.log(`🔕 [track/engagement] aviso "${evento}" no enviado: ${r}`)
+      } catch (e) {
+        console.error('⚠️ [track/engagement] aviso al dueño falló (no bloquea):', e)
+      }
+    }
+
     return NextResponse.json({ ok: true })
 
   } catch (error) {

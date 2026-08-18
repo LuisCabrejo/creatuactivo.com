@@ -58,28 +58,6 @@ export const MAX_NOTIF_WA = 50;
 
 const SITIO = process.env.NEXT_PUBLIC_SITE_URL || 'https://creatuactivo.com';
 
-/** El número del WABA, en dígitos, para armar enlaces wa.me. */
-const WABA = (process.env.WHATSAPP_NUMBER || '573215193909').replace(/\D/g, '');
-
-/**
- * El enlace que el dueño comparte: lleva directo al chat con Queswa, con el
- * texto de referido ya escrito.
- *
- * ⚠️ NO es una página web. `creatuactivo.com/{slug}` **no existe** —solo existe
- * `/{slug}/{nicho}`, que es la página de reel— así que entregar la raíz daba 404.
- * Y aunque existiera, la web añade un salto de más: el prospecto tendría que
- * abrir la página y desde ahí saltar al chat. Con wa.me toca una vez y ya está
- * conversando, que es donde el negocio realmente ocurre.
- *
- * El texto pre-llenado es el que `resolverPatrocinador()` lee para atribuir el
- * prospecto: el slug con guiones dentro del mensaje. Si cambia esta frase, se
- * rompe la atribución y el prospecto queda sin dueño.
- */
-export function enlaceDeCanal(slug: string): string {
-  const texto = encodeURIComponent(`Hola Queswa, vengo del enlace de ${slug}`);
-  return `https://wa.me/${WABA}?text=${texto}`;
-}
-
 /** Solo dígitos, con indicativo de país. `3001234567` → `573001234567`. */
 export function normalizarWhatsApp(numero: string): string {
   const d = (numero || '').replace(/\D/g, '');
@@ -103,16 +81,26 @@ export function slugDesdeNombre(nombre: string): string {
 }
 
 /**
- * El mensaje que recibe quien acaba de activarse. Tres decisiones:
+ * El enlace que el dueño comparte.
  *
- * · **El enlace primero y solo.** Es lo que vino a buscar; todo lo demás compite.
- * · **Una sola instrucción.** "Compártalo con cinco personas" es una tarea que se
- *   hace hoy; "construya su canal" es un proyecto que se aplaza. La cifra es la
- *   del ejercicio del Director, que en su experiencia arranca al 100 %.
- * · **Se le dice qué va a pasar después.** Sin eso, el primer aviso de actividad
- *   llega sin contexto; con eso, la persona lo espera — y esperarlo es la mitad
- *   del efecto.
+ * Es `/{slug}/queswa`, no un wa.me crudo, y no es por estética: esa ruta
+ * **valida el slug contra la base antes de redirigir**. Un enlace mal escrito o
+ * de alguien no registrado se detiene ahí; con el wa.me directo, el prospecto
+ * escribiría igual, `resolverPatrocinador()` no encontraría a nadie y entraría
+ * sin dueño — fuera del radar del socio, sin aviso y con el saludo genérico. Con
+ * un socio pasa desapercibido; con diez es una fuga silenciosa.
+ *
+ * La ruta redirige a wa.me con el texto de referido ya escrito, así que el
+ * prospecto ve igual el botón de WhatsApp para empezar a chatear: se conserva la
+ * comodidad del enlace directo y se gana la validación.
+ *
+ * ⚠️ NO usar `${SITIO}/${slug}` a secas: esa página no existe y devuelve 404
+ * (verificado en producción el 17 ago 2026).
  */
+export function enlaceDeCanal(slug: string): string {
+  return `${SITIO}/${slug}/queswa`;
+}
+
 export function mensajeDeBienvenida(nombreCorto: string, slug: string): string {
   return (
     `Listo, ${nombreCorto}. Su canal ya está abierto.\n\n` +

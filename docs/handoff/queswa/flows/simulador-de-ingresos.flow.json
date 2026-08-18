@@ -192,7 +192,7 @@
       "type": "Form",
       "name": "escenario",
       "init-values": {
-       "cantidad": "5"
+       "cantidad": "1"
       },
       "children": [
        {
@@ -212,10 +212,6 @@
          {
           "id": "5",
           "title": "5 paquetes"
-         },
-         {
-          "id": "10",
-          "title": "10 paquetes"
          }
         ]
        },
@@ -229,7 +225,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $1.125.000 COP"
+          "text": "Suma de esas 5 compras: $1.125.000 COP"
          }
         ]
        },
@@ -243,7 +239,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $3.375.000 COP"
+          "text": "Suma de esas 15 compras: $3.375.000 COP"
          }
         ]
        },
@@ -257,21 +253,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $5.625.000 COP"
-         }
-        ]
-       },
-       {
-        "type": "If",
-        "condition": "${form.cantidad} == '10'",
-        "then": [
-         {
-          "type": "TextBody",
-          "text": "Generación 1 · 10 paquetes\n$675.000 × 10 = $6.750.000\n\nGeneración 2 · 10 paquetes\n$90.000 × 10 = $900.000\n\nGeneración 3 · 10 paquetes\n$90.000 × 10 = $900.000\n\nGeneración 4 · 10 paquetes\n$90.000 × 10 = $900.000\n\nGeneración 5 · 10 paquetes\n$180.000 × 10 = $1.800.000"
-         },
-         {
-          "type": "TextHeading",
-          "text": "Total: $11.250.000 COP"
+          "text": "Suma de esas 25 compras: $5.625.000 COP"
          }
         ]
        },
@@ -289,6 +271,10 @@
           "cantidad": "${form.cantidad}"
          }
         }
+       },
+       {
+        "type": "TextCaption",
+        "text": "Se cuenta por paquetes comprados, no por personas. Cada comisión se liquida el viernes de la semana siguiente a la compra."
        }
       ]
      }
@@ -306,7 +292,7 @@
       "type": "Form",
       "name": "escenario",
       "init-values": {
-       "cantidad": "5"
+       "cantidad": "1"
       },
       "children": [
        {
@@ -326,10 +312,6 @@
          {
           "id": "5",
           "title": "5 paquetes"
-         },
-         {
-          "id": "10",
-          "title": "10 paquetes"
          }
         ]
        },
@@ -343,7 +325,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $562.500 COP"
+          "text": "Suma de esas 5 compras: $562.500 COP"
          }
         ]
        },
@@ -357,7 +339,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $1.687.500 COP"
+          "text": "Suma de esas 15 compras: $1.687.500 COP"
          }
         ]
        },
@@ -371,21 +353,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $2.812.500 COP"
-         }
-        ]
-       },
-       {
-        "type": "If",
-        "condition": "${form.cantidad} == '10'",
-        "then": [
-         {
-          "type": "TextBody",
-          "text": "Generación 1 · 10 paquetes\n$337.500 × 10 = $3.375.000\n\nGeneración 2 · 10 paquetes\n$45.000 × 10 = $450.000\n\nGeneración 3 · 10 paquetes\n$45.000 × 10 = $450.000\n\nGeneración 4 · 10 paquetes\n$45.000 × 10 = $450.000\n\nGeneración 5 · 10 paquetes\n$90.000 × 10 = $900.000"
-         },
-         {
-          "type": "TextHeading",
-          "text": "Total: $5.625.000 COP"
+          "text": "Suma de esas 25 compras: $2.812.500 COP"
          }
         ]
        },
@@ -403,6 +371,10 @@
           "cantidad": "${form.cantidad}"
          }
         }
+       },
+       {
+        "type": "TextCaption",
+        "text": "Se cuenta por paquetes comprados, no por personas. Cada comisión se liquida el viernes de la semana siguiente a la compra."
        }
       ]
      }
@@ -420,7 +392,7 @@
       "type": "Form",
       "name": "escenario",
       "init-values": {
-       "cantidad": "5"
+       "cantidad": "1"
       },
       "children": [
        {
@@ -440,10 +412,6 @@
          {
           "id": "5",
           "title": "5 paquetes"
-         },
-         {
-          "id": "10",
-          "title": "10 paquetes"
          }
         ]
        },
@@ -457,7 +425,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $225.000 COP"
+          "text": "Suma de esas 5 compras: $225.000 COP"
          }
         ]
        },
@@ -471,7 +439,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $675.000 COP"
+          "text": "Suma de esas 15 compras: $675.000 COP"
          }
         ]
        },
@@ -485,21 +453,7 @@
          },
          {
           "type": "TextHeading",
-          "text": "Total: $1.125.000 COP"
-         }
-        ]
-       },
-       {
-        "type": "If",
-        "condition": "${form.cantidad} == '10'",
-        "then": [
-         {
-          "type": "TextBody",
-          "text": "Generación 1 · 10 paquetes\n$112.500 × 10 = $1.125.000\n\nGeneración 2 · 10 paquetes\n$22.500 × 10 = $225.000\n\nGeneración 3 · 10 paquetes\n$22.500 × 10 = $225.000\n\nGeneración 4 · 10 paquetes\n$22.500 × 10 = $225.000\n\nGeneración 5 · 10 paquetes\n$45.000 × 10 = $450.000"
-         },
-         {
-          "type": "TextHeading",
-          "text": "Total: $2.250.000 COP"
+          "text": "Suma de esas 25 compras: $1.125.000 COP"
          }
         ]
        },
@@ -517,6 +471,10 @@
           "cantidad": "${form.cantidad}"
          }
         }
+       },
+       {
+        "type": "TextCaption",
+        "text": "Se cuenta por paquetes comprados, no por personas. Cada comisión se liquida el viernes de la semana siguiente a la compra."
        }
       ]
      }

@@ -29,6 +29,7 @@ import {
   slugDesdeNombre,
   normalizarWhatsApp,
   mensajeDeBienvenida,
+  avisarSocioNuevoProspecto,
 } from '@/lib/wa-onboarding';
 import {
   detectarEmergencia,
@@ -427,6 +428,18 @@ export async function POST(request: Request) {
     //
     // Se persiste el turno para que el motor reconstruya bien el hilo; si no, el
     // segundo mensaje volvería a contar como el primero y Queswa re-saludaría.
+    // ─── Aviso al socio: alguien suyo acaba de escribir ───────────────────────
+    // Solo en el primer mensaje, y con nombre y número — que es lo que distingue
+    // este aviso de los de la web, donde el visitante es un hash sin identidad.
+    // Es el momento de mayor valor para el socio: la persona está conversando
+    // AHORA, y él puede saludarla desde su propio chat mientras eso ocurre.
+    if (!existingProspect && patrocinador?.constructorId) {
+      const r = await avisarSocioNuevoProspecto(
+        supabase, patrocinador.constructorId, contactName, phoneNumber,
+      );
+      if (r !== 'enviado') console.log(`🔕 [WA Webhook] aviso de prospecto nuevo no enviado: ${r}`);
+    }
+
     // ⚠️ Quien LLEGA DECIDIDO no recibe la bienvenida: recibe la radicación.
     // El caso es real y frecuente cuando el socio cierra por teléfono o en
     // persona y le pasa a su contacto un enlace wa.me con el texto listo. Si a

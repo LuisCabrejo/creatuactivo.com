@@ -163,6 +163,53 @@ export async function dentroDeVentana(
 }
 
 /**
+ * Avisa al dueño que alguien acaba de escribirle a Queswa — **con nombre y
+ * número**, porque aquí sí los tenemos.
+ *
+ * Es la diferencia con los avisos de la web: quien abre un enlace en el navegador
+ * es un hash y nada más (nombre y teléfono son `null` en `prospects`, verificado),
+ * mientras que quien escribe por WhatsApp llega con su nombre de perfil y su
+ * número. Por eso este es el aviso que de verdad sirve: el dueño puede escribirle
+ * de una, desde su propio chat, mientras la conversación con Queswa está caliente.
+ *
+ * Va una sola vez por prospecto, en su primer mensaje. Después el hilo lo maneja
+ * Queswa y el dueño lo sigue en el Centro de Mando.
+ */
+export async function avisarSocioNuevoProspecto(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  constructorId: string | null | undefined,
+  nombreProspecto: string,
+  telefonoProspecto: string,
+): Promise<'enviado' | 'fuera_de_ventana' | 'sin_dueño' | 'error'> {
+  if (!constructorId) return 'sin_dueño';
+  try {
+    const { data: canal } = await supabase
+      .from('constructor_slugs')
+      .select('slug, whatsapp, display_name')
+      .eq('constructor_id', constructorId)
+      .maybeSingle();
+    if (!canal?.whatsapp) return 'sin_dueño';
+    if (!(await dentroDeVentana(supabase, canal.whatsapp))) return 'fuera_de_ventana';
+
+    const corto = (canal.display_name || '').split(/\s+/)[0] || '';
+    const tel   = telefonoProspecto.replace(/^57/, '');
+    const texto =
+      `👋 ${corto ? corto + ', ' : ''}*${nombreProspecto}* acaba de escribirme.\n\n` +
+      `Su número es ${tel}, por si quiere saludarlo usted mismo.\n\n` +
+      `Yo sigo con él: le explico, le resuelvo las dudas y le aviso si decide avanzar.`;
+
+    const r = await sendText(normalizarWhatsApp(canal.whatsapp), texto);
+    if (!r.ok) return 'error';
+    console.log(`🔔 [WA Onboarding] "${nombreProspecto}" avisado a ${canal.slug}`);
+    return 'enviado';
+  } catch (err) {
+    console.error('⚠️ [WA Onboarding] Error avisando del prospecto nuevo:', err);
+    return 'error';
+  }
+}
+
+/**
  * Avisa al dueño de una actividad de sus prospectos.
  *
  * Nunca lanza y nunca bloquea: se llama desde el tracker de engagement, y ese

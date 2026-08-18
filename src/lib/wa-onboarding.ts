@@ -58,9 +58,16 @@ export const MAX_NOTIF_WA = 50;
 
 const SITIO = process.env.NEXT_PUBLIC_SITE_URL || 'https://creatuactivo.com';
 
-/** Solo dígitos, con indicativo de país. `3001234567` → `573001234567`. */
+/**
+ * Solo dígitos, con indicativo de país. `3001234567` → `573001234567`.
+ *
+ * ⚠️ Los ceros a la izquierda se descartan primero: varios números de socios los
+ * arrastran desde la base (`03175857607`), y sin quitarlos la comparación falla
+ * justo con las filas más viejas — el bug del "cero inicial" que ya está
+ * documentado para estos teléfonos.
+ */
 export function normalizarWhatsApp(numero: string): string {
-  const d = (numero || '').replace(/\D/g, '');
+  const d = (numero || '').replace(/\D/g, '').replace(/^0+/, '');
   if (!d) return '';
   if (d.startsWith('57')) return d;
   if (d.length === 10) return `57${d}`;
@@ -109,6 +116,70 @@ export function mensajeDeBienvenida(nombreCorto: string, slug: string): string {
     `Quien lo toque cae directo en una conversación conmigo, y yo le explico y le resuelvo las dudas.\n\n` +
     `Y le voy contando por aquí lo que vaya pasando: cuando alguien lo abra, cuando vea el video, cuando me escriba.\n\n` +
     `¿Le comparto un texto corto para acompañar el enlace?`
+  );
+}
+
+/**
+ * ¿Quien escribe es dueño de canal, y no un prospecto?
+ *
+ * Se resuelve con un `select` sobre `constructor_slugs` por teléfono: es
+ * determinístico, no le cuesta un token al modelo y no se puede equivocar.
+ *
+ * ⚠️ Por qué hace falta. El canal atiende a los dos por el MISMO número, y hasta
+ * el 17 ago 2026 no los distinguía: el socio recibía la apertura de prospecto y
+ * Queswa se presentaba ante él como *"la inteligencia artificial que asiste a
+ * [él mismo]"*, para después explicarle el negocio que acababa de comprar. Ocurrió
+ * con el número del Director y le habría ocurrido a cada socio nuevo — empezando
+ * por el primer turno, porque el mensaje de bienvenida cierra ofreciéndole ayuda
+ * para redactar y él responde "sí" a eso.
+ */
+export async function identificarSocio(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  telefono: string,
+): Promise<{ slug: string; nombre: string; constructorId: string } | null> {
+  const wa = normalizarWhatsApp(telefono);
+  if (!wa) return null;
+  try {
+    // ⚠️ NO se compara con `.eq()` contra la columna cruda: los números están
+    // guardados en formatos distintos —"+573175857607", con espacios, y con el
+    // cero inicial que arrastran algunos—, así que una igualdad exacta no
+    // encuentra a nadie. Se traen las filas y se comparan NORMALIZADAS. La tabla
+    // tiene decenas de filas, no miles: el costo es irrelevante y la robustez no.
+    const { data } = await supabase
+      .from('constructor_slugs')
+      .select('slug, display_name, constructor_id, whatsapp')
+      .not('whatsapp', 'is', null);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fila = ((data || []) as any[]).find((c) => normalizarWhatsApp(c.whatsapp) === wa);
+    if (!fila?.slug) return null;
+    return {
+      slug: fila.slug,
+      nombre: (fila.display_name || '').split(/\s+/)[0] || '',
+      constructorId: fila.constructor_id,
+    };
+  } catch (err) {
+    console.error('⚠️ [WA Onboarding] Error identificando al socio:', err);
+    return null;
+  }
+}
+
+/**
+ * Saludo para el dueño de canal. Es lo contrario del de prospecto: no explica el
+ * negocio —él ya lo compró— sino que le propone el siguiente movimiento.
+ *
+ * Una sola salida, y es la que su propia experiencia señala como la que arranca:
+ * escribirle a alguien. El resto de lo que Queswa puede hacer por él se ofrece
+ * cuando lo pida, no en el saludo.
+ */
+export function saludoDeSocio(nombreCorto: string, slug: string): string {
+  return (
+    `Hola${nombreCorto ? ', ' + nombreCorto : ''}. Aquí estoy.\n\n` +
+    `Su enlace es este:\n${enlaceDeCanal(slug)}\n\n` +
+    `Puedo ayudarle con lo que necesite de su canal: redactarle el mensaje para alguien en concreto, ` +
+    `contarle cómo va cada persona que ha llegado, o resolverle una duda del plan.\n\n` +
+    `¿A quién le va a escribir hoy?`
   );
 }
 

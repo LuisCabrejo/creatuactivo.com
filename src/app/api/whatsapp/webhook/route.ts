@@ -16,7 +16,7 @@
 // Tenant: whatsapp (system prompt 'queswa_whatsapp' en Supabase)
 
 import { createClient } from '@supabase/supabase-js';
-import { sendText, sendReplyButtons, sendFlow, sendTemplate } from '@/lib/wa-channel';
+import { sendText, sendReplyButtons, sendFlow, sendTemplate, marcarLeidoYEscribiendo } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -31,6 +31,8 @@ import {
   mensajeDeBienvenida,
   enlaceDeCanal,
   avisarSocioNuevoProspecto,
+  identificarSocio,
+  saludoDeSocio,
 } from '@/lib/wa-onboarding';
 import {
   detectarEmergencia,
@@ -70,6 +72,19 @@ function getSupabase() {
   return supabaseClient;
 }
 
+// ─── Copy: acuse de lo que no podemos procesar ────────────────────────────────
+// Un solo lugar para lo que la persona lee cuando manda algo que este canal no
+// atiende. Reconoce lo que llegó, dice en una línea qué sí funciona, y cierra
+// con una sola pregunta de una sola salida — nunca con un "no puedo".
+const ACUSE_NO_PROCESABLE: Record<string, string> = {
+  image:    'Recibí su imagen. Por aquí leo texto y notas de voz, así que no alcanzo a ver qué me está mostrando. ¿Me cuenta en un mensaje de qué se trata?',
+  video:    'Recibí su video. Por aquí leo texto y notas de voz, así que no alcanzo a ver qué me está mostrando. ¿Me cuenta en un mensaje de qué se trata?',
+  document: 'Recibí su archivo. Por aquí leo texto y notas de voz, así que no alcanzo a abrirlo. ¿Me cuenta en un mensaje qué necesita?',
+  location: 'Recibí su ubicación. Para lo que sigue me basta con el nombre: ¿desde qué ciudad me escribe?',
+  contacts: 'Recibí el contacto que me compartió. Cuénteme usted qué necesita y seguimos por aquí: ¿qué le gustaría saber primero?',
+  default:  'Recibí su mensaje, pero me llegó en un formato que no alcanzo a leer. ¿Me lo escribe en texto o me manda una nota de voz?',
+};
+
 // ─── GET: Handshake de verificación de Meta ───────────────────────────────────
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -91,9 +106,22 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Meta envía actualizaciones de estado (entregado, leído) — ignorarlas
-    const messages = body?.entry?.[0]?.changes?.[0]?.value?.messages;
+    const value    = body?.entry?.[0]?.changes?.[0]?.value;
+    const messages = value?.messages;
+
+    // ─── Avisos de estado: solo nos interesa el fracaso ───────────────────────
+    // "sent", "delivered" y "read" se ignoran como siempre. Pero "failed" se
+    // registra, porque es la ÚNICA señal de un fallo que la Graph API esconde:
+    // fuera de la ventana de 24 h Meta acepta el envío con 200 y un ID, y lo
+    // descarta después. Sin este log, un mensaje que la persona nunca recibió
+    // se ve idéntico a uno entregado (así se perdió la sonda de formato del 18
+    // ago: dos "✅ enviado" que jamás llegaron al teléfono).
     if (!messages || messages.length === 0) {
+      for (const st of (value?.statuses ?? []) as { status?: string; recipient_id?: string; errors?: { code?: number; title?: string; message?: string }[] }[]) {
+        if (st.status !== 'failed') continue;
+        const e = st.errors?.[0];
+        console.error(`📵 [WA Webhook] Envío FALLIDO a ${st.recipient_id} — #${e?.code} ${e?.title ?? e?.message ?? ''}`.trim());
+      }
       return new Response('OK', { status: 200 });
     }
 
@@ -101,6 +129,18 @@ export async function POST(request: Request) {
     const contact     = body.entry[0].changes[0].value.contacts?.[0];
     const phoneNumber = message.from as string;
     const contactName = (contact?.profile?.name as string | undefined) || 'Constructor';
+
+    // ─── Acuse inmediato: visto azul + "escribiendo…" ─────────────────────────
+    // Va aquí arriba, antes de transcribir el audio y antes de llamar al motor,
+    // porque es justo ese rato el que hoy transcurre sin ninguna señal en la
+    // pantalla de la persona. Desde este punto TODOS los caminos responden algo
+    // —incluidos los tipos que no procesamos—, así que mostrar el indicador no
+    // promete una respuesta que no vaya a llegar (Meta pide explícitamente no
+    // hacerlo). Las dos únicas salidas mudas quedan más abajo, y son gestos
+    // (reacción, sticker) que llegan después de este punto.
+    const wamid = message.id as string | undefined;
+    const t0 = Date.now();
+    if (wamid) await marcarLeidoYEscribiendo(wamid);
 
     // ─── Entrada: texto o nota de voz ─────────────────────────────────────────
     // En LATAM el audio es la forma natural de explicar algo con matices; antes
@@ -185,8 +225,26 @@ export async function POST(request: Request) {
       console.log(`📢 [WA Webhook] CTWA detectado — ad: ${referral?.source_id}, headline: "${referral?.headline}"`);
     }
 
-    // Sin texto y sin audio (imagen, sticker, ubicación) — no hay nada que procesar
+    // ─── Sin texto y sin audio: se acusa, no se ignora ────────────────────────
+    // Hasta ahora esto devolvía 200 en silencio absoluto. Alguien mandaba la foto
+    // del comprobante de su pago, o la foto del producto que le recomendaron, y
+    // no recibía absolutamente nada — el peor mensaje posible en el canal donde
+    // todo el mundo responde al instante.
+    //
+    // Las reacciones y los stickers SÍ siguen mudos, y a propósito: son gestos de
+    // asentimiento, no consultas. Contestarle "no puedo ver imágenes" a un pulgar
+    // arriba convierte un cierre cordial en un malentendido.
     if (!messageText) {
+      const tipo = message.type as string | undefined;
+
+      if (tipo === 'reaction' || tipo === 'sticker') {
+        console.log(`👍 [WA Webhook] ${phoneNumber} envió un gesto (${tipo}) — sin respuesta, a propósito`);
+        return new Response('OK', { status: 200 });
+      }
+
+      const acuse = ACUSE_NO_PROCESABLE[tipo ?? ''] ?? ACUSE_NO_PROCESABLE.default;
+      await sendWhatsAppMessage(phoneNumber, acuse, { wamid, citar: true });
+      console.log(`📎 [WA Webhook] ${phoneNumber} envió "${tipo}" — acusado sin procesar`);
       return new Response('OK', { status: 200 });
     }
 
@@ -434,6 +492,27 @@ export async function POST(request: Request) {
       return new Response('OK', { status: 200 });
     }
 
+    // ─── 1.45 ¿Es el dueño de un canal, y no un prospecto? ────────────────────
+    // El canal atiende a los dos por el mismo número. Sin esta consulta, el socio
+    // recibía la apertura de prospecto y Queswa se presentaba ante él como la
+    // asistente de sí mismo, para después explicarle el negocio que ya compró.
+    // La detección es determinística —su teléfono está en `constructor_slugs`—,
+    // así que no hay margen de error ni costo de modelo.
+    const socioQueEscribe = await identificarSocio(supabase, phoneNumber);
+    if (socioQueEscribe) {
+      console.log(`👤 [WA Webhook] Escribe el dueño de /${socioQueEscribe.slug} — modo socio`);
+    }
+
+    // Al socio nuevo se le saluda una vez, con lo suyo: su enlace y lo que Queswa
+    // puede hacer por él. No la explicación del negocio.
+    if (socioQueEscribe && !existingProspect) {
+      const saludo = saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug);
+      await sendWhatsAppMessage(phoneNumber, saludo);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, saludo);
+      console.log(`👋 [WA Webhook] Saludo de socio entregado a /${socioQueEscribe.slug}`);
+      return new Response('OK', { status: 200 });
+    }
+
     // ─── 1.5 Apertura dictada (solo primer contacto) ──────────────────────────
     // El primer mensaje NO lo genera el modelo: es copy calibrado, nombra al socio
     // que refirió (dato que solo vive aquí) y va como lista interactiva, que el
@@ -652,7 +731,7 @@ export async function POST(request: Request) {
     });
 
     if (cierre) {
-      await sendWhatsAppMessage(phoneNumber, cierre.texto);
+      await sendWhatsAppMessage(phoneNumber, cierre.texto, { wamid });
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await (supabase as any).from('nexus_conversations').insert({
@@ -671,9 +750,15 @@ export async function POST(request: Request) {
     }
 
     // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
-    const pageContext = isCTWA
-      ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
-      : 'whatsapp_inbound';
+    // `whatsapp_socio` le dice al motor que del otro lado hay un dueño de canal:
+    // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
+    // trabajar el suyo. Sin esta señal el motor responde con argumentos de venta a
+    // quien ya compró.
+    const pageContext = socioQueEscribe
+      ? 'whatsapp_socio'
+      : isCTWA
+        ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
+        : 'whatsapp_inbound';
 
     const nexusResponse = await fetch(`${baseUrl}/api/nexus`, {
       method: 'POST',
@@ -754,7 +839,14 @@ export async function POST(request: Request) {
 
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────
     if (queswaReply) {
-      await sendWhatsAppMessage(phoneNumber, queswaReply);
+      // La cita se pone sola cuando hace falta, y no antes. Si el turno se
+      // resolvió rápido, la respuesta sale justo debajo de la pregunta y citarla
+      // solo agrega dos renglones de ruido a cada burbuja. Cuando el motor tarda
+      // —y con reescritura, búsqueda, modelo y tres guardarraíles a veces tarda—
+      // la persona ya escribió otra cosa encima, y ahí la cita es lo que dice a
+      // cuál de sus mensajes se le está contestando.
+      const tardo = Date.now() - t0 > 8000;
+      await sendWhatsAppMessage(phoneNumber, queswaReply, { wamid, citar: tardo });
 
       // Tras el ejemplo de cifras dictado, se ofrece el simulador (WhatsApp
       // Flow): la persona arma su propio escenario moviendo paquete y cantidad.
@@ -871,14 +963,30 @@ export async function POST(request: Request) {
 // asteriscos a la vista. Y lo que pase de una pantalla se parte en varios
 // mensajes — WhatsApp esconde el resto detrás de "Leer más", justo donde va la
 // pregunta que sostiene la conversación.
-async function sendWhatsAppMessage(to: string, text: string): Promise<void> {
+async function sendWhatsAppMessage(
+  to: string,
+  text: string,
+  opciones: { wamid?: string; citar?: boolean } = {},
+): Promise<void> {
   const partes = partirParaWhatsApp(aFormatoWhatsApp(text));
 
   for (let i = 0; i < partes.length; i++) {
-    await sendText(to, partes[i]);
-    // Meta no garantiza el orden de entrega de envíos simultáneos; una pausa
-    // corta evita que la segunda mitad aparezca antes que la primera.
-    if (i < partes.length - 1) await new Promise((r) => setTimeout(r, 600));
+    // La cita cuelga SOLO del primer envío. Repetirla en cada parte llena la
+    // pantalla de bloques citados y termina escondiendo la respuesta.
+    const cita = i === 0 && opciones.citar && opciones.wamid
+      ? { responderA: opciones.wamid }
+      : {};
+    await sendText(to, partes[i], cita);
+
+    if (i < partes.length - 1) {
+      // Meta no garantiza el orden de entrega de envíos simultáneos, así que la
+      // pausa es obligatoria. Se aprovecha para dos cosas más: se escala con lo
+      // que viene (una pausa fija de 600 ms delata a la máquina) y lleva
+      // "escribiendo…" encima, sin lo cual el hueco se lee como que el bot se
+      // colgó a mitad de respuesta.
+      if (opciones.wamid) await marcarLeidoYEscribiendo(opciones.wamid);
+      await new Promise((r) => setTimeout(r, Math.min(1500, 500 + partes[i + 1].length / 2)));
+    }
   }
 
   if (partes.length > 1) {

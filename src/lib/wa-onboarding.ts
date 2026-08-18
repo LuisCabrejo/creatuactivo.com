@@ -18,33 +18,43 @@
  * se envía nada: no se encola, no se fuerza plantilla, no se insiste. Un envío
  * fuera de ventana es un error de política que se paga con la calidad del número.
  *
- * ⚠️ TOPE DELIBERADO: `MAX_NOTIF_WA` avisos por dueño. El sistema de engagement
- * puede disparar seis eventos por sesión de prospecto (25/50/75/100 %, apertura
- * de chat, revisita); mandarlos todos por WhatsApp entrena a la persona a
- * silenciar el número y, peor, a bloquearlo — y los bloqueos son exactamente lo
- * que Meta mide para bajar la calidad de la línea. Las primeras alcanzan para
- * producir el asombro; de ahí en adelante manda el push de queswa.app, que es
- * gratis e ilimitado. El contador vive en `constructor_slugs.wa_notif_count`.
+ * ⚠️ CUÁNTO SE AVISA, Y POR QUÉ NO SE APRIETA MÁS: un aviso por hito distinto de
+ * cada prospecto —llegó, vio el video, está escribiendo, volvió— y ninguno
+ * repetido. No hay cupo numérico, porque contar mensajes tenía un defecto que
+ * solo aparece al ordenarlos en el tiempo: los primeros en ocurrir son los de
+ * menos valor y se comían la cuota, dejando al dueño sin el aviso de que alguien
+ * está escribiendo, que es la señal de compra.
+ *
+ * Tampoco hay razón de costo para apretar: dentro de la ventana estos mensajes
+ * son gratis (Meta liberó las conversaciones de servicio en nov 2024) y **no
+ * consumen el límite de mensajería del número**, que solo cuenta lo enviado FUERA
+ * de ventana. Lo único que se cuida es que el dueño no silencie el número — y
+ * cuatro avisos con información distinta cada uno no cansan: son la historia de
+ * un conocido acercándose, contada en vivo.
  */
 
 import { sendText } from '@/lib/wa-channel';
 
 /**
- * Dos topes, y cada uno resuelve un problema distinto.
+ * Cada hito se avisa UNA vez por prospecto — no hay cupo numérico.
  *
- * `MAX_NOTIF_PROSPECTO` es el que importa: **se cuenta por persona, no por
- * evento**. Un mismo prospecto puede disparar cinco eventos en una sesión (abrir,
- * mitad, completo, escribir, volver); con un tope global se comía la cuota entero
- * y el segundo prospecto —que es justo la prueba de que la cosa funciona— no
- * generaba nada. Dos avisos por persona: que llegó, y que se enganchó.
+ * El tope por cantidad tenía un defecto que solo se ve al ordenar los eventos en
+ * el tiempo: como los primeros en ocurrir son los de menos valor (abrió, vio el
+ * video), se comían el cupo y el dueño se quedaba **sin el aviso de que alguien
+ * está escribiendo**, que es la señal de compra. Contar hitos distintos en vez de
+ * mensajes resuelve las dos cosas a la vez: nada se repite y nada importante se
+ * pierde.
  *
- * `MAX_NOTIF_WA` queda solo como freno de mano contra un caso desbocado. Es alto
- * a propósito: dentro de la ventana de 24 h los mensajes de servicio no cuestan
- * (Meta los liberó en nov 2024), así que aquí no se está ahorrando plata — se está
- * cuidando que el dueño no silencie el número, que es lo que de verdad mide Meta.
+ * Y no hay razón para apretar más: dentro de la ventana de 24 h estos mensajes no
+ * cuestan (Meta liberó las conversaciones de servicio en nov 2024) y **no consumen
+ * el límite de mensajería**, que solo cuenta lo que se envía FUERA de ventana. Lo
+ * único que se cuida es que el dueño no silencie el número, y cuatro avisos con
+ * información distinta cada uno no cansan a nadie: son la historia de un conocido
+ * acercándose, contada en vivo.
+ *
+ * `MAX_NOTIF_WA` queda solo como freno de mano contra un caso desbocado.
  */
-export const MAX_NOTIF_PROSPECTO = 2;
-export const MAX_NOTIF_WA = 30;
+export const MAX_NOTIF_WA = 50;
 
 const SITIO = process.env.NEXT_PUBLIC_SITE_URL || 'https://creatuactivo.com';
 

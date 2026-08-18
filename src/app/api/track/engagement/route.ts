@@ -19,7 +19,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { notificarDueño, MAX_NOTIF_PROSPECTO, type EventoDueño } from '@/lib/wa-onboarding'
+import { notificarDueño, type EventoDueño } from '@/lib/wa-onboarding'
 
 export const runtime = 'edge'
 
@@ -105,12 +105,12 @@ export async function POST(request: NextRequest) {
       : (!di.reel_pct && typeof pct === 'number') ? 'abrio'
       : null
 
-    // Tope POR PROSPECTO: dos avisos por persona. Sin esto, quien abre, termina
-    // el video, escribe y vuelve se lleva toda la cuota del dueño, y el segundo
-    // prospecto —el que demuestra que el canal funciona— pasa en silencio.
-    const avisosDeEste = (di.wa_avisos_dueño as number) ?? 0
+    // Un aviso por hito distinto, y ninguno repetido: se guarda qué se avisó ya
+    // de ESTE prospecto. Así el dueño recibe la historia completa —llegó, vio,
+    // escribió— sin que el mismo evento le suene dos veces.
+    const yaAvisados: string[] = Array.isArray(di.wa_hitos_avisados) ? di.wa_hitos_avisados : []
 
-    if (evento && avisosDeEste < MAX_NOTIF_PROSPECTO) {
+    if (evento && !yaAvisados.includes(evento)) {
       try {
         const { data: p } = await supabase
           .from('prospects').select('constructor_id')
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
         if (r === 'enviado') {
           await (supabase.rpc as any)('update_prospect_data', {
             p_fingerprint_id: fingerprint,
-            p_data: { wa_avisos_dueño: avisosDeEste + 1 },
+            p_data: { wa_hitos_avisados: [...yaAvisados, evento] },
             p_constructor_id: undefined,
           })
         } else {

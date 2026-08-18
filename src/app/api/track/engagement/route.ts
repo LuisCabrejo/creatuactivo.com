@@ -19,7 +19,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { notificarDueño, type EventoDueño } from '@/lib/wa-onboarding'
+import { notificarDueño, MAX_NOTIF_PROSPECTO, type EventoDueño } from '@/lib/wa-onboarding'
 
 export const runtime = 'edge'
 
@@ -95,21 +95,36 @@ export async function POST(request: NextRequest) {
     // es el momento que convierte a un dueño nuevo en uno que comparte.
     // `notificarDueño` se autolimita por tope y por ventana de 24 h; aquí solo
     // se traduce el evento y se blinda para que nunca tumbe el tracking.
+    // Se avisa por las señales que significan algo —llegó, se enganchó— y no por
+    // cada hito del reproductor. "Va por la mitad" quedó fuera: es ruido entre
+    // dos señales fuertes, y el ruido es lo que hace que se silencie el número.
     const evento: EventoDueño | null =
       queswa_opened === true ? 'escribio'
       : completed === true   ? 'completo'
-      : (typeof pct === 'number' && pct >= 50 && (di.reel_pct ?? 0) < 50) ? 'vio_mitad'
       : (typeof visit_count === 'number' && visit_count > (di.visit_count ?? 0) && (di.visit_count ?? 0) > 0) ? 'volvio'
       : (!di.reel_pct && typeof pct === 'number') ? 'abrio'
       : null
 
-    if (evento) {
+    // Tope POR PROSPECTO: dos avisos por persona. Sin esto, quien abre, termina
+    // el video, escribe y vuelve se lleva toda la cuota del dueño, y el segundo
+    // prospecto —el que demuestra que el canal funciona— pasa en silencio.
+    const avisosDeEste = (di.wa_avisos_dueño as number) ?? 0
+
+    if (evento && avisosDeEste < MAX_NOTIF_PROSPECTO) {
       try {
         const { data: p } = await supabase
           .from('prospects').select('constructor_id')
           .eq('fingerprint_id', fingerprint).maybeSingle()
         const r = await notificarDueño(supabase, (p as any)?.constructor_id, evento)
-        if (r !== 'enviado') console.log(`🔕 [track/engagement] aviso "${evento}" no enviado: ${r}`)
+        if (r === 'enviado') {
+          await (supabase.rpc as any)('update_prospect_data', {
+            p_fingerprint_id: fingerprint,
+            p_data: { wa_avisos_dueño: avisosDeEste + 1 },
+            p_constructor_id: undefined,
+          })
+        } else {
+          console.log(`🔕 [track/engagement] aviso "${evento}" no enviado: ${r}`)
+        }
       } catch (e) {
         console.error('⚠️ [track/engagement] aviso al dueño falló (no bloquea):', e)
       }

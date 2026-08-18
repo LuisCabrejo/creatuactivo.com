@@ -29,8 +29,22 @@
 
 import { sendText } from '@/lib/wa-channel';
 
-/** Avisos por WhatsApp que recibe cada dueño nuevo antes de pasar al push de la app. */
-export const MAX_NOTIF_WA = 5;
+/**
+ * Dos topes, y cada uno resuelve un problema distinto.
+ *
+ * `MAX_NOTIF_PROSPECTO` es el que importa: **se cuenta por persona, no por
+ * evento**. Un mismo prospecto puede disparar cinco eventos en una sesión (abrir,
+ * mitad, completo, escribir, volver); con un tope global se comía la cuota entero
+ * y el segundo prospecto —que es justo la prueba de que la cosa funciona— no
+ * generaba nada. Dos avisos por persona: que llegó, y que se enganchó.
+ *
+ * `MAX_NOTIF_WA` queda solo como freno de mano contra un caso desbocado. Es alto
+ * a propósito: dentro de la ventana de 24 h los mensajes de servicio no cuestan
+ * (Meta los liberó en nov 2024), así que aquí no se está ahorrando plata — se está
+ * cuidando que el dueño no silencie el número, que es lo que de verdad mide Meta.
+ */
+export const MAX_NOTIF_PROSPECTO = 2;
+export const MAX_NOTIF_WA = 30;
 
 const SITIO = process.env.NEXT_PUBLIC_SITE_URL || 'https://creatuactivo.com';
 
@@ -81,7 +95,6 @@ export function mensajeDeBienvenida(nombreCorto: string, slug: string): string {
 /** Cómo se nombra cada evento. Concreto: qué hizo la persona, no una métrica. */
 const TEXTO_EVENTO: Record<string, string> = {
   abrio:      'abrió su enlace',
-  vio_mitad:  'va por la mitad del video',
   completo:   'vio el video completo',
   escribio:   'me está escribiendo',
   volvio:     'volvió a entrar',
@@ -93,8 +106,8 @@ export function mensajeDeActividad(evento: EventoDueño, restantes: number): str
   const que = TEXTO_EVENTO[evento] || 'tuvo actividad';
   const base = `👀 Alguien de su canal ${que}.`;
 
-  // El último aviso por WhatsApp explica adónde se mudan los siguientes. Sin
-  // esto la persona cree que el sistema dejó de funcionar.
+  // El aviso que agota el cupo explica adónde se mudan los siguientes. Sin esto
+  // la persona cree que el sistema dejó de funcionar.
   if (restantes <= 0) {
     return (
       `${base}\n\n` +

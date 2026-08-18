@@ -132,6 +132,41 @@ auditar si algún fragmento insinúa un pago más rápido del real.**
 
 ---
 
+## 3.5 Modo socio (17 ago, tarde) — y de dónde sale la voz para el paso siguiente
+
+**El canal ya distingue al dueño de canal del prospecto.** `identificarSocio()` lo resuelve
+determinísticamente contra `constructor_slugs`; el socio recibe `saludoDeSocio()` —su enlace y
+una sola pregunta, *"¿a quién le va a escribir hoy?"*— y el motor recibe `pageContext:
+'whatsapp_socio'`, que activa **MODO SOCIO**. Antes, el socio recibía la apertura de prospecto y
+Queswa se presentaba ante él como su propia asistente.
+
+⚠️ **Los teléfonos se comparan NORMALIZADOS en ambos lados.** Están guardados con `+`, con
+espacios y algunos con cero inicial, así que un `.eq()` contra la columna cruda no encuentra a
+nadie — la detección nunca habría funcionado.
+
+### El paso 2, pendiente: redacción asistida de mensajes de contacto
+
+El motor ya sabe que debe hacerlo (está en las instrucciones de MODO SOCIO) pero **no tiene
+fragmentos con qué**. Y la pregunta de cierre del saludo abre justo ahí, así que es lo primero que
+un socio va a pedir.
+
+**Qué fuente usar, decidido con el Director el 17 ago:**
+
+- ✅ **Fiable:** `arsenal_inicial.txt` (cabecera + WHY), las trece respuestas reescritas el 17 ago,
+  y `wa-apertura.ts` — la única sin un solo término retirado.
+- ❌ **NO usar:** `HANDOFF_MENSAJES_1A1_FUNDADORES.md` (mayo 2026: *Arquitecto de Patrimonio*,
+  *Base Operativa*, *ingreso pasivo*, *libertad financiera*) ni `REEL_COPY` de `src/lib/reels.ts`,
+  que además construye con listas de ausencias.
+
+⚠️ **Y una advertencia sobre el diagnóstico de léxico**, para no repetir el error que se cometió
+en esta sesión: un conteo bruto de *"empresa digital"* sobre el arsenal da ~35 y parece una
+emergencia. **No lo es.** Al abrirlas, casi todas están en notas de versión, cabeceras y **líneas
+de disparo** —donde es correcta—. Las de cuerpo las revisó el Director una por una y **se
+conservan todas**: el término no está prohibido, está acotado a no usarse en primer contacto, y
+esos fragmentos responden a quien ya se ganó la categoría. **El arsenal está sano.**
+
+---
+
 ## 4. Pendientes — documentados a propósito, fuera del foco actual
 
 El Director decidió concentrarse en Queswa de WhatsApp para creatuactivo.com. Esto queda abierto,

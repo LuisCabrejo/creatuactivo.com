@@ -760,41 +760,56 @@ export async function POST(request: Request) {
         ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
         : 'whatsapp_inbound';
 
-    const nexusResponse = await fetch(`${baseUrl}/api/nexus`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-tenant-id': 'whatsapp',
-      },
-      body: JSON.stringify({
-        messages:    [...historial, { role: 'user', content: messageText }],
-        sessionId:   waFingerprint,
-        fingerprint: waFingerprint,
-        pageContext,
-      }),
-    });
+    // "Escribiendo…" se apaga solo a los 25 s. Cuando el motor pasa de ahí, el
+    // indicador desaparece justo antes de que llegue el texto — y ese hueco es
+    // el que se siente como abandono. Mientras se espera al motor, se renueva
+    // cada 20 s. Se apaga en `finally`, pase lo que pase.
+    const tMotor = Date.now();
+    const keepalive = wamid
+      ? setInterval(() => { void marcarLeidoYEscribiendo(wamid); }, 20_000)
+      : undefined;
 
-    if (!nexusResponse.ok) {
-      console.error(`❌ [WA Webhook] Motor Queswa retornó ${nexusResponse.status}`);
-      await sendWhatsAppMessage(phoneNumber, 'Hubo un error procesando tu mensaje. Intenta de nuevo en un momento.');
-      return new Response('OK', { status: 200 });
-    }
-
-    // ─── 3. Consumir stream text/plain ───────────────────────────────────────
-    const reader  = nexusResponse.body?.getReader();
-    const decoder = new TextDecoder();
+    let nexusResponse: Response;
     let queswaReply = '';
+    try {
+      nexusResponse = await fetch(`${baseUrl}/api/nexus`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-tenant-id': 'whatsapp',
+        },
+        body: JSON.stringify({
+          messages:    [...historial, { role: 'user', content: messageText }],
+          sessionId:   waFingerprint,
+          fingerprint: waFingerprint,
+          pageContext,
+        }),
+      });
 
-    if (reader) {
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        queswaReply += decoder.decode(value, { stream: true });
+      if (!nexusResponse.ok) {
+        console.error(`❌ [WA Webhook] Motor Queswa retornó ${nexusResponse.status}`);
+        await sendWhatsAppMessage(phoneNumber, 'Hubo un error procesando su mensaje. Inténtelo de nuevo en un momento.');
+        return new Response('OK', { status: 200 });
       }
+
+      // ─── 3. Consumir stream text/plain ─────────────────────────────────────
+      const reader  = nexusResponse.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          queswaReply += decoder.decode(value, { stream: true });
+        }
+      }
+    } finally {
+      if (keepalive) clearInterval(keepalive);
     }
 
+    const msMotor = Date.now() - tMotor;
     queswaReply = queswaReply.trim();
-    console.log(`💬 [WA Webhook] Queswa responde (${pageContext}): "${queswaReply.slice(0, 80)}..."`);
+    console.log(`💬 [WA Webhook] Queswa responde (${pageContext}, motor ${msMotor} ms): "${queswaReply.slice(0, 80)}..."`);
 
     // ─── 3.5 Guardrail de salida ──────────────────────────────────────────────
     // Última barrera antes de Meta. Si el modelo propuso un modelo de negocio que
@@ -945,6 +960,16 @@ export async function POST(request: Request) {
         else console.warn(`⚠️ [WA Webhook] Flow simulador BINARIO no se pudo enviar: ${enviado.error}`);
       }
     }
+
+    // ─── Cronómetro del turno ─────────────────────────────────────────────────
+    // Una línea por turno con el total y cuánto de eso fue el motor. El techo
+    // de la función son 30 s (`maxDuration`): pasado eso Vercel la mata y la
+    // persona, que ya vio "escribiendo…", no recibe nada y el turno no se
+    // guarda. Un turno que pasa de 20 s se marca para que se vea venir.
+    const msTotal = Date.now() - t0;
+    const linea = `⏱ [WA Webhook] turno ${msTotal} ms (motor ${msMotor} ms, resto ${msTotal - msMotor} ms) · ${queswaReply.length} chars`;
+    if (msTotal > 20_000) console.warn(`${linea} — CERCA DEL TECHO de ${maxDuration} s`);
+    else console.log(linea);
 
     return new Response('OK', { status: 200 });
 

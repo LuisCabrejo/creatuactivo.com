@@ -72,7 +72,7 @@ function getAnthropicClient(): Anthropic {
  * Al ampliarlo, volver a correr esa comprobación — un falso positivo aquí es
  * más caro que un falso negativo.
  */
-const RE_VOLICION =
+export const RE_VOLICION =
   /(quiero|deseo|quisiera|me gustar[ií]a|me interesa|voy a|listo para|lista para|necesito)\s+(arrancar|ini?[cs]iar|empe[zs]ar|comen[zs]ar|activar|entrar|vincularme|inscribirme|registrarme|afiliarme|anotarme|participar|comprar)\b(?!\s+a\s+(entender|ver|conocer|saber|aprender|mirar))|arranquemos|empecemos|comencemos|ini?[cs]i[eé]mos|hag[aá]moslo|me decido|ya me decid[ií]|me apunto|me anoto|me lanzo|cuente conmigo|(?<!\bno\s)estoy list[oa]\b|d[oó]nde\s+(pago|consigno|transfiero|deposito|me inscribo|me registro)|c[oó]mo\s+(pago|consigno|hago el pago)|quiero (el |ese |ese paquete|comprar)/i;
 
 /**

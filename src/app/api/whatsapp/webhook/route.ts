@@ -23,7 +23,7 @@ import {
   APERTURA_OPCIONES,
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
-import { gestionarCierre } from '@/lib/wa-radicacion';
+import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import {
   slugDesdeNombre,
@@ -388,7 +388,19 @@ export async function POST(request: Request) {
     //
     // Se persiste el turno para que el motor reconstruya bien el hilo; si no, el
     // segundo mensaje volvería a contar como el primero y Queswa re-saludaría.
-    if (!existingProspect) {
+    // ⚠️ Quien LLEGA DECIDIDO no recibe la bienvenida: recibe la radicación.
+    // El caso es real y frecuente cuando el socio cierra por teléfono o en
+    // persona y le pasa a su contacto un enlace wa.me con el texto listo. Si a
+    // ese mensaje se le responde con el saludo y los tres botones, la persona
+    // que ya dijo que sí tiene que volver a decirlo — y ese es justo el momento
+    // en que se enfría. Al saltar la apertura, el turno sigue de largo hasta
+    // `gestionarCierre`, que pide los cuatro datos en un solo mensaje.
+    const llegaDecidido = RE_VOLICION.test(messageText);
+    if (llegaDecidido) {
+      console.log(`🎯 [WA Webhook] ${phoneNumber} llega con volición declarada — se salta la apertura`);
+    }
+
+    if (!existingProspect && !llegaDecidido) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
       const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);

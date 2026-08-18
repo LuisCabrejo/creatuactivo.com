@@ -16,7 +16,7 @@
 // Tenant: whatsapp (system prompt 'queswa_whatsapp' en Supabase)
 
 import { createClient } from '@supabase/supabase-js';
-import { sendText, sendReplyButtons, sendFlow } from '@/lib/wa-channel';
+import { sendText, sendReplyButtons, sendFlow, sendTemplate } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -29,6 +29,7 @@ import {
   slugDesdeNombre,
   normalizarWhatsApp,
   mensajeDeBienvenida,
+  enlaceDeCanal,
   avisarSocioNuevoProspecto,
 } from '@/lib/wa-onboarding';
 import {
@@ -359,9 +360,21 @@ export async function POST(request: Request) {
       if (resultado.ok) {
         const bienvenida = mensajeDeBienvenida(corto, resultado.slug);
 
-        // Se intenta entregárselo directamente; si la ventana de 24 h está
-        // cerrada, Meta lo rechaza y no pasa nada malo.
-        const enviado = await sendText(destino, bienvenida);
+        // Dos caminos, en este orden. Dentro de la ventana el texto libre es
+        // mejor: llega completo, con la instrucción de los cinco contactos y el
+        // aviso de lo que va a pasar después. Fuera de ventana Meta solo acepta
+        // plantilla, así que entra `enlace_canal_listo` (aprobada el 17 ago), que
+        // entrega el enlace y trae un botón: al tocarlo la persona ABRE su
+        // ventana y a partir de ahí Queswa ya puede escribirle libremente.
+        let enviado = await sendText(destino, bienvenida);
+        if (!enviado.ok) {
+          const conPlantilla = await sendTemplate(destino, 'enlace_canal_listo', 'es', [
+            corto,
+            enlaceDeCanal(resultado.slug),
+          ]);
+          if (conPlantilla.ok) enviado = conPlantilla;
+          console.log(`📨 [WA Admin] Fuera de ventana → plantilla ${conPlantilla.ok ? 'entregada' : 'falló: ' + conPlantilla.error}`);
+        }
 
         // ⚠️ El mensaje listo para reenviar va SIEMPRE, haya llegado o no.
         // Es lo que vuelve irrelevante la ventana de 24 h: el Director ya está
@@ -371,7 +384,7 @@ export async function POST(request: Request) {
         // solo toque sostenido.
         await sendWhatsAppMessage(phoneNumber, enviado.ok
           ? `✅ ${nombre} ya tiene su canal y le llegó el enlace a su WhatsApp.\n\nSi quiere reenviárselo usted también, aquí está el texto 👇`
-          : `✅ ${nombre} ya tiene su canal.\n\nTodavía no me deja escribirle (no me ha escrito nunca), así que reenvíele usted este texto 👇`);
+          : `✅ ${nombre} ya tiene su canal, pero WhatsApp no me dejó entregárselo.\n\nReenvíele usted este texto 👇`);
         await sendWhatsAppMessage(phoneNumber, bienvenida);
       } else {
         await sendWhatsAppMessage(phoneNumber, `No pude crear el canal de ${nombre}: ${resultado.error}`);

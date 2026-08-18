@@ -330,21 +330,60 @@ export async function POST(request: Request) {
       codigoGano = d.slice(largoTel);
     }
 
+    // Si el comando llega sin teléfono, se busca a la persona por nombre entre
+    // las radicaciones recientes: quien ya conversó con Queswa dejó ahí su
+    // número, y volver a teclearlo es trabajo que la máquina puede hacer sola.
+    if (mComando && nombre && telefono.length < 12 && admins.includes(phoneNumber)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: radicados } = await (supabase as any)
+        .from('pending_activations')
+        .select('nombre_completo, whatsapp, gano_excel_id')
+        .ilike('nombre_completo', `%${nombre.split(/\s+/)[0]}%`)
+        .order('created_at', { ascending: false })
+        .limit(1);
+      const hit = (radicados || [])[0];
+      if (hit?.whatsapp) {
+        telefono   = normalizarWhatsApp(hit.whatsapp);
+        codigoGano = codigoGano || hit.gano_excel_id || '';
+        nombre     = hit.nombre_completo || nombre;
+        console.log(`🔎 [WA Admin] "${nombre}" resuelto desde pending_activations`);
+      }
+    }
+
     if (mComando && nombre && telefono.length >= 12 && admins.includes(phoneNumber)) {
       const destino = telefono;
       const corto   = nombre.split(/\s+/)[0];
       const resultado = await activarCanal(supabase, nombre, destino, codigoGano);
 
       if (resultado.ok) {
-        const enviado = await sendText(destino, mensajeDeBienvenida(corto, resultado.slug));
+        const bienvenida = mensajeDeBienvenida(corto, resultado.slug);
+
+        // Se intenta entregárselo directamente; si la ventana de 24 h está
+        // cerrada, Meta lo rechaza y no pasa nada malo.
+        const enviado = await sendText(destino, bienvenida);
+
+        // ⚠️ El mensaje listo para reenviar va SIEMPRE, haya llegado o no.
+        // Es lo que vuelve irrelevante la ventana de 24 h: el Director ya está
+        // conversando con esa persona en su propio chat, así que pegar el texto
+        // le cuesta un toque y no depende de ninguna política de Meta. Va en un
+        // mensaje aparte, sin nada alrededor, para que se pueda copiar de un
+        // solo toque sostenido.
         await sendWhatsAppMessage(phoneNumber, enviado.ok
-          ? `Listo. ${nombre} ya tiene su canal: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://creatuactivo.com'}/${resultado.slug}\n\nLe llegó el enlace a su WhatsApp.`
-          // Fuera de ventana: Meta rechaza el texto libre. Se dice qué hacer, no que falló.
-          : `El canal de ${nombre} quedó creado (/${resultado.slug}), pero WhatsApp no me deja escribirle todavía.\n\nPídale que le mande cualquier mensaje al ${process.env.WHATSAPP_DISPLAY_NUMBER || 'número de Queswa'} y repita el comando.`);
+          ? `✅ ${nombre} ya tiene su canal y le llegó el enlace a su WhatsApp.\n\nSi quiere reenviárselo usted también, aquí está el texto 👇`
+          : `✅ ${nombre} ya tiene su canal.\n\nTodavía no me deja escribirle (no me ha escrito nunca), así que reenvíele usted este texto 👇`);
+        await sendWhatsAppMessage(phoneNumber, bienvenida);
       } else {
         await sendWhatsAppMessage(phoneNumber, `No pude crear el canal de ${nombre}: ${resultado.error}`);
       }
       console.log(`🎫 [WA Admin] ACTIVAR "${nombre}" → ${destino} · ${resultado.ok ? resultado.slug : resultado.error}`);
+      return new Response('OK', { status: 200 });
+    }
+
+    // El comando salió mal escrito o la persona no está radicada: se dice qué
+    // falta, en vez de dejar el mensaje sin respuesta.
+    if (mComando && admins.includes(phoneNumber) && nombre) {
+      await sendWhatsAppMessage(phoneNumber,
+        `No encontré el número de ${nombre}.\n\nEscríbame así:\nACTIVAR ${nombre} 3001234567`);
       return new Response('OK', { status: 200 });
     }
 

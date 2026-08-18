@@ -85,8 +85,17 @@ function metaError(status: number, data: unknown): string {
 /**
  * Mensaje de texto libre. Solo válido dentro de la ventana de servicio de 24h
  * abierta por el usuario; fuera de ella Meta rechaza y hay que usar plantilla.
+ *
+ * `responderA` cuelga la respuesta del mensaje de la persona: WhatsApp la
+ * muestra citada arriba de la burbuja. En este canal la gente manda tres
+ * mensajes antes de que uno alcance a contestar — sin la cita, la respuesta
+ * queda flotando y hay que adivinar a cuál de los tres contesta.
  */
-export async function sendText(to: string, text: string): Promise<WAResult> {
+export async function sendText(
+  to: string,
+  text: string,
+  opciones: { responderA?: string } = {},
+): Promise<WAResult> {
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -103,6 +112,7 @@ export async function sendText(to: string, text: string): Promise<WAResult> {
       body: JSON.stringify({
         messaging_product: 'whatsapp',
         to: normalizePhone(to),
+        ...(opciones.responderA && { context: { message_id: opciones.responderA } }),
         type: 'text',
         text: { body: text },
       }),
@@ -123,6 +133,63 @@ export async function sendText(to: string, text: string): Promise<WAResult> {
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error('❌ [WA] sendText error:', msg);
+    return { ok: false, error: msg };
+  }
+}
+
+// ─── Acuse: visto azul + "escribiendo…" ───────────────────────────────────────
+
+/**
+ * Marca leído el mensaje entrante y muestra "escribiendo…" a la persona.
+ *
+ * Las dos cosas viajan en la MISMA llamada: el payload lleva `status: read` y
+ * `typing_indicator` a la vez, así que no hay forma de pagar dos viajes por algo
+ * que Meta resuelve en uno.
+ *
+ * POR QUÉ: entre que la persona escribe y le llega la primera letra corren la
+ * reescritura de la consulta, la búsqueda vectorial, el modelo y tres
+ * guardarraíles de salida. Sin esto, su pantalla no acusa absolutamente nada en
+ * todo ese rato — ni el visto azul —, y el silencio de un canal donde todo el
+ * mundo responde al instante se lee como que no hay nadie del otro lado.
+ *
+ * ⚠️ El indicador se cae solo a los 25 segundos, o antes si usted responde. Meta
+ * pide explícitamente NO mostrarlo si no va a responder: la promesa de una
+ * respuesta que nunca llega es peor que el silencio.
+ *
+ * Nunca lanza ni bloquea: si Meta rechaza, la persona pierde el acuse, no la
+ * respuesta.
+ */
+export async function marcarLeidoYEscribiendo(messageId: string): Promise<WAResult> {
+  const creds = credentials();
+  if ('error' in creds) return { ok: false, error: creds.error };
+  if (!messageId) return { ok: false, error: '[WA] Falta el message_id del entrante' };
+
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${creds.systemToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        status: 'read',
+        message_id: messageId,
+        typing_indicator: { type: 'text' },
+      }),
+    });
+
+    if (!response.ok) {
+      const msg = metaError(response.status, await response.json());
+      console.warn(`⚠️ [WA] marcarLeidoYEscribiendo — ${msg}`);
+      return { ok: false, error: msg };
+    }
+
+    return { ok: true };
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.warn('⚠️ [WA] marcarLeidoYEscribiendo error:', msg);
     return { ok: false, error: msg };
   }
 }

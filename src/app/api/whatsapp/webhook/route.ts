@@ -298,13 +298,42 @@ export async function POST(request: Request) {
     // manda el comando no es un prospecto y no debe pasar por esas capas.
     const admins = (process.env.WA_ADMIN_NUMBERS || '573203415438,573206805737')
       .split(',').map((n) => n.trim()).filter(Boolean);
-    const mComando = /^\s*activar\s+(.+?)\s+(\d[\d\s-]{6,})\s*$/i.exec(messageText);
+    // Formas aceptadas (el código de Gano es opcional y puede llegar después):
+    //   ACTIVAR Julieth Cabrejo 3001234567
+    //   ACTIVAR Julieth Cabrejo 300 123 4567 7118234
+    const mComando = /^\s*activar\s+(.+)$/i.exec(messageText);
+    const partes   = mComando ? mComando[1].trim().split(/\s+/) : [];
+    // Un token cuenta como "de la cola" si es puramente numérico o si es un
+    // código alfanumérico de Gano (GE7516362). Exigir 4 caracteres y al menos un
+    // dígito evita que se trague una palabra del nombre.
+    const esNum    = (t: string) =>
+      /^[\d+\s-]+$/.test(t) || (/^[A-Za-z0-9]{4,}$/.test(t) && /\d/.test(t));
 
-    if (mComando && admins.includes(phoneNumber)) {
-      const nombre  = mComando[1].trim();
-      const destino = normalizarWhatsApp(mComando[2]);
+    // Se leen los tokens numéricos del final: el último puede ser el código de
+    // Gano y el anterior el teléfono. Separarlos por posición —y no por longitud—
+    // evita fallar con números escritos con espacios o guiones.
+    let telefono = '', codigoGano = '', nombre = '';
+    if (partes.length >= 2) {
+      const cola: string[] = [];
+      while (partes.length && esNum(partes[partes.length - 1]) && cola.length < 5) {
+        cola.unshift(partes.pop() as string);
+      }
+      nombre = partes.join(' ').trim();
+
+      // Todo lo numérico del final se junta en una sola cadena de dígitos y se
+      // parte por LONGITUD, no por token: así da igual que el teléfono venga
+      // como "3001234567", "300 123 4567" o "300-123-4567", y el código de Gano
+      // —cuando lo hay— queda con lo que sobra.
+      const d = cola.join('').replace(/\D/g, '');
+      const largoTel = d.startsWith('57') ? 12 : 10;
+      telefono   = normalizarWhatsApp(d.slice(0, largoTel));
+      codigoGano = d.slice(largoTel);
+    }
+
+    if (mComando && nombre && telefono.length >= 12 && admins.includes(phoneNumber)) {
+      const destino = telefono;
       const corto   = nombre.split(/\s+/)[0];
-      const resultado = await activarCanal(supabase, nombre, destino);
+      const resultado = await activarCanal(supabase, nombre, destino, codigoGano);
 
       if (resultado.ok) {
         const enviado = await sendText(destino, mensajeDeBienvenida(corto, resultado.slug));
@@ -1054,16 +1083,29 @@ async function activarCanal(
   supabase: any,
   nombre: string,
   whatsapp: string,
+  codigoGano?: string,
 ): Promise<{ ok: true; slug: string } | { ok: false; error: string }> {
-  if (!whatsapp || whatsapp.length < 10) return { ok: false, error: 'el número no parece completo' };
+  if (!whatsapp || whatsapp.length < 12) return { ok: false, error: 'el número no parece completo' };
+
+  const sinTildes = (t: string) =>
+    t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
 
   try {
-    // Si ese número ya tiene canal, se devuelve el suyo en vez de crear otro:
-    // el comando repetido es lo normal cuando el primer envío cayó fuera de ventana.
+    // Repetir el comando es lo normal cuando el primer envío cayó fuera de
+    // ventana, así que un número que ya tiene canal recibe el suyo, no otro.
     const { data: previo } = await supabase
       .from('constructor_slugs').select('slug').eq('whatsapp', whatsapp).maybeSingle();
     if (previo?.slug) return { ok: true, slug: previo.slug };
 
+    // ⚠️ `constructor_id` NO es un UUID: es la llave de texto con la que el
+    // Dashboard y la página del reel se entienden, y su formato es
+    // `nombre-completo-en-slug` + código de Gano. Con un UUID aleatorio la
+    // página del reel no encuentra al dueño en `private_users` y cae al número
+    // orgánico — el prospecto terminaría escribiéndole a otra persona.
+    const sufijo = (codigoGano || '').replace(/\D/g, '') || String(Date.now()).slice(-6);
+    const constructorId = `${sinTildes(nombre).split(/\s+/).join('-')}-${sufijo}`.slice(0, 60);
+
+    // El slug corto es el que la persona comparte; el largo vive en constructor_id.
     const base = slugDesdeNombre(nombre);
     let slug = base;
     for (let i = 2; i <= 20; i++) {
@@ -1073,11 +1115,27 @@ async function activarCanal(
       slug = `${base}${i}`;
     }
 
+    // La cuenta primero: sin esta fila, la página del reel muestra el WhatsApp
+    // orgánico en vez del suyo. `plan_type` entra como 'inicial' y lo corrige el
+    // Centro de Mando; lo que no puede faltar hoy es el teléfono.
+    const { error: eUser } = await supabase.from('private_users').insert({
+      name: nombre,
+      constructor_id: constructorId,
+      whatsapp,
+      status: 'active',
+      role: 'constructor',
+      plan_type: 'inicial',
+      ...(codigoGano ? { gano_excel_id: codigoGano.replace(/\D/g, '') } : {}),
+    });
+    if (eUser && !`${eUser.message}`.includes('duplicate')) {
+      return { ok: false, error: `no pude crear la cuenta (${eUser.message})` };
+    }
+
     const { error } = await supabase.from('constructor_slugs').insert({
       slug,
       display_name: nombre,
       whatsapp,
-      constructor_id: crypto.randomUUID(),
+      constructor_id: constructorId,
       activado_en: new Date().toISOString(),
     });
     if (error) return { ok: false, error: error.message };
@@ -1087,3 +1145,4 @@ async function activarCanal(
     return { ok: false, error: err instanceof Error ? err.message : 'error inesperado' };
   }
 }
+

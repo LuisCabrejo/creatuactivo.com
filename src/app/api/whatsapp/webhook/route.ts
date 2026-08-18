@@ -42,6 +42,7 @@ import {
   RECHAZO_SALUD_GRAVE,
   RECHAZO_SALUD_CORTO,
 } from '@/lib/wa-guardarrail-salud';
+import { detectarPromesaDeIngreso } from '@/lib/wa-guardarrail-negocio';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -566,6 +567,12 @@ export async function POST(request: Request) {
         // turno siguiente elabora sobre la infracción. Los rechazos propios
         // (esRechazoSalud) nunca disparan detectarClaimSaludEnSalida, así que no
         // hay riesgo de re-sanear lo ya saneado.
+        if (rol === 'assistant' && detectarPromesaDeIngreso(m.content)) {
+          historial.push({ role: 'assistant', content: RESPUESTA_CORRECTIVA });
+          turnosSaneados++;
+          continue;
+        }
+
         if (rol === 'assistant' && detectarClaimSaludEnSalida(m.content)) {
           historial.push({ role: 'assistant', content: RECHAZO_SALUD_ESTANDAR });
           turnosSaneados++;
@@ -712,6 +719,21 @@ export async function POST(request: Request) {
     const violacion = detectarModeloInventado(queswaReply);
     if (violacion) {
       console.error(`🚨 [WA Guardrail] BLOQUEADO — término "${violacion}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
+      await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
+      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
+      return new Response('OK', { status: 200 });
+    }
+
+    // Guardarraíl de negocio — SALIDA. La contraparte del de salud, para el otro
+    // riesgo que puede costar la cuenta: la promesa de ingreso. El copy de los
+    // arsenales ya está corregido, pero eso solo cubre lo que el modelo ENTREGA;
+    // cuando ningún fragmento dispara, COMPONE — y en la prueba del 14 ago
+    // compuso una pirámide de 3.125 personas y un "ingreso inmediato". Esta es la
+    // red que faltaba debajo. Meta sanciona las promesas de ingreso en el canal y
+    // el Estatuto del Consumidor las vuelve exigibles a la empresa.
+    const promesa = detectarPromesaDeIngreso(queswaReply);
+    if (promesa) {
+      console.error(`🚨 [WA Guardrail Negocio] BLOQUEADO — "${promesa}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
       return new Response('OK', { status: 200 });

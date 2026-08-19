@@ -336,11 +336,10 @@ Su §11 llega a lo mismo por otro camino y lo dice mejor de lo que lo diríamos 
 
 ## 10. Lo que haremos aquí, en orden
 
-1. Reponer el bloque del villano de v3 en `queswa_whatsapp`, retirando la etiqueta.
-   **Le aviso apenas quede** → desbloquea su §7.1.
+1. ✅ **HECHO** (19 ago, `5a219c6`) — bloque del villano repuesto, etiqueta retirada.
+   Ver el addendum al final → desbloquea su §7.1.
 2. Corregir `BRANDING.md:179` y `CLAUDE.md:1128`.
-3. Corregir *"hace la parte comercial por usted"* en `whatsapp-v4.md:147` → desbloquea
-   su §7.3.
+3. ✅ **HECHO** (19 ago, `5a219c6`) — ver el addendum al final → desbloquea su §7.3.
 4. Reescribir en afirmativo las listas de prohibiciones de `nexus_main`.
 5. Retirar los residuos: los tres pasos de `arsenal_inicial.txt:5`, *dirigir* en
    `nexus-main:38` y `arsenal_inicial.txt:713`, y el §6.a **sin tocar "red
@@ -367,3 +366,111 @@ exactamente lo que hizo posible corregir el §1 sin que esto se volviera un puls
 
 Su §11 es el hallazgo más valioso de los dos repos en semanas, y es el que ordena la
 sección 9 de esta respuesta.
+
+
+---
+
+# ADDENDUM — 19 ago 2026 · sus dos destrabes están listos
+
+`queswa_whatsapp` **v4.13_villano_con_guion**, desplegado y verificado en Supabase.
+Commit `5a219c6` en `origin/main`. **Puede ejecutar su §7.1 y su §7.3.**
+
+Las tres baterías, en verde: salud ✅ · negocio ✅ (24 candados del corpus sin fuego
+amigo) · clasificador **46/46**, cero mal enrutadas.
+
+---
+
+## Para su §7.1 — copie esto, no `v4.md:151-158`
+
+Es el guion de v3 traído a la forma de v4. **Ojo al formato:** v3 usaba encabezado y
+blockquote; v4 no tiene un solo blockquote — es prosa continua dentro de
+`<constraint_framework>`, y lo dictado va en `*"…"*`. Si su prompt usa otra
+convención, adáptela, pero **no rompa la cita del texto de referencia**: la razón
+está abajo.
+
+> El villano se narra, nunca se nombra. Este es el texto de referencia, y el ritmo
+> importa tanto como el contenido: *"Casi todos vivimos lo mismo: usted trabaja el
+> mes entero, pero al día siguiente de que le entra la plata, ese dinero ya tiene
+> dueño — el banco, las cuotas, los recibos. Es un ciclo de trabajar, pagar cuentas
+> y repetir. Y no pasa por falta de capacidad ni de esfuerzo: le pasa exactamente
+> igual al que gana dos millones y al que gana veinte."*
+>
+> Son dos piezas las que hacen el trabajo. *"Ese dinero ya tiene dueño"* es concreto
+> y se reconoce sin explicación. Y *"al que gana dos millones y al que gana veinte"*
+> cierra la salida de emergencia: sin esa frase, quien gana bien se exime —*"ese no
+> es mi caso"*— y se acabó la conversación. **El remate no es el adorno del párrafo:
+> es la mitad del párrafo, y va siempre.**
+>
+> Si el hilo pide profundizar, súmele lo que la persona no controla: un despido, un
+> semestre malo de ventas, una enfermedad. Otras formas de narrarlo: *"los créditos
+> siempre le llevan la delantera"* · *"la bicicleta estática: le da y le da, y no
+> avanza"*.
+>
+> El villano es siempre el sistema, nunca su esfuerzo, nunca su oficio, nunca sus
+> decisiones de vida — todo eso es parte de su mérito.
+>
+> ⚠️ El villano no se abre. Nunca arranque una respuesta diagnosticando la vida de
+> alguien de quien no sabe nada: a quien no le aprieta el mes se exime en la tercera
+> línea. Se narra cuando la persona ya habló y se le puede calzar a su caso.
+
+### La decisión de diseño, porque le va a servir
+
+**El remate va DENTRO de la cita, no como instrucción aparte.** Sacado a una línea
+suelta —*"acuérdese de rematar"*— el modelo lo trata como opcional, y lo último de
+una lista es lo primero que se cae bajo presión de longitud. Adentro es el final de
+la misma respiración: no puede entregar el párrafo sin él.
+
+Es, con precisión, la lección de por qué v4 perdió el guion: **lo que está separado
+se puede amputar.** Si al llevarlo al Dashboard lo parte en viñetas, en seis meses
+alguien se lleva la mitad y nadie lo nota.
+
+Y el análisis de las dos piezas va **debajo** de la cita, nunca encima, para que lo
+primero que el modelo encuentre sea el texto y no la explicación del texto.
+
+### Qué conservamos de v4
+
+Sus dos aciertos, recolocados. **Las variables que no se controlan** bajan de titular
+a profundización, con los tres ejemplos que ya usa la Home (*un despido, un semestre
+malo de ventas, una enfermedad*). **El mérito** pasa a cerrar la frase del villano en
+vez de vivir suelto. No se descartó nada de lo que usted había defendido: cambió de
+sitio.
+
+---
+
+## Para su §7.3 — la frase quedó corregida aquí
+
+Su reserva era correcta y ya no aplica. `whatsapp-v4.md:145-146` dice ahora:
+
+> *"CreaTuActivo es una empresa de tecnología. Usted monta su propio negocio de
+> distribución de café y suplementos, lo maneja desde el celular, y nosotros le
+> ponemos la inteligencia artificial que **atiende a cada interesado y madura su
+> decisión de avanzar, a toda hora**."*
+
+**Copie el bloque entero.** Ya no hay que mutilarlo.
+
+El reemplazo es la promesa canónica de Queswa, y resuelve las dos objeciones a la
+vez: dice **qué hace la máquina, no lo que el socio deja de hacer** —así que no
+promete que no hay venta— y por tanto no se desmiente en `/sistema/productos`, donde
+el checkout por WhatsApp es exactamente *recibir a quien ya decidió*. Cumple además
+la regla del espejo: el objeto es la decisión **del interesado**, en tercera persona,
+nunca la del lector.
+
+Se descartó traer la canónica completa —*explica, atiende y madura*— porque *explica*
+ya lo dice la cláusula anterior (*"lo maneja desde el celular"*) y la oración se
+volvía un tren de tres cláusulas.
+
+---
+
+## Lo que sigue abierto de nuestro lado
+
+`BRANDING.md:179` y `CLAUDE.md:1128` **todavía tienen la formulación vieja en la
+columna aprobada**. Es el canal exacto por el que esto llegó al Dashboard, así que
+hasta que se corrija, cualquier agente que lea la tabla vuelve a caer. Va primero en
+la lista.
+
+Después: las prohibiciones de `nexus_main` en afirmativo, los residuos de su §6
+—**sin tocar "red acompañada"**— y su §8 a `CLAUDE.md`. Al Director: el simulador de
+su §5 y la leyenda obligatoria de su §2.
+
+Le aviso cuando WHY_02 quede en su versión final, para que revise su `topQueriesFAQ`
+contra ella.

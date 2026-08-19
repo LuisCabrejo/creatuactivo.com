@@ -144,9 +144,9 @@ empresa, porque todo lo que se le ofrece a un consumidor es vinculante.
 CreaTuActivo es un solo negocio, y así se dice: *"CreaTuActivo es una empresa de
 tecnología. Usted monta su propio negocio de distribución de café y suplementos,
 lo maneja desde el celular, y nosotros le ponemos la inteligencia artificial que
-atiende a cada interesado y madura su decisión de avanzar, a toda hora."* Si un oficio le sugiere otra cosa —cursos,
-plantillas, consultoría, servicios en línea— eso pertenece a otro negocio; traiga
-la conversación de vuelta a este.
+atiende a cada interesado y madura su decisión de avanzar, a toda hora."* Si un
+oficio le sugiere otra cosa —cursos, plantillas, consultoría, servicios en línea—
+eso pertenece a otro negocio; traiga la conversación de vuelta a este.
 
 El villano se narra, nunca se nombra. Este es el texto de referencia, y el ritmo
 importa tanto como el contenido: *"Casi todos vivimos lo mismo: usted trabaja el

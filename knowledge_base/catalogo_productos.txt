@@ -1,5 +1,6 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.3
+# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.4
 **Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
+**v7.4 (19 ago 2026):** Los candados de las tablas por categoría dejan de enunciar lo que no existe — toda aclaración de nombres va en afirmativo, y el adjetivo de dosis se retira de los suplementos (criterio INVIMA: se describe la presentación, no el efecto). Sin cambios de precios ni CV/PV.
 **v7.3 (7 ago 2026):** "Flujo de caja" retirado (decisión del Director): PROD_02 "estabilidad del ingreso" · PROD_OVERVIEW (verbatim_lock) "activo con ingreso recurrente". Sin cambios de precios ni CV/PV.
 **v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
 
@@ -139,7 +140,7 @@ En el mercado abundan productos con Ganoderma en polvo, de biodisponibilidad lim
 ---
 
 ### PROD_OVERVIEW: "¿Cómo se estructura el portafolio? / ¿Cuáles son las categorías de productos? / ¿Qué tipo de productos tienen? / ¿Cuál es el producto? / vista general del portafolio / dame un resumen de los productos"
-**[Concepto Nuclear]:** Vista global del portafolio. **CRÍTICO: el portafolio se estructura en CUATRO categorías — NUNCA omitir Suplementos ni LUVOCO al describir el portafolio.**
+**[Concepto Nuclear]:** Vista global del portafolio. **El portafolio se estructura en CUATRO categorías, y las cuatro se nombran siempre juntas: Bebidas, LUVOCO, Suplementos y Cuidado Personal.**
 
 <verbatim_lock>
 El portafolio del ecosistema se estructura en **cuatro categorías** de consumo, todas con extracto propietario de Ganoderma lucidum de Gano Excel:
@@ -151,7 +152,7 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 > Máquina italiana de 15 bares + 3 intensidades de cápsulas exclusivas (Suave, Medio, Fuerte). Máquina: $1,026,000 COP · Cápsulas: $110,900 COP cada presentación.
 
 **3. Suplementos Avanzados** — 3 productos
-> Cápsulas concentradas de dosis terapéutica: Ganoderma (inmunológico), Excellium (claridad mental), Cordygold (rendimiento físico). Rango: $272,500 — $336,900 COP.
+> Cápsulas concentradas: Ganoderma (apoyo inmune), Excellium (claridad mental), Cordygold (rendimiento físico). Rango: $272,500 — $336,900 COP.
 
 **4. Cuidado Personal** — 6 productos
 > Línea diaria del hogar: Gano Fresh (pasta dental), Jabón Gano, Jabón Transparente, Shampoo + Acondicionador + Exfoliante Piel&Brillo. Rango: $73,900 — $78,500 COP.
@@ -166,7 +167,7 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 ## CATEGORÍA 1: BEBIDAS FUNCIONALES
 
 ### BEB_01: "¿Cuáles son los cafés disponibles? / ¿Cuáles son sus bebidas? / ¿Qué productos tienen? / Háblame de los productos / ¿Cuáles son los productos?"
-**[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **NO inventar productos fuera de esta tabla** — los únicos productos de bebidas disponibles son los 9 listados.
+**[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **Los únicos productos de bebidas son los 9 de esta tabla**, con estos nombres exactos: el té es Oleaf Gano Rooibos, el chocolate es Gano Schokolade y el café puro es Ganocafé Clásico.
 
 <verbatim_lock>
 La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — todos contienen extracto propietario de Ganoderma lucidum de Gano Excel:
@@ -183,9 +184,6 @@ La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — t
 | **Gano Schokolade** | $124,900 | 20 sobres | Chocolate premium |
 | **Reskine Colágeno** | $216,900 | 10 sachets | Piel, cabello, articulaciones |
 
-El té de la línea es **Oleaf Gano Rooibos** (no existe ningún producto llamado "Ganotea").
-El chocolate de la línea es **Gano Schokolade** (no existe ningún producto llamado "Gano Cocoa").
-El café puro es **Ganocafé Clásico** (no existe ningún producto llamado "Ganocafé Negro").
 </verbatim_lock>
 
 ---
@@ -287,18 +285,18 @@ Las cápsulas son exclusivas para la máquina LUVOCO — no compatibles con Nesp
 ## CATEGORÍA 3: SUPLEMENTOS AVANZADOS
 
 ### SUP_01: "¿Cuáles son los suplementos? / ¿Tienen suplementos dietarios? / ¿Qué cápsulas hay? / suplementos concentrados / suplemento dietario"
-**[Concepto Nuclear]:** Dosis Terapéutica de Máxima Concentración. Tecnología activa sin dilución. **Es una de las 4 categorías del portafolio — NUNCA omitir cuando se listan categorías**.
+**[Concepto Nuclear]:** Concentrados en cápsula, sin dilución. **Es una de las 4 categorías del portafolio y se lista siempre junto a las otras tres.** Los tres nombres exactos son Cápsulas Ganoderma, Cápsulas Excellium y Cápsulas Cordygold.
 
 <verbatim_lock>
-La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrados en cápsulas, dosis terapéutica:
+La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrados en cápsulas:
 
 | Producto | Precio COP | Duración | Enfoque |
 |----------|------------|----------|---------|
-| **Cápsulas Ganoderma** | $272,500 | 90 caps (3 meses) | Soporte inmunológico máximo |
+| **Cápsulas Ganoderma** | $272,500 | 90 caps (3 meses) | Apoyo al sistema inmune |
 | **Cápsulas Excellium** | $272,500 | 90 caps (3 meses) | Claridad mental, enfoque |
 | **Cápsulas Cordygold** | $336,900 | 90 caps (3 meses) | Rendimiento físico |
 
-Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea. No existe ningún producto llamado "Gano Supreme".
+Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea.
 </verbatim_lock>
 
 ---

@@ -2740,6 +2740,34 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
+  // ⚡ ROUTING DIRECTO: PROCESO DE INICIO CON PAQUETE YA ELEGIDO → ACTIVACION_01
+  // "¿cómo se inicia con este paquete?" (o "con el Empresarial", "con el ESP-2")
+  // pregunta por los PASOS de quien ya eligió. En el vector, FREQ_03 —las tres
+  // formas de empezar, que son los tres paquetes— le gana a ACTIVACION_01 por
+  // centésimas, porque comparten "cómo se inicia"; y con el candado solitario el
+  // modelo devolvía los tres paquetes a quien acababa de elegir uno, o peor,
+  // componía un procedimiento propio (19 ago 2026). Cuando la pregunta nombra el
+  // paquete, la respuesta es el proceso: se entrega directo.
+  if (documentType === 'arsenal_inicial'
+      && /(c[oó]mo\s+(se\s+)?(inici|empie|arranc|activ)|cu[aá]l(es)?\s+(es|son)\s+(el|los)\s+(proceso|paso)|qu[eé]\s+pasos|proceso\s+(de|para))[^.?]{0,40}(con\s+(este|ese|el)\s+(paquete|esp|inicial|empresarial|visionario)|con\s+el\s+paquete|ya\s+(eleg[ií]|escog[ií]))|ya\s+(eleg[ií]|escog[ií])[^.?]{0,40}(proceso|paso|c[oó]mo\s+(sigo|inici|empie|arranc|activ))/i.test(userMessage)) {
+    const allFragments = await getArsenalFragments();
+    const act = allFragments.find(f => f.category === 'arsenal_inicial_ACTIVACION_01');
+    if (act) {
+      console.log('🚪 [Inicio] Proceso con paquete elegido → ACTIVACION_01 directo');
+      const result = [{
+        id: 'arsenal_inicial_ACTIVACION_01',
+        title: 'Proceso de activación — ACTIVACION_01',
+        content: act.content,
+        category: 'arsenal_inicial',
+        metadata: { is_fragment_result: true, fragment_count: 1, fragment_categories: ['arsenal_inicial_ACTIVACION_01'] },
+        source: '/knowledge_base/arsenal_inicial.txt',
+        search_method: 'activacion_direct'
+      }];
+      searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+      return result;
+    }
+  }
+
   // ⚡ LÓGICA OPTIMIZADA v14.9: FRAGMENTOS DE ARSENALES
   // Reduce tokens de entrada de ~60K a ~3K por request (95% ahorro)
   if (documentType && documentType.startsWith('arsenal_')) {

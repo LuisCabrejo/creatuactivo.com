@@ -5142,6 +5142,10 @@ ${visitorCountry === 'CO'
     // Lo que se retira ahora es el bloque que el modelo lee.
     const _pinCifras = getPinCifrasGEN5();
     const _pinDictaEjemplo = _pinCifras.includes('EJEMPLO RENTA') || _pinCifras.includes('imprime este texto EXACTAMENTE');
+    // Una línea por turno con la decisión del pin. Sin esto, diagnosticar por qué
+    // un ejemplo dictado no salió es adivinar entre cuatro guardas — se perdió
+    // media sesión así el 19 ago 2026.
+    console.log(`📌 [Pin cifras] dicta=${_pinDictaEjemplo} chars=${_pinCifras.length} marchaInteres=${marchaInteres} paqueteBD=${mergedProspectData.package ?? '-'} estado=${closingState}`);
     if (_pinDictaEjemplo) {
       if (relevantDocuments.length) {
         console.log(`🔒→📌 [Pin gana] Ejemplo dictado activo — se retiran ${relevantDocuments.length} documentos y el contexto de arsenal (${arsenalParaCierre.length} chars)`);

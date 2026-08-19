@@ -40,3 +40,51 @@ El commit `6860234` (otra sesión) agregó `route.ts` entero mientras esta sesi�
 4. **Fuera a propósito**: lista interactiva de 4–10 opciones a media conversación — choca con "una pregunta, una salida".
 
 Fuentes: Typing indicators · Mark as read · Interactive CTA URL · Audio messages (developers.facebook.com, consultadas 18 ago 2026).
+
+---
+
+# Continuación — 19 ago 2026: auditoría de conversación y prueba de 40 preguntas
+
+## Lo que se corrigió (todo desplegado)
+
+**El acuse y la legibilidad** (Fase 1, ya en producción): visto azul + "escribiendo…" al entrar el mensaje y renovado cada 20 s mientras el motor trabaja · cita contextual cuando el turno pasa de 8 s · acuse a imágenes, documentos y ubicaciones · registro de envíos fallidos · cronómetro `⏱` por turno · prompt v4.12 (numerar cuando hay orden).
+
+**El emoji del saludo se retiró, medido.** La redirección entrega bien el carácter (`Location` con `%F0%9F%AA%A2`), pero al webhook llega `U+FFFD`: **la pre-carga de texto de wa.me destruye los emoji de cuatro bytes**, y con 👋 pasaba igual desde siempre. El nudo vive en las respuestas de Queswa, que salen por la API y sí lo conservan.
+
+**Seis defectos de conversación**, cada uno con su causa:
+
+| Síntoma | Causa real |
+|---|---|
+| El GEN5 no se respondía; salía la respuesta correctiva | La pregunta caía en el routing directo de paquetes (composiciones + precios) y el modelo pegaba precio y comisión → guardarraíl de negocio |
+| El simulador respondía el ejemplo fijo al 17% aunque se eligiera 16% | El pin no leía el escenario. Ahora lo responde `wa-simulador.ts` con las tablas del Flow, sin modelo |
+| "¿cómo se inicia con este paquete?" → tres formas inventadas | FREQ_03 le gana a ACTIVACION_01 por centésimas y el candado solitario devuelve la lista de paquetes |
+| Un precio pedido devolvía la tabla de nueve; el Cordygold perdía su ficha por 0.02 | La tabla de categoría lleva candado y manda sobre todo lo demás |
+| A un independiente se le respondió con el villano del empleado | WHY_03 comparte el "ya me va bien" y está escrita para quien vive de un salario |
+| Un "sí" a una oferta recibió "¿cuál es su número de identificación?" | El trámite se mira sobre tres turnos del bot, y el "sí" caía dentro de esa ventana |
+
+## Las tres lecciones que costaron tiempo
+
+**1. Un comentario que dice «esto ya está resuelto» no es evidencia de que funcione.** La retirada del arsenal cuando el pin dicta llevaba días registrada como hecha, y no hacía nada: vaciaba `relevantDocuments` cuando el texto ya se había copiado a `context` setecientas líneas antes. **Lo que se retira tiene que ser lo que el modelo lee.**
+
+**2. Una puerta que existe porque el enrutamiento falla no puede condicionarse a que el enrutamiento acierte.** La puerta a FREQ_10 estaba escrita y nunca se ejecutaba: exigía `documentType === 'arsenal_inicial'` y la pregunta se iba por vector a `arsenal_avanzado`. Las cuatro puertas viven ahora en una tabla y se evalúan sobre cualquier arsenal.
+
+**3. «Casi siempre» no es un dictado.** Con el pin activo, el arsenal retirado y el log diciendo `dicta=true`, el modelo seguía parafraseando el ejemplo unas veces sí y otras no. Se resolvió como todo lo verbatim en este motor: **el ejemplo se emite desde el backend, sin llamar al modelo** (`extraerEjemploDictado`). Cero tokens, ~50 ms, y la cifra que sale es la que se calculó.
+
+⚠️ **Y una trampa de nomenclatura:** *"paquetes empresariales"* en plural es el genérico de lo que paga el GEN5, no el ESP-2. Capturarlo como selección fijaba un paquete que nadie eligió y encendía la Marcha 2, cuyo micro-prompt ordena responder con el contenido del paquete — contra el ejemplo que el pin acababa de dictar. Dos instrucciones opuestas en el mismo turno se ven como si el modelo dudara.
+
+## La prueba de 40 preguntas
+
+`node scripts/prueba-40-preguntas.mjs [--detalle] [--solo N] [--base URL]`
+
+Pregunta por la puerta del motor con el tenant del canal. Cada caso declara lo que la respuesta **debe** y **no puede** traer; además vigila el léxico retirado, los dos guardarraíles y los tiempos. **Estado: 39/40**, mediana 6.7 s, p95 13.7 s, máximo 16 s — cómodo bajo el techo de 30 s del webhook.
+
+⚠️ **No reemplaza la prueba en el teléfono:** no ve los botones, ni el Flow del simulador, ni cómo parte el texto en pantalla. Ve el contenido.
+
+⚠️ **Dos trampas del arnés, ya corregidas y que volverán a morder a quien lo edite:** el fingerprint necesita prefijo `57` (sin él el motor no detecta país y cotiza en USD — parecía un fallo del pin), y el guardarraíl de salud marca cualquier respuesta que **nombre** una enfermedad, incluidas las negativas correctas.
+
+## Pendientes
+
+1. **El webhook procesa antes de responderle a Meta**, con techo de 30 s. Lo correcto es responder 200 de inmediato y procesar en `waitUntil`, con guarda por `wamid` para que un reintento de Meta no produzca dos respuestas. Con los tiempos medidos no es urgente; con una conversación lenta sí.
+2. Fase 2 de UX: botón `cta_url` en vez de URL cruda · imagen de producto con pie de foto · reacción de acuse · la cita `> ` de las palabras de la persona.
+3. **Foto del comprobante de pago**: hoy recibe el acuse genérico de imagen.
+4. Fase 3: nota de voz de salida (`voice: true`, OGG/OPUS, < 512 KB).

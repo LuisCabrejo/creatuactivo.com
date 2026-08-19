@@ -3432,6 +3432,31 @@ function extractFromClaudeResponse(response: string): Partial<ProspectData> {
   return extracted;
 }
 
+/**
+ * Saca el texto que el prospecto debe leer de un pin que dicta un ejemplo.
+ *
+ * El pin es una instrucción para el modelo: abre con una cabecera («📌 EJEMPLO
+ * … DICTADO — imprime este texto EXACTAMENTE…») y cierra con un «STOP.» que
+ * enumera lo que no debe agregar. Entre las dos está el texto real. Aquí se
+ * recorta eso y se le añade la pregunta de cierre, que el pin no trae porque
+ * hasta ahora la ponía el modelo.
+ *
+ * Devuelve null si la forma del pin cambió — y entonces el turno vuelve al
+ * modelo, que es el comportamiento de siempre. Nunca lanza.
+ */
+function extraerEjemploDictado(pin: string): string | null {
+  const iCabecera = pin.indexOf('\n\n');
+  const iStop = pin.indexOf('STOP.');
+  if (iCabecera < 0 || iStop < 0 || iStop <= iCabecera) return null;
+
+  const cuerpo = pin.slice(iCabecera, iStop).trim();
+  if (cuerpo.length < 80) return null;
+
+  // Una sola pregunta, de una sola salida, y la continuación natural de lo que
+  // se acaba de mostrar: quien ya vio los números sigue hacia cómo se empieza.
+  return `${cuerpo}\n\n¿Le explico las tres formas de empezar?`;
+}
+
 // Logging mejorado para arquitectura híbrida - CORREGIDO 2025-10-17
 async function logConversationHibrida(
   userMessage: string,
@@ -5146,6 +5171,34 @@ ${visitorCountry === 'CO'
     // un ejemplo dictado no salió es adivinar entre cuatro guardas — se perdió
     // media sesión así el 19 ago 2026.
     console.log(`📌 [Pin cifras] dicta=${_pinDictaEjemplo} chars=${_pinCifras.length} marchaInteres=${marchaInteres} paqueteBD=${mergedProspectData.package ?? '-'} estado=${closingState}`);
+
+    // ── El ejemplo dictado se entrega SIN pasar por el modelo ─────────────────
+    //
+    // Pedirle a un modelo que copie un texto exacto funciona casi siempre, y ese
+    // "casi" es el problema: la misma pregunta recibía el ejemplo unas veces y
+    // una paráfrasis otras —con un preámbulo que el pin prohíbe, o directamente
+    // otra explicación—. Se comprobó con el log de arriba: `dicta=true`, arsenal
+    // retirado, y aun así salía parafraseado (19 ago 2026).
+    //
+    // Es el mismo patrón del Camino A y del cierre del canal: donde el nodo es
+    // determinístico, el backend dicta y el modelo no participa. Cero tokens,
+    // ~50 ms, y la cifra que sale es exactamente la que se calculó.
+    //
+    // ⚠️ Solo para el canal: en la web el ejemplo convive con otro formato.
+    if (tenantId === 'whatsapp' && _pinDictaEjemplo) {
+      const cuerpo = extraerEjemploDictado(_pinCifras);
+      if (cuerpo) {
+        console.log(`⚡ [Pin dictado] Ejemplo entregado directo, sin modelo (${cuerpo.length} chars, $0 tokens)`);
+        if (sessionId && fingerprint) {
+          logConversationHibrida(
+            latestUserMessage, cuerpo, ['PIN_CIFRAS_BACKEND_DICTATOR'],
+            'pin_cifras_dictado', sessionId, fingerprint, mergedProspectData,
+          ).catch((err) => console.error('❌ [Pin dictado] Error logging:', err));
+        }
+        return new StreamingTextResponse(buildVerbatimStream(cuerpo), { headers: getCorsHeaders(origin) });
+      }
+      console.warn('⚠️ [Pin dictado] No se pudo extraer el cuerpo del pin — se sigue con el modelo');
+    }
     if (_pinDictaEjemplo) {
       if (relevantDocuments.length) {
         console.log(`🔒→📌 [Pin gana] Ejemplo dictado activo — se retiran ${relevantDocuments.length} documentos y el contexto de arsenal (${arsenalParaCierre.length} chars)`);

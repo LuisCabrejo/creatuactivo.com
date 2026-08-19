@@ -2792,7 +2792,14 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     },
   ];
 
-  if (documentType === 'arsenal_inicial') {
+  // ⚠️ La puerta NO puede exigir que el clasificador ya haya acertado el arsenal:
+  // existe precisamente porque el enrutamiento falla. "Ya tengo un negocio propio
+  // y me va relativamente bien" se va por vector a arsenal_avanzado (ADV_OBJ_02,
+  // 0.581), así que una puerta condicionada a `arsenal_inicial` no se ejecutaba
+  // nunca — el fallo seguía vivo con la puerta escrita (prueba de 40, 19 ago).
+  // Se evalúa sobre cualquier arsenal; el catálogo queda fuera porque una
+  // pregunta de producto no se responde con doctrina.
+  if (!documentType || documentType.startsWith('arsenal_')) {
     const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage));
     if (puerta) {
       const allFragments = await getArsenalFragments();
@@ -5125,6 +5132,12 @@ ${visitorCountry === 'CO'
       }
       relevantDocuments = [];
       arsenalParaCierre = '// Ejemplo dictado activo — el pin de cifras es la única fuente de este turno.';
+      // Y por la misma razón se callan la tabla de comisiones y el pin de
+      // composición: retirar el arsenal y dejar otras dos inyecciones deja al
+      // modelo eligiendo entre tres materiales. En la prueba de 40 eligió la
+      // tabla y la misma pregunta recibió cosas distintas en dos corridas
+      // seguidas — un dictado que se cumple a veces no es un dictado.
+      // (La supresión ocurre donde se arma sessionInstructions, más abajo.)
     }
 
 const sessionInstructions = `
@@ -5135,8 +5148,8 @@ ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado4()}
 ${_pinCifras}
-${getTablasComisiones()}
-${getPinComposicionPaquetes()}
+${_pinDictaEjemplo ? '' : getTablasComisiones()}
+${_pinDictaEjemplo ? '' : getPinComposicionPaquetes()}
 ${conversationSummary}<prospect_state>
 ${mergedProspectData.name ? `  <nombre>${mergedProspectData.name}</nombre>` : '  <nombre>no_capturado</nombre>'}
 ${mergedProspectData.archetype ? `  <arquetipo>${mergedProspectData.archetype}</arquetipo>` : ''}

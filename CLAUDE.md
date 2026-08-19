@@ -1100,6 +1100,7 @@ Automatically extracts performance data from Google Search Console API.
 2. **Autopersuasión** — marcos moderados; escenarios que el lector completa, no afirmaciones
 3. **Test Beto** — si un profesional inteligente sin MBA no la entiende, la frase está prohibida. El lujo es la claridad
 4. **Concepto nuclear (modelo Waze)** — *"empresa de tecnología que ayuda a corregir una vulnerabilidad crítica en la vida financiera… ingresos recurrentes que no dependen de su trabajo físico"*
+5. **Se nombra el MECANISMO, nunca el resultado** (19 ago 2026 — generalizada desde el plan de compensación, hallazgo del agente del Dashboard). La regla ya existía suelta para el dinero; aplica a **todo lo que el sistema hace por el socio**, y en un solo día resolvió tres problemas distintos: el ingreso (*"puede igualar su sueldo"* → **cobra cada vez que su canal mueve producto**), el GEN5 (*"cada vez que entra un socio"* → **cada vez que se compra un paquete**) y Queswa (*"hace la parte comercial por usted"* → **conversa, resuelve las dudas y madura la decisión**). Un resultado prometido es una deuda que alguien tiene que pagar después —y en el caso de Queswa se desmentía sola en `/sistema/productos`, donde el checkout es por WhatsApp—; un mecanismo descrito es verificable y el prospecto lo está viviendo mientras lo lee.
 
 **Las cuatro reglas de la sesión del 8 ago 2026** — salieron de reescribir 18 respuestas seguidas con el Director, y son las que más se violan:
 

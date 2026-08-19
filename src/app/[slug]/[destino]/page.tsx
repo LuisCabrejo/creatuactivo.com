@@ -132,10 +132,14 @@ export default async function DestinoRoute({
 
     if (!c) notFound()
 
-    // 🪢 es el emoji de la marca (el nudo del quipu, de donde viene "Queswa"), y
-    // aquí dice lo que el saludo hace: une a la persona con el socio que la
-    // refirió. La mano que saluda es genérica y en varios teclados llega rota.
-    const texto = `Hola Queswa 🪢 vengo del enlace de ${slug}`
+    // ⚠️ Sin emoji, y medido (19 ago 2026). La redirección entrega el carácter
+    // bien —`%F0%9F%AA%A2` para 🪢, verificado en la cabecera Location—, pero lo
+    // que llega al webhook es U+FFFD: la pre-carga de texto de wa.me destruye
+    // cualquier emoji de cuatro bytes. Pasó igual con 👋 durante meses. El
+    // primer mensaje de la conversación es el peor lugar para un cuadrito roto,
+    // así que aquí va texto limpio; el nudo de la marca vive en las respuestas
+    // de Queswa, que salen por la API y sí lo conservan.
+    const texto = `Hola Queswa, vengo del enlace de ${slug}`
     redirect(`https://wa.me/573215193909?text=${encodeURIComponent(texto)}`)
   }
 

@@ -597,6 +597,30 @@ export async function gestionarCierre(params: {
   const declara  = RE_VOLICION.test(mensajeActual);
   if (!botPidio && !declara) return null;
 
+  // ── Un "sí" contesta la ÚLTIMA pregunta, y esa pregunta puede no ser nuestra ──
+  //
+  // El trámite se mira sobre los últimos tres turnos del bot, para que una duda a
+  // mitad de camino no lo cancele. El efecto secundario es que, cuando el motor
+  // atiende esa duda y cierra ofreciendo algo, el "sí" de la persona cae dentro
+  // de la ventana del trámite y se lee como si volviera a él.
+  //
+  // Pasó en la prueba del Director (19 ago, 11:11): el motor cerró con "¿Le
+  // muestro de dónde sale el ingreso de ese canal?", la persona dijo "sí", y
+  // recibió "¿cuál es su número de identificación?". La respuesta a un sí es lo
+  // ofrecido — cambiarla por una petición de datos rompe la conversación en el
+  // punto donde más confianza hacía falta.
+  //
+  // Si el último turno del bot NO pidió datos y terminó preguntando, una
+  // aceptación pelada es de esa oferta y el turno va al motor. El trámite no se
+  // pierde: sigue abierto y retoma en cuanto la persona diga algo que no sea un sí.
+  const _ultimoBotPidioDatos = RE_BOT_PIDIO_DATOS.test(ultimoBot);
+  const _ultimoBotOfrecio    = /\?[\s"'*_)]*$/.test(ultimoBot.trim());
+  const _aceptacionPelada    = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|mu[eé]streme|mu[eé]stremelo|perfecto|vale|adelante|de acuerdo|me parece)[\s.,!]*$/i.test(mensajeActual.trim());
+  if (!declara && !_ultimoBotPidioDatos && _ultimoBotOfrecio && _aceptacionPelada) {
+    console.log(`👉 [Cierre WA] "${mensajeActual.trim()}" acepta la oferta del bot, no reanuda el trámite — turno al motor`);
+    return null;
+  }
+
   console.log(`🎯 [Cierre WA] activo — ${botPidio ? 'respondiendo lo pedido' : 'volición declarada'}`);
 
   // Se extrae SIEMPRE, también en el turno donde la persona declara la intención.

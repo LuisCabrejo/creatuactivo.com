@@ -2768,6 +2768,35 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
+  // ⚡ ROUTING DIRECTO: YA TIENE NEGOCIO PROPIO → FREQ_10
+  // "¿por qué haría esto si ya tengo mi negocio y me va bien?" tiene su respuesta
+  // escrita —FREQ_10, la asimetría del riesgo—, pero en el vector le gana WHY_03,
+  // que comparte el "ya me va bien" y está escrita para quien vive de un SALARIO.
+  // El resultado es grave: a un independiente se le respondió con el villano del
+  // empleado —"un recorte, una reestructuración, decisiones que se toman en otra
+  // oficina"— y con la casa que no es suya. A quien vive de su propio negocio eso
+  // no le habla: le dice que no lo estamos escuchando (prueba del Director, 19
+  // ago 11:10). Cuando la persona nombra su negocio, la respuesta es FREQ_10.
+  const _tieneNegocioPropio = /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(independiente|comerciante|empresari[oa])\b|\btrabajo\s+por\s+mi\s+cuenta\b/i.test(userMessage);
+  if (documentType === 'arsenal_inicial' && _tieneNegocioPropio) {
+    const allFragments = await getArsenalFragments();
+    const freq10 = allFragments.find(f => f.category === 'arsenal_inicial_FREQ_10');
+    if (freq10) {
+      console.log('🏪 [Negocio propio] → FREQ_10 directo (la asimetría del riesgo, no el villano del salario)');
+      const result = [{
+        id: 'arsenal_inicial_FREQ_10',
+        title: 'Negocio tradicional vs canal — FREQ_10',
+        content: freq10.content,
+        category: 'arsenal_inicial',
+        metadata: { is_fragment_result: true, fragment_count: 1, fragment_categories: ['arsenal_inicial_FREQ_10'] },
+        source: '/knowledge_base/arsenal_inicial.txt',
+        search_method: 'negocio_propio_direct'
+      }];
+      searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+      return result;
+    }
+  }
+
   // ⚡ LÓGICA OPTIMIZADA v14.9: FRAGMENTOS DE ARSENALES
   // Reduce tokens de entrada de ~60K a ~3K por request (95% ahorro)
   if (documentType && documentType.startsWith('arsenal_')) {

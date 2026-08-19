@@ -56,6 +56,18 @@ const CASOS = [
   ['¿Hay capacitación?',                         'arsenal_inicial'],
   ['Quiero iniciar',                             null], // lo intercepta wa-radicacion antes del motor
 
+  // — Prueba del Director, 19 ago 2026 (auditoría UX del canal) —
+  // "ingresos por paquetes" es GEN5: compensación, y el pin debe dictar el
+  // ejemplo (eso lo verifica el código del pin, no este benchmark).
+  ['cómo son los ingresos por paquetes empresariales', 'arsenal_compensacion'],
+  // El bot ofreció "¿le explico cómo se inicia con este paquete?" y la persona
+  // aceptó: la aceptación busca con esa pregunta. Es PROCESO (ACTIVACION_01),
+  // no composición del paquete — así entró "Presencial / con el socio / desde
+  // aquí", tres formas inventadas por el modelo.
+  ['¿Le explico cómo se inicia con este paquete?',  'arsenal_inicial'],
+  ['cómo se inicia con el paquete Empresarial',      'arsenal_inicial'],
+  ['cuál es el proceso para iniciar con el ESP-2',   'arsenal_inicial'],
+
   // — Primer contacto —
   ['¿Qué es CreaTuActivo?',                      'arsenal_inicial'],
   ['¿Quién está detrás de esto?',                'arsenal_inicial'],
@@ -146,9 +158,18 @@ const RE_GEN5 = (() => {
   try { return new RegExp(m[1], m[2].replace('g', '')); } catch { return null; }
 })();
 
+// PRIORIDAD 1.7 — proceso de inicio (19 ago 2026). Dos regex en una línea:
+// el positivo y la exclusión (bono / gen5 / binario), ambos extraídos de route.ts.
+const RE_PROCESO = (() => {
+  const m = SRC.match(/const esProcesoDeInicio = \/(.+?)\/([gimsuy]*)\.test\(messageLower\)\s*&&\s*!\/(.+?)\/([gimsuy]*)\.test/s);
+  if (!m) { console.warn('⚠️  No se pudo extraer esProcesoDeInicio\n'); return null; }
+  try { return { si: new RegExp(m[1], m[2].replace('g', '')), no: new RegExp(m[3], m[4].replace('g', '')) }; } catch { return null; }
+})();
+
 function porPatrones(q) {
   const m = q.toLowerCase();
   if (RE_GEN5 && RE_GEN5.test(m)) return 'arsenal_compensacion';
+  if (RE_PROCESO && RE_PROCESO.si.test(m) && !RE_PROCESO.no.test(m)) return 'arsenal_inicial';
   if (pega('patrones_productos', m) || pega('patrones_beneficios_productos', m)) return 'catalogo_productos';
   if (pega('patrones_12_niveles', m)) return 'arsenal_12_niveles';
   if (pega('patrones_compensacion', m)) return 'arsenal_compensacion';

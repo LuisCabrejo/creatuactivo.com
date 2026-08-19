@@ -1855,6 +1855,22 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     return 'arsenal_compensacion';
   }
 
+  // PRIORIDAD 1.7: PROCESO DE INICIO → arsenal_inicial (ACTIVACION_01 / FREQ_03)
+  // "¿cómo se inicia con el Empresarial?" nombra un paquete, así que compensación
+  // se lo quedaba (se evalúa antes que inicial) y el routing directo de paquetes
+  // entregaba las COMPOSICIONES. El modelo, con la composición en mano y la
+  // pregunta sobre el proceso, se inventó "tres formas de arrancar: presencial,
+  // con el socio, desde aquí" (prueba del Director, 19 ago 2026). Preguntar cómo
+  // se inicia es preguntar por el PROCESO, con o sin paquete nombrado — y el
+  // proceso vive en arsenal_inicial. Se excluye lo que "se inicia" o "se activa"
+  // y no es la persona: un bono, el binario, el GEN5.
+  const esProcesoDeInicio = /(c[oó]mo\s+(se\s+)?(inici[ao]|empie[sz][ao]|arranc[ao]|activ[ao]|vincul[ao]|registr[ao]|afili[ao])|cu[aá]l(es)?\s+(es|son)\s+(el|los)\s+(proceso|paso|tr[aá]mite)s?|qu[eé]\s+pasos|proceso\s+(de|para)\s+(inici|activ|empez|arranc|vincul|registr|afili))/i.test(messageLower)
+    && !/bono|ge?n[\s.-]?5|b[ia]+n[a-z]?r[a-z]?i?o|comisi|binario|renta|recompra|c[oó]digo de distribuci/i.test(messageLower);
+  if (esProcesoDeInicio) {
+    console.log('🚪 Clasificación: PROCESO DE INICIO → arsenal_inicial (ACTIVACION_01/FREQ_03)');
+    return 'arsenal_inicial';
+  }
+
   // PRIORIDAD 2: PRODUCTOS INDIVIDUALES - PRECIOS (catálogo)
   if (patrones_productos.some(patron => patron.test(messageLower)) ||
       patrones_beneficios_productos.some(patron => patron.test(messageLower))) {
@@ -2559,7 +2575,42 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       const totalFragmentChars = fragments.reduce((sum, f) => sum + f.content.length, 0);
       console.log(`✅ [Fragments] ${fragments.length} fragmentos catálogo (${totalFragmentChars} chars vs ~14,748 doc completo)`);
 
-      const combinedContent = fragments.map(f => f.content).join('\n\n---\n\n');
+      // ── La ficha del producto le gana a la tabla de su categoría ──────────
+      //
+      // Las tablas por categoría (BEB_01, SUP_01, LUV_01, PERS_01, PROD_OVERVIEW)
+      // llevan candado, y el prompt ordena que un candado se entregue exacto. Eso
+      // produce dos fallos opuestos con la misma causa (prueba del Director, 19
+      // ago 2026): "¿precio del Ganocafé 3 en 1?" recuperaba la ficha BEB_02
+      // primero (0.68) y la tabla BEB_01 tercera (0.51) — y el modelo imprimió
+      // la tabla de nueve productos porque tenía candado. Y "¿beneficios del
+      // Cordygold?" recuperaba la tabla SUP_01 primera (0.436) y la ficha SUP_02
+      // segunda (0.416): el modelo dio la tabla y dijo que "no tenía el detalle",
+      // con la ficha a 0.02 de distancia.
+      //
+      // Regla: si la persona pregunta por UN producto y su ficha está arriba —o
+      // casi arriba, a 0.05 de la tabla—, se entrega la ficha y la tabla se
+      // retira. La tabla se queda solo cuando de verdad encabeza sin ficha cerca
+      // ("¿qué bebidas tienen?", "¿cuáles son los productos?").
+      const esTablaCategoria = (f: { category: string }) =>
+        /catalogo_productos_(PROD_OVERVIEW|BEB_01|SUP_01|LUV_01|PERS_01)$/.test(f.category);
+      let fragmentosAEntregar = fragments;
+      const top = fragments[0];
+      if (esTablaCategoria(top)) {
+        const fichaCerca = fragments.find((f, i) =>
+          i > 0 && !esTablaCategoria(f) && ((top.similarity ?? 0) - (f.similarity ?? 0)) <= 0.05);
+        if (fichaCerca) {
+          fragmentosAEntregar = [fichaCerca, ...fragments.filter(f => f !== fichaCerca && !esTablaCategoria(f))];
+          console.log(`🎯 [Catálogo] Ficha ${fichaCerca.category} a ${((top.similarity ?? 0) - (fichaCerca.similarity ?? 0)).toFixed(3)} de la tabla ${top.category} — se entrega la ficha y la tabla se retira`);
+        }
+      } else {
+        const sinTablas = fragments.filter(f => !esTablaCategoria(f));
+        if (sinTablas.length < fragments.length) {
+          console.log(`🎯 [Catálogo] Encabeza la ficha ${top.category} — se retiran ${fragments.length - sinTablas.length} tabla(s) de categoría del contexto`);
+          fragmentosAEntregar = sinTablas;
+        }
+      }
+
+      const combinedContent = fragmentosAEntregar.map(f => f.content).join('\n\n---\n\n');
 
       const result = [{
         id: 'catalogo_productos_fragments',
@@ -2568,8 +2619,8 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         category: 'catalogo_productos',
         metadata: {
           is_fragment_result: true,
-          fragment_count: fragments.length,
-          fragment_categories: fragments.map(f => f.category),
+          fragment_count: fragmentosAEntregar.length,
+          fragment_categories: fragmentosAEntregar.map(f => f.category),
           total_chars: totalFragmentChars,
           top_similarity: fragments[0]?.similarity ?? null
         },
@@ -2650,7 +2701,16 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   if (documentType === 'arsenal_compensacion') {
     const msgLc = userMessage.toLowerCase();
     const esPaqueteQuery = /paquete|esp[-\s]?[123]|qu[eé].*trae|qu[eé].*incluye|composici[oó]n|inventario.*esp|contenido.*esp|inversion.*inicial|cu[aá]nto.*cuesta.*emp|precio.*esp|conformad[ao]s?|con\s+qu[eé]\s+productos|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)/i.test(msgLc);
-    if (esPaqueteQuery) {
+    // Lo que se pregunta de los paquetes es su COMPOSICIÓN y su precio. Cuando la
+    // pregunta es por lo que se GANA con ellos —"cómo son los ingresos por
+    // paquetes empresariales"— esto entregaba las cuatro composiciones con sus
+    // precios y el modelo componía precio + comisión en el mismo bloque: la
+    // promesa de ingreso exacta que el guardarraíl de negocio bloquea. Salió la
+    // respuesta correctiva y la pregunta del GEN5 se quedó sin responder (prueba
+    // del Director, 19 ago 2026). Esas preguntas siguen a la búsqueda normal,
+    // donde el pin dicta el ejemplo GEN5.
+    const preguntaPorIngresos = /ingreso|ganan|gano\b|se\s+gana|comisi|bono|cu[aá]nto\s+(me\s+)?(deja|paga|queda|recibo)|rentab|utilidad/i.test(msgLc);
+    if (esPaqueteQuery && !preguntaPorIngresos) {
       const esESP1 = /esp[-\s]?1|inicial|200\s*usd/i.test(msgLc);
       const esESP2 = /esp[-\s]?2|empresarial|500\s*usd/i.test(msgLc);
       const esESP3 = /esp[-\s]?3|visionario|1[,.]?000\s*usd/i.test(msgLc);
@@ -4640,7 +4700,11 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // Disparar si la query es sobre cifras/ganancias O si el doc recuperado es de compensación
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
-      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso/i;
+      // "ingresos por paquetes empresariales" / "cómo son los ingresos por
+      // paquetes" / "qué gano por cada paquete" son la pregunta del GEN5 dicha
+      // con las palabras del prospecto; sin estas puertas el pin no disparaba y
+      // el modelo componía con las composiciones en mano (19 ago 2026).
+      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso|ingresos?\s+(por|de|con)\s+(la\s+)?(compra\s+de\s+)?(los\s+)?paquete|c[oó]mo\s+son\s+(los\s+)?ingresos|(ganan|comisi[oó]n|ingreso|gano|recibo|me\s+queda)[^.?]{0,40}paquetes?\s+empresarial|qu[eé]\s+(gano|me\s+queda|recibo|me\s+pagan)\s+por\s+(cada\s+)?paquete/i;
       // Aceptación de una oferta previa — va ANTES de la guarda de salida (14 ago
       // 2026). En la prueba del Director, "¿Le muestro cómo se ve en números?" →
       // "Sí" no entregó el ejemplo: el "Sí" no matchea preguntaSobreCifras, la
@@ -4752,10 +4816,15 @@ STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin p
         // ESP-3 fijo, y cuando alguien decía "ESP-2" el modelo anteponía "le
         // muestro el ejemplo con el ESP-2" a cifras que eran de ESP-3 — dos
         // paquetes distintos en el mismo mensaje, con cifras que no correspondían.
-        const paqueteDicho = /esp[\s-]?1|inicial/i.test(latestUserMessage) ? 'ESP-1'
-          : /esp[\s-]?2|empresarial/i.test(latestUserMessage) ? 'ESP-2'
-          : (mergedProspectData.package === 'ESP-1' || mergedProspectData.package === 'ESP-2')
-            ? mergedProspectData.package : 'ESP-3';
+        // Decisión del Director (19 ago 2026): el ejemplo por defecto es SIEMPRE
+        // el ESP-3. Solo cambia si la persona nombra otro paquete EN ESTE mensaje.
+        // Dos trampas que lo volteaban: (a) "paquetes empresariales" es el
+        // nombre genérico de lo que paga el GEN5, no el ESP-2 — por eso se exige
+        // el singular; (b) el paquete guardado en BD lo ponía el texto del
+        // simulador ("tarifa ESP-2 Empresarial") y arrastraba el ejemplo.
+        const paqueteDicho = /esp[\s-]?1\b|paquete\s+inicial\b|\bel\s+inicial\b/i.test(latestUserMessage) ? 'ESP-1'
+          : /esp[\s-]?2\b|\bempresarial(?!es)\b/i.test(latestUserMessage) ? 'ESP-2'
+          : 'ESP-3';
         const TASAS_GEN5: Record<string, { etiqueta: string; cop: number[]; usd: number[] }> = {
           'ESP-3': { etiqueta: 'ESP-3 Visionario',  cop: [675000, 90000, 90000, 90000, 180000], usd: [150, 20, 20, 20, 40] },
           'ESP-2': { etiqueta: 'ESP-2 Empresarial', cop: [337500, 45000, 45000, 45000,  90000], usd: [75, 10, 10, 10, 20] },

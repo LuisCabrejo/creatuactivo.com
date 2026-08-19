@@ -4693,7 +4693,9 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
     // ── SUPRESIÓN DE RAG EN CIERRE (Investigación: "RAG para lógica de procesos es letal") ──
     // Durante estados 1 y 2, el contexto del arsenal se reemplaza por string vacío.
     // El modelo no puede recuperar instrucciones de onboarding/KYC si no están en su contexto.
-    const arsenalParaCierre = (!cierreLoManejaElCanal && (closingState === 2 || closingState === 3 || closingState === '3b' || closingState === 4))
+    // `let` y no `const`: el pin de cifras lo retira más abajo cuando dicta un
+    // ejemplo. Ver la nota en «el ejemplo dictado gana».
+    let arsenalParaCierre = (!cierreLoManejaElCanal && (closingState === 2 || closingState === 3 || closingState === '3b' || closingState === 4))
       ? '// Flujo de cierre activo — contexto de arsenal suspendido para este turno.'
       : arsenalContext;
 
@@ -5054,16 +5056,28 @@ ${visitorCountry === 'CO'
 - Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo de CreaTuActivo — pero la composición SÍ está respondida arriba.`;
     };
 
-        // Si el pin dicta un ejemplo, es la única fuente del turno: se retiran los
-    // fragmentos recuperados. Sin esto, el candado solitario (COMP_MODELO_01)
-    // le ganaba al ejemplo aceptado — el prompt ordena que el candado mande
-    // sobre todo, así que dos dictados a la vez son una contradicción servida
-    // (prueba 18:37: "sí" a "¿quiere ver cómo se gana?" entregó el concepto).
+    // ── El ejemplo dictado gana sobre el arsenal ──────────────────────────────
+    //
+    // Si el pin dicta un ejemplo, es la única fuente del turno: dos dictados a la
+    // vez son una contradicción servida, y el prompt ordena que el candado mande.
+    //
+    // ⚠️ Vaciar `relevantDocuments` NO alcanzaba, y por eso esto llevaba días sin
+    // funcionar: el texto del arsenal se copia a `context` unas 700 líneas antes
+    // —y de ahí a `arsenalParaCierre`, que es lo que viaja en el prompt—, así que
+    // limpiar el array a esta altura no le quitaba al modelo absolutamente nada.
+    // Se veía en la prueba del Director (19 ago, 10:34): a "cómo son los ingresos
+    // por paquetes empresariales" el pin SÍ dictó el ejemplo GEN5, el arsenal
+    // seguía en el contexto, y el modelo entregó el arsenal — sin cifras, y por
+    // tanto sin el simulador, que el webhook engancha a la frase del ejemplo.
+    // Lo que se retira ahora es el bloque que el modelo lee.
     const _pinCifras = getPinCifrasGEN5();
     const _pinDictaEjemplo = _pinCifras.includes('EJEMPLO RENTA') || _pinCifras.includes('imprime este texto EXACTAMENTE');
-    if (_pinDictaEjemplo && relevantDocuments.length) {
-      console.log(`🔒→📌 [Pin gana] Ejemplo dictado activo — se retiran ${relevantDocuments.length} documentos del contexto`);
+    if (_pinDictaEjemplo) {
+      if (relevantDocuments.length) {
+        console.log(`🔒→📌 [Pin gana] Ejemplo dictado activo — se retiran ${relevantDocuments.length} documentos y el contexto de arsenal (${arsenalParaCierre.length} chars)`);
+      }
       relevantDocuments = [];
+      arsenalParaCierre = '// Ejemplo dictado activo — el pin de cifras es la única fuente de este turno.';
     }
 
 const sessionInstructions = `

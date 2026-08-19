@@ -132,7 +132,10 @@ export default async function DestinoRoute({
 
     if (!c) notFound()
 
-    const texto = `Hola Queswa 👋 vengo del enlace de ${slug}`
+    // 🪢 es el emoji de la marca (el nudo del quipu, de donde viene "Queswa"), y
+    // aquí dice lo que el saludo hace: une a la persona con el socio que la
+    // refirió. La mano que saluda es genérica y en varios teclados llega rota.
+    const texto = `Hola Queswa 🪢 vengo del enlace de ${slug}`
     redirect(`https://wa.me/573215193909?text=${encodeURIComponent(texto)}`)
   }
 

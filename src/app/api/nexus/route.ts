@@ -2740,60 +2740,78 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
-  // ⚡ ROUTING DIRECTO: PROCESO DE INICIO CON PAQUETE YA ELEGIDO → ACTIVACION_01
-  // "¿cómo se inicia con este paquete?" (o "con el Empresarial", "con el ESP-2")
-  // pregunta por los PASOS de quien ya eligió. En el vector, FREQ_03 —las tres
-  // formas de empezar, que son los tres paquetes— le gana a ACTIVACION_01 por
-  // centésimas, porque comparten "cómo se inicia"; y con el candado solitario el
-  // modelo devolvía los tres paquetes a quien acababa de elegir uno, o peor,
-  // componía un procedimiento propio (19 ago 2026). Cuando la pregunta nombra el
-  // paquete, la respuesta es el proceso: se entrega directo.
-  if (documentType === 'arsenal_inicial'
-      && /(c[oó]mo\s+(se\s+)?(inici|empie|arranc|activ)|cu[aá]l(es)?\s+(es|son)\s+(el|los)\s+(proceso|paso)|qu[eé]\s+pasos|proceso\s+(de|para))[^.?]{0,40}(con\s+(este|ese|el)\s+(paquete|esp|inicial|empresarial|visionario)|con\s+el\s+paquete|ya\s+(eleg[ií]|escog[ií]))|ya\s+(eleg[ií]|escog[ií])[^.?]{0,40}(proceso|paso|c[oó]mo\s+(sigo|inici|empie|arranc|activ))/i.test(userMessage)) {
-    const allFragments = await getArsenalFragments();
-    const act = allFragments.find(f => f.category === 'arsenal_inicial_ACTIVACION_01');
-    if (act) {
-      console.log('🚪 [Inicio] Proceso con paquete elegido → ACTIVACION_01 directo');
-      const result = [{
-        id: 'arsenal_inicial_ACTIVACION_01',
-        title: 'Proceso de activación — ACTIVACION_01',
-        content: act.content,
-        category: 'arsenal_inicial',
-        metadata: { is_fragment_result: true, fragment_count: 1, fragment_categories: ['arsenal_inicial_ACTIVACION_01'] },
-        source: '/knowledge_base/arsenal_inicial.txt',
-        search_method: 'activacion_direct'
-      }];
-      searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
-      return result;
-    }
-  }
+  // ⚡ PUERTAS DIRECTAS DE arsenal_inicial ────────────────────────────────────
+  //
+  // Cuatro preguntas frecuentes tienen su respuesta escrita y aun así no la
+  // reciben, porque en el vector les gana otro fragmento. El patrón se repite:
+  // la respuesta correcta es LARGA —el embedding se diluye— y la que gana
+  // comparte una palabra de superficie. Agregarle disparadores a un fragmento
+  // largo no mueve su vector (medido); lo que funciona es decidirlo en código.
+  //
+  // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
+  const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string }[] = [
+    {
+      // Prueba del Director, 19 ago: "¿le explico cómo se inicia con este
+      // paquete?" → "sí" produjo tres formas de arrancar inventadas. FREQ_03
+      // (los tres paquetes) le gana a ACTIVACION_01 por centésimas, y con el
+      // candado solitario devuelve la lista a quien ya eligió uno.
+      fragmento: 'arsenal_inicial_ACTIVACION_01',
+      titulo: 'Proceso de activación — ACTIVACION_01',
+      porque: 'proceso con paquete ya elegido',
+      cuando: /(c[oó]mo\s+(se\s+)?(inici|empie|arranc|activ)|cu[aá]l(es)?\s+(es|son)\s+(el|los)\s+(proceso|paso)|qu[eé]\s+pasos|proceso\s+(de|para))[^.?]{0,40}(con\s+(este|ese|el)\s+(paquete|esp|inicial|empresarial|visionario)|con\s+el\s+paquete|ya\s+(eleg[ií]|escog[ií]))|ya\s+(eleg[ií]|escog[ií])[^.?]{0,40}(proceso|paso|c[oó]mo\s+(sigo|inici|empie|arranc|activ))/i,
+    },
+    {
+      // Prueba del Director, 19 ago: a un independiente se le respondió con el
+      // villano del empleado —recorte, reestructuración, decisiones de otra
+      // oficina—, porque WHY_03 comparte el "ya me va bien" y está escrita para
+      // quien vive de un salario.
+      fragmento: 'arsenal_inicial_FREQ_10',
+      titulo: 'Negocio tradicional vs canal — FREQ_10',
+      porque: 'ya tiene negocio propio',
+      cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(independiente|comerciante|empresari[oa])\b|\btrabajo\s+por\s+mi\s+cuenta\b/i,
+    },
+    {
+      // Prueba de 40 preguntas, 19 ago: "ya tuve código de Gano Excel antes"
+      // recuperaba FREQ_05 (la herencia del código) y NET_02 no aparecía en el
+      // top 6. La respuesta fue de tres líneas y terminó preguntando "¿qué lo
+      // trae de vuelta?" a alguien que traía la mitad del camino andado.
+      fragmento: 'arsenal_inicial_NET_02',
+      titulo: 'Ya fue distribuidor de Gano Excel — NET_02',
+      porque: 'ya tuvo código de Gano',
+      cuando: /(ya\s+)?(tuve|ten[ií]a|fui|estuve|hice)[^.?]{0,30}(c[oó]digo|distribuidor|gano\s*excel)|reactivar\s+(mi\s+)?c[oó]digo|c[oó]digo\s+(viejo|antiguo|inactivo)|volver\s+a\s+(activar|entrar)[^.?]{0,20}gano/i,
+    },
+    {
+      // Prueba de 40 preguntas, 19 ago: "ya estuve en un multinivel y no me fue
+      // bien" recuperaba STORY_03 —la historia de Luis, con candado, que va
+      // sola— y NET_01 quedaba tercera. Sin la respuesta, el modelo compuso: le
+      // habló de "reclutar", palabra retirada, en la objeción donde más pesa.
+      fragmento: 'arsenal_inicial_NET_01',
+      titulo: 'Ya hizo mercadeo en red — NET_01',
+      porque: 'viene de otro multinivel',
+      cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)/i,
+    },
+  ];
 
-  // ⚡ ROUTING DIRECTO: YA TIENE NEGOCIO PROPIO → FREQ_10
-  // "¿por qué haría esto si ya tengo mi negocio y me va bien?" tiene su respuesta
-  // escrita —FREQ_10, la asimetría del riesgo—, pero en el vector le gana WHY_03,
-  // que comparte el "ya me va bien" y está escrita para quien vive de un SALARIO.
-  // El resultado es grave: a un independiente se le respondió con el villano del
-  // empleado —"un recorte, una reestructuración, decisiones que se toman en otra
-  // oficina"— y con la casa que no es suya. A quien vive de su propio negocio eso
-  // no le habla: le dice que no lo estamos escuchando (prueba del Director, 19
-  // ago 11:10). Cuando la persona nombra su negocio, la respuesta es FREQ_10.
-  const _tieneNegocioPropio = /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(independiente|comerciante|empresari[oa])\b|\btrabajo\s+por\s+mi\s+cuenta\b/i.test(userMessage);
-  if (documentType === 'arsenal_inicial' && _tieneNegocioPropio) {
-    const allFragments = await getArsenalFragments();
-    const freq10 = allFragments.find(f => f.category === 'arsenal_inicial_FREQ_10');
-    if (freq10) {
-      console.log('🏪 [Negocio propio] → FREQ_10 directo (la asimetría del riesgo, no el villano del salario)');
-      const result = [{
-        id: 'arsenal_inicial_FREQ_10',
-        title: 'Negocio tradicional vs canal — FREQ_10',
-        content: freq10.content,
-        category: 'arsenal_inicial',
-        metadata: { is_fragment_result: true, fragment_count: 1, fragment_categories: ['arsenal_inicial_FREQ_10'] },
-        source: '/knowledge_base/arsenal_inicial.txt',
-        search_method: 'negocio_propio_direct'
-      }];
-      searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
-      return result;
+  if (documentType === 'arsenal_inicial') {
+    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage));
+    if (puerta) {
+      const allFragments = await getArsenalFragments();
+      const frag = allFragments.find(f => f.category === puerta.fragmento);
+      if (frag) {
+        console.log(`🚪 [Puerta] ${puerta.porque} → ${puerta.fragmento} directo`);
+        const result = [{
+          id: puerta.fragmento,
+          title: puerta.titulo,
+          content: frag.content,
+          category: 'arsenal_inicial',
+          metadata: { is_fragment_result: true, fragment_count: 1, fragment_categories: [puerta.fragmento] },
+          source: '/knowledge_base/arsenal_inicial.txt',
+          search_method: 'puerta_directa'
+        }];
+        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        return result;
+      }
+      console.warn(`⚠️ [Puerta] ${puerta.fragmento} no está en los fragmentos — se sigue con búsqueda normal`);
     }
   }
 

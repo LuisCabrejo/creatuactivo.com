@@ -729,8 +729,24 @@ async function captureProspectData(
   //   - "para entender / para saber / me gustaría saber / quisiera saber"
   const esPreguntaInformativa = /qu[eé] (es|contiene|incluye|trae|tiene|hay en)|c[oó]mo (es|funciona)|cu[aá]nto (cuesta|vale|sale|es)|cu[aá]l es el (contenido|precio|nivel|paquete)|h[aá]blame|expl[ií]came|cu[eé]ntame|me (puedes|podr[ií]as) (decir|explicar|contar|aclarar)|diferencia entre|comparar|versus|\svs\s|para (entender|saber)|me gustar[ií]a saber|quisiera saber|antes de decidir|si.*decido|si.*elijo|supongamos/i.test(messageLower);
 
+  // ⚠️ "paquetes empresariales" EN PLURAL no es el ESP-2 Empresarial: es el
+  // nombre genérico de lo que paga el Bono GEN5 —"por cada paquete empresarial
+  // que se compra en su canal"—, y aparece en la pregunta más común sobre esa
+  // vía. Capturarlo como selección tenía dos efectos encadenados y difíciles de
+  // ver: le fijaba ESP-2 a alguien que no eligió nada, y encendía la Marcha 2,
+  // cuyo micro-prompt ordena responder "con el contenido del paquete usando el
+  // contexto del arsenal" — justo contra el ejemplo que el pin acababa de
+  // dictar. Por eso "cómo son los ingresos por paquetes empresariales" recibía
+  // el ejemplo del GEN5 unas veces y una explicación del ESP-2 otras: no era el
+  // modelo dudando, eran dos instrucciones opuestas en el mismo turno
+  // (prueba de 40, 19 ago 2026). El singular sí selecciona: "quiero el paquete
+  // empresarial" es una elección.
+  const _empresarialGenerico = /paquetes\s+empresariales/i.test(messageLower);
+
   if (esPreguntaInformativa) {
     console.log('🚫 [NEXUS] Mención de paquete en pregunta informativa — NO capturar como selección');
+  } else if (_empresarialGenerico) {
+    console.log('🚫 [NEXUS] "paquetes empresariales" (plural) es el genérico del GEN5 — NO es selección de ESP-2');
   } else {
     for (const [label, value] of Object.entries(packageMap)) {
       if (messageLower.includes(label)) {

@@ -5,7 +5,7 @@
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando (nuevos); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con socios nuevos y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 5.2 (7 ago 2026) — **Bautizo empresarial:** quienes componen la estructura dejan de llamarse "personas" → **socios** (invitar → conectar socios; tabla "Socios — Nuevos vs Total"; 8.190 socios) y el consumo → **clientes** (INV_04). Dos preguntas de cierre pasan de dos salidas a una (NIVELES_06, INV_01). Cifras/PV/CV intactas. Previa: **5.1** (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
+**Versión:** 5.3 (19 ago 2026) — El beneficio de acompañamiento del Kit se nombra por **quién acompaña**, no por una etapa. Previa **5.2** (7 ago 2026) — **Bautizo empresarial:** quienes componen la estructura dejan de llamarse "personas" → **socios** (invitar → conectar socios; tabla "Socios — Nuevos vs Total"; 8.190 socios) y el consumo → **clientes** (INV_04). Dos preguntas de cierre pasan de dos salidas a una (NIVELES_06, INV_01). Cifras/PV/CV intactas. Previa: **5.1** (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
 
 **Cambios v5.1 (21 jul 2026):**
 - **NIVELES_02:** la tabla ahora distingue **"Nuevos"** (2ⁿ, quienes entran en el nivel) de **"Total organización"** (2⁽ⁿ⁺¹⁾−2, tamaño acumulado por interés compuesto de la duplicación) — alinea con el simulador de /12-niveles. Ej. nivel 4: 16 nuevos, 30 en total. Nivel 12: 8.190 en total.
@@ -280,7 +280,7 @@ Todos los paquetes incluyen:
 - Derecho a construir en todos los países
 
 **4. Mentoría y soporte:**
-- Acceso al equipo de Fundadores
+- Acompañamiento del equipo de creatuactivo.com
 - Capacitación continua
 - Comunidad privada
 

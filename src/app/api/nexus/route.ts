@@ -2817,6 +2817,18 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       cuando: /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i,
     },
     {
+      // Prueba conversacional, 20 ago (turno 15, corrida 3): "¿cada cuánto
+      // pagan?" recuperaba COMP_PV_03 — un fragmento en formato de notas
+      // internas que imprimió "**Concepto Nuclear:**" y una tabla de ciclos de
+      // enero congelados en el chat. FREQ_17 es la respuesta de pagos de cara
+      // al prospecto. (COMP_PV_03 queda pendiente de revisión del Director: su
+      // desfase de dos semanas no coincide con la corrección del 17 ago.)
+      fragmento: 'arsenal_inicial_FREQ_17',
+      titulo: 'Cómo pagan las comisiones — FREQ_17',
+      porque: 'pregunta la cadencia del pago',
+      cuando: /cada\s+cu[aá]nt[oa]\s+(me\s+)?(pagan?|liquidan?|consignan?)|cu[aá]ndo\s+(me\s+)?pagan|qu[eé]\s+d[ií]as?\s+pagan?|con\s+qu[eé]\s+frecuencia\s+(pagan?|liquidan?)|cada\s+cu[aá]ndo\s+pagan?/i,
+    },
+    {
       // Prueba conversacional, 20 ago (turno 8): el "sí" a "¿le muestro cómo se
       // gana con este paquete?" no matcheaba ninguna oferta de ejemplo, el
       // vector devolvía COMP_GEN5_04 sin candado, y el modelo compuso "dos

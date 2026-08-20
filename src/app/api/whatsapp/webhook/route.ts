@@ -16,6 +16,7 @@
 // Tenant: whatsapp (system prompt 'queswa_whatsapp' en Supabase)
 
 import { createClient } from '@supabase/supabase-js';
+import { waitUntil } from '@vercel/functions';
 import { sendText, sendReplyButtons, sendFlow, sendTemplate, marcarLeidoYEscribiendo } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
@@ -48,7 +49,13 @@ import {
 import { detectarPromesaDeIngreso } from '@/lib/wa-guardarrail-negocio';
 
 export const runtime = 'nodejs';
-export const maxDuration = 30;
+// 90 s y no 30 (19 ago 2026). Con `waitUntil`, Meta ya recibió su 200 y este
+// techo no lo espera nadie: solo acota cuánto puede tardar el trabajo de fondo
+// antes de que Vercel lo corte. Los turnos medidos van de 3 a 16 s, así que 90
+// es holgura de verdad — un turno lento deja de significar una persona que ve
+// "escribiendo…" y no recibe nada. El proyecto corre en Fluid compute, donde el
+// costo se cuenta por CPU activa: esperar al modelo no se cobra como cómputo.
+export const maxDuration = 90;
 
 // Lo que el prospecto recibe cuando el guardarraíl bloquea una respuesta. Es
 // también lo que queda en el historial y en la base: el modelo debe recordar lo
@@ -103,9 +110,96 @@ export async function GET(request: Request) {
 }
 
 // ─── POST: Mensajes inbound de Meta ───────────────────────────────────────────
-export async function POST(request: Request) {
+
+/**
+ * ¿Este mensaje ya se procesó? Guarda contra el reenvío de Meta.
+ *
+ * La llave primaria de `wa_mensajes_procesados` hace todo el trabajo: el segundo
+ * INSERT del mismo `wamid` falla con 23505 y ahí se corta. Es atómico, así que
+ * dos entregas simultáneas no pueden colarse las dos.
+ *
+ * ⚠️ **Falla hacia procesar, nunca hacia el silencio.** Si la tabla no existe o
+ * Supabase no responde, se devuelve `false` y el turno sigue: una respuesta
+ * repetida es un bochorno, pero una persona que escribe y no recibe nada es una
+ * venta perdida y la razón por la que existe todo esto.
+ */
+async function yaProcesado(wamid: string): Promise<boolean> {
   try {
-    const body = await request.json();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (getSupabase() as any)
+      .from('wa_mensajes_procesados')
+      .insert({ wamid });
+
+    if (!error) return false;                 // insertó → es la primera entrega
+    if (error.code === '23505') return true;  // llave duplicada → es un reenvío
+
+    console.warn(`⚠️ [WA Webhook] Guarda de reenvío no disponible (${error.code}) — se procesa igual`);
+    return false;
+
+  } catch (err) {
+    console.warn('⚠️ [WA Webhook] Guarda de reenvío falló — se procesa igual:', err);
+    return false;
+  }
+}
+
+/**
+ * Puerta del canal. Su único trabajo es contestarle a Meta **de inmediato** y
+ * mandar el mensaje a procesar por detrás.
+ *
+ * POR QUÉ: hasta ahora el webhook hacía todo el trabajo —transcribir el audio,
+ * llamar al motor, pasar tres guardarraíles, enviar por la Graph API— y recién
+ * entonces respondía. Meta esperaba todo eso, y si el turno se pasaba del techo
+ * de la función, Vercel la mataba: la persona veía "escribiendo…" y no llegaba
+ * nada, el turno no quedaba guardado, y Meta reintentaba la entrega — lo que en
+ * el mejor de los casos producía una respuesta duplicada.
+ *
+ * Ahora Meta recibe su 200 en milisegundos y el trabajo sigue en
+ * `procesarEntrante` bajo `waitUntil`, que mantiene viva la invocación.
+ *
+ * ⚠️ `waitUntil` **no regala tiempo**: la promesa muere con el mismo
+ * `maxDuration` de la función. Lo que cambia es que el reloj ya no lo mira Meta.
+ * Por eso el techo se subió a 90 s en la misma corrección.
+ */
+export async function POST(request: Request) {
+  const ok = () => new Response('OK', { status: 200 });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let body: any;
+  try {
+    body = await request.json();
+  } catch {
+    console.warn('⚠️ [WA Webhook] Cuerpo ilegible — se acusa 200 y se ignora');
+    return ok();
+  }
+
+  const wamid = body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.id as string | undefined;
+
+  if (wamid && await yaProcesado(wamid)) {
+    console.log(`♻️ [WA Webhook] ${wamid} ya se había procesado — se ignora el reenvío`);
+    return ok();
+  }
+
+  // El `.catch` no es decorativo: una promesa rechazada dentro de `waitUntil` se
+  // pierde sin dejar rastro, y este es el único lugar donde se puede ver.
+  waitUntil(
+    procesarEntrante(body).catch((err) => {
+      console.error('❌ [WA Webhook] El procesamiento de fondo falló:', err);
+    }),
+  );
+
+  return ok();
+}
+
+/**
+ * Procesa un mensaje entrante. Corre EN SEGUNDO PLANO, después de que Meta ya
+ * recibió su 200 — ver la nota de `POST`. No devuelve nada: lo que le importa a
+ * Meta ya se respondió, y lo que le importa a la persona sale por la Graph API.
+ *
+ * Cada `return` de aquí abajo significa "este turno terminó", no "responda esto".
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function procesarEntrante(body: any): Promise<void> {
+  try {
 
     const value    = body?.entry?.[0]?.changes?.[0]?.value;
     const messages = value?.messages;
@@ -123,7 +217,7 @@ export async function POST(request: Request) {
         const e = st.errors?.[0];
         console.error(`📵 [WA Webhook] Envío FALLIDO a ${st.recipient_id} — #${e?.code} ${e?.title ?? e?.message ?? ''}`.trim());
       }
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     const message     = messages[0];
@@ -204,7 +298,7 @@ export async function POST(request: Request) {
           phoneNumber,
           'Perdón, no logré escuchar bien su nota de voz. ¿Me la escribe en un mensaje?',
         );
-        return new Response('OK', { status: 200 });
+        return;
       }
     }
 
@@ -244,13 +338,13 @@ export async function POST(request: Request) {
 
       if (tipo === 'reaction' || tipo === 'sticker') {
         console.log(`👍 [WA Webhook] ${phoneNumber} envió un gesto (${tipo}) — sin respuesta, a propósito`);
-        return new Response('OK', { status: 200 });
+        return;
       }
 
       const acuse = ACUSE_NO_PROCESABLE[tipo ?? ''] ?? ACUSE_NO_PROCESABLE.default;
       await sendWhatsAppMessage(phoneNumber, acuse, { wamid, citar: true });
       console.log(`📎 [WA Webhook] ${phoneNumber} envió "${tipo}" — acusado sin procesar`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     console.log(`📥 [WA Webhook] ${contactName} (${phoneNumber}): "${messageText}" ${isCTWA ? '[CTWA]' : ''}`);
@@ -454,7 +548,7 @@ export async function POST(request: Request) {
         await sendWhatsAppMessage(phoneNumber, `No pude crear el canal de ${nombre}: ${resultado.error}`);
       }
       console.log(`🎫 [WA Admin] ACTIVAR "${nombre}" → ${destino} · ${resultado.ok ? resultado.slug : resultado.error}`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // El comando salió mal escrito o la persona no está radicada: se dice qué
@@ -462,7 +556,7 @@ export async function POST(request: Request) {
     if (mComando && admins.includes(phoneNumber) && nombre) {
       await sendWhatsAppMessage(phoneNumber,
         `No encontré el número de ${nombre}.\n\nEscríbame así:\nACTIVAR ${nombre} 3001234567`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────
@@ -477,7 +571,7 @@ export async function POST(request: Request) {
       console.error(`🆘 [WA Guardrail Salud] EMERGENCIA detectada ("${emergencia}") — ${phoneNumber}. Derivado a línea 123, cero producto.`);
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_EMERGENCIA);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, RESPUESTA_EMERGENCIA);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     const saludEntrada = clasificarPreguntaSalud(messageText);
@@ -494,7 +588,7 @@ export async function POST(request: Request) {
       console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${saludEntrada.nivel}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
       await sendWhatsAppMessage(phoneNumber, rechazo);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // ─── 1.45 ¿Es el dueño de un canal, y no un prospecto? ────────────────────
@@ -515,7 +609,7 @@ export async function POST(request: Request) {
       await sendWhatsAppMessage(phoneNumber, saludo);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, saludo);
       console.log(`👋 [WA Webhook] Saludo de socio entregado a /${socioQueEscribe.slug}`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // ─── 1.5 Apertura dictada (solo primer contacto) ──────────────────────────
@@ -578,7 +672,7 @@ export async function POST(request: Request) {
       }
 
       console.log(`👋 [WA Webhook] Apertura entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // ─── 1.6 Respuesta dictada a una opción de la apertura ────────────────────
@@ -605,7 +699,7 @@ export async function POST(request: Request) {
         console.error('⚠️ [WA Webhook] No se pudo persistir la respuesta dictada:', err);
       }
       console.log(`📌 [WA Webhook] Respuesta dictada para "${opcionElegida}" → ${phoneNumber}`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // ─── 2. Reconstruir historial + llamar al motor Queswa ────────────────────
@@ -682,7 +776,7 @@ export async function POST(request: Request) {
       await sendWhatsAppMessage(phoneNumber, respuestaSimulador, { wamid });
       await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaSimulador);
       console.log(`🧮 [WA Webhook] Escenario del simulador respondido dictado para ${phoneNumber}`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // ─── 2.4 Reenviar el simulador cuando lo pidan ────────────────────────────
@@ -717,7 +811,7 @@ export async function POST(request: Request) {
           console.error('⚠️ [WA Webhook] No se pudo persistir el reenvío del simulador:', err);
         }
         console.log(`🧮 [WA Webhook] Simulador reenviado a ${phoneNumber}`);
-        return new Response('OK', { status: 200 });
+        return;
       }
       // Si el reenvío falla, el turno sigue al motor: mejor una respuesta en
       // texto que un silencio.
@@ -765,7 +859,7 @@ export async function POST(request: Request) {
         console.error('⚠️ [WA Webhook] No se pudo persistir el turno de cierre:', err);
       }
       console.log(`🎯 [WA Webhook] Cierre atendido para ${phoneNumber} (radicado: ${cierre.radicado})`);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
@@ -808,7 +902,7 @@ export async function POST(request: Request) {
       if (!nexusResponse.ok) {
         console.error(`❌ [WA Webhook] Motor Queswa retornó ${nexusResponse.status}`);
         await sendWhatsAppMessage(phoneNumber, 'Hubo un error procesando su mensaje. Inténtelo de nuevo en un momento.');
-        return new Response('OK', { status: 200 });
+        return;
       }
 
       // ─── 3. Consumir stream text/plain ─────────────────────────────────────
@@ -840,7 +934,7 @@ export async function POST(request: Request) {
       console.error(`🚨 [WA Guardrail] BLOQUEADO — término "${violacion}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // Guardarraíl de negocio — SALIDA. La contraparte del de salud, para el otro
@@ -855,7 +949,7 @@ export async function POST(request: Request) {
       console.error(`🚨 [WA Guardrail Negocio] BLOQUEADO — "${promesa}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // Guardarraíl de salud — SALIDA. Atrapa lo que la capa de entrada no vio
@@ -868,7 +962,7 @@ export async function POST(request: Request) {
       console.error(`🚨 [WA Guardrail Salud] BLOQUEADO — claim "${claimSalud}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
       await sendWhatsAppMessage(phoneNumber, RECHAZO_SALUD_ESTANDAR);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, RECHAZO_SALUD_ESTANDAR);
-      return new Response('OK', { status: 200 });
+      return;
     }
 
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────
@@ -990,11 +1084,11 @@ export async function POST(request: Request) {
     if (msTotal > 20_000) console.warn(`${linea} — CERCA DEL TECHO de ${maxDuration} s`);
     else console.log(linea);
 
-    return new Response('OK', { status: 200 });
+    return;
 
   } catch (error) {
     console.error('❌ [WA Webhook] Error inesperado:', error);
-    return new Response('OK', { status: 200 });
+    return;
   }
 }
 

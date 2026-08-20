@@ -137,6 +137,65 @@ export async function sendText(
   }
 }
 
+// ─── Envío: imagen con pie de foto ────────────────────────────────────────────
+
+/**
+ * Envía una imagen por su URL pública, con pie de foto opcional.
+ *
+ * Meta descarga la imagen del `link` — no hay que subirla antes. Debe ser HTTPS
+ * accesible sin autenticación, JPEG o PNG, y pesar menos de 5 MB (las nuestras
+ * rondan los 120 KB). Se prefiere el link sobre subir el archivo porque una
+ * imagen subida vive 30 días y luego el `media_id` caduca; la URL no caduca.
+ *
+ * ⚠️ El pie de foto tiene 1024 caracteres, pero eso no es el límite útil:
+ * WhatsApp colapsa el pie tras unas pocas líneas y esconde el resto detrás de
+ * "Leer más", que es donde se pierde el precio. El pie va corto.
+ */
+export async function sendImage(
+  to: string,
+  link: string,
+  caption?: string,
+): Promise<WAResult> {
+  const creds = credentials();
+  if ('error' in creds) {
+    console.error(creds.error);
+    return { ok: false, error: creds.error };
+  }
+
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${creds.systemToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: normalizePhone(to),
+        type: 'image',
+        image: { link, ...(caption && { caption: caption.slice(0, 1024) }) },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const msg = metaError(response.status, data);
+      console.error(`❌ [WA] sendImage — ${msg}`);
+      return { ok: false, error: msg };
+    }
+
+    const messageId = data?.messages?.[0]?.id;
+    console.log(`✅ [WA] Imagen enviada a ${normalizePhone(to)} (msg: ${messageId})`);
+    return { ok: true, messageId };
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] sendImage error:', msg);
+    return { ok: false, error: msg };
+  }
+}
+
 // ─── Acuse: visto azul + "escribiendo…" ───────────────────────────────────────
 
 /**
@@ -439,12 +498,17 @@ export async function sendInteractiveList(
 /**
  * Plantilla aprobada. Es la única vía para iniciar conversación fuera de la
  * ventana de 24h. `parameters` rellena las variables {{1}}, {{2}}… del BODY.
+ *
+ * `buttonUrlParam`: sufijo dinámico del botón de URL (plantillas con botón
+ * `https://…/{{1}}`, ej. `acceso_centro_mando`). Meta lo exige como componente
+ * `button` aparte — no viaja en los parámetros del BODY.
  */
 export async function sendTemplate(
   to: string,
   templateName: string,
   languageCode = 'es',
   parameters: string[] = [],
+  buttonUrlParam?: string,
 ): Promise<WAResult> {
   const creds = credentials();
   if ('error' in creds) {
@@ -453,12 +517,22 @@ export async function sendTemplate(
   }
 
   // Sin variables, Meta rechaza un `components` vacío — se omite del payload.
-  const components = parameters.length > 0
-    ? [{
-        type: 'body',
-        parameters: parameters.map<WATemplateParam>((text) => ({ type: 'text', text })),
-      }]
-    : undefined;
+  const componentList: Record<string, unknown>[] = [];
+  if (parameters.length > 0) {
+    componentList.push({
+      type: 'body',
+      parameters: parameters.map<WATemplateParam>((text) => ({ type: 'text', text })),
+    });
+  }
+  if (buttonUrlParam) {
+    componentList.push({
+      type: 'button',
+      sub_type: 'url',
+      index: '0',
+      parameters: [{ type: 'text', text: buttonUrlParam }],
+    });
+  }
+  const components = componentList.length > 0 ? componentList : undefined;
 
   try {
     const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {

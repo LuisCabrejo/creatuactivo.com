@@ -17,7 +17,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { waitUntil } from '@vercel/functions';
-import { sendText, sendReplyButtons, sendFlow, sendTemplate, marcarLeidoYEscribiendo } from '@/lib/wa-channel';
+import { sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, marcarLeidoYEscribiendo } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -27,6 +27,7 @@ import {
 import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
+import { pideImagen, detectarProducto, pieDeFoto, urlImagen } from '@/lib/wa-productos';
 import {
   slugDesdeNombre,
   normalizarWhatsApp,
@@ -765,6 +766,30 @@ async function procesarEntrante(body: any): Promise<void> {
 
     if (turnosSaneados > 0) {
       console.warn(`🧹 [WA Webhook] ${turnosSaneados} turno(s) bloqueado(s) saneado(s) en el historial de ${waFingerprint}`);
+    }
+
+    // ─── 2.25 Foto de un producto ─────────────────────────────────────────────
+    // Pedir la foto de un producto es de lo más común en el canal, y hasta ahora
+    // Queswa solo podía describirlo. Se envía SOLO si la persona la pide y nombra
+    // un producto: mandarla porque el producto se mencionó convierte la
+    // conversación en un catálogo que dispara solo.
+    //
+    // ⚠️ La imagen va SIN declaración de salud en el pie — nombre, presentación,
+    // precio y registro sanitario. Ver la nota de cabecera de wa-productos.ts:
+    // una imagen con promesa es publicidad de producto, y esa se juzga con la
+    // vara de la etiqueta, no con la de una conversación.
+    // La foto es un ADJUNTO, no un reemplazo: sale primero y el turno sigue su
+    // curso hasta el motor, que responde en texto y cierra con su pregunta. Si
+    // aquí se cortara el turno, la persona recibiría una imagen y un silencio.
+    if (pideImagen(messageText)) {
+      const producto = detectarProducto(messageText);
+      if (producto) {
+        const enviada = await sendImage(phoneNumber, urlImagen(producto), pieDeFoto(producto));
+        if (enviada.ok) console.log(`📷 [WA Webhook] Foto de ${producto.slug} enviada a ${phoneNumber}`);
+        else console.warn(`⚠️ [WA Webhook] Foto de ${producto.slug} no se pudo enviar: ${enviada.error}`);
+      } else {
+        console.log(`📷 [WA Webhook] Pidió imagen pero no nombró un producto reconocible — responde el motor`);
+      }
     }
 
     // ─── 2.3 El escenario del simulador se responde dictado ───────────────────

@@ -165,8 +165,8 @@ Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las ac
 | 🪶 **Estructura Patrimonial** | Sustantivo doctrinal — reemplaza "Patrimonio Paralelo" · prospecto → **estructura de ingresos recurrentes** | v26.3 — Glosario v1.4 |
 | ~~El Tridente EAM~~ 🛑 **RETIRADO** | **El Método Comprobado** — Compartir · Recibir, y la multiplicación es la **consecuencia**, no un tercer paso | v19.6 → retirado 8 ago 2026 |
 | **90% automatizado** | NO usar "80% automatizado" | Doctrina actual |
-| **70 países** | Gano Excel presencia global — NO usar 60 | Oficial |
-| **15 países operativos** | CreaTuActivo cobertura geográfica — NO confundir con 70 | v6.4 compensación |
+| **más de 60 países** | Gano Excel presencia global. ⚠️ **Corregido 8 ago 2026:** la cifra de *70* no la sostiene ninguna fuente; *más de 60* es lo que publican los sitios oficiales de Gano Excel Colombia y Estados Unidos. Defendible ante quien verifique, y solo puede sorprender hacia arriba | Oficial |
+| **15 países operativos** | CreaTuActivo cobertura geográfica — no confundir con la presencia global de Gano, que es **más de 60** | v6.4 compensación |
 | **Cupos Fundadores: 15** | Base fundacional inicial | — |
 | **Acueducto / Alquiler vs. Propiedad / Ferrari gratis / Waze / Faro** | Metáforas universales aprobadas | Jobs-Style Feb 2026 |
 

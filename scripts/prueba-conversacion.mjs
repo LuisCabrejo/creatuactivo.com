@@ -25,7 +25,7 @@ import { detectarPromesaDeIngreso } from '../src/lib/wa-guardarrail-negocio.ts';
 import { detectarClaimSaludEnSalida } from '../src/lib/wa-guardarrail-salud.ts';
 import { respuestaRenta, respuestaGen5 } from '../src/lib/wa-simulador.ts';
 import { RE_VOLICION, extraerDatosRadicacion, pedirDatos, pedirUnDato } from '../src/lib/wa-radicacion.ts';
-import { detectarEmergencia, clasificarPreguntaSalud } from '../src/lib/wa-guardarrail-salud.ts';
+import { detectarEmergencia, clasificarPreguntaSalud, RECHAZO_SALUD_ESTANDAR, RECHAZO_SALUD_GRAVE } from '../src/lib/wa-guardarrail-salud.ts';
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : d; };
 const BASE = arg('--base', 'https://creatuactivo.com');
@@ -98,17 +98,23 @@ async function responder(turno) {
   // Guardarraíl de salud de ENTRADA — en producción vive en el webhook y corre
   // ANTES del motor. Sin esta capa, el arnés dejaba pasar "mi esposo es
   // diabetico" al motor, que no tiene guardarraíles (pendiente conocido).
-  if (detectarEmergencia(turno.texto)) return { texto: '[derivación a línea 123 — dictada por el webhook]', capa: 'salud:emergencia' };
+  if (detectarEmergencia(turno.texto)) return { texto: 'Su situación necesita atención médica ya — llame a la línea 123.', capa: 'salud:emergencia' };
   const saludE = clasificarPreguntaSalud(turno.texto);
-  if (saludE) return { texto: `[derivación de salud (${saludE.nivel}: ${saludE.termino}) — dictada por el webhook]`, capa: 'salud:entrada' };
+  // El texto REAL de la derivación, porque el motor lo ve en el hilo: con un
+  // placeholder falso, el modelo intentaba "completar" la respuesta de salud en
+  // el turno siguiente (corrida 2, turno 14).
+  if (saludE) return { texto: saludE.nivel === 'grave' ? RECHAZO_SALUD_GRAVE : RECHAZO_SALUD_ESTANDAR, capa: `salud:entrada(${saludE.termino})` };
 
   // Simulador (el webhook responde dictado, sin motor)
   if (turno.via === 'simulador') {
     const rRenta = turno.texto.match(/tarifa (.+?), con (\d+) clientes/);
     const rGen = turno.texto.match(/paquete (ESP-\d), con (\d+) paquetes/);
+    // mismo flag que computa el webhook
+    const opciones = { composicionYaOfrecida: historial.some((m) =>
+      m.role === 'assistant' && /qu[eé] trae el paquete|le activa inmediatamente este inventario/i.test(m.content)) };
     const texto = rRenta
-      ? respuestaRenta({ tipo: 'renta', tarifa: rRenta[1], clientes: rRenta[2] })
-      : respuestaGen5({ paquete: rGen[1], cantidad: rGen[2] });
+      ? respuestaRenta({ tipo: 'renta', tarifa: rRenta[1], clientes: rRenta[2] }, opciones)
+      : respuestaGen5({ paquete: rGen[1], cantidad: rGen[2] }, opciones);
     return { texto, capa: 'wa-simulador' };
   }
 
@@ -159,6 +165,9 @@ const preguntasHechas = new Map();
 function auditar(texto, capa, n) {
   const f = [];
   if (!texto) { f.push('respuesta vacía'); return f; }
+  // La derivación de salud es texto dictado y aprobado — auditarla contra el
+  // guardarraíl de salud es auditar al guardarraíl consigo mismo.
+  if (capa.startsWith('salud')) return f;
   for (const [nombre, re] of VETADO) if (re.test(texto)) f.push(`VETADO: ${nombre}`);
   const negativa = RE_NEGATIVA.test(texto);
   const salud = negativa ? null : detectarClaimSaludEnSalida(texto);
@@ -172,7 +181,10 @@ function auditar(texto, capa, n) {
   const q = (texto.match(/¿[^?]{8,150}\?\s*$/m) || [])[0]?.toLowerCase().replace(/[^a-záéíóúñ ]/g, '').trim();
   // Volver a pedir el dato pendiente del trámite NO es una pregunta repetida:
   // la persona respondió con otra cosa y el dato sigue faltando.
-  if (q && !capa.startsWith('radicación') && !capa.startsWith('salud')) {
+  // La invitación al simulador es un CTA a una herramienta, no una oferta de
+  // contenido: repetirla tras un ejemplo NUEVO es natural.
+  const esCTASimulador = q && /escenario en el simulador/.test(q);
+  if (q && !esCTASimulador && !capa.startsWith('radicación') && !capa.startsWith('salud')) {
     if (preguntasHechas.has(q)) f.push(`pregunta de cierre REPETIDA (ya en turno ${preguntasHechas.get(q)})`);
     else preguntasHechas.set(q, n);
   }

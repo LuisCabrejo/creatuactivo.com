@@ -2817,6 +2817,20 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       cuando: /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i,
     },
     {
+      // Prueba conversacional, 20 ago (turno 8): el "sí" a "¿le muestro cómo se
+      // gana con este paquete?" no matcheaba ninguna oferta de ejemplo, el
+      // vector devolvía COMP_GEN5_04 sin candado, y el modelo compuso "dos
+      // velocidades / ingreso inmediato" — léxico retirado que el guardarraíl
+      // bloquea, así que la persona recibía la respuesta correctiva en lugar de
+      // una respuesta. La doctrina es COMP_MODELO_01: la primera respuesta
+      // sobre ganancias, sin cifras. (El pin de renta sigue mandando cuando la
+      // oferta fue "¿quiere ver cómo se gana?" — el bypass corre antes.)
+      fragmento: 'arsenal_compensacion_COMP_MODELO_01',
+      titulo: 'Cómo se gana — COMP_MODELO_01',
+      porque: 'cómo se gana con el paquete',
+      cuando: /c[oó]mo se gana con (este|ese|el|un) (paquete|esp)|le (muestro|explico) c[oó]mo se gana\b/i,
+    },
+    {
       // Prueba del Director, 20 ago: el "sí" a "¿le explico cómo se ve el día a
       // día?" recuperaba WHY_02 con candado —que va solo— y el modelo compuso un
       // paso a paso propio que remató con "cobrar cada viernes" encadenado a dos

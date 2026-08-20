@@ -1,6 +1,6 @@
 # ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.8 — COMPARTIR · RECIBIR (la multiplicación es consecuencia)
 
-**v13.3 (10 ago 2026):** METH_01 deja de cerrar en círculo. *«¿Le muestro cómo se ve esa multiplicación en números?»* recuperaba **el propio METH_01** (0.529): la persona decía que sí y recibía la misma respuesta. Ahora cierra hacia **COMP_BIN_10** (0.558), donde la multiplicación se cuenta en **cajas y clientes**, no en gente — y donde *cien clientes* aparece como un número normal, que es la capa que el prospecto no ve: no los consigue él solo, son los de sus socios sumados. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**v13.4 (20 ago 2026):** ADV_VAL_01/02 alcanzan el barrido v7.7 de compensación — la vía se nombra por lo que la mueve, no por su velocidad: *primera/segunda velocidad* e *Ingreso Inmediato* salen de cabecera y cuerpo (los disparadores conservan las palabras del prospecto), el GEN5 se cuenta en compras y su cierre apunta al simulador. Cifras intactas. Previa **v13.3 (10 ago 2026):** METH_01 deja de cerrar en círculo. *«¿Le muestro cómo se ve esa multiplicación en números?»* recuperaba **el propio METH_01** (0.529): la persona decía que sí y recibía la misma respuesta. Ahora cierra hacia **COMP_BIN_10** (0.558), donde la multiplicación se cuenta en **cajas y clientes**, no en gente — y donde *cien clientes* aparece como un número normal, que es la capa que el prospecto no ve: no los consigue él solo, son los de sus socios sumados. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 **v13.2 (10 ago 2026):** METH_01 pierde el inciso *1, 2, 4, 8* — la progresión geométrica en dígitos es el inyector de pirámide, y contaba socios en vez de compras. La frase queda completa sin él. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
@@ -91,24 +91,24 @@ Si uno tuviera un problema, los otros dos sostienen la operación. Nunca se qued
 
 ## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación) - 4 respuestas
 
-### ADV_VAL_01: "Explícame el Ingreso Inmediato con números"
-**[Concepto Nuclear]:** El primer ingreso entra rápido: cada nueva empresa digital que usted activa le paga de inmediato.
+### ADV_VAL_01: "Explícame el Ingreso Inmediato con números / ¿Qué es el ingreso inmediato?"
+**[Concepto Nuclear]:** *Ingreso inmediato* es el nombre viejo del **Bono GEN5**, y la vía se nombra por lo que la mueve: **la compra de paquetes empresariales en su canal**. Sin adjetivos de velocidad — lo único que se afirma es *cada vez que ocurre una compra*. Y se cuenta en COMPRAS, nunca en personas que entran.
 
-La primera velocidad del sistema le da ingreso de corto plazo por cada nueva empresa digital que se activa en su canal.
+Eso que le nombraron como ingreso inmediato es el **Bono GEN5**: una comisión por cada paquete empresarial que se compra en su canal, y su función es financiar el crecimiento en la etapa temprana.
 
-En el nivel ESP-3 (Visionario), las cuentas son así:
+Con el nivel ESP-3 (Visionario), las cuentas son así:
 
-- Por cada empresa digital de primera línea (Generación 1) que usted activa directamente, Gano Excel le paga **$150 USD / ~$675,000 COP a tasa Gano Excel**.
-- Por cada empresa digital que se activa en las generaciones 2 a 5 de su canal (a medida que crece), usted recibe **$20 USD / ~$90,000 COP por cada una**.
+- Por cada paquete que se compra en su primera generación, Gano Excel le paga **$150 USD / ~$675,000 COP a tasa Gano Excel**.
+- Por cada paquete que se compra en las generaciones 2 a 5 de su canal, usted recibe **$20 USD / ~$90,000 COP por cada uno**.
 
-**Pregunta de cierre:** ¿Le queda clara la forma en que entra este ingreso durante la etapa de arranque?
+**Pregunta de cierre:** ¿Quiere armar su propio escenario en el simulador?
 
 ---
 
 ### ADV_VAL_02: "Explícame el Ingreso Recurrente con números"
 **[Concepto Nuclear]:** El segundo ingreso es el importante: regalías por el consumo que se repite, sin depender de que usted esté presente.
 
-La segunda velocidad es la meta de fondo: ingreso que ya no depende de que usted esté presente.
+El Bono Binario es la meta de fondo: el ingreso del consumo que se repite, que no depende de que usted esté presente.
 
 Gano Excel mide el consumo internacional de todo su canal, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su canal en el continente, usted gana por todos ellos.
 

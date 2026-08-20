@@ -47,11 +47,16 @@ Le explico cómo se construye un *canal de distribución* en paralelo a su activ
 ¿Por dónde prefiere empezar?`;
 
 /**
- * Guion. `via` fuerza una capa; sin ella decide el arnés como el webhook:
+ * Guiones. `via` fuerza una capa; sin ella decide el arnés como el webhook:
  * simulador sintético → wa-simulador · volición/trámite → radicación pura ·
- * resto → motor.
+ * resto → motor. Se elige con --guion 1|2.
+ *
+ * Guion 1 — Marcela: empleada bancaria en Cali, escéptica, typos, cierre ESP-2.
+ * Guion 2 — Andrés: ex-Omnilife que vive en Madrid — diáspora, moneda, tasa del
+ * dólar, esposa que solo quiere consumir (VIP), ciclo a mitad de conversación,
+ * hostilidad, y cierre con ESP-1 dando la ciudad extranjera.
  */
-const TURNOS = [
+const TURNOS_1 = [
   { texto: 'Cómo funciona' },
   { texto: 'si' },                                              // acepta "¿quiere ver cómo se gana?"
   { texto: 'Acabo de usar el simulador de renta: tarifa ESP-2 Empresarial — 16%, con 25 clientes en cada centro de negocio.', via: 'simulador' },
@@ -81,6 +86,38 @@ const TURNOS = [
   { texto: 'estoy en Cali' },                                    // retoma un dato
   { texto: 'la cedula se la paso luego, gracias' },              // no entrega la cédula
 ];
+
+const TURNOS_2 = [
+  { texto: 'esto que es? me lo mando un amigo' },
+  { texto: 'aja pero sea claro, esto es de meter gente como omnilife?' },
+  { texto: 'yo estuve en omnilife 2 años y no me gusto' },
+  { texto: 'bueno y que toca hacer' },
+  { texto: 'yo vivo en madrid, esto sirve alla?' },
+  { texto: 'y en que moneda me pagarian?' },
+  { texto: 'cuanto vale entrar y cuanto ganaria?' },
+  { texto: 'y el dolar a como me lo cobran?' },
+  { texto: 'mi esposa solo quiere los productos, ella puede comprar sin meterse al negocio?' },
+  { texto: 'que descuento le dan?' },
+  { texto: 'cuanto cuesta el kit de inicio?' },
+  { texto: 'en que ciclo estamos?' },
+  { texto: 'y si compro esta semana, cuando me llega el primer pago?' },
+  { texto: 'como me llega el producto a madrid?' },
+  { texto: 'mmm esto suena a estafa como todas, convenzame' },
+  { texto: 'jajaja ok ok' },
+  { texto: 'cuanto ganaria con el esp1?' },
+  { texto: 'si' },
+  { texto: 'Acabo de usar el simulador: paquete ESP-1, con 1 paquetes comprados en cada generación.', via: 'simulador' },
+  { texto: 'esto se puede heredar?' },
+  { texto: 'o sea si yo falto mi esposa queda con el negocio?' },
+  { texto: 'bueno me convencio, como arranco desde madrid?' },
+  { texto: 'listo, quiero arrancar con el esp1' },
+  { texto: 'Andrés Felipe Gómez' },
+  { texto: 'estoy en madrid, españa' },
+  { texto: 'la cedula se la mando al socio directamente' },
+];
+
+const GUION = arg('--guion', '1');
+const TURNOS = GUION === '2' ? TURNOS_2 : TURNOS_1;
 
 // ─── Capas del arnés ──────────────────────────────────────────────────────────
 
@@ -185,8 +222,11 @@ function auditar(texto, capa, n) {
   // contenido: repetirla tras un ejemplo NUEVO es natural.
   const esCTASimulador = q && /escenario en el simulador/.test(q);
   if (q && !esCTASimulador && !capa.startsWith('radicación') && !capa.startsWith('salud')) {
-    if (preguntasHechas.has(q)) f.push(`pregunta de cierre REPETIDA (ya en turno ${preguntasHechas.get(q)})`);
-    else preguntasHechas.set(q, n);
+    // Repetir solo es falta si la primera oferta fue ACEPTADA y atendida — el
+    // prompt permite re-ofrecer lo que quedó sin respuesta (guion 2, turno 6).
+    const previa = preguntasHechas.get(q);
+    if (previa && previa.aceptada) f.push(`pregunta de cierre REPETIDA y ya atendida (turno ${previa.turno})`);
+    else preguntasHechas.set(q, { turno: n, aceptada: false });
   }
   if (/no\s+(tengo|dispongo|cuento con)[^.]{0,40}(lista|detalle|informaci[oó]n|dato)/i.test(texto)) f.push('dice que no tiene el dato');
   return f;
@@ -194,7 +234,7 @@ function auditar(texto, capa, n) {
 
 // ─── Corrida ──────────────────────────────────────────────────────────────────
 
-console.log(`\n🎭 Conversación de ${TURNOS.length} turnos contra ${BASE} · ${FP}\n`);
+console.log(`\n🎭 Guion ${GUION} · ${TURNOS.length} turnos contra ${BASE} · ${FP}\n`);
 let observaciones = 0;
 for (let i = 0; i < TURNOS.length; i++) {
   const turno = TURNOS[i];
@@ -204,6 +244,9 @@ for (let i = 0; i < TURNOS.length; i++) {
   catch (e) { r = { texto: '', capa: `ERROR: ${e.message}` }; }
   const ms = Date.now() - t0;
   const fallos = auditar(r.texto, r.capa, i + 1);
+  if (/^(s[ií]|claro|dale|listo|ok)(?![a-záéíóúñ])/i.test(turno.texto.trim())) {
+    for (const val of preguntasHechas.values()) if (val.turno === i) val.aceptada = true;
+  }
   historial.push({ role: 'user', content: turno.texto }, { role: 'assistant', content: r.texto });
   const icono = fallos.length ? '❌' : '✅';
   console.log(`${icono} ${String(i + 1).padStart(2)} [${r.capa}] ${(ms / 1000).toFixed(1)}s — "${turno.texto.slice(0, 60)}"`);

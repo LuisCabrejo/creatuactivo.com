@@ -2818,6 +2818,27 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       cuando: /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i,
     },
     {
+      // Guion 2, 20 ago (turno 2): "¿esto es de meter gente como omnilife?" —
+      // la marca la atrapaba NET_01 (sin candado) y el modelo freestyleó "dos
+      // fuentes de ingreso" con frase que el guardarraíl bloquea. La pregunta
+      // real es la de FREQ_20, cuyo argumento es la aritmética: mil registrados
+      // que no consumen dan cero. Va ANTES de la puerta de marcas a propósito.
+      fragmento: 'arsenal_inicial_FREQ_20',
+      titulo: 'Pagan por producto, no por inscribir — FREQ_20',
+      porque: 'pregunta si se paga por meter gente',
+      cuando: /(meter|inscribir|anotar|reclutar|afiliar)[^.?]{0,15}(gente|personas?|amigos)|pagan?\s+por\s+(meter|inscribir|reclutar|traer)|entre\s+m[aá]s\s+(gente|personas)\s+meta|es\s+de\s+meter/i,
+    },
+    {
+      // Guion 2, 20 ago (turno 10): "¿qué descuento le dan?" (a la esposa que
+      // solo quiere consumir) → el modelo derivó al socio "porque varía por
+      // país", teniendo CLIENTE_VIP_01 con el dato: 25% de ahorro. El descuento
+      // del cliente es una de las preguntas que más cierra — no se deriva.
+      fragmento: 'arsenal_inicial_CLIENTE_VIP_01',
+      titulo: 'Cliente VIP — CLIENTE_VIP_01',
+      porque: 'pregunta el descuento del cliente',
+      cuando: /descuento[^.?]{0,30}(vip|cliente|le dan|recibe)|cliente\s+(vip|preferencial)[^.?]{0,30}(descuento|ahorr|precio)|cu[aá]nto\s+ahorra|qu[eé]\s+descuento/i,
+    },
+    {
       // Prueba conversacional, 20 ago (turno 15, corrida 3): "¿cada cuánto
       // pagan?" recuperaba COMP_PV_03 — un fragmento en formato de notas
       // internas que imprimió "**Concepto Nuclear:**" y una tabla de ciclos de

@@ -141,7 +141,7 @@ El usuario entiende de negocios pero **no es C-suite ni tiene MBA** (test "abuel
 | Leads | Prospectos / Personas evaluando el sistema |
 | Libertad financiera | Tranquilidad económica |
 | Ingresos pasivos / residuales | Flujo de caja recurrente / Regalías |
-| "Base Operativa" | empresa digital |
+| "Base Operativa" | canal de distribución |
 | "Patrimonio Paralelo" (sustantivo) | estructura de ingresos recurrentes *("en paralelo" como adjetivo sí)* |
 | operar / operador (al prospecto) | hacer el trabajo / funcionar; el usuario **dirige / es dueño** |
 | "esto" / "eso" (auto-referencia a CreaTuActivo) | nombrarlo concreto: *"la nueva forma de construir ingresos recurrentes que no dependen de su presencia"* |

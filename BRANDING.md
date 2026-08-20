@@ -148,21 +148,22 @@ Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las ac
 
 ### 7.1. Vocabulario APROBADO (doctrina canónica)
 
-> 🔁 **Las filas marcadas 🪶 son CANON INTERNO ya migrado de cara al prospecto (jun 2026).** El "Término" sigue vivo en arsenales profundos + system prompt sin migrar, pero en copy que ve el prospecto va el **reemplazo accesible en negrita dentro de "Uso"** — NO uses el término canónico ni "corrijas" copy accesible hacia él. Ver [[project_migracion_lexico_accesible]].
+> 🔁 **Las filas marcadas 🪶 son CANON INTERNO ya migrado de cara al prospecto (jun 2026).**
+> ⚠️ **Acotado el 8 ago 2026 (`CLAUDE.md:210`):** solo sobreviven como etiqueta interna **Pilares · Matriz Física · Centro de Mando · Metodología Automatizada**. **Tridente EAM · Arquitecto de Patrimonio · Base Operativa · Expandir/Activar/Multiplicación NO se usan ni internamente** — viven como historia en los CHANGELOG. Las filas de abajo lo reflejan; si encuentra una que no, es residuo. El "Término" sigue vivo en arsenales profundos + system prompt sin migrar, pero en copy que ve el prospecto va el **reemplazo accesible en negrita dentro de "Uso"** — NO uses el término canónico ni "corrijas" copy accesible hacia él. Ver [[project_migracion_lexico_accesible]].
 
 | Término | Uso | Razón |
 |---------|-----|-------|
 | **Tres Pilares** | Arquitectura del sistema — NUNCA "capas" ni "Máquina Híbrida" | Doctrina v26.0 |
 | 🪶 **Pilar 1 — La Matriz Física** | Gano Excel + músculo logístico · prospecto → **El Respaldo Operativo** | — |
 | **Pilar 2 — Queswa, su Centro de Mando** | Plataforma IA propietaria | — |
-| 🪶 **Pilar 3 — La Metodología Automatizada** | El Tridente EAM (no "Su Rol") · prospecto → **El Método Comprobado** | Recategorización v26.5 |
-| 🪶 **Arquitecto de Patrimonio** | Rol del usuario — director de los 3 pilares, NO uno de ellos · prospecto → **Propietario (de su negocio digital)** | — |
-| 🪶 **Base Operativa** | Activo del usuario · prospecto → **negocio digital** (a secas — NO "de Gano Excel": la corona es de CreaTuActivo, no del proveedor). "Base Operativa" sale de cara al prospecto (swap jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`) | Retirado 15 May 2026 (Unidad de Suministro/Nodo Logístico) |
-| 🪶 **Tridente EAM** | Comando Expandir · Comando Activar · Comando **Multiplicación** (3er comando renombrado desde "Maestría" jun 2026) · prospecto → **El Método Comprobado** | v26.2 — "Comandos" no "Protocolos" |
+| 🪶 **Pilar 3 — La Metodología Automatizada** | Etiqueta interna del pilar (no "Su Rol") · prospecto → **El Método Comprobado** (Compartir · Recibir) | Recategorización v26.5 · *Tridente EAM* retirado 8 ago 2026 |
+| ~~🪶 Arquitecto de Patrimonio~~ 🛑 **RETIRADO (8 ago 2026), también como etiqueta interna** | El rol **no se nombra como cargo**: él es el **dueño**, y lo que hace va en verbos — **decide · comparte · ve crecer**. En 3ª persona: **socio** | Los títulos crean barrera de autoeficacia |
+| ~~🪶 Base Operativa~~ 🛑 **RETIRADA (ratificado 14 ago 2026)** | El activo del usuario es **su canal de distribución** — a secas, NUNCA "de Gano Excel" | *negocio digital* / *empresa digital* quedaron acotados: no van en primer contacto |
+| ~~🪶 Tridente EAM~~ 🛑 **RETIRADO (8 ago 2026)** — con sus tres Comandos | **El Método Comprobado**: **Compartir · Recibir**, y la multiplicación es la **CONSECUENCIA**, no un tercer paso | Como tarea suma peso; como resultado lo quita |
 | **Déficit Estructural de Ingresos** | El villano sistémico (causa raíz, no consecuencia) · prospecto → villano NARRADO, nunca etiquetado | v26.6 — jerarquía causal |
-| **Monetización de Doble Velocidad** | Capitalización Inmediata (GEN5) + Renta Vitalicia (Binario) | v26.2 |
+| ~~Monetización de Doble Velocidad~~ 🛑 **RETIRADA (19 ago 2026)** | Cada vía se nombra por lo que la mueve: **Bono GEN5 = compra de paquetes empresariales · Binario = consumo recurrente**. Nunca por su velocidad ni por su duración | v26.2 → retirada |
 | 🪶 **Estructura Patrimonial** | Sustantivo doctrinal — reemplaza "Patrimonio Paralelo" · prospecto → **estructura de ingresos recurrentes** | v26.3 — Glosario v1.4 |
-| **El Tridente EAM** | Reemplaza "Framework IAA" (eliminado) | v19.6 |
+| ~~El Tridente EAM~~ 🛑 **RETIRADO** | **El Método Comprobado** — Compartir · Recibir, y la multiplicación es la **consecuencia**, no un tercer paso | v19.6 → retirado 8 ago 2026 |
 | **90% automatizado** | NO usar "80% automatizado" | Doctrina actual |
 | **70 países** | Gano Excel presencia global — NO usar 60 | Oficial |
 | **15 países operativos** | CreaTuActivo cobertura geográfica — NO confundir con 70 | v6.4 compensación |
@@ -176,14 +177,14 @@ Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las ac
 | filtrar / filtro / filtrado / descartar a quien no encaja (lo que hace Queswa de cara al prospecto) | conversar · madurar la decisión de avanzar · reconocer quién está listo | jun 2026 — para un dueño de negocio físico "que filtre a sus visitantes" suena a perder clientes; reencuadrar en clave de **conversión**, no de rechazo. Ver [[feedback_filtrar_prohibido]] |
 | Maestría (3er Comando del Tridente EAM) | **Multiplicación** | jun 2026 — "Maestría" obliga a explicar luego; "Multiplicación" comunica el lever directo. Ver [[project_rename_maestria_multiplicacion]] |
 | **guía / acompaña** (lo que Queswa hace con la decisión del prospecto) | **madura** — *"Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas"* | 25 jun 2026 (Opción B) — "madura" dibuja el cambio de estado (interesado→listo), más preciso que "guía". Objeto = **la decisión**, no la persona (activo sin presionar). ⚠️ **Regla del espejo:** "madura la decisión" SOLO en 3ª persona (los prospectos del usuario); en CTA/interpelación al lector NO se usa verbo sobre *su* decisión (madurar/guiar SU decisión = expone la persuasión). La **calidez humana** (equipo/héroe recibe al que ya decidió) conserva "acompaña". Ver [[feedback_verbos_cambio_de_estado]] · [[feedback_promesa_canonica_queswa]] |
-| **cambiar horas/tiempo por dinero** (como villano) · "no a cambio de sus horas" · "¿su meta es seguir cambiando horas por dinero?" | el villano es la **DEPENDENCIA**: *"el día que para, el ingreso para"* / *"su tiempo y su dinero amarrados"* + falta de seguridad | 25 jun 2026 — trabajar es **orgullo/dignidad** latina; atacar "las horas" choca con su identidad ("soy el que trabaja más duro"). Swap suave "no depende de su tiempo/horas" → **"de su presencia"**. "Techo limitado a las horas" SÍ se permite (límite de escala). Ver [[feedback_horas_no_son_el_villano]] |
+| **cambiar horas/tiempo por dinero** (como villano) · "no a cambio de sus horas" · "¿su meta es seguir cambiando horas por dinero?" | el villano se **NARRA**, nunca se etiqueta: *"al día siguiente de que le entra la plata, ese dinero ya tiene dueño — el banco, las cuotas, los recibos"*, **con su remate obligatorio**: *"no pasa por falta de capacidad suya; le pasa igual al que gana dos millones y al que gana veinte"*. ⚠️ **Actualizada 19 ago 2026** — la formulación anterior de esta celda ("el día que para…") era la del léxico de junio, proyecta un futuro que el latino no se imagina, y se propagó a otro repositorio desde aquí | 25 jun 2026 — trabajar es **orgullo/dignidad** latina; atacar "las horas" choca con su identidad ("soy el que trabaja más duro"). Swap suave "no depende de su tiempo/horas" → **"de su presencia"**. "Techo limitado a las horas" SÍ se permite (límite de escala). Ver [[feedback_horas_no_son_el_villano]] |
 | Hardware / Software | El Músculo / El Cerebro | Jerga técnica |
 | Protocolo de Simulación | Auditoría Patrimonial | Test abuela falla |
 | Cupo de Validación | acceso gratuito | Test abuela falla |
 | Módulos Estratégicos | Videos de instrucción | Test abuela falla |
 | Iniciar Simulación / Iniciar Protocolo | Toca el botón para comenzar | Test abuela falla |
 | Despliegue | Acceso / Activación | Jerga técnica |
-| Nodo de distribución | Base Operativa | Eufemismo opaco |
+| Nodo de distribución · Base Operativa | **canal de distribución** | Eufemismo opaco; *Base Operativa* retirada (ratificado 14 ago 2026) |
 | Ancho de Banda Mental | (solo permitido en RETO_05) | Contexto específico únicamente |
 | Pipeline / Embudo | Tubería / Canal | Jerga tech |
 | Asignación de Capital para la Activación de Infraestructura | Selección del nivel de inventario / capital se convierte en productos físicos | v5.2 (May 2026) — opacidad en cierre |
@@ -208,9 +209,9 @@ Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las ac
 | 7-10 horas semanales (entrevista BANT) | (eliminado) | Opción B colapsó Estado 1 |
 | Tracción | dirección asimétrica / gobernanza | Wall Street/Anglo |
 | Ancho de banda operativo | disponibilidad real para la dirección | Jerga tech |
-| Máquina Híbrida | Base Operativa / los tres pilares | v26.0 |
+| Máquina Híbrida · capas | **los tres pilares** (interno) · **las tres fuerzas** (al prospecto) | v26.0 · *Base Operativa* retirada 14 ago 2026 |
 | Capas (arquitectura de negocio) | Pilares | Doctrina |
-| Unidad de Suministro / Nodo Logístico | Base Operativa | Retirados 15 May 2026 |
+| Unidad de Suministro / Nodo Logístico / Base Operativa | **canal de distribución** | Retirados 15 May 2026 · *Base Operativa* retirada 14 ago 2026 |
 | Gobernanza estratégica/de activos | dirección estratégica/dirigir activo | v26.4 — fricción nivel 5/5 corporativo |
 | Actualización de software financiero | instalación de Estructura Patrimonial en paralelo | v26.4 — sesgo WEIRD/tech-noir |
 | Perseguir, convencer | (eliminar) | Plantar objeciones inexistentes |
@@ -225,7 +226,7 @@ Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las ac
 | NO es reemplazo. NO es escape. | (eliminar — describir qué ES) | v26.3 |
 | Tu Rol (El Director) como tercer elemento plano | METODOLOGÍA (Ejecución Exacta) | v19.6 |
 | "esto" / "eso" para auto-referirnos (a CreaTuActivo o al proyecto) | Nombrar concretamente qué es — ej. *"la nueva forma de construir ingresos recurrentes que no dependen de su presencia"* | Jun 2026 — auto-referencia vaga debilita la categoría; un creador de categoría se nombra, no se señala |
-| operar / operador (de cara al prospecto, para el usuario o el sistema) | hacer el trabajo / trabajar / funcionar; el usuario: dirigir / ser dueño | Jun 2026 — para el latino promedio "operar" evoca cirugía; nadie se identifica como "operador" (es empleado/trabajador/dueño). ⚠️ Afecta el canónico "el sistema opera" / "Usted dirige; el sistema opera" — revisar en el sweep de servilleta + arsenales + system prompt |
+| operar / operador (de cara al prospecto, para el usuario o el sistema) | hacer el trabajo / trabajar / funcionar; el usuario: **decide · comparte · ve crecer** (⚠️ *dirigir* retirado 8 ago — ver §7 arriba) | Jun 2026 — para el latino promedio "operar" evoca cirugía; nadie se identifica como "operador" (es empleado/trabajador/dueño). ⚠️ Afecta el canónico "el sistema opera" / "Usted dirige; el sistema opera" — revisar en el sweep de servilleta + arsenales + system prompt |
 | escalar (el activo del usuario) | multiplicar | Jun 2026 — swap "negocio digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`) |
 | soberanía financiera | tranquilidad / estabilidad / seguridad | Jun 2026 — swap "negocio digital". **EXCEPCIÓN:** el lema de Luis *"la soberanía financiera no se trata de lujos"* se conserva donde es su frase-marca / Epiphany Bridge |
 | PII hardcodeada en arsenales | (nunca) | Seguridad |

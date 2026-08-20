@@ -9,7 +9,7 @@
  * Historial completo → knowledge_base/CHANGELOG-system-prompts.md
  */
 
-const VERSION_LABEL = 'v29.8_cierre_fuera_del_candado';
+const VERSION_LABEL = 'v29.9_verbo_del_dueno_y_escalacion';
 
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';

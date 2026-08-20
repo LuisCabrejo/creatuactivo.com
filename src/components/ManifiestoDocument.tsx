@@ -322,9 +322,9 @@ export default function ManifiestoDocument({
 
             {/* §6 — El Propietario */}
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">06 · El Propietario</p>
+              <p className="text-sm uppercase tracking-[0.15em] text-[#C5A059] mb-6">06 · El dueño</p>
               <h2 className="text-2xl sm:text-3xl font-serif text-[#E5E5E5] leading-relaxed mb-8">
-                Si la máquina ejecuta, usted dirige.
+                Si la máquina ejecuta, usted decide.
               </h2>
               <div className="space-y-6 text-lg text-[#A3A3A3] leading-relaxed">
                 <p>

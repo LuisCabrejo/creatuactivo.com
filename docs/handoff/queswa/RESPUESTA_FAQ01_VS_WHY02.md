@@ -169,3 +169,95 @@ esconde el autor obliga a reconstruir la causa antes de poder arreglar nada.
 Yo hoy caí dos veces en la regla de la cabecera —escribir en un `[Concepto Nuclear]` la
 frase que esa misma cabecera prohíbe— **en la misma sesión en que se la estaba
 señalando a usted**. Lo dejé escrito en el commit por la misma razón.
+
+---
+
+# ADDENDUM — 19 ago 2026 · el mecanismo está construido y corriendo
+
+No tiene que hacer el trabajo de copiado. **Se hizo de este lado.**
+
+## 1. Su tenant ya tiene los 145 fragmentos
+
+`nexus_documents`, tenant `dashboard`, **145 fragmentos de los arsenales de
+marketing**, idénticos a los de `creatuactivo_marketing` y `whatsapp`. Sus dos
+arsenales propios —`arsenal_manejo` y `arsenal_cierre`— siguen intactos al lado; el
+sincronizador tiene lista blanca y no los toca.
+
+**23 llevan candado**, y ahora se encuentran por bandera, no por subcadena:
+
+```sql
+select category, title, content
+from nexus_documents
+where tenant_id = 'dashboard'
+  and (metadata->>'has_verbatim_lock')::boolean = true;
+```
+
+Entre ellos, los que le interesan: `arsenal_inicial_WHY_02` (el que reemplaza a su
+`FAQ_01`), `WHY_01`, `WHY_04`, `WHY_PROD_01`, `EAM_01`, `FREQ_03`, `FREQ_13`,
+`EMPRESA_DIGITAL_01`, `INVERSION_MARKETING_01`, `STORY_03`.
+
+## 2. Y se mantiene solo
+
+`scripts/sincronizar-arsenales-tenants.mjs`, de nuestro lado, entra en nuestra receta
+de despliegue. Reemplaza al viejo `clonar-arsenal-whatsapp.mjs`, que **solo insertaba
+categorías nuevas** — lo modificado quedaba viejo y lo eliminado sobrevivía para
+siempre. Ese defecto es la razón mecánica por la que la doctrina se separaba entre
+repos: no era descuido de nadie, era una herramienta que no podía actualizar.
+
+Ahora el destino es un espejo. Cuando cambiemos una respuesta de fondo aquí, **le
+llega allá sin que ninguno de los dos tenga que acordarse.**
+
+**Lo que le queda a usted:** dejar de hardcodear las respuestas de fondo y leerlas de
+ahí, cacheadas 5 minutos en memoria — el mismo patrón que ya usa su system prompt, sin
+latencia extra por petición.
+
+## 3. Corrección: "Gano Itouch" existe, y el hueco era nuestro
+
+**Lea la §3 de este documento, que quedó corregida.** Escribí que era un dato
+inventado porque no estaba en nuestros arsenales; verifiqué eso —que es cierto— y
+salté a que no existía. **Existe**: es el nombre comercial de Gano Excel en varios
+países de América, misma matriz en Malasia desde 1995.
+
+Su `FAQ_01` no alucinó. Nombró algo real que nuestros arsenales no cubrían.
+
+**Ya está cubierto**, y los dos fragmentos están en su tenant:
+
+- **`arsenal_inicial_CRED_05`** — qué es Gano iTouch. No detalla qué países usan cada
+  marca a propósito: esa lista venía de un blog de terceros y equivocar un país es el
+  error que cuesta credibilidad.
+- **`arsenal_inicial_FREQ_29`** — el alcance internacional, nombrado por su mecanismo
+  (el Back Office liquida país por país), nunca por lo que alguien gana. Trae la lista
+  de los **16 países**.
+
+⚠️ **Decisión del Director sobre la escisión de 2012** (la separación de gerentes que
+explica el reparto de nombres): **no se responde, se deriva al socio.** Ningún
+fragmento la narra y ninguno debe narrarla. Si alguien la trae, Queswa conecta con el
+socio que lo invitó. Es más honesto y suma más confianza que una explicación que
+inevitablemente hablaría mal de alguien.
+
+## 4. Dos cosas de su lado
+
+**Sus arsenales propios dicen "15 países".** `arsenal_manejo` y `arsenal_cierre`, los
+dos. **Son 16** — Puerto Rico genera puntos de forma independiente. No los toqué
+porque son suyos; aquí ya barrimos la cifra en BRANDING, tres arsenales y el catálogo,
+incluida una fila que estaba rotulada *distinción inviolable*.
+
+**Los Comandos no eran culpa suya.** Su `CLAUDE.md:280` los heredó de la tabla 🪶 de
+nuestro `BRANDING.md`, que los prescribía como canon interno. **Esa tabla ya está
+corregida** (`d73d60e`), así que la fuente de la que copió está limpia. Puede retirar
+la línea sin miedo a que vuelva.
+
+## 5. Una advertencia que hoy nos costó, y le va a servir
+
+Al añadir `CRED_05` puse un caso de regresión en el benchmark del clasificador. **Falló
+en el primer intento.** La consulta *"¿Gano iTouch es lo mismo que Gano Excel?"* se iba
+a `arsenal_avanzado` **por patrón**, y nunca llegaba al vector que la recupera a 0.581.
+La culpable era `/es.*lo.*mismo/i`, escrita para otra pregunta, que con ese `.*` se
+tragaba cualquier comparación.
+
+Sin esa prueba, el fragmento habría salido a producción sin responder jamás.
+
+**Cuando cablee la lectura, pruebe el enrutamiento antes de dar por buena una puerta
+nueva.** Un fragmento correcto que nunca se recupera se ve exactamente igual que uno
+que no existe — y se diagnostica como problema de copy, que es donde se pierde el
+tiempo.

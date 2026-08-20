@@ -243,8 +243,10 @@ async function procesarEntrante(body: any): Promise<void> {
     let messageText = message.text?.body as string | undefined;
     let opcionElegida: string | undefined;
     let vieneDelSimulador = false;
-    // Respuesta dictada al escenario que la persona armó en el Flow (wa-simulador.ts).
-    let respuestaSimulador: string | null = null;
+    // El escenario que la persona armó en el Flow. El TEXTO se construye más
+    // abajo (bloque 2.3), porque el cierre depende del historial y a esta altura
+    // el historial no existe todavía.
+    let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string } | { paquete: string; cantidad: string } | null = null;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
 
     // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
@@ -273,12 +275,12 @@ async function procesarEntrante(body: any): Promise<void> {
           if (r.tipo === 'renta' && r.tarifa && r.clientes) {
             messageText = `Acabo de usar el simulador de renta: tarifa ${r.tarifa}, con ${r.clientes} clientes en cada centro de negocio.`;
             vieneDelSimulador = true;
-            respuestaSimulador = respuestaRenta({ tipo: 'renta', tarifa: r.tarifa, clientes: r.clientes });
+            escenarioSimulador = { tipo: 'renta', tarifa: r.tarifa, clientes: r.clientes };
             console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador de renta (${r.tarifa} × ${r.clientes})`);
           } else if (r.paquete && r.cantidad) {
             messageText = `Acabo de usar el simulador: paquete ${r.paquete}, con ${r.cantidad} paquetes comprados en cada generación.`;
             vieneDelSimulador = true;
-            respuestaSimulador = respuestaGen5({ paquete: r.paquete, cantidad: r.cantidad });
+            escenarioSimulador = { paquete: r.paquete, cantidad: r.cantidad };
             console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador (${r.paquete} × ${r.cantidad})`);
           }
         } catch {
@@ -772,11 +774,25 @@ async function procesarEntrante(body: any): Promise<void> {
     // Visionario a quien había elegido el Empresarial al 16% (19 ago 2026). Se
     // calcula con las tablas del Flow en wa-simulador.ts y no pasa por el modelo.
     // Si el payload viene raro y no se puede calcular, sigue al motor como antes.
-    if (vieneDelSimulador && respuestaSimulador) {
+    if (vieneDelSimulador && escenarioSimulador) {
+      // Si la composición ya se mostró u ofreció, el cierre del escenario no la
+      // vuelve a ofrecer: pide la elección (prueba conversacional del 20 ago —
+      // repetía "¿le muestro qué trae el Empresarial?" ya atendida).
+      const opciones = {
+        composicionYaOfrecida: historial.some((m) =>
+          m.role === 'assistant' && /qu[eé] trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
+      };
+      const respuestaSimulador = 'tipo' in escenarioSimulador
+        ? respuestaRenta(escenarioSimulador, opciones)
+        : respuestaGen5(escenarioSimulador, opciones);
+      if (!respuestaSimulador) {
+        console.warn('⚠️ [WA Webhook] Escenario del simulador ilegible — el turno sigue al motor');
+      } else {
       await sendWhatsAppMessage(phoneNumber, respuestaSimulador, { wamid });
       await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaSimulador);
       console.log(`🧮 [WA Webhook] Escenario del simulador respondido dictado para ${phoneNumber}`);
       return;
+      }
     }
 
     // ─── 2.4 Reenviar el simulador cuando lo pidan ────────────────────────────

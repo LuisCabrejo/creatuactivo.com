@@ -2835,7 +2835,12 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       fragmento: 'arsenal_inicial_NET_01',
       titulo: 'Ya hizo mercadeo en red — NET_01',
       porque: 'viene de otro multinivel',
-      cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)/i,
+      // Las MARCAS también entran aquí (20 ago): a "¿esto es como Herbalife?" el
+      // modelo compuso una acusación con demandas y una multa de la FTC — hablar
+      // mal de un competidor real, con "reclutamiento" incluido, es justo lo que
+      // la doctrina prohíbe. NET_01 responde el frame correcto: qué cambió, sin
+      // atacar a nadie.
+      cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)|herbalife|amway|omnilife|4life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b/i,
     },
   ];
 
@@ -4855,8 +4860,14 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       return pidePrecio && !pideGanancia;
     })();
 
+    // "¿cada cuánto pagan?" pregunta por el CALENDARIO, no por cifras. Sin esta
+    // guarda, `cu[aá]nto.*paga` la mandaba al ejemplo GEN5 completo: la persona
+    // preguntó la frecuencia y recibió una proyección de $5.6M (prueba
+    // conversacional, 20 ago 2026, turno 15). La respuesta correcta es FREQ_17.
+    const esCadenciaDePago = /cada\s+cu[aá]nt[oa]|con\s+qu[eé]\s+frecuencia|qu[eé]\s+d[ií]as?\s+(paga|liquida)|cada\s+cu[aá]ndo/i.test(latestUserMessage);
+
     const getPinCifrasGEN5 = (): string => {
-      if (preguntaSoloPorPrecio) return '';
+      if (preguntaSoloPorPrecio || esCadenciaDePago) return '';
       // Disparar si la query es sobre cifras/ganancias O si el doc recuperado es de compensación
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
@@ -5039,7 +5050,7 @@ ${filasGen5}`;
 
     // ── TABLA DE COMISIONES (investigación: tablas > párrafos para comprensión cognitiva)
     const getTablasComisiones = (): string => {
-      if (preguntaSoloPorPrecio) return '';
+      if (preguntaSoloPorPrecio || esCadenciaDePago) return '';
       // Disparar cuando: se pide ejemplo explícito, O el doc recuperado es de compensación GEN5/Binario
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
@@ -5243,7 +5254,21 @@ ${visitorCountry === 'CO'
     //
     // ⚠️ Solo para el canal: en la web el ejemplo convive con otro formato.
     if (tenantId === 'whatsapp' && _pinDictaEjemplo) {
-      const cuerpo = extraerEjemploDictado(_pinCifras);
+      let cuerpo = extraerEjemploDictado(_pinCifras);
+      // Si ESTE MISMO ejemplo ya salió en la conversación, no se repite carácter
+      // por carácter — se reconoce y se empuja al simulador, que es donde la
+      // persona puede variar lo que quiera (prueba conversacional, 20 ago:
+      // turnos 15 y 16 recibieron el bloque idéntico, seguido). Un paquete
+      // DISTINTO sí se dicta completo: eso es información nueva.
+      if (cuerpo) {
+        const firma = cuerpo.slice(0, 90);
+        const yaSalio = messages.slice(0, -1).some(
+          (m: { role: string; content: string }) => m.role === 'assistant' && m.content?.includes(firma));
+        if (yaSalio) {
+          cuerpo = 'Es el mismo cálculo que le mostré hace un momento.\n\nSi quiere verlo con otro paquete o con otra cantidad, lo más rápido es moverlo usted mismo.\n\n¿Quiere armar su propio escenario en el simulador?';
+          console.log('📌 [Pin dictado] Ejemplo ya entregado antes — versión corta hacia el simulador');
+        }
+      }
       if (cuerpo) {
         console.log(`⚡ [Pin dictado] Ejemplo entregado directo, sin modelo (${cuerpo.length} chars, $0 tokens)`);
         if (sessionId && fingerprint) {

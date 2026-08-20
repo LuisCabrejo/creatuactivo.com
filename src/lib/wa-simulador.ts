@@ -49,16 +49,25 @@ function corto(nombre: string): string {
   return nombre.replace(/^ESP-\d\s+/, '').trim();
 }
 
-export function respuestaRenta(e: EscenarioRenta): string | null {
+export interface OpcionesCierre {
+  /** La composición de los paquetes ya se mostró u ofreció en esta conversación:
+   *  volver a ofrecer "¿qué trae el paquete?" repite una pregunta ya atendida
+   *  (prueba conversacional, 20 ago 2026). El cierre pasa a pedir la elección. */
+  composicionYaOfrecida?: boolean
+}
+
+export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {}): string | null {
   const t = leerTarifa(e.tarifa);
   const clientes = Number(e.clientes);
   if (!t || !Number.isFinite(clientes) || clientes <= 0) return null;
 
   const monto = clientes * t.pct * COP_POR_CLIENTE_Y_PUNTO;
   const esKit = /kit/i.test(t.nombre);
-  const cierre = esKit
-    ? '¿Le muestro las tres formas de empezar?'
-    : `¿Le muestro qué trae el paquete ${corto(t.nombre)}?`;
+  const cierre = opciones.composicionYaOfrecida
+    ? '¿Con cuál de los tres paquetes se identifica más?'
+    : esKit
+      ? '¿Le muestro las tres formas de empezar?'
+      : `¿Le muestro qué trae el paquete ${corto(t.nombre)}?`;
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 
@@ -67,7 +76,7 @@ Eso supone que cada cliente compra una caja de Ganocafé a la semana, y se liqui
 ${cierre}`;
 }
 
-export function respuestaGen5(e: EscenarioGen5): string | null {
+export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): string | null {
   const p = GEN5_POR_PAQUETE[e.paquete.toUpperCase().replace(/\s+/g, '')];
   const cantidad = Number(e.cantidad);
   if (!p || !Number.isFinite(cantidad) || cantidad <= 0) return null;
@@ -77,9 +86,13 @@ export function respuestaGen5(e: EscenarioGen5): string | null {
   const paquetes = cantidad === 1 ? 'un paquete' : `${cantidad} paquetes`;
   const comprados = cantidad === 1 ? 'comprado' : 'comprados';
 
+  const cierre = opciones.composicionYaOfrecida
+    ? '¿Con cuál de los tres paquetes se identifica más?'
+    : `¿Le muestro qué trae el paquete ${corto(p.etiqueta)}?`;
+
   return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, la suma de esas ${compras} compras es *${cop(total)}*.
 
 Se cuenta por paquetes comprados, no por personas, y cada comisión se liquida el viernes de la semana siguiente a la compra.
 
-¿Le muestro qué trae el paquete ${corto(p.etiqueta)}?`;
+${cierre}`;
 }

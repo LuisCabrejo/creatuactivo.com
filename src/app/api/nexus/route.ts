@@ -2731,7 +2731,9 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // respuesta correctiva y la pregunta del GEN5 se quedó sin responder (prueba
     // del Director, 19 ago 2026). Esas preguntas siguen a la búsqueda normal,
     // donde el pin dicta el ejemplo GEN5.
-    const preguntaPorIngresos = /ingreso|ganan|gano\b|se\s+gana|comisi|bono|cu[aá]nto\s+(me\s+)?(deja|paga|queda|recibo)|rentab|utilidad/i.test(msgLc);
+    // gana[nc] y no "ganan": la gente escribe con el pulgar y "ganacias" —sin la
+    // segunda n— se coló por esta guarda el 20 ago; el typo no puede costar el pin.
+    const preguntaPorIngresos = /ingreso|gana[nc]|gano\b|se\s+gana|comisi|bono|cu[aá]nto\s+(me\s+)?(deja|paga|queda|recibo)|rentab|utilidad/i.test(msgLc);
     if (esPaqueteQuery && !preguntaPorIngresos) {
       const esESP1 = /esp[-\s]?1|inicial|200\s*usd/i.test(msgLc);
       const esESP2 = /esp[-\s]?2|empresarial|500\s*usd/i.test(msgLc);
@@ -2801,6 +2803,29 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       titulo: 'Ya fue distribuidor de Gano Excel — NET_02',
       porque: 'ya tuvo código de Gano',
       cuando: /(ya\s+)?(tuve|ten[ií]a|fui|estuve|hice)[^.?]{0,30}(c[oó]digo|distribuidor|gano\s*excel)|reactivar\s+(mi\s+)?c[oó]digo|c[oó]digo\s+(viejo|antiguo|inactivo)|volver\s+a\s+(activar|entrar)[^.?]{0,20}gano/i,
+    },
+    {
+      // Prueba del Director, 20 ago: el "sí" a "¿le muestro las tres formas de
+      // empezar?" busca con esa pregunta, y el vector le da EAM_02 (0.649) sobre
+      // FREQ_03 (0.581). Sin el candado de FREQ_03 en el contexto, el modelo
+      // inventó tres "Kit" con una tarifa del 13% que no existe — y hasta un
+      // teatro de "— buscando en arsenal —" entre etiquetas que él mismo se
+      // fabricó. Las tres formas de empezar SON FREQ_03; se decide en código.
+      fragmento: 'arsenal_inicial_FREQ_03',
+      titulo: 'Las tres formas de empezar — FREQ_03',
+      porque: 'pide las tres formas de empezar',
+      cuando: /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i,
+    },
+    {
+      // Prueba del Director, 20 ago: el "sí" a "¿le explico cómo se ve el día a
+      // día?" recuperaba WHY_02 con candado —que va solo— y el modelo compuso un
+      // paso a paso propio que remató con "cobrar cada viernes" encadenado a dos
+      // acciones simples: la forma exacta de la promesa de ingreso que Meta
+      // sanciona. El día a día ES EAM_01 (Compartir · Recibir, con candado).
+      fragmento: 'arsenal_inicial_EAM_01',
+      titulo: 'El día a día — EAM_01',
+      porque: 'pregunta por el día a día',
+      cuando: /d[ií]a\s+a\s+d[ií]a|mi\s+d[ií]a\s+(como|de)\s+(socio|due[ñn]o)|rutina\s+(diaria|del?\s+negocio)/i,
     },
     {
       // Prueba de 40 preguntas, 19 ago: "ya estuve en un multinivel y no me fue
@@ -3458,9 +3483,13 @@ function extraerEjemploDictado(pin: string): string | null {
   const cuerpo = pin.slice(iCabecera, iStop).trim();
   if (cuerpo.length < 80) return null;
 
-  // Una sola pregunta, de una sola salida, y la continuación natural de lo que
-  // se acaba de mostrar: quien ya vio los números sigue hacia cómo se empieza.
-  return `${cuerpo}\n\n¿Le explico las tres formas de empezar?`;
+  // La pregunta de cierre apunta al simulador, porque el webhook le pega la
+  // tarjeta del Flow justo debajo (decisión del Director, 20 ago 2026). Antes
+  // preguntaba por las tres formas de empezar Y llegaba la tarjeta: dos llamados
+  // a la vez, y un "sí" ambiguo — la persona no sabía si estaba aceptando las
+  // formas o abriendo el simulador. Pregunta y tarjeta ahora son el mismo paso;
+  // el "sí" lo atiende el webhook reenviando el Flow.
+  return `${cuerpo}\n\n¿Quiere armar su propio escenario en el simulador?`;
 }
 
 // Logging mejorado para arquitectura híbrida - CORREGIDO 2025-10-17
@@ -4835,7 +4864,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // paquetes" / "qué gano por cada paquete" son la pregunta del GEN5 dicha
       // con las palabras del prospecto; sin estas puertas el pin no disparaba y
       // el modelo componía con las composiciones en mano (19 ago 2026).
-      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso|ingresos?\s+(por|de|con)\s+(la\s+)?(compra\s+de\s+)?(los\s+)?paquete|c[oó]mo\s+son\s+(los\s+)?ingresos|(ganan|comisi[oó]n|ingreso|gano|recibo|me\s+queda)[^.?]{0,40}paquetes?\s+empresarial|qu[eé]\s+(gano|me\s+queda|recibo|me\s+pagan)\s+por\s+(cada\s+)?paquete/i;
+      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso|(ingresos?|gana[nc]\w*)\s+(por|de|con)\s+(la\s+)?(compra\s+de\s+)?(los\s+)?paquete|c[oó]mo\s+son\s+(los\s+)?ingresos|(ganan|comisi[oó]n|ingreso|gano|recibo|me\s+queda)[^.?]{0,40}paquetes?\s+empresarial|qu[eé]\s+(gano|me\s+queda|recibo|me\s+pagan)\s+por\s+(cada\s+)?paquete/i;
       // Aceptación de una oferta previa — va ANTES de la guarda de salida (14 ago
       // 2026). En la prueba del Director, "¿Le muestro cómo se ve en números?" →
       // "Sí" no entregó el ejemplo: el "Sí" no matchea preguntaSobreCifras, la
@@ -5068,8 +5097,21 @@ ${filaGen5}`;
       if (!enCierreWeb && !cierreLoManejaElCanal) return '';
 
       // ¿La query menciona composición / productos / qué incluye?
+      // La oferta también cuenta (20 ago 2026): "¿le muestro qué trae el
+      // Visionario?" → "sí" dejaba el pin apagado —el "sí" no menciona
+      // composición— y el modelo, con COMP_PAQ_04 servido en el contexto, dijo
+      // que NO TENÍA la lista y derivó al socio. El mismo bug del 9 ago por la
+      // otra puerta. Si la oferta del bot fue de composición y la persona
+      // aceptó, el paquete se lee de la oferta.
+      const _ofertaComposicion = /qu[eé]\s+(trae|incluye|viene|contiene)[^?]{0,50}(paquete|esp[\s-]?[123]|visionario|empresarial|inicial)/i.test(_ultimoBotMsg);
+      const _aceptaComposicion = _ofertaComposicion
+        && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|mu[eé]str[ea]me(lo)?|s[ií] por favor)(?![a-záéíóúñ])/i.test(latestUserMessage.trim());
       const preguntaComposicion = /productos?|qu[eé]\s+(trae|incluye|viene|contiene)|composici[oó]n|contenido|inventario|qu[eé]\s+hay\s+(en|dentro)|que\s+vienen?|cu[aá]les?\s+productos|lista\s+de\s+productos|esp[-\s]?[123].*productos|productos.*esp[-\s]?[123]/i.test(latestUserMessage);
-      if (!preguntaComposicion) return '';
+      if (!preguntaComposicion && !_aceptaComposicion) return '';
+
+      // Cuando lo que hay es una aceptación, el mensaje del usuario no nombra el
+      // paquete — lo nombra la oferta que aceptó.
+      const _fuenteDelPaquete = _aceptaComposicion ? _ultimoBotMsg : latestUserMessage;
 
       // ⚠️ El paquete se lee del MENSAJE, no solo de `prospectData`.
       //
@@ -5080,10 +5122,10 @@ ${filaGen5}`;
       // dígito no se resuelve por similitud — se resuelve leyéndolo.
       //
       // El nombre comercial también cuenta: mucha gente dice "el Visionario".
-      const porCodigo  = latestUserMessage.match(/esp[\s-]?([123])\b/i);
-      const porNombre  = /visionario/i.test(latestUserMessage) ? '3'
-                       : /empresarial/i.test(latestUserMessage) ? '2'
-                       : /\binicial\b/i.test(latestUserMessage) ? '1' : null;
+      const porCodigo  = _fuenteDelPaquete.match(/esp[\s-]?([123])\b/i);
+      const porNombre  = /visionario/i.test(_fuenteDelPaquete) ? '3'
+                       : /empresarial/i.test(_fuenteDelPaquete) ? '2'
+                       : /\binicial\b/i.test(_fuenteDelPaquete) ? '1' : null;
       const digito     = porCodigo?.[1] ?? porNombre;
       const paqueteCodigo = digito ? `ESP-${digito}` : mergedProspectData.package;
 
@@ -5171,6 +5213,15 @@ ${visitorCountry === 'CO'
     // seguía en el contexto, y el modelo entregó el arsenal — sin cifras, y por
     // tanto sin el simulador, que el webhook engancha a la frase del ejemplo.
     // Lo que se retira ahora es el bloque que el modelo lee.
+    // Si FREQ_03 viene en el contexto, el pin de precios viaja con él SIEMPRE
+    // (20 ago 2026). El candado trae «[PRECIO]» y el pin trae la cifra; con la
+    // puerta directa el "sí" a "¿le muestro las tres formas?" servía el candado
+    // sin el pin —el mensaje "si" no matchea ningún patrón de paquetes— y el
+    // marcador salía crudo en el chat.
+    const _contextoTraeFREQ03 = relevantDocuments.some((d) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      d.id === 'arsenal_inicial_FREQ_03' || (d.metadata as any)?.fragment_categories?.includes?.('arsenal_inicial_FREQ_03'));
+
     const _pinCifras = getPinCifrasGEN5();
     const _pinDictaEjemplo = _pinCifras.includes('EJEMPLO RENTA') || _pinCifras.includes('imprime este texto EXACTAMENTE');
     // Una línea por turno con la decisión del pin. Sin esto, diagnosticar por qué
@@ -5239,7 +5290,7 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
 </prospect_state>
 
 ${relevantDocuments[0]?.metadata?.is_pv_table ? `📊 TABLA OFICIAL PRECIOS — COMP_PV_06: Copia la tabla EXACTAMENTE como aparece en el contexto. NO inventes categorías ni nombres de sección ("Cafés con Ganoderma", "Bebidas Premium", etc.) — esas categorías no existen en la tabla oficial. NO uses precios de tu entrenamiento. Los precios correctos para Colombia 2026 están en la columna "Precio COP" del contexto recuperado.` : relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Presenta SOLO los productos y categorías que aparecen en el fragmento recuperado. No inventes categorías, no agregues productos que no estén en el texto, no estimes precios. Copia los precios COP exactamente como aparecen en las tablas.` : ''}
-${(/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez|diferencia|compar|cu[aá]l (me |le )?(conviene|recomienda|elijo|sirve)|entre (ellos|los|las|esos|estos)|niveles?|valor(es)?|cu[aá]nto (cuesta|vale|sale)/i.test(latestUserMessage) || _botMostroPaquetes) ? getPaquetesPricingPin(visitorCountry) : ''}
+${(/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez|diferencia|compar|cu[aá]l (me |le )?(conviene|recomienda|elijo|sirve)|entre (ellos|los|las|esos|estos)|niveles?|valor(es)?|cu[aá]nto (cuesta|vale|sale)/i.test(latestUserMessage) || _botMostroPaquetes || _contextoTraeFREQ03) ? getPaquetesPricingPin(visitorCountry) : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : isQuickReplyChip ? `🎯 RESPUESTA CANÓNICA EXTENSA — Esta consulta proviene de uno de los 4 chips iniciales del saludo Queswa. El fragmento del arsenal recuperado contiene la respuesta arquitectónica completa (tres fuerzas/socios, El Método Comprobado, productos, monetización). DEBES entregarlo VERBATIM con TODO su formato Markdown intacto: negritas con **, viñetas con -, numeración con 1./2./3., saltos de línea entre párrafos. NO resumas. NO improvises. NO apliques límite de 150 palabras — esta es excepción documentada en el SP. La legibilidad visual es crítica para que el avatar de primera visita procese la arquitectura del modelo.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 ${/* El bloque <instrucciones_absolutas_finales> vivía aquí: cuatro reglas en

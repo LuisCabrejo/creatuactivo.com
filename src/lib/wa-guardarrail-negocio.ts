@@ -67,6 +67,15 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   /(garantiz|asegurad|seguro que)[^.]{0,35}(ingreso|gana(ncia)?s?|retorno|dinero|resultado|invers|recupera)/,
   /(ingreso|gana(ncia)?s?|retorno|dinero|resultado)[^.]{0,25}garantizad/,
 
+  // ── Pago fechado encadenado a acciones simples ─────────────────────────────
+  // "Haga estas dos cosas y COBRE cada viernes" — la forma exacta que Meta
+  // sanciona (prueba del 20 ago: el modelo compuso un día a día de tres pasos
+  // cuyo remate era "Cobrar cada viernes lo que su canal movió"). El copy
+  // aprobado dice "se liquida cada viernes" —el hecho, en voz del sistema— y
+  // "cobra cada vez que su canal mueve producto" —la repetición, sin fecha—.
+  // Lo que se veta es el VERBO en manos de la persona pegado al día de pago.
+  /cobr(ar?|e)[^.]{0,40}cada viernes/,
+
   // ── Reemplazo del empleo ───────────────────────────────────────────────────
   // Se construye EN PARALELO a su ocupación; prometer que la sustituye es una
   // promesa de ingreso con la vida de la persona de por medio.

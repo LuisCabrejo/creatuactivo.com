@@ -787,8 +787,17 @@ async function procesarEntrante(body: any): Promise<void> {
     // `!vieneDelSimulador` es indispensable: el texto que sintetizamos al cerrar
     // el Flow contiene la palabra "simulador", así que sin este guard completar el
     // simulador lo reenviaba en vez de responder al escenario que la persona armó.
+    //
+    // Y el "sí" también abre el simulador cuando eso fue lo que se ofreció (20
+    // ago 2026): el ejemplo dictado cierra con "¿Quiere armar su propio
+    // escenario en el simulador?" y la tarjeta viaja justo debajo — pero quien
+    // responde "sí" en vez de tocarla no puede caer al motor, que no tiene
+    // ninguna tarjeta que ofrecer. La oferta se lee del último turno del bot.
+    const _ultimoBotW = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
+    const _aceptaSimulador = /escenario en el simulador/i.test(_ultimoBotW)
+      && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim());
     if (flowSimuladorId && !vieneDelSimulador
-        && /simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText)) {
+        && (/simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText) || _aceptaSimulador)) {
       const reenvio = await sendFlow(
         phoneNumber,
         flowSimuladorId,

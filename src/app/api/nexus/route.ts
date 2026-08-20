@@ -26,6 +26,7 @@ import {
 } from '@/lib/vectorSearch';
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
+import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
@@ -3751,6 +3752,26 @@ export async function POST(req: Request) {
     const respuestaMaestra = (typeof latestUserMessage === 'string' && tenantId !== 'ecommerce')
       ? getRespuestaMaestra(latestUserMessage)
       : null;
+
+    // ── CICLOS DE PAGO: respuesta calculada, no recordada ────────────────────
+    // "¿En qué ciclo estamos?" tiene una respuesta que cambia cada lunes; dejarla
+    // en un fragmento la congela (COMP_PV_03 imprimía ciclos de enero de 2025).
+    // El backend la calcula desde el ancla del Director (ciclo 924 = 17–23 ago
+    // 2026, pagado el 4 de septiembre) y la dicta — cero tokens, siempre al día.
+    // Se excluye lo que trae "ciclo" con otro sentido (reciclar, bicicleta).
+    const _preguntaCiclo = tenantId !== 'ecommerce' && tenantId !== 'marca_personal'
+      && /\bciclos?\b/i.test(latestUserMessage)
+      && !/recicl|bicicl|motocicl|ciclo\s+de\s+(vida|venta|producto)/i.test(latestUserMessage);
+    if (_preguntaCiclo) {
+      const _numPedido = latestUserMessage.match(/ciclo\s+(\d{3,4})\b/i);
+      const _rCiclo = respuestaCiclo(new Date(), _numPedido ? Number(_numPedido[1]) : undefined);
+      console.log(`📅 [Ciclo] Respuesta calculada${_numPedido ? ` (ciclo ${_numPedido[1]})` : ''} — dictada sin modelo`);
+      if (sessionId && fingerprint) {
+        logConversationHibrida(latestUserMessage, _rCiclo, ['CICLO_CALCULADO_BACKEND'], 'ciclo_dictado', sessionId, fingerprint, {})
+          .catch((err) => console.error('❌ [Ciclo] Error logging:', err));
+      }
+      return new StreamingTextResponse(buildVerbatimStream(_rCiclo), { headers: getCorsHeaders(origin) });
+    }
 
     if (respuestaMaestra) {
       const bypassStartTime = Date.now();

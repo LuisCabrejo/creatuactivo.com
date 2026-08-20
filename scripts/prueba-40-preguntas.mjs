@@ -95,6 +95,8 @@ const CASOS = [
   { q: '¿Funciona si vivo en España?',                       debe: [/pa[ií]s|oficina|registr/i] },
   { q: '¿Cuántos países tiene Gano Excel?',                  debe: [/60/] },
   { q: '¿Qué es un cliente preferencial?',                   debe: [/cliente|descuento|25/i] },
+  { q: '¿En qué ciclo estamos?',                             debe: [/ciclo \d{3}/i, /viernes/i] },
+  { q: 'cuando pagan el ciclo 922',                          debe: [/ciclo 922/, /viernes/i] },
 ];
 
 const casos = SOLO ? CASOS.slice(0, Number(SOLO)) : CASOS;

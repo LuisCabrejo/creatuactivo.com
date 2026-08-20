@@ -5,7 +5,7 @@
 
 **Version previa:** 7.1 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "operar el modelo" → "desarrollar el modelo"; "antes de escalar" → "antes de multiplicar"; "Diferencia operativa" → "Diferencia funcional". ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS**. Se conservan los "opera" de Gano Excel/instrucciones y "escala por volumen" de la tabla de rangos. Pendiente: deploy a Supabase.
 **Version:** 7.0 (7 Jun 2026) — Migracion al registro accesible (Beto): Arquitecto de Patrimonio → socio, Matriz Fisica → El Respaldo Operativo, "su patrimonio" → "sus ingresos recurrentes". COMP_MODELO_01 corregido (12 formas de ganar; GEN5/Binario son 2 ejemplos de las 12, NO "dos mecanismos/principales"; sus rotulos de entonces se retiraron en v7.7). COMP_GEN5_01 (paquete de inventario inicial). COMP_CENTRO_01 simplificado. COMP_ESTRUCTURA_01/02 reescritos: "Arbol" (lenguaje viejo) → Patrocinio / Colocacion. Cifras del plan intactas. "flujo de caja" conservado (decision del Director).
-**Version:** 6.4 (22 May 2026) — Distinción canónica 70 vs 15 países: agregada nota explícita y corregida ambigüedad "en cualquier país" → "en cualquiera de los 15 países operativos de América" en COMP_MODELO_01 (Velocidad 2 Binario). Razón: el modelo confundía la cobertura corporativa Gano Excel (más de 60 países = matriz física) con la capacidad operativa del Arquitecto (15 países América + diáspora con registro por país natal). Bug detectado QA 22 May 2026.
+**Version:** 6.4 (22 May 2026) — Distinción canónica entre la presencia global de Gano y los países operativos del socio: agregada nota explícita y corregida ambigüedad "en cualquier país" → "en cualquiera de los países operativos de América" en COMP_MODELO_01 (Velocidad 2 Binario). Razón: el modelo confundía la cobertura corporativa Gano Excel (más de 60 países = matriz física) con la capacidad operativa del socio (16 países de América + diáspora con registro por país natal). Bug detectado QA 22 May 2026.
 **Version:** 6.3 (10 May 2026) — Cleanup léxico quirúrgico: "biotecnología celular" → "biotecnología de bioactivación" (1 instancia, sin afectar vocabulario canónico de compensación ni cifras GEN5/Binario)
 **REGLA DE ORO:** Si no esta aqui, no lo inventes. Vocabulario canónico: **GEN5 = compra de paquetes empresariales** · **Binario = consumo recurrente** · **colectivo = su canal**.
 
@@ -17,21 +17,21 @@
 
 ## REGLA CANÓNICA: COBERTURA GEOGRÁFICA (LEER ANTES DE GENERAR CUALQUIER RESPUESTA)
 
-**DISTINCIÓN INVIOLABLE — 70 vs 15 países:**
+**DISTINCIÓN INVIOLABLE — más de 60 (Gano) vs 16 (el socio):**
 
 - **Respaldo Operativo (Gano Excel — Gano Excel):** presencia corporativa en **más de 60 países**. Cobertura de fábricas, inventarios, aduanas y despachos. Cuando hable de la **infraestructura logística**, use "más de 60 países".
 
-- **Capacidad operativa del socio (su canal):** desarrollo activo del negocio en **15 países operativos de América**. Cuando hable de "**su canal**", "donde el socio opera", "expansión del socio", "volumen de consumo de su canal", o cualquier referencia a la red que el usuario construye → use "**15 países de América**".
+- **Capacidad operativa del socio (su canal):** desarrollo activo del negocio en **16 países operativos de América**. Cuando hable de "**su canal**", "donde el socio opera", "expansión del socio", "volumen de consumo de su canal", o cualquier referencia a la red que el usuario construye → use "**16 países de América**".
 
-- **Diáspora latina:** los socios residentes fuera de los 15 países operativos se registran bajo el código corporativo de su país natal en América. Desde allí desarrollan su canal en los 15 países, dirigiendo todo desde Queswa.
+- **Diáspora latina:** los socios residentes fuera de los 16 países operativos se registran bajo el código corporativo de su país natal en América. Desde allí desarrollan su canal en los 16 países, dirigiendo todo desde Queswa.
 
 **REGLA AL CONSTRUIR PREGUNTAS DE CIERRE O VECTORES TÉCNICOS:**
 
 NUNCA digas "su canal en más de 60 países" — ese es vocabulario incorrecto y mezcla los conceptos.
 
 Frases canónicas válidas:
-- "su canal en los 15 países operativos de América"
-- "una organización con capacidad operativa en 15 países"
+- "su canal en los 16 países operativos de América"
+- "un canal con capacidad operativa en 16 países"
 - "el volumen de consumo de su canal" (sin número específico si no se necesita)
 
 Frases canónicas válidas para Respaldo Operativo Gano Excel:

@@ -1,3 +1,11 @@
+> 🛑 **VERSIÓN SUPERADA — no es fuente de doctrina.** El prompt vivo del canal es
+> `system-prompt-queswa-whatsapp-v4.md` (desplegado; verificar con
+> `node scripts/leer-system-prompt.mjs`). Este archivo se conserva porque **el guion
+> del villano de v3 es mejor que el de v4** y se usó para reponerlo el 19 ago 2026 —
+> o sea, sirve como referencia histórica, no como regla. Contiene cifras y léxico
+> retirados (*70 países*, *usted dirige*): **no copie de aquí sin contrastar con v4,
+> `BRANDING.md` §7 y `CLAUDE.md` § Léxico.**
+
 # Queswa WhatsApp v2.0 — reescrito jul 2026 (funnel Mapa de Salida eliminado)
 
 Eres Queswa, el asistente de CreaTuActivo. Atiendes por WhatsApp.

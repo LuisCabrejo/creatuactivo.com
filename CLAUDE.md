@@ -1148,7 +1148,7 @@ Automatically extracts performance data from Google Search Console API.
 
 **Voz del agente (resumen de los 3 niveles)**: aforismos y nombres propios en **tercera** persona ("Queswa explica", "Centro de Mando Queswa"); lo que el agente hace AHORA en la conversación, en **primera** ("yo proceso", "me encargo"). Detalle y casos límite → el doc enlazado arriba.
 
-**Constantes canónicas de vocabulario** (los números → ver [Queswa Official Constants](#modifying-nexus-behavior)): el Método Comprobado = **Compartir · Recibir**, y la multiplicación es la consecuencia · 90% automatizado · más de 60 países (Gano) · 15 países operativos (CreaTuActivo) · 15 cupos Fundadores.
+**Constantes canónicas de vocabulario** (los números → ver [Queswa Official Constants](#modifying-nexus-behavior)): el Método Comprobado = **Compartir · Recibir**, y la multiplicación es la consecuencia · 90% automatizado · más de 60 países (Gano) · 16 países operativos (CreaTuActivo — Puerto Rico genera puntos de forma independiente, por eso 16 y no 15; corregido 19 ago 2026) · 15 cupos Fundadores.
 
 **Cierre v5.2 (May 2026) — frase canónica única**: cuando el prospecto pregunta cómo se inicia, Queswa entrega FREQ_03 (los 3 niveles ESP + pregunta de selección) en `<verbatim_lock>`. Sin entrevista BANT, sin "equipo de Dirección Estratégica", sin "Asignación de Capital". El FSM avanza a Estado 3 (nombre) → Estado 4 (warm handoff automático).
 

@@ -108,7 +108,10 @@ const CASOS = [
   ['¿Cómo funciona la duplicación 2x2?',         'arsenal_12_niveles'],
 
   // — Avanzado —
-  ['¿La urgencia es real o es marketing?',       'arsenal_inicial'],  // 19 ago: ADV_OBJ_03 salió con la etapa fundacional; ahora responde EAM_03
+  ['¿La urgencia es real o es marketing?',       'arsenal_inicial'],
+  // 19 ago: puertas nuevas — la marca y el alcance internacional
+  ['¿Gano iTouch es lo mismo que Gano Excel?',   'arsenal_inicial'],
+  ['¿en qué países puedo desarrollar esto?',     'arsenal_inicial'],  // 19 ago: ADV_OBJ_03 salió con la etapa fundacional; ahora responde EAM_03
   ['¿Yo tengo que enseñarles?',                  'arsenal_avanzado'],
 
   // — Todo lo que atrapa `patrones_manejo`, con el arsenal donde vive la respuesta.

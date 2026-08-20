@@ -2295,7 +2295,13 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /qué.*viene.*arquitectura/i,
 
     // VAL_10: "¿Es lo mismo que otros sistemas de marketing que he visto?"
-    /es.*lo.*mismo/i,
+    // ⚠️ ACOTADO 19 ago 2026. Era /es.*lo.*mismo/i, y con ese `.*` se tragaba
+    // CUALQUIER comparación — incluida "¿Gano iTouch es lo mismo que Gano
+    // Excel?", que se iba a arsenal_avanzado por patrón y nunca llegaba a
+    // CRED_05, que la recupera a 0.581. Lo cazó el caso de regresión al añadir
+    // esa puerta; sin él habría salido a producción enrutando mal. Ahora exige
+    // el objeto de la comparación, que es lo que VAL_10 responde de verdad.
+    /es.*lo.*mismo.*(otro|otra|sistema|visto|\bvi\b|antes|multinivel|pir[áa]mide)/i,
     /igual.*otros.*sistemas/i,
     /otros.*sistemas.*marketing/i,
     /parecido.*otros/i,

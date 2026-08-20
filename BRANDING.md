@@ -166,7 +166,7 @@ Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las ac
 | ~~El Tridente EAM~~ 🛑 **RETIRADO** | **El Método Comprobado** — Compartir · Recibir, y la multiplicación es la **consecuencia**, no un tercer paso | v19.6 → retirado 8 ago 2026 |
 | **90% automatizado** | NO usar "80% automatizado" | Doctrina actual |
 | **más de 60 países** | Gano Excel presencia global. ⚠️ **Corregido 8 ago 2026:** la cifra de *70* no la sostiene ninguna fuente; *más de 60* es lo que publican los sitios oficiales de Gano Excel Colombia y Estados Unidos. Defendible ante quien verifique, y solo puede sorprender hacia arriba | Oficial |
-| **15 países operativos** | CreaTuActivo cobertura geográfica — no confundir con la presencia global de Gano, que es **más de 60** | v6.4 compensación |
+| **16 países operativos** | CreaTuActivo cobertura geográfica — no confundir con la presencia global de Gano, que es **más de 60** | v6.4 compensación |
 | **Cupos Fundadores: 15** | Base fundacional inicial | — |
 | **Acueducto / Alquiler vs. Propiedad / Ferrari gratis / Waze / Faro** | Metáforas universales aprobadas | Jobs-Style Feb 2026 |
 
@@ -198,7 +198,7 @@ Las tablas 7.1/7.2 se escribieron en julio; estas decisiones del Director las ac
 | ancho de banda (en preguntas de seguimiento, contextos de tiempo/agenda) | disponibilidad / agenda directiva / agenda ejecutiva | v5.4 — jerga tech; "disponibilidad" o "agenda" son universales |
 | vector de tráfico / vector de adquisición | camino de expansión / ruta / canal | v5.4 — jerga militar; absorbido en reescritura FREQ_02 |
 | Modo Relacional / Modo Híbrido / Modo de Escalabilidad (los 3 modos de tráfico de FREQ_02) | Conexión Directa / Conexión Asistida / Conexión Automatizada | v5.4 — los nuevos nombres son auto-explicativos (cada uno indica QUÉ hace) |
-| global (cuando refiere al activo del usuario: "consumo global", "Base Operativa global") | internacional | v5.4 — el usuario opera en 15 países América, no en todo el mundo. "Global" PRESERVADO cuando describe factualmente Gano Excel (70 países, distribución global) o el despliegue público global |
+| global (cuando refiere al activo del usuario: "consumo global", "Base Operativa global") | internacional | v5.4 — el usuario opera en 16 países de América, no en todo el mundo. "Global" PRESERVADO cuando describe factualmente Gano Excel (70 países, distribución global) o el despliegue público global |
 | pierna fuerte / pierna débil (Binario) | Centro de Negocios de Mayor Tracción / Centro de Negocios de Cobro | v5.5 — "pierna" suena a cosa, no a Lujo Clínico. "Centro de Negocios" eleva el status |
 | "las dos principales" (al introducir GEN5 + Binario) | "Analicemos dos" (sin jerarquía) | v5.5 — "las dos principales" implica jerarquía falsa sobre las otras 10 velocidades. Apertura canónica: *"Su Base Operativa genera ganancias en 12 velocidades que cubren su flujo de corto, mediano y largo plazo. Analicemos dos:"* |
 | "17% sobre la pierna débil" / "17% sobre el Centro de Negocios de Cobro" (sin GCV) | "17% del GCV sobre el Centro de Negocios de Cobro" | v5.5 — sin "GCV" el usuario puede asumir 17% sobre $100M de venta = $17M (absurdo). El GCV es valor comisionable asignado por Gano Excel, distinto al PVP |

@@ -66,14 +66,28 @@ compró— sin tocar una coma de las respuestas canónicas.
 
 ---
 
-## 3. Sobre FAQ_01: no es léxico viejo, hay un dato inventado
+## 3. Sobre FAQ_01
 
-Vale la pena que quede escrito, porque cambia la urgencia del reemplazo.
+⚠️ **CORRECCIÓN (19 ago, mismo día).** La primera versión de esta sección decía que
+*"Gano Itouch"* era **un dato inventado**, porque no aparece en ninguno de nuestros
+arsenales. Verifiqué que no está en nuestra base —eso es cierto— y salté a que no
+existe. **Existe, y es importante.**
 
-🔴 **"Gano Itouch" no existe en nuestra base de conocimiento.** Cero ocurrencias en los
-siete arsenales, en `respuestas-maestras.ts` y en los system prompts. No es un término
-retirado: es una entidad que nuestra doctrina no contiene, viva en un texto que los
-socios copian y le mandan a prospectos. **Eso solo ya justifica el reemplazo hoy.**
+**Gano iTouch es el nombre comercial de Gano Excel en varios países de la región**
+(Bolivia, Costa Rica, Ecuador, Panamá, Perú), mientras Colombia, El Salvador, México,
+Estados Unidos y Canadá operan como *Gano Excel*. Misma casa matriz: **Gano Excel
+Industries**, Malasia, fundada en 1995. El reparto de nombres viene de una escisión de
+2012 en la región.
+
+Así que **su FAQ_01 no alucinó: nombró algo real que nuestros arsenales no cubren.** El
+defecto es nuestro, no suyo — es un hueco de cobertura. El Director pidió investigarlo
+a fondo y evaluar un arsenal propio, porque genera varias preguntas (misma empresa o
+no · por qué cambia el nombre según el país · dónde se registra quien vive en un país
+iTouch · qué pasó en 2012). Eso se trabaja aparte y se les avisa.
+
+**Esto no cambia la decisión de reemplazar FAQ_01** —los demás defectos siguen en pie y
+la divergencia con FAQ_04 hay que matarla hoy—, pero sí cambia la razón: se reemplaza
+porque el texto es viejo, no porque mienta.
 
 Lo demás:
 

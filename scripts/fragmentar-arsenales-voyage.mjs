@@ -239,6 +239,11 @@ async function processArsenal(arsenalCategory) {
             parent_arsenal: arsenalCategory,
             char_count: response.content.length,
             is_fragment: true,
+            // Bandera para que otros consumidores (el Dashboard) encuentren los
+            // textos de fondo sin buscar una subcadena dentro del contenido.
+            // El candado significa "no se parafrasea": quien lo sirve, lo sirve
+            // entero. Ver docs/handoff/queswa/RESPUESTA_FAQ01_VS_WHY02.md
+            has_verbatim_lock: /<verbatim_lock>/.test(response.fullSection),
             created_at: new Date().toISOString()
           }
         });

@@ -2432,7 +2432,7 @@ function analizarIntencionSemantica(userMessage: string): string[] {
 }
 
 // CORRECCIÓN: Búsqueda híbrida escalable en Arsenal MVP + Catálogo
-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing') {
+async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '') {
   const cacheKey = `hibrido_${query.toLowerCase()}`;
 
   const cached = searchCache.get(cacheKey);
@@ -2900,7 +2900,14 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // Se evalúa sobre cualquier arsenal; el catálogo queda fuera porque una
   // pregunta de producto no se responde con doctrina.
   if (!documentType || documentType.startsWith('arsenal_')) {
-    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage));
+    // ⚠️ Las puertas se evalúan sobre la consulta reescrita Y sobre el mensaje
+    // CRUDO (20 ago 2026). El CQR ancla la consulta para el vector, pero al
+    // reescribir puede borrar justo las palabras que abren la puerta: a "¿esto
+    // es de meter gente como omnilife?" le quitó "meter gente" y "omnilife", la
+    // puerta no disparó, y el modelo compuso con "reclutamiento" adentro. Las
+    // palabras de la persona son la llave — la paráfrasis de un modelo no puede
+    // costarla.
+    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage) || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
     if (puerta) {
       const allFragments = await getArsenalFragments();
       const frag = allFragments.find(f => f.category === puerta.fragmento);
@@ -4311,7 +4318,7 @@ ${summaryParts.join('\n')}
         // así que la expansión de chips sigue funcionando igual.
         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage);
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {

@@ -79,8 +79,13 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // ── Reemplazo del empleo ───────────────────────────────────────────────────
   // Se construye EN PARALELO a su ocupación; prometer que la sustituye es una
   // promesa de ingreso con la vida de la persona de por medio.
-  /(reemplaz|sustitu)[^.]{0,30}(salario|sueldo|trabajo|empleo|ingresos actuales)/,
-  /(renunciar?|dejar) (a )?(su|tu|el) (trabajo|empleo)|deja(r)? de trabajar/,
+  // reemplac y renunci, no solo reemplaz y renunciar: en español la z alterna
+  // con c al conjugar —reemplazar → reempla*c*e—, así que "reemplace su salario"
+  // se colaba entera. Igual "renuncie a su trabajo" contra /renunciar?/.
+  // Hueco encontrado el 20 ago 2026 al portar el guardarraíl a las piezas
+  // gráficas del Dashboard; llevaba viva desde que existe el patrón.
+  /(reemplaz|reemplac|sustitu)[^.]{0,30}(salario|sueldo|trabajo|empleo|ingresos actuales)/,
+  /(renunci\w*|dejar) (a )?(su|tu|el) (trabajo|empleo)|deja(r)? de trabajar/,
   /(su|tu) salario[^.]{0,25}(reemplaz|sustitu|superad)/,
 
   // ── Ingreso pasivo dicho o descrito ────────────────────────────────────────

@@ -9,6 +9,7 @@ import { Playfair_Display, Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import CookieBanner from '@/components/CookieBanner';
 import DeferredOrb from '@/components/DeferredOrb';
+import NavigationProgress from '@/components/NavigationProgress';
 
 // LUJO SILENCIOSO - Sistema Tipográfico
 // Playfair Display: Display serif para titulares de impacto y narrativa estratégica
@@ -41,6 +42,11 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   interactiveWidget: 'resizes-content',
+  // Sin 'cover' el navegador SÍ define env(safe-area-inset-*), pero en 0 — el
+  // fallback de env() solo entra si la variable no existe, así que no salva nada.
+  // Resultado: los siete env() del repo (orbe Queswa, controles de video,
+  // servilleta) llevaban tiempo sumando cero.
+  viewportFit: 'cover',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#C5A059' },
     { media: '(prefers-color-scheme: dark)', color: '#0F1115' },
@@ -112,6 +118,18 @@ export const metadata: Metadata = {
     ],
   },
   manifest: '/site.webmanifest',
+
+  // Instalada en iOS: sin barra de Safari, barra de estado integrada al Carbon.
+  appleWebApp: {
+    capable: true,
+    title: 'CreaTuActivo',
+    // 'black' y NO 'black-translucent' a propósito: translucent mete el contenido
+    // DEBAJO de la barra de estado, y este sitio no tiene app shell — 16 de sus
+    // 47 páginas no montan StrategicNavigation, así que su primer título quedaría
+    // tapado por el reloj. Con 'black' el sistema reserva la franja y la pinta en
+    // negro, indistinguible del Carbón (#0F1115) a simple vista.
+    statusBarStyle: 'black',
+  },
 
   robots: {
     index: true,
@@ -262,6 +280,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${playfair.variable} ${inter.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
+        <NavigationProgress />
         <main className="relative">
           {children}
         </main>

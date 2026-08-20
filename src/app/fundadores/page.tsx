@@ -21,6 +21,7 @@ import {
 import StrategicNavigation from '@/components/StrategicNavigation'
 import AnimatedCountUp from '@/components/AnimatedCountUp'
 import { useHydration } from '@/hooks/useHydration'
+import Link from 'next/link'
 
 // Pulido de tipeo (forgiving, no bloquea): "juan pérez" / "JUAN" → "Juan Pérez"
 const toTitleCase = (s: string) =>
@@ -621,9 +622,9 @@ export default function FundadoresPage() {
         <footer className="py-12 text-center text-[#64748B] text-sm border-t border-[rgba(148,163,184,0.15)]">
             <p className="font-bold text-white mb-2">CreaTuActivo.com</p>
             <p className="text-xs">
-              <a href="/privacidad" className="underline hover:text-white transition-colors">Política de Privacidad</a>
+              <Link href="/privacidad" className="underline hover:text-white transition-colors">Política de Privacidad</Link>
               <span className="mx-2 opacity-40">·</span>
-              <a href="/terminos" className="underline hover:text-white transition-colors">Términos y Condiciones</a>
+              <Link href="/terminos" className="underline hover:text-white transition-colors">Términos y Condiciones</Link>
             </p>
             <p className="mt-4 text-xs opacity-50">&copy; 2026 Todos los derechos reservados.</p>
         </footer>

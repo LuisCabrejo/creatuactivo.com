@@ -9,6 +9,7 @@
  */
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import {
   ArrowLeft,
   Bot,
@@ -307,7 +308,7 @@ export default function TerminosPage() {
             <div className="space-y-3" style={{ color: 'var(--color-text-primary)' }}>
               <p>
                 El tratamiento de los datos personales del Usuario se rige por nuestra{' '}
-                <a href="/privacidad" className="underline font-semibold" style={{ color: 'var(--color-brand)' }}>Política de Privacidad</a>,
+                <Link href="/privacidad" className="underline font-semibold" style={{ color: 'var(--color-brand)' }}>Política de Privacidad</Link>,
                 la cual forma parte integral de estos Términos y cumple con la Ley Estatutaria 1581 de 2012 de Colombia.
               </p>
             </div>

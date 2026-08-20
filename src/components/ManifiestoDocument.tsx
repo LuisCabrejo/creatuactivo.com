@@ -14,6 +14,7 @@
 
 import { IndustrialHeader } from '@/components/IndustrialHeader'
 import ManifiestoShare from '@/components/ManifiestoShare'
+import Link from 'next/link'
 
 const WHATSAPP_ORGANICO = '+573206805737'
 
@@ -455,9 +456,9 @@ export default function ManifiestoDocument({
           <div className="max-w-5xl mx-auto text-center">
             <p className="text-sm text-[#6B7280]">
               © 2026 CreaTuActivo.com ·
-              <a href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
+              <Link href="/privacidad" className="hover:text-[#A3A3A3] ml-2">
                 Privacidad
-              </a>
+              </Link>
             </p>
           </div>
         </footer>

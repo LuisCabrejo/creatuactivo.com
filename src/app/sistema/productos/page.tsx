@@ -19,6 +19,7 @@ import Image from 'next/image'
 import { ShoppingCart, X, Heart, Sparkles, Waves, Trophy, Send, Bot, Star, Zap, TrendingUp, Gift, Download, Coffee, Pill, Target, MessageCircle, Shield, Brain, Users, Rocket } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import { IndustrialHeader } from '@/components/IndustrialHeader'
+import Link from 'next/link'
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CLINICAL LUXURY - Bio-Lab Spectrum (sub-marca del vertical e-commerce de salud)
@@ -2440,7 +2441,7 @@ export default function CatalogoEstrategico() {
                   <p className="font-bold text-[color:var(--color-brand)] mb-2">💰 Precios de Distribuidor Mayorista</p>
                   <p className="text-sm text-[#A3A3A3]">
                     Como <strong>dueño de su empresa digital con CreaTuActivo</strong>, accede a precios mayoristas con descuento de hasta 35% sobre precio público.
-                    <a href="/" className="text-[color:var(--color-brand)] hover:text-[#F59E0B] font-medium ml-1 underline">Conozca CreaTuActivo →</a>
+                    <Link href="/" className="text-[color:var(--color-brand)] hover:text-[#F59E0B] font-medium ml-1 underline">Conozca CreaTuActivo →</Link>
                   </p>
                 </div>
                 <p className="text-sm text-[#A3A3A3] mt-4">

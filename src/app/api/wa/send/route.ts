@@ -6,7 +6,7 @@
  *
  * Body:
  *   { to, type: 'text',     text }
- *   { to, type: 'template', templateName, languageCode?, parameters? }
+ *   { to, type: 'template', templateName, languageCode?, parameters?, buttonUrlParam? }
  *
  * Ejerce `whatsapp_business_messaging`. Consumidor: proxy /api/admin/wa del
  * Dashboard (queswa.app). Auth: header x-wa-bridge-secret.
@@ -25,6 +25,8 @@ interface SendBody {
   templateName?: string
   languageCode?: string
   parameters?: string[]
+  /** Sufijo dinámico del botón de URL de la plantilla (ej. token de acceso). */
+  buttonUrlParam?: string
 }
 
 export async function POST(request: Request) {
@@ -62,6 +64,7 @@ export async function POST(request: Request) {
       templateName,
       body.languageCode?.trim() || 'es',
       (body.parameters ?? []).map((p) => String(p)),
+      body.buttonUrlParam?.trim() || undefined,
     );
     return Response.json(result, { status: result.ok ? 200 : 502 });
   }

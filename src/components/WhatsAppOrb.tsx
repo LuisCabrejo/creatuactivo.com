@@ -25,7 +25,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { abrirConversacionQueswa, leerRefSocio, type ContextoOrbe } from '@/lib/orbe-config'
+import { abrirConversacionQueswa, leerRefSocio, yaConversoPorWhatsApp, type ContextoOrbe } from '@/lib/orbe-config'
 import { REEL_NICHOS } from '@/lib/reels'
 
 const VERDE = '#25D366'
@@ -44,6 +44,10 @@ export default function WhatsAppOrb() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  // Quien ya conversó no necesita que le ofrezcan una demostración: necesita saber
+  // que su chat sigue ahí. Se lee después de montar (localStorage) y se vuelve a
+  // leer al regresar de WhatsApp, que es justo cuando el dato cambia.
+  const [retomando, setRetomando] = useState(false)
   const abriendo = useRef(false)
 
   // Catálogo: Queswa entra como asesor de bienestar, no de negocio — el texto
@@ -59,9 +63,11 @@ export default function WhatsAppOrb() {
   })()
   const suppressTooltip = isReelRoute || pathname === '/' || pathname === '/video-plan-servilleta'
 
-  const tooltipText = isProductsPage
-    ? 'Pregúntele a su asesor de bienestar'
-    : '¿Le muestro cómo funciona?'
+  const tooltipText = retomando
+    ? 'Retome su conversación'
+    : isProductsPage
+      ? 'Pregúntele a su asesor de bienestar'
+      : '¿Le muestro cómo funciona?'
 
   const abrirWhatsApp = () => {
     // Guard de doble disparo: el clic en el orbe también emite `open-queswa` para
@@ -77,6 +83,17 @@ export default function WhatsAppOrb() {
     window.dispatchEvent(new CustomEvent('queswa-opened'))
     abrirConversacionQueswa(leerRefSocio(), contexto)
   }
+
+  useEffect(() => {
+    const releer = () => setRetomando(yaConversoPorWhatsApp())
+    releer()
+    document.addEventListener('visibilitychange', releer)
+    window.addEventListener('focus', releer)
+    return () => {
+      document.removeEventListener('visibilitychange', releer)
+      window.removeEventListener('focus', releer)
+    }
+  }, [])
 
   // Entrada suave tras montar
   useEffect(() => {
@@ -142,7 +159,7 @@ export default function WhatsAppOrb() {
       <button
         type="button"
         data-nexus-button
-        aria-label="Conversar con Queswa por WhatsApp"
+        aria-label={retomando ? 'Retomar la conversación con Queswa en WhatsApp' : 'Conversar con Queswa por WhatsApp'}
         onClick={abrirWhatsApp}
         className="wa-orb"
         style={{

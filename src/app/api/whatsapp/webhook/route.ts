@@ -236,6 +236,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // (reacción, sticker) que llegan después de este punto.
     const wamid = message.id as string | undefined;
     const t0 = Date.now();
+    _turnoEmpezoEn = t0;
     if (wamid) await marcarLeidoYEscribiendo(wamid);
 
     // ─── Entrada: texto o nota de voz ─────────────────────────────────────────
@@ -811,13 +812,18 @@ async function procesarEntrante(body: any): Promise<void> {
           seguimiento = seguimientoFoto(producto, yaExplicado);
         }
 
+        await pisoDeEscritura();
         const enviada = await sendImage(phoneNumber, urlImagen(producto), pieDeFoto(producto, seguimiento));
         if (enviada.ok) {
           fotoEnviada = producto.nombre;
           console.log(`📷 [WA Webhook] Foto de ${producto.slug} enviada a ${phoneNumber}`);
           if (soloFoto) {
+            // Se persiste el PIE tal cual, no un marcador entre corchetes: el
+            // modelo lee este turno en el hilo, y con "[Foto ... enviada]" lo
+            // interpretaba como que el tema eran las imágenes — al turno
+            // siguiente respondió "no tengo imágenes disponibles" (21 ago).
             await persistirTurnoDictado(supabase, waFingerprint, messageText,
-              `[Foto de ${producto.nombre} enviada] ${seguimiento}`);
+              pieDeFoto(producto, seguimiento));
             console.log('📷 [WA Webhook] Turno cerrado sin motor');
             return;
           }
@@ -1190,11 +1196,43 @@ async function procesarEntrante(body: any): Promise<void> {
 // asteriscos a la vista. Y lo que pase de una pantalla se parte en varios
 // mensajes — WhatsApp esconde el resto detrás de "Leer más", justo donde va la
 // pregunta que sostiene la conversación.
+/**
+ * Cuándo empezó el turno en curso. Lo fija `procesarEntrante` al recibir el
+ * mensaje y lo lee el piso de escritura de abajo — es de módulo y no un
+ * parámetro porque hay dieciocho puntos de envío y pasarlo por todos solo
+ * multiplica las formas de olvidarlo.
+ *
+ * ⚠️ Una invocación atiende UN mensaje, así que no hay dos turnos compartiendo
+ * este valor. Si algún día el webhook procesara varios, esto pasa a parámetro.
+ */
+let _turnoEmpezoEn = 0;
+
+/**
+ * "Escribiendo…" tiene que alcanzar a verse.
+ *
+ * Los turnos que dicta el backend —la apertura, el ejemplo de cifras, la foto,
+ * el cierre— salen en trescientos milisegundos, y WhatsApp no llega a pintar el
+ * indicador: la persona ve aparecer un párrafo de la nada. Los que pasan por el
+ * modelo tardan segundos y sí lo muestran, y esa diferencia se siente como que
+ * el sistema funciona a ratos (observación del Director, 21 ago).
+ *
+ * Un segundo de piso empareja el ritmo. No es cosmético: nadie escribe cuatro
+ * líneas en un instante, y una respuesta instantánea a una pregunta de fondo se
+ * lee como una máquina contestando, no como alguien que le está respondiendo.
+ */
+async function pisoDeEscritura(): Promise<void> {
+  const PISO_MS = 1000;
+  if (!_turnoEmpezoEn) return;
+  const falta = PISO_MS - (Date.now() - _turnoEmpezoEn);
+  if (falta > 0) await new Promise((r) => setTimeout(r, falta));
+}
+
 async function sendWhatsAppMessage(
   to: string,
   text: string,
   opciones: { wamid?: string; citar?: boolean } = {},
 ): Promise<void> {
+  await pisoDeEscritura();
   const partes = partirParaWhatsApp(aFormatoWhatsApp(text));
 
   for (let i = 0; i < partes.length; i++) {

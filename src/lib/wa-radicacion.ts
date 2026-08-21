@@ -191,11 +191,68 @@ Reglas:
  * productos" no se parte por comas de forma fiable. Nunca lanza — ante cualquier
  * fallo devuelve todo en null, y el flujo vuelve a pedir lo que falta.
  */
+/**
+ * Lee los cuatro datos cuando la persona los manda JUNTOS, sin llamar al modelo.
+ *
+ * Es la forma más común de responder al bloque de `pedirDatos()` —una línea por
+ * dato— y no necesita inteligencia: la cédula es el número largo, el paquete es
+ * el ESP, y de las líneas que quedan la del nombre tiene dos o más palabras.
+ *
+ * POR QUÉ EXISTE: la extracción con Haiku funciona, pero cuando falla —y falló
+ * en la prueba del 21 ago— el trámite le vuelve a pedir el nombre a alguien que
+ * acababa de escribirlo, con la cédula y la ciudad al lado. Eso enfría a quien
+ * ya había decidido, que es el peor momento posible. Con esto, el camino más
+ * frecuente no depende de una llamada de red.
+ *
+ * Devuelve null si no reconoce los cuatro: entonces decide Haiku, como siempre.
+ */
+export function extraerDeterministico(mensaje: string): DatosRadicacion | null {
+  const lineas = mensaje.split(/[\n,;]+/).map((l) => l.trim()).filter(Boolean);
+  if (lineas.length < 3) return null;
+
+  let cedula: string | null = null;
+  let paquete: string | null = null;
+  const resto: string[] = [];
+
+  for (const l of lineas) {
+    const soloDigitos = l.replace(/[.\s]/g, '');
+    if (!cedula && /^\d{6,12}$/.test(soloDigitos)) { cedula = soloDigitos; continue; }
+    const m = l.match(/esp\s*-?\s*([123])\b/i);
+    if (!paquete && m) { paquete = `ESP-${m[1]}`; continue; }
+    if (!paquete && /^(inicial|empresarial|visionario)$/i.test(l)) {
+      paquete = /inicial/i.test(l) ? 'ESP-1' : /empresarial/i.test(l) ? 'ESP-2' : 'ESP-3';
+      continue;
+    }
+    resto.push(l);
+  }
+
+  if (!cedula || !paquete || resto.length < 2) return null;
+
+  // De lo que queda, el nombre es el de dos o más palabras; la ciudad, la otra.
+  // Bogotá y Cali son de una palabra; "Luis Cabrejo" nunca de una.
+  const soloLetras = (t: string) => /^[a-záéíóúñü.\s]+$/i.test(t);
+  const candidatos = resto.filter(soloLetras);
+  if (candidatos.length < 2) return null;
+  const nombre = candidatos.find((t) => t.split(/\s+/).length >= 2) ?? null;
+  const ciudad = candidatos.find((t) => t !== nombre) ?? null;
+  if (!nombre || !ciudad) return null;
+
+  return { nombre, cedula, ciudad, paquete };
+}
+
 export async function extraerDatosRadicacion(
   historial: { role: string; content: string }[],
   mensajeActual: string,
 ): Promise<DatosRadicacion> {
   const vacio: DatosRadicacion = { nombre: null, cedula: null, ciudad: null, paquete: null };
+
+  // Camino corto: los cuatro datos juntos se leen sin modelo — cero latencia y,
+  // sobre todo, cero forma de fallar por una llamada de red.
+  const directo = extraerDeterministico(mensajeActual);
+  if (directo) {
+    console.log(`📝 [Radicación] los cuatro datos leídos sin modelo — ${directo.nombre} · ${directo.ciudad} · ${directo.paquete}`);
+    return directo;
+  }
 
   const recientes = historial.slice(-8);
   const transcripcion = [

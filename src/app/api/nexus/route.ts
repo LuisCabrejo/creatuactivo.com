@@ -2560,7 +2560,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // Routing directo por categoría — evita fallos de vector search en consultas por categoría
     // "dame el precio de los suplementos" → SUP_01 directamente sin depender de similitud vectorial
     const msgL = userMessage.toLowerCase();
-    const esBebidaCategoria  = /precio.*bebida|bebidas.*precio|precio.*caf[eé]|cuánto.*caf[eé]|cuánto.*bebida|lista.*bebida|todos.*caf[eé]/i.test(msgL) && !/específico|rooibos|latte|mocha|shoko|spirulina|cereal|colágeno|reskine|schokolade|clásico|classic/i.test(msgL);
+    const esBebidaCategoria  = /precio.*bebida|bebidas.*precio|precio.*caf[eé]|cuánto.*caf[eé]|cuánto.*bebida|lista.*bebida|todos.*caf[eé]|(dem[aá]s|otras|resto|cu[aá]les son las).{0,18}bebidas/i.test(msgL) && !/específico|rooibos|latte|mocha|shoko|spirulina|cereal|colágeno|reskine|schokolade|clásico|classic/i.test(msgL);
     const esSuplementoCat    = /suplemento|cápsula|capsula|ganoderma caps|excellium|cordygold/i.test(msgL);
     const esLuvocoCat        = /luvoco|m[aá]quina.*caf[eé]|caf[eé].*m[aá]quina/i.test(msgL);
     const esCuidadoPersonal  = /cuidado.*personal|jabón|jabon|shampoo|acondicionador|exfoliante|pasta.*diente|toothpaste|gano\s*soap/i.test(msgL);
@@ -4995,7 +4995,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // paquetes" / "qué gano por cada paquete" son la pregunta del GEN5 dicha
       // con las palabras del prospecto; sin estas puertas el pin no disparaba y
       // el modelo componía con las composiciones en mano (19 ago 2026).
-      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso|(ingresos?|gana[nc]\w*)\s+(por|de|con)\s+(la\s+)?(compra\s+de\s+)?(los\s+)?paquete|c[oó]mo\s+son\s+(los\s+)?ingresos|(ganan|comisi[oó]n|ingreso|gano|recibo|me\s+queda)[^.?]{0,40}paquetes?\s+empresarial|qu[eé]\s+(gano|me\s+queda|recibo|me\s+pagan)\s+por\s+(cada\s+)?paquete/i;
+      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso|(ingresos?|gana[nc]\w*)\s+(por|de|con)\s+(la\s+)?(compra\s+de\s+)?(los\s+)?paquete|c[oó]mo\s+son\s+(los\s+)?ingresos|(ganan|comisi[oó]n|ingreso|gano|recibo|me\s+queda|bono)[^.?]{0,40}paquetes?\s+empresarial|qu[eé]\s+(gano|me\s+queda|recibo|me\s+pagan)\s+por\s+(cada\s+)?paquete/i;
       // Aceptación de una oferta previa — va ANTES de la guarda de salida (14 ago
       // 2026). En la prueba del Director, "¿Le muestro cómo se ve en números?" →
       // "Sí" no entregó el ejemplo: el "Sí" no matchea preguntaSobreCifras, la

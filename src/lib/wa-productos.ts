@@ -377,7 +377,17 @@ export function esSoloPedidoDeImagen(texto: string): boolean {
  * la línea.
  */
 export function seguimientoFoto(p: ProductoWA, yaExplicado: boolean): string {
-  if (yaExplicado) return '¿Le muestro los demás productos de la línea?';
+  // La oferta nombra la FAMILIA, no "la línea" a secas: "los demás productos de
+  // la línea" no le dice al buscador qué tabla traer, y cuando la persona
+  // aceptó, el modelo compuso una lista donde inventó el "Ganocafé Negro" (21
+  // ago). Nombrada la familia, la ruta de categoría la reconoce y entrega la
+  // tabla con candado.
+  if (yaExplicado) {
+    if (/\/bebidas\//.test(p.imagen)) return '¿Le muestro las demás bebidas de la línea?';
+    if (/\/suplementos\//.test(p.imagen)) return '¿Le muestro los otros suplementos de la línea?';
+    if (/\/cuidado-personal\//.test(p.imagen)) return '¿Le muestro el resto de la línea de cuidado personal?';
+    return '¿Le cuento cómo funciona la máquina Luvoco?';
+  }
 
   // El verbo sale de la categoría, que va en la ruta de la imagen: un jabón no
   // se toma y una máquina de café no se prepara. Y el nombre no entra en la

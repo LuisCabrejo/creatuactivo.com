@@ -2,19 +2,32 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
+import { usaChatWeb } from '@/lib/orbe-config';
 
 const UnifiedQueswaOrb = dynamic(
   () => import('@/components/UnifiedQueswaOrb'),
   { ssr: false, loading: () => null },
 );
 
+const WhatsAppOrb = dynamic(
+  () => import('@/components/WhatsAppOrb'),
+  { ssr: false, loading: () => null },
+);
+
 /**
- * Difiere la carga de UnifiedQueswaOrb (y Framer Motion, 114KB)
- * hasta el primer evento de interacción del usuario.
- * Resultado: ese chunk no bloquea la hidratación inicial de la página.
+ * Difiere la carga del orbe hasta el primer evento de interacción del usuario:
+ * ni Framer Motion (114KB, chat web) ni el orbe de WhatsApp bloquean la
+ * hidratación inicial de la página.
+ *
+ * CUÁL de los dos se monta lo decide `usaChatWeb()` — el interruptor vive en
+ * [src/lib/orbe-config.ts](src/lib/orbe-config.ts), no aquí. En esta fase el orbe
+ * por defecto es el de WhatsApp; los decks (/servilleta, /12-niveles) conservan el
+ * chat web porque su botón "PREGÚNTALE ALGO EN VIVO" es una demo en vivo.
  */
 export default function DeferredOrb() {
   const [ready, setReady] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const load = () => setReady(true);
@@ -38,5 +51,5 @@ export default function DeferredOrb() {
   }, []);
 
   if (!ready) return null;
-  return <UnifiedQueswaOrb />;
+  return usaChatWeb(pathname) ? <UnifiedQueswaOrb /> : <WhatsAppOrb />;
 }

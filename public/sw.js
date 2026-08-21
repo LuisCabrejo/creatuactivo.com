@@ -11,7 +11,12 @@
  * Basado en Dashboard SW v1.0.9 (2025-12-17)
  */
 
-const CACHE_VERSION = '1.3.0';
+// ⚠️ Subir esta versión en todo despliegue que cambie algo que el visitante
+// recurrente deba ver de inmediato. La navegación es cache-first con refresco en
+// segundo plano: sin el bump, quien ya visitó el sitio ve la versión vieja en su
+// primera visita y la nueva solo en la segunda. Bump 1.4.0 (21 ago 2026): el orbe
+// flotante pasó a ser el de WhatsApp.
+const CACHE_VERSION = '1.4.0';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

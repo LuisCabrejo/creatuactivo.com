@@ -312,6 +312,46 @@ export function pieDeFoto(p: ProductoWA, incluirPrecio = true): string {
 }
 
 /**
+ * ¿El mensaje pide SOLO la foto, o pide foto y además pregunta algo?
+ *
+ * "dame una imagen del excellium" → solo la foto, y el webhook la responde
+ * entero. "mándeme la foto y cuánto cuesta" → hay una pregunta detrás, y eso lo
+ * contesta el motor.
+ */
+export function esSoloPedidoDeImagen(texto: string): boolean {
+  if (!pideImagen(texto)) return false;
+  // Lo que delata que hay una pregunta además de la foto.
+  return !/cu[aá]nto|precio|vale|cuesta|para\s+qu[eé]|c[oó]mo\s+se|sirve|beneficio|qu[eé]\s+(trae|tiene|contiene|es)|ingredient|compos|dosis|se\s+toma|diferencia/i.test(texto);
+}
+
+/**
+ * La pregunta con la que se cierra el turno de la foto.
+ *
+ * Va dictada por el backend y no por el modelo, porque el modelo no sabe que la
+ * foto salió: en la prueba del 20 ago respondió *"por este canal no puedo enviar
+ * imágenes"* justo debajo de la imagen que acababa de recibir la persona, y
+ * remató ofreciendo OTRO producto.
+ *
+ * Y cambia según lo que ya pasó en la conversación: a quien apenas pidió la
+ * foto se le ofrece conocer el producto; a quien ya se lo explicaron antes,
+ * repetirle la oferta sería no estar leyendo el hilo — se le ofrece el resto de
+ * la línea.
+ */
+export function seguimientoFoto(p: ProductoWA, yaExplicado: boolean): string {
+  if (yaExplicado) return '¿Le muestro los demás productos de la línea?';
+
+  // El verbo sale de la categoría, que va en la ruta de la imagen: un jabón no
+  // se toma y una máquina de café no se prepara. Y el nombre no entra en la
+  // frase — "el Cápsulas Excellium" chirría, y los nombres con · no caben en
+  // una oración. La foto acaba de salir: el producto ya está nombrado.
+  const verbo = /\/cuidado-personal\//.test(p.imagen) ? 'cómo se usa'
+    : /maquina-luvoco/.test(p.slug) ? 'cómo funciona'
+    : /\/luvoco\//.test(p.imagen) ? 'cómo se prepara'
+    : 'cómo se toma';
+  return `¿Le cuento qué trae y ${verbo}?`;
+}
+
+/**
  * URL absoluta de la imagen que se envía — Meta la descarga, así que debe ser
  * pública y sin autenticación.
  *

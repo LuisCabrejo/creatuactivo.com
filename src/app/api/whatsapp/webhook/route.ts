@@ -27,7 +27,7 @@ import {
 import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
-import { pideImagen, detectarProducto, pieDeFoto, urlImagen } from '@/lib/wa-productos';
+import { pideImagen, detectarProducto, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto } from '@/lib/wa-productos';
 import {
   slugDesdeNombre,
   normalizarWhatsApp,
@@ -778,17 +778,44 @@ async function procesarEntrante(body: any): Promise<void> {
     // precio y registro sanitario. Ver la nota de cabecera de wa-productos.ts:
     // una imagen con promesa es publicidad de producto, y esa se juzga con la
     // vara de la etiqueta, no con la de una conversación.
-    // La foto es un ADJUNTO, no un reemplazo: sale primero y el turno sigue su
-    // curso hasta el motor, que responde en texto y cierra con su pregunta. Si
-    // aquí se cortara el turno, la persona recibiría una imagen y un silencio.
+    // ⚠️ EL MOTOR NO SABE QUE LA FOTO SALIÓ, y por eso este bloque cierra el
+    // turno cuando puede. En la prueba del 20 ago la persona recibió la imagen y
+    // debajo un texto que decía "por este canal no puedo enviar imágenes",
+    // rematado con una oferta sobre OTRO producto. El modelo no tenía cómo
+    // saberlo: la imagen la manda el webhook, no él.
+    //
+    // Si el mensaje pide SOLO la foto, el turno se cierra aquí — imagen más una
+    // pregunta dictada sobre ESE producto. Si además trae una pregunta ("la foto
+    // y cuánto cuesta"), sigue al motor y se le avisa por el pageContext que la
+    // imagen ya está entregada.
+    let fotoEnviada: string | null = null;
     if (pideImagen(messageText)) {
       const producto = detectarProducto(messageText);
       if (producto) {
         const enviada = await sendImage(phoneNumber, urlImagen(producto), pieDeFoto(producto));
-        if (enviada.ok) console.log(`📷 [WA Webhook] Foto de ${producto.slug} enviada a ${phoneNumber}`);
-        else console.warn(`⚠️ [WA Webhook] Foto de ${producto.slug} no se pudo enviar: ${enviada.error}`);
+        if (enviada.ok) {
+          fotoEnviada = producto.nombre;
+          console.log(`📷 [WA Webhook] Foto de ${producto.slug} enviada a ${phoneNumber}`);
+
+          if (esSoloPedidoDeImagen(messageText)) {
+            // ¿Ya se le había explicado este producto? Volver a ofrecérselo
+            // sería no estar leyendo el hilo.
+            const clave = producto.nombre.toLowerCase().split(' ')[0];
+            const yaExplicado = historial.some((m) =>
+              m.role === 'assistant' && !m.content.startsWith('[Foto')
+              && m.content.length > 200 && m.content.toLowerCase().includes(clave));
+            const seguimiento = seguimientoFoto(producto, yaExplicado);
+            await sendWhatsAppMessage(phoneNumber, seguimiento, { wamid });
+            await persistirTurnoDictado(supabase, waFingerprint, messageText,
+              `[Foto de ${producto.nombre} enviada] ${seguimiento}`);
+            console.log(`📷 [WA Webhook] Turno cerrado sin motor (ya explicado: ${yaExplicado})`);
+            return;
+          }
+        } else {
+          console.warn(`⚠️ [WA Webhook] Foto de ${producto.slug} no se pudo enviar: ${enviada.error}`);
+        }
       } else {
-        console.log(`📷 [WA Webhook] Pidió imagen pero no nombró un producto reconocible — responde el motor`);
+        console.log('📷 [WA Webhook] Pidió imagen pero no nombró un producto reconocible — responde el motor');
       }
     }
 
@@ -917,7 +944,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
     // trabajar el suyo. Sin esta señal el motor responde con argumentos de venta a
     // quien ya compró.
-    const pageContext = socioQueEscribe
+    const pageContext = fotoEnviada
+      ? 'whatsapp_foto_enviada'
+      : socioQueEscribe
       ? 'whatsapp_socio'
       : isCTWA
         ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`

@@ -4474,6 +4474,21 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
 
     // 🎯 CONTEXTO DE PÁGINA: Instrucciones específicas según dónde está el usuario
     const getPageContextInstructions = () => {
+      // La foto la manda el webhook, no el modelo — y sin esta señal el modelo
+      // respondía "por este canal no puedo enviar imágenes" justo debajo de la
+      // imagen que la persona acababa de recibir (prueba del 20 ago 2026).
+      if (pageContext === 'whatsapp_foto_enviada') {
+        return `
+📷 LA FOTO YA SE ENVIÓ EN ESTE TURNO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+La persona ya recibió la imagen del producto, con su nombre, presentación,
+precio y registro sanitario. NUNCA diga que no puede enviar imágenes ni la
+derivemos al socio o al catálogo para verlas.
+
+Responda lo OTRO que preguntó en su mensaje, y cierre sobre ESE mismo producto —
+no sobre otro.`;
+      }
+
       // Quien escribe es DUEÑO de un canal, no candidato a tenerlo. Lo detecta el
       // webhook contra `constructor_slugs` (determinístico, por teléfono) y manda
       // esta señal. Sin ella el motor le respondía con argumentos de venta a quien

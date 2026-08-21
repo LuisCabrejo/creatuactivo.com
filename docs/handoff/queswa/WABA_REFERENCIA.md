@@ -17,10 +17,29 @@
 
 **Reglas que rompen el canal si se ignoran:**
 - ⛔ **NO tocar el nombre visible mientras `name_status` esté en revisión** — cada guardado abre una solicitud nueva que pisa la anterior; así se perdió una aprobación previa de "Queswa". Meta permite 10 cambios cada 30 días.
+- ✅ **El nombre visible «Queswa» está APROBADO y en uso** — verificado el **21 ago 2026** por API *y por prueba en teléfono real*. `verified_name: Queswa` · `new_name_status: NONE` — la cola está vacía y **no quedó en `DECLINED`**. Venía de `PENDING_REVIEW` el 17 ago. ⚠️ `name_status` devuelve **`NON_EXISTS`**, valor que **no figura en la lista oficial de Meta** (APPROVED · AVAILABLE_WITHOUT_REVIEW · DECLINED · EXPIRED · PENDING_REVIEW · NONE) y que es idéntico de v19 a v24; se lee como *«ya no existe expediente de revisión»*, coherente con que Meta desmontó la revisión previa para cuentas verificadas y con que el re-registro consolidó la solicitud. **La API nunca dice `APPROVED` en este número, y eso NO es rechazo — no vuelva a someter el nombre por ese motivo.**
+
+  **La prueba que lo zanjó** (`hello_world` al `+57 320 341 5438`, captura en `public/contexto/capturas/pruebas/11.jpeg`): el encabezado del chat trae **dos líneas** — arriba `CreaTuActivo-Queswa`, que es el nombre guardado en los contactos de ese teléfono y **no prueba nada**, y debajo en pequeño **`Queswa`**, que es el nombre verificado que entrega Meta. ⚠️ **Al repetir esta comprobación, lea la segunda línea.** Con el número guardado en contactos, la primera es el rótulo local del teléfono; solo con el número *sin guardar* el nombre de Meta ocupa la línea principal.
 - ⛔ **NO ejecutar `request_code` / `verify_code`** sobre un número `CONNECTED` que funciona. `code_verification_status: EXPIRED` **no bloquea el envío** (medido el 4 ago con `hello_world` entregada); el error #131037 era un riesgo del manual, no algo activo.
 - ⚠️ **Ventana de 24 h**: si la persona escribe primero se responde en **texto libre**; iniciar conversación con quien nunca escribió **exige plantilla aprobada**, sin excepción.
 - ⚠️ **`clonar-arsenal-whatsapp.mjs` SOLO inserta categorías nuevas — NO actualiza las existentes** (salta las que ya están). Para propagar fragmentos *modificados* al tenant whatsapp hay que **purgar primero** `arsenal_inicial_%` del tenant whatsapp y luego clonar; si no, quedan **stale**.
 - 🟢 **El App Review de Meta NO hace falta para este caso de uso** (auditoría cerrada 26 jul 2026). Los permisos figuran "rechazados" y el canal opera igual: sobre activos propios basta el *Acceso estándar*. Solo se retoma si se decide que **cada socio conecte su propio número**. No re-someter sin eso.
+
+**Plantillas de la cuenta** — **7, todas `APPROVED`** (inventario auditado el 21 ago 2026 — `node -e` contra `/{WABA_ID}/message_templates`):
+
+| Estado | Categoría | Nombre |
+|---|---|---|
+| APPROVED | AUTHENTICATION | `codigo_centro_mando` |
+| APPROVED | UTILITY | `acceso_centro_mando_v2` ← **la vigente para el acceso al Dashboard** |
+| APPROVED | UTILITY | `pre_afiliacion_nueva` · `hello_world` |
+| APPROVED | MARKETING | `acceso_centro_mando` · `enlace_canal_listo` · `acceso_creatuactivo` |
+
+- ⚠️ **`acceso_centro_mando` (sin `_v2`) es MARKETING, no UTILITY.** Las dos están aprobadas y se llaman casi igual, pero la categoría cambia la tarifa y las reglas que le aplican. **La correcta es `acceso_centro_mando_v2`.** Quien la dispara es el **Dashboard**, que es repo aparte — verificar allá cuál invoca.
+- ⛔ **El `WHATSAPP_SYSTEM_TOKEN` NO puede borrar plantillas.** Tiene `whatsapp_business_management` y **crea** sin problema, pero el DELETE devuelve `(#100) Need permission on either WhatsApp Business Account or owner/shared business` por las tres vías (`?name=`, `?hsm_id=` y el nodo `/{template_id}`). Meta exige **control total del activo WABA para el usuario del sistema**; mientras no se conceda, borrar es **a mano** en WhatsApp Manager. ⏳ Pendiente opcional: Configuración del negocio → Usuarios del sistema → *Queswa App CTA* → Agregar activos → Cuentas de WhatsApp → control total.
+- ✅ `codigo_acceso_centro_mando` (REJECTED por `INCORRECT_CATEGORY`) **se eliminó a mano el 21 ago 2026**. La reemplazó `codigo_centro_mando`, en AUTHENTICATION, que es la categoría correcta para un código de acceso — someterlo como UTILITY fue lo que lo tumbó.
+- ⚠️ **Al borrar en WhatsApp Manager, lea el nombre dos veces.** En esa cuenta conviven `codigo_centro_mando` (en uso) y existió `codigo_acceso_centro_mando`; y conviven `acceso_centro_mando` con `acceso_centro_mando_v2`. Además, **Configuración del negocio lista TRES cuentas llamadas «CreaTuActivo»** más una de pruebas: la de producción es la del identificador **`1436663504253230`**. Ruta directa a las plantillas del WABA correcto: `https://business.facebook.com/wa/manage/message-templates/?business_id=2440608633047462&waba_id=1436663504253230`
+- 🖼️ **Foto de perfil: el fondo va horneado, y es deliberado.** WhatsApp **no admite transparencia** — Meta convierte toda foto de perfil a **JPEG** (verificado: lo almacenado es JPEG 640×640 con esquinas `srgb(255,255,255)`), así que un PNG transparente sale aplanado contra **blanco**. Los archivos listos, con el carbón de marca ya incorporado y el logo al 88% del radio, viven en **[public/images/marca/](../../../public/images/marca/)** junto a su README. **No les devuelva el alfa** — vuelve el blanco.
+- ℹ️ Otros campos del número, misma auditoría: `account_mode: LIVE` · `is_official_business_account: false` (sin marca verde) · `search_visibility: NON_VISIBLE` · `is_pin_enabled: true` · `health_status: AVAILABLE` en las tres entidades (WABA, Business, App).
 
 **Flujo WABA:**
 ```

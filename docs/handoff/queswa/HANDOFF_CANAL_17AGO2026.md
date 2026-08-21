@@ -92,6 +92,9 @@ se cuida es que nadie **bloquee** el número: eso es lo que Meta mide para bajar
 Estado del número al cierre: `quality_rating` **GREEN** · `CONNECTED` · negocio **verificado** ·
 cuenta **APPROVED** · `name_status` **PENDING_REVIEW** (⛔ no tocar el nombre visible mientras siga
 así — cada guardado pisa la solicitud anterior).
+> ✅ **Superado el 21 ago 2026:** el nombre **«Queswa» está aprobado y en uso**, verificado por API y por
+> prueba en teléfono real. `name_status` devuelve `NON_EXISTS`, que **no es rechazo** — detalle y método de
+> comprobación → [WABA_REFERENCIA.md](WABA_REFERENCIA.md).
 
 ---
 
@@ -200,7 +203,7 @@ en orden de riesgo:
      **Fuerte = disminución sustancial**.
    - Precios y presentaciones no son verificables contra el fabricante (el sitio no los publica).
      **Su fuente real son las capturas del back office** en `public/contexto/capturas/productos/`.
-5. **⚠️ El nombre visible del WABA** sigue en `PENDING_REVIEW`. No tocarlo.
+5. ~~**⚠️ El nombre visible del WABA** sigue en `PENDING_REVIEW`. No tocarlo.~~ ✅ **Cerrado el 21 ago 2026** — **aprobado**: el nombre visible es **Queswa**, confirmado en teléfono real. Ver [WABA_REFERENCIA.md](WABA_REFERENCIA.md).
 
 ---
 

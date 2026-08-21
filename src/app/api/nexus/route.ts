@@ -3692,6 +3692,14 @@ const COUNTRY_NAMES: Record<string, string> = {
 function detectVisitorCountry(req: Request, tenantId: string, fingerprint?: string): string {
   // WhatsApp: prefijo telefónico (más confiable que la IP del webhook)
   if (tenantId === 'whatsapp' && fingerprint?.startsWith('wa_')) {
+    // Quien escribe con nombre de usuario no manda teléfono, sino un BSUID
+    // (`wa_CO.1497020585516131`). El país va ahí, en las dos letras del
+    // prefijo — y es mejor dato que un teléfono, porque no se hereda de una
+    // línea comprada en otro país. Sin esto, a un colombiano se le cotizaba en
+    // dólares (21 ago 2026).
+    const bsuid = fingerprint.match(/^wa_([A-Z]{2})\./);
+    if (bsuid) return bsuid[1];
+
     const phone = fingerprint.replace(/\D/g, '');
     for (const len of [3, 2, 1]) {
       const code = PHONE_PREFIX_COUNTRY[phone.slice(0, len)];

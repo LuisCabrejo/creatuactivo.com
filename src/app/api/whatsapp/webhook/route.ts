@@ -222,9 +222,36 @@ async function procesarEntrante(body: any): Promise<void> {
     }
 
     const message     = messages[0];
-    const contact     = body.entry[0].changes[0].value.contacts?.[0];
-    const phoneNumber = message.from as string;
+    const contact     = value?.contacts?.[0];
+
+    // ─── Quién escribe: teléfono o BSUID ──────────────────────────────────────
+    // Desde 2026 Meta permite ocultar el teléfono detrás de un nombre de
+    // usuario, y entonces manda un **BSUID** (`CO.1497020585516131`) en vez del
+    // número — o no manda `from` en absoluto. `contacts[0].user_id` es el campo
+    // que SIEMPRE viene, así que es el último recurso y el más fiable.
+    //
+    // El 21 ago 2026 llegó el primero: `from` vino vacío, el prospecto se guardó
+    // como `wa_undefined` y la respuesta se envió a una dirección inexistente —
+    // la persona vio el "escribiendo…" y nunca recibió nada. Con Meta ampliando
+    // los nombres de usuario, esto deja de ser un caso raro.
+    const phoneNumber = (message.from
+      || contact?.wa_id
+      || contact?.user_id
+      || message.user_id) as string | undefined;
     const contactName = (contact?.profile?.name as string | undefined) || 'Constructor';
+
+    if (!phoneNumber) {
+      // Sin identidad no hay a quién responderle, y crear un prospecto
+      // `wa_undefined` solo ensucia la base y esconde el problema.
+      console.error(
+        `🚨 [WA Webhook] MENSAJE SIN IDENTIDAD — ni from, ni wa_id, ni user_id. `
+        + `De "${contactName}", wamid ${message.id}. Payload: ${JSON.stringify(value?.contacts ?? {}).slice(0, 200)}`,
+      );
+      return;
+    }
+    if (/^[A-Z]{2}\./.test(phoneNumber)) {
+      console.log(`🪪 [WA Webhook] Escribe con nombre de usuario (BSUID ${phoneNumber}) — sin teléfono visible`);
+    }
 
     // ─── Acuse inmediato: visto azul + "escribiendo…" ─────────────────────────
     // Va aquí arriba, antes de transcribir el audio y antes de llamar al motor,

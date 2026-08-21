@@ -69,8 +69,28 @@ function credentials() {
  * Meta exige formato internacional sin "+" ni separadores (ej: 573001234567).
  * Acepta lo que escriba un humano en la consola y lo normaliza.
  */
+/**
+ * ¿Es un BSUID? Formato `CO.1497020585516131` — dos letras de país, punto y
+ * alfanumérico. Meta lo empezó a mandar en 2026 para quien adopta un nombre de
+ * usuario y oculta su teléfono, y desde entonces `from` y `wa_id` pueden traer
+ * esto en vez de un número, o no venir del todo.
+ */
+export function esBSUID(destino: string): boolean {
+  return /^[A-Z]{2}\.[A-Za-z0-9]{6,}$/.test((destino || '').trim());
+}
+
+/**
+ * Meta exige el teléfono en formato internacional sin "+" ni separadores.
+ *
+ * ⚠️ Un BSUID se devuelve INTACTO: quitarle lo que no es dígito lo convierte en
+ * una dirección que no existe. Pasó el 21 ago 2026 — alguien escribió con
+ * nombre de usuario, el webhook le quitó el "CO." y el mensaje se envió a la
+ * nada: la persona vio el "escribiendo…" y nunca recibió respuesta. El campo
+ * `to` de Meta acepta las dos formas.
+ */
 export function normalizePhone(raw: string): string {
-  return raw.replace(/[^\d]/g, '');
+  if (esBSUID(raw)) return raw.trim();
+  return (raw || '').replace(/[^\d]/g, '');
 }
 
 /** Extrae el mensaje de error legible de una respuesta de la Graph API. */

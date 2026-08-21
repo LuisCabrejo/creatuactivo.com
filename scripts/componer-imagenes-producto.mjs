@@ -90,11 +90,35 @@ async function componer(p) {
     + `<line x1="${W / 2 - 60}" y1="192" x2="${W / 2 + 60}" y2="192" stroke="#C5A059" stroke-width="2" opacity="0.55"/>`
     + '</svg>');
 
+  // ── Marca de agua ──
+  // Va sobre la mesa, en la zona más oscura del cuadro, y a media opacidad: la
+  // imagen se reenvía de chat en chat y debe poder rastrearse hasta nosotros
+  // sin taparle nada al producto. El isotipo a la izquierda con el dominio, y
+  // la firma de la IA a la derecha.
+  const isotipo = await sharp(join(RAIZ, 'public/images/logotipo.png'))
+    .resize({ height: 46, fit: 'inside' })
+    .composite([{
+      input: Buffer.from('<svg width="46" height="46"><rect width="46" height="46" fill="#fff" fill-opacity="0.62"/></svg>'),
+      blend: 'dest-in',
+    }])
+    .png().toBuffer();
+  const { width: iw } = await sharp(isotipo).metadata();
+
+  const firma = Buffer.from(
+    `<svg width="${W}" height="1080" xmlns="http://www.w3.org/2000/svg">`
+    + `<text x="${72 + iw + 14}" y="1017" font-family="Helvetica, Arial, sans-serif" font-size="21" `
+    + 'font-weight="600" letter-spacing="2.6" fill="#C5A059" fill-opacity="0.72">CREATUACTIVO.COM</text>'
+    + `<text x="${W - 72}" y="1017" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" `
+    + 'letter-spacing="2.2" fill="#94A3B8" fill-opacity="0.62">QUESWA.APP AI</text>'
+    + '</svg>');
+
   await sharp(PLACA)
     .composite([
       { input: reflejo, left: x, top: MESA + 2 },
       { input: prod, left: x, top: MESA - ph },
       { input: titulo, left: 0, top: 0 },
+      { input: isotipo, left: 72, top: 976 },
+      { input: firma, left: 0, top: 0 },
     ])
     .jpeg({ quality: 88, mozjpeg: true })
     .toFile(join(DESTINO, `${p.slug}.jpg`));

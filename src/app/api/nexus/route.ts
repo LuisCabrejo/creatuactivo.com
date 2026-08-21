@@ -27,6 +27,7 @@ import {
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
+import { detectarProducto } from '@/lib/wa-productos';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
@@ -2563,11 +2564,25 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     const esSuplementoCat    = /suplemento|cápsula|capsula|ganoderma caps|excellium|cordygold/i.test(msgL);
     const esLuvocoCat        = /luvoco|m[aá]quina.*caf[eé]|caf[eé].*m[aá]quina/i.test(msgL);
     const esCuidadoPersonal  = /cuidado.*personal|jabón|jabon|shampoo|acondicionador|exfoliante|pasta.*diente|toothpaste|gano\s*soap/i.test(msgL);
+    // ⚠️ Estas rutas se escribieron cuando los productos individuales NO tenían
+    // respuesta propia: mandar la tabla de la categoría era lo mejor que se
+    // podía hacer. Desde v7.5 los 22 la tienen, y entonces la ruta pasó a
+    // SECUESTRAR la pregunta específica: "¿qué es el Luvoco Fuerte?" devolvía la
+    // tabla de las cuatro referencias, y "excellium" la de los tres suplementos
+    // (prueba del 20 ago). El vector acierta solo — LUV_04 gana a 0.490 contra
+    // 0.360 de la tabla —, así que basta con no atropellarlo.
+    //
+    // Si el mensaje NOMBRA un producto, la tabla de categoría no aplica: la
+    // persona ya eligió de qué quiere hablar. `detectarProducto` reconoce los 22
+    // con sus alias y tolera los errores de tipeo, que es la misma puerta que
+    // usa el envío de fotos.
+    const nombraUnProducto = !!detectarProducto(userMessage);
+
     const categoriasDirectas: string[] = [];
-    if (esBebidaCategoria) categoriasDirectas.push('catalogo_productos_BEB_01');
-    if (esSuplementoCat)   categoriasDirectas.push('catalogo_productos_SUP_01');
-    if (esLuvocoCat)       categoriasDirectas.push('catalogo_productos_LUV_01');
-    if (esCuidadoPersonal) categoriasDirectas.push('catalogo_productos_PERS_01');
+    if (esBebidaCategoria && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_BEB_01');
+    if (esSuplementoCat   && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_SUP_01');
+    if (esLuvocoCat       && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_LUV_01');
+    if (esCuidadoPersonal && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_PERS_01');
 
     if (categoriasDirectas.length > 0) {
       console.log(`🎯 [Catálogo] Routing directo por categoría: ${categoriasDirectas.join(', ')}`);

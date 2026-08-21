@@ -291,6 +291,35 @@ export function detectarProducto(texto: string): ProductoWA | null {
   return contenido ? masEspecifico : null;
 }
 
+/**
+ * El producto del que trata la conversación, cuando el mensaje no lo nombra.
+ *
+ * "dame una imagen" a secas es la forma normal de pedirla después de haber
+ * preguntado por un producto — y hasta ahora caía al motor, que respondía que no
+ * podía enviar imágenes (prueba del 20 ago). El producto está en el hilo.
+ *
+ * Manda lo que dijo la PERSONA, no lo que dijo el bot: si ella preguntó por el
+ * Clásico y el bot contestó hablando de otro, lo que se le debe mostrar es lo
+ * que ella pidió.
+ */
+export function productoDelHilo(
+  historial: { role: string; content: string }[],
+  ventana = 8,
+): ProductoWA | null {
+  const ultimos = historial.slice(-ventana);
+  for (const m of [...ultimos].reverse()) {
+    if (m.role !== 'user') continue;
+    const p = detectarProducto(m.content);
+    if (p) return p;
+  }
+  for (const m of [...ultimos].reverse()) {
+    if (m.role === 'user') continue;
+    const p = detectarProducto(m.content);
+    if (p) return p;
+  }
+  return null;
+}
+
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
 
 /**

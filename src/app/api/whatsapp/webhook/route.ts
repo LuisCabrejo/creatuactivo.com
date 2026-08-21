@@ -27,7 +27,7 @@ import {
 import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
-import { pideImagen, detectarProducto, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto } from '@/lib/wa-productos';
+import { pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto } from '@/lib/wa-productos';
 import {
   slugDesdeNombre,
   normalizarWhatsApp,
@@ -790,7 +790,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // imagen ya está entregada.
     let fotoEnviada: string | null = null;
     if (pideImagen(messageText)) {
-      const producto = detectarProducto(messageText);
+      // "dame una imagen" a secas es la forma normal de pedirla cuando ya se
+      // venía hablando de un producto: si el mensaje no lo nombra, se toma del
+      // hilo (prueba del 20 ago — caía al motor y respondía que no podía).
+      const producto = detectarProducto(messageText) ?? productoDelHilo(historial);
       if (producto) {
         // Cuando el mensaje pide SOLO la foto, la pregunta de cierre viaja
         // dentro del pie: enviada como mensaje aparte llegaba ANTES que la

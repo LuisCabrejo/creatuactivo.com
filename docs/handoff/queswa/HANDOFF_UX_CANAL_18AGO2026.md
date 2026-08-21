@@ -88,3 +88,61 @@ Pregunta por la puerta del motor con el tenant del canal. Cada caso declara lo q
 2. Fase 2 de UX: botón `cta_url` en vez de URL cruda · imagen de producto con pie de foto · reacción de acuse · la cita `> ` de las palabras de la persona.
 3. **Foto del comprobante de pago**: hoy recibe el acuse genérico de imagen.
 4. Fase 3: nota de voz de salida (`voice: true`, OGG/OPUS, < 512 KB).
+
+---
+
+# Continuación — 20 ago 2026: arquitectura del webhook, fotos, ciclos y los 22 productos
+
+## Lo que cambió en el transporte
+
+**El webhook responde a Meta antes de trabajar.** `POST` acusa 200 en milisegundos y el trabajo sigue en `procesarEntrante` bajo `waitUntil`, con `maxDuration` de 30 → **90**. ⚠️ `waitUntil` **no regala tiempo**: la promesa muere con el mismo techo. Lo que cambia es que el reloj ya no lo mira Meta, y con eso desaparece la causa de los reintentos.
+
+**Guarda contra reenvíos:** tabla `wa_mensajes_procesados`, `wamid` como llave primaria, INSERT que falla con 23505 en el segundo intento. **Falla hacia procesar**: si la tabla no responde, el turno sigue — una respuesta repetida es un bochorno, una persona sin respuesta es una venta perdida.
+
+**Acuse y ritmo:** visto azul + «escribiendo…» en una sola llamada al entrar el mensaje, renovado cada 20 s mientras el motor trabaja (Meta lo apaga a los 25). Cita contextual solo cuando el turno pasa de 8 s. Pausa entre partes escalada con la longitud de lo que viene.
+
+## Fotos de producto
+
+22 imágenes estáticas 1080×1080 en `public/productos/compuestas/`, generadas por `scripts/componer-imagenes-producto.mjs`. La placa salió de las escenas del Dashboard (idea del Director: copiar las imágenes en vez de pedir el prompt) — columna limpia del borde estirada, que no deforma porque las líneas de baldosa y el canto de la mesa son horizontales, más el halo cálido repuesto al centro.
+
+| Decisión | Por qué |
+|---|---|
+| 1080×1080, no 9:16 | El 9:16 es de Estado. WhatsApp recorta a cuadrado la imagen de un chat y suele cortar el producto |
+| Estáticas, no generadas al vuelo | Cambian cuando cambia el catálogo, o sea casi nunca. Meta las baja del CDN |
+| Producto real, nunca IA | Un empaque dibujado es un producto que no existe |
+| Un producto por imagen | Una escena de pareja ante una pregunta simple insinúa una combinación recomendada — lo que se sacó del sistema al reconstruir los protocolos |
+| Solo nombre y marca en la imagen | El precio cambia y una imagen con precio viejo no se retira; una imagen con promesa es publicidad de producto |
+
+**El turno lo cierra el webhook** cuando el mensaje pide solo la foto, y la pregunta viaja **dentro del pie** — enviada aparte llegaba ANTES que la imagen, porque el texto sale en milisegundos y la foto tarda lo que Meta demore en descargarla.
+
+## Los 22 productos (catálogo v7.5)
+
+Faltaban 16 respuestas. El caso que lo destapó: el Ganocafé Clásico devolvía la ficha del 3 en 1 con su composición, su presentación y su precio — todo del producto equivocado, presentado con seguridad.
+
+**El criterio de redacción:** el deseo sale de lo **sensorial y del ritual** (el amargo justo, la espuma de cafetería, la piel sin tirantez), no de la salud. Es lo que se puede prometer sin exponer a nadie y lo que la persona comprueba el primer día. De la ficha del catálogo web se toman los HECHOS y se dejan fuera sus `benefits` — *fortalece las defensas*, *protege las células*, *apoya el sistema circulatorio*, *desarrollo de huesos fuertes*, *problemas dermatológicos*.
+
+⏳ **Pendiente:** esos mismos `benefits` siguen publicados en `/sistema/productos`. Es una revisión aparte y vale la pena.
+
+## Las cuatro lecciones de estos dos días
+
+**1. «Casi siempre» no es un dictado.** Con el pin activo, el arsenal retirado y el log diciendo `dicta=true`, el modelo seguía parafraseando. Donde el nodo es determinístico, **lo emite el backend sin llamar al modelo**.
+
+**2. El modelo resume, y al resumir pierde la cifra.** Omitió el precio en tres respuestas de Luvoco y llamó *«la Intensa»* a la cápsula Fuerte. El reparto que funciona: **el fragmento pone el argumento, el pin pone la cifra**.
+
+**3. Una puerta no puede depender de que el enrutamiento acierte.** Existe porque falla. Se evalúan sobre cualquier arsenal y sobre el mensaje **crudo** además de la consulta reescrita: el CQR borra justo la palabra que abre la puerta. Y no reescribe lo que ya nombra un producto.
+
+**4. El motor no sabe lo que manda el webhook.** Respondió *«no puedo enviar imágenes»* debajo de la imagen que la persona acababa de recibir. Lo que el webhook entrega, el webhook lo cierra — o se lo avisa por `pageContext`.
+
+## Lo que las pruebas ven y lo que NO ven
+
+`prueba-40-preguntas` · `prueba-productos` · `prueba-conversacion` llaman al **motor**, no al webhook. No ven los botones, ni el Flow, ni cómo parte el texto en pantalla, ni el guardarraíl de salud de ENTRADA (`prueba-conversacion` lo emula a propósito). **Un fallo de salud en esos arneses suele ser del arnés.** La prueba en el teléfono sigue siendo insustituible.
+
+Trampas del arnés ya corregidas y que volverán a morder a quien lo edite: el fingerprint necesita prefijo `57` (sin él el motor cotiza en USD); el motor escribe el precio con punto **o** con coma según la ruta; y varios productos **valen lo mismo** ($110.900 lo comparten el 3 en 1 y las tres Luvoco).
+
+## Pendientes
+
+1. Los `benefits` publicados en `/sistema/productos` (arriba).
+2. Fase 2 de UX: botón `cta_url` en vez de URL cruda · reacción de acuse · la cita `> ` de las palabras de la persona.
+3. **Foto del comprobante de pago**: hoy recibe el acuse genérico de imagen.
+4. Fase 3: nota de voz de salida (`voice: true`, OGG/OPUS, < 512 KB).
+5. El eco observado una vez: la respuesta empezó repitiendo el mensaje del usuario. No reprodujo.

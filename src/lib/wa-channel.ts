@@ -81,16 +81,32 @@ export function esBSUID(destino: string): boolean {
 
 /**
  * Meta exige el teléfono en formato internacional sin "+" ni separadores.
- *
- * ⚠️ Un BSUID se devuelve INTACTO: quitarle lo que no es dígito lo convierte en
- * una dirección que no existe. Pasó el 21 ago 2026 — alguien escribió con
- * nombre de usuario, el webhook le quitó el "CO." y el mensaje se envió a la
- * nada: la persona vio el "escribiendo…" y nunca recibió respuesta. El campo
- * `to` de Meta acepta las dos formas.
+ * Un BSUID se devuelve INTACTO: quitarle lo que no es dígito lo convierte en
+ * una dirección que no existe.
  */
 export function normalizePhone(raw: string): string {
   if (esBSUID(raw)) return raw.trim();
   return (raw || '').replace(/[^\d]/g, '');
+}
+
+/**
+ * El destinatario del envío, en el campo que corresponde a su forma.
+ *
+ * ⚠️ Un BSUID NO va en `to` — va en `recipient`, y `to` se omite. Esto no es un
+ * detalle de estilo: Meta **acepta** un BSUID en `to` con 200 y un identificador
+ * de mensaje, lo resuelve a la forma sin prefijo y después lo descarta con
+ * **#131026 Message undeliverable**, que llega en un aviso de estado aparte. Es
+ * decir, falla en silencio y con toda la apariencia de haber salido bien.
+ *
+ * Costó cinco rondas de pruebas el 21 ago 2026: uno de cada cinco números —el
+ * que escribía con nombre de usuario— veía el "escribiendo…" y nunca recibía
+ * nada, mientras del lado nuestro todo se veía entregado.
+ */
+function destinatario(to: string): Record<string, string> {
+  const destino = normalizePhone(to);
+  return esBSUID(destino)
+    ? { recipient_type: 'individual', recipient: destino }
+    : { to: destino };
 }
 
 /** Extrae el mensaje de error legible de una respuesta de la Graph API. */
@@ -131,7 +147,7 @@ export async function sendText(
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
-        to: normalizePhone(to),
+        ...destinatario(to),
         ...(opciones.responderA && { context: { message_id: opciones.responderA } }),
         type: 'text',
         text: { body: text },
@@ -191,7 +207,7 @@ export async function sendImage(
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
-        to: normalizePhone(to),
+        ...destinatario(to),
         type: 'image',
         image: { link, ...(caption && { caption: caption.slice(0, 1024) }) },
       }),
@@ -347,7 +363,7 @@ export async function sendReplyButtons(
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
-        to: normalizePhone(to),
+        ...destinatario(to),
         type: 'interactive',
         interactive: {
           type: 'button',
@@ -410,7 +426,7 @@ export async function sendFlow(
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
-        to: normalizePhone(to),
+        ...destinatario(to),
         type: 'interactive',
         interactive: {
           type: 'flow',
@@ -481,7 +497,7 @@ export async function sendInteractiveList(
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
-        to: normalizePhone(to),
+        ...destinatario(to),
         type: 'interactive',
         interactive: {
           type: 'list',
@@ -563,7 +579,7 @@ export async function sendTemplate(
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
-        to: normalizePhone(to),
+        ...destinatario(to),
         type: 'template',
         template: {
           name: templateName,

@@ -19,7 +19,7 @@ import { createClient } from '@supabase/supabase-js';
 import { waitUntil } from '@vercel/functions';
 import {
   sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage,
-  marcarLeidoYEscribiendo, esBSUID,
+  marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
@@ -768,24 +768,14 @@ async function procesarEntrante(body: any): Promise<void> {
     if (!existingProspect && !llegaDecidido && !_traePregunta) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
-      // A quien escribe con nombre de usuario (BSUID) la apertura le va en texto
-      // plano. El interactivo no le llega, y el fallo no se puede detectar a
-      // tiempo: la Graph API acepta con 200 y descarta después, así que el
-      // respaldo de abajo —que solo mira el rechazo inmediato— nunca se activa
-      // y la persona se queda sin nada. Un mensaje entregado vale más que uno
-      // más vistoso que no llega. Revisable cuando Meta documente el caso.
-      const _sinBotones = esBSUID(phoneNumber);
-      const _opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
-
-      const enviado = _sinBotones
-        ? { ok: false as const, error: 'BSUID: apertura en texto plano' }
-        : await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
+      const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
 
       // Si Meta rechaza el interactivo (formato, límites), no dejar a la persona
       // sin respuesta: cae a texto plano con las mismas opciones enumeradas.
       if (!enviado.ok) {
-        if (!_sinBotones) console.warn('⚠️ [WA Webhook] Botones rechazados — fallback a texto plano');
-        await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${_opciones}`);
+        console.warn('⚠️ [WA Webhook] Botones rechazados — fallback a texto plano');
+        const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+        await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${opciones}`);
       }
 
       try {

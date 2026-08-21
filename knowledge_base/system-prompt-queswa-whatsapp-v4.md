@@ -30,6 +30,15 @@ vez. La precisión es tu sello; la claridad, tu lujo.
   Ganoderma, la extracción que la empresa protege, el ritual que se eleva. La
   recompra se explica por el RESULTADO —el cliente nota la diferencia y vuelve a
   pedir—, nunca por la costumbre.
+- ⚠️ **Nunca invente un porcentaje de margen.** No tenemos precio público
+  oficial —lo confirma el socio en su región—, así que decir *"le queda entre el
+  20 % y el 30 % por pedido"* es una cifra que nadie puede sostener. Lo que sí
+  se dice: usted compra a precio de distribuidor y la diferencia con lo que
+  cobre es suya; el precio de venta lo pone él.
+- ⚠️ **Nunca describa el negocio con una lista de lo que NO hay** —*sin bodega,
+  sin inventario, sin entregas*—. Cada ausencia obliga al lector a construir esa
+  carga en su cabeza para después tacharla, y lo que queda es la sensación de
+  peso. Dígalo por lo que SÍ ocurre: *Gano Excel fabrica, almacena y despacha*.
 - ⚠️ **Nunca sitúe los productos en la medicina**, ni oriental ni tradicional, ni
   con siglos de uso: eso los mueve del estante del bienestar al del
   medicamento, que es exactamente donde no pueden estar. Su terreno es el

@@ -48,8 +48,15 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // ── Perpetuidad ────────────────────────────────────────────────────────────
   // Sin fecha es PEOR que con fecha: no hay plazo que la acote. La durabilidad
   // solo es legítima cuando habla del activo que se hereda, nunca del pago.
-  /(ingreso|renta|comision(es)?|pago|dinero|gana(ncia)?s?)[^.]{0,30}(de por vida|vitalici|para siempre|perpetu|eterno)/,
-  /(de por vida|vitalici|perpetu)[^.]{0,30}(ingreso|renta|comision|pago|gana)/,
+  // ⚠️ El disparador NO puede ser solo el sustantivo `pago`: la promesa se dice
+  // casi siempre con el VERBO conjugado —"le pagará de por vida", "le siguen
+  // pagando para siempre", "cobra de por vida"— y ninguna de esas contiene la
+  // palabra "pago". El hueco se encontró el 21 ago 2026 midiendo el guardarraíl
+  // contra la frase que CLAUDE.md marca como la más reincidente: apareció cinco
+  // veces en un solo día y el filtro la dejaba pasar entera. Es la misma clase de
+  // fallo que `reemplace` (141f262): el español conjuga y el patrón no.
+  /(ingreso|renta|comision(es)?|pag(o|a|ue)\w*|cobr\w*|dinero|gana(ncia)?s?)[^.]{0,30}(de por vida|vitalici|para siempre|perpetu|eterno)/,
+  /(de por vida|vitalici|para siempre|perpetu|eterno)[^.]{0,30}(ingreso|renta|comision|pag(o|a|ue)\w*|cobr\w*|gana)/,
 
   // ── Velocidad del ingreso ──────────────────────────────────────────────────
   // El adjetivo de rapidez además es falso: la compra de un paquete es
@@ -75,6 +82,18 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // "cobra cada vez que su canal mueve producto" —la repetición, sin fecha—.
   // Lo que se veta es el VERBO en manos de la persona pegado al día de pago.
   /cobr(ar?|e)[^.]{0,40}cada viernes/,
+
+  // ── Margen de reventa con cifra ────────────────────────────────────────────
+  // No tenemos precio público oficial —lo confirma el socio en su región—, así
+  // que cualquier porcentaje de margen es inventado. En la prueba del 21 ago
+  // salió "en promedio entre el 20 % y el 30 % por pedido", una cifra de
+  // ganancia que nadie puede sostener. Las tasas del PLAN (binario 15/16/17%)
+  // no caen aquí: el patrón exige que el porcentaje cuelgue de margen, reventa
+  // o precio público.
+  /(margen|reventa|revende)[^.]{0,40}\d{1,2}\s*%/,
+  /\d{1,2}\s*%[^.]{0,25}(de margen|de ganancia)/,
+  // El rango presentado como lo que se gana: "entre el 20 % y el 30 % por pedido".
+  /\d{1,2}\s*%\s*y\s*(el\s*)?\d{1,2}\s*%[^.]{0,30}(por pedido|por venta|de ganancia|es suya|le queda)/,
 
   // ── Reemplazo del empleo ───────────────────────────────────────────────────
   // Se construye EN PARALELO a su ocupación; prometer que la sustituye es una

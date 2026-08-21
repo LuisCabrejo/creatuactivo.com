@@ -4525,6 +4525,20 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // La foto la manda el webhook, no el modelo — y sin esta señal el modelo
       // respondía "por este canal no puedo enviar imágenes" justo debajo de la
       // imagen que la persona acababa de recibir (prueba del 20 ago 2026).
+      // Primer contacto que llega preguntando: el webhook se saltó la apertura
+      // a propósito, porque responder vale más que presentarse.
+      if (pageContext === 'whatsapp_primer_contacto') {
+        return `
+👋 PRIMER CONTACTO — y llegó preguntando
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Esta persona escribe por primera vez y su primer mensaje ya trae una pregunta.
+No recibió el saludo de bienvenida: lo da usted, en UNA línea, y sigue derecho a
+responder lo que preguntó.
+
+Forma: preséntese en una frase —quién es usted y qué hace— y responda. Nada de
+explicar el modelo completo antes de contestar: eso llega si lo piden.`;
+      }
+
       if (pageContext === 'whatsapp_foto_enviada') {
         return `
 📷 LA FOTO YA SE ENVIÓ EN ESTE TURNO

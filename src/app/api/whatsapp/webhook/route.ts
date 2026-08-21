@@ -648,7 +648,32 @@ async function procesarEntrante(body: any): Promise<void> {
       console.log(`🎯 [WA Webhook] ${phoneNumber} llega con volición declarada — se salta la apertura`);
     }
 
-    if (!existingProspect && !llegaDecidido) {
+    // ⚠️ QUIEN LLEGA PREGUNTANDO NO RECIBE UN SALUDO GENÉRICO.
+    //
+    // No todo el mundo entra por el enlace del socio: mucha gente escribe por su
+    // cuenta y lo primero que manda ya es una pregunta concreta. Hasta ahora la
+    // apertura se disparaba igual, así que a "hola, deseo ver el catálogo de los
+    // productos" se le respondía con el saludo y los tres botones — ignorando lo
+    // único que la persona había dicho (prueba del Director, 21 ago).
+    //
+    // Una pregunta es la señal de intención más fuerte que existe: responderla
+    // vale más que presentarse. El saludo no se pierde — lo da el motor en una
+    // línea, avisado por `pageContext`, y con el nombre del socio si lo hay.
+    //
+    // "Hola" a secas, o el saludo del enlace, SÍ reciben la apertura: ahí no hay
+    // nada que responder y los botones son lo que baja la barrera.
+    const _soloSaludo = /^(hola|buenas|buenos d[ií]as|buenas tardes|buenas noches|hey|qu[eé] tal|saludos|buen d[ií]a)[\s.,!¡]*$/i
+      .test(messageText.trim());
+    const _vieneDelEnlace = /vengo del enlace/i.test(messageText);
+    const _traePregunta = !_soloSaludo && !_vieneDelEnlace
+      && (/\?|c[oó]mo|qu[eé]|cu[aá]l|cu[aá]nto|d[oó]nde|por qu[eé]|qui[eé]n|deseo|quiero|me interesa|necesito|inform/i.test(messageText)
+          || messageText.trim().split(/\s+/).length >= 4);
+
+    if (!existingProspect && _traePregunta) {
+      console.log(`💬 [WA Webhook] Primer contacto CON pregunta ("${messageText.slice(0, 45)}") — responde el motor, sin apertura`);
+    }
+
+    if (!existingProspect && !llegaDecidido && !_traePregunta) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
       const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
@@ -955,6 +980,38 @@ async function procesarEntrante(body: any): Promise<void> {
       return;
     }
 
+    // ─── 2.7 El catálogo es un nodo dictado ───────────────────────────────────
+    // Quien pide el catálogo quiere verlo, y la respuesta es un enlace: no hay
+    // nada que interpretar. Dejárselo al modelo salió caro — compuso "le muestro
+    // la que acaba de llegar al contexto" (le enseñó las tripas a la persona),
+    // inventó una cuarta categoría llamada "Nutrición" y cerró con dos preguntas
+    // (prueba del Director, 21 ago).
+    //
+    // El enlace es el amigable del socio: `/{slug}/productos` redirige a
+    // `/sistema/productos/{constructor_id}` y atribuye por el path.
+    //
+    // ⚠️ Esto NO contradice la decisión de no sacar a la persona del canal: esa
+    // página lleva el orbe de Queswa, así que la conversación continúa allá.
+    const _pideCatalogo = /(cat[aá]logo)|d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}productos|ver (todos )?los productos/i.test(messageText)
+      && !/paquete|esp[\s-]?[123]/i.test(messageText);
+    if (_pideCatalogo && socio?.constructorId) {
+      const slug = await slugDelSocio(supabase, socio.constructorId);
+      const url = slug
+        ? `https://creatuactivo.com/${slug}/productos`
+        : `https://creatuactivo.com/sistema/productos/${encodeURIComponent(socio.constructorId)}`;
+      const texto = `Con gusto. Aquí está el catálogo completo, con fotos, presentaciones y precios:
+
+${url}
+
+Si algo le llama la atención mientras mira, me escribe por aquí — o toca el botón de Queswa en la misma página y seguimos allá.
+
+¿Le cuento cuál es el que más piden?`;
+      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      console.log(`🔗 [WA Webhook] Catálogo dictado: ${url}`);
+      return;
+    }
+
     // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
     // `whatsapp_socio` le dice al motor que del otro lado hay un dueño de canal:
     // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
@@ -962,6 +1019,8 @@ async function procesarEntrante(body: any): Promise<void> {
     // quien ya compró.
     const pageContext = fotoEnviada
       ? 'whatsapp_foto_enviada'
+      : (!existingProspect && _traePregunta)
+      ? 'whatsapp_primer_contacto'
       : socioQueEscribe
       ? 'whatsapp_socio'
       : isCTWA
@@ -1058,37 +1117,6 @@ async function procesarEntrante(body: any): Promise<void> {
       await sendWhatsAppMessage(phoneNumber, RECHAZO_SALUD_ESTANDAR);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, RECHAZO_SALUD_ESTANDAR);
       return;
-    }
-
-    // ─── 3.9 El catálogo se entrega con el enlace del socio ───────────────────
-    // Quien pregunta dónde ver los productos quiere verlos, y describírselos no
-    // es lo mismo que mostrárselos. El enlace lleva `?ref={constructor_id}`,
-    // que es lo que `tracking.js` lee para atribuir la visita —y todo lo que
-    // pase después— al socio que lo refirió.
-    //
-    // ⚠️ Esto NO contradice la decisión de no sacar a la persona del canal (ver
-    // ESTRATEGIA_CANAL_WHATSAPP): esa página lleva el orbe de Queswa en el
-    // layout raíz, así que la conversación continúa allá en vez de cortarse. Y
-    // el enlace va **antes** de la pregunta de cierre, para que la pregunta siga
-    // siendo lo último que se lee.
-    const _pideVerCatalogo = /d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}(productos|cat[aá]logo)|ver (todos )?los productos|(mu[eé]stre|p[aá]s[ae]|env[ií]e|m[aá]nde|comp[aá]rte?|manda|pasa)[a-z]{0,4}[^.?]{0,15}(el )?cat[aá]logo|tienen cat[aá]logo/i.test(messageText);
-    if (queswaReply && _pideVerCatalogo && socio?.constructorId) {
-      // El enlace amigable que ya usa el Dashboard: `/{slug}/productos` redirige
-      // a `/sistema/productos/{constructor_id}`, que atribuye por el path. Se
-      // prefiere porque es el que la persona ve escrito en el chat, y
-      // `creatuactivo.com/luis-cabrejo/productos` se lee como una dirección de
-      // verdad — el otro parece un enlace de sistema. Si el socio no tiene slug,
-      // se cae al directo, que funciona igual.
-      const slug = await slugDelSocio(supabase, socio.constructorId);
-      const url = slug
-        ? `https://creatuactivo.com/${slug}/productos`
-        : `https://creatuactivo.com/sistema/productos/${encodeURIComponent(socio.constructorId)}`;
-      const bloque = `\n\nAquí los ve todos, con fotos y precios:\n${url}\n\nSi algo le llama la atención mientras mira, me escribe por aquí — o toca el botón de Queswa en la misma página y seguimos allá.`;
-      const _ultimaPregunta = queswaReply.match(/\n*¿[^?]{5,200}\?\s*$/);
-      queswaReply = _ultimaPregunta
-        ? queswaReply.slice(0, _ultimaPregunta.index).trimEnd() + bloque + '\n' + _ultimaPregunta[0].trimEnd()
-        : queswaReply + bloque;
-      console.log(`🔗 [WA Webhook] Catálogo entregado: ${url}`);
     }
 
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────

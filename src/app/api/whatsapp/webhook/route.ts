@@ -127,12 +127,12 @@ export async function GET(request: Request) {
  * repetida es un bochorno, pero una persona que escribe y no recibe nada es una
  * venta perdida y la razón por la que existe todo esto.
  */
-async function yaProcesado(wamid: string): Promise<boolean> {
+async function yaProcesado(wamid: string, identidad?: unknown): Promise<boolean> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await (getSupabase() as any)
       .from('wa_mensajes_procesados')
-      .insert({ wamid });
+      .insert({ wamid, identidad: identidad ?? null });
 
     if (!error) return false;                 // insertó → es la primera entrega
     if (error.code === '23505') return true;  // llave duplicada → es un reenvío
@@ -178,7 +178,18 @@ export async function POST(request: Request) {
 
   const wamid = body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.id as string | undefined;
 
-  if (wamid && await yaProcesado(wamid)) {
+  // Los campos de identidad quedan guardados junto al wamid. Meta los reparte
+  // sin garantía de cuál trae qué, y sin este rastro cada sorpresa cuesta una
+  // ronda de pruebas a ciegas — el log de Vercel se pierde en minutos.
+  const _v = body?.entry?.[0]?.changes?.[0]?.value;
+  const identidad = wamid ? {
+    from:        _v?.messages?.[0]?.from ?? null,
+    wa_id:       _v?.contacts?.[0]?.wa_id ?? null,
+    user_id:     _v?.contacts?.[0]?.user_id ?? null,
+    msg_user_id: _v?.messages?.[0]?.user_id ?? null,
+  } : null;
+
+  if (wamid && await yaProcesado(wamid, identidad)) {
     console.log(`♻️ [WA Webhook] ${wamid} ya se había procesado — se ignora el reenvío`);
     return ok();
   }
@@ -202,6 +213,21 @@ export async function POST(request: Request) {
  * Cada `return` de aquí abajo significa "este turno terminó", no "responda esto".
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * El BSUID prefijado va codificado dentro del wamid. Es el último recurso
+ * cuando Meta no lo pone en ningún campo del payload: sin el prefijo de país
+ * el envío devuelve #131026 y la persona nunca recibe nada.
+ */
+function bsuidDelWamid(wamid?: string): string | undefined {
+  if (!wamid || !wamid.startsWith('wamid.')) return undefined;
+  try {
+    const crudo = Buffer.from(wamid.slice(6), 'base64').toString('latin1');
+    return crudo.match(/[A-Z]{2}\.[A-Za-z0-9]{6,}/)?.[0];
+  } catch {
+    return undefined;
+  }
+}
+
 async function procesarEntrante(body: any): Promise<void> {
   try {
 
@@ -254,14 +280,29 @@ async function procesarEntrante(body: any): Promise<void> {
     // Por eso el orden no es "el primero que exista": si el valor crudo es el
     // BSUID sin prefijo, mandan `user_id`. Un teléfono de verdad sí gana, que
     // es lo que sirve para detectar país y reconocer al socio.
-    const _userId = contact?.user_id as string | undefined;
-    const _crudo  = (message.from || contact?.wa_id || message.user_id) as string | undefined;
-    const _esPeladoDelBSUID = !!(_userId && _crudo && _userId.endsWith(`.${_crudo}`));
-    const _esTelefono = !!_crudo && /^\+?\d{7,15}$/.test(_crudo);
+    // Candidatos, en crudo. Meta reparte la identidad entre estos campos sin
+    // garantía de cuál trae qué: del mismo remitente llegó `CO.1497020585516131`
+    // en un turno y el mismo identificador PELADO, `1497020585516131`, en el
+    // siguiente. Por eso no se elige "el primero que exista" sino por FORMA.
+    const _candidatos = [
+      message.from, contact?.wa_id, contact?.user_id, message.user_id,
+    ].filter((c): c is string => typeof c === 'string' && c.length > 0);
 
-    const phoneNumber = (_esTelefono && !_esPeladoDelBSUID)
-      ? _crudo
-      : (_userId || _crudo);
+    // El BSUID entregable lleva prefijo de país (`CO.`). Si ningún campo lo
+    // trae, se saca del wamid, que lo lleva codificado siempre. Para un
+    // remitente con teléfono normal ahí no hay ningún `CC.`, así que este
+    // rescate no puede confundirse.
+    const _prefijado = _candidatos.find((c) => /^[A-Z]{2}\.[A-Za-z0-9]{6,}$/.test(c))
+      ?? bsuidDelWamid(message.id as string | undefined);
+
+    // Un teléfono de verdad gana: es lo que sirve para detectar país y
+    // reconocer al socio. Pero si resulta ser el BSUID sin su prefijo, no lo es.
+    let _telefono = _candidatos.find((c) => /^\+?\d{7,15}$/.test(c));
+    if (_prefijado && _telefono && _prefijado.endsWith(`.${_telefono.replace('+', '')}`)) {
+      _telefono = undefined;
+    }
+
+    const phoneNumber = _telefono || _prefijado || _candidatos[0];
     const contactName = (contact?.profile?.name as string | undefined) || 'Constructor';
 
     if (!phoneNumber) {

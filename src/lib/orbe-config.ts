@@ -56,19 +56,76 @@ export type ContextoOrbe = 'general' | 'productos'
  * Sin él el prospecto entra sin dueño: fuera del Radar del socio, sin push, y la
  * apertura cae al saludo genérico de marca en vez de nombrarlo.
  */
-export function enlaceQueswaWhatsApp(
+export function textoAperturaWhatsApp(
   ref?: string | null,
   contexto: ContextoOrbe = 'general',
 ): string {
-  const texto = ref
+  return ref
     ? contexto === 'productos'
       ? `Hola Queswa, vengo del enlace de ${ref}. Quiero preguntar por los productos.`
       : `Hola Queswa, vengo del enlace de ${ref}`
     : contexto === 'productos'
       ? 'Hola Queswa, quiero preguntar por los productos'
       : 'Hola Queswa, quiero saber cómo funciona'
+}
 
-  return `https://wa.me/${QUESWA_WABA}?text=${encodeURIComponent(texto)}`
+export function enlaceQueswaWhatsApp(
+  ref?: string | null,
+  contexto: ContextoOrbe = 'general',
+): string {
+  return `https://wa.me/${QUESWA_WABA}?text=${encodeURIComponent(textoAperturaWhatsApp(ref, contexto))}`
+}
+
+/**
+ * Abre la conversación con Queswa DENTRO de la app de WhatsApp.
+ *
+ * `wa.me` no lleva a la app: lleva a una página de WhatsApp en el navegador que
+ * pide un toque más ("Continuar al chat"). Ese toque cae justo en el momento de
+ * mayor intención —la persona ya decidió escribir— y en los navegadores dentro de
+ * Instagram o Facebook es donde más gente se pierde.
+ *
+ * En el teléfono se salta esa página con el esquema `whatsapp://`, que el sistema
+ * operativo entrega directo a la app. `wa.me` queda de red de seguridad: si al
+ * segundo la pestaña sigue a la vista, es que nadie atendió el esquema (WhatsApp
+ * no instalado, o un navegador que lo bloquea) y entonces sí se abre la página.
+ *
+ * En computador se conserva `wa.me` en pestaña nueva: ahí es la página la que sabe
+ * decidir entre WhatsApp Desktop y WhatsApp Web según lo que la persona tenga.
+ */
+export function abrirConversacionQueswa(
+  ref?: string | null,
+  contexto: ContextoOrbe = 'general',
+): void {
+  const enlaceWeb = enlaceQueswaWhatsApp(ref, contexto)
+  const esTelefono = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+
+  if (!esTelefono) {
+    window.open(enlaceWeb, '_blank', 'noopener,noreferrer')
+    return
+  }
+
+  const texto = encodeURIComponent(textoAperturaWhatsApp(ref, contexto))
+  const enlaceApp = `whatsapp://send?phone=${QUESWA_WABA}&text=${texto}`
+
+  // Si el salto a la app ocurre, la pestaña se oculta y la red de seguridad se
+  // cancela — sin esto, al volver del chat la persona se encontraría con la
+  // página de wa.me abierta encima de la que estaba leyendo.
+  let saltoALaApp = false
+  const alOcultarse = () => { saltoALaApp = true }
+  document.addEventListener('visibilitychange', alOcultarse, { once: true })
+  window.addEventListener('pagehide', alOcultarse, { once: true })
+  window.addEventListener('blur', alOcultarse, { once: true })
+
+  window.location.href = enlaceApp
+
+  setTimeout(() => {
+    document.removeEventListener('visibilitychange', alOcultarse)
+    window.removeEventListener('pagehide', alOcultarse)
+    window.removeEventListener('blur', alOcultarse)
+    if (!saltoALaApp && document.visibilityState === 'visible') {
+      window.location.href = enlaceWeb
+    }
+  }, 1200)
 }
 
 /** Lee la atribución del socio en el cliente: ?ref= de la URL, luego localStorage. */

@@ -25,7 +25,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { enlaceQueswaWhatsApp, leerRefSocio, type ContextoOrbe } from '@/lib/orbe-config'
+import { abrirConversacionQueswa, leerRefSocio, type ContextoOrbe } from '@/lib/orbe-config'
 import { REEL_NICHOS } from '@/lib/reels'
 
 const VERDE = '#25D366'
@@ -75,7 +75,7 @@ export default function WhatsAppOrb() {
     // El contrato de engagement con el Dashboard: el socio ve que su prospecto
     // abrió la conversación (mismo evento que emitía el chat web al abrirse).
     window.dispatchEvent(new CustomEvent('queswa-opened'))
-    window.open(enlaceQueswaWhatsApp(leerRefSocio(), contexto), '_blank', 'noopener,noreferrer')
+    abrirConversacionQueswa(leerRefSocio(), contexto)
   }
 
   // Entrada suave tras montar

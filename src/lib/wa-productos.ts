@@ -88,7 +88,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'espirulina-gano-creal',
-    nombre: 'Espirulina Gano C\'real',
+    nombre: 'Espirulina Gano C\'Real',
     precioCOP: 119900,
     presentacion: 'caja de 15 sobres',
     invima: 'NSA-0012963-2022',
@@ -97,16 +97,16 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'bebida-oleaf-gano-rooibos',
-    nombre: 'Bebida de Oleaf Gano Rooibos',
+    nombre: 'Oleaf Gano Rooibos',
     precioCOP: 119900,
     presentacion: 'caja de 20 sobres',
     invima: 'NSA-0012962-2022',
-    imagen: '/productos/bebidas/le-rooibos-gano-excel-min.png',
+    imagen: '/productos/bebidas/te-rooibos-gano-excel-min.png',
     alias: ['rooibos', 'oleaf', 'el te', 'te rojo', 'te de la linea'],
   },
   {
     slug: 'gano-schokoladde',
-    nombre: 'Gano Schokoladde',
+    nombre: 'Gano Schokolade',
     precioCOP: 124900,
     presentacion: 'caja de 20 sobres',
     invima: 'NSA-0012961-2022',
@@ -115,7 +115,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'bebida-colageno-reskine',
-    nombre: 'Bebida de Colágeno Reskine',
+    nombre: 'Reskine Colágeno',
     precioCOP: 216900,
     presentacion: 'caja de 10 sachets',
     invima: 'NSA-0012959-2022',
@@ -124,7 +124,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'capsulas-ganoderma',
-    nombre: 'Cápsulas De Ganoderma',
+    nombre: 'Cápsulas de Ganoderma',
     precioCOP: 272500,
     presentacion: 'frasco de 90 cápsulas',
     invima: 'SD2013-0002860',
@@ -151,7 +151,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'pasta-dientes-gano-fresh',
-    nombre: 'Pasta de Dientes Gano Fresh',
+    nombre: 'Gano Fresh · Pasta de Dientes',
     precioCOP: 73900,
     presentacion: '',
     invima: 'NSOC58855-14CO',
@@ -178,7 +178,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'champu-piel-brillo',
-    nombre: 'Champú Piel&brillo',
+    nombre: 'Champú Piel&Brillo',
     precioCOP: 73900,
     presentacion: '',
     invima: 'NSOC96485-19CO',
@@ -187,7 +187,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'acondicionador-piel-brillo',
-    nombre: 'Piel&brillo Acondicionador',
+    nombre: 'Acondicionador Piel&Brillo',
     precioCOP: 73900,
     presentacion: '',
     invima: 'NSOC96486-19CO',
@@ -196,7 +196,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'exfoliante-piel-brillo',
-    nombre: 'Piel&brillo Exfoliante Corporal',
+    nombre: 'Exfoliante Corporal Piel&Brillo',
     precioCOP: 73900,
     presentacion: '',
     invima: 'NSOC96487-19CO',
@@ -214,7 +214,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'luvoco-suave',
-    nombre: 'Luvoco Cápsulas Suave X15',
+    nombre: 'Luvoco Suave · 15 cápsulas',
     precioCOP: 110900,
     presentacion: 'caja de cápsulas',
     invima: 'NSA-0012955-2022',
@@ -223,7 +223,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'luvoco-medio',
-    nombre: 'Luvoco Cápsulas Medio X15',
+    nombre: 'Luvoco Medio · 15 cápsulas',
     precioCOP: 110900,
     presentacion: 'caja de cápsulas',
     invima: 'NSA-0012954-2022',
@@ -232,7 +232,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'luvoco-fuerte',
-    nombre: 'Luvoco Cápsulas Fuerte X15',
+    nombre: 'Luvoco Fuerte · 15 cápsulas',
     precioCOP: 110900,
     presentacion: 'caja de cápsulas',
     invima: 'NSA-0012953-2022',
@@ -311,7 +311,21 @@ export function pieDeFoto(p: ProductoWA, incluirPrecio = true): string {
   return `${cabeza}${precio}${registro}`;
 }
 
-/** URL absoluta de la imagen — Meta la descarga, así que debe ser pública. */
+/**
+ * URL absoluta de la imagen que se envía — Meta la descarga, así que debe ser
+ * pública y sin autenticación.
+ *
+ * Se sirve la COMPUESTA (`/productos/compuestas/{slug}.jpg`): el producto sobre
+ * el set de la marca, a 1080×1080. El PNG suelto sobre blanco de `p.imagen` es
+ * el activo del catálogo web, y en un chat se ve como un recorte de tienda —
+ * medido en 2026: en superficies propias de marca la imagen de ambiente
+ * convierte cerca de un 30% más que el fondo blanco, que solo gana como foto
+ * ancla de marketplace.
+ *
+ * Las compuestas las genera `scripts/componer-imagenes-producto.mjs`. Si falta
+ * alguna, esto igual devuelve su URL y Meta responderá error: el webhook lo
+ * registra y la conversación sigue sin la foto.
+ */
 export function urlImagen(p: ProductoWA, base = 'https://creatuactivo.com'): string {
-  return `${base}${p.imagen}`;
+  return `${base}/productos/compuestas/${p.slug}.jpg`;
 }

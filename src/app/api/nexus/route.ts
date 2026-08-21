@@ -2859,6 +2859,20 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       cuando: /descuento[^.?]{0,30}(vip|cliente|le dan|recibe)|cliente\s+(vip|preferencial)[^.?]{0,30}(descuento|ahorr|precio)|cu[aá]nto\s+ahorra|qu[eé]\s+descuento/i,
     },
     {
+      // Prueba del Director, 21 ago: "¿para qué sirven los productos?" y "¿dónde
+      // puedo ver todos los productos?" recuperaban WHY_PROD_01 —con candado— y
+      // el modelo componía igual: inventó una taxonomía de tres familias, llamó
+      // a la línea "el consumo diario" (la comparación con el estante del
+      // supermercado, puesta por nosotros justo antes del precio) y la situó en
+      // "la medicina oriental", que la mueve al estante del medicamento. Ninguna
+      // de las dos frases existe en el corpus. La respuesta está escrita: se
+      // entrega sin margen para componer.
+      fragmento: 'arsenal_inicial_WHY_PROD_01',
+      titulo: 'Qué productos son — WHY_PROD_01',
+      porque: 'pregunta general por los productos',
+      cuando: /(para qu[eé] sirven|qu[eé] son|cu[aá]les son|d[oó]nde (puedo )?ve[or]|mu[eé]streme|qu[eé] venden)[^.?]{0,25}(los |sus |todos los )?productos|qu[eé] es lo que venden|h[aá]bleme de los productos/i,
+    },
+    {
       // Prueba conversacional, 20 ago (turno 15, corrida 3): "¿cada cuánto
       // pagan?" recuperaba COMP_PV_03 — un fragmento en formato de notas
       // internas que imprimió "**Concepto Nuclear:**" y una tabla de ciclos de

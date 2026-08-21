@@ -1131,8 +1131,15 @@ async function procesarEntrante(body: any): Promise<void> {
       // GEN5 explicado con cifras y sin ejemplo dictado → el simulador va en su
       // pantalla (decisión del Director, 14 ago 2026: al explicar el GEN5 también
       // se ofrece la herramienta, no solo en el camino de renta).
-      const _explicaGen5 = /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
-      const _explicaBinario = /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+      // ⚠️ Una COMPOSICIÓN no es una explicación de cifras. La tabla del ESP-3
+      // nombra el GEN5 de pasada ("GEN5 activo sin límite") y trae precios, así
+      // que disparaba el simulador de generaciones a alguien que preguntó qué
+      // productos vienen en la caja (prueba del Director, 21 ago). Ofrecer una
+      // herramienta que no viene al caso rompe el hilo justo cuando la persona
+      // estaba mirando lo que se lleva.
+      const _esComposicion = /\|\s*Producto\s*\||lo que trae|le activa inmediatamente este inventario|productos para arrancar/i.test(queswaReply);
+      const _explicaGen5 = !_esComposicion && /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+      const _explicaBinario = !_esComposicion && /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
       if (flowSimulador && _explicaBinario && !_explicaGen5 && !dictoEjemplo && !_ofreceNumeros) {
         const enviado = await sendFlow(
           phoneNumber,

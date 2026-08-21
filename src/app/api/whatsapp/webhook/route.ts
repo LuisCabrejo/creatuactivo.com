@@ -1060,6 +1060,28 @@ async function procesarEntrante(body: any): Promise<void> {
       return;
     }
 
+    // ─── 3.9 El catálogo se entrega con el enlace del socio ───────────────────
+    // Quien pregunta dónde ver los productos quiere verlos, y describírselos no
+    // es lo mismo que mostrárselos. El enlace lleva `?ref={constructor_id}`,
+    // que es lo que `tracking.js` lee para atribuir la visita —y todo lo que
+    // pase después— al socio que lo refirió.
+    //
+    // ⚠️ Esto NO contradice la decisión de no sacar a la persona del canal (ver
+    // ESTRATEGIA_CANAL_WHATSAPP): esa página lleva el orbe de Queswa en el
+    // layout raíz, así que la conversación continúa allá en vez de cortarse. Y
+    // el enlace va **antes** de la pregunta de cierre, para que la pregunta siga
+    // siendo lo último que se lee.
+    const _pideVerCatalogo = /d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}(productos|cat[aá]logo)|ver (todos )?los productos|(mu[eé]stre|p[aá]s[ae]|env[ií]e|m[aá]nde|comp[aá]rte?|manda|pasa)[a-z]{0,4}[^.?]{0,15}(el )?cat[aá]logo|tienen cat[aá]logo/i.test(messageText);
+    if (queswaReply && _pideVerCatalogo && socio?.constructorId) {
+      const url = `https://creatuactivo.com/sistema/productos?ref=${encodeURIComponent(socio.constructorId)}`;
+      const bloque = `\n\nAquí los ve todos, con fotos y precios:\n${url}\n\nSi algo le llama la atención mientras mira, me escribe por aquí — o toca el botón de Queswa en la misma página y seguimos allá.`;
+      const _ultimaPregunta = queswaReply.match(/\n*¿[^?]{5,200}\?\s*$/);
+      queswaReply = _ultimaPregunta
+        ? queswaReply.slice(0, _ultimaPregunta.index).trimEnd() + bloque + '\n' + _ultimaPregunta[0].trimEnd()
+        : queswaReply + bloque;
+      console.log(`🔗 [WA Webhook] Catálogo entregado con ref=${socio.constructorId}`);
+    }
+
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────
     if (queswaReply) {
       // La cita se pone sola cuando hace falta, y no antes. Si el turno se

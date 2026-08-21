@@ -1,5 +1,6 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.4
+# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.5
 **Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
+**v7.5 (20 ago 2026):** **Los 22 productos tienen respuesta propia.** Faltaban 16 —entre ellos el Ganocafé Clásico, que al preguntarse devolvía la ficha del 3 en 1 con su composición, su presentación y su precio, todo incorrecto para el producto preguntado—. El deseo se construye desde lo SENSORIAL y el ritual (el amargo justo, la espuma de cafetería, la piel sin tirantez), no desde la salud: es lo que se puede prometer sin exponer a nadie y es lo que la persona comprueba el primer día. ⚠️ De la ficha del catálogo web se tomaron los HECHOS —ingredientes, preparación, presentación, precio— y se dejaron fuera sus `benefits`, que cruzan la línea roja (*fortalece las defensas*, *protege las células*, *apoya el sistema circulatorio*, *desarrollo de huesos fuertes*, *problemas dermatológicos*). ⚠️ Cada respuesta dice por qué existe FRENTE A SUS HERMANAS, que es lo que decide una compra dentro de una misma línea. ⚠️ Cápsulas de Ganoderma: **una al día** (Director, 20 ago) — la ficha web decía dos y con eso el frasco duraría mes y medio, no tres. Sin cambios de precios ni CV/PV.
 **v7.4 (19 ago 2026):** Los candados de las tablas por categoría dejan de enunciar lo que no existe — toda aclaración de nombres va en afirmativo, y el adjetivo de dosis se retira de los suplementos (criterio INVIMA: se describe la presentación, no el efecto). Sin cambios de precios ni CV/PV.
 **v7.3 (7 ago 2026):** "Flujo de caja" retirado (decisión del Director): PROD_02 "estabilidad del ingreso" · PROD_OVERVIEW (verbatim_lock) "activo con ingreso recurrente". Sin cambios de precios ni CV/PV.
 **v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
@@ -262,6 +263,71 @@ Es la única forma de tomar colágeno en la que uno espera con ganas el momento 
 **Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
 ---
 
+### BEB_07: "¿Para qué sirve el Ganocafé Clásico? / ¿Qué es el Ganocafé Classic? / háblame del café negro / el clásico / el tinto de ustedes / café puro con ganoderma"
+**[Concepto Nuclear]:** El purista NO quiere que le mejoren el café: quiere el suyo, y que nadie le meta crema ni azúcar. El argumento es la FIDELIDAD al tinto, no la mejora. ⚠️ Se diferencia del 3 en 1 nombrando lo que cada uno es, sin decir que uno sea mejor. ⚠️ La caja de 30 rinde un mes — dato objetivo, y el único lugar donde comparar con su hermano es legítimo porque los dos son nuestros.
+
+Con gusto. El Clásico es para quien toma el tinto negro y no lo negocia: café soluble puro, sin crema y sin azúcar, con el extracto de Ganoderma adentro.
+
+En taza es el mismo café de siempre — cuerpo, aroma y amargo justo. Lo que cambia es lo que viene después: la energía entra pareja, sin el sobresalto de media mañana.
+
+Un sobre de 4,5 gramos en 150 ml de agua caliente. La caja trae 30 —un mes completo— y cuesta $110.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
+
+---
+
+### BEB_08: "¿Qué es el Latte Rico? / háblame del latte / el café con leche / ganorico latte / late rico"
+**[Concepto Nuclear]:** El argumento es la PAUSA, no la nutrición: es el café que uno se toma para parar un momento. ⚠️ **No lleva endulzante** — dato del fabricante y el más vendedor hoy, porque el dulce viene de la leche. ⚠️ Se nombra la experiencia de cafetería, que es lo que la persona compra.
+
+Con gusto. El Latte Rico es el de la pausa: café con leche y esa espuma que uno espera de una cafetería, armado en la taza con agua caliente.
+
+Lo que sorprende a quien lo prueba es que no lleva endulzante — el dulce sale de la leche, así que el sabor queda limpio. Y adentro va el mismo extracto de Ganoderma de toda la línea.
+
+Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $119.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro los otros dos de la línea Ganorico?
+
+---
+
+### BEB_09: "¿Qué es el Mocha Rico? / háblame del mocha / moka / el de café con chocolate / ganorico mocha"
+**[Concepto Nuclear]:** Es el ANTOJO resuelto: quien quiere algo dulce a media tarde y no quiere una gaseosa ni un pastel. Café y cacao en el mismo sobre. ⚠️ Se nombra el momento (la merienda, el antojo), nunca una comparación con azúcares ni una promesa de control de peso — adelgazamiento es la línea roja nº1 de la SIC.
+
+Con gusto. El Mocha Rico es café y chocolate en el mismo sobre — para esa hora de la tarde en que uno quiere algo dulce y no quiere pensarlo mucho.
+
+El cacao le quita el filo al café y el café le quita el empalago al chocolate. Adentro va el mismo extracto de Ganoderma de toda la línea.
+
+Un sobre de 25 gramos en 180 ml de agua caliente. La caja trae 20 y cuesta $119.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro los otros dos de la línea Ganorico?
+
+---
+
+### BEB_10: "¿Qué es el Shoko Rico? / háblame del chocolate / el de los niños / choko rico / chocolate caliente"
+**[Concepto Nuclear]:** Es el producto de la CASA: el que se toma en familia y el que los niños piden. Sin café — dato importante, porque es lo primero que pregunta una madre. ⚠️ Nada sobre desarrollo, huesos ni crecimiento: la ficha del catálogo web lo dice y es una declaración prohibida.
+
+Con gusto. El Shoko Rico es el chocolate caliente de la casa — el que se prepara en la noche y el que piden los niños. No lleva café, así que no altera a nadie.
+
+Se arma en agua o en leche, según cómo lo tome su familia, y adentro va el mismo extracto de Ganoderma de toda la línea.
+
+Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $124.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
+
+---
+
+### BEB_11: "¿Qué es el Gano Schokolade? / el chocolate suizo / schokoladde / chocolate premium / el chocolate caro"
+**[Concepto Nuclear]:** Es el CHOCOLATE DEL ADULTO: cacao suizo, tres ingredientes, sin leche. Se distingue del Shoko Rico —que es el familiar— por su carácter, no por su calidad. ⚠️ Es la bebida de mayor precio de las de sobre, y eso se sostiene con la procedencia del cacao, no con adjetivos.
+
+Con gusto. El Schokolade es el chocolate del adulto: cacao suizo puro, sin leche, con el extracto de Ganoderma adentro. Tres ingredientes y nada más.
+
+Es más intenso y menos dulce que el Shoko Rico — el que uno se toma solo, al final del día, y no comparte con nadie.
+
+Un sobre en agua caliente. La caja trae 20 y cuesta $124.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
+
+---
+
 ## CATEGORÍA 2: LÍNEA LUVOCO
 
 ### LUV_01: "¿Qué es el sistema LUVOCO? / ¿Cuánto cuesta la máquina LUVOCO? / ¿Qué cápsulas hay?"
@@ -279,6 +345,45 @@ El sistema **LUVOCO** es un ecosistema cerrado: máquina italiana + cápsulas ex
 
 Las cápsulas son exclusivas para la máquina LUVOCO — no compatibles con Nespresso.
 </verbatim_lock>
+
+---
+
+### LUV_02: "¿Qué es el Luvoco Suave? / cápsulas suaves / la cápsula suave / luvoco suave cuánto cuesta"
+**[Concepto Nuclear]:** Las tres intensidades son la MISMA decisión que uno toma en una cafetería, y así se explican: por paladar, no por calidad. La Suave es la de las visitas. ⚠️ Requiere la máquina — se dice siempre, porque comprar cápsulas sin máquina es una decepción cara.
+
+Con gusto. La Suave es la más ligera de las tres intensidades del sistema Luvoco: café tostado suave, para quien toma el café sin que le pese.
+
+Es la que uno pone cuando llega visita, porque le gusta a casi todo el mundo. Va en la máquina Luvoco, que es la que hace el espresso.
+
+Caja de 15 cápsulas, $110.900 COP.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona la máquina?
+
+---
+
+### LUV_03: "¿Qué es el Luvoco Medio? / cápsulas medias / la cápsula media / luvoco medio cuánto cuesta"
+**[Concepto Nuclear]:** La del medio es la de TODOS LOS DÍAS, y esa es su razón de compra: la que no cansa. Se explica por el paladar, nunca por rendimiento mental.
+
+Con gusto. La Media es la del diario: ni tan ligera que se pierda, ni tan intensa que canse a la tercera taza.
+
+Es la que la mayoría termina dejando en la cocina cuando ya probó las tres. Va en la máquina Luvoco, que es la que hace el espresso.
+
+Caja de 15 cápsulas, $110.900 COP.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona la máquina?
+
+---
+
+### LUV_04: "¿Qué es el Luvoco Fuerte? / cápsulas fuertes / la cápsula fuerte / el más cargado / luvoco fuerte cuánto cuesta"
+**[Concepto Nuclear]:** La Fuerte es para el que ya sabe lo que quiere: tostado alto y cuerpo. Se nombra el carácter del café, no un efecto sobre la persona.
+
+Con gusto. La Fuerte es el tostado alto: cuerpo denso y ese amargo redondo que busca quien lleva años tomando café y ya sabe lo que quiere.
+
+Es la de las mañanas exigentes y la de después del almuerzo. Va en la máquina Luvoco, que es la que hace el espresso.
+
+Caja de 15 cápsulas, $110.900 COP.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona la máquina?
 
 ---
 
@@ -321,6 +426,84 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 
 ---
 
+### PERS_02: "¿Qué es el Gano Fresh? / la pasta de dientes / crema dental / pasta dental de ustedes / cuánto cuesta la pasta"
+**[Concepto Nuclear]:** El argumento es SIN FLÚOR, que es la razón por la que una familia la busca, más el hecho de que el Ganoderma llegue hasta el cepillo. ⚠️ Nada sobre encías, caries ni sensibilidad: son condiciones y las cubre la línea roja. El registro es cosmético (NSOC), no sanitario de alimento.
+
+Con gusto. El Gano Fresh es la pasta dental de la línea, y lo que la distingue es lo que no lleva: no tiene flúor. Es la razón por la que la buscan las familias que revisan las etiquetas.
+
+Limpia con agentes suaves y aceites esenciales, y lleva el mismo extracto de Ganoderma del resto de la línea — hasta en el cepillo de dientes.
+
+Cuesta $73.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro el resto de la línea de cuidado personal?
+
+---
+
+### PERS_03: "¿Qué es el Jabón Gano? / el jabón / jabón de ganoderma / jabón de leche de cabra / cuánto cuesta el jabón"
+**[Concepto Nuclear]:** El argumento es SENSORIAL y se comprueba el primer día: la piel sin tirantez. La leche de cabra es el ingrediente que la gente reconoce y valora. ⚠️ 'Piel delicada' es un tipo de piel; 'problemas dermatológicos' —como dice la ficha web— es una condición y NO entra.
+
+Con gusto. El Jabón Gano es artesanal, con leche de cabra y extracto de Ganoderma, y la diferencia se nota al primer uso: la piel queda suave en vez de con esa tirantez que dejan los jabones que resecan.
+
+Es el que suele preferir quien tiene la piel delicada, porque limpia sin castigar.
+
+Cuesta $73.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro el resto de la línea de cuidado personal?
+
+---
+
+### PERS_04: "¿Qué es el jabón transparente? / transparent soap / el jabón de papaya / jabón facial / el jabón de la cara"
+**[Concepto Nuclear]:** Es el jabón DE LA CARA, y ahí está su diferencia con el Jabón Gano, que es de cuerpo. Papaya y aloe son los ingredientes que la persona reconoce. ⚠️ Nada de manchas, acné ni aclarar: son condiciones y promesas de resultado.
+
+Con gusto. El Transparente es el de la cara — ahí está su diferencia con el Jabón Gano, que es de cuerpo. Lleva papaya y aloe vera junto al extracto de Ganoderma.
+
+Es el del final del día, cuando uno se quita el maquillaje o el polvo de la calle y quiere la piel limpia sin sentirla áspera.
+
+Cuesta $78.500 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro el resto de la línea de cuidado personal?
+
+---
+
+### PERS_05: "¿Qué es el champú Piel&Brillo? / el shampoo / shampoo de ustedes / champu / cuánto cuesta el shampoo"
+**[Concepto Nuclear]:** El argumento es el BRILLO, que se ve; no la caída ni el crecimiento, que son terreno prohibido. Forma sistema con el acondicionador, y decirlo es honesto además de vendedor. ⚠️ 'Cabello dañado' de la ficha web se cambia por el cabello que perdió brillo — descriptivo, no diagnóstico.
+
+Con gusto. El champú Piel&Brillo es para el cabello que perdió el brillo y se ve opaco. Limpia con agentes suaves y pH balanceado, sin dejarlo áspero.
+
+Está pensado para usarse con el acondicionador de la misma línea: el champú limpia y el acondicionador cierra. Juntos es donde se nota.
+
+Cuesta $73.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro el acondicionador que lo acompaña?
+
+---
+
+### PERS_06: "¿Qué es el acondicionador Piel&Brillo? / el acondicionador / acondicionador de ustedes / cuánto cuesta el acondicionador"
+**[Concepto Nuclear]:** Su razón de ser es el PAR con el champú — se vende de a dos y así se explica. El argumento es el desenredo, que se comprueba al salir de la ducha.
+
+Con gusto. El acondicionador Piel&Brillo es la segunda mitad del par: el champú limpia y este cierra, para que el pelo se desenrede solo al salir de la ducha.
+
+Se aplica de medios a puntas después de lavar, y se enjuaga. Ahí es donde el brillo se queda en vez de irse con el agua.
+
+Cuesta $73.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro el resto de la línea de cuidado personal?
+
+---
+
+### PERS_07: "¿Qué es el exfoliante? / exfoliante corporal / scrub / el exfoliante de ustedes / cuánto cuesta el exfoliante"
+**[Concepto Nuclear]:** El argumento es la TEXTURA de la piel después, que se siente el mismo día. Dos o tres veces por semana — dato que evita el mal uso. ⚠️ 'Renovación celular' de la ficha web es un mecanismo biológico y NO entra.
+
+Con gusto. El exfoliante corporal Piel&Brillo lleva partículas naturales y aceites que hidratan mientras retiran lo que la ducha diaria no se lleva.
+
+Se usa dos o tres veces por semana, con movimientos circulares sobre la piel húmeda. La diferencia se siente el mismo día, al pasar la mano.
+
+Cuesta $73.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro el resto de la línea de cuidado personal?
+
+---
+
 ## PREGUNTAS FRECUENTES
 
 ### SUP_02: "¿Qué es el CordyGold? / ¿Para qué sirve el Cordygold? / ¿Cuánto cuesta el CordyGold? / cápsulas de cordyceps / cordigold / cordygol"
@@ -331,6 +514,32 @@ Con gusto. El CordyGold es el único de la línea que no gira alrededor del Gano
 El Cordyceps es el hongo que la gente asocia con el rendimiento físico y el aguante. Por eso este es el que suele buscar quien entrena, quien tiene jornadas largas de pie, o quien ya toma el café y quiere sumar algo distinto en vez de más de lo mismo.
 
 Viene en frasco de 90 cápsulas, una al día, y cuesta $336.900 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro los otros dos suplementos de la línea?
+
+---
+
+### SUP_03: "¿Qué son las Cápsulas de Ganoderma? / ¿Para qué sirven las cápsulas de ganoderma? / ganoderma en cápsulas / el ganoderma puro / cuánto cuestan las cápsulas de ganoderma"
+**[Concepto Nuclear]:** Es el Ganoderma SIN el café de por medio — la razón de compra es la vía, no un efecto. Dos públicos: quien ya toma el café y quiere sumar, y quien no toma café. ⚠️ **Una cápsula al día** (confirmado por el Director, 20 ago 2026): la ficha del catálogo web decía dos y con eso el frasco duraría mes y medio, no tres. ⚠️ Nada de defensas, células ni circulación — los beneficios del catálogo web cruzan la línea.
+
+Con gusto. Las Cápsulas de Ganoderma son el extracto concentrado, sin café de por medio: el mismo hongo que lleva toda la línea, en su forma más directa.
+
+Es lo que suele buscar quien ya toma el café y quiere sumar algo más, y también quien no toma café pero quiere el Ganoderma igual.
+
+Frasco de 90 cápsulas, una al día —tres meses— y cuesta $272.500 COP.
+
+**Pregunta de seguimiento:** ¿Le muestro los otros dos suplementos de la línea?
+
+---
+
+### SUP_04: "¿Qué es el Excellium? / ¿Para qué sirve el Excellium? / excelium / exelium / cápsulas de micelio / cuánto cuesta el excellium"
+**[Concepto Nuclear]:** Lo que lo distingue es la PARTE del hongo: micelio joven, no el cuerpo maduro que llevan las otras cápsulas. Ese es el dato del fabricante y es verificable. ⚠️ El terreno es la claridad mental y el enfoque —vocabulario verde, el que usa el propio fabricante—, dicho como lo que la gente busca, nunca como efecto garantizado. ⚠️ NUNCA 'tónico cerebral' ni memoria: nombra un órgano y una función.
+
+Con gusto. El Excellium se distingue por la parte del hongo que lleva: el micelio joven del Ganoderma, no el cuerpo maduro que llevan las otras cápsulas.
+
+Es el que suele buscar quien tiene el día lleno de decisiones y quiere llegar despierto a la tarde. Va bien acompañado del café de la mañana.
+
+Frasco de 90 cápsulas, una al día, y cuesta $272.500 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro los otros dos suplementos de la línea?
 

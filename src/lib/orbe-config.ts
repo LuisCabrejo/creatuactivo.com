@@ -77,6 +77,40 @@ export function enlaceQueswaWhatsApp(
 }
 
 /**
+ * Marca en el navegador que esta persona ya conversó con Queswa por WhatsApp.
+ *
+ * ⚠️ NO se marca al saltar a la app, sino al REGRESAR, y solo si estuvo fuera lo
+ * suficiente para haber escrito. Abrir el chat no es haber conversado: quien mira
+ * y se devuelve a los cinco segundos no envió nada, y si lo diéramos por hecho, la
+ * próxima vez abriría el chat en blanco — sin el código del socio en el texto. Ese
+ * prospecto entraría sin dueño: fuera del Radar, sin push y con la apertura cayendo
+ * al saludo genérico de marca. Por eso el umbral falla hacia atribuir: ante la duda
+ * se vuelve a pre-llenar, que es una molestia pequeña, y nunca se pierde el dueño,
+ * que es una venta.
+ */
+const LS_YA_CONVERSO = 'queswa_wa_converso'
+const SEGUNDOS_QUE_PRUEBAN_CONVERSACION = 15
+
+export function yaConversoPorWhatsApp(): boolean {
+  if (typeof window === 'undefined') return false
+  try { return localStorage.getItem(LS_YA_CONVERSO) === '1' } catch { return false }
+}
+
+function vigilarElRegreso(momentoDelSalto: number): void {
+  const alVolver = () => {
+    if (document.visibilityState !== 'visible') return
+    document.removeEventListener('visibilitychange', alVolver)
+    window.removeEventListener('focus', alVolver)
+    const segundosFuera = (Date.now() - momentoDelSalto) / 1000
+    if (segundosFuera >= SEGUNDOS_QUE_PRUEBAN_CONVERSACION) {
+      try { localStorage.setItem(LS_YA_CONVERSO, '1') } catch { /* modo privado */ }
+    }
+  }
+  document.addEventListener('visibilitychange', alVolver)
+  window.addEventListener('focus', alVolver)
+}
+
+/**
  * Abre la conversación con Queswa DENTRO de la app de WhatsApp.
  *
  * `wa.me` no lleva a la app: lleva a una página de WhatsApp en el navegador que
@@ -91,21 +125,37 @@ export function enlaceQueswaWhatsApp(
  *
  * En computador se conserva `wa.me` en pestaña nueva: ahí es la página la que sabe
  * decidir entre WhatsApp Desktop y WhatsApp Web según lo que la persona tenga.
+ *
+ * ⚠️ El texto pre-llenado va SOLO la primera vez. Quien ya conversó y vuelve a tocar
+ * el orbe quiere retomar su chat donde lo dejó, no mandar otra vez el mismo saludo:
+ * a partir de la segunda vez se abre la conversación en blanco, con su historial a
+ * la vista, y escribe lo que quiera.
+ *
+ * ⚠️ El salto usa `replace`, no `href`. Con `href`, ese destino queda anotado en el
+ * historial de la pestaña, así que el botón de atrás —con el que la persona quiere
+ * volver al sitio— volvía a disparar el enlace y la devolvía a WhatsApp, dejándola
+ * sin manera de regresar. `replace` no deja rastro: atrás vuelve a donde estaba.
  */
 export function abrirConversacionQueswa(
   ref?: string | null,
   contexto: ContextoOrbe = 'general',
 ): void {
-  const enlaceWeb = enlaceQueswaWhatsApp(ref, contexto)
+  const retomando = yaConversoPorWhatsApp()
+  const texto = retomando ? '' : encodeURIComponent(textoAperturaWhatsApp(ref, contexto))
+
+  const enlaceWeb = texto ? `https://wa.me/${QUESWA_WABA}?text=${texto}` : `https://wa.me/${QUESWA_WABA}`
+  const enlaceApp = texto
+    ? `whatsapp://send?phone=${QUESWA_WABA}&text=${texto}`
+    : `whatsapp://send?phone=${QUESWA_WABA}`
+
+  const momentoDelSalto = Date.now()
   const esTelefono = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
   if (!esTelefono) {
     window.open(enlaceWeb, '_blank', 'noopener,noreferrer')
+    if (!retomando) vigilarElRegreso(momentoDelSalto)
     return
   }
-
-  const texto = encodeURIComponent(textoAperturaWhatsApp(ref, contexto))
-  const enlaceApp = `whatsapp://send?phone=${QUESWA_WABA}&text=${texto}`
 
   // Si el salto a la app ocurre, la pestaña se oculta y la red de seguridad se
   // cancela — sin esto, al volver del chat la persona se encontraría con la
@@ -116,16 +166,20 @@ export function abrirConversacionQueswa(
   window.addEventListener('pagehide', alOcultarse, { once: true })
   window.addEventListener('blur', alOcultarse, { once: true })
 
-  window.location.href = enlaceApp
+  window.location.replace(enlaceApp)
 
   setTimeout(() => {
     document.removeEventListener('visibilitychange', alOcultarse)
     window.removeEventListener('pagehide', alOcultarse)
     window.removeEventListener('blur', alOcultarse)
     if (!saltoALaApp && document.visibilityState === 'visible') {
+      // Nadie atendió el esquema: aquí sí conviene `href` y no `replace` — esta
+      // navegación sí es real y el atrás debe devolver a la página que dejó.
       window.location.href = enlaceWeb
     }
   }, 1200)
+
+  if (!retomando) vigilarElRegreso(momentoDelSalto)
 }
 
 /** Lee la atribución del socio en el cliente: ?ref= de la URL, luego localStorage. */

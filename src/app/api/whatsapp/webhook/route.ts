@@ -17,7 +17,10 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { waitUntil } from '@vercel/functions';
-import { sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, marcarLeidoYEscribiendo } from '@/lib/wa-channel';
+import {
+  sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage,
+  marcarLeidoYEscribiendo, esBSUID,
+} from '@/lib/wa-channel';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -237,17 +240,28 @@ async function procesarEntrante(body: any): Promise<void> {
     // ─── Quién escribe: teléfono o BSUID ──────────────────────────────────────
     // Desde 2026 Meta permite ocultar el teléfono detrás de un nombre de
     // usuario, y entonces manda un **BSUID** (`CO.1497020585516131`) en vez del
-    // número — o no manda `from` en absoluto. `contacts[0].user_id` es el campo
-    // que SIEMPRE viene, así que es el último recurso y el más fiable.
+    // número. `contacts[0].user_id` trae SIEMPRE el BSUID **con su prefijo de
+    // país**, con nombre de usuario o sin él.
     //
-    // El 21 ago 2026 llegó el primero: `from` vino vacío, el prospecto se guardó
-    // como `wa_undefined` y la respuesta se envió a una dirección inexistente —
-    // la persona vio el "escribiendo…" y nunca recibió nada. Con Meta ampliando
-    // los nombres de usuario, esto deja de ser un caso raro.
-    const phoneNumber = (message.from
-      || contact?.wa_id
-      || contact?.user_id
-      || message.user_id) as string | undefined;
+    // ⚠️ La trampa (21 ago 2026): del mismo remitente, Meta manda unas veces
+    // `CO.1497020585516131` y otras el mismo identificador PELADO,
+    // `1497020585516131`. Solo la forma prefijada es entregable — la pelada
+    // devuelve **#131026 Message undeliverable**, y como la Graph API la acepta
+    // con 200 y un identificador de mensaje, el fallo llega después y en
+    // silencio. Además cada forma abría su propio prospecto, así que la misma
+    // persona perdía su historia según qué campo hubiera llenado Meta.
+    //
+    // Por eso el orden no es "el primero que exista": si el valor crudo es el
+    // BSUID sin prefijo, mandan `user_id`. Un teléfono de verdad sí gana, que
+    // es lo que sirve para detectar país y reconocer al socio.
+    const _userId = contact?.user_id as string | undefined;
+    const _crudo  = (message.from || contact?.wa_id || message.user_id) as string | undefined;
+    const _esPeladoDelBSUID = !!(_userId && _crudo && _userId.endsWith(`.${_crudo}`));
+    const _esTelefono = !!_crudo && /^\+?\d{7,15}$/.test(_crudo);
+
+    const phoneNumber = (_esTelefono && !_esPeladoDelBSUID)
+      ? _crudo
+      : (_userId || _crudo);
     const contactName = (contact?.profile?.name as string | undefined) || 'Constructor';
 
     if (!phoneNumber) {
@@ -713,14 +727,24 @@ async function procesarEntrante(body: any): Promise<void> {
     if (!existingProspect && !llegaDecidido && !_traePregunta) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
-      const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
+      // A quien escribe con nombre de usuario (BSUID) la apertura le va en texto
+      // plano. El interactivo no le llega, y el fallo no se puede detectar a
+      // tiempo: la Graph API acepta con 200 y descarta después, así que el
+      // respaldo de abajo —que solo mira el rechazo inmediato— nunca se activa
+      // y la persona se queda sin nada. Un mensaje entregado vale más que uno
+      // más vistoso que no llega. Revisable cuando Meta documente el caso.
+      const _sinBotones = esBSUID(phoneNumber);
+      const _opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+
+      const enviado = _sinBotones
+        ? { ok: false as const, error: 'BSUID: apertura en texto plano' }
+        : await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
 
       // Si Meta rechaza el interactivo (formato, límites), no dejar a la persona
       // sin respuesta: cae a texto plano con las mismas opciones enumeradas.
       if (!enviado.ok) {
-        console.warn('⚠️ [WA Webhook] Botones rechazados — fallback a texto plano');
-        const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
-        await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${opciones}`);
+        if (!_sinBotones) console.warn('⚠️ [WA Webhook] Botones rechazados — fallback a texto plano');
+        await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${_opciones}`);
       }
 
       try {

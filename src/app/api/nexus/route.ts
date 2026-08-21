@@ -2926,14 +2926,18 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     },
   ];
 
-  // ⚠️ La puerta NO puede exigir que el clasificador ya haya acertado el arsenal:
-  // existe precisamente porque el enrutamiento falla. "Ya tengo un negocio propio
-  // y me va relativamente bien" se va por vector a arsenal_avanzado (ADV_OBJ_02,
-  // 0.581), así que una puerta condicionada a `arsenal_inicial` no se ejecutaba
-  // nunca — el fallo seguía vivo con la puerta escrita (prueba de 40, 19 ago).
-  // Se evalúa sobre cualquier arsenal; el catálogo queda fuera porque una
-  // pregunta de producto no se responde con doctrina.
-  if (!documentType || documentType.startsWith('arsenal_')) {
+  // ⚠️ La puerta NO puede exigir que el clasificador ya haya acertado: existe
+  // precisamente porque el enrutamiento falla. "Ya tengo un negocio propio y me
+  // va relativamente bien" se va por vector a arsenal_avanzado (0.581), así que
+  // condicionarla a `arsenal_inicial` la dejaba sin ejecutarse nunca.
+  //
+  // Tampoco se excluye el catálogo (21 ago): "¿dónde puedo ver todos los
+  // productos?" se clasifica como catálogo, la puerta se saltaba, y el modelo
+  // compuso una cuarta línea que no existe —"cuidado del hogar"— y ofreció
+  // enviar un catálogo que no puede enviar. Cada regex de la tabla es
+  // específica, así que abrirla a todo no secuestra nada: verificado con "para
+  // qué sirve el Cordygold" y "cuáles son los suplementos", que siguen de largo.
+  {
     // ⚠️ Las puertas se evalúan sobre la consulta reescrita Y sobre el mensaje
     // CRUDO (20 ago 2026). El CQR ancla la consulta para el vector, pero al
     // reescribir puede borrar justo las palabras que abren la puerta: a "¿esto

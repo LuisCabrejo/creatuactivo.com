@@ -300,15 +300,25 @@ const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
  * países la conversación ya viene con la moneda aclarada y el precio local lo
  * confirma la oficina, así que aquí no se inventa una cifra.
  */
-export function pieDeFoto(p: ProductoWA, incluirPrecio = true): string {
-  const partes = [`*${p.nombre}*`];
-  if (p.presentacion) partes.push(p.presentacion);
-  const cabeza = partes.join(' · ');
-  const precio = incluirPrecio ? `\n${cop(p.precioCOP)}` : '';
-  const registro = p.invima
-    ? `\n\n${/certificado/i.test(p.invima) ? p.invima : `Registro sanitario INVIMA ${p.invima}`}`
-    : '';
-  return `${cabeza}${precio}${registro}`;
+export function pieDeFoto(p: ProductoWA, seguimiento?: string): string {
+  // La presentación se omite cuando el nombre ya la dice ("Luvoco Suave · 15
+  // cápsulas" no necesita "caja de cápsulas" al lado).
+  const repite = p.presentacion && p.nombre.toLowerCase().includes(p.presentacion.split(' ').pop()!.toLowerCase());
+  const cabeza = p.presentacion && !repite ? `*${p.nombre}* · ${p.presentacion}` : `*${p.nombre}*`;
+
+  // Precio y registro en UNA línea: el pie se recorta tras unos renglones y
+  // detrás de "Leer más" se pierde justo lo que va al final. Con esto la
+  // pregunta cabe sin empujar nada.
+  const datos = [cop(p.precioCOP)];
+  if (p.invima) datos.push(/certificado/i.test(p.invima) ? p.invima : `INVIMA ${p.invima}`);
+
+  // ⚠️ La pregunta viaja DENTRO del pie, no en un mensaje aparte. Enviada
+  // suelta llegaba ANTES que la imagen —Meta tarda en descargar la foto de la
+  // URL— y la persona la leía antes de ver el producto (prueba del 20 ago).
+  // Aquí queda donde siempre va: al final del texto.
+  const pregunta = seguimiento ? `\n\n${seguimiento}` : '';
+
+  return `${cabeza}\n${datos.join(' · ')}${pregunta}`;
 }
 
 /**

@@ -792,23 +792,30 @@ async function procesarEntrante(body: any): Promise<void> {
     if (pideImagen(messageText)) {
       const producto = detectarProducto(messageText);
       if (producto) {
-        const enviada = await sendImage(phoneNumber, urlImagen(producto), pieDeFoto(producto));
+        // Cuando el mensaje pide SOLO la foto, la pregunta de cierre viaja
+        // dentro del pie: enviada como mensaje aparte llegaba ANTES que la
+        // imagen —Meta tarda en descargarla de la URL— y la persona leía la
+        // pregunta antes de ver el producto (prueba del 20 ago).
+        const soloFoto = esSoloPedidoDeImagen(messageText);
+        let seguimiento: string | undefined;
+        if (soloFoto) {
+          // ¿Ya se le había explicado este producto? Volver a ofrecérselo sería
+          // no estar leyendo el hilo.
+          const clave = producto.nombre.toLowerCase().split(' ')[0];
+          const yaExplicado = historial.some((m) =>
+            m.role === 'assistant' && !m.content.startsWith('[Foto')
+            && m.content.length > 200 && m.content.toLowerCase().includes(clave));
+          seguimiento = seguimientoFoto(producto, yaExplicado);
+        }
+
+        const enviada = await sendImage(phoneNumber, urlImagen(producto), pieDeFoto(producto, seguimiento));
         if (enviada.ok) {
           fotoEnviada = producto.nombre;
           console.log(`📷 [WA Webhook] Foto de ${producto.slug} enviada a ${phoneNumber}`);
-
-          if (esSoloPedidoDeImagen(messageText)) {
-            // ¿Ya se le había explicado este producto? Volver a ofrecérselo
-            // sería no estar leyendo el hilo.
-            const clave = producto.nombre.toLowerCase().split(' ')[0];
-            const yaExplicado = historial.some((m) =>
-              m.role === 'assistant' && !m.content.startsWith('[Foto')
-              && m.content.length > 200 && m.content.toLowerCase().includes(clave));
-            const seguimiento = seguimientoFoto(producto, yaExplicado);
-            await sendWhatsAppMessage(phoneNumber, seguimiento, { wamid });
+          if (soloFoto) {
             await persistirTurnoDictado(supabase, waFingerprint, messageText,
               `[Foto de ${producto.nombre} enviada] ${seguimiento}`);
-            console.log(`📷 [WA Webhook] Turno cerrado sin motor (ya explicado: ${yaExplicado})`);
+            console.log('📷 [WA Webhook] Turno cerrado sin motor');
             return;
           }
         } else {

@@ -217,6 +217,16 @@ async function procesarEntrante(body: any): Promise<void> {
         if (st.status !== 'failed') continue;
         const e = st.errors?.[0];
         console.error(`📵 [WA Webhook] Envío FALLIDO a ${st.recipient_id} — #${e?.code} ${e?.title ?? e?.message ?? ''}`.trim());
+        // Y queda en tabla: el log de Vercel se pierde y este es el único rastro
+        // de un mensaje que la persona nunca recibió.
+        try {
+          await (getSupabase() as any).from('wa_envios_fallidos').insert({
+            destino: st.recipient_id ?? null,
+            codigo: e?.code ?? null,
+            titulo: e?.title ?? null,
+            detalle: e?.message ?? null,
+          });
+        } catch { /* nunca tumbar el webhook por el registro de un fallo */ }
       }
       return;
     }

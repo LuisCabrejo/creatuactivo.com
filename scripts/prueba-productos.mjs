@@ -144,15 +144,20 @@ function evaluar(q, esperado, extra, texto) {
     // frecuencia; meterle el precio sería vender donde preguntaron cómo usarlo.
     const pideDato = !/c[oó]mo se (usa|prepara|toma)|cada cu[aá]nto|cu[aá]ntas|diferencia|m[aá]s suave/i.test(q);
     if (pideDato && !traeElPrecio(texto, esperado)) {
-      const otro = PRODUCTOS_WA.find(x => x.slug !== esperado && traeElPrecio(texto, x.slug));
-      f.push(otro ? `precio de OTRO producto (${otro.slug})` : `falta el precio $${precio(esperado)}`);
+      f.push(`falta el precio $${precio(esperado)}`);
     }
-    if (!pideDato) {
+    // Un precio ajeno solo es fallo si NO está el propio: varios productos
+    // valen lo mismo ($110.900 lo comparten el 3 en 1 y las tres Luvoco), así
+    // que buscar "precio de otro" sin más marcaba respuestas correctas.
+    if (!traeElPrecio(texto, esperado)) {
       const otro = PRODUCTOS_WA.find(x => x.slug !== esperado && traeElPrecio(texto, x.slug));
-      if (otro) f.push(`precio de OTRO producto (${otro.slug})`);
+      if (otro && pideDato) f.push(`en su lugar aparece el precio de ${otro.slug}`);
     }
     // …y por la presentación, cuando la tiene: distingue 20 sobres de 30.
-    if (p.presentacion && pideDato) {
+    // La presentación solo se exige en preguntas de IDENTIDAD ("¿qué es…?"): a
+    // "¿cuánto vale el Cordygold?" la respuesta correcta es el precio y ya.
+    const esIdentidad = /qu[eé] es|para qu[eé] sirve|h[aá]blame|cu[eé]nteme|qu[eé] trae/i.test(q);
+    if (p.presentacion && esIdentidad) {
       const num = p.presentacion.match(/\d+/)?.[0];
       if (num && !new RegExp(`\\b${num}\\b`).test(texto)) f.push(`falta la presentación (${p.presentacion})`);
     }

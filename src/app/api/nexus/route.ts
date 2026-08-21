@@ -5212,6 +5212,34 @@ ${filaGen5}`;
     // Patrón idéntico a getPinCifrasGEN5 + getTablasComisiones: backend dictador controla
     // los datos verificados, el LLM solo los presenta. Fuente: arsenal_compensacion.txt
     // COMP_PAQ_02/03/04 (vigente desde 25 marzo 2026).
+    /**
+     * El precio y el nombre del producto no dependen de que el modelo los copie.
+     *
+     * Los fragmentos de los 22 productos no llevan candado, así que el modelo
+     * los resume — y al resumir deja caer el precio y a veces cambia el nombre:
+     * en la prueba del 20 ago llamó "la Intensa" a la cápsula Fuerte y omitió el
+     * precio en tres respuestas de Luvoco. Un precio ausente obliga a preguntar
+     * de nuevo; un nombre inventado es un producto que no existe.
+     *
+     * Mismo reparto que en los paquetes: el fragmento pone el argumento, el pin
+     * pone la cifra. Los datos salen de `wa-productos.ts`, que es el catálogo.
+     */
+    const getPinProducto = (): string => {
+      const prod = detectarProducto(latestUserMessage);
+      if (!prod) return '';
+      const precio = visitorCountry === 'CO' || !visitorCountry
+        ? `$${prod.precioCOP.toLocaleString('es-CO')} COP`
+        : `$${prod.precioCOP.toLocaleString('es-CO')} COP`;
+      const pres = prod.presentacion ? ` · ${prod.presentacion}` : '';
+      return `
+💠 DATOS OFICIALES DEL PRODUCTO POR EL QUE PREGUNTAN (úsalos exactos):
+• Nombre correcto: ${prod.nombre}${pres}
+• Precio: ${precio}
+• Registro: ${prod.invima}
+⚠️ El precio va SIEMPRE en la respuesta, y el nombre se escribe así, sin
+inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
+    };
+
     const getPinComposicionPaquetes = (): string => {
       // ⚠️ FIX 2026-08-09 — este pin estaba MUERTO en WhatsApp.
       //
@@ -5425,6 +5453,7 @@ ${getCierreEstado4()}
 ${_pinCifras}
 ${_pinDictaEjemplo ? '' : getTablasComisiones()}
 ${_pinDictaEjemplo ? '' : getPinComposicionPaquetes()}
+${_pinDictaEjemplo ? '' : getPinProducto()}
 ${conversationSummary}<prospect_state>
 ${mergedProspectData.name ? `  <nombre>${mergedProspectData.name}</nombre>` : '  <nombre>no_capturado</nombre>'}
 ${mergedProspectData.archetype ? `  <arquetipo>${mergedProspectData.archetype}</arquetipo>` : ''}

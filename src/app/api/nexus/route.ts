@@ -2631,9 +2631,14 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       // ("¿qué bebidas tienen?", "¿cuáles son los productos?").
       const esTablaCategoria = (f: { category: string }) =>
         /catalogo_productos_(PROD_OVERVIEW|BEB_01|SUP_01|LUV_01|PERS_01)$/.test(f.category);
+      // ⚠️ LUV_01 es a la vez la tabla del sistema Luvoco Y la respuesta de la
+      // MÁQUINA — no hay otra. Si la pregunta es por la máquina, la tabla no se
+      // retira: hacerlo dejaba a Queswa diciendo "no la tengo con precio"
+      // teniéndolo escrito (prueba de producto, 20 ago).
+      const preguntanPorLaMaquina = /m[aá]quina|cafetera|el aparato|el equipo/i.test(userMessage);
       let fragmentosAEntregar = fragments;
       const top = fragments[0];
-      if (esTablaCategoria(top)) {
+      if (esTablaCategoria(top) && !preguntanPorLaMaquina) {
         const fichaCerca = fragments.find((f, i) =>
           i > 0 && !esTablaCategoria(f) && ((top.similarity ?? 0) - (f.similarity ?? 0)) <= 0.05);
         if (fichaCerca) {
@@ -4283,7 +4288,17 @@ ${summaryParts.join('\n')}
     // en curso, la mandó a compensación/paquetes, y la respuesta compuesta se
     // quedó sin la Maestría que FREQ_08 tiene calibrada (prueba 19:19).
     const _yaClasificaPorPatron = clasificarDocumentoHibrido(latestUserMessage) !== null;
-    if (!_aceptacionPelada && !_yaClasificaPorPatron && tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+
+    // Y si el mensaje NOMBRA un producto, tampoco hay nada que reconstruir: la
+    // consulta ya es autónoma. Reescribirla solo puede quitarle el nombre, que
+    // es justo la palabra que decide cuál de los 22 fragmentos gana. Medido el
+    // 20 ago: con el mensaje crudo, "¿Qué es el Luvoco Suave?" recupera LUV_02
+    // a 0.530 — en producción llegaba otro y el modelo terminó componiendo un
+    // párrafo sobre "el consumo recurrente de cápsulas como corazón del
+    // negocio", que además es léxico de negocio en modo consultor.
+    const _nombraProducto = detectarProducto(latestUserMessage) !== null;
+
+    if (!_aceptacionPelada && !_yaClasificaPorPatron && !_nombraProducto && tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       const historialPrevio = (Array.isArray(messages) ? messages : [])
         .slice(0, -1)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

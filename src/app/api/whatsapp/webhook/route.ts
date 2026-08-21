@@ -1073,13 +1073,22 @@ async function procesarEntrante(body: any): Promise<void> {
     // siendo lo último que se lee.
     const _pideVerCatalogo = /d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}(productos|cat[aá]logo)|ver (todos )?los productos|(mu[eé]stre|p[aá]s[ae]|env[ií]e|m[aá]nde|comp[aá]rte?|manda|pasa)[a-z]{0,4}[^.?]{0,15}(el )?cat[aá]logo|tienen cat[aá]logo/i.test(messageText);
     if (queswaReply && _pideVerCatalogo && socio?.constructorId) {
-      const url = `https://creatuactivo.com/sistema/productos?ref=${encodeURIComponent(socio.constructorId)}`;
+      // El enlace amigable que ya usa el Dashboard: `/{slug}/productos` redirige
+      // a `/sistema/productos/{constructor_id}`, que atribuye por el path. Se
+      // prefiere porque es el que la persona ve escrito en el chat, y
+      // `creatuactivo.com/luis-cabrejo/productos` se lee como una dirección de
+      // verdad — el otro parece un enlace de sistema. Si el socio no tiene slug,
+      // se cae al directo, que funciona igual.
+      const slug = await slugDelSocio(supabase, socio.constructorId);
+      const url = slug
+        ? `https://creatuactivo.com/${slug}/productos`
+        : `https://creatuactivo.com/sistema/productos/${encodeURIComponent(socio.constructorId)}`;
       const bloque = `\n\nAquí los ve todos, con fotos y precios:\n${url}\n\nSi algo le llama la atención mientras mira, me escribe por aquí — o toca el botón de Queswa en la misma página y seguimos allá.`;
       const _ultimaPregunta = queswaReply.match(/\n*¿[^?]{5,200}\?\s*$/);
       queswaReply = _ultimaPregunta
         ? queswaReply.slice(0, _ultimaPregunta.index).trimEnd() + bloque + '\n' + _ultimaPregunta[0].trimEnd()
         : queswaReply + bloque;
-      console.log(`🔗 [WA Webhook] Catálogo entregado con ref=${socio.constructorId}`);
+      console.log(`🔗 [WA Webhook] Catálogo entregado: ${url}`);
     }
 
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────
@@ -1470,6 +1479,33 @@ async function corregirTurnoEnvenenado(
     `⚠️ [WA Guardrail] No se pudo corregir el turno en BD de ${fingerprint} — el motor aún no lo había escrito. ` +
     'El modelo queda protegido igual (saneamiento al leer); sólo el registro humano queda con el texto bloqueado.',
   );
+}
+
+/**
+ * El slug personalizado del socio (`luis-cabrejo`), para armar el enlace
+ * amigable `creatuactivo.com/{slug}/productos`.
+ *
+ * Se resuelve aparte y solo cuando se necesita: el `constructor_id`
+ * (`luis-cabrejo-1288`) lo traen todos los caminos, pero el slug vive en
+ * `constructor_slugs` y pedirlo en cada turno sería una consulta de más.
+ * Ante cualquier fallo devuelve null y el enlace cae al de siempre.
+ */
+async function slugDelSocio(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  constructorId: string | undefined,
+): Promise<string | null> {
+  if (!constructorId) return null;
+  try {
+    const { data } = await supabase
+      .from('constructor_slugs')
+      .select('slug')
+      .eq('constructor_id', constructorId)
+      .maybeSingle();
+    return (data?.slug as string) || null;
+  } catch {
+    return null;
+  }
 }
 
 /**

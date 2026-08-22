@@ -698,6 +698,10 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.9 — PROD_04 deja el registro viejo (22 ago 2026)
+
+Era el único fragmento del catálogo que seguía hablando como hoja de cálculo: *«lógica financiera en dos niveles»*, *«terminal de activación»*, *«retorno sobre terminal: en 12 meses el consumo supera 2,3× el valor de la máquina»*, *«$110.900/mes × 12 = $1.330.800/año»*. Dos problemas: el léxico retirado, y una proyección de retorno con cifra anual que además asume una caja al mes como hecho. Le llega a quien pregunta *«cómo funciona el modelo Luvoco»* (0.586, primero). Reescrito desde el negocio y por mecanismo —la máquina se compra una vez, las cápsulas son las que se repiten, y son exclusivas de la máquina—, sin proyectar; cierra con la misma pregunta de LUV_00, que recupera la tabla LUV_01 (medida como aceptación). Aprobado por el Director.
+
 ### v7.8 — El «sí» al Luvoco llega a la tabla (22 ago 2026)
 
 Segunda prueba del día. A *«¿Le muestro las tres intensidades con su precio?»* la persona dijo «sí», la aceptación buscó con esa pregunta, y el vector devolvió otra vez LUV_00 (0.525) — LUV_01, la tabla con los precios, ni aparecía en el top-6. Sin cifras el modelo rellenó: derivó al equipo y agregó una frase de margen de reventa que no existe en ningún arsenal. Era la regla de *no cerrar con una pregunta que el arsenal no pueda atender*, incumplida por medir la pregunta de entrada y no la aceptación de salida. La pregunta pasa a *«¿Le muestro el sistema Luvoco con sus precios?»* → LUV_01 a 0.644, y con candado se sirve sola. **Criterio nuevo para toda pregunta de seguimiento: se mide también como consulta de aceptación.**

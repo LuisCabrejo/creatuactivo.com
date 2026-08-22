@@ -1,5 +1,6 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.8
+# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.9
 **Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
+**v7.9 (22 ago 2026):** PROD_04 explica el modelo Luvoco por su mecanismo —la máquina se compra una vez, las cápsulas se repiten— en el mismo registro del resto del catálogo, y cierra hacia la tabla de precios (LUV_01). Sin cambios de precios ni CV/PV.
 **v7.8 (22 ago 2026):** La pregunta de seguimiento de LUV_00 nombra el sistema Luvoco, para que el «sí» recupere la tabla de precios (LUV_01) y no vuelva al mismo fragmento. Sin cambios de precios ni CV/PV.
 **v7.7 (22 ago 2026):** BEB_07 sitúa el Clásico en el registro premium del resto de la línea —cuerpo, aroma y amargo justo, el de una buena cafetería—, y la línea Luvoco gana una puerta corta, LUV_00, que responde la pregunta genérica por el café Luvoco como experiencia (extracción a presión, tres intensidades elegidas por paladar) con hechos del fabricante; la tabla de precios sigue en LUV_01. El detalle, en el CHANGELOG. Sin cambios de precios ni CV/PV.
 **v7.6 (22 ago 2026):** La nota de versión y las cabeceras de BEB_09 y PERS_03 dejan de citar lo que rechazan — las dos viajan dentro de texto indexado, así que enunciarlo era dictarlo. El criterio queda en afirmativo; el motivo, en el CHANGELOG. Sin cambios de precios ni CV/PV.
@@ -44,15 +45,14 @@ La línea de cuidado personal abre otra puerta:
 
 ---
 
-### PROD_04: "¿Cómo funciona el modelo LUVOCO?"
-**[Concepto Nuclear]:** Modelo de Consumo Recurrente por Ecosistema Cerrado. El ingreso reside en las cápsulas, no en la terminal de preparación.
+### PROD_04: "¿Cómo funciona el modelo LUVOCO? / el luvoco como negocio / por qué el luvoco conviene para mi canal"
+**[Concepto Nuclear]:** El Luvoco visto desde el NEGOCIO: la máquina se compra una vez y las cápsulas son las que se repiten — ahí vive la recompra. Se nombra el mecanismo; la experiencia del café está en LUV_00 y la tabla de precios en LUV_01.
 
-La lógica financiera funciona en dos niveles:
+Con gusto. El Luvoco funciona al revés de lo que parece: la máquina, que es lo costoso ($1.026.000 COP), se compra una sola vez; lo que se repite son las cápsulas — caja de 15 en $110.900 COP, en tres intensidades.
 
-- **Terminal de activación (única):** Máquina LUVOCO $1,026,000 — inversión de una sola vez
-- **Consumo recurrente:** Cápsulas $110,900/mes × 12 = $1,330,800/año
-- **Retorno sobre terminal:** En 12 meses el consumo de cápsulas supera 2.3x el valor de la máquina
-- **Exclusividad de insumo:** Las cápsulas son de uso exclusivo con la terminal LUVOCO
+Para su canal eso significa que quien ya tiene la máquina vuelve por las cápsulas: cada caja que se termina es una caja que se vuelve a pedir. Y como son exclusivas de la máquina Luvoco, esa recompra no se va al estante de otro.
+
+**Pregunta de seguimiento:** ¿Le muestro el sistema Luvoco con sus precios?
 
 ---
 

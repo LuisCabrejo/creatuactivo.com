@@ -262,7 +262,7 @@ ganocafe.online/cafe-3en1/index.html
 
 **WhatsApp WABA** — canal operativo. 📄 **Estado de la cuenta de Meta, diagrama del flujo y decisiones en curso → [docs/handoff/queswa/WABA_REFERENCIA.md](docs/handoff/queswa/WABA_REFERENCIA.md)** y [HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md](docs/handoff/queswa/HANDOFF_SESION_CANAL_Y_HOOK_AGO2026.md). **No duplique aquí el estado de Meta** — cambia solo y se desincroniza.
 
-Webhook `/api/whatsapp/webhook` (Node, 30s) → adaptador de canal: extrae número, texto y `referral` de CTWA, inserta el prospecto (`fingerprint: wa_{phone}`), llama a `/api/nexus` con `x-tenant-id: whatsapp`, y responde por Graph API. Prompt `queswa_whatsapp`, fuente `knowledge_base/system-prompt-queswa-whatsapp-v4.md`.
+Webhook `/api/whatsapp/webhook` (Node, 90 s) → adaptador de canal: extrae número, texto y `referral` de CTWA, inserta el prospecto (`fingerprint: wa_{phone}`), llama a `/api/nexus` con `x-tenant-id: whatsapp`, y responde por Graph API. Prompt `queswa_whatsapp`, fuente `knowledge_base/system-prompt-queswa-whatsapp-v4.md`.
 
 **Lo que rompe el canal si se ignora:**
 
@@ -309,11 +309,11 @@ Webhook `/api/whatsapp/webhook` (Node, 30s) → adaptador de canal: extrae núme
 | `arsenal_avanzado` | creatuactivo_marketing + clon | Objeciones complejas, mecánica técnica, cierre y el Método. ⚠️ Cifras del plan INTACTAS |
 | `arsenal_compensacion` | creatuactivo_marketing + clon | Plan de compensación completo. ⚠️ **Cifras, %, GCV, PV/CV, tasas y nombres del plan NO se tocan** — los swaps léxicos son solo de marca. Término "PVP" prohibido |
 | `arsenal_12_niveles` | creatuactivo_marketing + clon | Los 12 Niveles + Kit de Inicio. Activa con "12 niveles" / "kit de inicio" / "2×2" / "duplicación" / "103 millones" / "simulador" |
-| `catalogo_productos` | creatuactivo_marketing + clon | 22 productos, **cada uno con su respuesta propia desde v7.5** (20 ago 2026). Antes faltaban 16: preguntar por el Ganocafé Clásico devolvía la ficha del 3 en 1 —composición, presentación y precio, todo del producto equivocado— y el modelo la presentaba con seguridad. ⚠️ El deseo se construye desde lo **sensorial y el ritual**, nunca desde la salud; de la ficha web se toman los HECHOS y se dejan fuera sus `benefits`, que cruzan la línea roja (*fortalece las defensas*, *protege las células*, *problemas dermatológicos*). ⚠️ **No es fuente confiable de composición ni de categoría** (auditoría 17 ago 2026 contra ganoexcel.com.co): 14 de 22 con discrepancia grave — alérgenos omitidos, cuatro bebidas clasificadas como alimento cuando el fabricante las registra como suplemento dietario, y el disclaimer global falso para 7 de 19. **Antes de citar composición, verificar la ficha oficial.** Los precios y presentaciones sí son válidos: su fuente son las capturas del back office en `public/contexto/capturas/productos/`. Detalle → handoff del 17 ago. PROD_OVERVIEW y las tablas por categoría llevan `<verbatim_lock>` — sin él el modelo alucina nombres y omite categorías |
+| `catalogo_productos` | creatuactivo_marketing + clon | 22 productos, **cada uno con su respuesta propia desde v7.5** (20 ago 2026). Antes faltaban 16: preguntar por el Ganocafé Clásico devolvía la ficha del 3 en 1 —composición, presentación y precio, todo del producto equivocado— y el modelo la presentaba con seguridad. ⚠️ El deseo se construye desde lo **sensorial y el ritual**, nunca desde la salud; de la ficha web se toman los HECHOS —ingredientes, preparación, presentación, precio— y se dejan fuera sus `benefits`. **La página `/sistema/productos` quedó reescrita el 22 ago 2026** (catálogo v7.6): sus 22 declaraciones de órgano, mecanismo celular y prevención llevaban meses publicadas y hoy no queda ninguna; el detalle, en el CHANGELOG. ⚠️ **No es fuente confiable de composición ni de categoría** (auditoría 17 ago 2026 contra ganoexcel.com.co): 14 de 22 con discrepancia grave — alérgenos omitidos, cuatro bebidas clasificadas como alimento cuando el fabricante las registra como suplemento dietario, y el disclaimer global falso para 7 de 19. **Antes de citar composición, verificar la ficha oficial.** Los precios y presentaciones sí son válidos: su fuente son las capturas del back office en `public/contexto/capturas/productos/`. Detalle → handoff del 17 ago. PROD_OVERVIEW y las tablas por categoría llevan `<verbatim_lock>` — sin él el modelo alucina nombres y omite categorías |
 | `arsenal_marca_personal` | marca_personal | Identidad, historia y metodología de Luis Cabrejo — para luiscabrejo.com |
 | `arsenal_ganocafe` | ecommerce | Productos GanoCafe — para ganocafe.online |
 
-⚠️ **Los tenants `creatuactivo_marketing` y `whatsapp` deben tener exactamente los mismos fragmentos.** Todo despliegue termina clonando; si los conteos difieren, algo quedó a medias.
+⚠️ **Los tenants `creatuactivo_marketing`, `whatsapp` y `dashboard` deben tener exactamente los mismos fragmentos.** Todo despliegue termina clonando **a los dos derivados**; si los conteos difieren, algo quedó a medias.
 
 
 **Historial completo de cambios por arsenal** → [knowledge_base/CHANGELOG-arsenales.md](knowledge_base/CHANGELOG-arsenales.md)
@@ -430,7 +430,7 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 | `/api/track/video` | Edge | — | ⚠️ Legacy — las páginas `dia-1..5` de la Auditoría que reportaban aquí fueron eliminadas (jul 2026) |
 | `/api/track/engagement` | Edge | — | Reel engagement tracker — merge **sin retroceder** (`Math.max` numéricos / OR lógico bools) sobre `device_info` vía `update_prospect_data`; dispara webhook Supabase → push en queswa.app. Campos = contrato cerrado con el Dashboard (ver [Reels por Nicho](#reels-por-nicho-fase-orgánica-whatsapp)) |
 | `/api/email-open` | Node | — | Email open pixel tracker |
-| `/api/logo-email` | Edge | — | Logo dinámico (Quiet Luxury) renderizado para emails || `/api/whatsapp/webhook` | Node | 30s | WABA inbound — adaptador de canal WhatsApp → motor `/api/nexus` (ver [Estado integración WABA](#1-nexus-ai-chatbot)) |
+| `/api/logo-email` | Edge | — | Logo dinámico (Quiet Luxury) renderizado para emails || `/api/whatsapp/webhook` | Node | 90s | WABA inbound — adaptador de canal WhatsApp → motor `/api/nexus` (ver [Estado integración WABA](#1-nexus-ai-chatbot)) |
 | `/api/test-resend` | Node | — | Dev/debug only (not for production use) |
 
 **Vercel Cron Schedules** (vercel.json):
@@ -537,6 +537,8 @@ Fallback TTS: ElevenLabs quota/401 -> OpenAI tts-1-hd voz onyx.
 - `nexus_queue` - Async message queue
 - `constructor_slugs` - Mini-landing slugs (slug, display_name, foto_url, frase_personal, whatsapp, constructor_id)
 - `private_users` - Constructor profile data (affiliation_link, profile_photo_url)
+- `wa_mensajes_procesados` - Guarda de reenvíos del webhook (`wamid` = llave primaria). La columna `identidad` guarda los cuatro campos con que Meta identifica a quien escribe
+- `wa_envios_fallidos` - Lo que Meta **acepta con 200 y descarta después**. Única señal de un mensaje que la persona nunca recibió — el log de Vercel se pierde en minutos
 
 **Key RPC Functions**:
 - `identify_prospect()` - Create/update prospect
@@ -716,6 +718,8 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 **RECETA DE DESPLIEGUE DE UN FRAGMENTO — los cinco pasos, siempre los cinco.** El fragmentador **salta** lo que ya existe, así que sin purgar no pasa nada y todo parece bien. Y sin clonar, la web queda actualizada y **WhatsApp no** — que es el canal donde está el tráfico.
 
+⚠️ **Los arsenales viven en TRES tenants, no en dos:** `creatuactivo_marketing` (la web), `whatsapp` (el canal) y `dashboard` (queswa.app, que es **otro repositorio** y se surte de esta misma tabla). La receta nombró solo `whatsapp` durante meses y el resultado se midió el 22 ago 2026: a `dashboard` le faltaban **los 16 productos** que el catálogo ganó en la v7.5 — justo los que existen para que preguntar por el Ganocafé Clásico no devuelva la ficha del 3 en 1. La deriva no avisa; solo aparece cuando alguien recibe el precio del producto vecino.
+
 ```bash
 # 1. editar el .txt   →   2. subir el documento padre
 node scripts/deploy-arsenal-inicial.mjs
@@ -726,13 +730,22 @@ node scripts/sql.mjs -e "delete from nexus_documents where category='arsenal_ini
 # 4. regenerar con embedding Voyage
 node scripts/fragmentar-arsenales-voyage.mjs
 
-# 5. clonar al tenant whatsapp — NUNCA se omite
+# 5. clonar a los DOS tenants derivados — NUNCA se omite ninguno
 node scripts/sql.mjs -e "insert into nexus_documents (category, title, content, embedding_512, tenant_id, metadata)
-select category, title, content, embedding_512, 'whatsapp', metadata || '{\"cloned_from\":\"creatuactivo_marketing\"}'::jsonb
-from nexus_documents where tenant_id='creatuactivo_marketing' and category='arsenal_inicial_XXX'"
+select d.category, d.title, d.content, d.embedding_512, t.tenant,
+       d.metadata || '{\"cloned_from\":\"creatuactivo_marketing\"}'::jsonb
+from nexus_documents d
+cross join (values ('whatsapp'), ('dashboard')) as t(tenant)
+where d.tenant_id='creatuactivo_marketing' and d.category='arsenal_inicial_XXX'"
+
+# 6. comprobar que los tres quedaron iguales
+node scripts/sql.mjs -e "select tenant_id, count(*) from nexus_documents
+where (metadata->>'is_fragment')::boolean is true group by 1 order by 2 desc"
 ```
 
-**Verificar con un `content like` sobre lo que entró Y sobre lo que debía salir, en los dos tenants** — comprobar solo lo nuevo deja pasar los residuos. Después `node scripts/auditar-frases-vetadas.mjs`. Si el fragmento es de **doble fuente**, sincronizar antes `src/lib/respuestas-maestras.ts` y confirmar longitudes idénticas.
+⚠️ El `delete` del paso 3 **no filtra por tenant a propósito**: borra esa categoría en los tres de una vez, que es justo lo que hace falta antes de volver a clonar.
+
+**Verificar con un `content like` sobre lo que entró Y sobre lo que debía salir, en los tres tenants** — comprobar solo lo nuevo deja pasar los residuos. Después `node scripts/auditar-frases-vetadas.mjs`. Si el fragmento es de **doble fuente**, sincronizar antes `src/lib/respuestas-maestras.ts` y confirmar longitudes idénticas.
 
 **Patrón validado para purgar (24 May 2026, v5.4 deploy):**
 
@@ -893,7 +906,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 - `ciclos-gano.ts` - **El ciclo de pago se calcula, no se recuerda**: ancla (ciclo 924 = 17–23 ago 2026, pagado el 4 de septiembre) + aritmética de semanas en calendario Bogotá. `respuestaCiclo()` la dicta el motor ante cualquier mensaje con «ciclo». Una tabla escrita se congela — COMP_PV_03 imprimía ciclos de enero de 2025 en el chat
 - `wa-simulador.ts` - Responde el escenario que la persona armó en el Flow con SU cifra, calculada con las mismas tablas del Flow. El motor dictaba un ejemplo fijo al 17% a quien había elegido 16%
 - `wa-radicacion.ts` - **Cierre de WhatsApp** — nodo determinístico que pide los **cuatro datos** (nombre completo · cédula · ciudad · paquete) en **un solo mensaje** y radica contra `POST {DASHBOARD_URL}/api/pre-afiliacion` (auth `x-wa-bridge-secret`; escribe en `pending_activations` y dispara plantilla `pre_afiliacion_nueva` al socio + al equipo). Se invoca desde el webhook **antes** de llamar al motor. Extracción con Haiku (nunca lanza; ante fallo vuelve a pedir). ⚠️ El texto de `pedirDatos()` coincide a propósito con el bloque de cierre del system prompt `queswa_whatsapp` — es la red de respaldo si el detector de volición no dispara; **editar uno obliga a editar el otro**
-- `wa-guardarrail-salud.ts` - **Filtro de salud del canal** (v2, 17 ago 2026): Capa 0 de emergencia → línea 123 · derivación de entrada · validación de salida que **descarta y reemplaza el borrador, nunca lo corrige ni reintenta**. ⚠️ Calibrado sobre la línea roja **verificada** (INVIMA/SIC · Meta · FDA/FTC): bloquea enfermedad, adelgazamiento —el disparador nº1 de sanción de la SIC—, ciencia citada, mecanismo y clases farmacológicas; **deja pasar** energía, vitalidad, antioxidante, adaptógeno y *"apoya el sistema inmune"*, que el propio fabricante usa y ninguna sanción del período castigó. Investigación → `docs/investigaciones/resultados/CRUCE_INVESTIGACIONES_VOCABULARIO_AGO2026.md` y `INVIMA_PROCLAMAS_APROBADAS_SEPFSD.md` (163 declaraciones oficiales, descifradas de un PDF ilegible)
+- `wa-guardarrail-salud.ts` - **Filtro de salud del canal** (v2, 17 ago 2026): Capa 0 de emergencia → línea 123 · derivación de entrada · validación de salida que **descarta y reemplaza el borrador, nunca lo corrige ni reintenta**. ⚠️ Calibrado sobre la línea roja **verificada** (INVIMA/SIC · Meta · FDA/FTC): bloquea enfermedad, adelgazamiento —el disparador nº1 de sanción de la SIC—, ciencia citada, mecanismo y clases farmacológicas; y, desde el **22 ago 2026, la declaración de órgano** (circulación, riñones, pulmones, cerebro, función sexual): INVIMA solo la aprueba como *"contribuye al funcionamiento **normal** de X"*, y su catálogo cubre nutrientes —no menciona Ganoderma ni una vez—. **Deja pasar** energía, vitalidad, antioxidante, adaptógeno y *"apoya el sistema inmune"*, que el propio fabricante usa y ninguna sanción del período castigó, y **las articulaciones**, porque el colágeno sí tiene declaración aprobada (Acta 10 de 2017). Investigación → `docs/investigaciones/resultados/CRUCE_INVESTIGACIONES_VOCABULARIO_AGO2026.md` y `INVIMA_PROCLAMAS_APROBADAS_SEPFSD.md` (163 declaraciones oficiales, descifradas de un PDF ilegible)
 - `wa-guardarrail-negocio.ts` - **Filtro de promesa de ingreso** (17 ago 2026). ⚠️ **Los patrones exigen CONJUNCIÓN, no palabras sueltas** —dinero+tiempo, dinero+garantía, comisión+personas— porque varias tienen uso legítimo: la durabilidad es cierta en FREQ_05 donde el activo se hereda, las cifras del plan son correctas cuando las dicta un pin, y *"cada viernes"* es un hecho. Backtest sobre 400 respuestas reales: habría bloqueado 33
 - `wa-onboarding.ts` - **Onboarding del socio nuevo por WhatsApp**: comando `ACTIVAR`, enlace de canal, avisos de actividad, y **`identificarSocio()` + `saludoDeSocio()`** — el canal atiende a socios y prospectos por el mismo número, y hasta el 17 ago 2026 no los distinguía: el socio recibía la apertura de prospecto y Queswa se presentaba ante él como *"la asistente de [él mismo]"*. La detección es **determinística** (su teléfono contra `constructor_slugs`, comparando **normalizado en ambos lados** — están guardados con `+`, con espacios y con cero inicial, así que `.eq()` contra la columna cruda no encuentra a nadie). Activa el `pageContext` **`whatsapp_socio`** → **MODO SOCIO** en `getPageContextInstructions()` del motor: se le habla como colega, no se le vuelve a vender lo que ya compró, y se le responde el plan completo porque lo necesita para atender a los suyos. ⚠️ `constructor_id` **NO es un UUID** sino la llave de texto que comparte con el Dashboard; y el enlace es **`/{slug}/queswa`**, nunca `/{slug}` —esa página no existe y da 404— porque además valida el slug antes de redirigir. Ver el handoff del 17 ago
 - `query-rewrite.ts` - **CQR (reescritura conversacional de la consulta)** — colapsa el hilo en una consulta autónoma antes del vector search. Ver [PASO -2](#1-nexus-ai-chatbot). Hoy activo **solo en tenant `whatsapp`**; nunca lanza (ante fallo devuelve el mensaje original)
@@ -973,7 +986,6 @@ Inventario centralizado de código y rutas legacy. Cada ítem mantiene su nota d
 | `/reto-5-dias/*` · `/mapa-de-salida/*` · `/auditoria-confirmada` · `/empresa-digital/*` · `/diagnostico` · `/confirmacion` | ✅ Eliminadas (jul 2026, `ca6ff59`) | Funnel muerto retirado — páginas + redirects borrados; URLs viejas del funnel → Home (301) |
 | `/api/fundadores/registro-diciembre` | Legacy | Registro Diciembre — reemplazado por flujo Founder actual |
 | `/api/test-resend`, `/api/test-reto-email` | Dev only | No para producción |
-| `src/app/api/webhooks/` | Directorio **vacío** | Quedó de la purga del funnel (`ca6ff59`) — ya no contiene `route.ts`. Seguro de borrar |
 | `scripts/actualizar-system-prompt-whatsapp-v1.mjs` | Legacy | El vigente es `...-whatsapp-v4.mjs`. El `-v3.mjs` ya no existe |
 | `*.tsx.bak` | Respaldos inactivos | Nunca editar |
 
@@ -1012,8 +1024,8 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 **Handoff & Context**:
 - ⭐ [docs/handoff/queswa/HANDOFF_UX_CANAL_18AGO2026.md](docs/handoff/queswa/HANDOFF_UX_CANAL_18AGO2026.md) — **el más reciente (18-20 ago): empiece aquí.** La experiencia de usuario del canal: acuse de lectura y «escribiendo…», el webhook que responde a Meta antes de trabajar, las fotos de producto, los ciclos de pago calculados, las puertas directas, y las cuatro pruebas automáticas con lo que cada una ve y lo que NO ve
-- ⭐ [docs/handoff/queswa/HANDOFF_CANAL_17AGO2026.md](docs/handoff/queswa/HANDOFF_CANAL_17AGO2026.md) — **el más reciente: empiece aquí.** Los dos guardarraíles de salida (salud y negocio) con su criterio de calibración, el onboarding del socio por WhatsApp (comando ACTIVAR, plantilla aprobada, avisos), las trece respuestas reescritas, **los cuatro pendientes documentados a propósito** (guardarraíl solo en el webhook · arsenal_ganocafe · SUP_01 · auditoría del catálogo con alérgenos omitidos) y las cuatro lecciones que costaron errores: la cabecera que dicta lo que nombra, los disparadores que no abren puertas en fragmentos largos, el script de medición que medía mal, y por qué una decisión citada en un handoff ajeno es un reporte y no una regla
-- ⭐ [docs/handoff/queswa/HANDOFF_CANAL_PRODUCCION_14AGO2026.md](docs/handoff/queswa/HANDOFF_CANAL_PRODUCCION_14AGO2026.md) — **empiece aquí si va a tocar el motor o el canal de WhatsApp.** Estado al salir a producción: qué cambió en route.ts (y por qué no se revierte), la prueba de 5 puntos que el Director está corriendo, el arreglo del Flow del simulador, los pendientes en orden, y la lección de la sesión: tres pruebas fallaron por ENRUTAMIENTO, nunca por copy — verificar qué llegó al contexto antes de reescribir nada
+- ⭐ [docs/handoff/queswa/HANDOFF_CANAL_17AGO2026.md](docs/handoff/queswa/HANDOFF_CANAL_17AGO2026.md) — **el de los guardarraíles.** Los dos guardarraíles de salida (salud y negocio) con su criterio de calibración, el onboarding del socio por WhatsApp (comando ACTIVAR, plantilla aprobada, avisos), las trece respuestas reescritas, **los cuatro pendientes documentados a propósito** (guardarraíl solo en el webhook · arsenal_ganocafe · SUP_01 · auditoría del catálogo con alérgenos omitidos) y las cuatro lecciones que costaron errores: la cabecera que dicta lo que nombra, los disparadores que no abren puertas en fragmentos largos, el script de medición que medía mal, y por qué una decisión citada en un handoff ajeno es un reporte y no una regla
+- ⭐ [docs/handoff/queswa/HANDOFF_CANAL_PRODUCCION_14AGO2026.md](docs/handoff/queswa/HANDOFF_CANAL_PRODUCCION_14AGO2026.md) — **el de la salida a producción.** Estado al salir a producción: qué cambió en route.ts (y por qué no se revierte), la prueba de 5 puntos que el Director está corriendo, el arreglo del Flow del simulador, los pendientes en orden, y la lección de la sesión: tres pruebas fallaron por ENRUTAMIENTO, nunca por copy — verificar qué llegó al contexto antes de reescribir nada
 - ⭐ [docs/handoff/queswa/HANDOFF_ARSENAL_Y_LANZAMIENTO_AGO2026.md](docs/handoff/queswa/HANDOFF_ARSENAL_Y_LANZAMIENTO_AGO2026.md) — **empiece aquí si va a tocar el arsenal.** Estado de la revisión respuesta por respuesta (30 hechas, 3 eliminadas, ~27 pendientes), las 6 pruebas del canal con lo que debe responder cada una, y cómo medir la recuperación con Voyage antes de tocar un disparador
 - [HANDOFF_CONTEXTO_COMPLETO.md](HANDOFF_CONTEXTO_COMPLETO.md) - Complete business context for onboarding
 - [HANDOFF_QUESWA_TECNICO.md](HANDOFF_QUESWA_TECNICO.md) - Technical handoff for Queswa chatbot
@@ -1045,7 +1057,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 ## Utility Scripts
 
-**Location**: `scripts/` directory (~48 scripts). La mayoría requiere variables de `.env.local`; corre `ls scripts/` para la lista completa. Abajo solo los que llevan gotcha o no son auto-descriptivos.
+**Location**: `scripts/` directory (`ls scripts/ | wc -l` para el conteo — no se escribe aquí, envejece solo). La mayoría requiere variables de `.env.local`; corre `ls scripts/` para la lista completa. Abajo solo los que llevan gotcha o no son auto-descriptivos.
 
 **NEXUS System Prompt**: `leer-system-prompt.mjs` (lee de Supabase — **no asumir local = DB**) · `descargar-system-prompt.mjs`. `actualizar-system-prompt-v27.2.mjs` despliega la versión indicada en su `VERSION_LABEL`; ⚠️ el script y el archivo conservan el **nombre legacy `v27.2`/`v27_2`**. Historial → `CHANGELOG-system-prompts.md`.
 

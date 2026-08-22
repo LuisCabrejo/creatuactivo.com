@@ -1393,7 +1393,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
 
     // ─── Cronómetro del turno ─────────────────────────────────────────────────
     // Una línea por turno con el total y cuánto de eso fue el motor. El techo
-    // de la función son 30 s (`maxDuration`): pasado eso Vercel la mata y la
+    // de la función lo fija `maxDuration`: pasado eso Vercel la mata y la
     // persona, que ya vio "escribiendo…", no recibe nada y el turno no se
     // guarda. Un turno que pasa de 20 s se marca para que se vea venir.
     const msTotal = Date.now() - t0;

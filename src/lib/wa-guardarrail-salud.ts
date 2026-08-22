@@ -152,6 +152,18 @@ export const RE_CLAIM_SALIDA: RegExp[] = [
   /(defensas|inmun[a-z]*|sistema inmune)[^.]{0,40}(virus|infeccion|bacteria|patogen|gripa|covid|resistir)|resistir (infecciones|enfermedades)/,
   // Testimonios de enfermedad y segunda persona + condición
   /muchas personas (con|que sufren)|en tratamiento oncologico|le ha servido para (el|la)|lo toman para (el|la) dolor|mas recomendado (para|en) (ese|esos) (tema|casos)|si (usted )?(sufre|padece) de|(sufre|padece) usted de/,
+  // Órgano o sistema con verbo de mejora. INVIMA solo aprueba esta forma como
+  // "contribuye al funcionamiento NORMAL de X", y su catálogo cubre nutrientes
+  // —vitaminas, minerales, colágeno—: no menciona Ganoderma ni una vez. Hueco
+  // encontrado el 22 ago 2026 auditando el catálogo web, donde 22 declaraciones
+  // de este tipo llevaban meses publicadas y el guardarraíl dejaba pasar todas.
+  // ⚠️ El sistema INMUNE se deja fuera a propósito: "apoya las defensas" es la
+  // práctica de mercado que el propio fabricante usa y que ninguna sanción del
+  // período castigó. Las articulaciones también, porque el colágeno SÍ tiene
+  // declaración aprobada (Acta 10 de 2017).
+  /(mejor|fortalec|estimul|proteg|regener|regul|restaur|optimiz)[a-z]*[^.]{0,30}\b(circulacion|cardiovascular|corazon|rinones|pulmones|respiratori|higado|cerebr|memoria|oxigenacion|celulas|prostata|tiroides|funcion sexual|libido)/,
+  /(apoya|favorece|promueve|contribuye a|ayuda a)[^.]{0,35}\b(la salud|el funcionamiento|la funcion|el desarrollo)\b[^.]{0,30}\b(cerebr|corazon|circulator|cardiovascular|respiratori|digestiv|nervios|renal|rinones|higado|pulmon|huesos|sexual)/,
+  /tonico para el cerebro|oxigenacion celular|regeneracion celular|desintoxicacion (natural|del organismo)|efecto detox/,
   // Plazos y resultados clínicos prometidos
   /(resultados?|mejoria|mejoras?|cambios?|efectos?) (visibles |notables )?(en|a los|a las) \d+ (dias|semanas|meses)/,
 ];

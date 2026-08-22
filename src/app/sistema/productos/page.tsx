@@ -179,7 +179,7 @@ const productData: ProductData = {
     taglineEstrategico: 'El latte que merece cada pausa',
     usage: 'Disuelve 1 sobre (25g) en 180ml de agua caliente',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Café premium', 'Leche en polvo', 'Cremora natural'],
-    benefits: ['Disfrute de una experiencia de café latte premium', 'Textura espumosa y cremosa que deleita sus sentidos', 'Un gusto enriquecido para su bienestar', 'Contribuye a un sistema digestivo saludable', 'Aporta una sensación de confort y relajación', 'Sin endulzante'],
+    benefits: ['Disfrute de una experiencia de café latte premium', 'Textura espumosa y cremosa que deleita sus sentidos', 'Un gusto enriquecido para su bienestar', 'Suave al paladar, sin el amargo del tinto cargado', 'Aporta una sensación de confort y relajación', 'Sin endulzante'],
     perfilIdeal: 'Amantes del café con leche que buscan una experiencia gourmet saludable',
     momentoConsumo: 'Perfecto para media mañana o como postre después del almuerzo',
     puntosConversacion: [
@@ -221,7 +221,7 @@ const productData: ProductData = {
     taglineEstrategico: 'El chocolate que nutre mientras deleita',
     usage: 'Disuelve 1 sobre (25g) en 180ml de agua caliente o leche',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Cacao premium', 'Leche en polvo', 'Azúcar natural', 'Saborizante de chocolate'],
-    benefits: ['Chocolate nutritivo y delicioso para toda la familia', 'Bebida reconfortante para momentos de relajación', 'Apoya el bienestar general de forma placentera', 'Contribuye al desarrollo de huesos fuertes', 'Una opción inteligente para antojos de dulce', 'Sin endulzante'],
+    benefits: ['Chocolate nutritivo y delicioso para toda la familia', 'Bebida reconfortante para momentos de relajación', 'Apoya el bienestar general de forma placentera', 'El chocolate de la tarde, ahora con Ganoderma', 'Una opción inteligente para antojos de dulce', 'Sin endulzante'],
     perfilIdeal: 'Familias que buscan opciones nutritivas que los niños disfruten',
     momentoConsumo: 'Perfecto para las noches, meriendas o momentos familiares',
     puntosConversacion: [
@@ -242,7 +242,7 @@ const productData: ProductData = {
     taglineEstrategico: 'El desayuno que alimenta su día',
     usage: 'Mezcla 2 cucharadas (30g) con leche, yogur o agua',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Spirulina orgánica', 'Cereales integrales', 'Fibra natural', 'Vitaminas y minerales'],
-    benefits: ['Alto contenido de fibra para la salud digestiva', 'Excelente fuente de proteína vegetal', 'Promueve una nutrición completa y balanceada', 'Rico en vitaminas y minerales esenciales', 'Apoya la desintoxicación natural del organismo'],
+    benefits: ['Alto contenido de fibra para la salud digestiva', 'Excelente fuente de proteína vegetal', 'Promueve una nutrición completa y balanceada', 'Rico en vitaminas y minerales esenciales', 'Una porción rinde como un desayuno completo'],
     perfilIdeal: 'Deportistas y personas conscientes de su nutrición',
     momentoConsumo: 'Ideal para desayunos nutritivos o post-entrenamiento',
     puntosConversacion: [
@@ -263,7 +263,7 @@ const productData: ProductData = {
     taglineEstrategico: 'La calma productiva en cada sorbo',
     usage: 'Disuelve 1 sobre en agua caliente y deja reposar 3-5 minutos',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Té Rooibos orgánico', 'Antioxidantes naturales', 'Sabor natural'],
-    benefits: ['Bebida relajante para un descanso reparador', 'Naturalmente libre de cafeína', 'Rico en antioxidantes que combaten el estrés oxidativo', 'Apoya la salud del sistema nervioso', 'Contribuye a una correcta hidratación'],
+    benefits: ['Bebida relajante para un descanso reparador', 'Naturalmente libre de cafeína', 'Rico en antioxidantes naturales del rooibos', 'La taza de la noche, la que no le quita el sueño', 'Contribuye a una correcta hidratación'],
     perfilIdeal: 'Personas que buscan relajación sin somnolencia',
     momentoConsumo: 'Perfecto para las tardes o antes de dormir',
     puntosConversacion: [
@@ -284,7 +284,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Chocolate suizo elevado con ciencia oriental',
     usage: 'Disuelve 1 sobre en agua caliente',
     ingredients: ['Extracto concentrado de Ganoderma Lucidum', 'Cacao puro', 'Azúcar'],
-    benefits: ['Ofrece apoyo nutricional con delicioso sabor', 'Fórmula concentrada con extracto de Ganoderma', 'Ayuda a mejorar la circulación y salud cardiovascular', 'Contribuye a un estado de ánimo equilibrado', 'Fácil y rápido de preparar'],
+    benefits: ['Ofrece apoyo nutricional con delicioso sabor', 'Fórmula concentrada con extracto de Ganoderma', 'Cacao de sabor intenso, en sobre individual', 'Contribuye a un estado de ánimo equilibrado', 'Fácil y rápido de preparar'],
     perfilIdeal: 'Conocedores del chocolate que valoran la calidad premium',
     momentoConsumo: 'Cualquier momento que requiera un toque de lujo y nutrición',
     puntosConversacion: [
@@ -306,7 +306,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Colágeno + Ganoderma para su piel radiante',
     usage: 'Disuelve 1 sobre en agua fría o al tiempo',
     ingredients: ['Colágeno marino', 'Gano Plus', 'Vitamina C', 'Sabor natural a frutas'],
-    benefits: ['Apoya la elasticidad y firmeza de la piel', 'Fortalece el cabello y las uñas', 'Contribuye a una apariencia más juvenil', 'Ayuda a mantener la salud de articulaciones', 'Fórmula única con Colágeno y Gano Plus'],
+    benefits: ['Apoya la elasticidad y firmeza de la piel', 'Fortalece el cabello y las uñas', 'Contribuye a una apariencia más juvenil', 'El consumo regular de colágeno, junto con una dieta balanceada y actividad física, puede contribuir a una adecuada salud articular', 'Fórmula única con Colágeno y Gano Plus'],
     perfilIdeal: 'Personas que buscan resultados anti-edad sin procedimientos invasivos',
     momentoConsumo: 'Tomar diariamente en ayunas para máxima efectividad',
     puntosConversacion: [
@@ -327,7 +327,7 @@ const productData: ProductData = {
     taglineEstrategico: 'La esencia pura del Rey de las Hierbas',
     usage: 'Tomar 2 cápsulas al día con agua',
     ingredients: ['Extracto concentrado de Ganoderma Lucidum', 'Cápsula vegetal', 'Betaglucanos', 'Triterpenos', 'Polisacáridos'],
-    benefits: ['Fortalece las defensas naturales del cuerpo', 'Potente acción antioxidante que protege las células', 'Promueve el bienestar general y el equilibrio', 'Apoya la salud del sistema circulatorio', 'Actúa como un adaptógeno natural'],
+    benefits: ['El extracto de Ganoderma en su forma más concentrada', 'Aporte antioxidante en dos cápsulas al día', 'Promueve el bienestar general y el equilibrio', 'Sin sabor ni preparación: se lleva a donde vaya', 'Actúa como un adaptógeno natural'],
     perfilIdeal: 'Personas que buscan máxima potencia en suplementación',
     momentoConsumo: 'Tomar con el desayuno y la cena para absorción óptima',
     puntosConversacion: [
@@ -348,7 +348,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Claridad mental para su día a día',
     usage: 'Tomar 1-2 cápsulas al día con agua',
     ingredients: ['Extracto de micelio de Ganoderma', 'Germanio orgánico', 'Cápsula vegetal', 'Aminoácidos esenciales'],
-    benefits: ['Apoya la función cerebral, memoria y concentración', 'Conocido como el "tónico para el cerebro"', 'Ayuda a mantener un sistema nervioso saludable', 'Promueve una óptima oxigenación celular', 'Contribuye al desarrollo y función del cerebro'],
+    benefits: ['Pensado para las jornadas largas de escritorio', 'Fórmula concentrada en cápsula, de toma diaria', 'Una o dos cápsulas al día, con agua', 'Se acompaña bien con el café de la mañana', 'Aporta energía sostenida durante el día'],
     perfilIdeal: 'Personas conscientes de su salud, memoria y claridad mental',
     momentoConsumo: 'Tomar en la mañana para máximo rendimiento cognitivo',
     puntosConversacion: [
@@ -369,7 +369,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Energía de atleta, resistencia de campeón',
     usage: 'Tomar 2 cápsulas al día',
     ingredients: ['Extracto de Cordyceps sinensis', 'Cápsula vegetal', 'Adenosina', 'Polisacáridos bioactivos'],
-    benefits: ['Aumenta la energía, resistencia y rendimiento físico', 'Apoya la salud del sistema respiratorio y pulmones', 'Contribuye al buen funcionamiento de los riñones', 'Mejora la vitalidad y apoya la función sexual', 'Ayuda a regular el estrés y la fatiga crónica'],
+    benefits: ['Aumenta la energía, resistencia y rendimiento físico', 'Cordyceps, el hongo de los deportistas de altura', 'Pensado para quien entrena o hace trabajo físico', 'Aporta vitalidad a lo largo del día', 'Para los días exigentes, sin el bajón del exceso de café'],
     perfilIdeal: 'Personas activas que valoran su energía, vitalidad y bienestar general',
     momentoConsumo: 'Tomar 30 minutos antes del ejercicio o actividad física',
     puntosConversacion: [
@@ -390,7 +390,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Sonrisas naturalmente brillantes',
     usage: 'Usar como pasta dental regular',
     ingredients: ['Extracto de Ganoderma Lucidum', 'Aceites esenciales naturales', 'Agentes limpiadores suaves', 'Sin flúor'],
-    benefits: ['Promueve la salud integral de dientes y encías', 'Proporciona un aliento fresco y duradero', 'Fórmula suave, sin flúor, ideal para toda la familia', 'Ayuda a prevenir la formación de placa', 'Contribuye a calmar la sensibilidad dental'],
+    benefits: ['Sin flúor: no aparece en su lista de ingredientes', 'Proporciona un aliento fresco y duradero', 'Crema dental con Ganoderma, apta para toda la familia', 'Espuma suave: rinde con muy poca cantidad', 'Sabor a menta natural, sin ardor'],
     perfilIdeal: 'Familias conscientes que buscan alternativas naturales',
     momentoConsumo: 'Uso diario, mínimo 2 veces al día',
     puntosConversacion: [
@@ -495,7 +495,7 @@ const productData: ProductData = {
     taglineEstrategico: 'Renovación celular para una piel radiante',
     usage: 'Aplicar sobre piel húmeda con movimientos circulares suaves',
     ingredients: ['Partículas exfoliantes naturales', 'Aceites hidratantes', 'Vitaminas E y C', 'Extractos vegetales', 'Agentes humectantes'],
-    benefits: ['Elimina eficazmente impurezas y células muertas', 'Renueva y suaviza la textura de la piel', 'Deja la piel con una apariencia luminosa', 'Estimula la circulación y regeneración celular', 'Prepara la piel para una mejor hidratación'],
+    benefits: ['Elimina eficazmente impurezas y células muertas', 'Renueva y suaviza la textura de la piel', 'Deja la piel con una apariencia luminosa', 'Grano fino que no raspa la piel', 'Prepara la piel para una mejor hidratación'],
     perfilIdeal: 'Personas que buscan una piel suave y renovada',
     momentoConsumo: 'Usar 2-3 veces por semana antes del baño',
     puntosConversacion: [

@@ -30,7 +30,10 @@ import {
 import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
-import { pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto } from '@/lib/wa-productos';
+import {
+  pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
+  detectarFamilia, familiaOfrecida, preguntoCualLinea, esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
+} from '@/lib/wa-productos';
 import {
   slugDesdeNombre,
   normalizarWhatsApp,
@@ -934,7 +937,41 @@ async function procesarEntrante(body: any): Promise<void> {
     // y cuánto cuesta"), sigue al motor y se le avisa por el pageContext que la
     // imagen ya está entregada.
     let fotoEnviada: string | null = null;
-    if (pideImagen(messageText)) {
+
+    // ─── 2.25a La foto de una LÍNEA o del portafolio ─────────────────────────
+    // Tres formas de pedirla: nombrándola con palabra de imagen ("muéstreme las
+    // bebidas", "foto de todos los productos"), aceptando la oferta con la que
+    // el bot cerró el turno anterior ("¿le muestro las demás bebidas?" → "sí"),
+    // o nombrando una línea cuando el pie del portafolio preguntó cuál acercar.
+    // Va ANTES que la foto de producto: "las cápsulas" en plural es la línea;
+    // "las cápsulas de ganoderma" es el producto, y el patrón lo distingue.
+    const _ultimoBotFoto = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
+    const _familiaAceptada = familiaOfrecida(_ultimoBotFoto);
+    const familia = (_familiaAceptada && esAceptacionCorta(messageText)) ? _familiaAceptada
+      : (preguntoCualLinea(_ultimoBotFoto) && detectarFamilia(messageText)) ? detectarFamilia(messageText)
+      : (pideImagen(messageText) && !detectarProducto(messageText)) ? detectarFamilia(messageText)
+      : null;
+    if (familia) {
+      const vieneDeOferta = familia === _familiaAceptada || preguntoCualLinea(_ultimoBotFoto);
+      const soloFoto = vieneDeOferta || esSoloPedidoDeImagen(messageText);
+      const pie = pieDeFotoFamilia(familia, soloFoto ? FAMILIAS_WA[familia].seguimiento : undefined);
+      await pisoDeEscritura();
+      const enviada = await sendImage(phoneNumber, urlImagenFamilia(familia), pie);
+      if (enviada.ok) {
+        fotoEnviada = FAMILIAS_WA[familia].titulo;
+        console.log(`📷 [WA Webhook] Foto de la familia ${familia} enviada a ${phoneNumber}`);
+        if (soloFoto) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, pie);
+          console.log('📷 [WA Webhook] Turno cerrado sin motor');
+          return;
+        }
+      } else {
+        console.warn(`⚠️ [WA Webhook] Foto de la familia ${familia} no se pudo enviar: ${enviada.error}`);
+      }
+    }
+
+    // ─── 2.25b La foto de UN producto ────────────────────────────────────────
+    if (!familia && pideImagen(messageText)) {
       // "dame una imagen" a secas es la forma normal de pedirla cuando ya se
       // venía hablando de un producto: si el mensaje no lo nombra, se toma del
       // hilo (prueba del 20 ago — caía al motor y respondía que no podía).

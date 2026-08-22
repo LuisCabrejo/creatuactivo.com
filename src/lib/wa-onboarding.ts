@@ -119,8 +119,14 @@ export function enlaceDeCanal(slug: string): string {
  */
 export function pideEnlaceCatalogo(texto: string): boolean {
   const t = texto.toLowerCase();
+  // "Catálogo" a secas ya es la página: quien dice catálogo quiere mirarlo
+  // completo y, si algo le gusta, comprarlo ahí — eso es el enlace con el ref
+  // del socio, no una foto (decisión del Director, 22 ago 2026). La foto de
+  // una línea o del portafolio se pide con "muéstreme / foto de las bebidas /
+  // de todos los productos", y esa va por wa-productos.ts.
+  if (/cat[aá]logo/.test(t)) return true;
   const medio  = /enlace|link|url|p[aá]gina|sitio|web\b|creatuactivo/.test(t);
-  const objeto = /producto|cat[aá]logo/.test(t);
+  const objeto = /producto/.test(t);
   return medio && objeto;
 }
 

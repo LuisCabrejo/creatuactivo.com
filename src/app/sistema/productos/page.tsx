@@ -510,7 +510,7 @@ const productData: ProductData = {
   'maquina-luvoco': {
     name: 'MÁQUINA DE CAFÉ LUVOCO',
     price: 1026000,
-    image: '/productos/luvoco/maquina-luvoco-gano-excel-min.png',
+    image: '/productos/luvoco/luvoco55-1-1024x1024.png',
     invima: 'Certificado CE - Dispositivo',
     goals: ['Comodidad', 'Calidad'],
     shortDescription: 'Máquina de café premium Luvoco con tecnología de bomba de 15 bares y sistema de 2 pasos. Diseño compacto y elegante, eficiencia energética automática.',

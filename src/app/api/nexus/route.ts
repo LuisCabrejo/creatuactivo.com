@@ -4599,12 +4599,13 @@ explicar el modelo completo antes de contestar: eso llega si lo piden.`;
         return `
 📷 LA FOTO YA SE ENVIÓ EN ESTE TURNO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-La persona ya recibió la imagen del producto, con su nombre, presentación,
-precio y registro sanitario. NUNCA diga que no puede enviar imágenes ni la
-derivemos al socio o al catálogo para verlas.
+La persona ya recibió la imagen —del producto, con su nombre, presentación,
+precio y registro sanitario; o de la línea completa, con la lista y sus
+precios en el pie. NUNCA diga que no puede enviar imágenes ni la derivemos al
+socio o al catálogo para verlas.
 
-Responda lo OTRO que preguntó en su mensaje, y cierre sobre ESE mismo producto —
-no sobre otro.`;
+Responda lo OTRO que preguntó en su mensaje, y cierre sobre ESE mismo producto
+o esa misma línea — no sobre otro.`;
       }
 
       // Quien escribe es DUEÑO de un canal, no candidato a tenerlo. Lo detecta el

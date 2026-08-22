@@ -209,7 +209,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     precioCOP: 1026000,
     presentacion: '',
     invima: 'Certificado CE - Dispositivo',
-    imagen: '/productos/luvoco/maquina-luvoco-gano-excel-min.png',
+    imagen: '/productos/luvoco/luvoco55-1-1024x1024.png',
     alias: ['maquina luvoco', 'cafetera', 'maquina de cafe', 'luvoco maquina'],
   },
   {
@@ -417,4 +417,127 @@ export function seguimientoFoto(p: ProductoWA, yaExplicado: boolean): string {
  */
 export function urlImagen(p: ProductoWA, base = 'https://creatuactivo.com'): string {
   return `${base}/productos/compuestas/${p.slug}.jpg`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FAMILIAS — la foto de una línea entera, o del portafolio completo
+// ═══════════════════════════════════════════════════════════════════════════
+//
+// Las cinco imágenes de familia viven junto a las individuales en
+// `public/productos/compuestas/` (las genera `scripts/componer-imagenes-
+// categoria.mjs`): una por categoría y `portafolio.jpg` con los 22 sobre tres
+// estantes. Se envían cuando la persona pide VER la línea —"muéstreme las
+// bebidas", "foto de todos los productos"— o cuando acepta la oferta con la que
+// cerró el turno anterior ("¿le muestro las demás bebidas de la línea?" → "sí").
+//
+// ⚠️ No confundir con el CATÁLOGO: quien pide "el catálogo" o "la página de
+// productos" recibe el ENLACE con el ref del socio (`pideEnlaceCatalogo` en
+// wa-onboarding.ts, que el webhook evalúa antes que esto). La imagen es para
+// mirar en el chat; el catálogo es para comprar.
+
+export type FamiliaWA = 'bebidas' | 'suplementos' | 'cuidado-personal' | 'luvoco' | 'portafolio';
+
+interface FamiliaDef {
+  titulo: string;
+  /** Nombre del archivo en /productos/compuestas/ (sin extensión). */
+  archivo: string;
+  /** Categoría de la ruta de imagen de los productos que la componen; null = todos. */
+  categoria: string | null;
+  /** Cómo la nombra la persona (en colectivo: plural, "línea", "todos"). */
+  patron: RegExp;
+  /** Cómo la ofrece el bot al cerrar un turno; una aceptación corta la dispara. */
+  ofrecida: RegExp | null;
+  /** La pregunta que cierra el pie cuando el mensaje pidió SOLO la foto. */
+  seguimiento: string;
+}
+
+export const FAMILIAS_WA: Record<FamiliaWA, FamiliaDef> = {
+  // El orden importa: las específicas antes que el portafolio.
+  luvoco: {
+    titulo: 'Luvoco', archivo: 'categoria-luvoco', categoria: 'luvoco',
+    // "la máquina luvoco" es el producto (la máquina sola); "el luvoco" a secas,
+    // "la línea luvoco" o "la máquina y las cápsulas" es el sistema completo.
+    patron: /(?<!m[aá]quina )(?<!m[aá]quina de )luvoco(?! (suave|medio|fuerte|m[aá]quina))|sistema luvoco|l[ií]nea luvoco|m[aá]quina y (las |sus )?c[aá]psulas|luvoco completo|todo (lo de )?luvoco/i,
+    ofrecida: null,
+    seguimiento: '¿Le cuento cómo funciona la máquina?',
+  },
+  suplementos: {
+    titulo: 'Suplementos', archivo: 'categoria-suplementos', categoria: 'suplementos',
+    patron: /suplementos?(?![a-záéíóúñ])|las c[aá]psulas(?! (de|suave|media|fuerte))|los (tres )?frascos|l[ií]nea de c[aá]psulas/i,
+    ofrecida: /le muestro los otros suplementos/i,
+    seguimiento: '¿Le cuento en qué se diferencian los tres?',
+  },
+  'cuidado-personal': {
+    titulo: 'Cuidado Personal', archivo: 'categoria-cuidado-personal', categoria: 'cuidado-personal',
+    patron: /cuidado personal|cosm[eé]tic|aseo personal|jabones|l[ií]nea (de )?(piel|belleza|cuidado|aseo)|piel ?(&|y) ?brillo|p&b|champ[uú]s|shampoos/i,
+    ofrecida: /el resto de la l[ií]nea de cuidado personal/i,
+    seguimiento: '¿Le cuento cómo se usa cada uno?',
+  },
+  bebidas: {
+    titulo: 'Bebidas', archivo: 'categoria-bebidas', categoria: 'bebidas',
+    patron: /bebidas?(?![a-záéíóúñ])|los caf[eé]s|l[ií]nea de (caf[eé]|bebida)|caf[eé]s y t[eé]s|t[eé]s y caf[eé]s/i,
+    ofrecida: /le muestro (las dem[aá]s |las otras |las )?bebidas/i,  // «las otras» es como cierran BEB_07 y BEB_08
+    seguimiento: '¿Le cuento en qué se diferencian entre ellas?',
+  },
+  portafolio: {
+    titulo: 'Portafolio Gano Excel', archivo: 'portafolio', categoria: null,
+    patron: /todos los productos|todo el portafolio|portafolio|l[ií]nea completa|gama completa|los 22|todas las l[ií]neas|los productos(?! de)|qu[eé] productos|cu[aá]les productos|productos que (tienen|manejan|venden)/i,
+    ofrecida: null,
+    seguimiento: '¿Cuál línea le muestro de cerca?',
+  },
+};
+
+/** La familia que nombra el texto, o null. Va ANTES que `detectarProducto`. */
+export function detectarFamilia(texto: string): FamiliaWA | null {
+  const t = normalizar(texto);
+  for (const [f, def] of Object.entries(FAMILIAS_WA) as [FamiliaWA, FamiliaDef][]) {
+    if (def.patron.test(t)) return f;
+  }
+  return null;
+}
+
+/** La familia que el bot ofreció mostrar en su último turno, o null. */
+export function familiaOfrecida(ultimoMensajeBot: string): FamiliaWA | null {
+  for (const [f, def] of Object.entries(FAMILIAS_WA) as [FamiliaWA, FamiliaDef][]) {
+    if (def.ofrecida && def.ofrecida.test(ultimoMensajeBot)) return f;
+  }
+  return null;
+}
+
+/** ¿El bot cerró preguntando cuál línea mostrar? (pie del portafolio). */
+export function preguntoCualLinea(ultimoMensajeBot: string): boolean {
+  return /cu[aá]l l[ií]nea le muestro/i.test(ultimoMensajeBot);
+}
+
+/** "sí", "dale", "muéstremelas": una aceptación corta y nada más. */
+export function esAceptacionCorta(texto: string): boolean {
+  return /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(l[ao]s)?|quiero|s[ií],? por favor|a ver|ver)(?![a-záéíóúñ])/i.test(texto.trim());
+}
+
+export function urlImagenFamilia(f: FamiliaWA, base = 'https://creatuactivo.com'): string {
+  return `${base}/productos/compuestas/${FAMILIAS_WA[f].archivo}.jpg`;
+}
+
+/** Los productos que componen la familia, en el orden del catálogo. */
+export function productosDeFamilia(f: FamiliaWA): ProductoWA[] {
+  const cat = FAMILIAS_WA[f].categoria;
+  return cat ? PRODUCTOS_WA.filter((p) => p.imagen.includes(`/${cat}/`)) : PRODUCTOS_WA;
+}
+
+/**
+ * Pie de la foto de familia: la lista con precio, que es lo que la imagen no
+ * lleva a propósito. Para el portafolio no caben 22 renglones detrás de "Leer
+ * más": va el conteo por línea, y la pregunta invita a acercar una.
+ */
+export function pieDeFotoFamilia(f: FamiliaWA, seguimiento?: string): string {
+  const def = FAMILIAS_WA[f];
+  const pregunta = seguimiento ? `\n\n${seguimiento}` : '';
+  if (f === 'portafolio') {
+    const n = (c: string) => PRODUCTOS_WA.filter((p) => p.imagen.includes(`/${c}/`)).length;
+    return `*${def.titulo}* · ${PRODUCTOS_WA.length} productos\n`
+      + `Bebidas (${n('bebidas')}) · Luvoco (${n('luvoco')}) · Suplementos (${n('suplementos')}) · Cuidado personal (${n('cuidado-personal')})`
+      + pregunta;
+  }
+  const lista = productosDeFamilia(f).map((p) => `${p.nombre} · ${cop(p.precioCOP)}`).join('\n');
+  return `*${def.titulo}* · ${productosDeFamilia(f).length} productos\n${lista}${pregunta}`;
 }

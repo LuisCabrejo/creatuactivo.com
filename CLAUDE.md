@@ -50,7 +50,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Auditar cabeceras y frases vetadas | `node scripts/auditar-frases-vetadas.mjs --detalle` |
 | Batería del guardarraíl de salud | `node scripts/test-guardarrail-salud.mjs` (exit 1 si falla) |
 | Batería del guardarraíl de negocio | `node scripts/test-guardarrail-negocio.mjs` (exit 1 si falla) |
-| Estado de la plantilla de bienvenida | `node scripts/someter-plantilla-bienvenida.mjs --estado` |
+| Auditar las plantillas del WABA (categoría real) | `node scripts/auditar-plantillas-whatsapp.mjs [--detalle]` — **Meta recategoriza plantillas por su cuenta y no avisa**; lee `previous_category`; exit 1 si hay alguna movida. Correr antes de creer lo que un handoff diga sobre la categoría |
+| Estado de la plantilla de bienvenida | `node scripts/someter-plantilla-bienvenida.mjs --estado` — ⚠️ `enlace_canal_listo` fue movida a **MARKETING** por Meta, y la `_v2` de entrega pura (`someter-plantilla-enlace-canal-v2.mjs`, 22 ago) **también salió MARKETING** al aprobarse. El webhook sigue con la v1 (conserva el botón). Detalle → [WABA_REFERENCIA.md](docs/handoff/queswa/WABA_REFERENCIA.md) |
 | Someter la plantilla de acceso al Dashboard | `node scripts/someter-plantilla-acceso-dashboard.mjs` — la vigente es **`acceso_centro_mando_v2`, UTILITY**, aprobada. ⚠️ `acceso_centro_mando` (sin `_v2`) existe y está aprobada pero es **MARKETING**: se cobra distinto y cae bajo las reglas de mercadeo. No invocarla |
 | Actualizar y republicar el Flow del simulador | `node scripts/actualizar-flow-simulador.mjs` (valida los 20 caracteres de NavigationList y republica) |
 | Batería de regresión del clasificador | `node scripts/benchmark-clasificador.mjs --tenant whatsapp` (48/48 al 20 ago; exit 1 si falla) |

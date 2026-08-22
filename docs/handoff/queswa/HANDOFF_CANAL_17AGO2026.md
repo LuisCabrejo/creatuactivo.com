@@ -62,7 +62,7 @@ Eso es lo que vuelve irrelevante la ventana de 24 h: él ya está conversando co
   devuelve 404 (verificado en producción). `/{slug}/queswa` además **valida el slug contra la base
   antes de redirigir** a wa.me: sin esa validación un slug mal escrito deja entrar al prospecto
   sin dueño, fuera del radar de nadie y sin un solo error visible.
-- **Plantilla `enlace_canal_listo`** (UTILITY, APROBADA 17 ago): respaldo cuando la ventana está
+- **Plantilla `enlace_canal_listo`** (UTILITY, APROBADA 17 ago): respaldo cuando la ventana está ⚠️ *(22 ago: Meta la movió a **MARKETING**; la `_v2` de entrega pura también salió MARKETING — ver [WABA_REFERENCIA.md](WABA_REFERENCIA.md))*
   cerrada. Su botón de respuesta rápida **abre la ventana de 24 h**, y de ahí en adelante Queswa
   escribe libre. Someter/consultar: `scripts/someter-plantilla-bienvenida.mjs [--estado]`.
 - **Quien llega con volición declarada se salta la apertura** y va directo a `gestionarCierre`.

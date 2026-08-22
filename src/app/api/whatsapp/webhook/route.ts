@@ -625,6 +625,10 @@ async function procesarEntrante(body: any): Promise<void> {
         // plantilla, así que entra `enlace_canal_listo` (aprobada el 17 ago), que
         // entrega el enlace y trae un botón: al tocarlo la persona ABRE su
         // ventana y a partir de ahí Queswa ya puede escribirle libremente.
+        // ⚠️ Meta la movió de UTILITY a MARKETING (21 ago): no llega a números de
+        // EE. UU. y consume cupo de marketing del buzón. `enlace_canal_listo_v2`
+        // (22 ago, entrega pura, sin botón) salió MARKETING también, así que se
+        // sigue con la v1, que al menos conserva el botón. Ver WABA_REFERENCIA.md.
         let enviado = await sendText(destino, bienvenida);
         if (!enviado.ok) {
           const conPlantilla = await sendTemplate(destino, 'enlace_canal_listo', 'es', [

@@ -116,7 +116,7 @@ Mando, cuando se sepa el paquete real.
 
 - **El socio nuevo**, en su WhatsApp: su enlace `/{slug}/queswa`, la instrucción de compartirlo con
   cinco personas hoy, y el aviso de que Queswa le irá contando lo que pase. Si su ventana de 24 h
-  está cerrada, entra la plantilla `enlace_canal_listo` (UTILITY, aprobada por Meta el 17 ago),
+  está cerrada, entra la plantilla `enlace_canal_listo` (UTILITY, aprobada por Meta el 17 ago), ⚠️ *(22 ago: Meta la movió a **MARKETING**; la `_v2` de entrega pura también salió MARKETING — ver [WABA_REFERENCIA.md](WABA_REFERENCIA.md))*
   cuyo botón **abre la ventana** y habilita el resto.
 - **El Director**, en el suyo: la confirmación **y el texto listo para reenviar**, en un mensaje
   aparte para copiarlo de un toque. Así la activación funciona aunque Meta no deje escribirle a esa

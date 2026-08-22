@@ -26,7 +26,7 @@ affiliationLink, ganoExcelId }`, crea o encuentra el usuario en `private_users`,
 
 - Comando `ACTIVAR Nombre 3001234567 [códigoGano]` desde el WhatsApp del Director. Crea las filas
   de `private_users` y `constructor_slugs`, y le manda al socio su enlace `/{slug}/queswa`.
-- Plantilla **`enlace_canal_listo`** (UTILITY, **aprobada** por Meta el 17 ago) para cuando la
+- Plantilla **`enlace_canal_listo`** (UTILITY, **aprobada** por Meta el 17 ago) para cuando la ⚠️ *(22 ago: Meta la movió a **MARKETING**; la `_v2` de entrega pura también salió MARKETING — ver [WABA_REFERENCIA.md](WABA_REFERENCIA.md))*
   ventana de 24 h está cerrada.
 - Puente `/api/wa/send` en `marketing`, autenticado con `x-wa-bridge-secret`, que ustedes ya usan.
   ⚠️ El token de Meta (`WHATSAPP_SYSTEM_TOKEN`) vive **solo** en `marketing` y no debe copiarse.

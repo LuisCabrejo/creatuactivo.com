@@ -1,6 +1,7 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.5
+# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.6
 **Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
-**v7.5 (20 ago 2026):** **Los 22 productos tienen respuesta propia.** Faltaban 16 —entre ellos el Ganocafé Clásico, que al preguntarse devolvía la ficha del 3 en 1 con su composición, su presentación y su precio, todo incorrecto para el producto preguntado—. El deseo se construye desde lo SENSORIAL y el ritual (el amargo justo, la espuma de cafetería, la piel sin tirantez), no desde la salud: es lo que se puede prometer sin exponer a nadie y es lo que la persona comprueba el primer día. ⚠️ De la ficha del catálogo web se tomaron los HECHOS —ingredientes, preparación, presentación, precio— y se dejaron fuera sus `benefits`, que cruzan la línea roja (*fortalece las defensas*, *protege las células*, *apoya el sistema circulatorio*, *desarrollo de huesos fuertes*, *problemas dermatológicos*). ⚠️ Cada respuesta dice por qué existe FRENTE A SUS HERMANAS, que es lo que decide una compra dentro de una misma línea. ⚠️ Cápsulas de Ganoderma: **una al día** (Director, 20 ago) — la ficha web decía dos y con eso el frasco duraría mes y medio, no tres. Sin cambios de precios ni CV/PV.
+**v7.6 (22 ago 2026):** La nota de versión y las cabeceras de BEB_09 y PERS_03 dejan de citar lo que rechazan — las dos viajan dentro de texto indexado, así que enunciarlo era dictarlo. El criterio queda en afirmativo; el motivo, en el CHANGELOG. Sin cambios de precios ni CV/PV.
+**v7.5 (20 ago 2026):** **Los 22 productos tienen respuesta propia.** Faltaban 16 —entre ellos el Ganocafé Clásico, que al preguntarse devolvía la ficha del 3 en 1 con su composición, su presentación y su precio, todo incorrecto para el producto preguntado—. El deseo se construye desde lo SENSORIAL y el ritual (el amargo justo, la espuma de cafetería, la piel sin tirantez), no desde la salud: es lo que se puede prometer sin exponer a nadie y es lo que la persona comprueba el primer día. ⚠️ De la ficha del catálogo web se tomaron los HECHOS —ingredientes, preparación, presentación, precio— y se dejaron fuera sus `benefits`: la declaración de órgano y la de mecanismo viven fuera de este arsenal. El detalle, en el CHANGELOG. ⚠️ Cada respuesta dice por qué existe FRENTE A SUS HERMANAS, que es lo que decide una compra dentro de una misma línea. ⚠️ Cápsulas de Ganoderma: **una al día** (Director, 20 ago) — la ficha web decía dos y con eso el frasco duraría mes y medio, no tres. Sin cambios de precios ni CV/PV.
 **v7.4 (19 ago 2026):** Los candados de las tablas por categoría dejan de enunciar lo que no existe — toda aclaración de nombres va en afirmativo, y el adjetivo de dosis se retira de los suplementos (criterio INVIMA: se describe la presentación, no el efecto). Sin cambios de precios ni CV/PV.
 **v7.3 (7 ago 2026):** "Flujo de caja" retirado (decisión del Director): PROD_02 "estabilidad del ingreso" · PROD_OVERVIEW (verbatim_lock) "activo con ingreso recurrente". Sin cambios de precios ni CV/PV.
 **v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
@@ -290,7 +291,7 @@ Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $119.900 COP.
 ---
 
 ### BEB_09: "¿Qué es el Mocha Rico? / háblame del mocha / moka / el de café con chocolate / ganorico mocha"
-**[Concepto Nuclear]:** Es el ANTOJO resuelto: quien quiere algo dulce a media tarde y no quiere una gaseosa ni un pastel. Café y cacao en el mismo sobre. ⚠️ Se nombra el momento (la merienda, el antojo), nunca una comparación con azúcares ni una promesa de control de peso — adelgazamiento es la línea roja nº1 de la SIC.
+**[Concepto Nuclear]:** Es el ANTOJO resuelto: quien quiere algo dulce a media tarde y no quiere una gaseosa ni un pastel. Café y cacao en el mismo sobre. ⚠️ Esta respuesta vive en el sabor y en el momento del día: la merienda, el antojo, el café y el cacao en el mismo sobre. Ahí se queda.
 
 Con gusto. El Mocha Rico es café y chocolate en el mismo sobre — para esa hora de la tarde en que uno quiere algo dulce y no quiere pensarlo mucho.
 
@@ -440,7 +441,7 @@ Cuesta $73.900 COP.
 ---
 
 ### PERS_03: "¿Qué es el Jabón Gano? / el jabón / jabón de ganoderma / jabón de leche de cabra / cuánto cuesta el jabón"
-**[Concepto Nuclear]:** El argumento es SENSORIAL y se comprueba el primer día: la piel sin tirantez. La leche de cabra es el ingrediente que la gente reconoce y valora. ⚠️ 'Piel delicada' es un tipo de piel; 'problemas dermatológicos' —como dice la ficha web— es una condición y NO entra.
+**[Concepto Nuclear]:** El argumento es SENSORIAL y se comprueba el primer día: la piel sin tirantez. La leche de cabra es el ingrediente que la gente reconoce y valora. ⚠️ El vocabulario correcto es el del TIPO de piel —delicada, sensible— y el de la sensación al usarlo.
 
 Con gusto. El Jabón Gano es artesanal, con leche de cabra y extracto de Ganoderma, y la diferencia se nota al primer uso: la piel queda suave en vez de con esa tirantez que dejan los jabones que resecan.
 

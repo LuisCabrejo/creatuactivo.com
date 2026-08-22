@@ -698,6 +698,17 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.6 — Lo que se rechaza deja de escribirse donde el modelo lo lee (22 ago 2026)
+
+Salió de auditar `/sistema/productos`, la página web del catálogo, donde **22 declaraciones de salud llevaban meses publicadas**: mejora de circulación, funcionamiento de riñones y pulmones, prevención de placa dental, protección celular, desarrollo de huesos, función sexual. La vara es el catálogo de la Sala Especializada del INVIMA que se descifró el 17 ago: solo aprueba la forma *"contribuye al funcionamiento **normal** de X"*, exige el 100% del valor de referencia diario, y **no menciona Ganoderma ni una vez** — todo claim del hongo vive fuera del carril blindado. La página quedó reescrita desde lo sensorial y el ritual; se conservan energía, vitalidad, antioxidante, adaptógeno y defensas, que son la línea verificada.
+
+**Lo que cambió aquí son dos líneas, y las dos son el mismo error nuestro.** La nota de versión de v7.5 explicaba qué se había dejado fuera **citando las frases textualmente**, y la cabecera `[Concepto Nuclear]` de BEB_09 prohibía nombrando: *"nunca una comparación con azúcares ni una promesa de control de peso"*. Las dos viajan dentro de texto que el modelo lee —el documento padre se indexa, y la cabecera va dentro del fragmento—, así que enunciarlas era dictarlas. Es el elefante rosado, y es la tercera vez que cae en este proyecto.
+
+Las dos se reescriben en **afirmativo**, diciendo dónde SÍ vive el vocabulario: la nota remite a este CHANGELOG, y BEB_09 dice que la respuesta vive en el sabor y en el momento del día. El motivo puede escribirse aquí porque este archivo **no se indexa**; ese es todo el criterio de reparto.
+
+**Del guardarraíl:** `wa-guardarrail-salud.ts` dejaba pasar las 22 — miraba enfermedad, mecanismo, adelgazamiento y ciencia citada, nunca la declaración de órgano. Cerrado con tres patrones, dejando fuera a propósito el **sistema inmune** (práctica de mercado que el fabricante usa y que ninguna sanción del período castigó) y las **articulaciones** (el colágeno sí tiene declaración aprobada, Acta 10 de 2017, ahora citada textual en el Reskine). Verificado en las dos direcciones: 0 de 114 declaraciones cruzan, y ninguna línea de los cuatro arsenales se bloquea por los patrones nuevos.
+
+
 ### v7.2 — Verbatim lock en tablas + PROD_OVERVIEW (22 May 2026)
 
 Causa: ante "¿Cuál es el producto?" Queswa alucinaba nombres simplificados ("Ganotea" en lugar de **Oleaf Gano Rooibos**, "Gano Cocoa" en lugar de **Gano Schokolade**, "Gano Supreme" inexistente, "Ganocafé Negro" en lugar de **Ganocafé Clásico**) y omitía la categoría completa de **Suplementos** (mencionando solo 2 de 4 categorías reales).

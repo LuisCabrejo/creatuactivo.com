@@ -30,6 +30,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import { sendTemplate } from '@/lib/wa-channel';
+import { detectarProducto } from '@/lib/wa-productos';
 
 let anthropicClient: Anthropic | null = null;
 function getAnthropicClient(): Anthropic {
@@ -106,6 +107,21 @@ const RE_PREGUNTA = /\?|^(qu[eé]|cu[aá]l|cu[aá]nto|c[oó]mo|por qu[eé]|cuand
  */
 const RE_PEDIDO_INFO =
   /expl[ií]c|expl[ií]qu|cu[eé]nt[aeo]|mu[eé]stre?|mu[eé]str[ea]|d[ií]game|h[aá]bl[aeo]me|h[aá]blem|inf[oó]rme|quiero saber|no entiendo|me interesa saber|d[eé]jeme ver|antes de|dame (la )?(info|informaci[oó]n)|a[uú]n no|ahora no|todav[ií]a no|despu[eé]s|luego\b|m[aá]s tarde|primero/i;
+
+/**
+ * Temas de conversación que no son un dato del trámite.
+ *
+ * En la prueba del Director del 22 ago, *"Y LOS BENEFICIOS DEL CAFÉ LUVOCO"*
+ * cayó fuera de las dos pruebas anteriores —sin signo de pregunta, sin verbo de
+ * pedido— y con seis palabras justas no llegaba al umbral de longitud: el cierre
+ * lo tomó por respuesta y pidió el nombre completo. Una frase nominal corta
+ * (*"y el precio del Cordygold"*, *"la foto del latte"*) falla igual. Lo que el
+ * trámite espera es un nombre, una cédula, una ciudad o un paquete, y ninguno
+ * de esos lleva estas palabras ni nombra un producto — así que contarlas como
+ * digresión no pierde ningún dato legítimo.
+ */
+const RE_TEMA =
+  /beneficio|precio|costo|valor|cu[aá]nto vale|sabor|ingrediente|composici[oó]n|foto|imagen|bono|comisi[oó]n|simulador|ganancia|caf[eé]|c[aá]psula|m[aá]quina/i;
 
 /** ¿El mensaje del bot estaba pidiendo justamente este dato? */
 function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolean {
@@ -700,7 +716,8 @@ export async function gestionarCierre(params: {
     // frase larga — nadie entrega una cédula en ocho palabras.
     const texto = mensajeActual.trim();
     const esDigresion =
-      RE_PREGUNTA.test(texto) || RE_PEDIDO_INFO.test(texto) || texto.split(/\s+/).length > 6;
+      RE_PREGUNTA.test(texto) || RE_PEDIDO_INFO.test(texto) || RE_TEMA.test(texto)
+      || detectarProducto(texto) !== null || texto.split(/\s+/).length > 6;
     if (esDigresion) {
       console.log(`❓ [Cierre WA] digresión ("${texto.slice(0, 40)}") — le devuelvo el turno al motor`);
       // La persona ya declaró interés y dio parte de sus datos, pero decidió

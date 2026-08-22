@@ -698,6 +698,16 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.7 — El Clásico es premium, y el Luvoco tiene puerta (22 ago 2026)
+
+Dos hallazgos de la prueba del Director en el canal, el mismo día.
+
+**BEB_07 (Ganocafé Clásico).** El párrafo sensorial decía *"en taza es el mismo café de siempre"* — escrito para honrar al purista que no quiere que le mejoren el tinto, pero ejecuta el marco del estante del supermercado que el resto del arsenal prohíbe (PROD en `arsenal_inicial`: *"jamás en el estante del supermercado"*), y el modelo lo copió textual en el chat. Queda: *"En taza es un café premium — cuerpo, aroma y el amargo justo, el que uno espera de una buena cafetería"*. La fidelidad al purista sigue en la primera línea.
+
+**LUV_00 (nuevo).** *"¿Y los beneficios del café Luvoco?"* no tenía a dónde llegar: «luvoco» a secas enrutaba a LUV_01, que es la tabla bajo candado (máquina + tres cápsulas + compatibilidad), y el candado se sirve solo; LUV_02–04 son por cápsula y PROD_04 habla en el registro viejo (*"terminal de activación"*, *"retorno sobre terminal"*). El modelo compuso bien, pero admitió que *"no tenía detallados"* los beneficios. Fragmento **corto** a propósito —es lo que abre puertas, medido el 17 ago— que describe el café como experiencia: extracción a presión, tres intensidades por paladar, la máquina se compra una vez y las cápsulas se repiten. Hechos verificados en luvoco.ganoexcel.com.co: café molido tostado infundido con betaglucanos de Ganoderma lucidum, 8 g por cápsula, Suave de acidez pronunciada · Medio equilibrado · Fuerte amargo y ahumado. Por indicación del Director no se describe la crema. ⏳ PROD_04 sigue en registro viejo — pendiente.
+
+**En el mismo día, fuera del arsenal:** el cierre de WhatsApp (`wa-radicacion.ts`) dejaba de reconocer como digresión una frase nominal corta sin signo ni verbo de pedido (*"Y LOS BENEFICIOS DEL CAFÉ LUVOCO"*, seis palabras) y pedía el nombre completo en vez de responder — ahora cuenta tema y producto nombrado; el texto dictado del simulador GEN5 y los pines de renta/GEN5 del motor decían *"el viernes de la semana siguiente a la compra"* / *"a medida que las compras ocurren"*, cadencia más rápida que la real (el ciclo se paga el segundo viernes tras su cierre) — ahora *"por ciclos semanales, cada viernes"*; y el enlace al catálogo (`/{slug}/productos`) lo emite el webhook en vez de improvisarlo el modelo.
+
 ### v7.6 — Lo que se rechaza deja de escribirse donde el modelo lo lee (22 ago 2026)
 
 Salió de auditar `/sistema/productos`, la página web del catálogo, donde **22 declaraciones de salud llevaban meses publicadas**: mejora de circulación, funcionamiento de riñones y pulmones, prevención de placa dental, protección celular, desarrollo de huesos, función sexual. La vara es el catálogo de la Sala Especializada del INVIMA que se descifró el 17 ago: solo aprueba la forma *"contribuye al funcionamiento **normal** de X"*, exige el 100% del valor de referencia diario, y **no menciona Ganoderma ni una vez** — todo claim del hongo vive fuera del carril blindado. La página quedó reescrita desde lo sensorial y el ritual; se conservan energía, vitalidad, antioxidante, adaptógeno y defensas, que son la línea verificada.

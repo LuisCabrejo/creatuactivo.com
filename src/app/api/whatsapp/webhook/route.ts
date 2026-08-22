@@ -39,6 +39,8 @@ import {
   avisarSocioNuevoProspecto,
   identificarSocio,
   saludoDeSocio,
+  pideEnlaceCatalogo,
+  mensajeEnlaceCatalogo,
 } from '@/lib/wa-onboarding';
 import {
   detectarEmergencia,
@@ -463,7 +465,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: existingProspect } = await (supabase as any)
       .from('prospects')
-      .select('id, source, constructor_id')
+      .select('id, source, constructor_id, device_info')
       .eq('fingerprint_id', waFingerprint)
       .maybeSingle();
 
@@ -884,6 +886,31 @@ async function procesarEntrante(body: any): Promise<void> {
 
     if (turnosSaneados > 0) {
       console.warn(`🧹 [WA Webhook] ${turnosSaneados} turno(s) bloqueado(s) saneado(s) en el historial de ${waFingerprint}`);
+    }
+
+    // ─── 2.24 Enlace al catálogo ──────────────────────────────────────────────
+    // La URL de la página de productos es determinística (el slug del socio +
+    // /productos), así que la emite el webhook y no el modelo. En la prueba del
+    // 22 ago el motor primero dijo que no tenía el enlace y después lo armó por
+    // su cuenta; acertó, pero un slug distinto habría caído en la mini-landing.
+    if (pideEnlaceCatalogo(messageText)) {
+      let slugCatalogo: string | null = socioQueEscribe?.slug ?? null;
+      const refSocio = patrocinador?.constructorId ?? existingProspect?.device_info?.invited_by ?? null;
+      if (!slugCatalogo && refSocio) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: fila } = await (supabase as any)
+          .from('constructor_slugs').select('slug').eq('constructor_id', refSocio).maybeSingle();
+        slugCatalogo = fila?.slug ?? null;
+      }
+      const textoEnlace = mensajeEnlaceCatalogo(slugCatalogo);
+      await pisoDeEscritura();
+      const enviado = await sendText(phoneNumber, textoEnlace);
+      if (enviado.ok) {
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, textoEnlace);
+        console.log(`🔗 [WA Webhook] Enlace al catálogo entregado (${slugCatalogo ?? 'sin socio'}) — turno cerrado sin motor`);
+        return;
+      }
+      console.warn(`⚠️ [WA Webhook] Enlace al catálogo no se pudo enviar: ${enviado.error}`);
     }
 
     // ─── 2.25 Foto de un producto ─────────────────────────────────────────────

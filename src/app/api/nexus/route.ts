@@ -2578,10 +2578,19 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // usa el envío de fotos.
     const nombraUnProducto = !!detectarProducto(userMessage);
 
+    // «Luvoco» a secas abre DOS preguntas distintas, y la tabla responde solo una.
+    // "¿Qué es el sistema? ¿Cuánto cuesta? ¿Qué cápsulas hay?" → LUV_01 (la tabla
+    // bajo candado). "¿Y los beneficios del café Luvoco? ¿Qué tiene de especial?"
+    // → LUV_00, que describe el café como experiencia. En la prueba del Director
+    // (22 ago) esta ruta mandaba la tabla a la pregunta de beneficios y el modelo
+    // respondió que "no tenía detallados" los beneficios — el fragmento que los
+    // tiene existe desde v7.7, pero esta ruta corre ANTES que el vector y lo tapaba.
+    const esLuvocoExperiencia = /beneficio|especial|qu[eé] tal|c[oó]mo es|por qu[eé]|sabor|ventaja|gusta|experiencia|h[aá]bl[aeo]me|cu[eé]nt[aeo]me/i.test(msgL);
+
     const categoriasDirectas: string[] = [];
     if (esBebidaCategoria && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_BEB_01');
     if (esSuplementoCat   && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_SUP_01');
-    if (esLuvocoCat       && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_LUV_01');
+    if (esLuvocoCat       && !nombraUnProducto) categoriasDirectas.push(esLuvocoExperiencia ? 'catalogo_productos_LUV_00' : 'catalogo_productos_LUV_01');
     if (esCuidadoPersonal && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_PERS_01');
 
     if (categoriasDirectas.length > 0) {
@@ -5107,7 +5116,7 @@ Y ojo con la cuenta: esos clientes no los consigue usted solo. Son los de sus so
 *100 clientes en cada centro*
 ≈ ${r('$4.300.000 COP', '$952 USD')} al mes
 
-Calculado al *17%*, la tarifa que da el paquete Visionario. Y no espera fin de mes: se le liquida *cada viernes*, a medida que las compras ocurren.
+Calculado al *17%*, la tarifa que da el paquete Visionario. Y no espera fin de mes: se liquida por ciclos semanales, *cada viernes*.
 
 STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin pregunta doble al final.`;
       }
@@ -5190,7 +5199,7 @@ ${g(4)} × 5 = *${g5(4)}*
 
 *Total: ${total} ${moneda}*
 
-Y se liquida cada viernes, a medida que cada compra ocurre — no espera a que se complete nada.
+Y se liquida por ciclos semanales, cada viernes — no espera a que se complete nada.
 
 STOP. Empieza DIRECTO con "Le pongo un ejemplo" — sin preámbulo ni encabezado propio. Sin tabla de los tres paquetes, sin proyecciones adicionales, sin diagramas. Si le piden otro escenario, ofrezca revisarlo con el socio.`;
       }
@@ -5392,7 +5401,7 @@ ${visitorCountry === 'CO'
 - Estructura sugerida:
   1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : visitorCountry === 'US' ? 'en USD' : 'USD ($X COP entre paréntesis)'} + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
-  3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal. Es el mix con el que su canal arranca completo desde el primer día."
+  3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal."
   4. Pregunta de seguimiento conversacional: "¿Seguimos con la activación?"
 - USA EXACTAMENTE los productos y cantidades de la tabla. NO inventes referencias, NO estimes.
 - Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo de CreaTuActivo — pero la composición SÍ está respondida arriba.`;

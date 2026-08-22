@@ -108,6 +108,39 @@ export function enlaceDeCanal(slug: string): string {
   return `${SITIO}/${slug}/queswa`;
 }
 
+/**
+ * ¿Pide el enlace a la página de productos?
+ *
+ * "¿Tienes el enlace a la página de productos?" es un nodo determinístico: la
+ * URL existe y se arma con el slug del socio. En la prueba del 22 ago el motor
+ * primero dijo que no tenía ese enlace y al segundo intento lo improvisó desde
+ * el slug — acertó, pero por suerte: ni el prompt ni el motor se lo dan, y con
+ * otro slug habría caído en la mini-landing. Lo determinístico lo emite el backend.
+ */
+export function pideEnlaceCatalogo(texto: string): boolean {
+  const t = texto.toLowerCase();
+  const medio  = /enlace|link|url|p[aá]gina|sitio|web\b|creatuactivo/.test(t);
+  const objeto = /producto|cat[aá]logo/.test(t);
+  return medio && objeto;
+}
+
+/** URL del catálogo con el ref del socio; sin socio, el catálogo general. */
+export function enlaceCatalogo(slug?: string | null): string {
+  return slug ? `${SITIO}/${slug}/productos` : `${SITIO}/sistema/productos`;
+}
+
+export function mensajeEnlaceCatalogo(slug?: string | null): string {
+  return [
+    'Con gusto. Aquí está el catálogo completo, con fotos, presentaciones y precios:',
+    '',
+    enlaceCatalogo(slug),
+    '',
+    'Si algo le llama la atención mientras lo mira, me escribe por aquí y lo vemos.',
+    '',
+    '¿Le muestro las bebidas de la línea?',
+  ].join('\n');
+}
+
 export function mensajeDeBienvenida(nombreCorto: string, slug: string): string {
   return (
     `Listo, ${nombreCorto}. Su canal ya está abierto.\n\n` +

@@ -92,7 +92,7 @@ export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): 
 
   return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, la suma de esas ${compras} compras es *${cop(total)}*.
 
-Se cuenta por paquetes comprados, no por personas, y cada comisión se liquida el viernes de la semana siguiente a la compra.
+Se cuenta por paquetes comprados, no por personas, y se liquida por ciclos semanales, cada viernes.
 
 ${cierre}`;
 }

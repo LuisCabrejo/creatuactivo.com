@@ -106,6 +106,7 @@ const CASOS = [
   // — 12 niveles —
   ['¿Qué son los 12 niveles?',                   'arsenal_12_niveles'],
   ['¿Cómo funciona la duplicación 2x2?',         'arsenal_12_niveles'],
+  ['hay una opción menor al paquete esp1',       'arsenal_12_niveles'], // 22 ago: INV_00 (Kit de Inicio); antes → compensación, tabla del ESP-1
 
   // — Avanzado —
   ['¿La urgencia es real o es marketing?',       'arsenal_inicial'],

@@ -1510,6 +1510,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
 
     // ===== MENCIONES EXPLÍCITAS "KIT DE INICIO" =====
     /kit\s*de\s*inicio/i,                // "kit de inicio"
+    /(opci[oó]n|algo|paquete|plan|forma)\s+(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i, // 22 ago: "¿hay una opción menor al ESP-1?" → INV_00 (Kit de Inicio); antes caía en compensación y devolvía la tabla del ESP-1
     /kit\s*inicio/i,                     // "kit inicio"
     /kit\s*inicial/i,                    // "kit inicial"
     /el\s*kit/i,                         // "el kit" (en contexto)
@@ -1867,7 +1868,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   // PRIORIDAD 1.6: GEN5 / Bonos / Plan de Compensación → arsenal_compensacion
   // FIX 2026-04-06: patrones_cierre incluye /gen5/i, /bono/i, /comision/i pero devuelve
   // arsenal_avanzado — GEN5 content está en COMP_GEN5_01 de arsenal_compensacion.
-  const esGEN5oCompensacion = /\bgen[\s-]?5\b|\bgen5\b|bono.*inici|inici.*r[aá]pid|plan\s*de?\s*compensac|compensac.*plan|c[oó]mo\s*(se\s*)?(gana|paga|distribuye)\s*(el\s*)?dinero|qu[eé]\s*gano\s*cuando|cu[aá]nto\s*gano\s*(por|en|a\s*la?\s*(semana|mes))|velocidad\s*de\s*inici|pago\s*semanal|tabla\s*de\s*generac|bono\s*de\s*inici/i.test(messageLower);
+  const esGEN5oCompensacion = /\bgen[\s-]?5\b|\bgen5\b|(ingreso|ganancia)s?\s+(por|con|de)\s+(los\s+)?paquetes\s+empresariales|bono.*inici|inici.*r[aá]pid|plan\s*de?\s*compensac|compensac.*plan|c[oó]mo\s*(se\s*)?(gana|paga|distribuye)\s*(el\s*)?dinero|qu[eé]\s*gano\s*cuando|cu[aá]nto\s*gano\s*(por|en|a\s*la?\s*(semana|mes))|velocidad\s*de\s*inici|pago\s*semanal|tabla\s*de\s*generac|bono\s*de\s*inici/i.test(messageLower);
   if (esGEN5oCompensacion) {
     console.log('💰 Clasificación: GEN5/Bono/Compensación → arsenal_compensacion (COMP_GEN5_*)');
     return 'arsenal_compensacion';
@@ -2805,6 +2806,19 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
   const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string }[] = [
     {
+      // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor
+      // al paquete ESP-1?" — el Kit de Inicio vive en arsenal_12_niveles y desde
+      // esa pregunta no ganaba el vector (INV_01 sexto, 0.451); con "paquete" y
+      // "esp1" en el texto la clasificación iba a compensación y devolvía la
+      // composición del ESP-1. Decisión del Director: los tres paquetes
+      // empresariales son la entrada estándar, y el Kit es la opción menor válida
+      // cuando la piden. INV_00 es corto y dice las dos cosas.
+      fragmento: 'arsenal_12_niveles_INV_00',
+      titulo: 'Opción menor al ESP-1 — Kit de Inicio — INV_00',
+      porque: 'pide una opción menor al paquete',
+      cuando: /(opci[oó]n|algo|paquete|plan|forma)\s+(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i,
+    },
+    {
       // Prueba del Director, 19 ago: "¿le explico cómo se inicia con este
       // paquete?" → "sí" produjo tres formas de arrancar inventadas. FREQ_03
       // (los tres paquetes) le gana a ACTIVACION_01 por centésimas, y con el
@@ -3597,6 +3611,31 @@ function extraerEjemploDictado(pin: string): string | null {
   // formas o abriendo el simulador. Pregunta y tarjeta ahora son el mismo paso;
   // el "sí" lo atiende el webhook reenviando el Flow.
   return `${cuerpo}\n\n¿Quiere armar su propio escenario en el simulador?`;
+}
+
+/**
+ * La tabla de un paquete, dictada sin modelo (22 ago 2026).
+ *
+ * El pin de composición le entregaba la tabla al modelo con la orden de copiarla
+ * "EXACTAMENTE", y el modelo la copiaba casi siempre: en la prueba del 21 ago
+ * sacó el ESP-3 con Rooibos y Latte —que no trae— y Classic 8 en vez de 9; el
+ * 22 la copió bien pero abrió con "Entiendo", como si la persona hubiera
+ * objetado algo. Es el mismo caso del ejemplo de cifras: un nodo determinístico
+ * lo emite el backend. Precio en la moneda del visitante; el cierre del mix dice
+ * lo que el paquete de verdad trae (el ESP-1 son solo bebidas).
+ */
+function tablaPaqueteDictada(codigo: string, tablaMarkdown: string, country: string | null | undefined): string | null {
+  const META: Record<string, { nombre: string; usd: string; cop: string; mix: string }> = {
+    'ESP-1': { nombre: 'ESP-1 Inicial',     usd: '$200 USD',   cop: '$900.000 COP',   mix: 'Lo seleccionamos así para que su negocio arranque con las bebidas que más se piden.' },
+    'ESP-2': { nombre: 'ESP-2 Empresarial', usd: '$500 USD',   cop: '$2.250.000 COP', mix: 'Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas y cuidado personal.' },
+    'ESP-3': { nombre: 'ESP-3 Visionario',  usd: '$1.000 USD', cop: '$4.500.000 COP', mix: 'Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal.' },
+  };
+  const m = META[codigo];
+  if (!m) return null;
+  const filas = tablaMarkdown.split('\n').filter((l) => l.trim().startsWith('|'));
+  if (filas.length < 3) return null;
+  const precio = country === 'CO' ? m.cop : country === 'US' ? m.usd : `${m.usd} (${m.cop})`;
+  return `Con gusto. El *${m.nombre}* vale *${precio}* y le activa inmediatamente este inventario:\n\n${filas.join('\n')}\n\n${m.mix}\n\n¿Seguimos con la activación?`;
 }
 
 // Logging mejorado para arquitectura híbrida - CORREGIDO 2025-10-17
@@ -5289,54 +5328,6 @@ ${filaGen5}`;
 inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
     };
 
-    const getPinComposicionPaquetes = (): string => {
-      // ⚠️ FIX 2026-08-09 — este pin estaba MUERTO en WhatsApp.
-      //
-      // La guarda original era `closingState !== 2 && !== 3 && !== 4`, y en el
-      // canal `cierreLoManejaElCanal` fuerza `closingState: 0` siempre (aislamiento
-      // de la FSM web, 5 ago). Efecto lateral: la composición nunca se dictaba.
-      //
-      // Se vio en la prueba del 9 ago: a "esp3 qué trae" Queswa respondió que NO
-      // TENÍA el dato —teniéndolo aquí escrito y verificado— y derivó al socio,
-      // en el turno de alguien a punto de pagar $4,5 millones. El comentario
-      // original decía que fuera de cierre bastaba el RAG; se midió y el fragmento
-      // sí se recupera (COMP_PAQ_04 a 0.496), pero el modelo no lo usó.
-      const enCierreWeb = closingState === 2 || closingState === 3 || closingState === 4;
-      if (!enCierreWeb && !cierreLoManejaElCanal) return '';
-
-      // ¿La query menciona composición / productos / qué incluye?
-      // La oferta también cuenta (20 ago 2026): "¿le muestro qué trae el
-      // Visionario?" → "sí" dejaba el pin apagado —el "sí" no menciona
-      // composición— y el modelo, con COMP_PAQ_04 servido en el contexto, dijo
-      // que NO TENÍA la lista y derivó al socio. El mismo bug del 9 ago por la
-      // otra puerta. Si la oferta del bot fue de composición y la persona
-      // aceptó, el paquete se lee de la oferta.
-      const _ofertaComposicion = /qu[eé]\s+(trae|incluye|viene|contiene)[^?]{0,50}(paquete|esp[\s-]?[123]|visionario|empresarial|inicial)/i.test(_ultimoBotMsg);
-      const _aceptaComposicion = _ofertaComposicion
-        && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|mu[eé]str[ea]me(lo)?|s[ií] por favor)(?![a-záéíóúñ])/i.test(latestUserMessage.trim());
-      const preguntaComposicion = /productos?|qu[eé]\s+(trae|incluye|viene|contiene)|composici[oó]n|contenido|inventario|qu[eé]\s+hay\s+(en|dentro)|que\s+vienen?|cu[aá]les?\s+productos|lista\s+de\s+productos|esp[-\s]?[123].*productos|productos.*esp[-\s]?[123]/i.test(latestUserMessage);
-      if (!preguntaComposicion && !_aceptaComposicion) return '';
-
-      // Cuando lo que hay es una aceptación, el mensaje del usuario no nombra el
-      // paquete — lo nombra la oferta que aceptó.
-      const _fuenteDelPaquete = _aceptaComposicion ? _ultimoBotMsg : latestUserMessage;
-
-      // ⚠️ El paquete se lee del MENSAJE, no solo de `prospectData`.
-      //
-      // Los embeddings no distinguen "esp2" de "esp3": medido el 9 ago, a la
-      // consulta "qué productos vienen en el esp3" el vector devuelve PRIMERO el
-      // fragmento del ESP-2 (0.596 contra 0.584). Entregar con seguridad la lista
-      // equivocada de un paquete de $4,5 millones es peor que no responder, y un
-      // dígito no se resuelve por similitud — se resuelve leyéndolo.
-      //
-      // El nombre comercial también cuenta: mucha gente dice "el Visionario".
-      const porCodigo  = _fuenteDelPaquete.match(/esp[\s-]?([123])\b/i);
-      const porNombre  = /visionario/i.test(_fuenteDelPaquete) ? '3'
-                       : /empresarial/i.test(_fuenteDelPaquete) ? '2'
-                       : /\binicial\b/i.test(_fuenteDelPaquete) ? '1' : null;
-      const digito     = porCodigo?.[1] ?? porNombre;
-      const paqueteCodigo = digito ? `ESP-${digito}` : mergedProspectData.package;
-
       // Datos verificados (arsenal_compensacion.txt COMP_PAQ_02/03/04, vigente 25 marzo 2026)
       const composiciones: Record<string, string> = {
         'ESP-1': `**Contenido ESP-1 Inicial ($200 USD / $900,000 COP) — vigente desde 25 marzo 2026:**
@@ -5378,6 +5369,67 @@ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
 | Piel8Brillo Exfoliante | 1 |
 | **Total** | **35** |`,
       };
+
+
+    // ¿Toca mostrar la composición de un paquete, y de cuál? Compartido por el pin
+    // (instrucción al modelo, web) y por la tabla dictada (sin modelo, canal).
+    // `explicito` = el paquete está nombrado en el mensaje o en la oferta aceptada;
+    // cuando solo viene de la BD, la tabla NO se dicta — "productos" a secas
+    // también dispara esta detección y dictaría el paquete guardado a quien
+    // preguntó otra cosa.
+    const resolverPaqueteComposicion = (): { codigo: string | null; explicito: boolean } | null => {
+      // ⚠️ FIX 2026-08-09 — este pin estaba MUERTO en WhatsApp.
+      //
+      // La guarda original era `closingState !== 2 && !== 3 && !== 4`, y en el
+      // canal `cierreLoManejaElCanal` fuerza `closingState: 0` siempre (aislamiento
+      // de la FSM web, 5 ago). Efecto lateral: la composición nunca se dictaba.
+      //
+      // Se vio en la prueba del 9 ago: a "esp3 qué trae" Queswa respondió que NO
+      // TENÍA el dato —teniéndolo aquí escrito y verificado— y derivó al socio,
+      // en el turno de alguien a punto de pagar $4,5 millones. El comentario
+      // original decía que fuera de cierre bastaba el RAG; se midió y el fragmento
+      // sí se recupera (COMP_PAQ_04 a 0.496), pero el modelo no lo usó.
+      const enCierreWeb = closingState === 2 || closingState === 3 || closingState === 4;
+      if (!enCierreWeb && !cierreLoManejaElCanal) return null;
+
+      // ¿La query menciona composición / productos / qué incluye?
+      // La oferta también cuenta (20 ago 2026): "¿le muestro qué trae el
+      // Visionario?" → "sí" dejaba el pin apagado —el "sí" no menciona
+      // composición— y el modelo, con COMP_PAQ_04 servido en el contexto, dijo
+      // que NO TENÍA la lista y derivó al socio. El mismo bug del 9 ago por la
+      // otra puerta. Si la oferta del bot fue de composición y la persona
+      // aceptó, el paquete se lee de la oferta.
+      const _ofertaComposicion = /qu[eé]\s+(trae|incluye|viene|contiene)[^?]{0,50}(paquete|esp[\s-]?[123]|visionario|empresarial|inicial)/i.test(_ultimoBotMsg);
+      const _aceptaComposicion = _ofertaComposicion
+        && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|mu[eé]str[ea]me(lo)?|s[ií] por favor)(?![a-záéíóúñ])/i.test(latestUserMessage.trim());
+      const preguntaComposicion = /productos?|qu[eé]\s+(trae|incluye|viene|contiene)|composici[oó]n|contenido|inventario|qu[eé]\s+hay\s+(en|dentro)|que\s+vienen?|cu[aá]les?\s+productos|lista\s+de\s+productos|esp[-\s]?[123].*productos|productos.*esp[-\s]?[123]/i.test(latestUserMessage);
+      if (!preguntaComposicion && !_aceptaComposicion) return null;
+
+      // Cuando lo que hay es una aceptación, el mensaje del usuario no nombra el
+      // paquete — lo nombra la oferta que aceptó.
+      const _fuenteDelPaquete = _aceptaComposicion ? _ultimoBotMsg : latestUserMessage;
+
+      // ⚠️ El paquete se lee del MENSAJE, no solo de `prospectData`.
+      //
+      // Los embeddings no distinguen "esp2" de "esp3": medido el 9 ago, a la
+      // consulta "qué productos vienen en el esp3" el vector devuelve PRIMERO el
+      // fragmento del ESP-2 (0.596 contra 0.584). Entregar con seguridad la lista
+      // equivocada de un paquete de $4,5 millones es peor que no responder, y un
+      // dígito no se resuelve por similitud — se resuelve leyéndolo.
+      //
+      // El nombre comercial también cuenta: mucha gente dice "el Visionario".
+      const porCodigo  = _fuenteDelPaquete.match(/esp[\s-]?([123])\b/i);
+      const porNombre  = /visionario/i.test(_fuenteDelPaquete) ? '3'
+                       : /empresarial/i.test(_fuenteDelPaquete) ? '2'
+                       : /\binicial\b/i.test(_fuenteDelPaquete) ? '1' : null;
+      const digito     = porCodigo?.[1] ?? porNombre;
+      return { codigo: digito ? `ESP-${digito}` : (mergedProspectData.package ?? null), explicito: !!digito };
+    };
+
+    const getPinComposicionPaquetes = (): string => {
+      const _r = resolverPaqueteComposicion();
+      if (!_r) return '';
+      const paqueteCodigo = _r.codigo;
 
       // Si hay paquete capturado → solo el suyo. Si no → los 3 (compactos).
       const tablaPin = paqueteCodigo && composiciones[paqueteCodigo]
@@ -5450,6 +5502,27 @@ ${visitorCountry === 'CO'
     // ~50 ms, y la cifra que sale es exactamente la que se calculó.
     //
     // ⚠️ Solo para el canal: en la web el ejemplo convive con otro formato.
+    // ── La tabla del paquete se entrega SIN pasar por el modelo ──────────────
+    // Mismo criterio que el ejemplo de cifras (ver tablaPaqueteDictada). Solo en
+    // el canal, solo cuando el paquete viene nombrado en el mensaje o en la
+    // oferta aceptada, y nunca si el pin de cifras ya dicta el turno.
+    if (tenantId === 'whatsapp' && !_pinDictaEjemplo) {
+      const _comp = resolverPaqueteComposicion();
+      if (_comp?.explicito && _comp.codigo && composiciones[_comp.codigo]) {
+        const cuerpo = tablaPaqueteDictada(_comp.codigo, composiciones[_comp.codigo], visitorCountry);
+        if (cuerpo) {
+          console.log(`⚡ [Tabla dictada] ${_comp.codigo} entregado directo, sin modelo (${cuerpo.length} chars, $0 tokens)`);
+          if (sessionId && fingerprint) {
+            logConversationHibrida(
+              latestUserMessage, cuerpo, ['PIN_COMPOSICION_BACKEND_DICTATOR'],
+              'pin_composicion_dictado', sessionId, fingerprint, mergedProspectData,
+            ).catch((err) => console.error('❌ [Tabla dictada] Error logging:', err));
+          }
+          return new StreamingTextResponse(buildVerbatimStream(cuerpo), { headers: getCorsHeaders(origin) });
+        }
+      }
+    }
+
     if (tenantId === 'whatsapp' && _pinDictaEjemplo) {
       let cuerpo = extraerEjemploDictado(_pinCifras);
       // Si ESTE MISMO ejemplo ya salió en la conversación, no se repite carácter

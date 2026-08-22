@@ -698,6 +698,10 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.8 — El «sí» al Luvoco llega a la tabla (22 ago 2026)
+
+Segunda prueba del día. A *«¿Le muestro las tres intensidades con su precio?»* la persona dijo «sí», la aceptación buscó con esa pregunta, y el vector devolvió otra vez LUV_00 (0.525) — LUV_01, la tabla con los precios, ni aparecía en el top-6. Sin cifras el modelo rellenó: derivó al equipo y agregó una frase de margen de reventa que no existe en ningún arsenal. Era la regla de *no cerrar con una pregunta que el arsenal no pueda atender*, incumplida por medir la pregunta de entrada y no la aceptación de salida. La pregunta pasa a *«¿Le muestro el sistema Luvoco con sus precios?»* → LUV_01 a 0.644, y con candado se sirve sola. **Criterio nuevo para toda pregunta de seguimiento: se mide también como consulta de aceptación.**
+
 ### v7.7 — El Clásico es premium, y el Luvoco tiene puerta (22 ago 2026)
 
 Dos hallazgos de la prueba del Director en el canal, el mismo día.
@@ -761,6 +765,10 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 ---
 
 ## arsenal_12_niveles
+
+### v5.4 — INV_00: la opción menor al ESP-1 tiene puerta (22 ago 2026)
+
+Prueba del Director, 22 ago: *«me interesa iniciar, ¿hay una opción menor al paquete ESP-1?»*. La pregunta tenía respuesta (INV_01, el Kit de Inicio) y no la recibía: con «paquete» y «esp1» en el texto la clasificación iba a compensación y el routing directo devolvía la composición del ESP-1; por vector, INV_01 quedaba sexto (0.451). Decisión del Director: **los tres paquetes empresariales son la entrada estándar, y el Kit de Inicio es una opción menor válida cuando la piden.** INV_00 es corto y dice las dos cosas —qué es la entrada estándar, qué trae el Kit y qué habilita— y su pregunta de seguimiento abre FREQ_03 por puerta. En el motor: patrón en `patrones_12_niveles` + puerta directa a INV_00; caso nuevo en el benchmark del clasificador. En el canal, además, el cierre deja pasar al motor la volición que llega con pregunta (*«me interesa iniciar, ¿hay…?»* abría el trámite y la pregunta quedaba sin responder), y la tabla del paquete la dicta el backend sin modelo (la del 21 ago salió con Rooibos y Latte, que el ESP-3 no trae).
 
 ### Mayo 2026 — Aforismo Tridente canónico
 

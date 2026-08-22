@@ -5,7 +5,7 @@
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando (nuevos); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con socios nuevos y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 5.3 (19 ago 2026) — El beneficio de acompañamiento del Kit se nombra por **quién acompaña**, no por una etapa. Previa **5.2** (7 ago 2026) — **Bautizo empresarial:** quienes componen la estructura dejan de llamarse "personas" → **socios** (invitar → conectar socios; tabla "Socios — Nuevos vs Total"; 8.190 socios) y el consumo → **clientes** (INV_04). Dos preguntas de cierre pasan de dos salidas a una (NIVELES_06, INV_01). Cifras/PV/CV intactas. Previa: **5.1** (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
+**Versión:** 5.4 (22 ago 2026) — **INV_00 abre la puerta a quien pide una opción menor al ESP-1.** Los tres paquetes empresariales siguen siendo la entrada estándar; el Kit de Inicio se ofrece cuando lo piden, con lo que trae y lo que habilita dicho en llano (decisión del Director, 22 ago). Previa **5.3** (19 ago 2026) — El beneficio de acompañamiento del Kit se nombra por **quién acompaña**, no por una etapa. Previa **5.2** (7 ago 2026) — **Bautizo empresarial:** quienes componen la estructura dejan de llamarse "personas" → **socios** (invitar → conectar socios; tabla "Socios — Nuevos vs Total"; 8.190 socios) y el consumo → **clientes** (INV_04). Dos preguntas de cierre pasan de dos salidas a una (NIVELES_06, INV_01). Cifras/PV/CV intactas. Previa: **5.1** (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
 
 **Cambios v5.1 (21 jul 2026):**
 - **NIVELES_02:** la tabla ahora distingue **"Nuevos"** (2ⁿ, quienes entran en el nivel) de **"Total organización"** (2⁽ⁿ⁺¹⁾−2, tamaño acumulado por interés compuesto de la duplicación) — alinea con el simulador de /12-niveles. Ej. nivel 4: 16 nuevos, 30 en total. Nivel 12: 8.190 en total.
@@ -210,6 +210,18 @@ No se limite a conectar solo 2 socios. Entre más socios conecte USTED, más gar
 ---
 
 ## 💰 **BLOQUE 1: OPCIONES DE INVERSIÓN (INV) - 6 respuestas**
+
+### **INV_00: "¿Hay una opción menor al ESP-1? / ¿Hay algo más económico que el paquete inicial? / ¿No hay nada más barato? / ¿Puedo empezar con menos de 900 mil? / No me alcanza para el paquete / ¿Hay algo más pequeño para empezar? / ¿Cuál es el paquete más económico?"**
+
+**[Concepto Nuclear]:** La entrada estándar son los tres paquetes de inicio (FREQ_03); el Kit de Inicio es la opción menor y se ofrece cuando la persona la pide, con su alcance dicho en afirmativo: entra al plan con la Regalía de Equipo al 10%, y los porcentajes más altos y el Bono GEN5 son del ESP-1, el ESP-2 y el ESP-3. ⚠️ Fragmento corto a propósito: es la puerta de la pregunta; la ficha del Kit vive en INV_01 y la comparación en INV_03.
+
+Sí la hay. La entrada estándar son los tres paquetes empresariales, y el más pequeño es el ESP-1. Pero si prefiere empezar con menos, existe el *Kit de Inicio*: $443.600 COP, cuatro cajas de Ganocafé 3 en 1.
+
+Con el Kit usted ya tiene su código y su canal abierto desde el primer día. La diferencia está en el plan: el Kit le da la Regalía de Equipo al 10%, y son el ESP-1, el ESP-2 y el ESP-3 los que traen los porcentajes más altos y el Bono GEN5.
+
+**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
+
+---
 
 ### **INV_01: "¿Cuál es la inversión mínima para empezar?"**
 

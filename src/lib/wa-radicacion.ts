@@ -670,6 +670,28 @@ export async function gestionarCierre(params: {
   const declara  = RE_VOLICION.test(mensajeActual);
   if (!botPidio && !declara) return null;
 
+  // ── La volición que llega con una pregunta se responde antes de abrir el trámite ──
+  //
+  // "Me interesa iniciar, ¿hay una opción menor al ESP-1?" (prueba del Director,
+  // 22 ago): el trámite se abría aquí mismo y pedía los cuatro datos, y la
+  // pregunta quedaba sin respuesta. Quien pregunta a la vez que declara está
+  // decidiendo con esa respuesta; atropellarla con un formulario es perder la
+  // venta en el turno en que se ganaba. El turno va al motor; el trámite arranca
+  // cuando la persona vuelva sobre él (el prompt del canal lleva el bloque de
+  // cierre espejo como red, y ese texto dispara RE_BOT_PIDIO_DATOS).
+  //
+  // Excepción: cuando la pregunta ES el trámite — "quiero iniciar, ¿qué necesita
+  // de mí?" — la respuesta correcta es pedir los datos.
+  if (declara && !botPidio) {
+    const t = mensajeActual.trim();
+    const traePregunta = RE_PREGUNTA.test(t) || RE_PEDIDO_INFO.test(t) || RE_TEMA.test(t);
+    const preguntaEsElTramite = /qu[eé]\s+(necesita|datos|sigue|hago|debo|tengo que|me pide)|c[oó]mo\s+(sigo|hago|procedo|es el proceso|pago|me inscribo|me registro)|cu[aá]l es el (paso|proceso|siguiente)|d[oó]nde\s+(pago|me inscribo)/i.test(t);
+    if (traePregunta && !preguntaEsElTramite) {
+      console.log(`❓ [Cierre WA] volición con pregunta ("${t.slice(0, 40)}") — primero responde el motor`);
+      return null;
+    }
+  }
+
   // ── Un "sí" contesta la ÚLTIMA pregunta, y esa pregunta puede no ser nuestra ──
   //
   // El trámite se mira sobre los últimos tres turnos del bot, para que una duda a

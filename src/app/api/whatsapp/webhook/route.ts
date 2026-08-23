@@ -363,6 +363,18 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`👆 [WA Webhook] ${phoneNumber} eligió "${elegido.title}" (${elegido.id})`);
       }
 
+      // Toque de un botón de respuesta rápida de una PLANTILLA: Meta NO lo manda
+      // dentro de `interactive` sino como `type: "button"` con `button.text`.
+      // Hasta el 22 ago 2026 este caso no se leía: el socio tocaba «Sí, cuénteme»
+      // en `enlace_canal_listo` y caía en el acuse de "no puedo procesar esto".
+      // Hoy lo necesita «Ver mi enlace» de `acceso_canal` (bloque 1.45).
+      const botonPlantilla = message.button as { text?: string; payload?: string } | undefined;
+      if (!messageText && botonPlantilla?.text) {
+        messageText   = botonPlantilla.text;
+        opcionElegida = botonPlantilla.payload;
+        console.log(`👆 [WA Webhook] ${phoneNumber} tocó el botón de plantilla "${botonPlantilla.text}"`);
+      }
+
       // Cierre de un Flow (el simulador): llega como nfm_reply con el payload del
       // `complete`. Se traduce a lenguaje natural para que el motor y el historial
       // lo entiendan como lo que es — la persona armó su propio escenario.
@@ -586,7 +598,11 @@ async function procesarEntrante(body: any): Promise<void> {
       // como "3001234567", "300 123 4567" o "300-123-4567", y el código de Gano
       // —cuando lo hay— queda con lo que sobra.
       const d = cola.join('').replace(/\D/g, '');
-      const largoTel = d.startsWith('57') ? 12 : 10;
+      // Colombia: 57 + 10 dígitos. Estados Unidos / Canadá: 1 + 10 (el Director lo
+      // escribe con el +1; un celular colombiano nunca empieza por 1, así que no
+      // hay ambigüedad). Hasta el 22 ago 2026 todo se cortaba a 10 y se le
+      // anteponía 57: un socio de EE. UU. no se podía activar por esta vía.
+      const largoTel = d.startsWith('57') ? 12 : (d.startsWith('1') && d.length >= 11 ? 11 : 10);
       telefono   = normalizarWhatsApp(d.slice(0, largoTel));
       codigoGano = d.slice(largoTel);
     }
@@ -594,7 +610,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // Si el comando llega sin teléfono, se busca a la persona por nombre entre
     // las radicaciones recientes: quien ya conversó con Queswa dejó ahí su
     // número, y volver a teclearlo es trabajo que la máquina puede hacer sola.
-    if (mComando && nombre && telefono.length < 12 && admins.includes(phoneNumber)) {
+    if (mComando && nombre && telefono.length < 11 && admins.includes(phoneNumber)) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data: radicados } = await (supabase as any)
         .from('pending_activations')
@@ -611,7 +627,7 @@ async function procesarEntrante(body: any): Promise<void> {
       }
     }
 
-    if (mComando && nombre && telefono.length >= 12 && admins.includes(phoneNumber)) {
+    if (mComando && nombre && telefono.length >= 11 && admins.includes(phoneNumber)) {
       const destino = telefono;
       const corto   = nombre.split(/\s+/)[0];
       const resultado = await activarCanal(supabase, nombre, destino, codigoGano);
@@ -631,12 +647,22 @@ async function procesarEntrante(body: any): Promise<void> {
         // sigue con la v1, que al menos conserva el botón. Ver WABA_REFERENCIA.md.
         let enviado = await sendText(destino, bienvenida);
         if (!enviado.ok) {
-          const conPlantilla = await sendTemplate(destino, 'enlace_canal_listo', 'es', [
-            corto,
-            enlaceDeCanal(resultado.slug),
-          ]);
-          if (conPlantilla.ok) enviado = conPlantilla;
-          console.log(`📨 [WA Admin] Fuera de ventana → plantilla ${conPlantilla.ok ? 'entregada' : 'falló: ' + conPlantilla.error}`);
+          // ⚠️ A números de EE. UU. Meta NO entrega plantillas MARKETING (pausa
+          // desde abr 2025, sin fecha de fin), y `enlace_canal_listo` lo es: la
+          // API la acepta y nunca llega. Para +1 va primero `acceso_canal` —sin
+          // URL, botón «Ver mi enlace»; UTILITY si Meta la sostiene— y la v1
+          // queda de respaldo por si aquella no existe o no está aprobada.
+          // Para el resto del mundo la v1 sigue siendo la elegida (Director,
+          // 22 ago): trae el enlace en el cuerpo y dice qué hacer con él.
+          const esMasUno = /^1\d{10}$/.test(destino);
+          const plantillas: Array<[string, string[]]> = esMasUno
+            ? [['acceso_canal', [corto]], ['enlace_canal_listo', [corto, enlaceDeCanal(resultado.slug)]]]
+            : [['enlace_canal_listo', [corto, enlaceDeCanal(resultado.slug)]]];
+          for (const [plantilla, params] of plantillas) {
+            const r = await sendTemplate(destino, plantilla, 'es', params);
+            console.log(`📨 [WA Admin] Fuera de ventana → ${plantilla} ${r.ok ? 'entregada' : 'falló: ' + r.error}`);
+            if (r.ok) { enviado = r; break; }
+          }
         }
 
         // ⚠️ El mensaje listo para reenviar va SIEMPRE, haya llegado o no.
@@ -705,6 +731,22 @@ async function procesarEntrante(body: any): Promise<void> {
     const socioQueEscribe = await identificarSocio(supabase, phoneNumber);
     if (socioQueEscribe) {
       console.log(`👤 [WA Webhook] Escribe el dueño de /${socioQueEscribe.slug} — modo socio`);
+    }
+
+    // Toque de «Ver mi enlace», el botón de `acceso_canal` —la plantilla sin URL
+    // que recibe el socio de EE. UU. fuera de ventana (a +1 Meta no entrega
+    // MARKETING, así que `enlace_canal_listo` no le llega)—. Al tocarlo abrió su
+    // ventana, y aquí recibe en texto libre lo mismo que el socio colombiano
+    // dentro de ventana: enlace, «compártalo con cinco personas hoy» y la oferta
+    // de redactarle el mensaje. Determinístico: el nodo no necesita modelo.
+    // ⚠️ El rótulo es la llave: si cambia en someter-plantilla-acceso-canal.mjs,
+    // cambia aquí.
+    if (socioQueEscribe && /^ver mi enlace$/i.test(messageText.trim())) {
+      const bienvenida = mensajeDeBienvenida(socioQueEscribe.nombre, socioQueEscribe.slug);
+      await sendWhatsAppMessage(phoneNumber, bienvenida);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, bienvenida);
+      console.log(`🔗 [WA Webhook] Bienvenida entregada a /${socioQueEscribe.slug} tras «Ver mi enlace»`);
+      return;
     }
 
     // Al socio nuevo se le saluda una vez, con lo suyo: su enlace y lo que Queswa

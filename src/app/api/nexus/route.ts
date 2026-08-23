@@ -1880,7 +1880,10 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   // PRIORIDAD 1.6: GEN5 / Bonos / Plan de Compensación → arsenal_compensacion
   // FIX 2026-04-06: patrones_cierre incluye /gen5/i, /bono/i, /comision/i pero devuelve
   // arsenal_avanzado — GEN5 content está en COMP_GEN5_01 de arsenal_compensacion.
-  const esGEN5oCompensacion = /\bgen[\s-]?5\b|\bgen5\b|(ingreso|ganancia)s?\s+(por|con|de)\s+(los\s+)?paquetes\s+empresariales|bono.*inici|inici.*r[aá]pid|plan\s*de?\s*compensac|compensac.*plan|c[oó]mo\s*(se\s*)?(gana|paga|distribuye)\s*(el\s*)?dinero|qu[eé]\s*gano\s*cuando|cu[aá]nto\s*gano\s*(por|en|a\s*la?\s*(semana|mes))|velocidad\s*de\s*inici|pago\s*semanal|tabla\s*de\s*generac|bono\s*de\s*inici/i.test(messageLower);
+  // «el otro bono, el de los paquetes» (prueba del Director, 22 ago) caía al vector y el
+  // modelo se inventó un «Bono de Inicio Rápido» con cifras de un 10 % plano — un
+  // tercio por debajo de las reales. Bono + paquete, en cualquier orden, es el GEN5.
+  const esGEN5oCompensacion = /\bgen[\s-]?5\b|\bgen5\b|bono[^.?]{0,30}paquete|paquete[^.?]{0,30}bono|(ingreso|ganancia)s?\s+(por|con|de)\s+(los\s+)?paquetes\s+empresariales|bono.*inici|inici.*r[aá]pid|plan\s*de?\s*compensac|compensac.*plan|c[oó]mo\s*(se\s*)?(gana|paga|distribuye)\s*(el\s*)?dinero|qu[eé]\s*gano\s*cuando|cu[aá]nto\s*gano\s*(por|en|a\s*la?\s*(semana|mes))|velocidad\s*de\s*inici|pago\s*semanal|tabla\s*de\s*generac|bono\s*de\s*inici/i.test(messageLower);
   if (esGEN5oCompensacion) {
     console.log('💰 Clasificación: GEN5/Bono/Compensación → arsenal_compensacion (COMP_GEN5_*)');
     return 'arsenal_compensacion';
@@ -5122,7 +5125,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // paquetes" / "qué gano por cada paquete" son la pregunta del GEN5 dicha
       // con las palabras del prospecto; sin estas puertas el pin no disparaba y
       // el modelo componía con las composiciones en mano (19 ago 2026).
-      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso|(ingresos?|gana[nc]\w*)\s+(por|de|con)\s+(la\s+)?(compra\s+de\s+)?(los\s+)?paquete|c[oó]mo\s+son\s+(los\s+)?ingresos|(ganan|comisi[oó]n|ingreso|gano|recibo|me\s+queda|bono)[^.?]{0,40}paquetes?\s+empresarial|qu[eé]\s+(gano|me\s+queda|recibo|me\s+pagan)\s+por\s+(cada\s+)?paquete/i;
+      const preguntaSobreCifras = /cu[aá]nto\s*(gano|gana|se\s+gana|cobra|genera)|ingreso\s*inmediato|\bge?n[\s.-]?5\b|bono.*gen|bono[^.?]{0,30}paquete|paquete[^.?]{0,30}bono|comisi[oó]n.*esp|cu[aá]nto.*paga|ejemplo.*n[uú]mero|n[uú]meros.*reales|cifras|\\blos n[uú]meros\\b|ver.*n[uú]meros|mu[eé]stre?.*n[uú]meros|cu[aá]nto.*entrada|cu[aá]nto.*primera|ganancia.*persona|cu[aá]nto\s*(se\s*)?gana|ingresos\s*(del\s*)?negocio|c[oó]mo\s*(se\s*)?gana|numbers|proyecto.*ingreso|(ingresos?|gana[nc]\w*)\s+(por|de|con)\s+(la\s+)?(compra\s+de\s+)?(los\s+)?paquete|c[oó]mo\s+son\s+(los\s+)?ingresos|(ganan|comisi[oó]n|ingreso|gano|recibo|me\s+queda|bono)[^.?]{0,40}paquetes?\s+empresarial|qu[eé]\s+(gano|me\s+queda|recibo|me\s+pagan)\s+por\s+(cada\s+)?paquete/i;
       // Aceptación de una oferta previa — va ANTES de la guarda de salida (14 ago
       // 2026). En la prueba del Director, "¿Le muestro cómo se ve en números?" →
       // "Sí" no entregó el ejemplo: el "Sí" no matchea preguntaSobreCifras, la

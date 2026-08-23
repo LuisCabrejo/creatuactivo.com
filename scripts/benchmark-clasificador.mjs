@@ -94,6 +94,9 @@ const CASOS = [
 
   // — Compensación —
   ['¿Cómo funciona el bono GEN5?',               'arsenal_compensacion'],
+  // 22 ago 2026: «el otro bono, el de los paquetes» caía al vector y el modelo inventó nombre y cifras
+  ['explícame el otro bono, el de los paquetes', 'arsenal_compensacion'],
+  ['el bono de los paquetes',                    'arsenal_compensacion'],
   ['¿Qué es el binario?',                        'arsenal_compensacion'],
   ['¿Cuántos PV necesito al mes?',               'arsenal_compensacion'],
   ['¿Qué es el GCV?',                            'arsenal_compensacion'],

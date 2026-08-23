@@ -807,10 +807,18 @@ async function procesarEntrante(body: any): Promise<void> {
     // nada que responder y los botones son lo que baja la barrera.
     const _soloSaludo = /^(hola|buenas|buenos d[ií]as|buenas tardes|buenas noches|hey|qu[eé] tal|saludos|buen d[ií]a)[\s.,!¡]*$/i
       .test(messageText.trim());
-    const _vieneDelEnlace = /vengo del enlace/i.test(messageText);
+    // Quien pega el ENLACE del socio está llegando, no preguntando (prueba del
+    // 22 ago: `creatuactivo.com/luis-cabrejo/queswa` pegado como primer mensaje
+    // recibió la biografía del fundador en vez de la apertura, porque la sílaba
+    // "que" de *queswa* disparaba el detector de pregunta). La URL propia cuenta
+    // como venir del enlace, y las palabras-pregunta se buscan completas y fuera
+    // de las direcciones.
+    const _traeUrlPropia = /creatuactivo\.com\/|queswa\.app\//i.test(messageText);
+    const _vieneDelEnlace = _traeUrlPropia || /vengo del enlace/i.test(messageText);
+    const _textoSinUrls = messageText.replace(/https?:\/\/\S+|\b[a-z0-9.-]+\.(com|app|co|net|org)\/\S*/gi, ' ').trim();
     const _traePregunta = !_soloSaludo && !_vieneDelEnlace
-      && (/\?|c[oó]mo|qu[eé]|cu[aá]l|cu[aá]nto|d[oó]nde|por qu[eé]|qui[eé]n|deseo|quiero|me interesa|necesito|inform/i.test(messageText)
-          || messageText.trim().split(/\s+/).length >= 4);
+      && (/\?|(?<![a-záéíóúñ])(c[oó]mo|qu[eé]|cu[aá]l(es)?|cu[aá]nto|d[oó]nde|por qu[eé]|qui[eé]n|deseo|quiero|me interesa|necesito|inform[a-z]*)(?![a-záéíóúñ])/i.test(_textoSinUrls)
+          || _textoSinUrls.split(/\s+/).filter(Boolean).length >= 4);
 
     if (!existingProspect && _traePregunta) {
       console.log(`💬 [WA Webhook] Primer contacto CON pregunta ("${messageText.slice(0, 45)}") — responde el motor, sin apertura`);

@@ -756,6 +756,32 @@ export async function gestionarCierre(params: {
       return null;
     }
 
+    // ── Una cortesía no es un dato mal dado ──
+    //
+    // Prueba del Director, 22 ago: el bot pidió nombre y cédula, la persona
+    // escribió "Gracias" y recibió "Perdón, no lo capté bien. ¿Me confirma su
+    // nombre completo…?". Un gracias, un "ok" o un "ya se los mando" no son
+    // intentos fallidos de dar el nombre: son la persona siendo amable, o
+    // avisando que los manda después. Se acusa con la misma amabilidad, se le
+    // recuerda en una línea qué falta, y el trámite queda abierto sin insistir.
+    const _cortesia = /^(muchas |mil )?gracias[\s.!]*$|^(ok(ay)?|vale|listo|perfecto|entendido|de acuerdo|claro|bueno|genial|super|s[uú]per)(,?\s*(muchas )?gracias)?[\s.!]*$/i.test(texto);
+    const _promesaEnvio = /ya (se|te) los? (mando|env[ií]o|paso|comparto|escribo)|(ahora|ahorita|en un (momento|rato|minuto)|m[aá]s tarde|luego|despu[eé]s) (se|te) los? (mando|env[ií]o|paso)|d[eé]me un (momento|minuto|segundo)|un momento/i.test(texto);
+    if (_cortesia || _promesaEnvio) {
+      const etiqueta: Record<keyof DatosRadicacion, string> = {
+        nombre: 'su nombre completo', cedula: 'su número de identificación',
+        ciudad: 'su ciudad', paquete: 'el paquete con el que arranca',
+      };
+      const queFalta = enumerar(faltantes.map((k) => etiqueta[k]));
+      const plural = faltantes.length > 1;
+      console.log(`🙏 [Cierre WA] cortesía ("${texto.slice(0, 30)}") — se acusa y el trámite sigue abierto`);
+      return {
+        texto: _promesaEnvio
+          ? `Perfecto, quedo pendiente. Cuando me ${plural ? 'mande' : 'mande'} ${queFalta}, lo dejo radicado.`
+          : `A usted. Cuando tenga a mano ${queFalta}, me ${plural ? 'los' : 'lo'} escribe por aquí y lo dejo radicado.`,
+        radicado: false,
+      };
+    }
+
     const siguiente = faltantes[0];
     // Si el turno anterior ya pedía justo este dato, la persona no lo dio o no se
     // entendió: se pregunta de otra forma, no con la misma frase. El bloque de los
@@ -765,7 +791,9 @@ export async function gestionarCierre(params: {
     // El bloque de `pedirDatos` los nombra todos, así que tomarlo por reintento
     // hacía que el primer dato pedido de a uno saliera con "¿me repite…?" a alguien
     // que nunca lo había dado — pasó en la prueba del 7 ago con la cédula.
-    const esBloqueDePedirDatos = /necesito cuatro datos|me falta(n)? (un dato|estos datos|\w+ datos)|ya tengo:/i.test(ultimoBot);
+    // El acuse de cortesía ("A usted. Cuando tenga a mano…" / "quedo pendiente") también nombra
+    // los datos que faltan, y tampoco es un pedido fallido: el dato siguiente se pide limpio.
+    const esBloqueDePedirDatos = /necesito cuatro datos|me falta(n)? (un dato|estos datos|\w+ datos)|ya tengo:|^a usted\.|quedo pendiente/i.test(ultimoBot);
     const reintento = !esBloqueDePedirDatos && pidioEsteDato(ultimoBot, siguiente);
 
     return { texto: pedirUnDato(siguiente, { reintento, socio }), radicado: false };

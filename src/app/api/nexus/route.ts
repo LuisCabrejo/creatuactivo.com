@@ -1860,9 +1860,21 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   const esCVoPVQuery = /\bcv\b|\bpv\b|puntos\s*(de\s*)?volumen|volumen\s*personal|cu[aá]ntos?\s*(pv|cv)|valor(es)?\s*(pv|cv)|(pv|cv)\s*(tiene|del?|de\s+la?|por|da|aporta|genera)/i.test(messageLower);
   // "dame los precios" / "lista completa" / "todos los precios" → también COMP_PV_06
   const esListaPreciosGlobal = /lista.*precio|precio.*lista|todos.*(?:los\s*)?precio|precios.*(?:de\s*todos|completo)|dame.*(?:los\s*)?precio|cu[aá]les.*(?:son.*)?(?:los\s*)?precio|precio.*producto|catálogo.*precio|22.*producto/i.test(messageLower);
-  if (esCVoPVQuery || esListaPreciosGlobal) {
-    console.log('📊 Clasificación: CV/PV / LISTA PRECIOS → arsenal_compensacion (COMP_PV_06)');
+  if (esCVoPVQuery) {
+    console.log('📊 Clasificación: CV/PV → arsenal_compensacion (COMP_PV_06)');
     return 'arsenal_compensacion';
+  }
+  // La LISTA DE PRECIOS va al catálogo, no a la tabla de puntos del plan (22 ago
+  // 2026). El desvío a COMP_PV_06 se escribió cuando el modelo ignoraba las
+  // tablas del catálogo y ponía precios de entrenamiento; desde que esas tablas
+  // llevan <verbatim_lock> (v7.2, mayo) eso ya no pasa — y lo que sí pasaba era
+  // que un prospecto que decía "sí" a "¿le muestro el catálogo con precios?"
+  // recibía una tabla de PV/CV con códigos de producto y nombres en inglés
+  // (prueba del Director, 22 ago). COMP_PV_06 queda para quien pregunta por
+  // puntos; el catálogo, para quien pregunta por productos.
+  if (esListaPreciosGlobal) {
+    console.log('🛒 Clasificación: LISTA PRECIOS → catalogo_productos (tablas con candado)');
+    return 'catalogo_productos';
   }
 
   // PRIORIDAD 1.6: GEN5 / Bonos / Plan de Compensación → arsenal_compensacion
@@ -2523,7 +2535,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // Queries de "lista completa" → recuperar las 4 tablas de precios explícitamente
     // BEB_01 + LUV_01 + SUP_01 + PERS_01 tienen TODAS las tablas de precios del catálogo
     // El doc monolítico (14,748 chars) causaba alucinaciones de precio por atención dispersa
-    const esListaCompleta = /cat[aá]logo.*completo|lista.*completa|todos.*los.*producto|todos.*los.*precio|dame.*todos|completo.*con.*precio|precio.*todos|22.*producto/i.test(userMessage.toLowerCase());
+    const esListaCompleta = /cat[aá]logo.*completo|lista.*completa|todos.*los.*producto|todos.*los.*precio|dame.*todos|completo.*con.*precio|precio.*todos|22.*producto|lista.*precio|precio.*lista|dame.*(?:los\s*)?precio|cu[aá]les.*(?:son.*)?(?:los\s*)?precio|cat[aá]logo.*precio|precios?.*(?:de\s*)?todos/i.test(userMessage.toLowerCase());
     if (esListaCompleta) {
       console.log('📋 [Catálogo] Lista completa → recuperando tablas de precio (BEB_01+LUV_01+SUP_01+PERS_01)');
       const allFragments = await getArsenalFragments();
@@ -2727,7 +2739,10 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // precios de entrenamiento pre-2026. COMP_PV_06 tiene códigos oficiales que anclan el modelo.
   if (documentType === 'arsenal_compensacion') {
     const msgLp = userMessage.toLowerCase();
-    const esListaPrecios = /lista.*precio|precio.*lista|todos.*precio|precios.*(?:de\s*todos|completo|producto)|dame.*precio|cu[aá]les.*precio|22.*producto|catálogo.*precio|\bcv\b.*\bpv\b|\bpv\b.*\bcv\b|cv.*pv.*precio|tabla.*precio|precios.*caf[eé]/i.test(msgLp);
+    // Solo cuando se piden PUNTOS (PV/CV). Una lista de precios a secas es del
+    // catálogo, que tiene las tablas con candado y los nombres como los ve el
+    // cliente — esta tabla lleva códigos internos y está pensada para el socio.
+    const esListaPrecios = /\bcv\b|\bpv\b|puntos/i.test(msgLp);
     if (esListaPrecios) {
       console.log('📊 [COMP_PV_06] Routing directo → tabla completa precios+CV+PV');
       const allFragments = await getArsenalFragments();

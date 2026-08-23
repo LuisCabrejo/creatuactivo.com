@@ -1,5 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v5.2 — BAUTIZO EMPRESARIAL (socios)
+# Arsenal Conversacional: Los 12 Niveles v5.3 — BAUTIZO EMPRESARIAL (socios)
 
+**v5.3 (22 ago 2026):** La tabla de productos de INV_06 usa los nombres del catálogo, en español. Sin cambios de puntos.
 **v5.2 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **socio** · *su socio logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
@@ -378,10 +379,10 @@ Tiene varias opciones para completar sus 50 PV mensuales:
 - 4 cajas de Gano Café 3en1 = 60 PV ✓
 
 **Opción 2 - Café + Suplemento:**
-- 2 cajas Gano Café 3en1 (30 PV) + 1 Ganoderma Cápsulas (41 PV) = 71 PV ✓
+- 2 cajas Gano Café 3en1 (30 PV) + 1 Cápsulas Ganoderma (41 PV) = 71 PV ✓
 
 **Opción 3 - Suplementos:**
-- 1 Ganoderma Cápsulas (41 PV) + 1 Gano Soap (10 PV) = 51 PV ✓
+- 1 Cápsulas Ganoderma (41 PV) + 1 Jabón Gano (10 PV) = 51 PV ✓
 
 **Opción 4 - Mix variado:**
 - 2 cajas Gano Café (30 PV) + 2 Luvoco (30 PV) = 60 PV ✓
@@ -397,20 +398,20 @@ Tiene varias opciones para completar sus 50 PV mensuales:
 | Gano Schokolade | 17 | 15.6 | Bebidas |
 | Gano C'Real Spirulina | 17 | 15 | Suplementos |
 | Oleaf Gano Rooibos | 17 | 15 | Bebidas |
-| Reskine Collagen Drink | 31 | 27.6 | Bebidas |
-| Ganoderma Cápsulas | 41 | 34.5 | Suplementos |
-| Excellium Cápsulas | 41 | 34.5 | Suplementos |
-| Cordygold Cápsulas | 49 | 43 | Suplementos |
+| Reskine Colágeno | 31 | 27.6 | Bebidas |
+| Cápsulas Ganoderma | 41 | 34.5 | Suplementos |
+| Cápsulas Excellium | 41 | 34.5 | Suplementos |
+| Cápsulas Cordygold | 49 | 43 | Suplementos |
 
 **Productos de cuidado personal:**
 | Producto | PV | CV |
 |----------|-----|-----|
-| Gano Soap | 10.4 | 8.9 |
-| Gano Fresh Toothpaste | 11 | 9.5 |
-| Gano Transparent Soap | 12 | 10 |
-| Piel8Brillo Shampoo | 11 | 9 |
-| Piel8Brillo Acondicionador | 11 | 9 |
-| Piel8Brillo Exfoliante | 11 | 9 |
+| Jabón Gano | 10.4 | 8.9 |
+| Gano Fresh (pasta dental) | 11 | 9.5 |
+| Jabón Transparente | 12 | 10 |
+| Shampoo Piel&Brillo | 11 | 9 |
+| Acondicionador Piel&Brillo | 11 | 9 |
+| Exfoliante Piel&Brillo | 11 | 9 |
 
 **Equipos (sin puntos para recompra):**
 | Producto | PV | CV | Nota |

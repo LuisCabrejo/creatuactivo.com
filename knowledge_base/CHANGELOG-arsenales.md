@@ -12,6 +12,13 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.0 — Los productos se nombran como los ve el cliente (22 ago 2026)
+
+Prueba del Director, 22 ago: la persona dijo «sí» a *"¿le muestro el catálogo completo con precios?"* y recibió **la tabla de puntos del plan** — 22 filas con código interno, PV, CV y precio, con los nombres en inglés del back office (*Gano Fresh Toothpaste*, *Gano Transparent Soap*, *Reskine Collagen Drink*) y *Piel8Brillo*, que es Piel&Brillo con el «&» corrompido. Esa tabla existe para el socio que calcula su recompra; servida a un prospecto como catálogo, le dice que el negocio no sabe ni el nombre de sus productos.
+
+**Dos causas, dos arreglos.** (1) En el motor, la PRIORIDAD 1.5 del clasificador mandaba *"catálogo con precios"* a compensación a propósito, por un motivo de abril que dejó de existir en mayo cuando las tablas del catálogo recibieron su `<verbatim_lock>`; ahora la lista de precios va al catálogo y COMP_PV_06 queda para quien pregunta por **puntos**. La puerta directa a COMP_PV_06 exige PV/CV/puntos en el mensaje. (2) En este arsenal, **57 ocurrencias** renombradas en COMP_CV_01 · COMP_PAQ_02–05 · COMP_PV_06 · COMP_PV_08: los nombres son los del catálogo —Ganocafé Clásico, Jabón Gano, Jabón Transparente, Gano Fresh (pasta dental), Shampoo/Acondicionador/Exfoliante Piel&Brillo, Reskine Colágeno, Cápsulas Ganoderma/Excellium/Cordygold, Cápsulas Luvoco Suave/Medio/Fuerte, Máquina LUVOCO—. Ninguna cifra del plan cambia. ⚠️ `arsenal_ganocafe` (tenant ecommerce) conserva dos nombres en inglés; pendiente, no es de este canal.
+
+
 ### v7.7 — Cada vía se nombra por lo que la mueve (9 ago 2026)
 
 Decisión del Director, después de que la investigación encargada a Gemini devolviera pensamiento útil y copy inservible (ocho nombres tipo *Bono de Habilitación de Nodos Comerciales*, y las tres frases propuestas en tuteo). Lo que sí se rescató de ese informe: **el criterio del artículo 2 de la Ley 1700** —cuando el discurso se centra en intermediar personas en vez de productos, cruza la línea regulatoria— y la lógica de preparación del canal.
@@ -133,6 +140,19 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 **Verificado en `route.ts`: 0 de cada uno.** 143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 · sin errores tsc nuevos.
 
 ## arsenal_inicial
+
+### v5.84 — La condición de uso de STORY_03, enunciada por lo que la habilita (22 ago 2026)
+
+La cabecera decía **"NO abrir con esto"** y explicaba el porqué en la misma línea: *en frío es un diagnóstico entregado como veredicto a alguien de quien no sabemos nada*. Son dos reglas distintas metidas en una — una habla de **posición** en el mensaje, la otra de **conocimiento**— y la que manda es la segunda. Esa confusión costó una vuelta completa de trabajo.
+
+**Cómo se descubrió.** Al diseñar la prospección 1-a-1 del fundador a contactos que él conoce hace años, un agente citó la prohibición para descartar la narración del villano en el primer mensaje. El Director corrigió: *"los contactos van a ser a personas que conozco y de las cuales tengo contexto"*. Tenía razón, y no por la vía de que las prohibiciones caducan — **la regla, leída completa, nunca aplicó a ese caso**: su condición es el desconocimiento, y ahí no lo hay. La advertencia se escribió para Queswa, que recibe desconocidos llegados de un reel, y se leyó como si valiera para cualquiera que escriba.
+
+**Qué cambia.** La condición se enuncia en afirmativo, como manda la doctrina de cabeceras: *se usa cuando ya se sabe de su situación — sea porque la contó en la conversación, sea porque quien escribe la conoce de antes*. Se agrega el supuesto que el arsenal no contemplaba, porque fue escrito para el trato con desconocidos: **que el emisor sea un humano con contexto previo**.
+
+**Y se corrige un conteo.** La cabecera decía "dos piezas" y el candado tiene **tres**: falta contar *"es un ciclo de trabajar, pagar cuentas y repetir"*, que es lo que convierte el villano en estructura y no en un mal mes. El cuerpo no se tocó — el `<verbatim_lock>` está intacto.
+
+⚠️ **Clonado a `whatsapp` Y a `dashboard`.** Este arsenal vive en **tres** tenants, no en dos; la receta de CLAUDE.md solo nombra `whatsapp`.
+
 
 ### v5.78 — CRED_04 deja de describir un fraude para negarlo (10 ago 2026)
 
@@ -769,6 +789,11 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 ---
 
 ## arsenal_12_niveles
+
+### v5.3 — INV_06 con los nombres del catálogo (22 ago 2026)
+
+Misma corrección que compensación v8.0: la tabla de productos para completar los 50 PV usaba los nombres en inglés del back office. 13 ocurrencias renombradas; sin cambios de puntos.
+
 
 ### v5.4 — INV_00: la opción menor al ESP-1 tiene puerta (22 ago 2026)
 

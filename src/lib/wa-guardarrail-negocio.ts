@@ -114,7 +114,12 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // ── La comisión contada en PERSONAS ────────────────────────────────────────
   // Es la silueta que el prospecto reconoce como pirámide. El GEN5 se cuenta en
   // COMPRAS: "por cada paquete empresarial que se compra en su canal".
-  /(por cada|cada vez que un[ao]?)\s*(persona|socio|distribuidor|afiliado|miembro)[^.]{0,35}(entra|entre|ingresa|ingrese|se (vincula|vincule|inscribe|inscriba|registra|registre|afilia|afilie)|arranca|arranque|se une|se una)[^.]{0,35}(recibe|reciba|gana|gane|le (entra|entre|queda|quede|pagan|paguen)|\$|usd|cop)/,
+  // «cada vez que ALGUIEN en su canal arranca con un paquete, usted recibe un
+  // bono» (22 ago 2026) pasaba porque el sujeto no estaba en la lista; y «si en
+  // su primer mes arrancan TRES PERSONAS con usted…» tampoco, porque va contado.
+  /(por cada|cada vez que)\s*(un[ao]?\s*)?(persona|socio|distribuidor|afiliado|miembro|alguien|quien|gente)[^.]{0,35}(entra|entre|ingresa|ingrese|se (vincula|vincule|inscribe|inscriba|registra|registre|afilia|afilie)|arranca|arranque|se une|se una|llega|llegue)[^.]{0,45}(bono|comisi[oó]n|recibe|reciba|gana|gane|le (entra|entre|queda|quede|pagan|paguen)|\$|usd|cop)/,
+  /(dos|tres|cuatro|cinco|seis|diez|\d+)\s+(personas|socios|amigos|conocidos)\s+(con usted|en su canal)?[^.]{0,10}(arrancan|arranquen|entran|entren|se (vinculan|vinculen|inscriben|inscriban|registran|unen))[^.]{0,60}(bono|comisi[oó]n|recibe|gana|\$|usd|cop)/,
+  /(arrancan|entran|se (vinculan|inscriben|unen))\s+(dos|tres|cuatro|cinco|seis|diez|\d+)\s+(personas|socios|amigos|conocidos)[^.]{0,60}(bono|comisi[oó]n|recibe|gana|\$|usd|cop)/,
   /(recibe|gana|le (entran?|queda))[^.]{0,25}(\$|usd|cop)?[^.]{0,15}por cada (persona|socio|afiliado|miembro)/,
 
   // ── Progresión geométrica de personas (la pirámide dibujada) ───────────────

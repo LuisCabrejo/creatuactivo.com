@@ -260,6 +260,10 @@ Para versiones anteriores a v26.0, consultar los archivos `knowledge_base/system
 
 ## queswa_whatsapp
 
+### v4.20_recomendacion_dos_tiempos (22 ago 2026)
+
+Reemplaza la regla de v4.19 por la doctrina completa del Director: la recomendación de paquete va en dos tiempos (FREQ_30 primero; si insiste, el Visionario y que decida), nunca sobre un perfil inventado. Y una regla que faltaba: **el Bono GEN5 se cuenta en paquetes comprados, nunca en personas** — en la prueba del 22 ago el modelo escribió *"cada vez que alguien en su canal arranca con un paquete, usted recibe un bono"* y *"si arrancan tres personas con usted"*; el guardarraíl de negocio tampoco lo atrapaba y ahora sí (v: sujeto «alguien» y conteo de personas).
+
 ### v4.19_perfil_no_inventado (22 ago 2026)
 
 Prueba del Director, 22 ago: la persona preguntó *"¿y cuál me recomiendas?"* y el modelo respondió *"para un emprendedor que ya tiene negocio y círculo propio, el ESP-2…"* — un perfil que nunca dijo, y sobre ese invento la bajó del ESP-3 que ella misma había nombrado veinte turnos antes. Nueva regla junto a la del margen: nunca atribuirle a la persona un perfil que no dijo; la recomendación de paquete se apoya en lo que ella dijo, y si ya nombró uno, se parte de ese.

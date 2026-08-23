@@ -2824,6 +2824,18 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
   const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string }[] = [
     {
+      // Decisión del Director, 22 ago 2026: la recomendación de paquete tiene dos
+      // tiempos, y el primero es siempre el mismo texto —el que le resulte cómodo,
+      // lo importante es iniciar—. FREQ_30 es corto y con candado; la puerta
+      // garantiza que llegue aunque "paquete" mande la clasificación a compensación.
+      // El segundo tiempo (insiste: "si fuera usted") lo lleva el prompt, así que
+      // esas palabras NO abren esta puerta.
+      fragmento: 'arsenal_inicial_FREQ_30',
+      titulo: 'Qué paquete me recomienda — FREQ_30',
+      porque: 'pide una recomendación de paquete',
+      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(qu[eé]|cu[aá]l)\s+(paquete\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
+    },
+    {
       // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor
       // al paquete ESP-1?" — el Kit de Inicio vive en arsenal_12_niveles y desde
       // esa pregunta no ganaba el vector (INV_01 sexto, 0.451); con "paquete" y

@@ -367,7 +367,6 @@ async function procesarEntrante(body: any): Promise<void> {
       // dentro de `interactive` sino como `type: "button"` con `button.text`.
       // Hasta el 22 ago 2026 este caso no se leía: el socio tocaba «Sí, cuénteme»
       // en `enlace_canal_listo` y caía en el acuse de "no puedo procesar esto".
-      // Hoy lo necesita «Ver mi enlace» de `acceso_canal` (bloque 1.45).
       const botonPlantilla = message.button as { text?: string; payload?: string } | undefined;
       if (!messageText && botonPlantilla?.text) {
         messageText   = botonPlantilla.text;
@@ -649,20 +648,14 @@ async function procesarEntrante(body: any): Promise<void> {
         if (!enviado.ok) {
           // ⚠️ A números de EE. UU. Meta NO entrega plantillas MARKETING (pausa
           // desde abr 2025, sin fecha de fin), y `enlace_canal_listo` lo es: la
-          // API la acepta y nunca llega. Para +1 va primero `acceso_canal` —sin
-          // URL, botón «Ver mi enlace»; UTILITY si Meta la sostiene— y la v1
-          // queda de respaldo por si aquella no existe o no está aprobada.
-          // Para el resto del mundo la v1 sigue siendo la elegida (Director,
-          // 22 ago): trae el enlace en el cuerpo y dice qué hacer con él.
-          const esMasUno = /^1\d{10}$/.test(destino);
-          const plantillas: Array<[string, string[]]> = esMasUno
-            ? [['acceso_canal', [corto]], ['enlace_canal_listo', [corto, enlaceDeCanal(resultado.slug)]]]
-            : [['enlace_canal_listo', [corto, enlaceDeCanal(resultado.slug)]]];
-          for (const [plantilla, params] of plantillas) {
-            const r = await sendTemplate(destino, plantilla, 'es', params);
-            console.log(`📨 [WA Admin] Fuera de ventana → ${plantilla} ${r.ok ? 'entregada' : 'falló: ' + r.error}`);
-            if (r.ok) { enviado = r; break; }
-          }
+          // API la acepta y nunca llega. Se intentó una plantilla UTILITY para
+          // ese destino (`acceso_canal`, 22 ago 2026, sin URL) y Meta también la
+          // clasificó MARKETING — tres variantes, tres veces MARKETING: el enlace
+          // de canal, por lo que es, no pasa. No someter otra. Al socio de EE. UU.
+          // le llega por el reenvío del Director, que sale siempre (abajo).
+          const r = await sendTemplate(destino, 'enlace_canal_listo', 'es', [corto, enlaceDeCanal(resultado.slug)]);
+          console.log(`📨 [WA Admin] Fuera de ventana → enlace_canal_listo ${r.ok ? 'entregada' : 'falló: ' + r.error}`);
+          if (r.ok) enviado = r;
         }
 
         // ⚠️ El mensaje listo para reenviar va SIEMPRE, haya llegado o no.
@@ -731,22 +724,6 @@ async function procesarEntrante(body: any): Promise<void> {
     const socioQueEscribe = await identificarSocio(supabase, phoneNumber);
     if (socioQueEscribe) {
       console.log(`👤 [WA Webhook] Escribe el dueño de /${socioQueEscribe.slug} — modo socio`);
-    }
-
-    // Toque de «Ver mi enlace», el botón de `acceso_canal` —la plantilla sin URL
-    // que recibe el socio de EE. UU. fuera de ventana (a +1 Meta no entrega
-    // MARKETING, así que `enlace_canal_listo` no le llega)—. Al tocarlo abrió su
-    // ventana, y aquí recibe en texto libre lo mismo que el socio colombiano
-    // dentro de ventana: enlace, «compártalo con cinco personas hoy» y la oferta
-    // de redactarle el mensaje. Determinístico: el nodo no necesita modelo.
-    // ⚠️ El rótulo es la llave: si cambia en someter-plantilla-acceso-canal.mjs,
-    // cambia aquí.
-    if (socioQueEscribe && /^ver mi enlace$/i.test(messageText.trim())) {
-      const bienvenida = mensajeDeBienvenida(socioQueEscribe.nombre, socioQueEscribe.slug);
-      await sendWhatsAppMessage(phoneNumber, bienvenida);
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, bienvenida);
-      console.log(`🔗 [WA Webhook] Bienvenida entregada a /${socioQueEscribe.slug} tras «Ver mi enlace»`);
-      return;
     }
 
     // Al socio nuevo se le saluda una vez, con lo suyo: su enlace y lo que Queswa

@@ -2,6 +2,15 @@
  * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
+ * ⛔ RESULTADO (22 ago 2026, 19:20 Bogotá): APPROVED · **MARKETING**, clasificada así
+ * en el minuto de crearse, igual que las dos `enlace_canal_listo`. Tres variantes
+ * del enlace de canal —con URL y beneficio, con URL sola, sin URL y con botón de
+ * respuesta rápida— y las tres MARKETING; la única UTILITY de la cuenta entrega
+ * un acceso con vencimiento por botón de URL. Conclusión: el enlace de canal, por
+ * lo que es, no pasa. **No someter otra variante.** La plantilla existe, está
+ * aprobada y NO la usa ningún código; el webhook sigue con la v1 para todos.
+ * Este script queda como historia y para `--estado`.
+ *
  * Somete `acceso_canal` — la entrega del enlace de canal al socio nuevo cuando
  * su ventana de 24 h está cerrada, **para números de Estados Unidos**.
  *

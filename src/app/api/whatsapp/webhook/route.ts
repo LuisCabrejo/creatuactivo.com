@@ -1837,7 +1837,9 @@ async function activarCanal(
   whatsapp: string,
   codigoGano?: string,
 ): Promise<{ ok: true; slug: string } | { ok: false; error: string }> {
-  if (!whatsapp || whatsapp.length < 12) return { ok: false, error: 'el número no parece completo' };
+  // 12 = Colombia (57 + 10); 11 = EE. UU./Canadá (1 + 10). Hasta el 22 ago 2026 aquí
+  // se exigían 12 y un socio de EE. UU. moría con «el número no parece completo».
+  if (!whatsapp || whatsapp.length < 11) return { ok: false, error: 'el número no parece completo' };
 
   const sinTildes = (t: string) =>
     t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();

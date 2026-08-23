@@ -4331,8 +4331,8 @@ ${summaryParts.join('\n')}
     // pregunta por PUNTOS sí recibe COMP_PV_06; quien NOMBRA un producto no entra
     // aquí —la ficha y el pin de precio ya lo atienden— porque servirle las cuatro
     // tablas por un «¿cuánto cuesta el cordygold?» es ahogar la respuesta.
-    const _pideCatalogoConPrecios = pideListaPreciosEarly && tenantId !== 'ecommerce' && !detectarProducto(latestUserMessage);
-    if (_pideCatalogoConPrecios) {
+    const isPreciosQuery = pideListaPreciosEarly && tenantId !== 'ecommerce' && !detectarProducto(latestUserMessage);
+    if (isPreciosQuery) {
       const allFrags = await getArsenalFragments();
       const _pidePuntos = /\bcv\b|\bpv\b|puntos/i.test(lastUserMessageForPrices);
       if (_pidePuntos) {

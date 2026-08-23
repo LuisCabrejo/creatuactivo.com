@@ -4322,25 +4322,48 @@ ${summaryParts.join('\n')}
     // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas y fuera del flujo de cierre
     let relevantDocuments: any[] = [];
 
-    // ⚡ BYPASS PRECIOS: cualquier query de precios → COMP_PV_06 directamente
-    // Evita que "precios", "cuánto cuestan" etc. vayan al vector search y recuperen
-    // documentos de compensación o paquetes en vez del catálogo con precios COP
-    const isPreciosQuery = pideListaPreciosEarly && tenantId !== 'ecommerce';
-    if (isPreciosQuery) {
-      console.log('📊 [BYPASS PRECIOS] Query de precios → COMP_PV_06 directo');
+    // ⚡ BYPASS PRECIOS: la lista de precios se sirve ANTES del vector, con las
+    // cuatro tablas del catálogo que llevan <verbatim_lock> (BEB_01 · LUV_01 ·
+    // SUP_01 · PERS_01). Hasta el 22 ago 2026 este bypass servía COMP_PV_06 —la
+    // tabla de puntos del plan, con códigos internos y nombres en inglés del back
+    // office— a cualquiera que dijera "precios": era la tercera vía por la que un
+    // prospecto recibía esa tabla como catálogo (prueba del Director). Quien
+    // pregunta por PUNTOS sí recibe COMP_PV_06; quien NOMBRA un producto no entra
+    // aquí —la ficha y el pin de precio ya lo atienden— porque servirle las cuatro
+    // tablas por un «¿cuánto cuesta el cordygold?» es ahogar la respuesta.
+    const _pideCatalogoConPrecios = pideListaPreciosEarly && tenantId !== 'ecommerce' && !detectarProducto(latestUserMessage);
+    if (_pideCatalogoConPrecios) {
       const allFrags = await getArsenalFragments();
-      const pvFrag = allFrags.find(f => f.category === 'arsenal_compensacion_COMP_PV_06');
-      if (pvFrag) {
-        relevantDocuments = [{
-          id: 'arsenal_compensacion_COMP_PV_06',
-          title: 'Tabla completa PV, CV y Precio — 22 productos vigente 2026',
-          content: pvFrag.content,
-          category: 'arsenal_compensacion',
-          metadata: { is_pv_table: true },
-          source: '/knowledge_base/arsenal_compensacion.txt',
-          search_method: 'comp_pv06_direct'
-        }];
-        console.log('✅ [BYPASS PRECIOS] COMP_PV_06 cargado correctamente');
+      const _pidePuntos = /\bcv\b|\bpv\b|puntos/i.test(lastUserMessageForPrices);
+      if (_pidePuntos) {
+        const pvFrag = allFrags.find(f => f.category === 'arsenal_compensacion_COMP_PV_06');
+        if (pvFrag) {
+          relevantDocuments = [{
+            id: 'arsenal_compensacion_COMP_PV_06',
+            title: 'Tabla completa PV, CV y Precio — 22 productos vigente 2026',
+            content: pvFrag.content,
+            category: 'arsenal_compensacion',
+            metadata: { is_pv_table: true },
+            source: '/knowledge_base/arsenal_compensacion.txt',
+            search_method: 'comp_pv06_direct'
+          }];
+          console.log('📊 [BYPASS PRECIOS] Pide puntos → COMP_PV_06');
+        }
+      } else {
+        const _tablasCatalogo = ['catalogo_productos_BEB_01', 'catalogo_productos_LUV_01', 'catalogo_productos_SUP_01', 'catalogo_productos_PERS_01'];
+        const _tablas = allFrags.filter(f => _tablasCatalogo.includes(f.category));
+        if (_tablas.length >= 2) {
+          relevantDocuments = [{
+            id: 'catalogo_productos_price_tables',
+            title: 'Tablas de precios — Catálogo completo',
+            content: _tablas.map(f => f.content).join('\n\n---\n\n'),
+            category: 'catalogo_productos',
+            metadata: { is_price_tables: true, fragment_count: _tablas.length },
+            source: '/knowledge_base/catalogo_productos.txt',
+            search_method: 'price_table_fragments'
+          }];
+          console.log(`🛒 [BYPASS PRECIOS] Lista de precios → tablas del catálogo (${_tablas.map(f => f.category.replace('catalogo_productos_', '')).join(', ')})`);
+        }
       }
     }
 

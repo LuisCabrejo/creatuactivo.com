@@ -141,6 +141,11 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.85 — WHY_PROD_01 deja el marco del consumo diario (22 ago 2026)
+
+Prueba del Director, 22 ago: al «sí» de *"¿le muestro los productos?"* salió el candado de WHY_PROD_01 con su remate *"dentro de algo que su cliente ya toma todas las mañanas"*. Es el marco vetado desde el 8 ago —el café que ya iba a tomar igual—, que planta la comparación con el estante del supermercado antes de que la persona vea un precio; y estaba dentro de un fragmento cuya propia cabecera dice *"jamás en el estante del supermercado"*. Queda: *"en un producto premium que su cliente incorpora a su rutina"*. El párrafo siguiente ya explica la recompra por el resultado. Desplegado y clonado a whatsapp y dashboard.
+
+
 ### v5.84 — La condición de uso de STORY_03, enunciada por lo que la habilita (22 ago 2026)
 
 La cabecera decía **"NO abrir con esto"** y explicaba el porqué en la misma línea: *en frío es un diagnóstico entregado como veredicto a alguien de quien no sabemos nada*. Son dos reglas distintas metidas en una — una habla de **posición** en el mensaje, la otra de **conocimiento**— y la que manda es la segunda. Esa confusión costó una vuelta completa de trabajo.

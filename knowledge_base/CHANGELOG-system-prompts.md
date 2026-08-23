@@ -257,3 +257,10 @@ Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz F�
 ## Versiones anteriores (v19.x - v25.x)
 
 Para versiones anteriores a v26.0, consultar los archivos `knowledge_base/system-prompt-nexus-main-vXX_Y.md` directamente. Cada uno contiene su propio changelog interno.
+
+## queswa_whatsapp
+
+### v4.19_perfil_no_inventado (22 ago 2026)
+
+Prueba del Director, 22 ago: la persona preguntó *"¿y cuál me recomiendas?"* y el modelo respondió *"para un emprendedor que ya tiene negocio y círculo propio, el ESP-2…"* — un perfil que nunca dijo, y sobre ese invento la bajó del ESP-3 que ella misma había nombrado veinte turnos antes. Nueva regla junto a la del margen: nunca atribuirle a la persona un perfil que no dijo; la recomendación de paquete se apoya en lo que ella dijo, y si ya nombró uno, se parte de ese.
+

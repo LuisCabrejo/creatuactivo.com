@@ -2467,6 +2467,26 @@ function analizarIntencionSemantica(userMessage: string): string[] {
   // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
   const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string; dictar?: boolean }[] = [
     {
+      // 24 ago: «¿por qué uno debería desarrollar este negocio?» recuperaba
+      // ADV_OBJ_02 (escrito para quien ya tiene negocio) y de ahí salió «lo
+      // demuestra su negocio actual» a alguien que nunca lo dijo. WHY_05 responde
+      // en frío, sin perfil. Va antes que DUDAS_01: quien pregunta por qué está
+      // validando, aunque diga de paso que tiene dudas.
+      fragmento: 'arsenal_inicial_WHY_05',
+      titulo: 'Por qué hacerlo — WHY_05',
+      porque: 'pregunta por qué debería hacerlo',
+      cuando: /por\s*qu[eé]\s+(uno\s+)?(deber[ií]a|debo|habr[ií]a\s+de|tendr[ií]a\s+que|har[ií]a|me\s+meter[ií]a|entrar[ií]a|hacer\s+esto|desarrollar\s+este)|qu[eé]\s+gano\s+yo|para\s+qu[eé]\s+me\s+sirve|por\s*qu[eé]\s+(esto|este\s+negocio)\b|qu[eé]\s+me\s+aporta/i,
+    },
+    {
+      // 24 ago: quien dice que tiene dudas está incómodo, no pide argumentos.
+      // Una duda con tema («tengo dudas sobre el pago») no entra aquí: es una
+      // pregunta y la responde su fragmento.
+      fragmento: 'arsenal_inicial_DUDAS_01',
+      titulo: 'Tengo dudas — DUDAS_01',
+      porque: 'manifiesta dudas sin tema',
+      cuando: /^(?![\s\S]*(sobre|acerca de|en cuanto a|respecto a|con el|con la|del|de la|de los)\b)[\s\S]*(tengo\s+(muchas\s+|mis\s+|varias\s+|algunas\s+)?dudas|no\s+estoy\s+segur|no\s+me\s+convence|tengo\s+(mis\s+)?reservas|no\s+s[eé]\s+si\s+(esto|es)\s+(sea|es|para)|me\s+genera\s+(dudas|desconfianza)|tengo\s+desconfianza)/i,
+    },
+    {
       // 23 ago: «me interesa iniciar, ¿puedo pagar en dos partes?» recibía primero
       // los canales oficiales y al final el «sí». La respuesta a una pregunta
       // cerrada empieza por la respuesta (Director). Va ANTES de FREQ_31.

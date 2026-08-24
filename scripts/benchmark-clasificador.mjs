@@ -112,6 +112,8 @@ const CASOS = [
   ['hay una opción menor al paquete esp1',       'arsenal_12_niveles'],
   ['qué formas de pago hay',                     'arsenal_inicial'],     // 23 ago: FREQ_31 (puerta directa)
   ['puedo pagar en dos partes',                  'arsenal_inicial'],     // 23 ago: FREQ_32 (puerta directa, respuesta primero)
+  ['por qué uno debería desarrollar este negocio', 'arsenal_inicial'],  // 24 ago: WHY_05 (puerta); por vector caía en ADV_OBJ_02
+  ['tengo muchas dudas',                         'arsenal_inicial'],     // 24 ago: DUDAS_01 (puerta)
   ['qué necesito para cobrar el GEN5',           'arsenal_compensacion'], // 23 ago: COMP_GEN5_09
   ['se pierden los puntos que sobran',           'arsenal_compensacion'], // 23 ago: COMP_BIN_09
   ['con una caja a la semana estoy activo',      'arsenal_compensacion'], // 23 ago: COMP_PV_09 // 22 ago: INV_00 (Kit de Inicio); antes → compensación, tabla del ESP-1

@@ -22,10 +22,12 @@ import { AnthropicStream, StreamingTextResponse } from 'ai';
 import {
   vectorSearch,
   type DocumentWithEmbedding,
-  type VectorSearchResult,
-  generateVoyageEmbedding,
-} from '@/lib/vectorSearch';
+  type VectorSearchResult, generateVoyageEmbedding } from '@/lib/vectorSearch';
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
+import {
+  microPromptDudaPropia, microPromptPareja, microPromptMotivo, microPromptEscalera,
+  microPromptNoPrimero, microPromptPuertaAbierta,
+} from '@/lib/wa-ambivalencia';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
@@ -4801,6 +4803,36 @@ responder lo que preguntó.
 
 Forma: preséntese en una frase —quién es usted y qué hace— y responda. Nada de
 explicar el modelo completo antes de contestar: eso llega si lo piden.`;
+      }
+
+      // ── Los nodos de AMBIVALENCIA, dictados por el webhook ──────────────────
+      // El webhook detecta y manda un pageContext estructurado; aquí solo se
+      // traduce. La detección vive allá a propósito: necesita el historial crudo
+      // del canal y el último mensaje del bot, y partirla en dos la desincroniza.
+      //
+      // ⚠️ Estos NO son textos verbatim como el resto de nodos dictados, y es
+      // deliberado: un «le entiendo» que no recoge lo que la persona acaba de
+      // decir es la falla documentada de los modelos —reproducir la forma de la
+      // empatía sin responder al significado— y se siente como un guion. El
+      // backend prohíbe explicar y dicta solo la línea de cierre; la reflexión la
+      // escribe el modelo con las palabras de ella.
+      if (pageContext?.startsWith('whatsapp_amb_')) {
+        const resto = pageContext.slice('whatsapp_amb_'.length);
+        const m     = resto.match(/^(.*?)(?:_(\d+))?$/);
+        const nodo  = m?.[1] ?? resto;
+        const n     = m?.[2] ? parseInt(m[2], 10) : null;
+
+        if (nodo === 'duda')          return microPromptDudaPropia();
+        if (nodo === 'no_primero')    return microPromptNoPrimero();
+        if (nodo === 'puerta')        return microPromptPuertaAbierta();
+        if (nodo === 'pareja')        return microPromptPareja();
+        if (nodo === 'motivo_visto')  return microPromptMotivo(true);
+        if (nodo === 'motivo_nuevo')  return microPromptMotivo(false);
+        if (nodo === 'escala')        return microPromptEscalera('escala');
+        if (nodo === 'ancla_baja')    return microPromptEscalera('ancla_baja', n);
+        if (nodo === 'que_falta')     return microPromptEscalera('que_falta', n);
+        if (nodo === 'cuando')        return microPromptEscalera('cuando');
+        if (nodo === 'hora')          return microPromptEscalera('hora');
       }
 
       if (pageContext === 'whatsapp_foto_enviada') {

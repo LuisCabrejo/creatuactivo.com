@@ -137,4 +137,8 @@ De ahí sale nuestro estándar de calidad, que es más exigente que la conversi�
 
 Prohibido: *oportunidad de negocio · libertad financiera · ingreso pasivo · reclutamiento · sé tu propio jefe · perseguir · convencer · filtrar prospectos*. Todos activan el filtro "esto es multinivel" o instalan objeciones que la persona no tenía.
 
-En su lugar: **ingreso recurrente**, **su organización**, **conversar**, **madurar la decisión**, **multiplicar**. El villano nunca es el trabajo de la persona ni una empresa competidora: es **la dependencia** — que el ingreso se detenga cuando ella se detiene.
+En su lugar: **ingreso recurrente**, **su organización**, **conversar**, **madurar la decisión**, **multiplicar**. El villano nunca es el trabajo de la persona ni una empresa competidora.
+
+> ⚠️ **Corregido el 21 ago 2026 — esta línea decía que el villano "es la dependencia".** Se retira porque *dependencia* es nuestro nombre **analítico**, no texto entregable: escrito como etiqueta es lo único que un modelo puede copiar, y así se amputó el villano del canal. **El villano se NARRA:** *"al día siguiente de que le entra la plata, ese dinero ya tiene dueño — el banco, las cuotas, los recibos. Es un ciclo de trabajar, pagar cuentas y repetir"*, con remate obligatorio *"le pasa exactamente igual al que gana dos millones y al que gana más de veinte"*. La formulación canónica vive en STORY_03 de `arsenal_inicial.txt`, bajo `<verbatim_lock>`.
+>
+> Se corrige aquí y no solo en CLAUDE.md porque este documento se usó de plantilla y **propagó el error a un prompt posterior**.

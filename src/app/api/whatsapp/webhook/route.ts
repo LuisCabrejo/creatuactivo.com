@@ -27,14 +27,12 @@ import {
   APERTURA_OPCIONES,
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
-import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
-import { extraerTokenDePase, resolverCompartidor, limpiarMarcador } from '@/lib/wa-pase';
 import {
-  detectarAmbivalencia, esConsultaConPareja, botEvoco, esMotivoDeDinero,
-  yaVioLasFormasDeGanar, peldanoDeEscalera, extraerCalificacion, botPidioHora,
-  esNoExplicito, yaSeEvoco, aceptaPuerta,
-} from '@/lib/wa-ambivalencia';
-import { extraerMomento, guardarAcuerdo, guardarPuertaAbierta } from '@/lib/wa-acuerdos';
+  detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace,
+  textoEntregaEnlace, textoSinEnlace, enlaceParaPareja, botOfrecioPlazo, interpretarPlazo,
+  textoConfirmacionPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
+} from '@/lib/wa-pareja';
+import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
 import {
@@ -497,22 +495,6 @@ async function procesarEntrante(body: any): Promise<void> {
     // pre-afiliación no sabe a quién avisar.
     const patrocinador = await resolverPatrocinador(supabase, messageText);
 
-    // ─── 0.9 El PASE: ¿esta persona llega por el enlace de otro prospecto? ────
-    // El marcador `de:xxxxxx` viaja en el texto prellenado del enlace compartido,
-    // junto al slug del socio. Las dos señales conviven: el slug resuelve la
-    // ATRIBUCIÓN —quien entra es del socio, sin excepción— y el marcador resuelve
-    // QUIÉN LO COMPARTIÓ, que es lo único que agrega.
-    //
-    // ⚠️ El marcador se retira del texto ANTES de cualquier otra cosa. Si llega al
-    // motor, el modelo lo lee, intenta interpretarlo y termina hablándole a la
-    // persona de un código que ella nunca escribió.
-    const _tokenPase   = extraerTokenDePase(messageText);
-    const compartidor  = await resolverCompartidor(supabase, _tokenPase);
-    if (_tokenPase && messageText) {
-      messageText = limpiarMarcador(messageText);
-      console.log(`🎟️ [WA Webhook] Llega por pase de ${compartidor?.nombre ?? 'un prospecto'} (${_tokenPase})`);
-    }
-
     if (!existingProspect) {
       // Primer mensaje — crear prospect con atribución completa
       const source = isCTWA ? 'whatsapp_ctwa' : 'whatsapp_inbound';
@@ -538,12 +520,6 @@ async function procesarEntrante(body: any): Promise<void> {
             ...(patrocinador && {
               invited_by:          patrocinador.constructorId,
               patrocinador_nombre: patrocinador.nombre,
-            }),
-            // Quién le pasó el enlace. NO cambia la atribución —esa es del socio—
-            // pero permite saludarla nombrándolo y avisarle a él cuando conversen.
-            ...(compartidor && {
-              compartido_por:        compartidor.fingerprintId,
-              compartido_por_nombre: compartidor.nombre,
             }),
             ...(isCTWA && {
               ctwa_clid:      referral?.ctwa_clid,
@@ -677,22 +653,11 @@ async function procesarEntrante(body: any): Promise<void> {
         if (!enviado.ok) {
           // ⚠️ A números de EE. UU. Meta NO entrega plantillas MARKETING (pausa
           // desde abr 2025, sin fecha de fin), y `enlace_canal_listo` lo es: la
-          // API la acepta y nunca llega.
-          //
-          // ⛔ CUATRO variantes sometidas como UTILITY, cuatro veces MARKETING:
-          // con botón y beneficio (v1), de entrega pura sin botón (v2, 22 ago),
-          // sin URL siquiera (`acceso_canal`, 22 ago) y con URL al sitio
-          // (`acceso_creatuactivo`). NO someter una quinta — y este es el porqué,
-          // que faltaba y costó la ronda del 23 ago:
-          //
-          //   **Meta clasifica por lo que la plantilla ENTREGA, no por cómo está
-          //   redactada.** La única que sobrevive como UTILITY en esta cuenta,
-          //   `acceso_centro_mando_v2`, entrega una credencial personal que vence
-          //   en 24 h. El enlace de canal es un activo que la persona va a
-          //   COMPARTIR, y eso es mercadeo por definición. No hay redacción que lo
-          //   arregle: quitarle el botón, el beneficio y hasta la URL no movió nada.
-          //
-          // Al socio de EE. UU. le llega por el reenvío del Director (abajo).
+          // API la acepta y nunca llega. Se intentó una plantilla UTILITY para
+          // ese destino (`acceso_canal`, 22 ago 2026, sin URL) y Meta también la
+          // clasificó MARKETING — tres variantes, tres veces MARKETING: el enlace
+          // de canal, por lo que es, no pasa. No someter otra. Al socio de EE. UU.
+          // le llega por el reenvío del Director, que sale siempre (abajo).
           const r = await sendTemplate(destino, 'enlace_canal_listo', 'es', [corto, enlaceDeCanal(resultado.slug)]);
           console.log(`📨 [WA Admin] Fuera de ventana → enlace_canal_listo ${r.ok ? 'entregada' : 'falló: ' + r.error}`);
           if (r.ok) enviado = r;
@@ -841,6 +806,34 @@ async function procesarEntrante(body: any): Promise<void> {
       console.log(`💬 [WA Webhook] Primer contacto CON pregunta ("${messageText.slice(0, 45)}") — responde el motor, sin apertura`);
     }
 
+    // ─── 1.5b La pareja llega por el enlace ──────────────────────────────────
+    // «Hola Queswa, vengo del enlace de luis-cabrejo, soy la pareja de Luis
+    // Abner»: el enlace que Queswa le generó a él (wa-pareja.ts). El slug ya la
+    // atribuyó al mismo socio; aquí se le da la apertura estándar con sus
+    // botones y una línea que reconoce de parte de quién viene — nunca una
+    // pregunta abierta a quien apenas está viendo la información (Director).
+    const _llegaPareja = !existingProspect ? detectarLlegadaDePareja(messageText) : null;
+    if (_llegaPareja) {
+      const aperturaPareja = aperturaParaPareja(patrocinador?.nombre, _llegaPareja.nombre, contactName);
+      const enviadoP = await sendReplyButtons(phoneNumber, aperturaPareja, APERTURA_OPCIONES);
+      if (!enviadoP.ok) {
+        const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+        await sendWhatsAppMessage(phoneNumber, `${aperturaPareja}\n\n${opciones}`);
+      }
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, aperturaPareja);
+      try {
+        // Queda anotado de quién viene, para el Dashboard y para el motor.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).rpc('update_prospect_data', {
+          p_fingerprint_id: waFingerprint,
+          p_data: { pareja_de: _llegaPareja.nombre ?? 'su pareja' },
+          p_constructor_id: patrocinador?.userId ?? null,
+        });
+      } catch { /* best-effort */ }
+      console.log(`💑 [WA Webhook] Llegó la pareja de ${_llegaPareja.nombre ?? '(sin nombre)'} — apertura con reconocimiento`);
+      return;
+    }
+
     if (!existingProspect && !llegaDecidido && !_traePregunta) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
@@ -960,6 +953,57 @@ async function procesarEntrante(body: any): Promise<void> {
 
     if (turnosSaneados > 0) {
       console.warn(`🧹 [WA Webhook] ${turnosSaneados} turno(s) bloqueado(s) saneado(s) en el historial de ${waFingerprint}`);
+    }
+
+    // ─── 2.23 La consulta con la pareja — nodo dictado ───────────────────────
+    // «Voy a consultarlo con mi esposa» no es una objeción, y tampoco se deja ir
+    // con una despedida cortés (el 100 % vuelve con «yo le aviso»). Tres turnos
+    // dictados por el backend, sin modelo: se OFRECE un enlace para la pareja;
+    // si acepta, se entrega con un cierre por opciones («¿mañana, o en dos
+    // días?»); con el plazo, se confirma y se avisa al socio. Todo en
+    // src/lib/wa-pareja.ts. Va ANTES de los demás nodos y del motor, y solo
+    // mira el último mensaje del bot — igual que todo el canal. No aplica al
+    // socio: sus dudas son operativas.
+    if (!socioQueEscribe) {
+      const _ultimoBotPareja = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+      let respuestaPareja: string | null = null;
+      let plazoParaAviso: string | null = null;
+
+      if (botOfrecioPlazo(_ultimoBotPareja)) {
+        const plazo = interpretarPlazo(messageText);
+        if (plazo) {
+          const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
+          respuestaPareja = textoConfirmacionPlazo(plazo, socioP?.nombre);
+          plazoParaAviso = plazo;
+        } else if (/le aviso|les aviso|yo (le|les) (escribo|cuento|digo)|despu[eé]s|luego|no s[eé]|ya veremos/i.test(messageText)) {
+          const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
+          const socioNombre = socioP?.nombre?.split(/\s+/).slice(0, 2).join(' ') || 'el equipo de creatuactivo.com';
+          respuestaPareja = `Claro. Le aviso a ${socioNombre} que lo están conversando, y cuando quieran retomarlo me escribe por aquí.`;
+          plazoParaAviso = 'sin fecha';
+        }
+      } else if (botOfrecioEnlace(_ultimoBotPareja)) {
+        if (aceptaEnlace(messageText)) {
+          const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
+          const slugP = await slugDelSocio(supabase, socioP?.constructorId);
+          respuestaPareja = textoEntregaEnlace(enlaceParaPareja(slugP, contactName));
+        } else if (/(?<![a-záéíóúñ])(no|todav[ií]a|a[uú]n|despu[eé]s|luego|yo le aviso|mejor no)(?![a-záéíóúñ])/i.test(messageText)) {
+          respuestaPareja = textoSinEnlace();
+          plazoParaAviso = 'sin enlace, sin fecha';
+        }
+      } else if (detectarConsultaConPareja(messageText)) {
+        respuestaPareja = textoOfrecerEnlace();
+      }
+
+      if (respuestaPareja) {
+        await sendWhatsAppMessage(phoneNumber, respuestaPareja, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaPareja);
+        if (plazoParaAviso) {
+          const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
+          await avisarAlSocioPareja({ nombreProspecto: contactName, whatsapp: phoneNumber, plazo: plazoParaAviso, nombreSocio: socioP?.nombre });
+        }
+        console.log(`💑 [WA Webhook] Nodo pareja atendido para ${phoneNumber}${plazoParaAviso ? ` (plazo: ${plazoParaAviso})` : ''} — turno cerrado sin motor`);
+        return;
+      }
     }
 
     // ─── 2.24 Enlace al catálogo ──────────────────────────────────────────────
@@ -1239,89 +1283,6 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       return;
     }
 
-    // ─── 2.8 AMBIVALENCIA — la duda que no es una pregunta ───────────────────
-    // Va DESPUÉS de los nodos que atienden peticiones explícitas (catálogo, foto,
-    // simulador, cierre): quien pide algo concreto quiere eso, no que le hablen de
-    // sus dudas. Y va ANTES del motor porque no dicta texto — dicta CÓMO responder.
-    //
-    // Por qué existe: el metaanálisis del modelo causal de la Entrevista
-    // Motivacional mide que el discurso de resistencia predice el mal resultado
-    // (r = −.24) mientras el discurso de cambio no predice el bueno (r = .06). El
-    // entusiasmo no informa; la duda sí. Y rebatirla la AUMENTA. Hoy el motor
-    // respondía igual «¿yo tendría que vender?» (pregunta, la responde el arsenal)
-    // que «yo no sirvo para vender» (duda, y el argumento la refuerza).
-    //
-    // ⚠️ NO aplica al SOCIO: él ya compró, y sus dudas son operativas, no de
-    // decisión. Ni a quien escribe por primera vez, que primero merece la apertura.
-    //
-    // Fundamento → docs/investigaciones/resultados/CIENCIA_CONDUCTUAL_SEGUIMIENTO_Y_ACUERDO_AGO2026.md
-    const _ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
-    let ambivalencia: string | null = null;
-
-    if (!socioQueEscribe && existingProspect && !fotoEnviada) {
-      // ── El acuerdo: la respuesta al ÚLTIMO peldaño se guarda ────────────────
-      // Aquí la persona acaba de decir cuándo quiere que le escriban. Es la única
-      // respuesta de toda la escalera que hay que PERSISTIR: sin esto la pregunta
-      // «¿a qué hora le queda bien?» es una promesa que nadie va a cumplir, y
-      // prometer algo que no ocurre es peor que no prometer.
-      //
-      // ⚠️ Se guarda ANTES de responderle. Si se hiciera después y el turno
-      // fallara a mitad, ella habría dado su hora y el sistema la habría perdido.
-      if (botPidioHora(_ultimoBot)) {
-        const momento = await extraerMomento(messageText ?? '', new Date(), _ultimoBot);
-        if (momento) {
-          await guardarAcuerdo(supabase, {
-            fingerprintId:  waFingerprint,
-            telefono:       phoneNumber,
-            que:            momento.que,
-            cuando:         momento.cuando,
-            nombre:         contactName ?? null,
-            constructorId:  existingProspect?.constructor_id ?? patrocinador?.userId ?? null,
-          });
-        } else {
-          console.log('🤝 [WA Webhook] El peldaño de la hora no devolvió fecha — se sigue sin acuerdo');
-        }
-      }
-
-      const _peldano = peldanoDeEscalera(_ultimoBot);
-      if (_peldano) {
-        // Vamos a mitad de la escalera del aplazamiento: el peldaño lo dice el
-        // último mensaje del bot, no un estado guardado — igual que todo el canal.
-        const _n = extraerCalificacion(messageText ?? '');
-        ambivalencia = _n !== null ? `whatsapp_amb_${_peldano}_${_n}` : `whatsapp_amb_${_peldano}`;
-      } else if (botEvoco(_ultimoBot)) {
-        // Acaba de responder «si usted arrancara, ¿por qué lo haría?». Lo que dijo
-        // son SUS razones, y el paso que se le ofrece depende de si ya vio el plan.
-        ambivalencia = esMotivoDeDinero(messageText ?? '') && yaVioLasFormasDeGanar(historial)
-          ? 'whatsapp_amb_motivo_visto'
-          : 'whatsapp_amb_motivo_nuevo';
-      } else if (_ultimoBot.includes('le parece bien que se lo comparta')) {
-        // Respondió a la oferta de la puerta. Un sí la guarda; un no se respeta y
-        // no se vuelve a ofrecer — la frase prometía justamente no insistir.
-        if (aceptaPuerta(messageText ?? '')) {
-          await guardarPuertaAbierta(supabase, {
-            fingerprintId: waFingerprint,
-            telefono:      phoneNumber,
-            constructorId: existingProspect?.constructor_id ?? patrocinador?.userId ?? null,
-          });
-        }
-      } else if (esNoExplicito(messageText ?? '')) {
-        // ── El «no», en DOS TIEMPOS ──────────────────────────────────────────
-        // El primero recibe la pregunta que todavía puede mover algo; solo el
-        // segundo recibe la puerta. Ofrecerla de una desperdicia el primer tiempo,
-        // y repetir la pregunta después del segundo es insistir — que es lo que la
-        // frase de la puerta promete no hacer.
-        ambivalencia = yaSeEvoco(historial) ? 'whatsapp_amb_puerta' : 'whatsapp_amb_no_primero';
-      } else if (esConsultaConPareja(messageText ?? '')) {
-        ambivalencia = 'whatsapp_amb_pareja';
-      } else {
-        const _senal = detectarAmbivalencia(messageText ?? '');
-        if (_senal === 'duda_propia')  ambivalencia = 'whatsapp_amb_duda';
-        if (_senal === 'aplazamiento') ambivalencia = 'whatsapp_amb_escala';
-      }
-      if (ambivalencia) console.log(`🫱 [WA Webhook] Ambivalencia: ${ambivalencia}`);
-    }
-
     // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
     // `whatsapp_socio` le dice al motor que del otro lado hay un dueño de canal:
     // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
@@ -1333,8 +1294,6 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       ? 'whatsapp_primer_contacto'
       : socioQueEscribe
       ? 'whatsapp_socio'
-      : ambivalencia
-      ? ambivalencia
       : isCTWA
         ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
         : 'whatsapp_inbound';

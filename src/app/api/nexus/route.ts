@@ -22,7 +22,8 @@ import { AnthropicStream, StreamingTextResponse } from 'ai';
 import {
   vectorSearch,
   type DocumentWithEmbedding,
-  type VectorSearchResult
+  type VectorSearchResult,
+  generateVoyageEmbedding,
 } from '@/lib/vectorSearch';
 import { getInitialGreeting, QUESWA_QUICK_REPLIES_EXPANSION } from '@/lib/queswa-greeting';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';

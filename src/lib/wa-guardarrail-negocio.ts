@@ -135,6 +135,47 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // presentado como si fuera el resultado esperado.
   /total (acumulado|proyectado|potencial)[^.]{0,25}(\$|usd|cop|\d)/,
   /(acumula|sumaria|llegaria a)[^.]{0,20}(\$\s?\d|\d[\d.,]{4,}\s*(usd|cop|dolares))/,
+
+  // ── El plazo dicho con un adverbio de tiempo ───────────────────────────────
+  // Prueba del Director, 22 ago: «eso le genera $675.000 de una sola vez, ESA
+  // MISMA SEMANA». Pasaba entera porque los patrones de velocidad buscaban
+  // adjetivos —inmediato, rápido, desde el primer día— y esto es un adverbio.
+  //
+  // ⚠️ El dato real: cada ciclo se paga el SEGUNDO viernes después de su cierre.
+  // Prometer «esa misma semana» decepciona en la primera semana, que es el peor
+  // momento posible. «Cada viernes» a secas es un HECHO y se conserva: lo que se
+  // veta es atarle a un pago concreto una ventana de tiempo más corta que la real.
+  // ⚠️ «esa semana» a secas queda FUERA: COMP_BIN_06 dice «si no cumple estos
+  // requisitos, no cobra Binario esa semana» — una condición de requisito, no una
+  // promesa. Barrido sobre los 169 documentos del corpus, 22 ago 2026.
+  /(genera|generan|recibe|reciba|gana|gane|cobra|cobre|pagan|paguen|abonan|consignan|le (queda|quede|entra|entre|llega|llegue|cae|caiga|caen|caigan|ingresa|ingrese)|se (lo|la|le)s? ?(paga|pagan|abona|abonan|consigna|consignan))[^.]{0,45}(esa misma semana|la misma semana|ese mismo viernes|el mismo viernes|el viernes siguiente|a los pocos dias|en cuestion de dias)/,
+  /(esa misma semana|la misma semana|ese mismo viernes|el mismo viernes|el viernes siguiente)[^.]{0,45}(le (queda|entra|llega|pagan|cae|caiga)|recibe|gana|cobra|se le (paga|abona|consigna))/,
+
+  // ── La comisión contada en personas, con sujeto POSESIVO ───────────────────
+  // Prueba del Director, 22 ago: «SU PRIMER SOCIO también entra con Visionario —
+  // eso le genera $675.000». El barrido del 22 ago cubrió «cada vez que ALGUIEN»
+  // y «si arrancan TRES PERSONAS», pero un posesivo no es ni cuantificador ni
+  // indefinido, así que volvía a pasar. Es la misma silueta de escalera de gente.
+  /(su|mi|el|la)\s+(primer[ao]?\s+|segund[ao]\s+|siguiente\s+|proxim[ao]\s+)?(socio|distribuidor|afiliado|invitad[ao]|referid[ao])[^.]{0,25}(entra|entre|arranca|arranque|inicia|inicie|se (vincula|vincule|inscribe|inscriba|registra|registre|une|una))[^.]{0,50}(le (genera|queda|entra|pagan|paguen)|genera|recibe|gana|bono|comisi[oó]n)[^.]{0,20}(\$|usd|cop|\d)/,
+
+  // ── La persona GENÉRICA como complemento agente de la compra ───────────────
+  // Prueba del Director, 24 ago 2026: «un paquete Visionario comprado POR ALGUIEN
+  // QUE USTED VINCULÓ directamente le genera $675.000». Los dos patrones de
+  // arriba buscan a la persona como SUJETO —«su primer socio entra…», «cada vez
+  // que alguien se vincula…»—; aquí va como complemento agente, y ninguno la ve.
+  //
+  // ⚠️ El disparador es la persona GENÉRICA, no la persona a secas (decisión del
+  // Director, 24 ago 2026): «alguien / una persona / la gente / quien» bloquean;
+  // «distribuidor / cliente / socio» pasan. Es la regla de vocabulario puesta en
+  // el filtro — el rol comercial es lenguaje de empresa, la persona genérica es
+  // la escalera de gente. La redacción aprobada saca a la persona de la frase:
+  // «un paquete empresarial comprado en su canal de distribución en la primera
+  // generación le genera $675.000».
+  //
+  // La lista de verbos de entrega se mantiene alineada con RE_COMISION_LLEGA:
+  // «le deja» faltaba y se escapaba «le deja $337.500» (medido al escribir esto).
+  /(alguien|una persona|la gente|quien(es)?)\s+que\s+(usted|tu)\s+(vincul|conect|inscrib|invit|registr|trajo|trae|meti)\w*[^.]{0,60}(le\s+(genera|generan|queda|quedan|entra|entran|llega|llegan|cae|caen|pagan|paga|deja|dejan)|genera|recibe|gana|bono|comisi[oó]n)[^.]{0,25}(\$|usd|cop|\d)/,
+  /(comprad|adquirid|tomad)[oa]\s+por\s+(alguien|una persona|la gente|quien)[^.]{0,60}(le\s+(genera|generan|queda|quedan|entra|entran|llega|llegan|cae|caen|pagan|paga|deja|dejan)|genera|recibe|gana|bono|comisi[oó]n)[^.]{0,25}(\$|usd|cop|\d)/,
 ];
 
 function primerMatch(patrones: RegExp[], t: string): string | null {
@@ -152,7 +193,44 @@ function primerMatch(patrones: RegExp[], t: string): string | null {
  * nunca se corrige ni se reintenta la generación: reintentar entrena al sistema a
  * bordear el límite, y el reintento cuesta latencia que el prospecto siente.
  */
+/**
+ * Precio de entrada y comisión conviviendo en el MISMO mensaje.
+ *
+ * No puede ser un patrón del array, y esa es la razón por la que se escapó: en la
+ * prueba del Director del 22 ago las dos cifras estaban en párrafos distintos —
+ * «cada paquete ESP-1 que se compre en su canal le genera desde $22.500 hasta
+ * $112.500» y, dos líneas después, «el costo de entrada es $900.000 COP». Los
+ * patrones usan `[^.]` para no cruzar oraciones, así que ninguno podía verlas
+ * juntas. Esto mira el mensaje entero.
+ *
+ * Por qué importa: pegarle un rendimiento al lado de una inversión convierte una
+ * lista de precios en una proyección de retorno, que es promesa de ingreso aunque
+ * las dos cifras sean ciertas por separado.
+ *
+ * ⚠️ NO basta con que aparezca una cifra de dinero junto a un precio: la comisión
+ * tiene que estar dicha como algo que LE LLEGA A ÉL. Por eso se exige el verbo de
+ * entrega. Así, «hay tres formas de arrancar: ESP-1 $900.000, ESP-2 $2.250.000»
+ * —una lista de precios legítima— no dispara.
+ */
+const RE_PRECIO_ENTRADA  = /(cuesta|vale|costo de entrada|precio de entrada|inversion (inicial|de entrada)|entrada es)[^\n]{0,40}(\$|\d[\d.,]{5,})|(\$\s?)?(900[.,]000|2[.,]250[.,]000|4[.,]500[.,]000)/;
+const RE_COMISION_LLEGA  = /(le (genera|generan|queda|quedan|entra|entran|llega|llegan|pagan|deja|dejan)|usted (recibe|gana|cobra)|recibe|gana)[^\n]{0,40}(\$\s?\d|\d[\d.,]{4,}\s*(cop|usd))/;
+
+export function mezclaPrecioYComision(textoNormalizado: string): string | null {
+  const precio   = RE_PRECIO_ENTRADA.exec(textoNormalizado);
+  const comision = RE_COMISION_LLEGA.exec(textoNormalizado);
+  if (!precio || !comision) return null;
+  return `precio «${precio[0].slice(0, 28)}» + comisión «${comision[0].slice(0, 28)}»`;
+}
+
+/**
+ * Revisa el borrador antes de enviarlo. Devuelve el fragmento que disparó, o null.
+ *
+ * El borrador que falla se DESCARTA y se reemplaza por la respuesta correctiva —
+ * nunca se corrige ni se reintenta la generación: reintentar entrena al sistema a
+ * bordear el límite, y el reintento cuesta latencia que el prospecto siente.
+ */
 export function detectarPromesaDeIngreso(texto: string): string | null {
   if (!texto) return null;
-  return primerMatch(RE_PROMESA_INGRESO, normalizarNegocio(texto));
+  const t = normalizarNegocio(texto);
+  return primerMatch(RE_PROMESA_INGRESO, t) ?? mezclaPrecioYComision(t);
 }

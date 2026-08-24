@@ -41,7 +41,19 @@ function extraerArray(nombre) {
 
 const RE = extraerArray('RE_PROMESA_INGRESO');
 const norm = (t) => (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-const detecta = (t) => { const n = norm(t); for (const re of RE) { const m = re.exec(n); if (m) return m[0].slice(0, 50); } return null; };
+// ⚠️ La mezcla precio+comisión NO es un patrón del array: las dos cifras viven en
+// párrafos distintos y los patrones usan [^.] para no cruzar oraciones. Se
+// comprueba aparte, sobre el mensaje entero, igual que en el módulo.
+const unaRe = (nombre) => new RegExp(SRC.match(new RegExp(`const ${nombre}\\s*=\\s*/(.*)/;`))[1]);
+const RE_PRECIO = unaRe('RE_PRECIO_ENTRADA');
+const RE_COMIS  = unaRe('RE_COMISION_LLEGA');
+
+const detecta = (t) => {
+  const n = norm(t);
+  for (const re of RE) { const m = re.exec(n); if (m) return m[0].slice(0, 50); }
+  if (RE_PRECIO.test(n) && RE_COMIS.test(n)) return 'precio de entrada + comisión en el mismo mensaje';
+  return null;
+};
 
 // ─── Lo que DEBE bloquearse ───────────────────────────────────────────────────
 const PROMESAS = [
@@ -51,7 +63,43 @@ const PROMESAS = [
   // Perpetuidad
   'Es una renta vitalicia que le llega cada viernes.',
   'Le entra un ingreso de por vida.',
+  // ── Los tres huecos de la prueba del Director del 22 ago 2026 ──────────────
+  // El plazo dicho con ADVERBIO, no con adjetivo: los patrones de velocidad
+  // buscaban «inmediato/rápido» y esto se les iba entero. El dato real es que
+  // cada ciclo se paga el SEGUNDO viernes después de su cierre.
+  'Su primer socio también entra con Visionario — eso le genera $675.000 de una sola vez, esa misma semana.',
+  'Ese bono se lo pagan el viernes siguiente a la compra.',
+  // El GEN5 contado en personas con sujeto POSESIVO. El barrido del 22 ago cubrió
+  // «cada vez que ALGUIEN» y «si arrancan TRES PERSONAS»; un posesivo no es ni
+  // cuantificador ni indefinido, y volvía a pasar.
+  'Su primer socio entra con Visionario y eso le genera $675.000.',
+  'Su primer distribuidor se vincula y usted recibe $337.500.',
+  // Precio de entrada y comisión en el mismo mensaje. Iban en PÁRRAFOS distintos,
+  // así que ningún patrón con [^.] podía verlas juntas: lo atrapa la comprobación
+  // de coincidencia sobre el mensaje entero, no un patrón.
+  'Con el ESP-1 usted arranca con 7 productos. Cada paquete ESP-1 que se compre en su canal le genera desde $22.500 hasta $112.500.\n\nEl costo de entrada es $900.000 COP.',
+  // Perpetuidad dicha con el VERBO, sin el sustantivo "pago" en ninguna parte.
+  // El hueco de la conjugación (21 ago 2026): las cuatro pasaban enteras.
+  'Le pagará de por vida.',
+  'Sus clientes siguen pidiendo y a usted le siguen pagando para siempre.',
+  'Usted cobra de por vida por ese trabajo que hizo una sola vez.',
+  'De por vida le van a pagar por ese canal.',
   'Sus comisiones seguirán llegando para siempre.',
+  // ── Los dos huecos de la prueba del Director del 24 ago 2026 ──────────────
+  // El verbo de CAÍDA: el par del adverbio exigía una lista cerrada de verbos de
+  // entrega y «caer» no estaba, así que la frase más reincidente del canal —«ese
+  // mismo viernes», la que ya costó la corrección de la cabecera de COMP_GEN5_01
+  // en v7.5— volvió a pasar entera. El dato real: cada ciclo se paga el SEGUNDO
+  // viernes después de su cierre.
+  'Cada vez que alguien en su círculo compra un paquete empresarial, le cae una comisión ese mismo viernes.',
+  'El bono le cae el viernes siguiente.',
+  'Le ingresa esa misma semana.',
+  'Ese mismo viernes le cae la comisión.',
+  // La persona genérica como COMPLEMENTO AGENTE de la compra. Los patrones de
+  // persona la buscaban como sujeto; aquí va detrás de «comprado por».
+  'Un paquete Visionario comprado por alguien que usted vinculó directamente le genera $675.000 de una sola vez.',
+  'Alguien que usted vinculó le genera $675.000.',
+  'Un paquete adquirido por una persona que usted conectó le deja $337.500.',
   // Velocidad
   'El GEN5 es la forma de ganar dinero rápido.',
   'Va a tener retorno inmediato desde el primer día.',
@@ -103,6 +151,18 @@ const LEGITIMAS = [
   'Su día a día se resume en dos acciones: compartir y recibir.',
   'Gano Excel pone las fábricas, la investigación y la logística — 30 años, más de 60 países.',
   'Usted no cambia de hábito: eleva el que ya tiene.',
+  // ── El copy del GEN5 aprobado por el Director el 24 ago 2026 ───────────────
+  // La respuesta a «¿cómo gano rápido / cómo recupero mi inversión?», que es la
+  // pregunta que se hace el 100% de quien tiene interés real. Se contesta con el
+  // MECANISMO y su cifra —la compra de paquetes empresariales— sin plazo, sin
+  // precio de entrada al lado, y sin persona en la frase: el registro es el de la
+  // gran distribución, «comprado en su canal», no «comprado por alguien».
+  // Si alguno de estos tres dispara, el filtro está tumbando copy aprobado.
+  'Con gusto. Lo que mueve dinero desde el principio es la compra de paquetes empresariales.\n\nCon el Visionario, cada paquete empresarial que se compra en su canal de distribución le genera una comisión directa: en la primera generación, $675.000; y sigue generando hasta la quinta, desde $90.000 por paquete.\n\nCorre en paralelo con la otra forma de ganar, la del consumo que se repite: esta le paga mientras construye, y la otra le paga por lo que ya construyó.',
+  'Un paquete empresarial comprado en su canal de distribución en la primera generación le genera $675.000.',
+  // El ROL COMERCIAL sí pasa: «distribuidor» es vocabulario de empresa, y esa es
+  // justamente la distinción que separa este caso del bloqueado de arriba.
+  'Un paquete empresarial comprado por un distribuidor que usted vinculó le genera $675.000.',
 ];
 
 // ─── Cero fuego amigo: TODOS los candados del corpus ──────────────────────────

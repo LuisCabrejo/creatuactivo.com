@@ -161,8 +161,10 @@ export function mensajeDeBienvenida(nombreCorto: string, slug: string): string {
 /**
  * ¿Quien escribe es dueño de canal, y no un prospecto?
  *
- * Se resuelve con un `select` sobre `constructor_slugs` por teléfono: es
- * determinístico, no le cuesta un token al modelo y no se puede equivocar.
+ * Se resuelve con un `select` por teléfono: es determinístico, no le cuesta un
+ * token al modelo y no se puede equivocar. Mira **dos tablas**, en este orden:
+ * `constructor_slugs` primero y `private_users` como respaldo — el número del
+ * socio tiene dos casas y no siempre coinciden (ver la nota del respaldo abajo).
  *
  * ⚠️ Por qué hace falta. El canal atiende a los dos por el MISMO número, y hasta
  * el 17 ago 2026 no los distinguía: el socio recibía la apertura de prospecto y
@@ -192,11 +194,48 @@ export async function identificarSocio(
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fila = ((data || []) as any[]).find((c) => normalizarWhatsApp(c.whatsapp) === wa);
-    if (!fila?.slug) return null;
+    if (fila?.slug) {
+      return {
+        slug: fila.slug,
+        nombre: (fila.display_name || '').split(/\s+/)[0] || '',
+        constructorId: fila.constructor_id,
+      };
+    }
+
+    // ── Respaldo: el teléfono vive en `private_users` ──────────────────────────
+    // El número del socio tiene DOS casas y no siempre coinciden: los reels lo
+    // leen de `private_users.whatsapp` —así está documentado— y esto lo leía solo
+    // de `constructor_slugs.whatsapp`. Medido el 22 ago 2026: 9 de 10 socios en la
+    // primera, 10 de 10 en la segunda. El que faltaba era el del Director, así que
+    // su propio número recibía la apertura de PROSPECTO y Queswa se presentaba
+    // ante él como la asistente de él mismo — el fallo que este archivo dice haber
+    // cerrado el 17 ago, vivo por un dato faltante en vez de por un error de código.
+    //
+    // Se hizo el backfill, pero un dato se vuelve a desalinear; el respaldo no.
+    // ⚠️ Se busca el slug igual, porque el saludo lo necesita: sin enlace de canal
+    // no hay nada que ofrecerle. Un socio sin slug NO es socio para este flujo.
+    const { data: porPrivate } = await supabase
+      .from('private_users')
+      .select('id, name, constructor_id, whatsapp')
+      .not('whatsapp', 'is', null);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const usuario = ((porPrivate || []) as any[]).find((u) => normalizarWhatsApp(u.whatsapp) === wa);
+    if (!usuario?.constructor_id) return null;
+
+    const { data: slugFila } = await supabase
+      .from('constructor_slugs')
+      .select('slug, display_name')
+      .eq('constructor_id', usuario.constructor_id)
+      .maybeSingle();
+
+    if (!slugFila?.slug) return null;
+
+    console.log(`🔁 [WA Onboarding] Socio identificado por respaldo en private_users: ${usuario.constructor_id}`);
     return {
-      slug: fila.slug,
-      nombre: (fila.display_name || '').split(/\s+/)[0] || '',
-      constructorId: fila.constructor_id,
+      slug: slugFila.slug,
+      nombre: (slugFila.display_name || usuario.name || '').split(/\s+/)[0] || '',
+      constructorId: usuario.constructor_id,
     };
   } catch (err) {
     console.error('⚠️ [WA Onboarding] Error identificando al socio:', err);

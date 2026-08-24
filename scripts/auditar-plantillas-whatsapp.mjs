@@ -19,10 +19,18 @@
  * 3835031), y Meta **reserva el nombre** de las plantillas borradas. Recuperar
  * una plantilla recategorizada obliga a someter un nombre nuevo (`..._v2`).
  *
- * ⚠️ La regla que separa UTILITY de MARKETING, deducida de nuestra propia cuenta:
- * una plantilla es de utilidad mientras **entrega lo que se pidió y se calla**.
- * En cuanto explica para qué sirve o invita al paso siguiente, Meta la mueve.
- * No hay que redactar mal para perderla; basta redactar bien.
+ * ⚠️ LA REGLA, corregida el 23 ago 2026 tras falsarla con una quinta plantilla:
+ * **Meta clasifica por lo que la plantilla ENTREGA, no por cómo está redactada.**
+ *
+ * La primera versión de esta nota decía que bastaba con "entregar y callarse". Es
+ * falso: `enlace_canal_listo_v2` se sometió sin botón, sin beneficio y sin una
+ * palabra de más, y salió MARKETING igual. `acceso_canal` fue todavía más lejos
+ * —ni siquiera llevaba URL— y también. Cuatro variantes, cuatro veces MARKETING.
+ *
+ * Lo que de verdad decide: una **credencial personal que caduca** es utilidad
+ * (`acceso_centro_mando_v2`, la única que sobrevive aquí); un **enlace que la
+ * persona va a COMPARTIR** es un activo de mercadeo por definición. No es un
+ * problema de copy, así que recortar el texto no lo arregla.
  *
  * Uso:
  *   node scripts/auditar-plantillas-whatsapp.mjs            # tabla resumen
@@ -97,8 +105,15 @@ if (movidas.length) {
   }
   console.log('\n   Una plantilla movida a MARKETING deja de entregarse a números de');
   console.log('   Estados Unidos y consume cupo diario del buzón de la persona.');
-  console.log('   La categoría de una aprobada NO se puede cambiar: hay que someter');
-  console.log('   un nombre nuevo, con el texto reducido a entrega pura.\n');
+  console.log('   La categoría de una aprobada NO se puede cambiar: haría falta un');
+  console.log('   nombre nuevo.\n');
+  console.log('   ⛔ ANTES de someter otra, pregúntese QUÉ ENTREGA la plantilla.');
+  console.log('   Meta clasifica por eso, no por cómo esté redactada. Una credencial');
+  console.log('   personal que caduca es utilidad; un enlace que la persona va a');
+  console.log('   COMPARTIR es mercadeo, y lo mueve aunque el mensaje no diga una');
+  console.log('   palabra de más. Con el enlace de canal se intentaron cuatro');
+  console.log('   variantes —con botón, sin botón, sin beneficio y sin URL— y las');
+  console.log('   cuatro salieron MARKETING. Reducir el texto NO es la salida.\n');
   process.exit(1);
 }
 

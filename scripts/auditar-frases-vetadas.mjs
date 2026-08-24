@@ -150,19 +150,47 @@ for (const { re, motivo, desde } of VETADAS) {
 // *"el día que usted se detiene"*— dentro de una regla que la rechazaba. Da
 // igual cómo se enmarque: una frase entre comillas en la cabecera es copy que
 // el modelo puede usar. Solo se cita lo que sí queremos que diga.
-const RE_RECHAZO = /\b(PROHIBID[OA]|vetad[oa]s?|NO\s+(decir|usar|escribir|nombrar|mencionar|puede\s+\w+\s+ni\s+decir)|nunca|jamás|en vez de|ya no se|evit(ar|e)|retirad[oa]s?|se retiró|versión anterior|decía)\b/i;
+// ⚠️ El cierre es `(?![a-záéíóúñ])` y NO `\b`: en JavaScript las vocales
+// acentuadas no son caracteres de palabra, así que `\b` no cierra después de
+// una — `/\bse retiró\b/` NUNCA coincide. Ese marcador llevaba muerto desde que
+// existe el patrón (encontrado el 22 ago 2026), y era justo el que atrapaba el
+// caso más común: la frase vieja citada en la cabecera al explicar que se
+// retiró. Mismo fallo que tumbó tres puertas del clasificador con "bianrio" y
+// "sí" con tilde. Por eso también van `jam[áa]s`, `versi[óo]n` y `dec[íi]a`:
+// quien escribe la cabecera puede omitir la tilde.
+const RE_RECHAZO = /\b(PROHIBID[OA]|vetad[oa]s?|NO\s+(decir|usar|escribir|nombrar|mencionar|puede\s+\w+\s+ni\s+decir)|nunca|jam[áa]s|en vez de|ya no se|evit(ar|e)|retirad[oa]s?|se retir[óo]|versi[óo]n anterior|dec[íi]a)(?![a-záéíóúñ])/i;
 // Solo comillas de verdad. Los asteriscos son negrita de markdown y aparecen en
 // cada cabecera para enfatizar — tomarlos por cita marca todo y no sirve.
 const RE_CITA = /["“][^"”\n]{4,80}["”]|«[^»\n]{4,80}»/;
 
+// ⚠️ LA EXCEPCIÓN, y se sostiene sola: si la frase citada **también aparece en
+// el CUERPO** del mismo fragmento, no puede ser una frase que la cabecera esté
+// prohibiendo — es la formulación aprobada, puesta como ejemplo de lo que SÍ se
+// dice. En el caso genuinamente malo el cuerpo nunca la contiene, porque de eso
+// se trata: la cabecera nombra lo que el cuerpo calla.
+//
+// Sin esta excepción el script marcaba `catalogo_productos_CIENCIA_02`, cuya
+// cabecera dice *La función se nombra en conjunto y en afirmativo ("juntos
+// apoyan el sistema inmune") — nunca colgada a un compuesto individual*. El
+// «nunca» gobierna un criterio de estructura, no la cita; y la cita es
+// exactamente lo que el cuerpo dice. "Corregir" esa cabecera habría borrado una
+// instrucción correcta — y una alarma permanente que nadie puede apagar es una
+// alarma que se deja de mirar (22 ago 2026).
+const normalizar = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
+
 const dictados = [];
 for (const frag of fragmentos) {
-  const { cabecera } = partir(frag.content);
+  const { cabecera, cuerpo } = partir(frag.content);
+  const cuerpoNorm = normalizar(cuerpo);
   for (const frase of cabecera.split(/(?<=[.;])\s+/)) {
-    if (RE_RECHAZO.test(frase) && RE_CITA.test(frase)) {
-      dictados.push({ category: frag.category, frase: frase.trim().slice(0, 150) });
-      break;
-    }
+    if (!RE_RECHAZO.test(frase)) continue;
+    const cita = frase.match(RE_CITA);
+    if (!cita) continue;
+    // El texto de adentro de las comillas, sin los delimitadores.
+    const citado = normalizar(cita[0].slice(1, -1));
+    if (cuerpoNorm.includes(citado)) continue;   // la dice el cuerpo → es la aprobada
+    dictados.push({ category: frag.category, frase: frase.trim().slice(0, 150) });
+    break;
   }
 }
 

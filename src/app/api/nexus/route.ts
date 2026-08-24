@@ -16,7 +16,7 @@
 // CAMBIOS v13.0: Nombre msg 2 (no msg 7) + Verificación progreso msg 8 + Resumen final msg 13
 // COMPLIANCE: Ley 1581/2012 Art. 9 + Conversational AI Best Practices (Drift, Intercom, Nielsen Norman Group)
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 import { AnthropicStream, StreamingTextResponse } from 'ai';
 import {
@@ -44,7 +44,7 @@ const anthropic = new Anthropic({
 });
 
 // ✅ FIX: Lazy initialization de Supabase client para build-time
-let supabaseClient: ReturnType<typeof createClient> | null = null;
+let supabaseClient: SupabaseClient | null = null;
 function getSupabaseClient() {
   if (!supabaseClient) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -57,7 +57,7 @@ function getSupabaseClient() {
 // Cliente admin (service role) — solo para lectura de nexus_documents con embeddings.
 // RLS bloquea la lectura directa con anon key silenciosamente (retorna 0 sin error).
 // Las demás operaciones (prospects, conversaciones) siguen usando anon key.
-let supabaseAdmin: ReturnType<typeof createClient> | null = null;
+let supabaseAdmin: SupabaseClient | null = null;
 function getSupabaseAdmin() {
   if (!supabaseAdmin) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

@@ -8,17 +8,27 @@
  * despedida cortés — en campo, el 100 % vuelve con el clásico «no te preocupes,
  * yo te llamo» (Director, 24 ago 2026).
  *
- * Tres piezas, todas entregables HOY:
+ * Tres turnos, todos entregables HOY:
  *
- *  1. UN ENLACE PARA LA PAREJA, en el mismo turno. Es un wa.me al número de
- *     Queswa con texto pre-llenado —la misma pieza que ya usa el enlace del
- *     socio— con una palabra más: «soy la pareja de {nombre}». Al tocarlo ella
- *     escribe primero (ventana de 24 h abierta, texto libre), queda atribuida al
- *     MISMO socio, y el webhook la reconoce y la ata al hilo de él.
- *  2. UN CIERRE POR OPCIONES, no una pregunta abierta: «¿le parece si lo
- *     retomamos mañana, o en dos días?». Abierto, la respuesta es «yo le aviso».
- *  3. EL AVISO AL SOCIO con el plazo — el compromiso lleva fecha y le llega a él
- *     (investigación de seguimiento, §7): es el 1-a-1 el que cierra.
+ *  T1 — SE OFRECE el enlace, no se entrega (Director, 24 ago): «si quiere, le
+ *       genero ahora mismo un enlace para que se lo comparta… ¿se lo genero?».
+ *       El enlace se genera solo si la persona acepta.
+ *  T2 — Si acepta: EL ENLACE PARA LA PAREJA + el cierre por opciones. Es un
+ *       wa.me al número de Queswa con texto pre-llenado —la misma pieza que ya
+ *       usa el enlace del socio— con una palabra más: «soy la pareja de
+ *       {nombre}». Al tocarlo ella escribe primero (ventana de 24 h abierta,
+ *       texto libre), queda atribuida al MISMO socio, y el webhook la reconoce.
+ *       El cierre es POR OPCIONES, no abierto: «¿le parece si lo retomamos
+ *       mañana, o en dos días?» — abierto, el 100 % responde «yo le aviso».
+ *       Si no acepta, no se insiste: se deja la puerta abierta y se avisa al socio.
+ *  T3 — Con el plazo: confirmación + AVISO AL SOCIO con fecha. El compromiso
+ *       lleva fecha y le llega a él (investigación de seguimiento, §7): es el
+ *       1-a-1 el que cierra.
+ *
+ * ⚠️ `microPromptPareja()` (wa-ambivalencia.ts, del nodo de ambivalencia) sigue
+ * cableado en el motor y promete «le personalizo un enlace… ¿Se lo preparo?».
+ * Este nodo debe ir DELANTE y sustituirlo: si se despliega sin el cableado,
+ * promete algo que no existe (Director, 24 ago 2026).
  *
  * Cuando la pareja llega, recibe la APERTURA con sus botones —no una pregunta
  * abierta—: es alguien que apenas está viendo la información, y «¿por dónde
@@ -76,15 +86,43 @@ export function enlaceParaPareja(slugSocio: string | null | undefined, nombrePro
   return `https://wa.me/${NUMERO_QUESWA}?text=${encodeURIComponent(texto)}`;
 }
 
-/** El turno dictado ante «voy a consultarlo con mi esposa». */
-export function textoConsultaPareja(enlace: string): string {
+/** T1 — ante «voy a consultarlo con mi esposa»: se OFRECE el enlace. Una pregunta, una salida. */
+export function textoOfrecerEnlace(): string {
   return [
-    'Perfecto — una decisión así se toma entre los dos. Le dejo un enlace para que se lo comparta ahora mismo: al abrirlo me escribe directo, yo ya sé que viene de su parte, y le respondo lo que quiera preguntar sin que usted tenga que repetirle nada.',
+    'Perfecto — una decisión así se toma entre los dos.',
+    '',
+    'Si quiere, le genero ahora mismo un enlace para que se lo comparta: al abrirlo me escribe directo, yo ya sé que viene de su parte, y le respondo lo que quiera preguntar sin que usted tenga que repetirle nada.',
+    '',
+    '¿Se lo genero?',
+  ].join('\n');
+}
+
+/** ¿El último mensaje del bot fue la oferta del enlace? */
+export function botOfrecioEnlace(ultimoBot: string): boolean {
+  return /¿se lo genero\?/i.test(ultimoBot || '');
+}
+
+/** «sí», «dale», «claro que sí», «por favor», «genérelo»… — y nada de «no». */
+export function aceptaEnlace(mensaje: string): boolean {
+  const t = norm(mensaje).trim();
+  if (/(?<![a-z])(no|todavia|aun|despues|luego|mejor no|yo le aviso)(?![a-z])/.test(t)) return false;
+  return /^(s[ií]|dale|listo|ok(ay)?|claro|bueno|de una|perfecto|vale|por favor|porfa|genial|h[aá]galo|h[aá]gale|gen[eé]r[ae]lo|s[ií],? por favor|s[ií] claro|claro que s[ií]|me parece|de acuerdo)(?![a-z])/.test(t);
+}
+
+/** T2 — aceptó: el enlace y el cierre por opciones. */
+export function textoEntregaEnlace(enlace: string): string {
+  return [
+    'Aquí está — se lo puede reenviar tal cual:',
     '',
     enlace,
     '',
     'Seguramente lo revisan hoy mismo. ¿Le parece si lo retomamos mañana, o en dos días?',
   ].join('\n');
+}
+
+/** T2' — no aceptó: se deja la puerta abierta, sin insistir. */
+export function textoSinEnlace(): string {
+  return 'Claro. Cuando lo hayan conversado, me escribe por aquí y seguimos — y si a su pareja le queda alguna pregunta, con gusto se la respondo.';
 }
 
 // ─── 3. La pareja llega ───────────────────────────────────────────────────────

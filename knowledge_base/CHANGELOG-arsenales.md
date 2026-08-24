@@ -12,6 +12,16 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.1 — El Binario se explica por emparejamiento (23 ago 2026)
+
+Lo que dijo el Director: en la práctica «compensados» siempre hay que explicarlo, y «lado menor» produce en muchas personas una sensación de injusticia —*«¿por qué la compañía me paga solo por un lado?»*—, cuando el problema real es que el léxico no pinta lo que ocurre: la compañía toma puntos de LOS DOS lados. La palabra es **emparejar** (sola: sin «pares», sin «compensados»), y los dos frentes se nombran **canal izquierdo y canal derecho** —no «sus dos lados» ni «centros de negocio», porque estas preguntas llegan cuando la persona aún no sabe que hay dos centros, y «canal» le dibuja producto moviéndose, no personas—. «Opera» y «mecánica» valen en este contexto: el léxico vigente manda sobre la prohibición vieja. Párrafo canónico construido con Gemini y el Director, ejemplo 1.000 / 5.000 (con 2.000, sobrante y emparejado eran ambos 1.000 y se confundían).
+
+Barrido en nueve lugares: BIN_01 (referencia interna, que se indexa), BIN_02, BIN_06, BIN_08 (bullets, regla crítica, tabla, nota del mes 18, instrucción interna — y de paso «retiro semanal de por vida» e «ingreso inmediato», dos frases vetadas que seguían ahí), BIN_09, BIN_11, y el glosario (*«Lado de Compensación: el lado con MENOS puntos. Este es sobre el que le pagan»* era la frase de la injusticia, literal).
+
+**Corrección de doctrina:** BIN_09 y el glosario afirmaban que el CV «NUNCA se pierde… se congela, no se borra». Falso: los puntos guardados se pierden si la persona deja de estar activa con su recompra mensual (50 PV). Reescrito con el ejemplo 1.050 / 5.070 y la observación del Director de que una caja a la semana se queda corta en la práctica.
+
+**Nuevos:** BIN_06 reescrito con los tres requisitos en llano (activo con recompra · un cliente o distribuidor activo *patrocinado directamente* en cada canal · 100 puntos emparejados, se paga por centenas), separando lo que pausa el pago de lo que borra los puntos · GEN5_09 (las dos condiciones del GEN5, que estaban regadas en tres fragmentos) · PV_09 («¿cómo así una caja a la semana?» → cuatro cajas en el ciclo de cuatro semanas → 60 PV).
+
 ### v8.0 — Los productos se nombran como los ve el cliente (22 ago 2026)
 
 Prueba del Director, 22 ago: la persona dijo «sí» a *"¿le muestro el catálogo completo con precios?"* y recibió **la tabla de puntos del plan** — 22 filas con código interno, PV, CV y precio, con los nombres en inglés del back office (*Gano Fresh Toothpaste*, *Gano Transparent Soap*, *Reskine Collagen Drink*) y *Piel8Brillo*, que es Piel&Brillo con el «&» corrompido. Esa tabla existe para el socio que calcula su recompra; servida a un prospecto como catálogo, le dice que el negocio no sabe ni el nombre de sus productos.
@@ -140,6 +150,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 **Verificado en `route.ts`: 0 de cada uno.** 143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 · sin errores tsc nuevos.
 
 ## arsenal_inicial
+
+### v5.87 — FREQ_31, las formas de pago (23 ago 2026)
+
+Prueba del Director, 23 ago: *«¿puedo pagar en dos partes?»* y *«¿qué opciones hay para la forma de pago?»* derivaban al socio «porque las condiciones varían según la región». No existía la respuesta. Hechos del Director: el pago va directo a Gano Excel por sus canales oficiales —consignación o transferencia, tarjeta de crédito; en la oficina débito o crédito, QR o llave; el efectivo solo por consignación en banco—, y se puede repartir en dos o hasta tres formas sobre el mismo número de orden. Cierra hacia la activación. Puerta directa en el motor.
 
 ### v5.86 — FREQ_30, la recomendación de paquete en dos tiempos (22 ago 2026)
 
@@ -801,6 +815,49 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 ---
 
 ## arsenal_12_niveles
+
+### v5.7 — NIVELES_02 y NIVELES_07 pasan a emparejar (23 ago 2026)
+
+«Los puntos compensados de ambos lados» y «paga sobre el lado de menor crecimiento» → cada punto del canal izquierdo se empareja con su equivalente en el canal derecho; conviene ayudar a crecer el canal que va más despacio porque cada punto que entra ahí encuentra su pareja de inmediato. Ver compensación v8.1.
+
+### v5.6 — La cifra del nivel 12 se explica por su origen (23 ago 2026)
+
+**El hallazgo, y es de aritmética.** Los $103.194.000 admiten DOS lecturas y la tabla no decía cuál:
+
+- *"la suma de doce niveles"* → $25.200 × (2¹²−1)
+- *"el 10% del volumen de un lado de la estructura completa"* → 4.095 × 56 CV × $4.500 × 10%
+
+Dan el mismo número porque **son la misma multiplicación**: $25.200 = 56 CV × $4.500 × 10%, y 2¹²−1 = 4.095 = las personas de un lado. No es coincidencia, es álgebra.
+
+Lo que lo vuelve genuinamente ambiguo es que **56 CV son dos cosas a la vez**: el Kit que cada quien compra al entrar (una vez) y las 4 cajas de la recompra mensual (todos los meses). Leído como entrada, es un acumulado; leído como recompra, es lo que ese canal produce **cada mes que consume**. Las dos lecturas son ciertas y el plan paga sobre los dos volúmenes.
+
+**La salida no es elegir una lectura: es nombrar de qué volumen sale.** Dicho como *acumulado* subvende; dicho como *$103 millones mensuales* corona la pirámide. El fragmento ahora dice el origen: 10% de un lado, sobre una facturación de **más de $3.600 millones COP al mes** — la comisión es el **2,84%** de lo que ese canal vende.
+
+Ese 2,84% es la pieza que faltaba. **Un número grande sin origen se lee como magia; el mismo número como tajada pequeña de una facturación enorme se lee como un negocio.** Y remata con el argumento del Director: *la compañía no paga por gente vinculada, paga un porcentaje de lo que se vende.*
+
+**`ganancias` → `comisiones` en todo el cuerpo.** Una comisión dice de dónde viene; una ganancia, no. Se conserva en el DISPARADOR de NIVELES_02 (*"¿cómo funciona el plan de ganancias?"*), que lleva las palabras del prospecto.
+
+⚠️ **Se descartó el ángulo del millón de dólares.** A la tasa del fabricante ($4.500) la facturación es USD 807.352 — no llega al millón; llega a USD 1.18M solo a la tasa de mercado. Usar la del mercado para la facturación y la del fabricante para la comisión es una mezcla que no se sostiene si alguien la revisa, y además choca con la regla de moneda (a Colombia, solo pesos). En pesos el número es **más grande**, no más pequeño.
+
+⚠️ **Corrección a una cuenta previa de esta sesión:** el CV **no** es una conversión de moneda. El peso por CV depende del producto ($7.921 en el Ganocafé, $9.000 en el ESP-3); los $4.500 son la tasa de **liquidación**, no el valor del producto. La facturación real es $3.633.084.000 COP, no los $1.719.900.000 que se calcularon usando el CV como si fuera precio.
+
+
+### v5.5 — El léxico pasa a la actividad comercial (23 ago 2026)
+
+Revisión del Director sobre este arsenal en concreto. **La proyección de los 12 niveles es el mejor ejemplo que tenemos de apalancamiento y crecimiento a escala, y es también el que más fácil dibuja una pirámide.** La diferencia no está en las cifras —quedan intactas— sino en cómo se nombra a quien las produce.
+
+**Quienes componen la estructura pasan de `socios` a `distribuidores`.** Las dos palabras incluyen personas; la segunda incluye además la **actividad**. Un distribuidor mueve producto, y ese es el hecho que sostiene la cifra.
+
+**Y `empresario` sale de este arsenal**, aunque suene mejor. Criterio del Director: el mercadeo en red lo usó tanto que dejó de leerse como actividad comercial y pasa por muletilla del gremio — la gente no lo asocia con mover producto sino con hacer redes. ⚠️ **Esto vale para ESTE archivo**; en los demás se auditará aparte antes de tocar nada.
+
+**Ningún conteo va en abstracto.** La columna `Nuevos` pasa a `Nuevos distribuidores`: un número sin sustantivo lo rellena el lector, y en una tabla de duplicación lo rellena con gente.
+
+**El acumulado deja de llamarse ingreso recurrente.** Los $103.194.000 del nivel 12 son la **suma** de las regalías a lo largo de la construcción, no un flujo mensual. Presentarlos como recurrente promete un ingreso que esa cifra no describe.
+
+⚠️ **La cabecera de versión se reescribió como criterio.** La anterior narraba cuatro bautizos citando sus términos retirados —*personas*, *red*, *empresario activo*— y este documento **se indexa entero**: cada término citado volvía al corpus por la puerta de atrás. El detalle histórico vive aquí, que no se indexa.
+
+⏳ **Pendiente en INV_02:** *"el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD"* convive con la tabla de precios en el mismo fragmento. El Director lo dio por correcto de contenido; queda anotado que el guardarraíl de negocio bloquea esa coincidencia en la salida del modelo desde el 22 ago.
+
 
 ### v5.3 — INV_06 con los nombres del catálogo (22 ago 2026)
 

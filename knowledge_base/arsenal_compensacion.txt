@@ -1,7 +1,7 @@
 # Arsenal de Compensacion: Infraestructura de Ingresos — la versión vigente está en «Version», abajo
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construccion de Ingresos Recurrentes (No MLM tradicional)
-**Version:** 8.0 (22 ago 2026) — **Los productos se nombran como los ve el cliente.** Las tablas de puntos y de composición usan los mismos nombres del catálogo, en español y con su ortografía; el signo «&» de Piel&Brillo va escrito. Las cifras del plan no cambian. Detalle en el CHANGELOG.
+**Version:** 8.1 (23 ago 2026) — **El Binario se explica por emparejamiento, con el canal izquierdo y el canal derecho nombrados.** El sistema empareja cada punto de un canal con su equivalente en el otro y paga sobre el volumen emparejado; los puntos sin emparejar se guardan para el siguiente ciclo mientras la persona esté activa con su recompra mensual. Cuatro respuestas nuevas o reescritas: BIN_06 (los tres requisitos, en llano), BIN_09 (los puntos que sobran, con el ejemplo 1.050 / 5.070), GEN5_09 (las dos condiciones del GEN5) y PV_09 (una caja a la semana). El detalle, en el CHANGELOG. Cifras del plan intactas. Previa **8.0** (22 ago 2026) — **Los productos se nombran como los ve el cliente.** Las tablas de puntos y de composición usan los mismos nombres del catálogo, en español y con su ortografía; el signo «&» de Piel&Brillo va escrito. Las cifras del plan no cambian. Detalle en el CHANGELOG.
 **Version anterior:** 7.9 (10 ago 2026) — **La progresión geométrica en dígitos sale del corpus, y se corrige la concordancia que rompió el barrido de vocabulario.** ⚠️ **El `1, 2, 4, 8` era el inyector de pirámide escrito por nosotros.** Es exactamente lo que el Director describió el 9 ago —*«la gente piensa: rápido traigo a 5, que traen 5, que traen 5, y solo con esa idea le inyecta la pirámide a su prospecto»*— puesto en dígitos, y contando **socios**, no compras. Vivía en dos respuestas: METH_01 de `arsenal_avanzado` y NET_01 de `arsenal_inicial`. **Se retira solo el inciso:** las dos frases quedan completas y más fuertes sin él —*«hace exactamente lo mismo que usted»* y *«su canal se multiplica sin depender del talento de cada quien»*— porque el mecanismo se dice entero sin dibujarlo. ⚠️ **Concordancia:** el barrido del 9 ago cambió *organización* (femenino) por *canal* (masculino) sin ajustar los determinantes, y quedaron cuatro *«toda su canal»* — dos aquí y dos en `arsenal_inicial`. Error del agente, corregido. Previa **7.8** **Barrido de vocabulario: el colectivo es *su canal*, el rol no es un cargo, y el fabricante se llama por su nombre.** Decisión del Director, en un solo pase sobre los cuatro arsenales. **(1)** *su organización* → **su canal** (67), y donde el colectivo hace algo humano se nombra a quién — *sus clientes*, *sus socios* (8): un canal es un conducto y no consume, y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Medido antes: `arsenal_inicial` ya decía *su canal* mientras compensación y avanzado decían *su organización*, así que al prospecto le cambiábamos la palabra justo al llegar al dinero. ⚠️ *Organización* no era un residuo: la eligió deliberadamente el barrido del 20 jul para reemplazar *red*. Esta es la tercera iteración sobre la misma palabra, y el modelo nuevo es más limpio porque elimina el término intermedio ambiguo. Se conservan los usos legítimos: *la organización dirigida por Luis Cabrejo* (es CreaTuActivo), *no es mala organización* (otro significado) y las notas de versión. **(2)** *Propietario* → **socio** (31): era el cargo retirado el 8 ago y sobrevivía en tres arsenales contradiciendo la decisión. **(3)** *su socio logístico y financiero* → **Gano Excel**, *su socio digital* → **Queswa** (12): el rótulo interno le confirma la duda a quien duda, criterio ya aplicado en v5.60 a FREQ_07. Y liberaba la palabra *socio*, que ahora significa una sola cosa — la gente del canal del usuario. **Retrieval medido antes y después: 21 de 23 consultas conservan el mismo fragmento ganador.** Los dos cambios son empates de milésimas: *«¿qué son los 12 niveles?»* pasa de la tabla a la definición (mejora) y *«¿el consumo de mi hogar cuenta?»* cruza por 0.001 — su pregunta principal sigue resolviendo a 0.620. De paso se destapó un hueco preexistente: `PERFIL_01` tenía *no sirvo para vender* pero no *no sé vender*; se sumó. 42/42 en la batería, en los dos tenants. Previa **7.7** **Cada vía se nombra por lo que la mueve.** Decisión del Director. El GEN5 se presentaba por su **velocidad** y el Binario por su **duración**, y las dos etiquetas eran incorrectas. La de velocidad, además, era **falsa**: la compra de un paquete empresarial es esporádica, así que lo único que se afirma es *cada vez que ocurre* — sin ritmo prometido y sin plazo. La de duración estaba vetada desde el 8 ago por ser promesa de perpetuidad. El vocabulario canónico pasa a **GEN5 = compra de paquetes empresariales · Binario = consumo recurrente**. ⚠️ **El daño que esto corrige es aguas arriba, y es de campo:** doce años de observación del fundador — *"aún las personas que llevan años siguen viendo más llamativo el GEN5 que el ingreso recurrente, y solo con esa idea le inyectan la pirámide a su prospecto"*. El encuadre deformaba primero la cabeza de quien explica el negocio. La prueba del canal del 9 ago lo documenta: el prospecto salió con una sola cifra en la cabeza, la del GEN5, y con dos frases nuestras diciéndole que esa es la rápida. ⚠️ **La función sí se conserva**, porque sin ella no se entiende para qué hay dos vías: el GEN5 es la plata que financia el crecimiento en la etapa temprana. Decir para qué sirve no es decir qué tan rápido llega. Se conserva también la distinción que ya estaba y no tiene adjetivo: *esta le paga mientras construye, y la otra le paga por lo que ya construyó*. ⚠️ **`colectivo = su canal`**, y cuando el colectivo hace algo humano se nombra a quién (*sus clientes*, *sus socios*): un canal es un conducto y no consume, y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Medido: `arsenal_inicial` ya decía *su canal* 16 veces mientras compensación y avanzado decían *su canal* 32 — al prospecto le cambiábamos la palabra justo al llegar al dinero. ⚠️ **Los disparadores conservan las palabras del prospecto** (*"¿cómo se gana rápido?"*): son su vocabulario, no el nuestro, y sin ellos la pregunta deja de encontrar respuesta. ⚠️ **Pendiente anotado:** el barrido de las 51 apariciones de *su canal* en tres arsenales, y la progresión geométrica en dígitos que sobrevivía en `arsenal_avanzado` — el mismo inyector de pirámide, escrito por nosotros (retirada en v7.9). Cifras, %, CV/PV y tasas INTACTAS. Previa **7.6** (9 ago 2026) — **La unidad del GEN5 es la generación.** Detectado por el Director al revisar la prueba del canal: recordaba que el marco desarrollado era otro, y el conteo lo confirmó. `COMP_GEN5_01` era **el único** de los fragmentos GEN5 que contaba en niveles (3 usos), contra 7 usos de *generación* en COMP_GEN5_03/04/06, el ejemplo dictado por `route.ts` (*"Generación 1 — 5 paquetes"*) y la referencia interna del propio COMP_GEN5_01, que ya decía *generaciones 2 a 4*. El fragmento se contradecía consigo mismo, y es el primero que se entrega sobre el bono: el que fija el marco antes de que lleguen las cifras. En la prueba del 9 ago el prospecto oyó las dos versiones en turnos consecutivos. ⚠️ **No es una traducción a lenguaje llano, es lo contrario:** *generación* es la nomenclatura del propio plan —GEN5 son cinco generaciones—, así que el cambio **restaura** la regla de que la nomenclatura va literal. Y la generación es una unidad horizontal: describe quién vino después, no cuánto se baja. ⚠️ **El Binario conserva su descriptor**: en COMP_BIN_08 y COMP_BIN_10 *sin límite de profundidad* es el término propio de ese bono y no tiene equivalente en generaciones — barrer por barrer habría sido el error opuesto. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.5** (8 ago 2026) — **Registro elevado + la cabecera del GEN5 dejó de dictar el error.** COMP_MODELO_01 reescrito en registro de firma de inversión (*flujo de ganancias · percibe · liquida · el efecto bola de nieve como principio financiero*), y la bola de nieve pasa a estar hecha de **compras**, no de socios que reclutan socios — esa era la silueta de la pirámide dibujada por nosotros en la respuesta sobre el dinero. Retirada la repetición literal con WHY_02 ("todo lo que gana sale de una sola cosa…", que la persona acababa de leer 30 segundos antes). Pregunta de cierre con motivo — el motivo se retiró en v7.7. **COMP_GEN5_01: cabecera en afirmativo** — decía *PROHIBIDO decir "ese mismo viernes"* y el modelo copió la frase de ahí en la prueba en vivo del 8 ago; las cabeceras viajan dentro del fragmento recuperado, así que citar lo prohibido es dictarlo. Detectable desde ahora con `scripts/auditar-frases-vetadas.mjs`. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.4** (7 ago 2026) — **Bautizo empresarial en los ejemplos.** Las unidades de los ejemplos dejan de contar cabezas: "conecta 2 personas" → "2 socios" (COMP_GEN5_05, filas "Socio 1/2"); "62 personas" → "62 vinculaciones" (COMP_GEN5_08, + "se construye la red" → "la estructura"); "numero de personas activas" → "socios activos" (regla del Lado Menor); instrucción interna del Binario deja de citar la fórmula prohibida como ejemplo; VIP "para personas que quieren" → "para quien quiere". **"Flujo de caja" retirado** (decisión del Director 7 ago — revierte la conservación de v7.0): GEN5 "le da ingreso inmediato para crecer" · "la plata que financia la expansión". ⚠️ Cifras, %, CV/PV y tasas INTACTAS. Previa **7.3** (12 jul 2026) — composición ESP corregida + upgrades (COMP_PAQ_02/03/04/05). Previa **7.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): "negocio digital" → **"empresa digital"** (12 swaps, concordancias corregidas: "una nueva empresa digital", "mientras la empresa digital esté activa"). ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS** (verificado con git diff). Se conserva "negocio tradicional" y "Centro de Negocios". Deploy a Supabase 12 jun 2026.
 
 **Version previa:** 7.1 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "operar el modelo" → "desarrollar el modelo"; "antes de escalar" → "antes de multiplicar"; "Diferencia operativa" → "Diferencia funcional". ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS**. Se conservan los "opera" de Gano Excel/instrucciones y "escala por volumen" de la tabla de rangos. Pendiente: deploy a Supabase.
@@ -253,6 +253,18 @@ El GEN5 se paga semanalmente, no mensualmente.
 
 ---
 
+### COMP_GEN5_09: "¿Qué necesito para cobrar el GEN5? / ¿Cuáles son los requisitos del Bono GEN5? / ¿Qué condiciones tiene el GEN5? / ¿Con el Kit cobro el GEN5?"
+
+**[Concepto Nuclear]:** Las dos condiciones del GEN5, dichas juntas (Director, 23 ago 2026): haber comprado un paquete empresarial y estar activo con la recompra mensual. El monto es proporcional al propio paquete —su paquete es el techo, COMP_GEN5_02/03— y la quinta generación se dobla con 100 PV (COMP_GEN5_06). Fragmento corto a propósito: es la puerta; el ejemplo con cifras lo dicta el pin del motor cuando la persona acepta (la oferta nombra el GEN5), y los techos por generación viven en COMP_GEN5_03.
+
+Con gusto. Para cobrar el Bono GEN5 hay dos condiciones: haber comprado un paquete empresarial —ESP-1, ESP-2 o ESP-3— y estar activo con su recompra mensual.
+
+Cumplidas las dos, cobra por cada paquete que se compre en su canal hasta la quinta generación, y el bono es proporcional a su propio paquete: su paquete es el techo de lo que cobra por cada compra. Con 100 puntos de recompra al mes, la quinta generación le paga el doble.
+
+**Pregunta de seguimiento:** ¿Le muestro un ejemplo con números del GEN5?
+
+---
+
 ## PUNTOS PV - VOLUMEN PERSONAL
 
 ### COMP_PV_01: "Que son los PV (Puntos de Volumen Personal)?"
@@ -487,6 +499,18 @@ Tiene varias opciones para completar sus 50 PV mensuales — todas en productos 
 
 ---
 
+### COMP_PV_09: "No entiendo, ¿cómo así una caja a la semana? / ¿Cómo me mantengo activo? / ¿Qué tengo que comprar cada semana? / ¿Con una caja a la semana estoy activo? / ¿Cuántas cajas al mes para estar activo?"
+
+**[Concepto Nuclear]:** La recompra se explica como RITMO, no como cifra (Director, 23 ago 2026): una caja a la semana → cuatro en el ciclo de cuatro semanas → 60 PV, por encima de los 50. Cada caja de Ganocafé suma 15 PV (COMP_PV_08). Y en la práctica una caja se queda corta: se toma en casa y se comparte. Las combinaciones viven en COMP_PV_08.
+
+Es la rutina más sencilla del negocio: una caja a la semana. Cada caja de Ganocafé suma 15 PV, así que en un ciclo de cuatro semanas lleva cuatro cajas y 60 PV — por encima de los 50 que se piden para estar activo. Con esa rutina la recompra se cumple sola, sin tener que pensarla.
+
+Y una caja a la semana se queda corta: se toma en casa y se comparte, y compartir es la mitad del negocio.
+
+**Pregunta de seguimiento:** ¿Le muestro qué otras combinaciones suman los 50 PV?
+
+---
+
 ## REGALIA DE EQUIPO (BONO BINARIO)
 
 ### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario" / "Que es el ingreso recurrente?"
@@ -505,7 +529,7 @@ Ese ingreso ya no depende de que usted esté encima — y es dinero que no le de
 ¿Le muestro un ejemplo con números?
 </verbatim_lock>
 
-**[Referencia interna — NO mostrar al prospecto]:** el sistema suma el volumen comisionable de sus dos frentes (sin importar quién invitó a quién) y liquida un porcentaje sobre el frente de menor volumen. Tasa base 10%; tasa Fundador ESP-3 17%. El volumen comisionable es el valor base oficial que Gano Excel asigna a cada producto, distinto del precio de venta al público. Se liquida cada viernes.
+**[Referencia interna — NO mostrar al prospecto]:** el sistema empareja el volumen comisionable de su canal izquierdo con su equivalente en el canal derecho (sin importar quién invitó a quién) y liquida un porcentaje sobre el volumen emparejado. Tasa base 10%; tasa Fundador ESP-3 17%. El volumen comisionable es el valor base oficial que Gano Excel asigna a cada producto, distinto del precio de venta al público. Se liquida cada viernes.
 
 ---
 
@@ -521,7 +545,7 @@ Ese ingreso ya no depende de que usted esté encima — y es dinero que no le de
 | ESP-2 | 16% | 4 meses |
 | ESP-3 | 17% | 6 meses |
 
-**Ejemplo: Su lado menor tiene 10,000 CV**
+**Ejemplo: con 10,000 CV emparejados**
 | Su Paquete | Calculo | Comision Semanal |
 |------------|---------|------------------|
 | Kit | 10,000 × 10% × $1 USD | $1,000 USD |
@@ -532,15 +556,13 @@ Ese ingreso ya no depende de que usted esté encima — y es dinero que no le de
 
 ---
 
-### COMP_BIN_11: "¿Cómo liquida Gano Excel las comisiones binarias? / ¿Cómo se calcula la comisión semanal del binario? / ¿Cuál es la fórmula del binario? / ¿Sobre qué se aplica el porcentaje?"
+### COMP_BIN_11: "¿Cómo liquida Gano Excel las comisiones binarias? / ¿Cómo se calcula la comisión semanal del binario? / ¿Cuál es la fórmula del binario? / ¿Sobre qué se aplica el porcentaje? / ¿Cómo se emparejan los puntos? / ¿Por qué me pagan por un solo lado?"
 
-**[Concepto Nuclear]:** Liquidación basada en GCV (Volumen Comisionable Grupal), NO en precio de venta. % aplicado según paquete o rango activo — automáticamente el más alto disponible.
+**[Concepto Nuclear]:** El Binario se explica por **emparejamiento**, con el **canal izquierdo** y el **canal derecho** nombrados (párrafo canónico del Director, 23 ago 2026): cada punto de un canal se empareja con su equivalente en el otro, y el porcentaje se aplica sobre el volumen emparejado. En un par hay un punto de cada canal: el pago cubre los dos canales por construcción, y así queda dicho sin tener que defenderlo. Estas preguntas llegan temprano, cuando la persona aún no sabe que hay dos centros de negocio: por eso se dibujan dos canales por donde se mueve producto, no dos grupos de personas. El ejemplo es 1.000 / 5.000 para que el sobrante y lo emparejado no coincidan. Liquidación sobre CV (valor asignado por Gano Excel a cada producto, distinto del precio de venta); % del paquete o rango activo — automáticamente el más alto disponible.
 
-Gano Excel liquida cada semana así:
+El ingreso recurrente opera mediante una mecánica de emparejamiento. El sistema empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el porcentaje sobre ese volumen. Por ejemplo, con 1.000 puntos en el canal izquierdo y 5.000 en el derecho, se emparejan 1.000 de cada canal. Los 4.000 que quedan sin emparejar se guardan para el siguiente ciclo.
 
-1. Suma el **Volumen Comisionable (CV)** de TODOS los productos consumidos por el canal (el CV es un valor asignado por Gano Excel a cada producto — distinto al precio de venta al público).
-2. Calcula el **GCV (Group CV)** acumulado de su **Centro de Negocios de Cobro** (el centro con MENOR volumen acumulado entre los dos frentes).
-3. Aplica el porcentaje del paquete o rango activo — automáticamente el más alto disponible.
+El porcentaje es el de su paquete o rango activo — el sistema aplica automáticamente el más alto disponible.
 
 **Origen del porcentaje:**
 | Fuente | Porcentaje |
@@ -614,18 +636,19 @@ Por eso lo de esta semana no cae este viernes: cae dos viernes después. Y de ah
 
 ---
 
-### COMP_BIN_06: "Requisitos para cobrar el Binario?"
+### COMP_BIN_06: "¿Qué necesito para cobrar el Binario? / Requisitos para cobrar el Binario / ¿Qué condiciones tiene el Binario? / ¿Cuándo no me pagan el Binario?"
 
-**[Concepto Nuclear]:** 50 PV + 1 activo en cada lado + minimo 100 CV.
+**[Concepto Nuclear]:** Tres condiciones dichas en llano (Director, 23 ago 2026): activo con la recompra mensual · un cliente o distribuidor activo patrocinado directamente en cada canal · mínimo 100 puntos emparejados, porque se paga por centenas. Se separa lo que PAUSA el pago (falta un activo o no llega la centena — los puntos esperan) de lo que BORRA los puntos guardados (dejar de estar activo). La recompra se presenta por lo que es: unas tres o cuatro cajas al mes.
 
-**Requisitos Semanales:**
-| Requisito | Valor |
-|-----------|-------|
-| PV Personal | Minimo 50 PV |
-| Vinculados Activos | 1 izquierda + 1 derecha |
-| CV para Compensar | Minimo 100 CV |
+Con gusto. Para cobrar el Binario en una semana se cumplen tres condiciones:
 
-**Insight:** Si no cumple estos requisitos en la semana, no cobra Binario esa semana. Se reactiva cuando vuelve a cumplir.
+• Estar activo con su recompra mensual — unas tres o cuatro cajas al mes, una a la semana.
+• Tener al menos un cliente o distribuidor activo, patrocinado directamente por usted, en su canal izquierdo y otro en su canal derecho.
+• Tener mínimo 100 puntos emparejados — el sistema paga por centenas.
+
+Si una semana le falta un activo en un canal o no completa la centena, esa semana no se liquida y sus puntos quedan guardados para la siguiente. Lo único que borra los puntos guardados es dejar de estar activo con la recompra mensual.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se cumple la recompra con una caja a la semana?
 
 ---
 
@@ -649,21 +672,21 @@ Por eso lo de esta semana no cae este viernes: cae dos viernes después. Y de ah
 
 ### COMP_BIN_08: "Ejemplo practico del Binario - Cuanto gano si mi equipo crece"
 
-**[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es su retiro semanal de por vida.
+**[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es su ingreso recurrente, semana a semana.
 
 El Binario paga CADA SEMANA sobre TODO el volumen de su canal, sin limite de profundidad.
 
 **Como funciona:**
-- Su equipo se divide en 2 lados (izquierdo y derecho)
+- Su canal se divide en dos: el canal izquierdo y el canal derecho
 - Cada compra de su canal genera CV (Consumo estandar: 4 cajas = 56 CV/persona)
-- El sistema suma TODO el CV de cada lado
-- Se liquida el 17% sobre el lado de MENOR volumen
+- El sistema empareja cada punto del canal izquierdo con su equivalente en el derecho
+- Se liquida el 17% sobre el volumen emparejado
 
-**⚠️ QUESWA REGLA CRITICA:** Cuando ambos lados tienen el MISMO numero de socios activos, el Lado Menor = CV Total de UN lado (NO la mitad).
+**⚠️ QUESWA REGLA CRITICA:** Cuando los dos canales tienen el MISMO volumen, se empareja todo: el volumen emparejado = el CV total de UN canal (NO la mitad).
 
 **TABLA CANONICA - Proyeccion con Consumo Estandar (56 CV AL MES por cliente, 17%):**
 
-| Mes | Clientes por frente | CV al mes por frente | Frente de cobro | Comision MENSUAL |
+| Mes | Clientes por canal | CV al mes por canal | Volumen emparejado | Comision MENSUAL |
 |-----|---------------------|----------------------|-----------------|------------------|
 | 1 | 10 | 560 CV | 560 CV | $95 USD |
 | 3 | 25 | 1,400 CV | 1,400 CV | $238 USD |
@@ -673,9 +696,9 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su canal, sin limite de pro
 
 **⚠️ CORRECCION 7 ago 2026 — el periodo estaba mal.** Esta tabla rotulaba las cifras como comision SEMANAL y multiplicaba por 4 para la mensual, inflando la proyeccion al cuadruple. El consumo estandar de 56 CV es POR MES (4 cajas, una por semana), asi que 560 CV × 17% = $95 son de un MES completo. Confirmado por el Director. Las cifras no cambiaron: cambio el periodo al que corresponden.
 
-**Nota sobre Mes 18:** Ejemplo de equipos desbalanceados (200 vs 100). Lado Menor = 5,600 CV.
+**Nota sobre Mes 18:** Ejemplo de canales desiguales (200 vs 100). Volumen emparejado = 5,600 CV; el resto se guarda para el siguiente ciclo.
 
-**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Usa SIEMPRE esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula matemática al prospecto** (ej. "Lado Menor × 17% × $1 USD" o variantes). El usuario ve solo la tabla terminada. Si pregunta cómo se calcula, responde: *"El sistema toma el GCV (Volumen Comisionable Grupal) acumulado de su Centro de Negocios de Cobro y aplica la rentabilidad de su paquete"* — sin fórmula explícita. NUNCA uses *"pierna débil/fuerte"* — la doctrina es *"Centro de Negocios de Cobro"* (menor volumen) y *"Centro de Negocios de Mayor Tracción"* (mayor volumen). NO improvises números.
+**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Usa SIEMPRE esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula matemática al prospecto.** El usuario ve solo la tabla terminada. Si pregunta cómo se calcula, responde con el párrafo de COMP_BIN_11: el sistema empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el porcentaje sobre ese volumen — sin fórmula explícita. La doctrina nombra **el canal izquierdo y el canal derecho** y usa el verbo **emparejar**. NO improvises números.
 
 **Lo que significa Rango Diamante:**
 | Periodo | Binario (USD) | Binario (COP) |
@@ -690,35 +713,21 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su canal, sin limite de pro
 | GEN5 | Una vez por vinculacion | Unico |
 | Binario | CADA semana mientras haya actividad | Recurrente |
 
-**Insight:** El GEN5 le da ingreso inmediato para crecer. El Binario construye sus ingresos recurrentes. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su canal esté activa.
+**Insight:** El GEN5 le da plata para crecer mientras construye. El Binario construye sus ingresos recurrentes. Un Diamante puede generar $36 millones COP/mes de forma recurrente en Bono Binario mientras su canal esté activo.
 
 ---
 
-### COMP_BIN_09: "El CV se acumula o se pierde?"
+### COMP_BIN_09: "¿Se pierden los puntos que sobran? / ¿Qué pasa con los puntos que no se emparejan? / ¿El CV se acumula o se pierde? / ¿Los puntos se guardan para la siguiente semana? / ¿Cada semana empiezo desde cero?"
 
-**[Concepto Nuclear]:** El CV NUNCA se pierde. Se acumula semana a semana mientras esté activo.
+**[Concepto Nuclear]:** Los puntos sin emparejar se guardan para el siguiente ciclo MIENTRAS la persona esté activa con su recompra mensual; sin actividad, se pierden (doctrina del Director, 23 ago 2026). Se paga por centenas. El requisito se presenta por lo que es —unas tres o cuatro cajas al mes— y con la observación de que una caja a la semana se queda corta en la práctica. El ejemplo es 1.050 / 5.070 para que el sobrante y lo emparejado no se confundan, y para que se vea que ni los picos se pierden.
 
-A diferencia de muchas companias de network marketing donde el volumen no cobrado se pierde al final del mes, en Gano Excel el CV hace rollover.
+No, mientras usted esté activo. Gano Excel paga por centenas de puntos emparejados, y lo que no alcanza a completar una centena se guarda para el siguiente ciclo.
 
-**Como Funciona el Rollover:**
+Un ejemplo: con 1.050 puntos en su canal izquierdo y 5.070 en el derecho, se emparejan 1.000 de cada canal. Los 50 que sobran en el izquierdo y los 4.070 del derecho se guardan, y la semana siguiente arranca con ellos — nunca empieza desde cero.
 
-Gano Excel paga por centenas. Si tiene CV impar, el sobrante pasa al siguiente ciclo.
+La condición es una sola: estar activo con su recompra mensual, que son unas tres o cuatro cajas al mes — una a la semana. Si un mes no la cumple, los puntos guardados se pierden. Y en la práctica una caja a la semana se queda corta: se toma en casa y se comparte, así que la recompra sale sola.
 
-**Ejemplo Practico:**
-| Ciclo | Izquierda | Derecha | Paga sobre | Queda Izq | Queda Der |
-|-------|-----------|---------|------------|-----------|-----------|
-| Semana 1 | 1,356 CV | 56,540 CV | 1,300 CV | 56 CV | 55,240 CV |
-| Semana 2 | 56 + 800 = 856 CV | 55,240 + 200 = 55,440 CV | 800 CV | 56 CV | 54,640 CV |
-
-**Requisito:** Estar activo con compra minima personal (50 PV). Si pierde actividad, el CV se congela (no se borra).
-
-**Diferenciador vs Competencia:**
-| Compania | CV no cobrado |
-|----------|---------------|
-| Otros modelos | Se pierde cada mes |
-| Gano Excel | Se acumula (rollover) |
-
-**Insight:** Su trabajo NUNCA se pierde. El CV que construye hoy sigue ahi manana. Solo necesita mantener su actividad personal.
+**Pregunta de seguimiento:** ¿Le muestro cómo se cumple la recompra con una caja a la semana?
 
 ---
 
@@ -996,13 +1005,13 @@ El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener 
 |---------|------------|
 | **Patrocinio** | Define QUIEN invito a QUIEN. Su red de socios directos e indirectos. Aqui paga el GEN5. |
 | **Colocacion** | Define DONDE se ubica cada codigo en su estructura (2 lados). Sobre ese volumen paga el Binario (Regalia de Equipo). |
-| **Centro de negocios de Mayor Volumen Acumulado** | El lado de su binario con MAS puntos acumulados. Ventaja estrategica: puede reforzar el lado de compensacion. |
-| **Lado de Compensacion** | El lado de su binario con MENOS puntos. Este es sobre el que le pagan. |
+| **Canal izquierdo / canal derecho** | Los dos canales por los que se mueve el producto dentro de su canal de distribución. El Binario empareja los puntos de uno con su equivalente en el otro. |
+| **Volumen emparejado** | Los puntos que ya tienen su equivalente en el otro canal. Sobre este volumen se aplica su porcentaje; se paga por centenas. |
 | **PV (Personal Volume)** | Puntos de sus compras personales. Sirven para ACTIVARLE (50-100 PV). |
 | **CV (Commissionable Volume)** | Puntos de las compras que se mueven por su canal. Son los que le PAGAN el Binario. |
 | **GCV (Group CV)** | Suma total de CV de todo su canal (ambos lados). |
 | **Ciclo Semanal** | Gano Excel corta los domingos y paga los viernes (2 semanas despues). |
-| **Rollover** | Los puntos no cobrados se ACUMULAN para la siguiente semana. Nunca se pierden. |
+| **Puntos guardados** | Los puntos sin emparejar pasan al siguiente ciclo mientras la persona esté activa con su recompra mensual; sin actividad, se pierden. |
 | **Derrame (Spillover)** | Volumen que recibe de su linea ascendente. Ellos colocan en SU estructura. |
 | **Techo** | Maximo que puede cobrar segun su paquete. ESP-3 = techo maximo. |
 | **Compresion** | Cuando su paquete limita su cobro (ej: tiene ESP-1, entra ESP-3 → pierde diferencia). |

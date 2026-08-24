@@ -592,6 +592,9 @@ export async function radicarPreAfiliacion(
 const ETIQUETA_CORTA: Record<string, string> = {
   nombre: 'nombre', cedula: 'cédula', ciudad: 'ciudad', paquete: 'paquete',
 };
+const ETIQUETA_LARGA: Record<string, string> = {
+  nombre: 'su nombre completo', cedula: 'su número de identificación', ciudad: 'su ciudad', paquete: 'el paquete que quiere',
+};
 
 async function avisarInteresParcial(
   datos: DatosRadicacion,
@@ -737,6 +740,18 @@ export async function gestionarCierre(params: {
     // conversación: una pregunta, un pedido de información, o simplemente una
     // frase larga — nadie entrega una cédula en ocho palabras.
     const texto = mensajeActual.trim();
+    // Un saludo a mitad del trámite no es un dato ni una digresión: la persona
+    // volvió al chat. Sin esto recibía, palabra por palabra, la misma petición
+    // del turno anterior («Empecemos, entonces. ¿Cuál es su nombre completo?»),
+    // que se lee como que la máquina no notó que se fue y volvió (prueba del
+    // Director, 23 ago). Se saluda y se recuerda en una línea qué falta.
+    const esSaludo = /^(hola|holi|hey|buenas|buen[oa]s\s+(d[ií]as|tardes|noches)|qu[eé]\s+tal|hola de nuevo)[\s!.,]*$/i.test(texto);
+    if (esSaludo) {
+      return {
+        texto: `Hola de nuevo. Sigo pendiente de ${enumerar(faltantes.map((f) => ETIQUETA_LARGA[f]))} para dejarlo radicado.`,
+        radicado: false,
+      };
+    }
     const esDigresion =
       RE_PREGUNTA.test(texto) || RE_PEDIDO_INFO.test(texto) || RE_TEMA.test(texto)
       || detectarProducto(texto) !== null || texto.split(/\s+/).length > 6;

@@ -1,22 +1,22 @@
-# Arsenal Conversacional: Los 12 Niveles v5.3 — BAUTIZO EMPRESARIAL (socios)
+# Arsenal Conversacional: Los 12 Niveles v5.3 — BAUTIZO EMPRESARIAL (distribuidores)
 
 **v5.3 (22 ago 2026):** La tabla de productos de INV_06 usa los nombres del catálogo, en español. Sin cambios de puntos.
-**v5.2 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **socio** · *su socio logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**v5.2 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **distribuidor** · *su distribuidor logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
-**Audiencia:** Sobre todo quienes están empezando (nuevos); también un empresario activo que quiera desarrollar los 12 niveles — crear su equipo con socios nuevos y compartirles la visión.
+**Audiencia:** Sobre todo quienes están empezando; también un distribuidor activo que quiera desarrollar los 12 niveles — crear su equipo con nuevos distribuidores y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 5.4 (22 ago 2026) — **INV_00 abre la puerta a quien pide una opción menor al ESP-1.** Los tres paquetes empresariales siguen siendo la entrada estándar; el Kit de Inicio se ofrece cuando lo piden, con lo que trae y lo que habilita dicho en llano (decisión del Director, 22 ago). Previa **5.3** (19 ago 2026) — El beneficio de acompañamiento del Kit se nombra por **quién acompaña**, no por una etapa. Previa **5.2** (7 ago 2026) — **Bautizo empresarial:** quienes componen la estructura dejan de llamarse "personas" → **socios** (invitar → conectar socios; tabla "Socios — Nuevos vs Total"; 8.190 socios) y el consumo → **clientes** (INV_04). Dos preguntas de cierre pasan de dos salidas a una (NIVELES_06, INV_01). Cifras/PV/CV intactas. Previa: **5.1** (21 jul 2026 — NIVELES_02 distingue usuarios "Nuevos" vs "Total organización"; base v5.0) Léxico accesible — trato **usted** en todo el arsenal, "red" → "organización" (se conserva "canal de distribución"), audiencia reencuadrada (nuevos + empresario activo). Cifras/PV/CV/nombres de producto INTACTOS; "Kit de Inicio" conservado (nombre del paquete básico).
+**Versión:** 5.7 (23 ago 2026) — **El Binario se explica por emparejamiento** (párrafo canónico del Director): cada punto del canal izquierdo se empareja con su equivalente en el canal derecho y se paga sobre ese volumen; NIVELES_02 y NIVELES_07 lo dicen así. Previa **5.6** (23 ago 2026) — **La cifra del nivel 12 se explica por su origen, y el léxico pasa a la actividad comercial.** Un número grande sin origen se lee como magia; el mismo número presentado como la tajada que es de una facturación mayor se lee como un negocio — y esa es la única defensa real contra la lectura de pirámide. Lo que se paga se nombra **comisión**: es un porcentaje de lo que se vende, no un premio. Previa **5.5** — **El léxico de este arsenal pasa a la actividad comercial.** Quienes componen la estructura se nombran por lo que HACEN —mover producto—, no por el vínculo ni por una etiqueta de estatus; y el conteo de cada nivel nombra a quién cuenta, nunca en abstracto. El acumulado del nivel 12 se llama por lo que es —**acumulado**— y deja de presentarse como ingreso recurrente: son dos cosas distintas y confundirlas promete un flujo mensual que esa cifra no describe. Cifras, PV, CV y nombres de producto INTACTOS. ⚠️ **Esta nota enuncia el criterio a propósito: el detalle de cada versión vive en `CHANGELOG-arsenales.md`, que no se indexa.** La cabecera anterior narraba cuatro bautizos con sus términos retirados escritos, y este documento se indexa entero — así que cada término que ella citaba volvía al corpus por la puerta de atrás.
 
 **Cambios v5.1 (21 jul 2026):**
-- **NIVELES_02:** la tabla ahora distingue **"Nuevos"** (2ⁿ, quienes entran en el nivel) de **"Total organización"** (2⁽ⁿ⁺¹⁾−2, tamaño acumulado por interés compuesto de la duplicación) — alinea con el simulador de /12-niveles. Ej. nivel 4: 16 nuevos, 30 en total. Nivel 12: 8.190 en total.
+- **NIVELES_02:** la tabla ahora distingue **"Nuevos distribuidores"** (2ⁿ, quienes entran en el nivel) de **"Total organización"** (2⁽ⁿ⁺¹⁾−2, tamaño acumulado por interés compuesto de la duplicación) — alinea con el simulador de /12-niveles. Ej. nivel 4: 16 nuevos, 30 en total. Nivel 12: 8.190 en total.
 
 **Cambios v5.0 (20 jul 2026):**
 - Migración de trato: **tú → usted** en las 13 respuestas (alinea con el deck /12-niveles y el resto del sitio). Ver [[project_reto_12niveles_no_migrar]] — revertido SOLO para el léxico de trato; concepto y nombres de producto se conservan.
 - "red de relaciones / tu red" → "su canal" (se conserva "canal de distribución"). Se retira la etiqueta inglesa "Asset-Light"; el concepto (el peso lo carga Gano) se explica en llano.
 - **Corrección de cifras en NIVELES_02:** columna Acumulado — nivel 8: 6.426.000 · nivel 10: 25.779.600 · nivel 12: **103.194.000** (= $25.200 × (2¹²−1), coincide con el simulador de /12-niveles). Los valores previos (6.428.400 / 25.776.600 / 103.177.800) eran errores de suma.
 - **NIVELES_04 reescrita:** el deck /12-niveles ya no tiene formulario; la vinculación es por su patrocinador o WhatsApp del equipo. Se retira el enlace roto al formulario.
-- **NIVELES_01 audiencia:** primariamente para quienes inician; un empresario activo también puede desarrollarlo.
+- **NIVELES_01 audiencia:** primariamente para quienes inician; un distribuidor activo también puede desarrollarlo.
 
 **Cambios v4.x (histórico):** [Concepto Nuclear] en las 13 respuestas · "Bono Binario" → "Regalía de Equipo" · "pierna débil" → "lado de menor crecimiento" · advertencias del Kit de Inicio · tabla de paquetes con GEN5 · mecánica de sostenibilidad (50 PV). Disparadores ampliados en route.ts (v5.0): además de "12 niveles"/"kit de inicio", activan "duplicación", "2×2", "$103 millones", "el simulador".
 
@@ -28,7 +28,7 @@
 
 **[Concepto Nuclear]:** Su activo es su canal de relaciones, no inventarios ni infraestructura — el peso pesado (fábrica, logística, lo legal) lo carga Gano Excel.
 
-Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su canal de distribución en 90 días. Está pensada sobre todo para **quienes están empezando**; y un **empresario activo** también puede desarrollarla — crear su equipo con socios nuevos y compartirles esta visión.
+Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su canal de distribución en 90 días. Está pensada sobre todo para **quienes están empezando**; y un **distribuidor activo** también puede desarrollarla — crear su equipo con nuevos distribuidores y compartirles esta visión.
 
 **El concepto clave:** el activo es su canal, no los inventarios.
 
@@ -36,14 +36,14 @@ En lugar de invertir en almacenes, flotas o inventarios masivos, usted solo cons
 
 **¿Por qué 12 niveles?**
 
-Cada nivel representa una oportunidad de crecimiento exponencial basada en duplicación 2×2. La idea es simple: usted conecta socios, ellos conectan a otros, y el sistema se multiplica.
+Cada nivel representa una oportunidad de crecimiento exponencial basada en duplicación 2×2. La idea es simple: usted conecta distribuidores, ellos conectan a otros, y el sistema se multiplica.
 
 **¿Cómo funciona?**
 
 - Usted invita a conocer el negocio
-- Cada socio que se vincula genera puntos (CV)
+- Cada distribuidor que se vincula genera puntos (CV)
 - Los puntos de su canal generan ingreso recurrente semanal
-- El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso recurrente
+- El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso acumulado
 
 **Contenido del Kit de Inicio ($443,600 COP):**
 
@@ -65,11 +65,11 @@ En Los 12 Niveles con Kit de Inicio, usted gana a través de la **Regalía de Eq
 
 **¿Cómo funciona?**
 
-Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía toma los puntos compensados de ambos lados de su canal y le paga el 10% semanal.
+Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el 10% semanal sobre ese volumen.
 
 **Proyección de ingreso recurrente con Kit de Inicio (10%):**
 
-| Nivel | Nuevos | Total organización | CV/lado | Regalía semanal 10% | Acumulado |
+| Nivel | Nuevos distribuidores | Total organización | CV/lado | Regalía semanal 10% | Acumulado |
 |-------|--------|--------------------|---------|---------------------|-----------|
 | 1 | 2 | 2 | 56 | $25,200 | $25,200 |
 | 2 | 4 | 6 | 112 | $50,400 | $75,600 |
@@ -79,22 +79,26 @@ Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit
 | 10 | 1,024 | 2,046 | 28,672 | $12,902,400 | $25,779,600 |
 | 12 | 4,096 | 8,190 | 114,688 | $51,609,600 | **$103,194,000** |
 
-**Socios — "Nuevos" vs "Total":** "Nuevos" son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su canal hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 socios nuevos y su canal suma 30 en total. Al nivel 12 son **8.190 socios** en total.
+**"Nuevos distribuidores" vs "Total":** los *nuevos distribuidores* son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su canal hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 distribuidores nuevos y su canal suma 30 en total. Al nivel 12 son **8.190 distribuidores** en total.
 
-**Potencial acumulado al nivel 12:** Más de $103 millones COP en ingreso recurrente. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
+**Potencial acumulado al nivel 12:** Más de $103 millones COP. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
+
+**Dato clave — de dónde salen esos $103 millones.** No los regala nadie: son el **10% del volumen emparejado** de ese canal. Con más de 8.000 distribuidores y sus clientes comprando sus 4 cajas al mes, ese canal **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
+
+Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
 
 **Con paquetes empresariales (mayor %):**
 
 | Su Paquete | Regalía Equipo | Diferencia vs Kit |
 |------------|----------------|-------------------|
 | Kit de Inicio | 10% | Base |
-| ESP-1 | 15% | +50% más ingreso recurrente |
-| ESP-2 | 16% | +60% más ingreso recurrente |
-| ESP-3 | 17% | +70% más ingreso recurrente |
+| ESP-1 | 15% | +50% más comisión |
+| ESP-2 | 16% | +60% más comisión |
+| ESP-3 | 17% | +70% más comisión |
 
 **Se paga:** Semanalmente los viernes.
 
-**⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las ganancias reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
+**⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
 
 **Pregunta de seguimiento:** ¿Le gustaría saber cuánto cuesta participar?
 
@@ -124,7 +128,7 @@ La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 
 **Análisis financiero:**
 
-El Kit de Inicio es una opción de "baja fricción", pero financieramente es menos eficiente para un constructor serio. Trabajar al 10% (Kit) frente al 17% (ESP-3) implica dejar sobre la mesa el **41% de las ganancias potenciales** por exactamente el mismo volumen de producción.
+El Kit de Inicio es una opción de "baja fricción", pero financieramente es menos eficiente para un constructor serio. Trabajar al 10% (Kit) frente al 17% (ESP-3) implica dejar sobre la mesa el **41% de la comisión** por exactamente el mismo volumen de producto movido.
 
 **Pregunta de seguimiento:** ¿Le gustaría conocer las diferencias entre el Kit de Inicio y los Paquetes Empresariales?
 
@@ -163,9 +167,9 @@ Lo que sí es crítico es que **arranque HOY**, porque:
 - Mientras más temprano empiece, más tiempo tiene para construir
 - La tecnología (Queswa) trabaja para usted 24/7
 
-**Recuerde:** Su rol es conectar socios al sistema.
+**Recuerde:** Su rol es conectar distribuidores al sistema.
 
-**Pregunta de seguimiento:** ¿Ve la diferencia entre conectar socios al sistema y trabajar a mano una red de ventas?
+**Pregunta de seguimiento:** ¿Ve la diferencia entre conectar distribuidores al sistema y trabajar a mano una red de ventas?
 
 ---
 
@@ -202,9 +206,9 @@ Este es un temor común.
 
 **Por eso los expertos recomiendan:**
 
-No se limite a conectar solo 2 socios. Entre más socios conecte USTED, más garantiza su propio crecimiento. El sistema paga sobre el **lado de menor crecimiento**, lo que lo incentiva a trabajar en la profundidad de su línea con menos volumen.
+No se limite a conectar solo 2 distribuidores. Entre más distribuidores conecte USTED, más garantiza su propio crecimiento. El sistema paga sobre los **puntos emparejados** entre su canal izquierdo y su canal derecho, así que conviene ayudar a crecer el canal que va más despacio: cada punto que entra ahí encuentra su pareja de inmediato.
 
-**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo y conectando más socios a su canal.
+**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo y conectando más distribuidores a su canal.
 
 **Pregunta de seguimiento:** ¿Cuántos nombres tiene en su lista para invitar?
 
@@ -262,7 +266,7 @@ Hay 4 opciones de inversión. Todas le dan acceso completo al sistema:
 - **ESP-2** → Para quien quiere ir en serio: 16% + GEN5 ($75 USD por ESP-3 en 1ra gen).
 - **ESP-3** → Máximo impacto: 17% por 6 meses + GEN5 completo ($150 USD por ESP-3 en 1ra gen).
 
-**Dato clave:** La diferencia entre 10% (Kit) y 17% (ESP-3) es **41% más ganancias** por el mismo volumen. Si su canal mueve 10,000 CV, el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD.
+**Dato clave:** La diferencia entre 10% (Kit) y 17% (ESP-3) es **41% más comisión** por el mismo volumen. Si su canal mueve 10,000 CV, el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD.
 
 Recuerde: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 

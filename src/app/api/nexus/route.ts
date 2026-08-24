@@ -2606,7 +2606,12 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     const categoriasDirectas: string[] = [];
     if (esBebidaCategoria && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_BEB_01');
     if (esSuplementoCat   && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_SUP_01');
-    if (esLuvocoCat       && !nombraUnProducto) categoriasDirectas.push(esLuvocoExperiencia ? 'catalogo_productos_LUV_00' : 'catalogo_productos_LUV_01');
+    // Tercera salida (23 ago): "¿cómo funciona el modelo Luvoco? / el Luvoco como
+    // negocio" → PROD_04, que lo explica desde el negocio (la máquina una vez,
+    // las cápsulas se repiten). En la prueba del 23 ago esa pregunta recibía la
+    // tabla y el modelo compuso «ticket alto» y «el cliente vuelve solo».
+    const esLuvocoModelo = /modelo|negocio|conviene|rentab|c[oó]mo funciona|para mi canal/i.test(msgL);
+    if (esLuvocoCat       && !nombraUnProducto) categoriasDirectas.push(esLuvocoModelo ? 'catalogo_productos_PROD_04' : esLuvocoExperiencia ? 'catalogo_productos_LUV_00' : 'catalogo_productos_LUV_01');
     if (esCuidadoPersonal && !nombraUnProducto) categoriasDirectas.push('catalogo_productos_PERS_01');
 
     if (categoriasDirectas.length > 0) {
@@ -2823,6 +2828,64 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
   //
   // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
   const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string }[] = [
+    {
+      // 23 ago: desde que FREQ_31 cierra con «¿Seguimos con la activación?», el
+      // «sí» a esa pregunta recuperaba FREQ_31 (0.427) en vez de ACTIVACION_01
+      // (0.422). La aceptación busca con la oferta del bot, y esta puerta la lee.
+      fragmento: 'arsenal_inicial_ACTIVACION_01',
+      titulo: 'Proceso de activación — ACTIVACION_01',
+      porque: 'acepta seguir con la activación',
+      cuando: /seguimos\s+con\s+la\s+activaci[oó]n|coordinamos\s+su\s+activaci[oó]n/i,
+    },
+    {
+      // 23 ago: «¿cómo se calcula el binario?» recuperaba BIN_06 (requisitos) y
+      // «¿por qué me pagan por un solo lado?» caía en FREQ_17 (cadencia). Las dos
+      // son BIN_11, el párrafo canónico del emparejamiento.
+      fragmento: 'arsenal_compensacion_COMP_BIN_11',
+      titulo: 'Cómo se calcula el Binario — COMP_BIN_11',
+      porque: 'pregunta cómo se calcula o por qué un solo lado',
+      cuando: /c[oó]mo\s+(se\s+)?(calcula|liquida|empareja|emparejan)[^.?]{0,25}(binario|regal[ií]a|comisi[oó]n|puntos|lados?|canal)|f[oó]rmula\s+del\s+binario|sobre\s+qu[eé]\s+se\s+aplica|un\s+solo\s+lado|solo\s+(por\s+)?un\s+lado|por\s+un\s+lado|lado\s+(menor|m[aá]s\s+peque[ñn]o|d[eé]bil)|se\s+emparejan\s+los\s+puntos|qu[eé]\s+es\s+emparejar/i,
+    },
+    {
+      // Prueba del Director, 23 ago: «¿puedo pagar en dos partes?» y «¿qué
+      // opciones hay para la forma de pago?» derivaban al socio. FREQ_31 existe
+      // desde v5.87 y se decide en código: es una pregunta de dinero y no puede
+      // depender de que el vector la encuentre.
+      fragmento: 'arsenal_inicial_FREQ_31',
+      titulo: 'Formas de pago — FREQ_31',
+      porque: 'pregunta cómo se paga',
+      cuando: /formas?\s+de\s+pago|m[eé]todos?\s+de\s+pago|medios?\s+de\s+pago|c[oó]mo\s+(se\s+)?(pago|paga|se\s+paga|puedo\s+pagar)|pagar\s+(en|con)\s+(dos|tres|partes|cuotas|tarjeta|efectivo|transferencia)|en\s+dos\s+partes|aceptan\s+tarjeta|con\s+tarjeta|en\s+efectivo|por\s+transferencia|a\s+qui[eé]n\s+le\s+pago|d[oó]nde\s+(pago|consigno)|se\s+puede\s+pagar/i,
+    },
+    {
+      // 23 ago: las dos condiciones del GEN5 estaban regadas en tres fragmentos.
+      fragmento: 'arsenal_compensacion_COMP_GEN5_09',
+      titulo: 'Requisitos del GEN5 — COMP_GEN5_09',
+      porque: 'pregunta qué necesita para cobrar el GEN5',
+      cuando: /(requisit|condici|necesit|qu[eé]\s+(debo|tengo\s+que)\s+(cumplir|tener|hacer))[^.?]{0,40}(gen[\s.-]?5|bono\s+de\s+(los\s+)?paquetes)|(gen[\s.-]?5|bono\s+de\s+(los\s+)?paquetes)[^.?]{0,40}(requisit|condici|necesit|para\s+cobrar)|con\s+el\s+kit\s+cobro/i,
+    },
+    {
+      // 23 ago: «no entiendo, ¿cómo así una caja a la semana?» — la recompra
+      // explicada como ritmo. FREQ_09 dice la cifra; PV_09 dice el ritmo.
+      fragmento: 'arsenal_compensacion_COMP_PV_09',
+      titulo: 'Una caja a la semana — COMP_PV_09',
+      porque: 'pregunta cómo se mantiene activo',
+      cuando: /una\s+caja\s+(a\s+la|por)\s+semana|caja\s+semanal|c[oó]mo\s+(me\s+)?(mantengo|me\s+mantengo|sigo|estoy)\s+activ|mantenerme\s+activ|cu[aá]ntas\s+cajas[^.?]{0,30}(mes|activ)|qu[eé]\s+tengo\s+que\s+comprar\s+(cada|a\s+la)\s+semana/i,
+    },
+    {
+      // 23 ago: «¿se pierden los puntos que sobran?» — BIN_09 con la doctrina
+      // corregida (se guardan mientras esté activo; sin recompra, se pierden).
+      fragmento: 'arsenal_compensacion_COMP_BIN_09',
+      titulo: 'Los puntos que sobran — COMP_BIN_09',
+      porque: 'pregunta si se pierden los puntos',
+      cuando: /(puntos?|cv|volumen)[^.?]{0,30}(se\s+pierden?|se\s+guardan?|se\s+acumulan?|sobran|que\s+sobran|sin\s+emparejar)|(pierdo|pierde|guardan|acumulan)[^.?]{0,20}(puntos|cv)|empiezo\s+desde\s+cero|desde\s+cero\s+cada\s+semana/i,
+    },
+    {
+      // 23 ago: los tres requisitos del Binario, en llano.
+      fragmento: 'arsenal_compensacion_COMP_BIN_06',
+      titulo: 'Requisitos del Binario — COMP_BIN_06',
+      porque: 'pregunta qué necesita para cobrar el Binario',
+      cuando: /(requisit|condici|necesit)[^.?]{0,40}(binario|regal[ií]a|ingreso\s+recurrente)|(binario|regal[ií]a)[^.?]{0,40}(requisit|condici|necesit|para\s+cobrar)|cu[aá]ndo\s+no\s+me\s+pagan/i,
+    },
     {
       // Decisión del Director, 22 ago 2026: la recomendación de paquete tiene dos
       // tiempos, y el primero es siempre el mismo texto —el que le resulte cómodo,
@@ -3666,6 +3729,44 @@ function tablaPaqueteDictada(codigo: string, tablaMarkdown: string, country: str
   if (filas.length < 3) return null;
   const precio = country === 'CO' ? m.cop : country === 'US' ? m.usd : `${m.usd} (${m.cop})`;
   return `Con gusto. El *${m.nombre}* vale *${precio}* y le activa inmediatamente este inventario:\n\n${filas.join('\n')}\n\n${m.mix}\n\n¿Seguimos con la activación?`;
+}
+
+/**
+ * El GEN5 de un paquete concreto en primera generación, dictado sin modelo (23 ago 2026).
+ *
+ * Prueba del Director: «si mi primer socio entra con Visionario, ¿cuánto gano?»
+ * recibió el ejemplo de RENTA, porque el pin elige el tipo de ejemplo por la
+ * oferta del bot y el cuerpo solo cuenta si dice «gen5» o «paquete». Aquí la
+ * pregunta nombra el paquete y el evento, así que la respuesta es la cifra de
+ * ese paquete — contada en compras, nunca en personas — y el simulador para el
+ * escenario completo. Copy construido con el Director.
+ */
+function gen5PrimerPaqueteDictado(codigo: string, country: string | null | undefined): string | null {
+  const T: Record<string, { nombre: string; usd: string; cop: string }> = {
+    'ESP-1': { nombre: 'Inicial',     usd: '$25 USD',  cop: '$112.500 COP' },
+    'ESP-2': { nombre: 'Empresarial', usd: '$75 USD',  cop: '$337.500 COP' },
+    'ESP-3': { nombre: 'Visionario',  usd: '$150 USD', cop: '$675.000 COP' },
+  };
+  const t = T[codigo];
+  if (!t) return null;
+  const monto = country === 'CO' ? t.cop : country === 'US' ? t.usd : `${t.usd} (${t.cop})`;
+  return `El GEN5 se cuenta por paquetes: un *paquete ${t.nombre}* comprado en su primera generación le genera un bono de *${monto}*. Lo captura completo si su propio paquete es igual o mayor — su paquete es el techo de lo que cobra.
+
+Se liquida por ciclos semanales, cada viernes.
+
+¿Quiere armar su propio escenario en el simulador?`;
+}
+
+/** ¿Pregunta cuánto gana cuando en su canal se compra UN paquete concreto? Devuelve el código o null. */
+function paqueteDelEventoGen5(mensaje: string): string | null {
+  const m = mensaje.toLowerCase();
+  const evento = /(socio|distribuidor|alguien|persona|amig|primer[oa]?|referid|invitad)[^.?]{0,30}(entra|entre|arranca|arranque|inicia|inicie|empieza|empiece|compra|compre|se\s+vincula|se\s+une)|(entra|entre|arranca|arranque|inicia|inicie|empieza|empiece|compra|compre)[^.?]{0,25}con\s+(el\s+|un\s+)?(visionario|empresarial|inicial|esp)/i.test(m);
+  const gano   = /cu[aá]nto\s+(me\s+)?(gano|gana|queda|deja|paga|recibo|toca|entra)|qu[eé]\s+(me\s+)?(gano|queda|deja|toca)|bono|comisi/i.test(m);
+  if (!evento || !gano) return null;
+  if (/visionario|esp[\s-]?3/.test(m)) return 'ESP-3';
+  if (/empresarial|esp[\s-]?2/.test(m)) return 'ESP-2';
+  if (/\binicial\b|esp[\s-]?1/.test(m)) return 'ESP-1';
+  return null;
 }
 
 // Logging mejorado para arquitectura híbrida - CORREGIDO 2025-10-17
@@ -5556,6 +5657,22 @@ ${visitorCountry === 'CO'
     // ~50 ms, y la cifra que sale es exactamente la que se calculó.
     //
     // ⚠️ Solo para el canal: en la web el ejemplo convive con otro formato.
+    // ── El GEN5 de un paquete nombrado se entrega SIN pasar por el modelo ─────
+    if (tenantId === 'whatsapp') {
+      const _paqEvento = paqueteDelEventoGen5(latestUserMessage);
+      const _cuerpoGen5 = _paqEvento ? gen5PrimerPaqueteDictado(_paqEvento, visitorCountry) : null;
+      if (_cuerpoGen5) {
+        console.log(`⚡ [GEN5 dictado] ${_paqEvento} en primera generación, sin modelo`);
+        if (sessionId && fingerprint) {
+          logConversationHibrida(
+            latestUserMessage, _cuerpoGen5, ['PIN_GEN5_PAQUETE_BACKEND_DICTATOR'],
+            'pin_gen5_paquete_dictado', sessionId, fingerprint, mergedProspectData,
+          ).catch((err) => console.error('❌ [GEN5 dictado] Error logging:', err));
+        }
+        return new StreamingTextResponse(buildVerbatimStream(_cuerpoGen5), { headers: getCorsHeaders(origin) });
+      }
+    }
+
     // ── La tabla del paquete se entrega SIN pasar por el modelo ──────────────
     // Mismo criterio que el ejemplo de cifras (ver tablaPaqueteDictada). Solo en
     // el canal, solo cuando el paquete viene nombrado en el mensaje o en la

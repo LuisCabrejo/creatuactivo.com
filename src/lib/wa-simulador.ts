@@ -67,7 +67,11 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
     ? '¿Con cuál de los tres paquetes se identifica más?'
     : esKit
       ? '¿Le muestro las tres formas de empezar?'
-      : `¿Le muestro qué trae el paquete ${corto(t.nombre)}?`;
+      // 23 ago (Director): tras la renta, la pregunta lleva a la OTRA forma de ganar —
+      // la de los paquetes— porque sin ese contexto la persona no la pregunta, y es la
+      // que le muestra que puede ganar desde el comienzo. La oferta nombra «ejemplo»
+      // y «paquetes» a propósito: así el «sí» dispara el ejemplo GEN5 dictado.
+      : '¿Le muestro un ejemplo con números de la otra forma de ganar, la de los paquetes empresariales?';
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 

@@ -120,6 +120,13 @@ const RE_PEDIDO_INFO =
  * de esos lleva estas palabras ni nombra un producto — así que contarlas como
  * digresión no pierde ningún dato legítimo.
  */
+/**
+ * Aplazar o consultar con alguien no es un dato: «voy a consultarlo con mi esposa»
+ * (23 ago) recibía «¿Cuál es su nombre completo?». Se devuelve al motor.
+ */
+const RE_APLAZAMIENTO =
+  /consult|pensar|pensarlo|lo\s+pienso|hablar(lo)?\s+con|mi\s+(esposa|esposo|pareja|familia|mujer|marido|socio|se[ñn]ora)|despu[eé]s\s+le\s+(digo|aviso|cuento|escribo)|m[aá]s\s+adelante|ahorita\s+no|otro\s+d[ií]a|la\s+pr[oó]xima|cuando\s+pueda|con\s+calma/i;
+
 const RE_TEMA =
   /beneficio|precio|costo|valor|cu[aá]nto vale|sabor|ingrediente|composici[oó]n|foto|imagen|bono|comisi[oó]n|simulador|ganancia|caf[eé]|c[aá]psula|m[aá]quina/i;
 
@@ -753,7 +760,7 @@ export async function gestionarCierre(params: {
       };
     }
     const esDigresion =
-      RE_PREGUNTA.test(texto) || RE_PEDIDO_INFO.test(texto) || RE_TEMA.test(texto)
+      RE_PREGUNTA.test(texto) || RE_PEDIDO_INFO.test(texto) || RE_TEMA.test(texto) || RE_APLAZAMIENTO.test(texto)
       || detectarProducto(texto) !== null || texto.split(/\s+/).length > 6;
     if (esDigresion) {
       console.log(`❓ [Cierre WA] digresión ("${texto.slice(0, 40)}") — le devuelvo el turno al motor`);

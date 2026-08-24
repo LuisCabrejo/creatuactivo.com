@@ -151,6 +151,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.88 — FREQ_32: «¿puedo pagar en partes?» empieza por el sí (23 ago 2026)
+
+Prueba del Director: a *«me interesa iniciar, ¿puedo pagar en dos partes?»* FREQ_31 respondió primero los canales oficiales y al final el «sí». Regla del Director: los seres humanos queremos que nos respondan rápido lo que preguntamos; el contexto va después. FREQ_32 abre con «Sí, se puede», dice cómo en la misma frase y deja las formas en una línea; puerta directa antes de la de FREQ_31. También en esta pasada: las puertas del motor se evalúan antes del caché de búsqueda (dos veces FREQ_30 no disparó en vivo y sí en repro), FREQ_30 se entrega sin modelo (el modelo le pegaba el segundo tiempo al primero), el cierre del simulador de renta lleva al ejemplo del GEN5, «voy a consultarlo con mi esposa» en plena radicación vuelve al motor, y el prompt v4.21 ordena que ante «tengo dudas» la pregunta de cierre invite a nombrarlas sin atribuir perfil.
+
 ### v5.87 — FREQ_31, las formas de pago (23 ago 2026)
 
 Prueba del Director, 23 ago: *«¿puedo pagar en dos partes?»* y *«¿qué opciones hay para la forma de pago?»* derivaban al socio «porque las condiciones varían según la región». No existía la respuesta. Hechos del Director: el pago va directo a Gano Excel por sus canales oficiales —consignación o transferencia, tarjeta de crédito; en la oficina débito o crédito, QR o llave; el efectivo solo por consignación en banco—, y se puede repartir en dos o hasta tres formas sobre el mismo número de orden. Cierra hacia la activación. Puerta directa en el motor.

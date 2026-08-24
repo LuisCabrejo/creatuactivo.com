@@ -2450,8 +2450,294 @@ function analizarIntencionSemantica(userMessage: string): string[] {
 }
 
 // CORRECCIÓN: Búsqueda híbrida escalable en Arsenal MVP + Catálogo
+// ⚡ PUERTAS DIRECTAS — a nivel de módulo y evaluadas ANTES del caché (23 ago 2026).
+// Dos veces en pruebas reales («cuál me recomiendas», «cuál paquete me recomiendas
+// para iniciar») la puerta FREQ_30 no disparó en vivo y sí en la repro aislada: la
+// única diferencia era el caché de búsqueda, que se consulta por la consulta
+// reescrita y devolvía un resultado previo sin pasar por las puertas. Una puerta
+// es un regex sobre las palabras de la persona y no debe depender de nada más.
+  // ⚡ PUERTAS DIRECTAS DE arsenal_inicial ────────────────────────────────────
+  //
+  // Cuatro preguntas frecuentes tienen su respuesta escrita y aun así no la
+  // reciben, porque en el vector les gana otro fragmento. El patrón se repite:
+  // la respuesta correcta es LARGA —el embedding se diluye— y la que gana
+  // comparte una palabra de superficie. Agregarle disparadores a un fragmento
+  // largo no mueve su vector (medido); lo que funciona es decidirlo en código.
+  //
+  // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
+  const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string; dictar?: boolean }[] = [
+    {
+      // 23 ago: «me interesa iniciar, ¿puedo pagar en dos partes?» recibía primero
+      // los canales oficiales y al final el «sí». La respuesta a una pregunta
+      // cerrada empieza por la respuesta (Director). Va ANTES de FREQ_31.
+      fragmento: 'arsenal_inicial_FREQ_32',
+      titulo: 'Pagar en partes — FREQ_32',
+      porque: 'pregunta si puede pagar en partes',
+      cuando: /en\s+(dos|tres|varias)\s+(partes|cuotas|pagos|abonos)|en\s+partes|por\s+partes|(dos|tres)\s+tarjetas|(dividir|repartir|partir|fraccionar)\s+el\s+pago|pagar\s+(una\s+)?(parte|mitad)|a\s+cuotas|financia|abonar\s+(una\s+)?parte/i,
+    },
+    {
+      // 23 ago: desde que FREQ_31 cierra con «¿Seguimos con la activación?», el
+      // «sí» a esa pregunta recuperaba FREQ_31 (0.427) en vez de ACTIVACION_01
+      // (0.422). La aceptación busca con la oferta del bot, y esta puerta la lee.
+      fragmento: 'arsenal_inicial_ACTIVACION_01',
+      titulo: 'Proceso de activación — ACTIVACION_01',
+      porque: 'acepta seguir con la activación',
+      cuando: /seguimos\s+con\s+la\s+activaci[oó]n|coordinamos\s+su\s+activaci[oó]n/i,
+    },
+    {
+      // 23 ago: «¿cómo se calcula el binario?» recuperaba BIN_06 (requisitos) y
+      // «¿por qué me pagan por un solo lado?» caía en FREQ_17 (cadencia). Las dos
+      // son BIN_11, el párrafo canónico del emparejamiento.
+      fragmento: 'arsenal_compensacion_COMP_BIN_11',
+      titulo: 'Cómo se calcula el Binario — COMP_BIN_11',
+      porque: 'pregunta cómo se calcula o por qué un solo lado',
+      cuando: /c[oó]mo\s+(se\s+)?(calcula|liquida|empareja|emparejan)[^.?]{0,25}(binario|regal[ií]a|comisi[oó]n|puntos|lados?|canal)|f[oó]rmula\s+del\s+binario|sobre\s+qu[eé]\s+se\s+aplica|un\s+solo\s+lado|solo\s+(por\s+)?un\s+lado|por\s+un\s+lado|lado\s+(menor|m[aá]s\s+peque[ñn]o|d[eé]bil)|se\s+emparejan\s+los\s+puntos|qu[eé]\s+es\s+emparejar/i,
+    },
+    {
+      // Prueba del Director, 23 ago: «¿puedo pagar en dos partes?» y «¿qué
+      // opciones hay para la forma de pago?» derivaban al socio. FREQ_31 existe
+      // desde v5.87 y se decide en código: es una pregunta de dinero y no puede
+      // depender de que el vector la encuentre.
+      fragmento: 'arsenal_inicial_FREQ_31',
+      titulo: 'Formas de pago — FREQ_31',
+      porque: 'pregunta cómo se paga',
+      cuando: /formas?\s+de\s+pago|m[eé]todos?\s+de\s+pago|medios?\s+de\s+pago|c[oó]mo\s+(se\s+)?(pago|paga|se\s+paga|puedo\s+pagar)|pagar\s+(en|con)\s+(dos|tres|partes|cuotas|tarjeta|efectivo|transferencia)|en\s+dos\s+partes|aceptan\s+tarjeta|con\s+tarjeta|en\s+efectivo|por\s+transferencia|a\s+qui[eé]n\s+le\s+pago|d[oó]nde\s+(pago|consigno)|se\s+puede\s+pagar/i,
+    },
+    {
+      // 23 ago: las dos condiciones del GEN5 estaban regadas en tres fragmentos.
+      fragmento: 'arsenal_compensacion_COMP_GEN5_09',
+      titulo: 'Requisitos del GEN5 — COMP_GEN5_09',
+      porque: 'pregunta qué necesita para cobrar el GEN5',
+      cuando: /(requisit|condici|necesit|qu[eé]\s+(debo|tengo\s+que)\s+(cumplir|tener|hacer))[^.?]{0,40}(gen[\s.-]?5|bono\s+de\s+(los\s+)?paquetes)|(gen[\s.-]?5|bono\s+de\s+(los\s+)?paquetes)[^.?]{0,40}(requisit|condici|necesit|para\s+cobrar)|con\s+el\s+kit\s+cobro/i,
+    },
+    {
+      // 23 ago: «no entiendo, ¿cómo así una caja a la semana?» — la recompra
+      // explicada como ritmo. FREQ_09 dice la cifra; PV_09 dice el ritmo.
+      fragmento: 'arsenal_compensacion_COMP_PV_09',
+      titulo: 'Una caja a la semana — COMP_PV_09',
+      porque: 'pregunta cómo se mantiene activo',
+      cuando: /una\s+caja\s+(a\s+la|por)\s+semana|caja\s+semanal|c[oó]mo\s+(me\s+)?(mantengo|me\s+mantengo|sigo|estoy)\s+activ|mantenerme\s+activ|cu[aá]ntas\s+cajas[^.?]{0,30}(mes|activ)|qu[eé]\s+tengo\s+que\s+comprar\s+(cada|a\s+la)\s+semana/i,
+    },
+    {
+      // 23 ago: «¿se pierden los puntos que sobran?» — BIN_09 con la doctrina
+      // corregida (se guardan mientras esté activo; sin recompra, se pierden).
+      fragmento: 'arsenal_compensacion_COMP_BIN_09',
+      titulo: 'Los puntos que sobran — COMP_BIN_09',
+      porque: 'pregunta si se pierden los puntos',
+      cuando: /(puntos?|cv|volumen)[^.?]{0,30}(se\s+pierden?|se\s+guardan?|se\s+acumulan?|sobran|que\s+sobran|sin\s+emparejar)|(pierdo|pierde|guardan|acumulan)[^.?]{0,20}(puntos|cv)|empiezo\s+desde\s+cero|desde\s+cero\s+cada\s+semana/i,
+    },
+    {
+      // 23 ago: los tres requisitos del Binario, en llano.
+      fragmento: 'arsenal_compensacion_COMP_BIN_06',
+      titulo: 'Requisitos del Binario — COMP_BIN_06',
+      porque: 'pregunta qué necesita para cobrar el Binario',
+      cuando: /(requisit|condici|necesit)[^.?]{0,40}(binario|regal[ií]a|ingreso\s+recurrente)|(binario|regal[ií]a)[^.?]{0,40}(requisit|condici|necesit|para\s+cobrar)|cu[aá]ndo\s+no\s+me\s+pagan/i,
+    },
+    {
+      // Decisión del Director, 22 ago 2026: la recomendación de paquete tiene dos
+      // tiempos, y el primero es siempre el mismo texto —el que le resulte cómodo,
+      // lo importante es iniciar—. FREQ_30 es corto y con candado; la puerta
+      // garantiza que llegue aunque "paquete" mande la clasificación a compensación.
+      // El segundo tiempo (insiste: "si fuera usted") lo lleva el prompt, así que
+      // esas palabras NO abren esta puerta.
+      fragmento: 'arsenal_inicial_FREQ_30',
+      titulo: 'Qué paquete me recomienda — FREQ_30',
+      porque: 'pide una recomendación de paquete',
+      // 23 ago: el modelo le pegaba el segundo tiempo («si insiste… el Visionario») al
+      // primero. Con candado y sin placeholders, se entrega sin modelo.
+      dictar: true,
+      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(qu[eé]|cu[aá]l)\s+(paquete\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
+    },
+    {
+      // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor
+      // al paquete ESP-1?" — el Kit de Inicio vive en arsenal_12_niveles y desde
+      // esa pregunta no ganaba el vector (INV_01 sexto, 0.451); con "paquete" y
+      // "esp1" en el texto la clasificación iba a compensación y devolvía la
+      // composición del ESP-1. Decisión del Director: los tres paquetes
+      // empresariales son la entrada estándar, y el Kit es la opción menor válida
+      // cuando la piden. INV_00 es corto y dice las dos cosas.
+      fragmento: 'arsenal_12_niveles_INV_00',
+      titulo: 'Opción menor al ESP-1 — Kit de Inicio — INV_00',
+      porque: 'pide una opción menor al paquete',
+      cuando: /(opci[oó]n|algo|paquete|plan|forma)\s+(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i,
+    },
+    {
+      // Prueba del Director, 19 ago: "¿le explico cómo se inicia con este
+      // paquete?" → "sí" produjo tres formas de arrancar inventadas. FREQ_03
+      // (los tres paquetes) le gana a ACTIVACION_01 por centésimas, y con el
+      // candado solitario devuelve la lista a quien ya eligió uno.
+      fragmento: 'arsenal_inicial_ACTIVACION_01',
+      titulo: 'Proceso de activación — ACTIVACION_01',
+      porque: 'proceso con paquete ya elegido',
+      cuando: /(c[oó]mo\s+(se\s+)?(inici|empie|arranc|activ)|cu[aá]l(es)?\s+(es|son)\s+(el|los)\s+(proceso|paso)|qu[eé]\s+pasos|proceso\s+(de|para))[^.?]{0,40}(con\s+(este|ese|el)\s+(paquete|esp|inicial|empresarial|visionario)|con\s+el\s+paquete|ya\s+(eleg[ií]|escog[ií]))|ya\s+(eleg[ií]|escog[ií])[^.?]{0,40}(proceso|paso|c[oó]mo\s+(sigo|inici|empie|arranc|activ))/i,
+    },
+    {
+      // Prueba del Director, 19 ago: a un independiente se le respondió con el
+      // villano del empleado —recorte, reestructuración, decisiones de otra
+      // oficina—, porque WHY_03 comparte el "ya me va bien" y está escrita para
+      // quien vive de un salario.
+      fragmento: 'arsenal_inicial_FREQ_10',
+      titulo: 'Negocio tradicional vs canal — FREQ_10',
+      porque: 'ya tiene negocio propio',
+      cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(independiente|comerciante|empresari[oa])\b|\btrabajo\s+por\s+mi\s+cuenta\b/i,
+    },
+    {
+      // Prueba de 40 preguntas, 19 ago: "ya tuve código de Gano Excel antes"
+      // recuperaba FREQ_05 (la herencia del código) y NET_02 no aparecía en el
+      // top 6. La respuesta fue de tres líneas y terminó preguntando "¿qué lo
+      // trae de vuelta?" a alguien que traía la mitad del camino andado.
+      fragmento: 'arsenal_inicial_NET_02',
+      titulo: 'Ya fue distribuidor de Gano Excel — NET_02',
+      porque: 'ya tuvo código de Gano',
+      cuando: /(ya\s+)?(tuve|ten[ií]a|fui|estuve|hice)[^.?]{0,30}(c[oó]digo|distribuidor|gano\s*excel)|reactivar\s+(mi\s+)?c[oó]digo|c[oó]digo\s+(viejo|antiguo|inactivo)|volver\s+a\s+(activar|entrar)[^.?]{0,20}gano/i,
+    },
+    {
+      // Prueba del Director, 20 ago: el "sí" a "¿le muestro las tres formas de
+      // empezar?" busca con esa pregunta, y el vector le da EAM_02 (0.649) sobre
+      // FREQ_03 (0.581). Sin el candado de FREQ_03 en el contexto, el modelo
+      // inventó tres "Kit" con una tarifa del 13% que no existe — y hasta un
+      // teatro de "— buscando en arsenal —" entre etiquetas que él mismo se
+      // fabricó. Las tres formas de empezar SON FREQ_03; se decide en código.
+      fragmento: 'arsenal_inicial_FREQ_03',
+      titulo: 'Las tres formas de empezar — FREQ_03',
+      porque: 'pide las tres formas de empezar',
+      cuando: /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i,
+    },
+    {
+      // Guion 2, 20 ago (turno 2): "¿esto es de meter gente como omnilife?" —
+      // la marca la atrapaba NET_01 (sin candado) y el modelo freestyleó "dos
+      // fuentes de ingreso" con frase que el guardarraíl bloquea. La pregunta
+      // real es la de FREQ_20, cuyo argumento es la aritmética: mil registrados
+      // que no consumen dan cero. Va ANTES de la puerta de marcas a propósito.
+      fragmento: 'arsenal_inicial_FREQ_20',
+      titulo: 'Pagan por producto, no por inscribir — FREQ_20',
+      porque: 'pregunta si se paga por meter gente',
+      cuando: /(meter|inscribir|anotar|reclutar|afiliar)[^.?]{0,15}(gente|personas?|amigos)|pagan?\s+por\s+(meter|inscribir|reclutar|traer)|entre\s+m[aá]s\s+(gente|personas)\s+meta|es\s+de\s+meter/i,
+    },
+    {
+      // Guion 2, 20 ago (turno 10): "¿qué descuento le dan?" (a la esposa que
+      // solo quiere consumir) → el modelo derivó al socio "porque varía por
+      // país", teniendo CLIENTE_VIP_01 con el dato: 25% de ahorro. El descuento
+      // del cliente es una de las preguntas que más cierra — no se deriva.
+      fragmento: 'arsenal_inicial_CLIENTE_VIP_01',
+      titulo: 'Cliente VIP — CLIENTE_VIP_01',
+      porque: 'pregunta el descuento del cliente',
+      cuando: /descuento[^.?]{0,30}(vip|cliente|le dan|recibe)|cliente\s+(vip|preferencial)[^.?]{0,30}(descuento|ahorr|precio)|cu[aá]nto\s+ahorra|qu[eé]\s+descuento/i,
+    },
+    {
+      // Prueba del Director, 21 ago: "¿para qué sirven los productos?" y "¿dónde
+      // puedo ver todos los productos?" recuperaban WHY_PROD_01 —con candado— y
+      // el modelo componía igual: inventó una taxonomía de tres familias, llamó
+      // a la línea "el consumo diario" (la comparación con el estante del
+      // supermercado, puesta por nosotros justo antes del precio) y la situó en
+      // "la medicina oriental", que la mueve al estante del medicamento. Ninguna
+      // de las dos frases existe en el corpus. La respuesta está escrita: se
+      // entrega sin margen para componer.
+      fragmento: 'arsenal_inicial_WHY_PROD_01',
+      titulo: 'Qué productos son — WHY_PROD_01',
+      porque: 'pregunta general por los productos',
+      cuando: /(para qu[eé] sirven|qu[eé] son|cu[aá]les son|d[oó]nde (puedo )?ve[or]|mu[eé]streme|qu[eé] venden)[^.?]{0,25}(los |sus |todos los )?productos|qu[eé] es lo que venden|h[aá]bleme de los productos/i,
+    },
+    {
+      // Prueba conversacional, 20 ago (turno 15, corrida 3): "¿cada cuánto
+      // pagan?" recuperaba COMP_PV_03 — un fragmento en formato de notas
+      // internas que imprimió "**Concepto Nuclear:**" y una tabla de ciclos de
+      // enero congelados en el chat. FREQ_17 es la respuesta de pagos de cara
+      // al prospecto. (COMP_PV_03 queda pendiente de revisión del Director: su
+      // desfase de dos semanas no coincide con la corrección del 17 ago.)
+      fragmento: 'arsenal_inicial_FREQ_17',
+      titulo: 'Cómo pagan las comisiones — FREQ_17',
+      porque: 'pregunta la cadencia del pago',
+      cuando: /cada\s+cu[aá]nt[oa]\s+(me\s+)?(pagan?|liquidan?|consignan?)|cu[aá]ndo\s+(me\s+)?pagan|qu[eé]\s+d[ií]as?\s+pagan?|con\s+qu[eé]\s+frecuencia\s+(pagan?|liquidan?)|cada\s+cu[aá]ndo\s+pagan?/i,
+    },
+    {
+      // Prueba conversacional, 20 ago (turno 8): el "sí" a "¿le muestro cómo se
+      // gana con este paquete?" no matcheaba ninguna oferta de ejemplo, el
+      // vector devolvía COMP_GEN5_04 sin candado, y el modelo compuso "dos
+      // velocidades / ingreso inmediato" — léxico retirado que el guardarraíl
+      // bloquea, así que la persona recibía la respuesta correctiva en lugar de
+      // una respuesta. La doctrina es COMP_MODELO_01: la primera respuesta
+      // sobre ganancias, sin cifras. (El pin de renta sigue mandando cuando la
+      // oferta fue "¿quiere ver cómo se gana?" — el bypass corre antes.)
+      fragmento: 'arsenal_compensacion_COMP_MODELO_01',
+      titulo: 'Cómo se gana — COMP_MODELO_01',
+      porque: 'cómo se gana con el paquete',
+      cuando: /c[oó]mo se gana con (este|ese|el|un) (paquete|esp)|le (muestro|explico) c[oó]mo se gana\b/i,
+    },
+    {
+      // Prueba del Director, 20 ago: el "sí" a "¿le explico cómo se ve el día a
+      // día?" recuperaba WHY_02 con candado —que va solo— y el modelo compuso un
+      // paso a paso propio que remató con "cobrar cada viernes" encadenado a dos
+      // acciones simples: la forma exacta de la promesa de ingreso que Meta
+      // sanciona. El día a día ES EAM_01 (Compartir · Recibir, con candado).
+      fragmento: 'arsenal_inicial_EAM_01',
+      titulo: 'El día a día — EAM_01',
+      porque: 'pregunta por el día a día',
+      cuando: /d[ií]a\s+a\s+d[ií]a|mi\s+d[ií]a\s+(como|de)\s+(socio|due[ñn]o)|rutina\s+(diaria|del?\s+negocio)/i,
+    },
+    {
+      // Prueba de 40 preguntas, 19 ago: "ya estuve en un multinivel y no me fue
+      // bien" recuperaba STORY_03 —la historia de Luis, con candado, que va
+      // sola— y NET_01 quedaba tercera. Sin la respuesta, el modelo compuso: le
+      // habló de "reclutar", palabra retirada, en la objeción donde más pesa.
+      fragmento: 'arsenal_inicial_NET_01',
+      titulo: 'Ya hizo mercadeo en red — NET_01',
+      porque: 'viene de otro multinivel',
+      // Las MARCAS también entran aquí (20 ago): a "¿esto es como Herbalife?" el
+      // modelo compuso una acusación con demandas y una multa de la FTC — hablar
+      // mal de un competidor real, con "reclutamiento" incluido, es justo lo que
+      // la doctrina prohíbe. NET_01 responde el frame correcto: qué cambió, sin
+      // atacar a nadie.
+      cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)|herbalife|amway|omnilife|4life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b/i,
+    },
+  ];
+
 async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '') {
   const cacheKey = `hibrido_${query.toLowerCase()}`;
+
+  // Las puertas van primero: son la decisión más barata y la que no puede fallar.
+
+  // ⚠️ La puerta NO puede exigir que el clasificador ya haya acertado: existe
+  // precisamente porque el enrutamiento falla. "Ya tengo un negocio propio y me
+  // va relativamente bien" se va por vector a arsenal_avanzado (0.581), así que
+  // condicionarla a `arsenal_inicial` la dejaba sin ejecutarse nunca.
+  //
+  // Tampoco se excluye el catálogo (21 ago): "¿dónde puedo ver todos los
+  // productos?" se clasifica como catálogo, la puerta se saltaba, y el modelo
+  // compuso una cuarta línea que no existe —"cuidado del hogar"— y ofreció
+  // enviar un catálogo que no puede enviar. Cada regex de la tabla es
+  // específica, así que abrirla a todo no secuestra nada: verificado con "para
+  // qué sirve el Cordygold" y "cuáles son los suplementos", que siguen de largo.
+  {
+    // ⚠️ Las puertas se evalúan sobre la consulta reescrita Y sobre el mensaje
+    // CRUDO (20 ago 2026). El CQR ancla la consulta para el vector, pero al
+    // reescribir puede borrar justo las palabras que abren la puerta: a "¿esto
+    // es de meter gente como omnilife?" le quitó "meter gente" y "omnilife", la
+    // puerta no disparó, y el modelo compuso con "reclutamiento" adentro. Las
+    // palabras de la persona son la llave — la paráfrasis de un modelo no puede
+    // costarla.
+    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage) || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
+    if (puerta) {
+      const allFragments = await getArsenalFragments();
+      const frag = allFragments.find(f => f.category === puerta.fragmento);
+      if (frag) {
+        console.log(`🚪 [Puerta] ${puerta.porque} → ${puerta.fragmento} directo`);
+        const result = [{
+          id: puerta.fragmento,
+          title: puerta.titulo,
+          content: frag.content,
+          category: 'arsenal_inicial',
+          metadata: { is_fragment_result: true, fragment_count: 1, fragment_categories: [puerta.fragmento], dictar: !!puerta.dictar },
+          source: '/knowledge_base/arsenal_inicial.txt',
+          search_method: 'puerta_directa'
+        }];
+        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        return result;
+      }
+      console.warn(`⚠️ [Puerta] ${puerta.fragmento} no está en los fragmentos — se sigue con búsqueda normal`);
+    }
+  }
+
 
   const cached = searchCache.get(cacheKey);
   if (cached && (Date.now() - cached.timestamp) < CACHE_TTL) {
@@ -2816,271 +3102,6 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
         return result;
       }
-    }
-  }
-
-  // ⚡ PUERTAS DIRECTAS DE arsenal_inicial ────────────────────────────────────
-  //
-  // Cuatro preguntas frecuentes tienen su respuesta escrita y aun así no la
-  // reciben, porque en el vector les gana otro fragmento. El patrón se repite:
-  // la respuesta correcta es LARGA —el embedding se diluye— y la que gana
-  // comparte una palabra de superficie. Agregarle disparadores a un fragmento
-  // largo no mueve su vector (medido); lo que funciona es decidirlo en código.
-  //
-  // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
-  const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string }[] = [
-    {
-      // 23 ago: desde que FREQ_31 cierra con «¿Seguimos con la activación?», el
-      // «sí» a esa pregunta recuperaba FREQ_31 (0.427) en vez de ACTIVACION_01
-      // (0.422). La aceptación busca con la oferta del bot, y esta puerta la lee.
-      fragmento: 'arsenal_inicial_ACTIVACION_01',
-      titulo: 'Proceso de activación — ACTIVACION_01',
-      porque: 'acepta seguir con la activación',
-      cuando: /seguimos\s+con\s+la\s+activaci[oó]n|coordinamos\s+su\s+activaci[oó]n/i,
-    },
-    {
-      // 23 ago: «¿cómo se calcula el binario?» recuperaba BIN_06 (requisitos) y
-      // «¿por qué me pagan por un solo lado?» caía en FREQ_17 (cadencia). Las dos
-      // son BIN_11, el párrafo canónico del emparejamiento.
-      fragmento: 'arsenal_compensacion_COMP_BIN_11',
-      titulo: 'Cómo se calcula el Binario — COMP_BIN_11',
-      porque: 'pregunta cómo se calcula o por qué un solo lado',
-      cuando: /c[oó]mo\s+(se\s+)?(calcula|liquida|empareja|emparejan)[^.?]{0,25}(binario|regal[ií]a|comisi[oó]n|puntos|lados?|canal)|f[oó]rmula\s+del\s+binario|sobre\s+qu[eé]\s+se\s+aplica|un\s+solo\s+lado|solo\s+(por\s+)?un\s+lado|por\s+un\s+lado|lado\s+(menor|m[aá]s\s+peque[ñn]o|d[eé]bil)|se\s+emparejan\s+los\s+puntos|qu[eé]\s+es\s+emparejar/i,
-    },
-    {
-      // Prueba del Director, 23 ago: «¿puedo pagar en dos partes?» y «¿qué
-      // opciones hay para la forma de pago?» derivaban al socio. FREQ_31 existe
-      // desde v5.87 y se decide en código: es una pregunta de dinero y no puede
-      // depender de que el vector la encuentre.
-      fragmento: 'arsenal_inicial_FREQ_31',
-      titulo: 'Formas de pago — FREQ_31',
-      porque: 'pregunta cómo se paga',
-      cuando: /formas?\s+de\s+pago|m[eé]todos?\s+de\s+pago|medios?\s+de\s+pago|c[oó]mo\s+(se\s+)?(pago|paga|se\s+paga|puedo\s+pagar)|pagar\s+(en|con)\s+(dos|tres|partes|cuotas|tarjeta|efectivo|transferencia)|en\s+dos\s+partes|aceptan\s+tarjeta|con\s+tarjeta|en\s+efectivo|por\s+transferencia|a\s+qui[eé]n\s+le\s+pago|d[oó]nde\s+(pago|consigno)|se\s+puede\s+pagar/i,
-    },
-    {
-      // 23 ago: las dos condiciones del GEN5 estaban regadas en tres fragmentos.
-      fragmento: 'arsenal_compensacion_COMP_GEN5_09',
-      titulo: 'Requisitos del GEN5 — COMP_GEN5_09',
-      porque: 'pregunta qué necesita para cobrar el GEN5',
-      cuando: /(requisit|condici|necesit|qu[eé]\s+(debo|tengo\s+que)\s+(cumplir|tener|hacer))[^.?]{0,40}(gen[\s.-]?5|bono\s+de\s+(los\s+)?paquetes)|(gen[\s.-]?5|bono\s+de\s+(los\s+)?paquetes)[^.?]{0,40}(requisit|condici|necesit|para\s+cobrar)|con\s+el\s+kit\s+cobro/i,
-    },
-    {
-      // 23 ago: «no entiendo, ¿cómo así una caja a la semana?» — la recompra
-      // explicada como ritmo. FREQ_09 dice la cifra; PV_09 dice el ritmo.
-      fragmento: 'arsenal_compensacion_COMP_PV_09',
-      titulo: 'Una caja a la semana — COMP_PV_09',
-      porque: 'pregunta cómo se mantiene activo',
-      cuando: /una\s+caja\s+(a\s+la|por)\s+semana|caja\s+semanal|c[oó]mo\s+(me\s+)?(mantengo|me\s+mantengo|sigo|estoy)\s+activ|mantenerme\s+activ|cu[aá]ntas\s+cajas[^.?]{0,30}(mes|activ)|qu[eé]\s+tengo\s+que\s+comprar\s+(cada|a\s+la)\s+semana/i,
-    },
-    {
-      // 23 ago: «¿se pierden los puntos que sobran?» — BIN_09 con la doctrina
-      // corregida (se guardan mientras esté activo; sin recompra, se pierden).
-      fragmento: 'arsenal_compensacion_COMP_BIN_09',
-      titulo: 'Los puntos que sobran — COMP_BIN_09',
-      porque: 'pregunta si se pierden los puntos',
-      cuando: /(puntos?|cv|volumen)[^.?]{0,30}(se\s+pierden?|se\s+guardan?|se\s+acumulan?|sobran|que\s+sobran|sin\s+emparejar)|(pierdo|pierde|guardan|acumulan)[^.?]{0,20}(puntos|cv)|empiezo\s+desde\s+cero|desde\s+cero\s+cada\s+semana/i,
-    },
-    {
-      // 23 ago: los tres requisitos del Binario, en llano.
-      fragmento: 'arsenal_compensacion_COMP_BIN_06',
-      titulo: 'Requisitos del Binario — COMP_BIN_06',
-      porque: 'pregunta qué necesita para cobrar el Binario',
-      cuando: /(requisit|condici|necesit)[^.?]{0,40}(binario|regal[ií]a|ingreso\s+recurrente)|(binario|regal[ií]a)[^.?]{0,40}(requisit|condici|necesit|para\s+cobrar)|cu[aá]ndo\s+no\s+me\s+pagan/i,
-    },
-    {
-      // Decisión del Director, 22 ago 2026: la recomendación de paquete tiene dos
-      // tiempos, y el primero es siempre el mismo texto —el que le resulte cómodo,
-      // lo importante es iniciar—. FREQ_30 es corto y con candado; la puerta
-      // garantiza que llegue aunque "paquete" mande la clasificación a compensación.
-      // El segundo tiempo (insiste: "si fuera usted") lo lleva el prompt, así que
-      // esas palabras NO abren esta puerta.
-      fragmento: 'arsenal_inicial_FREQ_30',
-      titulo: 'Qué paquete me recomienda — FREQ_30',
-      porque: 'pide una recomendación de paquete',
-      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(qu[eé]|cu[aá]l)\s+(paquete\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
-    },
-    {
-      // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor
-      // al paquete ESP-1?" — el Kit de Inicio vive en arsenal_12_niveles y desde
-      // esa pregunta no ganaba el vector (INV_01 sexto, 0.451); con "paquete" y
-      // "esp1" en el texto la clasificación iba a compensación y devolvía la
-      // composición del ESP-1. Decisión del Director: los tres paquetes
-      // empresariales son la entrada estándar, y el Kit es la opción menor válida
-      // cuando la piden. INV_00 es corto y dice las dos cosas.
-      fragmento: 'arsenal_12_niveles_INV_00',
-      titulo: 'Opción menor al ESP-1 — Kit de Inicio — INV_00',
-      porque: 'pide una opción menor al paquete',
-      cuando: /(opci[oó]n|algo|paquete|plan|forma)\s+(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i,
-    },
-    {
-      // Prueba del Director, 19 ago: "¿le explico cómo se inicia con este
-      // paquete?" → "sí" produjo tres formas de arrancar inventadas. FREQ_03
-      // (los tres paquetes) le gana a ACTIVACION_01 por centésimas, y con el
-      // candado solitario devuelve la lista a quien ya eligió uno.
-      fragmento: 'arsenal_inicial_ACTIVACION_01',
-      titulo: 'Proceso de activación — ACTIVACION_01',
-      porque: 'proceso con paquete ya elegido',
-      cuando: /(c[oó]mo\s+(se\s+)?(inici|empie|arranc|activ)|cu[aá]l(es)?\s+(es|son)\s+(el|los)\s+(proceso|paso)|qu[eé]\s+pasos|proceso\s+(de|para))[^.?]{0,40}(con\s+(este|ese|el)\s+(paquete|esp|inicial|empresarial|visionario)|con\s+el\s+paquete|ya\s+(eleg[ií]|escog[ií]))|ya\s+(eleg[ií]|escog[ií])[^.?]{0,40}(proceso|paso|c[oó]mo\s+(sigo|inici|empie|arranc|activ))/i,
-    },
-    {
-      // Prueba del Director, 19 ago: a un independiente se le respondió con el
-      // villano del empleado —recorte, reestructuración, decisiones de otra
-      // oficina—, porque WHY_03 comparte el "ya me va bien" y está escrita para
-      // quien vive de un salario.
-      fragmento: 'arsenal_inicial_FREQ_10',
-      titulo: 'Negocio tradicional vs canal — FREQ_10',
-      porque: 'ya tiene negocio propio',
-      cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(independiente|comerciante|empresari[oa])\b|\btrabajo\s+por\s+mi\s+cuenta\b/i,
-    },
-    {
-      // Prueba de 40 preguntas, 19 ago: "ya tuve código de Gano Excel antes"
-      // recuperaba FREQ_05 (la herencia del código) y NET_02 no aparecía en el
-      // top 6. La respuesta fue de tres líneas y terminó preguntando "¿qué lo
-      // trae de vuelta?" a alguien que traía la mitad del camino andado.
-      fragmento: 'arsenal_inicial_NET_02',
-      titulo: 'Ya fue distribuidor de Gano Excel — NET_02',
-      porque: 'ya tuvo código de Gano',
-      cuando: /(ya\s+)?(tuve|ten[ií]a|fui|estuve|hice)[^.?]{0,30}(c[oó]digo|distribuidor|gano\s*excel)|reactivar\s+(mi\s+)?c[oó]digo|c[oó]digo\s+(viejo|antiguo|inactivo)|volver\s+a\s+(activar|entrar)[^.?]{0,20}gano/i,
-    },
-    {
-      // Prueba del Director, 20 ago: el "sí" a "¿le muestro las tres formas de
-      // empezar?" busca con esa pregunta, y el vector le da EAM_02 (0.649) sobre
-      // FREQ_03 (0.581). Sin el candado de FREQ_03 en el contexto, el modelo
-      // inventó tres "Kit" con una tarifa del 13% que no existe — y hasta un
-      // teatro de "— buscando en arsenal —" entre etiquetas que él mismo se
-      // fabricó. Las tres formas de empezar SON FREQ_03; se decide en código.
-      fragmento: 'arsenal_inicial_FREQ_03',
-      titulo: 'Las tres formas de empezar — FREQ_03',
-      porque: 'pide las tres formas de empezar',
-      cuando: /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i,
-    },
-    {
-      // Guion 2, 20 ago (turno 2): "¿esto es de meter gente como omnilife?" —
-      // la marca la atrapaba NET_01 (sin candado) y el modelo freestyleó "dos
-      // fuentes de ingreso" con frase que el guardarraíl bloquea. La pregunta
-      // real es la de FREQ_20, cuyo argumento es la aritmética: mil registrados
-      // que no consumen dan cero. Va ANTES de la puerta de marcas a propósito.
-      fragmento: 'arsenal_inicial_FREQ_20',
-      titulo: 'Pagan por producto, no por inscribir — FREQ_20',
-      porque: 'pregunta si se paga por meter gente',
-      cuando: /(meter|inscribir|anotar|reclutar|afiliar)[^.?]{0,15}(gente|personas?|amigos)|pagan?\s+por\s+(meter|inscribir|reclutar|traer)|entre\s+m[aá]s\s+(gente|personas)\s+meta|es\s+de\s+meter/i,
-    },
-    {
-      // Guion 2, 20 ago (turno 10): "¿qué descuento le dan?" (a la esposa que
-      // solo quiere consumir) → el modelo derivó al socio "porque varía por
-      // país", teniendo CLIENTE_VIP_01 con el dato: 25% de ahorro. El descuento
-      // del cliente es una de las preguntas que más cierra — no se deriva.
-      fragmento: 'arsenal_inicial_CLIENTE_VIP_01',
-      titulo: 'Cliente VIP — CLIENTE_VIP_01',
-      porque: 'pregunta el descuento del cliente',
-      cuando: /descuento[^.?]{0,30}(vip|cliente|le dan|recibe)|cliente\s+(vip|preferencial)[^.?]{0,30}(descuento|ahorr|precio)|cu[aá]nto\s+ahorra|qu[eé]\s+descuento/i,
-    },
-    {
-      // Prueba del Director, 21 ago: "¿para qué sirven los productos?" y "¿dónde
-      // puedo ver todos los productos?" recuperaban WHY_PROD_01 —con candado— y
-      // el modelo componía igual: inventó una taxonomía de tres familias, llamó
-      // a la línea "el consumo diario" (la comparación con el estante del
-      // supermercado, puesta por nosotros justo antes del precio) y la situó en
-      // "la medicina oriental", que la mueve al estante del medicamento. Ninguna
-      // de las dos frases existe en el corpus. La respuesta está escrita: se
-      // entrega sin margen para componer.
-      fragmento: 'arsenal_inicial_WHY_PROD_01',
-      titulo: 'Qué productos son — WHY_PROD_01',
-      porque: 'pregunta general por los productos',
-      cuando: /(para qu[eé] sirven|qu[eé] son|cu[aá]les son|d[oó]nde (puedo )?ve[or]|mu[eé]streme|qu[eé] venden)[^.?]{0,25}(los |sus |todos los )?productos|qu[eé] es lo que venden|h[aá]bleme de los productos/i,
-    },
-    {
-      // Prueba conversacional, 20 ago (turno 15, corrida 3): "¿cada cuánto
-      // pagan?" recuperaba COMP_PV_03 — un fragmento en formato de notas
-      // internas que imprimió "**Concepto Nuclear:**" y una tabla de ciclos de
-      // enero congelados en el chat. FREQ_17 es la respuesta de pagos de cara
-      // al prospecto. (COMP_PV_03 queda pendiente de revisión del Director: su
-      // desfase de dos semanas no coincide con la corrección del 17 ago.)
-      fragmento: 'arsenal_inicial_FREQ_17',
-      titulo: 'Cómo pagan las comisiones — FREQ_17',
-      porque: 'pregunta la cadencia del pago',
-      cuando: /cada\s+cu[aá]nt[oa]\s+(me\s+)?(pagan?|liquidan?|consignan?)|cu[aá]ndo\s+(me\s+)?pagan|qu[eé]\s+d[ií]as?\s+pagan?|con\s+qu[eé]\s+frecuencia\s+(pagan?|liquidan?)|cada\s+cu[aá]ndo\s+pagan?/i,
-    },
-    {
-      // Prueba conversacional, 20 ago (turno 8): el "sí" a "¿le muestro cómo se
-      // gana con este paquete?" no matcheaba ninguna oferta de ejemplo, el
-      // vector devolvía COMP_GEN5_04 sin candado, y el modelo compuso "dos
-      // velocidades / ingreso inmediato" — léxico retirado que el guardarraíl
-      // bloquea, así que la persona recibía la respuesta correctiva en lugar de
-      // una respuesta. La doctrina es COMP_MODELO_01: la primera respuesta
-      // sobre ganancias, sin cifras. (El pin de renta sigue mandando cuando la
-      // oferta fue "¿quiere ver cómo se gana?" — el bypass corre antes.)
-      fragmento: 'arsenal_compensacion_COMP_MODELO_01',
-      titulo: 'Cómo se gana — COMP_MODELO_01',
-      porque: 'cómo se gana con el paquete',
-      cuando: /c[oó]mo se gana con (este|ese|el|un) (paquete|esp)|le (muestro|explico) c[oó]mo se gana\b/i,
-    },
-    {
-      // Prueba del Director, 20 ago: el "sí" a "¿le explico cómo se ve el día a
-      // día?" recuperaba WHY_02 con candado —que va solo— y el modelo compuso un
-      // paso a paso propio que remató con "cobrar cada viernes" encadenado a dos
-      // acciones simples: la forma exacta de la promesa de ingreso que Meta
-      // sanciona. El día a día ES EAM_01 (Compartir · Recibir, con candado).
-      fragmento: 'arsenal_inicial_EAM_01',
-      titulo: 'El día a día — EAM_01',
-      porque: 'pregunta por el día a día',
-      cuando: /d[ií]a\s+a\s+d[ií]a|mi\s+d[ií]a\s+(como|de)\s+(socio|due[ñn]o)|rutina\s+(diaria|del?\s+negocio)/i,
-    },
-    {
-      // Prueba de 40 preguntas, 19 ago: "ya estuve en un multinivel y no me fue
-      // bien" recuperaba STORY_03 —la historia de Luis, con candado, que va
-      // sola— y NET_01 quedaba tercera. Sin la respuesta, el modelo compuso: le
-      // habló de "reclutar", palabra retirada, en la objeción donde más pesa.
-      fragmento: 'arsenal_inicial_NET_01',
-      titulo: 'Ya hizo mercadeo en red — NET_01',
-      porque: 'viene de otro multinivel',
-      // Las MARCAS también entran aquí (20 ago): a "¿esto es como Herbalife?" el
-      // modelo compuso una acusación con demandas y una multa de la FTC — hablar
-      // mal de un competidor real, con "reclutamiento" incluido, es justo lo que
-      // la doctrina prohíbe. NET_01 responde el frame correcto: qué cambió, sin
-      // atacar a nadie.
-      cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)|herbalife|amway|omnilife|4life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b/i,
-    },
-  ];
-
-  // ⚠️ La puerta NO puede exigir que el clasificador ya haya acertado: existe
-  // precisamente porque el enrutamiento falla. "Ya tengo un negocio propio y me
-  // va relativamente bien" se va por vector a arsenal_avanzado (0.581), así que
-  // condicionarla a `arsenal_inicial` la dejaba sin ejecutarse nunca.
-  //
-  // Tampoco se excluye el catálogo (21 ago): "¿dónde puedo ver todos los
-  // productos?" se clasifica como catálogo, la puerta se saltaba, y el modelo
-  // compuso una cuarta línea que no existe —"cuidado del hogar"— y ofreció
-  // enviar un catálogo que no puede enviar. Cada regex de la tabla es
-  // específica, así que abrirla a todo no secuestra nada: verificado con "para
-  // qué sirve el Cordygold" y "cuáles son los suplementos", que siguen de largo.
-  {
-    // ⚠️ Las puertas se evalúan sobre la consulta reescrita Y sobre el mensaje
-    // CRUDO (20 ago 2026). El CQR ancla la consulta para el vector, pero al
-    // reescribir puede borrar justo las palabras que abren la puerta: a "¿esto
-    // es de meter gente como omnilife?" le quitó "meter gente" y "omnilife", la
-    // puerta no disparó, y el modelo compuso con "reclutamiento" adentro. Las
-    // palabras de la persona son la llave — la paráfrasis de un modelo no puede
-    // costarla.
-    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage) || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
-    if (puerta) {
-      const allFragments = await getArsenalFragments();
-      const frag = allFragments.find(f => f.category === puerta.fragmento);
-      if (frag) {
-        console.log(`🚪 [Puerta] ${puerta.porque} → ${puerta.fragmento} directo`);
-        const result = [{
-          id: puerta.fragmento,
-          title: puerta.titulo,
-          content: frag.content,
-          category: 'arsenal_inicial',
-          metadata: { is_fragment_result: true, fragment_count: 1, fragment_categories: [puerta.fragmento] },
-          source: '/knowledge_base/arsenal_inicial.txt',
-          search_method: 'puerta_directa'
-        }];
-        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
-        return result;
-      }
-      console.warn(`⚠️ [Puerta] ${puerta.fragmento} no está en los fragmentos — se sigue con búsqueda normal`);
     }
   }
 
@@ -3768,6 +3789,18 @@ function paqueteDelEventoGen5(mensaje: string): string | null {
   if (/empresarial|esp[\s-]?2/.test(m)) return 'ESP-2';
   if (/\binicial\b|esp[\s-]?1/.test(m)) return 'ESP-1';
   return null;
+}
+
+/**
+ * El candado de una puerta, listo para entregarse sin modelo (23 ago 2026).
+ * Cuerpo del <verbatim_lock> + la pregunta de seguimiento del fragmento. Solo
+ * para puertas marcadas `dictar` — las que no tienen placeholders que llene un pin.
+ */
+function extraerCandadoDictado(content: string): string | null {
+  const lock = content.match(/<verbatim_lock>([\s\S]*?)<\/verbatim_lock>/i)?.[1]?.trim();
+  if (!lock || lock.length < 40) return null;
+  const q = content.match(/\*\*Pregunta de seguimiento:\*\*\s*([^\n]+)/)?.[1]?.trim();
+  return q ? `${lock}\n\n${q}` : lock;
 }
 
 // Logging mejorado para arquitectura híbrida - CORREGIDO 2025-10-17
@@ -5658,6 +5691,23 @@ ${visitorCountry === 'CO'
     // ~50 ms, y la cifra que sale es exactamente la que se calculó.
     //
     // ⚠️ Solo para el canal: en la web el ejemplo convive con otro formato.
+    // ── Una puerta con candado se entrega SIN pasar por el modelo ─────────────
+    // FREQ_30 (23 ago): con el candado servido, el modelo igual le pegaba el
+    // segundo tiempo del prompt al primero. Lo que es verbatim lo emite el backend.
+    if (tenantId === 'whatsapp' && relevantDocuments[0]?.search_method === 'puerta_directa'
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        && (relevantDocuments[0]?.metadata as any)?.dictar) {
+      const _cuerpoPuerta = extraerCandadoDictado(relevantDocuments[0].content || '');
+      if (_cuerpoPuerta) {
+        console.log(`⚡ [Puerta dictada] ${relevantDocuments[0].id} entregado directo, sin modelo`);
+        if (sessionId && fingerprint) {
+          logConversationHibrida(latestUserMessage, _cuerpoPuerta, [relevantDocuments[0].id], 'puerta_dictada', sessionId, fingerprint, mergedProspectData)
+            .catch((err) => console.error('❌ [Puerta dictada] Error logging:', err));
+        }
+        return new StreamingTextResponse(buildVerbatimStream(_cuerpoPuerta), { headers: getCorsHeaders(origin) });
+      }
+    }
+
     // ── El GEN5 de un paquete nombrado se entrega SIN pasar por el modelo ─────
     if (tenantId === 'whatsapp') {
       const _paqEvento = paqueteDelEventoGen5(latestUserMessage);

@@ -33,6 +33,13 @@ import {
   textoConfirmacionPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
 } from '@/lib/wa-pareja';
 import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
+import { extraerTokenDePase, resolverCompartidor, limpiarMarcador } from '@/lib/wa-pase';
+import {
+  detectarAmbivalencia, esConsultaConPareja, botEvoco, esMotivoDeDinero,
+  yaVioLasFormasDeGanar, peldanoDeEscalera, extraerCalificacion, botPidioHora,
+  esNoExplicito, yaSeEvoco, aceptaPuerta,
+} from '@/lib/wa-ambivalencia';
+import { extraerMomento, guardarAcuerdo, guardarPuertaAbierta } from '@/lib/wa-acuerdos';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
 import {
@@ -495,6 +502,22 @@ async function procesarEntrante(body: any): Promise<void> {
     // pre-afiliación no sabe a quién avisar.
     const patrocinador = await resolverPatrocinador(supabase, messageText);
 
+    // ─── 0.9 El PASE: ¿esta persona llega por el enlace de otro prospecto? ────
+    // El marcador `de:xxxxxx` viaja en el texto prellenado del enlace compartido,
+    // junto al slug del socio. Las dos señales conviven: el slug resuelve la
+    // ATRIBUCIÓN —quien entra es del socio, sin excepción— y el marcador resuelve
+    // QUIÉN LO COMPARTIÓ, que es lo único que agrega.
+    //
+    // ⚠️ El marcador se retira del texto ANTES de cualquier otra cosa. Si llega al
+    // motor, el modelo lo lee, intenta interpretarlo y termina hablándole a la
+    // persona de un código que ella nunca escribió.
+    const _tokenPase   = extraerTokenDePase(messageText);
+    const compartidor  = await resolverCompartidor(supabase, _tokenPase);
+    if (_tokenPase && messageText) {
+      messageText = limpiarMarcador(messageText);
+      console.log(`🎟️ [WA Webhook] Llega por pase de ${compartidor?.nombre ?? 'un prospecto'} (${_tokenPase})`);
+    }
+
     if (!existingProspect) {
       // Primer mensaje — crear prospect con atribución completa
       const source = isCTWA ? 'whatsapp_ctwa' : 'whatsapp_inbound';
@@ -520,6 +543,12 @@ async function procesarEntrante(body: any): Promise<void> {
             ...(patrocinador && {
               invited_by:          patrocinador.constructorId,
               patrocinador_nombre: patrocinador.nombre,
+            }),
+            // Quién le pasó el enlace. NO cambia la atribución —esa es del socio—
+            // pero permite saludarla nombrándolo y avisarle a él cuando conversen.
+            ...(compartidor && {
+              compartido_por:        compartidor.fingerprintId,
+              compartido_por_nombre: compartidor.nombre,
             }),
             ...(isCTWA && {
               ctwa_clid:      referral?.ctwa_clid,
@@ -653,11 +682,22 @@ async function procesarEntrante(body: any): Promise<void> {
         if (!enviado.ok) {
           // ⚠️ A números de EE. UU. Meta NO entrega plantillas MARKETING (pausa
           // desde abr 2025, sin fecha de fin), y `enlace_canal_listo` lo es: la
-          // API la acepta y nunca llega. Se intentó una plantilla UTILITY para
-          // ese destino (`acceso_canal`, 22 ago 2026, sin URL) y Meta también la
-          // clasificó MARKETING — tres variantes, tres veces MARKETING: el enlace
-          // de canal, por lo que es, no pasa. No someter otra. Al socio de EE. UU.
-          // le llega por el reenvío del Director, que sale siempre (abajo).
+          // API la acepta y nunca llega.
+          //
+          // ⛔ CUATRO variantes sometidas como UTILITY, cuatro veces MARKETING:
+          // con botón y beneficio (v1), de entrega pura sin botón (v2, 22 ago),
+          // sin URL siquiera (`acceso_canal`, 22 ago) y con URL al sitio
+          // (`acceso_creatuactivo`). NO someter una quinta — y este es el porqué,
+          // que faltaba y costó la ronda del 23 ago:
+          //
+          //   **Meta clasifica por lo que la plantilla ENTREGA, no por cómo está
+          //   redactada.** La única que sobrevive como UTILITY en esta cuenta,
+          //   `acceso_centro_mando_v2`, entrega una credencial personal que vence
+          //   en 24 h. El enlace de canal es un activo que la persona va a
+          //   COMPARTIR, y eso es mercadeo por definición. No hay redacción que lo
+          //   arregle: quitarle el botón, el beneficio y hasta la URL no movió nada.
+          //
+          // Al socio de EE. UU. le llega por el reenvío del Director (abajo).
           const r = await sendTemplate(destino, 'enlace_canal_listo', 'es', [corto, enlaceDeCanal(resultado.slug)]);
           console.log(`📨 [WA Admin] Fuera de ventana → enlace_canal_listo ${r.ok ? 'entregada' : 'falló: ' + r.error}`);
           if (r.ok) enviado = r;
@@ -1283,6 +1323,89 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       return;
     }
 
+    // ─── 2.8 AMBIVALENCIA — la duda que no es una pregunta ───────────────────
+    // Va DESPUÉS de los nodos que atienden peticiones explícitas (catálogo, foto,
+    // simulador, cierre): quien pide algo concreto quiere eso, no que le hablen de
+    // sus dudas. Y va ANTES del motor porque no dicta texto — dicta CÓMO responder.
+    //
+    // Por qué existe: el metaanálisis del modelo causal de la Entrevista
+    // Motivacional mide que el discurso de resistencia predice el mal resultado
+    // (r = −.24) mientras el discurso de cambio no predice el bueno (r = .06). El
+    // entusiasmo no informa; la duda sí. Y rebatirla la AUMENTA. Hoy el motor
+    // respondía igual «¿yo tendría que vender?» (pregunta, la responde el arsenal)
+    // que «yo no sirvo para vender» (duda, y el argumento la refuerza).
+    //
+    // ⚠️ NO aplica al SOCIO: él ya compró, y sus dudas son operativas, no de
+    // decisión. Ni a quien escribe por primera vez, que primero merece la apertura.
+    //
+    // Fundamento → docs/investigaciones/resultados/CIENCIA_CONDUCTUAL_SEGUIMIENTO_Y_ACUERDO_AGO2026.md
+    const _ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+    let ambivalencia: string | null = null;
+
+    if (!socioQueEscribe && existingProspect && !fotoEnviada) {
+      // ── El acuerdo: la respuesta al ÚLTIMO peldaño se guarda ────────────────
+      // Aquí la persona acaba de decir cuándo quiere que le escriban. Es la única
+      // respuesta de toda la escalera que hay que PERSISTIR: sin esto la pregunta
+      // «¿a qué hora le queda bien?» es una promesa que nadie va a cumplir, y
+      // prometer algo que no ocurre es peor que no prometer.
+      //
+      // ⚠️ Se guarda ANTES de responderle. Si se hiciera después y el turno
+      // fallara a mitad, ella habría dado su hora y el sistema la habría perdido.
+      if (botPidioHora(_ultimoBot)) {
+        const momento = await extraerMomento(messageText ?? '', new Date(), _ultimoBot);
+        if (momento) {
+          await guardarAcuerdo(supabase, {
+            fingerprintId:  waFingerprint,
+            telefono:       phoneNumber,
+            que:            momento.que,
+            cuando:         momento.cuando,
+            nombre:         contactName ?? null,
+            constructorId:  existingProspect?.constructor_id ?? patrocinador?.userId ?? null,
+          });
+        } else {
+          console.log('🤝 [WA Webhook] El peldaño de la hora no devolvió fecha — se sigue sin acuerdo');
+        }
+      }
+
+      const _peldano = peldanoDeEscalera(_ultimoBot);
+      if (_peldano) {
+        // Vamos a mitad de la escalera del aplazamiento: el peldaño lo dice el
+        // último mensaje del bot, no un estado guardado — igual que todo el canal.
+        const _n = extraerCalificacion(messageText ?? '');
+        ambivalencia = _n !== null ? `whatsapp_amb_${_peldano}_${_n}` : `whatsapp_amb_${_peldano}`;
+      } else if (botEvoco(_ultimoBot)) {
+        // Acaba de responder «si usted arrancara, ¿por qué lo haría?». Lo que dijo
+        // son SUS razones, y el paso que se le ofrece depende de si ya vio el plan.
+        ambivalencia = esMotivoDeDinero(messageText ?? '') && yaVioLasFormasDeGanar(historial)
+          ? 'whatsapp_amb_motivo_visto'
+          : 'whatsapp_amb_motivo_nuevo';
+      } else if (_ultimoBot.includes('le parece bien que se lo comparta')) {
+        // Respondió a la oferta de la puerta. Un sí la guarda; un no se respeta y
+        // no se vuelve a ofrecer — la frase prometía justamente no insistir.
+        if (aceptaPuerta(messageText ?? '')) {
+          await guardarPuertaAbierta(supabase, {
+            fingerprintId: waFingerprint,
+            telefono:      phoneNumber,
+            constructorId: existingProspect?.constructor_id ?? patrocinador?.userId ?? null,
+          });
+        }
+      } else if (esNoExplicito(messageText ?? '')) {
+        // ── El «no», en DOS TIEMPOS ──────────────────────────────────────────
+        // El primero recibe la pregunta que todavía puede mover algo; solo el
+        // segundo recibe la puerta. Ofrecerla de una desperdicia el primer tiempo,
+        // y repetir la pregunta después del segundo es insistir — que es lo que la
+        // frase de la puerta promete no hacer.
+        ambivalencia = yaSeEvoco(historial) ? 'whatsapp_amb_puerta' : 'whatsapp_amb_no_primero';
+      } else if (esConsultaConPareja(messageText ?? '')) {
+        ambivalencia = 'whatsapp_amb_pareja';
+      } else {
+        const _senal = detectarAmbivalencia(messageText ?? '');
+        if (_senal === 'duda_propia')  ambivalencia = 'whatsapp_amb_duda';
+        if (_senal === 'aplazamiento') ambivalencia = 'whatsapp_amb_escala';
+      }
+      if (ambivalencia) console.log(`🫱 [WA Webhook] Ambivalencia: ${ambivalencia}`);
+    }
+
     // pageContext le dice al motor el origen del mensaje (CTWA vs orgánico)
     // `whatsapp_socio` le dice al motor que del otro lado hay un dueño de canal:
     // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
@@ -1294,6 +1417,8 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       ? 'whatsapp_primer_contacto'
       : socioQueEscribe
       ? 'whatsapp_socio'
+      : ambivalencia
+      ? ambivalencia
       : isCTWA
         ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
         : 'whatsapp_inbound';

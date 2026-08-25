@@ -136,7 +136,8 @@ const CASOS = [
   ['¿Puedo pausar?',                             'arsenal_avanzado'], // ADV_TECH_01
   ['¿Cómo son los pagos?',                       'arsenal_inicial'],  // FREQ_17
   ['¿Funciona en mi país?',                      'arsenal_inicial'],  // FREQ_19 / DIASPORA_01
-  ['¿Qué soporte tengo?',                        'arsenal_inicial'],  // FREQ_08
+  ['¿Qué soporte tengo?',                        'arsenal_avanzado'],  // ADV_TECH_03 — soporte ≠ formación (Director, 25 ago 2026):
+                                                                       // quien lo pregunta quiere saber si lo dejan solo, no cómo lo capacitan.
 ];
 
 // ─── Capa 1: los patrones, extraídos de route.ts ──────────────────────────────

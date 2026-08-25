@@ -79,7 +79,7 @@ No vivimos de vender publicidad ni datos; somos una firma privada. La informaci�
 
 ### ADV_TECH_03: "¿Qué soporte técnico real tengo si la plataforma falla?"
 **[Índice]:** Qué pasa si la plataforma se cae o el sistema deja de funcionar, si la tecnología falla. Qué respaldos hay y a quién llamo.
-**[Concepto Nuclear]:** Tres respaldos independientes. Si uno falla, los otros sostienen. No hay un solo punto de quiebre.
+**[Concepto Nuclear]:** Responde **«¿qué soporte tengo?»** en su sentido amplio, no solo el técnico (Director, 25 ago 2026). Quien lo pregunta no está pidiendo un plan de contingencia: está preguntando si lo van a dejar solo. ⚠️ **El disparador anterior lo encerraba en *si la plataforma falla***, y por eso la pregunta general se iba a la respuesta de capacitación — que es otra cosa: formación no es soporte. ⚠️ **Son CUATRO apoyos, no tres:** se sumó el **Dashboard**, que es la herramienta que él usa todos los días y era la que faltaba. ⚠️ **La pregunta de cierre propone un paso.** La anterior pedía que estuviera de acuerdo —*«¿le da más confianza…?»*— y para conseguirlo tenía que nombrar el escenario del negocio que se cae: introducir el miedo para descartarlo es lo que lo instala. ⚠️ Los cuatro apoyos son **independientes**, y de ahí sale la tranquilidad: la operación se sostiene aunque uno tenga un problema.
 
 El sistema está hecho para que nunca dependa de una sola cosa. Tiene tres respaldos independientes que se cubren entre sí:
 

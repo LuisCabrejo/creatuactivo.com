@@ -9,7 +9,8 @@
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + FUND (1) + METH (1) = 18 respuestas.
-**Versión:** 13.1 (19 ago 2026) — **La etapa fundacional sale del arsenal** (decisión del Director): es materia del 1-a-1, no de una respuesta automática. Con ella sale el fragmento que defendía la escasez, cuya pregunta ya atiende EAM_02 de `arsenal_inicial` con el argumento de apalancamiento. ADV_SIST_02 conserva la visión a cinco años, ahora en léxico vigente y con pregunta única. Previa **13.0** (8 ago 2026) — **ADV_VAL_04: la compra mínima en PV, sin moneda y sin supermercado.** Llevaba la misma cifra errada que FREQ_09 (*~$100 USD / $450.000 COP* para 50 PV, cuando son ~3,3 cajas ≈ $370.000) y el marco del hábito dicho con todas las letras: *toma parte de lo que destinaba al mercado de la casa*. Ahora **50 PV = tres o cuatro cajas**, la moneda la pone el pin por país, y sale la pregunta de cierre retórica (*¿conoce algún otro negocio internacional donde…?*). 711 → 339 caracteres. Sincronizado con `arsenal_inicial` v5.62. Previa **12.9** (8 ago 2026) — **El equipo se nombra siempre *equipo de creatuactivo.com*** (decisión del Director). Barrido de 7 usos en ADV_OBJ_03, ADV_ESC_01 y ADV_ESC_02, sincronizado con el mismo barrido en `arsenal_inicial` v5.59. Previa **12.8** (8 ago 2026) — **Dos acciones; la consecuencia es del negocio.** Corrección de cumplimiento: ligar las acciones a un pago fechado es una promesa de ingreso (Meta la sanciona; el Estatuto del Consumidor colombiano la vuelve vinculante). METH_01 queda con **Compartir · Recibir** y la multiplicación como consecuencia, que además es lo que lo diferencia de EAM_01 — aquí sí se explica el mecanismo. Previa (retirada) **12.7** — la tríada con el viernes. METH_01 reescrito. Doctrina de los tres desafíos del modelo (poco popular · parece difícil · parece de ganancia lejana): el del **plazo** era el menos atendido, y la respuesta del método explicaba lo que él hace sin decir cuándo cobra. **"Multiplicar" pasa de tercer movimiento a CONSECUENCIA** — como tarea suma peso, como resultado lo quita— y METH_01 conserva su razón de existir frente a EAM_01 porque aquí SÍ se explica el mecanismo de la multiplicación, cerrando hacia los números de la duplicación. Fuera *"el trabajo pesado de siempre"*, *"las personas correctas"*, *"no sale a buscar de casa en casa"* y *"andar convenciendo y capacitando"*. Previa: **12.6** (7 ago 2026) — **Barrido pregunta única + bautizo empresarial.** Las 5 preguntas de cierre con dos salidas pasan a UNA (ADV_OBJ_01/03, ADV_VAL_03, ADV_SIST_01, FUND_01); "1,000 personas compran" → "1,000 clientes" (ADV_VAL_02); "formamos a cada persona nueva" → "cada socio nuevo" (ADV_SIST_03, METH_01); "información de las personas… para su propia red" → "de los contactos… para su propia organización" (ADV_TECH_02); "4 millones de personas" → "de familias" (ADV_SIST_02); "avalancha de personas" → "del mercado masivo" (FUND_01). Cifras intactas. Previa: **12.5** (2 ago 2026) — **METH_01: movimientos renombrados Compartir · Recibir · Multiplicar** (rename del Director, servilleta v6.5 — "si hay que explicar la palabra, la palabra falló"); "las guío hasta su decisión" → "maduro su decisión" (verbo vetado); "su empresa digital se multiplica" → "su negocio se multiplica". Cifras intactas. **Previa: 12.4** (25 jun 2026) — (1) **Promesa "guía"→"madura"** + "acompañar"→"guiar" (grupo ②, acción de Queswa). (2) **"Las horas no son el villano"** — ADV_SIST_01 reescrito de "cambia horas por dinero" a *"el día que para, el ingreso para… aunque usted descanse"* (villano = dependencia, no el trabajo; el trabajo es orgullo latino) + "no depende de sus horas" → "de su presencia". Cifras del plan intactas. Re-fragmentado (Voyage). **Previa: 12.3** (17 jun 2026) — **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo (5 hits) + **rename 3er Comando Maestría → Multiplicación** (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras del plan intactas. **Previa: 12.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas. Cifras del plan intactas. Deploy a Supabase 12 jun 2026.
+**Versión:** 13.5 (25 ago 2026) — **Los 16 fragmentos ganan su `[Índice]`.** Es lo único que se vectoriza; el cuerpo se sirve y el `[Concepto Nuclear]` se queda en este archivo, recortado por el fragmentador. Sin índice, este arsenal competía con su cuerpo largo contra los índices cortos de `arsenal_inicial` y perdía consultas que le pertenecían — *«¿yo tengo que enseñarles?»* se iba a la respuesta de capacitación, que además lleva candado y se sirve sola. Detalle en el CHANGELOG.
+**Versión previa:** 13.1 (19 ago 2026) — **La etapa fundacional sale del arsenal** (decisión del Director): es materia del 1-a-1, no de una respuesta automática. Con ella sale el fragmento que defendía la escasez, cuya pregunta ya atiende EAM_02 de `arsenal_inicial` con el argumento de apalancamiento. ADV_SIST_02 conserva la visión a cinco años, ahora en léxico vigente y con pregunta única. Previa **13.0** (8 ago 2026) — **ADV_VAL_04: la compra mínima en PV, sin moneda y sin supermercado.** Llevaba la misma cifra errada que FREQ_09 (*~$100 USD / $450.000 COP* para 50 PV, cuando son ~3,3 cajas ≈ $370.000) y el marco del hábito dicho con todas las letras: *toma parte de lo que destinaba al mercado de la casa*. Ahora **50 PV = tres o cuatro cajas**, la moneda la pone el pin por país, y sale la pregunta de cierre retórica (*¿conoce algún otro negocio internacional donde…?*). 711 → 339 caracteres. Sincronizado con `arsenal_inicial` v5.62. Previa **12.9** (8 ago 2026) — **El equipo se nombra siempre *equipo de creatuactivo.com*** (decisión del Director). Barrido de 7 usos en ADV_OBJ_03, ADV_ESC_01 y ADV_ESC_02, sincronizado con el mismo barrido en `arsenal_inicial` v5.59. Previa **12.8** (8 ago 2026) — **Dos acciones; la consecuencia es del negocio.** Corrección de cumplimiento: ligar las acciones a un pago fechado es una promesa de ingreso (Meta la sanciona; el Estatuto del Consumidor colombiano la vuelve vinculante). METH_01 queda con **Compartir · Recibir** y la multiplicación como consecuencia, que además es lo que lo diferencia de EAM_01 — aquí sí se explica el mecanismo. Previa (retirada) **12.7** — la tríada con el viernes. METH_01 reescrito. Doctrina de los tres desafíos del modelo (poco popular · parece difícil · parece de ganancia lejana): el del **plazo** era el menos atendido, y la respuesta del método explicaba lo que él hace sin decir cuándo cobra. **"Multiplicar" pasa de tercer movimiento a CONSECUENCIA** — como tarea suma peso, como resultado lo quita— y METH_01 conserva su razón de existir frente a EAM_01 porque aquí SÍ se explica el mecanismo de la multiplicación, cerrando hacia los números de la duplicación. Fuera *"el trabajo pesado de siempre"*, *"las personas correctas"*, *"no sale a buscar de casa en casa"* y *"andar convenciendo y capacitando"*. Previa: **12.6** (7 ago 2026) — **Barrido pregunta única + bautizo empresarial.** Las 5 preguntas de cierre con dos salidas pasan a UNA (ADV_OBJ_01/03, ADV_VAL_03, ADV_SIST_01, FUND_01); "1,000 personas compran" → "1,000 clientes" (ADV_VAL_02); "formamos a cada persona nueva" → "cada socio nuevo" (ADV_SIST_03, METH_01); "información de las personas… para su propia red" → "de los contactos… para su propia organización" (ADV_TECH_02); "4 millones de personas" → "de familias" (ADV_SIST_02); "avalancha de personas" → "del mercado masivo" (FUND_01). Cifras intactas. Previa: **12.5** (2 ago 2026) — **METH_01: movimientos renombrados Compartir · Recibir · Multiplicar** (rename del Director, servilleta v6.5 — "si hay que explicar la palabra, la palabra falló"); "las guío hasta su decisión" → "maduro su decisión" (verbo vetado); "su empresa digital se multiplica" → "su negocio se multiplica". Cifras intactas. **Previa: 12.4** (25 jun 2026) — (1) **Promesa "guía"→"madura"** + "acompañar"→"guiar" (grupo ②, acción de Queswa). (2) **"Las horas no son el villano"** — ADV_SIST_01 reescrito de "cambia horas por dinero" a *"el día que para, el ingreso para… aunque usted descanse"* (villano = dependencia, no el trabajo; el trabajo es orgullo latino) + "no depende de sus horas" → "de su presencia". Cifras del plan intactas. Re-fragmentado (Voyage). **Previa: 12.3** (17 jun 2026) — **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo (5 hits) + **rename 3er Comando Maestría → Multiplicación** (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras del plan intactas. **Previa: 12.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas. Cifras del plan intactas. Deploy a Supabase 12 jun 2026.
 
 **Versión previa:** 12.1 — Swap léxico "Negocio Digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "Operando en el nivel" → "En el nivel"; aforismo "Queswa escala" → "Queswa multiplica". Cifras del plan intactas. Sin verbatim_lock. Pendiente: deploy a Supabase. — Léxico pendiente histórico: "Calibre ESP-3" en título ADV_VAL_03 (residuo de v12.0, fuera de este swap).
 **Versión:** 12.0 — Migración al registro accesible (Beto), jun 2026. Léxico: Arquitecto de Patrimonio → socio · La Matriz Física → El Respaldo Operativo · El Tridente EAM → El Método Comprobado · Estructura Patrimonial → estructura de ingresos recurrentes · "calibre de capitalización" → "nivel" · "Capas" (ADV_TECH_03) → "respaldos independientes". Preguntas de cierre abiertas (eliminadas las cerradas con jerga). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). Aún sin desplegar — pendiente revisión del Director.
@@ -20,11 +21,12 @@
 ## 🔧 OBJECIONES DE ALTO NIVEL (Deep Dive) - 3 respuestas
 
 ### ADV_OBJ_01: "¿Es esto demasiado bueno para ser verdad? ¿Dónde está el truco?"
+**[Índice]:** Esto suena demasiado bueno para ser verdad, dónde está el truco, algo tiene que haber. La desconfianza de quien mira un modelo digital con ojos de negocio tradicional.
 **[Concepto Nuclear]:** No hay truco. Lo que parece anomalía es apalancamiento: una empresa de más de 60 países carga el peso y la tecnología hace el resto.
 
 Esa sensación es normal: usted está mirando un modelo digital con los ojos de un negocio tradicional, y por eso le parece raro.
 
-En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de más de 60 países. Y yo, como su tecnología, me encargo de explicar y acompañar a las personas. A usted le queda dirigir y conectar a quien ya está interesado. El modelo viejo lo amarra a trabajar físicamente para siempre; nosotros le quitamos ese peso de encima.
+En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de más de 60 países. Y yo, como su tecnología, me encargo de explicar y acompañar a las personas. A usted le queda decidir con quién lo comparte y saludar a quien llega con interés. El modelo viejo lo amarra a trabajar físicamente para siempre; nosotros le quitamos ese peso de encima.
 
 Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando alguien deja de cargar todo solo.
 
@@ -33,11 +35,12 @@ Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando a
 ---
 
 ### ADV_OBJ_02: "Ya tengo un negocio exitoso, ¿para qué quiero esto?"
-**[Concepto Nuclear]:** Un negocio exitoso no lo blinda. Depender de un solo motor es el riesgo; esto es un segundo motor en paralelo.
+**[Índice]:** Ya tengo un negocio que funciona y me va bien, para qué quiero esto. Depender de una sola fuente de ingreso es el riesgo.
+**[Concepto Nuclear]:** Un negocio exitoso no lo blinda. Depender de un solo motor es el riesgo; esto es otro motor que corre en paralelo.
 
 Que su negocio funcione demuestra que usted sabe ejecutar. Pero no lo blinda. Depender de una sola fuente es el riesgo: si ese motor se frena —por su sector, por la economía, por lo que sea—, todo se frena con él.
 
-Esto no compite con lo suyo; lo protege. Su negocio actual le da un ingreso atado a su presencia y a cómo le vaya a su industria. Esto es un segundo ingreso, en paralelo, que no depende de su sector ni de que usted esté encima.
+Esto no compite con lo suyo; lo protege. Su negocio actual le da un ingreso atado a su presencia y a cómo le vaya a su industria. Esto es otro ingreso, en paralelo, que no depende de su sector ni de que usted esté encima.
 
 **Como dueño de un edificio:** aunque su oficina esté en el penthouse trabajando a tope, los demás pisos siguen generando renta solos. Esto es ese piso que renta aparte: funciona mientras su negocio principal avanza. Usted no carga el sistema; el sistema carga la operación.
 
@@ -49,6 +52,7 @@ Esto no compite con lo suyo; lo protege. Su negocio actual le da un ingreso atad
 ## ⚙️ MECÁNICA TÉCNICA (Lo que pasa tras bambalinas) - 3 respuestas
 
 ### ADV_TECH_01: "¿Puedo pausar mi negocio si me enfermo o viajo?"
+**[Índice]:** Puedo pausar si me enfermo, si viajo, si me tomo unas vacaciones. Qué pasa con el ingreso el mes que yo no esté.
 **[Concepto Nuclear]:** Su gran valor: este negocio NO depende de su presencia. Para seguir activo y cobrando solo necesita su compra personal mínima (50 PV).
 
 Esa pregunta casi siempre nace de una idea heredada: la del negocio tradicional, donde si usted no está, no gana. Y aquí es justo al revés.
@@ -62,6 +66,7 @@ Este es un negocio que **no depende de que usted esté presente** —ese es, de 
 ---
 
 ### ADV_TECH_02: "¿Cómo manejan mis datos y la privacidad?"
+**[Índice]:** Qué hacen con mis datos y con mis contactos, cómo manejan la privacidad, van a vender mi información.
 **[Concepto Nuclear]:** Sus contactos son suyos. No los vendemos ni los compartimos. Van encriptados.
 
 Su lista de contactos es lo más valioso que usted tiene en este negocio, y se maneja con seguridad y encriptación.
@@ -73,6 +78,7 @@ No vivimos de vender publicidad ni datos; somos una firma privada. La informaci�
 ---
 
 ### ADV_TECH_03: "¿Qué soporte técnico real tengo si la plataforma falla?"
+**[Índice]:** Qué pasa si la plataforma se cae o el sistema deja de funcionar, si la tecnología falla. Qué respaldos hay y a quién llamo.
 **[Concepto Nuclear]:** Tres respaldos independientes. Si uno falla, los otros sostienen. No hay un solo punto de quiebre.
 
 El sistema está hecho para que nunca dependa de una sola cosa. Tiene tres respaldos independientes que se cubren entre sí:
@@ -92,7 +98,8 @@ Si uno tuviera un problema, los otros dos sostienen la operación. Nunca se qued
 ## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación) - 4 respuestas
 
 ### ADV_VAL_01: "Explícame el Ingreso Inmediato con números / ¿Qué es el ingreso inmediato?"
-**[Concepto Nuclear]:** *Ingreso inmediato* es el nombre viejo del **Bono GEN5**, y la vía se nombra por lo que la mueve: **la compra de paquetes empresariales en su canal**. Sin adjetivos de velocidad — lo único que se afirma es *cada vez que ocurre una compra*. Y se cuenta en COMPRAS, nunca en personas que entran.
+**[Índice]:** Me hablaron del ingreso inmediato y quiero los números: qué es, cuánto paga, cómo se calcula el Bono GEN5 por paquete.
+**[Concepto Nuclear]:** *Ingreso inmediato* es el nombre viejo del **Bono GEN5**, y la vía se nombra por lo que la mueve: **la compra de paquetes empresariales en su canal**. Lo único que se afirma es *cada vez que ocurre una compra*. Y se cuenta en COMPRAS, nunca en personas que entran.
 
 Eso que le nombraron como ingreso inmediato es el **Bono GEN5**: una comisión por cada paquete empresarial que se compra en su canal, y su función es financiar el crecimiento en la etapa temprana.
 
@@ -106,7 +113,8 @@ Con el nivel ESP-3 (Visionario), las cuentas son así:
 ---
 
 ### ADV_VAL_02: "Explícame el Ingreso Recurrente con números"
-**[Concepto Nuclear]:** El segundo ingreso es el importante: regalías por el consumo que se repite, sin depender de que usted esté presente.
+**[Índice]:** Quiero los números del ingreso recurrente: cómo se calcula el Bono Binario, cuánto paga el consumo que se repite.
+**[Concepto Nuclear]:** El ingreso recurrente es el importante: regalías por el consumo que se repite, sin depender de que usted esté presente.
 
 El Bono Binario es la meta de fondo: el ingreso del consumo que se repite, que no depende de que usted esté presente.
 
@@ -119,6 +127,7 @@ Esto le deja crecer tranquilo: las comisiones las paga directamente Gano Excel, 
 ---
 
 ### ADV_VAL_03: "¿Por qué es importante el nivel ESP-3 (Visionario)?"
+**[Índice]:** Por qué conviene el ESP-3 Visionario, qué gano entrando en el nivel más alto, cuánto cambia la comisión según el paquete.
 **[Concepto Nuclear]:** Mismo esfuerzo, distinto margen.
 
 Elegir el nivel ESP-3 es pura cuenta.
@@ -132,6 +141,7 @@ Arrancar en un nivel más bajo significa hacer exactamente el mismo trabajo, per
 ---
 
 ### ADV_VAL_04: "¿Cuál es mi compra personal mínima mensual? / ¿Tengo una obligación de compra cada mes?"
+**[Índice]:** Cuál es mi compra personal mínima cada mes, tengo obligación de comprar, cuántos PV me piden para seguir cobrando.
 **[Concepto Nuclear]:** La compra personal mínima es de **50 PV al mes** — en producto, unas tres o cuatro cajas. Lo que la distingue de una cuota es que llega en mercancía y le conserva el derecho de cobro de comisiones. ⚠️ La cifra se dice en PV y en cajas; la moneda la resuelve el pin de precios por país. ⚠️ Qué productos suman 50 PV es **COMP_PV_08**; la versión de primer contacto es **FREQ_09** en `arsenal_inicial`.
 
 Su compromiso mensual es una compra personal de **50 PV** — en producto, unas tres o cuatro cajas.
@@ -143,6 +153,7 @@ Eso no es una cuota de administración: es mercancía que le llega a la casa. Y 
 ---
 
 ### **ADV_VAL_05:** "¿Existen otros incentivos además de las comisiones?" / "¿Hay viajes corporativos o reconocimientos?" / "¿Qué más ofrece Gano Excel a los socios exitosos?"
+**[Índice]:** Hay otros incentivos además de las comisiones: viajes, eventos, reconocimientos, premios para los socios que crecen.
 
 **[Concepto Nuclear]:** Además de las comisiones, Gano Excel paga dos viajes internacionales al año, completos.
 
@@ -161,17 +172,19 @@ Lo bueno es que usted los puede promover entre sus socios con total tranquilidad
 ## 🏗️ CONSTRUCCIÓN Y SISTEMA - 3 respuestas
 
 ### ADV_SIST_01: "¿Cuál es la diferencia entre un trabajo tradicional y construir con Gano Excel y CreaTuActivo?"
+**[Índice]:** Qué diferencia hay entre un empleo de toda la vida y construir esto: el ingreso que se frena cuando uno para, contra el que sigue.
 **[Concepto Nuclear]:** En un trabajo tradicional, el día que usted para, el ingreso para. Aquí construye un activo que sigue produciendo aunque usted descanse.
 
 La diferencia es de fondo. En un trabajo o negocio tradicional, su ingreso depende de que usted esté ahí: el día que para —por salud, por descanso, por lo que sea—, se frena. Y su techo está limitado a las horas que tiene en el día.
 
-Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted dirige: pone a funcionar un sistema que hace el trabajo —explicar, guiar, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea socio de su empresa digital, un activo que sigue produciendo aunque usted no esté presente.
+Con Gano Excel y CreaTuActivo usted no ocupa ese lugar. Usted decide con quién comparte su canal, y el sistema hace el trabajo —explicar, resolver dudas, formar— sin que usted esté encima de cada cosa. No le entregamos un empleo; le entregamos la tecnología para que sea dueño de su canal de distribución, un activo que sigue produciendo aunque usted no esté presente.
 
 **Pregunta de cierre:** ¿Quiere ver cómo se construye un ingreso que siga produciendo aunque usted descanse?
 
 ---
 
 ### ADV_SIST_02: "¿Cuál es la visión a 5 años? ¿A dónde vamos?"
+**[Índice]:** Cuál es la visión a cinco años, para dónde va la empresa, qué se están proponiendo, cuál es la meta grande.
 **[Concepto Nuclear]:** Para 2030, 4 millones de familias en América comprando por este sistema. Hoy usted asegura su posición antes de esa ola.
 
 La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles un canal de distribución para que construyan su tranquilidad financiera, y ser el sistema de distribución de bebidas y suplementos premium más eficiente del continente.
@@ -183,23 +196,25 @@ Hoy lo importante no es buscar al consumidor final: es montar y dejar listos los
 ---
 
 ### ADV_SIST_03: "¿Cómo funciona Queswa para mi equipo? ¿Yo tengo que enseñarles?"
-**[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a sus socios; usted dirige y acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo.
+**[Índice]:** Yo tengo que enseñarles a los que entren conmigo, me toca sentarme con cada uno, tengo que estar encima de mi equipo. Quién se encarga de los míos.
+**[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a sus socios; usted acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo.
 
 Le voy a hacer una pregunta que cambia la forma de ver esto: ¿se imagina a un director de orquesta enseñándole a cada músico, uno por uno, a tocar su instrumento? No lo haría. Cada músico ya llega formado; él solo dirige y los hace sonar juntos.
 
 Aquí ocurre lo mismo. Usted no tiene que sentarse a enseñarle a cada persona que entra a su canal —hacerlo lo agotaría y lo convertiría en esclavo de su propio negocio—. De esa parte nos encargamos la Academia y yo: formamos a cada socio nuevo desde el primer día, a toda hora, sin que usted tenga que repetir lo mismo una y otra vez.
 
-¿Y usted qué hace entonces? Lo más valioso, y lo único que ninguna máquina puede reemplazar: dirigir y acompañar a su equipo en lo humano. La carga técnica la llevamos nosotros.
+¿Y usted qué hace entonces? Lo más valioso, y lo único que ninguna máquina puede reemplazar: acompañar a su equipo en lo humano. La carga técnica la llevamos nosotros.
 
 Por eso su canal no aprende de su agenda: aprende del sistema. Y un negocio que no depende de su presencia es un negocio que puede crecer sin techo. Como decimos: usted no enseña; Queswa multiplica. Usted crece.
 
-**Pregunta de cierre:** ¿Le hace sentido soltar la carga de capacitar, para dedicar su energía a dirigir y a crecer?
+**Pregunta de cierre:** ¿Le hace sentido soltar la carga de capacitar, para dedicar su energía a acompañar a los suyos y a crecer?
 
 ---
 
 ## 🚀 CIERRE Y ESCALACIÓN - 2 respuestas
 
 ### ADV_ESC_01: "Me interesa, pero necesito hablar con un humano."
+**[Índice]:** Me interesa pero quiero hablar con una persona de verdad, con un humano, no con la máquina. Quiero que alguien me llame.
 **[Concepto Nuclear]:** Paso a un humano (handoff). El equipo de creatuactivo.com toma el relevo sin fricción.
 
 **[INSTRUCCIÓN PARA QUESWA: Ejecutar Protocolo Handoff Guante Blanco. No enumerar pasos. Pedir Nombre y Ciudad].**
@@ -213,6 +228,7 @@ Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿
 ---
 
 ### ADV_ESC_02: "Estoy listo. ¿Cómo pago y empiezo?"
+**[Índice]:** Estoy listo, decidido, quiero empezar ya. Cómo pago y cómo arranco.
 **[Concepto Nuclear]:** Paso a un humano (handoff). El equipo de creatuactivo.com toma el relevo sin fricción.
 
 **[INSTRUCCIÓN PARA QUESWA: Ejecutar Protocolo Handoff Guante Blanco. No enumerar pasos de pago. Pedir Nombre y Ciudad].**
@@ -229,6 +245,7 @@ Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿
 
 
 ### METH_01: "¿Cómo es el proceso de trabajo? ¿Qué tengo que hacer exactamente?"
+**[Índice]:** Cómo es el proceso de trabajo, qué tengo que hacer exactamente, en qué consiste la operación del día a día.
 **[Concepto Nuclear]:** El Método Comprobado son **dos acciones desde el celular — Compartir · Recibir** (8 ago 2026), y la **Multiplicación es la consecuencia**, no un tercer paso. ⚠️ **CUMPLIMIENTO:** la consecuencia que se nombra es del NEGOCIO (multiplicación, aumento de la facturación), nunca un pago al usuario con día ni monto — eso sería una promesa de ingreso, que Meta sanciona en el canal y que en Colombia el Estatuto del Consumidor vuelve vinculante. Este fragmento es el hermano PROFUNDO de EAM_01: la misma tríada, pero aquí sí se explica **el mecanismo de la multiplicación** (yo formo a cada socio nuevo, así que hace exactamente lo mismo). Esa es su razón de existir y por eso cierra hacia los números de la duplicación, no hacia los productos. ⚠️ La tríada **nunca va sola**: sin decir quién trabaja en el intermedio, tres acciones tan simples se leen como una promesa sin causa.
 
 Su día a día son **dos acciones**, las dos desde el celular:

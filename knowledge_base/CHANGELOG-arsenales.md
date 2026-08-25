@@ -12,6 +12,18 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.2 — El GEN5 lleva su rango en la primera respuesta (24 ago 2026)
+
+Trabajo de otra sesión, documentado aquí el 25 ago al encontrarlo sin entrada en el CHANGELOG. **Verificado antes de desplegarlo:** las cifras cuadran con la tabla del propio arsenal (Gen 1 $675.000 · Gen 2-4 $90.000 · Gen 5 $180.000 para Visionario) y con el pin del motor en `route.ts`; el techo de $112.500 para Inicial también. La batería del guardarraíl de negocio trae un caso para el copy nuevo y pasa.
+
+**COMP_GEN5_01 pasa a llevar el rango por generación**, anclado al paquete propio (decisión del Director). El razonamiento: quien pregunta cómo gana pronto está preguntando **cómo recupera lo que puso**, y en abstracto esa cuenta se la hace el prospecto solo, casi siempre hacia arriba. Acota la doctrina del 7 ago, que dejaba la primera respuesta sin cifras.
+
+⚠️ **La compra se nombra sin persona** —*comprado en su canal de distribución*—, que es registro de gran distribución; nombrar a quien compró devuelve la escalera de gente. ⚠️ **Sin precio de entrada en el mismo mensaje**: una inversión al lado de un rendimiento es una proyección de retorno.
+
+⚠️ **La pregunta de cierre nombra el paquete a propósito**: el pin del motor decide el tipo de ejemplo por la oferta y su default es la renta, así que un cierre que no nombraba la vía hacía que el «sí» entregara el ejemplo del Binario después de haber explicado el GEN5.
+
+Cifras, %, CV/PV y tasas intactas.
+
 ### v8.1 — El Binario se explica por emparejamiento (23 ago 2026)
 
 Lo que dijo el Director: en la práctica «compensados» siempre hay que explicarlo, y «lado menor» produce en muchas personas una sensación de injusticia —*«¿por qué la compañía me paga solo por un lado?»*—, cuando el problema real es que el léxico no pinta lo que ocurre: la compañía toma puntos de LOS DOS lados. La palabra es **emparejar** (sola: sin «pares», sin «compensados»), y los dos frentes se nombran **canal izquierdo y canal derecho** —no «sus dos lados» ni «centros de negocio», porque estas preguntas llegan cuando la persona aún no sabe que hay dos centros, y «canal» le dibuja producto moviéndose, no personas—. «Opera» y «mecánica» valen en este contexto: el léxico vigente manda sobre la prohibición vieja. Párrafo canónico construido con Gemini y el Director, ejemplo 1.000 / 5.000 (con 2.000, sobrante y emparejado eran ambos 1.000 y se confundían).
@@ -150,6 +162,66 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 **Verificado en `route.ts`: 0 de cada uno.** 143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 · sin errores tsc nuevos.
 
 ## arsenal_inicial
+
+### v5.92 — Afinado de índices con datos de producción (25 ago 2026)
+
+Los índices de la v5.91 se midieron primero contra los 58 de `arsenal_inicial`. En producción compiten **175 fragmentos de cinco arsenales**, y ahí aparecen colisiones que el laboratorio no ve. Seis consultas de las cuarenta no ganaban el primer puesto; dos de ellas las perdía contra un fragmento **con candado**, que se sirve solo y descarta a los demás — esos eran los defectos reales, porque el motor entrega top-3 y un segundo puesto sin candado enfrente llega igual al modelo.
+
+**Resultado final en producción: 38/40 en el puesto 1 y 40/40 en el top 3.** Las cuarenta consultas alcanzan su fragmento.
+
+**Tres cosas que enseñó el afinado, y las tres son contraintuitivas:**
+
+1. **Alargar diluye.** Al añadirle disparadores a FREQ_17 para que ganara *«cada cuánto me consignan»*, su score BAJÓ (0.471 → 0.466). El texto indexado es corto a propósito; sumarle palabras reparte la señal. El lever es **acortar**, y así se resolvió: FREQ_17 y CRED_04 pasaron a juegos de disparadores mínimos y ganaron sus consultas.
+2. **Corto y genérico se vuelve un atractor.** OBJ_01 quedó tan corto que empezó a ganar *tres* consultas ajenas sobre trabajo y día a día. Corto **sí**; genérico **no** — el índice se ancla a la formulación concreta de la objeción.
+3. **Nombrar lo que no es, atrae lo que no es — también dentro del índice.** A OBJ_01 le escribí *«no la descripción de las tareas»* y se hizo MÁS fuerte en las consultas de tareas. Es la tesis de la investigación aplicada un nivel más abajo.
+
+⚠️ **Un disparador ambiguo le cuesta la consulta a otro fragmento.** *«¿Me enseñan?»* vivía en FREQ_08 y significa dos cosas opuestas según quién enseñe a quién; se retiró, y *«¿Quién me consigna?»* se mudó de WHY_04 a FREQ_17, porque es mecánica de pago y no fuente del dinero.
+
+⚠️ **Laguna del método:** el índice de FREQ_13 no traía *multinivel* ni *MLM*, palabras que sí estaban en su cuerpo (Ley 1700). Al dejar de indexar el cuerpo, la consulta *«¿esto es MLM?»* se fue al catálogo. **Al escribir un índice hay que barrer las palabras clave que el cuerpo tenía y él no.**
+
+### v5.91 — El índice se separa del contenido servido, y la doctrina sale del contexto del modelo (25 ago 2026)
+
+**Cada fragmento pasa a tener tres piezas con tres destinatarios distintos**, y por eso tres destinos:
+
+| Pieza | Dónde vive | Quién la lee |
+|---|---|---|
+| `**[Índice]:**` — disparadores + 2-3 líneas escritas con las palabras de la persona | solo en el **embedding** | el buscador vectorial |
+| Cuerpo | solo en el **contenido servido** | el modelo, y de ahí el prospecto |
+| `**[Concepto Nuclear]:**` | solo en el **`.txt`** — el fragmentador lo recorta | los agentes que editan el archivo |
+
+**Por qué.** La cabecera era el **47% de lo que se vectorizaba y se servía**. Eso tenía dos costos distintos y solo uno era el que parecía. El de recuperación resultó **marginal** —quitarla sin más casi no mueve la aguja, porque no es ruido fuera de tema sino verbosidad en la misma dirección—. El caro era el otro: instrucciones internas dentro del contexto del modelo, que él copia (*contextual entrainment*: un LLM sube la probabilidad de cualquier token presente en el prompt, y las instrucciones de ignorarlo apenas lo mitigan), y prohibiciones que le dictan justo lo que niegan. Ese fue el incidente de `COMP_GEN5_01`, y no fue mala suerte.
+
+**Medido sobre este corpus**, 40 consultas coloquiales, `voyage-3-lite` 512d: acierto en el puesto 1 de **24/40 a 34/40**, top 3 de **31 a 38**, y el margen sobre el segundo de **0,023 a 0,082** — por 3,6. Mejoran 15, empatan 24, empeora 1. Arnés: `node scripts/experimento-indice-recuperacion.mjs`.
+
+⚠️ **Añadirle el cuerpo al índice EMPEORA el resultado** (34 → 29). Lo que ahoga la señal no era solo la cabecera: era el texto largo. El índice se indexa solo.
+
+**Efectos secundarios medibles.** El corpus servido baja de 88.493 a 47.090 caracteres, −47%. El texto indexado promedio queda en 272 caracteres, dentro del rango de 175-400 que recomienda Anthropic para el contexto prependido y que la cabecera de 739 duplicaba. Y las negaciones que el modelo lee pasan a **cero**, no por reescribirlas sino por sacarlas: una prohibición se lee mejor en negativo, y ahora puede estarlo sin costo porque el modelo no la ve.
+
+⚠️ **Bug del fragmentador, anterior a este trabajo: `FREQ_04_PUENTE` nunca estuvo indexada.** El identificador se extraía sin exigir `:` al final, así que la alternativa `_\d+` casaba primero y devolvía `FREQ_04` — el mismo `fragmentCategory` que la respuesta anterior. El fragmentador la saltaba por «ya existe». Comprobado en Supabase: solo existe `arsenal_inicial_FREQ_04`, en los tres tenants. Arreglado y verificado contra los siete arsenales: mismos conteos, cero duplicados, y la respuesta recuperada.
+
+⚠️ **Los otros seis arsenales heredan el recorte de la cabecera** (su doctrina sale del contenido servido) pero **todavía no tienen índice**, así que caen al comportamiento anterior para el embedding. Conviene re-fragmentarlos en el mismo despliegue: ganan el contenido limpio sin arriesgar la recuperación.
+
+### v5.90 — El activo se nombra con una sola palabra, y la cadencia de pago se dice completa (25 ago 2026)
+
+**El criterio nuevo lo puso el Director, y es de duplicación, no de estilo.** La información de este negocio se duplica como la de una franquicia: el término que se le enseña a un socio es exactamente el que él le va a enseñar al siguiente. Un vocabulario doble no se degrada en el arsenal — se degrada tres eslabones más abajo, en la boca de alguien que nunca leyó esto. Por eso el bautizo diferido *empresa digital* queda retirado y el activo se nombra **canal de distribución** en cuerpo y en cabecera, en los quince lugares donde no lo hacía. Sinónimo válido: *empresa de distribución*. Se conservan solo los **disparadores** que traen el término, porque son las palabras del prospecto: `EMPRESA_DIGITAL_01` sigue existiendo para aterrizar a quien lo oyó en otra parte, y ahora traduce al canónico en la primera línea.
+
+**Los cuatro errores de hecho.**
+
+1. **FREQ_17 decía mal la cadencia de pago.** Afirmaba que cada viernes Gano Excel suma «el consumo que se movió en esos días» y transfiere — que insinúa pago de la misma semana. Lo real: el ciclo corre de lunes a domingo y se liquida el **segundo viernes tras el cierre, doce días**. La semana intermedia es de conciliación —confirmaciones de pago, formularios, registros—, y decirlo así no es excusa: es lo que hace creíble el plazo. Este era el pendiente que CLAUDE.md dejó abierto («⏳ auditar si algún fragmento lo insinúa»). Fuente de verdad: `respuestaCiclo()` en `src/lib/ciclos-gano.ts`.
+2. **La cifra de países quedó en 16** en las tres respuestas de diáspora. DIASPORA_01 se contradecía dentro del mismo párrafo: decía «los 15 donde Gano Excel opera» y tres líneas abajo «los 16 países de América».
+3. **FREQ_28 servía una instrucción interna al prospecto.** Su cuerpo abría un párrafo dirigido al operador sobre una meta de fin de año que además ya no aplica. Fuera el párrafo, fuera los dos disparadores que lo llamaban, y la cabecera enuncia en afirmativo lo único que sigue vigente: la fase se cierra por cupos.
+4. **WHY_PROD_01 explicaba la recompra por agotamiento**, contra lo que manda su propia cabecera. Pasa a explicarla por resultado, con la frase canónica de WHY_02 —*el cliente que nota la diferencia*—, que las dos comparten a propósito.
+
+**Barrido de léxico.** Las vías del plan se nombran **formas de ganar**, doce en total (FREQ_04_PUENTE). *Dirigir*, retirado el 8 ago, salía todavía en NET_01 y DIASPORA_03. WHY_05, escrita el día anterior, había reintroducido *segundo ingreso* — el mismo término que FREQ_15 pide evitar y que WHY_03 contradice de frente. *Sus organizaciones* salía en DIASPORA_02.
+
+**Dos listas de ausencias convertidas en presencias.** NET_01 remataba un bullet con tres cosas que no hay, y OBJ_02 abría enumerando tres destinos que el dinero no tiene — o sea, describiéndole tres fraudes para negarlos, justo en la respuesta sobre el monto. Es el mismo defecto que se corrigió en CRED_04 en la v5.78; la hermana había quedado intacta.
+
+**Cuatro fallas estructurales.** NET_01 tenía **dos cabeceras `[Concepto Nuclear]` consecutivas**, las dos embebidas. FREQ_16 arrastraba la concordancia rota de un barrido anterior —género y número—, misma familia que los cuatro «toda su canal» de la v5.79. FREQ_31 y FREQ_32 compartían **dos disparadores idénticos**, así que el vector echaba suerte entre ambas. Y el pie del archivo seguía anunciando la v5.8.
+
+**Cuatro cabeceras pasan a afirmativo.** FREQ_04_PUENTE, WHY_05, FREQ_15 y FREQ_21 nombraban el término vetado para prohibirlo — que es dictarlo, porque la cabecera viaja dentro del fragmento. Total de negaciones en cabeceras: 31 → 21; cabeceras afectadas: 20 → 15.
+
+**Medición que acompaña este cambio** → `docs/investigaciones/resultados/CABECERAS_RAG_INVESTIGACION_AGO2026.md`. Dos hallazgos con consecuencias: las cabeceras son el **47% de lo que se vectoriza y se sirve** (no el 24% que decía CLAUDE.md), y **medir la recuperación con el disparador literal es circular** — el disparador está dentro del texto embebido. Toda medición se hace con paráfrasis coloquiales.
+
 
 ### v5.89 — WHY_05 y DUDAS_01: dos personas, dos respuestas (24 ago 2026)
 
@@ -693,6 +765,14 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 ---
 
 ## arsenal_avanzado
+
+### v13.5 — Los 16 fragmentos ganan su índice (25 ago 2026)
+
+Mismo modelo que `arsenal_inicial` v5.91: `[Índice]` al embedding, cuerpo al contenido servido, `[Concepto Nuclear]` recortado y solo para quien edita.
+
+**El motivo lo destapó la medición, no la teoría.** Al indexar `arsenal_inicial` por índice corto y dejar los demás compitiendo con su cuerpo largo, la competencia quedó **asimétrica**: los índices cortos producen vectores concentrados que ganan casi siempre. Dos consultas del benchmark se desviaron —*«¿yo tengo que enseñarles?»*, que es de ADV_SIST_03, se fue a FREQ_08, **que lleva candado y por tanto se sirve sola**—. Comprobado contra el respaldo de embeddings previos: antes ganaba ADV_SIST_03; el desvío lo introdujo el cambio.
+
+⚠️ **Regla que se desprende: un corpus no puede estar medio migrado.** Mientras `arsenal_compensacion`, `catalogo_productos` y `arsenal_12_niveles` sigan sin índice, compiten en desventaja contra los dos que sí lo tienen.
 
 ### v12.5 — METH_01: Compartir · Recibir · Multiplicar (2 ago 2026)
 

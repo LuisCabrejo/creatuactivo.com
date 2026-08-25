@@ -69,3 +69,4 @@ scripts/dankoe-video/**/out/*.mov
 scripts/dankoe-video/**/work/
 scripts/dankoe-video/**/node_modules/
 scripts/tmp-preflight.mjs
+docs/respaldos/nexus_documents-*.json

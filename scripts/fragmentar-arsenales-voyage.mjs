@@ -88,7 +88,12 @@ function parseArsenalIntoResponses(content, arsenalName) {
   // El sufijo del ID casi siempre es numérico (_01), pero PROD_OVERVIEW no lo es —
   // sin la alternativa OVERVIEW ese fragmento no se parsea y solo existía porque
   // alguien lo insertó a mano (se perdió en la purga del 7 ago 2026).
-  const sections = content.split(/(?=###\s+\*?\*?[A-Z]+(?:_[A-Z0-9]+)*_(?:\d+|OVERVIEW))/);
+  // El ID DEBE ir seguido de ':' (25 ago 2026). Sin esa exigencia, la alternativa
+  // `_\d+` casaba primero y `FREQ_04_PUENTE` colapsaba en `FREQ_04`: mismo
+  // fragmentCategory, así que el segundo se saltaba por «ya existe» y la
+  // respuesta de las 12 formas de ganar NUNCA llegó a indexarse. Comprobado
+  // contra los siete arsenales: mismos conteos, cero duplicados, +FREQ_04_PUENTE.
+  const sections = content.split(/(?=###\s+\*{0,2}[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+:)/);
 
   for (const rawSection of sections) {
     if (!rawSection.trim() || !rawSection.includes('###')) continue;
@@ -107,7 +112,7 @@ function parseArsenalIntoResponses(content, arsenalName) {
     // Formato 1: ### **RETO_01: "Pregunta"** (arsenal_compensacion v1, arsenal_inicial)
     // Formato 2: ### ADV_OBJ_01: "Pregunta" (arsenal_avanzado v6.0)
     // Formato 3: ### COMP_GEN5_01: "Pregunta" (arsenal_compensacion v2.0)
-    const headerMatch = section.match(/###\s*\*?\*?([A-Z]+(?:_[A-Z0-9]+)*_(?:\d+|OVERVIEW)):?\s*"?([^"\n*]+)/);
+    const headerMatch = section.match(/###\s*\*{0,2}([A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+):\*{0,2}\s*"?([^"\n*]+)/);
     if (!headerMatch) continue;
 
     const responseId = headerMatch[1].trim();
@@ -126,11 +131,50 @@ function parseArsenalIntoResponses(content, arsenalName) {
       ? responseContent.substring(0, endMarker).trim()
       : responseContent.trim();
 
+    // ── Separación índice / doctrina / cuerpo (25 ago 2026) ──
+    // Tres piezas con tres destinatarios distintos, y por eso tres destinos:
+    //   [Índice]          → SOLO al embedding. Escrito con las palabras que usa la
+    //                       persona, para que la búsqueda lo encuentre.
+    //   [Concepto Nuclear]→ SOLO al .txt. Es doctrina para los agentes que editan
+    //                       este archivo; el modelo no debe leerla nunca. Viajaba
+    //                       dentro del fragmento y era el ~47% del corpus servido:
+    //                       instrucciones que el modelo copiaba (contextual
+    //                       entrainment) y prohibiciones que le dictaban justo lo
+    //                       que negaban. Ver docs/investigaciones/resultados/
+    //                       CABECERAS_RAG_INVESTIGACION_AGO2026.md
+    //   cuerpo            → al contenido servido.
+    const tomarBloque = (texto, etiqueta) => {
+      const ls = texto.split('\n');
+      const dentro = [], fuera = [];
+      let en = false;
+      for (const l of ls) {
+        if (l.startsWith(etiqueta)) { en = true; dentro.push(l); continue; }
+        if (en) {
+          // El bloque cierra con una línea en blanco O con el inicio de otro
+          // marcador **[...]. Sin lo segundo, un [Índice] pegado a un
+          // [Concepto Nuclear] se traga la doctrina y la manda al embedding.
+          if (l.trim() === '' || l.startsWith('**[')) { en = false; }
+          else { dentro.push(l); continue; }
+        }
+        fuera.push(l);
+      }
+      return { dentro: dentro.join('\n').trim(), fuera: fuera.join('\n') };
+    };
+
+    const a = tomarBloque(cleanContent, '**[Índice]:**');
+    const b = tomarBloque(a.fuera, '**[Concepto Nuclear]');
+    const indice = a.dentro.replace(/^\*\*\[Índice\]:\*\*\s*/, '').trim();
+    const cuerpo = b.fuera.replace(/\n{3,}/g, '\n\n').trim();
+
+    // El contenido SERVIDO se reconstruye sin índice ni doctrina.
+    const seccionServida = `### ${responseId}: "${questionText}"\n\n${cuerpo}`;
+
     responses.push({
       id: responseId,
       question: questionText,
-      content: cleanContent,
-      fullSection: section.trim(),
+      indice,                      // '' si el fragmento aún no tiene índice escrito
+      content: cuerpo,
+      fullSection: seccionServida,
       arsenal: arsenalName
     });
   }
@@ -213,8 +257,18 @@ async function processArsenal(arsenalCategory) {
     // Generar embedding
     console.log(`   🔄 Generando embedding...`);
     try {
-      // Incluir pregunta en el texto para mejor matching semántico
-      const textForEmbedding = `${response.question}\n\n${response.content}`;
+      // Lo que se INDEXA no es lo que se sirve (25 ago 2026).
+      // Medido sobre este corpus con 40 consultas coloquiales: indexar
+      // disparadores + índice sube el acierto en el puesto 1 de 25/40 a 34/40,
+      // el top-3 de 32 a 38, y TRIPLICA el margen sobre el segundo (0.023 → 0.082).
+      // Ese margen es el que decide los casi-empates — el Δ0.017 que obligó a
+      // construir el candado solitario. Añadirle el cuerpo al índice lo empeora
+      // (29/40): el texto largo ahoga la señal. Arnés: scripts/experimento-indice-recuperacion.mjs
+      // Fallback: sin índice escrito se indexa como antes, para no romper los
+      // arsenales que todavía no lo tienen.
+      const textForEmbedding = response.indice
+        ? `${response.question}\n\n${response.indice}`
+        : `${response.question}\n\n${response.content}`;
       const embedding = await generateVoyageEmbedding(textForEmbedding);
       const embedding512  = formatForPgvector512(embedding);   // columna embedding_512 (route.ts)
 
@@ -238,6 +292,7 @@ async function processArsenal(arsenalCategory) {
             response_id: response.id,
             parent_arsenal: arsenalCategory,
             char_count: response.content.length,
+            tiene_indice: Boolean(response.indice),
             is_fragment: true,
             // Bandera para que otros consumidores (el Dashboard) encuentren los
             // textos de fondo sin buscar una subcadena dentro del contenido.

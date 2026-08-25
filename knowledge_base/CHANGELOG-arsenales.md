@@ -177,7 +177,7 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 **El arsenal invitaba a comprobar algo que no podía sostener.** FREQ_13 usa las oficinas como prueba de legalidad y cierra con *«usted puede entrar a cualquiera»*; FREQ_07 y FREQ_33 también las mencionan. Pero el corpus solo tenía las **ciudades** — ninguna dirección, en ningún arsenal. Si alguien preguntaba *«¿dónde queda la de Cali?»*, el modelo no tenía con qué responder, que es exactamente la condición en la que improvisa.
 
-Las nueve, con barrio, aportadas por el Director: **Bogotá Cedritos** y **Bogotá Santa Isabel**, **Medellín**, **Cali**, **Barranquilla**, **Bucaramanga**, **Pereira**, **Cúcuta** y **Villavicencio**.
+Las nueve, con barrio, aportadas por el Director: **Bogotá Cedritos** y **Bogotá Santa Isabel**, **Medellín**, **Cali**, **Barranquilla**, **Bucaramanga**, **Pereira** (barrio Alpes), **Cúcuta** y **Villavicencio**.
 
 ⚠️ **Va bajo `<verbatim_lock>`.** Una dirección parafraseada es una dirección equivocada, y alguien puede viajar hasta allá. Es el uso más literal que tiene el candado en todo el corpus.
 
@@ -197,7 +197,7 @@ Las nueve, con barrio, aportadas por el Director: **Bogotá Cedritos** y **Bogot
 
 ⚠️ **La fidelización se nombra por lo que el cliente RECIBE y por lo que el dueño DEJA de hacer** (confirmado por el Director el mismo día): promociones, beneficios del código y recordatorio de compra, **sin que usted les escriba**. Ese *sin que usted les escriba* es el valor entero; el mecanismo interno no le interesa a quien pregunta. Y el dueño lo ve desde su Dashboard.
 
-⚠️ **El plazo de inactivación del código NO entra al corpus servido hasta conciliarlo.** `COMP_VIP_01` tiene escrito *«se sugiere una compra cada cinco meses para mantener la cuenta activa»* y la regla de campo del Director son **seis meses**. Probablemente no se contradicen —cinco es la sugerencia con margen, seis la regla de inactivación— pero mientras no esté confirmado, ninguna de las dos cifras se escribe.
+⚠️ **El plazo del recordatorio queda en CINCO meses** (resuelto por el Director el mismo día). Es el que `COMP_VIP_01` ya tenía, y se conserva a propósito: **se trata de una notificación, no de una sanción**, y doce años de campo dicen que el recordatorio la gente lo recibe bien. La cifra vive en `COMP_VIP_01`; FREQ_33 nombra el recordatorio sin plazo, porque quien pregunta por el alivio operativo no necesita el calendario.
 
 ⚠️ **La tarifa de envío se dice con el dato comprobable:** las tarifas están por debajo del mercado y **mandar veinticinco productos cuesta lo mismo que mandar uno**. El envío gratis es eventual y no constante, así que no se promete.
 

@@ -12,7 +12,8 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.00** (25 ago 2026) — **Los cuatro testimonios y afirmaciones de ingreso que el guardarraíl no veía.** STORY_01 pierde el plazo del rango y el vocabulario de estado patrimonial; DIASPORA_02 prueba el trámite sin usar el rango como prueba; FREQ_17 y FREQ_18 dejan de dar el ingreso por hecho. Detalle en el CHANGELOG.
+**Versión actual: v6.01** (25 ago 2026) — **Su parte se nombra con verbos, y el resultado se atribuye al mecanismo.** Ocho fragmentos dejan de achicar lo que él hace con adverbios —*solo*, *en un clic*, *un sistema que trabaja por usted*— y dos dejan de atribuirle la multiplicación a *la sencillez*: la causa es que quien entra hace exactamente lo mismo. Detalle en el CHANGELOG.
+**Versión anterior: v6.00** (25 ago 2026) — **Los cuatro testimonios y afirmaciones de ingreso que el guardarraíl no veía.** STORY_01 pierde el plazo del rango y el vocabulario de estado patrimonial; DIASPORA_02 prueba el trámite sin usar el rango como prueba; FREQ_17 y FREQ_18 dejan de dar el ingreso por hecho. Detalle en el CHANGELOG.
 **Versión anterior: v5.99** (25 ago 2026) — **FREQ_28 describe el mecanismo y deja de atribuirse el resultado.** Afirmaba que cambiar la estructura *es* resolver el tema financiero de raíz, y prometía que armarlo es fácil; las dos juntas componen un resultado personal prometido con esfuerzo mínimo, que es la categoría que Meta sanciona aunque no haya cifra ni fecha. Detalle en el CHANGELOG.
 **Versión anterior: v5.97** (25 ago 2026) — **Nace FREQ_34: las nueve oficinas con dirección exacta.** FREQ_13 invitaba a comprobar —*«usted puede entrar a cualquiera»*— y el arsenal solo tenía las ciudades, así que la invitación no se podía honrar. Va bajo candado: una dirección parafraseada es una dirección equivocada. Detalle en el CHANGELOG.
 **Versión anterior: v5.96** (25 ago 2026) — **Nace FREQ_33 —el alivio operativo y la fidelización— y el par de perfiles se unifica en distribuidor.** Quien pregunta cómo compran sus clientes se imagina cargando cajas y persiguiendo pagos; ahora hay una respuesta que dice quién hace cada cosa. **Distribuidor** pasa a ser el rol formal frente a cliente, y *socio* queda para lo relacional. FREQ_21 y FREQ_22 reescritas. Detalle en el CHANGELOG.
@@ -106,7 +107,7 @@ El dinero sale de una sola fuente: el producto que se vende por su canal — caf
 
 Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio canal. De cada venta a usted le queda un porcentaje.
 
-Y no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que usted tenga que volver a hacer nada.
+Y no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que haya que volver a venderla.
 
 Quien le consigna es **Gano Excel**, y lo hace en **su cuenta bancaria cada viernes**. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco.
 </verbatim_lock>
@@ -190,7 +191,7 @@ Yo soy **Queswa** — sí, una inteligencia artificial. Soy el **Centro de Mando
 
 Trabajo para usted: atiendo a los interesados, les explico, maduro su decisión de avanzar y resuelvo dudas las **24 horas** — sin cansarme, sin descansos. Asumo cerca del **90% del trabajo** operativo.
 
-Así, a usted le queda solo lo importante: **decidir.** Conecta clientes y socios a su negocio y ve cómo crece; del resto me encargo yo.
+Así, lo suyo es **decidir**: conecta clientes y socios a su negocio y ve cómo crece. Del resto me encargo yo.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se genera el ingreso?
 
@@ -355,7 +356,7 @@ Para el sistema, el consumo de los dos cuenta exactamente igual. Y suele ser la 
 
 Sus clientes le compran directamente a Gano Excel: la empresa cobra, empaca y despacha a la puerta de cada uno. A usted le queda la comisión.
 
-Cada cliente pide como le quede cómodo: por internet, llamando a la línea nacional gratuita, o en cualquiera de las nueve oficinas del país. Y desde queswa.app arma su pedido en dos toques. El envío vale lo mismo si pide un producto o si pide veinticinco.
+Cada cliente pide como le quede cómodo: por internet, llamando a la línea nacional gratuita, o en cualquiera de las nueve oficinas del país. Y desde queswa.app arma su pedido y lo envía. El envío vale lo mismo si pide un producto o si pide veinticinco.
 
 Y el sistema los mantiene activos por usted: les llegan las promociones, los beneficios de su código y el recordatorio de compra, sin que usted les escriba. Desde su Dashboard ve cómo va el consumo de cada uno.
 
@@ -644,7 +645,7 @@ Al construir su canal de distribución con nosotros, la ecuación se invierte. C
 
 ↳ **Yo y la plataforma ponemos el resto:** la inteligencia artificial, el paso a paso y la formación.
 
-Usted no pone en riesgo su patrimonio; se apoya en esa infraestructura para ser el dueño de su canal de clientes. Y la ganancia no se queda en el primer pedido: el cliente que nota la diferencia vuelve a comprar, y esa recompra es la que le sostiene el ingreso.
+Usted se apoya en esa infraestructura para ser el dueño de su canal de clientes. Y la ganancia no se queda en el primer pedido: el cliente que nota la diferencia vuelve a comprar, y esa recompra es la que le sostiene el ingreso.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se gana?
 
@@ -680,7 +681,7 @@ No se trata de elegir un "equipo". Se trata de con qué herramientas va a trabaj
 
 Cualquiera puede darle acceso a Gano Excel. Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar, presentar, explicar, dar seguimiento, formar a su grupo—.
 
-Al abrir su canal con CreaTuActivo, usted recibe además a Queswa. Esa es la diferencia: Queswa carga con lo pesado —conversa con cada interesado, resuelve sus dudas y madura su decisión, las 24 horas—. Usted no recibe un catálogo; recibe un sistema completo que trabaja por usted.
+Al abrir su canal con CreaTuActivo, usted recibe además a Queswa. Esa es la diferencia: Queswa carga con lo pesado —conversa con cada interesado, resuelve sus dudas y madura su decisión, las 24 horas—. Usted no recibe un catálogo; recibe un sistema que conversa, explica y forma por usted.
 
 **Pregunta de seguimiento:** ¿Le muestro qué hago yo por usted cada día?
 
@@ -706,7 +707,7 @@ Igual que una empresa no cierra para abrir una nueva línea, usted no pausa su p
 
 La saturación es un problema real cuando vende algo de moda o de un solo uso —algo que se compra una vez y ya—. Pero nosotros no estamos en ese juego.
 
-Lo nuestro es un hábito que se repite. El mercado se toma su café hoy… y mañana vuelve a querer otro. Y pasado mañana otra vez. Esa necesidad se renueva sola cada día, sin importar la economía ni cuántos distribuidores haya. El continente toma cientos de millones de tazas al día, y nosotros apenas tocamos menos del 1% de ese mercado. La pregunta no es si se va a saturar; es cuánto alcanza usted a tomar antes de que llegue el siguiente.
+Lo nuestro es un hábito que se repite. El mercado se toma su café hoy… y mañana vuelve a querer otro. Y pasado mañana otra vez. Esa necesidad se renueva sola cada día, sin importar la economía ni cuántos distribuidores haya. El café es la bebida más consumida del continente después del agua, y se vuelve a comprar apenas se acaba. La pregunta no es si el mercado se satura; es a cuántos alcanza usted a atender.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se gana con ese consumo?
 
@@ -804,7 +805,7 @@ Esa sensación de no tener tiempo no es un problema de organización. Es la señ
 
 Hágase una pregunta incómoda: si usted tuviera que parar unos meses —por salud, por cansancio, por lo que sea—, ¿qué pasaría con su ingreso? Si la respuesta es que también se frena, ahí está el punto: su tiempo y su dinero están amarrados el uno al otro. Trabaja para vivir y vive para trabajar, y el mes siempre vuelve a empezar.
 
-La salida no es dejar lo que hace hoy. Es ponerle una palanca. Yo me encargo de explicar y de responderle a cada interesado; de su lado quedan dos cosas: compartir un enlace y saludar a quien llega. Precisamente porque no tiene tiempo es que necesita algo que trabaje por usted.
+La salida no es dejar lo que hace hoy. Es ponerle una palanca. Yo me encargo de explicar y de responderle a cada interesado; de su lado quedan dos cosas: compartir un enlace y saludar a quien llega. Precisamente porque no tiene tiempo es que necesita que las horas las ponga otro.
 
 **Pregunta de seguimiento:** ¿Le muestro qué hace usted en el día a día?
 
@@ -849,7 +850,7 @@ Ahí está la lógica del negocio: el cliente que nota la diferencia no vuelve a
 
 Usted es el dueño. El canal es suyo, y usted decide con quién lo comparte.
 
-En la práctica son dos cosas: comparte un enlace, y recibe a quien llega con interés. De esa sencillez salen la multiplicación de su negocio y el aumento de su facturación.
+En la práctica son dos cosas: comparte un enlace, y recibe a quien llega con interés. Y como quien entra hace exactamente lo mismo, de ahí salen la multiplicación de su negocio y el aumento de su facturación.
 
 El resto corre por nuestra cuenta. Yo converso con cada persona interesada, resuelvo sus dudas y le aviso cuando alguien está listo. Gano Excel fabrica, despacha y le consigna.
 
@@ -876,7 +877,7 @@ Su día a día se resume en dos acciones:
 
 Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.
 
-Y como es así de sencillo, quien entra con usted hace exactamente lo mismo. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
+Y quien entra con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro los productos que mueven todo esto?
@@ -999,7 +1000,7 @@ Y esto es lo que lo hace posible:
 
 - **La conversión deja de ser a pulso.** Yo converso con cada interesado, aclaro sus dudas y maduro su decisión de avanzar, 24 horas — por usted y por todo su canal.
 - **La duplicación por fin se transfiere.** Yo formo a cada socio nuevo desde el día uno, igual de bien para usted que para el último que entró. Su canal se multiplica sin depender del talento de cada quien.
-- **Su alcance deja de depender de a quién conoce.** Usted comparte un enlace y llega a todo el continente en un clic.
+- **Su alcance deja de depender de a quién conoce.** Usted comparte un enlace y su alcance llega a todo el continente.
 
 En una frase: usted decide con quién lo comparte; el sistema hace el trabajo que antes se hacía a pulso.
 

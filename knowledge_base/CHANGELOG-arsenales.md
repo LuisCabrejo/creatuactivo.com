@@ -173,6 +173,35 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.01 — Su parte se nombra con verbos, y el resultado se atribuye al mecanismo (25 ago 2026)
+
+Cierra la lista de doce del barrido a mano. **Cinco achicaban su parte con un adverbio** donde la regla pide un verbo — su parte se dice por lo que hace, nunca con palabras que la minimicen, porque quien va a invertir espera trámite:
+
+| | antes | ahora |
+|---|---|---|
+| FREQ_01 | *le queda **solo** lo importante* | *lo suyo es **decidir**: conecta… y ve cómo crece* |
+| FREQ_14 | *un sistema completo **que trabaja por usted*** | *un sistema que **conversa, explica y forma** por usted* |
+| OBJ_01 | *necesita algo **que trabaje por usted*** | *necesita que **las horas las ponga otro*** |
+| WHY_04 🔒 | *se repite **sin que usted tenga que volver a hacer nada*** | *se repite **sin que haya que volver a venderla*** |
+| NET_01 | *llega a todo el continente **en un clic*** | *su alcance llega a todo el continente* |
+
+⚠️ **La corrección de WHY_04 es precisión, no solo cumplimiento:** lo que no hay que repetir es **la venta**, no el trabajo del dueño. La versión anterior decía que él no hace nada, que además es falso.
+
+**Dos atribuían el resultado a la facilidad.** EAM_01 🔒 y WHY_ROL_01 decían *«como es así de sencillo / de esa sencillez **salen** la multiplicación de su negocio y el aumento de su facturación»*. El resultado estaba bien encuadrado —es del negocio, no un pago a él— pero la **causa** era literalmente *fácil → resultado*. La causa real es el mecanismo: **quien entra hace exactamente lo mismo**.
+
+**Y tres más que destapó el re-barrido:**
+
+⚠️ **FREQ_10 afirmaba que no hay riesgo.** *«Usted no pone en riesgo su patrimonio»* es una afirmación absoluta sobre riesgo financiero, y es falsa: él paga un paquete. El párrafo anterior ya explica que los costos de operación no son suyos; la frase sobraba.
+
+⚠️ **INV_04 (12 niveles) decía que la recompra GENERA el ingreso.** Es incorrecto mecánicamente y es una promesa: lo que la recompra hace es **conservarle el derecho a cobrar** las comisiones que genera su canal. Corregido, y *«sin actividad no fluye su ingreso»* pasa a *«ese derecho queda suspendido hasta que la retome»*.
+
+⚠️ **FREQ_33 usaba *«en dos toques»***, retirado el 8 ago junto con el resto del vocabulario que minimiza.
+
+**Los dos candados quedaron sincronizados** con `respuestas-maestras.ts`; los cinco contratos de prefijo verifican.
+
+⚠️ **Lo que NO se tocó, y por qué:** `ADV_SIST_01` dice *«un activo que sigue produciendo aunque usted no esté presente»*. El barrido automático lo marca, pero **esa es la promesa canónica aprobada** — *un ingreso que no depende de su presencia*—, no un exceso. La diferencia entre la promesa y la promesa prohibida es el plazo, la garantía y la sustitución del salario.
+
+
 ### v6.00 — Los cuatro testimonios y afirmaciones de ingreso que el guardarraíl no veía (25 ago 2026)
 
 Barrido a mano de los 60 cuerpos servidos buscando la silueta que destapó FREQ_28: **resultado personal prometido + esfuerzo mínimo**. Doce candidatos, y **los doce pasan invisibles** por `wa-guardarrail-negocio`, que vigila conjunciones de dinero con plazo, garantía o personas. Confirma que la herramienta mide una cosa y esta silueta es otra.

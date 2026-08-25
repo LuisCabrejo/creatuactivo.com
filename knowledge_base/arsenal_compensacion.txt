@@ -84,7 +84,7 @@ Es un ingreso que no depende de que usted esté presente en cada venta.
 
 **Pregunta de seguimiento:** ¿Le muestro esa bola de nieve en números?
 
-**[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, repartidas por horizonte: **cinco a corto plazo, tres a mediano y cuatro a largo** (dato de campo del Director, 25 ago 2026). La explicación de las doce viene en físico dentro del kit de inicio. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas corren en paralelo desde el dia uno. Las otras diez se detallan solo si preguntan por el plan completo.
+**[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, repartidas por horizonte: **cinco a corto plazo, tres a mediano y cuatro a largo** (dato de campo del Director, 25 ago 2026). La explicación de las doce viene en físico dentro del kit de inicio. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas estan activas desde el dia uno, y son las dos principales AL INICIO: las otras diez piden volumen o rango que todavia no existe. Estar activas y ser las principales son dos hechos distintos — no confundirlos. Las otras diez se detallan solo si preguntan por el plan completo.
 
 ### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5" / "Como se gana rapido?" / "Cual es la forma rapida de ganar?"
 

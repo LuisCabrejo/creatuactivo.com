@@ -45,6 +45,7 @@ Frases canónicas válidas para Respaldo Operativo Gano Excel:
 ## REGLA CRITICA: MONEDA Y VALORACION GLOBAL
 
 ### COMP_MONEDA_01: "En que moneda se valora el negocio?"
+**[Índice]:** En qué moneda se maneja el negocio, en dólares o en pesos, cómo se valoran las comisiones.
 
 **[Concepto Nuclear]:** Estandar Financiero Global. El activo se consolida en divisa fuerte (USD) y liquida dividendos en moneda local (COP) bajo tasa blindada.
 
@@ -67,6 +68,7 @@ El ecosistema corporativo opera en mas de 70 jurisdicciones, lo que exige el uso
 ## MODELO DE INGRESOS (RESPUESTA CANONICA)
 
 ### COMP_MODELO_01: "Como se gana en el negocio?" / "Como se gana?" / "Como funciona el plan de compensacion?"
+**[Índice]:** Cómo se gana en el negocio, cómo funciona el plan de compensación, de qué formas entra el dinero.
 
 **[Concepto Nuclear]:** La PRIMERA respuesta sobre las ganancias **no lleva cifras ni tablas** (doctrina 7 ago 2026). Se explica que todo sale del **movimiento de producto por su canal**, se nombran las dos formas, y se entrega SOLO la primera —el consumo recurrente, que es la que construye seguridad financiera—; la segunda queda ofrecida en la pregunta de cierre. Entregar las dos de una vez alarga la respuesta y obliga a explicar los dos centros de negocio antes de que exista el concepto. ⚠️ **Una sola pregunta al final, de una sola salida**: NO "¿cuál de las dos quiere primero?" — el lector retiene la última opción y responde "sí" pensando en la otra. ⚠️ **Vocabulario de la estructura**: clientes · clientes VIP · red de clientes · consumidores · distribuidores · red de distribuidores · socios de negocio. Un canal de distribución se explica entero con esas palabras — salen de la estructura misma del negocio y por eso no hay que defenderlas. La cuenta que debe quedarle al prospecto es de producto que se mueve. ⚠️ **La segunda vía se nombra por la COMPRA, no por quien la hace** (17 ago 2026): *"la compra de paquetes empresariales en su canal"*. Contar entrantes dibuja la escalera de gente, que es la silueta que el prospecto reconoce como pirámide. ⚠️ **El crecimiento se explica por su causa —la compra que se repite— y el ingreso se define por la presencia, no por la ausencia de trabajo**: *"no depende de que usted esté presente en cada venta"*. El crecimiento siempre se atribuye a su causa comercial —la compra que se repite—, que es lo que sostiene la seriedad de una decisión patrimonial. ⚠️ **Registro: se eleva desde las finanzas, nunca desde el gremio del mercadeo en red** (doctrina 8 ago 2026, analogía del cannabis: esa industria cambió su estigma tomando prestado el léxico de la medicina, no refinando el suyo propio). El vocabulario correcto es el de una firma de inversión — *flujo de ganancias · percibe · liquida · volumen · principio financiero · estructura*. La prueba antes de subir cualquier palabra de registro: ¿la diría una banca privada, o solo alguien que lleva años en esta industria? Si es lo segundo, baja el estatus aunque suene técnica.
 
@@ -87,6 +89,7 @@ Es un ingreso que no depende de que usted esté presente en cada venta.
 **[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, repartidas por horizonte: **cinco a corto plazo, tres a mediano y cuatro a largo** (dato de campo del Director, 25 ago 2026). La explicación de las doce viene en físico dentro del kit de inicio. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas estan activas desde el dia uno, y son las dos principales AL INICIO: las otras diez piden volumen o rango que todavia no existe. Estar activas y ser las principales son dos hechos distintos — no confundirlos. Las otras diez se detallan solo si preguntan por el plan completo.
 
 ### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5" / "Como se gana rapido?" / "Cual es la forma rapida de ganar?"
+**[Índice]:** Qué es el Bono GEN5, explíqueme el Gen5, cómo se gana pronto, cuál es la forma rápida de ganar.
 
 **[Concepto Nuclear]:** La vía que **se mueve por la compra de paquetes empresariales**: comisión directa cada vez que se compra uno en el canal, hasta 5 generaciones. ⚠️ **Se nombra por lo que la mueve** (Director, 9 ago 2026): la compra de un paquete es esporádica, y lo que se afirma es *cada vez que ocurre*, sin prometer ritmo ni duración. La función sí se conserva: es la plata que financia el crecimiento en la etapa temprana. ⚠️ **La primera respuesta SÍ lleva el rango** (Director, 24 ago 2026 — acota la doctrina del 7 ago, que la dejaba sin cifras): quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y esa pregunta se la hace todo el que tiene interés real. Contestarla en abstracto la deja abierta y el prospecto la resuelve solo, casi siempre hacia arriba. Con Visionario propio, cada paquete empresarial comprado en el canal genera **$150 USD** en la primera generación y desde **$20 USD** de la segunda a la quinta ($40 USD en la quinta). ⚠️ **Las cifras van como `[GEN1]` y `[GEN2_5]`, y las llena `getPinComisionGEN5()` en la moneda del visitante** — mismo reparto que FREQ_03: el candado pone el texto, el pin pone la cifra. Una cifra que depende del país no puede vivir dentro de un texto que se entrega carácter por carácter; escrita en pesos, un prospecto de Estados Unidos recibía COP. ⚠️ **El rango se ancla al paquete propio**: con Inicial el techo de la primera generación es $112.500, no $675.000 — se cobra el menor entre su techo y lo que genera el nuevo (COMP_GEN5_02). ⚠️ **La compra se nombra sin persona**: *comprado en su canal de distribución*, que es registro de gran distribución; nombrar a quien compró devuelve la escalera de gente. ⚠️ **Sin precio de entrada en el mismo mensaje**: una inversión al lado de un rendimiento es una proyección de retorno. El ejemplo completo de las cinco generaciones se entrega cuando lo piden, y lo dicta el pin. ⚠️ **AUTOSUFICIENTE**: se llega aquí por dos caminos —tras COMP_MODELO_01 ("¿le explico también la segunda forma?") o en frío, preguntando cómo se gana rápido— así que NO puede apoyarse en la bola de nieve ni decir "esa segunda forma": serían referencias a algo que puede no haberse dicho. La otra forma se nombra en cinco palabras: si ya se explicó suena a eco, y si no, la presenta. ⚠️ **Cuándo llega la comisión:** Gano Excel liquida por ciclos semanales —una semana de corte y otra de cierre—, así que el pago cae **dos viernes después** del evento (detalle en COMP_BIN_05). La única cadencia que se afirma es *"le llega cada viernes"*. ⚠️ **El puntaje no cobrado se acumula**, y es una ventaja del plan: así se dice. ⚠️ Vocabulario: se cuentan **compras de paquetes**, y la unidad del GEN5 es la **generación**, nombrada por su número (Gen 1 a Gen 5). Es la nomenclatura del propio plan —GEN5 son cinco generaciones— y la que ya usan el ejemplo dictado en `route.ts` (*"Generación 1 — 5 paquetes"*), la referencia interna de aquí abajo y los otros fragmentos GEN5. Además la generación es una unidad **horizontal**: describe quién vino después, no cuánto se baja. La imagen vertical es la del esquema que el prospecto teme, y esta respuesta suele llegar uno o dos turnos después de esa objeción.
 
@@ -105,6 +108,7 @@ Corre en paralelo con la otra forma de ganar, la del consumo que se repite: esta
 ---
 
 ### COMP_GEN5_02: "Cuanto paga el Bono GEN5?"
+**[Índice]:** Cuánto paga el Bono GEN5, cuánto me deja cada generación, qué valores tiene ese bono.
 
 **[Concepto Nuclear]:** Cobra el MENOR entre su techo y lo que genera el nuevo.
 
@@ -124,6 +128,7 @@ Su paquete determina su TECHO (maximo que puede cobrar). El paquete del nuevo de
 ---
 
 ### COMP_GEN5_03: "Techos por paquete - Cuanto puedo cobrar maximo?"
+**[Índice]:** Cuánto puedo cobrar como máximo según mi paquete, cuál es mi techo en el GEN5, hasta cuánto me pagan.
 
 **[Concepto Nuclear]:** Su paquete define su techo. ESP-3 = techo maximo. ESP-1 = techo minimo.
 
@@ -142,6 +147,7 @@ Su paquete determina su TECHO (maximo que puede cobrar). El paquete del nuevo de
 ---
 
 ### COMP_GEN5_04: "Cuanto genera cada paquete cuando alguien se vincula?"
+**[Índice]:** Cuánto genera cada paquete cuando alguien se vincula, qué comisión deja un ESP-1, un ESP-2 o un ESP-3.
 
 **[Concepto Nuclear]:** El paquete del nuevo determina cuanto genera para toda la linea ascendente.
 
@@ -159,6 +165,7 @@ Su paquete determina su TECHO (maximo que puede cobrar). El paquete del nuevo de
 ---
 
 ### COMP_GEN5_05: "Ejemplo practico del Bono GEN5 - Socios directos"
+**[Índice]:** Ejemplo del GEN5 con mis directos, cuánto gano con los que entran conmigo, la cuenta con socios directos.
 
 **[Concepto Nuclear]:** 2 socios directos ESP-3 = $300 USD en su estado de cuenta.
 
@@ -183,6 +190,7 @@ Veamos que ocurre cuando conecta 2 socios que compran ESP-3:
 ---
 
 ### COMP_GEN5_08: "Ejemplo practico de ganancias GEN5 - Cuanto gano si conecto 2 personas"
+**[Índice]:** Cuánto gano si conecto dos, ejemplo completo del GEN5 con las cinco generaciones, la cuenta con números.
 
 **[Concepto Nuclear]:** Cobra mientras construye. Cada vinculacion = un pago.
 
@@ -220,6 +228,7 @@ Este capital lo recibe A MEDIDA que se construye la estructura (cada viernes). N
 ---
 
 ### COMP_GEN5_06: "El Bono Doble de Generacion 5"
+**[Índice]:** Qué es el bono doble de la quinta generación, por qué la generación cinco paga distinto.
 
 **[Concepto Nuclear]:** Con 100 PV activos, Gen 5 paga el DOBLE.
 
@@ -237,6 +246,7 @@ El Gen 5 tiene un multiplicador especial basado en su actividad personal.
 ---
 
 ### COMP_GEN5_07: "Cuando me pagan el Bono GEN5?"
+**[Índice]:** Cuándo me pagan el GEN5, en cuánto tiempo entra esa comisión, qué día la veo.
 
 **[Concepto Nuclear]:** Cada viernes, con 2 semanas de desfase.
 
@@ -254,6 +264,7 @@ El GEN5 se paga semanalmente, no mensualmente.
 ---
 
 ### COMP_GEN5_09: "¿Qué necesito para cobrar el GEN5? / ¿Cuáles son los requisitos del Bono GEN5? / ¿Qué condiciones tiene el GEN5? / ¿Con el Kit cobro el GEN5?"
+**[Índice]:** Qué necesito para cobrar el GEN5, cuáles son los requisitos, si con el Kit alcanzo a cobrarlo.
 
 **[Concepto Nuclear]:** Las dos condiciones del GEN5, dichas juntas (Director, 23 ago 2026): haber comprado un paquete empresarial y estar activo con la recompra mensual. El monto es proporcional al propio paquete —su paquete es el techo, COMP_GEN5_02/03— y la quinta generación se dobla con 100 PV (COMP_GEN5_06). Fragmento corto a propósito: es la puerta; el ejemplo con cifras lo dicta el pin del motor cuando la persona acepta (la oferta nombra el GEN5), y los techos por generación viven en COMP_GEN5_03.
 
@@ -268,6 +279,7 @@ Cumplidas las dos, cobra por cada paquete que se compre en su canal hasta la qui
 ## PUNTOS PV - VOLUMEN PERSONAL
 
 ### COMP_PV_01: "Que son los PV (Puntos de Volumen Personal)?"
+**[Índice]:** Qué son los PV, qué significan los puntos de volumen personal, para qué sirven.
 
 **[Concepto Nuclear]:** PV mide su actividad personal. 50 PV = activo. 100 PV = bono doble Gen 5.
 
@@ -284,6 +296,7 @@ Los PV son puntos que genera con sus compras personales.
 ---
 
 ### COMP_PV_02: "Como acumulo los 100 PV?"
+**[Índice]:** Cómo acumulo los 100 PV, cómo llego a esos puntos, cuánto tengo que comprar.
 
 **[Concepto Nuclear]:** Los 100 PV se acumulan durante el ciclo. No tienen que ser en una sola compra.
 
@@ -302,6 +315,7 @@ Puede hacer varias compras durante la semana.
 ---
 
 ### COMP_PV_03: "Como funcionan los ciclos semanales?"
+**[Índice]:** Cómo funcionan los ciclos semanales, qué es un ciclo, cuándo abre y cuándo cierra.
 
 **[Concepto Nuclear]:** Ciclo = Lunes a Domingo. Pago = Viernes de 2 semanas despues.
 
@@ -322,6 +336,7 @@ Puede hacer varias compras durante la semana.
 ---
 
 ### COMP_PV_04: "Que es CV (Volumen Comisional)?"
+**[Índice]:** Qué es el CV, qué significa volumen comisional, en qué se diferencia de los PV.
 
 **[Concepto Nuclear]:** CV de su compra personal NO va a su canal. Solo le activa.
 
@@ -340,6 +355,7 @@ CV son los puntos que se usan para calcular el Bono Binario.
 ---
 
 ### COMP_PV_05: "Que es GCV (Volumen Comisional Grupal)?"
+**[Índice]:** Qué es el GCV, qué significa volumen comisional grupal, cómo se cuenta el de todo el canal.
 
 **[Concepto Nuclear]:** GCV = Suma de TODO el CV de su canal. Es la productividad de su activo.
 
@@ -355,6 +371,7 @@ CV son los puntos que se usan para calcular el Bono Binario.
 ---
 
 ### COMP_CV_01: "Cual es la diferencia entre PV y CV?"
+**[Índice]:** Cuál es la diferencia entre PV y CV, por qué hay dos puntajes, cuál cuenta para qué.
 
 **[Concepto Nuclear]:** PV = su consumo personal. CV = volumen que genera comision Binaria.
 
@@ -402,6 +419,7 @@ Son dos metricas diferentes con propositos diferentes:
 ---
 
 ### COMP_PV_06: "Cuantos PV genera cada producto?" / "Que PV tiene el cafe?" / "PV del cordygold" / "cuantos puntos da el rooibos"
+**[Índice]:** Cuántos puntos da cada producto, qué PV tiene el café, cuántos puntos da el Cordygold o el Rooibos, la tabla de puntos.
 
 **[Concepto Nuclear]:** Cafes/capuchinos: 15-17 PV. Reskine: 31 PV. Suplementos: 41-49 PV. Cuidado personal: 10-12 PV.
 
@@ -450,6 +468,7 @@ Son dos metricas diferentes con propositos diferentes:
 ---
 
 ### COMP_PV_07: "Que pasa si compro mas de 120 PV?"
+**[Índice]:** Qué pasa si compro más de 120 PV, si me paso del tope, si los puntos de más se pierden.
 
 **[Concepto Nuclear]:** El excedente sobre 120 PV SI va a su centro de negocio de cobro.
 
@@ -467,6 +486,7 @@ Esta regla es para socios que compran inventario grande.
 ---
 
 ### COMP_PV_08: "¿Qué productos compro para mis 50 PV mensuales? / ¿Cómo completo mi recompra mensual? / ¿Con qué productos llego a 50 PV? / ¿Qué combinaciones existen para activarme?"
+**[Índice]:** Qué productos compro para mis 50 PV mensuales, cómo completo la recompra, qué combinaciones llegan a esos puntos.
 
 **[Concepto Nuclear]:** 50 PV mensuales = productos reales que consume o comparte, no cuotas administrativas. Múltiples combinaciones disponibles.
 
@@ -500,6 +520,7 @@ Tiene varias opciones para completar sus 50 PV mensuales — todas en productos 
 ---
 
 ### COMP_PV_09: "No entiendo, ¿cómo así una caja a la semana? / ¿Cómo me mantengo activo? / ¿Qué tengo que comprar cada semana? / ¿Con una caja a la semana estoy activo? / ¿Cuántas cajas al mes para estar activo?"
+**[Índice]:** Cómo así una caja a la semana, cómo me mantengo activo, qué tengo que comprar cada semana.
 
 **[Concepto Nuclear]:** La recompra se explica como RITMO, no como cifra (Director, 23 ago 2026): una caja a la semana → cuatro en el ciclo de cuatro semanas → 60 PV, por encima de los 50. Cada caja de Ganocafé suma 15 PV (COMP_PV_08). Y en la práctica una caja se queda corta: se toma en casa y se comparte. Las combinaciones viven en COMP_PV_08.
 
@@ -514,6 +535,7 @@ Y una caja a la semana se queda corta: se toma en casa y se comparte, y comparti
 ## REGALIA DE EQUIPO (BONO BINARIO)
 
 ### COMP_BIN_01: "Que es la Regalia de Equipo?" / "Explicame el Bono Binario" / "Que es el ingreso recurrente?"
+**[Índice]:** Qué es la Regalía de Equipo, explíqueme el Bono Binario, qué es el ingreso recurrente.
 
 **[Concepto Nuclear]:** La PRIMERA respuesta sobre el Binario **no lleva cifras ni tablas**. Doctrina del Director (7 ago 2026), sacada de cómo lo explica él en el 1-a-1: primero se pinta con palabras el concepto nuclear —*usted gana por todas las compras que se generan dentro de su red de clientes y socios*— y solo cuando la persona ya lo entendió se ofrece el ejemplo gráfico. Empezar por los números obliga a explicar los dos centros de negocio antes de que exista el concepto, y ahí se pierde. La imagen es la **bola de nieve** (la misma que el slide 4 de `/servilleta` ya implementa en el control del simulador). ⚠️ NO se mencionan los dos frentes ni el CV en esta respuesta — eso vive en COMP_BIN_11 y en las proyecciones. ⚠️ Vocabulario de empresa: **clientes** y **socios de negocio**; la palabra **red** siempre acompañada — *red de clientes y socios* — porque así nombra una base comercial. La pregunta de cierre es la bisagra hacia COMP_BIN_10.
 
@@ -534,6 +556,7 @@ Ese ingreso ya no depende de que usted esté encima — y es dinero que no le de
 ---
 
 ### COMP_BIN_02: "Cual es el porcentaje del Binario?"
+**[Índice]:** Cuál es el porcentaje del Binario, cuánto paga, si es 15, 16 o 17 por ciento y de qué depende.
 
 **[Concepto Nuclear]:** Base 10%. Con ESP-3 arrancas con 17% por 6 meses.
 
@@ -557,6 +580,7 @@ Ese ingreso ya no depende de que usted esté encima — y es dinero que no le de
 ---
 
 ### COMP_BIN_11: "¿Cómo liquida Gano Excel las comisiones binarias? / ¿Cómo se calcula la comisión semanal del binario? / ¿Cuál es la fórmula del binario? / ¿Sobre qué se aplica el porcentaje? / ¿Cómo se emparejan los puntos? / ¿Por qué me pagan por un solo lado?"
+**[Índice]:** Cómo se calcula la comisión del Binario, cuál es la fórmula, cómo liquida Gano Excel esa comisión semanal.
 
 **[Concepto Nuclear]:** El Binario se explica por **emparejamiento**, con el **canal izquierdo** y el **canal derecho** nombrados (párrafo canónico del Director, 23 ago 2026): cada punto de un canal se empareja con su equivalente en el otro, y el porcentaje se aplica sobre el volumen emparejado. En un par hay un punto de cada canal: el pago cubre los dos canales por construcción, y así queda dicho sin tener que defenderlo. Estas preguntas llegan temprano, cuando la persona aún no sabe que hay dos centros de negocio: por eso se dibujan dos canales por donde se mueve producto, no dos grupos de personas. El ejemplo es 1.000 / 5.000 para que el sobrante y lo emparejado no coincidan. Liquidación sobre CV (valor asignado por Gano Excel a cada producto, distinto del precio de venta); % del paquete o rango activo — automáticamente el más alto disponible.
 
@@ -581,6 +605,7 @@ El porcentaje es el de su paquete o rango activo — el sistema aplica automáti
 ---
 
 ### COMP_BIN_03: "Como mantengo el porcentaje alto despues de los 6 meses?"
+**[Índice]:** Cómo mantengo el porcentaje alto después de los primeros meses, cómo evito que me baje a la base.
 
 **[Concepto Nuclear]:** 3 estrategias: Recompra, Rango, o Promociones.
 
@@ -608,6 +633,7 @@ Despues de que expire su bonus promocional, tiene opciones:
 ---
 
 ### COMP_BIN_04: "Que pasa si tengo varios porcentajes activos?"
+**[Índice]:** Qué pasa si tengo varios porcentajes activos al tiempo, cuál me aplican, cómo se resuelve.
 
 **[Concepto Nuclear]:** Siempre aplica el porcentaje MAS ALTO automaticamente.
 
@@ -623,6 +649,7 @@ Despues de que expire su bonus promocional, tiene opciones:
 ---
 
 ### COMP_BIN_05: "Cuando me pagan?" / "Cuando me pagan el Binario?" / "Lo de esta semana me lo pagan este viernes?" / "Como liquida Gano Excel?" / "Cada cuanto pagan?"
+**[Índice]:** Cuándo cae el pago del Binario, qué día liquida Gano Excel, lo de esta semana cuándo entra, cada cuánto se liquida. El calendario, no la fuente.
 
 **[Concepto Nuclear]:** Cada viernes, con dos semanas de desfase. Se explica con el CICLO, no con los números de ciclo (893/894/895 no le dicen nada a nadie). Lo decisivo es el remate: el desfase es **solo al arrancar** — después el viernes llega todas las semanas. Sin esa última línea, el desfase suena a demora; con ella, se entiende que esto tiene un ritmo. Aplica igual al GEN5 y al Binario: se pagan el mismo día y aparecen en el mismo estado de cuenta. ⚠️ La pregunta de cierre **propone un paso concreto**: quien pregunta cuándo le pagan ya entendió cómo se gana y está mirando lo práctico.
 
@@ -637,6 +664,7 @@ Por eso lo de esta semana no cae este viernes: cae dos viernes después. Y de ah
 ---
 
 ### COMP_BIN_06: "¿Qué necesito para cobrar el Binario? / Requisitos para cobrar el Binario / ¿Qué condiciones tiene el Binario? / ¿Cuándo no me pagan el Binario?"
+**[Índice]:** Qué necesito para cobrar el Binario, cuáles son los requisitos, en qué casos no me pagan.
 
 **[Concepto Nuclear]:** Tres condiciones dichas en llano (Director, 23 ago 2026): activo con la recompra mensual · un cliente o distribuidor activo patrocinado directamente en cada canal · mínimo 100 puntos emparejados, porque se paga por centenas. Se separa lo que PAUSA el pago (falta un activo o no llega la centena — los puntos esperan) de lo que BORRA los puntos guardados (dejar de estar activo). La recompra se presenta por lo que es: unas tres o cuatro cajas al mes.
 
@@ -653,6 +681,7 @@ Si una semana le falta un activo en un canal o no completa la centena, esa seman
 ---
 
 ### COMP_BIN_07: "Rangos - Requisitos de CV Semanal"
+**[Índice]:** Cuáles son los rangos y qué CV semanal pide cada uno, qué tengo que mover para subir de rango.
 
 **[Concepto Nuclear]:** Su rango se define por el CV que COBRA cada semana.
 
@@ -671,6 +700,7 @@ Si una semana le falta un activo en un canal o no completa la centena, esa seman
 ---
 
 ### COMP_BIN_08: "Ejemplo practico del Binario - Cuanto gano si mi equipo crece"
+**[Índice]:** Ejemplo del Binario, cuánto gano si mi canal crece, la cuenta con números del ingreso recurrente.
 
 **[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es su ingreso recurrente, semana a semana.
 
@@ -718,6 +748,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su canal, sin limite de pro
 ---
 
 ### COMP_BIN_09: "¿Se pierden los puntos que sobran? / ¿Qué pasa con los puntos que no se emparejan? / ¿El CV se acumula o se pierde? / ¿Los puntos se guardan para la siguiente semana? / ¿Cada semana empiezo desde cero?"
+**[Índice]:** Se pierden los puntos que sobran, qué pasa con los que no se emparejan, si el CV se acumula o se pierde.
 
 **[Concepto Nuclear]:** Los puntos sin emparejar se guardan para el siguiente ciclo MIENTRAS la persona esté activa con su recompra mensual; sin actividad, se pierden (doctrina del Director, 23 ago 2026). Se paga por centenas. El requisito se presenta por lo que es —unas tres o cuatro cajas al mes— y con la observación de que una caja a la semana se queda corta en la práctica. El ejemplo es 1.050 / 5.070 para que el sobrante y lo emparejado no se confundan, y para que se vea que ni los picos se pierden.
 
@@ -732,6 +763,7 @@ La condición es una sola: estar activo con su recompra mensual, que son unas tr
 ---
 
 ### COMP_BIN_10: "Ejemplo practico del Binario con consumo estandar"
+**[Índice]:** Ejemplo del Binario con consumo estándar, cuánto deja un canal donde cada cliente pide lo normal.
 
 **[Concepto Nuclear]:** 10 clientes por frente consumiendo = ~$95 USD AL MES. 100 clientes = ~$952 USD al mes. ⚠️ Este fragmento se entrega DESPUES de COMP_BIN_01 (el concepto sin cifras), nunca como primera respuesta.
 
@@ -759,6 +791,7 @@ Este ejemplo usa consumo estandar: **4 cajas de Ganocafe AL MES por cliente** (1
 ## PAQUETES DE INVERSION
 
 ### COMP_PAQ_01: "Cuales son los paquetes disponibles?"
+**[Índice]:** Cuáles son los paquetes disponibles, qué opciones hay para empezar, cuánto vale cada una.
 
 **[Concepto Nuclear]:** 4 opciones desde ~$100 USD hasta $1,000 USD. Solo ESP tiene GEN5.
 
@@ -782,6 +815,7 @@ Este ejemplo usa consumo estandar: **4 cajas de Ganocafe AL MES por cliente** (1
 ---
 
 ### COMP_PAQ_02: "Que trae el ESP-1? / Como esta conformado el ESP-1? / Que incluye el paquete Inicial? / Que productos vienen en el ESP-1? / Composicion paquete Inicial / qué productos vienen en el esp1 / cuáles productos trae el ESP-1 / lista de productos ESP-1 / contenido ESP-1 / inventario ESP-1 / qué contiene el inicial / 7 productos del ESP-1"
+**[Índice]:** Qué trae el ESP-1, qué productos vienen en el paquete Inicial, cómo está conformado.
 
 **[Concepto Nuclear]:** 7 productos para conocer el sistema. Ideal para arrancar.
 
@@ -802,6 +836,7 @@ Este ejemplo usa consumo estandar: **4 cajas de Ganocafe AL MES por cliente** (1
 ---
 
 ### COMP_PAQ_03: "Que trae el ESP-2? / Como esta conformado el ESP-2? / Que incluye el paquete Empresarial? / Que productos vienen en el ESP-2? / Composicion paquete Empresarial / qué productos vienen en el esp2 / cuáles productos trae el ESP-2 / lista de productos ESP-2 / contenido ESP-2 / inventario ESP-2 / qué contiene el empresarial / 18 productos del ESP-2"
+**[Índice]:** Qué trae el ESP-2, qué productos vienen en el paquete Empresarial, cómo está conformado.
 
 **[Concepto Nuclear]:** 18 productos. Balance entre inversion y beneficio.
 
@@ -827,6 +862,7 @@ Este ejemplo usa consumo estandar: **4 cajas de Ganocafe AL MES por cliente** (1
 ---
 
 ### COMP_PAQ_04: "Que trae el ESP-3? / Como esta conformado el ESP-3? / Que incluye el paquete Visionario? / Que productos vienen en el ESP-3? / Composicion paquete Visionario / Inventario ESP-3 / qué productos vienen en el esp3 / cuáles productos trae el ESP-3 / lista de productos ESP-3 / contenido ESP-3 / qué contiene el visionario / 35 productos del ESP-3"
+**[Índice]:** Qué trae el ESP-3, qué productos vienen en el paquete Visionario, cómo está conformado.
 
 **[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
 
@@ -861,6 +897,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 ---
 
 ### COMP_PAQ_05: "Que trae el upgrade? / Como subo de paquete? / Que productos me llegan si paso de ESP-1 a ESP-2? / Composicion del upgrade ESP-1 a ESP-3 / Que recibo al mejorar de ESP-2 a ESP-3 / Cuanto cuesta subir de nivel / diferencia de productos entre paquetes / si ya tengo el ESP-1 y quiero el ESP-3 que me llega / productos del upgrade"
+**[Índice]:** Cómo subo de paquete, qué me llega si paso de ESP-1 a ESP-2, en qué consiste el upgrade.
 
 **[Concepto Nuclear]:** Al mejorar de nivel solo paga la diferencia de inversion y recibe los productos que completan el paquete superior. No compra el paquete de nuevo — recibe el faltante.
 
@@ -913,6 +950,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 ## PROGRAMA AUTO ENVIO
 
 ### COMP_AUTO_01: "Que es el programa Auto Envio?"
+**[Índice]:** Qué es el programa de Auto Envío, cómo funciona el pedido automático cada mes.
 
 **[Concepto Nuclear]:** 4 meses consecutivos activo = producto gratis.
 
@@ -937,6 +975,7 @@ El Auto Envio es un programa de lealtad.
 ## GANANCIA POR VENTA DIRECTA
 
 ### COMP_VENTA_01: "Puedo ganar vendiendo productos?"
+**[Índice]:** Puedo ganar vendiendo productos directamente, cuánto me deja la venta al detal, gano por vender.
 
 **[Concepto Nuclear]:** Ganas el diferencial entre precio constructor y precio publico.
 
@@ -952,6 +991,7 @@ El Auto Envio es un programa de lealtad.
 ---
 
 ### COMP_VIP_01: "¿El Cliente VIP también debe comprar un paquete empresarial? / ¿Cuánto cuesta activar un Cliente VIP? / ¿El VIP paga inscripción? / ¿El Cliente VIP debe hacer compras mínimas mensuales?"
+**[Índice]:** El Cliente VIP tiene que comprar un paquete empresarial, cuánto cuesta activarlo, si paga inscripción o recompra mensual.
 
 **[Concepto Nuclear]:** NO. El Cliente VIP activa su código con una compra mínima de 50 PV — sin paquete empresarial. NO requiere compras mínimas mensuales, aunque se sugiere mínimo un producto cada cinco meses.
 

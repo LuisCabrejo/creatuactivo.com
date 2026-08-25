@@ -16,6 +16,7 @@
 ## ESTRATEGIA DE PORTAFOLIO
 
 ### PROD_01: "¿Por qué el café es el producto estrella?"
+**[Índice]:** Por qué el café es el producto estrella, por qué arrancan con café, qué tiene de especial ese producto para el negocio.
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor sobre el producto]**
 **[Concepto Nuclear]:** Penetración Logística sin Fricción. Monetización de un hábito biológico inquebrantable.
 
@@ -26,6 +27,7 @@ La lógica operativa es matemática: en lugar de educar a un cliente para que ad
 ---
 
 ### PROD_02: "¿Por qué los clientes no se van?"
+**[Índice]:** Por qué los clientes no se van, por qué vuelven a pedir, qué hace que se queden consumiendo.
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor]**
 **[Concepto Nuclear]:** Retención Orgánica y Re-consumo Automático.
 
@@ -36,6 +38,7 @@ Una vez que el sistema metabólico del usuario experimenta la diferencia biológ
 ---
 
 ### PROD_03: "¿Y los que no toman café?"
+**[Índice]:** Y los que no toman café qué, si a alguien no le gusta el café qué le ofrezco, hay opciones sin café.
 **[Concepto Nuclear]:** Mercado Invisible. El 15% de hogares no toma café. Cuidado personal los captura.
 
 La línea de cuidado personal abre otra puerta:
@@ -46,6 +49,7 @@ La línea de cuidado personal abre otra puerta:
 ---
 
 ### PROD_04: "¿Cómo funciona el modelo LUVOCO? / el luvoco como negocio / por qué el luvoco conviene para mi canal"
+**[Índice]:** El Luvoco como negocio, por qué conviene la máquina para mi canal, cómo funciona ese modelo.
 **[Concepto Nuclear]:** El Luvoco visto desde el NEGOCIO: la máquina se compra una vez y las cápsulas son las que se repiten — ahí vive la recompra. Se nombra el mecanismo; la experiencia del café está en LUV_00 y la tabla de precios en LUV_01.
 
 Con gusto. El Luvoco funciona al revés de lo que parece: la máquina, que es lo costoso ($1.026.000 COP), se compra una sola vez; lo que se repite son las cápsulas — caja de 15 en $110.900 COP, en tres intensidades.
@@ -57,6 +61,7 @@ Para su canal eso significa que quien ya tiene la máquina vuelve por las cápsu
 ---
 
 ### PROD_05: "¿Cuál es la progresión natural del portafolio?"
+**[Índice]:** Cuál es la progresión natural del portafolio, con qué empieza un cliente y a qué pasa después.
 **[Concepto Nuclear]:** Escalada de Concentración. La lógica de progresión del consumidor es técnicamente predecible.
 
 Una vez que el usuario valida la respuesta biológica a las bebidas funcionales, la transición a suplementos concentrados es consecuencia natural — no requiere persuasión comercial:
@@ -70,6 +75,7 @@ Una vez que el usuario valida la respuesta biológica a las bebidas funcionales,
 ## RESPALDO CIENTÍFICO
 
 ### CIENCIA_01: "¿Qué es el Ganoderma Lucidum?" / "¿Qué es el Ganoderma?" / "¿De qué es el hongo?"
+**[Índice]:** Qué es el Ganoderma Lucidum, qué es ese hongo, de qué está hecho lo que venden.
 **[Concepto Nuclear]:** Quien pregunta qué es el Ganoderma está midiendo si esto es serio. El eje de la respuesta es **la absorción**: tener el ingrediente no basta, el cuerpo tiene que poder asimilarlo — y ahí es donde Gano Excel se separa del hongo molido que vende cualquiera. La prueba es observable en la taza (se disuelve completo), no citada. ⚠️ El respaldo del proceso se nombra en AFIRMATIVO —**secreto industrial**, protección indefinida— sin explicar la mecánica legal de las patentes: es ruido cognitivo y desvía del beneficio. ⚠️ **La composición se nombra; la función se atribuye solo al conjunto.** Nada de estudios, revistas ni rutas biológicas: la evidencia verificable —fundador con nombre y año, seis variedades, hidrosolubilidad— vence a cualquier paper. El detalle del proceso (sustrato de corteza de caucho, CO2 supercrítico, cultivo de tejidos) vive en CIENCIA_04 y se entrega solo si preguntan cómo lo hacen.
 
 Con gusto. El Ganoderma lucidum es un hongo reconocido por sus compuestos bioactivos, que apoyan el sistema inmune y el equilibrio del cuerpo. Pero no basta con tener el ingrediente: el cuerpo tiene que poder absorberlo.
@@ -82,6 +88,7 @@ El resultado es un extracto 100% hidrosoluble: se disuelve por completo en la ta
 ---
 
 ### CIENCIA_02: "¿Cuáles son los compuestos activos?" / "¿Qué tiene el Ganoderma?"
+**[Índice]:** Qué compuestos activos tiene el Ganoderma, qué contiene, cuáles son sus componentes.
 **[Concepto Nuclear]:** Quien pregunta por "compuestos activos" viene con cabeza de farmacia, buscando la molécula que produce el efecto. La respuesta **le cambia el marco**: no hay compuesto estrella, hay familias — y ese es justamente el criterio de Gano Excel (no aislar, conservar el conjunto). ⚠️ **Este fragmento NO repite el argumento de la absorción**, que es de CIENCIA_01: aquí se remata en las seis variedades como decisión de composición. ⚠️ La función se nombra **en conjunto y en afirmativo** ("juntos apoyan el sistema inmune") — nunca colgada a un compuesto individual, que es el patrón que producía declaraciones de propiedades. ⚠️ La cifra se enuncia siempre igual: **más de doscientas variantes de triterpenos identificadas en el hongo**. Es un dato de composición, y esa es la única forma en que se dice — las categorías nutricionales están reguladas y exigen tabla nutricional que las respalde.
 
 Con gusto. En el Ganoderma no hay un compuesto estrella. Hay dos familias, y cientos de moléculas dentro de ellas.
@@ -94,6 +101,7 @@ Y ese es el criterio de Gano Excel: no aislar una molécula y multiplicarla, sin
 ---
 
 ### CIENCIA_03: "¿Qué beneficios tiene?" / "¿Qué se siente al tomarlo?" / "¿Cuáles son los beneficios?"
+**[Índice]:** Qué beneficios tiene, qué se siente al tomarlo, para qué sirve, qué cambios se notan.
 **[Concepto Nuclear]:** El eje es **el tiempo**, y ahí está la división de trabajo con BEB_02: aquella responde qué pasa en la taza; esta, qué pasa con la rutina. ⚠️ **No prometer efecto inmediato completo** — el propio catálogo dice que se acumula, y prometer inmediatez decepciona a quien ya compró. El remate convierte esa lentitud en la razón de compra ("la diferencia entre un empujón y un hábito"). ⚠️ La única función que se nombra es **"apoya el funcionamiento normal de sus defensas"**, que es la formulación que los reguladores aceptan literalmente. Cero estudios, cero revistas, cero biomarcadores. ⚠️ La pregunta de cierre **NO pide un objetivo de salud** ("¿qué quiere priorizar?"): eso es pedirle a la persona que declare una condición.
 
 Con gusto. Lo primero se nota en la taza misma: energía pareja, sin el bajón de media mañana. Eso desde el primer día.
@@ -108,6 +116,7 @@ Es la diferencia entre un empujón y un hábito.
 ---
 
 ### CIENCIA_04: "¿Qué hace diferente a Gano Excel?"
+**[Índice]:** Qué hace diferente a Gano Excel de otras marcas, por qué su producto no es igual al de la tienda.
 **[Concepto Nuclear]:** Híbrido único de 6 variedades + extracto 100% hidrosoluble. Secreto industrial (no patentes públicas, protección indefinida).
 
 **Origen único (el hongo):**
@@ -125,6 +134,7 @@ En el mercado abundan productos con Ganoderma en polvo, de biodisponibilidad lim
 ---
 
 ### CIENCIA_05: "¿Quién fundó Gano Excel?"
+**[Índice]:** Quién fundó Gano Excel, quién está detrás de la empresa, de dónde salió la compañía.
 **[Concepto Nuclear]:** Dr. Leow Soon Seng. Micólogo malasio. Investigador desde 1983.
 
 **Credenciales:**
@@ -144,6 +154,7 @@ En el mercado abundan productos con Ganoderma en polvo, de biodisponibilidad lim
 ---
 
 ### PROD_OVERVIEW: "¿Cómo se estructura el portafolio? / ¿Cuáles son las categorías de productos? / ¿Qué tipo de productos tienen? / ¿Cuál es el producto? / vista general del portafolio / dame un resumen de los productos"
+**[Índice]:** Cómo se estructura el portafolio, cuáles son las categorías, qué tipo de productos tienen, el catálogo completo con precios.
 **[Concepto Nuclear]:** Vista global del portafolio. **El portafolio se estructura en CUATRO categorías, y las cuatro se nombran siempre juntas: Bebidas, LUVOCO, Suplementos y Cuidado Personal.**
 
 <verbatim_lock>
@@ -171,6 +182,7 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 ## CATEGORÍA 1: BEBIDAS FUNCIONALES
 
 ### BEB_01: "¿Cuáles son los cafés disponibles? / ¿Cuáles son sus bebidas? / ¿Qué productos tienen? / Háblame de los productos / ¿Cuáles son los productos?"
+**[Índice]:** Cuáles son las bebidas y los cafés disponibles, qué productos tienen, la lista de bebidas con precios.
 **[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **Los únicos productos de bebidas son los 9 de esta tabla**, con estos nombres exactos: el té es Oleaf Gano Rooibos, el chocolate es Gano Schokolade y el café puro es Ganocafé Clásico.
 
 <verbatim_lock>
@@ -193,6 +205,7 @@ La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — t
 ---
 
 ### BEB_02: "¿Para qué sirve el Ganocafé 3en1?" / "¿Qué beneficios tiene el Ganocafé?" / "¿Para qué sirve el café 3 en 1?" / "¿Para qué sirve el ganocafé?"
+**[Índice]:** Para qué sirve el Ganocafé 3en1, qué beneficios tiene el café 3 en 1, cuánto cuesta.
 **[Concepto Nuclear]:** El villano es **la energía prestada**: el café común la entrega a las siete y la cobra a las once, y los intereses son los nervios y el estómago. Marco financiero — el registro sube tomando prestado el léxico de las finanzas, no el del gremio. ⚠️ **El villano se puede pintar con crudeza porque es el café corriente, no nuestro producto**; lo nuestro se afirma siempre como AUSENCIA de ese costo, nunca como una acción del producto sobre un órgano del lector: describir lo que no ocurre es la fórmula segura, y atribuirle al producto un efecto corporal es una declaración de propiedad. ⚠️ "Amortigua la cafeína" es la formulación del propio fabricante. ⚠️ **El cuarto ingrediente** es el remate: el nombre promete tres (café, crema no láctea, azúcar) y el valor está en el que no cabe en el nombre. ⚠️ NO comparar el precio con "el café de la esquina" — en Colombia hay tinto de $1.000 y el dato se lee como mentira.
 
 Con gusto. El café común no le da energía: se la presta. Y le cobra intereses — los nervios alterados y el estómago resentido a media mañana.
@@ -209,6 +222,7 @@ La caja trae 20 sobres —uno cada mañana, le alcanza para veinte— y cuesta $
 ---
 
 ### BEB_03: "¿El Ganocafé tiene cafeína?" / "¿Cuánta cafeína tiene?"
+**[Índice]:** El Ganocafé tiene cafeína, cuánta cafeína trae, me va a quitar el sueño.
 **[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
 **[Concepto Nuclear]:** Sí tiene cafeína, pero en proporción controlada — 13 veces menor que el café convencional.
 
@@ -221,6 +235,7 @@ El resultado práctico: puede tomar su café en la mañana y no sentir la sobree
 ---
 
 ### BEB_04: "¿Tienen algún té? / háblame del té / ¿qué es el Rooibos? / té con Ganoderma / bebida sin cafeína"
+**[Índice]:** Tienen té, qué es el Rooibos, té con Ganoderma, una bebida sin cafeína.
 **[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
 **[Concepto Nuclear]:** Oleaf Gano Rooibos — el único té de la línea. Sin cafeína. Ideal para quienes no toman café.
 
@@ -238,6 +253,7 @@ El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el
 ---
 
 ### BEB_05: "¿Tienen cereal? / háblame del Gano C'Real / ¿qué es la spirulina? / Gano cereal / bebida con spirulina"
+**[Índice]:** Tienen cereal, qué es el Gano C'Real, la bebida con spirulina, el cereal de ustedes.
 **[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
 **[Concepto Nuclear]:** Gano C'Real Spirulina — el "cereal" funcional de la línea. Spirulina + Ganoderma. El desayuno inteligente.
 
@@ -253,6 +269,7 @@ Personas activas, deportistas o quienes quieren un desayuno funcional sin recurr
 ---
 
 ### BEB_06: "¿Qué es el Reskine? / ¿Cuánto cuesta el Reskine? / ¿Para qué sirve el Reskine Colágeno? / precio del colágeno / bebida de colágeno"
+**[Índice]:** Qué es el Reskine, para qué sirve el colágeno, cuánto cuesta la bebida de colágeno.
 **[Concepto Nuclear]:** El villano del colágeno **no es la duda, es el abandono**: nadie lo deja porque no crea en él, lo deja porque sabe feo. Por eso el eje es la bebida — el que uno se toma es el que sirve. ⚠️ **La composición se transcribe de la ficha oficial del fabricante** (ganoexcel.com.co/producto/colageno) y de ninguna otra fuente: una versión anterior de este catálogo listaba ingredientes que la fuente oficial no respalda (auditoría 17 ago 2026). ⚠️ El producto está registrado en la categoría **Alimentos**, no como suplemento dietario: las declaraciones aprobadas para colágeno por la Sala Especializada de Suplementos Dietarios del INVIMA **no se citan aquí** hasta verificar que apliquen a esa categoría. ⚠️ La lista de ingredientes es una **lista de presencias** y vende sola: goji, aloe, espinaca y quinua suman valor sin que haya que prometer nada.
 
 Con gusto. Casi todos los colágenos del mercado son un polvo sin sabor que toca pasar rápido con agua. El Reskine es una bebida de frutos rojos — y esa diferencia decide si usted sigue tomándolo en tres meses o lo deja en el gabinete.
@@ -267,6 +284,7 @@ Es la única forma de tomar colágeno en la que uno espera con ganas el momento 
 ---
 
 ### BEB_07: "¿Para qué sirve el Ganocafé Clásico? / ¿Qué es el Ganocafé Classic? / háblame del café negro / el clásico / el tinto de ustedes / café puro con ganoderma"
+**[Índice]:** Para qué sirve el Ganocafé Clásico, el café negro, el tinto, el Classic, cuánto cuesta.
 **[Concepto Nuclear]:** El purista NO quiere que le mejoren el café: quiere el suyo, y que nadie le meta crema ni azúcar. El argumento es la FIDELIDAD al tinto, no la mejora. ⚠️ Se diferencia del 3 en 1 nombrando lo que cada uno es, sin decir que uno sea mejor. ⚠️ La caja de 30 rinde un mes — dato objetivo, y el único lugar donde comparar con su hermano es legítimo porque los dos son nuestros.
 
 Con gusto. El Clásico es para quien toma el tinto negro y no lo negocia: café soluble puro, sin crema y sin azúcar, con el extracto de Ganoderma adentro.
@@ -280,6 +298,7 @@ Un sobre de 4,5 gramos en 150 ml de agua caliente. La caja trae 30 —un mes com
 ---
 
 ### BEB_08: "¿Qué es el Latte Rico? / háblame del latte / el café con leche / ganorico latte / late rico"
+**[Índice]:** Qué es el Latte Rico, el café con leche, ganorico latte, cuánto cuesta.
 **[Concepto Nuclear]:** El argumento es la PAUSA, no la nutrición: es el café que uno se toma para parar un momento. ⚠️ **No lleva endulzante** — dato del fabricante y el más vendedor hoy, porque el dulce viene de la leche. ⚠️ Se nombra la experiencia de cafetería, que es lo que la persona compra.
 
 Con gusto. El Latte Rico es el de la pausa: café con leche y esa espuma que uno espera de una cafetería, armado en la taza con agua caliente.
@@ -293,6 +312,7 @@ Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $119.900 COP.
 ---
 
 ### BEB_09: "¿Qué es el Mocha Rico? / háblame del mocha / moka / el de café con chocolate / ganorico mocha"
+**[Índice]:** Qué es el Mocha Rico, el moka, el de café con chocolate, cuánto cuesta.
 **[Concepto Nuclear]:** Es el ANTOJO resuelto: quien quiere algo dulce a media tarde y no quiere una gaseosa ni un pastel. Café y cacao en el mismo sobre. ⚠️ Esta respuesta vive en el sabor y en el momento del día: la merienda, el antojo, el café y el cacao en el mismo sobre. Ahí se queda.
 
 Con gusto. El Mocha Rico es café y chocolate en el mismo sobre — para esa hora de la tarde en que uno quiere algo dulce y no quiere pensarlo mucho.
@@ -306,6 +326,7 @@ Un sobre de 25 gramos en 180 ml de agua caliente. La caja trae 20 y cuesta $119.
 ---
 
 ### BEB_10: "¿Qué es el Shoko Rico? / háblame del chocolate / el de los niños / choko rico / chocolate caliente"
+**[Índice]:** Qué es el Shoko Rico, el chocolate caliente, el que les gusta a los niños, cuánto cuesta.
 **[Concepto Nuclear]:** Es el producto de la CASA: el que se toma en familia y el que los niños piden. Sin café — dato importante, porque es lo primero que pregunta una madre. ⚠️ Nada sobre desarrollo, huesos ni crecimiento: la ficha del catálogo web lo dice y es una declaración prohibida.
 
 Con gusto. El Shoko Rico es el chocolate caliente de la casa — el que se prepara en la noche y el que piden los niños. No lleva café, así que no altera a nadie.
@@ -319,6 +340,7 @@ Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $124.900 COP.
 ---
 
 ### BEB_11: "¿Qué es el Gano Schokolade? / el chocolate suizo / schokoladde / chocolate premium / el chocolate caro"
+**[Índice]:** Qué es el Gano Schokolade, el chocolate suizo, el chocolate premium, cuánto cuesta.
 **[Concepto Nuclear]:** Es el CHOCOLATE DEL ADULTO: cacao suizo, tres ingredientes, sin leche. Se distingue del Shoko Rico —que es el familiar— por su carácter, no por su calidad. ⚠️ Es la bebida de mayor precio de las de sobre, y eso se sostiene con la procedencia del cacao, no con adjetivos.
 
 Con gusto. El Schokolade es el chocolate del adulto: cacao suizo puro, sin leche, con el extracto de Ganoderma adentro. Tres ingredientes y nada más.
@@ -334,6 +356,7 @@ Un sobre en agua caliente. La caja trae 20 y cuesta $124.900 COP.
 ## CATEGORÍA 2: LÍNEA LUVOCO
 
 ### LUV_00: "¿Qué tiene de especial el café Luvoco? / beneficios del café luvoco / el café luvoco / háblame del luvoco / por qué luvoco / qué tal es el luvoco / cómo es el café de la máquina"
+**[Índice]:** Qué tiene de especial el café Luvoco, por qué ese café es distinto, beneficios del Luvoco.
 **[Concepto Nuclear]:** El Luvoco se vende como EXPERIENCIA de espresso, no como ficha técnica: la máquina hace el trabajo que ningún adjetivo hace. Las tres intensidades se eligen por paladar, como en una cafetería. ⚠️ Fragmento corto a propósito: es la puerta de la pregunta genérica por el Luvoco; la tabla de precios vive en LUV_01 y cada cápsula en LUV_02–04. Hechos del fabricante (luvoco.ganoexcel.com.co): café molido tostado infundido con betaglucanos de Ganoderma lucidum, granos seleccionados, 8 g por cápsula.
 
 Con gusto. El Luvoco es el espresso de la casa: una máquina italiana de 15 bares y cápsulas propias de café molido tostado, infundido con los betaglucanos del Ganoderma de toda la línea.
@@ -347,6 +370,7 @@ La máquina se compra una vez; las cápsulas son las que se repiten.
 ---
 
 ### LUV_01: "¿Qué es el sistema LUVOCO? / ¿Cuánto cuesta la máquina LUVOCO? / ¿Qué cápsulas hay?"
+**[Índice]:** Qué es el sistema Luvoco, cuánto cuesta la máquina, qué cápsulas hay y sus precios.
 **[Concepto Nuclear]:** Ecosistema Cerrado de Consumo Recurrente. Terminal italiana de precisión + insumo exclusivo propietario.
 
 <verbatim_lock>
@@ -365,6 +389,7 @@ Las cápsulas son exclusivas para la máquina LUVOCO — no compatibles con Nesp
 ---
 
 ### LUV_02: "¿Qué es el Luvoco Suave? / cápsulas suaves / la cápsula suave / luvoco suave cuánto cuesta"
+**[Índice]:** Qué es el Luvoco Suave, la cápsula suave, cuánto cuesta.
 **[Concepto Nuclear]:** Las tres intensidades son la MISMA decisión que uno toma en una cafetería, y así se explican: por paladar, no por calidad. La Suave es la de las visitas. ⚠️ Requiere la máquina — se dice siempre, porque comprar cápsulas sin máquina es una decepción cara.
 
 Con gusto. La Suave es la más ligera de las tres intensidades del sistema Luvoco: café tostado suave, para quien toma el café sin que le pese.
@@ -378,6 +403,7 @@ Caja de 15 cápsulas, $110.900 COP.
 ---
 
 ### LUV_03: "¿Qué es el Luvoco Medio? / cápsulas medias / la cápsula media / luvoco medio cuánto cuesta"
+**[Índice]:** Qué es el Luvoco Medio, la cápsula media, cuánto cuesta.
 **[Concepto Nuclear]:** La del medio es la de TODOS LOS DÍAS, y esa es su razón de compra: la que no cansa. Se explica por el paladar, nunca por rendimiento mental.
 
 Con gusto. La Media es la del diario: ni tan ligera que se pierda, ni tan intensa que canse a la tercera taza.
@@ -391,6 +417,7 @@ Caja de 15 cápsulas, $110.900 COP.
 ---
 
 ### LUV_04: "¿Qué es el Luvoco Fuerte? / cápsulas fuertes / la cápsula fuerte / el más cargado / luvoco fuerte cuánto cuesta"
+**[Índice]:** Qué es el Luvoco Fuerte, la cápsula fuerte, la más cargada, cuánto cuesta.
 **[Concepto Nuclear]:** La Fuerte es para el que ya sabe lo que quiere: tostado alto y cuerpo. Se nombra el carácter del café, no un efecto sobre la persona.
 
 Con gusto. La Fuerte es el tostado alto: cuerpo denso y ese amargo redondo que busca quien lleva años tomando café y ya sabe lo que quiere.
@@ -406,6 +433,7 @@ Caja de 15 cápsulas, $110.900 COP.
 ## CATEGORÍA 3: SUPLEMENTOS AVANZADOS
 
 ### SUP_01: "¿Cuáles son los suplementos? / ¿Tienen suplementos dietarios? / ¿Qué cápsulas hay? / suplementos concentrados / suplemento dietario"
+**[Índice]:** Cuáles son los suplementos, qué cápsulas hay, los suplementos dietarios con sus precios.
 **[Concepto Nuclear]:** Concentrados en cápsula, sin dilución. **Es una de las 4 categorías del portafolio y se lista siempre junto a las otras tres.** Los tres nombres exactos son Cápsulas Ganoderma, Cápsulas Excellium y Cápsulas Cordygold.
 
 <verbatim_lock>
@@ -425,6 +453,7 @@ Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional d
 ## CATEGORÍA 4: CUIDADO PERSONAL
 
 ### PERS_01: "¿Qué productos hay para cuidado personal? / ¿Tienen jabón? / ¿Tienen pasta de dientes? / ¿Tienen shampoo? / cuidado personal"
+**[Índice]:** Qué hay para cuidado personal, tienen jabón, pasta de dientes o shampoo, la línea de aseo con precios.
 **[Concepto Nuclear]:** Mercado Invisible. Captura hogares sin café. Consumo obligatorio diario.
 
 <verbatim_lock>
@@ -443,6 +472,7 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 ---
 
 ### PERS_02: "¿Qué es el Gano Fresh? / la pasta de dientes / crema dental / pasta dental de ustedes / cuánto cuesta la pasta"
+**[Índice]:** Qué es el Gano Fresh, la crema dental, la pasta de dientes, cuánto cuesta.
 **[Concepto Nuclear]:** El argumento es SIN FLÚOR, que es la razón por la que una familia la busca, más el hecho de que el Ganoderma llegue hasta el cepillo. ⚠️ Nada sobre encías, caries ni sensibilidad: son condiciones y las cubre la línea roja. El registro es cosmético (NSOC), no sanitario de alimento.
 
 Con gusto. El Gano Fresh es la pasta dental de la línea, y lo que la distingue es lo que no lleva: no tiene flúor. Es la razón por la que la buscan las familias que revisan las etiquetas.
@@ -456,6 +486,7 @@ Cuesta $73.900 COP.
 ---
 
 ### PERS_03: "¿Qué es el Jabón Gano? / el jabón / jabón de ganoderma / jabón de leche de cabra / cuánto cuesta el jabón"
+**[Índice]:** Qué es el Jabón Gano, el jabón de leche de cabra, cuánto cuesta el jabón.
 **[Concepto Nuclear]:** El argumento es SENSORIAL y se comprueba el primer día: la piel sin tirantez. La leche de cabra es el ingrediente que la gente reconoce y valora. ⚠️ El vocabulario correcto es el del TIPO de piel —delicada, sensible— y el de la sensación al usarlo.
 
 Con gusto. El Jabón Gano es artesanal, con leche de cabra y extracto de Ganoderma, y la diferencia se nota al primer uso: la piel queda suave en vez de con esa tirantez que dejan los jabones que resecan.
@@ -469,6 +500,7 @@ Cuesta $73.900 COP.
 ---
 
 ### PERS_04: "¿Qué es el jabón transparente? / transparent soap / el jabón de papaya / jabón facial / el jabón de la cara"
+**[Índice]:** Qué es el jabón transparente, el jabón de papaya, el jabón para la cara, cuánto cuesta.
 **[Concepto Nuclear]:** Es el jabón DE LA CARA, y ahí está su diferencia con el Jabón Gano, que es de cuerpo. Papaya y aloe son los ingredientes que la persona reconoce. ⚠️ Nada de manchas, acné ni aclarar: son condiciones y promesas de resultado.
 
 Con gusto. El Transparente es el de la cara — ahí está su diferencia con el Jabón Gano, que es de cuerpo. Lleva papaya y aloe vera junto al extracto de Ganoderma.
@@ -482,6 +514,7 @@ Cuesta $78.500 COP.
 ---
 
 ### PERS_05: "¿Qué es el champú Piel&Brillo? / el shampoo / shampoo de ustedes / champu / cuánto cuesta el shampoo"
+**[Índice]:** Qué es el champú Piel y Brillo, el shampoo de ustedes, cuánto cuesta.
 **[Concepto Nuclear]:** El argumento es el BRILLO, que se ve; no la caída ni el crecimiento, que son terreno prohibido. Forma sistema con el acondicionador, y decirlo es honesto además de vendedor. ⚠️ 'Cabello dañado' de la ficha web se cambia por el cabello que perdió brillo — descriptivo, no diagnóstico.
 
 Con gusto. El champú Piel&Brillo es para el cabello que perdió el brillo y se ve opaco. Limpia con agentes suaves y pH balanceado, sin dejarlo áspero.
@@ -495,6 +528,7 @@ Cuesta $73.900 COP.
 ---
 
 ### PERS_06: "¿Qué es el acondicionador Piel&Brillo? / el acondicionador / acondicionador de ustedes / cuánto cuesta el acondicionador"
+**[Índice]:** Qué es el acondicionador Piel y Brillo, el acondicionador de ustedes, cuánto cuesta.
 **[Concepto Nuclear]:** Su razón de ser es el PAR con el champú — se vende de a dos y así se explica. El argumento es el desenredo, que se comprueba al salir de la ducha.
 
 Con gusto. El acondicionador Piel&Brillo es la segunda mitad del par: el champú limpia y este cierra, para que el pelo se desenrede solo al salir de la ducha.
@@ -508,6 +542,7 @@ Cuesta $73.900 COP.
 ---
 
 ### PERS_07: "¿Qué es el exfoliante? / exfoliante corporal / scrub / el exfoliante de ustedes / cuánto cuesta el exfoliante"
+**[Índice]:** Qué es el exfoliante corporal, el scrub, cuánto cuesta el exfoliante.
 **[Concepto Nuclear]:** El argumento es la TEXTURA de la piel después, que se siente el mismo día. Dos o tres veces por semana — dato que evita el mal uso. ⚠️ 'Renovación celular' de la ficha web es un mecanismo biológico y NO entra.
 
 Con gusto. El exfoliante corporal Piel&Brillo lleva partículas naturales y aceites que hidratan mientras retiran lo que la ducha diaria no se lleva.
@@ -523,6 +558,7 @@ Cuesta $73.900 COP.
 ## PREGUNTAS FRECUENTES
 
 ### SUP_02: "¿Qué es el CordyGold? / ¿Para qué sirve el Cordygold? / ¿Cuánto cuesta el CordyGold? / cápsulas de cordyceps / cordigold / cordygol"
+**[Índice]:** Qué es el CordyGold, para qué sirven las cápsulas de cordyceps, cuánto cuesta.
 **[Concepto Nuclear]:** Es el **único producto de la línea cuyo ingrediente principal no es el Ganoderma**, y ese es justamente su argumento: quien ya toma el café busca algo distinto, no más de lo mismo. La ficha oficial del fabricante declara **Cordyceps sinensis, 500 mg por cápsula** — la concentración por cápsula más alta del portafolio. ⚠️ El posicionamiento es de **rendimiento físico y resistencia**, que es el terreno donde la categoría entera ubica al Cordyceps; se nombra como apoyo, nunca como efecto garantizado, y sin plazos. ⚠️ Vivía dentro de la tabla de SUP_01 y no tenía puerta propia: preguntar por él recuperaba el plan de compensación (medido 17 ago 2026).
 
 Con gusto. El CordyGold es el único de la línea que no gira alrededor del Ganoderma: su ingrediente es el **Cordyceps sinensis**, 500 mg por cápsula — la concentración más alta de todo el portafolio.
@@ -536,6 +572,7 @@ Viene en frasco de 90 cápsulas, una al día, y cuesta $336.900 COP.
 ---
 
 ### SUP_03: "¿Qué son las Cápsulas de Ganoderma? / ¿Para qué sirven las cápsulas de ganoderma? / ganoderma en cápsulas / el ganoderma puro / cuánto cuestan las cápsulas de ganoderma"
+**[Índice]:** Qué son las cápsulas de Ganoderma, para qué sirven, el ganoderma en cápsulas, cuánto cuesta.
 **[Concepto Nuclear]:** Es el Ganoderma SIN el café de por medio — la razón de compra es la vía, no un efecto. Dos públicos: quien ya toma el café y quiere sumar, y quien no toma café. ⚠️ **Una cápsula al día** (confirmado por el Director, 20 ago 2026): la ficha del catálogo web decía dos y con eso el frasco duraría mes y medio, no tres. ⚠️ Nada de defensas, células ni circulación — los beneficios del catálogo web cruzan la línea.
 
 Con gusto. Las Cápsulas de Ganoderma son el extracto concentrado, sin café de por medio: el mismo hongo que lleva toda la línea, en su forma más directa.
@@ -549,6 +586,7 @@ Frasco de 90 cápsulas, una al día —tres meses— y cuesta $272.500 COP.
 ---
 
 ### SUP_04: "¿Qué es el Excellium? / ¿Para qué sirve el Excellium? / excelium / exelium / cápsulas de micelio / cuánto cuesta el excellium"
+**[Índice]:** Qué es el Excellium, para qué sirven las cápsulas de micelio, cuánto cuesta.
 **[Concepto Nuclear]:** Lo que lo distingue es la PARTE del hongo: micelio joven, no el cuerpo maduro que llevan las otras cápsulas. Ese es el dato del fabricante y es verificable. ⚠️ El terreno es la claridad mental y el enfoque —vocabulario verde, el que usa el propio fabricante—, dicho como lo que la gente busca, nunca como efecto garantizado. ⚠️ NUNCA 'tónico cerebral' ni memoria: nombra un órgano y una función.
 
 Con gusto. El Excellium se distingue por la parte del hongo que lleva: el micelio joven del Ganoderma, no el cuerpo maduro que llevan las otras cápsulas.
@@ -562,6 +600,7 @@ Frasco de 90 cápsulas, una al día, y cuesta $272.500 COP.
 ---
 
 ### FAQ_05: "¿Cuánto dura una caja? / ¿Cuántos sobres trae? / ¿Para cuánto alcanza? / ¿Cuánto rinde? / ¿Cuánto me dura?"
+**[Índice]:** Cuánto dura una caja, cuántos sobres trae, para cuánto alcanza, cuánto rinde, cuánto me dura.
 **[Concepto Nuclear]:** Pregunta de rendimiento, y quien la hace **está calculando el gasto mensual antes de comprar** — o sea que está cerca. Se responde con las cifras y sin argumentar; el precio se ofrece al final, cuando ya sabe cuánto le rinde. ⚠️ **El fragmento se mantiene CORTO a propósito**: la consulta es breve y genérica, así que un texto largo diluye la señal del vector y la pregunta termina en otro arsenal — fue lo que pasó hasta el 17 ago 2026, cuando "cuánto dura una caja" recuperaba el plan de compensación. Las presentaciones salen del back office; si cambian allá, cambian aquí.
 
 Con gusto. Las bebidas vienen en cajas de sobres individuales: la mayoría trae 20 —uno cada mañana, veinte mañanas—, el Ganocafé Clásico trae 30, el Gano C'Real 15 y el Reskine 10.
@@ -573,6 +612,7 @@ Los suplementos vienen en frascos de 90 cápsulas, una al día: le rinden tres m
 ---
 
 ### FAQ_01: "¿Es seguro el consumo diario?"
+**[Índice]:** Es seguro tomarlo todos los días, hace daño el consumo diario, tiene contraindicaciones.
 **[Concepto Nuclear]:** 2,000 años de uso. Perfil de seguridad excelente.
 
 Ganoderma tiene seguridad documentada:
@@ -587,6 +627,7 @@ Ganoderma tiene seguridad documentada:
 ---
 
 ### FAQ_02: "¿Cuánto tiempo para notar beneficios?"
+**[Índice]:** En cuánto tiempo se notan los cambios, cuánto hay que tomarlo para sentir algo.
 **[Concepto Nuclear]:** Acumulación Metabólica vs. Estimulación Artificial.
 
 La tecnología de bioactivación del Ganoderma no funciona bajo el mecanismo de los estimulantes artificiales que generan picos agudos y caídas de energía. Trabaja mediante acumulación metabólica.
@@ -602,6 +643,7 @@ Los beneficios biológicos se acumulan y consolidan mediante el consumo consiste
 ---
 
 ### FAQ_03: "¿Puedo combinar productos?"
+**[Índice]:** Puedo combinar productos, se pueden tomar juntos, hay problema si mezclo.
 **[Concepto Nuclear]:** Efecto sinérgico. Combinar potencia resultados.
 
 **Combinaciones por objetivo:**
@@ -616,6 +658,7 @@ Los beneficios biológicos se acumulan y consolidan mediante el consumo consiste
 ---
 
 ### FAQ_04: "¿Qué producto sugiere por perfil de usuario?"
+**[Índice]:** Qué producto me recomienda según mi caso, cuál me sirve a mí, qué le doy a cada tipo de persona.
 **[Concepto Nuclear]:** Productos para cada estilo de vida.
 
 | Perfil | Productos |

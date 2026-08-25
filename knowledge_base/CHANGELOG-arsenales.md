@@ -173,6 +173,21 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.98 — La migración a índices se completa en los cinco arsenales (25 ago 2026)
+
+`arsenal_12_niveles` (14), `arsenal_compensacion` (40) y `catalogo_productos` (43) ganan su `[Índice]`. Con los 58 de `arsenal_inicial` y los 16 de `arsenal_avanzado`, son **519 fragmentos indexados en los tres tenants**, con cero doctrina servida.
+
+**Y la asimetría desaparece.** Mientras solo dos arsenales tenían índice, sus vectores cortos ganaban casi siempre; el clasificador pasa a **58/58**, limpio por primera vez.
+
+⚠️ **El top-1 baja de 38/40 a 36/40 y eso es correcto, no una regresión.** Ahora los 177 fragmentos compiten en igualdad, así que el número de antes estaba inflado por competidores desafilados. **El top-3 se mantiene en 40/40**, que es lo que decide: el motor entrega tres.
+
+⚠️ **De las cuatro que no ganan el primer puesto, tres no son errores.** *«Tengo que comprar todos los meses»* la gana `INV_04`, cuyo disparador literal es *¿todos los meses debo hacer recompra?*; *«cuál es mi trabajo día a día»* la gana `METH_01`, que responde *qué tengo que hacer exactamente*. Ninguna lleva candado, así que el fragmento esperado llega igual al modelo.
+
+⚠️ **El único defecto real se corrigió: `COMP_BIN_05` lleva candado** y le robaba *«quién me paga a mí»* a WHY_04 — servida sola, respondía *cuándo* a quien preguntaba *quién*. Su índice se ancló al calendario y el de WHY_04 pasa a abrir con *«quién me paga a mí»*. **Regla que confirma: un índice con candado hay que vigilarlo distinto**, porque cuando gana descarta a los demás.
+
+⚠️ **Y otra negación propia, cazada al medir:** el índice de WHY_04 terminaba en *«la fuente, no la fecha»* — nombrando el territorio del competidor dentro del índice. Tercera vez en la sesión que el mismo error aparece un nivel más abajo.
+
+
 ### v5.97 — Nace FREQ_34: las nueve oficinas con dirección exacta (25 ago 2026)
 
 **El arsenal invitaba a comprobar algo que no podía sostener.** FREQ_13 usa las oficinas como prueba de legalidad y cierra con *«usted puede entrar a cualquiera»*; FREQ_07 y FREQ_33 también las mencionan. Pero el corpus solo tenía las **ciudades** — ninguna dirección, en ningún arsenal. Si alguien preguntaba *«¿dónde queda la de Cali?»*, el modelo no tenía con qué responder, que es exactamente la condición en la que improvisa.

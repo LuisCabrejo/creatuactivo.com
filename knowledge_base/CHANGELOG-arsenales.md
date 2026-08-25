@@ -173,6 +173,22 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.95 — FREQ_20 aísla la variable en vez de usar un espantapájaros (25 ago 2026)
+
+**El ejemplo anterior no le pasa a nadie.** *«Mil clientes y ninguno compra da cero»* es cierto y es inútil: nadie tiene mil clientes que no compran, y quien examina el argumento lo nota. Servía con el que no lo examinaba.
+
+**El nuevo aísla la variable** (idea del Director): deja fijas las personas —mil en los dos casos— y mueve solo el producto. *«Usted puede tener mil clientes que piden poco, o mil que piden cuatro veces más. Las mismas personas, y un ingreso que no se parece.»* El lector saca la conclusión solo, que es lo que hace que se la crea.
+
+⚠️ **El múltiplo se le pega al PRODUCTO, no a la comisión.** Cuatro veces más producto es aritmética indiscutible; afirmar cuatro veces más comisión comprometería una mecánica que el Binario complica, porque paga sobre puntos emparejados. *Un ingreso que no se parece* dice la relación sin comprometer el múltiplo.
+
+⚠️ **Sin unidad de empaque.** La primera versión contaba cajas, y el catálogo tiene máquinas y suplementos. Se mide en *producto que se mueve*, que además es el verbo canónico de WHY_02.
+
+⚠️ **Y se nombran las dos vías del movimiento** — consumo recurrente y paquetes empresariales—, porque un ejemplo que solo cuenta consumo deja fuera la mitad. **Que el paquete genere más comisión se DEDUCE del primer párrafo y no se afirma:** dicho, pone el GEN5 por encima del Binario justo en el remate, que es el encuadre retirado el 9 ago.
+
+⚠️ **Lo que se decidió no decir:** que una organización con diez distribuidores mueve más que una red de cien clientes. Es el argumento más potente y también el que más rápido dibuja la escalera de gente (decisión del Director).
+
+⚠️ **Redacción:** la versión intermedia decía *«dos canales con mil clientes cada uno no le dejan lo mismo si en uno se mueve cuatro veces más producto»* y el Director tuvo que descifrarla. Apilaba una negación y una condicional antes del resultado, y su sujeto —*dos canales*— es una abstracción. La versión final pone al lector en la escena y deja el resultado al final.
+
 ### v5.94 — FREQ_20 habla como una empresa, no como un multinivel (25 ago 2026)
 
 **La unidad pasa a ser el cliente.** Decía *«si en su canal se registran mil y ninguno compra»*, y **registrado es vocabulario del multinivel** — nombra a alguien por el acto de inscribirlo, no por lo que hace. Usarlo justo en la respuesta que niega el multinivel se lo confirma al que vino a sospechar. Ahora dice *«si en su canal hay mil clientes y ninguno compra»*: la misma aritmética, dicha como la diría cualquier empresa. Detectado por el Director.

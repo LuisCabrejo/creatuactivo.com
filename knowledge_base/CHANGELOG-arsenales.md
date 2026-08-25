@@ -173,6 +173,17 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.02 — FREQ_28 dice por fin qué es la estructura (25 ago 2026)
+
+**El hueco que la auditoría de cumplimiento no vio.** Tras corregirla por promesa de resultado, la respuesta seguía teniendo un defecto de otra clase: **nunca nombraba la cosa**. Decía lo que *no* es resolver de raíz, decía que hay que cambiar la estructura, y saltaba a las herramientas. El lector salía con una sensación en vez de una idea, y ese vacío es exactamente donde el modelo improvisa. Ahora aparece el sustantivo: **un canal de distribución**.
+
+**Y la abstracción se traduce en la misma frase.** *«De raíz significa cambiar la estructura, y en llano eso es cambiar de dónde viene el dinero — no cuánto le saca a lo que ya tiene.»* Un disparador pregunta literalmente por *estructura*, así que la palabra se responde; pero seguida de su versión llana, que es la que pasa el test Beto. **El Director la calificó de *lindo y confrontante***: confronta porque le dice al lector que ha estado optimizando la variable equivocada, sin acusarlo de nada.
+
+⚠️ **La analogía es un PUENTE.** *«Exprimir la misma fuente»* ocupa media frase y no lleva remate propio. Regla fijada el mismo día con ADV_SIST_01: si la analogía trae su propia conclusión, el lector procesa dos tesis y se pierde el hilo.
+
+El bloque de cumplimiento de la v5.99 queda intacto — no se atribuye el resultado ni se promete facilidad —, y las tres piezas siguen nombradas por su nombre, no como *ecosistema*. Recuperación medida tras el cambio: 0.715 contra 0.482 del segundo.
+
+
 ### v6.01 — Su parte se nombra con verbos, y el resultado se atribuye al mecanismo (25 ago 2026)
 
 Cierra la lista de doce del barrido a mano. **Cinco achicaban su parte con un adverbio** donde la regla pide un verbo — su parte se dice por lo que hace, nunca con palabras que la minimicen, porque quien va a invertir espera trámite:

@@ -173,6 +173,24 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.96 — Nace FREQ_33 (el alivio operativo) y el par de perfiles se unifica en distribuidor (25 ago 2026)
+
+**FREQ_33 responde algo que nadie respondía.** *¿Me toca empacar, cobrar, entregarle el pedido a cada cliente?* existía solo como una cláusula de paso dentro de WHY_02 —*«sin comprar inventario ni entregar pedidos»*— y no tenía fragmento propio. Quien hace esa pregunta se está imaginando de vendedor de catálogo, cargando cajas y persiguiendo pagos, y lo que lo desarma es saber **quién hace cada cosa**: la empresa cobra, empaca y despacha; a él le queda la comisión.
+
+⚠️ **Se dice en afirmativo.** Enumerar las tres tareas que él NO hace se las mete en la cabeza para después tacharlas.
+
+⚠️ **Las vías de compra son verificables y por eso convencen:** por internet, por la línea nacional gratuita (documentada en FREQ_24) o en cualquiera de las nueve oficinas (FREQ_13). El acceso de los clientes a **queswa.app** para armar y hacer su pedido está vigente, confirmado por el Director.
+
+⚠️ **Las campañas de fidelización automatizadas NO entran todavía** — están en construcción, y prometer producto que no corre es de la misma familia que prometer un plazo. Entran cuando estén vivas.
+
+⚠️ **La tarifa de envío se dice con el dato comprobable:** las tarifas están por debajo del mercado y **mandar veinticinco productos cuesta lo mismo que mandar uno**. El envío gratis es eventual y no constante, así que no se promete.
+
+**El par de perfiles se unifica: cliente preferencial ↔ DISTRIBUIDOR.** Revisa la decisión del 8 ago, que hacía el contraste contra *socio de negocio*. **La regla que queda fijada: distribuidor es el rol formal** —son los dos tipos de código que existen, y el disparador de FREQ_22 ya pregunta por el *precio de distribuidor*— **y socio es el relacional**, para hablar de los suyos y del equipo. Mezclarlos le entregaba al prospecto dos palabras para un concepto en turnos seguidos, porque FREQ_21 cierra hacia FREQ_22. Barrido en FREQ_21, FREQ_22 y FREQ_25; los otros siete usos de *socio* son relacionales y se conservan (FREQ_01, FREQ_18, OBJ_02, EAM_02, DIASPORA_02, NET_01).
+
+**FREQ_21 y FREQ_22 reescritas sobre borradores del Director.** Lo que entró de ellos: *«Esa es la base de la estabilidad»*, que le pone nombre al beneficio; *«porque les gusta el producto»*, que le devuelve dignidad al que solo consume —la versión vieja lo definía por lo que le falta, *no desarrolla nada*—; *«sin asumir ninguna responsabilidad comercial»*; y *«precio mayorista»*, más digerible que *precio de distribuidor* para quien llega nuevo. Lo que se les corrigió: *facturación* (es de Gano, a él le quedan comisiones), *su red* (→ su canal), *la persona* (→ quien lo consume), y tres adverbios de consultoría — *radica estrictamente en*, *puramente*, *estratégicamente*.
+
+**La cadena de cierre queda encadenada:** FREQ_21 → FREQ_22 (qué es un cliente preferencial) → FREQ_33 (cómo compran) → CLIENTE_VIP_01 (cuánto ahorran).
+
 ### v5.95 — FREQ_20 aísla la variable en vez de usar un espantapájaros (25 ago 2026)
 
 **El ejemplo anterior no le pasa a nadie.** *«Mil clientes y ninguno compra da cero»* es cierto y es inútil: nadie tiene mil clientes que no compran, y quien examina el argumento lo nota. Servía con el que no lo examinaba.

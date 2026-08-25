@@ -12,7 +12,8 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v5.95** (25 ago 2026) — **FREQ_20 aísla la variable:** deja fijas las personas y mueve solo el producto, para que el lector vea solo que lo que cambia el ingreso no es el número de gente. Nombra las dos vías del movimiento y se mide sin unidad de empaque. Detalle en el CHANGELOG.
+**Versión actual: v5.96** (25 ago 2026) — **Nace FREQ_33, el alivio operativo, y el par de perfiles se unifica en distribuidor.** Quien pregunta cómo compran sus clientes se imagina cargando cajas y persiguiendo pagos; ahora hay una respuesta que dice quién hace cada cosa. **Distribuidor** pasa a ser el rol formal frente a cliente, y *socio* queda para lo relacional. FREQ_21 y FREQ_22 reescritas. Detalle en el CHANGELOG.
+**Versión anterior: v5.95** (25 ago 2026) — **FREQ_20 aísla la variable:** deja fijas las personas y mueve solo el producto, para que el lector vea solo que lo que cambia el ingreso no es el número de gente. Nombra las dos vías del movimiento y se mide sin unidad de empaque. Detalle en el CHANGELOG.
 **Versión anterior: v5.94** (25 ago 2026) — **FREQ_20 habla como una empresa, no como un multinivel.** La unidad pasa a ser el **cliente** en vez del *registrado*, y la respuesta termina en la cuenta: el remate explicativo sobraba, porque el ejemplo ya lo había demostrado. Detalle en el CHANGELOG.
 **Versión anterior: v5.93** (25 ago 2026) — **Cuatro ajustes quirúrgicos de narrativa.** FREQ_04 dice la ausencia de fecha como criterio de seriedad —*en un negocio real no existe una fecha fija de retorno*— y explica el crecimiento por **acumulación**, no por repetición. FREQ_04_PUENTE reparte las 12 formas por horizonte. PERFIL_01 deja de cobrar el oficio para responder. Y los clientes **se suman**, no *entran*. Detalle en el CHANGELOG.
 **Versión actual: v5.91** (25 ago 2026) — **Cada respuesta tiene tres piezas y cada una va a un solo sitio.** `**[Índice]:**` se escribe con las palabras que usa la persona y es lo ÚNICO que se vectoriza. El **cuerpo** es lo único que se sirve. El `**[Concepto Nuclear]:**` se queda en este archivo: el fragmentador lo recorta, así que es doctrina para quien edita y el modelo no la lee nunca. Medido: acierto en el puesto 1 de 24/40 a 34/40, y el margen sobre el segundo por 3,6. Detalle y arnés en el CHANGELOG.
@@ -319,13 +320,13 @@ Y ese producto se mueve por dos vías: el consumo que se repite mes a mes, y los
 
 ### **FREQ_21: "¿Puedo ganar solo con clientes? / ¿Solo gano si los que entran también hacen el negocio? / Si solo quieren el producto, ¿yo gano igual? / ¿Necesito que desarrollen para que me paguen?"**
 **[Índice]:** Puedo ganar solo con clientes, gano igual si los que entran solo quieren el producto, necesito que los demás también hagan el negocio.
-**[Concepto Nuclear]:** Quien pregunta esto está calculando si tendrá que salir a buscar emprendedores, y el **sí** le quita la mayor presión que carga. ⚠️ **Los disparadores hablan del canal del prospecto**, que es lo que él pregunta. La pregunta tiene territorio propio: nadie más la responde desde el lado del **dueño** (CLIENTE_VIP_01 habla desde el lado del cliente; FREQ_22 es la definición del perfil). ⚠️ Los dos perfiles se nombran con el bautizo —**socios** y **clientes preferenciales**— y se cierra devolviéndole dignidad al que solo quiere el producto: la diferencia está en lo que cada uno quiere hacer, no en la comisión. ⚠️ El verbo es **contar**: el sistema cuenta el consumo. Vigilar pertenece a otro registro y no es lo que hace.
+**[Concepto Nuclear]:** Quien pregunta esto está calculando si tendrá que salir a buscar emprendedores, y el **sí** le quita la mayor presión que carga. ⚠️ **Los disparadores hablan del canal del prospecto**, que es lo que él pregunta. La pregunta tiene territorio propio: nadie más la responde desde el lado del **dueño** (CLIENTE_VIP_01 habla desde el lado del cliente; FREQ_22 es la definición del perfil). ⚠️ **Al que solo quiere el producto se le devuelve dignidad:** compra *porque le gusta el producto*, no *sin desarrollar nada* — la segunda forma lo define por lo que le falta. ⚠️ **El par de perfiles se nombra igual que en FREQ_22**, a donde esta respuesta cierra: dos palabras para un mismo concepto en turnos seguidos es lo que confunde. ⚠️ El beneficio se nombra: **la estabilidad**, que es lo que de verdad compra quien hace esta pregunta. ⚠️ El verbo es **contar**: el sistema cuenta el consumo. Vigilar pertenece a otro registro y no es lo que hace.
 
-Sí, y es una de las mejores partes: a usted le paga el consumo, así quien entre solo quiera el producto y nada más.
+Sí, totalmente. A usted le paga el producto que se mueve, sin importar si quien lo consume desarrolla el negocio o no. Esa es la base de la estabilidad.
 
-En su canal caben dos perfiles. Los **socios**, que además de consumir construyen su propio canal. Y los **clientes preferenciales**, que compran a precio de distribuidor y no desarrollan nada.
+En su canal caben dos perfiles. Los **distribuidores**, que además de consumir abren su propio canal. Y los **clientes preferenciales**, que compran al mismo precio mayorista porque les gusta el producto y nada más.
 
-El consumo de los dos le paga igual. La diferencia no está en la comisión: está en lo que cada uno quiere hacer.
+El consumo de los dos cuenta igual. Si alguien decide no hacer el negocio, su consumo le sigue pagando lo mismo.
 
 **Pregunta de seguimiento:** ¿Le explico cómo funciona el cliente preferencial?
 
@@ -333,13 +334,27 @@ El consumo de los dos le paga igual. La diferencia no está en la comisión: est
 
 ### **FREQ_22: "¿Qué es un cliente preferencial? / ¿Qué es un Cliente VIP? / ¿En qué se diferencia un cliente de un socio de negocio? / ¿Qué es eso de comprar a precio de distribuidor?"**
 **[Índice]:** Qué es un cliente preferencial o Cliente VIP, en qué se diferencia de un socio, qué es comprar a precio de distribuidor.
-**[Concepto Nuclear]:** El perfil visto **desde el dueño del canal**; la oferta vista desde el cliente es CLIENTE_VIP_01, y aquí se cierra hacia allá. ⚠️ El contraste se hace contra **socio de negocio** (8 ago 2026): es el término que la persona sí usa hoy, y el mismo que ya emplean FREQ_21 y COMP_MODELO_01. El canónico del perfil es **cliente preferencial**; el alias *Cliente VIP* se conserva en la primera línea porque los dos están en circulación y quien pregunte con esa palabra necesita oírla. ⚠️ La diferencia se enuncia por **lo que cada uno quiere hacer**, en positivo — la versión anterior la daba como dos ausencias antes de una presencia, y una lista así obliga a construir cada cosa para tacharla. ⚠️ El cierre suma lo que al dueño de verdad le importa: **el cliente se convierte en socio con el tiempo**, así que la puerta fácil también es la rentable.
+**[Concepto Nuclear]:** El perfil visto **desde el dueño del canal**; la oferta vista desde el cliente es CLIENTE_VIP_01, y aquí se cierra hacia allá. ⚠️ **El contraste se hace contra DISTRIBUIDOR** (Director, 25 ago 2026 — revisa la decisión del 8 ago, que lo hacía contra *socio de negocio*). La regla que se fija: **distribuidor es el rol formal** —son los dos tipos de código que existen, y el propio disparador de este fragmento ya pregunta por el *precio de distribuidor*—; **socio es el relacional**, para hablar de los suyos y del equipo. Mezclarlos le daba al prospecto dos palabras para un concepto en turnos seguidos, porque FREQ_21 cierra hacia aquí. El canónico del perfil es **cliente preferencial**; el alias *Cliente VIP* se conserva en la primera línea porque los dos están en circulación y quien pregunte con esa palabra necesita oírla. ⚠️ La diferencia se enuncia por **lo que cada uno quiere hacer**, en positivo — la versión anterior la daba como dos ausencias antes de una presencia, y una lista así obliga a construir cada cosa para tacharla. ⚠️ El cuerpo suma lo que al dueño de verdad le importa: **el cliente se convierte en distribuidor con el tiempo**, así que la vía fácil también es la rentable. ⚠️ **Cierra hacia FREQ_33** —cómo compran sus clientes sin que él haga nada—, que responde el alivio operativo; *cuánto ahorra el cliente* es CLIENTE_VIP_01, a donde cierra FREQ_33.
 
-El cliente preferencial —o Cliente VIP, es el mismo— solo quiere el producto: compra al mismo precio que un distribuidor y no desarrolla nada.
+El cliente preferencial —o Cliente VIP, es el mismo— es el perfil para quien solo busca el producto. Compra al mismo precio mayorista que un distribuidor, sin asumir ninguna responsabilidad comercial.
 
-La diferencia con un **socio** está en lo que cada uno quiere. El socio construye su propio canal y cobra sus comisiones; el cliente preferencial solo consume.
+La diferencia con un **distribuidor** está en lo que cada uno quiere: el distribuidor abre su propio canal y cobra comisiones; el cliente se enfoca en su bienestar y nada más.
 
-Para usted, el consumo de los dos vale lo mismo. Y suele ser la puerta más fácil: muchos entran por el producto y con el tiempo piden el negocio.
+Para el sistema, el consumo de los dos cuenta exactamente igual. Y suele ser la vía de entrada más natural: muchos empiezan probando el producto y con los meses deciden abrir su negocio.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo compran sus clientes, sin que usted tenga que hacer nada?
+
+---
+
+### **FREQ_33: "¿Cómo compran mis clientes? / ¿Yo tengo que entregarles el producto? / ¿Me toca empacar y cobrar? / ¿Cómo hacen los pedidos? / ¿Tengo que llevarles el pedido a la casa? / ¿Quién les despacha?"**
+**[Índice]:** Cómo compran mis clientes y quién les despacha; si me toca a mí empacar, cobrar o llevarles el pedido; de qué formas pueden hacer su orden.
+**[Concepto Nuclear]:** Responde el **alivio operativo**, que hasta ahora solo existía como una cláusula de paso en WHY_02 (*sin comprar inventario ni entregar pedidos*) y no tenía respuesta propia. Quien pregunta esto se imagina cargando cajas y persiguiendo pagos — la imagen del vendedor de catálogo — y lo que lo desarma es saber **quién hace cada cosa**. ⚠️ **Se dice en afirmativo:** la empresa cobra, empaca y despacha. Enumerar lo que él NO hace le mete en la cabeza las tres tareas para después tacharlas. ⚠️ **Las vías de compra son verificables** y por eso convencen: la línea nacional gratuita está en FREQ_24, las nueve oficinas en FREQ_13. ⚠️ **El acceso de los clientes a queswa.app para armar y hacer su pedido está vigente** (Director, 25 ago 2026). ⚠️ **Las campañas de fidelización automatizadas NO se nombran**: están en construcción, y prometer producto que no corre es lo mismo que prometer un plazo. Entran cuando estén vivas. ⚠️ **La tarifa de envío se dice con el dato que se puede comprobar** —veinticinco productos cuestan lo mismo que uno—, no con *envío gratis*, que es eventual y no constante. ⚠️ Cierra hacia **CLIENTE_VIP_01** (cuánto ahorra el cliente); *qué es un cliente preferencial* es FREQ_22, que cierra hacia aquí.
+
+Sus clientes le compran directamente a Gano Excel: la empresa cobra, empaca y despacha a la puerta de cada uno. A usted le queda la comisión.
+
+Cada cliente pide como le quede cómodo: por internet, llamando a la línea nacional gratuita, o yendo a cualquiera de las nueve oficinas del país. Y desde queswa.app arma su pedido y compra en dos toques.
+
+El envío también juega a favor: las tarifas están por debajo del mercado, y mandar veinticinco productos cuesta lo mismo que mandar uno.
 
 **Pregunta de seguimiento:** ¿Le muestro cuánto ahorra un cliente preferencial?
 
@@ -482,7 +497,7 @@ Su cónyuge, sus hijos o sus padres pueden abrir su propio código de **Cliente 
 
 De ahí en adelante, lo que ellos pidan cuenta como consumo de su canal, igual que el de cualquier otro cliente.
 
-Y si con el tiempo alguno quiere construir lo suyo, pasa de cliente a socio cuando quiera.
+Y si con el tiempo alguno quiere construir lo suyo, pasa de cliente a distribuidor cuando quiera.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se abre uno?
 

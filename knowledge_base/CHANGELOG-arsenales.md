@@ -173,6 +173,21 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.00 — Los cuatro testimonios y afirmaciones de ingreso que el guardarraíl no veía (25 ago 2026)
+
+Barrido a mano de los 60 cuerpos servidos buscando la silueta que destapó FREQ_28: **resultado personal prometido + esfuerzo mínimo**. Doce candidatos, y **los doce pasan invisibles** por `wa-guardarrail-negocio`, que vigila conjunciones de dinero con plazo, garantía o personas. Confirma que la herramienta mide una cosa y esta silueta es otra.
+
+**STORY_01 era el peor del arsenal, y por dos motivos a la vez.** Decía *«encontró en Gano Excel la manera de construir independencia financiera. Le funcionó: llegó a Diamante en dos años y medio»*. El vocabulario de estado patrimonial absoluto está vetado en el léxico desde que se escribió. Y **un rango con plazo es la forma de promesa de ingreso que más se vigila**: el testimonio comunica *esto le puede pasar a usted* sin decirlo, y el plazo le pone calendario. Ahora: *«encontró un camino que sí le funcionó: llegó al rango Diamante»*. El rango solo, sobre una persona real y verificable, sostiene la credibilidad sin prometer. ⚠️ **Se pierde la velocidad como argumento, y es a propósito** — la velocidad es justo lo que lo convertía en promesa.
+
+**DIASPORA_02 usaba el rango como prueba de algo que no necesitaba probarlo.** Lo que ahí hay que demostrar es que el trámite legal en Colombia funciona para quien viene de un país sin operación; que además hayan llegado a Diamante era decoración con costo. Sale el rango, queda la prueba.
+
+**FREQ_17 daba el ingreso por hecho.** *«Así usted tiene dinero entrando semana tras semana»* presupone que hay dinero entrando. La cadencia ya la establece el párrafo anterior —el viernes, doce días tras el cierre—, así que el cierre pasa a decir solo el mecanismo: *«el ingreso sigue el ritmo de su canal»*. Condicional, no afirmativo.
+
+**FREQ_18 afirmaba que el negocio genera ingreso**, con prueba social encima: *«nuestros socios siguen ahí porque el negocio les genera ingreso de verdad»*. La respuesta trata de contratos de permanencia, así que lo que importa es la volición: *«siguen ahí porque quieren»*. Dice lo mismo y aterriza más fuerte.
+
+⏳ **Quedan ocho de la lista, en dos grupos.** Cinco minimizan su parte con adverbios en vez de nombrarla con verbos —FREQ_01, FREQ_14, OBJ_01, WHY_04 🔒 y NET_01—; dos atribuyen el resultado a *la sencillez* en vez de al mecanismo —EAM_01 🔒 y WHY_ROL_01—; y FREQ_16 cita un *«menos del 1% del mercado»* sin fuente. **Los dos con candado son fuente dual: exigen sincronizar `respuestas-maestras.ts`.**
+
+
 ### v5.99 — FREQ_28 describe el mecanismo y deja de atribuirse el resultado (25 ago 2026)
 
 **Auditoría de cumplimiento pedida por el Director.** El guardarraíl la dejaba pasar, y eso no era un certificado de salud: `wa-guardarrail-negocio` vigila **conjunciones** —dinero con plazo, con garantía o con personas— y FREQ_28 no tenía ninguna. Hacía una promesa de otra clase.

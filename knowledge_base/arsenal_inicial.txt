@@ -12,7 +12,8 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v5.99** (25 ago 2026) — **FREQ_28 describe el mecanismo y deja de atribuirse el resultado.** Afirmaba que cambiar la estructura *es* resolver el tema financiero de raíz, y prometía que armarlo es fácil; las dos juntas componen un resultado personal prometido con esfuerzo mínimo, que es la categoría que Meta sanciona aunque no haya cifra ni fecha. Detalle en el CHANGELOG.
+**Versión actual: v6.00** (25 ago 2026) — **Los cuatro testimonios y afirmaciones de ingreso que el guardarraíl no veía.** STORY_01 pierde el plazo del rango y el vocabulario de estado patrimonial; DIASPORA_02 prueba el trámite sin usar el rango como prueba; FREQ_17 y FREQ_18 dejan de dar el ingreso por hecho. Detalle en el CHANGELOG.
+**Versión anterior: v5.99** (25 ago 2026) — **FREQ_28 describe el mecanismo y deja de atribuirse el resultado.** Afirmaba que cambiar la estructura *es* resolver el tema financiero de raíz, y prometía que armarlo es fácil; las dos juntas componen un resultado personal prometido con esfuerzo mínimo, que es la categoría que Meta sanciona aunque no haya cifra ni fecha. Detalle en el CHANGELOG.
 **Versión anterior: v5.97** (25 ago 2026) — **Nace FREQ_34: las nueve oficinas con dirección exacta.** FREQ_13 invitaba a comprobar —*«usted puede entrar a cualquiera»*— y el arsenal solo tenía las ciudades, así que la invitación no se podía honrar. Va bajo candado: una dirección parafraseada es una dirección equivocada. Detalle en el CHANGELOG.
 **Versión anterior: v5.96** (25 ago 2026) — **Nace FREQ_33 —el alivio operativo y la fidelización— y el par de perfiles se unifica en distribuidor.** Quien pregunta cómo compran sus clientes se imagina cargando cajas y persiguiendo pagos; ahora hay una respuesta que dice quién hace cada cosa. **Distribuidor** pasa a ser el rol formal frente a cliente, y *socio* queda para lo relacional. FREQ_21 y FREQ_22 reescritas. Detalle en el CHANGELOG.
 **Versión anterior: v5.95** (25 ago 2026) — **FREQ_20 aísla la variable:** deja fijas las personas y mueve solo el producto, para que el lector vea solo que lo que cambia el ingreso no es el número de gente. Nombra las dos vías del movimiento y se mide sin unidad de empaque. Detalle en el CHANGELOG.
@@ -134,13 +135,13 @@ Y es digital porque el canal entero cabe en su celular. Yo atiendo a sus cliente
 
 ### **STORY_01: "¿Quién es Luis Cabrejo? / ¿Quién construyó CreaTuActivo.com? / ¿Quién es el CEO o fundador de CreaTuActivo y Queswa?"**
 **[Índice]:** Quién es Luis Cabrejo, quién fundó CreaTuActivo y Queswa, quién es el dueño o el CEO. Su recorrido y por qué construyó esto.
-**[Concepto Nuclear]:** Quien pregunta quiere saber si hay alguien real detrás. Pesan dos hechos: **construyó el negocio antes que la herramienta** (Diamante en dos años y medio) y **la hizo porque su resultado no se le replicaba al equipo** — un límite admitido, no un logro. El recorrido previo va en una línea y solo sirve para explicar por qué buscó otra cosa. ⚠️ Cuente solo lo que está escrito abajo: cualquier detalle biográfico que no esté aquí, no se dice. ⚠️ *¿Quién está detrás de esto?* es CRED_01.
+**[Concepto Nuclear]:** Quien pregunta quiere saber si hay alguien real detrás. Pesan dos hechos: **construyó el negocio antes que la herramienta** (llegó al rango Diamante) y **la hizo porque su resultado no se le replicaba al equipo** — un límite admitido, no un logro. ⚠️ **CUMPLIMIENTO — el rango va SIN plazo** (auditoría del Director, 25 ago 2026). Decía *«Diamante en dos años y medio»*, y un resultado con tiempo es la forma de promesa de ingreso que más se vigila: el testimonio comunica *esto le puede pasar a usted* sin decirlo, y el plazo le pone calendario. El rango solo, sobre una persona real y verificable, sostiene la credibilidad sin prometer nada. ⚠️ **Se nombra el camino que le funcionó, no el estado al que llegó.** El vocabulario de los estados patrimoniales absolutos está vetado en el léxico; aquí basta con que el camino existió y que a él le sirvió. El recorrido previo va en una línea y solo sirve para explicar por qué buscó otra cosa. ⚠️ Cuente solo lo que está escrito abajo: cualquier detalle biográfico que no esté aquí, no se dice. ⚠️ *¿Quién está detrás de esto?* es CRED_01.
 
 Luis Cabrejo es el fundador de CreaTuActivo y de Queswa. No llega desde la teoría: construyó este negocio antes de construir la herramienta.
 
 Viene del mundo corporativo y de ahí pasó a montar sus propias empresas. Con los años vio que el camino por defecto trae resultados predecibles: trabajar, pagar cuentas y repetir.
 
-Buscando salir de ese ciclo, encontró en **Gano Excel** la manera de construir independencia financiera. Le funcionó: llegó a **Diamante en dos años y medio**. Y ahí lo confrontó algo: **lo que a él le funcionaba no se le replicaba a su equipo.** Lo que a él le salía natural, a otros les costaba.
+Buscando salir de ese ciclo, encontró en **Gano Excel** un camino que sí le funcionó: llegó al rango **Diamante**. Y ahí lo confrontó algo: **lo que a él le funcionaba no se le replicaba a su equipo.** Lo que a él le salía natural, a otros les costaba.
 
 De ahí salieron creatuactivo.com y Queswa — para que el resultado dependa de un sistema que carga con el trabajo pesado, y no de la habilidad de cada quien.
 
@@ -719,7 +720,7 @@ Dinero real, en su cuenta del banco y en la moneda de su país. Gano Excel se lo
 
 Funciona por ciclos semanales: cada ciclo va de lunes a domingo. Al cerrar el domingo queda una semana para que todo termine de confirmarse —pagos, formularios, registros—, y el viernes siguiente entra la plata. Son doce días entre el cierre del ciclo y su liquidación, y siempre cae en viernes.
 
-Así usted tiene dinero entrando semana tras semana, con un ingreso que crece a la par de su canal: si el consumo se duplica, lo que le pagan se duplica también.
+Y el ingreso sigue el ritmo de su canal: si el consumo se duplica, lo que le pagan se duplica también.
 
 **Pregunta de seguimiento:** ¿Le muestro de dónde sale esa plata?
 
@@ -733,7 +734,7 @@ No hay contratos de permanencia, ni multas, ni cláusulas de exclusividad. Usted
 
 Es muy simple: deja de hacer su compra mensual de 50 PV, que es lo que mantiene el canal activo. Como no hay costos fijos que se acumulen ni deudas, su canal queda inactivo de inmediato, sin multas ni trámites.
 
-Funciona parecido a una suscripción de streaming: mientras la mantiene activa, el sistema procesa su volumen y le paga. Nuestros socios siguen ahí porque el negocio les genera ingreso de verdad, no porque un contrato los obligue.
+Funciona parecido a una suscripción de streaming: mientras la mantiene activa, el sistema procesa su volumen y le paga. Nuestros socios siguen ahí porque quieren, no porque un contrato los obligue.
 
 **Pregunta de seguimiento:** ¿Le muestro qué mantiene activo su canal cada mes?
 
@@ -957,7 +958,7 @@ Si su país natal es uno de los 16 donde Gano Excel opera, el registro es direct
 
 En la práctica es lo mismo que haría cualquier extranjero que quiere montar un negocio en Colombia: tramitar su documentación ante la DIAN (sacar el RUT), abrir una cuenta bancaria local y poner en regla el permiso para desarrollar la actividad comercial. Una vez legalizado, su canal queda anclado a Colombia —recibe el producto y cobra sus comisiones allí— y usted desarrolla su canal en los 16 países de América.
 
-**No es teoría:** hoy hay socios en posición Diamante originarios de Cuba, Venezuela y Argentina que hicieron exactamente esto —establecieron su base legal en Colombia— y construyen sus canales de forma constante.
+**No es teoría:** hoy hay socios originarios de Cuba, Venezuela y Argentina que hicieron exactamente esto —establecieron su base legal en Colombia— y construyen sus canales de forma constante.
 
 **Pregunta de seguimiento:** ¿Me cuenta cuál es su país natal? Con eso le digo exactamente cómo sería su registro.
 

@@ -20,10 +20,14 @@
  * simulador-de-ingresos.flow.json). Si el Flow cambia, esto cambia con él.
  */
 
-/** Renta recurrente: COP por cliente, por punto de tarifa, al mes. */
-// 10 clientes × 17% = $428.400 → 2.520 por cliente y por punto. Supone una caja
-// de Ganocafé a la semana por cliente (cuatro al mes). Mismo cálculo del Flow.
-const COP_POR_CLIENTE_Y_PUNTO = 2_520;
+/** Renta recurrente: COP por cliente, por punto de tarifa y POR CAJA al mes. */
+// La caja de Ganocafé aporta 14 CV, y el CV se liquida a la tasa fija: 14 × $45
+// por punto de tarifa = $630. El consumo estándar son 4 cajas al mes (una a la
+// semana) → 2.520 por cliente y por punto, que es la cifra histórica del Flow.
+// La pantalla del 17% deja elegir 2/4/6/8 cajas (Director, 25 ago 2026: el
+// escenario del canal de puros clientes); las demás tarifas suponen 4.
+const COP_POR_CLIENTE_PUNTO_Y_CAJA = 630;
+const CAJAS_ESTANDAR = 4;
 
 /** GEN5: COP por UN paquete comprado en cada una de las cinco generaciones. */
 const GEN5_POR_PAQUETE: Record<string, { etiqueta: string; suma: number }> = {
@@ -32,7 +36,7 @@ const GEN5_POR_PAQUETE: Record<string, { etiqueta: string; suma: number }> = {
   'ESP-1': { etiqueta: 'ESP-1 Inicial',     suma:   225_000 },
 };
 
-export interface EscenarioRenta  { tipo: 'renta'; tarifa: string; clientes: string }
+export interface EscenarioRenta  { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string }
 export interface EscenarioGen5   { paquete: string; cantidad: string }
 
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
@@ -59,9 +63,11 @@ export interface OpcionesCierre {
 export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {}): string | null {
   const t = leerTarifa(e.tarifa);
   const clientes = Number(e.clientes);
+  const cajas = Number(e.consumo ?? CAJAS_ESTANDAR);
   if (!t || !Number.isFinite(clientes) || clientes <= 0) return null;
+  if (!Number.isFinite(cajas) || cajas <= 0) return null;
 
-  const monto = clientes * t.pct * COP_POR_CLIENTE_Y_PUNTO;
+  const monto = clientes * t.pct * COP_POR_CLIENTE_PUNTO_Y_CAJA * cajas;
   const esKit = /kit/i.test(t.nombre);
   const cierre = opciones.composicionYaOfrecida
     ? '¿Con cuál de los tres paquetes se identifica más?'
@@ -75,7 +81,7 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 
-Eso supone que cada cliente compra una caja de Ganocafé a la semana, y se liquida cada viernes. Y esos clientes no los consigue usted solo: son los de sus socios, sumados.
+${cajas === 4 ? 'Eso supone que cada cliente compra una caja de Ganocafé a la semana' : `Eso supone que cada cliente compra ${cajas} cajas de Ganocafé al mes`}, y se liquida cada viernes. Y esos clientes no los consigue usted solo: son los de sus socios, sumados.
 
 ${cierre}`;
 }

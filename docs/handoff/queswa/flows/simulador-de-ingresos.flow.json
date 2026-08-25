@@ -789,36 +789,94 @@
       "type": "Form",
       "name": "renta",
       "init-values": {
-       "clientes": "10"
+       "escenario": "10x4"
       },
       "children": [
        {
         "type": "Dropdown",
-        "name": "clientes",
-        "label": "Clientes en cada centro de negocio",
+        "name": "escenario",
+        "label": "Clientes y cajas de Ganocafé al mes",
         "required": true,
         "data-source": [
          {
-          "id": "10",
-          "title": "10 clientes"
+          "id": "10x2",
+          "title": "10 clientes · 2 cajas/mes"
          },
          {
-          "id": "25",
-          "title": "25 clientes"
+          "id": "10x4",
+          "title": "10 clientes · 4 cajas/mes"
          },
          {
-          "id": "50",
-          "title": "50 clientes"
+          "id": "10x6",
+          "title": "10 clientes · 6 cajas/mes"
          },
          {
-          "id": "100",
-          "title": "100 clientes"
+          "id": "10x8",
+          "title": "10 clientes · 8 cajas/mes"
+         },
+         {
+          "id": "25x2",
+          "title": "25 clientes · 2 cajas/mes"
+         },
+         {
+          "id": "25x4",
+          "title": "25 clientes · 4 cajas/mes"
+         },
+         {
+          "id": "25x6",
+          "title": "25 clientes · 6 cajas/mes"
+         },
+         {
+          "id": "25x8",
+          "title": "25 clientes · 8 cajas/mes"
+         },
+         {
+          "id": "50x2",
+          "title": "50 clientes · 2 cajas/mes"
+         },
+         {
+          "id": "50x4",
+          "title": "50 clientes · 4 cajas/mes"
+         },
+         {
+          "id": "50x6",
+          "title": "50 clientes · 6 cajas/mes"
+         },
+         {
+          "id": "50x8",
+          "title": "50 clientes · 8 cajas/mes"
+         },
+         {
+          "id": "100x2",
+          "title": "100 clientes · 2 cajas/mes"
+         },
+         {
+          "id": "100x4",
+          "title": "100 clientes · 4 cajas/mes"
+         },
+         {
+          "id": "100x6",
+          "title": "100 clientes · 6 cajas/mes"
+         },
+         {
+          "id": "100x8",
+          "title": "100 clientes · 8 cajas/mes"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.clientes} == '10'",
+        "condition": "${form.escenario} == '10x2'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $214.200 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '10x4'",
         "then": [
          {
           "type": "TextHeading",
@@ -828,7 +886,37 @@
        },
        {
         "type": "If",
-        "condition": "${form.clientes} == '25'",
+        "condition": "${form.escenario} == '10x6'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $642.600 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '10x8'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $856.800 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '25x2'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $535.500 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '25x4'",
         "then": [
          {
           "type": "TextHeading",
@@ -838,7 +926,17 @@
        },
        {
         "type": "If",
-        "condition": "${form.clientes} == '50'",
+        "condition": "${form.escenario} == '25x6'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $1.606.500 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '25x8'",
         "then": [
          {
           "type": "TextHeading",
@@ -848,7 +946,37 @@
        },
        {
         "type": "If",
-        "condition": "${form.clientes} == '100'",
+        "condition": "${form.escenario} == '50x2'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $1.071.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '50x4'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $2.142.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '50x6'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $3.213.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '50x8'",
         "then": [
          {
           "type": "TextHeading",
@@ -857,8 +985,48 @@
         ]
        },
        {
+        "type": "If",
+        "condition": "${form.escenario} == '100x2'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $2.142.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '100x4'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $4.284.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '100x6'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $6.426.000 COP al mes"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.escenario} == '100x8'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $8.568.000 COP al mes"
+         }
+        ]
+       },
+       {
         "type": "TextCaption",
-        "text": "Consumo estándar: cada cliente compra una caja de Ganocafé a la semana. Se liquida cada viernes."
+        "text": "Todos son clientes: nadie desarrolla el negocio. Cada caja aporta 14 CV y se liquida cada viernes."
        },
        {
         "type": "Footer",
@@ -868,7 +1036,7 @@
          "payload": {
           "tipo": "renta",
           "tarifa": "ESP-3 Visionario — 17%",
-          "clientes": "${form.clientes}"
+          "escenario": "${form.escenario}"
          }
         }
        }

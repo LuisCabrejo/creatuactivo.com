@@ -357,7 +357,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // El escenario que la persona armó en el Flow. El TEXTO se construye más
     // abajo (bloque 2.3), porque el cierre depende del historial y a esta altura
     // el historial no existe todavía.
-    let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string } | { paquete: string; cantidad: string } | null = null;
+    let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string } | { paquete: string; cantidad: string } | null = null;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
 
     // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
@@ -392,12 +392,21 @@ async function procesarEntrante(body: any): Promise<void> {
       if (!messageText && interactivo?.nfm_reply?.response_json) {
         try {
           const r = JSON.parse(interactivo.nfm_reply.response_json) as {
-            paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string;
+            paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string; consumo?: string; escenario?: string;
           };
+          // La pantalla del 17% manda un solo campo `escenario` ("25x6" = 25
+          // clientes que piden 6 cajas al mes). Es un rodeo obligado: el runtime
+          // de Meta no acepta condiciones sobre dos campos a la vez —ni `&&`,
+          // ni If anidado bajo Form, ni Switch—, así que las 16 combinaciones
+          // viven en un solo desplegable y aquí se decodifican.
+          if (r.tipo === 'renta' && r.escenario && !r.clientes) {
+            const m = r.escenario.match(/^(\d+)x(\d+)$/);
+            if (m) { r.clientes = m[1]; r.consumo = m[2]; }
+          }
           if (r.tipo === 'renta' && r.tarifa && r.clientes) {
-            messageText = `Acabo de usar el simulador de renta: tarifa ${r.tarifa}, con ${r.clientes} clientes en cada centro de negocio.`;
+            messageText = `Acabo de usar el simulador de renta: tarifa ${r.tarifa}, con ${r.clientes} clientes en cada centro de negocio${r.consumo ? ` y ${r.consumo} cajas al mes por cliente` : ''}.`;
             vieneDelSimulador = true;
-            escenarioSimulador = { tipo: 'renta', tarifa: r.tarifa, clientes: r.clientes };
+            escenarioSimulador = { tipo: 'renta', tarifa: r.tarifa, clientes: r.clientes, consumo: r.consumo };
             console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador de renta (${r.tarifa} × ${r.clientes})`);
           } else if (r.paquete && r.cantidad) {
             messageText = `Acabo de usar el simulador: paquete ${r.paquete}, con ${r.cantidad} paquetes comprados en cada generación.`;

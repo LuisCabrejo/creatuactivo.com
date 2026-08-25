@@ -173,6 +173,21 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.99 — FREQ_28 describe el mecanismo y deja de atribuirse el resultado (25 ago 2026)
+
+**Auditoría de cumplimiento pedida por el Director.** El guardarraíl la dejaba pasar, y eso no era un certificado de salud: `wa-guardarrail-negocio` vigila **conjunciones** —dinero con plazo, con garantía o con personas— y FREQ_28 no tenía ninguna. Hacía una promesa de otra clase.
+
+**Uno: un resultado personal.** El fragmento aceptaba el marco de la pregunta y afirmaba que cambiar la estructura *es* resolver el tema financiero de raíz. Encadenado, eso dice que este negocio le resuelve la vida financiera al lector — y esa es una categoría que se sanciona **sin necesidad de cifra ni de fecha**. Choca además con la doctrina fijada: la consecuencia que se nombra es del negocio, nunca un resultado personal del usuario. Ahora la respuesta describe el mecanismo y el lector saca la conclusión solo, que persuade más.
+
+**Dos, y peor combinado: prometía que es fácil.** Salieron *«la buena noticia es que armarlo es más directo de lo que parece»*, *«sin necesidad de experiencia digital»* y *«usted no las arma; las enciende»*. Esa última era la frase más expuesta del arsenal, y contradice la regla del 8 ago —**«Nubank no multiplica su dinero; hay cosas que usted tiene que hacer, así sean sencillas»**—: quien va a invertir espera trámite, y minimizar su parte le quita seriedad a una decisión que él toma como patrimonio.
+
+Sumadas, las dos componían la silueta que dispara alarmas: **el problema financiero resuelto, y un interruptor que encender.**
+
+**Su parte vuelve a decirse con verbos** —decidir, compartir, recibir—. Cuerpo 792 → 712 caracteres.
+
+⏳ **Pendiente anotado: el guardarraíl no vigila *resultado personal prometido* ni *promesa de esfuerzo mínimo*.** Añadir esos patrones es tentador y riesgoso — *«no depende de su presencia»* es léxico aprobado y caería en cualquier regla ingenua. Se calibra con backtest sobre respuestas reales, como se hizo con el actual, o no se toca.
+
+
 ### v5.98 — La migración a índices se completa en los cinco arsenales (25 ago 2026)
 
 `arsenal_12_niveles` (14), `arsenal_compensacion` (40) y `catalogo_productos` (43) ganan su `[Índice]`. Con los 58 de `arsenal_inicial` y los 16 de `arsenal_avanzado`, son **519 fragmentos indexados en los tres tenants**, con cero doctrina servida.

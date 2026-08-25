@@ -173,6 +173,19 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.04 — FREQ_08 entrega los temas, y sale la alusión médica (25 ago 2026)
+
+**La cabecera tenía la mercancía y el cuerpo entregaba etiquetas.** La cabecera listaba el contenido de Maestría —liderazgo, comunicación, administrar los recursos, detalle de producto— y el cuerpo le daba al lector tres rótulos de categoría: *Espacios en vivo · Asistencia IA · Plataforma propia*, más *«el material para iniciar su desarrollo»*, que es el sustantivo más vago posible. **Los sustantivos concretos son los que hacen pensar «esto es serio», y estaban del lado que el modelo dejó de leer** cuando las cabeceras salieron del fragmento. Mismo hallazgo que en FREQ_28: la respuesta nunca nombraba la cosa.
+
+⛔ **NO se nombran *profesionales de la salud* ni *eventos en vivo*** (Director, 25 ago 2026). Son dos riesgos distintos en la misma frase: *profesionales de la salud* **le presta respaldo médico a un suplemento**, que es la línea exacta que defiende `wa-guardarrail-salud.ts`; y *encuentros o eventos en vivo* es **marcador de la industria del multinivel**, con restricción de Meta encima — un recorte que ya se había hecho antes y que este fragmento no había recibido. La experiencia de quienes ya recorrieron el camino **se conserva como contenido de Maestría**, no como evento: dice lo mismo —que no será el primero— sin ninguno de los dos costos.
+
+⚠️ **Se responde en prosa.** Las tres viñetas con rótulo en negrita convertían el chat en una diapositiva, y lo que hay que entregar son los temas, no una tabla de contenidos.
+
+⚠️ **Y tres excesos menores:** *«seguridad absoluta»* promete un estado personal con un adjetivo que nadie puede garantizar; *«sin temor a quedarse sin respuestas»* nombraba el miedo para descartarlo; y *«nosotros le damos los argumentos»* planta el marco de convencer, que es justo lo que él no tiene que hacer — pasa a *«lo que hay que saber»*.
+
+**La constante de formación en CLAUDE.md queda acotada** con la misma prohibición, porque era la fuente que habría hecho a un agente futuro restaurar la frase.
+
+
 ### v6.03 — Auditoría de los 35 primeros fragmentos (25 ago 2026)
 
 **FREQ_27 prometía perpetuidad.** *«Usted queda cobrando en moneda fuerte —a una tasa superior a la del mercado— **de forma permanente**»*. Sin fecha es peor que con fecha, y encima daba el ingreso por hecho. El guardarraíl no lo veía: no hay conjunción de dinero con **plazo**, hay dinero con **permanencia**, que es otra silueta. La tasa fija es verificable y se sostiene sola: *«cada comisión que cobre se liquida a esa misma tasa»*.

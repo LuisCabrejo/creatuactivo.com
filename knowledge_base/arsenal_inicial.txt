@@ -12,7 +12,8 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.03** (25 ago 2026) — **Auditoría del primer tercio: la perpetuidad de FREQ_27 y los disparadores que se repetían.** *De forma permanente* sale de FREQ_27; FREQ_22 y FREQ_02 pierden dos promesas de esfuerzo mínimo que se habían colado, una en una pregunta de cierre. Y ACTIVACION_01 baja de once disparadores a seis. Detalle en el CHANGELOG.
+**Versión actual: v6.04** (25 ago 2026) — **FREQ_08 entrega los temas, no la tabla de contenidos, y sale la alusión médica.** El contenido concreto de Maestría sube de la cabecera al cuerpo; *profesionales de la salud* y *eventos en vivo* se retiran de cara al prospecto. Detalle en el CHANGELOG.
+**Versión anterior: v6.03** (25 ago 2026) — **Auditoría del primer tercio: la perpetuidad de FREQ_27 y los disparadores que se repetían.** *De forma permanente* sale de FREQ_27; FREQ_22 y FREQ_02 pierden dos promesas de esfuerzo mínimo que se habían colado, una en una pregunta de cierre. Y ACTIVACION_01 baja de once disparadores a seis. Detalle en el CHANGELOG.
 **Versión anterior: v6.02** (25 ago 2026) — **FREQ_28 dice por fin qué es la estructura, y la traduce en la misma frase.** *«Cambiar de dónde viene el dinero — no cuánto le saca a lo que ya tiene»*, y el sustantivo que faltaba: un canal de distribución. Detalle en el CHANGELOG.
 **Versión anterior: v6.01** (25 ago 2026) — **Su parte se nombra con verbos, y el resultado se atribuye al mecanismo.** Ocho fragmentos dejan de achicar lo que él hace con adverbios —*solo*, *en un clic*, *un sistema que trabaja por usted*— y dos dejan de atribuirle la multiplicación a *la sencillez*: la causa es que quien entra hace exactamente lo mismo. Detalle en el CHANGELOG.
 **Versión anterior: v6.00** (25 ago 2026) — **Los cuatro testimonios y afirmaciones de ingreso que el guardarraíl no veía.** STORY_01 pierde el plazo del rango y el vocabulario de estado patrimonial; DIASPORA_02 prueba el trámite sin usar el rango como prueba; FREQ_17 y FREQ_18 dejan de dar el ingreso por hecho. Detalle en el CHANGELOG.
@@ -601,20 +602,16 @@ La empresa está afiliada a ACOVEDI, el gremio de venta directa, y tiene nueve o
 
 ### **FREQ_08: "¿Hay capacitación? / ¿Hay formación? / ¿Dan entrenamiento? / ¿Cómo aprendo a hacer esto? / ¿Qué pasa si no sé hacer esto?"**
 **[Índice]:** Hay capacitación para mí, hay formación, dan entrenamiento, cómo aprendo yo a hacer esto, qué pasa si no sé nada del tema.
-**[Concepto Nuclear]:** **Sí, y la formación es amplia.** En **queswa.app, sección Maestría**: liderazgo, comunicación, maestría para el éxito y maestría para administrar los recursos; más formación de producto y beneficios, encuentros en línea con profesionales de la salud, y sesiones con socios que ya recorrieron el camino. ⚠️ **Lectura de campo del Director:** esta pregunta es un **indicio de interés**, del orden de preguntar por el valor de los paquetes. Quien la hace ya se entusiasmó y empezó a pensar con quién hablaría; lo que teme es que le pregunten algo y no sepa responder. Por eso el eje es la **seguridad al hablar con cualquier persona**. ⚠️ Para buena parte de los interesados el motivo de entrar es el **crecimiento personal**, no solo el dinero. ⚠️ **Queswa responde a los prospectos; la formación es lo que él se lleva puesto** — las dos se nombran, porque hay cosas que él sí hace y decir lo contrario le quita seriedad al negocio. ⚠️ *Maestría* nombra la sección del producto, tal como aparece en queswa.app. ⚠️ Las tres viñetas van **separadas por línea en blanco**: con salto simple el render de Queswa las colapsa en un párrafo. ⚠️ Cierra hacia **EAM_01**, contenido servido y verbatim.
+**[Concepto Nuclear]:** **Sí, y la formación es amplia** — y el contenido concreto va en el CUERPO, no aquí. La versión anterior tenía la mercancía en la cabecera (liderazgo, comunicación, administrar recursos) y le entregaba al lector tres rótulos de categoría: *espacios en vivo · asistencia IA · plataforma propia*. Los sustantivos son los que hacen pensar «esto es serio», y estaban del lado que el modelo no lee. ⚠️ **NO se nombran profesionales de la salud ni eventos en vivo** (Director, 25 ago 2026). *Profesionales de la salud* le presta respaldo médico a un suplemento, que es la línea exacta que defiende el guardarraíl de salud; y *encuentros en vivo / eventos en línea* es marcador de la industria del multinivel, con restricción de Meta encima. La experiencia de quienes ya recorrieron el camino se conserva **como contenido de Maestría**, no como evento. ⚠️ **Lectura de campo del Director:** esta pregunta es un **indicio de interés**, del orden de preguntar por el valor de los paquetes. Quien la hace ya se entusiasmó y empezó a pensar con quién hablaría; lo que teme es que le pregunten algo y no sepa responder. Por eso el eje es la **seguridad al hablar con cualquier persona**. ⚠️ Para buena parte de los interesados el motivo de entrar es el **crecimiento personal**, no solo el dinero. ⚠️ **Queswa responde a los prospectos; la formación es lo que él se lleva puesto** — las dos se nombran, porque hay cosas que él sí hace y decir lo contrario le quita seriedad al negocio. ⚠️ *Maestría* nombra la sección del producto, tal como aparece en queswa.app. ⚠️ **Se responde en prosa:** las viñetas con rótulo en negrita convierten el chat en una diapositiva, y aquí lo que hay que entregar son los temas, no una tabla de contenidos. ⚠️ Cierra hacia **EAM_01**, contenido servido y verbatim.
 
 <verbatim_lock>
-Totalmente. El objetivo es que usted tenga la seguridad absoluta al hablar con cualquier persona, sin temor a quedarse sin respuestas.
+Totalmente. El objetivo es que usted pueda hablar con cualquier persona sin quedarse sin respuestas.
 
-Para lograrlo, usted se apoya en tres cosas:
+En **queswa.app** tiene la sección **Maestría**: liderazgo, comunicación y cómo administrar sus recursos, además del detalle de cada producto y la experiencia de socios que ya recorrieron el camino.
 
-↳ **Espacios en vivo:** con profesionales de la salud y expertos que le transfieren su experiencia sobre el producto y el negocio.
+Yo estoy a toda hora para el resto — dudas técnicas, usos de producto, o redactarle el mensaje que va a compartir.
 
-↳ **Asistencia IA:** me tiene a su disposición a toda hora. Puede consultarme dudas técnicas, usos de productos o pedirme que le redacte los mensajes para compartir.
-
-↳ **Plataforma propia:** en su aplicación queswa.app, la sección Maestría ya cuenta con el material para iniciar su desarrollo.
-
-Usted pone su capacidad de relacionarse; nosotros le damos los argumentos.
+Usted pone su forma de relacionarse; lo que hay que saber se lo damos nosotros.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro qué hace usted en el día a día?

@@ -4007,6 +4007,43 @@ function getPaquetesPricingPin(country: string): string {
 🌎 Cotiza en USD (moneda de referencia internacional) con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica su país de registro, ajusta a su moneda local. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
 }
 
+/**
+ * Pin de la COMISIÓN GEN5 — mismo reparto que getPaquetesPricingPin.
+ *
+ * COMP_GEN5_01 va bajo `<verbatim_lock>`, así que se entrega carácter por
+ * carácter. Cuando ganó sus cifras (v8.2, 24 ago 2026) quedaron escritas en
+ * pesos colombianos DENTRO del candado, y el pin que resuelve la moneda solo
+ * dicta cuando la persona pide el ejemplo — no cuando pregunta «¿qué es el
+ * GEN5?» en frío. Resultado: un prospecto con número de Estados Unidos recibía
+ * COP, contra la regla de moneda por país.
+ *
+ * El candado trae `[GEN1]` y `[GEN2_5]`; este pin los llena. Las cifras base
+ * son las del plan en USD (Gen 1 = $150 · Gen 2-4 = $20 · Gen 5 = $40, con
+ * Visionario propio) y la conversión usa la tasa corporativa fija de $4.500.
+ */
+function getPinComisionGEN5(country: string): string {
+  const cop = { g1: '$675.000 COP', g25: '$90.000 COP' };
+  const usd = { g1: '$150 USD',     g25: '$20 USD'     };
+
+  if (country === 'CO') {
+    return `💵 COMISIÓN GEN5 — reemplaza los marcadores del contexto:
+• [GEN1] = ${cop.g1}
+• [GEN2_5] = ${cop.g25}
+🇨🇴 Cotiza SOLO en COP. El equivalente en dólares al lado obliga a una conversión mental que crea fricción.`;
+  }
+  if (country === 'US') {
+    return `💵 COMISIÓN GEN5 — reemplaza los marcadores del contexto:
+• [GEN1] = ${usd.g1}
+• [GEN2_5] = ${usd.g25}
+🇺🇸 Cotiza en USD limpio. El COP es irrelevante para este visitante.`;
+  }
+  const otroPais = country && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
+  return `💵 COMISIÓN GEN5 — reemplaza los marcadores del contexto:
+• [GEN1] = ${usd.g1} (${cop.g1})
+• [GEN2_5] = ${usd.g25} (${cop.g25})
+🌎 Cotiza en USD con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}.` : ''}`;
+}
+
 export async function OPTIONS(req: Request) {
   const origin = req.headers.get('origin');
   return new Response(null, { status: 204, headers: getCorsHeaders(origin) });
@@ -5861,6 +5898,10 @@ ${mergedProspectData.interest_level ? `  <nivel_interes>${mergedProspectData.int
 
 ${relevantDocuments[0]?.metadata?.is_pv_table ? `📊 TABLA OFICIAL PRECIOS — COMP_PV_06: Copia la tabla EXACTAMENTE como aparece en el contexto. NO inventes categorías ni nombres de sección ("Cafés con Ganoderma", "Bebidas Premium", etc.) — esas categorías no existen en la tabla oficial. NO uses precios de tu entrenamiento. Los precios correctos para Colombia 2026 están en la columna "Precio COP" del contexto recuperado.` : relevantDocuments[0]?.category === 'catalogo_productos' ? `🛒 CATÁLOGO ACTIVO: Presenta SOLO los productos y categorías que aparecen en el fragmento recuperado. No inventes categorías, no agregues productos que no estén en el texto, no estimes precios. Copia los precios COP exactamente como aparecen en las tablas.` : ''}
 ${(/paquete|esp[-\s]?[123]|inversi[oó]n.*paquete|precio.*paquete|cu[aá]nto.*paquete|paquete.*empresar|conformad[ao]s?|c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])|para\s+(empezar|iniciar|activar|entrar)|c[oó]mo.*empez|diferencia|compar|cu[aá]l (me |le )?(conviene|recomienda|elijo|sirve)|entre (ellos|los|las|esos|estos)|niveles?|valor(es)?|cu[aá]nto (cuesta|vale|sale)/i.test(latestUserMessage) || _botMostroPaquetes || _contextoTraeFREQ03) ? getPaquetesPricingPin(visitorCountry) : ''}
+${relevantDocuments.some((d) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  d.id === 'arsenal_compensacion_COMP_GEN5_01' || (d.metadata as any)?.fragment_categories?.includes?.('arsenal_compensacion_COMP_GEN5_01'))
+  ? getPinComisionGEN5(visitorCountry) : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : isQuickReplyChip ? `🎯 RESPUESTA CANÓNICA EXTENSA — Esta consulta proviene de uno de los 4 chips iniciales del saludo Queswa. El fragmento del arsenal recuperado contiene la respuesta arquitectónica completa (tres fuerzas/socios, El Método Comprobado, productos, monetización). DEBES entregarlo VERBATIM con TODO su formato Markdown intacto: negritas con **, viñetas con -, numeración con 1./2./3., saltos de línea entre párrafos. NO resumas. NO improvises. NO apliques límite de 150 palabras — esta es excepción documentada en el SP. La legibilidad visual es crítica para que el avatar de primera visita procese la arquitectura del modelo.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 ${/* El bloque <instrucciones_absolutas_finales> vivía aquí: cuatro reglas en

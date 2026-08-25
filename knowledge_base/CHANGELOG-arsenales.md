@@ -12,6 +12,16 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.3 — La comisión del GEN5 se cotiza en la moneda del visitante (25 ago 2026)
+
+La v8.2 le dio cifras a COMP_GEN5_01, y quedaron escritas en **pesos colombianos dentro de un `<verbatim_lock>`** — un texto que se entrega carácter por carácter. La regla de moneda por país dice que a un visitante de Estados Unidos se le cotiza en dólares, y el pin que resuelve eso (`getPinCifrasGEN5`) solo dicta cuando la persona **pide el ejemplo**, no cuando pregunta *«¿qué es el GEN5?»* en frío. Un prospecto con número +1 recibía COP.
+
+Se aplica el mismo reparto que ya usaba FREQ_03: **el candado pone el texto, el pin pone la cifra.** El candado trae `[GEN1]` y `[GEN2_5]`; los llena `getPinComisionGEN5(country)` en `route.ts`, que se inyecta cuando el contexto trae este fragmento. Colombia → solo COP · Estados Unidos → USD limpio · resto → USD con COP entre paréntesis.
+
+⚠️ **La regla general:** una cifra que depende del país **no puede vivir dentro de un candado**. Al escribir un fragmento con cifras y `<verbatim_lock>`, el hueco va en el candado y la cifra en un pin.
+
+Cifras del plan intactas.
+
 ### v8.2 — El GEN5 lleva su rango en la primera respuesta (24 ago 2026)
 
 Trabajo de otra sesión, documentado aquí el 25 ago al encontrarlo sin entrada en el CHANGELOG. **Verificado antes de desplegarlo:** las cifras cuadran con la tabla del propio arsenal (Gen 1 $675.000 · Gen 2-4 $90.000 · Gen 5 $180.000 para Visionario) y con el pin del motor en `route.ts`; el techo de $112.500 para Inicial también. La batería del guardarraíl de negocio trae un caso para el copy nuevo y pasa.

@@ -975,7 +975,7 @@ El Auto Envio es un programa de lealtad.
 ## GANANCIA POR VENTA DIRECTA
 
 ### COMP_VENTA_01: "Puedo ganar vendiendo productos?"
-**[Índice]:** Puedo ganar vendiendo productos directamente, cuánto me deja la venta al detal, gano por vender.
+**[Índice]:** Cuánto me deja la venta directa al detal, qué margen tiene, si además de las comisiones el producto vendido deja ganancia.
 
 **[Concepto Nuclear]:** Ganas el diferencial entre precio constructor y precio publico.
 

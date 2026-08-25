@@ -12,7 +12,8 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.02** (25 ago 2026) — **FREQ_28 dice por fin qué es la estructura, y la traduce en la misma frase.** *«Cambiar de dónde viene el dinero — no cuánto le saca a lo que ya tiene»*, y el sustantivo que faltaba: un canal de distribución. Detalle en el CHANGELOG.
+**Versión actual: v6.03** (25 ago 2026) — **Auditoría del primer tercio: la perpetuidad de FREQ_27 y los disparadores que se repetían.** *De forma permanente* sale de FREQ_27; FREQ_22 y FREQ_02 pierden dos promesas de esfuerzo mínimo que se habían colado, una en una pregunta de cierre. Y ACTIVACION_01 baja de once disparadores a seis. Detalle en el CHANGELOG.
+**Versión anterior: v6.02** (25 ago 2026) — **FREQ_28 dice por fin qué es la estructura, y la traduce en la misma frase.** *«Cambiar de dónde viene el dinero — no cuánto le saca a lo que ya tiene»*, y el sustantivo que faltaba: un canal de distribución. Detalle en el CHANGELOG.
 **Versión anterior: v6.01** (25 ago 2026) — **Su parte se nombra con verbos, y el resultado se atribuye al mecanismo.** Ocho fragmentos dejan de achicar lo que él hace con adverbios —*solo*, *en un clic*, *un sistema que trabaja por usted*— y dos dejan de atribuirle la multiplicación a *la sencillez*: la causa es que quien entra hace exactamente lo mismo. Detalle en el CHANGELOG.
 **Versión anterior: v6.00** (25 ago 2026) — **Los cuatro testimonios y afirmaciones de ingreso que el guardarraíl no veía.** STORY_01 pierde el plazo del rango y el vocabulario de estado patrimonial; DIASPORA_02 prueba el trámite sin usar el rango como prueba; FREQ_17 y FREQ_18 dejan de dar el ingreso por hecho. Detalle en el CHANGELOG.
 **Versión anterior: v5.99** (25 ago 2026) — **FREQ_28 describe el mecanismo y deja de atribuirse el resultado.** Afirmaba que cambiar la estructura *es* resolver el tema financiero de raíz, y prometía que armarlo es fácil; las dos juntas componen un resultado personal prometido con esfuerzo mínimo, que es la categoría que Meta sanciona aunque no haya cifra ni fecha. Detalle en el CHANGELOG.
@@ -198,8 +199,8 @@ Así, lo suyo es **decidir**: conecta clientes y socios a su negocio y ve cómo 
 
 ---
 
-### **PERFIL_01: "¿Esto es para alguien como yo? / Yo soy médico/ejecutivo/artista, ¿esto me sirve? / ¿Qué tipo de personas entran a esto? / ¿Tengo que ser vendedor? / Yo no sirvo para vender / Yo no sé vender / No soy bueno vendiendo / Soy introvertido, ¿esto funciona para mí?"**
-**[Índice]:** Esto es para alguien como yo, sirve para mi profesión, qué tipo de personas entran. Tengo que ser vendedor, yo no sé vender, soy tímido o introvertido.
+### **PERFIL_01: "¿Esto es para alguien como yo? / Yo soy médico/ejecutivo/artista, ¿esto me sirve? / ¿Qué tipo de personas entran a esto? / ¿Tengo que ser vendedor? / Yo no sirvo para vender / Yo no sé vender / Soy introvertido, ¿esto funciona para mí?"**
+**[Índice]:** Esto es para alguien como yo, sirve para mi profesión, qué tipo de personas entran. Tengo que ser vendedor, yo no sirvo para vender, soy tímido o introvertido.
 **[Concepto Nuclear]:** La pregunta es de **pertenencia y autoeficacia** —*¿seré capaz?*—, así que se responde con **lo que él ya tiene**, nunca con su punto débil: el activo es la **credibilidad ante su círculo**, que ni se aprende ni se compra. ⚠️ **Sin bifurcar por segmento:** una respuesta partida en *"si usted es X… si usted es Y…"* obliga a clasificarse y deja media respuesta que no le habla. La lista de tres oficios cubre a todos sin pedirle que elija. ⚠️ **La personalización no se cobra.** Pedirle el oficio antes de mostrarle nada condiciona la respuesta a un dato, y quien duda de encajar —que es justo quien hace esta pregunta— muchas veces no lo entrega: la conversación se queda sin siguiente paso. Además contradecía al propio cuerpo, que cubre a todos sin pedirle que se clasifique. Si cuenta a qué se dedica, se le aterriza; no se le cobra por adelantado. ⚠️ La vulnerabilidad del ingreso atado a la presencia ya la dan WHY_03 y FREQ_05; repetirla aquí es la tercera vez y contesta algo que no preguntaron.
 
 Es para quien ya tiene una ocupación y no piensa dejarla —empleados, profesionales independientes, dueños de negocio—, porque corre en paralelo a lo que hace hoy.
@@ -216,7 +217,7 @@ No hace falta ser vendedor ni saber de tecnología: explicar y resolver dudas es
 **[Índice]:** Tengo que buscar a mis amigos, a quién le vendo, no quiero molestar a mi familia, cómo consigo la gente, tengo que hacer publicidad.
 **[Concepto Nuclear]:** Detrás de esta pregunta hay un **miedo**, no una duda de método: teme tener que molestar a su círculo. Se responde con un **No** en la primera palabra, y después con lo poco que le toca hacer. ⚠️ **La taxonomía de los tres caminos no se entrega** (8 ago 2026): quien tiene miedo no necesita una clasificación, necesita el alivio. La sustancia de los tres sigue ahí —círculo · redes · pauta— sin nombres propios que memorizar. ⚠️ *"Si le nace"* le devuelve la decisión sobre su círculo, que es justo lo que teme perder. ⚠️ La **pauta va última y marcada como opcional y posterior**: al mismo nivel que las otras, convierte una respuesta tranquilizadora en una que cuesta plata. ⚠️ La pregunta de cierre remata con la demostración: lo que pasa cuando alguien toca ese enlace es exactamente lo que le está pasando a él en ese momento.
 
-**No.** Usted le comparte un enlace a quien quiera, y ahí termina su parte: yo converso con quien tenga interés y le aviso cuando alguien quiera avanzar.
+**No.** Usted le comparte un enlace a quien quiera, y de ahí en adelante yo converso con quien tenga interés y le aviso cuando alguien quiera avanzar.
 
 Puede empezar por su círculo, si le nace, o dejarlo aparte y traer interesados desde redes. Las dos formas dan igual, porque el que explica soy yo.
 
@@ -259,7 +260,7 @@ Son tres formas de empezar, y en las tres lo que paga se convierte en producto: 
 
 ---
 
-### **ACTIVACION_01: "¿Cómo se activa mi canal? / ¿Cómo es el proceso de activación? / ¿Qué pasos sigo para activar? / ¿Cómo activo mi canal de distribución? / ¿Cómo se activa mi empresa digital? / ¿Cómo se pone en marcha? / ¿Cómo se inicia con este paquete? / ¿Cómo se inicia con el Empresarial? / Ya elegí el paquete, ¿cuál es el proceso? / ¿Cuáles son los pasos para iniciar con el ESP-2? / ¿Le explico cómo se inicia con este paquete?"**
+### **ACTIVACION_01: "¿Cómo se activa mi canal? / ¿Qué pasos sigo para activar? / ¿Cómo se pone en marcha? / Ya elegí el paquete, ¿cuál es el proceso? / ¿Cuáles son los pasos para iniciar con el ESP-2? / ¿Cómo se activa mi empresa digital?"**
 **[Índice]:** Cómo se activa, cuáles son los pasos del arranque, qué hago después de elegir paquete, cómo se pone en marcha. El proceso paso a paso.
 **[Concepto Nuclear]:** Quien pregunta esto quiere **entender el arranque**, no comprar todavía — el cierre con los niveles ESP es FREQ_03. **Tres pasos, no cuatro** (8 ago 2026): el acceso a la plataforma y la llamada del equipo son una sola cosa —*ya está adentro y no está solo*— y separarlas hacía parecer el arranque más largo de lo que es. ⚠️ **El acompañamiento humano va de último**, porque es lo que tranquiliza y es lo último que se lee. ⚠️ **Se muestra, no se declara:** que una persona lo llame ya prueba que no queda solo; añadir la declaración de principios lo dice dos veces, y enunciar el abandono para descartarlo lo mete en la conversación.
 
@@ -347,7 +348,7 @@ La diferencia con un **distribuidor** está en lo que cada uno quiere: el distri
 
 Para el sistema, el consumo de los dos cuenta exactamente igual. Y suele ser la vía de entrada más natural: muchos empiezan probando el producto y con los meses deciden abrir su negocio.
 
-**Pregunta de seguimiento:** ¿Le muestro cómo compran sus clientes, sin que usted tenga que hacer nada?
+**Pregunta de seguimiento:** ¿Le muestro cómo compran sus clientes?
 
 ---
 
@@ -416,9 +417,9 @@ De ahí en adelante usted pide cuando quiera y lo que quiera.
 ---
 
 
-### **FREQ_27: "El dólar está a $3,500 y ustedes lo cobran a $4,500 / ¿Por qué me cobran el dólar más caro? / Hay un error con el precio, el dólar no está a esa tasa / ¿Por qué la tasa es 4,500 y no la del mercado? / ¿A qué tasa me paga Gano Excel? / ¿Es a tasa de hoy? / ¿Cuánto vale el dólar para mis pagos? / ¿La tasa es de mercado? / ¿A cómo me pagan el dólar?"**
+### **FREQ_27: "El dólar está a $3,500 y ustedes lo cobran a $4,500 / ¿Por qué me cobran el dólar más caro? / Hay un error con el precio, el dólar no está a esa tasa / ¿A qué tasa me paga Gano Excel? / ¿La tasa es de mercado o es de hoy?"**
 **[Índice]:** El dólar está más barato y ustedes lo cobran a 4.500, por qué me cobran el dólar más caro, a qué tasa me pagan, si es la tasa del mercado.
-**[Concepto Nuclear]:** El precio lo fija Gano Excel en USD a una tasa corporativa fija ($4,500 COP), igual para sus más de 60 países — no es una conversión de mercado ni un margen de CreaTuActivo. Usted no compra dólares: compra productos. Y esa misma tasa fija es a la que cobra cada comisión, por encima del mercado: la paga una vez al entrar y la recupera en cada liquidación. NUNCA derivar esta pregunta a un humano — responder directo. ⚠️ **Atiende las DOS audiencias** (10 ago 2026, absorbió a FREQ_23): quien reclama la tasa y quien solo pregunta a cómo le pagan. Por eso **abre con el hecho, no con el reclamo** — medido, tres de cada cuatro preguntas neutras ya llegaban aquí, y recibirlas con *«tiene razón en que la TRM es más baja»* les pone en la boca una queja que no trajeron. El dato primero; el reencuadre después, que sirve igual a los dos.
+**[Concepto Nuclear]:** El precio lo fija Gano Excel en USD a una tasa corporativa fija ($4,500 COP), igual para sus más de 60 países — no es una conversión de mercado ni un margen de CreaTuActivo. Usted no compra dólares: compra productos. Y esa misma tasa fija es a la que cobra cada comisión, por encima del mercado: la paga una vez al entrar y la recupera en cada liquidación. NUNCA derivar esta pregunta a un humano — responder directo. ⚠️ **CUMPLIMIENTO — la tasa se afirma como HECHO, sin adverbio de duración.** Decía que el socio *queda cobrando en moneda fuerte de forma permanente*: sin fecha es peor que con fecha, porque es perpetuidad, y de paso daba el ingreso por hecho. La tasa fija es verificable y no necesita el adorno. ⚠️ **Atiende las DOS audiencias** (10 ago 2026, absorbió a FREQ_23): quien reclama la tasa y quien solo pregunta a cómo le pagan. Por eso **abre con el hecho, no con el reclamo** — medido, tres de cada cuatro preguntas neutras ya llegaban aquí, y recibirlas con *«tiene razón en que la TRM es más baja»* les pone en la boca una queja que no trajeron. El dato primero; el reencuadre después, que sirve igual a los dos.
 
 La tasa es fija: Gano Excel liquida a **$4.500 COP por dólar**, sin importar la TRM del día.
 
@@ -426,7 +427,7 @@ No es una conversión de mercado ni un margen nuestro — es el precio oficial d
 
 Y aquí está la otra cara —la que más le conviene—: esa **misma** tasa de $4,500 es a la que usted **cobra cada comisión** de su canal, por el resto de su operación. Hoy la TRM del mercado le daría menos por cada dólar; Gano Excel le liquida a $4,500, por encima del mercado. Es decir: el ajuste que asume una sola vez al entrar, lo recupera en cada pago que recibe. En un país donde el peso se devalúa, fijar su ingreso a $4,500 es un blindaje, no un sobrecosto.
 
-Dicho simple: a cambio de un ajuste único a la entrada, usted queda cobrando en moneda fuerte —a una tasa superior a la del mercado— de forma permanente.
+Dicho simple: a cambio de un ajuste único a la entrada, cada comisión que cobre se liquida a esa misma tasa.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se ve una comisión liquidada a esa tasa?
 

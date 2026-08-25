@@ -173,6 +173,21 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.03 — Auditoría de los 35 primeros fragmentos (25 ago 2026)
+
+**FREQ_27 prometía perpetuidad.** *«Usted queda cobrando en moneda fuerte —a una tasa superior a la del mercado— **de forma permanente**»*. Sin fecha es peor que con fecha, y encima daba el ingreso por hecho. El guardarraíl no lo veía: no hay conjunción de dinero con **plazo**, hay dinero con **permanencia**, que es otra silueta. La tasa fija es verificable y se sostiene sola: *«cada comisión que cobre se liquida a esa misma tasa»*.
+
+**Dos promesas de esfuerzo mínimo se habían colado después del barrido**, y una de ellas en el sitio donde no se estaban buscando: **la pregunta de cierre de FREQ_22** decía *«¿le muestro cómo compran sus clientes, sin que usted tenga que hacer nada?»* — escrita el mismo día en que se sacó esa construcción de todos los cuerpos. Y **FREQ_02** decía *«y ahí termina su parte»*: su parte no termina, comparte y recibe.
+
+**Los disparadores se podan, y con medición antes y después.** ACTIVACION_01 tenía **once**, siete de ellos variantes de dos preguntas, y uno era **la oferta del propio bot** —*«¿Le explico cómo se inicia con este paquete?»*—, que no es la voz de una persona; de eso ya se encarga el mecanismo de aceptación del motor. FREQ_27 baja de nueve a cinco, PERFIL_01 de ocho a siete.
+
+⚠️ **Podar tiene el mismo riesgo que alargar, y hay que medirlo igual.** La primera poda **rompió dos puertas**: *«yo no sirvo para vender»* pasó de ganarla PERFIL_01 a perderla, y *«ya elegí el ESP-2»* dejó a ACTIVACION_01 fuera del top 2 — un disparador que la v5.80 había añadido a propósito. Comprobado contra los embeddings del respaldo y restaurados los dos. Tras la restauración ACTIVACION_01 gana con **0.528**, mejor que el 0.478 que tenía antes de todo.
+
+⚠️ **Y una colisión que causó un índice mío:** el de `COMP_VENTA_01` decía *«gano por vender»* y le robaba la objeción *«no sirvo para vender»* a PERFIL_01. Se ancló al **margen** en vez de al verbo; ahora PERFIL_01 gana con 0.552 y COMP_VENTA_01 gana lo suyo con 0.646.
+
+**Lo que quedó bien en el rango:** ninguna pregunta de cierre encuesta ni tiene dos salidas, y el léxico está limpio en los 35. ⏳ **Anotado:** veinte de treinta y cuatro cierres empiezan con *«¿Le muestro…»* — no es error de doctrina, es de oído, y hace que la conversación suene a formulario.
+
+
 ### v6.02 — FREQ_28 dice por fin qué es la estructura (25 ago 2026)
 
 **El hueco que la auditoría de cumplimiento no vio.** Tras corregirla por promesa de resultado, la respuesta seguía teniendo un defecto de otra clase: **nunca nombraba la cosa**. Decía lo que *no* es resolver de raíz, decía que hay que cambiar la estructura, y saltaba a las herramientas. El lector salía con una sensación en vez de una idea, y ese vacío es exactamente donde el modelo improvisa. Ahora aparece el sustantivo: **un canal de distribución**.

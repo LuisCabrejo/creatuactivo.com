@@ -84,7 +84,7 @@ Es un ingreso que no depende de que usted esté presente en cada venta.
 
 **Pregunta de seguimiento:** ¿Le muestro esa bola de nieve en números?
 
-**[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, estructuradas para corto, mediano y largo plazo. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas corren en paralelo desde el dia uno. Las otras diez se detallan solo si preguntan por el plan completo.
+**[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, repartidas por horizonte: **cinco a corto plazo, tres a mediano y cuatro a largo** (dato de campo del Director, 25 ago 2026). La explicación de las doce viene en físico dentro del kit de inicio. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas corren en paralelo desde el dia uno. Las otras diez se detallan solo si preguntan por el plan completo.
 
 ### COMP_GEN5_01: "Que es el Bono GEN5?" / "Explicame el Gen5" / "Como se gana rapido?" / "Cual es la forma rapida de ganar?"
 
@@ -1017,7 +1017,7 @@ El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener 
 | **Compresion** | Cuando su paquete limita su cobro (ej: tiene ESP-1, entra ESP-3 → pierde diferencia). |
 
 **Nota para Queswa:** Al responder sobre compensacion, simplifica la matematica con la nomenclatura canonica:
-- "El GEN5 le entra cada vez que alguien de su canal compra un paquete empresarial, y es la plata que financia el crecimiento."
+- "El GEN5 le entra cada vez que se compra un paquete empresarial en su canal, y es la plata que financia el crecimiento."
 - "El Binario le paga por las compras que sus clientes vuelven a hacer, semana tras semana."
 
 ---

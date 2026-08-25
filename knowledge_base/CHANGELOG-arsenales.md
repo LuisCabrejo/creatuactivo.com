@@ -173,6 +173,22 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.93 — Cuatro ajustes quirúrgicos de narrativa (25 ago 2026)
+
+**FREQ_04 — la ausencia de fecha se dice como criterio, no como límite nuestro.** Decía *«no hay una fecha fija, porque depende…»*, que suena a excusa. Ahora abre con **«en un negocio real no existe una fecha fija de retorno»**: la misma información con el signo cambiado — lo que parecía evasiva se vuelve prueba de seriedad, y de paso inocula contra quien sí promete plazos. Hallazgo de un borrador de Gemini que el Director trajo; su léxico se descartó entero (*garantizado*, *velocidad del sistema*, *apertura de cada nuevo canal en su red*, *siguiente liquidación semanal*, *métrica*, *volumen de facturación*) y se conservó solo la narrativa.
+
+⚠️ **Y el ingreso crece por ACUMULACIÓN, no por repetición** (corrección del Director). Decía que crecía *«a medida que sus clientes vuelven a pedir»*, y eso es falso: si los mismos clientes repiten, el ingreso es el mismo mes tras mes. La recompra sostiene el piso; lo que levanta el techo es que **la base no se reinicia** — se suman los clientes nuevos de cada semana y los de sus distribuidores.
+
+⚠️ **Las dos vías van fundidas en una idea.** El *cuándo* ya lo responde el párrafo del calendario de pago, así que la frase siguiente solo tiene que decir si el ingreso crece o se queda plano. Separarlas obligaba a nombrar dos mecánicas que el lector no pidió.
+
+⚠️ **Y se retiró *«cuándo entra cada cosa»* y *«entra en la liquidación de ese ciclo»***: le producían fricción hasta a quien tiene el contexto completo del proyecto, y *liquidación de ese ciclo* se lee como que le pagan esa semana.
+
+**Los clientes se SUMAN, no entran.** En esta industria *entrar* es el verbo de vincularse, así que aplicado a clientes importa el marco de reclutamiento justo donde la frase debía ser comercial. Corregido en FREQ_04 y en FREQ_22; en `arsenal_compensacion`, *«cada vez que alguien de su canal compra»* pasa a *«cada vez que se compra un paquete empresarial en su canal»*, que además cuenta compras y no personas. **Se conservan los usos legítimos:** los disparadores que traen la palabra del prospecto, y EAM_01, donde *quien entra con usted* habla de socios vinculándose, que es lo que el verbo significa.
+
+**FREQ_04_PUENTE — las 12 formas se reparten por horizonte:** cinco a corto plazo, tres a mediano y cuatro a largo (dato de campo del Director, doce años), y la explicación de las doce viene **en físico dentro del kit de inicio**. ⚠️ **El GEN5 y el Binario corren en paralelo desde el primer día**: presentarlas como las de *la etapa de inicio* degradaba al Binario, que es justamente el ingreso de largo plazo. La referencia interna de compensación ya lo decía así y ahora gana también el 5/3/4.
+
+**PERFIL_01 deja de cobrar peaje.** Cerraba con *«Cuénteme a qué se dedica hoy, y le muestro…»*, que condiciona la respuesta a un dato. Quien duda de encajar —justo quien hace esta pregunta— muchas veces no lo entrega, y la conversación se queda sin paso siguiente. Además contradecía al propio cuerpo, que cubre a todos sin pedirles que se clasifiquen. Ahora propone el paso y sigue. De paso, *«alguien con su trayectoria»* pasa a *«alguien a quien le tienen confianza»*: la trayectoria presupone carrera y le habla mal a quien va empezando.
+
 ### v5.92 — Afinado de índices con datos de producción (25 ago 2026)
 
 Los índices de la v5.91 se midieron primero contra los 58 de `arsenal_inicial`. En producción compiten **175 fragmentos de cinco arsenales**, y ahí aparecen colisiones que el laboratorio no ve. Seis consultas de las cuarenta no ganaban el primer puesto; dos de ellas las perdía contra un fragmento **con candado**, que se sirve solo y descarta a los demás — esos eran los defectos reales, porque el motor entrega top-3 y un segundo puesto sin candado enfrente llega igual al modelo.

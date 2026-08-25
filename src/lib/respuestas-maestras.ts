@@ -187,7 +187,7 @@ El dinero sale de una sola fuente: el producto que se vende por su canal — caf
 
 Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio canal. De cada venta a usted le queda un porcentaje.
 
-Y no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que haya que volver a venderla.
+Y no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que usted tenga que estar encima.
 
 Quien le consigna es **Gano Excel**, y lo hace en **su cuenta bancaria cada viernes**. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco.
 

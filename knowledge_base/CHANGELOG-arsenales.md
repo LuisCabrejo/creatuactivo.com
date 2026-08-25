@@ -930,6 +930,22 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 
 ## arsenal_avanzado
 
+### v13.6 — ADV_SIST_01: la tesis es la propiedad, y la analogía es un puente (25 ago 2026)
+
+**El villano estaba mal elegido.** La respuesta decía que el ingreso se frena el día que usted para, y ese es un síntoma. La tesis, según el Director, es la **propiedad**: en un empleo usted construye la empresa de otro. El villano es la **presencia obligada**, y la palanca es el movimiento de producto.
+
+**Y la analogía se usa como puente, no como argumento aparte.** Una versión intermedia le dio remate propio —*«la cuota se parece; lo que queda no: de un lado recibos, del otro una casa»*— y eso obliga al lector a procesar una tesis completa antes de volver al hilo. Quedan dos líneas narrativas compitiendo. *«Funciona igual que la diferencia entre pagar arriendo y tener vivienda propia»* engancha y sigue de largo.
+
+⚠️ **El contraste es entre dos empresas, no entre dos abstracciones.** *La empresa de otro* contra *la suya* se ve; *la propiedad de otro* hay que descifrarlo.
+
+⚠️ **La independencia se predica del MOVIMIENTO, no del ingreso.** Decir *«el ingreso sigue aunque usted no esté»* lo afirma; decir *«ese movimiento no depende de que usted esté»* describe el mecanismo. Y se dice **por qué** —Gano fabrica y despacha, Queswa conversa—: sin la causa, la pregunta obvia queda viva y el modelo la improvisa.
+
+⚠️ **La pregunta de cierre propone un paso.** La anterior pedía estar de acuerdo: *«¿quiere ver cómo se construye un ingreso que siga produciendo aunque usted descanse?»*.
+
+Cuerpo 620 → 465 caracteres. Construida sobre dos borradores del Director; el vocabulario de *ecosistema* y de ingresos continuos se descartó — Gano Excel y Queswa se nombran por su nombre, y la continuidad del ingreso no se afirma.
+
+
+
 ### v13.5 — Los 16 fragmentos ganan su índice (25 ago 2026)
 
 Mismo modelo que `arsenal_inicial` v5.91: `[Índice]` al embedding, cuerpo al contenido servido, `[Concepto Nuclear]` recortado y solo para quien edita.

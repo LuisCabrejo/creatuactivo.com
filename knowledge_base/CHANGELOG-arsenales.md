@@ -173,6 +173,20 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.97 — Nace FREQ_34: las nueve oficinas con dirección exacta (25 ago 2026)
+
+**El arsenal invitaba a comprobar algo que no podía sostener.** FREQ_13 usa las oficinas como prueba de legalidad y cierra con *«usted puede entrar a cualquiera»*; FREQ_07 y FREQ_33 también las mencionan. Pero el corpus solo tenía las **ciudades** — ninguna dirección, en ningún arsenal. Si alguien preguntaba *«¿dónde queda la de Cali?»*, el modelo no tenía con qué responder, que es exactamente la condición en la que improvisa.
+
+Las nueve, con barrio, aportadas por el Director: **Bogotá Cedritos** y **Bogotá Santa Isabel**, **Medellín**, **Cali**, **Barranquilla**, **Bucaramanga**, **Pereira**, **Cúcuta** y **Villavicencio**.
+
+⚠️ **Va bajo `<verbatim_lock>`.** Una dirección parafraseada es una dirección equivocada, y alguien puede viajar hasta allá. Es el uso más literal que tiene el candado en todo el corpus.
+
+⚠️ **Cada línea va separada por línea en blanco.** Con salto simple el render de Queswa las colapsa en un párrafo y el directorio se vuelve ilegible — mismo cuidado que las viñetas de FREQ_08.
+
+⚠️ **No le roba consultas a FREQ_13.** Medido: *«es una pirámide?»* y *«es legal esto en Colombia»* siguen resolviendo a FREQ_13. FREQ_34 gana lo suyo con margen amplio — *«dónde queda la oficina de Cali»* con 0.449 contra 0.305 del segundo.
+
+⚠️ **Reparto:** los teléfonos son FREQ_24, la prueba de legalidad es FREQ_13, y aquí solo van las direcciones.
+
 ### v5.96 — Nace FREQ_33 (el alivio operativo) y el par de perfiles se unifica en distribuidor (25 ago 2026)
 
 **FREQ_33 responde algo que nadie respondía.** *¿Me toca empacar, cobrar, entregarle el pedido a cada cliente?* existía solo como una cláusula de paso dentro de WHY_02 —*«sin comprar inventario ni entregar pedidos»*— y no tenía fragmento propio. Quien hace esa pregunta se está imaginando de vendedor de catálogo, cargando cajas y persiguiendo pagos, y lo que lo desarma es saber **quién hace cada cosa**: la empresa cobra, empaca y despacha; a él le queda la comisión.

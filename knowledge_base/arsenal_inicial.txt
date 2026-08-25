@@ -12,7 +12,8 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v5.96** (25 ago 2026) — **Nace FREQ_33 —el alivio operativo y la fidelización— y el par de perfiles se unifica en distribuidor.** Quien pregunta cómo compran sus clientes se imagina cargando cajas y persiguiendo pagos; ahora hay una respuesta que dice quién hace cada cosa. **Distribuidor** pasa a ser el rol formal frente a cliente, y *socio* queda para lo relacional. FREQ_21 y FREQ_22 reescritas. Detalle en el CHANGELOG.
+**Versión actual: v5.97** (25 ago 2026) — **Nace FREQ_34: las nueve oficinas con dirección exacta.** FREQ_13 invitaba a comprobar —*«usted puede entrar a cualquiera»*— y el arsenal solo tenía las ciudades, así que la invitación no se podía honrar. Va bajo candado: una dirección parafraseada es una dirección equivocada. Detalle en el CHANGELOG.
+**Versión anterior: v5.96** (25 ago 2026) — **Nace FREQ_33 —el alivio operativo y la fidelización— y el par de perfiles se unifica en distribuidor.** Quien pregunta cómo compran sus clientes se imagina cargando cajas y persiguiendo pagos; ahora hay una respuesta que dice quién hace cada cosa. **Distribuidor** pasa a ser el rol formal frente a cliente, y *socio* queda para lo relacional. FREQ_21 y FREQ_22 reescritas. Detalle en el CHANGELOG.
 **Versión anterior: v5.95** (25 ago 2026) — **FREQ_20 aísla la variable:** deja fijas las personas y mueve solo el producto, para que el lector vea solo que lo que cambia el ingreso no es el número de gente. Nombra las dos vías del movimiento y se mide sin unidad de empaque. Detalle en el CHANGELOG.
 **Versión anterior: v5.94** (25 ago 2026) — **FREQ_20 habla como una empresa, no como un multinivel.** La unidad pasa a ser el **cliente** en vez del *registrado*, y la respuesta termina en la cuenta: el remate explicativo sobraba, porque el ejemplo ya lo había demostrado. Detalle en el CHANGELOG.
 **Versión anterior: v5.93** (25 ago 2026) — **Cuatro ajustes quirúrgicos de narrativa.** FREQ_04 dice la ausencia de fecha como criterio de seriedad —*en un negocio real no existe una fecha fija de retorno*— y explica el crecimiento por **acumulación**, no por repetición. FREQ_04_PUENTE reparte las 12 formas por horizonte. PERFIL_01 deja de cobrar el oficio para responder. Y los clientes **se suman**, no *entran*. Detalle en el CHANGELOG.
@@ -357,6 +358,36 @@ Cada cliente pide como le quede cómodo: por internet, llamando a la línea naci
 Y el sistema los mantiene activos por usted: les llegan las promociones, los beneficios de su código y el recordatorio de compra, sin que usted les escriba. Desde su Dashboard ve cómo va el consumo de cada uno.
 
 **Pregunta de seguimiento:** ¿Le muestro cuánto se mueve con un canal de puros clientes?
+
+---
+
+### **FREQ_34: "¿Dónde quedan las oficinas de Gano Excel? / ¿Hay oficina en mi ciudad? / ¿Cuál es la dirección de la oficina? / ¿Dónde puedo recoger el producto? / ¿Dónde queda la oficina de Cali? / ¿Tienen oficina en Medellín?"**
+**[Índice]:** Dónde quedan las oficinas de Gano Excel en Colombia, si hay una en mi ciudad, cuál es la dirección exacta, dónde puedo ir a recoger el producto o a comprar en persona.
+**[Concepto Nuclear]:** Directorio. **Existe porque FREQ_13 invita a comprobar** —*«usted puede entrar a cualquiera»*— y hasta el 25 ago 2026 el arsenal solo tenía las ciudades, no las direcciones: la invitación no se podía honrar. Una dirección física es el argumento más fuerte contra el miedo al fraude digital, y solo funciona si es exacta. ⚠️ **Va bajo candado**: una dirección parafraseada es una dirección equivocada, y alguien podría viajar. ⚠️ **Cada línea va separada por línea en blanco** — con salto simple el render de Queswa las colapsa en un párrafo y el directorio se vuelve ilegible. ⚠️ Los teléfonos son **FREQ_24**; la prueba de legalidad, **FREQ_13**. Aquí solo van las direcciones. Fuente: Director, 25 ago 2026.
+
+<verbatim_lock>
+Son nueve en el país, y estas son las direcciones:
+
+**Bogotá — Cedritos:** Autopista Norte (AK 19) # 134A-06, El Contador
+
+**Bogotá — Santa Isabel:** Carrera 30 # 1-20, Santa Isabel
+
+**Medellín:** Carrera 43F # 17-489, El Poblado
+
+**Cali:** Carrera 42 # 5B-65, Tequendama
+
+**Barranquilla:** Carrera 43 # 79-136, Porvenir
+
+**Bucaramanga:** Calle 51 # 31-98, Cabecera del Llano
+
+**Pereira:** Carrera 15 # 10-32, local 2, Pinares
+
+**Cúcuta:** Avenida 0 # 13-167, Caobos
+
+**Villavicencio:** Avenida 40 # 20-37, 7 de Agosto
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le queda cerca alguna?
 
 ---
 

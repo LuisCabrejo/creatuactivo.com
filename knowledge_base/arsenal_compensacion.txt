@@ -963,8 +963,8 @@ Para activar su código y acceder al precio de distribuidor, el VIP realiza una 
 **Compras recurrentes:**
 El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
 
-**Diferencia funcional con el socio:**
-- El socio adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su canal de distribución con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
+**Diferencia funcional con el distribuidor:**
+- El distribuidor adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su canal de distribución con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
 - El VIP solo busca acceso a producto a precio de distribuidor, sin requisito de recompra mensual.
 
 **Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para quien quiere acceder al producto sin compromiso de desarrollar un canal propio. Eventualmente, estos códigos pueden hacer upgrade a socio cuando el perfil madura.

@@ -181,7 +181,9 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ⚠️ **Las vías de compra son verificables y por eso convencen:** por internet, por la línea nacional gratuita (documentada en FREQ_24) o en cualquiera de las nueve oficinas (FREQ_13). El acceso de los clientes a **queswa.app** para armar y hacer su pedido está vigente, confirmado por el Director.
 
-⚠️ **Las campañas de fidelización automatizadas NO entran todavía** — están en construcción, y prometer producto que no corre es de la misma familia que prometer un plazo. Entran cuando estén vivas.
+⚠️ **La fidelización se nombra por lo que el cliente RECIBE y por lo que el dueño DEJA de hacer** (confirmado por el Director el mismo día): promociones, beneficios del código y recordatorio de compra, **sin que usted les escriba**. Ese *sin que usted les escriba* es el valor entero; el mecanismo interno no le interesa a quien pregunta. Y el dueño lo ve desde su Dashboard.
+
+⚠️ **El plazo de inactivación del código NO entra al corpus servido hasta conciliarlo.** `COMP_VIP_01` tiene escrito *«se sugiere una compra cada cinco meses para mantener la cuenta activa»* y la regla de campo del Director son **seis meses**. Probablemente no se contradicen —cinco es la sugerencia con margen, seis la regla de inactivación— pero mientras no esté confirmado, ninguna de las dos cifras se escribe.
 
 ⚠️ **La tarifa de envío se dice con el dato comprobable:** las tarifas están por debajo del mercado y **mandar veinticinco productos cuesta lo mismo que mandar uno**. El envío gratis es eventual y no constante, así que no se promete.
 
@@ -189,7 +191,9 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 **FREQ_21 y FREQ_22 reescritas sobre borradores del Director.** Lo que entró de ellos: *«Esa es la base de la estabilidad»*, que le pone nombre al beneficio; *«porque les gusta el producto»*, que le devuelve dignidad al que solo consume —la versión vieja lo definía por lo que le falta, *no desarrolla nada*—; *«sin asumir ninguna responsabilidad comercial»*; y *«precio mayorista»*, más digerible que *precio de distribuidor* para quien llega nuevo. Lo que se les corrigió: *facturación* (es de Gano, a él le quedan comisiones), *su red* (→ su canal), *la persona* (→ quien lo consume), y tres adverbios de consultoría — *radica estrictamente en*, *puramente*, *estratégicamente*.
 
-**La cadena de cierre queda encadenada:** FREQ_21 → FREQ_22 (qué es un cliente preferencial) → FREQ_33 (cómo compran) → CLIENTE_VIP_01 (cuánto ahorran).
+**La cadena de cierre queda encadenada:** FREQ_21 → FREQ_22 (qué es un cliente preferencial) → FREQ_33 (cómo compran) → el ejemplo con cifras.
+
+⚠️ **FREQ_33 cierra con *«¿cuánto se mueve con un canal de puros clientes?»*, y esa forma engancha el pin del motor** (`cu[aá]nto se mueve con`), cuyo ejemplo por defecto es el de **renta** — el del consumo que se repite, que es exactamente el que corresponde a un canal sin distribuidores. El Director pidió un Flow nuevo para ese escenario; la máquina que ya existe lo responde, así que el Flow queda como mejora y no como bloqueante.
 
 ### v5.95 — FREQ_20 aísla la variable en vez de usar un espantapájaros (25 ago 2026)
 

@@ -173,6 +173,16 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v5.94 — FREQ_20 habla como una empresa, no como un multinivel (25 ago 2026)
+
+**La unidad pasa a ser el cliente.** Decía *«si en su canal se registran mil y ninguno compra»*, y **registrado es vocabulario del multinivel** — nombra a alguien por el acto de inscribirlo, no por lo que hace. Usarlo justo en la respuesta que niega el multinivel se lo confirma al que vino a sospechar. Ahora dice *«si en su canal hay mil clientes y ninguno compra»*: la misma aritmética, dicha como la diría cualquier empresa. Detectado por el Director.
+
+**Y la respuesta termina en la cuenta.** Se retira el remate *«Por eso lo que cuenta son las compras, no los nombres»*. La cabecera del propio fragmento decía que el argumento se sostiene solo y que **todo lo demás sobra**; esa línea era todo lo demás — repetía en abstracto lo que el ejemplo acababa de demostrar con números, y encima terminaba en una negación. Cuerpo 411 → 285 caracteres.
+
+⚠️ **Este sigue siendo el único fragmento donde la unidad es la persona y no la compra**, y es legítimo precisamente porque el resultado es cero: contar personas aquí sirve para demostrar que contar personas no paga.
+
+⚠️ **La pregunta de cierre no se toca**: su forma engancha el pin del ejemplo dictado por el motor (`c[oó]mo se`), y reescribirla dejaría al «sí» del prospecto sin cifras.
+
 ### v5.93 — Cuatro ajustes quirúrgicos de narrativa (25 ago 2026)
 
 **FREQ_04 — la ausencia de fecha se dice como criterio, no como límite nuestro.** Decía *«no hay una fecha fija, porque depende…»*, que suena a excusa. Ahora abre con **«en un negocio real no existe una fecha fija de retorno»**: la misma información con el signo cambiado — lo que parecía evasiva se vuelve prueba de seriedad, y de paso inocula contra quien sí promete plazos. Hallazgo de un borrador de Gemini que el Director trajo; su léxico se descartó entero (*garantizado*, *velocidad del sistema*, *apertura de cada nuevo canal en su red*, *siguiente liquidación semanal*, *métrica*, *volumen de facturación*) y se conservó solo la narrativa.

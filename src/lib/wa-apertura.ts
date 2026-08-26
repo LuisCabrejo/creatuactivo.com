@@ -275,7 +275,17 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //   que el MODELO redacta, no a esta apertura.
     // • Negritas solo en los dos anclajes (*canal de distribución* · *ingresos
     //   actuales*) — asterisco simple, que es la negrita nativa de WhatsApp.
-    'Le explico cómo se construye un *canal de distribución* en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:',
+    // CATEGORÍA EN LA APERTURA (Director, 25 ago 2026). El saludo no nombraba
+    // ningún producto, así que «le paga cada vez que hay consumo» dejaba sin
+    // responder CONSUMO DE QUÉ, y el que llega frío lo rellena con cualquier
+    // cosa. Se nombra la CATEGORÍA, no el producto: «bienestar» ubica la
+    // conversación en una industria antes de que el lector la ubique él en
+    // otra, y evita que la primera impresión sea «esto es café» — que era el
+    // temor real, y que la auditoría encontró concentrado en FREQ_16.
+    // ⚠️ Va AQUÍ y no en la cascada: las tres líneas de abajo tienen cuatro y
+    //    cinco palabras, y meterle la categoría a la del ciclo la lleva a nueve
+    //    — la pila deja de leerse de un golpe, que es para lo que se diseñó.
+    'Le explico cómo se construye un *canal de distribución de productos de bienestar*, en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:',
     '',
     '⚙️ Se arma una sola vez.',
     '🔑 Usted es el dueño.',

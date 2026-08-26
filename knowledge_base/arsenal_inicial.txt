@@ -12,7 +12,8 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.04** (25 ago 2026) — **FREQ_08 entrega los temas, no la tabla de contenidos, y sale la alusión médica.** El contenido concreto de Maestría sube de la cabecera al cuerpo; *profesionales de la salud* y *eventos en vivo* se retiran de cara al prospecto. Detalle en el CHANGELOG.
+**Versión actual: v6.05** (25 ago 2026) — **Nace FREQ_35: la pregunta de las reuniones, que nadie respondía.** *«¿Hacen reuniones?»* devolvía el té Rooibos. Calibrada para las dos personas que la hacen: quien la teme oye *nada obligatorio*, quien busca respaldo oye *no queda solo*. Detalle en el CHANGELOG.
+**Versión anterior: v6.04** (25 ago 2026) — **FREQ_08 entrega los temas, no la tabla de contenidos, y sale la alusión médica.** El contenido concreto de Maestría sube de la cabecera al cuerpo; *profesionales de la salud* y *eventos en vivo* se retiran de cara al prospecto. Detalle en el CHANGELOG.
 **Versión anterior: v6.03** (25 ago 2026) — **Auditoría del primer tercio: la perpetuidad de FREQ_27 y los disparadores que se repetían.** *De forma permanente* sale de FREQ_27; FREQ_22 y FREQ_02 pierden dos promesas de esfuerzo mínimo que se habían colado, una en una pregunta de cierre. Y ACTIVACION_01 baja de once disparadores a seis. Detalle en el CHANGELOG.
 **Versión anterior: v6.02** (25 ago 2026) — **FREQ_28 dice por fin qué es la estructura, y la traduce en la misma frase.** *«Cambiar de dónde viene el dinero — no cuánto le saca a lo que ya tiene»*, y el sustantivo que faltaba: un canal de distribución. Detalle en el CHANGELOG.
 **Versión anterior: v6.01** (25 ago 2026) — **Su parte se nombra con verbos, y el resultado se atribuye al mecanismo.** Ocho fragmentos dejan de achicar lo que él hace con adverbios —*solo*, *en un clic*, *un sistema que trabaja por usted*— y dos dejan de atribuirle la multiplicación a *la sencillez*: la causa es que quien entra hace exactamente lo mismo. Detalle en el CHANGELOG.
@@ -364,6 +365,18 @@ Cada cliente pide como le quede cómodo: por internet, llamando a la línea naci
 Y el sistema los mantiene activos por usted: les llegan las promociones, los beneficios de su código y el recordatorio de compra, sin que usted les escriba. Desde su Dashboard ve cómo va el consumo de cada uno.
 
 **Pregunta de seguimiento:** ¿Le muestro cuánto se mueve con un canal de puros clientes?
+
+---
+
+### **FREQ_35: "¿Hacen reuniones? / ¿Tengo que ir a reuniones? / ¿Hay que asistir a eventos? / ¿Toca ir a capacitaciones presenciales? / ¿Hay llamadas obligatorias? / ¿Cada cuánto se reúnen?"**
+**[Índice]:** Hacen reuniones, tengo que asistir a eventos o capacitaciones, hay llamadas obligatorias, cada cuánto se reúnen, me va a tocar sacar tiempo para juntas.
+**[Concepto Nuclear]:** Es **la pregunta más cargada del multinivel**, y hasta el 25 ago 2026 nadie la respondía —medido: *«hacen reuniones?»* devolvía el té Rooibos—. ⚠️ **Está calibrada para DOS personas a la vez:** quien la hace con miedo, que es la mayoría, necesita oír *nada obligatorio*; quien la hace buscando respaldo necesita oír *no queda solo*. Las dos frases van, en ese orden. ⚠️ **Se dice *nada obligatorio*, nunca *no hay reuniones***: Gano Excel hace dos eventos internacionales al año pagados por la empresa —son premio, no deber, y viven en `ADV_VAL_05`—, así que negarlos aquí nos deja en contradicción con nuestro propio corpus. ⛔ **NO se compara con «el modelo de antes»** (Director, 25 ago 2026). Una versión intermedia cerraba con *«el modelo de antes pedía cuadrar agendas y llenar salones»*: eso **nos mete dentro de esa industria como su versión mejorada**, y se lo cuenta a alguien que no lo sabía. `NET_01` sí puede hacer esa comparación, porque allá la persona ya dijo que viene del mercadeo en red — el tema lo trajo ella. ⚠️ Cierra hacia **EAM_01**: si no hay reuniones, la pregunta que queda viva es qué hace uno entonces.
+
+Nada a lo que usted tenga que asistir. El canal se construye desde el celular, y la formación de Maestría está ahí cuando usted pueda.
+
+Lo que sí hay es acompañamiento directo: alguien del equipo se sienta con usted a montar su canal en los primeros días, y yo estoy a toda hora para lo que necesite.
+
+**Pregunta de seguimiento:** ¿Le muestro qué hace usted en el día a día?
 
 ---
 

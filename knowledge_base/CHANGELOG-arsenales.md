@@ -173,6 +173,21 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.05 — Nace FREQ_35: la pregunta de las reuniones (25 ago 2026)
+
+**Es la pregunta más cargada del multinivel y no tenía dueño.** Medido antes de escribirla: *«¿hacen reuniones?»* devolvía `BEB_04` —el té Rooibos— y `FAQ_03`. El hueco se destapó al retirar de FREQ_08 la mención de eventos en vivo: quitar la frase sin darle casa a la pregunta habría dejado al modelo improvisando justo donde más cuesta.
+
+**Está calibrada para dos personas a la vez.** Quien la hace con miedo —la mayoría— necesita oír *nada obligatorio*; quien la hace buscando respaldo necesita oír *no queda solo*. Las dos frases van, y en ese orden.
+
+⚠️ **Se dice *nada obligatorio*, nunca *no hay reuniones*.** Gano Excel hace dos eventos internacionales al año pagados por la empresa — son premio, no deber, y viven en `ADV_VAL_05`. Negarlos aquí nos dejaría en contradicción con nuestro propio corpus, y el prospecto lo descubriría después.
+
+⛔ **NO se compara con «el modelo de antes»** (Director, 25 ago 2026). Una versión intermedia cerraba con *«el modelo de antes pedía cuadrar agendas y llenar salones; aquí lo explico yo»*. Suena bien y es un error de posicionamiento: **nos mete dentro de esa industria como su versión mejorada**, y se lo cuenta a alguien que no lo sabía. `NET_01` y `DIASPORA_01` sí pueden hacer esa comparación porque allá el tema lo trajo la persona; en primer contacto, no.
+
+**Y se arregló un daño en `ADV_VAL_05`:** su cuerpo tenía un fragmento de otro disparador incrustado a mitad de frase —*«Son con Gano Excel y CreaTuActivo?"una forma de mantener motivada…»*—, con comillas y todo. Era texto servido: quien preguntara por los eventos recibía eso.
+
+Recuperación tras el cambio: 0.632 y 0.645 en sus dos consultas, contra 0.486 del segundo. El arsenal pasa a 61 respuestas.
+
+
 ### v6.04 — FREQ_08 entrega los temas, y sale la alusión médica (25 ago 2026)
 
 **La cabecera tenía la mercancía y el cuerpo entregaba etiquetas.** La cabecera listaba el contenido de Maestría —liderazgo, comunicación, administrar los recursos, detalle de producto— y el cuerpo le daba al lector tres rótulos de categoría: *Espacios en vivo · Asistencia IA · Plataforma propia*, más *«el material para iniciar su desarrollo»*, que es el sustantivo más vago posible. **Los sustantivos concretos son los que hacen pensar «esto es serio», y estaban del lado que el modelo dejó de leer** cuando las cabeceras salieron del fragmento. Mismo hallazgo que en FREQ_28: la respuesta nunca nombraba la cosa.

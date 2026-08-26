@@ -173,6 +173,33 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.11 — OBJ_02 contesta el monto con la forma, y los dos índices dejan de pelearse (26 ago 2026)
+
+**La respuesta.** *«Es mucho dinero»* es la misma pregunta sobre el tamaño que OBJ_01: la persona mira el paquete de arriba y asume una cifra única. La versión vieja explicaba en qué se convierte el dinero pero **nunca decía que no hay una sola cifra**, y cerraba con costo de no hacer nada —*«un socio mira cuánto le cuesta, mes a mes, no tenerlo»*—, que es la regla 2 del protocolo OBJ incumplida.
+
+El ángulo lo eligió el Director sobre una propuesta de Gemini: **proteger la plata que necesita mes a mes**. Trata al prospecto como alguien que administra, no como alguien que no tiene — la misma devolución de estatus que OBJ_01 le hace al ocupado. Y el orden: primero se le quita el paquete de mayor volumen, después viene el reencuadre.
+
+**El reencuadre canónico es INVENTARIO**, no *producto* a secas. El cerebro procesa gasto como dolor e inventario como activo, y aquí es literal: ESP-1/2/3 traen 7, 18 y 35 productos, y el candado de FREQ_03 ya dice que *lo que paga se convierte en producto*. El permiso queda como **afirmación** —*usted decide con cuánto abre*— y no dentro de la pregunta, que rompería la regla de una salida.
+
+**Lo que se rechazó de la propuesta y por qué:** las tres variantes enumeraban los destinos que el dinero NO tiene (*inscripción · membresía vacía · derecho de piso*), que es el defecto que la cabecera de OBJ_02 prohíbe desde hace meses — quien pregunta por el monto no estaba sospechando ningún fraude, y describírselos se los mete. También *asignación de capital* (retirada con la entrevista BANT en la v5.2), *escalar a medida que su facturación crezca* (junta dinero con plazo) y dos cierres de dos salidas, uno de ellos con el «no» ya puesto en la boca.
+
+**«Flujo de caja» la cazó el auditor.** Está vetada desde el 7 ago como jerga contable. *La plata que necesita mes a mes* dice lo mismo y pasa el test Beto sin perder el marco.
+
+---
+
+**Los índices — y una falla propia.** Al reescribir OBJ_01 (v6.10) le agregué *«no me cabe nada»* y *«no me queda margen»*: escasez genérica, y *margen* es palabra de dinero. **OBJ_01 se volvió un atractor** y le robó a OBJ_02 tres consultas de plata. Es la regla del índice que ya estaba escrita —*corto y genérico se vuelve un atractor*— y la incumplí el mismo día que la apliqué.
+
+Se resolvió con un arnés de índices que **no toca producción**: embebe candidatos como documento, las consultas como consulta, y los enfrenta contra los rivales reales sacados de Supabase. ⚠️ **Reproducir el texto que se vectoriza es la mitad del trabajo:** el fragmentador embebe `title\n\níndice`, donde *title* es solo la pregunta entrecomillada. Reconstruirlo con la línea `###` completa da números que no se parecen a producción, y el primer diagnóstico salió al revés por eso.
+
+Resultado: **10 de 12** consultas en el puesto 1. Dos variantes empataban en 10/12 pero **le robaban *«cuánto vale entrar»* a FREQ_03** —la tabla de precios con candado y con pin de moneda—, que es una pérdida mucho peor que ganar una paráfrasis de plata. Por eso ganó la corta.
+
+**Lo que se revisó y se dejó como está, con su motivo:**
+- *«No me alcanza para eso ahorita»* llega a OBJ_01, con OBJ_02 en el puesto 4. La frase es ambigua en español —sirve para tiempo y para plata— y ninguna de las siete variantes probadas la recupera sin romper algo. Hueco conocido.
+- *«No tengo con qué pagarlo»* también encabeza en OBJ_01, pero **OBJ_02 queda segunda**: el motor entrega top-3, así que el fragmento correcto sí llega al contexto.
+- El margen de OBJ_01 sobre `STORY_03` 🔒 quedó en 0.015 en una consulta (antes 0.032). Es el precio de haberle quitado lo genérico, y se aceptó a propósito. Una variante lo subía metiéndole al índice la frase literal de la consulta — eso es medir en círculo y se descartó.
+
+---
+
 ### v6.10 — OBJ_01 deja de rebatir y contesta la magnitud (26 ago 2026)
 
 La respuesta a *"no tengo tiempo"* estaba construida como refutación, y cada uno de sus cuatro movimientos iba contra la evidencia que este proyecto ya tenía en la casa. Abría contradiciendo (*"esa sensación no es un problema de organización"*), le anunciaba que iba a incomodarlo, le diagnosticaba la vida con una etiqueta del villano, y remataba volteándole su propia razón (*"precisamente porque no tiene tiempo…"*). Cero reconocimiento en toda la respuesta; OBJ_02 al menos abría con *"entiendo"*.

@@ -22,19 +22,19 @@ const supabase = createClient(g('NEXT_PUBLIC_SUPABASE_URL'), g('SUPABASE_SERVICE
 
 // Dónde nace cada arsenal y a qué tenants se propaga.
 const MAPA = {
-  arsenal_inicial:        { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'] },
-  arsenal_avanzado:       { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'] },
-  arsenal_compensacion:   { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'] },
-  arsenal_12_niveles:     { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'] },
-  catalogo_productos:     { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'] },
-  arsenal_ganocafe:       { origen: 'ecommerce',              clones: [] },
-  arsenal_marca_personal: { origen: 'marca_personal',         clones: [] },
+  arsenal_inicial:        { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'], padre: 'deploy-arsenal-inicial.mjs' },
+  arsenal_avanzado:       { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'], padre: 'deploy-arsenal-avanzado.mjs' },
+  arsenal_compensacion:   { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'], padre: 'deploy-arsenal-compensacion.mjs' },
+  arsenal_12_niveles:     { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'], padre: 'deploy-arsenal-12-niveles.mjs' },
+  catalogo_productos:     { origen: 'creatuactivo_marketing', clones: ['whatsapp', 'dashboard'], padre: 'actualizar-catalogo-productos.mjs' },
+  arsenal_ganocafe:       { origen: 'ecommerce',              clones: [],                        padre: 'deploy-arsenal-ganocafe.mjs' },
+  arsenal_marca_personal: { origen: 'marca_personal',         clones: [],                        padre: 'deploy-arsenal-marca-personal.mjs' },
 };
 
 const arsenal = process.argv[2];
 const dry = process.argv.includes('--dry');
 if (!MAPA[arsenal]) { console.error(`Arsenal desconocido: ${arsenal}\nOpciones: ${Object.keys(MAPA).join(', ')}`); process.exit(1); }
-const { origen, clones } = MAPA[arsenal];
+const { origen, clones, padre } = MAPA[arsenal];
 
 const contar = async () => {
   const { data } = await supabase.from('nexus_documents')
@@ -56,6 +56,15 @@ const esperadas = (() => {
 console.log(`el .txt trae ${esperadas} respuestas`);
 
 if (dry) { console.log('\n(simulacro: no se toca nada)'); process.exit(0); }
+
+// ── 0. subir el documento padre ──
+// El fragmentador NO lee el .txt: lee el documento padre de Supabase. Sin este
+// paso re-fragmenta el texto VIEJO y reporta éxito — falla en silencio, que es
+// justo lo que este script existe para evitar. Pasó el 26 ago 2026 con OBJ_01.
+console.log(`📄 subiendo el documento padre (${padre})…`);
+try {
+  execSync(`node scripts/${padre}`, { stdio: 'pipe' });
+} catch (e) { console.error('❌ documento padre:', e.stdout?.toString() || e.message); process.exit(1); }
 
 // ── 1. purgar en TODOS los tenants ──
 const { data: viejos } = await supabase.from('nexus_documents')

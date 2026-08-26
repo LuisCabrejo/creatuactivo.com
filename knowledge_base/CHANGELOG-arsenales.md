@@ -173,6 +173,24 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.10 — OBJ_01 deja de rebatir y contesta la magnitud (26 ago 2026)
+
+La respuesta a *"no tengo tiempo"* estaba construida como refutación, y cada uno de sus cuatro movimientos iba contra la evidencia que este proyecto ya tenía en la casa. Abría contradiciendo (*"esa sensación no es un problema de organización"*), le anunciaba que iba a incomodarlo, le diagnosticaba la vida con una etiqueta del villano, y remataba volteándole su propia razón (*"precisamente porque no tiene tiempo…"*). Cero reconocimiento en toda la respuesta; OBJ_02 al menos abría con *"entiendo"*.
+
+**El reencuadre:** *"no tengo tiempo"* no es una objeción al negocio, es una **pregunta sobre el tamaño**. La persona calcula alto por precaución y lo dice en la forma cortés que no la compromete. No hay nada que rebatir — hay que contestar la magnitud, y la nuestra es buena.
+
+**La lección de narrativa, que es lo que más va a servir después.** La primera versión reescrita cumplía las cinco reglas del protocolo y el Director la devolvió: *"sigue sonando a trabajo"*. Enumeraba quién hace qué —seis verbos de esfuerzo— **antes de haber liberado de nada**. La versión que sí produce tranquilidad invierte el orden: primero suelta el peso (*"si el trabajo dependiera de sus horas, tendría razón"*), después reparte, y la palabra **delega** reencuadra la lista entera como trabajo que salió de su escritorio. Añade una imagen física —*abrir la puerta*— donde antes había procedimiento, y cierra relevándolo de la tarea imposible: *usted no necesita fabricar horas*. Quedó en §5 de [NARRATIVA_Y_FLUIDEZ.md](../docs/handoff/negocio/NARRATIVA_Y_FLUIDEZ.md).
+
+**Y una corrección propia:** marqué como *fantasma invocado* la línea que nombra la jornada entera. Estaba mal. Quien dice *no tengo tiempo* **ya llegó con esa imagen puesta**, y negar lo que el lector ya esperaba es gratis — es justo donde nace el alivio.
+
+**Lo que se revisó y NO se tocó:** el `[Índice]` (recuperaba 0.654 y 0.611 con paráfrasis, primera las dos; quedó en 0.664 · 0.656 · 0.591 solo por sumarle tres formulaciones coloquiales). Y **OBJ_02 queda señalada sin corregir**: *"hay un costo del que pocos hablan: el de quedarse igual"* es costo de no hacer nada, el mismo mecanismo que se retiró de OBJ_01, más suave.
+
+El protocolo de las cinco reglas para todo el bloque OBJ vive en §5.4 de [CIENCIA_CONDUCTUAL_SEGUIMIENTO_Y_ACUERDO_AGO2026.md](../docs/investigaciones/resultados/CIENCIA_CONDUCTUAL_SEGUIMIENTO_Y_ACUERDO_AGO2026.md), con las fuentes.
+
+⚠️ **Bug del desplegador, arreglado en la misma sesión.** `desplegar-arsenal.mjs` no subía el documento padre: el fragmentador **no lee el `.txt`**, lee el padre de Supabase, así que re-fragmentó el texto viejo y **reportó éxito**. Falla en silencio, que es exactamente lo que ese script existe para evitar. Se le añadió el paso 0.
+
+---
+
 ### v6.09 — FREQ_16 responde con dos industrias, y la apertura nombra la categoría (25 ago 2026)
 
 **El argumento de la saturación ya no descansa en el café.** Decía *«el café se repite: el mercado se lo vuelve a tomar mañana»*, y eso le deja al escéptico una réplica servida — *«pero café hay en todas partes»*. Ahora: **«estamos en dos industrias que no funcionan así: la del café premium y la del bienestar»**, con 22 productos en cuatro líneas.

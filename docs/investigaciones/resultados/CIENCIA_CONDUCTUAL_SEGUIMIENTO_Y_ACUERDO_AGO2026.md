@@ -137,6 +137,32 @@ Ese movimiento hace **tres trabajos a la vez**: es contraste mental (§2.1), es 
 
 ---
 
+### 5.4. Aplicación al bloque OBJ — el protocolo (añadido 26 ago 2026)
+
+La tensión que este informe señaló en §1 se resolvió primero en **OBJ_01**, y de ahí salió el protocolo que aplica a todo el bloque.
+
+**El reencuadre que lo destraba:** *"no tengo tiempo"* **no es una objeción al negocio, es una pregunta sobre el tamaño.** La persona no sabe en qué se está metiendo, calcula alto por precaución, y lo dice en la forma cortés que no la compromete. No hay nada que rebatir: hay que contestar la magnitud, y nuestra respuesta a la magnitud es buena.
+
+Tres hallazgos externos lo respaldan:
+
+- **La falta de tiempo es un estado subjetivo, no un inventario.** Más de la mitad de quienes se declaran sin tiempo están por encima del umbral de hora y media libre al día; un tercio de los que están por debajo no se sienten apurados ([Giurge & Whillans, *Nature Human Behaviour*](https://www.nature.com/articles/s41562-020-0920-z)).
+- **Al ocupado no se le compadece.** De quien está lleno se infiere competencia, ambición y demanda; la ocupación funciona como señal de estatus, moderada por movilidad social percibida ([Bellezza, Paharia & Keinan, *JCR* 2017](https://business.columbia.edu/sites/default/files-efs/pubfiles/19293/Conspicuous%20Consumption%20of%20Time%20JCR.pdf)). Diagnosticarle la vida a quien acaba de decir que está full es quitarle un estatus que él no considera un problema.
+- **El reconocimiento es medible y tiene consecuencias.** Los marcadores de receptividad —reconocer, matizar— predicen menos escalada del conflicto y mejor evaluación del interlocutor ([Yeomans & Minson](https://www.mikeyeomans.info/papers/receptiveness.pdf)). Y la afirmación reduce defensividad **antes** de la amenaza; después solo si la conclusión defensiva aún no se cerró ([Critcher & Dunning](https://sites.lsa.umich.edu/sasi/wp-content/uploads/sites/275/2015/11/Critcher_afftiming.pdf)).
+
+**Las cinco reglas del bloque OBJ:**
+
+1. **La primera frase nunca corrige.** Reconoce, y punto. OBJ_01 abría con *"esa sensación no es un problema de organización"* — le corregía lo dicho y de paso le metía la desorganización, que él no había traído.
+2. **Nada de costo de no hacer nada.** Ni *"¿y si le toca parar?"*, ni *"cuánto le cuesta quedarse igual"*. En una persona ambivalente el arrepentimiento anticipado aumenta la ambivalencia (§3).
+3. **Se contesta la pregunta factual que la objeción esconde** —magnitud, precio, riesgo— corta y con el dato.
+4. **La autonomía se dice en voz alta.** Es lo único que el meta-análisis muestra que mueve.
+5. **Su razón nunca se voltea en su contra.** *"Precisamente porque no tiene tiempo…"* es el movimiento de mayor reactancia, y estuvo desplegado.
+
+⚠️ **El orden importa tanto como las reglas.** Ver §5 de [NARRATIVA_Y_FLUIDEZ.md](../../handoff/negocio/NARRATIVA_Y_FLUIDEZ.md): primero se suelta el peso, después se reparte el trabajo. Una respuesta puede cumplir las cinco reglas y aun así sonar a tarea.
+
+⚠️ **OBJ_02 queda señalada y sin corregir.** *"Hay un costo del que pocos hablan: el de quedarse igual"* es la regla 2 incumplida — más suave que en OBJ_01, mismo mecanismo. Se deja anotada a propósito para que el próximo que audite no la dé por revisada.
+
+---
+
 ## 6. El límite honesto
 
 **Declarar que es IA cuesta empatía percibida.** Los modelos puntúan por encima de médicos en empatía cuando el evaluador no sabe qué está leyendo; **saber que es IA baja esa percepción**. Nosotros declaramos —y está bien, porque descubrirlo después destruye la confianza casi sin reparación— pero se paga un precio y hay que contarlo.

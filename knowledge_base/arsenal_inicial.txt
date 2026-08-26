@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.09** (25 ago 2026) — **FREQ_16 responde con DOS industrias, y la apertura del canal nombra la categoría.** *«Estamos en dos industrias: la del café premium y la del bienestar»* — admitir y elevar, no negar. Y el saludo de WhatsApp deja de callar qué se distribuye. Detalle en el CHANGELOG.
+**Versión actual: v6.10** (26 ago 2026) — **OBJ_01 deja de rebatir y contesta la magnitud.** El orden es lo que produce el alivio: primero se suelta el peso, después se reparte el trabajo — y se le concede la razón bajo su premisa en vez de voltearle el argumento. Detalle en el CHANGELOG.
+
+**v6.09** (25 ago 2026) — **FREQ_16 responde con DOS industrias, y la apertura del canal nombra la categoría.** *«Estamos en dos industrias: la del café premium y la del bienestar»* — admitir y elevar, no negar. Y el saludo de WhatsApp deja de callar qué se distribuye. Detalle en el CHANGELOG.
 **Versión anterior: v6.08** (25 ago 2026) — **Cierra la auditoría del arsenal inicial: fuera «la gente» y la cadencia de reclutamiento.** WHY_01 y NET_01 pierden el término vetado, y NET_01 deja de repetirle a un networker el pitch que ya oyó cien veces. Detalle en el CHANGELOG.
 **Versión anterior: v6.07** (25 ago 2026) — **Tres fantasmas que invocábamos nosotros.** DIASPORA_01 nombraba el gremio a quien preguntaba por logística; CRED_01 abría invocando al gurú de internet para negarlo; y WHY_PROD_01 afirmaba absorción, no composición. Detalle en el CHANGELOG.
 **Versión anterior: v6.06** (25 ago 2026) — **FREQ_14 deja de hablar mal de los otros equipos y nombra lo que sí es exclusivo.** Sale *«ahí termina el favor»*; entra *cada equipo construye lo suyo, y lo nuestro se llama creatuactivo.com y queswa.app*. Detalle en el CHANGELOG.
@@ -816,16 +818,18 @@ Para usted no cambia nada: el mismo Back Office, las mismas comisiones, y su can
 ## 🔧 **BLOQUE 6: MANEJO DE OBJECIONES (OBJ) - 2 respuestas**
 
 ### **OBJ_01: "No tengo tiempo"**
-**[Índice]:** No tengo tiempo para meterme en un proyecto más. Ya estoy full de compromisos y no me cabe nada.
-**[Concepto Nuclear]:** La agenda llena no es mala organización. Es la señal de que su ingreso depende de que usted esté presente.
+**[Índice]:** No tengo tiempo para meterme en un proyecto más. Ya estoy full de compromisos y no me cabe nada. Ando muy ocupado, estoy lleno de trabajo, no me queda margen.
+**[Concepto Nuclear]:** **Esto NO es una objeción al negocio: es una pregunta sobre el TAMAÑO.** La persona no sabe en qué se está metiendo, calcula alto por precaución, y lo dice en la forma cortés que no la compromete. No hay nada que rebatir — hay que contestar la magnitud. ⚠️ **El ORDEN es lo que produce el alivio, no las palabras** (26 ago 2026): primero se le suelta el peso, después se reparte el trabajo. Enumerar quién hace qué antes de haberlo liberado suena a más trabajo, aunque sea trabajo ajeno. ⚠️ **Se le CONCEDE la razón bajo su premisa** (*"si el trabajo dependiera de sus horas, tendría razón"*) y después se le quita la premisa: así nadie pierde una discusión. Voltearle el argumento (*"precisamente porque no tiene tiempo…"*) es el movimiento de mayor reactancia que existe, y estuvo desplegado. ⚠️ **La jornada entera SÍ se nombra**, aunque sea una negación: quien dice esto ya llegó con esa imagen puesta, y negar lo que el lector ya esperaba es gratis — ahí es donde nace el alivio. ⚠️ **Una sola imagen física** —abrir la puerta— hace lo que ningún procedimiento hace; los dos verbos concretos aterrizan detrás. ⚠️ Prohibido el costo de no hacer nada y toda hipótesis de *"¿y si le toca parar?"*: en una persona ambivalente el arrepentimiento anticipado aumenta la ambivalencia y vuelve más atractivo aplazar (meta-análisis; ver la investigación de agosto). ⚠️ **Al ocupado no se le compadece**: de quien está lleno se infiere competencia y demanda, así que la agenda saturada se valida como señal de persona productiva, jamás se diagnostica. ⚠️ El cierre va al dinero a propósito: quien mide tiempo está midiendo si compensa. ⚠️ *Estructura que ya existe* — nunca *un sistema que ya funciona solo*, que es donde empieza la promesa de esfuerzo mínimo.
 
-Esa sensación de no tener tiempo no es un problema de organización. Es la señal de algo más de fondo.
+Es completamente comprensible. Cualquier persona productiva tiene el tiempo comprometido.
 
-Hágase una pregunta incómoda: si usted tuviera que parar unos meses —por salud, por cansancio, por lo que sea—, ¿qué pasaría con su ingreso? Si la respuesta es que también se frena, ahí está el punto: su tiempo y su dinero están amarrados el uno al otro. Trabaja para vivir y vive para trabajar, y el mes siempre vuelve a empezar.
+Y si el trabajo dependiera de sus horas, tendría razón: distribuir producto a pulso es una jornada entera, y usted no la tiene. Aquí esa parte la delega completa. Gano Excel fabrica, despacha y le consigna; yo converso con cada interesado, resuelvo sus dudas y maduro su decisión de avanzar, a la hora que sea.
 
-La salida no es dejar lo que hace hoy. Es ponerle una palanca. Yo me encargo de explicar y de responderle a cada interesado; de su lado quedan dos cosas: compartir un enlace y saludar a quien llega. Precisamente porque no tiene tiempo es que necesita que las horas las ponga otro.
+De su lado queda abrir la puerta: comparte un enlace con quien considere, y saluda a quien llega interesado.
 
-**Pregunta de seguimiento:** ¿Le muestro qué hace usted en el día a día?
+Usted no necesita fabricar horas. Necesita apalancarse en una estructura que ya existe.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se gana?
 
 ---
 

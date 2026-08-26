@@ -4044,6 +4044,42 @@ function getPinComisionGEN5(country: string): string {
 🌎 Cotiza en USD con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}.` : ''}`;
 }
 
+/**
+ * Pin del KIT DE INICIO — mismo reparto que los dos anteriores.
+ *
+ * El Kit es el as bajo la manga ante quien dice que no puede pagar un paquete
+ * (INV_00 / INV_01, arsenal_12_niveles), y su precio vivía en COP duro dentro
+ * del fragmento: un prospecto con número de Estados Unidos recibía pesos.
+ *
+ * Se inyecta cuando ALGÚN fragmento recuperado trae el marcador, no contra una
+ * lista de categorías: así el marcador se puede poner en cualquier fragmento sin
+ * tocar route.ts, y nunca queda un «[PRECIO_KIT]» crudo servido al usuario.
+ *
+ * ⚠️ Las dos cifras son listas de precio INDEPENDIENTES, no una conversión.
+ * $443.600 COP a la tasa corporativa de $4.500 daría ~$98,6 USD, y el precio
+ * real en Estados Unidos es $88 USD (dato del Director, 26 ago 2026). Quien
+ * actualice una de las dos debe traer la otra de su lista, nunca calcularla.
+ */
+function getPinKitInicio(country: string): string {
+  const cop = '$443.600 COP';
+  const usd = '$88 USD';
+
+  if (country === 'CO') {
+    return `🎒 KIT DE INICIO — reemplaza el marcador del contexto:
+• [PRECIO_KIT] = ${cop}
+🇨🇴 Cotiza SOLO en COP. El equivalente en dólares al lado obliga a una conversión mental que crea fricción.`;
+  }
+  if (country === 'US') {
+    return `🎒 KIT DE INICIO — reemplaza el marcador del contexto:
+• [PRECIO_KIT] = ${usd}
+🇺🇸 Cotiza en USD limpio. El COP es irrelevante para este visitante.`;
+  }
+  const otroPais = country && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
+  return `🎒 KIT DE INICIO — reemplaza el marcador del contexto:
+• [PRECIO_KIT] = ${usd} (${cop})
+🌎 Cotiza en USD con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''}`;
+}
+
 export async function OPTIONS(req: Request) {
   const origin = req.headers.get('origin');
   return new Response(null, { status: 204, headers: getCorsHeaders(origin) });
@@ -5902,6 +5938,8 @@ ${relevantDocuments.some((d) =>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   d.id === 'arsenal_compensacion_COMP_GEN5_01' || (d.metadata as any)?.fragment_categories?.includes?.('arsenal_compensacion_COMP_GEN5_01'))
   ? getPinComisionGEN5(visitorCountry) : ''}
+${relevantDocuments.some((d) => typeof d.content === 'string' && d.content.includes('[PRECIO_KIT]'))
+  ? getPinKitInicio(visitorCountry) : ''}
 ${pideListaPreciosEarly ? `🚨 LISTA PRECIOS: Usa catálogo completo, ignora límites de concisión.` : isQuickReplyChip ? `🎯 RESPUESTA CANÓNICA EXTENSA — Esta consulta proviene de uno de los 4 chips iniciales del saludo Queswa. El fragmento del arsenal recuperado contiene la respuesta arquitectónica completa (tres fuerzas/socios, El Método Comprobado, productos, monetización). DEBES entregarlo VERBATIM con TODO su formato Markdown intacto: negritas con **, viñetas con -, numeración con 1./2./3., saltos de línea entre párrafos. NO resumas. NO improvises. NO apliques límite de 150 palabras — esta es excepción documentada en el SP. La legibilidad visual es crítica para que el avatar de primera visita procese la arquitectura del modelo.` : `🎯 CONCISIÓN: Responde solo lo preguntado.`}
 ${messageCount >= 14 ? `⚠️ LÍMITE: NO continuar después de este mensaje.` : ''}
 ${/* El bloque <instrucciones_absolutas_finales> vivía aquí: cuatro reglas en

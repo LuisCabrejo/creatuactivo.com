@@ -1237,6 +1237,39 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_12_niveles
 
+### v5.9 — El Kit de Inicio deja de ser un consuelo: es el as, y ahora se juega (26 ago 2026)
+
+**El hallazgo es de campo y le da vuelta a una recomendación mía.** Yo había argumentado que abrir el Kit en el cierre de `OBJ_02` costaba plata: al 10% frente al 17% del ESP-3, arrancar con el Kit deja el 41% de la comisión sobre la mesa. La aritmética es correcta y la conducta es la contraria. Doce años de 1-a-1 del Director:
+
+> *"Cuando le muestro el paquete Kit de Inicio me gano su confianza de una forma enorme; lo que siente es que mi interés es ayudarlo de verdad, no ganarme un bono. Ahí no hay objeción sobre el dinero, y la mayoría inicia: 50% en el Kit y 50% en paquetes empresariales."*
+
+Y el reverso, con sus palabras: matizar demasiado los bonos hace que la gente pregunte *"o sea que si yo arranco usted se gana 675.000 pesos"*. **El enfoque es construir mercado, no cobrar el GEN5.**
+
+**Lo que cambió, en cuatro sitios:**
+
+1. **`OBJ_02` cierra abriendo el Kit** — *"¿Le muestro la opción con la que puede empezar hoy mismo?"* en vez de la tabla de paquetes.
+2. **`INV_00` se reescribió en la voz del 1-a-1**: se valida que cuidar el dinero es lo correcto **hoy** (*"las cosas están duras como para no cuidar el dinero"*), se dice lo que el Kit **no** trae para que decida con todo sobre la mesa —la honestidad es el motor de la confianza, no un costo—, y la subida se menciona sin fecha y sin presión.
+3. **`NIVELES_03` perdió el empujón del bono.** Decía que el Kit es *"menos eficiente para un constructor serio"* y que deja *"el 41% de la comisión sobre la mesa"* — y ese fragmento le llega a quien pregunta por la inversión **mínima**, es decir justo a quien no puede pagar más. Le decía que su elección lo hace menos serio.
+4. **`NIVELES_06` perdió la cifra del título** (*"¿Por qué solo $443.600?"*): el título se vectoriza **y se sirve**, así que a un visitante de Estados Unidos le llegaban pesos dentro de la propia pregunta.
+
+**El pin de moneda del Kit** (`getPinKitInicio` en route.ts): CO → $443.600 COP · US → **$88 USD** · resto → USD con COP. ⚠️ **Son listas de precio independientes, no una conversión:** $443.600 a la tasa corporativa daría ~$98,6 USD, y `NIVELES_03` decía literalmente *"aproximadamente $98 USD"* — una cifra inventada por aritmética que llevaba tiempo desplegada. Quien actualice una debe traer la otra de su lista.
+
+⚠️ **El pin se inyecta por el MARCADOR, no por una lista de fragmentos**: dispara cuando algún fragmento recuperado contiene `[PRECIO_KIT]`. Así el marcador se puede poner donde haga falta sin tocar route.ts, y nunca queda un `[PRECIO_KIT]` crudo servido al usuario.
+
+---
+
+**El hallazgo de recuperación: el índice está en voz del prospecto, pero una aceptación busca con la voz del BOT.**
+
+En WhatsApp un *"sí"* pelado busca con **la última pregunta del bot**. `INV_00` tenía el índice escrito solo con las palabras de la persona (*"no me alcanza para el ESP-1, ¿hay algo más barato?"*), así que el «sí» al cierre de OBJ_02 la dejaba en el **puesto 3**, detrás de un fragmento de `arsenal_avanzado`.
+
+Se añadió la oferta literal del bot como **frase propia** al final del índice: pasó de 7/8 a **8/8** en el arnés, y en producción encabeza con 0.653. ⚠️ **Fundida dentro de la línea del prospecto cae a 4/8** y arrastra las demás consultas — la frase tiene que ir sola.
+
+**Regla que sale de aquí:** si un fragmento es el destino de una oferta escrita en otro fragmento, esa oferta va **literal y aparte** en su índice. Vale para toda pregunta de seguimiento que apunte a un destino concreto.
+
+⏳ **Pendiente:** las dos tablas comparativas (`INV_06` y la de puntos de activación) siguen con los cuatro precios en COP duro. Su encabezado dice *"Inversión COP"*, así que no engañan, pero no se localizan. Necesitan cuatro marcadores y un pin propio.
+
+---
+
 ### v5.8 — INV_00 estaba muerta: el título son 254 caracteres y el título se vectoriza (26 ago 2026)
 
 `INV_00` es el **as bajo la manga** ante quien dice que no puede pagar un paquete: la puerta al Kit de Inicio. Y no aparecía **ni en el top 6 de su propio disparador** — *"¿hay algo más económico?"* devolvía NIVELES_06, y *"no me alcanza ni el más pequeño"* la dejaba en el puesto 8.

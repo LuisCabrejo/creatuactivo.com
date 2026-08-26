@@ -46,7 +46,7 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 - Los puntos de su canal generan ingreso recurrente semanal
 - El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso acumulado
 
-**Contenido del Kit de Inicio ($443,600 COP):**
+**Contenido del Kit de Inicio ([PRECIO_KIT]):**
 
 • 4 cajas de Gano Café 3en1 (productos reales)
 • My Gano Plan Negocios (acceso al sistema)
@@ -109,9 +109,9 @@ Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir
 ### **NIVELES_03: "¿Cuál es la inversión mínima para Los 12 Niveles?" / "¿Cuánto necesito para participar?"**
 **[Índice]:** Cuánto necesito para entrar a Los 12 Niveles, cuál es la inversión mínima del Kit de Inicio, qué trae ese kit.
 
-**[Concepto Nuclear]:** Kit de Inicio = entrada accesible, pero con limitaciones en porcentajes y bonificaciones.
+**[Concepto Nuclear]:** Kit de Inicio = entrada accesible; su alcance se dice en afirmativo. ⚠️ **Aquí vivía el empujón del bono** —*"menos eficiente para un constructor serio", "deja sobre la mesa el 41% de la comisión"*— y se retiró el 26 ago 2026: le llega a quien pregunta por la inversión MÍNIMA, es decir justo a quien no puede pagar más, y le dice que su elección lo hace menos serio. Doce años de campo del Director muestran lo contrario: ofrecer el Kit gana la confianza y **la mitad termina eligiendo paquete empresarial igual**. Ver la cabecera de INV_00. ⚠️ Aquí también decía *"$443.600 COP (aproximadamente $98 USD)"*, y **el precio real en Estados Unidos es $88** — no es una conversión de la cifra colombiana. Hoy lo pone `getPinKitInicio`.
 
-La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
+La inversión mínima es el **Kit de Inicio: [PRECIO_KIT]**.
 
 **¿Qué incluye el Kit de Inicio?**
 - 4 cajas de Gano Café 3en1
@@ -131,7 +131,7 @@ La inversión mínima es **$443,600 COP** (aproximadamente $98 USD).
 
 **Análisis financiero:**
 
-El Kit de Inicio es una opción de "baja fricción", pero financieramente es menos eficiente para un constructor serio. Trabajar al 10% (Kit) frente al 17% (ESP-3) implica dejar sobre la mesa el **41% de la comisión** por exactamente el mismo volumen de producto movido.
+El Kit entra al plan con la Regalía de Equipo al 10%; los porcentajes más altos y el Bono GEN5 son de los tres paquetes empresariales. No es la opción más rentable al principio — es la que permite arrancar ahora, y más adelante se evalúa si conviene subir.
 
 **Pregunta de seguimiento:** ¿Le gustaría conocer las diferencias entre el Kit de Inicio y los Paquetes Empresariales?
 
@@ -178,10 +178,10 @@ Lo que sí es crítico es que **arranque HOY**, porque:
 
 ---
 
-### **NIVELES_06: "¿Por qué solo $443,600?" / "¿Por qué tan accesible?"**
+### **NIVELES_06: "¿Por qué es tan accesible el Kit de Inicio?"**
 **[Índice]:** Por qué el Kit de Inicio es tan barato, por qué solo cuesta eso, si algo tan accesible sirve de verdad.
 
-**[Concepto Nuclear]:** Velocidad de ejecución: arrancar hoy vs esperar el paquete perfecto.
+**[Concepto Nuclear]:** Velocidad de ejecución: arrancar hoy vs esperar el paquete perfecto. ⚠️ **El título traía la cifra en COP** —*"¿Por qué solo $443.600?"*— y el título se vectoriza y se sirve: a un visitante de Estados Unidos le llegaba una cifra en pesos dentro de la propia pregunta. Se retiró el 26 ago 2026; el precio lo pone el pin donde hace falta.
 
 Porque favorecemos la **velocidad de ejecución**.
 
@@ -224,26 +224,30 @@ No se limite a conectar solo 2 distribuidores. Entre más distribuidores conecte
 ## 💰 **BLOQUE 1: OPCIONES DE INVERSIÓN (INV) - 6 respuestas**
 
 ### **INV_00: "¿Hay algo más económico que el paquete inicial?"**
-**[Índice]:** No me alcanza para el ESP-1, ¿hay algo más barato? Sigue siendo mucho, quiero empezar con menos.
+**[Índice]:** No me alcanza para el ESP-1, ¿hay algo más barato? Sigue siendo mucho, quiero empezar con menos. La opción con la que puede empezar hoy mismo.
 
-**[Concepto Nuclear]:** La entrada estándar son los tres paquetes de inicio (FREQ_03); el Kit de Inicio es la opción menor y se ofrece cuando la persona la pide, con su alcance dicho en afirmativo: entra al plan con la Regalía de Equipo al 10%, y los porcentajes más altos y el Bono GEN5 son del ESP-1, el ESP-2 y el ESP-3. ⚠️ Fragmento corto a propósito: es la puerta de la pregunta; la ficha del Kit vive en INV_01 y la comparación en INV_03. ⚠️ **El título tenía SIETE preguntas y 254 caracteres, y el título SE VECTORIZA** (26 ago 2026): el fragmento no aparecía ni en el top 3 de su propio disparador —*"¿hay algo más económico?"*— porque la señal quedaba repartida entre siete formulaciones casi iguales. Con una sola pregunta y un índice corto pasó de 5/10 a 8/10 en el arnés. **Este es el as bajo la manga del Director ante quien no puede pagar un paquete: si no dispara, la persona se va.** ⚠️ Las dos consultas que no recupera —*"sigue siendo mucho para mí"*, *"no me alcanza ni el más pequeño"*— son elípticas y dependen del turno anterior: eso lo resuelve el CQR, no el índice. ⚠️ **El precio está en COP duro aquí y en INV_01**, contra la regla de moneda por país. Pendiente conocido: necesita pin.
+**[Concepto Nuclear]:** La entrada estándar son los tres paquetes de inicio (FREQ_03); el Kit de Inicio es la opción menor y se ofrece cuando la persona la pide, con su alcance dicho en afirmativo: entra al plan con la Regalía de Equipo al 10%, y los porcentajes más altos y el Bono GEN5 son del ESP-1, el ESP-2 y el ESP-3. ⚠️ Fragmento corto a propósito: es la puerta de la pregunta; la ficha del Kit vive en INV_01 y la comparación en INV_03. ⚠️ **El título tenía SIETE preguntas y 254 caracteres, y el título SE VECTORIZA** (26 ago 2026): el fragmento no aparecía ni en el top 3 de su propio disparador —*"¿hay algo más económico?"*— porque la señal quedaba repartida entre siete formulaciones casi iguales. Con una sola pregunta y un índice corto pasó de 5/10 a 8/10 en el arnés. **Este es el as bajo la manga del Director ante quien no puede pagar un paquete: si no dispara, la persona se va.** ⚠️ Las dos consultas que no recupera —*"sigue siendo mucho para mí"*, *"no me alcanza ni el más pequeño"*— son elípticas y dependen del turno anterior: eso lo resuelve el CQR, no el índice. ⚠️ **La última frase del índice es la OFERTA DEL BOT, y va aparte a propósito** (26 ago 2026). `OBJ_02` cierra con *"¿Le muestro la opción con la que puede empezar hoy mismo?"*, y en WhatsApp una aceptación pelada busca con **la pregunta del bot**, no con palabras del prospecto. El índice estaba escrito solo en voz del prospecto, así que el «sí» dejaba a INV_00 en el puesto 3 detrás de otro arsenal. Con la oferta añadida como **frase propia** pasa a 8/8; **fundida dentro de la línea del prospecto cae a 4/8** y arrastra las otras consultas. Regla general: si un fragmento es el destino de una oferta escrita, esa oferta va literal en su índice, y sola. ⚠️ **La cifra la pone el pin, no el texto**: `[PRECIO_KIT]` lo llena `getPinKitInicio(country)` en route.ts. CO → $443.600 COP · US → $88 USD · resto → USD con COP. **Son listas de precio independientes, no una conversión** — $443.600 a la tasa fija daría ~$98,6 USD y el precio real allá es $88. ⚠️ **Mostrar el Kit GANA la venta, no la baja** (dato de campo del Director, 26 ago 2026, doce años de 1-a-1): quien lo ofrece se gana una confianza enorme porque la persona siente que el interés es ayudarla, no cobrar un bono — y **la mitad termina eligiendo un paquete empresarial de todas formas**. El cálculo contrario —*"al 10% deja el 41% sobre la mesa"*— es aritmética correcta y conducta falsa: matizar los bonos hace que la gente pregunte *"o sea que si yo arranco usted se gana 675.000 pesos"*, y ahí se acabó. **El enfoque es construir mercado, no cobrar el GEN5.** ⚠️ Por eso el tono lo dicta la empatía y no el argumento: se valida que cuidar el dinero es lo correcto **hoy**, se dice lo que el Kit no trae para que decida con todo sobre la mesa —la honestidad ES el motor de la confianza—, y la subida se menciona **sin fecha y sin presión**.
 
-Sí la hay. La entrada estándar son los tres paquetes empresariales, y el más pequeño es el ESP-1. Pero si prefiere empezar con menos, existe el *Kit de Inicio*: $443.600 COP, cuatro cajas de Ganocafé 3 en 1.
+Entiendo, y con toda razón: las cosas están duras como para no cuidar el dinero.
 
-Con el Kit usted ya tiene su código y su canal abierto desde el primer día. La diferencia está en el plan: el Kit le da la Regalía de Equipo al 10%, y son el ESP-1, el ESP-2 y el ESP-3 los que traen los porcentajes más altos y el Bono GEN5.
+Hay una opción con la que puede empezar hoy mismo. El *Kit de Inicio* cuesta [PRECIO_KIT], le llegan cuatro cajas de producto, y queda con su código y su canal abiertos igual que cualquiera.
 
-**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
+Le digo también lo que no trae, para que decida con todo sobre la mesa: el Kit entra al plan con la Regalía de Equipo al 10%, y los porcentajes más altos y el Bono GEN5 son de los tres paquetes empresariales. No es la opción más rentable al principio — es la que le permite arrancar ahora.
+
+Más adelante, con el canal andando, usted evalúa si le sirve subir.
+
+**Pregunta de seguimiento:** ¿Le muestro qué recibe con cada opción?
 
 ---
 
 ### **INV_01: "¿Cuál es la inversión mínima para empezar?"**
 **[Índice]:** Cuál es la inversión mínima para empezar, con cuánto arranco, cuál es la entrada más accesible que hay.
 
-**[Concepto Nuclear]:** Kit de Inicio = inversión mínima, porcentaje mínimo, sin GEN5.
+**[Concepto Nuclear]:** Kit de Inicio = inversión mínima, porcentaje mínimo, sin GEN5. ⚠️ `[PRECIO_KIT]` lo llena `getPinKitInicio(country)` — ver INV_00. El alcance se dice en afirmativo y sin diminutivos: quien elige esta puerta no es un socio menor.
 
-La inversión más accesible es el **Kit de Inicio: $443,600 COP** (4 cajas Gano Café 3en1).
+La inversión más accesible es el **Kit de Inicio: [PRECIO_KIT]** (4 cajas Gano Café 3en1).
 
-Con $443,600 tiene todo lo que necesita para activarse y empezar a construir su canal desde el primer día.
+Con eso tiene todo lo que necesita para activarse y empezar a construir su canal desde el primer día.
 
 **60 PV / 56 CV** que se suman a su canal. Eso es lo que importa.
 

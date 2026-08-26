@@ -266,7 +266,9 @@ const RE_QUE_ES_EMPRESA_DIGITAL =
  */
 const MASTER_INVERSION_MARKETING = `Así es. Además del acompañamiento en logística e inteligencia artificial, hay casos puntuales donde el equipo también apoya con marketing para acelerar la construcción de la estructura.
 
-Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com. Cuando quiera, dígamelo y lo conecto.`;
+Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com.
+
+¿Quiere que el equipo lo contacte para ver su caso?`;
 
 /**
  * Regex del tema "invertir en marketing/publicidad/pauta". Requiere SIEMPRE un verbo/sustantivo

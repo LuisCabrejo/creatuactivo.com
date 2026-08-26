@@ -173,6 +173,36 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.17 — INVERSION_MARKETING_01 gana pregunta de cierre, y dos supuestos que no se sostenían (26 ago 2026)
+
+**El único fragmento sin pregunta de cierre ya la tiene.** Su invitación vivía **dentro** del candado como afirmación —*"cuando quiera, dígamelo y lo conecto"*—, así que no proponía un paso: dejaba al lector a cargo de pedirlo. Hoy cierra con *"¿Quiere que el equipo lo contacte para ver su caso?"*, fuera del candado, como manda el contrato de prefijo.
+
+⚠️ **La redacción de ese cierre NO es libre.** `_botOfrecioConectar` en route.ts detecta la oferta de conexión y, con una aceptación, dispara la **Marcha 3** del cierre. La frase vieja la disparaba por *"lo conecto"*; al retirarla del candado, la nueva tenía que seguir matcheando el regex o se rompía la cadena en silencio. Verificado: dispara. Contrato de prefijo verificado también (candado 261, master 314).
+
+---
+
+**Dos supuestos del Director que la revisión no confirmó.** Los dejo escritos porque son exactamente el tipo de cosa que se da por cierta y nadie vuelve a mirar.
+
+**1. No existe ninguna condición que evite repetir la pregunta de cierre.** Se buscó en `route.ts`, en el webhook y en `src/lib/`: no hay nada que recuerde qué pregunta ya se hizo. La pregunta viaja **dentro del fragmento servido**, y nada lleva registro entre turnos. Hoy cinco fragmentos cierran con *"¿Le muestro qué hace usted en el día a día?"* y cuatro pares más comparten la suya.
+
+⚠️ El daño está **acotado**: se sirve un fragmento por turno —y los que llevan candado se sirven solos—, así que la repetición solo se oye si la persona recorre justo esa secuencia. Pero cuando pasa, suena a formulario. Construirlo es una pieza nueva: guardar las últimas preguntas del bot y pedirle al modelo que varíe.
+
+**2. `CLIENTE_VIP_01` 🔒 no convierte moneda, y el pin de productos tampoco.** Sus precios están escritos en COP **dentro del candado** ($147.900 · $110.900 · $37.000), sin marcador ni pin.
+
+⚠️ **Y `getPinProducto` tiene las dos ramas del ternario idénticas** — ambas devuelven COP:
+
+```js
+const precio = visitorCountry === 'CO' || !visitorCountry
+  ? `$${prod.precioCOP...} COP`
+  : `$${prod.precioCOP...} COP`;   // ← la misma
+```
+
+Alguien escribió la bifurcación por país y las dos ramas quedaron iguales. **Todo prospecto recibe COP para cualquier producto**, y el código *parece* estar resolviéndolo. Es peor que no tenerlo: un lector del código concluye que está cubierto.
+
+⚠️ **No se arregla convirtiendo.** `wa-productos.ts` solo tiene `precioCOP`, y la lección del Kit vale aquí: $443.600 COP a la tasa corporativa daría ~$98,6 USD y el precio real allá es otro — **son listas independientes**. Convertir inventaría cifras. Lo honesto es conseguir la lista de precios de producto en USD, o decir lo que ya dice el pin de paquetes para el resto del mundo: que el precio en su país lo confirma la oficina local.
+
+---
+
 ### v6.16 — Auditoría general: el título tiene un óptimo, y la cabecera deja de repetir lo retirado (26 ago 2026)
 
 Barrido estructural de las 59 respuestas y de la cabecera del archivo, pedido por el Director.

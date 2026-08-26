@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.16** (26 ago 2026) — **Auditoría general: `OBJ_01` deja de ser un atractor, y la cabecera deja de repetir lo retirado.** El título tiene un óptimo —ni tan corto que robe consultas ajenas, ni tan largo que pierda las propias—, y el historial de versiones se muda al CHANGELOG. Detalle allí.
+**Versión actual: v6.17** (26 ago 2026) — **`INVERSION_MARKETING_01` gana pregunta de cierre, y su redacción está atada al detector de conexión de route.ts.** Detalle en el CHANGELOG, junto con dos supuestos que la revisión no confirmó: no existe condición anti-repetición de preguntas de cierre, y el pin de productos tiene las dos ramas del ternario iguales.
+
+**v6.16** (26 ago 2026) — **Auditoría general: `OBJ_01` deja de ser un atractor, y la cabecera deja de repetir lo retirado.** El título tiene un óptimo —ni tan corto que robe consultas ajenas, ni tan largo que pierda las propias—, y el historial de versiones se muda al CHANGELOG. Detalle allí.
 
 **v6.15** (26 ago 2026) — **El villano del networker es la CREENCIA de que es difícil, no el trabajo manual.** `NET_01` y `NET_02` cambian de eje: lo que frena al mercado es la fama de negocio difícil de desarrollar, y la prueba de que hoy no lo es se da como hecho —*se maneja desde una aplicación, y buena parte desde WhatsApp*—, no como analogía. Detalle en el CHANGELOG.
 
@@ -215,13 +217,16 @@ Y si más adelante quiere acelerar, se puede invertir en pauta para que lleguen 
 
 ### **INVERSION_MARKETING_01: "Me dijeron que me pueden ayudar con marketing / ¿Es cierto que invierten en marketing para armar la estructura? / Me hablaron de una oportunidad con marketing / ¿Ustedes ayudan a acelerar la estructura con publicidad?"**
 **[Índice]:** Me dijeron que ustedes ayudan con marketing o publicidad para armar la estructura. Si es cierto que invierten en pauta para acelerar.
+**[Concepto Nuclear]:** Confirmar y remitir — **sin mecánica y sin cifras** (memoria `project_inversion_marketing_selectiva`: la mecánica no se le expone al prospecto). ⚠️ **Era el único fragmento sin pregunta de cierre** (26 ago 2026). La invitación vivía DENTRO del candado como afirmación —*"cuando quiera, dígamelo y lo conecto"*—, así que no proponía un paso: lo dejaba a cargo del lector. ⚠️ **La redacción del cierre no es libre:** `_botOfrecioConectar` en route.ts detecta *"que el equipo lo contacte"* y, con una aceptación, dispara la **Marcha 3** del cierre. La frase vieja disparaba por *"lo conecto"*; al retirarla del candado, la nueva tiene que seguir matcheando o se rompe la cadena. Verificar contra ese regex antes de reescribirla. ⚠️ **Doble fuente** con `MASTER_INVERSION_MARKETING` en respuestas-maestras.ts, contrato de PREFIJO: el candado es el master **menos** esta pregunta.
 **[Concepto Nuclear]:** Casos puntuales donde, además del acompañamiento habitual en logística e inteligencia artificial, el equipo también apoya con marketing para acelerar la construcción de la estructura. Queswa confirma con seguridad que existe — SIN explicar mecánica, cifras, ni por qué es selectivo — y conecta directo con el equipo de creatuactivo.com. ⚠️ **Fuente dual (Camino A):** el bloque verbatim está sincronizado carácter por carácter con `MASTER_INVERSION_MARKETING` en `respuestas-maestras.ts` (regex `RE_INVERSION_MARKETING` — el RAG solo no recuperaba este fragmento con fiabilidad; QA 9 jul 2026). Si edita uno, sincronice el otro.
 
 <verbatim_lock>
 Así es. Además del acompañamiento en logística e inteligencia artificial, hay casos puntuales donde el equipo también apoya con marketing para acelerar la construcción de la estructura.
 
-Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com. Cuando quiera, dígamelo y lo conecto.
+Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com.
 </verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Quiere que el equipo lo contacte para ver su caso?
 
 ---
 

@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.14** (26 ago 2026) — **El café baja a presentación y sube el Ganoderma; y la Diáspora deja de prescribir un país.** `WHY_PROD_01` renombra la categoría en vez de anclarse al café. `DIASPORA_02` y `DIASPORA_03` retiran *"normalmente Colombia"*, sueltan una referencia cruzada que el lector nunca podía ver, y dejan de preguntar el país que la persona acaba de decir. Detalle en el CHANGELOG.
+**Versión actual: v6.15** (26 ago 2026) — **El villano del networker es la CREENCIA de que es difícil, no el trabajo manual.** `NET_01` y `NET_02` cambian de eje: lo que frena al mercado es la fama de negocio difícil de desarrollar, y la prueba de que hoy no lo es se da como hecho —*se maneja desde una aplicación, y buena parte desde WhatsApp*—, no como analogía. Detalle en el CHANGELOG.
+
+**v6.14** (26 ago 2026) — **El café baja a presentación y sube el Ganoderma; y la Diáspora deja de prescribir un país.** `WHY_PROD_01` renombra la categoría en vez de anclarse al café. `DIASPORA_02` y `DIASPORA_03` retiran *"normalmente Colombia"*, sueltan una referencia cruzada que el lector nunca podía ver, y dejan de preguntar el país que la persona acaba de decir. Detalle en el CHANGELOG.
 
 **v6.13** (26 ago 2026) — **Una sola directriz de acciones, y un solo fragmento que la entrega.** `WHY_ROL_01` se elimina: cero de 1.538 mensajes reales preguntaban por el rol. Las acciones son **Compartir y Recibir**, las dicta `EAM_01`, y no hay segunda lista de verbos. 59 respuestas. Detalle en el CHANGELOG.
 
@@ -1000,21 +1002,15 @@ Con eso su canal queda anclado a su país de registro y usted lo desarrolla en l
 
 ### **NET_01: "Yo ya hago mercadeo en red / ya hice multinivel / ya estuve en un multinivel / ¿en qué se diferencia del mercadeo en red de siempre? / ¿por qué con CreaTuActivo y no tradicional? / ¿cuáles son las ventajas?"**
 **[Índice]:** Ya hago o ya hice mercadeo en red, ya estuve en un multinivel y no me funcionó. En qué se diferencia esto de lo que ya intenté, qué cambió.
-**[Concepto Nuclear]:** Quien ya hizo mercadeo en red **no necesita que le vendan el modelo: ya sabe que funciona**. Lo que necesita es ver qué cambió. Y lo que cambió no es el modelo — es el **cómo**: convencer, explicar y dar seguimiento dependía de hacerlo **a pulso**, persona por persona, y eso es justo lo que no se duplica. ⚠️ **Nunca se habla mal del multinivel ni de su experiencia anterior**: el villano es sistémico —la conversión a pulso—, nunca su esfuerzo ni la gente con la que estuvo. Decirle que se equivocó lo pone a defenderse antes de escuchar. ⚠️ El eje es **Waze**: de los mapas de papel a la app, la tecnología volvió sencillo lo que antes era complejo. No somos un multinivel mejorado — son **dos mundos**, las recompensas que él ya conoce con las ventajas de lo digital. ⚠️ **No se usa la cadencia de reclutamiento del gremio, ni con quien viene de ahí.** Decía *«las personas siempre van a estar abiertas a una oportunidad que les mejore la vida»*: eso es literalmente el pitch que él ya oyó cien veces, y repetírselo lo pone a oír más de lo mismo justo cuando le vamos a decir que esto es otra cosa. Se afirma la demanda sin el molde: *siempre va a haber personas buscando otra entrada*. ⚠️ **La duplicación se dice sin dibujarla:** el mecanismo es que Queswa forma igual a todos, no una progresión en cifras. ⚠️ Quien ya tuvo código de Gano Excel es **NET_02**.
+**[Concepto Nuclear]:** Quien ya hizo mercadeo en red **no necesita que le vendan el modelo: ya sabe que funciona**. Lo que necesita es ver qué cambió. Y lo que cambió no es el modelo — es el **cómo**: convencer, explicar y dar seguimiento dependía de hacerlo **a pulso**, persona por persona, y eso es justo lo que no se duplica. ⚠️ **Nunca se habla mal del multinivel ni de su experiencia anterior**: el villano es sistémico —la conversión a pulso—, nunca su esfuerzo ni la gente con la que estuvo. Decirle que se equivocó lo pone a defenderse antes de escuchar. ⚠️ **El villano es la CREENCIA de que es difícil, no el trabajo manual** (Director, 26 ago 2026). La versión anterior decía que el cuello de botella era *el cómo: convencer y dar seguimiento a pulso* — describe el trabajo, y se queda corta. Lo que frena al mercado es la **fama** de negocio difícil de desarrollar, y de ahí salen las otras tres creencias: que es a muy largo plazo, que hay que dejar la actividad actual, y la **prueba social baja** que resulta de todo eso. ⛔ **La prueba social baja NO se nombra en el cuerpo**: es decirle a alguien que viene de ahí que a poca gente le funcionó, justo antes de proponerle entrar. ⚠️ **La prueba de que hoy es sencillo es un HECHO, no un adjetivo**: *se maneja desde una aplicación, y buena parte desde WhatsApp*. No se discute — la persona lo está comprobando mientras lo lee. Por eso **salió Waze**, que era el eje declarado: una analogía es un puente, y aquí ya no hace falta puente porque el hecho está a la mano. Salió también *"lo mejor de los dos mundos"* — lo que él conserva ya lo dice *"el modelo siempre ha funcionado"*. ⚠️ **La estructura es UNA causa y sus consecuencias**, no tres viñetas paralelas: al volverse sencillo el proceso, se vuelve sencillo lo demás. ⚠️ Cierra con **las mismas dos acciones de EAM_01**: una sola directriz en todo el corpus. ⚠️ **No se usa la cadencia de reclutamiento del gremio, ni con quien viene de ahí.** Decía *«las personas siempre van a estar abiertas a una oportunidad que les mejore la vida»*: eso es literalmente el pitch que él ya oyó cien veces, y repetírselo lo pone a oír más de lo mismo justo cuando le vamos a decir que esto es otra cosa. Se afirma la demanda sin el molde: *siempre va a haber personas buscando otra entrada*. ⚠️ **La duplicación se dice sin dibujarla:** el mecanismo es que Queswa forma igual a todos, no una progresión en cifras. ⚠️ Quien ya tuvo código de Gano Excel es **NET_02**.
 
 Usted ya conoce el mercadeo en red, así que le hablo sin rodeos.
 
-El modelo siempre ha funcionado, y siempre va a haber personas buscando otra entrada. El cuello de botella nunca fue ese. Era el **cómo**: convencer, explicar y dar seguimiento dependía de que cada quien lo hiciera **a pulso**, persona por persona. Y eso es justo lo que no se duplica.
+El modelo siempre ha funcionado, y el mercado sabe que la oportunidad es grande. El cuello de botella nunca fue ese: es que se ganó fama de negocio difícil de desarrollar.
 
-Pero estamos en la era de la IA. Así como pasamos de los mapas de papel a Waze —la tecnología volvió sencillo lo que antes era complejo—, hoy esa misma tecnología se encarga de lo que antes se hacía a pulso. Ahí entramos nosotros: **ponemos lo mejor de los dos mundos** —las recompensas del mercadeo en red que usted ya conoce, y las ventajas de un canal que corre en digital. Eso sí lo busca el mercado.
+Eso es lo que resolvimos. Hoy el proceso se maneja desde una aplicación, y buena parte desde WhatsApp. Y cuando el proceso se vuelve sencillo, lo demás también: la multiplicación deja de depender del talento de cada quien, porque a cada socio nuevo lo formo yo; y la conversación con cada interesado la sostengo yo, a la hora que sea.
 
-Y esto es lo que lo hace posible:
-
-- **La conversión deja de ser a pulso.** Yo converso con cada interesado, aclaro sus dudas y maduro su decisión de avanzar, 24 horas — por usted y por todo su canal.
-- **La duplicación por fin se transfiere.** Yo formo a cada socio nuevo desde el día uno, igual de bien para usted que para el último que entró. Su canal se multiplica sin depender del talento de cada quien.
-- **Su alcance deja de depender de a quién conoce.** Usted comparte un enlace y su alcance llega a todo el continente.
-
-En una frase: usted decide con quién lo comparte; el sistema hace el trabajo que antes se hacía a pulso.
+Lo que le queda a usted son dos cosas: comparte un enlace con quien se beneficiaría del producto o de la oportunidad, y recibe a quien llega interesado. Eso es todo.
 
 **Pregunta de seguimiento:** ¿Le muestro qué hace usted en el día a día?
 
@@ -1023,13 +1019,13 @@ En una frase: usted decide con quién lo comparte; el sistema hace el trabajo qu
 ### **NET_02: "Yo ya tuve código de Gano Excel / ya fui distribuidor de Gano / quiero reactivar mi código / ¿tengo que empezar de cero?"**
 **[Índice]:** Ya tuve mi código y ya fui distribuidor; quiero reactivarlo. Qué cambió desde que yo estaba, si tengo que empezar de cero.
 
-**[Concepto Nuclear]:** Usted ya sabe que Gano Excel y sus productos funcionan. Lo que lo frenó antes no fue la empresa ni usted: fue el desgaste de hacer la conversión a pulso. Eso es justo lo que la tecnología ahora resuelve. Su experiencia entra con ventaja.
+**[Concepto Nuclear]:** Usted ya sabe que Gano Excel y sus productos funcionan. Lo que lo frenó antes no fue la empresa ni usted: era que desarrollarlo pedía un desgaste que pocos sostienen. Su experiencia entra con ventaja. ⚠️ **Misma corrección que NET_01** (26 ago 2026): la prueba de que hoy es sencillo es un **hecho** —*se maneja desde una aplicación, y buena parte desde WhatsApp*—, no un adjetivo ni una analogía. ⛔ **La prueba social baja no se nombra**: a quien viene de ahí no se le dice que a poca gente le funcionó. ⏳ **HUECO ABIERTO, no inventar:** el título y el índice prometen *"quiero reactivar mi código"* y *"¿tengo que empezar de cero?"*, y **el cuerpo no lo responde** — habla de que su experiencia suma, que es otra cosa. Ningún fragmento del corpus dice qué pasa con un código inactivo ni con la organización que tenía. Es dato de Gano Excel y hay que pedírselo al Director antes de escribirlo.
 
 Qué bueno que ya conoce Gano Excel por dentro — eso le ahorra medio camino. Usted ya sabe que los productos funcionan y que la empresa es real y sólida.
 
-Así que seré directo: si en su momento no despegó como quería, lo más probable es que no fuera por el producto ni por usted. Era el desgaste de siempre —buscar, presentar, explicar y dar seguimiento **a pulso**, persona por persona—. Esa parte agota y no se duplica.
+Así que seré directo: si en su momento no despegó como quería, lo más probable es que no fuera por el producto ni por usted. Era que desarrollarlo pedía un desgaste que pocos sostienen — buscar, presentar, explicar y dar seguimiento, persona por persona.
 
-Eso es exactamente lo que cambió. Gano Excel sigue siendo el mismo respaldo que usted ya conoce; lo nuevo es que ahora **yo me encargo de esa conversión** por usted —converso con cada interesado, aclaro dudas y maduro la decisión de avanzar, 24 horas, por usted y por todo su canal—.
+Eso es exactamente lo que cambió. Gano Excel sigue siendo el mismo respaldo que usted ya conoce; lo nuevo es que hoy el proceso se maneja desde una aplicación, y buena parte desde WhatsApp. Yo converso con cada interesado, aclaro sus dudas y maduro su decisión de avanzar, a la hora que sea — por usted y por todo su canal.
 
 Y su experiencia no se pierde: lo que ya aprendió suma, y entra con ventaja sobre alguien que parte de cero.
 
@@ -1037,4 +1033,4 @@ Y su experiencia no se pierde: lo que ya aprendió suma, y entra con ventaja sob
 
 ---
 
-**FIN DEL ARSENAL INICIAL v5.90**
+**FIN DEL ARSENAL INICIAL**

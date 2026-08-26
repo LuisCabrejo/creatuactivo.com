@@ -173,6 +173,30 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.15 — El villano del networker es la CREENCIA de que es difícil (26 ago 2026)
+
+Corrección de enfoque del Director sobre el bloque NET. La versión anterior decía que el cuello de botella era *el cómo: convencer y dar seguimiento a pulso* — eso describe **el trabajo**, y se queda corta.
+
+Lo que frena al mercado es que el modelo **se ganó fama de negocio difícil de desarrollar**, y de esa creencia salen las otras tres: que es a muy largo plazo, que hay que dejar la actividad actual, y la **prueba social baja** que resulta de todo eso.
+
+En palabras del Director, la raíz: *"al mercado no lo educaron para crear sistemas, solo para ser parte de uno — nos enseñaron a remar, no a construir el barco; a trabajar por la leche, no a tener la vaca."* Eso es el diagnóstico, no el texto: al prospecto se le entrega traducido.
+
+**Tres cambios de fondo:**
+
+1. **La prueba de que hoy es sencillo es un HECHO, no un adjetivo ni una analogía:** *"el proceso se maneja desde una aplicación, y buena parte desde WhatsApp"*. No se discute — la persona lo está comprobando mientras lo lee. **Por eso salió Waze**, que era el eje declarado de NET_01: una analogía es un puente, y aquí ya no hace falta puente porque el hecho está a la mano. Salió también *"lo mejor de los dos mundos"*: lo que él conserva ya lo dice *"el modelo siempre ha funcionado"*.
+2. **La estructura es UNA causa y sus consecuencias**, no tres viñetas paralelas. Al volverse sencillo el proceso, se vuelve sencillo lo demás.
+3. **Cierra con las mismas dos acciones de EAM_01** — una sola directriz en todo el corpus.
+
+⛔ **La prueba social baja NO se nombra en el cuerpo.** Es diagnóstico correcto y es exactamente lo que no se le dice a alguien que viene de ahí: nombrarlo es decirle que a poca gente le funcionó, justo antes de proponerle entrar.
+
+**Lo que se revisó y NO se tocó, con su motivo:**
+- **`NIVELES_05` le gana a `NET_01` la consulta *"ya estuve en un multinivel y no me funcionó"*** (0.534 contra 0.510) por la cercanía entre *"no me funcionó"* y su *"no logro invitar a mis dos"*. **NET_01 queda en el puesto 2**, así que el motor sí la entrega. Se probaron dos podas del índice de NIVELES_05 y **las dos empeoran**: de 5/6 a 2/6 y 3/6, porque pierde sus propias consultas. Podar tiene el mismo riesgo que alargar, y aquí el arnés lo confirmó.
+- Se retiró el marcador `FIN DEL ARSENAL INICIAL v5.90`, que llevaba veinticinco versiones desactualizado.
+
+⏳ **HUECO ABIERTO en `NET_02`, documentado a propósito y sin inventar.** Su título y su índice prometen *"quiero reactivar mi código"* y *"¿tengo que empezar de cero?"*, y **el cuerpo no responde ninguna de las dos** — habla de que su experiencia suma, que es otra cosa. Ningún fragmento del corpus dice qué pasa con un código inactivo ni con la organización que la persona tenía. Es dato de Gano Excel: hay que pedírselo al Director antes de escribir una palabra.
+
+---
+
 ### v6.14 — El café baja a presentación, y la Diáspora deja de prescribir un país (26 ago 2026)
 
 **`WHY_PROD_01` 🔒 renombra la categoría en vez de anclarse al café.** Abría con *"el ancla es el café, pero en una categoría propia"*: admitía y elevaba —correcto— pero dejaba el café de titular, y ahí la comparación con el estante del supermercado ya está servida antes de la segunda línea.

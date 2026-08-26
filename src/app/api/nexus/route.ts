@@ -4055,14 +4055,16 @@ function getPinComisionGEN5(country: string): string {
  * lista de categorías: así el marcador se puede poner en cualquier fragmento sin
  * tocar route.ts, y nunca queda un «[PRECIO_KIT]» crudo servido al usuario.
  *
- * ⚠️ Las dos cifras son listas de precio INDEPENDIENTES, no una conversión.
- * $443.600 COP a la tasa corporativa de $4.500 daría ~$98,6 USD, y el precio
- * real en Estados Unidos es $88 USD (dato del Director, 26 ago 2026). Quien
- * actualice una de las dos debe traer la otra de su lista, nunca calcularla.
+ * ⚠️ El USD se cotiza DELIBERADAMENTE POR ARRIBA. El Kit ronda los $88 USD y
+ * varía según los productos que traiga, así que se dice $98: quien llega a
+ * pagar encuentra que es menos de lo que pensó, o justo eso (decisión del
+ * Director, 26 ago 2026). Cotizar por debajo produce el efecto contrario en el
+ * único momento donde una sorpresa cuesta la venta. NO "corrija" esta cifra a
+ * la baja creyendo que es un error de conversión.
  */
 function getPinKitInicio(country: string): string {
   const cop = '$443.600 COP';
-  const usd = '$88 USD';
+  const usd = '$98 USD';
 
   if (country === 'CO') {
     return `🎒 KIT DE INICIO — reemplaza el marcador del contexto:

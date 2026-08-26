@@ -173,6 +173,28 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.14 — El café baja a presentación, y la Diáspora deja de prescribir un país (26 ago 2026)
+
+**`WHY_PROD_01` 🔒 renombra la categoría en vez de anclarse al café.** Abría con *"el ancla es el café, pero en una categoría propia"*: admitía y elevaba —correcto— pero dejaba el café de titular, y ahí la comparación con el estante del supermercado ya está servida antes de la segunda línea.
+
+El matiz que lo resuelve es del Director, y es la analogía de Apple: **no niegan que sea un teléfono, rechazan el sustantivo genérico** —*"no vendemos celulares, vendemos iPhone"*—. Es un renombramiento, no un desmentido, y por eso no tensiona. Hoy: *"El café es una de las presentaciones; lo que se distribuye es **Ganoderma**, con extracto propio."*
+
+⚠️ **La analogía no va en el texto** — es el puente que trajo la decisión, y nombrar a Apple invita a que nos midan con esa vara. ⚠️ **Negarlo de plano sigue prohibido**: quien pregunta *"¿es vender café?"* lo desmiente solo con mirar el catálogo. ⚠️ Dato que respalda el orden: en 1.538 mensajes reales **29 personas nombran «Ganoderma»** y ninguna pregunta literalmente si es un negocio de vender café. La palabra que ellos traen no es *café*. Recuperación intacta (0.600 · 0.557).
+
+---
+
+**El bloque Diáspora tenía tres defectos, y el tráfico real no era el criterio.** Un solo mensaje de 1.538 toca el tema, pero aquí eso **no** se lee como señal de borrar: a diferencia de `WHY_ROL_01`, ninguna otra respuesta cubre esto, y el tráfico de hoy es colombiano por construcción.
+
+1. **`DIASPORA_02` preguntaba el país que la persona acababa de decir.** Cerraba con la misma frase de `DIASPORA_01` —*"¿me cuenta cuál es su país natal?"*— y este fragmento dispara **porque** ella dijo Venezuela. Es el fallo que más rápido destruye la confianza en un chat. Hoy encadena a `DIASPORA_03`.
+2. **Una referencia cruzada a un fragmento que nadie vio:** *"el registro es directo (como en el caso anterior)"*. Los fragmentos se sirven de a uno. La línea condicional se conserva —un mexicano que vive en Venezuela necesita saber que se registra por México— pero sin el paréntesis vacío.
+3. **Prescribía Colombia.** Decía *"normalmente Colombia"* con el trámite colombiano escrito (RUT ante la DIAN). El Director corrige: el país más sencillo para vincularse es **Estados Unidos**, donde no piden documentación y basta una llamada con patrocinador. Nombrar uno solo es a la vez inexacto y una invitación a buscar el atajo — **el país lo resuelve el equipo caso por caso**, y eso ya no se escribe en el cuerpo.
+
+**`DIASPORA_03` gana el trámite real, en el nivel que se puede sostener:** documento, dirección de envío y formulario; y una cuenta del país de registro para cobrar. **La variación se nombra sin detallarla** —*"algunos países piden un soporte adicional y otros son todavía más sencillos"*— y se remite al equipo, que además es cierto y es el argumento más fuerte: el trámite lo hacemos nosotros. El detalle por país vive en el `[Concepto Nuclear]`, que el modelo no lee.
+
+⚠️ **Y un índice genérico que costaba una consulta:** `DIASPORA_02` decía *"puedo participar igual desde allá"* y con eso le robaba a `DIASPORA_01` la consulta *"vivo en España, ¿puedo hacer esto?"* por 0.013. Para un colombiano el resultado coincidía por casualidad; para un mexicano en España era **falso**. Anclado a *"donde no operan"*: 8/8 en el arnés, y en producción cada una recupera lo suyo.
+
+---
+
 ### v6.13 — Una sola directriz de acciones, y `WHY_ROL_01` se elimina (26 ago 2026)
 
 **El Director detectó tres vocabularios para la misma cosa** y pidió auditarlo: *"no queremos confundir a los usuarios; es mejor que tengan una directriz clara sobre cuáles son las acciones que deben hacer."*

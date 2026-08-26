@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.13** (26 ago 2026) — **Una sola directriz de acciones, y un solo fragmento que la entrega.** `WHY_ROL_01` se elimina: cero de 1.538 mensajes reales preguntaban por el rol. Las acciones son **Compartir y Recibir**, las dicta `EAM_01`, y no hay segunda lista de verbos. 59 respuestas. Detalle en el CHANGELOG.
+**Versión actual: v6.14** (26 ago 2026) — **El café baja a presentación y sube el Ganoderma; y la Diáspora deja de prescribir un país.** `WHY_PROD_01` renombra la categoría en vez de anclarse al café. `DIASPORA_02` y `DIASPORA_03` retiran *"normalmente Colombia"*, sueltan una referencia cruzada que el lector nunca podía ver, y dejan de preguntar el país que la persona acaba de decir. Detalle en el CHANGELOG.
+
+**v6.13** (26 ago 2026) — **Una sola directriz de acciones, y un solo fragmento que la entrega.** `WHY_ROL_01` se elimina: cero de 1.538 mensajes reales preguntaban por el rol. Las acciones son **Compartir y Recibir**, las dicta `EAM_01`, y no hay segunda lista de verbos. 59 respuestas. Detalle en el CHANGELOG.
 
 **v6.12** (26 ago 2026) — **Los bloques 7 y 8 dejan de repetirse, y la respuesta canónica del día a día defiende su pregunta.** `EAM_02` absorbe a `EAM_03`, y `EAM_01` recorta un título de cinco preguntas que le hacía perder tres de cada cuatro formulaciones. Detalle en el CHANGELOG.
 
@@ -861,12 +863,14 @@ Usted decide con cuánto abre.
 
 ### **WHY_PROD_01: "¿Qué es lo que venden? / ¿Es un negocio de vender café? / ¿Qué productos son? / Muéstreme los productos"**
 **[Índice]:** Qué es lo que se vende exactamente, qué productos son, si esto es vender café, muéstreme los productos. El catálogo visto desde el negocio.
-**[Concepto Nuclear]:** Los productos vistos desde el NEGOCIO (qué distribuyo y por qué se sigue vendiendo), no desde la salud — el catálogo con precios y categorías es PROD_OVERVIEW. ⚠️ **El café se admite en la primera línea** y en la misma frase se cambia de estante: negarlo ante alguien que pregunta justamente eso es lo que hace sospechar. ⚠️ **El registro es Clinical Luxury**, el mismo del catálogo: estos productos cuestan entre $73.900 y $1.026.000, así que el vocabulario los sitúa arriba (categoría propia, extracto propio, sistema barista) y jamás en el estante del supermercado. ⚠️ El sistema barista italiano de 15 bares (LUVOCO) hace el trabajo que ningún adjetivo puede: un adjetivo se discute, una máquina de un millón de pesos rompe sola la idea de "café de multinivel". ⚠️ **La composición se afirma; la absorción no.** *Más de 200 nutrientes* es composición y se sostiene; *que el cuerpo los aprovecha* es fisiología, y eso pertenece a la etiqueta, no a una conversación de negocio. ⚠️ **`/sistema/productos` NO es respaldo citable:** la auditoría del 17 ago 2026 la halló con catorce de veintidós productos en discrepancia grave contra la ficha del fabricante, y la página se reescribió el 22 ago por sus declaraciones de salud. *Catálogo bio-inteligente* sí es su título y se conserva. ⚠️ **AUTOSUFICIENTE**: se llega desde EAM_01 ("¿le muestro los productos?"), desde "¿qué es lo que venden?" y desde "¿es vender café?"; no puede apoyarse en nada dicho antes.
+**[Concepto Nuclear]:** Los productos vistos desde el NEGOCIO (qué distribuyo y por qué se sigue vendiendo), no desde la salud — el catálogo con precios y categorías es PROD_OVERVIEW. ⚠️ **El café se admite y se BAJA a presentación; la categoría que se sube es el Ganoderma** (26 ago 2026, analogía del Director). Antes abría con *"el ancla es el café, pero en una categoría propia"*: admitía y elevaba —correcto— pero dejaba el café de titular, y ahí la comparación con el estante del supermercado ya está servida antes de la segunda línea. **El matiz que lo resuelve es el de Apple:** no niegan que sea un teléfono, rechazan el **sustantivo genérico** —*"no vendemos celulares, vendemos iPhone"*—. Es un renombramiento, no un desmentido, y por eso no tensiona. Aquí: el café pasa a ser **una** de las presentaciones y lo que se distribuye es Ganoderma. ⚠️ **La analogía de Apple NO va en el texto**: es el puente que trajo la decisión, y nombrarla invita a que nos midan con esa vara. ⚠️ **Negarlo de plano sigue prohibido** — quien pregunta *"¿es vender café?"* lo desmiente solo con mirar el catálogo. ⚠️ Dato que respalda el orden: en 1.538 mensajes reales, **29 personas nombran «Ganoderma»** y ninguna pregunta literalmente si es un negocio de vender café. La palabra que ellos traen no es *café*. ⚠️ **El registro es Clinical Luxury**, el mismo del catálogo: estos productos cuestan entre $73.900 y $1.026.000, así que el vocabulario los sitúa arriba (categoría propia, extracto propio, sistema barista) y jamás en el estante del supermercado. ⚠️ El sistema barista italiano de 15 bares (LUVOCO) hace el trabajo que ningún adjetivo puede: un adjetivo se discute, una máquina de un millón de pesos rompe sola la idea de "café de multinivel". ⚠️ **La composición se afirma; la absorción no.** *Más de 200 nutrientes* es composición y se sostiene; *que el cuerpo los aprovecha* es fisiología, y eso pertenece a la etiqueta, no a una conversación de negocio. ⚠️ **`/sistema/productos` NO es respaldo citable:** la auditoría del 17 ago 2026 la halló con catorce de veintidós productos en discrepancia grave contra la ficha del fabricante, y la página se reescribió el 22 ago por sus declaraciones de salud. *Catálogo bio-inteligente* sí es su título y se conserva. ⚠️ **AUTOSUFICIENTE**: se llega desde EAM_01 ("¿le muestro los productos?"), desde "¿qué es lo que venden?" y desde "¿es vender café?"; no puede apoyarse en nada dicho antes.
 
 <verbatim_lock>
-Con gusto. El ancla es el café, pero en una categoría propia: un catálogo bio-inteligente de bebidas, suplementos y cuidado personal — y hasta un sistema barista italiano de 15 bares con cápsulas propias.
+Con gusto, y vale la pena la distinción. El café es una de las presentaciones; lo que se distribuye es **Ganoderma**, con extracto propio.
 
-Todos llevan extracto propio de Ganoderma, y la diferencia está en la extracción: más de 200 nutrientes en un producto premium que su cliente incorpora a su rutina.
+Viene en bebidas, en suplementos y en cuidado personal —22 productos en cuatro líneas—, y hasta en un sistema barista italiano de 15 bares con cápsulas propias.
+
+La diferencia está en la extracción: más de 200 nutrientes en un producto premium que su cliente incorpora a su rutina.
 
 Ahí está la lógica del negocio: el cliente que nota la diferencia no vuelve al genérico. Vuelve a pedir el mes siguiente, y esa compra ya no le cuesta trabajo a usted.
 </verbatim_lock>
@@ -953,38 +957,42 @@ Y esto destapa algo que antes no se podía aprovechar: millones de hispanohablan
 ---
 
 ### **DIASPORA_02:** "Soy de Cuba / Venezuela / Argentina, donde Gano Excel no opera. ¿Puedo participar?"
-**[Índice]:** Soy de Cuba, Venezuela o Argentina, países donde la compañía no tiene oficina abierta. Puedo participar igual desde allá, qué trámite tendría que hacer.
+**[Índice]:** Soy de Cuba, Venezuela o Argentina, donde la compañía no tiene oficina abierta. Qué trámite tendría que hacer si en mi país no operan.
 
-**[Concepto Nuclear]:** Si Gano Excel NO opera en su país natal (Argentina, Cuba, Venezuela), sí puede, pero debe legalizar su actividad comercial en Colombia —RUT ante la DIAN, cuenta bancaria, permiso— como cualquier extranjero que monta empresa aquí. NO es "registrarse por un país vecino" sin más.
+**[Concepto Nuclear]:** Si Gano Excel NO opera en su país natal (Argentina, Cuba, Venezuela), sí puede, pero debe **legalizar su actividad comercial en uno de los 16 donde la compañía sí opera**. NO es "registrarse por un país vecino" sin más. ⚠️ **NO se prescribe un país** (Director, 26 ago 2026): decía *"normalmente Colombia"* y con el trámite colombiano escrito —RUT ante la DIAN—, y el país más sencillo para vincularse es en realidad **Estados Unidos**, donde no piden documentación y basta una llamada con patrocinador. Nombrar uno solo es a la vez inexacto y una invitación a buscar el atajo; el país lo resuelve el equipo caso por caso. ⚠️ **Aquí decía *"(como en el caso anterior)"***: los fragmentos se sirven de a uno, así que el lector se quedaba mirando un paréntesis vacío. La línea condicional se conserva porque un mexicano que vive en Venezuela necesita saber que se registra por México. ⚠️ **El índice decía *"puedo participar igual desde allá"*** — genérico, y con eso le robaba a `DIASPORA_01` la consulta *"vivo en España, ¿puedo hacer esto?"* por 0.013. Para un colombiano el resultado coincidía por casualidad; para un mexicano en España era falso, porque él se registra por México. Anclado a *"donde no operan"* pasa a 8/8. ⚠️ **Su pregunta de cierre era idéntica a la de DIASPORA_01** —*"¿me cuenta cuál es su país natal?"*—, y aquí es un fallo de memoria: este fragmento dispara **porque** la persona ya dijo su país. Hoy encadena hacia DIASPORA_03.
 
 Sí es posible, pero seré claro y honesto con el cómo.
 
-Si su país natal es uno de los 16 donde Gano Excel opera, el registro es directo (como en el caso anterior). Pero si su país NO tiene operación —como hoy Argentina, Cuba o Venezuela—, no basta con registrarse por un país vecino: usted necesita legalizar su actividad comercial en un país donde Gano Excel sí opera, normalmente Colombia.
+Si su país natal es uno de los 16 donde Gano Excel opera, el registro es directo por allá. Pero si su país no tiene operación —como hoy Argentina, Cuba o Venezuela—, no basta con registrarse por un país vecino: usted legaliza su actividad comercial en uno de los países donde la compañía sí opera, y construye desde ahí.
 
-En la práctica es lo mismo que haría cualquier extranjero que quiere montar un negocio en Colombia: tramitar su documentación ante la DIAN (sacar el RUT), abrir una cuenta bancaria local y poner en regla el permiso para desarrollar la actividad comercial. Una vez legalizado, su canal queda anclado a Colombia —recibe el producto y cobra sus comisiones allí— y usted desarrolla su canal en los 16 países de América.
+En la práctica es lo mismo que haría cualquier extranjero que monta un negocio en otro país: su documentación en regla, una cuenta bancaria local y el permiso para la actividad comercial. Una vez legalizado, su canal queda anclado a ese país —recibe el producto y cobra sus comisiones allí— y usted desarrolla su canal en los 16 países de América.
 
-**No es teoría:** hoy hay socios originarios de Cuba, Venezuela y Argentina que hicieron exactamente esto —establecieron su base legal en Colombia— y construyen sus canales de forma constante.
+**No es teoría:** hoy hay socios originarios de Cuba, Venezuela y Argentina que hicieron exactamente eso y construyen sus canales de forma constante.
 
-**Pregunta de seguimiento:** ¿Me cuenta cuál es su país natal? Con eso le digo exactamente cómo sería su registro.
+**Pregunta de seguimiento:** ¿Le cuento qué se necesita para ese registro?
 
 ---
 
 ### **DIASPORA_03:** "¿Cómo se manejan registro, pagos y envíos si vivo fuera de mi país natal?" / "¿Qué documentación necesito para participar desde el extranjero?"
-**[Índice]:** Qué papeles necesito para hacer esto desde el exterior: registro, pagos y envíos si vivo fuera. Qué documentación piden.
+**[Índice]:** Qué papeles necesito para hacer esto desde el exterior: registro, pagos y envíos si vivo fuera. Qué documentación piden. Le cuento qué se necesita para ese registro.
 
-**[Concepto Nuclear]:** Tres cosas en el país por el que se registra: documento, una dirección y una cuenta bancaria. (Si su país natal no tiene Gano Excel, el país de registro es Colombia — ver el caso anterior, con su trámite ante la DIAN.)
+**[Concepto Nuclear]:** Documento, dirección de envío y formulario — y una cuenta del país de registro para cobrar. ⚠️ **El requisito EXACTO varía por país y no se publica** (Director, 26 ago 2026): algunos piden además el soporte de la consignación junto al formulario, y **en Estados Unidos no piden documentación —basta una llamada— pero sí exige patrocinador**. Ese detalle vive aquí, no en el cuerpo: nombrar el país más fácil invita a buscar el atajo, y la lista completa por país no existe publicada en ninguna fuente que podamos sostener. **La variación se nombra y se remite al equipo**, que además es cierto y es el argumento más fuerte: el trámite lo hacemos nosotros. ⚠️ Antes prescribía **Colombia** como país de registro — retirado, ver la cabecera de DIASPORA_02. ⚠️ La última frase del índice es **la oferta con la que cierra DIASPORA_02**, y va aparte: una aceptación busca con la pregunta del bot.
 
-El proceso para construir desde el exterior es estándar. Para abrir su canal necesita tres cosas en su país de registro —que es su país natal si Gano Excel opera allí, o Colombia si no:
+El proceso para construir desde el exterior es estándar, y el trámite lo hacemos nosotros con usted. En casi todos los países son tres cosas:
 
-**1. Documento de identidad.** Una imagen del documento oficial vigente. Es el respaldo legal del registro.
+**1. Su documento de identidad.** Una imagen del documento oficial vigente.
 
-**2. Una dirección en el país de registro.** Un lugar físico donde Gano Excel pueda enviar el producto y la correspondencia. No tiene que ser su casa —puede ser la de un familiar de confianza.
+**2. Una dirección en el país de registro.** Un lugar físico donde Gano Excel envíe el producto. No tiene que ser su casa — puede ser la de un familiar de confianza.
 
-**3. Una cuenta bancaria del país de registro.** Una cuenta activa donde Gano Excel le deposita las comisiones que genere su canal.
+**3. El formulario de vinculación.** Lo diligenciamos con usted.
 
-Con esos tres puntos, su canal queda anclado a su país de registro y usted lo desarrolla en los 16 países de América desde donde vive, con todo a la mano en Queswa.
+Después, para cobrar, una cuenta bancaria de ese mismo país.
 
-**Pregunta de seguimiento:** ¿Le muestro cómo se activa una vez tenga esos tres?
+Hay variaciones: algunos países piden un soporte adicional junto al formulario y otros son todavía más sencillos. Si el suyo tiene alguna particularidad, el equipo se la resuelve antes de que usted mueva un dedo.
+
+Con eso su canal queda anclado a su país de registro y usted lo desarrolla en los 16 países de América desde donde vive, con todo a la mano en Queswa.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se activa una vez tenga eso listo?
 
 ---
 

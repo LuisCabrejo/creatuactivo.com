@@ -173,6 +173,45 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.13 — Una sola directriz de acciones, y `WHY_ROL_01` se elimina (26 ago 2026)
+
+**El Director detectó tres vocabularios para la misma cosa** y pidió auditarlo: *"no queremos confundir a los usuarios; es mejor que tengan una directriz clara sobre cuáles son las acciones que deben hacer."*
+
+**Se midió contra tráfico real** — 1.538 mensajes de usuarios en `nexus_conversations`:
+
+| Preguntan por… | Mensajes |
+|---|---|
+| el rol (*mi rol · qué soy · qué posición · qué papel*) | **0** |
+| la acción (*qué tengo que hacer · qué hago · qué me toca*) | **46** |
+
+`WHY_ROL_01` respondía una pregunta que **nadie ha hecho nunca**, y para responderla repetía el candado de `EAM_01`. Se elimina; el arsenal queda en **59 respuestas**.
+
+⚠️ **Y al mirar esos 46, no son una sola intención.** Un puñado es la pregunta del chip (*"¿cómo lo haría yo? ¿qué hago en el día a día?"*), pero **la mayoría es volición**: *"quiero iniciar, qué hago"*, *"me interesa, qué hago"*. **«Qué hago» casi nunca pregunta por tareas: pregunta dónde firmo**, y eso lo atiende el cierre, no el arsenal. Vale tenerlo presente antes de optimizar un índice hacia esa frase.
+
+**El tercer vocabulario lo introduje yo el mismo día.** *"Decide, conecta y ve crecer"* existía en **un solo sitio** del corpus: la línea que escribí esa mañana en WHY_ROL_01. Antes vivía solo en CLAUDE.md, donde es doctrina para hablar del dueño **sin darle un cargo** — no una lista de acciones para entregarle al prospecto. El resto del corpus estaba sano y coincidía con el Director: `METH_01` dice explícito que son **dos acciones, Compartir · Recibir**, y que la Multiplicación es la consecuencia, no un tercer paso. No había ningún "tres pasos" desplegado.
+
+CLAUDE.md quedó amarrado en sus dos ocurrencias para que el próximo agente no repita el error.
+
+**Lo que se revisó y NO se tocó, con su motivo:**
+- **La oferta *"¿Le muestro qué hace usted en el día a día?"* se queda en el índice de `EAM_01`**: la mandan **seis** fragmentos que cierran con ella, no solo el eliminado.
+- **Hueco medido y aceptado:** las consultas de identidad ahora caen en `PERFIL_01` (*"¿esto es para alguien como yo?"*, razonable) y una —*"yo qué soy en esto"*— en `OBJ_01`, que sí es un desvío. Con **cero** demanda real medida, sumarle esas formulaciones al índice de EAM_01 costaría sus victorias medidas a cambio de nada. Se deja anotado en vez de perseguirlo.
+
+---
+
+**`WHY_PROD_01` 🔒 se auditó por lo mismo y se CONSERVA — el caso es el opuesto.**
+
+| Señal | WHY_ROL_01 | WHY_PROD_01 |
+|---|---|---|
+| Preguntas reales | 0 de 1.538 | **29** preguntan qué se vende · 79 nombran el café · 94 nombran producto |
+| Recuperación | competía con EAM_01 | gana limpio: *"esto es vender café"* 0.601 · *"qué productos venden"* 0.557 |
+| Ángulo propio | ninguno | los productos **desde el negocio**, no desde la salud — que es lo que dan `PROD_OVERVIEW` y el catálogo |
+
+No hay colisión de recuperación con `FREQ_16`: los índices están limpiamente separados y FREQ_16 gana saturación con 0.716.
+
+⚠️ **Sí hay solape de CONTENIDO, y también es mío**: la v6.09 le puso a FREQ_16 la enumeración del catálogo —*"22 productos en cuatro líneas"*— que es materia de WHY_PROD_01. Ahí funciona como **evidencia** del argumento contra la saturación, así que se conserva; pero quien lea las dos seguidas verá el catálogo dos veces. Anotado por si conviene apoyarse más en el argumento y menos en la enumeración.
+
+---
+
 ### v6.12 — Los bloques 7 y 8 dejan de repetirse, y EAM_01 recupera su pregunta (26 ago 2026)
 
 Auditoría pedida por el Director sobre los bloques VOICE y EAM: *"gran parte de estas respuestas ya se han tocado en otros bloques"*. Era cierto, y debajo había algo peor.

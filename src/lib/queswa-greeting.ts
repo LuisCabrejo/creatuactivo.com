@@ -112,7 +112,7 @@ export const QUESWA_CTA_LABEL = 'Suscríbete';
  * a la formulación que SÍ recupera los fragmentos canónicos correctos:
  *
  * Chip 1 → WHY_02 ("¿Cómo funciona el modelo de negocio?")
- * Chip 2 → WHY_ROL_01 / EAM_01 / METH_01 (rol del Propietario, El Método Comprobado)
+ * Chip 2 → EAM_01 / METH_01 (El Método Comprobado: Compartir y Recibir)
  * Chip 3 → WHY_PROD_01 + catalogo_productos (qué es y para qué sirve)
  * Chip 4 → WHY_04 / FREQ_04 + arsenal_compensacion (cómo se gana)
  *

@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.12** (26 ago 2026) — **Los bloques 7 y 8 dejan de repetirse, y la respuesta canónica del día a día defiende su pregunta.** `WHY_ROL_01` responde solo identidad, `EAM_02` absorbe a `EAM_03`, y `EAM_01` recorta un título de cinco preguntas que le hacía perder tres de cada cuatro formulaciones. 60 respuestas. Detalle en el CHANGELOG.
+**Versión actual: v6.13** (26 ago 2026) — **Una sola directriz de acciones, y un solo fragmento que la entrega.** `WHY_ROL_01` se elimina: cero de 1.538 mensajes reales preguntaban por el rol. Las acciones son **Compartir y Recibir**, las dicta `EAM_01`, y no hay segunda lista de verbos. 59 respuestas. Detalle en el CHANGELOG.
+
+**v6.12** (26 ago 2026) — **Los bloques 7 y 8 dejan de repetirse, y la respuesta canónica del día a día defiende su pregunta.** `EAM_02` absorbe a `EAM_03`, y `EAM_01` recorta un título de cinco preguntas que le hacía perder tres de cada cuatro formulaciones. Detalle en el CHANGELOG.
 
 **v6.11** (26 ago 2026) — **OBJ_02 contesta el monto con la forma: son tres niveles, y los elige usted.** El dinero se reencuadra como **inventario**, y el permiso va como afirmación y no dentro de la pregunta. Detalle en el CHANGELOG.
 
@@ -853,7 +855,8 @@ Usted decide con cuánto abre.
 
 ---
 
-## 🎙 **BLOQUE 7: RESPUESTAS FRONTALES — VITRINA PÚBLICA (VOICE) - 2 respuestas**
+## 🎙 **BLOQUE 7: RESPUESTAS FRONTALES — VITRINA PÚBLICA (VOICE) - 1 respuesta**
+*`WHY_ROL_01` se eliminó el 26 ago 2026. Medido sobre 1.538 mensajes reales de usuarios: **cero** preguntan por el rol —«mi rol», «qué soy», «qué posición», «qué papel»— y **46** preguntan por la acción. Respondía una pregunta que nadie ha hecho, y para responderla repetía el candado de `EAM_01`. Los disparadores de identidad caen ahí, que es donde está la directriz.*
 *Optimizadas para audio ElevenLabs. Frases cortas, ritmo ejecutivo, silencio entre ideas.*
 
 ### **WHY_PROD_01: "¿Qué es lo que venden? / ¿Es un negocio de vender café? / ¿Qué productos son? / Muéstreme los productos"**
@@ -872,20 +875,6 @@ Ahí está la lógica del negocio: el cliente que nota la diferencia no vuelve a
 
 ---
 
-### **WHY_ROL_01: "¿Cuál es mi rol exactamente? / ¿Yo qué soy en esto? / ¿Qué posición tengo?"**
-**[Índice]:** Cuál es mi rol, yo qué vengo siendo en esto, qué papel juego, qué posición tengo, qué soy yo aquí.
-**[Concepto Nuclear]:** La pregunta es de **identidad**, no de tareas — las tareas las responde EAM_01, y esta cierra hacia el dinero para que las dos no lleven al mismo sitio. La identidad más ligera y más cierta es **dueño**: no le pide al lector competencias que todavía no se atribuye, y es exactamente lo que compró. ⚠️ El rol NO se nombra como cargo (8 ago 2026): un cargo evoca hojas de cálculo y reuniones. ⚠️ **Aquí NO se enumeran las dos acciones** (26 ago 2026): sus párrafos segundo y tercero repetían casi palabra por palabra el candado de `EAM_01` —las dos acciones y el reparto del trabajo—, así que la cabecera decía *identidad, no tareas* y el cuerpo no lo cumplía. Hoy responde solo lo que EAM_01 no responde: qué ES suyo. Las tareas las entrega el cierre, que apunta a EAM_01. ⚠️ **CUMPLIMIENTO — la consecuencia que se nombra es del NEGOCIO** (multiplicación, aumento de la facturación), nunca un pago al usuario con día ni monto. Ligar dos acciones simples a un pago fechado convierte la respuesta en una promesa de ingreso: Meta la sanciona en el canal, y en Colombia el Estatuto del Consumidor la vuelve **vinculante para la empresa**. El resultado económico se deduce solo de que el negocio crezca — decirlo así es igual de persuasivo y no compromete nada. El detalle del pago vive en compensación, donde la persona lo pide. ⚠️ El alivio se **afirma** diciendo quién hace cada cosa; enumerar lo que el lector NO tiene que hacer le mete en la cabeza justo eso. Registro de audio: frases cortas, una idea por frase.
-
-Usted es el dueño. El canal es suyo, y usted decide con quién lo comparte.
-
-Es un activo a su nombre, con su código propio, que crece cuando quienes entran con usted abren el suyo.
-
-Lo que hace un dueño aquí cabe en tres verbos: decide, conecta y ve crecer.
-
-**Pregunta de seguimiento:** ¿Le muestro qué hace usted en el día a día?
-
----
-
 
 ---
 
@@ -894,7 +883,7 @@ Lo que hace un dueño aquí cabe en tres verbos: decide, conecta y ve crecer.
 
 ### **EAM_01: "¿Qué tengo que hacer? / ¿Qué hago en el día a día?"**
 **[Índice]:** Qué tengo que hacer yo exactamente, qué me toca a mí, qué hago en el día a día. Cuáles son los pasos y cuánto trabajo es. Le muestro qué hace usted en el día a día.
-**[Concepto Nuclear]:** **DOS acciones, no tres** (8 ago 2026). Quien pregunta esto está midiendo si sería capaz, así que la respuesta se gana por **ligereza**: la sensación tiene que ser la de abrir Uber o Nubank —dos toques y ya—, no la de asumir un cargo. Por eso: (a) **el rol se dice con verbos** —comparte, recibe—, nunca con un cargo: un cargo evoca hojas de cálculo y reuniones y le pide al lector una identidad que todavía no tiene. (b) **La multiplicación es una CONSECUENCIA, nunca un tercer paso** — como tarea suma peso; como resultado, lo quita. Y la razón de que multiplique es que es simple: quien entra hace exactamente lo mismo. (c) **El alivio se afirma, no se niega.** El reparto del trabajo ya se explicó en el saludo y en WHY_02; aquí se dice **qué hago yo** entre las dos acciones, y con eso el lector deduce solo lo que le queda a él. ⚠️ Lo que hace Queswa entre una acción y otra **no puede faltar**: sin esa línea, la pregunta que queda viva es quién convence a los interesados — que es justo el miedo. ⚠️ **El título tenía CINCO preguntas y 145 caracteres, contra los 65 de `METH_01`** (arsenal_avanzado, sin candado). El título se vectoriza, así que la respuesta canónica y con candado ganaba su propia pregunta **por 0.002** y perdía tres de sus cuatro formulaciones. Con dos preguntas en el título e índice sin nota editorial pasó de 5/11 a 9/11 en el arnés (26 ago 2026). ⚠️ **El índice terminaba en *"Para quien mide si sería capaz"***: doctrina para quien edita, dentro de lo único que se vectoriza. La doctrina va aquí, nunca en el índice. ⚠️ **La última frase del índice es la oferta con la que cierra `WHY_ROL_01`**, y va aparte: una aceptación busca con la pregunta del bot, no con palabras del prospecto. ⚠️ Quedan dos huecos medidos: *"qué tengo que hacer yo"* la deja en el puesto 3 —dentro del top-3 que entrega el motor— y *"cuáles son los pasos"* en el 4, en un campo donde el ganador no llega a 0.43 y nadie la posee. ⚠️ **`METH_01` sigue disputándole la pregunta** desde arsenal_avanzado, sin candado y con el rol nombrado como cargo: se resuelve en la auditoría de ese arsenal.
+**[Concepto Nuclear]:** **DOS acciones, no tres** (8 ago 2026). Quien pregunta esto está midiendo si sería capaz, así que la respuesta se gana por **ligereza**: la sensación tiene que ser la de abrir Uber o Nubank —dos toques y ya—, no la de asumir un cargo. Por eso: (a) **el rol se dice con verbos** —comparte, recibe—, nunca con un cargo: un cargo evoca hojas de cálculo y reuniones y le pide al lector una identidad que todavía no tiene. (b) **La multiplicación es una CONSECUENCIA, nunca un tercer paso** — como tarea suma peso; como resultado, lo quita. Y la razón de que multiplique es que es simple: quien entra hace exactamente lo mismo. (c) **El alivio se afirma, no se niega.** El reparto del trabajo ya se explicó en el saludo y en WHY_02; aquí se dice **qué hago yo** entre las dos acciones, y con eso el lector deduce solo lo que le queda a él. ⚠️ Lo que hace Queswa entre una acción y otra **no puede faltar**: sin esa línea, la pregunta que queda viva es quién convence a los interesados — que es justo el miedo. ⚠️ **El título tenía CINCO preguntas y 145 caracteres, contra los 65 de `METH_01`** (arsenal_avanzado, sin candado). El título se vectoriza, así que la respuesta canónica y con candado ganaba su propia pregunta **por 0.002** y perdía tres de sus cuatro formulaciones. Con dos preguntas en el título e índice sin nota editorial pasó de 5/11 a 9/11 en el arnés (26 ago 2026). ⚠️ **El índice terminaba en *"Para quien mide si sería capaz"***: doctrina para quien edita, dentro de lo único que se vectoriza. La doctrina va aquí, nunca en el índice. ⚠️ **La última frase del índice es la oferta con la que cierra `WHY_ROL_01`**, y va aparte: una aceptación busca con la pregunta del bot, no con palabras del prospecto. ⚠️ Quedan dos huecos medidos: *"qué tengo que hacer yo"* la deja en el puesto 3 —dentro del top-3 que entrega el motor— y *"cuáles son los pasos"* en el 4, en un campo donde el ganador no llega a 0.43 y nadie la posee. ⚠️ **`METH_01` sigue disputándole la pregunta** desde arsenal_avanzado, sin candado y con el rol nombrado como cargo: se resuelve en la auditoría de ese arsenal. ⚠️ **`WHY_ROL_01` se eliminó el 26 ago 2026** y sus disparadores de identidad caen aquí: cero de 1.538 mensajes reales preguntaban por el rol, y para responderlo repetía este candado. ⚠️ **UNA sola directriz de acciones, y vive aquí: Compartir y Recibir.** No se le entrega al prospecto una segunda lista de verbos. *Decidir · conectar · ver crecer* es doctrina interna para hablar del dueño sin darle un cargo — el 26 ago 2026 se coló como copy y creó un tercer vocabulario para la misma cosa (Director: *"es mejor que tengan una directriz clara sobre cuáles son las acciones"*). ⚠️ La oferta del índice la mandan **seis** fragmentos que cierran con ella, no uno.
 
 <verbatim_lock>
 Me gusta esa pregunta — es la que de verdad importa. 🪢

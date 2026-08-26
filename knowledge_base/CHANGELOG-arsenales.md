@@ -1237,6 +1237,20 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_12_niveles
 
+### v5.8 — INV_00 estaba muerta: el título son 254 caracteres y el título se vectoriza (26 ago 2026)
+
+`INV_00` es el **as bajo la manga** ante quien dice que no puede pagar un paquete: la puerta al Kit de Inicio. Y no aparecía **ni en el top 6 de su propio disparador** — *"¿hay algo más económico?"* devolvía NIVELES_06, y *"no me alcanza ni el más pequeño"* la dejaba en el puesto 8.
+
+**La causa es estructural y aplica a cualquier fragmento.** El texto que se vectoriza es `title\n\níndice`, y el *title* de INV_00 eran **siete preguntas casi idénticas, 254 caracteres**. La señal quedaba repartida entre siete formulaciones del mismo pedido, así que ninguna consulta concreta la concentraba. Es la regla de *alargar diluye* operando **en el título**, donde nadie la estaba mirando: la migración a índices puso la atención en el índice y dejó los títulos como estaban.
+
+Con **una sola pregunta** y un índice corto pasó de **5/10 a 8/10** en el arnés, y en producción encabeza sus tres disparadores (0.557 · 0.612 · 0.563) sin quitarle nada a `INV_01`.
+
+**Lo que se revisó y se dejó:** las dos consultas que sigue sin recuperar —*"sigue siendo mucho para mí"*, *"no me alcanza ni el más pequeño"*— son **elípticas**: no nombran plata ni paquete y solo significan algo con el turno anterior. Eso es trabajo del CQR, no del índice, y ninguna variante probada las gana sin diluir el resto.
+
+⏳ **Pendiente conocido:** `INV_00` e `INV_01` traen el precio del Kit en **COP duro**, contra la regla de moneda por país. Un prospecto con número +1 recibe pesos. Necesita pin, como el que ya resuelve FREQ_03 y COMP_GEN5_01.
+
+---
+
 ### v5.7 — NIVELES_02 y NIVELES_07 pasan a emparejar (23 ago 2026)
 
 «Los puntos compensados de ambos lados» y «paga sobre el lado de menor crecimiento» → cada punto del canal izquierdo se empareja con su equivalente en el canal derecho; conviene ayudar a crecer el canal que va más despacio porque cada punto que entra ahí encuentra su pareja de inmediato. Ver compensación v8.1.

@@ -173,6 +173,31 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.16 — Auditoría general: el título tiene un óptimo, y la cabecera deja de repetir lo retirado (26 ago 2026)
+
+Barrido estructural de las 59 respuestas y de la cabecera del archivo, pedido por el Director.
+
+**`OBJ_01` era un atractor, y la causa era el título.** Con solo *«No tengo tiempo»* el vector quedaba tan corto y tan denso que ganaba consultas ajenas: *«ya gano bien en mi trabajo»* (de WHY_03), *«qué tengo que hacer yo»* (de EAM_01) y *«yo qué soy en esto»*. **Se probaron cuatro redacciones del índice y ninguna lo movió** — quitarle *trabajo* incluso le subía el puntaje. Acotado a *«No tengo tiempo para otro proyecto»*: de 5/8 a 6/8.
+
+⚠️ **De ahí sale la regla corregida: el título tiene un ÓPTIMO, no una dirección.** Alargarlo más —*«/ ¿cuánto tiempo hay que dedicarle?»*— lo desploma a 3/8 porque pierde sus propias consultas contra STORY_03 y FREQ_16. **La palanca es la especificidad, no la longitud.**
+
+**El benchmark de producción estaba tapado.** Uno de sus 40 casos apuntaba a `WHY_ROL_01`, borrado esa mañana, así que el marcador no podía pasar de 39/40 y una regresión real habría quedado escondida detrás de ese fallo permanente. Repuntado a `PERFIL_01`, que es donde cae la consulta hoy: **37/40 en puesto 1 · 40/40 en top 3 · margen medio 0.063** (venía de 0.049).
+
+**La cabecera del archivo acumulaba veinticinco entradas de versión** que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*, *ahí termina el favor*—. Quedan la actual y las dos previas; el resto ya vivía aquí.
+
+⚠️ **Y el motivo de esa regla cambió.** CLAUDE.md decía que la cabecera *«vive dentro del documento padre que se indexa en Supabase»*. **Ya no es cierto:** el padre no tiene `embedding_512` y `route.ts` filtra el contexto a `is_fragment === true`, así que **nunca llega al modelo**. El daño real es otro y es peor de vigilar: esa cabecera es **el primer texto que lee el próximo agente**, y de ahí saca vocabulario que cree vigente — pasó ese mismo día con *decidir · conectar · ver crecer*.
+
+**Lo que el barrido encontró y NO se tocó, con su motivo:**
+- **41 de 59 títulos superan los 90 caracteres**, pero *largo* solo duele donde el fragmento pierde: el benchmark dice que **solo tres** pierden consultas, y dos de esos tres son problemas de atractor ajeno, no de longitud propia. **Se mide antes de cortar.**
+- **Cuatro índices llevan doctrina al final** —`WHY_01`, `WHY_02`, `EMPRESA_DIGITAL_01`, `WHY_05`, todos con un *«Para quien…»*—, el mismo defecto que se corrigió en EAM_01. Los cuatro ganan hoy sus consultas, así que se anotan y se tocarán midiendo, uno por uno.
+- **`CLIENTE_VIP_01` 🔒 trae precios en COP dentro del candado** ($147.900 · $110.900 · $37.000). Un prospecto de Estados Unidos recibe pesos, igual que pasaba con el Kit. Necesita marcador y pin, como `[PRECIO_KIT]`.
+- **Cinco fragmentos cierran con la misma pregunta** (*«¿Le muestro qué hace usted en el día a día?»*) y otros cuatro pares comparten la suya. Es legítimo —son puertas distintas al mismo destino— pero quien recorra varios oye un formulario.
+- **`INVERSION_MARKETING_01` 🔒 no tiene pregunta de cierre.** Verificar si es deliberado.
+- **17 de 59 llevan candado.** Con la regla del candado solitario, muchas conversaciones reciben un solo fragmento de contexto. No es un error, pero conviene tenerlo presente.
+- **El documento padre falta en el tenant `dashboard`** (está en `creatuactivo_marketing` y `whatsapp`). Hoy es inocuo —solo lo usa el fragmentador— pero es una asimetría que nadie declaró.
+
+---
+
 ### v6.15 — El villano del networker es la CREENCIA de que es difícil (26 ago 2026)
 
 Corrección de enfoque del Director sobre el bloque NET. La versión anterior decía que el cuello de botella era *el cómo: convencer y dar seguimiento a pulso* — eso describe **el trabajo**, y se queda corta.

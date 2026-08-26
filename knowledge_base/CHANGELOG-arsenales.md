@@ -173,6 +173,34 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.12 — Los bloques 7 y 8 dejan de repetirse, y EAM_01 recupera su pregunta (26 ago 2026)
+
+Auditoría pedida por el Director sobre los bloques VOICE y EAM: *"gran parte de estas respuestas ya se han tocado en otros bloques"*. Era cierto, y debajo había algo peor.
+
+**Lo grave: `EAM_01` 🔒 no defendía su propia pregunta.** Es la respuesta canónica a *"¿qué hago yo?"* —la segunda pregunta más frecuente del avatar— y ganaba **una de cuatro** formulaciones, esa por **0.002** sobre `METH_01` (arsenal_avanzado, sin candado, con el rol nombrado como cargo).
+
+La causa vuelve a ser el título: **cinco preguntas, 145 caracteres**, contra los 65 de METH_01. El título se vectoriza, así que la señal quedaba repartida mientras su rival estaba concentrado. Es exactamente la misma enfermedad que mató a `INV_00` (v5.8 de arsenal_12_niveles), en un fragmento distinto y el mismo día. **Vale la pena barrer los títulos largos del corpus entero.**
+
+Segunda causa, más sutil: el índice terminaba en **"Para quien mide si sería capaz"** — doctrina para quien edita, escrita dentro de lo único que se vectoriza. La doctrina va en el `[Concepto Nuclear]`, que no se indexa.
+
+Con dos preguntas en el título e índice sin nota editorial: **5/11 → 9/11** en el arnés, y en producción de 0.591 a **0.647**, con el margen sobre METH_01 de 0.002 a **0.056**.
+
+**La duplicación que vio el Director:**
+
+- **`WHY_ROL_01` repetía a `EAM_01`.** Su cabecera decía *identidad, no tareas*, y sus párrafos segundo y tercero eran las dos acciones y el reparto del trabajo, casi palabra por palabra con el candado. Hoy responde solo lo que EAM_01 no responde —**qué ES suyo**— y las tareas las entrega su pregunta de cierre, que apunta a EAM_01.
+- **`EAM_02` y `EAM_03` eran la misma respuesta.** Las dos decían: la puerta está abierta, nadie lo apura, lo que cambia es el apalancamiento. EAM_03 era EAM_02 comprimida, y competían: *"la urgencia es real"* traía EAM_03 primera y EAM_02 segunda. **EAM_02 absorbió a EAM_03**, con el orden del alivio bien puesto —primero se suelta la presión, después viene el dato—. El arsenal queda en **60 respuestas**.
+- Y **EAM_02 perdía su propia pregunta**: *"por qué entrar ahora"* devolvía `FREQ_16`, la de la saturación. Hoy gana 0.562 contra 0.511.
+
+**La cadena WHY_ROL_01 → EAM_01 quedó cableada por el índice.** Aplicando la regla de la v5.9 de arsenal_12_niveles, la oferta literal del cierre —*"¿Le muestro qué hace usted en el día a día?"*— va como frase propia en el índice de EAM_01: la aceptación recupera con **0.752**, la más alta medida en el arsenal.
+
+**Lo que se revisó y NO se tocó, con su motivo:**
+- **`WHY_PROD_01` 🔒 está sano** y hace un trabajo que ningún otro fragmento hace —los productos vistos desde el negocio, no desde la salud—. Gana su pregunta con 0.582. Se solapa con FREQ_16 en el catálogo, pero se comprobó que FREQ_16 no le disputa la consulta.
+- **El cuerpo de EAM_01 no se tocó**: es doble fuente con `respuestas-maestras.ts` y el contrato de prefijo se verificó intacto tras el despliegue (candado 517, master 566).
+- **Hueco medido y aceptado:** *"qué tengo que hacer yo"* la gana `OBJ_01`. En el arnés EAM_01 quedaba en el puesto 3; en producción, con todos los rivales, sale del top-3. Es el precio de haberle sumado al índice la frase de la oferta, que a cambio dio el 0.752 de la cadena. Se prefirió el camino diseñado —que es el de tráfico— sobre una formulación suelta que ya tiene otras cuatro que funcionan.
+- **`METH_01` sigue disputándole la pregunta** desde arsenal_avanzado, sin candado. Queda para la auditoría de ese arsenal: o se retira o pierde los disparadores que le compiten al candado.
+
+---
+
 ### v6.11 — OBJ_02 contesta el monto con la forma, y los dos índices dejan de pelearse (26 ago 2026)
 
 **La respuesta.** *«Es mucho dinero»* es la misma pregunta sobre el tamaño que OBJ_01: la persona mira el paquete de arriba y asume una cifra única. La versión vieja explicaba en qué se convierte el dinero pero **nunca decía que no hay una sola cifra**, y cerraba con costo de no hacer nada —*«un socio mira cuánto le cuesta, mes a mes, no tenerlo»*—, que es la regla 2 del protocolo OBJ incumplida.

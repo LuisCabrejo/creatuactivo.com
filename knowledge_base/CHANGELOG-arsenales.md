@@ -173,6 +173,17 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.06 — FREQ_14 deja de hablar mal de los otros equipos (25 ago 2026)
+
+⛔ **Salió el desprecio.** Decía: *«Cualquiera puede darle acceso a Gano Excel. Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar, presentar, explicar, dar seguimiento, formar a su grupo—»*. Eso desprecia a distribuidores **reales**, que además pueden ser conocidos del prospecto, y —palabras del Director— **es normal que cada equipo desarrolle sus propias estrategias**. El villano siempre es sistémico. Tiene además un costo práctico: quien desprecia a otros invita a que lo midan con la misma vara.
+
+⛔ **Y la exclusividad se reclama sobre los PRODUCTOS con nombre propio, nunca sobre la tecnología.** Una versión intermedia decía *«el único equipo que le suma inteligencia artificial»*: hoy eso es **falso** —cualquiera accede a la IA— y suena a fanfarronada. Lo cierto y verificable es *«el único equipo que le da acceso a **creatuactivo.com** y **queswa.app**»*. No dice que los otros sean peores; dice que estas dos herramientas se entran por aquí. **Nombrarlas es lo que hace la diferencia:** una categoría abstracta no distingue a nadie, un producto con nombre sí.
+
+⚠️ **Lo que hace Queswa va en afirmativo y en primera persona** — *yo explico, resuelvo dudas y doy seguimiento*—, no como una lista de cargas que se le quitan al lector: enumerar el trabajo duro se lo mete en la cabeza antes de decirle que no le toca. La lista bajó de cinco tareas a ninguna.
+
+Cuerpo 546 → 508 caracteres, con el Dashboard nombrado por primera vez en esta respuesta.
+
+
 ### v6.05 — Nace FREQ_35: la pregunta de las reuniones (25 ago 2026)
 
 **Es la pregunta más cargada del multinivel y no tenía dueño.** Medido antes de escribirla: *«¿hacen reuniones?»* devolvía `BEB_04` —el té Rooibos— y `FAQ_03`. El hueco se destapó al retirar de FREQ_08 la mención de eventos en vivo: quitar la frase sin darle casa a la pregunta habría dejado al modelo improvisando justo donde más cuesta.

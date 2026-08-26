@@ -2,7 +2,7 @@
 
 **Investigación:** Claude (Opus 5) · 22 de agosto de 2026
 **Encargada por:** Luis Cabrejo Parra
-**Documento hermano:** `Estrategia De Prospección En WhatsApp.md` (informe de Gemini, 21 ago) · `docs/handoff/negocio/ESTRATEGIA_CANAL_WHATSAPP.md`
+**Documento hermano:** [Estrategia De Prospección En WhatsApp.md](Estrategia%20De%20Prospecci%C3%B3n%20En%20WhatsApp.md) (informe de Gemini, 21 ago) · `docs/handoff/negocio/ESTRATEGIA_CANAL_WHATSAPP.md`
 
 **Qué la disparó.** Al diseñar la prospección 1-a-1 apareció la pregunta que ninguna investigación previa había tocado: **cómo hacer que Queswa perciba el estado emocional de la persona** —cuándo está por abandonar, cuándo la duda no es una pregunta— y sepa proponer un acuerdo en vez de seguir explicando. El Director aportó además su método de campo, que resultó ser el hallazgo más importante del informe.
 

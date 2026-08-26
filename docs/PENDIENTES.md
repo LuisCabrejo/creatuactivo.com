@@ -51,6 +51,20 @@ curl -s "https://graph.facebook.com/v22.0/${WHATSAPP_WABA_ID}/message_templates?
 - [ ] **Propagar Compartir / Recibir / Multiplicar** — **capa de texto hecha 2 ago 2026** (Home, Manifiesto, /fundadores, voice-command, system prompt v29.5, arsenal_inicial v5.30, arsenal_avanzado v12.5). Queda: **reels** (re-render, junto con "3 pilares") y la decisión pendiente del deck (guion v6.6: *Compartir · Recibir · Multiplicar* no tiene slide montada).
 - [ ] **Purga global de "Usted no explica — Queswa explica"** — el aforismo sigue vivo en WHY_01, `TridenteAphorisms` y el system prompt.
 
+## Seguridad / exposición pública
+
+- [ ] **Seis documentos de investigación siguen bajo `public/`, que se sirve en la web.** Todo lo que cuelga de esa carpeta se abre desde el navegador con solo saber la ruta. En julio los handoffs e investigaciones se movieron a `docs/` por este motivo; estos quedaron. El 23 ago se sacó de ahí el informe de Gemini sobre prospección (`063ac3d`), que traía el método completo, la medición del orbe (1% web contra 30% WhatsApp) y las técnicas de cierre — había entrado por la puerta de los guiones de reels, así que nadie lo miró como investigación.
+  - `public/contexto/INSIGHTS_ESTRATEGICOS_v1.md`
+  - `public/contexto/produccion/HANDOFF_BROLLS_HOME.md`
+  - `public/contexto/produccion/INVESTIGACION_ESTILO_GRAFICAS.md`
+  - `public/contexto/produccion/INVESTIGACION_CREDIBILIDAD_LOGICA_BROLL.md`
+  - `public/contexto/produccion/INVESTIGACION_ESTILO_PRODUCCION_REEL_3D.md`
+  - `public/contexto/produccion/INVESTIGACION_UX_SERVILLETA_SCROLL_VIDEO.md`
+
+  ⚠️ **No es un `mv` y ya.** Varios están referenciados desde CLAUDE.md y desde otros documentos —`INSIGHTS_ESTRATEGICOS_v1` se cita en la sección de Insights Estratégicos—, y moverlos sin actualizar las referencias rompe enlaces en silencio. Mover · buscar cada referencia · actualizarla.
+
+- [ ] **Decidir si `public/contexto/` entera debería estar fuera de `public/`.** Ahí conviven capturas del back office, guiones, investigaciones y contexto de negocio. Si nada de eso lo consume la web —y por el nombre no lo parece—, la mudanza completa es más limpia que ir sacando archivos de a uno. Requiere revisar antes qué rutas del sitio leen algo de ahí.
+
 ## Web
 
 - [x] **Home nueva aplicada** — 2 ago 2026: el Director aprobó la Home 2 de `/prueba` y se aplicó como **Home real v14.0** (`src/app/page.tsx`, con reel del hero, `force-static`, metadata/OG nuevos sin "empresa digital", footer de verificación Meta conservado). `/prueba` queda como sandbox noindex. ⏳ Derivados: (a) el **reel explainer** del hero narra el léxico viejo — regrabar/reemplazar asset en Blob (misma URL); (b) `TridenteAphorisms` y `CognitiveLoadComparator` quedaron sin uso en la Home (purga de "Usted no explica" avanzó de facto); (c) revisar metadata OG con el [Sharing Debugger](https://developers.facebook.com/tools/debug/) tras el deploy.

@@ -173,6 +173,17 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.07 — Tres fantasmas que invocábamos nosotros (25 ago 2026)
+
+**DIASPORA_01 le revelaba el gremio a quien preguntaba por logística.** Decía *«no podían construir algo así porque **el viejo marketing de redes** exigía reuniones presenciales»*. Es el mismo error que se corrigió en `FREQ_35` veinte minutos antes, y aquí pesa más por la audiencia: quien pregunta *«¿puedo hacerlo si vivo en España?»* pregunta por trámite, y esa frase le informa que esto es multinivel — además de ubicarnos dentro de esa industria como su versión mejorada. `NET_01` y `NET_02` sí pueden compararse: allá el tema lo trajo la persona. La barrera se cuenta sin etiqueta — *tocaba estar cerca y reunirse en persona*.
+
+**CRED_01 invocaba al gurú de internet para negarlo.** Abría con *«personas con resultados verificables, no gurús de internet»*, y esa es la respuesta a *«¿quién está detrás?»* — le mete la imagen a quien no la traía. Y *resultados verificables* es un adjetivo de credibilidad donde la frase siguiente ya trae el hecho: construyeron su propio canal y usan la herramienta a diario. Ahora arranca directo en el hecho.
+
+**WHY_PROD_01 afirmaba absorción, no composición.** *«Más de 200 nutrientes **que el cuerpo aprovecha fácilmente**»*: lo primero es composición y se sostiene; lo segundo es fisiología, y eso pertenece a la etiqueta, no a una conversación de negocio. ⚠️ **Y su cabecera citaba `/sistema/productos` como respaldo** — una página que la auditoría del 17 ago halló con **catorce de veintidós productos en discrepancia grave** contra la ficha del fabricante, y que se reescribió el 22 ago por sus declaraciones de salud. El propio corpus la había marcado como no citable.
+
+⚠️ **Lo que se revisó y NO se tocó:** `FREQ_18` usa la analogía del streaming como puente de una sola frase, bien aplicada; `FREQ_09` compara con una franquicia, que es una categoría y no un competidor con nombre; y `FREQ_13` nombra la pirámide porque la pregunta la trae.
+
+
 ### v6.06 — FREQ_14 deja de hablar mal de los otros equipos (25 ago 2026)
 
 ⛔ **Salió el desprecio.** Decía: *«Cualquiera puede darle acceso a Gano Excel. Pero ahí termina el favor: le entregan el producto y usted queda solo, haciendo todo a mano —buscar, presentar, explicar, dar seguimiento, formar a su grupo—»*. Eso desprecia a distribuidores **reales**, que además pueden ser conocidos del prospecto, y —palabras del Director— **es normal que cada equipo desarrolle sus propias estrategias**. El villano siempre es sistémico. Tiene además un costo práctico: quien desprecia a otros invita a que lo midan con la misma vara.

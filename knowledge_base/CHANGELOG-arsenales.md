@@ -173,6 +173,23 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.08 — Cierra la auditoría del arsenal inicial (25 ago 2026)
+
+Barrido final de los 61 cuerpos servidos con todas las lentes del día. **Cero ocurrencias de *gente* en cuerpo servido**: WHY_01 pasa a *«productos que las personas consumen»* y NET_01 a *«eso sí lo busca el mercado»*.
+
+⚠️ **NET_01 le repetía al networker su propio pitch.** Decía *«las personas siempre van a estar abiertas a una oportunidad que les mejore la vida»* — la cadencia exacta del reclutamiento que él ya oyó cien veces, y dicha justo antes de decirle que esto es otra cosa. La demanda se afirma sin el molde: *«siempre va a haber personas buscando otra entrada»*.
+
+**LO QUE SE REVISÓ Y NO SE TOCÓ, con su motivo:**
+
+⚠️ **`WHY_02` — *«productos funcionales con resultados reales para el bienestar y la vitalidad diaria, gracias al Ganoderma»* se conserva.** El guardarraíl de salud v2 está calibrado sobre la línea roja **verificada** (norma colombiana + políticas de Meta + sanciones de la SIC del período), y su doctrina dice explícitamente que **bienestar, vitalidad, energía, antioxidante y adaptógeno PASAN** — los usa el propio fabricante y ninguna sanción se debió a ellos. Lo que se bloquea es enfermedad, adelgazamiento, ciencia citada, mecanismo, biomarcadores y clases farmacológicas. Esta frase no es mecanismo: atribuye sin explicar cómo. **Recortarla sería bloquear copy bueno, que también es daño.**
+
+⚠️ **Los «absolutos» del barrido automático son hechos legítimos**, no excesos: *siempre cae en viernes* (cadencia real), *siempre sobre el mismo número de orden* (regla de pago), *todos los distribuidores del mundo* (el back office lo es), *el mes siempre vuelve a empezar* (villano narrado).
+
+⚠️ **`PERFIL_01` — *«lo único que de verdad hace falta usted ya lo tiene»*** no es la silueta de esfuerzo mínimo: no achica lo que él hace, afirma lo que él **ya posee**, que es el eje entero de esa respuesta.
+
+⚠️ **`FREQ_18`, `FREQ_09`, `FREQ_13`, `FREQ_15`, `EAM_02`, `EAM_03`, `NET_02`, `DUDAS_01`, `CRED_02`, `CRED_05`, `FREQ_26`, `FREQ_29`, `FREQ_30`, `FREQ_32`, `DIASPORA_03`** — revisados con las cinco lentes, sin hallazgos.
+
+
 ### v6.07 — Tres fantasmas que invocábamos nosotros (25 ago 2026)
 
 **DIASPORA_01 le revelaba el gremio a quien preguntaba por logística.** Decía *«no podían construir algo así porque **el viejo marketing de redes** exigía reuniones presenciales»*. Es el mismo error que se corrigió en `FREQ_35` veinte minutos antes, y aquí pesa más por la audiencia: quien pregunta *«¿puedo hacerlo si vivo en España?»* pregunta por trámite, y esa frase le informa que esto es multinivel — además de ubicarnos dentro de esa industria como su versión mejorada. `NET_01` y `NET_02` sí pueden compararse: allá el tema lo trajo la persona. La barrera se cuenta sin etiqueta — *tocaba estar cerca y reunirse en persona*.

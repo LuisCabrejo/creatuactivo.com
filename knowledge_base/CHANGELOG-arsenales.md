@@ -173,6 +173,21 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.09 — FREQ_16 responde con dos industrias, y la apertura nombra la categoría (25 ago 2026)
+
+**El argumento de la saturación ya no descansa en el café.** Decía *«el café se repite: el mercado se lo vuelve a tomar mañana»*, y eso le deja al escéptico una réplica servida — *«pero café hay en todas partes»*. Ahora: **«estamos en dos industrias que no funcionan así: la del café premium y la del bienestar»**, con 22 productos en cuatro líneas.
+
+⚠️ **Son DOS industrias, no una** (Director). Una versión intermedia decía *«no estamos en la industria del café, estamos en la del bienestar»* — y **negar el café tensiona**, porque es obviamente falso que no lo vendamos. El movimiento correcto es el que ya usa `WHY_PROD_01`: se admite en la primera línea y se le cambia de estante en la misma frase. Dos industrias además **suman**: la respuesta crece en vez de encogerse.
+
+⚠️ **La categoría entra como HECHO, no como adjetivo:** no se dice *somos superiores*, se dicen los 22 productos y las cuatro líneas. ⚠️ **Y salen dos cifras de tamaño de mercado que nadie podía sostener** — *«menos del 1% del mercado»* y *«la bebida más consumida del continente después del agua»*, esta última introducida al retirar la primera. Con este encuadre el argumento no necesita ninguna.
+
+**La apertura del canal nombra la categoría** (`src/lib/wa-apertura.ts`). El saludo no mencionaba ningún producto, así que *«le paga cada vez que hay consumo»* dejaba sin responder **consumo de qué**. Pasa a *«un canal de distribución de productos de bienestar»*: ubica la conversación en una industria antes de que el lector la ubique él en otra. Va en la línea que presenta el activo y **no en la cascada** de tres golpes, cuyas líneas tienen cuatro y cinco palabras — meterle la categoría a la del ciclo la lleva a nueve y la pila deja de leerse de un golpe.
+
+⚠️ **Auditoría del sesgo, para que no se repita el temor:** medido en los siete arsenales, los prompts y `route.ts`. En cuerpos servidos hay **11 menciones de café contra 18 de las otras líneas**, y casi siempre juntas —*«café y suplementos»*, *«café, bebidas y suplementos»*—. Las dos que hablan solo de café son legítimas: `CLIENTE_VIP_01` necesita un producto concreto para mostrar el ahorro, y `FREQ_07` cita un registro INVIMA. **El problema estaba concentrado en FREQ_16 y en la apertura, no repartido.** ⏳ `arsenal_avanzado` no menciona producto en ninguna de sus 16 respuestas — puede ser correcto por diseño, pero conviene mirarlo.
+
+Recuperación tras el cambio: 0.771, de las más altas del arsenal.
+
+
 ### v6.08 — Cierra la auditoría del arsenal inicial (25 ago 2026)
 
 Barrido final de los 61 cuerpos servidos con todas las lentes del día. **Cero ocurrencias de *gente* en cuerpo servido**: WHY_01 pasa a *«productos que las personas consumen»* y NET_01 a *«eso sí lo busca el mercado»*.

@@ -9,7 +9,7 @@
  * Historial completo → knowledge_base/CHANGELOG-system-prompts.md
  */
 
-const VERSION_LABEL = 'v29.9_verbo_del_dueno_y_escalacion';
+const VERSION_LABEL = 'v30.0_lexico_unico_canal_de_distribucion';
 
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
@@ -60,7 +60,7 @@ async function actualizarSystemPrompt() {
   console.log('💡 Para efecto inmediato en dev: reinicia el servidor con npm run dev');
   console.log('\n📋 Pruebas sugeridas:');
   console.log('   1. Visitante CO pregunta precios → solo COP (nunca USD)');
-  console.log('   2. "cómo se gana?" → 12 velocidades + GEN5/Binario sin proyecciones');
+  console.log('   2. "cómo se gana?" → 12 formas de ganar + GEN5/Binario sin proyecciones');
   console.log('   3. NO debe aparecer "Dashboard" ni "pilares" de cara al prospecto');
 }
 

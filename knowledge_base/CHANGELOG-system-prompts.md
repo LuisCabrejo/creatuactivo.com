@@ -6,6 +6,36 @@ Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.
 
 ---
 
+## v30.0 — Léxico único: el activo es su canal de distribución (26 ago 2026)
+
+**El prompt de la web llevaba un mes contradiciendo al arsenal, y nadie lo había mirado.** El barrido léxico del 25 de agosto pasó por los cinco arsenales y dejó intacto el system prompt — que se carga **en cada turno** y, siendo instrucción de sistema, manda sobre el vocabulario del modelo.
+
+Lo que decía hasta hoy:
+
+| Dónde | Qué ordenaba |
+|---|---|
+| Definición del activo | *«El activo del usuario es **su empresa digital**»* |
+| Regla propia | **Cuándo** nombrar *empresa digital* — el bautizo diferido, retirado el 25 ago |
+| Tabla de traducción, 3 filas | Mandaba decir *empresa digital* (*«Hacer crecer su empresa digital»*) |
+| Apertura de "cómo se gana" | *«genera ganancias en **12 velocidades**»*, dictada literal |
+
+**Once correcciones.** El activo pasa a **canal de distribución** en todas partes, con el motivo escrito para que no vuelva: el vocabulario de este negocio **se duplica como el de una franquicia**, así que el término que se le enseña a un socio es el que él le enseña al siguiente, y un término que solo es correcto en cierto momento de la conversación no se puede duplicar. Las *12 velocidades* pasan a **12 formas de ganar**.
+
+**Cuatro más que aparecieron al barrer:**
+
+- *«decide, comparte, ve crecer»* — una **cuarta** variante del trío de verbos, distinta de la de CLAUDE.md y de la del arsenal. Retirada: el rol se dice con **las dos acciones**, Compartir · Recibir, que es la única directriz que existe.
+- *«Comisión por invitar → Bono de Capitalización / Liquidez de Arranque»*. Dos nombres por velocidad —prohibidos— para lo que se llama **Bono GEN5**, y la fila entera enseñaba a responder una pregunta sobre invitar **gente** con un bono, cuando la doctrina es que el GEN5 **se cuenta por paquetes comprados, nunca por personas**: esa es la silueta que el prospecto reconoce como pirámide.
+- *«Ingresos pasivos → Flujo de caja recurrente»*. *Flujo de caja* está vetada desde el 7 ago por jerga contable. Queda **ingreso recurrente**.
+- *«Costo de inscripción → Capitalización Inicial»*. Jerga que no pasa el test Beto, y ya existe el reencuadre bueno, el mismo de OBJ_02: **inventario** — el dinero no se va, cambia de forma.
+
+⚠️ **Y una prohibición que se enunciaba nombrando lo prohibido**, dentro del cuerpo que el modelo sí lee: *«NUNCA "existen dos velocidades" ni "las dos principales"»*. Doble problema — dicta el término al prohibirlo, y además **la segunda mitad ya no era cierta**: el Director aclaró que GEN5 y Binario **sí** son las dos principales *al inicio*. Reescrita en afirmativo y alineada con `arsenal_compensacion`.
+
+**Lo que se revisó y NO se tocó:** `queswa_whatsapp` está limpio — su única mención de *reclutar* vive dentro de una traducción correcta. El canal donde está el tráfico no tenía el problema.
+
+⚠️ **La regla anti-repetición de la pregunta de cierre SÍ existe, y vive aquí** (no en código). Ambos prompts la traen: *«si la pregunta que trae el fragmento ofrece algo que ya entregaste en esta conversación, no la repitas»*. Es una **instrucción al modelo**, no un nodo determinístico: obedece la mayoría de las veces y nada mide cuándo no. Buscarla solo en `route.ts` y concluir que no existe fue un error de alcance, cometido el 26 ago.
+
+---
+
 ## v29.5 — Compartir · Recibir · Multiplicar + léxico nuevo en el cierre (2 ago 2026)
 
 Dos decisiones del Director (2 ago 2026):

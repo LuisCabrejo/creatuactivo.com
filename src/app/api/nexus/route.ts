@@ -28,6 +28,7 @@ import {
   microPromptDudaPropia, microPromptPareja, microPromptMotivo, microPromptEscalera,
   microPromptNoPrimero, microPromptPuertaAbierta,
 } from '@/lib/wa-ambivalencia';
+import { ESQUELETO_REDACCION_SOCIO } from '@/lib/wa-redaccion-socio';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
@@ -4936,7 +4937,8 @@ explicarle el modelo, nada de ofrecerle los paquetes: eso ya pasó.
 
 ✅ SU TRABAJO AQUÍ es que él avance con SU canal:
 • Redactarle el mensaje para alguien concreto, cuando le diga a quién le va a
-  escribir. Se le entrega LISTO PARA COPIAR, breve, en su voz, y con su enlace.
+  escribir. Se le entrega LISTO PARA COPIAR, con su enlace, siguiendo el esqueleto
+  que va al final de estas instrucciones.
 • Prepararlo para lo que le van a preguntar: cuánto invirtió, si es pirámide, si
   a él le está funcionando. Se le da la respuesta que ÉL puede dar, no la nuestra.
 • Resolverle dudas del plan que necesita para explicar (no para decidir).
@@ -4948,6 +4950,8 @@ volver a venderle lo que ya tiene.
 
 ⚠️ Si pregunta algo de producto o del plan, se responde derecho y completo: lo
 necesita para atender a los suyos, no para decidir si entra.
+
+${ESQUELETO_REDACCION_SOCIO}
 `;
       }
 

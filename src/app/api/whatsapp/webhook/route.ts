@@ -40,6 +40,11 @@ import {
   esNoExplicito, yaSeEvoco, aceptaPuerta,
 } from '@/lib/wa-ambivalencia';
 import { extraerMomento, guardarAcuerdo, guardarPuertaAbierta } from '@/lib/wa-acuerdos';
+import {
+  extraerNombres, pareceListaDeNombres, guardarLista, siguienteContacto, resumenLista,
+  marcarEnviado, pideAyudaParaEmpezar, diceQueYaEnvio, preguntaPorLaLista,
+  preguntaDelCafe, listaGuardada, siguienteDeLaLista, listaTerminada, resumenParaElSocio,
+} from '@/lib/wa-lista-socio';
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
 import {
@@ -1330,6 +1335,65 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
       console.log(`🔗 [WA Webhook] Catálogo dictado: ${url}`);
       return;
+    }
+
+    // ─── 2.75 LA LISTA DEL SOCIO — guardar, avanzar, resumir ─────────────────
+    // Estas tres son OPERACIONES, no conversación: tienen una sola respuesta
+    // correcta y el modelo solo puede empeorarlas (ya inventó un «[Nombre]» entre
+    // corchetes en una redacción). Van dictadas. Lo único que le queda al modelo
+    // es REDACTAR, que es lo que sí exige juicio.
+    //
+    // ⚠️ SOLO para el socio. Un prospecto que escriba tres nombres no está
+    // armando una lista de prospección.
+    if (socioQueEscribe) {
+      const _fpSocio = waFingerprint;
+
+      // (a) No sabe por dónde empezar → la pregunta del café.
+      if (pideAyudaParaEmpezar(messageText ?? '')) {
+        await sendWhatsAppMessage(phoneNumber, preguntaDelCafe(), { wamid });
+        console.log(`☕ [WA Lista] Pregunta del café a ${_fpSocio}`);
+        return;
+      }
+
+      // (b) Dictó una lista de nombres → se guarda y se arranca por el primero.
+      if (pareceListaDeNombres(messageText ?? '')) {
+        const nombres = extraerNombres(messageText ?? '');
+        const n = await guardarLista(supabase, _fpSocio, nombres, socioQueEscribe.constructorId);
+        if (n > 0) {
+          const primero = await siguienteContacto(supabase, _fpSocio);
+          await sendWhatsAppMessage(
+            phoneNumber,
+            listaGuardada(nombres, primero?.nombre ?? nombres[0]),
+            { wamid },
+          );
+          return;
+        }
+      }
+
+      // (c) Dice que ya lo mandó → se marca y sigue el próximo.
+      if (diceQueYaEnvio(messageText ?? '')) {
+        const actual = await siguienteContacto(supabase, _fpSocio);
+        if (actual) {
+          await marcarEnviado(supabase, actual.id);
+          const proximo = await siguienteContacto(supabase, _fpSocio);
+          const r = await resumenLista(supabase, _fpSocio);
+          await sendWhatsAppMessage(
+            phoneNumber,
+            proximo
+              ? siguienteDeLaLista(actual.nombre, proximo.nombre, r.pendientes)
+              : listaTerminada(r.total),
+            { wamid },
+          );
+          return;
+        }
+      }
+
+      // (d) Pregunta cómo va su lista.
+      if (preguntaPorLaLista(messageText ?? '')) {
+        const r = await resumenLista(supabase, _fpSocio);
+        await sendWhatsAppMessage(phoneNumber, resumenParaElSocio(r), { wamid });
+        return;
+      }
     }
 
     // ─── 2.8 AMBIVALENCIA — la duda que no es una pregunta ───────────────────

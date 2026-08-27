@@ -12,6 +12,34 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.5 — La familia Binario: la bola de nieve contaba gente (26 ago 2026)
+
+Segunda fase. **Cifras, porcentajes, GCV, PV/CV y nombres del plan intactos** — solo léxico y narrativa, por instrucción del Director.
+
+**Lo más grave iba bajo candado.** `COMP_BIN_01` decía:
+
+> *"Piénselo como una bola de nieve rodando montaña abajo: usted arranca con unos pocos socios, y **cada uno de ellos arma su propia red** de clientes y socios. **La bola crece sola**, y todo lo que se mueve ahí adentro le paga a usted."*
+
+Dos defectos graves en una sola analogía, entregada carácter por carácter: **cuenta la escalera de personas** —la silueta exacta que el prospecto reconoce como pirámide— y **crece sola**, promesa de esfuerzo mínimo. Y encima era una mini-tesis de tres frases con remate propio, no un puente.
+
+En su lugar, el crecimiento **por acumulación**: *"cada vez que alguien vuelve a pedir, ese consumo se suma al que ya venía moviéndose. No se arranca de nuevo cada mes."*
+
+⚠️ **La bola de nieve de `COMP_MODELO_01` se conserva, y no es contradicción.** Allá acumula **compras** —*"el volumen crece con cada compra que se repite"*—, que es la forma correcta. **El defecto nunca fue la analogía: era contar personas con ella.** Anotado en la cabecera para que nadie la borre por simetría.
+
+**Una tabla correcta convertida en promesa.** El *Insight* de `COMP_BIN_08` decía *"un Diamante puede generar $36 millones COP/mes de forma recurrente mientras su canal esté activo"*: toma una cifra **condicionada a rango** —Diamante pide 12.000 CV semanales— y la presenta como alcanzable con solo estar activo, justo en la frase más citable del fragmento. La tabla no se tocó; el remate ahora dice que esas cifras son **el techo de la tabla, no el punto de partida**.
+
+**Y el empujón del ESP-3 contra el Kit.** *"Mismo equipo, mismo volumen. ESP-3 captura $700 USD MÁS por semana que Kit"* es el mismo defecto del *"41% sobre la mesa"* retirado hoy de `NIVELES_03`: le dice a quien mira el Kit que está perdiendo — lo contrario de lo que muestran doce años de campo del Director. Además *captura $700 por semana* presupone el ingreso.
+
+**El patrón de la familia era «Insight:».** Seis de los once terminaban con ese rótulo de informe, sin proponer paso. Los seis pasan a prosa con pregunta de seguimiento medida contra el corpus.
+
+**Más:** *operar* retirado de `COMP_BIN_11` (*"el ingreso recurrente opera mediante…"* → *funciona por emparejamiento*) · su cierre dejó de pedir acuerdo · cuatro títulos de cinco y seis preguntas recortados a dos · *"cuánto gano si mi **equipo** crece"* → **su canal** · y las tildes de los seis cuerpos que no las tenían.
+
+⚠️ **Las preguntas de cierre de los dos candados salieron del candado.** Vivían dentro, contra el contrato de prefijo: el candado protege el argumento y la pregunta tiene que poder adaptarse.
+
+Verificación: clasificador 58/58 · guardarraíl de negocio verde · 0 frases vetadas · cada fragmento de la familia encabeza su consulta (0.600 · 0.647 · 0.593 · 0.659).
+
+---
+
 ### v8.4 — Los cinco títulos que el fragmentador cortaba, y cuatro eran los candados (26 ago 2026)
 
 Primera fase de la auditoría del arsenal de compensación. **Diagnóstico estructural de los 40 antes de tocar nada:**

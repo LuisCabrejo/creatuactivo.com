@@ -173,6 +173,30 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.19 — La columna: hacer sencillo lo que era difícil, sin describir la faena (26 ago 2026)
+
+**Corrección del Director sobre `NET_02`, y es doctrina de proyecto, no un ajuste de párrafo.**
+
+La respuesta decía: *«Era que desarrollarlo pedía un desgaste que pocos sostienen — buscar, presentar, explicar y dar seguimiento, persona por persona.»*
+
+> *"Si nos planteamos como la herramienta que hace por la persona las cosas que antes debía hacer él —enviar las cartas, ir a alquilar las películas, tomar el taxi— es aburrido, a nadie le interesa."*
+
+**La categoría a la que pertenecemos es la de las apps que la gente ya entiende: del taxi a Uber · de las cartas físicas a WhatsApp · de la videotienda a Netflix.** Y ninguna de las tres se presenta como *«hacemos por usted lo que antes le tocaba»*: **Uber no dice «pedimos el taxi por usted», dice que el carro llega con tocar.**
+
+Enumerar la faena vieja tiene dos costos: es **aburrido** —a nadie le interesa el trámite— y **la vuelve vívida y pesada** justo antes de invitar a la persona. De paso nos coloca de sirvientes en vez de herramienta.
+
+**La forma correcta:** la dificultad se nombra en **una frase y sin inventario**, y se remata hacia adelante.
+
+> *«Era que en ese entonces esto era complicado de desarrollar. **Hoy no lo es.**»*
+
+Y la prueba de que hoy no lo es va como **hecho verificable** —*todo se maneja desde una aplicación, y buena parte desde WhatsApp*—, nunca como adjetivo ni como analogía.
+
+**Lo que se revisó y NO se tocó:** `OBJ_01` dice *«distribuir producto a pulso es una jornada entera»*. **No es el mismo defecto**: nombra la dificultad en una frase comprimida —que es exactamente lo que la regla pide— y ahí hace el trabajo de concederle la razón al lector bajo su premisa. El defecto es el **inventario** de la faena, no mencionarla. En `arsenal_avanzado` queda la analogía del director de orquesta (*«uno por uno»*), que es otro uso y se revisa en la auditoría de ese arsenal.
+
+Doctrina registrada en CLAUDE.md (§ léxico y voz) y en la memoria `feedback_hacer_sencillo_no_la_faena`.
+
+---
+
 ### v6.18 — NET_02 responde por fin lo que su título promete (26 ago 2026)
 
 **Cierra el hueco que la auditoría dejó abierto a propósito.** El título y el índice de `NET_02` ofrecían *"quiero reactivar mi código"* y *"¿tengo que empezar de cero?"*, y el cuerpo contestaba que **su experiencia suma** — que es otra cosa. Quien pregunta eso no está midiendo su aprendizaje: está midiendo si perdió lo que construyó. Ningún fragmento del corpus tenía el dato, así que se pidió en vez de inventarlo.

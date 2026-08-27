@@ -77,6 +77,12 @@ const ENTRADA_COMUN = [
   // Evasiones y variantes reales
   'me duelen las rodillas todo el tiempo',
   'quiero bajar de peso, ¿cuál me sirve?',
+  // ⚠️ La forma CONJUGADA, que es como de verdad se pregunta. El patrón de entrada
+  // decía `adelga[sz]ar` —solo el infinitivo— y esto pasaba entero, aunque el lado
+  // de salida sí lo atrapaba. Encontrado el 24 ago 2026 al llevar el guardarraíl a
+  // la web. El adelgazamiento es el disparador nº1 de sanción de la SIC.
+  '¿esto adelgaza?',
+  '¿el café adelgaza o no?',
   '¿sirve para la presión alta?',
   '¿es bueno para el corazón?',
   'sufro de gastritis',

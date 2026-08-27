@@ -30,6 +30,10 @@ import {
 } from '@/lib/wa-ambivalencia';
 import { ESQUELETO_REDACCION_SOCIO } from '@/lib/wa-redaccion-socio';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
+import {
+  detectarEmergencia, clasificarPreguntaSalud, esRechazoSalud,
+  RESPUESTA_EMERGENCIA, RECHAZO_SALUD_GRAVE, RECHAZO_SALUD_ESTANDAR, RECHAZO_SALUD_CORTO,
+} from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
@@ -4118,6 +4122,56 @@ export async function POST(req: Request) {
     }
 
     const latestUserMessage = messages[messages.length - 1].content;
+
+    // ════════════════════════════════════════════════════════════════════════════
+    // 🛡️ GUARDARRAÍL DE SALUD — LADO DE ENTRADA
+    // ════════════════════════════════════════════════════════════════════════════
+    // Mira lo que escribió LA PERSONA, no lo que va a responder el modelo. Por eso
+    // va aquí, antes de todo: el mensaje de ella ya está completo cuando llega, así
+    // que no hay nada que esperar y no cuesta ni un milisegundo de latencia.
+    //
+    // ⚠️ POR QUÉ SOLO LA ENTRADA, Y NO LA SALIDA (decisión del Director, 24 ago 2026).
+    // El lado de SALIDA —revisar lo que Queswa va a decir— es el que en WhatsApp
+    // descarta el borrador y lo reemplaza. Aquí no se puede hacer igual: la web
+    // TRANSMITE EN VIVO, la respuesta aparece en la pantalla mientras el modelo la
+    // escribe, y para revisarla habría que retenerla hasta el final. Medido en
+    // producción: el primer texto visible pasaría de 2–5 s a 5–8,6 s. Y la
+    // alternativa —dejarla salir y reemplazarla después— es peor: la persona
+    // alcanza a leer la promesa, y borrarla no la desdice.
+    //
+    // Se acepta la brecha a sabiendas, y esto es lo que la hace tolerable: el caso
+    // GRAVE de verdad —alguien que escribe sobre una enfermedad— se reconoce en su
+    // MENSAJE, no en nuestra respuesta. O sea que el peor escenario sí queda
+    // cubierto, y lo que queda fuera es la composición del modelo.
+    //
+    // ⚠️ El riesgo que queda NO es de Meta —eso es solo del canal de WhatsApp—:
+    // es del Estatuto del Consumidor y de la SIC, que sí alcanzan a la web y de
+    // hecho la alcanzan más, porque es pública y es de la empresa. Volumen medido
+    // al decidirlo: 157 personas distintas en 90 días. Si eso crece, se revisa.
+    //
+    // Aplica a TODOS los tenants menos `whatsapp`, que ya lo resuelve en su webhook
+    // antes de llamar aquí — incluye `ecommerce` (ganocafe.online), donde la gente
+    // pregunta por productos todo el día y era el hueco más ancho.
+    if (tenantId !== 'whatsapp' && typeof latestUserMessage === 'string') {
+      const _emergencia = detectarEmergencia(latestUserMessage);
+      if (_emergencia) {
+        console.warn(`🚨 [Salud/entrada] Emergencia detectada («${_emergencia}») — se deriva a la línea 123`);
+        return new StreamingTextResponse(buildVerbatimStream(RESPUESTA_EMERGENCIA), { headers: getCorsHeaders(origin) });
+      }
+
+      const _salud = clasificarPreguntaSalud(latestUserMessage);
+      if (_salud) {
+        // La reincidencia endurece al texto corto: repetirle el párrafo largo a
+        // quien ya lo recibió se lee como que no lo estamos escuchando.
+        const _reincide = (messages as { role: string; content: string }[])
+          .some((m) => m.role === 'assistant' && esRechazoSalud(m.content ?? ''));
+        const _texto = _salud.nivel === 'grave'
+          ? RECHAZO_SALUD_GRAVE
+          : (_reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR);
+        console.warn(`🛡️ [Salud/entrada] «${_salud.termino}» (${_salud.nivel}) — se deriva sin llamar al modelo`);
+        return new StreamingTextResponse(buildVerbatimStream(_texto), { headers: getCorsHeaders(origin) });
+      }
+    }
 
     // ════════════════════════════════════════════════════════════════════════════
     // ⚡ CAMINO A — BACKEND DICTADOR (VERBATIM_LOCK Master Responses)

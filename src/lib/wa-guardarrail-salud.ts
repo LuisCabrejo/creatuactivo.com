@@ -85,7 +85,13 @@ export const RE_SALUD_COMUN: RegExp[] = [
   /colesterol|triglicerid|hipertension|(presion|tension) (alta|baja|arterial)/,
   /tiroides|higado graso|prostata|menopausia|\brinon(es)?\b|calculos renales|anemia/,
   /insomnio|no puedo dormir|(para|contra) la (ansiedad|depresion)|sufro de (ansiedad|depresion)/,
-  /bajar de peso|perder peso|subir de peso|adelga[sz]ar|obesidad|sobrepeso|quemar grasa|bajar la barriga/,
+  // ⚠️ `adelga[sz]a` y NO `adelga[sz]ar`: con el infinitivo, «¿esto adelgaza?»
+  // —la forma en que de verdad se pregunta— pasaba entera. El lado de SALIDA sí
+  // lo atrapaba desde siempre; el de ENTRADA no, y es el que evita que el modelo
+  // llegue siquiera a componer la respuesta. Encontrado el 24 ago 2026 al llevar
+  // este guardarraíl a la web. El adelgazamiento es el disparador nº1 de sanción
+  // de la SIC en el período auditado, así que este hueco no era menor.
+  /bajar de peso|perder peso|subir de peso|adelga[sz]a|obesidad|sobrepeso|quemar grasa|bajar la barriga/,
   /defensas (bajas|bajitas)|inmunodeficien/,
   /antiinflamator|desinflam|\bmedicinal|propiedades curativas/,
   /estoy en tratamiento|tomo (medicament|pastilla|remedio)|anticoagulante|metformina|losartan|ibuprofeno|acetaminofen|omeprazol|me diagnosticaron/,

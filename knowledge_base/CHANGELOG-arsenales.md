@@ -12,6 +12,46 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.8 — Paquetes y los sueltos: cierra la auditoría de los 40 (26 ago 2026)
+
+Quinta y última fase. **Cifras, porcentajes, GCV, PV/CV y nombres del plan intactos.**
+
+⚠️ **Un error de hecho, y era el más visible.** `COMP_MONEDA_01` abría diciendo que *"el ecosistema corporativo **opera** en más de **70 jurisdicciones**"*. La constante canónica es **más de 60 países** —fijada el 8 ago 2026 contra los sitios oficiales de Gano Excel, porque la cifra de 70 no la sostiene ninguna fuente—, y el fragmento la contradecía en su primera línea.
+
+**Y era también el peor párrafo de jerga del corpus:** *"moneda de reserva estándar para valorar su infraestructura"*, *"para anular su exposición al riesgo de volatilidad cambiaria local"*, y un remate sobre *"la fricción logística de bancarizar sus regalías"*. Ninguna de las tres pasa el test Beto. Hoy dice lo mismo en llano: el plan se valora en dólares para que sea igual en todos los países, y la conversión la asume Gano Excel.
+
+**Un empujón más contra el Kit**, el cuarto del arsenal: *"el Kit NO tiene GEN5. Si desea ganar por **expansión de red**, necesita mínimo ESP-1"* — con la doble falta de menospreciar el paquete pequeño y de nombrar el crecimiento como **expansión de red**, que es gente y no producto.
+
+**`COMP_VIP_01` estaba escrito en consultor:** *"posicionar su canal con **apalancamiento estratégico**"*, *"esta **flexibilidad operativa** convierte al VIP en una **vía de entrada accesible**"*, *"cuando el **perfil madura**"*. Reescrito en llano.
+
+**Cuatro títulos de 332 a 345 caracteres** —los de composición de paquetes, con once y doce variantes de disparador cada uno— recortados a dos preguntas, y las tildes de todo el tramo.
+
+---
+
+**El cambio estructural de todo el arsenal: de 6 preguntas de cierre a 40 de 40.**
+
+Este arsenal se comportaba como un manual — entregaba el dato y paraba, casi siempre bajo un rótulo **«Insight:»** que era conclusión de informe, no conversación. **Los 22 «Insight:» desaparecieron**; cada uno pasó a prosa con una pregunta de seguimiento medida contra el corpus. ⚠️ Dos de ellos, además, eran donde vivía el problema: la cifra de rango Diamante presentada como alcanzable, y el empujón del ESP-3 contra el Kit.
+
+Y **tres preguntas de cierre vivían DENTRO de un `<verbatim_lock>`** (`COMP_MODELO_01` no, pero sí `COMP_BIN_01`, `COMP_BIN_05` y `COMP_GEN5_01`), contra el contrato de prefijo: el candado protege el argumento, la pregunta tiene que poder adaptarse.
+
+**Balance de la auditoría completa del arsenal (v8.4 → v8.8):**
+
+| | Antes | Ahora |
+|---|---|---|
+| Fragmentos con pregunta de cierre | 6 / 40 | **40 / 40** |
+| Rótulos «Insight:» | 22 | **0** |
+| Títulos truncados por el fragmentador | 5 (cuatro con candado) | 0 |
+| Títulos de más de 90 caracteres | 11 | 0 |
+| Cuerpos con palabras sin tilde | 22 | 0 |
+| Tablas de ciclos congeladas en enero | 2 | 0 |
+| Empujones contra el Kit / el paquete pequeño | 4 | 0 |
+
+⏳ **Lo que queda anotado y sin resolver:** el choque de `COMP_GEN5_01` con `GEN5_02`/`GEN5_08` (se resuelve consolidando la familia, no retocando índices) · la contradicción de CV en `COMP_PV_08`, alineada pero **pendiente de confirmación del Director** · y los precios en COP duros de `COMP_PV_06`, `COMP_PAQ_01` y `COMP_MONEDA_01`, que van con el pendiente general de moneda por producto.
+
+Verificación: clasificador 58/58 · guardarraíles de salud y negocio en verde · 0 frases vetadas sobre 172 fragmentos · benchmark 37/40 puesto 1, 40/40 top 3.
+
+---
+
 ### v8.7 — La familia PV/CV, y una contradicción de cifras entre fragmentos (26 ago 2026)
 
 Cuarta fase. Léxico y narrativa — **salvo una excepción que hay que mirar de frente.**

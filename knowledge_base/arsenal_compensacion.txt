@@ -2,17 +2,9 @@
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construccion de Ingresos Recurrentes (No MLM tradicional)
 **Version:** 8.3 (25 ago 2026) — **La comisión del GEN5 se cotiza en la moneda del visitante.** COMP_GEN5_01 va bajo candado, así que las cifras que ganó en la v8.2 quedaron escritas en pesos dentro de un texto que se entrega carácter por carácter: un prospecto de Estados Unidos recibía COP. Ahora el candado trae `[GEN1]` y `[GEN2_5]` y los llena `getPinComisionGEN5()` — mismo reparto que FREQ_03. Cifras del plan intactas. Previa **8.2** (24 ago 2026) — **La vía del GEN5 se explica con su rango, y la pregunta de cierre nombra lo que ofrece.** COMP_GEN5_01: la primera respuesta pasa a llevar el rango por generación anclado al paquete propio (decisión del Director) — quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y en abstracto esa cuenta se la hace el prospecto solo, casi siempre hacia arriba. La compra se nombra sin persona, en registro de gran distribución. ⚠️ **La pregunta de cierre nombra el paquete a propósito**: el pin del motor decide el tipo de ejemplo por la oferta y su default es la renta, así que un cierre que no nombra la vía hacía que el «sí» entregara el ejemplo del Binario después de haber explicado el GEN5. Cifras, %, CV/PV y tasas INTACTAS. Previa **8.1** (23 ago 2026) — **El Binario se explica por emparejamiento, con el canal izquierdo y el canal derecho nombrados.** El sistema empareja cada punto de un canal con su equivalente en el otro y paga sobre el volumen emparejado; los puntos sin emparejar se guardan para el siguiente ciclo mientras la persona esté activa con su recompra mensual. Cuatro respuestas nuevas o reescritas: BIN_06 (los tres requisitos, en llano), BIN_09 (los puntos que sobran, con el ejemplo 1.050 / 5.070), GEN5_09 (las dos condiciones del GEN5) y PV_09 (una caja a la semana). El detalle, en el CHANGELOG. Cifras del plan intactas. Previa **8.0** (22 ago 2026) — **Los productos se nombran como los ve el cliente.** Las tablas de puntos y de composición usan los mismos nombres del catálogo, en español y con su ortografía; el signo «&» de Piel&Brillo va escrito. Las cifras del plan no cambian. Detalle en el CHANGELOG.
-**Version anterior:** 7.9 (10 ago 2026) — **La progresión geométrica en dígitos sale del corpus, y se corrige la concordancia que rompió el barrido de vocabulario.** ⚠️ **El `1, 2, 4, 8` era el inyector de pirámide escrito por nosotros.** Es exactamente lo que el Director describió el 9 ago —*«la gente piensa: rápido traigo a 5, que traen 5, que traen 5, y solo con esa idea le inyecta la pirámide a su prospecto»*— puesto en dígitos, y contando **socios**, no compras. Vivía en dos respuestas: METH_01 de `arsenal_avanzado` y NET_01 de `arsenal_inicial`. **Se retira solo el inciso:** las dos frases quedan completas y más fuertes sin él —*«hace exactamente lo mismo que usted»* y *«su canal se multiplica sin depender del talento de cada quien»*— porque el mecanismo se dice entero sin dibujarlo. ⚠️ **Concordancia:** el barrido del 9 ago cambió *organización* (femenino) por *canal* (masculino) sin ajustar los determinantes, y quedaron cuatro *«toda su canal»* — dos aquí y dos en `arsenal_inicial`. Error del agente, corregido. Previa **7.8** **Barrido de vocabulario: el colectivo es *su canal*, el rol no es un cargo, y el fabricante se llama por su nombre.** Decisión del Director, en un solo pase sobre los cuatro arsenales. **(1)** *su organización* → **su canal** (67), y donde el colectivo hace algo humano se nombra a quién — *sus clientes*, *sus socios* (8): un canal es un conducto y no consume, y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Medido antes: `arsenal_inicial` ya decía *su canal* mientras compensación y avanzado decían *su organización*, así que al prospecto le cambiábamos la palabra justo al llegar al dinero. ⚠️ *Organización* no era un residuo: la eligió deliberadamente el barrido del 20 jul para reemplazar *red*. Esta es la tercera iteración sobre la misma palabra, y el modelo nuevo es más limpio porque elimina el término intermedio ambiguo. Se conservan los usos legítimos: *la organización dirigida por Luis Cabrejo* (es CreaTuActivo), *no es mala organización* (otro significado) y las notas de versión. **(2)** *Propietario* → **socio** (31): era el cargo retirado el 8 ago y sobrevivía en tres arsenales contradiciendo la decisión. **(3)** *su socio logístico y financiero* → **Gano Excel**, *su socio digital* → **Queswa** (12): el rótulo interno le confirma la duda a quien duda, criterio ya aplicado en v5.60 a FREQ_07. Y liberaba la palabra *socio*, que ahora significa una sola cosa — la gente del canal del usuario. **Retrieval medido antes y después: 21 de 23 consultas conservan el mismo fragmento ganador.** Los dos cambios son empates de milésimas: *«¿qué son los 12 niveles?»* pasa de la tabla a la definición (mejora) y *«¿el consumo de mi hogar cuenta?»* cruza por 0.001 — su pregunta principal sigue resolviendo a 0.620. De paso se destapó un hueco preexistente: `PERFIL_01` tenía *no sirvo para vender* pero no *no sé vender*; se sumó. 42/42 en la batería, en los dos tenants. Previa **7.7** **Cada vía se nombra por lo que la mueve.** Decisión del Director. El GEN5 se presentaba por su **velocidad** y el Binario por su **duración**, y las dos etiquetas eran incorrectas. La de velocidad, además, era **falsa**: la compra de un paquete empresarial es esporádica, así que lo único que se afirma es *cada vez que ocurre* — sin ritmo prometido y sin plazo. La de duración estaba vetada desde el 8 ago por ser promesa de perpetuidad. El vocabulario canónico pasa a **GEN5 = compra de paquetes empresariales · Binario = consumo recurrente**. ⚠️ **El daño que esto corrige es aguas arriba, y es de campo:** doce años de observación del fundador — *"aún las personas que llevan años siguen viendo más llamativo el GEN5 que el ingreso recurrente, y solo con esa idea le inyectan la pirámide a su prospecto"*. El encuadre deformaba primero la cabeza de quien explica el negocio. La prueba del canal del 9 ago lo documenta: el prospecto salió con una sola cifra en la cabeza, la del GEN5, y con dos frases nuestras diciéndole que esa es la rápida. ⚠️ **La función sí se conserva**, porque sin ella no se entiende para qué hay dos vías: el GEN5 es la plata que financia el crecimiento en la etapa temprana. Decir para qué sirve no es decir qué tan rápido llega. Se conserva también la distinción que ya estaba y no tiene adjetivo: *esta le paga mientras construye, y la otra le paga por lo que ya construyó*. ⚠️ **`colectivo = su canal`**, y cuando el colectivo hace algo humano se nombra a quién (*sus clientes*, *sus socios*): un canal es un conducto y no consume, y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal. Medido: `arsenal_inicial` ya decía *su canal* 16 veces mientras compensación y avanzado decían *su canal* 32 — al prospecto le cambiábamos la palabra justo al llegar al dinero. ⚠️ **Los disparadores conservan las palabras del prospecto** (*"¿cómo se gana rápido?"*): son su vocabulario, no el nuestro, y sin ellos la pregunta deja de encontrar respuesta. ⚠️ **Pendiente anotado:** el barrido de las 51 apariciones de *su canal* en tres arsenales, y la progresión geométrica en dígitos que sobrevivía en `arsenal_avanzado` — el mismo inyector de pirámide, escrito por nosotros (retirada en v7.9). Cifras, %, CV/PV y tasas INTACTAS. Previa **7.6** (9 ago 2026) — **La unidad del GEN5 es la generación.** Detectado por el Director al revisar la prueba del canal: recordaba que el marco desarrollado era otro, y el conteo lo confirmó. `COMP_GEN5_01` era **el único** de los fragmentos GEN5 que contaba en niveles (3 usos), contra 7 usos de *generación* en COMP_GEN5_03/04/06, el ejemplo dictado por `route.ts` (*"Generación 1 — 5 paquetes"*) y la referencia interna del propio COMP_GEN5_01, que ya decía *generaciones 2 a 4*. El fragmento se contradecía consigo mismo, y es el primero que se entrega sobre el bono: el que fija el marco antes de que lleguen las cifras. En la prueba del 9 ago el prospecto oyó las dos versiones en turnos consecutivos. ⚠️ **No es una traducción a lenguaje llano, es lo contrario:** *generación* es la nomenclatura del propio plan —GEN5 son cinco generaciones—, así que el cambio **restaura** la regla de que la nomenclatura va literal. Y la generación es una unidad horizontal: describe quién vino después, no cuánto se baja. ⚠️ **El Binario conserva su descriptor**: en COMP_BIN_08 y COMP_BIN_10 *sin límite de profundidad* es el término propio de ese bono y no tiene equivalente en generaciones — barrer por barrer habría sido el error opuesto. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.5** (8 ago 2026) — **Registro elevado + la cabecera del GEN5 dejó de dictar el error.** COMP_MODELO_01 reescrito en registro de firma de inversión (*flujo de ganancias · percibe · liquida · el efecto bola de nieve como principio financiero*), y la bola de nieve pasa a estar hecha de **compras**, no de socios que reclutan socios — esa era la silueta de la pirámide dibujada por nosotros en la respuesta sobre el dinero. Retirada la repetición literal con WHY_02 ("todo lo que gana sale de una sola cosa…", que la persona acababa de leer 30 segundos antes). Pregunta de cierre con motivo — el motivo se retiró en v7.7. **COMP_GEN5_01: cabecera en afirmativo** — decía *PROHIBIDO decir "ese mismo viernes"* y el modelo copió la frase de ahí en la prueba en vivo del 8 ago; las cabeceras viajan dentro del fragmento recuperado, así que citar lo prohibido es dictarlo. Detectable desde ahora con `scripts/auditar-frases-vetadas.mjs`. Cifras, %, CV/PV y tasas INTACTAS. Previa **7.4** (7 ago 2026) — **Bautizo empresarial en los ejemplos.** Las unidades de los ejemplos dejan de contar cabezas: "conecta 2 personas" → "2 socios" (COMP_GEN5_05, filas "Socio 1/2"); "62 personas" → "62 vinculaciones" (COMP_GEN5_08, + "se construye la red" → "la estructura"); "numero de personas activas" → "socios activos" (regla del Lado Menor); instrucción interna del Binario deja de citar la fórmula prohibida como ejemplo; VIP "para personas que quieren" → "para quien quiere". **"Flujo de caja" retirado** (decisión del Director 7 ago — revierte la conservación de v7.0): GEN5 "le da ingreso inmediato para crecer" · "la plata que financia la expansión". ⚠️ Cifras, %, CV/PV y tasas INTACTAS. Previa **7.3** (12 jul 2026) — composición ESP corregida + upgrades (COMP_PAQ_02/03/04/05). Previa **7.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial v5.9 + SP v28.1): "negocio digital" → **"empresa digital"** (12 swaps, concordancias corregidas: "una nueva empresa digital", "mientras la empresa digital esté activa"). ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS** (verificado con git diff). Se conserva "negocio tradicional" y "Centro de Negocios". Deploy a Supabase 12 jun 2026.
+**Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Aquí no se narran las versiones viejas: sus notas citaban entrecomillada cada frase retirada —*negocio digital*, *Base Operativa*, *escalar*— y esta cabecera es el primer texto que lee quien vaya a editar.
 
-**Version previa:** 7.1 (jun 2026) — Swap léxico "Negocio Digital" (`HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "operar el modelo" → "desarrollar el modelo"; "antes de escalar" → "antes de multiplicar"; "Diferencia operativa" → "Diferencia funcional". ⚠️ SOLO léxico de marca — **cifras, %, GCV, PV, nombres del plan y tasas INTACTOS**. Se conservan los "opera" de Gano Excel/instrucciones y "escala por volumen" de la tabla de rangos. Pendiente: deploy a Supabase.
-**Version:** 7.0 (7 Jun 2026) — Migracion al registro accesible (Beto): Arquitecto de Patrimonio → socio, Matriz Fisica → El Respaldo Operativo, "su patrimonio" → "sus ingresos recurrentes". COMP_MODELO_01 corregido (12 formas de ganar; GEN5/Binario son 2 ejemplos de las 12, NO "dos mecanismos/principales"; sus rotulos de entonces se retiraron en v7.7). COMP_GEN5_01 (paquete de inventario inicial). COMP_CENTRO_01 simplificado. COMP_ESTRUCTURA_01/02 reescritos: "Arbol" (lenguaje viejo) → Patrocinio / Colocacion. Cifras del plan intactas. "flujo de caja" conservado (decision del Director).
-**Version:** 6.4 (22 May 2026) — Distinción canónica entre la presencia global de Gano y los países operativos del socio: agregada nota explícita y corregida ambigüedad "en cualquier país" → "en cualquiera de los países operativos de América" en COMP_MODELO_01 (Velocidad 2 Binario). Razón: el modelo confundía la cobertura corporativa Gano Excel (más de 60 países = matriz física) con la capacidad operativa del socio (16 países de América + diáspora con registro por país natal). Bug detectado QA 22 May 2026.
-**Version:** 6.3 (10 May 2026) — Cleanup léxico quirúrgico: "biotecnología celular" → "biotecnología de bioactivación" (1 instancia, sin afectar vocabulario canónico de compensación ni cifras GEN5/Binario)
-**REGLA DE ORO:** Si no esta aqui, no lo inventes. Vocabulario canónico: **GEN5 = compra de paquetes empresariales** · **Binario = consumo recurrente** · **colectivo = su canal**.
-
-⚠️ **Cada bono se nombra por lo que lo mueve, nunca por su velocidad ni por su duración** (decisión del Director, 9 ago 2026). Los rótulos anteriores fallaban en las dos direcciones: uno prometía inmediatez —y el fundador señaló que es falso, porque no es rápido: ocurre **cada vez que alguien compra un paquete empresarial**— y el otro prometía perpetuidad, que es la forma más peligrosa de promesa de ingreso.
-
-⚠️ **Cuando el colectivo hace algo humano —consumir, pedir, comprar— se nombra a quién:** *sus clientes*, *sus socios*. Un canal es un conducto y no consume. Y una sola palabra no puede cargar a la vez la red de clientes y la de dueños de canal; nombrar a quién, sí — y de paso pone al consumidor dentro de la frase, que es donde la Ley 1700 quiere verlo.
+**Versión actual: v8.8** (26 ago 2026) — **Auditoría completa de los 40.** Las cuatro familias revisadas; cifras, porcentajes, GCV, PV/CV y nombres del plan intactos. Detalle en el CHANGELOG.
 
 ---
 
@@ -44,12 +36,12 @@ Frases canónicas válidas para Respaldo Operativo Gano Excel:
 
 ## REGLA CRITICA: MONEDA Y VALORACION GLOBAL
 
-### COMP_MONEDA_01: "En que moneda se valora el negocio?"
+### COMP_MONEDA_01: "¿En qué moneda se maneja el negocio? / ¿En dólares o en pesos?"
 **[Índice]:** En qué moneda se maneja el negocio, en dólares o en pesos, cómo se valoran las comisiones.
 
 **[Concepto Nuclear]:** Estandar Financiero Global. El activo se consolida en divisa fuerte (USD) y liquida dividendos en moneda local (COP) bajo tasa blindada.
 
-El ecosistema corporativo opera en mas de 70 jurisdicciones, lo que exige el uso del Dolar (USD) como moneda de reserva estandar para valorar su infraestructura. Para anular su exposicion al riesgo de volatilidad cambiaria local, Gano Excel garantiza una **Tasa Corporativa Fija inamovible de $4,500 COP por dolar**.
+Gano Excel está en más de 60 países, así que el plan se valora en dólares para que sea el mismo en todos. Y para que el dólar no le mueva el piso, la empresa fija su propia tasa inamovible de $4,500 COP por dolar**.
 
 **Tabla de Valoracion:**
 | Nivel | Valor Global (USD) | Liquidacion Local (COP) |
@@ -61,7 +53,9 @@ El ecosistema corporativo opera en mas de 70 jurisdicciones, lo que exige el uso
 | Gen 2-4 Bono | $20 USD | ~$90,000 COP |
 | Gen 5 Bono | $40 USD | ~$180,000 COP |
 
-**Insight:** Usted construye y retiene un activo valorado en dolares, mientras la corporacion asume la friccion logistica de bancarizar sus regalias en pesos a una tasa preferencial protegida.
+Su canal se valora en dólares y sus comisiones le llegan en pesos, a esa tasa fija. La conversión la asume Gano Excel.
+
+**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
 
 ---
 
@@ -99,9 +93,9 @@ Con gusto. Lo que mueve dinero desde el principio es la compra de paquetes empre
 Con el Visionario, cada paquete empresarial que se compra en su canal de distribución le genera una comisión directa: en la primera generación, [GEN1]; y sigue generando hasta la quinta, desde [GEN2_5] por paquete.
 
 Corre en paralelo con la otra forma de ganar, la del consumo que se repite: esta le paga mientras construye, y la otra le paga por lo que ya construyó.
-
-¿Le muestro un ejemplo con números de lo que genera cada paquete?
 </verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le muestro un ejemplo con números de lo que genera cada paquete?
 
 **[Concepto Nuclear]:** ⏳ **CHOQUE ABIERTO, medido y sin resolver:** *"¿qué es el bono GEN5?"* la gana `COMP_GEN5_02` (0.624) y *"explíqueme el Gen5"* la gana `COMP_GEN5_08` (0.644) — esta, que es **la canónica y va bajo candado**, queda en el puesto 2. Se probaron tres redacciones del índice y **ninguna lo movió**: el atractor no está en el índice, igual que pasó con `OBJ_01`. La causa probable es que `GEN5_02` y `GEN5_03` responden casi lo mismo —el techo— y entre las dos concentran el vocabulario del bono. **Se resuelve consolidando la familia, no retocando índices**, y se mide antes. Mientras tanto queda en top-3, así que el motor sí la entrega. ⛔ **El GEN5 se cuenta en COMPRAS, nunca en personas** — y el 26 ago 2026 toda la familia lo contaba al revés: *"cuando alguien se vincula"*, *"conecta 2 socios"*, *"cuánto gano si conecto 2 personas"*, una columna rotulada **Vinculaciones** y *"las 62 vinculaciones"*. Esa es la escalera de gente, la silueta exacta que el prospecto reconoce como pirámide. **Ninguna cifra cambió**: lo que cambió es qué se cuenta — *paquetes comprados*. ⚠️ **Y el motivo es de campo, no de cumplimiento:** doce años del Director muestran que matizar los bonos hace que la gente pregunte *"o sea que si yo arranco usted se gana 675.000 pesos"*, y ahí se acabó la conversación. Por eso salieron los tres empujones al ESP-3 (*"con ESP-1 siempre deja dinero en la mesa"*, *"la diferencia es 6x"*, *"ESP-3 captura $300, ESP-1 captura $50"*): son la misma construcción del *"41% sobre la mesa"* retirado de NIVELES_03. El techo se explica; no se usa para hacer sentir mal a quien mira el paquete pequeño.
 
@@ -615,7 +609,7 @@ El porcentaje es el de su paquete o rango activo — el sistema aplica automáti
 | Bronce → Diamante | 11% → 15% (escala por volumen acumulado) |
 | Promoción corporativa | 17-20% (~2 al año) |
 
-**Insight:** El sistema aplica AUTOMÁTICAMENTE el porcentaje más alto disponible entre paquete activo, rango actual y promoción vigente. El usuario no elige cuál usar — el sistema lo optimiza por defecto.
+Usted no tiene que elegir cuál porcentaje usar: el sistema toma por defecto el más alto entre su paquete, su rango y la promoción vigente.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se mantiene el porcentaje alto?
 
@@ -817,18 +811,18 @@ Con diez clientes consumiendo en cada canal la comisión ya se liquida cada vier
 
 ## PAQUETES DE INVERSION
 
-### COMP_PAQ_01: "Cuales son los paquetes disponibles?"
+### COMP_PAQ_01: "¿Cuáles son los paquetes disponibles? / ¿Qué opciones hay para empezar?"
 **[Índice]:** Cuáles son los paquetes disponibles, qué opciones hay para empezar, cuánto vale cada una.
 
 **[Concepto Nuclear]:** 4 opciones desde ~$100 USD hasta $1,000 USD. Solo ESP tiene GEN5.
 
 **Comparativa de Paquetes:**
-| Paquete | Inversion (USD) | Inversion (COP) | Productos | % Binario | GEN5? |
+| Paquete | Inversión (USD) | Inversión (COP) | Productos | % Binario | GEN5? |
 |---------|-----------------|-----------------|-----------|-----------|-------|
 | Kit Inicio | ~$100 USD | ~$443,600 COP | Variable | 10% | NO |
-| ESP-1 | $200 USD | $900,000 COP | 7 | 15% (2 meses) | SI |
-| ESP-2 | $500 USD | $2,250,000 COP | 18 | 16% (4 meses) | SI |
-| ESP-3 | $1,000 USD | $4,500,000 COP | 35 | 17% (6 meses) | SI |
+| ESP-1 | $200 USD | $900,000 COP | 7 | 15% (2 meses) | Sí |
+| ESP-2 | $500 USD | $2,250,000 COP | 18 | 16% (4 meses) | Sí |
+| ESP-3 | $1,000 USD | $4,500,000 COP | 35 | 17% (6 meses) | Sí |
 
 **Bono GEN5 Gen 1 (socio directo):**
 | Su Paquete | Nuevo ESP-3 | Nuevo ESP-2 | Nuevo ESP-1 |
@@ -837,11 +831,13 @@ Con diez clientes consumiendo en cada canal la comisión ya se liquida cada vier
 | ESP-2 | $75 USD | $75 USD | $25 USD |
 | ESP-1 | $25 USD | $25 USD | $25 USD |
 
-**Insight:** El Kit NO tiene GEN5. Si desea ganar por expansion de red, necesita minimo ESP-1.
+El Kit abre el canal con la Regalía de Equipo al 10%; el Bono GEN5 empieza con los paquetes empresariales.
+
+**Pregunta de seguimiento:** ¿Le muestro qué trae cada uno?
 
 ---
 
-### COMP_PAQ_02: "Que trae el ESP-1? / Como esta conformado el ESP-1? / Que incluye el paquete Inicial? / Que productos vienen en el ESP-1? / Composicion paquete Inicial / qué productos vienen en el esp1 / cuáles productos trae el ESP-1 / lista de productos ESP-1 / contenido ESP-1 / inventario ESP-1 / qué contiene el inicial / 7 productos del ESP-1"
+### COMP_PAQ_02: "¿Qué trae el ESP-1? / ¿Qué productos vienen en el paquete Inicial?"
 **[Índice]:** Qué trae el ESP-1, qué productos vienen en el paquete Inicial, cómo está conformado.
 
 **[Concepto Nuclear]:** 7 productos para conocer el sistema. Ideal para arrancar.
@@ -858,11 +854,13 @@ Con diez clientes consumiendo en cada canal la comisión ya se liquida cada vier
 | Exfoliante Piel&Brillo | 1 |
 | **Total** | **7** |
 
-**Insight:** ESP-1 le da acceso al GEN5, pero con techo limitado. Ideal si desea verificar antes de multiplicar.
+El ESP-1 abre el canal con acceso al Bono GEN5, con el techo de su nivel.
+
+**Pregunta de seguimiento:** ¿Le muestro qué trae el ESP-2?
 
 ---
 
-### COMP_PAQ_03: "Que trae el ESP-2? / Como esta conformado el ESP-2? / Que incluye el paquete Empresarial? / Que productos vienen en el ESP-2? / Composicion paquete Empresarial / qué productos vienen en el esp2 / cuáles productos trae el ESP-2 / lista de productos ESP-2 / contenido ESP-2 / inventario ESP-2 / qué contiene el empresarial / 18 productos del ESP-2"
+### COMP_PAQ_03: "¿Qué trae el ESP-2? / ¿Qué productos vienen en el paquete Empresarial?"
 **[Índice]:** Qué trae el ESP-2, qué productos vienen en el paquete Empresarial, cómo está conformado.
 
 **[Concepto Nuclear]:** 18 productos. Balance entre inversion y beneficio.
@@ -884,11 +882,13 @@ Con diez clientes consumiendo en cada canal la comisión ya se liquida cada vier
 | Exfoliante Piel&Brillo | 1 |
 | **Total** | **18** |
 
-**Insight:** ESP-2 duplica el techo de ESP-1 y le da mas inventario para mover.
+El ESP-2 sube el techo del GEN5 respecto al ESP-1 y llega con más inventario.
+
+**Pregunta de seguimiento:** ¿Le muestro qué trae el ESP-3?
 
 ---
 
-### COMP_PAQ_04: "Que trae el ESP-3? / Como esta conformado el ESP-3? / Que incluye el paquete Visionario? / Que productos vienen en el ESP-3? / Composicion paquete Visionario / Inventario ESP-3 / qué productos vienen en el esp3 / cuáles productos trae el ESP-3 / lista de productos ESP-3 / contenido ESP-3 / qué contiene el visionario / 35 productos del ESP-3"
+### COMP_PAQ_04: "¿Qué trae el ESP-3? / ¿Qué productos vienen en el paquete Visionario?"
 **[Índice]:** Qué trae el ESP-3, qué productos vienen en el paquete Visionario, cómo está conformado.
 
 **[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
@@ -913,7 +913,9 @@ Con diez clientes consumiendo en cada canal la comisión ya se liquida cada vier
 | Exfoliante Piel&Brillo | 1 |
 | **Total** | **35** |
 
-**Insight:** ESP-3 = techo maximo + 17% Binario (con bonus de 6 meses al 17%, luego baja a base 10% si no recompra) + GEN5 activo desde el primer día (sin término) + inventario que activa su canal con el máximo volumen inicial.
+El ESP-3 tiene el techo más alto del GEN5 y abre con el Binario al 17% durante seis meses; pasado ese tiempo vuelve a la base si no se recompra. El GEN5 queda activo desde el primer día, sin término.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se mantiene el porcentaje alto?.
 
 **IMPORTANTE — Duración de los componentes (evitar confusión):**
 - **Binario al porcentaje alto** (17% ESP-3 / 16% ESP-2 / 15% ESP-1): TIENE término — 6/4/2 meses respectivamente. Después baja a base 10% si no recompra.
@@ -923,7 +925,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 
 ---
 
-### COMP_PAQ_05: "Que trae el upgrade? / Como subo de paquete? / Que productos me llegan si paso de ESP-1 a ESP-2? / Composicion del upgrade ESP-1 a ESP-3 / Que recibo al mejorar de ESP-2 a ESP-3 / Cuanto cuesta subir de nivel / diferencia de productos entre paquetes / si ya tengo el ESP-1 y quiero el ESP-3 que me llega / productos del upgrade"
+### COMP_PAQ_05: "¿Qué trae el upgrade? / ¿Cómo subo de paquete?"
 **[Índice]:** Cómo subo de paquete, qué me llega si paso de ESP-1 a ESP-2, en qué consiste el upgrade.
 
 **[Concepto Nuclear]:** Al mejorar de nivel solo paga la diferencia de inversion y recibe los productos que completan el paquete superior. No compra el paquete de nuevo — recibe el faltante.
@@ -970,18 +972,20 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 | Jabón Gano (2 por paquete) | 1 |
 | **Total** | **17** |
 
-**Insight:** El upgrade es acumulativo: sube su techo de Binario y su volumen inicial al del paquete destino, pagando solo la diferencia. Los productos del upgrade son exactamente los que faltan para completar el inventario del nivel superior.
+El upgrade es acumulativo: sube su techo y su volumen al del paquete de destino pagando solo la diferencia, y los productos que llegan son exactamente los que faltan para completar el inventario del nivel superior.
 
+
+**Pregunta de seguimiento:** ¿Le muestro cuánto cuesta subir de nivel?
 ---
 
 ## PROGRAMA AUTO ENVIO
 
-### COMP_AUTO_01: "Que es el programa Auto Envio?"
+### COMP_AUTO_01: "¿Qué es el programa de Auto Envío?"
 **[Índice]:** Qué es el programa de Auto Envío, cómo funciona el pedido automático cada mes.
 
 **[Concepto Nuclear]:** 4 meses consecutivos activo = producto gratis.
 
-El Auto Envio es un programa de lealtad.
+El Auto Envío es un programa de lealtad.
 
 **Beneficio por Nivel:**
 | Su PV Mensual | Producto Gratis (valor) |
@@ -993,31 +997,35 @@ El Auto Envio es un programa de lealtad.
 | Requisito | Detalle |
 |-----------|---------|
 | Meses consecutivos | 4 |
-| Debitos fallidos | Reinicia conteo |
+| Si un cobro no pasa | El conteo vuelve a empezar |
 
-**Insight:** Si ya consume 50+ PV mensual, el Auto Envio le da un producto gratis cada 4 meses.
+Si ya hace su recompra de 50 PV al mes, el Auto Envío le suma un producto sin costo cada cuatro meses.
+
+**Pregunta de seguimiento:** ¿Le muestro qué productos suman esos 50 PV?
 
 ---
 
 ## GANANCIA POR VENTA DIRECTA
 
-### COMP_VENTA_01: "Puedo ganar vendiendo productos?"
+### COMP_VENTA_01: "¿Puedo ganar vendiendo productos? / ¿Qué margen deja el producto?"
 **[Índice]:** Cuánto me deja la venta directa al detal, qué margen tiene, si además de las comisiones el producto vendido deja ganancia.
 
-**[Concepto Nuclear]:** Ganas el diferencial entre precio constructor y precio publico.
+**[Concepto Nuclear]:** Ganas el diferencial entre precio constructor y precio público.
 
 **Ejemplo con Ganocafé 3 en 1:**
 | Concepto | Valor |
 |----------|-------|
 | Su costo | $110,900 |
-| Precio publico | $140,000 |
+| Precio público | $140,000 |
 | Su ganancia | $29,100 |
 
-**Insight:** Muchos socios cuentan con Clientes VIP de forma natural: conocidos que consumen los productos de forma habitual sin desarrollar el modelo. No es venta al detal — es consumo que fluye por su canal.
+En la práctica casi nadie sale a vender: lo que ocurre es que hay conocidos que consumen los productos de forma habitual y se registran como Clientes VIP para comprarlos a su precio. Eso no es venta al detal — es consumo que pasa por su canal.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el Cliente VIP?
 
 ---
 
-### COMP_VIP_01: "¿El Cliente VIP también debe comprar un paquete empresarial? / ¿Cuánto cuesta activar un Cliente VIP? / ¿El VIP paga inscripción? / ¿El Cliente VIP debe hacer compras mínimas mensuales?"
+### COMP_VIP_01: "¿El Cliente VIP debe comprar un paquete empresarial? / ¿Tiene compras mínimas mensuales?"
 **[Índice]:** El Cliente VIP tiene que comprar un paquete empresarial, cuánto cuesta activarlo, si paga inscripción o recompra mensual.
 
 **[Concepto Nuclear]:** NO. El Cliente VIP activa su código con una compra mínima de 50 PV — sin paquete empresarial. NO requiere compras mínimas mensuales, aunque se sugiere mínimo un producto cada cinco meses.
@@ -1031,16 +1039,18 @@ Para activar su código y acceder al precio de distribuidor, el VIP realiza una 
 El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
 
 **Diferencia funcional con el distribuidor:**
-- El distribuidor adquiere un Paquete Empresarial (ESP-1, ESP-2 o ESP-3) para posicionar su canal de distribución con apalancamiento estratégico, y mantiene una compra mensual mínima de 50 PV para conservar el derecho de cobro de comisiones.
+- El distribuidor compra un Paquete Empresarial —ESP-1, ESP-2 o ESP-3— para abrir su canal de distribución, y mantiene su recompra de 50 PV al mes para conservar el derecho a cobrar comisiones.
 - El VIP solo busca acceso a producto a precio de distribuidor, sin requisito de recompra mensual.
 
-**Insight:** Esta flexibilidad operativa convierte al VIP en una vía de entrada accesible para quien quiere acceder al producto sin compromiso de desarrollar un canal propio. Eventualmente, estos códigos pueden hacer upgrade a socio cuando el perfil madura.
+Por eso el Cliente VIP es la puerta más sencilla para quien solo quiere el producto a su precio, sin comprometerse a construir nada. Y si más adelante quiere desarrollar su canal, ese mismo código pasa a distribuidor.
+
+**Pregunta de seguimiento:** ¿Le ayudo a abrir su código?
 
 ---
 
 ## REGLAS CRITICAS PARA QUESWA
 
-1. **NUNCA inventar datos.** Si no esta en este arsenal: "No tengo esa informacion especifica. Le conectaré con la Dirección Estratégica para datos precisos."
+1. **NUNCA inventar datos.** Si no está en este arsenal: "No tengo esa informacion especifica. Le conectaré con la Dirección Estratégica para datos precisos."
 
 2. **Estructura de respuesta para compensacion:**
    - Primero: [Concepto Nuclear] - frase simple

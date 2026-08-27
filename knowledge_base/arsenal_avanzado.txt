@@ -1,20 +1,12 @@
-# ARSENAL AVANZADO: MECÁNICA Y CIERRE v12.8 — COMPARTIR · RECIBIR (la multiplicación es consecuencia)
+# Arsenal Avanzado: mecánica y cierre — la versión vigente está en «Versión», abajo
 
-**v13.4 (20 ago 2026):** ADV_VAL_01/02 alcanzan el barrido v7.7 de compensación — la vía se nombra por lo que la mueve, no por su velocidad: *primera/segunda velocidad* e *Ingreso Inmediato* salen de cabecera y cuerpo (los disparadores conservan las palabras del prospecto), el GEN5 se cuenta en compras y su cierre apunta al simulador. Cifras intactas. Previa **v13.3 (10 ago 2026):** METH_01 deja de cerrar en círculo. *«¿Le muestro cómo se ve esa multiplicación en números?»* recuperaba **el propio METH_01** (0.529): la persona decía que sí y recibía la misma respuesta. Ahora cierra hacia **COMP_BIN_10** (0.558), donde la multiplicación se cuenta en **cajas y clientes**, no en gente — y donde *cien clientes* aparece como un número normal, que es la capa que el prospecto no ve: no los consigue él solo, son los de sus socios sumados. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
-
-**v13.2 (10 ago 2026):** METH_01 pierde el inciso *1, 2, 4, 8* — la progresión geométrica en dígitos es el inyector de pirámide, y contaba socios en vez de compras. La frase queda completa sin él. Detalle en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
-
-**v13.1 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **socio** · *su socio logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Aquí no se narran las versiones viejas: sus notas citaban entrecomillada cada frase retirada —*empresa digital*, *ingreso pasivo*, *Arquitecto*, *Base Operativa*— y esta cabecera es el primer texto que lee quien vaya a editar.
 
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
-**Categorías:** ADV_OBJ (3) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + FUND (1) + METH (1) = 18 respuestas.
+**Categorías:** ADV_OBJ (2) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + METH (1) = 16 respuestas.
 **Versión:** 13.5 (25 ago 2026) — **Los 16 fragmentos ganan su `[Índice]`.** Es lo único que se vectoriza; el cuerpo se sirve y el `[Concepto Nuclear]` se queda en este archivo, recortado por el fragmentador. Sin índice, este arsenal competía con su cuerpo largo contra los índices cortos de `arsenal_inicial` y perdía consultas que le pertenecían — *«¿yo tengo que enseñarles?»* se iba a la respuesta de capacitación, que además lleva candado y se sirve sola. Detalle en el CHANGELOG.
-**Versión previa:** 13.1 (19 ago 2026) — **La etapa fundacional sale del arsenal** (decisión del Director): es materia del 1-a-1, no de una respuesta automática. Con ella sale el fragmento que defendía la escasez, cuya pregunta ya atiende EAM_02 de `arsenal_inicial` con el argumento de apalancamiento. ADV_SIST_02 conserva la visión a cinco años, ahora en léxico vigente y con pregunta única. Previa **13.0** (8 ago 2026) — **ADV_VAL_04: la compra mínima en PV, sin moneda y sin supermercado.** Llevaba la misma cifra errada que FREQ_09 (*~$100 USD / $450.000 COP* para 50 PV, cuando son ~3,3 cajas ≈ $370.000) y el marco del hábito dicho con todas las letras: *toma parte de lo que destinaba al mercado de la casa*. Ahora **50 PV = tres o cuatro cajas**, la moneda la pone el pin por país, y sale la pregunta de cierre retórica (*¿conoce algún otro negocio internacional donde…?*). 711 → 339 caracteres. Sincronizado con `arsenal_inicial` v5.62. Previa **12.9** (8 ago 2026) — **El equipo se nombra siempre *equipo de creatuactivo.com*** (decisión del Director). Barrido de 7 usos en ADV_OBJ_03, ADV_ESC_01 y ADV_ESC_02, sincronizado con el mismo barrido en `arsenal_inicial` v5.59. Previa **12.8** (8 ago 2026) — **Dos acciones; la consecuencia es del negocio.** Corrección de cumplimiento: ligar las acciones a un pago fechado es una promesa de ingreso (Meta la sanciona; el Estatuto del Consumidor colombiano la vuelve vinculante). METH_01 queda con **Compartir · Recibir** y la multiplicación como consecuencia, que además es lo que lo diferencia de EAM_01 — aquí sí se explica el mecanismo. Previa (retirada) **12.7** — la tríada con el viernes. METH_01 reescrito. Doctrina de los tres desafíos del modelo (poco popular · parece difícil · parece de ganancia lejana): el del **plazo** era el menos atendido, y la respuesta del método explicaba lo que él hace sin decir cuándo cobra. **"Multiplicar" pasa de tercer movimiento a CONSECUENCIA** — como tarea suma peso, como resultado lo quita— y METH_01 conserva su razón de existir frente a EAM_01 porque aquí SÍ se explica el mecanismo de la multiplicación, cerrando hacia los números de la duplicación. Fuera *"el trabajo pesado de siempre"*, *"las personas correctas"*, *"no sale a buscar de casa en casa"* y *"andar convenciendo y capacitando"*. Previa: **12.6** (7 ago 2026) — **Barrido pregunta única + bautizo empresarial.** Las 5 preguntas de cierre con dos salidas pasan a UNA (ADV_OBJ_01/03, ADV_VAL_03, ADV_SIST_01, FUND_01); "1,000 personas compran" → "1,000 clientes" (ADV_VAL_02); "formamos a cada persona nueva" → "cada socio nuevo" (ADV_SIST_03, METH_01); "información de las personas… para su propia red" → "de los contactos… para su propia organización" (ADV_TECH_02); "4 millones de personas" → "de familias" (ADV_SIST_02); "avalancha de personas" → "del mercado masivo" (FUND_01). Cifras intactas. Previa: **12.5** (2 ago 2026) — **METH_01: movimientos renombrados Compartir · Recibir · Multiplicar** (rename del Director, servilleta v6.5 — "si hay que explicar la palabra, la palabra falló"); "las guío hasta su decisión" → "maduro su decisión" (verbo vetado); "su empresa digital se multiplica" → "su negocio se multiplica". Cifras intactas. **Previa: 12.4** (25 jun 2026) — (1) **Promesa "guía"→"madura"** + "acompañar"→"guiar" (grupo ②, acción de Queswa). (2) **"Las horas no son el villano"** — ADV_SIST_01 reescrito de "cambia horas por dinero" a *"el día que para, el ingreso para… aunque usted descanse"* (villano = dependencia, no el trabajo; el trabajo es orgullo latino) + "no depende de sus horas" → "de su presencia". Cifras del plan intactas. Re-fragmentado (Voyage). **Previa: 12.3** (17 jun 2026) — **Destierro de "filtrar"** → conversar/acompañar/reconocer quién está listo (5 hits) + **rename 3er Comando Maestría → Multiplicación** (Comando Multiplicación reescrito: formación enlaza con multiplicación 1·2·4·8). Cifras del plan intactas. **Previa: 12.2** (12 jun 2026) — **Swap quirúrgico "empresa digital"** (decisión Luis, alineado con arsenal_inicial + SP v28.1): el activo que entregamos pasa de "negocio digital" → **"empresa digital"** con concordancias de género corregidas. Cifras del plan intactas. Deploy a Supabase 12 jun 2026.
-
-**Versión previa:** 12.1 — Swap léxico "Negocio Digital" (jun 2026, `HANDOFF_AGENTE_LEXICO_ARSENALES.md`): Base Operativa → negocio digital (a secas); "Operando en el nivel" → "En el nivel"; aforismo "Queswa escala" → "Queswa multiplica". Cifras del plan intactas. Sin verbatim_lock. Pendiente: deploy a Supabase. — Léxico pendiente histórico: "Calibre ESP-3" en título ADV_VAL_03 (residuo de v12.0, fuera de este swap).
-**Versión:** 12.0 — Migración al registro accesible (Beto), jun 2026. Léxico: Arquitecto de Patrimonio → socio · La Matriz Física → El Respaldo Operativo · El Tridente EAM → El Método Comprobado · Estructura Patrimonial → estructura de ingresos recurrentes · "calibre de capitalización" → "nivel" · "Capas" (ADV_TECH_03) → "respaldos independientes". Preguntas de cierre abiertas (eliminadas las cerradas con jerga). Cifras del plan intactas. Aforismos canónicos preservados (Activar suavizado: "revisa y da el sí"). Aún sin desplegar — pendiente revisión del Director.
-[Versión previa: 11.1 — Alineación SP v26.4: dirección estratégica + apalancamiento estratégico — fricción nivel 5 eliminada (10 May 2026)]
+**Versión actual: v14.0** (26 ago 2026) — **Auditoría completa de los 16.** Dos títulos rotos por el fragmentador, un cuerpo que nunca alcanzó a su cabecera, la silueta de pirámide de la visión a 5 años y un viaje internacional prometido sin su condición. Detalle en el CHANGELOG.
 
 ---
 
@@ -26,7 +18,7 @@
 
 Esa sensación es normal: usted está mirando un modelo digital con los ojos de un negocio tradicional, y por eso le parece raro.
 
-En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de más de 60 países. Y yo, como su tecnología, me encargo de explicar y acompañar a las personas. A usted le queda decidir con quién lo comparte y saludar a quien llega con interés. El modelo viejo lo amarra a trabajar físicamente para siempre; nosotros le quitamos ese peso de encima.
+En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de más de 60 países. Y yo, como su tecnología, converso con cada persona interesada y maduro su decisión de avanzar. Lo suyo es decidir con quién lo comparte y saludar a quien llega con interés. El modelo viejo lo amarra a trabajar físicamente para siempre; nosotros le quitamos ese peso de encima.
 
 Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando alguien deja de cargar todo solo.
 
@@ -40,9 +32,9 @@ Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando a
 
 Que su negocio funcione demuestra que usted sabe ejecutar. Pero no lo blinda. Depender de una sola fuente es el riesgo: si ese motor se frena —por su sector, por la economía, por lo que sea—, todo se frena con él.
 
-Esto no compite con lo suyo; lo protege. Su negocio actual le da un ingreso atado a su presencia y a cómo le vaya a su industria. Esto es otro ingreso, en paralelo, que no depende de su sector ni de que usted esté encima.
+Un canal de distribución no compite con su negocio; lo protege. Lo que usted tiene hoy le da un ingreso atado a su presencia y a cómo le vaya a su industria. Aquí su ingreso se apoya en el producto que se mueve por su canal, no en su sector ni en que usted esté encima.
 
-**Como dueño de un edificio:** aunque su oficina esté en el penthouse trabajando a tope, los demás pisos siguen generando renta solos. Esto es ese piso que renta aparte: funciona mientras su negocio principal avanza. Usted no carga el sistema; el sistema carga la operación.
+Como dueño de un edificio: mientras su oficina trabaja a tope, los demás pisos rentan aparte.
 
 **Pregunta de seguimiento:** Hoy, si su industria principal se frenara unos meses, ¿tiene algún ingreso que siguiera entrando por su cuenta?
 
@@ -57,11 +49,11 @@ Esto no compite con lo suyo; lo protege. Su negocio actual le da un ingreso atad
 
 Esa pregunta casi siempre nace de una idea heredada: la del negocio tradicional, donde si usted no está, no gana. Y aquí es justo al revés.
 
-Este es un negocio que **no depende de que usted esté presente** —ese es, de hecho, su mayor valor—. Si se enferma, viaja o simplemente toma una pausa, el consumo de su canal sigue su curso y usted sigue cobrando por él.
+Este es un negocio que **no depende de que usted esté presente** —ese es, de hecho, su mayor valor—. Si se enferma, viaja o simplemente toma una pausa, el consumo de su canal sigue su curso, y las comisiones que ese consumo genere se le siguen liquidando.
 
-¿Qué necesita para mantenerlo activo y recibiendo? Una sola cosa: estar al día con su **compra personal mínima de 50 PV** al mes. Mientras eso esté, el negocio corre solo, esté usted donde esté, y todo lo que construyó queda intacto.
+¿Qué necesita para mantenerlo activo y recibiendo? Una sola cosa: estar al día con su **compra personal mínima de 50 PV** al mes. Mientras eso esté, su canal sigue moviendo producto esté usted donde esté, y todo lo que construyó queda intacto.
 
-**Pregunta de cierre:** ¿Imagina el alivio de tener un ingreso que no se frena el día que usted necesita parar?
+**Pregunta de cierre:** ¿Le muestro qué hace falta para mantenerlo al día?
 
 ---
 
@@ -73,7 +65,7 @@ Su lista de contactos es lo más valioso que usted tiene en este negocio, y se m
 
 No vivimos de vender publicidad ni datos; somos una firma privada. La información de los contactos que usted trae al sistema se usa solo para su propio canal, y nunca se comparte, ni se alquila, ni se vende a nadie. Yo funciono como una bóveda: usted tiene y controla la única llave.
 
-**Pregunta de cierre:** ¿Es importante para usted que sus contactos sean 100% suyos y de nadie más?
+**Pregunta de cierre:** ¿Le muestro qué apoyos tiene detrás?
 
 ---
 
@@ -81,17 +73,17 @@ No vivimos de vender publicidad ni datos; somos una firma privada. La informaci�
 **[Índice]:** Qué pasa si la plataforma se cae o el sistema deja de funcionar, si la tecnología falla. Qué respaldos hay y a quién llamo.
 **[Concepto Nuclear]:** Responde **«¿qué soporte tengo?»** en su sentido amplio, no solo el técnico (Director, 25 ago 2026). Quien lo pregunta no está pidiendo un plan de contingencia: está preguntando si lo van a dejar solo. ⚠️ **El disparador anterior lo encerraba en *si la plataforma falla***, y por eso la pregunta general se iba a la respuesta de capacitación — que es otra cosa: formación no es soporte. ⚠️ **Son CUATRO apoyos, no tres:** se sumó el **Dashboard**, que es la herramienta que él usa todos los días y era la que faltaba. ⚠️ **La pregunta de cierre propone un paso.** La anterior pedía que estuviera de acuerdo —*«¿le da más confianza…?»*— y para conseguirlo tenía que nombrar el escenario del negocio que se cae: introducir el miedo para descartarlo es lo que lo instala. ⚠️ Los cuatro apoyos son **independientes**, y de ahí sale la tranquilidad: la operación se sostiene aunque uno tenga un problema.
 
-El sistema está hecho para que nunca dependa de una sola cosa. Tiene tres respaldos independientes que se cubren entre sí:
+Usted tiene cuatro apoyos, y se cubren entre sí.
 
-**El respaldo tecnológico:** Queswa, su Centro de Mando, atiende y guía a cada persona hasta la decisión de avanzar, las 24 horas, sin parar.
+**Queswa, su Centro de Mando:** converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar, a toda hora.
 
-**El respaldo de la empresa:** Gano Excel da soporte presencial, manejo del dinero y respuesta directa desde sus oficinas en cada país.
+**El Dashboard:** ahí ve su canal, su actividad y sus números, y desde ahí maneja el día a día.
 
-**El respaldo humano:** el equipo de socios entra de forma directa para resolver lo complejo —estrategia y crecimiento.
+**Gano Excel:** soporte presencial, manejo del dinero y respuesta directa desde sus oficinas en cada país.
 
-Si uno tuviera un problema, los otros dos sostienen la operación. Nunca se queda solo.
+**El equipo de creatuactivo.com:** entra de forma directa para lo que pide criterio — estrategia y crecimiento.
 
-**Pregunta de cierre:** ¿Le da más confianza un negocio sostenido por tres respaldos independientes, en vez de uno solo que puede caerse?
+**Pregunta de cierre:** ¿Le muestro cómo se ve su canal por dentro?
 
 ---
 
@@ -120,9 +112,9 @@ El Bono Binario es la meta de fondo: el ingreso del consumo que se repite, que n
 
 Gano Excel mide el consumo internacional de todo su canal, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su canal en el continente, usted gana por todos ellos.
 
-Esto le deja crecer tranquilo: las comisiones las paga directamente Gano Excel, no CreaTuActivo. Usted funciona como un **peaje**: no fabrica los productos, no los empaca ni los transporta; solo es el dueño del camino por donde pasa, todos los días, ese consumo.
+Y las comisiones las paga directamente Gano Excel, no CreaTuActivo. Gano fabrica, empaca y transporta; usted es el **dueño del camino** por donde pasa, todos los días, ese consumo.
 
-**Pregunta de cierre:** ¿Ve la diferencia entre cobrar una sola vez por su tiempo, y recibir un ingreso que se repite por el consumo de toda una organización?
+**Pregunta de cierre:** ¿Le muestro de dónde sale ese ingreso recurrente?
 
 ---
 
@@ -134,9 +126,9 @@ Elegir el nivel ESP-3 es pura cuenta.
 
 Por el mismo volumen de consumo, la empresa paga distinto según su nivel de arranque. Si entra en el nivel inicial (ESP-1), su ganancia puede ser de hasta el 15% del volumen comisionable (GCV). Si entra en el nivel Visionario (ESP-3), asegura el margen máximo —hasta el **17%** del volumen comisionable (GCV)— desde su primer mes.
 
-Arrancar en un nivel más bajo significa hacer exactamente el mismo trabajo, pero ganando menos por cada venta. Es dinero que usted deja sobre la mesa sin necesidad.
+Arrancar en un nivel más bajo significa hacer exactamente el mismo trabajo con un porcentaje menor: por cada compra que pasa por su canal, la diferencia se queda sin cobrar.
 
-**Pregunta de cierre:** Si el esfuerzo es el mismo, ¿le hace sentido asegurar la ganancia máxima desde el inicio?
+**Pregunta de cierre:** ¿Le muestro las tres formas de empezar?
 
 ---
 
@@ -152,26 +144,26 @@ Eso no es una cuota de administración: es mercancía que le llega a la casa. Y 
 
 ---
 
-### **ADV_VAL_05:** "¿Existen otros incentivos además de las comisiones?" / "¿Hay viajes corporativos o reconocimientos?" / "¿Qué más ofrece Gano Excel a los socios exitosos?"
+### ADV_VAL_05: "¿Existen otros incentivos además de las comisiones? / ¿Hay viajes corporativos o reconocimientos?"
 **[Índice]:** Hay otros incentivos además de las comisiones: viajes, eventos, reconocimientos, premios para los socios que crecen.
 
-**[Concepto Nuclear]:** Además de las comisiones, Gano Excel paga dos viajes internacionales al año, completos.
+**[Concepto Nuclear]:** Además de las comisiones, Gano Excel cubre el viaje a dos encuentros internacionales al año **para quien alcanza la calificación de cada uno**. ⛔ **La condición NO se puede omitir** (26 ago 2026): decía *"pagados completamente por la empresa"* y *"socios activos"*, así que cualquiera al día con sus 50 PV entendía que tenía dos viajes pagos al año. **Un premio material prometido sin su condición es exigible bajo el Estatuto del Consumidor exactamente igual que un ingreso**, y el guardarraíl no lo ve: no hay conjunción de dinero con plazo ni con garantía. ⏳ **El criterio exacto de calificación no está en el corpus** — se nombra el mecanismo (*"los socios que alcanzan la calificación"*) sin detallarlo, hasta que el Director lo aporte. ⚠️ Salió *"sin que usted ponga un solo peso"*: es una lista de ausencias y además cotiza en moneda colombiana ante una audiencia de tres países. ⚠️ **Un canal no se motiva** — cuando el colectivo hace algo humano se nombra a quién: *sus socios*. ⚠️ Mencionar los encuentros aquí es la **excepción explícita** de la v6.05 del arsenal inicial: la prohibición de nombrar encuentros en vivo es de canal —mensaje saliente en frío—, y aquí los trajo la persona; además `FREQ_35` responde *"nada obligatorio"* apoyándose en que existen.
 
-Además de las comisiones por el consumo de su canal, Gano Excel hace dos eventos internacionales al año, pagados completamente por la empresa:
+Además de las comisiones por el consumo de su canal, Gano Excel hace dos encuentros internacionales al año y cubre el viaje completo a los socios que alcanzan la calificación de cada uno.
 
-**Evento del continente americano:** encuentro anual de socios activos en los 16 países de América. Viaje, alojamiento y experiencia, cubiertos por Gano Excel.
+**Encuentro del continente americano:** reúne cada año a socios de los 16 países de América.
 
-**Evento Asia-Europa:** encuentro anual con sede rotativa entre Asia y Europa. Le permite conectarse con la dirección global de la empresa y conocer las fábricas en Malasia. Viaje internacional cubierto por Gano Excel.
+**Encuentro Asia-Europa:** sede rotativa entre Asia y Europa, con acceso a la dirección global de la empresa y a las fábricas en Malasia.
 
-Lo bueno es que usted los puede promover entre sus socios con total tranquilidad: no le cuestan nada, porque la empresa cubre el 100%. Son una forma de mantener motivada y unida a su canal, sin que usted ponga un solo peso.
+Son una forma de mantener unidos a sus socios, y los cubre la empresa.
 
-**Pregunta de cierre:** ¿Le suma valor un sistema donde la empresa misma paga por mantener motivados y reconocidos a sus socios?
+**Pregunta de cierre:** ¿Le muestro cómo se gana?
 
 ---
 
 ## 🏗️ CONSTRUCCIÓN Y SISTEMA - 3 respuestas
 
-### ADV_SIST_01: "¿Cuál es la diferencia entre un trabajo tradicional y construir
+### ADV_SIST_01: "¿Cuál es la diferencia entre un empleo y construir un canal de distribución?"
 **[Índice]:** Qué diferencia hay entre un empleo de toda la vida y construir esto: el ingreso que se frena cuando uno para, contra el que sigue.
 **[Concepto Nuclear]:** **La tesis es la PROPIEDAD** (Director, 25 ago 2026): en un empleo usted construye la propiedad de otro. El villano es la **presencia obligada** —su ingreso atado a que usted esté ahí—, y el eje de la respuesta es la palanca: aquí el ingreso se apoya en el producto que se mueve por su canal, no en sus horas. ⚠️ **La analogía del arriendo es un PUENTE, no un argumento aparte.** *«Es la misma diferencia que hay entre pagar arriendo y levantar casa propia»* engancha y sigue de largo; darle su propio remate —recibos contra casa— la convierte en una mini-tesis que el lector procesa entera antes de volver al hilo, y ahí se pierde la narrativa. ⚠️ **Se dice POR QUÉ el movimiento no se detiene** —Gano fabrica y despacha, Queswa conversa—: sin esa causa la pregunta obvia queda viva y el modelo la improvisa. Y la independencia se predica del **movimiento**, no del ingreso: decir que *el ingreso sigue* es afirmarlo; decir que *el movimiento no depende de usted* es describir el mecanismo. ⚠️ **El contraste es entre dos empresas, no entre dos abstracciones:** *la empresa de otro* contra *la suya* se ve; *la propiedad de otro* hay que descifrarlo. ⚠️ La analogía de la casa también vive en **WHY_03**, con otro filo: allá es el riesgo de que se la pidan, aquí es lo que queda construido. ⚠️ *Operar* no se usa de cara al prospecto; el canal **trabaja**.
 
@@ -191,7 +183,7 @@ Y ese movimiento no depende de que usted esté: Gano Excel fabrica y despacha, y
 
 La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles un canal de distribución para que construyan su tranquilidad financiera, y ser el sistema de distribución de bebidas y suplementos premium más eficiente del continente.
 
-Hoy lo importante no es buscar al consumidor final: es montar y dejar listos los canales de distribución que serán el centro de todo. Para 2030, el grueso del mercado va a comprar por este sistema de forma natural, enganchado por la calidad del producto. Lo que se está armando ahora es la estructura sobre la que se apoya ese volumen cuando llegue.
+Hoy el trabajo está en dejar montados los canales por donde va a pasar ese consumo. La apuesta es que para 2030 buena parte del mercado compre así, enganchado por la calidad del producto, y lo que se está armando ahora es la estructura que lo soporta.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se monta el suyo?
 
@@ -201,15 +193,15 @@ Hoy lo importante no es buscar al consumidor final: es montar y dejar listos los
 **[Índice]:** Yo tengo que enseñarles a los que entren conmigo, me toca sentarme con cada uno, tengo que estar encima de mi equipo. Quién se encarga de los míos.
 **[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a sus socios; usted acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo.
 
-Le voy a hacer una pregunta que cambia la forma de ver esto: ¿se imagina a un director de orquesta enseñándole a cada músico, uno por uno, a tocar su instrumento? No lo haría. Cada músico ya llega formado; él solo dirige y los hace sonar juntos.
+No. Usted no tiene que sentarse a enseñarle a cada persona que entra a su canal.
 
-Aquí ocurre lo mismo. Usted no tiene que sentarse a enseñarle a cada persona que entra a su canal —hacerlo lo agotaría y lo convertiría en esclavo de su propio negocio—. De esa parte nos encargamos la Academia y yo: formamos a cada socio nuevo desde el primer día, a toda hora, sin que usted tenga que repetir lo mismo una y otra vez.
+De esa parte nos encargamos Maestría y yo: formamos a cada socio nuevo desde el primer día, a toda hora, con el mismo material para el primero y para el último que llegue.
 
-¿Y usted qué hace entonces? Lo más valioso, y lo único que ninguna máquina puede reemplazar: acompañar a su equipo en lo humano. La carga técnica la llevamos nosotros.
+Lo suyo es lo que ninguna máquina reemplaza: acompañar a los suyos en lo humano.
 
-Por eso su canal no aprende de su agenda: aprende del sistema. Y un negocio que no depende de su presencia es un negocio que puede crecer sin techo. Como decimos: usted no enseña; Queswa multiplica. Usted crece.
+Por eso su canal no aprende de su agenda: aprende del sistema. Y lo que no depende de su agenda tampoco topa con ella.
 
-**Pregunta de cierre:** ¿Le hace sentido soltar la carga de capacitar, para dedicar su energía a acompañar a los suyos y a crecer?
+**Pregunta de cierre:** ¿Le muestro qué formación recibe quien entra?
 
 ---
 
@@ -223,7 +215,7 @@ Por eso su canal no aprende de su agenda: aprende del sistema. Y un negocio que 
 
 Excelente decisión.
 
-Es el paso normal. Para cerrar bien, el equipo de creatuactivo.com lo acompaña de forma personal. No es una llamada de ventas: es una revisión rápida para ubicar el nivel correcto para usted y arrancar.
+Es el paso normal. Para cerrar bien, el equipo de creatuactivo.com lo acompaña de forma personal. Es una conversación corta para ubicar el nivel correcto para usted y arrancar.
 
 Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿me podría indicar su nombre completo y desde qué ciudad nos escribe?
 
@@ -237,7 +229,7 @@ Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿
 
 Excelente decisión.
 
-Es el paso normal. Para cerrar bien, el equipo de creatuactivo.com lo acompaña de forma personal. No es una llamada de ventas: es una revisión rápida para ubicar el nivel correcto para usted y arrancar.
+Es el paso normal. Para cerrar bien, el equipo de creatuactivo.com lo acompaña de forma personal. Es una conversación corta para ubicar el nivel correcto para usted y arrancar.
 
 Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿me podría indicar su nombre completo y desde qué ciudad nos escribe?
 
@@ -254,12 +246,12 @@ Su día a día son **dos acciones**, las dos desde el celular:
 
 **Compartir:** usted pasa un enlace a quien quiera; lo que hay que explicar lo explico yo.
 
-**Recibir:** yo converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar. Usted entra al final, con quien ya está listo. *Usted no convence; cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar.*
+**Recibir:** yo converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar. Usted entra al final, con quien ya está listo. *Cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar.*
 
-Y la multiplicación viene sola: a cada socio nuevo lo formo yo desde el primer día, así que hace exactamente lo mismo que usted. De ahí salen el crecimiento de su negocio y el aumento de su facturación, sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
+Y de ahí sale la multiplicación: a cada socio nuevo lo formo yo desde el primer día, así que hace exactamente lo mismo que usted. De ahí salen el crecimiento de su negocio y el aumento de su facturación, sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
 
 **Pregunta de cierre:** ¿Le muestro cuánto se mueve con cien clientes consumiendo?
 
 ---
 
-**FIN DEL ARSENAL AVANZADO v12.5 — LÉXICO "NEGOCIO DIGITAL"**
+**FIN DEL ARSENAL AVANZADO**

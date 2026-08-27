@@ -1291,6 +1291,45 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 
 ## arsenal_avanzado
 
+### v14.0 — Auditoría completa de los 16 (26 ago 2026)
+
+Auditoría encargada a un agente en paralelo, verificada contra producción antes de aplicar. Los cinco hallazgos comprobables se confirmaron uno por uno con `sql.mjs`.
+
+**Dos bugs del fragmentador que llevaban tiempo sirviendo texto roto:**
+
+- **`ADV_SIST_01` tenía el título cortado a mitad de frase** — *"¿Cuál es la diferencia entre un trabajo tradicional y construir"*, así, sin final. Y no es cosmético: el fragmentador embebe `title + índice` y **sirve el cuerpo precedido del título**, así que media frase iba al vector y media frase le llegaba al modelo. Hoy: *"¿Cuál es la diferencia entre un empleo y construir un canal de distribución?"*
+- **`ADV_VAL_05` perdía dos de sus tres disparadores.** Su cabecera usaba `### **ID:** "A" / "B" / "C"` y el regex corta en la primera comilla de cierre, así que en la base el título era solo la primera pregunta. Los otros quince fragmentos usan una sola pareja de comillas y no pierden nada. **Misma clase de salto silencioso que `FREQ_04_PUENTE`.**
+
+**Un cuerpo que nunca alcanzó a su propia cabecera.** La cabecera de `ADV_TECH_03` decía desde el 25 de agosto *"son CUATRO apoyos, no tres: se sumó el Dashboard"* y condenaba su pregunta de cierre por pedir acuerdo. El cuerpo seguía diciendo *"tiene tres respaldos independientes"*, listaba tres, no mencionaba el Dashboard, y cerraba con exactamente la pregunta condenada. **Reescribir la cabecera no es reescribir la respuesta.**
+
+**Dos de exposición legal:**
+
+- **`ADV_SIST_02` tenía la silueta de pirámide escrita con todas las letras:** *"hoy lo importante no es buscar al consumidor final: es montar y dejar listos los canales que serán el centro de todo"*. Eso es, literalmente, la definición operativa que la Ley 1700 separó del comercio legítimo — estructura primero, consumidor después —, y es la silueta que el prospecto está buscando cuando pregunta si esto es pirámide. Además decía *"para 2030 el grueso del mercado va a comprar por este sistema"* como **hecho futuro**, que sumado a *"asegure su posición antes de esa ola"* compone el argumento de entrar temprano antes de la valorización. La meta corporativa se puede decir; la certeza no.
+- **`ADV_VAL_05` prometía dos viajes internacionales sin su condición.** *"Pagados completamente por la empresa"* a *"socios activos"*: cualquiera al día con sus 50 PV entendía que tenía dos viajes al año. **Un premio material prometido sin condición es exigible bajo el Estatuto del Consumidor igual que un ingreso**, y el guardarraíl no lo ve —no hay conjunción de dinero con plazo ni con garantía—. Hoy nombra el mecanismo sin detallarlo: *"cubre el viaje completo a los socios que alcanzan la calificación de cada uno"*. ⏳ **El criterio exacto de calificación no está en el corpus: falta pedírselo al Director.**
+
+**Seis siluetas más que el guardarraíl no ve**, todas de la misma familia —dar el ingreso por hecho o prometer esfuerzo mínimo—: *"usted sigue cobrando por él"* · *"el negocio corre solo"* · *"los demás pisos siguen generando renta solos"* · *"el sistema carga la operación"* · *"la multiplicación viene sola"* · *"puede crecer sin techo"* (ingreso ilimitado dicho con otras palabras). Y *"es dinero que usted deja sobre la mesa"*, que presupone que el dinero existe.
+
+**Y cinco de posicionamiento y narrativa:**
+
+- **`ADV_SIST_03` abría con un director de orquesta** de cinco frases —pregunta retórica, negación, explicación y remate—: una mini-tesis, no un puente. Y *dirigir* es el léxico retirado el 8 ago. De paso decía *"lo convertiría en esclavo de su propio negocio"*: quien pregunta *"¿yo tengo que enseñarles?"* teme trabajo, no esclavitud — nombrárselo se lo instala.
+- **`ADV_ESC_01` y `ADV_ESC_02` decían *"no es una llamada de ventas"***, idéntico en los dos. Quien pide hablar con un humano no dijo nada de ventas: la frase le entrega la sospecha y después la niega.
+- **`ADV_OBJ_02` nunca nombraba el sustantivo.** En 250 palabras no aparecía *canal de distribución* ni una vez, y en su lugar había tres *"Esto"*. Es el hallazgo de `FREQ_28` (v6.02) repetido entero.
+- **`ADV_VAL_02` traía una lista de ausencias** —*"no fabrica, no los empaca ni los transporta; solo es el dueño del camino"*— y ese *solo* achicaba lo único que él sí es.
+- **`ADV_VAL_02` conservaba *"toda una organización"***, único superviviente del barrido de la v13.1, en la última línea de la respuesta del dinero. Y **`ADV_SIST_03` era el último *"la Academia"* de todo el corpus** — verificado: los demás dicen *Maestría*, así que al prospecto le cambiaba el nombre de la formación según qué fragmento ganara.
+
+**Nueve cierres pedían acuerdo en vez de proponer un paso** (*"¿Imagina el alivio…?"*, *"¿Le da más confianza…?"*, *"¿Ve la diferencia…?"*). Ninguno tenía dos salidas — eso estaba limpio —, pero todos terminaban el turno pidiendo un *sí* que no mueve nada y que el modelo tiene que improvisar. Reemplazados por ofertas medidas contra el corpus.
+
+**La cabecera del archivo mentía en tres cosas:** decía v12.8 arriba y 13.5 abajo, cerraba con `FIN DEL ARSENAL AVANZADO v12.5 — LÉXICO "NEGOCIO DIGITAL"` —versión vencida y término retirado, en mayúsculas— y contaba **18 respuestas** cuando son 16. Sus notas de versión citaban entrecomillada cada frase retirada; quedan la actual y la previa.
+
+⚠️ **Una corrección al informe:** decía que esas notas *"viven en el documento padre, que se indexa en Supabase"*. **No es cierto** — verificado hoy: el padre no tiene `embedding_512` y `route.ts` filtra el contexto a `is_fragment === true`. El motivo real para podarlas es otro y es suficiente: **la cabecera es el primer texto que lee quien vaya a editar.**
+
+**Lo que queda anotado y sin aplicar:** el índice de `ADV_ESC_02` es un atractor que asoma en el top-6 de cuatro consultas ajenas, y `ADV_ESC_01` le roba a `ADV_TECH_03` la consulta de soporte. Y la instrucción `[INSTRUCCIÓN PARA QUESWA: Protocolo Handoff Guante Blanco…]` viaja **dentro del cuerpo servido** —está fuera del `[Concepto Nuclear]`, así que el fragmentador no la recorta— y pide **dos** datos donde `wa-radicacion.ts` pide cuatro. Las dos cosas se miden y se tocan en bloque.
+
+Verificación: clasificador 58/58 · guardarraíles de salud y negocio en verde · 0 frases vetadas sobre 172 fragmentos · benchmark 37/40 puesto 1, 40/40 top 3.
+
+---
+
+
 ### v13.6 — ADV_SIST_01: la tesis es la propiedad, y la analogía es un puente (25 ago 2026)
 
 **El villano estaba mal elegido.** La respuesta decía que el ingreso se frena el día que usted para, y ese es un síntoma. La tesis, según el Director, es la **propiedad**: en un empleo usted construye la empresa de otro. El villano es la **presencia obligada**, y la palanca es el movimiento de producto.

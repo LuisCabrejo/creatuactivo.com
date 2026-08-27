@@ -12,6 +12,30 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.7 — La familia PV/CV, y una contradicción de cifras entre fragmentos (26 ago 2026)
+
+Cuarta fase. Léxico y narrativa — **salvo una excepción que hay que mirar de frente.**
+
+⚠️ **DOS FRAGMENTOS DABAN CV DISTINTO PARA EL MISMO PRODUCTO.** `COMP_PV_08` traía *Cápsulas Ganoderma 41/**30*** y *Jabón Gano **10/8***, mientras `COMP_PV_06` y `COMP_CV_01` —que **coinciden entre sí** y traen el **código de producto** del back office (801, 301)— dan **41/34,5** y **10,4/8,9**. Se alineó `COMP_PV_08` a esas dos.
+
+⏳ **Pendiente de confirmación del Director.** Dos fuentes contra una es evidencia, no certeza, y en este arsenal las cifras son sagradas. Queda anotado en la cabecera del fragmento.
+
+**Un ejemplo que cruzaba dos ciclos.** `COMP_PV_02` acumulaba PV empezando el **domingo** y terminando el **sábado**, con el remate *"lo que importa es su PV total al cierre del ciclo (domingo)"*. Pero el ciclo va de lunes a domingo, así que esa primera compra caía en el ciclo anterior y el ejemplo se desmentía solo. Cambió el día de arranque a **lunes**; ninguna cifra se tocó.
+
+**`COMP_CV_01` decía «su equipo»** en la columna que explica quién genera el CV — el colectivo es **su canal**.
+
+**Siete «Insight:» más** convertidos en prosa con pregunta de seguimiento. Con esta fase, la familia PV/CV pasa de **cero** preguntas de cierre a diez.
+
+**Nueve títulos** reescritos en forma de pregunta y con tildes —los de `COMP_PV_08` y `COMP_PV_09` tenían cuatro y cinco preguntas— y las tildes de los diez cuerpos.
+
+**Lo que se midió y se dejó, con su motivo:**
+- *"¿Qué son los PV?"* la gana `COMP_CV_01` (0.567) sobre `COMP_PV_01` (0.555), y *"¿qué productos compro para mis 50 PV?"* la gana `INV_06` de arsenal_12_niveles (0.631) sobre `COMP_PV_08` (0.619). **Los dos márgenes son de una centésima y los dos correctos quedan en puesto 2**, dentro del top-3 que entrega el motor. La lección del día es que estos desvíos rara vez se arreglan retocando el índice; se anotan y se miden en bloque.
+- **`COMP_PV_06` conserva sus precios en COP duros.** Es la tabla interna del socio —la que `route.ts` protege con tres guardas que exigen PV/CV/puntos— y su localización va con el pendiente general de moneda por producto, aplazado por el Director hasta tener la lista en USD.
+
+Verificación: clasificador 58/58 · guardarraíl de negocio verde · 0 frases vetadas sobre 172 fragmentos.
+
+---
+
 ### v8.6 — La familia GEN5 contaba personas, no compras (26 ago 2026)
 
 Tercera fase. **Ninguna cifra cambió** — lo que cambió es **qué se cuenta**.

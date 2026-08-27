@@ -284,7 +284,7 @@ Cumplidas las dos, cobra por cada paquete que se compre en su canal hasta la qui
 
 ## PUNTOS PV - VOLUMEN PERSONAL
 
-### COMP_PV_01: "Que son los PV (Puntos de Volumen Personal)?"
+### COMP_PV_01: "¿Qué son los PV? / ¿Qué son los puntos de volumen personal?"
 **[Índice]:** Qué son los PV, qué significan los puntos de volumen personal, para qué sirven.
 
 **[Concepto Nuclear]:** PV mide su actividad personal. 50 PV = activo. 100 PV = bono doble Gen 5.
@@ -292,35 +292,39 @@ Cumplidas las dos, cobra por cada paquete que se compre en su canal hasta la qui
 Los PV son puntos que genera con sus compras personales.
 
 **Umbrales Importantes:**
-| PV | Que Desbloquea |
+| PV | Qué Desbloquea |
 |----|----------------|
 | 50+ PV | Activo para comisiones |
 | 100+ PV | Gen 5 al doble |
 
-**Insight:** 50 PV es el minimo para cobrar. 100 PV es el objetivo si desea maximizar el Bono Gen 5.
+Con 50 PV al mes queda activo para cobrar; con 100 PV la quinta generación del GEN5 le paga el doble.
+
+**Pregunta de seguimiento:** ¿Le muestro qué productos suman esos 50 PV?
 
 ---
 
-### COMP_PV_02: "Como acumulo los 100 PV?"
+### COMP_PV_02: "¿Cómo acumulo los 100 PV? / ¿Cuánto tengo que comprar?"
 **[Índice]:** Cómo acumulo los 100 PV, cómo llego a esos puntos, cuánto tengo que comprar.
 
 **[Concepto Nuclear]:** Los 100 PV se acumulan durante el ciclo. No tienen que ser en una sola compra.
 
 Puede hacer varias compras durante la semana.
 
-**Ejemplo de Acumulacion:**
-| Dia | Compra | PV Acumulado |
+**Ejemplo de Acumulación:**
+| Día | Compra | PV Acumulado |
 |-----|--------|--------------|
-| Domingo | 2 cafes | 30 PV |
-| Miercoles | 2 chocolates | 64 PV |
+| Lunes | 2 cafés | 30 PV |
+| Miércoles | 2 chocolates | 64 PV |
 | Viernes | 1 jabon + 1 pasta | 85.4 PV |
 | Sabado | 1 cafe | 100.4 PV ✓ |
 
-**Insight:** Lo que importa es su PV total al cierre del ciclo (domingo). No cuando lo compro.
+Lo que cuenta es el PV total al cierre del ciclo, el domingo — no en qué día se hizo cada compra.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo funcionan los ciclos?
 
 ---
 
-### COMP_PV_03: "Como funcionan los ciclos semanales?"
+### COMP_PV_03: "¿Cómo funcionan los ciclos semanales? / ¿Cuándo cierra el ciclo?"
 **[Índice]:** Cómo funcionan los ciclos semanales, qué es un ciclo, cuándo abre y cuándo cierra.
 
 **[Concepto Nuclear]:** Ciclo = lunes a domingo. Pago = viernes de dos semanas después. ⛔ **Aquí vivía una tabla con ciclos y fechas escritas a mano** —*Ciclo 893 (13-19 Ene)*, con su calendario del mes de enero— y CLAUDE.md ya la tenía señalada: *"una tabla escrita se congela; COMP_PV_03 imprimía ciclos de enero en el chat"*. Retirada el 26 ago 2026. **El ciclo vigente se CALCULA, no se recuerda:** `respuestaCiclo()` en `src/lib/ciclos-gano.ts` lo dicta desde el motor ante cualquier mensaje con la palabra *ciclo*, con el ancla y la aritmética de semanas en calendario Bogotá. Este fragmento explica **la regla**; el número y las fechas los pone el motor.
@@ -333,55 +337,59 @@ El ciclo en que usted mueve producto es el que se factura. La semana siguiente s
 
 ---
 
-### COMP_PV_04: "Que es CV (Volumen Comisional)?"
+### COMP_PV_04: "¿Qué es el CV? / ¿Qué significa volumen comisional?"
 **[Índice]:** Qué es el CV, qué significa volumen comisional, en qué se diferencia de los PV.
 
 **[Concepto Nuclear]:** CV de su compra personal NO va a su canal. Solo le activa.
 
 CV son los puntos que se usan para calcular el Bono Binario.
 
-**Regla Critica:**
+**Regla Crítica:**
 | Fuente de CV | Va a su centro de cobro? |
 |--------------|--------------------------|
-| Compras de su canal | SI |
+| Compras de su canal | Sí |
 | Su compra personal | NO* |
 
-*Excepcion: Si compra mas de 120 PV, el excedente SI va a su centro.
+*Excepción: Si compra más de 120 PV, el excedente Sí va a su centro.
 
-**Insight:** Su compra personal sirve para activarle (50-100 PV), no para generar CV en su canal. El CV viene de su canal.
+Su compra personal sirve para dejarlo activo; el CV que alimenta el Binario viene de las compras de su canal.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se calcula la comisión del Binario?
 
 ---
 
-### COMP_PV_05: "Que es GCV (Volumen Comisional Grupal)?"
+### COMP_PV_05: "¿Qué es el GCV? / ¿Qué significa volumen comisional grupal?"
 **[Índice]:** Qué es el GCV, qué significa volumen comisional grupal, cómo se cuenta el de todo el canal.
 
 **[Concepto Nuclear]:** GCV = Suma de TODO el CV de su canal. Es la productividad de su activo.
 
-**Como se Calcula:**
+**Cómo se calcula:**
 | Fuente | Suma a su GCV? |
 |--------|----------------|
-| CV de su lado izquierdo | SI |
-| CV de su lado derecho | SI |
+| CV de su lado izquierdo | Sí |
+| CV de su lado derecho | Sí |
 | Su CV personal | NO |
 
-**Insight:** Mientras mas grande su canal, mayor su GCV. Es la base para comisiones y rangos.
+El GCV crece con el volumen que mueve su canal, y es la base sobre la que se calculan las comisiones y los rangos.
+
+**Pregunta de seguimiento:** ¿Le muestro qué pide cada rango?
 
 ---
 
-### COMP_CV_01: "Cual es la diferencia entre PV y CV?"
+### COMP_CV_01: "¿Cuál es la diferencia entre PV y CV?"
 **[Índice]:** Cuál es la diferencia entre PV y CV, por qué hay dos puntajes, cuál cuenta para qué.
 
 **[Concepto Nuclear]:** PV = su consumo personal. CV = volumen que genera comision Binaria.
 
-Son dos metricas diferentes con propositos diferentes:
+Son dos métricas diferentes con propósitos diferentes:
 
 **Comparativa PV vs CV:**
-| Metrica | Significa | Para que sirve | Quien lo genera |
+| Métrica | Significa | Para que sirve | Quien lo genera |
 |---------|-----------|----------------|-----------------|
 | PV | Puntos de Volumen Personal | Activarle (50-100 PV) | Usted con sus compras |
-| CV | Volumen Comisional | Calcular Bono Binario | Su equipo con sus compras |
+| CV | Volumen Comisional | Calcular Bono Binario | Su canal con sus compras |
 
-**Relacion entre PV y CV (tabla oficial vigente 2026):**
+**Relación entre PV y CV (tabla oficial vigente 2026):**
 | Cod. | Producto | PV | CV |
 |------|----------|-----|-----|
 | 501 | Ganocafé 3 en 1 | 15 | 14 |
@@ -393,9 +401,9 @@ Son dos metricas diferentes con propositos diferentes:
 | 509 | Ganorico Latte Rico | 17 | 15 |
 | 512 | Ganorico Shoko Rico | 17 | 15.6 |
 | 530 | Reskine Colágeno | 31 | 27.6 |
-| 801 | Ganoderma Capsulas | 41 | 34.5 |
-| 803 | Excellium Capsulas | 41 | 34.5 |
-| 805 | Cordygold Capsulas | 49 | 43 |
+| 801 | Ganoderma Cápsulas | 41 | 34.5 |
+| 803 | Excellium Cápsulas | 41 | 34.5 |
+| 805 | Cordygold Cápsulas | 49 | 43 |
 | 816 | Cápsulas Luvoco Suave | 15 | 14 |
 | 817 | Cápsulas Luvoco Medio | 15 | 14 |
 | 818 | Cápsulas Luvoco Fuerte | 15 | 14 |
@@ -410,9 +418,11 @@ Son dos metricas diferentes con propositos diferentes:
 | 898 | ESP-2 (paquete) | 250 | 250 |
 | 899 | ESP-3 (paquete) | 500 | 500 |
 
-**Regla practica:** CV es siempre menor que PV (entre 1 y 6.5 puntos menos, segun categoria). Excepcion: Maquina LUVOCO da 0 PV y 0 CV — el negocio esta en las capsulas, no en la maquina.
+**Regla práctica:** CV es siempre menor que PV (entre 1 y 6.5 puntos menos, según categoría). Excepción: Máquina LUVOCO da 0 PV y 0 CV — el negocio está en las cápsulas, no en la máquina.
 
-**Insight:** Cuando calcule su activacion personal, use PV. Cuando calcule ganancias del Binario, use CV de su canal.
+En corto: los PV son suyos y lo mantienen activo; el CV es el de su canal y es sobre el que se liquida el Binario.
+
+**Pregunta de seguimiento:** ¿Le muestro qué productos suman sus 50 PV?
 
 ---
 
@@ -433,9 +443,9 @@ Son dos metricas diferentes con propositos diferentes:
 | 509 | Ganorico Latte Rico | 17 | 15 | $119,900 |
 | 512 | Ganorico Shoko Rico | 17 | 15.6 | $124,900 |
 | 530 | Reskine Colágeno | 31 | 27.6 | $216,900 |
-| 801 | Ganoderma Capsulas | 41 | 34.5 | $272,500 |
-| 803 | Excellium Capsulas | 41 | 34.5 | $272,500 |
-| 805 | Cordygold Capsulas | 49 | 43 | $336,900 |
+| 801 | Ganoderma Cápsulas | 41 | 34.5 | $272,500 |
+| 803 | Excellium Cápsulas | 41 | 34.5 | $272,500 |
+| 805 | Cordygold Cápsulas | 49 | 43 | $336,900 |
 | 816 | Cápsulas Luvoco Suave | 15 | 14 | $110,900 |
 | 817 | Cápsulas Luvoco Medio | 15 | 14 | $110,900 |
 | 818 | Cápsulas Luvoco Fuerte | 15 | 14 | $110,900 |
@@ -447,7 +457,7 @@ Son dos metricas diferentes con propositos diferentes:
 | 306 | Acondicionador Piel&Brillo | 11 | 9 | $73,900 |
 | 307 | Exfoliante Piel&Brillo | 11 | 9 | $73,900 |
 
-**Ejemplo para llegar a 50 PV (activacion minima):**
+**Ejemplo para llegar a 50 PV (activación minima):**
 | Productos | PV | Costo aprox. |
 |-----------|-----|--------------|
 | 3x Ganocafé 3 en 1 | 45 PV | $332,700 |
@@ -461,30 +471,35 @@ Son dos metricas diferentes con propositos diferentes:
 | 1x Gano Schokolade | 17 PV | $124,900 |
 | **Total** | **107 PV** ✓ | ~$790,300 |
 
-**Insight:** La maquina LUVOCO no da PV ni CV — el negocio esta en las capsulas (15 PV c/u). Con 7 cajas de capsulas Luvoco llegas a 105 PV Premium.
+La máquina LUVOCO no suma PV ni CV: los puntos están en las cápsulas, 15 PV cada caja. Con siete cajas llega a 105 PV.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se cumple la recompra con una caja a la semana?
 
 ---
 
-### COMP_PV_07: "Que pasa si compro mas de 120 PV?"
+### COMP_PV_07: "¿Qué pasa si compro más de 120 PV?"
 **[Índice]:** Qué pasa si compro más de 120 PV, si me paso del tope, si los puntos de más se pierden.
 
-**[Concepto Nuclear]:** El excedente sobre 120 PV SI va a su centro de negocio de cobro.
+**[Concepto Nuclear]:** El excedente sobre 120 PV Sí va a su centro de negocio de cobro.
 
 Esta regla es para socios que compran inventario grande.
 
 **Como Funciona:**
-| Su Compra | Activacion | Centro de Cobro |
+| Su Compra | Activación | Centro de Cobro |
 |-----------|------------|-----------------|
 | 200 PV | 120 PV | 80 PV |
 | 150 PV | 120 PV | 30 PV |
 | 100 PV | 100 PV | 0 PV |
 
-**Insight:** Solo aplica si compra mas de 120 PV. Para la mayoria, el autoconsumo normal (50-100 PV) no genera CV para su centro.
+Solo aplica por encima de 120 PV. Con la recompra normal —entre 50 y 100 PV— la compra personal no suma CV a su centro.
+
+**Pregunta de seguimiento:** ¿Le muestro de dónde sale el CV entonces?
 
 ---
 
-### COMP_PV_08: "¿Qué productos compro para mis 50 PV mensuales? / ¿Cómo completo mi recompra mensual? / ¿Con qué productos llego a 50 PV? / ¿Qué combinaciones existen para activarme?"
+### COMP_PV_08: "¿Qué productos compro para mis 50 PV? / ¿Cómo completo mi recompra mensual?"
 **[Índice]:** Qué productos compro para mis 50 PV mensuales, cómo completo la recompra, qué combinaciones llegan a esos puntos.
+**[Concepto Nuclear]:** ⚠️ **Su tabla PV/CV contradecía a las otras dos** (26 ago 2026): daba *Cápsulas Ganoderma 41/**30*** y *Jabón Gano **10/8***, mientras `COMP_PV_06` y `COMP_CV_01` —que coinciden entre sí y traen el **código de producto** del back office— dan **41/34,5** y **10,4/8,9**. Se alineó a esas dos. ⏳ **Pendiente de confirmación del Director:** dos fuentes contra una es evidencia, no certeza, y aquí las cifras son sagradas.
 
 **[Concepto Nuclear]:** 50 PV mensuales = productos reales que consume o comparte, no cuotas administrativas. Múltiples combinaciones disponibles.
 
@@ -497,7 +512,7 @@ Tiene varias opciones para completar sus 50 PV mensuales — todas en productos 
 - 2 cajas Gano Café 3 en 1 (30 PV) + 1 Cápsulas Ganoderma (41 PV) = 71 PV ✓
 
 **Opción 3 — Suplementos:**
-- 1 Cápsulas Ganoderma (41 PV) + 1 Jabón Gano (10 PV) = 51 PV ✓
+- 1 Cápsulas Ganoderma (41 PV) + 1 Jabón Gano (10,4 PV) = 51,4 PV ✓
 
 **Opción 4 — Mix variado:**
 - 2 cajas Gano Café (30 PV) + 2 cápsulas Luvoco (30 PV) = 60 PV ✓
@@ -510,14 +525,16 @@ Tiene varias opciones para completar sus 50 PV mensuales — todas en productos 
 | Cápsulas Luvoco | 15 | 14 |
 | Ganorico Mocha / Latte / Shoko | 17 | 15 |
 | Gano Schokolade | 17 | 15.6 |
-| Cápsulas Ganoderma | 41 | 30 |
-| Jabón Gano | 10 | 8 |
+| Cápsulas Ganoderma | 41 | 34.5 |
+| Jabón Gano | 10.4 | 8.9 |
 
-**Insight:** Lo que importa es llegar a 50 PV al cierre del ciclo (domingo). No tiene que ser una sola compra ni un solo producto. Combine según lo que ya consume habitualmente.
+Lo que cuenta es llegar a 50 PV al cierre del ciclo. No tiene que ser una sola compra ni un solo producto: se combina con lo que ya consume.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se cumple con una caja a la semana?
 
 ---
 
-### COMP_PV_09: "No entiendo, ¿cómo así una caja a la semana? / ¿Cómo me mantengo activo? / ¿Qué tengo que comprar cada semana? / ¿Con una caja a la semana estoy activo? / ¿Cuántas cajas al mes para estar activo?"
+### COMP_PV_09: "¿Cómo así una caja a la semana? / ¿Cuántas cajas al mes para estar activo?"
 **[Índice]:** Cómo así una caja a la semana, cómo me mantengo activo, qué tengo que comprar cada semana.
 
 **[Concepto Nuclear]:** La recompra se explica como RITMO, no como cifra (Director, 23 ago 2026): una caja a la semana → cuatro en el ciclo de cuatro semanas → 60 PV, por encima de los 50. Cada caja de Ganocafé suma 15 PV (COMP_PV_08). Y en la práctica una caja se queda corta: se toma en casa y se comparte. Las combinaciones viven en COMP_PV_08.

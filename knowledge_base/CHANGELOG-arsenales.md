@@ -173,6 +173,22 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.18 — NET_02 responde por fin lo que su título promete (26 ago 2026)
+
+**Cierra el hueco que la auditoría dejó abierto a propósito.** El título y el índice de `NET_02` ofrecían *"quiero reactivar mi código"* y *"¿tengo que empezar de cero?"*, y el cuerpo contestaba que **su experiencia suma** — que es otra cosa. Quien pregunta eso no está midiendo su aprendizaje: está midiendo si perdió lo que construyó. Ningún fragmento del corpus tenía el dato, así que se pidió en vez de inventarlo.
+
+**Dato del Director:** el código **se reactiva —es el mismo—**, y **lo que tenía debajo sigue en su posición**. Va en el segundo párrafo, temprano, porque es el peso de la pregunta.
+
+⛔ **La regla de los seis meses NO se nombra, y el motivo hay que entenderlo antes de "completar" la respuesta.** Es cierta: pasados seis meses sin compra, la persona queda libre para trasladarse de equipo. Y **decirla nos juega en contra**, porque buena parte de quienes van a recibir este mensaje son **gente nuestra que lleva más de seis meses inactiva** — enunciarla es informarles que pueden irse. La válvula es *"los detalles de su caso se los confirma el equipo"*: cubre a quien viene de otro equipo, donde la respuesta sí cambia, sin abrirle la puerta a nadie.
+
+⚠️ **Lo que se matiza es la TECNOLOGÍA.** Es lo único que él no tenía la vez pasada; el respaldo de Gano Excel ya lo conoce y repetírselo no le mueve nada. Por eso el párrafo del cambio ahora dice *"lo nuevo es la tecnología"* en vez de reintroducir la empresa.
+
+**Salió el remate viejo** (*"su experiencia no se pierde… entra con ventaja sobre alguien que parte de cero"*): era la versión vaga de lo que ahora dice el segundo párrafo con un hecho.
+
+Recuperación: *"quiero reactivar mi código"* 0.585 · *"tengo que empezar de cero"* 0.544 · *"ya tuve código de Gano Excel"* 0.541, primera las tres. Benchmark 37/40 puesto 1 · 40/40 top 3.
+
+---
+
 ### v6.17 — INVERSION_MARKETING_01 gana pregunta de cierre, y dos supuestos que no se sostenían (26 ago 2026)
 
 **El único fragmento sin pregunta de cierre ya la tiene.** Su invitación vivía **dentro** del candado como afirmación —*"cuando quiera, dígamelo y lo conecto"*—, así que no proponía un paso: dejaba al lector a cargo de pedirlo. Hoy cierra con *"¿Quiere que el equipo lo contacte para ver su caso?"*, fuera del candado, como manda el contrato de prefijo.

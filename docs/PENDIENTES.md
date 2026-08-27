@@ -51,6 +51,21 @@ curl -s "https://graph.facebook.com/v22.0/${WHATSAPP_WABA_ID}/message_templates?
 - [ ] **Propagar Compartir / Recibir / Multiplicar** — **capa de texto hecha 2 ago 2026** (Home, Manifiesto, /fundadores, voice-command, system prompt v29.5, arsenal_inicial v5.30, arsenal_avanzado v12.5). Queda: **reels** (re-render, junto con "3 pilares") y la decisión pendiente del deck (guion v6.6: *Compartir · Recibir · Multiplicar* no tiene slide montada).
 - [ ] **Purga global de "Usted no explica — Queswa explica"** — el aforismo sigue vivo en WHY_01, `TridenteAphorisms` y el system prompt.
 
+## Paridad entre los tres Queswa (identificado 23 ago 2026)
+
+> Observación del Director al cerrar la sesión: el trabajo del canal de WhatsApp **no está aplicado** en la Queswa de la web ni en la del Dashboard. Verificado, y la respuesta es que **una parte sí se propaga sola y otra no propaga nada** — conviene no confundirlas.
+
+**✅ Lo que ya está parejo:** el CONTENIDO. Los arsenales viven en los tres tenants y toda la receta de despliegue termina clonando a `whatsapp` y a `dashboard` — hoy **172 fragmentos en cada uno**. Las correcciones de copy del arsenal llegan a los tres sin hacer nada más.
+
+**❌ Lo que no llega, porque vive en el webhook y no en el motor:**
+
+- [ ] ⚠️ **Los guardarraíles de salud y de negocio.** `/api/nexus` no tiene ninguno (verificado: cero referencias). La web y `ganocafe.online` responden **sin filtro**, con el mismo modelo y el mismo corpus que en WhatsApp sí se vigilan. Es el más grave de la lista: el 22 ago la prueba del Director destapó tres promesas de ingreso que el modelo compuso solo — en la web habrían salido al aire. Ya estaba anotado como pendiente conocido en CLAUDE.md desde el 17 ago; lo que cambia hoy es que el guardarraíl es bastante más fino y la brecha, más ancha.
+- [ ] **Los nodos de ambivalencia** (duda sobre sí misma, escalera del aplazamiento, el «no» en dos tiempos, la puerta abierta). Los micro-prompts SÍ viven en el motor y funcionan con cualquier tenant; lo que falta es **quién los detecta**: hoy solo el webhook de WhatsApp emite el `pageContext`. La web tendría que hacer la misma detección sobre su propio hilo.
+- [ ] **Los acuerdos y su cron.** Por naturaleza son de WhatsApp —dependen de la ventana de 24 h y de una plantilla—, pero la web podría capturar el acuerdo y entregarlo por correo. Decisión de producto, no solo de código.
+- [ ] **La lista del café y la redacción para el socio.** Viven en MODO SOCIO, que se dispara con `whatsapp_socio`. El Dashboard (`queswa.app`) tiene su **propio system prompt** —`queswa_dashboard`, hardcodeado en `dashboard-ai/route.ts`, en OTRO repositorio— así que nada de esto lo alcanza. Ahí el socio tiene pantalla y teclado, que es mejor contexto que WhatsApp para armar la lista.
+
+**El criterio para mañana:** decidir qué de esto es *paridad* (debe estar igual en los tres) y qué es *propio del canal*. Los guardarraíles son claramente lo primero. La lista del café probablemente merece una forma distinta en el Dashboard, no una copia.
+
 ## Seguridad / exposición pública
 
 - [ ] **Seis documentos de investigación siguen bajo `public/`, que se sirve en la web.** Todo lo que cuelga de esa carpeta se abre desde el navegador con solo saber la ruta. En julio los handoffs e investigaciones se movieron a `docs/` por este motivo; estos quedaron. El 23 ago se sacó de ahí el informe de Gemini sobre prospección (`063ac3d`), que traía el método completo, la medición del orbe (1% web contra 30% WhatsApp) y las técnicas de cierre — había entrado por la puerta de los guiones de reels, así que nadie lo miró como investigación.

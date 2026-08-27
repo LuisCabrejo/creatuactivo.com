@@ -12,6 +12,28 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.4 — Los cinco títulos que el fragmentador cortaba, y cuatro eran los candados (26 ago 2026)
+
+Primera fase de la auditoría del arsenal de compensación. **Diagnóstico estructural de los 40 antes de tocar nada:**
+
+| Hallazgo | Alcance |
+|---|---|
+| **Sin pregunta de cierre** | **34 de 40** |
+| Títulos truncados por el formato de comillas | 5 — y **cuatro son los fragmentos con candado** |
+| Títulos largos (>90 car.) | 11, cuatro por encima de 320 |
+| Palabras sin tilde en el cuerpo | 22 de 40 — los cuatro candados, limpios |
+| Léxico retirado en cuerpos servidos | 1 (*escalar*, COMP_VIP_01) |
+
+⚠️ **La nota de CLAUDE.md que daba este arsenal como pendiente de migrar a índices está vencida:** los 40 ya lo tienen.
+
+**Lo aplicado en esta fase — solo los bugs, sin tocar copy ni cifras.** Cinco cabeceras usaban `### ID: "A" / "B" / "C"`, y el regex del fragmentador corta en la primera comilla de cierre: en la base solo llegaba la primera pregunta. Es el mismo bug de `ADV_VAL_05` y de `FREQ_04_PUENTE`, aquí multiplicado por cinco — y **cuatro de los cinco son `COMP_MODELO_01`, `COMP_GEN5_01`, `COMP_BIN_01` y `COMP_BIN_05`, los que van bajo candado**. `COMP_BIN_05` servía con el título *"Cuándo me pagan?"* a secas: sus otros cuatro disparadores nunca llegaron al embedding. De paso ganaron las tildes, que tampoco tenían.
+
+**Y un desvío que el arreglo destapó.** *"¿Qué es la Regalía de Equipo?"* la ganaba `ADV_SIST_03` —que habla de enseñarle a su equipo— por **0.002**, solo por la palabra *equipo*. La causa era que el índice de `COMP_BIN_01` **repetía el título** y no aportaba una sola palabra del prospecto. Con la comisión del consumo dicha en llano pasa de 3/6 a **5/6** en el arnés, y en producción encabeza sus dos consultas canónicas (0.473 · 0.616).
+
+**El camino acordado para lo que sigue:** las 34 preguntas de cierre **por familias** —GEN5, PV, Binario, Paquetes—, midiendo cada destino contra el corpus; después los once títulos largos uno por uno; y al final el contenido fragmento por fragmento, con **cifras, porcentajes, GCV, PV/CV y nombres del plan intactos**.
+
+---
+
 ### v8.3 — La comisión del GEN5 se cotiza en la moneda del visitante (25 ago 2026)
 
 La v8.2 le dio cifras a COMP_GEN5_01, y quedaron escritas en **pesos colombianos dentro de un `<verbatim_lock>`** — un texto que se entrega carácter por carácter. La regla de moneda por país dice que a un visitante de Estados Unidos se le cotiza en dólares, y el pin que resuelve eso (`getPinCifrasGEN5`) solo dicta cuando la persona **pide el ejemplo**, no cuando pregunta *«¿qué es el GEN5?»* en frío. Un prospecto con número +1 recibía COP.

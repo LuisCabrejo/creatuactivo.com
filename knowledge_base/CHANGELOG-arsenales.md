@@ -12,6 +12,39 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.6 — La familia GEN5 contaba personas, no compras (26 ago 2026)
+
+Tercera fase. **Ninguna cifra cambió** — lo que cambió es **qué se cuenta**.
+
+**El defecto era sistemático.** La regla lleva meses escrita —*el GEN5 se cuenta en COMPRAS, nunca en personas; «por cada paquete empresarial que se compra», jamás «cada vez que un socio nuevo entra»*— y toda la familia la incumplía:
+
+| Dónde | Qué decía |
+|---|---|
+| Título de `GEN5_04` | *"cuando alguien se vincula"* |
+| Título de `GEN5_08` | *"cuánto gano si conecto 2 personas"* |
+| Cuerpo de `GEN5_08` | *"usted conecta 2 → ellos conectan 2 cada uno"*, columna **Vinculaciones**, *"las 62 vinculaciones"* |
+| Tablas de `GEN5_05` | filas **Socio 1**, **Socio 2** |
+| `GEN5_06` | *"por cada vinculación en su quinta generación"* |
+| `BIN_08` | *"GEN5 — una vez por vinculación"* |
+
+Es la escalera de gente: la silueta exacta que el prospecto reconoce como pirámide, dibujada en las tablas del bono que más se consulta. Hoy todo se cuenta en **paquetes comprados**, con los mismos números.
+
+⚠️ **Y la progresión geométrica en dígitos seguía viva.** La v7.9 de este arsenal dice que salió del corpus; `GEN5_08` la conservaba entera en prosa (*"usted conecta 2 → cobra 2 bonos; ellos conectan 2 cada uno → 4 bonos más"*). Sobrevivió al barrido igual que *"toda una organización"* en avanzado.
+
+**Tres empujones al ESP-3 contra el paquete pequeño**, la misma construcción del *"41% sobre la mesa"*: *"con ESP-1 siempre deja dinero en la mesa"* · *"la diferencia es 6x en Gen 1"* · *"ESP-3 captura $300 USD, ESP-1 captura $50"*. El motivo de retirarlos es **de campo, no de cumplimiento**: doce años del Director muestran que matizar los bonos hace que la gente pregunte *"o sea que si yo arranco usted se gana 675.000 pesos"*. El techo se explica; no se usa para hacer sentir mal a quien mira el paquete pequeño.
+
+**Dos tablas congeladas en enero.** `COMP_GEN5_07` y `COMP_PV_03` imprimían *Ciclo 893 (13-19 Ene)* con su calendario del mes. CLAUDE.md ya tenía señalada la de PV_03 —*"una tabla escrita se congela"*— y seguía ahí. **El ciclo se calcula, no se recuerda:** `respuestaCiclo()` lo dicta desde el motor; los fragmentos ahora explican **la regla**, y el número y las fechas los pone el código.
+
+**Y una fórmula expuesta al prospecto:** `COMP_GEN5_02` servía `Cobro = min(mi_techo, lo_que_genera_nuevo)` en notación de código, contra la doctrina de que la matemática se demuestra con números y no con fórmulas.
+
+**Seis «Insight:» más** convertidos en prosa con pregunta de seguimiento, y las tildes de toda la familia.
+
+⏳ **CHOQUE ABIERTO, medido y sin resolver.** *"¿Qué es el bono GEN5?"* la gana `COMP_GEN5_02` (0.624) y *"explíqueme el Gen5"* la gana `COMP_GEN5_08` (0.644): `COMP_GEN5_01` —la canónica, con candado— queda en **puesto 2**. Se probaron tres redacciones del índice y **ninguna lo movió**; el atractor no está en el índice, igual que en `OBJ_01`. La causa probable es que `GEN5_02` y `GEN5_03` responden casi lo mismo —el techo— y entre las dos concentran el vocabulario del bono. **Se resuelve consolidando la familia, no retocando índices.** Queda en top-3, así que el motor sí la entrega.
+
+Verificación: clasificador 58/58 · guardarraíl de negocio verde · 0 frases vetadas · benchmark 37/40 puesto 1, 40/40 top 3, margen medio 0.064.
+
+---
+
 ### v8.5 — La familia Binario: la bola de nieve contaba gente (26 ago 2026)
 
 Segunda fase. **Cifras, porcentajes, GCV, PV/CV y nombres del plan intactos** — solo léxico y narrativa, por instrucción del Director.

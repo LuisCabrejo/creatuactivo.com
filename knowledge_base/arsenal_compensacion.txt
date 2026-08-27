@@ -89,7 +89,7 @@ Es un ingreso que no depende de que usted esté presente en cada venta.
 **[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, repartidas por horizonte: **cinco a corto plazo, tres a mediano y cuatro a largo** (dato de campo del Director, 25 ago 2026). La explicación de las doce viene en físico dentro del kit de inicio. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas estan activas desde el dia uno, y son las dos principales AL INICIO: las otras diez piden volumen o rango que todavia no existe. Estar activas y ser las principales son dos hechos distintos — no confundirlos. Las otras diez se detallan solo si preguntan por el plan completo.
 
 ### COMP_GEN5_01: "¿Qué es el Bono GEN5? / ¿Cómo se gana rápido?"
-**[Índice]:** Qué es el Bono GEN5, explíqueme el Gen5, cómo se gana pronto, cuál es la forma rápida de ganar.
+**[Índice]:** Qué es el Bono GEN5, explíqueme el Gen5, en qué consiste esa vía, de dónde sale esa comisión.
 
 **[Concepto Nuclear]:** La vía que **se mueve por la compra de paquetes empresariales**: comisión directa cada vez que se compra uno en el canal, hasta 5 generaciones. ⚠️ **Se nombra por lo que la mueve** (Director, 9 ago 2026): la compra de un paquete es esporádica, y lo que se afirma es *cada vez que ocurre*, sin prometer ritmo ni duración. La función sí se conserva: es la plata que financia el crecimiento en la etapa temprana. ⚠️ **La primera respuesta SÍ lleva el rango** (Director, 24 ago 2026 — acota la doctrina del 7 ago, que la dejaba sin cifras): quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y esa pregunta se la hace todo el que tiene interés real. Contestarla en abstracto la deja abierta y el prospecto la resuelve solo, casi siempre hacia arriba. Con Visionario propio, cada paquete empresarial comprado en el canal genera **$150 USD** en la primera generación y desde **$20 USD** de la segunda a la quinta ($40 USD en la quinta). ⚠️ **Las cifras van como `[GEN1]` y `[GEN2_5]`, y las llena `getPinComisionGEN5()` en la moneda del visitante** — mismo reparto que FREQ_03: el candado pone el texto, el pin pone la cifra. Una cifra que depende del país no puede vivir dentro de un texto que se entrega carácter por carácter; escrita en pesos, un prospecto de Estados Unidos recibía COP. ⚠️ **El rango se ancla al paquete propio**: con Inicial el techo de la primera generación es $112.500, no $675.000 — se cobra el menor entre su techo y lo que genera el nuevo (COMP_GEN5_02). ⚠️ **La compra se nombra sin persona**: *comprado en su canal de distribución*, que es registro de gran distribución; nombrar a quien compró devuelve la escalera de gente. ⚠️ **Sin precio de entrada en el mismo mensaje**: una inversión al lado de un rendimiento es una proyección de retorno. El ejemplo completo de las cinco generaciones se entrega cuando lo piden, y lo dicta el pin. ⚠️ **AUTOSUFICIENTE**: se llega aquí por dos caminos —tras COMP_MODELO_01 ("¿le explico también la segunda forma?") o en frío, preguntando cómo se gana rápido— así que NO puede apoyarse en la bola de nieve ni decir "esa segunda forma": serían referencias a algo que puede no haberse dicho. La otra forma se nombra en cinco palabras: si ya se explicó suena a eco, y si no, la presenta. ⚠️ **Cuándo llega la comisión:** Gano Excel liquida por ciclos semanales —una semana de corte y otra de cierre—, así que el pago cae **dos viernes después** del evento (detalle en COMP_BIN_05). La única cadencia que se afirma es *"le llega cada viernes"*. ⚠️ **El puntaje no cobrado se acumula**, y es una ventaja del plan: así se dice. ⚠️ Vocabulario: se cuentan **compras de paquetes**, y la unidad del GEN5 es la **generación**, nombrada por su número (Gen 1 a Gen 5). Es la nomenclatura del propio plan —GEN5 son cinco generaciones— y la que ya usan el ejemplo dictado en `route.ts` (*"Generación 1 — 5 paquetes"*), la referencia interna de aquí abajo y los otros fragmentos GEN5. Además la generación es una unidad **horizontal**: describe quién vino después, no cuánto se baja. La imagen vertical es la del esquema que el prospecto teme, y esta respuesta suele llegar uno o dos turnos después de esa objeción.
 
@@ -103,37 +103,41 @@ Corre en paralelo con la otra forma de ganar, la del consumo que se repite: esta
 ¿Le muestro un ejemplo con números de lo que genera cada paquete?
 </verbatim_lock>
 
+**[Concepto Nuclear]:** ⏳ **CHOQUE ABIERTO, medido y sin resolver:** *"¿qué es el bono GEN5?"* la gana `COMP_GEN5_02` (0.624) y *"explíqueme el Gen5"* la gana `COMP_GEN5_08` (0.644) — esta, que es **la canónica y va bajo candado**, queda en el puesto 2. Se probaron tres redacciones del índice y **ninguna lo movió**: el atractor no está en el índice, igual que pasó con `OBJ_01`. La causa probable es que `GEN5_02` y `GEN5_03` responden casi lo mismo —el techo— y entre las dos concentran el vocabulario del bono. **Se resuelve consolidando la familia, no retocando índices**, y se mide antes. Mientras tanto queda en top-3, así que el motor sí la entrega. ⛔ **El GEN5 se cuenta en COMPRAS, nunca en personas** — y el 26 ago 2026 toda la familia lo contaba al revés: *"cuando alguien se vincula"*, *"conecta 2 socios"*, *"cuánto gano si conecto 2 personas"*, una columna rotulada **Vinculaciones** y *"las 62 vinculaciones"*. Esa es la escalera de gente, la silueta exacta que el prospecto reconoce como pirámide. **Ninguna cifra cambió**: lo que cambió es qué se cuenta — *paquetes comprados*. ⚠️ **Y el motivo es de campo, no de cumplimiento:** doce años del Director muestran que matizar los bonos hace que la gente pregunte *"o sea que si yo arranco usted se gana 675.000 pesos"*, y ahí se acabó la conversación. Por eso salieron los tres empujones al ESP-3 (*"con ESP-1 siempre deja dinero en la mesa"*, *"la diferencia es 6x"*, *"ESP-3 captura $300, ESP-1 captura $50"*): son la misma construcción del *"41% sobre la mesa"* retirado de NIVELES_03. El techo se explica; no se usa para hacer sentir mal a quien mira el paquete pequeño.
+
 **[Referencia interna — NO mostrar al prospecto]:** tasas por paquete propio ESP-3 — directos $150 USD · generaciones 2 a 4 $20 USD · 5ª generación $40 USD (doble). Cifras completas y proyección en el pin dictado de route.ts (getPinCifrasGEN5) y en COMP_GEN5_07/08.
 
 ---
 
-### COMP_GEN5_02: "Cuanto paga el Bono GEN5?"
+### COMP_GEN5_02: "¿Cuánto paga el Bono GEN5?"
 **[Índice]:** Cuánto paga el Bono GEN5, cuánto me deja cada generación, qué valores tiene ese bono.
 
 **[Concepto Nuclear]:** Cobra el MENOR entre su techo y lo que genera el nuevo.
 
-Su paquete determina su TECHO (maximo que puede cobrar). El paquete del nuevo determina lo que GENERA.
+Su paquete determina su techo (máximo que puede cobrar). El paquete del nuevo determina lo que GENERA.
 
-**Formula:** `Cobro = min(mi_techo, lo_que_genera_nuevo)`
+Usted cobra lo que genere el paquete que se compró, hasta donde llegue su propio techo.
 
-**Ejemplo Rapido:**
+**Ejemplo:**
 | Escenario | Genera | Su Techo | Cobra | Resultado |
 |-----------|--------|----------|-------|-----------|
 | Su ESP-3, nuevo ESP-3 | $150 USD | $150 USD | $150 USD | ✓ Captura todo |
 | Su ESP-1, nuevo ESP-3 | $150 USD | $25 USD | $25 USD | ✗ Pierde $125 USD |
-| Su ESP-3, nuevo ESP-1 | $25 USD | $150 USD | $25 USD | ✓ No hay mas que capturar |
+| Su ESP-3, nuevo ESP-1 | $25 USD | $150 USD | $25 USD | ✓ No hay más que capturar |
 
-**Insight:** Con ESP-3 nunca le limita su techo. Con ESP-1 siempre deja dinero en la mesa.
+Su paquete es el techo de lo que cobra por cada compra, así que entre más alto el suyo, más de lo que genera cada paquete alcanza a cobrar.
+
+**Pregunta de seguimiento:** ¿Le muestro los techos de cada nivel?
 
 ---
 
-### COMP_GEN5_03: "Techos por paquete - Cuanto puedo cobrar maximo?"
+### COMP_GEN5_03: "¿Cuál es mi techo en el GEN5? / ¿Hasta cuánto me pagan por cada paquete?"
 **[Índice]:** Cuánto puedo cobrar como máximo según mi paquete, cuál es mi techo en el GEN5, hasta cuánto me pagan.
 
-**[Concepto Nuclear]:** Su paquete define su techo. ESP-3 = techo maximo. ESP-1 = techo minimo.
+**[Concepto Nuclear]:** Su paquete define su techo. ESP-3 = techo máximo. ESP-1 = techo minimo.
 
-**Techos por Generacion (USD):**
-| Generacion | ESP-1 | ESP-2 | ESP-3 |
+**Techos por Generación (USD):**
+| Generación | ESP-1 | ESP-2 | ESP-3 |
 |------------|-------|-------|-------|
 | Gen 1 | $25 USD | $75 USD | $150 USD |
 | Gen 2 | $5 USD | $10 USD | $20 USD |
@@ -142,17 +146,19 @@ Su paquete determina su TECHO (maximo que puede cobrar). El paquete del nuevo de
 | Gen 5 (100 PV) | $10 USD | $20 USD | $40 USD |
 | Gen 5 (50-99 PV) | $5 USD | $10 USD | $20 USD |
 
-**Insight:** La diferencia entre ESP-1 y ESP-3 es 6x en Gen 1. Mismo esfuerzo directivo, diferente captura financiera.
+El techo de la primera generación es lo que más varía entre un nivel y otro; de la segunda a la quinta las diferencias son menores.
+
+**Pregunta de seguimiento:** ¿Le muestro un ejemplo con números?
 
 ---
 
-### COMP_GEN5_04: "Cuanto genera cada paquete cuando alguien se vincula?"
-**[Índice]:** Cuánto genera cada paquete cuando alguien se vincula, qué comisión deja un ESP-1, un ESP-2 o un ESP-3.
+### COMP_GEN5_04: "¿Cuánto genera cada paquete que se compra? / ¿Qué comisión deja un ESP-1, un ESP-2 o un ESP-3?"
+**[Índice]:** Cuánto genera cada paquete que se compra, qué comisión deja un ESP-1, un ESP-2 o un ESP-3.
 
-**[Concepto Nuclear]:** El paquete del nuevo determina cuanto genera para toda la linea ascendente.
+**[Concepto Nuclear]:** El paquete del nuevo determina cuanto genera para toda la línea ascendente.
 
 **Valores que GENERA cada paquete (USD):**
-| Generacion | ESP-1 Genera | ESP-2 Genera | ESP-3 Genera |
+| Generación | ESP-1 Genera | ESP-2 Genera | ESP-3 Genera |
 |------------|--------------|--------------|--------------|
 | Gen 1 | $25 USD | $75 USD | $150 USD |
 | Gen 2 | $5 USD | $10 USD | $20 USD |
@@ -160,49 +166,50 @@ Su paquete determina su TECHO (maximo que puede cobrar). El paquete del nuevo de
 | Gen 4 | $5 USD | $10 USD | $20 USD |
 | Gen 5 | $10 USD | $20 USD | $40 USD |
 
-**Insight:** Cuando su socio compra ESP-3, genera mas bonos para usted Y para toda la linea ascendente.
+Cada paquete que se compra genera comisión para su generación y para las cuatro que vienen arriba.
+
+**Pregunta de seguimiento:** ¿Le muestro un ejemplo con números?
 
 ---
 
-### COMP_GEN5_05: "Ejemplo practico del Bono GEN5 - Socios directos"
-**[Índice]:** Ejemplo del GEN5 con mis directos, cuánto gano con los que entran conmigo, la cuenta con socios directos.
+### COMP_GEN5_05: "Ejemplo del GEN5 con los paquetes de su primera generación"
+**[Índice]:** Ejemplo del GEN5 con los paquetes de mi primera generación, cuánto deja cada uno.
 
 **[Concepto Nuclear]:** 2 socios directos ESP-3 = $300 USD en su estado de cuenta.
 
-Veamos que ocurre cuando conecta 2 socios que compran ESP-3:
+Veamos qué deja su primera generación cuando se compran dos ESP-3:
 
-**Ejemplo: Usted tiene ESP-3, conecta 2 ESP-3:**
-| Socio | Paquete | Gen 1 Bono | Total |
+**Usted con ESP-3, dos ESP-3 comprados en su primera generación:**
+| Paquete comprado | Nivel | Gen 1 Bono | Total |
 |----------|---------|------------|-------|
-| Socio 1 | ESP-3 | $150 USD | $150 USD |
-| Socio 2 | ESP-3 | $150 USD | $150 USD |
+| Primero | ESP-3 | $150 USD | $150 USD |
+| Segundo | ESP-3 | $150 USD | $150 USD |
 | **TOTAL** | | | **$300 USD** (~$1.35M COP) |
 
-**Comparativa si usted tuviese ESP-1:**
-| Socio | Genera | Su Techo | Cobra |
+**Los mismos dos paquetes, si usted tuviese ESP-1:**
+| Paquete comprado | Genera | Su Techo | Cobra |
 |----------|--------|----------|--------|
-| Socio 1 | $150 USD | $25 USD | $25 USD |
-| Socio 2 | $150 USD | $25 USD | $25 USD |
+| Primero | $150 USD | $25 USD | $25 USD |
+| Segundo | $150 USD | $25 USD | $25 USD |
 | **TOTAL** | | | **$50 USD** (~$225K COP) |
 
-**Insight:** Mismo esfuerzo directivo (2 socios). ESP-3 captura $300 USD. ESP-1 captura $50 USD. Diferencia: $250 USD.
+Los mismos dos paquetes comprados dejan una comisión distinta según el nivel con el que usted abrió su canal — el suyo marca el techo.
+
+**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
 
 ---
 
-### COMP_GEN5_08: "Ejemplo practico de ganancias GEN5 - Cuanto gano si conecto 2 personas"
-**[Índice]:** Cuánto gano si conecto dos, ejemplo completo del GEN5 con las cinco generaciones, la cuenta con números.
+### COMP_GEN5_08: "¿Cuánto deja el GEN5 con las cinco generaciones? / Ejemplo completo con números"
+**[Índice]:** Ejemplo completo del GEN5 con las cinco generaciones, cuánto deja en total, la cuenta con números.
 
-**[Concepto Nuclear]:** Cobra mientras construye. Cada vinculacion = un pago.
+**[Concepto Nuclear]:** Cobra mientras construye. Cada vinculación = un pago.
 
-Esta vía funciona como su capital de construcción: cada paquete empresarial que se compra en su canal le entra como comisión, y es la plata que financia el crecimiento de su operación.
+Esta vía se mueve por la compra de paquetes empresariales: cada uno que se compra en su canal le entra como comisión, y es la que financia el crecimiento temprano.
 
-**Como funciona:**
-- Usted conecta 2 → cobra 2 bonos
-- Ellos conectan 2 cada uno → usted cobra 4 bonos mas
-- Y asi hasta Gen 5
+**Cómo funciona:** usted cobra por cada paquete empresarial que se compra en su canal, hasta la quinta generación. La tabla toma el escenario en que cada uno es un ESP-3.
 
-**Proyeccion 2x2 (todos ESP-3):**
-| Gen | Vinculaciones | Bono c/u (USD) | Total Acumulado |
+**Proyección con todos los paquetes en ESP-3:**
+| Gen | Paquetes comprados | Bono c/u (USD) | Total Acumulado |
 |-----|---------------|----------------|-----------------|
 | 1 | 2 | $150 USD | $300 USD |
 | 2 | 4 | $20 USD | $380 USD |
@@ -214,20 +221,22 @@ Esta vía funciona como su capital de construcción: cada paquete empresarial qu
 
 **Total al completar estructura: $2,140 USD** (~$9.6M COP)
 
-Este capital lo recibe A MEDIDA que se construye la estructura (cada viernes). No espera a que las 62 vinculaciones esten completas — cobra desde la primera.
+Esa comisión entra a medida que se compran los paquetes, cada viernes: no espera a que se completen los 62 — se cobra desde el primero.
 
-**Comparativa por paquete (misma estructura de 62 vinculaciones):**
+**Comparativa por paquete, sobre los mismos 62 paquetes comprados:**
 | Su Paquete | Total GEN5 | Diferencia |
 |------------|------------|------------|
 | ESP-3 | $2,140 USD | - |
 | ESP-2 | $1,070 USD | -$1,070 USD |
 | ESP-1 | $510 USD | -$1,630 USD |
 
-**Insight:** El GEN5 le financia la construccion. Mientras ayuda a otros a arrancar, va cobrando. Cuando la estructura esta lista, el Binario toma el relevo con ingresos semanales recurrentes.
+El GEN5 financia el crecimiento temprano; el Binario es el que sostiene el ingreso recurrente después. Las dos corren en paralelo desde el primer día.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo funciona el Binario?
 
 ---
 
-### COMP_GEN5_06: "El Bono Doble de Generacion 5"
+### COMP_GEN5_06: "¿Qué es el bono doble de la quinta generación?"
 **[Índice]:** Qué es el bono doble de la quinta generación, por qué la generación cinco paga distinto.
 
 **[Concepto Nuclear]:** Con 100 PV activos, Gen 5 paga el DOBLE.
@@ -241,29 +250,26 @@ El Gen 5 tiene un multiplicador especial basado en su actividad personal.
 | 50-99 PV | NORMAL | $20 USD |
 | Menos de 50 PV | $0 | $0 |
 
-**Insight:** Mantener 100 PV le da acceso al bono doble en Gen 5. Es la diferencia entre $20 USD y $40 USD por cada vinculacion en su quinta generacion.
+Con 100 PV de recompra al mes, la quinta generación paga el doble: $40 USD en vez de $20 por cada paquete comprado.
+
+**Pregunta de seguimiento:** ¿Le muestro qué productos suman esos 100 PV?
 
 ---
 
-### COMP_GEN5_07: "Cuando me pagan el Bono GEN5?"
+### COMP_GEN5_07: "¿Cuándo me pagan el Bono GEN5?"
 **[Índice]:** Cuándo me pagan el GEN5, en cuánto tiempo entra esa comisión, qué día la veo.
 
 **[Concepto Nuclear]:** Cada viernes, con 2 semanas de desfase.
 
-El GEN5 se paga semanalmente, no mensualmente.
+El GEN5 se liquida por semanas, igual que el Binario.
 
-**Ejemplo de Ciclo de Pago:**
-| Evento | Fecha |
-|--------|-------|
-| Su contacto compra ESP-3 | Ciclo 893 (12-18 Ene) |
-| Se procesa | Ciclo 894 |
-| Recibe el pago | Viernes Ciclo 895 (31 Ene) |
+La semana en que se compra el paquete es la que se factura, la siguiente se cierra en firme, y el pago cae el viernes de dos semanas después. No se espera a fin de mes.
 
-**Insight:** No espera fin de mes. Cada activacion de capitalizacion en su canal se liquida el viernes de 2 semanas despues.
+**Pregunta de seguimiento:** ¿Le muestro qué necesita para cobrarlo?
 
 ---
 
-### COMP_GEN5_09: "¿Qué necesito para cobrar el GEN5? / ¿Cuáles son los requisitos del Bono GEN5? / ¿Qué condiciones tiene el GEN5? / ¿Con el Kit cobro el GEN5?"
+### COMP_GEN5_09: "¿Qué necesito para cobrar el GEN5? / ¿Con el Kit lo cobro?"
 **[Índice]:** Qué necesito para cobrar el GEN5, cuáles son los requisitos, si con el Kit alcanzo a cobrarlo.
 
 **[Concepto Nuclear]:** Las dos condiciones del GEN5, dichas juntas (Director, 23 ago 2026): haber comprado un paquete empresarial y estar activo con la recompra mensual. El monto es proporcional al propio paquete —su paquete es el techo, COMP_GEN5_02/03— y la quinta generación se dobla con 100 PV (COMP_GEN5_06). Fragmento corto a propósito: es la puerta; el ejemplo con cifras lo dicta el pin del motor cuando la persona acepta (la oferta nombra el GEN5), y los techos por generación viven en COMP_GEN5_03.
@@ -317,21 +323,13 @@ Puede hacer varias compras durante la semana.
 ### COMP_PV_03: "Como funcionan los ciclos semanales?"
 **[Índice]:** Cómo funcionan los ciclos semanales, qué es un ciclo, cuándo abre y cuándo cierra.
 
-**[Concepto Nuclear]:** Ciclo = Lunes a Domingo. Pago = Viernes de 2 semanas despues.
+**[Concepto Nuclear]:** Ciclo = lunes a domingo. Pago = viernes de dos semanas después. ⛔ **Aquí vivía una tabla con ciclos y fechas escritas a mano** —*Ciclo 893 (13-19 Ene)*, con su calendario del mes de enero— y CLAUDE.md ya la tenía señalada: *"una tabla escrita se congela; COMP_PV_03 imprimía ciclos de enero en el chat"*. Retirada el 26 ago 2026. **El ciclo vigente se CALCULA, no se recuerda:** `respuestaCiclo()` en `src/lib/ciclos-gano.ts` lo dicta desde el motor ante cualquier mensaje con la palabra *ciclo*, con el ancla y la aritmética de semanas en calendario Bogotá. Este fragmento explica **la regla**; el número y las fechas los pone el motor.
 
-**Estructura del Ciclo:**
-| Fase | Descripcion |
-|------|-------------|
-| Ciclo 893 (13-19 Ene) | Su actividad se registra (cierra domingo) |
-| Ciclo 894 (20-26 Ene) | Se procesa y calcula |
-| Ciclo 895 (27 Ene-2 Feb) | Se paga el viernes (31 Ene) |
+La semana comercial va de lunes a domingo, y cada semana es un ciclo numerado.
 
-**Calendario Visual:**
-| Lun | Mar | Mie | Jue | Vie | Sab | Dom |
-|-----|-----|-----|-----|-----|-----|-----|
-| 13 | 14 | 15 | 16 | 17 | 18 | **19** ← Cierre |
+El ciclo en que usted mueve producto es el que se factura. La semana siguiente se cierra en firme, y el pago cae el **viernes de dos semanas después** del cierre. Ese desfase es el mismo para el Binario y para el GEN5.
 
-**Insight:** Hay 2 semanas de desfase entre su actividad y su pago. Esto aplica para GEN5 y Binario.
+**Pregunta de seguimiento:** ¿Le muestro qué necesita para cobrar?
 
 ---
 
@@ -748,7 +746,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su canal, sin límite de pr
 **Comparativa GEN5 vs Binario:**
 | Bono | Cuando Paga | Duración |
 |------|-------------|----------|
-| GEN5 | Una vez por vinculación | Unico |
+| GEN5 | Una vez por cada paquete comprado | Único |
 | Binario | CADA semana mientras haya actividad | Recurrente |
 
 El GEN5 aporta liquidez temprana, y el Binario es el que sostiene el ingreso recurrente. Las cifras de arriba corresponden a **rango Diamante**, que pide 12.000 CV semanales: son el techo de la tabla, no el punto de partida.

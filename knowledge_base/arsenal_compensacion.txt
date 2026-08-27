@@ -493,7 +493,7 @@ Solo aplica por encima de 120 PV. Con la recompra normal —entre 50 y 100 PV—
 
 ### COMP_PV_08: "¿Qué productos compro para mis 50 PV? / ¿Cómo completo mi recompra mensual?"
 **[Índice]:** Qué productos compro para mis 50 PV mensuales, cómo completo la recompra, qué combinaciones llegan a esos puntos.
-**[Concepto Nuclear]:** ⚠️ **Su tabla PV/CV contradecía a las otras dos** (26 ago 2026): daba *Cápsulas Ganoderma 41/**30*** y *Jabón Gano **10/8***, mientras `COMP_PV_06` y `COMP_CV_01` —que coinciden entre sí y traen el **código de producto** del back office— dan **41/34,5** y **10,4/8,9**. Se alineó a esas dos. ⏳ **Pendiente de confirmación del Director:** dos fuentes contra una es evidencia, no certeza, y aquí las cifras son sagradas.
+**[Concepto Nuclear]:** ⚠️ **Su tabla PV/CV contradecía a las otras dos, y ya está alineada** (26 ago 2026): daba *Cápsulas Ganoderma 41/30* y *Jabón Gano 10/8*, contra el **41/34,5** y **10,4/8,9** de `COMP_PV_06` y `COMP_CV_01` —las dos que traen el código de producto del back office—. **Valores confirmados por el Director el 26 ago 2026.** ⚠️ **Las tres tablas tienen que moverse juntas:** si algún día cambia un PV o un CV, se cambia en `COMP_PV_06`, `COMP_CV_01` y aquí. La de este fragmento es la que se desincronizó, por estar rotulada *"de referencia"* y escrita con nombres comerciales en vez de códigos.
 
 **[Concepto Nuclear]:** 50 PV mensuales = productos reales que consume o comparte, no cuotas administrativas. Múltiples combinaciones disponibles.
 

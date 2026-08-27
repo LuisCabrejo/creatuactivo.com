@@ -46,7 +46,7 @@ Y **tres preguntas de cierre vivían DENTRO de un `<verbatim_lock>`** (`COMP_MOD
 | Tablas de ciclos congeladas en enero | 2 | 0 |
 | Empujones contra el Kit / el paquete pequeño | 4 | 0 |
 
-⏳ **Lo que queda anotado y sin resolver:** el choque de `COMP_GEN5_01` con `GEN5_02`/`GEN5_08` (se resuelve consolidando la familia, no retocando índices) · la contradicción de CV en `COMP_PV_08`, alineada pero **pendiente de confirmación del Director** · y los precios en COP duros de `COMP_PV_06`, `COMP_PAQ_01` y `COMP_MONEDA_01`, que van con el pendiente general de moneda por producto.
+⏳ **Lo que queda anotado y sin resolver:** el choque de `COMP_GEN5_01` con `GEN5_02`/`GEN5_08` (se resuelve consolidando la familia, no retocando índices) · · y los precios en COP duros de `COMP_PV_06`, `COMP_PAQ_01` y `COMP_MONEDA_01`, que van con el pendiente general de moneda por producto.
 
 Verificación: clasificador 58/58 · guardarraíles de salud y negocio en verde · 0 frases vetadas sobre 172 fragmentos · benchmark 37/40 puesto 1, 40/40 top 3.
 
@@ -58,7 +58,9 @@ Cuarta fase. Léxico y narrativa — **salvo una excepción que hay que mirar de
 
 ⚠️ **DOS FRAGMENTOS DABAN CV DISTINTO PARA EL MISMO PRODUCTO.** `COMP_PV_08` traía *Cápsulas Ganoderma 41/**30*** y *Jabón Gano **10/8***, mientras `COMP_PV_06` y `COMP_CV_01` —que **coinciden entre sí** y traen el **código de producto** del back office (801, 301)— dan **41/34,5** y **10,4/8,9**. Se alineó `COMP_PV_08` a esas dos.
 
-⏳ **Pendiente de confirmación del Director.** Dos fuentes contra una es evidencia, no certeza, y en este arsenal las cifras son sagradas. Queda anotado en la cabecera del fragmento.
+✅ **Confirmado por el Director el 26 ago 2026:** los valores correctos son **41 / 34,5** y **10,4 / 8,9**. La tabla que discrepaba era la de `COMP_PV_08`, rotulada *"de referencia"* y escrita con nombres comerciales en vez de códigos — retecleada a mano, con los dos decimales caídos al copiar (34,5 → 30 · 10,4/8,9 → 10/8).
+
+⚠️ **Las tres tablas tienen que moverse juntas.** Si algún día cambia un PV o un CV, se toca en `COMP_PV_06`, `COMP_CV_01` **y** `COMP_PV_08`. Anotado en la cabecera de la que se desincronizó.
 
 **Un ejemplo que cruzaba dos ciclos.** `COMP_PV_02` acumulaba PV empezando el **domingo** y terminando el **sábado**, con el remate *"lo que importa es su PV total al cierre del ciclo (domingo)"*. Pero el ciclo va de lunes a domingo, así que esa primera compra caía en el ciclo anterior y el ejemplo se desmentía solo. Cambió el día de arranque a **lunes**; ninguna cifra se tocó.
 

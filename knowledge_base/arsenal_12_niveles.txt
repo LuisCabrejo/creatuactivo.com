@@ -54,11 +54,11 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 
 **⚠️ Limitación importante:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%. No incluye el Bono GEN5. Para acceder a porcentajes mayores y al GEN5, necesita un Paquete Empresarial.
 
-**Pregunta de seguimiento:** ¿Le gustaría saber cuánto puede ganar con esta estrategia?
+**Pregunta de seguimiento:** ¿Le muestro cuánto puede mover esta estrategia?
 
 ---
 
-### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles?" / "¿Cuánto puedo ganar?" / "¿Cómo funciona el plan de ganancias?"**
+### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles? / ¿Cuánto puedo ganar con esa estrategia?"**
 **[Índice]:** Cómo se gana en Los 12 Niveles, cuánto puedo ganar ahí, cómo funciona el plan de ganancias de esa estrategia.
 
 **[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su canal.
@@ -71,7 +71,7 @@ Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit
 
 **Proyección de ingreso recurrente con Kit de Inicio (10%):**
 
-| Nivel | Nuevos distribuidores | Total organización | CV/lado | Regalía semanal 10% | Acumulado |
+| Nivel | Nuevos distribuidores | Total del canal | CV/lado | Regalía semanal 10% | Acumulado |
 |-------|--------|--------------------|---------|---------------------|-----------|
 | 1 | 2 | 2 | 56 | $25,200 | $25,200 |
 | 2 | 4 | 6 | 112 | $50,400 | $75,600 |
@@ -81,7 +81,7 @@ Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit
 | 10 | 1,024 | 2,046 | 28,672 | $12,902,400 | $25,779,600 |
 | 12 | 4,096 | 8,190 | 114,688 | $51,609,600 | **$103,194,000** |
 
-**"Nuevos distribuidores" vs "Total":** los *nuevos distribuidores* son quienes entran en ese nivel (2ⁿ). "Total organización" es el tamaño acumulado de su canal hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 distribuidores nuevos y su canal suma 30 en total. Al nivel 12 son **8.190 distribuidores** en total.
+**"Nuevos distribuidores" vs "Total":** los *nuevos distribuidores* son quienes entran en ese nivel (2ⁿ). "Total del canal" es el tamaño acumulado de su canal hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 distribuidores nuevos y su canal suma 30 en total. Al nivel 12 son **8.190 distribuidores** en total.
 
 **Potencial acumulado al nivel 12:** Más de $103 millones COP. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
 
@@ -102,11 +102,11 @@ Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir
 
 **⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
 
-**Pregunta de seguimiento:** ¿Le gustaría saber cuánto cuesta participar?
+**Pregunta de seguimiento:** ¿Le muestro con cuánto se empieza?
 
 ---
 
-### **NIVELES_03: "¿Cuál es la inversión mínima para Los 12 Niveles?" / "¿Cuánto necesito para participar?"**
+### **NIVELES_03: "¿Cuál es la inversión mínima para Los 12 Niveles? / ¿Cuánto necesito para participar?"**
 **[Índice]:** Cuánto necesito para entrar a Los 12 Niveles, cuál es la inversión mínima del Kit de Inicio, qué trae ese kit.
 
 **[Concepto Nuclear]:** Kit de Inicio = entrada accesible; su alcance se dice en afirmativo. ⚠️ **Aquí vivía el empujón del bono** —*"menos eficiente para un constructor serio", "deja sobre la mesa el 41% de la comisión"*— y se retiró el 26 ago 2026: le llega a quien pregunta por la inversión MÍNIMA, es decir justo a quien no puede pagar más, y le dice que su elección lo hace menos serio. Doce años de campo del Director muestran lo contrario: ofrecer el Kit gana la confianza y **la mitad termina eligiendo paquete empresarial igual**. Ver la cabecera de INV_00. ⚠️ Aquí decía *"$443.600 COP (aproximadamente $98 USD)"* con la cifra escrita a mano; hoy la pone `getPinKitInicio`, y sigue siendo **$98 a propósito** — ver la cabecera de INV_00.
@@ -133,11 +133,11 @@ La inversión mínima es el **Kit de Inicio: [PRECIO_KIT]**.
 
 El Kit entra al plan con la Regalía de Equipo al 10%; los porcentajes más altos y el Bono GEN5 son de los tres paquetes empresariales. No es la opción más rentable al principio — es la que permite arrancar ahora, y más adelante se evalúa si conviene subir.
 
-**Pregunta de seguimiento:** ¿Le gustaría conocer las diferencias entre el Kit de Inicio y los Paquetes Empresariales?
+**Pregunta de seguimiento:** ¿Le muestro qué trae cada paquete?
 
 ---
 
-### **NIVELES_04: "¿Cómo participo en Los 12 Niveles?" / "¿Cómo me vinculo?"**
+### **NIVELES_04: "¿Cómo participo en Los 12 Niveles? / ¿Cómo me vinculo?"**
 **[Índice]:** Cómo participo en Los 12 Niveles, cómo me vinculo, con quién hablo para entrar a esa estrategia.
 
 **[Concepto Nuclear]:** Dos vías de vinculación: su patrocinador o WhatsApp directo del equipo.
@@ -156,8 +156,8 @@ Escríbale por WhatsApp a esa persona o al equipo de liderazgo para que le ayude
 
 ---
 
-### **NIVELES_05: "¿Qué pasa si no logro invitar a 2 personas en el primer nivel?"**
-**[Índice]:** Qué pasa si no logro invitar a mis dos del primer nivel, si me demoro, si no consigo a nadie todavía.
+### **NIVELES_05: "¿Qué pasa si me demoro en completar mis dos del primer nivel?"**
+**[Índice]:** Qué pasa si me demoro en completar mis dos del primer nivel, si todavía no los tengo, si voy más lento de lo que pensaba.
 
 **[Concepto Nuclear]:** Consistencia importa más que velocidad. El sistema trabaja mientras usted construye.
 
@@ -168,13 +168,13 @@ Si tarda más tiempo en completar su primer nivel, está bien. Lo importante es 
 **El sistema 2×2 funciona cuando cada quien encuentra su ritmo.**
 
 Lo que sí es crítico es que **arranque HOY**, porque:
-- Su posición en la organización se bloquea al comenzar
+- Su posición en el canal se fija al comenzar
 - Mientras más temprano empiece, más tiempo tiene para construir
 - La tecnología (Queswa) trabaja para usted 24/7
 
 **Recuerde:** Su rol es conectar distribuidores al sistema.
 
-**Pregunta de seguimiento:** ¿Ve la diferencia entre conectar distribuidores al sistema y trabajar a mano una red de ventas?
+**Pregunta de seguimiento:** ¿Le muestro qué hace el sistema por usted?
 
 ---
 
@@ -213,7 +213,7 @@ Este es un temor común.
 
 **Por eso los expertos recomiendan:**
 
-No se limite a conectar solo 2 distribuidores. Entre más distribuidores conecte USTED, más garantiza su propio crecimiento. El sistema paga sobre los **puntos emparejados** entre su canal izquierdo y su canal derecho, así que conviene ayudar a crecer el canal que va más despacio: cada punto que entra ahí encuentra su pareja de inmediato.
+Conectar más de dos le da más margen: entre más distribuidores tenga usted directamente, menos depende de lo que haga cada uno. El sistema paga sobre los **puntos emparejados** entre su canal izquierdo y su canal derecho, así que conviene ayudar a crecer el canal que va más despacio: cada punto que entra ahí encuentra su pareja de inmediato.
 
 **La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo y conectando más distribuidores a su canal.
 
@@ -306,7 +306,7 @@ Todos los paquetes incluyen:
 - ESP-2: 18 productos variados
 - ESP-3: 35 productos (incluye suplementos)
 
-**3. Posición en la organización:**
+**3. Posición en el canal:**
 - Su código de afiliado permanente
 - Posición heredable (es un ACTIVO)
 - Derecho a construir en todos los países
@@ -329,34 +329,27 @@ Todos los paquetes incluyen:
 
 ---
 
-### **INV_04: "¿Todos los meses debo hacer recompra?" / "¿Debo comprar productos cada mes?"**
-**[Índice]:** Todos los meses tengo que hacer recompra, debo comprar producto cada mes, para qué sirve esa compra mensual.
+### **INV_04: "¿Todos los meses debo hacer recompra? / ¿Para qué sirve esa compra mensual?"**
+**[Índice]:** Para qué sirve la recompra mensual dentro de Los 12 Niveles, qué me deja esa compra, qué pasa si un mes no la hago.
 
 **[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso recurrente.
 
-Sí. La recompra mensual es lo que lo mantiene **activo**, y estar activo es lo que le conserva el derecho a cobrar las comisiones que genera su canal.
+Sí, y son **50 PV** al mes — unas tres o cuatro cajas de producto.
 
-**¿Por qué es importante?**
+Esa compra es la que lo mantiene activo, y estar activo es lo que le conserva el derecho a cobrar las comisiones de su canal. Si un mes no la hace, ese derecho queda suspendido hasta que la retome.
 
-Estar activo le permite cobrar las comisiones que genera su canal de clientes y distribuidores. Sin esa compra, ese derecho queda suspendido hasta que la retome.
+Lo que sostiene el negocio a la larga no es conectar sin parar: es que su canal siga consumiendo mes a mes. Por eso la recompra no es un requisito administrativo — es el mismo movimiento que genera el ingreso.
 
-**La mecánica de sostenibilidad:**
+**Lo que recibe a cambio:**
 
-La estabilidad del negocio a largo plazo no está en expandir infinitamente, sino en asegurar que su canal existente consuma sus 50 PV mensuales. Esto transforma el negocio de una actividad de expansión activa a una de consumo recurrente (ingreso recurrente).
+• Producto que consume o comparte en casa
+• Su acceso a CreaTuActivo.com activo
+• El derecho a cobrar todo lo que mueve su canal
 
-**Lo que recibe con su recompra:**
+**Mínimo mensual:** 50 PV (Puntos de Volumen) en producto.
 
-1. **Productos de calidad:** Café, suplementos y productos que benefician directamente su salud
-2. **Acceso a CreaTuActivo.com:** Su plataforma de construcción sigue activa
-3. **Comisiones activas:** Puede cobrar todo lo que genera su canal
+**Pregunta de seguimiento:** ¿Le muestro qué productos suman esos 50 PV?
 
-**Cómo funciona el modelo:**
-
-El ingreso se genera por el **movimiento de producto** en su canal — consumo recurrente de clientes que valoran los resultados. Esto es lo que sostiene las comisiones a largo plazo.
-
-**Mínimo mensual:** 50 PV (Puntos de Volumen) en productos.
-
-**Pregunta de seguimiento:** ¿Tiene dudas sobre qué productos elegir para su recompra?
 
 ---
 
@@ -375,10 +368,9 @@ Son Puntos de Volumen que equivalen a una compra de productos. No necesita compr
 
 **Beneficios de su recompra mensual:**
 
-• Recibe productos que consume o comparte
+• Recibe producto que consume o comparte en casa
 • Mantiene su posición activa
-• Cobra las comisiones de su canal
-• Productos que benefician su salud y bienestar
+• Cobra las comisiones que mueve su canal
 
 **El activo es su canal, en acción:**
 
@@ -386,11 +378,11 @@ Su inversión inicial (paquete) le da la posición y los porcentajes. Su recompr
 
 **Resumen:** Paquete empresarial = una vez. Recompra mensual = 50 PV en productos.
 
-**Pregunta de seguimiento:** ¿Quiere saber qué productos puede elegir para su recompra?
+**Pregunta de seguimiento:** ¿Le muestro qué productos suman esos 50 PV?
 
 ---
 
-### **INV_06: "¿Qué productos puedo comprar para mis 50 PV?" / "¿Cómo completo mi recompra mensual?"**
+### **INV_06: "¿Qué productos puedo comprar para mis 50 PV?"**
 **[Índice]:** Qué productos compro para completar mis 50 PV, cómo armo la recompra mensual, qué combinaciones suman esos puntos.
 
 **[Concepto Nuclear]:** 50 PV = productos reales que consume o comparte, no cuotas administrativas.
@@ -455,3 +447,6 @@ Tiene varias opciones para completar sus 50 PV mensuales:
 - No es necesario volver a comprar el paquete - es una única vez
 
 **Recuerde:** Mínimo 50 PV mensual para mantenerse activo. Puede elegir los productos que prefiera consumir o compartir.
+
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se cumple con una caja a la semana?

@@ -1769,6 +1769,31 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_12_niveles
 
+### v5.10 — El arsenal que le robaba consultas a los demás (26 ago 2026)
+
+Auditoría completa de los 14. Se eligió este archivo por una razón medida: **las tres únicas consultas que el benchmark de producción no ganaba en primer puesto las ganaba este arsenal**, quitándoselas a `NET_01`, `FREQ_09` y `COMP_PV_08`.
+
+**La causa de fondo no era el índice: era la duplicación.** Su bloque `INV_*` responde preguntas que pertenecen a `arsenal_compensacion` y a `arsenal_inicial`, con títulos casi calcados —*"¿Cuáles son los paquetes disponibles?"* es idéntico a `COMP_PAQ_01`, y *"¿Cómo completo mi recompra mensual?"* a `COMP_PV_08`—. Y como vive en los mismos tres tenants, compite con todo.
+
+⚠️ **Y ganaba con la respuesta peor.** `INV_04` le sacaba **0.18** a `FREQ_09` en *"todos los meses debo hacer recompra"*, sirviendo la versión vieja: cinco encabezados de sección, jerga (*"la mecánica de sostenibilidad"*, *"actividad de expansión activa"*), un cierre que pedía acuerdo (*"¿tiene dudas?"*) y **una declaración de salud**. `FREQ_09`, la calibrada, quedaba tercera.
+
+⛔ **Dos declaraciones de salud servidas:** *"productos que **benefician directamente su salud**"* (`INV_04`) y *"productos que **benefician su salud** y bienestar"* (`INV_05`).
+
+⚠️ **Y salieron de un barrido que hice mal la primera vez.** Corrí el criterio del guardarraíl solo sobre el catálogo; al pasarlo por **el corpus entero** aparecieron estas dos, más tres en `arsenal_ganocafe` que quedan para su turno (`PROD_02` con *"cura"*, `OBJ_GC_01` con *"Cáncer"*, y una de mecanismo). **El guardarraíl de producción no ve ninguna de estas siluetas**, porque busca enfermedad, órgano y clase farmacológica, no *"beneficia su salud"*.
+
+**Lo demás del barrido:**
+- **`NIVELES_07` decía *"entre más distribuidores conecte, más **garantiza** su propio crecimiento"***. Garantía de resultado. Hoy lo dice por el mecanismo: *"entre más distribuidores tenga directamente, menos depende de lo que haga cada uno"*.
+- ***"Organización"* sobrevivió al barrido de la v5.2 en tres sitios**, todos dentro de tablas y listas: la columna *"Total organización"*, *"su posición en la organización"* y *"Posición en la organización"*. Es el mismo patrón de `ADV_VAL_02` en avanzado — el vocabulario se limpia en la prosa y queda vivo en las tablas.
+- **Cinco títulos** con varios pares de comillas (el bug del fragmentador, **cuarto arsenal**), **cuatro cierres que pedían acuerdo** y las tildes.
+
+**Y el arreglo que resolvió la interferencia:** el título de `NIVELES_05` era *"¿Qué pasa si **no logro** invitar a 2 personas…"*, y ese *no logro* colisionaba con el *"no funcionó"* de quien viene de otro multinivel. Reformulado hacia la demora —*"¿qué pasa si me demoro en completar mis dos del primer nivel?"*—, que además deja de contar personas: **`NET_01` recupera su consulta y `NIVELES_05` gana la suya con más holgura** (0.581 contra 0.488).
+
+**Benchmark de producción: de 37/40 a 38/40 en puesto 1**, 40/40 en top 3, margen medio 0.067.
+
+⏳ **Lo que queda anotado:** `FREQ_09` sigue perdiendo por **0.012** contra `INV_05`, y `WHY_03` por 0.021 contra `OBJ_01`. Los dos correctos quedan en puesto 2 y **las respuestas ya dicen lo mismo**, así que gane quien gane el contenido es correcto. La duplicación de fondo entre `INV_*` y `arsenal_compensacion` se resuelve decidiendo quién es dueño de cada pregunta, no retocando índices.
+
+---
+
 ### v5.9 — El Kit de Inicio deja de ser un consuelo: es el as, y ahora se juega (26 ago 2026)
 
 **El hallazgo es de campo y le da vuelta a una recomendación mía.** Yo había argumentado que abrir el Kit en el cierre de `OBJ_02` costaba plata: al 10% frente al 17% del ESP-3, arrancar con el Kit deja el 41% de la comisión sobre la mesa. La aritmética es correcta y la conducta es la contraria. Doce años de 1-a-1 del Director:

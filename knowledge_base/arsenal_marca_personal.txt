@@ -11,19 +11,21 @@
 ## BLOQUE 1: IDENTIDAD (QUIÉN)
 
 ### QUIEN_01: "¿Quién es Luis Cabrejo? / ¿De qué se trata este sitio?"
-**[Concepto Nuclear]:** Constructor de Plataformas de Negocio y Activos Empresariales. No un coach. Un arquitecto.
+**[Índice]:** Quién es Luis Cabrejo, de qué se trata este sitio, quién está detrás de esto.
+**[Concepto Nuclear]:** Alineado con `STORY_01` de `arsenal_inicial`, que es la versión canónica: **fundador**, no un cargo inventado. ⛔ Decía *"Constructor de Plataformas de Negocio y Activos Empresariales"* y *"para que el constructor administre en lugar de trabajar"* (retirado 26 ago 2026): un título que nadie usa, y una frase que opone administrar a trabajar — el trabajo es digno y señalarlo activa reactancia.
 
-Luis Cabrejo Parra es Constructor de Plataformas de Negocio y Activos Empresariales con base en Colombia.
-Su trabajo es diseñar sistemas donde la tecnología ejecuta el 90% de la operación, para que el constructor administre en lugar de trabajar.
+Luis Cabrejo es el fundador de CreaTuActivo y de Queswa, y construyó este negocio antes de construir la herramienta.
 
-Este sitio documenta su metodología, sus epifanías y los principios detrás del ecosistema que construyó.
-Si estás evaluando si su visión es compatible con la tuya, estás en el lugar correcto.
+Viene del mundo corporativo y de ahí pasó a montar sus propias empresas. En Gano Excel encontró un camino que sí le funcionó —llegó al rango Diamante— y ahí lo confrontó algo: lo que a él le salía natural, a su equipo le costaba.
 
-**Redirección:** Para conocer el vehículo en detalle, visita creatuactivo.com.
+De esa incomodidad salieron creatuactivo.com y Queswa. Este sitio documenta cómo piensa y por qué construyó lo que construyó.
+
+**Pregunta de seguimiento:** ¿Te cuento cuál fue el punto de quiebre?
 
 ---
 
 ### HIST_01: "¿Cuál es tu historia? / ¿Cómo empezaste?"
+**[Índice]:** Cuál es tu historia, cómo empezaste, de dónde vienes, qué te llevó a esto.
 **[Concepto Nuclear]:** Las promesas en Buena Vista. El Plan por Defecto. El vehículo incorrecto.
 
 En los Llanos Orientales, en un mirador llamado Buena Vista, Luis le hizo tres promesas a su esposa: una casa de campo, libertad para comprar sin mirar precios y tres hijos.
@@ -34,24 +36,28 @@ El problema era estructural: el Plan por Defecto (trabajar, pagar cuentas, repet
 
 Esa brecha entre lo prometido y lo cumplido fue el punto de quiebre que lo llevó a construir un modelo diferente desde cero.
 
+**Pregunta de seguimiento:** ¿Te cuento por qué dejó los modelos anteriores?
 ---
 
 ### HIST_02: "¿Por qué dejaste los modelos anteriores? / Las dos epifanías"
+**[Índice]:** Por qué dejaste los modelos anteriores, qué pasó con el multinivel y con el e-commerce, cuáles fueron las epifanías.
 **[Concepto Nuclear]:** El éxito personal que no se duplica. El modelo que falla para la mayoría.
 
 Luis tuvo éxito dos veces. Primero en network marketing — viajes, reconocimiento, liderazgo.
 Primera epifanía: su equipo no replicaba sus resultados. Lo que para él era natural, para otros era una lucha. Un modelo que solo funciona para unos pocos no es una solución real.
 
-Segunda vez: e-commerce durante la pandemia. Ventas continentales. Segunda epifanía: escalar requería dominar marketing, SEO, logística, importaciones. De nuevo, una arquitectura para expertos, no para la persona promedio.
+Segunda vez: e-commerce durante la pandemia, con ventas en todo el continente. Segunda epifanía: crecer pedía dominar marketing, SEO, logística e importaciones. De nuevo, algo hecho para expertos y no para la persona promedio.
 
 La conclusión fue definitiva: **el problema nunca fue la gente. El problema siempre fue el modelo.**
 Por eso dejó de mejorar vehículos rotos y construyó uno nuevo desde los cimientos.
 
+**Pregunta de seguimiento:** ¿Te cuento cuál es su misión?
 ---
 
 ## BLOQUE 2: VISIÓN Y MISIÓN
 
 ### VISION_01: "¿Qué es la soberanía financiera para ti? / ¿Cuál es tu misión?"
+**[Índice]:** Qué es la soberanía financiera para ti, cuál es tu misión, para qué haces esto.
 **[Concepto Nuclear]:** Soberanía no es lujo. Es la capacidad de cumplir tu palabra.
 
 La soberanía financiera no tiene que ver con yates ni relojes.
@@ -60,74 +66,90 @@ Tiene que ver con una pregunta muy simple: ¿puedes cumplir las promesas que les
 Luis define su misión como construir un vehículo que le permita a millones de personas responder esa pregunta con un sí.
 No a través del esfuerzo ilimitado, sino a través de la arquitectura correcta.
 
+**Pregunta de seguimiento:** ¿Te cuento cómo funciona el método?
 ---
 
 ## BLOQUE 3: METODOLOGÍA
 
-### METOD_01: "¿Qué es El Tridente EAM? / ¿Cómo funciona tu metodología?"
-**[Concepto Nuclear]:** Tres fases secuenciales. Cada una tiene un único trabajo.
+### METOD_01: "¿Cómo funciona tu metodología? / ¿Qué hace uno en la práctica?"
+**[Índice]:** Cuál es tu metodología, cómo funciona el método, qué hace uno en la práctica.
+**[Concepto Nuclear]:** **DOS acciones — Compartir y Recibir —, y la multiplicación es la consecuencia.** ⛔ Este fragmento estaba una generación completa atrás (corregido 26 ago 2026): decía *"El Tridente EAM"* con sus fases *Expansión / Activación / Maestría* —los tres nombres retirados el 8 ago—, mandaba distribuir **"el Mapa de Salida"** —un embudo que se eliminó en julio y cuya página hoy da 404— y nombraba **"La Academia"**, que se llama **Maestría**. ⛔ Y decía que Queswa **"califica a los prospectos"**: *calificar* está prohibido junto con *filtrar* y *evaluar* — nadie filtra. El verbo es **madurar la decisión**.
 
-El Tridente EAM es la metodología oficial que estructura la operación del constructor activo en tres fases:
+El método son dos acciones, y las dos se hacen desde el celular:
 
-1. **Expansión:** Tu único trabajo es distribuir el Mapa de Salida y generar tráfico. La tecnología conversa y reconoce quién está listo, automáticamente.
-2. **Activación:** Queswa AI califica a los prospectos. Tú solo intervienes con quien ya levantó la mano.
-3. **Maestría:** La Academia es tu ventaja injusta. Cada semana de aprendizaje acorta la curva que a otros les tomó años.
+📲 **Compartir:** pasas un enlace a quien quieras.
+🤝 **Recibir:** saludas a quien llega con interés.
 
-La secuencia elimina el desgaste: trabajas con apalancamiento, no con volumen bruto de esfuerzo.
+Entre las dos está Queswa: conversa con cada persona, resuelve sus dudas y madura su decisión de avanzar. Cuando alguien está listo, te avisa.
+
+Y como quien entra hace exactamente lo mismo, de ahí salen la multiplicación del negocio y el aumento de la facturación.
+
+**Pregunta de seguimiento:** ¿Te cuento qué es lo que se construye?
 
 ---
 
-### ACTIVO_01: "¿Qué es un activo empresarial? / ¿En qué se diferencia de un empleo?"
-**[Concepto Nuclear]:** Alquiler vs. propiedad. El sueldo es prestado; el activo es propio.
+### ACTIVO_01: "¿En qué se diferencia esto de un empleo? / ¿Qué es lo que se construye?"
+**[Índice]:** Qué es un canal de distribución, en qué se diferencia de un empleo, por qué no es lo mismo que un sueldo.
+**[Concepto Nuclear]:** Arriendo contra vivienda propia. ⛔ Decía *"activo empresarial"*; el activo se nombra **canal de distribución**, siempre y en todas partes (25 ago 2026) — el término que se le enseña a un socio es el que él le enseña al siguiente, así que un vocabulario doble no se puede duplicar.
 
-Un empleo es como vivir en una casa alquilada: funciona mientras pagas con tu tiempo.
-Si dejas de presentarte, el ingreso se detiene. No heredas nada, no transfieres nada.
+Un empleo es como vivir en arriendo: funciona mientras pagas con tu tiempo. Si dejas de presentarte, el ingreso se detiene, y no queda nada a tu nombre.
 
-Un activo empresarial es el título de escrituras. Requiere construcción al principio, pero una vez levantado genera flujo sin que tú estés presente.
-La diferencia no es cuánto ganas — es a quién le pertenece lo que construiste.
+Un canal de distribución es la vivienda propia. Pide construcción al principio, y lo que se mueve por él no depende de que tú estés encima.
+
+La diferencia no está en cuánto ganas — está en a quién le pertenece lo que construiste.
+
+**Pregunta de seguimiento:** ¿Te cuento cómo se construye ese canal?
 
 ---
 
 ### ACTIVO_02: "¿Cómo funciona la arquitectura de activos? / ¿Por qué la tecnología hace el 90%?"
-**[Concepto Nuclear]:** División operativa. Infraestructura + Plataforma + Dirección Ejecutiva.
+**[Índice]:** Cómo funciona la arquitectura, por qué la tecnología hace el noventa por ciento, quién hace cada cosa.
+**[Concepto Nuclear]:** Quién hace cada cosa. ⛔ Decía *"tu rol es la **Dirección Ejecutiva**"* (retirado 26 ago 2026): **el rol no se nombra como cargo** — un cargo evoca hojas de cálculo y le pide al lector una identidad que todavía no se atribuye. La identidad más ligera y más cierta es **dueño**. ⛔ Y decía que la IA *"**educa** automáticamente"*: el verbo canónico es **madura la decisión**.
 
-La arquitectura opera con tres componentes independientes:
+Son tres partes, y cada una tiene su trabajo:
 
-**Gano Excel** provee la infraestructura física — presencia en más de 60 países, con plantas, logística y distribución propias. Tú no fabricas ni almacenas.
-**CreaTuActivo** provee la plataforma digital — la inteligencia artificial conversa con los interesados, presenta el modelo y educa automáticamente.
-**Tu rol es la Dirección Ejecutiva:** suministras la materia prima (tráfico) y tomas decisiones de expansión. La ejecución técnica la resuelve el sistema.
+**Gano Excel** pone lo físico — más de 60 países, con plantas, logística y despacho propios. Tú no fabricas ni almacenas nada.
 
-Es la diferencia entre operar la fábrica y tener el tablero de mando de una infraestructura ya ensamblada.
+**Queswa** pone la conversación — habla con cada interesado, resuelve sus dudas y madura su decisión de avanzar, a toda hora.
+
+**Y tú eres el dueño:** decides con quién compartes tu canal, y recibes a quien llega. El canal es tuyo.
+
+**Pregunta de seguimiento:** ¿Te cuento qué haces tú en el día a día?
 
 ---
 
 ## BLOQUE 4: OBJECIONES
 
 ### OBJ_01: "¿Esto es multinivel / pirámide? / ¿Es legal?"
+**[Índice]:** Esto es multinivel o pirámide, es legal, en qué se diferencia de captar gente.
 **[Concepto Nuclear]:** Nueva categoría. Activos Empresariales ≠ captación masiva de personas.
 
 La confusión es comprensible — el mercado está lleno de modelos que dependen de captar personas masivamente.
-Este no. El modelo de Activos Empresariales genera valor a través de dos fuentes: consumo real de producto (Gano Excel) y tecnología de distribución (CreaTuActivo). El ingreso no depende de cuántas personas conectas al sistema.
+Este no. Lo que se construye es un canal de distribución, y el ingreso sale de dos sitios: el consumo de producto real de Gano Excel y la compra de paquetes empresariales. Se cuenta por producto que se mueve, no por personas que entran.
 
 Las operaciones de Gano Excel tienen presencia en más de 60 países, con cumplimiento regulatorio en cada uno.
 Si lo que buscas es profundizar en la estructura legal, creatuactivo.com tiene la documentación disponible.
 
+**Pregunta de seguimiento:** ¿Te cuento de dónde sale el ingreso?
 ---
 
 ### OBJ_02: "¿Por qué debería confiar en Luis? / ¿Qué resultados tiene?"
+**[Índice]:** Por qué debería confiar en Luis, qué resultados tiene, cómo sé que esto funciona.
 **[Concepto Nuclear]:** El método se prueba por las epifanías que generó, no por los números que proyecta.
 
 La pregunta correcta no es "¿cuánto gana Luis?" — es "¿el sistema que diseñó resuelve el problema que prometió resolver?".
 
 Luis no construyó este modelo para demostrar su propio éxito; lo construyó porque los dos modelos anteriores — donde tuvo éxito personal — no funcionaban para su equipo. Esa insatisfacción con el éxito exclusivo es la razón por la que el diseño del sistema prioriza la replicabilidad sobre el rendimiento individual.
 
-El indicador más confiable de un arquitecto no es su portafolio personal. Es cuántos constructores activos operan su metodología de forma autónoma.
+El indicador más confiable no es su resultado personal. Es cuánta gente tiene hoy su propio canal andando sin depender de él.
 
+**Pregunta de seguimiento:** ¿Te cuento cuál es su historia?
 ---
 
 ## BLOQUE 5: ECOSISTEMA Y CONTACTO
 
 ### PROYECTO_01: "¿Qué proyectos tiene Luis? / ¿Dónde puedo ver más?"
+**[Índice]:** Qué proyectos tiene Luis, dónde puedo ver más, cuáles son sus plataformas.
 **[Concepto Nuclear]:** Ecosistema de cuatro dominios. Cada uno tiene un rol específico.
 
 Luis opera un ecosistema de cuatro plataformas, cada una con un trabajo distinto:
@@ -139,15 +161,17 @@ Luis opera un ecosistema de cuatro plataformas, cada una con un trabajo distinto
 
 Si lo que estás evaluando es si tiene sentido construir en este ecosistema, el paso siguiente es creatuactivo.com.
 
+**Pregunta de seguimiento:** ¿Te cuento por dónde empezar?
 ---
 
 ### CONTACTO_01: "¿Cómo unirme? / ¿Cómo empezar? / ¿Dónde me registro?"
-**[Concepto Nuclear]:** Un solo punto de entrada. Sin atajos, sin listas de correo interminables.
+**[Índice]:** Cómo me uno, cómo empiezo, dónde me registro, cuál es el primer paso.
+**[Concepto Nuclear]:** Un solo punto de entrada: creatuactivo.com. ⛔ **Este fragmento mandaba a una página que ya no existe** (corregido 26 ago 2026): *"ahí encontrarás **El Mapa de Salida** — una auditoría de 5 fases"*. Ese embudo se eliminó en julio de 2026 tras meses sin conversión, y su URL hoy da 404. Era la llamada a la acción principal del sitio personal, apuntando al vacío.
 
-El punto de entrada al ecosistema es uno: **creatuactivo.com**.
-Ahí encontrarás El Mapa de Salida — una auditoría de 5 fases que te ayuda a diagnosticar si este vehículo es compatible con tu situación actual.
+El punto de entrada es uno: **creatuactivo.com**.
 
-No hay formularios de interés ni listas de espera artificiales.
-Si la auditoría tiene sentido para ti, el sistema te guía al siguiente paso de forma automática.
+Ahí está Queswa, que conversa contigo y resuelve lo que quieras preguntar — sin formularios, sin listas de espera y sin que nadie te llame antes de que tú lo pidas.
+
+**Pregunta de seguimiento:** ¿Quieres que te cuente qué vas a encontrar ahí?
 
 ---

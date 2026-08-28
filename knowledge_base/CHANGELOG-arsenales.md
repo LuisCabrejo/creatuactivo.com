@@ -1770,6 +1770,40 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ---
 
+## arsenal_marca_personal
+
+### v2.0 — Un arsenal entero congelado en el léxico de mayo (26 ago 2026)
+
+Auditoría completa de los 11, y cierra la revisión de los siete archivos del corpus. Sirve a **luiscabrejo.com** desde el tenant `marca_personal`.
+
+**Este archivo no era el caso de un fragmento desactualizado: era la generación completa.** Como vive en su propio tenant y no compite con nadie, ninguno de los barridos léxicos de los últimos meses lo alcanzó.
+
+| Dónde | Qué decía | Retirado desde |
+|---|---|---|
+| `METOD_01` título y cuerpo | **El Tridente EAM**, con sus fases *Expansión · Activación · Maestría* | 8 ago |
+| `METOD_01` | *"distribuir **el Mapa de Salida**"* | el embudo se **eliminó en julio**; la URL da 404 |
+| `METOD_01` | *"**La Academia** es tu ventaja injusta"* | se llama **Maestría** |
+| `METOD_01` | *"Queswa **califica** a los prospectos"* | *filtrar · calificar · evaluar* — **nadie filtra** |
+| `ACTIVO_01` título y cuerpo | **activo empresarial** | el activo es **canal de distribución** (25 ago) |
+| `ACTIVO_02` | *"tu rol es la **Dirección Ejecutiva**"* | el rol **no se nombra como cargo** (8 ago) |
+| `ACTIVO_02` | la IA *"**educa** automáticamente"* | el verbo es **madura la decisión** |
+| `QUIEN_01` | *"Constructor de Plataformas de Negocio y Activos Empresariales"* | título inventado; hoy **fundador**, alineado con `STORY_01` |
+| `HIST_02` | *"**escalar** requería…"* | → **crecer** |
+
+⛔ **Y el defecto más caro no era de léxico: `CONTACTO_01` mandaba a una página que no existe.** Decía *"ahí encontrarás **El Mapa de Salida** — una auditoría de 5 fases"*, y ese embudo se retiró en julio de 2026 tras meses sin conversión. **Era la llamada a la acción principal del sitio personal, apuntando al vacío.**
+
+`QUIEN_01` decía además *"para que el constructor **administre en lugar de trabajar**"*: oponer administrar a trabajar es exactamente lo que la doctrina prohíbe — el trabajo es digno y señalarlo activa reactancia.
+
+**Lo que se revisó y NO se tocó, con su motivo:**
+- **`VISION_01` conserva *soberanía financiera***. El término está retirado en todo el corpus **con una excepción escrita: el lema de Luis**, y este fragmento *es* ese lema — *"la soberanía financiera no se trata de lujos; se trata de poder cumplir tu palabra"*. Es además la frase clave de `EPIPHANY_BRIDGE_OFICIAL.md`, el documento maestro del relato.
+- **El registro es TUTEO** y se conservó en todo lo reescrito: es un sitio personal con otra audiencia, igual que ganocafe.
+
+**Y lo estructural, idéntico a ganocafe: cero índices y cero preguntas de cierre, de once.** Se quedó fuera de la migración del 25 de agosto por la misma razón —tenant propio, sin competencia— así que se indexaba por el cuerpo entero. Hoy: **11 índices y 11 cierres**, con **10 de 11 en el puesto 1 y 11 de 11 en top 3**.
+
+⏳ Queda un cruce menor anotado: *"¿cuál es su misión?"* la gana `ACTIVO_01` por poco y `VISION_01` cae al puesto 3 — dentro del top 3 que entrega el motor.
+
+---
+
 ## arsenal_ganocafe (tenant `ecommerce`)
 
 ### v2.0 — El arsenal sin guardarraíl tenía las declaraciones de salud más graves del corpus (26 ago 2026)

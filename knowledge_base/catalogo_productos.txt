@@ -20,9 +20,13 @@
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor sobre el producto]**
 **[Concepto Nuclear]:** Penetración Logística sin Fricción. Monetización de un hábito biológico inquebrantable.
 
-A nivel de diseño de negocios, el vehículo de distribución primario es el café porque posee barrera de entrada cero. No requiere modificar la conducta del mercado.
+El café es la puerta más sencilla porque nadie tiene que cambiar de hábito: ya se toma todos los días, en todas las casas.
 
-La lógica operativa es matemática: en lugar de educar a un cliente para que adquiera un nuevo hábito, usted integra tecnología propietaria de bioactivación de grado médico en una bebida que el mercado ya consume por necesidad biológica diaria. La conversión de consumidor tradicional a usuario del ecosistema ocurre de forma orgánica.
+Ahí está la diferencia con casi cualquier otro producto. No hay que convencer a nadie de empezar algo nuevo — solo de cambiar el que ya toma por uno mejor.
+
+Y como se acaba, se vuelve a pedir. Esa recompra es la que sostiene el ingreso.
+
+**Pregunta de seguimiento:** ¿Le muestro la línea completa de bebidas?
 
 ---
 
@@ -31,9 +35,11 @@ La lógica operativa es matemática: en lugar de educar a un cliente para que ad
 **[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor]**
 **[Concepto Nuclear]:** Retención Orgánica y Re-consumo Automático.
 
-La estabilidad del ingreso se fundamenta en la alta tasa de retención de la infraestructura (superior al 85%).
+Porque no hay nada que sostener. El cliente no vuelve por disciplina: vuelve porque se le acabó y le gustó.
 
-Una vez que el sistema metabólico del usuario experimenta la diferencia biológica del Ganoderma lucidum frente al café convencional, la transición es definitiva. El re-consumo no depende de persuasión comercial ni de recordatorios; se ejecuta automáticamente como parte de la rutina diaria del usuario. Esto garantiza que el Director perciba regalías ininterrumpidas (Lifetime Value superior a 36 meses) por un esfuerzo de acoplamiento ejecutado una sola vez.
+Quien prueba el Ganocafé y nota la diferencia frente al café de siempre no vuelve al genérico. Y esa segunda compra ya no le cuesta trabajo a usted: la pide él.
+
+**Pregunta de seguimiento:** ¿Le muestro de dónde sale el ingreso recurrente?
 
 ---
 
@@ -41,10 +47,11 @@ Una vez que el sistema metabólico del usuario experimenta la diferencia biológ
 **[Índice]:** Y los que no toman café qué, si a alguien no le gusta el café qué le ofrezco, hay opciones sin café.
 **[Concepto Nuclear]:** Mercado Invisible. El 15% de hogares no toma café. Cuidado personal los captura.
 
-La línea de cuidado personal abre otra puerta:
-- Pasta dental Gano Fresh: se repite sin falta en todo hogar.
-- Jabones y Shampoo: Entrada para familias conscientes.
-- Sin competencia: Nadie más ofrece pasta con Ganoderma.
+Para eso está el resto del portafolio, y es más grande de lo que parece.
+
+En bebidas hay chocolate, té rooibos y un cereal con spirulina, para quien no toma café. Y la línea de cuidado personal entra por otro lado: pasta de dientes, dos jabones, champú, acondicionador y exfoliante — cosas que se acaban en cualquier casa y se vuelven a comprar.
+
+**Pregunta de seguimiento:** ¿Le muestro las cuatro líneas?
 
 ---
 
@@ -64,17 +71,17 @@ Para su canal eso significa que quien ya tiene la máquina vuelve por las cápsu
 **[Índice]:** Cuál es la progresión natural del portafolio, con qué empieza un cliente y a qué pasa después.
 **[Concepto Nuclear]:** Escalada de Concentración. La lógica de progresión del consumidor es técnicamente predecible.
 
-Una vez que el usuario valida la respuesta biológica a las bebidas funcionales, la transición a suplementos concentrados es consecuencia natural — no requiere persuasión comercial:
+Casi siempre empieza por una bebida —el café o el chocolate—, que es lo más fácil de incorporar porque reemplaza algo que ya se toma.
 
-- **Concentración superior:** Las cápsulas contienen la dosis activa sin dilución en líquido
-- **Lógica de escalada documentada:** El usuario que experimenta respuesta en bebidas busca optimización de dosis
-- **Progresión de inversión mensual:** De $110,900 (bebidas) → $272,500–$336,900 (suplementos concentrados)
+De ahí, quien quiere algo más concentrado pasa a las cápsulas: Ganoderma, Excellium o Cordygold. No es un paso que haya que empujar; suele pedirlo el mismo cliente cuando ya conoce la línea.
+
+**Pregunta de seguimiento:** ¿Le muestro los suplementos?
 
 ---
 
 ## RESPALDO CIENTÍFICO
 
-### CIENCIA_01: "¿Qué es el Ganoderma Lucidum?" / "¿Qué es el Ganoderma?" / "¿De qué es el hongo?"
+### CIENCIA_01: "¿Qué es el Ganoderma Lucidum? / ¿De qué es el hongo?"
 **[Índice]:** Qué es el Ganoderma Lucidum, qué es ese hongo, de qué está hecho lo que venden.
 **[Concepto Nuclear]:** Quien pregunta qué es el Ganoderma está midiendo si esto es serio. El eje de la respuesta es **la absorción**: tener el ingrediente no basta, el cuerpo tiene que poder asimilarlo — y ahí es donde Gano Excel se separa del hongo molido que vende cualquiera. La prueba es observable en la taza (se disuelve completo), no citada. ⚠️ El respaldo del proceso se nombra en AFIRMATIVO —**secreto industrial**, protección indefinida— sin explicar la mecánica legal de las patentes: es ruido cognitivo y desvía del beneficio. ⚠️ **La composición se nombra; la función se atribuye solo al conjunto.** Nada de estudios, revistas ni rutas biológicas: la evidencia verificable —fundador con nombre y año, seis variedades, hidrosolubilidad— vence a cualquier paper. El detalle del proceso (sustrato de corteza de caucho, CO2 supercrítico, cultivo de tejidos) vive en CIENCIA_04 y se entrega solo si preguntan cómo lo hacen.
 
@@ -87,7 +94,7 @@ El resultado es un extracto 100% hidrosoluble: se disuelve por completo en la ta
 **Pregunta de seguimiento:** ¿Le muestro los productos que la llevan?
 ---
 
-### CIENCIA_02: "¿Cuáles son los compuestos activos?" / "¿Qué tiene el Ganoderma?"
+### CIENCIA_02: "¿Cuáles son los compuestos activos? / ¿Qué tiene el Ganoderma?"
 **[Índice]:** Qué compuestos activos tiene el Ganoderma, qué contiene, cuáles son sus componentes.
 **[Concepto Nuclear]:** Quien pregunta por "compuestos activos" viene con cabeza de farmacia, buscando la molécula que produce el efecto. La respuesta **le cambia el marco**: no hay compuesto estrella, hay familias — y ese es justamente el criterio de Gano Excel (no aislar, conservar el conjunto). ⚠️ **Este fragmento NO repite el argumento de la absorción**, que es de CIENCIA_01: aquí se remata en las seis variedades como decisión de composición. ⚠️ La función se nombra **en conjunto y en afirmativo** ("juntos apoyan el sistema inmune") — nunca colgada a un compuesto individual, que es el patrón que producía declaraciones de propiedades. ⚠️ La cifra se enuncia siempre igual: **más de doscientas variantes de triterpenos identificadas en el hongo**. Es un dato de composición, y esa es la única forma en que se dice — las categorías nutricionales están reguladas y exigen tabla nutricional que las respalde.
 
@@ -100,7 +107,7 @@ Y ese es el criterio de Gano Excel: no aislar una molécula y multiplicarla, sin
 **Pregunta de seguimiento:** ¿Le muestro los productos que lo llevan?
 ---
 
-### CIENCIA_03: "¿Qué beneficios tiene?" / "¿Qué se siente al tomarlo?" / "¿Cuáles son los beneficios?"
+### CIENCIA_03: "¿Qué beneficios tiene? / ¿Qué se siente al tomarlo?"
 **[Índice]:** Qué beneficios tiene, qué se siente al tomarlo, para qué sirve, qué cambios se notan.
 **[Concepto Nuclear]:** El eje es **el tiempo**, y ahí está la división de trabajo con BEB_02: aquella responde qué pasa en la taza; esta, qué pasa con la rutina. ⚠️ **No prometer efecto inmediato completo** — el propio catálogo dice que se acumula, y prometer inmediatez decepciona a quien ya compró. El remate convierte esa lentitud en la razón de compra ("la diferencia entre un empujón y un hábito"). ⚠️ La única función que se nombra es **"apoya el funcionamiento normal de sus defensas"**, que es la formulación que los reguladores aceptan literalmente. Cero estudios, cero revistas, cero biomarcadores. ⚠️ La pregunta de cierre **NO pide un objetivo de salud** ("¿qué quiere priorizar?"): eso es pedirle a la persona que declare una condición.
 
@@ -128,8 +135,8 @@ Es la diferencia entre un empujón y un hábito.
 - Extracción Dual: Acuosa + CO2 supercrítico + ultrasonido
 - Spray Drying: Extracto 100% hidrosoluble
 
-**Diferencia clave:**
-En el mercado abundan productos con Ganoderma en polvo, de biodisponibilidad limitada: la pared celular de quitina no digerida bloquea la absorción. El extracto Gano Excel es 100% hidrosoluble — la tecnología de extracción dual elimina la barrera y garantiza asimilación completa por el sistema gastrointestinal. No es "Ganoderma" a secas: es el híbrido de las 6 variedades de mayor valor, en extracto puro hidrosoluble.
+**La diferencia:**
+Casi todo lo que se consigue en el mercado es Ganoderma en polvo, el hongo molido. Gano Excel no vende polvo: vende **extracto**, obtenido con la tecnología de extracción dual elimina la barrera y garantiza asimilación completa por el sistema gastrointestinal. No es "Ganoderma" a secas: es el híbrido de las 6 variedades de mayor valor, en extracto puro hidrosoluble.
 
 ---
 
@@ -137,9 +144,11 @@ En el mercado abundan productos con Ganoderma en polvo, de biodisponibilidad lim
 **[Índice]:** Quién fundó Gano Excel, quién está detrás de la empresa, de dónde salió la compañía.
 **[Concepto Nuclear]:** Dr. Leow Soon Seng. Micólogo malasio. Investigador desde 1983.
 
-**Credenciales:**
-- Pionero en cultivo de tejidos de Ganoderma
-- Estrategia de 6 variedades: Rojo, Púrpura, Verde, Blanco, Amarillo, Negro
+Gano Excel la fundó un micólogo malasio que estudia el Ganoderma desde 1983 — es decir, la empresa nació de alguien que llevaba una década con el hongo antes de venderlo, no al revés.
+
+Suyo es el cultivo de tejidos con el que hoy se produce, y la idea de reunir las seis variedades del Reishi —rojo, púrpura, verde, blanco, amarillo y negro— en un solo híbrido.
+
+**Certificaciones:**
 
 **Certificaciones:**
 | Certificación | Descripción |
@@ -204,7 +213,7 @@ La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — t
 
 ---
 
-### BEB_02: "¿Para qué sirve el Ganocafé 3en1?" / "¿Qué beneficios tiene el Ganocafé?" / "¿Para qué sirve el café 3 en 1?" / "¿Para qué sirve el ganocafé?"
+### BEB_02: "¿Para qué sirve el Ganocafé 3 en 1? / ¿Qué tiene de especial ese café?"
 **[Índice]:** Para qué sirve el Ganocafé 3en1, qué beneficios tiene el café 3 en 1, cuánto cuesta.
 **[Concepto Nuclear]:** El villano es **la energía prestada**: el café común la entrega a las siete y la cobra a las once, y los intereses son los nervios y el estómago. Marco financiero — el registro sube tomando prestado el léxico de las finanzas, no el del gremio. ⚠️ **El villano se puede pintar con crudeza porque es el café corriente, no nuestro producto**; lo nuestro se afirma siempre como AUSENCIA de ese costo, nunca como una acción del producto sobre un órgano del lector: describir lo que no ocurre es la fórmula segura, y atribuirle al producto un efecto corporal es una declaración de propiedad. ⚠️ "Amortigua la cafeína" es la formulación del propio fabricante. ⚠️ **El cuarto ingrediente** es el remate: el nombre promete tres (café, crema no láctea, azúcar) y el valor está en el que no cabe en el nombre. ⚠️ NO comparar el precio con "el café de la esquina" — en Colombia hay tinto de $1.000 y el dato se lee como mentira.
 
@@ -221,7 +230,7 @@ La caja trae 20 sobres —uno cada mañana, le alcanza para veinte— y cuesta $
 **Pregunta de seguimiento:** ¿Le muestro la línea completa?
 ---
 
-### BEB_03: "¿El Ganocafé tiene cafeína?" / "¿Cuánta cafeína tiene?"
+### BEB_03: "¿El Ganocafé tiene cafeína? / ¿Cuánta cafeína tiene?"
 **[Índice]:** El Ganocafé tiene cafeína, cuánta cafeína trae, me va a quitar el sueño.
 **[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
 **[Concepto Nuclear]:** Sí tiene cafeína, pero en proporción controlada — 13 veces menor que el café convencional.
@@ -615,14 +624,13 @@ Los suplementos vienen en frascos de 90 cápsulas, una al día: le rinden tres m
 **[Índice]:** Es seguro tomarlo todos los días, hace daño el consumo diario, tiene contraindicaciones.
 **[Concepto Nuclear]:** 2,000 años de uso. Perfil de seguridad excelente.
 
-Ganoderma tiene seguridad documentada:
-- Uso tradicional: 2,000+ años sin toxicidad reportada
-- Efectos secundarios: Raros y leves (<5% usuarios)
+Sí, y de hecho está pensado para eso: es una bebida, no un tratamiento. Se toma todos los días, como se toma un café.
 
-**Consultar médico si:**
-- Toma anticoagulantes
-- Usa inmunosupresores
-- Tiene cirugía programada (suspender 2 semanas antes)
+El Ganoderma se consume en Asia desde hace siglos, y en Gano Excel lleva treinta años de producción propia con registro sanitario vigente en cada país.
+
+Y lo sensato de siempre: si usted está en tratamiento médico o tiene alguna condición, coméntelo con su médico antes — igual que con cualquier alimento o suplemento nuevo.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se integra en el día a día?
 
 ---
 
@@ -630,15 +638,13 @@ Ganoderma tiene seguridad documentada:
 **[Índice]:** En cuánto tiempo se notan los cambios, cuánto hay que tomarlo para sentir algo.
 **[Concepto Nuclear]:** Acumulación Metabólica vs. Estimulación Artificial.
 
-La tecnología de bioactivación del Ganoderma no funciona bajo el mecanismo de los estimulantes artificiales que generan picos agudos y caídas de energía. Trabaja mediante acumulación metabólica.
+Lo primero se nota desde la primera taza: energía pareja, sin el bajón de media mañana.
 
-| Plazo | Proceso Biológico |
-|-------|-------------------|
-| Días–2 semanas | Estabilización energética, claridad mental, optimización del ciclo de sueño |
-| 4–8 semanas | Soporte inmunológico documentado, optimización de procesos digestivos |
-| 3–6 meses | Fortalecimiento de respuesta inmune y balance metabólico sostenido |
+Lo demás pide rutina. Quienes lo toman a diario suelen contar, a las pocas semanas, que descansan mejor y que los días exigentes se llevan distinto.
 
-Los beneficios biológicos se acumulan y consolidan mediante el consumo consistente, respaldados por la absorción del 100% de su extracto hidrosoluble.
+No es un estimulante que entra y sale — se va acomodando. Por eso la constancia importa más que la cantidad.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se integra en el día a día?
 
 ---
 
@@ -646,14 +652,16 @@ Los beneficios biológicos se acumulan y consolidan mediante el consumo consiste
 **[Índice]:** Puedo combinar productos, se pueden tomar juntos, hay problema si mezclo.
 **[Concepto Nuclear]:** Efecto sinérgico. Combinar potencia resultados.
 
-**Combinaciones por objetivo:**
+Claro, y es lo más común: la mayoría arma su propia combinación con lo que ya consume.
 
-| Objetivo | Combinación |
+| Si busca | Combinación habitual |
 |----------|-------------|
-| Energía/Enfoque | Ganocafé 3en1 + Excellium |
+| Energía y enfoque | Ganocafé 3 en 1 + Excellium |
 | Rendimiento físico | Ganocafé Clásico + Cordygold |
-| Inmunidad máxima | Schokoladde + Cápsulas Ganoderma |
-| Bienestar integral | Ganocafé 3en1 + Reskine Colágeno |
+| Algo para toda la casa | Shoko Rico + Jabón Gano |
+| Piel y cabello | Reskine Colágeno + Piel&Brillo |
+
+**Pregunta de seguimiento:** ¿Le muestro el catálogo completo con precios?
 
 ---
 
@@ -666,7 +674,9 @@ Los beneficios biológicos se acumulan y consolidan mediante el consumo consiste
 | Profesional Corporativo | LUVOCO + Ganocafé 3en1 + Excellium |
 | Atleta/Activo | Ganocafé Clásico + Cordygold + Spirulina |
 | Familia Consciente | Schokoladde + Jabón Gano + Shampoo P&B |
-| Minimalista | Cápsulas Ganoderma (máxima concentración) |
+| Minimalista | Cápsulas de Ganoderma |
+
+**Pregunta de seguimiento:** ¿Le muestro el catálogo completo con precios?
 
 ---
 
@@ -681,12 +691,12 @@ Los beneficios biológicos se acumulan y consolidan mediante el consumo consiste
 | Suplementos Avanzados | $272,500 - $336,900 |
 | Máquina LUVOCO | $1,026,000 |
 
-**Estadísticas:**
-- 22 productos con tecnología propietaria
+**[Referencia interna — este bloque se sirve pegado a FAQ_04, así que se escribe con el mismo criterio]:**
+- 22 productos, con extracto propio
 - 16 países de América con distribución local
-- Proceso extracción protegido por secretos industriales
-- Cultivo y extracción propios, con 30+ años de proceso
-- 100% hidrosoluble (absorción garantizada)
+- Cultivo y extracción propios, con más de 30 años de proceso
+
+⛔ **Salió *"100% hidrosoluble (absorción garantizada)"*** (26 ago 2026): **la composición se afirma; la absorción no**. Una garantía de absorción es una afirmación fisiológica, y encima con la palabra *garantizada*. Salió también *"proceso protegido por secretos industriales"*, que no aporta y suena a que hay algo que esconder.
 
 ---
 

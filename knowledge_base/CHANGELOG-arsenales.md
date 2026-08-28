@@ -1561,6 +1561,42 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.9 — El catálogo tenía dos generaciones de texto, y la vieja no la tocó nadie (26 ago 2026)
+
+Tercera fase, y la de más riesgo del corpus entero.
+
+**El diagnóstico:** la reescritura del 22 de agosto —la que retiró las declaraciones de salud— tocó la página `/sistema/productos` y los 22 productos. **Los bloques `PROD_*`, `CIENCIA_*` y `FAQ_*` quedaron en su versión de enero**, la que el propio archivo rotula *"v6.0 JOBS/NAVAL"*: jerga de consultoría, mecanismo fisiológico, *"el Director"* (retirado el 8 ago) y `FAQ_04` sirviendo una línea de changelog como contenido.
+
+⚠️ **Y mi primer barrido no los vio.** Pasé el criterio del guardarraíl —enfermedad, órgano, adelgazamiento, clase farmacológica— y dio cero. Estos fragmentos usan **el vocabulario del mecanismo**: *metabólico · biológico · absorción · biodisponibilidad · inmunológico*, que no estaba en el patrón. **El guardarraíl de producción tiene el mismo hueco**, y por eso ninguna de estas frases habría sido bloqueada.
+
+**Lo que estaba desplegado:**
+
+- **`FAQ_01` daba consejo médico.** *"Consultar médico si: toma **anticoagulantes**, usa **inmunosupresores**, tiene **cirugía programada (suspender 2 semanas antes)**"*. Dos clases farmacológicas —que el guardarraíl bloquea por nombre— y una **instrucción clínica**. Más *"2.000+ años sin toxicidad reportada"* y *"efectos secundarios <5% usuarios"*, dos afirmaciones de seguridad con cifra.
+- **`PROD_02` prometía ingreso con garantía y plazo:** *"esto **garantiza** que el Director perciba **regalías ininterrumpidas** (Lifetime Value **superior a 36 meses**) por un esfuerzo ejecutado **una sola vez**"*. Garantía, duración, esfuerzo mínimo y léxico retirado, en una frase. Más *"el sistema metabólico del usuario experimenta la diferencia biológica"* y una retención del 85% sin fuente.
+- **`FAQ_02` era una tabla de efectos fisiológicos por plazo:** *"Proceso Biológico · optimización del ciclo de sueño · Soporte inmunológico documentado · optimización de procesos digestivos · Fortalecimiento de respuesta inmune"*, todo *"respaldado por la **absorción del 100%**"*.
+- **`CIENCIA_04`** explicaba que *"la pared celular de quitina no digerida **bloquea la absorción**"*. La regla está escrita: **la composición se afirma; la absorción no.**
+- **`FAQ_04` arrastraba un bloque entero** que se le sirve pegado por detrás, con *"100% hidrosoluble (**absorción garantizada**)"* — una garantía fisiológica — y *"proceso protegido por secretos industriales"*, que no aporta y suena a que hay algo que esconder.
+- **`PROD_01`** hablaba de *"tecnología propietaria de bioactivación de **grado médico**"* en *"una bebida que el mercado consume por **necesidad biológica diaria**"*.
+- **`PROD_03`** afirmaba *"**sin competencia**: nadie más ofrece pasta con Ganoderma"*, y **`PROD_05`** hablaba de *"validar la **respuesta biológica**"* y *"optimización de **dosis**"*, que es lenguaje farmacéutico.
+- **`FAQ_03`** ofrecía una combinación para *"**inmunidad máxima**"*.
+
+**Y `CIENCIA_05` no respondía su propia pregunta.** Se titula *"¿Quién fundó Gano Excel?"* y entregaba credenciales y una tabla de certificaciones. El dato estaba en el corpus —`CIENCIA_01` dice que es un micólogo malasio que estudia el hongo desde 1983— y ahora lo responde de frente.
+
+**Los nueve reescritos con el criterio vigente:** sensorial y verificable, sin mecanismo ni absorción ni dosis, y con pregunta de seguimiento. `FAQ_02` quedó alineado con `CIENCIA_03`, que era la versión ya aprobada.
+
+⚠️ **`FAQ_01` conserva la remisión al médico, sin nombrar fármacos:** *"si usted está en tratamiento médico o tiene alguna condición, coméntelo con su médico antes — igual que con cualquier alimento o suplemento nuevo"*. Se puede ser prudente sin dar indicaciones.
+
+**Y cinco títulos más cortados por el fragmentador** —`CIENCIA_01`, `CIENCIA_02`, `CIENCIA_03`, `BEB_02`, `BEB_03`— por el formato de varios pares de comillas. Es el tercer arsenal con el mismo bug. `CIENCIA_03` había quedado con el título *"¿Qué beneficios tiene?"* a secas: tres palabras, en el fragmento de más riesgo del corpus.
+
+**Lo que se revisó y NO se tocó, con su motivo:**
+- **Los cierres repetidos por familia** —cinco fragmentos de cuidado personal ofrecen *"el resto de la línea"*— son **correctos por diseño**: son productos hermanos y el paso siguiente es el mismo. La repetición la maneja la regla del system prompt.
+- **Los 25 títulos largos** cargan los nombres coloquiales del prospecto (*"el chocolate de los niños"*, *"schokoladde"*, *"choko rico"*), que son disparadores valiosos. Se miden antes de cortar.
+- **Los precios en COP de 29 cuerpos** van con el pendiente general de moneda.
+
+Verificación: los cinco vectores de riesgo a cero en producción · clasificador 58/58 · guardarraíles de salud y negocio en verde · 0 frases vetadas · los fragmentos reescritos encabezan sus consultas (0.672 · 0.597 · 0.692).
+
+---
+
 ### v7.8 — Una afirmación falsa sobre un alérgeno, verificada contra el fabricante (26 ago 2026)
 
 Segunda fase. El Director pidió **verificar antes de retirar**, con dos fuentes: `ganoexcel.com.co` y `ganoexcel.us`. Y puso el criterio: *"no quiero dar una respuesta técnica; nuestra respuesta tiene que generar el deseo de tomar o utilizar, no fricción. Además en doce años nadie me ha preguntado por los alérgenos."*

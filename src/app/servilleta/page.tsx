@@ -2561,7 +2561,7 @@ export default function ServilletaPage() {
                 </div>
                 <div className="card-content">
                   <span className="pillar-eyebrow">M&eacute;todo comprobado</span>
-                  <h3 className="pillar-name">Tres pasos sencillos</h3>
+                  <h3 className="pillar-name">Dos pasos sencillos</h3>
                 </div>
               </div>
 

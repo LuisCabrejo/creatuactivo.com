@@ -11,6 +11,7 @@
 ## BLOQUE 1: PRODUCTOS ESTRELLA
 
 ### PROD_01: "¿Qué es GanoCafe? / ¿Qué venden?"
+**[Índice]:** Qué es GanoCafé, qué venden ustedes, qué es lo que ofrecen aquí.
 **[Concepto Nuclear]:** Café funcional con Ganoderma Lucidum. El placer del café más el respaldo de un hongo milenario.
 
 GanoCafe es una línea de bebidas funcionales que combina café de alta calidad con extractos de Ganoderma Lucidum, un hongo adaptógeno usado en la medicina tradicional asiática durante más de 4.000 años.
@@ -19,22 +20,24 @@ El resultado: el ritual diario del café, con beneficios que van más allá de l
 La línea incluye café negro, café con crema, café 3 en 1, chocolate, té y suplementos puros de Ganoderma.
 Todos los productos son distribuidos por Gano Excel, empresa con presencia en más de 60 países.
 
+**Pregunta de seguimiento:** ¿Te muestro los productos?
 ---
 
 ### PROD_02: "¿Qué es el Ganoderma Lucidum? / ¿Para qué sirve?"
-**[Concepto Nuclear]:** Adaptógeno milenario. Modula, no estimula. Efecto acumulativo.
+**[Índice]:** Qué es el Ganoderma Lucidum, qué es el Reishi, para qué sirve ese hongo, qué tiene de especial.
+**[Concepto Nuclear]:** Qué es el hongo, contado por la **experiencia** y no por sus compuestos. *Adaptógeno* es término aprobado y se conserva. ⛔ Salieron *polisacáridos (soporte inmune)* y *triterpenos (modulación del estrés oxidativo)* (26 ago 2026): nombrar el compuesto y atribuirle una función es la definición de declaración de mecanismo.
 
-El Ganoderma Lucidum (Reishi) es un hongo catalogado como adaptógeno — una sustancia que ayuda al cuerpo a responder mejor al estrés físico y emocional sin generar dependencia ni picos artificiales.
-A diferencia de la cafeína sola, el Ganoderma puede contribuir a un estado de energía más sostenido y a una recuperación más eficiente.
+El Ganoderma Lucidum —también llamado Reishi— es un hongo que en Asia se consume desde hace siglos, y se clasifica como **adaptógeno**: acompaña al cuerpo en vez de estimularlo, así que no produce el pico y la caída de la cafeína sola.
 
-Sus compuestos activos más estudiados son los polisacáridos (soporte inmune) y los triterpenos (modulación del estrés oxidativo).
-Los efectos son acumulativos: la mayoría de los usuarios reporta diferencias notables después de 2 a 4 semanas de consumo consistente.
+Lo que la gente nota primero es la energía: pareja, sin nervios y sin el bajón de media mañana. Lo demás llega con la rutina — quienes lo toman a diario suelen contar, a las pocas semanas, que descansan mejor.
 
-**Nota:** El Ganoderma puede contribuir al bienestar general. No reemplaza tratamiento médico ni cura enfermedades.
+**Nota:** el Ganoderma acompaña tu bienestar. No es un medicamento y no reemplaza ningún tratamiento.
 
+**Pregunta de seguimiento:** ¿Te cuento cómo se toma?
 ---
 
 ### PROD_03: "¿Qué productos tienen? / ¿Cuál me recomiendas?"
+**[Índice]:** Qué productos tienen, cuál me recomiendas, qué me sirve a mí, muéstrame el catálogo.
 **[Concepto Nuclear]:** Cuatro categorías: cafés, otras bebidas, suplementos y cuidado personal. La elección depende del hábito actual.
 
 El catálogo completo con precios en ganocafe.online (precio al público oficial Gano Excel entre paréntesis):
@@ -72,9 +75,11 @@ Todas las cápsulas incluyen betaglucanos de Ganoderma lucidum, buena fuente de 
 
 Si ya tomas café a diario, el **3 en 1** o el **Clásico** son el punto de entrada natural: mismo ritual, beneficio adicional — y con un ahorro real respecto al precio de lista oficial.
 
+**Pregunta de seguimiento:** ¿Sobre cuál quieres que te cuente?
 ---
 
 ### PROD_05: "¿Tienen algún té? / háblame del té / ¿qué es el Rooibos? / té con Ganoderma / bebida sin cafeína"
+**[Índice]:** Tienen algún té, háblame del té, qué es el Rooibos, una bebida sin cafeína.
 **[Concepto Nuclear]:** Oleaf Gano Rooibos — el único té de la línea. Sin cafeína. Para quienes no toman café o quieren variedad.
 
 El **Oleaf Gano Rooibos** es la infusión de la línea GanoCafé, y la opción perfecta para quien quiere los beneficios del Ganoderma sin cafeína.
@@ -90,9 +95,11 @@ El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el
 **Presentación:** 20 sobres por caja
 Pedidos en ganocafe.online — envío express, despacho el mismo día.
 
+**Pregunta de seguimiento:** ¿Te muestro las otras bebidas?
 ---
 
 ### PROD_06: "¿Tienen cereal? / háblame del Gano C'Real / ¿qué es la spirulina? / Gano cereal / bebida con spirulina"
+**[Índice]:** Tienen cereal, háblame del Gano C'Real, qué es la spirulina, la bebida con spirulina.
 **[Concepto Nuclear]:** Gano C'Real Spirulina — el "cereal funcional" de la línea. Spirulina + Ganoderma. El desayuno inteligente.
 
 El **Gano C'Real Spirulina** (pronunciado "Gano-Cereal") es una bebida instantánea de desayuno que combina:
@@ -106,9 +113,11 @@ Personas activas, deportistas, o quien quiere un desayuno funcional sin recurrir
 **Presentación:** 15 sobres por caja
 Pedidos en ganocafe.online — envío express, despacho el mismo día.
 
+**Pregunta de seguimiento:** ¿Te muestro las otras bebidas?
 ---
 
 ### PROD_07: "¿Qué es Luvoco? / ¿cómo funciona? / ¿tienen cápsulas de café? / café en cápsulas / Luvoco suave / medio / fuerte"
+**[Índice]:** Qué es el Luvoco, cómo funciona, tienen cápsulas de café, el café en cápsulas, suave medio o fuerte.
 **[Concepto Nuclear]:** Luvoco — café en cápsulas con Ganoderma lucidum. Sistema propio de Gano Excel. Tres intensidades de tostado.
 
 **Luvoco** es la línea de café en cápsulas de Gano Excel, diseñada para prepararse en la **Máquina Luvoco** (cafetera de cápsulas propia de la marca).
@@ -129,54 +138,56 @@ Cada cápsula combina café tostado de alta calidad con **betaglucanos de Ganode
 
 Si te interesa el sistema completo (máquina + cápsulas), el proceso de adquisición de la máquina va directo con Gano Excel. Las cápsulas puedes pedirlas aquí en ganocafe.online. ¿Qué intensidad te llama más?
 
+**Pregunta de seguimiento:** ¿Te cuento cómo se consigue la máquina?
 ---
 
 ### PROD_04: "¿Cómo se consume? / ¿Cuánto debo tomar?"
+**[Índice]:** Cómo se consume, cuánto debo tomar, cómo se prepara, cuántos sobres al día.
 **[Concepto Nuclear]:** Reemplaza el café actual. No es un suplemento adicional — es el mismo hábito mejorado.
 
-La recomendación estándar es 1 a 2 sobres al día en reemplazo del café habitual.
-Se prepara igual que cualquier café instantáneo: disolver en agua caliente (150-200 ml), a 70-80°C para preservar los compuestos activos.
+Se toma igual que cualquier café instantáneo: un sobre en 150-200 ml de agua caliente, en reemplazo del café de siempre. Uno o dos al día.
 
-Para los suplementos en cápsulas: 1 a 2 cápsulas al día con agua, preferiblemente en la mañana.
-Los beneficios son acumulativos — la consistencia diaria durante 30 días es más efectiva que dosis irregulares.
+Las cápsulas son una al día, con agua, preferiblemente en la mañana.
 
+Y lo que más importa es la constancia: se nota más tomándolo a diario durante un mes que en tandas sueltas.
+
+**Pregunta de seguimiento:** ¿Te muestro los productos?
 ---
 
 ## BLOQUE 2: BENEFICIOS Y CIENCIA
 
 ### BENE_01: "¿Qué beneficios tiene? / ¿Realmente funciona?"
-**[Concepto Nuclear]:** Cuatro áreas documentadas: inmunidad, energía, sueño y estrés. Efectos a mediano plazo.
+**[Índice]:** Qué beneficios tiene, realmente funciona, qué voy a notar, qué se siente al tomarlo.
+**[Concepto Nuclear]:** El beneficio se cuenta por **lo que la persona nota**, en el orden en que lo nota: la taza, después la rutina. Alineado con `CIENCIA_03` del catálogo, que es la versión aprobada. ⛔ **Este fragmento era el de mayor exposición del corpus** (retirado 26 ago 2026): *"activación de **células NK (Natural Killer)**"*, *"reducir la **fatiga adrenal**"*, *"los triterpenos han mostrado en **estudios preliminares** efectos moduladores sobre el **sistema nervioso**"*, *"**recuperación celular**"* y *"más de **400 estudios** publicados"*. Mecanismo celular, una condición clínica, ciencia citada y declaración de órgano, en cinco líneas. ⚠️ *Apoya el funcionamiento normal de las defensas* **sí** se conserva: es la forma que INVIMA aprueba.
 
-El Ganoderma Lucidum cuenta con más de 400 estudios publicados. Las cuatro áreas con mayor respaldo científico son:
+Lo primero se nota en la taza misma: energía pareja, sin el bajón de media mañana. Eso desde el primer día.
 
-1. **Soporte inmune:** Los beta-glucanos del Ganoderma pueden contribuir a la activación de células NK (Natural Killer) del sistema inmune.
-2. **Energía sostenida:** A diferencia de la cafeína pura, el efecto adaptógeno puede reducir la fatiga adrenal asociada al consumo excesivo de estimulantes.
-3. **Calidad del sueño:** Los triterpenos han mostrado en estudios preliminares efectos moduladores sobre el sistema nervioso, asociados a una mejora en la profundidad del sueño.
-4. **Manejo del estrés oxidativo:** Antioxidantes de alta capacidad que pueden contribuir a la recuperación celular.
+Lo demás llega con la rutina. El Ganoderma no funciona como un estimulante que entra y sale — se va acomodando. Quienes lo toman a diario suelen describir, a las pocas semanas, un descanso más profundo y una sensación de equilibrio.
 
-Los resultados varían según el organismo. La mayoría de usuarios reporta diferencias en energía y sueño dentro de las primeras 3 semanas.
+Y de fondo, apoya el funcionamiento normal de tus defensas.
 
+Los resultados varían según cada persona, y la constancia importa más que la cantidad.
+
+**Pregunta de seguimiento:** ¿Te cuento cómo se toma?
 ---
 
 ### BENE_02: "¿Tiene efectos secundarios? / ¿Es seguro?"
-**[Concepto Nuclear]:** Perfil de seguridad sólido. Precaución en embarazo, anticoagulantes y alergias.
+**[Índice]:** Tiene efectos secundarios, es seguro tomarlo todos los días, le hace daño a alguien.
+**[Concepto Nuclear]:** Se responde por lo que **es** —una bebida, no un medicamento— y se remite al médico **sin nombrar fármacos**. ⛔ **Aquí estaba la frase de mayor riesgo del corpus entero** (retirada 26 ago 2026): *"uso de **anticoagulantes** (el Ganoderma puede **potenciar su efecto**)"* — una **interacción farmacológica afirmada como hecho**, en un sitio de venta directa al consumidor y sin guardarraíl. Salieron también *"trasplante de órganos o terapia inmunosupresora"* y el *"perfil de seguridad"* con su porcentaje de efectos secundarios. ⚠️ **Se puede ser prudente sin dar indicaciones:** la remisión al médico se conserva, la lista de condiciones clínicas no.
 
-El Ganoderma tiene un perfil de seguridad bien establecido en décadas de consumo documentado.
-Los efectos secundarios reportados son raros y generalmente leves: molestia digestiva inicial en los primeros días, que suele ceder en menos de una semana.
+Sí. Es una bebida, no un medicamento: se toma todos los días como se toma un café, y el Ganoderma se consume en Asia desde hace siglos.
 
-**Precauciones a consultar con médico:**
-- Embarazo o lactancia.
-- Uso de anticoagulantes (el Ganoderma puede potenciar su efecto).
-- Trasplante de órganos o terapia inmunosupresora.
-- Alergia conocida a hongos.
+Cada producto tiene su registro sanitario vigente y la producción es propia de Gano Excel, con certificación GMP.
 
-Si estás bajo tratamiento médico, consulta a tu médico antes de iniciar. El Ganoderma no reemplaza ningún tratamiento prescrito.
+Y lo sensato de siempre: si estás embarazada, en lactancia o bajo tratamiento médico, coméntalo con tu médico antes de empezar — igual que con cualquier alimento o suplemento nuevo.
 
+**Pregunta de seguimiento:** ¿Te cuento cómo se toma?
 ---
 
 ## BLOQUE 3: COMPRA Y LOGÍSTICA
 
 ### COMPRA_01: "¿Cómo compro? / ¿Cuánto cuesta?"
+**[Índice]:** Cómo compro, cuánto cuesta, cuáles son los precios, cómo hago el pedido.
 **[Concepto Nuclear]:** Precio por debajo del precio al público oficial. Envío express nacional, despacho el mismo día. Pago 100% online.
 
 Los pedidos se realizan directamente en ganocafe.online.
@@ -189,9 +200,11 @@ Por ejemplo, el **Gano Café Clásico** tiene un precio al público de $147.900 
 
 Si tienes dudas sobre qué producto se ajusta mejor a tu situación, cuéntame y te oriento antes de comprar.
 
+**Pregunta de seguimiento:** ¿Te ayudo a armar el pedido?
 ---
 
 ### COMPRA_02: "¿Hacen envíos? / ¿A qué países llegan?"
+**[Índice]:** Hacen envíos, a qué países llegan, me llega a mi ciudad, cuánto se demora.
 **[Concepto Nuclear]:** Envío nacional e internacional vía Gano Excel. Tiempos varían por destino.
 
 GanoCafe distribuye a través de la red logística de Gano Excel, presente en más de 60 países.
@@ -199,9 +212,11 @@ Los tiempos de entrega estándar en Colombia son de 3 a 7 días hábiles. Envío
 
 Para confirmar disponibilidad y tiempos específicos a tu ciudad o país, revisa la información en ganocafe.online o escríbeme con tu ubicación.
 
+**Pregunta de seguimiento:** ¿Te ayudo a armar el pedido?
 ---
 
 ### COMPRA_03: "¿Cuál es la política de devoluciones? / ¿Qué garantía tienen?"
+**[Índice]:** Cuál es la política de devoluciones, qué garantía tienen, si no me gusta qué pasa.
 **[Concepto Nuclear]:** Garantía de satisfacción. Política formal en ganocafe.online.
 
 GanoCafe respalda la calidad de sus productos.
@@ -210,22 +225,26 @@ Si el producto llega en mal estado o no corresponde al pedido, el proceso de dev
 La política completa y los tiempos de respuesta están publicados en ganocafe.online.
 Para iniciar una reclamación, el canal más rápido es escribir directamente al soporte indicado en la tienda.
 
+**Pregunta de seguimiento:** ¿Te ayudo a armar el pedido?
 ---
 
 ## BLOQUE 4: OBJECIONES Y REDIRECCIÓN
 
 ### OBJ_GC_01: "¿Funciona de verdad o es solo marketing? / ¿Hay estudios?"
-**[Concepto Nuclear]:** Más de 400 estudios publicados. No es promesa de marketing — es respaldo científico acumulado.
+**[Índice]:** Funciona de verdad o es solo marketing, hay estudios, cómo sé que no es cuento.
+**[Concepto Nuclear]:** Se responde con **lo verificable** —producción propia, certificaciones, registro sanitario— y con **la extracción**, que es la diferencia real frente al hongo molido. ⛔ **Aquí se citaba ciencia y se nombraba una institución oncológica** (retirado 26 ago 2026): *"más de 400 estudios publicados"* y *"el Memorial Sloan Kettering Cancer Center mantiene bases de datos sobre su perfil de eficacia y seguridad"*. Citar estudios y tomar prestada la autoridad de un centro de cáncer es de lo primero que sanciona la SIC, y *eficacia* es término farmacológico. Salieron también *polisacáridos* y *triterpenos*, que son mecanismo. ⚠️ Este tenant **no tiene guardarraíl**: lo que se escriba aquí sale tal cual.
 
-El Ganoderma Lucidum es uno de los hongos más estudiados en fitoterapia.
-Instituciones como el Memorial Sloan Kettering Cancer Center mantienen bases de datos actualizadas sobre su perfil de eficacia y seguridad — accesibles públicamente.
+Es una pregunta justa, y te respondo con lo que puedes comprobar.
 
-Lo que distingue a GanoCafe no es una promesa de marketing sino la densidad de extracción y la estandarización del proceso de Gano Excel.
-El Ganoderma de baja calidad existe — la diferencia está en la concentración de polisacáridos y triterpenos activos en cada producto.
+El Ganoderma se consume en Asia desde hace siglos, y Gano Excel lleva más de treinta años cultivándolo y extrayéndolo con proceso propio — finca, planta y laboratorio suyos, con certificación GMP y registro sanitario vigente en cada país donde vende.
 
+Lo que distingue a GanoCafé no es una promesa: es la extracción. Casi todo lo que se consigue en el mercado es hongo molido; aquí lo que va en el sobre es extracto.
+
+**Pregunta de seguimiento:** ¿Te cuento cómo se hace ese extracto?
 ---
 
 ### OBJ_GC_02: "¿Me van a ofrecer el negocio? / Solo quiero comprar el producto"
+**[Índice]:** Me van a ofrecer el negocio, solo quiero comprar el producto, no me interesa vender nada.
 **[Concepto Nuclear]:** Compra sin compromiso. El negocio es una decisión separada y voluntaria.
 
 Absolutamente. Puedes comprar los productos de GanoCafe sin ningún tipo de compromiso adicional.
@@ -234,9 +253,11 @@ La tienda en ganocafe.online es un canal de venta directa al consumidor.
 Si en algún momento te interesa saber cómo funciona la oportunidad de distribución, esa información está en creatuactivo.com — es una decisión completamente separada.
 Hoy, si lo que buscas es el producto, te ayudo con eso.
 
+**Pregunta de seguimiento:** ¿Te ayudo a armar el pedido?
 ---
 
 ### NEGOCIO_01: "Me interesa el negocio / ¿Cómo puedo vender esto?"
+**[Índice]:** Me interesa el negocio, cómo puedo vender esto, quiero ser distribuidor.
 **[Concepto Nuclear]:** Redirigir a creatuactivo.com. El modelo de distribución vive ahí.
 
 El modelo de distribución de Gano Excel tiene su propio canal de información.
@@ -244,11 +265,13 @@ Si lo que te interesa es construir un negocio alrededor de estos productos, el p
 
 Para compras al por mayor o distribución directa, también puedes escribirnos al soporte en ganocafe.online.
 
+**Pregunta de seguimiento:** ¿Te cuento qué trae tener código?
 ---
 
 ## BLOQUE 5: CÓDIGO DISTRIBUIDOR
 
 ### CODIGO_01: "¿Qué beneficios tiene tener código? / ¿Cómo compro al precio de distribuidor?"
+**[Índice]:** Qué beneficios tiene tener código, cómo compro al precio de distribuidor, cómo saco mi código.
 **[Concepto Nuclear]:** SOLO activar cuando la persona manifiesta interés explícito en tener código. Presentarlo como una excelente decisión con beneficios concretos y sugerir combinaciones personalizadas de 50 PV según lo que ya consume.
 
 Tener tu propio código de distribuidor Gano Excel es una excelente decisión — y no lo decimos por decir. Estos son los beneficios reales:
@@ -306,4 +329,5 @@ Se requiere una compra inicial de mínimo **50 PV (Puntos de Volumen)**. Cada pr
 Si ya consumes 3-4 productos mensualmente, el código se paga solo desde el primer pedido con el ahorro acumulado.
 Para el modelo completo de distribución y plan de compensación: **creatuactivo.com**
 
+**Pregunta de seguimiento:** ¿Te ayudo a abrir tu código?
 ---

@@ -1772,6 +1772,39 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_ganocafe (tenant `ecommerce`)
 
+### v2.0 — El arsenal sin guardarraíl tenía las declaraciones de salud más graves del corpus (26 ago 2026)
+
+Auditoría completa de los 16. ⚠️ **Contexto que cambia el peso de todo lo demás:** este arsenal sirve a **ganocafe.online** —tenant `ecommerce`, venta directa al consumidor con tráfico pagado de Google Ads— y **los guardarraíles de salud y negocio viven solo en el webhook de WhatsApp**. Lo que se escriba aquí sale tal cual.
+
+⛔ **`BENE_02` afirmaba una interacción farmacológica.** *"Uso de **anticoagulantes** (el Ganoderma **puede potenciar su efecto**)"*, más *"trasplante de órganos o terapia inmunosupresora"* y un perfil de seguridad con porcentaje de efectos secundarios. Una interacción con un fármaco, afirmada como hecho, en un sitio de venta al consumidor. Es la frase de más riesgo que apareció en toda la auditoría del corpus.
+
+⛔ **`BENE_01` era mecanismo celular puro:** *"activación de **células NK (Natural Killer)**"* · *"reducir la **fatiga adrenal**"* · *"los triterpenos han mostrado en **estudios preliminares** efectos moduladores sobre el **sistema nervioso**"* · *"**recuperación celular**"* · *"más de **400 estudios** publicados"*. Mecanismo, condición clínica, ciencia citada y declaración de órgano en cinco líneas.
+
+⛔ **`OBJ_GC_01` tomaba prestada la autoridad de un centro oncológico:** *"instituciones como el **Memorial Sloan Kettering Cancer Center** mantienen bases de datos sobre su perfil de **eficacia** y seguridad"*. Citar estudios y apoyarse en un centro de cáncer es de lo primero que sanciona la SIC, y *eficacia* es término farmacológico.
+
+**`PROD_02`** atribuía función a los compuestos (*"polisacáridos (soporte inmune) y triterpenos (modulación del estrés oxidativo)"*), y **`PROD_04`** daba posología de cápsulas contradiciendo el dato del Director del 20 de agosto: decía *"1 a 2 cápsulas"* donde la corrección dice **una al día**.
+
+**Los cinco reescritos con el criterio verificado:** *adaptógeno*, *energía*, *antioxidante* y *"apoya el funcionamiento normal de tus defensas"* **se conservan** —son las formas que INVIMA aprueba y que el propio fabricante usa—; el mecanismo, la ciencia citada, los fármacos y los órganos salen. `BENE_01` quedó alineado con `CIENCIA_03` del catálogo, que es la versión ya aprobada. Y `BENE_02` conserva la remisión al médico **sin nombrar una sola condición clínica**: se puede ser prudente sin dar indicaciones.
+
+⚠️ **El registro es TUTEO**, a diferencia del resto del corpus: es otro sitio y otra audiencia. Se conservó en todo lo reescrito.
+
+---
+
+**Y lo estructural: este arsenal no tenía índices ni preguntas de cierre — cero de dieciséis de cada cosa.**
+
+Se quedó fuera de la migración a índices del 25 de agosto por vivir en su propio tenant, donde no compite con nadie, así que nadie lo notó. Eso significaba que **se indexaba por el cuerpo entero**, con la dilución que la investigación midió (el cuerpo es el ~47% de lo que se vectoriza y no aporta a la recuperación).
+
+Hoy: **16 índices y 16 preguntas de cierre.** Medición con frases reales: **11 de 11 en el puesto 1.**
+
+⚠️ **Y una lección de medición que costó una vuelta.** Con consultas de dos palabras —*"como compro"*, *"como se toma"*— el resultado bajaba a 7/11, y parecía un problema del arsenal. No lo era: se verificó que el embedding guardado es **exactamente** el reconstruido (coseno 1.0000), así que la causa era la consulta. **Una consulta de dos palabras produce un vector ruidoso y no discrimina**; las paráfrasis tienen que parecerse a lo que la gente escribe de verdad.
+
+⚠️ **El documento padre de este arsenal SÍ tiene embedding**, a diferencia del de `arsenal_inicial`. No hace daño —`route.ts` filtra a `is_fragment === true` **antes** de la búsqueda, así que ni siquiera entra al conjunto de candidatos— pero es una asimetría que conviene conocer: mi primera medición lo incluyó y distorsionó el resultado.
+
+⏳ **Pendiente conocido de este arsenal:** su system prompt `ganocafe_main` **tiene el catálogo de precios en duro**, así que al cambiar un precio hay que tocar los dos o quedan desincronizados.
+
+---
+
+
 ### v1.5 — Alias coloquiales (Mar 2026)
 
 16 respuestas (PROD_01–07, BENE, COMPRA, OBJ_GC, NEGOCIO, CODIGO). Para `ganocafe.online` (piloto Google Ads).

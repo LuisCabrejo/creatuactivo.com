@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.19** (26 ago 2026) — **La columna del proyecto: hacer sencillo lo que era difícil, sin describir la faena que le quitamos.** Uber no dice *«pedimos el taxi por usted»*. `NET_02` deja de enumerar la tarea vieja y remata hacia adelante: *«hoy no lo es»*. Detalle en el CHANGELOG.
+**Versión actual: v6.20** (27 ago 2026) — **Las sedes son información de socio, y el envío tiene dueño.** `FREQ_13` y `FREQ_07` conservan las nueve sedes como prueba de legalidad y sueltan la invitación a ir; nace `FREQ_36` (cómo llega el pedido). El directorio `FREQ_34` solo viaja en modo socio (filtro en el motor). Detalle en el CHANGELOG.
+
+**v6.19** (26 ago 2026) — **La columna del proyecto: hacer sencillo lo que era difícil, sin describir la faena que le quitamos.** Uber no dice *«pedimos el taxi por usted»*. `NET_02` deja de enumerar la tarea vieja y remata hacia adelante: *«hoy no lo es»*. Detalle en el CHANGELOG.
 
 **v6.18** (26 ago 2026) — **`NET_02` por fin responde lo que su título promete: el código se reactiva y lo de abajo sigue en su posición.** La regla de los seis meses queda registrada solo para quien edita — es cierta y decirla nos juega en contra. Detalle en el CHANGELOG.
 
@@ -403,6 +405,18 @@ Son nueve en el país, y estas son las direcciones:
 
 ---
 
+### **FREQ_36: "¿Cómo me llega el pedido? / ¿Hacen envíos a domicilio? / ¿Cuánto vale el envío? / ¿Cuánto demora en llegar?"**
+**[Índice]:** Cómo me llega el pedido a la casa, si hacen envíos a domicilio, cuánto cuesta el envío, cuánto se demora en llegar, si llega a mi ciudad.
+**[Concepto Nuclear]:** La entrega la coordina **la persona que le compartió el enlace** (Director, 27 ago 2026): la mitad del mercado orgánico vive en la misma ciudad del socio y se resuelve en persona —pasa por la casa, lo dejan en la portería, se ven en algún lugar—; el resto lo despacha Gano Excel por Servientrega usando sus sedes como puntos de distribución. ⚠️ El costo del flete **no se cotiza aquí**: lo define el socio con la persona. ⚠️ El plazo se da como lo normal y su rango, sin garantía. En WhatsApp este turno lo dicta el webhook (`respuestaEnvio` en `wa-pedido.ts`) nombrando al socio; el fragmento existe para la web y como respaldo.
+
+La entrega la coordina directamente con la persona que le compartió el enlace, cuando se comunique con usted. Si están en la misma ciudad, suele resolverse en persona.
+
+Si no, Gano Excel despacha por Servientrega desde su sede más cercana, y normalmente llega de un día para otro — entre uno y tres días según la distancia.
+
+**Pregunta de seguimiento:** ¿Le muestro el catálogo para que elija lo que quiere recibir?
+
+---
+
 ### **CLIENTE_VIP_01: "Yo solo quiero el producto, no el negocio / ¿Puedo comprar sin hacer el negocio? / ¿Cuánto me ahorro si me registro? / ¿Hay descuento si compro directo? / Solo me interesa el café, ¿me sale más barato? / ¿Cuál es el precio de distribuidor?"**
 **[Índice]:** Solo quiero el producto y no el negocio, puedo comprar sin hacer nada más, cuánto me ahorro si me registro, hay descuento, cuál es el precio de distribuidor.
 **[Concepto Nuclear]:** El beneficio es del cliente, y el objetivo es que tenga su propio código. Cifra única: el Ganocafé 3 en 1 pasa de $147.900 público a $110.900. El acceso en concreto: 50 PV son tres o cuatro cajas y el equipo lo acompaña. El ángulo del dueño es FREQ_22.
@@ -601,7 +615,7 @@ Sí, y es de lo más fácil de comprobar de todo esto.
 
 Los fabrica Gano Excel, con 30 años de operación y presencia en más de 60 países. En Colombia cada producto tiene su registro sanitario del INVIMA, con número propio —el del Ganorico Shoko Rico es el NSA-0010766-2021— y esos números se consultan en la página del INVIMA sin pedirle permiso a nadie.
 
-La empresa está afiliada a ACOVEDI, el gremio de venta directa, y tiene nueve oficinas abiertas al público en el país. Si quiere, va y los recoge en persona.
+La empresa está afiliada a ACOVEDI, el gremio de venta directa, y tiene nueve oficinas abiertas al público en el país.
 
 **Pregunta de seguimiento:** ¿Le muestro el catálogo?
 ---
@@ -667,7 +681,7 @@ Es legal, y la diferencia tiene nombre en la ley.
 
 En Colombia el mercadeo multinivel lo regula la **Ley 1700 de 2013**. Entre sus requisitos hay uno que ninguna pirámide puede cumplir: tener **oficina abierta al público de manera permanente**. La captación ilegal opera desde la clandestinidad, y por eso la ley pide justamente eso.
 
-Gano Excel tiene nueve sedes en Colombia —dos en Bogotá, y una en Medellín, Cali, Pereira, Barranquilla, Bucaramanga, Cúcuta y Villavicencio—, con horario de atención. Usted puede entrar a cualquiera.
+Gano Excel tiene nueve sedes en Colombia —dos en Bogotá, y una en Medellín, Cali, Pereira, Barranquilla, Bucaramanga, Cúcuta y Villavicencio—, abiertas al público con horario de atención.
 
 Está además afiliada a **ACOVEDI**, el gremio de la venta directa.
 

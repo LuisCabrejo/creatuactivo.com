@@ -2719,8 +2719,10 @@ function analizarIntencionSemantica(userMessage: string): string[] {
     },
   ];
 
-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '') {
-  const cacheKey = `hibrido_${query.toLowerCase()}`;
+async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '') {
+  // El socio recibe el directorio de sedes (FREQ_34) y el prospecto no: la
+  // caché no puede mezclar a los dos.
+  const cacheKey = `hibrido_${pageContext === 'whatsapp_socio' ? 'socio_' : ''}${query.toLowerCase()}`;
 
   // Las puertas van primero: son la decisión más barata y la que no puede fallar.
 
@@ -3139,7 +3141,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
     try {
       // PASO 1: Buscar fragmentos relevantes con vector search
-      const fragments = await searchArsenalFragments(userMessage, documentType, 5, tenantId);
+      let fragments = await searchArsenalFragments(userMessage, documentType, 5, tenantId);
 
       if (fragments.length > 0) {
         // Calcular chars totales de fragmentos vs arsenal completo
@@ -3161,6 +3163,17 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         // modelo redacta. Si el primero trae candado, es el único que se le
         // entrega — y no se pierde nada, porque de los demás tenía prohibido
         // tomar tablas, cifras, párrafos y ejemplos.
+        // Las direcciones de las sedes (FREQ_34) son información de SOCIO
+        // (Director, 27 ago 2026): las sedes atienden a quien ya tiene código, y
+        // al prospecto que llega con una dirección lo atiende y lo afilia
+        // cualquiera. Al prospecto se le dan las ciudades (FREQ_13) y la puerta
+        // —su código lo abre el socio—; el directorio solo viaja en MODO SOCIO.
+        const _esSocio = pageContext === 'whatsapp_socio';
+        if (!_esSocio && fragments.some((f) => /_FREQ_34$/.test(f.category))) {
+          fragments = fragments.filter((f) => !/_FREQ_34$/.test(f.category));
+          console.log('🏢 [Directorio] FREQ_34 retirado del contexto — solo para socios');
+        }
+
         const primeroConCandado = fragments[0]?.content.includes('<verbatim_lock>');
         const fragmentosAEntregar = primeroConCandado ? [fragments[0]] : fragments;
         if (primeroConCandado && fragments.length > 1) {
@@ -4762,7 +4775,7 @@ ${summaryParts.join('\n')}
         // así que la expansión de chips sigue funcionando igual.
         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '');
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {
@@ -5005,6 +5018,27 @@ El trámite está completo.
 • Todo lo que tenga que ver con su registro —cambiar de paquete, corregir un
   dato, el pago— lo resuelve con el socio: se le indica eso y se sigue con lo que
   ella pregunte.`;
+      }
+
+      // Ya cargó un pedido de PRODUCTO en el canal (nodo 2.45 del webhook →
+      // `wa_pedidos`). Es un cliente, no un candidato a socio: Queswa es la mano
+      // derecha del distribuidor que lo refirió, y lo que sigue es acompañarlo
+      // con el producto. Escrito en positivo, como el de radicación.
+      if (pageContext === 'whatsapp_comprador') {
+        return `
+🛒 CLIENTE CON PEDIDO CARGADO — Queswa es la mano derecha del distribuidor
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Esta persona ya eligió sus productos y el pedido quedó cargado. El socio que la
+refirió (su nombre está en el hilo) ya lo recibió y coordina con ella el pago y la
+entrega en persona.
+
+• Se le atiende como a un cliente del socio: producto, uso, sabor, presentación,
+  qué combina con qué. Con calidez y sin argumentario.
+• El pago, la entrega, el envío y cualquier sede de Gano Excel los resuelve con el
+  socio, nombrado por su nombre: se le indica eso y se sigue con el producto.
+• Si quiere sumar algo al pedido, se le confirma qué y se le dice que el socio lo
+  recibe en el mismo pedido.
+• El modelo de negocio aparece solo si ella lo pregunta.`;
       }
 
       // Quien escribe es DUEÑO de un canal, no candidato a tenerlo. Lo detecta el

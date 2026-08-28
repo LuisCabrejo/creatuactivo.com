@@ -48,6 +48,15 @@ import {
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
 import {
+  detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido,
+  pedirProductos, noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido,
+  detectarPreguntaEnvio, respuestaEnvio,
+  detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA,
+  detectarPidePersona, respuestaPersona, avisarPidePersona,
+  optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
+  nombreCorto, RE_PEDIDO_CARGADO,
+} from '@/lib/wa-pedido';
+import {
   pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
   detectarFamilia, familiaOfrecida, preguntoCualLinea, esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
 } from '@/lib/wa-productos';
@@ -1297,6 +1306,124 @@ async function procesarEntrante(body: any): Promise<void> {
       console.warn(`⚠️ [WA Webhook] Reenvío del simulador falló: ${reenvio.error}`);
     }
 
+    // ─── 2.45 Toma de pedido — Queswa como mano derecha del distribuidor ──────
+    // Quien quiere comprar PRODUCTO (no un paquete) no va a una oficina ni a una
+    // línea nacional: se le carga la compra y se le remite al socio que la
+    // refirió, que coordina pago y entrega en persona. Nació de Milena (27 ago
+    // 2026): quiso una caja, el modelo le improvisó un formulario, ese texto
+    // activó el trámite del PAQUETE y salió sin comprar. Va ANTES del cierre
+    // (2.5) a propósito: mientras hay un pedido abierto, el trámite del paquete
+    // no se activa. Todo lo de aquí vive en src/lib/wa-pedido.ts.
+    const _ultimoBotPedido = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+    const _nombrePedido = nombreCorto(contactName);
+    const _socioPedido = socio
+      ? { nombre: socio.nombre, whatsapp: socio.whatsapp, constructorId: socio.constructorId,
+          slug: await slugDelSocio(supabase, socio.constructorId) }
+      : null;
+    const _enPedido = !socioQueEscribe && pedidoAbierto(_ultimoBotPedido);
+    const _hayPedido = !socioQueEscribe && pedidoCargado(historial);
+
+    if (!socioQueEscribe && (_enPedido || detectarIntencionCompra(messageText))) {
+      const lineas = lineasDelPedido(messageText, historial);
+
+      if (lineas.length > 0) {
+        const id = await registrarPedido(supabase, {
+          fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: _nombrePedido, lineas, socio: _socioPedido,
+        });
+        await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido);
+        const texto = confirmarPedido(lineas, _socioPedido, _nombrePedido);
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log(`🛒 [WA Webhook] Pedido cargado (${id ?? 'sin registro'}) — ${lineas.length} línea(s) — turno cerrado sin motor`);
+        return;
+      }
+
+      // Sin producto reconocible: la primera vez se pregunta; si ya se estaba
+      // pidiendo y sigue sin nombrarlo, se le ayuda con ejemplos. Una pregunta
+      // a mitad del pedido («¿y cuánto vale?») sigue al motor con el pedido abierto.
+      const _esPreguntaPedido = /\?|cu[aá]nto|qu[eé]|c[oó]mo|cu[aá]l/i.test(messageText);
+      if (!_enPedido || !_esPreguntaPedido) {
+        const texto = _enPedido ? noEntendiProductos() : pedirProductos(_nombrePedido);
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log('🛒 [WA Webhook] Pedido abierto — esperando los productos');
+        return;
+      }
+    }
+
+    // ─── 2.46 «Quiero hablar con una persona» — el socio se entera de verdad ──
+    // Hasta hoy el modelo escribía «le aviso al socio» y no pasaba nada.
+    if (!socioQueEscribe && detectarPidePersona(messageText)) {
+      const _ultimoUsuario = [...historial].reverse().find((m) => m.role === 'user')?.content ?? '';
+      await avisarPidePersona(phoneNumber, _nombrePedido, _socioPedido, _ultimoUsuario);
+      const texto = respuestaPersona(_socioPedido);
+      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      console.log('🙋 [WA Webhook] Pidió una persona — socio y equipo avisados');
+      return;
+    }
+
+    // ─── 2.47 El envío — lo coordina con el socio, por su nombre ──────────────
+    if (!socioQueEscribe && detectarPreguntaEnvio(messageText) && !detectarPreguntaOficina(messageText)) {
+      const texto = respuestaEnvio(_socioPedido);
+      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      console.log('📦 [WA Webhook] Pregunta de envío — dictada');
+      return;
+    }
+
+    // ─── 2.48 Las sedes, para el prospecto ───────────────────────────────────
+    // Las direcciones son información de socio (Director, 27 ago 2026): las
+    // sedes atienden a quien ya tiene código, y a quien llega con una dirección
+    // lo afilia cualquiera. Al prospecto: la razón real y la puerta (su código lo
+    // abre el socio). Si insiste, una línea. Las ciudades siguen en FREQ_13.
+    if (!socioQueEscribe && detectarPreguntaOficina(messageText)) {
+      const insiste = RE_OFICINA_YA_EXPLICADA.test(_ultimoBotPedido);
+      const ciudad = detectarCiudad(messageText)
+        ?? [...historial].reverse().map((m) => detectarCiudad(m.content)).find(Boolean)
+        ?? null;
+      const texto = respuestaOficinaProspecto(_socioPedido, ciudad, _hayPedido, insiste);
+      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      console.log(`🏢 [WA Webhook] Preguntó por la sede (${ciudad ?? 'sin ciudad'}${insiste ? ', insiste' : ''}) — dictada`);
+      return;
+    }
+
+    // ─── 2.49 Autorización de marketing — su propio turno, una sola pregunta ──
+    // Solo a quien ya cargó un pedido, cuando cierra la conversación, y una vez.
+    // El «sí» queda con fecha en la ficha (`marketing_optin`): es lo que
+    // responde ante Meta o la SIC con qué autorización se le escribió.
+    if (_hayPedido && !socioQueEscribe) {
+      if (RE_OFRECIO_OPTIN.test(_ultimoBotPedido)) {
+        const acepta = leerRespuestaOptin(messageText);
+        if (acepta !== null) {
+          try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            await (supabase as any).rpc('update_prospect_data', {
+              p_fingerprint_id: waFingerprint,
+              p_data: {
+                marketing_optin: acepta,
+                marketing_optin_at: new Date().toISOString(),
+                marketing_optin_canal: 'whatsapp',
+              },
+              p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+            });
+          } catch (err) { console.error('⚠️ [WA Webhook] No se pudo guardar el opt-in:', err); }
+          const texto = respuestaOptin(acepta);
+          await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+          console.log(`📣 [WA Webhook] Opt-in de marketing: ${acepta ? 'SÍ' : 'no'}`);
+          return;
+        }
+      } else if (esCierreDeConversacion(messageText) && !optinYaOfrecido(historial)) {
+        const texto = ofrecerOptin(_nombrePedido);
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log('📣 [WA Webhook] Opt-in de marketing ofrecido');
+        return;
+      }
+    }
+
     // ─── 2.5 Cierre: radicar la vinculación ───────────────────────────────────
     // Nodo determinístico, como la apertura. El motor no puede atenderlo: su
     // máquina de estados fue escrita para la web y remata ofreciendo dos enlaces
@@ -1304,8 +1431,11 @@ async function procesarEntrante(body: any): Promise<void> {
     // esa misma conversación. Aquí se piden los cuatro datos que
     // /api/pre-afiliacion exige y se deja el registro hecho.
     // `socio` y `radicacionPrevia` se resuelven antes del simulador (2.3), que
-    // también los necesita.
-    const cierre = await gestionarCierre({
+    // también los necesita. Con un pedido de producto abierto o recién cargado,
+    // el trámite del PAQUETE no se evalúa: «solo quiero una caja» no es una
+    // respuesta al formulario de vinculación (Milena, 27 ago 2026).
+    const _pedidoEnCurso = _enPedido || RE_PEDIDO_CARGADO.test(_ultimoBotPedido);
+    const cierre = _pedidoEnCurso ? null : await gestionarCierre({
       mensajeActual:  messageText,
       historial,
       whatsapp:       phoneNumber,
@@ -1527,6 +1657,9 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // tras radicar sigue siendo el nodo de pareja.
       : radicacionPrevia
       ? `whatsapp_radicado_${radicacionPrevia.paquete.toLowerCase().replace('-', '')}`
+      // Ya cargó un pedido de producto: el motor lo atiende como cliente del socio.
+      : _hayPedido
+      ? 'whatsapp_comprador'
       : isCTWA
         ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
         : 'whatsapp_inbound';

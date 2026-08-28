@@ -322,6 +322,19 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.20 — Las sedes son información de socio, y el envío tiene dueño (27 ago 2026)
+
+Sale de la conversación de Milena (27 ago): quiso una caja, preguntó por la oficina de Bogotá y el modelo le inventó una dirección (*Carrera 13 # 32-23, Chapinero*) — el directorio con candado no se recuperó, y la persona pudo haber viajado.
+
+**Decisión del Director:** las direcciones de las sedes son información **de socio**. Las sedes atienden a quien ya tiene código; a un prospecto que llega con una dirección lo atiende y lo afilia cualquiera, y el equipo pierde a la persona que refirió. Al prospecto se le dan las **ciudades** —siguen siendo la prueba de legalidad— y la puerta real: su código lo abre quien le compartió el enlace, y con él coordina si recoge en la sede o se lo envían.
+
+- **`FREQ_13`** 🔒: *«con horario de atención. Usted puede entrar a cualquiera»* → *«abiertas al público con horario de atención»*. La prueba (Ley 1700, nueve sedes, ACOVEDI) queda entera; se suelta solo la invitación a ir, que prometía lo que la sede no le da a quien no tiene código.
+- **`FREQ_07`**: se retira *«Si quiere, va y los recoge en persona»*. Mismo criterio.
+- **`FREQ_36`** (nueva): cómo llega el pedido. La entrega la coordina quien le compartió el enlace —la mitad del mercado orgánico vive en la misma ciudad del socio y se resuelve en persona—; el resto lo despacha Gano Excel por Servientrega desde su sede más cercana, normalmente de un día para otro. El flete no se cotiza. Antes no había fragmento dueño: a Milena la mandaron a llamar a la línea nacional.
+- **`FREQ_34`** (directorio) no cambia de texto, pero **el motor lo retira del contexto salvo en modo socio** (`route.ts`, junto al candado solitario). En WhatsApp, además, la pregunta por la sede la dicta el webhook (`wa-pedido.ts`) antes de llegar al motor.
+
+**Lo que se revisó y no se tocó:** `FREQ_33` («¿cómo compran mis clientes?») conserva *«en cualquiera de las nueve oficinas del país»* — está escrito para el dueño del canal hablando de SUS clientes, y es correcto.
+
 ### v6.19 — La columna: hacer sencillo lo que era difícil, sin describir la faena (26 ago 2026)
 
 **Corrección del Director sobre `NET_02`, y es doctrina de proyecto, no un ajuste de párrafo.**

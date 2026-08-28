@@ -57,6 +57,9 @@ const detecta = (t) => {
 
 // ─── Lo que DEBE bloquearse ───────────────────────────────────────────────────
 const PROMESAS = [
+  // ── Esfuerzo mínimo dicho del NEGOCIO (27 ago 2026) — sigue bloqueándose ──
+  'Usted comparte el enlace y no tiene que hacer nada más: el canal crece solo.',
+  'Con este negocio usted no tiene que hacer nada, el sistema trabaja por usted.',
   // Las dos que el motor produjo de verdad (prueba del Director, 14 ago 2026)
   'El GEN5 le da ingreso inmediato para crecer. El Binario construye su ingreso recurrente de por vida.',
   'Gen 5 | 3.125 personas | ESP-2 | $75 USD | $234,375 USD — Total acumulado GEN5: $292,875 USD',
@@ -127,6 +130,10 @@ const PROMESAS = [
 
 // ─── Lo que NO puede bloquearse ───────────────────────────────────────────────
 const LEGITIMAS = [
+  // ── Los dos falsos positivos de Milena (27 ago 2026) ─────────────────────
+  // Logística del fabricante, no promesa: bloquearlo le costó la respuesta de cómo comprar.
+  'Gano Excel cobra, empaca y despacha a su puerta en Santa Marta. Usted no tiene que hacer nada más.',
+  'El pedido lo recibe Gano Excel, lo factura y lo envía por Servientrega; usted no tiene que hacer nada más que recibirlo.',
   // La apertura — el Director la revisó y decidió conservarla (17 ago 2026)
   'Le explico cómo se construye un canal de distribución en paralelo a su actividad, con el potencial de igualar o superar sus ingresos actuales.',
   // FREQ_05 — la durabilidad SÍ es legítima cuando habla del activo heredado
@@ -187,6 +194,47 @@ for (const c of PROMESAS) {
 console.log('\n── Copy legítimo que NO puede bloquearse ──');
 for (const c of LEGITIMAS) {
   const h = detecta(c);
+  !h ? ok(c.slice(0, 68) + '…') : mal(`FALSO POSITIVO [${h}]: "${c.slice(0, 88)}"`);
+}
+
+// ─── Modelo de negocio inventado (movido al módulo el 27 ago 2026) ──────────
+// Se re-implementa igual que el módulo: término afirmado dispara; negado en su
+// oración («NO es un costo de membresía») no. Los datos salen del TS.
+const TERMINOS = [...SRC.slice(SRC.indexOf('export const TERMINOS_MODELO_INVENTADO'), SRC.indexOf('\n];', SRC.indexOf('export const TERMINOS_MODELO_INVENTADO')))
+  .matchAll(/'([^']+)'/g)].map((m) => m[1]);
+const RE_NEG = unaRe('RE_NEGACION_PREVIA');
+const detectaModelo = (texto) => {
+  const t = texto.toLowerCase();
+  for (const term of TERMINOS) {
+    let desde = 0;
+    while (true) {
+      const pos = t.indexOf(term, desde);
+      if (pos === -1) break;
+      let i = pos; while (i > 0 && !/[.!?\n:;]/.test(t[i - 1])) i--;
+      if (!RE_NEG.test(t.slice(i, pos))) return term;
+      desde = pos + term.length;
+    }
+  }
+  return null;
+};
+const MODELO_BLOQUEAR = [
+  'Puede vender un infoproducto o una membresía mensual a su audiencia.',
+  'Es una membresía: usted paga cada mes y accede al contenido.',
+  'No es un curso, es una membresía con acceso a los ebooks.',
+];
+const MODELO_LEGITIMO = [
+  'El paquete no es un costo de membresía: es producto que usted recibe, usa y puede vender.',
+  'Aquí no hay membresías ni cursos que vender: usted distribuye productos con registro INVIMA.',
+  'Sin audiencia, sin contenido que crear: el producto ya existe y Gano Excel lo despacha.',
+];
+console.log('\n── Modelo inventado: lo que debe bloquearse ──');
+for (const c of MODELO_BLOQUEAR) {
+  const h = detectaModelo(c);
+  h ? ok(`[${h}] ${c.slice(0, 62)}…`) : mal(`NO BLOQUEÓ: "${c.slice(0, 88)}"`);
+}
+console.log('\n── Modelo inventado: la negación no cuenta ──');
+for (const c of MODELO_LEGITIMO) {
+  const h = detectaModelo(c);
   !h ? ok(c.slice(0, 68) + '…') : mal(`FALSO POSITIVO [${h}]: "${c.slice(0, 88)}"`);
 }
 

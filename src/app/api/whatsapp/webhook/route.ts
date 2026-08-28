@@ -81,7 +81,7 @@ import {
   RECHAZO_SALUD_GRAVE,
   RECHAZO_SALUD_CORTO,
 } from '@/lib/wa-guardarrail-salud';
-import { detectarPromesaDeIngreso } from '@/lib/wa-guardarrail-negocio';
+import { detectarPromesaDeIngreso, detectarModeloInventado } from '@/lib/wa-guardarrail-negocio';
 
 export const runtime = 'nodejs';
 // 90 s y no 30 (19 ago 2026). Con `waitUntil`, Meta ya recibió su 200 y este
@@ -1985,41 +1985,8 @@ interface Patrocinador {
  * Devuelve null si el mensaje no trae código — ese prospecto queda sin dueño y
  * lo trabaja el equipo.
  */
-/**
- * Guardrail de salida: detecta si la respuesta propone un modelo de negocio que
- * NO es el nuestro (economía de creadores). Devuelve el término detectado o null.
- *
- * Calibrado para evitar falsos positivos: "en el curso de", "transcurso" y la
- * formación propia (Academia) NO deben disparar el bloqueo.
- */
-function detectarModeloInventado(texto: string): string | null {
-  if (!texto) return null;
-  const t = texto.toLowerCase();
-
-  // Términos inequívocos — si aparecen, es un modelo que no existe aquí
-  const inequivocos = [
-    'infoproducto', 'info-producto', 'e-book', 'ebook', 'membresía', 'membresia',
-    'dropshipping', 'producto digital', 'productos digitales', 'curso online',
-    'cursos online', 'consultoría online', 'consultoria online', 'monetizar su conocimiento',
-    'monetizar tu conocimiento', 'vender su experiencia', 'crear contenido',
-    'servicios escalados', 'asesorías online', 'asesorias online',
-    'servicio digital', 'servicios digitales', 'audiencia',
-  ];
-  for (const term of inequivocos) {
-    if (t.includes(term)) return term;
-  }
-
-  // "curso(s)" solo cuenta si se PROPONE (vender/crear/ofrecer), no en usos legítimos
-  // como "en el curso de la conversación" o la formación interna.
-  if (/\b(vender|venda|crear|cree|ofrecer|ofrezca|dictar|dicte|grabar)\b[^.]{0,40}\bcursos?\b/.test(t)) {
-    return 'proponer cursos';
-  }
-  if (/\bcursos?\b[^.]{0,40}\b(que otros compren|de pago|para vender)\b/.test(t)) {
-    return 'cursos para vender';
-  }
-
-  return null;
-}
+// `detectarModeloInventado` vive en wa-guardarrail-negocio.ts desde el 27 ago
+// 2026, para que la batería lo cubra (bloqueó «NO es un costo de membresía»).
 
 /**
  * Persiste un turno dictado por el webhook (guardarraíl de salud, emergencia).

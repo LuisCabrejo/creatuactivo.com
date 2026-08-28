@@ -108,7 +108,13 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   /(su|tu) salario[^.]{0,25}(reemplaz|sustitu|superad)/,
 
   // ── Ingreso pasivo dicho o descrito ────────────────────────────────────────
-  /ingresos? pasivos?|dinero mientras (duerme|descansa)|gana(r)? sin hacer nada|no tiene que hacer nada|solo (se|lo) hace solo/,
+  /ingresos? pasivos?|dinero mientras (duerme|descansa)|gana(r)? sin hacer nada|solo (se|lo) hace solo/,
+  // «No tiene que hacer nada» es promesa cuando habla del NEGOCIO. Dicho de un
+  // despacho —«Gano Excel cobra, empaca y despacha a su puerta. Usted no tiene
+  // que hacer nada más»— es logística, y bloquearlo le costó a Milena la
+  // respuesta que le explicaba cómo comprar (27 ago 2026). Si en los 90
+  // caracteres anteriores hay un verbo de operación del fabricante, no dispara.
+  /(?<!(?:despach|envi|entreg|cobr|empac|factur|recib)\w*[\s\S]{0,90})no tiene que hacer nada/,
   /(crece|funciona|trabaja)[^.]{0,15}(solo|por si (solo|mismo)|en automatico|sin que usted)/,
 
   // ── La comisión contada en PERSONAS ────────────────────────────────────────
@@ -233,4 +239,69 @@ export function detectarPromesaDeIngreso(texto: string): string | null {
   if (!texto) return null;
   const t = normalizarNegocio(texto);
   return primerMatch(RE_PROMESA_INGRESO, t) ?? mezclaPrecioYComision(t);
+}
+
+// ─── El modelo de negocio inventado ──────────────────────────────────────────
+//
+// Cuando ningún fragmento ancla la respuesta, el modelo rellena «empresa
+// digital» con lo que esa frase significa en internet: cursos, infoproductos,
+// membresías, audiencia. Nada de eso existe aquí, y la Ley 1480 vuelve
+// vinculante lo que la IA le ofrezca al consumidor (precedente Air Canada, 2024).
+//
+// Vivió en el webhook hasta el 27 ago 2026; se muda aquí para que la batería lo
+// cubra. Ese día bloqueó una respuesta buena: «el paquete NO es un costo de
+// membresía» — la negación no se distinguía de la afirmación, y Milena recibió
+// un texto genérico en vez de los tres paquetes.
+
+/** Términos que, afirmados, describen un negocio que no es el nuestro. */
+export const TERMINOS_MODELO_INVENTADO: string[] = [
+  'infoproducto', 'info-producto', 'e-book', 'ebook', 'membresía', 'membresia',
+  'dropshipping', 'producto digital', 'productos digitales', 'curso online',
+  'cursos online', 'consultoría online', 'consultoria online', 'monetizar su conocimiento',
+  'monetizar tu conocimiento', 'vender su experiencia', 'crear contenido',
+  'servicios escalados', 'asesorías online', 'asesorias online',
+  'servicio digital', 'servicios digitales', 'audiencia',
+];
+
+/**
+ * Lo que puede preceder al término dentro de la misma oración para que sea una
+ * NEGACIÓN («no es un costo de membresía», «sin membresías», «nada de cursos»).
+ * Se aplica al texto que va desde el inicio de la oración hasta el término.
+ */
+export const RE_NEGACION_PREVIA = /(no (es|son|hay|se trata de|existe|existen|tiene|tienen|cobra|cobran|paga|pagan|necesita|vende|vendemos)|sin|nada de|ni|tampoco|en vez de|en lugar de|no como)\s+(un[ao]?\s+|el\s+|la\s+|los\s+|las\s+|de\s+|costo de\s+|cuota de\s+|pago de\s+|ning[uú]n[ao]?\s+)*$/;
+
+function inicioDeOracion(t: string, pos: number): number {
+  let i = pos;
+  while (i > 0 && !/[.!?\n:;]/.test(t[i - 1])) i--;
+  return i;
+}
+
+/**
+ * Devuelve el término detectado, o null. Un término NEGADO en su oración no
+ * cuenta; seguirá bloqueándose si además aparece afirmado en otra parte.
+ */
+export function detectarModeloInventado(texto: string): string | null {
+  if (!texto) return null;
+  const t = texto.toLowerCase();
+
+  for (const term of TERMINOS_MODELO_INVENTADO) {
+    let desde = 0;
+    while (true) {
+      const pos = t.indexOf(term, desde);
+      if (pos === -1) break;
+      const previo = t.slice(inicioDeOracion(t, pos), pos);
+      if (!RE_NEGACION_PREVIA.test(previo)) return term;
+      desde = pos + term.length;
+    }
+  }
+
+  // "curso(s)" solo cuenta si se PROPONE (vender/crear/ofrecer), no en usos legítimos
+  // como "en el curso de la conversación" o la formación interna.
+  if (/\b(vender|venda|crear|cree|ofrecer|ofrezca|dictar|dicte|grabar)\b[^.]{0,40}\bcursos?\b/.test(t)) {
+    return 'proponer cursos';
+  }
+  if (/\bcursos?\b[^.]{0,40}\b(que otros compren|de pago|para vender)\b/.test(t)) {
+    return 'cursos para vender';
+  }
+  return null;
 }

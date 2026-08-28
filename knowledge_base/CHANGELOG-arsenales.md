@@ -1561,6 +1561,41 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.7 — La categoría sanitaria dejaba de ser cierta en bloque (26 ago 2026)
+
+Primera fase de la auditoría del catálogo. Cierra el pendiente más viejo del archivo: el que la auditoría del 17 de agosto dejó anotado como *"el disclaimer global falso para 7 de 19"*.
+
+**Los 22 productos tienen TRES tipos de registro sanitario, no uno.** Los números reales están en `src/lib/wa-productos.ts`, que es la fuente que Queswa dicta por producto:
+
+| Tipo | Qué es | Cuántos |
+|---|---|---|
+| **SD** | Suplemento dietario | **3** — Ganocafé 3 en 1, Ganocafé Clásico, Cápsulas de Ganoderma |
+| **NSA** | Alimento | **12** — Ganoricos, Rooibos, Spirulina, Schokolade, Reskine, Excellium, Cordygold y las tres Luvoco |
+| **NSOC / NSO** | Cosmético | **6** — pasta dental, dos jabones, champú, acondicionador, exfoliante |
+
+Más la máquina Luvoco, que es dispositivo con certificado CE.
+
+**Y el catálogo lo declaraba mal dos veces, en direcciones opuestas.** La tabla de certificaciones decía *"INVIMA Colombia · **Registros SD vigentes**"*, presentando los 22 como suplemento dietario cuando solo tres lo son. Y el disclaimer decía *"los productos Gano Excel son **alimentos funcionales**"* — los 22, **incluidos el champú, los dos jabones, el acondicionador, el exfoliante y la pasta de dientes**.
+
+Las dos afirmaciones eran globales, y ninguna de las dos podía ser cierta para todo el catálogo. Hoy la tabla dice *"registro sanitario vigente para cada producto"* y el disclaimer distingue las tres categorías, conservando lo que protege: **ninguno es un medicamento**.
+
+⚠️ **La categoría no se afirma en bloque nunca más:** se dice por producto, o se dice que depende del producto. Anotado junto al disclaimer.
+
+---
+
+**Lo que el barrido encontró y NO hizo falta tocar, con su motivo:**
+
+Se pasó el criterio del guardarraíl de salud —la línea roja verificada contra INVIMA, SIC, Meta y FDA/FTC— sobre **los 43 cuerpos servidos**, buscando enfermedad, adelgazamiento, curar o prevenir, declaración de órgano, mecanismo celular, ciencia citada y clase farmacológica.
+
+**Cero hallazgos reales.** El único match fue la palabra *curar* dentro del propio disclaimer, negándola. La reescritura del 22 de agosto —la que retiró las declaraciones de órgano y de mecanismo— hizo su trabajo y el catálogo está limpio en ese frente.
+
+`CIENCIA_03`, que es el fragmento de mayor riesgo del corpus (*"¿qué beneficios tiene?"*), usa la forma aprobada por INVIMA —*"apoya el funcionamiento **normal** de sus defensas"*— y construye el resto desde lo sensorial y el ritual, que es la doctrina.
+
+⏳ **Sigue abierto el otro pendiente del 17 de agosto:** la composición producto por producto contra la ficha del fabricante —**catorce de veintidós con discrepancia**, incluidos alérgenos omitidos—. Eso pide verificación externa contra ganoexcel.com.co, producto por producto, y no se resuelve con un barrido de texto.
+
+---
+
+
 ### v7.9 — PROD_04 deja el registro viejo (22 ago 2026)
 
 Era el único fragmento del catálogo que seguía hablando como hoja de cálculo: *«lógica financiera en dos niveles»*, *«terminal de activación»*, *«retorno sobre terminal: en 12 meses el consumo supera 2,3× el valor de la máquina»*, *«$110.900/mes × 12 = $1.330.800/año»*. Dos problemas: el léxico retirado, y una proyección de retorno con cifra anual que además asume una caja al mes como hecho. Le llega a quien pregunta *«cómo funciona el modelo Luvoco»* (0.586, primero). Reescrito desde el negocio y por mecanismo —la máquina se compra una vez, las cápsulas son las que se repiten, y son exclusivas de la máquina—, sin proyectar; cierra con la misma pregunta de LUV_00, que recupera la tabla LUV_01 (medida como aceptación). Aprobado por el Director.

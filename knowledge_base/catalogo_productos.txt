@@ -145,7 +145,7 @@ En el mercado abundan productos con Ganoderma en polvo, de biodisponibilidad lim
 | Certificación | Descripción |
 |---------------|-------------|
 | NPRA Malasia | Múltiples registros MAL |
-| INVIMA Colombia | Registros SD vigentes |
+| INVIMA Colombia | Registro sanitario vigente para cada producto |
 | TGA Australia | Regulador más estricto |
 | Halal JAKIM | Pureza y proceso |
 | GMP | Good Manufacturing Practices |
@@ -691,7 +691,9 @@ Los beneficios biológicos se acumulan y consolidan mediante el consumo consiste
 ---
 
 **DISCLAIMER:**
-Ganoderma lucidum es suplemento alimenticio para apoyo a salud general. Los productos Gano Excel son alimentos funcionales, no medicamentos. No pretenden diagnosticar, tratar, curar o prevenir enfermedades.
+Cada producto Gano Excel tiene su propio registro ante el INVIMA, y la categoría depende del producto: las bebidas y suplementos están registrados como alimento o como suplemento dietario, y los de cuidado personal como cosmético. **Ninguno es un medicamento**, y no pretenden diagnosticar, tratar, curar ni prevenir enfermedades.
+
+⚠️ **CORREGIDO el 26 ago 2026.** Este disclaimer decía *"los productos Gano Excel son alimentos funcionales"* —los 22, incluidos el champú, los dos jabones, el acondicionador, el exfoliante y la pasta de dientes—, y la tabla de certificaciones decía *"Registros SD vigentes"*, presentándolos todos como suplemento dietario. **Las dos afirmaciones eran globales y falsas, en direcciones opuestas.** Los registros reales (en `src/lib/wa-productos.ts`, que es la fuente que Queswa dicta por producto) son de tres tipos: **SD** para el Ganocafé 3 en 1, el Ganocafé Clásico y las Cápsulas de Ganoderma · **NSA** para las otras doce bebidas y cápsulas · **NSOC/NSO** para los seis de cuidado personal. La máquina Luvoco es dispositivo con certificado CE. ⚠️ **La categoría NO se afirma en bloque nunca más:** se dice por producto, o se dice que depende del producto.
 
 ---
 

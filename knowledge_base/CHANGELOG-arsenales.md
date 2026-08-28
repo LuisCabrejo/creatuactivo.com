@@ -1561,6 +1561,32 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.8 — Una afirmación falsa sobre un alérgeno, verificada contra el fabricante (26 ago 2026)
+
+Segunda fase. El Director pidió **verificar antes de retirar**, con dos fuentes: `ganoexcel.com.co` y `ganoexcel.us`. Y puso el criterio: *"no quiero dar una respuesta técnica; nuestra respuesta tiene que generar el deseo de tomar o utilizar, no fricción. Además en doce años nadie me ha preguntado por los alérgenos."*
+
+**Primero se miró qué afirma el catálogo**, para verificar solo eso: de 43 fragmentos, **ocho** hacen una afirmación de composición. El resto construye desde lo sensorial, que es la doctrina.
+
+⛔ **`BEB_11` decía algo FALSO sobre un alérgeno.** El texto era *"cacao suizo puro, **sin leche**, con el extracto de Ganoderma adentro. **Tres ingredientes y nada más**"*. La ficha del fabricante en ganoexcel.com.co lista **cacao, azúcar refinada, crema no láctea y leche desnatada en polvo**.
+
+**Sí lleva leche.** Alguien que la evite la habría tomado por lo que nosotros escribimos — y eso no depende de que pregunte por alérgenos: se lo estábamos afirmando sin que preguntara. Salió también *"cacao suizo"*: el nombre del producto es alemán y ningún material del fabricante declara ese origen.
+
+**Dos correcciones menores del mismo barrido:**
+- `BEB_08` decía *"no lleva endulzante — el dulce sale de la leche"*. La leche está confirmada; **el endulzante no lo dice ninguna fuente**, lo estábamos afirmando por nuestra cuenta. Reescrito hacia lo cremoso, que sí es verificable y vende igual.
+- `BEB_02` repetía el término del fabricante *"crema no láctea"* — que en la ficha aparece con **caseinato de sodio (proteína de la leche)** entre paréntesis. Repetirlo era técnicamente fiel y prácticamente engañoso. Hoy dice *"café premium con crema y azúcar"*: menos técnico, más apetecible y sin el término que induce a error.
+
+**Lo que se verificó y estaba BIEN, con su fuente:**
+- `PERS_03` — *"leche de cabra"* ✅ confirmado: la ficha dice *"enriquecido con Ganoderma lucidum y leche de cabra"*.
+- `SUP_02` — *"Cordyceps sinensis, 500 mg por cápsula"* ✅ confirmado por la ficha colombiana.
+
+⚠️ **Y de ahí sale la regla de método, que es lo que más va a servir: la composición se verifica contra `ganoexcel.com.co`, NUNCA contra `ganoexcel.us`.** Son formulaciones distintas por mercado, y se comprobó el mismo día: el Cordygold estadounidense es **Cordyceps militaris 450 mg** y el colombiano **sinensis 500 mg**. Usar el sitio de Estados Unidos —que es el que sí publica listas completas de ingredientes— habría metido un error donde hoy no lo hay.
+
+⚠️ **El criterio del Director queda escrito en la cabecera de BEB_11:** el deseo no se construye con la ficha, se construye con el momento. La composición se dice solo cuando aporta al deseo — y entonces tiene que ser cierta.
+
+Verificación: clasificador 58/58 · guardarraíl de salud verde · 0 frases vetadas · `BEB_11` sigue encabezando su consulta (0.660).
+
+---
+
 ### v7.7 — La categoría sanitaria dejaba de ser cierta en bloque (26 ago 2026)
 
 Primera fase de la auditoría del catálogo. Cierra el pendiente más viejo del archivo: el que la auditoría del 17 de agosto dejó anotado como *"el disclaimer global falso para 7 de 19"*.

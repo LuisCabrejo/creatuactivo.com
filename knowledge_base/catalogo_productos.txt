@@ -9,16 +9,15 @@
 **v7.3 (7 ago 2026):** "Flujo de caja" retirado (decisión del Director): PROD_02 "estabilidad del ingreso" · PROD_OVERVIEW (verbatim_lock) "activo con ingreso recurrente". Sin cambios de precios ni CV/PV.
 **v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
 
-**[Concepto Nuclear]:** Ganoderma Lucidum con tecnología de extracción propietaria. 30+ años de investigación. 200+ compuestos bioactivos. Biodisponibilidad 100%.
+**[Concepto Nuclear del archivo]:** Ganoderma Lucidum con extracción propia, más de 30 años de proceso y más de 200 compuestos. ⛔ **Decía *"Biodisponibilidad 100%"*** — retirado el 26 ago 2026: **la composición se afirma; la absorción no.** Esta cabecera no se sirve, pero es lo primero que lee quien vaya a editar.
 
 ---
 
-## ESTRATEGIA DE PORTAFOLIO
+**[Sección interna — no es contenido servido]:** ESTRATEGIA DE PORTAFOLIO
 
 ### PROD_01: "¿Por qué el café es el producto estrella?"
 **[Índice]:** Por qué el café es el producto estrella, por qué arrancan con café, qué tiene de especial ese producto para el negocio.
-**[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor sobre el producto]**
-**[Concepto Nuclear]:** Penetración Logística sin Fricción. Monetización de un hábito biológico inquebrantable.
+**[Concepto Nuclear]:** El café como puerta de entrada, visto **desde el negocio**. ⚠️ Esta respuesta es para quien pregunta por la estrategia; a quien pregunta por el producto lo atienden `BEB_02` y la línea de bebidas. ⛔ **La instrucción de contexto vivía FUERA del `[Concepto Nuclear]`** (corregido 26 ago 2026), y el fragmentador solo recorta lo que está dentro: se le servía al modelo como texto, con su *"NO para consultas de consumidor"* en negativo. Toda nota para quien edita va aquí adentro. ⚠️ Salió también el registro viejo —*"penetración logística sin fricción"*, *"hábito biológico inquebrantable"*, *"bioactivación de grado médico"*—: jerga de consultoría y una afirmación farmacológica.
 
 El café es la puerta más sencilla porque nadie tiene que cambiar de hábito: ya se toma todos los días, en todas las casas.
 
@@ -32,8 +31,7 @@ Y como se acaba, se vuelve a pedir. Esa recompra es la que sostiene el ingreso.
 
 ### PROD_02: "¿Por qué los clientes no se van?"
 **[Índice]:** Por qué los clientes no se van, por qué vuelven a pedir, qué hace que se queden consumiendo.
-**[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor]**
-**[Concepto Nuclear]:** Retención Orgánica y Re-consumo Automático.
+**[Concepto Nuclear]:** Por qué se repite la compra, visto **desde el negocio**. La recompra se explica por el resultado —le gustó y se le acabó—, nunca por mecanismo fisiológico. ⚠️ Esta respuesta es para quien pregunta por la estrategia. ⛔ **La instrucción de contexto vivía fuera del `[Concepto Nuclear]` y se servía al modelo** (corregido 26 ago 2026). ⛔ Aquí vivía la peor frase del catálogo: *"esto garantiza que el Director perciba regalías ininterrumpidas (Lifetime Value superior a 36 meses) por un esfuerzo ejecutado una sola vez"* — garantía, duración y esfuerzo mínimo en una sola frase, más un léxico retirado. Y *"el sistema metabólico experimenta la diferencia biológica"*, que es mecanismo.
 
 Porque no hay nada que sostener. El cliente no vuelve por disciplina: vuelve porque se le acabó y le gustó.
 
@@ -79,7 +77,7 @@ De ahí, quien quiere algo más concentrado pasa a las cápsulas: Ganoderma, Exc
 
 ---
 
-## RESPALDO CIENTÍFICO
+**[Sección interna — no es contenido servido]:** RESPALDO CIENTÍFICO
 
 ### CIENCIA_01: "¿Qué es el Ganoderma Lucidum? / ¿De qué es el hongo?"
 **[Índice]:** Qué es el Ganoderma Lucidum, qué es ese hongo, de qué está hecho lo que venden.
@@ -138,6 +136,8 @@ Es la diferencia entre un empujón y un hábito.
 **La diferencia:**
 Casi todo lo que se consigue en el mercado es Ganoderma en polvo, el hongo molido. Gano Excel no vende polvo: vende **extracto**, obtenido con la tecnología de extracción dual elimina la barrera y garantiza asimilación completa por el sistema gastrointestinal. No es "Ganoderma" a secas: es el híbrido de las 6 variedades de mayor valor, en extracto puro hidrosoluble.
 
+
+**Pregunta de seguimiento:** ¿Le muestro los productos que lo llevan?
 ---
 
 ### CIENCIA_05: "¿Quién fundó Gano Excel?"
@@ -160,6 +160,8 @@ Suyo es el cultivo de tejidos con el que hoy se produce, y la idea de reunir las
 | GMP | Good Manufacturing Practices |
 | ISO 9001:2000 | Gestión de calidad |
 
+
+**Pregunta de seguimiento:** ¿Le muestro qué hace diferente al producto?
 ---
 
 ### PROD_OVERVIEW: "¿Cómo se estructura el portafolio? / ¿Cuáles son las categorías de productos? / ¿Qué tipo de productos tienen? / ¿Cuál es el producto? / vista general del portafolio / dame un resumen de los productos"
@@ -181,6 +183,8 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 **4. Cuidado Personal** — 6 productos
 > Línea diaria del hogar: Gano Fresh (pasta dental), Jabón Gano, Jabón Transparente, Shampoo + Acondicionador + Exfoliante Piel&Brillo. Rango: $73,900 — $78,500 COP.
 
+
+**Pregunta de seguimiento:** ¿Por cuál línea quiere que empecemos?
 ---
 
 **Total: 22 productos.** La lógica operativa no es vender productos individuales — es reasignar el gasto que el hogar ya hace en bienestar hacia un activo con ingreso recurrente. El consumo en Cuidado Personal y Bebidas se ejecuta automáticamente sin persuasión comercial.
@@ -188,7 +192,7 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 
 ---
 
-## CATEGORÍA 1: BEBIDAS FUNCIONALES
+**[Sección interna — no es contenido servido]:** CATEGORÍA 1: BEBIDAS FUNCIONALES
 
 ### BEB_01: "¿Cuáles son los cafés disponibles? / ¿Cuáles son sus bebidas? / ¿Qué productos tienen? / Háblame de los productos / ¿Cuáles son los productos?"
 **[Índice]:** Cuáles son las bebidas y los cafés disponibles, qué productos tienen, la lista de bebidas con precios.
@@ -211,6 +215,8 @@ La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — t
 
 </verbatim_lock>
 
+
+**Pregunta de seguimiento:** ¿Sobre cuál quiere que le cuente?
 ---
 
 ### BEB_02: "¿Para qué sirve el Ganocafé 3 en 1? / ¿Qué tiene de especial ese café?"
@@ -232,7 +238,6 @@ La caja trae 20 sobres —uno cada mañana, le alcanza para veinte— y cuesta $
 
 ### BEB_03: "¿El Ganocafé tiene cafeína? / ¿Cuánta cafeína tiene?"
 **[Índice]:** El Ganocafé tiene cafeína, cuánta cafeína trae, me va a quitar el sueño.
-**[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
 **[Concepto Nuclear]:** Sí tiene cafeína, pero en proporción controlada — 13 veces menor que el café convencional.
 
 Sí, el Ganocafé contiene cafeína natural. Sin embargo, la proporción es significativamente menor que en el café tradicional:
@@ -241,11 +246,12 @@ Sí, el Ganocafé contiene cafeína natural. Sin embargo, la proporción es sign
 
 El resultado práctico: puede tomar su café en la mañana y no sentir la sobreestimulación ni la caída brusca de energía que produce el café con alta concentración de cafeína.
 
+
+**Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
 
 ### BEB_04: "¿Tienen algún té? / háblame del té / ¿qué es el Rooibos? / té con Ganoderma / bebida sin cafeína"
 **[Índice]:** Tienen té, qué es el Rooibos, té con Ganoderma, una bebida sin cafeína.
-**[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
 **[Concepto Nuclear]:** Oleaf Gano Rooibos — el único té de la línea. Sin cafeína. Ideal para quienes no toman café.
 
 El **Oleaf Gano Rooibos** es la única infusión de la línea GanoCafé, y la opción perfecta para quien quiere los beneficios del Ganoderma sin cafeína.
@@ -259,11 +265,12 @@ El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el
 
 **Presentación:** 20 sobres · Precio: $119,900 COP
 
+
+**Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
 
 ### BEB_05: "¿Tienen cereal? / háblame del Gano C'Real / ¿qué es la spirulina? / Gano cereal / bebida con spirulina"
 **[Índice]:** Tienen cereal, qué es el Gano C'Real, la bebida con spirulina, el cereal de ustedes.
-**[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**
 **[Concepto Nuclear]:** Gano C'Real Spirulina — el "cereal" funcional de la línea. Spirulina + Ganoderma. El desayuno inteligente.
 
 El **Gano C'Real Spirulina** (pronunciado "Gano-Cereal") es una bebida instantánea de desayuno que combina:
@@ -275,6 +282,8 @@ Personas activas, deportistas o quienes quieren un desayuno funcional sin recurr
 
 **Presentación:** 15 sobres · Precio: $119,900 COP
 
+
+**Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
 
 ### BEB_06: "¿Qué es el Reskine? / ¿Cuánto cuesta el Reskine? / ¿Para qué sirve el Reskine Colágeno? / precio del colágeno / bebida de colágeno"
@@ -362,7 +371,7 @@ Un sobre en agua caliente. La caja trae 20 y cuesta $124.900 COP.
 
 ---
 
-## CATEGORÍA 2: LÍNEA LUVOCO
+**[Sección interna — no es contenido servido]:** CATEGORÍA 2: LÍNEA LUVOCO
 
 ### LUV_00: "¿Qué tiene de especial el café Luvoco? / beneficios del café luvoco / el café luvoco / háblame del luvoco / por qué luvoco / qué tal es el luvoco / cómo es el café de la máquina"
 **[Índice]:** Qué tiene de especial el café Luvoco, por qué ese café es distinto, beneficios del Luvoco.
@@ -395,6 +404,8 @@ El sistema **LUVOCO** es un ecosistema cerrado: máquina italiana + cápsulas ex
 Las cápsulas son exclusivas para la máquina LUVOCO — no compatibles con Nespresso.
 </verbatim_lock>
 
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona la máquina?
 ---
 
 ### LUV_02: "¿Qué es el Luvoco Suave? / cápsulas suaves / la cápsula suave / luvoco suave cuánto cuesta"
@@ -439,7 +450,7 @@ Caja de 15 cápsulas, $110.900 COP.
 
 ---
 
-## CATEGORÍA 3: SUPLEMENTOS AVANZADOS
+**[Sección interna — no es contenido servido]:** CATEGORÍA 3: SUPLEMENTOS AVANZADOS
 
 ### SUP_01: "¿Cuáles son los suplementos? / ¿Tienen suplementos dietarios? / ¿Qué cápsulas hay? / suplementos concentrados / suplemento dietario"
 **[Índice]:** Cuáles son los suplementos, qué cápsulas hay, los suplementos dietarios con sus precios.
@@ -457,9 +468,11 @@ La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrado
 Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea.
 </verbatim_lock>
 
+
+**Pregunta de seguimiento:** ¿Sobre cuál quiere que le cuente?
 ---
 
-## CATEGORÍA 4: CUIDADO PERSONAL
+**[Sección interna — no es contenido servido]:** CATEGORÍA 4: CUIDADO PERSONAL
 
 ### PERS_01: "¿Qué productos hay para cuidado personal? / ¿Tienen jabón? / ¿Tienen pasta de dientes? / ¿Tienen shampoo? / cuidado personal"
 **[Índice]:** Qué hay para cuidado personal, tienen jabón, pasta de dientes o shampoo, la línea de aseo con precios.
@@ -478,6 +491,8 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 | **Exfoliante Piel&Brillo** | $73,900 | 200g | Renovación celular |
 </verbatim_lock>
 
+
+**Pregunta de seguimiento:** ¿Sobre cuál quiere que le cuente?
 ---
 
 ### PERS_02: "¿Qué es el Gano Fresh? / la pasta de dientes / crema dental / pasta dental de ustedes / cuánto cuesta la pasta"
@@ -564,7 +579,7 @@ Cuesta $73.900 COP.
 
 ---
 
-## PREGUNTAS FRECUENTES
+**[Sección interna — no es contenido servido]:** PREGUNTAS FRECUENTES
 
 ### SUP_02: "¿Qué es el CordyGold? / ¿Para qué sirve el Cordygold? / ¿Cuánto cuesta el CordyGold? / cápsulas de cordyceps / cordigold / cordygol"
 **[Índice]:** Qué es el CordyGold, para qué sirven las cápsulas de cordyceps, cuánto cuesta.
@@ -680,7 +695,7 @@ Claro, y es lo más común: la mayoría arma su propia combinación con lo que y
 
 ---
 
-## RESUMEN EJECUTIVO
+**[Sección interna — no es contenido servido]:** RESUMEN EJECUTIVO
 
 **Rangos de precios:**
 | Categoría | Rango COP |

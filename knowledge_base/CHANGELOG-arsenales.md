@@ -1561,6 +1561,45 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v8.0 — Cierra la auditoría del catálogo: instrucciones internas que se le servían al modelo (26 ago 2026)
+
+Cuarta y última fase. Aquí apareció un defecto **estructural**, no de copy, y explica por qué el archivo se degradaba solo.
+
+⛔ **Cinco instrucciones internas viajaban DENTRO del cuerpo servido.** El fragmentador recorta el `[Concepto Nuclear]` y **nada más**, así que todo lo que esté fuera llega al modelo como texto:
+
+- `PROD_01` y `PROD_02` traían *"**[CONTEXTO: Solo para preguntas sobre estrategia de negocio, NO para consultas de consumidor]**"* — una nota para quien edita, escrita **en negativo**, servida en cada turno en que ganaba el fragmento.
+- Tres fragmentos de bebidas traían *"**[MODO CONSULTOR DE LIFESTYLE & BIENESTAR]**"*, que es el rótulo del modo del system prompt, no contenido.
+
+Es el mismo defecto que el *Protocolo Guante Blanco* de `arsenal_avanzado`. **Toda nota para quien edita va dentro del `[Concepto Nuclear]`, que es lo único que se recorta.**
+
+⛔ **Ocho encabezados de sección se servían pegados al fragmento anterior.** `## CATEGORÍA 1: BEBIDAS FUNCIONALES` cerraba el cuerpo de `PROD_OVERVIEW`; `## CATEGORÍA 4: CUIDADO PERSONAL` cerraba el de `SUP_01`; y `## RESUMEN EJECUTIVO` arrastraba tras `FAQ_04` una tabla de precios y la línea *"100% hidrosoluble (**absorción garantizada**)"*. El fragmentador toma todo hasta el siguiente `###`, así que un encabezado suelto entre dos respuestas se convierte en el remate de la primera.
+
+**La cabecera del archivo también afirmaba la absorción:** su concepto nuclear terminaba en *"Biodisponibilidad 100%"*. No se sirve, pero es lo primero que lee quien vaya a editar — y hoy fue exactamente así como se propagó el error por todo el bloque viejo.
+
+**Las 13 preguntas de cierre que faltaban.** El catálogo pasa de **6 a 43 de 43**. Las cuatro tablas por categoría —`BEB_01`, `LUV_01`, `SUP_01`, `PERS_01`, con candado— la reciben **fuera del candado**, y cierran ofreciendo el producto concreto: *"¿sobre cuál quiere que le cuente?"*, que es el paso que sigue a ver una lista.
+
+---
+
+**Balance de la auditoría completa del catálogo (v7.7 → v8.0):**
+
+| | Antes | Ahora |
+|---|---|---|
+| Fragmentos con pregunta de cierre | 6 / 43 | **43 / 43** |
+| Afirmaciones de categoría sanitaria falsas en bloque | 2 | 0 |
+| Afirmaciones falsas sobre alérgenos | 1 | 0 |
+| Consejo médico servido | 1 | 0 |
+| Promesas de ingreso con garantía y plazo | 1 | 0 |
+| Afirmaciones de absorción o biodisponibilidad | 4 | 0 |
+| Instrucciones internas servidas al modelo | 5 | 0 |
+| Encabezados de sección servidos como contenido | 8 | 0 |
+| Títulos truncados por el fragmentador | 5 | 0 |
+
+⏳ **Lo que queda anotado:** los precios en COP de 29 cuerpos, que van con el pendiente general de moneda · los 25 títulos largos, que cargan los nombres coloquiales del prospecto y se miden antes de cortar · y la composición del resto de productos contra la ficha del fabricante, de la que se verificaron los ocho que afirmaban algo.
+
+Verificación: clasificador 58/58 · guardarraíles de salud y negocio en verde · 0 frases vetadas sobre 172 fragmentos · benchmark 37/40 puesto 1, 40/40 top 3.
+
+---
+
 ### v7.9 — El catálogo tenía dos generaciones de texto, y la vieja no la tocó nadie (26 ago 2026)
 
 Tercera fase, y la de más riesgo del corpus entero.

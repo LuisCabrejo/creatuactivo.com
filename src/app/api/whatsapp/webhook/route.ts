@@ -1185,6 +1185,31 @@ async function procesarEntrante(body: any): Promise<void> {
       }
     }
 
+    // ─── 2.29 ¿Ya radicó? — lo consumen el simulador, el cierre y el motor ────
+    // Hasta el 27 ago 2026 esto se miraba solo en el cierre (2.5): el simulador
+    // le preguntó a Liliana con cuál paquete arrancaba dos minutos después de que
+    // radicara el ESP-1, y el motor, ante un «Perfecto», volvió a pedirle los
+    // cuatro datos. La radicación es un estado de la conversación, y todos los
+    // nodos que hablan después la tienen que conocer.
+    const socio = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: filaRadicacion } = await (supabase as any)
+      .from('pending_activations')
+      .select('id, plan_type')
+      .eq('fingerprint_id', waFingerprint)
+      .maybeSingle();
+    // `plan_type` habla el vocabulario del Dashboard (inicial / estrategico /
+    // visionario); aquí se traduce al código ESP, que es el que entiende todo lo demás.
+    const radicacionPrevia: { paquete: string } | null = filaRadicacion
+      ? {
+          paquete: /vision/i.test(filaRadicacion.plan_type ?? '') ? 'ESP-3'
+            : /estrat|empres/i.test(filaRadicacion.plan_type ?? '') ? 'ESP-2'
+            : 'ESP-1',
+        }
+      : null;
+    if (radicacionPrevia) console.log(`📌 [WA Webhook] ${waFingerprint} ya radicó (${radicacionPrevia.paquete})`);
+
     // ─── 2.3 El escenario del simulador se responde dictado ───────────────────
     // La persona acaba de elegir tarifa y clientes (o paquete y cantidad) y vio
     // el resultado en el Flow. Lo que espera es que la conversación reconozca
@@ -1199,6 +1224,17 @@ async function procesarEntrante(body: any): Promise<void> {
       const opciones = {
         composicionYaOfrecida: historial.some((m) =>
           m.role === 'assistant' && /qu[eé] trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
+        // Ya radicó: el cierre vuelve sobre SU paquete, no sobre la elección
+        // (Liliana, 27 ago 2026: eligió ESP-1 y el simulador le preguntó con cuál).
+        radicado: radicacionPrevia
+          ? {
+              paquete: radicacionPrevia.paquete,
+              socio:   socio?.nombre?.split(/\s+/).slice(0, 2).join(' '),
+              composicionVista: historial.some((m) =>
+                m.role === 'assistant'
+                && new RegExp(`${radicacionPrevia.paquete}[^\\n]{0,30}le activa inmediatamente este inventario`, 'i').test(m.content)),
+            }
+          : undefined,
       };
       const respuestaSimulador = 'tipo' in escenarioSimulador
         ? respuestaRenta(escenarioSimulador, opciones)
@@ -1267,15 +1303,8 @@ async function procesarEntrante(body: any): Promise<void> {
     // wa.me al número del WABA — a alguien que está escribiendo desde adentro de
     // esa misma conversación. Aquí se piden los cuatro datos que
     // /api/pre-afiliacion exige y se deja el registro hecho.
-    const socio = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: yaRadicado } = await (supabase as any)
-      .from('pending_activations')
-      .select('id')
-      .eq('fingerprint_id', waFingerprint)
-      .maybeSingle();
-
+    // `socio` y `radicacionPrevia` se resuelven antes del simulador (2.3), que
+    // también los necesita.
     const cierre = await gestionarCierre({
       mensajeActual:  messageText,
       historial,
@@ -1283,7 +1312,7 @@ async function procesarEntrante(body: any): Promise<void> {
       fingerprintId:  waFingerprint,
       socio:          socio?.nombre?.split(/\s+/).slice(0, 2).join(' '),
       constructorId:  socio?.constructorId,
-      yaRadicadoEnBD: !!yaRadicado,
+      yaRadicadoEnBD: !!radicacionPrevia,
     });
 
     if (cierre) {
@@ -1492,6 +1521,12 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       ? 'whatsapp_socio'
       : ambivalencia
       ? ambivalencia
+      // Ya radicó: el motor no lo sabía y ante un «Perfecto» volvió a pedir los
+      // cuatro datos copiando el bloque espejo del prompt (Liliana, 27 ago 2026).
+      // Va después de la ambivalencia a propósito: un «lo consulto con mi esposa»
+      // tras radicar sigue siendo el nodo de pareja.
+      : radicacionPrevia
+      ? `whatsapp_radicado_${radicacionPrevia.paquete.toLowerCase().replace('-', '')}`
       : isCTWA
         ? `whatsapp_ctwa${isMapaCTA ? '_mapa_de_salida' : ''}`
         : 'whatsapp_inbound';

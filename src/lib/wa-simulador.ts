@@ -58,6 +58,32 @@ export interface OpcionesCierre {
    *  volver a ofrecer "¿qué trae el paquete?" repite una pregunta ya atendida
    *  (prueba conversacional, 20 ago 2026). El cierre pasa a pedir la elección. */
   composicionYaOfrecida?: boolean
+  /** La persona YA radicó su vinculación en esta conversación. Preguntarle con
+   *  cuál paquete arranca dos minutos después de que eligió uno se lee como que
+   *  no leímos (Liliana, 27 ago 2026). El cierre vuelve sobre SU paquete. */
+  radicado?: {
+    /** Clave del paquete radicado: 'ESP-1' · 'ESP-2' · 'ESP-3'. */
+    paquete: string
+    /** Nombre corto del socio que coordina el pago ("Luis Cabrejo"). */
+    socio?: string
+    /** La composición de ESE paquete ya se mostró en el hilo. */
+    composicionVista: boolean
+  }
+}
+
+/**
+ * Cierre para quien ya radicó. Primero la composición de su propio paquete —lo
+ * tangible que va a recibir— con la forma «qué trae el paquete X», que es la que
+ * el «sí» siguiente convierte en el pin de composición dictado (probado el 27 ago,
+ * 9:45). Si ya la vio, el paso que sigue: qué pasa tras confirmar el pago
+ * (ACTIVACION_01).
+ */
+function cierreRadicado(r: NonNullable<OpcionesCierre['radicado']>): string {
+  const p = GEN5_POR_PAQUETE[r.paquete.toUpperCase().replace(/\s+/g, '')];
+  if (p && !r.composicionVista) {
+    return `¿Le muestro qué trae el paquete ${corto(p.etiqueta)}, el que acaba de radicar?`;
+  }
+  return `¿Le cuento qué pasa después de que ${r.socio ?? 'el socio'} le confirme el pago?`;
 }
 
 export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {}): string | null {
@@ -69,7 +95,9 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
 
   const monto = clientes * t.pct * COP_POR_CLIENTE_PUNTO_Y_CAJA * cajas;
   const esKit = /kit/i.test(t.nombre);
-  const cierre = opciones.composicionYaOfrecida
+  const cierre = opciones.radicado
+    ? cierreRadicado(opciones.radicado)
+    : opciones.composicionYaOfrecida
     ? '¿Con cuál de los tres paquetes se identifica más?'
     : esKit
       ? '¿Le muestro las tres formas de empezar?'
@@ -96,7 +124,9 @@ export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): 
   const paquetes = cantidad === 1 ? 'un paquete' : `${cantidad} paquetes`;
   const comprados = cantidad === 1 ? 'comprado' : 'comprados';
 
-  const cierre = opciones.composicionYaOfrecida
+  const cierre = opciones.radicado
+    ? cierreRadicado(opciones.radicado)
+    : opciones.composicionYaOfrecida
     ? '¿Con cuál de los tres paquetes se identifica más?'
     : `¿Le muestro qué trae el paquete ${corto(p.etiqueta)}?`;
 

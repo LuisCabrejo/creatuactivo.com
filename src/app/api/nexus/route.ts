@@ -4978,6 +4978,35 @@ Responda lo OTRO que preguntó en su mensaje, y cierre sobre ESE mismo producto
 o esa misma línea — no sobre otro.`;
       }
 
+      // Ya radicó su vinculación en el canal (nodo 2.5 del webhook → tabla
+      // `pending_activations`). Sin esta señal el motor no lo sabía: ante un
+      // «Perfecto» volvió a pedir los cuatro datos copiando el bloque espejo del
+      // prompt, dos minutos después de que la persona diera su cédula (27 ago
+      // 2026). ⚠️ Escrito en positivo a propósito: describe el estado y lo que
+      // SÍ se hace. Nombrar aquí el formulario o los paquetes para vetarlos es
+      // dictarlos (contextual entrainment — decisión del Director, 27 ago).
+      if (pageContext?.startsWith('whatsapp_radicado')) {
+        const clave = pageContext.replace('whatsapp_radicado_', '').toUpperCase();
+        const nombrePaquete: Record<string, string> = {
+          ESP1: 'ESP-1 Inicial', ESP2: 'ESP-2 Empresarial', ESP3: 'ESP-3 Visionario',
+        };
+        const paquete = nombrePaquete[clave] ?? 'su paquete de inicio';
+        return `
+✅ VINCULACIÓN RADICADA — esta persona ya decidió
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Sus datos ya están registrados y eligió el **${paquete}**. El socio que la invitó
+(su nombre está en el hilo) ya fue avisado y coordina el pago con ella en persona.
+El trámite está completo.
+
+• Trátela como socia que espera la confirmación del pago: se le responde derecho
+  lo que pregunte, con la confianza de quien ya está adentro.
+• Ante un «perfecto», «listo» o un gracias: una línea de acuse y el recordatorio
+  de que el socio la contacta para el pago. Ahí termina el turno.
+• Todo lo que tenga que ver con su registro —cambiar de paquete, corregir un
+  dato, el pago— lo resuelve con el socio: se le indica eso y se sigue con lo que
+  ella pregunte.`;
+      }
+
       // Quien escribe es DUEÑO de un canal, no candidato a tenerlo. Lo detecta el
       // webhook contra `constructor_slugs` (determinístico, por teléfono) y manda
       // esta señal. Sin ella el motor le respondía con argumentos de venta a quien

@@ -8,6 +8,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { notFound, redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
 import ManifiestoDocument from '@/components/ManifiestoDocument'
@@ -38,6 +39,20 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
 
 function isReelNicho(destino: string): destino is ReelNicho {
   return (REEL_NICHOS as readonly string[]).includes(destino)
+}
+
+// Los robots que arman la tarjeta de vista previa al pegar un enlace. Se
+// reconocen por el user-agent — WhatsApp, Facebook/Instagram/Messenger,
+// iMessage (usa el de Facebook), Telegram, X, LinkedIn, Slack, Discord, Skype.
+const SCRAPERS_DE_PREVIEW = /whatsapp|facebookexternalhit|facebot|twitterbot|telegrambot|linkedinbot|slackbot|discordbot|skypeuripreview|pinterestbot|applebot/i
+
+function esScraperDePreview(): boolean {
+  return SCRAPERS_DE_PREVIEW.test(headers().get('user-agent') ?? '')
+}
+
+const OG_QUESWA = {
+  title: 'Hable con Queswa por WhatsApp',
+  description: 'La inteligencia artificial de CreaTuActivo le explica cómo funciona y le responde a cualquier hora.',
 }
 
 // Número orgánico de CreaTuActivo — fallback si el arquitecto no tiene WhatsApp
@@ -140,7 +155,25 @@ export default async function DestinoRoute({
     // así que aquí va texto limpio; el nudo de la marca vive en las respuestas
     // de Queswa, que salen por la API y sí lo conservan.
     const texto = `Hola Queswa, vengo del enlace de ${slug}`
-    redirect(`https://wa.me/573215193909?text=${encodeURIComponent(texto)}`)
+    const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto)}`
+
+    // 🔴 A los robots de vista previa NO se les redirige (28 ago 2026). Un
+    // scraper que recibe el 307 lo sigue hasta wa.me y arma la tarjeta con lo
+    // que wa.me le dé: la foto de perfil de Queswa en una URL firmada con
+    // vencimiento (`oe=`), y a merced de que WhatsApp quiera pintar previews de
+    // su propio dominio. Así fue durante semanas —la "tarjeta del logotipo" era
+    // esa foto— hasta que dejó de salir nada. La tarjeta tiene que ser NUESTRA:
+    // al robot se le sirve esta página mínima con el OG de abajo, y la persona
+    // sigue recibiendo el redirect directo, sin pasar por aquí.
+    if (esScraperDePreview()) {
+      return (
+        <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
+          <a href={waUrl} style={{ color: '#C5A059' }}>{OG_QUESWA.title}</a>
+        </main>
+      )
+    }
+
+    redirect(waUrl)
   }
 
   // ── Caso redirect (comportamiento original) ────────────────────
@@ -209,6 +242,26 @@ export async function generateMetadata({
         siteName: 'CreaTuActivo.com',
         images: [{ url: 'https://creatuactivo.com/manifiesto/opengraph-image', width: 1200, height: 630, alt: 'Manifiesto de los Fundadores' }],
       },
+    }
+  }
+
+  // Tarjeta propia para el enlace de Queswa — la imagen es el logotipo (la
+  // misma del home). Ver el comentario del scraper en DestinoRoute.
+  if (destino === 'queswa' || destino === 'acceso') {
+    const url = `https://creatuactivo.com/${slug}/${destino}`
+    return {
+      title: `${OG_QUESWA.title} | CreaTuActivo`,
+      description: OG_QUESWA.description,
+      robots: { index: false },
+      alternates: { canonical: url },
+      openGraph: {
+        title: OG_QUESWA.title,
+        description: OG_QUESWA.description,
+        url,
+        siteName: 'CreaTuActivo.com',
+        images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630, alt: 'CreaTuActivo' }],
+      },
+      twitter: { card: 'summary_large_image', title: OG_QUESWA.title, description: OG_QUESWA.description },
     }
   }
 

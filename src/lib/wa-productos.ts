@@ -257,7 +257,14 @@ function normalizar(t: string): string {
  * envío cuesta reputación con Meta eso es exactamente lo que no se hace.
  */
 export function pideImagen(texto: string): boolean {
-  return /\b(foto|fotos|imagen|imagenes|imágenes|pantallazo|c[oó]mo se ve|c[oó]mo es|mu[eé]streme|ens[eé][ñn]eme|man?d[eé]me|env[ií]eme|p[aá]seme|quiero ver|d[eé]jeme ver)\b/i.test(texto);
+  // Un sustantivo de imagen pide la foto por sí solo.
+  if (/\b(foto|fotos|imagen|imagenes|imágenes|pantallazo|c[oó]mo se ve)\b/i.test(texto)) return true;
+  // Un verbo de mostrar o un «cómo es» solo cuentan si el MISMO mensaje nombra
+  // un producto o una línea. Sin eso, «cómo es eso, dame contexto» y «cómo es la
+  // ganancia por paquetes» recibían la foto del café que la persona acababa de
+  // pedir, sacado del hilo, y el turno se cerraba ahí (prueba del 29 ago 2026).
+  const verboDebil = /\b(c[oó]mo es|mu[eé]streme|ens[eé][ñn]eme|man?d[eé]me|env[ií]eme|p[aá]seme|quiero ver|d[eé]jeme ver)\b/i.test(texto);
+  return verboDebil && (detectarProducto(texto) !== null || detectarFamilia(texto) !== null);
 }
 
 /**

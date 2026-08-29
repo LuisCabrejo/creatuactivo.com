@@ -314,3 +314,17 @@ export function esRechazoSalud(texto: string): boolean {
   const t = (texto || '').trim();
   return PREFIJOS_RECHAZO.some((p) => t.startsWith(p));
 }
+
+/**
+ * ¿Es el rechazo de la familia COMÚN (o su versión corta)? Solo estos cuentan
+ * como reincidencia: la respuesta del peso no es un rechazo sino una respuesta,
+ * y «diabetes» después de «adelgazar» recibía la versión endurecida como si la
+ * persona estuviera insistiendo (prueba del 29 ago 2026).
+ */
+export function esRechazoSaludComun(texto: string): boolean {
+  const t = (texto || '').trim();
+  return t.startsWith('Le agradezco que me lo cuente. Los productos de Gano Excel')
+    || t.startsWith('Le entiendo, y ojalá pudiera decirle más')
+    || t.startsWith('Le agradezco que me pregunte, y le voy a responder con franqueza')
+    || t.startsWith('Le entiendo, pero en temas de salud no le puedo orientar');
+}

@@ -132,5 +132,22 @@ const B = 'Gano Excel cobra, empaca y despacha a su puerta en Santa Marta. Usted
 guardarrail('Es una membresía mensual con acceso a cursos.') ? ok('la membresía afirmada sigue bloqueada') : mal('membresía afirmada pasó');
 guardarrail('Usted comparte el enlace y no tiene que hacer nada más: el canal crece solo.') ? ok('el esfuerzo mínimo dicho del negocio sigue bloqueado') : mal('promesa de esfuerzo mínimo pasó');
 
+console.log('\n═══ ESCENARIO D — la foto no secuestra preguntas, y el peso no es reincidencia ═══');
+{
+  const { pideImagen } = await import('../src/lib/wa-productos');
+  const { esRechazoSaludComun, RECHAZO_SALUD_PESO, RECHAZO_SALUD_ESTANDAR, rechazoSaludPorFamilia, clasificarPreguntaSalud } = await import('../src/lib/wa-guardarrail-salud');
+  for (const t of ['cómo es la ganancia por paquetes empresariales', 'cómo es eso, dame contexto, quiero comprender', 'muéstreme cómo se gana', 'quiero ver los números'])
+    !pideImagen(t) ? ok(`no es foto: «${t}»`) : mal(`tomó como foto: «${t}»`);
+  for (const t of ['tienes una foto del 3 en 1', 'muéstreme el ganocafé clásico', 'cómo es la caja de cápsulas de ganoderma', 'muéstreme las bebidas'])
+    pideImagen(t) ? ok(`sí es foto: «${t}»`) : mal(`no reconoció la foto: «${t}»`);
+  !esRechazoSaludComun(RECHAZO_SALUD_PESO) ? ok('la respuesta del peso no cuenta como reincidencia') : mal('el peso cuenta como reincidencia');
+  esRechazoSaludComun(RECHAZO_SALUD_ESTANDAR) ? ok('el rechazo común sí cuenta como reincidencia') : mal('el común no cuenta');
+  const c = clasificarPreguntaSalud('y para la diabetes que productos me pueden ayudar');
+  const r = c ? rechazoSaludPorFamilia(c, false) : null;
+  r?.familia === 'comun' && /INVIMA/.test(r.texto) ? ok('diabetes tras peso → familia común con la categoría INVIMA') : mal('diabetes no cayó en la familia común: ' + JSON.stringify(r?.familia));
+  const p = clasificarPreguntaSalud('Qué producto es bueno para adelgazar');
+  (p && rechazoSaludPorFamilia(p).familia === 'peso') ? ok('adelgazar → familia peso') : mal('adelgazar no cayó en peso');
+}
+
 console.log(`\n${'─'.repeat(60)}\n${fallos ? `❌ ${fallos} comprobación(es) fallaron` : '✅ Prueba de mesa completa en verde'}`);
 if (fallos) process.exit(1);

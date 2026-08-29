@@ -80,6 +80,7 @@ import {
   RESPUESTA_EMERGENCIA,
   RECHAZO_SALUD_ESTANDAR,
   rechazoSaludPorFamilia,
+  esRechazoSaludComun,
 } from '@/lib/wa-guardarrail-salud';
 import { detectarPromesaDeIngreso, detectarModeloInventado } from '@/lib/wa-guardarrail-negocio';
 
@@ -2049,7 +2050,7 @@ async function hayRechazoSaludPrevio(
     for (const fila of ((data || []) as any[])) {
       if (!Array.isArray(fila.messages)) continue;
       for (const m of fila.messages) {
-        if (m?.role === 'assistant' && typeof m.content === 'string' && esRechazoSalud(m.content)) {
+        if (m?.role === 'assistant' && typeof m.content === 'string' && esRechazoSaludComun(m.content)) {
           return true;
         }
       }

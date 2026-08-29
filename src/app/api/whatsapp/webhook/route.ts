@@ -1824,7 +1824,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // con la tarifa del Kit»: el Flow va directo a la pantalla de renta al 10%.
       // Sin esto caía en el caso del GEN5 —el texto nombra el Bono GEN5 con
       // cifras— y abría en la pantalla de paquetes (prueba del Director, 29 ago).
-      const _ofreceKit = /escenario en el simulador con la tarifa del Kit/i.test(queswaReply);
+      // También cuando la respuesta es del Kit aunque no traiga la oferta literal
+      // (el modelo compuso su propia versión el 29 ago): Kit + su precio.
+      const _ofreceKit = /escenario en el simulador con la tarifa del Kit/i.test(queswaReply)
+        || (/Kit de Inicio/i.test(queswaReply) && /443[.,]?600/.test(queswaReply));
       if (flowSimulador && _ofreceKit) {
         const enviado = await sendFlow(
           phoneNumber,

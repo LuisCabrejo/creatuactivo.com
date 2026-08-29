@@ -2588,7 +2588,10 @@ function analizarIntencionSemantica(userMessage: string): string[] {
       porque: 'pide una opción menor al paquete',
       // «inversión» sumada el 29 ago 2026: «¿hay una inversión menor?» caía en
       // compensación y el modelo componía con dos salidas.
-      cuando: /(opci[oó]n|algo|paquete|plan|forma|inversi[oó]n|entrada)\s+(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i,
+      // «opción DE menor inversión» / «menor inversión» (adjetivo antes del
+      // sustantivo) no abrían la puerta — 29 ago, el modelo compuso desde
+      // compensación y el Flow salió en la pantalla de paquetes.
+      cuando: /(opci[oó]n|algo|paquete|plan|forma|inversi[oó]n|entrada)\s+(de\s+)?(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|(menor|m[aá]s\s+baja|m[aá]s\s+peque[ñn]a)\s+inversi[oó]n|de\s+menor\s+(inversi[oó]n|valor|precio|costo)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i,
     },
     {
       // Prueba del Director, 19 ago: "¿le explico cómo se inicia con este

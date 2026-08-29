@@ -51,7 +51,7 @@ const norm = (t: string) => (t || '').toLowerCase().normalize('NFD').replace(/[�
 
 const RE_PAREJA = /(?<![a-z])(mi )?(esposa|esposo|marido|mujer|pareja|senora|senor|novia|novio|companer[oa]|conyuge|familia|casa)(?![a-z])/;
 const RE_CONSULTA =
-  /(lo|la|eso|esto)?\s*(tengo que|debo|voy a|quiero|prefiero|me toca|necesito)\s*(hablar|consultar|comentar|revisar|mirar|verlo|conversar|discutir|decidir)|lo (hablo|consulto|comento|reviso|converso|decido|miro)\s+(con|en)|consultarlo|comentarlo|hablarlo|revisarlo|decidirlo|decidimos (entre los dos|juntos)|(le|se) (lo )?(pregunto|comento|consulto) a mi/;
+  /(lo|la|eso|esto)?\s*(tengo que|debo|voy a|quiero|prefiero|me toca|necesito)\s*(hablar|consultar|comentar|revisar|mirar|verlo|conversar|discutir|decidir)|lo (hablo|consulto|comento|reviso|converso|decido|miro)\s+(con|en)|consultarlo|comentarlo|hablarlo|revisarlo|decidirlo|decidimos (entre los dos|juntos)|(le|se) (lo )?(pregunto|comento|consulto) a mi|(?<![a-z])(consultar|hablar|comentar|conversar|revisar|mirar|verlo|pensarlo)(lo|la)?\s+(con|en)(?![a-z])|pensarlo y/;
 
 /**
  * «Voy a consultarlo con mi esposa», «lo hablo con mi pareja», «tengo que

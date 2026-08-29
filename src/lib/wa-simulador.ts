@@ -105,7 +105,12 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
       // la de los paquetes— porque sin ese contexto la persona no la pregunta, y es la
       // que le muestra que puede ganar desde el comienzo. La oferta nombra «ejemplo»
       // y «paquetes» a propósito: así el «sí» dispara el ejemplo GEN5 dictado.
-      : '¿Le muestro un ejemplo con números de la otra forma de ganar, la de los paquetes empresariales?';
+      // Abre con lo que acaba de ver y cierra con lo nuevo; la categoría («la otra
+      // forma de ganar») y su aposición apilaban dos ideas (Director, 29 ago 2026).
+      // «Le muestro un ejemplo» + «paquetes» son las dos llaves que el motor lee en
+      // la oferta para que el «sí» dispare el ejemplo GEN5 dictado (_ofrecioEjemplo,
+      // _nombraGen5 en route.ts) — sin ellas, el «sí» repite el de renta.
+      : 'Eso es lo que le deja el consumo de sus clientes. ¿Le muestro un ejemplo de lo que le deja la compra de paquetes empresariales en su canal?';
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 

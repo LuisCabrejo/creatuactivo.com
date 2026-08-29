@@ -46,9 +46,11 @@ async function turno(texto: string, ctxMotor = 'whatsapp_inbound'): Promise<{ ca
   const hayPedido = P.pedidoCargado(hist);
   let out: { capa: string; texto: string } | null = null;
   if (enPedido || P.detectarIntencionCompra(texto)) {
-    const lineas = P.lineasDelPedido(texto, hist);
+    const variante = P.RE_PREGUNTO_CUAL_GANOCAFE.test(ub) ? P.leerVarianteGanocafe(texto) : null;
+    if (!variante && P.esGanocafeSinVariante(texto)) out = { capa: '2.45 ganocafé sin variante', texto: P.preguntarCualGanocafe() };
+    const lineas = out ? [] : variante ? [{ producto: variante, cantidad: 1 }] : P.lineasDelPedido(texto, hist);
     if (lineas.length) out = { capa: '2.45 pedido cargado (registro y plantilla omitidos: prueba)', texto: P.confirmarPedido(lineas, socio, 'Milena') };
-    else if (!enPedido || !/\?|cu[aá]nto|qu[eé]|c[oó]mo|cu[aá]l/i.test(texto)) out = { capa: '2.45 pedido abierto', texto: enPedido ? P.noEntendiProductos() : P.pedirProductos('Milena') };
+    else if (!out && (!enPedido || !/\?|cu[aá]nto|qu[eé]|c[oó]mo|cu[aá]l/i.test(texto))) out = { capa: '2.45 pedido abierto', texto: enPedido ? P.noEntendiProductos() : P.pedirProductos('Milena') };
   }
   if (!out && P.detectarPidePersona(texto)) out = { capa: '2.46 pide persona (plantilla omitida: prueba)', texto: P.respuestaPersona(socio) };
   if (!out && P.detectarPreguntaEnvio(texto) && !P.detectarPreguntaOficina(texto)) out = { capa: '2.47 envío', texto: P.respuestaEnvio(socio) };
@@ -74,16 +76,23 @@ async function turno(texto: string, ctxMotor = 'whatsapp_inbound'): Promise<{ ca
 console.log('═══ ESCENARIO A — Milena: quiere producto, no paquete ═══');
 let r = await turno('Y cuanto vale una caja de ganocafé 3 en 1');
 r.capa.startsWith('motor') ? ok('el precio lo responde el motor, no el pedido') : mal('el precio no debía abrir el pedido');
+hist.length = 0;
+r = await turno('Me interesa comprar una caja de Gano Café');
+r.texto.includes('¿Cuál prefiere?') ? ok('«Gano Café» a secas pregunta cuál (antes: cargó un té)') : mal('no preguntó la variante: ' + r.capa);
+r = await turno('el 3 en 1');
+/Ganocafé 3 en 1/.test(r.texto) && /qued[oó] cargado su pedido/i.test(r.texto) ? ok('la variante elegida se carga') : mal('no cargó la variante');
+hist.length = 0;
+r = await turno('Y cuanto vale una caja de ganocafé 3 en 1');
 r = await turno('Solo quiero una caja');
 r.capa.includes('2.45') ? ok('«solo quiero una caja» entra al pedido (antes: formulario de paquete)') : mal('no entró al pedido');
-/su pedido qued[oó] cargado/i.test(r.texto) && /Ganocafé 3 en 1/.test(r.texto) ? ok('tomó el producto del hilo y lo cargó') : mal('no cargó el producto del hilo');
+/qued[oó] cargado su pedido/i.test(r.texto) && /Ganocafé 3 en 1/.test(r.texto) ? ok('tomó el producto del hilo y lo cargó') : mal('no cargó el producto del hilo');
 /luis-cabrejo\/productos/.test(r.texto) ? ok('enlace al catálogo con el ref del socio') : mal('sin enlace al catálogo');
 ((r.texto.split(/\n\s*\n/).pop() || '').match(/\?/g) || []).length === 1 ? ok('una sola pregunta al cierre') : mal('más de una pregunta al cierre');
-r = await turno('hay sede en Medellín? yo vivo acá, dónde es la dirección');
+r = await turno('hay sede en Medellín? dónde es la dirección');
 r.capa.includes('2.48') ? ok('la sede la responde el nodo, sin dirección') : mal('la sede no la tomó el nodo');
-/Luis Cabrejo/.test(r.texto) && !/carrera|calle|#/i.test(r.texto) ? ok('nombra a Luis y no da dirección') : mal('dio dirección o no nombró al socio');
+/Luis Cabrejo/.test(r.texto) && !/carrera|calle|#/i.test(r.texto) && /hay una sede/.test(r.texto) ? ok('nombra a Luis, confirma la sede y no da dirección') : mal('dio dirección o no nombró al socio');
 r = await turno('y donde queda exactamente?');
-/La dirección se la da Luis Cabrejo/.test(r.texto) ? ok('si insiste: una línea, remisión a Luis') : mal('la insistencia no cayó en la línea corta');
+/Con gusto se la daría, pero esa parte la lleva Luis Cabrejo/.test(r.texto) ? ok('si insiste: una línea, remisión a Luis') : mal('la insistencia no cayó en la línea corta');
 r = await turno('Y para pedir a domicilio, cuanto vale el envío?');
 r.capa.includes('2.47') ? ok('el envío lo responde el nodo con Luis por nombre') : mal('el envío no lo tomó el nodo');
 r = await turno('Puedo hablar con un asesor');

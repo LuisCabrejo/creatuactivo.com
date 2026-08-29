@@ -288,6 +288,12 @@ Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz F�
 
 Para versiones anteriores a v26.0, consultar los archivos `knowledge_base/system-prompt-nexus-main-vXX_Y.md` directamente. Cada uno contiene su propio changelog interno.
 
+## queswa_whatsapp v4.23 — Sección `<trato>`: para qué es la calidez (29 ago 2026)
+
+Sale de la prueba del Director del 29 ago. El prompt ya pedía *autoridad y calidez* y un acuse de recibo por turno, pero no le decía al modelo **qué debe sentir la persona al leer**. La sección nueva, escrita en positivo, lo fija: quien escribe está tomando una decisión que le importa y pregunta con pudor; cada respuesta debe dejarla bien recibida y más capaz que antes de preguntar; reconocer lo que hay detrás de la pregunta antes del dato; cuando un tema le corresponde a otro (médico, socio), decirlo con el mismo cariño y ofrecer en la misma frase lo que sí está en su mano; la exactitud es la mitad del trabajo. Va después de `<role_and_objective>`.
+
+Mismo día, fuera del prompt: los rechazos de salud pasan a **familias** (peso · común · tratamiento · grave) en `wa-guardarrail-salud.ts`, sin *«le hablo con franqueza»* —anunciar la honestidad propia posiciona al otro como el deshonesto (Director)— y con la categoría INVIMA del producto como hecho; y el cierre del simulador de renta abre con lo que la persona acaba de ver.
+
 ## queswa_whatsapp
 
 ### v4.20_recomendacion_dos_tiempos (22 ago 2026)

@@ -58,6 +58,8 @@ export function nombreCorto(nombre?: string | null): string | undefined {
   // que se cuelan pegados al nombre del perfil («Milena❤️»).
   const limpio = nombre.normalize('NFC').replace(/[^\p{L}\s'-]/gu, '').trim().split(/\s+/)[0];
   if (!limpio || /^constructor$/i.test(limpio)) return undefined;
+  // Un perfil de negocio no es un nombre de pila: «Crea Tu Activo» daba «Crea».
+  if (/^(crea|creatuactivo|gano|ganocaf[eé]|queswa|tienda|distribuidor|distribuidora|ventas|oficina)$/i.test(limpio)) return undefined;
   return limpio.charAt(0).toUpperCase() + limpio.slice(1);
 }
 
@@ -86,9 +88,9 @@ export function detectarIntencionCompra(texto: string): boolean {
 }
 
 /** El bot está a la espera de los productos del pedido. */
-export const RE_PIDIO_PRODUCTOS = /qu[eé] productos va a llevar|enseguida le cargo su compra|no logr[eé] identificar/i;
+export const RE_PIDIO_PRODUCTOS = /qu[eé] productos va a llevar|enseguida le cargo su compra|no logr[eé] identificar|cu[aá]l prefiere\?$/i;
 /** El pedido ya quedó cargado en esta conversación. */
-export const RE_PEDIDO_CARGADO = /su pedido qued[oó] cargado/i;
+export const RE_PEDIDO_CARGADO = /qued[oó] cargado su pedido|su pedido qued[oó] cargado/i;
 
 export function pedidoAbierto(ultimoBot: string): boolean {
   return RE_PIDIO_PRODUCTOS.test(ultimoBot);
@@ -157,7 +159,10 @@ export function lineasDelPedido(
 ): LineaPedido[] {
   const propias = extraerLineasPedido(texto);
   if (propias.length > 0) return propias;
-  const delHilo = productoDelHilo(historial);
+  // Solo lo que dijo la PERSONA. El 29 ago el bot había preguntado «¿el café,
+  // el té, los suplementos…?», y «el té» —alias del Rooibos— se tomó como el
+  // producto del hilo: a quien pidió «una caja de Gano Café» se le cargó un té.
+  const delHilo = productoDelHilo(historial.filter((m) => m.role === 'user'));
   if (!delHilo) return [];
   const t = norm(texto);
   const m = t.match(/\b(\d+|un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b/);
@@ -171,8 +176,30 @@ export function totalPedido(lineas: LineaPedido[]): number {
 
 // ─── Copy ────────────────────────────────────────────────────────────────────
 
+/** «Gano Café» / «Ganocafé» / «el café» a secas: es una familia, no un producto. */
+// (?![a-záéíóúñ]) en vez de \b: el \b de JS no cierra tras una vocal con tilde («café»).
+export const RE_GANOCAFE_GENERICO = /\bgano\s*caf[eé](?![a-záéíóúñ])|\bel caf[eé](?![a-záéíóúñ])|\buna? caja de caf[eé](?![a-záéíóúñ])|\bcaf[eé] de gano(?![a-záéíóúñ])/i;
+
+export function esGanocafeSinVariante(texto: string): boolean {
+  return RE_GANOCAFE_GENERICO.test(texto) && extraerLineasPedido(texto).length === 0;
+}
+
+export const RE_PREGUNTO_CUAL_GANOCAFE = /cu[aá]l prefiere\?$/i;
+
+export function preguntarCualGanocafe(): string {
+  return 'Con gusto le cargo su Ganocafé. Tenemos dos: el *3 en 1*, que ya trae crema y azúcar, y el *Clásico*, café negro con Ganoderma — los dos a $110.900 la caja. ¿Cuál prefiere?';
+}
+
+/** La respuesta a «¿cuál prefiere?»: 3 en 1 o Clásico, con tolerancia al tipeo. */
+export function leerVarianteGanocafe(texto: string): ProductoWA | null {
+  const t = norm(texto);
+  const slug = /3 en 1|tres en uno|3en1|con crema|con azucar|el primero/.test(t) ? 'ganocafe-3-en-1'
+    : /clasico|negro|puro|sin azucar|el segundo/.test(t) ? 'ganocafe-clasico' : null;
+  return slug ? PRODUCTOS_WA.find((p) => p.slug === slug) ?? null : null;
+}
+
 export function pedirProductos(nombre?: string): string {
-  const saludo = nombre ? `Claro que sí, ${nombre}.` : 'Claro que sí.';
+  const saludo = nombre ? `Con mucho gusto, ${nombre}.` : 'Con mucho gusto.';
   return `${saludo} Enseguida le cargo su compra.\n\n¿Qué productos va a llevar?`;
 }
 
@@ -196,7 +223,7 @@ export function confirmarPedido(
   nombre?: string,
 ): string {
   const quien = socio?.nombre || 'El equipo de creatuactivo.com';
-  const encabezado = nombre ? `Listo, ${nombre}. Su pedido quedó cargado:` : 'Listo. Su pedido quedó cargado:';
+  const encabezado = nombre ? `Con mucho gusto, ${nombre}. Ya quedó cargado su pedido:` : 'Con mucho gusto. Ya quedó cargado su pedido:';
   const cuerpo = lineas.map(lineaTexto).join('\n');
   const total = lineas.length > 1 ? `\nTotal: *${cop(totalPedido(lineas))}*` : '';
 
@@ -205,11 +232,11 @@ export function confirmarPedido(
     '',
     cuerpo + total,
     '',
-    `${quien} ya lo recibió y se comunica con usted por este mismo medio para coordinar el pago y la entrega.`,
+    `${quien} ya lo tiene en sus manos: se comunica con usted por este mismo medio para acordar el pago y la entrega como mejor le quede.`,
     '',
-    `Aquí tiene el catálogo completo, por si quiere ver las demás líneas: ${enlaceCatalogo(socio?.slug)} — y si le queda alguna duda mientras lo mira, toque el orbe de WhatsApp y seguimos aquí.`,
+    `Y para que vaya conociendo el resto de la familia, aquí tiene el catálogo completo: ${enlaceCatalogo(socio?.slug)}. Si algo le llama la atención mientras lo mira, escríbame por aquí y lo vemos juntos.`,
     '',
-    '¿Le queda alguna pregunta que le pueda responder ahora?',
+    '¿Hay algo más que le pueda responder ahora?',
   ].join('\n');
 }
 
@@ -224,7 +251,7 @@ export function detectarPreguntaEnvio(texto: string): boolean {
 
 export function respuestaEnvio(socio: SocioPedido | null): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  return `La entrega la coordina directamente con ${quien} cuando se comunique con usted: si están en la misma ciudad, suele resolverse en persona; si no, Gano Excel despacha por Servientrega y normalmente llega de un día para otro.`;
+  return `Eso lo acuerda directamente con ${quien} cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro.`;
 }
 
 // ─── Las oficinas, para el prospecto ─────────────────────────────────────────
@@ -250,25 +277,35 @@ export function detectarCiudad(texto: string): string | null {
 }
 
 /** El bot ya explicó lo de las sedes en esta conversación. */
-export const RE_OFICINA_YA_EXPLICADA = /atiende(n)? a quienes ya tienen su c[oó]digo|la direcci[oó]n se la da/i;
+export const RE_OFICINA_YA_EXPLICADA = /atienden a quienes ya tienen su c[oó]digo|con gusto se la dar[ií]a/i;
+
+/** «Vivo en Medellín / estoy en Cali»: la persona dijo dónde está. Distinto de «¿hay oficina en X?». */
+export function diceDondeVive(texto: string): boolean {
+  return /\b(vivo|estoy|resido|me encuentro|soy de|ac[aá]|aqu[ií])(?![a-záéíóúñ])/i.test(texto);
+}
 
 export function respuestaOficinaProspecto(
   socio: SocioPedido | null,
   ciudad: string | null,
   hayPedido: boolean,
   insiste: boolean,
+  viveAlli = false,
 ): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
   const primerPedido = hayPedido ? 'este primer pedido' : 'su primer pedido';
+  const puerta = `Atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido} — ahí mismo le indica la dirección y acuerdan si lo recoge allá o se lo envían, lo que le resulte más cómodo.`;
 
   if (insiste) {
-    return `La dirección se la da ${quien} al abrirle el código, y ahí mismo coordinan la entrega.`;
+    return `Con gusto se la daría, pero esa parte la lleva ${quien}: al abrirle el código le indica la dirección y acuerdan la entrega. Se comunica con usted por aquí mismo.`;
   }
   if (ciudad && CIUDADES_SEDE.includes(ciudad)) {
-    return `Qué bien que esté en ${ciudad}. La sede de allá atiende a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}. Ahí mismo le indica la dirección y coordinan si lo recoge allá o se lo envían.`;
+    const cuantas = ciudad === 'Bogotá' ? 'hay dos sedes' : 'hay una sede';
+    return viveAlli
+      ? `Qué bien que esté en ${ciudad}: allá ${cuantas} de Gano Excel. ${puerta}`
+      : `Sí, en ${ciudad} ${cuantas} de Gano Excel. ${puerta}`;
   }
   const destino = ciudad ? ` hasta ${ciudad}` : '';
-  return `Las sedes de Gano Excel atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}. Ahí mismo coordinan la entrega${destino}, y si prefiere recogerlo en una sede, ${quien} le indica cuál le queda más cerca.`;
+  return `Las sedes de Gano Excel atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}. Ahí mismo acuerdan la entrega${destino}, y si prefiere recogerlo en una sede, ${quien} le indica cuál le queda más cerca.`;
 }
 
 // ─── «Quiero hablar con una persona» ─────────────────────────────────────────
@@ -282,7 +319,7 @@ export function detectarPidePersona(texto: string): boolean {
 
 export function respuestaPersona(socio: SocioPedido | null): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  return `Claro. Le acabo de avisar a ${quien}; se comunica con usted por este mismo medio. Mientras tanto, aquí sigo si le queda alguna pregunta.`;
+  return `Claro que sí. Ya le avisé a ${quien}, y se comunica con usted por este mismo medio. Mientras tanto, cuente conmigo para lo que necesite.`;
 }
 
 // ─── Autorización de marketing ───────────────────────────────────────────────
@@ -292,7 +329,7 @@ export function respuestaPersona(socio: SocioPedido | null): string {
 // es SU propio turno, con una sola pregunta, y el «sí» se guarda con fecha en
 // la ficha del prospecto (`marketing_optin`). Sin ese registro no hay campaña.
 
-export const RE_OFRECIO_OPTIN = /quiere que le avise por aqu[ií]/i;
+export const RE_OFRECIO_OPTIN = /le gustar[ií]a que le avise por aqu[ií]|quiere que le avise por aqu[ií]/i;
 
 export function optinYaOfrecido(historial: { role: string; content: string }[]): boolean {
   return historial.some((m) => m.role === 'assistant' && RE_OFRECIO_OPTIN.test(m.content));
@@ -304,8 +341,8 @@ export function esCierreDeConversacion(texto: string): boolean {
 }
 
 export function ofrecerOptin(nombre?: string): string {
-  const saludo = nombre ? `Perfecto, ${nombre}.` : 'Perfecto.';
-  return `${saludo} Una última cosa: cuando haya promociones o productos nuevos, ¿quiere que le avise por aquí? Responda *sí* y queda en la lista.`;
+  const saludo = nombre ? `Perfecto, ${nombre} — ha sido un gusto atenderle.` : 'Perfecto — ha sido un gusto atenderle.';
+  return `${saludo} Una última cosa: cuando haya promociones o productos nuevos, ¿le gustaría que le avise por aquí? Responda *sí* y queda en la lista.`;
 }
 
 export function leerRespuestaOptin(texto: string): boolean | null {
@@ -317,8 +354,8 @@ export function leerRespuestaOptin(texto: string): boolean | null {
 
 export function respuestaOptin(acepta: boolean): string {
   return acepta
-    ? 'Listo. Le aviso cuando haya algo que valga la pena. Que tenga un buen día.'
-    : 'Entendido. Aquí sigo cuando me necesite. Que tenga un buen día.';
+    ? 'Listo, queda en la lista. Le aviso solo cuando haya algo que valga la pena. Que tenga un buen día.'
+    : 'Entendido, sin problema. Aquí me tiene cuando me necesite. Que tenga un buen día.';
 }
 
 // ─── Persistencia y aviso ────────────────────────────────────────────────────

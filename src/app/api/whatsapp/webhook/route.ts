@@ -51,7 +51,8 @@ import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido,
   pedirProductos, noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido,
   detectarPreguntaEnvio, respuestaEnvio,
-  detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA,
+  detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
+  esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE,
   detectarPidePersona, respuestaPersona, avisarPidePersona,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
   nombreCorto, RE_PEDIDO_CARGADO,
@@ -78,8 +79,7 @@ import {
   esRechazoSalud,
   RESPUESTA_EMERGENCIA,
   RECHAZO_SALUD_ESTANDAR,
-  RECHAZO_SALUD_GRAVE,
-  RECHAZO_SALUD_CORTO,
+  rechazoSaludPorFamilia,
 } from '@/lib/wa-guardarrail-salud';
 import { detectarPromesaDeIngreso, detectarModeloInventado } from '@/lib/wa-guardarrail-negocio';
 
@@ -773,11 +773,11 @@ async function procesarEntrante(body: any): Promise<void> {
       // handoff, en su forma v1).
       const reincide = saludEntrada.nivel === 'comun'
         && await hayRechazoSaludPrevio(supabase, waFingerprint);
-      const rechazo = saludEntrada.nivel === 'grave'
-        ? RECHAZO_SALUD_GRAVE
-        : (reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR);
+      // Cada familia tiene su texto (peso · tratamiento · grave · común) — la
+      // respuesta única para todo era el error (Director, 29 ago 2026).
+      const { familia, texto: rechazo } = rechazoSaludPorFamilia(saludEntrada, reincide);
 
-      console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${saludEntrada.nivel}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
+      console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${familia}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
       await sendWhatsAppMessage(phoneNumber, rechazo);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
       return;
@@ -1316,15 +1316,28 @@ async function procesarEntrante(body: any): Promise<void> {
     // no se activa. Todo lo de aquí vive en src/lib/wa-pedido.ts.
     const _ultimoBotPedido = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
     const _nombrePedido = nombreCorto(contactName);
+    // Nombre y primer apellido, como en la radicación: «Luis Cabrejo», no la
+    // cédula completa («Luis Cabrejo Parra» sonaba a documento, prueba del 29 ago).
     const _socioPedido = socio
-      ? { nombre: socio.nombre, whatsapp: socio.whatsapp, constructorId: socio.constructorId,
+      ? { nombre: socio.nombre?.split(/\s+/).slice(0, 2).join(' '), whatsapp: socio.whatsapp, constructorId: socio.constructorId,
           slug: await slugDelSocio(supabase, socio.constructorId) }
       : null;
     const _enPedido = !socioQueEscribe && pedidoAbierto(_ultimoBotPedido);
     const _hayPedido = !socioQueEscribe && pedidoCargado(historial);
 
     if (!socioQueEscribe && (_enPedido || detectarIntencionCompra(messageText))) {
-      const lineas = lineasDelPedido(messageText, historial);
+      // «¿Cuál prefiere?» → la variante elegida es el pedido entero.
+      const variante = RE_PREGUNTO_CUAL_GANOCAFE.test(_ultimoBotPedido) ? leerVarianteGanocafe(messageText) : null;
+      // «Gano Café» a secas es una familia (3 en 1 · Clásico): se pregunta cuál,
+      // en vez de adivinar — el 29 ago se cargó un té por adivinar desde el hilo.
+      if (!variante && esGanocafeSinVariante(messageText)) {
+        const texto = preguntarCualGanocafe();
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log('🛒 [WA Webhook] Ganocafé sin variante — se pregunta cuál');
+        return;
+      }
+      const lineas = variante ? [{ producto: variante, cantidad: 1 }] : lineasDelPedido(messageText, historial);
 
       if (lineas.length > 0) {
         const id = await registrarPedido(supabase, {
@@ -1382,7 +1395,7 @@ async function procesarEntrante(body: any): Promise<void> {
       const ciudad = detectarCiudad(messageText)
         ?? [...historial].reverse().map((m) => detectarCiudad(m.content)).find(Boolean)
         ?? null;
-      const texto = respuestaOficinaProspecto(_socioPedido, ciudad, _hayPedido, insiste);
+      const texto = respuestaOficinaProspecto(_socioPedido, ciudad, _hayPedido, insiste, diceDondeVive(messageText));
       await sendWhatsAppMessage(phoneNumber, texto, { wamid });
       await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
       console.log(`🏢 [WA Webhook] Preguntó por la sede (${ciudad ?? 'sin ciudad'}${insiste ? ', insiste' : ''}) — dictada`);

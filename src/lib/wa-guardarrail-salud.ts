@@ -217,35 +217,97 @@ export const RESPUESTA_EMERGENCIA =
   'de urgencias más cercano.\n\n' +
   'Cuando ya esté atendido, aquí me encuentra.';
 
+// ⚠️ Reescritos el 29 ago 2026 con el Director. Dos decisiones:
+//   · Una sola respuesta para toda pregunta de salud era el error: «¿qué es
+//     bueno para bajar de peso?» se pregunta con naturalidad en Colombia, y
+//     recibía el mismo texto que «tengo cáncer». Hay FAMILIAS (peso · molestia
+//     común · tratamiento en curso · grave), y cada una tiene su acuse de recibo.
+//   · Nada de «le hablo con franqueza / con honestidad / para serle
+//     transparente»: quien se declara honesto posiciona al otro como el que no
+//     lo es. La limitación se presenta como HECHO —la categoría del producto
+//     ante el INVIMA— o como cuidado, nunca como declaración de virtud propia.
+// Lo que no cambia: ningún texto repite la condición que la persona nombró
+// (Res. 3096 art. 5.3), ninguno vincula un producto al resultado, y todos
+// cierran con una sola salida. Los cuatro pasan el filtro de SALIDA.
+
+/** Peso: la pregunta más natural del país. Un producto real, por sus hechos. */
+export const RECHAZO_SALUD_PESO =
+  'Comprendo su objetivo, y me alegra que esté buscando opciones para cuidar su bienestar.\n\n' +
+  'Nuestra línea no es un tratamiento médico: son bebidas y suplementos pensados para acompañar ' +
+  'su día. Y hay uno que encaja perfecto en cualquier rutina saludable: el *Ganocafé Clásico*, un ' +
+  'café negro premium con extracto de Ganoderma, sin azúcar ni crema, que le brinda energía pareja ' +
+  'durante la mañana.\n\n' +
+  '¿Le cuento cómo integrarlo en su rutina?';
+
+/** Molestia o condición común: la categoría del producto es la que responde. */
 export const RECHAZO_SALUD_ESTANDAR =
-  'Le agradezco que me pregunte, y le voy a responder con franqueza.\n\n' +
-  'Lo que yo manejo son alimentos y suplementos, no medicamentos. No están hechos para tratar ' +
-  'ni para curar ninguna condición de salud, y yo no soy quién para decirle qué le conviene a ' +
-  'usted en ese tema. Esa orientación se la puede dar su médico, que conoce su caso.\n\n' +
-  'Lo que sí le puedo contar con precisión es qué son los productos: qué contienen, cómo se ' +
-  'preparan y su precio.\n\n' +
-  '¿Le comparto esa información?';
+  'Le agradezco que me lo cuente. Los productos de Gano Excel están registrados ante el INVIMA ' +
+  'como alimentos y suplementos dietarios, y por esa misma categoría ninguno está indicado para ' +
+  'una condición de salud: ahí quien le orienta es su médico, que conoce su caso.\n\n' +
+  'Lo que sí le puedo contar con gusto es cómo son —qué llevan, cómo se preparan y cuánto ' +
+  'cuestan—, y la composición exacta de cualquiera, por si quiere tenerla a mano.\n\n' +
+  '¿Le comparto la de alguno?';
+
+/** Tratamiento en curso: la última palabra la tiene su médico, y la composición se le da. */
+export const RECHAZO_SALUD_TRATAMIENTO =
+  'Gracias por contármelo. Con un tratamiento en curso, la última palabra la tiene su médico, y ' +
+  'así debe ser: los productos de Gano Excel están registrados como alimentos y suplementos ' +
+  'dietarios, no como medicamentos.\n\n' +
+  'Lo que sí puedo hacer es darle la composición exacta de cualquiera, para que la tenga a mano ' +
+  'cuando quiera consultarlo.\n\n' +
+  '¿Le comparto la de alguno en particular?';
 
 export const RECHAZO_SALUD_GRAVE =
-  'Le agradezco la confianza de escribirme sobre esto.\n\n' +
-  'Con un tema así prefiero ser claro y no hacerle perder tiempo: lo que yo manejo son ' +
-  'alimentos y suplementos, no medicamentos, y no está bien de mi parte sugerirle nada frente ' +
-  'a una condición de salud. Quien debe orientarlo es su médico tratante.\n\n' +
-  'Si más adelante quiere conocer los productos por lo que son, aquí estoy con mucho gusto.';
+  'Le agradezco la confianza de contármelo, y le deseo lo mejor.\n\n' +
+  'Los productos de Gano Excel están registrados ante el INVIMA como alimentos y suplementos ' +
+  'dietarios, y por esa categoría ninguno está indicado para una condición de salud: quien debe ' +
+  'orientarle es su médico tratante.\n\n' +
+  'Cuando quiera conocer los productos por lo que son, aquí estoy con mucho gusto.';
 
 export const RECHAZO_SALUD_CORTO =
-  'Le entiendo, pero en temas de salud no le puedo orientar — esa parte es de su médico. ' +
-  'Sobre el producto sí le cuento lo que quiera: qué contiene, cómo se prepara y su precio. ' +
+  'Le entiendo, y ojalá pudiera decirle más; en temas de salud esa parte es de su médico. ' +
+  'Sobre el producto sí le cuento lo que quiera: qué lleva, cómo se prepara y cuánto cuesta. ' +
   '¿Le sirve que lo comunique con alguien del equipo?';
+
+/** La familia de la pregunta, a partir del término que disparó la entrada. */
+export type FamiliaSalud = 'peso' | 'tratamiento' | 'grave' | 'comun';
+
+export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun'; termino: string }): FamiliaSalud {
+  if (clasificacion.nivel === 'grave') return 'grave';
+  const t = clasificacion.termino;
+  if (/peso|adelga|obesidad|sobrepeso|grasa|barriga/.test(t)) return 'peso';
+  if (/tratamiento|tomo |anticoagulante|metformina|losartan|ibuprofeno|acetaminofen|omeprazol|diagnosticaron/.test(t)) return 'tratamiento';
+  return 'comun';
+}
+
+/** El texto que corresponde. La reincidencia endurece solo a la familia común. */
+export function rechazoSaludPorFamilia(
+  clasificacion: { nivel: 'grave' | 'comun'; termino: string },
+  reincide = false,
+): { familia: FamiliaSalud; texto: string } {
+  const familia = familiaSalud(clasificacion);
+  const texto = familia === 'grave' ? RECHAZO_SALUD_GRAVE
+    : familia === 'peso' ? RECHAZO_SALUD_PESO
+    : familia === 'tratamiento' ? RECHAZO_SALUD_TRATAMIENTO
+    : reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR;
+  return { familia, texto };
+}
 
 // Prefijos distintivos de los textos de arriba. Sirven para (a) detectar
 // reincidencia en el historial y endurecer al rechazo corto, y (b) que el
 // saneamiento del historial reconozca sus propias correcciones.
 const PREFIJOS_RECHAZO = [
+  'Comprendo su objetivo, y me alegra que esté buscando opciones',
+  'Le agradezco que me lo cuente. Los productos de Gano Excel',
+  'Gracias por contármelo. Con un tratamiento en curso',
+  'Le agradezco la confianza de contármelo',
+  'Le entiendo, y ojalá pudiera decirle más',
+  'Lo que me describe necesita atención inmediata',
+  // Prefijos de los textos anteriores al 29 ago 2026: siguen en conversaciones
+  // viejas de la base, y el saneamiento del historial los tiene que reconocer.
   'Le agradezco que me pregunte, y le voy a responder con franqueza',
   'Le agradezco la confianza de escribirme sobre esto',
   'Le entiendo, pero en temas de salud no le puedo orientar',
-  'Lo que me describe necesita atención inmediata',
 ];
 
 export function esRechazoSalud(texto: string): boolean {

@@ -319,7 +319,7 @@ export const Reto12DiasConfirmationEmail = ({
             <tr>
               <td align="center">
                 <Link
-                  href="https://creatuactivo.com/sistema/productos"
+                  href="https://creatuactivo.com/productos"
                   style={{
                     color: colors.textMuted,
                     fontSize: '14px',

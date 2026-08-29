@@ -22,7 +22,7 @@
  * con el vocabulario que el guardarraíl de salud ya vigila. La foto identifica;
  * el texto explica. No se mezclan.
  *
- * Fuente de los datos: `src/app/sistema/productos/catalogo-productos.tsx`
+ * Fuente de los datos: `src/app/productos/catalogo-productos.tsx`
  * (precio, registro INVIMA e imagen). Si allá cambia un precio, cambia aquí.
  */
 

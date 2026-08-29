@@ -52,7 +52,7 @@ export default function WhatsAppOrb() {
 
   // Catálogo: Queswa entra como asesor de bienestar, no de negocio — el texto
   // pre-llenado lo dice para que el canal enrute al arsenal correcto de entrada.
-  const isProductsPage = pathname.includes('/sistema/productos')
+  const isProductsPage = pathname.includes('/productos')
   const contexto: ContextoOrbe = isProductsPage ? 'productos' : 'general'
 
   // Mismo criterio de supresión del orbe web: en reels y en la Home el video

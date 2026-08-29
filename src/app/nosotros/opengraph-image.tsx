@@ -1,13 +1,13 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * OG image del Documento Fundacional (/nosotros).
+ * OG image de /nosotros (29 ago 2026 — antes, la del Manifiesto).
  * Estética Bimetálica: carbón + dorado champán + titanio.
  */
 
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Manifiesto de los Fundadores - CreaTuActivo.com'
+export const alt = 'Nosotros - CreaTuActivo.com'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -55,7 +55,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          Documento Fundacional
+          Nosotros
         </div>
 
         {/* Principio — focal point */}
@@ -71,8 +71,8 @@ export default async function Image() {
             marginBottom: 32,
           }}
         >
-          <span style={{ color: '#E5E5E5', display: 'flex' }}>Las cosas no pasan.</span>
-          <span style={{ color: '#C5A059', display: 'flex' }}>Se hacen pasar.</span>
+          <span style={{ color: '#E5E5E5', display: 'flex' }}>Una empresa de tecnología</span>
+          <span style={{ color: '#C5A059', display: 'flex' }}>para su canal de distribución.</span>
         </div>
 
         {/* Subtítulo */}
@@ -85,7 +85,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          El Manifiesto de los Fundadores
+          Gano Excel fabrica · Queswa atiende · usted es el dueño
         </div>
 
         {/* Footer con marca */}

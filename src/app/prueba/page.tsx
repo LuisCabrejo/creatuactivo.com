@@ -9,7 +9,7 @@
  * - La Home v14 aplicaba solo la restricción del sistema (carbón + dorado) y no
  *   su despliegue. La investigación de branding advierte contra "la fatiga visual
  *   inherente a las interfaces planas" y pide desdoblar el duopolio en superficies,
- *   titanio y semánticos. /infraestructura lo demuestra con los mismos colores.
+ *   titanio y semánticos. la Home v15 lo demuestra con los mismos colores (/infraestructura, la referencia de entonces, se eliminó el 29 ago).
  * - Cuatro roles, cada uno con una frase: carbón el lienzo · titanio la estructura
  *   (iconos, líneas, cifras) · cian el dato y Queswa en línea (`--color-data`, regla
  *   nueva en BRANDING.md) · dorado el dinero y el logro.
@@ -18,11 +18,11 @@
  * - Ecuación visual del dinero (producto + fábrica = porcentaje), dos fuerzas en
  *   tarjetas lado a lado (WHY_02: "verlos apilados es lo que convierte una
  *   explicación en un alivio"), fila de cifras verificables, iconos en titanio
- *   (patrón /infraestructura), foto REAL del portafolio (la misma placa que Queswa
+ *   (patrón de la referencia anterior), foto REAL del portafolio (la misma placa que Queswa
  *   manda por WhatsApp — nunca generada), textura de hormigón en secciones elevadas.
  *
  * Performance: sin backdropFilter, sin Framer, iconos lucide (SVG en el bundle por
- * /infraestructura), la foto va lazy bajo el pliegue, el LCP sigue siendo el H1.
+Home), la foto va lazy bajo el pliegue, el LCP sigue siendo el H1.
  */
 
 import type { ReactNode } from 'react'

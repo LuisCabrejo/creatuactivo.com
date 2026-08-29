@@ -10,10 +10,10 @@
 
 /**
  * Página de Productos con Referido
- * Ruta: /sistema/productos/[ref]
- * Ejemplo: /sistema/productos/luis-cabrejo-parra-4871288
+ * Ruta: /productos/[ref]
+ * Ejemplo: /productos/luis-cabrejo-parra-4871288
  *
- * Esta página es idéntica a /sistema/productos pero captura el ref del path
+ * Esta página es idéntica a /productos pero captura el ref del path
  * para tracking de constructores.
  */
 

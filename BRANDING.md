@@ -125,7 +125,7 @@ Clases canónicas en [globals.css](src/app/globals.css). **Nunca** fondo dorado 
 
 ## 6. Implementación de referencia
 
-- **Sistema completo aplicado:** [src/app/infraestructura/page.tsx](src/app/infraestructura/page.tsx) (`/infraestructura`).
+- **Sistema completo aplicado:** [src/app/page.tsx](src/app/page.tsx) (la Home v15, 29 ago 2026) — los cuatro roles de color, iconos en titanio, ecuación, tarjetas, cifras y foto real. `/infraestructura`, la referencia anterior, se eliminó ese día: era de la época de los correos, sin tráfico ni enlaces, y arrastraba léxico y cifras viejas.
 - **Tokens fuente:** [src/lib/branding.ts](src/lib/branding.ts) (COLORS, ICON_COLORS, emailStyles) + [src/app/globals.css](src/app/globals.css) (`:root`).
 - **Tailwind:** paletas `titanium`/`carbon`/`champagne` en [tailwind.config.ts](tailwind.config.ts).
 

@@ -36,7 +36,7 @@ const isValidName = (name: string | null): boolean => {
 };
 
 const getInitialGreeting = (): Message => {
-  const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
+  const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/productos');
   const rawSavedName = typeof window !== 'undefined' ? localStorage.getItem('nexus_prospect_name') : null;
   const savedName = isValidName(rawSavedName) ? rawSavedName : null;
   const greeting = savedName ? `Hola, ${savedName}` : 'Hola';
@@ -234,7 +234,7 @@ const sendMessage = useCallback(async (content: string) => {
 
     // 🎯 CONTEXTO DE PÁGINA: ajusta el comportamiento de Queswa según la ruta
     const pagePath = typeof window !== 'undefined' ? window.location.pathname : '';
-    const pageContext = pagePath.includes('/sistema/productos')
+    const pageContext = pagePath.includes('/productos')
       ? 'catalogo_productos'       // Modo asesor de salud/bienestar
       : pagePath.includes('/12-niveles')
       ? '12_niveles'               // Deck Los 12 Niveles (simulador 2×2)

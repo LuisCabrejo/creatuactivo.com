@@ -11,7 +11,6 @@ import { notFound, redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
-import ManifiestoDocument from '@/components/ManifiestoDocument'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -21,7 +20,7 @@ const supabase = createClient(
 // Mapa: destino corto → ruta real en creatuactivo.com
 const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'calculadora':   (id) => `/calculadora/${id}`,
-  'productos':     (id) => `/sistema/productos/${id}`,
+  'productos':     (id) => `/productos/${id}`,
   'servilleta':    (id) => `/servilleta/${id}`,
   'home':          (id) => `/?ref=${id}`,
   'fundadores':    (id) => `/fundadores/${id}`,
@@ -56,7 +55,7 @@ const OG_QUESWA = {
 }
 
 // Número orgánico de CreaTuActivo — fallback si el arquitecto no tiene WhatsApp
-// configurado en private_users (mismo default que /sistema/productos)
+// configurado en private_users (mismo default que /productos)
 const WHATSAPP_ORGANICO_DEFAULT = '+573206805737'
 
 export default async function DestinoRoute({
@@ -94,34 +93,6 @@ export default async function DestinoRoute({
           constructor_id: c.constructor_id,
           whatsapp: pu?.whatsapp || WHATSAPP_ORGANICO_DEFAULT,
         }}
-      />
-    )
-  }
-
-  // ── Caso Manifiesto: renderiza el Documento Fundacional (NO redirige) ──
-  // URL limpia /{slug}/manifiesto; el ref se inyecta a localStorage (sin ?ref).
-  if (destino === 'manifiesto') {
-    const { data: c } = await supabase
-      .from('constructor_slugs')
-      .select('constructor_id, display_name')
-      .eq('slug', slug)
-      .single()
-
-    if (!c) notFound()
-
-    // WhatsApp del arquitecto (fuente de verdad: private_users), fallback orgánico
-    const { data: pu } = await supabase
-      .from('private_users')
-      .select('whatsapp')
-      .eq('constructor_id', c.constructor_id)
-      .single()
-
-    return (
-      <ManifiestoDocument
-        refId={c.constructor_id}
-        slug={slug}
-        whatsapp={pu?.whatsapp || WHATSAPP_ORGANICO_DEFAULT}
-        architectName={c.display_name}
       />
     )
   }
@@ -225,22 +196,6 @@ export async function generateMetadata({
         // Portada: frame del propio reel por-nicho (1080×1920 nítido desde el master);
         // fallback al poster branded para nichos sin override.
         images: [{ url: REEL_POSTER_OVERRIDE[destino]?.posterOg ?? REEL_POSTER_OG, width: 1080, height: 1920, alt: copy.titulo }],
-      },
-    }
-  }
-
-  if (destino === 'manifiesto') {
-    return {
-      title: 'Manifiesto de los Fundadores | CreaTuActivo',
-      description: 'Las cosas no pasan. Se hacen pasar. La historia, el principio y la doctrina detrás de CreaTuActivo — y de quién se requiere para construirlo.',
-      robots: { index: false },
-      alternates: { canonical: `https://creatuactivo.com/${slug}/manifiesto` },
-      openGraph: {
-        title: 'Las cosas no pasan. Se hacen pasar.',
-        description: 'El Manifiesto de los Fundadores de CreaTuActivo.',
-        url: `https://creatuactivo.com/${slug}/manifiesto`,
-        siteName: 'CreaTuActivo.com',
-        images: [{ url: 'https://creatuactivo.com/manifiesto/opengraph-image', width: 1200, height: 630, alt: 'Manifiesto de los Fundadores' }],
       },
     }
   }

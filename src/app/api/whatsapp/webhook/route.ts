@@ -1486,7 +1486,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // (prueba del Director, 21 ago).
     //
     // El enlace es el amigable del socio: `/{slug}/productos` redirige a
-    // `/sistema/productos/{constructor_id}` y atribuye por el path.
+    // `/productos/{constructor_id}` y atribuye por el path.
     //
     // ⚠️ Esto NO contradice la decisión de no sacar a la persona del canal: esa
     // página lleva el orbe de Queswa, así que la conversación continúa allá.
@@ -1496,7 +1496,7 @@ async function procesarEntrante(body: any): Promise<void> {
       const slug = await slugDelSocio(supabase, socio.constructorId);
       const url = slug
         ? `https://creatuactivo.com/${slug}/productos`
-        : `https://creatuactivo.com/sistema/productos/${encodeURIComponent(socio.constructorId)}`;
+        : `https://creatuactivo.com/productos/${encodeURIComponent(socio.constructorId)}`;
       const texto = `Con gusto. Aquí está el catálogo completo, con fotos, presentaciones y precios:
 
 ${url}

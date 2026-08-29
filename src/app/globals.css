@@ -207,7 +207,7 @@ h1, h2, h3, .quote-text, .font-serif {
 }
 
 /* WhatsApp: borde verde WhatsApp + tinte sutil → se llena al hover.
-   Mismo patrón híbrido que /sistema/productos para que el canal de
+   Mismo patrón híbrido que /productos para que el canal de
    contacto sea evidente (verde = WhatsApp). */
 .cta-whatsapp {
   background: rgba(37, 211, 102, 0.08);

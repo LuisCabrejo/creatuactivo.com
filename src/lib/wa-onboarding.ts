@@ -132,7 +132,7 @@ export function pideEnlaceCatalogo(texto: string): boolean {
 
 /** URL del catálogo con el ref del socio; sin socio, el catálogo general. */
 export function enlaceCatalogo(slug?: string | null): string {
-  return slug ? `${SITIO}/${slug}/productos` : `${SITIO}/sistema/productos`;
+  return slug ? `${SITIO}/${slug}/productos` : `${SITIO}/productos`;
 }
 
 export function mensajeEnlaceCatalogo(slug?: string | null): string {

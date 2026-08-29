@@ -22,7 +22,7 @@
  * NO centraliza:
  * - Saludo de visita recurrente con nombre ("Hola, {nombre}") — vive en useNEXUSChat.ts
  *   porque es lógica condicional contextual, no copy duplicado
- * - Saludo de página /sistema/productos — vive en useNEXUSChat.ts por la misma razón
+ * - Saludo de página /productos — vive en useNEXUSChat.ts por la misma razón
  *
  * Última actualización léxica: 30 jul 2026 — MISION a LENGUAJE CONCRETO. Se retira
  * "propietario de una empresa digital": el término es un vacío semántico que el
@@ -71,7 +71,7 @@ export const QUESWA_QUICK_REPLIES = [
 ] as const;
 
 /**
- * Chips de la página de catálogo (/sistema/productos).
+ * Chips de la página de catálogo (/productos).
  *
  * En esa página Queswa actúa como ASESOR DE SALUD Y BIENESTAR — el backend
  * cambia a ese modo vía `pageContext === 'catalogo_productos'`

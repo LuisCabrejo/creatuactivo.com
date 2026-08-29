@@ -601,9 +601,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 )}
 
                 {/* Quick Reply Chips — preguntas según contexto de página (canónico desde @/lib/queswa-greeting).
-                    En /sistema/productos Queswa es asesor de salud y bienestar → chips de salud, sin CTA de negocio. */}
+                    En /productos Queswa es asesor de salud y bienestar → chips de salud, sin CTA de negocio. */}
                 {(() => {
-                const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/sistema/productos');
+                const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/productos');
                 const activeQuickReplies = isProductsPage ? QUESWA_PRODUCTS_QUICK_REPLIES : QUESWA_QUICK_REPLIES;
                 return (
                 <div className="w-full mt-4 mb-4 flex flex-col gap-2">

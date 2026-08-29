@@ -77,13 +77,6 @@ const nextConfig = {
         permanent: true,
       },
 
-      // /nosotros → /manifiesto (renombrado por coherencia con /{slug}/manifiesto)
-      {
-        source: '/nosotros',
-        destination: '/manifiesto',
-        permanent: true,
-      },
-
       // Reto 12 días / Reto 12 niveles (slugs legacy) → /12-niveles
       {
         source: '/reto-12-dias',
@@ -155,12 +148,14 @@ const nextConfig = {
         permanent: true,
       },
 
-      // Productos → Infraestructura (página renombrada)
-      {
-        source: '/productos',
-        destination: '/infraestructura',
-        permanent: true,
-      },
+      // 29 ago 2026 — URLs cortas: el catálogo vive en /productos (no hay categoría "sistema").
+      { source: '/sistema/productos', destination: '/productos', permanent: true },
+      { source: '/sistema/productos/:ref', destination: '/productos/:ref', permanent: true },
+      // /infraestructura eliminada (página de la época de los correos, sin tráfico ni enlaces).
+      { source: '/infraestructura', destination: '/', permanent: true },
+      // El Manifiesto salió del proceso de Fundadores; «Nosotros» es ahora /nosotros.
+      { source: '/manifiesto', destination: '/nosotros', permanent: true },
+      { source: '/:slug/manifiesto', destination: '/nosotros', permanent: true },
     ]
   },
 }

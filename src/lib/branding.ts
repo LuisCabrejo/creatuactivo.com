@@ -258,7 +258,7 @@ export const ELEGANCIA_CINETICA = {
   accent: {
     amber: '#F59E0B',                 // CTAs principales
     amberDark: '#D97706',             // Gradient bottom
-    cyan: '#38BDF8',                  // Datos / Biometría
+    cyan: '#22D3EE',                  // Datos / Biometría — = --color-data (unificado 29 ago 2026)
     cyanDark: '#0EA5E9',              // Cyan hover
   },
   steel: '#94A3B8',                   // Estructura (sin cambio)

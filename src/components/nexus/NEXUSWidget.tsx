@@ -29,7 +29,7 @@ const QUIET_LUXURY = {
   textSecondary: '#A3A3A3',  // Secondary text
   textMuted: '#6B7280',      // Muted text (Slate Gray)
   // Nuevos en EC:
-  cyan: '#38BDF8',            // Cyan Data - Identidad IA
+  cyan: '#22D3EE',            // Cyan Data - Identidad IA (= --color-data, unificado 29 ago 2026)
   amber: '#F59E0B',           // Amber Industrial - Usuario/Interactividad
 };
 

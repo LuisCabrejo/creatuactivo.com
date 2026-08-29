@@ -46,7 +46,7 @@ const config: Config = {
         obsidian: '#0B0C0C',
         gunmetal: '#16181D',
         'amber-industrial': '#F59E0B',
-        'cyan-data': '#38BDF8',
+        'cyan-data': '#22D3EE',  // = --color-data (unificado 29 ago 2026)
         'gold-warm': '#E5C279',
         // Legacy (for compatibility)
         background: "var(--background)",
@@ -75,7 +75,7 @@ const config: Config = {
         'spotlight': '0 0 80px 40px rgba(148, 163, 184, 0.08)',
         'warm-spot': '0 0 80px 40px rgba(197, 160, 89, 0.06)',
         'neon-gold': '0 0 15px rgba(229, 194, 121, 0.3)',
-        'neon-cyan': '0 0 15px rgba(56, 189, 248, 0.3)',
+        'neon-cyan': '0 0 15px rgba(34, 211, 238, 0.3)',
         'neon-amber': '0 0 15px rgba(245, 158, 11, 0.3)',
       },
       backgroundImage: {

@@ -39,7 +39,7 @@ const C = {
   titanium:    '#94A3B8',
   error:       '#ef4444',
   errorDim:    'rgba(239,68,68,0.15)',
-  cyan:        '#38BDF8',
+  cyan:        '#22D3EE',
 } as const
 
 // ─── MIME type helper ─────────────────────────────────────────────────────────

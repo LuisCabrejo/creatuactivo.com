@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * /prueba — Home 2 (ejercicio de lenguaje concreto)
+ * /prueba — Home v15 candidata: el sistema de diseño desplegado (29 ago 2026)
  * noindex: es una prueba A/B interna, no debe competir con la home real en buscadores.
  */
 
@@ -10,7 +10,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'CreaTuActivo · Prueba',
   description:
-    'Distribuya café y suplementos premium. La parte difícil —explicar y atender— la hace una inteligencia artificial en WhatsApp.',
+    'Sea dueño de su propio canal de distribución. Productos premium de bienestar con Ganoderma, y una inteligencia artificial que explica y atiende por WhatsApp.',
   robots: { index: false, follow: false },
 }
 

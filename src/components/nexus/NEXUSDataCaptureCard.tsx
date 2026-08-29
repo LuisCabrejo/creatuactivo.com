@@ -82,7 +82,7 @@ export function NEXUSDataCaptureCard({
                 >
                   📝
                 </motion.span>
-                <h3 className="font-semibold text-xs sm:text-sm font-sans" style={{ color: '#38BDF8' }}>
+                <h3 className="font-semibold text-xs sm:text-sm font-sans" style={{ color: '#22D3EE' }}>
                   Conociendo tu perfil
                 </h3>
               </div>
@@ -154,7 +154,7 @@ export function NEXUSDataCaptureCard({
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                   className="h-1.5 rounded-full"
                   style={{
-                    background: 'linear-gradient(90deg, #38BDF8 0%, #E5C279 50%, #F59E0B 100%)',
+                    background: 'linear-gradient(90deg, #22D3EE 0%, #E5C279 50%, #F59E0B 100%)',
                     boxShadow: '0 0 8px rgba(245, 158, 11, 0.4)'
                   }}
                 />

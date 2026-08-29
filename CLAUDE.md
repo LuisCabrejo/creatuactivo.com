@@ -958,6 +958,7 @@ import type { Z } from '@/types/Z'  // → src/types/Z
 |-----|-------|-----|-----|
 | **Oro (EL PREMIO)** | `--color-brand` | `#C5A059` | CTAs, dinero, logros, títulos clave (hover `#D4AF37`) |
 | **Titanio (LA ESTRUCTURA)** | `--color-titanium` | `#94A3B8` | Iconos activos, navegación (hover → oro) |
+| **Cian (EL DATO)** | `--color-data` | `#22D3EE` | Labels técnicos en mono, líneas REF, Queswa en línea. ~5%. Nunca en CTAs, títulos ni dinero. ⚠️ Reemplaza a «exclusivo servilleta» (29 ago 2026) — ver [BRANDING.md](BRANDING.md) |
 | **Fondo** | `--color-bg-primary` | `#0F1115` | Carbón; alterna con `#15171C` elevado |
 | **Texto** | `--color-text-primary` | `#E5E5E5` | Cuerpo; `#FFFFFF` solo titulares |
 | Estado | | `#10B981` / `#FBBF24` / `#F43F5E` | Éxito / pendiente / alerta |

@@ -34,6 +34,9 @@
   --color-error: #9E2A3A;          /* Carmesí Profundo */
   --color-warning: #C6A76B;        /* Ámbar */
 
+  /* Cian — el dato y la tecnología viva (regla 29 ago 2026, ver BRANDING.md) */
+  --color-data: #22D3EE;
+
   /* --- GEOMETRÍA (border-radius) --- */
   --radius-micro: 2px;             /* Checkboxes, badges */
   --radius-action: 4px;            /* Botones, inputs */
@@ -60,7 +63,7 @@
   --text-muted: var(--color-text-muted);
   --amber-industrial: #F59E0B;
   --amber-dark: #D97706;
-  --cyan-data: #38BDF8;
+  --cyan-data: var(--color-data);
   --border-subtle: rgba(197, 160, 89, 0.2);
   --border-card: rgba(197, 160, 89, 0.1);
   --background: var(--color-bg-primary);

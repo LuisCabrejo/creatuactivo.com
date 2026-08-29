@@ -45,7 +45,14 @@ Tokens en `:root` de [globals.css](src/app/globals.css). **Nunca hex hardcoded**
 | `--color-error` | `#9E2A3A` | Carmesí profundo |
 | `--color-warning` | `#C6A76B` | Ámbar |
 
-**Acento data exclusivo servilleta:** Cyan `#22D3EE` (labels técnicos, líneas REF).
+### Cian — EL DATO y la tecnología viva (~5% del lienzo)
+| Token | Hex | Uso |
+|-------|-----|-----|
+| `--color-data` | `#22D3EE` | Labels técnicos en mono (eyebrows, «REF», numerales de secuencia), líneas de referencia, y el estado de Queswa en línea (el punto que pulsa) |
+
+**Regla (29 ago 2026, decisión del Director):** el cian es el **cuarto token del sistema, con función propia** — dice *«esto es un dato / la máquina está despierta»*. **Nunca** en CTAs, en títulos ni en cifras de dinero: eso es del dorado (*«esto es el premio»*). Presupuesto ~5%, según la regla 60-30-10 de `ELEGANCIA_CINETICA` en [branding.ts](src/lib/branding.ts). Un solo hex: el `#38BDF8` del widget/orbe se unificó a `#22D3EE` el 29 ago.
+
+> ⚠️ **Por qué esta regla reemplaza a «acento data exclusivo servilleta».** Esa línea la escribió un agente el 30 may 2026 al consolidar este documento, sin respaldo en ninguna investigación (ninguna menciona el cian); ese mismo día la Home lo usaba en 13 sitios y `/paquetes` e `IndustrialHeader` lo llevaban *«consistente con la Home»*; el 17 jun el Director lo añadió a `/diagnostico` porque *«se veía apagada con solo negro+dorado»*; y la Home lo perdió el 2 ago por una reescritura de copy, no por decisión. Con los cuatro colores cada uno tiene una frase que lo justifica: **carbón el lienzo · titanio la estructura · cian el dato · dorado el dinero.** Una Home con solo el primero y el último es la que está fuera de norma.
 
 ---
 

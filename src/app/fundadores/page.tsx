@@ -1,27 +1,35 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Founders Page v7.1 - "The Apple Strategy"
- * Estrategia: Long-Form Persuasion + Apple Aesthetic.
- * Recuperamos: Video, Analogía Bezos, Estructura de 3 Piezas.
  *
- * BIMETALLIC DESIGN SYSTEM v3.0:
- * - Oro (#F59E0B): CTAs, logros, números destacados
- * - Titanio (#94A3B8): Íconos estructurales, líneas, bordes
+ * /fundadores v8.0 — "Un núcleo de 15" (29 ago 2026)
+ *
+ * Reescrita sobre la doctrina vigente, con el sistema visual de la Home v15. La v7.1
+ * ("The Apple Strategy", Bezos/Amazon, "Franquicia Digital", 150 cupos, fecha de
+ * cierre vencida, Método de tres pasos, "cierra el negocio por usted", tuteo
+ * mezclado) llevaba meses por detrás del léxico y de las decisiones:
+ * - Fundadores NO es orden de llegada: entran más de 15 para escoger 15, con una
+ *   conversación de por medio (8 ago 2026). La mecánica de la selección no se
+ *   escribe. Se cierra por cupo, no por calendario (31 may 2026).
+ * - La cifra es 15 (el núcleo que dice Queswa en el canal), no 150.
+ * - Compartir · Recibir y la multiplicación como consecuencia (EAM_01).
+ * - Gano Excel y Queswa por su nombre; el mecanismo, nunca el resultado.
+ * - Siempre usted. Sin video (léxico viejo). Se conservan los cuatro testimonios
+ *   comerciales (Director, 29 ago: hablan del negocio, no del producto) y el
+ *   formulario de dos pasos con su API (/api/fundadores → pending_activations).
+ * - Fuera "+2,847 personas": sin fuente. Se conserva "12 años" (los del Director).
+ * Página noindex desde el 14 ago 2026 (registro por invitación 1-a-1).
  */
-
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import type { ReactNode } from 'react'
+import Link from 'next/link'
 import {
-  ArrowRight, CheckCircle, Play, PlayCircle, Rocket, Shield, Users,
-  Zap, Briefcase, Target, Lightbulb, TrendingUp,
-  BarChart3, Bot, ChevronRight, Lock, Crown, Clock,
-  Globe, Database, Box
+  Factory, Bot, Landmark, Share2, Handshake, Check, CheckCircle,
+  Briefcase, Target, Lightbulb, Users, ArrowRight, GraduationCap, KeyRound, Compass,
 } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
-import AnimatedCountUp from '@/components/AnimatedCountUp'
-import { useHydration } from '@/hooks/useHydration'
-import Link from 'next/link'
+import QueswaCTAButton from '@/components/QueswaCTAButton'
 
 // Pulido de tipeo (forgiving, no bloquea): "juan pérez" / "JUAN" → "Juan Pérez"
 const toTitleCase = (s: string) =>
@@ -29,520 +37,388 @@ const toTitleCase = (s: string) =>
 // Deja solo caracteres válidos de teléfono (dígitos, espacio, + - ( ))
 const cleanPhone = (s: string) => s.replace(/[^\d\s+()-]/g, '')
 
-// --- Estilos CSS Globales (BIMETALLIC v3.0) ---
-const GlobalStyles = () => (
-  <style jsx global>{`
-    :root {
-      --carbon-deep: #0B0C0C;
-      --carbon-elevated: #16181D;
-      --gold-primary: #E5C279;
-      --gold-hover: #F59E0B;
-      --titanium-primary: #94A3B8;
-      --titanium-muted: #64748B;
-    }
+const GOLD = 'var(--color-brand)'
+const TITANIUM = 'var(--color-titanium)'
+const DATA = 'var(--color-data)'
 
-    /* TÍTULO H1: TITANIUM WHITE (Elegancia Institucional) */
-    .creatuactivo-h1-ecosystem {
-      font-weight: 800;
-      background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.04em;
-    }
-
-    /* TEXTO DORADO (ELEGANCIA CINÉTICA: Champagne cálido) */
-    .text-gold {
-      background: linear-gradient(135deg, #E5C279 0%, #F59E0B 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* GLASS CARDS (BIMETALLIC: bordes neutros, hover dorado) */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-    .glass-card:hover {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(229, 194, 121, 0.3);
-      transform: translateY(-2px);
-    }
-
-    /* VIDEO CONTAINER (BIMETALLIC: glow titanio) */
-    .video-glow {
-      box-shadow: 0 0 100px -20px rgba(148, 163, 184, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      isolation: isolate;
-      touch-action: manipulation;
-    }
-
-    /* Fix para evitar scroll en mobile al reproducir video */
-    .video-glow video {
-      touch-action: manipulation;
-      -webkit-touch-callout: none;
-    }
-
-    @media (max-width: 768px) {
-      .video-glow {
-        position: relative;
-        z-index: 10;
-      }
-    }
-
-    /* TIMELINE (BIMETALLIC: progreso dorado) */
-    .phase-line {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: rgba(148, 163, 184, 0.2);
-      z-index: 0;
-      transform: translateY(-50%);
-    }
-    .phase-progress {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #F59E0B, #FBBF24);
-      z-index: 0;
-      transform: translateY(-50%);
-    }
-
-    /* INPUTS PREMIUM (BIMETALLIC: focus dorado) */
-    .input-premium {
-      background: rgba(15, 17, 21, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      transition: all 0.3s;
-    }
-    .input-premium:focus {
-      border-color: #F59E0B;
-      box-shadow: 0 0 0 2px rgba(229, 194, 121, 0.2);
-    }
-  `}</style>
-);
-
-// --- COMPONENTES AUXILIARES ---
-
-function PhaseNode({ title, date, spots, isActive, isPast }: any) {
+// ─── Primitivas (mismas de la Home v15) ───────────────────────────────────────
+function Section({ children, elevated = false, id }: { children: ReactNode; elevated?: boolean; id?: string }) {
   return (
-    <div className={`relative z-10 flex flex-col items-center ${isActive ? 'scale-110' : 'opacity-60'}`}>
-      {/* BIMETALLIC: Unidad activa usa dorado, inactivo usa titanio */}
-      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border-4 mb-4 transition-all duration-500 bg-[#0B0C0C] ${
-        isActive
-          ? 'border-[#F59E0B] shadow-[0_0_30px_rgba(198, 167, 107,0.5)] text-white'
-          : isPast
-            ? 'border-[#64748B] bg-[#16181D] text-[#94A3B8]'
-            : 'border-[#475569] bg-[#16181D] text-[#64748B]'
-      }`}>
-        {isActive ? <Crown size={24} className="text-[#E5C279]" /> : isPast ? <CheckCircle size={24} /> : <Lock size={24} />}
-      </div>
-
-      {isActive && (
-        <div className="absolute -top-8 bg-[#F59E0B] text-[#0B0C0C] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-bounce">
-          Estás Aquí
-        </div>
-      )}
-
-      <h3 className={`font-bold text-xs md:text-sm mb-1 text-center ${isActive ? 'text-white' : 'text-[#64748B]'}`}>{title}</h3>
-      <p className="text-[10px] text-[#64748B] mb-1">{date}</p>
-      <p className={`text-[10px] font-mono ${isActive ? 'text-[#E5C279] font-bold' : 'text-[#475569]'}`}>{spots}</p>
+    <section
+      id={id}
+      style={{
+        background: elevated
+          ? "linear-gradient(rgba(21,23,28,0.94), rgba(21,23,28,0.94)), url('/images/servilleta/hormigon-tile.webp')"
+          : 'var(--color-bg-primary)',
+        backgroundSize: elevated ? 'auto, 200px 200px' : undefined,
+        borderTop: '1px solid rgba(148,163,184,0.12)',
+        padding: '4.5rem 1.5rem',
+      }}
+    >
+      <div style={{ maxWidth: 860, margin: '0 auto' }}>{children}</div>
+    </section>
+  )
+}
+const Eyebrow = ({ children }: { children: ReactNode }) => (
+  <p style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: DATA, marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>{children}</p>
+)
+const H2 = ({ children }: { children: ReactNode }) => (
+  <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', lineHeight: 1.3, color: 'var(--color-text-primary)', margin: '0 0 1.5rem' }}>{children}</h2>
+)
+const Body = ({ children, mt = false }: { children: ReactNode; mt?: boolean }) => (
+  <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', marginTop: mt ? '1.25rem' : 0 }}>{children}</p>
+)
+const Strong = ({ children }: { children: ReactNode }) => <strong style={{ color: 'var(--color-text-primary)' }}>{children}</strong>
+const Mono = ({ children, color = 'var(--color-text-muted)' }: { children: ReactNode; color?: string }) => (
+  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', color, margin: '1rem 0 0.35rem' }}>{children}</p>
+)
+function IconTile({ icon: Icon, tone = 'titanium', size = 44 }: { icon: typeof Factory; tone?: 'titanium' | 'data' | 'gold'; size?: number }) {
+  const color = tone === 'data' ? DATA : tone === 'gold' ? GOLD : TITANIUM
+  const tint = tone === 'data' ? 'rgba(34,211,238,0.08)' : tone === 'gold' ? 'rgba(197,160,89,0.12)' : 'rgba(148,163,184,0.1)'
+  return (
+    <div style={{ width: size, height: size, borderRadius: 10, background: tint, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+      <Icon style={{ width: size * 0.5, height: size * 0.5, color }} strokeWidth={1.6} />
     </div>
   )
 }
+const card = { background: 'var(--color-bg-surface)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8, padding: '1.5rem' } as const
+const inputStyle = {
+  width: '100%', padding: '0.85rem 1rem', borderRadius: 4, fontSize: '1rem',
+  background: 'rgba(15,17,21,0.6)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--color-text-primary)', outline: 'none',
+} as const
+const label = { fontFamily: 'var(--font-mono)', fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--color-text-muted)', display: 'block', marginBottom: '0.4rem' } as const
 
-// BIMETALLIC: Íconos estructurales en titanio
+// Perfiles — en usted, sin nombrar lo que la persona dejaría
 const arquetipos = [
-  { id: 'profesional', icon: <Briefcase size={20} />, title: 'Profesional', description: 'Diversificar ingresos sin dejar mi empleo.', iconColor: 'text-[#94A3B8]' },
-  { id: 'emprendedor', icon: <Target size={20} />, title: 'Dueño de Negocio', description: 'Sistemas que no dependan de mi tiempo.', iconColor: 'text-[#94A3B8]' },
-  { id: 'independiente', icon: <Lightbulb size={20} />, title: 'Freelancer', description: 'Multiplicar ingresos y tener estabilidad.', iconColor: 'text-[#94A3B8]' },
-  { id: 'lider', icon: <Users size={20} />, title: 'Líder / Networker', description: 'Modernizar mi equipo con tecnología.', iconColor: 'text-[#94A3B8]' }
+  { id: 'profesional', icon: Briefcase, title: 'Profesional', description: 'Un ingreso en paralelo a su empleo.' },
+  { id: 'emprendedor', icon: Target, title: 'Dueño de negocio', description: 'Un ingreso que no dependa de su presencia.' },
+  { id: 'independiente', icon: Lightbulb, title: 'Independiente', description: 'Estabilidad para un ingreso que hoy varía.' },
+  { id: 'lider', icon: Users, title: 'Líder de equipo', description: 'Tecnología para un equipo que ya existe.' },
+]
+const puntosDeArranque = [
+  'Kit de Inicio — $443.600 COP',
+  'ESP-1 Inicial — $900.000 COP',
+  'ESP-2 Empresarial — $2.250.000 COP',
+  'ESP-3 Visionario — $4.500.000 COP',
+  'Prefiero conversarlo primero',
+]
+const testimonios = [
+  { name: 'Liliana P.', role: 'Empresaria', quote: 'Descubrí que esto no es solo un negocio; es una forma de transformar mi realidad.', ini: 'LP' },
+  { name: 'Andrés G.', role: 'Sector salud', quote: 'Con esta tecnología, es como pasar de construir a mano a tener una imprenta 3D.', ini: 'AG' },
+  { name: 'Dr. Jonathan', role: 'Médico', quote: 'Como médico, mi tiempo es limitado. Ahora logro resultados con un 20% del esfuerzo.', ini: 'JM' },
+  { name: 'Juan Pablo', role: 'Ex-bancario', quote: 'Las personas no siguen un producto, siguen una visión. Esta tecnología es la pieza que faltaba.', ini: 'JP' },
 ]
 
 export default function FundadoresPage() {
-  const isHydrated = useHydration()
   const [formStep, setFormStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const formTopRef = useRef<HTMLDivElement>(null)
   const [formData, setFormData] = useState({ nombre: '', email: '', telefono: '', arquetipo: '', inversion: '' })
 
-  // Prevenir scroll restoration del navegador
   useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual'
-    }
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
   }, [])
 
   const scrollToForm = () => document.getElementById('aplicacion')?.scrollIntoView({ behavior: 'smooth' })
 
+  const isStepValid = () => {
+    if (formStep === 1) return Boolean(formData.nombre && formData.email && formData.telefono)
+    if (formStep === 2) return Boolean(formData.arquetipo && formData.inversion)
+    return true
+  }
   const nextStep = () => {
     if (isStepValid()) {
-      setFormStep(prev => prev + 1)
+      setFormStep((prev) => prev + 1)
       setTimeout(() => formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100)
     }
   }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (formStep === 1) { nextStep(); return }
-    if (formStep === 2) {
-      setIsSubmitting(true)
-      try {
-        const response = await fetch('/api/fundadores', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...formData,
-            nombre: toTitleCase(formData.nombre),
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent,
-            referrer: document.referrer,
-            page: 'fundadores-v7'
-          })
-        })
-        const result = await response.json()
-        if (response.ok && result.success) {
-          setIsSuccess(true)
-          setFormStep(3)
-          formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        } else {
-          throw new Error(result.error || 'Error en la solicitud')
-        }
-      } catch (error) {
-        console.error('Error:', error)
-        alert('Hubo un error al enviar su solicitud. Por favor intenta de nuevo.')
-      } finally {
-        setIsSubmitting(false)
+    if (formStep !== 2) return
+    setIsSubmitting(true)
+    try {
+      const response = await fetch('/api/fundadores', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          nombre: toTitleCase(formData.nombre),
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          referrer: document.referrer,
+          page: 'fundadores-v8',
+        }),
+      })
+      const result = await response.json()
+      if (response.ok && result.success) {
+        setIsSuccess(true)
+        setFormStep(3)
+        formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      } else {
+        throw new Error(result.error || 'Error en la solicitud')
       }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Hubo un error al enviar su solicitud. Por favor inténtelo de nuevo.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey && isStepValid()) {
       e.preventDefault()
       if (formStep === 1) nextStep()
     }
   }
-
-  const isStepValid = () => {
-    if (formStep === 1) return formData.nombre && formData.email && formData.telefono
-    if (formStep === 2) return formData.arquetipo && formData.inversion
-    return true
-  }
+  const selectable = (active: boolean) => ({
+    ...card,
+    padding: '0.9rem 1rem',
+    cursor: 'pointer',
+    border: active ? `1px solid ${GOLD}` : '1px solid rgba(255,255,255,0.08)',
+    background: active ? 'rgba(197,160,89,0.07)' : 'var(--color-bg-surface)',
+  })
 
   return (
-    <>
-      <GlobalStyles />
-      {/* BIMETALLIC: Fondo carbono profundo */}
-      <div className="bg-[#0B0C0C] text-white min-h-screen font-sans selection:bg-[#F59E0B]/30">
-        <StrategicNavigation />
+    <main style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
+      <StrategicNavigation />
 
-        {/* --- 1. HERO: PROMESA + URGENCIA --- */}
-        <section className="relative pt-36 pb-20 overflow-hidden text-center">
-            {/* BIMETALLIC: Spotlight titanio sutil */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[rgba(148,163,184,0.08)] rounded-full blur-[120px] pointer-events-none"></div>
+      {/* ═══ HERO ═══ */}
+      <section
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 55% at 30% 0%, rgba(148,163,184,0.09) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 75% 10%, rgba(197,160,89,0.07) 0%, transparent 65%), var(--color-bg-primary)',
+          padding: '72px 1.5rem 4.5rem',
+        }}
+      >
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+          <Eyebrow>Fundadores · fase de cimentación</Eyebrow>
+          <h1 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 'clamp(2.1rem, 6vw, 3.4rem)', lineHeight: 1.12, color: 'var(--color-text-primary)', margin: '0 0 1.5rem' }}>
+            Un núcleo de 15 socios estratégicos.
+            <br />
+            <span style={{ color: GOLD }}>No es orden de llegada. Es una conversación.</span>
+          </h1>
+          <p style={{ fontSize: 'clamp(1.05rem, 2.4vw, 1.3rem)', lineHeight: 1.65, color: 'var(--color-text-body)', margin: '0 0 2.5rem', maxWidth: 680 }}>
+            CreaTuActivo está en su fase de cimentación: el momento en que se forma el
+            equipo que va a recorrer el camino primero. Entran a la conversación más de 15
+            para escoger 15. <Strong>Lo que se cierra no es una fecha, es el cupo</Strong> — el
+            acompañamiento directo del núcleo fundador es finito, y cada posición ocupada
+            reduce la ventana.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <button type="button" onClick={scrollToForm} className="cta-base cta-primary">
+              Solicitar la conversación <ArrowRight size={16} style={{ marginLeft: 8 }} />
+            </button>
+          </div>
+        </div>
+      </section>
 
-            <div className="container mx-auto px-4 relative z-10">
-                {/* BIMETALLIC: Badge con borde titanio y pulso dorado */}
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#16181D]/50 border border-[rgba(148,163,184,0.2)] text-[#A3A3A3] text-xs font-bold uppercase tracking-widest mb-8 backdrop-blur-md">
-                    <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse"></span>
-                    Solo 150 Cupos Fundadores
-                </div>
-
-                <h1 className="creatuactivo-h1-ecosystem text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight">
-                    El "Amazon" llave en mano <br />
-                    <span className="text-white">está buscando socios.</span>
-                </h1>
-
-                <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-                    No venimos a venderte un curso. Venimos a entregarte la <strong>infraestructura tecnológica</strong> para que construyas el activo de distribución más grande de América.
-                </p>
-
-                {/* BIMETALLIC: CTA dorado (es premio) */}
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onClick={scrollToForm} className="btn-haptic px-8 py-4 font-sans font-bold uppercase tracking-widest rounded-full transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                        Aplicar a Fundador <ArrowRight size={18} />
-                    </button>
-                    <div className="flex items-center gap-2 px-6 py-4 text-[#A3A3A3] text-sm border border-[rgba(255,255,255,0.1)] rounded-full bg-[rgba(255,255,255,0.05)]">
-                        <Clock size={16} className="text-[#94A3B8]" /> La lista cierra el 04 de Enero
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* --- 3. ANALOGÍA BEZOS (RECUPERADA) --- */}
-        <section className="py-24 bg-[#16181D]/50 border-t border-white/5">
-            <div className="container mx-auto px-4 max-w-4xl">
-                 <div className="glass-card p-10 md:p-14 rounded-xl text-center">
-                    <h2 className="text-3xl font-bold text-white mb-10">El Secreto de los Activos Digitales</h2>
-
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="bg-red-500/5 p-8 rounded-lg border border-[#9E2A3A]/10 opacity-70 hover:opacity-100 transition-opacity">
-                            <h3 className="text-xl font-bold text-white mb-4">Jeff Bezos...</h3>
-                            <p className="text-sm text-slate-400 mb-6">¿Se hizo rico vendiendo libros puerta a puerta?</p>
-                            <div className="flex items-center justify-center gap-2 text-[#9E2A3A] font-bold bg-[#9E2A3A]/10 py-2 rounded-lg">
-                                <span>❌</span> ¡NO!
-                            </div>
-                        </div>
-
-                        <div className="bg-emerald-500/5 p-8 rounded-lg border border-emerald-500/10 shadow-lg shadow-emerald-500/5">
-                            <h3 className="text-xl font-bold text-white mb-4">Él construyó el SISTEMA</h3>
-                            <p className="text-sm text-slate-300 mb-6">Creó la plataforma (Amazon) donde millones de transacciones ocurren sin él.</p>
-                            <div className="flex items-center justify-center gap-2 text-emerald-400 font-bold bg-emerald-500/10 py-2 rounded-lg">
-                                <CheckCircle size={16} /> ¡EXACTO!
-                            </div>
-                        </div>
-                    </div>
-
-                    <p className="mt-10 text-slate-400 italic">
-                        "Nosotros le entregamos el sistema. Usted no vendes puerta a puerta, usted operas la infraestructura."
-                    </p>
-                 </div>
-            </div>
-        </section>
-
-        {/* --- 4. LAS 3 PIEZAS DEL AMAZON (RECUPERADA) --- */}
-        <section className="py-24 bg-[#0B0C0C]">
-             <div className="container mx-auto px-4">
-                <div className="text-center mb-16">
-                    <span className="text-[#F59E0B] font-bold uppercase tracking-widest text-xs mb-2 block">Su Franquicia Digital Incluye</span>
-                    <h2 className="text-3xl md:text-5xl font-bold text-white">El "Amazon" llave en mano</h2>
-                    <p className="text-slate-400 mt-4">Las 3 piezas listas para operar desde el Día 1.</p>
-                </div>
-
-                {/* BIMETALLIC: Íconos titanio, hover → dorado, tarjeta central destacada con dorado */}
-                <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                    {/* Pieza 1 */}
-                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group">
-                        <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#E5C279] transition-colors mb-6">
-                            <Box size={24} />
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-2">1. La Fábrica (Producto)</h3>
-                        <p className="text-sm text-[#A3A3A3] mb-4 leading-relaxed">
-                            Gano Excel pone los productos, las bodegas, los envíos y los empleados. Tecnología propietaria para millones.
-                        </p>
-                        <p className="text-xs font-bold text-[#64748B] group-hover:text-[#E5C279] transition-colors uppercase">Tecnología Propietaria Única</p>
-                    </div>
-
-                    {/* Pieza 2 - DESTACADA con dorado */}
-                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group border-[rgba(198, 167, 107,0.3)] bg-[rgba(198, 167, 107,0.05)]">
-                        <div className="absolute top-4 right-4 bg-[#F59E0B] text-[#0B0C0C] text-[10px] font-bold px-2 py-1 rounded">IA INTEGRADA</div>
-                        <div className="w-12 h-12 bg-[#F59E0B] rounded-xl flex items-center justify-center text-[#0B0C0C] mb-6 shadow-lg shadow-[rgba(198, 167, 107,0.3)]">
-                            <Bot size={24} />
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-2">2. La App (Tecnología)</h3>
-                        <p className="text-sm text-[#E5E5E5] mb-4 leading-relaxed">
-                            CreaTuActivo.com es su aplicación inteligente. Tiene una IA que educa, conversa y cierra el negocio por usted las 24 horas.
-                        </p>
-                        <p className="text-xs font-bold text-[#E5C279] uppercase">Trabaja mientras duermes</p>
-                    </div>
-
-                    {/* Pieza 3 */}
-                    <div className="glass-card p-8 rounded-lg relative overflow-hidden group">
-                        <div className="w-12 h-12 bg-[rgba(148,163,184,0.1)] rounded-xl flex items-center justify-center text-[#94A3B8] group-hover:text-[#E5C279] transition-colors mb-6">
-                            <Globe size={24} />
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-2">3. El Método (Mapa)</h3>
-                        <p className="text-sm text-[#A3A3A3] mb-4 leading-relaxed">
-                            No improvisas. Sigues el Método Comprobado: Compartir (tráfico), Recibir (cierre con IA) y Multiplicar (crecer con un clic).
-                        </p>
-                        <p className="text-xs font-bold text-[#64748B] group-hover:text-[#E5C279] transition-colors uppercase">Sistema Probado</p>
-                    </div>
-                </div>
-             </div>
-        </section>
-
-        {/* --- 5. TIMELINE (SCARCITY) --- */}
-        <section className="py-24 bg-[#16181D]/50 border-y border-white/5">
-            <div className="container mx-auto px-4 max-w-5xl">
-                <div className="text-center mb-16">
-                    <div className="inline-block border border-amber-500/30 bg-amber-500/10 px-4 py-1 rounded-full text-amber-500 text-xs font-bold uppercase mb-4">Ventana de Oportunidad</div>
-                    <h2 className="text-3xl font-bold text-white mb-2">3 Fases de Lanzamiento</h2>
-                    <p className="text-slate-400 text-sm">Como Apple lanzó el iPhone: los primeros en la fila tienen ventaja.</p>
-                </div>
-
-                <div className="relative py-12 px-4">
-                    <div className="phase-line"></div>
-                    <div className="phase-progress w-[33%]"></div>
-
-                    <div className="grid grid-cols-3 gap-4 relative z-10">
-                        <PhaseNode isActive={true} title="Lista Privada" date="Fase actual — en curso" spots="150 Cupos" />
-                        <PhaseNode isPast={false} title="Pre-Lanzamiento" date="Al completar la base" spots="22,500" />
-                        <PhaseNode isPast={false} title="Lanzamiento Global" date="Despliegue continental" spots="4M+" />
-                    </div>
-                </div>
-
-                {/* BIMETALLIC: card de urgencia — sin countdown de calendario (doctrina: la
-                    ventana la cierra el cupo, no una fecha; el acompañamiento del núcleo
-                    fundador es finito). El countdown estático con fechas vencidas fue
-                    retirado (jul 2026). */}
-                <div className="mt-16 glass-card p-8 rounded-xl max-w-2xl mx-auto text-center border-[rgba(198, 167, 107,0.3)] bg-[rgba(198, 167, 107,0.05)]">
-                    <p className="text-[#E5C279] font-bold uppercase tracking-widest text-xs mb-4">La Lista Privada se cierra por cupos, no por calendario</p>
-                    <p className="text-slate-400 text-sm leading-relaxed max-w-lg mx-auto">El acompañamiento directo del núcleo fundador es finito: cada posición ocupada reduce la ventana. Al completarse la base fundacional, inicia el Pre-Lanzamiento.</p>
-                </div>
-            </div>
-        </section>
-
-        {/* --- 6. COMPARATIVA (RED VS GREEN) --- */}
-        <section className="py-24 bg-[#0B0C0C]">
-            <div className="container mx-auto px-4">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">¿Ves la diferencia ahora?</h2>
-                    <p className="text-slate-400 font-light">No estamos ofreciendo un empleo. Estamos ofreciendo construir un <strong className="text-white">activo</strong>.</p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {/* Rojo */}
-                    <div className="p-10 rounded-xl border border-[#9E2A3A]/10 bg-red-500/5 opacity-80 hover:opacity-100 transition-opacity">
-                        <div className="flex items-center gap-4 mb-8 text-[#9E2A3A]"><Briefcase size={24}/><h3 className="text-xl font-bold text-white">Modelo Tradicional</h3></div>
-                        <div className="space-y-6">
-                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Rol</span><span className="text-[#9E2A3A] text-sm text-right">❌ Vendedor manual</span></div>
-                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Su Tiempo</span><span className="text-[#9E2A3A] text-sm text-right">❌ Reuniones físicas</span></div>
-                            <div className="flex justify-between border-b border-[#9E2A3A]/10 pb-4"><span className="text-xs font-bold text-slate-500 uppercase">Resultado</span><span className="text-[#9E2A3A] text-sm text-right">❌ Ingreso que se detiene si para</span></div>
-                        </div>
-                    </div>
-                    {/* Verde */}
-                    <div className="p-10 rounded-xl border border-emerald-500/30 bg-emerald-500/10 shadow-2xl shadow-emerald-500/5 transform md:-translate-y-4">
-                        <div className="flex items-center gap-4 mb-8 text-emerald-400"><TrendingUp size={24}/><h3 className="text-xl font-bold text-white">Ecosistema Digital</h3></div>
-                        <div className="space-y-6">
-                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Su Rol</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Dueño de Sistema</span></div>
-                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Su Tiempo</span><span className="text-emerald-400 text-sm text-right font-bold">✅ 15 min/día (App)</span></div>
-                            <div className="flex justify-between border-b border-emerald-500/20 pb-4"><span className="text-xs font-bold text-slate-400 uppercase">Resultado</span><span className="text-emerald-400 text-sm text-right font-bold">✅ Renta Vitalicia</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* --- 7. PRUEBA SOCIAL (LÍDERES) --- */}
-        <section className="py-24 bg-[#16181D]border-t border-white/5">
-            <div className="container mx-auto px-4 max-w-6xl">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold text-white mb-4">Lo que dicen los Líderes</h2>
-                    <div className="flex justify-center gap-8 text-slate-400 text-sm font-bold uppercase tracking-widest mt-6">
-                        <span>+2,847 Personas</span>
-                        <span>•</span>
-                        <span>12 Años de Éxito</span>
-                    </div>
-                </div>
-
-                <div className="grid md:grid-cols-4 gap-6">
-                    {[
-                        {name: "Liliana P.", role: "Empresaria", quote: "Descubrí que esto no es solo un negocio; es una forma de transformar mi realidad.", ini: "LM"},
-                        {name: "Andrés G.", role: "Sector Salud", quote: "Con esta tecnología, es como pasar de construir a mano a tener una imprenta 3D.", ini: "AG"},
-                        {name: "Dr. Jonathan", role: "Médico", quote: "Como médico, mi tiempo es limitado. Ahora logro resultados con un 20% del esfuerzo.", ini: "JM"},
-                        {name: "Juan Pablo", role: "Ex-Bancario", quote: "La gente no sigue un producto, sigue una visión. Esta tecnología es la pieza que faltaba.", ini: "JP"}
-                    ].map((lider, i) => (
-                        <div key={i} className="glass-card p-6 rounded-lg hover:bg-white/5">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white">{lider.ini}</div>
-                                <div><p className="font-bold text-white text-sm">{lider.name}</p><p className="text-[10px] text-slate-500 uppercase">{lider.role}</p></div>
-                            </div>
-                            <p className="text-xs text-slate-400 italic">"{lider.quote}"</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-
-        {/* --- 8. FORMULARIO DE ADMISIÓN --- */}
-        {/* BIMETALLIC: Spotlight dorado sutil */}
-        <section id="aplicacion" className="py-24 bg-[#16181D] relative overflow-hidden" ref={formTopRef}>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[rgba(198, 167, 107,0.05)] rounded-full blur-[100px]"></div>
-
-            <div className="container mx-auto px-4 relative z-10 max-w-2xl">
-                {/* BIMETALLIC: Crown dorado (es premio) */}
-                <div className="glass-card p-8 md:p-12 rounded-xl border border-[rgba(255,255,255,0.1)] shadow-2xl">
-                    <div className="text-center mb-10">
-                        <Crown className="w-12 h-12 text-[#E5C279] mx-auto mb-4" />
-                        <h2 className="text-3xl font-bold text-white mb-2">Solicitud de Admisión</h2>
-                        <p className="text-slate-400 text-sm">
-                            Este no es un registro abierto. Es una aplicación para trabajar directamente con Luis Cabrejo.
-                        </p>
-                    </div>
-
-                    {isSuccess ? (
-                        <div className="text-center py-12 animate-in zoom-in duration-300">
-                            <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-green-400">
-                                <CheckCircle size={40} />
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-2">¡Aplicación Enviada!</h3>
-                            <p className="text-slate-400 mb-6">
-                                Su perfil ha entrado en revisión prioritaria. Le contactaremos por WhatsApp en breve.
-                            </p>
-                        </div>
-                    ) : (
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            {formStep === 1 && (
-                                <div className="space-y-5 animate-in fade-in slide-in-from-right-4">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">Su Nombre</label>
-                                        <input type="text" required value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} onBlur={(e) => setFormData({...formData, nombre: toTitleCase(e.target.value)})} autoCapitalize="words" onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="Ej: Juan Pérez" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">WhatsApp</label>
-                                        <input type="tel" required value={formData.telefono} onChange={(e) => setFormData({...formData, telefono: cleanPhone(e.target.value)})} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="+57 300 000 0000" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
-                                        <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value.trim()})} onBlur={(e) => setFormData({...formData, email: e.target.value.trim()})} inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} onKeyDown={handleKeyDown} className="w-full px-4 py-3 rounded-xl input-premium outline-none" placeholder="juan@gmail.com" />
-                                    </div>
-                                    <button type="button" onClick={nextStep} disabled={!isStepValid()} className="btn-haptic w-full py-4 mt-4 font-sans font-bold uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50">Siguiente Paso <ChevronRight size={20} /></button>
-                                </div>
-                            )}
-
-                            {formStep === 2 && (
-                                <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
-                                    <div>
-                                        <h3 className="text-lg font-bold text-white mb-4">¿Qué perfil le describe mejor?</h3>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            {arquetipos.map((arq) => (
-                                                <div key={arq.id} onClick={() => setFormData({...formData, arquetipo: arq.title})} className={`p-3 rounded-xl border cursor-pointer transition-all hover:bg-white/5 ${formData.arquetipo === arq.title ? 'border-[#F59E0B] bg-[#F59E0B]/10' : 'border-white/10 bg-[#16181D]/50'}`}>
-                                                    <div className="flex items-center gap-2 mb-1"><span className={arq.iconColor}>{arq.icon}</span><span className="font-bold text-sm text-white">{arq.title}</span></div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold text-white mb-4">Capacidad de Inversión Inicial</h3>
-                                        <div className="space-y-2">
-                                            {[
-                                              'Básica - $900,000 COP (~$200 USD)',
-                                              'Empresarial 1 - $2,250,000 COP (~$500 USD)',
-                                              'Empresarial 2 - $4,500,000 COP (~$1,000 USD)',
-                                              'Necesito asesoría financiera'
-                                            ].map((opt) => (
-                                                <div key={opt} onClick={() => setFormData({...formData, inversion: opt})} className={`p-4 rounded-xl border cursor-pointer transition-all flex justify-between ${formData.inversion === opt ? 'border-[#F59E0B] bg-[rgba(198, 167, 107,0.1)] text-white' : 'border-[rgba(255,255,255,0.1)] bg-[#16181D]/50 text-[#A3A3A3]'}`}><span>{opt}</span>{formData.inversion === opt && <CheckCircle size={18} className="text-[#E5C279]"/>}</div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <button type="submit" disabled={isSubmitting || !isStepValid()} className="btn-haptic w-full py-4 font-sans font-bold uppercase tracking-widest rounded-xl text-lg transition-all flex items-center justify-center gap-2">{isSubmitting ? 'Enviando...' : 'Aplicar a Fundador'} <Rocket size={20} /></button>
-                                </div>
-                            )}
-                        </form>
-                    )}
-                </div>
-            </div>
-        </section>
-
-        {/* --- FOOTER --- */}
-        <footer className="py-12 text-center text-[#64748B] text-sm border-t border-[rgba(148,163,184,0.15)]">
-            <p className="font-bold text-white mb-2">CreaTuActivo.com</p>
-            <p className="text-xs">
-              <Link href="/privacidad" className="underline hover:text-white transition-colors">Política de Privacidad</Link>
-              <span className="mx-2 opacity-40">·</span>
-              <Link href="/terminos" className="underline hover:text-white transition-colors">Términos y Condiciones</Link>
+      {/* ═══ QUÉ SE CONSTRUYE ═══ */}
+      <Section elevated>
+        <Eyebrow>Qué se construye</Eyebrow>
+        <H2>Un canal de distribución a su nombre, con dos fuerzas detrás.</H2>
+        <Body>
+          Un negocio de distribución de productos premium de bienestar —café y suplementos
+          con Ganoderma— que usted maneja desde el celular. Lo que antes era complicado de
+          desarrollar, hoy es sencillo, porque el trabajo pesado lo hacen dos.
+        </Body>
+        <div style={{ marginTop: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
+          <div style={card}>
+            <IconTile icon={Factory} />
+            <Mono>Gano Excel</Mono>
+            <p style={{ fontSize: '0.98rem', lineHeight: 1.65, color: 'var(--color-text-body)', margin: 0 }}>
+              Fabrica y despacha. Más de 30 años, más de 60 países, nueve sedes en
+              Colombia. Usted no compra inventario ni entrega pedidos.
             </p>
-            <p className="mt-4 text-xs opacity-50">&copy; 2026 Todos los derechos reservados.</p>
-        </footer>
-      </div>
-    </>
+          </div>
+          <div style={{ ...card, border: '1px solid rgba(34,211,238,0.22)' }}>
+            <IconTile icon={Bot} tone="data" />
+            <Mono color={DATA}>Queswa · en línea</Mono>
+            <p style={{ fontSize: '0.98rem', lineHeight: 1.65, color: 'var(--color-text-body)', margin: 0 }}>
+              Conversa por WhatsApp con cada interesado, le resuelve las dudas y madura su
+              decisión de avanzar, a toda hora.
+            </p>
+          </div>
+          <div style={{ ...card, border: '1px solid rgba(197,160,89,0.45)', background: 'linear-gradient(135deg, rgba(197,160,89,0.06), var(--color-bg-surface))' }}>
+            <IconTile icon={Landmark} tone="gold" />
+            <Mono color={GOLD}>Su canal</Mono>
+            <p style={{ fontSize: '0.98rem', lineHeight: 1.65, color: 'var(--color-text-body)', margin: 0 }}>
+              A su nombre, manejado desde el celular. Usted cobra cada vez que su canal
+              mueve producto.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* ═══ QUÉ RECIBE UN FUNDADOR ═══ */}
+      <Section>
+        <Eyebrow>Qué recibe un Fundador</Eyebrow>
+        <H2>Lo que recibe quien entra primero.</H2>
+        {[
+          { icon: Compass, t: 'Acompañamiento directo del núcleo fundador', d: 'Mientras la base se consolida, las conversaciones, las decisiones y los primeros pasos se recorren con quien ya los recorrió. Ese tiempo es finito, y es lo que hace que esta fase sea distinta.' },
+          { icon: KeyRound, t: 'creatuactivo.com y queswa.app con su nombre', d: 'Su enlace, su página, el catálogo y Queswa atendiendo a los suyos. Todo lo que hoy está leyendo, a nombre suyo, desde el primer día.' },
+          { icon: GraduationCap, t: 'Maestría', d: 'Liderazgo, comunicación, administración de los recursos y el detalle de producto — más la experiencia de socios que ya recorrieron el camino.' },
+        ].map((item) => (
+          <div key={item.t} style={{ ...card, display: 'flex', gap: '1.25rem', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+            <IconTile icon={item.icon} size={48} />
+            <div>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 0.4rem' }}>{item.t}</h3>
+              <p style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)', margin: 0 }}>{item.d}</p>
+            </div>
+          </div>
+        ))}
+      </Section>
+
+      {/* ═══ QUÉ HACE USTED — Compartir · Recibir (EAM_01) ═══ */}
+      <Section elevated>
+        <Eyebrow>Qué hace usted</Eyebrow>
+        <H2>Dos movimientos. Ninguno le exige dejar lo que hace hoy.</H2>
+        {[
+          { n: '01', icon: Share2, t: 'Compartir', d: 'Usted pasa un enlace a quien quiera. Lo que esa persona recibe ya está preparado: la página, el video y Queswa, a nombre suyo.' },
+          { n: '02', icon: Handshake, t: 'Recibir', d: 'Usted saluda a quien llega con interés. Cuando alguien ya decidió, lo recibe de persona a persona y le da la bienvenida — que es justo lo que mejor le sale a un ser humano.' },
+        ].map((item) => (
+          <div key={item.n} style={{ ...card, display: 'flex', gap: '1.25rem', padding: '1.75rem', marginBottom: '1rem', alignItems: 'flex-start' }}>
+            <IconTile icon={item.icon} size={48} />
+            <div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: GOLD }}>{item.n}</span>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{item.t}</h3>
+              </div>
+              <p style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)', margin: 0 }}>{item.d}</p>
+            </div>
+          </div>
+        ))}
+        <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderLeft: `2px solid ${GOLD}`, background: 'rgba(197,160,89,0.04)' }}>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
+            Y como es así de sencillo, quien entra con usted hace exactamente lo mismo.{' '}
+            <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación.</Strong>
+          </p>
+        </div>
+      </Section>
+
+      {/* ═══ TESTIMONIOS ═══ */}
+      <Section>
+        <Eyebrow>Quienes ya recorrieron el camino · 12 años de campo</Eyebrow>
+        <H2>Lo que dicen los que van adelante.</H2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
+          {testimonios.map((t) => (
+            <div key={t.ini} style={card}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.9rem' }}>
+                <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'rgba(148,163,184,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: TITANIUM }}>{t.ini}</div>
+                <div>
+                  <p style={{ margin: 0, fontWeight: 600, fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>{t.name}</p>
+                  <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>{t.role}</p>
+                </div>
+              </div>
+              <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: 1.65, color: 'var(--color-text-body)', fontStyle: 'italic' }}>«{t.quote}»</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* ═══ SOLICITUD ═══ */}
+      <Section elevated id="aplicacion">
+        <div ref={formTopRef} style={{ ...card, padding: 'clamp(1.5rem, 4vw, 3rem)', maxWidth: 640, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <Eyebrow>Solicitud</Eyebrow>
+            <H2>Solicitar la conversación</H2>
+            <p style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)', margin: 0 }}>
+              Este no es un registro abierto. Es una solicitud para conversar directamente
+              con Luis Cabrejo.
+            </p>
+          </div>
+
+          {isSuccess ? (
+            <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+              <CheckCircle size={40} style={{ color: 'var(--color-success)', margin: '0 auto 1rem' }} />
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 0.5rem' }}>Su solicitud entró en revisión.</h3>
+              <p style={{ color: 'var(--color-text-body)', margin: 0 }}>Le escribimos por WhatsApp.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              {formStep === 1 && (
+                <div style={{ display: 'grid', gap: '1.1rem' }}>
+                  <div>
+                    <label style={label}>Su nombre</label>
+                    <input type="text" required value={formData.nombre} onChange={(e) => setFormData({ ...formData, nombre: e.target.value })} onBlur={(e) => setFormData({ ...formData, nombre: toTitleCase(e.target.value) })} autoCapitalize="words" autoComplete="name" onKeyDown={handleKeyDown} style={inputStyle} />
+                  </div>
+                  <div>
+                    <label style={label}>WhatsApp</label>
+                    <input type="tel" required value={formData.telefono} onChange={(e) => setFormData({ ...formData, telefono: cleanPhone(e.target.value) })} inputMode="tel" autoComplete="tel" onKeyDown={handleKeyDown} style={inputStyle} />
+                  </div>
+                  <div>
+                    <label style={label}>Correo</label>
+                    <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value.trim() })} inputMode="email" autoComplete="email" onKeyDown={handleKeyDown} style={inputStyle} />
+                  </div>
+                  <button type="button" onClick={nextStep} disabled={!isStepValid()} className="cta-base cta-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '0.5rem', opacity: isStepValid() ? 1 : 0.5 }}>
+                    Continuar <ArrowRight size={16} style={{ marginLeft: 8 }} />
+                  </button>
+                </div>
+              )}
+
+              {formStep === 2 && (
+                <div style={{ display: 'grid', gap: '1.75rem' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 0.9rem' }}>¿Qué perfil le describe mejor?</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.6rem' }}>
+                      {arquetipos.map((arq) => {
+                        const active = formData.arquetipo === arq.title
+                        const Icon = arq.icon
+                        return (
+                          <div key={arq.id} onClick={() => setFormData({ ...formData, arquetipo: arq.title })} style={selectable(active)}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
+                              <Icon size={18} style={{ color: active ? GOLD : TITANIUM }} />
+                              <span style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>{arq.title}</span>
+                            </div>
+                            <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{arq.description}</p>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 0.9rem' }}>¿Con qué punto de arranque se ve?</h3>
+                    <div style={{ display: 'grid', gap: '0.5rem' }}>
+                      {puntosDeArranque.map((opt) => {
+                        const active = formData.inversion === opt
+                        return (
+                          <div key={opt} onClick={() => setFormData({ ...formData, inversion: opt })} style={{ ...selectable(active), display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>{opt}</span>
+                            {active && <Check size={16} style={{ color: GOLD }} />}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                  <button type="submit" disabled={isSubmitting || !isStepValid()} className="cta-base cta-primary" style={{ width: '100%', justifyContent: 'center', opacity: isStepValid() && !isSubmitting ? 1 : 0.5 }}>
+                    {isSubmitting ? 'Enviando…' : 'Enviar la solicitud'}
+                  </button>
+                </div>
+              )}
+            </form>
+          )}
+        </div>
+      </Section>
+
+      {/* ═══ CIERRE ═══ */}
+      <Section>
+        <div style={{ textAlign: 'center' }}>
+          <H2>Al final, el canal es suyo.</H2>
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', maxWidth: 560, margin: '0 auto 2rem' }}>
+            Si antes de solicitar la conversación quiere entender cómo funciona, Queswa se
+            lo explica ahora mismo, sin compromiso.
+          </p>
+          <QueswaCTAButton className="cta-base cta-secondary">Hablar con Queswa</QueswaCTAButton>
+        </div>
+      </Section>
+
+      <footer style={{ padding: '32px 24px', borderTop: '1px solid rgba(148,163,184,0.12)', textAlign: 'center', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
+        <p style={{ margin: '0 0 0.5rem' }}>
+          <Link href="/privacidad" style={{ color: 'inherit' }}>Privacidad</Link> · <Link href="/terminos" style={{ color: 'inherit' }}>Términos</Link>
+        </p>
+        © 2026 CreaTuActivo.com · Fundada por Luis Cabrejo
+      </footer>
+    </main>
   )
 }

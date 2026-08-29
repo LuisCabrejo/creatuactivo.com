@@ -13,16 +13,15 @@ import type { Metadata } from 'next'
 const siteUrl = 'https://creatuactivo.com'
 
 export const metadata: Metadata = {
-  title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor CreaTuActivo',
-  description: 'Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, tecnología NodeX + IA, ingresos residuales. Solo 150 cupos del 10 Nov 2025 al 04 Ene 2026. Lista privada exclusiva.',
-  keywords: 'afiliación gano excel, fundadores gano excel 2025, mentor gano excel, afiliarse gano excel colombia, lista privada fundadores, mentorías 1 a 150, creatuactivo fundadores',
-  authors: [{ name: 'CreaTuActivo.com' }],
+  title: 'Fundadores | CreaTuActivo',
+  description: 'Un núcleo de 15 socios estratégicos para la fase de cimentación de CreaTuActivo. No es orden de llegada: es una conversación.',
+    authors: [{ name: 'CreaTuActivo.com' }],
   openGraph: {
     type: 'website',
-    locale: 'es_ES',
+    locale: 'es_CO',
     url: `${siteUrl}/fundadores`,
-    title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor CreaTuActivo',
-    description: 'Afiliación especial Gano Excel Colombia como FUNDADOR. Mentorías 1:150, tecnología NodeX + IA, ingresos residuales. Solo 150 cupos hasta 04 Ene 2026.',
+    title: 'Fundadores | CreaTuActivo',
+    description: 'Un núcleo de 15 socios estratégicos para la fase de cimentación. No es orden de llegada: es una conversación.',
     siteName: 'CreaTuActivo.com',
     images: [
       {
@@ -36,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '150 Espacios Fundadores Gano Excel 2025 | Afiliación Mentor',
-    description: 'Afiliación Gano Excel como FUNDADOR. Mentoría 1:150, NodeX + IA, ingresos residuales. 150 cupos hasta 04 Ene 2026.',
+    title: 'Fundadores | CreaTuActivo',
+    description: 'Un núcleo de 15 socios estratégicos. No es orden de llegada: es una conversación.',
     images: [`${siteUrl}/fundadores/opengraph-image`],
     creator: '@creatuactivo',
   },

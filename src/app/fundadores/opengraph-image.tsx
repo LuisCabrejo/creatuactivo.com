@@ -12,7 +12,7 @@ import { ImageResponse } from 'next/og'
 
 // Configuración de la imagen
 export const runtime = 'edge'
-export const alt = 'Lista Privada Fundadores - CreaTuActivo.com'
+export const alt = 'Fundadores - CreaTuActivo.com'
 export const size = {
   width: 1200,
   height: 630,
@@ -34,7 +34,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+          background: 'linear-gradient(135deg, #0F1115 0%, #15171C 100%)',
           padding: '80px',
         }}
       >
@@ -43,7 +43,7 @@ export default async function Image() {
           style={{
             fontSize: 200,
             fontWeight: 900,
-            background: 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)',
+            background: 'linear-gradient(135deg, #C5A059 0%, #D4AF37 100%)',
             backgroundClip: 'text',
             color: 'transparent',
             lineHeight: 1,
@@ -51,7 +51,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          150
+          15
         </div>
 
         {/* Texto principal - MUY GRANDE */}
@@ -74,14 +74,14 @@ export default async function Image() {
         {/* Subtítulo - GRANDE */}
         <div
           style={{
-            fontSize: 48,
+            fontSize: 40,
             fontWeight: 700,
             color: '#94a3b8',
             textAlign: 'center',
             display: 'flex',
           }}
         >
-          Lista Privada Exclusiva
+          Un núcleo de socios estratégicos
         </div>
 
         {/* Footer minimalista con marca */}

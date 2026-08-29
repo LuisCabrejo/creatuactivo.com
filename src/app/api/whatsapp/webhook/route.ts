@@ -1278,12 +1278,19 @@ async function procesarEntrante(body: any): Promise<void> {
       && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim());
     if (flowSimuladorId && !vieneDelSimulador
         && (/simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText) || _aceptaSimulador)) {
+      // La pantalla inicial hereda de la oferta que la persona aceptó: tras el
+      // Kit, la renta al 10%; tras el ejemplo GEN5, los paquetes; tras el de
+      // renta, la renta. Solo sin pista abre en el menú.
+      const _pantalla = /tarifa del Kit/i.test(_ultimoBotW) ? 'RENTA_DIEZ'
+        : /Generaci[oó]n 1|paquetes? ESP-[123]\*? comprados?|Bono GEN5/i.test(_ultimoBotW) ? 'GEN_MENU'
+        : /renta estar[ií]a|clientes en cada centro|supuesto modesto/i.test(_ultimoBotW) ? 'RENTA_MENU'
+        : 'INICIO';
       const reenvio = await sendFlow(
         phoneNumber,
         flowSimuladorId,
         'Aquí lo tiene de nuevo. Arme el escenario que quiera ver.',
         'Abrir el simulador',
-        { screen: 'INICIO' },
+        { screen: _pantalla },
       );
       if (reenvio.ok) {
         try {
@@ -1813,6 +1820,23 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         console.warn('⚠️ [WA Webhook] Se dictó un ejemplo de cifras pero WHATSAPP_FLOW_SIMULADOR_ID no está definida — el simulador NO se ofreció. Definirla en Vercel.');
       }
 
+      // La respuesta del Kit (INV_00) ofrece «su propio escenario en el simulador
+      // con la tarifa del Kit»: el Flow va directo a la pantalla de renta al 10%.
+      // Sin esto caía en el caso del GEN5 —el texto nombra el Bono GEN5 con
+      // cifras— y abría en la pantalla de paquetes (prueba del Director, 29 ago).
+      const _ofreceKit = /escenario en el simulador con la tarifa del Kit/i.test(queswaReply);
+      if (flowSimulador && _ofreceKit) {
+        const enviado = await sendFlow(
+          phoneNumber,
+          flowSimulador,
+          'Aquí lo tiene con la tarifa del Kit: elija cuántos clientes y el resultado sale al instante.',
+          'Abrir el simulador',
+          { screen: 'RENTA_DIEZ' },
+        );
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador ofrecido con la tarifa del Kit (RENTA_DIEZ)');
+        else console.warn(`⚠️ [WA Webhook] Flow del Kit no se pudo enviar: ${enviado.error}`);
+      }
+
       if (flowSimulador && queswaReply.includes('Le pongo un ejemplo con números redondos')) {
         const enviado = await sendFlow(
           phoneNumber,
@@ -1856,7 +1880,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       const _esComposicion = /\|\s*Producto\s*\||lo que trae|le activa inmediatamente este inventario|productos para arrancar/i.test(queswaReply);
       const _explicaGen5 = !_esComposicion && /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
       const _explicaBinario = !_esComposicion && /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
-      if (flowSimulador && _explicaBinario && !_explicaGen5 && !dictoEjemplo && !_ofreceNumeros) {
+      if (flowSimulador && _explicaBinario && !_explicaGen5 && !dictoEjemplo && !_ofreceNumeros && !_ofreceKit) {
         const enviado = await sendFlow(
           phoneNumber,
           flowSimulador,
@@ -1867,7 +1891,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         if (enviado.ok) console.log('🧮 [WA Webhook] Simulador ofrecido junto a la explicación del binario');
         else console.warn(`⚠️ [WA Webhook] Flow binario junto a la explicación no se pudo enviar: ${enviado.error}`);
       }
-      if (flowSimulador && _explicaGen5 && !dictoEjemplo && !_ofreceNumeros) {
+      if (flowSimulador && _explicaGen5 && !dictoEjemplo && !_ofreceNumeros && !_ofreceKit) {
         const enviado = await sendFlow(
           phoneNumber,
           flowSimulador,

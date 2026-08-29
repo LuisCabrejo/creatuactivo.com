@@ -288,6 +288,10 @@ Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz F�
 
 Para versiones anteriores a v26.0, consultar los archivos `knowledge_base/system-prompt-nexus-main-vXX_Y.md` directamente. Cada uno contiene su propio changelog interno.
 
+## queswa_whatsapp v4.24 — Tres paquetes, y el producto por lo que es (29 ago 2026)
+
+Prueba del Director, 29 ago. Dos reglas en `<core_behavior>`, las dos en positivo: **los paquetes de inicio son tres** (ESP-1, ESP-2, ESP-3) y así se presentan siempre; el Kit aparece cuando la persona pide algo más económico — el modelo había listado *«los cuatro niveles»* a quien preguntó por los paquetes para alguien en EE. UU. Y la regla del *«reemplazo»* (*«nunca diga que reemplazan lo que la persona ya toma»*) reescrita como afirmación —**los productos se presentan por lo que son y por el ritual que elevan; la persona decide qué lugar les da en su rutina**—: escrita en negativo dictaba justo la palabra que vetaba, y el modelo la usó (*«es un reemplazo natural del café de siempre»*).
+
 ## queswa_whatsapp v4.23 — Sección `<trato>`: para qué es la calidez (29 ago 2026)
 
 Sale de la prueba del Director del 29 ago. El prompt ya pedía *autoridad y calidez* y un acuse de recibo por turno, pero no le decía al modelo **qué debe sentir la persona al leer**. La sección nueva, escrita en positivo, lo fija: quien escribe está tomando una decisión que le importa y pregunta con pudor; cada respuesta debe dejarla bien recibida y más capaz que antes de preguntar; reconocer lo que hay detrás de la pregunta antes del dato; cuando un tema le corresponde a otro (médico, socio), decirlo con el mismo cariño y ofrecer en la misma frase lo que sí está en su mano; la exactitud es la mitad del trabajo. Va después de `<role_and_objective>`.

@@ -1,7 +1,29 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * Homepage v14.0 — "Lenguaje concreto" (2 ago 2026) · aprobada por el Director desde /prueba
+ * Homepage v14.1 — "El negocio antes que el ingreso" (29 ago 2026) · aprobada por el Director
+ *
+ * Hero reescrito: el H1 nombra el ACTIVO —"Sea dueño de su propio canal de
+ * distribución"— y el ingreso en paralelo baja al párrafo como consecuencia. Motivo
+ * (Director): un amigo dice "le tengo un negocio", nunca "le tengo un ingreso"; abrir
+ * con el ingreso tiene el matiz que pone en alerta, que es el tic de la industria.
+ * De paso el hero queda coherente con la tarjeta OG del enlace de Queswa (59b8295) y
+ * con la primera línea de WHY_02. El producto entra como "premium de bienestar" con
+ * el Ganoderma nombrado —"café" solo se compara con el café del estante— y la faena
+ * vieja se nombra en una frase sin inventario (regla del 26 ago 2026).
+ *
+ * Auditoría del resto (mismo día, aprobada): «Por qué ahora sí» nombra la faena vieja
+ * en una frase y no la enumera dos veces · Compartir/Recibir con los verbos de EAM_01,
+ * sin "un clic" ni "le toma minutos" (la parte del socio se dice con verbos, no con
+ * adjetivos que la minimicen) ni fantasmas negados (guiones, máquina) · «El producto»
+ * sin ciencia citada ni mecanismo corporal (la Home era la única página del sitio
+ * citando estudios tras la limpieza del 22 ago) · «el canal es suyo» en vez de "esto"
+ * · "más de veinte" en sincronía con el candado de STORY_03 · la multiplicación
+ * remata con un hecho (Gano en más de 60 países) y no con "con una llamada".
+ * ⚠️ El bautizo diferido de "empresa digital" que cita la nota v14.0 quedó RETIRADO
+ * el 25 ago 2026 (léxico único: canal de distribución, siempre).
+ *
+ * Base: v14.0 — "Lenguaje concreto" (2 ago 2026) · aprobada por el Director desde /prueba
  *
  * Reemplaza por completo la v13.7 ("Sea dueño de su empresa digital"). La estructura
  * y el copy vienen del ejercicio /prueba (Home 2), construido sobre la doctrina del
@@ -48,9 +70,9 @@ import QueswaCTAButton from '@/components/QueswaCTAButton'
 export const dynamic = 'force-static'
 
 export const metadata = {
-  title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
+  title: 'CreaTuActivo | Sea dueño de su propio canal de distribución',
   description:
-    'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; usted cobra cada vez que se vende.',
+    'Un negocio de distribución de productos premium de bienestar —café y suplementos con Ganoderma— que usted maneja desde el celular. Una inteligencia artificial explica y atiende por WhatsApp; usted cobra cada vez que su canal mueve producto.',
   // Canonical explícito: cada socio comparte /?ref=xyz — sin canonical, Google
   // trata cada variante como URL distinta con contenido duplicado.
   alternates: { canonical: 'https://creatuactivo.com' },
@@ -61,15 +83,15 @@ export const metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com',
-    title: 'Un segundo ingreso, en paralelo al que ya tiene',
+    title: 'Sea dueño de su propio canal de distribución',
     description:
-      'Café y suplementos premium con Ganoderma, una fábrica con 30 años detrás, y una inteligencia artificial que explica y atiende por usted en WhatsApp. Se liquida en su cuenta bancaria cada viernes.',
+      'Productos premium de bienestar —café y suplementos con Ganoderma— que Gano Excel fabrica y despacha por usted, y una inteligencia artificial que explica y atiende por WhatsApp. Usted cobra cada vez que su canal mueve producto.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Un segundo ingreso, en paralelo al que ya tiene',
+    title: 'Sea dueño de su propio canal de distribución',
     description:
-      'Café y suplementos premium, una fábrica con 30 años detrás, y una IA que explica y atiende por usted en WhatsApp. Se liquida cada viernes.',
+      'Productos premium de bienestar con Ganoderma, una fábrica con 30 años detrás, y una IA que explica y atiende por usted en WhatsApp. Usted cobra cada vez que su canal mueve producto.',
   },
 }
 
@@ -151,7 +173,7 @@ export default function HomePage() {
     <main style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
       <StrategicNavigation />
 
-      {/* ═══ HERO — el upgrade que la persona sí calcula ═══
+      {/* ═══ HERO — el negocio antes que el ingreso (29 ago 2026) ═══
           Sin video (retirado 14 ago 2026 — asset viejo, sin reemplazo por ahora):
           la página abre con el eyebrow + H1. El padding-top sube de 30px (medida
           del layout con video) a 72px para que el titular respire bajo el nav. */}
@@ -175,9 +197,11 @@ export default function HomePage() {
               margin: '0 0 1.5rem',
             }}
           >
-            Un segundo ingreso, en paralelo al que ya tiene.
+            Sea dueño de su propio canal de distribución.
             <br />
-            <span style={{ color: GOLD }}>Con el potencial de igualarlo — o superarlo.</span>
+            <span style={{ color: GOLD }}>
+              Lo maneja desde el celular, y cobra cada vez que mueve producto.
+            </span>
           </h1>
 
           <p
@@ -189,13 +213,15 @@ export default function HomePage() {
               maxWidth: 680,
             }}
           >
-            Un negocio de distribución de café y suplementos premium, que usted
-            maneja desde el celular. La parte difícil —explicar, atender, responder a
-            toda hora— la hace una inteligencia artificial por WhatsApp. Y{' '}
+            Un negocio de distribución de productos premium de bienestar —café y
+            suplementos con Ganoderma— que Gano Excel, con 30 años y presencia en más
+            de 60 países, fabrica y despacha por usted. Lo que antes era complicado de
+            desarrollar, hoy es sencillo: una inteligencia artificial explica y atiende
+            a cada interesado por WhatsApp, a toda hora.{' '}
             <strong style={{ color: 'var(--color-text-primary)' }}>
-              usted cobra cada vez que su canal mueve producto
+              A usted le queda un ingreso en paralelo al que ya tiene, con el potencial
+              de igualarlo — o superarlo.
             </strong>
-            .
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -225,7 +251,7 @@ export default function HomePage() {
           dinero ya tiene dueño: el banco, las cuotas, los recibos. Y esto no pasa por falta
           de capacidad ni de esfuerzo.{' '}
           <strong style={{ color: 'var(--color-text-primary)' }}>
-            Le pasa exactamente igual al que gana dos millones y al que gana veinte.
+            Le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
           </strong>
         </Body>
         <Body mt>
@@ -296,17 +322,17 @@ export default function HomePage() {
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
         <Body>
           Distribuir productos que las personas vuelven a pedir siempre ha sido
-          buen negocio. Pero exigía algo que a casi nadie le gusta ni tiene cómo hacer:
-          explicarle a cada persona, responder a toda hora, estar pendiente de cada uno.
-          Nadie tiene la vida para dedicarse a eso todo el día.
+          buen negocio. Lo que lo hacía complicado era atender a cada interesado, uno
+          por uno — y nadie tiene la vida para eso.
         </Body>
         <Body mt>
-          Eso fue lo que cambió. Hoy el peso se reparte en dos: la fábrica y la entrega ya
-          las puso Gano Excel. Y la parte que a la mayoría se le hace cuesta arriba
-          —explicar, atender, estar pendiente— la hace{' '}
+          Eso fue lo que cambió. Las fábricas, el inventario y los despachos los pone{' '}
+          <strong style={{ color: 'var(--color-text-primary)' }}>Gano Excel</strong>. Y
+          atender a cada interesado lo hace{' '}
           <strong style={{ color: 'var(--color-text-primary)' }}>Queswa</strong>, nuestra
-          inteligencia artificial: conversa por WhatsApp con cada persona interesada y
-          madura su decisión de avanzar, a toda hora, sin que usted tenga que estar ahí.
+          inteligencia artificial: conversa por WhatsApp con cada persona, le resuelve las
+          dudas y madura su decisión de avanzar, a toda hora. Su canal se maneja desde una
+          aplicación, y buena parte desde WhatsApp.
         </Body>
       </Section>
 
@@ -319,12 +345,12 @@ export default function HomePage() {
           {
             n: '01',
             t: 'Compartir',
-            d: 'Desde su celular, con un clic, comparte lo que ya está preparado. No memoriza guiones, no improvisa. Le toma minutos.',
+            d: 'Usted pasa un enlace a quien quiera. Lo que esa persona recibe ya está preparado: la página, el video y Queswa, a nombre suyo.',
           },
           {
             n: '02',
             t: 'Recibir',
-            d: 'Cuando alguien ya decidió, entra usted: lo recibe de persona a persona y le da la bienvenida. Es lo único que una máquina no hace — y es justo lo que mejor le sale a un ser humano.',
+            d: 'Usted saluda a quien llega con interés. Cuando alguien ya decidió, lo recibe de persona a persona y le da la bienvenida — que es justo lo que mejor le sale a un ser humano.',
           },
         ].map((item) => (
           <div
@@ -424,8 +450,8 @@ export default function HomePage() {
             <strong style={{ color: 'var(--color-text-primary)' }}>
               De ahí salen la multiplicación de su negocio y el aumento de su facturación
             </strong>{' '}
-            — con Queswa formando a cada socio nuevo desde el día uno, y con la
-            posibilidad de abrir un punto de distribución en otro país con una llamada.
+            — con Queswa formando a cada socio nuevo desde el día uno, y con Gano Excel
+            operando en más de 60 países, su canal no se detiene en la frontera.
           </p>
         </div>
       </Section>
@@ -433,14 +459,14 @@ export default function HomePage() {
       {/* ═══ EL PRODUCTO — test Beto: imagen concreta, autoridad intacta ═══ */}
       <Section elevated>
         <Eyebrow>El producto</Eyebrow>
-        <H2>Un producto que funciona genera un ingreso que se repite.</H2>
+        <H2>Un producto que el cliente vuelve a pedir genera un ingreso que se repite.</H2>
         <Body>
-          El café y los suplementos son productos premium de bienestar. Llevan Ganoderma,
-          un extracto respaldado por más de 2.000 estudios científicos, que{' '}
+          El café, las bebidas y los suplementos son productos premium de bienestar.
+          Llevan Ganoderma, y se disuelven por completo en el agua:{' '}
           <strong style={{ color: 'var(--color-text-primary)' }}>
-            se disuelve por completo en el agua
-          </strong>{' '}
-          — el cuerpo lo aprovecha todo, no se queda nada en el fondo de la taza.
+            no se queda nada en el fondo de la taza
+          </strong>
+          .
         </Body>
         <Body mt>
           El cliente que nota la diferencia no vuelve al producto genérico: cuando se le
@@ -479,7 +505,7 @@ export default function HomePage() {
             vez que se vende.
           </p>
 
-          <H2>Al final, esto es algo suyo.</H2>
+          <H2>Al final, el canal es suyo.</H2>
           <p
             style={{
               fontSize: '1.05rem',

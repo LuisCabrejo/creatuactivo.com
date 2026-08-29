@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/fundadores/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: 'Lista Privada Fundadores - CreaTuActivo.com',
+        alt: 'Fundadores - CreaTuActivo.com',
         type: 'image/png',
       }
     ],

@@ -99,8 +99,6 @@ export default function TecnologiaPage() {
             title="TECNOLOGÍA QUE TRABAJA POR USTED"
             subtitle="Construya una estructura de ingresos recurrentes — usted decide; Queswa hace el trabajo."
             refCode="SISTEMA_QUESWA_V3"
-            imageSrc="/images/servilleta/engranajes.webp"
-            imageAlt="Engranajes industriales - ecosistema Queswa"
           />
 
           {/* ── DEFINICIÓN OFICIAL — Featured Snippet bait ─────────────────

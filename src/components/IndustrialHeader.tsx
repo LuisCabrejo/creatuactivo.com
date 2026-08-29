@@ -3,7 +3,9 @@
  * Todos los derechos reservados.
  *
  * IndustrialHeader - Cabecera dramática para páginas internas
- * Elegancia Cinética: imagen B&W + overlay oscuro + título serif dorado
+ * Elegancia Cinética: imagen B&W + overlay oscuro + título serif dorado.
+ * La imagen es OPCIONAL desde el 29 ago 2026 (Director: /tecnologia sin foto en el
+ * encabezado): sin `imageSrc` el fondo es el spotlight titanio + dorado de BRANDING §5.
  */
 
 import Image from 'next/image';
@@ -13,8 +15,8 @@ interface IndustrialHeaderProps {
   title: ReactNode;
   subtitle?: string;
   refCode: string;
-  imageSrc: string;
-  imageAlt: string;
+  imageSrc?: string;
+  imageAlt?: string;
   /**
    * institutional (default): Inter uppercase letter-spacing — para títulos cortos institucionales
    *   (Memorándum Directivo, Insights Estratégicos, Construcción de Estructura Patrimonial).
@@ -36,29 +38,42 @@ export function IndustrialHeader({
 
   return (
     <section style={{ height: '45vh', position: 'relative', overflow: 'hidden' }}>
-      {/* Imagen B&W con fade inferior (mask-image) */}
-      <Image
-        src={imageSrc}
-        alt={imageAlt}
-        fill
-        style={{
-          objectFit: 'cover',
-          filter: 'grayscale(70%) contrast(1.1) brightness(0.75)',
-          opacity: 0.9,
-          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-          maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-        }}
-        priority
-      />
-
-      {/* Overlay sutil para uniformidad */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to bottom, rgba(11,12,12,0.2) 0%, rgba(11,12,12,0.35) 60%, transparent 100%)',
-        }}
-      />
+      {imageSrc ? (
+        <>
+          {/* Imagen B&W con fade inferior (mask-image) */}
+          <Image
+            src={imageSrc}
+            alt={imageAlt ?? ''}
+            fill
+            style={{
+              objectFit: 'cover',
+              filter: 'grayscale(70%) contrast(1.1) brightness(0.75)',
+              opacity: 0.9,
+              WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+            }}
+            priority
+          />
+          {/* Overlay sutil para uniformidad */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(to bottom, rgba(11,12,12,0.2) 0%, rgba(11,12,12,0.35) 60%, transparent 100%)',
+            }}
+          />
+        </>
+      ) : (
+        /* Sin imagen: spotlight titanio + dorado (BRANDING §5), el mismo de la Home v15 */
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(ellipse 70% 60% at 30% 0%, rgba(148,163,184,0.09) 0%, transparent 70%), radial-gradient(ellipse 60% 55% at 75% 10%, rgba(197,160,89,0.07) 0%, transparent 65%)',
+          }}
+        />
+      )}
 
       {/* Contenido centrado */}
       <div

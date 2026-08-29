@@ -45,7 +45,8 @@ async function turno(texto: string, ctxMotor = 'whatsapp_inbound'): Promise<{ ca
   const enPedido = P.pedidoAbierto(ub);
   const hayPedido = P.pedidoCargado(hist);
   let out: { capa: string; texto: string } | null = null;
-  if (enPedido || P.detectarIntencionCompra(texto)) {
+  const preguntaSede = P.detectarPreguntaOficina(texto);
+  if (!preguntaSede && (enPedido || P.detectarIntencionCompra(texto))) {
     const variante = P.RE_PREGUNTO_CUAL_GANOCAFE.test(ub) ? P.leerVarianteGanocafe(texto) : null;
     if (!variante && P.esGanocafeSinVariante(texto)) out = { capa: '2.45 ganocafé sin variante', texto: P.preguntarCualGanocafe() };
     const lineas = out ? [] : variante ? [{ producto: variante, cantidad: 1 }] : P.lineasDelPedido(texto, hist);
@@ -93,6 +94,10 @@ r.capa.includes('2.48') ? ok('la sede la responde el nodo, sin dirección') : ma
 /Luis Cabrejo/.test(r.texto) && !/carrera|calle|#/i.test(r.texto) && /hay una sede/.test(r.texto) ? ok('nombra a Luis, confirma la sede y no da dirección') : mal('dio dirección o no nombró al socio');
 r = await turno('y donde queda exactamente?');
 /Con gusto se la daría, pero esa parte la lleva Luis Cabrejo/.test(r.texto) ? ok('si insiste: una línea, remisión a Luis') : mal('la insistencia no cayó en la línea corta');
+r = await turno('Me gustaría primero conocer el producto, sé que hay oficina en Bogotá, dónde quedan para comprar una caja');
+r.capa.includes('2.48') ? ok('«dónde quedan para comprar una caja» va a la sede, no al pedido') : mal('abrió el pedido en vez de la sede: ' + r.capa);
+r = await turno('la dirección en bogotá para comprar');
+/Con gusto se la daría/.test(r.texto) ? ok('la insistencia por la dirección cae en la línea corta, no en «no logré identificar el producto»') : mal('la dirección no cayó en la sede: ' + r.capa);
 r = await turno('Y para pedir a domicilio, cuanto vale el envío?');
 r.capa.includes('2.47') ? ok('el envío lo responde el nodo con Luis por nombre') : mal('el envío no lo tomó el nodo');
 r = await turno('Puedo hablar con un asesor');

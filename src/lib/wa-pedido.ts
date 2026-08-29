@@ -294,18 +294,21 @@ export function respuestaOficinaProspecto(
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
   const primerPedido = hayPedido ? 'este primer pedido' : 'su primer pedido';
   const puerta = `Atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido} — ahí mismo le indica la dirección y acuerdan si lo recoge allá o se lo envían, lo que le resulte más cómodo.`;
+  // Cierra proponiendo un paso (regla de la pregunta única): quien pregunta por
+  // la sede para comprar quiere conocer el producto antes.
+  const cierre = hayPedido ? '' : '\n\n¿Le cuento cómo es el producto que tiene en mente?';
 
   if (insiste) {
     return `Con gusto se la daría, pero esa parte la lleva ${quien}: al abrirle el código le indica la dirección y acuerdan la entrega. Se comunica con usted por aquí mismo.`;
   }
   if (ciudad && CIUDADES_SEDE.includes(ciudad)) {
     const cuantas = ciudad === 'Bogotá' ? 'hay dos sedes' : 'hay una sede';
-    return viveAlli
+    return (viveAlli
       ? `Qué bien que esté en ${ciudad}: allá ${cuantas} de Gano Excel. ${puerta}`
-      : `Sí, en ${ciudad} ${cuantas} de Gano Excel. ${puerta}`;
+      : `Sí, en ${ciudad} ${cuantas} de Gano Excel. ${puerta}`) + cierre;
   }
   const destino = ciudad ? ` hasta ${ciudad}` : '';
-  return `Las sedes de Gano Excel atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}. Ahí mismo acuerdan la entrega${destino}, y si prefiere recogerlo en una sede, ${quien} le indica cuál le queda más cerca.`;
+  return `Las sedes de Gano Excel atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}. Ahí mismo acuerdan la entrega${destino}, y si prefiere recogerlo en una sede, ${quien} le indica cuál le queda más cerca.` + cierre;
 }
 
 // ─── «Quiero hablar con una persona» ─────────────────────────────────────────

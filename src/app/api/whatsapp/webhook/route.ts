@@ -1326,7 +1326,13 @@ async function procesarEntrante(body: any): Promise<void> {
     const _enPedido = !socioQueEscribe && pedidoAbierto(_ultimoBotPedido);
     const _hayPedido = !socioQueEscribe && pedidoCargado(historial);
 
-    if (!socioQueEscribe && (_enPedido || detectarIntencionCompra(messageText))) {
+    // «¿Dónde queda la oficina para comprar una caja?» pregunta por la SEDE: el
+    // verbo de compra no abre el pedido si el mensaje pregunta por la oficina o la
+    // dirección — eso lo atiende 2.48, cuya respuesta ya trae la puerta de compra
+    // (prueba del 29 ago 15:00: abrió el pedido y a «la dirección en Bogotá» le
+    // contestó «no logré identificar el producto»).
+    const _preguntaSede = !socioQueEscribe && detectarPreguntaOficina(messageText);
+    if (!socioQueEscribe && !_preguntaSede && (_enPedido || detectarIntencionCompra(messageText))) {
       // «¿Cuál prefiere?» → la variante elegida es el pedido entero.
       const variante = RE_PREGUNTO_CUAL_GANOCAFE.test(_ultimoBotPedido) ? leerVarianteGanocafe(messageText) : null;
       // «Gano Café» a secas es una familia (3 en 1 · Clásico): se pregunta cuál,

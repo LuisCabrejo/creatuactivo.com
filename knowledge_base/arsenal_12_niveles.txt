@@ -1,5 +1,7 @@
 # Arsenal Conversacional: Los 12 Niveles v5.3 — BAUTIZO EMPRESARIAL (distribuidores)
 
+**v5.4 (29 ago 2026):** `INV_00` cierra hacia el simulador con la tarifa del Kit («¿Quiere armar su propio escenario en el simulador…?») — la frase lleva «escenario en el simulador» para que el «sí» reenvíe el Flow. Antes cerraba con «¿le muestro qué recibe con cada opción?» (Director, 29 ago).
+
 **v5.3 (22 ago 2026):** La tabla de productos de INV_06 usa los nombres del catálogo, en español. Sin cambios de puntos.
 **v5.2 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **distribuidor** · *su distribuidor logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
 
@@ -236,7 +238,7 @@ Le digo también lo que no trae, para que decida con todo sobre la mesa: el Kit 
 
 Más adelante, con el canal andando, usted evalúa si le sirve subir.
 
-**Pregunta de seguimiento:** ¿Le muestro qué recibe con cada opción?
+**Pregunta de seguimiento:** ¿Quiere armar su propio escenario en el simulador con la tarifa del Kit?
 
 ---
 

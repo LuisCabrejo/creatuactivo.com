@@ -1849,6 +1849,11 @@ Hoy: **16 índices y 16 preguntas de cierre.** Medición con frases reales: **11
 
 ## arsenal_12_niveles
 
+### v5.4 — INV_00 remata en el simulador (29 ago 2026)
+
+Prueba del Director: a *«¿hay una opción más económica para iniciar?»* la puerta respondió bien (Kit de Inicio, alcance en afirmativo) y cerró con *«¿le muestro qué recibe con cada opción?»*. El Flow del simulador ya tiene la tarifa del Kit (10%), así que el paso natural es que la persona vea su propia cifra: el cierre pasa a *«¿Quiere armar su propio escenario en el simulador con la tarifa del Kit?»*, con la frase que el webhook lee para reenviar el Flow. En `route.ts`, la puerta reconoce además *«inversión menor»* y *«entrada menor»* — *«hay una inversión menor»* caía en compensación y el modelo componía con dos salidas.
+
+
 ### v5.10 — El arsenal que le robaba consultas a los demás (26 ago 2026)
 
 Auditoría completa de los 14. Se eligió este archivo por una razón medida: **las tres únicas consultas que el benchmark de producción no ganaba en primer puesto las ganaba este arsenal**, quitándoselas a `NET_01`, `FREQ_09` y `COMP_PV_08`.

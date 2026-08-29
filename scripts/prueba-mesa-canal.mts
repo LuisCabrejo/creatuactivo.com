@@ -144,7 +144,9 @@ console.log('\n═══ ESCENARIO D — la foto no secuestra preguntas, y el pe
   esRechazoSaludComun(RECHAZO_SALUD_ESTANDAR) ? ok('el rechazo común sí cuenta como reincidencia') : mal('el común no cuenta');
   const c = clasificarPreguntaSalud('y para la diabetes que productos me pueden ayudar');
   const r = c ? rechazoSaludPorFamilia(c, false) : null;
-  r?.familia === 'comun' && /INVIMA/.test(r.texto) ? ok('diabetes tras peso → familia común con la categoría INVIMA') : mal('diabetes no cayó en la familia común: ' + JSON.stringify(r?.familia));
+  r?.familia === 'azucar' && /sin azúcar ni crema/.test(r.texto) ? ok('diabetes → familia azúcar, con el Clásico y las Cápsulas por su composición') : mal('diabetes no cayó en azúcar: ' + JSON.stringify(r?.familia));
+  const g = clasificarPreguntaSalud('tengo gastritis, me sirve?'); const rg = g ? rechazoSaludPorFamilia(g) : null;
+  rg?.familia === 'comun' && /estamos orgullosos/.test(rg.texto) ? ok('gastritis → familia común, con orgullo por los productos') : mal('gastritis no cayó en común');
   const p = clasificarPreguntaSalud('Qué producto es bueno para adelgazar');
   (p && rechazoSaludPorFamilia(p).familia === 'peso') ? ok('adelgazar → familia peso') : mal('adelgazar no cayó en peso');
 }

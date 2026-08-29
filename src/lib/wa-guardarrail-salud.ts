@@ -233,20 +233,35 @@ export const RESPUESTA_EMERGENCIA =
 /** Peso: la pregunta más natural del país. Un producto real, por sus hechos. */
 export const RECHAZO_SALUD_PESO =
   'Comprendo su objetivo, y me alegra que esté buscando opciones para cuidar su bienestar.\n\n' +
-  'Nuestra línea no es un tratamiento médico: son bebidas y suplementos pensados para acompañar ' +
-  'su día. Y hay uno que encaja perfecto en cualquier rutina saludable: el *Ganocafé Clásico*, un ' +
-  'café negro premium con extracto de Ganoderma, sin azúcar ni crema, que le brinda energía pareja ' +
-  'durante la mañana.\n\n' +
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, no como tratamientos médicos. Su enfoque es la nutrición y el bienestar ' +
+  'diario.\n\n' +
+  'Dicho esto, el compañero ideal para cualquier rutina saludable es el Ganocafé Clásico. Es un ' +
+  'café negro premium, sin azúcar ni crema, que le brinda energía pareja para su día.\n\n' +
   '¿Le cuento cómo integrarlo en su rutina?';
 
-/** Molestia o condición común: la categoría del producto es la que responde. */
+/** Azúcar (diabetes, glucosa, insulina): el hecho de composición —sin azúcar— dicho con orgullo. */
+export const RECHAZO_SALUD_AZUCAR =
+  'Comprendo su consulta, y hace muy bien en cuidar esos detalles de su alimentación.\n\n' +
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, no como medicamentos. Por eso, en lo que tiene que ver con su condición, ' +
+  'quien le orienta es su médico, que conoce su caso.\n\n' +
+  'Dicho esto, son productos de los que estamos orgullosos: treinta años de Gano Excel y registro ' +
+  'sanitario en cada uno. Y para quien cuida el azúcar en lo que consume hay dos que encajan de ' +
+  'maravilla: el Ganocafé Clásico, un café negro premium sin azúcar ni crema, y las Cápsulas de ' +
+  'Ganoderma, el extracto puro sin nada más.\n\n' +
+  '¿Le cuento cómo es cada uno?';
+
+/** Molestia o condición común: la categoría del producto es la que responde, con orgullo. */
 export const RECHAZO_SALUD_ESTANDAR =
-  'Le agradezco que me lo cuente. Los productos de Gano Excel están registrados ante el INVIMA ' +
-  'como alimentos y suplementos dietarios, y por esa misma categoría ninguno está indicado para ' +
-  'una condición de salud: ahí quien le orienta es su médico, que conoce su caso.\n\n' +
-  'Lo que sí le puedo contar con gusto es cómo son —qué llevan, cómo se preparan y cuánto ' +
-  'cuestan—, y la composición exacta de cualquiera, por si quiere tenerla a mano.\n\n' +
-  '¿Le comparto la de alguno?';
+  'Comprendo su consulta, y le agradezco la confianza de contármelo.\n\n' +
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, no como medicamentos. Por eso, en lo que tiene que ver con su condición, ' +
+  'quien le orienta es su médico, que conoce su caso.\n\n' +
+  'Dicho esto, son productos de los que estamos orgullosos: treinta años de Gano Excel, registro ' +
+  'sanitario en cada uno, y una línea pensada para acompañar su día con energía y bienestar — el ' +
+  'café, las bebidas y las cápsulas de Ganoderma.\n\n' +
+  '¿Le cuento cómo es cada uno y qué lleva?';
 
 /** Tratamiento en curso: la última palabra la tiene su médico, y la composición se le da. */
 export const RECHAZO_SALUD_TRATAMIENTO =
@@ -270,12 +285,13 @@ export const RECHAZO_SALUD_CORTO =
   '¿Le sirve que lo comunique con alguien del equipo?';
 
 /** La familia de la pregunta, a partir del término que disparó la entrada. */
-export type FamiliaSalud = 'peso' | 'tratamiento' | 'grave' | 'comun';
+export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun';
 
 export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun'; termino: string }): FamiliaSalud {
   if (clasificacion.nivel === 'grave') return 'grave';
   const t = clasificacion.termino;
   if (/peso|adelga|obesidad|sobrepeso|grasa|barriga/.test(t)) return 'peso';
+  if (/diabet|glucosa|insulina|glucemia|azucar/.test(t)) return 'azucar';
   if (/tratamiento|tomo |anticoagulante|metformina|losartan|ibuprofeno|acetaminofen|omeprazol|diagnosticaron/.test(t)) return 'tratamiento';
   return 'comun';
 }
@@ -288,6 +304,7 @@ export function rechazoSaludPorFamilia(
   const familia = familiaSalud(clasificacion);
   const texto = familia === 'grave' ? RECHAZO_SALUD_GRAVE
     : familia === 'peso' ? RECHAZO_SALUD_PESO
+    : familia === 'azucar' ? RECHAZO_SALUD_AZUCAR
     : familia === 'tratamiento' ? RECHAZO_SALUD_TRATAMIENTO
     : reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR;
   return { familia, texto };
@@ -298,6 +315,8 @@ export function rechazoSaludPorFamilia(
 // saneamiento del historial reconozca sus propias correcciones.
 const PREFIJOS_RECHAZO = [
   'Comprendo su objetivo, y me alegra que esté buscando opciones',
+  'Comprendo su consulta, y hace muy bien en cuidar esos detalles',
+  'Comprendo su consulta, y le agradezco la confianza de contármelo',
   'Le agradezco que me lo cuente. Los productos de Gano Excel',
   'Gracias por contármelo. Con un tratamiento en curso',
   'Le agradezco la confianza de contármelo',
@@ -323,7 +342,8 @@ export function esRechazoSalud(texto: string): boolean {
  */
 export function esRechazoSaludComun(texto: string): boolean {
   const t = (texto || '').trim();
-  return t.startsWith('Le agradezco que me lo cuente. Los productos de Gano Excel')
+  return t.startsWith('Comprendo su consulta, y le agradezco la confianza de contármelo')
+    || t.startsWith('Le agradezco que me lo cuente. Los productos de Gano Excel')
     || t.startsWith('Le entiendo, y ojalá pudiera decirle más')
     || t.startsWith('Le agradezco que me pregunte, y le voy a responder con franqueza')
     || t.startsWith('Le entiendo, pero en temas de salud no le puedo orientar');

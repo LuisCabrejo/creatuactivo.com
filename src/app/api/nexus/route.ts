@@ -2586,7 +2586,9 @@ function analizarIntencionSemantica(userMessage: string): string[] {
       fragmento: 'arsenal_12_niveles_INV_00',
       titulo: 'Opción menor al ESP-1 — Kit de Inicio — INV_00',
       porque: 'pide una opción menor al paquete',
-      cuando: /(opci[oó]n|algo|paquete|plan|forma)\s+(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i,
+      // «inversión» sumada el 29 ago 2026: «¿hay una inversión menor?» caía en
+      // compensación y el modelo componía con dos salidas.
+      cuando: /(opci[oó]n|algo|paquete|plan|forma|inversi[oó]n|entrada)\s+(m[aá]s\s+)?(menor|peque[ñn]|econ[oó]mic|barat|b[aá]sic|sencill)|m[aá]s\s+(econ[oó]mic|barat)[oa]s?\s+que|menos\s+(de|que)\s+(el\s+)?(paquete|esp|900|novecientos)|no\s+(me\s+)?alcanza\s+para\s+el\s+paquete|empezar\s+con\s+menos/i,
     },
     {
       // Prueba del Director, 19 ago: "¿le explico cómo se inicia con este

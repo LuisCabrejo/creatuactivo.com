@@ -245,8 +245,8 @@ export async function generateMetadata({
     }
   }
 
-  // Tarjeta propia para el enlace de Queswa — la imagen es el logotipo (la
-  // misma del home). Ver el comentario del scraper en DestinoRoute.
+  // Tarjeta propia para el enlace de Queswa. La imagen vive en /og/queswa
+  // (route handler propio, no la del home: ver el porqué en ese archivo).
   if (destino === 'queswa' || destino === 'acceso') {
     const url = `https://creatuactivo.com/${slug}/${destino}`
     return {
@@ -259,7 +259,7 @@ export async function generateMetadata({
         description: OG_QUESWA.description,
         url,
         siteName: 'CreaTuActivo.com',
-        images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630, alt: 'CreaTuActivo' }],
+        images: [{ url: 'https://creatuactivo.com/og/queswa', width: 1200, height: 630, alt: 'Sea dueño de su propio canal de distribución' }],
       },
       twitter: { card: 'summary_large_image', title: OG_QUESWA.title, description: OG_QUESWA.description },
     }

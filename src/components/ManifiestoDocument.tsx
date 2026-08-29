@@ -219,7 +219,7 @@ export default function ManifiestoDocument({
                   Por eso nuestro norte es claro: activar cuatro millones de negocios digitales a lo
                   largo del continente americano. No peleamos por una tajada del mercado de hoy;
                   construimos la categoría que lo redefine — eliminando la fricción de la distribución
-                  en 15 países de América y abriendo paso a la abundancia a través del
+                  en 16 países de América y abriendo paso a la abundancia a través del
                   <span className="text-[#E5E5E5]"> consumo recurrente</span>. Aquí, la única forma de ganar
                   es haciendo ganar a otros.
                 </p>

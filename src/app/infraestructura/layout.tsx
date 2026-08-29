@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Infraestructura Global | CreaTuActivo',
-  description: 'El respaldo operativo de su negocio digital: producción y distribución de productos en más de 60 países desde 1995.',
+  description: 'El respaldo operativo de su canal de distribución: producción y distribución de productos en más de 60 países desde 1995.',
   robots: { index: true, follow: true },
 };
 

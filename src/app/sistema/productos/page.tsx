@@ -2496,7 +2496,7 @@ export default function CatalogoEstrategico() {
               </summary>
               <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
                 <p className="mb-4">
-                  Sí, <strong>Gano Excel</strong> distribuye sus productos, incluyendo el Gano Café, en más de <strong>15 países de Latinoamérica</strong>:
+                  Sí, <strong>Gano Excel</strong> distribuye sus productos, incluyendo el Gano Café, en <strong>16 países de América</strong>:
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
                   <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">

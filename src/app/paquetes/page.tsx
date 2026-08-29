@@ -195,7 +195,7 @@ function Hero() {
           fontFamily: 'var(--font-serif)', fontStyle: 'italic',
           textShadow: '0 1px 10px rgba(0,0,0,0.9)',
         }}>
-          Cuatro formas de empezar · Inventario premium Gano Excel · 15 países de América.
+          Cuatro formas de empezar · Inventario premium Gano Excel · 16 países de América.
         </p>
 
         <p style={{
@@ -238,7 +238,7 @@ function DestinoDelCapital() {
             Café, bebidas y suplementos premium con Ganoderma — producto que{' '}
             <span style={{ color: C.white }}>Gano Excel</span> fabrica y despacha hasta la casa
             de su cliente. Ese inventario es el que activa sus derechos de distribución en{' '}
-            <span style={{ color: C.white, fontWeight: 600 }}>15 países de América</span>.
+            <span style={{ color: C.white, fontWeight: 600 }}>16 países de América</span>.
             Y el tamaño del arranque lo define usted.
           </p>
         </div>

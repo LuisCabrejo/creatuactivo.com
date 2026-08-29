@@ -130,7 +130,7 @@ export default async function Image() {
               display: 'flex',
             }}
           >
-            Distribución en 70+ Países desde 1995
+            Distribución en más de 60 países desde 1995
           </div>
         </div>
       </div>

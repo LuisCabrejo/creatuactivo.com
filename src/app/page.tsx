@@ -1,6 +1,20 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * Homepage v15.0 — "El sistema desplegado" (29 ago 2026) · aprobada por el Director desde /prueba
+ *
+ * Mismo copy que la v14.1. Lo que cambia es el COLOR y la ESTRUCTURA VISUAL, tras
+ * la auditoría de branding del 29 ago: la v14 aplicaba solo la restricción del
+ * sistema (carbón + dorado) y no su despliegue — la investigación advierte contra
+ * "la fatiga visual inherente a las interfaces planas". Cuatro roles, cada uno con
+ * una frase: carbón el lienzo · titanio la estructura (iconos, líneas, cifras) ·
+ * cian el dato y Queswa en línea (`--color-data`, regla en BRANDING.md) · dorado el
+ * dinero y el logro. Verde salvia SOLO en el módulo del banco ("transferencias
+ * liquidadas"). Ecuación visual del dinero, dos fuerzas en tarjetas lado a lado,
+ * fila de cifras verificables (en titanio: son hechos, no premios), foto REAL del
+ * portafolio (nunca generada), textura de hormigón en secciones elevadas.
+ * Performance intacta: sin backdropFilter ni Framer, foto lazy, LCP = H1.
+ *
  * Homepage v14.1 — "El negocio antes que el ingreso" (29 ago 2026) · aprobada por el Director
  *
  * Hero reescrito: el H1 nombra el ACTIVO —"Sea dueño de su propio canal de
@@ -64,6 +78,15 @@
 
 import type { ReactNode } from 'react'
 import Link from 'next/link'
+import {
+  Coffee,
+  Factory,
+  Landmark,
+  Bot,
+  Share2,
+  Handshake,
+  Check,
+} from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
 
@@ -97,6 +120,10 @@ export const metadata = {
 
 const GOLD = 'var(--color-brand)'
 const TITANIUM = 'var(--color-titanium)'
+const DATA = 'var(--color-data)'
+const TEXTURE = "url('/images/servilleta/hormigon-tile.webp')"
+
+// ─── Primitivas ────────────────────────────────────────────────────────────────
 
 function Section({
   children,
@@ -111,7 +138,11 @@ function Section({
     <section
       id={id}
       style={{
-        background: elevated ? 'var(--color-bg-elevated)' : 'var(--color-bg-primary)',
+        background: elevated
+          ? `linear-gradient(rgba(21,23,28,0.94), rgba(21,23,28,0.94)), ${TEXTURE}`
+          : 'var(--color-bg-primary)',
+        backgroundSize: elevated ? 'auto, 200px 200px' : undefined,
+        borderTop: '1px solid rgba(148,163,184,0.12)',
         padding: '5rem 1.5rem',
       }}
     >
@@ -120,14 +151,15 @@ function Section({
   )
 }
 
+/** Eyebrow = label técnico en mono → cian (el dato). */
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <p
       style={{
-        fontSize: '0.75rem',
+        fontSize: '0.72rem',
         textTransform: 'uppercase',
-        letterSpacing: '0.15em',
-        color: TITANIUM,
+        letterSpacing: '0.2em',
+        color: DATA,
         marginBottom: '1rem',
         fontFamily: 'var(--font-mono)',
       }}
@@ -168,19 +200,91 @@ function Body({ children, mt = false }: { children: ReactNode; mt?: boolean }) {
   )
 }
 
+const Strong = ({ children }: { children: ReactNode }) => (
+  <strong style={{ color: 'var(--color-text-primary)' }}>{children}</strong>
+)
+
+/** Icono en círculo tintado — titanio por defecto (estructura); `tone` cambia el rol. */
+function IconTile({
+  icon: Icon,
+  tone = 'titanium',
+  size = 44,
+}: {
+  icon: typeof Coffee
+  tone?: 'titanium' | 'data' | 'gold' | 'success'
+  size?: number
+}) {
+  const color =
+    tone === 'data' ? DATA : tone === 'gold' ? GOLD : tone === 'success' ? 'var(--color-success)' : TITANIUM
+  const tint =
+    tone === 'data'
+      ? 'rgba(34,211,238,0.08)'
+      : tone === 'gold'
+        ? 'rgba(197,160,89,0.12)'
+        : tone === 'success'
+          ? 'rgba(64,138,113,0.14)'
+          : 'rgba(148,163,184,0.1)'
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: 10,
+        background: tint,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+      }}
+    >
+      <Icon style={{ width: size * 0.5, height: size * 0.5, color }} strokeWidth={1.6} />
+    </div>
+  )
+}
+
+/** El punto que pulsa del widget de Queswa: "la máquina está despierta". */
+function QueswaOnline({ label = 'Queswa · en línea' }: { label?: string }) {
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.72rem',
+        letterSpacing: '0.15em',
+        textTransform: 'uppercase',
+        color: DATA,
+      }}
+    >
+      <span
+        className="animate-pulse"
+        style={{ width: 6, height: 6, borderRadius: '50%', background: DATA, flexShrink: 0 }}
+      />
+      {label}
+    </span>
+  )
+}
+
+const cardStyle = {
+  background: 'var(--color-bg-surface)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: 8,
+  padding: '1.5rem',
+} as const
+
+// ─── Página ────────────────────────────────────────────────────────────────────
+
 export default function HomePage() {
   return (
     <main style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
       <StrategicNavigation />
 
-      {/* ═══ HERO — el negocio antes que el ingreso (29 ago 2026) ═══
-          Sin video (retirado 14 ago 2026 — asset viejo, sin reemplazo por ahora):
-          la página abre con el eyebrow + H1. El padding-top sube de 30px (medida
-          del layout con video) a 72px para que el titular respire bajo el nav. */}
+      {/* ═══ HERO — spotlight titanio + dorado (BRANDING §5) ═══ */}
       <section
         style={{
           background:
-            'radial-gradient(ellipse at 50% 0%, rgba(197,160,89,0.07) 0%, transparent 65%), var(--color-bg-primary)',
+            'radial-gradient(ellipse 70% 55% at 30% 0%, rgba(148,163,184,0.09) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 75% 10%, rgba(197,160,89,0.07) 0%, transparent 65%), var(--color-bg-primary)',
           padding: '72px 1.5rem 5rem',
         }}
       >
@@ -218,31 +322,36 @@ export default function HomePage() {
             de 60 países, fabrica y despacha por usted. Lo que antes era complicado de
             desarrollar, hoy es sencillo: una inteligencia artificial explica y atiende
             a cada interesado por WhatsApp, a toda hora.{' '}
-            <strong style={{ color: 'var(--color-text-primary)' }}>
+            <Strong>
               A usted le queda un ingreso en paralelo al que ya tiene, con el potencial
               de igualarlo — o superarlo.
-            </strong>
+            </Strong>
           </p>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <QueswaCTAButton className="cta-base cta-primary">
               Pregúntele a Queswa cómo funciona
             </QueswaCTAButton>
           </div>
 
-          <p
+          <div
             style={{
-              fontSize: '0.85rem',
-              color: 'var(--color-text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              flexWrap: 'wrap',
               marginTop: '1.25rem',
             }}
           >
-            Queswa es nuestra inteligencia artificial. Responde al instante, sin compromiso.
-          </p>
+            <QueswaOnline />
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
+              Nuestra inteligencia artificial. Responde al instante, sin compromiso.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* ═══ EL VILLANO NARRADO — trancón 1 + remate de los dos extremos ═══ */}
+      {/* ═══ EL VILLANO NARRADO — texto puro a propósito: esta sección debe pesar ═══ */}
       <Section elevated>
         <Eyebrow>El problema que resolvemos</Eyebrow>
         <H2>Trabajar, pagar cuentas y repetir.</H2>
@@ -250,9 +359,9 @@ export default function HomePage() {
           Usted trabaja el mes entero. Pero al día siguiente de que le entra la plata, ese
           dinero ya tiene dueño: el banco, las cuotas, los recibos. Y esto no pasa por falta
           de capacidad ni de esfuerzo.{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>
+          <Strong>
             Le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
-          </strong>
+          </Strong>
         </Body>
         <Body mt>
           A ese ciclo súmele lo que usted no controla: un despido, un semestre malo de
@@ -266,57 +375,91 @@ export default function HomePage() {
         </Body>
       </Section>
 
-      {/* ═══ DE DÓNDE SALE EL DINERO — orden WHY_02: dinero → recurrencia → dos fuerzas ═══ */}
+      {/* ═══ DE DÓNDE SALE EL DINERO — orden WHY_02 + ecuación visual ═══ */}
       <Section>
         <Eyebrow>De dónde sale el dinero</Eyebrow>
         <H2>Del producto que se vende. De nada más.</H2>
         <Body>
           El producto es concreto —café, bebidas y suplementos premium con Ganoderma—
-          y lo fabrica y lo despacha{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>Gano Excel</strong>, una
-          empresa con más de 30 años y presencia en más de 60 países. Usted no compra inventario
-          ni entrega pedidos.
+          y lo fabrica y lo despacha <Strong>Gano Excel</Strong>, una empresa con más de
+          30 años y presencia en más de 60 países. Usted no compra inventario ni entrega
+          pedidos.
         </Body>
         <Body mt>
           La ganancia sale de las ventas, y de nada más. Cada vez que se vende producto
           por su canal, a usted le queda un porcentaje, y se lo liquidan en{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>
-            su cuenta bancaria cada viernes
-          </strong>
-          .
+          <Strong>su cuenta bancaria cada viernes</Strong>.
         </Body>
         <Body mt>
-          Y lo que casi nadie ve a la primera:{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>el cliente nota la diferencia</strong>.
+          Y lo que casi nadie ve a la primera: <Strong>el cliente nota la diferencia</Strong>.
           Quien lo prueba no vuelve al producto genérico: cuando se le acaba, vuelve a
           pedir el mismo, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el
           ingreso deja de depender de su presencia y empieza a depender de cuántos
           clientes ya están consumiendo.
         </Body>
+
+        {/* La ecuación: producto + fábrica = porcentaje. Proceso en titanio, resultado
+            en dorado (es dinero) con el icono en salvia (transferencia liquidada). */}
         <div
           style={{
-            marginTop: '2rem',
-            padding: '1.5rem',
-            borderLeft: `2px solid ${GOLD}`,
-            background: 'rgba(197,160,89,0.04)',
+            marginTop: '2.5rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '0.75rem',
+            alignItems: 'stretch',
           }}
         >
-          <p
+          {[
+            { icon: Coffee, k: 'El producto', v: 'Un producto que se toma' },
+            { icon: Factory, k: 'La fábrica', v: 'Una fábrica que se puede visitar' },
+          ].map((c) => (
+            <div key={c.k} style={cardStyle}>
+              <IconTile icon={c.icon} />
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.68rem',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-text-muted)',
+                  margin: '1rem 0 0.35rem',
+                }}
+              >
+                {c.k}
+              </p>
+              <p style={{ fontSize: '1.02rem', color: 'var(--color-text-primary)', margin: 0, lineHeight: 1.5 }}>
+                {c.v}
+              </p>
+            </div>
+          ))}
+          <div
             style={{
-              fontSize: '1.05rem',
-              lineHeight: 1.7,
-              color: 'var(--color-text-primary)',
-              margin: 0,
-              fontStyle: 'italic',
+              ...cardStyle,
+              border: '1px solid rgba(197,160,89,0.45)',
+              background: 'linear-gradient(135deg, rgba(197,160,89,0.06), var(--color-bg-surface))',
             }}
           >
-            Un producto que se toma, una fábrica que se puede visitar, y un porcentaje que
-            llega al banco cada viernes.
-          </p>
+            <IconTile icon={Landmark} tone="success" />
+            <p
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.68rem',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: GOLD,
+                margin: '1rem 0 0.35rem',
+              }}
+            >
+              El porcentaje
+            </p>
+            <p style={{ fontSize: '1.02rem', color: 'var(--color-text-primary)', margin: 0, lineHeight: 1.5 }}>
+              Un porcentaje que llega al banco cada viernes
+            </p>
+          </div>
         </div>
       </Section>
 
-      {/* ═══ POR QUÉ AHORA — el beat de WHY_01 + las dos fuerzas ═══ */}
+      {/* ═══ POR QUÉ AHORA — las dos fuerzas en tarjetas + cifras verificables ═══ */}
       <Section elevated>
         <Eyebrow>Por qué ahora sí</Eyebrow>
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
@@ -326,17 +469,114 @@ export default function HomePage() {
           por uno — y nadie tiene la vida para eso.
         </Body>
         <Body mt>
-          Eso fue lo que cambió. Las fábricas, el inventario y los despachos los pone{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>Gano Excel</strong>. Y
-          atender a cada interesado lo hace{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>Queswa</strong>, nuestra
-          inteligencia artificial: conversa por WhatsApp con cada persona, le resuelve las
-          dudas y madura su decisión de avanzar, a toda hora. Su canal se maneja desde una
-          aplicación, y buena parte desde WhatsApp.
+          Eso fue lo que cambió. Hoy el trabajo pesado lo hacen dos: una fábrica con
+          30 años, y una inteligencia artificial que no duerme. Su canal se maneja desde
+          una aplicación, y buena parte desde WhatsApp.
         </Body>
+
+        <div
+          style={{
+            marginTop: '2rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '1rem',
+          }}
+        >
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
+              <IconTile icon={Factory} />
+              <div>
+                <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
+                  Gano Excel
+                </p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-muted)',
+                  }}
+                >
+                  Fabrica y despacha
+                </p>
+              </div>
+            </div>
+            <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
+              Las fábricas, el inventario y los despachos. Más de 30 años, más de 60
+              países, nueve sedes en Colombia. Usted no compra inventario ni entrega
+              pedidos.
+            </p>
+          </div>
+
+          <div style={{ ...cardStyle, border: '1px solid rgba(34,211,238,0.22)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
+              <IconTile icon={Bot} tone="data" />
+              <div>
+                <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
+                  Queswa
+                </p>
+                <QueswaOnline label="Inteligencia artificial · en línea" />
+              </div>
+            </div>
+            <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
+              Conversa por WhatsApp con cada persona interesada, le resuelve las dudas y
+              madura su decisión de avanzar, a toda hora. Usted no le repite lo mismo a
+              cada uno.
+            </p>
+          </div>
+        </div>
+
+        {/* Cifras verificables — en titanio claro, no en dorado: son hechos, no premios. */}
+        <div
+          style={{
+            marginTop: '2.5rem',
+            paddingTop: '2rem',
+            borderTop: '1px solid rgba(148,163,184,0.15)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+            gap: '1.5rem',
+            textAlign: 'center',
+          }}
+        >
+          {[
+            { n: '30', l: 'años de Gano Excel' },
+            { n: '+60', l: 'países' },
+            { n: '16', l: 'países donde opera su canal' },
+            { n: '22', l: 'productos' },
+          ].map((s) => (
+            <div key={s.l}>
+              <p
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(2rem, 5vw, 2.8rem)',
+                  color: 'var(--color-text-primary)',
+                  margin: '0 0 0.25rem',
+                  lineHeight: 1,
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                {s.n}
+              </p>
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.68rem',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-text-muted)',
+                  margin: 0,
+                }}
+              >
+                {s.l}
+              </p>
+            </div>
+          ))}
+        </div>
       </Section>
 
-      {/* ═══ QUÉ HACE USTED — Compartir · Recibir (la multiplicación es consecuencia) ═══ */}
+      {/* ═══ QUÉ HACE USTED — Compartir · Recibir, con icono ═══ */}
       <Section>
         <Eyebrow>Qué hace usted</Eyebrow>
         <H2>Dos movimientos. Ninguno le exige dejar lo que hace hoy.</H2>
@@ -344,11 +584,13 @@ export default function HomePage() {
         {[
           {
             n: '01',
+            icon: Share2,
             t: 'Compartir',
             d: 'Usted pasa un enlace a quien quiera. Lo que esa persona recibe ya está preparado: la página, el video y Queswa, a nombre suyo.',
           },
           {
             n: '02',
+            icon: Handshake,
             t: 'Recibir',
             d: 'Usted saluda a quien llega con interés. Cuando alguien ya decidió, lo recibe de persona a persona y le da la bienvenida — que es justo lo que mejor le sale a un ser humano.',
           },
@@ -356,80 +598,56 @@ export default function HomePage() {
           <div
             key={item.n}
             style={{
+              ...cardStyle,
               display: 'flex',
-              gap: '1.5rem',
+              gap: '1.25rem',
               padding: '1.75rem',
               marginBottom: '1rem',
-              background: 'var(--color-bg-surface)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: 4,
+              alignItems: 'flex-start',
             }}
           >
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.9rem',
-                color: GOLD,
-                flexShrink: 0,
-              }}
-            >
-              {item.n}
-            </span>
+            <IconTile icon={item.icon} size={48} />
             <div>
-              <h3
-                style={{
-                  fontSize: '1.15rem',
-                  fontWeight: 600,
-                  color: 'var(--color-text-primary)',
-                  margin: '0 0 0.5rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                }}
-              >
-                {item.t}
-              </h3>
-              <p
-                style={{
-                  fontSize: '0.98rem',
-                  lineHeight: 1.7,
-                  color: 'var(--color-text-body)',
-                  margin: 0,
-                }}
-              >
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: GOLD }}>
+                  {item.n}
+                </span>
+                <h3
+                  style={{
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    color: 'var(--color-text-primary)',
+                    margin: 0,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                  }}
+                >
+                  {item.t}
+                </h3>
+              </div>
+              <p style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)', margin: 0 }}>
                 {item.d}
               </p>
             </div>
           </div>
         ))}
 
-        {/* ⚠️ "Las dos acciones nunca van solas": entre una y otra va QUIÉN hace el
-            trabajo. Sin este beat, dos acciones tan simples se leen como una
-            promesa sin causa — la forma exacta de una estafa, y el primero de los
-            tres desafíos del modelo. Es el mismo beat de EAM_01, en la voz de la
-            home: Queswa en TERCERA persona, porque la página la comparten todos
-            los socios y aquí el agente no está hablando. */}
-        <p
+        <div
           style={{
-            fontSize: '1.05rem',
-            lineHeight: 1.75,
-            color: 'var(--color-text-body)',
+            display: 'flex',
+            gap: '0.85rem',
+            alignItems: 'flex-start',
             marginTop: '1.5rem',
           }}
         >
-          Entre las dos está{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>Queswa</strong>: conversa
-          con cada persona que llega, resuelve sus dudas y madura su decisión de avanzar.
-          Cuando alguien está listo, le avisa.
-        </p>
+          <IconTile icon={Bot} tone="data" size={36} />
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
+            Entre las dos está <Strong>Queswa</Strong>: conversa con cada persona que
+            llega, resuelve sus dudas y madura su decisión de avanzar. Cuando alguien está
+            listo, le avisa.
+          </p>
+        </div>
 
-        {/* La multiplicación NO es un tercer movimiento (doctrina 8 ago 2026): se
-            nombra como CONSECUENCIA de que los dos anteriores sean sencillos —
-            como tarea suma peso, como consecuencia lo quita. El texto ecoa casi
-            verbatim el cierre de EAM_01, que es lo que Queswa responde en
-            WhatsApp a "¿qué debo hacer yo?": la web y el canal no pueden
-            contradecirse en la pregunta más identitaria de todas. Va sin número
-            y con otro tratamiento visual a propósito — el ojo debe leer "esto no
-            es algo que usted hace". */}
         <div
           style={{
             marginTop: '2rem',
@@ -438,41 +656,70 @@ export default function HomePage() {
             background: 'rgba(197,160,89,0.04)',
           }}
         >
-          <p
-            style={{
-              fontSize: '1.05rem',
-              lineHeight: 1.75,
-              color: 'var(--color-text-body)',
-              margin: 0,
-            }}
-          >
+          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
             Y como es así de sencillo, quien entra con usted hace exactamente lo mismo.{' '}
-            <strong style={{ color: 'var(--color-text-primary)' }}>
-              De ahí salen la multiplicación de su negocio y el aumento de su facturación
-            </strong>{' '}
+            <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación</Strong>{' '}
             — con Queswa formando a cada socio nuevo desde el día uno, y con Gano Excel
             operando en más de 60 países, su canal no se detiene en la frontera.
           </p>
         </div>
       </Section>
 
-      {/* ═══ EL PRODUCTO — test Beto: imagen concreta, autoridad intacta ═══ */}
+      {/* ═══ EL PRODUCTO — con la foto real del portafolio ═══ */}
       <Section elevated>
-        <Eyebrow>El producto</Eyebrow>
-        <H2>Un producto que el cliente vuelve a pedir genera un ingreso que se repite.</H2>
-        <Body>
-          El café, las bebidas y los suplementos son productos premium de bienestar.
-          Llevan Ganoderma, y se disuelven por completo en el agua:{' '}
-          <strong style={{ color: 'var(--color-text-primary)' }}>
-            no se queda nada en el fondo de la taza
-          </strong>
-          .
-        </Body>
-        <Body mt>
-          El cliente que nota la diferencia no vuelve al producto genérico: cuando se le
-          acaba, vuelve a pedir el mismo. Y esa recompra es la base de todo lo que leyó
-          arriba.
-        </Body>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '2.5rem',
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            <Eyebrow>El producto</Eyebrow>
+            <H2>Un producto que el cliente vuelve a pedir genera un ingreso que se repite.</H2>
+            <Body>
+              El café, las bebidas y los suplementos son productos premium de bienestar.
+              Llevan Ganoderma, y se disuelven por completo en el agua:{' '}
+              <Strong>no se queda nada en el fondo de la taza</Strong>.
+            </Body>
+            <Body mt>
+              El cliente que nota la diferencia no vuelve al producto genérico: cuando se le
+              acaba, vuelve a pedir el mismo. Y esa recompra es la base de todo lo que leyó
+              arriba.
+            </Body>
+          </div>
+          <figure style={{ margin: 0 }}>
+            <img
+              src="/productos/compuestas/portafolio.jpg"
+              alt="Portafolio Gano Excel: café, bebidas y suplementos con Ganoderma"
+              width={1080}
+              height={1080}
+              loading="lazy"
+              decoding="async"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                borderRadius: 8,
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}
+            />
+            <figcaption
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.68rem',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--color-text-muted)',
+                marginTop: '0.75rem',
+                textAlign: 'center',
+              }}
+            >
+              Los 22 productos · registro INVIMA
+            </figcaption>
+          </figure>
+        </div>
       </Section>
 
       {/* ═══ EMPEZAR CON POCO — las dos puertas ═══ */}
@@ -485,9 +732,27 @@ export default function HomePage() {
           a precio de distribuidor. Y hay quienes arrancan de una vez con todo. Las dos
           puertas están abiertas.
         </Body>
+        <div
+          style={{
+            marginTop: '1.75rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '0.75rem',
+          }}
+        >
+          {[
+            'Comprando el producto para su casa, a precio de distribuidor',
+            'Arrancando de una vez con todo, con su canal listo desde el primer día',
+          ].map((t) => (
+            <div key={t} style={{ ...cardStyle, display: 'flex', gap: '0.75rem', alignItems: 'flex-start', padding: '1.1rem 1.25rem' }}>
+              <Check style={{ width: 18, height: 18, color: TITANIUM, flexShrink: 0, marginTop: 3 }} strokeWidth={2} />
+              <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.6, color: 'var(--color-text-body)' }}>{t}</p>
+            </div>
+          ))}
+        </div>
       </Section>
 
-      {/* ═══ ANTICLÍMAX + CIERRE — la vida que devuelve ═══ */}
+      {/* ═══ ANTICLÍMAX + CIERRE ═══ */}
       <Section elevated>
         <div style={{ textAlign: 'center' }}>
           <p
@@ -520,18 +785,13 @@ export default function HomePage() {
             debe nada a nadie. Empieza con una conversación — y esa conversación la atiende
             Queswa ahora mismo.
           </p>
-          <QueswaCTAButton className="cta-base cta-primary">
-            Hablar con Queswa
-          </QueswaCTAButton>
-          <p
-            style={{
-              fontSize: '0.85rem',
-              color: 'var(--color-text-muted)',
-              marginTop: '1.25rem',
-            }}
-          >
-            Sin compromiso. Pregunte lo que quiera.
-          </p>
+          <QueswaCTAButton className="cta-base cta-primary">Hablar con Queswa</QueswaCTAButton>
+          <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'center', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <QueswaOnline />
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
+              Sin compromiso. Pregunte lo que quiera.
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -561,47 +821,21 @@ function Footer() {
         }}
       >
         <div>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              letterSpacing: '0.1em',
-              color: GOLD,
-              fontWeight: 600,
-            }}
-          >
+          <p style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.1em', color: GOLD, fontWeight: 600 }}>
             CreaTuActivo
           </p>
           <p style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
             Construcción de Ingresos Recurrentes
           </p>
-          {/* Atribución de titularidad — establece la relación marca ↔ titular verificado.
-              Requisito de las normas de nombre visible de WhatsApp Business: el revisor
-              debe poder confirmar en fuentes externas que CreaTuActivo pertenece a
-              Luis Cabrejo, que es el nombre del portafolio comercial verificado en Meta. */}
-          <p
-            style={{
-              fontSize: '0.75rem',
-              fontFamily: 'var(--font-mono)',
-              color: 'var(--color-text-muted)',
-              marginTop: '6px',
-            }}
-          >
+          <p style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)', marginTop: '6px' }}>
             Fundada por Luis Cabrejo
           </p>
         </div>
         <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
-          <Link href="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
-            Blog
-          </Link>
-          <Link href="/privacidad" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
-            Privacidad
-          </Link>
-          <Link href="/terminos" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
-            Términos
-          </Link>
-          <Link href="/tecnologia" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
-            Tecnología
-          </Link>
+          <Link href="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Blog</Link>
+          <Link href="/privacidad" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Privacidad</Link>
+          <Link href="/terminos" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Términos</Link>
+          <Link href="/tecnologia" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Tecnología</Link>
         </div>
         <p style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
           © 2026 CreaTuActivo.com · Luis Cabrejo

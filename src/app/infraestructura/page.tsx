@@ -66,7 +66,7 @@ export default function InfraestructuraPage() {
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 tracking-tight">
               Infraestructura Global
               <br />
-              <span className="text-[#C5A059]">que respalda su negocio digital</span>
+              <span className="text-[#C5A059]">que respalda su canal de distribución</span>
             </h1>
 
             <p className="text-xl sm:text-2xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed mb-12 font-light">
@@ -237,12 +237,12 @@ export default function InfraestructuraPage() {
                 <h2 className="font-serif text-3xl sm:text-4xl mb-6">
                   Operaciones en
                   <br />
-                  <span className="text-[#C5A059]">70+ Países</span>
+                  <span className="text-[#C5A059]">más de 60 países</span>
                 </h2>
 
                 <p className="text-lg text-[#A3A3A3] leading-relaxed mb-6">
                   Depender de una sola economía es un <strong className="text-[#E5E5E5]">riesgo</strong>.
-                  Estar en setenta es una <span className="text-[#C5A059]">protección</span>.
+                  Estar en más de sesenta es una <span className="text-[#C5A059]">protección</span>.
                 </p>
 
                 <p className="text-[#A3A3A3] leading-relaxed">
@@ -305,12 +305,12 @@ export default function InfraestructuraPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="font-serif text-3xl sm:text-4xl mb-4">
-                Commodities de Alta Velocidad
+                Productos premium de bienestar
               </h2>
               <p className="text-[#A3A3A3] max-w-2xl mx-auto">
-                No vendemos productos de nicho. Inyectamos propiedad intelectual
-                <span className="text-[#C5A059]"> (Extracto Hidrosoluble de Ganoderma) </span>
-                en los hábitos de consumo más arraigados del planeta.
+                Café, bebidas y suplementos que el cliente incorpora a su rutina, con
+                <span className="text-[#C5A059]"> extracto hidrosoluble de Ganoderma</span>.
+                Quien nota la diferencia vuelve a pedir el mismo.
               </p>
             </div>
 
@@ -350,9 +350,9 @@ export default function InfraestructuraPage() {
               <div className="text-center p-8 rounded-lg bg-gradient-to-br from-[#1A1D23] to-[#0F1115] border border-[#C5A059]">
                 <TrendingUp className="w-12 h-12 text-[#C5A059] mx-auto mb-4" />
                 <p className="text-xs text-[#C5A059] uppercase tracking-wider mb-2">La Frecuencia</p>
-                <p className="text-2xl text-[#E5E5E5] font-serif">Consumo diario, reposición automática</p>
+                <p className="text-2xl text-[#E5E5E5] font-serif">El cliente vuelve a pedir el mismo</p>
                 <p className="text-[#A3A3A3] mt-3 text-sm">
-                  Activos que generan ingresos recurrentes predecibles.
+                  Esa recompra es la que sostiene el ingreso.
                 </p>
               </div>
             </div>
@@ -371,7 +371,7 @@ export default function InfraestructuraPage() {
                 <p className="text-sm text-[#6B7280] uppercase tracking-wider">Años de Operación</p>
               </div>
               <div>
-                <p className="font-serif text-4xl sm:text-5xl text-[#C5A059] mb-2">70+</p>
+                <p className="font-serif text-4xl sm:text-5xl text-[#C5A059] mb-2">+60</p>
                 <p className="text-sm text-[#6B7280] uppercase tracking-wider">Países</p>
               </div>
               <div>
@@ -390,7 +390,7 @@ export default function InfraestructuraPage() {
             <h2 className="font-serif text-3xl sm:text-4xl mb-6">
               Esta es la infraestructura sobre la que
               <br />
-              <span className="text-[#C5A059]">construirá su negocio digital</span>
+              <span className="text-[#C5A059]">construirá su canal de distribución</span>
             </h2>
 
             <p className="text-[#A3A3A3] mb-10 text-lg">

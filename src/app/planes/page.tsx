@@ -376,8 +376,8 @@ function QueHace() {
       body: 'Cada socio que entra con usted recibe la misma tecnología y la misma formación desde el día uno, sin que usted cargue la enseñanza.',
     },
     {
-      title: 'Funciona en 15 países',
-      body: 'Su canal de distribución opera en 15 países de América sin requerir su presencia en ninguno.',
+      title: 'Funciona en 16 países',
+      body: 'Su canal de distribución opera en 16 países de América sin requerir su presencia en ninguno.',
     },
   ];
 

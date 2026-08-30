@@ -137,6 +137,18 @@ const B = 'Gano Excel cobra, empaca y despacha a su puerta en Santa Marta. Usted
 guardarrail('Es una membresía mensual con acceso a cursos.') ? ok('la membresía afirmada sigue bloqueada') : mal('membresía afirmada pasó');
 guardarrail('Usted comparte el enlace y no tiene que hacer nada más: el canal crece solo.') ? ok('el esfuerzo mínimo dicho del negocio sigue bloqueado') : mal('promesa de esfuerzo mínimo pasó');
 
+console.log('\n═══ ESCENARIO E — el «sí» tras peso y azúcar se dicta con los datos de la tabla ═══');
+{
+  const { seguimientoSalud } = await import('../src/lib/wa-pedido');
+  const { RECHAZO_SALUD_PESO, RECHAZO_SALUD_AZUCAR } = await import('../src/lib/wa-guardarrail-salud');
+  const a = seguimientoSalud(RECHAZO_SALUD_PESO, 'Si');
+  a && /110\.900/.test(a) && /¿Le muestro la foto\?$/.test(a) ? ok('tras el peso: ritual del Clásico con precio de tabla y oferta de foto') : mal('seguimiento del peso: ' + (a ?? 'null'));
+  const b = seguimientoSalud(RECHAZO_SALUD_AZUCAR, 'sí');
+  b && /110\.900/.test(b) && /272\.500/.test(b) && !/82\.500/.test(b) ? ok('tras el azúcar: Clásico y Cápsulas con precios de tabla (nunca $82.500)') : mal('seguimiento del azúcar: ' + (b ?? 'null'));
+  seguimientoSalud(RECHAZO_SALUD_PESO, 'y cuánto cuesta?') === null ? ok('una pregunta a mitad no se toma como aceptación') : mal('tomó una pregunta como aceptación');
+  seguimientoSalud('¿Le muestro las demás bebidas?', 'sí') === null ? ok('otra oferta no dispara el seguimiento de salud') : mal('disparó con otra oferta');
+}
+
 console.log('\n═══ ESCENARIO D — la foto no secuestra preguntas, y el peso no es reincidencia ═══');
 {
   const { pideImagen } = await import('../src/lib/wa-productos');

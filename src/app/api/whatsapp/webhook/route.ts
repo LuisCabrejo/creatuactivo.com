@@ -56,6 +56,7 @@ import {
   detectarPidePersona, respuestaPersona, avisarPidePersona,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
   nombreCorto, RE_PEDIDO_CARGADO,
+  seguimientoSalud, RE_OFERTA_FOTO_PRODUCTO,
 } from '@/lib/wa-pedido';
 import {
   pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
@@ -1150,11 +1151,16 @@ async function procesarEntrante(body: any): Promise<void> {
     }
 
     // ─── 2.25b La foto de UN producto ────────────────────────────────────────
-    if (!familia && pideImagen(messageText)) {
+    // El «sí» a «¿le muestro la foto?» (cierre del seguimiento de salud) es la
+    // foto del producto que ese mismo turno nombró.
+    const _fotoOfrecida = RE_OFERTA_FOTO_PRODUCTO.test(_ultimoBotFoto) && esAceptacionCorta(messageText);
+    if (!familia && (pideImagen(messageText) || _fotoOfrecida)) {
       // "dame una imagen" a secas es la forma normal de pedirla cuando ya se
       // venía hablando de un producto: si el mensaje no lo nombra, se toma del
       // hilo (prueba del 20 ago — caía al motor y respondía que no podía).
-      const producto = detectarProducto(messageText) ?? productoDelHilo(historial);
+      const producto = _fotoOfrecida
+        ? detectarProducto(_ultimoBotFoto)
+        : (detectarProducto(messageText) ?? productoDelHilo(historial));
       if (producto) {
         // Cuando el mensaje pide SOLO la foto, la pregunta de cierre viaja
         // dentro del pie: enviada como mensaje aparte llegaba ANTES que la
@@ -1312,6 +1318,21 @@ async function procesarEntrante(body: any): Promise<void> {
       // Si el reenvío falla, el turno sigue al motor: mejor una respuesta en
       // texto que un silencio.
       console.warn(`⚠️ [WA Webhook] Reenvío del simulador falló: ${reenvio.error}`);
+    }
+
+    // ─── 2.44 El «sí» tras las respuestas de salud — dictado ─────────────────
+    // Tras el peso («¿le cuento cómo integrarlo en su rutina?») y el azúcar
+    // («¿le cuento cómo es cada uno?») el «sí» tiene un solo destino; el 29 ago
+    // el modelo lo compuso con un Clásico a $82.500. Los datos salen de la tabla.
+    {
+      const _ultimoBotSalud = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+      const seguimiento = socioQueEscribe ? null : seguimientoSalud(_ultimoBotSalud, messageText);
+      if (seguimiento) {
+        await sendWhatsAppMessage(phoneNumber, seguimiento, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, seguimiento);
+        console.log('🥗 [WA Webhook] Seguimiento de salud dictado (datos de la tabla)');
+        return;
+      }
     }
 
     // ─── 2.45 Toma de pedido — Queswa como mano derecha del distribuidor ──────

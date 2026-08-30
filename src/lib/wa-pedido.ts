@@ -457,3 +457,56 @@ export async function avisarPidePersona(
     }
   }
 }
+
+// ─── El «sí» después de las respuestas de salud ──────────────────────────────
+//
+// Tras el texto del peso («¿le cuento cómo integrarlo en su rutina?») y el del
+// azúcar («¿le cuento cómo es cada uno?»), el «sí» tiene un solo destino, y el
+// 29 ago 2026 el modelo lo compuso con un precio inventado ($82.500 por un
+// Clásico de $110.900): la pregunta del bot no nombra producto y el pin de
+// precio no disparó. Nodo determinístico: lo emite el backend con los datos de
+// la tabla —nombre, presentación, precio— y el modelo no toca la cifra.
+
+export const RE_OFERTA_RUTINA = /¿Le cuento cómo integrarlo en su rutina\?\s*$/;
+export const RE_OFERTA_CADA_UNO = /¿Le cuento cómo es cada uno\?\s*$/;
+export const RE_OFERTA_FOTO_PRODUCTO = /¿Le muestro la foto\?\s*$/;
+
+const porSlug = (slug: string) => PRODUCTOS_WA.find((p) => p.slug === slug) ?? null;
+
+/** La aceptación pelada («sí», «dale», «claro») de una oferta del bot. */
+export function esAceptacion(texto: string): boolean {
+  return /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|s[ií] por favor|s[ií] claro|me interesa|cu[eé]nteme|cuentame|a ver)(?![a-záéíóúñ])/i.test(texto.trim());
+}
+
+/**
+ * El texto dictado que sigue a una oferta de salud aceptada, o null si el último
+ * turno del bot no era una de esas ofertas.
+ */
+export function seguimientoSalud(ultimoBot: string, texto: string): string | null {
+  if (!esAceptacion(texto)) return null;
+  const clasico = porSlug('ganocafe-clasico');
+  const capsulas = porSlug('capsulas-ganoderma') ?? PRODUCTOS_WA.find((p) => /c[aá]psulas de ganoderma/i.test(p.nombre)) ?? null;
+  if (!clasico) return null;
+
+  if (RE_OFERTA_RUTINA.test(ultimoBot)) {
+    return [
+      `Con gusto. El *${clasico.nombre}* se prepara en menos de un minuto: un sobre en 150 ml de agua caliente, y listo. La mayoría lo toma a primera hora, como su café de la mañana, y la energía entra pareja hasta el mediodía.`,
+      '',
+      `La caja trae 30 sobres —un mes completo— y cuesta ${cop(clasico.precioCOP)}.`,
+      '',
+      '¿Le muestro la foto?',
+    ].join('\n');
+  }
+  if (RE_OFERTA_CADA_UNO.test(ultimoBot) && capsulas) {
+    return [
+      'Con gusto.',
+      '',
+      `*${clasico.nombre}* — café negro premium con extracto de Ganoderma, sin azúcar ni crema. Un sobre en agua caliente; la caja trae 30 y cuesta ${cop(clasico.precioCOP)}.`,
+      '',
+      `*${capsulas.nombre}* — el extracto puro, sin nada más. Una al día; el frasco trae 90 y cuesta ${cop(capsulas.precioCOP)}.`,
+      '',
+      '¿Cuál de los dos le llama más la atención?',
+    ].join('\n');
+  }
+  return null;
+}

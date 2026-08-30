@@ -322,6 +322,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.21 — WHY_05 deja de suponer la ocupación (29 ago 2026)
+
+Prueba del Director, 29 ago 15:58: *«¿por qué uno debería hacer este negocio?»* recibió *«un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo»* — tres oficios adivinados para una persona de la que no sabemos nada. Redacción del Director: *«Hoy, la estabilidad económica de la mayoría depende de variables que no controla, donde basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee. Y para rematar, cuando el ingreso sí llega, usualmente ya tiene dueño: el banco, las cuotas, los recibos. Un canal de distribución es un plan para protegerse de eso…»*. El villano pasa de la segunda persona con oficio a *la mayoría* con variables: cabe el empleado, el independiente y el empresario, y nadie se exime. El segundo párrafo (Gano fabrica, Queswa conversa, usted decide) y la pregunta de cierre no cambian.
+
 ### v6.20 — Las sedes son información de socio, y el envío tiene dueño (27 ago 2026)
 
 Sale de la conversación de Milena (27 ago): quiso una caja, preguntó por la oficina de Bogotá y el modelo le inventó una dirección (*Carrera 13 # 32-23, Chapinero*) — el directorio con candado no se recuperó, y la persona pudo haber viajado.

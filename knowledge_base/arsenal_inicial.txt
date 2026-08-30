@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.20** (27 ago 2026) — **Las sedes son información de socio, y el envío tiene dueño.** `FREQ_13` y `FREQ_07` conservan las nueve sedes como prueba de legalidad y sueltan la invitación a ir; nace `FREQ_36` (cómo llega el pedido). El directorio `FREQ_34` solo viaja en modo socio (filtro en el motor). Detalle en el CHANGELOG.
+**Versión actual: v6.21** (29 ago 2026) — **`WHY_05` deja de suponer la ocupación.** *«Un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo»* le adivinaba el oficio a quien pregunta; ahora el villano es macroeconómico —*la estabilidad de la mayoría depende de variables que no controla*— y sirve al empleado, al independiente y al empresario por igual (Director, 29 ago). Detalle en el CHANGELOG.
+
+**v6.20** (27 ago 2026) — **Las sedes son información de socio, y el envío tiene dueño.** `FREQ_13` y `FREQ_07` conservan las nueve sedes como prueba de legalidad y sueltan la invitación a ir; nace `FREQ_36` (cómo llega el pedido). El directorio `FREQ_34` solo viaja en modo socio (filtro en el motor). Detalle en el CHANGELOG.
 
 **v6.19** (26 ago 2026) — **La columna del proyecto: hacer sencillo lo que era difícil, sin describir la faena que le quitamos.** Uber no dice *«pedimos el taxi por usted»*. `NET_02` deja de enumerar la tarea vieja y remata hacia adelante: *«hoy no lo es»*. Detalle en el CHANGELOG.
 
@@ -524,7 +526,11 @@ Todas van directo a Gano Excel por sus canales oficiales: consignación o transf
 
 Le doy la razón de fondo, sin adornos.
 
-Hoy su ingreso depende de cosas que usted no controla: un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo. Y cuando el ingreso llega, al día siguiente ya tiene dueño — el banco, las cuotas, los recibos. Un canal de distribución es un plan para eso: un ingreso que corre en paralelo a lo suyo, y que sale del consumo que se repite en su canal, entre sus clientes y sus distribuidores.
+Hoy, la estabilidad económica de la mayoría depende de variables que no controla, donde basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee.
+
+Y para rematar, cuando el ingreso sí llega, usualmente ya tiene dueño: el banco, las cuotas, los recibos.
+
+Un canal de distribución es un plan para protegerse de eso: construye un ingreso que corre en paralelo a su actividad actual, y que sale del consumo que se repite, semana a semana, entre sus clientes y sus distribuidores.
 
 Y lo construye en paralelo, porque la parte pesada no la carga usted: Gano Excel fabrica y despacha, y yo converso con cada interesado y maduro su decisión. Lo que le queda es decidir con quién lo comparte y ver crecer su canal.
 

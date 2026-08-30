@@ -138,6 +138,22 @@ export const RE_SALUD_COMUN: RegExp[] = [
 export const RE_CLAIM_SALIDA: RegExp[] = [
   // Ciencia citada — incluidas las referencias bibliográficas (caso Half Hill Farm)
   /pubmed|frontiers|\bnih\b|ensayo clinico|estudios? (publicad|cientific|clinic|documenta|muestra|demuestra|respalda)|la investigacion (reciente |cientifica )?(documenta|muestra|demuestra|respalda)|clinicamente (probad|comprobad|demostrad)|cientificamente (probad|comprobad|demostrad)/,
+  // La ciencia AFIRMADA como credencial, sin cita. Nuestra doctrina ya la
+  // rechaza por otra vía —la evidencia es un hecho verificable (número de
+  // registro, certificación), nunca un adjetivo de credibilidad—, y el filtro
+  // no la veía: «base científica del extracto» pasaba entero. Destapado el 29
+  // ago 2026 al auditar los bloques que propuso el informe de Gemini.
+  // Backtest: 0 de 128 respuestas reales y 0 de 203 fragmentos del arsenal.
+  /(base|respaldo|aval|sustento|fundamento) cientific[oa]|cientificamente (respaldad|avalad|sustentad|formulad)/,
+  // PREVENCIÓN. Prevenir enfermedad es declaración terapéutica, reservada a
+  // medicamentos. El patrón de arriba exige verbo + enfermedad nombrada
+  // («previene la diabetes»), así que el adjetivo suelto —«apoyo nutricional
+  // preventivo», «equilibrio preventivo del organismo»— pasaba sin tocar nada.
+  // ⚠️ Lo que el backtest NO respaldó: bloquear «equilibrio del cuerpo». Vive
+  // en dos fragmentos aprobados junto a «apoyan el sistema inmune», que es
+  // vocabulario verde; el elemento riesgoso de esa frase era «preventivo».
+  // Backtest: 0 de 128 respuestas reales y 0 de 203 fragmentos.
+  /(?<![a-z])(prevencion|preventiv[oa]s?)(?![a-z])/,
   // Mecanismo de acción — inmunología pura, nunca es composición
   /celulas nk|macrofag|inmunomodulad|estres oxidativo|acidos? ganoderic|radicales libres/,
   // Compuesto + función atribuida (el compuesto solo, como composición, sí pasa)

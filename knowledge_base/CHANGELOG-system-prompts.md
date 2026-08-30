@@ -288,6 +288,18 @@ Unifica semántica con Servilleta Digital — Tres Pilares canónicos (Matriz F�
 
 Para versiones anteriores a v26.0, consultar los archivos `knowledge_base/system-prompt-nexus-main-vXX_Y.md` directamente. Cada uno contiene su propio changelog interno.
 
+## queswa_whatsapp v4.25 — Sección `<narrativa>`: la arquitectura del mensaje (29 ago 2026)
+
+El Director, tras semanas de ajustes texto por texto: *«el problema no es Queswa ni nuestras respuestas construidas, es la narrativa al construirlas»*. Medido sobre 110 respuestas compuestas contra 5 textos de Gemini sobre los mismos encargos: **no es el largo de la frase** (16,3 vs 16,9 palabras) **ni la negación** (nosotros negamos menos). Es la **bisagra** —2,3 % contra 21,4 %, ×9,3— y la traducción del dato al lector (×7).
+
+La causa estaba en el prompt y era demostrable: el 51 % de las respuestas abría con acuse de recibo (el prompt lo ordena y da la lista) y solo el 13 % tenía una bisagra interna (el prompt no las mencionaba). Se había instrumentado la primera frase y la última; el mensaje quedó sin arquitectura.
+
+`<narrativa>` añade los tres movimientos (reconocer · enlazar · traducir) y las cuatro mecánicas que salieron de contrastar la redacción de Claude con la de Gemini: cerrar la frase en lo que sí hay, subordinar para traducir el dato, poner de sujeto a la persona, y tratar la raya como una subordinada sin hacer. Y se retiró `Máximo tres párrafos, y cada párrafo de máximo dos oraciones`, que producía 1,5 frases por párrafo y cortaba justo donde iba la bisagra.
+
+⚠️ La acotación propia, que el informe de Gemini no trae: **se traduce el HECHO y el MECANISMO, nunca el RESULTADO** — tres de sus cinco propuestas las bloquea nuestro filtro, y las bloquea justo en la glosa. Detalle en [CRUCE_NARRATIVA_AGO2026.md](../docs/investigaciones/resultados/CRUCE_NARRATIVA_AGO2026.md).
+
+Rúbrica corriendo: `npx tsx scripts/medir-narrativa.mts`.
+
 ## queswa_whatsapp v4.24 — Tres paquetes, y el producto por lo que es (29 ago 2026)
 
 Prueba del Director, 29 ago. Dos reglas en `<core_behavior>`, las dos en positivo: **los paquetes de inicio son tres** (ESP-1, ESP-2, ESP-3) y así se presentan siempre; el Kit aparece cuando la persona pide algo más económico — el modelo había listado *«los cuatro niveles»* a quien preguntó por los paquetes para alguien en EE. UU. Y la regla del *«reemplazo»* (*«nunca diga que reemplazan lo que la persona ya toma»*) reescrita como afirmación —**los productos se presentan por lo que son y por el ritual que elevan; la persona decide qué lugar les da en su rutina**—: escrita en negativo dictaba justo la palabra que vetaba, y el modelo la usó (*«es un reemplazo natural del café de siempre»*).

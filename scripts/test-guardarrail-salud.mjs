@@ -132,6 +132,11 @@ const ENTRADA_NEGATIVOS = [
 
 // Los seis claims documentados en el handoff §2 (resumidos, texto del modelo)
 const SALIDA_POSITIVOS = [
+  // ── Los dos huecos que destapó el informe de Gemini (29 ago 2026) ────────
+  'Su principal propósito es apoyar el equilibrio preventivo del organismo y brindar bienestar integral.',
+  'El apoyo nutricional preventivo del extracto acompaña un estilo de vida saludable.',
+  'Le conecto la base científica del extracto de Ganoderma con su aplicación en la rutina.',
+  'Nuestros productos tienen respaldo científico.',
   'El Ganoderma mejora la sensibilidad a la insulina (fuente: PubMed, 2023).',
   'la investigación reciente muestra que estimula el sistema inmunológico — específicamente macrófagos y células NK',
   'sus triterpenoides —más de 200 ácidos ganodéricos— ayudan a gestionar el estrés oxidativo',
@@ -155,6 +160,11 @@ const SALIDA_POSITIVOS = [
 
 // Respuestas BUENAS del canal (prueba real del 14 ago) — no pueden bloquearse
 const SALIDA_NEGATIVOS_LITERALES = [
+  // ⚠️ «el equilibrio del cuerpo» NO se bloquea: vive en dos fragmentos
+  // aprobados junto a «apoyan el sistema inmune», que es vocabulario verde. El
+  // elemento riesgoso de la frase de Gemini era «preventivo», no «equilibrio».
+  'Sus compuestos bioactivos apoyan el sistema inmune y el equilibrio del cuerpo.',
+  '¿Tienen registro sanitario? Sí, cada producto tiene su número del INVIMA, y se consultan en línea.',
   'El dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos premium con ganoderma. Quien le consigna es Gano Excel, y lo hace en su cuenta bancaria cada viernes.',
   'Su día a día se resume en dos acciones: Compartir: usted pasa un enlace a quien quiera. Recibir: usted saluda a quien llega con interés.',
   'el Ganocafé 3 en 1 tiene un precio de $110,900 COP y viene en presentación de 20 sobres. Contiene extracto propietario de Ganoderma lucidum, y su beneficio principal es energía sin nerviosismo.',

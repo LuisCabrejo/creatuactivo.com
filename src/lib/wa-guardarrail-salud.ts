@@ -234,54 +234,54 @@ export const RESPUESTA_EMERGENCIA =
 export const RECHAZO_SALUD_PESO =
   'Comprendo su objetivo, y me alegra que esté buscando opciones para cuidar su bienestar.\n\n' +
   'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, no como tratamientos médicos. Su enfoque es la nutrición y el bienestar ' +
-  'diario.\n\n' +
-  'Dicho esto, el compañero ideal para cualquier rutina saludable es el Ganocafé Clásico. Es un ' +
-  'café negro premium, sin azúcar ni crema, que le brinda energía pareja para su día.\n\n' +
+  'suplementos dietarios, y no como tratamientos médicos, así que lo que encontrará aquí es ' +
+  'nutrición para el día a día.\n\n' +
+  'Dicho esto, el compañero ideal para cualquier rutina saludable es el Ganocafé Clásico: un café ' +
+  'negro premium, sin azúcar ni crema, que le da energía pareja desde temprano.\n\n' +
   '¿Le cuento cómo integrarlo en su rutina?';
 
 /** Azúcar (diabetes, glucosa, insulina): el hecho de composición —sin azúcar— dicho con orgullo. */
 export const RECHAZO_SALUD_AZUCAR =
   'Comprendo su consulta, y hace muy bien en cuidar esos detalles de su alimentación.\n\n' +
   'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, no como medicamentos. Por eso, en lo que tiene que ver con su condición, ' +
-  'quien le orienta es su médico, que conoce su caso.\n\n' +
-  'Dicho esto, son productos de los que estamos orgullosos: treinta años de Gano Excel y registro ' +
-  'sanitario en cada uno. Y para quien cuida el azúcar en lo que consume hay dos que encajan de ' +
-  'maravilla: el Ganocafé Clásico, un café negro premium sin azúcar ni crema, y las Cápsulas de ' +
-  'Ganoderma, el extracto puro sin nada más.\n\n' +
+  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
+  'palabra es su médico, que es quien conoce su caso.\n\n' +
+  'Dicho esto, usted tiene a mano dos opciones que Gano Excel fabrica desde hace treinta años, ' +
+  'cada una con su registro sanitario. Si cuida el azúcar en lo que consume, el Ganocafé Clásico ' +
+  'le da café negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el ' +
+  'extracto puro, sin nada más.\n\n' +
   '¿Le cuento cómo es cada uno?';
 
 /** Molestia o condición común: la categoría del producto es la que responde, con orgullo. */
 export const RECHAZO_SALUD_ESTANDAR =
   'Comprendo su consulta, y le agradezco la confianza de contármelo.\n\n' +
   'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, no como medicamentos. Por eso, en lo que tiene que ver con su condición, ' +
-  'quien le orienta es su médico, que conoce su caso.\n\n' +
-  'Dicho esto, son productos de los que estamos orgullosos: treinta años de Gano Excel, registro ' +
-  'sanitario en cada uno, y una línea pensada para acompañar su día con energía y bienestar — el ' +
-  'café, las bebidas y las cápsulas de Ganoderma.\n\n' +
+  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
+  'palabra es su médico, que es quien conoce su caso.\n\n' +
+  'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
+  'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
+  'pensadas para acompañar su día con energía y bienestar.\n\n' +
   '¿Le cuento cómo es cada uno y qué lleva?';
 
 /** Tratamiento en curso: la última palabra la tiene su médico, y la composición se le da. */
 export const RECHAZO_SALUD_TRATAMIENTO =
-  'Gracias por contármelo. Con un tratamiento en curso, la última palabra la tiene su médico, y ' +
-  'así debe ser: los productos de Gano Excel están registrados como alimentos y suplementos ' +
-  'dietarios, no como medicamentos.\n\n' +
-  'Lo que sí puedo hacer es darle la composición exacta de cualquiera, para que la tenga a mano ' +
-  'cuando quiera consultarlo.\n\n' +
+  'Gracias por contármelo. Con un tratamiento en curso la última palabra la tiene su médico, y así ' +
+  'debe ser: los productos de Gano Excel están registrados como alimentos y suplementos dietarios, ' +
+  'de modo que él es quien puede decirle cómo encajan en lo suyo.\n\n' +
+  'Para esa conversación usted puede llevar la composición exacta de cualquiera de ellos, con su ' +
+  'registro sanitario.\n\n' +
   '¿Le comparto la de alguno en particular?';
 
 export const RECHAZO_SALUD_GRAVE =
   'Le agradezco la confianza de contármelo, y le deseo lo mejor.\n\n' +
   'Los productos de Gano Excel están registrados ante el INVIMA como alimentos y suplementos ' +
-  'dietarios, y por esa categoría ninguno está indicado para una condición de salud: quien debe ' +
-  'orientarle es su médico tratante.\n\n' +
-  'Cuando quiera conocer los productos por lo que son, aquí estoy con mucho gusto.';
+  'dietarios, y por esa categoría ninguno está indicado para una condición de salud, así que quien ' +
+  'debe orientarle es su médico tratante.\n\n' +
+  'Cuando quiera conocerlos por lo que son, aquí me encuentra con mucho gusto.';
 
 export const RECHAZO_SALUD_CORTO =
-  'Le entiendo, y ojalá pudiera decirle más; en temas de salud esa parte es de su médico. ' +
-  'Sobre el producto sí le cuento lo que quiera: qué lleva, cómo se prepara y cuánto cuesta. ' +
+  'Le entiendo. En temas de salud esa parte es de su médico, y sobre el producto usted puede ' +
+  'preguntarme lo que quiera: qué lleva, cómo se prepara y cuánto cuesta. ' +
   '¿Le sirve que lo comunique con alguien del equipo?';
 
 /** La familia de la pregunta, a partir del término que disparó la entrada. */

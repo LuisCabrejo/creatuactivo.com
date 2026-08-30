@@ -163,7 +163,7 @@ console.log('\n═══ ESCENARIO D — la foto no secuestra preguntas, y el pe
   const r = c ? rechazoSaludPorFamilia(c, false) : null;
   r?.familia === 'azucar' && /sin azúcar ni crema/.test(r.texto) ? ok('diabetes → familia azúcar, con el Clásico y las Cápsulas por su composición') : mal('diabetes no cayó en azúcar: ' + JSON.stringify(r?.familia));
   const g = clasificarPreguntaSalud('tengo gastritis, me sirve?'); const rg = g ? rechazoSaludPorFamilia(g) : null;
-  rg?.familia === 'comun' && /estamos orgullosos/.test(rg.texto) ? ok('gastritis → familia común, con orgullo por los productos') : mal('gastritis no cayó en común');
+  rg?.familia === 'comun' && /Gano Excel fabrica desde hace treinta años/.test(rg.texto) ? ok('gastritis → familia común, con la línea y su respaldo') : mal('gastritis no cayó en común');
   const p = clasificarPreguntaSalud('Qué producto es bueno para adelgazar');
   (p && rechazoSaludPorFamilia(p).familia === 'peso') ? ok('adelgazar → familia peso') : mal('adelgazar no cayó en peso');
 }

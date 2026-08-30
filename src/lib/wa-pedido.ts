@@ -187,7 +187,7 @@ export function esGanocafeSinVariante(texto: string): boolean {
 export const RE_PREGUNTO_CUAL_GANOCAFE = /cu[aá]l prefiere\?$/i;
 
 export function preguntarCualGanocafe(): string {
-  return 'Con gusto le cargo su Ganocafé. Tenemos dos: el *3 en 1*, que ya trae crema y azúcar, y el *Clásico*, café negro con Ganoderma — los dos a $110.900 la caja. ¿Cuál prefiere?';
+  return 'Con gusto le cargo su Ganocafé. Tenemos dos: el *3 en 1*, que ya trae crema y azúcar, y el *Clásico*, que es café negro con Ganoderma. Los dos a $110.900 la caja. ¿Cuál prefiere?';
 }
 
 /** La respuesta a «¿cuál prefiere?»: 3 en 1 o Clásico, con tolerancia al tipeo. */
@@ -232,9 +232,9 @@ export function confirmarPedido(
     '',
     cuerpo + total,
     '',
-    `${quien} ya lo tiene en sus manos: se comunica con usted por este mismo medio para acordar el pago y la entrega como mejor le quede.`,
+    `${quien} ya lo tiene en sus manos, así que él se comunica con usted por este mismo medio para acordar el pago y la entrega como mejor le quede.`,
     '',
-    `Y para que vaya conociendo el resto de la familia, aquí tiene el catálogo completo: ${enlaceCatalogo(socio?.slug)}. Si algo le llama la atención mientras lo mira, escríbame por aquí y lo vemos juntos.`,
+    `Mientras tanto, aquí tiene el catálogo completo por si quiere conocer el resto de la línea: ${enlaceCatalogo(socio?.slug)}. Si algo le llama la atención, escríbame por aquí y lo vemos juntos.`,
     '',
     '¿Hay algo más que le pueda responder ahora?',
   ].join('\n');
@@ -293,7 +293,7 @@ export function respuestaOficinaProspecto(
 ): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
   const primerPedido = hayPedido ? 'este primer pedido' : 'su primer pedido';
-  const puerta = `Atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido} — ahí mismo le indica la dirección y acuerdan si lo recoge allá o se lo envían, lo que le resulte más cómodo.`;
+  const puerta = `Atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}, así que él mismo le indica la dirección y acuerdan si lo recoge allá o se lo envían, lo que le resulte más cómodo.`;
   // Cierra proponiendo un paso (regla de la pregunta única): quien pregunta por
   // la sede para comprar quiere conocer el producto antes.
   const cierre = hayPedido ? '' : '\n\n¿Le cuento cómo es el producto que tiene en mente?';
@@ -344,7 +344,7 @@ export function esCierreDeConversacion(texto: string): boolean {
 }
 
 export function ofrecerOptin(nombre?: string): string {
-  const saludo = nombre ? `Perfecto, ${nombre} — ha sido un gusto atenderle.` : 'Perfecto — ha sido un gusto atenderle.';
+  const saludo = nombre ? `Perfecto, ${nombre}, ha sido un gusto atenderle.` : 'Perfecto, ha sido un gusto atenderle.';
   return `${saludo} Una última cosa: cuando haya promociones o productos nuevos, ¿le gustaría que le avise por aquí? Responda *sí* y queda en la lista.`;
 }
 
@@ -490,9 +490,9 @@ export function seguimientoSalud(ultimoBot: string, texto: string): string | nul
 
   if (RE_OFERTA_RUTINA.test(ultimoBot)) {
     return [
-      `Con gusto. El *${clasico.nombre}* se prepara en menos de un minuto: un sobre en 150 ml de agua caliente, y listo. La mayoría lo toma a primera hora, como su café de la mañana, y la energía entra pareja hasta el mediodía.`,
+      `Con gusto. El *${clasico.nombre}* se prepara en menos de un minuto: un sobre en 150 ml de agua caliente, y listo. La mayoría lo toma a primera hora, como su café de la mañana, así que la energía entra pareja hasta el mediodía.`,
       '',
-      `La caja trae 30 sobres —un mes completo— y cuesta ${cop(clasico.precioCOP)}.`,
+      `La caja trae 30 sobres, lo que le alcanza para el mes completo, y cuesta ${cop(clasico.precioCOP)}.`,
       '',
       '¿Le muestro la foto?',
     ].join('\n');
@@ -501,9 +501,9 @@ export function seguimientoSalud(ultimoBot: string, texto: string): string | nul
     return [
       'Con gusto.',
       '',
-      `*${clasico.nombre}* — café negro premium con extracto de Ganoderma, sin azúcar ni crema. Un sobre en agua caliente; la caja trae 30 y cuesta ${cop(clasico.precioCOP)}.`,
+      `*${clasico.nombre}*: café negro premium con extracto de Ganoderma, sin azúcar ni crema. Un sobre en agua caliente, y la caja trae 30, lo que le alcanza para el mes. ${cop(clasico.precioCOP)}.`,
       '',
-      `*${capsulas.nombre}* — el extracto puro, sin nada más. Una al día; el frasco trae 90 y cuesta ${cop(capsulas.precioCOP)}.`,
+      `*${capsulas.nombre}*: el extracto puro, sin nada más. Una al día, y el frasco trae 90, lo que le cubre tres meses. ${cop(capsulas.precioCOP)}.`,
       '',
       '¿Cuál de los dos le llama más la atención?',
     ].join('\n');

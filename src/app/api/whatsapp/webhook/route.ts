@@ -30,7 +30,7 @@ import {
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace,
   textoEntregaEnlace, textoSinEnlace, enlaceParaPareja, botOfrecioPlazo, interpretarPlazo,
-  textoConfirmacionPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
+  textoConfirmacionPlazo, fechaDelPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
 } from '@/lib/wa-pareja';
 import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { extraerTokenDePase, resolverCompartidor, limpiarMarcador } from '@/lib/wa-pase';
@@ -1068,6 +1068,17 @@ async function procesarEntrante(body: any): Promise<void> {
         if (plazo) {
           const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
           respuestaPareja = textoConfirmacionPlazo(plazo, socioP?.nombre);
+          // El acuerdo es lo que vuelve verdad el «le escribo mañana»: sin él,
+          // el texto promete un seguimiento que nadie ejecuta (Director, 30 ago).
+          await guardarAcuerdo(supabase, {
+            fingerprintId: waFingerprint,
+            telefono:      phoneNumber,
+            // El cron arma «…para retomar {que}», así que va como frase nominal.
+            que:           'lo que iba a conversar con su pareja',
+            cuando:        fechaDelPlazo(plazo),
+            nombre:        contactName ?? null,
+            constructorId: existingProspect?.constructor_id ?? patrocinador?.userId ?? null,
+          });
           plazoParaAviso = plazo;
         } else if (/le aviso|les aviso|yo (le|les) (escribo|cuento|digo)|despu[eé]s|luego|no s[eé]|ya veremos/i.test(messageText)) {
           const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);

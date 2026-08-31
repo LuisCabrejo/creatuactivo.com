@@ -23,9 +23,9 @@
  *   la mañana siguiente en vez de perderse.
  *
  * • **Texto libre si se puede; plantilla solo si toca.** Si la persona escribió en
- *   las últimas 24 h, `sendText` entra y no cuesta nada. Si no, hace falta
- *   plantilla — y hoy NO EXISTE la de recordatorio, así que ese caso se reintenta.
- *   Ver el bloque de `PLANTILLA_RECORDATORIO`, abajo.
+ *   las últimas 24 h, `sendText` entra y no cuesta nada. Si no, entra
+ *   `recordatorio_acuerdo`, aprobada como UTILITY (auditada el 30 ago 2026).
+ *   Si algún día se cae, el caso se reintenta en vez de perderse.
  *
  * • **Tres intentos y se suelta.** Insistirle a quien no responde es exactamente
  *   lo que Meta lee como spam. `cerrarAcuerdo` marca 'vencido' al tercero.

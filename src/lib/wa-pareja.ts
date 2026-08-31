@@ -67,8 +67,13 @@ export function detectarConsultaConPareja(mensaje: string): boolean {
 
 /** Nombre corto y presentable: «Luis Abner Cabrejo» → «Luis Abner». */
 function nombreCorto(nombre?: string): string {
-  const limpio = (nombre || '').trim().replace(/\s+/g, ' ');
-  if (!limpio || /^(constructor|usuario|prospecto)$/i.test(limpio)) return '';
+  // Solo letras: fuera emojis y adornos del perfil. Y un nombre de negocio no es
+  // un nombre de pila: «Crea Tu Activo» daba «Crea Tu» en el enlace de la pareja
+  // (prueba del 29 ago 2026).
+  const limpio = (nombre || '').normalize('NFC').replace(/[^\p{L}\s'-]/gu, '').trim().replace(/\s+/g, ' ');
+  if (!limpio) return '';
+  const primera = limpio.split(' ')[0];
+  if (/^(constructor|usuario|prospecto|crea|creatuactivo|gano|ganocaf[eé]|queswa|tienda|distribuidor|distribuidora|ventas|oficina)$/i.test(primera)) return '';
   return limpio.split(' ').slice(0, 2).join(' ');
 }
 
@@ -183,10 +188,30 @@ export function interpretarPlazo(mensaje: string): Plazo | null {
   return null;
 }
 
-/** Confirmación del plazo. Quien escribe ese día es el socio: el 1-a-1 cierra. */
-export function textoConfirmacionPlazo(plazo: Plazo, nombreSocio?: string): string {
-  const socio = nombreCorto(nombreSocio) || 'el equipo de creatuactivo.com';
-  return `Listo: lo retomamos ${plazo}. Le aviso a ${socio} para que sea quien les escriba ese día — y si su pareja me escribe antes, con gusto le respondo.`;
+/**
+ * Confirmación del plazo. **Quien retoma es Queswa, no el socio** (Director,
+ * 30 ago 2026): delegarle el seguimiento traiciona la promesa del servicio, y
+ * sobre todo, si el socio no escribe la promesa se cae sin que nadie se entere.
+ * ⚠️ Es verdad solo porque el webhook guarda un acuerdo en `wa_acuerdos` con
+ * este plazo, y el cron lo ejecuta. Si se cambia este texto sin guardar el
+ * acuerdo, vuelve a ser una promesa que nadie cumple.
+ */
+export function textoConfirmacionPlazo(plazo: Plazo, _nombreSocio?: string): string {
+  const cuando = plazo === 'mañana' ? 'mañana' : plazo === 'en dos días' ? 'en dos días' : plazo;
+  return [
+    `Listo: le escribo ${cuando} para saber cómo les fue.`,
+    '',
+    'Y si su pareja quiere preguntarme algo antes, yo le explico y le resuelvo lo que necesite. Que tengan buena charla.',
+  ].join('\n');
+}
+
+/** El plazo, convertido en fecha para el acuerdo. Mediodía: ni de madrugada ni tarde. */
+export function fechaDelPlazo(plazo: Plazo, desde = new Date()): Date {
+  const d = new Date(desde);
+  const dias = plazo === 'mañana' ? 1 : plazo === 'en dos días' ? 2 : 1;
+  d.setDate(d.getDate() + dias);
+  d.setHours(12, 0, 0, 0);
+  return d;
 }
 
 /**
@@ -205,7 +230,7 @@ export async function avisarAlSocioPareja(params: {
       nombreCorto(params.nombreSocio) || 'equipo',
       `${nombreCorto(params.nombreProspecto) || 'Sin nombre'} (${params.whatsapp}) — lo consulta con su pareja; ya tiene el enlace para ella`,
       '—',
-      `RETOMAR ${params.plazo.toUpperCase()}: le escribe el socio. Pareja puede escribir antes por el enlace`,
+      `Queswa retoma ${params.plazo}. La pareja puede escribir antes por el enlace`,
     ]);
     console.log(`📨 [Pareja WA] Aviso al socio: ${r.ok ? 'enviado' : r.error}`);
     return r.ok;

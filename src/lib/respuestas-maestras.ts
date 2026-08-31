@@ -107,6 +107,11 @@
  *   6. El viernes se movió del párrafo del dinero al CIERRE: arriba solo informaba;
  *      al final, después de "compartir", es la recompensa de haber compartido.
  *
+ * Ajuste 31 ago 2026 (Director, auditando la prueba del canal): el canal es el sustantivo y el
+ * producto es el respaldo — "canal de distribución de café" lo definía por la mercancía y lo
+ * degradaba. El Ganoderma sube a la primera frase (le da causa al "premium") y sale del párrafo
+ * de la recompra. Fuera "sin que usted repita lo mismo a cada interesado": peso, no valor.
+ *
  * Reescritura previa 31 jul 2026 — LENGUAJE CONCRETO. Origen: dos meses de conversaciones
  * 1-a-1 del Director sin un solo "wow". La versión anterior explicaba arquitectura
  * (el puente, Amazon/MercadoLibre, la tríada) y nunca decía de dónde sale el dinero,
@@ -120,17 +125,17 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Todo parte de algo concreto: usted monta su propio canal de distribución de café y suplementos premium.
+const MASTER_WHY_02 = `Con gusto. Todo parte de algo concreto: usted monta su propio canal de distribución, apoyado en una línea premium de café y suplementos con Ganoderma.
 
 La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.
 
-Y como llevan extracto de Ganoderma, quien los prueba nota la diferencia en su energía y no vuelve al genérico. Cuando se le acaba, pide más. Esa compra que se repite es la que le sostiene el ingreso.
+Quien los prueba nota la diferencia en su energía y no vuelve al genérico. Cuando se le acaba, pide más. Esa compra que se repite es la que le sostiene el ingreso.
 
 Del trabajo pesado nos encargamos nosotros:
 
-**Gano Excel** pone las fábricas, la investigación y la logística, con 30 años y presencia en más de 60 países: ellos fabrican, almacenan y despachan cada pedido. Usted maneja su canal desde el celular.
+**Gano Excel** pone las fábricas, el inventario y la logística, con 30 años y presencia en más de 60 países: ellos fabrican, almacenan y despachan cada pedido. Usted maneja su canal desde el celular.
 
-**Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta, sin que usted repita lo mismo a cada interesado.
+**Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta.
 
 A usted le quedan dos acciones: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.
 

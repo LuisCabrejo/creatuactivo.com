@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.23** (30 ago 2026) — **`FREQ_24` deja de responder un trámite.** En WhatsApp quien pregunta cómo inscribir un cliente es casi siempre un prospecto midiendo si es fácil, no alguien pidiendo el instructivo: el eje pasa a ser **quién lo hace** —*usted no diligencia nada*— y salen la línea nacional de Gano y las oficinas abiertas al público, que invitaban a rodearnos y contradecían la doctrina de las sedes. Detalle en el CHANGELOG.
+**Versión actual: v6.24** (31 ago 2026) — **`WHY_02` 🔒: el canal es el sustantivo, el producto es el respaldo.** Definir el canal *por* el café lo degradaba —como si Apple dijera que está en el negocio de los celulares (Director)—; ahora la primera frase nombra el canal y el producto queda subordinado, con Ganoderma dicho ahí y no en el párrafo de la recompra. Sale la cola que describía lo que el socio ya no hace: era peso, no valor. Detalle en el CHANGELOG.
+
+**v6.23** (30 ago 2026) — **`FREQ_24` deja de responder un trámite.** En WhatsApp quien pregunta cómo inscribir un cliente es casi siempre un prospecto midiendo si es fácil, no alguien pidiendo el instructivo: el eje pasa a ser **quién lo hace** —*usted no diligencia nada*— y salen la línea nacional de Gano y las oficinas abiertas al público, que invitaban a rodearnos y contradecían la doctrina de las sedes. Detalle en el CHANGELOG.
 
 **v6.22** (29 ago 2026) — **Sesión de reescritura con el Director sobre la prueba del canal.** `WHY_02` 🔒 (apertura concreta, «por cada producto que se compra», presencias en vez de ausencias) · `DIASPORA_01` 🔒 gana candado sobre las tres reglas —registro, envío y cuenta en el país natal— porque `FREQ_29` le ganaba por 0,017 y el modelo se quedaba con la lista de países · `FREQ_29` dice «su país **natal**», que era ambiguo para quien vive fuera. Detalle en el CHANGELOG.
-
-**v6.21** (29 ago 2026) — **`WHY_05` deja de suponer la ocupación.** *«Un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo»* le adivinaba el oficio a quien pregunta; ahora el villano es macroeconómico —*la estabilidad de la mayoría depende de variables que no controla*— y sirve al empleado, al independiente y al empresario por igual (Director, 29 ago). Detalle en el CHANGELOG.
 
 **v6.20** (27 ago 2026) — **Las sedes son información de socio, y el envío tiene dueño.** `FREQ_13` y `FREQ_07` conservan las nueve sedes como prueba de legalidad y sueltan la invitación a ir; nace `FREQ_36` (cómo llega el pedido). El directorio `FREQ_34` solo viaja en modo socio (filtro en el motor). Detalle en el CHANGELOG.
 
@@ -62,20 +62,20 @@ Lo físico no lo inventamos nosotros, y ahí está la solidez: las fábricas, el
 
 ### **WHY_02: "¿Cómo funciona el negocio?"**
 **[Índice]:** Cómo funciona el negocio y cómo se gana: de dónde sale la plata, qué se vende, quién hace el trabajo pesado. Para quien todavía no entiende de qué se trata.
-**[Concepto Nuclear]:** La pregunta literal es "cómo funciona"; la real es **"¿cómo voy yo? ¿cómo se gana?"**, y debajo está la sospecha de que un ingreso que no dependa de su presencia es fantasía. Se desarma **diciendo de dónde sale la plata en el segundo párrafo**, con ancla física frente a la nube: café que sale de una fábrica y plata que llega a un banco. ⚠️ **El orden es la mitad del argumento** (8 ago 2026): tesis → dinero → recurrencia → viabilidad → su rol → el cobro. La viabilidad va **agrupada y al final**; repartirla arriba y abajo interrumpe la curva justo donde el lector arma la ecuación. **Gano Excel y Queswa van juntos y en líneas propias** — verlos apilados es lo que convierte una explicación en un alivio. ⚠️ **El estante es premium de bienestar**: situarlos en el registro de lo corriente hace que el precio se mida contra un café de $25.000, y esa comparación la habríamos plantado nosotros. ⚠️ **La recompra se explica por RESULTADO** —el cliente vuelve a pedir el mismo—, no por que se agote. ⚠️ **Se entra directo a la mecánica:** quien pregunta esto ya se autodiagnosticó. ⚠️ El párrafo del dinero va **sin cifras**; los números viven en compensación. ⚠️ **El cobro se nombra por su REPETICIÓN** —*cada vez que su canal mueve producto*—: atarlo a una cadencia lo vuelve promesa de ingreso con fecha. La cadencia semanal es un hecho y vive en WHY_04.
+**[Concepto Nuclear]:** La pregunta literal es "cómo funciona"; la real es **"¿cómo voy yo? ¿cómo se gana?"**, y debajo está la sospecha de que un ingreso que no dependa de su presencia es fantasía. Se desarma **diciendo de dónde sale la plata en el segundo párrafo**, con ancla física frente a la nube: café que sale de una fábrica y plata que llega a un banco. ⚠️ **El orden es la mitad del argumento** (8 ago 2026): tesis → dinero → recurrencia → viabilidad → su rol → el cobro. La viabilidad va **agrupada y al final**; repartirla arriba y abajo interrumpe la curva justo donde el lector arma la ecuación. **Gano Excel y Queswa van juntos y en líneas propias** — verlos apilados es lo que convierte una explicación en un alivio. ⚠️ **El estante es premium de bienestar**: situarlos en el registro de lo corriente hace que el precio se mida contra un café de $25.000, y esa comparación la habríamos plantado nosotros. ⚠️ **El canal es el sustantivo; el producto, el respaldo** (Director, 31 ago 2026): un canal *de café* se define por la mercancía y se degrada; un canal *apoyado en* una línea premium conserva el ancla física sin volverla la identidad del negocio. El Ganoderma se nombra en esa primera frase —le da causa al «premium»— y por eso no se repite en el párrafo de la recompra. Lo que Gano pone se dice en presencias (*fábricas, inventario, logística*); nunca se enumera lo que el socio ya no hace. ⚠️ **La recompra se explica por RESULTADO** —el cliente vuelve a pedir el mismo—, no por que se agote. ⚠️ **Se entra directo a la mecánica:** quien pregunta esto ya se autodiagnosticó. ⚠️ El párrafo del dinero va **sin cifras**; los números viven en compensación. ⚠️ **El cobro se nombra por su REPETICIÓN** —*cada vez que su canal mueve producto*—: atarlo a una cadencia lo vuelve promesa de ingreso con fecha. La cadencia semanal es un hecho y vive en WHY_04.
 
 <verbatim_lock>
-Con gusto. Todo parte de algo concreto: usted monta su propio canal de distribución de café y suplementos premium.
+Con gusto. Todo parte de algo concreto: usted monta su propio canal de distribución, apoyado en una línea premium de café y suplementos con Ganoderma.
 
 La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.
 
-Y como llevan extracto de Ganoderma, quien los prueba nota la diferencia en su energía y no vuelve al genérico. Cuando se le acaba, pide más. Esa compra que se repite es la que le sostiene el ingreso.
+Quien los prueba nota la diferencia en su energía y no vuelve al genérico. Cuando se le acaba, pide más. Esa compra que se repite es la que le sostiene el ingreso.
 
 Del trabajo pesado nos encargamos nosotros:
 
-**Gano Excel** pone las fábricas, la investigación y la logística, con 30 años y presencia en más de 60 países: ellos fabrican, almacenan y despachan cada pedido. Usted maneja su canal desde el celular.
+**Gano Excel** pone las fábricas, el inventario y la logística, con 30 años y presencia en más de 60 países: ellos fabrican, almacenan y despachan cada pedido. Usted maneja su canal desde el celular.
 
-**Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta, sin que usted repita lo mismo a cada interesado.
+**Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta.
 
 A usted le quedan dos acciones: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.
 </verbatim_lock>

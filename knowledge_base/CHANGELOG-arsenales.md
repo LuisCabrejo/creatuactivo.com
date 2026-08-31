@@ -322,6 +322,18 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.24 — WHY_02: el canal es el sustantivo, el producto es el respaldo (31 ago 2026)
+
+El Director auditó la respuesta a *«¿cómo funciona?»* en la prueba del canal de WhatsApp y marcó dos cosas.
+
+**La primera frase definía el canal por la mercancía** —*canal de distribución de café y suplementos premium*— y eso lo degradaba: *«es como si Steve Jobs dijera que estamos en el negocio de los celulares»*. El café no se retira —el ancla física frente a la nube sigue siendo doctrina—, se **subordina**: *usted monta su propio canal de distribución, apoyado en una línea premium de café y suplementos con Ganoderma*. El canal es el sustantivo; el producto, el respaldo. El Ganoderma dicho ahí le da causa al *premium* antes de que el lector la pida, y por eso el párrafo de la recompra ya no lo repite: arranca en *quien los prueba nota la diferencia*.
+
+**La cola de la línea de Queswa** —*sin que usted repita lo mismo a cada interesado*— era peso, no valor: una lista de ausencias en miniatura que le hacía construir al lector la imagen de él repitiendo el discurso, para después tacharla. Se corta.
+
+**Y en la línea de Gano Excel, *la investigación* pasa a *el inventario*:** es un sustantivo que se ve, y dice en presencia lo que la propuesta del Director quería decir con *sin comprar inventario ni hacer entregas* — la forma de ausencias, que la v6.22 ya había sacado de este mismo fragmento.
+
+**Lo que la propuesta traía y NO entró**, con el motivo: la lista de ausencias (regla de presencias), la caída de *30 años* (evidencia verificable sobre adjetivo), *dos cosas* en lugar de *dos acciones*, y *le construye un ingreso recurrente* en lugar del canónico *le sostiene el ingreso*. Sincronizado con `respuestas-maestras.ts`; contrato de prefijo verificado. Este candado también lo sirve el chip 1 de la web por Camino A, así que el cambio no es solo del canal.
+
 ### v6.23 — FREQ_24 deja de responder un trámite (30 ago 2026)
 
 Auditoría del fragmento entero —pregunta, cabecera y cuerpo— pedida por el Director.

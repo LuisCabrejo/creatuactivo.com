@@ -266,7 +266,7 @@ export const RECHAZO_SALUD_AZUCAR =
   'cada una con su registro sanitario. Si cuida el azúcar en lo que consume, el Ganocafé Clásico ' +
   'le da café negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el ' +
   'extracto puro, sin nada más.\n\n' +
-  '¿Le cuento cómo es cada uno?';
+  '¿Le muestro el catálogo completo para que vea las presentaciones?';
 
 /** Molestia o condición común: la categoría del producto es la que responde, con orgullo. */
 export const RECHAZO_SALUD_ESTANDAR =
@@ -277,7 +277,7 @@ export const RECHAZO_SALUD_ESTANDAR =
   'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
   'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
   'pensadas para acompañar su día con energía y bienestar.\n\n' +
-  '¿Le cuento cómo es cada uno y qué lleva?';
+  '¿Le muestro el catálogo completo para que vea las presentaciones?';
 
 /** Tratamiento en curso: la última palabra la tiene su médico, y la composición se le da. */
 export const RECHAZO_SALUD_TRATAMIENTO =
@@ -327,7 +327,7 @@ export const RECHAZO_SALUD_AZUCAR_PREGUNTA =
   'Dicho esto, si lo que busca es cuidar el azúcar en lo que consume, el Ganocafé Clásico es café ' +
   'negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el extracto puro, ' +
   'sin nada más.\n\n' +
-  '¿Le cuento cómo es cada uno?';
+  '¿Le muestro el catálogo completo para que vea las presentaciones?';
 
 export const RECHAZO_SALUD_COMUN_PREGUNTA =
   'Buena pregunta.\n\n' +
@@ -337,7 +337,7 @@ export const RECHAZO_SALUD_COMUN_PREGUNTA =
   'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
   'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
   'pensadas para acompañar su día con energía y bienestar.\n\n' +
-  '¿Le cuento cómo es cada uno y qué lleva?';
+  '¿Le muestro el catálogo completo para que vea las presentaciones?';
 
 export const RECHAZO_SALUD_GRAVE_PREGUNTA =
   'Le respondo con cuidado, porque el tema lo merece.\n\n' +

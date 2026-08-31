@@ -473,7 +473,9 @@ export async function avisarPidePersona(
 // la tabla —nombre, presentación, precio— y el modelo no toca la cifra.
 
 export const RE_OFERTA_RUTINA = /¿Le cuento cómo integrarlo en su rutina\?\s*$/;
-export const RE_OFERTA_CADA_UNO = /¿Le cuento cómo es cada uno\?\s*$/;
+// El cierre de las respuestas de salud ofrece el catálogo: «cada uno» no dejaba
+// claro de qué se hablaba (Director, 29 ago 2026). El «sí» va al nodo del enlace.
+export const RE_OFERTA_CATALOGO_SALUD = /¿Le muestro el catálogo completo para que vea las presentaciones\?\s*$/;
 export const RE_OFERTA_FOTO_PRODUCTO = /¿Le muestro la foto\?\s*$/;
 
 /** El cierre de la respuesta de sede: invita a abrir el pedido con el que queda el código. */
@@ -506,16 +508,6 @@ export function seguimientoSalud(ultimoBot: string, texto: string): string | nul
       '¿Le muestro la foto?',
     ].join('\n');
   }
-  if (RE_OFERTA_CADA_UNO.test(ultimoBot) && capsulas) {
-    return [
-      'Con gusto.',
-      '',
-      `*${clasico.nombre}*: café negro premium con extracto de Ganoderma, sin azúcar ni crema. Un sobre en agua caliente, y la caja trae 30, lo que le alcanza para el mes. ${cop(clasico.precioCOP)}.`,
-      '',
-      `*${capsulas.nombre}*: el extracto puro, sin nada más. Una al día, y el frasco trae 90, lo que le cubre tres meses. ${cop(capsulas.precioCOP)}.`,
-      '',
-      '¿Cuál de los dos le llama más la atención?',
-    ].join('\n');
-  }
+
   return null;
 }

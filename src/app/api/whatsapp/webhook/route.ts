@@ -56,7 +56,7 @@ import {
   detectarPidePersona, respuestaPersona, avisarPidePersona,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
   nombreCorto, RE_PEDIDO_CARGADO,
-  seguimientoSalud, RE_OFERTA_FOTO_PRODUCTO, RE_OFERTA_PEDIDO_SEDE, esAceptacion,
+  seguimientoSalud, RE_OFERTA_FOTO_PRODUCTO, RE_OFERTA_PEDIDO_SEDE, RE_OFERTA_CATALOGO_SALUD, esAceptacion,
 } from '@/lib/wa-pedido';
 import {
   pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
@@ -1090,7 +1090,11 @@ async function procesarEntrante(body: any): Promise<void> {
     // /productos), así que la emite el webhook y no el modelo. En la prueba del
     // 22 ago el motor primero dijo que no tenía el enlace y después lo armó por
     // su cuenta; acertó, pero un slug distinto habría caído en la mini-landing.
-    if (pideEnlaceCatalogo(messageText)) {
+    // El «sí» al cierre de las respuestas de salud («¿le muestro el catálogo
+    // completo?») entra por aquí: el enlace lo emite el backend con el ref del socio.
+    const _ultimoBotCatalogo = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
+    const _aceptaCatalogoSalud = RE_OFERTA_CATALOGO_SALUD.test(_ultimoBotCatalogo) && esAceptacion(messageText);
+    if (pideEnlaceCatalogo(messageText) || _aceptaCatalogoSalud) {
       let slugCatalogo: string | null = socioQueEscribe?.slug ?? null;
       const refSocio = patrocinador?.constructorId ?? existingProspect?.device_info?.invited_by ?? null;
       if (!slugCatalogo && refSocio) {

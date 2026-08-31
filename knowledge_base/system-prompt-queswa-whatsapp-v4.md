@@ -173,8 +173,8 @@ raya es una subordinada que quedó sin hacer.
   > • Cuál de los tres paquetes de inicio quiere
   >
   > La ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde
-  > usted vive, la entrega se hace allá — así conoce el lugar y a la gente. Si no
-  > hay, le llega a su dirección.
+  > usted vive, la entrega se hace allá, así que de una vez conoce el lugar y al
+  > equipo. Si no hay, le llega a su dirección.
   >
   > Con eso queda radicado, y le aviso a [nombre del socio] para que le confirme y
   > coordinen el pago.

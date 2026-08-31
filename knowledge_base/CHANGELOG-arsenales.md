@@ -322,6 +322,18 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.23 — FREQ_24 deja de responder un trámite (30 ago 2026)
+
+Auditoría del fragmento entero —pregunta, cabecera y cuerpo— pedida por el Director.
+
+**La cabecera decía lo contrario de lo que pasa.** Afirmaba *«quien pregunta esto ya está adentro»*; en WhatsApp es al revés, porque Queswa es el **primer canal del prospecto**, y la pregunta aparece justo cuando entiende que el ingreso recurrente sale de una base de consumidores. No pide un instructivo: está midiendo si conseguir un cliente es fácil. El eje del cuerpo pasa del trámite a **quién lo hace** — *usted no diligencia nada*.
+
+**Salen la línea nacional de Gano (018000) y las oficinas abiertas al público.** A un socio le sirven; a un prospecto lo invitan a rodearnos —le pasó a Milena el 27 ago— y además contradicen lo que decimos de las sedes desde el 29, que atienden a quien ya tiene código. En la prueba del 29 las dos cosas salieron **dos turnos después** de haberle dicho a la persona justo lo contrario.
+
+**Un solo fragmento para dos intenciones, y medido.** *Inscribo a otro* e *inscribo a mí mismo* conviven aquí, y la línea *«da igual si es el suyo o el de alguien que usted trae»* sirve a las dos — de paso responde la ansiedad de *«no soy bueno con la tecnología»* sin nombrarla. ⚠️ La propuesta inicial era mover esos disparadores a `ACTIVACION_01`; **la medición la tumbó**: `ACTIVACION_01` no aparece en el top 6 de ninguna de las tres consultas, y *«qué opciones tengo para registrarme»* habría caído en `FREQ_30`, que tiene candado y habla de otra cosa. Ningún disparador se movió; solo salió del título *«¿dónde se diligencia el formulario?»*, que hoy no gana `FREQ_24` de todos modos. Después del cambio conserva las tres consultas con el mismo margen (0,580 · 0,658 · 0,578).
+
+**La diáspora no entra aquí:** quien vive fuera no puede recibir producto en su país, así que su entrada es la empresarial y no el código de cliente (Director).
+
 ### v6.22 — Sesión de reescritura sobre la prueba del canal (29 ago 2026)
 
 Trabajada respuesta por respuesta con el Director, contrastando cada una con la propuesta del agente Gemini. El criterio que se repitió: **se toma su arquitectura, nunca su contenido** — sus textos cruzan la línea INVIMA o inventan nomenclatura del plan (*margen*, *nivel*, *frentes*, *comisión por expansión*) justo donde suenan mejor.

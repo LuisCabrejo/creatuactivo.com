@@ -348,7 +348,7 @@ const EN_PROSA: Record<keyof DatosRadicacion, string> = {
 };
 
 const JUSTIFICACION_CIUDAD =
-  'La ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá — así conoce el lugar y a la gente. Si no hay, le llega a su dirección.';
+  'La ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá, así que de una vez conoce el lugar y al equipo. Si no hay, le llega a su dirección.';
 
 /** Cómo se le devuelve a la persona cada dato que ya entregó. */
 function ecoDe(clave: keyof DatosRadicacion, datos: DatosRadicacion): string | null {

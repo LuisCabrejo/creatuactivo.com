@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.22** (29 ago 2026) — **Sesión de reescritura con el Director sobre la prueba del canal.** `WHY_02` 🔒 (apertura concreta, «por cada producto que se compra», presencias en vez de ausencias) · `DIASPORA_01` 🔒 gana candado sobre las tres reglas —registro, envío y cuenta en el país natal— porque `FREQ_29` le ganaba por 0,017 y el modelo se quedaba con la lista de países · `FREQ_29` dice «su país **natal**», que era ambiguo para quien vive fuera. Detalle en el CHANGELOG.
+**Versión actual: v6.23** (30 ago 2026) — **`FREQ_24` deja de responder un trámite.** En WhatsApp quien pregunta cómo inscribir un cliente es casi siempre un prospecto midiendo si es fácil, no alguien pidiendo el instructivo: el eje pasa a ser **quién lo hace** —*usted no diligencia nada*— y salen la línea nacional de Gano y las oficinas abiertas al público, que invitaban a rodearnos y contradecían la doctrina de las sedes. Detalle en el CHANGELOG.
+
+**v6.22** (29 ago 2026) — **Sesión de reescritura con el Director sobre la prueba del canal.** `WHY_02` 🔒 (apertura concreta, «por cada producto que se compra», presencias en vez de ausencias) · `DIASPORA_01` 🔒 gana candado sobre las tres reglas —registro, envío y cuenta en el país natal— porque `FREQ_29` le ganaba por 0,017 y el modelo se quedaba con la lista de países · `FREQ_29` dice «su país **natal**», que era ambiguo para quien vive fuera. Detalle en el CHANGELOG.
 
 **v6.21** (29 ago 2026) — **`WHY_05` deja de suponer la ocupación.** *«Un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo»* le adivinaba el oficio a quien pregunta; ahora el villano es macroeconómico —*la estabilidad de la mayoría depende de variables que no controla*— y sirve al empleado, al independiente y al empresario por igual (Director, 29 ago). Detalle en el CHANGELOG.
 
@@ -584,19 +586,17 @@ En corto: el back office administra; yo converso con cada interesado.
 
 ---
 
-### **FREQ_24: "¿Cómo inscribo un Cliente VIP? / ¿Qué requiere un VIP para registrarse? / ¿Cómo se hace el registro de un nuevo código? / ¿Dónde se diligencia el formulario? / ¿Qué opciones tengo para registrarme? / No soy bueno con la tecnología, ¿cómo me registro?"**
-**[Índice]:** Cómo inscribo a alguien, cómo se registra un código nuevo, dónde se llena el formulario, qué datos piden. No soy bueno con la tecnología.
-**[Concepto Nuclear]:** **Quien pregunta esto ya está adentro, o está decidiendo entrar y quiere saber qué opciones tiene.** No es una pregunta de trámite: es de seguridad. Por eso se responde dando las **vías disponibles**, no un instructivo. ⚠️ **NOSOTROS lo registramos, y eso va primero.** Nunca se ofrece que la otra persona llene el formulario: trasladarle la fricción a quien acaba de decidir es lo contrario de todo lo que promete el modelo. Las opciones existen para tranquilizar, no para repartir trabajo. ⚠️ **La llamada se conserva a propósito** (Director, 10 ago 2026): para quien siente temor por lo tecnológico, poder hablar con una persona **es lo que destraba la decisión** — no es un canal de segunda, es la vía que le hace posible avanzar. ⚠️ Los cuatro datos son documento, correo, dirección de envío y teléfono. ⚠️ El canónico del perfil es **cliente preferencial**; *Cliente VIP* solo como alias si la persona lo usa. ⚠️ Las nueve ciudades salen de **FREQ_13**, donde están nombradas una por una. ⚠️ El primer pedido de 50 PV es **FREQ_09** y **COMP_PV_08**, a donde cierra.
+### **FREQ_24: "¿Cómo inscribo un Cliente VIP? / ¿Qué requiere un VIP para registrarse? / ¿Cómo se hace el registro de un nuevo código? / ¿Qué opciones tengo para registrarme? / No soy bueno con la tecnología, ¿cómo me registro?"**
+**[Índice]:** Cómo inscribo a alguien, cómo se registra un código nuevo, qué datos piden, qué opciones tengo para registrarme. No soy bueno con la tecnología.
+**[Concepto Nuclear]:** **En WhatsApp quien pregunta esto suele ser un PROSPECTO, no alguien que ya está adentro** (Director, 30 ago 2026): Queswa es su primer canal, y la pregunta aparece justo cuando entiende que el ingreso recurrente sale de una base de consumidores. Está midiendo **si conseguir un cliente es fácil**, no pidiendo un instructivo — por eso el eje es QUIÉN LO HACE, no el trámite. ⚠️ La línea *«da igual si es el suyo o el de alguien que usted trae»* es la que sirve a las dos intenciones que este fragmento gana: *inscribo a otro* e *inscribo a mí mismo*. Medido el 30 ago: separarlas dejaría huérfanas tres consultas —`ACTIVACION_01` no aparece en el top 6 de ninguna— y una caería en `FREQ_30`, que tiene candado y habla de otra cosa. ⚠️ **La diáspora NO entra aquí:** quien vive fuera no puede recibir producto en su país, así que su entrada es la empresarial, no el código de cliente. ⚠️ **Fuera la línea nacional de Gano y las oficinas abiertas al público** (30 ago): a un socio le sirven, pero este fragmento también le llega al prospecto, y ahí solo sirven para rodearnos — además de contradecir lo que decimos de las sedes, que atienden a quien ya tiene código. El detalle de cómo compran los clientes vive en `FREQ_33`, y ahí lleva el cierre.
 
-Se puede de varias formas, y en todas queda acompañado.
+Es de las cosas más sencillas del modelo: **usted no diligencia nada.**
 
-**Lo más sencillo es que lo registremos nosotros.** Usted solo entrega cuatro datos —documento de identidad, correo, dirección de envío y teléfono— y el código queda abierto.
+Me pasa los datos —documento, correo, dirección de envío y teléfono— y nosotros abrimos el código el mismo día. Da igual si es el suyo o el de alguien que usted trae; y si prefiere, lo armamos juntos por aquí, dato por dato.
 
-Si prefiere hacerlo hablando con alguien, Gano Excel tiene línea nacional gratuita en el **018000 184266** y línea en Bogotá en el **(601) 742 3399**.
+De ahí en adelante esa persona le compra directamente a Gano Excel, que cobra, empaca y despacha a su puerta. A usted le queda la comisión, y en su Dashboard ve cómo va su consumo.
 
-Y si le queda más cómodo en persona, hay oficinas abiertas al público en nueve ciudades del país.
-
-**Pregunta de seguimiento:** ¿Le muestro con qué productos se abre el código?
+**Pregunta de seguimiento:** ¿Le muestro cuánto se mueve con un canal de puros clientes?
 
 ---
 

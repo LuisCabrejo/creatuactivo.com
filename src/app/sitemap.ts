@@ -18,10 +18,10 @@ import { MetadataRoute } from 'next';
  *
  * Google Search Console leerá este sitemap para indexar todas las páginas públicas.
  *
- * PÁGINAS EXCLUIDAS (noindex - funnel interno):
- * - /reto-5-dias, /reto-5-dias/gracias → Squeeze/Bridge pages para ADS
- * - /nosotros → Epiphany Bridge, SEO en página personal Luis Cabrejo Parra
- * - /productos → Duplicado, SEO en /productos
+ * PÁGINAS EXCLUIDAS (noindex o herramientas internas):
+ * - /fundadores → registro por invitación 1-a-1, no se posiciona (decisión 14 ago 2026)
+ * - /presentacion-empresarial → herramienta interna 1-a-1, noindex
+ * - /nosotros, /12-niveles, /lexico, /planes → noindex
  *
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
  */
@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://creatuactivo.com';
 
   // Fecha de última modificación (actualizar cuando hagas cambios importantes)
-  const lastModified = new Date('2025-12-29');
+  const lastModified = new Date('2026-08-14');
 
   return [
     // ========================================
@@ -40,16 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'weekly',
       priority: 1.0,
-    },
-
-    // ========================================
-    // FUNDADORES (Alta prioridad - conversión)
-    // ========================================
-    {
-      url: `${baseUrl}/fundadores`,
-      lastModified,
-      changeFrequency: 'daily', // Cambia diariamente (contador de cupos)
-      priority: 0.95,
     },
 
     // ========================================
@@ -101,23 +91,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.85,
     },
-    {
-      url: `${baseUrl}/sistema/socio-corporativo`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-
-    // ========================================
-    // MODELO DE VALOR
-    // ========================================
-    {
-      url: `${baseUrl}/modelo-de-valor`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-
     // ========================================
     // PAQUETES (Conversión)
     // ========================================
@@ -126,17 +99,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.85,
-    },
-
-    // ========================================
-    // PRESENTACIÓN EMPRESARIAL
-    // (Herramienta interna, prioridad baja en SEO)
-    // ========================================
-    {
-      url: `${baseUrl}/presentacion-empresarial`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.5,
     },
   ];
 }

@@ -87,13 +87,6 @@ export default function ProductosLayout({
         "name": "CreaTuActivo.com"
       }
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "1250",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
     "image": `${siteUrl}/productos/bebidas/ganocafe-3-en-1-gano-excel-min.png`,
     "sku": "GANOCAFE-3EN1-20",
     "mpn": "SD2012-0002589"

@@ -349,6 +349,44 @@ export const RECHAZO_SALUD_GRAVE_PREGUNTA =
 /** La familia de la pregunta, a partir del término que disparó la entrada. */
 export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun';
 
+// ─── EL NÚCLEO LEGAL ─────────────────────────────────────────────────────────
+// Lo único de estas respuestas con exposición legal, y por eso lo único que se
+// congela. El acuse y el cierre dependen de lo que la persona dijo y deben
+// adaptarse (etapa 3, 29 ago 2026): el nodo entrega el núcleo, el modelo escribe
+// alrededor, y el webhook verifica que el núcleo llegó antes de enviar.
+// Estas constantes arman los textos fijos Y viajan en la instrucción al modelo,
+// así que no se pueden desincronizar.
+
+export const NUCLEO_PESO =
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como tratamientos médicos, así que lo que encontrará aquí es ' +
+  'nutrición para el día a día.';
+
+export const NUCLEO_DECLARA =
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
+  'palabra es su médico, que es quien conoce su caso.';
+
+export const NUCLEO_PREGUNTA =
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
+  'de salud, que es terreno de su médico.';
+
+/** El núcleo que corresponde. `grave` y la emergencia nunca se componen. */
+export function nucleoSalud(familia: FamiliaSalud, declara: boolean): string {
+  if (familia === 'peso') return NUCLEO_PESO;
+  return declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
+}
+
+/** Las familias cuya envoltura puede componer el modelo. Grave y emergencia, jamás. */
+export function saludSeCompone(familia: FamiliaSalud): boolean {
+  return familia === 'peso' || familia === 'azucar' || familia === 'comun' || familia === 'tratamiento';
+}
+
+/** El cierre único de las respuestas de salud compuestas. */
+export const CIERRE_SALUD = '¿Le muestro el catálogo completo para que vea las presentaciones?';
+
+
 export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun'; termino: string }): FamiliaSalud {
   if (clasificacion.nivel === 'grave') return 'grave';
   const t = clasificacion.termino;

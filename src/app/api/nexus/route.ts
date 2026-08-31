@@ -34,6 +34,7 @@ import {
   detectarEmergencia, clasificarPreguntaSalud, esRechazoSalud,
   RESPUESTA_EMERGENCIA, RECHAZO_SALUD_GRAVE, RECHAZO_SALUD_ESTANDAR, RECHAZO_SALUD_CORTO,
 } from '@/lib/wa-guardarrail-salud';
+import { NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, CIERRE_SALUD } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
@@ -4996,6 +4997,50 @@ Responda lo OTRO que preguntó en su mensaje, y cierre sobre ESE mismo producto
 o esa misma línea — no sobre otro.`;
       }
 
+      // ── SALUD COMPUESTA (etapa 3, 29 ago 2026) ─────────────────────────────
+      // El nodo entrega el NÚCLEO LEGAL —lo único con exposición— y aquí se le
+      // pide al modelo que escriba el acuse y el cierre alrededor, leyendo lo que
+      // la persona dijo. Antes las tres partes estaban congeladas, y el acuse
+      // estaba mal el 100 % de las veces (medido: 4 de 4 mensajes de salud
+      // PREGUNTAN, y el texto agradecía una confidencia que nadie hizo).
+      //
+      // ⚠️ `grave` y la emergencia NUNCA llegan aquí: siguen dictadas.
+      // ⚠️ El webhook verifica que el núcleo salió tal cual antes de enviar; si
+      //    el modelo lo parafrasea, se envía el texto fijo. Y el guardarraíl de
+      //    salida sigue de red (barrido del 29 ago: 0 escapes en 30 preguntas).
+      if (pageContext?.startsWith('whatsapp_salud_')) {
+        const partes = pageContext.split('_');
+        const fam = partes[2];
+        const declara = partes[3] === 'declara';
+        const nucleo = fam === 'peso' ? NUCLEO_PESO : declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
+        const oferta = fam === 'peso'
+          ? 'el *Ganocafé Clásico*: café negro premium, sin azúcar ni crema, que le da energía pareja desde temprano'
+          : fam === 'azucar'
+          ? 'el *Ganocafé Clásico* (café negro premium sin azúcar ni crema) y las *Cápsulas de Ganoderma* (el extracto puro, sin nada más)'
+          : 'la línea que Gano Excel fabrica desde hace treinta años, con registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma';
+        const acuse = declara
+          ? 'Contó algo suyo: reconozca esa confianza.'
+          : 'Preguntó por el producto y no contó nada de su salud: reconozca la pregunta. Hablarle de «su condición» o agradecerle una confidencia le atribuye algo que no dijo.';
+        return `
+🩺 RESPUESTA DE SALUD — el marco va literal, lo demás lo escribe usted
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Escriba exactamente tres párrafos y una pregunta, en este orden:
+
+1. UN ACUSE de una sola frase, escrito para ESTA persona y lo que ESTE mensaje
+   dice. ${acuse}
+
+2. ESTE PÁRRAFO, palabra por palabra, sin cambiar ni agregar nada:
+<verbatim_lock>
+${nucleo}
+</verbatim_lock>
+
+3. UN PÁRRAFO que abra con «Dicho esto,» y ofrezca ${oferta}. Diga lo que el
+   producto ES —composición, preparación, presentación—; sobre lo que una
+   persona va a sentir o conseguir, entregue el hecho y deje que ella concluya.
+
+4. Cierre exactamente con: ${CIERRE_SALUD}`;
+      }
+
       // Ya radicó su vinculación en el canal (nodo 2.5 del webhook → tabla
       // `pending_activations`). Sin esta señal el motor no lo sabía: ante un
       // «Perfecto» volvió a pedir los cuatro datos copiando el bloque espejo del
@@ -6011,6 +6056,19 @@ ${visitorCountry === 'CO'
       }
       console.warn('⚠️ [Pin dictado] No se pudo extraer el cuerpo del pin — se sigue con el modelo');
     }
+    // Salud compuesta: el núcleo legal es la única fuente del turno. Sin esto el
+    // arsenal recuperado (fichas de producto, ciencia del Ganoderma) compite con
+    // la instrucción y el modelo compone por su cuenta: en la prueba del 29 ago
+    // el núcleo no salió literal en ninguno de 6 casos, y en uno el pin del ESP-3
+    // se llevó el turno entero. Es el mismo remedio del pin de cifras.
+    const _saludCompuesta = pageContext?.startsWith('whatsapp_salud_');
+    if (_saludCompuesta) {
+      if (relevantDocuments.length) {
+        console.log(`🩺 [Salud compuesta] Se retiran ${relevantDocuments.length} documentos: el núcleo legal es la única fuente del turno`);
+      }
+      relevantDocuments = [];
+      arsenalParaCierre = '// Respuesta de salud compuesta — el núcleo legal es la única fuente de este turno.';
+    }
     if (_pinDictaEjemplo) {
       if (relevantDocuments.length) {
         console.log(`🔒→📌 [Pin gana] Ejemplo dictado activo — se retiran ${relevantDocuments.length} documentos y el contexto de arsenal (${arsenalParaCierre.length} chars)`);
@@ -6033,8 +6091,8 @@ ${getPageContextInstructions()}
 ${getMicroPromptCierre()}
 ${getCierreEstado4()}
 ${_pinCifras}
-${_pinDictaEjemplo ? '' : getTablasComisiones()}
-${_pinDictaEjemplo ? '' : getPinComposicionPaquetes()}
+${_pinDictaEjemplo || _saludCompuesta ? '' : getTablasComisiones()}
+${_pinDictaEjemplo || _saludCompuesta ? '' : getPinComposicionPaquetes()}
 ${_pinDictaEjemplo ? '' : getPinProducto()}
 ${conversationSummary}<prospect_state>
 ${mergedProspectData.name ? `  <nombre>${mergedProspectData.name}</nombre>` : '  <nombre>no_capturado</nombre>'}

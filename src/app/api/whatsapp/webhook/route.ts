@@ -82,6 +82,8 @@ import {
   RECHAZO_SALUD_ESTANDAR,
   rechazoSaludPorFamilia,
   esRechazoSaludComun,
+  saludSeCompone,
+  nucleoSalud,
 } from '@/lib/wa-guardarrail-salud';
 import { detectarPromesaDeIngreso, detectarModeloInventado } from '@/lib/wa-guardarrail-negocio';
 
@@ -774,6 +776,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // detectores en src/lib/wa-guardarrail-salud.ts. Los botones de la apertura y
     // el cierre de radicación nunca matchean estos patrones, así que el resto del
     // flujo determinístico no se altera.
+    // Si se llena, el turno sigue al motor con el núcleo legal y su respaldo.
+    let saludCompuesta: { familia: string; declara: boolean; respaldo: string; nucleo: string } | null = null;
+
     const emergencia = detectarEmergencia(messageText);
     if (emergencia) {
       console.error(`🆘 [WA Guardrail Salud] EMERGENCIA detectada ("${emergencia}") — ${phoneNumber}. Derivado a línea 123, cero producto.`);
@@ -794,9 +799,19 @@ async function procesarEntrante(body: any): Promise<void> {
       const { familia, texto: rechazo, declara } = rechazoSaludPorFamilia(saludEntrada, reincide, messageText);
 
       console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${familia}, ${declara ? 'declara' : 'pregunta'}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
-      await sendWhatsAppMessage(phoneNumber, rechazo);
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
-      return;
+
+      // ETAPA 3 (29 ago 2026): en las familias seguras el turno NO se corta. El
+      // motor recibe el núcleo legal para reproducirlo literal y escribe el acuse
+      // y el cierre leyendo lo que la persona dijo. `grave`, la reincidencia y la
+      // emergencia siguen dictadas: ahí la respuesta correcta no depende del
+      // contexto, y componer solo agrega riesgo.
+      if (saludSeCompone(familia) && !reincide) {
+        saludCompuesta = { familia, declara, respaldo: rechazo, nucleo: nucleoSalud(familia, declara) };
+      } else {
+        await sendWhatsAppMessage(phoneNumber, rechazo);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
+        return;
+      }
     }
 
     // ─── 1.45 ¿Es el dueño de un canal, y no un prospecto? ────────────────────
@@ -1712,7 +1727,9 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
     // trabajar el suyo. Sin esta señal el motor responde con argumentos de venta a
     // quien ya compró.
-    const pageContext = fotoEnviada
+    const pageContext = saludCompuesta
+      ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}`
+      : fotoEnviada
       ? 'whatsapp_foto_enviada'
       : (!existingProspect && _traePregunta)
       ? 'whatsapp_primer_contacto'
@@ -1789,6 +1806,23 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // no es el nuestro (economía de creadores), NO se envía: en Colombia la Ley
     // 1480 hace vinculante toda condición ofrecida al consumidor, y el precedente
     // Air Canada (2024) confirma que la empresa responde por lo que invente su IA.
+    // ─── 3.45 El núcleo legal tiene que haber salido LITERAL ─────────────────
+    // La envoltura la compone el modelo (etapa 3), pero el párrafo con exposición
+    // legal va palabra por palabra. Si lo parafraseó, se descarta lo compuesto y
+    // se envía el texto fijo — el mismo patrón del guardarraíl: se reemplaza, no
+    // se corrige ni se reintenta. La comparación normaliza espacios porque el
+    // formateador de WhatsApp puede reflowear, nunca reescribir.
+    if (saludCompuesta) {
+      const plano = (t: string) => t.replace(/\s+/g, ' ').trim();
+      if (!plano(queswaReply).includes(plano(saludCompuesta.nucleo))) {
+        console.error(`🩺 [WA Salud] El núcleo legal no salió literal — se envía el texto fijo. Compuesto: "${queswaReply.slice(0, 180)}"`);
+        await sendWhatsAppMessage(phoneNumber, saludCompuesta.respaldo, { wamid });
+        await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, saludCompuesta.respaldo);
+        return;
+      }
+      console.log(`🩺 [WA Salud] Respuesta compuesta con el núcleo intacto (${saludCompuesta.familia}, ${saludCompuesta.declara ? 'declara' : 'pregunta'})`);
+    }
+
     const violacion = detectarModeloInventado(queswaReply);
     if (violacion) {
       console.error(`🚨 [WA Guardrail] BLOQUEADO — término "${violacion}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);

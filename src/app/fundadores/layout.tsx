@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: 'Fundadores | CreaTuActivo',
   description: 'Un núcleo de 15 socios estratégicos para la fase de cimentación de CreaTuActivo. No es orden de llegada: es una conversación.',
     authors: [{ name: 'CreaTuActivo.com' }],
+  // Página de registro por invitación 1-a-1 — no se posiciona en buscadores (decisión 14 ago 2026)
+  robots: {
+    index: false,
+    follow: true,
+  },
   openGraph: {
     type: 'website',
     locale: 'es_CO',

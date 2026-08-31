@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     creator: '@creatuactivo',
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 };
 

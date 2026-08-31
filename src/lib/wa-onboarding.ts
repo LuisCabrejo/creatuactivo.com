@@ -253,11 +253,11 @@ export async function identificarSocio(
  */
 export function saludoDeSocio(nombreCorto: string, slug: string): string {
   return (
-    `Hola${nombreCorto ? ', ' + nombreCorto : ''}. Aquí estoy.\n\n` +
-    `Su enlace es este:\n${enlaceDeCanal(slug)}\n\n` +
-    `Puedo ayudarle con lo que necesite de su canal: redactarle el mensaje para alguien en concreto, ` +
-    `contarle cómo va cada persona que ha llegado, o resolverle una duda del plan.\n\n` +
-    `¿A quién le va a escribir hoy?`
+    `Hola${nombreCorto ? ', ' + nombreCorto : ''}. Un gusto saludarle.\n\n` +
+    `Aquí tiene su enlace a la mano:\n${enlaceDeCanal(slug)}\n\n` +
+    `¿En qué nos enfocamos hoy? Podemos redactar un mensaje a la medida para alguien ` +
+    `en concreto, revisar cómo va cada persona que ha llegado, o resolver cualquier ` +
+    `detalle del plan.`
   );
 }
 

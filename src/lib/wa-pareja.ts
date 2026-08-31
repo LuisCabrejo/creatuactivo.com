@@ -13,7 +13,10 @@
  *  T1 — SE OFRECE el enlace, no se entrega (Director, 24 ago): «si quiere, le
  *       genero ahora mismo un enlace para que se lo comparta… ¿se lo genero?».
  *       El enlace se genera solo si la persona acepta.
- *  T2 — Si acepta: EL ENLACE PARA LA PAREJA + el cierre por opciones. Es un
+ *  T1b — Si acepta: se PREGUNTA el nombre de la pareja (Director, 31 ago 2026)
+ *       — así a quien llega se la recibe por su nombre.
+ *  T2 — Con el nombre (o sin él, si no se deja leer): EL ENLACE + el cierre
+ *       por opciones. Es un
  *       wa.me al número de Queswa con texto pre-llenado —la misma pieza que ya
  *       usa el enlace del socio— con una palabra más: «soy la pareja de
  *       {nombre}». Al tocarlo ella escribe primero (ventana de 24 h abierta,
@@ -35,8 +38,11 @@
  * prefiere empezar?» a secas le genera fricción (Director, 24 ago). Solo cambia
  * la primera línea, que reconoce de parte de quién viene.
  *
- * ⚠️ El enlace lleva el nombre de QUIEN ESCRIBE, nunca el de la pareja: no se
- * pregunta cómo se llama ella. Y «lo revisen» sirve para esposa o esposo.
+ * ⚠️ El enlace lleva LOS DOS nombres cuando se tienen: el de quien escribe y el
+ * de su pareja. Queswa PREGUNTA el de la pareja antes de generar el enlace
+ * (Director, 31 ago 2026 — revierte la regla anterior de no preguntarlo). Si el
+ * nombre no se deja leer, el enlace sale igual: el dato nunca es peaje. Y «lo
+ * revisen» sirve para esposa o esposo.
  */
 
 import { sendTemplate } from '@/lib/wa-channel';
@@ -82,11 +88,19 @@ function nombreCorto(nombre?: string): string {
  * del socio (atribución) y «soy la pareja de {nombre}» (reconocimiento).
  * ⚠️ Sin emoji en el texto: wa.me destruye los de 4 bytes.
  */
-export function enlaceParaPareja(slugSocio: string | null | undefined, nombreProspecto?: string): string {
+export function enlaceParaPareja(
+  slugSocio: string | null | undefined,
+  nombreProspecto?: string,
+  nombrePareja?: string,
+): string {
   const nombre = nombreCorto(nombreProspecto);
+  const pareja = nombreCorto(nombrePareja);
   const partes = ['Hola Queswa'];
   if (slugSocio) partes.push(`vengo del enlace de ${slugSocio}`);
-  partes.push(nombre ? `soy la pareja de ${nombre}` : 'vengo de parte de mi pareja, que ya habló con usted');
+  if (pareja && nombre) partes.push(`soy ${pareja}, la pareja de ${nombre}`);
+  else if (pareja) partes.push(`soy ${pareja}, mi pareja ya habló con usted`);
+  else if (nombre) partes.push(`soy la pareja de ${nombre}`);
+  else partes.push('vengo de parte de mi pareja, que ya habló con usted');
   const texto = partes.join(', ');
   return `https://wa.me/${NUMERO_QUESWA}?text=${encodeURIComponent(texto)}`;
 }
@@ -141,7 +155,14 @@ export function aceptaEnlace(mensaje: string): boolean {
   return /^(s[ií]|dale|listo|ok(ay)?|claro|bueno|de una|perfecto|vale|por favor|porfa|genial|h[aá]galo|h[aá]gale|gen[eé]r[ae]lo|s[ií],? por favor|s[ií] claro|claro que s[ií]|me parece|de acuerdo)(?![a-z])/.test(t);
 }
 
-/** T2 — aceptó: el enlace y el cierre por opciones. */
+/** T1b — aceptó: antes de generar el enlace se pregunta el nombre de la pareja. */
+export function textoPedirNombrePareja(): string {
+  return 'Con gusto. ¿Cómo se llama su pareja? Así, cuando me escriba, la recibo por su nombre.';
+}
+
+export const RE_PIDIO_NOMBRE_PAREJA = /¿C[oó]mo se llama su pareja\?/i;
+
+/** T2 — con el nombre (o sin él): el enlace y el cierre por opciones. */
 export function textoEntregaEnlace(enlace: string): string {
   return [
     'Aquí está — se lo puede reenviar tal cual:',
@@ -160,14 +181,25 @@ export function textoSinEnlace(): string {
 // ─── 3. La pareja llega ───────────────────────────────────────────────────────
 
 /**
- * «soy la pareja de Luis Abner» / «vengo de parte de mi pareja». Devuelve el
- * nombre de quien la envió, si viene en el texto.
+ * «soy Marcela, la pareja de Luis Abner» / «soy la pareja de Luis Abner» /
+ * «vengo de parte de mi pareja». Devuelve el nombre de quien la envió y —si el
+ * enlace lo traía— el de quien llega, para recibirla por su nombre.
  */
-export function detectarLlegadaDePareja(mensaje: string): { nombre: string | null } | null {
+export function detectarLlegadaDePareja(
+  mensaje: string,
+): { nombre: string | null; nombrePareja: string | null } | null {
   const t = (mensaje || '').replace(/\s+/g, ' ').trim();
-  const m = t.match(/soy (la|el) (pareja|esposa|esposo|se[ñn]ora|marido|mujer) de ([A-Za-zÁÉÍÓÚÑáéíóúñ]+(?: [A-Za-zÁÉÍÓÚÑáéíóúñ]+)?)/i);
-  if (m) return { nombre: m[3].trim() };
-  if (/vengo de parte de mi (pareja|esposa|esposo|marido|mujer)/i.test(t)) return { nombre: null };
+  const VINCULO = '(?:pareja|esposa|esposo|se[ñn]ora|marido|mujer)';
+  const NOMBRE = '[A-Za-zÁÉÍÓÚÑáéíóúñ]+(?: [A-Za-zÁÉÍÓÚÑáéíóúñ]+)?';
+  // El formato viejo primero — sin nombre propio — para que «soy la pareja de X»
+  // nunca capture «la» como nombre.
+  let m = t.match(new RegExp(`soy (?:la|el) ${VINCULO} de (${NOMBRE})`, 'i'));
+  if (m) return { nombre: m[1].trim(), nombrePareja: null };
+  m = t.match(new RegExp(`soy (${NOMBRE}),? (?:la|el) ${VINCULO} de (${NOMBRE})`, 'i'));
+  if (m) return { nombre: m[2].trim(), nombrePareja: m[1].trim() };
+  m = t.match(new RegExp(`soy (${NOMBRE}), mi pareja ya habl[oó] con usted`, 'i'));
+  if (m) return { nombre: null, nombrePareja: m[1].trim() };
+  if (/vengo de parte de mi (pareja|esposa|esposo|marido|mujer)/i.test(t)) return { nombre: null, nombrePareja: null };
   return null;
 }
 

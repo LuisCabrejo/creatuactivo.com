@@ -28,6 +28,7 @@ export async function GET(
   const codigo = (params.codigo || '').replace(/\D/g, '');
   let slug: string | null = null;
   let nombre: string | undefined;
+  let nombrePareja: string | undefined;
 
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -37,14 +38,19 @@ export async function GET(
     const fp = `wa_${codigo}`;
     try {
       const [rProspect, rData] = await Promise.all([
-        fetch(`${SUPABASE_URL}/rest/v1/prospects?fingerprint_id=eq.${fp}&select=constructor_id&limit=1`, { headers }),
+        fetch(`${SUPABASE_URL}/rest/v1/prospects?fingerprint_id=eq.${fp}&select=constructor_id,device_info&limit=1`, { headers }),
         fetch(`${SUPABASE_URL}/rest/v1/prospect_data?fingerprint_id=eq.${fp}&select=name&limit=1`, { headers }),
       ]);
       // prospects.constructor_id guarda el UUID de private_users; la llave de
       // texto de constructor_slugs (luis-cabrejo-1288) vive en private_users.
       // Es el mismo puente que hace resolverSocioDelProspecto() en el webhook.
-      const userId = rProspect.ok ? (await rProspect.json())?.[0]?.constructor_id : null;
-      nombre = rData.ok ? (await rData.json())?.[0]?.name ?? undefined : undefined;
+      const filaProspect = rProspect.ok ? (await rProspect.json())?.[0] : null;
+      const userId = filaProspect?.constructor_id ?? null;
+      // El nombre de la pareja lo guardó el webhook al preguntar por él
+      // (update_prospect_data mergea los campos sueltos en device_info).
+      nombrePareja = filaProspect?.device_info?.pareja_nombre ?? undefined;
+      nombre = (rData.ok ? (await rData.json())?.[0]?.name : undefined)
+        ?? filaProspect?.device_info?.name ?? undefined;
       if (userId) {
         const rUser = await fetch(
           `${SUPABASE_URL}/rest/v1/private_users?id=eq.${encodeURIComponent(userId)}&select=constructor_id&limit=1`,
@@ -64,5 +70,5 @@ export async function GET(
     }
   }
 
-  return NextResponse.redirect(enlaceParaPareja(slug, nombre), 302);
+  return NextResponse.redirect(enlaceParaPareja(slug, nombre, nombrePareja), 302);
 }

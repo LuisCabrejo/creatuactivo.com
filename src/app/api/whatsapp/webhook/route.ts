@@ -31,6 +31,7 @@ import {
 } from '@/lib/wa-apertura';
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
+  textoPedirNombrePareja, RE_PIDIO_NOMBRE_PAREJA,
   textoEntregaEnlace, textoSinEnlace, enlaceCortoPareja, botOfrecioPlazo, interpretarPlazo,
   textoConfirmacionPlazo, fechaDelPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
 } from '@/lib/wa-pareja';
@@ -919,7 +920,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // pregunta abierta a quien apenas está viendo la información (Director).
     const _llegaPareja = !existingProspect ? detectarLlegadaDePareja(messageText) : null;
     if (_llegaPareja) {
-      const aperturaPareja = aperturaParaPareja(patrocinador?.nombre, _llegaPareja.nombre, contactName);
+      // Si el enlace traía su nombre («soy Marcela, la pareja de…»), la
+      // apertura la saluda con él — el perfil de WhatsApp es el respaldo.
+      const aperturaPareja = aperturaParaPareja(patrocinador?.nombre, _llegaPareja.nombre, _llegaPareja.nombrePareja ?? contactName);
       const enviadoP = await sendReplyButtons(phoneNumber, aperturaPareja, APERTURA_OPCIONES);
       if (!enviadoP.ok) {
         const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
@@ -1130,12 +1133,35 @@ async function procesarEntrante(body: any): Promise<void> {
       // «sí» caía al motor, que el 31 ago inventó un enlace que no existe
       // (creatuactivo.com/s/…). La aceptación busca la oferta en los últimos
       // turnos; la negativa solo aplica si la oferta fue el turno anterior.
+      } else if (RE_PIDIO_NOMBRE_PAREJA.test(_ultimoBotPareja)) {
+        // El turno del NOMBRE DE LA PAREJA (Director, 31 ago 2026): se guarda
+        // en la ficha (device_info.pareja_nombre) y la ruta /s/ lo pone en el
+        // texto del enlace — ella llega diciendo su nombre y se la recibe con
+        // él. Si el mensaje no trae un nombre legible, el enlace sale igual:
+        // el dato nunca es peaje. Solo un «no» claro cierra sin enlace.
+        const _nombreParejaDado = leerNombrePedido(messageText);
+        if (!_nombreParejaDado && /(?<![a-záéíóúñ])(no|mejor no|todav[ií]a|despu[eé]s|luego|yo le aviso)(?![a-záéíóúñ])/i.test(messageText)) {
+          respuestaPareja = textoSinEnlace();
+          plazoParaAviso = 'sin enlace, sin fecha';
+        } else {
+          if (_nombreParejaDado) {
+            try {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              await (supabase as any).rpc('update_prospect_data', {
+                p_fingerprint_id: waFingerprint,
+                p_data: { pareja_nombre: _nombreParejaDado },
+                p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+              });
+            } catch { /* best-effort */ }
+          }
+          respuestaPareja = textoEntregaEnlace(enlaceCortoPareja(phoneNumber));
+        }
       } else if (botOfrecioEnlace(_ultimoBotPareja) || (enlaceOfrecidoReciente(historial) && aceptaEnlace(messageText))) {
         if (aceptaEnlace(messageText)) {
-          // El enlace corto (creatuactivo.com/s/{tel}): la ruta /s/[codigo] lo
-          // resuelve al wa.me real en el momento del clic, leyendo nombre y
-          // socio de la base — no hace falta armarlo aquí.
-          respuestaPareja = textoEntregaEnlace(enlaceCortoPareja(phoneNumber));
+          // Antes de generar el enlace se pregunta el nombre de la pareja
+          // (Director, 31 ago 2026); la entrega ocurre en el turno siguiente,
+          // con el enlace corto que /s/[codigo] resuelve en el clic.
+          respuestaPareja = textoPedirNombrePareja();
         } else if (/(?<![a-záéíóúñ])(no|todav[ií]a|a[uú]n|despu[eé]s|luego|yo le aviso|mejor no)(?![a-záéíóúñ])/i.test(messageText)) {
           respuestaPareja = textoSinEnlace();
           plazoParaAviso = 'sin enlace, sin fecha';

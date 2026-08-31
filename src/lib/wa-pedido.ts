@@ -242,7 +242,9 @@ export function leerNombrePedido(texto: string): string | null {
   const palabras = t.split(/\s+/).map((p) => p.replace(/[^\p{L}'-]/gu, '')).filter(Boolean);
   if (palabras.length < 1 || palabras.length > 5) return null;
   if (palabras.some((p) => p.length < 2)) return null;
-  if (palabras.length === 1 && /^(si|s[ií]|no|ok|dale|listo|bueno|claro|gracias|vale)$/i.test(palabras[0])) return null;
+  // Ninguna palabra puede ser una muletilla de respuesta: «mejor no» son dos
+  // palabras con letras y sin esto pasaba como el nombre «Mejor No».
+  if (palabras.some((p) => /^(si|s[ií]|no|ok|dale|listo|bueno|claro|gracias|vale|mejor|despu[eé]s|luego|ahora|todav[ií]a|a[uú]n|nada|ninguno|ninguna)$/i.test(p))) return null;
   return palabras.map((p) => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
 }
 

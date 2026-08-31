@@ -258,6 +258,24 @@ function nombreSocioCorto(nombre?: string): string | undefined {
  * determina (`sexoDelNombre`). Si no, la forma neutra: equivocar el trato es
  * peor que omitirlo.
  */
+/**
+ * ¿El mensaje es SOLO un saludo? «Hola», «buenas tardes», «hola queswa», «hola
+ * de nuevo». No hay nada que responder: lo que toca es abrir, o recibir si ya
+ * nos había escrito. Un saludo seguido de cualquier otra cosa NO cuenta — lo
+ * que sigue manda.
+ *
+ * Es el discriminador del recibimiento de quien vuelve, y tiene que ser
+ * POSITIVO: el 31 ago 2026 ese nodo se abría con «no es socio, no trae
+ * volición, no trae pregunta», y así cualquier respuesta corta de una
+ * conversación viva —un «sí» a «¿Quiere ver cómo se gana?», una cédula, una
+ * ciudad en mitad de la radicación— recibía «Qué bueno que vuelva» y los tres
+ * botones.
+ */
+export function esSoloSaludo(texto: string): boolean {
+  return /^(hola|buenas|buenos d[ií]as|buenas tardes|buenas noches|hey|qu[eé] tal|saludos|buen d[ií]a)(\s*[,.!¡]*\s*(queswa|de nuevo|otra vez|buenas|buen d[ií]a|buenos d[ií]as|buenas tardes|buenas noches|qu[eé] tal))*[\s.,!¡]*$/i
+    .test(texto.trim());
+}
+
 export function aperturaRetorno(nombreProspecto?: string): string {
   const nombre = nombreUtil(nombreProspecto);
   const sexo = sexoDelNombre(nombre ?? undefined);

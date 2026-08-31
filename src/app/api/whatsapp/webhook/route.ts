@@ -25,6 +25,7 @@ import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
   aperturaRetorno,
+  esSoloSaludo,
   APERTURA_OPCIONES,
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
@@ -891,8 +892,7 @@ async function procesarEntrante(body: any): Promise<void> {
     //
     // "Hola" a secas, o el saludo del enlace, SÍ reciben la apertura: ahí no hay
     // nada que responder y los botones son lo que baja la barrera.
-    const _soloSaludo = /^(hola|buenas|buenos d[ií]as|buenas tardes|buenas noches|hey|qu[eé] tal|saludos|buen d[ií]a)[\s.,!¡]*$/i
-      .test(messageText.trim());
+    const _soloSaludo = esSoloSaludo(messageText);
     // Quien pega el ENLACE del socio está llegando, no preguntando (prueba del
     // 22 ago: `creatuactivo.com/luis-cabrejo/queswa` pegado como primer mensaje
     // recibió la biografía del fundador en vez de la apertura, porque la sílaba
@@ -943,7 +943,12 @@ async function procesarEntrante(body: any): Promise<void> {
     // el modelo improvisaba: el 31 ago inventó «Luis ya me comentó que podía
     // escribirme» —falso, y retirado del copy justamente por eso— y adivinó el
     // género con un «Bienvenida». Es un caso común: cualquiera que vuelve.
-    if (existingProspect && !socioQueEscribe && !llegaDecidido && !_traePregunta) {
+    //
+    // ⚠️ La condición es POSITIVA —un saludo, o el enlace del socio— y no
+    // «todo lo que no sea pregunta»: con la forma negativa, cualquier respuesta
+    // corta de una conversación viva («sí» a la pregunta de seguimiento, una
+    // cédula, una ciudad) recibía el recibimiento y los botones (31 ago 2026).
+    if (existingProspect && !socioQueEscribe && !llegaDecidido && (_soloSaludo || _vieneDelEnlace)) {
       const retorno = aperturaRetorno(contactName);
       const enviadoR = await sendReplyButtons(phoneNumber, retorno, APERTURA_OPCIONES);
       if (!enviadoR.ok) {

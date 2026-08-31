@@ -786,25 +786,19 @@ export default function CatalogoEstrategico() {
     )
   }
 
+  // El pedido va al chat de QUESWA (el WABA), no al número personal del socio:
+  // quien venía conversando por WhatsApp continúa en el MISMO hilo, y el
+  // webhook carga el pedido y le avisa al socio con su plantilla
+  // (src/lib/wa-pedido.ts). El texto va en el formato que ese webhook sabe
+  // leer («Quiero pedir: 2 x …»), sin precios — los pone el canal con su
+  // tabla, así un precio viejo cacheado en esta página no viaja en el mensaje.
+  // «vengo del enlace de {ref}» atribuye al socio a quien llega sin historial.
   const generateWhatsAppMessage = () => {
     if (cart.length === 0) return ""
-
-    const distributorName = distributor?.nombre || 'Luis Cabrejo'
-
-    let message = `¡Hola ${distributorName}! 👋\n\nMe interesa realizar este pedido desde CreaTuActivo.com:\n\n`
-
-    cart.forEach(item => {
-      message += `• ${item.name} - Cantidad: ${item.quantity} - $${(item.price * item.quantity).toLocaleString('es-CO')} COP\n`
-    })
-
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-
-    message += `\n💰 Total productos: $${subtotal.toLocaleString('es-CO')} COP`
-    message += `\n🚚 Envío: por definir según mi ciudad y el volumen del pedido`
-    message += `\n\n¿Me ayuda a coordinar el costo de envío para confirmar?`
-    message += `\n\nGracias! 🙏`
-
-    return encodeURIComponent(message)
+    const ref = typeof window !== 'undefined' ? localStorage.getItem('constructor_ref') : null
+    const lineas = cart.map(item => `${item.quantity} x ${item.name}`).join(', ')
+    const saludo = ref ? `Hola Queswa, vengo del enlace de ${ref}.` : 'Hola Queswa.'
+    return encodeURIComponent(`${saludo} Quiero pedir: ${lineas}.`)
   }
 
   const handleOverlayClick = (e: React.MouseEvent, closeFunction: () => void) => {
@@ -1298,7 +1292,7 @@ export default function CatalogoEstrategico() {
                   </div>
 
                   <a
-                    href={`https://wa.me/${(distributor?.whatsapp || '+573215193909').replace(/\D/g, '')}?text=${generateWhatsAppMessage()}`}
+                    href={`https://wa.me/573215193909?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="whatsapp-hybrid"

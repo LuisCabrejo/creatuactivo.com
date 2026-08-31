@@ -48,7 +48,9 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     presentacion: 'caja de 20 sobres',
     invima: 'SD2012-0002589',
     imagen: '/productos/bebidas/ganocafe-3-en-1-gano-excel-min.png',
-    alias: ['3 en 1', '3en1', 'tres en uno', 'ganocafe 3', 'cafe 3 en 1'],
+    // «El capuchino» es como mucha gente pide el 3 en 1 (Director, 31 ago 2026):
+    // lleva crema y azúcar, y ese es el nombre de cafetería que le queda.
+    alias: ['3 en 1', '3en1', 'tres en uno', 'ganocafe 3', 'cafe 3 en 1', 'capuchino', 'capucino', 'cappuccino', 'capuccino'],
   },
   {
     slug: 'ganocafe-clasico',
@@ -111,7 +113,9 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     presentacion: 'caja de 20 sobres',
     invima: 'NSA-0012961-2022',
     imagen: '/productos/bebidas/gano-schokolade-gano-excel-min.png',
-    alias: ['schokolade', 'chocolate', 'gano chocolate'],
+    // 'schokolad' (sin la e) también casa con «Schokoladde», la doble d con la
+    // que el catálogo web escribe el nombre — es lo que llega del carrito.
+    alias: ['schokolade', 'schokolad', 'chocolate', 'gano chocolate'],
   },
   {
     slug: 'bebida-colageno-reskine',
@@ -219,7 +223,8 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     presentacion: 'caja de cápsulas',
     invima: 'NSA-0012955-2022',
     imagen: '/productos/luvoco/luvoco-suave-gano-excel-min.png',
-    alias: ['luvoco suave', 'capsula suave'],
+    // 'capsulas suave' con s: el carrito web manda «LUVOCO CÁPSULAS SUAVE x15».
+    alias: ['luvoco suave', 'capsula suave', 'capsulas suave'],
   },
   {
     slug: 'luvoco-medio',
@@ -228,7 +233,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     presentacion: 'caja de cápsulas',
     invima: 'NSA-0012954-2022',
     imagen: '/productos/luvoco/luvoco-medio-gano-excel-min.png',
-    alias: ['luvoco medio', 'capsula media'],
+    alias: ['luvoco medio', 'capsula media', 'capsulas medio'],
   },
   {
     slug: 'luvoco-fuerte',
@@ -237,7 +242,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     presentacion: 'caja de cápsulas',
     invima: 'NSA-0012953-2022',
     imagen: '/productos/luvoco/luvoco-fuerte-gano-excel-min.png',
-    alias: ['luvoco fuerte', 'capsula fuerte'],
+    alias: ['luvoco fuerte', 'capsula fuerte', 'capsulas fuerte'],
   },];
 
 /** Sin tildes, minúsculas y sin puntuación: como llega un mensaje de WhatsApp. */

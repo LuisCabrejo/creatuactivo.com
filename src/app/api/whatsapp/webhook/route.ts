@@ -30,7 +30,7 @@ import {
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
 import {
-  detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace,
+  detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
   textoEntregaEnlace, textoSinEnlace, enlaceParaPareja, botOfrecioPlazo, interpretarPlazo,
   textoConfirmacionPlazo, fechaDelPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
 } from '@/lib/wa-pareja';
@@ -50,8 +50,9 @@ import {
 import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
 import {
-  detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido,
-  pedirProductos, noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido,
+  detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
+  pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
+  noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido,
   detectarPreguntaEnvio, respuestaEnvio,
   detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
   esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE,
@@ -948,7 +949,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // «todo lo que no sea pregunta»: con la forma negativa, cualquier respuesta
     // corta de una conversación viva («sí» a la pregunta de seguimiento, una
     // cédula, una ciudad) recibía el recibimiento y los botones (31 ago 2026).
-    if (existingProspect && !socioQueEscribe && !llegaDecidido && (_soloSaludo || _vieneDelEnlace)) {
+    // …y nunca sobre un mensaje que trae un pedido: el carrito del catálogo web
+    // llega con «vengo del enlace de …. Quiero pedir: …», y eso es una compra,
+    // no un regreso.
+    if (existingProspect && !socioQueEscribe && !llegaDecidido && (_soloSaludo || _vieneDelEnlace) && !detectarIntencionCompra(messageText)) {
       const retorno = aperturaRetorno(contactName);
       const enviadoR = await sendReplyButtons(phoneNumber, retorno, APERTURA_OPCIONES);
       if (!enviadoR.ok) {
@@ -960,7 +964,10 @@ async function procesarEntrante(body: any): Promise<void> {
       return;
     }
 
-    if (!existingProspect && !llegaDecidido && !_traePregunta) {
+    // Quien llega con un pedido del carrito web («vengo del enlace de ….
+    // Quiero pedir: …») no recibe la apertura: viene a comprar, y el nodo del
+    // pedido lo atiende más abajo.
+    if (!existingProspect && !llegaDecidido && !_traePregunta && !detectarIntencionCompra(messageText)) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
       const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
@@ -1118,7 +1125,12 @@ async function procesarEntrante(body: any): Promise<void> {
           respuestaPareja = `Claro. Le aviso a ${socioNombre} que lo están conversando, y cuando quieran retomarlo me escribe por aquí.`;
           plazoParaAviso = 'sin fecha';
         }
-      } else if (botOfrecioEnlace(_ultimoBotPareja)) {
+      // La oferta del enlace sobrevive una digresión: «¿Se lo genero?» → «¿En
+      // serio?» → respuesta del motor → «Sí». Con solo el último mensaje, ese
+      // «sí» caía al motor, que el 31 ago inventó un enlace que no existe
+      // (creatuactivo.com/s/…). La aceptación busca la oferta en los últimos
+      // turnos; la negativa solo aplica si la oferta fue el turno anterior.
+      } else if (botOfrecioEnlace(_ultimoBotPareja) || (enlaceOfrecidoReciente(historial) && aceptaEnlace(messageText))) {
         if (aceptaEnlace(messageText)) {
           const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
           const slugP = await slugDelSocio(supabase, socioP?.constructorId);
@@ -1439,6 +1451,37 @@ async function procesarEntrante(body: any): Promise<void> {
     // (prueba del 29 ago 15:00: abrió el pedido y a «la dirección en Bogotá» le
     // contestó «no logré identificar el producto»).
     const _preguntaSede = !socioQueEscribe && detectarPreguntaOficina(messageText);
+
+    // El turno del NOMBRE: el bot lo pidió («¿A nombre de quién dejo el
+    // pedido?») y este mensaje lo trae. El pedido pendiente se relee del hilo.
+    // Si el nombre no se deja leer, el pedido sale igual: el dato nunca es
+    // peaje, y una venta sin nombre vale más que un nombre sin venta.
+    if (!socioQueEscribe && RE_PIDIO_NOMBRE_PEDIDO.test(_ultimoBotPedido)) {
+      const lineasP = lineasPendientesDelHilo(historial);
+      if (lineasP.length > 0) {
+        const nombreDado = leerNombrePedido(messageText) ?? _nombrePedido;
+        const id = await registrarPedido(supabase, {
+          fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: nombreDado, lineas: lineasP, socio: _socioPedido,
+        });
+        await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido);
+        if (nombreDado && nombreDado !== _nombrePedido) {
+          try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            await (supabase as any).rpc('update_prospect_data', {
+              p_fingerprint_id: waFingerprint,
+              p_data: { name: nombreDado },
+              p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+            });
+          } catch { /* best-effort */ }
+        }
+        const texto = confirmarPedido(lineasP, _socioPedido, nombreDado);
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log(`🛒 [WA Webhook] Pedido cargado con nombre (${id ?? 'sin registro'}) — turno cerrado sin motor`);
+        return;
+      }
+    }
+
     if (!socioQueEscribe && !_preguntaSede && (_enPedido || detectarIntencionCompra(messageText))) {
       // «¿Cuál prefiere?» → la variante elegida es el pedido entero.
       const variante = RE_PREGUNTO_CUAL_GANOCAFE.test(_ultimoBotPedido) ? leerVarianteGanocafe(messageText) : null;
@@ -1454,6 +1497,16 @@ async function procesarEntrante(body: any): Promise<void> {
       const lineas = variante ? [{ producto: variante, cantidad: 1 }] : lineasDelPedido(messageText, historial);
 
       if (lineas.length > 0) {
+        // Un pedido lleva NOMBRE: es lo que le dice al socio quién va a comprar
+        // (Director, 31 ago 2026). Si el perfil de WhatsApp no lo trae, se pide
+        // antes de cargar; el turno del nombre —arriba— relee el pedido del hilo.
+        if (!_nombrePedido) {
+          const texto = pedirNombrePedido(_socioPedido?.nombre);
+          await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+          console.log('🛒 [WA Webhook] Pedido con productos — falta el nombre, se pide');
+          return;
+        }
         const id = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: _nombrePedido, lineas, socio: _socioPedido,
         });
@@ -1470,7 +1523,10 @@ async function procesarEntrante(body: any): Promise<void> {
       // a mitad del pedido («¿y cuánto vale?») sigue al motor con el pedido abierto.
       const _esPreguntaPedido = /\?|cu[aá]nto|qu[eé]|c[oó]mo|cu[aá]l/i.test(messageText);
       if (!_enPedido || !_esPreguntaPedido) {
-        const texto = _enPedido ? noEntendiProductos() : pedirProductos(_nombrePedido);
+        // El «sí» a «¿Le abro el pedido…?» es una aceptación, no un intento
+        // fallido de nombrar un producto: recibe la bienvenida del pedido, no
+        // un «no logré identificar» (prueba del Director, 31 ago 2026).
+        const texto = (_enPedido && !_aceptaPedidoSede) ? noEntendiProductos() : pedirProductos(_nombrePedido);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
         console.log('🛒 [WA Webhook] Pedido abierto — esperando los productos');
@@ -1963,7 +2019,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         const enviado = await sendFlow(
           phoneNumber,
           flowSimulador,
-          'Y si quiere, arme usted mismo su escenario: elija el paquete y cuántos se compran por generación, y vea el resultado al instante. Se cuenta por paquetes comprados, no por personas.',
+          'Y si quiere, arme usted mismo su escenario: elija el paquete y cuántos se compran por generación, y vea el resultado al instante.',
           'Abrir el simulador',
           { screen: 'GEN_MENU' },
         );
@@ -2017,7 +2073,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         const enviado = await sendFlow(
           phoneNumber,
           flowSimulador,
-          'Y si quiere verlo con sus propios números: elija el paquete y cuántos se compran, y el resultado sale al instante. Se cuenta por paquetes comprados, no por personas.',
+          'Y si quiere verlo con sus propios números: elija el paquete y cuántos se compran, y el resultado sale al instante.',
           'Abrir el simulador',
           { screen: 'GEN_MENU' },
         );

@@ -174,6 +174,20 @@ export function totalPedido(lineas: LineaPedido[]): number {
   return lineas.reduce((s, l) => s + l.producto.precioCOP * l.cantidad, 0);
 }
 
+/**
+ * El pedido que quedó en el hilo: el último mensaje del usuario que nombra
+ * productos. Lo usa el turno del nombre, que llega un mensaje después de que
+ * la persona dijo qué quiere.
+ */
+export function lineasPendientesDelHilo(historial: { role: string; content: string }[]): LineaPedido[] {
+  const delUsuario = historial.filter((m) => m.role === 'user');
+  for (let i = delUsuario.length - 1; i >= 0; i--) {
+    const lineas = extraerLineasPedido(delUsuario[i].content);
+    if (lineas.length > 0) return lineas;
+  }
+  return [];
+}
+
 // ─── Copy ────────────────────────────────────────────────────────────────────
 
 /** «Gano Café» / «Ganocafé» / «el café» a secas: es una familia, no un producto. */
@@ -201,6 +215,35 @@ export function leerVarianteGanocafe(texto: string): ProductoWA | null {
 export function pedirProductos(nombre?: string): string {
   const saludo = nombre ? `Con mucho gusto, ${nombre}.` : 'Con mucho gusto.';
   return `${saludo} Enseguida le cargo su compra.\n\n¿Qué productos va a llevar?`;
+}
+
+/**
+ * Un pedido lleva nombre: es lo que le dice al socio QUIÉN va a comprar
+ * (Director, 31 ago 2026). Se pide solo cuando el perfil de WhatsApp no lo
+ * trae utilizable.
+ */
+export function pedirNombrePedido(nombreSocio?: string): string {
+  const quien = nombreSocio || 'quien le va a entregar';
+  return `Con mucho gusto. ¿A nombre de quién dejo el pedido? Así ${quien} sabe con quién se va a comunicar.`;
+}
+
+export const RE_PIDIO_NOMBRE_PEDIDO = /¿A nombre de qui[eé]n dejo el pedido\?/i;
+
+/**
+ * El mensaje leído como nombre: «Milena», «a nombre de Juan Pérez», «soy
+ * Carlos». Devuelve null si no parece un nombre — y en ese caso el pedido sale
+ * sin él, porque el dato nunca es peaje.
+ */
+export function leerNombrePedido(texto: string): string | null {
+  const t = texto.trim()
+    .replace(/^(a nombre de|me llamo|mi nombre es|soy|para|es)\s+/i, '')
+    .replace(/[.!,;]+$/g, '');
+  if (!t || /[?¿0-9@\n]/.test(t)) return null;
+  const palabras = t.split(/\s+/).map((p) => p.replace(/[^\p{L}'-]/gu, '')).filter(Boolean);
+  if (palabras.length < 1 || palabras.length > 5) return null;
+  if (palabras.some((p) => p.length < 2)) return null;
+  if (palabras.length === 1 && /^(si|s[ií]|no|ok|dale|listo|bueno|claro|gracias|vale)$/i.test(palabras[0])) return null;
+  return palabras.map((p) => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
 }
 
 export function noEntendiProductos(): string {

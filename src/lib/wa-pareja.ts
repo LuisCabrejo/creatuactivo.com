@@ -102,9 +102,25 @@ export function textoOfrecerEnlace(): string {
   ].join('\n');
 }
 
-/** ¿El último mensaje del bot fue la oferta del enlace? */
+/** ¿Ese mensaje del bot ofreció el enlace? Cubre el dictado («¿Se lo genero?»)
+ *  y la paráfrasis que el motor compone si hubo una digresión en medio. */
 export function botOfrecioEnlace(ultimoBot: string): boolean {
-  return /¿se lo genero\?/i.test(ultimoBot || '');
+  return /¿se lo genero\?|le genero el enlace|un enlace para que se lo comparta/i.test(ultimoBot || '');
+}
+
+/**
+ * ¿La oferta del enlace sigue viva en los últimos turnos, sin haberse entregado?
+ * «¿Se lo genero?» → «¿En serio?» → respuesta del motor → «Sí»: con solo el
+ * último mensaje, ese «sí» caía al motor, que el 31 ago 2026 inventó un enlace
+ * inexistente (creatuactivo.com/s/…). La entrega previa la corta.
+ */
+export function enlaceOfrecidoReciente(
+  historial: { role: string; content: string }[],
+  ventana = 3,
+): boolean {
+  const bots = historial.filter((m) => m.role === 'assistant').slice(-ventana);
+  if (bots.some((m) => /se lo puede reenviar tal cual/i.test(m.content))) return false;
+  return bots.some((m) => botOfrecioEnlace(m.content));
 }
 
 /** «sí», «dale», «claro que sí», «por favor», «genérelo»… — y nada de «no». */

@@ -207,7 +207,7 @@ function extraerConst(src, nombre) {
     .join('');
 }
 const WEBHOOK = fs.readFileSync('src/app/api/whatsapp/webhook/route.ts', 'utf8');
-for (const nombre of ['RESPUESTA_EMERGENCIA', 'RECHAZO_SALUD_PESO', 'RECHAZO_SALUD_AZUCAR', 'RECHAZO_SALUD_ESTANDAR', 'RECHAZO_SALUD_TRATAMIENTO', 'RECHAZO_SALUD_GRAVE', 'RECHAZO_SALUD_CORTO']) {
+for (const nombre of ['RESPUESTA_EMERGENCIA', 'RECHAZO_SALUD_PESO', 'RECHAZO_SALUD_AZUCAR', 'RECHAZO_SALUD_AZUCAR_PREGUNTA', 'RECHAZO_SALUD_ESTANDAR', 'RECHAZO_SALUD_COMUN_PREGUNTA', 'RECHAZO_SALUD_TRATAMIENTO', 'RECHAZO_SALUD_GRAVE', 'RECHAZO_SALUD_GRAVE_PREGUNTA', 'RECHAZO_SALUD_CORTO']) {
   const texto = extraerConst(SRC, nombre);
   if (texto) FUENTES_PROTEGIDAS.push({ etiqueta: `texto dictado ${nombre}`, texto });
 }

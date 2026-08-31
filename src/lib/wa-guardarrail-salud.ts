@@ -300,6 +300,52 @@ export const RECHAZO_SALUD_CORTO =
   'preguntarme lo que quiera: qué lleva, cómo se prepara y cuánto cuesta. ' +
   '¿Le sirve que lo comunique con alguien del equipo?';
 
+/**
+ * ¿La persona DECLARA algo suyo, o PREGUNTA por el catálogo?
+ *
+ * Medido el 29 ago 2026 sobre el corpus: de 4 mensajes clasificados como salud,
+ * los 4 PREGUNTAN y ninguno declara. El texto que recibían estaba construido
+ * entero sobre la suposición contraria —«le agradezco la confianza de
+ * contármelo», «su condición», «su médico, que conoce su caso»—, así que estaba
+ * mal el 100 % de las veces. Son dos personas distintas: a quien cuenta algo
+ * suyo se le reconoce la confianza; a quien pregunta por un producto, no.
+ */
+export function declaraCondicion(texto: string): boolean {
+  const t = normalizarSalud(texto);
+  return /(?<![a-z])(tengo|sufro|padezco|me diagnosticaron|estoy (con|en tratamiento)|soy diabetic|me duele|ando con|vivo con|me detectaron|mi (mama|papa|esposa|esposo|hijo|hija|hermano|hermana|madre|padre))(?![a-z])/.test(t);
+}
+
+// ─── Variantes para quien PREGUNTA (no declara nada suyo) ────────────────────
+// Mismo marco legal, palabra por palabra. Cambia el acuse y desaparece «su
+// condición», que le atribuye a la persona algo que no dijo.
+
+export const RECHAZO_SALUD_AZUCAR_PREGUNTA =
+  'Buena pregunta, y de las que más nos hacen.\n\n' +
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
+  'de salud, que es terreno de su médico.\n\n' +
+  'Dicho esto, si lo que busca es cuidar el azúcar en lo que consume, el Ganocafé Clásico es café ' +
+  'negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el extracto puro, ' +
+  'sin nada más.\n\n' +
+  '¿Le cuento cómo es cada uno?';
+
+export const RECHAZO_SALUD_COMUN_PREGUNTA =
+  'Buena pregunta.\n\n' +
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
+  'de salud, que es terreno de su médico.\n\n' +
+  'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
+  'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
+  'pensadas para acompañar su día con energía y bienestar.\n\n' +
+  '¿Le cuento cómo es cada uno y qué lleva?';
+
+export const RECHAZO_SALUD_GRAVE_PREGUNTA =
+  'Le respondo con cuidado, porque el tema lo merece.\n\n' +
+  'Nuestra línea está catalogada ante el INVIMA como alimentos y suplementos dietarios, y no como ' +
+  'medicamentos, así que ninguno está indicado para una condición de salud: eso lo orienta un ' +
+  'médico tratante.\n\n' +
+  'Cuando quiera conocer los productos por lo que son, aquí me encuentra con mucho gusto.';
+
 /** La familia de la pregunta, a partir del término que disparó la entrada. */
 export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun';
 
@@ -316,14 +362,21 @@ export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun'; termino:
 export function rechazoSaludPorFamilia(
   clasificacion: { nivel: 'grave' | 'comun'; termino: string },
   reincide = false,
-): { familia: FamiliaSalud; texto: string } {
+  mensaje = '',
+): { familia: FamiliaSalud; texto: string; declara: boolean } {
   const familia = familiaSalud(clasificacion);
-  const texto = familia === 'grave' ? RECHAZO_SALUD_GRAVE
+  // `tratamiento` es declaración por definición (su detector lee «tomo
+  // medicamentos», «me diagnosticaron»), y `peso` sirve igual en los dos casos.
+  const declara = familia === 'tratamiento' || declaraCondicion(mensaje);
+  const texto = familia === 'grave'
+      ? (declara ? RECHAZO_SALUD_GRAVE : RECHAZO_SALUD_GRAVE_PREGUNTA)
     : familia === 'peso' ? RECHAZO_SALUD_PESO
-    : familia === 'azucar' ? RECHAZO_SALUD_AZUCAR
+    : familia === 'azucar'
+      ? (declara ? RECHAZO_SALUD_AZUCAR : RECHAZO_SALUD_AZUCAR_PREGUNTA)
     : familia === 'tratamiento' ? RECHAZO_SALUD_TRATAMIENTO
-    : reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR;
-  return { familia, texto };
+    : reincide ? RECHAZO_SALUD_CORTO
+    : (declara ? RECHAZO_SALUD_ESTANDAR : RECHAZO_SALUD_COMUN_PREGUNTA);
+  return { familia, texto, declara };
 }
 
 // Prefijos distintivos de los textos de arriba. Sirven para (a) detectar
@@ -332,6 +385,9 @@ export function rechazoSaludPorFamilia(
 const PREFIJOS_RECHAZO = [
   'Comprendo su objetivo, y me alegra que esté buscando opciones',
   'Comprendo su consulta, y hace muy bien en cuidar esos detalles',
+  'Buena pregunta, y de las que más nos hacen',
+  'Buena pregunta.\n',
+  'Le respondo con cuidado, porque el tema lo merece',
   'Comprendo su consulta, y le agradezco la confianza de contármelo',
   'Le agradezco que me lo cuente. Los productos de Gano Excel',
   'Gracias por contármelo. Con un tratamiento en curso',
@@ -359,6 +415,7 @@ export function esRechazoSalud(texto: string): boolean {
 export function esRechazoSaludComun(texto: string): boolean {
   const t = (texto || '').trim();
   return t.startsWith('Comprendo su consulta, y le agradezco la confianza de contármelo')
+    || t.startsWith('Buena pregunta.\n')
     || t.startsWith('Le agradezco que me lo cuente. Los productos de Gano Excel')
     || t.startsWith('Le entiendo, y ojalá pudiera decirle más')
     || t.startsWith('Le agradezco que me pregunte, y le voy a responder con franqueza')

@@ -753,6 +753,20 @@ async function procesarEntrante(body: any): Promise<void> {
       return;
     }
 
+    // ─── 1.35 CAPTURAR ANTES DE CORTAR ────────────────────────────────────────
+    // El webhook es una cadena de `if (…) return;`: el primer nodo que acierta
+    // cierra el turno y todo lo demás que traía el mensaje se pierde sin dejar
+    // rastro. El 29 ago 2026, «esp3, pero háblame de los productos, para qué
+    // enfermedades sirven?» se fue por el guardarraíl de salud —correcto— y la
+    // selección del ESP-3 no quedó en ninguna parte: `package` siguió en null.
+    // Medido: 1 de cada 139 mensajes trae dos intenciones, y ese uno fue el más
+    // valioso de la conversación.
+    //
+    // Va ANTES de todos los nodos, así que cualquiera que corte el turno hereda
+    // la captura sin tener que acordarse de hacerla. No responde nada: solo
+    // anota lo que el mensaje traía además.
+    await capturarContextoDelMensaje(supabase, waFingerprint, messageText, patrocinador?.userId ?? existingProspect?.constructor_id ?? null);
+
     // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────
     // Va ANTES de la apertura a propósito: un primer contacto que escribe sobre
     // una condición de salud no puede recibir el saludo comercial con botones —
@@ -777,9 +791,9 @@ async function procesarEntrante(body: any): Promise<void> {
         && await hayRechazoSaludPrevio(supabase, waFingerprint);
       // Cada familia tiene su texto (peso · tratamiento · grave · común) — la
       // respuesta única para todo era el error (Director, 29 ago 2026).
-      const { familia, texto: rechazo } = rechazoSaludPorFamilia(saludEntrada, reincide);
+      const { familia, texto: rechazo, declara } = rechazoSaludPorFamilia(saludEntrada, reincide, messageText);
 
-      console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${familia}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
+      console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${familia}, ${declara ? 'declara' : 'pregunta'}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
       await sendWhatsAppMessage(phoneNumber, rechazo);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
       return;
@@ -2065,6 +2079,48 @@ interface Patrocinador {
  * reconstruye el hilo sin el rechazo y el turno siguiente pierde el contexto de
  * que la pregunta de salud ya fue derivada.
  */
+/**
+ * Anota lo que el mensaje trae ADEMÁS de la intención que lo va a atender: la
+ * selección de paquete y la ciudad. Best-effort — si falla, el turno sigue.
+ *
+ * Solo escribe lo que encuentra, y nunca pisa con vacío: `update_prospect_data`
+ * mergea, así que un mensaje sin paquete no borra el paquete anterior.
+ */
+const RE_PAQUETE_ELEGIDO = /(?<![a-z])(esp[\s-]?([123])|visionario|empresarial|inicial|kit de inicio)(?![a-z])/i;
+
+async function capturarContextoDelMensaje(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+  texto: string,
+  constructorId: string | null,
+): Promise<void> {
+  const datos: Record<string, string> = {};
+
+  const mp = RE_PAQUETE_ELEGIDO.exec(texto);
+  if (mp) {
+    const t = mp[0].toLowerCase();
+    datos.package = /kit/.test(t) ? 'KIT'
+      : /visionario/.test(t) || mp[2] === '3' ? 'ESP-3'
+      : /empresarial/.test(t) || mp[2] === '2' ? 'ESP-2'
+      : 'ESP-1';
+  }
+  const ciudad = detectarCiudad(texto);
+  if (ciudad) datos.ciudad = ciudad;
+
+  if (Object.keys(datos).length === 0) return;
+  try {
+    await supabase.rpc('update_prospect_data', {
+      p_fingerprint_id: fingerprint,
+      p_data: datos,
+      p_constructor_id: constructorId,
+    });
+    console.log(`📎 [WA Webhook] Capturado del mensaje: ${JSON.stringify(datos)}`);
+  } catch (err) {
+    console.error('⚠️ [WA Webhook] No se pudo capturar el contexto del mensaje:', err);
+  }
+}
+
 async function persistirTurnoDictado(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,

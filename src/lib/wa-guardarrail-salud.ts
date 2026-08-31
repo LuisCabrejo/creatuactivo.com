@@ -246,12 +246,54 @@ export const RESPUESTA_EMERGENCIA =
 // (Res. 3096 art. 5.3), ninguno vincula un producto al resultado, y todos
 // cierran con una sola salida. Los cuatro pasan el filtro de SALIDA.
 
+export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun';
+
+// ─── EL NÚCLEO LEGAL ─────────────────────────────────────────────────────────
+// Lo único de estas respuestas con exposición legal, y por eso lo único que se
+// congela. El acuse y el cierre dependen de lo que la persona dijo y deben
+// adaptarse (etapa 3, 29 ago 2026): el nodo entrega el núcleo, el modelo escribe
+// alrededor, y el webhook verifica que el núcleo llegó antes de enviar.
+// Estas constantes arman los textos fijos Y viajan en la instrucción al modelo,
+// así que no se pueden desincronizar.
+
+export const NUCLEO_PESO =
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como tratamientos médicos, así que lo que encontrará aquí es ' +
+  'nutrición para el día a día.';
+
+export const NUCLEO_DECLARA =
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
+  'palabra es su médico, que es quien conoce su caso.';
+
+// ⚠️ «terreno médico», no «terreno de su médico» (Director, 30 ago 2026): nueve
+// de cada diez personas que preguntan esto están midiendo el MERCADO, no su
+// propio caso. «Su médico» les atribuye una condición y un tratante que no
+// mencionaron — la misma falla que el acuse de confianza, en pequeño. Y para
+// quien sí pregunta por lo suyo, la forma neutra sirve igual.
+export const NUCLEO_PREGUNTA =
+  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
+  'de salud, que es terreno médico.';
+
+/** El núcleo que corresponde. `grave` y la emergencia nunca se componen. */
+export function nucleoSalud(familia: FamiliaSalud, declara: boolean): string {
+  if (familia === 'peso') return NUCLEO_PESO;
+  return declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
+}
+
+/** Las familias cuya envoltura puede componer el modelo. Grave y emergencia, jamás. */
+export function saludSeCompone(familia: FamiliaSalud): boolean {
+  return familia === 'peso' || familia === 'azucar' || familia === 'comun' || familia === 'tratamiento';
+}
+
+/** El cierre único de las respuestas de salud compuestas. */
+export const CIERRE_SALUD = '¿Le muestro el catálogo completo para que vea las presentaciones?';
+
 /** Peso: la pregunta más natural del país. Un producto real, por sus hechos. */
 export const RECHAZO_SALUD_PESO =
   'Comprendo su objetivo, y me alegra que esté buscando opciones para cuidar su bienestar.\n\n' +
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como tratamientos médicos, así que lo que encontrará aquí es ' +
-  'nutrición para el día a día.\n\n' +
+  NUCLEO_PESO + '\n\n' +
   'Dicho esto, el compañero ideal para cualquier rutina saludable es el Ganocafé Clásico: un café ' +
   'negro premium, sin azúcar ni crema, que le da energía pareja desde temprano.\n\n' +
   '¿Le cuento cómo integrarlo en su rutina?';
@@ -259,9 +301,7 @@ export const RECHAZO_SALUD_PESO =
 /** Azúcar (diabetes, glucosa, insulina): el hecho de composición —sin azúcar— dicho con orgullo. */
 export const RECHAZO_SALUD_AZUCAR =
   'Comprendo su consulta, y hace muy bien en cuidar esos detalles de su alimentación.\n\n' +
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
-  'palabra es su médico, que es quien conoce su caso.\n\n' +
+  NUCLEO_DECLARA + '\n\n' +
   'Dicho esto, usted tiene a mano dos opciones que Gano Excel fabrica desde hace treinta años, ' +
   'cada una con su registro sanitario. Si cuida el azúcar en lo que consume, el Ganocafé Clásico ' +
   'le da café negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el ' +
@@ -271,9 +311,7 @@ export const RECHAZO_SALUD_AZUCAR =
 /** Molestia o condición común: la categoría del producto es la que responde, con orgullo. */
 export const RECHAZO_SALUD_ESTANDAR =
   'Comprendo su consulta, y le agradezco la confianza de contármelo.\n\n' +
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
-  'palabra es su médico, que es quien conoce su caso.\n\n' +
+  NUCLEO_DECLARA + '\n\n' +
   'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
   'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
   'pensadas para acompañar su día con energía y bienestar.\n\n' +
@@ -321,9 +359,7 @@ export function declaraCondicion(texto: string): boolean {
 
 export const RECHAZO_SALUD_AZUCAR_PREGUNTA =
   'Buena pregunta, y de las que más nos hacen.\n\n' +
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
-  'de salud, que es terreno de su médico.\n\n' +
+  NUCLEO_PREGUNTA + '\n\n' +
   'Dicho esto, si lo que busca es cuidar el azúcar en lo que consume, el Ganocafé Clásico es café ' +
   'negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el extracto puro, ' +
   'sin nada más.\n\n' +
@@ -331,9 +367,7 @@ export const RECHAZO_SALUD_AZUCAR_PREGUNTA =
 
 export const RECHAZO_SALUD_COMUN_PREGUNTA =
   'Buena pregunta.\n\n' +
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
-  'de salud, que es terreno de su médico.\n\n' +
+  NUCLEO_PREGUNTA + '\n\n' +
   'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
   'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
   'pensadas para acompañar su día con energía y bienestar.\n\n' +
@@ -342,49 +376,12 @@ export const RECHAZO_SALUD_COMUN_PREGUNTA =
 export const RECHAZO_SALUD_GRAVE_PREGUNTA =
   'Le respondo con cuidado, porque el tema lo merece.\n\n' +
   'Nuestra línea está catalogada ante el INVIMA como alimentos y suplementos dietarios, y no como ' +
-  'medicamentos, así que ninguno está indicado para una condición de salud: eso lo orienta un ' +
-  'médico tratante.\n\n' +
+  'medicamentos, así que ninguno está indicado para una condición de salud, que es terreno ' +
+  'médico.\n\n' +
   'Cuando quiera conocer los productos por lo que son, aquí me encuentra con mucho gusto.';
 
 /** La familia de la pregunta, a partir del término que disparó la entrada. */
-export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun';
 
-// ─── EL NÚCLEO LEGAL ─────────────────────────────────────────────────────────
-// Lo único de estas respuestas con exposición legal, y por eso lo único que se
-// congela. El acuse y el cierre dependen de lo que la persona dijo y deben
-// adaptarse (etapa 3, 29 ago 2026): el nodo entrega el núcleo, el modelo escribe
-// alrededor, y el webhook verifica que el núcleo llegó antes de enviar.
-// Estas constantes arman los textos fijos Y viajan en la instrucción al modelo,
-// así que no se pueden desincronizar.
-
-export const NUCLEO_PESO =
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como tratamientos médicos, así que lo que encontrará aquí es ' +
-  'nutrición para el día a día.';
-
-export const NUCLEO_DECLARA =
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
-  'palabra es su médico, que es quien conoce su caso.';
-
-export const NUCLEO_PREGUNTA =
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
-  'de salud, que es terreno de su médico.';
-
-/** El núcleo que corresponde. `grave` y la emergencia nunca se componen. */
-export function nucleoSalud(familia: FamiliaSalud, declara: boolean): string {
-  if (familia === 'peso') return NUCLEO_PESO;
-  return declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
-}
-
-/** Las familias cuya envoltura puede componer el modelo. Grave y emergencia, jamás. */
-export function saludSeCompone(familia: FamiliaSalud): boolean {
-  return familia === 'peso' || familia === 'azucar' || familia === 'comun' || familia === 'tratamiento';
-}
-
-/** El cierre único de las respuestas de salud compuestas. */
-export const CIERRE_SALUD = '¿Le muestro el catálogo completo para que vea las presentaciones?';
 
 
 export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun'; termino: string }): FamiliaSalud {

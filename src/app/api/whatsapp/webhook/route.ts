@@ -56,7 +56,7 @@ import {
   noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido,
   detectarPreguntaEnvio, respuestaEnvio,
   detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
-  esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE,
+  esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE, RE_NO_ENTENDI,
   detectarPidePersona, respuestaPersona, avisarPidePersona,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
   nombreCorto, RE_PEDIDO_CARGADO,
@@ -1523,6 +1523,17 @@ async function procesarEntrante(body: any): Promise<void> {
       }
       const lineas = variante ? [{ producto: variante, cantidad: 1 }] : lineasDelPedido(messageText, historial);
 
+      // El «sí» a la oferta de la sede ABRE el pedido: hay que preguntarle qué
+      // quiere, no decirle que no se le entendió (prueba del 31 ago 09:00 —
+      // «Si» recibió «no logré identificar el producto», que no venía a cuento).
+      if (_aceptaPedidoSede && lineas.length === 0) {
+        const texto = pedirProductos(_nombrePedido);
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log('🛒 [WA Webhook] Pedido abierto desde la sede — esperando los productos');
+        return;
+      }
+
       if (lineas.length > 0) {
         // Un pedido lleva NOMBRE: es lo que le dice al socio quién va a comprar
         // (Director, 31 ago 2026). Si el perfil de WhatsApp no lo trae, se pide
@@ -1553,7 +1564,9 @@ async function procesarEntrante(body: any): Promise<void> {
         // El «sí» a «¿Le abro el pedido…?» es una aceptación, no un intento
         // fallido de nombrar un producto: recibe la bienvenida del pedido, no
         // un «no logré identificar» (prueba del Director, 31 ago 2026).
-        const texto = (_enPedido && !_aceptaPedidoSede) ? noEntendiProductos() : pedirProductos(_nombrePedido);
+        const texto = (_enPedido && !_aceptaPedidoSede)
+          ? noEntendiProductos(RE_NO_ENTENDI.test(_ultimoBotPedido))
+          : pedirProductos(_nombrePedido);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
         console.log('🛒 [WA Webhook] Pedido abierto — esperando los productos');

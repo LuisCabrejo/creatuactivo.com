@@ -248,9 +248,17 @@ export function leerNombrePedido(texto: string): string | null {
   return palabras.map((p) => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
 }
 
-export function noEntendiProductos(): string {
-  return 'No logré identificar el producto. ¿Me dice cuál quiere, tal como aparece en el catálogo? Por ejemplo: Ganocafé 3 en 1, Ganocafé Clásico, Cápsulas Ganoderma…';
+export function noEntendiProductos(segundaVez = false): string {
+  // Repetir el mismo texto ante el segundo intento se lee como una pared: la
+  // persona ya dijo algo y el sistema le contesta igual (prueba del 31 ago,
+  // «El capuchino» recibió la misma frase que el turno anterior).
+  return segundaVez
+    ? 'Ese no lo tenemos con ese nombre. Los de café son el *Ganocafé 3 en 1*, el *Ganocafé Clásico*, el *Latte Rico*, el *Mocha Rico* y el *Shoko Rico*. ¿Alguno de esos?'
+    : 'No logré identificar el producto. ¿Me dice cuál quiere, tal como aparece en el catálogo? Por ejemplo: Ganocafé 3 en 1, Ganocafé Clásico, Cápsulas Ganoderma…';
 }
+
+/** ¿Ya se le dijo una vez que no se reconoció el producto? */
+export const RE_NO_ENTENDI = /No logré identificar el producto/i;
 
 function lineaTexto(l: LineaPedido): string {
   const pres = l.producto.presentacion ? ` (${l.producto.presentacion})` : '';

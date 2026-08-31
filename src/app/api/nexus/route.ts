@@ -6007,11 +6007,23 @@ ${visitorCountry === 'CO'
       }
     }
 
+    // Salud compuesta: el núcleo legal es la única fuente del turno. Sin esto el
+    // arsenal recuperado (fichas de producto, ciencia del Ganoderma) compite con
+    // la instrucción y el modelo compone por su cuenta: en la prueba del 29 ago
+    // el núcleo no salió literal en ninguno de 6 casos, y en uno el pin del ESP-3
+    // se llevó el turno entero. Es el mismo remedio del pin de cifras.
+    const _saludCompuesta = pageContext?.startsWith('whatsapp_salud_');
+
     // ── La tabla del paquete se entrega SIN pasar por el modelo ──────────────
     // Mismo criterio que el ejemplo de cifras (ver tablaPaqueteDictada). Solo en
     // el canal, solo cuando el paquete viene nombrado en el mensaje o en la
     // oferta aceptada, y nunca si el pin de cifras ya dicta el turno.
-    if (tenantId === 'whatsapp' && !_pinDictaEjemplo) {
+    // ⚠️ Ni cuando el turno es de SALUD: «esp3, pero háblame de los productos,
+    // para qué enfermedades sirven?» devolvía la tabla del ESP-3 y dejaba la
+    // pregunta de salud sin marco (prueba del 29 ago 2026). El paquete ya quedó
+    // capturado por el webhook, así que no se pierde nada: la selección espera y
+    // la salud se atiende, que es lo que no puede esperar.
+    if (tenantId === 'whatsapp' && !_pinDictaEjemplo && !_saludCompuesta) {
       const _comp = resolverPaqueteComposicion();
       if (_comp?.explicito && _comp.codigo && composiciones[_comp.codigo]) {
         const cuerpo = tablaPaqueteDictada(_comp.codigo, composiciones[_comp.codigo], visitorCountry);
@@ -6056,12 +6068,6 @@ ${visitorCountry === 'CO'
       }
       console.warn('⚠️ [Pin dictado] No se pudo extraer el cuerpo del pin — se sigue con el modelo');
     }
-    // Salud compuesta: el núcleo legal es la única fuente del turno. Sin esto el
-    // arsenal recuperado (fichas de producto, ciencia del Ganoderma) compite con
-    // la instrucción y el modelo compone por su cuenta: en la prueba del 29 ago
-    // el núcleo no salió literal en ninguno de 6 casos, y en uno el pin del ESP-3
-    // se llevó el turno entero. Es el mismo remedio del pin de cifras.
-    const _saludCompuesta = pageContext?.startsWith('whatsapp_salud_');
     if (_saludCompuesta) {
       if (relevantDocuments.length) {
         console.log(`🩺 [Salud compuesta] Se retiran ${relevantDocuments.length} documentos: el núcleo legal es la única fuente del turno`);

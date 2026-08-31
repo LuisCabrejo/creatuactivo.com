@@ -40,14 +40,24 @@ export async function GET(
         fetch(`${SUPABASE_URL}/rest/v1/prospects?fingerprint_id=eq.${fp}&select=constructor_id&limit=1`, { headers }),
         fetch(`${SUPABASE_URL}/rest/v1/prospect_data?fingerprint_id=eq.${fp}&select=name&limit=1`, { headers }),
       ]);
-      const constructorId = rProspect.ok ? (await rProspect.json())?.[0]?.constructor_id : null;
+      // prospects.constructor_id guarda el UUID de private_users; la llave de
+      // texto de constructor_slugs (luis-cabrejo-1288) vive en private_users.
+      // Es el mismo puente que hace resolverSocioDelProspecto() en el webhook.
+      const userId = rProspect.ok ? (await rProspect.json())?.[0]?.constructor_id : null;
       nombre = rData.ok ? (await rData.json())?.[0]?.name ?? undefined : undefined;
-      if (constructorId) {
-        const rSlug = await fetch(
-          `${SUPABASE_URL}/rest/v1/constructor_slugs?constructor_id=eq.${encodeURIComponent(constructorId)}&select=slug&limit=1`,
+      if (userId) {
+        const rUser = await fetch(
+          `${SUPABASE_URL}/rest/v1/private_users?id=eq.${encodeURIComponent(userId)}&select=constructor_id&limit=1`,
           { headers },
         );
-        slug = rSlug.ok ? (await rSlug.json())?.[0]?.slug ?? null : null;
+        const constructorId = rUser.ok ? (await rUser.json())?.[0]?.constructor_id : null;
+        if (constructorId) {
+          const rSlug = await fetch(
+            `${SUPABASE_URL}/rest/v1/constructor_slugs?constructor_id=eq.${encodeURIComponent(constructorId)}&select=slug&limit=1`,
+            { headers },
+          );
+          slug = rSlug.ok ? (await rSlug.json())?.[0]?.slug ?? null : null;
+        }
       }
     } catch (err) {
       console.error('⚠️ [/s] No se pudo resolver el código — se redirige con el texto genérico:', err);

@@ -5118,8 +5118,10 @@ explicarle el modelo, nada de ofrecerle los paquetes: eso ya pasó.
 
 ✅ SU TRABAJO AQUÍ es que él avance con SU canal:
 • Redactarle el mensaje para alguien concreto, cuando le diga a quién le va a
-  escribir. Se le entrega LISTO PARA COPIAR, con su enlace, siguiendo el esqueleto
-  que va al final de estas instrucciones.
+  escribir. Se le entrega LISTO PARA COPIAR, siguiendo el esqueleto que va al
+  final de estas instrucciones. ⚠️ El enlace NO va en ese primer mensaje — se
+  comparte cuando el amigo diga «sí, mándemelo», y el socio lo tiene a la mano
+  desde su saludo.
 • Prepararlo para lo que le van a preguntar: cuánto invirtió, si es pirámide, si
   a él le está funcionando. Se le da la respuesta que ÉL puede dar, no la nuestra.
 • Resolverle dudas del plan que necesita para explicar (no para decidir).

@@ -777,7 +777,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // el cierre de radicación nunca matchean estos patrones, así que el resto del
     // flujo determinístico no se altera.
     // Si se llena, el turno sigue al motor con el núcleo legal y su respaldo.
-    let saludCompuesta: { familia: string; declara: boolean; respaldo: string; nucleo: string } | null = null;
+    let saludCompuesta: { familia: string; declara: boolean; respaldo: string; nucleo: string; paquete?: string } | null = null;
 
     const emergencia = detectarEmergencia(messageText);
     if (emergencia) {
@@ -806,7 +806,16 @@ async function procesarEntrante(body: any): Promise<void> {
       // emergencia siguen dictadas: ahí la respuesta correcta no depende del
       // contexto, y componer solo agrega riesgo.
       if (saludSeCompone(familia) && !reincide) {
-        saludCompuesta = { familia, declara, respaldo: rechazo, nucleo: nucleoSalud(familia, declara) };
+        // Si el MISMO mensaje trae una selección de paquete —«esp3, pero háblame
+        // de los productos…»— el acuse la reconoce: capturarla y no nombrarla deja
+        // a la persona sin saber que la oímos (prueba del 30 ago 2026).
+        const _mPaq = RE_PAQUETE_ELEGIDO.exec(messageText);
+        const _paqDicho = _mPaq
+          ? (/kit/i.test(_mPaq[0]) ? 'KIT'
+            : /visionario/i.test(_mPaq[0]) || _mPaq[2] === '3' ? 'ESP-3'
+            : /empresarial/i.test(_mPaq[0]) || _mPaq[2] === '2' ? 'ESP-2' : 'ESP-1')
+          : undefined;
+        saludCompuesta = { familia, declara, respaldo: rechazo, nucleo: nucleoSalud(familia, declara), paquete: _paqDicho };
       } else {
         await sendWhatsAppMessage(phoneNumber, rechazo);
         await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
@@ -1739,7 +1748,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // trabajar el suyo. Sin esta señal el motor responde con argumentos de venta a
     // quien ya compró.
     const pageContext = saludCompuesta
-      ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}`
+      ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}${saludCompuesta.paquete ? `_${saludCompuesta.paquete.toLowerCase().replace('-', '')}` : ''}`
       : fotoEnviada
       ? 'whatsapp_foto_enviada'
       : (!existingProspect && _traePregunta)

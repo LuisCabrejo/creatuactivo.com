@@ -5012,33 +5012,47 @@ o esa misma línea — no sobre otro.`;
         const partes = pageContext.split('_');
         const fam = partes[2];
         const declara = partes[3] === 'declara';
+        const paquete = partes[4] ? partes[4].toUpperCase().replace(/^ESP/, 'ESP-') : null;
         const nucleo = fam === 'peso' ? NUCLEO_PESO : declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
         const oferta = fam === 'peso'
           ? 'el *Ganocafé Clásico*: café negro premium, sin azúcar ni crema, que le da energía pareja desde temprano'
           : fam === 'azucar'
           ? 'el *Ganocafé Clásico* (café negro premium sin azúcar ni crema) y las *Cápsulas de Ganoderma* (el extracto puro, sin nada más)'
-          : 'la línea que Gano Excel fabrica desde hace treinta años, con registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma';
+          : 'la línea que Gano Excel fabrica desde hace treinta años, con registro sanitario en cada producto';
         const acuse = declara
           ? 'Contó algo suyo: reconozca esa confianza.'
           : 'Preguntó por el producto y no contó nada de su salud: reconozca la pregunta. Hablarle de «su condición» o agradecerle una confidencia le atribuye algo que no dijo.';
+        // Este turno va sin arsenal recuperado, así que la lista de productos va
+        // aquí: sin ella el modelo la compone de memoria — el 30 ago inventó
+        // «jugo de frutas» y un «café sin cafeína» que no existen.
+        const catalogo = 'Bebidas: Ganocafé 3 en 1, Ganocafé Clásico, Ganorico Latte Rico, Ganorico Mocha Rico, '
+          + 'Ganorico Shoko Rico, Gano Schokolade, Espirulina Gano C\'Real, Oleaf Gano Rooibos (el único sin cafeína), '
+          + 'Reskine Colágeno. Cápsulas: de Ganoderma, Excellium, Cordygold. Cuidado personal: pasta Gano Fresh, '
+          + 'dos jabones, champú, acondicionador y exfoliante Piel&Brillo. Y el sistema Luvoco: máquina y tres cápsulas.';
         return `
 🩺 RESPUESTA DE SALUD — el marco va literal, lo demás lo escribe usted
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Escriba exactamente tres párrafos y una pregunta, en este orden:
 
 1. UN ACUSE de una sola frase, escrito para ESTA persona y lo que ESTE mensaje
-   dice. ${acuse}
+   dice. ${acuse}${paquete ? `\n   ⚠️ En este mismo mensaje eligió el *${paquete}*: reconózcalo en esa frase, con naturalidad, antes de responder lo demás.` : ''}
 
 2. ESTE PÁRRAFO, palabra por palabra, sin cambiar ni agregar nada:
 <verbatim_lock>
 ${nucleo}
 </verbatim_lock>
 
-3. UN PÁRRAFO que abra con «Dicho esto,» y ofrezca ${oferta}. Diga lo que el
-   producto ES —composición, preparación, presentación—; sobre lo que una
-   persona va a sentir o conseguir, entregue el hecho y deje que ella concluya.
+3. UN PÁRRAFO DE DOS O TRES FRASES que abra con «Dicho esto,» y ofrezca ${oferta}.
+   Diga lo que el producto ES: composición, preparación, presentación.
 
-4. Cierre exactamente con: ${CIERRE_SALUD}`;
+4. Cierre exactamente con: ${CIERRE_SALUD}
+
+CATÁLOGO REAL — los 22 productos. Nombre solo estos, y solo si hacen falta:
+${catalogo}
+
+Sobre lo que una persona sentirá o conseguirá, entregue el hecho y siga: la
+conclusión la saca ella sola y no hace falta decírselo. Escriba solo los cuatro
+elementos de arriba; estas indicaciones no aparecen en el mensaje.`;
       }
 
       // Ya radicó su vinculación en el canal (nodo 2.5 del webhook → tabla

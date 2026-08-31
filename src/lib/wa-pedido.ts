@@ -251,7 +251,7 @@ export function detectarPreguntaEnvio(texto: string): boolean {
 
 export function respuestaEnvio(socio: SocioPedido | null): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  return `Eso lo acuerda directamente con ${quien} cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro.`;
+  return `Eso lo acuerda directamente con ${quien} cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro.\n\n¿Le sumo algo más al pedido mientras tanto?`;
 }
 
 // ─── Las oficinas, para el prospecto ─────────────────────────────────────────
@@ -327,7 +327,7 @@ export function detectarPidePersona(texto: string): boolean {
 
 export function respuestaPersona(socio: SocioPedido | null): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  return `Claro que sí. Ya le avisé a ${quien}, y se comunica con usted por este mismo medio. Mientras tanto, cuente conmigo para lo que necesite.`;
+  return `Claro que sí. Ya le avisé a ${quien}, y se comunica con usted por este mismo medio.\n\nMientras tanto cuente conmigo: ¿hay algo que le pueda ir resolviendo?`;
 }
 
 // ─── Autorización de marketing ───────────────────────────────────────────────

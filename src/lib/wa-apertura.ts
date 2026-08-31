@@ -346,7 +346,9 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     // ⚠️ Va AQUÍ y no en la cascada: las tres líneas de abajo tienen cuatro y
     //    cinco palabras, y meterle la categoría a la del ciclo la lleva a nueve
     //    — la pila deja de leerse de un golpe, que es para lo que se diseñó.
-    'Le explico cómo se construye un *canal de distribución de productos de bienestar*, en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:',
+    // «premium» (Director, 31 ago 2026): «productos de bienestar» a secas
+    // sonaba a catálogo corriente; el estante es premium y se dice.
+    'Le explico cómo se construye un *canal de distribución de productos premium de bienestar*, en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:',
     '',
     '⚙️ Se arma una sola vez.',
     '🔑 Usted es el dueño.',

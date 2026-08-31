@@ -322,6 +322,12 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.25 — DIASPORA_01: los 16 se dicen con el continente (31 ago 2026)
+
+En la prueba del canal, a *«yo vivo en Inglaterra pero soy colombiano»* el modelo respondió *«maneja su canal en los 16 países donde opera Gano Excel»*. Es una paráfrasis fiel del candado —que decía *«los 16 donde Gano Excel tiene operación»*— pero al soltar el continente la cifra quedó atribuida a Gano Excel a secas, y minutos antes la misma conversación había dicho *más de 60 países*: contradicción servida a un prospecto atento.
+
+El hecho, confirmado por el Director: Gano Excel tiene presencia en **más de 60 países del mundo**; el canal del socio opera en **los 16 países de América** donde la compañía tiene operación en el continente. El candado ancla ahora *«uno de los 16 **países de América** donde Gano Excel tiene operación»* en su primera mención, para que ninguna paráfrasis pueda soltar el continente. Contexto estratégico que motiva el cuidado: la diáspora latina en el mundo —más de 400 millones de personas— es audiencia que el Director quiere trabajar, y este fragmento es su puerta de entrada.
+
 ### v6.24 — WHY_02: el canal es el sustantivo, el producto es el respaldo (31 ago 2026)
 
 El Director auditó la respuesta a *«¿cómo funciona?»* en la prueba del canal de WhatsApp y marcó dos cosas.

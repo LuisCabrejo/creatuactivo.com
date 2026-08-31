@@ -31,7 +31,7 @@ import {
 } from '@/lib/wa-apertura';
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
-  textoEntregaEnlace, textoSinEnlace, enlaceParaPareja, botOfrecioPlazo, interpretarPlazo,
+  textoEntregaEnlace, textoSinEnlace, enlaceCortoPareja, botOfrecioPlazo, interpretarPlazo,
   textoConfirmacionPlazo, fechaDelPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
 } from '@/lib/wa-pareja';
 import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
@@ -1132,9 +1132,10 @@ async function procesarEntrante(body: any): Promise<void> {
       // turnos; la negativa solo aplica si la oferta fue el turno anterior.
       } else if (botOfrecioEnlace(_ultimoBotPareja) || (enlaceOfrecidoReciente(historial) && aceptaEnlace(messageText))) {
         if (aceptaEnlace(messageText)) {
-          const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
-          const slugP = await slugDelSocio(supabase, socioP?.constructorId);
-          respuestaPareja = textoEntregaEnlace(enlaceParaPareja(slugP, contactName));
+          // El enlace corto (creatuactivo.com/s/{tel}): la ruta /s/[codigo] lo
+          // resuelve al wa.me real en el momento del clic, leyendo nombre y
+          // socio de la base — no hace falta armarlo aquí.
+          respuestaPareja = textoEntregaEnlace(enlaceCortoPareja(phoneNumber));
         } else if (/(?<![a-záéíóúñ])(no|todav[ií]a|a[uú]n|despu[eé]s|luego|yo le aviso|mejor no)(?![a-záéíóúñ])/i.test(messageText)) {
           respuestaPareja = textoSinEnlace();
           plazoParaAviso = 'sin enlace, sin fecha';

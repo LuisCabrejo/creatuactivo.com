@@ -28,6 +28,7 @@ const CRITICAL_ASSETS = [
 // Rutas que NUNCA se cachean (APIs, auth, tracking)
 const BYPASS_CACHE_PATTERNS = [
   '/api/',
+  '/s/', // enlace corto de la pareja (/s/{codigo}) — es un redirect 302, siempre a red
   '/auth/',
   '/_next/webpack-hmr',
   '/tracking.js',  // Siempre fresh para fingerprinting

@@ -91,6 +91,17 @@ export function enlaceParaPareja(slugSocio: string | null | undefined, nombrePro
   return `https://wa.me/${NUMERO_QUESWA}?text=${encodeURIComponent(texto)}`;
 }
 
+/**
+ * El enlace CORTO que se le entrega a la persona: creatuactivo.com/s/{teléfono}.
+ * La ruta /s/[codigo] lo resuelve al wa.me real en el momento del clic, leyendo
+ * nombre y socio de la base — así el enlace mejora solo si el nombre llega
+ * después. Nació el 31 ago 2026: el modelo lo inventó en una respuesta (la ruta
+ * no existía) y el Director lo adoptó por presentable y por decir de dónde viene.
+ */
+export function enlaceCortoPareja(telefono: string): string {
+  return `https://creatuactivo.com/s/${(telefono || '').replace(/\D/g, '')}`;
+}
+
 /** T1 — ante «voy a consultarlo con mi esposa»: se OFRECE el enlace. Una pregunta, una salida. */
 export function textoOfrecerEnlace(): string {
   return [

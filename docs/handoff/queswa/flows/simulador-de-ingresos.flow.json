@@ -274,7 +274,7 @@
        },
        {
         "type": "TextCaption",
-        "text": "Se cuenta por paquetes comprados, no por personas. Cada comisión se liquida el viernes de la semana siguiente a la compra."
+        "text": "Cada comisión se liquida por ciclos semanales y llega a su cuenta el segundo viernes después del cierre del ciclo."
        }
       ]
      }
@@ -374,7 +374,7 @@
        },
        {
         "type": "TextCaption",
-        "text": "Se cuenta por paquetes comprados, no por personas. Cada comisión se liquida el viernes de la semana siguiente a la compra."
+        "text": "Cada comisión se liquida por ciclos semanales y llega a su cuenta el segundo viernes después del cierre del ciclo."
        }
       ]
      }
@@ -474,7 +474,7 @@
        },
        {
         "type": "TextCaption",
-        "text": "Se cuenta por paquetes comprados, no por personas. Cada comisión se liquida el viernes de la semana siguiente a la compra."
+        "text": "Cada comisión se liquida por ciclos semanales y llega a su cuenta el segundo viernes después del cierre del ciclo."
        }
       ]
      }

@@ -114,40 +114,59 @@ export function getRespuestaBoton(opcionId: string): string | null {
  *
  * Se compara sin tildes y en minúscula, así que basta una forma por nombre.
  */
-const NOMBRES_DE_PILA = new Set([
-  // Masculinos
+const NOMBRES_MASCULINOS = new Set([
   'juan','carlos','jose','luis','jorge','andres','diego','julian','camilo','santiago',
-  'sebastian','david','daniel','miguel','fernando','ricardo','oscar','alvaro','javier',
-  'alejandro','felipe','mauricio','german','hernan','ivan','jhon','john','wilson','edison',
-  'nelson','fabian','cristian','christian','brayan','brahyam','yeison','jefferson','duvan',
-  'edwin','anderson','alex','alexander','gustavo','hugo','ruben','raul','rafael','ramiro',
-  'pedro','pablo','manuel','marco','mario','martin','nestor','orlando','omar','rodrigo',
-  'sergio','victor','wilmar','yesid','arnulfo','efrain','elkin','freddy','gabriel','gerardo',
-  'gilberto','gonzalo','guillermo','hector','henry','jaime','jairo','jesus','joaquin',
-  'leonardo','libardo','marlon','nicolas','oswaldo','rigoberto','samuel','tomas','uriel',
-  'esteban','emilio','ernesto','eduardo','enrique','antonio','alberto','armando','arturo',
-  'benjamin','bernardo','cesar','ceferino','cristobal','damian','dario','edgar','eliecer',
-  'emmanuel','ferney','francisco','geovanny','giovanny','harold','ignacio','isaac','israel',
-  'jarrison','jhonatan','jonathan','julio','kevin','lorenzo','lucas','matias','mateo',
-  'maximiliano','norberto','octavio','pastor','ramon','reinaldo','roberto','rodolfo','rolando',
-  'salvador','saul','simon','teodoro','vicente','wilfredo','william','yohan',
-  // Femeninos
-  'maria','ana','luz','martha','marta','sandra','diana','claudia','paola','carolina',
-  'catalina','natalia','andrea','adriana','alejandra','angela','beatriz','blanca','carmen',
-  'cecilia','clara','consuelo','daniela','dora','elena','elizabeth','erika','esperanza',
-  'fabiola','flor','gloria','gladys','graciela','hilda','ingrid','irma','isabel','jenny',
-  'jessica','johana','johanna','juliana','karen','karina','laura','leidy','liliana','lina',
-  'lorena','lucia','luisa','magda','marcela','margarita','mariana','maribel','marisol',
-  'mercedes','michelle','milena','monica','myriam','miriam','nancy','nidia','nubia','olga',
-  'patricia','paula','pilar','rocio','rosa','rubiela','ruth','sara','silvia','sofia','sonia',
-  'stella','tatiana','teresa','valentina','vanessa','veronica','victoria','viviana','yolanda',
-  'yuliana','zulma','belcy','maryi','sidney','amparo','aura','cielo','edilma','eugenia',
-  'fanny','gina','ines','janeth','leonor','ligia','lucero','luzmila','melissa','nataly',
-  'nelly','norma','oliva','omaira','rosalba','sirley','sol','yamile','yaneth','yenny',
+  'sebastian','david','daniel','miguel','fernando','ricardo','oscar','alvaro','javier','alejandro',
+  'felipe','mauricio','german','hernan','ivan','jhon','john','wilson','edison','nelson',
+  'fabian','cristian','christian','brayan','brahyam','yeison','jefferson','duvan','edwin','anderson',
+  'alex','alexander','gustavo','hugo','ruben','raul','rafael','ramiro','pedro','pablo',
+  'manuel','marco','mario','martin','nestor','orlando','omar','rodrigo','sergio','victor',
+  'wilmar','yesid','arnulfo','efrain','elkin','freddy','gabriel','gerardo','gilberto','gonzalo',
+  'guillermo','hector','henry','jaime','jairo','jesus','joaquin','leonardo','libardo','marlon',
+  'nicolas','oswaldo','rigoberto','samuel','tomas','uriel','esteban','emilio','ernesto','eduardo',
+  'enrique','antonio','alberto','armando','arturo','benjamin','bernardo','cesar','ceferino','cristobal',
+  'damian','dario','edgar','eliecer','emmanuel','ferney','francisco','geovanny','giovanny','harold',
+  'ignacio','isaac','israel','jarrison','jhonatan','jonathan','julio','kevin','lorenzo','lucas',
+  'matias','mateo','maximiliano','norberto','octavio','pastor','ramon','reinaldo','roberto','rodolfo',
+  'rolando','salvador','saul','simon','teodoro','vicente','wilfredo','william','yohan',
 ]);
+
+const NOMBRES_FEMENINOS = new Set([
+  'maria','ana','luz','martha','marta','sandra','diana','claudia','paola','carolina',
+  'catalina','natalia','andrea','adriana','alejandra','angela','beatriz','blanca','carmen','cecilia',
+  'clara','consuelo','daniela','dora','elena','elizabeth','erika','esperanza','fabiola','flor',
+  'gloria','gladys','graciela','hilda','ingrid','irma','isabel','jenny','jessica','johana',
+  'johanna','juliana','karen','karina','laura','leidy','liliana','lina','lorena','lucia',
+  'luisa','magda','marcela','margarita','mariana','maribel','marisol','mercedes','michelle','milena',
+  'monica','myriam','miriam','nancy','nidia','nubia','olga','patricia','paula','pilar',
+  'rocio','rosa','rubiela','ruth','sara','silvia','sofia','sonia','stella','tatiana',
+  'teresa','valentina','vanessa','veronica','victoria','viviana','yolanda','yuliana','zulma','belcy',
+  'maryi','sidney','amparo','aura','cielo','edilma','eugenia','fanny','gina','ines',
+  'janeth','leonor','ligia','lucero','luzmila','melissa','nataly','nelly','norma','oliva',
+  'omaira','rosalba','sirley','sol','yamile','yaneth','yenny',
+]);
+
+const NOMBRES_DE_PILA = new Set([...NOMBRES_MASCULINOS, ...NOMBRES_FEMENINOS]);
 
 /** Palabras que delatan un nombre comercial aunque empiece con un nombre de pila. */
 const RE_MARCA = /\b(sas|s\.a\.s|ltda|cia|sa|inc|corp|store|shop|boutique|barberia|barbería|salon|salón|spa|restaurante|panaderia|panadería|distribuidora|comercializadora|inversiones|servicios|soluciones|grupo|tienda|mercado|farmacia|drogueria|droguería|taller|motos|autos|viajes|seguros|inmobiliaria|constructora|transportes|logistica|logística|academia|instituto|gimnasio|gym|agencia|consultorio|clinica|clínica|veterinaria|ferreteria|ferretería|papeleria|papelería|variedades|creaciones|publicidad|marketing|oficial)\b/i;
+
+/**
+ * El sexo del nombre, para que la concordancia sea correcta al saludar a quien
+ * vuelve (Director, 31 ago 2026). Sale de `NOMBRES_DE_PILA`, que ya está
+ * separada en masculinos y femeninos: no se adivina por la terminación.
+ *
+ * ⚠️ Devuelve `null` cuando el nombre no está en la lista, y el copy tiene que
+ * traer una forma NEUTRA para ese caso. Equivocar el trato es peor que omitirlo.
+ */
+export function sexoDelNombre(nombre?: string): 'm' | 'f' | null {
+  if (!nombre) return null;
+  const limpio = nombre.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '').trim();
+  const primera = sinTildes(limpio.split(/\s+/)[0].toLowerCase());
+  if (NOMBRES_MASCULINOS.has(primera)) return 'm';
+  if (NOMBRES_FEMENINOS.has(primera)) return 'f';
+  return null;
+}
 
 function sinTildes(s: string): string {
   // Rango de diacríticos combinantes, escapado a propósito: escribirlo literal
@@ -174,12 +193,13 @@ function sinTildes(s: string): string {
 function nombreUtil(nombre?: string): string | null {
   if (!nombre) return null;
 
-  const limpio = nombre.trim();
+  // El emoji se LIMPIA, no descarta: «Milena❤️» es una persona que decoró su
+  // perfil, y descartarla la dejaba sin nombre y sin trato (31 ago 2026).
+  const limpio = nombre.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '').trim();
   if (!limpio || limpio.toLowerCase() === 'constructor') return null;
 
-  // Dígitos, arrobas, urls o emoji → nombre comercial o alias, no una persona.
+  // Dígitos, arrobas o urls → nombre comercial o alias, no una persona.
   if (/[\d@/_|+·•]/.test(limpio)) return null;
-  if (/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(limpio)) return null;
   if (RE_MARCA.test(limpio)) return null;
 
   const partes = limpio.split(/\s+/).filter(Boolean);
@@ -225,6 +245,29 @@ function nombreSocioCorto(nombre?: string): string | undefined {
  * @param nombreProspecto  Nombre de perfil de WhatsApp. Se usa SOLO si supera el
  *                         filtro de `nombreUtil()`; ante la duda se omite.
  */
+/**
+ * Recibimiento de quien VUELVE. Es corto a propósito: ya recibió la explicación
+ * larga, y repetírsela le dice que no lo reconocimos.
+ *
+ * Nació el 31 ago 2026: la apertura solo dispara para prospectos nuevos, así que
+ * quien volvía y escribía «hola» caía al motor, y el modelo improvisaba un
+ * saludo — inventó «Luis ya me comentó que podía escribirme», que es falso y que
+ * habíamos retirado justamente por eso, y adivinó el género con un «Bienvenida».
+ *
+ * Lleva el nombre cuando lo hay, y la concordancia SOLO cuando el nombre la
+ * determina (`sexoDelNombre`). Si no, la forma neutra: equivocar el trato es
+ * peor que omitirlo.
+ */
+export function aperturaRetorno(nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  const sexo = sexoDelNombre(nombre ?? undefined);
+  const saludo = sexo === 'f' ? `Qué bueno tenerla de vuelta, ${nombre}.`
+    : sexo === 'm' ? `Qué bueno tenerlo de vuelta, ${nombre}.`
+    : nombre ? `Qué bueno que vuelva, ${nombre}.`
+    : 'Qué bueno que vuelva.';
+  return [saludo, '', 'Seguimos donde quiera. ¿Por dónde retomamos?'].join('\n');
+}
+
 export function construirApertura(nombreSocio?: string, nombreProspecto?: string): string {
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';

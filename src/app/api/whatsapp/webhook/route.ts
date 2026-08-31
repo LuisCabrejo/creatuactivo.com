@@ -24,6 +24,7 @@ import {
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
+  aperturaRetorno,
   APERTURA_OPCIONES,
   getRespuestaBoton,
 } from '@/lib/wa-apertura';
@@ -934,6 +935,23 @@ async function procesarEntrante(body: any): Promise<void> {
         });
       } catch { /* best-effort */ }
       console.log(`💑 [WA Webhook] Llegó la pareja de ${_llegaPareja.nombre ?? '(sin nombre)'} — apertura con reconocimiento`);
+      return;
+    }
+
+    // Quien YA nos escribió antes y vuelve con un saludo recibe un recibimiento
+    // corto y dictado, con los mismos botones. Sin esto el turno caía al motor y
+    // el modelo improvisaba: el 31 ago inventó «Luis ya me comentó que podía
+    // escribirme» —falso, y retirado del copy justamente por eso— y adivinó el
+    // género con un «Bienvenida». Es un caso común: cualquiera que vuelve.
+    if (existingProspect && !socioQueEscribe && !llegaDecidido && !_traePregunta) {
+      const retorno = aperturaRetorno(contactName);
+      const enviadoR = await sendReplyButtons(phoneNumber, retorno, APERTURA_OPCIONES);
+      if (!enviadoR.ok) {
+        const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+        await sendWhatsAppMessage(phoneNumber, `${retorno}\n\n${opciones}`);
+      }
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, retorno);
+      console.log(`👋 [WA Webhook] Vuelve ${contactName} — recibimiento corto con botones`);
       return;
     }
 

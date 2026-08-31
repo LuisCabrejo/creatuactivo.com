@@ -156,6 +156,41 @@ export function aFormatoWhatsApp(texto: string): string {
  * control de longitud no se le confía al prompt — "sé breve" es de los adjetivos
  * que peor se cumplen; la fragmentación tiene que ocurrir en el código.
  */
+/**
+ * El borrador que el socio va a COPIAR sale en una burbuja propia.
+ *
+ * En modo socio, Queswa entrega el mensaje redactado entre dos líneas de tres
+ * guiones (el esqueleto se lo ordena). Sin este tratamiento pasaban dos cosas
+ * (prueba real, 31 ago 2026): `aFormatoWhatsApp` borraba los guiones como
+ * separador suelto, y `partirParaWhatsApp` cortaba el borrador por la mitad al
+ * pasar de 600 caracteres — al socio le llegó el mensaje en dos pedazos, con el
+ * «Listo, Luis» pegado arriba: imposible de copiar sin editar.
+ *
+ * Aquí el bloque entre guiones se vuelve una parte PROPIA que nunca se parte,
+ * por larga que sea: una burbuja = una copia con dejar el dedo. Lo de antes y
+ * lo de después siguen las reglas normales.
+ *
+ * Devuelve `null` si el texto no trae el bloque — el que llama cae al camino de
+ * siempre.
+ */
+export function partesConBorradorAparte(texto: string): string[] | null {
+  const lineas = (texto || '').replace(/\r\n/g, '\n').split('\n');
+  const idx: number[] = [];
+  lineas.forEach((l, i) => { if (/^\s{0,3}-{3,}\s*$/.test(l)) idx.push(i); });
+  if (idx.length < 2) return null;
+
+  const antes    = aFormatoWhatsApp(lineas.slice(0, idx[0]).join('\n'));
+  const borrador = aFormatoWhatsApp(lineas.slice(idx[0] + 1, idx[1]).join('\n'));
+  const despues  = aFormatoWhatsApp(lineas.slice(idx[1] + 1).join('\n'));
+  if (!borrador) return null;
+
+  return [
+    ...(antes ? partirParaWhatsApp(antes) : []),
+    borrador,
+    ...(despues ? partirParaWhatsApp(despues) : []),
+  ];
+}
+
 export function partirParaWhatsApp(texto: string, limite = 600, maxPartes = 3): string[] {
   const limpio = (texto || '').trim();
   if (!limpio) return [];

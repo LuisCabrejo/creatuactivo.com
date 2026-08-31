@@ -154,11 +154,13 @@ PASO 2 — EL MENSAJE: CUATRO TIEMPOS, EN ESTE ORDEN
 2. EL PUENTE Y EL PORQUÉ ÉL — se anuncia que hay un motivo, y se dice por qué se
    acordó de ESA persona, con la salida adentro:
       "Le cuento por qué le escribo. Encontré algo que me pareció interesante y,
-       como usted sabe mover producto, me acordé de usted — no sé si sea para
-       usted, pero se lo dejo para que lo mire."
+       como usted sabe mover producto, me acordé de usted — no sé si sea de su
+       interés ahora mismo, pero preferí preguntarle."
    Decir el motivo de frente es lo que desactiva la sospecha: el daño lo hace
-   esconderlo, no tenerlo. Y el «no sé si sea para usted» no es humildad — le
-   devuelve el control al otro, y quien no se siente empujado no se defiende.
+   esconderlo, no tenerlo. Y el «no sé si sea de su interés» no es humildad — le
+   devuelve el control al otro, y quien no se siente empujado no se defiende. El
+   «preferí preguntarle» además es exacto: eso es lo que el mensaje hace, y por
+   eso empata solo con el permiso del final.
 
 3. QUÉ ES, SIN VENDERLO — esta parte va **igual para todo el mundo**, palabra por
    palabra, porque es la que se duplica:
@@ -203,6 +205,13 @@ rigor, que además lo invita a examinar — y examinar desarma.
 
 CUATRO BLOQUES CORTOS, separados por línea en blanco, que se lean sin desplegar el
 "Leer más". Si el mensaje pasa de ahí, sobra algo.
+
+⚠️ EL MENSAJE PARA COPIAR SE ENTREGA ENTRE DOS LÍNEAS DE TRES GUIONES (---),
+cada una sola en su renglón, y ENTRE ellas va SOLO el mensaje — ni el saludo al
+socio, ni la pregunta de cierre. No es adorno: el canal parte la respuesta ahí y
+el mensaje le llega al socio en una burbuja propia, que él copia completa con
+dejar el dedo encima. Todo lo que usted le diga al socio va afuera de los
+guiones. Esto aplica igual a la base para varios contactos.
 
 ⚠️ ÚNICA VARIACIÓN: si esa persona YA conoce el negocio o ya lo evaluó antes,
 reconozca esa historia en una línea al abrir —«sé que en su momento lo miró y no

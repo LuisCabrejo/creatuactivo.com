@@ -48,7 +48,7 @@ import {
   marcarEnviado, pideAyudaParaEmpezar, diceQueYaEnvio, preguntaPorLaLista,
   preguntaDelCafe, listaGuardada, siguienteDeLaLista, listaTerminada, resumenParaElSocio,
 } from '@/lib/wa-lista-socio';
-import { aFormatoWhatsApp, partirParaWhatsApp } from '@/lib/wa-formato';
+import { aFormatoWhatsApp, partirParaWhatsApp, partesConBorradorAparte } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
@@ -2007,7 +2007,11 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // la persona ya escribió otra cosa encima, y ahí la cita es lo que dice a
       // cuál de sus mensajes se le está contestando.
       const tardo = Date.now() - t0 > 8000;
-      await sendWhatsAppMessage(phoneNumber, queswaReply, { wamid, citar: tardo });
+      // En modo socio, el borrador que él va a copiar viaja entre líneas de
+      // guiones y sale en burbuja propia — una burbuja, una copia limpia.
+      await sendWhatsAppMessage(phoneNumber, queswaReply, {
+        wamid, citar: tardo, borradorAparte: pageContext === 'whatsapp_socio',
+      });
 
       // Tras el ejemplo de cifras dictado, se ofrece el simulador (WhatsApp
       // Flow): la persona arma su propio escenario moviendo paquete y cantidad.
@@ -2195,10 +2199,14 @@ async function pisoDeEscritura(): Promise<void> {
 async function sendWhatsAppMessage(
   to: string,
   text: string,
-  opciones: { wamid?: string; citar?: boolean } = {},
+  opciones: { wamid?: string; citar?: boolean; borradorAparte?: boolean } = {},
 ): Promise<void> {
   await pisoDeEscritura();
-  const partes = partirParaWhatsApp(aFormatoWhatsApp(text));
+  // `borradorAparte` (modo socio): si la respuesta trae un bloque entre líneas
+  // de guiones, ese bloque es el mensaje que el socio va a copiar y sale en
+  // burbuja propia, sin partirse. Sin el bloque, camino de siempre.
+  const partes = (opciones.borradorAparte ? partesConBorradorAparte(text) : null)
+    ?? partirParaWhatsApp(aFormatoWhatsApp(text));
 
   for (let i = 0; i < partes.length; i++) {
     // La cita cuelga SOLO del primer envío. Repetirla en cada parte llena la

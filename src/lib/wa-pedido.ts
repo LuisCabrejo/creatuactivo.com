@@ -277,7 +277,7 @@ export function detectarCiudad(texto: string): string | null {
 }
 
 /** El bot ya explicó lo de las sedes en esta conversación. */
-export const RE_OFICINA_YA_EXPLICADA = /atienden a quienes ya tienen su c[oó]digo|con gusto se la dar[ií]a/i;
+export const RE_OFICINA_YA_EXPLICADA = /llegar con su c[oó]digo de cliente|atienden a quienes llegan con su c[oó]digo|con gusto se la dar[ií]a/i;
 
 /** «Vivo en Medellín / estoy en Cali»: la persona dijo dónde está. Distinto de «¿hay oficina en X?». */
 export function diceDondeVive(texto: string): boolean {
@@ -293,22 +293,27 @@ export function respuestaOficinaProspecto(
 ): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
   const primerPedido = hayPedido ? 'este primer pedido' : 'su primer pedido';
-  const puerta = `Atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}, así que él mismo le indica la dirección y acuerdan si lo recoge allá o se lo envían, lo que le resulte más cómodo.`;
-  // Cierra proponiendo un paso (regla de la pregunta única): quien pregunta por
-  // la sede para comprar quiere conocer el producto antes.
-  const cierre = hayPedido ? '' : '\n\n¿Le cuento cómo es el producto que tiene en mente?';
+  // El código deja de ser un requisito y pasa a ser lo que le da el precio: el
+  // dato en pesos sale de CLIENTE_VIP_01 ($147.900 público · $110.900 con
+  // código). Se prueba con un hecho, nunca con una advertencia sobre ir solo
+  // (Director + Gemini, 29 ago 2026).
+  const llave = `Para comprar allá hace falta una sola cosa: llegar con su código de cliente. Es lo que le da el precio de distribuidor: el Ganocafé 3 en 1 vale $147.900 al público y $110.900 con código, unos $37.000 menos por caja.`;
+  const puerta = `Su código lo abre ${quien} con ${primerPedido}, y ahí mismo le indica la dirección exacta y acuerdan si lo recoge allá o se lo envían.`;
+  // A quien ya tiene pedido no se le ofrece abrir otro.
+  const cierre = hayPedido ? '' : `\n\n${OFERTA_PEDIDO_SEDE}`;
 
   if (insiste) {
     return `Con gusto se la daría, pero esa parte la lleva ${quien}: al abrirle el código le indica la dirección y acuerdan la entrega. Se comunica con usted por aquí mismo.`;
   }
   if (ciudad && CIUDADES_SEDE.includes(ciudad)) {
     const cuantas = ciudad === 'Bogotá' ? 'hay dos sedes' : 'hay una sede';
-    return (viveAlli
-      ? `Qué bien que esté en ${ciudad}: allá ${cuantas} de Gano Excel. ${puerta}`
-      : `Sí, en ${ciudad} ${cuantas} de Gano Excel. ${puerta}`) + cierre;
+    const apertura = viveAlli
+      ? `Qué bien que esté en ${ciudad}: allá ${cuantas} de Gano Excel, y conocer la operación en persona siempre es buena idea.`
+      : `Sí, en ${ciudad} ${cuantas} de Gano Excel, y conocer la operación en persona siempre es buena idea.`;
+    return `${apertura}\n\n${llave}\n\n${puerta}${cierre}`;
   }
   const destino = ciudad ? ` hasta ${ciudad}` : '';
-  return `Las sedes de Gano Excel atienden a quienes ya tienen su código de cliente, y el suyo lo abre ${quien} con ${primerPedido}. Ahí mismo acuerdan la entrega${destino}, y si prefiere recogerlo en una sede, ${quien} le indica cuál le queda más cerca.` + cierre;
+  return `Las sedes de Gano Excel atienden a quienes llegan con su código de cliente, que es lo que da el precio de distribuidor. El suyo lo abre ${quien} con ${primerPedido}, y ahí mismo acuerdan la entrega${destino} o le indica cuál sede le queda más cerca.${cierre}`;
 }
 
 // ─── «Quiero hablar con una persona» ─────────────────────────────────────────
@@ -470,6 +475,10 @@ export async function avisarPidePersona(
 export const RE_OFERTA_RUTINA = /¿Le cuento cómo integrarlo en su rutina\?\s*$/;
 export const RE_OFERTA_CADA_UNO = /¿Le cuento cómo es cada uno\?\s*$/;
 export const RE_OFERTA_FOTO_PRODUCTO = /¿Le muestro la foto\?\s*$/;
+
+/** El cierre de la respuesta de sede: invita a abrir el pedido con el que queda el código. */
+export const OFERTA_PEDIDO_SEDE = '¿Le abro el pedido con el que queda su código activo?';
+export const RE_OFERTA_PEDIDO_SEDE = /¿Le abro el pedido con el que queda su código activo\?\s*$/;
 
 const porSlug = (slug: string) => PRODUCTOS_WA.find((p) => p.slug === slug) ?? null;
 

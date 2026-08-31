@@ -322,6 +322,14 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_inicial
 
+### v6.22 — Sesión de reescritura sobre la prueba del canal (29 ago 2026)
+
+Trabajada respuesta por respuesta con el Director, contrastando cada una con la propuesta del agente Gemini. El criterio que se repitió: **se toma su arquitectura, nunca su contenido** — sus textos cruzan la línea INVIMA o inventan nomenclatura del plan (*margen*, *nivel*, *frentes*, *comisión por expansión*) justo donde suenan mejor.
+
+- **`WHY_02`** 🔒: apertura concreta (*café y suplementos premium* en vez de la categoría abstracta), *«por cada producto que se compra a través de su canal»* en lugar de *«por cada movimiento»* —que sonaba logístico—, y la lista de ausencias (*sin comprar inventario ni entregar pedidos*) convertida en presencias: *ellos fabrican, almacenan y despachan cada pedido*. Sincronizado con `respuestas-maestras.ts`, contrato de prefijo verificado.
+- **`DIASPORA_01`** 🔒 gana candado sobre las tres reglas —registro, dirección de envío y cuenta bancaria en el **país natal**—. Medido: `FREQ_29` le ganaba por **0,017** a la pregunta real de la prueba (*«canal de distribución en América»* es su tema), y el modelo se quedó con la lista de países y perdió la logística; al turno siguiente improvisó *«una cuenta bancaria local»*. Con paráfrasis normales `DIASPORA_01` gana sin problema (0,472 vs 0,412), así que **no se tocó su índice**: el arreglo es el candado, que la sirve sola cuando encabeza. Su cierre pasa a ofrecer la documentación (`DIASPORA_03`), que sirve también cuando la persona ya dijo su país.
+- **`FREQ_29`**: *«se registra una sola vez, en su país»* → *«en su país **natal**»*. Para quien vive fuera, *su país* era ambiguo y habilitaba justo el error de la cuenta local.
+
 ### v6.21 — WHY_05 deja de suponer la ocupación (29 ago 2026)
 
 Prueba del Director, 29 ago 15:58: *«¿por qué uno debería hacer este negocio?»* recibió *«un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo»* — tres oficios adivinados para una persona de la que no sabemos nada. Redacción del Director: *«Hoy, la estabilidad económica de la mayoría depende de variables que no controla, donde basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee. Y para rematar, cuando el ingreso sí llega, usualmente ya tiene dueño: el banco, las cuotas, los recibos. Un canal de distribución es un plan para protegerse de eso…»*. El villano pasa de la segunda persona con oficio a *la mayoría* con variables: cabe el empleado, el independiente y el empresario, y nadie se exime. El segundo párrafo (Gano fabrica, Queswa conversa, usted decide) y la pregunta de cierre no cambian.

@@ -100,7 +100,7 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
     : opciones.composicionYaOfrecida
     ? '¿Con cuál de los tres paquetes se identifica más?'
     : esKit
-      ? '¿Le muestro las tres formas de empezar?'
+      ? '¿Le muestro los tres paquetes principales, para que los compare con el Kit?'
       // 23 ago (Director): tras la renta, la pregunta lleva a la OTRA forma de ganar —
       // la de los paquetes— porque sin ese contexto la persona no la pregunta, y es la
       // que le muestra que puede ganar desde el comienzo. La oferta nombra «ejemplo»
@@ -114,7 +114,7 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 
-${cajas === 4 ? 'Eso supone que cada cliente compra una caja de Ganocafé a la semana' : `Eso supone que cada cliente compra ${cajas} cajas de Ganocafé al mes`}, y se liquida cada viernes. Y esos clientes no los consigue usted solo: son los de sus socios, sumados.
+${cajas === 4 ? 'El cálculo supone que cada cliente compra una caja de Ganocafé a la semana' : `El cálculo supone que cada cliente compra ${cajas} cajas de Ganocafé al mes`}. Y ahí está la palanca: el sistema suma sus clientes y los de sus distribuidores, y ese volumen se le liquida cada viernes.
 
 ${cierre}`;
 }
@@ -133,11 +133,11 @@ export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): 
     ? cierreRadicado(opciones.radicado)
     : opciones.composicionYaOfrecida
     ? '¿Con cuál de los tres paquetes se identifica más?'
-    : `¿Le muestro qué trae el paquete ${corto(p.etiqueta)}?`;
+    : `¿Le muestro qué trae el paquete ${corto(p.etiqueta)}, que es el inventario con el que arranca?`;
 
   return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, la suma de esas ${compras} compras es *${cop(total)}*.
 
-Se cuenta por paquetes comprados, no por personas, y se liquida por ciclos semanales, cada viernes.
+Esa comisión se liquida por ciclos semanales y le cae en su cuenta bancaria cada viernes.
 
 ${cierre}`;
 }

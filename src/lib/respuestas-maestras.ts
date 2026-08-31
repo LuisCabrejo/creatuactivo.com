@@ -120,19 +120,19 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. El modelo funciona creando un canal de distribución apoyado en productos premium de bienestar que el cliente incorpora a su rutina.
+const MASTER_WHY_02 = `Con gusto. Todo parte de algo concreto: usted monta su propio canal de distribución de café y suplementos premium.
 
-La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
+La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.
 
-Y al ser productos funcionales con resultados reales para el bienestar y la vitalidad diaria —gracias al Ganoderma—, el cliente nota la diferencia y no vuelve al producto genérico. Cuando se le acaba, vuelve a pedir. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.
+Y como llevan extracto de Ganoderma, quien los prueba nota la diferencia en su energía y no vuelve al genérico. Cuando se le acaba, pide más. Esa compra que se repite es la que le sostiene el ingreso.
 
 Del trabajo pesado nos encargamos nosotros:
 
-**Gano Excel** pone las fábricas, la investigación y la logística — 30 años, más de 60 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.
+**Gano Excel** pone las fábricas, la investigación y la logística, con 30 años y presencia en más de 60 países: ellos fabrican, almacenan y despachan cada pedido. Usted maneja su canal desde el celular.
 
-**Yo** explico y atiendo a toda hora, sin que usted tenga que repetirle lo mismo a cada interesado.
+**Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta, sin que usted repita lo mismo a cada interesado.
 
-A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y cobrar cada vez que su canal mueve producto.
+A usted le quedan dos acciones: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.
 
 ¿Quiere ver cómo se gana?`;
 

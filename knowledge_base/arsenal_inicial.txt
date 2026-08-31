@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.21** (29 ago 2026) — **`WHY_05` deja de suponer la ocupación.** *«Un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo»* le adivinaba el oficio a quien pregunta; ahora el villano es macroeconómico —*la estabilidad de la mayoría depende de variables que no controla*— y sirve al empleado, al independiente y al empresario por igual (Director, 29 ago). Detalle en el CHANGELOG.
+**Versión actual: v6.22** (29 ago 2026) — **Sesión de reescritura con el Director sobre la prueba del canal.** `WHY_02` 🔒 (apertura concreta, «por cada producto que se compra», presencias en vez de ausencias) · `DIASPORA_01` 🔒 gana candado sobre las tres reglas —registro, envío y cuenta en el país natal— porque `FREQ_29` le ganaba por 0,017 y el modelo se quedaba con la lista de países · `FREQ_29` dice «su país **natal**», que era ambiguo para quien vive fuera. Detalle en el CHANGELOG.
+
+**v6.21** (29 ago 2026) — **`WHY_05` deja de suponer la ocupación.** *«Un despido que nadie avisó, un mal trimestre de ventas, una semana en que no salió trabajo»* le adivinaba el oficio a quien pregunta; ahora el villano es macroeconómico —*la estabilidad de la mayoría depende de variables que no controla*— y sirve al empleado, al independiente y al empresario por igual (Director, 29 ago). Detalle en el CHANGELOG.
 
 **v6.20** (27 ago 2026) — **Las sedes son información de socio, y el envío tiene dueño.** `FREQ_13` y `FREQ_07` conservan las nueve sedes como prueba de legalidad y sueltan la invitación a ir; nace `FREQ_36` (cómo llega el pedido). El directorio `FREQ_34` solo viaja en modo socio (filtro en el motor). Detalle en el CHANGELOG.
 
@@ -61,19 +63,19 @@ Lo físico no lo inventamos nosotros, y ahí está la solidez: las fábricas, el
 **[Concepto Nuclear]:** La pregunta literal es "cómo funciona"; la real es **"¿cómo voy yo? ¿cómo se gana?"**, y debajo está la sospecha de que un ingreso que no dependa de su presencia es fantasía. Se desarma **diciendo de dónde sale la plata en el segundo párrafo**, con ancla física frente a la nube: café que sale de una fábrica y plata que llega a un banco. ⚠️ **El orden es la mitad del argumento** (8 ago 2026): tesis → dinero → recurrencia → viabilidad → su rol → el cobro. La viabilidad va **agrupada y al final**; repartirla arriba y abajo interrumpe la curva justo donde el lector arma la ecuación. **Gano Excel y Queswa van juntos y en líneas propias** — verlos apilados es lo que convierte una explicación en un alivio. ⚠️ **El estante es premium de bienestar**: situarlos en el registro de lo corriente hace que el precio se mida contra un café de $25.000, y esa comparación la habríamos plantado nosotros. ⚠️ **La recompra se explica por RESULTADO** —el cliente vuelve a pedir el mismo—, no por que se agote. ⚠️ **Se entra directo a la mecánica:** quien pregunta esto ya se autodiagnosticó. ⚠️ El párrafo del dinero va **sin cifras**; los números viven en compensación. ⚠️ **El cobro se nombra por su REPETICIÓN** —*cada vez que su canal mueve producto*—: atarlo a una cadencia lo vuelve promesa de ingreso con fecha. La cadencia semanal es un hecho y vive en WHY_04.
 
 <verbatim_lock>
-Con gusto. El modelo funciona creando un canal de distribución apoyado en productos premium de bienestar que el cliente incorpora a su rutina.
+Con gusto. Todo parte de algo concreto: usted monta su propio canal de distribución de café y suplementos premium.
 
-La ganancia sale de una sola cosa: el producto que se mueve por su canal. Por cada movimiento, a usted le queda un porcentaje.
+La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.
 
-Y al ser productos funcionales con resultados reales para el bienestar y la vitalidad diaria —gracias al Ganoderma—, el cliente nota la diferencia y no vuelve al producto genérico. Cuando se le acaba, vuelve a pedir. Ese consumo recurrente por calidad es el que estabiliza su flujo de ingresos.
+Y como llevan extracto de Ganoderma, quien los prueba nota la diferencia en su energía y no vuelve al genérico. Cuando se le acaba, pide más. Esa compra que se repite es la que le sostiene el ingreso.
 
 Del trabajo pesado nos encargamos nosotros:
 
-**Gano Excel** pone las fábricas, la investigación y la logística — 30 años, más de 60 países. Usted maneja su canal desde el celular, sin comprar inventario ni entregar pedidos.
+**Gano Excel** pone las fábricas, la investigación y la logística, con 30 años y presencia en más de 60 países: ellos fabrican, almacenan y despachan cada pedido. Usted maneja su canal desde el celular.
 
-**Yo** explico y atiendo a toda hora, sin que usted tenga que repetirle lo mismo a cada interesado.
+**Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta, sin que usted repita lo mismo a cada interesado.
 
-A usted le quedan dos cosas: compartir este mismo acceso con quien desee, y cobrar cada vez que su canal mueve producto.
+A usted le quedan dos acciones: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Quiere ver cómo se gana?
@@ -474,7 +476,7 @@ Eso es lo que cambia con un **canal de distribución**: una segunda entrada que 
 **[Índice]:** Puedo trabajar con personas de otros países, mi canal crece fuera de mi país, solo puedo vender aquí, en qué países se puede desarrollar esto.
 **[Concepto Nuclear]:** El alcance internacional es una fortaleza y se nombra por su MECANISMO —el Back Office liquida por país—, nunca por lo que alguien gana. Se registra una sola vez, en su país; desde ahí tramita en los demás.
 
-Su canal no tiene frontera. Usted se registra una sola vez, en su país, y desde ahí tramita afiliaciones en cualquiera de los países donde opera la compañía — por internet, por el Back Office o por WhatsApp.
+Su canal no tiene frontera. Usted se registra una sola vez, en su país natal, y desde ahí tramita afiliaciones en cualquiera de los países donde opera la compañía — por internet, por el Back Office o por WhatsApp.
 
 El Back Office le muestra el volumen que se mueve país por país, y le liquida por cada uno.
 
@@ -943,15 +945,17 @@ Eso es apalancamiento — capitalizar un impulso que ya está en marcha, en vez 
 
 **[Concepto Nuclear]:** Si su país natal es uno de los 16 donde opera Gano Excel, vivir fuera no importa: se registra por su país, recibe producto y cobra ahí, y construye en toda América. ⛔ **NO se nombra el gremio.** Decía *«el viejo marketing de redes exigía reuniones presenciales»*: quien pregunta esto está preguntando por logística, no por multinivel, y esa frase se lo revela — y de paso nos ubica dentro de esa industria como su versión mejorada. `NET_01` y `NET_02` sí pueden compararse, porque allá el tema lo trajo la persona. La barrera se cuenta sin etiqueta: *tocaba estar cerca y reunirse en persona*.
 
+<verbatim_lock>
 Sí, totalmente —siempre que su país natal sea uno de los 16 donde Gano Excel tiene operación. Lo que define dónde construye su negocio no es dónde vive, sino el país por el que se registra.
 
 Su canal se ancla a su país natal, donde obtiene su código. Los productos se envían a una dirección dentro de ese país y sus comisiones se pagan a una cuenta bancaria de ese mismo país. Desde ahí, viva donde viva, usted desarrolla su canal en los 16 países de América.
 
 **Ejemplo:** un mexicano que vive en Japón se vincula por México, recibe el producto en una dirección de México y cobra en una cuenta mexicana —y maneja todo a distancia. Lo mismo aplica para cualquier latino en el mundo cuyo país natal tenga oficina de Gano Excel.
+</verbatim_lock>
 
 Y esto destapa algo que antes no se podía aprovechar: millones de hispanohablantes viven fuera de su país y, hasta ahora, construir algo así pedía estar cerca y reunirse en persona. Esa barrera ya no existe: lo que hay que explicar lo explico yo, desde donde esté cada quien.
 
-**Pregunta de seguimiento:** ¿Me cuenta cuál es su país natal? Con eso le digo exactamente cómo sería su registro.
+**Pregunta de seguimiento:** ¿Le cuento qué documentación necesita para dejar su registro armado desde el exterior?
 
 ---
 

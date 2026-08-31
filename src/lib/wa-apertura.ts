@@ -310,8 +310,7 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //   línea: el salto de línea es el que resalta la prueba social.
     // • "su PROPIO canal" hace eco con "usted es el dueño" del bloque anterior —
     //   es la palabra que separa esto de "vincularse a algo".
-    'Mientras conversamos, usted ya está viendo cómo le podría ayudar:',
-    'Así es como asisto a cientos de personas a construir su propio canal, las 24 horas.',
+    'Y esto que está viendo es exactamente lo que yo haría por usted y por todo su canal, a cualquier hora: así atiendo a cientos de personas mientras construyen el suyo.',
     '',
     '¿Por dónde prefiere empezar?',
   ].join('\n');

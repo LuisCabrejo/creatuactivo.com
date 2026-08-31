@@ -56,7 +56,7 @@ import {
   detectarPidePersona, respuestaPersona, avisarPidePersona,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
   nombreCorto, RE_PEDIDO_CARGADO,
-  seguimientoSalud, RE_OFERTA_FOTO_PRODUCTO,
+  seguimientoSalud, RE_OFERTA_FOTO_PRODUCTO, RE_OFERTA_PEDIDO_SEDE, esAceptacion,
 } from '@/lib/wa-pedido';
 import {
   pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
@@ -1351,7 +1351,10 @@ async function procesarEntrante(body: any): Promise<void> {
       ? { nombre: socio.nombre?.split(/\s+/).slice(0, 2).join(' '), whatsapp: socio.whatsapp, constructorId: socio.constructorId,
           slug: await slugDelSocio(supabase, socio.constructorId) }
       : null;
-    const _enPedido = !socioQueEscribe && pedidoAbierto(_ultimoBotPedido);
+    // El «sí» a «¿Le abro el pedido con el que queda su código activo?» (cierre
+    // de la respuesta de sede) entra al pedido pidiendo los productos.
+    const _aceptaPedidoSede = RE_OFERTA_PEDIDO_SEDE.test(_ultimoBotPedido) && esAceptacion(messageText);
+    const _enPedido = !socioQueEscribe && (pedidoAbierto(_ultimoBotPedido) || _aceptaPedidoSede);
     const _hayPedido = !socioQueEscribe && pedidoCargado(historial);
 
     // «¿Dónde queda la oficina para comprar una caja?» pregunta por la SEDE: el

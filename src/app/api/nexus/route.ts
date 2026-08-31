@@ -5585,11 +5585,9 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
         return `
 📌 EJEMPLO RENTA (BINARIO) DICTADO — imprime este texto EXACTAMENTE, sin tablas, sin diagramas y sin agregar escenarios. Es el único ejemplo de renta que se entrega por este canal:
 
-Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ganocafé a la semana* — cuatro al mes.
+Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ganocafé a la semana*, que son cuatro al mes.
 
-Su canal se ordena en *dos centros de negocio*.
-
-Y ojo con la cuenta: esos clientes no los consigue usted solo. Son los de sus socios, sumados — ejemplo: diez distribuidores con diez clientes cada uno ya llegan a cien.
+Para liquidarle, su canal se ordena en *dos centros de negocio*, y ahí está la palanca: el sistema suma sus clientes y los de sus distribuidores. Diez distribuidores con diez clientes cada uno ya le ponen cien.
 
 *10 clientes en cada centro*
 ≈ ${r('$428.000 COP', '$95 USD')} al mes
@@ -5597,7 +5595,7 @@ Y ojo con la cuenta: esos clientes no los consigue usted solo. Son los de sus so
 *100 clientes en cada centro*
 ≈ ${r('$4.300.000 COP', '$952 USD')} al mes
 
-Calculado al *17%*, la tarifa que da el paquete Visionario. Y no espera fin de mes: se liquida por ciclos semanales, *cada viernes*.
+Calculado al *17%*, la tarifa que da el paquete Visionario. Y no espera a fin de mes: se liquida por ciclos semanales y le entra *cada viernes*.
 
 STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin pregunta doble al final.`;
       }
@@ -5659,28 +5657,15 @@ STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin p
         return `
 📌 EJEMPLO GEN5 DICTADO — imprime este texto EXACTAMENTE, sin agregar filas, sin tablas, sin diagramas y sin arte ASCII. Es el único ejemplo de cifras que se entrega por este canal:
 
-Le pongo un ejemplo con números redondos.
+Le pongo un ejemplo con números redondos. Supongamos que usted arranca con el *${T.etiqueta}* y que en su canal se compran *5 paquetes ${paqueteDicho} iguales* en cada una de las primeras cinco generaciones:
 
-Usted arranca con el *${T.etiqueta}*, y en su canal se compran *5 paquetes ${paqueteDicho}* en cada una de las primeras cinco generaciones.
-
-*Generación 1* — 5 paquetes
-${g(0)} × 5 = *${g5(0)}*
-
-*Generación 2* — 5 paquetes
-${g(1)} × 5 = *${g5(1)}*
-
-*Generación 3* — 5 paquetes
-${g(2)} × 5 = *${g5(2)}*
-
-*Generación 4* — 5 paquetes
-${g(3)} × 5 = *${g5(3)}*
-
-*Generación 5* — 5 paquetes
-${g(4)} × 5 = *${g5(4)}*
+*Generación 1* · 5 paquetes a ${g(0)} = *${g5(0)}*
+*Generaciones 2 a 4* · 15 paquetes a ${g(1)} = *${c(T.cop[1] * 15, T.usd[1] * 15)}*
+*Generación 5* · 5 paquetes a ${g(4)} = *${g5(4)}*
 
 *Total: ${total} ${moneda}*
 
-Y se liquida por ciclos semanales, cada viernes — no espera a que se complete nada.
+Y esa comisión le entra a medida que se compran los paquetes, cada viernes: no tiene que esperar a que se complete una generación para cobrar la primera compra.
 
 STOP. Empieza DIRECTO con "Le pongo un ejemplo" — sin preámbulo ni encabezado propio. Sin tabla de los tres paquetes, sin proyecciones adicionales, sin diagramas. Si le piden otro escenario, ofrezca revisarlo con el socio.`;
       }

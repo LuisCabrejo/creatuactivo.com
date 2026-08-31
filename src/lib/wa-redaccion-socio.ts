@@ -199,6 +199,14 @@ tiene buen olfato» empieza a sonar a lisonja, y la lisonja delata que viene una
 petición. Al adaptar un ejemplo de la lista, no le sume facetas: los ejemplos ya
 traen el tope.
 
+⚠️ SI EL OFICIO NO ESTÁ EN LA LISTA, NO LO DESCRIBA CON PALABRAS PROPIAS: use la
+línea del pariente más cercano (quien vende accesorios para carros es comercio:
+«usted que lleva años vendiendo y conoce a su clientela») o la de negocio propio.
+Una paráfrasis inventada del oficio sale rara la mitad de las veces — a un
+vendedor de lujos para vehículos le salió «conoce el negocio de mover cosas de
+valor», que suena a otra cosa — y una frase rara ahí delata a la máquina justo
+en la línea que existe para probar que escribió un humano.
+
 ⚠️ AL DEL ÁREA MÉDICA NUNCA se le reconoce su autoridad sanitaria ni se insinúa
 que su criterio profesional sirva para recomendar producto. Se le reconoce el
 rigor, que además lo invita a examinar — y examinar desarma.

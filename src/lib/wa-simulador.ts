@@ -24,8 +24,11 @@
 // La caja de Ganocafé aporta 14 CV, y el CV se liquida a la tasa fija: 14 × $45
 // por punto de tarifa = $630. El consumo estándar son 4 cajas al mes (una a la
 // semana) → 2.520 por cliente y por punto, que es la cifra histórica del Flow.
-// La pantalla del 17% deja elegir 2/4/6/8 cajas (Director, 25 ago 2026: el
-// escenario del canal de puros clientes); las demás tarifas suponen 4.
+// Las cuatro pantallas de renta ofrecen 10 / 100 / 1.000 clientes con cuatro
+// cajas fijas (Director, 1 sep 2026: cosas simples — los conceptos nucleares
+// primero, los detalles después en el chat). La del 17% tuvo un desplegable de
+// clientes × cajas (16 combinaciones) del 25 ago al 1 sep; el decodificador
+// del webhook conserva ese formato por si una tarjeta vieja se completa.
 const COP_POR_CLIENTE_PUNTO_Y_CAJA = 630;
 const CAJAS_ESTANDAR = 4;
 

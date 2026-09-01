@@ -1992,7 +1992,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     if (promesa) {
       console.error(`🚨 [WA Guardrail Negocio] BLOQUEADO — "${promesa}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
-      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply);
+      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, undefined, promesa);
       return;
     }
 
@@ -2414,6 +2414,10 @@ async function corregirTurnoEnvenenado(
   fingerprint: string,
   textoBloqueado: string,
   reemplazo: string = RESPUESTA_CORRECTIVA,
+  // El fragmento de texto que disparó el patrón. Sin esto, cada bloqueo en
+  // producción costó una sesión de diagnóstico para saber POR QUÉ (dos veces
+  // el 1 sep 2026, dos patrones distintos sobre el mismo fragmento).
+  motivo?: string,
 ): Promise<void> {
   const objetivo = textoBloqueado.trim();
 
@@ -2439,7 +2443,7 @@ async function corregirTurnoEnvenenado(
         if (idx === -1) continue;
 
         const messages = [...fila.messages];
-        messages[idx] = { ...messages[idx], content: reemplazo, guardrail_bloqueo: objetivo };
+        messages[idx] = { ...messages[idx], content: reemplazo, guardrail_bloqueo: objetivo, ...(motivo ? { guardrail_motivo: motivo } : {}) };
 
         await supabase.from('nexus_conversations').update({ messages }).eq('id', fila.id);
         console.log(`🧽 [WA Guardrail] Turno corregido en BD (intento ${intento}) — fila ${fila.id}`);

@@ -145,7 +145,17 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // "Total acumulado GEN5: $292.875 USD" — el número que nadie va a alcanzar,
   // presentado como si fuera el resultado esperado.
   /total (acumulado|proyectado|potencial)[^.]{0,25}(\$|usd|cop|\d)/,
-  /(acumula|sumaria|llegaria a)[^.]{0,20}(\$\s?\d|\d[\d.,]{4,}\s*(usd|cop|dolares))/,
+  // ⚠️ El acumulado CANÓNICO de Los 12 Niveles queda exento (1 sep 2026): «el
+  // acumulado supera los $103 millones» es doctrina —NIVELES_01/02, con su
+  // origen al lado— y este patrón la bloqueó en producción el primer día que
+  // el fragmento se sirvió. Los totales inventados siguen bloqueados.
+  /(acumula|sumaria|llegaria a)(?![^.]{0,30}103(\s?millones|[.,]194))[^.]{0,20}(\$\s?\d|\d[\d.,]{4,}\s*(usd|cop|dolares))/,
+
+  // ── Progresión geométrica ×3 (1 sep 2026) ──────────────────────────────────
+  // Tras un bloqueo, el rescate compuso «hasta 12 generaciones» con una tabla
+  // 3 · 9 · 27 — la pirámide dibujada con otra base, invisible para los
+  // patrones de ×5 y ×2. Backtest: 0 hits en los 179 documentos del corpus.
+  /\b3\b(?![.,]\d)[\s\S]{0,60}\b9\b(?![.,]\d)[\s\S]{0,60}\b27\b(?![.,]\d)/,
 
   // ── El plazo dicho con un adverbio de tiempo ───────────────────────────────
   // Prueba del Director, 22 ago: «eso le genera $675.000 de una sola vez, ESA

@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.3 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.4 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.4 (31 ago 2026):** La tabla de `NIVELES_02` pivota al consumo (Director): las filas cuentan **distribuidores consumiendo → regalía semanal**, y salen las columnas de nivel, entrantes por nivel y acumulado — la escalera con columnas. La duplicación 2×2 baja a prosa como lo que construye el tamaño, y el $103M queda junto a su origen. Misma decisión aplicada en la pantalla REGALIA_EQUIPO del Flow y en `respuestaRegalia()`. Cifras intactas.
 
 **v6.3 (31 ago 2026):** El índice de `NIVELES_02` gana la pregunta por las ganancias mensuales dentro del hilo («cuáles serían las ganancias mensuales en esta estrategia») — en la prueba del Director esa consulta caía en compensación y el modelo pivotaba al GEN5, que el Kit ni incluye. Medido: con el hilo anclado gana 0.525 contra 0.402; la consulta sin hilo se queda en compensación (su dueño correcto) y COMP_BIN_08 conserva las suyas. El marco de la respuesta —las ganancias las determina el movimiento de producto, no el calendario— vive en el prompt v4.27.
 
@@ -40,7 +42,7 @@ La entrada es el Kit de Inicio ([PRECIO_KIT]): le llegan cuatro cajas de product
 ### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles? / ¿Cuánto puedo ganar con esa estrategia?"**
 **[Índice]:** Cómo se gana en Los 12 Niveles, cuánto puedo ganar ahí, cómo funciona el plan de ganancias de esa estrategia. ¿Le muestro cuánto puede mover esta estrategia? ¿Le muestro la tabla con cuánto genera cada nivel, semana a semana? La tabla completa de los 12 niveles, nivel por nivel. Cuáles serían las ganancias mensuales en esta estrategia.
 
-**[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su canal.
+**[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su canal. ⚠️ **El eje de la tabla es el CONSUMO, no el nivel** (Director, 31 ago 2026): nivel → dinero es la escalera dibujada — la silueta que Meta y el prospecto leen como pirámide, con cifras correctas o sin ellas. Las filas cuentan distribuidores consumiendo; la duplicación 2×2 se explica en prosa como lo que construye ese tamaño, y el acumulado va junto a su origen (la facturación de la que es tajada). Misma decisión en la pantalla REGALIA_EQUIPO del Flow y en `respuestaRegalia()` de wa-simulador.ts — las tres fuentes cuentan igual.
 
 En Los 12 Niveles con Kit de Inicio, usted gana a través de la **Regalía de Equipo al 10%**.
 
@@ -48,23 +50,17 @@ En Los 12 Niveles con Kit de Inicio, usted gana a través de la **Regalía de Eq
 
 Le pagan por todas las compras realizadas en su canal. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el 10% semanal sobre ese volumen.
 
-**Proyección de ingreso recurrente con Kit de Inicio (10%):**
+**Proyección con Kit de Inicio (10%):**
 
-| Nivel | Nuevos distribuidores | Total del canal | CV/lado | Regalía semanal 10% | Acumulado |
-|-------|--------|--------------------|---------|---------------------|-----------|
-| 1 | 2 | 2 | 56 | $25,200 | $25,200 |
-| 2 | 4 | 6 | 112 | $50,400 | $75,600 |
-| 4 | 16 | 30 | 448 | $201,600 | $378,000 |
-| 6 | 64 | 126 | 1,792 | $806,400 | $1,587,600 |
-| 8 | 256 | 510 | 7,168 | $3,225,600 | $6,426,000 |
-| 10 | 1,024 | 2,046 | 28,672 | $12,902,400 | $25,779,600 |
-| 12 | 4,096 | 8,190 | 114,688 | $51,609,600 | **$103,194,000** |
+| Distribuidores consumiendo | CV por lado | Regalía semanal 10% |
+|----------------------------|-------------|---------------------|
+| 30 | 448 | $201.600 |
+| 126 | 1.792 | $806.400 |
+| 510 | 7.168 | $3.225.600 |
+| 2.046 | 28.672 | $12.902.400 |
+| 8.190 | 114.688 | $51.609.600 |
 
-**"Nuevos distribuidores" vs "Total":** los *nuevos distribuidores* son quienes entran en ese nivel (2ⁿ). "Total del canal" es el tamaño acumulado de su canal hasta ese punto, por el efecto compuesto de la duplicación (2⁽ⁿ⁺¹⁾ − 2). Ejemplo: en el nivel 4 entran 16 distribuidores nuevos y su canal suma 30 en total. Al nivel 12 son **8.190 distribuidores** en total.
-
-**Potencial acumulado al nivel 12:** Más de $103 millones COP. En cifra exacta, $103,194,000 = $25,200 × (2¹²−1) — la duplicación 2×2 perfecta.
-
-**Dato clave — de dónde salen esos $103 millones.** No los regala nadie: son el **10% del volumen emparejado** de ese canal. Con más de 8.000 distribuidores y sus clientes comprando sus 4 cajas al mes, ese canal **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
+Ese tamaño lo construye la duplicación 2×2 — usted conecta dos, cada uno conecta otros dos — hasta llegar, al nivel 12, a los **8.190 distribuidores**. Y el acumulado de todo el recorrido supera los **$103 millones COP** (en cifra exacta, $103.194.000 = $25.200 × (2¹²−1)): no los regala nadie — son el **10% del volumen emparejado** de un canal que, con sus distribuidores y sus clientes comprando sus 4 cajas al mes, **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
 
 Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
 

@@ -320,6 +320,24 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 **Verificado en `route.ts`: 0 de cada uno.** 143 fragmentos por tenant, idénticos · 0 hits del auditor · 42/42 · sin errores tsc nuevos.
 
+## arsenal_12_niveles
+
+### v6.0 — Barrido de coherencia: el arsenal estaba a medio migrar (31 ago 2026)
+
+Auditoría general con el Director tras la prueba del canal. Las decisiones del 26 y 29 de agosto (INV_00: el Kit se ofrece con empatía, alcance en afirmativo, sin empujón hacia el paquete mayor) vivían en un solo fragmento; los vecinos las contradecían.
+
+- **NIVELES_01** reescrita al estilo trabajado, texto aprobado por el Director: tesis primero, el conteo en compras (antes decía que cada distribuidor *vinculado* genera puntos), el $103M sale de la primera respuesta (queda en NIVELES_02 junto a su origen — suelto se lee como magia), y la ficha del Kit deja de duplicarse. La subida de paquete es *cuando desee*, sin condición (frase del Director).
+- **NIVELES_03**: fuera la lista de ❌ y el *«no es la opción más rentable»* — la disculpa que INV_00 ya había retirado.
+- **NIVELES_06**: fuera la Advertencia con el marco *«construir en serio»* y el *«costo de oportunidad»* — el empujón del bono, retirado el 26 ago de INV_00 y sobreviviendo aquí.
+- **INV_02 y NIVELES_02**: fuera el cálculo comparativo de comisión entre paquetes (el «+X% más» y el ejemplo a 10.000 CV) — matizar los bonos hace que la persona calcule lo que gana quien la invita.
+- **INV_03**: *«todos los países»* → **los 16 de América** · las cifras del GEN5 salen de la tabla (viven en COMP_GEN5_01 con su pin) · *«comunidad privada»* → formación en la sección Maestría (marcador de industria en canal Meta) · el cierre-encuesta (*«¿qué preguntas tiene?»*) → oferta concreta.
+- **INV_02 e INV_06**: los precios hardcodeados en COP salen de los cuerpos — los pone `getPaquetesPricingPin`/`getPinKitInicio` por país.
+- **NIVELES_02**: *«estructura de negocios»* → *su canal* · *«Se paga: semanalmente los viernes»* → *«Se liquida: por ciclos semanales»* (el ciclo se paga el segundo viernes tras su cierre; la ventana corta decepciona en la primera semana).
+- **NIVELES_05**: el Concepto deja la fórmula del sistema que trabaja; Queswa se nombra por su promesa canónica.
+- **Cabecera consolidada a un solo riel**: convivían dos numeraciones en paralelo (el título en v5.x con notas del 29-31 ago, y un campo «Versión: 5.7» del 23 ago con las suyas), así que existían dos «5.6» distintas. Se saltó a v6.0 para zanjar. Historial que salió de la cabecera: v5.7/5.6/5.5 del riel viejo (emparejamiento canónico del Binario; la cifra del nivel 12 explicada por su origen; léxico a la actividad comercial), v5.1 (columnas Nuevos/Total en NIVELES_02, 2ⁿ y 2⁽ⁿ⁺¹⁾−2), v5.0 (tú→usted en las 13; corrección de sumas del Acumulado: nivel 8 = 6.426.000 · nivel 10 = 25.779.600 · nivel 12 = 103.194.000 = $25.200 × (2¹²−1); NIVELES_04 sin el formulario roto) y v4.x (Concepto Nuclear en las 13; Regalía de Equipo; advertencias del Kit; 50 PV).
+
+Cifras del plan, PV/CV y nombres de producto intactos.
+
 ## arsenal_inicial
 
 ### v6.25 — DIASPORA_01: los 16 se dicen con el continente (31 ago 2026)

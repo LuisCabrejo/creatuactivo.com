@@ -1,29 +1,16 @@
-# Arsenal Conversacional: Los 12 Niveles v5.6 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.0 — BAUTIZO EMPRESARIAL (distribuidores)
 
-**v5.6 (31 ago 2026):** `NIVELES_02` carga en su índice las ofertas de cierre literales — la escrita en NIVELES_01 y la de la tabla nivel a nivel. En WhatsApp una aceptación pelada busca con la última pregunta del bot, y sin la oferta en el índice el «sí» a la tabla de los niveles se iba al ejemplo mensual del Binario (prueba del Director, 31 ago): el prospecto recibía otra tabla, a otra tasa, rompiendo la promesa del turno anterior. Medido con arnés antes de desplegar: las dos ofertas de cadena pasan al puesto 1, las consultas propias se conservan y COMP_BIN_08 mantiene las suyas por margen amplio.
+**v6.0 (31 ago 2026):** **Barrido de coherencia tras la auditoría con el Director.** El arsenal estaba a medio migrar: las decisiones del 26 y 29 de agosto vivían en INV_00 y en las cabeceras, pero los cuerpos vecinos no se barrieron. Lo hecho: `NIVELES_01` pasa al estilo trabajado — tesis primero, el conteo en compras, y el número grande se queda en NIVELES_02 junto a su origen, porque suelto en la primera respuesta se lee como magia. Se retiran de `NIVELES_03`, `NIVELES_06` e `INV_02` los marcos que INV_00 ya había retirado — el cálculo comparativo de comisión entre paquetes y el empujón hacia el paquete mayor: la decisión era del corpus, no de un fragmento; el alcance del Kit se dice en afirmativo y la subida de paquete es *cuando desee*, sin condición. `INV_03` corrige la cobertura a **los 16 países de América**. Los precios de paquetes salen de los cuerpos — los pone el pin por país (`getPaquetesPricingPin` / `getPinKitInicio`), y las cifras del GEN5 viven en COMP_GEN5_01 con el suyo. La cabecera se consolida a un solo riel de versión. Cifras del plan, PV/CV y nombres de producto INTACTOS.
 
-**v5.5 (29 ago 2026):** `INV_00` reescrita con el Director. Sale el marco de escasez (*«las cosas están duras»* compadece, y compadecer baja el estatus de quien pregunta) y sale el párrafo que pedía disculpas (*«le digo lo que no trae»*, *«no es la opción más rentable»*). ⚠️ **Anclaje:** no se nombra *el paquete más grande* —mide por el precio y valida el costo como obstáculo—; se nombra **la entrada estándar / los tres paquetes principales**, y el Kit queda como *una puerta más liviana*. La diferencia del plan se da como hecho neutro.
+**v5.6 (31 ago 2026):** `NIVELES_02` carga en su índice las ofertas de cierre literales — la escrita en NIVELES_01 y la de la tabla nivel a nivel. En WhatsApp una aceptación pelada busca con la última pregunta del bot, y sin la oferta en el índice el «sí» a la tabla de los niveles se iba al ejemplo mensual del Binario (prueba del Director, 31 ago). Medido con arnés antes de desplegar: las dos ofertas de cadena pasan al puesto 1 y COMP_BIN_08 mantiene las suyas.
 
-**v5.4 (29 ago 2026):** `INV_00` cierra hacia el simulador con la tarifa del Kit («¿Quiere armar su propio escenario en el simulador…?») — la frase lleva «escenario en el simulador» para que el «sí» reenvíe el Flow. Antes cerraba con «¿le muestro qué recibe con cada opción?» (Director, 29 ago).
+**v5.5 (29 ago 2026):** `INV_00` reescrita con el Director. Sale el marco de escasez (compadece, y compadecer baja el estatus de quien pregunta) y sale el párrafo que pedía disculpas. ⚠️ **Anclaje:** no se nombra *el paquete más grande* —mide por el precio y valida el costo como obstáculo—; se nombra **la entrada estándar / los tres paquetes principales**, y el Kit queda como *una puerta más liviana*. La diferencia del plan se da como hecho neutro.
 
 **Historial anterior** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md) (aquí solo la versión actual y las dos previas).
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando; también un distribuidor activo que quiera desarrollar los 12 niveles — crear su equipo con nuevos distribuidores y compartirles la visión.
 **Categorías:** NIVELES (7) + INV (6) = 13 respuestas
-**Versión:** 5.7 (23 ago 2026) — **El Binario se explica por emparejamiento** (párrafo canónico del Director): cada punto del canal izquierdo se empareja con su equivalente en el canal derecho y se paga sobre ese volumen; NIVELES_02 y NIVELES_07 lo dicen así. Previa **5.6** (23 ago 2026) — **La cifra del nivel 12 se explica por su origen, y el léxico pasa a la actividad comercial.** Un número grande sin origen se lee como magia; el mismo número presentado como la tajada que es de una facturación mayor se lee como un negocio — y esa es la única defensa real contra la lectura de pirámide. Lo que se paga se nombra **comisión**: es un porcentaje de lo que se vende, no un premio. Previa **5.5** — **El léxico de este arsenal pasa a la actividad comercial.** Quienes componen la estructura se nombran por lo que HACEN —mover producto—, no por el vínculo ni por una etiqueta de estatus; y el conteo de cada nivel nombra a quién cuenta, nunca en abstracto. El acumulado del nivel 12 se llama por lo que es —**acumulado**— y deja de presentarse como ingreso recurrente: son dos cosas distintas y confundirlas promete un flujo mensual que esa cifra no describe. Cifras, PV, CV y nombres de producto INTACTOS. ⚠️ **Esta nota enuncia el criterio a propósito: el detalle de cada versión vive en `CHANGELOG-arsenales.md`, que no se indexa.** La cabecera anterior narraba cuatro bautizos con sus términos retirados escritos, y este documento se indexa entero — así que cada término que ella citaba volvía al corpus por la puerta de atrás.
-
-**Cambios v5.1 (21 jul 2026):**
-- **NIVELES_02:** la tabla ahora distingue **"Nuevos distribuidores"** (2ⁿ, quienes entran en el nivel) de **"Total organización"** (2⁽ⁿ⁺¹⁾−2, tamaño acumulado por interés compuesto de la duplicación) — alinea con el simulador de /12-niveles. Ej. nivel 4: 16 nuevos, 30 en total. Nivel 12: 8.190 en total.
-
-**Cambios v5.0 (20 jul 2026):**
-- Migración de trato: **tú → usted** en las 13 respuestas (alinea con el deck /12-niveles y el resto del sitio). Ver [[project_reto_12niveles_no_migrar]] — revertido SOLO para el léxico de trato; concepto y nombres de producto se conservan.
-- "red de relaciones / tu red" → "su canal" (se conserva "canal de distribución"). Se retira la etiqueta inglesa "Asset-Light"; el concepto (el peso lo carga Gano) se explica en llano.
-- **Corrección de cifras en NIVELES_02:** columna Acumulado — nivel 8: 6.426.000 · nivel 10: 25.779.600 · nivel 12: **103.194.000** (= $25.200 × (2¹²−1), coincide con el simulador de /12-niveles). Los valores previos (6.428.400 / 25.776.600 / 103.177.800) eran errores de suma.
-- **NIVELES_04 reescrita:** el deck /12-niveles ya no tiene formulario; la vinculación es por su patrocinador o WhatsApp del equipo. Se retira el enlace roto al formulario.
-- **NIVELES_01 audiencia:** primariamente para quienes inician; un distribuidor activo también puede desarrollarlo.
-
-**Cambios v4.x (histórico):** [Concepto Nuclear] en las 13 respuestas · "Bono Binario" → "Regalía de Equipo" · "pierna débil" → "lado de menor crecimiento" · advertencias del Kit de Inicio · tabla de paquetes con GEN5 · mecánica de sostenibilidad (50 PV). Disparadores ampliados en route.ts (v5.0): además de "12 niveles"/"kit de inicio", activan "duplicación", "2×2", "$103 millones", "el simulador".
 
 ---
 
@@ -32,32 +19,13 @@
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
 **[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días.
 
-**[Concepto Nuclear]:** Su activo es su canal de relaciones, no inventarios ni infraestructura — el peso pesado (fábrica, logística, lo legal) lo carga Gano Excel.
+**[Concepto Nuclear]:** Reescrita al estilo trabajado el 31 ago 2026 (texto aprobado por el Director). Tesis primero, el conteo en compras, y el $103M se queda en NIVELES_02 junto a su origen — suelto en la primera respuesta se lee como magia. La ficha del Kit vive en NIVELES_03/INV_01; aquí solo la puerta. La subida de paquete es *cuando desee*, sin condición.
 
-Los 12 Niveles es una **estrategia de aceleración** de CreaTuActivo.com para construir su canal de distribución en 90 días. Está pensada sobre todo para **quienes están empezando**; y un **distribuidor activo** también puede desarrollarla — crear su equipo con nuevos distribuidores y compartirles esta visión.
+Los 12 Niveles es la estrategia de aceleración de CreaTuActivo para construir su canal de distribución en 90 días, pensada sobre todo para quien está empezando — y un distribuidor activo también puede desarrollarla con su equipo.
 
-**El concepto clave:** el activo es su canal, no los inventarios.
+La lógica es la duplicación 2×2: usted conecta dos distribuidores, cada uno conecta otros dos, y así nivel por nivel hasta el doce. Su trabajo es el canal y las relaciones que lo sostienen; las fábricas, el inventario y los despachos los pone Gano Excel.
 
-En lugar de invertir en almacenes, flotas o inventarios masivos, usted solo construye lo que importa: su **canal de distribución** y las relaciones que lo sostienen. Gano Excel se encarga de los "activos pesados" (producción, logística, cumplimiento normativo).
-
-**¿Por qué 12 niveles?**
-
-Cada nivel representa una oportunidad de crecimiento exponencial basada en duplicación 2×2. La idea es simple: usted conecta distribuidores, ellos conectan a otros, y el sistema se multiplica.
-
-**¿Cómo funciona?**
-
-- Usted invita a conocer el negocio
-- Cada distribuidor que se vincula genera puntos (CV)
-- Los puntos de su canal generan ingreso recurrente semanal
-- El potencial acumulado al nivel 12 es de **más de $103 millones COP** en ingreso acumulado
-
-**Contenido del Kit de Inicio ([PRECIO_KIT]):**
-
-• 4 cajas de Gano Café 3en1 (productos reales)
-• My Gano Plan Negocios (acceso al sistema)
-• Regalía de Equipo al 10% (única bonificación disponible con este paquete)
-
-**⚠️ Limitación importante:** El Kit de Inicio solo da acceso a la Regalía de Equipo al 10%. No incluye el Bono GEN5. Para acceder a porcentajes mayores y al GEN5, necesita un Paquete Empresarial.
+La entrada es el Kit de Inicio ([PRECIO_KIT]): le llegan cuatro cajas de producto a su dirección, queda con su código abierto y entra al plan con la Regalía de Equipo al 10%. Los porcentajes más altos y el Bono GEN5 son de los paquetes empresariales, a los que puede pasar cuando desee.
 
 **Pregunta de seguimiento:** ¿Le muestro cuánto puede mover esta estrategia?
 
@@ -72,7 +40,7 @@ En Los 12 Niveles con Kit de Inicio, usted gana a través de la **Regalía de Eq
 
 **¿Cómo funciona?**
 
-Le pagan por todas las compras realizadas en su estructura de negocios. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el 10% semanal sobre ese volumen.
+Le pagan por todas las compras realizadas en su canal. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el 10% semanal sobre ese volumen.
 
 **Proyección de ingreso recurrente con Kit de Inicio (10%):**
 
@@ -96,14 +64,14 @@ Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir
 
 **Con paquetes empresariales (mayor %):**
 
-| Su Paquete | Regalía Equipo | Diferencia vs Kit |
-|------------|----------------|-------------------|
-| Kit de Inicio | 10% | Base |
-| ESP-1 | 15% | +50% más comisión |
-| ESP-2 | 16% | +60% más comisión |
-| ESP-3 | 17% | +70% más comisión |
+| Su Paquete | Regalía de Equipo |
+|------------|-------------------|
+| Kit de Inicio | 10% |
+| ESP-1 | 15% |
+| ESP-2 | 16% |
+| ESP-3 | 17% |
 
-**Se paga:** Semanalmente los viernes.
+**Se liquida:** por ciclos semanales.
 
 **⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
 
@@ -125,18 +93,12 @@ La inversión mínima es el **Kit de Inicio: [PRECIO_KIT]**.
 - Acceso a la Regalía de Equipo al 10%
 - Acceso completo a CreaTuActivo.com y Queswa
 
-**⚠️ Lo que NO incluye el Kit de Inicio:**
-- ❌ Bono GEN5 - Requiere Paquete Empresarial
-- ❌ Porcentajes mayores al 10% - Máximo disponible es 10%
-
 **¿Para quién es ideal?**
 - Quienes quieren arrancar YA sin esperar
 - Quienes buscan velocidad de ejecución
 - Quienes quieren probar el sistema con inversión accesible
 
-**Análisis financiero:**
-
-El Kit entra al plan con la Regalía de Equipo al 10%; los porcentajes más altos y el Bono GEN5 son de los tres paquetes empresariales. No es la opción más rentable al principio — es la que permite arrancar ahora, y más adelante se evalúa si conviene subir.
+El Kit entra al plan con la Regalía de Equipo al 10%; los porcentajes más altos y el Bono GEN5 son de los tres paquetes empresariales, a los que puede pasar cuando desee.
 
 **Pregunta de seguimiento:** ¿Le muestro qué trae cada paquete?
 
@@ -164,7 +126,7 @@ Escríbale por WhatsApp a esa persona o al equipo de liderazgo para que le ayude
 ### **NIVELES_05: "¿Qué pasa si me demoro en completar mis dos del primer nivel?"**
 **[Índice]:** Qué pasa si me demoro en completar mis dos del primer nivel, si todavía no los tengo, si voy más lento de lo que pensaba.
 
-**[Concepto Nuclear]:** Consistencia importa más que velocidad. El sistema trabaja mientras usted construye.
+**[Concepto Nuclear]:** Consistencia importa más que velocidad; la posición se toma hoy y se construye al ritmo de cada quien.
 
 No pasa nada. Los 12 Niveles son una guía de aceleración, no una obligación.
 
@@ -175,7 +137,7 @@ Si tarda más tiempo en completar su primer nivel, está bien. Lo importante es 
 Lo que sí es crítico es que **arranque HOY**, porque:
 - Su posición en el canal se fija al comenzar
 - Mientras más temprano empiece, más tiempo tiene para construir
-- La tecnología (Queswa) trabaja para usted 24/7
+- Queswa explica, atiende y madura las decisiones de sus interesados a toda hora
 
 **Recuerde:** Su rol es conectar distribuidores al sistema.
 
@@ -200,8 +162,6 @@ El Kit de Inicio existe para que usted tome su posición **HOY**, no cuando "ten
 4. Accede al Bono GEN5 y a porcentajes más altos
 
 Los que esperan el paquete perfecto, siguen esperando. Los que arrancan, ya están construyendo.
-
-**⚠️ Advertencia:** Si sabe que va a construir en serio, considere iniciar directamente con un Paquete Empresarial. El Kit lo limita al 10% y sin el Bono GEN5, lo cual representa un costo de oportunidad en sus primeros meses de mayor movimiento.
 
 **Pregunta de seguimiento:** ¿Arrancamos hoy?
 
@@ -265,29 +225,25 @@ Si quiere más productos, porcentajes más altos y acceso al Bono GEN5, puede el
 ### **INV_02: "¿Cuáles son los paquetes disponibles?"**
 **[Índice]:** Cuáles son los paquetes disponibles, qué opciones de inversión hay, cuánto vale cada una y qué diferencia tienen.
 
-**[Concepto Nuclear]:** 4 niveles de inversión con diferentes porcentajes y acceso a bonificaciones.
+**[Concepto Nuclear]:** 4 niveles de inversión con diferentes porcentajes y acceso a bonificaciones. ⚠️ Los PRECIOS no van en el cuerpo: los pone el pin por país (`getPaquetesPricingPin`, que dispara con cualquier consulta de paquetes) — aquí escritos en COP le llegaban en pesos a un visitante de Estados Unidos. Y las cifras del GEN5 viven en COMP_GEN5_01 con su propio pin. ⚠️ El cálculo comparativo de comisión entre paquetes se retiró (decisión del Director, 26 ago): matizar los bonos hace que la persona calcule lo que gana quien la invita, y ahí se acabó. El enfoque es construir mercado.
 
 Hay 4 opciones de inversión. Todas le dan acceso completo al sistema:
 
-| Paquete | Inversión COP | CV | Regalía Equipo | Duración | ¿Bono GEN5? |
-|---------|---------------|-----|----------------|----------|-------------|
-| **Kit de Inicio** | $443,600 | 56 | 10% | Permanente | **NO** |
-| **ESP-1 Inicial** | $900,000 | 100 | 15% | 2 meses | **SÍ** |
-| **ESP-2 Empresarial** | $2,250,000 | 250 | 16% | 4 meses | **SÍ** |
-| **ESP-3 Visionario** | $4,500,000 | 500 | 17% | 6 meses | **SÍ** |
+| Paquete | CV | Regalía Equipo | Duración | ¿Bono GEN5? |
+|---------|-----|----------------|----------|-------------|
+| **Kit de Inicio** | 56 | 10% | Permanente | **NO** |
+| **ESP-1 Inicial** | 100 | 15% | 2 meses | **SÍ** |
+| **ESP-2 Empresarial** | 250 | 16% | 4 meses | **SÍ** |
+| **ESP-3 Visionario** | 500 | 17% | 6 meses | **SÍ** |
 
-**Análisis de eficiencia financiera:**
-
-- **Kit de Inicio** → Para quien quiere arrancar YA con inversión mínima. **⚠️ Limitación:** Solo 10%, sin GEN5.
-- **ESP-1** → Para quien quiere 15% + Bono GEN5 ($25 USD por ESP-3 en 1ra gen).
-- **ESP-2** → Para quien quiere ir en serio: 16% + GEN5 ($75 USD por ESP-3 en 1ra gen).
-- **ESP-3** → Máximo impacto: 17% por 6 meses + GEN5 completo ($150 USD por ESP-3 en 1ra gen).
-
-**Dato clave:** La diferencia entre 10% (Kit) y 17% (ESP-3) es **41% más comisión** por el mismo volumen. Si su canal mueve 10,000 CV, el Kit gana $1,000 USD mientras ESP-3 gana $1,700 USD.
+- **Kit de Inicio** → Para quien quiere arrancar YA con la inversión mínima, con la Regalía de Equipo al 10%.
+- **ESP-1** → 15% de Regalía de Equipo, con el Bono GEN5 activo.
+- **ESP-2** → 16% de Regalía de Equipo, con el Bono GEN5 activo.
+- **ESP-3** → 17% —la tarifa más alta— y el GEN5 completo, con el canal surtido de una vez (35 productos).
 
 Recuerde: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 
-**Pregunta de seguimiento:** ¿Cuál de estas opciones se alinea mejor con su presupuesto?
+**Pregunta de seguimiento:** ¿Le muestro cuánto vale cada uno?
 
 ---
 
@@ -312,12 +268,11 @@ Todos los paquetes incluyen:
 **3. Posición en el canal:**
 - Su código de afiliado permanente
 - Posición heredable (es un ACTIVO)
-- Derecho a construir en todos los países
+- Derecho a construir en los 16 países de América donde opera el canal
 
 **4. Mentoría y soporte:**
 - Acompañamiento del equipo de creatuactivo.com
-- Capacitación continua
-- Comunidad privada
+- Formación continua en la sección Maestría de queswa.app
 
 **La diferencia real entre paquetes:**
 
@@ -325,10 +280,10 @@ Todos los paquetes incluyen:
 |--------|-----|-------|-------|-------|
 | Productos | 4 | 7 | 18 | 35 |
 | Regalía Equipo | 10% | 15% | 16% | 17% |
-| GEN5 1ra gen | ❌ No | $25 | $75 | $150 |
+| Bono GEN5 | ❌ No | ✅ Sí | ✅ Sí | ✅ Sí |
 | Duración promo | N/A | 2 meses | 4 meses | 6 meses |
 
-**Pregunta de seguimiento:** ¿Qué preguntas tiene sobre lo que recibe?
+**Pregunta de seguimiento:** ¿Le muestro cuánto vale cada uno?
 
 ---
 
@@ -436,12 +391,12 @@ Tiene varias opciones para completar sus 50 PV mensuales:
 | Máquina LUVOCO | 0 | 0 | Es equipo, no genera puntos para recompra mensual |
 
 **Paquetes Empresariales (puntos de activación inicial):**
-| Paquete | PV | CV | Inversión COP | ¿GEN5? |
-|---------|-----|-----|---------------|--------|
-| Kit de Inicio | 60 | 56 | $443,600 | ❌ No |
-| ESP-1 Inicial | 100 | 100 | $900,000 | ✅ Sí |
-| ESP-2 Empresarial | 250 | 250 | $2,250,000 | ✅ Sí |
-| ESP-3 Visionario | 500 | 500 | $4,500,000 | ✅ Sí |
+| Paquete | PV | CV | ¿GEN5? |
+|---------|-----|-----|--------|
+| Kit de Inicio | 60 | 56 | ❌ No |
+| ESP-1 Inicial | 100 | 100 | ✅ Sí |
+| ESP-2 Empresarial | 250 | 250 | ✅ Sí |
+| ESP-3 Visionario | 500 | 500 | ✅ Sí |
 
 **Importante sobre paquetes empresariales:**
 - La compra del paquete cuenta como su **compra personal del mes de activación**

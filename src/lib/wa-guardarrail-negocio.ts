@@ -72,7 +72,12 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
 
   // ── Garantías ──────────────────────────────────────────────────────────────
   /(garantiz|asegurad|seguro que)[^.]{0,35}(ingreso|gana(ncia)?s?|retorno|dinero|resultado|invers|recupera)/,
-  /(ingreso|gana(ncia)?s?|retorno|dinero|resultado)[^.]{0,25}garantizad/,
+  // ⚠️ Con la negación EXENTA (1 sep 2026): «No son resultados garantizados» es
+  // el disclaimer de cumplimiento de NIVELES_02, y este patrón lo bloqueaba —
+  // el primer día que el enrutamiento sirvió ese fragmento en el canal, el
+  // guardarraíl mató la respuesta por su propia línea de honestidad. La promesa
+  // afirmativa («es un ingreso garantizado») sigue bloqueada.
+  /(?<!\bno (?:es|son|sera|seran|esta|estan)\s)(ingreso|gana(ncia)?s?|retorno|dinero|resultado)s?[^.]{0,25}garantizad/,
 
   // ── Pago fechado encadenado a acciones simples ─────────────────────────────
   // "Haga estas dos cosas y COBRE cada viernes" — la forma exacta que Meta

@@ -2056,8 +2056,14 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // cifras— y abría en la pantalla de paquetes (prueba del Director, 29 ago).
       // También cuando la respuesta es del Kit aunque no traiga la oferta literal
       // (el modelo compuso su propia versión el 29 ago): Kit + su precio.
-      const _ofreceKit = /escenario en el simulador con la tarifa del Kit/i.test(queswaReply)
-        || (/Kit de Inicio/i.test(queswaReply) && /443[.,]?600/.test(queswaReply));
+      // ⚠️ En un hilo de Los 12 Niveles gana la pantalla de la Regalía (1 sep
+      // 2026): la respuesta de la estrategia nombra el Kit con su precio y esta
+      // tarjeta se le adelantaba a la de distribuidores consumiendo.
+      const _esDoceNiveles = /12 Niveles/i.test(queswaReply)
+        && /103[.,]?194[.,]?000|103 millones/i.test(queswaReply);
+      const _ofreceKit = !_esDoceNiveles
+        && (/escenario en el simulador con la tarifa del Kit/i.test(queswaReply)
+          || (/Kit de Inicio/i.test(queswaReply) && /443[.,]?600/.test(queswaReply)));
       if (flowSimulador && _ofreceKit) {
         const enviado = await sendFlow(
           phoneNumber,
@@ -2088,11 +2094,6 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // tarifas de renta, porque la prioridad la tiene el ingreso recurrente.
       // Los ejemplos dictados conservan su propio envío (con su pantalla); este
       // solo cubre el caso en que la oferta quedó en texto.
-      // La tabla de Los 12 Niveles tiene su propia pantalla (abajo): si la
-      // respuesta es esa, ninguna otra tarjeta compite con ella.
-      const _esDoceNiveles = /12 Niveles/i.test(queswaReply)
-        && /103[.,]?194[.,]?000|103 millones/i.test(queswaReply);
-
       const _ofreceNumeros = /(le muestro|quiere ver|le enseño)[^?]{0,40}n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|quiere ver c[oó]mo se gana/i.test(queswaReply);
       if (flowSimulador && _ofreceNumeros && !dictoEjemplo && !_esDoceNiveles) {
         const enviado = await sendFlow(
@@ -2118,10 +2119,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       const _esComposicion = /\|\s*Producto\s*\||lo que trae|le activa inmediatamente este inventario|productos para arrancar/i.test(queswaReply);
       const _explicaGen5 = !_esComposicion && /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
 
-      // La tabla de Los 12 Niveles → el simulador abre en SU pantalla, nivel por
-      // nivel al 10% del Kit. Sin este caso, la tabla —que menciona «ingreso
+      // La tabla de Los 12 Niveles → el simulador abre en SU pantalla, con el
+      // consumo como eje. Sin este caso, la tabla —que menciona «ingreso
       // recurrente» con cifras— abría en las tarifas: otra estrategia, otra tasa.
-      if (flowSimulador && _esDoceNiveles && !dictoEjemplo && !_ofreceKit) {
+      if (flowSimulador && _esDoceNiveles && !dictoEjemplo) {
         const enviado = await sendFlow(
           phoneNumber,
           flowSimulador,

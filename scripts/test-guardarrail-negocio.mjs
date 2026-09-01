@@ -130,6 +130,12 @@ const PROMESAS = [
 
 // ─── Lo que NO puede bloquearse ───────────────────────────────────────────────
 const LEGITIMAS = [
+  // ── El falso positivo del 1 sep 2026: el disclaimer de NIVELES_02 ─────────
+  // «No son resultados garantizados» es la línea de CUMPLIMIENTO del fragmento,
+  // y el patrón de garantías la bloqueaba por no ver la negación. El primer día
+  // que el enrutamiento sirvió NIVELES_02 en el canal, el guardarraíl mató la
+  // respuesta por su propia honestidad.
+  'Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.',
   // ── Los dos falsos positivos de Milena (27 ago 2026) ─────────────────────
   // Logística del fabricante, no promesa: bloquearlo le costó la respuesta de cómo comprar.
   'Gano Excel cobra, empaca y despacha a su puerta en Santa Marta. Usted no tiene que hacer nada más.',

@@ -1515,8 +1515,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // nombre en una conversación lo repite mal, y sin esta puerta la pregunta
     // caía en compensación y el modelo componía un «plan de 12 niveles de
     // rango» que no existe. El «plan de 12» solo, sin sustantivo, también.
-    /plan\s+de\s+(los\s+)?12\s*(d[ií]as|pasos|etapas|escalones)?\b/i,
-    /plan\s+de\s+(los\s+)?dos\s+niveles/i,   // otro mal oído del nombre (Director, 1 sep)
+    // Todas las formas en que se oye mal el nombre (Director, 1 sep 2026): «plan
+    // de dos ciclos», «de 12 días / semanas / meses». Exigen «plan/estrategia de»
+    // delante para no robarse «en 12 meses cuánto gano», que es otra pregunta.
+    /(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b/i,
+    /\b(dos|doce)\s+niveles\b/i,
     /doce\s*niveles/i,                   // "doce niveles"
     /los\s*12\s*niveles/i,               // "los 12 niveles"
     /los\s*doce\s*niveles/i,             // "los doce niveles"
@@ -4243,9 +4246,13 @@ export async function POST(req: Request) {
     // El backend la calcula desde el ancla del Director (ciclo 924 = 17–23 ago
     // 2026, pagado el 4 de septiembre) y la dicta — cero tokens, siempre al día.
     // Se excluye lo que trae "ciclo" con otro sentido (reciclar, bicicleta).
+    // Y «el plan de dos ciclos» —el nombre de Los 12 Niveles mal oído— tampoco
+    // es una pregunta por el calendario (batería del 1 sep 2026: se llevó la
+    // respuesta del ciclo 926 a quien preguntaba por la estrategia).
     const _preguntaCiclo = tenantId !== 'ecommerce' && tenantId !== 'marca_personal'
       && /\bciclos?\b/i.test(latestUserMessage)
-      && !/recicl|bicicl|motocicl|ciclo\s+de\s+(vida|venta|producto)/i.test(latestUserMessage);
+      && !/recicl|bicicl|motocicl|ciclo\s+de\s+(vida|venta|producto)/i.test(latestUserMessage)
+      && !/(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*ciclos/i.test(latestUserMessage);
     if (_preguntaCiclo) {
       const _numPedido = latestUserMessage.match(/ciclo\s+(\d{3,4})\b/i);
       const _rCiclo = respuestaCiclo(new Date(), _numPedido ? Number(_numPedido[1]) : undefined);

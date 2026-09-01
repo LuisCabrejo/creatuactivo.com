@@ -1437,6 +1437,40 @@ async function procesarEntrante(body: any): Promise<void> {
       && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(messageText);
     const _aceptaSimulador = /escenario en el simulador/i.test(_ultimoBotW) && _aceptaSola;
 
+    // ─── 2.34 «¿Qué es eso del plan de dos ciclos?» se entrega dictado ───────
+    // El nombre de Los 12 Niveles llega mal oído —dos ciclos, dos niveles, 12
+    // días, 12 semanas, 12 meses— y el clasificador ya lo enruta al arsenal
+    // correcto; pero el modelo, al no reconocer el nombre, componía un «ese
+    // término no lo manejamos» en vez de entregar el candado (batería del 1 sep
+    // 2026, incluso con el alias escrito en el prompt). Es determinístico: la
+    // pregunta por qué es el plan recibe NIVELES_01 tal cual, con su tarjeta.
+    // Se acota a la pregunta de QUÉ ES; «¿cuánto se gana con el plan de 12
+    // días?» sigue al motor, que la lleva a NIVELES_02.
+    const _nombreMalOido = /(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(dos|doce)\s+niveles\b/i.test(messageText);
+    const _preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bla|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n/i.test(messageText)
+      && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(messageText);
+    if (!vieneDelSimulador && _nombreMalOido && _preguntaQueEs) {
+      try {
+        const texto = await textoDeCandado(supabase, 'arsenal_12_niveles_NIVELES_01');
+        if (texto) {
+          // El candado trae el marcador del precio: aquí se llena para Colombia,
+          // que es el país del canal; el motor lo hace con el pin por país.
+          const textoConPrecio = texto.replace(/\[PRECIO_KIT\]/g, '$443.600 COP');
+          await sendWhatsAppMessage(phoneNumber, textoConPrecio, { wamid });
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, textoConPrecio);
+          if (flowSimuladorId) {
+            await sendFlow(phoneNumber, flowSimuladorId,
+              'Y si quiere verlo nivel por nivel en el simulador: elija el nivel y el resultado sale al instante.',
+              'Abrir el simulador', { screen: 'NIVELES' });
+          }
+          console.log(`📐 [WA Webhook] NIVELES_01 dictado a ${phoneNumber} (nombre mal oído)`);
+          return;
+        }
+      } catch (err) {
+        console.warn('⚠️ [WA Webhook] No se pudo dictar NIVELES_01 — sigue al motor:', err);
+      }
+    }
+
     // ─── 2.35 El «sí» a la tabla de los niveles se entrega dictado ───────────
     // El bot cierra ofreciendo «la tabla nivel por nivel» con palabras que él
     // mismo compone, y esa frase compuesta no siempre recupera NIVELES_02 —dos
@@ -2474,6 +2508,24 @@ async function hayRechazoSaludPrevio(
  * El texto bloqueado se conserva en `guardrail_bloqueo` para revisar transcripciones
  * (no se lee al reconstruir el historial, así que no puede re-envenenar).
  */
+/**
+ * El texto para copiar de un fragmento con candado, leído de la base: el cuerpo
+ * entre las etiquetas más su pregunta de seguimiento. Sirve para dictar desde el
+ * canal lo que ya está escrito, sin pasar por el modelo — así una edición del
+ * arsenal no exige tocar este archivo. Devuelve null si no hay candado.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function textoDeCandado(supabase: any, categoria: string): Promise<string | null> {
+  const { data: frag } = await supabase
+    .from('nexus_documents').select('content')
+    .eq('tenant_id', 'whatsapp').eq('category', categoria)
+    .maybeSingle();
+  const cuerpo = frag?.content?.match(/<verbatim_lock>\s*([\s\S]*?)\s*<\/verbatim_lock>/)?.[1];
+  if (!cuerpo) return null;
+  const cierre = frag?.content?.match(/\*\*Pregunta de seguimiento:\*\*\s*(.+)/)?.[1]?.trim();
+  return cierre ? `${cuerpo}\n\n${cierre}` : cuerpo;
+}
+
 async function corregirTurnoEnvenenado(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,

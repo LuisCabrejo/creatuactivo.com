@@ -132,6 +132,19 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   /(dos|tres|cuatro|cinco|seis|diez|\d+)\s+(personas|socios|amigos|conocidos)\s+(con usted|en su canal)?[^.]{0,10}(arrancan|arranquen|entran|entren|se (vinculan|vinculen|inscriben|inscriban|registran|unen))[^.]{0,60}(bono|comisi[oó]n|recibe|gana|\$|usd|cop)/,
   /(arrancan|entran|se (vinculan|inscriben|unen))\s+(dos|tres|cuatro|cinco|seis|diez|\d+)\s+(personas|socios|amigos|conocidos)[^.]{0,60}(bono|comisi[oó]n|recibe|gana|\$|usd|cop)/,
   /(recibe|gana|le (entran?|queda))[^.]{0,25}(\$|usd|cop)?[^.]{0,15}por cada (persona|socio|afiliado|miembro)/,
+  // El verbo en INFINITIVO (1 sep 2026): «cada vez que alguien decide ENTRAR
+  // como distribuidor a través de su canal, usted recibe una comisión» pasaba
+  // porque la lista de arriba conjuga (entra, ingrese…) y el español también
+  // subordina con infinitivo. Backtest: 0 hits en el corpus.
+  /(por cada|cada vez que)\s*(un[ao]?\s*)?(persona|socio|distribuidor|afiliado|miembro|alguien|quien|gente)[^.]{0,35}(decid[ae]n?\s+)?(entrar|ingresar|vincularse|inscribirse|registrarse|afiliarse|arrancar|unirse|llegar)[^.]{0,60}(bono|comisi[oó]n|recibe|reciba|gana|gane|le (entra|entre|queda|quede|pagan|paguen)|\$|usd|cop)/,
+
+  // ── La tabla de NIVELES_02 derivada a otra tarifa (1 sep 2026) ────────────
+  // «¿Y con el ESP-3 cuánto sería?» → el modelo reescribió la tabla canónica
+  // al 17% ($175 millones al mes): cifras que ningún documento trae, y el
+  // cálculo comparativo entre tarifas que el Director retiró. La canónica es
+  // «Regalía mensual 10%» y pasa; cualquier otra tarifa en ese encabezado es
+  // derivada. Backtest: 0 hits en el corpus.
+  /regal[ií]a\s+(mensual|semanal)\s+(1[1-9]|2\d)\s?%/,
 
   // ── Progresión geométrica de personas (la pirámide dibujada) ───────────────
   // Se retiró del corpus a propósito; si reaparece es composición del modelo.

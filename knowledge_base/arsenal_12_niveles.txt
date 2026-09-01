@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.9 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.10 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.10 (1 sep 2026):** El índice de `NIVELES_01` carga las formas en que se oye mal el nombre —plan de dos ciclos, de dos niveles, de 12 días / semanas / meses—. El clasificador ya las enrutaba aquí, pero el modelo, al no reconocer el nombre, componía un «no es un término que manejemos» en vez de entregar el candado. El prompt del canal (v4.32) las nombra también.
 
 **v6.9 (1 sep 2026) — EL HILO SE CIERRA SOBRE SÍ MISMO (doctrina del Director).** Este plan existe para desarmar tres objeciones mentales: *«esto es para ganar en 50 años»*, *«toca hacerlo con el paquete de $1.000»* y *«una red de miles es trabajo personal»*. El ejemplo demuestra lo contrario: una organización de más de 8.000 puede empezar con dos distribuidores, las ganancias vienen de crecer en escala, y se puede iniciar desde el paquete más pequeño. Observación de campo: **mostrar el paquete grande produce procrastinación, y de 50 que procrastinan vuelve uno**; si 50 ven que es estratégico iniciar ya en el Kit, ocurre lo importante — se construye la base de consumo y distribución, que es el objetivo (las ganancias recurrentes, no los bonos de inicio). Quien inicia con el Kit y desarrolla el proyecto luego se pasa a un paquete empresarial por su cuenta. **Por eso en este hilo NO se muestran las otras opciones salvo que la persona las pida:** sale la tabla de tarifas de NIVELES_02 y la frase de los empresariales de NIVELES_03; los cierres encadenan dentro de la estrategia (tabla → después → vinculación). Misma regla en el prompt del canal.
 
@@ -35,7 +37,7 @@
 ## 🔥 **BLOQUE 0: LOS 12 NIVELES (NIVELES) - 8 respuestas**
 
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
-**[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días.
+**[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días. Qué es eso del plan de dos ciclos, del plan de dos niveles, del plan de 12 días, de 12 semanas o de 12 meses — así lo oyen.
 
 **[Concepto Nuclear]:** Simplificada el 1 sep 2026 (texto del Director, vía Gemini): solo los conceptos nucleares — la carga cognitiva de la versión anterior sobraba; los detalles (Gano carga el peso, GEN5, audiencia) se miran en el chat cuando la persona los pregunte. ⚠️ **«mínimo dos»** es deliberado: *conecta dos* describe la geometría rígida —la silueta de pirámide—; *mínimo dos* es un piso, como habla un negocio, y vuelve la proyección un escenario base. ⚠️ El $103M vuelve a esta respuesta por decisión del Director (revisa la del 31 ago), pero SIEMPRE pegado a su origen en la misma frase — el 10% del volumen que factura un canal de ese tamaño. Correcciones de ley sobre el borrador: *su red* → *su canal*, y el precio lo pone `getPinKitInicio` por país.
 

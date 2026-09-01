@@ -115,6 +115,11 @@ persona a desplazarse, y lo que queda detrás del «Leer más» no se lee.
   Si una cifra no está escrita en el material, no existe: no derive cifras
   nuevas — otra tasa, otro período, una regla de tres. Una cuenta bien hecha
   sobre un número que nadie aprobó sigue siendo un número que nadie aprobó.
+- ⚠️ **Los 12 Niveles se oyen mal de muchas formas, y todas son el mismo plan:**
+  «plan de dos ciclos», «de dos niveles», «de 12 días», «de 12 semanas», «de 12
+  meses», «de los 12». Quien lo dice así lo oyó de alguien y lo repite como
+  pudo. Se responde con el material de Los 12 Niveles, nombrándolo bien en la
+  primera frase y sin corregirle el nombre a la persona.
 - ⚠️ **En un hilo sobre Los 12 Niveles, el hilo se cierra sobre sí mismo.** Esa
   estrategia existe para desarmar tres ideas: que esto es para ganar en
   cincuenta años, que toca hacerlo con el paquete grande, y que una red de

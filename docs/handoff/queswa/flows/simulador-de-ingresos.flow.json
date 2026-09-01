@@ -1044,6 +1044,156 @@
      }
     ]
    }
+  },
+  {
+   "id": "NIVELES",
+   "title": "Los 12 Niveles — 2×2",
+   "terminal": true,
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "Form",
+      "name": "niveles",
+      "init-values": {
+       "nivel": "4"
+      },
+      "children": [
+       {
+        "type": "Dropdown",
+        "name": "nivel",
+        "label": "Nivel alcanzado por su canal",
+        "required": true,
+        "data-source": [
+         {
+          "id": "2",
+          "title": "Nivel 2 · 6 en el canal"
+         },
+         {
+          "id": "4",
+          "title": "Nivel 4 · 30 en el canal"
+         },
+         {
+          "id": "6",
+          "title": "Nivel 6 · 126 en el canal"
+         },
+         {
+          "id": "8",
+          "title": "Nivel 8 · 510 en el canal"
+         },
+         {
+          "id": "10",
+          "title": "Nivel 10 · 2.046 en el canal"
+         },
+         {
+          "id": "12",
+          "title": "Nivel 12 · 8.190 en el canal"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '2'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $50.400 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado desde el nivel 1: $75.600 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '4'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $201.600 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado desde el nivel 1: $378.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '6'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $806.400 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado desde el nivel 1: $1.587.600 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '8'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $3.225.600 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado desde el nivel 1: $6.426.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '10'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $12.902.400 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado desde el nivel 1: $25.779.600 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '12'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $51.609.600 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado desde el nivel 1: $103.194.000 COP"
+         }
+        ]
+       },
+       {
+        "type": "TextCaption",
+        "text": "Duplicación 2×2 con Kit de Inicio (10%). Cada distribuidor consume 4 cajas al mes. Es el potencial matemático — el ritmo lo pone cada canal."
+       },
+       {
+        "type": "Footer",
+        "label": "Listo",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "tipo": "niveles",
+          "nivel": "${form.nivel}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
   }
  ]
 }

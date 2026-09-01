@@ -49,7 +49,7 @@ import {
   preguntaDelCafe, listaGuardada, siguienteDeLaLista, listaTerminada, resumenParaElSocio,
 } from '@/lib/wa-lista-socio';
 import { aFormatoWhatsApp, partirParaWhatsApp, partesConBorradorAparte } from '@/lib/wa-formato';
-import { respuestaRenta, respuestaGen5 } from '@/lib/wa-simulador';
+import { respuestaRenta, respuestaGen5, respuestaNiveles } from '@/lib/wa-simulador';
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
@@ -379,7 +379,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // El escenario que la persona armó en el Flow. El TEXTO se construye más
     // abajo (bloque 2.3), porque el cierre depende del historial y a esta altura
     // el historial no existe todavía.
-    let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string } | { paquete: string; cantidad: string } | null = null;
+    let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string } | { tipo: 'niveles'; nivel: string } | { paquete: string; cantidad: string } | null = null;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
 
     // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
@@ -414,8 +414,15 @@ async function procesarEntrante(body: any): Promise<void> {
       if (!messageText && interactivo?.nfm_reply?.response_json) {
         try {
           const r = JSON.parse(interactivo.nfm_reply.response_json) as {
-            paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string; consumo?: string; escenario?: string;
+            paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string; consumo?: string; escenario?: string; nivel?: string;
           };
+          // La pantalla de Los 12 Niveles manda { tipo: 'niveles', nivel }.
+          if (r.tipo === 'niveles' && r.nivel) {
+            messageText = `Acabo de usar el simulador de Los 12 Niveles: nivel ${r.nivel}.`;
+            vieneDelSimulador = true;
+            escenarioSimulador = { tipo: 'niveles', nivel: r.nivel };
+            console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador de niveles (nivel ${r.nivel})`);
+          }
           // La pantalla del 17% manda un solo campo `escenario` ("25x6" = 25
           // clientes que piden 6 cajas al mes). Es un rodeo obligado: el runtime
           // de Meta no acepta condiciones sobre dos campos a la vez —ni `&&`,
@@ -1368,7 +1375,9 @@ async function procesarEntrante(body: any): Promise<void> {
           : undefined,
       };
       const respuestaSimulador = 'tipo' in escenarioSimulador
-        ? respuestaRenta(escenarioSimulador, opciones)
+        ? (escenarioSimulador.tipo === 'niveles'
+            ? respuestaNiveles(escenarioSimulador, opciones)
+            : respuestaRenta(escenarioSimulador, opciones))
         : respuestaGen5(escenarioSimulador, opciones);
       if (!respuestaSimulador) {
         console.warn('⚠️ [WA Webhook] Escenario del simulador ilegible — el turno sigue al motor');
@@ -1403,6 +1412,7 @@ async function procesarEntrante(body: any): Promise<void> {
       // Kit, la renta al 10%; tras el ejemplo GEN5, los paquetes; tras el de
       // renta, la renta. Solo sin pista abre en el menú.
       const _pantalla = /tarifa del Kit/i.test(_ultimoBotW) ? 'RENTA_DIEZ'
+        : /12 Niveles/i.test(_ultimoBotW) ? 'NIVELES'
         : /Generaci[oó]n 1|paquetes? ESP-[123]\*? comprados?|Bono GEN5/i.test(_ultimoBotW) ? 'GEN_MENU'
         : /renta estar[ií]a|clientes en cada centro|supuesto modesto/i.test(_ultimoBotW) ? 'RENTA_MENU'
         : 'INICIO';
@@ -2077,8 +2087,13 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // tarifas de renta, porque la prioridad la tiene el ingreso recurrente.
       // Los ejemplos dictados conservan su propio envío (con su pantalla); este
       // solo cubre el caso en que la oferta quedó en texto.
+      // La tabla de Los 12 Niveles tiene su propia pantalla (abajo): si la
+      // respuesta es esa, ninguna otra tarjeta compite con ella.
+      const _esDoceNiveles = /12 Niveles/i.test(queswaReply)
+        && /103[.,]?194[.,]?000|103 millones/i.test(queswaReply);
+
       const _ofreceNumeros = /(le muestro|quiere ver|le enseño)[^?]{0,40}n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|quiere ver c[oó]mo se gana/i.test(queswaReply);
-      if (flowSimulador && _ofreceNumeros && !dictoEjemplo) {
+      if (flowSimulador && _ofreceNumeros && !dictoEjemplo && !_esDoceNiveles) {
         const enviado = await sendFlow(
           phoneNumber,
           flowSimulador,
@@ -2101,7 +2116,23 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // estaba mirando lo que se lleva.
       const _esComposicion = /\|\s*Producto\s*\||lo que trae|le activa inmediatamente este inventario|productos para arrancar/i.test(queswaReply);
       const _explicaGen5 = !_esComposicion && /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
-      const _explicaBinario = !_esComposicion && /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+
+      // La tabla de Los 12 Niveles → el simulador abre en SU pantalla, nivel por
+      // nivel al 10% del Kit. Sin este caso, la tabla —que menciona «ingreso
+      // recurrente» con cifras— abría en las tarifas: otra estrategia, otra tasa.
+      if (flowSimulador && _esDoceNiveles && !dictoEjemplo && !_ofreceKit) {
+        const enviado = await sendFlow(
+          phoneNumber,
+          flowSimulador,
+          'Y si quiere armar su propio escenario en el simulador: elija el nivel y el resultado sale al instante.',
+          'Abrir el simulador',
+          { screen: 'NIVELES' },
+        );
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador de niveles ofrecido (NIVELES)');
+        else console.warn(`⚠️ [WA Webhook] Flow de niveles no se pudo enviar: ${enviado.error}`);
+      }
+
+      const _explicaBinario = !_esComposicion && !_esDoceNiveles && /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
       if (flowSimulador && _explicaBinario && !_explicaGen5 && !dictoEjemplo && !_ofreceNumeros && !_ofreceKit) {
         const enviado = await sendFlow(
           phoneNumber,

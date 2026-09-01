@@ -897,15 +897,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $25.200 COP a la semana"
+          "text": "≈ $25.200 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "2 distribuidores consumiendo · 56 CV de producto por lado"
+          "text": "2 distribuidores consumiendo · 56 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $25.200 COP"
+          "text": "≈ $6.300 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -915,15 +915,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $50.400 COP a la semana"
+          "text": "≈ $75.600 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "6 distribuidores consumiendo · 112 CV de producto por lado"
+          "text": "6 distribuidores consumiendo · 168 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $75.600 COP"
+          "text": "≈ $18.900 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -933,15 +933,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $100.800 COP a la semana"
+          "text": "≈ $176.400 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "14 distribuidores consumiendo · 224 CV de producto por lado"
+          "text": "14 distribuidores consumiendo · 392 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $176.400 COP"
+          "text": "≈ $44.100 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -951,15 +951,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $201.600 COP a la semana"
+          "text": "≈ $378.000 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "30 distribuidores consumiendo · 448 CV de producto por lado"
+          "text": "30 distribuidores consumiendo · 840 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $378.000 COP"
+          "text": "≈ $94.500 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -969,15 +969,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $403.200 COP a la semana"
+          "text": "≈ $781.200 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "62 distribuidores consumiendo · 896 CV de producto por lado"
+          "text": "62 distribuidores consumiendo · 1.736 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $781.200 COP"
+          "text": "≈ $195.300 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -987,15 +987,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $806.400 COP a la semana"
+          "text": "≈ $1.587.600 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "126 distribuidores consumiendo · 1.792 CV de producto por lado"
+          "text": "126 distribuidores consumiendo · 3.528 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $1.587.600 COP"
+          "text": "≈ $396.900 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -1005,15 +1005,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $1.612.800 COP a la semana"
+          "text": "≈ $3.200.400 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "254 distribuidores consumiendo · 3.584 CV de producto por lado"
+          "text": "254 distribuidores consumiendo · 7.112 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $3.200.400 COP"
+          "text": "≈ $800.100 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -1023,15 +1023,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $3.225.600 COP a la semana"
+          "text": "≈ $6.426.000 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "510 distribuidores consumiendo · 7.168 CV de producto por lado"
+          "text": "510 distribuidores consumiendo · 14.280 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $6.426.000 COP"
+          "text": "≈ $1.606.500 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -1041,15 +1041,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $6.451.200 COP a la semana"
+          "text": "≈ $12.877.200 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "1.022 distribuidores consumiendo · 14.336 CV de producto por lado"
+          "text": "1.022 distribuidores consumiendo · 28.616 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $12.877.200 COP"
+          "text": "≈ $3.219.300 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -1059,15 +1059,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $12.902.400 COP a la semana"
+          "text": "≈ $25.779.600 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "2.046 distribuidores consumiendo · 28.672 CV de producto por lado"
+          "text": "2.046 distribuidores consumiendo · 57.288 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $25.779.600 COP"
+          "text": "≈ $6.444.900 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -1077,15 +1077,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $25.804.800 COP a la semana"
+          "text": "≈ $51.584.400 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "4.094 distribuidores consumiendo · 57.344 CV de producto por lado"
+          "text": "4.094 distribuidores consumiendo · 114.632 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $51.584.400 COP"
+          "text": "≈ $12.896.100 a la semana, liquidado por ciclos"
          }
         ]
        },
@@ -1095,15 +1095,15 @@
         "then": [
          {
           "type": "TextHeading",
-          "text": "≈ $51.609.600 COP a la semana"
+          "text": "≈ $103.194.000 COP al mes"
          },
          {
           "type": "TextBody",
-          "text": "8.190 distribuidores consumiendo · 114.688 CV de producto por lado"
+          "text": "8.190 distribuidores consumiendo · 229.320 CV al mes por lado"
          },
          {
           "type": "TextBody",
-          "text": "Acumulado hasta este nivel: $103.194.000 COP"
+          "text": "≈ $25.798.500 a la semana, liquidado por ciclos"
          }
         ]
        },

@@ -45,15 +45,22 @@ export interface EscenarioRegalia { tipo: 'regalia'; distribuidores: string }
 export interface EscenarioNiveles { tipo: 'niveles'; nivel: string }
 
 /**
- * La fila del nivel n de la tabla canónica de NIVELES_02, derivada de su
- * fórmula en vez de transcrita: CV por lado = 56 × 2^(n−1) · regalía semanal =
- * CV × $450 (el 10% del CV a la tasa fija) · acumulado = $25.200 × (2^n − 1).
- * Nivel 12: 8.190 distribuidores · 114.688 CV · $51.609.600 · $103.194.000.
+ * La fila del nivel n: el canal de ese tamaño CONSUMIENDO. T = 2^(n+1) − 2
+ * distribuidores × 56 CV al mes → por lado T × 28 CV → al 10% ($450 por CV a
+ * la tasa fija) = T × $12.600 al mes. Nivel 12: 8.190 · 229.320 CV · $103.194.000.
+ *
+ * ⚠️ Corrección del Director (1 sep 2026): la tabla vieja ponía $51.609.600 «a
+ * la semana» en el nivel 12 — era la semana en que se compran los 4.096 kits
+ * de ese nivel, un evento de construcción, no el ingreso del canal
+ * consumiendo. Y su columna «acumulado» ($25.200 × (2^n − 1)) es exactamente
+ * T × $12.600: el mensual del canal con ese tamaño, mal rotulado durante meses.
+ * La semana es el mensual entre cuatro.
  */
-function filaNivel(n: number): { total: number; cv: number; semanal: number; acumulado: number } | null {
+function filaNivel(n: number): { total: number; cvLado: number; mensual: number; semanal: number } | null {
   if (!Number.isInteger(n) || n < 1 || n > 12) return null;
-  const cv = 56 * 2 ** (n - 1);
-  return { total: 2 ** (n + 1) - 2, cv, semanal: cv * 450, acumulado: 25_200 * (2 ** n - 1) };
+  const total = 2 ** (n + 1) - 2;
+  const mensual = total * 12_600;
+  return { total, cvLado: total * 28, mensual, semanal: Math.round(mensual / 4) };
 }
 
 /**
@@ -198,7 +205,7 @@ export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre =
     : '¿Le muestro con cuánto se empieza?';
   const n = (x: number) => x.toLocaleString('es-CO');
 
-  return `En el *nivel ${e.nivel}* su canal suma *${n(fila.total)} distribuidores consumiendo* —cada uno con sus cuatro cajas al mes—, que mueven *${n(fila.cv)} CV* de producto por lado. La Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*, y el acumulado hasta ese nivel en *${cop(fila.acumulado)}*.
+  return `En el *nivel ${e.nivel}* su canal suma *${n(fila.total)} distribuidores consumiendo* —cada uno con sus cuatro cajas al mes—, que mueven *${n(fila.cvLado)} CV* de producto por lado cada mes. La Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.mensual)} al mes* — unos ${cop(fila.semanal)} por semana, liquidados por ciclos.
 
 Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático de la duplicación 2×2 — el ritmo lo pone cada canal.
 

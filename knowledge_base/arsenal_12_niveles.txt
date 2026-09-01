@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.7 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.8 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.8 (1 sep 2026):** **La proyección pasa a MENSUAL, y la cuenta queda coherente con el consumo** (corrección del Director). La tabla ponía $51.609.600 «a la semana» en el nivel 12: era la semana en que se compran los 4.096 kits de ese nivel —un evento de construcción—, no el ingreso del canal consumiendo, que con 8.190 distribuidores a 4 cajas al mes es 229.320 CV por lado → **$103.194.000 al mes** (lo que NIVELES_08 ya decía). Y la vieja columna «acumulado» ($25.200 × (2ⁿ−1)) era exactamente el mensual del canal con ese tamaño (T × $12.600), mal rotulada durante meses. NIVELES_01 y NIVELES_02 lo dicen ahora como regalía mensual; el Flow y `respuestaNiveles()` calculan igual. Cifras del plan (CV por caja, tasa, 10%) intactas.
 
 **v6.7 (1 sep 2026):** `NIVELES_01` y `NIVELES_02` pasan bajo **candado** `<verbatim_lock>` (cierre afuera, como manda el contrato). Ejercicio de punta a punta contra producción: sin candado, el modelo reescribía NIVELES_01 degradando el canal a «café y suplementos», y ante el «sí» a la tabla —cuyo cierre compuesto se fue a COMP_BIN_08— inventó una tabla entera con cifras que no existen. El candado se entrega tal cual y solo. El índice de NIVELES_02 carga además el cierre literal de NIVELES_01 (medido: 0.533, puesto 1). Cifras intactas.
 
@@ -40,7 +42,7 @@ Los 12 Niveles es nuestra estrategia de aceleración para construir su canal de 
 
 La entrada es el Kit de Inicio ([PRECIO_KIT]): usted recibe cuatro cajas de producto, abre su código y entra a cobrar el 10% sobre todas las compras que facture ese canal.
 
-Lo que hace poderosa la estrategia es ese efecto exponencial. Al nivel 12, su canal llega a 8.190 distribuidores consumiendo, y el acumulado supera los **$103 millones COP** — exactamente el 10% del volumen que factura un canal de ese tamaño.
+Lo que hace poderosa la estrategia es ese efecto exponencial. Al nivel 12, su canal llega a 8.190 distribuidores consumiendo, y la regalía mensual de ese canal supera los **$103 millones COP** — exactamente el 10% del volumen que factura un canal de ese tamaño.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro la tabla con la proyección nivel por nivel?
@@ -57,19 +59,19 @@ En Los 12 Niveles con Kit de Inicio, usted gana a través de la **Regalía de Eq
 
 **¿Cómo funciona?**
 
-Le pagan por todas las compras realizadas en su canal. Cada Kit de Inicio representa 56 CV (puntos de comisión). La compañía empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el 10% semanal sobre ese volumen.
+Le pagan por todas las compras realizadas en su canal. Cada distribuidor consume 56 CV al mes (cuatro cajas). La compañía empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el 10% sobre ese volumen, liquidado por ciclos semanales.
 
 **Proyección con Kit de Inicio (10%):**
 
-| Distribuidores consumiendo | CV por lado | Regalía semanal 10% |
-|----------------------------|-------------|---------------------|
-| 30 | 448 | $201.600 |
-| 126 | 1.792 | $806.400 |
-| 510 | 7.168 | $3.225.600 |
-| 2.046 | 28.672 | $12.902.400 |
-| 8.190 | 114.688 | $51.609.600 |
+| Distribuidores consumiendo | CV al mes por lado | Regalía mensual 10% |
+|----------------------------|--------------------|---------------------|
+| 30 | 840 | $378.000 |
+| 126 | 3.528 | $1.587.600 |
+| 510 | 14.280 | $6.426.000 |
+| 2.046 | 57.288 | $25.779.600 |
+| 8.190 | 229.320 | $103.194.000 |
 
-Ese tamaño lo construye la duplicación 2×2 — usted conecta mínimo dos, cada uno conecta otros dos — hasta llegar, al nivel 12, a los **8.190 distribuidores**. Y el acumulado de todo el recorrido supera los **$103 millones COP** (en cifra exacta, $103.194.000 = $25.200 × (2¹²−1)): no los regala nadie — son el **10% del volumen emparejado** de un canal que, con sus distribuidores y sus clientes comprando sus 4 cajas al mes, **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
+Ese tamaño lo construye la duplicación 2×2 — usted conecta mínimo dos, cada uno conecta otros dos — hasta llegar, al nivel 12, a los **8.190 distribuidores**. Con el canal completo, la regalía mensual supera los **$103 millones COP** (en cifra exacta, $103.194.000: 229.320 CV emparejados al mes, al 10%): no los regala nadie — son el **10% del volumen emparejado** de un canal que, con sus distribuidores y sus clientes comprando sus 4 cajas al mes, **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
 
 Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
 

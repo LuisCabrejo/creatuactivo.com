@@ -243,7 +243,9 @@ export function interpretarPlazo(mensaje: string): Plazo | null {
   if (dia) return `el ${DIA_CON_TILDE[dia] ?? dia}`;
   if (/pasado ?manana|en dos dias|dos dias|en 2 dias|2 dias|en un par de dias/.test(t)) return 'en dos días';
   if (/(?<![a-z])(manana|tomorrow|manan)(?![a-z])/.test(t)) return 'mañana';
-  if (/^(s[ií]|dale|listo|ok|claro|bueno|de una|perfecto|vale)[\s.!]*$/.test(t)) return 'en dos días';
+  // «De acuerdo» (prueba del Director, 1 sep 2026) no estaba en la lista: el
+  // turno cayó al motor y el socio se quedó sin su aviso con fecha.
+  if (/^(s[ií]|dale|listo|ok|claro|bueno|de una|perfecto|vale|de acuerdo|est[aá] bien|me parece( bien)?|bien)[\s.!]*$/.test(t)) return 'en dos días';
   return null;
 }
 

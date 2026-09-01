@@ -4252,7 +4252,10 @@ export async function POST(req: Request) {
     const _preguntaCiclo = tenantId !== 'ecommerce' && tenantId !== 'marca_personal'
       && /\bciclos?\b/i.test(latestUserMessage)
       && !/recicl|bicicl|motocicl|ciclo\s+de\s+(vida|venta|producto)/i.test(latestUserMessage)
-      && !/(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*ciclos/i.test(latestUserMessage);
+      // …ni «el ciclo de 12 niveles» (prueba del Director, 1 sep, 10:43): si el
+      // mensaje nombra Los 12 Niveles de cualquier forma, el calendario no es
+      // lo que pregunta.
+      && !/(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*ciclos|(12|doce|dos)\s*niveles/i.test(latestUserMessage);
     if (_preguntaCiclo) {
       const _numPedido = latestUserMessage.match(/ciclo\s+(\d{3,4})\b/i);
       const _rCiclo = respuestaCiclo(new Date(), _numPedido ? Number(_numPedido[1]) : undefined);

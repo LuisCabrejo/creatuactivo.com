@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.10 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.11 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.11 (1 sep 2026):** El índice de `NIVELES_04` carga la oferta literal con que cierran la tabla y el simulador («¿Le muestro cómo se vincula a la estrategia?»). Medido: puesto 1 por vector (0.517). ⚠️ En el canal ese «sí» además se dicta desde el webhook (bloque 2.36) porque un patrón del clasificador se lo llevaba a arsenal_inicial antes de llegar al vector.
 
 **v6.10 (1 sep 2026):** El índice de `NIVELES_01` carga las formas en que se oye mal el nombre —plan de dos ciclos, de dos niveles, de 12 días / semanas / meses—. El clasificador ya las enrutaba aquí, pero el modelo, al no reconocer el nombre, componía un «no es un término que manejemos» en vez de entregar el candado. El prompt del canal (v4.32) las nombra también.
 
@@ -114,7 +116,7 @@ El Kit entra al plan con la Regalía de Equipo al 10%, y con eso queda abierto s
 ---
 
 ### **NIVELES_04: "¿Cómo participo en Los 12 Niveles? / ¿Cómo me vinculo?"**
-**[Índice]:** Cómo participo en Los 12 Niveles, cómo me vinculo, cómo me inscribo, quiero iniciar en esa estrategia, qué necesito para entrar.
+**[Índice]:** Cómo participo en Los 12 Niveles, cómo me vinculo, cómo me inscribo, quiero iniciar en esa estrategia, qué necesito para entrar. ¿Le muestro cómo se vincula a la estrategia?
 
 **[Concepto Nuclear]:** La vinculación se radica aquí mismo con los cuatro datos — la misma condición de quien inicia con paquete empresarial (Director, 31 ago 2026). La versión anterior ofrecía «dos vías» que eran la misma —contactar a quien le compartió el enlace / escribirle por WhatsApp a esa persona— y mandaba afuera a alguien que el canal puede radicar de una. ⚠️ El bloque de datos y el remate coinciden a propósito con `pedirDatos()` de wa-radicacion.ts: es la red de respaldo si el detector de volición no dispara; al editar uno, editar el otro. ⚠️ **Sin pregunta de seguimiento a propósito** (Director, 31 ago 2026): la petición de los cuatro datos ES la pregunta del turno, igual que en `pedirDatos()` — una pregunta encima le suma un trámite al que ya está decidiendo. No se le "agregue" una creyendo que falta.
 

@@ -35,7 +35,7 @@ import {
   textoEntregaEnlace, textoSinEnlace, enlaceCortoPareja, botOfrecioPlazo, interpretarPlazo,
   textoConfirmacionPlazo, fechaDelPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
 } from '@/lib/wa-pareja';
-import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
+import { gestionarCierre, RE_VOLICION, pedirDatos } from '@/lib/wa-radicacion';
 import { extraerTokenDePase, resolverCompartidor, limpiarMarcador } from '@/lib/wa-pase';
 import {
   detectarAmbivalencia, esConsultaConPareja, botEvoco, esMotivoDeDinero,
@@ -1446,16 +1446,20 @@ async function procesarEntrante(body: any): Promise<void> {
     // pregunta por qué es el plan recibe NIVELES_01 tal cual, con su tarjeta.
     // Se acota a la pregunta de QUÉ ES; «¿cuánto se gana con el plan de 12
     // días?» sigue al motor, que la lleva a NIVELES_02.
-    const _nombreMalOido = /(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(dos|doce)\s+niveles\b/i.test(messageText);
-    const _preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bla|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n/i.test(messageText)
+    // «el ciclo de 12 niveles», «un plan de 12 ciclos o niveles», «quiero
+    // averiguar», «Luis me habló» — las formas de la prueba de las 10:43.
+    const _nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b/i.test(messageText);
+    const _preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bl[aoó]|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n|averigua|saber|conocer|entender|no me acuerdo/i.test(messageText)
       && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(messageText);
     if (!vieneDelSimulador && _nombreMalOido && _preguntaQueEs) {
       try {
         const texto = await textoDeCandado(supabase, 'arsenal_12_niveles_NIVELES_01');
         if (texto) {
-          // El candado trae el marcador del precio: aquí se llena para Colombia,
-          // que es el país del canal; el motor lo hace con el pin por país.
-          const textoConPrecio = texto.replace(/\[PRECIO_KIT\]/g, '$443.600 COP');
+          // El candado trae el marcador del precio. Misma regla que el pin del
+          // motor: Colombia en COP, Estados Unidos en USD, el resto USD con COP.
+          const _pais = phoneNumber.startsWith('57') ? 'CO' : phoneNumber.startsWith('1') ? 'US' : 'XX';
+          const precioKit = _pais === 'CO' ? '$443.600 COP' : _pais === 'US' ? '$98 USD' : '$98 USD ($443.600 COP)';
+          const textoConPrecio = texto.replace(/\[PRECIO_KIT\]/g, precioKit);
           await sendWhatsAppMessage(phoneNumber, textoConPrecio, { wamid });
           await persistirTurnoDictado(supabase, waFingerprint, messageText, textoConPrecio);
           if (flowSimuladorId) {
@@ -1469,6 +1473,24 @@ async function procesarEntrante(body: any): Promise<void> {
       } catch (err) {
         console.warn('⚠️ [WA Webhook] No se pudo dictar NIVELES_01 — sigue al motor:', err);
       }
+    }
+
+    // ─── 2.36 El «sí» a «¿le muestro cómo se vincula?» pide los cuatro datos ──
+    // Es el cierre de la tabla y del simulador de los 12 Niveles. En la prueba
+    // del Director (1 sep, 10:55) el «sí» se fue a un patrón del clasificador y
+    // el modelo compuso un «proceso en tres pasos» inventado, y la persona
+    // necesitó otro «sí» para llegar a la radicación. Es determinístico: el
+    // bloque de los cuatro datos, con el Kit nombrado porque el hilo es el de
+    // la estrategia. Lo que la persona conteste cae en gestionarCierre, que
+    // reconoce el bloque por su encabezado.
+    const _ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe/i.test(_ultimoBotW);
+    if (!vieneDelSimulador && _aceptaSola && _ofrecioVinculacion && historial.some((m) => /12 Niveles/i.test(m.content))) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const texto = pedirDatos({ nombre: '', cedula: '', ciudad: '', paquete: '' } as any, socio?.nombre?.split(/\s+/).slice(0, 2).join(' '), true);
+      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      console.log(`📝 [WA Webhook] Cuatro datos pedidos dictados tras la oferta de vinculación (${phoneNumber})`);
+      return;
     }
 
     // ─── 2.35 El «sí» a la tabla de los niveles se entrega dictado ───────────

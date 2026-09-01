@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.4 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.5 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.5 (31 ago 2026):** Nace `NIVELES_08` — el «después»: cuánto queda ganando cuando el canal ya está construido. No tenía puerta, y la cuenta se verificó antes de escribirla: con los 8.190 consumiendo sus cuatro cajas, el mensual del canal completo es el mismo $103M del recorrido — la misma aritmética (4.095 unidades de 56 CV al 10%). NIVELES (8) + INV (6) = 14 respuestas.
 
 **v6.4 (31 ago 2026):** La tabla de `NIVELES_02` pivota al consumo (Director): las filas cuentan **distribuidores consumiendo → regalía semanal**, y salen las columnas de nivel, entrantes por nivel y acumulado — la escalera con columnas. La duplicación 2×2 baja a prosa como lo que construye el tamaño, y el $103M queda junto a su origen. Misma decisión aplicada en la pantalla REGALIA_EQUIPO del Flow y en `respuestaRegalia()`. Cifras intactas.
 
@@ -18,11 +20,11 @@
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando; también un distribuidor activo que quiera desarrollar los 12 niveles — crear su equipo con nuevos distribuidores y compartirles la visión.
-**Categorías:** NIVELES (7) + INV (6) = 13 respuestas
+**Categorías:** NIVELES (8) + INV (6) = 14 respuestas
 
 ---
 
-## 🔥 **BLOQUE 0: LOS 12 NIVELES (NIVELES) - 7 respuestas**
+## 🔥 **BLOQUE 0: LOS 12 NIVELES (NIVELES) - 8 respuestas**
 
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
 **[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días.
@@ -180,6 +182,23 @@ Conectar más de dos le da más margen: entre más distribuidores tenga usted di
 **La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo su canal.
 
 **Pregunta de seguimiento:** ¿Cuántos nombres tiene en su lista para invitar?
+
+---
+
+### **NIVELES_08: "¿Cuánto queda ganando cuando la organización ya está creada?"**
+**[Índice]:** Cuánto queda ganando después de creada la organización, cuál es la ganancia mensual cuando el canal ya está completo, qué me queda cada mes cuando ya están los 8.190 consumiendo.
+
+**[Concepto Nuclear]:** El después de la construcción (Director, 31 ago 2026). La cuenta, verificada: 8.190 = 4.095 por lado × 56 CV/mes = 229.320 CV emparejados × $450 (el 10% del CV a la tasa fija) = **$103.194.000 COP al mes**. Coincide con el acumulado de construcción porque es la misma aritmética: 4.095 unidades de 56 CV al 10%. El marco va en llano —la ganancia la determina la facturación— y la coletilla de proporcionalidad matemática está vetada (léxico). Fragmento corto a propósito: es la puerta del «después»; la tabla vive en NIVELES_02.
+
+La ganancia no cambia de naturaleza cuando el canal ya está construido: sigue saliendo de lo mismo — la facturación. Cada mes sus distribuidores hacen su recompra, el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen.
+
+Con el canal completo —**8.190 distribuidores consumiendo** en promedio sus cuatro cajas al mes— ese consumo suma más de 458.000 CV mensuales, y la Regalía de Equipo al 10% del Kit queda alrededor de **$103 millones COP al mes**. Es la misma cifra del recorrido completo, y no es casualidad: sostener el canal mueve cada mes el mismo volumen que costó construirlo.
+
+Mientras el canal consuma, esa comisión se liquida por ciclos semanales. Si el consumo baja, baja con él: la compañía paga un porcentaje de lo que se vende, no un premio por el tamaño.
+
+**⚠️ Importante:** Es el potencial matemático con el canal completo y el consumo estándar. Las comisiones reales dependen del consumo efectivo de su canal.
+
+**Pregunta de seguimiento:** ¿Le muestro con cuánto se empieza?
 
 ---
 

@@ -49,7 +49,7 @@ import {
   preguntaDelCafe, listaGuardada, siguienteDeLaLista, listaTerminada, resumenParaElSocio,
 } from '@/lib/wa-lista-socio';
 import { aFormatoWhatsApp, partirParaWhatsApp, partesConBorradorAparte } from '@/lib/wa-formato';
-import { respuestaRenta, respuestaGen5, respuestaRegalia } from '@/lib/wa-simulador';
+import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles } from '@/lib/wa-simulador';
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
@@ -379,7 +379,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // El escenario que la persona armó en el Flow. El TEXTO se construye más
     // abajo (bloque 2.3), porque el cierre depende del historial y a esta altura
     // el historial no existe todavía.
-    let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string } | { tipo: 'regalia'; distribuidores: string } | { paquete: string; cantidad: string } | null = null;
+    let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string } | { tipo: 'regalia'; distribuidores: string } | { tipo: 'niveles'; nivel: string } | { paquete: string; cantidad: string } | null = null;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
 
     // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
@@ -414,10 +414,19 @@ async function procesarEntrante(body: any): Promise<void> {
       if (!messageText && interactivo?.nfm_reply?.response_json) {
         try {
           const r = JSON.parse(interactivo.nfm_reply.response_json) as {
-            paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string; consumo?: string; escenario?: string; distribuidores?: string;
+            paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string; consumo?: string; escenario?: string; distribuidores?: string; nivel?: string;
           };
-          // La pantalla de la Regalía de Equipo (la de los 12 Niveles, con el
-          // eje en el consumo) manda { tipo: 'regalia', distribuidores }.
+          // La pantalla de Los 12 Niveles manda { tipo: 'niveles', nivel } — nivel
+          // por nivel, con su causa al lado (Director, 1 sep 2026).
+          if (r.tipo === 'niveles' && r.nivel) {
+            messageText = `Acabo de usar el simulador de Los 12 Niveles: nivel ${r.nivel}.`;
+            vieneDelSimulador = true;
+            escenarioSimulador = { tipo: 'niveles', nivel: r.nivel };
+            console.log(`🧮 [WA Webhook] ${phoneNumber} completó el simulador de niveles (nivel ${r.nivel})`);
+          }
+          // La pantalla anterior por consumo (retirada el 1 sep) mandaba
+          // { tipo: 'regalia', distribuidores }; se conserva por si una tarjeta
+          // vieja se completa.
           if (r.tipo === 'regalia' && r.distribuidores) {
             messageText = `Acabo de usar el simulador de la Regalía de Equipo: ${r.distribuidores} distribuidores consumiendo.`;
             vieneDelSimulador = true;
@@ -1376,7 +1385,9 @@ async function procesarEntrante(body: any): Promise<void> {
           : undefined,
       };
       const respuestaSimulador = 'tipo' in escenarioSimulador
-        ? (escenarioSimulador.tipo === 'regalia'
+        ? (escenarioSimulador.tipo === 'niveles'
+            ? respuestaNiveles(escenarioSimulador, opciones)
+            : escenarioSimulador.tipo === 'regalia'
             ? respuestaRegalia(escenarioSimulador, opciones)
             : respuestaRenta(escenarioSimulador, opciones))
         : respuestaGen5(escenarioSimulador, opciones);
@@ -1418,7 +1429,7 @@ async function procesarEntrante(body: any): Promise<void> {
       // Kit, la renta al 10%; tras el ejemplo GEN5, los paquetes; tras el de
       // renta, la renta. Solo sin pista abre en el menú.
       const _pantalla = /tarifa del Kit/i.test(_ultimoBotW) ? 'RENTA_DIEZ'
-        : /12 Niveles|distribuidores consumiendo/i.test(_ultimoBotW) ? 'REGALIA_EQUIPO'
+        : /12 Niveles|nivel por nivel|distribuidores consumiendo/i.test(_ultimoBotW) ? 'NIVELES'
         : /Generaci[oó]n 1|paquetes? ESP-[123]\*? comprados?|Bono GEN5/i.test(_ultimoBotW) ? 'GEN_MENU'
         : /renta estar[ií]a|clientes en cada centro|supuesto modesto/i.test(_ultimoBotW) ? 'RENTA_MENU'
         : 'INICIO';
@@ -2131,11 +2142,11 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         const enviado = await sendFlow(
           phoneNumber,
           flowSimulador,
-          'Y si quiere armar su propio escenario en el simulador: elija cuántos distribuidores consumen y el resultado sale al instante.',
+          'Y si quiere verlo nivel por nivel en el simulador: elija el nivel y el resultado sale al instante.',
           'Abrir el simulador',
-          { screen: 'REGALIA_EQUIPO' },
+          { screen: 'NIVELES' },
         );
-        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador de la Regalía ofrecido (REGALIA_EQUIPO)');
+        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador de niveles ofrecido (NIVELES)');
         else console.warn(`⚠️ [WA Webhook] Flow de niveles no se pudo enviar: ${enviado.error}`);
       }
 

@@ -822,114 +822,294 @@
    }
   },
   {
-   "id": "REGALIA_EQUIPO",
-   "title": "Regalía de Equipo — 10%",
+   "id": "NIVELES",
+   "title": "Los 12 Niveles — 10%",
    "terminal": true,
    "layout": {
     "type": "SingleColumnLayout",
     "children": [
      {
       "type": "Form",
-      "name": "regalia",
+      "name": "niveles",
       "init-values": {
-       "distribuidores": "30"
+       "nivel": "1"
       },
       "children": [
        {
         "type": "Dropdown",
-        "name": "distribuidores",
-        "label": "Distribuidores consumiendo",
+        "name": "nivel",
+        "label": "Nivel alcanzado",
         "required": true,
         "data-source": [
          {
+          "id": "1",
+          "title": "Nivel 1"
+         },
+         {
+          "id": "2",
+          "title": "Nivel 2"
+         },
+         {
+          "id": "3",
+          "title": "Nivel 3"
+         },
+         {
+          "id": "4",
+          "title": "Nivel 4"
+         },
+         {
+          "id": "5",
+          "title": "Nivel 5"
+         },
+         {
           "id": "6",
-          "title": "6 distribuidores"
+          "title": "Nivel 6"
          },
          {
-          "id": "30",
-          "title": "30 distribuidores"
+          "id": "7",
+          "title": "Nivel 7"
          },
          {
-          "id": "126",
-          "title": "126 distribuidores"
+          "id": "8",
+          "title": "Nivel 8"
          },
          {
-          "id": "510",
-          "title": "510 distribuidores"
+          "id": "9",
+          "title": "Nivel 9"
          },
          {
-          "id": "2046",
-          "title": "2.046 distribuidores"
+          "id": "10",
+          "title": "Nivel 10"
          },
          {
-          "id": "8190",
-          "title": "8.190 distribuidores"
+          "id": "11",
+          "title": "Nivel 11"
+         },
+         {
+          "id": "12",
+          "title": "Nivel 12"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.distribuidores} == '6'",
+        "condition": "${form.nivel} == '1'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $25.200 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "2 distribuidores consumiendo · 56 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $25.200 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '2'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $50.400 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "6 distribuidores consumiendo · 112 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $75.600 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.distribuidores} == '30'",
+        "condition": "${form.nivel} == '3'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $100.800 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "14 distribuidores consumiendo · 224 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $176.400 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '4'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $201.600 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "30 distribuidores consumiendo · 448 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $378.000 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.distribuidores} == '126'",
+        "condition": "${form.nivel} == '5'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $403.200 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "62 distribuidores consumiendo · 896 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $781.200 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '6'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $806.400 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "126 distribuidores consumiendo · 1.792 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $1.587.600 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.distribuidores} == '510'",
+        "condition": "${form.nivel} == '7'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $1.612.800 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "254 distribuidores consumiendo · 3.584 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $3.200.400 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '8'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $3.225.600 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "510 distribuidores consumiendo · 7.168 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $6.426.000 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.distribuidores} == '2046'",
+        "condition": "${form.nivel} == '9'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $6.451.200 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "1.022 distribuidores consumiendo · 14.336 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $12.877.200 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '10'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $12.902.400 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "2.046 distribuidores consumiendo · 28.672 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $25.779.600 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.distribuidores} == '8190'",
+        "condition": "${form.nivel} == '11'",
+        "then": [
+         {
+          "type": "TextHeading",
+          "text": "≈ $25.804.800 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "4.094 distribuidores consumiendo · 57.344 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $51.584.400 COP"
+         }
+        ]
+       },
+       {
+        "type": "If",
+        "condition": "${form.nivel} == '12'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $51.609.600 COP a la semana"
+         },
+         {
+          "type": "TextBody",
+          "text": "8.190 distribuidores consumiendo · 114.688 CV de producto por lado"
+         },
+         {
+          "type": "TextBody",
+          "text": "Acumulado hasta este nivel: $103.194.000 COP"
          }
         ]
        },
        {
         "type": "TextCaption",
-        "text": "Cada distribuidor consume 4 cajas al mes. El sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Potencial matemático — el ritmo lo pone cada canal."
+        "text": "Duplicación 2×2 con Kit de Inicio (10%): cada distribuidor consume 4 cajas al mes, y la regalía es el 10% del producto que mueve el canal. Potencial matemático — el ritmo lo pone cada canal."
        },
        {
         "type": "Footer",
@@ -937,8 +1117,8 @@
         "on-click-action": {
          "name": "complete",
          "payload": {
-          "tipo": "regalia",
-          "distribuidores": "${form.distribuidores}"
+          "tipo": "niveles",
+          "nivel": "${form.nivel}"
          }
         }
        }

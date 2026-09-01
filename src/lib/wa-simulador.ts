@@ -42,6 +42,19 @@ const GEN5_POR_PAQUETE: Record<string, { etiqueta: string; suma: number }> = {
 export interface EscenarioRenta   { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string }
 export interface EscenarioGen5    { paquete: string; cantidad: string }
 export interface EscenarioRegalia { tipo: 'regalia'; distribuidores: string }
+export interface EscenarioNiveles { tipo: 'niveles'; nivel: string }
+
+/**
+ * La fila del nivel n de la tabla canónica de NIVELES_02, derivada de su
+ * fórmula en vez de transcrita: CV por lado = 56 × 2^(n−1) · regalía semanal =
+ * CV × $450 (el 10% del CV a la tasa fija) · acumulado = $25.200 × (2^n − 1).
+ * Nivel 12: 8.190 distribuidores · 114.688 CV · $51.609.600 · $103.194.000.
+ */
+function filaNivel(n: number): { total: number; cv: number; semanal: number; acumulado: number } | null {
+  if (!Number.isInteger(n) || n < 1 || n > 12) return null;
+  const cv = 56 * 2 ** (n - 1);
+  return { total: 2 ** (n + 1) - 2, cv, semanal: cv * 450, acumulado: 25_200 * (2 ** n - 1) };
+}
 
 /**
  * Las filas de la tabla canónica de NIVELES_02 (Kit de Inicio al 10%), con el
@@ -165,6 +178,29 @@ export function respuestaRegalia(e: EscenarioRegalia, opciones: OpcionesCierre =
   return `Con *${cuantos} distribuidores consumiendo* en su canal —cada uno con sus cuatro cajas al mes—, la Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*.
 
 Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático — el ritmo lo pone cada canal.
+
+${cierre}`;
+}
+
+/**
+ * El escenario nivel por nivel (Director, 1 sep 2026): la pantalla del Flow
+ * cumple la promesa del cierre —«la tabla con la proyección nivel por nivel»— y
+ * cada nivel trae su causa al lado: los distribuidores, el producto que mueven
+ * y la regalía. La cadena gente → consumo → comisión queda a la vista en la
+ * misma frase, que es la defensa contra la lectura de escalera.
+ */
+export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre = {}): string | null {
+  const fila = filaNivel(Number(e.nivel));
+  if (!fila) return null;
+
+  const cierre = opciones.radicado
+    ? cierreRadicado(opciones.radicado)
+    : '¿Le muestro con cuánto se empieza?';
+  const n = (x: number) => x.toLocaleString('es-CO');
+
+  return `En el *nivel ${e.nivel}* su canal suma *${n(fila.total)} distribuidores consumiendo* —cada uno con sus cuatro cajas al mes—, que mueven *${n(fila.cv)} CV* de producto por lado. La Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*, y el acumulado hasta ese nivel en *${cop(fila.acumulado)}*.
+
+Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático de la duplicación 2×2 — el ritmo lo pone cada canal.
 
 ${cierre}`;
 }

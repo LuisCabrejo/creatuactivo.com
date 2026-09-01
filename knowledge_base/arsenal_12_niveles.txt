@@ -1,11 +1,12 @@
-# Arsenal Conversacional: Los 12 Niveles v5.3 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v5.6 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v5.6 (31 ago 2026):** `NIVELES_02` carga en su índice las ofertas de cierre literales — la escrita en NIVELES_01 y la de la tabla nivel a nivel. En WhatsApp una aceptación pelada busca con la última pregunta del bot, y sin la oferta en el índice el «sí» a la tabla de los niveles se iba al ejemplo mensual del Binario (prueba del Director, 31 ago): el prospecto recibía otra tabla, a otra tasa, rompiendo la promesa del turno anterior. Medido con arnés antes de desplegar: las dos ofertas de cadena pasan al puesto 1, las consultas propias se conservan y COMP_BIN_08 mantiene las suyas por margen amplio.
 
 **v5.5 (29 ago 2026):** `INV_00` reescrita con el Director. Sale el marco de escasez (*«las cosas están duras»* compadece, y compadecer baja el estatus de quien pregunta) y sale el párrafo que pedía disculpas (*«le digo lo que no trae»*, *«no es la opción más rentable»*). ⚠️ **Anclaje:** no se nombra *el paquete más grande* —mide por el precio y valida el costo como obstáculo—; se nombra **la entrada estándar / los tres paquetes principales**, y el Kit queda como *una puerta más liviana*. La diferencia del plan se da como hecho neutro.
 
 **v5.4 (29 ago 2026):** `INV_00` cierra hacia el simulador con la tarifa del Kit («¿Quiere armar su propio escenario en el simulador…?») — la frase lleva «escenario en el simulador» para que el «sí» reenvíe el Flow. Antes cerraba con «¿le muestro qué recibe con cada opción?» (Director, 29 ago).
 
-**v5.3 (22 ago 2026):** La tabla de productos de INV_06 usa los nombres del catálogo, en español. Sin cambios de puntos.
-**v5.2 (9 ago 2026) — barrido de vocabulario transversal:** *su organización* → **su canal** (y se nombra a quién cuando el colectivo actúa) · *Propietario* → **distribuidor** · *su distribuidor logístico/digital* → **Gano Excel** / **Queswa**. Detalle y medición en [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md).
+**Historial anterior** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md) (aquí solo la versión actual y las dos previas).
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando; también un distribuidor activo que quiera desarrollar los 12 niveles — crear su equipo con nuevos distribuidores y compartirles la visión.
@@ -63,7 +64,7 @@ Cada nivel representa una oportunidad de crecimiento exponencial basada en dupli
 ---
 
 ### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles? / ¿Cuánto puedo ganar con esa estrategia?"**
-**[Índice]:** Cómo se gana en Los 12 Niveles, cuánto puedo ganar ahí, cómo funciona el plan de ganancias de esa estrategia.
+**[Índice]:** Cómo se gana en Los 12 Niveles, cuánto puedo ganar ahí, cómo funciona el plan de ganancias de esa estrategia. ¿Le muestro cuánto puede mover esta estrategia? ¿Le muestro la tabla con cuánto genera cada nivel, semana a semana? La tabla completa de los 12 niveles, nivel por nivel.
 
 **[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su canal.
 

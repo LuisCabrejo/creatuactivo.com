@@ -109,7 +109,7 @@ El Kit entra al plan con la Regalía de Equipo al 10%; los porcentajes más alto
 ### **NIVELES_04: "¿Cómo participo en Los 12 Niveles? / ¿Cómo me vinculo?"**
 **[Índice]:** Cómo participo en Los 12 Niveles, cómo me vinculo, cómo me inscribo, quiero iniciar en esa estrategia, qué necesito para entrar.
 
-**[Concepto Nuclear]:** La vinculación se radica aquí mismo con los cuatro datos — la misma condición de quien inicia con paquete empresarial (Director, 31 ago 2026). La versión anterior ofrecía «dos vías» que eran la misma —contactar a quien le compartió el enlace / escribirle por WhatsApp a esa persona— y mandaba afuera a alguien que el canal puede radicar de una. ⚠️ El bloque de datos coincide a propósito con `pedirDatos()` de wa-radicacion.ts: es la red de respaldo si el detector de volición no dispara; al editar uno, editar el otro.
+**[Concepto Nuclear]:** La vinculación se radica aquí mismo con los cuatro datos — la misma condición de quien inicia con paquete empresarial (Director, 31 ago 2026). La versión anterior ofrecía «dos vías» que eran la misma —contactar a quien le compartió el enlace / escribirle por WhatsApp a esa persona— y mandaba afuera a alguien que el canal puede radicar de una. ⚠️ El bloque de datos y el remate coinciden a propósito con `pedirDatos()` de wa-radicacion.ts: es la red de respaldo si el detector de volición no dispara; al editar uno, editar el otro. ⚠️ **Sin pregunta de seguimiento a propósito** (Director, 31 ago 2026): la petición de los cuatro datos ES la pregunta del turno, igual que en `pedirDatos()` — una pregunta encima le suma un trámite al que ya está decidiendo. No se le "agregue" una creyendo que falta.
 
 Con gusto. La vinculación se radica aquí mismo, y necesito cuatro datos:
 
@@ -118,9 +118,7 @@ Con gusto. La vinculación se radica aquí mismo, y necesito cuatro datos:
 • La ciudad donde está
 • El paquete con el que inicia — el Kit de Inicio o uno de los tres paquetes empresariales
 
-Con eso queda radicada, y quien le compartió el enlace recibe el aviso y completa con usted la activación de su código.
-
-**Pregunta de seguimiento:** ¿Me los comparte?
+Con eso queda radicada, y le aviso a quien le compartió el enlace para que le confirme y coordinen el pago.
 
 ---
 

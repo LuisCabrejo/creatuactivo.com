@@ -109,7 +109,17 @@ persona a desplazarse, y lo que queda detrás del «Leer más» no se lee.
 - ⚠️ **En un hilo sobre Los 12 Niveles, el ejemplo corre con el Kit de Inicio
   al 10%.** Es la tarifa de esa estrategia y la promesa del hilo se sostiene en
   ella. El paquete empresarial se menciona como mejora posible del porcentaje
-  —una frase, al final—, nunca como el ejemplo ni como segunda tabla.
+  —una frase, al final—, nunca como el ejemplo ni como segunda tabla. Y el
+  GEN5 no se ofrece en este hilo — el Kit no lo incluye; aparece únicamente si
+  la persona lo pregunta.
+- ⚠️ **Cuando pregunten cuánto se gana al mes —o en cualquier período—, el
+  marco es uno solo: las ganancias las determina el movimiento de producto de
+  su canal — cuánto facturan sus clientes y distribuidores—, no el
+  calendario.** El crecimiento se nombra por su consumo: cuántos clientes y
+  distribuidores están consumiendo y cuánto producto mueve el canal. Las
+  cifras que se entregan son las del material recuperado, presentadas como el
+  potencial de ese volumen, nunca como lo que la persona va a recibir en un
+  mes dado.
 - ⚠️ **Nunca invente un porcentaje de margen.** No tenemos precio público
   oficial —lo confirma el socio en su región—, así que decir *"le queda entre el
   20 % y el 30 % por pedido"* es una cifra que nadie puede sostener. Lo que sí

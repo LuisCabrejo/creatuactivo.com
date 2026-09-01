@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.2 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.3 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.3 (31 ago 2026):** El índice de `NIVELES_02` gana la pregunta por las ganancias mensuales dentro del hilo («cuáles serían las ganancias mensuales en esta estrategia») — en la prueba del Director esa consulta caía en compensación y el modelo pivotaba al GEN5, que el Kit ni incluye. Medido: con el hilo anclado gana 0.525 contra 0.402; la consulta sin hilo se queda en compensación (su dueño correcto) y COMP_BIN_08 conserva las suyas. El marco de la respuesta —las ganancias las determina el movimiento de producto, no el calendario— vive en el prompt v4.27.
 
 **v6.2 (31 ago 2026):** `NIVELES_05` y `NIVELES_07` dejan de definir «su rol» con fórmula propia (Director): el rol de cara al prospecto son siempre las dos acciones —Compartir y Recibir— y las dicta EAM_01. En este arsenal, *conectar* queda solo como descripción del mecanismo 2×2, nunca como definición del rol.
 
@@ -36,7 +38,7 @@ La entrada es el Kit de Inicio ([PRECIO_KIT]): le llegan cuatro cajas de product
 ---
 
 ### **NIVELES_02: "¿Cómo se gana en Los 12 Niveles? / ¿Cuánto puedo ganar con esa estrategia?"**
-**[Índice]:** Cómo se gana en Los 12 Niveles, cuánto puedo ganar ahí, cómo funciona el plan de ganancias de esa estrategia. ¿Le muestro cuánto puede mover esta estrategia? ¿Le muestro la tabla con cuánto genera cada nivel, semana a semana? La tabla completa de los 12 niveles, nivel por nivel.
+**[Índice]:** Cómo se gana en Los 12 Niveles, cuánto puedo ganar ahí, cómo funciona el plan de ganancias de esa estrategia. ¿Le muestro cuánto puede mover esta estrategia? ¿Le muestro la tabla con cuánto genera cada nivel, semana a semana? La tabla completa de los 12 niveles, nivel por nivel. Cuáles serían las ganancias mensuales en esta estrategia.
 
 **[Concepto Nuclear]:** El ingreso recurrente de equipo se paga semanalmente sobre el volumen de su canal.
 

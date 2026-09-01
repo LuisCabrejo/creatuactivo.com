@@ -1516,6 +1516,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // caía en compensación y el modelo componía un «plan de 12 niveles de
     // rango» que no existe. El «plan de 12» solo, sin sustantivo, también.
     /plan\s+de\s+(los\s+)?12\s*(d[ií]as|pasos|etapas|escalones)?\b/i,
+    /plan\s+de\s+(los\s+)?dos\s+niveles/i,   // otro mal oído del nombre (Director, 1 sep)
     /doce\s*niveles/i,                   // "doce niveles"
     /los\s*12\s*niveles/i,               // "los 12 niveles"
     /los\s*doce\s*niveles/i,             // "los doce niveles"

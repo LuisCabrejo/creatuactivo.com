@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.8 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.9 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.9 (1 sep 2026) — EL HILO SE CIERRA SOBRE SÍ MISMO (doctrina del Director).** Este plan existe para desarmar tres objeciones mentales: *«esto es para ganar en 50 años»*, *«toca hacerlo con el paquete de $1.000»* y *«una red de miles es trabajo personal»*. El ejemplo demuestra lo contrario: una organización de más de 8.000 puede empezar con dos distribuidores, las ganancias vienen de crecer en escala, y se puede iniciar desde el paquete más pequeño. Observación de campo: **mostrar el paquete grande produce procrastinación, y de 50 que procrastinan vuelve uno**; si 50 ven que es estratégico iniciar ya en el Kit, ocurre lo importante — se construye la base de consumo y distribución, que es el objetivo (las ganancias recurrentes, no los bonos de inicio). Quien inicia con el Kit y desarrolla el proyecto luego se pasa a un paquete empresarial por su cuenta. **Por eso en este hilo NO se muestran las otras opciones salvo que la persona las pida:** sale la tabla de tarifas de NIVELES_02 y la frase de los empresariales de NIVELES_03; los cierres encadenan dentro de la estrategia (tabla → después → vinculación). Misma regla en el prompt del canal.
 
 **v6.8 (1 sep 2026):** **La proyección pasa a MENSUAL, y la cuenta queda coherente con el consumo** (corrección del Director). La tabla ponía $51.609.600 «a la semana» en el nivel 12: era la semana en que se compran los 4.096 kits de ese nivel —un evento de construcción—, no el ingreso del canal consumiendo, que con 8.190 distribuidores a 4 cajas al mes es 229.320 CV por lado → **$103.194.000 al mes** (lo que NIVELES_08 ya decía). Y la vieja columna «acumulado» ($25.200 × (2ⁿ−1)) era exactamente el mensual del canal con ese tamaño (T × $12.600), mal rotulada durante meses. NIVELES_01 y NIVELES_02 lo dicen ahora como regalía mensual; el Flow y `respuestaNiveles()` calculan igual. Cifras del plan (CV por caja, tasa, 10%) intactas.
 
@@ -75,21 +77,12 @@ Ese tamaño lo construye la duplicación 2×2 — usted conecta mínimo dos, cad
 
 Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
 
-**Con paquetes empresariales (mayor %):**
-
-| Su Paquete | Regalía de Equipo |
-|------------|-------------------|
-| Kit de Inicio | 10% |
-| ESP-1 | 15% |
-| ESP-2 | 16% |
-| ESP-3 | 17% |
-
 **Se liquida:** por ciclos semanales.
 
 **⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
 </verbatim_lock>
 
-**Pregunta de seguimiento:** ¿Le muestro con cuánto se empieza?
+**Pregunta de seguimiento:** ¿Le muestro cómo se vincula a la estrategia?
 
 ---
 
@@ -112,7 +105,7 @@ La inversión mínima es el **Kit de Inicio: [PRECIO_KIT]**.
 - Quienes buscan velocidad de ejecución
 - Quienes quieren probar el sistema con inversión accesible
 
-El Kit entra al plan con la Regalía de Equipo al 10%; los porcentajes más altos y el Bono GEN5 son de los tres paquetes empresariales, a los que puede pasar cuando desee.
+El Kit entra al plan con la Regalía de Equipo al 10%, y con eso queda abierto su código y su canal igual que cualquiera.
 
 **Pregunta de seguimiento:** ¿Le muestro qué trae cada paquete?
 

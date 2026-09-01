@@ -1046,138 +1046,114 @@
    }
   },
   {
-   "id": "NIVELES",
-   "title": "Los 12 Niveles — 2×2",
+   "id": "REGALIA_EQUIPO",
+   "title": "Regalía de Equipo — 10%",
    "terminal": true,
    "layout": {
     "type": "SingleColumnLayout",
     "children": [
      {
       "type": "Form",
-      "name": "niveles",
+      "name": "regalia",
       "init-values": {
-       "nivel": "4"
+       "distribuidores": "30"
       },
       "children": [
        {
         "type": "Dropdown",
-        "name": "nivel",
-        "label": "Nivel alcanzado por su canal",
+        "name": "distribuidores",
+        "label": "Distribuidores consumiendo",
         "required": true,
         "data-source": [
          {
-          "id": "2",
-          "title": "Nivel 2 · 6 en el canal"
-         },
-         {
-          "id": "4",
-          "title": "Nivel 4 · 30 en el canal"
-         },
-         {
           "id": "6",
-          "title": "Nivel 6 · 126 en el canal"
+          "title": "6 distribuidores"
          },
          {
-          "id": "8",
-          "title": "Nivel 8 · 510 en el canal"
+          "id": "30",
+          "title": "30 distribuidores"
          },
          {
-          "id": "10",
-          "title": "Nivel 10 · 2.046 en el canal"
+          "id": "126",
+          "title": "126 distribuidores"
          },
          {
-          "id": "12",
-          "title": "Nivel 12 · 8.190 en el canal"
+          "id": "510",
+          "title": "510 distribuidores"
+         },
+         {
+          "id": "2046",
+          "title": "2.046 distribuidores"
+         },
+         {
+          "id": "8190",
+          "title": "8.190 distribuidores"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.nivel} == '2'",
+        "condition": "${form.distribuidores} == '6'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $50.400 COP a la semana"
-         },
-         {
-          "type": "TextBody",
-          "text": "Acumulado desde el nivel 1: $75.600 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.nivel} == '4'",
+        "condition": "${form.distribuidores} == '30'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $201.600 COP a la semana"
-         },
-         {
-          "type": "TextBody",
-          "text": "Acumulado desde el nivel 1: $378.000 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.nivel} == '6'",
+        "condition": "${form.distribuidores} == '126'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $806.400 COP a la semana"
-         },
-         {
-          "type": "TextBody",
-          "text": "Acumulado desde el nivel 1: $1.587.600 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.nivel} == '8'",
+        "condition": "${form.distribuidores} == '510'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $3.225.600 COP a la semana"
-         },
-         {
-          "type": "TextBody",
-          "text": "Acumulado desde el nivel 1: $6.426.000 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.nivel} == '10'",
+        "condition": "${form.distribuidores} == '2046'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $12.902.400 COP a la semana"
-         },
-         {
-          "type": "TextBody",
-          "text": "Acumulado desde el nivel 1: $25.779.600 COP"
          }
         ]
        },
        {
         "type": "If",
-        "condition": "${form.nivel} == '12'",
+        "condition": "${form.distribuidores} == '8190'",
         "then": [
          {
           "type": "TextHeading",
           "text": "≈ $51.609.600 COP a la semana"
-         },
-         {
-          "type": "TextBody",
-          "text": "Acumulado desde el nivel 1: $103.194.000 COP"
          }
         ]
        },
        {
         "type": "TextCaption",
-        "text": "Duplicación 2×2 con Kit de Inicio (10%). Cada distribuidor consume 4 cajas al mes. Es el potencial matemático — el ritmo lo pone cada canal."
+        "text": "Cada distribuidor consume 4 cajas al mes. El sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Potencial matemático — el ritmo lo pone cada canal."
        },
        {
         "type": "Footer",
@@ -1185,8 +1161,8 @@
         "on-click-action": {
          "name": "complete",
          "payload": {
-          "tipo": "niveles",
-          "nivel": "${form.nivel}"
+          "tipo": "regalia",
+          "distribuidores": "${form.distribuidores}"
          }
         }
        }

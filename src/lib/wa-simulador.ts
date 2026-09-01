@@ -38,20 +38,27 @@ const GEN5_POR_PAQUETE: Record<string, { etiqueta: string; suma: number }> = {
 
 export interface EscenarioRenta   { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string }
 export interface EscenarioGen5    { paquete: string; cantidad: string }
-export interface EscenarioNiveles { tipo: 'niveles'; nivel: string }
+export interface EscenarioRegalia { tipo: 'regalia'; distribuidores: string }
 
 /**
- * La tabla canónica de NIVELES_02 (Kit de Inicio al 10%), fila por fila. Son
- * las MISMAS cifras del arsenal y de la pantalla NIVELES del Flow: si una
- * cambia, cambian las tres. Acumulado nivel 12 = $25.200 × (2¹²−1).
+ * Las filas de la tabla canónica de NIVELES_02 (Kit de Inicio al 10%), con el
+ * EJE EN EL CONSUMO: cuántos distribuidores consumen → regalía semanal. Son las
+ * mismas cifras del arsenal y de la pantalla REGALIA_EQUIPO del Flow: si una
+ * cambia, cambian las tres.
+ *
+ * ⚠️ El eje NO es el nivel a propósito (Director, 31 ago 2026): nivel → dinero
+ * es la escalera dibujada — la silueta que Meta y el prospecto leen como
+ * pirámide. El mismo número contado por distribuidores consumiendo muestra la
+ * cadena real: gente → consumo → comisión. Por lo mismo el acumulado no viaja
+ * aquí — vive en el arsenal, junto a su origen.
  */
-const NIVELES_TABLA: Record<string, { total: string; semanal: number; acumulado: number }> = {
-  '2':  { total: '6',     semanal: 50_400,     acumulado: 75_600 },
-  '4':  { total: '30',    semanal: 201_600,    acumulado: 378_000 },
-  '6':  { total: '126',   semanal: 806_400,    acumulado: 1_587_600 },
-  '8':  { total: '510',   semanal: 3_225_600,  acumulado: 6_426_000 },
-  '10': { total: '2.046', semanal: 12_902_400, acumulado: 25_779_600 },
-  '12': { total: '8.190', semanal: 51_609_600, acumulado: 103_194_000 },
+const REGALIA_TABLA: Record<string, { semanal: number }> = {
+  '6':    { semanal: 50_400 },
+  '30':   { semanal: 201_600 },
+  '126':  { semanal: 806_400 },
+  '510':  { semanal: 3_225_600 },
+  '2046': { semanal: 12_902_400 },
+  '8190': { semanal: 51_609_600 },
 };
 
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
@@ -135,24 +142,26 @@ ${cierre}`;
 }
 
 /**
- * El escenario de Los 12 Niveles: la persona eligió un nivel en el Flow y aquí
- * se le reconoce SU fila de la tabla. El marco es el de la doctrina: lo que
- * produce la cifra es el consumo del canal — la facturación—, y el potencial es
- * matemático, nunca lo que la persona va a recibir en una fecha. El cierre
- * encadena a la inversión («con cuánto se empieza»), que es el cierre canónico
- * de NIVELES_02.
+ * El escenario de la Regalía de Equipo: la persona eligió cuántos
+ * distribuidores consumen y aquí se le reconoce SU fila. El marco es el de la
+ * doctrina: lo que produce la cifra es el consumo del canal — la facturación—,
+ * y el potencial es matemático, nunca lo que la persona va a recibir en una
+ * fecha. El cierre encadena a la inversión («con cuánto se empieza»), que es
+ * el cierre canónico de NIVELES_02.
  */
-export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre = {}): string | null {
-  const fila = NIVELES_TABLA[e.nivel];
+export function respuestaRegalia(e: EscenarioRegalia, opciones: OpcionesCierre = {}): string | null {
+  const fila = REGALIA_TABLA[e.distribuidores];
   if (!fila) return null;
 
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
     : '¿Le muestro con cuánto se empieza?';
 
-  return `En el *nivel ${e.nivel}* de Los 12 Niveles su canal suma *${fila.total} distribuidores* consumiendo, y la Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana* — *${cop(fila.acumulado)}* acumulados desde el nivel 1.
+  const cuantos = Number(e.distribuidores).toLocaleString('es-CO');
 
-Lo que produce esa cifra es el consumo: cada distribuidor con sus cuatro cajas al mes, y el sistema emparejando su canal izquierdo con el derecho. Es el potencial matemático de la duplicación 2×2 — el ritmo lo pone cada canal.
+  return `Con *${cuantos} distribuidores consumiendo* en su canal —cada uno con sus cuatro cajas al mes—, la Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*.
+
+Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático — el ritmo lo pone cada canal.
 
 ${cierre}`;
 }

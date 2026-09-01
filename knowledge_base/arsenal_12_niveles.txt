@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.0 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.1 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.1 (31 ago 2026):** `NIVELES_04` deja de mandar afuera a quien quiere vincularse: la vinculación se radica en el canal con los cuatro datos, la misma condición de quien inicia con paquete empresarial (Director). Sus «dos vías» eran la misma vía escrita dos veces. El bloque de datos coincide con `pedirDatos()` de wa-radicacion.ts a propósito — red de respaldo del detector de volición.
 
 **v6.0 (31 ago 2026):** **Barrido de coherencia tras la auditoría con el Director.** El arsenal estaba a medio migrar: las decisiones del 26 y 29 de agosto vivían en INV_00 y en las cabeceras, pero los cuerpos vecinos no se barrieron. Lo hecho: `NIVELES_01` pasa al estilo trabajado — tesis primero, el conteo en compras, y el número grande se queda en NIVELES_02 junto a su origen, porque suelto en la primera respuesta se lee como magia. Se retiran de `NIVELES_03`, `NIVELES_06` e `INV_02` los marcos que INV_00 ya había retirado — el cálculo comparativo de comisión entre paquetes y el empujón hacia el paquete mayor: la decisión era del corpus, no de un fragmento; el alcance del Kit se dice en afirmativo y la subida de paquete es *cuando desee*, sin condición. `INV_03` corrige la cobertura a **los 16 países de América**. Los precios de paquetes salen de los cuerpos — los pone el pin por país (`getPaquetesPricingPin` / `getPinKitInicio`), y las cifras del GEN5 viven en COMP_GEN5_01 con el suyo. La cabecera se consolida a un solo riel de versión. Cifras del plan, PV/CV y nombres de producto INTACTOS.
 
@@ -105,21 +107,20 @@ El Kit entra al plan con la Regalía de Equipo al 10%; los porcentajes más alto
 ---
 
 ### **NIVELES_04: "¿Cómo participo en Los 12 Niveles? / ¿Cómo me vinculo?"**
-**[Índice]:** Cómo participo en Los 12 Niveles, cómo me vinculo, con quién hablo para entrar a esa estrategia.
+**[Índice]:** Cómo participo en Los 12 Niveles, cómo me vinculo, cómo me inscribo, quiero iniciar en esa estrategia, qué necesito para entrar.
 
-**[Concepto Nuclear]:** Dos vías de vinculación: su patrocinador o WhatsApp directo del equipo.
+**[Concepto Nuclear]:** La vinculación se radica aquí mismo con los cuatro datos — la misma condición de quien inicia con paquete empresarial (Director, 31 ago 2026). La versión anterior ofrecía «dos vías» que eran la misma —contactar a quien le compartió el enlace / escribirle por WhatsApp a esa persona— y mandaba afuera a alguien que el canal puede radicar de una. ⚠️ El bloque de datos coincide a propósito con `pedirDatos()` de wa-radicacion.ts: es la red de respaldo si el detector de volición no dispara; al editar uno, editar el otro.
 
-Para vincularse con éxito, tiene dos vías:
+Con gusto. La vinculación se radica aquí mismo, y necesito cuatro datos:
 
-**1. Contacte a quien le compartió el enlace:**
+• Nombre completo, como aparece en su documento
+• Número de identificación
+• La ciudad donde está
+• El paquete con el que inicia — el Kit de Inicio o uno de los tres paquetes empresariales
 
-La persona que lo invitó puede guiarlo paso a paso en el proceso de vinculación.
+Con eso queda radicada, y quien le compartió el enlace recibe el aviso y completa con usted la activación de su código.
 
-**2. WhatsApp directo:**
-
-Escríbale por WhatsApp a esa persona o al equipo de liderazgo para que le ayuden a completar su vinculación con sus datos y documento de identidad.
-
-**Pregunta de seguimiento:** ¿Con quién le gustaría vincularse?
+**Pregunta de seguimiento:** ¿Me los comparte?
 
 ---
 

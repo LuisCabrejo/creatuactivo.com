@@ -218,7 +218,7 @@ export function aperturaParaPareja(
   const reconocimiento = quien
     ? `${quien} ya conversó conmigo sobre este negocio, y me alegra que lo revisen juntos.`
     : 'Su pareja ya conversó conmigo sobre este negocio, y me alegra que lo revisen juntos.';
-  // La base abre con «Hola[, Nombre]. Un gusto saludarle. 🤝» — el reconocimiento
+  // La base abre con «Hola[, Nombre]. Un gusto saludarle.» — el reconocimiento
   // va justo después de esa línea, antes de la identidad.
   const lineas = base.split('\n');
   return [lineas[0], '', reconocimiento, ...lineas.slice(1)].join('\n');

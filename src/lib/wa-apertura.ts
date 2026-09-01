@@ -300,7 +300,7 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     : 'Soy Queswa, la inteligencia artificial de CreaTuActivo.';
 
   return [
-    `${saludo} Un gusto saludarle. 🤝`,
+    `${saludo} Un gusto saludarle.`,
     '',
     identidad,
     '',
@@ -328,12 +328,10 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //   decirlo no promete, ubica; y la línea 🔄 le pone la causa. Es el frame
     //   de UPGRADE del 2 ago (ingreso en paralelo, medido contra lo que ya
     //   tiene). No volver a "corregirla" por una regla anterior a esa decisión.
-    // • Los pictogramas son funcionales, no decorativos: ⚙️ mecanismo · 🔑
-    //   propiedad · 🔄 ciclo. Se descartó 👑 (la corona es el emoji del estatus
-    //   prometido — el estante del multinivel); la llave dice lo mismo sin humo:
-    //   ser dueño es tener las llaves. Este mensaje dictado fija su propio
-    //   estándar de emojis; la regla "máximo un emoji" del prompt aplica a lo
-    //   que el MODELO redacta, no a esta apertura.
+    // • VIÑETAS PLANAS, SIN EMOJIS (Director, 1 sep 2026). Los pictogramas
+    //   ⚙️🔑🔄 y el 🤝 del saludo se retiraron tras la prueba real: leían como
+    //   adorno, y la sobriedad de la viñeta es la que corresponde al registro.
+    //   La apertura queda sin un solo emoji — no los reintroduzca.
     // • Negritas solo en los dos anclajes (*canal de distribución* · *ingresos
     //   actuales*) — asterisco simple, que es la negrita nativa de WhatsApp.
     // CATEGORÍA EN LA APERTURA (Director, 25 ago 2026). El saludo no nombraba
@@ -350,30 +348,18 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     // sonaba a catálogo corriente; el estante es premium y se dice.
     'Le explico cómo se construye un *canal de distribución de productos premium de bienestar*, en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:',
     '',
-    '⚙️ Se arma una sola vez.',
-    '🔑 Usted es el dueño.',
-    '🔄 Le paga cada vez que hay consumo.',
+    '• Se arma una sola vez.',
+    '• Usted es el dueño.',
+    '• Le paga cada vez que hay consumo.',
     '',
-    // La prueba social va aquí, en presente y verificable — 559 personas
-    // distintas han conversado con Queswa, así que "cientos" se queda corto.
-    //
-    // Tres decisiones de redacción, todas medidas contra
-    // docs/handoff/negocio/NARRATIVA_Y_FLUIDEZ.md:
-    //
-    // • Abre con "Mientras conversamos" — el ancla máxima del contrato
-    //   dado-nuevo: está ocurriendo en esa pantalla, en ese segundo. La versión
-    //   anterior abría con "Y de paso", que convertía la demostración en un
-    //   truco mostrado al pasar en vez de la razón por la que el canal se puede
-    //   armar una vez.
-    // • "cómo le PODRÍA ayudar" (condicional desde el 8 ago; antes "puedo",
-    //   nunca "le voy a ayudar"). El futuro de indicativo afirma un hecho que
-    //   exige una relación que no existe; el condicional además le baja la
-    //   presión a la proactividad de la IA — describe una capacidad mía sin
-    //   comprometerlo a él. Y lo que sigue a los dos puntos baja a su propia
-    //   línea: el salto de línea es el que resalta la prueba social.
-    // • "su PROPIO canal" hace eco con "usted es el dueño" del bloque anterior —
-    //   es la palabra que separa esto de "vincularse a algo".
-    'Y esto que está viendo es exactamente lo que yo haría por usted y por todo su canal, a cualquier hora: así atiendo a cientos de personas mientras construyen el suyo.',
+    // La prueba social va aquí, en presente y verificable — cientos de personas
+    // distintas han conversado con Queswa. ⚠️ El remate «mientras construyen el
+    // suyo» se retiró (Director, 1 sep 2026): causaba fricción — le atribuía a
+    // esos cientos una construcción en marcha que el lector no puede verificar,
+    // y le pedía procesar dos ideas donde cabía una. «Las 24 horas» dice lo
+    // mismo que importa (esto no duerme) con un hecho plano; por eso también
+    // salió el «a cualquier hora», que lo duplicaba.
+    'Y esto que está viendo es exactamente lo que yo haría por usted y por todo su canal: así atiendo a cientos de personas las 24 horas.',
     '',
     '¿Por dónde prefiere empezar?',
   ].join('\n');

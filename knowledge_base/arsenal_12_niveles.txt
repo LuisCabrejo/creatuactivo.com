@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.5 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.6 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.6 (1 sep 2026):** `NIVELES_01` se simplifica a los conceptos nucleares (texto del Director): tres párrafos cortos, cierre hacia la tabla, y el $103M vuelve a la primera respuesta — pegado a su origen en la misma frase. Y **«mínimo dos»** entra como forma canónica de la duplicación (aquí y en NIVELES_02): *conecta dos* es la geometría rígida de la pirámide; *mínimo dos* es un piso, como habla un negocio, y vuelve la proyección un escenario base.
 
 **v6.5 (31 ago 2026):** Nace `NIVELES_08` — el «después»: cuánto queda ganando cuando el canal ya está construido. No tenía puerta, y la cuenta se verificó antes de escribirla: con los 8.190 consumiendo sus cuatro cajas, el mensual del canal completo es el mismo $103M del recorrido — la misma aritmética (4.095 unidades de 56 CV al 10%). NIVELES (8) + INV (6) = 14 respuestas.
 
@@ -29,15 +31,15 @@
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
 **[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días.
 
-**[Concepto Nuclear]:** Reescrita al estilo trabajado el 31 ago 2026 (texto aprobado por el Director). Tesis primero, el conteo en compras, y el $103M se queda en NIVELES_02 junto a su origen — suelto en la primera respuesta se lee como magia. La ficha del Kit vive en NIVELES_03/INV_01; aquí solo la puerta. La subida de paquete es *cuando desee*, sin condición.
+**[Concepto Nuclear]:** Simplificada el 1 sep 2026 (texto del Director, vía Gemini): solo los conceptos nucleares — la carga cognitiva de la versión anterior sobraba; los detalles (Gano carga el peso, GEN5, audiencia) se miran en el chat cuando la persona los pregunte. ⚠️ **«mínimo dos»** es deliberado: *conecta dos* describe la geometría rígida —la silueta de pirámide—; *mínimo dos* es un piso, como habla un negocio, y vuelve la proyección un escenario base. ⚠️ El $103M vuelve a esta respuesta por decisión del Director (revisa la del 31 ago), pero SIEMPRE pegado a su origen en la misma frase — el 10% del volumen que factura un canal de ese tamaño. Correcciones de ley sobre el borrador: *su red* → *su canal*, y el precio lo pone `getPinKitInicio` por país.
 
-Los 12 Niveles es la estrategia de aceleración de CreaTuActivo para construir su canal de distribución en 90 días, pensada sobre todo para quien está empezando — y un distribuidor activo también puede desarrollarla con su equipo.
+Los 12 Niveles es nuestra estrategia de aceleración para construir su canal de distribución. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y el sistema se multiplica.
 
-La lógica es la duplicación 2×2: usted conecta dos distribuidores, cada uno conecta otros dos, y así nivel por nivel hasta el doce. Su trabajo es el canal y las relaciones que lo sostienen; las fábricas, el inventario y los despachos los pone Gano Excel.
+La entrada es el Kit de Inicio ([PRECIO_KIT]): usted recibe cuatro cajas de producto, abre su código y entra a cobrar el 10% sobre todas las compras que facture ese canal.
 
-La entrada es el Kit de Inicio ([PRECIO_KIT]): le llegan cuatro cajas de producto a su dirección, queda con su código abierto y entra al plan con la Regalía de Equipo al 10%. Los porcentajes más altos y el Bono GEN5 son de los paquetes empresariales, a los que puede pasar cuando desee.
+Lo que hace poderosa la estrategia es ese efecto exponencial. Al nivel 12, su canal llega a 8.190 distribuidores consumiendo, y el acumulado supera los **$103 millones COP** — exactamente el 10% del volumen que factura un canal de ese tamaño.
 
-**Pregunta de seguimiento:** ¿Le muestro cuánto puede mover esta estrategia?
+**Pregunta de seguimiento:** ¿Le muestro la tabla con la proyección nivel por nivel?
 
 ---
 
@@ -62,7 +64,7 @@ Le pagan por todas las compras realizadas en su canal. Cada Kit de Inicio repres
 | 2.046 | 28.672 | $12.902.400 |
 | 8.190 | 114.688 | $51.609.600 |
 
-Ese tamaño lo construye la duplicación 2×2 — usted conecta dos, cada uno conecta otros dos — hasta llegar, al nivel 12, a los **8.190 distribuidores**. Y el acumulado de todo el recorrido supera los **$103 millones COP** (en cifra exacta, $103.194.000 = $25.200 × (2¹²−1)): no los regala nadie — son el **10% del volumen emparejado** de un canal que, con sus distribuidores y sus clientes comprando sus 4 cajas al mes, **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
+Ese tamaño lo construye la duplicación 2×2 — usted conecta mínimo dos, cada uno conecta otros dos — hasta llegar, al nivel 12, a los **8.190 distribuidores**. Y el acumulado de todo el recorrido supera los **$103 millones COP** (en cifra exacta, $103.194.000 = $25.200 × (2¹²−1)): no los regala nadie — son el **10% del volumen emparejado** de un canal que, con sus distribuidores y sus clientes comprando sus 4 cajas al mes, **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
 
 Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
 

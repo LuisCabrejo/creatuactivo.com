@@ -151,6 +151,16 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // el fragmento se sirvió. Los totales inventados siguen bloqueados.
   /(acumula|sumaria|llegaria a)(?![^.]{0,30}103(\s?millones|[.,]194))[^.]{0,20}(\$\s?\d|\d[\d.,]{4,}\s*(usd|cop|dolares))/,
 
+  // ── Dos cifras de ingreso comparadas (1 sep 2026) ──────────────────────────
+  // «Con el ESP-3 al 17% genera cerca de $175 millones al mes en lugar de los
+  // $103 millones del Kit»: el cálculo comparativo entre tarifas que el
+  // Director retiró el 26 ago —hace que la persona calcule lo que gana quien
+  // la invitó—, y la cifra grande es DERIVADA, no existe en ningún documento.
+  // ⚠️ Exige «millones» o «al mes» en la primera cifra: COMP_GEN5_06 compara
+  // legítimamente «$40 USD en vez de $25» (montos por paquete), y la forma
+  // ancha lo bloqueaba. Backtest con esta forma: 0 hits en el corpus.
+  /\$\s?\d[\d.,]*\s*(millones|[^.]{0,20}al mes)[^.]{0,45}(en lugar de|en vez de|frente a|versus|contra|comparado con)\s+(los?\s+|las?\s+)?\$\s?\d/,
+
   // ── Progresión geométrica ×3 (1 sep 2026) ──────────────────────────────────
   // Tras un bloqueo, el rescate compuso «hasta 12 generaciones» con una tabla
   // 3 · 9 · 27 — la pirámide dibujada con otra base, invisible para los

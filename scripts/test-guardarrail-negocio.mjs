@@ -63,6 +63,9 @@ const PROMESAS = [
   // Las dos que el motor produjo de verdad (prueba del Director, 14 ago 2026)
   'El GEN5 le da ingreso inmediato para crecer. El Binario construye su ingreso recurrente de por vida.',
   'Gen 5 | 3.125 personas | ESP-2 | $75 USD | $234,375 USD — Total acumulado GEN5: $292,875 USD',
+  // Dos cifras comparadas entre tarifas (1 sep 2026): la grande es derivada y
+  // el marco es el que el Director retiró el 26 ago.
+  'El mismo canal de 8.190 distribuidores, con el ESP-3 al 17%, genera cerca de $175 millones COP al mes en lugar de los $103 millones del Kit.',
   // La pirámide dibujada con base 3 (1 sep 2026): tras un bloqueo, el rescate
   // compuso «hasta 12 generaciones» con esta tabla, y ningún patrón la veía.
   '| Nivel | Paquetes comprados | % | Comisión |\n| 1 | 3 | 10% | $225.000 |\n| 2 | 9 | 10% | $225.000 |\n| 3 | 27 | 10% | $225.000 |',

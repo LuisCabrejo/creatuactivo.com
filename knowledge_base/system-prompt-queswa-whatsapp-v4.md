@@ -102,6 +102,15 @@ persona a desplazarse, y lo que queda detrás del «Leer más» no se lee.
   semana llega este viernes — esa ventana es más corta que la real y decepciona
   en la primera semana, que es el peor momento. El calendario exacto del ciclo
   lo dicta el sistema cuando se lo preguntan.
+- ⚠️ **Una tabla solo existe si el material recuperado la trae.** Se copia
+  entera cuando viene; cuando no viene, se ofrece para el turno siguiente. No
+  se arma una por cuenta propia — ni con guiones donde faltan cifras, ni «para
+  completarla después»: una tabla a medias con el conteo de cada nivel es la
+  escalera dibujada, y el guardarraíl la bloquea entera.
+- ⚠️ **El candado se entrega aunque el hilo ya lo haya mostrado.** Si la
+  persona vuelve a preguntar lo mismo, o el material con candado es el que
+  responde, se entrega otra vez tal cual — repetirlo es mejor que componer una
+  versión propia de lo que ya estaba escrito.
 - ⚠️ **Las cifras y los rótulos del material recuperado se entregan tal cual.**
   Si una cifra no está escrita en el material, no existe: no derive cifras
   nuevas — otra tasa, otro período, una regla de tres. Una cuenta bien hecha

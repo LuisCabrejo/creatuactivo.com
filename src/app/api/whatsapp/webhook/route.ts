@@ -111,6 +111,19 @@ const RESPUESTA_CORRECTIVA =
   'de bienestar —café, bebidas y suplementos—, y de cada venta que se mueve por ese canal le queda ' +
   'un porcentaje, liquidado en su cuenta cada viernes.\n\n¿Quiere que le cuente cómo se vería en su caso?';
 
+// Segundo bloqueo seguido (prueba del Director, 1 sep 2026): dos correctivas
+// idénticas una tras otra se leen como un bot trabado. La segunda cambia de
+// texto y cierra hacia un destino con candado —«cómo se gana» va a WHY_04—,
+// para que el siguiente «sí» reciba texto escrito y no otra composición.
+const RESPUESTA_CORRECTIVA_BIS =
+  'Mejor se lo muestro con lo que está escrito, para no confundirle con un resumen mío.\n\n¿Le explico cómo se gana?';
+
+/** La correctiva que toca: la segunda si la anterior ya fue una correctiva. */
+function correctivaSegunHilo(historial: Array<{ role: string; content: string }>): string {
+  const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content?.trim();
+  return ultimoBot === RESPUESTA_CORRECTIVA.trim() ? RESPUESTA_CORRECTIVA_BIS : RESPUESTA_CORRECTIVA;
+}
+
 // ─── Supabase client con service role (garantiza insert sin RLS) ──────────────
 let supabaseClient: ReturnType<typeof createClient> | null = null;
 function getSupabase() {
@@ -2007,8 +2020,9 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     const promesa = detectarPromesaDeIngreso(queswaReply);
     if (promesa) {
       console.error(`🚨 [WA Guardrail Negocio] BLOQUEADO — "${promesa}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
-      await sendWhatsAppMessage(phoneNumber, RESPUESTA_CORRECTIVA);
-      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, undefined, promesa);
+      const correctiva = correctivaSegunHilo(historial);
+      await sendWhatsAppMessage(phoneNumber, correctiva);
+      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, correctiva, promesa);
       return;
     }
 

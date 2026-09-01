@@ -1511,6 +1511,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   const patrones_12_niveles = [
     // ===== MENCIONES EXPLÍCITAS "12 NIVELES" =====
     /12\s*niveles/i,                     // "12 niveles", "12niveles"
+    // «el plan de 12 días» (prueba del Director, 1 sep 2026): quien oyó el
+    // nombre en una conversación lo repite mal, y sin esta puerta la pregunta
+    // caía en compensación y el modelo componía un «plan de 12 niveles de
+    // rango» que no existe. El «plan de 12» solo, sin sustantivo, también.
+    /plan\s+de\s+(los\s+)?12\s*(d[ií]as|pasos|etapas|escalones)?\b/i,
     /doce\s*niveles/i,                   // "doce niveles"
     /los\s*12\s*niveles/i,               // "los 12 niveles"
     /los\s*doce\s*niveles/i,             // "los doce niveles"

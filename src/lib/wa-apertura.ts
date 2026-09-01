@@ -318,16 +318,15 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     // paso. Cada línea sigue respondiendo una pregunta sin nombrarla: cuánto
     // trabajo · de quién es · de dónde sale la plata. La recompensa va última.
     //
-    // • "ingresos actuales", no "ingresos": el ancla concreta es el sueldo que
-    //   la persona tiene HOY en su cuenta — sin "actuales" la comparación flota.
-    //   (Y "su actividad" perdió el "actual" para no repetirlo a tres palabras.)
-    //   ⚠️ REVISADA Y CONSERVADA (Director, 17 ago 2026). Un handoff externo la
-    //   marcó como "promesa de ingreso comparativa" a retirar. Decisión: se
-    //   queda. Es aspiración sin cifra ni plazo ("con el potencial de"), y
-    //   quien monta un negocio aspira como mínimo a sus ingresos actuales —
-    //   decirlo no promete, ubica; y la línea 🔄 le pone la causa. Es el frame
-    //   de UPGRADE del 2 ago (ingreso en paralelo, medido contra lo que ya
-    //   tiene). No volver a "corregirla" por una regla anterior a esa decisión.
+    // • ⚠️ LA ASPIRACIÓN COMPARATIVA («con el potencial de igualar o superar
+    //   sus ingresos actuales») SE RETIRÓ EL 1 SEP 2026 POR DECISIÓN DEL
+    //   DIRECTOR, para el ejercicio de mercado con la proyección de los 12
+    //   Niveles. La historia completa importa: el 17 ago un handoff externo la
+    //   marcó como promesa y el Director la RATIFICÓ (es aspiración sin cifra
+    //   ni plazo — decirlo no promete, ubica); tres agentes la "corrigieron"
+    //   por reglas viejas y se restauró las tres veces. Esta vez la quita ÉL,
+    //   que es distinto: si vuelve, vuelve por su palabra — ni se restaura por
+    //   la ratificación del 17 ago, ni se da por muerta por esta retirada.
     // • VIÑETAS PLANAS, SIN EMOJIS (Director, 1 sep 2026). Los pictogramas
     //   ⚙️🔑🔄 y el 🤝 del saludo se retiraron tras la prueba real: leían como
     //   adorno, y la sobriedad de la viñeta es la que corresponde al registro.
@@ -346,7 +345,7 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //    — la pila deja de leerse de un golpe, que es para lo que se diseñó.
     // «premium» (Director, 31 ago 2026): «productos de bienestar» a secas
     // sonaba a catálogo corriente; el estante es premium y se dice.
-    'Le explico cómo se construye un *canal de distribución de productos premium de bienestar*, en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:',
+    'Le explico cómo se construye un *canal de distribución de productos premium de bienestar*, en paralelo a su actividad:',
     '',
     '• Se arma una sola vez.',
     '• Usted es el dueño.',

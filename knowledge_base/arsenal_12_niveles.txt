@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.1 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.2 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.2 (31 ago 2026):** `NIVELES_05` y `NIVELES_07` dejan de definir «su rol» con fórmula propia (Director): el rol de cara al prospecto son siempre las dos acciones —Compartir y Recibir— y las dicta EAM_01. En este arsenal, *conectar* queda solo como descripción del mecanismo 2×2, nunca como definición del rol.
 
 **v6.1 (31 ago 2026):** `NIVELES_04` deja de mandar afuera a quien quiere vincularse: la vinculación se radica en el canal con los cuatro datos, la misma condición de quien inicia con paquete empresarial (Director). Sus «dos vías» eran la misma vía escrita dos veces. El bloque de datos coincide con `pedirDatos()` de wa-radicacion.ts a propósito — red de respaldo del detector de volición.
 
@@ -125,7 +127,7 @@ Con eso queda radicada, y le aviso a quien le compartió el enlace para que le c
 ### **NIVELES_05: "¿Qué pasa si me demoro en completar mis dos del primer nivel?"**
 **[Índice]:** Qué pasa si me demoro en completar mis dos del primer nivel, si todavía no los tengo, si voy más lento de lo que pensaba.
 
-**[Concepto Nuclear]:** Consistencia importa más que velocidad; la posición se toma hoy y se construye al ritmo de cada quien.
+**[Concepto Nuclear]:** Consistencia importa más que velocidad; la posición se toma hoy y se construye al ritmo de cada quien. ⚠️ Se retiró la línea final que definía «su rol» con una fórmula propia (Director, 31 ago 2026): el rol de cara al prospecto son SIEMPRE las dos acciones —Compartir y Recibir— y las dicta EAM_01; una segunda formulación aquí condiciona las respuestas de rol en todo el corpus. Conectar aparece en este arsenal solo como descripción del mecanismo 2×2, nunca como definición del rol.
 
 No pasa nada. Los 12 Niveles son una guía de aceleración, no una obligación.
 
@@ -137,8 +139,6 @@ Lo que sí es crítico es que **arranque HOY**, porque:
 - Su posición en el canal se fija al comenzar
 - Mientras más temprano empiece, más tiempo tiene para construir
 - Queswa explica, atiende y madura las decisiones de sus interesados a toda hora
-
-**Recuerde:** Su rol es conectar distribuidores al sistema.
 
 **Pregunta de seguimiento:** ¿Le muestro qué hace el sistema por usted?
 
@@ -179,7 +179,7 @@ Este es un temor común.
 
 Conectar más de dos le da más margen: entre más distribuidores tenga usted directamente, menos depende de lo que haga cada uno. El sistema paga sobre los **puntos emparejados** entre su canal izquierdo y su canal derecho, así que conviene ayudar a crecer el canal que va más despacio: cada punto que entra ahí encuentra su pareja de inmediato.
 
-**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo y conectando más distribuidores a su canal.
+**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo su canal.
 
 **Pregunta de seguimiento:** ¿Cuántos nombres tiene en su lista para invitar?
 

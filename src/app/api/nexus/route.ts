@@ -4086,6 +4086,26 @@ function getPinComisionGEN5(country: string): string {
  * único momento donde una sorpresa cuesta la venta. NO "corrija" esta cifra a
  * la baja creyendo que es un error de conversión.
  */
+/**
+ * ¿El mensaje es una aceptación SOLA, o una aceptación seguida de otra cosa?
+ *
+ * «Listo, ¿cómo me inscribo?» arranca con una palabra de aceptación y trae una
+ * pregunta nueva. Los detectores de aceptación de las ofertas (ejemplo de
+ * cifras, composición del paquete) solo miraban el arranque, así que ese
+ * mensaje aceptó la oferta anterior —«¿le muestro qué trae cada paquete?»— y
+ * la pregunta real se perdió: la persona pidió inscribirse y recibió la lista
+ * de productos del ESP-2 (ejercicio del 1 sep 2026). Una aceptación es sola
+ * cuando NO trae signo de pregunta ni interrogativo después del arranque, y no
+ * pasa de unas pocas palabras.
+ */
+function esAceptacionSola(texto: string): boolean {
+  const t = (texto || '').trim();
+  if (!/^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]ga(lo|le)|mu[eé]str[ea]me(lo)?|s[ií],? por favor|as[ií] es|vale|perfecto)(?![a-záéíóúñ])/i.test(t)) return false;
+  if (/[?¿]/.test(t)) return false;
+  if (/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|por qu[eé]|pero)(?![a-záéíóúñ])/i.test(t)) return false;
+  return t.split(/\s+/).length <= 6;
+}
+
 function getPinKitInicio(country: string): string {
   const cop = '$443.600 COP';
   const usd = '$98 USD';
@@ -5598,7 +5618,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // (?![a-záéíóúñ]) y no \b: en JS la í no es carácter de palabra, así que
       // "sí" CON tilde —como lo escribe el teclado del teléfono— nunca cerraba
       // el \b y la aceptación solo funcionaba escrita "Si" a secas.
-      const _aceptaEjemplo = _ofrecioEjemplo && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií] por favor|as[ií] es)(?![a-záéíóúñ])/i.test(latestUserMessage.trim());
+      const _aceptaEjemplo = _ofrecioEjemplo && esAceptacionSola(latestUserMessage);
       if (!esDocCompensacion && !preguntaSobreCifras.test(latestUserMessage) && !_aceptaEjemplo) return '';
 
       // ── WhatsApp: ejemplo de RENTA (Binario) — dictado, en clientes ──────
@@ -5888,8 +5908,7 @@ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
       // otra puerta. Si la oferta del bot fue de composición y la persona
       // aceptó, el paquete se lee de la oferta.
       const _ofertaComposicion = /qu[eé]\s+(trae|incluye|viene|contiene)[^?]{0,50}(paquete|esp[\s-]?[123]|visionario|empresarial|inicial)/i.test(_ultimoBotMsg);
-      const _aceptaComposicion = _ofertaComposicion
-        && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|obvio|de una|mu[eé]str[ea]me(lo)?|s[ií] por favor)(?![a-záéíóúñ])/i.test(latestUserMessage.trim());
+      const _aceptaComposicion = _ofertaComposicion && esAceptacionSola(latestUserMessage);
       const preguntaComposicion = /productos?|qu[eé]\s+(trae|incluye|viene|contiene)|composici[oó]n|contenido|inventario|qu[eé]\s+hay\s+(en|dentro)|que\s+vienen?|cu[aá]les?\s+productos|lista\s+de\s+productos|esp[-\s]?[123].*productos|productos.*esp[-\s]?[123]/i.test(latestUserMessage);
       if (!preguntaComposicion && !_aceptaComposicion) return null;
 

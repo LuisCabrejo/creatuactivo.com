@@ -19,7 +19,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v4.27_marco_facturacion';
+const VERSION_LABEL = 'v4.28_tarifas_categoria';
 const ARCHIVO_PROMPT = 'system-prompt-queswa-whatsapp-v4.md';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

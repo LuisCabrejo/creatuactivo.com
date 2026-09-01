@@ -1405,8 +1405,13 @@ async function procesarEntrante(body: any): Promise<void> {
     // responde "sí" en vez de tocarla no puede caer al motor, que no tiene
     // ninguna tarjeta que ofrecer. La oferta se lee del último turno del bot.
     const _ultimoBotW = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
+    // Aceptación SOLA: «Listo, ¿cómo me inscribo?» arranca con «listo» y trae
+    // una pregunta nueva — sin este guard reabría el simulador en vez de
+    // responder lo que la persona preguntó (ejercicio del 1 sep 2026).
     const _aceptaSimulador = /escenario en el simulador/i.test(_ultimoBotW)
-      && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim());
+      && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim())
+      && !/[?¿]/.test(messageText)
+      && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(messageText);
     if (flowSimuladorId && !vieneDelSimulador
         && (/simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText) || _aceptaSimulador)) {
       // La pantalla inicial hereda de la oferta que la persona aceptó: tras el

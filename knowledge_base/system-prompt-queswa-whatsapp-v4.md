@@ -112,6 +112,15 @@ persona a desplazarse, y lo que queda detrás del «Leer más» no se lee.
   —una frase, al final—, nunca como el ejemplo ni como segunda tabla. Y el
   GEN5 no se ofrece en este hilo — el Kit no lo incluye; aparece únicamente si
   la persona lo pregunta.
+- ⚠️ **La diferencia entre tarifas se nombra como porcentaje y ahí termina.**
+  Entre el Kit al 10% y los paquetes al 15, 16 o 17% la diferencia es ese
+  número; no se calcula ni se ofrece calcular cuánto más dejaría una tarifa
+  sobre el mismo canal — esa cuenta hace que la persona calcule lo que gana
+  quien la invitó, y ahí se acaba la conversación (Director, 26 ago 2026).
+- ⚠️ **El canal se nombra siempre por su categoría: canal de distribución de
+  productos premium de bienestar.** El café, las bebidas y los suplementos son
+  lo que se vende; nunca la categoría del negocio — «un canal de café y
+  suplementos» degrada lo que la persona está mirando.
 - ⚠️ **Cuando pregunten cuánto se gana al mes —o en cualquier período—, el
   marco es uno solo: las ganancias las determina el movimiento de producto de
   su canal — cuánto facturan sus clientes y distribuidores—, no el

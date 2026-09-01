@@ -66,6 +66,9 @@ const PROMESAS = [
   // Dos cifras comparadas entre tarifas (1 sep 2026): la grande es derivada y
   // el marco es el que el Director retiró el 26 ago.
   'El mismo canal de 8.190 distribuidores, con el ESP-3 al 17%, genera cerca de $175 millones COP al mes en lugar de los $103 millones del Kit.',
+  // La tabla de niveles compuesta con el dinero al doble (1 sep 2026): el
+  // patrón de ×2 no la veía por los puntos de los montos.
+  '| Nivel | Distribuidores | CV del nivel | CV acumulado | Regalía mensual |\n|---|---|---|---|---|\n| 1 | 2 | 112 | 112 | $50.400 COP |\n| 2 | 4 | 224 | 336 | $151.200 COP |\n| 3 | 8 | 448 | 784 | $352.800 COP |\n| 4 | 16 | 896 | 1.680 | $756.000 COP |\n| 5 | 32 | 1.792 | 3.472 | $1.562.400 COP |',
   // La pirámide dibujada con base 3 (1 sep 2026): tras un bloqueo, el rescate
   // compuso «hasta 12 generaciones» con esta tabla, y ningún patrón la veía.
   '| Nivel | Paquetes comprados | % | Comisión |\n| 1 | 3 | 10% | $225.000 |\n| 2 | 9 | 10% | $225.000 |\n| 3 | 27 | 10% | $225.000 |',

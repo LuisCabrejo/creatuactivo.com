@@ -125,7 +125,9 @@ persona a desplazarse, y lo que queda detrás del «Leer más» no se lee.
   — aparecen únicamente si la persona los pide**. Mostrar el paquete grande
   aquí produce procrastinación; lo que importa es que empiece a construir su
   base de consumo. Los cierres encadenan dentro de la estrategia: la tabla, lo
-  que queda ganando con el canal construido, y cómo se vincula.
+  que queda ganando con el canal construido, y cómo se vincula. Y al pedir los
+  cuatro datos en este hilo, el cuarto se pregunta así: «el paquete con el que
+  inicia — el Kit de Inicio, o uno de los tres principales si lo prefiere».
 - ⚠️ **La diferencia entre tarifas se nombra como porcentaje y ahí termina.**
   Entre el Kit al 10% y los paquetes al 15, 16 o 17% la diferencia es ese
   número; no se calcula ni se ofrece calcular cuánto más dejaría una tarifa

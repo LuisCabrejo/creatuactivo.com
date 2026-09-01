@@ -19,7 +19,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v4.30_hilo_12_niveles_cerrado';
+const VERSION_LABEL = 'v4.31_cuarto_dato_kit';
 const ARCHIVO_PROMPT = 'system-prompt-queswa-whatsapp-v4.md';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

@@ -161,6 +161,15 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // ancha lo bloqueaba. Backtest con esta forma: 0 hits en el corpus.
   /\$\s?\d[\d.,]*\s*(millones|[^.]{0,20}al mes)[^.]{0,45}(en lugar de|en vez de|frente a|versus|contra|comparado con)\s+(los?\s+|las?\s+)?\$\s?\d/,
 
+  // ── La tabla de niveles compuesta (1 sep 2026) ─────────────────────────────
+  // Ante un «sí» a «la tabla nivel por nivel» que el enrutamiento no llevó a
+  // NIVELES_02, el modelo armó una tabla de doce filas con encabezado «Nivel»
+  // y 2ⁿ distribuidores — y con el dinero al doble, porque sumó los dos lados.
+  // El patrón de ×2 no la veía: los montos traen puntos y [^.] se corta. Este
+  // exige el encabezado «Nivel» y la escalera hasta 16 y 32; COMP_GEN5_08 (su
+  // tabla canónica 2·4·8 va por «Gen») no cae. Backtest: 0 hits en el corpus.
+  /\|\s*nivel\s*\|[\s\S]{0,500}\b16\b(?![.,]\d)[\s\S]{0,80}\b32\b(?![.,]\d)/,
+
   // ── Progresión geométrica ×3 (1 sep 2026) ──────────────────────────────────
   // Tras un bloqueo, el rescate compuso «hasta 12 generaciones» con una tabla
   // 3 · 9 · 27 — la pirámide dibujada con otra base, invisible para los

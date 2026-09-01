@@ -377,10 +377,20 @@ function ecoDe(clave: keyof DatosRadicacion, datos: DatosRadicacion): string | n
  * le saca a alguien en una pregunta de servicio — y de paso adelanta el respaldo:
  * hay una oficina física, con gente.
  */
-export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
+/**
+ * En el hilo de Los 12 Niveles el cuarto dato nombra el Kit (Director, 1 sep
+ * 2026): la estrategia entra por el Kit, y «cuál de los tres paquetes» ahí
+ * reabre la puerta a los empresariales que ese hilo cierra a propósito. Fuera
+ * de ese hilo la etiqueta sigue siendo la de los tres paquetes — el Kit es la
+ * opción menor y aparece cuando la persona pide algo más económico.
+ */
+const ETIQUETA_PAQUETE_KIT = 'El paquete con el que inicia — el Kit de Inicio, o uno de los tres principales si lo prefiere';
+
+export function pedirDatos(datos: DatosRadicacion, socio?: string, enKit = false): string {
   const claves = ['nombre', 'cedula', 'ciudad', 'paquete'] as const;
   const faltantes = claves.filter((k) => !datos[k]);
   const partes: string[] = [];
+  const etiqueta = (f: keyof DatosRadicacion) => (f === 'paquete' && enKit ? ETIQUETA_PAQUETE_KIT : ETIQUETAS[f]);
 
   // El nombre no se devuelve en una viñeta: se usa para saludar. Es el acuse de
   // recibo más cálido que existe y sale gratis — ya lo tenemos.
@@ -395,7 +405,7 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
       '',
       'Para radicar su vinculación necesito cuatro datos:',
       '',
-      faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n'),
+      faltantes.map((f) => `• ${etiqueta(f)}`).join('\n'),
     );
   } else {
     // Lo ya capturado se confirma EN PROSA, no en lista. El inventario
@@ -416,7 +426,7 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string): string {
       // Dos caben en una frase; tres ya piden lista para poder leerse.
       partes.push(`Me faltan dos cosas: ${EN_PROSA[faltantes[0]]}, y ${EN_PROSA[faltantes[1]]}.`);
     } else {
-      partes.push('Me faltan tres datos:', '', faltantes.map((f) => `• ${ETIQUETAS[f]}`).join('\n'));
+      partes.push('Me faltan tres datos:', '', faltantes.map((f) => `• ${etiqueta(f)}`).join('\n'));
     }
   }
 
@@ -740,7 +750,9 @@ export async function gestionarCierre(params: {
   if (faltantes.length > 0) {
     // El bloque de los cuatro solo se entrega la primera vez, en el turno donde
     // la persona declara que arranca. De ahí en adelante, uno por uno.
-    if (!botPidio) return { texto: pedirDatos(datos, socio), radicado: false };
+    // En el hilo de Los 12 Niveles el cuarto dato nombra el Kit (ver ETIQUETA_PAQUETE_KIT).
+    const enKit = historial.some((m) => m.role === 'assistant' && /12 Niveles/i.test(m.content));
+    if (!botPidio) return { texto: pedirDatos(datos, socio, enKit), radicado: false };
 
     // Una duda a mitad del trámite se responde; el cierre no la atropella. Se
     // considera digresión todo lo que no traiga datos nuevos y además parezca

@@ -1432,10 +1432,46 @@ async function procesarEntrante(body: any): Promise<void> {
     // Aceptación SOLA: «Listo, ¿cómo me inscribo?» arranca con «listo» y trae
     // una pregunta nueva — sin este guard reabría el simulador en vez de
     // responder lo que la persona preguntó (ejercicio del 1 sep 2026).
-    const _aceptaSimulador = /escenario en el simulador/i.test(_ultimoBotW)
-      && /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim())
+    const _aceptaSola = /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim())
       && !/[?¿]/.test(messageText)
       && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(messageText);
+    const _aceptaSimulador = /escenario en el simulador/i.test(_ultimoBotW) && _aceptaSola;
+
+    // ─── 2.35 El «sí» a la tabla de los niveles se entrega dictado ───────────
+    // El bot cierra ofreciendo «la tabla nivel por nivel» con palabras que él
+    // mismo compone, y esa frase compuesta no siempre recupera NIVELES_02 —dos
+    // veces el 1 sep se fue a compensación por un «cómo crece»—; sin la tabla en
+    // contexto, el modelo INVENTÓ una de doce filas con el dinero al doble. Es
+    // un nodo determinístico: el fragmento está escrito, se manda tal cual, con
+    // su tarjeta. El texto se lee de la base para que una edición del arsenal
+    // no exija tocar este archivo.
+    const _ofrecioTablaNiveles = /nivel por nivel|tabla[^?]{0,60}niveles|proyecci[oó]n[^?]{0,40}nivel/i.test(_ultimoBotW);
+    const _hiloDoceNiveles = historial.some((m) => /12 Niveles/i.test(m.content));
+    if (!vieneDelSimulador && _aceptaSola && _ofrecioTablaNiveles && _hiloDoceNiveles) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: frag } = await (supabase as any)
+          .from('nexus_documents').select('content')
+          .eq('tenant_id', 'whatsapp').eq('category', 'arsenal_12_niveles_NIVELES_02')
+          .maybeSingle();
+        const cuerpo = frag?.content?.match(/<verbatim_lock>\s*([\s\S]*?)\s*<\/verbatim_lock>/)?.[1];
+        const cierre = frag?.content?.match(/\*\*Pregunta de seguimiento:\*\*\s*(.+)/)?.[1]?.trim();
+        if (cuerpo) {
+          const texto = `${cuerpo}\n\n${cierre || '¿Le muestro cómo se vincula a la estrategia?'}`;
+          await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+          if (flowSimuladorId) {
+            await sendFlow(phoneNumber, flowSimuladorId,
+              'Y si quiere verlo nivel por nivel en el simulador: elija el nivel y el resultado sale al instante.',
+              'Abrir el simulador', { screen: 'NIVELES' });
+          }
+          console.log(`📐 [WA Webhook] Tabla de los 12 Niveles entregada dictada a ${phoneNumber}`);
+          return;
+        }
+      } catch (err) {
+        console.warn('⚠️ [WA Webhook] No se pudo dictar NIVELES_02 — sigue al motor:', err);
+      }
+    }
     if (flowSimuladorId && !vieneDelSimulador
         && (/simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText) || _aceptaSimulador)) {
       // La pantalla inicial hereda de la oferta que la persona aceptó: tras el

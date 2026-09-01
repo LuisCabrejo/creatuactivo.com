@@ -1520,6 +1520,9 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // delante para no robarse «en 12 meses cuánto gano», que es otra pregunta.
     /(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b/i,
     /\b(dos|doce)\s+niveles\b/i,
+    // Como lo presenta el socio en su 1-a-1 (Director, 1 sep 2026): «el plan
+    // estratégico que lanzamos el primero de septiembre».
+    /(plan|estrategia)\s+(estrat[eé]gic[oa]|nuev[oa]|de septiembre|del?\s+(1|primero|1ro)\s+de\s+septiembre|que\s+(est[aá]n\s+)?lanz\w+)|nuev[oa]\s+(plan|estrategia)|plan\s+de\s+lanzamiento/i,
     /doce\s*niveles/i,                   // "doce niveles"
     /los\s*12\s*niveles/i,               // "los 12 niveles"
     /los\s*doce\s*niveles/i,             // "los doce niveles"

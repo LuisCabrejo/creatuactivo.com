@@ -1448,7 +1448,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // días?» sigue al motor, que la lleva a NIVELES_02.
     // «el ciclo de 12 niveles», «un plan de 12 ciclos o niveles», «quiero
     // averiguar», «Luis me habló» — las formas de la prueba de las 10:43.
-    const _nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b/i.test(messageText);
+    // …y como lo presenta el socio en su 1-a-1: «el plan estratégico que
+    // lanzamos el primero de septiembre» (Director, 1 sep 2026).
+    const _nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b|(plan|estrategia)\s+(estrat[eé]gic[oa]|nuev[oa]|de septiembre|del?\s+(1|primero|1ro)\s+de\s+septiembre|que\s+(est[aá]n\s+)?lanz\w+)|nuev[oa]\s+(plan|estrategia)|plan\s+de\s+lanzamiento/i.test(messageText);
     const _preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bl[aoó]|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n|averigua|saber|conocer|entender|no me acuerdo/i.test(messageText)
       && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(messageText);
     if (!vieneDelSimulador && _nombreMalOido && _preguntaQueEs) {
@@ -1459,7 +1461,12 @@ async function procesarEntrante(body: any): Promise<void> {
           // motor: Colombia en COP, Estados Unidos en USD, el resto USD con COP.
           const _pais = phoneNumber.startsWith('57') ? 'CO' : phoneNumber.startsWith('1') ? 'US' : 'XX';
           const precioKit = _pais === 'CO' ? '$443.600 COP' : _pais === 'US' ? '$98 USD' : '$98 USD ($443.600 COP)';
-          const textoConPrecio = texto.replace(/\[PRECIO_KIT\]/g, precioKit);
+          // Si el hilo ya mostró el ejemplo de renta al 17%, una frase de puente:
+          // sin ella la persona ve dos tarifas en la misma conversación y nadie
+          // le dice por qué (prueba del Director, 1 sep, 12:16 → 12:17).
+          const _vieneDel17 = historial.some((m) => m.role === 'assistant' && /17\s?%/.test(m.content));
+          const puente = _vieneDel17 ? 'Esta estrategia corre con el Kit, al 10%: la misma regalía, con la tarifa de entrada.\n\n' : '';
+          const textoConPrecio = puente + texto.replace(/\[PRECIO_KIT\]/g, precioKit);
           await sendWhatsAppMessage(phoneNumber, textoConPrecio, { wamid });
           await persistirTurnoDictado(supabase, waFingerprint, messageText, textoConPrecio);
           if (flowSimuladorId) {

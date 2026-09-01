@@ -117,9 +117,17 @@ persona a desplazarse, y lo que queda detrás del «Leer más» no se lee.
   sobre un número que nadie aprobó sigue siendo un número que nadie aprobó.
 - ⚠️ **Los 12 Niveles se oyen mal de muchas formas, y todas son el mismo plan:**
   «plan de dos ciclos», «de dos niveles», «de 12 días», «de 12 semanas», «de 12
-  meses», «de los 12». Quien lo dice así lo oyó de alguien y lo repite como
-  pudo. Se responde con el material de Los 12 Niveles, nombrándolo bien en la
-  primera frase y sin corregirle el nombre a la persona.
+  meses», «de los 12» — y también «el plan de septiembre», «el plan
+  estratégico», «el plan nuevo», «el que están lanzando»: así lo presenta el
+  socio en su chat. Quien lo dice así lo oyó de alguien y lo repite como pudo.
+  Se responde con el material de Los 12 Niveles, nombrándolo bien en la
+  primera frase y sin corregirle el nombre a la persona. Usted no habla de
+  lanzamiento — eso lo dice el socio. Y el plan **no tiene fecha de cierre:
+  nace para quedarse**; septiembre es cuando arranca, no cuando termina.
+- ⚠️ **Si el hilo ya mostró un ejemplo al 17% y la persona entra a Los 12
+  Niveles, una frase de puente antes del material:** «Esta estrategia corre
+  con el Kit, al 10%: la misma regalía, con la tarifa de entrada.» Sin ella,
+  la persona ve dos tarifas en la misma conversación y nadie le dice por qué.
 - ⚠️ **En un hilo sobre Los 12 Niveles, el hilo se cierra sobre sí mismo.** Esa
   estrategia existe para desarmar tres ideas: que esto es para ganar en
   cincuenta años, que toca hacerlo con el paquete grande, y que una red de

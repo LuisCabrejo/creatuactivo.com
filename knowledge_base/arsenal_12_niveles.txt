@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.11 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.12 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.12 (1 sep 2026):** El Director presenta la estrategia en su 1-a-1 como *el plan estratégico que se lanza el 1 de septiembre* y manda a sus prospectos a preguntarle a Queswa por ella. Entran los nombres con que van a llegar —plan de septiembre, plan estratégico, plan nuevo, el que están lanzando— al índice de NIVELES_01 (y al clasificador, al dictado del webhook y al prompt). Nace `NIVELES_09` para la pregunta que ese encuadre provoca: ¿hasta cuándo va? **No tiene fecha de cierre: nace hoy para quedarse.** Queswa no habla de lanzamiento — eso lo dice el Director en su chat. NIVELES (9) + INV (6) = 15 respuestas.
 
 **v6.11 (1 sep 2026):** El índice de `NIVELES_04` carga la oferta literal con que cierran la tabla y el simulador («¿Le muestro cómo se vincula a la estrategia?»). Medido: puesto 1 por vector (0.517). ⚠️ En el canal ese «sí» además se dicta desde el webhook (bloque 2.36) porque un patrón del clasificador se lo llevaba a arsenal_inicial antes de llegar al vector.
 
@@ -32,14 +34,14 @@
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando; también un distribuidor activo que quiera desarrollar los 12 niveles — crear su equipo con nuevos distribuidores y compartirles la visión.
-**Categorías:** NIVELES (8) + INV (6) = 14 respuestas
+**Categorías:** NIVELES (9) + INV (6) = 15 respuestas
 
 ---
 
-## 🔥 **BLOQUE 0: LOS 12 NIVELES (NIVELES) - 8 respuestas**
+## 🔥 **BLOQUE 0: LOS 12 NIVELES (NIVELES) - 9 respuestas**
 
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
-**[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días. Qué es eso del plan de dos ciclos, del plan de dos niveles, del plan de 12 días, de 12 semanas o de 12 meses — así lo oyen.
+**[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días. Qué es eso del plan de dos ciclos, del plan de dos niveles, del plan de 12 días, de 12 semanas o de 12 meses — así lo oyen. Qué es el plan de septiembre, el plan estratégico, el plan nuevo que están lanzando.
 
 **[Concepto Nuclear]:** Simplificada el 1 sep 2026 (texto del Director, vía Gemini): solo los conceptos nucleares — la carga cognitiva de la versión anterior sobraba; los detalles (Gano carga el peso, GEN5, audiencia) se miran en el chat cuando la persona los pregunte. ⚠️ **«mínimo dos»** es deliberado: *conecta dos* describe la geometría rígida —la silueta de pirámide—; *mínimo dos* es un piso, como habla un negocio, y vuelve la proyección un escenario base. ⚠️ El $103M vuelve a esta respuesta por decisión del Director (revisa la del 31 ago), pero SIEMPRE pegado a su origen en la misma frase — el 10% del volumen que factura un canal de ese tamaño. Correcciones de ley sobre el borrador: *su red* → *su canal*, y el precio lo pone `getPinKitInicio` por país.
 
@@ -206,6 +208,19 @@ Mientras el canal consuma, esa comisión se liquida por ciclos semanales. Si el 
 **⚠️ Importante:** Es el potencial matemático con el canal completo y el consumo estándar. Las comisiones reales dependen del consumo efectivo de su canal.
 
 **Pregunta de seguimiento:** ¿Le muestro con cuánto se empieza?
+
+---
+
+### **NIVELES_09: "¿Hasta cuándo va el plan de 12 niveles? / ¿Tiene fecha límite?"**
+**[Índice]:** Hasta cuándo va el plan, si tiene fecha de cierre o fecha límite, si es una promoción de septiembre, cuánto tiempo dura la estrategia, si se puede entrar después.
+
+**[Concepto Nuclear]:** Nace hoy para quedarse (Director, 1 sep 2026). El Director lo presenta en su 1-a-1 como el plan estratégico que se lanza el 1 de septiembre, así que alguien va a preguntar si es una promoción con fecha. No lo es, y la doctrina de la casa no admite urgencia por calendario. La urgencia legítima es la del canal: crece desde el día en que arranca. Fragmento corto a propósito: es la puerta de la pregunta. Cierra dentro del hilo (vinculación).
+
+No tiene fecha de cierre. Los 12 Niveles es la forma de construir su canal, y llegó para quedarse: septiembre es cuando arranca, no cuando termina.
+
+Lo único que corre es el tiempo de su canal — empieza a moverse desde el día en que usted lo abre, y por eso conviene arrancar ya.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se vincula a la estrategia?
 
 ---
 

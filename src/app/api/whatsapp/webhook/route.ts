@@ -63,7 +63,7 @@ import {
   seguimientoSalud, RE_OFERTA_FOTO_PRODUCTO, RE_OFERTA_PEDIDO_SEDE, RE_OFERTA_CATALOGO_SALUD, esAceptacion,
 } from '@/lib/wa-pedido';
 import {
-  pideImagen, detectarProducto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
+  pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
   detectarFamilia, familiaOfrecida, preguntoCualLinea, esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
 } from '@/lib/wa-productos';
 import {
@@ -1305,7 +1305,7 @@ async function procesarEntrante(body: any): Promise<void> {
       // hilo (prueba del 20 ago — caía al motor y respondía que no podía).
       const producto = _fotoOfrecida
         ? detectarProducto(_ultimoBotFoto)
-        : (detectarProducto(messageText) ?? productoDelHilo(historial));
+        : (detectarProducto(messageText) ?? cafeGenericoAFoto(messageText) ?? productoDelHilo(historial));
       if (producto) {
         // Cuando el mensaje pide SOLO la foto, la pregunta de cierre viaja
         // dentro del pie: enviada como mensaje aparte llegaba ANTES que la

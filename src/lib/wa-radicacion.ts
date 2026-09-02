@@ -95,7 +95,13 @@ const RE_BOT_PIDIO_DATOS =
  * devuelve el turno al motor, y el cierre retoma solo: `enCierre` mira los
  * últimos turnos del bot, no únicamente el anterior.
  */
-const RE_PREGUNTA = /\?|^(qu[eé]|cu[aá]l|cu[aá]nto|c[oó]mo|por qu[eé]|cuando|cu[aá]ndo|d[oó]nde|qui[eé]n|hay |puedo|se puede|y si)\b/i;
+// ⚠️ El cierre es (?![a-záéíóúñ]) y NO \b: el \b de JS no cierra tras vocal
+// acentuada porque «é» no es carácter de palabra, así que «Qué producto…» y
+// «Por qué…» —que terminan en é— nunca matchaban, y una pregunta de salud a
+// mitad del cierre se leía como un dato y pedía el nombre (prueba del Director,
+// 3 sep: «Qué producto ayuda para la artrosis» → «¿Cuál es su nombre completo?»).
+// Mismo bug del \b que ya costó las puertas de «sí» con tilde.
+const RE_PREGUNTA = /\?|^(qu[eé]|cu[aá]l|cu[aá]nto|c[oó]mo|por qu[eé]|cuando|cu[aá]ndo|d[oó]nde|qui[eé]n|hay|puedo|se puede|y si)(?![a-záéíóúñ])/i;
 
 /**
  * Pedidos de información que NO llevan signo de interrogación.

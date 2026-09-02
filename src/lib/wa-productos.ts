@@ -304,6 +304,23 @@ export function detectarProducto(texto: string): ProductoWA | null {
 }
 
 /**
+ * «Ganocafé» a secas → el 3 en 1, el producto estrella (Director, 3 sep 2026).
+ *
+ * `detectarProducto` devuelve null para «una foto del Ganocafé» porque el
+ * término sin calificador no es alias de ninguno de los dos cafés —el 3 en 1 y
+ * el Clásico se piden con su apellido—, y el turno caía al motor con «no puedo
+ * enviar imágenes». Aquí se resuelve al 3 en 1, salvo que el mensaje nombre
+ * otro café. Se usa SOLO como fallback en el nodo de foto: no se toca
+ * `detectarProducto`, que alimenta precio y pedido.
+ */
+export function cafeGenericoAFoto(texto: string): ProductoWA | null {
+  const t = normalizar(texto);
+  if (!/\bgano\s?cafe\b|\bel cafe\b|\bun cafe\b|\bcafecito\b/.test(t)) return null;
+  if (/clasico|classic|negro|negrito|puro|latte|mocha|shoko|schokolad|rooibos|oleaf/.test(t)) return null;
+  return PRODUCTOS_WA.find((p) => p.nombre === 'Ganocafé 3 en 1') ?? null;
+}
+
+/**
  * El producto del que trata la conversación, cuando el mensaje no lo nombra.
  *
  * "dame una imagen" a secas es la forma normal de pedirla después de haber

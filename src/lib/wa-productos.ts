@@ -493,7 +493,7 @@ export const FAMILIAS_WA: Record<FamiliaWA, FamiliaDef> = {
   },
   portafolio: {
     titulo: 'Portafolio Gano Excel', archivo: 'portafolio', categoria: null,
-    patron: /todos los productos|todo el portafolio|portafolio|l[ií]nea completa|gama completa|los 22|todas las l[ií]neas|los productos(?! de)|qu[eé] productos|cu[aá]les productos|productos que (tienen|manejan|venden)/i,
+    patron: /todos los productos|todo el portafolio|portafolio|l[ií]nea completa|gama completa|los 22|todas las l[ií]neas|los productos(?! de\s+ganoderma)|qu[eé] productos|cu[aá]les productos|productos que (tienen|manejan|venden)/i,
     ofrecida: null,
     seguimiento: '¿Cuál línea le muestro de cerca?',
   },

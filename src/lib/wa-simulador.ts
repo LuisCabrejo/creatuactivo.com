@@ -144,8 +144,11 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
     ? cierreRadicado(opciones.radicado)
     : opciones.composicionYaOfrecida
     ? '¿Con cuál de los tres paquetes se identifica más?'
+    // Quien simula con la tarifa del Kit es el perfil exacto de Los 12 Niveles
+    // (Director, 2 sep 2026). Antes ofrecía «los tres paquetes» — el empujón
+    // hacia arriba que la doctrina del hilo retiró.
     : esKit
-      ? '¿Le muestro los tres paquetes principales, para que los compare con el Kit?'
+      ? '¿Le muestro la estrategia de los 12 Niveles, que corre justo con esta tarifa?'
       // 23 ago (Director): tras la renta, la pregunta lleva a la OTRA forma de ganar —
       // la de los paquetes— porque sin ese contexto la persona no la pregunta, y es la
       // que le muestra que puede ganar desde el comienzo. La oferta nombra «ejemplo»

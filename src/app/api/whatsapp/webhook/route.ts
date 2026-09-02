@@ -1453,7 +1453,10 @@ async function procesarEntrante(body: any): Promise<void> {
     const _nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b|(plan|estrategia)\s+(estrat[eé]gic[oa]|nuev[oa]|de septiembre|del?\s+(1|primero|1ro)\s+de\s+septiembre|que\s+(est[aá]n\s+)?lanz\w+)|nuev[oa]\s+(plan|estrategia)|plan\s+de\s+lanzamiento/i.test(messageText);
     const _preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bl[aoó]|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n|averigua|saber|conocer|entender|no me acuerdo/i.test(messageText)
       && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(messageText);
-    if (!vieneDelSimulador && _nombreMalOido && _preguntaQueEs) {
+    // El «sí» a las ofertas escritas de la estrategia (el cierre del ejemplo
+    // GEN5 y el del simulador con tarifa del Kit — Director, 2 sep 2026).
+    const _aceptaEstrategia = _aceptaSola && /estrategia de los 12 Niveles/i.test(_ultimoBotW);
+    if (!vieneDelSimulador && ((_nombreMalOido && _preguntaQueEs) || _aceptaEstrategia)) {
       try {
         const texto = await textoDeCandado(supabase, 'arsenal_12_niveles_NIVELES_01');
         if (texto) {

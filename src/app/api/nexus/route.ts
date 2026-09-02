@@ -3777,13 +3777,23 @@ function extraerEjemploDictado(pin: string): string | null {
   const cuerpo = pin.slice(iCabecera, iStop).trim();
   if (cuerpo.length < 80) return null;
 
-  // La pregunta de cierre apunta al simulador, porque el webhook le pega la
-  // tarjeta del Flow justo debajo (decisión del Director, 20 ago 2026). Antes
-  // preguntaba por las tres formas de empezar Y llegaba la tarjeta: dos llamados
-  // a la vez, y un "sí" ambiguo — la persona no sabía si estaba aceptando las
-  // formas o abriendo el simulador. Pregunta y tarjeta ahora son el mismo paso;
-  // el "sí" lo atiende el webhook reenviando el Flow.
-  return `${cuerpo}\n\n¿Quiere armar su propio escenario en el simulador?`;
+  // La pregunta de cierre del ejemplo de RENTA apunta al simulador, porque el
+  // webhook le pega la tarjeta del Flow justo debajo (Director, 20 ago 2026):
+  // pregunta y tarjeta son el mismo paso, y el "sí" lo atiende el webhook.
+  //
+  // El ejemplo GEN5 cierra distinto (Director, 2 sep 2026): ese es EL MOMENTO
+  // de los 12 Niveles. El camino usual es cómo funciona → renta → GEN5, y para
+  // cuando alguien vio los paquetes ya tiene el marco gente → consumo →
+  // comisión: la estrategia llega como el método para construir lo que acaba
+  // de entender, no como el anzuelo de la apertura (que se descartó — silueta
+  // ante Meta y caballo de Troya). La tarjeta del simulador GEN5 sigue viajando
+  // pegada, así que la persona conserva las dos salidas. El "sí" a esta oferta
+  // lo dicta el webhook: NIVELES_01 tal cual.
+  const esGen5 = /GEN5/i.test(pin);
+  const cierre = esGen5
+    ? '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?'
+    : '¿Quiere armar su propio escenario en el simulador?';
+  return `${cuerpo}\n\n${cierre}`;
 }
 
 /**
@@ -3834,7 +3844,7 @@ function gen5PrimerPaqueteDictado(codigo: string, country: string | null | undef
 
 Se liquida por ciclos semanales, cada viernes.
 
-¿Quiere armar su propio escenario en el simulador?`;
+¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?`;
 }
 
 /** ¿Pregunta cuánto gana cuando en su canal se compra UN paquete concreto? Devuelve el código o null. */

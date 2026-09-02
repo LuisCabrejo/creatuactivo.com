@@ -2322,17 +2322,13 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         else console.warn(`⚠️ [WA Webhook] Flow GEN5 junto a la explicación no se pudo enviar: ${enviado.error}`);
       }
 
-      if (flowSimulador && queswaReply.includes('Le pongo el ejemplo con un supuesto modesto')) {
-        const enviado = await sendFlow(
-          phoneNumber,
-          flowSimulador,
-          'Y si quiere, muévalo usted: elija la tarifa y vea cómo cambia la renta según los clientes de su red.',
-          'Abrir el simulador',
-          { screen: 'RENTA_MENU' },
-        );
-        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador BINARIO/renta ofrecido');
-        else console.warn(`⚠️ [WA Webhook] Flow simulador BINARIO no se pudo enviar: ${enviado.error}`);
-      }
+      // ⚠️ El ejemplo de renta YA NO envía el simulador de renta (Director, 3 sep
+      // 2026). Ese simulador abre en RENTA_MENU —las cuatro tarifas, incluidos
+      // los paquetes empresariales al 15/16/17%—, así que tras el ejemplo al 10%
+      // la persona lo usaba y elegía el 17%: rompía la avenida a una sola tarifa
+      // y ofrecía los paquetes sin que nadie los pidiera. El ejemplo cierra
+      // ofreciendo la estrategia, y el «sí» dicta NIVELES_01 con SU simulador
+      // (el de niveles, al 10%). El simulador de renta queda solo por pull.
     }
 
     // ─── Cronómetro del turno ─────────────────────────────────────────────────

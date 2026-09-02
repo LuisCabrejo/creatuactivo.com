@@ -15,6 +15,13 @@
  * en texto, que es la adaptación que el usuario espera.
  *
  * Mismo motor de transcripción que /api/voice-command, para no tener dos verdades.
+ *
+ * ⚠️ RESPALDO CON ELEVENLABS SCRIBE (2 sep 2026): la llave de OpenAI amaneció
+ * revocada (401 en ambos modelos) y un prospecto real —Edilberto— mandó cuatro
+ * notas de voz que recibieron cuatro veces el acuse de «no logré escuchar».
+ * La llave de ElevenLabs (la misma del TTS) sí vive y su Scribe transcribe
+ * bien en español, así que entra como tercera pata: OpenAI → Scribe → null.
+ * Si OpenAI devuelve 401, el segundo modelo ni se intenta — va a fallar igual.
  */
 
 import OpenAI from 'openai';
@@ -49,19 +56,22 @@ export async function transcribirNotaDeVoz(mediaId: string): Promise<string | nu
     return null;
   }
 
-  try {
-    const archivo = new File(
-      [media.buffer],
-      `nota.${extensionPara(media.mimeType)}`,
-      { type: media.mimeType },
-    );
+  const archivo = new File(
+    [media.buffer],
+    `nota.${extensionPara(media.mimeType)}`,
+    { type: media.mimeType },
+  );
 
+  try {
     let resultado;
     try {
       resultado = await getOpenAI().audio.transcriptions.create({
         file: archivo, model: 'gpt-4o-mini-transcribe', language: 'es',
       });
     } catch (e) {
+      // Con la llave revocada (401) el segundo modelo falla idéntico: directo a Scribe.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((e as any)?.status === 401) throw e;
       console.warn('[WA Audio] gpt-4o-mini-transcribe falló — fallback a whisper-1:',
         e instanceof Error ? e.message : e);
       resultado = await getOpenAI().audio.transcriptions.create({
@@ -70,16 +80,47 @@ export async function transcribirNotaDeVoz(mediaId: string): Promise<string | nu
     }
 
     const texto = resultado.text.trim();
-    if (!texto) {
-      console.warn('[WA Audio] Transcripción vacía');
+    if (texto) {
+      console.log(`🎙 [WA Audio] "${texto}"`);
+      return texto;
+    }
+    console.warn('[WA Audio] Transcripción vacía — se intenta con Scribe');
+  } catch (err) {
+    console.error('❌ [WA Audio] OpenAI falló — se intenta con Scribe:', err instanceof Error ? err.message : err);
+  }
+
+  return transcribirConScribe(archivo);
+}
+
+/**
+ * ElevenLabs Scribe como tercera pata. Verificado el 2 sep 2026 con audio real:
+ * transcripción exacta en español. Nunca lanza.
+ */
+async function transcribirConScribe(archivo: File): Promise<string | null> {
+  const key = process.env.ELEVENLABS_API_KEY;
+  if (!key) {
+    console.error('❌ [WA Audio] Sin ELEVENLABS_API_KEY — no hay respaldo de transcripción');
+    return null;
+  }
+  try {
+    const form = new FormData();
+    form.append('model_id', 'scribe_v1');
+    form.append('file', archivo);
+    form.append('language_code', 'es');
+    const res = await fetch('https://api.elevenlabs.io/v1/speech-to-text', {
+      method: 'POST', headers: { 'xi-api-key': key }, body: form,
+    });
+    if (!res.ok) {
+      console.error(`❌ [WA Audio] Scribe ${res.status}:`, (await res.text()).slice(0, 200));
       return null;
     }
-
-    console.log(`🎙 [WA Audio] "${texto}"`);
+    const j = await res.json() as { text?: string };
+    const texto = (j.text ?? '').trim();
+    if (!texto) { console.warn('[WA Audio] Scribe devolvió vacío'); return null; }
+    console.log(`🎙 [WA Audio · Scribe] "${texto}"`);
     return texto;
-
   } catch (err) {
-    console.error('❌ [WA Audio] Error de transcripción:', err instanceof Error ? err.message : err);
+    console.error('❌ [WA Audio] Scribe error:', err instanceof Error ? err.message : err);
     return null;
   }
 }

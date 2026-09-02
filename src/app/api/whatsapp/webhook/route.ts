@@ -1435,7 +1435,16 @@ async function procesarEntrante(body: any): Promise<void> {
     const _aceptaSola = /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim())
       && !/[?¿]/.test(messageText)
       && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(messageText);
-    const _aceptaSimulador = /escenario en el simulador/i.test(_ultimoBotW) && _aceptaSola;
+    // «¿Seguimos con el simulador?» + «sí» debe reenviar la tarjeta — la forma
+    // estricta («escenario en el simulador») dejó pasar la paráfrasis del
+    // modelo y el turno cayó al motor, que improvisó una pregunta de
+    // calificación (prueba de Edilberto, 2 sep, 1:42 p.m.).
+    const _aceptaSimulador = /simulador/i.test(_ultimoBotW) && _aceptaSola;
+
+    // Detectores de las ofertas del hilo de los 12 Niveles, definidos juntos
+    // porque se excluyen entre sí: el «sí» va a UNA sola puerta.
+    const _ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe/i.test(_ultimoBotW);
+    const _ofrecioTablaNiveles = /nivel por nivel|tabla[^?]{0,60}niveles|proyecci[oó]n[^?]{0,40}nivel/i.test(_ultimoBotW);
 
     // ─── 2.34 «¿Qué es eso del plan de dos ciclos?» se entrega dictado ───────
     // El nombre de Los 12 Niveles llega mal oído —dos ciclos, dos niveles, 12
@@ -1453,9 +1462,14 @@ async function procesarEntrante(body: any): Promise<void> {
     const _nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b|(plan|estrategia)\s+(estrat[eé]gic[oa]|nuev[oa]|de septiembre|del?\s+(1|primero|1ro)\s+de\s+septiembre|que\s+(est[aá]n\s+)?lanz\w+)|nuev[oa]\s+(plan|estrategia)|plan\s+de\s+lanzamiento/i.test(messageText);
     const _preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bl[aoó]|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n|averigua|saber|conocer|entender|no me acuerdo/i.test(messageText)
       && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(messageText);
-    // El «sí» a las ofertas escritas de la estrategia (el cierre del ejemplo
-    // GEN5 y el del simulador con tarifa del Kit — Director, 2 sep 2026).
-    const _aceptaEstrategia = _aceptaSola && /estrategia de los 12 Niveles/i.test(_ultimoBotW);
+    // El «sí» a las ofertas de la estrategia — las escritas Y las que el
+    // modelo compone nombrando Los 12 Niveles («¿le muestro cómo funciona con
+    // su caso?», prueba de Edilberto): la forma estricta dejó ese «sí» en el
+    // motor, que compuso y fue bloqueado. Cualquier oferta que nombre el plan
+    // y no sea la tabla, la vinculación ni el simulador, dicta NIVELES_01.
+    const _aceptaEstrategia = _aceptaSola
+      && /12 niveles|estrategia de los 12/i.test(_ultimoBotW)
+      && !_ofrecioTablaNiveles && !_ofrecioVinculacion && !/simulador/i.test(_ultimoBotW);
     if (!vieneDelSimulador && ((_nombreMalOido && _preguntaQueEs) || _aceptaEstrategia)) {
       try {
         const texto = await textoDeCandado(supabase, 'arsenal_12_niveles_NIVELES_01');
@@ -1493,7 +1507,6 @@ async function procesarEntrante(body: any): Promise<void> {
     // bloque de los cuatro datos, con el Kit nombrado porque el hilo es el de
     // la estrategia. Lo que la persona conteste cae en gestionarCierre, que
     // reconoce el bloque por su encabezado.
-    const _ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe/i.test(_ultimoBotW);
     if (!vieneDelSimulador && _aceptaSola && _ofrecioVinculacion && historial.some((m) => /12 Niveles/i.test(m.content))) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const texto = pedirDatos({ nombre: '', cedula: '', ciudad: '', paquete: '' } as any, socio?.nombre?.split(/\s+/).slice(0, 2).join(' '), true);
@@ -1511,7 +1524,6 @@ async function procesarEntrante(body: any): Promise<void> {
     // un nodo determinístico: el fragmento está escrito, se manda tal cual, con
     // su tarjeta. El texto se lee de la base para que una edición del arsenal
     // no exija tocar este archivo.
-    const _ofrecioTablaNiveles = /nivel por nivel|tabla[^?]{0,60}niveles|proyecci[oó]n[^?]{0,40}nivel/i.test(_ultimoBotW);
     const _hiloDoceNiveles = historial.some((m) => /12 Niveles/i.test(m.content));
     if (!vieneDelSimulador && _aceptaSola && _ofrecioTablaNiveles && _hiloDoceNiveles) {
       try {
@@ -2119,6 +2131,22 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // compuso una pirámide de 3.125 personas y un "ingreso inmediato". Esta es la
     // red que faltaba debajo. Meta sanciona las promesas de ingreso en el canal y
     // el Estatuto del Consumidor las vuelve exigibles a la empresa.
+    // Marcas internas en la salida (prueba de Edilberto, 2 sep, 1:54 p.m.): el
+    // modelo imprimió bloques <retrieved_context> FABRICADOS —con una tabla
+    // inventada y un marcador [TABLA_NIVELES] adentro— y le llegaron al
+    // prospecto tal cual. Un marcador sin llenar o una etiqueta interna en la
+    // salida siempre es texto roto: se descarta y se reemplaza, como manda el
+    // patrón de los guardarraíles. (<verbatim_lock> no cuenta: el formateador
+    // lo quita y el texto de adentro es legítimo.)
+    const marcaInterna = /<\/?retrieved_context|<\/?prospect_state|\[TABLA_[A-Z_]*\]|\[PRECIO_[A-Z_]*\]/.exec(queswaReply)?.[0];
+    if (marcaInterna) {
+      console.error(`🚨 [WA Guardrail] Marca interna en la salida («${marcaInterna}») — se descarta el borrador para ${phoneNumber}`);
+      const correctivaMarca = correctivaSegunHilo(historial);
+      await sendWhatsAppMessage(phoneNumber, correctivaMarca);
+      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, correctivaMarca, `marca interna: ${marcaInterna}`);
+      return;
+    }
+
     const promesa = detectarPromesaDeIngreso(queswaReply);
     if (promesa) {
       console.error(`🚨 [WA Guardrail Negocio] BLOQUEADO — "${promesa}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);

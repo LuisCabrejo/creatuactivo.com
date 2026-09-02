@@ -1467,7 +1467,11 @@ async function procesarEntrante(body: any): Promise<void> {
     // su caso?», prueba de Edilberto): la forma estricta dejó ese «sí» en el
     // motor, que compuso y fue bloqueado. Cualquier oferta que nombre el plan
     // y no sea la tabla, la vinculación ni el simulador, dicta NIVELES_01.
-    const _aceptaEstrategia = _aceptaSola
+    // ⚠️ Si el MENSAJE nombra el simulador («listo, seguimos con el simulador»),
+    // ninguna aceptación dictada se lo queda: el reenvío de la tarjeta manda
+    // (batería del 2 sep — el «listo» se comió la petición explícita).
+    const _pideSimulador = /simulad/i.test(messageText);
+    const _aceptaEstrategia = _aceptaSola && !_pideSimulador
       && /12 niveles|estrategia de los 12/i.test(_ultimoBotW)
       && !_ofrecioTablaNiveles && !_ofrecioVinculacion && !/simulador/i.test(_ultimoBotW);
     if (!vieneDelSimulador && ((_nombreMalOido && _preguntaQueEs) || _aceptaEstrategia)) {
@@ -1507,7 +1511,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // bloque de los cuatro datos, con el Kit nombrado porque el hilo es el de
     // la estrategia. Lo que la persona conteste cae en gestionarCierre, que
     // reconoce el bloque por su encabezado.
-    if (!vieneDelSimulador && _aceptaSola && _ofrecioVinculacion && historial.some((m) => /12 Niveles/i.test(m.content))) {
+    if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioVinculacion && historial.some((m) => /12 Niveles/i.test(m.content))) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const texto = pedirDatos({ nombre: '', cedula: '', ciudad: '', paquete: '' } as any, socio?.nombre?.split(/\s+/).slice(0, 2).join(' '), true);
       await sendWhatsAppMessage(phoneNumber, texto, { wamid });
@@ -1525,7 +1529,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // su tarjeta. El texto se lee de la base para que una edición del arsenal
     // no exija tocar este archivo.
     const _hiloDoceNiveles = historial.some((m) => /12 Niveles/i.test(m.content));
-    if (!vieneDelSimulador && _aceptaSola && _ofrecioTablaNiveles && _hiloDoceNiveles) {
+    if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioTablaNiveles && _hiloDoceNiveles) {
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: frag } = await (supabase as any)

@@ -3777,22 +3777,19 @@ function extraerEjemploDictado(pin: string): string | null {
   const cuerpo = pin.slice(iCabecera, iStop).trim();
   if (cuerpo.length < 80) return null;
 
-  // La pregunta de cierre del ejemplo de RENTA apunta al simulador, porque el
-  // webhook le pega la tarjeta del Flow justo debajo (Director, 20 ago 2026):
-  // pregunta y tarjeta son el mismo paso, y el "sí" lo atiende el webhook.
+  // AMBOS ejemplos —renta y GEN5— cierran ofreciendo la estrategia (Director,
+  // 3 sep 2026). El camino usual es cómo funciona → ingresos recurrentes, y
+  // ese nodo lo toca todo el mundo: es donde la estrategia debe estar, no
+  // enterrada tras el GEN5 (que solo toca quien pregunta por paquetes). Con la
+  // estrategia aquí, la avenida por defecto desemboca en los 12 Niveles —
+  // «comprender primero, elegir paquete después»— en vez de dispersarse en el
+  // simulador (fue el recorrido de Edilberto: ocho turnos sin verla).
   //
-  // El ejemplo GEN5 cierra distinto (Director, 2 sep 2026): ese es EL MOMENTO
-  // de los 12 Niveles. El camino usual es cómo funciona → renta → GEN5, y para
-  // cuando alguien vio los paquetes ya tiene el marco gente → consumo →
-  // comisión: la estrategia llega como el método para construir lo que acaba
-  // de entender, no como el anzuelo de la apertura (que se descartó — silueta
-  // ante Meta y caballo de Troya). La tarjeta del simulador GEN5 sigue viajando
-  // pegada, así que la persona conserva las dos salidas. El "sí" a esta oferta
-  // lo dicta el webhook: NIVELES_01 tal cual.
-  const esGen5 = /GEN5/i.test(pin);
-  const cierre = esGen5
-    ? '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?'
-    : '¿Quiere armar su propio escenario en el simulador?';
+  // El «sí» a esta oferta lo dicta el webhook: NIVELES_01 tal cual, con su
+  // simulador de niveles. ⚠️ El 17% del ejemplo de renta se conserva (decisión
+  // del Director, 3 sep): el puente «esta estrategia corre con el Kit, al 10%»
+  // de NIVELES_01 suaviza el salto de tarifa al entrar.
+  const cierre = '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
   return `${cuerpo}\n\n${cierre}`;
 }
 

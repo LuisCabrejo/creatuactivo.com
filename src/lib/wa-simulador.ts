@@ -140,25 +140,15 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
 
   const monto = clientes * t.pct * COP_POR_CLIENTE_PUNTO_Y_CAJA * cajas;
   const esKit = /kit/i.test(t.nombre);
+  // TODOS los escenarios de renta cierran ofreciendo la estrategia (Director,
+  // 3 sep 2026): recurrentes → estrategia es la avenida por defecto, y los
+  // paquetes/GEN5 pasan a ser solo pull. El puente renta→GEN5 que vivía aquí
+  // —«¿le muestro lo de los paquetes empresariales?»— era el último empujón a
+  // GEN5 sin que nadie lo pidiera; se retiró. El GEN5 sigue respondiéndose a
+  // quien pregunte por él.
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
-    : opciones.composicionYaOfrecida
-    ? '¿Con cuál de los tres paquetes se identifica más?'
-    // Quien simula con la tarifa del Kit es el perfil exacto de Los 12 Niveles
-    // (Director, 2 sep 2026). Antes ofrecía «los tres paquetes» — el empujón
-    // hacia arriba que la doctrina del hilo retiró.
-    : esKit
-      ? '¿Le muestro la estrategia de los 12 Niveles, que corre justo con esta tarifa?'
-      // 23 ago (Director): tras la renta, la pregunta lleva a la OTRA forma de ganar —
-      // la de los paquetes— porque sin ese contexto la persona no la pregunta, y es la
-      // que le muestra que puede ganar desde el comienzo. La oferta nombra «ejemplo»
-      // y «paquetes» a propósito: así el «sí» dispara el ejemplo GEN5 dictado.
-      // Abre con lo que acaba de ver y cierra con lo nuevo; la categoría («la otra
-      // forma de ganar») y su aposición apilaban dos ideas (Director, 29 ago 2026).
-      // «Le muestro un ejemplo» + «paquetes» son las dos llaves que el motor lee en
-      // la oferta para que el «sí» dispare el ejemplo GEN5 dictado (_ofrecioEjemplo,
-      // _nombraGen5 en route.ts) — sin ellas, el «sí» repite el de renta.
-      : 'Eso es lo que le deja el consumo de sus clientes. ¿Le muestro un ejemplo de lo que le deja la compra de paquetes empresariales en su canal?';
+    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 

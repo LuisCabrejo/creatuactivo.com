@@ -3786,9 +3786,11 @@ function extraerEjemploDictado(pin: string): string | null {
   // simulador (fue el recorrido de Edilberto: ocho turnos sin verla).
   //
   // El «sí» a esta oferta lo dicta el webhook: NIVELES_01 tal cual, con su
-  // simulador de niveles. ⚠️ El 17% del ejemplo de renta se conserva (decisión
-  // del Director, 3 sep): el puente «esta estrategia corre con el Kit, al 10%»
-  // de NIVELES_01 suaviza el salto de tarifa al entrar.
+  // simulador de niveles. ⚠️ El ejemplo de renta corre al 10% (Director, 3 sep
+  // 2026): es la tasa base real de Gano Excel —donde arranca todo distribuidor—
+  // y la misma de la estrategia, así que la avenida entera fluye a UNA tarifa,
+  // sin el salto 17%→10% ni el puente-parche que lo explicaba. Ciencia:
+  // processing fluency + anclaje correcto (ver FLUIDEZ_DEL_FLUJO_12NIVELES).
   const cierre = '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
   return `${cuerpo}\n\n${cierre}`;
 }
@@ -5697,12 +5699,12 @@ Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ga
 Para liquidarle, su canal se ordena en *dos centros de negocio*, y ahí está la palanca: el sistema suma sus clientes y los de sus distribuidores. Diez distribuidores con diez clientes cada uno ya le ponen cien.
 
 *10 clientes en cada centro*
-≈ ${r('$428.000 COP', '$95 USD')} al mes
+≈ ${r('$252.000 COP', '$56 USD')} al mes
 
 *100 clientes en cada centro*
-≈ ${r('$4.300.000 COP', '$952 USD')} al mes
+≈ ${r('$2.520.000 COP', '$560 USD')} al mes
 
-Calculado al *17%*, la tarifa que da el paquete Visionario. Y no espera a fin de mes: se liquida por ciclos semanales y le entra *cada viernes*.
+Y no espera a fin de mes: se liquida por ciclos semanales y le entra *cada viernes*.
 
 STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin pregunta doble al final.`;
       }

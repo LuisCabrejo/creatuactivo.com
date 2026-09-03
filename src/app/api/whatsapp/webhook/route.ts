@@ -1406,6 +1406,8 @@ async function procesarEntrante(body: any): Promise<void> {
       const opciones = {
         composicionYaOfrecida: historial.some((m) =>
           m.role === 'assistant' && /qu[eé] (productos )?trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
+        // La estrategia ya se mostró: el simulador de renta no la vuelve a ofrecer.
+        estrategiaYaVista: historial.some((m) => m.role === 'assistant' && /12 Niveles/i.test(m.content)),
         // Ya radicó: el cierre vuelve sobre SU paquete, no sobre la elección
         // (Liliana, 27 ago 2026: eligió ESP-1 y el simulador le preguntó con cuál).
         radicado: radicacionPrevia

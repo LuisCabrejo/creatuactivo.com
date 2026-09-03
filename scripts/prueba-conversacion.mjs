@@ -58,7 +58,7 @@ Le explico cómo se construye un *canal de distribución* en paralelo a su activ
  */
 const TURNOS_1 = [
   { texto: 'Cómo funciona' },
-  { texto: 'si' },                                              // acepta "¿quiere ver cómo se gana?"
+  { texto: 'si' },                                              // acepta la estrategia de los 12 Niveles (NIVELES_01)
   { texto: 'Acabo de usar el simulador de renta: tarifa ESP-2 Empresarial — 16%, con 25 clientes en cada centro de negocio.', via: 'simulador' },
   { texto: 'esto es una piramide?' },
   { texto: 'es que yo trabajo en un banco, esto me sirve a mi?' },
@@ -147,8 +147,11 @@ async function responder(turno) {
     const rRenta = turno.texto.match(/tarifa (.+?), con (\d+) clientes/);
     const rGen = turno.texto.match(/paquete (ESP-\d), con (\d+) paquetes/);
     // mismo flag que computa el webhook
-    const opciones = { composicionYaOfrecida: historial.some((m) =>
-      m.role === 'assistant' && /qu[eé] trae el paquete|le activa inmediatamente este inventario/i.test(m.content)) };
+    const opciones = {
+      composicionYaOfrecida: historial.some((m) =>
+        m.role === 'assistant' && /qu[eé] (productos )?trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
+      estrategiaYaVista: historial.some((m) => m.role === 'assistant' && /12 Niveles/i.test(m.content)),
+    };
     const texto = rRenta
       ? respuestaRenta({ tipo: 'renta', tarifa: rRenta[1], clientes: rRenta[2] }, opciones)
       : respuestaGen5({ paquete: rGen[1], cantidad: rGen[2] }, opciones);

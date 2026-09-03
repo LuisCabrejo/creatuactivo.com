@@ -103,6 +103,11 @@ export interface OpcionesCierre {
    *  volver a ofrecer "¿qué trae el paquete?" repite una pregunta ya atendida
    *  (prueba conversacional, 20 ago 2026). El cierre pasa a pedir la elección. */
   composicionYaOfrecida?: boolean
+  /** La estrategia de los 12 Niveles ya está en el hilo (NIVELES_01 dictado o
+   *  compuesto). El simulador de renta cierra ofreciéndola; si ya la vio, la
+   *  misma pregunta dos veces se lee como que no leímos (prueba conversacional,
+   *  3 sep 2026). El cierre sigue al paso siguiente: el bono por paquetes. */
+  estrategiaYaVista?: boolean
   /** La persona YA radicó su vinculación en esta conversación. Preguntarle con
    *  cuál paquete arranca dos minutos después de que eligió uno se lee como que
    *  no leímos (Liliana, 27 ago 2026). El cierre vuelve sobre SU paquete. */
@@ -148,6 +153,8 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
   // quien pregunte por él.
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
+    : opciones.estrategiaYaVista
+    ? '¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?'
     : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.

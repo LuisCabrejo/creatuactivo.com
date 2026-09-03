@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.17 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.18 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.18 (3 sep 2026):** **«Entrar» sale de NIVELES_01 🔒**: *entra a cobrar* → *empieza a cobrar*. El verbo está vetado cuando nombra comprar el paquete o iniciar: a una cadena se entra, un inventario se compra (Director). Sin más cambios.
 
 **v6.17 (3 sep 2026):** **El apalancamiento se pliega dentro de NIVELES_01, y cada nodo ofrece UNA sola cosa** (Director, auditoría con Gemini). Entre «cómo funciona» y la estrategia había un mensaje de puro concepto con una pregunta en medio: ahora la duda del «yo solo» y el mecanismo —lo que compran sus clientes, sus distribuidores y los clientes de cada uno— abren la respuesta de la estrategia, que es donde le dan causa al 2×2. Cuatro criterios: **no se califica el tamaño** (*grande* fija el techo justo donde hay que abrir la mente; el nivel 12 se nombra como base), **la parte del socio se dice explícita** (*empieza con esos dos*: el obstáculo no es imaginar el canal, es imaginarse consiguiendo a todos), **el Kit lleva su razón** (la entrada más baja, para que nadie se frene) y **una oferta por turno**: el texto ya no sale acompañado de la tarjeta del simulador; la pregunta de seguimiento ofrece el simulador, el «sí» manda la tarjeta, y la tabla en texto (NIVELES_02) queda de respaldo. **Las formas de ganar no se numeran**: hay doce, y las dos que se muestran al inicio se nombran por su mecanismo —el ingreso recurrente y las ganancias por la compra de paquetes empresariales—, nunca como primera y segunda.
 
@@ -60,7 +62,7 @@ La primera duda que suele surgir es si le toca conseguir cientos de clientes ust
 
 Los 12 Niveles es nuestra estrategia para construirlo paso a paso. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y así se multiplica el canal. Su parte empieza con esos dos.
 
-La entrada es el Kit de Inicio ([PRECIO_KIT]), la más baja de todas para que nadie se frene: usted recibe cuatro cajas de producto, abre su código y entra a cobrar el 10% sobre las compras que facture ese canal.
+La entrada es el Kit de Inicio ([PRECIO_KIT]), la más baja de todas para que nadie se frene: usted recibe cuatro cajas de producto, abre su código y empieza a cobrar el 10% sobre las compras que facture ese canal.
 
 Al nivel 12, su canal llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los **$103 millones COP**: exactamente el 10% del volumen que factura un canal de ese tamaño. Y ese nivel es la base, no el techo.
 </verbatim_lock>

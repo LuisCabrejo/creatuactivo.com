@@ -168,7 +168,7 @@ Su día a día se resume en dos acciones:
 
 Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.
 
-Y quien entra con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
+Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
 
 ¿Le muestro los productos que mueven todo esto?`;
 

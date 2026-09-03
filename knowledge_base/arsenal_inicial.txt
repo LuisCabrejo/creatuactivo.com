@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.26** (3 sep 2026) — **`WHY_02` 🔒 cierra hacia la estrategia y toma cuatro giros de la auditoría con Gemini.** El párrafo de la recompra abre con su tesis, el despacho termina en la casa del cliente, y «desde el celular» acompaña a las dos acciones. La pregunta de seguimiento pasa del dinero —que ya quedó dicho— a los 12 Niveles, nombrados para que el webhook dicte NIVELES_01 ante el «sí». Detalle en el CHANGELOG.
+**Versión actual: v6.27** (3 sep 2026) — **«Entrar» sale de `EAM_01` 🔒**: *quien entra con usted* → *quien inicia con usted*. Es el verbo de la pirámide cuando nombra comprar el paquete o iniciar (Director, 3 sep 2026); sincronizado con `respuestas-maestras.ts`. Detalle en el CHANGELOG.
+
+**v6.26** (3 sep 2026) — **`WHY_02` 🔒 cierra hacia la estrategia y toma cuatro giros de la auditoría con Gemini.** El párrafo de la recompra abre con su tesis, el despacho termina en la casa del cliente, y «desde el celular» acompaña a las dos acciones. La pregunta de seguimiento pasa del dinero —que ya quedó dicho— a los 12 Niveles, nombrados para que el webhook dicte NIVELES_01 ante el «sí». Detalle en el CHANGELOG.
 
 **v6.25** (31 ago 2026) — **`DIASPORA_01` 🔒: los 16 se dicen con el continente.** En la prueba del canal el modelo parafraseó *«los 16 donde Gano Excel tiene operación»* como *«los 16 países donde opera Gano Excel»* — y minutos antes había dicho *más de 60 países*: contradicción servida. El candado ancla *los 16 **países de América*** en su primera mención. Detalle en el CHANGELOG.
 
@@ -902,7 +904,7 @@ Su día a día se resume en dos acciones:
 
 Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.
 
-Y quien entra con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
+Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro los productos que mueven todo esto?

@@ -326,6 +326,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.18 — «Entrar» sale de NIVELES_01 (3 sep 2026)
+
+*Abre su código y entra a cobrar el 10%* → *empieza a cobrar el 10%*. Sin más cambios.
+
 ### v6.17 — El apalancamiento se pliega en NIVELES_01; una oferta por turno; las formas de ganar no se numeran (3 sep 2026)
 
 Auditoría de la narrativa del canal con el Director. Tres decisiones:
@@ -355,6 +359,10 @@ Auditoría general con el Director tras la prueba del canal. Las decisiones del 
 Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
+
+### v6.27 — «Entrar» sale de EAM_01 (3 sep 2026)
+
+*Quien entra con usted* → *quien inicia con usted*, en el candado y en `respuestas-maestras.ts` (contrato de prefijo verificado). Regla del Director: «entrar» está vetado cuando nombra comprar el paquete o iniciar el proyecto, porque es el verbo de la pirámide. ⏳ La misma frase vive en cuatro páginas web (`page.tsx`, `fundadores`, `prueba`, `planes`), fuera de este barrido.
 
 ### v6.26 — WHY_02 cierra hacia la estrategia; cuatro giros de la auditoría con Gemini (3 sep 2026)
 
@@ -1536,6 +1544,10 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 ---
 
 ## arsenal_avanzado
+
+### v14.1 — «Entrar» sale de ADV_VAL_03 (3 sep 2026)
+
+*Si entra en el nivel inicial (ESP-1) … si entra en el nivel Visionario (ESP-3)* → *si compra el ESP-1 Inicial … si compra el ESP-3 Visionario*. Cifras y porcentajes intactos.
 
 ### v14.0 — Auditoría completa de los 16 (26 ago 2026)
 

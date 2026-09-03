@@ -6,7 +6,9 @@
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (2) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + METH (1) = 16 respuestas.
 **Versión:** 13.5 (25 ago 2026) — **Los 16 fragmentos ganan su `[Índice]`.** Es lo único que se vectoriza; el cuerpo se sirve y el `[Concepto Nuclear]` se queda en este archivo, recortado por el fragmentador. Sin índice, este arsenal competía con su cuerpo largo contra los índices cortos de `arsenal_inicial` y perdía consultas que le pertenecían — *«¿yo tengo que enseñarles?»* se iba a la respuesta de capacitación, que además lleva candado y se sirve sola. Detalle en el CHANGELOG.
-**Versión actual: v14.0** (26 ago 2026) — **Auditoría completa de los 16.** Dos títulos rotos por el fragmentador, un cuerpo que nunca alcanzó a su cabecera, la silueta de pirámide de la visión a 5 años y un viaje internacional prometido sin su condición. Detalle en el CHANGELOG.
+**Versión actual: v14.1** (3 sep 2026) — **«Entrar» sale de `ADV_VAL_03`**: *si entra en el nivel inicial / Visionario* → *si compra el ESP-1 Inicial / el ESP-3 Visionario*. El verbo está vetado cuando nombra comprar el paquete (Director). Cifras intactas.
+
+**v14.0** (26 ago 2026) — **Auditoría completa de los 16.** Dos títulos rotos por el fragmentador, un cuerpo que nunca alcanzó a su cabecera, la silueta de pirámide de la visión a 5 años y un viaje internacional prometido sin su condición. Detalle en el CHANGELOG.
 
 ---
 
@@ -124,7 +126,7 @@ Y las comisiones las paga directamente Gano Excel, no CreaTuActivo. Gano fabrica
 
 Elegir el nivel ESP-3 es pura cuenta.
 
-Por el mismo volumen de consumo, la empresa paga distinto según su nivel de arranque. Si entra en el nivel inicial (ESP-1), su ganancia puede ser de hasta el 15% del volumen comisionable (GCV). Si entra en el nivel Visionario (ESP-3), asegura el margen máximo —hasta el **17%** del volumen comisionable (GCV)— desde su primer mes.
+Por el mismo volumen de consumo, la empresa paga distinto según su nivel de arranque. Si compra el ESP-1 Inicial, su ganancia puede ser de hasta el 15% del volumen comisionable (GCV). Si compra el ESP-3 Visionario, asegura el margen máximo —hasta el **17%** del volumen comisionable (GCV)— desde su primer mes.
 
 Arrancar en un nivel más bajo significa hacer exactamente el mismo trabajo con un porcentaje menor: por cada compra que pasa por su canal, la diferencia se queda sin cobrar.
 

@@ -1658,6 +1658,14 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.10 — Nace RUTINA_01 (cómo se toman a lo largo de un día); las respuestas de bienestar cierran hacia él (3 sep 2026)
+
+Auditoría de la prueba del Director. `CIENCIA_03`, `FAQ_01` y `FAQ_02` cerraban con *«¿Le muestro cómo se integra en el día a día?»*: sin fragmento destino, y con «día a día» como patrón del clasificador hacia `EAM_01`. En la prueba el «sí» recibió Compartir y Recibir como contexto y el modelo compuso: «en lugar del café de siempre» (marco de consumo diario retirado), «no lo compran a un tercero» (fantasma negado), «ese hábito mensual», una afirmación de cultivo propio que ningún fragmento respalda, y un producto inexistente (*Ganocelium*).
+
+**Qué espera la persona al aceptar esa oferta** (investigación breve, base conductual): no más beneficios, que ya recibió, sino **verse un día**: en qué momentos, qué producto, cómo se prepara, cuántos al día, para quién de la casa. Intenciones de implementación (Gollwitzer): «cuando pase X, hago Y» multiplica el seguimiento frente a la intención abstracta; anclar el producto a un momento que ya existe (Fogg) es lo que lo vuelve rutina; un día que se puede imaginar se juzga fácil. Por eso `RUTINA_01` es un horario —mañana, almuerzo, noche— con hechos de las fichas y cero beneficios, y la oferta nueva —*¿Le muestro cómo se toman a lo largo de un día?*— va literal y aparte en su índice. Cierra hacia el catálogo con precios, que tiene candado.
+
+**`CIENCIA_03` reescrito** (aprobado por el Director): nombra las cuatro líneas para que nadie salga pensando que esto es café —lo único que se tomó del borrador de Gemini—; se descartaron de ese borrador «operan» (palabra retirada), «sin tener que sugestionarse» (mete el placebo), «reemplaza sus productos diarios» y «un hábito que ya tiene» (marco de consumo diario), «la digestión es ligera» (declaración de órgano) y «lo mejor es que no tiene que obligarse» (fantasma negado). Sale «la diferencia entre un empujón y un hábito». Sin cambios de precios.
+
 ### v8.0 — Cierra la auditoría del catálogo: instrucciones internas que se le servían al modelo (26 ago 2026)
 
 Cuarta y última fase. Aquí apareció un defecto **estructural**, no de copy, y explica por qué el archivo se degradaba solo.

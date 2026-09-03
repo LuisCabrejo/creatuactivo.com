@@ -3804,7 +3804,7 @@ function extraerEjemploDictado(pin: string): string | null {
   //   composición del paquete, que es lo que sigue al escenario armado.
   const esGen5 = pin.includes('EJEMPLO GEN5');
   const cierre = esGen5
-    ? '¿Quiere armar su propio escenario en el simulador, con el paquete y las compras que elija?'
+    ? '¿Quiere armar su propio escenario en el simulador?'
     : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
   return `${cuerpo}\n\n${cierre}`;
 }

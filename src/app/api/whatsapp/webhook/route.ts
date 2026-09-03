@@ -118,26 +118,42 @@ const RESPUESTA_CORRECTIVA =
 const RESPUESTA_CORRECTIVA_BIS =
   'Mejor se lo muestro con lo que está escrito, para no confundirle con un resumen mío.\n\n¿Le explico cómo se gana?';
 
-// EL BONO POR PAQUETES — las ganancias por la compra de paquetes empresariales
-// (Director, 3 sep 2026). Va DESPUÉS de la estrategia: primero comprende el
-// ingreso recurrente, y solo entonces ve el bono por paquetes. Poner el paquete
-// grande antes produce procrastinación; ponerlo después, cuando ya sabe que
-// puede iniciar, lo vuelve una cereza. La pista vive en «según el paquete»: el
-// «sí» lleva al ejemplo, donde el ESP-3 da el más grande, y la persona saca sola
-// la conclusión (autopersuasión, sin reactancia). Meta: es una COMPRA de
-// paquete, no reclutamiento; mecanismo, no promesa de retorno con plazo.
-// ⚠️ NO se numeran las formas de ganar (Director, 3 sep 2026, auditoría con
-// Gemini): hay doce, y las dos que se muestran al inicio se nombran por su
-// mecanismo, nunca como «primera» y «segunda». Reescrito también sin «red»
-// (dos veces desnuda, una con negación) y sin «la manera más inteligente».
-// ⚠️ LA CLÁUSULA DEL KIT es del Director: el Kit no tiene GEN5, y quien entró
-// al hilo por el Kit leería «usted recibe un bono» y lo esperaría. Se dice
-// «si usted entra con un paquete empresarial» — una expectativa que después
-// toca bajar es la falla que más cuesta.
-const GEN5_BONO_PAQUETES =
-  'El ingreso recurrente es el que sostiene el canal: le entra mientras haya consumo, y crece con él.\n\n' +
-  'Además, si usted entra con un paquete empresarial, recibe un bono directo cada vez que se compra uno en su canal, desde el primero que se compra.\n\n' +
-  '¿Le muestro cuánto es ese bono según el paquete?';
+// LAS GANANCIAS POR LA COMPRA DE PAQUETES EMPRESARIALES (Director, 3 sep 2026,
+// auditoría de la prueba). Va DESPUÉS de la estrategia y del ingreso recurrente.
+// Dos cosas que el Director corrigió sobre la versión anterior:
+//   • El texto de concepto («hay un bono directo…») SOBRABA, y el ejemplo por
+//     generaciones cargaba demasiado a quien no sabe qué es una generación —
+//     él mismo tenía que leerlo despacio. Lo importante es que la persona VEA
+//     que hay una ganancia por paquetes: los tres paquetes con su inventario y
+//     su precio (no sabía cuáles eran), UNA cifra visible —el Visionario en la
+//     primera generación, que es exactamente lo que dice el menú del simulador
+//     que llega a continuación— y la orden de jugar con los números.
+//   • ⛔ «ENTRAR» ESTÁ VETADO cuando nombra comprar el paquete o iniciar: es el
+//     verbo de la pirámide (se «entra» a una cadena; se «compra» un inventario).
+//     «Si usted entra con un paquete» → «si usted compra uno de ellos como su
+//     inversión inicial, califica para cobrar el bono». «Le entra», dicho del
+//     dinero, sí vale.
+// El cierre NO es pregunta sino ORDEN («Juegue con los números…»), y por eso la
+// tarjeta del simulador sale pegada en el mismo turno: orden + tarjeta son UNA
+// sola oferta. Si la persona igual contesta «sí», el reenvío del Flow la atiende.
+// ⚠️ Las formas de ganar no se numeran: hay doce; esta se nombra por su
+// mecanismo, nunca «segunda».
+function textoBonoPaquetes(pais: 'CO' | 'US' | 'XX'): string {
+  const precio = (usd: string, cop: string) => (pais === 'CO' ? cop : pais === 'US' ? usd : `${usd} (${cop})`);
+  return [
+    'Hay tres paquetes empresariales, cada uno con su inventario de productos:',
+    '',
+    `• *ESP-1 Inicial*: 7 productos · ${precio('$200 USD', '$900.000 COP')}`,
+    `• *ESP-2 Empresarial*: 18 productos · ${precio('$500 USD', '$2.250.000 COP')}`,
+    `• *ESP-3 Visionario*: 35 productos · ${precio('$1.000 USD', '$4.500.000 COP')}`,
+    '',
+    `Si usted compra uno de ellos como su inversión inicial, califica para cobrar el bono por la compra de paquetes empresariales en su canal. Por ejemplo: por cada Visionario que se compre en su primera generación, ${precio('$150 USD', '$675.000 COP')}; y el bono sigue en las cuatro generaciones siguientes.`,
+    '',
+    'Esa comisión le entra a medida que se compran los paquetes.',
+    '',
+    'Juegue con los números y arme el escenario que prefiera.',
+  ].join('\n');
+}
 
 /** La correctiva que toca: la segunda si la anterior ya fue una correctiva. */
 function correctivaSegunHilo(historial: Array<{ role: string; content: string }>): string {
@@ -1184,7 +1200,11 @@ async function procesarEntrante(body: any): Promise<void> {
       // «sí» caía al motor, que el 31 ago inventó un enlace que no existe
       // (creatuactivo.com/s/…). La aceptación busca la oferta en los últimos
       // turnos; la negativa solo aplica si la oferta fue el turno anterior.
-      } else if (RE_PIDIO_NOMBRE_PAREJA.test(_ultimoBotPareja)) {
+      // ⚠️ Si la respuesta al nombre trae VOLICIÓN («me interesa iniciar…, vivo
+      // en Cali»), no es una respuesta al nombre: es una intención nueva, y el
+      // nodo se aparta para que llegue a la radicación (prueba del Director,
+      // 3 sep 2026: el enlace de la pareja se tragó el «me interesa iniciar»).
+      } else if (RE_PIDIO_NOMBRE_PAREJA.test(_ultimoBotPareja) && !RE_VOLICION.test(messageText)) {
         // El turno del NOMBRE DE LA PAREJA (Director, 31 ago 2026): se guarda
         // en la ficha (device_info.pareja_nombre) y la ruta /s/ lo pone en el
         // texto del enlace — ella llega diciendo su nombre y se la recibe con
@@ -1537,9 +1557,17 @@ async function procesarEntrante(body: any): Promise<void> {
     // GEN5 (Director, 3 sep 2026), que a su vez cierra ofreciendo el bono por
     // paquete. Va después de la estrategia, nunca antes.
     if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioSegundaForma) {
-      await sendWhatsAppMessage(phoneNumber, GEN5_BONO_PAQUETES, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, GEN5_BONO_PAQUETES);
-      console.log(`💰 [WA Webhook] Segundo botín (GEN5) dictado a ${phoneNumber}`);
+      const _paisBono = phoneNumber.startsWith('57') ? 'CO' : phoneNumber.startsWith('1') ? 'US' : 'XX';
+      const textoBono = textoBonoPaquetes(_paisBono);
+      await sendWhatsAppMessage(phoneNumber, textoBono, { wamid });
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, textoBono);
+      // La orden («Juegue con los números…») y la tarjeta son UNA oferta: van juntas.
+      if (flowSimuladorId) {
+        await sendFlow(phoneNumber, flowSimuladorId,
+          'Elija el paquete y cuántos se compran por generación, y el resultado sale al instante.',
+          'Abrir el simulador', { screen: 'GEN_MENU' });
+      }
+      console.log(`💰 [WA Webhook] Ganancias por paquetes dictadas a ${phoneNumber} (con simulador)`);
       return;
     }
 
@@ -1601,7 +1629,7 @@ async function procesarEntrante(body: any): Promise<void> {
       // renta, la renta. Solo sin pista abre en el menú.
       const _pantalla = /tarifa del Kit/i.test(_ultimoBotW) ? 'RENTA_DIEZ'
         : /12 Niveles|nivel por nivel|distribuidores consumiendo/i.test(_ultimoBotW) ? 'NIVELES'
-        : /Generaci[oó]n 1|paquetes? ESP-[123]\*? comprados?|Bono GEN5/i.test(_ultimoBotW) ? 'GEN_MENU'
+        : /Generaci[oó]n 1|primera generaci[oó]n|paquetes empresariales|paquetes? ESP-[123]\*? comprados?|Bono GEN5/i.test(_ultimoBotW) ? 'GEN_MENU'
         : /renta estar[ií]a|clientes en cada centro|supuesto modesto/i.test(_ultimoBotW) ? 'RENTA_MENU'
         : 'INICIO';
       // Si llega por el «sí» a una oferta («¿Quiere verlo en el simulador…?»),

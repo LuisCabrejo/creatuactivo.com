@@ -757,7 +757,14 @@ export async function gestionarCierre(params: {
     // El bloque de los cuatro solo se entrega la primera vez, en el turno donde
     // la persona declara que arranca. De ahí en adelante, uno por uno.
     // En el hilo de Los 12 Niveles el cuarto dato nombra el Kit (ver ETIQUETA_PAQUETE_KIT).
-    const enKit = historial.some((m) => m.role === 'assistant' && /12 Niveles/i.test(m.content));
+    // ⚠️ Se lee en CUALQUIER rol y con dos marcas (prueba del Director, 3 sep
+    // 2026): el historial son los últimos 12 turnos, y para cuando la persona
+    // dijo «me interesa iniciar para el programa de 12 niveles» las dos
+    // respuestas del bot que decían «12 Niveles» ya habían salido de la ventana
+    // — pero su propio mensaje lo decía, y el del simulador («Acabo de usar el
+    // simulador de Los 12 Niveles») también; y el texto tras el Flow dice
+    // «duplicación 2×2». Con el detector viejo pidió «cuál de los tres paquetes».
+    const enKit = historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content)) || /12 niveles/i.test(mensajeActual);
     if (!botPidio) return { texto: pedirDatos(datos, socio, enKit), radicado: false };
 
     // Una duda a mitad del trámite se responde; el cierre no la atropella. Se

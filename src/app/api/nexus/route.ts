@@ -3791,7 +3791,17 @@ function extraerEjemploDictado(pin: string): string | null {
   // y la misma de la estrategia, así que la avenida entera fluye a UNA tarifa,
   // sin el salto 17%→10% ni el puente-parche que lo explicaba. Ciencia:
   // processing fluency + anclaje correcto (ver FLUIDEZ_DEL_FLUJO_12NIVELES).
-  const cierre = '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
+  //
+  // Dos cierres distintos según la pieza (Director, 3 sep 2026):
+  // • APALANCAMIENTO (avenida por defecto) → ofrece la estrategia, que es el
+  //   destino central; el «sí» lo dicta el webhook (NIVELES_01).
+  // • EJEMPLO GEN5 (segundo botín, llega DESPUÉS de la estrategia) → ofrece la
+  //   vinculación: quien ya vio la estrategia y el bono por paquete solo tiene
+  //   por delante inscribirse. El «sí» cae en el nodo 2.36 → los cuatro datos.
+  const esGen5 = pin.includes('EJEMPLO GEN5');
+  const cierre = esGen5
+    ? '¿Le muestro cómo se vincula a la estrategia?'
+    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
   return `${cuerpo}\n\n${cierre}`;
 }
 
@@ -5642,7 +5652,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // esta guarda salía antes de llegar a _aceptaEjemplo, declarado 60 líneas
       // más abajo. El modelo, sin pin, respondió pidiendo el paquete — rompiendo
       // la regla del prompt: al "sí" se entrega lo ofrecido, no otra pregunta.
-      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n|cu[aá]nto genera cada paquete|quiere ver c[oó]mo se gana|bola de nieve en n[uú]meros/i.test(_ultimoBotMsg);
+      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n|cu[aá]nto genera cada paquete|quiere ver c[oó]mo se gana|bola de nieve en n[uú]meros|cu[aá]nto es (ese|el) bono/i.test(_ultimoBotMsg);
       // (?![a-záéíóúñ]) y no \b: en JS la í no es carácter de palabra, así que
       // "sí" CON tilde —como lo escribe el teclado del teléfono— nunca cerraba
       // el \b y la aceptación solo funcionaba escrita "Si" a secas.
@@ -5689,24 +5699,24 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
         || ((_aceptaEjemplo || _pideEjemplo) && !_nombraGen5 && _ofrecioRenta)
         || (_aceptaEjemplo && !_nombraGen5);
       if (tenantId === 'whatsapp' && esRenta) {
-        const esCO2 = visitorCountry === 'CO';
-        const r = (cop: string, usd: string) => (esCO2 ? cop : usd);
+        // EL APALANCAMIENTO reemplaza el ejemplo de clientes propios (Director,
+        // 3 sep 2026). El ejemplo de 10/100 clientes al 10% anclaba en una cifra
+        // modesta y reforzaba «una red de miles es trabajo personal» —la objeción
+        // que la estrategia debe DESARMAR—. Aquí se explica el mecanismo real: la
+        // ganancia crece porque cada distribuidor construye su propia red de
+        // CONSUMO (no reclutamiento), y el ingreso es un % de ese volumen. Sin
+        // cifra —el número vive en la estrategia—; marco de consumo; no «crece
+        // solo». Es el texto que MÁS se duplica: el prospecto lo repite al
+        // explicar el negocio. Cierra ofreciendo la estrategia; el «sí» dicta
+        // NIVELES_01 (webhook). Fundamento → FLUIDEZ_DEL_FLUJO_12NIVELES.
         return `
-📌 EJEMPLO RENTA (BINARIO) DICTADO — imprime este texto EXACTAMENTE, sin tablas, sin diagramas y sin agregar escenarios. Es el único ejemplo de renta que se entrega por este canal:
+📌 APALANCAMIENTO DICTADO — imprime este texto EXACTAMENTE, sin cifras, sin tablas, sin agregar escenarios:
 
-Le pongo el ejemplo con un supuesto modesto: cada cliente compra *una caja de Ganocafé a la semana*, que son cuatro al mes.
+Quizás piense que para que esto valga la pena tiene que conseguir cientos de clientes usted mismo. Ahí está la buena noticia: no es así.
 
-Para liquidarle, su canal se ordena en *dos centros de negocio*, y ahí está la palanca: el sistema suma sus clientes y los de sus distribuidores. Diez distribuidores con diez clientes cada uno ya le ponen cien.
+Cada distribuidor de su canal atiende a sus propios clientes, que consumen mes a mes, y usted gana un porcentaje de todo ese volumen. Una red grande no es la que usted armó cliente por cliente — es la suma de muchos, cada uno construyendo la suya al mismo tiempo. Ahí está la palanca: su ingreso crece con el volumen de toda su red, no solo con el que mueve usted.
 
-*10 clientes en cada centro*
-≈ ${r('$252.000 COP', '$56 USD')} al mes
-
-*100 clientes en cada centro*
-≈ ${r('$2.520.000 COP', '$560 USD')} al mes
-
-Y no espera a fin de mes: se liquida por ciclos semanales y le entra *cada viernes*.
-
-STOP. Sin fórmulas, sin CV, sin frente menor, sin escenarios adicionales. Sin pregunta doble al final.`;
+STOP. Sin cifras, sin CV, sin ejemplos de números, sin tablas. La pregunta de cierre la agrega el backend — no la escriba. Empieza DIRECTO con "Quizás piense".`;
       }
 
       // ── WhatsApp: un solo ejemplo, dictado ────────────────────────────────

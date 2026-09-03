@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.15 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.16 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.16 (3 sep 2026):** **El apalancamiento reemplaza el ejemplo de clientes propios, y el GEN5 pasa a ser un SEGUNDO botín tras la estrategia** (Director). El ejemplo de recurrentes al 10% ($2.520.000 por 200 clientes) anclaba modesto y reforzaba «una red de miles es trabajo personal» —la objeción que la estrategia debe DESARMAR—. En su lugar, el **apalancamiento**: sin cifra, explica que la ganancia crece porque cada distribuidor construye su propia red de consumo y el ingreso es un % de todo ese volumen; cierra ofreciendo la estrategia. Y el **reorden del cierre**: la tabla NIVELES_02 (y el simulador de renta) ya no cierra ofreciendo la vinculación sino **«¿Le muestro la segunda forma de ganar en este negocio?»** → el «sí» dicta el GEN5 como bono directo por paquete (webhook 2.355), su «sí» dicta el ejemplo de cifras GEN5, y ese cierra con «¿cómo se vincula?». El GEN5 queda **después** de la estrategia, nunca antes, y solo lo ve quien recorre la avenida completa. El texto del apalancamiento es el que MÁS se duplica —el prospecto lo repite al explicar el negocio—. Fundamento → `FLUIDEZ_DEL_FLUJO_12NIVELES_SEP2026.md`.
 
 **v6.15 (3 sep 2026):** **El ejemplo de recurrentes pasa al 10% — una sola tarifa en toda la avenida.** Corría al 17% del Visionario ($428.000 / $4.3M) y luego la estrategia al 10% del Kit: dos tarifas, un salto, un número que se encogía a mitad de camino, y un puente-parche para explicarlo. Ahora el ejemplo corre al **10%** ($252.000 / $2.520.000), que es la tasa base real de Gano Excel —donde arranca todo distribuidor— y la misma de la estrategia; se retiró la coletilla «la tarifa con la que arranca todo distribuidor» (sobra: el desinterés en venderle el paquete grande es lo que da la confianza). Fundamento conductual (reactancia, anclaje, processing fluency, vacío de curiosidad) → `docs/investigaciones/resultados/FLUIDEZ_DEL_FLUJO_12NIVELES_SEP2026.md`. Los paquetes empresariales quedan solo por pull; el upgrade lo maneja el Director en el 1-a-1.
 
@@ -94,7 +96,7 @@ Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir
 **⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
 </verbatim_lock>
 
-**Pregunta de seguimiento:** ¿Le muestro cómo se vincula a la estrategia?
+**Pregunta de seguimiento:** ¿Le muestro la segunda forma de ganar en este negocio?
 
 ---
 

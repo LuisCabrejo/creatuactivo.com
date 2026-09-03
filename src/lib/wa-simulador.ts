@@ -193,13 +193,13 @@ export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre =
   const fila = filaNivel(Number(e.nivel));
   if (!fila) return null;
 
-  // Quien llega aquí pasó por NIVELES_01, que ya dijo el precio del Kit — «¿con
-  // cuánto se empieza?» le repetía lo que acababa de leer («ya me lo dijiste»,
-  // Director, 1 sep 2026). El paso que sigue a la proyección es la vinculación
-  // (NIVELES_04: los cuatro datos).
+  // Quien llega aquí pasó por NIVELES_01. Tras la proyección de la renta se
+  // ofrece el SEGUNDO botín —el bono por paquete (GEN5)— y solo después la
+  // vinculación (Director, 3 sep 2026): mismo cierre que la tabla NIVELES_02,
+  // para que el «sí» caiga en el nodo 2.355 del webhook y no se salte el botín.
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
-    : '¿Le muestro cómo se vincula a la estrategia?';
+    : '¿Le muestro la segunda forma de ganar en este negocio?';
   const n = (x: number) => x.toLocaleString('es-CO');
 
   return `En el *nivel ${e.nivel}* su canal suma *${n(fila.total)} distribuidores consumiendo* —cada uno con sus cuatro cajas al mes—, que mueven *${n(fila.cvLado)} CV* de producto por lado cada mes. La Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.mensual)} al mes* — unos ${cop(fila.semanal)} por semana, liquidados por ciclos.

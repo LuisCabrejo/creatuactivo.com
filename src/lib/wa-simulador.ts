@@ -193,18 +193,28 @@ export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre =
   const fila = filaNivel(Number(e.nivel));
   if (!fila) return null;
 
-  // Quien llega aquí pasó por NIVELES_01. Tras la proyección de la renta se
-  // ofrece el SEGUNDO botín —el bono por paquete (GEN5)— y solo después la
-  // vinculación (Director, 3 sep 2026): mismo cierre que la tabla NIVELES_02,
-  // para que el «sí» caiga en el nodo 2.355 del webhook y no se salte el botín.
+  // Quien llega aquí pasó por NIVELES_01. Tras la proyección del ingreso
+  // recurrente se ofrecen las ganancias por la compra de paquetes empresariales
+  // y solo después la vinculación (Director, 3 sep 2026): mismo cierre que la
+  // tabla NIVELES_02, para que el «sí» caiga en el nodo 2.355 del webhook.
+  // ⚠️ Las formas de ganar NO se numeran: hay doce, y las dos del inicio se
+  // nombran por su mecanismo, nunca «primera» y «segunda».
+  //
+  // El mensaje AGREGA, no repite (auditoría con Gemini, 3 sep 2026): la pantalla
+  // ya mostró CV por lado y la cifra semanal, y volver a leerlos era lo primero
+  // que sonaba a bot. Se fija la cifra UNA vez —la tarjeta se sella al
+  // completarse y este texto es lo único que queda legible en el hilo—, sin CV
+  // ni emparejamiento (esa mecánica vive en NIVELES_02 para quien la pregunte),
+  // y se conserva «potencial matemático, el ritmo lo pone cada canal», que es el
+  // descargo de resultados no garantizados dicho con dignidad.
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
-    : '¿Le muestro la segunda forma de ganar en este negocio?';
+    : '¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?';
   const n = (x: number) => x.toLocaleString('es-CO');
 
-  return `En el *nivel ${e.nivel}* su canal suma *${n(fila.total)} distribuidores consumiendo* —cada uno con sus cuatro cajas al mes—, que mueven *${n(fila.cvLado)} CV* de producto por lado cada mes. La Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.mensual)} al mes* — unos ${cop(fila.semanal)} por semana, liquidados por ciclos.
+  return `Ese es el *nivel ${e.nivel}*: ${n(fila.total)} distribuidores consumiendo, y una regalía cercana a *${cop(fila.mensual)} al mes*, liquidada por ciclos semanales.
 
-Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático de la duplicación 2×2 — el ritmo lo pone cada canal.
+La cifra la produce el consumo: mientras el canal compre sus cajas cada mes, hay regalía. Es el potencial matemático de la duplicación 2×2, y el ritmo lo pone cada canal.
 
 ${cierre}`;
 }
@@ -223,11 +233,20 @@ export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): 
     ? cierreRadicado(opciones.radicado)
     : opciones.composicionYaOfrecida
     ? '¿Con cuál de los tres paquetes se identifica más?'
-    : `¿Le muestro qué trae el paquete ${corto(p.etiqueta)}, que es el inventario con el que arranca?`;
+    // «¿Le detallo exactamente qué productos trae el paquete X?» es la forma del
+    // Director (3 sep 2026): la anterior —«…que es el inventario con el que
+    // arranca»— colgaba una explicación a la pregunta. Los detectores del «sí»
+    // (`_ofertaComposicion` en el motor, `composicionYaOfrecida` aquí) aceptan
+    // «qué productos trae» además de «qué trae».
+    : `¿Le detallo exactamente qué productos trae el paquete ${corto(p.etiqueta)}?`;
 
+  // Tras el simulador la cifra va pegada a su origen —las compras— y la cadencia
+  // en una sola línea, la del Director (3 sep 2026). Se descartó «ese escenario
+  // proyecta un retorno»: «retorno» convierte una comisión en rendimiento sobre
+  // lo invertido, y «para materializar esos números» promete que ocurren.
   return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, la suma de esas ${compras} compras es *${cop(total)}*.
 
-Esa comisión se liquida por ciclos semanales y le cae en su cuenta bancaria cada viernes.
+Esa comisión le entra a medida que se compran los paquetes.
 
 ${cierre}`;
 }

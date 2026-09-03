@@ -118,18 +118,25 @@ const RESPUESTA_CORRECTIVA =
 const RESPUESTA_CORRECTIVA_BIS =
   'Mejor se lo muestro con lo que está escrito, para no confundirle con un resumen mío.\n\n¿Le explico cómo se gana?';
 
-// El SEGUNDO BOTÍN — el GEN5 como la otra forma de ganar (Director, 3 sep 2026).
-// Va DESPUÉS de la estrategia: primero comprende la renta (botín 1), y solo
-// entonces ve el bono por paquetes (botín 2). Poner el paquete grande antes
-// produce procrastinación; ponerlo después, cuando ya sabe que puede iniciar,
-// lo vuelve una cereza. La pista vive en «según el paquete»: el «sí» lleva al
-// bono por paquete, donde el ESP-3 da el más grande, y la persona saca sola la
-// conclusión (autopersuasión, sin reactancia). Meta: es una COMPRA de paquete,
-// no reclutamiento; mecanismo, no promesa de retorno con plazo.
-const GEN5_SEGUNDO_BOTIN =
-  'Y hay una segunda forma de ganar, que se suma a la primera.\n\n' +
-  'La renta por el consumo es la manera más inteligente de construir su ingreso: crece con su red y le entra mientras el canal se mueve.\n\n' +
-  'Y además, cada vez que se compra un paquete empresarial en su canal, usted recibe un bono directo — y ese entra desde el primero que se mueve, sin esperar a que la red crezca.\n\n' +
+// EL BONO POR PAQUETES — las ganancias por la compra de paquetes empresariales
+// (Director, 3 sep 2026). Va DESPUÉS de la estrategia: primero comprende el
+// ingreso recurrente, y solo entonces ve el bono por paquetes. Poner el paquete
+// grande antes produce procrastinación; ponerlo después, cuando ya sabe que
+// puede iniciar, lo vuelve una cereza. La pista vive en «según el paquete»: el
+// «sí» lleva al ejemplo, donde el ESP-3 da el más grande, y la persona saca sola
+// la conclusión (autopersuasión, sin reactancia). Meta: es una COMPRA de
+// paquete, no reclutamiento; mecanismo, no promesa de retorno con plazo.
+// ⚠️ NO se numeran las formas de ganar (Director, 3 sep 2026, auditoría con
+// Gemini): hay doce, y las dos que se muestran al inicio se nombran por su
+// mecanismo, nunca como «primera» y «segunda». Reescrito también sin «red»
+// (dos veces desnuda, una con negación) y sin «la manera más inteligente».
+// ⚠️ LA CLÁUSULA DEL KIT es del Director: el Kit no tiene GEN5, y quien entró
+// al hilo por el Kit leería «usted recibe un bono» y lo esperaría. Se dice
+// «si usted entra con un paquete empresarial» — una expectativa que después
+// toca bajar es la falla que más cuesta.
+const GEN5_BONO_PAQUETES =
+  'El ingreso recurrente es el que sostiene el canal: le entra mientras haya consumo, y crece con él.\n\n' +
+  'Además, si usted entra con un paquete empresarial, recibe un bono directo cada vez que se compra uno en su canal, desde el primero que se compra.\n\n' +
   '¿Le muestro cuánto es ese bono según el paquete?';
 
 /** La correctiva que toca: la segunda si la anterior ya fue una correctiva. */
@@ -1398,7 +1405,7 @@ async function procesarEntrante(body: any): Promise<void> {
       // repetía "¿le muestro qué trae el Empresarial?" ya atendida).
       const opciones = {
         composicionYaOfrecida: historial.some((m) =>
-          m.role === 'assistant' && /qu[eé] trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
+          m.role === 'assistant' && /qu[eé] (productos )?trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
         // Ya radicó: el cierre vuelve sobre SU paquete, no sobre la elección
         // (Liliana, 27 ago 2026: eligió ESP-1 y el simulador le preguntó con cuál).
         radicado: radicacionPrevia
@@ -1460,11 +1467,11 @@ async function procesarEntrante(body: any): Promise<void> {
     const _ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe/i.test(_ultimoBotW);
     const _ofrecioTablaNiveles = /nivel por nivel|tabla[^?]{0,60}niveles|proyecci[oó]n[^?]{0,40}nivel/i.test(_ultimoBotW);
     // ⚠️ La forma tiene que ser la PREGUNTA de cierre de la tabla («¿le muestro
-    // la segunda forma de ganar…?»), no las palabras sueltas: el propio
-    // GEN5_SEGUNDO_BOTIN abre con «Y hay una segunda forma de ganar», así que un
-    // detector laxo lo re-dispararía en bucle cuando el «sí» siguiente debe ir al
-    // motor por el ejemplo de cifras (que cierra ofreciendo la vinculación).
-    const _ofrecioSegundaForma = /le muestro la segunda forma de ganar/i.test(_ultimoBotW);
+    // las ganancias por la compra de paquetes empresariales…?»), no las palabras
+    // sueltas: un detector laxo sobre «paquetes empresariales» se re-dispararía
+    // cuando el «sí» siguiente debe ir al motor por el ejemplo de cifras. La forma
+    // vieja («la segunda forma de ganar») se conserva solo por los hilos en curso.
+    const _ofrecioSegundaForma = /le muestro (las ganancias por la compra de paquetes empresariales|la segunda forma de ganar)/i.test(_ultimoBotW);
 
     // ─── 2.34 «¿Qué es eso del plan de dos ciclos?» se entrega dictado ───────
     // El nombre de Los 12 Niveles llega mal oído —dos ciclos, dos niveles, 12
@@ -1511,11 +1518,10 @@ async function procesarEntrante(body: any): Promise<void> {
           const textoConPrecio = puente + texto.replace(/\[PRECIO_KIT\]/g, precioKit);
           await sendWhatsAppMessage(phoneNumber, textoConPrecio, { wamid });
           await persistirTurnoDictado(supabase, waFingerprint, messageText, textoConPrecio);
-          if (flowSimuladorId) {
-            await sendFlow(phoneNumber, flowSimuladorId,
-              'Y si quiere verlo nivel por nivel en el simulador: elija el nivel y el resultado sale al instante.',
-              'Abrir el simulador', { screen: 'NIVELES' });
-          }
+          // Sin tarjeta automática (Director, 3 sep 2026): el texto cerraba
+          // preguntando por la tabla Y llegaba la tarjeta del simulador — dos
+          // ofertas en un turno. Ahora la pregunta de seguimiento ofrece el
+          // simulador y el «sí» manda la tarjeta (reenvío del Flow, más abajo).
           console.log(`📐 [WA Webhook] NIVELES_01 dictado a ${phoneNumber} (nombre mal oído)`);
           return;
         }
@@ -1524,13 +1530,13 @@ async function procesarEntrante(body: any): Promise<void> {
       }
     }
 
-    // ─── 2.355 El «sí» a «¿le muestro la segunda forma de ganar?» dicta el GEN5 ─
+    // ─── 2.355 El «sí» a «¿le muestro las ganancias por la compra de paquetes…?» dicta el GEN5 ─
     // El cierre de la tabla ofrece el segundo botín; el «sí» dicta el texto del
     // GEN5 (Director, 3 sep 2026), que a su vez cierra ofreciendo el bono por
     // paquete. Va después de la estrategia, nunca antes.
     if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioSegundaForma) {
-      await sendWhatsAppMessage(phoneNumber, GEN5_SEGUNDO_BOTIN, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, GEN5_SEGUNDO_BOTIN);
+      await sendWhatsAppMessage(phoneNumber, GEN5_BONO_PAQUETES, { wamid });
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, GEN5_BONO_PAQUETES);
       console.log(`💰 [WA Webhook] Segundo botín (GEN5) dictado a ${phoneNumber}`);
       return;
     }
@@ -1571,7 +1577,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const cuerpo = frag?.content?.match(/<verbatim_lock>\s*([\s\S]*?)\s*<\/verbatim_lock>/)?.[1];
         const cierre = frag?.content?.match(/\*\*Pregunta de seguimiento:\*\*\s*(.+)/)?.[1]?.trim();
         if (cuerpo) {
-          const texto = `${cuerpo}\n\n${cierre || '¿Le muestro la segunda forma de ganar en este negocio?'}`;
+          const texto = `${cuerpo}\n\n${cierre || '¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?'}`;
           await sendWhatsAppMessage(phoneNumber, texto, { wamid });
           await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
           if (flowSimuladorId) {
@@ -1596,10 +1602,21 @@ async function procesarEntrante(body: any): Promise<void> {
         : /Generaci[oó]n 1|paquetes? ESP-[123]\*? comprados?|Bono GEN5/i.test(_ultimoBotW) ? 'GEN_MENU'
         : /renta estar[ií]a|clientes en cada centro|supuesto modesto/i.test(_ultimoBotW) ? 'RENTA_MENU'
         : 'INICIO';
+      // Si llega por el «sí» a una oferta («¿Quiere verlo en el simulador…?»),
+      // es la PRIMERA vez que la persona ve la tarjeta y el cuerpo explica qué
+      // elegir; «aquí lo tiene de nuevo» es solo para quien lo pide otra vez
+      // (Director, 3 sep 2026: la tarjeta ya no sale sola con NIVELES_01 ni con
+      // el ejemplo del GEN5 — la pide la pregunta, la trae el «sí»).
+      const _primeraVez = _aceptaSimulador && !/\[Simulador/i.test(_ultimoBotW);
+      const cuerpoTarjeta = !_primeraVez
+        ? 'Aquí lo tiene de nuevo. Arme el escenario que quiera ver.'
+        : _pantalla === 'NIVELES' ? 'Elija el nivel y la cifra sale al instante, con los distribuidores que la producen.'
+        : _pantalla === 'GEN_MENU' ? 'Elija el paquete y cuántos se compran por generación, y el resultado sale al instante.'
+        : 'Arme el escenario que quiera ver: el resultado sale al instante.';
       const reenvio = await sendFlow(
         phoneNumber,
         flowSimuladorId,
-        'Aquí lo tiene de nuevo. Arme el escenario que quiera ver.',
+        cuerpoTarjeta,
         'Abrir el simulador',
         { screen: _pantalla },
       );
@@ -1611,7 +1628,7 @@ async function procesarEntrante(body: any): Promise<void> {
             session_id: waFingerprint,
             messages: [
               { role: 'user',      content: messageText, timestamp: new Date().toISOString() },
-              { role: 'assistant', content: 'Aquí lo tiene de nuevo. Arme el escenario que quiera ver. [Simulador reenviado]', timestamp: new Date().toISOString() },
+              { role: 'assistant', content: `${cuerpoTarjeta} [Simulador ${_primeraVez ? 'enviado' : 'reenviado'}]`, timestamp: new Date().toISOString() },
             ],
           });
         } catch (err) {
@@ -2272,17 +2289,11 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         else console.warn(`⚠️ [WA Webhook] Flow del Kit no se pudo enviar: ${enviado.error}`);
       }
 
-      if (flowSimulador && queswaReply.includes('Le pongo un ejemplo con números redondos')) {
-        const enviado = await sendFlow(
-          phoneNumber,
-          flowSimulador,
-          'Y si quiere, arme usted mismo su escenario: elija el paquete y cuántos se compran por generación, y vea el resultado al instante.',
-          'Abrir el simulador',
-          { screen: 'GEN_MENU' },
-        );
-        if (enviado.ok) console.log('🧮 [WA Webhook] Simulador GEN5 ofrecido');
-        else console.warn(`⚠️ [WA Webhook] Flow simulador GEN5 no se pudo enviar: ${enviado.error}`);
-      }
+      // ⚠️ El ejemplo del GEN5 YA NO manda la tarjeta de una vez (Director, 3 sep
+      // 2026): cerraba ofreciendo la vinculación Y llegaba la tarjeta — dos
+      // ofertas en un turno. Ahora el ejemplo cierra con UNA pregunta, la del
+      // simulador, y el «sí» la trae (reenvío del Flow, pantalla GEN_MENU
+      // heredada de «Generación 1»).
       // ── El simulador viaja pegado a la OFERTA de números, no solo al ejemplo ──
       // (Director, 14 ago 2026). Nadie escribe la frase exacta que dispara un
       // pin: si la puerta al simulador exige tipeo, no existe. Cuando Queswa

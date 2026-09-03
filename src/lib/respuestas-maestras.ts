@@ -39,6 +39,16 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
+ * Ajuste 3 sep 2026 — AUDITORÍA CON GEMINI (Director). Cuatro tomas de su borrador: la
+ *   tesis del párrafo de la recompra en su primera línea («la clave de la estabilidad»),
+ *   «la marca genérica» y «vuelve a pedir», el despacho «directo a la casa del cliente»,
+ *   y «desde el celular» pegado a las dos acciones (era una cola en el párrafo de Gano).
+ *   Lo que NO entró y por qué: «la matemática es directa» (vetada en ese párrafo el 6 ago),
+ *   «mes a mes» pegado al ingreso, «un segundo empleo que le consuma la vida» y «no compra
+ *   cajas para revender» (fantasmas invocados para negarlos), «la guío» (→ madura) y
+ *   «solo dos acciones» (minimiza su parte). EL CIERRE VA A LA ESTRATEGIA, no al dinero:
+ *   el porcentaje ya quedó dicho y el siguiente turno lo repetía; la pregunta nombra
+ *   «12 Niveles» porque el webhook reconoce el «sí» por ese nombre y dicta NIVELES_01.
  * Sincronizado CARÁCTER POR CARÁCTER con arsenal_inicial.txt v5.35 BLOQUE 1.
  *
  * Reescritura 8 ago 2026 — EL ESTANTE Y EL ORDEN. Dos cambios del Director:
@@ -129,17 +139,17 @@ const MASTER_WHY_02 = `Con gusto. Todo parte de algo concreto: usted monta su pr
 
 La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.
 
-Quien los prueba nota la diferencia en su energía y no vuelve al genérico. Cuando se le acaba, pide más. Esa compra que se repite es la que le sostiene el ingreso.
+Y aquí está la clave de la estabilidad: quien prueba el producto nota la diferencia en su energía y no vuelve a la marca genérica. Cuando se le acaba, vuelve a pedir. Esa compra que se repite es la que le sostiene el ingreso.
 
 Del trabajo pesado nos encargamos nosotros:
 
-**Gano Excel** pone las fábricas, el inventario y la logística, con 30 años y presencia en más de 60 países: ellos fabrican, almacenan y despachan cada pedido. Usted maneja su canal desde el celular.
+**Gano Excel**, con 30 años y presencia en más de 60 países, pone las fábricas, el inventario y la logística: fabrica, almacena y despacha cada pedido directo a la casa del cliente.
 
 **Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta.
 
-A usted le quedan dos acciones: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.
+A usted le quedan dos acciones, y las hace desde el celular: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.
 
-¿Quiere ver cómo se gana?`;
+¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

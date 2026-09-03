@@ -358,8 +358,18 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     // y le pedía procesar dos ideas donde cabía una. «Las 24 horas» dice lo
     // mismo que importa (esto no duerme) con un hecho plano; por eso también
     // salió el «a cualquier hora», que lo duplicaba.
-    'Y esto que está viendo es exactamente lo que yo haría por usted y por todo su canal: así atiendo a cientos de personas las 24 horas.',
+    // MECANISMO, NO SOLO VOLUMEN (Director, 3 sep 2026, auditoría con Gemini).
+    // «Esto que está viendo» pasó a «esto que estamos haciendo ahora»: la
+    // persona conversa, no mira. Y la línea nombra qué hace Queswa —conversar,
+    // explicar, resolver dudas— antes de decir a cuántos; «interesado» y no
+    // «persona» porque presupone interés, no reclutamiento. ⚠️ De la propuesta
+    // de Gemini NO entró «así como lo atiendo hoy»: ese «lo» es el prospecto y
+    // trata en masculino a las mujeres.
+    'Y esto que estamos haciendo ahora es exactamente lo que yo haría por usted: conversar, explicar y resolver las dudas de cada interesado que llegue a su canal. Así atiendo hoy a cientos de personas, las 24 horas.',
     '',
-    '¿Por dónde prefiere empezar?',
+    // «Sin ningún afán» le quita presión al momento exacto en que se pide una
+    // elección, y «pregunte lo que quiera» le avisa a quien no toca botones que
+    // puede escribir (3 sep 2026, tomado de la propuesta de Gemini).
+    'Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?',
   ].join('\n');
 }

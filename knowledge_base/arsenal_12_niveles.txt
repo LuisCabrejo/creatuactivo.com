@@ -1,4 +1,6 @@
-# Arsenal Conversacional: Los 12 Niveles v6.16 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles v6.17 — BAUTIZO EMPRESARIAL (distribuidores)
+
+**v6.17 (3 sep 2026):** **El apalancamiento se pliega dentro de NIVELES_01, y cada nodo ofrece UNA sola cosa** (Director, auditoría con Gemini). Entre «cómo funciona» y la estrategia había un mensaje de puro concepto con una pregunta en medio: ahora la duda del «yo solo» y el mecanismo —lo que compran sus clientes, sus distribuidores y los clientes de cada uno— abren la respuesta de la estrategia, que es donde le dan causa al 2×2. Cuatro criterios: **no se califica el tamaño** (*grande* fija el techo justo donde hay que abrir la mente; el nivel 12 se nombra como base), **la parte del socio se dice explícita** (*empieza con esos dos*: el obstáculo no es imaginar el canal, es imaginarse consiguiendo a todos), **el Kit lleva su razón** (la entrada más baja, para que nadie se frene) y **una oferta por turno**: el texto ya no sale acompañado de la tarjeta del simulador; la pregunta de seguimiento ofrece el simulador, el «sí» manda la tarjeta, y la tabla en texto (NIVELES_02) queda de respaldo. **Las formas de ganar no se numeran**: hay doce, y las dos que se muestran al inicio se nombran por su mecanismo —el ingreso recurrente y las ganancias por la compra de paquetes empresariales—, nunca como primera y segunda.
 
 **v6.16 (3 sep 2026):** **El apalancamiento reemplaza el ejemplo de clientes propios, y el GEN5 pasa a ser un SEGUNDO botín tras la estrategia** (Director). El ejemplo de recurrentes al 10% ($2.520.000 por 200 clientes) anclaba modesto y reforzaba «una red de miles es trabajo personal» —la objeción que la estrategia debe DESARMAR—. En su lugar, el **apalancamiento**: sin cifra, explica que la ganancia crece porque cada distribuidor construye su propia red de consumo y el ingreso es un % de todo ese volumen; cierra ofreciendo la estrategia. Y el **reorden del cierre**: la tabla NIVELES_02 (y el simulador de renta) ya no cierra ofreciendo la vinculación sino **«¿Le muestro la segunda forma de ganar en este negocio?»** → el «sí» dicta el GEN5 como bono directo por paquete (webhook 2.355), su «sí» dicta el ejemplo de cifras GEN5, y ese cierra con «¿cómo se vincula?». El GEN5 queda **después** de la estrategia, nunca antes, y solo lo ve quien recorre la avenida completa. El texto del apalancamiento es el que MÁS se duplica —el prospecto lo repite al explicar el negocio—. Fundamento → `FLUIDEZ_DEL_FLUJO_12NIVELES_SEP2026.md`.
 
@@ -51,17 +53,19 @@
 ### **NIVELES_01: "¿Qué son Los 12 Niveles?"**
 **[Índice]:** Qué son Los 12 Niveles, en qué consiste esa estrategia, de qué se trata el plan de los 90 días. Qué es eso del plan de dos ciclos, del plan de dos niveles, del plan de 12 días, de 12 semanas o de 12 meses — así lo oyen. Qué es el plan de septiembre, el plan estratégico, el plan nuevo que están lanzando. ¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?
 
-**[Concepto Nuclear]:** Simplificada el 1 sep 2026 (texto del Director, vía Gemini): solo los conceptos nucleares — la carga cognitiva de la versión anterior sobraba; los detalles (Gano carga el peso, GEN5, audiencia) se miran en el chat cuando la persona los pregunte. ⚠️ **«mínimo dos»** es deliberado: *conecta dos* describe la geometría rígida —la silueta de pirámide—; *mínimo dos* es un piso, como habla un negocio, y vuelve la proyección un escenario base. ⚠️ El $103M vuelve a esta respuesta por decisión del Director (revisa la del 31 ago), pero SIEMPRE pegado a su origen en la misma frase — el 10% del volumen que factura un canal de ese tamaño. Correcciones de ley sobre el borrador: *su red* → *su canal*, y el precio lo pone `getPinKitInicio` por país.
+**[Concepto Nuclear]:** Simplificada el 1 sep 2026 (texto del Director, vía Gemini): solo los conceptos nucleares — la carga cognitiva de la versión anterior sobraba; los detalles (Gano carga el peso, GEN5, audiencia) se miran en el chat cuando la persona los pregunte. ⚠️ **«mínimo dos»** es deliberado: *conecta dos* describe la geometría rígida —la silueta de pirámide—; *mínimo dos* es un piso, como habla un negocio, y vuelve la proyección un escenario base. ⚠️ El $103M vuelve a esta respuesta por decisión del Director (revisa la del 31 ago), pero SIEMPRE pegado a su origen en la misma frase — el 10% del volumen que factura un canal de ese tamaño. Correcciones de ley sobre el borrador: *su red* → *su canal*, y el precio lo pone `getPinKitInicio` por país. ⚠️ **v6.17 (3 sep 2026):** abre con la duda del «yo solo» —nombrarla es gratis porque todo el que leyó *compartir su enlace* ya la trae— y la resuelve por mecanismo, con la línea del Director: lo que compran sus clientes, sus distribuidores y los clientes de cada uno. **Ningún adjetivo de tamaño**: *grande* fija el techo. **Su parte empieza con esos dos** resuelve el obstáculo real (imaginarse consiguiendo a todos) sin cerrar la ambición del *mínimo*. El nivel 12 es *la base, no el techo* (el Director piensa en millones; 8.190 es punto de partida). La pregunta de seguimiento ofrece el simulador y **no debe decir «nivel por nivel», «tabla» ni «proyección»**: esas palabras disparan la tabla en texto en el webhook; el «sí» a esta va a la tarjeta del Flow.
 
 <verbatim_lock>
-Los 12 Niveles es nuestra estrategia de aceleración para construir su canal de distribución. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y el sistema se multiplica.
+La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No: su canal factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos, y de todo eso a usted le queda un porcentaje.
 
-La entrada es el Kit de Inicio ([PRECIO_KIT]): usted recibe cuatro cajas de producto, abre su código y entra a cobrar el 10% sobre todas las compras que facture ese canal.
+Los 12 Niveles es nuestra estrategia para construirlo paso a paso. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y así se multiplica el canal. Su parte empieza con esos dos.
 
-Lo que hace poderosa la estrategia es ese efecto exponencial. Al nivel 12, su canal llega a 8.190 distribuidores consumiendo, y la regalía mensual de ese canal supera los **$103 millones COP** — exactamente el 10% del volumen que factura un canal de ese tamaño.
+La entrada es el Kit de Inicio ([PRECIO_KIT]), la más baja de todas para que nadie se frene: usted recibe cuatro cajas de producto, abre su código y entra a cobrar el 10% sobre las compras que facture ese canal.
+
+Al nivel 12, su canal llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los **$103 millones COP**: exactamente el 10% del volumen que factura un canal de ese tamaño. Y ese nivel es la base, no el techo.
 </verbatim_lock>
 
-**Pregunta de seguimiento:** ¿Le muestro la tabla con la proyección nivel por nivel?
+**Pregunta de seguimiento:** ¿Quiere verlo en el simulador, con la cifra de cada nivel?
 
 ---
 
@@ -96,7 +100,7 @@ Por eso se repite: mientras el canal consuma, hay comisión; si deja de consumir
 **⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su canal. No son resultados garantizados.
 </verbatim_lock>
 
-**Pregunta de seguimiento:** ¿Le muestro la segunda forma de ganar en este negocio?
+**Pregunta de seguimiento:** ¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?
 
 ---
 

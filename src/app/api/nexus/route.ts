@@ -3795,12 +3795,16 @@ function extraerEjemploDictado(pin: string): string | null {
   // Dos cierres distintos según la pieza (Director, 3 sep 2026):
   // • APALANCAMIENTO (avenida por defecto) → ofrece la estrategia, que es el
   //   destino central; el «sí» lo dicta el webhook (NIVELES_01).
-  // • EJEMPLO GEN5 (segundo botín, llega DESPUÉS de la estrategia) → ofrece la
-  //   vinculación: quien ya vio la estrategia y el bono por paquete solo tiene
-  //   por delante inscribirse. El «sí» cae en el nodo 2.36 → los cuatro datos.
+  // • EJEMPLO GEN5 (llega DESPUÉS de la estrategia y del ingreso recurrente) →
+  //   ofrece el simulador de paquetes en UNA pregunta (Director, 3 sep 2026,
+  //   auditoría con Gemini). Antes cerraba con la vinculación Y el webhook
+  //   pegaba la tarjeta sin que nadie la pidiera: dos ofertas en un turno. Ahora
+  //   el «sí» manda la tarjeta (reenvío del Flow en el webhook, pantalla
+  //   GEN_MENU heredada de «Generación 1»), y la vinculación se ofrece tras la
+  //   composición del paquete, que es lo que sigue al escenario armado.
   const esGen5 = pin.includes('EJEMPLO GEN5');
   const cierre = esGen5
-    ? '¿Le muestro cómo se vincula a la estrategia?'
+    ? '¿Quiere armar su propio escenario en el simulador, con el paquete y las compras que elija?'
     : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
   return `${cuerpo}\n\n${cierre}`;
 }
@@ -5700,7 +5704,14 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
         || (_aceptaEjemplo && !_nombraGen5);
       if (tenantId === 'whatsapp' && esRenta) {
         // EL APALANCAMIENTO reemplaza el ejemplo de clientes propios (Director,
-        // 3 sep 2026). El ejemplo de 10/100 clientes al 10% anclaba en una cifra
+        // 3 sep 2026). Reescrito la misma noche en la auditoría con Gemini: la
+        // duda del «yo solo» se nombra (todo el que leyó «compartir su enlace»
+        // ya la trae, así que la negación no la siembra) y se resuelve con la
+        // línea del Director —lo que compran sus clientes, sus distribuidores y
+        // los clientes de cada uno—. Sin «red» (WHY_02 dice canal y aquí
+        // cambiaba la palabra justo al llegar al dinero) y sin «grande» (fija el
+        // techo). Es el mismo párrafo que abre NIVELES_01, para que quien llegue
+        // por la renta lea lo mismo que quien llega por el hilo principal. El ejemplo de 10/100 clientes al 10% anclaba en una cifra
         // modesta y reforzaba «una red de miles es trabajo personal» —la objeción
         // que la estrategia debe DESARMAR—. Aquí se explica el mecanismo real: la
         // ganancia crece porque cada distribuidor construye su propia red de
@@ -5712,11 +5723,11 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
         return `
 📌 APALANCAMIENTO DICTADO — imprime este texto EXACTAMENTE, sin cifras, sin tablas, sin agregar escenarios:
 
-Quizás piense que para que esto valga la pena tiene que conseguir cientos de clientes usted mismo. Ahí está la buena noticia: no es así.
+La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No: su canal factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos, y de todo eso a usted le queda un porcentaje.
 
-Cada distribuidor de su canal atiende a sus propios clientes, que consumen mes a mes, y usted gana un porcentaje de todo ese volumen. Una red grande no es la que usted armó cliente por cliente — es la suma de muchos, cada uno construyendo la suya al mismo tiempo. Ahí está la palanca: su ingreso crece con el volumen de toda su red, no solo con el que mueve usted.
+Su ingreso crece con el volumen de todo el canal, no solo con el que mueve usted.
 
-STOP. Sin cifras, sin CV, sin ejemplos de números, sin tablas. La pregunta de cierre la agrega el backend — no la escriba. Empieza DIRECTO con "Quizás piense".`;
+STOP. Sin cifras, sin CV, sin ejemplos de números, sin tablas. La pregunta de cierre la agrega el backend — no la escriba. Empieza DIRECTO con "La primera duda".`;
       }
 
       // ── WhatsApp: un solo ejemplo, dictado ────────────────────────────────
@@ -5784,7 +5795,7 @@ Le pongo un ejemplo con números redondos. Supongamos que usted arranca con el *
 
 *Total: ${total} ${moneda}*
 
-Y esa comisión le entra a medida que se compran los paquetes, cada viernes: no tiene que esperar a que se complete una generación para cobrar la primera compra.
+Esa comisión le entra a medida que se compran los paquetes.
 
 STOP. Empieza DIRECTO con "Le pongo un ejemplo" — sin preámbulo ni encabezado propio. Sin tabla de los tres paquetes, sin proyecciones adicionales, sin diagramas. Si le piden otro escenario, ofrezca revisarlo con el socio.`;
       }
@@ -5945,7 +5956,7 @@ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
       // que NO TENÍA la lista y derivó al socio. El mismo bug del 9 ago por la
       // otra puerta. Si la oferta del bot fue de composición y la persona
       // aceptó, el paquete se lee de la oferta.
-      const _ofertaComposicion = /qu[eé]\s+(trae|incluye|viene|contiene)[^?]{0,50}(paquete|esp[\s-]?[123]|visionario|empresarial|inicial)/i.test(_ultimoBotMsg);
+      const _ofertaComposicion = /qu[eé]\s+(productos\s+)?(trae|incluye|viene|contiene)[^?]{0,50}(paquete|esp[\s-]?[123]|visionario|empresarial|inicial)/i.test(_ultimoBotMsg);
       const _aceptaComposicion = _ofertaComposicion && esAceptacionSola(latestUserMessage);
       const preguntaComposicion = /productos?|qu[eé]\s+(trae|incluye|viene|contiene)|composici[oó]n|contenido|inventario|qu[eé]\s+hay\s+(en|dentro)|que\s+vienen?|cu[aá]les?\s+productos|lista\s+de\s+productos|esp[-\s]?[123].*productos|productos.*esp[-\s]?[123]/i.test(latestUserMessage);
       if (!preguntaComposicion && !_aceptaComposicion) return null;

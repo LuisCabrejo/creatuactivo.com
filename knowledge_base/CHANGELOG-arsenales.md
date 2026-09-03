@@ -12,6 +12,10 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.9 — Se probó y se descartó: la oferta del bono en el índice de COMP_GEN5_01 (3 sep 2026)
+
+Sin cambios en el arsenal; queda el registro de lo medido. Las formas de ganar dejaron de numerarse (ver arsenal_12_niveles v6.17) y la tabla de los 12 Niveles cierra ahora con *¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?*. En WhatsApp ese «sí» lo dicta el webhook; en la web buscaría con la pregunta y caía en `INV_05`. Se probó meter la oferta **literal y aparte** en el índice de `COMP_GEN5_01`: la oferta pasó a ganar (0.591), pero **el propio disparador se diluyó** — *qué es el bono gen5* bajó de 0.602 a 0.554 y pasó a perder contra `COMP_GEN5_02` (la tabla de cifras), que es el orden exacto que la doctrina prohíbe: cifras antes del concepto. Medido en laboratorio con el texto tal como lo embebe el fragmentador (`title\n\níndice`), validado contra producción (0.554 y 0.591 exactos). **Se revirtió el índice.** ⏳ Pendiente: en la web, un «sí» a esa oferta no tiene destino escrito; la salida correcta es un fragmento corto propio, no alargar uno existente.
+
 ### v8.8 — Paquetes y los sueltos: cierra la auditoría de los 40 (26 ago 2026)
 
 Quinta y última fase. **Cifras, porcentajes, GCV, PV/CV y nombres del plan intactos.**
@@ -322,6 +326,18 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.17 — El apalancamiento se pliega en NIVELES_01; una oferta por turno; las formas de ganar no se numeran (3 sep 2026)
+
+Auditoría de la narrativa del canal con el Director. Tres decisiones:
+
+**1. El apalancamiento entra a `NIVELES_01` 🔒.** Entre *cómo funciona* y la estrategia había un mensaje de puro concepto con una pregunta en medio. Ahora la respuesta de la estrategia abre con la duda que todo el mundo trae al leer *compartir su enlace* —si le toca conseguir cientos de clientes solo— y la resuelve por mecanismo, con la línea del Director: *su canal factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos*. Nombrar esa duda es gratis porque el lector ya la traía; lo que no se hace es anunciar *la buena noticia*. El mismo párrafo abre el pin del apalancamiento en el motor, para quien llegue por la renta.
+
+**2. Cuatro criterios de redacción, del Director.** *Ningún adjetivo de tamaño*: «grande» junto a 8.190 fija el techo justo donde hay que abrir la mente (para muchos diez ya es grande; él piensa en millones), así que el nivel 12 se nombra como *la base, no el techo*. *La parte del socio se dice explícita*: «su parte empieza con esos dos», porque el obstáculo no es imaginar el canal sino imaginarse consiguiendo a todos; «empieza» y no «son», para no contradecir el *mínimo dos*. *El Kit lleva su razón*: la entrada más baja de todas, para que nadie se frene. Y *sin «red»*: el texto anterior la usaba tres veces desnuda mientras WHY_02 y la pregunta final decían «canal» — la palabra cambiaba justo al llegar al dinero, en el texto que más se duplica. Salieron también *estrategia de aceleración*, *el sistema se multiplica* (→ el canal), *lo que hace poderosa la estrategia es ese efecto exponencial* (redundante tras el apalancamiento, con adjetivo y jerga) y el *todas* de «todas las compras» (la tabla siguiente explica que se paga sobre lo emparejado).
+
+**3. Una oferta por turno, y el «sí» trae la tarjeta.** `NIVELES_01` cerraba preguntando por la tabla Y el webhook pegaba la tarjeta del simulador sin que nadie la pidiera: dos ofertas en un turno. Ahora la pregunta de seguimiento es *¿Quiere verlo en el simulador, con la cifra de cada nivel?* —sin «nivel por nivel», «tabla» ni «proyección», que disparan la tabla en texto—, el «sí» manda la tarjeta abierta en la pantalla de niveles, y el mensaje tras el Flow deja de repetir la pantalla: fija la cifra una vez (la tarjeta se sella) y sigue. La tabla en texto (`NIVELES_02`) queda de respaldo. Mismo patrón para el ejemplo del GEN5: cierra ofreciendo el simulador de paquetes, sin tarjeta automática; la vinculación se ofrece tras la composición.
+
+**Las formas de ganar no se numeran** (Director): hay doce; las dos que se muestran al inicio se nombran por su mecanismo. *¿Le muestro la segunda forma de ganar en este negocio?* pasa a *¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?* en `NIVELES_02`, en el mensaje tras el Flow y en el texto del bono, que además lleva la **cláusula del Kit**: *si usted entra con un paquete empresarial* — el Kit no tiene GEN5, y sin la cláusula quien entró por el Kit esperaba un bono que no le llega.
+
 ### v6.0 — Barrido de coherencia: el arsenal estaba a medio migrar (31 ago 2026)
 
 Auditoría general con el Director tras la prueba del canal. Las decisiones del 26 y 29 de agosto (INV_00: el Kit se ofrece con empatía, alcance en afirmativo, sin empujón hacia el paquete mayor) vivían en un solo fragmento; los vecinos las contradecían.
@@ -339,6 +355,14 @@ Auditoría general con el Director tras la prueba del canal. Las decisiones del 
 Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
+
+### v6.26 — WHY_02 cierra hacia la estrategia; cuatro giros de la auditoría con Gemini (3 sep 2026)
+
+Auditoría de la narrativa del canal, respuesta por respuesta, con el Director y con borradores del agente Gemini como contraste. En `WHY_02` 🔒 entraron cuatro giros de ese borrador: el párrafo de la recompra abre anunciando su tesis —*la clave de la estabilidad*, que es la aspiración real del lector—; *la marca genérica* y *vuelve a pedir* en vez de *el genérico* y *pide más*; el despacho termina *directo a la casa del cliente*, imagen concreta que mete al consumidor en la frase; y *desde el celular* pasa del párrafo de Gano a la línea de las dos acciones, que son lo que hace el socio. Las credenciales de Gano (30 años, más de 60 países) van ahora antes de lo que pone, para que la línea termine en la imagen y no en la cifra.
+
+**Lo que se revisó del borrador y NO entró, con el motivo:** *la matemática es directa* (vetada en ese párrafo desde el 6 ago: el dato apaga la emoción donde se enciende la confianza) · *mes a mes* pegado al ingreso (la cadencia del pago es semanal) · *para que esto no se convierta en un segundo empleo que le consuma la vida* y *usted no compra cajas para revender ni hace entregas* (fantasmas invocados para negarlos, y lista de ausencias) · *la guío* (la palabra retirada por *madura*) · *tal como lo estoy haciendo hoy con usted* (la apertura lo acaba de decir) · *solo dos acciones* (minimiza su parte; la fricción se dice con verbos, no con adjetivos que la achiquen).
+
+**El cierre cambia de destino.** Cerraba con *¿Quiere ver cómo se gana?* y el turno siguiente repetía el porcentaje que WHY_02 ya había dicho: relleno, en palabras del Director. Ahora cierra con *¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?* — nombrando el plan, porque el webhook reconoce el «sí» por ese nombre y dicta `NIVELES_01` (medido con Voyage: 0.742 en el puesto 1 con el nombre, 0.564 sin él). El apalancamiento que antes vivía en el turno intermedio se plegó dentro de `NIVELES_01` (ver arsenal_12_niveles v6.17). Sincronizado con `respuestas-maestras.ts` por contrato de prefijo.
 
 ### v6.25 — DIASPORA_01: los 16 se dicen con el continente (31 ago 2026)
 

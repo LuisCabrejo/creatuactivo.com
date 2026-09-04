@@ -248,6 +248,10 @@ const MODELO_BLOQUEAR = [
 const MODELO_LEGITIMO = [
   'El paquete no es un costo de membresía: es producto que usted recibe, usa y puede vender.',
   'Aquí no hay membresías ni cursos que vender: usted distribuye productos con registro INVIMA.',
+  // El contraste es negación (producción, 4 sep 2026): la respuesta buena a «¿tengo que
+  // comprar todos los meses?» quedó bloqueada por «membresía» dentro de una comparación.
+  'La diferencia con una cuota de membresía está en qué recibe a cambio: ese dinero le llega a la casa en producto.',
+  'A diferencia de una membresía, el paquete es inventario que usted recibe.',
   'Sin audiencia, sin contenido que crear: el producto ya existe y Gano Excel lo despacha.',
 ];
 console.log('\n── Modelo inventado: lo que debe bloquearse ──');

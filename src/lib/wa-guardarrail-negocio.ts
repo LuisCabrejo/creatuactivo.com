@@ -315,7 +315,11 @@ export const TERMINOS_MODELO_INVENTADO: string[] = [
  * NEGACIÓN («no es un costo de membresía», «sin membresías», «nada de cursos»).
  * Se aplica al texto que va desde el inicio de la oración hasta el término.
  */
-export const RE_NEGACION_PREVIA = /(no (es|son|hay|se trata de|existe|existen|tiene|tienen|cobra|cobran|paga|pagan|necesita|vende|vendemos)|sin|nada de|ni|tampoco|en vez de|en lugar de|no como)\s+(un[ao]?\s+|el\s+|la\s+|los\s+|las\s+|de\s+|costo de\s+|cuota de\s+|pago de\s+|ning[uú]n[ao]?\s+)*$/;
+// El CONTRASTE también es negación (4 sep 2026): «la diferencia con una cuota de
+// membresía está en qué recibe a cambio» es la respuesta correcta a «¿tengo que
+// comprar todos los meses?», y el guardarraíl de salida de la web la bloqueó en
+// producción por la palabra suelta. Quien contrasta con X está diciendo que no es X.
+export const RE_NEGACION_PREVIA = /(no (es|son|hay|se trata de|existe|existen|tiene|tienen|cobra|cobran|paga|pagan|necesita|vende|vendemos)|sin|nada de|ni|tampoco|en vez de|en lugar de|no como|(la )?diferencia (con|frente a)|a diferencia de|distint[oa]s? (a|de)|comparad[oa] con|frente a)\s+(un[ao]?\s+|el\s+|la\s+|los\s+|las\s+|de\s+|costo de\s+|cuota de\s+|pago de\s+|ning[uú]n[ao]?\s+)*$/;
 
 function inicioDeOracion(t: string, pos: number): number {
   let i = pos;

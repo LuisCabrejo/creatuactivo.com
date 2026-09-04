@@ -214,7 +214,7 @@ const VETADO = [
   ['tarifa inexistente', /\b1[1234]\s*%/],
   ['oportunidad de negocio', /oportunidad\s+de\s+negocio/i],
 ];
-const RE_NEGATIVA = /no\s+(es|son)\s+(un\s+)?medicament|no\s+trata|no\s+(reemplaza|sustituye)|consulte\s+(a\s+)?(su\s+)?m[eé]dic|profesional\s+de\s+la\s+salud|ir[ií]a\s+m[aá]s\s+all[aá]|no\s+puedo\s+(afirmar|decirle|sostener)|no\s+(le\s+)?corresponde/i;
+const RE_NEGATIVA = /no\s+(es|son)\s+(un\s+)?medicament|no\s+trata|no\s+(reemplaza|sustituye)|consulte\s+(a\s+)?(su\s+)?m[eé]dic|profesional\s+de\s+la\s+salud|ir[ií]a\s+m[aá]s\s+all[aá]|no\s+puedo\s+(afirmar|decirle|sostener)|no\s+(le\s+)?corresponde|no\s+como\s+(medicament|tratamient)|quien\s+tiene\s+la\s+palabra\s+es\s+su\s+m[eé]dic|suplementos\s+dietarios,?\s+y\s+no\s+como/i;
 
 const preguntasHechas = new Map();
 function auditar(texto, capa, n) {

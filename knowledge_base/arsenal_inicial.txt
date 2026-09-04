@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.27** (3 sep 2026) — **«Entrar» sale de `EAM_01` 🔒**: *quien entra con usted* → *quien inicia con usted*. Es el verbo de la pirámide cuando nombra comprar el paquete o iniciar (Director, 3 sep 2026); sincronizado con `respuestas-maestras.ts`. Detalle en el CHANGELOG.
+**Versión actual: v6.28** (3 sep 2026) — **Auditoría de la prueba del Director.** `FREQ_04` 🔒 deja de anunciar su transparencia y de prometer clientes nuevos cada semana. `WHY_05` gana candado —el modelo le agregaba el remate del villano sin el *más de*— y corrige *sin adornos* y la cadencia del consumo (mensual). *Tres o cuatro cajas* → **cuatro cajas** (50 PV). Detalle en el CHANGELOG.
+
+**v6.27** (3 sep 2026) — **«Entrar» sale de `EAM_01` 🔒**: *quien entra con usted* → *quien inicia con usted*. Es el verbo de la pirámide cuando nombra comprar el paquete o iniciar (Director, 3 sep 2026); sincronizado con `respuestas-maestras.ts`. Detalle en el CHANGELOG.
 
 **v6.26** (3 sep 2026) — **`WHY_02` 🔒 cierra hacia la estrategia y toma cuatro giros de la auditoría con Gemini.** El párrafo de la recompra abre con su tesis, el despacho termina en la casa del cliente, y «desde el celular» acompaña a las dos acciones. La pregunta de seguimiento pasa del dinero —que ya quedó dicho— a los 12 Niveles, nombrados para que el webhook dicte NIVELES_01 ante el «sí». Detalle en el CHANGELOG.
 
@@ -290,11 +292,11 @@ Con gusto, y le va a gustar lo corto que es. Son tres pasos:
 **[Concepto Nuclear]:** Responde el **CUÁNDO**. ⚠️ **La ausencia de fecha se dice como criterio de seriedad, no como límite nuestro**: *en un negocio real no existe una fecha fija de retorno*. Dicho así, lo que parecía una evasiva se vuelve la prueba de que hablamos en serio, y de paso inocula contra quien sí promete plazos. ⚠️ **El plazo no se promete**, y no es prudencia: un tiempo de retorno es la promesa de ingreso más peligrosa ante Meta y ante el Estatuto del Consumidor. Aquí la honestidad **es** el guardarraíl. ⚠️ **Después del no viene un sí:** el calendario de pago sí es un hecho —*liquida por semanas y consigna los viernes*— y va en párrafo propio, porque una afirmación cerrada es lo que sostiene la respuesta. El plazo exacto entre cierre y pago vive en **FREQ_17**, que es su casa. ⚠️ **Las dos vías van fundidas en una sola idea**: el cuándo ya lo respondió el párrafo del viernes, así que aquí solo falta decir si el ingreso crece o se queda plano. Separarlas obliga a nombrar dos mecánicas que el lector no pidió. ⚠️ **El ingreso crece por ACUMULACIÓN, no por repetición** (corrección del Director, 25 ago 2026): que los mismos clientes vuelvan a pedir sostiene el piso, no levanta el techo. Lo que crece es la base — se suman los clientes nuevos de cada semana y los de sus distribuidores, y nada de eso se reinicia. ⚠️ **Los clientes se SUMAN, no entran**: en esta industria *entrar* es el verbo de vincularse, y aplicado a clientes importa el marco de reclutamiento. ⚠️ **La pregunta de cierre es intocable en su forma**: `getPinCifrasGEN5` busca *le muestro (un) ejemplo* para dictar el ejemplo con cifras; reescribirla deja al «sí» del prospecto sin números. ⚠️ Las tablas de GEN5 y Binario viven en `arsenal_compensacion`, que es su casa.
 
 <verbatim_lock>
-Le respondo con total transparencia. En un negocio real no existe una fecha fija de retorno; el tiempo depende del volumen que se mueva en su canal.
+En un negocio real no hay fecha fija de retorno: el tiempo lo pone el volumen que se mueva en su canal.
 
 Lo que sí es fijo es cuándo paga la empresa: Gano Excel liquida por semanas y consigna los viernes.
 
-Cada paquete empresarial y cada producto que se mueve en su canal le genera una comisión. Y eso crece por acumulación: usted va consolidando una base de clientes y distribuidores, y cada semana se suman clientes nuevos, suyos y de sus distribuidores.
+Cada paquete empresarial y cada producto que se mueve en su canal le genera una comisión, y la base de clientes y distribuidores se va consolidando: la suya y la de cada distribuidor.
 
 Por eso lo que hay que mirar no es el tiempo, sino cuánto se mueve.
 </verbatim_lock>
@@ -429,7 +431,7 @@ Si no, Gano Excel despacha por Servientrega desde su sede más cercana, y normal
 
 ### **CLIENTE_VIP_01: "Yo solo quiero el producto, no el negocio / ¿Puedo comprar sin hacer el negocio? / ¿Cuánto me ahorro si me registro? / ¿Hay descuento si compro directo? / Solo me interesa el café, ¿me sale más barato? / ¿Cuál es el precio de distribuidor?"**
 **[Índice]:** Solo quiero el producto y no el negocio, puedo comprar sin hacer nada más, cuánto me ahorro si me registro, hay descuento, cuál es el precio de distribuidor.
-**[Concepto Nuclear]:** El beneficio es del cliente, y el objetivo es que tenga su propio código. Cifra única: el Ganocafé 3 en 1 pasa de $147.900 público a $110.900. El acceso en concreto: 50 PV son tres o cuatro cajas y el equipo lo acompaña. El ángulo del dueño es FREQ_22.
+**[Concepto Nuclear]:** El beneficio es del cliente, y el objetivo es que tenga su propio código. Cifra única: el Ganocafé 3 en 1 pasa de $147.900 público a $110.900. El acceso en concreto: 50 PV son cuatro cajas y el equipo lo acompaña. El ángulo del dueño es FREQ_22.
 
 <verbatim_lock>
 Claro que sí, y es la puerta más sencilla de todas.
@@ -438,7 +440,7 @@ Se registra como **Cliente Preferencial** y compra al mismo precio que un distri
 
 **Lo que eso significa en pesos:** el Ganocafé 3 en 1 tiene un precio público de $147.900. Como Cliente Preferencial usted lo paga a **$110.900** — **$37.000 menos por caja, un 25%**.
 
-Su código se abre con un primer pedido de 50 PV, que son unas tres o cuatro cajas. El equipo lo acompaña a armarlo.
+Su código se abre con un primer pedido de 50 PV, que son cuatro cajas. El equipo lo acompaña a armarlo.
 
 De ahí en adelante usted pide cuando quiera y lo que quiera.
 </verbatim_lock>
@@ -532,15 +534,17 @@ Todas van directo a Gano Excel por sus canales oficiales: consignación o transf
 **[Índice]:** Por qué debería hacer esto, qué gano yo, para qué me sirve, por qué esto y no otra cosa. La razón de fondo para quien pide que lo convenzan.
 **[Concepto Nuclear]:** Es la persona que VALIDA (Director, 24 ago 2026): se le responde la pregunta y no se le habla de dudas que no manifestó. La razón se dice en frío, sin perfil: el ingreso depende de variables que la persona no controla —tres ejemplos concretos que cubren empleo, negocio e informalidad sin atribuir ninguno— y, cuando llega, ya tiene dueño (el villano de STORY_03, en una sola frase). El canal es *un plan para eso*: un ingreso que corre en paralelo a lo suyo y sale del consumo que se repite en su canal —clientes y distribuidores—. ⚠️ El ingreso se nombra por su relación con lo que la persona ya tiene: **corre en paralelo**. WHY_03 usa el mismo marco, y las dos se refuerzan. Registro del upgrade, no del rescate. Sin cifra, sin plazo. Cierra proponiendo el paso natural; si ya lo vio, el cierre se adapta. AUTOSUFICIENTE.
 
-Le doy la razón de fondo, sin adornos.
+<verbatim_lock>
+Le doy la razón de fondo.
 
 Hoy, la estabilidad económica de la mayoría depende de variables que no controla, donde basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee.
 
 Y para rematar, cuando el ingreso sí llega, usualmente ya tiene dueño: el banco, las cuotas, los recibos.
 
-Un canal de distribución es un plan para protegerse de eso: construye un ingreso que corre en paralelo a su actividad actual, y que sale del consumo que se repite, semana a semana, entre sus clientes y sus distribuidores.
+Un canal de distribución es un plan para protegerse de eso: construye un ingreso que corre en paralelo a su actividad actual, y que sale del consumo que se repite cada mes entre sus clientes y sus distribuidores.
 
 Y lo construye en paralelo, porque la parte pesada no la carga usted: Gano Excel fabrica y despacha, y yo converso con cada interesado y maduro su decisión. Lo que le queda es decidir con quién lo comparte y ver crecer su canal.
+</verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le cuento cómo se gana?
 
@@ -564,7 +568,7 @@ Aquí nadie decide hoy. La decisión madura conversando, y para eso estoy — co
 
 Sí, y es de las cosas que más se aprovechan.
 
-Su cónyuge, sus hijos o sus padres pueden abrir su propio código de **Cliente Preferencial** bajo el suyo. Cada uno lo abre con un primer pedido de **50 PV** —unas tres o cuatro cajas— y compra al mismo precio de distribuidor.
+Su cónyuge, sus hijos o sus padres pueden abrir su propio código de **Cliente Preferencial** bajo el suyo. Cada uno lo abre con un primer pedido de **50 PV** —cuatro cajas— y compra al mismo precio de distribuidor.
 
 De ahí en adelante, lo que ellos pidan cuenta como consumo de su canal, igual que el de cualquier otro cliente.
 
@@ -654,7 +658,7 @@ Usted pone su forma de relacionarse; lo que hay que saber se lo damos nosotros.
 **[Índice]:** Tengo costos mensuales obligatorios, hay que comprar todos los meses, cuál es la compra mínima, hay cuota de mantenimiento o administración.
 **[Concepto Nuclear]:** **Sí, hay compra mensual mínima: 50 PV.** Decirlo de frente es lo que sostiene la confianza en una pregunta de dinero. Lo que la distingue de una cuota es que **lo pagado llega en producto** y le conserva el derecho de cobro de comisiones de ese mes. ⚠️ **La cifra se dice en PV y en cajas** —unas tres o cuatro—; la moneda la resuelve el pin de precios por país, y a un visitante de Colombia se le muestra solo COP. ⚠️ Qué productos suman 50 PV es **COMP_PV_08** y el cliente preferencial sin recompra mensual es **COMP_VIP_01**, los dos en `arsenal_compensacion`. ⚠️ La pregunta de cierre lleva a COMP_PV_08, contenido servido.
 
-Sí, hay una compra mensual mínima, y le digo de una cuánto es: **50 PV**, que en producto son unas tres o cuatro cajas.
+Sí, hay una compra mensual mínima, y le digo de una cuánto es: **50 PV**, que en producto son cuatro cajas.
 
 La diferencia con una cuota está en qué recibe a cambio. Una franquicia le cobra administración y ese dinero se va. Aquí lo que paga le llega a la casa en producto, y es lo que le conserva el derecho a cobrar sus comisiones ese mes.
 

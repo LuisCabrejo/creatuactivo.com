@@ -12,6 +12,10 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.10 — COMP_BIN_06 y COMP_BIN_09: cuatro cajas al mes, el equivalente a 50 PV (3 sep 2026)
+
+*«Unas tres o cuatro cajas al mes, una a la semana»* dejaba creer que con menos alcanza (Director, sobre la prueba del 3 sep). Ahora: *cuatro cajas al mes, el equivalente a 50 PV*. Cifras del plan intactas. `COMP_GEN5_09` ya decía lo correcto —haber comprado un paquete empresarial y estar activo con la recompra—; lo que fallaba era el pin de cifras del motor, que le robaba la pregunta con solo ver «gen 5» (corregido en `route.ts`).
+
 ### v8.9 — Se probó y se descartó: la oferta del bono en el índice de COMP_GEN5_01 (3 sep 2026)
 
 Sin cambios en el arsenal; queda el registro de lo medido. Las formas de ganar dejaron de numerarse (ver arsenal_12_niveles v6.17) y la tabla de los 12 Niveles cierra ahora con *¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?*. En WhatsApp ese «sí» lo dicta el webhook; en la web buscaría con la pregunta y caía en `INV_05`. Se probó meter la oferta **literal y aparte** en el índice de `COMP_GEN5_01`: la oferta pasó a ganar (0.591), pero **el propio disparador se diluyó** — *qué es el bono gen5* bajó de 0.602 a 0.554 y pasó a perder contra `COMP_GEN5_02` (la tabla de cifras), que es el orden exacto que la doctrina prohíbe: cifras antes del concepto. Medido en laboratorio con el texto tal como lo embebe el fragmentador (`title\n\níndice`), validado contra producción (0.554 y 0.591 exactos). **Se revirtió el índice.** ⏳ Pendiente: en la web, un «sí» a esa oferta no tiene destino escrito; la salida correcta es un fragmento corto propio, no alargar uno existente.
@@ -326,6 +330,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.19 — INV_04: cuatro cajas, no tres o cuatro (3 sep 2026)
+
+La recompra mensual son **cuatro cajas de producto**, el equivalente a 50 PV (Director).
+
 ### v6.18 — «Entrar» sale de NIVELES_01 (3 sep 2026)
 
 *Abre su código y entra a cobrar el 10%* → *empieza a cobrar el 10%*. Sin más cambios.
@@ -359,6 +367,10 @@ Auditoría general con el Director tras la prueba del canal. Las decisiones del 
 Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
+
+### v6.28 — Auditoría de la prueba del Director: FREQ_04, WHY_05 y las cuatro cajas (3 sep 2026)
+
+`FREQ_04` 🔒 abría con *«Le respondo con total transparencia»* —anunciar la honestidad propia posiciona al otro como el que desconfía— y prometía *«cada semana se suman clientes nuevos»*: ahora abre con el hecho (no hay fecha fija de retorno; el tiempo lo pone el volumen) y la base *se va consolidando*. `WHY_05` gana `<verbatim_lock>`: en la prueba el modelo lo parafraseó y le agregó el remate del villano **sin el *más de veinte*** que es lo deliberado, más un *antídoto*; el fragmento mismo decía *sin adornos* (prima de la franqueza anunciada) y *consumo que se repite semana a semana* (el consumo es mensual). **Cuatro cajas, no tres o cuatro** (Director): *«alguien puede asumir que con una caja al mes es suficiente; el contexto es cuatro cajas al mes o el equivalente a 50 PV»* — corregido en CLIENTE_VIP_01, FREQ_09 y FREQ_22, y en CLAUDE.md, donde vivía la constante que lo propagó.
 
 ### v6.27 — «Entrar» sale de EAM_01 (3 sep 2026)
 
@@ -1544,6 +1556,10 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 ---
 
 ## arsenal_avanzado
+
+### v14.2 — ADV_VAL_03 sin el empujón contra el paquete pequeño; cuatro cajas en ADV_VAL_04 (3 sep 2026)
+
+En la prueba, *«¿con cuál paquete me recomiendas iniciar?»* recibió `ADV_VAL_03` (la defensa del ESP-3 al 17%) dentro de un hilo que acababa de explicar el Kit al 10%: dos tarifas otra vez, el Kit ausente, y el remate *«arrancar en un nivel más bajo significa hacer exactamente el mismo trabajo con un porcentaje menor»*, el empujón que ya se había retirado de compensación. La recomendación es `FREQ_30` 🔒 —*con el que le resulte cómodo hoy*— y así lo dice ahora el concepto de ADV_VAL_03; salió el remate y *entrando* del índice. `ADV_VAL_04`: cuatro cajas (50 PV).
 
 ### v14.1 — «Entrar» sale de ADV_VAL_03 (3 sep 2026)
 

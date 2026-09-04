@@ -676,6 +676,9 @@ export async function gestionarCierre(params: {
   fingerprintId: string;
   socio?: string;
   constructorId?: string;
+  /** El hilo es el de Los 12 Niveles (marca en la ficha o en el historial): el
+   *  cuarto dato nombra el Kit. Lo computa el webhook. */
+  hiloDoceNiveles?: boolean;
   /** Ya existe una pre-afiliación para este prospecto. */
   yaRadicadoEnBD?: boolean;
 }): Promise<ResultadoCierre | null> {
@@ -764,7 +767,7 @@ export async function gestionarCierre(params: {
     // — pero su propio mensaje lo decía, y el del simulador («Acabo de usar el
     // simulador de Los 12 Niveles») también; y el texto tras el Flow dice
     // «duplicación 2×2». Con el detector viejo pidió «cuál de los tres paquetes».
-    const enKit = historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content)) || /12 niveles/i.test(mensajeActual);
+    const enKit = !!params.hiloDoceNiveles || historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content)) || /12 niveles/i.test(mensajeActual);
     if (!botPidio) return { texto: pedirDatos(datos, socio, enKit), radicado: false };
 
     // Una duda a mitad del trámite se responde; el cierre no la atropella. Se

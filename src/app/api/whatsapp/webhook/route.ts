@@ -1204,7 +1204,11 @@ async function procesarEntrante(body: any): Promise<void> {
       // en Cali»), no es una respuesta al nombre: es una intención nueva, y el
       // nodo se aparta para que llegue a la radicación (prueba del Director,
       // 3 sep 2026: el enlace de la pareja se tragó el «me interesa iniciar»).
-      } else if (RE_PIDIO_NOMBRE_PAREJA.test(_ultimoBotPareja) && !RE_VOLICION.test(messageText)) {
+      // …ni una PREGUNTA o un tema nuevo («Hay requisitos para cobrar», turno 14
+      // de la prueba del 3 sep): el nodo entregó el enlace como si fuera el
+      // nombre. Lo que no es nombre, ni «no», ni volición, se deja pasar.
+      } else if (RE_PIDIO_NOMBRE_PAREJA.test(_ultimoBotPareja) && !RE_VOLICION.test(messageText)
+        && !(/[?¿]/.test(messageText) || /(?<![a-záéíóúñ])(hay|c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|puedo|tienes?|requisitos?|precio|paquetes?|cobrar)(?![a-záéíóúñ])/i.test(messageText))) {
         // El turno del NOMBRE DE LA PAREJA (Director, 31 ago 2026): se guarda
         // en la ficha (device_info.pareja_nombre) y la ruta /s/ lo pone en el
         // texto del enlace — ella llega diciendo su nombre y se la recibe con
@@ -1227,7 +1231,11 @@ async function procesarEntrante(body: any): Promise<void> {
           }
           respuestaPareja = textoEntregaEnlace(enlaceCortoPareja(phoneNumber));
         }
-      } else if (botOfrecioEnlace(_ultimoBotPareja) || (enlaceOfrecidoReciente(historial) && aceptaEnlace(messageText))) {
+      // La oferta «reciente» NO se lleva un «sí» cuando el último mensaje del bot
+      // terminó en OTRA pregunta (turno 13 de la prueba del 3 sep: el «sí» era a
+      // «¿Le abro el pedido?» y lo tomó la pareja). Como toda respuesta de Queswa
+      // cierra preguntando, «reciente» solo vale si el bot no dejó pregunta abierta.
+      } else if (botOfrecioEnlace(_ultimoBotPareja) || (enlaceOfrecidoReciente(historial) && aceptaEnlace(messageText) && !/\?\s*$/.test(_ultimoBotPareja.trim()))) {
         if (aceptaEnlace(messageText)) {
           // Antes de generar el enlace se pregunta el nombre de la pareja
           // (Director, 31 ago 2026); la entrega ocurre en el turno siguiente,
@@ -1452,6 +1460,7 @@ async function procesarEntrante(body: any): Promise<void> {
       } else {
       await sendWhatsAppMessage(phoneNumber, respuestaSimulador, { wamid });
       await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaSimulador);
+      if ('tipo' in escenarioSimulador && escenarioSimulador.tipo === 'niveles') await marcarHiloDoceNiveles();
       console.log(`🧮 [WA Webhook] Escenario del simulador respondido dictado para ${phoneNumber}`);
       return;
       }
@@ -1475,7 +1484,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // Aceptación SOLA: «Listo, ¿cómo me inscribo?» arranca con «listo» y trae
     // una pregunta nueva — sin este guard reabría el simulador en vez de
     // responder lo que la persona preguntó (ejercicio del 1 sep 2026).
-    const _aceptaSola = /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor)(?![a-záéíóúñ])/i.test(messageText.trim())
+    const _aceptaSola = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|de una|h[aá]gale|h[aá]g[aá]mosl[eo]|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor|genial|perfecto|de acuerdo|vamos|excelente)(?![a-záéíóúñ])/i.test(messageText.trim())
       && !/[?¿]/.test(messageText)
       && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(messageText);
     // «¿Seguimos con el simulador?» + «sí» debe reenviar la tarjeta — la forma
@@ -1486,7 +1495,26 @@ async function procesarEntrante(body: any): Promise<void> {
 
     // Detectores de las ofertas del hilo de los 12 Niveles, definidos juntos
     // porque se excluyen entre sí: el «sí» va a UNA sola puerta.
-    const _ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe/i.test(_ultimoBotW);
+    const _ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe|arrancamos con su vinculaci[oó]n|seguimos con la activaci[oó]n|arrancamos con la activaci[oó]n/i.test(_ultimoBotW);
+    // EL HILO DE LOS 12 NIVELES se recuerda en la FICHA, no en la memoria corta
+    // (prueba del Director, 3 sep 2026, turno 19): el historial son doce turnos y
+    // la estrategia había quedado catorce atrás — el bloque de datos volvió a
+    // pedir «cuál de los tres paquetes» sin nombrar el Kit. La marca la escribe
+    // el dictado de NIVELES_01 y la respuesta del simulador de niveles.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const hiloDoceNiveles = !!(existingProspect?.device_info as any)?.hilo_12_niveles
+      || historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content))
+      || /12 niveles/i.test(messageText);
+    const marcarHiloDoceNiveles = async () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).rpc('update_prospect_data', {
+          p_fingerprint_id: waFingerprint,
+          p_data: { hilo_12_niveles: true },
+          p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+        });
+      } catch { /* best-effort */ }
+    };
     const _ofrecioTablaNiveles = /nivel por nivel|tabla[^?]{0,60}niveles|proyecci[oó]n[^?]{0,40}nivel/i.test(_ultimoBotW);
     // ⚠️ La forma tiene que ser la PREGUNTA de cierre de la tabla («¿le muestro
     // las ganancias por la compra de paquetes empresariales…?»), no las palabras
@@ -1544,6 +1572,7 @@ async function procesarEntrante(body: any): Promise<void> {
           // preguntando por la tabla Y llegaba la tarjeta del simulador — dos
           // ofertas en un turno. Ahora la pregunta de seguimiento ofrece el
           // simulador y el «sí» manda la tarjeta (reenvío del Flow, más abajo).
+          await marcarHiloDoceNiveles();
           console.log(`📐 [WA Webhook] NIVELES_01 dictado a ${phoneNumber} (nombre mal oído)`);
           return;
         }
@@ -1579,9 +1608,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // bloque de los cuatro datos, con el Kit nombrado porque el hilo es el de
     // la estrategia. Lo que la persona conteste cae en gestionarCierre, que
     // reconoce el bloque por su encabezado.
-    if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioVinculacion && historial.some((m) => /12 Niveles/i.test(m.content))) {
+    if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioVinculacion) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const texto = pedirDatos({ nombre: '', cedula: '', ciudad: '', paquete: '' } as any, socio?.nombre?.split(/\s+/).slice(0, 2).join(' '), true);
+      const texto = pedirDatos({ nombre: '', cedula: '', ciudad: '', paquete: '' } as any, socio?.nombre?.split(/\s+/).slice(0, 2).join(' '), hiloDoceNiveles);
       await sendWhatsAppMessage(phoneNumber, texto, { wamid });
       await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
       console.log(`📝 [WA Webhook] Cuatro datos pedidos dictados tras la oferta de vinculación (${phoneNumber})`);
@@ -1764,7 +1793,11 @@ async function procesarEntrante(body: any): Promise<void> {
       // quiere, no decirle que no se le entendió (prueba del 31 ago 09:00 —
       // «Si» recibió «no logré identificar el producto», que no venía a cuento).
       if (_aceptaPedidoSede && lineas.length === 0) {
-        const texto = pedirProductos(_nombrePedido);
+        // «¿Puedo comprar una caja a precio de distribuidor?» (turno 20 de la prueba
+        // del 3 sep): el nodo arrancaba el pedido sin responder la pregunta.
+        const _notaPrecioDistribuidor = /precio (de )?(distribuidor|mayorista|socio)|con descuento/i.test(messageText)
+          ? 'Sí: el primer pedido va a precio de distribuidor, y con él queda abierto su código.' : undefined;
+        const texto = pedirProductos(_nombrePedido, _notaPrecioDistribuidor);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
         console.log('🛒 [WA Webhook] Pedido abierto desde la sede — esperando los productos');
@@ -1803,7 +1836,7 @@ async function procesarEntrante(body: any): Promise<void> {
         // un «no logré identificar» (prueba del Director, 31 ago 2026).
         const texto = (_enPedido && !_aceptaPedidoSede)
           ? noEntendiProductos(RE_NO_ENTENDI.test(_ultimoBotPedido))
-          : pedirProductos(_nombrePedido);
+          : pedirProductos(_nombrePedido, _notaPrecioDistribuidor);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
         console.log('🛒 [WA Webhook] Pedido abierto — esperando los productos');
@@ -1903,6 +1936,7 @@ async function procesarEntrante(body: any): Promise<void> {
       socio:          socio?.nombre?.split(/\s+/).slice(0, 2).join(' '),
       constructorId:  socio?.constructorId,
       yaRadicadoEnBD: !!radicacionPrevia,
+      hiloDoceNiveles,
     });
 
     if (cierre) {
@@ -2785,9 +2819,8 @@ async function resolverPatrocinador(
 
   // Candidatos: dos o más palabras unidas por guion, con sufijo de 4 dígitos opcional
   const candidatos = texto.toLowerCase().match(/[a-záéíóúñ]+(?:-[a-záéíóúñ]+)+(?:-\d{4})?/g);
-  if (!candidatos || candidatos.length === 0) return null;
 
-  for (const candidato of candidatos.slice(0, 3)) {   // tope: no barrer un mensaje largo entero
+  for (const candidato of (candidatos ?? []).slice(0, 3)) {   // tope: no barrer un mensaje largo entero
     try {
       // 1) ¿Es un constructor_id completo? (luis-cabrejo-1288)
       const { data: porId } = await supabase
@@ -2833,6 +2866,31 @@ async function resolverPatrocinador(
     } catch (err) {
       // Una consulta fallida no puede tumbar el webhook: el prospecto entra sin dueño
       console.error(`⚠️ [WA Webhook] Error resolviendo "${candidato}":`, err);
+    }
+  }
+
+  // 3) Nombre visible: «vengo del enlace de Luis Cabrejo». El Director lo escribió
+  //    a mano en la prueba del 3 sep 2026 y el prospecto quedó sin dueño (el
+  //    pedido fue «al equipo» y el catálogo salió sin ref). El enlace real trae el
+  //    slug, así que esto es red de respaldo: display_name de constructor_slugs
+  //    con las dos primeras palabras.
+  const mNombre = texto.match(/enlace de\s+([\p{L}]+(?:\s+[\p{L}]+)?)/iu);
+  if (mNombre) {
+    try {
+      const { data: porNombre } = await supabase
+        .from('constructor_slugs').select('constructor_id')
+        .ilike('display_name', `${mNombre[1]}%`).limit(1).maybeSingle();
+      if (porNombre?.constructor_id) {
+        const { data: user } = await supabase
+          .from('private_users').select('id, name, constructor_id, whatsapp')
+          .eq('constructor_id', porNombre.constructor_id).maybeSingle();
+        if (user) {
+          console.log(`🔗 [WA Webhook] Patrocinador por nombre visible: ${mNombre[1]} → ${user.constructor_id}`);
+          return { userId: user.id, constructorId: user.constructor_id, nombre: user.name, whatsapp: user.whatsapp ?? undefined };
+        }
+      }
+    } catch (err) {
+      console.error(`⚠️ [WA Webhook] Error resolviendo por nombre "${mNombre[1]}":`, err);
     }
   }
 

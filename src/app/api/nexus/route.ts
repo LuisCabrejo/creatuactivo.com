@@ -2585,8 +2585,12 @@ function analizarIntencionSemantica(userMessage: string): string[] {
       porque: 'pide una recomendación de paquete',
       // 23 ago: el modelo le pegaba el segundo tiempo («si insiste… el Visionario») al
       // primero. Con candado y sin placeholders, se entrega sin modelo.
+      // 3 sep 2026: «Con cuál paquetes me recomiendas iniciar» (prueba del Director)
+      // no abría —plural «paquetes» y el verbo DESPUÉS del sustantivo— y el
+      // clasificador la mandó a ADV_VAL_03, la defensa del ESP-3 al 17%, dentro del
+      // hilo del Kit al 10%. La regex acepta el plural y las dos posiciones del verbo.
       dictar: true,
-      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(qu[eé]|cu[aá]l)\s+(paquete\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
+      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
     },
     {
       // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor
@@ -5661,6 +5665,13 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // "sí" CON tilde —como lo escribe el teclado del teléfono— nunca cerraba
       // el \b y la aceptación solo funcionaba escrita "Si" a secas.
       const _aceptaEjemplo = _ofrecioEjemplo && esAceptacionSola(latestUserMessage);
+      // «¿Hay requisitos para cobrar el GEN5?» recibía el EJEMPLO de cifras (prueba
+      // del Director, 3 sep 2026): el pin dispara con solo ver «gen 5». Quien
+      // pregunta por requisitos o condiciones quiere COMP_GEN5_09 / COMP_BIN_06,
+      // no un escenario con números.
+      const _pideRequisitos = /requisitos?|condici[oó]n(es)?|qu[eé] (se )?necesit|qu[eé] (debo|tengo que) (hacer|cumplir)|para (poder )?cobrar/i.test(latestUserMessage)
+        && !/ejemplo|n[uú]mero|cifra|cu[aá]nto/i.test(latestUserMessage);
+      if (_pideRequisitos) return '';
       if (!esDocCompensacion && !preguntaSobreCifras.test(latestUserMessage) && !_aceptaEjemplo) return '';
 
       // ── WhatsApp: ejemplo de RENTA (Binario) — dictado, en clientes ──────

@@ -212,9 +212,11 @@ export function leerVarianteGanocafe(texto: string): ProductoWA | null {
   return slug ? PRODUCTOS_WA.find((p) => p.slug === slug) ?? null : null;
 }
 
-export function pedirProductos(nombre?: string): string {
+export function pedirProductos(nombre?: string, nota?: string): string {
   const saludo = nombre ? `Con mucho gusto, ${nombre}.` : 'Con mucho gusto.';
-  return `${saludo} Enseguida le cargo su compra.\n\n¿Qué productos va a llevar?`;
+  // `nota`: la respuesta a una pregunta que venía en el mismo mensaje («¿a precio
+  // de distribuidor?»), antes de pedir los productos (Director, 3 sep 2026).
+  return `${saludo}${nota ? ' ' + nota : ''} Enseguida le cargo su compra.\n\n¿Qué productos va a llevar?`;
 }
 
 /**
@@ -285,11 +287,19 @@ export function confirmarPedido(
     '',
     cuerpo + total,
     '',
-    `${quien} ya lo tiene en sus manos, así que él se comunica con usted por este mismo medio para acordar el pago y la entrega como mejor le quede.`,
+    // Quien lo atiende se NOMBRA (Director, 3 sep 2026): el patrocinador, o alguien
+    // del equipo de creatuactivo.com para ayudarle a finiquitar. «El equipo … él
+    // se comunica» salía sin patrocinador y no concordaba.
+    socio?.nombre
+      ? `${quien} ya lo tiene en sus manos y se comunica con usted por este mismo medio para acordar el pago y la entrega como mejor le quede.`
+      : 'Alguien del equipo de creatuactivo.com ya lo tiene en sus manos y se comunica con usted por este mismo medio para ayudarle a finiquitar el pago y la entrega.',
     '',
     `Mientras tanto, aquí tiene el catálogo completo por si quiere conocer el resto de la línea: ${enlaceCatalogo(socio?.slug)}. Si algo le llama la atención, escríbame por aquí y lo vemos juntos.`,
     '',
-    '¿Hay algo más que le pueda responder ahora?',
+    // Una pregunta que PROPONE, no que encuesta (Director, 3 sep 2026): «¿hay algo
+    // más?» le entrega a la persona la carga de buscar el tema. RUTINA_01 tiene
+    // destino escrito y aplica a lo que acaba de pedir.
+    '¿Le muestro cómo se toman a lo largo de un día?',
   ].join('\n');
 }
 

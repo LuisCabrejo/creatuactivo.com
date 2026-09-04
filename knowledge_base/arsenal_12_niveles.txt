@@ -346,7 +346,7 @@ Todos los paquetes incluyen:
 
 **[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso recurrente.
 
-Sí, y son **50 PV** al mes — cuatro cajas de producto.
+Sí: cuatro cajas de producto al mes, o el equivalente a **50 PV**.
 
 Esa compra es la que lo mantiene activo, y estar activo es lo que le conserva el derecho a cobrar las comisiones de su canal. Si un mes no la hace, ese derecho queda suspendido hasta que la retome.
 

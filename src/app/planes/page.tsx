@@ -373,7 +373,7 @@ function QueHace() {
     },
     {
       title: 'Forma a sus socios',
-      body: 'Cada socio que entra con usted recibe la misma tecnología y la misma formación desde el día uno, sin que usted cargue la enseñanza.',
+      body: 'Cada socio que inicia con usted recibe la misma tecnología y la misma formación desde el día uno, sin que usted cargue la enseñanza.',
     },
     {
       title: 'Funciona en 16 países',

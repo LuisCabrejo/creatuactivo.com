@@ -291,7 +291,7 @@ export default function FundadoresPage() {
         ))}
         <div style={{ marginTop: '1.5rem', padding: '1.5rem', borderLeft: `2px solid ${GOLD}`, background: 'rgba(197,160,89,0.04)' }}>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
-            Y como es así de sencillo, quien entra con usted hace exactamente lo mismo.{' '}
+            Y como es así de sencillo, quien inicia con usted hace exactamente lo mismo.{' '}
             <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación.</Strong>
           </p>
         </div>

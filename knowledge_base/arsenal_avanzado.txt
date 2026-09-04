@@ -136,9 +136,9 @@ Por el mismo volumen de consumo, la empresa paga distinto según su nivel de arr
 
 ### ADV_VAL_04: "¿Cuál es mi compra personal mínima mensual? / ¿Tengo una obligación de compra cada mes?"
 **[Índice]:** Cuál es mi compra personal mínima cada mes, tengo obligación de comprar, cuántos PV me piden para seguir cobrando.
-**[Concepto Nuclear]:** La compra personal mínima es de **50 PV al mes** — en producto, cuatro cajas. Lo que la distingue de una cuota es que llega en mercancía y le conserva el derecho de cobro de comisiones. ⚠️ La cifra se dice en PV y en cajas; la moneda la resuelve el pin de precios por país. ⚠️ Qué productos suman 50 PV es **COMP_PV_08**; la versión de primer contacto es **FREQ_09** en `arsenal_inicial`.
+**[Concepto Nuclear]:** La compra personal mínima es de **50 PV al mes** — o, en producto, cuatro cajas. Lo que la distingue de una cuota es que llega en mercancía y le conserva el derecho de cobro de comisiones. ⚠️ La cifra se dice en PV y en cajas; la moneda la resuelve el pin de precios por país. ⚠️ Qué productos suman 50 PV es **COMP_PV_08**; la versión de primer contacto es **FREQ_09** en `arsenal_inicial`.
 
-Su compromiso mensual es una compra personal de **50 PV** — en producto, cuatro cajas.
+Su compromiso mensual es una compra personal de **50 PV** — o, en producto, cuatro cajas.
 
 Eso no es una cuota de administración: es mercancía que le llega a la casa. Y es lo que le conserva el derecho a cobrar las comisiones que genere su canal ese mes.
 

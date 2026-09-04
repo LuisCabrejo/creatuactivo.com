@@ -431,7 +431,7 @@ Si no, Gano Excel despacha por Servientrega desde su sede más cercana, y normal
 
 ### **CLIENTE_VIP_01: "Yo solo quiero el producto, no el negocio / ¿Puedo comprar sin hacer el negocio? / ¿Cuánto me ahorro si me registro? / ¿Hay descuento si compro directo? / Solo me interesa el café, ¿me sale más barato? / ¿Cuál es el precio de distribuidor?"**
 **[Índice]:** Solo quiero el producto y no el negocio, puedo comprar sin hacer nada más, cuánto me ahorro si me registro, hay descuento, cuál es el precio de distribuidor.
-**[Concepto Nuclear]:** El beneficio es del cliente, y el objetivo es que tenga su propio código. Cifra única: el Ganocafé 3 en 1 pasa de $147.900 público a $110.900. El acceso en concreto: 50 PV son cuatro cajas y el equipo lo acompaña. El ángulo del dueño es FREQ_22.
+**[Concepto Nuclear]:** El beneficio es del cliente, y el objetivo es que tenga su propio código. Cifra única: el Ganocafé 3 en 1 pasa de $147.900 público a $110.900. El acceso en concreto: 50 PV, o cuatro cajas y el equipo lo acompaña. El ángulo del dueño es FREQ_22.
 
 <verbatim_lock>
 Claro que sí, y es la puerta más sencilla de todas.
@@ -440,7 +440,7 @@ Se registra como **Cliente Preferencial** y compra al mismo precio que un distri
 
 **Lo que eso significa en pesos:** el Ganocafé 3 en 1 tiene un precio público de $147.900. Como Cliente Preferencial usted lo paga a **$110.900** — **$37.000 menos por caja, un 25%**.
 
-Su código se abre con un primer pedido de 50 PV, que son cuatro cajas. El equipo lo acompaña a armarlo.
+Su código se abre con un primer pedido de 50 PV, o cuatro cajas. El equipo lo acompaña a armarlo.
 
 De ahí en adelante usted pide cuando quiera y lo que quiera.
 </verbatim_lock>
@@ -568,7 +568,7 @@ Aquí nadie decide hoy. La decisión madura conversando, y para eso estoy — co
 
 Sí, y es de las cosas que más se aprovechan.
 
-Su cónyuge, sus hijos o sus padres pueden abrir su propio código de **Cliente Preferencial** bajo el suyo. Cada uno lo abre con un primer pedido de **50 PV** —cuatro cajas— y compra al mismo precio de distribuidor.
+Su cónyuge, sus hijos o sus padres pueden abrir su propio código de **Cliente Preferencial** bajo el suyo. Cada uno lo abre con un primer pedido de **50 PV** —o cuatro cajas— y compra al mismo precio de distribuidor.
 
 De ahí en adelante, lo que ellos pidan cuenta como consumo de su canal, igual que el de cualquier otro cliente.
 
@@ -658,7 +658,7 @@ Usted pone su forma de relacionarse; lo que hay que saber se lo damos nosotros.
 **[Índice]:** Tengo costos mensuales obligatorios, hay que comprar todos los meses, cuál es la compra mínima, hay cuota de mantenimiento o administración.
 **[Concepto Nuclear]:** **Sí, hay compra mensual mínima: 50 PV.** Decirlo de frente es lo que sostiene la confianza en una pregunta de dinero. Lo que la distingue de una cuota es que **lo pagado llega en producto** y le conserva el derecho de cobro de comisiones de ese mes. ⚠️ **La cifra se dice en PV y en cajas** —unas tres o cuatro—; la moneda la resuelve el pin de precios por país, y a un visitante de Colombia se le muestra solo COP. ⚠️ Qué productos suman 50 PV es **COMP_PV_08** y el cliente preferencial sin recompra mensual es **COMP_VIP_01**, los dos en `arsenal_compensacion`. ⚠️ La pregunta de cierre lleva a COMP_PV_08, contenido servido.
 
-Sí, hay una compra mensual mínima, y le digo de una cuánto es: **50 PV**, que en producto son cuatro cajas.
+Sí, hay una compra mensual mínima, y le digo de una cuánto es: **50 PV**, o, en producto, cuatro cajas.
 
 La diferencia con una cuota está en qué recibe a cambio. Una franquicia le cobra administración y ese dinero se va. Aquí lo que paga le llega a la casa en producto, y es lo que le conserva el derecho a cobrar sus comisiones ese mes.
 

@@ -539,7 +539,7 @@ function Faq() {
           />
           <FaqItem
             q="¿Cuál es el consumo mensual para mantenerlo activo?"
-            a="Una compra mensual de 50 PV — en producto, cuatro cajas. Es producto que usted consume o comparte con sus clientes, y que mantiene el flujo en movimiento."
+            a="Una compra mensual de 50 PV — o, en producto, cuatro cajas. Es producto que usted consume o comparte con sus clientes, y que mantiene el flujo en movimiento."
           />
           <FaqItem
             q="¿Puedo subir de nivel más adelante?"

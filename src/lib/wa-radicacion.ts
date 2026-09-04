@@ -384,13 +384,15 @@ function ecoDe(clave: keyof DatosRadicacion, datos: DatosRadicacion): string | n
  * hay una oficina física, con gente.
  */
 /**
- * En el hilo de Los 12 Niveles el cuarto dato nombra el Kit (Director, 1 sep
- * 2026): la estrategia entra por el Kit, y «cuál de los tres paquetes» ahí
- * reabre la puerta a los empresariales que ese hilo cierra a propósito. Fuera
- * de ese hilo la etiqueta sigue siendo la de los tres paquetes — el Kit es la
- * opción menor y aparece cuando la persona pide algo más económico.
+ * Los paquetes de inicio canónicos son los tres empresariales — así los maneja
+ * Gano Excel, así los nombra el liderazgo y así los va a oír la persona en
+ * cualquier evento corporativo (Director, 3 sep 2026). El Kit no es un cuarto
+ * paquete: es la MECÁNICA de entrada de Los 12 Niveles, y por eso solo se nombra
+ * en ese hilo, como puente y después de los tres. La versión anterior lo ponía
+ * primero y a los tres «si lo prefiere», que es la jerarquía al revés. Fuera del
+ * hilo la etiqueta es la de los tres paquetes, sin más.
  */
-const ETIQUETA_PAQUETE_KIT = 'El paquete con el que inicia — el Kit de Inicio, o uno de los tres principales si lo prefiere';
+const ETIQUETA_PAQUETE_KIT = 'Cuál de los tres paquetes de inicio quiere, o el Kit de Inicio si va con la estrategia de los 12 Niveles';
 
 export function pedirDatos(datos: DatosRadicacion, socio?: string, enKit = false): string {
   const claves = ['nombre', 'cedula', 'ciudad', 'paquete'] as const;

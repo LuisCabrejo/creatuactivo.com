@@ -32,8 +32,14 @@ import { ESQUELETO_REDACCION_SOCIO } from '@/lib/wa-redaccion-socio';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
 import {
   detectarEmergencia, clasificarPreguntaSalud, esRechazoSalud,
+  rechazoSaludPorFamilia, saludSeCompone, nucleoSalud, detectarClaimSaludEnSalida,
   RESPUESTA_EMERGENCIA, RECHAZO_SALUD_GRAVE, RECHAZO_SALUD_ESTANDAR, RECHAZO_SALUD_CORTO,
 } from '@/lib/wa-guardarrail-salud';
+import {
+  detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
+  RESPUESTA_CORRECTIVA, correctivaSegunHilo,
+} from '@/lib/wa-guardarrail-negocio';
+import { gestionarCierre } from '@/lib/wa-radicacion';
 import { NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, CIERRE_SALUD } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
@@ -4181,8 +4187,25 @@ export async function POST(req: Request) {
   const tenantId = req.headers.get('x-tenant-id') ?? 'creatuactivo_marketing';
   console.log(`🏢 [Tenant] ${tenantId}`);
 
+  // ── UN MOTOR PARA LOS DOS CANALES (Director, 4 sep 2026) ──────────────────
+  // La web (creatuactivo.com) es el respaldo del canal de WhatsApp si Meta lo
+  // cierra, y un respaldo que responde distinto no es respaldo. Todo lo que este
+  // motor hacía solo para `whatsapp` —anclar la consulta, no improvisar ante una
+  // recuperación débil, Sonnet siempre, los pines dictados, la radicación y los
+  // guardarraíles de salida— lo hace ahora también para la web. Las puertas leen
+  // `canalDictado`, no el tenant. `ecommerce` y `marca_personal` siguen aparte.
+  const canalDictado = tenantId === 'whatsapp' || tenantId === 'creatuactivo_marketing';
+  // Lo que en WhatsApp hace el webhook antes de llamar aquí (salud de entrada,
+  // radicación, filtros de salida), en la web lo hace este mismo handler.
+  const canalWeb = tenantId === 'creatuactivo_marketing';
+
   try {
-    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext } = await req.json();
+    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada } = await req.json();
+    // `let`: la salud compuesta de la web lo reasigna (ver guardarraíl de entrada).
+    let pageContext: string | undefined = pageContextEntrada;
+    // Respuesta de salud que el modelo COMPONE alrededor de un núcleo legal literal
+    // (etapa 3). Solo en la web; en WhatsApp lo lleva el webhook.
+    let _saludCompuestaWeb: { familia: string; declara: boolean; respaldo: string; nucleo: string } | null = null;
 
     // 🌎 País del visitante (web: IP Vercel Edge · whatsapp: prefijo telefónico)
     const visitorCountry = detectVisitorCountry(req, tenantId, fingerprint);
@@ -4241,13 +4264,34 @@ export async function POST(req: Request) {
       if (_salud) {
         // La reincidencia endurece al texto corto: repetirle el párrafo largo a
         // quien ya lo recibió se lee como que no lo estamos escuchando.
-        const _reincide = (messages as { role: string; content: string }[])
+        const _reincide = _salud.nivel === 'comun' && (messages as { role: string; content: string }[])
           .some((m) => m.role === 'assistant' && esRechazoSalud(m.content ?? ''));
-        const _texto = _salud.nivel === 'grave'
-          ? RECHAZO_SALUD_GRAVE
-          : (_reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR);
-        console.warn(`🛡️ [Salud/entrada] «${_salud.termino}» (${_salud.nivel}) — se deriva sin llamar al modelo`);
-        return new StreamingTextResponse(buildVerbatimStream(_texto), { headers: getCorsHeaders(origin) });
+
+        if (canalWeb) {
+          // El mismo nodo 1.4 del webhook: cada familia tiene su texto, y en
+          // las familias seguras el turno NO se corta — el modelo escribe el
+          // acuse y el cierre alrededor del núcleo legal, que va literal y se
+          // verifica a la salida (ver guardarraíl de salida de la web).
+          const { familia, texto: _rechazo, declara } = rechazoSaludPorFamilia(_salud, _reincide, latestUserMessage);
+          if (saludSeCompone(familia) && !_reincide) {
+            _saludCompuestaWeb = { familia, declara, respaldo: _rechazo, nucleo: nucleoSalud(familia, declara) };
+            pageContext = `whatsapp_salud_${familia}_${declara ? 'declara' : 'pregunta'}`;
+            console.warn(`🩺 [Salud/entrada·web] «${_salud.termino}» → se compone alrededor del núcleo (${familia}, ${declara ? 'declara' : 'pregunta'})`);
+          } else {
+            console.warn(`🛡️ [Salud/entrada·web] «${_salud.termino}» (${familia}${_reincide ? ', reincidencia' : ''}) — se deriva sin llamar al modelo`);
+            if (sessionId && fingerprint) {
+              logConversationHibrida(latestUserMessage, _rechazo, ['GUARDARRAIL_SALUD_ENTRADA'], 'salud_entrada', sessionId, fingerprint, {})
+                .catch((err) => console.error('❌ [Salud/entrada] Error logging:', err));
+            }
+            return new StreamingTextResponse(buildVerbatimStream(_rechazo), { headers: getCorsHeaders(origin) });
+          }
+        } else {
+          const _texto = _salud.nivel === 'grave'
+            ? RECHAZO_SALUD_GRAVE
+            : (_reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR);
+          console.warn(`🛡️ [Salud/entrada] «${_salud.termino}» (${_salud.nivel}) — se deriva sin llamar al modelo`);
+          return new StreamingTextResponse(buildVerbatimStream(_texto), { headers: getCorsHeaders(origin) });
+        }
       }
     }
 
@@ -4543,6 +4587,74 @@ ${summaryParts.join('\n')}
     };
 
     // ════════════════════════════════════════════════════════════════════════════
+    // 🎯 EL CIERRE DE LA WEB ES LA RADICACIÓN — el mismo nodo 2.5 del webhook
+    // ════════════════════════════════════════════════════════════════════════════
+    // Hasta el 4 sep 2026 la web cerraba con la FSM (Estados 2/3/4), que remata
+    // entregando dos enlaces `wa.me` al WABA: si Meta cierra el canal, el respaldo
+    // cerraba hacia el número caído. Ahora la web radica igual que WhatsApp
+    // (`pending_activations` + aviso al socio), con una diferencia: aquí no se
+    // conoce el teléfono, así que `gestionarCierre` pide un quinto dato —el
+    // WhatsApp donde el socio le escribe— salvo que la ficha ya lo tenga.
+    // Corre ANTES de la búsqueda, como en el webhook: si el turno es del cierre,
+    // el motor no interviene.
+    if (canalWeb && typeof latestUserMessage === 'string') {
+      const _historialCierre = (messages as any[]).slice(0, -1)
+        .filter((m) => m?.role === 'user' || m?.role === 'assistant')
+        .map((m) => ({ role: m.role as string, content: typeof m.content === 'string' ? m.content : '' }));
+      const _telefonoFicha = String(mergedProspectData.phone || mergedProspectData.whatsapp || '').replace(/\D/g, '');
+
+      // El nombre del socio va en los textos dictados («le aviso a Luis Cabrejo»).
+      let _socioNombre: string | undefined;
+      let _socioCodigo: string | undefined;
+      if (constructorUUID) {
+        try {
+          const { data: _socio } = await getSupabaseClient()
+            .from('private_users').select('name, constructor_id').eq('id', constructorUUID).maybeSingle();
+          _socioNombre = _socio?.name ? String(_socio.name).split(/\s+/).slice(0, 2).join(' ') : undefined;
+          _socioCodigo = _socio?.constructor_id ? String(_socio.constructor_id) : undefined;
+        } catch (err) {
+          console.warn('⚠️ [Cierre web] No se pudo leer el socio:', err);
+        }
+      }
+
+      const _hiloDoceNiveles = pageContext === '12_niveles'
+        || (messages as any[]).some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(String(m?.content ?? '')));
+
+      const _cierreWeb = await gestionarCierre({
+        mensajeActual:   latestUserMessage,
+        historial:       _historialCierre,
+        whatsapp:        _telefonoFicha.length >= 10 ? _telefonoFicha : null,
+        fingerprintId:   fingerprint || sessionId || 'web',
+        socio:           _socioNombre,
+        constructorId:   _socioCodigo || constructorId || undefined,
+        hiloDoceNiveles: _hiloDoceNiveles,
+      });
+
+      if (_cierreWeb) {
+        console.log(`🎯 [Cierre web] Turno atendido por la radicación (radicado: ${_cierreWeb.radicado})`);
+        // Lo que la persona entregó para radicar queda en su ficha — el WhatsApp
+        // sobre todo, que es el dato que la web no tenía.
+        if (_cierreWeb.radicado && _cierreWeb.datos && fingerprint) {
+          const _fichaRadicacion = removeNullValues({
+            name:  _cierreWeb.datos.nombre,
+            phone: _cierreWeb.datos.whatsapp ?? null,
+            package: _cierreWeb.datos.paquete,
+          } as any);
+          getSupabaseClient().rpc('update_prospect_data', {
+            p_fingerprint_id: fingerprint,
+            p_data: _fichaRadicacion,
+            p_constructor_id: constructorUUID || undefined,
+          }).then(({ error }: any) => { if (error) console.error('❌ [Cierre web] Ficha no actualizada:', error); });
+        }
+        if (sessionId && fingerprint) {
+          logConversationHibrida(latestUserMessage, _cierreWeb.texto, ['RADICACION_BACKEND'], 'radicacion_web', sessionId, fingerprint, prospectData)
+            .catch((err) => console.error('❌ [Cierre web] Error logging:', err));
+        }
+        return new StreamingTextResponse(buildVerbatimStream(_cierreWeb.texto), { headers: getCorsHeaders(origin) });
+      }
+    }
+
+    // ════════════════════════════════════════════════════════════════════════════
     // 🎚️ CLASIFICADOR DE MARCHA DE CIERRE — FUENTE ÚNICA DE VERDAD (jun 2026)
     // ════════════════════════════════════════════════════════════════════════════
     // Modelo de 3 marchas calibrado con el Director Cabrejo. El discriminador es
@@ -4623,7 +4735,7 @@ ${summaryParts.join('\n')}
       // memoria paramétrica, que es de donde salían los modelos de negocio inventados.
       // La consulta se ancla antes de buscar (CQR, más abajo), así que el mensaje
       // corto ya no llega desnudo al buscador.
-      if (tenantId === 'whatsapp') return false;
+      if (canalDictado) return false;
 
       // M1/M2/M3 siempre Sonnet — turnos críticos donde el nombre, la situación y la
       // confirmación post-nombre definen el tono de toda la conversación.
@@ -4670,7 +4782,9 @@ ${summaryParts.join('\n')}
     // pide los cuatro datos que /api/pre-afiliacion exige y deja el registro
     // hecho. Aquí solo hay que apartarse — incluida la supresión de RAG, que sin
     // texto dictado dejaría al modelo respondiendo precios de memoria.
-    const cierreLoManejaElCanal = tenantId === 'whatsapp';
+    // Desde el 4 sep 2026 también en la web: su cierre es la radicación (arriba),
+    // no la FSM de Estados 2/3/4, que remataba con enlaces wa.me al WABA.
+    const cierreLoManejaElCanal = canalDictado;
 
     // Marchas 1 (tabla dictada) y 3 (registro) suprimen RAG. Marcha 2 (interés) lo MANTIENE.
     // En cierre escriturado solo se suprime si el usuario ESTÁ respondiendo lo pedido —
@@ -4797,7 +4911,7 @@ ${summaryParts.join('\n')}
     // negocio", que además es léxico de negocio en modo consultor.
     const _nombraProducto = detectarProducto(latestUserMessage) !== null;
 
-    if (!_aceptacionPelada && !_yaClasificaPorPatron && !_nombraProducto && tenantId === 'whatsapp' && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+    if (!_aceptacionPelada && !_yaClasificaPorPatron && !_nombraProducto && canalDictado && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       const historialPrevio = (Array.isArray(messages) ? messages : [])
         .slice(0, -1)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -4868,7 +4982,7 @@ ${summaryParts.join('\n')}
       relevantDocuments.length === 0 ||
       (typeof _topSimilarity === 'number' && _topSimilarity < 0.42);
 
-    if (tenantId === 'whatsapp' && recuperacionDebil) {
+    if (canalDictado && recuperacionDebil) {
       console.warn(`🪫 [CRAG] Recuperación débil (docs=${relevantDocuments.length}, top=${_topSimilarity ?? 'n/a'}) — se pide no improvisar`);
     }
 
@@ -4986,7 +5100,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // WhatsApp: el número YA identifica a la persona — no hay nada que "capturar".
       // El contexto genérico ("CAPTURA NOMBRE") ponía al modelo en modo interrogatorio
       // y derivaba en preguntas de cualificación prohibidas (tiempo disponible, sector).
-      if (tenantId === 'whatsapp') {
+      if (canalDictado) {
         if (messageCount === 1) return 'MENSAJE 1 - SALUDO INICIAL';
         return `CONVERSACIÓN EN CURSO (turno ${messageCount}) — MOSTRAR, NO INTERROGAR. Use lo que la persona ya le dijo para mostrarle cómo aplica a SU caso. PROHIBIDO preguntar cuánto tiempo/horas puede dedicarle, en qué sector trabaja, o "qué lo trajo".`;
       }
@@ -5713,7 +5827,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
         && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage))
         || ((_aceptaEjemplo || _pideEjemplo) && !_nombraGen5 && _ofrecioRenta)
         || (_aceptaEjemplo && !_nombraGen5);
-      if (tenantId === 'whatsapp' && esRenta) {
+      if (canalDictado && esRenta) {
         // EL APALANCAMIENTO reemplaza el ejemplo de clientes propios (Director,
         // 3 sep 2026). Reescrito la misma noche en la auditoría con Gemini: la
         // duda del «yo solo» se nombra (todo el que leyó «compartir su enlace»
@@ -5766,7 +5880,7 @@ STOP. Sin cifras, sin CV, sin ejemplos de números, sin tablas. La pregunta de c
       // aceptó: nadie contesta "¿le muestro un ejemplo con números?" repitiendo
       // la palabra números — contesta "sí". Sin esto, el pin exige un pedido
       // explícito que la conversación acaba de volver innecesario.
-      if (tenantId === 'whatsapp' && (preguntaSobreCifras.test(latestUserMessage) || _aceptaEjemplo)) {
+      if (canalDictado && (preguntaSobreCifras.test(latestUserMessage) || _aceptaEjemplo)) {
         const esCO = visitorCountry === 'CO';
         const c = (cop: number, usd: number) =>
           esCO ? `$${cop.toLocaleString('es-CO')}` : `$${usd.toLocaleString('en-US')}`;
@@ -6072,7 +6186,7 @@ ${visitorCountry === 'CO'
     // ── Una puerta con candado se entrega SIN pasar por el modelo ─────────────
     // FREQ_30 (23 ago): con el candado servido, el modelo igual le pegaba el
     // segundo tiempo del prompt al primero. Lo que es verbatim lo emite el backend.
-    if (tenantId === 'whatsapp' && relevantDocuments[0]?.search_method === 'puerta_directa'
+    if (canalDictado && relevantDocuments[0]?.search_method === 'puerta_directa'
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         && (relevantDocuments[0]?.metadata as any)?.dictar) {
       const _cuerpoPuerta = extraerCandadoDictado(relevantDocuments[0].content || '');
@@ -6087,7 +6201,7 @@ ${visitorCountry === 'CO'
     }
 
     // ── El GEN5 de un paquete nombrado se entrega SIN pasar por el modelo ─────
-    if (tenantId === 'whatsapp') {
+    if (canalDictado) {
       const _paqEvento = paqueteDelEventoGen5(latestUserMessage);
       const _cuerpoGen5 = _paqEvento ? gen5PrimerPaqueteDictado(_paqEvento, visitorCountry) : null;
       if (_cuerpoGen5) {
@@ -6118,7 +6232,7 @@ ${visitorCountry === 'CO'
     // pregunta de salud sin marco (prueba del 29 ago 2026). El paquete ya quedó
     // capturado por el webhook, así que no se pierde nada: la selección espera y
     // la salud se atiende, que es lo que no puede esperar.
-    if (tenantId === 'whatsapp' && !_pinDictaEjemplo && !_saludCompuesta) {
+    if (canalDictado && !_pinDictaEjemplo && !_saludCompuesta) {
       const _comp = resolverPaqueteComposicion();
       if (_comp?.explicito && _comp.codigo && composiciones[_comp.codigo]) {
         const cuerpo = tablaPaqueteDictada(_comp.codigo, composiciones[_comp.codigo], visitorCountry);
@@ -6135,7 +6249,7 @@ ${visitorCountry === 'CO'
       }
     }
 
-    if (tenantId === 'whatsapp' && _pinDictaEjemplo) {
+    if (canalDictado && _pinDictaEjemplo) {
       let cuerpo = extraerEjemploDictado(_pinCifras);
       // Si ESTE MISMO ejemplo ya salió en la conversación, no se repite carácter
       // por carácter — se reconoce y se empuja al simulador, que es donde la
@@ -6223,7 +6337,7 @@ ${/* El bloque <instrucciones_absolutas_finales> vivía aquí: cuatro reglas en
      salidas ante el vacío ya están en <constraint_framework>; lo que de verdad
      protege es el guardarraíl de salida del webhook, que revisa el texto ya
      generado. NO reintroducir aquí. */ ''}
-${tenantId === 'whatsapp' && recuperacionDebil ? `
+${canalDictado && recuperacionDebil ? `
 <contexto_insuficiente>
 La búsqueda en la base de conocimiento no devolvió material sólido para este
 mensaje. Responda usando SOLO dos fuentes: lo que la persona ya le dijo en esta
@@ -6365,9 +6479,10 @@ ESTADO: ${getMessageContext()}`;
       console.warn(`⚠️ [CACHE MISS] cache_read=0 | cache_creation=${cacheCreationTokens} | input=${inputTokens} — Cold start, próximo request debería hacer hit`);
     }
 
-    // Stream optimizado para arquitectura híbrida
-    const stream = AnthropicStream(response as any, {
-      onFinal: async (completion) => {
+    // Lo que corre cuando el modelo terminó: extracción semántica, log de la
+    // conversación y el warm handoff. En WhatsApp y los demás tenants va en el
+    // `onFinal` del stream; en la web se llama a mano, después de validar.
+    const alTerminar = async (completion: string) => {
         const totalTime = Date.now() - startTime;
         console.log(`✅ NEXUS híbrido completado en ${totalTime}ms - Método: ${searchMethod}`);
 
@@ -6446,8 +6561,63 @@ ESTADO: ${getMessageContext()}`;
             console.error('❌ [Handoff] Error disparando warm handoff:', e);
           }
         }
+    };
+
+    // ── LA WEB VALIDA LA RESPUESTA COMPLETA ANTES DE EMITIRLA (4 sep 2026) ────
+    // Los mismos cuatro filtros del nodo 3.5 del webhook, en el mismo orden:
+    // núcleo legal literal · modelo de negocio inventado · marca interna ·
+    // promesa de ingreso · declaración de salud. El borrador que falla se
+    // DESCARTA y se reemplaza — nunca se corrige ni se reintenta. El costo es
+    // que la web deja de ver el texto letra a letra: llega entero, como en
+    // WhatsApp. Lo que se guarda en la base es lo que la persona leyó.
+    if (canalWeb) {
+      const _lector = AnthropicStream(response as any).getReader();
+      const _dec = new TextDecoder();
+      let _borrador = '';
+      while (true) {
+        const { done, value } = await _lector.read();
+        if (done) break;
+        _borrador += _dec.decode(value, { stream: true });
       }
-    });
+      _borrador = _borrador.trim();
+
+      const _historialSalida = (messages as any[])
+        .filter((m) => m?.role === 'user' || m?.role === 'assistant')
+        .map((m) => ({ role: m.role as string, content: typeof m.content === 'string' ? m.content : '' }));
+      const _plano = (t: string) => t.replace(/\s+/g, ' ').trim();
+
+      let _final = _borrador;
+      let _motivo: string | null = null;
+      if (_saludCompuestaWeb && !_plano(_borrador).includes(_plano(_saludCompuestaWeb.nucleo))) {
+        _final = _saludCompuestaWeb.respaldo; _motivo = 'núcleo legal parafraseado';
+      } else if (detectarModeloInventado(_borrador)) {
+        _final = RESPUESTA_CORRECTIVA; _motivo = `modelo inventado: ${detectarModeloInventado(_borrador)}`;
+      } else if (detectarMarcaInterna(_borrador)) {
+        _final = correctivaSegunHilo(_historialSalida); _motivo = `marca interna: ${detectarMarcaInterna(_borrador)}`;
+      } else if (detectarPromesaDeIngreso(_borrador)) {
+        _final = correctivaSegunHilo(_historialSalida); _motivo = `promesa de ingreso: ${detectarPromesaDeIngreso(_borrador)}`;
+      } else if (detectarClaimSaludEnSalida(_borrador)) {
+        _final = RECHAZO_SALUD_ESTANDAR; _motivo = `claim de salud: ${detectarClaimSaludEnSalida(_borrador)}`;
+      }
+      if (_motivo) {
+        console.error(`🚨 [Guardarraíl web] BLOQUEADO — ${_motivo}. Borrador: "${_borrador.slice(0, 300)}"`);
+      }
+
+      const _textoFinal = _final;
+      const streamWeb = new ReadableStream({
+        async start(controller) {
+          controller.enqueue(new TextEncoder().encode(_textoFinal));
+          // Se espera aquí y no en un fire-and-forget: Edge corta lo que quede
+          // pendiente cuando la respuesta cierra.
+          try { await alTerminar(_textoFinal); } catch (e) { console.error('❌ [NEXUS·web] alTerminar:', e); }
+          controller.close();
+        },
+      });
+      return new StreamingTextResponse(streamWeb, { headers: getCorsHeaders(origin) });
+    }
+
+    // Stream optimizado para arquitectura híbrida
+    const stream = AnthropicStream(response as any, { onFinal: alTerminar });
 
     return new StreamingTextResponse(stream, { headers: getCorsHeaders(origin) });
 

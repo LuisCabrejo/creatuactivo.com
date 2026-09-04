@@ -16,13 +16,19 @@
  *   prohibido — expresiones que NO puede traer (léxico retirado, villano ajeno…)
  *   historial — turnos previos, para las preguntas que dependen del hilo
  *
- * node scripts/prueba-40-preguntas.mjs [--base https://creatuactivo.com] [--detalle] [--solo 12]
+ * node scripts/prueba-40-preguntas.mjs [--base https://creatuactivo.com] [--tenant whatsapp|web] [--detalle] [--solo 12]
  */
 import 'dotenv/config';
 import { detectarPromesaDeIngreso } from '../src/lib/wa-guardarrail-negocio.ts';
 import { detectarClaimSaludEnSalida } from '../src/lib/wa-guardarrail-salud.ts';
 
 const arg = (n, def) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : def; };
+const TENANT       = arg('--tenant', 'whatsapp');   // whatsapp | web — la web es el respaldo del canal y debe responder igual
+const TENANT_ID    = TENANT === 'web' ? 'creatuactivo_marketing' : TENANT;
+const PAGE_CONTEXT = TENANT === 'whatsapp' ? 'whatsapp_inbound' : 'default';
+// En producción Vercel pone el país en `x-vercel-ip-country`; en local nadie lo pone
+// y el motor cotizaría en USD. El arnés lo fija en CO para la web.
+const CABECERAS    = { 'Content-Type': 'application/json', 'x-tenant-id': TENANT_ID, ...(TENANT !== 'whatsapp' && { 'x-vercel-ip-country': 'CO' }) };
 const BASE    = arg('--base', 'https://creatuactivo.com');
 const DETALLE = process.argv.includes('--detalle');
 const SOLO    = arg('--solo', null);
@@ -110,8 +116,8 @@ async function preguntar(caso, i) {
   const t0 = Date.now();
   const r = await fetch(`${BASE}/api/nexus`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp' },
-    body: JSON.stringify({ messages, sessionId: fingerprint, fingerprint, pageContext: 'whatsapp_inbound' }),
+    headers: CABECERAS,
+    body: JSON.stringify({ messages, sessionId: fingerprint, fingerprint, pageContext: PAGE_CONTEXT }),
   });
   if (!r.ok) return { texto: '', ms: Date.now() - t0, error: `HTTP ${r.status}` };
   const texto = (await r.text()).trim();
@@ -143,7 +149,7 @@ function evaluar(caso, texto) {
   return fallos;
 }
 
-console.log(`\n🧪 ${casos.length} preguntas contra ${BASE} (tenant whatsapp)\n`);
+console.log(`\n🧪 ${casos.length} preguntas contra ${BASE} (tenant ${TENANT})\n`);
 let ok = 0; const problemas = []; const tiempos = [];
 
 for (let i = 0; i < casos.length; i++) {

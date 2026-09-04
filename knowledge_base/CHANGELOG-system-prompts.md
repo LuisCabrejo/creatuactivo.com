@@ -1,8 +1,26 @@
 # Changelog — System Prompts Queswa
 
-Historial de cambios doctrinales del system prompt `nexus_main` (tenant `creatuactivo_marketing`). Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de tokens — el modelo no necesita el changelog histórico para generar respuestas.
+Historial de cambios doctrinales del system prompt de Queswa. **Desde v5.0 (4 sep 2026) hay UN solo archivo fuente para los dos canales**, `knowledge_base/system-prompt-queswa.md`, que produce las filas `nexus_main` (web) y `queswa_whatsapp` (WhatsApp) con `node scripts/actualizar-system-prompt-queswa.mjs`. Las versiones anteriores a v5.0 de este archivo son la historia de `nexus_main`; la de `queswa_whatsapp` (v1 a v4.36) vive en los commits de `system-prompt-queswa-whatsapp-v4.md`, hoy renombrado.
 
-Cada versión del prompt vive en `knowledge_base/system-prompt-nexus-main-vXX_Y.md` (archivos conservados como referencia histórica). El prompt activo en Supabase se actualiza con `node scripts/actualizar-system-prompt-vXX.Y.mjs`.
+Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de tokens — el modelo no necesita el changelog histórico para generar respuestas.
+
+---
+
+## v5.0 — Un prompt para los dos canales (4 sep 2026)
+
+**Decisión del Director:** la web es el respaldo del canal de WhatsApp si Meta lo cierra, y un respaldo que responde distinto no es respaldo. Hasta hoy eran dos documentos: `queswa_whatsapp` iba en v4.36 (2 sep) con la arquitectura nueva —`<trato>`, `<narrativa>`, `<constraint_framework>`—, y `nexus_main` quedó en v30.0 (27 ago) con la estructura vieja: "Lujo Clínico", Pirámide McKinsey, Centro de Mando, tabla de swaps MLM, ESCALACIÓN, KYC, `CONSTRUCTOR_CONTEXT` con marcadores que ningún código reemplazaba. Todo lo calibrado con el Director en las dos semanas de pruebas del canal no había llegado a la web.
+
+**Qué se hizo.** El prompt de WhatsApp pasa a ser el maestro (`system-prompt-queswa.md`) y la web recibe el mismo texto. Lo propio de cada canal va entre marcadores `<!-- canal:… -->`, y son tres cosas:
+
+1. **El canal en el rol:** *«Atiendes por WhatsApp»* / *«Atiendes en el chat de creatuactivo.com»*.
+2. **La radicación:** en WhatsApp son cuatro datos porque el canal ya dio el teléfono; en la web son **cinco** —se suma *«un número de WhatsApp donde el socio pueda escribirle»*—, con su justificación en la misma frase. El motor la ejecuta con `gestionarCierre` (quinto dato solo cuando `whatsapp` es null).
+3. **`<channel_formatting>`:** la web muestra Markdown (negrita con dos asteriscos, listas con `-`, sin encabezados ni tachado), sin emojis, y trae el enlace al WhatsApp del equipo para quien pide hablar con una persona —al número orgánico, que no depende del WABA—.
+
+**Tres frases del bloque compartido cambiaron para no contar los datos:** *«Pida los datos juntos»* (era *los cuatro datos*), *«Esos datos son exactamente los que el sistema necesita»* y *«ninguno de ellos»* (era *ninguno de los cuatro*). Es todo lo que cambia para WhatsApp: verificado con `diff` contra la fila desplegada.
+
+**Lo que la web pierde y por qué no importa:** la sección de reels (el arsenal ya trae los villanos por nicho y WhatsApp funciona sin ella), los vectores de cierre con dos salidas (prohibidos desde el 7 ago), la tabla de traducción MLM (la doctrina de léxico vive en el arsenal y en `<core_behavior>`), el bloqueo KYC (el cierre ya no es el FSM web: es la radicación dictada por el backend) y `CONSTRUCTOR_CONTEXT` (marcadores muertos).
+
+**Sincroniza con** el motor: `canalDictado` en `route.ts` (CQR, pines dictados, radicación y guardarraíles de salida para la web) y `--tenant web` en las baterías.
 
 ---
 

@@ -14,7 +14,7 @@
  * duros —precio y presentación—, no por parecido de texto: un precio equivocado
  * es el error que cuesta plata.
  *
- * node scripts/prueba-productos.mjs [--base URL] [--detalle] [--solo N]
+ * node scripts/prueba-productos.mjs [--base URL] [--tenant whatsapp|web] [--detalle] [--solo N]
  */
 import { config } from 'dotenv';
 config({ path: '.env.local' });
@@ -23,6 +23,12 @@ import { detectarClaimSaludEnSalida, clasificarPreguntaSalud, RECHAZO_SALUD_ESTA
 import { detectarPromesaDeIngreso } from '../src/lib/wa-guardarrail-negocio.ts';
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : d; };
+const TENANT       = arg('--tenant', 'whatsapp');   // whatsapp | web — la web es el respaldo del canal y debe responder igual
+const TENANT_ID    = TENANT === 'web' ? 'creatuactivo_marketing' : TENANT;
+const PAGE_CONTEXT = TENANT === 'whatsapp' ? 'whatsapp_inbound' : 'default';
+// En producción Vercel pone el país en `x-vercel-ip-country`; en local nadie lo pone
+// y el motor cotizaría en USD. El arnés lo fija en CO para la web.
+const CABECERAS    = { 'Content-Type': 'application/json', 'x-tenant-id': TENANT_ID, ...(TENANT !== 'whatsapp' && { 'x-vercel-ip-country': 'CO' }) };
 const BASE = arg('--base', 'https://creatuactivo.com');
 const DETALLE = process.argv.includes('--detalle');
 const SOLO = Number(arg('--solo', 0));
@@ -110,7 +116,7 @@ async function preguntar(q) {
   // El guardarraíl de salud de ENTRADA vive en el webhook y corre ANTES del
   // motor: sin emularlo, el arnés mandaba al motor preguntas que en producción
   // nunca le llegan, y las marcaba como fallo suyo.
-  const salud = clasificarPreguntaSalud(q);
+  const salud = TENANT === 'whatsapp' ? clasificarPreguntaSalud(q) : null;   // en la web lo atiende el motor
   if (salud) return {
     texto: salud.nivel === 'grave' ? RECHAZO_SALUD_GRAVE : RECHAZO_SALUD_ESTANDAR,
     ms: 0, fp: '(webhook)',
@@ -120,8 +126,8 @@ async function preguntar(q) {
   const t0 = Date.now();
   const r = await fetch(`${BASE}/api/nexus`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp' },
-    body: JSON.stringify({ messages: [{ role: 'user', content: q }], sessionId: fp, fingerprint: fp, pageContext: 'whatsapp_inbound' }),
+    headers: CABECERAS,
+    body: JSON.stringify({ messages: [{ role: 'user', content: q }], sessionId: fp, fingerprint: fp, pageContext: PAGE_CONTEXT }),
   });
   return { texto: r.ok ? (await r.text()).trim() : '', ms: Date.now() - t0, fp };
 }

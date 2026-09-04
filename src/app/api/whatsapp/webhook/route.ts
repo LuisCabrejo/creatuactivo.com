@@ -89,7 +89,10 @@ import {
   saludSeCompone,
   nucleoSalud,
 } from '@/lib/wa-guardarrail-salud';
-import { detectarPromesaDeIngreso, detectarModeloInventado } from '@/lib/wa-guardarrail-negocio';
+import {
+  detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
+  RESPUESTA_CORRECTIVA, correctivaSegunHilo,
+} from '@/lib/wa-guardarrail-negocio';
 
 export const runtime = 'nodejs';
 // 90 s y no 30 (19 ago 2026). Con `waitUntil`, Meta ya recibió su 200 y este
@@ -100,23 +103,8 @@ export const runtime = 'nodejs';
 // costo se cuenta por CPU activa: esperar al modelo no se cobra como cómputo.
 export const maxDuration = 90;
 
-// Lo que el prospecto recibe cuando el guardarraíl bloquea una respuesta. Es
-// también lo que queda en el historial y en la base: el modelo debe recordar lo
-// que la persona leyó, no lo que él generó.
-// Alineada con WHY_02/WHY_04 (7 ago 2026): el mecanismo es el producto que se
-// mueve por el canal — sin contar personas y sin "mes a mes" pegado al ingreso
-// (Gano liquida cada viernes; lo mensual es el consumo, no el pago).
-const RESPUESTA_CORRECTIVA =
-  'Permítame precisarlo bien: usted es el dueño de un canal de distribución de productos premium ' +
-  'de bienestar —café, bebidas y suplementos—, y de cada venta que se mueve por ese canal le queda ' +
-  'un porcentaje, liquidado en su cuenta cada viernes.\n\n¿Quiere que le cuente cómo se vería en su caso?';
-
-// Segundo bloqueo seguido (prueba del Director, 1 sep 2026): dos correctivas
-// idénticas una tras otra se leen como un bot trabado. La segunda cambia de
-// texto y cierra hacia un destino con candado —«cómo se gana» va a WHY_04—,
-// para que el siguiente «sí» reciba texto escrito y no otra composición.
-const RESPUESTA_CORRECTIVA_BIS =
-  'Mejor se lo muestro con lo que está escrito, para no confundirle con un resumen mío.\n\n¿Le explico cómo se gana?';
+// Las correctivas del guardarraíl viven en `wa-guardarrail-negocio.ts` desde el
+// 4 sep 2026: el motor las usa también en la web.
 
 // LAS GANANCIAS POR LA COMPRA DE PAQUETES EMPRESARIALES (Director, 3 sep 2026,
 // auditoría de la prueba). Va DESPUÉS de la estrategia y del ingreso recurrente.
@@ -153,12 +141,6 @@ function textoBonoPaquetes(pais: 'CO' | 'US' | 'XX'): string {
     '',
     'Juegue con los números y arme el escenario que prefiera.',
   ].join('\n');
-}
-
-/** La correctiva que toca: la segunda si la anterior ya fue una correctiva. */
-function correctivaSegunHilo(historial: Array<{ role: string; content: string }>): string {
-  const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content?.trim();
-  return ultimoBot === RESPUESTA_CORRECTIVA.trim() ? RESPUESTA_CORRECTIVA_BIS : RESPUESTA_CORRECTIVA;
 }
 
 // ─── Supabase client con service role (garantiza insert sin RLS) ──────────────
@@ -2255,7 +2237,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // salida siempre es texto roto: se descarta y se reemplaza, como manda el
     // patrón de los guardarraíles. (<verbatim_lock> no cuenta: el formateador
     // lo quita y el texto de adentro es legítimo.)
-    const marcaInterna = /<\/?retrieved_context|<\/?prospect_state|\[TABLA_[A-Z_]*\]|\[PRECIO_[A-Z_]*\]/.exec(queswaReply)?.[0];
+    const marcaInterna = detectarMarcaInterna(queswaReply);
     if (marcaInterna) {
       console.error(`🚨 [WA Guardrail] Marca interna en la salida («${marcaInterna}») — se descarta el borrador para ${phoneNumber}`);
       const correctivaMarca = correctivaSegunHilo(historial);

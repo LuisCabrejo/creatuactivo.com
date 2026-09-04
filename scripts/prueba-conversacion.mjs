@@ -17,7 +17,7 @@
  *    radica ni avisa a nadie. La persona simulada NUNCA entrega la cédula.
  *  - Todo lo demás va al motor con la historia completa, como hace el webhook.
  *
- * node scripts/prueba-conversacion.mjs [--base URL] [--detalle]
+ * node scripts/prueba-conversacion.mjs [--base URL] [--tenant whatsapp|web] [--detalle]
  */
 import { config } from 'dotenv';
 config({ path: '.env.local' }); // ANTHROPIC_API_KEY vive aquí — sin esto la extracción de la radicación revienta
@@ -28,6 +28,12 @@ import { RE_VOLICION, extraerDatosRadicacion, pedirDatos, pedirUnDato } from '..
 import { detectarEmergencia, clasificarPreguntaSalud, RECHAZO_SALUD_ESTANDAR, RECHAZO_SALUD_GRAVE } from '../src/lib/wa-guardarrail-salud.ts';
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : d; };
+const TENANT       = arg('--tenant', 'whatsapp');   // whatsapp | web — la web es el respaldo del canal y debe responder igual
+const TENANT_ID    = TENANT === 'web' ? 'creatuactivo_marketing' : TENANT;
+const PAGE_CONTEXT = TENANT === 'whatsapp' ? 'whatsapp_inbound' : 'default';
+// En producción Vercel pone el país en `x-vercel-ip-country`; en local nadie lo pone
+// y el motor cotizaría en USD. El arnés lo fija en CO para la web.
+const CABECERAS    = { 'Content-Type': 'application/json', 'x-tenant-id': TENANT_ID, ...(TENANT !== 'whatsapp' && { 'x-vercel-ip-country': 'CO' }) };
 const BASE = arg('--base', 'https://creatuactivo.com');
 const DETALLE = process.argv.includes('--detalle');
 
@@ -132,56 +138,65 @@ const RE_PREGUNTA_U = /\?|c[oó]mo|cu[aá]nto|puedo|se puede/i;
 async function responder(turno) {
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
 
-  // Guardarraíl de salud de ENTRADA — en producción vive en el webhook y corre
-  // ANTES del motor. Sin esta capa, el arnés dejaba pasar "mi esposo es
-  // diabetico" al motor, que no tiene guardarraíles (pendiente conocido).
-  if (detectarEmergencia(turno.texto)) return { texto: 'Su situación necesita atención médica ya — llame a la línea 123.', capa: 'salud:emergencia' };
-  const saludE = clasificarPreguntaSalud(turno.texto);
-  // El texto REAL de la derivación, porque el motor lo ve en el hilo: con un
-  // placeholder falso, el modelo intentaba "completar" la respuesta de salud en
-  // el turno siguiente (corrida 2, turno 14).
-  if (saludE) return { texto: saludE.nivel === 'grave' ? RECHAZO_SALUD_GRAVE : RECHAZO_SALUD_ESTANDAR, capa: `salud:entrada(${saludE.termino})` };
-
-  // Simulador (el webhook responde dictado, sin motor)
-  if (turno.via === 'simulador') {
-    const rRenta = turno.texto.match(/tarifa (.+?), con (\d+) clientes/);
-    const rGen = turno.texto.match(/paquete (ESP-\d), con (\d+) paquetes/);
-    // mismo flag que computa el webhook
-    const opciones = {
-      composicionYaOfrecida: historial.some((m) =>
-        m.role === 'assistant' && /qu[eé] (productos )?trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
-      estrategiaYaVista: historial.some((m) => m.role === 'assistant' && /12 Niveles/i.test(m.content)),
-    };
-    const texto = rRenta
-      ? respuestaRenta({ tipo: 'renta', tarifa: rRenta[1], clientes: rRenta[2] }, opciones)
-      : respuestaGen5({ paquete: rGen[1], cantidad: rGen[2] }, opciones);
-    return { texto, capa: 'wa-simulador' };
+  // En la web (tenant creatuactivo_marketing) el motor hace él mismo lo que el
+  // webhook hace en WhatsApp —salud de entrada, radicación, filtros de salida—,
+  // así que la emulación de abajo solo aplica al canal. Lo que no existe en la
+  // web es el Flow del simulador: esos turnos se omiten.
+  if (TENANT !== 'whatsapp' && turno.via === 'simulador') {
+    return { texto: '(turno del Flow del simulador — no existe en la web, se omite)', capa: 'omitido' };
   }
+  if (TENANT === 'whatsapp') {
+    // Guardarraíl de salud de ENTRADA — en producción vive en el webhook y corre
+    // ANTES del motor. Sin esta capa, el arnés dejaba pasar "mi esposo es
+    // diabetico" al motor, que no tiene guardarraíles (pendiente conocido).
+    if (detectarEmergencia(turno.texto)) return { texto: 'Su situación necesita atención médica ya — llame a la línea 123.', capa: 'salud:emergencia' };
+    const saludE = clasificarPreguntaSalud(turno.texto);
+    // El texto REAL de la derivación, porque el motor lo ve en el hilo: con un
+    // placeholder falso, el modelo intentaba "completar" la respuesta de salud en
+    // el turno siguiente (corrida 2, turno 14).
+    if (saludE) return { texto: saludE.nivel === 'grave' ? RECHAZO_SALUD_GRAVE : RECHAZO_SALUD_ESTANDAR, capa: `salud:entrada(${saludE.termino})` };
 
-  // "sí" a la oferta del simulador → el webhook reenvía el Flow
-  if (/escenario en el simulador/i.test(ultimoBot)
-      && /^(s[ií]|claro|dale|listo|ok)(?![a-záéíóúñ])/i.test(turno.texto.trim())) {
-    return { texto: 'Aquí lo tiene de nuevo. Arme el escenario que quiera ver. [Simulador reenviado]', capa: 'flow-reenviado' };
-  }
+    // Simulador (el webhook responde dictado, sin motor)
+    if (turno.via === 'simulador') {
+      const rRenta = turno.texto.match(/tarifa (.+?), con (\d+) clientes/);
+      const rGen = turno.texto.match(/paquete (ESP-\d), con (\d+) paquetes/);
+      // mismo flag que computa el webhook
+      const opciones = {
+        composicionYaOfrecida: historial.some((m) =>
+          m.role === 'assistant' && /qu[eé] (productos )?trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
+        estrategiaYaVista: historial.some((m) => m.role === 'assistant' && /12 Niveles/i.test(m.content)),
+      };
+      const texto = rRenta
+        ? respuestaRenta({ tipo: 'renta', tarifa: rRenta[1], clientes: rRenta[2] }, opciones)
+        : respuestaGen5({ paquete: rGen[1], cantidad: rGen[2] }, opciones);
+      return { texto, capa: 'wa-simulador' };
+    }
 
-  // Cierre (capas puras de wa-radicacion — jamás radica)
-  const botPidio = historial.filter((m) => m.role === 'assistant').slice(-3).some((m) => RE_BOT_PIDIO.test(m.content));
-  const declara = RE_VOLICION.test(turno.texto);
-  if (declara || botPidio) {
-    const datos = await extraerDatosRadicacion(historial, turno.texto);
-    delete datos.cedula; // la persona simulada nunca la entrega — así jamás se radica
-    const faltantes = ['nombre', 'cedula', 'ciudad', 'paquete'].filter((k) => !datos[k]);
-    const esDigresion = !declara && (RE_PREGUNTA_U.test(turno.texto) || turno.texto.split(/\s+/).length > 6);
-    if (declara && !botPidio) return { texto: pedirDatos(datos, 'Luis Cabrejo'), capa: 'radicación:bloque', datos };
-    if (!esDigresion && faltantes.length) return { texto: pedirUnDato(faltantes[0], { socio: 'Luis Cabrejo' }), capa: 'radicación:un-dato', datos };
-    // digresión → el motor responde
+    // "sí" a la oferta del simulador → el webhook reenvía el Flow
+    if (/escenario en el simulador/i.test(ultimoBot)
+        && /^(s[ií]|claro|dale|listo|ok)(?![a-záéíóúñ])/i.test(turno.texto.trim())) {
+      return { texto: 'Aquí lo tiene de nuevo. Arme el escenario que quiera ver. [Simulador reenviado]', capa: 'flow-reenviado' };
+    }
+
+    // Cierre (capas puras de wa-radicacion — jamás radica)
+    const botPidio = historial.filter((m) => m.role === 'assistant').slice(-3).some((m) => RE_BOT_PIDIO.test(m.content));
+    const declara = RE_VOLICION.test(turno.texto);
+    if (declara || botPidio) {
+      const datos = await extraerDatosRadicacion(historial, turno.texto);
+      delete datos.cedula; // la persona simulada nunca la entrega — así jamás se radica
+      const faltantes = ['nombre', 'cedula', 'ciudad', 'paquete'].filter((k) => !datos[k]);
+      const esDigresion = !declara && (RE_PREGUNTA_U.test(turno.texto) || turno.texto.split(/\s+/).length > 6);
+      if (declara && !botPidio) return { texto: pedirDatos(datos, 'Luis Cabrejo'), capa: 'radicación:bloque', datos };
+      if (!esDigresion && faltantes.length) return { texto: pedirUnDato(faltantes[0], { socio: 'Luis Cabrejo' }), capa: 'radicación:un-dato', datos };
+      // digresión → el motor responde
+    }
   }
 
   // Motor
   const r = await fetch(`${BASE}/api/nexus`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp' },
-    body: JSON.stringify({ messages: [...historial, { role: 'user', content: turno.texto }], sessionId: FP, fingerprint: FP, pageContext: 'whatsapp_inbound' }),
+    headers: CABECERAS,
+    body: JSON.stringify({ messages: [...historial, { role: 'user', content: turno.texto }], sessionId: FP, fingerprint: FP, pageContext: PAGE_CONTEXT }),
   });
   return { texto: (await r.text()).trim(), capa: 'motor' };
 }
@@ -204,6 +219,7 @@ const RE_NEGATIVA = /no\s+(es|son)\s+(un\s+)?medicament|no\s+trata|no\s+(reempla
 const preguntasHechas = new Map();
 function auditar(texto, capa, n) {
   const f = [];
+  if (capa === 'omitido') return f;
   if (!texto) { f.push('respuesta vacía'); return f; }
   // La derivación de salud es texto dictado y aprobado — auditarla contra el
   // guardarraíl de salud es auditar al guardarraíl consigo mismo.

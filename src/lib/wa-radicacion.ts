@@ -29,7 +29,21 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+import { Resend } from 'resend';
 import { sendTemplate } from '@/lib/wa-channel';
+
+// ─── El mismo cierre, en la web ──────────────────────────────────────────────
+//
+// Desde el 4 sep 2026 este nodo también lo corre el motor para el chat de
+// creatuactivo.com (tenant `creatuactivo_marketing`): la web es el respaldo del
+// canal si Meta lo cierra, y su cierre viejo remataba con enlaces `wa.me` al
+// WABA — al número caído. La única diferencia es que la web no conoce el
+// teléfono de la persona, así que ahí se pide un QUINTO dato: el WhatsApp
+// donde el socio le va a escribir. Quien llama decide con `params.whatsapp`:
+// si lo trae, son cuatro; si es null, son cinco.
+//
+// Y los avisos al equipo salen por plantilla de WhatsApp con respaldo por
+// correo: si el canal está caído, el aviso llega igual.
 import { detectarProducto } from '@/lib/wa-productos';
 
 let anthropicClient: Anthropic | null = null;
@@ -85,7 +99,7 @@ export const RE_VOLICION =
  * mensaje solo pasa aquí.
  */
 const RE_BOT_PIDIO_DATOS =
-  /para radicar su vinculaci[oó]n|necesito cuatro datos|me falta(n)? (un dato|estos datos)|nombre completo, como aparece|n[uú]mero de identificaci[oó]n|en qu[eé] ciudad est[aá]|cu[aá]l de los tres paquetes de inicio|(?=[\s\S]*n[uú]mero de identificaci[oó]n)(?=[\s\S]*ciudad)/i;
+  /para radicar su vinculaci[oó]n|necesito (cuatro|cinco) datos|me falta(n)? (un dato|estos datos)|nombre completo, como aparece|n[uú]mero de identificaci[oó]n|en qu[eé] ciudad est[aá]|cu[aá]l de los tres paquetes de inicio|n[uú]mero de whatsapp/i;
 
 /**
  * Una pregunta a mitad del cierre no es un dato — es una duda, y merece respuesta.
@@ -144,6 +158,7 @@ function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolea
     case 'cedula':  return /n[uú]mero de identificaci[oó]n/.test(t);
     case 'ciudad':  return /en qu[eé] ciudad/.test(t);
     case 'paquete': return /cu[aá]l de los tres paquetes de inicio|con cu[aá]l de los tres se va/.test(t);
+    case 'whatsapp': return /n[uú]mero de whatsapp/.test(t);
   }
 }
 
@@ -186,6 +201,22 @@ export interface DatosRadicacion {
   cedula: string | null;
   ciudad: string | null;
   paquete: string | null;   // ya normalizado a ESP-1 / ESP-2 / ESP-3
+  /** Solo se pide cuando el canal no lo da (la web). Dígitos, con indicativo. */
+  whatsapp?: string | null;
+}
+
+export type ClaveRadicacion = keyof DatosRadicacion;
+/** Los cuatro de WhatsApp: el canal ya dio el teléfono. */
+export const CLAVES_CANAL: readonly ClaveRadicacion[] = ['nombre', 'cedula', 'ciudad', 'paquete'];
+/** Los cinco de la web. */
+export const CLAVES_WEB: readonly ClaveRadicacion[] = ['nombre', 'cedula', 'ciudad', 'paquete', 'whatsapp'];
+
+/** Un WhatsApp escrito como lo escribe la gente: con +, espacios, guiones o sin indicativo. */
+function normalizarWhatsapp(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  let d = raw.replace(/\D/g, '');
+  if (d.length === 10 && d.startsWith('3')) d = `57${d}`;   // celular colombiano sin indicativo
+  return d.length >= 11 && d.length <= 13 ? d : null;
 }
 
 const INSTRUCCIONES_EXTRACCION = `Eres un extractor de datos. No conversas con nadie.
@@ -195,7 +226,7 @@ cuatro datos para radicar una vinculación. Extrae lo que la PERSONA haya dado, 
 cualquier turno.
 
 Devuelve SOLO un objeto JSON, sin texto alrededor y sin bloque de código:
-{"nombre": ..., "cedula": ..., "ciudad": ..., "paquete": ...}
+{"nombre": ..., "cedula": ..., "ciudad": ..., "paquete": ..., "whatsapp": ...}
 
 Reglas:
 - Use null para cualquier dato que la persona no haya dado. Nunca lo deduzca ni lo invente.
@@ -210,6 +241,9 @@ Reglas:
   ver la tabla suele nombrarlo por su contenido: 7 productos es ESP-1, 18 productos es
   ESP-2, 35 productos es ESP-3. También lo nombran por el precio, si la tabla lo
   mostró. Si nombró un paquete solo para preguntar por él, sin elegirlo, use null.
+- "whatsapp": el número de WhatsApp que la persona dio para que le escriban, solo
+  dígitos, con indicativo si lo dio. Un número de 10 dígitos que empieza por 3 es un
+  celular colombiano, no una cédula. Si no dio ninguno, null.
 - Lo que diga el asistente no es un dato de la persona. Solo cuentan los turnos del usuario.`;
 
 /**
@@ -235,16 +269,21 @@ Reglas:
  *
  * Devuelve null si no reconoce los cuatro: entonces decide Haiku, como siempre.
  */
-export function extraerDeterministico(mensaje: string): DatosRadicacion | null {
+export function extraerDeterministico(mensaje: string, conWhatsapp = false): DatosRadicacion | null {
   const lineas = mensaje.split(/[\n,;]+/).map((l) => l.trim()).filter(Boolean);
-  if (lineas.length < 3) return null;
+  if (lineas.length < (conWhatsapp ? 4 : 3)) return null;
 
   let cedula: string | null = null;
   let paquete: string | null = null;
+  let whatsapp: string | null = null;
   const resto: string[] = [];
 
   for (const l of lineas) {
-    const soloDigitos = l.replace(/[.\s]/g, '');
+    const soloDigitos = l.replace(/[.\s+()-]/g, '');
+    // En la web el teléfono llega como una línea más, y un celular colombiano
+    // tiene diez dígitos: cabe en el rango de la cédula. Se reconoce primero
+    // por su forma (empieza por 3, o trae el 57), y la cédula es lo que queda.
+    if (conWhatsapp && !whatsapp && /^(57)?3\d{9}$/.test(soloDigitos)) { whatsapp = normalizarWhatsapp(soloDigitos); continue; }
     if (!cedula && /^\d{6,12}$/.test(soloDigitos)) { cedula = soloDigitos; continue; }
     const m = l.match(/esp\s*-?\s*([123])\b/i);
     if (!paquete && m) { paquete = `ESP-${m[1]}`; continue; }
@@ -256,6 +295,7 @@ export function extraerDeterministico(mensaje: string): DatosRadicacion | null {
   }
 
   if (!cedula || !paquete || resto.length < 2) return null;
+  if (conWhatsapp && !whatsapp) return null;
 
   // De lo que queda, el nombre es el de dos o más palabras; la ciudad, la otra.
   // Bogotá y Cali son de una palabra; "Luis Cabrejo" nunca de una.
@@ -266,18 +306,19 @@ export function extraerDeterministico(mensaje: string): DatosRadicacion | null {
   const ciudad = candidatos.find((t) => t !== nombre) ?? null;
   if (!nombre || !ciudad) return null;
 
-  return { nombre, cedula, ciudad, paquete };
+  return conWhatsapp ? { nombre, cedula, ciudad, paquete, whatsapp } : { nombre, cedula, ciudad, paquete };
 }
 
 export async function extraerDatosRadicacion(
   historial: { role: string; content: string }[],
   mensajeActual: string,
+  conWhatsapp = false,
 ): Promise<DatosRadicacion> {
-  const vacio: DatosRadicacion = { nombre: null, cedula: null, ciudad: null, paquete: null };
+  const vacio: DatosRadicacion = { nombre: null, cedula: null, ciudad: null, paquete: null, whatsapp: null };
 
-  // Camino corto: los cuatro datos juntos se leen sin modelo — cero latencia y,
+  // Camino corto: los datos juntos se leen sin modelo — cero latencia y,
   // sobre todo, cero forma de fallar por una llamada de red.
-  const directo = extraerDeterministico(mensajeActual);
+  const directo = extraerDeterministico(mensajeActual, conWhatsapp);
   if (directo) {
     console.log(`📝 [Radicación] los cuatro datos leídos sin modelo — ${directo.nombre} · ${directo.ciudad} · ${directo.paquete}`);
     return directo;
@@ -323,6 +364,7 @@ export async function extraerDatosRadicacion(
       cedula: cedula && cedula.length >= 6 && cedula.length <= 12 ? cedula : null,
       ciudad: limpiar(crudo.ciudad),
       paquete: normalizarPaquete(limpiar(crudo.paquete)),
+      whatsapp: conWhatsapp ? normalizarWhatsapp(limpiar(crudo.whatsapp)) : null,
     };
 
     console.log(
@@ -338,31 +380,36 @@ export async function extraerDatosRadicacion(
 
 // ─── Textos dictados ──────────────────────────────────────────────────────────
 
-const ETIQUETAS: Record<keyof DatosRadicacion, string> = {
-  nombre:  'Nombre completo, como aparece en su documento',
-  cedula:  'Número de identificación',
-  ciudad:  'La ciudad donde está',
-  paquete: 'Cuál de los tres paquetes de inicio quiere',
+const ETIQUETAS: Record<ClaveRadicacion, string> = {
+  nombre:   'Nombre completo, como aparece en su documento',
+  cedula:   'Número de identificación',
+  ciudad:   'La ciudad donde está',
+  paquete:  'Cuál de los tres paquetes de inicio quiere',
+  whatsapp: 'Un número de WhatsApp donde el socio pueda escribirle',
 };
 
 /** La misma petición en prosa, para cuando falta un solo dato. */
-const EN_PROSA: Record<keyof DatosRadicacion, string> = {
-  nombre:  'su nombre completo, como aparece en el documento',
-  cedula:  'su número de identificación',
-  ciudad:  'la ciudad donde está',
-  paquete: 'cuál de los tres paquetes de inicio quiere',
+const EN_PROSA: Record<ClaveRadicacion, string> = {
+  nombre:   'su nombre completo, como aparece en el documento',
+  cedula:   'su número de identificación',
+  ciudad:   'la ciudad donde está',
+  paquete:  'cuál de los tres paquetes de inicio quiere',
+  whatsapp: 'un número de WhatsApp donde el socio pueda escribirle',
 };
+
+const EN_LETRAS = ['', 'un', 'dos', 'tres', 'cuatro', 'cinco'];
 
 const JUSTIFICACION_CIUDAD =
   'La ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá, así que de una vez conoce el lugar y al equipo. Si no hay, le llega a su dirección.';
 
 /** Cómo se le devuelve a la persona cada dato que ya entregó. */
-function ecoDe(clave: keyof DatosRadicacion, datos: DatosRadicacion): string | null {
+function ecoDe(clave: ClaveRadicacion, datos: DatosRadicacion): string | null {
   switch (clave) {
-    case 'nombre':  return datos.nombre;
-    case 'cedula':  return datos.cedula ? `Cédula ${datos.cedula}` : null;
-    case 'ciudad':  return datos.ciudad;
-    case 'paquete': return datos.paquete ? NOMBRE_PAQUETE[datos.paquete] || datos.paquete : null;
+    case 'nombre':   return datos.nombre;
+    case 'cedula':   return datos.cedula ? `Cédula ${datos.cedula}` : null;
+    case 'ciudad':   return datos.ciudad;
+    case 'paquete':  return datos.paquete ? NOMBRE_PAQUETE[datos.paquete] || datos.paquete : null;
+    case 'whatsapp': return datos.whatsapp ? `WhatsApp ${datos.whatsapp}` : null;
   }
 }
 
@@ -394,11 +441,15 @@ function ecoDe(clave: keyof DatosRadicacion, datos: DatosRadicacion): string | n
  */
 const ETIQUETA_PAQUETE_KIT = 'Cuál de los tres paquetes de inicio quiere, o el Kit de Inicio si va con la estrategia de los 12 Niveles';
 
-export function pedirDatos(datos: DatosRadicacion, socio?: string, enKit = false): string {
-  const claves = ['nombre', 'cedula', 'ciudad', 'paquete'] as const;
+export function pedirDatos(
+  datos: DatosRadicacion,
+  socio?: string,
+  enKit = false,
+  claves: readonly ClaveRadicacion[] = CLAVES_CANAL,
+): string {
   const faltantes = claves.filter((k) => !datos[k]);
   const partes: string[] = [];
-  const etiqueta = (f: keyof DatosRadicacion) => (f === 'paquete' && enKit ? ETIQUETA_PAQUETE_KIT : ETIQUETAS[f]);
+  const etiqueta = (f: ClaveRadicacion) => (f === 'paquete' && enKit ? ETIQUETA_PAQUETE_KIT : ETIQUETAS[f]);
 
   // El nombre no se devuelve en una viñeta: se usa para saludar. Es el acuse de
   // recibo más cálido que existe y sale gratis — ya lo tenemos.
@@ -407,11 +458,11 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string, enKit = false
     ? `Perfecto, ${primerNombre[0].toUpperCase()}${primerNombre.slice(1)}.`
     : 'Perfecto.';
 
-  if (faltantes.length === 4) {
+  if (faltantes.length === claves.length) {
     partes.push(
       'Con gusto. Le ayudo a dejarlo andando ahora mismo.',
       '',
-      'Para radicar su vinculación necesito cuatro datos:',
+      `Para radicar su vinculación necesito ${EN_LETRAS[claves.length]} datos:`,
       '',
       faltantes.map((f) => `• ${etiqueta(f)}`).join('\n'),
     );
@@ -422,7 +473,7 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string, enKit = false
     // de entregar sus datos: cuanto más daba, más frío se ponía Queswa.
     // Se conserva el eco porque deja ver un dígito mal tecleado antes de que
     // llegue al registro; lo que cambia es que suene a que se escuchó.
-    const eco = (['cedula', 'ciudad', 'paquete'] as const)
+    const eco = claves.filter((k) => k !== 'nombre')
       .map((k) => ecoDe(k, datos))
       .filter(Boolean) as string[];
 
@@ -434,7 +485,7 @@ export function pedirDatos(datos: DatosRadicacion, socio?: string, enKit = false
       // Dos caben en una frase; tres ya piden lista para poder leerse.
       partes.push(`Me faltan dos cosas: ${EN_PROSA[faltantes[0]]}, y ${EN_PROSA[faltantes[1]]}.`);
     } else {
-      partes.push('Me faltan tres datos:', '', faltantes.map((f) => `• ${etiqueta(f)}`).join('\n'));
+      partes.push(`Me faltan ${EN_LETRAS[faltantes.length]} datos:`, '', faltantes.map((f) => `• ${etiqueta(f)}`).join('\n'));
     }
   }
 
@@ -466,7 +517,7 @@ function enumerar(xs: string[]): string {
  * conversación a un amigo.
  */
 export function pedirUnDato(
-  clave: keyof DatosRadicacion,
+  clave: ClaveRadicacion,
   opciones: { reintento?: boolean; socio?: string } = {},
 ): string {
   const { reintento } = opciones;
@@ -504,6 +555,11 @@ export function pedirUnDato(
         '• *ESP-2 Empresarial* — 18 productos, crecimiento sostenido',
         '• *ESP-3 Visionario* — 35 productos, máxima velocidad',
       ].join('\n');
+
+    case 'whatsapp':
+      return reintento
+        ? '¿Me confirma el número de WhatsApp, con el indicativo del país?'
+        : `Por último: ¿a qué número de WhatsApp le puede escribir ${opciones.socio || 'el socio'}?`;
   }
 }
 
@@ -615,46 +671,75 @@ export async function radicarPreAfiliacion(
  * no un fallo del bot.
  */
 const ETIQUETA_CORTA: Record<string, string> = {
-  nombre: 'nombre', cedula: 'cédula', ciudad: 'ciudad', paquete: 'paquete',
+  nombre: 'nombre', cedula: 'cédula', ciudad: 'ciudad', paquete: 'paquete', whatsapp: 'WhatsApp',
 };
 const ETIQUETA_LARGA: Record<string, string> = {
-  nombre: 'su nombre completo', cedula: 'su número de identificación', ciudad: 'su ciudad', paquete: 'el paquete que quiere',
+  nombre: 'su nombre completo', cedula: 'su número de identificación', ciudad: 'su ciudad', paquete: 'el paquete que quiere', whatsapp: 'su número de WhatsApp',
 };
+
+/**
+ * Respaldo por correo de los avisos al equipo. La plantilla de WhatsApp es la
+ * vía principal; si Meta la rechaza o el canal está caído —que es justo el
+ * escenario en que la web hace de respaldo—, el equipo se entera igual.
+ */
+async function avisarPorCorreo(asunto: string, lineas: string[]): Promise<void> {
+  if (!process.env.RESEND_API_KEY) return;
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: 'Queswa <hola@creatuactivo.com>',
+      to: [process.env.EQUIPO_DIRECTIVO_EMAIL || 'sistema@creatuactivo.com'],
+      subject: asunto,
+      text: lineas.join('\n'),
+    });
+    console.log(`📧 [Radicación] Aviso por correo enviado: ${asunto}`);
+  } catch (err) {
+    console.error('❌ [Radicación] Falló el aviso por correo:', err);
+  }
+}
 
 async function avisarInteresParcial(
   datos: DatosRadicacion,
-  faltantes: readonly (keyof DatosRadicacion)[],
+  faltantes: readonly ClaveRadicacion[],
   whatsapp: string,
   socio?: string,
 ): Promise<void> {
   const equipo = process.env.WHATSAPP_EQUIPO || '573206805737';
   const pendiente = faltantes.map((f) => ETIQUETA_CORTA[f]).join(', ') || '—';
+  const lineas = [
+    socio || 'equipo',
+    `${datos.nombre || 'Sin nombre'} (${whatsapp}) · falta: ${pendiente}`,
+    datos.paquete || '—',
+    `${datos.ciudad || '—'} — INTERÉS DECLARADO, sigue preguntando; contactar en persona`,
+  ];
+  let ok = false;
   try {
-    const r = await sendTemplate(equipo, 'pre_afiliacion_nueva', 'es', [
-      socio || 'equipo',
-      `${datos.nombre || 'Sin nombre'} (${whatsapp}) · falta: ${pendiente}`,
-      datos.paquete || '—',
-      `${datos.ciudad || '—'} — INTERÉS DECLARADO, sigue preguntando; contactar en persona`,
-    ]);
+    const r = await sendTemplate(equipo, 'pre_afiliacion_nueva', 'es', lineas);
+    ok = r.ok;
     console.log(`📨 [Cierre WA] Interés parcial avisado al equipo: ${r.ok ? 'enviado' : r.error}`);
   } catch (err) {
     console.error('❌ [Cierre WA] No se pudo avisar el interés parcial:', err);
   }
+  if (!ok) await avisarPorCorreo(`[Queswa] Interés declarado — ${datos.nombre || 'sin nombre'}`, lineas);
 }
 
 async function avisarAlEquipo(datos: DatosRadicacion, whatsapp: string): Promise<void> {
   const equipo = process.env.WHATSAPP_EQUIPO || '573206805737';
+  const lineas = [
+    'equipo',
+    `${datos.nombre} (${whatsapp}) · CC ${datos.cedula}`,
+    datos.paquete || '—',
+    `${datos.ciudad} — NO SE PUDO RADICAR, registrar a mano`,
+  ];
+  let ok = false;
   try {
-    const r = await sendTemplate(equipo, 'pre_afiliacion_nueva', 'es', [
-      'equipo',
-      `${datos.nombre} (${whatsapp}) · CC ${datos.cedula}`,
-      datos.paquete || '—',
-      `${datos.ciudad} — NO SE PUDO RADICAR, registrar a mano`,
-    ]);
+    const r = await sendTemplate(equipo, 'pre_afiliacion_nueva', 'es', lineas);
+    ok = r.ok;
     console.log(`📨 [Radicación] Aviso de respaldo al equipo: ${r.ok ? 'enviado' : r.error}`);
   } catch (err) {
     console.error('❌ [Radicación] Falló hasta el aviso de respaldo:', err);
   }
+  if (!ok) await avisarPorCorreo(`[Queswa] NO SE PUDO RADICAR — ${datos.nombre}`, lineas);
 }
 
 // ─── Orquestación ─────────────────────────────────────────────────────────────
@@ -664,6 +749,8 @@ export interface ResultadoCierre {
   texto: string;
   /** Quedó escrito en `pending_activations`. */
   radicado: boolean;
+  /** Los datos con que se radicó (la web guarda el WhatsApp en la ficha). */
+  datos?: DatosRadicacion;
 }
 
 /**
@@ -674,7 +761,8 @@ export interface ResultadoCierre {
 export async function gestionarCierre(params: {
   mensajeActual: string;
   historial: { role: string; content: string }[];
-  whatsapp: string;
+  /** El teléfono que dio el canal. `null` en la web: ahí se pide como quinto dato. */
+  whatsapp: string | null;
   fingerprintId: string;
   socio?: string;
   constructorId?: string;
@@ -754,9 +842,10 @@ export async function gestionarCierre(params: {
   // ESP-2", o "estoy listo, vivo en Bogotá", y en el comercio de GanoCafé mucha
   // gente manda los cuatro datos de una porque ya supone cuáles se los van a
   // pedir. Volver a pedir lo que acaban de entregar se lee como que no leímos.
-  const datos = await extraerDatosRadicacion(historial, mensajeActual);
+  const claves = params.whatsapp ? CLAVES_CANAL : CLAVES_WEB;
+  const datos = await extraerDatosRadicacion(historial, mensajeActual, !params.whatsapp);
 
-  const faltantes = (['nombre', 'cedula', 'ciudad', 'paquete'] as const).filter((k) => !datos[k]);
+  const faltantes = claves.filter((k) => !datos[k]);
 
   if (faltantes.length > 0) {
     // El bloque de los cuatro solo se entrega la primera vez, en el turno donde
@@ -770,7 +859,7 @@ export async function gestionarCierre(params: {
     // simulador de Los 12 Niveles») también; y el texto tras el Flow dice
     // «duplicación 2×2». Con el detector viejo pidió «cuál de los tres paquetes».
     const enKit = !!params.hiloDoceNiveles || historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content)) || /12 niveles/i.test(mensajeActual);
-    if (!botPidio) return { texto: pedirDatos(datos, socio, enKit), radicado: false };
+    if (!botPidio) return { texto: pedirDatos(datos, socio, enKit, claves), radicado: false };
 
     // Una duda a mitad del trámite se responde; el cierre no la atropella. Se
     // considera digresión todo lo que no traiga datos nuevos y además parezca
@@ -803,7 +892,7 @@ export async function gestionarCierre(params: {
       const vecesPedido = turnosBot.filter((t) => RE_BOT_PIDIO_DATOS.test(t)).length;
       const algoCapturado = Boolean(datos.nombre || datos.paquete || datos.ciudad);
       if (vecesPedido === 1 && algoCapturado) {
-        await avisarInteresParcial(datos, faltantes, params.whatsapp, socio);
+        await avisarInteresParcial(datos, faltantes, params.whatsapp ?? datos.whatsapp ?? 'sin WhatsApp', socio);
       }
       return null;
     }
@@ -819,9 +908,10 @@ export async function gestionarCierre(params: {
     const _cortesia = /^(muchas |mil )?gracias[\s.!]*$|^(ok(ay)?|vale|listo|perfecto|entendido|de acuerdo|claro|bueno|genial|super|s[uú]per)(,?\s*(muchas )?gracias)?[\s.!]*$/i.test(texto);
     const _promesaEnvio = /ya (se|te) los? (mando|env[ií]o|paso|comparto|escribo)|(ahora|ahorita|en un (momento|rato|minuto)|m[aá]s tarde|luego|despu[eé]s) (se|te) los? (mando|env[ií]o|paso)|d[eé]me un (momento|minuto|segundo)|un momento/i.test(texto);
     if (_cortesia || _promesaEnvio) {
-      const etiqueta: Record<keyof DatosRadicacion, string> = {
+      const etiqueta: Record<ClaveRadicacion, string> = {
         nombre: 'su nombre completo', cedula: 'su número de identificación',
         ciudad: 'su ciudad', paquete: 'el paquete con el que arranca',
+        whatsapp: 'su número de WhatsApp',
       };
       const queFalta = enumerar(faltantes.map((k) => etiqueta[k]));
       const plural = faltantes.length > 1;
@@ -845,14 +935,14 @@ export async function gestionarCierre(params: {
     // que nunca lo había dado — pasó en la prueba del 7 ago con la cédula.
     // El acuse de cortesía ("A usted. Cuando tenga a mano…" / "quedo pendiente") también nombra
     // los datos que faltan, y tampoco es un pedido fallido: el dato siguiente se pide limpio.
-    const esBloqueDePedirDatos = /necesito cuatro datos|me falta(n)? (un dato|estos datos|\w+ datos)|ya tengo:|^a usted\.|quedo pendiente/i.test(ultimoBot);
+    const esBloqueDePedirDatos = /necesito (cuatro|cinco) datos|me falta(n)? (un dato|estos datos|\w+ datos)|ya tengo:|^a usted\.|quedo pendiente/i.test(ultimoBot);
     const reintento = !esBloqueDePedirDatos && pidioEsteDato(ultimoBot, siguiente);
 
     return { texto: pedirUnDato(siguiente, { reintento, socio }), radicado: false };
   }
 
   const ok = await radicarPreAfiliacion(datos, {
-    whatsapp:      params.whatsapp,
+    whatsapp:      params.whatsapp ?? datos.whatsapp ?? '',
     fingerprintId: params.fingerprintId,
     constructorId: params.constructorId,
   });
@@ -860,5 +950,6 @@ export async function gestionarCierre(params: {
   return {
     texto: ok ? confirmarRadicado(datos, socio) : radicacionFallida(socio),
     radicado: ok,
+    datos,
   };
 }

@@ -227,21 +227,21 @@ async function audit() {
   console.log('9. SYSTEM PROMPT LOCAL — SCAN CRÍTICO');
   console.log('═'.repeat(60));
   try {
-    // Archivo fuente vivo (nombre legacy v27_2 — contenido v29.1+)
-    const sp = readFileSync(join(__dirname, '../knowledge_base/system-prompt-nexus-main-v27_2.md'), 'utf8');
+    // Prompt maestro de los dos canales (web + WhatsApp) desde el 4 sep 2026.
+    const sp = readFileSync(join(__dirname, '../knowledge_base/system-prompt-queswa.md'), 'utf8');
+    const abre = (sp.match(/<!-- canal:(web|whatsapp) -->/g) || []).length;
+    const cierra = (sp.match(/<!-- \/canal -->/g) || []).length;
     const checks = [
       { label: 'Regla verbatim_lock presente', test: sp.includes('<verbatim_lock>') },
-      { label: 'Moneda país: "solo COP" para Colombia', test: sp.includes('solo COP') },
-      { label: 'Moneda país: "USD por defecto" (sin lista)', test: sp.includes('USD por defecto') },
-      { label: 'Sin regla vieja "USD primero" (contradicción v28.x)', test: !sp.includes('USD primero') },
-      { label: 'Bloqueo Dashboard presente', test: sp.includes('DASHBOARD') },
-      { label: 'Bloqueo KYC presente', test: sp.includes('KYC') },
-      { label: 'Filosofía "NADIE filtra" presente', test: sp.includes('NADIE filtra') },
-      { label: 'Tres Fuerzas de cara al prospecto', test: sp.includes('TRES FUERZAS') },
-      { label: 'Promesa canónica "madura...la decisión"', test: sp.includes('madura en cada interesado la decisión de avanzar') },
+      { label: 'Marcadores de canal balanceados', test: abre > 0 && abre === cierra },
+      { label: 'Variante web presente (channel_formatting)', test: /<!-- canal:web -->\s*<channel_formatting>/.test(sp) },
+      { label: 'Villano narrado (dos millones / veinte)', test: sp.includes('al que gana veinte') },
+      { label: 'Promesa canónica "madura...la decisión"', test: sp.includes('maduras en cada interesado la decisión') },
+      { label: 'Los datos nunca son peaje', test: sp.includes('Los datos nunca son peaje') },
       { label: 'PII Liliana Moreno ausente', test: !sp.includes('Liliana Moreno') },
       { label: 'Número viejo 573102066593 ausente', test: !sp.includes('573102066593') },
-      { label: 'Tamaño ≤ 22.000 chars (meta compresión)', test: sp.length <= 22000 },
+      { label: 'Sin léxico retirado (empresa digital / Base Operativa / velocidades)', test: !/empresa digital|base operativa|12 velocidades/i.test(sp) },
+      { label: 'Tamaño ≤ 32.000 chars', test: sp.length <= 32000 },
     ];
     for (const c of checks) {
       console.log(`  ${c.test ? '✅' : '❌'}  ${c.label}`);

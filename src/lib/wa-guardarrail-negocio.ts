@@ -352,3 +352,49 @@ export function detectarModeloInventado(texto: string): string | null {
   }
   return null;
 }
+
+// ─── Las correctivas y el validador de salida ────────────────────────────────
+//
+// Vivían en el webhook hasta el 4 sep 2026. Se mudan aquí porque el motor los
+// necesita para la web: el chat de creatuactivo.com es el respaldo del canal si
+// Meta lo cierra, y un respaldo sin los mismos filtros no es respaldo.
+
+/**
+ * Lo que el prospecto recibe cuando el guardarraíl bloquea una respuesta. Es
+ * también lo que queda en el historial y en la base: el modelo debe recordar lo
+ * que la persona leyó, no lo que él generó.
+ * Alineada con WHY_02/WHY_04 (7 ago 2026): el mecanismo es el producto que se
+ * mueve por el canal — sin contar personas y sin "mes a mes" pegado al ingreso
+ * (Gano liquida cada viernes; lo mensual es el consumo, no el pago).
+ */
+export const RESPUESTA_CORRECTIVA =
+  'Permítame precisarlo bien: usted es el dueño de un canal de distribución de productos premium ' +
+  'de bienestar —café, bebidas y suplementos—, y de cada venta que se mueve por ese canal le queda ' +
+  'un porcentaje, liquidado en su cuenta cada viernes.\n\n¿Quiere que le cuente cómo se vería en su caso?';
+
+/**
+ * Segundo bloqueo seguido (prueba del Director, 1 sep 2026): dos correctivas
+ * idénticas una tras otra se leen como un bot trabado. La segunda cambia de
+ * texto y cierra hacia un destino con candado —«cómo se gana» va a WHY_04—,
+ * para que el siguiente «sí» reciba texto escrito y no otra composición.
+ */
+export const RESPUESTA_CORRECTIVA_BIS =
+  'Mejor se lo muestro con lo que está escrito, para no confundirle con un resumen mío.\n\n¿Le explico cómo se gana?';
+
+/** La correctiva que toca: la segunda si la anterior ya fue una correctiva. */
+export function correctivaSegunHilo(historial: Array<{ role: string; content: string }>): string {
+  const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content?.trim();
+  return ultimoBot === RESPUESTA_CORRECTIVA.trim() ? RESPUESTA_CORRECTIVA_BIS : RESPUESTA_CORRECTIVA;
+}
+
+/**
+ * Marcas internas en la salida (prueba de Edilberto, 2 sep 2026): el modelo
+ * imprimió bloques <retrieved_context> FABRICADOS —con una tabla inventada y un
+ * marcador [TABLA_NIVELES] adentro— y le llegaron al prospecto tal cual. Un
+ * marcador sin llenar o una etiqueta interna en la salida siempre es texto
+ * roto: se descarta y se reemplaza. (<verbatim_lock> no cuenta: el formateador
+ * lo quita y el texto de adentro es legítimo.)
+ */
+export function detectarMarcaInterna(texto: string): string | null {
+  return /<\/?retrieved_context|<\/?prospect_state|\[TABLA_[A-Z_]*\]|\[PRECIO_[A-Z_]*\]/.exec(texto || '')?.[0] ?? null;
+}

@@ -39,7 +39,11 @@ import {
   detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
-import { gestionarCierre } from '@/lib/wa-radicacion';
+import { gestionarCierre, CLAVES_CANAL, CLAVES_WEB } from '@/lib/wa-radicacion';
+import {
+  atenderEnlaceCatalogo, atenderHiloNiveles, slugDelSocio, textoSimuladorWeb, paisDeCodigo,
+  type RespuestaConductor,
+} from '@/lib/queswa-conductor';
 import { NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, CIERRE_SALUD } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
@@ -4587,6 +4591,79 @@ ${summaryParts.join('\n')}
     };
 
     // ════════════════════════════════════════════════════════════════════════════
+    // 🧭 LOS NODOS DICTADOS DEL CANAL, EN LA WEB (capa 3, 4 sep 2026)
+    // ════════════════════════════════════════════════════════════════════════════
+    // Lo que en WhatsApp decide el webhook antes de llamar al motor, aquí lo
+    // decide el mismo conductor (`src/lib/queswa-conductor.ts`): el enlace al
+    // catálogo, el hilo de Los 12 Niveles con sus «sí», el simulador y el
+    // seguimiento de salud; y después el cierre (la radicación). El conductor
+    // dicta el texto; este handler solo lo entrega. Donde WhatsApp manda la
+    // tarjeta del Flow, la web pone un enlace al deck que trae el simulador.
+    let _socioNombre: string | undefined;
+    let _socioCodigo: string | undefined;
+    if (canalWeb && constructorUUID) {
+      try {
+        const { data: _socio } = await getSupabaseClient()
+          .from('private_users').select('name, constructor_id').eq('id', constructorUUID).maybeSingle();
+        _socioNombre = _socio?.name ? String(_socio.name).split(/\s+/).slice(0, 2).join(' ') : undefined;
+        _socioCodigo = _socio?.constructor_id ? String(_socio.constructor_id) : undefined;
+      } catch (err) {
+        console.warn('⚠️ [Conductor web] No se pudo leer el socio:', err);
+      }
+    }
+    // Los turnos del hilo, en la forma que esperan el conductor y la radicación.
+    const _historialWeb = (messages as any[])
+      .slice(0, -1)
+      .filter((m) => m?.role === 'user' || m?.role === 'assistant')
+      .map((m) => ({ role: m.role as string, content: typeof m.content === 'string' ? m.content : '' }));
+    const _telefonoFicha = String(mergedProspectData.phone || mergedProspectData.whatsapp || '').replace(/\D/g, '');
+    const _hiloDoceNivelesWeb = pageContext === '12_niveles'
+      || !!(existingProspectData as any)?.hilo_12_niveles
+      || (messages as any[]).some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(String(m?.content ?? '')));
+
+    // Lo que un nodo dictado devuelve se entrega tal cual y queda en el log de
+    // la conversación como lo que la persona leyó.
+    const _entregarDictado = async (nodo: RespuestaConductor) => {
+      let texto = nodo.texto ?? '';
+      if (nodo.simulador) texto = texto ? `${texto}\n\n${textoSimuladorWeb(nodo.simulador)}` : textoSimuladorWeb(nodo.simulador);
+      if (nodo.marcarHiloDoceNiveles && fingerprint) {
+        getSupabaseClient().rpc('update_prospect_data', {
+          p_fingerprint_id: fingerprint,
+          p_data: { hilo_12_niveles: true },
+          p_constructor_id: constructorUUID || undefined,
+        }).then(({ error }: any) => { if (error) console.warn('⚠️ [Conductor web] No se marcó el hilo:', error); });
+      }
+      console.log(`🧭 [Conductor web] ${nodo.nodo} — dictado sin modelo`);
+      if (sessionId && fingerprint) {
+        logConversationHibrida(latestUserMessage, texto, ['CONDUCTOR_DICTADO'], 'conductor_web', sessionId, fingerprint, prospectData)
+          .catch((err) => console.error('❌ [Conductor web] Error logging:', err));
+      }
+      return new StreamingTextResponse(buildVerbatimStream(texto), { headers: getCorsHeaders(origin) });
+    };
+
+    if (canalWeb && typeof latestUserMessage === 'string') {
+      const _resolverSlug = async () => slugDelSocio(getSupabaseClient(), _socioCodigo || constructorId || null);
+      const _nodoCatalogo = await atenderEnlaceCatalogo(latestUserMessage, _historialWeb, _resolverSlug);
+      if (_nodoCatalogo) return _entregarDictado(_nodoCatalogo);
+
+      const _nodoHilo = await atenderHiloNiveles({
+        canal:               'web',
+        mensaje:             latestUserMessage,
+        historial:           _historialWeb,
+        pais:                paisDeCodigo(visitorCountry),
+        socioNombre:         _socioNombre,
+        hiloDoceNiveles:     _hiloDoceNivelesWeb,
+        vieneDelSimulador:   false,
+        simuladorDisponible: true,
+        socioQueEscribe:     false,
+        clavesRadicacion:    _telefonoFicha.length >= 10 ? CLAVES_CANAL : CLAVES_WEB,
+        supabase:            getSupabaseClient(),
+        tenant:              tenantId,
+      });
+      if (_nodoHilo) return _entregarDictado(_nodoHilo);
+    }
+
+    // ════════════════════════════════════════════════════════════════════════════
     // 🎯 EL CIERRE DE LA WEB ES LA RADICACIÓN — el mismo nodo 2.5 del webhook
     // ════════════════════════════════════════════════════════════════════════════
     // Hasta el 4 sep 2026 la web cerraba con la FSM (Estados 2/3/4), que remata
@@ -4598,36 +4675,14 @@ ${summaryParts.join('\n')}
     // Corre ANTES de la búsqueda, como en el webhook: si el turno es del cierre,
     // el motor no interviene.
     if (canalWeb && typeof latestUserMessage === 'string') {
-      const _historialCierre = (messages as any[]).slice(0, -1)
-        .filter((m) => m?.role === 'user' || m?.role === 'assistant')
-        .map((m) => ({ role: m.role as string, content: typeof m.content === 'string' ? m.content : '' }));
-      const _telefonoFicha = String(mergedProspectData.phone || mergedProspectData.whatsapp || '').replace(/\D/g, '');
-
-      // El nombre del socio va en los textos dictados («le aviso a Luis Cabrejo»).
-      let _socioNombre: string | undefined;
-      let _socioCodigo: string | undefined;
-      if (constructorUUID) {
-        try {
-          const { data: _socio } = await getSupabaseClient()
-            .from('private_users').select('name, constructor_id').eq('id', constructorUUID).maybeSingle();
-          _socioNombre = _socio?.name ? String(_socio.name).split(/\s+/).slice(0, 2).join(' ') : undefined;
-          _socioCodigo = _socio?.constructor_id ? String(_socio.constructor_id) : undefined;
-        } catch (err) {
-          console.warn('⚠️ [Cierre web] No se pudo leer el socio:', err);
-        }
-      }
-
-      const _hiloDoceNiveles = pageContext === '12_niveles'
-        || (messages as any[]).some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(String(m?.content ?? '')));
-
       const _cierreWeb = await gestionarCierre({
         mensajeActual:   latestUserMessage,
-        historial:       _historialCierre,
+        historial:       _historialWeb,
         whatsapp:        _telefonoFicha.length >= 10 ? _telefonoFicha : null,
         fingerprintId:   fingerprint || sessionId || 'web',
         socio:           _socioNombre,
         constructorId:   _socioCodigo || constructorId || undefined,
-        hiloDoceNiveles: _hiloDoceNiveles,
+        hiloDoceNiveles: _hiloDoceNivelesWeb,
       });
 
       if (_cierreWeb) {

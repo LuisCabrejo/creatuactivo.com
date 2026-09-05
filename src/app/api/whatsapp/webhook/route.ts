@@ -35,7 +35,7 @@ import {
   textoEntregaEnlace, textoSinEnlace, enlaceCortoPareja, botOfrecioPlazo, interpretarPlazo,
   textoConfirmacionPlazo, fechaDelPlazo, avisarAlSocioPareja, detectarLlegadaDePareja, aperturaParaPareja,
 } from '@/lib/wa-pareja';
-import { gestionarCierre, RE_VOLICION, pedirDatos } from '@/lib/wa-radicacion';
+import { gestionarCierre, RE_VOLICION } from '@/lib/wa-radicacion';
 import { extraerTokenDePase, resolverCompartidor, limpiarMarcador } from '@/lib/wa-pase';
 import {
   detectarAmbivalencia, esConsultaConPareja, botEvoco, esMotivoDeDinero,
@@ -60,7 +60,7 @@ import {
   detectarPidePersona, respuestaPersona, avisarPidePersona,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
   nombreCorto, RE_PEDIDO_CARGADO,
-  seguimientoSalud, RE_OFERTA_FOTO_PRODUCTO, RE_OFERTA_PEDIDO_SEDE, RE_OFERTA_CATALOGO_SALUD, esAceptacion,
+  RE_OFERTA_FOTO_PRODUCTO, RE_OFERTA_PEDIDO_SEDE, esAceptacion,
 } from '@/lib/wa-pedido';
 import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
@@ -74,8 +74,6 @@ import {
   avisarSocioNuevoProspecto,
   identificarSocio,
   saludoDeSocio,
-  pideEnlaceCatalogo,
-  mensajeEnlaceCatalogo,
 } from '@/lib/wa-onboarding';
 import {
   detectarEmergencia,
@@ -93,6 +91,9 @@ import {
   detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
+import {
+  atenderEnlaceCatalogo, atenderHiloNiveles, slugDelSocio, textoDeCandado, paisDeTelefono,
+} from '@/lib/queswa-conductor';
 
 export const runtime = 'nodejs';
 // 90 s y no 30 (19 ago 2026). Con `waitUntil`, Meta ya recibió su 200 y este
@@ -106,42 +107,8 @@ export const maxDuration = 90;
 // Las correctivas del guardarraíl viven en `wa-guardarrail-negocio.ts` desde el
 // 4 sep 2026: el motor las usa también en la web.
 
-// LAS GANANCIAS POR LA COMPRA DE PAQUETES EMPRESARIALES (Director, 3 sep 2026,
-// auditoría de la prueba). Va DESPUÉS de la estrategia y del ingreso recurrente.
-// Dos cosas que el Director corrigió sobre la versión anterior:
-//   • El texto de concepto («hay un bono directo…») SOBRABA, y el ejemplo por
-//     generaciones cargaba demasiado a quien no sabe qué es una generación —
-//     él mismo tenía que leerlo despacio. Lo importante es que la persona VEA
-//     que hay una ganancia por paquetes: los tres paquetes con su inventario y
-//     su precio (no sabía cuáles eran), UNA cifra visible —el Visionario en la
-//     primera generación, que es exactamente lo que dice el menú del simulador
-//     que llega a continuación— y la orden de jugar con los números.
-//   • ⛔ «ENTRAR» ESTÁ VETADO cuando nombra comprar el paquete o iniciar: es el
-//     verbo de la pirámide (se «entra» a una cadena; se «compra» un inventario).
-//     «Si usted entra con un paquete» → «si usted compra uno de ellos como su
-//     inversión inicial, califica para cobrar el bono». «Le entra», dicho del
-//     dinero, sí vale.
-// El cierre NO es pregunta sino ORDEN («Juegue con los números…»), y por eso la
-// tarjeta del simulador sale pegada en el mismo turno: orden + tarjeta son UNA
-// sola oferta. Si la persona igual contesta «sí», el reenvío del Flow la atiende.
-// ⚠️ Las formas de ganar no se numeran: hay doce; esta se nombra por su
-// mecanismo, nunca «segunda».
-function textoBonoPaquetes(pais: 'CO' | 'US' | 'XX'): string {
-  const precio = (usd: string, cop: string) => (pais === 'CO' ? cop : pais === 'US' ? usd : `${usd} (${cop})`);
-  return [
-    'Hay tres paquetes empresariales, cada uno con su inventario de productos:',
-    '',
-    `• *ESP-1 Inicial*: 7 productos · ${precio('$200 USD', '$900.000 COP')}`,
-    `• *ESP-2 Empresarial*: 18 productos · ${precio('$500 USD', '$2.250.000 COP')}`,
-    `• *ESP-3 Visionario*: 35 productos · ${precio('$1.000 USD', '$4.500.000 COP')}`,
-    '',
-    `Si usted compra uno de ellos como su inversión inicial, califica para cobrar el bono por la compra de paquetes empresariales en su canal. Por ejemplo: por cada Visionario que se compre en su primera generación, ${precio('$150 USD', '$675.000 COP')}; y el bono sigue en las cuatro generaciones siguientes.`,
-    '',
-    'Esa comisión le entra a medida que se compran los paquetes.',
-    '',
-    'Juegue con los números y arme el escenario que prefiera.',
-  ].join('\n');
-}
+// `textoBonoPaquetes` vive en `queswa-conductor.ts` desde el 4 sep 2026: el «sí»
+// que lo dicta es el mismo en la web.
 
 // ─── Supabase client con service role (garantiza insert sin RLS) ──────────────
 let supabaseClient: ReturnType<typeof createClient> | null = null;
@@ -1250,26 +1217,23 @@ async function procesarEntrante(body: any): Promise<void> {
     // su cuenta; acertó, pero un slug distinto habría caído en la mini-landing.
     // El «sí» al cierre de las respuestas de salud («¿le muestro el catálogo
     // completo?») entra por aquí: el enlace lo emite el backend con el ref del socio.
-    const _ultimoBotCatalogo = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
-    const _aceptaCatalogoSalud = RE_OFERTA_CATALOGO_SALUD.test(_ultimoBotCatalogo) && esAceptacion(messageText);
-    if (pideEnlaceCatalogo(messageText) || _aceptaCatalogoSalud) {
-      let slugCatalogo: string | null = socioQueEscribe?.slug ?? null;
-      const refSocio = patrocinador?.constructorId ?? existingProspect?.device_info?.invited_by ?? null;
-      if (!slugCatalogo && refSocio) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data: fila } = await (supabase as any)
-          .from('constructor_slugs').select('slug').eq('constructor_id', refSocio).maybeSingle();
-        slugCatalogo = fila?.slug ?? null;
+    {
+      const nodoCatalogo = await atenderEnlaceCatalogo(messageText, historial, async () => {
+        const propio: string | null = socioQueEscribe?.slug ?? null;
+        if (propio) return propio;
+        const refSocio = patrocinador?.constructorId ?? existingProspect?.device_info?.invited_by ?? null;
+        return slugDelSocio(supabase, refSocio);
+      });
+      if (nodoCatalogo?.texto) {
+        await pisoDeEscritura();
+        const enviado = await sendText(phoneNumber, nodoCatalogo.texto);
+        if (enviado.ok) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoCatalogo.texto);
+          console.log(`🔗 [WA Webhook] ${nodoCatalogo.nodo} — turno cerrado sin motor`);
+          return;
+        }
+        console.warn(`⚠️ [WA Webhook] Enlace al catálogo no se pudo enviar: ${enviado.error}`);
       }
-      const textoEnlace = mensajeEnlaceCatalogo(slugCatalogo);
-      await pisoDeEscritura();
-      const enviado = await sendText(phoneNumber, textoEnlace);
-      if (enviado.ok) {
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, textoEnlace);
-        console.log(`🔗 [WA Webhook] Enlace al catálogo entregado (${slugCatalogo ?? 'sin socio'}) — turno cerrado sin motor`);
-        return;
-      }
-      console.warn(`⚠️ [WA Webhook] Enlace al catálogo no se pudo enviar: ${enviado.error}`);
     }
 
     // ─── 2.25 Foto de un producto ─────────────────────────────────────────────
@@ -1402,6 +1366,23 @@ async function procesarEntrante(body: any): Promise<void> {
       : null;
     if (radicacionPrevia) console.log(`📌 [WA Webhook] ${waFingerprint} ya radicó (${radicacionPrevia.paquete})`);
 
+    // El hilo de Los 12 Niveles se lee ANTES del simulador: el nodo 2.3 lo marca
+    // cuando el escenario es de niveles, y hasta el 4 sep 2026 la función se
+    // declaraba más abajo — un `const` en zona muerta que reventaba ese camino.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const hiloDoceNiveles = !!(existingProspect?.device_info as any)?.hilo_12_niveles
+      || historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content))
+      || /12 niveles/i.test(messageText);
+    const marcarHiloDoceNiveles = async () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).rpc('update_prospect_data', {
+          p_fingerprint_id: waFingerprint,
+          p_data: { hilo_12_niveles: true },
+          p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+        });
+      } catch { /* best-effort */ }
+    };
     // ─── 2.3 El escenario del simulador se responde dictado ───────────────────
     // La persona acaba de elegir tarifa y clientes (o paquete y cantidad) y vio
     // el resultado en el Flow. Lo que espera es que la conversación reconozca
@@ -1448,253 +1429,46 @@ async function procesarEntrante(body: any): Promise<void> {
       }
     }
 
-    // ─── 2.4 Reenviar el simulador cuando lo pidan ────────────────────────────
-    // Un Flow completado queda sellado en WhatsApp: la tarjeta muestra el resumen
-    // y no vuelve a abrir. Quien está sopesando el proyecto quiere volver a los
-    // números — se le manda una tarjeta nueva, sin pasar por el motor.
+    // ─── 2.4 → 2.44 EL HILO DE LOS 12 NIVELES Y EL SIMULADOR — conductor compartido ─
+    // Desde el 4 sep 2026 estos nodos (NIVELES_01 por el nombre mal oído o el «sí»
+    // a la estrategia · el «sí» a las ganancias por paquetes · el «sí» a cómo se
+    // vincula · el «sí» a la tabla nivel por nivel · el simulador cuando lo
+    // piden · el «sí» tras la salud) viven en `src/lib/queswa-conductor.ts`, que
+    // decide y dicta para los dos canales. Aquí solo se ENTREGA: el texto por
+    // Meta y, si el nodo trae simulador, la tarjeta del Flow. Un Flow completado
+    // queda sellado en WhatsApp, por eso el reenvío manda una tarjeta nueva.
     const flowSimuladorId = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
-    // `!vieneDelSimulador` es indispensable: el texto que sintetizamos al cerrar
-    // el Flow contiene la palabra "simulador", así que sin este guard completar el
-    // simulador lo reenviaba en vez de responder al escenario que la persona armó.
-    //
-    // Y el "sí" también abre el simulador cuando eso fue lo que se ofreció (20
-    // ago 2026): el ejemplo dictado cierra con "¿Quiere armar su propio
-    // escenario en el simulador?" y la tarjeta viaja justo debajo — pero quien
-    // responde "sí" en vez de tocarla no puede caer al motor, que no tiene
-    // ninguna tarjeta que ofrecer. La oferta se lee del último turno del bot.
-    const _ultimoBotW = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
-    // Aceptación SOLA: «Listo, ¿cómo me inscribo?» arranca con «listo» y trae
-    // una pregunta nueva — sin este guard reabría el simulador en vez de
-    // responder lo que la persona preguntó (ejercicio del 1 sep 2026).
-    const _aceptaSola = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|de una|h[aá]gale|h[aá]g[aá]mosl[eo]|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor|genial|perfecto|de acuerdo|vamos|excelente)(?![a-záéíóúñ])/i.test(messageText.trim())
-      && !/[?¿]/.test(messageText)
-      && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(messageText);
-    // «¿Seguimos con el simulador?» + «sí» debe reenviar la tarjeta — la forma
-    // estricta («escenario en el simulador») dejó pasar la paráfrasis del
-    // modelo y el turno cayó al motor, que improvisó una pregunta de
-    // calificación (prueba de Edilberto, 2 sep, 1:42 p.m.).
-    const _aceptaSimulador = /simulador/i.test(_ultimoBotW) && _aceptaSola;
-
-    // Detectores de las ofertas del hilo de los 12 Niveles, definidos juntos
-    // porque se excluyen entre sí: el «sí» va a UNA sola puerta.
-    const _ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe|arrancamos con su vinculaci[oó]n|seguimos con la activaci[oó]n|arrancamos con la activaci[oó]n/i.test(_ultimoBotW);
-    // EL HILO DE LOS 12 NIVELES se recuerda en la FICHA, no en la memoria corta
-    // (prueba del Director, 3 sep 2026, turno 19): el historial son doce turnos y
-    // la estrategia había quedado catorce atrás — el bloque de datos volvió a
-    // pedir «cuál de los tres paquetes» sin nombrar el Kit. La marca la escribe
-    // el dictado de NIVELES_01 y la respuesta del simulador de niveles.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const hiloDoceNiveles = !!(existingProspect?.device_info as any)?.hilo_12_niveles
-      || historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content))
-      || /12 niveles/i.test(messageText);
-    const marcarHiloDoceNiveles = async () => {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await (supabase as any).rpc('update_prospect_data', {
-          p_fingerprint_id: waFingerprint,
-          p_data: { hilo_12_niveles: true },
-          p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
-        });
-      } catch { /* best-effort */ }
-    };
-    const _ofrecioTablaNiveles = /nivel por nivel|tabla[^?]{0,60}niveles|proyecci[oó]n[^?]{0,40}nivel/i.test(_ultimoBotW);
-    // ⚠️ La forma tiene que ser la PREGUNTA de cierre de la tabla («¿le muestro
-    // las ganancias por la compra de paquetes empresariales…?»), no las palabras
-    // sueltas: un detector laxo sobre «paquetes empresariales» se re-dispararía
-    // cuando el «sí» siguiente debe ir al motor por el ejemplo de cifras. La forma
-    // vieja («la segunda forma de ganar») se conserva solo por los hilos en curso.
-    const _ofrecioSegundaForma = /le muestro (las ganancias por la compra de paquetes empresariales|la segunda forma de ganar)/i.test(_ultimoBotW);
-
-    // ─── 2.34 «¿Qué es eso del plan de dos ciclos?» se entrega dictado ───────
-    // El nombre de Los 12 Niveles llega mal oído —dos ciclos, dos niveles, 12
-    // días, 12 semanas, 12 meses— y el clasificador ya lo enruta al arsenal
-    // correcto; pero el modelo, al no reconocer el nombre, componía un «ese
-    // término no lo manejamos» en vez de entregar el candado (batería del 1 sep
-    // 2026, incluso con el alias escrito en el prompt). Es determinístico: la
-    // pregunta por qué es el plan recibe NIVELES_01 tal cual, con su tarjeta.
-    // Se acota a la pregunta de QUÉ ES; «¿cuánto se gana con el plan de 12
-    // días?» sigue al motor, que la lleva a NIVELES_02.
-    // «el ciclo de 12 niveles», «un plan de 12 ciclos o niveles», «quiero
-    // averiguar», «Luis me habló» — las formas de la prueba de las 10:43.
-    // …y como lo presenta el socio en su 1-a-1: «el plan estratégico que
-    // lanzamos el primero de septiembre» (Director, 1 sep 2026).
-    const _nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b|(plan|estrategia)\s+(estrat[eé]gic[oa]|nuev[oa]|de septiembre|del?\s+(1|primero|1ro)\s+de\s+septiembre|que\s+(est[aá]n\s+)?lanz\w+)|nuev[oa]\s+(plan|estrategia)|plan\s+de\s+lanzamiento/i.test(messageText);
-    const _preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bl[aoó]|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n|averigua|saber|conocer|entender|no me acuerdo/i.test(messageText)
-      && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(messageText);
-    // El «sí» a las ofertas de la estrategia — las escritas Y las que el
-    // modelo compone nombrando Los 12 Niveles («¿le muestro cómo funciona con
-    // su caso?», prueba de Edilberto): la forma estricta dejó ese «sí» en el
-    // motor, que compuso y fue bloqueado. Cualquier oferta que nombre el plan
-    // y no sea la tabla, la vinculación ni el simulador, dicta NIVELES_01.
-    // ⚠️ Si el MENSAJE nombra el simulador («listo, seguimos con el simulador»),
-    // ninguna aceptación dictada se lo queda: el reenvío de la tarjeta manda
-    // (batería del 2 sep — el «listo» se comió la petición explícita).
-    const _pideSimulador = /simulad/i.test(messageText);
-    const _aceptaEstrategia = _aceptaSola && !_pideSimulador
-      && /12 niveles|estrategia de los 12/i.test(_ultimoBotW)
-      && !_ofrecioTablaNiveles && !_ofrecioVinculacion && !_ofrecioSegundaForma
-      && !/simulador/i.test(_ultimoBotW);
-    if (!vieneDelSimulador && ((_nombreMalOido && _preguntaQueEs) || _aceptaEstrategia)) {
-      try {
-        const texto = await textoDeCandado(supabase, 'arsenal_12_niveles_NIVELES_01');
-        if (texto) {
-          // El candado trae el marcador del precio. Misma regla que el pin del
-          // motor: Colombia en COP, Estados Unidos en USD, el resto USD con COP.
-          const _pais = phoneNumber.startsWith('57') ? 'CO' : phoneNumber.startsWith('1') ? 'US' : 'XX';
-          const precioKit = _pais === 'CO' ? '$443.600 COP' : _pais === 'US' ? '$98 USD' : '$98 USD ($443.600 COP)';
-          // Si el hilo ya mostró el ejemplo de renta al 17%, una frase de puente:
-          // sin ella la persona ve dos tarifas en la misma conversación y nadie
-          // le dice por qué (prueba del Director, 1 sep, 12:16 → 12:17).
-          const _vieneDel17 = historial.some((m) => m.role === 'assistant' && /17\s?%/.test(m.content));
-          const puente = _vieneDel17 ? 'Esta estrategia corre con el Kit, al 10%: la misma regalía, con la tarifa de entrada.\n\n' : '';
-          const textoConPrecio = puente + texto.replace(/\[PRECIO_KIT\]/g, precioKit);
-          await sendWhatsAppMessage(phoneNumber, textoConPrecio, { wamid });
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, textoConPrecio);
-          // Sin tarjeta automática (Director, 3 sep 2026): el texto cerraba
-          // preguntando por la tabla Y llegaba la tarjeta del simulador — dos
-          // ofertas en un turno. Ahora la pregunta de seguimiento ofrece el
-          // simulador y el «sí» manda la tarjeta (reenvío del Flow, más abajo).
-          await marcarHiloDoceNiveles();
-          console.log(`📐 [WA Webhook] NIVELES_01 dictado a ${phoneNumber} (nombre mal oído)`);
-          return;
-        }
-      } catch (err) {
-        console.warn('⚠️ [WA Webhook] No se pudo dictar NIVELES_01 — sigue al motor:', err);
-      }
-    }
-
-    // ─── 2.355 El «sí» a «¿le muestro las ganancias por la compra de paquetes…?» dicta el GEN5 ─
-    // El cierre de la tabla ofrece el segundo botín; el «sí» dicta el texto del
-    // GEN5 (Director, 3 sep 2026), que a su vez cierra ofreciendo el bono por
-    // paquete. Va después de la estrategia, nunca antes.
-    if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioSegundaForma) {
-      const _paisBono = phoneNumber.startsWith('57') ? 'CO' : phoneNumber.startsWith('1') ? 'US' : 'XX';
-      const textoBono = textoBonoPaquetes(_paisBono);
-      await sendWhatsAppMessage(phoneNumber, textoBono, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, textoBono);
-      // La orden («Juegue con los números…») y la tarjeta son UNA oferta: van juntas.
-      if (flowSimuladorId) {
-        await sendFlow(phoneNumber, flowSimuladorId,
-          'Elija el paquete y cuántos se compran por generación, y el resultado sale al instante.',
-          'Abrir el simulador', { screen: 'GEN_MENU' });
-      }
-      console.log(`💰 [WA Webhook] Ganancias por paquetes dictadas a ${phoneNumber} (con simulador)`);
-      return;
-    }
-
-    // ─── 2.36 El «sí» a «¿le muestro cómo se vincula?» pide los cuatro datos ──
-    // Es el cierre de la tabla y del simulador de los 12 Niveles. En la prueba
-    // del Director (1 sep, 10:55) el «sí» se fue a un patrón del clasificador y
-    // el modelo compuso un «proceso en tres pasos» inventado, y la persona
-    // necesitó otro «sí» para llegar a la radicación. Es determinístico: el
-    // bloque de los cuatro datos, con el Kit nombrado porque el hilo es el de
-    // la estrategia. Lo que la persona conteste cae en gestionarCierre, que
-    // reconoce el bloque por su encabezado.
-    if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioVinculacion) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const texto = pedirDatos({ nombre: '', cedula: '', ciudad: '', paquete: '' } as any, socio?.nombre?.split(/\s+/).slice(0, 2).join(' '), hiloDoceNiveles);
-      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
-      console.log(`📝 [WA Webhook] Cuatro datos pedidos dictados tras la oferta de vinculación (${phoneNumber})`);
-      return;
-    }
-
-    // ─── 2.35 El «sí» a la tabla de los niveles se entrega dictado ───────────
-    // El bot cierra ofreciendo «la tabla nivel por nivel» con palabras que él
-    // mismo compone, y esa frase compuesta no siempre recupera NIVELES_02 —dos
-    // veces el 1 sep se fue a compensación por un «cómo crece»—; sin la tabla en
-    // contexto, el modelo INVENTÓ una de doce filas con el dinero al doble. Es
-    // un nodo determinístico: el fragmento está escrito, se manda tal cual, con
-    // su tarjeta. El texto se lee de la base para que una edición del arsenal
-    // no exija tocar este archivo.
-    const _hiloDoceNiveles = historial.some((m) => /12 Niveles/i.test(m.content));
-    if (!vieneDelSimulador && _aceptaSola && !_pideSimulador && _ofrecioTablaNiveles && _hiloDoceNiveles) {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data: frag } = await (supabase as any)
-          .from('nexus_documents').select('content')
-          .eq('tenant_id', 'whatsapp').eq('category', 'arsenal_12_niveles_NIVELES_02')
-          .maybeSingle();
-        const cuerpo = frag?.content?.match(/<verbatim_lock>\s*([\s\S]*?)\s*<\/verbatim_lock>/)?.[1];
-        const cierre = frag?.content?.match(/\*\*Pregunta de seguimiento:\*\*\s*(.+)/)?.[1]?.trim();
-        if (cuerpo) {
-          const texto = `${cuerpo}\n\n${cierre || '¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?'}`;
-          await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
-          if (flowSimuladorId) {
-            await sendFlow(phoneNumber, flowSimuladorId,
-              'Y si quiere verlo nivel por nivel en el simulador: elija el nivel y el resultado sale al instante.',
-              'Abrir el simulador', { screen: 'NIVELES' });
-          }
-          console.log(`📐 [WA Webhook] Tabla de los 12 Niveles entregada dictada a ${phoneNumber}`);
-          return;
-        }
-      } catch (err) {
-        console.warn('⚠️ [WA Webhook] No se pudo dictar NIVELES_02 — sigue al motor:', err);
-      }
-    }
-    if (flowSimuladorId && !vieneDelSimulador
-        && (/simula(dor|r|ci[oó]n)|volver a ver los n[uú]meros|abrir.*n[uú]meros/i.test(messageText) || _aceptaSimulador)) {
-      // La pantalla inicial hereda de la oferta que la persona aceptó: tras el
-      // Kit, la renta al 10%; tras el ejemplo GEN5, los paquetes; tras el de
-      // renta, la renta. Solo sin pista abre en el menú.
-      const _pantalla = /tarifa del Kit/i.test(_ultimoBotW) ? 'RENTA_DIEZ'
-        : /12 Niveles|nivel por nivel|distribuidores consumiendo/i.test(_ultimoBotW) ? 'NIVELES'
-        : /Generaci[oó]n 1|primera generaci[oó]n|paquetes empresariales|paquetes? ESP-[123]\*? comprados?|Bono GEN5/i.test(_ultimoBotW) ? 'GEN_MENU'
-        : /renta estar[ií]a|clientes en cada centro|supuesto modesto/i.test(_ultimoBotW) ? 'RENTA_MENU'
-        : 'INICIO';
-      // Si llega por el «sí» a una oferta («¿Quiere verlo en el simulador…?»),
-      // es la PRIMERA vez que la persona ve la tarjeta y el cuerpo explica qué
-      // elegir; «aquí lo tiene de nuevo» es solo para quien lo pide otra vez
-      // (Director, 3 sep 2026: la tarjeta ya no sale sola con NIVELES_01 ni con
-      // el ejemplo del GEN5 — la pide la pregunta, la trae el «sí»).
-      const _primeraVez = _aceptaSimulador && !/\[Simulador/i.test(_ultimoBotW);
-      const cuerpoTarjeta = !_primeraVez
-        ? 'Aquí lo tiene de nuevo. Arme el escenario que quiera ver.'
-        : _pantalla === 'NIVELES' ? 'Elija el nivel y la cifra sale al instante, con los distribuidores que la producen.'
-        : _pantalla === 'GEN_MENU' ? 'Elija el paquete y cuántos se compran por generación, y el resultado sale al instante.'
-        : 'Arme el escenario que quiera ver: el resultado sale al instante.';
-      const reenvio = await sendFlow(
-        phoneNumber,
-        flowSimuladorId,
-        cuerpoTarjeta,
-        'Abrir el simulador',
-        { screen: _pantalla },
-      );
-      if (reenvio.ok) {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          await (supabase as any).from('nexus_conversations').insert({
-            fingerprint_id: waFingerprint,
-            session_id: waFingerprint,
-            messages: [
-              { role: 'user',      content: messageText, timestamp: new Date().toISOString() },
-              { role: 'assistant', content: `${cuerpoTarjeta} [Simulador ${_primeraVez ? 'enviado' : 'reenviado'}]`, timestamp: new Date().toISOString() },
-            ],
-          });
-        } catch (err) {
-          console.error('⚠️ [WA Webhook] No se pudo persistir el reenvío del simulador:', err);
-        }
-        console.log(`🧮 [WA Webhook] Simulador reenviado a ${phoneNumber}`);
-        return;
-      }
-      // Si el reenvío falla, el turno sigue al motor: mejor una respuesta en
-      // texto que un silencio.
-      console.warn(`⚠️ [WA Webhook] Reenvío del simulador falló: ${reenvio.error}`);
-    }
-
-    // ─── 2.44 El «sí» tras las respuestas de salud — dictado ─────────────────
-    // Tras el peso («¿le cuento cómo integrarlo en su rutina?») y el azúcar
-    // («¿le cuento cómo es cada uno?») el «sí» tiene un solo destino; el 29 ago
-    // el modelo lo compuso con un Clásico a $82.500. Los datos salen de la tabla.
     {
-      const _ultimoBotSalud = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
-      const seguimiento = socioQueEscribe ? null : seguimientoSalud(_ultimoBotSalud, messageText);
-      if (seguimiento) {
-        await sendWhatsAppMessage(phoneNumber, seguimiento, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, seguimiento);
-        console.log('🥗 [WA Webhook] Seguimiento de salud dictado (datos de la tabla)');
-        return;
+      const nodo = await atenderHiloNiveles({
+        canal:               'whatsapp',
+        mensaje:             messageText,
+        historial,
+        pais:                paisDeTelefono(phoneNumber),
+        socioNombre:         socio?.nombre?.split(/\s+/).slice(0, 2).join(' '),
+        hiloDoceNiveles,
+        vieneDelSimulador,
+        simuladorDisponible: !!flowSimuladorId,
+        socioQueEscribe:     !!socioQueEscribe,
+        supabase,
+        tenant:              'whatsapp',
+      });
+      if (nodo) {
+        if (nodo.texto) await sendWhatsAppMessage(phoneNumber, nodo.texto, { wamid });
+        let tarjetaOk = false;
+        if (nodo.simulador && flowSimuladorId) {
+          const r = await sendFlow(phoneNumber, flowSimuladorId, nodo.simulador.cuerpo, 'Abrir el simulador', { screen: nodo.simulador.pantalla });
+          tarjetaOk = r.ok;
+          if (!r.ok) console.warn(`⚠️ [WA Webhook] La tarjeta del simulador no se pudo enviar (${nodo.nodo}): ${r.error}`);
+        }
+        // Un texto entregado cierra el turno aunque la tarjeta falle; un nodo que
+        // era SOLO tarjeta y falló sigue al motor: mejor una respuesta en texto
+        // que un silencio.
+        if (nodo.texto || tarjetaOk) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodo.persistir ?? nodo.texto ?? '');
+          if (nodo.marcarHiloDoceNiveles) await marcarHiloDoceNiveles();
+          console.log(`🧭 [WA Webhook] ${nodo.nodo} — dictado por el conductor para ${phoneNumber}`);
+          return;
+        }
       }
     }
 
@@ -1774,11 +1548,13 @@ async function procesarEntrante(body: any): Promise<void> {
       // El «sí» a la oferta de la sede ABRE el pedido: hay que preguntarle qué
       // quiere, no decirle que no se le entendió (prueba del 31 ago 09:00 —
       // «Si» recibió «no logré identificar el producto», que no venía a cuento).
+      // «¿Puedo comprar una caja a precio de distribuidor?» (turno 20 de la prueba
+      // del 3 sep): el nodo arrancaba el pedido sin responder la pregunta. Se
+      // declara aquí, fuera del `if`, porque también la usa el pedido abierto
+      // sin sede (hasta el 4 sep quedaba fuera de alcance).
+      const _notaPrecioDistribuidor = /precio (de )?(distribuidor|mayorista|socio)|con descuento/i.test(messageText)
+        ? 'Sí: el primer pedido va a precio de distribuidor, y con él queda abierto su código.' : undefined;
       if (_aceptaPedidoSede && lineas.length === 0) {
-        // «¿Puedo comprar una caja a precio de distribuidor?» (turno 20 de la prueba
-        // del 3 sep): el nodo arrancaba el pedido sin responder la pregunta.
-        const _notaPrecioDistribuidor = /precio (de )?(distribuidor|mayorista|socio)|con descuento/i.test(messageText)
-          ? 'Sí: el primer pedido va a precio de distribuidor, y con él queda abierto su código.' : undefined;
         const texto = pedirProductos(_nombrePedido, _notaPrecioDistribuidor);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
@@ -2663,17 +2439,7 @@ async function hayRechazoSaludPrevio(
  * canal lo que ya está escrito, sin pasar por el modelo — así una edición del
  * arsenal no exige tocar este archivo. Devuelve null si no hay candado.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function textoDeCandado(supabase: any, categoria: string): Promise<string | null> {
-  const { data: frag } = await supabase
-    .from('nexus_documents').select('content')
-    .eq('tenant_id', 'whatsapp').eq('category', categoria)
-    .maybeSingle();
-  const cuerpo = frag?.content?.match(/<verbatim_lock>\s*([\s\S]*?)\s*<\/verbatim_lock>/)?.[1];
-  if (!cuerpo) return null;
-  const cierre = frag?.content?.match(/\*\*Pregunta de seguimiento:\*\*\s*(.+)/)?.[1]?.trim();
-  return cierre ? `${cuerpo}\n\n${cierre}` : cuerpo;
-}
+// `textoDeCandado` y `slugDelSocio` viven en `queswa-conductor.ts` desde el 4 sep 2026.
 
 async function corregirTurnoEnvenenado(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -2729,32 +2495,6 @@ async function corregirTurnoEnvenenado(
   );
 }
 
-/**
- * El slug personalizado del socio (`luis-cabrejo`), para armar el enlace
- * amigable `creatuactivo.com/{slug}/productos`.
- *
- * Se resuelve aparte y solo cuando se necesita: el `constructor_id`
- * (`luis-cabrejo-1288`) lo traen todos los caminos, pero el slug vive en
- * `constructor_slugs` y pedirlo en cada turno sería una consulta de más.
- * Ante cualquier fallo devuelve null y el enlace cae al de siempre.
- */
-async function slugDelSocio(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  supabase: any,
-  constructorId: string | undefined,
-): Promise<string | null> {
-  if (!constructorId) return null;
-  try {
-    const { data } = await supabase
-      .from('constructor_slugs')
-      .select('slug')
-      .eq('constructor_id', constructorId)
-      .maybeSingle();
-    return (data?.slug as string) || null;
-  } catch {
-    return null;
-  }
-}
 
 /**
  * El socio de un prospecto que ya está en la base.

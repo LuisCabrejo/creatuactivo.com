@@ -1,5 +1,22 @@
-# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v6.9
+# GUIÓN MAESTRO — LA PRESENTACIÓN SERVILLETA v7.0
 ## Versión canónica calibrada · Lista para teleprompter
+
+### Cambios de v7.0 (5 sep 2026 — sincronización con el léxico vigente)
+
+Auditoría del guion contra la doctrina que el arsenal (`arsenal_inicial.txt` v6.28) y la Home (v15) ya aplicaban desde agosto. El criterio: **el guion se graba y se repite en vivo, así que es el texto que más se duplica** — lo que diga aquí es lo que cada socio le va a decir al siguiente. Cambios, con la fuente de cada uno en CLAUDE.md § Léxico y voz:
+
+1. **El activo es «canal de distribución».** *Red de distribución internacional* → *canal de distribución internacional*; *dirigir un negocio que funciona solo* → *manejar un canal de distribución completo* (además de *dirigir*, salía la promesa de esfuerzo mínimo, una de las dos siluetas que el guardarraíl de negocio no ve y se corrigen a mano).
+2. **Usted lo maneja, no lo dirige.** *Y usted las dirige todas* → *las maneja todas*; *Su rol es el de dueño: dirigir* → *Usted es el dueño*. El rol no se nombra como cargo ni con verbo de hoja de cálculo.
+3. **Dos acciones, y la multiplicación es la consecuencia.** *Tres movimientos* → *dos acciones*; *EL TERCERO · MULTIPLICAR* → *Y DE AHÍ, LA MULTIPLICACIÓN*; *Compartir, recibir y multiplicar* → *Compartir y recibir. De ahí sale la multiplicación*. Como tarea suma peso; como resultado lo quita. El deck ya decía *Dos pasos sencillos* desde el 2 ago — el guion iba desincronizado.
+4. **El colectivo es «su canal», y cuando consume se nombra a quién.** *Los hogares de su organización* → *los hogares de sus clientes*; *cada persona que inicia con usted* → *quien inicia con usted* (EAM_01 🔒).
+5. **Más de 60 países** (8 ago 2026): la cifra de 70 no la sostiene ninguna fuente.
+6. **Las dos vías del Slide 4 se nombran por lo que las mueve.** *RENTA VITALICIA* → **INGRESO RECURRENTE** (sin *mientras usted duerme*, imaginería de ingreso pasivo); *INGRESO INMEDIATO* → **GANANCIAS POR LA COMPRA DE PAQUETES EMPRESARIALES**, contadas en compras (*que se compra en su canal*), nunca en activaciones ni en personas. *Doce velocidades* → *doce formas de ganar*.
+7. **Sin plazo.** Salen *Es un ingreso visible desde la primera semana* y *esta misma semana empieza a producir* — promesa de ingreso con fecha, que además el ciclo de liquidación no garantiza (cada ciclo se paga el segundo viernes después de su cierre). Cierra el pendiente que este archivo arrastraba desde la v6.7.
+8. **El remate del villano lleva el «más de veinte»** (STORY_03 🔒): sin él, quien gana treinta se exime.
+9. **La recompra se explica por resultado.** *Un hábito que no cambia genera un ingreso que jamás se detiene* → *un producto que el cliente vuelve a pedir genera un ingreso que se repite* (Home). La duración garantizada es promesa de ingreso; la repetición no. Y *productos de consumo diario* → *productos que las personas vuelven a pedir*.
+10. **El ingreso en paralelo se dice como upgrade,** no como *segundo ingreso* (registro quemado por la industria): *un ingreso en paralelo al que ya tiene — con el potencial de igualarlo o superarlo*.
+
+⏳ **Pendiente de decisión del Director (no se tocó):** la apertura del Slide 3 y su título —*un hábito que millones de personas ya repiten cada día… tomarse un café* / *UN HÁBITO QUE NO CAMBIA*— siguen en el marco del hábito de consumo, que el 8 ago se reemplazó por *productos premium de bienestar que el cliente incorpora a su rutina* porque planta la comparación con el estante del supermercado antes de que la persona vea un precio. Es una recomposición del slide, no un swap, y el deck lleva el mismo título; se propone aparte. También queda por revisar con él la línea de los *200 compuestos bioactivos asociados a las defensas del cuerpo y al manejo del estrés* y los *2.000 estudios*: en el canal de WhatsApp la ciencia citada la bloquea el guardarraíl de salud; una presentación en vivo es otra jurisdicción, pero el catálogo web ya se limpió el 22 ago y conviene decidirlo a conciencia.
 
 ### Cambios de v6.9 (3 ago 2026 — Slide 1: el efecto "no son tres, es una" como puente, no como reveal)
 
@@ -256,23 +273,23 @@ Ejercicio pedido por el Director: *"si fuera David Vélez, ¿qué diría en el c
 
 Empecemos por el verdadero problema.
 
-Usted trabaja el mes entero. Pero al día siguiente de que le entra la plata, ese dinero ya tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de **trabajar, pagar cuentas y repetir**. Y quiero ser claro: esto no pasa por falta de capacidad ni de esfuerzo suyo. Le pasa exactamente igual al que gana dos millones y al que gana veinte.
+Usted trabaja el mes entero. Pero al día siguiente de que le entra la plata, ese dinero ya tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de **trabajar, pagar cuentas y repetir**. Y quiero ser claro: esto no pasa por falta de capacidad ni de esfuerzo suyo. Le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
 
 **[ PAUSA · 1.5s · CAMBIO A SERIEDAD RESOLUTIVA ]**
 
 Y a ese desgaste, súmele algo todavía más incómodo. Usted sostiene a los suyos con lo que produce hoy, y en el fondo sabe que eso se apoya en variables que no controla: **un despido, un semestre malo de ventas, y todo queda en el aire**.
 
-Nosotros vemos una oportunidad enorme para cambiar eso. Y la solución es más simple de lo que parece: no se trata de renunciar a lo que hace hoy, sino de **construir un segundo ingreso, en paralelo — con el potencial de igualarlo o superarlo.**
+Nosotros vemos una oportunidad enorme para cambiar eso. Y la solución es más simple de lo que parece: no se trata de renunciar a lo que hace hoy, sino de **construir un ingreso en paralelo al que ya tiene — con el potencial de igualarlo o superarlo.**
 
-Ahora bien, distribuir productos de consumo diario siempre ha sido un buen negocio. Pero el modelo tradicional exigía algo que a casi nadie le gusta: explicarle a cada persona, responder a toda hora, estar pendiente de cada uno. No era falta de ganas. Era que nadie tiene la vida para dedicarse a eso todo el día.
+Ahora bien, distribuir productos que las personas vuelven a pedir siempre ha sido buen negocio. Pero el modelo tradicional exigía algo que a casi nadie le gusta: explicarle a cada persona, responder a toda hora, estar pendiente de cada uno. No era falta de ganas. Era que nadie tiene la vida para dedicarse a eso todo el día.
 
 Para eliminar esa fricción, desarrollamos una herramienta.
 
 **[ TONO DE REVELACIÓN ]**
 
-¿Qué hace exactamente? Le entrega las tres **piezas** que hacen falta para construir una red de distribución internacional.
+¿Qué hace exactamente? Le entrega las tres **piezas** que hacen falta para construir un canal de distribución internacional.
 
-**Lo primero: quién fabrica.** Gano Excel. Una corporación con **más de 30 años** en el mercado, presencia en **70 países**, y la única en el mundo con instalaciones de producción propias — no depende de nadie más para lo que le entrega. El tipo de respaldo que no se improvisa, y que ya está ahí, trabajando para usted.
+**Lo primero: quién fabrica.** Gano Excel. Una corporación con **más de 30 años** en el mercado, presencia en **más de 60 países**, y la única en el mundo con instalaciones de producción propias — no depende de nadie más para lo que le entrega. El tipo de respaldo que no se improvisa, y que ya está ahí, trabajando para usted.
 
 **Lo segundo: la conversación.** Aquí es donde entra nuestra inteligencia artificial. Se encarga de **explicar, atender y madurar** la decisión de cada persona interesada, directamente **por WhatsApp** — ahí donde las personas ya viven y se comunican todos los días.
 
@@ -280,7 +297,7 @@ Para eliminar esa fricción, desarrollamos una herramienta.
 
 **[ PAUSA · 2s ]**
 
-Normalmente, estas tres piezas viven separadas — cada una la maneja alguien distinto, en un lugar distinto. Pero aquí no: aquí encajan, como piezas de precisión. Y usted las dirige todas desde una sola aplicación: **Queswa.app**, ahí mismo, en el celular que tiene en la mano.
+Normalmente, estas tres piezas viven separadas — cada una la maneja alguien distinto, en un lugar distinto. Pero aquí no: aquí encajan, como piezas de precisión. Y usted las maneja todas desde una sola aplicación: **Queswa.app**, ahí mismo, en el celular que tiene en la mano.
 
 **[ PAUSA · 1s ]**
 
@@ -288,24 +305,24 @@ Normalmente, estas tres piezas viven separadas — cada una la maneja alguien di
 
 **[ TONO RESOLUTIVO ]**
 
-Los primeros celulares solo servían para llamar. Hoy, ese mismo dispositivo le da el poder de **dirigir** un negocio que funciona solo.
+Los primeros celulares solo servían para llamar. Hoy, ese mismo dispositivo le da el poder de **manejar** un canal de distribución completo.
 
 ---
 
 # SLIDE 2 · QUÉ HACE USTED
-*Subtítulo en pantalla: "Tres movimientos. El resto lo hace la tecnología."*
+*Subtítulo en pantalla: "Dos acciones. El resto lo hace la tecnología."*
 
-*B-roll: los 3 movimientos del Propietario — `Expandir3D` (comparte, un clic) · `Activar3D` (recibe al que ya decidió) · `Maestria3D` (réplicas 1→2→4).*
+*B-roll: las dos acciones del dueño y su consecuencia — `Expandir3D` (comparte, un clic) · `Activar3D` (recibe al que ya decidió) · `Maestria3D` (réplicas 1→2→4).*
 
 Ya vio cómo funciona. Ahora la pregunta correcta: **¿qué hace usted, exactamente, en el día a día?**
 
-Su parte se reduce a **tres movimientos**. Y para ninguno necesita experiencia digital, porque el método le marca los pasos exactos.
+Su parte se reduce a **dos acciones**. Y para ninguna necesita experiencia digital, porque el método le marca los pasos exactos.
 
-**EL PRIMERO · COMPARTIR** · *un clic.*
+**LA PRIMERA · COMPARTIR** · *un clic.*
 
 Usted **comparte**. Un enlace, desde su celular, con las personas que decida. Eso es todo. A partir de ahí, la conversación no la carga usted: la atiende Queswa, por WhatsApp, las 24 horas.
 
-**EL SEGUNDO · RECIBIR** · *el apretón de manos.*
+**LA SEGUNDA · RECIBIR** · *el apretón de manos.*
 
 Cuando alguien ya tomó la decisión, **usted lo recibe de persona a persona**. Ese es el único momento donde hace falta un ser humano — y es el más valioso de todos. Porque la tecnología explica, resuelve y madura la decisión… pero la confianza de un apretón de manos, la calidez de que alguien lo esté esperando del otro lado, eso no lo da ninguna máquina.
 
@@ -313,14 +330,14 @@ Cuando alguien ya tomó la decisión, **usted lo recibe de persona a persona**. 
 
 *(**EN VIDEO GRABADO** — lo narra el CEO, que no es quien invitó: "Y en su caso, esa persona ya la conoce: es quien le compartió este video. Y detrás de ella hay un equipo completo.")*
 
-**EL TERCERO · MULTIPLICAR** · *1 → 2 → 4.*
+**Y DE AHÍ, LA MULTIPLICACIÓN** · *1 → 2 → 4.*
 
-Y aquí está la verdadera magia. Cada persona que inicia con usted **recibe exactamente lo mismo que usted recibió**: la misma herramienta lista, la misma fábrica detrás, la misma inteligencia artificial conversando por ella. La Academia la acompaña desde el primer día — usted no tiene que enseñarle a nadie.
+Y aquí está la verdadera magia. Y quien inicia con usted **recibe exactamente lo mismo que usted recibió**: la misma herramienta lista, la misma fábrica detrás, la misma inteligencia artificial conversando por ella. Y la formación está lista desde el primer día: usted no tiene que enseñarle a nadie.
 
 Piénselo así: usted llama a un amigo en Estados Unidos, le hace la propuesta, él inicia… y **ya tiene un punto de distribución en Estados Unidos**. Al alcance de una llamada.
 
 **[ PAUSA · TONO ASPIRACIONAL ]**
-Compartir, recibir y multiplicar. **Su rol es el de dueño: dirigir.** La tecnología hace el trabajo, y cada vez que el consumo se repite en los hogares de su organización, usted recibe un **porcentaje**, una y otra vez.
+Compartir y recibir. De ahí sale la multiplicación. **Usted es el dueño.** La tecnología hace el trabajo, y cada vez que el consumo se repite en los hogares de sus clientes, usted recibe un **porcentaje**, una y otra vez.
 
 **[ TONO CERCANO · BAJAR LA GUARDIA ]** Y algo que quiero que le quede claro desde ya: **se puede empezar con poco**. No hace falta arrancar en grande para que esto funcione — la estructura es la misma, y crece a la medida de lo que usted decida.
 
@@ -336,21 +353,21 @@ Y aquí está lo que de verdad lo separa del resto. No es cualquier Ganoderma: e
 
 Detrás hay tres décadas de ciencia del Dr. Leow Soon Seng, pionero mundial en el cultivo de este hongo, y más de 200 compuestos bioactivos asociados a las defensas del cuerpo y al manejo del estrés. Por eso no hablamos de "Ganoderma" a secas. Hablamos del **Ganoderma Lucidum de Gano Excel.**
 
-**Y la lógica es contundente: un hábito que no cambia genera un ingreso que jamás se detiene.**
+**Y la lógica es contundente: un producto que el cliente vuelve a pedir genera un ingreso que se repite.**
 
 ---
 
 # SLIDE 4 · LA MATEMÁTICA Y EL CIERRE
 
-Su negocio genera ingresos en doce velocidades distintas, que cubren el corto, el mediano y el largo plazo. Analicemos dos.
+Su canal tiene doce formas de ganar, que cubren el corto, el mediano y el largo plazo. Analicemos dos.
 
-**[ NOTA AL ORADOR ]** *Toda ganancia nace de una compra de producto: el consumo recurrente y/o los paquetes empresariales. El deck abre en RENTA VITALICIA — el ingreso recurrente es el valor principal; el inmediato es la segunda pestaña.*
+**[ NOTA AL ORADOR ]** *Toda ganancia nace de una compra de producto: el consumo recurrente y/o los paquetes empresariales. El deck abre en INGRESO RECURRENTE — es el valor principal; las ganancias por la compra de paquetes son la segunda pestaña.*
 
-**RENTA VITALICIA**
-Un porcentaje sobre todo el consumo que fluye por su organización internacional, en cualquier país de América — semana tras semana, incluso mientras usted duerme. Es el ingreso que ya no depende de su presencia.
+**INGRESO RECURRENTE**
+Un porcentaje sobre todo el consumo que se repite entre los clientes y distribuidores de su canal, en cualquier país de América — semana tras semana. Es el ingreso que ya no depende de su presencia.
 
-**INGRESO INMEDIATO**
-Y por cada paquete empresarial que se activa dentro de su organización, usted recibe una comisión directa, liquidada cada viernes. Es un ingreso visible desde la primera semana.
+**GANANCIAS POR LA COMPRA DE PAQUETES EMPRESARIALES**
+Y por cada paquete empresarial que se compra en su canal, usted recibe una comisión directa, liquidada cada viernes.
 
 **[ PAUSA ]**
 
@@ -365,7 +382,7 @@ Es una decisión legítima, y hoy para muchos es la que tiene sentido. Nada se r
 Todavía no quiere pensar en el negocio, pero sí quiere el producto en su casa. Se registra como **Cliente Preferencial** y compra al mismo precio que un distribuidor: **un 25% menos** que el precio sugerido. Se lo toma, ve cómo le va, y si más adelante le nace tener su propio negocio, el paso está a un clic.
 
 **LA TERCERA — EMPEZAR HOY**
-Para quien ya lo tiene claro. Hoy mismo el negocio queda **a su nombre**, y esta misma semana empieza a producir.
+Para quien ya lo tiene claro. Hoy mismo el negocio queda **a su nombre**.
 
 **[ PAUSA · 2s · CAÍDA DE ENTONACIÓN · MIRADA DIRECTA ]**
 
@@ -393,7 +410,7 @@ CreaTuActivo.com ya existe.
   2. **Se disuelven.** Esos íconos se desvanecen/tachan en dorado, uno a uno — "una empresa digital ya no requiere nada de esto".
   3. **El puente.** Dos cúmulos de nodos (izq: clínicas · der: personas que buscan sonrisa) y, en el centro, un nodo-puente dorado: **`sonrisaslindas.app`**. Una moneda/destello viaja por el puente en cada conexión = la comisión. Rótulo de cierre: **EL PUENTE**. Número abierto (las conexiones se multiplican solas).
   - Render headless M1: `npx remotion render Puente3D out/deck-puente.mp4 --gl=angle` → optimizar a `public/videos/servilleta/puente.mp4` (720×1280, ffmpeg CRF 27, faststart).
-- **Slide 2 — reutiliza comps existentes** (el rename "fuerzas/pilares" → "primeros principios" es de léxico, NO exige re-render): Lo primero (fabrica) → `Matriz3D` (globo, 70 países) · Lo segundo (atiende) → la orbe Queswa en el celular con interacciones fluyendo (cercano a `Activar3D`) · Lo tercero (método) → los 3 movimientos en el móvil (puede partir de `Checklist3D` o comp tipo "phone").
+- **Slide 2 — reutiliza comps existentes** (el rename "fuerzas/pilares" → "primeros principios" es de léxico, NO exige re-render): Lo primero (fabrica) → `Matriz3D` (globo, más de 60 países) · Lo segundo (atiende) → la orbe Queswa en el celular con interacciones fluyendo (cercano a `Activar3D`) · Lo tercero (método) → los 3 movimientos en el móvil (puede partir de `Checklist3D` o comp tipo "phone").
 
 - 🔴 **SLIDE "QUÉ HACE USTED" ELIMINADO DEL DECK (2 ago 2026, decisión del Director).** El deck pasó de 5 a **4 slides**: 01 El problema · 02 Las tres cosas · 03 El producto · 04 Los números. Razón: el clip de Queswa (su centro de mando) ya mostraba los tres pasos, de modo que *centro de mando → método comprobado → usted solo comparte* decía **lo mismo tres veces seguidas**. Los tres movimientos se absorbieron en la **card del método del Slide 2**: eyebrow cian *Método comprobado* + nombre blanco *Compartir · Recibir · Multiplicar*, sobre el mismo clip de los pasos exactos. Los clips `compartir/recibir/multiplicar.mp4` quedaron **sin uso en el deck** (siguen en `public/`).
 - **BEAT DEL COLAPSO — rediseñado al patrón Jobs (2 ago 2026).** La versión anterior lanzaba las tres piezas desde las esquinas al centro en 3 s automáticos: **el ojo no alcanzaba a leer ninguna** y el público no registraba qué había pasado. Jobs (iPhone 2007) no hace nada simultáneo — cada elemento tiene su momento **a solas y enorme**, y el paso al siguiente es una **rotación del mismo objeto**, que es lo que siembra "es la misma cosa" antes de enunciarlo; luego repite el ciclo más rápido y solo entonces remata. **Sin reloj: el orador pasa cada beat con clic/scroll**, como Jobs con el control. Implementado como 6 índices de card (4..9) del Slide 2, así hereda clic/swipe/flechas sin tocar la navegación; el indicador los cuenta como **un solo punto** (`CARD_DOTS`). Beats: 0 los tres juntos y nombrados · 1-3 cada uno solo, girando de uno al siguiente · 4 el ciclo rápido **mudo** (aquí entiende la sala; rotularlo lo explicaría antes de tiempo) · 5 el celular con WhatsApp + *"No son tres cosas / Ya vienen juntas"*.
@@ -410,4 +427,4 @@ CreaTuActivo.com ya existe.
 - **Léxico "operar":** evitado (causa fricción — evoca cirugía; nadie es "operador"). Se conserva solo "El Respaldo Operativo" (nombre canónico del Pilar 1) y "operativo" como adjetivo.
 - **Ancla "matemática":** ya NO aparece en el Slide 1 (v6.6 — el dato junto a la historia resta emoción). Queda solo en el título del Slide 4; el cuerpo usa "la lógica de los números".
 - **Cierre (Slide 4):** directo a la decisión, sin la frase visionaria «futuro absurdo / casa sin internet» (retirada jun 2026 — competía con el momento de decisión tras las 3 opciones). La visión de marca (CreaTuActivo como norma del ingreso paralelo) vive en el reel Home + la VisionSection de la página.
-- ~~Pendiente~~ ✅ **Hecho (12 jun 2026):** léxico barrido en arsenales (inicial v5.9 · avanzado v12.2 · compensación v7.2 · reto v4.7) + system prompt v28.1 — todos ya en "empresa digital".
+- ~~Pendiente~~ ✅ **Hecho (12 jun 2026):** léxico barrido en arsenales + system prompt. ⚠️ **Superado (25 ago 2026):** el activo se nombra **canal de distribución** en toda superficie; "empresa digital" sobrevive solo en los disparadores del arsenal. Este guion se sincronizó en la v7.0.

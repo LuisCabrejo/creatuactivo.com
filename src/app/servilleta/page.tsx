@@ -102,7 +102,10 @@ const METODO_FROM = 3;
 const METODO_STOPS = [2.22, 4.14, 6.00];
 // El rótulo va ARRIBA y grande, en HTML sobre el video: cambiar una palabra no debe
 // exigir re-render, misma regla que los nombres de las cards.
-const METODO_PASOS = ['Compartir', 'Recibir', 'Multiplicar'];
+// Dos acciones y su consecuencia (doctrina 8 ago 2026): la multiplicación se nombra
+// como RESULTADO, nunca como tercer paso — por eso el tercer punto del clip no lleva
+// ordinal. La card ya decía "Dos pasos sencillos"; el rótulo iba desincronizado.
+const METODO_PASOS = ['Compartir', 'Recibir', 'Y se multiplica'];
 
 const COLAPSO_FROM = METODO_FROM + METODO_STOPS.length;
 const COLAPSO_BEATS = 5;
@@ -2491,7 +2494,7 @@ export default function ServilletaPage() {
                 <video className="card-bg" data-slide="2" data-card="1" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-respaldo')}
                 <div className="card-content">
-                  <span className="pillar-eyebrow">Su socio log&iacute;stico y financiero</span>
+                  <span className="pillar-eyebrow">Fabrica y despacha</span>
                   <h3 className="pillar-name">Gano Excel</h3>
                 </div>
               </div>
@@ -2501,8 +2504,8 @@ export default function ServilletaPage() {
                 <video className="card-bg" data-slide="2" data-card="2" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-queswa')}
                 <div className="card-content">
-                  <span className="pillar-eyebrow">Su socio digital</span>
-                  <h3 className="pillar-name">Queswa, su Centro de Mando</h3>
+                  <span className="pillar-eyebrow">Conversa y atiende</span>
+                  <h3 className="pillar-name">Queswa, su inteligencia artificial</h3>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -2556,7 +2559,9 @@ export default function ServilletaPage() {
                     (bug reportado 3 ago 2026). Leyendo de metodoReached, el rótulo se apaga
                     con SU propio texto y el cambio ocurre después, con la opacidad ya en 0. */}
                 <div className={`metodo-paso ${metodoEnPunto ? 'visible' : ''}`} aria-live="polite">
-                  <span className="metodo-orden">0{Math.max(metodoReached, 0) + 1}</span>
+                  {Math.max(metodoReached, 0) < 2 && (
+                    <span className="metodo-orden">0{Math.max(metodoReached, 0) + 1}</span>
+                  )}
                   {METODO_PASOS[Math.max(metodoReached, 0)]}
                 </div>
                 <div className="card-content">
@@ -2769,7 +2774,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      PAQUETES ACTIVADOS EN SU NEGOCIO:
+                      PAQUETES COMPRADOS EN SU CANAL:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -2796,7 +2801,7 @@ export default function ServilletaPage() {
                       <button className="pkg-btn" tabIndex={-1}>·</button>
                     </div>
                     <label>
-                      VOLUMEN DE COMPRAS EN SU NEGOCIO:
+                      VOLUMEN DE COMPRAS EN SU CANAL:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input

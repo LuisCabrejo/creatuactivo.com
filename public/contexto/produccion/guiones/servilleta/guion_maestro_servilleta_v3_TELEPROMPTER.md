@@ -1,11 +1,14 @@
-GUIÓN MAESTRO SERVILLETA v6.9 · TELEPROMPTER
-Actualizado: 3 agosto 2026
+GUIÓN MAESTRO SERVILLETA v7.0 · TELEPROMPTER
+Actualizado: 5 septiembre 2026
 
 CÓMO SE LEE
 Autoridad comprensible (Mario Alonso Puig) · firma patrimonial, no vecino · «Usted» universal · sin exclamaciones.
 Cadencia controlada · pausas naturales en los puntos · mirada directa.
 Duración estimada: 6 – 7 minutos.
 Las líneas están partidas por RESPIRACIÓN, no por frase: cada corte es una toma de aire, no un punto.
+
+QUÉ CAMBIÓ EN v7.0 — Léxico vigente (5 sep 2026)
+El guion se sincroniza con la doctrina de agosto y septiembre, que ya vivía en el arsenal y en la Home pero no aquí. El activo se nombra «canal de distribución» (no «red», no «negocio que funciona solo»); usted lo «maneja», no lo «dirige»; el colectivo es «su canal» y, cuando consume, «sus clientes». Gano Excel tiene presencia en «más de 60 países». Las acciones son DOS —compartir y recibir— y la multiplicación es la consecuencia, no un tercer movimiento (igual que en el deck: «Dos pasos sencillos»). Las dos vías del Slide 4 se nombran por lo que las mueve —INGRESO RECURRENTE · GANANCIAS POR LA COMPRA DE PAQUETES EMPRESARIALES—, sin adjetivos de velocidad ni de duración, y sin plazo («visible desde la primera semana», «esta misma semana empieza a producir» salen: son promesa de ingreso con fecha). El remate del villano lleva el «más de veinte» obligatorio. El producto se explica por recompra —«un producto que el cliente vuelve a pedir genera un ingreso que se repite»—, no por un ingreso que «jamás se detiene». ⏳ Pendiente de decisión del Director: la apertura del Slide 3 sigue en el marco del hábito de consumo («tomarse un café… un hábito que no cambia»), que la doctrina del 8 ago reemplazó por «productos premium de bienestar»; se propone en el chat, no se cambió aquí.
 
 QUÉ CAMBIÓ EN v6.9 — Slide 1: «no son tres, es una», como puente, no como reveal
 Nombra primero a quien fabrica («Lo primero: quién fabrica. Gano Excel…») en vez de abrir con lo que usted distribuye. El nombre «Queswa» desaparece de la apertura y del segundo elemento («nuestra inteligencia artificial») para guardarlo como sorpresa: aparece recién en el puente nuevo, que reemplaza el cierre anterior («toda esa infraestructura… no ocupa un edificio») — «estas tres piezas viven separadas… aquí encajan, como piezas de precisión… Queswa.app». «Cosas» → «piezas» en todo el tramo. Salen «cero costos fijos, cero empleados» y el remate del mapa de papel/GPS/patrimonio real — el punto ya queda hecho antes. Nota: este ajuste es SOLO del guion de video: el deck interactivo `/servilleta` (para grupos, en vivo) ya no persigue sincronía con este guion — son dos herramientas con público distinto.
@@ -50,7 +53,7 @@ ni de esfuerzo suyo.
 
 Le pasa exactamente igual
 
-al que gana dos millones y al que gana veinte.
+al que gana dos millones y al que gana más de veinte.
 
 
 
@@ -82,7 +85,7 @@ Y la solución es más simple de lo que parece:
 
 no se trata de renunciar a lo que hace hoy,
 
-sino de construir un segundo ingreso, en paralelo —
+sino de construir un ingreso en paralelo al que ya tiene —
 
 con el potencial de igualarlo o superarlo.
 
@@ -90,9 +93,9 @@ con el potencial de igualarlo o superarlo.
 
 Ahora bien,
 
-distribuir productos de consumo diario
+distribuir productos que las personas vuelven a pedir
 
-siempre ha sido un buen negocio.
+siempre ha sido buen negocio.
 
 Pero el modelo tradicional exigía algo
 
@@ -124,7 +127,7 @@ desarrollamos una herramienta.
 
 Le entrega las tres piezas que hacen falta
 
-para construir una red de distribución internacional.
+para construir un canal de distribución internacional.
 
 
 
@@ -134,7 +137,7 @@ Gano Excel.
 
 Una corporación con más de 30 años en el mercado,
 
-presencia en 70 países,
+presencia en más de 60 países,
 
 y la única en el mundo con instalaciones de producción propias —
 
@@ -184,7 +187,7 @@ Pero aquí no:
 
 aquí encajan, como piezas de precisión.
 
-Y usted las dirige todas
+Y usted las maneja todas
 
 desde una sola aplicación: Queswa.app,
 
@@ -212,7 +215,7 @@ Los primeros celulares solo servían para llamar.
 
 Hoy, ese mismo dispositivo
 
-le da el poder de dirigir un negocio que funciona solo.
+le da el poder de manejar un canal de distribución completo.
 
 
 
@@ -230,15 +233,15 @@ Ahora la pregunta correcta:
 
 
 
-Su parte se reduce a tres movimientos.
+Su parte se reduce a dos acciones.
 
-Y para ninguno necesita experiencia digital,
+Y para ninguna necesita experiencia digital,
 
 porque el método le marca los pasos exactos.
 
 
 
-EL PRIMERO · COMPARTIR
+LA PRIMERA · COMPARTIR
 
 Usted comparte.
 
@@ -254,7 +257,7 @@ la atiende Queswa, por WhatsApp, las 24 horas.
 
 
 
-EL SEGUNDO · RECIBIR
+LA SEGUNDA · RECIBIR
 
 Cuando alguien ya tomó la decisión,
 
@@ -284,11 +287,11 @@ eso no lo da ninguna máquina.
 
 
 
-EL TERCERO · MULTIPLICAR
+Y DE AHÍ, LA MULTIPLICACIÓN
 
 Y aquí está la verdadera magia.
 
-Cada persona que inicia con usted
+Y quien inicia con usted
 
 recibe exactamente lo mismo que usted recibió:
 
@@ -298,7 +301,7 @@ la misma fábrica detrás,
 
 la misma inteligencia artificial conversando por ella.
 
-La Academia la acompaña desde el primer día —
+Y la formación está lista desde el primer día:
 
 usted no tiene que enseñarle a nadie.
 
@@ -318,15 +321,17 @@ Al alcance de una llamada.
 
 [ PAUSA · TONO ASPIRACIONAL ]
 
-Compartir, recibir y multiplicar.
+Compartir y recibir.
 
-Su rol es el de dueño: dirigir.
+De ahí sale la multiplicación.
+
+Usted es el dueño.
 
 La tecnología hace el trabajo,
 
 y cada vez que el consumo se repite
 
-en los hogares de su organización,
+en los hogares de sus clientes,
 
 usted recibe un porcentaje, una y otra vez.
 
@@ -391,7 +396,7 @@ Hablamos del Ganoderma Lucidum de Gano Excel.
 
 Y la lógica es contundente:
 
-un hábito que no cambia genera un ingreso que jamás se detiene.
+un producto que el cliente vuelve a pedir genera un ingreso que se repite.
 
 
 
@@ -401,7 +406,7 @@ SLIDE 4 · LA MATEMÁTICA Y EL CIERRE
 
 
 
-Su negocio genera ingresos en doce velocidades distintas,
+Su canal tiene doce formas de ganar,
 
 que cubren el corto, el mediano y el largo plazo.
 
@@ -409,23 +414,21 @@ Analicemos dos.
 
 
 
-RENTA VITALICIA
+INGRESO RECURRENTE
 
-Un porcentaje sobre todo el consumo que fluye por su organización internacional, en cualquier país de América —
+Un porcentaje sobre todo el consumo que se repite entre los clientes y distribuidores de su canal, en cualquier país de América —
 
-semana tras semana, incluso mientras usted duerme.
+semana tras semana.
 
 Es el ingreso que ya no depende de su presencia.
 
 
 
-INGRESO INMEDIATO
+GANANCIAS POR LA COMPRA DE PAQUETES EMPRESARIALES
 
-Y por cada paquete empresarial que se activa dentro de su organización,
+Y por cada paquete empresarial que se compra en su canal,
 
 usted recibe una comisión directa, liquidada cada viernes.
-
-Es un ingreso visible desde la primera semana.
 
 
 
@@ -489,9 +492,7 @@ LA TERCERA — EMPEZAR HOY
 
 Para quien ya lo tiene claro.
 
-Hoy mismo el negocio queda a su nombre,
-
-y esta misma semana empieza a producir.
+Hoy mismo el negocio queda a su nombre.
 
 
 

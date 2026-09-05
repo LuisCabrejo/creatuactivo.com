@@ -3,7 +3,13 @@
 /**
  * Taller de Voz — práctica diaria de pronunciación (uso interno, noindex).
  * Compañero diario: una cosa por pantalla, rutina fija + la tarea del día.
- * Las frases de práctica salen de los guiones reales (servilleta + reels).
+ * Las frases de práctica salen del léxico VIVO: los candados del arsenal
+ * (`knowledge_base/arsenal_inicial.txt`), la Home y el cierre del guion de la
+ * servilleta. Auditada el 5 sep 2026 contra la doctrina vigente; el criterio es
+ * que una frase que se ensaya cien veces se aprende de memoria, así que aquí
+ * solo va copy que hoy se le diría a un prospecto. Cuando el arsenal cambie
+ * una frase con candado, esta página se actualiza con él (y `PROGRAMA_VERSION`
+ * sube, para que el progreso guardado no mezcle frases viejas con nuevas).
  */
 
 import { useState, useEffect } from 'react'
@@ -34,6 +40,7 @@ const RUTINA = [
 ]
 
 // ───────────────────────── Programa de 4 semanas ─────────────────────────
+// Los números van en letras a propósito: la práctica es hablada.
 type Dia = { dia: string; foco: string; pista?: string; sonidos: string[]; frase: string; origen: string }
 type Semana = { titulo: string; sub: string; dias: Dia[] }
 
@@ -41,45 +48,45 @@ const PROGRAMA: Semana[] = [
   {
     titulo: 'La R', sub: 'simple y trino',
     dias: [
-      { dia: 'Lun', foco: 'La R suave entre vocales', pista: 'Un solo toque de la lengua, como en "pe-ro".', sonidos: ['ra-re-ri-ro-ru', 'genera', 'dinero', 'mejores', 'recibe'], frase: 'Usted pasa a ser propietario de una empresa digital que genera ingresos recurrentes.', origen: 'Servilleta · su empresa' },
-      { dia: 'Mar', foco: 'La R al final (ser, valor, pagar)', pista: 'No se la coma: el toque va aunque cierre la sílaba.', sonidos: ['ser', 'valor', 'pagar', 'trabajar', 'dar'], frase: 'Trabajar, pagar cuentas y volver a empezar.', origen: 'Servilleta · apertura' },
-      { dia: 'Mié', foco: 'El trino al inicio (rr)', pista: 'Lengua suelta + aire de moto. No fuerce la garganta.', sonidos: ['recurrente', 'requiere', 'rápido', 'responde'], frase: 'Para multiplicar una empresa, se requiere abrir otro local.', origen: 'Servilleta · Paso 3' },
-      { dia: 'Jue', foco: 'La doble RR (error, arriendo)', pista: 'Varias vibraciones. Es el sonido que más le cuesta: despacio.', sonidos: ['error', 'arriendo', 'recurrentes', 'tierra'], frase: 'Arriendo, personal, inversión… y el error.', origen: 'Servilleta · Paso 3 + su lista' },
-      { dia: 'Vie', foco: 'Oído fino: pero / perro', pista: 'Una vibración cambia el significado. Escuche la diferencia.', sonidos: ['pero / perro', 'caro / carro', 'ahora / ahorra'], frase: 'Cada vez que el consumo se repite, usted recibe una parte.', origen: 'Servilleta · multiplicación' },
-      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Hoy junta todo. Compare esta grabación con la del próximo sábado.', sonidos: ['lea despacio, marcando cada R'], frase: 'Detrás de su empresa digital está Gano Excel, una corporación con más de 30 años y presencia en 70 países. Fabrica, responde por lo legal y despacha el producto en cada país.', origen: 'Home · Pilar 1' },
+      { dia: 'Lun', foco: 'La R suave entre vocales', pista: 'Un solo toque de la lengua, como en "quie-ra".', sonidos: ['ra-re-ri-ro-ru', 'quiera', 'interés', 'dinero', 'ahora'], frase: 'Su día a día se resume en dos acciones. Compartir: usted pasa un enlace a quien quiera. Recibir: usted saluda a quien llega con interés.', origen: 'Arsenal · EAM_01 (candado)' },
+      { dia: 'Mar', foco: 'La R al final (pagar, repetir)', pista: 'No se la coma: el toque va aunque cierre la sílaba.', sonidos: ['trabajar', 'pagar', 'repetir', 'compartir', 'recibir'], frase: 'Es un ciclo de trabajar, pagar cuentas y repetir.', origen: 'Arsenal · STORY_03 (candado) · Home' },
+      { dia: 'Mié', foco: 'El trino al inicio (rr)', pista: 'Lengua suelta + aire de moto. No fuerce la garganta.', sonidos: ['resuelve', 'recibe', 'repite', 'recurrente', 'respaldo'], frase: 'Conversa por WhatsApp con cada persona interesada, le resuelve las dudas y madura su decisión de avanzar, a toda hora.', origen: 'Home · Queswa' },
+      { dia: 'Jue', foco: 'La doble RR (arriendo, error)', pista: 'Varias vibraciones. Es el sonido que más le cuesta: despacio.', sonidos: ['arriendo', 'error', 'recurrente', 'carro', 'ahorra'], frase: 'En un negocio tradicional usted paga arriendo, nómina, inventario y transporte.', origen: 'Arsenal · EMPRESA_DIGITAL_01 (candado)' },
+      { dia: 'Vie', foco: 'Oído fino: pero / perro', pista: 'Una vibración cambia el significado. Escuche la diferencia — y la frase de hoy arranca justo con "pero".', sonidos: ['pero / perro', 'caro / carro', 'ahora / ahorra', 'entero / entierro'], frase: 'Usted trabaja el mes entero, pero al día siguiente de que le entra la plata, ese dinero ya tiene dueño: el banco, las cuotas, los recibos.', origen: 'Arsenal · STORY_03 (candado) · Servilleta · Slide 1' },
+      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Hoy junta todo. Compare esta grabación con la del próximo sábado.', sonidos: ['lea despacio, marcando cada R'], frase: 'Gano Excel, con treinta años y presencia en más de sesenta países, pone las fábricas, el inventario y la logística: fabrica, almacena y despacha cada pedido directo a la casa del cliente.', origen: 'Arsenal · WHY_02 (candado)' },
     ],
   },
   {
     titulo: 'Los grupos', sub: 'tr · gr · pr · br · cr',
     dias: [
-      { dia: 'Lun', foco: 'El grupo GR (ingreso)', pista: 'No meta vocal: es "gre", no "ge-re".', sonidos: ['in-gre-so', 'ingresos', 'gracias', 'logra'], frase: 'Mientras su ingreso dependa de que usted esté de pie, su vulnerabilidad es crítica.', origen: 'Reel informales · diagnóstico' },
-      { dia: 'Mar', foco: 'El grupo TR (otro)', pista: 'Consonante + R pegadas: "o-tro", no "o-te-ro".', sonidos: ['otro', 'cuatro', 'tres', 'nuestro', 'construye'], frase: 'Para multiplicar una empresa, se requiere abrir otro local.', origen: 'Servilleta · Paso 3' },
-      { dia: 'Mié', foco: 'Los grupos PR y BR', pista: 'propio · abrir. Pegado y limpio.', sonidos: ['propio', 'propietario', 'empresa', 'abrir', 'libre'], frase: 'Usted pasa a ser propietario de una empresa digital.', origen: 'Servilleta · su empresa' },
-      { dia: 'Jue', foco: 'Los grupos CR y FR', pista: 'crecer · frente. La R va dentro del grupo.', sonidos: ['crecer', 'CreaTuActivo', 'frente', 'infraestructura', 'fluye'], frase: 'El sistema le da los pasos exactos para hacer crecer su empresa digital.', origen: 'Servilleta · método' },
-      { dia: 'Vie', foco: 'Los grupos PL y CL (clic · clínicas)', pista: 'La C de "clínicas" suena K+L pegadas: "clí-ni-cas". No meta vocal.', sonidos: ['aplicación', 'clic', 'clínicas', 'sonrisaslindas.app'], frase: 'Usted crea sonrisaslindas.app y conecta las clínicas con quien quiere una sonrisa más bonita.', origen: 'Reel · Solución' },
-      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Todos los grupos juntos en un solo párrafo.', sonidos: ['lea despacio, sin meter vocales'], frase: 'Para multiplicar una empresa, se requiere abrir otro local: arriendo, personal, inversión. Esa es la pared donde casi todos se detienen. Aquí no.', origen: 'Servilleta · Paso 3' },
+      { dia: 'Lun', foco: 'El grupo GR (ingreso)', pista: 'No meta vocal: es "gre", no "ge-re".', sonidos: ['in-gre-so', 'ingreso', 'gracias', 'logra', 'genérica'], frase: 'Construye un ingreso que corre en paralelo a su actividad actual, y que sale del consumo que se repite cada mes entre sus clientes y sus distribuidores.', origen: 'Arsenal · WHY_05 (candado)' },
+      { dia: 'Mar', foco: 'El grupo TR (tres, distribuir)', pista: 'Consonante + R pegadas: "tres", no "te-res". Y "dis-tri-buir" lleva el grupo en medio.', sonidos: ['tres', 'otro', 'nuestro', 'distribuir', 'distribución'], frase: 'Tres cosas hacen falta para distribuir en serio. Las tres ya están resueltas.', origen: 'Servilleta · Slide 2 (deck)' },
+      { dia: 'Mié', foco: 'Los grupos PR y BR', pista: 'propio · cobra. Pegado y limpio.', sonidos: ['propio', 'producto', 'premium', 'prueba', 'cobra'], frase: 'Sea dueño de su propio canal de distribución. Lo maneja desde el celular, y cobra cada vez que mueve producto.', origen: 'Home · titular' },
+      { dia: 'Jue', foco: 'Los grupos CR y FR', pista: 'crecer · fricción. La R va dentro del grupo.', sonidos: ['crecer', 'concreto', 'CreaTuActivo', 'fricción', 'fábrica'], frase: 'Lo que le queda es decidir con quién lo comparte y ver crecer su canal.', origen: 'Arsenal · WHY_05 (candado)' },
+      { dia: 'Vie', foco: 'Los grupos PL y CL (clave · clientes)', pista: 'La C de "clave" y "clientes" suena K+L pegadas: "cla-ve". No meta vocal.', sonidos: ['aplicación', 'clic', 'clave', 'clientes', 'plata'], frase: 'Y aquí está la clave de la estabilidad: quien prueba el producto nota la diferencia en su energía y no vuelve a la marca genérica.', origen: 'Arsenal · WHY_02 (candado)' },
+      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Todos los grupos juntos en un solo párrafo.', sonidos: ['lea despacio, sin meter vocales'], frase: 'Todo parte de algo concreto: usted monta su propio canal de distribución, apoyado en una línea premium de café y suplementos con Ganoderma. La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.', origen: 'Arsenal · WHY_02 (candado)' },
     ],
   },
   {
     titulo: 'La S y las palabritas', sub: 'lo que se le cae',
     dias: [
-      { dia: 'Lun', foco: 'La S nítida (su salud)', pista: 'Que no se apague ni se vuelva "h". Ojo con las dos eses pegadas de "su salud".', sonidos: ['su salud', 'mejores años', 'antigüedad', 'sistema'], frase: 'Mientras usted entrega sus mejores años y su salud, solo acumula antigüedad.', origen: 'Reel empleados · diagnóstico' },
-      { dia: 'Mar', foco: '"setenta" — sola sale, en la frase se cae', pista: 'Aislada la dice perfecta. El truco es el bloque: "con presencia / en setenta / países". Baje la velocidad justo en la unión.', sonidos: ['setenta', 'en setenta', 'setenta países', 'con presencia en setenta países'], frase: 'Una corporación con más de 30 años y presencia en 70 países.', origen: 'Home · Pilar 1' },
-      { dia: 'Mié', foco: 'No omitir las palabritas', pista: 'de · en · y · el · su · lo también suenan. Toque cada una.', sonidos: ['de', 'en', 'y', 'el', 'un', 'su', 'lo'], frase: 'Usted lo dirige todo desde una sola aplicación en su celular.', origen: 'Servilleta · Centro de Mando' },
-      { dia: 'Jue', foco: 'Unir sin tragar + cadena de eses', pista: 'Una las vocales sin tragarlas. "una que se sostenga sola" lleva cuatro eses: que suenen todas.', sonidos: ['una que se sostenga sola', 'se sostenga', 'está a un clic'], frase: 'Usted ya construyó una nueva vida; lo que aún no tiene es una que se sostenga sola.', origen: 'Reel diáspora · hook' },
-      { dia: 'Vie', foco: '"en su celular" / "y el error"', pista: 'Sus frases marcadas: ninguna sílaba muda.', sonidos: ['en su celular', 'de mi perfil', 'y el error'], frase: 'Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.', origen: 'Servilleta · Centro de Mando' },
-      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Cuide la S y no se coma ninguna palabrita.', sonidos: ['lea tocando cada monosílabo'], frase: 'Su empresa digital genera ingresos en doce velocidades distintas, que cubren el corto, el mediano y el largo plazo. Analicemos dos.', origen: 'Servilleta · simulador' },
+      { dia: 'Lun', foco: 'La S nítida (sus socios)', pista: 'Que no se apague ni se vuelva "h". Ojo con las dos eses pegadas de "sus socios" y "dos formas".', sonidos: ['sus socios', 'dos formas', 'sedes', 'sesenta', 'sistema'], frase: 'Se vende de dos formas: al detal, a quien solo quiere consumirlo, y en paquetes empresariales, a quien arranca su propio canal.', origen: 'Arsenal · WHY_04 (candado)' },
+      { dia: 'Mar', foco: '"sesenta" — sola sale, en la frase se cae', pista: 'Aislada la dice perfecta. El truco es el bloque: "con presencia / en más de sesenta / países". Baje la velocidad justo en la unión. Y ojo: son tres eses seguidas.', sonidos: ['sesenta', 'más de sesenta', 'sesenta países', 'con presencia en más de sesenta países'], frase: 'Una empresa con más de treinta años y presencia en más de sesenta países.', origen: 'Arsenal · WHY_01 (candado) · Home' },
+      { dia: 'Mié', foco: 'No omitir las palabritas', pista: 'de · en · y · el · su · lo también suenan. Toque cada una.', sonidos: ['de', 'en', 'y', 'el', 'un', 'su', 'lo'], frase: 'Su canal se maneja desde una aplicación, y buena parte desde WhatsApp.', origen: 'Home · lo que antes era complicado' },
+      { dia: 'Jue', foco: 'Unir sin tragar + cadena de eses', pista: 'Una las vocales sin tragarlas. "esa compra que se repite es la que le sostiene el ingreso" lleva seis eses: que suenen todas.', sonidos: ['esa compra que se repite', 'es la que le sostiene', 'se sostiene', 'está a un clic'], frase: 'Esa compra que se repite es la que le sostiene el ingreso.', origen: 'Arsenal · WHY_02 (candado)' },
+      { dia: 'Vie', foco: '"desde el celular" / "y cobrar"', pista: 'Sus frases marcadas: ninguna sílaba muda.', sonidos: ['desde el celular', 'en su celular', 'y cobrar', 'a toda hora'], frase: 'A usted le quedan dos acciones, y las hace desde el celular: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.', origen: 'Arsenal · WHY_02 (candado)' },
+      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Cuide la S y no se coma ninguna palabrita.', sonidos: ['lea tocando cada monosílabo'], frase: 'Quien le consigna es Gano Excel, y lo hace en su cuenta bancaria cada viernes. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de treinta años y llega a su banco.', origen: 'Arsenal · WHY_04 (candado)' },
     ],
   },
   {
     titulo: 'Ritmo y anglicismos', sub: 'integración',
     dias: [
-      { dia: 'Lun', foco: 'link · app · queswa.app', pista: 'Alargue la K: "lin-K". Si queda forzado, diga "el enlace de mi perfil".', sonidos: ['link', 'app', 'queswa.app', 'Waze', 'Rappi'], frase: 'Usted lo dirige todo desde una sola aplicación en su celular: queswa.app.', origen: 'Servilleta · Centro de Mando' },
-      { dia: 'Mar', foco: 'Respire por bloques', pista: 'Una respiración por idea, nunca en mitad de una frase.', sonidos: ['marque las pausas con / antes de leer'], frase: 'Usted trabaja duro. Entrega sus mejores años y su salud. Y aun así, vive en el mismo ciclo mes a mes: trabajar, pagar cuentas y volver a empezar.', origen: 'Servilleta · apertura' },
-      { dia: 'Mié', foco: 'Velocidad controlada', pista: 'Dígala al 60%, luego 80%, luego 100% — sin perder palabras.', sonidos: ['lento → medio → natural'], frase: 'Usted trabaja duro, pero vive "al día". Si usted se detiene, su ingreso se detiene.', origen: 'Reel informales · hook' },
-      { dia: 'Jue', foco: 'Imítese a sí mismo (shadowing)', pista: 'Grabe una versión lenta, reprodúzcala y hable encima. Cuide "seguir de pie": se-guir (G dura) + de pie.', sonidos: ['seguir', 'seguir de pie', 'grábese lento y acompáñese'], frase: 'Es la consecuencia matemática de un sistema en el que cada peso depende de que usted pueda seguir de pie.', origen: 'Reel diáspora · diagnóstico' },
-      { dia: 'Vie', foco: 'Integración total', pista: 'Aplique TODO lo del mes en un reel completo, de corrido.', sonidos: ['elija un hook + diagnóstico de nicho'], frase: 'Eso no sucede por falta de esfuerzo de su parte. Es la consecuencia de un sistema diseñado para que usted viva en el ciclo de trabajar, pagar cuentas y repetir.', origen: 'Reel informales · diagnóstico' },
-      { dia: 'Sáb', foco: 'Reto final + grábese', pista: 'Compare con su grabación del Sábado de la Semana 1. Mida cuánto avanzó.', sonidos: ['velocidad natural, sin papel'], frase: 'Tener ingresos que no dependan de su presencia ya existe. CreaTuActivo.com ya existe. La única variable que falta en la ecuación es usted.', origen: 'Servilleta · cierre' },
+      { dia: 'Lun', foco: 'link · app · WhatsApp · queswa.app', pista: 'Alargue la K: "lin-K". "WhatsApp" es "guats-ap", sin vocal de apoyo al final. Si "link" queda forzado, diga "mi enlace".', sonidos: ['link', 'app', 'WhatsApp', 'queswa.app', 'Gano Excel'], frase: 'Lo que antes era complicado de desarrollar, hoy es sencillo: una inteligencia artificial explica y atiende a cada interesado por WhatsApp, a toda hora.', origen: 'Home · lo que antes era complicado' },
+      { dia: 'Mar', foco: 'Respire por bloques', pista: 'Una respiración por idea, nunca en mitad de una frase.', sonidos: ['marque las pausas con / antes de leer'], frase: 'Usted trabaja el mes entero, pero al día siguiente de que le entra la plata, ese dinero ya tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de trabajar, pagar cuentas y repetir.', origen: 'Arsenal · STORY_03 (candado) · Servilleta · Slide 1' },
+      { dia: 'Mié', foco: 'Velocidad controlada', pista: 'Dígala al 60%, luego 80%, luego 100% — sin perder palabras. Es la frase más larga del mes.', sonidos: ['lento → medio → natural'], frase: 'Hoy, la estabilidad económica de la mayoría depende de variables que no controla, donde basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee.', origen: 'Arsenal · WHY_05 (candado)' },
+      { dia: 'Jue', foco: 'Imítese a sí mismo (shadowing)', pista: 'Grabe una versión lenta, reprodúzcala y hable encima. Cuide "exactamente igual": la X suena "ks" y la G de "gana" e "igual" es dura.', sonidos: ['gana', 'igual', 'exactamente igual', 'grábese lento y acompáñese'], frase: 'Y no pasa por falta de capacidad ni de esfuerzo: le pasa exactamente igual al que gana dos millones y al que gana más de veinte.', origen: 'Arsenal · STORY_03 (candado)' },
+      { dia: 'Vie', foco: 'Integración total', pista: 'Aplique TODO lo del mes en un candado completo, de corrido.', sonidos: ['elija WHY_02 o EAM_01 y dígalo entero'], frase: 'Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.', origen: 'Arsenal · EAM_01 (candado)' },
+      { dia: 'Sáb', foco: 'Reto final + grábese', pista: 'Compare con su grabación del Sábado de la Semana 1. Mida cuánto avanzó.', sonidos: ['velocidad natural, sin papel'], frase: 'Lo que hace es empezar a construirle una parte que sí sea suya: un viernes en que entra algo que no le debe nada a nadie. CreaTuActivo.com ya existe.', origen: 'Servilleta · cierre (v6.8)' },
     ],
   },
 ]
@@ -90,27 +97,30 @@ const BIBLIOTECA = [
     palabra: 'encontrará', icono: '↩',
     porque: 'Junta sus dos debilidades pegadas — el grupo TR y la R fuerte — en una palabra que carga el acento al final.',
     como: ['Empiece por la sílaba fuerte y crezca hacia atrás:', '1 · rá (sola, fuerte)', '2 · tra-rá (el corazón duro: dos toques)', '3 · con-tra-rá', '4 · en-con-tra-rá'],
-    familia: ['encontrará', 'mostrará (le mostrará en minutos…)', 'entrará', 'construirá', 'logrará', 'explicará'],
+    familia: ['encontrará', 'mostrará (le mostrará en minutos…)', 'construirá', 'logrará', 'explicará', 'distribuirá'],
   },
   {
     palabra: 'ejercicio', icono: '◐',
     porque: 'Encadena cuatro fricciones seguidas: jota → R → S → S. La lengua va atrás, salta adelante y al frente.',
     como: ['Su jota es suave (colombiana), casi una "h" soplada. Es aire, no rasguño.', '1 · "ha-he-hi-ho-hu" → "ja-je-ji-jo-ju"', '2 · la sílaba dura: "jer"', '3 · cio → ci-cio → jer-ci-cio → e-jer-ci-cio'],
-    familia: ['digital (di-gi-tal)', 'dirige (di-ri-ge)', 'mejores', 'trabaja'],
+    familia: ['digital (di-gi-tal)', 'maneja (ma-ne-ja)', 'genérica (ge-né-ri-ca)', 'trabaja'],
   },
   {
     palabra: 'link de mi perfil', icono: '⌁',
     porque: 'Mete una terminación dura (la K, rara en español) seguida de tres palabritas átonas. Por eso suena forzado.',
     como: ['1 · Aísle la K: "lin —— K", exagerando.', '2 · Una el bloque sin tragarlo: "de-mi".', '3 · "per-fil" con toque de R.', '4 · Júntelo: "link / de mi / per-fil".'],
-    familia: ['Alternativa fácil: "el enlace de mi perfil"'],
+    familia: ['Alternativa fácil: "mi enlace"'],
   },
   {
-    palabra: 'su salud · se sostenga sola', icono: '∿',
-    porque: 'Cuando la S se repite muy seguida, la lengua quiere saltarse una. "se-sos-ten-ga-so-la" tiene cuatro eses; "su sa-lud" tiene dos pegadas.',
-    como: ['Marque cada S y que ninguna se apague ni se vuelva "h".', '1 · "su —— sa-lud" (dos eses, las dos suenan)', '2 · "se · sos · ten · ga · so · la", despacio', '3 · "las clí-ni-cas" (la C también suena como S)'],
-    familia: ['su salud', 'se sostenga sola', 'las clínicas', 'sistema · semana · países'],
+    palabra: 'sus socios · se sostiene', icono: '∿',
+    porque: 'Cuando la S se repite muy seguida, la lengua quiere saltarse una. "sus clientes y sus socios" tiene cinco eses; "se sos-tie-ne" tiene dos pegadas.',
+    como: ['Marque cada S y que ninguna se apague ni se vuelva "h".', '1 · "sus —— so-cios" (dos eses pegadas, las dos suenan)', '2 · "se · sos · tie · ne", despacio', '3 · "se-sen-ta" (tres eses en una sola palabra)'],
+    familia: ['sus clientes y sus socios', 'se sostiene el ingreso', 'sesenta países', 'sistema · semana · sedes'],
   },
 ]
+
+// Cambia cuando cambian las frases: el progreso guardado deja de tener sentido.
+const PROGRAMA_VERSION = '2026-09-05'
 
 const REGLAS = [
   'Su mente corre: baje el ritmo interno un 20%.',
@@ -129,9 +139,15 @@ export default function LexicoPage() {
   const [openBib, setOpenBib] = useState<number | null>(null)
   const [hydrated, setHydrated] = useState(false)
 
-  // Cargar progreso
+  // Cargar progreso. Si el programa cambió de versión, el progreso viejo se
+  // descarta y se arranca desde la Semana 1 (frases nuevas, grabaciones nuevas).
   useEffect(() => {
     try {
+      if (localStorage.getItem('lexico_v') !== PROGRAMA_VERSION) {
+        localStorage.removeItem('lexico_pos')
+        localStorage.removeItem('lexico_done')
+        localStorage.setItem('lexico_v', PROGRAMA_VERSION)
+      }
       const pos = JSON.parse(localStorage.getItem('lexico_pos') || 'null')
       if (pos && typeof pos.s === 'number') { setS(pos.s); setD(pos.d) }
       const dn = JSON.parse(localStorage.getItem('lexico_done') || '{}')
@@ -161,6 +177,12 @@ export default function LexicoPage() {
     })
   }
 
+  const reiniciar = () => {
+    if (!confirm('¿Borrar el progreso y volver a la Semana 1?')) return
+    try { localStorage.removeItem('lexico_pos'); localStorage.removeItem('lexico_done') } catch {}
+    setDone({}); setS(0); setD(0)
+  }
+
   const irSiguiente = () => {
     if (d < 5) { setD(d + 1) } else if (s < 3) { setS(s + 1); setD(0) }
   }
@@ -187,9 +209,9 @@ export default function LexicoPage() {
             <strong style={{ color: acento }}>¿Aislada le sale, pero en la frase se cae?</strong> Es lo normal: el problema casi nunca es el sonido, es la <em>unión</em> entre palabras. Parta la frase en bloques cortos, respire solo entre bloques y ensaye las <em>uniones</em>, no las palabras sueltas.
           </p>
           <p style={{ margin: 0, fontSize: 14, color: C.muted, lineHeight: 1.9, fontFamily: 'var(--font-mono, monospace)' }}>
-            con presencia&nbsp;/&nbsp;en setenta&nbsp;/&nbsp;países<br />
-            sus mejores años&nbsp;/&nbsp;y su salud<br />
-            cada peso depende&nbsp;/&nbsp;de que usted pueda&nbsp;/&nbsp;seguir de pie
+            con presencia&nbsp;/&nbsp;en más de sesenta&nbsp;/&nbsp;países<br />
+            esa compra que se repite&nbsp;/&nbsp;es la que le sostiene&nbsp;/&nbsp;el ingreso<br />
+            le pasa exactamente igual&nbsp;/&nbsp;al que gana dos millones&nbsp;/&nbsp;y al que gana más de veinte
           </p>
         </div>
 
@@ -355,6 +377,12 @@ export default function LexicoPage() {
 
         <p style={{ marginTop: 36, fontSize: 11, color: C.faint, textAlign: 'center' }}>
           Práctica constante, no intensa. La voz es músculo. 🪢
+        </p>
+        <p style={{ marginTop: 10, textAlign: 'center' }}>
+          <button onClick={reiniciar}
+            style={{ cursor: 'pointer', background: 'transparent', border: 'none', color: C.faint, fontSize: 11, textDecoration: 'underline' }}>
+            Volver a empezar desde la Semana 1
+          </button>
         </p>
       </div>
     </main>

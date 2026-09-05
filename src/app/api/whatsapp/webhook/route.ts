@@ -54,18 +54,13 @@ import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
   noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido,
-  detectarPreguntaEnvio, respuestaEnvio,
-  detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
+  detectarPreguntaOficina, detectarCiudad,
   esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE, RE_NO_ENTENDI,
-  detectarPidePersona, respuestaPersona, avisarPidePersona,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
   nombreCorto, RE_PEDIDO_CARGADO,
-  RE_OFERTA_FOTO_PRODUCTO, RE_OFERTA_PEDIDO_SEDE, esAceptacion,
+  RE_OFERTA_PEDIDO_SEDE, esAceptacion,
 } from '@/lib/wa-pedido';
-import {
-  pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen, esSoloPedidoDeImagen, seguimientoFoto,
-  detectarFamilia, familiaOfrecida, preguntoCualLinea, esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
-} from '@/lib/wa-productos';
+import { pideImagen, detectarProducto, detectarFamilia } from '@/lib/wa-productos';
 import {
   slugDesdeNombre,
   normalizarWhatsApp,
@@ -92,7 +87,8 @@ import {
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
 import {
-  atenderEnlaceCatalogo, atenderHiloNiveles, slugDelSocio, textoDeCandado, paisDeTelefono,
+  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio,
+  slugDelSocio, textoDeCandado, paisDeTelefono,
 } from '@/lib/queswa-conductor';
 
 export const runtime = 'nodejs';
@@ -1257,86 +1253,28 @@ async function procesarEntrante(body: any): Promise<void> {
     // y cuánto cuesta"), sigue al motor y se le avisa por el pageContext que la
     // imagen ya está entregada.
     let fotoEnviada: string | null = null;
-
-    // ─── 2.25a La foto de una LÍNEA o del portafolio ─────────────────────────
-    // Tres formas de pedirla: nombrándola con palabra de imagen ("muéstreme las
-    // bebidas", "foto de todos los productos"), aceptando la oferta con la que
-    // el bot cerró el turno anterior ("¿le muestro las demás bebidas?" → "sí"),
-    // o nombrando una línea cuando el pie del portafolio preguntó cuál acercar.
-    // Va ANTES que la foto de producto: "las cápsulas" en plural es la línea;
-    // "las cápsulas de ganoderma" es el producto, y el patrón lo distingue.
-    const _ultimoBotFoto = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
-    const _familiaAceptada = familiaOfrecida(_ultimoBotFoto);
-    const familia = (_familiaAceptada && esAceptacionCorta(messageText)) ? _familiaAceptada
-      : (preguntoCualLinea(_ultimoBotFoto) && detectarFamilia(messageText)) ? detectarFamilia(messageText)
-      : (pideImagen(messageText) && !detectarProducto(messageText)) ? detectarFamilia(messageText)
-      : null;
-    if (familia) {
-      const vieneDeOferta = familia === _familiaAceptada || preguntoCualLinea(_ultimoBotFoto);
-      const soloFoto = vieneDeOferta || esSoloPedidoDeImagen(messageText);
-      const pie = pieDeFotoFamilia(familia, soloFoto ? FAMILIAS_WA[familia].seguimiento : undefined);
-      await pisoDeEscritura();
-      const enviada = await sendImage(phoneNumber, urlImagenFamilia(familia), pie);
-      if (enviada.ok) {
-        fotoEnviada = FAMILIAS_WA[familia].titulo;
-        console.log(`📷 [WA Webhook] Foto de la familia ${familia} enviada a ${phoneNumber}`);
-        if (soloFoto) {
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, pie);
-          console.log('📷 [WA Webhook] Turno cerrado sin motor');
-          return;
-        }
-      } else {
-        console.warn(`⚠️ [WA Webhook] Foto de la familia ${familia} no se pudo enviar: ${enviada.error}`);
-      }
-    }
-
-    // ─── 2.25b La foto de UN producto ────────────────────────────────────────
-    // El «sí» a «¿le muestro la foto?» (cierre del seguimiento de salud) es la
-    // foto del producto que ese mismo turno nombró.
-    const _fotoOfrecida = RE_OFERTA_FOTO_PRODUCTO.test(_ultimoBotFoto) && esAceptacionCorta(messageText);
-    if (!familia && (pideImagen(messageText) || _fotoOfrecida)) {
-      // "dame una imagen" a secas es la forma normal de pedirla cuando ya se
-      // venía hablando de un producto: si el mensaje no lo nombra, se toma del
-      // hilo (prueba del 20 ago — caía al motor y respondía que no podía).
-      const producto = _fotoOfrecida
-        ? detectarProducto(_ultimoBotFoto)
-        : (detectarProducto(messageText) ?? cafeGenericoAFoto(messageText) ?? productoDelHilo(historial));
-      if (producto) {
-        // Cuando el mensaje pide SOLO la foto, la pregunta de cierre viaja
-        // dentro del pie: enviada como mensaje aparte llegaba ANTES que la
-        // imagen —Meta tarda en descargarla de la URL— y la persona leía la
-        // pregunta antes de ver el producto (prueba del 20 ago).
-        const soloFoto = esSoloPedidoDeImagen(messageText);
-        let seguimiento: string | undefined;
-        if (soloFoto) {
-          // ¿Ya se le había explicado este producto? Volver a ofrecérselo sería
-          // no estar leyendo el hilo.
-          const clave = producto.nombre.toLowerCase().split(' ')[0];
-          const yaExplicado = historial.some((m) =>
-            m.role === 'assistant' && !m.content.startsWith('[Foto')
-            && m.content.length > 200 && m.content.toLowerCase().includes(clave));
-          seguimiento = seguimientoFoto(producto, yaExplicado);
-        }
-
+    // 2.25a (la línea o el portafolio) y 2.25b (un producto) viven en el
+    // conductor desde el 5 sep 2026: decide y arma el pie; aquí solo se envía.
+    {
+      const foto = atenderFoto(messageText, historial);
+      if (foto) {
         await pisoDeEscritura();
-        const enviada = await sendImage(phoneNumber, urlImagen(producto), pieDeFoto(producto, seguimiento));
+        const enviada = await sendImage(phoneNumber, foto.url, foto.pie);
         if (enviada.ok) {
-          fotoEnviada = producto.nombre;
-          console.log(`📷 [WA Webhook] Foto de ${producto.slug} enviada a ${phoneNumber}`);
-          if (soloFoto) {
+          fotoEnviada = foto.nombre;
+          console.log(`📷 [WA Webhook] ${foto.nodo} enviada a ${phoneNumber}`);
+          if (foto.cierraTurno) {
             // Se persiste el PIE tal cual, no un marcador entre corchetes: el
             // modelo lee este turno en el hilo, y con "[Foto ... enviada]" lo
-            // interpretaba como que el tema eran las imágenes — al turno
-            // siguiente respondió "no tengo imágenes disponibles" (21 ago).
-            await persistirTurnoDictado(supabase, waFingerprint, messageText,
-              pieDeFoto(producto, seguimiento));
+            // interpretaba como que el tema eran las imágenes (21 ago).
+            await persistirTurnoDictado(supabase, waFingerprint, messageText, foto.pie);
             console.log('📷 [WA Webhook] Turno cerrado sin motor');
             return;
           }
         } else {
-          console.warn(`⚠️ [WA Webhook] Foto de ${producto.slug} no se pudo enviar: ${enviada.error}`);
+          console.warn(`⚠️ [WA Webhook] ${foto.nodo} no se pudo enviar: ${enviada.error}`);
         }
-      } else {
+      } else if (pideImagen(messageText)) {
         console.log('📷 [WA Webhook] Pidió imagen pero no nombró un producto reconocible — responde el motor');
       }
     }
@@ -1602,42 +1540,25 @@ async function procesarEntrante(body: any): Promise<void> {
       }
     }
 
-    // ─── 2.46 «Quiero hablar con una persona» — el socio se entera de verdad ──
-    // Hasta hoy el modelo escribía «le aviso al socio» y no pasaba nada.
-    if (!socioQueEscribe && detectarPidePersona(messageText)) {
-      const _ultimoUsuario = [...historial].reverse().find((m) => m.role === 'user')?.content ?? '';
-      await avisarPidePersona(phoneNumber, _nombrePedido, _socioPedido, _ultimoUsuario);
-      const texto = respuestaPersona(_socioPedido);
-      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
-      console.log('🙋 [WA Webhook] Pidió una persona — socio y equipo avisados');
-      return;
-    }
-
-    // ─── 2.47 El envío — lo coordina con el socio, por su nombre ──────────────
-    if (!socioQueEscribe && detectarPreguntaEnvio(messageText) && !detectarPreguntaOficina(messageText)) {
-      const texto = respuestaEnvio(_socioPedido);
-      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
-      console.log('📦 [WA Webhook] Pregunta de envío — dictada');
-      return;
-    }
-
-    // ─── 2.48 Las sedes, para el prospecto ───────────────────────────────────
-    // Las direcciones son información de socio (Director, 27 ago 2026): las
-    // sedes atienden a quien ya tiene código, y a quien llega con una dirección
-    // lo afilia cualquiera. Al prospecto: la razón real y la puerta (su código lo
-    // abre el socio). Si insiste, una línea. Las ciudades siguen en FREQ_13.
-    if (!socioQueEscribe && detectarPreguntaOficina(messageText)) {
-      const insiste = RE_OFICINA_YA_EXPLICADA.test(_ultimoBotPedido);
-      const ciudad = detectarCiudad(messageText)
-        ?? [...historial].reverse().map((m) => detectarCiudad(m.content)).find(Boolean)
-        ?? null;
-      const texto = respuestaOficinaProspecto(_socioPedido, ciudad, _hayPedido, insiste, diceDondeVive(messageText));
-      await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
-      console.log(`🏢 [WA Webhook] Preguntó por la sede (${ciudad ?? 'sin ciudad'}${insiste ? ', insiste' : ''}) — dictada`);
-      return;
+    // ─── 2.46 → 2.48 «Quiero hablar con una persona» · el envío · las sedes ──
+    // Viven en el conductor desde el 5 sep 2026 (iguales en la web). El aviso al
+    // socio y al equipo lo dispara el conductor; aquí solo se entrega el texto.
+    {
+      const nodoSocio = await atenderSocio({
+        mensaje:         messageText,
+        historial,
+        socio:           _socioPedido,
+        nombreProspecto: _nombrePedido,
+        contacto:        phoneNumber,
+        hayPedido:       _hayPedido,
+        socioQueEscribe: !!socioQueEscribe,
+      });
+      if (nodoSocio?.texto) {
+        await sendWhatsAppMessage(phoneNumber, nodoSocio.texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoSocio.texto);
+        console.log(`🧭 [WA Webhook] ${nodoSocio.nodo} — dictado por el conductor`);
+        return;
+      }
     }
 
     // ─── 2.49 Autorización de marketing — su propio turno, una sola pregunta ──

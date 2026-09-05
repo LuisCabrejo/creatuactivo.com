@@ -682,7 +682,7 @@ const ETIQUETA_LARGA: Record<string, string> = {
  * vía principal; si Meta la rechaza o el canal está caído —que es justo el
  * escenario en que la web hace de respaldo—, el equipo se entera igual.
  */
-async function avisarPorCorreo(asunto: string, lineas: string[]): Promise<void> {
+export async function avisarPorCorreo(asunto: string, lineas: string[]): Promise<void> {
   if (!process.env.RESEND_API_KEY) return;
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);

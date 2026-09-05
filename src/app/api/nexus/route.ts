@@ -41,7 +41,8 @@ import {
 } from '@/lib/wa-guardarrail-negocio';
 import { gestionarCierre, CLAVES_CANAL, CLAVES_WEB } from '@/lib/wa-radicacion';
 import {
-  atenderEnlaceCatalogo, atenderHiloNiveles, slugDelSocio, textoSimuladorWeb, paisDeCodigo,
+  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, fotoParaWeb, aFormatoWeb,
+  slugDelSocio, textoSimuladorWeb, paisDeCodigo,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import { NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, CIERRE_SALUD } from '@/lib/wa-guardarrail-salud';
@@ -4601,12 +4602,30 @@ ${summaryParts.join('\n')}
     // tarjeta del Flow, la web pone un enlace al deck que trae el simulador.
     let _socioNombre: string | undefined;
     let _socioCodigo: string | undefined;
-    if (canalWeb && constructorUUID) {
+    let _socioWhatsapp: string | undefined;
+    let _socioUUID: string | null = constructorUUID;
+    if (canalWeb && (constructorUUID || constructorId)) {
       try {
-        const { data: _socio } = await getSupabaseClient()
-          .from('private_users').select('name, constructor_id').eq('id', constructorUUID).maybeSingle();
+        // El widget manda el `ref` tal como llegó: unas veces el constructor_id
+        // (`luis-cabrejo-1288`), otras el slug amigable (`luis-cabrejo`), que
+        // `get_constructor_uuid` no reconoce. Sin esto los textos dictados de la
+        // web decían «el equipo de creatuactivo.com» en vez del nombre del socio.
+        // `private_users` solo la ve el service role (RLS): con la clave anónima
+        // vuelve vacía sin error, y el socio se llamaba «el equipo».
+        let _consulta = getSupabaseAdmin().from('private_users').select('id, name, constructor_id, whatsapp');
+        if (constructorUUID) {
+          _consulta = _consulta.eq('id', constructorUUID);
+        } else {
+          const { data: _fila } = await getSupabaseClient()
+            .from('constructor_slugs').select('constructor_id').eq('slug', constructorId).maybeSingle();
+          if (!_fila?.constructor_id) throw new Error(`ref «${constructorId}» no es constructor_id ni slug`);
+          _consulta = _consulta.eq('constructor_id', _fila.constructor_id);
+        }
+        const { data: _socio } = await _consulta.maybeSingle();
+        _socioUUID = _socio?.id ? String(_socio.id) : constructorUUID;
         _socioNombre = _socio?.name ? String(_socio.name).split(/\s+/).slice(0, 2).join(' ') : undefined;
         _socioCodigo = _socio?.constructor_id ? String(_socio.constructor_id) : undefined;
+        _socioWhatsapp = _socio?.whatsapp ? String(_socio.whatsapp).replace(/\D/g, '') : undefined;
       } catch (err) {
         console.warn('⚠️ [Conductor web] No se pudo leer el socio:', err);
       }
@@ -4623,14 +4642,18 @@ ${summaryParts.join('\n')}
 
     // Lo que un nodo dictado devuelve se entrega tal cual y queda en el log de
     // la conversación como lo que la persona leyó.
+    // La foto con pregunta detrás: la imagen se antepone a lo que responda el
+    // motor, y el motor se entera por el pageContext (como en el canal).
+    let _fotoWebPrefijo: string | null = null;
+
     const _entregarDictado = async (nodo: RespuestaConductor) => {
-      let texto = nodo.texto ?? '';
+      let texto = aFormatoWeb(nodo.texto ?? '');
       if (nodo.simulador) texto = texto ? `${texto}\n\n${textoSimuladorWeb(nodo.simulador)}` : textoSimuladorWeb(nodo.simulador);
       if (nodo.marcarHiloDoceNiveles && fingerprint) {
         getSupabaseClient().rpc('update_prospect_data', {
           p_fingerprint_id: fingerprint,
           p_data: { hilo_12_niveles: true },
-          p_constructor_id: constructorUUID || undefined,
+          p_constructor_id: _socioUUID || undefined,
         }).then(({ error }: any) => { if (error) console.warn('⚠️ [Conductor web] No se marcó el hilo:', error); });
       }
       console.log(`🧭 [Conductor web] ${nodo.nodo} — dictado sin modelo`);
@@ -4645,6 +4668,17 @@ ${summaryParts.join('\n')}
       const _resolverSlug = async () => slugDelSocio(getSupabaseClient(), _socioCodigo || constructorId || null);
       const _nodoCatalogo = await atenderEnlaceCatalogo(latestUserMessage, _historialWeb, _resolverSlug);
       if (_nodoCatalogo) return _entregarDictado(_nodoCatalogo);
+
+      // 2.25 — la foto. Si el mensaje pide solo la foto, el turno se cierra con
+      // la imagen y el pie; si además pregunta algo, la imagen se antepone a la
+      // respuesta del motor y el motor sabe que ya salió.
+      const _foto = atenderFoto(latestUserMessage, _historialWeb);
+      if (_foto) {
+        if (_foto.cierraTurno) return _entregarDictado({ nodo: _foto.nodo, texto: fotoParaWeb(_foto) });
+        _fotoWebPrefijo = fotoParaWeb(_foto);
+        pageContext = 'whatsapp_foto_enviada';
+        console.log(`📷 [Conductor web] ${_foto.nodo} antepuesta — el motor responde lo demás`);
+      }
 
       const _nodoHilo = await atenderHiloNiveles({
         canal:               'web',
@@ -4661,6 +4695,20 @@ ${summaryParts.join('\n')}
         tenant:              tenantId,
       });
       if (_nodoHilo) return _entregarDictado(_nodoHilo);
+
+      // 2.46 → 2.48 — hablar con una persona · el envío · las sedes.
+      const _nodoSocio = await atenderSocio({
+        mensaje:         latestUserMessage,
+        historial:       _historialWeb,
+        socio:           _socioNombre || _socioCodigo
+          ? { nombre: _socioNombre, whatsapp: _socioWhatsapp, constructorId: _socioCodigo, slug: null }
+          : null,
+        nombreProspecto: mergedProspectData.name ? String(mergedProspectData.name).split(/\s+/).slice(0, 2).join(' ') : undefined,
+        contacto:        _telefonoFicha.length >= 10 ? _telefonoFicha : `web ${fingerprint || sessionId || ''}`.trim(),
+        hayPedido:       false,
+        socioQueEscribe: false,
+      });
+      if (_nodoSocio) return _entregarDictado(_nodoSocio);
     }
 
     // ════════════════════════════════════════════════════════════════════════════
@@ -4698,14 +4746,14 @@ ${summaryParts.join('\n')}
           getSupabaseClient().rpc('update_prospect_data', {
             p_fingerprint_id: fingerprint,
             p_data: _fichaRadicacion,
-            p_constructor_id: constructorUUID || undefined,
+            p_constructor_id: _socioUUID || undefined,
           }).then(({ error }: any) => { if (error) console.error('❌ [Cierre web] Ficha no actualizada:', error); });
         }
         if (sessionId && fingerprint) {
           logConversationHibrida(latestUserMessage, _cierreWeb.texto, ['RADICACION_BACKEND'], 'radicacion_web', sessionId, fingerprint, prospectData)
             .catch((err) => console.error('❌ [Cierre web] Error logging:', err));
         }
-        return new StreamingTextResponse(buildVerbatimStream(_cierreWeb.texto), { headers: getCorsHeaders(origin) });
+        return new StreamingTextResponse(buildVerbatimStream(aFormatoWeb(_cierreWeb.texto)), { headers: getCorsHeaders(origin) });
       }
     }
 
@@ -6658,7 +6706,7 @@ ESTADO: ${getMessageContext()}`;
         console.error(`🚨 [Guardarraíl web] BLOQUEADO — ${_motivo}. Borrador: "${_borrador.slice(0, 300)}"`);
       }
 
-      const _textoFinal = _final;
+      const _textoFinal = _fotoWebPrefijo ? `${_fotoWebPrefijo}\n\n${_final}` : _final;
       const streamWeb = new ReadableStream({
         async start(controller) {
           controller.enqueue(new TextEncoder().encode(_textoFinal));

@@ -23,17 +23,35 @@
  *   · 2.4   el simulador cuando lo piden o aceptan la oferta
  *   · 2.44  el «sí» tras las respuestas de salud
  *
+ * Segundo lote (5 sep 2026):
+ *   · 2.25  la foto de una línea, del portafolio o de un producto
+ *   · 2.46  «quiero hablar con una persona» → el socio se entera de verdad
+ *   · 2.47  el envío, que se acuerda con el socio
+ *   · 2.48  las sedes, para el prospecto
+ *
  * Los números son los del webhook, para que quien venga de allá los reconozca.
- * Lo que sigue siendo solo del canal (fotos, pareja, pedido, sedes, avisos al
- * socio, ambivalencia) se va moviendo nodo por nodo a medida que se toque.
+ * Lo que sigue siendo solo del canal (botones de apertura, pareja, pedido, la
+ * lista del socio, la autorización de marketing, ambivalencia) se va moviendo
+ * nodo por nodo a medida que se toque.
  *
  * ⚠️ REGLA: aquí no hay `sendText` ni `StreamingTextResponse`. Si un nodo
  * necesita saber por dónde entrega, es que la decisión está mal partida.
  */
 
 import { pedirDatos, CLAVES_CANAL, type ClaveRadicacion, type DatosRadicacion } from '@/lib/wa-radicacion';
-import { seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO_SALUD } from '@/lib/wa-pedido';
+import {
+  seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO_SALUD, RE_OFERTA_FOTO_PRODUCTO,
+  detectarPidePersona, respuestaPersona, avisarPidePersona,
+  detectarPreguntaEnvio, respuestaEnvio,
+  detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
+  type SocioPedido,
+} from '@/lib/wa-pedido';
 import { pideEnlaceCatalogo, mensajeEnlaceCatalogo } from '@/lib/wa-onboarding';
+import {
+  pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
+  esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
+  esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
+} from '@/lib/wa-productos';
 
 export type PaisConductor = 'CO' | 'US' | 'XX';
 export type CanalConductor = 'whatsapp' | 'web';
@@ -401,6 +419,154 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
   if (!ctx.socioQueEscribe) {
     const seguimiento = seguimientoSalud(b.ultimoBot, mensaje);
     if (seguimiento) return { nodo: '2.44 seguimiento de salud', texto: seguimiento };
+  }
+
+  return null;
+}
+
+// ─── Formato para la web ──────────────────────────────────────────────────────
+
+/**
+ * Los textos dictados de `wa-*` vienen en el formato de WhatsApp (negrita con
+ * UN asterisco). La web muestra Markdown, donde un asterisco es cursiva: se
+ * convierte a dos. Idempotente sobre `**negrita**` y sin tocar `_cursiva_`.
+ * Solo para textos dictados — el modelo ya escribe Markdown y usa `*cursiva*`
+ * a propósito.
+ */
+export function aFormatoWeb(texto: string): string {
+  if (!texto) return texto;
+  return texto.replace(/(^|[^*])\*(?!\*)([^*\n]+?)\*(?!\*)/g, '$1**$2**');
+}
+
+// ─── 2.25 La foto ─────────────────────────────────────────────────────────────
+
+export interface FotoDictada {
+  nodo: string;
+  url: string;
+  /** El pie: nombre, presentación, precio y registro. Sin declaración de salud. */
+  pie: string;
+  /** Lo que se le informa al motor si el turno sigue (`whatsapp_foto_enviada`). */
+  nombre: string;
+  /** El mensaje pidió SOLO la foto: la pregunta de cierre va en el pie y el turno se cierra. */
+  cierraTurno: boolean;
+}
+
+/**
+ * La foto de una LÍNEA o del portafolio (2.25a), o la de UN producto (2.25b).
+ *
+ * Se envía SOLO si la persona la pide y nombra un producto o una línea, o si
+ * acepta la oferta con la que el bot cerró: mandarla porque el producto se
+ * mencionó convierte la conversación en un catálogo que dispara solo.
+ *
+ * ⚠️ EL MOTOR NO SABE QUE LA FOTO SALIÓ. Si el mensaje pide solo la foto, el
+ * turno se cierra con la pregunta dictada dentro del pie (enviada aparte
+ * llegaba ANTES que la imagen); si además pregunta algo, el canal sigue al
+ * motor con `pageContext: 'whatsapp_foto_enviada'`.
+ */
+export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | null {
+  const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
+
+  // 2.25a — la línea va ANTES que el producto: «las cápsulas» en plural es la
+  // línea; «las cápsulas de ganoderma» es el producto.
+  const familiaAceptada = familiaOfrecida(ultimoBot);
+  const familia = (familiaAceptada && esAceptacionCorta(mensaje)) ? familiaAceptada
+    : (preguntoCualLinea(ultimoBot) && detectarFamilia(mensaje)) ? detectarFamilia(mensaje)
+    : (pideImagen(mensaje) && !detectarProducto(mensaje)) ? detectarFamilia(mensaje)
+    : null;
+  if (familia) {
+    const vieneDeOferta = familia === familiaAceptada || preguntoCualLinea(ultimoBot);
+    const soloFoto = vieneDeOferta || esSoloPedidoDeImagen(mensaje);
+    return {
+      nodo: `2.25a foto de la línea ${familia}`,
+      url: urlImagenFamilia(familia),
+      pie: pieDeFotoFamilia(familia, soloFoto ? FAMILIAS_WA[familia].seguimiento : undefined),
+      nombre: FAMILIAS_WA[familia].titulo,
+      cierraTurno: soloFoto,
+    };
+  }
+
+  // 2.25b — el «sí» a «¿le muestro la foto?» es la foto del producto que ese
+  // turno nombró; «dame una imagen» a secas toma el producto del hilo.
+  const fotoOfrecida = RE_OFERTA_FOTO_PRODUCTO.test(ultimoBot) && esAceptacionCorta(mensaje);
+  if (!pideImagen(mensaje) && !fotoOfrecida) return null;
+  const producto = fotoOfrecida
+    ? detectarProducto(ultimoBot)
+    : (detectarProducto(mensaje) ?? cafeGenericoAFoto(mensaje) ?? productoDelHilo(historial));
+  if (!producto) return null;
+
+  const soloFoto = esSoloPedidoDeImagen(mensaje);
+  let seguimiento: string | undefined;
+  if (soloFoto) {
+    // ¿Ya se le había explicado este producto? Volver a ofrecérselo sería no
+    // estar leyendo el hilo.
+    const clave = producto.nombre.toLowerCase().split(' ')[0];
+    const yaExplicado = historial.some((m) =>
+      m.role === 'assistant' && !m.content.startsWith('[Foto')
+      && m.content.length > 200 && m.content.toLowerCase().includes(clave));
+    seguimiento = seguimientoFoto(producto, yaExplicado);
+  }
+  return {
+    nodo: `2.25b foto de ${producto.slug}`,
+    url: urlImagen(producto),
+    pie: pieDeFoto(producto, seguimiento),
+    nombre: producto.nombre,
+    cierraTurno: soloFoto,
+  };
+}
+
+/** La foto como la muestra la web: la imagen en Markdown y el pie debajo. */
+export function fotoParaWeb(foto: FotoDictada): string {
+  return `![${foto.nombre}](${foto.url})\n\n${aFormatoWeb(foto.pie)}`;
+}
+
+// ─── 2.46 → 2.48 Los nodos del socio ──────────────────────────────────────────
+
+export interface ContextoSocio {
+  mensaje: string;
+  historial: Turno[];
+  socio: SocioPedido | null;
+  /** Nombre corto del prospecto, para el aviso al socio. */
+  nombreProspecto?: string;
+  /** El teléfono en WhatsApp; en la web, la huella del navegador. */
+  contacto: string;
+  /** Ya hay un pedido cargado en el hilo (solo WhatsApp lo lleva). */
+  hayPedido: boolean;
+  socioQueEscribe?: boolean;
+}
+
+/**
+ * «Quiero hablar con una persona» (2.46) · el envío (2.47) · las sedes (2.48).
+ * En el mismo orden del webhook. Un socio que escribe no entra a ninguno.
+ */
+export async function atenderSocio(ctx: ContextoSocio): Promise<RespuestaConductor | null> {
+  if (ctx.socioQueEscribe) return null;
+  const { mensaje, historial, socio } = ctx;
+  const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+
+  // 2.46 — Hasta el 27 ago el modelo escribía «le aviso al socio» y no pasaba nada.
+  if (detectarPidePersona(mensaje)) {
+    const ultimoUsuario = [...historial].reverse().find((m) => m.role === 'user')?.content ?? '';
+    await avisarPidePersona(ctx.contacto, ctx.nombreProspecto, socio, ultimoUsuario);
+    return { nodo: '2.46 pide una persona (socio y equipo avisados)', texto: respuestaPersona(socio) };
+  }
+
+  // 2.47 — El envío lo coordina con el socio, por su nombre.
+  if (detectarPreguntaEnvio(mensaje) && !detectarPreguntaOficina(mensaje)) {
+    return { nodo: '2.47 envío', texto: respuestaEnvio(socio) };
+  }
+
+  // 2.48 — Las direcciones son información de socio (Director, 27 ago 2026):
+  // las sedes atienden a quien ya tiene código. Al prospecto: la razón real y
+  // la puerta (su código lo abre el socio). Si insiste, una línea.
+  if (detectarPreguntaOficina(mensaje)) {
+    const insiste = RE_OFICINA_YA_EXPLICADA.test(ultimoBot);
+    const ciudad = detectarCiudad(mensaje)
+      ?? [...historial].reverse().map((m) => detectarCiudad(m.content)).find(Boolean)
+      ?? null;
+    return {
+      nodo: `2.48 sedes (${ciudad ?? 'sin ciudad'}${insiste ? ', insiste' : ''})`,
+      texto: respuestaOficinaProspecto(socio, ciudad, ctx.hayPedido, insiste, diceDondeVive(mensaje)),
+    };
   }
 
   return null;

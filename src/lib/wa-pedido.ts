@@ -30,6 +30,7 @@
 
 import { PRODUCTOS_WA, detectarProducto, productoDelHilo, type ProductoWA } from '@/lib/wa-productos';
 import { sendTemplate } from '@/lib/wa-channel';
+import { avisarPorCorreo } from '@/lib/wa-radicacion';
 import { enlaceCatalogo } from '@/lib/wa-onboarding';
 
 export interface LineaPedido { producto: ProductoWA; cantidad: number }
@@ -516,14 +517,19 @@ export async function avisarPidePersona(
   const destinos: [string, string][] = [];
   if (socio?.whatsapp) destinos.push([socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio']);
   destinos.push([WHATSAPP_EQUIPO(), 'equipo']);
+  let algunoOk = false;
   for (const [to, saludo] of destinos) {
     try {
       const r = await sendTemplate(to, 'pre_afiliacion_nueva', 'es', [saludo, quien, que, 'contactar por WhatsApp']);
+      algunoOk = algunoOk || r.ok;
       console.log(`📨 [Pedido WA] Aviso «pide persona» a ${saludo}: ${r.ok ? 'enviado' : r.error}`);
     } catch (err) {
       console.error('❌ [Pedido WA] No se pudo avisar «pide persona»:', err);
     }
   }
+  // Si ninguna plantilla salió —el canal caído, que es justo cuando la web hace
+  // de respaldo—, el equipo se entera por correo.
+  if (!algunoOk) await avisarPorCorreo(`[Queswa] Pide hablar con una persona — ${nombre || 'sin nombre'}`, [quien, que, socio?.nombre ? `Socio: ${socio.nombre}` : 'Sin socio']);
 }
 
 // ─── El «sí» después de las respuestas de salud ──────────────────────────────

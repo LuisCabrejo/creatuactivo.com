@@ -1026,7 +1026,7 @@ Inventario centralizado de código y rutas legacy. Cada ítem mantiene su nota d
 | `/reto-5-dias/*` · `/mapa-de-salida/*` · `/auditoria-confirmada` · `/empresa-digital/*` · `/diagnostico` · `/confirmacion` | ✅ Eliminadas (jul 2026, `ca6ff59`) | Funnel muerto retirado — páginas + redirects borrados; URLs viejas del funnel → Home (301) |
 | `/api/fundadores/registro-diciembre` | Legacy | Registro Diciembre — reemplazado por flujo Founder actual |
 | `/api/test-resend`, `/api/test-reto-email` | Dev only | No para producción |
-| `scripts/actualizar-system-prompt-whatsapp-v1.mjs` | Legacy | El vigente es `...-whatsapp-v4.mjs`. El `-v3.mjs` ya no existe |
+| `scripts/actualizar-system-prompt-whatsapp-v1.mjs` | Legacy — **borrable** | Quedó huérfano con el prompt único (4 sep 2026): hoy los dos canales se despliegan con `actualizar-system-prompt-queswa.mjs`. ⚠️ Esta fila decía que el vigente era `...-whatsapp-v4.mjs`, **que no existe** — auditado 6 sep 2026 |
 | `*.tsx.bak` | Respaldos inactivos | Nunca editar |
 
 ## Insights Estratégicos

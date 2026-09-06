@@ -40,7 +40,7 @@
 
 import { pedirDatos, CLAVES_CANAL, type ClaveRadicacion, type DatosRadicacion } from '@/lib/wa-radicacion';
 import {
-  seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO_SALUD, RE_OFERTA_FOTO_PRODUCTO,
+  seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO, RE_OFERTA_FOTO_PRODUCTO,
   detectarPidePersona, respuestaPersona, avisarPidePersona,
   detectarPreguntaEnvio, respuestaEnvio,
   detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
@@ -260,8 +260,11 @@ export function textoSimuladorWeb(sim: SimuladorDictado): string {
  * /productos), así que la emite el backend y no el modelo. En la prueba del
  * 22 ago el motor primero dijo que no tenía el enlace y después lo armó por
  * su cuenta; acertó, pero un slug distinto habría caído en la mini-landing.
- * El «sí» al cierre de las respuestas de salud («¿le muestro el catálogo
- * completo?») entra por aquí.
+ * El «sí» a CUALQUIER oferta del catálogo con la que cerró el bot («¿le
+ * muestro el catálogo completo con precios?», «…para que vea las
+ * presentaciones?») entra por aquí. Con una sola frase exacta, Betsabe
+ * (5 sep 2026) dijo «Si mi diamante» a la variante «con precios», el turno
+ * cayó al motor y el modelo prometió un catálogo que nunca llegó.
  */
 export async function atenderEnlaceCatalogo(
   mensaje: string,
@@ -269,8 +272,8 @@ export async function atenderEnlaceCatalogo(
   resolverSlug: () => Promise<string | null>,
 ): Promise<RespuestaConductor | null> {
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
-  const aceptaCatalogoSalud = RE_OFERTA_CATALOGO_SALUD.test(ultimoBot) && esAceptacion(mensaje);
-  if (!pideEnlaceCatalogo(mensaje) && !aceptaCatalogoSalud) return null;
+  const aceptaCatalogo = RE_OFERTA_CATALOGO.test(ultimoBot.trim()) && esAceptacion(mensaje);
+  if (!pideEnlaceCatalogo(mensaje) && !aceptaCatalogo) return null;
   const slug = await resolverSlug();
   return { nodo: `2.24 enlace al catálogo (${slug ?? 'sin socio'})`, texto: mensajeEnlaceCatalogo(slug) };
 }

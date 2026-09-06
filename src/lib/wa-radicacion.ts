@@ -829,7 +829,7 @@ export async function gestionarCierre(params: {
   // pierde: sigue abierto y retoma en cuanto la persona diga algo que no sea un sí.
   const _ultimoBotPidioDatos = RE_BOT_PIDIO_DATOS.test(ultimoBot);
   const _ultimoBotOfrecio    = /\?[\s"'*_)]*$/.test(ultimoBot.trim());
-  const _aceptacionPelada    = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|mu[eé]streme|mu[eé]stremelo|perfecto|vale|adelante|de acuerdo|me parece)[\s.,!]*$/i.test(mensajeActual.trim());
+  const _aceptacionPelada    = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|mu[eé]streme|mu[eé]stremelo|perfecto|vale|adelante|de acuerdo|me parece)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|porfa|por favor))?[\s.,!]*$/i.test(mensajeActual.trim());
   if (!declara && !_ultimoBotPidioDatos && _ultimoBotOfrecio && _aceptacionPelada) {
     console.log(`👉 [Cierre WA] "${mensajeActual.trim()}" acepta la oferta del bot, no reanuda el trámite — turno al motor`);
     return null;

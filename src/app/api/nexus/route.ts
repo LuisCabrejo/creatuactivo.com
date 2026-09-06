@@ -4988,7 +4988,9 @@ ${summaryParts.join('\n')}
     // alucinaciones documentadas (Ganocafé Cocoa, Ganoté) y hasta etiquetas
     // <verbatim_lock> inventadas alrededor de su propia respuesta. Cero costo,
     // cero latencia, y no puede errar el tema: la oferta es literal.
-    const _aceptacionPelada = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií],? por favor|as[ií] es|vale|perfecto)(?![a-záéíóúñ])[!. ]*$/i
+    // El apelativo que la gente le cuelga al «sí» no lo vuelve otra cosa: «Si mi
+    // diamante» (Betsabe, 5 sep 2026) tiene que valer lo mismo que «Sí».
+    const _aceptacionPelada = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií],? por favor|as[ií] es|vale|perfecto)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|porfa|por favor))?[!. ]*$/i
       .test((latestUserMessage || '').trim());
     if (_aceptacionPelada && _ultimoBotMsg) {
       const _preguntas = _ultimoBotMsg.match(/¿[^?]{5,160}\?/g);

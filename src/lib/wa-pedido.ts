@@ -544,7 +544,18 @@ export async function avisarPidePersona(
 export const RE_OFERTA_RUTINA = /¿Le cuento cómo integrarlo en su rutina\?\s*$/;
 // El cierre de las respuestas de salud ofrece el catálogo: «cada uno» no dejaba
 // claro de qué se hablaba (Director, 29 ago 2026). El «sí» va al nodo del enlace.
-export const RE_OFERTA_CATALOGO_SALUD = /¿Le muestro el catálogo completo para que vea las presentaciones\?\s*$/;
+//
+// ⚠️ La oferta se reconoce por su FORMA, no por una frase exacta (5 sep 2026).
+// El arsenal cierra con «¿Le muestro el catálogo completo con precios?», las
+// respuestas de salud con «…para que vea las presentaciones?», y el modelo
+// compone variantes («¿Le muestro qué trae el catálogo completo?»). Con la
+// frase exacta, el «Si mi diamante» de Betsabe a la variante «con precios» cayó
+// al motor, que prometió «déme un momento para cargarlo» y no mandó nada. Todo
+// «¿Le muestro / paso / envío … catálogo …?» como última línea del bot abre el
+// nodo 2.24; el enlace lo emite el backend, nunca el modelo.
+export const RE_OFERTA_CATALOGO = /¿(le|te)\s+(muestro|paso|env[ií]o|comparto|mando|traigo)[^?¿]*\bcat[aá]logo[^?¿]*\?\s*$/i;
+/** @deprecated Alias del anterior; se conserva por los arneses que lo importan. */
+export const RE_OFERTA_CATALOGO_SALUD = RE_OFERTA_CATALOGO;
 export const RE_OFERTA_FOTO_PRODUCTO = /¿Le muestro la foto\?\s*$/;
 
 /** El cierre de la respuesta de sede: invita a abrir el pedido con el que queda el código. */
@@ -553,9 +564,25 @@ export const RE_OFERTA_PEDIDO_SEDE = /¿Le abro el pedido con el que queda su c�
 
 const porSlug = (slug: string) => PRODUCTOS_WA.find((p) => p.slug === slug) ?? null;
 
-/** La aceptación pelada («sí», «dale», «claro») de una oferta del bot. */
+/**
+ * La aceptación pelada («sí», «dale», «claro») de una oferta del bot.
+ *
+ * Tolera lo que la gente le cuelga al «sí» —«Si por favor», «Si mi diamante»,
+ * «sí señora», «dale gracias»— y rechaza lo que ya no es una aceptación sino
+ * otra pregunta («sí, ¿y cuánto vale?», «sí pero cómo se pide»): eso va al
+ * motor con la pregunta entera, no al nodo de la oferta.
+ */
 export function esAceptacion(texto: string): boolean {
-  return /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|s[ií] por favor|s[ií] claro|me interesa|cu[eé]nteme|cuentame|a ver)(?![a-záéíóúñ])/i.test(texto.trim());
+  const t = (texto || '').trim();
+  // «Sii», «claro que sí» y «sí claro» son la misma cabeza; la pregunta se busca
+  // en lo que viene DESPUÉS de ella, para que el «que» de «claro que sí» no la
+  // descalifique.
+  const cabeza = /^(claro que s[ií]+|s[ií]+,? por favor|s[ií]+ claro|s[ií]+|claro|dale|listo|ok|bueno|por supuesto|de una|me interesa|cu[eé]nteme|cuentame|a ver)(?![a-záéíóúñ])/i.exec(t);
+  if (!cabeza) return false;
+  const resto = t.slice(cabeza[0].length);
+  if (/[?¿]/.test(t)) return false;
+  if (/(?<![a-záéíóúñ])(pero|c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|por qu[eé])(?![a-záéíóúñ])/i.test(resto)) return false;
+  return t.split(/\s+/).length <= 6;
 }
 
 /**

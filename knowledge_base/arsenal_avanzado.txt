@@ -36,7 +36,7 @@ Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando a
 
 Que su negocio funcione demuestra que usted sabe ejecutar. Pero no lo blinda. Depender de una sola fuente es el riesgo: si ese motor se frena —por su sector, por la economía, por lo que sea—, todo se frena con él.
 
-Un canal de distribución no compite con su negocio; lo protege. Lo que usted tiene hoy le da un ingreso atado a su presencia y a cómo le vaya a su industria. Aquí su ingreso se apoya en el producto que se mueve por su canal, no en su sector ni en que usted esté encima.
+Un sistema de distribución no compite con su negocio; lo protege. Lo que usted tiene hoy le da un ingreso atado a su presencia y a cómo le vaya a su industria. Aquí su ingreso se apoya en el producto que se mueve por su sistema, no en su sector ni en que usted esté encima.
 
 Como dueño de un edificio: mientras su oficina trabaja a tope, los demás pisos rentan aparte.
 
@@ -53,9 +53,9 @@ Como dueño de un edificio: mientras su oficina trabaja a tope, los demás pisos
 
 Esa pregunta casi siempre nace de una idea heredada: la del negocio tradicional, donde si usted no está, no gana. Y aquí es justo al revés.
 
-Este es un negocio que **no depende de que usted esté presente** —ese es, de hecho, su mayor valor—. Si se enferma, viaja o simplemente toma una pausa, el consumo de su canal sigue su curso, y las comisiones que ese consumo genere se le siguen liquidando.
+Este es un negocio que **no depende de que usted esté presente** —ese es, de hecho, su mayor valor—. Si se enferma, viaja o simplemente toma una pausa, el consumo de su sistema sigue su curso, y las comisiones que ese consumo genere se le siguen liquidando.
 
-¿Qué necesita para mantenerlo activo y recibiendo? Una sola cosa: estar al día con su **compra personal mínima de 50 PV** al mes. Mientras eso esté, su canal sigue moviendo producto esté usted donde esté, y todo lo que construyó queda intacto.
+¿Qué necesita para mantenerlo activo y recibiendo? Una sola cosa: estar al día con su **compra personal mínima de 50 PV** al mes. Mientras eso esté, su sistema sigue moviendo producto esté usted donde esté, y todo lo que construyó queda intacto.
 
 **Pregunta de cierre:** ¿Le muestro qué hace falta para mantenerlo al día?
 
@@ -67,7 +67,7 @@ Este es un negocio que **no depende de que usted esté presente** —ese es, de 
 
 Su lista de contactos es lo más valioso que usted tiene en este negocio, y se maneja con seguridad y encriptación.
 
-No vivimos de vender publicidad ni datos; somos una firma privada. La información de los contactos que usted trae al sistema se usa solo para su propio canal, y nunca se comparte, ni se alquila, ni se vende a nadie. Yo funciono como una bóveda: usted tiene y controla la única llave.
+No vivimos de vender publicidad ni datos; somos una firma privada. La información de los contactos que usted trae se usa solo para su propio sistema, y nunca se comparte, ni se alquila, ni se vende a nadie. Yo funciono como una bóveda: usted tiene y controla la única llave.
 
 **Pregunta de cierre:** ¿Le muestro qué apoyos tiene detrás?
 
@@ -81,13 +81,13 @@ Usted tiene cuatro apoyos, y se cubren entre sí.
 
 **Queswa, su Centro de Mando:** converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar, a toda hora.
 
-**El Dashboard:** ahí ve su canal, su actividad y sus números, y desde ahí maneja el día a día.
+**El Dashboard:** ahí ve su sistema, su actividad y sus números, y desde ahí maneja el día a día.
 
 **Gano Excel:** soporte presencial, manejo del dinero y respuesta directa desde sus oficinas en cada país.
 
 **El equipo de creatuactivo.com:** entra de forma directa para lo que pide criterio — estrategia y crecimiento.
 
-**Pregunta de cierre:** ¿Le muestro cómo se ve su canal por dentro?
+**Pregunta de cierre:** ¿Le muestro cómo se ve su sistema por dentro?
 
 ---
 
@@ -95,14 +95,14 @@ Usted tiene cuatro apoyos, y se cubren entre sí.
 
 ### ADV_VAL_01: "Explícame el Ingreso Inmediato con números / ¿Qué es el ingreso inmediato?"
 **[Índice]:** Me hablaron del ingreso inmediato y quiero los números: qué es, cuánto paga, cómo se calcula el Bono GEN5 por paquete.
-**[Concepto Nuclear]:** *Ingreso inmediato* es el nombre viejo del **Bono GEN5**, y la vía se nombra por lo que la mueve: **la compra de paquetes empresariales en su canal**. Lo único que se afirma es *cada vez que ocurre una compra*. Y se cuenta en COMPRAS, nunca en personas que entran.
+**[Concepto Nuclear]:** *Ingreso inmediato* es el nombre viejo del **Bono GEN5**, y la vía se nombra por lo que la mueve: **la compra de paquetes empresariales en su sistema**. Lo único que se afirma es *cada vez que ocurre una compra*. Y se cuenta en COMPRAS, nunca en personas que entran.
 
-Eso que le nombraron como ingreso inmediato es el **Bono GEN5**: una comisión por cada paquete empresarial que se compra en su canal, y su función es financiar el crecimiento en la etapa temprana.
+Eso que le nombraron como ingreso inmediato es el **Bono GEN5**: una comisión por cada paquete empresarial que se compra en su sistema, y su función es financiar el crecimiento en la etapa temprana.
 
 Con el nivel ESP-3 (Visionario), las cuentas son así:
 
 - Por cada paquete que se compra en su primera generación, Gano Excel le paga **$150 USD / ~$675,000 COP a tasa Gano Excel**.
-- Por cada paquete que se compra en las generaciones 2 a 5 de su canal, usted recibe **$20 USD / ~$90,000 COP por cada uno**.
+- Por cada paquete que se compra en las generaciones 2 a 5 de su sistema, usted recibe **$20 USD / ~$90,000 COP por cada uno**.
 
 **Pregunta de cierre:** ¿Quiere armar su propio escenario en el simulador?
 
@@ -114,7 +114,7 @@ Con el nivel ESP-3 (Visionario), las cuentas son así:
 
 El Bono Binario es la meta de fondo: el ingreso del consumo que se repite, que no depende de que usted esté presente.
 
-Gano Excel mide el consumo internacional de todo su canal, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su canal en el continente, usted gana por todos ellos.
+Gano Excel mide el consumo internacional de todo su sistema, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su sistema en el continente, usted gana por todos ellos.
 
 Y las comisiones las paga directamente Gano Excel, no CreaTuActivo. Gano fabrica, empaca y transporta; usted es el **dueño del camino** por donde pasa, todos los días, ese consumo.
 
@@ -140,7 +140,7 @@ Por el mismo volumen de consumo, la empresa paga distinto según su nivel de arr
 
 Su compromiso mensual es una compra personal de **50 PV** — o, en producto, cuatro cajas.
 
-Eso no es una cuota de administración: es mercancía que le llega a la casa. Y es lo que le conserva el derecho a cobrar las comisiones que genere su canal ese mes.
+Eso no es una cuota de administración: es mercancía que le llega a la casa. Y es lo que le conserva el derecho a cobrar las comisiones que genere su sistema ese mes.
 
 **Pregunta de cierre:** ¿Le muestro qué productos suman esos 50 PV?
 
@@ -149,9 +149,9 @@ Eso no es una cuota de administración: es mercancía que le llega a la casa. Y 
 ### ADV_VAL_05: "¿Existen otros incentivos además de las comisiones? / ¿Hay viajes corporativos o reconocimientos?"
 **[Índice]:** Hay otros incentivos además de las comisiones: viajes, eventos, reconocimientos, premios para los socios que crecen.
 
-**[Concepto Nuclear]:** Además de las comisiones, Gano Excel cubre el viaje a dos encuentros internacionales al año **para quien alcanza la calificación de cada uno**. ⛔ **La condición NO se puede omitir** (26 ago 2026): decía *"pagados completamente por la empresa"* y *"socios activos"*, así que cualquiera al día con sus 50 PV entendía que tenía dos viajes pagos al año. **Un premio material prometido sin su condición es exigible bajo el Estatuto del Consumidor exactamente igual que un ingreso**, y el guardarraíl no lo ve: no hay conjunción de dinero con plazo ni con garantía. ⏳ **El criterio exacto de calificación no está en el corpus** — se nombra el mecanismo (*"los socios que alcanzan la calificación"*) sin detallarlo, hasta que el Director lo aporte. ⚠️ Salió *"sin que usted ponga un solo peso"*: es una lista de ausencias y además cotiza en moneda colombiana ante una audiencia de tres países. ⚠️ **Un canal no se motiva** — cuando el colectivo hace algo humano se nombra a quién: *sus socios*. ⚠️ Mencionar los encuentros aquí es la **excepción explícita** de la v6.05 del arsenal inicial: la prohibición de nombrar encuentros en vivo es de canal —mensaje saliente en frío—, y aquí los trajo la persona; además `FREQ_35` responde *"nada obligatorio"* apoyándose en que existen.
+**[Concepto Nuclear]:** Además de las comisiones, Gano Excel cubre el viaje a dos encuentros internacionales al año **para quien alcanza la calificación de cada uno**. ⛔ **La condición NO se puede omitir** (26 ago 2026): decía *"pagados completamente por la empresa"* y *"socios activos"*, así que cualquiera al día con sus 50 PV entendía que tenía dos viajes pagos al año. **Un premio material prometido sin su condición es exigible bajo el Estatuto del Consumidor exactamente igual que un ingreso**, y el guardarraíl no lo ve: no hay conjunción de dinero con plazo ni con garantía. ⏳ **El criterio exacto de calificación no está en el corpus** — se nombra el mecanismo (*"los socios que alcanzan la calificación"*) sin detallarlo, hasta que el Director lo aporte. ⚠️ Salió *"sin que usted ponga un solo peso"*: es una lista de ausencias y además cotiza en moneda colombiana ante una audiencia de tres países. ⚠️ **Un sistema no se motiva** — cuando el colectivo hace algo humano se nombra a quién: *sus socios*. ⚠️ Mencionar los encuentros aquí es la **excepción explícita** de la v6.05 del arsenal inicial: la prohibición de nombrar encuentros en vivo es de canal —mensaje saliente en frío—, y aquí los trajo la persona; además `FREQ_35` responde *"nada obligatorio"* apoyándose en que existen.
 
-Además de las comisiones por el consumo de su canal, Gano Excel hace dos encuentros internacionales al año y cubre el viaje completo a los socios que alcanzan la calificación de cada uno.
+Además de las comisiones por el consumo de su sistema, Gano Excel hace dos encuentros internacionales al año y cubre el viaje completo a los socios que alcanzan la calificación de cada uno.
 
 **Encuentro del continente americano:** reúne cada año a socios de los 16 países de América.
 
@@ -165,13 +165,13 @@ Son una forma de mantener unidos a sus socios, y los cubre la empresa.
 
 ## 🏗️ CONSTRUCCIÓN Y SISTEMA - 3 respuestas
 
-### ADV_SIST_01: "¿Cuál es la diferencia entre un empleo y construir un canal de distribución?"
+### ADV_SIST_01: "¿Cuál es la diferencia entre un empleo y construir un sistema de distribución?"
 **[Índice]:** Qué diferencia hay entre un empleo de toda la vida y construir esto: el ingreso que se frena cuando uno para, contra el que sigue.
-**[Concepto Nuclear]:** **La tesis es la PROPIEDAD** (Director, 25 ago 2026): en un empleo usted construye la propiedad de otro. El villano es la **presencia obligada** —su ingreso atado a que usted esté ahí—, y el eje de la respuesta es la palanca: aquí el ingreso se apoya en el producto que se mueve por su canal, no en sus horas. ⚠️ **La analogía del arriendo es un PUENTE, no un argumento aparte.** *«Es la misma diferencia que hay entre pagar arriendo y levantar casa propia»* engancha y sigue de largo; darle su propio remate —recibos contra casa— la convierte en una mini-tesis que el lector procesa entera antes de volver al hilo, y ahí se pierde la narrativa. ⚠️ **Se dice POR QUÉ el movimiento no se detiene** —Gano fabrica y despacha, Queswa conversa—: sin esa causa la pregunta obvia queda viva y el modelo la improvisa. Y la independencia se predica del **movimiento**, no del ingreso: decir que *el ingreso sigue* es afirmarlo; decir que *el movimiento no depende de usted* es describir el mecanismo. ⚠️ **El contraste es entre dos empresas, no entre dos abstracciones:** *la empresa de otro* contra *la suya* se ve; *la propiedad de otro* hay que descifrarlo. ⚠️ La analogía de la casa también vive en **WHY_03**, con otro filo: allá es el riesgo de que se la pidan, aquí es lo que queda construido. ⚠️ *Operar* no se usa de cara al prospecto; el canal **trabaja**.
+**[Concepto Nuclear]:** **La tesis es la PROPIEDAD** (Director, 25 ago 2026): en un empleo usted construye la propiedad de otro. El villano es la **presencia obligada** —su ingreso atado a que usted esté ahí—, y el eje de la respuesta es la palanca: aquí el ingreso se apoya en el producto que se mueve por su sistema, no en sus horas. ⚠️ **La analogía del arriendo es un PUENTE, no un argumento aparte.** *«Es la misma diferencia que hay entre pagar arriendo y levantar casa propia»* engancha y sigue de largo; darle su propio remate —recibos contra casa— la convierte en una mini-tesis que el lector procesa entera antes de volver al hilo, y ahí se pierde la narrativa. ⚠️ **Se dice POR QUÉ el movimiento no se detiene** —Gano fabrica y despacha, Queswa conversa—: sin esa causa la pregunta obvia queda viva y el modelo la improvisa. Y la independencia se predica del **movimiento**, no del ingreso: decir que *el ingreso sigue* es afirmarlo; decir que *el movimiento no depende de usted* es describir el mecanismo. ⚠️ **El contraste es entre dos empresas, no entre dos abstracciones:** *la empresa de otro* contra *la suya* se ve; *la propiedad de otro* hay que descifrarlo. ⚠️ La analogía de la casa también vive en **WHY_03**, con otro filo: allá es el riesgo de que se la pidan, aquí es lo que queda construido. ⚠️ *Operar* no se usa de cara al prospecto; el sistema **trabaja**.
 
 La diferencia es de fondo: en un empleo usted construye la empresa de otro. Aquí construye la suya.
 
-Funciona igual que la diferencia entre pagar arriendo y tener vivienda propia. En el empleo su ingreso está atado a su presencia: si usted para, el dinero se detiene. Aquí su ingreso se apalanca en el movimiento del producto por su canal.
+Funciona igual que la diferencia entre pagar arriendo y tener vivienda propia. En el empleo su ingreso está atado a su presencia: si usted para, el dinero se detiene. Aquí su ingreso se apalanca en el movimiento del producto por su sistema.
 
 Y ese movimiento no depende de que usted esté: Gano Excel fabrica y despacha, y yo converso con cada interesado a toda hora.
 
@@ -183,9 +183,9 @@ Y ese movimiento no depende de que usted esté: Gano Excel fabrica y despacha, y
 **[Índice]:** Cuál es la visión a cinco años, para dónde va la empresa, qué se están proponiendo, cuál es la meta grande.
 **[Concepto Nuclear]:** Para 2030, 4 millones de familias en América comprando por este sistema. Hoy usted asegura su posición antes de esa ola.
 
-La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles un canal de distribución para que construyan su tranquilidad financiera, y ser el sistema de distribución de bebidas y suplementos premium más eficiente del continente.
+La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles un sistema de distribución para que construyan su tranquilidad financiera, y ser el sistema de distribución de bebidas y suplementos premium más eficiente del continente.
 
-Hoy el trabajo está en dejar montados los canales por donde va a pasar ese consumo. La apuesta es que para 2030 buena parte del mercado compre así, enganchado por la calidad del producto, y lo que se está armando ahora es la estructura que lo soporta.
+Hoy el trabajo está en dejar montados los sistemas por donde va a pasar ese consumo. La apuesta es que para 2030 buena parte del mercado compre así, enganchado por la calidad del producto, y lo que se está armando ahora es la estructura que lo soporta.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se monta el suyo?
 
@@ -195,13 +195,13 @@ Hoy el trabajo está en dejar montados los canales por donde va a pasar ese cons
 **[Índice]:** Yo tengo que enseñarles a los que entren conmigo, me toca sentarme con cada uno, tengo que estar encima de mi equipo. Quién se encarga de los míos.
 **[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a sus socios; usted acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo.
 
-No. Usted no tiene que sentarse a enseñarle a cada persona que entra a su canal.
+No. Usted no tiene que sentarse a enseñarle a cada persona que entra a su sistema.
 
 De esa parte nos encargamos Maestría y yo: formamos a cada socio nuevo desde el primer día, a toda hora, con el mismo material para el primero y para el último que llegue.
 
 Lo suyo es lo que ninguna máquina reemplaza: acompañar a los suyos en lo humano.
 
-Por eso su canal no aprende de su agenda: aprende del sistema. Y lo que no depende de su agenda tampoco topa con ella.
+Por eso su sistema no aprende de su agenda: aprende de nosotros. Y lo que no depende de su agenda tampoco topa con ella.
 
 **Pregunta de cierre:** ¿Le muestro qué formación recibe quien entra?
 

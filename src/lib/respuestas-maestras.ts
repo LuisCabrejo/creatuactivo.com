@@ -200,9 +200,9 @@ Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
  */
 const MASTER_DINERO_01 = `Buena pregunta, y la más importante.
 
-El dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos premium con ganoderma.
+El dinero sale de una sola fuente: el producto que se vende por su sistema — café, bebidas y suplementos premium con ganoderma.
 
-Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio canal. De cada venta a usted le queda un porcentaje.
+Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio sistema. De cada venta a usted le queda un porcentaje.
 
 Y no es una sola vez: el producto se consume y se vuelve a pedir, así que esa venta se repite sin que usted tenga que estar encima.
 
@@ -251,11 +251,11 @@ const RE_DIA_A_DIA =
  * dirigirlo (celular, sin local ni bodega); lo que se mueve es físico. El candado se AFIRMA,
  * nunca se niega — decir "no es dinero en la nube" invoca el elefante rosado.
  */
-const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos **canal de distribución**, y es lo mismo: un negocio propio con sus beneficios, sin tener que montar la operación física.
+const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos **sistema de distribución**, y es lo mismo: un negocio propio con sus beneficios, sin tener que montar la operación física.
 
-En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí usted es dueño de un canal de distribución, y todo eso lo asume **Gano Excel**: fabrica el café y los suplementos, y los despacha hasta la casa de su cliente.
+En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí usted es dueño de un sistema de distribución, y todo eso lo asume **Gano Excel**: fabrica el café y los suplementos, y los despacha hasta la casa de su cliente.
 
-Y es digital porque el canal entero cabe en su celular. Yo atiendo a sus clientes a toda hora, y de cada compra a usted le queda un porcentaje que se liquida en **su cuenta bancaria cada viernes**.
+Y es digital porque el sistema entero cabe en su celular. Yo atiendo a sus clientes a toda hora, y de cada compra a usted le queda un porcentaje que se liquida en **su cuenta bancaria cada viernes**.
 
 ¿Quiere que le muestre con números cómo se vería en su caso?`;
 

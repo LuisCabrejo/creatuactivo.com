@@ -28,10 +28,21 @@ Acabado cinematográfico de reels (estilo Dan Koe/Naval) en M1, todo por código
 > a **`alls=6`** → luma 71, que es la caída natural de una viñeta bien puesta. **Se mide, no se
 > supone:** `ffmpeg -ss T -i X -frames:v 1 -vf signalstats,metadata=print:file=- -f null -`.
 >
-> ⚠️ **Y antes de aplicar un LUT, compruebe que el material SEA log.** El 7 sep el Día 1 se grabó
-> creyendo que estaba en D-Log M y salió en Rec.709: el LUT le tapaba los negros. La prueba dura es
-> `YMAX` — en Rec.709 llega a blanco pleno (920–948 de 1023); en log los altos hacen rodillo mucho
-> antes. El fotograma crudo también lo delata: log se ve lechoso y sin contraste.
+> ⚠️ **Que el material no sea log NO descalifica al LUT: la pregunta es si RECORTA.** El 7 sep el Día 1
+> se grabó creyendo que estaba en D-Log M y salió en Rec.709 (`YMAX` 920–948 de 1023; en log los altos
+> hacen rodillo mucho antes). La primera lectura fue descartar el LUT porque «tapaba los negros» — y
+> era falso: medido en cinco instantes, baja los negros de 29 a **17**, que es negro legal, y **protege
+> los altos**, que sin él se quemaban en 255. Lo que sí hace es oscurecer la media (87 → 69), y eso se
+> corrige con exposición **después** del LUT (`eq=brightness=0.085:contrast=1.02:saturation=1.05`).
+> **El criterio es YMIN/YMAX, no la impresión de un fotograma**, y el fotograma que se mire debe ser
+> de los claros: sobre uno oscuro cualquier curva parece que aplasta.
+>
+> ⚠️ **Ruidos de silla, teclado o roce: se atenúan las PAUSAS, no se denoisa la voz.** Envolvente
+> derivada de los `stamps` —ganancia plena a ±0.14 s de cada palabra, −24 dB fuera, rampas de 30 ms—
+> aplicada al wav antes de la mezcla. Con la cama musical encima el hueco no se nota. Antes de tocar
+> nada, **separe el ruido de la sibilancia**: filtre en dos bandas (`highpass=3000` y `lowpass=1200`) y
+> marque solo las ventanas donde la alta domina **y** caen fuera de palabra. En el Día 1, de 44 eventos
+> agudos solo **uno** era la silla; los otros 43 eran eses y ches, y denoisar los habría estropeado.
 
 - **Atmósfera** (ffmpeg, sobre el grade existente, NO re-graduar): grano + halation + viñeta. Valores de casa (mismos que `grade.py`, aplicados DESPUÉS del overlay de subtítulos para no engranar el texto): halation `format=gbrp,split` → highlights `curves=all='0/0 0.70/0 1/1'` → `gblur=sigma=18` → `blend=screen:opacity=0.16`; `vignette=angle=PI/4:x0=w/2:y0=h*0.42`; grano `noise=alls=7:allf=t+u`. **Outro** (`motion/assets/emblema.png` + texto Pillow): emblema + `CreaTuActivo.com` (3s) con `finale_boom` — outro canónico ya renderizado en `motion/out/outro.mp4` (3s, con audio del boom); reusar y normalizar a 1080×1920·24fps·yuv420p·48k antes de concatenar.
 - **Mezcla de audio — VOZ ANCLADA** (clave, no usar loudnorm sobre toda la mezcla → diluye la voz): `[voz]loudnorm=I=-14` como ancla protagonista → `asplit` (mezcla + key de sidechain); música/SFX/boom **por debajo** a niveles fijos; cierre con `alimiter` (sin loudnorm final). Niveles calibrados por LUFS medido de cada pista.

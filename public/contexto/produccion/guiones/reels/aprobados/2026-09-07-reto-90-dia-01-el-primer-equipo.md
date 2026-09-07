@@ -53,4 +53,17 @@ Les cuento cómo me va en las historias.
 
 **Subtítulos** karaoke `y=0.76`, máximo 3 palabras. El texto de pantalla difiere del alineado a propósito: *noventa → 90*, *ocho mil → 8.000*, *quince → 15*, y se restituyeron los signos de interrogación.
 
-⚠️ **Color: NO se aplicó LUT.** El Director creyó haber grabado en D-Log M, pero el archivo salió en **Rec.709 normal** (10 bits, eso sí). Comprobado por dos vías: el fotograma crudo ya tenía contraste correcto, y aplicarle `dji-osmo-pocket3-dlogm-to-709.cube` tapaba los negros. Medición: YMAX 920–948 sobre 1023 — en log los altos hacen rodillo mucho antes.
+⚠️ **Color: SÍ se aplicó el LUT de DJI, pero como LOOK, no como conversión.** El Director creyó
+haber grabado en D-Log M y el archivo salió en **Rec.709** (10 bits, eso sí): YMAX llega a 920–948
+sobre 1023, y en log los altos hacen rodillo mucho antes. **Pero eso no descalifica al LUT.** Medido
+sobre cinco instantes, `dji-osmo-pocket3-dlogm-to-709.cube` **no recorta nada**: baja los negros de 29
+a 17 —negro legal, sin taparse— y **protege los altos**, que sin él se estaban quemando en 255. Lo
+único que hace de más es oscurecer la media (87 → 69), y eso se compensa con exposición:
+`eq=brightness=0.085:contrast=1.02:saturation=1.05` después del LUT. Resultado: grises más limpios,
+piel mejor separada del fondo, altos a salvo.
+
+⚠️ **Audio: las pausas van atenuadas −24 dB.** La silla chirriaba. Barrido espectral del montaje: de
+44 eventos de alta frecuencia, **43 caen sobre sílabas** —eses y ches, normales— y **uno solo estaba
+en una pausa**, en 14.05–14.20 s, justo donde el Director lo oyó. Se resolvió con una envolvente
+derivada de los propios `stamps`: ganancia plena a ±0.14 s de cada palabra, −24 dB fuera, con rampas
+de 30 ms. El chirrido bajó de −35.1 a −45.3 dB y una sílaba de control quedó idéntica al decimal.

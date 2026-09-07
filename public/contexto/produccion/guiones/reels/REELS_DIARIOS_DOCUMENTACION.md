@@ -8,6 +8,9 @@ estructura de ingresos recurrentes con Queswa.
 - **Formato**: los reels tal como se hablan. Es el registro de lo emitido, no un guion
   para teleprompter.
 - **Distinto de** los reels por nicho (`corporativo/`, `servidor-publico/`, etc.).
+- **Distinto de** [`aprobados/`](aprobados/) — un archivo por guion aprobado, con el texto limpio
+  y las decisiones que lo dejaron así. Este documento es la **bitácora** (el hilo, las notas de
+  producción, las semillas sin producir); ese directorio es el **texto citable**.
 
 > Nota de léxico: a partir del Día 3 el copy migró al registro accesible
 > (*ingreso recurrente · estructura de ingresos*). El Día 1 aún dice "Estructura

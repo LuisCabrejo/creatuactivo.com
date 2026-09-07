@@ -149,7 +149,7 @@ export function mensajeEnlaceCatalogo(slug?: string | null): string {
 
 export function mensajeDeBienvenida(nombreCorto: string, slug: string): string {
   return (
-    `Listo, ${nombreCorto}. Su canal ya está abierto.\n\n` +
+    `Listo, ${nombreCorto}. Su sistema ya está abierto.\n\n` +
     `Este es su enlace:\n${enlaceDeCanal(slug)}\n\n` +
     `Compártalo con cinco personas hoy — por chat, como comparte cualquier cosa. ` +
     `Quien lo toque cae directo en una conversación conmigo, y yo le explico y le resuelvo las dudas.\n\n` +
@@ -273,7 +273,7 @@ export type EventoDueño = keyof typeof TEXTO_EVENTO;
 
 export function mensajeDeActividad(evento: EventoDueño, restantes: number): string {
   const que = TEXTO_EVENTO[evento] || 'tuvo actividad';
-  const base = `👀 Alguien de su canal ${que}.`;
+  const base = `👀 Alguien de su sistema ${que}.`;
 
   // El aviso que agota el cupo explica adónde se mudan los siguientes. Sin esto
   // la persona cree que el sistema dejó de funcionar.

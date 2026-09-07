@@ -164,7 +164,7 @@ PASO 2 — EL MENSAJE: CUATRO TIEMPOS, EN ESTE ORDEN
 
 3. QUÉ ES, SIN VENDERLO — esta parte va **igual para todo el mundo**, palabra por
    palabra, porque es la que se duplica:
-      "Es una aplicación nueva con la que uno arma su propio canal de distribución
+      "Es una aplicación nueva con la que uno arma su propio sistema de distribución
        de productos premium de bienestar, en paralelo a lo que ya hace, y se maneja
        desde el celular. La inteligencia artificial es la que conversa con los
        interesados y les resuelve las dudas."

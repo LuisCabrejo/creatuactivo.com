@@ -154,8 +154,8 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
     : opciones.estrategiaYaVista
-    ? '¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?'
-    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
+    ? '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?'
+    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese sistema, paso a paso?';
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 
@@ -182,7 +182,7 @@ export function respuestaRegalia(e: EscenarioRegalia, opciones: OpcionesCierre =
 
   const cuantos = Number(e.distribuidores).toLocaleString('es-CO');
 
-  return `Con *${cuantos} distribuidores consumiendo* en su canal —cada uno con sus cuatro cajas al mes—, la Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*.
+  return `Con *${cuantos} distribuidores consumiendo* en su sistema —cada uno con sus cuatro cajas al mes—, la Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*.
 
 Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático — el ritmo lo pone cada canal.
 
@@ -216,12 +216,12 @@ export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre =
   // descargo de resultados no garantizados dicho con dignidad.
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
-    : '¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?';
+    : '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?';
   const n = (x: number) => x.toLocaleString('es-CO');
 
   return `Ese es el *nivel ${e.nivel}*: ${n(fila.total)} distribuidores consumiendo, y una regalía cercana a *${cop(fila.mensual)} al mes*, liquidada por ciclos semanales.
 
-La cifra la produce el consumo: mientras el canal compre sus cajas cada mes, hay regalía. Es el potencial matemático de la duplicación 2×2, y el ritmo lo pone cada canal.
+La cifra la produce el consumo: mientras sus distribuidores compren sus cajas cada mes, hay regalía. Es el potencial matemático de la duplicación 2×2, y el ritmo lo pone cada canal.
 
 ${cierre}`;
 }

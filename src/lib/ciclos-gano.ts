@@ -100,7 +100,7 @@ El ciclo en el que estamos es el ${actual.numero}.
 
   return `Estamos en el *ciclo ${actual.numero}*, que va del lunes ${fechaCorta(actual.lunes, anio)} al domingo ${fechaCorta(actual.domingo, anio)}.
 
-Lo que su canal mueva en este ciclo se liquida el *viernes ${fechaCorta(actual.viernesPago, anio)}* — cada ciclo se paga el segundo viernes después de su cierre.
+Lo que su sistema mueva en este ciclo se liquida el *viernes ${fechaCorta(actual.viernesPago, anio)}* — cada ciclo se paga el segundo viernes después de su cierre.
 
 Y el viernes que viene, ${fechaCorta(viernesProximo, anio)}, se paga lo del ciclo ${cicloQuePagan.numero} (${fechaCorta(cicloQuePagan.lunes, anio)} al ${fechaCorta(cicloQuePagan.domingo, anio)}).
 

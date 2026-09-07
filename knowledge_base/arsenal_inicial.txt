@@ -18,7 +18,7 @@
 
 **v6.26** (3 sep 2026) — **`WHY_02` 🔒 cierra hacia la estrategia y toma cuatro giros de la auditoría con Gemini.** El párrafo de la recompra abre con su tesis, el despacho termina en la casa del cliente, y «desde el celular» acompaña a las dos acciones. La pregunta de seguimiento pasa del dinero —que ya quedó dicho— a los 12 Niveles, nombrados para que el webhook dicte NIVELES_01 ante el «sí». Detalle en el CHANGELOG.
 
-**v6.25** (31 ago 2026) — **`DIASPORA_01` 🔒: los 16 se dicen con el continente.** En la prueba del sistema el modelo parafraseó *«los 16 donde Gano Excel tiene operación»* como *«los 16 países donde opera Gano Excel»* — y minutos antes había dicho *más de 60 países*: contradicción servida. El candado ancla *los 16 **países de América*** en su primera mención. Detalle en el CHANGELOG.
+**v6.25** (31 ago 2026) — **`DIASPORA_01` 🔒: los 16 se dicen con el continente.** En la prueba del canal el modelo parafraseó *«los 16 donde Gano Excel tiene operación»* como *«los 16 países donde opera Gano Excel»* — y minutos antes había dicho *más de 60 países*: contradicción servida. El candado ancla *los 16 **países de América*** en su primera mención. Detalle en el CHANGELOG.
 
 **v6.24** (31 ago 2026) — **`WHY_02` 🔒: el sistema es el sustantivo, el producto es el respaldo.** Definir el sistema *por* el café lo degradaba —como si Apple dijera que está en el negocio de los celulares (Director)—; ahora la primera frase nombra el sistema y el producto queda subordinado, con Ganoderma dicho ahí y no en el párrafo de la recompra. Sale la cola que describía lo que el socio ya no hace: era peso, no valor. Detalle en el CHANGELOG.
 

@@ -225,7 +225,7 @@ export function textoBonoPaquetes(pais: PaisConductor): string {
     `• *ESP-2 Empresarial*: 18 productos · ${precio('$500 USD', '$2.250.000 COP')}`,
     `• *ESP-3 Visionario*: 35 productos · ${precio('$1.000 USD', '$4.500.000 COP')}`,
     '',
-    `Si usted compra uno de ellos como su inversión inicial, califica para cobrar el bono por la compra de paquetes empresariales en su canal. Por ejemplo: por cada Visionario que se compre en su primera generación, ${precio('$150 USD', '$675.000 COP')}; y el bono sigue en las cuatro generaciones siguientes.`,
+    `Si usted compra uno de ellos como su inversión inicial, califica para cobrar el bono por la compra de paquetes empresariales en su sistema. Por ejemplo: por cada Visionario que se compre en su primera generación, ${precio('$150 USD', '$675.000 COP')}; y el bono sigue en las cuatro generaciones siguientes.`,
     '',
     'Esa comisión le entra a medida que se compran los paquetes.',
     '',
@@ -378,7 +378,7 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
       if (cuerpo) {
         return {
           nodo: '2.35 NIVELES_02 (tabla nivel por nivel)',
-          texto: `${cuerpo}\n\n${cierre || '¿Le muestro las ganancias por la compra de paquetes empresariales en su canal?'}`,
+          texto: `${cuerpo}\n\n${cierre || '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?'}`,
           simulador: ctx.simuladorDisponible
             ? { pantalla: 'NIVELES', cuerpo: 'Y si quiere verlo nivel por nivel en el simulador: elija el nivel y el resultado sale al instante.', primeraVez: true }
             : undefined,

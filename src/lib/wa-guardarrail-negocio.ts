@@ -372,8 +372,8 @@ export function detectarModeloInventado(texto: string): string | null {
  * (Gano liquida cada viernes; lo mensual es el consumo, no el pago).
  */
 export const RESPUESTA_CORRECTIVA =
-  'Permítame precisarlo bien: usted es el dueño de un canal de distribución de productos premium ' +
-  'de bienestar —café, bebidas y suplementos—, y de cada venta que se mueve por ese canal le queda ' +
+  'Permítame precisarlo bien: usted es el dueño de un sistema de distribución de productos premium ' +
+  'de bienestar —café, bebidas y suplementos—, y de cada venta que se mueve por ese sistema le queda ' +
   'un porcentaje, liquidado en su cuenta cada viernes.\n\n¿Quiere que le cuente cómo se vería en su caso?';
 
 /**

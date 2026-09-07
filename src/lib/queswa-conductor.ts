@@ -307,11 +307,12 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
   // la tabla, la vinculación ni el simulador, dicta NIVELES_01.
   const aceptaEstrategia = b.aceptaSola && !b.pideSimulador
     // ⚠️ El cierre de WHY_02 dejó de nombrar «12 Niveles» (Director, 6 sep 2026):
-    // hoy ofrece el beneficio —«¿le muestro cómo se generan las ganancias en su
-    // sistema de distribución?»— porque «12 Niveles» es nomenclatura interna y a
-    // quien apenas pregunta cómo funciona se le habla en su idioma. Sin este
+    // hoy dice «¿le muestro la estrategia con la que se construye ese sistema, paso a
+    // paso?» — «12 Niveles» es nomenclatura interna, y la pregunta tiene que
+    // prometer LO QUE DE VERDAD LLEGA: el destino habla de la estrategia, no de
+    // cifras (disonancia detectada por el Director en la prueba). Sin este
     // patrón el «sí» caía al buscador vectorial: el fallo del caso Betsabe.
-    && /12 niveles|estrategia de los 12|c[oó]mo se generan las ganancias/i.test(b.ultimoBot)
+    && /12 niveles|estrategia de los 12|estrategia con la que se construye/i.test(b.ultimoBot)
     && !b.ofrecioTablaNiveles && !b.ofrecioVinculacion && !b.ofrecioSegundaForma
     && !/simulador/i.test(b.ultimoBot);
   if (!vieneDelSimulador && ((nombreMalOido && preguntaQueEs) || aceptaEstrategia)) {

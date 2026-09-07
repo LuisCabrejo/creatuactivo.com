@@ -151,7 +151,7 @@ Y una metodología sencilla, de dos pasos.
 
 Cada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo lo controla desde su celular.
 
-¿Le muestro cómo se generan las ganancias en su sistema de distribución?`;
+¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

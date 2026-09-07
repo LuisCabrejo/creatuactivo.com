@@ -1172,7 +1172,9 @@ Automatically extracts performance data from Google Search Console API.
 >
 > ⚠️ **DOS COSAS QUE NO SE MIGRAN, y un reemplazo ciego las rompe:** el **canal izquierdo** y el **canal derecho** del Binario (nomenclatura del plan) y los **canales oficiales** de pago de Gano Excel (consignación, transferencia). Proteja esas cadenas antes de cualquier `sed`.
 >
-> ⏳ **Estado:** `arsenal_inicial` migrado completo (85 ocurrencias) + los 5 candados de `respuestas-maestras.ts`. **Pendientes: `arsenal_avanzado` (~21), `arsenal_compensacion` (~66) y `arsenal_12_niveles` (~50)** — y la web (`page.tsx`, `fundadores`, `planes`, `nosotros`). Mientras no se hagan, quien lea de un arsenal a otro ve dos palabras para lo mismo.
+> ✅ **Estado (6 sep 2026):** los cuatro arsenales migrados y `src/` alineado. ⏳ Queda **la web** (`page.tsx`, `fundadores`, `planes`, `nosotros`).
+>
+> ⚠️ **Y queda un pendiente que la migración heredó: la PERSONIFICACIÓN.** *Un sistema no consume, no compra y no pide* — igual que un canal. Siete casos inventariados (cinco de personificación, dos de vocabulario ambiguo donde *sistema* significa el plan de compensación), con el patrón de resolución ya aplicado en `wa-simulador.ts`: **no se cambia el verbo, se cambia el sujeto** — *mientras sus distribuidores compren sus cajas*. Lista y criterio → [PENDIENTE_PERSONIFICACION_SISTEMA_SEP2026.md](docs/handoff/queswa/PENDIENTE_PERSONIFICACION_SISTEMA_SEP2026.md)
 
 > **El motivo es de duplicación, no de estilo, y por eso reemplaza al criterio anterior.** La información de este negocio se duplica como la de una franquicia: **el término que se le enseña a un socio es exactamente el que él le va a enseñar al siguiente.** Un vocabulario doble no se degrada en el arsenal — se degrada tres eslabones más abajo, en la boca de alguien que nunca leyó esta doctrina. El plan de ir introduciendo *"empresa digital"* una vez la persona vio el mecanismo (auditoría 17 ago, que conservó las ocurrencias de cuerpo una por una) **ya no aplica**: un término que solo es correcto en cierto momento de la conversación es, por definición, un término que no se puede duplicar.
 >

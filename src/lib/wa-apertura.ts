@@ -295,9 +295,16 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
   // mujeres; y sobre todo no era cierto: nadie pidió recibir a esa persona en
   // particular. La transferencia de confianza ya la produce nombrar al socio.
   const socio = nombreSocioCorto(nombreSocio);
+  // La prueba social sube AQUÍ (6 sep 2026). Antes vivía en un párrafo largo
+  // más abajo que también explicaba qué hace Queswa — y esa explicación se
+  // mudó a WHY_02, donde queda mejor dicha. Repetirla en la apertura gastaba
+  // el momento de mayor atención en algo que se iba a volver a decir. Lo que
+  // sí valía la pena rescatar es el hecho social —cientos de personas, las 24
+  // horas—: con un estigma de POPULARIDAD (no de fraude), la prueba de que
+  // otros ya están aquí trabaja más que cualquier credencial.
   const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}.`
-    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo.';
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Atiendo a cientos de personas, las 24 horas.`
+    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.';
 
   return [
     `${saludo} Un gusto saludarle.`,
@@ -345,11 +352,18 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //    — la pila deja de leerse de un golpe, que es para lo que se diseñó.
     // «premium» (Director, 31 ago 2026): «productos de bienestar» a secas
     // sonaba a catálogo corriente; el estante es premium y se dice.
-    'Le explico cómo se construye un *canal de distribución de productos premium de bienestar*, en paralelo a su actividad:',
+    'Le explico cómo se construye un *sistema de distribución de productos premium de bienestar*, en paralelo a su actividad:',
     '',
     '• Se arma una sola vez.',
     '• Usted es el dueño.',
     '• Le paga cada vez que hay consumo.',
+    '',
+    // LA ASPIRACIÓN VUELVE, Y VUELVE POR PALABRA DEL DIRECTOR (6 sep 2026) —
+    // que es el único modo previsto arriba. Va COMO REMATE y no dentro de la
+    // tercera viñeta: metida ahí, esa línea pasa de cinco palabras a diecisiete
+    // y la pila deja de leerse de un golpe, que es para lo que se diseñó. De
+    // remate además pega más fuerte: la recompensa va última.
+    'Con el potencial de igualar o superar sus *ingresos actuales*.',
     '',
     // La prueba social va aquí, en presente y verificable — cientos de personas
     // distintas han conversado con Queswa. ⚠️ El remate «mientras construyen el
@@ -365,8 +379,6 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     // «persona» porque presupone interés, no reclutamiento. ⚠️ De la propuesta
     // de Gemini NO entró «así como lo atiendo hoy»: ese «lo» es el prospecto y
     // trata en masculino a las mujeres.
-    'Y esto que estamos haciendo ahora es exactamente lo que yo haría por usted: conversar, explicar y resolver las dudas de cada interesado que llegue a su canal. Así atiendo hoy a cientos de personas, las 24 horas.',
-    '',
     // «Sin ningún afán» le quita presión al momento exacto en que se pide una
     // elección, y «pregunte lo que quiera» le avisa a quien no toca botones que
     // puede escribir (3 sep 2026, tomado de la propuesta de Gemini).

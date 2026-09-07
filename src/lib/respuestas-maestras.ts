@@ -135,21 +135,23 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Todo parte de algo concreto: usted monta su propio canal de distribución, apoyado en una línea premium de café y suplementos con Ganoderma.
+const MASTER_WHY_02 = `Con gusto. Funciona con la misma lógica de una franquicia.
 
-La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.
+Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena de restaurantes, casi nadie.
 
-Y aquí está la clave de la estabilidad: quien prueba el producto nota la diferencia en su energía y no vuelve a la marca genérica. Cuando se le acaba, vuelve a pedir. Esa compra que se repite es la que le sostiene el ingreso.
+La clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.
 
-Del trabajo pesado nos encargamos nosotros:
+Eso es lo que usted arma acá: su propio sistema de distribución. Para que funcione hacen falta tres cosas, y acá las recibe ensambladas.
 
-**Gano Excel**, con 30 años y presencia en más de 60 países, pone las fábricas, el inventario y la logística: fabrica, almacena y despacha cada pedido directo a la casa del cliente.
+Una fábrica: **Gano Excel**, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente.
 
-**Yo** explico, resuelvo dudas a toda hora y maduro la decisión de quien pregunta.
+Alguien que atienda: eso lo hago **yo**. Converso con cada persona que llega, sea que le interese el producto o el modelo de negocio, y maduro su decisión de avanzar.
 
-A usted le quedan dos acciones, y las hace desde el celular: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.
+Y una metodología sencilla, de dos pasos.
 
-¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?`;
+Cada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo lo controla desde su celular.
+
+¿Le muestro cómo se generan las ganancias en su sistema de distribución?`;
 
 /**
  * Texto Master EAM_01 — Chip 2 ("¿Cuál es la metodología operativa…").

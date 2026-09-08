@@ -238,11 +238,11 @@ export default function PruebaPage() {
               maxWidth: 680,
             }}
           >
-            Un negocio de distribución de productos premium de bienestar —café y
-            suplementos con Ganoderma— que Gano Excel, con 30 años y presencia en más
-            de 60 países, fabrica y despacha por usted. Lo que antes era complicado de
-            desarrollar, hoy es sencillo: una inteligencia artificial explica y atiende
-            a cada interesado por WhatsApp, a toda hora.{' '}
+            Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's,
+            casi nadie. Lo difícil de un negocio nunca fue abrirlo: fue multiplicarlo.
+            Eso es lo que usted arma acá: su propio sistema de distribución de productos
+            premium de bienestar con Ganoderma, que Gano Excel fabrica y despacha por
+            usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.{' '}
             <Strong>
               A usted le queda un ingreso en paralelo al que ya tiene, con el potencial
               de igualarlo — o superarlo.

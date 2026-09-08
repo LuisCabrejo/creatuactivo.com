@@ -59,7 +59,11 @@ La historia 1 termina en la bicicleta estática; la 2 abre en *«El segundo mome
 
 **Un solo render.** Se montó el muro completo y de ahí se cortaron las dos historias en el pivot (54.72 s), así los tres se ven idénticos y se ahorra la mitad del trabajo.
 
-**Color: LUT + recuperación fuerte.** ⚠️ **La toma quedó subexpuesta** — luma media de la fuente **56**, contra **76** del Día 1. Se recuperó con `eq=brightness=0.20:contrast=1.06:saturation=1.08` después del LUT (el Día 1 usó 0.085), viñeta suavizada a `PI/8` y grano bajado a `alls=4`, porque en poca luz el sensor ya aporta el suyo. Aun así el resultado es más oscuro que el del Día 1: **de una toma subexpuesta no se saca luz que no se grabó.** Para la próxima, una fuente de luz más al frente.
+**Color: exposición ANTES del LUT, con gamma.** ⚠️ **La toma quedó subexpuesta** —se grabó casi a las 6 de la tarde—: mediana de luma **50**, cuando una cara bien expuesta vive entre 90 y 130. Pero el margen estaba intacto: **0.00 % de píxeles quemados**, todo el rango alto vacío.
+
+La primera entrega subió `eq=brightness=0.20` **después** del LUT y quedó turbia — un desplazamiento lineal lava los negros. Se rehízo con **`eq=gamma=1.75` antes del LUT** y solo contraste y saturación después: la mediana pasó de 87 a **103**, los negros bajaron de 53 a **43**, y el ruido casi no se movió. Viñeta a `PI/8` y grano a `alls=4`, porque en poca luz el sensor ya aporta el suyo. Detalle y método de auditoría → [PIPELINE.md](../../../../../../scripts/dankoe-video/PIPELINE.md).
+
+⚠️ Aun así, **para la próxima: una fuente de luz más al frente.** Lo que se recuperó estaba grabado; lo que no se grabó no se inventa.
 
 **Audio:** pausas atenuadas −24 dB (8.3 s en total), cama suspense 0.65 → Pulse 1.00 en el pivot con `whoosh_up` un cuarto de segundo antes, mezcla voz-anclada a **−14.5 LUFS**.
 

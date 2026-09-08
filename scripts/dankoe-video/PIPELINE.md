@@ -20,6 +20,27 @@ Acabado cinematográfico de reels (estilo Dan Koe/Naval) en M1, todo por código
   - **`sfx.py`** sintetiza el kit de SFX (whoosh/boom/riser/shimmer/finale_boom) por numpy → `out/kit/*.wav` (cero licencias). Colocar cada insert con `enable='between(t,…)'` y un whoosh de entrada/salida; dejar ≥~1.5s de talking-head entre cutaways (gaps <1s = "parpadeo", se nota).
 - **Assets de audio versionados en git** (aunque `out/` esté gitignored para los `.mp4`): el **kit de SFX** (`motion/out/kit/*.wav`) y **`motion/sfx.py`** sí están commiteados; si se borran los wavs, regenerarlos con `python sfx.py`. La **música** también (ver abajo). Así un clon fresco re-ensambla cualquier reel sin assets externos.
 - **`music/`** — camas de fondo (royalty-free, **commiteadas**): `hook-diagnostico_suspense.mp3` (acto 1; ~144s) + `solucion-cta_calm-corporate.mp3` (acto 2; ~29s). ⚠️ **La del acto 2 quedó RETIRADA el 5 sep 2026** (Director): la vigente es **`solucion-cta_pulse-corporate.mp3`** ("Pulse — Corporate Technology Ambient Background", 223s — sin `stream_loop`, alcanza cualquier acto 2), la misma que Luis usa en todos sus proyectos de CapCut. La fuente canónica de ambas pistas vive en `~/Downloads/reels-equipo/audios/` (`suspense-in-piano.MP3` + `pulse-corporate-technolofy.MP3`); el `hook-diagnostico_suspense.mp3` del repo es el mismo tema con otro encode — ante la duda, usar los archivos de esa carpeta. **Convención de audio — se calibra POR PIEZA, no por regla fija** (corregido 6 sep 2026). ⚠️ Aquí decía *«Luis la calibra al alza — nunca bajar»* y el 5 sep pidió lo contrario: **bajarla al 50%** en el video ancla del reto (intro 0.325 · solución 0.50), después de dos rondas de ajuste a la baja. La regla vieja venía de una sesión de junio y se generalizó de más. **Los niveles de abajo son el punto de partida; el Director ajusta y ese ajuste manda.** Nivel por formato: reels de **nicho** (módulo) = `volume=0.80` (`networkers` = 0.90); reels **reflexivos de documentación** (talking-head, serie diaria) = **`volume=1.00`** en AMBAS camas (subido de 0.80 el 23 jun 2026, Día 11, por pedido del Director). El **cambio suspense→corporativa cae exacto en el pivot narrativo diagnóstico→solución**: en los reels de nicho es "La respuesta a este sistema…" (en los 4 normales coincide con la costura del módulo; en `empresarios` la corporativa entra en "La respuesta" dentro del segmento A); en los reflexivos es la frase-bisagra del guion (Día 9 "Por eso esta semana…" 31.1s · Día 10 "Ahora imagine su propia empresa digital" 33.0s · Día 11 "Pero cambió una cosa: la inteligencia artificial" 22.0s) — el timestamp se lee del `*_stamps.json` del forced alignment. ⚠️ Si el pivot cae temprano (Día 11 a 22.0s) la corporativa de 29s no cubre el acto 2 (37.8s) → **`-stream_loop 1`** en el input corporativo + `atrim` a la duración exacta. Camas **ducked bajo la voz** (`sidechaincompress`).
+> ⚠️ **Una toma subexpuesta se levanta ANTES del LUT y con GAMMA, nunca después y con brillo**
+> (8 sep 2026). El Día 2 se grabó casi a las 6 de la tarde y salió a media exposición. El primer
+> intento subió `eq=brightness=0.20` **después** del LUT y quedó turbio: un desplazamiento lineal
+> **lava los negros** y comprime la imagen en una banda estrecha —mediana 87, negros en 53, altos en
+> 110—. Corregido a `eq=gamma=1.75` **antes** del LUT (y solo contraste/saturación después): mediana
+> **103**, negros de vuelta en **43** y altos en 123. Más luz en la cara **y** más contraste, con el
+> ruido casi igual (dispersión 19 → 21 en una zona plana; el material de 10 bits aguanta).
+> **El motivo es de orden:** el LUT es una curva calibrada para cierto nivel de entrada; alimentarlo
+> subexpuesto y arreglar la salida amplifica lo que el LUT ya había aplastado.
+>
+> **Cómo se audita antes de tocar nada** — tres cifras, y las tres se miden:
+> ```bash
+> # ¿queda rango libre? ¿cuánto se recortó?  ¿dónde está la cara?
+> ffmpeg -v error -ss T -i X -frames:v 1 -vf scale=540:960,format=gray -f rawvideo - | \
+>   python3 -c "import sys;d=sys.stdin.buffer.read();s=sorted(d);n=len(d);\
+> print(f'negro {100*sum(1 for b in d if b<16)/n:.1f}% · quemado {100*sum(1 for b in d if b>235)/n:.1f}% · mediana {s[n//2]}')"
+> ```
+> **Una cara bien expuesta tiene mediana entre 90 y 130.** El Día 2 llegó con **50** y **0.00 % quemado**
+> — o sea, todo el rango alto vacío y muchísimo margen. Si el quemado fuera alto, no habría nada que
+> recuperar y la respuesta correcta sería volver a grabar.
+
 > ⚠️ **La atmósfera asume material YA GRADUADO. Con material crudo, hunde el video** (7 sep 2026).
 > Los valores de casa —viñeta `angle=PI/4`, grano `alls=7`— se calibraron sobre exports de CapCut, que
 > vienen con exposición y contraste empujados. Aplicados sobre un archivo neutro de cámara, la luma

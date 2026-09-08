@@ -251,7 +251,7 @@ const RE_DIA_A_DIA =
  * dirigirlo (celular, sin local ni bodega); lo que se mueve es físico. El candado se AFIRMA,
  * nunca se niega — decir "no es dinero en la nube" invoca el elefante rosado.
  */
-const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos **sistema de distribución**, y es lo mismo: un negocio propio con sus beneficios, sin tener que montar la operación física.
+const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos **sistema de distribución** —o **empresa de distribución**, es lo mismo—: un negocio propio con sus beneficios, sin tener que montar la operación física.
 
 En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí usted es dueño de un sistema de distribución, y todo eso lo asume **Gano Excel**: fabrica el café y los suplementos, y los despacha hasta la casa de su cliente.
 

@@ -74,8 +74,7 @@
  * Director sobre el transcript del mediodía:
  *   • La introducción no respondía la pregunta: explicaba que no arranca de cero
  *     antes de decir QUÉ es el modelo. Ahora la primera línea nombra la máquina
- *     —un canal de distribución apoyado en un hábito que ya existe— y el resto
- *     desarrolla. La pregunta se contesta en la primera oración.
+ *     y el resto desarrolla. La pregunta se contesta en la primera oración.
  *   • "El trabajo pesado lo cargamos entre los dos" se leía como Queswa + el
  *     prospecto, o sea lo contrario de lo que dice. "Lo asumimos nosotros" deja
  *     claro que el bloque somos Gano y Queswa, y que él queda afuera del trabajo.
@@ -88,11 +87,6 @@
  *     "esa segunda venta ya no le cuesta trabajo", que sobraba.
  *   • "La persona consume" → "el cliente consume": quien consume es cliente.
  *
- * ⚠️ PENDIENTE conocido: el saludo de WhatsApp también dice "canal de
- * distribución" y "en paralelo", así que quien toca el botón lee dos veces lo
- * mismo en veinte segundos. La corrección propuesta —abrir con "Ese consumo ya
- * existe", recogiendo la última palabra del saludo— está sin decidir.
- *
  * Reescritura previa 6 ago 2026 — NARRATIVA DE ECUACIÓN (sesión Director + Gemini sobre el
  * transcript real del canal). De 1.353 a 921 caracteres: sale en dos mensajes, no en
  * tres, y la pregunta queda a la vista sin "leer más". Seis decisiones:
@@ -101,7 +95,7 @@
  *      el segundo párrafo, pero sin anunciarlo. Abre con saludo — un texto que entra
  *      en frío se lee como manual.
  *   2. El mecanismo es un SUSTANTIVO, no una categoría: "el producto que se mueve por
- *      su canal", no "las ventas". "Ventas" obliga a imaginarse a uno mismo vendiendo.
+ *      su sistema", no "las ventas". "Ventas" obliga a imaginarse a uno mismo vendiendo.
  *      El desglose (detal / paquetes empresariales) vive en la respuesta hermana del
  *      botón "De dónde sale el dinero"; repetirlo aquí interrumpe la ecuación.
  *   3. Dos puntos como signo igual: "sale de una sola cosa:" avisa que viene un
@@ -117,8 +111,8 @@
  *   6. El viernes se movió del párrafo del dinero al CIERRE: arriba solo informaba;
  *      al final, después de "compartir", es la recompensa de haber compartido.
  *
- * Ajuste 31 ago 2026 (Director, auditando la prueba del canal): el canal es el sustantivo y el
- * producto es el respaldo — "canal de distribución de café" lo definía por la mercancía y lo
+ * Ajuste 31 ago 2026 (Director, auditando la prueba del canal): el sistema es el sustantivo y el
+ * producto es el respaldo — "sistema de distribución de café" lo definía por la mercancía y lo
  * degradaba. El Ganoderma sube a la primera frase (le da causa al "premium") y sale del párrafo
  * de la recompra. Fuera "sin que usted repita lo mismo a cada interesado": peso, no valor.
  *
@@ -188,11 +182,11 @@ Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
  * antes se pisaban casi frase por frase): WHY_02 explica el MODELO —
  * apalancamiento, la ecuación, el ciclo, el reparto del trabajo. Esta responde
  * la TRANSACCIÓN: qué se vende, a quién, quién paga y cuándo llega. Por eso
- * WHY_02 dice "el producto que se mueve por su canal" sin desglosar: el
+ * WHY_02 dice "el producto que se mueve por su sistema" sin desglosar: el
  * desglose (al detal / paquetes empresariales) vive aquí.
  *
  * ⚠️ Gano Excel aparece al final y como QUIEN CONSIGNA, no como la fuente. El
- * dinero sale del producto que se vende por el canal del prospecto; invertir ese
+ * dinero sale del producto que se vende por el sistema del prospecto; invertir ese
  * orden dispara el fantasma del multinivel ([[feedback_gano_respaldo_no_titular]]).
  * ⚠️ NO reintroducir "No es humo en la nube": el candado de confianza se AFIRMA,
  * nunca se niega — nombrar el elefante lo invoca. Lo reemplaza el ancla física

@@ -14,7 +14,7 @@ import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
   title: 'Blog - Ideas para Construir Ingresos Recurrentes | CreaTuActivo',
-  description: 'Artículos y guías sobre ingresos recurrentes, canales de distribución y la tecnología que hace el trabajo pesado por usted.',
+  description: 'Artículos y guías sobre ingresos recurrentes, sistemas de distribución y la tecnología que hace el trabajo pesado por usted.',
 };
 
 const articles = [

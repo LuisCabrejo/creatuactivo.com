@@ -2434,7 +2434,7 @@ export default function CatalogoEstrategico() {
                 <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
                   <p className="font-bold text-[color:var(--color-brand)] mb-2">💰 Precios de Distribuidor Mayorista</p>
                   <p className="text-sm text-[#A3A3A3]">
-                    Como <strong>dueño de su empresa digital con CreaTuActivo</strong>, accede a precios mayoristas con descuento de hasta 35% sobre precio público.
+                    Como <strong>dueño de su sistema de distribución con CreaTuActivo</strong>, accede a precios mayoristas con descuento de hasta 35% sobre precio público.
                     <Link href="/" className="text-[color:var(--color-brand)] hover:text-[#F59E0B] font-medium ml-1 underline">Conozca CreaTuActivo →</Link>
                   </p>
                 </div>
@@ -2549,14 +2549,14 @@ export default function CatalogoEstrategico() {
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">1</div>
                     <div>
                       <p className="font-bold text-[color:var(--color-text-primary)]">Aplicación CreaTuActivo + Queswa IA</p>
-                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para que su empresa digital trabaje 24/7</p>
+                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para que su sistema de distribución trabaje 24/7</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">2</div>
                     <div>
                       <p className="font-bold text-[color:var(--color-text-primary)]">Mentoría Personalizada 1:150</p>
-                      <p className="text-sm text-[#A3A3A3]">Como dueño de su empresa digital, recibe mentoría directa y construye su organización</p>
+                      <p className="text-sm text-[#A3A3A3]">Como dueño de su sistema de distribución, recibe mentoría directa y construye su red de clientes y socios</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">

@@ -72,36 +72,36 @@ export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audi
     audiencia: 'Empleado corporativo / ejecutivo',
     titulo: 'Su salario le cubre el mes hoy. ¿Y si mañana la empresa decide prescindir de su cargo?',
     cuerpo:
-      'Por bueno que sea el sueldo, en una empresa que no es suya las cartas las tiene otro: basta una reestructuración o un recorte y todo lo que sostiene queda en el aire. La respuesta no es trabajar más duro, ni renunciar a lo que ya construyó: es tener algo propio, en paralelo. Una empresa digital —un negocio que vive en internet y produce aunque usted no esté ahí, sin local ni empleados, y crece sin techo—. Hoy, con inteligencia artificial, cualquiera puede tenerla. Pregúntele a Queswa cómo sería en su caso.',
+      'Por bueno que sea el sueldo, en una empresa que no es suya las cartas las tiene otro: basta una reestructuración o un recorte y todo lo que sostiene queda en el aire. La respuesta no es trabajar más duro, ni renunciar a lo que ya construyó: es tener algo propio, en paralelo. Un sistema de distribución —un negocio que se maneja desde el celular y produce aunque usted no esté ahí—. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
   },
   empleados: {
     audiencia: 'Empleado del Estado / sector público',
     titulo: 'La estabilidad de un cargo es prestada. Si las cuotas siempre le llevan la delantera, usted no tiene estabilidad real: tiene una calma que dura lo que dura su quincena.',
     cuerpo:
-      'Por más duro que trabaje, entrega sus mejores años y su salud, y solo suma antigüedad… nada que de verdad sea suyo. Eso no es falta de esfuerzo: así está calibrado el sistema. La respuesta no es trabajar más: es tener algo propio, en paralelo. Una empresa digital que produce por usted —vive en internet, sin local ni empleados, y crece por diseño, no por su desgaste—. Hoy, con inteligencia artificial, cualquiera puede tenerla. Pregúntele a Queswa cómo sería en su caso.',
+      'Por más duro que trabaje, entrega sus mejores años y su salud, y solo suma antigüedad… nada que de verdad sea suyo. Eso no es falta de esfuerzo: así está calibrado el sistema. La respuesta no es trabajar más: es tener algo propio, en paralelo. Un sistema de distribución que produce por usted —se maneja desde el celular y crece por diseño, no por su desgaste—. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
   },
   empresarios: {
     audiencia: 'Empresario / dueño de negocio',
     titulo: 'Si su empresa no crece sin usted durante tres meses, su empresa no trabaja para usted: usted trabaja para ella.',
     cuerpo:
-      'Un negocio que depende de su presencia no es un patrimonio; es un puesto que usted mismo creó: no se hereda tranquilo, no se vende por lo que vale y no produce sin su supervisión. La respuesta es tener algo que sí funcione sin usted: una empresa digital —un negocio que vive en internet y produce aunque usted no esté, en paralelo a lo que ya construyó—. Hoy, con inteligencia artificial, cualquiera puede tenerla. Pregúntele a Queswa cómo sería en su caso.',
+      'Un negocio que depende de su presencia no es un patrimonio; es un puesto que usted mismo creó: no se hereda tranquilo, no se vende por lo que vale y no produce sin su supervisión. La respuesta es tener algo que sí funcione sin usted: un sistema de distribución —un negocio que produce aunque usted no esté, en paralelo a lo que ya construyó—. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
   },
   diaspora: {
     audiencia: 'Latinos en el exterior',
     titulo: 'Ganar en dólares o euros es una trampa elegante si su propio desgaste físico es el único motor de su economía.',
     cuerpo:
-      'Usted ya construyó una nueva vida; pero si se detiene 30 días, todo se tambalea. La respuesta no es sumar más horas a su semana: es tener algo propio que funcione sin usted. Una empresa digital —un negocio que vive en internet y produce aunque usted no esté ahí, sin importar en qué país esté—. Hoy, con inteligencia artificial, cualquiera puede tenerla. Pregúntele a Queswa cómo sería en su caso.',
+      'Usted ya construyó una nueva vida; pero si se detiene 30 días, todo se tambalea. La respuesta no es sumar más horas a su semana: es tener algo propio que funcione sin usted. Un sistema de distribución —un negocio que se maneja desde el celular y produce aunque usted no esté ahí, sin importar en qué país esté—. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
   },
   informales: {
     audiencia: 'Trabajador independiente / economía popular',
     titulo: 'Trabaja todos los días, pero la plata se va tan rápido como llega. Eso no es falta de capacidad: es un sistema calibrado para que viva al día.',
     cuerpo:
-      'Vivir en el ciclo de trabajar, pagar cuentas y repetir —donde la plata se va tan rápido como llega— no es falla suya: así está calibrado el sistema. Hay una ruta para construir un ingreso que siga entrando aunque usted no esté de pie todo el día: tener algo propio, una empresa digital que produce por usted —vive en internet, sin local ni empleados—. Hoy, con inteligencia artificial, cualquiera puede tenerla. Pregúntele a Queswa cómo sería en su caso.',
+      'Vivir en el ciclo de trabajar, pagar cuentas y repetir —donde la plata se va tan rápido como llega— no es falla suya: así está calibrado el sistema. Hay una ruta para construir un ingreso que siga entrando aunque usted no esté de pie todo el día: tener algo propio, un sistema de distribución que produce por usted, y que se maneja desde el celular. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
   },
   networkers: {
     audiencia: 'Networkers / mercadeo en red',
     titulo: 'Usted ya sabe que el mercadeo en red funciona. El problema nunca fue su esfuerzo: es que la conversión depende de hacerla a pulso —y eso es justo lo que no se duplica.',
     cuerpo:
-      'CreaTuActivo cambia esa pieza: las recompensas del mercadeo en red que usted ya conoce, ahora con las ventajas de una empresa digital. La conversión deja de depender de hacerla a pulso —Queswa, su inteligencia artificial, conversa con cada interesado, resuelve las dudas y madura su decisión de avanzar, las 24 horas, por usted y por toda su organización. Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en más de 60 países, y un método probado que le marca los pasos exactos. Usted dirige; el sistema hace el trabajo.',
+      'CreaTuActivo cambia esa pieza: las recompensas del mercadeo en red que usted ya conoce, ahora con un sistema de distribución que se maneja desde el celular. La conversión deja de depender de hacerla a pulso —Queswa, su inteligencia artificial, conversa con cada interesado, resuelve las dudas y madura su decisión de avanzar, las 24 horas, por usted y por todo su sistema. Detrás está Gano Excel, la compañía que usted ya conoce, con presencia en más de 60 países, y un método probado que le marca los pasos exactos. Usted decide; el sistema hace el trabajo.',
   },
 }

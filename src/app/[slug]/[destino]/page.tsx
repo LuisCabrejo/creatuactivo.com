@@ -214,7 +214,7 @@ export async function generateMetadata({
         description: OG_QUESWA.description,
         url,
         siteName: 'CreaTuActivo.com',
-        images: [{ url: 'https://creatuactivo.com/og/queswa', width: 1200, height: 630, alt: 'Sea dueño de su propio canal de distribución' }],
+        images: [{ url: 'https://creatuactivo.com/og/queswa', width: 1200, height: 630, alt: 'Sea dueño de su propio sistema de distribución' }],
       },
       twitter: { card: 'summary_large_image', title: OG_QUESWA.title, description: OG_QUESWA.description },
     }

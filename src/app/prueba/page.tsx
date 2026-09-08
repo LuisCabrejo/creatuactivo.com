@@ -222,7 +222,7 @@ export default function PruebaPage() {
               margin: '0 0 1.5rem',
             }}
           >
-            Sea dueño de su propio canal de distribución.
+            Sea dueño de su propio sistema de distribución.
             <br />
             <span style={{ color: GOLD }}>
               Lo maneja desde el celular, y cobra cada vez que mueve producto.
@@ -308,7 +308,7 @@ export default function PruebaPage() {
         </Body>
         <Body mt>
           La ganancia sale de las ventas, y de nada más. Cada vez que se vende producto
-          por su canal, a usted le queda un porcentaje, y se lo liquidan en{' '}
+          por su sistema, a usted le queda un porcentaje, y se lo liquidan en{' '}
           <Strong>su cuenta bancaria cada viernes</Strong>.
         </Body>
         <Body mt>
@@ -391,7 +391,7 @@ export default function PruebaPage() {
         </Body>
         <Body mt>
           Eso fue lo que cambió. Hoy el trabajo pesado lo hacen dos: una fábrica con
-          30 años, y una inteligencia artificial que no duerme. Su canal se maneja desde
+          30 años, y una inteligencia artificial que no duerme. Su sistema se maneja desde
           una aplicación, y buena parte desde WhatsApp.
         </Body>
 
@@ -464,7 +464,7 @@ export default function PruebaPage() {
           {[
             { n: '30', l: 'años de Gano Excel' },
             { n: '+60', l: 'países' },
-            { n: '16', l: 'países donde opera su canal' },
+            { n: '16', l: 'países donde funciona su sistema' },
             { n: '22', l: 'productos' },
           ].map((s) => (
             <div key={s.l}>
@@ -581,7 +581,7 @@ export default function PruebaPage() {
             Y como es así de sencillo, quien inicia con usted hace exactamente lo mismo.{' '}
             <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación</Strong>{' '}
             — con Queswa formando a cada socio nuevo desde el día uno, y con Gano Excel
-            operando en más de 60 países, su canal no se detiene en la frontera.
+            presente en más de 60 países, su sistema no se detiene en la frontera.
           </p>
         </div>
       </Section>
@@ -663,7 +663,7 @@ export default function PruebaPage() {
         >
           {[
             'Comprando el producto para su casa, a precio de distribuidor',
-            'Arrancando de una vez con todo, con su canal listo desde el primer día',
+            'Arrancando de una vez con todo, con su sistema listo desde el primer día',
           ].map((t) => (
             <div key={t} style={{ ...cardStyle, display: 'flex', gap: '0.75rem', alignItems: 'flex-start', padding: '1.1rem 1.25rem' }}>
               <Check style={{ width: 18, height: 18, color: TITANIUM, flexShrink: 0, marginTop: 3 }} strokeWidth={2} />
@@ -691,7 +691,7 @@ export default function PruebaPage() {
             vez que se vende.
           </p>
 
-          <H2>Al final, el canal es suyo.</H2>
+          <H2>Al final, el sistema es suyo.</H2>
           <p
             style={{
               fontSize: '1.05rem',

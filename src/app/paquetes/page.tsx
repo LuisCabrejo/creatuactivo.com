@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * /paquetes — Activación de su canal de distribución v6.0
+ * /paquetes — Activación de su sistema de distribución v6.0
  *
  * Página creada desde cero (14 ago 2026). El copy completo se calibró con el
  * Director EN EL CHAT antes de escribir este archivo («va todo») — flujo
@@ -55,7 +55,7 @@ const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px
 const WA_BASE = 'https://wa.me/573215193909?text=';
 const waActivar = (pkg: string) =>
   WA_BASE + encodeURIComponent(
-    `Hola, Queswa. Quiero activar mi canal de distribución con el ${pkg}. Mi nombre es `
+    `Hola, Queswa. Quiero activar mi sistema de distribución con el ${pkg}. Mi nombre es `
   );
 const WA_PREGUNTAS =
   WA_BASE + encodeURIComponent(
@@ -186,7 +186,7 @@ function Hero() {
           color: 'var(--color-brand)', letterSpacing: '0.08em', textTransform: 'uppercase',
           textShadow: '0 2px 14px rgba(0,0,0,0.95)',
         }}>
-          Activación de su<br />canal de distribución
+          Activación de su<br />sistema de distribución
         </h1>
 
         <p style={{
@@ -543,7 +543,7 @@ function Faq() {
           />
           <FaqItem
             q="¿Puedo subir de nivel más adelante?"
-            a="Sí, en cualquier momento. Puede empezar con el Kit o el ESP-1 para tomar ritmo y, a medida que su canal produce, subir de nivel."
+            a="Sí, en cualquier momento. Puede empezar con el Kit o el ESP-1 para tomar ritmo y, a medida que su sistema produce, subir de nivel."
           />
           <FaqItem
             q="¿Hay costos que no estén declarados aquí?"
@@ -605,7 +605,7 @@ function Footer() {
         fontFamily: 'var(--font-mono)', color: C.muted, fontSize: '0.7rem',
         letterSpacing: '0.08em', marginBottom: 20,
       }}>
-        Su canal de distribución · Ingresos recurrentes
+        Su sistema de distribución · Ingresos recurrentes
       </p>
       <div style={{
         display: 'flex', justifyContent: 'center', gap: 32,

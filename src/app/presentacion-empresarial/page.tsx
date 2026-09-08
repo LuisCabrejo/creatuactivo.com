@@ -397,7 +397,7 @@ export default function PresentacionEmpresarialPage() {
             <div className="container mx-auto px-4">
                 <SectionHeader
                     title="Infraestructura, no Venta."
-                    subtitle="La mayoría busca clientes. Nosotros construimos canales de distribución."
+                    subtitle="La mayoría busca clientes. Nosotros construimos sistemas de distribución."
                 />
 
                 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -407,7 +407,7 @@ export default function PresentacionEmpresarialPage() {
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Distribución Masiva</h3>
                         <p className="text-[#A3A3A3] text-sm font-light leading-relaxed">
-                            Creamos canales digitales por donde fluyen productos de consumo masivo (Gano Excel) en toda América. Sin bodegas en su casa.
+                            Creamos sistemas de distribución por donde fluyen productos premium de bienestar (Gano Excel) en toda América. Sin bodegas en su casa.
                         </p>
                     </div>
                     <div className="text-center p-6 border-x border-white/5">

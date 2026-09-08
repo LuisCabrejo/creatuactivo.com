@@ -72,7 +72,7 @@ export default async function Image() {
           }}
         >
           <span style={{ color: '#E5E5E5', display: 'flex' }}>Una empresa de tecnología</span>
-          <span style={{ color: '#C5A059', display: 'flex' }}>para su canal de distribución.</span>
+          <span style={{ color: '#C5A059', display: 'flex' }}>para su sistema de distribución.</span>
         </div>
 
         {/* Subtítulo */}

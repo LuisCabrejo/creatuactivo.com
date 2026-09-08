@@ -3820,7 +3820,7 @@ function extraerEjemploDictado(pin: string): string | null {
   const esGen5 = pin.includes('EJEMPLO GEN5');
   const cierre = esGen5
     ? '¿Quiere armar su propio escenario en el simulador?'
-    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?';
+    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese sistema, paso a paso?';
   return `${cuerpo}\n\n${cierre}`;
 }
 
@@ -3872,7 +3872,7 @@ function gen5PrimerPaqueteDictado(codigo: string, country: string | null | undef
 
 Se liquida por ciclos semanales, cada viernes.
 
-¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese canal paso a paso?`;
+¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese sistema, paso a paso?`;
 }
 
 /** ¿Pregunta cuánto gana cuando en su canal se compra UN paquete concreto? Devuelve el código o null. */
@@ -5396,9 +5396,9 @@ entrega en persona.
       // ya compró — y hasta le explicaba el modelo que él acababa de adquirir.
       if (pageContext === 'whatsapp_socio') {
         return `
-🤝 MODO SOCIO — habla el DUEÑO de un canal, no un prospecto
+🤝 MODO SOCIO — habla el DUEÑO de un sistema de distribución, no un prospecto
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Esta persona YA compró y ya tiene su canal. Nada de convencerla, nada de
+Esta persona YA compró y ya tiene su sistema. Nada de convencerla, nada de
 explicarle el modelo, nada de ofrecerle los paquetes: eso ya pasó.
 
 ✅ SU TRABAJO AQUÍ es que él avance con SU canal:
@@ -5453,7 +5453,7 @@ ${ESQUELETO_REDACCION_SOCIO}
 El visitante está viendo el deck de "Los 12 Niveles": una presentación (negocio digital · tres socios · producto) que cierra con DOS simuladores en el slide 4 — el de INGRESOS RECURRENTES (INMEDIATO/RECURRENTE) y el SIMULADOR DE 12 NIVELES (proyección 2×2 sobre 12 niveles).
 
 ✅ QUÉ HACER:
-• Trato de USTED, léxico "negocio digital" / "su canal" (nunca tú; "red" solo acompañada — *red de clientes y socios*).
+• Trato de USTED, léxico "sistema de distribución" / "su sistema" (nunca tú; "red" solo acompañada — *red de clientes y socios*).
 • Puede referirse a lo que el visitante está viendo: el simulador de 12 niveles, la duplicación 2×2, los 12 puntos.
 • Cifra canónica de la proyección: al nivel 12, con duplicación 2×2 perfecta, el acumulado es $103.194.000 COP (= $25.200 × (2¹²−1)). Úsela EXACTA; NO improvise otros totales.
 • "Los 12 Niveles" es una estrategia de aceleración: sobre todo para quienes inician; un empresario activo también puede desarrollarla (crear su equipo con personas nuevas y compartir la visión).
@@ -5809,7 +5809,7 @@ STOP. NO entregues link de WhatsApp aún. NO ofrezcas doble oferta. NO expliques
 🎯 ESTADO 4 — DOBLE OFERTA DE ACTIVACIÓN FINAL (paquete: ${paqueteCompleto}, nombre: ${nombreFinal || '(sin nombre)'}, WhatsApp: ${whatsappFinal || '(sin WhatsApp)'})
 Tu única tarea: imprimir EXACTAMENTE el texto de abajo. Sin agregar ni un carácter extra.
 
-Perfecto${primerNombre ? ', ' + primerNombre : ''}. Para finalizar la activación de su negocio digital **${paqueteCompleto}**, elija cómo desea continuar:
+Perfecto${primerNombre ? ', ' + primerNombre : ''}. Para finalizar la activación de su sistema de distribución **${paqueteCompleto}**, elija cómo desea continuar:
 
 **(a)** [📲 **Activar ahora**](https://wa.me/573215193909?text=${waTextActivar}) — confirma su activación inmediata con el equipo de CreaTuActivo. Le entregan instrucciones de pago directamente.
 
@@ -5953,9 +5953,9 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
         return `
 📌 APALANCAMIENTO DICTADO — imprime este texto EXACTAMENTE, sin cifras, sin tablas, sin agregar escenarios:
 
-La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No: su canal factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos, y de todo eso a usted le queda un porcentaje.
+La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No: su sistema factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos, y de todo eso a usted le queda un porcentaje.
 
-Su ingreso crece con el volumen de todo el canal, no solo con el que mueve usted.
+Su ingreso crece con el volumen de todo el sistema, no solo con el que mueve usted.
 
 STOP. Sin cifras, sin CV, sin ejemplos de números, sin tablas. La pregunta de cierre la agrega el backend — no la escriba. Empieza DIRECTO con "La primera duda".`;
       }
@@ -6017,7 +6017,7 @@ STOP. Sin cifras, sin CV, sin ejemplos de números, sin tablas. La pregunta de c
         return `
 📌 EJEMPLO GEN5 DICTADO — imprime este texto EXACTAMENTE, sin agregar filas, sin tablas, sin diagramas y sin arte ASCII. Es el único ejemplo de cifras que se entrega por este canal:
 
-Le pongo un ejemplo con números redondos. Supongamos que usted arranca con el *${T.etiqueta}* y que en su canal se compran *5 paquetes ${paqueteDicho} iguales* en cada una de las primeras cinco generaciones:
+Le pongo un ejemplo con números redondos. Supongamos que usted arranca con el *${T.etiqueta}* y que en su sistema se compran *5 paquetes ${paqueteDicho} iguales* en cada una de las primeras cinco generaciones:
 
 *Generación 1* · 5 paquetes a ${g(0)} = *${g5(0)}*
 *Generaciones 2 a 4* · 15 paquetes a ${g(1)} = *${c(T.cop[1] * 15, T.usd[1] * 15)}*
@@ -6039,7 +6039,7 @@ STOP. Empieza DIRECTO con "Le pongo un ejemplo" — sin preámbulo ni encabezado
 • ESP-1 Inicial ($200 USD):      Gen1=$25  | Gen2=$5  | Gen3=$5  | Gen4=$5  | Gen5=$10`;
       return `
 📌 GUARDARRAÍL GEN5 — el ARSENAL recuperado lidera la explicación/ejemplos; esto solo asegura moneda + veracidad de cifras:
-${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada paquete empresarial que se compra en su canal, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
+${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada paquete empresarial que se compra en su sistema, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
 ${filasGen5}`;
     };
 
@@ -6516,7 +6516,7 @@ REGLAS:
 - ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Respóndele por nombre de forma breve.` : 'Responde de forma breve y directa a lo que preguntó.'}
 - Si pregunta algo técnico sin contexto previo: "Buena pregunta. Para calibrar bien la respuesta, ¿cuál es su situación hoy?"
 - Nunca menciones que eres IA o chatbot
-- Vocabulario CONCRETO (jul 2026): negocio de distribución, café y suplementos, celular, cuenta bancaria, cada viernes, Propietario. NO uses "empresa digital" para explicar qué es esto — es un contenedor vacío que el oyente rellena con pirámides o cripto. Nombra el mecanismo, no la categoría.
+- Vocabulario CONCRETO (jul 2026): negocio de distribución, café y suplementos, celular, cuenta bancaria, cada viernes, dueño. NO uses "empresa digital" para explicar qué es esto — es un contenedor vacío que el oyente rellena con pirámides o cripto. Nombra el mecanismo, no la categoría.
 
 ${conversationSummary ? `MEMORIA: ${conversationSummary.substring(0, 300)}` : ''}
 ESTADO: ${getMessageContext()}`;

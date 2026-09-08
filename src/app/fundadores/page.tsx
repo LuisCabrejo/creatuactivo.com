@@ -217,7 +217,7 @@ export default function FundadoresPage() {
       {/* ═══ QUÉ SE CONSTRUYE ═══ */}
       <Section elevated>
         <Eyebrow>Qué se construye</Eyebrow>
-        <H2>Un canal de distribución a su nombre, con dos fuerzas detrás.</H2>
+        <H2>Un sistema de distribución a su nombre, con dos fuerzas detrás.</H2>
         <Body>
           Un negocio de distribución de productos premium de bienestar —café y suplementos
           con Ganoderma— que usted maneja desde el celular. Lo que antes era complicado de
@@ -242,9 +242,9 @@ export default function FundadoresPage() {
           </div>
           <div style={{ ...card, border: '1px solid rgba(197,160,89,0.45)', background: 'linear-gradient(135deg, rgba(197,160,89,0.06), var(--color-bg-surface))' }}>
             <IconTile icon={Landmark} tone="gold" />
-            <Mono color={GOLD}>Su canal</Mono>
+            <Mono color={GOLD}>Su sistema</Mono>
             <p style={{ fontSize: '0.98rem', lineHeight: 1.65, color: 'var(--color-text-body)', margin: 0 }}>
-              A su nombre, manejado desde el celular. Usted cobra cada vez que su canal
+              A su nombre, manejado desde el celular. Usted cobra cada vez que su sistema
               mueve producto.
             </p>
           </div>
@@ -254,7 +254,7 @@ export default function FundadoresPage() {
       {/* ═══ QUÉ RECIBE UN FUNDADOR ═══ */}
       <Section>
         <Eyebrow>Qué recibe un Fundador</Eyebrow>
-        <H2>Lo que recibe quien entra primero.</H2>
+        <H2>Lo que recibe quien inicia en esta etapa.</H2>
         {[
           { icon: Compass, t: 'Acompañamiento directo del núcleo fundador', d: 'Mientras la base se consolida, las conversaciones, las decisiones y los primeros pasos se recorren con quien ya los recorrió. Ese tiempo es finito, y es lo que hace que esta fase sea distinta.' },
           { icon: KeyRound, t: 'creatuactivo.com y queswa.app con su nombre', d: 'Su enlace, su página, el catálogo y Queswa atendiendo a los suyos. Todo lo que hoy está leyendo, a nombre suyo, desde el primer día.' },
@@ -404,7 +404,7 @@ export default function FundadoresPage() {
       {/* ═══ CIERRE ═══ */}
       <Section>
         <div style={{ textAlign: 'center' }}>
-          <H2>Al final, el canal es suyo.</H2>
+          <H2>Al final, el sistema es suyo.</H2>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', maxWidth: 560, margin: '0 auto 2rem' }}>
             Si antes de solicitar la conversación quiere entender cómo funciona, Queswa se
             lo explica ahora mismo, sin compromiso.

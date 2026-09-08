@@ -42,7 +42,7 @@ function welcomeHtml(firstName: string | null): string {
       <p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C5A059;margin:0 0 24px;">CreaTuActivo</p>
       <h1 style="font-family:Georgia,serif;font-size:22px;color:#FFFFFF;margin:0 0 20px;line-height:1.3;">Quedó suscrito.</h1>
       <p style="font-size:15px;line-height:1.7;color:#A3A3A3;margin:0 0 18px;">${saludo}</p>
-      <p style="font-size:15px;line-height:1.7;color:#A3A3A3;margin:0 0 18px;">Gracias por suscribirse. Aquí le compartiremos, sin ruido y a su ritmo, cómo se usa la inteligencia artificial para <span style="color:#FFFFFF;">ser dueño de una empresa digital</span> y construir ingresos que no dependen de su presencia.</p>
+      <p style="font-size:15px;line-height:1.7;color:#A3A3A3;margin:0 0 18px;">Gracias por suscribirse. Aquí le compartiremos, sin ruido y a su ritmo, cómo se usa la inteligencia artificial para <span style="color:#FFFFFF;">ser dueño de un sistema de distribución</span> y construir ingresos que no dependen de su presencia.</p>
       <p style="font-size:15px;line-height:1.7;color:#A3A3A3;margin:0 0 28px;">Le escribiremos solo cuando haya algo que valga su tiempo.</p>
       <p style="font-size:15px;line-height:1.7;color:#C5A059;margin:0;">— Equipo CreaTuActivo</p>
       <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:32px;padding-top:16px;">

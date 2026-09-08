@@ -10,7 +10,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'CreaTuActivo · Prueba',
   description:
-    'Sea dueño de su propio canal de distribución. Productos premium de bienestar con Ganoderma, y una inteligencia artificial que explica y atiende por WhatsApp.',
+    'Sea dueño de su propio sistema de distribución. Productos premium de bienestar con Ganoderma, y una inteligencia artificial que explica y atiende por WhatsApp.',
   robots: { index: false, follow: false },
 }
 

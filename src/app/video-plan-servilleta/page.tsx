@@ -15,16 +15,16 @@ import QueswaCTAButton from '@/components/QueswaCTAButton';
 import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 
 export const metadata = {
-  title: 'El Plan en un Video · Sea dueño de su empresa digital · CreaTuActivo',
+  title: 'El Plan en un Video · Sea dueño de su sistema de distribución · CreaTuActivo',
   description:
-    'En seis minutos: qué es una empresa digital, cómo el apalancamiento le quita el peso de encima (Gano Excel + Queswa + un método comprobado) y la matemática de un ingreso que no depende de su presencia.',
+    'En seis minutos: qué es un sistema de distribución, cómo el apalancamiento le quita el peso de encima (Gano Excel + Queswa + un método comprobado) y la matemática de un ingreso que no depende de su presencia.',
   keywords:
-    'plan servilleta creatuactivo, video plan creatuactivo, empresa digital, apalancamiento, gano excel, queswa, luis cabrejo, ingreso recurrente',
+    'plan servilleta creatuactivo, video plan creatuactivo, sistema de distribución, apalancamiento, gano excel, queswa, luis cabrejo, ingreso recurrente',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   openGraph: {
     title: 'El Plan en un Video · CreaTuActivo',
     description:
-      'Qué es una empresa digital, el apalancamiento que le quita el peso de encima, y la matemática de un ingreso que no depende de su presencia.',
+      'Qué es un sistema de distribución, el apalancamiento que le quita el peso de encima, y la matemática de un ingreso que no depende de su presencia.',
     url: 'https://creatuactivo.com/video-plan-servilleta',
     type: 'video.other',
     images: [{ url: PLAN_SERVILLETA_POSTER, width: 1080, height: 1920 }],

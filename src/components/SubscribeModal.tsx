@@ -101,7 +101,7 @@ export default function SubscribeModal({ isOpen, onClose }: { isOpen: boolean; o
               La IA aplicada a construir ingresos.
             </h3>
             <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6, fontSize: '0.92rem', marginBottom: '20px' }}>
-              Le comparto, sin ruido y a su ritmo, cómo se usa la inteligencia artificial para ser dueño de una empresa digital.
+              Le comparto, sin ruido y a su ritmo, cómo se usa la inteligencia artificial para ser dueño de un sistema de distribución.
             </p>
 
             <input

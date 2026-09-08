@@ -280,9 +280,9 @@ export default function NetworkMarketingObsoletoPage() {
                   ¿Desea ver cómo funciona en la práctica?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  Pregúntele a Queswa cómo hemos evolucionado del modelo de distribución
-                  manual a una empresa digital — y cómo se construye la suya. Explica,
-                  atiende y guía, las 24 horas.
+                  Pregúntele a Queswa cómo pasamos de la distribución a pulso a un sistema
+                  que se maneja desde el celular — y cómo se construye el suyo. Explica,
+                  atiende y madura la decisión, las 24 horas.
                 </p>
                 <QueswaCTAButton
                   className="cta-base cta-primary"

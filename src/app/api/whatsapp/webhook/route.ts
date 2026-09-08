@@ -753,11 +753,11 @@ async function procesarEntrante(body: any): Promise<void> {
         // mensaje aparte, sin nada alrededor, para que se pueda copiar de un
         // solo toque sostenido.
         await sendWhatsAppMessage(phoneNumber, enviado.ok
-          ? `✅ ${nombre} ya tiene su canal y le llegó el enlace a su WhatsApp.\n\nSi quiere reenviárselo usted también, aquí está el texto 👇`
-          : `✅ ${nombre} ya tiene su canal, pero WhatsApp no me dejó entregárselo.\n\nReenvíele usted este texto 👇`);
+          ? `✅ ${nombre} ya tiene su sistema y le llegó el enlace a su WhatsApp.\n\nSi quiere reenviárselo usted también, aquí está el texto 👇`
+          : `✅ ${nombre} ya tiene su sistema, pero WhatsApp no me dejó entregárselo.\n\nReenvíele usted este texto 👇`);
         await sendWhatsAppMessage(phoneNumber, bienvenida);
       } else {
-        await sendWhatsAppMessage(phoneNumber, `No pude crear el canal de ${nombre}: ${resultado.error}`);
+        await sendWhatsAppMessage(phoneNumber, `No pude crear el sistema de ${nombre}: ${resultado.error}`);
       }
       console.log(`🎫 [WA Admin] ACTIVAR "${nombre}" → ${destino} · ${resultado.ok ? resultado.slug : resultado.error}`);
       return;

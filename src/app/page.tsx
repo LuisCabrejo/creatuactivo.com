@@ -1,6 +1,16 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * Homepage v15.1 — «sistema de distribución» (7 sep 2026) · migración léxica
+ *
+ * Mismo copy y misma estructura que la v15.0. Cambia UNA palabra en nueve lugares:
+ * el activo ya no es «canal» sino «sistema de distribución» (Director, 6 sep 2026:
+ * un canal se abre, un sistema se construye — y la comparación del copy nuevo, el
+ * que vende hamburguesas vs. el dueño de McDonald's, no funciona con un conducto).
+ * De paso salen dos «opera/operando» (léxico retirado: funciona / presente). El
+ * título, la tarjeta OG y /prueba van en sincronía; la tarjeta del enlace de
+ * Queswa (/og/queswa) también.
+ *
  * Homepage v15.0 — "El sistema desplegado" (29 ago 2026) · aprobada por el Director desde /prueba
  *
  * Mismo copy que la v14.1. Lo que cambia es el COLOR y la ESTRUCTURA VISUAL, tras
@@ -35,7 +45,8 @@
  * · "más de veinte" en sincronía con el candado de STORY_03 · la multiplicación
  * remata con un hecho (Gano en más de 60 países) y no con "con una llamada".
  * ⚠️ El bautizo diferido de "empresa digital" que cita la nota v14.0 quedó RETIRADO
- * el 25 ago 2026 (léxico único: canal de distribución, siempre).
+ * el 25 ago 2026 (léxico único), y el 6 sep 2026 el activo pasó de «canal» a
+ * «sistema de distribución» — ver la nota v15.1 arriba.
  *
  * Base: v14.0 — "Lenguaje concreto" (2 ago 2026) · aprobada por el Director desde /prueba
  *
@@ -93,9 +104,9 @@ import QueswaCTAButton from '@/components/QueswaCTAButton'
 export const dynamic = 'force-static'
 
 export const metadata = {
-  title: 'CreaTuActivo | Sea dueño de su propio canal de distribución',
+  title: 'CreaTuActivo | Sea dueño de su propio sistema de distribución',
   description:
-    'Un negocio de distribución de productos premium de bienestar —café y suplementos con Ganoderma— que usted maneja desde el celular. Una inteligencia artificial explica y atiende por WhatsApp; usted cobra cada vez que su canal mueve producto.',
+    'Un negocio de distribución de productos premium de bienestar —café y suplementos con Ganoderma— que usted maneja desde el celular. Una inteligencia artificial explica y atiende por WhatsApp; usted cobra cada vez que su sistema mueve producto.',
   // Canonical explícito: cada socio comparte /?ref=xyz — sin canonical, Google
   // trata cada variante como URL distinta con contenido duplicado.
   alternates: { canonical: 'https://creatuactivo.com' },
@@ -106,15 +117,15 @@ export const metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com',
-    title: 'Sea dueño de su propio canal de distribución',
+    title: 'Sea dueño de su propio sistema de distribución',
     description:
-      'Productos premium de bienestar —café y suplementos con Ganoderma— que Gano Excel fabrica y despacha por usted, y una inteligencia artificial que explica y atiende por WhatsApp. Usted cobra cada vez que su canal mueve producto.',
+      'Productos premium de bienestar —café y suplementos con Ganoderma— que Gano Excel fabrica y despacha por usted, y una inteligencia artificial que explica y atiende por WhatsApp. Usted cobra cada vez que su sistema mueve producto.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sea dueño de su propio canal de distribución',
+    title: 'Sea dueño de su propio sistema de distribución',
     description:
-      'Productos premium de bienestar con Ganoderma, una fábrica con 30 años detrás, y una IA que explica y atiende por usted en WhatsApp. Usted cobra cada vez que su canal mueve producto.',
+      'Productos premium de bienestar con Ganoderma, una fábrica con 30 años detrás, y una IA que explica y atiende por usted en WhatsApp. Usted cobra cada vez que su sistema mueve producto.',
   },
 }
 
@@ -301,7 +312,7 @@ export default function HomePage() {
               margin: '0 0 1.5rem',
             }}
           >
-            Sea dueño de su propio canal de distribución.
+            Sea dueño de su propio sistema de distribución.
             <br />
             <span style={{ color: GOLD }}>
               Lo maneja desde el celular, y cobra cada vez que mueve producto.
@@ -387,7 +398,7 @@ export default function HomePage() {
         </Body>
         <Body mt>
           La ganancia sale de las ventas, y de nada más. Cada vez que se vende producto
-          por su canal, a usted le queda un porcentaje, y se lo liquidan en{' '}
+          por su sistema, a usted le queda un porcentaje, y se lo liquidan en{' '}
           <Strong>su cuenta bancaria cada viernes</Strong>.
         </Body>
         <Body mt>
@@ -470,7 +481,7 @@ export default function HomePage() {
         </Body>
         <Body mt>
           Eso fue lo que cambió. Hoy el trabajo pesado lo hacen dos: una fábrica con
-          30 años, y una inteligencia artificial que no duerme. Su canal se maneja desde
+          30 años, y una inteligencia artificial que no duerme. Su sistema se maneja desde
           una aplicación, y buena parte desde WhatsApp.
         </Body>
 
@@ -543,7 +554,7 @@ export default function HomePage() {
           {[
             { n: '30', l: 'años de Gano Excel' },
             { n: '+60', l: 'países' },
-            { n: '16', l: 'países donde opera su canal' },
+            { n: '16', l: 'países donde funciona su sistema' },
             { n: '22', l: 'productos' },
           ].map((s) => (
             <div key={s.l}>
@@ -660,7 +671,7 @@ export default function HomePage() {
             Y como es así de sencillo, quien inicia con usted hace exactamente lo mismo.{' '}
             <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación</Strong>{' '}
             — con Queswa formando a cada socio nuevo desde el día uno, y con Gano Excel
-            operando en más de 60 países, su canal no se detiene en la frontera.
+            presente en más de 60 países, su sistema no se detiene en la frontera.
           </p>
         </div>
       </Section>
@@ -742,7 +753,7 @@ export default function HomePage() {
         >
           {[
             'Comprando el producto para su casa, a precio de distribuidor',
-            'Arrancando de una vez con todo, con su canal listo desde el primer día',
+            'Arrancando de una vez con todo, con su sistema listo desde el primer día',
           ].map((t) => (
             <div key={t} style={{ ...cardStyle, display: 'flex', gap: '0.75rem', alignItems: 'flex-start', padding: '1.1rem 1.25rem' }}>
               <Check style={{ width: 18, height: 18, color: TITANIUM, flexShrink: 0, marginTop: 3 }} strokeWidth={2} />
@@ -770,7 +781,7 @@ export default function HomePage() {
             vez que se vende.
           </p>
 
-          <H2>Al final, el canal es suyo.</H2>
+          <H2>Al final, el sistema es suyo.</H2>
           <p
             style={{
               fontSize: '1.05rem',

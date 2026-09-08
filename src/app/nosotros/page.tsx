@@ -9,7 +9,7 @@
  * qué es CreaTuActivo, quién fabrica, quién atiende, quién fundó — y nada más.
  *
  * Copy: el primer bloque es la tesis de WHY_01 (candado del arsenal) ajustada al
- * léxico único (canal de distribución · productos premium de bienestar); las dos
+ * léxico único (sistema de distribución · productos premium de bienestar); las dos
  * fuerzas y las cifras son las constantes canónicas; el bloque del fundador sale
  * de EPIPHANY_BRIDGE_OFICIAL.md y de la historia real (automotriz → Gano Excel →
  * e-commerce → CreaTuActivo), con el lema como única excepción léxica permitida.
@@ -24,7 +24,7 @@ import QueswaCTAButton from '@/components/QueswaCTAButton'
 export const metadata = {
   title: 'Nosotros | CreaTuActivo',
   description:
-    'CreaTuActivo es una empresa de tecnología: usted monta su propio canal de distribución de productos premium de bienestar, y nosotros le ponemos la inteligencia artificial que explica y atiende a cada interesado.',
+    'CreaTuActivo es una empresa de tecnología: usted monta su propio sistema de distribución de productos premium de bienestar, y nosotros le ponemos la inteligencia artificial que explica y atiende a cada interesado.',
   robots: { index: false, follow: true },
   alternates: { canonical: 'https://creatuactivo.com/nosotros' },
   openGraph: {
@@ -34,7 +34,7 @@ export const metadata = {
     url: 'https://creatuactivo.com/nosotros',
     title: 'Nosotros | CreaTuActivo',
     description:
-      'Una empresa de tecnología para su canal de distribución: Gano Excel fabrica y despacha, Queswa explica y atiende, usted es el dueño.',
+      'Una empresa de tecnología para su sistema de distribución: Gano Excel fabrica y despacha, Queswa explica y atiende, usted es el dueño.',
   },
 }
 
@@ -103,10 +103,10 @@ export default function NosotrosPage() {
           >
             Una empresa de tecnología,
             <br />
-            <span style={{ color: GOLD }}>al servicio de su canal de distribución.</span>
+            <span style={{ color: GOLD }}>al servicio de su sistema de distribución.</span>
           </h1>
           <p style={{ fontSize: 'clamp(1.05rem, 2.4vw, 1.3rem)', lineHeight: 1.65, color: 'var(--color-text-body)', margin: 0, maxWidth: 680 }}>
-            Lo que hacemos se resume en algo concreto: usted monta su propio canal de
+            Lo que hacemos se resume en algo concreto: usted monta su propio sistema de
             distribución de productos premium de bienestar, lo maneja desde el celular, y
             nosotros le ponemos la inteligencia artificial que explica y atiende a cada
             interesado, a toda hora.
@@ -166,7 +166,7 @@ export default function NosotrosPage() {
           {[
             { icon: ShieldCheck, k: 'Ley 1700 de 2013', v: 'La norma colombiana del mercadeo multinivel exige oficina abierta al público. Gano Excel tiene nueve sedes en el país y está afiliada a ACOVEDI.' },
             { icon: Landmark, k: 'Registros', v: 'Productos con registro INVIMA vigente y certificación TGA de Australia. Los 22 con su ficha, presentación y precio a la vista.' },
-            { icon: Factory, k: '16 países', v: 'Su canal opera en 16 países de América — de Canadá a Chile — y se maneja desde una aplicación, buena parte desde WhatsApp.' },
+            { icon: Factory, k: '16 países', v: 'Su sistema funciona en 16 países de América — de Canadá a Chile — y se maneja desde una aplicación, buena parte desde WhatsApp.' },
           ].map((c) => (
             <div key={c.k} style={card}>
               <IconTile icon={c.icon} />
@@ -182,7 +182,7 @@ export default function NosotrosPage() {
         <H2>Luis Cabrejo</H2>
         <Body>
           Luis llegó a este negocio como distribuidor. Venía del sector automotriz y de
-          montar empresas propias, y en Gano Excel construyó, durante doce años, un canal
+          montar empresas propias, y en Gano Excel construyó, durante doce años, un sistema
           que lo llevó al rango Diamante. Ahí vio lo que casi nadie quiere ver: su
           resultado no se duplicaba. Lo que para él era natural —explicar, atender, estar
           pendiente de cada persona— para los suyos era una lucha diaria.
@@ -193,7 +193,7 @@ export default function NosotrosPage() {
           importaciones. <Strong>El problema nunca fue la gente. El problema siempre fue el modelo.</Strong>{' '}
           CreaTuActivo y Queswa son la respuesta a una sola pregunta: cómo construir un
           negocio de distribución donde la tecnología haga el trabajo pesado, para que
-          cualquiera con un deseo real de cambiar su situación pueda ser dueño de su canal
+          cualquiera con un deseo real de cambiar su situación pueda ser dueño de su sistema
           sin tener que volverse experto.
         </Body>
         <div style={{ marginTop: '2rem', padding: '1.5rem', borderLeft: `2px solid ${GOLD}`, background: 'rgba(197,160,89,0.04)' }}>

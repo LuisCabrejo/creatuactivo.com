@@ -338,7 +338,7 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //   ⚙️🔑🔄 y el 🤝 del saludo se retiraron tras la prueba real: leían como
     //   adorno, y la sobriedad de la viñeta es la que corresponde al registro.
     //   La apertura queda sin un solo emoji — no los reintroduzca.
-    // • Negritas solo en los dos anclajes (*canal de distribución* · *ingresos
+    // • Negritas solo en los dos anclajes (*sistema de distribución* · *ingresos
     //   actuales*) — asterisco simple, que es la negrita nativa de WhatsApp.
     // CATEGORÍA EN LA APERTURA (Director, 25 ago 2026). El saludo no nombraba
     // ningún producto, así que «le paga cada vez que hay consumo» dejaba sin

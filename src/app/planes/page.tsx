@@ -19,7 +19,7 @@
  *    reels, a Queswa atendiendo y sus prospectos. Nadie queda por fuera.
  *  - Los avisos hablan de la actividad del negocio (visitas, reels, conversaciones)
  *    — jamás de un pago con fecha o monto (promesa de ingreso).
- *  - Léxico arsenal ago 2026: canal de distribución · socios/clientes · usted decide.
+ *  - Léxico arsenal sep 2026: sistema de distribución · socios/clientes · usted decide.
  */
 
 'use client';
@@ -50,7 +50,7 @@ const CLIP_CARD = 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px
 const WA_BASE = 'https://wa.me/573215193909?text=';
 const waLink = (plan: string) =>
   WA_BASE + encodeURIComponent(
-    `Hola, Queswa. Quiero activar el ${plan} para mi canal de distribución. Mi nombre es `
+    `Hola, Queswa. Quiero activar el ${plan} para mi sistema de distribución. Mi nombre es `
   );
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -99,7 +99,7 @@ const PLANES: Plan[] = [
     features: [
       'Todo lo del plan Enlace',
       'El parte diario por WhatsApp: cada mañana, quién visitó, quién terminó el reel, quién habló con Queswa y quién volvió',
-      'Analíticas completas de su canal',
+      'Analíticas completas de su sistema',
       'La Academia — nivel avanzado',
     ],
     cta: { texto: 'Activar plan Radar →', href: waLink('plan Radar ($99.000 COP/mes)'), externo: true },
@@ -145,7 +145,7 @@ function Hero() {
         fontFamily: 'var(--font-sans)', fontWeight: 700,
         color: 'var(--color-brand)', letterSpacing: '0.08em', textTransform: 'uppercase',
       }}>
-        La tecnología que trabaja<br />por su canal de distribución
+        La tecnología que trabaja<br />por su sistema de distribución
       </h1>
 
       <p style={{
@@ -377,7 +377,7 @@ function QueHace() {
     },
     {
       title: 'Funciona en 16 países',
-      body: 'Su canal de distribución opera en 16 países de América sin requerir su presencia en ninguno.',
+      body: 'Su sistema de distribución funciona en 16 países de América sin requerir su presencia en ninguno.',
     },
   ];
 
@@ -530,7 +530,7 @@ function CtaFinal() {
         }}>
           El plan viene después.
           <br />
-          <span style={{ color: C.gold }}>Primero, active su canal.</span>
+          <span style={{ color: C.gold }}>Primero, active su sistema.</span>
         </h2>
         <p style={{ fontSize: '1rem', color: C.muted, lineHeight: 1.75, marginBottom: 36 }}>
           Su paquete de activación incluye el plan tecnológico por 1, 2 o 3 meses —
@@ -563,7 +563,7 @@ function Footer() {
         fontFamily: 'var(--font-mono)', color: C.muted, fontSize: '0.7rem',
         letterSpacing: '0.08em', marginBottom: 20,
       }}>
-        Tecnología para su canal de distribución
+        Tecnología para su sistema de distribución
       </p>
       <div style={{
         display: 'flex', justifyContent: 'center', gap: 32,

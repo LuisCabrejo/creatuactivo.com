@@ -61,20 +61,20 @@ const PROGRAMA: Semana[] = [
     dias: [
       { dia: 'Lun', foco: 'El grupo GR (ingreso)', pista: 'No meta vocal: es "gre", no "ge-re".', sonidos: ['in-gre-so', 'ingreso', 'gracias', 'logra', 'genérica'], frase: 'Construye un ingreso que corre en paralelo a su actividad actual, y que sale del consumo que se repite cada mes entre sus clientes y sus distribuidores.', origen: 'Arsenal · WHY_05 (candado)' },
       { dia: 'Mar', foco: 'El grupo TR (tres, distribuir)', pista: 'Consonante + R pegadas: "tres", no "te-res". Y "dis-tri-buir" lleva el grupo en medio.', sonidos: ['tres', 'otro', 'nuestro', 'distribuir', 'distribución'], frase: 'Tres cosas hacen falta para distribuir en serio. Las tres ya están resueltas.', origen: 'Servilleta · Slide 2 (deck)' },
-      { dia: 'Mié', foco: 'Los grupos PR y BR', pista: 'propio · cobra. Pegado y limpio.', sonidos: ['propio', 'producto', 'premium', 'prueba', 'cobra'], frase: 'Sea dueño de su propio canal de distribución. Lo maneja desde el celular, y cobra cada vez que mueve producto.', origen: 'Home · titular' },
-      { dia: 'Jue', foco: 'Los grupos CR y FR', pista: 'crecer · fricción. La R va dentro del grupo.', sonidos: ['crecer', 'concreto', 'CreaTuActivo', 'fricción', 'fábrica'], frase: 'Lo que le queda es decidir con quién lo comparte y ver crecer su canal.', origen: 'Arsenal · WHY_05 (candado)' },
+      { dia: 'Mié', foco: 'Los grupos PR y BR', pista: 'propio · cobra. Pegado y limpio.', sonidos: ['propio', 'producto', 'premium', 'prueba', 'cobra'], frase: 'Sea dueño de su propio sistema de distribución. Lo maneja desde el celular, y cobra cada vez que mueve producto.', origen: 'Home · titular' },
+      { dia: 'Jue', foco: 'Los grupos CR y FR', pista: 'crecer · fricción. La R va dentro del grupo.', sonidos: ['crecer', 'concreto', 'CreaTuActivo', 'fricción', 'fábrica'], frase: 'Lo que le queda es decidir con quién lo comparte y ver crecer su sistema.', origen: 'Arsenal · WHY_05 (candado)' },
       { dia: 'Vie', foco: 'Los grupos PL y CL (clave · clientes)', pista: 'La C de "clave" y "clientes" suena K+L pegadas: "cla-ve". No meta vocal.', sonidos: ['aplicación', 'clic', 'clave', 'clientes', 'plata'], frase: 'Y aquí está la clave de la estabilidad: quien prueba el producto nota la diferencia en su energía y no vuelve a la marca genérica.', origen: 'Arsenal · WHY_02 (candado)' },
-      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Todos los grupos juntos en un solo párrafo.', sonidos: ['lea despacio, sin meter vocales'], frase: 'Todo parte de algo concreto: usted monta su propio canal de distribución, apoyado en una línea premium de café y suplementos con Ganoderma. La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su canal, a usted le queda un porcentaje.', origen: 'Arsenal · WHY_02 (candado)' },
+      { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Todos los grupos juntos en un solo párrafo.', sonidos: ['lea despacio, sin meter vocales'], frase: 'Todo parte de algo concreto: usted monta su propio sistema de distribución, apoyado en una línea premium de café y suplementos con Ganoderma. La ganancia sale de ahí, y es simple: por cada producto que se compra a través de su sistema, a usted le queda un porcentaje.', origen: 'Arsenal · WHY_02 (candado)' },
     ],
   },
   {
     titulo: 'La S y las palabritas', sub: 'lo que se le cae',
     dias: [
-      { dia: 'Lun', foco: 'La S nítida (sus socios)', pista: 'Que no se apague ni se vuelva "h". Ojo con las dos eses pegadas de "sus socios" y "dos formas".', sonidos: ['sus socios', 'dos formas', 'sedes', 'sesenta', 'sistema'], frase: 'Se vende de dos formas: al detal, a quien solo quiere consumirlo, y en paquetes empresariales, a quien arranca su propio canal.', origen: 'Arsenal · WHY_04 (candado)' },
+      { dia: 'Lun', foco: 'La S nítida (sus socios)', pista: 'Que no se apague ni se vuelva "h". Ojo con las dos eses pegadas de "sus socios" y "dos formas".', sonidos: ['sus socios', 'dos formas', 'sedes', 'sesenta', 'sistema'], frase: 'Se vende de dos formas: al detal, a quien solo quiere consumirlo, y en paquetes empresariales, a quien arranca su propio sistema.', origen: 'Arsenal · WHY_04 (candado)' },
       { dia: 'Mar', foco: '"sesenta" — sola sale, en la frase se cae', pista: 'Aislada la dice perfecta. El truco es el bloque: "con presencia / en más de sesenta / países". Baje la velocidad justo en la unión. Y ojo: son tres eses seguidas.', sonidos: ['sesenta', 'más de sesenta', 'sesenta países', 'con presencia en más de sesenta países'], frase: 'Una empresa con más de treinta años y presencia en más de sesenta países.', origen: 'Arsenal · WHY_01 (candado) · Home' },
-      { dia: 'Mié', foco: 'No omitir las palabritas', pista: 'de · en · y · el · su · lo también suenan. Toque cada una.', sonidos: ['de', 'en', 'y', 'el', 'un', 'su', 'lo'], frase: 'Su canal se maneja desde una aplicación, y buena parte desde WhatsApp.', origen: 'Home · lo que antes era complicado' },
+      { dia: 'Mié', foco: 'No omitir las palabritas', pista: 'de · en · y · el · su · lo también suenan. Toque cada una.', sonidos: ['de', 'en', 'y', 'el', 'un', 'su', 'lo'], frase: 'Su sistema se maneja desde una aplicación, y buena parte desde WhatsApp.', origen: 'Home · lo que antes era complicado' },
       { dia: 'Jue', foco: 'Unir sin tragar + cadena de eses', pista: 'Una las vocales sin tragarlas. "esa compra que se repite es la que le sostiene el ingreso" lleva seis eses: que suenen todas.', sonidos: ['esa compra que se repite', 'es la que le sostiene', 'se sostiene', 'está a un clic'], frase: 'Esa compra que se repite es la que le sostiene el ingreso.', origen: 'Arsenal · WHY_02 (candado)' },
-      { dia: 'Vie', foco: '"desde el celular" / "y cobrar"', pista: 'Sus frases marcadas: ninguna sílaba muda.', sonidos: ['desde el celular', 'en su celular', 'y cobrar', 'a toda hora'], frase: 'A usted le quedan dos acciones, y las hace desde el celular: compartir su enlace con quien decida, y cobrar cada vez que su canal factura.', origen: 'Arsenal · WHY_02 (candado)' },
+      { dia: 'Vie', foco: '"desde el celular" / "y cobrar"', pista: 'Sus frases marcadas: ninguna sílaba muda.', sonidos: ['desde el celular', 'en su celular', 'y cobrar', 'a toda hora'], frase: 'A usted le quedan dos acciones, y las hace desde el celular: compartir su enlace con quien decida, y cobrar cada vez que su sistema factura.', origen: 'Arsenal · WHY_02 (candado)' },
       { dia: 'Sáb', foco: 'Pasaje completo + grábese', pista: 'Cuide la S y no se coma ninguna palabrita.', sonidos: ['lea tocando cada monosílabo'], frase: 'Quien le consigna es Gano Excel, y lo hace en su cuenta bancaria cada viernes. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de treinta años y llega a su banco.', origen: 'Arsenal · WHY_04 (candado)' },
     ],
   },
@@ -120,7 +120,7 @@ const BIBLIOTECA = [
 ]
 
 // Cambia cuando cambian las frases: el progreso guardado deja de tener sentido.
-const PROGRAMA_VERSION = '2026-09-05'
+const PROGRAMA_VERSION = '2026-09-07'
 
 const REGLAS = [
   'Su mente corre: baje el ritmo interno un 20%.',

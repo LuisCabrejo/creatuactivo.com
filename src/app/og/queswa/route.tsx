@@ -8,7 +8,7 @@
  * razones: (1) hablar de un ingreso de entrada pone en alerta — un amigo diría
  * "le tengo un negocio", no "le tengo un segundo ingreso"; (2) la línea de
  * descripción a 26px era ilegible en la tarjeta. Aquí va solo lo que se lee:
- * el logotipo y el titular, en el léxico vigente (canal de distribución).
+ * el logotipo y el titular, en el léxico vigente (sistema de distribución, desde el 6 sep 2026).
  *
  * Misma estética que src/app/opengraph-image.tsx (carbón + champán). Vive como
  * route handler y no como opengraph-image.tsx dentro de [slug]/[destino]
@@ -85,7 +85,7 @@ export async function GET() {
           }}
         >
           <span style={{ display: 'flex' }}>Sea dueño de su propio</span>
-          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>canal de distribución</span>
+          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>sistema de distribución</span>
         </div>
       </div>
     ),

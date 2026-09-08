@@ -203,11 +203,39 @@ export function detectarEmergencia(texto: string): string | null {
   return primerMatch(RE_EMERGENCIA, normalizarSalud(texto));
 }
 
-/** Entrada. 'grave' manda sobre 'comun' (el rechazo es distinto). */
-export function clasificarPreguntaSalud(texto: string): { nivel: 'grave' | 'comun'; termino: string } | null {
+// ─── ENTRADA — pide la ciencia ────────────────────────────────────────────────
+// «Resúmame los estudios de PubMed», «¿qué evidencia científica hay?». Hasta el
+// 8 sep 2026 esta pregunta llegaba al motor, el modelo componía con la ciencia
+// adentro, el filtro de salida la bloqueaba y la persona recibía el texto fijo
+// de quien DECLARA una condición («le agradezco la confianza de contármelo»,
+// «sobre su condición») — acuse equivocado y plantilla (Patricia, docente que
+// se preparaba para lo que el mercado le iba a preguntar). Con familia propia
+// se compone desde el principio alrededor de su núcleo.
+//
+// Lo que la norma castiga no es que la ciencia exista sino el VÍNCULO con una
+// enfermedad, juzgado por contexto (Res. 3096 art. 5.3 «sugieran o impliquen»;
+// la FDA lleva 31 cartas desde 2006 por citar literatura, y el criterio es que
+// la cita refiera a un uso para enfermedad en el conjunto). Por eso `grave`
+// manda sobre esta familia: «estudios sobre el hongo y el cáncer» es grave, y
+// el texto de grave nunca apunta a estudios.
+export const RE_SALUD_EVIDENCIA: RegExp[] = [
+  /pubmed|scielo|cochrane|ensayos? clinicos?/,
+  /estudios? (cientific|clinic|publicad|medic|de laboratorio|que (lo )?(respald|demuestr|comprueb))|estudios? (sobre|del|de la|acerca)/,
+  /evidencia (cientific|clinic|medica)|(base|respaldo|sustento|soporte|aval) cientific|articulos? cientific|papers?\b|literatura cientific|revistas? (cientific|medic|indexad)/,
+  /investigaci(on|ones) (cientific|clinic|medic|publicad|sobre|del)|que dice la ciencia|(esta|estan) (comprobad|demostrad|probad)[oa]s? cientific|cientificamente (comprobad|demostrad|probad)/,
+];
+
+export function pideEvidencia(texto: string): boolean {
+  return primerMatch(RE_SALUD_EVIDENCIA, normalizarSalud(texto)) !== null;
+}
+
+/** Entrada. 'grave' manda sobre 'evidencia', y esta sobre 'comun' (cada una tiene su núcleo). */
+export function clasificarPreguntaSalud(texto: string): { nivel: 'grave' | 'comun' | 'evidencia'; termino: string } | null {
   const t = normalizarSalud(texto);
   const grave = primerMatch(RE_SALUD_GRAVE, t);
   if (grave) return { nivel: 'grave', termino: grave };
+  const evidencia = primerMatch(RE_SALUD_EVIDENCIA, t);
+  if (evidencia) return { nivel: 'evidencia', termino: evidencia };
   const comun = primerMatch(RE_SALUD_COMUN, t);
   if (comun) return { nivel: 'comun', termino: comun };
   return null;
@@ -246,7 +274,7 @@ export const RESPUESTA_EMERGENCIA =
 // (Res. 3096 art. 5.3), ninguno vincula un producto al resultado, y todos
 // cierran con una sola salida. Los cuatro pasan el filtro de SALIDA.
 
-export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun';
+export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun' | 'evidencia';
 
 // ─── EL NÚCLEO LEGAL ─────────────────────────────────────────────────────────
 // Lo único de estas respuestas con exposición legal, y por eso lo único que se
@@ -276,19 +304,69 @@ export const NUCLEO_PREGUNTA =
   'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
   'de salud, que es terreno médico.';
 
-/** El núcleo que corresponde. `grave` y la emergencia nunca se componen. */
+// Quien pide la ciencia. Lo que se congela es el porqué, dicho como hecho y no
+// como disculpa: la categoría del producto es un dato estructural, y usar la
+// ciencia para vender la vuelve publicidad. La frase de apertura («uno de los
+// hongos más estudiados del mundo») está en la lista verde del fabricante y NO
+// vincula nada; vive en el texto de respaldo y en la instrucción al modelo, que
+// puede abrir con ella.
+export const NUCLEO_EVIDENCIA =
+  'Lo que yo no hago es traer esa literatura a esta conversación como respaldo de un producto que ' +
+  'ante el INVIMA es un alimento: en el momento en que la ciencia se usa para vender, deja de ser ' +
+  'información y pasa a ser publicidad, y ahí la norma es clara.';
+
+// La segunda pregunta de salud del mismo hilo. Repetir el núcleo palabra por
+// palabra es lo que suena a máquina (Patricia recibió dos veces el mismo texto,
+// letra por letra, 8 sep 2026). El marco legal ya está dicho dos turnos atrás y
+// sigue en el hilo; lo que se congela ahora es la referencia a él.
+export const NUCLEO_REINCIDE = 'Ahí aplica lo mismo que le acabo de decir, y no se lo repito.';
+
+/** El núcleo que corresponde. Solo la emergencia queda fuera de la composición. */
 export function nucleoSalud(familia: FamiliaSalud, declara: boolean): string {
   if (familia === 'peso') return NUCLEO_PESO;
+  if (familia === 'evidencia') return NUCLEO_EVIDENCIA;
   return declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
 }
 
-/** Las familias cuya envoltura puede componer el modelo. Grave y emergencia, jamás. */
+/**
+ * Las familias cuya envoltura puede componer el modelo: todas. La emergencia no
+ * pasa por aquí (Capa 0 corta antes).
+ *
+ * `grave` se dictaba entera hasta el 8 sep 2026 con el argumento de que «la
+ * respuesta correcta no depende del contexto». Patricia demostró lo contrario:
+ * dos preguntas graves seguidas, dos veces el mismo texto. Lo que no depende del
+ * contexto es el NÚCLEO, y ese sigue literal y verificado; el acuse y el cierre
+ * sí dependen de cómo preguntó la persona. Para grave rigen dos reglas más,
+ * escritas en la instrucción del motor: ningún producto concreto en ese turno
+ * (ofrecerlo tras esa pregunta es la insinuación del art. 5.3) y un acuse que
+ * no le atribuya a la persona nada que no dijo.
+ */
 export function saludSeCompone(familia: FamiliaSalud): boolean {
-  return familia === 'peso' || familia === 'azucar' || familia === 'comun' || familia === 'tratamiento';
+  return familia === 'peso' || familia === 'azucar' || familia === 'comun' || familia === 'tratamiento'
+    || familia === 'grave' || familia === 'evidencia';
 }
 
 /** El cierre único de las respuestas de salud compuestas. */
 export const CIERRE_SALUD = '¿Le muestro el catálogo completo para que vea las presentaciones?';
+/** El cierre de quien pidió la ciencia: lo verificable, empezando por el extracto solo. */
+export const CIERRE_EVIDENCIA = '¿Le paso la ficha de las Cápsulas de Ganoderma, que es el extracto sin nada más?';
+/** El cierre de la segunda pregunta de salud del hilo. */
+export const CIERRE_REINCIDE = '¿Le comparto la de alguno en particular?';
+
+/**
+ * ¿Este texto del asistente ya trae un núcleo de salud? Devuelve cuál. Compara
+ * sobre la parte con exposición legal —sin el «Para orientarle con exactitud:»
+ * de arranque— para que cuenten también los textos fijos anteriores al 29 ago,
+ * que llevan la misma frase sin ese prefijo. Es la señal de reincidencia: si el
+ * núcleo que aplica ahora ya está en el hilo, no se repite, se nombra.
+ */
+export function nucleoClave(nucleo: string): string {
+  return nucleo.replace(/^Para orientarle con exactitud:\s*/i, '').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+export function contieneNucleoSalud(textoAsistente: string, nucleo: string): boolean {
+  const plano = (textoAsistente || '').replace(/\s+/g, ' ').toLowerCase();
+  return plano.includes(nucleoClave(nucleo));
+}
 
 /** Peso: la pregunta más natural del país. Un producto real, por sus hechos. */
 export const RECHAZO_SALUD_PESO =
@@ -380,12 +458,21 @@ export const RECHAZO_SALUD_GRAVE_PREGUNTA =
   'médico.\n\n' +
   'Cuando quiera conocer los productos por lo que son, aquí me encuentra con mucho gusto.';
 
+/**
+ * Quien pide la ciencia (respaldo fijo — el turno se compone alrededor del
+ * núcleo; esto se envía solo si el modelo no reprodujo el núcleo literal o si
+ * el filtro de salida bloqueó lo compuesto). Redacción del Director, 8 sep 2026.
+ */
+export const RECHAZO_SALUD_EVIDENCIA =
+  'El Ganoderma es uno de los hongos más estudiados del mundo, y esa literatura es pública.\n\n' +
+  NUCLEO_EVIDENCIA + '\n\n' +
+  'Lo que sí le doy con exactitud es lo verificable: composición, proceso de extracción, presentación ' +
+  'y registro sanitario de cada producto. ' + CIERRE_EVIDENCIA;
+
 /** La familia de la pregunta, a partir del término que disparó la entrada. */
-
-
-
-export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun'; termino: string }): FamiliaSalud {
+export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun' | 'evidencia'; termino: string }): FamiliaSalud {
   if (clasificacion.nivel === 'grave') return 'grave';
+  if (clasificacion.nivel === 'evidencia') return 'evidencia';
   const t = clasificacion.termino;
   if (/peso|adelga|obesidad|sobrepeso|grasa|barriga/.test(t)) return 'peso';
   if (/diabet|glucosa|insulina|glucemia|azucar/.test(t)) return 'azucar';
@@ -395,16 +482,21 @@ export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun'; termino:
 
 /** El texto que corresponde. La reincidencia endurece solo a la familia común. */
 export function rechazoSaludPorFamilia(
-  clasificacion: { nivel: 'grave' | 'comun'; termino: string },
+  clasificacion: { nivel: 'grave' | 'comun' | 'evidencia'; termino: string },
   reincide = false,
   mensaje = '',
 ): { familia: FamiliaSalud; texto: string; declara: boolean } {
   const familia = familiaSalud(clasificacion);
   // `tratamiento` es declaración por definición (su detector lee «tomo
   // medicamentos», «me diagnosticaron»), y `peso` sirve igual en los dos casos.
+  // ⚠️ Nada más cuenta como declaración: «ayudarme», «coadyuvante» o el
+  // vocabulario clínico NO significan que la persona esté enferma (Director,
+  // 8 sep 2026 — Patricia era una docente preparándose para lo que le iba a
+  // preguntar el mercado). Asumirlo es el error, no la excepción.
   const declara = familia === 'tratamiento' || declaraCondicion(mensaje);
   const texto = familia === 'grave'
       ? (declara ? RECHAZO_SALUD_GRAVE : RECHAZO_SALUD_GRAVE_PREGUNTA)
+    : familia === 'evidencia' ? RECHAZO_SALUD_EVIDENCIA
     : familia === 'peso' ? RECHAZO_SALUD_PESO
     : familia === 'azucar'
       ? (declara ? RECHAZO_SALUD_AZUCAR : RECHAZO_SALUD_AZUCAR_PREGUNTA)
@@ -429,6 +521,7 @@ const PREFIJOS_RECHAZO = [
   'Le agradezco la confianza de contármelo',
   'Le entiendo, y ojalá pudiera decirle más',
   'Lo que me describe necesita atención inmediata',
+  'El Ganoderma es uno de los hongos más estudiados del mundo',
   // Prefijos de los textos anteriores al 29 ago 2026: siguen en conversaciones
   // viejas de la base, y el saneamiento del historial los tiene que reconocer.
   'Le agradezco que me pregunte, y le voy a responder con franqueza',

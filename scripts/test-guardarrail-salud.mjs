@@ -45,6 +45,7 @@ const RE_EMERGENCIA   = extraerArray('RE_EMERGENCIA');
 const RE_SALUD_GRAVE  = extraerArray('RE_SALUD_GRAVE');
 const RE_SALUD_COMUN  = extraerArray('RE_SALUD_COMUN');
 const RE_CLAIM_SALIDA = extraerArray('RE_CLAIM_SALIDA');
+const RE_SALUD_EVIDENCIA = extraerArray('RE_SALUD_EVIDENCIA');
 
 // Réplica de normalizarSalud() — mantener en sincronía con el módulo
 const normalizar = (t) => (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -65,6 +66,24 @@ const ENTRADA_GRAVE = [
   'mi esposo está en quimioterapia',
   'tengo hepatitis, ¿hay problema?',
   'a mi hijo le diagnosticaron epilepsia',
+];
+
+// Quien pide la ciencia (familia «evidencia», 8 sep 2026). Se compone alrededor
+// de su propio núcleo; antes caía al motor, se bloqueaba a la salida y recibía
+// el texto de quien declara una condición.
+const ENTRADA_EVIDENCIA = [
+  'Resúme de los estudios con evidencia científica del hongo publicados en pub med: ¿en qué casos se recomienda su consumo?',
+  '¿qué evidencia científica tiene el ganoderma?',
+  '¿hay estudios sobre el ganoderma?',
+  '¿está comprobado científicamente?',
+  'qué dice la ciencia del hongo',
+];
+// Y lo que NO es pedir la ciencia (no se deriva por esta familia)
+const EVIDENCIA_NEGATIVOS = [
+  'estudié en la universidad y tengo poco tiempo',
+  'quiero estudiar la propuesta con calma',
+  '¿cuánto cuesta el paquete?',
+  'mi hija está estudiando medicina',
 ];
 
 const ENTRADA_COMUN = [
@@ -207,7 +226,9 @@ function extraerConst(src, nombre) {
     .join('');
 }
 const WEBHOOK = fs.readFileSync('src/app/api/whatsapp/webhook/route.ts', 'utf8');
-for (const nombre of ['RESPUESTA_EMERGENCIA', 'RECHAZO_SALUD_PESO', 'RECHAZO_SALUD_AZUCAR', 'RECHAZO_SALUD_AZUCAR_PREGUNTA', 'RECHAZO_SALUD_ESTANDAR', 'RECHAZO_SALUD_COMUN_PREGUNTA', 'RECHAZO_SALUD_TRATAMIENTO', 'RECHAZO_SALUD_GRAVE', 'RECHAZO_SALUD_GRAVE_PREGUNTA', 'RECHAZO_SALUD_CORTO']) {
+// ⚠️ `extraerConst` junta solo los literales del bloque: un texto que concatena
+// NUCLEO_* no trae el núcleo. Por eso los núcleos van aparte en la lista.
+for (const nombre of ['RESPUESTA_EMERGENCIA', 'RECHAZO_SALUD_PESO', 'RECHAZO_SALUD_AZUCAR', 'RECHAZO_SALUD_AZUCAR_PREGUNTA', 'RECHAZO_SALUD_ESTANDAR', 'RECHAZO_SALUD_COMUN_PREGUNTA', 'RECHAZO_SALUD_TRATAMIENTO', 'RECHAZO_SALUD_GRAVE', 'RECHAZO_SALUD_GRAVE_PREGUNTA', 'RECHAZO_SALUD_CORTO', 'RECHAZO_SALUD_EVIDENCIA', 'NUCLEO_PESO', 'NUCLEO_DECLARA', 'NUCLEO_PREGUNTA', 'NUCLEO_EVIDENCIA', 'NUCLEO_REINCIDE', 'CIERRE_SALUD', 'CIERRE_EVIDENCIA', 'CIERRE_REINCIDE']) {
   const texto = extraerConst(SRC, nombre);
   if (texto) FUENTES_PROTEGIDAS.push({ etiqueta: `texto dictado ${nombre}`, texto });
 }
@@ -227,6 +248,15 @@ for (const c of ENTRADA_EMERGENCIA) {
 console.log('\n── ENTRADA · grave ──');
 for (const c of ENTRADA_GRAVE) {
   matchea(RE_SALUD_GRAVE, c) ? ok(c) : mal(`NO detectó condición grave: "${c}"`);
+}
+
+console.log('\n── ENTRADA · evidencia (pide la ciencia) ──');
+for (const c of ENTRADA_EVIDENCIA) {
+  matchea(RE_SALUD_EVIDENCIA, c) ? ok(c.slice(0, 70)) : mal(`NO detectó pedido de evidencia: "${c}"`);
+}
+for (const c of EVIDENCIA_NEGATIVOS) {
+  const m = matchea(RE_SALUD_EVIDENCIA, c);
+  !m ? ok(c) : mal(`FALSO POSITIVO evidencia ("${m}"): "${c}"`);
 }
 
 console.log('\n── ENTRADA · común ──');

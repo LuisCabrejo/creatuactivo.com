@@ -65,3 +65,63 @@ from wa_mensajes_procesados where creado_at > now() - interval '5 hours' order b
 -- el nombre del perfil de WhatsApp que ve el socio en su Radar
 select fingerprint_id, device_info->>'name' from prospects where fingerprint_id like 'wa_%' order by created_at desc limit 20;
 ```
+
+## 6. Segunda vuelta — 8 sep 2026 (tráfico del 5 al 8 sep)
+
+Volcado en `docs/respaldos/auditoria-2026-09-08/` (10 hilos reales, 367 turnos en la base de los que 357 son arnés). Nada de esta vuelta se desplegó: es diagnóstico, con reproducción hecha.
+
+**Qué entró.** Los cinco del 5 sep ya auditados; Betsabe volvió el 7 sep; el 8 sep: Patricia Reyes (la de ganocafe-online, ahora por el enlace de luis-cabrejo, 5 turnos), un perfil sin continuidad (`3164249534`, solo la apertura) y dos pruebas del Director: el 6 sep desde el 320 680 5737 como prospecto (12 Niveles → simulador, todo dictado, sin fallo) y el 8 sep desde el 320 341 5438 como socio (redactar el mensaje para su hermano Faver). **Nidia no ha escrito**: no hay un solo mensaje del 310 286 0505 en `wa_mensajes_procesados` en tres días, así que el pendiente de restaurarle el WhatsApp de socia sigue abierto. Los cinco mensajes del 320 680 5737 entre 19:13 y 20:04 del 6 sep no dejaron conversación ni prospecto (el prospecto se creó a las 20:22): consistente con una purga entre pruebas, no con un fallo.
+
+### 6.1 El candado se rompe dentro de un hilo de salud (Patricia, turno 5) — reproducido 3/3
+
+Patricia abrió con cáncer de colon y quimioterapia (Capa 0 derivó bien las dos veces), pidió estudios de PubMed (la salida se reemplazó por la derivación) y en el turno 5 preguntó *«En qué consiste el esquema de distribución de estos productos?»*. Recibió una respuesta compuesta: *«canal digital»*, *«red de consumo»*, *«otras personas se vinculan bajo el suyo»* y el margen de reventa como primera fuente de ganancia — la silueta de la pirámide, en la persona que menos la traía.
+
+Reproducido contra producción con el hilo tal cual (`wa_probe_patricia_*`):
+
+| Historial | Resultado (3 corridas cada uno) |
+|---|---|
+| En frío (solo la pregunta) | `EMPRESA_DIGITAL_01` verbatim |
+| Apertura + la pregunta | `EMPRESA_DIGITAL_01` verbatim — **y con las etiquetas `<verbatim_lock>` impresas en el texto** |
+| El hilo de salud de Patricia + la pregunta | **Compuesta las tres veces**; en una, «canal de distribución» |
+
+Descartado: el CQR **no reescribe** esa pregunta (nueve palabras, sin deíctico reconocido — verificado corriendo `reescribirConsultaConversacional` con su hilo). El fragmento que llega es el mismo archivo en los tres casos. Lo que cambia el comportamiento es el contenido del hilo: tras tres turnos de salud el modelo deja de obedecer el candado. **Primer sospechoso del «canal»:** el prompt compartido todavía dice *«El canal se nombra siempre por su categoría: canal de distribución de productos premium de bienestar»* (`system-prompt-queswa.md`, buscar «se nombra siempre por su categoría»; está desplegado así en `queswa_whatsapp`). Es la única aparición del léxico viejo que le llega al modelo: los fragmentos del tenant `whatsapp` están limpios (una sola ocurrencia, en el documento padre de `arsenal_inicial`, que no se sirve).
+
+**Las etiquetas impresas** las quita `wa-formato.ts` antes de enviar, así que en WhatsApp no se ven. `route.ts` no las quita: el día que `ORBE_MODO` pase a la web, saldrían al lector tal cual.
+
+### 6.2 Betsabe volvió y recibió los tres botones que ya había agotado
+
+El 7 sep a las 19:29 tocó el enlace otra vez. El nodo de retorno (`aperturaRetorno` + `APERTURA_OPCIONES`) le dijo *«Qué bueno que vuelva. Seguimos donde quiera. ¿Por dónde retomamos?»* con los mismos tres botones del primer día. Se le debía el catálogo desde el 5 sep (el arreglo del nodo 2.24 entró después de su «Si mi diamante»). No siguió. Dos cosas: el retorno de quien quedó con una oferta aceptada y no entregada debería **entregarla** (el enlace del catálogo con su ref), y *«¿Por dónde retomamos?»* es la pregunta que encuesta — la regla del cierre que propone.
+
+### 6.3 Modo socio (Director, 8 sep): el flujo funciona; el copy que se propaga sale sin red
+
+Lo que funcionó: las dos preguntas del esqueleto (oficio y trato), el borrador, el cambio a tú al saber que era su hermano, y sobre todo que Queswa **detectó la promesa de resultado en el texto del propio Director** (*«solucionar de una buena vez y para toda la vida el tema financiero»*) y la retiró. Lo que no:
+
+1. **Léxico en el borrador que el socio va a mandar**: *«sabes reconocer una oportunidad»*, *«la IA atiende a la gente por uno»*, *«les abra una nueva fuente de ingresos»* (la «segunda fuente de ingresos» quemada por el multinivel, con otro adjetivo) y *«si su amigo entra con esa expectativa»* (el verbo vetado, y además Faver **es** el amigo: confundió al destinatario). Es el texto que más se duplica y no pasa por candado ni guardarraíl.
+2. **La puerta `INV_00` disparó sobre el borrador pegado** (*«desde el paquete más básico»* casa con su regex) y el motor la sirvió también en *«Me gusta»* y *«Lo voy a usar tal cual»* (`search_method: puerta_directa`, `arsenal_inicial`). El modelo la ignoró, pero un socio que pega un texto largo no está preguntando por el paquete más barato: las puertas no deberían evaluarse sobre texto citado en modo socio.
+3. *«Me gusta»* y *«Lo voy a usar tal cual»* recibieron la misma respuesta dos veces.
+4. **El socio queda puntuado como prospecto caliente en su propia huella** (`interest_level 77`, arquetipo, objeción «confianza»): `captureProspectData` corre igual en `whatsapp_socio`.
+
+### 6.4 Menores y de herramientas
+
+- El número británico del 5 sep mandó cinco mensajes sin texto y sigue sin prospecto (pendiente 7 de la sección 4, vigente).
+- `medir-recuperacion-voyage.mjs` **no filtra los documentos padre**: en el tenant `whatsapp` hay cuatro con `embedding_512` (`arsenal_12_niveles`, `arsenal_compensacion`, `arsenal_avanzado`, `catalogo_productos`) y aparecen en su ranking (el padre del catálogo a 0.603, con 🔒). Producción los filtra por `is_fragment`; el medidor no, y su top-6 miente cuando un padre gana.
+- `scripts/sql.mjs` devuelve **401**: el `SUPABASE_ACCESS_TOKEN` de `.env.local` está vencido. Las consultas de esta vuelta se hicieron con `supabase-js`.
+
+### 6.5 Lo que se arregló el mismo día (8 sep, tarde) — el hilo de salud de Patricia
+
+**Corrección del Director antes de tocar nada:** no se asume que la persona está enferma. Patricia es docente universitaria y se preparaba para lo que el mercado le va a preguntar; «ayudarme», «coadyuvante» y el vocabulario clínico no la vuelven paciente. El borrador que decía «cuando uno está pasando por algo así» cometía el error exacto que el código del 29 ago evita, y se retiró.
+
+**La investigación que sostiene la respuesta a «muéstreme los estudios»** (norma y percepción): la Res. 3096 art. 5.3 castiga lo que «sugiera o implique» un uso para enfermedad, y la FDA lleva 31 cartas desde 2006 por citar literatura, con el criterio de que la cita refiera a una enfermedad **en el contexto del conjunto** — enlazar resúmenes de estudios cuenta. Por eso en un hilo que abrió con cáncer, «los estudios los puede consultar usted» reproduce el patrón sancionado, y por eso `grave` manda sobre `evidencia`. Lo que sí cabe está en la lista verde del fabricante: *el hongo más estudiado*. Del lado humano: el cumplimiento parcial (información general sin lo accionable) reduce más de la mitad la percepción negativa frente al rechazo seco (480 participantes, 2025); el rechazo que desvía a una alternativa concreta frustra menos (CHI 2024); el porqué se dice como hecho, sin disculpa ni virtud propia; y la validación repetida («Comprendo su consulta» en cada turno) viola las máximas de la conversación. Fuentes en el mensaje de la sesión y en `docs/investigaciones/resultados/Optimización Prompt Agente WhatsApp Colombia.md` §2.4, 2.5 y 2.8.
+
+**Por qué sonaba a plantilla:** las tres respuestas robóticas nunca pasaron por el modelo. La familia grave se dictaba entera (dos veces el mismo texto), y el bloqueo de salida reemplazaba con un único texto fijo, en la variante de quien declara. El turno 3, compuesto alrededor del núcleo, fue el único humano.
+
+**Cuatro cambios** (`wa-guardarrail-salud.ts`, webhook, `route.ts`), todos con el núcleo legal literal y verificado antes de enviar:
+
+1. **La familia grave se compone.** `saludSeCompone('grave')` es verdadero; en la instrucción del motor rigen dos reglas más: ningún producto concreto en ese turno, y un acuse que no atribuya («su condición», «su médico», «le deseo lo mejor» quedan prohibidos para quien no declaró nada).
+2. **Familia nueva `evidencia`** (`RE_SALUD_EVIDENCIA`, `NUCLEO_EVIDENCIA`, `RECHAZO_SALUD_EVIDENCIA`, `CIERRE_EVIDENCIA`): quien pide estudios, PubMed o «qué dice la ciencia» se compone desde la entrada alrededor de su núcleo, en vez de bloquearse a la salida. Orden: grave > evidencia > común.
+3. **Reincidencia = no repetir.** Si el núcleo que aplica ya está en el hilo (`nucleoSaludYaDicho` en el webhook, `contieneNucleoSalud` en la web), el núcleo pasa a ser `NUCLEO_REINCIDE` («Ahí aplica lo mismo que le acabo de decir, y no se lo repito.»), el `pageContext` lleva `_otravez` y el motor recibe una instrucción sin acuse que arranca en lo nuevo. Cuenta también contra los textos fijos viejos (compara sobre la frase legal, sin el «Para orientarle con exactitud:»).
+4. **El reemplazo de salida lee a la persona:** el respaldo de la familia si el turno venía compuesto; si no, el de evidencia cuando eso pidió; si no, el acuse según preguntó o declaró. Sigue siendo texto fijo: no se reintenta la generación.
+
+**Arnés:** `npx tsx scripts/prueba-salud-patricia.mts` reproduce los cinco turnos tal cual quedaron en la base (ninguno se lee como declaración, familias, reincidencia en T2 y no en T4, el reemplazo, los tres borradores aprobados contra el filtro de salida, y la dirección contraria). La batería `test-guardarrail-salud.mjs` ganó la sección de evidencia y verifica los núcleos y cierres por nombre. `prueba-conversacion.mjs` emula la derivación con `rechazoSaludPorFamilia`.
+
+**Pendiente de esta pieza:** reconocer a quien vuelve (Patricia había escrito el 2 sep y Queswa no dio señal de recordarla) — no existe en ninguna familia.

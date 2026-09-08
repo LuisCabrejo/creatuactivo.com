@@ -77,10 +77,16 @@ import {
   esRechazoSalud,
   RESPUESTA_EMERGENCIA,
   RECHAZO_SALUD_ESTANDAR,
+  RECHAZO_SALUD_COMUN_PREGUNTA,
+  RECHAZO_SALUD_EVIDENCIA,
+  NUCLEO_REINCIDE,
   rechazoSaludPorFamilia,
   esRechazoSaludComun,
   saludSeCompone,
   nucleoSalud,
+  contieneNucleoSalud,
+  declaraCondicion,
+  pideEvidencia,
 } from '@/lib/wa-guardarrail-salud';
 import {
   detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
@@ -793,7 +799,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // el cierre de radicación nunca matchean estos patrones, así que el resto del
     // flujo determinístico no se altera.
     // Si se llena, el turno sigue al motor con el núcleo legal y su respaldo.
-    let saludCompuesta: { familia: string; declara: boolean; respaldo: string; nucleo: string; paquete?: string } | null = null;
+    let saludCompuesta: { familia: string; declara: boolean; respaldo: string; nucleo: string; paquete?: string; otraVez?: boolean } | null = null;
 
     const emergencia = detectarEmergencia(messageText);
     if (emergencia) {
@@ -808,20 +814,29 @@ async function procesarEntrante(body: any): Promise<void> {
       // Reincidencia: si esta conversación ya recibió un rechazo de salud, se
       // endurece a la versión corta (la marca de "conversación contaminada" del
       // handoff, en su forma v1).
-      const reincide = saludEntrada.nivel === 'comun'
-        && await hayRechazoSaludPrevio(supabase, waFingerprint);
-      // Cada familia tiene su texto (peso · tratamiento · grave · común) — la
-      // respuesta única para todo era el error (Director, 29 ago 2026).
+      // Reincidencia (rediseñada el 8 sep 2026): ya no es «endurecer», es «no
+      // repetir». Cuenta cuando el NÚCLEO que aplica ahora ya está en el hilo
+      // —ahí «lo mismo que le acabo de decir» es literalmente cierto—, o cuando
+      // la familia común ya recibió su rechazo (la forma v1, que se conserva).
+      // Patricia (8 sep) recibió dos veces, letra por letra, el mismo texto de
+      // la familia grave; un humano nombra lo dicho y sigue en lo nuevo.
+      const { familia: familiaPrevia, declara: declaraPrevia } = rechazoSaludPorFamilia(saludEntrada, false, messageText);
+      const nucleoQueAplica = nucleoSalud(familiaPrevia, declaraPrevia);
+      const reincide = await nucleoSaludYaDicho(supabase, waFingerprint, nucleoQueAplica)
+        || (saludEntrada.nivel === 'comun' && await hayRechazoSaludPrevio(supabase, waFingerprint));
+      // Cada familia tiene su texto (peso · tratamiento · grave · común ·
+      // evidencia) — la respuesta única para todo era el error (Director, 29 ago 2026).
       const { familia, texto: rechazo, declara } = rechazoSaludPorFamilia(saludEntrada, reincide, messageText);
 
       console.warn(`⛔ [WA Guardrail Salud] Entrada derivada (${familia}, ${declara ? 'declara' : 'pregunta'}${reincide ? ', reincidencia' : ''}: "${saludEntrada.termino}") — ${phoneNumber}`);
 
-      // ETAPA 3 (29 ago 2026): en las familias seguras el turno NO se corta. El
-      // motor recibe el núcleo legal para reproducirlo literal y escribe el acuse
-      // y el cierre leyendo lo que la persona dijo. `grave`, la reincidencia y la
-      // emergencia siguen dictadas: ahí la respuesta correcta no depende del
-      // contexto, y componer solo agrega riesgo.
-      if (saludSeCompone(familia) && !reincide) {
+      // ETAPA 3 (29 ago 2026): el turno NO se corta. El motor recibe el núcleo
+      // legal para reproducirlo literal y escribe el acuse y el cierre leyendo lo
+      // que la persona dijo. Desde el 8 sep 2026 eso incluye a `grave` (con sus
+      // dos reglas en la instrucción del motor: sin producto concreto, sin
+      // atribuir) y a la reincidencia (el núcleo pasa a ser la referencia a lo ya
+      // dicho). Solo la emergencia sigue dictada, y corta arriba.
+      if (saludSeCompone(familia)) {
         // Si el MISMO mensaje trae una selección de paquete —«esp3, pero háblame
         // de los productos…»— el acuse la reconoce: capturarla y no nombrarla deja
         // a la persona sin saber que la oímos (prueba del 30 ago 2026).
@@ -831,7 +846,10 @@ async function procesarEntrante(body: any): Promise<void> {
             : /visionario/i.test(_mPaq[0]) || _mPaq[2] === '3' ? 'ESP-3'
             : /empresarial/i.test(_mPaq[0]) || _mPaq[2] === '2' ? 'ESP-2' : 'ESP-1')
           : undefined;
-        saludCompuesta = { familia, declara, respaldo: rechazo, nucleo: nucleoSalud(familia, declara), paquete: _paqDicho };
+        saludCompuesta = {
+          familia, declara, respaldo: rechazo, paquete: _paqDicho, otraVez: reincide,
+          nucleo: reincide ? NUCLEO_REINCIDE : nucleoSalud(familia, declara),
+        };
       } else {
         await sendWhatsAppMessage(phoneNumber, rechazo);
         await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
@@ -1817,7 +1835,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // trabajar el suyo. Sin esta señal el motor responde con argumentos de venta a
     // quien ya compró.
     const pageContext = saludCompuesta
-      ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}${saludCompuesta.paquete ? `_${saludCompuesta.paquete.toLowerCase().replace('-', '')}` : ''}`
+      ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}${saludCompuesta.paquete ? `_${saludCompuesta.paquete.toLowerCase().replace('-', '')}` : ''}${saludCompuesta.otraVez ? '_otravez' : ''}`
       : fotoEnviada
       ? 'whatsapp_foto_enviada'
       : (!existingProspect && _traePregunta)
@@ -1959,9 +1977,20 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // bordear el límite). Res. 3096/2007 art. 5.3: "sugieran o impliquen".
     const claimSalud = detectarClaimSaludEnSalida(queswaReply);
     if (claimSalud) {
+      // El reemplazo lee a la persona (8 sep 2026). Antes era un solo texto para
+      // todo bloqueo, y era la variante de quien DECLARA algo suyo: a Patricia,
+      // que pidió un resumen de estudios, le dijo «le agradezco la confianza de
+      // contármelo» y «sobre su condición». Si el turno ya venía compuesto
+      // alrededor de un núcleo, su respaldo es el texto correcto; si no, el de
+      // evidencia cuando eso fue lo que pidió, y si no, el acuse según preguntó o
+      // declaró. Sigue siendo texto fijo: no se reintenta la generación.
+      const reemplazoSalud = saludCompuesta?.respaldo
+        ?? (pideEvidencia(messageText) ? RECHAZO_SALUD_EVIDENCIA
+          : declaraCondicion(messageText) ? RECHAZO_SALUD_ESTANDAR
+          : RECHAZO_SALUD_COMUN_PREGUNTA);
       console.error(`🚨 [WA Guardrail Salud] BLOQUEADO — claim "${claimSalud}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
-      await sendWhatsAppMessage(phoneNumber, RECHAZO_SALUD_ESTANDAR);
-      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, RECHAZO_SALUD_ESTANDAR);
+      await sendWhatsAppMessage(phoneNumber, reemplazoSalud);
+      await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, reemplazoSalud);
       return;
     }
 
@@ -2304,6 +2333,41 @@ async function persistirTurnoDictado(
   } catch (err) {
     console.error('⚠️ [WA Guardrail Salud] No se pudo persistir el turno dictado:', err);
   }
+}
+
+/**
+ * ¿El núcleo legal que aplica ahora ya lo dijo Queswa en este hilo? Define la
+ * reincidencia desde el 8 sep 2026: si ya está dicho, no se repite — se nombra
+ * («Ahí aplica lo mismo que le acabo de decir») y la respuesta arranca en lo
+ * nuevo. Compara sobre la frase con exposición legal, así que cuentan también
+ * los textos fijos anteriores. Best-effort — si la consulta falla, se asume que no.
+ */
+async function nucleoSaludYaDicho(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+  nucleo: string,
+): Promise<boolean> {
+  try {
+    const { data } = await supabase
+      .from('nexus_conversations')
+      .select('messages')
+      .eq('fingerprint_id', fingerprint)
+      .order('created_at', { ascending: false })
+      .limit(12);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    for (const fila of ((data || []) as any[])) {
+      if (!Array.isArray(fila.messages)) continue;
+      for (const m of fila.messages) {
+        if (m?.role === 'assistant' && typeof m.content === 'string' && contieneNucleoSalud(m.content, nucleo)) {
+          return true;
+        }
+      }
+    }
+  } catch (err) {
+    console.error('⚠️ [WA Guardrail Salud] Error consultando el núcleo previo:', err);
+  }
+  return false;
 }
 
 /**

@@ -25,7 +25,7 @@ import { detectarPromesaDeIngreso } from '../src/lib/wa-guardarrail-negocio.ts';
 import { detectarClaimSaludEnSalida } from '../src/lib/wa-guardarrail-salud.ts';
 import { respuestaRenta, respuestaGen5 } from '../src/lib/wa-simulador.ts';
 import { RE_VOLICION, extraerDatosRadicacion, pedirDatos, pedirUnDato } from '../src/lib/wa-radicacion.ts';
-import { detectarEmergencia, clasificarPreguntaSalud, RECHAZO_SALUD_ESTANDAR, RECHAZO_SALUD_GRAVE } from '../src/lib/wa-guardarrail-salud.ts';
+import { detectarEmergencia, clasificarPreguntaSalud, rechazoSaludPorFamilia } from '../src/lib/wa-guardarrail-salud.ts';
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : d; };
 const TENANT       = arg('--tenant', 'whatsapp');   // whatsapp | web — la web es el respaldo del canal y debe responder igual
@@ -154,7 +154,11 @@ async function responder(turno) {
     // El texto REAL de la derivación, porque el motor lo ve en el hilo: con un
     // placeholder falso, el modelo intentaba "completar" la respuesta de salud en
     // el turno siguiente (corrida 2, turno 14).
-    if (saludE) return { texto: saludE.nivel === 'grave' ? RECHAZO_SALUD_GRAVE : RECHAZO_SALUD_ESTANDAR, capa: `salud:entrada(${saludE.termino})` };
+    // El arnés emula la derivación con el texto FIJO de la familia (el respaldo);
+    // en producción el turno se compone alrededor del núcleo, y eso solo lo ve
+    // el webhook. Familias desde el 8 sep: peso · azúcar · tratamiento · común ·
+    // grave · evidencia.
+    if (saludE) return { texto: rechazoSaludPorFamilia(saludE, false, turno.texto).texto, capa: `salud:entrada(${saludE.termino})` };
 
     // Simulador (el webhook responde dictado, sin motor)
     if (turno.via === 'simulador') {

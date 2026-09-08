@@ -1,0 +1,43 @@
+canal	huella	fecha_bogota	turno	mensaje	search_method	fragmentos
+WA	wa_573123227095	5/9/2026 15:52:27	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_573123227095	5/9/2026 15:53:36	2	Cómo funciona	-	
+WA	wa_573124348336	5/9/2026 17:57:04	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_573124348336	5/9/2026 18:05:21	2	Cómo funciona	-	
+WA	wa_573124348336	5/9/2026 18:07:15	3	Si por favor	-	
+WA	wa_573124348336	5/9/2026 18:08:32	4	Si	-	
+WA	wa_573124348336	5/9/2026 18:12:44	5	Cómo entra el dinero	-	
+WA	wa_573124348336	5/9/2026 18:14:07	6	Qué debo hacer yo	-	
+WA	wa_573124348336	5/9/2026 18:15:34	7	Si por favor	fragment_vector_search	arsenal_conversacional_inicial.txt
+WA	wa_573124348336	5/9/2026 18:17:08	8	Si mi diamante	fragment_vector_search	arsenal_conversacional_inicial.txt
+WA	wa_573124348336	7/9/2026 19:29:20	9	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_CO.1056923047231766	5/9/2026 18:14:09	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_CO.1056923047231766	5/9/2026 18:14:40	2	Cómo funciona	-	
+WA	wa_573132614165	5/9/2026 18:15:55	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_573229064503	5/9/2026 18:38:42	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_573229064503	5/9/2026 18:39:02	2	Cómo funciona	-	
+WA	wa_573229064503	5/9/2026 19:24:13	3	Cómo entra el dinero	-	
+WA	wa_573024732869	5/9/2026 21:03:16	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_573024732869	5/9/2026 21:04:32	2	Qué debo hacer yo	-	
+WA	wa_573206805737	6/9/2026 20:22:53	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_573206805737	6/9/2026 20:23:12	2	Cómo funciona	-	
+WA	wa_573206805737	6/9/2026 20:23:53	3	Si	-	
+WA	wa_573206805737	6/9/2026 20:24:35	4	Si	-	
+WA	wa_573206805737	6/9/2026 20:25:29	5	Acabo de usar el simulador de Los 12 Niveles: nivel 12.	-	
+WA	wa_573128586701	8/9/2026 9:59:43	1	Hola Queswa, vengo del enlace de luis-cabrejo. Quiero que me hables de los beneficios del ganoderma lucidum como coadyuvante en el tratamiento del cáncer de colon	-	
+WA	wa_573128586701	8/9/2026 10:00:30	2	quiero que me aclare cómo puede ayudarme para mitigar los efectos de la quimiotera´pia	-	
+WA	wa_573128586701	8/9/2026 10:02:42	3	por qué se recomienda el consumo del ganoderma lucidum?	fragment_vector_search	catalogo_productos.txt
+WA	wa_573128586701	8/9/2026 10:05:31	4	Resúme de los estudios con evidencia científica del hongo publicados en pub med: ¿en qué casos se recomienda su consumo, por qué son importantes sus componentes, para qué sirve?	fragment_vector_search	catalogo_productos.txt
+WA	wa_573128586701	8/9/2026 10:15:06	5	En qué consiste el esquema de distribución de estos productos?	fragment_vector_search	arsenal_conversacional_inicial.txt
+WA	wa_573164249534	8/9/2026 10:19:22	1	Hola Queswa, vengo del enlace de luis-cabrejo	-	
+WA	wa_573203415438	8/9/2026 10:24:08	1	Hola Queswa	-	
+WA	wa_573203415438	8/9/2026 10:24:53	2	Queswa qué es el plan de los 12 niveles	-	
+WA	wa_573203415438	8/9/2026 10:25:28	3	Si	-	
+WA	wa_573203415438	8/9/2026 10:25:40	4	Acabo de usar el simulador de Los 12 Niveles: nivel 12.	-	
+WA	wa_573203415438	8/9/2026 10:26:07	5	Cómo le puedo contar de esta estrategia a un amigo	fragment_vector_search	arsenal_conversacional_12_niveles.txt
+WA	wa_573203415438	8/9/2026 10:26:34	6	De ud	fragment_vector_search	arsenal_conversacional_12_niveles.txt
+WA	wa_573203415438	8/9/2026 10:27:27	7	El es independiente, tiene un negocio de molinos de viento y hacen estructuras para almacenamiento de agua	fragment_vector_search	arsenal_conversacional_inicial.txt
+WA	wa_573203415438	8/9/2026 10:28:32	8	Es muy largo, se nota que es elaborado por ia	fragment_vector_search	arsenal_conversacional_inicial.txt
+WA	wa_573203415438	8/9/2026 10:29:18	9	Faver, le digo pelaito o bb, es mi hermano	fragment_vector_search	arsenal_conversacional_avanzado.txt
+WA	wa_573203415438	8/9/2026 10:33:58	10	Yo lo diría : Hola bb, espero que estés genial y también la familia. Sabes que venía trabajando algo que ayude verdaderamente a las personas y les permita en el mejor de los casos solucionar de una buena vez y para toda la vida el tema Financiero— tuve en cuenta tu idea de que las personas puedan desarrollar su negocio desde el paquete más básico y que inclusive la plataforma le ayude a cargar sus compras, eso ya es una realidad coma vale la pena que lo veas, si me confirmas te envío el enlace para que lo revises	puerta_directa	arsenal_inicial.txt
+WA	wa_573203415438	8/9/2026 10:35:02	11	Me gusta	puerta_directa	arsenal_inicial.txt
+WA	wa_573203415438	8/9/2026 10:35:06	12	Lo voy a usar tal cual	puerta_directa	arsenal_inicial.txt

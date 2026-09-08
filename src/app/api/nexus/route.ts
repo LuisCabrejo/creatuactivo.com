@@ -45,7 +45,12 @@ import {
   slugDelSocio, textoSimuladorWeb, paisDeCodigo,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
-import { NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, CIERRE_SALUD } from '@/lib/wa-guardarrail-salud';
+import {
+  NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, NUCLEO_EVIDENCIA, NUCLEO_REINCIDE,
+  CIERRE_SALUD, CIERRE_EVIDENCIA, CIERRE_REINCIDE,
+  RECHAZO_SALUD_EVIDENCIA, RECHAZO_SALUD_COMUN_PREGUNTA,
+  contieneNucleoSalud, declaraCondicion, pideEvidencia,
+} from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
@@ -4267,20 +4272,26 @@ export async function POST(req: Request) {
 
       const _salud = clasificarPreguntaSalud(latestUserMessage);
       if (_salud) {
-        // La reincidencia endurece al texto corto: repetirle el párrafo largo a
-        // quien ya lo recibió se lee como que no lo estamos escuchando.
-        const _reincide = _salud.nivel === 'comun' && (messages as { role: string; content: string }[])
-          .some((m) => m.role === 'assistant' && esRechazoSalud(m.content ?? ''));
+        // Reincidencia (8 sep 2026): ya no endurece, evita repetir. Cuenta cuando
+        // el núcleo que aplica ahora ya está dicho en el hilo — el mismo criterio
+        // del webhook (`nucleoSaludYaDicho`) — o cuando la familia común ya
+        // recibió su rechazo (la forma v1).
+        const _mensajesPrevios = messages as { role: string; content: string }[];
+        const { familia: _famPrevia, declara: _declPrevia } = rechazoSaludPorFamilia(_salud, false, latestUserMessage);
+        const _nucleoQueAplica = nucleoSalud(_famPrevia, _declPrevia);
+        const _reincide = _mensajesPrevios.some((m) => m.role === 'assistant' && contieneNucleoSalud(m.content ?? '', _nucleoQueAplica))
+          || (_salud.nivel === 'comun' && _mensajesPrevios.some((m) => m.role === 'assistant' && esRechazoSalud(m.content ?? '')));
 
         if (canalWeb) {
-          // El mismo nodo 1.4 del webhook: cada familia tiene su texto, y en
-          // las familias seguras el turno NO se corta — el modelo escribe el
-          // acuse y el cierre alrededor del núcleo legal, que va literal y se
-          // verifica a la salida (ver guardarraíl de salida de la web).
+          // El mismo nodo 1.4 del webhook: cada familia tiene su texto, y el
+          // turno NO se corta — el modelo escribe el acuse y el cierre alrededor
+          // del núcleo legal, que va literal y se verifica a la salida (ver
+          // guardarraíl de salida de la web). Desde el 8 sep incluye a `grave` y
+          // a la reincidencia, cuyo núcleo es la referencia a lo ya dicho.
           const { familia, texto: _rechazo, declara } = rechazoSaludPorFamilia(_salud, _reincide, latestUserMessage);
-          if (saludSeCompone(familia) && !_reincide) {
-            _saludCompuestaWeb = { familia, declara, respaldo: _rechazo, nucleo: nucleoSalud(familia, declara) };
-            pageContext = `whatsapp_salud_${familia}_${declara ? 'declara' : 'pregunta'}`;
+          if (saludSeCompone(familia)) {
+            _saludCompuestaWeb = { familia, declara, respaldo: _rechazo, nucleo: _reincide ? NUCLEO_REINCIDE : nucleoSalud(familia, declara) };
+            pageContext = `whatsapp_salud_${familia}_${declara ? 'declara' : 'pregunta'}${_reincide ? '_otravez' : ''}`;
             console.warn(`🩺 [Salud/entrada·web] «${_salud.termino}» → se compone alrededor del núcleo (${familia}, ${declara ? 'declara' : 'pregunta'})`);
           } else {
             console.warn(`🛡️ [Salud/entrada·web] «${_salud.termino}» (${familia}${_reincide ? ', reincidencia' : ''}) — se deriva sin llamar al modelo`);
@@ -4291,9 +4302,9 @@ export async function POST(req: Request) {
             return new StreamingTextResponse(buildVerbatimStream(_rechazo), { headers: getCorsHeaders(origin) });
           }
         } else {
-          const _texto = _salud.nivel === 'grave'
-            ? RECHAZO_SALUD_GRAVE
-            : (_reincide ? RECHAZO_SALUD_CORTO : RECHAZO_SALUD_ESTANDAR);
+          // Otros tenants (marca personal, ecommerce): texto fijo por familia,
+          // que desde el 8 sep incluye a quien pide la ciencia.
+          const _texto = rechazoSaludPorFamilia(_salud, _reincide, latestUserMessage).texto;
           console.warn(`🛡️ [Salud/entrada] «${_salud.termino}» (${_salud.nivel}) — se deriva sin llamar al modelo`);
           return new StreamingTextResponse(buildVerbatimStream(_texto), { headers: getCorsHeaders(origin) });
         }
@@ -5297,15 +5308,37 @@ o esa misma línea — no sobre otro.`;
         const partes = pageContext.split('_');
         const fam = partes[2];
         const declara = partes[3] === 'declara';
-        const paquete = partes[4] ? partes[4].toUpperCase().replace(/^ESP/, 'ESP-') : null;
-        const nucleo = fam === 'peso' ? NUCLEO_PESO : declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
+        // «otravez» = la segunda pregunta de salud del hilo: el marco legal ya
+        // está dicho y no se repite (8 sep 2026). Va al final del contexto, así
+        // que el paquete, si lo hay, sigue en la cuarta posición.
+        const otraVez = partes.includes('otravez');
+        const paquete = partes[4] && partes[4] !== 'otravez' ? partes[4].toUpperCase().replace(/^ESP/, 'ESP-') : null;
+        const nucleo = otraVez ? NUCLEO_REINCIDE
+          : fam === 'peso' ? NUCLEO_PESO
+          : fam === 'evidencia' ? NUCLEO_EVIDENCIA
+          : declara ? NUCLEO_DECLARA : NUCLEO_PREGUNTA;
+        // Grave: NINGÚN producto concreto en este turno — ofrecerlo justo
+        // después de esa pregunta es la insinuación que prohíbe el art. 5.3 de
+        // la Res. 3096. Lo que se ofrece es lo verificable de la línea entera.
         const oferta = fam === 'peso'
           ? 'el *Ganocafé Clásico*: café negro premium, sin azúcar ni crema, que le da energía pareja desde temprano'
           : fam === 'azucar'
           ? 'el *Ganocafé Clásico* (café negro premium sin azúcar ni crema) y las *Cápsulas de Ganoderma* (el extracto puro, sin nada más)'
+          : fam === 'grave'
+          ? 'lo que hay detrás de cada producto —qué lleva, cómo se extrae el Ganoderma, en qué presentación viene y con qué registro—. ⛔ En este turno NO escriba el nombre de ningún producto (ni Ganocafé, ni Rooibos, ni cápsulas, ni como ejemplo): hable de «cada producto» y «la línea»'
+          : fam === 'evidencia'
+          ? 'lo verificable de cada producto: composición, proceso de extracción, presentación y registro sanitario'
           : 'la línea que Gano Excel fabrica desde hace treinta años, con registro sanitario en cada producto';
+        // El acuse nunca le atribuye a la persona algo que no dijo. Vocabulario
+        // clínico, «ayudarme» o preguntar por una condición NO significan que
+        // esté enferma: puede estar midiendo el mercado, preparándose para lo que
+        // le van a preguntar, o preguntando por alguien (Director, 8 sep 2026).
         const acuse = declara
           ? 'Contó algo suyo: reconozca esa confianza.'
+          : fam === 'grave'
+          ? 'Preguntó por una condición y no contó nada suyo: reconozca CÓMO preguntó (con precisión, con criterio), nunca lo que supone de ella —ni siquiera «se nota que ya investigó»—. Nada de «su condición», «lo que está pasando», «su médico», «su tratamiento», «su caso» ni «le deseo lo mejor»: todo eso le atribuye una enfermedad que no declaró.'
+          : fam === 'evidencia'
+          ? 'Pidió la ciencia: trátela como alguien que quiere la respuesta exacta. Si le sirve, abra con este hecho, que es cierto y no vincula nada: «El Ganoderma es uno de los hongos más estudiados del mundo, y esa literatura es pública.» Nunca cite, resuma ni enlace un estudio, ni la mande a buscarlos por una condición. ⛔ Y nada de «su médico», «su tratamiento» ni «su caso»: no dijo que fuera para ella; si hace falta, «el médico tratante» o «la conversación que quiera tener».'
           : 'Preguntó por el producto y no contó nada de su salud: reconozca la pregunta. Hablarle de «su condición» o agradecerle una confidencia le atribuye algo que no dijo.';
         // Este turno va sin arsenal recuperado, así que la lista de productos va
         // aquí: sin ella el modelo la compone de memoria — el 30 ago inventó
@@ -5314,6 +5347,39 @@ o esa misma línea — no sobre otro.`;
           + 'Ganorico Shoko Rico, Gano Schokolade, Espirulina Gano C\'Real, Oleaf Gano Rooibos (el único sin cafeína), '
           + 'Reskine Colágeno. Cápsulas: de Ganoderma, Excellium, Cordygold. Cuidado personal: pasta Gano Fresh, '
           + 'dos jabones, champú, acondicionador y exfoliante Piel&Brillo. Y el sistema Luvoco: máquina y tres cápsulas.';
+        const cierre = otraVez ? CIERRE_REINCIDE
+          : fam === 'evidencia' ? CIERRE_EVIDENCIA
+          : fam === 'grave' ? 'UNA sola pregunta corta que proponga empezar por eso (por ejemplo: «¿Empezamos por ahí?»), sin nombrar producto'
+          : CIERRE_SALUD;
+
+        if (otraVez) {
+          return `
+🩺 SEGUNDA PREGUNTA DE SALUD DEL HILO — lo dicho no se repite, se nombra
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Usted ya le dio el marco (la categoría del producto ante el INVIMA) dos turnos
+atrás y sigue en el hilo. Repetírselo palabra por palabra es lo que suena a
+máquina. Escriba exactamente esto, en este orden:
+
+1. ESTA FRASE, palabra por palabra, como arranque — sin «Comprendo», sin «Buena
+   pregunta», sin ningún acuse antes:
+<verbatim_lock>
+${nucleo}
+</verbatim_lock>
+
+2. UN PÁRRAFO DE DOS O TRES FRASES con lo que SÍ sirve: la composición exacta de
+   cualquiera de los productos, con su registro sanitario, porque esa es la
+   conversación que se tiene con el médico tratante.
+   ⛔ La persona NO dijo que fuera para ella. Prohibido el posesivo delante de
+   médico, tratamiento, caso o consulta: nada de «su médico», «su tratamiento»,
+   «su caso», «su consulta», «si encaja con lo suyo». Se dice «el médico
+   tratante», «quien lleve el tratamiento», «esa conversación». No nombre ni
+   recomiende ningún producto, y no vincule ninguno a lo que preguntó.
+
+3. Cierre exactamente con: ${cierre}
+
+Escriba solo esos tres elementos; estas indicaciones no aparecen en el mensaje.`;
+        }
+
         return `
 🩺 RESPUESTA DE SALUD — el marco va literal, lo demás lo escribe usted
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -5321,16 +5387,18 @@ Escriba exactamente tres párrafos y una pregunta, en este orden:
 
 1. UN ACUSE de una sola frase, escrito para ESTA persona y lo que ESTE mensaje
    dice. ${acuse}${paquete ? `\n   ⚠️ En este mismo mensaje eligió el *${paquete}*: reconózcalo en esa frase, con naturalidad, antes de responder lo demás.` : ''}
+   Si en este hilo ya abrió con «Comprendo», «Buena pregunta» o «Le respondo
+   con cuidado», no vuelva a abrir así: lo dado no se repite.
 
 2. ESTE PÁRRAFO, palabra por palabra, sin cambiar ni agregar nada:
 <verbatim_lock>
 ${nucleo}
 </verbatim_lock>
 
-3. UN PÁRRAFO DE DOS O TRES FRASES que abra con «Dicho esto,» y ofrezca ${oferta}.
-   Diga lo que el producto ES: composición, preparación, presentación.
+3. UN PÁRRAFO DE DOS O TRES FRASES que abra con «${fam === 'grave' || fam === 'evidencia' ? 'Lo que sí' : 'Dicho esto,'}» y ofrezca ${oferta}.
+   ${fam === 'grave' || fam === 'evidencia' ? 'Diga qué es lo verificable y que se lo da con exactitud.' : 'Diga lo que el producto ES: composición, preparación, presentación.'}
 
-4. Cierre exactamente con: ${CIERRE_SALUD}
+4. ${fam === 'grave' ? `Cierre con ${cierre}.` : `Cierre exactamente con: ${cierre}`}
 
 CATÁLOGO REAL — los 22 productos. Nombre solo estos, y solo si hacen falta:
 ${catalogo}
@@ -6702,7 +6770,14 @@ ESTADO: ${getMessageContext()}`;
       } else if (detectarPromesaDeIngreso(_borrador)) {
         _final = correctivaSegunHilo(_historialSalida); _motivo = `promesa de ingreso: ${detectarPromesaDeIngreso(_borrador)}`;
       } else if (detectarClaimSaludEnSalida(_borrador)) {
-        _final = RECHAZO_SALUD_ESTANDAR; _motivo = `claim de salud: ${detectarClaimSaludEnSalida(_borrador)}`;
+        // El reemplazo lee a la persona (8 sep 2026): el respaldo de la familia
+        // si el turno venía compuesto; si no, evidencia cuando eso pidió; si no,
+        // el acuse según preguntó o declaró. Mismo criterio que el webhook.
+        _final = _saludCompuestaWeb?.respaldo
+          ?? (pideEvidencia(String(latestUserMessage ?? '')) ? RECHAZO_SALUD_EVIDENCIA
+            : declaraCondicion(String(latestUserMessage ?? '')) ? RECHAZO_SALUD_ESTANDAR
+            : RECHAZO_SALUD_COMUN_PREGUNTA);
+        _motivo = `claim de salud: ${detectarClaimSaludEnSalida(_borrador)}`;
       }
       if (_motivo) {
         console.error(`🚨 [Guardarraíl web] BLOQUEADO — ${_motivo}. Borrador: "${_borrador.slice(0, 300)}"`);

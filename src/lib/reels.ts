@@ -78,7 +78,7 @@ export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audi
     audiencia: 'Empleado del Estado / sector público',
     titulo: 'La estabilidad de un cargo es prestada. Si las cuotas siempre le llevan la delantera, usted no tiene estabilidad real: tiene una calma que dura lo que dura su quincena.',
     cuerpo:
-      'Por más duro que trabaje, entrega sus mejores años y su salud, y solo suma antigüedad… nada que de verdad sea suyo. Eso no es falta de esfuerzo: así está calibrado el sistema. La respuesta no es trabajar más: es tener algo propio, en paralelo. Un sistema de distribución que produce por usted —se maneja desde el celular y crece por diseño, no por su desgaste—. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
+      'Por más duro que trabaje, entrega sus mejores años y su salud, y solo suma antigüedad… nada que de verdad sea suyo. Eso no es falta de esfuerzo: así está armado el modelo. La respuesta no es trabajar más: es tener algo propio, en paralelo. Un sistema de distribución que produce por usted —se maneja desde el celular y crece por diseño, no por su desgaste—. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
   },
   empresarios: {
     audiencia: 'Empresario / dueño de negocio',
@@ -94,9 +94,9 @@ export const REEL_COPY: Record<ReelNicho, { titulo: string; cuerpo: string; audi
   },
   informales: {
     audiencia: 'Trabajador independiente / economía popular',
-    titulo: 'Trabaja todos los días, pero la plata se va tan rápido como llega. Eso no es falta de capacidad: es un sistema calibrado para que viva al día.',
+    titulo: 'Trabaja todos los días, pero la plata se va tan rápido como llega. Eso no es falta de capacidad: es un modelo armado para que viva al día.',
     cuerpo:
-      'Vivir en el ciclo de trabajar, pagar cuentas y repetir —donde la plata se va tan rápido como llega— no es falla suya: así está calibrado el sistema. Hay una ruta para construir un ingreso que siga entrando aunque usted no esté de pie todo el día: tener algo propio, un sistema de distribución que produce por usted, y que se maneja desde el celular. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
+      'Vivir en el ciclo de trabajar, pagar cuentas y repetir —donde la plata se va tan rápido como llega— no es falla suya: así está armado el modelo. Hay una ruta para construir un ingreso que siga entrando aunque usted no esté de pie todo el día: tener algo propio, un sistema de distribución que produce por usted, y que se maneja desde el celular. Hoy, con inteligencia artificial, cualquiera puede tenerlo. Pregúntele a Queswa cómo sería en su caso.',
   },
   networkers: {
     audiencia: 'Networkers / mercadeo en red',

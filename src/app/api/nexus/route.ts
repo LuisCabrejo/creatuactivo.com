@@ -41,7 +41,7 @@ import {
 } from '@/lib/wa-guardarrail-negocio';
 import { gestionarCierre, CLAVES_CANAL, CLAVES_WEB } from '@/lib/wa-radicacion';
 import {
-  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, fotoParaWeb, aFormatoWeb,
+  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, fotoParaWeb, aFormatoWeb,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
@@ -2606,7 +2606,11 @@ function analizarIntencionSemantica(userMessage: string): string[] {
       // clasificador la mandó a ADV_VAL_03, la defensa del ESP-3 al 17%, dentro del
       // hilo del Kit al 10%. La regex acepta el plural y las dos posiciones del verbo.
       dictar: true,
-      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
+      // 9 sep 2026: «¿qué me recomiendas hacer?» de Patricia —una pregunta de
+      // PRODUCTO, con «productos» y «organismo» en el mismo mensaje— abría esta
+      // puerta y recibía «¿con cuál arranca?». Si el mensaje habla de producto,
+      // la recomendación no es de paquete.
+      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))(?![\s\S]*(producto|caf[eé]|c[aá]psula|bebida|suplemento|jab[oó]n|champ[uú]|organismo|limpieza|tomar|consumir|para (la|el|mi) (salud|piel|cabello|energ)))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
     },
     {
       // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor
@@ -4684,6 +4688,11 @@ ${summaryParts.join('\n')}
 
     if (canalWeb && typeof latestUserMessage === 'string') {
       const _resolverSlug = async () => slugDelSocio(getSupabaseClient(), _socioCodigo || constructorId || null);
+      // 2.49 — quien pide un guion, un video o una diapositiva recibe las
+      // imágenes aprobadas, no una pieza (Director, 9 sep 2026).
+      const _nodoPieza = atenderPidePieza(latestUserMessage);
+      if (_nodoPieza) return _entregarDictado(_nodoPieza);
+
       const _nodoCatalogo = await atenderEnlaceCatalogo(latestUserMessage, _historialWeb, _resolverSlug);
       if (_nodoCatalogo) return _entregarDictado(_nodoCatalogo);
 
@@ -5245,6 +5254,35 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // imagen que la persona acababa de recibir (prueba del 20 ago 2026).
       // Primer contacto que llega preguntando: el webhook se saltó la apertura
       // a propósito, porque responder vale más que presentarse.
+      // Modo asesora de producto (9 sep 2026): llegó por la página de productos.
+      // Habla de lo que el producto ES —qué lleva, cómo se prepara, presentación,
+      // precio, registro— y de lo sensorial y el ritual; el negocio aparece solo
+      // si la persona lo pregunta. Los guardarraíles de salud siguen corriendo.
+      if (pageContext === 'whatsapp_catalogo' || pageContext === 'whatsapp_catalogo_primer_contacto') {
+        const primerContacto = pageContext === 'whatsapp_catalogo_primer_contacto';
+        return `
+🛒 MODO ASESORA DE PRODUCTO — llegó desde la página de productos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${primerContacto
+  ? 'Escribe por primera vez y su primer mensaje ya trae la pregunta. No recibió la bienvenida: désela en UNA línea —quién es usted y a quién asiste— y siga derecho a responder lo que preguntó. Sin adivinar el género («Hola», «Un gusto», nunca «Bienvenida» o «Bienvenido» a quien no conoce).'
+  : 'Esta persona ya conversaba con usted; el hilo sigue, el tema ahora son los productos.'}
+⛔ Si pide un producto PARA un propósito —limpiar, desintoxicar, bajar, mejorar
+   algo del cuerpo—, no vincule ningún producto a ese propósito: diga qué es
+   cada producto y déjele a ella la elección. Y nada de anunciar su propia
+   honestidad («quiero ser precisa», «le hablo con franqueza»): se dice el hecho.
+
+✅ Responda sobre el producto por lo que ES: qué lleva, cómo se prepara, en qué
+   presentación viene, cuánto cuesta y con qué registro. Lo sensorial y el ritual
+   —el sabor, el momento del día, la rutina— es el terreno del deseo.
+✅ Cierre proponiendo un paso sobre el producto: la imagen de la línea o del
+   portafolio, la ficha de uno en particular, o el catálogo con precios.
+⛔ No introduzca el negocio, los paquetes, las comisiones ni el sistema de
+   distribución: si la persona los pregunta, respóndalos con naturalidad y siga.
+⛔ Sobre lo que una persona sentirá o conseguirá, entregue el hecho y siga; la
+   conclusión la saca ella. Ninguna condición de salud, ningún órgano, ningún
+   estudio.`;
+      }
+
       if (pageContext === 'whatsapp_primer_contacto') {
         return `
 👋 PRIMER CONTACTO — y llegó preguntando

@@ -528,6 +528,38 @@ export function fotoParaWeb(foto: FotoDictada): string {
   return `![${foto.nombre}](${foto.url})\n\n${aFormatoWeb(foto.pie)}`;
 }
 
+// ─── 2.49 Pide una pieza publicitaria ─────────────────────────────────────────
+//
+// Patricia (8 sep 2026) pidió «un video publicitario para poner en mis estados
+// de WhatsApp» y después «armeme el guión» y «puedes crear una diapositiva»; el
+// modelo entregó un guion y cinco diapositivas con «400 compuestos bioactivos
+// que tu cuerpo reconoce como propios». Una pieza para publicar sobre un
+// suplemento es publicidad —el D. 3249 exige aprobación previa del INVIMA— y el
+// filtro de salida está hecho para conversación, no para revisar copy
+// publicitario. Decisión del Director (9 sep): Queswa no redacta piezas desde
+// WhatsApp —eso será una función del Dashboard para cada distribuidor—; lo que sí
+// entrega son las imágenes ya aprobadas: producto, línea y portafolio.
+//
+// El verbo de creación es obligatorio: «¿en qué presentación viene?» es
+// producto, y «redácteme un mensaje para mi amigo» es el esqueleto del socio,
+// que sigue funcionando. Aplica a prospectos y a socios por igual.
+const RE_PIDE_PIEZA =
+  /\b(haz|hazme|h[aá]game|h[aá]gamelo|arma|[aá]rm[ea]me|arme|crea|cr[eé][ea]me|redacta|red[aá]ct[ea]me|escr[ií]b[ea]me|escribe|dise[ñn]a|dise[ñn][ea]me|genera|gen[eé]r[ea]me|prep[aá]r[ea]me|puedes?\s+(hacer|hacerme|crear|crearme|armar|armarme|redactar|dise[ñn]ar|generar|preparar)|me\s+(haces|armas|creas|redactas|dise[ñn]as|generas|preparas)|necesito|quiero|quisiera|me gustar[ií]a)(?!\s+(ver|mirar|conocer|saber|entender))\b[^.?!]{0,60}?\b(gui[oó]n(es)?|v[ií]deos?|reels?|diapositivas?|slides?|piezas?|flyers?|volantes?|publicidad|anuncios?|posts?|historias? (de|para)|estados? (de|para)|contenido|campa[ñn]a|banner|afiche|cartel|presentaci[oó]n (para|en canva|de ventas|comercial|publicitaria))\b/i;
+
+export const TEXTO_NO_PIEZAS =
+  'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +
+  'Lo que sí le mando ahora mismo es la imagen del portafolio, o la de cualquier línea o producto, tal cual la usa el equipo. ' +
+  '¿Le mando la del portafolio?';
+
+export function detectarPidePieza(texto: string): boolean {
+  return RE_PIDE_PIEZA.test(texto || '');
+}
+
+export function atenderPidePieza(mensaje: string): RespuestaConductor | null {
+  if (!detectarPidePieza(mensaje)) return null;
+  return { nodo: '2.49 pide una pieza publicitaria', texto: TEXTO_NO_PIEZAS };
+}
+
 // ─── 2.46 → 2.48 Los nodos del socio ──────────────────────────────────────────
 
 /**

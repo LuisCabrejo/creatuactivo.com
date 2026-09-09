@@ -28,6 +28,11 @@ import {
   esSoloSaludo,
   APERTURA_OPCIONES,
   getRespuestaBoton,
+  vieneDeProductos,
+  preguntaTrasOrbeProductos,
+  APERTURA_PRODUCTOS_OPCIONES,
+  construirAperturaProductos,
+  aperturaRetornoProductos,
 } from '@/lib/wa-apertura';
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
@@ -60,7 +65,7 @@ import {
   nombreCorto, RE_PEDIDO_CARGADO,
   RE_OFERTA_PEDIDO_SEDE, esAceptacion,
 } from '@/lib/wa-pedido';
-import { pideImagen, detectarProducto, detectarFamilia } from '@/lib/wa-productos';
+import { pideImagen, detectarProducto, detectarFamilia, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA } from '@/lib/wa-productos';
 import {
   slugDesdeNombre,
   normalizarWhatsApp,
@@ -94,7 +99,7 @@ import {
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
 import {
-  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio,
+  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza,
   slugDelSocio, textoDeCandado, paisDeTelefono,
 } from '@/lib/queswa-conductor';
 
@@ -996,6 +1001,47 @@ async function procesarEntrante(body: any): Promise<void> {
     // …y nunca sobre un mensaje que trae un pedido: el carrito del catálogo web
     // llega con «vengo del enlace de …. Quiero pedir: …», y eso es una compra,
     // no un regreso.
+    // ─── 1.55 Llega desde la página de productos ──────────────────────────────
+    // «…Quiero preguntar por los productos.» es la frase del orbe en /productos
+    // (orbe-config.ts). Hasta el 9 sep 2026 recibía la apertura del sistema de
+    // distribución (nuevo) o el «qué bueno que vuelva» con los tres botones del
+    // negocio (existente). Decisión del Director: la página de productos abre
+    // como asesora, con dos botones —el portafolio en imagen y la lista de
+    // precios, que es el enlace del catálogo con el ref del socio—; quien ya
+    // venía conversando conserva el hilo y cambia de tema. Si la frase trae una
+    // pregunta detrás (Patricia: la limpieza del organismo), no se dicta nada:
+    // el motor la responde en modo asesora con la presentación en una línea.
+    // El modo asesora queda anotado en la ficha y dura tres horas, o hasta que
+    // la persona pregunte por el negocio.
+    const _vieneDeProductos = vieneDeProductos(messageText) && !socioQueEscribe && !llegaDecidido && !detectarIntencionCompra(messageText);
+    const _preguntaProductos = _vieneDeProductos ? preguntaTrasOrbeProductos(messageText) : '';
+    if (_vieneDeProductos) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).rpc('update_prospect_data', {
+          p_fingerprint_id: waFingerprint,
+          p_data: { modo_catalogo_desde: new Date().toISOString() },
+          p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+        });
+      } catch { /* best-effort */ }
+    }
+    if (_vieneDeProductos && !_preguntaProductos) {
+      const texto = existingProspect
+        ? aperturaRetornoProductos(contactName)
+        : construirAperturaProductos(patrocinador?.nombre, contactName);
+      const enviadoP = await sendReplyButtons(phoneNumber, texto, APERTURA_PRODUCTOS_OPCIONES);
+      if (!enviadoP.ok) {
+        const opciones = APERTURA_PRODUCTOS_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+        await sendWhatsAppMessage(phoneNumber, `${texto}\n\n${opciones}`);
+      }
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      console.log(`🛒 [WA Webhook] Llega desde /productos (${existingProspect ? 'vuelve' : 'nuevo'}) — apertura de productos con dos botones`);
+      return;
+    }
+    if (_vieneDeProductos && _preguntaProductos) {
+      console.log(`🛒 [WA Webhook] Llega desde /productos CON pregunta ("${_preguntaProductos.slice(0, 45)}") — responde el motor en modo asesora`);
+    }
+
     if (existingProspect && !socioQueEscribe && !llegaDecidido && (_soloSaludo || _vieneDelEnlace) && !detectarIntencionCompra(messageText)) {
       const retorno = aperturaRetorno(contactName);
       const enviadoR = await sendReplyButtons(phoneNumber, retorno, APERTURA_OPCIONES);
@@ -1010,8 +1056,9 @@ async function procesarEntrante(body: any): Promise<void> {
 
     // Quien llega con un pedido del carrito web («vengo del enlace de ….
     // Quiero pedir: …») no recibe la apertura: viene a comprar, y el nodo del
-    // pedido lo atiende más abajo.
-    if (!existingProspect && !llegaDecidido && !_traePregunta && !detectarIntencionCompra(messageText)) {
+    // pedido lo atiende más abajo. Y quien llega desde /productos con pregunta
+    // tampoco: el motor se la responde en modo asesora.
+    if (!existingProspect && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
       const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
@@ -1049,6 +1096,32 @@ async function procesarEntrante(body: any): Promise<void> {
     // dinero" escribió "cuando alguien en su organización compra su producto del
     // mes" — autoconsumo mensual, la marca más delatora del multinivel, y encima
     // falso porque Gano Excel liquida los viernes.
+    // Los dos botones de la apertura de PRODUCTOS (9 sep 2026): el portafolio es
+    // la imagen aprobada con el conteo por línea; la lista de precios es el
+    // enlace del catálogo con el ref del socio, que emite el backend.
+    if (opcionElegida === 'productos_portafolio') {
+      const pie = pieDeFotoFamilia('portafolio', FAMILIAS_WA.portafolio.seguimiento);
+      const enviada = await sendImage(phoneNumber, urlImagenFamilia('portafolio'), pie);
+      if (enviada.ok) {
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, pie);
+        console.log(`📷 [WA Webhook] Botón «Ver el portafolio» → imagen enviada a ${phoneNumber}`);
+        return;
+      }
+      console.warn(`⚠️ [WA Webhook] Portafolio del botón no se pudo enviar: ${enviada.error} — sigue al motor`);
+    }
+    if (opcionElegida === 'productos_precios') {
+      const refSocio = patrocinador?.constructorId ?? existingProspect?.device_info?.invited_by ?? null;
+      const slug = await slugDelSocio(supabase, refSocio);
+      const texto = mensajeEnlaceCatalogo(slug);
+      const enviado = await sendText(phoneNumber, texto);
+      if (enviado.ok) {
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log(`🔗 [WA Webhook] Botón «Lista de precios» → enlace del catálogo a ${phoneNumber}`);
+        return;
+      }
+      console.warn(`⚠️ [WA Webhook] Enlace del botón no se pudo enviar: ${enviado.error} — sigue al motor`);
+    }
+
     const dictada = opcionElegida ? getRespuestaBoton(opcionElegida) : null;
     if (dictada) {
       await sendWhatsAppMessage(phoneNumber, dictada);
@@ -1248,6 +1321,23 @@ async function procesarEntrante(body: any): Promise<void> {
     // su cuenta; acertó, pero un slug distinto habría caído en la mini-landing.
     // El «sí» al cierre de las respuestas de salud («¿le muestro el catálogo
     // completo?») entra por aquí: el enlace lo emite el backend con el ref del socio.
+    // ─── 2.49 Pide una pieza publicitaria ─────────────────────────────────────
+    // Queswa no redacta guiones, videos ni diapositivas desde WhatsApp (Director,
+    // 9 sep 2026); ofrece las imágenes aprobadas. El «sí» va por 2.25a.
+    {
+      const nodoPieza = atenderPidePieza(messageText);
+      if (nodoPieza?.texto) {
+        await pisoDeEscritura();
+        const enviado = await sendText(phoneNumber, nodoPieza.texto);
+        if (enviado.ok) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoPieza.texto);
+          console.log(`🎬 [WA Webhook] ${nodoPieza.nodo} — turno cerrado sin motor`);
+          return;
+        }
+        console.warn(`⚠️ [WA Webhook] ${nodoPieza.nodo}: no se pudo enviar (${enviado.error}) — sigue al motor`);
+      }
+    }
+
     {
       const nodoCatalogo = await atenderEnlaceCatalogo(messageText, historial, async () => {
         const propio: string | null = socioQueEscribe?.slug ?? null;
@@ -1855,6 +1945,24 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
     // trabajar el suyo. Sin esta señal el motor responde con argumentos de venta a
     // quien ya compró.
+    // El modo asesora dura tres horas desde que la persona llegó por /productos,
+    // y se apaga en cuanto pregunta por el negocio: ahí vuelve a lo que traía.
+    const _desdeCatalogo = existingProspect?.device_info?.modo_catalogo_desde as string | undefined;
+    const _hablaDeNegocio = RE_HABLA_DE_NEGOCIO.test(messageText);
+    const _modoCatalogo = !socioQueEscribe && !_hablaDeNegocio
+      && (_vieneDeProductos || (!!_desdeCatalogo && Date.now() - Date.parse(_desdeCatalogo) < 3 * 3600e3));
+    if (_desdeCatalogo && _hablaDeNegocio) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).rpc('update_prospect_data', {
+          p_fingerprint_id: waFingerprint,
+          p_data: { modo_catalogo_desde: null },
+          p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+        });
+      } catch { /* best-effort */ }
+      console.log('🛒 [WA Webhook] Preguntó por el negocio — el modo asesora se apaga');
+    }
+
     const pageContext = saludCompuesta
       ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}${saludCompuesta.paquete ? `_${saludCompuesta.paquete.toLowerCase().replace('-', '')}` : ''}${saludCompuesta.otraVez ? '_otravez' : ''}`
       : fotoEnviada
@@ -1865,6 +1973,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       ? 'whatsapp_socio'
       : ambivalencia
       ? ambivalencia
+      // Modo asesora (9 sep 2026): llegó desde /productos, o lo hizo en las
+      // últimas tres horas y no está preguntando por el negocio.
+      : _modoCatalogo
+      ? (_vieneDeProductos && !existingProspect ? 'whatsapp_catalogo_primer_contacto' : 'whatsapp_catalogo')
       // Ya radicó: el motor no lo sabía y ante un «Perfecto» volvió a pedir los
       // cuatro datos copiando el bloque espejo del prompt (Liliana, 27 ago 2026).
       // Va después de la ambivalencia a propósito: un «lo consulto con mi esposa»
@@ -2334,6 +2446,13 @@ async function capturarContextoDelMensaje(
     console.error('⚠️ [WA Webhook] No se pudo capturar el contexto del mensaje:', err);
   }
 }
+
+/**
+ * ¿La persona está preguntando por el negocio? Apaga el modo asesora de quien
+ * llegó por /productos: ahí Queswa vuelve a la conversación que traía.
+ */
+const RE_HABLA_DE_NEGOCIO =
+  /negocio|ganar|\bgana(n|s)?\b|ganancia|comisi[oó]n|paquete|invertir|inversi[oó]n|sistema de distribuci[oó]n|niveles|\bplan\b|c[oó]mo funciona|dinero|plata|ingreso|socio|vincul|afili|registr|c[oó]mo (empiezo|inicio|arranco)|distribuidor/i;
 
 async function persistirTurnoDictado(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

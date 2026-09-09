@@ -286,6 +286,58 @@ export function aperturaRetorno(nombreProspecto?: string): string {
   return [saludo, '', 'Seguimos donde quiera. ¿Por dónde retomamos?'].join('\n');
 }
 
+// ─── La apertura de PRODUCTOS (9 sep 2026) ───────────────────────────────────
+//
+// Quien toca el orbe en /productos llega con «Hola Queswa, vengo del enlace de
+// {ref}. Quiero preguntar por los productos.» (orbe-config.ts), y hasta el 9 sep
+// recibía la apertura del sistema de distribución con sus tres botones —Liliana
+// y Patricia, las dos por el ref de ganocafe-online—. Patricia además traía una
+// pregunta completa detrás de la frase, y fue ignorada. Decisión del Director:
+// la página de productos abre como asesora; quien ya venía conversando del
+// negocio conserva su hilo y pasa a los productos. Copy aprobado el 9 sep.
+
+export const RE_VIENE_DE_PRODUCTOS = /quiero preguntar por los productos/i;
+
+export function vieneDeProductos(texto: string): boolean {
+  return RE_VIENE_DE_PRODUCTOS.test(texto || '');
+}
+
+/** Lo que la persona escribió DESPUÉS de la frase del orbe, si algo. Patricia: la limpieza del organismo. */
+export function preguntaTrasOrbeProductos(texto: string): string {
+  const m = RE_VIENE_DE_PRODUCTOS.exec(texto || '');
+  if (!m) return '';
+  return (texto || '').slice(m.index + m[0].length).replace(/^[\s.,;:!¡]+/, '').trim();
+}
+
+export const APERTURA_PRODUCTOS_OPCIONES: WAButton[] = [
+  { id: 'productos_portafolio', title: 'Ver el portafolio' },
+  { id: 'productos_precios',    title: 'Lista de precios' },
+];
+
+export function construirAperturaProductos(nombreSocio?: string, nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
+  const socio = nombreSocioCorto(nombreSocio);
+  const identidad = socio
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Atiendo a cientos de personas, las 24 horas.`
+    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.';
+  return [
+    `${saludo} Un gusto saludarle.`,
+    '',
+    identidad,
+    '',
+    'Aquí puede preguntar lo que quiera de los productos: qué lleva cada uno, cómo se prepara, en qué presentación viene y cuánto cuesta. La línea es de Gano Excel, con extracto propio de Ganoderma y registro sanitario en cada producto.',
+    '',
+    '¿Le muestro el portafolio completo?',
+  ].join('\n');
+}
+
+/** Quien ya venía conversando y toca el enlace del catálogo: el hilo sigue, el tema cambia. */
+export function aperturaRetornoProductos(nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. Aquí sigo con su conversación, y ahora vamos con los productos. ¿Le muestro el portafolio completo?`;
+}
+
 export function construirApertura(nombreSocio?: string, nombreProspecto?: string): string {
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';

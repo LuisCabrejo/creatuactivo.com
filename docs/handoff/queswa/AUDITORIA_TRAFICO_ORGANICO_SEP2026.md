@@ -139,3 +139,15 @@ Dos hilos reales entraron por la página de productos en diez días (Liliana Pat
 **Decisiones del Director (9 sep):** la página de productos abre como asesora (pendiente de copy, ver §7.1); quien ya venía conversando del negocio y pasa al catálogo conserva su hilo; **Queswa no redacta piezas publicitarias desde WhatsApp** (eso será una función del Dashboard para cada distribuidor); las imágenes predefinidas de producto, de línea y del portafolio se mantienen, porque los prospectos van a querer ver los productos.
 
 **Pendientes de esta vuelta:** §7.1 la apertura de productos y la respuesta a quien pide un guion o una pieza (copy a aprobación); la ficha de Liliana con «paquete ESP-3» capturado de la tarifa del simulador; «El negocio» compuesto con léxico viejo en un hilo largo (mismo problema del candado que se pierde, diagnóstico aparte); y los pendientes del catálogo ya listados en §4 (PERS_01, cafeína, diabetes) que se siguen sirviendo.
+
+### 7.1 La página de productos abre como asesora, y Queswa no redacta piezas (9 sep, tarde)
+
+Copy aprobado por el Director e implementado (`prueba-productos-apertura.mts`, 27/27):
+
+- **Nuevo desde /productos** (`vieneDeProductos`): apertura de productos con dos botones —«Ver el portafolio» manda la imagen aprobada con el conteo por línea; «Lista de precios» manda el enlace del catálogo con el ref del socio—. Si la frase del orbe trae una pregunta detrás (Patricia), no se dicta nada: el motor responde en modo asesora con la presentación en una línea (`whatsapp_catalogo_primer_contacto`).
+- **Quien ya venía conversando**: «Qué bueno que vuelva, {nombre}. Aquí sigo con su conversación, y ahora vamos con los productos. ¿Le muestro el portafolio completo?», con los mismos dos botones y el hilo intacto. Los turnos siguientes van en modo asesora (`whatsapp_catalogo`) durante tres horas o hasta que pregunte por el negocio (`RE_HABLA_DE_NEGOCIO`), y ahí vuelve a lo que traía.
+- **Modo asesora en el motor**: el producto por lo que ES (qué lleva, preparación, presentación, precio, registro), lo sensorial y el ritual; el negocio solo si lo piden; sin vincular un producto al propósito que la persona trajo («limpiar el organismo»); sin adivinar el género; sin anunciar la propia honestidad.
+- **Nodo 2.49, piezas publicitarias** (`atenderPidePieza`, conductor, los dos canales): verbo de creación + guion/video/diapositiva/flyer/post/contenido → «Eso no lo hago por aquí… ¿Le mando la del portafolio?». El «sí» va por 2.25a (el portafolio ahora tiene `ofrecida`). «¿En qué presentación viene?» y el mensaje personal del socio para un amigo siguen funcionando.
+- **Hallazgo colateral**: la puerta de FREQ_30 («¿cuál paquete me recomienda?») disparaba con «¿qué me recomiendas hacer?» en una pregunta de producto y servía «¿con cuál arranca?» con candado. Ahora no abre si el mensaje habla de producto, café, cápsulas, organismo o limpieza.
+
+Pendiente heredado: la ficha de Liliana con «paquete ESP-3» capturado del simulador; «El negocio» compuesto con léxico viejo en hilo largo.

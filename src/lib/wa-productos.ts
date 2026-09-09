@@ -511,7 +511,10 @@ export const FAMILIAS_WA: Record<FamiliaWA, FamiliaDef> = {
   portafolio: {
     titulo: 'Portafolio Gano Excel', archivo: 'portafolio', categoria: null,
     patron: /todos los productos|todo el portafolio|portafolio|l[ií]nea completa|gama completa|los 22|todas las l[ií]neas|los productos(?! de\s+ganoderma)|qu[eé] productos|cu[aá]les productos|productos que (tienen|manejan|venden)/i,
-    ofrecida: null,
+    // La apertura de productos y el nodo de piezas (9 sep 2026) cierran
+    // ofreciendo el portafolio: «¿Le muestro el portafolio completo?» y «¿Le
+    // mando la del portafolio?». El «sí» a cualquiera de las dos es esta imagen.
+    ofrecida: /le (muestro|mando|env[ií]o|paso|comparto) (el portafolio completo|la (imagen )?del portafolio|el portafolio)\b/i,
     seguimiento: '¿Cuál línea le muestro de cerca?',
   },
 };

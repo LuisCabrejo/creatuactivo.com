@@ -165,6 +165,18 @@ function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolea
 /** Ya se radicó en esta conversación — el cierre no se vuelve a abrir. */
 const RE_YA_RADICADO = /qued[oó] radicada|su vinculaci[oó]n qued[oó]|ya le avis[eé] a/i;
 
+/**
+ * La frase fija con que el MODELO cierra cuando reconoce una volición que
+ * `RE_VOLICION` no vio (8 sep 2026). El bloque de los cuatro datos ya no vive en
+ * el prompt —el modelo lo copiaba a quien no había decidido nada—, así que el
+ * modelo no pide datos: ofrece tomarlos, y el «sí» de la persona abre el trámite
+ * aquí. El texto vive en `system-prompt-queswa.md`; editar uno obliga a editar
+ * el otro.
+ */
+export const OFERTA_RADICAR_MODELO = 'Cuando quiera, le tomo los datos de la vinculación.';
+const RE_BOT_OFRECIO_RADICAR = /le tomo los datos de la vinculaci[oó]n/i;
+const RE_ACEPTACION_PELADA = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|mu[eé]streme|mu[eé]stremelo|perfecto|vale|adelante|de acuerdo|me parece)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|porfa|por favor))?[\s.,!]*$/i;
+
 // ─── Paquetes ─────────────────────────────────────────────────────────────────
 
 /**
@@ -771,6 +783,16 @@ export async function gestionarCierre(params: {
   hiloDoceNiveles?: boolean;
   /** Ya existe una pre-afiliación para este prospecto. */
   yaRadicadoEnBD?: boolean;
+  /**
+   * Los textos de pedido de datos que EMITIÓ EL BACKEND en este hilo (el webhook
+   * los persiste con `metadata.nodo = 'radicacion'`). Cuando viene, un turno del
+   * bot que se parezca al bloque de los cuatro datos solo cuenta como «el bot
+   * pidió» si está aquí. Patricia (8 sep 2026): el modelo copió el bloque del
+   * prompt a alguien que quería ver números, y en el turno siguiente este nodo,
+   * leyendo ese texto como propio, le pidió el nombre completo a «armeme el
+   * guión». Sin la lista (la web, que no persiste metadata) se cae al regex.
+   */
+  pedidosDelBackend?: string[];
 }): Promise<ResultadoCierre | null> {
   const { mensajeActual, historial, socio } = params;
 
@@ -785,8 +807,20 @@ export async function gestionarCierre(params: {
   // Se miran los últimos turnos del bot, no solo el anterior: si la persona
   // interrumpió con una pregunta y el motor se la respondió, el cierre sigue
   // abierto y debe retomar donde iba.
-  const botPidio = turnosBot.slice(-3).some((t) => RE_BOT_PIDIO_DATOS.test(t));
-  const declara  = RE_VOLICION.test(mensajeActual);
+  const _plano = (t: string) => (t || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+  const _delBackend = params.pedidosDelBackend
+    ? new Set(params.pedidosDelBackend.map(_plano))
+    : null;
+  const pidioElBackend = (t: string) => RE_BOT_PIDIO_DATOS.test(t) && (!_delBackend || _delBackend.has(_plano(t)));
+  const botPidio = turnosBot.slice(-3).some(pidioElBackend);
+
+  // El puente del modelo (8 sep 2026): el bloque de los cuatro datos salió del
+  // prompt, así que cuando el modelo reconoce una volición que este regex no vio,
+  // no pide nada — cierra con la frase fija de abajo, y el «sí» de la persona es
+  // lo que abre el trámite aquí, con el pedido emitido por el backend.
+  const _aceptacionPeladaTemprana = RE_ACEPTACION_PELADA.test(mensajeActual.trim());
+  const modeloOfrecioRadicar = RE_BOT_OFRECIO_RADICAR.test(ultimoBot) && _aceptacionPeladaTemprana;
+  const declara  = RE_VOLICION.test(mensajeActual) || modeloOfrecioRadicar;
   if (!botPidio && !declara) return null;
 
   // ── La volición que llega con una pregunta se responde antes de abrir el trámite ──
@@ -827,9 +861,9 @@ export async function gestionarCierre(params: {
   // Si el último turno del bot NO pidió datos y terminó preguntando, una
   // aceptación pelada es de esa oferta y el turno va al motor. El trámite no se
   // pierde: sigue abierto y retoma en cuanto la persona diga algo que no sea un sí.
-  const _ultimoBotPidioDatos = RE_BOT_PIDIO_DATOS.test(ultimoBot);
+  const _ultimoBotPidioDatos = pidioElBackend(ultimoBot);
   const _ultimoBotOfrecio    = /\?[\s"'*_)]*$/.test(ultimoBot.trim());
-  const _aceptacionPelada    = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|mu[eé]streme|mu[eé]stremelo|perfecto|vale|adelante|de acuerdo|me parece)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|porfa|por favor))?[\s.,!]*$/i.test(mensajeActual.trim());
+  const _aceptacionPelada    = _aceptacionPeladaTemprana;
   if (!declara && !_ultimoBotPidioDatos && _ultimoBotOfrecio && _aceptacionPelada) {
     console.log(`👉 [Cierre WA] "${mensajeActual.trim()}" acepta la oferta del bot, no reanuda el trámite — turno al motor`);
     return null;

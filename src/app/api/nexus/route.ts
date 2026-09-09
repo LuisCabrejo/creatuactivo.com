@@ -4281,6 +4281,13 @@ export async function POST(req: Request) {
         const _nucleoQueAplica = nucleoSalud(_famPrevia, _declPrevia);
         const _reincide = _mensajesPrevios.some((m) => m.role === 'assistant' && contieneNucleoSalud(m.content ?? '', _nucleoQueAplica))
           || (_salud.nivel === 'comun' && _mensajesPrevios.some((m) => m.role === 'assistant' && esRechazoSalud(m.content ?? '')));
+        // Tercera pregunta de salud seguida (espejo del webhook, 9 sep 2026): la
+        // referencia a lo dicho no se repite; texto corto con la puerta al equipo.
+        const _ultimoBotWeb = [..._mensajesPrevios].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+        if (canalWeb && _ultimoBotWeb.trim().startsWith(NUCLEO_REINCIDE)) {
+          console.warn(`🛡️ [Salud/entrada·web] «${_salud.termino}» — segunda reincidencia seguida, texto corto`);
+          return new StreamingTextResponse(buildVerbatimStream(RECHAZO_SALUD_CORTO), { headers: getCorsHeaders(origin) });
+        }
 
         if (canalWeb) {
           // El mismo nodo 1.4 del webhook: cada familia tiene su texto, y el

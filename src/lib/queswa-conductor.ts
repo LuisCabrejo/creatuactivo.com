@@ -530,6 +530,19 @@ export function fotoParaWeb(foto: FotoDictada): string {
 
 // ─── 2.46 → 2.48 Los nodos del socio ──────────────────────────────────────────
 
+/**
+ * ¿El último turno del bot OFRECIÓ conectar a la persona con alguien? Se
+ * reconoce por la forma —«¿le sirve que lo comunique con alguien del equipo?»,
+ * «¿quiere que le avise al socio?»— y solo si esa oferta es la pregunta con la
+ * que cierra. Un «sí» a eso es pedir una persona.
+ */
+export function botOfrecioPersona(ultimoBot: string): boolean {
+  const cierre = (ultimoBot || '').trim().split('\n').filter(Boolean).pop() ?? '';
+  return /\?\s*$/.test(cierre)
+    // «comuniQue» lleva q: el tallo es comuni[cq].
+    && /(comuni[cq]|conect|pas[aáe]r?l[oa]|aviso?|avis[ae]|contact)[a-záéíóúñ]*\s+(con\s+|a\s+|al\s+)?(alguien|una persona|un asesor|una asesora|el equipo|(el |la )?soci[oa]|[a-záéíóúñ]+ del equipo)/i.test(cierre);
+}
+
 export interface ContextoSocio {
   mensaje: string;
   historial: Turno[];
@@ -553,7 +566,11 @@ export async function atenderSocio(ctx: ContextoSocio): Promise<RespuestaConduct
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
 
   // 2.46 — Hasta el 27 ago el modelo escribía «le aviso al socio» y no pasaba nada.
-  if (detectarPidePersona(mensaje)) {
+  // Y hasta el 9 sep el «ok» a la OFERTA de conectarla tampoco: el bot preguntaba
+  // «¿le sirve que lo comunique con alguien del equipo?», Liliana decía «Ok», y el
+  // modelo escribía «le aviso al equipo» sin que saliera aviso. La oferta se
+  // reconoce por su forma, igual que la del catálogo.
+  if (detectarPidePersona(mensaje) || (botOfrecioPersona(ultimoBot) && esAceptacion(mensaje))) {
     const ultimoUsuario = [...historial].reverse().find((m) => m.role === 'user')?.content ?? '';
     await avisarPidePersona(ctx.contacto, ctx.nombreProspecto, socio, ultimoUsuario);
     return { nodo: '2.46 pide una persona (socio y equipo avisados)', texto: respuestaPersona(socio) };

@@ -125,3 +125,17 @@ Lo que funcionó: las dos preguntas del esqueleto (oficio y trato), el borrador,
 **Arnés:** `npx tsx scripts/prueba-salud-patricia.mts` reproduce los cinco turnos tal cual quedaron en la base (ninguno se lee como declaración, familias, reincidencia en T2 y no en T4, el reemplazo, los tres borradores aprobados contra el filtro de salida, y la dirección contraria). La batería `test-guardarrail-salud.mjs` ganó la sección de evidencia y verifica los núcleos y cierres por nombre. `prueba-conversacion.mjs` emula la derivación con `rechazoSaludPorFamilia`.
 
 **Pendiente de esta pieza:** reconocer a quien vuelve (Patricia había escrito el 2 sep y Queswa no dio señal de recordarla) — no existe en ninguna familia.
+
+## 7. Tercera vuelta — 9 sep 2026: los hilos que llegaron desde /productos
+
+Dos hilos reales entraron por la página de productos en diez días (Liliana Patricia Moreno, 17 turnos del 31 ago al 8 sep; Patricia Reyes, 15 turnos del 2 al 8 sep), los dos con el ref de ganocafe-online. Reporte completo en el mensaje de la sesión; aquí lo arreglado y lo que quedó.
+
+**Arreglado (commit de esta sesión, arnés `prueba-radicacion-y-persona.mts`):**
+
+1. **La radicación secuestró el hilo de Patricia.** «Quiero ver cómo se vería en mi caso» no es volición (verificado), pero el modelo copió el bloque de los cuatro datos del prompt; al turno siguiente `gestionarCierre`, viendo ese texto en los últimos turnos del bot, le pidió el nombre completo a «armeme el guión». El bloque salió del prompt; el modelo, si reconoce una volición que el regex no vio, cierra con la frase puente `OFERTA_RADICAR_MODELO` y el «sí» abre el trámite; y el trámite solo se reabre con pedidos que el backend emitió (`metadata.nodo = 'radicacion'` → `pedidosDelBackend`).
+2. **La reincidencia de salud sin ventana de tiempo.** Liliana recibió «lo mismo que le acabo de decir» el 8 sep por un núcleo del 31 ago, y dos veces seguidas. Ahora cuenta solo dentro de tres horas, y a la segunda reincidencia seguida va el texto corto (`RECHAZO_SALUD_CORTO`, que ya no dice «su médico») con la puerta al equipo. Espejo en la web.
+3. **El «ok» a la oferta de conectarla con el equipo no avisaba.** `botOfrecioPersona()` reconoce la oferta por su forma en el último turno del bot y, con una aceptación, dispara el 2.46.
+
+**Decisiones del Director (9 sep):** la página de productos abre como asesora (pendiente de copy, ver §7.1); quien ya venía conversando del negocio y pasa al catálogo conserva su hilo; **Queswa no redacta piezas publicitarias desde WhatsApp** (eso será una función del Dashboard para cada distribuidor); las imágenes predefinidas de producto, de línea y del portafolio se mantienen, porque los prospectos van a querer ver los productos.
+
+**Pendientes de esta vuelta:** §7.1 la apertura de productos y la respuesta a quien pide un guion o una pieza (copy a aprobación); la ficha de Liliana con «paquete ESP-3» capturado de la tarifa del simulador; «El negocio» compuesto con léxico viejo en un hilo largo (mismo problema del candado que se pierde, diagnóstico aparte); y los pendientes del catálogo ya listados en §4 (PERS_01, cafeína, diabetes) que se siguen sirviendo.

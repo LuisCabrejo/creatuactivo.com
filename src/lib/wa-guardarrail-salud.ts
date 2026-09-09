@@ -411,8 +411,12 @@ export const RECHAZO_SALUD_GRAVE =
   'debe orientarle es su médico tratante.\n\n' +
   'Cuando quiera conocerlos por lo que son, aquí me encuentra con mucho gusto.';
 
+// «terreno médico», no «su médico» (8 sep 2026): también aquí la persona puede
+// no estar preguntando por ella. Es además el texto de la SEGUNDA reincidencia
+// de cualquier familia: la referencia a lo ya dicho se dice una vez; a la
+// tercera pregunta de salud seguida, esto, y la puerta al equipo.
 export const RECHAZO_SALUD_CORTO =
-  'Le entiendo. En temas de salud esa parte es de su médico, y sobre el producto usted puede ' +
+  'Le entiendo. En temas de salud esa parte es terreno médico, y sobre el producto usted puede ' +
   'preguntarme lo que quiera: qué lleva, cómo se prepara y cuánto cuesta. ' +
   '¿Le sirve que lo comunique con alguien del equipo?';
 

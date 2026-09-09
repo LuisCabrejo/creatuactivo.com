@@ -79,6 +79,7 @@ import {
   RECHAZO_SALUD_ESTANDAR,
   RECHAZO_SALUD_COMUN_PREGUNTA,
   RECHAZO_SALUD_EVIDENCIA,
+  RECHAZO_SALUD_CORTO,
   NUCLEO_REINCIDE,
   rechazoSaludPorFamilia,
   esRechazoSaludComun,
@@ -822,7 +823,17 @@ async function procesarEntrante(body: any): Promise<void> {
       // la familia grave; un humano nombra lo dicho y sigue en lo nuevo.
       const { familia: familiaPrevia, declara: declaraPrevia } = rechazoSaludPorFamilia(saludEntrada, false, messageText);
       const nucleoQueAplica = nucleoSalud(familiaPrevia, declaraPrevia);
-      const reincide = await nucleoSaludYaDicho(supabase, waFingerprint, nucleoQueAplica)
+      const _previo = await estadoSaludPrevio(supabase, waFingerprint, nucleoQueAplica);
+      // Tercera pregunta de salud seguida: la referencia a lo dicho ya se usó en
+      // el turno anterior y no se repite. Texto corto, dictado, con la puerta al
+      // equipo (9 sep 2026, hilo de Liliana).
+      if (_previo.reincidioYa) {
+        console.warn(`⛔ [WA Guardrail Salud] Segunda reincidencia seguida ("${saludEntrada.termino}") — texto corto — ${phoneNumber}`);
+        await sendWhatsAppMessage(phoneNumber, RECHAZO_SALUD_CORTO);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, RECHAZO_SALUD_CORTO);
+        return;
+      }
+      const reincide = _previo.nucleoDicho
         || (saludEntrada.nivel === 'comun' && await hayRechazoSaludPrevio(supabase, waFingerprint));
       // Cada familia tiene su texto (peso · tratamiento · grave · común ·
       // evidencia) — la respuesta única para todo era el error (Director, 29 ago 2026).
@@ -1068,16 +1079,22 @@ async function procesarEntrante(body: any): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: prevTurns } = await (supabase as any)
       .from('nexus_conversations')
-      .select('messages, created_at')
+      .select('messages, created_at, metadata')
       .eq('fingerprint_id', waFingerprint)
       .order('created_at', { ascending: false })
       .limit(12);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const historial: { role: string; content: string }[] = [];
+    // Los pedidos de datos que emitió ESTE backend (nodo de radicación). Solo
+    // esos reabren el trámite: un texto parecido escrito por el modelo no cuenta.
+    const pedidosDelBackend: string[] = [];
     let turnosSaneados = 0;
     for (const t of ((prevTurns || []) as any[]).reverse()) {
       if (!Array.isArray(t.messages)) continue;
+      if (t.metadata?.nodo === 'radicacion') {
+        for (const m of t.messages) if (m?.role === 'assistant' && typeof m.content === 'string') pedidosDelBackend.push(m.content);
+      }
       for (const m of t.messages) {
         if (!m?.role || !m?.content) continue;
         const rol = m.role === 'user' ? 'user' : 'assistant';
@@ -1634,11 +1651,14 @@ async function procesarEntrante(body: any): Promise<void> {
       constructorId:  socio?.constructorId,
       yaRadicadoEnBD: !!radicacionPrevia,
       hiloDoceNiveles,
+      pedidosDelBackend,
     });
 
     if (cierre) {
       await sendWhatsAppMessage(phoneNumber, cierre.texto, { wamid });
       try {
+        // `metadata.nodo = 'radicacion'` es la marca que distingue un pedido de
+        // datos emitido por el backend de uno que el modelo haya escrito solo.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await (supabase as any).from('nexus_conversations').insert({
           fingerprint_id: waFingerprint,
@@ -1647,6 +1667,7 @@ async function procesarEntrante(body: any): Promise<void> {
             { role: 'user',      content: messageText,  timestamp: new Date().toISOString() },
             { role: 'assistant', content: cierre.texto, timestamp: new Date().toISOString() },
           ],
+          metadata: { nodo: 'radicacion', search_method: 'radicacion' },
         });
       } catch (err) {
         console.error('⚠️ [WA Webhook] No se pudo persistir el turno de cierre:', err);
@@ -2342,32 +2363,46 @@ async function persistirTurnoDictado(
  * nuevo. Compara sobre la frase con exposición legal, así que cuentan también
  * los textos fijos anteriores. Best-effort — si la consulta falla, se asume que no.
  */
-async function nucleoSaludYaDicho(
+async function estadoSaludPrevio(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,
   fingerprint: string,
   nucleo: string,
-): Promise<boolean> {
+): Promise<{ nucleoDicho: boolean; reincidioYa: boolean }> {
+  const nada = { nucleoDicho: false, reincidioYa: false };
   try {
+    // Ventana de tres horas (9 sep 2026): «lo que le acabo de decir» solo es
+    // cierto dentro de la misma conversación. Liliana preguntó el 8 sep y recibió
+    // esa frase por un núcleo dicho el 31 de agosto.
     const { data } = await supabase
       .from('nexus_conversations')
-      .select('messages')
+      .select('messages, created_at')
       .eq('fingerprint_id', fingerprint)
+      .gte('created_at', new Date(Date.now() - 3 * 3600e3).toISOString())
       .order('created_at', { ascending: false })
       .limit(12);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    for (const fila of ((data || []) as any[])) {
+    const filas = (data || []) as any[];
+    let nucleoDicho = false;
+    for (const fila of filas) {
       if (!Array.isArray(fila.messages)) continue;
       for (const m of fila.messages) {
-        if (m?.role === 'assistant' && typeof m.content === 'string' && contieneNucleoSalud(m.content, nucleo)) {
-          return true;
-        }
+        if (m?.role === 'assistant' && typeof m.content === 'string' && contieneNucleoSalud(m.content, nucleo)) nucleoDicho = true;
       }
     }
+    // ¿El ÚLTIMO turno del bot ya fue la referencia a lo dicho? Entonces no se
+    // repite la frase contra la repetición (Liliana la recibió dos veces
+    // seguidas): la segunda reincidencia va al texto corto, con la puerta al equipo.
+    const ultimaFila = filas[0];
+    const ultimoBot = Array.isArray(ultimaFila?.messages)
+      ? [...ultimaFila.messages].reverse().find((m: { role?: string }) => m?.role === 'assistant')?.content ?? ''
+      : '';
+    const reincidioYa = typeof ultimoBot === 'string' && ultimoBot.trim().startsWith(NUCLEO_REINCIDE);
+    return { nucleoDicho, reincidioYa };
   } catch (err) {
     console.error('⚠️ [WA Guardrail Salud] Error consultando el núcleo previo:', err);
   }
-  return false;
+  return nada;
 }
 
 /**

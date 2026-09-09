@@ -237,12 +237,17 @@ async function processArsenal(arsenalCategory) {
     // `.single()` falla con PGRST116 → existing=undefined → se crean DUPLICADOS.
     // Y para fragments que solo quedan en whatsapp (tras purgar creatuactivo) ve
     // 1 fila y los salta, dejándolos sin regenerar. Bug confirmado 12 jun 2026.
-    const { data: existing } = await supabase
+    // ⚠️ Sin `.single()` (9 sep 2026): con DOS filas en el mismo tenant fallaba
+    // con PGRST116, `existing` quedaba undefined y se creaba una copia MÁS en
+    // cada corrida — QUIEN_01 de marca_personal llegó a tres. `limit(1)` y
+    // contar filas no se cae nunca.
+    const { data: existentes } = await supabase
       .from('nexus_documents')
       .select('id')
       .eq('category', fragmentCategory)
       .eq('tenant_id', tenantId)
-      .single();
+      .limit(1);
+    const existing = (existentes || []).length > 0;
 
     if (existing) {
       console.log(`⏭️  ${fragmentCategory} ya existe, saltando...`);

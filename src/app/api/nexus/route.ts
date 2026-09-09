@@ -770,7 +770,15 @@ async function captureProspectData(
   // empresarial" es una elección.
   const _empresarialGenerico = /paquetes\s+empresariales/i.test(messageLower);
 
-  if (esPreguntaInformativa) {
+  // El reporte del simulador («Acabo de usar el simulador de renta: tarifa ESP-3
+  // Visionario…») lo redacta el webhook a partir del Flow: la persona eligió una
+  // tarifa para VER una cifra, no un paquete para comprarlo. Liliana (1 sep 2026)
+  // quedó con «paquete ESP-3» y momento caliente en el Radar del socio por eso.
+  const _reporteSimulador = /^acabo de usar el simulador/i.test(messageLower.trim());
+
+  if (_reporteSimulador) {
+    console.log('🚫 [NEXUS] Paquete en el reporte del simulador — es la tarifa elegida para ver una cifra, NO una selección');
+  } else if (esPreguntaInformativa) {
     console.log('🚫 [NEXUS] Mención de paquete en pregunta informativa — NO capturar como selección');
   } else if (_empresarialGenerico) {
     console.log('🚫 [NEXUS] "paquetes empresariales" (plural) es el genérico del GEN5 — NO es selección de ESP-2');
@@ -3235,6 +3243,10 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
             is_fragment_result: true,
             fragment_count: fragmentosAEntregar.length,
             fragment_categories: fragmentosAEntregar.map(f => f.category),
+            // El candado que va solo lo emite el backend en el canal (9 sep 2026):
+            // en hilos largos el modelo lo parafraseaba —Patricia tras tres turnos
+            // de salud, Liliana en el turno 17—, y «casi siempre» no es un dictado.
+            candado_solitario: primeroConCandado,
             total_chars: totalFragmentChars,
             // Confianza de la recuperación. Se propaga porque "encontré algo" y
             // "encontré algo pertinente" no son lo mismo: con el umbral en 0.30 casi
@@ -6404,17 +6416,36 @@ ${visitorCountry === 'CO'
     // ── Una puerta con candado se entrega SIN pasar por el modelo ─────────────
     // FREQ_30 (23 ago): con el candado servido, el modelo igual le pegaba el
     // segundo tiempo del prompt al primero. Lo que es verbatim lo emite el backend.
-    if (canalDictado && relevantDocuments[0]?.search_method === 'puerta_directa'
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        && (relevantDocuments[0]?.metadata as any)?.dictar) {
-      const _cuerpoPuerta = extraerCandadoDictado(relevantDocuments[0].content || '');
-      if (_cuerpoPuerta) {
-        console.log(`⚡ [Puerta dictada] ${relevantDocuments[0].id} entregado directo, sin modelo`);
-        if (sessionId && fingerprint) {
-          logConversationHibrida(latestUserMessage, _cuerpoPuerta, [relevantDocuments[0].id], 'puerta_dictada', sessionId, fingerprint, mergedProspectData)
-            .catch((err) => console.error('❌ [Puerta dictada] Error logging:', err));
+    // ── …y el candado que gana por vector y va SOLO, también (9 sep 2026) ─────
+    // Reproducido dos veces en hilos reales: Patricia, tras tres turnos de salud,
+    // recibió EMPRESA_DIGITAL_01 parafraseado con «canal» y «se vinculan bajo el
+    // suyo» (3 de 3 corridas); Liliana, en el turno 17, WHY_01 compuesto con
+    // «consumo diario» y «red de distribuidores». En frío los dos salían verbatim.
+    // El candado se sirve solo a propósito (el modelo no debe mezclarlo), así
+    // que el turno es determinístico: lo emite el backend. Quedan fuera los
+    // candados con marcadores que llena un pin (FREQ_03 y sus [PRECIO]) y los
+    // turnos de salud compuesta, donde el núcleo legal es la única fuente.
+    {
+      const _doc0 = relevantDocuments[0];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const _meta0 = (_doc0?.metadata ?? {}) as any;
+      const _esPuertaDictada = _doc0?.search_method === 'puerta_directa' && !!_meta0.dictar;
+      const _esCandadoSolitario = _meta0.candado_solitario === true && _meta0.fragment_count === 1
+        && !pageContext?.startsWith('whatsapp_salud_');
+      if (canalDictado && (_esPuertaDictada || _esCandadoSolitario)) {
+        const _cuerpo = extraerCandadoDictado(_doc0.content || '');
+        const _conMarcadores = !!_cuerpo && /\[[A-ZÁÉÍÓÚÑ0-9_ \-]{3,}\]|\{[^}]+\}/.test(_cuerpo);
+        if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
+          const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
+          const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';
+          console.log(`⚡ [${_esPuertaDictada ? 'Puerta' : 'Candado'} dictado] ${_idFrag} entregado directo, sin modelo`);
+          if (sessionId && fingerprint) {
+            logConversationHibrida(latestUserMessage, _cuerpo, [_idFrag], _metodo, sessionId, fingerprint, mergedProspectData)
+              .catch((err) => console.error(`❌ [${_metodo}] Error logging:`, err));
+          }
+          return new StreamingTextResponse(buildVerbatimStream(_cuerpo), { headers: getCorsHeaders(origin) });
         }
-        return new StreamingTextResponse(buildVerbatimStream(_cuerpoPuerta), { headers: getCorsHeaders(origin) });
+        if (_cuerpo && _conMarcadores) console.log(`🔒 [Candado] ${_meta0.fragment_categories?.[0]} trae marcadores de pin — lo redacta el modelo`);
       }
     }
 

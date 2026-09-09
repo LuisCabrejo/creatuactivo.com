@@ -1,0 +1,213 @@
+{
+ "fecha": "2026-09-09T16:51:30.725Z",
+ "motivo": "Director, 9 sep 2026: borrar el historial de Nidia para que vuelva a probar como prospecto desde cero. constructor_slugs y private_users siguen en null (ver respaldo del 8 sep).",
+ "prospect": [
+  {
+   "id": "2a9d4ae6-afe8-4bbb-9e23-2fad0da9561e",
+   "constructor_id": "6b7cfe68-ad3a-41ae-9094-682f6c486791",
+   "fingerprint_id": "wa_573102860505",
+   "cookie_id": null,
+   "first_url": null,
+   "last_url": null,
+   "device_info": {
+    "name": "Nidiadent Ips Sas",
+    "phone": "573102860505",
+    "channel": "whatsapp",
+    "invited_by": "luis-cabrejo-1288",
+    "patrocinador_nombre": "Luis Cabrejo Parra"
+   },
+   "visits": 1,
+   "is_returning": false,
+   "stage": "expansion",
+   "created_at": "2026-09-08T17:50:42.956633+00:00",
+   "updated_at": "2026-09-08T17:50:42.956633+00:00",
+   "user_id": null,
+   "source": "whatsapp_inbound"
+  }
+ ],
+ "prospect_data": [],
+ "conversaciones": [
+  {
+   "id": "64f05c3a-63ba-4b04-a840-9c60671775f6",
+   "fingerprint_id": "wa_573102860505",
+   "session_id": "wa_573102860505",
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hola Queswa, vengo del enlace de luis-cabrejo",
+     "timestamp": "2026-09-08T17:50:46.394Z"
+    },
+    {
+     "role": "assistant",
+     "content": "Hola. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo. Atiendo a cientos de personas, las 24 horas.\n\nLe explico cómo se construye un *sistema de distribución de productos premium de bienestar*, en paralelo a su actividad:\n\n• Se arma una sola vez.\n• Usted es el dueño.\n• Le paga cada vez que hay consumo.\n\nCon el potencial de igualar o superar sus *ingresos actuales*.\n\nPregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?",
+     "timestamp": "2026-09-08T17:50:46.394Z"
+    }
+   ],
+   "metadata": {},
+   "created_at": "2026-09-08T17:50:46.967663+00:00",
+   "constructor_id": null
+  },
+  {
+   "id": "0102f6f3-99ab-436f-b194-8a759f8b0f20",
+   "fingerprint_id": "wa_573102860505",
+   "session_id": "wa_573102860505",
+   "messages": [
+    {
+     "role": "user",
+     "content": "Cómo funciona",
+     "timestamp": "2026-09-08T17:52:26.186Z"
+    },
+    {
+     "role": "assistant",
+     "content": "Con gusto. Funciona con la misma lógica de una franquicia.\n\nVender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena de restaurantes, casi nadie.\n\nLa clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.\n\nEso es lo que usted arma acá: su propio sistema de distribución. Para que funcione hacen falta tres cosas, y acá las recibe ensambladas.\n\nUna fábrica: *Gano Excel*, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente.\n\nAlguien que atienda: eso lo hago *yo*. Converso con cada persona que llega, sea que le interese el producto o el modelo de negocio, y maduro su decisión de avanzar.\n\nY una metodología sencilla, de dos pasos.\n\nCada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo lo controla desde su celular.\n\n¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?",
+     "timestamp": "2026-09-08T17:52:26.186Z"
+    }
+   ],
+   "metadata": {},
+   "created_at": "2026-09-08T17:52:26.637985+00:00",
+   "constructor_id": null
+  },
+  {
+   "id": "fac44be6-afb2-40af-aa50-e2f048978b57",
+   "fingerprint_id": "wa_573102860505",
+   "session_id": "wa_573102860505",
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hola Queswa, vengo del enlace de nidia-cabrejo",
+     "timestamp": "2026-09-08T17:53:48.012Z"
+    },
+    {
+     "role": "assistant",
+     "content": "Qué bueno que vuelva.\n\nSeguimos donde quiera. ¿Por dónde retomamos?",
+     "timestamp": "2026-09-08T17:53:48.012Z"
+    }
+   ],
+   "metadata": {},
+   "created_at": "2026-09-08T17:53:48.361009+00:00",
+   "constructor_id": null
+  },
+  {
+   "id": "e977c7f5-047f-49ce-bdbc-f147a6edf61e",
+   "fingerprint_id": "wa_573102860505",
+   "session_id": "wa_573102860505",
+   "messages": [
+    {
+     "role": "user",
+     "content": "Cómo funciona",
+     "timestamp": "2026-09-08T17:54:13.790Z"
+    },
+    {
+     "role": "assistant",
+     "content": "Con gusto. Funciona con la misma lógica de una franquicia.\n\nVender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena de restaurantes, casi nadie.\n\nLa clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.\n\nEso es lo que usted arma acá: su propio sistema de distribución. Para que funcione hacen falta tres cosas, y acá las recibe ensambladas.\n\nUna fábrica: *Gano Excel*, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente.\n\nAlguien que atienda: eso lo hago *yo*. Converso con cada persona que llega, sea que le interese el producto o el modelo de negocio, y maduro su decisión de avanzar.\n\nY una metodología sencilla, de dos pasos.\n\nCada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo lo controla desde su celular.\n\n¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?",
+     "timestamp": "2026-09-08T17:54:13.790Z"
+    }
+   ],
+   "metadata": {},
+   "created_at": "2026-09-08T17:54:13.857497+00:00",
+   "constructor_id": null
+  },
+  {
+   "id": "9ddf002b-ba72-4bf9-ac63-81f2149bc837",
+   "fingerprint_id": "wa_573102860505",
+   "session_id": "wa_573102860505",
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hola Queswa, vengo del enlace de luis-cabrejo",
+     "timestamp": "2026-09-08T18:12:41.987Z"
+    },
+    {
+     "role": "assistant",
+     "content": "Qué bueno que vuelva.\n\nSeguimos donde quiera. ¿Por dónde retomamos?",
+     "timestamp": "2026-09-08T18:12:41.987Z"
+    }
+   ],
+   "metadata": {},
+   "created_at": "2026-09-08T18:12:42.098419+00:00",
+   "constructor_id": null
+  },
+  {
+   "id": "2c649e87-4f55-49b8-a6e5-f394dbd9ac15",
+   "fingerprint_id": "wa_573102860505",
+   "session_id": "wa_573102860505",
+   "messages": [
+    {
+     "role": "user",
+     "content": "Qué debo hacer yo",
+     "timestamp": "2026-09-08T18:12:54.281Z"
+    },
+    {
+     "role": "assistant",
+     "content": "Me gusta esa pregunta — es la que de verdad importa. 🪢\n\nSu día a día se resume en dos acciones:\n\n📲 *Compartir:* usted pasa un enlace a quien quiera.\n🤝 *Recibir:* usted saluda a quien llega con interés.\n\nEntre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.\n\nY quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.\n\n¿Le muestro los productos que mueven todo esto?",
+     "timestamp": "2026-09-08T18:12:54.281Z"
+    }
+   ],
+   "metadata": {},
+   "created_at": "2026-09-08T18:12:54.637589+00:00",
+   "constructor_id": null
+  }
+ ],
+ "wa_mensajes_procesados": [
+  {
+   "wamid": "wamid.HBgMNTczMTAyODYwNTA1FQIAEhgUMkFBNEMxRTE0ODc1Q0UzRkIzQkYA",
+   "creado_at": "2026-09-08T18:12:38.249998+00:00",
+   "identidad": {
+    "from": "573102860505",
+    "wa_id": "573102860505",
+    "user_id": "CO.1781372683060332",
+    "msg_user_id": null
+   }
+  },
+  {
+   "wamid": "wamid.HBgMNTczMTAyODYwNTA1FQIAEhgUMkFBOEI1Q0Y1OUFBOEJGM0U1MzAA",
+   "creado_at": "2026-09-08T18:12:52.011142+00:00",
+   "identidad": {
+    "from": "573102860505",
+    "wa_id": "573102860505",
+    "user_id": "CO.1781372683060332",
+    "msg_user_id": null
+   }
+  },
+  {
+   "wamid": "wamid.HBgMNTczMTAyODYwNTA1FQIAEhgUMkFEMzE0Q0NDMThDNzQ0MTRBMDAA",
+   "creado_at": "2026-09-08T17:50:39.243314+00:00",
+   "identidad": {
+    "from": "573102860505",
+    "wa_id": "573102860505",
+    "user_id": "CO.1781372683060332",
+    "msg_user_id": null
+   }
+  },
+  {
+   "wamid": "wamid.HBgMNTczMTAyODYwNTA1FQIAEhgUMkFBOTQ4RkFFRDU0Q0FBQ0E5Q0IA",
+   "creado_at": "2026-09-08T17:52:22.879061+00:00",
+   "identidad": {
+    "from": "573102860505",
+    "wa_id": "573102860505",
+    "user_id": "CO.1781372683060332",
+    "msg_user_id": null
+   }
+  },
+  {
+   "wamid": "wamid.HBgMNTczMTAyODYwNTA1FQIAEhgUMkE0RjI0MTM1QzEwM0JDNDUyQzEA",
+   "creado_at": "2026-09-08T17:53:45.345506+00:00",
+   "identidad": {
+    "from": "573102860505",
+    "wa_id": "573102860505",
+    "user_id": "CO.1781372683060332",
+    "msg_user_id": null
+   }
+  },
+  {
+   "wamid": "wamid.HBgMNTczMTAyODYwNTA1FQIAEhgUMkE1RjJDNzNDQ0ZBRjFGODMzQzkA",
+   "creado_at": "2026-09-08T17:54:10.90437+00:00",
+   "identidad": {
+    "from": "573102860505",
+    "wa_id": "573102860505",
+    "user_id": "CO.1781372683060332",
+    "msg_user_id": null
+   }
+  }
+ ]
+}

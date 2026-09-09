@@ -151,3 +151,12 @@ Copy aprobado por el Director e implementado (`prueba-productos-apertura.mts`, 2
 - **Hallazgo colateral**: la puerta de FREQ_30 («¿cuál paquete me recomienda?») disparaba con «¿qué me recomiendas hacer?» en una pregunta de producto y servía «¿con cuál arranca?» con candado. Ahora no abre si el mensaje habla de producto, café, cápsulas, organismo o limpieza.
 
 Pendiente heredado: la ficha de Liliana con «paquete ESP-3» capturado del simulador; «El negocio» compuesto con léxico viejo en hilo largo.
+
+### 7.2 Los dos pendientes de la vuelta, resueltos (9 sep, tarde)
+
+1. **El paquete capturado del simulador.** `captureProspectData` ignora ahora los mensajes que empiezan por «Acabo de usar el simulador» (los redacta el webhook a partir del Flow): la tarifa que la persona eligió para ver una cifra no es un paquete elegido. La ficha de Liliana quedó sin `package` (antes ESP-3).
+2. **El candado que se pierde en el hilo largo.** Diagnóstico en producción con los hilos reales: «El negocio» de Liliana lo reescribe el CQR a «Cómo funciona el modelo de negocio de CreaTuActivo», que recupera WHY_01 🔒 solo —y el modelo lo componía con «consumo diario» y «red de distribuidores»—; el «esquema de distribución» de Patricia recuperaba EMPRESA_DIGITAL_01 🔒 solo y el modelo lo componía con «canal» y «se vinculan bajo el suyo» (3/3). Es el mismo fallo que ya tenían las puertas y el ejemplo de cifras: «casi siempre» no es un dictado. **Arreglo:** el fragmento con candado que se sirve solo lo emite el backend en el canal (`candado_solitario` en la metadata → `candado_dictado`), con el cuerpo del candado y su pregunta de seguimiento; fuera quedan los candados con marcadores de pin y los turnos de salud compuesta. En local, 4/4 verbatim con los dos hilos reales.
+
+**Lo que esto destapa, para el Director:** ahora un candado sale literal SIEMPRE, así que el copy del candado es lo único que cuenta. WHY_01 dice *«Distribuir productos que las personas consumen todos los días siempre ha sido buen negocio»* —el marco del consumo diario que se retiró de WHY_02 el 8 ago— y hoy se lo dice a quien pregunta «El negocio» tras un hilo largo. Es copy, va a su aprobación.
+
+**Nidia:** historial de prospecto borrado por segunda vez a pedido del Director (respaldo `docs/respaldos/respaldo-nidia-3102860505-9sep.json`: 1 prospecto, 6 conversaciones, 6 mensajes procesados). Sigue sin WhatsApp de socia en `constructor_slugs` y `private_users` para que pruebe como prospecto; restaurar cuando termine.

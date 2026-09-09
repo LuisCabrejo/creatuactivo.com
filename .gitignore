@@ -70,3 +70,6 @@ scripts/dankoe-video/**/work/
 scripts/dankoe-video/**/node_modules/
 scripts/tmp-preflight.mjs
 docs/respaldos/nexus_documents-*.json
+
+# modelos de visión descargados (3.6 MB, se rebajan con curl — ver PIPELINE.md)
+scripts/dankoe-video/modelos/*.task

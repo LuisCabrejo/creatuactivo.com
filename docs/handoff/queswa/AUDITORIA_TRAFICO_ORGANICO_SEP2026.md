@@ -160,3 +160,25 @@ Pendiente heredado: la ficha de Liliana con «paquete ESP-3» capturado del simu
 **Lo que esto destapa, para el Director:** ahora un candado sale literal SIEMPRE, así que el copy del candado es lo único que cuenta. WHY_01 dice *«Distribuir productos que las personas consumen todos los días siempre ha sido buen negocio»* —el marco del consumo diario que se retiró de WHY_02 el 8 ago— y hoy se lo dice a quien pregunta «El negocio» tras un hilo largo. Es copy, va a su aprobación.
 
 **Nidia:** historial de prospecto borrado por segunda vez a pedido del Director (respaldo `docs/respaldos/respaldo-nidia-3102860505-9sep.json`: 1 prospecto, 6 conversaciones, 6 mensajes procesados). Su WhatsApp de socia se restauró en `constructor_slugs` y `private_users` el 9 sep a pedido del Director (`identificarSocio` la reconoce: slug `nidia-cabrejo`); la prueba como prospecto quedó cerrada.
+
+### 7.3 El catálogo web reescrito con la composición del fabricante (9 sep, noche)
+
+Auditoría a pedido del Director: «hay inconsistencias, ejemplo el té rooibos y las cápsulas dicen lo mismo». Lo que había: un bloque fijo («extracto exclusivo 100% hidrosoluble… imposible de replicar por la competencia») en los 22, incluidos seis sin Ganoderma en sus ingredientes; la tercera pestaña mostrándole al prospecto los puntos de conversación del socio («clientes de alto poder adquisitivo», «regalo corporativo», «perfecto para embarazadas»); composición sin verificar (Schokolade «suizo» y sin la leche, Rooibos con «antioxidantes naturales» y «sabor natural» inventados, Reskine sin el Ganoderma); léxico fuera de doctrina («ciencia oriental», «revolucionaria», «tónico cerebral»); sin presentación ni categoría en ningún producto; nombres inconsistentes («Gano Schokoladde», «BEBIDA DE OLEAF GANO ROOIBOS»).
+
+**Fuentes:** la única que fijó el Director es `ganoexcel.com.co` («no hay más sitios»); las 19 fichas se leyeron una por una desde `/todos-productos/`, más el micrositio `luvoco.ganoexcel.com.co` para las tres cápsulas. Nombres, precios y códigos, de las capturas del back office (`public/contexto/capturas/productos/`). La voz, de las fichas del catálogo de Queswa (BEB, LUV, SUP, PERS). **Criterio del Director para la web:** hay más margen que en el canal, y se usa el vocabulario verde de agosto (antioxidante, energía estable sin nerviosismo, enfoque y claridad mental, «apoya el funcionamiento normal de las defensas», «el hongo más estudiado»).
+
+**Lo que quedó:** `productData` reescrito en `src/app/productos/page.tsx` con tres campos nuevos (`presentacion`, `categoria` del fabricante, `llevaGanoderma`) y `ritual` en lugar de `puntosConversacion`; las tres pestañas de la ficha pasan a «Lo que es · Qué lleva · Cómo se usa»; el bloque del extracto (seis variedades, hidrosoluble, polisacáridos y triterpenos, apoya el funcionamiento normal de las defensas) va solo en los que lo llevan, y el Cordygold y la máquina dicen que no lo llevan; presentación y categoría en tarjeta y ficha. Los 22 pasan los guardarraíles de salud y negocio y el barrido de léxico.
+
+**Verificado contra el fabricante, producto por producto (lo que el Director pidió mirar):**
+- *Latte y Mocha*: la crema es «no láctea», como dice el Director, y la misma ficha lista leche en polvo y leche desnatada en polvo (y la crema lleva caseinato de sodio). Se dice «crema no láctea» y se declara «contiene derivados de la leche»; nunca «sin leche». El Mocha lleva además extracto de malta de cebada: se declara el gluten.
+- *Rooibos*: la ficha solo dice rooibos sudafricano y Ganoderma; salieron los ingredientes inventados. Sin cafeína porque la planta no la tiene.
+- *Spirulina*: espirulina, Ganoderma y crema no láctea (derivados de leche).
+- *Cordygold*: Cordyceps sinensis 500 mg por cápsula, sin Ganoderma.
+- *Excellium y Cápsulas de Ganoderma*: 275 mg de extracto por cápsula cada una; la ficha del fabricante no menciona «micelio», así que la web ya no lo afirma.
+- *Reskine*: colágeno de pescado (se declara el pescado), betaglucanos de Ganoderma, quinua, manzana, goji, aloe, espinaca.
+- *Schokolade*: cacao, azúcar refinada, crema no láctea, leche descremada en polvo; no es suizo.
+- *Luvoco*: Suave = tueste claro y MÁS cafeína; Medio = equilibrado; Fuerte = tueste alto y MENOS cafeína, con betaglucanos en las tres; 8 g por cápsula. Es lo contrario de la escala de intensidad inventada en mayo.
+
+**Dos discrepancias que solo el Director puede cerrar:** (1) la ficha del fabricante del Shoko Rico muestra el registro NSA-0010766-2021 y el back office NSA-0012964-2022; se dejó el del back office. (2) La categoría por producto se tomó del sitio del fabricante (Clásico, Spirulina, Rooibos, Schokolade y las tres cápsulas como suplemento dietario; 3 en 1, Ganoricos, Reskine y Luvoco como alimento), que no coincide con lo que sugieren los prefijos de registro (SD/NSA); prevalece el sitio.
+
+**Pendiente estructural:** la web sigue con su propia copia de los datos. La unificación con `wa-productos.ts` (una sola fuente para nombre, presentación, precio, registro e imagen) queda propuesta.

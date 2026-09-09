@@ -91,17 +91,21 @@ async function deployArsenalInicial() {
   // Verificaciones
   console.log('\n🔍 Verificando contenido...\n');
 
+  // Chequeos vivos (9 sep 2026). Los anteriores buscaban «BLOQUE 2: PREGUNTAS»,
+  // «OBJ_03» y las analogías del Peaje: nombres de una estructura que ya no
+  // existe, así que salían en rojo en cada despliegue bueno y ensuciaban la
+  // lectura. Lo que vale comprobar es lo que el motor necesita: la versión en
+  // la cabecera y los candados de doble fuente.
+  const respuestas = (content.match(/^### \*\*[A-Z_]+\d*[A-Z_]*:/gm) || []).length;
+  const candado = (id) => new RegExp(`### \\*\\*${id}:[\\s\\S]*?<verbatim_lock>`).test(content);
   const checks = [
-    { name: 'Versión PEAJE/HÍBRIDO', found: content.includes('PEAJE') || content.includes('HÍBRIDO') },
-    { name: 'WHY_01 presente', found: content.includes('WHY_01') },
-    { name: 'WHY_02 Peaje', found: content.includes('[Concepto Nuclear]') },
-    { name: 'FREQ_01-22 presentes', found: content.includes('FREQ_22') },
-    { name: 'CRED_01-04 presentes', found: content.includes('CRED_04') },
-    { name: 'OBJ_01-03 presentes', found: content.includes('OBJ_03') },
-    { name: 'Analogías Jobs Style', found: content.includes('Peaje') || content.includes('Acueducto') },
-    { name: 'Bloque WHY', found: content.includes('BLOQUE 1: PROPÓSITO') },
-    { name: 'Bloque FREQ', found: content.includes('BLOQUE 2: PREGUNTAS') },
-    { name: 'Bloque CRED', found: content.includes('BLOQUE 3: CONFIANZA') }
+    { name: 'Versión actual en la cabecera', found: /\*\*Versión actual: v[\d.]+\*\*/.test(content) },
+    { name: `Respuestas encontradas: ${respuestas}`, found: respuestas > 40 },
+    { name: 'WHY_01 con candado', found: candado('WHY_01') },
+    { name: 'WHY_02 con candado (doble fuente con respuestas-maestras.ts)', found: candado('WHY_02') },
+    { name: 'EAM_01 con candado (doble fuente con respuestas-maestras.ts)', found: candado('EAM_01') },
+    { name: 'EMPRESA_DIGITAL_01 con candado (doble fuente)', found: candado('EMPRESA_DIGITAL_01') },
+    { name: 'Sin marcadores viejos [VERBATIM_LOCK]', found: !content.includes('[VERBATIM_LOCK]') },
   ];
 
   checks.forEach(check => {

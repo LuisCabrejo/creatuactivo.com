@@ -12,33 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.28** (3 sep 2026) — **Auditoría de la prueba del Director.** `FREQ_04` 🔒 deja de anunciar su transparencia y de prometer clientes nuevos cada semana. `WHY_05` gana candado —el modelo le agregaba el remate del villano sin el *más de*— y corrige *sin adornos* y la cadencia del consumo (mensual). *Tres o cuatro cajas* → **cuatro cajas** (50 PV). Detalle en el CHANGELOG.
+**Versión actual: v6.29** (9 sep 2026) — **`WHY_01` 🔒 reescrito con el Director.** Sale el marco del consumo diario y el listado de la faena; entra la tesis del hero (dueño de su sistema, desde el celular, cobra cada vez que mueve producto) y el porqué a la manera de Ray Kroc: montar un negocio que requiere estar encima no es lo difícil, multiplicarlo sí, y la respuesta son los tres elementos ensamblados. Sin anunciar la propia franqueza. Desde el 9 sep el candado solitario lo emite el backend, así que sale literal siempre.
+
+**v6.28** (3 sep 2026) — **Auditoría de la prueba del Director.** `FREQ_04` 🔒 deja de anunciar su transparencia y de prometer clientes nuevos cada semana. `WHY_05` gana candado —el modelo le agregaba el remate del villano sin el *más de*— y corrige *sin adornos* y la cadencia del consumo (mensual). *Tres o cuatro cajas* → **cuatro cajas** (50 PV). Detalle en el CHANGELOG.
 
 **v6.27** (3 sep 2026) — **«Entrar» sale de `EAM_01` 🔒**: *quien entra con usted* → *quien inicia con usted*. Es el verbo de la pirámide cuando nombra comprar el paquete o iniciar (Director, 3 sep 2026); sincronizado con `respuestas-maestras.ts`. Detalle en el CHANGELOG.
-
-**v6.26** (3 sep 2026) — **`WHY_02` 🔒 cierra hacia la estrategia y toma cuatro giros de la auditoría con Gemini.** El párrafo de la recompra abre con su tesis, el despacho termina en la casa del cliente, y «desde el celular» acompaña a las dos acciones. La pregunta de seguimiento pasa del dinero —que ya quedó dicho— a los 12 Niveles, nombrados para que el webhook dicte NIVELES_01 ante el «sí». Detalle en el CHANGELOG.
-
-**v6.25** (31 ago 2026) — **`DIASPORA_01` 🔒: los 16 se dicen con el continente.** En la prueba del canal el modelo parafraseó *«los 16 donde Gano Excel tiene operación»* como *«los 16 países donde opera Gano Excel»* — y minutos antes había dicho *más de 60 países*: contradicción servida. El candado ancla *los 16 **países de América*** en su primera mención. Detalle en el CHANGELOG.
-
-**v6.24** (31 ago 2026) — **`WHY_02` 🔒: el sistema es el sustantivo, el producto es el respaldo.** Definir el sistema *por* el café lo degradaba —como si Apple dijera que está en el negocio de los celulares (Director)—; ahora la primera frase nombra el sistema y el producto queda subordinado, con Ganoderma dicho ahí y no en el párrafo de la recompra. Sale la cola que describía lo que el socio ya no hace: era peso, no valor. Detalle en el CHANGELOG.
-
-**v6.23** (30 ago 2026) — **`FREQ_24` deja de responder un trámite.** En WhatsApp quien pregunta cómo inscribir un cliente es casi siempre un prospecto midiendo si es fácil, no alguien pidiendo el instructivo: el eje pasa a ser **quién lo hace** —*usted no diligencia nada*— y salen la línea nacional de Gano y las oficinas abiertas al público, que invitaban a rodearnos y contradecían la doctrina de las sedes. Detalle en el CHANGELOG.
-
-**v6.20** (27 ago 2026) — **Las sedes son información de socio, y el envío tiene dueño.** `FREQ_13` y `FREQ_07` conservan las nueve sedes como prueba de legalidad y sueltan la invitación a ir; nace `FREQ_36` (cómo llega el pedido). El directorio `FREQ_34` solo viaja en modo socio (filtro en el motor). Detalle en el CHANGELOG.
-
-**v6.19** (26 ago 2026) — **La columna del proyecto: hacer sencillo lo que era difícil, sin describir la faena que le quitamos.** Uber no dice *«pedimos el taxi por usted»*. `NET_02` deja de enumerar la tarea vieja y remata hacia adelante: *«hoy no lo es»*. Detalle en el CHANGELOG.
-
-**v6.18** (26 ago 2026) — **`NET_02` por fin responde lo que su título promete: el código se reactiva y lo de abajo sigue en su posición.** La regla de los seis meses queda registrada solo para quien edita — es cierta y decirla nos juega en contra. Detalle en el CHANGELOG.
-
-**v6.17** (26 ago 2026) — **`INVERSION_MARKETING_01` gana pregunta de cierre, y su redacción está atada al detector de conexión de route.ts.** Detalle en el CHANGELOG, junto con dos supuestos que la revisión no confirmó: no existe condición anti-repetición de preguntas de cierre, y el pin de productos tiene las dos ramas del ternario iguales.
-
-**v6.16** (26 ago 2026) — **Auditoría general: `OBJ_01` deja de ser un atractor, y la cabecera deja de repetir lo retirado.** El título tiene un óptimo —ni tan corto que robe consultas ajenas, ni tan largo que pierda las propias—, y el historial de versiones se muda al CHANGELOG. Detalle allí.
-
-**v6.15** (26 ago 2026) — **El villano del networker es la CREENCIA de que es difícil, no el trabajo manual.** `NET_01` y `NET_02` cambian de eje: lo que frena al mercado es la fama de negocio difícil de desarrollar, y la prueba de que hoy no lo es se da como hecho —*se maneja desde una aplicación, y buena parte desde WhatsApp*—, no como analogía. Detalle en el CHANGELOG.
-
-**v6.14** (26 ago 2026) — **El café baja a presentación y sube el Ganoderma; y la Diáspora deja de prescribir un país.** `WHY_PROD_01` renombra la categoría en vez de anclarse al café. `DIASPORA_02` y `DIASPORA_03` retiran *"normalmente Colombia"*, sueltan una referencia cruzada que el lector nunca podía ver, y dejan de preguntar el país que la persona acaba de decir. Detalle en el CHANGELOG.
-
-**v6.13** (26 ago 2026) — **Una sola directriz de acciones, y un solo fragmento que la entrega.** `WHY_ROL_01` se elimina: cero de 1.538 mensajes reales preguntaban por el rol. Las acciones son **Compartir y Recibir**, las dicta `EAM_01`, y no hay segunda lista de verbos. 59 respuestas. Detalle en el CHANGELOG.
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
 
@@ -48,21 +26,19 @@
 
 ### **WHY_01: "¿Por qué existe esto? / ¿Qué es CreaTuActivo exactamente? / Explícame qué es lo que hacen."**
 **[Índice]:** Qué es CreaTuActivo, qué hacen, por qué existe esta empresa. A qué se dedican, de qué se trata todo esto. Para quien está midiendo si es algo serio.
-**[Concepto Nuclear]:** Quien pregunta "¿qué es CreaTuActivo?" está **midiendo legitimidad**, no pidiendo un diagnóstico de su vida. Se responde con la palabra llana —**empresa de tecnología**, la misma que usó Nubank ("somos una empresa de tecnología… no un banco")— y con sustantivos concretos: negocio de distribución de café y suplementos, celular, inteligencia artificial. El **por qué existimos** se cuenta en clave de lo que cambió en el mundo (el trabajo que hacía este negocio imposible para la mayoría desapareció), no de lo que anda mal en su vida. Gano pone lo físico; CreaTuActivo pone la tecnología, el método y el acompañamiento. ⚠️ **El bautizo de la categoría llega después, nunca en primer contacto** — las categorías se ganan, no se anuncian; nombrarla aquí le entrega al oyente un contenedor vacío que él rellena con pirámides, cripto o cursos. ⚠️ Registro: **sustantivos que se ven** (café, celular, cuenta bancaria) y verbos llanos. La jerga de consultoría, las etiquetas abstractas del villano y el vocabulario que evoca ir detrás de alguien quedan fuera; el sustituto correcto de *red* es **sistema de distribución**. Cierra con pregunta única hacia WHY_02 (cómo se gana). Doctrina jul 2026 — ver `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md` y `docs/investigaciones/posicionamiento-categoria/claude_one_liner_concreto.md`.
+**[Concepto Nuclear]:** Quien pregunta «¿qué es CreaTuActivo?» está **midiendo legitimidad**, no pidiendo un diagnóstico de su vida. Se responde con la palabra llana —**empresa de tecnología**, la misma que usó Nubank («somos una empresa de tecnología… no un banco»)— y con la tesis del hero: dueño de su sistema de distribución de productos premium de bienestar, desde el celular, cobra cada vez que mueve producto. El **por qué existimos** se cuenta en clave de lo que cambió en el mundo, no de lo que anda mal en su vida, y a la manera de Ray Kroc: montar un negocio que requiere estar encima no es lo difícil, multiplicarlo sí, y la respuesta son los tres elementos ensamblados (fabricante · quien atiende · metodología de dos pasos). La dificultad vieja va en **una sola frase**, sin inventario de la faena. Gano Excel es respaldo y sus dos cifras son **estatus, nunca alegato**. ⚠️ Los dos pasos NO se nombran aquí: es el hueco que queda sin responder; los entrega `EAM_01`. Registro: sustantivos que se ven y verbos llanos; **nada de anunciar la propia franqueza** («sin rodeos», «le hablo con franqueza»). Cierra con pregunta única hacia `WHY_02`. Doctrina jul 2026 — ver `docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md`; reescrito el 9 sep 2026 con el Director (v6.29).
 
 <verbatim_lock>
-Con gusto, se lo digo sin rodeos. 🪢
+Con gusto.
 
-CreaTuActivo es una **empresa de tecnología**, y lo que hacemos se resume en algo concreto: usted monta su propio negocio de distribución de café y suplementos, lo maneja desde el celular, y nosotros le ponemos la inteligencia artificial que explica y atiende a cada interesado, a toda hora.
+CreaTuActivo es una **empresa de tecnología**. Lo que hacemos se resume en algo concreto: usted es dueño de su propio sistema de distribución de productos premium de bienestar con Ganoderma, lo maneja desde el celular, y cobra cada vez que mueve producto.
 
-Le cuento por qué existimos. Distribuir productos que las personas consumen todos los días siempre ha sido buen negocio. Pero exigía algo que a la mayoría no le gusta ni tiene cómo hacer: explicarle a cada persona, responder a toda hora, estar pendiente de cada uno. No era falta de ganas. Era que nadie tiene la vida para estar ahí todo el día.
+Le cuento por qué existimos. Montar un negocio que requiere que usted esté encima no es difícil; lo difícil es multiplicarlo, y ahí se quedaba casi todo el mundo. Nosotros existimos para esa parte: le entregamos ensamblados los tres elementos con los que el suyo no depende de que usted esté encima.
 
-Eso fue lo que cambió, y es la razón por la que existimos. Yo soy **Queswa**, la inteligencia artificial que construimos para esa parte: converso por WhatsApp con cada persona interesada, le explico, le resuelvo las dudas y maduro su decisión de avanzar, sin que usted tenga que estar explicándole a cada uno.
-
-Lo físico no lo inventamos nosotros, las fábricas, el inventario y los despachos los pone **Gano Excel**, una empresa con más de 30 años y presencia en más de 60 países. Nosotros ponemos la tecnología, el método y el acompañamiento.
+El fabricante, **Gano Excel**, más de 30 años y presencia en más de 60 países, que fabrica y despacha cada pedido por usted. Alguien que atienda a cada persona que llega, y eso lo hago **yo**: converso por WhatsApp, le explico, le resuelvo las dudas y maduro su decisión de avanzar, a toda hora. Y una metodología de dos pasos sencillos, que le muestro cuando quiera.
 </verbatim_lock>
 
-**Pregunta de seguimiento:** ¿Le cuento cómo se gana?
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
 
 ---
 

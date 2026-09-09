@@ -28,6 +28,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import NEXUSWidget from './nexus/NEXUSWidget'
 import { REEL_NICHOS } from '@/lib/reels'
+import { usaOrbeVerde } from '@/lib/orbe-config'
 
 // ─── Paleta Quiet Luxury ──────────────────────────────────────────────────────
 const C = {
@@ -524,36 +525,44 @@ export default function UnifiedQueswaOrb() {
   const isError      = voiceState === 'error'
   const isVoiceActive = isRecording || isProcessing || isSpeaking
 
+  // Acento del LANZADOR. Verde WhatsApp en la excepción por ref (ganocafe,
+  // 9 sep 2026): mismo orbe y mismo chat — solo cambia el color, porque el
+  // verde es reconocimiento ("aquí me responden"), no otra función. El panel
+  // interior del chat queda dorado (Quiet Luxury) a propósito.
+  const orbeVerde = usaOrbeVerde(pathname)
+  const ACC = orbeVerde ? '#25D366' : C.gold
+  const accAlpha = (a: number) => orbeVerde ? `rgba(37,211,102,${a})` : `rgba(212,175,55,${a})`
+
   const orbBorder = isError
     ? `2px solid ${C.error}`
     : isRecording
-      ? `2px solid ${C.goldBorder}`
-      : `2px solid rgba(212,175,55,0.5)`  // idle: ring dorado sutil, siempre visible
+      ? `2px solid ${accAlpha(0.45)}`
+      : `2px solid ${accAlpha(0.5)}`  // idle: ring de acento sutil, siempre visible
 
   // Idle = oscuro (pasivo). Grabando = dorado (activo inequívoco).
   const orbBg = isError
     ? C.errorDim
     : isRecording
-      ? C.gold                   // GRABANDO: dorado brillante = señal de acción
+      ? ACC                      // GRABANDO: acento brillante = señal de acción
       : '#0F1115'                // IDLE / procesando / hablando: oscuro = calma
 
   const orbShadow = isRecording
-    ? `0 0 0 8px ${C.goldGlow}, 0 0 0 16px rgba(212,175,55,0.08), 0 8px 32px rgba(0,0,0,0.5)`
+    ? `0 0 0 8px ${accAlpha(0.25)}, 0 0 0 16px ${accAlpha(0.08)}, 0 8px 32px rgba(0,0,0,0.5)`
     : isSpeaking
-      ? `0 0 0 6px rgba(212,175,55,0.12), 0 8px 32px rgba(0,0,0,0.5)`
+      ? `0 0 0 6px ${accAlpha(0.12)}, 0 8px 32px rgba(0,0,0,0.5)`
       : `0 4px 16px rgba(0,0,0,0.55)`  // idle: sombra mínima, sin glow dorado permanente
 
   // ─── Icono central del orbe ───────────────────────────────────────────────────
   function OrbIcon() {
     if (isProcessing) return (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={C.gold} strokeWidth="2">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={ACC} strokeWidth="2">
         <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
           <animateTransform attributeName="transform" type="rotate" dur="1s" from="0 12 12" to="360 12 12" repeatCount="indefinite"/>
         </path>
       </svg>
     )
     if (isSpeaking) return (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={C.gold} strokeWidth="2" strokeLinecap="round">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={ACC} strokeWidth="2" strokeLinecap="round">
         <path d="M11 5L6 9H2v6h4l5 4V5z"/>
         <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -577,7 +586,7 @@ export default function UnifiedQueswaOrb() {
     )
     // Estado idle — barras de voz animadas (CSS, decorativas) — doradas sobre fondo oscuro
     return (
-      <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill={C.gold}>
+      <svg className="qw-orb-bars" width="22" height="22" viewBox="0 0 24 24" fill={ACC}>
         <rect className="qb1" x="1"  y="10" width="2" height="4"  rx="1"/>
         <rect className="qb2" x="5"  y="6"  width="2" height="12" rx="1"/>
         <rect className="qb3" x="9"  y="3"  width="2" height="18" rx="1"/>
@@ -616,8 +625,8 @@ export default function UnifiedQueswaOrb() {
               background: 'rgba(8,9,12,0.96)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(212,175,55,0.55)',
-              boxShadow: '0 0 12px rgba(212,175,55,0.15), 0 4px 16px rgba(0,0,0,0.6)',
+              border: `1px solid ${accAlpha(0.55)}`,
+              boxShadow: `0 0 12px ${accAlpha(0.15)}, 0 4px 16px rgba(0,0,0,0.6)`,
               borderRadius: 6,
               padding: '10px 16px',
               maxWidth: 220,
@@ -657,7 +666,7 @@ export default function UnifiedQueswaOrb() {
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
               fontFamily: 'monospace',
-              color: isError ? C.error : C.gold,
+              color: isError ? C.error : ACC,
               marginBottom: liveTranscript ? 4 : 0,
             }}>
               {isRecording   && <span>Escuchando<span className="qw-dots">...</span></span>}
@@ -697,6 +706,7 @@ export default function UnifiedQueswaOrb() {
         whileTap={{ scale: 0.94 }}
         transition={{ type: 'spring', damping: 20, stiffness: 260 }}
         style={{
+          ...(orbeVerde ? { ['--qw-acc' as never]: '37,211,102' } : {}),
           position: 'fixed',
           bottom: isOpen
             ? 'calc(5rem + env(safe-area-inset-bottom, 24px))'
@@ -752,12 +762,12 @@ export default function UnifiedQueswaOrb() {
       {/* ── CSS keyframes ────────────────────────────────────────────────────── */}
       <style>{`
         @keyframes orbPulse {
-          0%, 100% { box-shadow: 0 0 0 4px rgba(212,175,55,0.18), 0 0 0 8px rgba(212,175,55,0.08); }
-          50%       { box-shadow: 0 0 0 10px rgba(212,175,55,0.22), 0 0 0 20px rgba(212,175,55,0.08); }
+          0%, 100% { box-shadow: 0 0 0 4px rgba(var(--qw-acc, 212,175,55),0.18), 0 0 0 8px rgba(var(--qw-acc, 212,175,55),0.08); }
+          50%       { box-shadow: 0 0 0 10px rgba(var(--qw-acc, 212,175,55),0.22), 0 0 0 20px rgba(var(--qw-acc, 212,175,55),0.08); }
         }
         @keyframes orbBreath {
-          0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 0px rgba(212,175,55,0); }
-          50%       { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 7px rgba(212,175,55,0.09), 0 0 22px rgba(212,175,55,0.13); }
+          0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 0px rgba(var(--qw-acc, 212,175,55),0); }
+          50%       { box-shadow: 0 4px 16px rgba(0,0,0,0.55), 0 0 0 7px rgba(var(--qw-acc, 212,175,55),0.09), 0 0 22px rgba(var(--qw-acc, 212,175,55),0.13); }
         }
         /* Idle: solo pulso de opacidad — sin scale, sin movimiento → no parece "activo" */
         @keyframes qwBar {

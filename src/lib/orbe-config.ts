@@ -34,9 +34,45 @@ export const ORBE_MODO: ModoOrbe = 'whatsapp'
  */
 export const RUTAS_ORBE_QUESWA_WEB = ['/servilleta', '/12-niveles'] as const
 
+/**
+ * Cuentas cuya PÁGINA DE PRODUCTOS conserva el chat web — la excepción por ref
+ * que la cabecera anuncia, adelantada para un caso (9 sep 2026, decisión del
+ * Director): ganocafe.online es un funnel de VENTA de producto y el chat web
+ * con catálogo es lo que le funcionaba; el canal de WhatsApp, con sus
+ * guardarraíles, le quitaba conversación al comprador. El orbe se pinta en
+ * verde WhatsApp (usaOrbeVerde) para conservar el reconocimiento del color.
+ *
+ * ⚠️ Alcance = SOLO la URL de la página de productos (/productos/{ref} o
+ * /productos?ref=) — opción A, decidida sobre la B de "seguir al visitante
+ * por localStorage": por URL es predecible y no mezcla orbes según el
+ * historial de cada quien. /sistema/productos/{ref} llega aquí por el 301.
+ */
+export const REFS_ORBE_QUESWA_WEB = ['ganocafe-online-1716'] as const
+
+/** El ref de la página de productos actual, o null si esta URL no es una. */
+export function refDePaginaProductos(pathname: string): string | null {
+  const m = pathname.match(/^\/productos\/([^/?#]+)\/?$/)
+  if (m) { try { return decodeURIComponent(m[1]) } catch { return m[1] } }
+  if ((pathname === '/productos' || pathname === '/productos/') && typeof window !== 'undefined') {
+    try { return new URL(window.location.href).searchParams.get('ref') } catch { return null }
+  }
+  return null
+}
+
+function refConChatWeb(pathname: string): boolean {
+  const ref = refDePaginaProductos(pathname)
+  return ref !== null && (REFS_ORBE_QUESWA_WEB as readonly string[]).includes(ref)
+}
+
+/** ¿El orbe web va en verde WhatsApp? Solo en la excepción por ref. */
+export function usaOrbeVerde(pathname: string): boolean {
+  return refConChatWeb(pathname)
+}
+
 export function usaChatWeb(pathname: string): boolean {
   if (ORBE_MODO === 'queswa') return true
-  return RUTAS_ORBE_QUESWA_WEB.some((r) => pathname === r || pathname.startsWith(`${r}/`))
+  if (RUTAS_ORBE_QUESWA_WEB.some((r) => pathname === r || pathname.startsWith(`${r}/`))) return true
+  return refConChatWeb(pathname)
 }
 
 /** El WABA de Queswa (+57 321 519 3909). No es el personal de Luis ni el orgánico. */

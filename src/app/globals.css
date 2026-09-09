@@ -366,8 +366,14 @@ button,
   to   { opacity: 1; transform: none; }
 }
 
+/* ⚠️ Sin `both`/`forwards` (9 sep 2026): con relleno hacia adelante el navegador
+   deja aplicada la matriz identidad como transform animado, y un elemento con
+   transform es contenedor de todo `position: fixed` que lleve adentro. El modal
+   de ESPECIFICACIONES del catálogo se abría centrado en la mitad del documento,
+   siete mil píxeles abajo: la página se oscurecía y no aparecía nada. El estado
+   final del keyframe coincide con el estilo base, así que no hace falta relleno. */
 .route-enter {
-  animation: routeEnter 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: routeEnter 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Barra de progreso de navegación */

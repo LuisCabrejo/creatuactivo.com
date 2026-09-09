@@ -256,7 +256,7 @@ const productData: ProductData = {
   'bebida-oleaf-gano-rooibos': {
     name: 'BEBIDA DE OLEAF GANO ROOIBOS',
     price: 119900,
-    image: '/productos/bebidas/le-rooibos-gano-excel-min.png',
+    image: '/productos/bebidas/te-rooibos-gano-excel-min.png',
     invima: 'NSA-0012962-2022',
     goals: ['Relajación', 'Defensas', 'Digestivo'],
     shortDescription: 'Té rooibos sudafricano naturalmente libre de cafeína, enriquecido con Ganoderma',

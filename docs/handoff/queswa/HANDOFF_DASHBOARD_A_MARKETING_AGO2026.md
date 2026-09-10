@@ -53,6 +53,11 @@ voy a copiar son los canónicos vigentes**.
 >
 > **El texto bueno está en** `system-prompt-queswa-whatsapp-v3.md:128-153`. **§7.1
 > queda congelado** hasta que marketing reponga ese bloque en v4.
+
+> ⚠️ **Nota del 10 sep 2026:** `system-prompt-queswa-whatsapp-v3.md` **se retiró del árbol** — era un
+> huérfano de agosto que ningún script desplegaba y que aún contenía la aspiración comparativa
+> retirada de la Home. Ese bloque del villano vive hoy, íntegro, en `knowledge_base/system-prompt-queswa.md`
+> (la única fuente, desplegada a los dos canales); el archivo viejo sigue en git (`a8fcd3e`).
 >
 > ✅ Lo único que sí sostengo de esta sección: `BRANDING.md:179` conserva el villano
 > viejo en la columna **aprobada**. El Dashboard no leyó mal — obedeció bien una tabla

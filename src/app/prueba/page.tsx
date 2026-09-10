@@ -26,6 +26,16 @@
  *    línea nombra una pérdida EN CURSO y no un final. Y dice «tan poco a cambio», no
  *    «nada»: los extremos invitan al «ese no es mi caso», y quien está relativamente
  *    bien es justo el que no queremos que se exima.
+ * 1b. El H1 se queda en UNA línea —la misma del title y de la tarjeta OG— y el dorado
+ *    se muda a la postura: marca la creencia, no el mecanismo (Director, 10 sep: la
+ *    sección se veía cargada). «Cobra cada vez que mueve producto» no se pierde, baja
+ *    al párrafo del mecanismo: es la fórmula que nombra el mecanismo y no el resultado.
+ * 1c. El ingreso se nombra por su NATURALEZA, no por su tamaño (Director, 10 sep):
+ *    «no depende de que esté encima para generarse». Es léxico aprobado —no promete
+ *    plazo, ni garantía, ni sustitución del salario—. Sale «con el potencial de
+ *    igualarlo o superarlo», que es doctrina ratificada del 17 ago: salió por decisión
+ *    del Director, NO por un barrido, y el tamaño lo trabaja el simulador. Se conserva
+ *    «en paralelo», que es lo que desactiva el miedo a tener que dejar lo que ya tiene.
  * 2. El eyebrow deja de ser geografía. Era una credencial, y el estigma es de
  *    popularidad, no de fraude (doctrina 6 sep): responde una pregunta que el lector no
  *    se hace. La geografía baja al renglón pequeño del CTA, donde sí es dato útil.
@@ -265,10 +275,6 @@ export default function PruebaPage() {
             }}
           >
             Sea dueño de su propio sistema de distribución.
-            <br />
-            <span style={{ color: GOLD }}>
-              Lo maneja desde el celular, y cobra cada vez que mueve producto.
-            </span>
           </h1>
 
           {/* La postura, en la forma de Vélez: la creencia, la deuda, y lo que
@@ -278,7 +284,7 @@ export default function PruebaPage() {
               fontSize: 'clamp(1.2rem, 2.9vw, 1.55rem)',
               lineHeight: 1.5,
               fontWeight: 600,
-              color: 'var(--color-text-primary)',
+              color: GOLD,
               margin: '0 0 1.35rem',
               maxWidth: 700,
             }}
@@ -301,10 +307,11 @@ export default function PruebaPage() {
           <p style={{ ...heroBodyStyle, margin: '0 0 2.5rem' }}>
             Acá esa infraestructura tiene nombre: su propio sistema de distribución de
             productos premium de bienestar con Ganoderma, que Gano Excel fabrica y despacha
-            por usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.{' '}
+            por usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.
+            Usted lo maneja desde el celular, y cobra cada vez que mueve producto.{' '}
             <Strong>
-              A usted le queda un ingreso en paralelo al que ya tiene, con el potencial
-              de igualarlo — o superarlo.
+              A usted le queda un ingreso en paralelo al que ya tiene, y que no depende de
+              que esté encima para generarse.
             </Strong>
           </p>
 

@@ -67,7 +67,7 @@ import {
 } from '@/lib/wa-pedido';
 import { pideImagen, detectarProducto, detectarFamilia, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA } from '@/lib/wa-productos';
 import {
-  slugDesdeNombre,
+  slugLibre,
   normalizarWhatsApp,
   mensajeDeBienvenida,
   enlaceDeCanal,
@@ -2796,14 +2796,7 @@ async function activarCanal(
     const constructorId = `${sinTildes(nombre).split(/\s+/).join('-')}-${sufijo}`.slice(0, 60);
 
     // El slug corto es el que la persona comparte; el largo vive en constructor_id.
-    const base = slugDesdeNombre(nombre);
-    let slug = base;
-    for (let i = 2; i <= 20; i++) {
-      const { data: ocupado } = await supabase
-        .from('constructor_slugs').select('slug').eq('slug', slug).maybeSingle();
-      if (!ocupado) break;
-      slug = `${base}${i}`;
-    }
+    const slug = await slugLibre(supabase, nombre);
 
     // La cuenta primero: sin esta fila, la página del reel muestra el WhatsApp
     // orgánico en vez del suyo. `plan_type` entra como 'inicial' y lo corrige el

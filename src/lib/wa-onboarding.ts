@@ -75,16 +75,80 @@ export function normalizarWhatsApp(numero: string): string {
 }
 
 /**
- * Slug a partir del nombre: minúsculas, sin tildes, con guion.
- * "Diego Giraldo Restrepo" → "diego-giraldo". Dos palabras bastan y se leen
- * bien en la URL que la persona va a compartir por chat.
+ * Slug a partir del nombre: minúsculas, sin tildes, con guion. Dos palabras
+ * bastan y se leen bien en la URL que la persona va a compartir por chat.
+ *
+ * "Diego Giraldo Restrepo" → "diego-giraldo". Con cuatro palabras o más —dos
+ * nombres y dos apellidos, que es como vienen del back office— se toman el
+ * primer nombre y el primer apellido: "Liliana Patricia Moreno Moreno" →
+ * "liliana-moreno", no "liliana-patricia" (10 sep 2026).
  */
 export function slugDesdeNombre(nombre: string): string {
-  return (nombre || '')
+  const palabras = (nombre || '')
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase().replace(/[^a-z0-9\s-]/g, '')
-    .trim().split(/\s+/).slice(0, 2).join('-')
-    .replace(/-+/g, '-') || 'socio';
+    .trim().split(/\s+/).filter(Boolean);
+  const elegidas = palabras.length >= 4 ? [palabras[0], palabras[2]] : palabras.slice(0, 2);
+  return elegidas.join('-').replace(/-+/g, '-') || 'socio';
+}
+
+/**
+ * El primer slug libre a partir del nombre: `patricia-reyes`, y si ya existe,
+ * `patricia-reyes2`… Dos personas con el mismo nombre no pueden pelearse la URL.
+ * Lo usan el comando ACTIVAR y la asignación por defecto de `identificarSocio`.
+ */
+export async function slugLibre(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  nombre: string,
+): Promise<string> {
+  const base = slugDesdeNombre(nombre);
+  let slug = base;
+  for (let i = 2; i <= 20; i++) {
+    const { data: ocupado } = await supabase
+      .from('constructor_slugs').select('slug').eq('slug', slug).maybeSingle();
+    if (!ocupado) break;
+    slug = `${base}${i}`;
+  }
+  return slug;
+}
+
+/**
+ * Le asigna slug a un socio que no lo tiene. Decisión del Director (10 sep 2026):
+ * el slug se aplica por defecto, nadie tiene que reclamarlo.
+ *
+ * Hasta hoy el slug lo reclamaba cada socio en queswa.app, y el canal exigía
+ * slug para reconocer a un socio («sin slug no es socio para este flujo»). El
+ * resultado, medido el 10 sep: 8 de 18 socios activos sin slug, y dos de ellas
+ * —Patricia Reyes, socia desde julio, y Liliana Moreno, desde noviembre—
+ * atendidas como PROSPECTAS: a Patricia le explicaron el plan, le pidieron la
+ * cédula para vincularla y quedó como prospecta caliente en un Dashboard ajeno.
+ * Un saludo sin enlace habría sido un defecto; venderle el negocio a una socia
+ * es un bochorno con su nombre encima.
+ *
+ * El perfil (foto, frase) se completa después desde el Centro de Mando, que
+ * hace `upsert` por `constructor_id` sobre esta misma fila y puede cambiar el
+ * slug si la persona quiere otro.
+ */
+export async function asignarSlugPorDefecto(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  socio: { constructor_id: string; name?: string | null; whatsapp?: string | null },
+): Promise<string | null> {
+  const nombre = (socio.name || '').trim() || socio.constructor_id;
+  const slug = await slugLibre(supabase, nombre);
+  const { error } = await supabase.from('constructor_slugs').insert({
+    slug,
+    display_name: nombre,
+    whatsapp: socio.whatsapp || null,
+    constructor_id: socio.constructor_id,
+  });
+  if (error) {
+    console.error(`⚠️ [WA Onboarding] No pude asignar slug a ${socio.constructor_id}: ${error.message}`);
+    return null;
+  }
+  console.log(`🔗 [WA Onboarding] Slug asignado por defecto: /${slug} → ${socio.constructor_id}`);
+  return slug;
 }
 
 /**
@@ -212,8 +276,10 @@ export async function identificarSocio(
     // cerrado el 17 ago, vivo por un dato faltante en vez de por un error de código.
     //
     // Se hizo el backfill, pero un dato se vuelve a desalinear; el respaldo no.
-    // ⚠️ Se busca el slug igual, porque el saludo lo necesita: sin enlace de canal
-    // no hay nada que ofrecerle. Un socio sin slug NO es socio para este flujo.
+    // El slug se busca porque el saludo lo necesita, y si el socio no lo tiene
+    // SE LE ASIGNA aquí mismo (ver `asignarSlugPorDefecto`): hasta el 10 sep 2026
+    // un socio sin slug no era socio para este flujo, y así dos socias recibieron
+    // el discurso de prospecto con el trámite de vinculación incluido.
     const { data: porPrivate } = await supabase
       .from('private_users')
       .select('id, name, constructor_id, whatsapp')
@@ -229,12 +295,13 @@ export async function identificarSocio(
       .eq('constructor_id', usuario.constructor_id)
       .maybeSingle();
 
-    if (!slugFila?.slug) return null;
+    const slug: string | null = slugFila?.slug || (await asignarSlugPorDefecto(supabase, usuario));
+    if (!slug) return null;
 
     console.log(`🔁 [WA Onboarding] Socio identificado por respaldo en private_users: ${usuario.constructor_id}`);
     return {
-      slug: slugFila.slug,
-      nombre: (slugFila.display_name || usuario.name || '').split(/\s+/)[0] || '',
+      slug,
+      nombre: (slugFila?.display_name || usuario.name || '').split(/\s+/)[0] || '',
       constructorId: usuario.constructor_id,
     };
   } catch (err) {

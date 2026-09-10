@@ -4,7 +4,7 @@
 |---|---|
 | **Fecha** | Lunes 7 de septiembre de 2026 |
 | **Serie** | Reto de los 90 días (documentación en vivo) |
-| **Estado** | 🎬 **Grabado y montado** — pendiente de publicar |
+| **Estado** | ✅ **Emitido** — muro e historias |
 | **Formato** | Talking-head a cámara, DJI Osmo Pocket 3, escritorio |
 | **Versiones** | Muro **61.4 s** (con outro emblema) · Historias **56.0 s** |
 | **Entrega** | `~/Downloads/reels-equipo/0907/reto-dia1-{muro,historias}-final.mp4` |

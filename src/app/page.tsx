@@ -1,6 +1,46 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * Homepage v16 — «Desde adentro» (10 sep 2026) · aprobada por el Director desde /prueba
+ *
+ * Cambia el HERO. Motivo (Director): el hero hablaba desde AFUERA —le decía al lector
+ * lo que podía tener— y la comunicación que mueve habla desde ADENTRO: declara lo que
+ * la empresa cree y qué construyó, y el lector se reconoce solo. Se calca la mecánica
+ * de la frase de Nu (David Vélez), no sus palabras: se nombra un adversario, se
+ * absuelve a las personas, y se termina devolviendo lo que falta.
+ *
+ * El párrafo del hero pasa a ser el bloque de postura en tres tiempos —la creencia, la
+ * deuda, y lo que construimos para saldarla— y el mecanismo lo cierra, para que nadie
+ * llegue al CTA sin saber qué es esto.
+ *
+ * ⚠️ La apertura NO dice «la vida es muy corta», y no es cuestión de gusto. En
+ * publicidad hispana esa frase viene pegada al hedonismo (disfruta · date el gusto ·
+ * «La vida es corta, divórciate»): importaría «gástatelo» justo donde pedimos
+ * «asegúrelo». Y la literatura de terror management mide que el recordatorio de
+ * finitud empuja al gasto en lujo —con la salvedad honesta de que Many Labs 4 no
+ * reprodujo el efecto central—. Lo que sí mueve a actuar no es el miedo sino el
+ * ARREPENTIMIENTO ANTICIPADO (los llamados al miedo solos dan d≈0.11, no
+ * significativo), así que la línea nombra una pérdida EN CURSO y no un final. Dice
+ * «tan poco a cambio» y no «nada»: los extremos invitan al «ese no es mi caso», y
+ * quien está relativamente bien es justo el que no queremos que se exima.
+ *
+ * El H1 se queda en UNA línea, idéntica al title y a la tarjeta OG, y el dorado se
+ * muda a la postura: marca la creencia, no el mecanismo. «Cobra cada vez que mueve
+ * producto» baja al párrafo del mecanismo, donde sigue nombrando el mecanismo y no el
+ * resultado. El eyebrow deja de ser geografía —era una credencial, y el estigma es de
+ * popularidad, no de fraude (6 sep): responde una pregunta que el lector no se hace—;
+ * la geografía baja al renglón del CTA, donde sí es dato útil. Y la comparación hacia
+ * arriba (McDonald's) se muda a «Por qué ahora sí», que ya argumentaba lo mismo:
+ * distribuir siempre fue buen negocio, lo pesado era el resto. No se pierde y sigue
+ * siendo el candado de WHY_02.
+ *
+ * ⚠️ El ingreso se nombra por su NATURALEZA, no por su tamaño: «no depende de que
+ * esté encima para generarse» —léxico aprobado: no promete plazo, ni garantía, ni
+ * sustitución del salario—. Sale «con el potencial de igualarlo o superarlo», que es
+ * doctrina RATIFICADA del 17 ago: salió por decisión del Director el 10 sep, NO por un
+ * barrido. Quien la eche de menos, que no la reponga sin preguntar. Se conserva «en
+ * paralelo», que es lo que desactiva el miedo a tener que dejar lo que ya se tiene.
+ *
  * Homepage v15.2 — «La comparación va hacia arriba» (7 sep 2026) · aprobada por el Director
  *
  * Cambia solo el párrafo del hero. Abre con la comparación del candado de WHY_02
@@ -144,6 +184,15 @@ const GOLD = 'var(--color-brand)'
 const TITANIUM = 'var(--color-titanium)'
 const DATA = 'var(--color-data)'
 const TEXTURE = "url('/images/servilleta/hormigon-tile.webp')"
+
+/** Cuerpo de los párrafos del hero (el bloque de postura y el mecanismo). */
+const heroBodyStyle = {
+  fontSize: 'clamp(1.05rem, 2.4vw, 1.25rem)',
+  lineHeight: 1.65,
+  color: 'var(--color-text-body)',
+  margin: '0 0 1.1rem',
+  maxWidth: 680,
+} as const
 
 // ─── Primitivas ────────────────────────────────────────────────────────────────
 
@@ -311,7 +360,7 @@ export default function HomePage() {
         }}
       >
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <Eyebrow>CreaTuActivo · Colombia · Estados Unidos · Latinoamérica</Eyebrow>
+          <Eyebrow>CreaTuActivo · Lo que estamos construyendo</Eyebrow>
 
           <h1
             style={{
@@ -324,29 +373,43 @@ export default function HomePage() {
             }}
           >
             Sea dueño de su propio sistema de distribución.
-            <br />
-            <span style={{ color: GOLD }}>
-              Lo maneja desde el celular, y cobra cada vez que mueve producto.
-            </span>
           </h1>
 
+          {/* La postura, en la forma de Vélez: la creencia, la deuda, y lo que
+              construimos para saldarla. El mecanismo cierra el bloque. */}
           <p
             style={{
-              fontSize: 'clamp(1.05rem, 2.4vw, 1.3rem)',
-              lineHeight: 1.65,
-              color: 'var(--color-text-body)',
-              margin: '0 0 2.5rem',
-              maxWidth: 680,
+              fontSize: 'clamp(1.2rem, 2.9vw, 1.55rem)',
+              lineHeight: 1.5,
+              fontWeight: 600,
+              color: GOLD,
+              margin: '0 0 1.35rem',
+              maxWidth: 700,
             }}
           >
-            Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's,
-            casi nadie. Lo difícil de un negocio nunca fue abrirlo: fue multiplicarlo.
-            Eso es lo que usted arma acá: su propio sistema de distribución de productos
-            premium de bienestar con Ganoderma, que Gano Excel fabrica y despacha por
-            usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.{' '}
+            Creemos que nadie debería darle su vida entera al ciclo de trabajar, pagar
+            cuentas y repetir, y recibir tan poco a cambio.
+          </p>
+
+          <p style={heroBodyStyle}>
+            No es culpa de las personas: ni el empleo ni el emprendimiento le garantizan
+            hoy a alguien que su trabajo termine asegurándole el futuro. Ahí hay una deuda.
+          </p>
+
+          <p style={heroBodyStyle}>
+            Por eso construimos lo que hacía falta para saldarla: una infraestructura que
+            cualquiera con deseos de superación puede poner a andar, y multiplicar, para
+            que su trabajo por fin le asegure el futuro.
+          </p>
+
+          <p style={{ ...heroBodyStyle, margin: '0 0 2.5rem' }}>
+            Acá esa infraestructura tiene nombre: su propio sistema de distribución de
+            productos premium de bienestar con Ganoderma, que Gano Excel fabrica y despacha
+            por usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.
+            Usted lo maneja desde el celular, y cobra cada vez que mueve producto.{' '}
             <Strong>
-              A usted le queda un ingreso en paralelo al que ya tiene, con el potencial
-              de igualarlo — o superarlo.
+              A usted le queda un ingreso en paralelo al que ya tiene, y que no depende de
+              que esté encima para generarse.
             </Strong>
           </p>
 
@@ -367,7 +430,8 @@ export default function HomePage() {
           >
             <QueswaOnline />
             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
-              Nuestra inteligencia artificial. Responde al instante, sin compromiso.
+              Nuestra inteligencia artificial. Responde al instante, sin compromiso.{' '}
+              Colombia · Estados Unidos · Latinoamérica.
             </p>
           </div>
         </div>
@@ -486,9 +550,11 @@ export default function HomePage() {
         <Eyebrow>Por qué ahora sí</Eyebrow>
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
         <Body>
-          Distribuir productos que las personas vuelven a pedir siempre ha sido
-          buen negocio. Lo que lo hacía complicado era atender a cada interesado, uno
-          por uno — y nadie tiene la vida para eso.
+          Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi
+          nadie. Distribuir productos que las personas vuelven a pedir siempre ha sido buen
+          negocio, y lo difícil nunca fue abrirlo: fue multiplicarlo. Lo que lo hacía
+          complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
+          para eso.
         </Body>
         <Body mt>
           Eso fue lo que cambió. Hoy el trabajo pesado lo hacen dos: una fábrica con

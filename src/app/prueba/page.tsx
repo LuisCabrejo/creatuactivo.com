@@ -1,6 +1,39 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * /prueba — HOME v16 candidata: «desde adentro» (10 sep 2026) · pendiente de aprobación
+ *
+ * Idéntica a la Home v15.2 salvo el HERO. Motivo (Director): el hero habla desde
+ * afuera —le dice al lector lo que puede tener— y Vélez habla desde adentro: declara
+ * lo que la empresa cree y qué construyó, y el lector se reconoce solo. Aquí se calca
+ * la mecánica de la frase de Nu, no sus palabras: se nombra un adversario, se absuelve
+ * a las personas, y se termina devolviendo lo que falta.
+ *
+ * Tres cambios, y el H1 NO se toca (vive en el title, la tarjeta OG, /prueba y el
+ * enlace de Queswa — nueve lugares en sincronía):
+ *
+ * 1. El párrafo del hero pasa a ser el bloque de postura, en tres tiempos: la creencia
+ *    («nadie debería darle su vida entera al ciclo…»), la deuda, y lo que construimos
+ *    para saldarla. El mecanismo cierra el bloque, para que nadie llegue al CTA sin
+ *    saber qué es esto.
+ *    ⚠️ La apertura NO dice «la vida es muy corta». Investigación del 10 sep: en
+ *    publicidad hispana esa frase viene pegada al hedonismo (disfruta · date el gusto ·
+ *    «La vida es corta, divórciate»), e importaría «gástatelo» justo donde pedimos
+ *    «asegúrelo»; y la literatura de terror management mide que el recordatorio de
+ *    finitud empuja al gasto en lujo (con la salvedad de que Many Labs 4 no reprodujo
+ *    el efecto central). Lo que sí mueve a actuar no es el miedo sino el arrepentimiento
+ *    anticipado —los llamados al miedo solos dan d≈0.11, no significativo—, así que la
+ *    línea nombra una pérdida EN CURSO y no un final. Y dice «tan poco a cambio», no
+ *    «nada»: los extremos invitan al «ese no es mi caso», y quien está relativamente
+ *    bien es justo el que no queremos que se exima.
+ * 2. El eyebrow deja de ser geografía. Era una credencial, y el estigma es de
+ *    popularidad, no de fraude (doctrina 6 sep): responde una pregunta que el lector no
+ *    se hace. La geografía baja al renglón pequeño del CTA, donde sí es dato útil.
+ * 3. La comparación hacia arriba (McDonald's) se muda a «Por qué ahora sí», que ya
+ *    argumentaba lo mismo —distribuir siempre fue buen negocio, lo pesado era el
+ *    resto—. Sale del hero para no pelear con la postura, y no se pierde: sigue siendo
+ *    el candado de WHY_02 (decisión ratificada del 7 sep).
+ *
  * /prueba — HOME v15 candidata: "El sistema desplegado" (29 ago 2026)
  *
  * Mismo copy que la Home v14.1 (aprobada hoy). Lo que cambia es el COLOR y la
@@ -43,6 +76,15 @@ const GOLD = 'var(--color-brand)'
 const TITANIUM = 'var(--color-titanium)'
 const DATA = 'var(--color-data)'
 const TEXTURE = "url('/images/servilleta/hormigon-tile.webp')"
+
+/** Cuerpo de los párrafos del hero (el bloque de postura y el mecanismo). */
+const heroBodyStyle = {
+  fontSize: 'clamp(1.05rem, 2.4vw, 1.25rem)',
+  lineHeight: 1.65,
+  color: 'var(--color-text-body)',
+  margin: '0 0 1.1rem',
+  maxWidth: 680,
+} as const
 
 // ─── Primitivas ────────────────────────────────────────────────────────────────
 
@@ -210,7 +252,7 @@ export default function PruebaPage() {
         }}
       >
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <Eyebrow>CreaTuActivo · Colombia · Estados Unidos · Latinoamérica</Eyebrow>
+          <Eyebrow>CreaTuActivo · Lo que estamos construyendo</Eyebrow>
 
           <h1
             style={{
@@ -229,20 +271,37 @@ export default function PruebaPage() {
             </span>
           </h1>
 
+          {/* La postura, en la forma de Vélez: la creencia, la deuda, y lo que
+              construimos para saldarla. El mecanismo cierra el bloque. */}
           <p
             style={{
-              fontSize: 'clamp(1.05rem, 2.4vw, 1.3rem)',
-              lineHeight: 1.65,
-              color: 'var(--color-text-body)',
-              margin: '0 0 2.5rem',
-              maxWidth: 680,
+              fontSize: 'clamp(1.2rem, 2.9vw, 1.55rem)',
+              lineHeight: 1.5,
+              fontWeight: 600,
+              color: 'var(--color-text-primary)',
+              margin: '0 0 1.35rem',
+              maxWidth: 700,
             }}
           >
-            Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's,
-            casi nadie. Lo difícil de un negocio nunca fue abrirlo: fue multiplicarlo.
-            Eso es lo que usted arma acá: su propio sistema de distribución de productos
-            premium de bienestar con Ganoderma, que Gano Excel fabrica y despacha por
-            usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.{' '}
+            Creemos que nadie debería darle su vida entera al ciclo de trabajar, pagar
+            cuentas y repetir, y recibir tan poco a cambio.
+          </p>
+
+          <p style={heroBodyStyle}>
+            No es culpa de las personas: ni el empleo ni el emprendimiento le garantizan
+            hoy a alguien que su trabajo termine asegurándole el futuro. Ahí hay una deuda.
+          </p>
+
+          <p style={heroBodyStyle}>
+            Por eso construimos lo que hacía falta para saldarla: una infraestructura que
+            cualquiera con deseos de superación puede poner a andar, y multiplicar, para
+            que su trabajo por fin le asegure el futuro.
+          </p>
+
+          <p style={{ ...heroBodyStyle, margin: '0 0 2.5rem' }}>
+            Acá esa infraestructura tiene nombre: su propio sistema de distribución de
+            productos premium de bienestar con Ganoderma, que Gano Excel fabrica y despacha
+            por usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.{' '}
             <Strong>
               A usted le queda un ingreso en paralelo al que ya tiene, con el potencial
               de igualarlo — o superarlo.
@@ -266,7 +325,8 @@ export default function PruebaPage() {
           >
             <QueswaOnline />
             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
-              Nuestra inteligencia artificial. Responde al instante, sin compromiso.
+              Nuestra inteligencia artificial. Responde al instante, sin compromiso.{' '}
+              Colombia · Estados Unidos · Latinoamérica.
             </p>
           </div>
         </div>
@@ -385,9 +445,11 @@ export default function PruebaPage() {
         <Eyebrow>Por qué ahora sí</Eyebrow>
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
         <Body>
-          Distribuir productos que las personas vuelven a pedir siempre ha sido
-          buen negocio. Lo que lo hacía complicado era atender a cada interesado, uno
-          por uno — y nadie tiene la vida para eso.
+          Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi
+          nadie. Distribuir productos que las personas vuelven a pedir siempre ha sido buen
+          negocio, y lo difícil nunca fue abrirlo: fue multiplicarlo. Lo que lo hacía
+          complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
+          para eso.
         </Body>
         <Body mt>
           Eso fue lo que cambió. Hoy el trabajo pesado lo hacen dos: una fábrica con

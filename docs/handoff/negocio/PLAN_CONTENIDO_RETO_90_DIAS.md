@@ -105,6 +105,12 @@ los demás*—, no una abstracción. La restricción es verdad, y por eso no cho
 de urgencia falsa. Criterio y mecánica →
 [LO_IMPORTANTE_Y_LA_ECUACION_INVERTIDA](../../investigaciones/resultados/LO_IMPORTANTE_Y_LA_ECUACION_INVERTIDA_SEP2026.md).
 
+✅ **Y desde el 10 sep 2026 Queswa la sostiene.** Quien vea un video y le escriba preguntando por el
+afán ya no recibe *«la puerta está abierta y sigue abierta»*: recibe la misma razón, dicha como
+hecho. Vive en tres fragmentos —`EAM_02` (quien pregunta por el afán), `FREQ_14` (quien compara
+equipos) y `PERFIL_01` (quien duda si cabe)— con **el mismo texto**, para que se duplique igual por
+donde entre.
+
 ---
 
 ## La frase que ancla la serie
@@ -120,7 +126,7 @@ pieza: si el guion del día no cabe debajo de esa frase, no es de esta serie.
 
 ---
 
-## Las seis reglas que no cambian
+## Las siete reglas que no cambian
 
 1. **Cada pieza se basta sola.** Una línea al abrir para situar, y el resto se entiende sin haber
    visto lo de ayer.

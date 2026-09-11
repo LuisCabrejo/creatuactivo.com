@@ -185,6 +185,21 @@ export const metadata = {
   // Canonical explícito: cada socio comparte /?ref=xyz — sin canonical, Google
   // trata cada variante como URL distinta con contenido duplicado.
   alternates: { canonical: 'https://creatuactivo.com' },
+  // ⚠️ La descripción de la TARJETA lleva el PROPÓSITO, no lo que hacemos (Director,
+  // 11 sep 2026) — misma forma que la descripción de Queswa en Meta: creencia, «por eso
+  // existe CreaTuActivo», y después el ensamblaje.
+  //
+  // ⛔ Y lleva SOLO LA SEGUNDA MITAD del credo, a propósito. El credo íntegro —el mismo
+  // en el hero, en WHY_01 🔒, en wa-apertura.ts y en el perfil de Meta— mide 191
+  // caracteres y WhatsApp corta cerca de los 148: el corte cae en «…para que recupe…»,
+  // o sea entrega el ciclo entero y se lleva la restitución. Un desconocido recibiría el
+  // diagnóstico sin la salida, que es justo lo que la doctrina prohíbe en frío. Se
+  // probaron siete compresiones con las dos creencias; la única que entra exige cambiar
+  // «empoderar a las personas para que recuperen» por «devolverles», que nos pone a
+  // nosotros de agente y crea una quinta variante del credo. Se prefirió que el ciclo
+  // viva en la página, donde hay espacio, y que el propósito llegue entero a la tarjeta.
+  // ⛔ Antes de alargar esta cadena, cuéntele los caracteres: lo que pase de ~148 no se
+  // lee en WhatsApp, que es el canal por donde se comparte.
   // Next hace merge SUPERFICIAL: este objeto reemplaza el openGraph del layout
   // completo → siteName/type/locale se re-declaran aquí o se pierden.
   openGraph: {
@@ -194,13 +209,13 @@ export const metadata = {
     url: 'https://creatuactivo.com',
     title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description:
-      'Productos premium de bienestar —café y suplementos con Ganoderma— que Gano Excel fabrica y despacha por usted, y una inteligencia artificial que explica y atiende por WhatsApp. Usted cobra cada vez que su sistema mueve producto.',
+      'Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero. Por eso existe CreaTuActivo: una empresa de tecnología con la que usted arma su sistema de distribución de productos premium de bienestar, que Gano Excel fabrica y despacha, y que una inteligencia artificial atiende por WhatsApp.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description:
-      'Productos premium de bienestar con Ganoderma, una fábrica con 30 años detrás, y una IA que explica y atiende por usted en WhatsApp. Usted cobra cada vez que su sistema mueve producto.',
+      'Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero. Por eso existe CreaTuActivo: una empresa de tecnología con la que usted arma su sistema de distribución de productos premium de bienestar, que Gano Excel fabrica y despacha, y que una inteligencia artificial atiende por WhatsApp.',
   },
 }
 

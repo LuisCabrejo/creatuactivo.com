@@ -4,7 +4,7 @@
 |---|---|
 | **Fecha** | Jueves 10 de septiembre de 2026 |
 | **Serie** | Reto de los 90 días (documentación en vivo) |
-| **Estado** | 🎬 **Montado y entregado** (grabado en un centro comercial, con la Osmo y el micrófono de solapa) |
+| **Estado** | ✅ **Emitido el viernes 11**, un día tarde (grabado en un centro comercial, con la Osmo y el micrófono de solapa). ⚠️ Ese retraso es el fallo de la semana y va al marcador pendiente |
 | **Formato** | Vertical 9:16, para historias. Caminando en 1 y 5; **quieto y a cámara en 2, 3 y 4** |
 | **Rejilla** | Jueves = *la píldora* (historia corta con enseñanza). La historia es su mañana real |
 | **Versiones** | Historia **1080×1920 · 56.9 s** (con outro) |

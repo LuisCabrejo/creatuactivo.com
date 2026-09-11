@@ -60,13 +60,26 @@ Misma semana + *marcador* = «esta semana hablé con seis y cuatro dijeron lo mi
 ⚠️ **La rotación es un riel, no una jaula.** Si el martes pasó algo que merece marcador, se cambia.
 Lo que no se hace es saltarse el día.
 
+⚠️ **Y un formato puede entrar DENTRO de otro.** El día 5 tocaba marcador y salió como *pregunta
+real con el marcador dentro*: abrió con lo que pasó en la semana —*«la misma pregunta me ha llegado
+por varios lados»*— y de ahí se fue a la pregunta. Cumplió el día sin sacrificar el material, que
+era mejor. ⏳ Lo que quedó pendiente es el **fallo**, que un marcador puro sí exige: metido entre la
+pregunta y la concesión interrumpía justo donde la pieza se gana a la persona. Se corre, no se
+inventa.
+
+⛔ **El marcador no obliga a dar el número.** El día 5 se decidió no decir cuántas conversaciones
+(Director: *«no nos va a favorecer en la prueba social»*). Quedó *«por varios lados»*, que además
+hace un trabajo que la cifra no hacía: sugiere **varias personas sin conocerse**, que es lo que le
+da peso al hallazgo, y evita que la pieza pase a tratar de la aritmética. La regla 4 prohíbe pesos;
+no obliga a contar conversaciones en voz alta.
+
 ---
 
 ## Los temas semanales — mes 1
 
 | Semana | Tema | Estado |
 |---|---|---|
-| **1** (sep 7-13) | **No soy capaz** — autoeficacia, la tecnología, «esto es para otros» | ▶ en curso |
+| **1** (sep 7-13) | **No soy capaz** — autoeficacia, la tecnología, «esto es para otros» | ▶ días 1-5 emitidos |
 | **2** (sep 14-20) | **Qué es importante** — la pregunta que ancla; el villano se nombra solo |  |
 | **3** (sep 21-27) | **El que ya tiene un negocio** — negocio ≠ negocio que escala |  |
 | **4** (sep 28-oct 4) | **Los primeros socios** — quiénes son, por qué dijeron que sí |  |
@@ -141,3 +154,10 @@ pieza: si el guion del día no cabe debajo de esa frase, no es de esta serie.
    serio»* se oye como *«¿y antes no?»*. Todo lo que es regla se dice **en presente y como hecho**;
    una sola razón, dicha una vez; y sin adjetivos de seriedad — *serio*, *profesional*,
    *parámetros* — que solo dice el que no los tiene.
+
+⏳ **Falta la séptima, y el título ya la cuenta.** El encabezado dice *siete* y arriba hay *seis*.
+La que falta se enunció así en un traspaso entre agentes: **lo que se diga en un video tiene que
+tener casa en el arsenal — si va a estrenar una idea en cámara, pregunte quién la responde cuando
+la persona escriba**. Tiene sentido y encaja con el cierre del día 5, que manda a Queswa. Pero una
+decisión citada en un handoff ajeno es un reporte, no una regla: **queda pendiente de que el
+Director la confirme**, y hasta entonces no se invoca como si estuviera acordada.

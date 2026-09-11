@@ -177,6 +177,23 @@ captions/.venv/bin/python pildora.py retocado.mov --lut --guion texto.txt --sin-
 captions/.venv/bin/python rotulo_dia.py /tmp/rotulo.png "VIERNES · DÍA 5"   # y el overlay de arriba
 ```
 
+⚠️ **Si los clips del día se grabaron con luces incompatibles, el color va POR CLIP** (campo
+`color` del `corte.json`) **y el paso 3 corre SIN `--lut`.** El 11 sep un clip se grabó en la calle
+—cara en luma **202**, 24 % de píxeles quemados— y el otro bajo techo —cara en **99**—; un corte
+entre ellos sin igualar es un fogonazo. Se recuperó porque **solo el 2 % de la CARA estaba quemado**:
+el resto era el edificio y el cielo. Las dos quedaron en ~113.
+
+- **Se iguala la luma de la CARA**, no la media del cuadro ni la saturación: el fondo de dos sitios
+  distintos nunca va a coincidir, y el ojo va a la cara. Rango bueno: **90 a 130**.
+- **La corrección va antes del LUT y con gamma** (`eq=brightness=…:gamma=…`), nunca con un
+  desplazamiento después — eso lava los negros (lección del día 2).
+- ⛔ **Antes de corregir un tono, se mide el tono.** La piel del clip de la calle *se veía gris* y
+  estuvo a punto de calentarse; medida en Lab estaba **más cálida** que la del otro (+11.3 de rojo
+  contra +8.0). Se veía gris por contraste con el fondo blanco. El ojo se equivoca con el contraste
+  simultáneo; el número no.
+- ⚠️ Un percentil de negros en 0 **no siempre es un defecto**: en estos rodajes es la chaqueta negra.
+  No perseguir ese número.
+
 ⚠️ **El retoque va en el paso 2 y no en otro sitio.** Antes del LUT la cara está sin grano ni
 viñeta, que es donde mediapipe la encuentra mejor y donde el bilateral no pelea con la atmósfera;
 después de los subtítulos sería peor todavía, porque el suavizado los tocaría.

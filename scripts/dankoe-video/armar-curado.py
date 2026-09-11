@@ -22,6 +22,17 @@ EL ARCHIVO DE CORTE (JSON)
   ]
 }
 
+`color` es opcional y va POR CLIP: la cadena de filtros de video, con la palabra
+`LUT` donde deba entrar el de la Osmo. Existe porque **dos clips del mismo día
+pueden tener exposiciones incompatibles** y entonces el color no puede ser global:
+el 11 sep uno se grabó en la calle con la cara en luma 202 y 24 % de píxeles
+quemados, y el otro bajo techo con la cara en 99. Un corte entre ellos sin igualar
+es un fogonazo. Si un clip lleva `color`, **`pildora.py` se corre SIN `--lut`**.
+⚠️ La exposición se corrige ANTES del LUT y con gamma, no con un desplazamiento
+después: un desplazamiento lineal lava los negros (lección del día 2). Y lo que se
+iguala es la **luma de la cara**, no la media del cuadro ni la saturación: el fondo
+de dos sitios distintos nunca va a coincidir, y el ojo va a la cara.
+
 `desfase` es lo que mide la correlación: **el instante en que la voz aparece en la
 CÁMARA menos el instante en que aparece en el MICRÓFONO**. Negativo = el micrófono
 va adelante y se le recorta la cabeza; positivo = va atrasado y se le antepone
@@ -190,7 +201,11 @@ def main():
     for n, s in enumerate(corte["segmentos"]):
         c = corte["clips"][s["clip"]]
         a, b = cuadro(s["de"]), cuadro(s["a"])
-        fg.append(f"[{idx[c['_video']]}:v:0]trim={a:.6f}:{b:.6f},setpts=PTS-STARTPTS,"
+        color = c.get("color", "")
+        if color:
+            color = color.replace("LUT", f"lut3d={os.path.join(BASE,'luts/dji-osmo-pocket3-dlogm-to-709.cube')}")
+            color += ","
+        fg.append(f"[{idx[c['_video']]}:v:0]trim={a:.6f}:{b:.6f},setpts=PTS-STARTPTS,{color}"
                   f"scale=1080:1920:flags=lanczos,setsar=1[v{n}];")
         fg.append(f"[{idx[c['_pista']]}:a:0]atrim={a:.6f}:{b:.6f},asetpts=PTS-STARTPTS[a{n}];")
         linea.append((t, t+b-a, s.get("nota",""))); t += b-a

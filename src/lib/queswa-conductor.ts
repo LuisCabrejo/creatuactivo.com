@@ -544,7 +544,7 @@ export function fotoParaWeb(foto: FotoDictada): string {
 // producto, y «redácteme un mensaje para mi amigo» es el esqueleto del socio,
 // que sigue funcionando. Aplica a prospectos y a socios por igual.
 const RE_PIDE_PIEZA =
-  /\b(haz|hazme|h[aá]game|h[aá]gamelo|arma|[aá]rm[ea]me|arme|crea|cr[eé][ea]me|redacta|red[aá]ct[ea]me|escr[ií]b[ea]me|escribe|dise[ñn]a|dise[ñn][ea]me|genera|gen[eé]r[ea]me|prep[aá]r[ea]me|puedes?\s+(hacer|hacerme|crear|crearme|armar|armarme|redactar|dise[ñn]ar|generar|preparar)|me\s+(haces|armas|creas|redactas|dise[ñn]as|generas|preparas)|necesito|quiero|quisiera|me gustar[ií]a)(?!\s+(ver|mirar|conocer|saber|entender))\b[^.?!]{0,60}?\b(gui[oó]n(es)?|v[ií]deos?|reels?|diapositivas?|slides?|piezas?|flyers?|volantes?|publicidad|anuncios?|posts?|historias? (de|para)|estados? (de|para)|contenido|campa[ñn]a|banner|afiche|cartel|presentaci[oó]n (para|en canva|de ventas|comercial|publicitaria))\b/i;
+  /\b(haz|hazme|h[aá]game|h[aá]gamelo|arma|[aá]rm[ea]me|arme|crea|cr[eé][ea]me|redacta|red[aá]ct[ea]me|escr[ií]b[ea]me|escribe|dise[ñn]a|dise[ñn][ea]me|genera|gen[eé]r[ea]me|prep[aá]r[ea]me|puedes?\s+(hacer|hacerme|crear|crearme|armar|armarme|redactar|dise[ñn]ar|generar|preparar)|me\s+(haces|armas|creas|redactas|dise[ñn]as|generas|preparas)|necesito|quiero|quisiera|me gustar[ií]a)(?!\s+(ver|mirar|conocer|saber|entender))\b[^.?!]{0,60}?\b(gui[oó]n(es)?|v[ií]deos?|reels?|diapositivas?|slides?|piezas?|flyers?|volantes?|publicidad|anuncios?|posts?|historias? (de|para)|estados? (de|para)|contenido|campa[ñn]a|banner|afiche|cartel|tarjetas? de presentaci[oó]n|folletos?|brochures?|propuestas? (comercial|de proveedur[ií]a|para (restaurantes|tiendas|negocios|empresas))|presentaci[oó]n (para|en canva|de ventas|comercial|publicitaria))\b/i;
 
 export const TEXTO_NO_PIEZAS =
   'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +
@@ -555,9 +555,38 @@ export function detectarPidePieza(texto: string): boolean {
   return RE_PIDE_PIEZA.test(texto || '');
 }
 
-export function atenderPidePieza(mensaje: string): RespuestaConductor | null {
-  if (!detectarPidePieza(mensaje)) return null;
-  return { nodo: '2.49 pide una pieza publicitaria', texto: TEXTO_NO_PIEZAS };
+// Una invitación o un texto dirigido a un PÚBLICO —dueños de restaurantes,
+// tiendas naturistas, «la gente», sus estados— es una pieza, no un mensaje para
+// alguien (Patricia, 9 sep 2026: «una invitación… que llame la atención a dueños
+// de restaurantes y tiendas naturistas»). «Redácteme un mensaje para mi amigo» y
+// «algo para varios contactos» siguen siendo el esqueleto del socio.
+const RE_PIDE_PIEZA_PUBLICO =
+  /\b(invitaci[oó]n(es)?|texto|mensaje|gui[oó]n|escrito)\b[^.?!]{0,90}?\b(due[ñn][oa]s? de|restaurantes?|tiendas?|naturistas?|empresas|negocios|p[uú]blico|la gente|mis estados|redes sociales|instagram|facebook|tiktok)\b/i;
+
+// Lo que nombra una pieza sin verbo de creación: es la repregunta natural tras la
+// negativa («un guion general que hable de los beneficios»). Sola no dispara nada;
+// solo cuenta cuando el turno anterior fue justamente la negativa.
+const RE_NOMBRA_PIEZA =
+  /\b(gui[oó]n(es)?|v[ií]deos?|reels?|diapositivas?|slides?|piezas?|flyers?|volantes?|publicidad|anuncios?|posts?|contenido|campa[ñn]a|banner|afiche|cartel|tarjetas? de presentaci[oó]n|folletos?|brochures?)\b/i;
+
+export const TEXTO_NO_PIEZAS_OTRA_VEZ =
+  'Tampoco ese: cualquier texto para publicar sobre los productos sale por el mismo camino, ya revisado. ' +
+  'Lo que sí tengo listo son las imágenes aprobadas. ¿Le mando la del portafolio?';
+
+export function detectarPidePiezaPublico(texto: string): boolean {
+  return RE_PIDE_PIEZA_PUBLICO.test(texto || '');
+}
+
+export function atenderPidePieza(mensaje: string, ultimoBot = ''): RespuestaConductor | null {
+  if (detectarPidePieza(mensaje) || detectarPidePiezaPublico(mensaje)) {
+    const yaDijoQueNo = ultimoBot.startsWith(TEXTO_NO_PIEZAS.slice(0, 40));
+    return { nodo: '2.49 pide una pieza publicitaria', texto: yaDijoQueNo ? TEXTO_NO_PIEZAS_OTRA_VEZ : TEXTO_NO_PIEZAS };
+  }
+  // La repregunta sin verbo, justo después de la negativa.
+  if (ultimoBot.startsWith(TEXTO_NO_PIEZAS.slice(0, 40)) && RE_NOMBRA_PIEZA.test(mensaje || '')) {
+    return { nodo: '2.49 pide una pieza publicitaria (repregunta)', texto: TEXTO_NO_PIEZAS_OTRA_VEZ };
+  }
+  return null;
 }
 
 // ─── 2.46 → 2.48 Los nodos del socio ──────────────────────────────────────────

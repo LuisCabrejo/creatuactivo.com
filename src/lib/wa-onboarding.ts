@@ -222,6 +222,79 @@ export function mensajeDeBienvenida(nombreCorto: string, slug: string): string {
   );
 }
 
+export interface SocioIdentificado {
+  slug: string;
+  nombre: string;
+  constructorId: string;
+  /** `private_users.id` — el que va en `prospects.user_id` al convertirlo. */
+  userId: string | null;
+}
+
+/**
+ * El prospecto que ya es socio queda configurado como socio, y de ahí en
+ * adelante el trato se abre únicamente como distribuidor (Director, 10 sep 2026).
+ *
+ * Patricia y Liliana escribieron primero como prospectas (o sin slug, que para el
+ * canal era lo mismo) y sus fichas quedaron como prospectas calientes con el hilo
+ * de negocio a medias. Cuando el canal reconoce que el número es de un socio:
+ *
+ *   · `prospects.user_id` ← su `private_users.id` y `stage` ← `maestria`, que es
+ *     exactamente lo que el Dashboard usa para decir «ya compró, ya tiene su
+ *     sistema» (`toCanonicalStage`: user_id no nulo → maestria). Deja de ser una
+ *     venta pendiente en el pipeline de quien lo invitó.
+ *   · `device_info.es_socio` + `socio_desde`: el webhook corta el hilo ahí — el
+ *     modelo no vuelve a ver los turnos en que le vendió el negocio a quien ya lo
+ *     tenía — y saluda como a un socio una sola vez (`saludo_socio_en`).
+ *   · Se retiran la temperatura y el interés de prospecto: un socio no tiene
+ *     «momento óptimo».
+ *
+ * Devuelve `true` si convirtió en esta llamada.
+ */
+export async function convertirProspectoEnSocio(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+  socio: SocioIdentificado,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  prospecto: { id?: string; device_info?: Record<string, any> | null } | null,
+): Promise<boolean> {
+  if (!prospecto || prospecto.device_info?.es_socio) return false;
+  const { momento_optimo: _m, interest_level: _i, hilo_12_niveles: _h, ...resto } = prospecto.device_info || {};
+  const device_info = {
+    ...resto,
+    es_socio: true,
+    socio_desde: new Date().toISOString(),
+    socio_constructor_id: socio.constructorId,
+    socio_slug: socio.slug,
+  };
+  const { error } = await supabase
+    .from('prospects')
+    .update({ device_info, stage: 'maestria', ...(socio.userId ? { user_id: socio.userId } : {}) })
+    .eq('fingerprint_id', fingerprint);
+  if (error) {
+    console.error(`⚠️ [WA Onboarding] No pude convertir ${fingerprint} en socio: ${error.message}`);
+    return false;
+  }
+  console.log(`🤝 [WA Onboarding] ${fingerprint} pasa de prospecto a socio (/${socio.slug})`);
+  return true;
+}
+
+/** Deja constancia de que el socio ya recibió su saludo con el enlace. */
+export async function marcarSaludoDeSocio(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+): Promise<void> {
+  try {
+    const { data } = await supabase.from('prospects').select('device_info').eq('fingerprint_id', fingerprint).maybeSingle();
+    await supabase.from('prospects')
+      .update({ device_info: { ...(data?.device_info || {}), saludo_socio_en: new Date().toISOString() } })
+      .eq('fingerprint_id', fingerprint);
+  } catch (err) {
+    console.error('⚠️ [WA Onboarding] No pude marcar el saludo de socio:', err);
+  }
+}
+
 /**
  * ¿Quien escribe es dueño de canal, y no un prospecto?
  *
@@ -242,7 +315,7 @@ export async function identificarSocio(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,
   telefono: string,
-): Promise<{ slug: string; nombre: string; constructorId: string } | null> {
+): Promise<SocioIdentificado | null> {
   const wa = normalizarWhatsApp(telefono);
   if (!wa) return null;
   try {
@@ -259,10 +332,15 @@ export async function identificarSocio(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fila = ((data || []) as any[]).find((c) => normalizarWhatsApp(c.whatsapp) === wa);
     if (fila?.slug) {
+      // El `id` de private_users es el que el Dashboard escribe en
+      // `prospects.user_id` para saber que esa persona ya tiene su sistema.
+      const { data: pu } = await supabase
+        .from('private_users').select('id').eq('constructor_id', fila.constructor_id).maybeSingle();
       return {
         slug: fila.slug,
         nombre: (fila.display_name || '').split(/\s+/)[0] || '',
         constructorId: fila.constructor_id,
+        userId: pu?.id ?? null,
       };
     }
 
@@ -303,6 +381,7 @@ export async function identificarSocio(
       slug,
       nombre: (slugFila?.display_name || usuario.name || '').split(/\s+/)[0] || '',
       constructorId: usuario.constructor_id,
+      userId: usuario.id ?? null,
     };
   } catch (err) {
     console.error('⚠️ [WA Onboarding] Error identificando al socio:', err);

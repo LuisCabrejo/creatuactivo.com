@@ -16,7 +16,7 @@ import {
   vieneDeProductos, preguntaTrasOrbeProductos, construirAperturaProductos, aperturaRetornoProductos,
   APERTURA_PRODUCTOS_OPCIONES,
 } from '../src/lib/wa-apertura.ts';
-import { atenderFoto, atenderPidePieza, detectarPidePieza, TEXTO_NO_PIEZAS } from '../src/lib/queswa-conductor.ts';
+import { atenderFoto, atenderPidePieza, detectarPidePieza, detectarPidePiezaPublico, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ } from '../src/lib/queswa-conductor.ts';
 import { familiaOfrecida } from '../src/lib/wa-productos.ts';
 import { detectarClaimSaludEnSalida } from '../src/lib/wa-guardarrail-salud.ts';
 
@@ -65,6 +65,26 @@ for (const t of [
   'Cómo funciona',
 ]) es(!detectarPidePieza(t), `NO es pieza: «${t}»`);
 es(atenderPidePieza('armeme el guión')?.texto === TEXTO_NO_PIEZAS, 'el nodo dicta el texto aprobado');
+
+// 10 sep 2026 — lo que Patricia pidió el 9 sep y se coló al motor.
+for (const t of [
+  'redacta una tarjeta de presentación atractiva, única y ganadora como agente especializada en la distribución de productos gourmet',
+  'necesito un folleto de la línea',
+]) es(detectarPidePieza(t), `pieza (10 sep): «${t.slice(0, 60)}»`);
+for (const t of [
+  'redáctame una invitación atractiva, ganadora y altamente creativa, que llame la atención a dueños de restaurantes y tiendas naturistas',
+  'un texto para mis estados que haga que la gente se una al proyecto',
+]) es(detectarPidePiezaPublico(t), `pieza para un público: «${t.slice(0, 60)}»`);
+for (const t of [
+  'redacta una invitación a conocer una propuesta de negocio efectiva, sencilla y ganadora, para alguien esquivo, que dilata permanentemente',
+  'redáctame un mensaje para mi amigo Andrés, tiene una ferretería',
+  'tengo varias personas en mente, deme algo que me sirva',
+]) es(!detectarPidePiezaPublico(t) && !detectarPidePieza(t), `NO es pieza, es el esqueleto: «${t.slice(0, 60)}»`);
+// La repregunta sin verbo, justo después de la negativa
+es(atenderPidePieza('un guión general que hable de los beneficios del consumo de ganoderma', TEXTO_NO_PIEZAS)?.texto === TEXTO_NO_PIEZAS_OTRA_VEZ, 'repregunta tras la negativa → segunda negativa, sin repetir el texto');
+es(atenderPidePieza('un guión general que hable de los beneficios del consumo de ganoderma', 'Claro, Patricia. ¿Le muestro el catálogo?') === null, 'la misma frase sin la negativa antes NO dispara');
+es(atenderPidePieza('Sí', TEXTO_NO_PIEZAS) === null, 'el «sí» tras la negativa sigue libre para 2.25a (portafolio)');
+es(atenderPidePieza('armeme el guión', TEXTO_NO_PIEZAS)?.texto === TEXTO_NO_PIEZAS_OTRA_VEZ, 'insistir con verbo tras la negativa → segunda negativa');
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

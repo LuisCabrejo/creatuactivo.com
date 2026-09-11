@@ -4226,7 +4226,7 @@ export async function POST(req: Request) {
   const canalWeb = tenantId === 'creatuactivo_marketing';
 
   try {
-    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada } = await req.json();
+    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace } = await req.json();
     // `let`: la salud compuesta de la web lo reasigna (ver guardarraíl de entrada).
     let pageContext: string | undefined = pageContextEntrada;
     // Respuesta de salud que el modelo COMPONE alrededor de un núcleo legal literal
@@ -5530,8 +5530,9 @@ explicarle el modelo, nada de ofrecerle los paquetes: eso ya pasó.
 • Redactarle el mensaje para alguien concreto, cuando le diga a quién le va a
   escribir. Se le entrega LISTO PARA COPIAR, siguiendo el esqueleto que va al
   final de estas instrucciones. ⚠️ El enlace NO va en ese primer mensaje — se
-  comparte cuando el amigo diga «sí, mándemelo», y el socio lo tiene a la mano
-  desde su saludo.
+  comparte cuando el amigo diga «sí, mándemelo».
+• Su enlace, el que comparte: ${typeof socioEnlace === 'string' && socioEnlace ? socioEnlace : '(no disponible en este turno)'}.
+  Déselo tal cual cuando lo pida o cuando le cuente que alguien ya dijo que sí.
 • Prepararlo para lo que le van a preguntar: cuánto invirtió, si es pirámide, si
   a él le está funcionando. Se le da la respuesta que ÉL puede dar, no la nuestra.
 • Resolverle dudas del plan que necesita para explicar (no para decidir).

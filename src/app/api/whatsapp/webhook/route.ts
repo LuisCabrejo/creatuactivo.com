@@ -74,6 +74,8 @@ import {
   avisarSocioNuevoProspecto,
   identificarSocio,
   saludoDeSocio,
+  convertirProspectoEnSocio,
+  marcarSaludoDeSocio,
 } from '@/lib/wa-onboarding';
 import {
   detectarEmergencia,
@@ -880,16 +882,29 @@ async function procesarEntrante(body: any): Promise<void> {
     // La detección es determinística —su teléfono está en `constructor_slugs`—,
     // así que no hay margen de error ni costo de modelo.
     const socioQueEscribe = await identificarSocio(supabase, phoneNumber);
+    // El hilo del socio empieza el día en que se le reconoció como tal: los turnos
+    // anteriores —donde se le vendió el negocio que ya tenía— no vuelven al modelo.
+    let socioDesde: string | null = existingProspect?.device_info?.socio_desde ?? null;
     if (socioQueEscribe) {
       console.log(`👤 [WA Webhook] Escribe el dueño de /${socioQueEscribe.slug} — modo socio`);
+      // El prospecto que pasó a ser socio queda configurado como socio, y de ahí
+      // en adelante el trato se abre únicamente como distribuidor (Director, 10 sep
+      // 2026). Patricia escribió tres veces como prospecta antes de esto.
+      if (existingProspect && !existingProspect.device_info?.es_socio) {
+        const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
+        if (convertido) socioDesde = new Date().toISOString();
+      }
     }
 
-    // Al socio nuevo se le saluda una vez, con lo suyo: su enlace y lo que Queswa
-    // puede hacer por él. No la explicación del negocio.
-    if (socioQueEscribe && !existingProspect) {
+    // Al socio se le saluda UNA vez, con lo suyo: su enlace y lo que Queswa puede
+    // hacer por él. No la explicación del negocio. ⚠️ La condición ya no es «no
+    // tiene ficha»: quien escribió antes como prospecto tiene ficha y aun así no
+    // ha recibido nunca su enlace — Patricia y Liliana, 10 sep 2026.
+    if (socioQueEscribe && (!existingProspect || !existingProspect.device_info?.saludo_socio_en)) {
       const saludo = saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug);
       await sendWhatsAppMessage(phoneNumber, saludo);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, saludo);
+      await marcarSaludoDeSocio(supabase, waFingerprint);
       console.log(`👋 [WA Webhook] Saludo de socio entregado a /${socioQueEscribe.slug}`);
       return;
     }
@@ -1165,6 +1180,8 @@ async function procesarEntrante(body: any): Promise<void> {
     let turnosSaneados = 0;
     for (const t of ((prevTurns || []) as any[]).reverse()) {
       if (!Array.isArray(t.messages)) continue;
+      // El socio no arrastra su historial de prospecto (ver `socioDesde`).
+      if (socioQueEscribe && socioDesde && t.created_at && t.created_at < socioDesde) continue;
       if (t.metadata?.nodo === 'radicacion') {
         for (const m of t.messages) if (m?.role === 'assistant' && typeof m.content === 'string') pedidosDelBackend.push(m.content);
       }
@@ -1325,7 +1342,8 @@ async function procesarEntrante(body: any): Promise<void> {
     // Queswa no redacta guiones, videos ni diapositivas desde WhatsApp (Director,
     // 9 sep 2026); ofrece las imágenes aprobadas. El «sí» va por 2.25a.
     {
-      const nodoPieza = atenderPidePieza(messageText);
+      const _ultimoBotPieza = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+      const nodoPieza = atenderPidePieza(messageText, _ultimoBotPieza);
       if (nodoPieza?.texto) {
         await pisoDeEscritura();
         const enviado = await sendText(phoneNumber, nodoPieza.texto);
@@ -2013,6 +2031,9 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
           sessionId:   waFingerprint,
           fingerprint: waFingerprint,
           pageContext,
+          // En modo socio el motor conoce el enlace: sin esto, si el socio lo
+          // pedía, el modelo decía que «lo tiene desde su saludo» y no lo daba.
+          ...(socioQueEscribe ? { socioEnlace: enlaceDeCanal(socioQueEscribe.slug) } : {}),
         }),
       });
 

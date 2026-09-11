@@ -368,6 +368,28 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.33 — WHY_02 🔒 le pega la cualidad al sustantivo (10 sep 2026)
+
+Lo pidió el Director con su propio recuerdo, y es el hallazgo de la sesión: *«me voy mentalmente a hace doce años; si me hubieran dicho que aquí yo iba a ser dueño de mi propio sistema de distribución de productos de bienestar, yo habría pensado: para distribuir productos sigo con lo mío. Lo ganador estuvo cuando entendí que aquí podía quedarme un sistema que funcionaba sin que yo tuviera que estar encima»*.
+
+`WHY_02` decía exactamente la frase que él habría rechazado: *«Eso es lo que usted arma acá: su propio sistema de distribución.»* — y ahí cortaba. **El lector decide sobre el sustantivo antes de llegar a la cualidad**, y la cualidad no aparecía en ninguna parte del fragmento. Es el de más tráfico del sistema (~80 % del inicial entra por su chip).
+
+**Lo que cambió, en una sola frase:** *«su propio sistema de distribución, **que no depende de que esté encima para que funcione**. Y no depende, porque acá **lo recibe ensamblado** — las tres cosas que hacen falta ya están puestas.»*
+
+Dos movimientos dentro de ese cambio:
+- **La cualidad va pegada al sustantivo**, no suelta al final. La frase no le da tiempo al lector de decidir sin ella.
+- **Las tres cosas dejan de ser una lista de requisitos y pasan a ser la RAZÓN de la cualidad.** Antes decían *qué hace falta*; ahora responden *por qué usted no tiene que cargarlo*. El *«Y no depende, porque…»* hace explícito el nexo.
+
+**Y entró la epifanía concreta, puesta donde corresponde:** *«Fabrica y despacha cada pedido directo a la casa del cliente, **sean diez clientes o sean mil**»*. Es la imagen que le hizo entender el modelo —*atender mil clientes en mi trabajo tradicional sería titánico; aquí sí podría, porque los atiende Gano Excel*—, dicha como **capacidad del fabricante**, nunca como promesa al lector: no dice que vaya a tener mil, dice que el número no lo limita a él. Es el detalle que vuelve creíble todo lo anterior.
+
+⚠️ **Señalética, corregida por el Director:** *«para que funcione»*, no *«para generar»*. Y ⛔ **no lleva la creencia**: `WHY_02` responde *cómo funciona* —la pregunta del mecanismo—, el porqué ya vive en `WHY_01`, `WHY_05` y `CRED_01`, y la apertura del canal lo pone en contexto antes. **Si la creencia abre todos los fragmentos, deja de pesar en cualquiera.**
+
+⚠️ **«Cadena de restaurantes» se conserva**, y el criterio importa porque cierra una duda recurrente: *cadena* solo estorba desnuda; **dentro de un contexto que la desambigua no causa disonancia** (Director, 10 sep). Misma regla que resolvió la personificación de *sistema*.
+
+**Doble fuente:** `src/lib/respuestas-maestras.ts` sincronizado en el mismo paso — candado 1.126 car = master sin la pregunta de cierre, **idénticos**.
+
+**Verificado:** tres baterías en verde (clasificador 58/58) · build limpio · Camino A dispara con el texto nuevo (1.203 car) · los tres tenants idénticos · *«cómo funciona el negocio»* → **WHY_02 primero, 0.607**.
+
 ### v6.32 — La lista de espera entra al arsenal (10 sep 2026)
 
 Auditoría de los 57 fragmentos con los seis criterios de la sesión. El escaneo mecánico salió limpio —cero personificación, cero dinero sin sujeto, cero juicio de cantidad, cero ingreso por tamaño— y el hallazgo fue **doctrinal**: la palabra *cupo*, *selección* o *lista de espera* **no aparecía ni una vez**, mientras el video del día 4 ya decía en público que el acceso es limitado.

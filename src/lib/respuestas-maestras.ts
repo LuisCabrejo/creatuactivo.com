@@ -135,9 +135,9 @@ Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi
 
 La clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.
 
-Eso es lo que usted arma acá: su propio sistema de distribución. Para que funcione hacen falta tres cosas, y acá las recibe ensambladas.
+Eso es lo que usted arma acá: su propio sistema de distribución, que no depende de que esté encima para que funcione. Y no depende, porque acá lo recibe ensamblado — las tres cosas que hacen falta ya están puestas.
 
-Una fábrica: **Gano Excel**, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente.
+Una fábrica: **Gano Excel**, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente, sean diez clientes o sean mil.
 
 Alguien que atienda: eso lo hago **yo**. Converso con cada persona que llega, sea que le interese el producto o el modelo de negocio, y maduro su decisión de avanzar.
 

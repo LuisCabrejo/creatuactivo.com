@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.32** (10 sep 2026) — **La lista de espera entra al arsenal, y la creencia llega a los fragmentos del porqué.** `EAM_02` responde el afán con la restricción real —acompañar uno a uno toma tiempo— en vez de decir que la puerta sigue abierta, que contradecía lo publicado. `FREQ_14` suma que la elección va en las dos direcciones y `PERFIL_01` lo que sí se pide, las dos dichas como algo que uno reconoce en sí mismo. `WHY_05` 🔒 abre con la creencia y suelta la tríada interna. `CRED_01` se reescribe entera: quién responde, en qué creemos, y qué salió de ahí. Criterio de cada una, en su cabecera.
+**Versión actual: v6.33** (10 sep 2026) — **`WHY_02` 🔒 le pega la cualidad al sustantivo.** Decía *«su propio sistema de distribución»* y ahí cortaba, que es justo donde el lector decide seguir con lo suyo; ahora la frase no le da tiempo, y las tres cosas ensambladas dejan de ser una lista de requisitos para ser **la razón** de esa cualidad. Doble fuente sincronizada.
 
-**v6.31** (10 sep 2026) — **`WHY_01` 🔒 dice por qué existimos desde adentro.** El porqué deja de contarse en clave de mercado y pasa a ser una creencia sobre la vida de las personas, en la forma de Nu. Es la misma frase de la Home v16 y de la apertura del canal.
+**v6.32** (10 sep 2026) — **La lista de espera entra al arsenal, y la creencia llega a los fragmentos del porqué.** `EAM_02` responde el afán con la restricción real; `FREQ_14` y `PERFIL_01` suman lo que se pide; `WHY_05` 🔒 abre con la creencia y suelta la tríada interna; `CRED_01` se reescribe entera.
 
-**v6.30** (9 sep 2026) — **`NET_01` y `NET_02` dejan de anunciar su franqueza.** Quien se declara franco posiciona al otro como el que no lo es; la transición se hace sola, sin anunciarla.
+**v6.31** (10 sep 2026) — **`WHY_01` 🔒 dice por qué existimos desde adentro**, en la forma de Nu. Misma frase que la Home v16 y la apertura del canal.
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
 
@@ -53,9 +53,9 @@ Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi
 
 La clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.
 
-Eso es lo que usted arma acá: su propio sistema de distribución. Para que funcione hacen falta tres cosas, y acá las recibe ensambladas.
+Eso es lo que usted arma acá: su propio sistema de distribución, que no depende de que esté encima para que funcione. Y no depende, porque acá lo recibe ensamblado — las tres cosas que hacen falta ya están puestas.
 
-Una fábrica: **Gano Excel**, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente.
+Una fábrica: **Gano Excel**, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente, sean diez clientes o sean mil.
 
 Alguien que atienda: eso lo hago **yo**. Converso con cada persona que llega, sea que le interese el producto o el modelo de negocio, y maduro su decisión de avanzar.
 

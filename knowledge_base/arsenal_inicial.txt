@@ -12,9 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.33** (10 sep 2026) — **`WHY_02` 🔒 le pega la cualidad al sustantivo.** Decía *«su propio sistema de distribución»* y ahí cortaba, que es justo donde el lector decide seguir con lo suyo; ahora la frase no le da tiempo, y las tres cosas ensambladas dejan de ser una lista de requisitos para ser **la razón** de esa cualidad. Doble fuente sincronizada.
+**Versión actual: v6.34** (10 sep 2026) — **`FREQ_14` reclama el conjunto, y `WHY_02` pierde el eco.** La exclusividad pasa de dos herramientas a **los tres elementos ensamblados** —creatuactivo.com, queswa.app y la metodología de dos pasos—, que es lo que nadie más puede tener junto. Y en `WHY_02` 🔒 la segunda comparación **se conserva** —generaliza de una marca a una categoría, y eso es lo que impide archivar McDonald's como excepción— pero pierde el *«casi nadie»* repetido, que sonaba a fórmula.
 
-**v6.32** (10 sep 2026) — **La lista de espera entra al arsenal, y la creencia llega a los fragmentos del porqué.** `EAM_02` responde el afán con la restricción real; `FREQ_14` y `PERFIL_01` suman lo que se pide; `WHY_05` 🔒 abre con la creencia y suelta la tríada interna; `CRED_01` se reescribe entera.
+**v6.33** (10 sep 2026) — **`WHY_02` 🔒 le pega la cualidad al sustantivo.** Decía *«su propio sistema de distribución»* y ahí cortaba; ahora la frase no le da tiempo, y las tres cosas ensambladas dejan de ser una lista de requisitos para ser **la razón** de esa cualidad.
 
 **v6.31** (10 sep 2026) — **`WHY_01` 🔒 dice por qué existimos desde adentro**, en la forma de Nu. Misma frase que la Home v16 y la apertura del canal.
 
@@ -49,7 +49,7 @@ El fabricante, **Gano Excel**, más de 30 años y presencia en más de 60 paíse
 <verbatim_lock>
 Con gusto. Funciona con la misma lógica de una franquicia.
 
-Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena de restaurantes, casi nadie.
+Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena, muy pocos.
 
 La clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.
 
@@ -692,7 +692,7 @@ Y el pago va por una sola vía: un porcentaje del producto que se vende por su s
 
 No está eligiendo un equipo. Está eligiendo con qué herramientas va a trabajar.
 
-El producto, el plan y el respaldo de Gano Excel son los mismos sea con quien sea, y cada equipo construye lo suyo encima. Lo nuestro tiene nombre: **creatuactivo.com** y **queswa.app**, y este es el único equipo que le da acceso a los dos. Ahí estoy yo, explicando y resolviendo dudas a toda hora, y ahí tiene su Dashboard para ver cómo va su sistema.
+El producto, el plan y el respaldo de Gano Excel son los mismos sea con quien sea, y cada equipo construye lo suyo encima. Lo nuestro tiene nombre: **creatuactivo.com**, **queswa.app** y una metodología de dos pasos. Y este es el único equipo que le entrega los tres, ensamblados. Ahí estoy yo, explicando y resolviendo dudas a toda hora, y ahí tiene su Dashboard para ver cómo va su sistema.
 
 Y la elección va en las dos direcciones. Acompañar así toma tiempo, y no alcanza para todos a la vez: por eso el acceso va por lista de espera. Lo que pedimos es lo mismo que ponemos — que quien se una quiera hacerle bien a las personas con las que va a trabajar.
 

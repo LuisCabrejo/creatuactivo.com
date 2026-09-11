@@ -131,7 +131,7 @@
  */
 const MASTER_WHY_02 = `Con gusto. Funciona con la misma lógica de una franquicia.
 
-Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena de restaurantes, casi nadie.
+Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena, muy pocos.
 
 La clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.
 

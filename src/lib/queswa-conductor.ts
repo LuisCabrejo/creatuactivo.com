@@ -540,11 +540,16 @@ export function fotoParaWeb(foto: FotoDictada): string {
 // WhatsApp —eso será una función del Dashboard para cada distribuidor—; lo que sí
 // entrega son las imágenes ya aprobadas: producto, línea y portafolio.
 //
+// ⚠️ Los verbos toleran la tilde mal puesta: Patricia escribió «Redácta» el 11
+// sep 2026 y el patrón —que solo traía `redacta` y `red[aá]ct[ea]me`— no la vio,
+// así que su petición de una presentación se fue al vector y volvió como la
+// respuesta de «¿qué es CreaTuActivo?». La gente escribe con el pulgar.
+//
 // El verbo de creación es obligatorio: «¿en qué presentación viene?» es
 // producto, y «redácteme un mensaje para mi amigo» es el esqueleto del socio,
 // que sigue funcionando. Aplica a prospectos y a socios por igual.
 const RE_PIDE_PIEZA =
-  /\b(haz|hazme|h[aá]game|h[aá]gamelo|arma|[aá]rm[ea]me|arme|crea|cr[eé][ea]me|redacta|red[aá]ct[ea]me|escr[ií]b[ea]me|escribe|dise[ñn]a|dise[ñn][ea]me|genera|gen[eé]r[ea]me|prep[aá]r[ea]me|puedes?\s+(hacer|hacerme|crear|crearme|armar|armarme|redactar|dise[ñn]ar|generar|preparar)|me\s+(haces|armas|creas|redactas|dise[ñn]as|generas|preparas)|necesito|quiero|quisiera|me gustar[ií]a)(?!\s+(ver|mirar|conocer|saber|entender))\b[^.?!]{0,60}?\b(gui[oó]n(es)?|v[ií]deos?|reels?|diapositivas?|slides?|piezas?|flyers?|volantes?|publicidad|anuncios?|posts?|historias? (de|para)|estados? (de|para)|contenido|campa[ñn]a|banner|afiche|cartel|tarjetas? de presentaci[oó]n|folletos?|brochures?|propuestas? (comercial|de proveedur[ií]a|para (restaurantes|tiendas|negocios|empresas))|presentaci[oó]n (para|en canva|de ventas|comercial|publicitaria))\b/i;
+  /\b(haz|hazme|h[aá]game|h[aá]gamelo|arma|[aá]rm[ea]me|arme|crea|cr[eé][ea]me|red[aá]ct[ae](me|nos)?|escr[ií]b[ae](me|nos)?|dise[ñn]a|dise[ñn][ea]me|genera|gen[eé]r[ea]me|prep[aá]r[ea]me|puedes?\s+(hacer|hacerme|crear|crearme|armar|armarme|redactar|dise[ñn]ar|generar|preparar)|me\s+(haces|armas|creas|redactas|dise[ñn]as|generas|preparas)|necesito|quiero|quisiera|me gustar[ií]a)(?!\s+(ver|mirar|conocer|saber|entender))\b[^.?!]{0,60}?\b(gui[oó]n(es)?|v[ií]deos?|reels?|diapositivas?|slides?|piezas?|flyers?|volantes?|publicidad|anuncios?|posts?|historias? (de|para)|estados? (de|para)|contenido|campa[ñn]a|banner|afiche|cartel|tarjetas? de presentaci[oó]n|folletos?|brochures?|propuestas? (comercial|de proveedur[ií]a|para (restaurantes|tiendas|negocios|empresas))|presentaci[oó]n(es)?)\b/i;
 
 export const TEXTO_NO_PIEZAS =
   'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +
@@ -552,7 +557,17 @@ export const TEXTO_NO_PIEZAS =
   '¿Le mando la del portafolio?';
 
 export function detectarPidePieza(texto: string): boolean {
-  return RE_PIDE_PIEZA.test(texto || '');
+  if (!RE_PIDE_PIEZA.test(texto || '')) return false;
+  // ⚠️ «Presentación» tiene dos sentidos y solo uno es una pieza. Cuando el
+  // mensaje nombra un producto es el ENVASE —«necesito la presentación del
+  // Ganocafé»—, y ahí responde el catálogo. Sin producto es material para
+  // publicar: «una presentación sugestiva que atraiga la curiosidad» (Patricia,
+  // 11 sep 2026), que hasta hoy pasaba de largo porque el patrón exigía un
+  // calificador detrás (comercial, para, en canva…).
+  if (/presentaci[oó]n/i.test(texto) && detectarProducto(texto)) {
+    return /\b(gui[oó]n|v[ií]deo|reel|diapositiva|slide|pieza|flyer|volante|publicidad|anuncio|post|campa[ñn]a|banner|afiche|cartel|folleto|brochure)/i.test(texto);
+  }
+  return true;
 }
 
 // Una invitación o un texto dirigido a un PÚBLICO —dueños de restaurantes,

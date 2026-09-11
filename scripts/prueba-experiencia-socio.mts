@@ -26,7 +26,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { identificarSocio, saludoDeSocio, convertirProspectoEnSocio, slugDesdeNombre } =
   require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
-const { atenderPidePieza, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ } =
+const { esSoloSaludo } = require('../src/lib/wa-apertura.ts') as typeof import('../src/lib/wa-apertura.ts');
+const { atenderPidePieza, detectarPidePieza, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ } =
   require('../src/lib/queswa-conductor.ts') as typeof import('../src/lib/queswa-conductor.ts');
 const g = require('../src/lib/wa-guardarrail-salud.ts') as typeof import('../src/lib/wa-guardarrail-salud.ts');
 const negocio = require('../src/lib/wa-guardarrail-negocio.ts') as typeof import('../src/lib/wa-guardarrail-negocio.ts');
@@ -95,6 +96,17 @@ es(g.esRechazoSalud(g.RECHAZO_SALUD_SOCIO) && g.esRechazoSalud(g.RECHAZO_SALUD_S
    'los dos textos se reconocen como rechazo (saneamiento del historial y reincidencia)');
 es(g.RECHAZO_SALUD_SOCIO_OTRA_VEZ.length < g.RECHAZO_SALUD_SOCIO.length / 2,
    'la segunda vez no repite el bloque: fue el error con Patricia');
+
+console.log('\n── 6. Lo que pidió Patricia el 11 sep, y no debe perderse ──');
+const PIDE = 'Redácta una presentación sugestiva, tentadora y efectiva que atraiga la curiosidad de conocer el sitio creatuactivo.com';
+es(atenderPidePieza(PIDE)?.texto === TEXTO_NO_PIEZAS, '«una presentación sugestiva» es una pieza (el patrón exigía calificador)');
+es(detectarPidePieza('hazme una presentación del negocio'), '«una presentación del negocio» también');
+es(!detectarPidePieza('¿en qué presentación viene el Ganocafé 3 en 1?'), 'pero preguntar por el envase NO es una pieza');
+es(!detectarPidePieza('necesito la presentación de las Cápsulas de Ganoderma'), 'ni pedir el envase de un producto con verbo');
+es(detectarPidePieza('hazme un flyer con la presentación del Ganocafé'), 'y un flyer sigue siendo pieza aunque nombre el producto');
+// El saludo no se lleva la petición: la puerta distingue saludo pelado de petición.
+es(esSoloSaludo('Hola') && esSoloSaludo('buenas'), 'el saludo pelado se reconoce');
+es(!esSoloSaludo(PIDE), 'una petición NO es saludo pelado → el turno sigue al motor tras saludar');
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

@@ -258,12 +258,17 @@ export async function convertirProspectoEnSocio(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prospecto: { id?: string; device_info?: Record<string, any> | null } | null,
 ): Promise<boolean> {
-  if (!prospecto || prospecto.device_info?.es_socio) return false;
-  const { momento_optimo: _m, interest_level: _i, hilo_12_niveles: _h, ...resto } = prospecto.device_info || {};
+  if (!prospecto) return false;
+  const previo = prospecto.device_info || {};
+  // Ya convertido: solo se vuelve a tocar si le repusieron la temperatura de
+  // prospecto (pasaba en cada mensaje hasta el 11 sep 2026, ver el scoring).
+  const tieneTemperatura = previo.momento_optimo != null || previo.interest_level != null || previo.hilo_12_niveles != null;
+  if (previo.es_socio && !tieneTemperatura) return false;
+  const { momento_optimo: _m, interest_level: _i, hilo_12_niveles: _h, ...resto } = previo;
   const device_info = {
     ...resto,
     es_socio: true,
-    socio_desde: new Date().toISOString(),
+    socio_desde: previo.socio_desde ?? new Date().toISOString(),
     socio_constructor_id: socio.constructorId,
     socio_slug: socio.slug,
   };
@@ -275,7 +280,7 @@ export async function convertirProspectoEnSocio(
     console.error(`⚠️ [WA Onboarding] No pude convertir ${fingerprint} en socio: ${error.message}`);
     return false;
   }
-  console.log(`🤝 [WA Onboarding] ${fingerprint} pasa de prospecto a socio (/${socio.slug})`);
+  console.log(`🤝 [WA Onboarding] ${fingerprint} ${previo.es_socio ? 'limpiado: le habían repuesto la temperatura' : 'pasa de prospecto a socio'} (/${socio.slug})`);
   return true;
 }
 

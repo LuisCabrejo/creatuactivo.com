@@ -30,9 +30,12 @@ for (const p of prospectos || []) {
   if (!/^\d{10,15}$/.test(tel)) continue;
   const socio = await identificarSocio(s, tel);
   if (!socio) continue;
-  const ya = p.device_info?.es_socio ? 'ya convertido' : '';
-  console.log(`${dry ? '[DRY] ' : ''}${p.fingerprint_id} → /${socio.slug} (${p.device_info?.name ?? '?'}, stage=${p.stage}, momento=${p.device_info?.momento_optimo ?? '-'}) ${ya}`);
-  if (dry || ya) continue;
+  const d = p.device_info || {};
+  const sucia = d.momento_optimo != null || d.interest_level != null || d.hilo_12_niveles != null;
+  const estado = !d.es_socio ? 'por convertir' : sucia ? 'CONVERTIDA pero con temperatura repuesta' : 'al día';
+  console.log(`${dry ? '[DRY] ' : ''}${p.fingerprint_id} → /${socio.slug} (${d.name ?? '?'}, stage=${p.stage}, momento=${d.momento_optimo ?? '—'}) · ${estado}`);
+  if (dry) continue;
+  // La función decide: convierte, repara la temperatura repuesta, o no hace nada.
   if (await convertirProspectoEnSocio(s, p.fingerprint_id, socio, p)) n++;
 }
-console.log(`${dry ? 'Convertibles' : 'Convertidos'}: ${dry ? '(ver arriba)' : n}`);
+console.log(`${dry ? 'Revisadas' : 'Fichas escritas'}: ${dry ? '(ver arriba)' : n}`);

@@ -925,10 +925,23 @@ async function procesarEntrante(body: any): Promise<void> {
     if (socioQueEscribe && (!existingProspect || !existingProspect.device_info?.saludo_socio_en)) {
       const saludo = saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug);
       await sendWhatsAppMessage(phoneNumber, saludo);
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, saludo);
       await marcarSaludoDeSocio(supabase, waFingerprint);
       console.log(`👋 [WA Webhook] Saludo de socio entregado a /${socioQueEscribe.slug}`);
-      return;
+
+      // ⚠️ El saludo NO se lleva su petición por delante (11 sep 2026). Patricia
+      // pidió que le redactaran una presentación y recibió solo el saludo, porque
+      // este bloque cortaba el turno; volvió a pedirlo seis minutos después. Es el
+      // mismo defecto que en el primer contacto del prospecto: responder vale más
+      // que presentarse. Si trae petición, el saludo va aparte y el turno sigue.
+      if (esSoloSaludo(messageText)) {
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, saludo);
+        return;
+      }
+      // El mensaje del usuario va vacío a propósito: lo persiste después el motor
+      // con su respuesta, y así no queda dos veces en el historial (el lector de
+      // turnos salta los mensajes sin contenido).
+      await persistirTurnoDictado(supabase, waFingerprint, '', saludo);
+      console.log('💬 [WA Webhook] …y su petición sigue al motor');
     }
 
     // ─── 1.5 Apertura dictada (solo primer contacto) ──────────────────────────

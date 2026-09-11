@@ -907,16 +907,27 @@ async function captureProspectData(
   // PASO 6: Delta total y score acumulativo (escala 0–100)
   const deltaScore = fitSignals + advancedSignals + engagementBonus + negativeSignals;
   const totalScore = Math.min(100, Math.max(0, previousScore + deltaScore));
-  data.interest_level = Math.round(totalScore);
 
-  // PASO 7: Temperatura — umbrales validados por literatura científica
-  // sales-mind.ai 2025, InsideSales.com, Velocify
-  const temperatura =
-    data.interest_level >= 90 ? 'listo' :
-    data.interest_level >= 75 ? 'caliente' :
-    data.interest_level >= 50 ? 'tibio' : 'frio';
+  // ⚠️ AL SOCIO NO SE LE TOMA LA TEMPERATURA (11 sep 2026). Un distribuidor no
+  // es una venta pendiente: no tiene «momento óptimo» ni nivel de interés, y el
+  // Dashboard lee esos dos campos para decidir a quién perseguir. La conversión
+  // del 10 sep los retira, pero se reponían en el turno siguiente porque este
+  // scoring puntúa a todo el que escribe: Patricia volvió a quedar «tibia» a los
+  // dos mensajes de haber sido convertida. Se lee de la ficha, no del
+  // pageContext, para que valga por cualquier camino que entre.
+  if (existingData?.es_socio) {
+    console.log('🤝 [SCORING] Es socio — no se le toma temperatura de prospecto');
+  } else {
+    data.interest_level = Math.round(totalScore);
 
-  data.momento_optimo = temperatura;
+    // PASO 7: Temperatura — umbrales validados por literatura científica
+    // sales-mind.ai 2025, InsideSales.com, Velocify
+    data.momento_optimo =
+      data.interest_level >= 90 ? 'listo' :
+      data.interest_level >= 75 ? 'caliente' :
+      data.interest_level >= 50 ? 'tibio' : 'frio';
+  }
+  const temperatura = data.momento_optimo ?? '(socio)';
 
   // PASO 8: Logging detallado
   console.log('📊 ═══════════════════════════════════════════════');
@@ -976,12 +987,17 @@ async function captureProspectData(
   }
 
   // DETERMINAR MOMENTO ÓPTIMO
-  if (data.interest_level >= 7) {
-    data.momento_optimo = 'caliente';
-  } else if (data.interest_level >= 4) {
-    data.momento_optimo = 'tibio';
-  } else {
-    data.momento_optimo = 'frio';
+  // ⚠️ Al socio no se le toma temperatura (ver el PASO 7): este bloque corre
+  // DESPUÉS y pisaba lo que aquel decidía, así que sin este guard la ficha del
+  // distribuidor volvía a ensuciarse igual.
+  // ⚠️ Y sus umbrales son de la escala vieja 0–10 aplicados a un
+  // `interest_level` que hoy es 0–100 — un prospecto con 10 sobre 100 sale
+  // «caliente». Es un defecto anterior a este cambio y se deja como está: el
+  // Dashboard lee estos valores y corregirlos mueve su pipeline. Anotado, no
+  // tocado (11 sep 2026).
+  if (!existingData?.es_socio) {
+    const _nivel = data.interest_level ?? 0;
+    data.momento_optimo = _nivel >= 7 ? 'caliente' : _nivel >= 4 ? 'tibio' : 'frio';
   }
 
   // GUARDAR EN SUPABASE SI HAY DATOS
@@ -6431,8 +6447,17 @@ ${visitorCountry === 'CO'
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const _meta0 = (_doc0?.metadata ?? {}) as any;
       const _esPuertaDictada = _doc0?.search_method === 'puerta_directa' && !!_meta0.dictar;
+      // ⚠️ El candado NO se dicta en MODO SOCIO (11 sep 2026). Patricia, socia,
+      // pidió que le redactaran una presentación y el vector llevó su mensaje a
+      // `WHY_01` —que tiene candado—: el backend lo emitió literal y ella recibió
+      // la respuesta de «¿qué es CreaTuActivo?» escrita para un prospecto, sin que
+      // el modelo viera el turno. Al socio el candado le sirve de MATERIAL para
+      // atender a los suyos, no de discurso; quien decide cómo entregárselo es el
+      // modelo, con las instrucciones del modo socio delante. La regla verbatim
+      // del prompt sigue rigiendo el contenido: lo que cambia es el encuadre.
       const _esCandadoSolitario = _meta0.candado_solitario === true && _meta0.fragment_count === 1
-        && !pageContext?.startsWith('whatsapp_salud_');
+        && !pageContext?.startsWith('whatsapp_salud_')
+        && pageContext !== 'whatsapp_socio';
       if (canalDictado && (_esPuertaDictada || _esCandadoSolitario)) {
         const _cuerpo = extraerCandadoDictado(_doc0.content || '');
         const _conMarcadores = !!_cuerpo && /\[[A-ZÁÉÍÓÚÑ0-9_ \-]{3,}\]|\{[^}]+\}/.test(_cuerpo);

@@ -97,7 +97,7 @@ Le pagan por todas las compras realizadas en su sistema. Cada distribuidor consu
 
 Ese tamaño lo construye la duplicación 2×2 — usted conecta mínimo dos, cada uno conecta otros dos — hasta llegar, al nivel 12, a los **8.190 distribuidores**. Con el sistema completo, la regalía mensual supera los **$103 millones COP** (en cifra exacta, $103.194.000: 229.320 CV emparejados al mes, al 10%): no los regala nadie — son el **10% del volumen emparejado** de un sistema que, con sus distribuidores y sus clientes comprando sus 4 cajas al mes, **factura más de $3.600 millones de pesos mensuales** en producto. Su comisión es el **2,84%** de esa facturación.
 
-Por eso se repite: mientras el sistema consuma, hay comisión; si deja de consumir, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
+Por eso se repite: mientras sus distribuidores y sus clientes sigan comprando, hay comisión; si dejan de comprar, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
 
 **Se liquida:** por ciclos semanales.
 
@@ -219,7 +219,7 @@ La ganancia no cambia de naturaleza cuando el sistema ya está construido: sigue
 
 Con el sistema completo —**8.190 distribuidores consumiendo** en promedio sus cuatro cajas al mes— ese consumo suma más de 458.000 CV mensuales, y la Regalía de Equipo al 10% del Kit queda alrededor de **$103 millones COP al mes**. Es la misma cifra del recorrido completo, y no es casualidad: sostener el sistema mueve cada mes el mismo volumen que costó construirlo.
 
-Mientras el sistema consuma, esa comisión se liquida por ciclos semanales. Si el consumo baja, baja con él: la compañía paga un porcentaje de lo que se vende, no un premio por el tamaño.
+Mientras sus distribuidores sigan consumiendo, esa comisión se liquida por ciclos semanales. Si el consumo baja, baja con él: la compañía paga un porcentaje de lo que se vende, no un premio por el tamaño.
 
 **⚠️ Importante:** Es el potencial matemático con el sistema completo y el consumo estándar. Las comisiones reales dependen del consumo efectivo de su sistema.
 
@@ -350,7 +350,7 @@ Sí: cuatro cajas de producto al mes, o el equivalente a **50 PV**.
 
 Esa compra es la que lo mantiene activo, y estar activo es lo que le conserva el derecho a cobrar las comisiones de su sistema. Si un mes no la hace, ese derecho queda suspendido hasta que la retome.
 
-Lo que sostiene el negocio a la larga no es conectar sin parar: es que su sistema siga consumiendo mes a mes. Por eso la recompra no es un requisito administrativo — es el mismo movimiento que genera el ingreso.
+Lo que sostiene el negocio a la larga no es conectar sin parar: es que sus distribuidores y sus clientes sigan consumiendo mes a mes. Por eso la recompra no es un requisito administrativo — es el mismo movimiento que genera el ingreso.
 
 **Lo que recibe a cambio:**
 

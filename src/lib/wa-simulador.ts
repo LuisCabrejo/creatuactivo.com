@@ -184,7 +184,7 @@ export function respuestaRegalia(e: EscenarioRegalia, opciones: OpcionesCierre =
 
   return `Con *${cuantos} distribuidores consumiendo* en su sistema —cada uno con sus cuatro cajas al mes—, la Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*.
 
-Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático — el ritmo lo pone cada canal.
+Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático — el ritmo lo pone cada sistema.
 
 ${cierre}`;
 }
@@ -212,7 +212,7 @@ export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre =
   // que sonaba a bot. Se fija la cifra UNA vez —la tarjeta se sella al
   // completarse y este texto es lo único que queda legible en el hilo—, sin CV
   // ni emparejamiento (esa mecánica vive en NIVELES_02 para quien la pregunte),
-  // y se conserva «potencial matemático, el ritmo lo pone cada canal», que es el
+  // y se conserva «potencial matemático, el ritmo lo pone cada sistema», que es el
   // descargo de resultados no garantizados dicho con dignidad.
   const cierre = opciones.radicado
     ? cierreRadicado(opciones.radicado)
@@ -221,7 +221,7 @@ export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre =
 
   return `Ese es el *nivel ${e.nivel}*: ${n(fila.total)} distribuidores consumiendo, y una regalía cercana a *${cop(fila.mensual)} al mes*, liquidada por ciclos semanales.
 
-La cifra la produce el consumo: mientras sus distribuidores compren sus cajas cada mes, hay regalía. Es el potencial matemático de la duplicación 2×2, y el ritmo lo pone cada canal.
+La cifra la produce el consumo: mientras sus distribuidores compren sus cajas cada mes, hay regalía. Es el potencial matemático de la duplicación 2×2, y el ritmo lo pone cada sistema.
 
 ${cierre}`;
 }

@@ -1,7 +1,7 @@
 # Pendiente — la personificación del sistema
 
 **Abierto:** 6 sep 2026, al cerrar la migración *canal → sistema de distribución*.
-**Estado:** inventariado y sin aplicar. Cada caso necesita leerse en su respuesta completa antes de tocarlo.
+**Estado:** ✅ **CERRADO el 10 sep 2026.** Los cinco de la categoría A se corrigieron; los de la categoría B **se cerraron por criterio, no por olvido** — ver la regla del Director abajo.
 
 ---
 
@@ -21,17 +21,30 @@ No se cambió el verbo ni la cifra: se cambió el sujeto. Ese es el movimiento e
 
 ---
 
-## A · Personificación real — cinco casos
+## ⭐ La regla que lo cerró (Director, 10 sep 2026)
+
+**Una palabra no es el problema; lo es el verbo que se le cuelga.**
+
+*Cadena* no estorba en **cadena de restaurantes** ni en **cadena hotelera**: el contexto la desambigua sola, y nadie lee ahí una cadena de gente. **Con *sistema* pasa igual.** Lo que chirría no es la palabra: es pedirle que haga algo que solo hace una persona.
+
+De ahí salen las dos categorías de este documento, y sus dos destinos:
+
+- **A · el verbo es humano** — *consumir · comprar · pedir*. **Se corrige**: no se cambia el verbo, se cambia el sujeto.
+- **B · el verbo es de máquina** — *emparejar · aplicar · tomar*. **No se toca**: un software sí empareja puntos, sí aplica un porcentaje y sí toma el más alto. Ahí *sistema* se lee como el plan, sin disonancia.
+
+---
+
+## A · Personificación real — cinco casos ✅ CORREGIDOS
 
 El sujeto de un verbo humano es el sistema. Se reemplaza por quién.
 
 | # | Archivo | Línea | Texto |
 |---|---------|-------|-------|
-| 1 | `knowledge_base/arsenal_12_niveles.txt` | 100 | «mientras **el sistema consuma**, hay comisión; si deja de consumir, no la hay» |
-| 2 | `knowledge_base/arsenal_12_niveles.txt` | 222 | «**Mientras el sistema consuma**, esa comisión se liquida por ciclos semanales» |
-| 3 | `knowledge_base/arsenal_12_niveles.txt` | 353 | «es que **su sistema siga consumiendo** mes a mes» |
-| 4 | `knowledge_base/arsenal_compensacion.txt` | 500 | «productos reales que consume o **comparte con su sistema**» |
-| 5 | `src/lib/wa-simulador.ts` | 224 | «el ritmo lo pone **cada canal**» — residuo de la migración en copy **servido**, no comentario |
+| 1 ✅ | `arsenal_12_niveles` · `NIVELES_02` | 100 | ~~«mientras **el sistema consuma**, hay comisión»~~ → **«mientras sus distribuidores y sus clientes sigan comprando, hay comisión; si dejan de comprar, no la hay»**. El remate anti-pirámide no se debilitó: **se fortaleció** — nombrar al consumidor es lo que separa el comercio del fraude, y es donde la Ley 1700 lo quiere ver |
+| 2 ✅ | `arsenal_12_niveles` · `NIVELES_08` | 222 | → **«Mientras sus distribuidores sigan consumiendo»** — el sujeto ya venía dado dos líneas antes (*8.190 distribuidores consumiendo*) |
+| 3 ✅ | `arsenal_12_niveles` · `INV_04` | 353 | → **«es que sus distribuidores y sus clientes sigan consumiendo mes a mes»** |
+| 4 ✅ | `arsenal_compensacion` · `COMP_PV_08` | 500 | → **«que consume o comparte con sus clientes»** — con quién comparte, que es lo que la frase no decía |
+| 5 ✅ | `src/lib/wa-simulador.ts` | 187 y 224 | → **«el ritmo lo pone cada sistema»**. ⚠️ **Eran DOS, no una**: el inventario listó solo la 224 y la 187 decía lo mismo. Un inventario por línea se queda corto; se cierra con un `grep` de la frase |
 
 ⚠️ **El 5 es de otra especie:** no personifica, se le escapó la palabra vieja. Va aquí porque se corrige en la misma pasada y el arnés es el mismo.
 
@@ -39,7 +52,7 @@ El sujeto de un verbo humano es el sistema. Se reemplaza por quién.
 
 ---
 
-## B · Ambigüedad de vocabulario — dos casos, problema distinto
+## B · Verbo de máquina — NO se toca ✅ (cerrado por criterio)
 
 Aquí *sistema* no es el activo del usuario: es **el plan de compensación**, el software de Gano que aplica el porcentaje.
 
@@ -48,7 +61,7 @@ Aquí *sistema* no es el activo del usuario: es **el plan de compensación**, el
 | 6 | `knowledge_base/arsenal_compensacion.txt` | 600 | «**el sistema aplica** automáticamente el más alto disponible» |
 | 7 | `knowledge_base/arsenal_compensacion.txt` | 612 | «**el sistema toma** por defecto el más alto entre su paquete, su rango y la promoción vigente» |
 
-**Estos dos no se resuelven cambiando el sujeto por *sus distribuidores* — quedaría falso.** Se resuelven nombrando quién lo hace de verdad: **Gano Excel**, o **el plan**. Y hay un motivo de fondo para no dejarlos: desde la migración, *sistema* es el nombre de lo que la persona compra. Que la misma palabra signifique dos cosas en el mismo arsenal es la deriva que la migración vino a cerrar.
+⚠️ **Y son más de dos**: al cerrarlo aparecieron también `arsenal_compensacion:598` y `:729` («el sistema empareja cada punto…») y `src/lib/wa-simulador.ts:187`. **Ninguno se tocó**, y la decisión es del Director: *emparejar*, *aplicar* y *tomar* son cosas que un software hace, así que ahí *sistema* se lee como el plan y no compite con el activo del usuario. La preocupación original —que la misma palabra signifique dos cosas— **se resuelve con el contexto**, igual que *cadena de restaurantes* no compite con la cadena de una pirámide.
 
 ---
 
@@ -60,6 +73,12 @@ Aquí *sistema* no es el activo del usuario: es **el plan de compensación**, el
 4. `wa-simulador.ts` es código: solo build.
 5. **Verificar contra los tres tenants** con un `content like` sobre lo que entró **y** sobre lo que debía salir.
 
-## Riesgo de tocarlo
+## Riesgo de tocarlo — así se resolvió
 
-Los casos 1, 2 y 3 viven en respuestas de **NIVELES**, y la 1 y la 2 son el remate del argumento de que la compañía paga por venta y no por gente vinculada. Es la frase que desarma la sospecha de pirámide. **Cambiar el sujeto no puede debilitar ese remate**: si al nombrar a los distribuidores la frase pierde fuerza, la solución es reescribir el remate entero, no dejar la personificación.
+Los casos 1, 2 y 3 viven en respuestas de **NIVELES**, y la 1 y la 2 son el remate del argumento de que la compañía paga por venta y no por gente vinculada. Es la frase que desarma la sospecha de pirámide. **Cambiar el sujeto no puede debilitar ese remate**: si al nombrar a los distribuidores la frase pierde fuerza, la solución es reescribir el remate entero, no dejar la personificación. ✅ **No hizo falta**: la frase quedó más fuerte con el sujeto nombrado, por el motivo de la fila 1.
+
+---
+
+## Verificado al cerrar (10 sep 2026)
+
+Tres baterías en verde (clasificador **58/58**) · **0 frases vetadas** en 176 fragmentos · los tres tenants con **176 fragmentos** y el sujeto nombrado en los cuatro corregidos, sin residuos · `npm run build` limpio para el cambio de `wa-simulador.ts`.

@@ -825,7 +825,16 @@ Archivos fuente y versiones actuales → ver la [tabla de arsenales](#1-nexus-ai
 - ⚠️ **El WhatsApp del socio se lee de `private_users.whatsapp`**, NO de `constructor_slugs.whatsapp`. Bug histórico de "cero inicial" en esos números — el `.replace(/\D/g, '')` lo neutraliza. Fallback: el número orgánico.
 - ⚠️ **Tres tipos de guion, tres registros que no se mezclan** (`public/contexto/produccion/guiones/reels/`): **documentación** (build-in-public, primera persona, despierta curiosidad sin confrontar — su mercado ya cree que "hace Gano Excel" y un hook de negocio en cada reel lo quema) · **nicho** (oportunidad directa, es el copy de las páginas `/{slug}/{nicho}`) · **sitio** (explainer en voz **neutra**, nunca "soy Luis", porque la Home la alimentan todos los socios con su `?ref`).
 
-**Léxico de los tres:** negocio digital a secas · ingreso que no depende de su presencia · usted decide, el sistema hace el trabajo.
+**Léxico de los tres:** sistema de distribución · ingreso que no depende de que usted esté encima · usted decide, el sistema hace el trabajo.
+
+**El reto de los 90 días — un reel al día desde el 7 sep 2026.** Lo que un agente necesita para sacar el de hoy sin reinventar nada:
+
+- 📐 **La rejilla:** [PLAN_CONTENIDO_RETO_90_DIAS.md](docs/handoff/negocio/PLAN_CONTENIDO_RETO_90_DIAS.md) — el guion sale de cruzar el **tema de la semana** con el **formato del día** (lunes creencia · martes pregunta real · miércoles escena · jueves píldora · viernes marcador · sábado pregunta real · domingo humano). No son noventa guiones: es el riel que evita la página en blanco. Trae la frase que ancla la serie y las seis reglas.
+- 📁 **Los guiones aprobados, uno por día:** `public/contexto/produccion/guiones/reels/aprobados/` (README con el formato). **Se lee el de ayer antes de escribir el de hoy**, y cada día deja su registro con el guion verbatim y *por qué quedó así*. ⛔ Un guion emitido no se edita: se sucede.
+- 🎬 **Montaje:** `scripts/dankoe-video/pildora.py` (receta ligera, ver PIPELINE.md); el vigilante de Drive está bloqueado por permisos de macOS, la entrada es `~/Downloads/reels-equipo/`.
+- ⭐ **La frase de identidad, en dos mitades (Director, 10 sep 2026):** *«Creemos que nadie debería darle su vida entera al ciclo de trabajar, pagar cuentas y repetir, y recibir tan poco a cambio. Y creemos en devolverle a las personas el control de su tiempo y de su dinero.»* Calca la **mecánica** de la de Nu —adversario nombrado, absolución, restitución—, no sus palabras; y la segunda mitad la pide el villano canónico: si *ese dinero ya tiene dueño*, lo que hacemos es devolvérselo. ⏳ **La Home v16 lleva solo la primera mitad**; `WHY_01` y la apertura del canal tienen propuesta escrita y esperan el sí del Director.
+- ⛔ **«La vida es corta» no abre nada nuestro** (investigación 10 sep): en publicidad hispana viene pegada al hedonismo —*disfruta · date el gusto*— e importa *gástatelo* donde pedimos *asegúrelo*; y lo que mueve a actuar no es el miedo sino el **arrepentimiento anticipado**. Se nombra una **pérdida en curso** (*se le va la vida en…*), nunca un final.
+- ⛔ **Se afirma, no se anuncia** (Director, 10 sep): *«vienen cambios para hacerlo más en serio»* se oye como *«¿y antes no?»*. Las reglas se dicen en presente y como hecho —*«el acceso es limitado y funciona por lista de espera»*—, con una sola razón dicha una vez. La lista de espera **se siembra desde el día 4**, como consecuencia de una capacidad real, nunca como táctica.
 
 
 ### Founder Spots Counter

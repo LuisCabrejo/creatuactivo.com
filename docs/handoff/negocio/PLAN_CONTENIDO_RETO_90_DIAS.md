@@ -93,17 +93,34 @@ los colombianos confía en recomendaciones de creadores, contra 43 % global.
 
 ## Dónde entra la lista de espera
 
-⏳ **No en el mes 1.** Una fila sin nadie adentro es una silla vacía.
+✅ **Se siembra desde el día 4** (Director, 10 sep 2026 — corrige la versión del 10 sep por la
+mañana, que la mandaba al mes 2). La razón la dio él: *«al que vende desesperado nadie le pone
+cuidado; el que sabe para dónde va, atrae»*. Estar demasiado abierto no atrae.
 
-**Mes 2**, cuando ya haya socios reales y el marcador tenga con qué. El momento natural es cuando
-el reto pueda decir con verdad: *«acompaño a quince a la vez porque es lo que alcanzo, y ya hay
-X»*. La restricción es real —su tiempo— y por eso no choca con la prohibición de urgencia falsa.
-Criterio y mecánica →
+**Cómo se dice, y esto no cambia:** como **consecuencia de una capacidad real** —acompañar bien
+toma tiempo, y el tiempo no alcanza para todo el mundo a la vez—, **en presente y como hecho**
+(*«el acceso es limitado y funciona por lista de espera»*), **nunca como cambio que viene** ni
+como táctica. Y lo que se pide a cambio tiene que ser reconocible en una persona —*hacerle bien a
+los demás*—, no una abstracción. La restricción es verdad, y por eso no choca con la prohibición
+de urgencia falsa. Criterio y mecánica →
 [LO_IMPORTANTE_Y_LA_ECUACION_INVERTIDA](../../investigaciones/resultados/LO_IMPORTANTE_Y_LA_ECUACION_INVERTIDA_SEP2026.md).
 
 ---
 
-## Las cinco reglas que no cambian
+## La frase que ancla la serie
+
+Desde el día 4 la serie tiene su porqué, y es el mismo de la Home:
+
+> **Creemos que nadie debería darle su vida entera al ciclo de trabajar, pagar cuentas y
+> repetir, y recibir tan poco a cambio. Y creemos en devolverle a las personas el control de su
+> tiempo y de su dinero.**
+
+Se dice completa cuando toca decirla; se alude cuando no. Y sirve de prueba para cualquier
+pieza: si el guion del día no cabe debajo de esa frase, no es de esta serie.
+
+---
+
+## Las seis reglas que no cambian
 
 1. **Cada pieza se basta sola.** Una línea al abrir para situar, y el resto se entiende sin haber
    visto lo de ayer.
@@ -114,3 +131,7 @@ Criterio y mecánica →
 4. ⛔ **Nunca una cifra de ingreso.** El marcador se cuenta en **conversaciones**, no en pesos.
 5. **Lo que preguntan es el contenido.** No hay que inventar temas: hay que anotar lo que le
    preguntan y devolverlo al día siguiente. Betsabé sola dio tres.
+6. ⛔ **Se afirma, no se anuncia** (Director, 10 sep). *«Vienen cambios para hacerlo más en
+   serio»* se oye como *«¿y antes no?»*. Todo lo que es regla se dice **en presente y como hecho**;
+   una sola razón, dicha una vez; y sin adjetivos de seriedad — *serio*, *profesional*,
+   *parámetros* — que solo dice el que no los tiene.

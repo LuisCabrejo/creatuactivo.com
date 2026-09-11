@@ -118,3 +118,33 @@ Acabado cinematográfico de reels (estilo Dan Koe/Naval) en M1, todo por código
 3. **CTA y textos por Pillow PNG + overlay** — el ffmpeg de esta máquina **no trae `drawtext`** (compilado sin libfreetype). Keyword en dorado `#C5A059`, en **banda despejada, nunca sobre el visual 3D**. Léxico: **"ESCRIBA"** (usted, jamás "ESCRIBE").
 4. **Marca de agua canónica de TODOS los reels**: `captions/work/_assets/watermark.png` → `scale=330:-1,colorchannelmixer=aa=0.22,overlay=W-w-38:H-h-46`, sobre el cuerpo (el outro trae su propio branding).
 5. **Bloques que caen deben ser indestructibles** — en el prompt de Veo: "solid granite, keeps its shape, stay whole". `debris` → use `surface dust`, o Veo los rompe.
+
+---
+
+## Píldoras diarias — la receta LIGERA (`pildora.py`, sep 2026)
+
+Para el reto de los 90 días hay un video por día y no se puede curar cada uno a mano. `pildora.py`
+hace sola la parte mecánica, de archivo crudo a reel publicable:
+
+```bash
+captions/.venv/bin/python pildora.py <entrada.mp4> [--lut] [--sin-musica] [--outro]
+```
+
+transcribe (faster-whisper) → alinea por forzado (`captions/align.py`, los tiempos de whisper no
+son fiables) → recorta las pausas largas y arma el montaje por islas → subtítulos karaoke →
+**gap-gating** (mata los chirridos de silla ENTRE frases, nunca denoise sobre la voz) → marca de
+agua y atmósfera → música → `loudnorm` a −14 LUFS. `--lut` aplica el D-Log M de la Osmo — y se
+aplica **aunque el archivo diga que no es de la Osmo**: la app de DJI reenvuelve y le deja la firma
+del teléfono; la prueba es aplicar el LUT y medir la saturación, no leer el metadato.
+
+**NO hace** curaduría de tomas, arco musical con pivot ni corrección de texto en pantalla — para
+eso está el pipeline completo de arriba. Los guiones aprobados y su registro por día viven en
+`public/contexto/produccion/guiones/reels/aprobados/`.
+
+**El vigilante** (`watcher-pildoras.sh` + `~/Library/LaunchAgents/com.creatuactivo.pildoras.plist`,
+envuelto en `~/Applications/PildorasCTA.app`): mira `Mi unidad/videos/reto-90/entrada` en Drive
+cada minuto y deja el resultado en `…/salida`; un `.txt` con el mismo nombre del video lleva
+instrucciones. ⛔ **Bloqueado hasta que el Director le dé Acceso completo al disco a
+`PildorasCTA.app`**: macOS (TCC) no deja que un agente de launchd lea `~/Library/CloudStorage`, y
+falla en silencio —`exit 0`, log vacío—. Hoy el script avisa con notificación en vez de callarse.
+Mientras tanto la entrada es manual: `~/Downloads/reels-equipo/`.

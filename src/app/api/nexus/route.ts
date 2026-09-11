@@ -6963,6 +6963,14 @@ export async function GET() {
     return new Response(JSON.stringify({
       status: 'healthy',
       version: API_VERSION,
+      // ⚠️ El commit que está SIRVIENDO, no el que uno cree haber desplegado
+      // (11 sep 2026). Se perdió media hora comprobando un arreglo contra una
+      // versión anterior sin forma de saberlo: `API_VERSION` es una constante
+      // escrita a mano que lleva meses sin tocarse, y sin sesión del CLI de
+      // Vercel no hay otra manera de preguntarlo. Vercel puebla esta variable
+      // en cada build; en local sale 'local'.
+      commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? 'local',
+      desplegado_en: process.env.VERCEL_DEPLOYMENT_ID ?? null,
       system_prompt_version: promptData?.version || 'unknown',
       arquitectura: 'híbrida escalable + catálogo fix',
       arsenal_mvp: {

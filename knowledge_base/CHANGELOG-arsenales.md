@@ -368,6 +368,26 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.32 — La lista de espera entra al arsenal (10 sep 2026)
+
+Auditoría de los 57 fragmentos con los seis criterios de la sesión. El escaneo mecánico salió limpio —cero personificación, cero dinero sin sujeto, cero juicio de cantidad, cero ingreso por tamaño— y el hallazgo fue **doctrinal**: la palabra *cupo*, *selección* o *lista de espera* **no aparecía ni una vez**, mientras el video del día 4 ya decía en público que el acceso es limitado.
+
+**`EAM_02` era una contradicción viva.** Respondía *«¿por qué entrar ahora? ¿la urgencia es real o es marketing?»* con *«la puerta está abierta y sigue abierta»*, que es exactamente lo contrario de lo publicado. Hoy dice la restricción **como hecho en presente** —acompañar uno a uno toma tiempo y no alcanza para todos a la vez— y cierra convirtiendo la fila en un paso concreto. ⚠️ La doctrina ya lo autorizaba desde mayo (*«la urgencia es la banda directiva finita, NO un calendario»*): **faltaba el copy, no el criterio**. Salió también el párrafo del apalancamiento, que apilaba tres abstracciones y definía una palabra (Director: *«ni yo lo entiendo»*).
+
+**`FREQ_14`** suma *«la elección va en las dos direcciones»* —la ecuación invertida en una frase, y cae donde el fragmento ya hablaba de elegir— y lo que se pide: *que quien se una quiera hacerle bien a las personas con las que va a trabajar*. De paso corrige un vetado vivo: *entre con quien entre* → **sea con quien sea**.
+
+**`PERFIL_01`** gana una sola línea con esa misma condición. Sin ella, ese fragmento iba a decir *«usted cabe»* mientras el video decía *«no todos caben»*.
+
+**`WHY_05` 🔒** abre con la creencia y el diagnóstico pasa a servirla (*«Porque hoy…»*) en vez de ir suelto; *«un plan para protegerse»* → *«la manera de recuperar ese control»*, que es restitución y no seguro; y entra *«no depende de que usted esté encima para generarse»* (Director). ⚠️ **Salió *ver crecer*** — la tríada interna *decidir · conectar · ver crecer* seguía viva aquí como copy al prospecto, un año después de que se prohibiera. Hoy cierra con **Compartir y Recibir**.
+
+**`CRED_01`** se reescribió entera. El origen era de interés propio (*crearon Queswa para quitarse el trabajo de encima*); hoy es quién responde, en qué creemos —incluida la tercera creencia, *lo complejo tiene que volverse sencillo para estar al alcance de cualquiera*— y qué salió de ahí. ⚠️ Se retiró *«llevan años construyendo su propio sistema de distribución»* (Director): los pone de distribuidores con antigüedad, cuando lo que construyeron fue **la tecnología** — *«es como decir que el fundador de Rappi lleva años construyendo su propia empresa de domicilios»*. Y *«la misma herramienta que ellos usan»* dejó de ser una frase pegada al final: ahora cuelga de la anterior.
+
+⛔ **Ninguna de las cinco lleva número** (15 y 150 se confunden; se confirman antes de citarlos) **ni describe la mecánica de la selección**, que por doctrina no se escribe en los arsenales.
+
+**Lo que se revisó y NO se tocó,** para que nadie lo trabaje dos veces: `WHY_02` 🔒 (abre con la comparación hacia arriba y cierra con el mecanismo — *«cada vez que alguien compra a través de su sistema»* tiene sujeto y es compra, no consumo) · `FREQ_15` (*«no se trata de reemplazar su ingreso actual»* es el marco aprobado) · los siete casos de personificación, que viven en `arsenal_12_niveles` y `arsenal_compensacion`, **ninguno aquí**.
+
+**Verificado:** tres baterías en verde, tres tenants idénticos, recuperación medida con paráfrasis.
+
 ### v6.31 — WHY_01 🔒 dice por qué existimos desde adentro (10 sep 2026)
 
 El párrafo del **por qué existimos** deja de contarse en clave de mercado —*montar un negocio que requiere que usted esté encima no es difícil; lo difícil es multiplicarlo*— y pasa a ser una **creencia sobre la vida de las personas**, en la forma de Nu (David Vélez): se nombra el ciclo, se absuelve, y se nombra la deuda que existimos para saldar. Es la misma frase que ese mismo día entró en la Home v16 y en la apertura del canal, de modo que los tres sitios dicen por primera vez lo mismo.

@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.31** (10 sep 2026) — **`WHY_01` 🔒 dice por qué existimos desde adentro.** El porqué deja de contarse en clave de mercado y pasa a ser una creencia sobre la vida de las personas, en la forma de Nu: se nombra el ciclo, se absuelve, y se nombra la deuda que existimos para saldar. Es la misma frase de la Home v16 y de la apertura del canal. La regla que lo prohibía se retiró a medias —lo que se conserva es no diagnosticarle la vida a quien pregunta—; el criterio completo, en la cabecera del fragmento.
+**Versión actual: v6.32** (10 sep 2026) — **La lista de espera entra al arsenal, y la creencia llega a los fragmentos del porqué.** `EAM_02` responde el afán con la restricción real —acompañar uno a uno toma tiempo— en vez de decir que la puerta sigue abierta, que contradecía lo publicado. `FREQ_14` suma que la elección va en las dos direcciones y `PERFIL_01` lo que sí se pide, las dos dichas como algo que uno reconoce en sí mismo. `WHY_05` 🔒 abre con la creencia y suelta la tríada interna. `CRED_01` se reescribe entera: quién responde, en qué creemos, y qué salió de ahí. Criterio de cada una, en su cabecera.
 
-**v6.30** (9 sep 2026) — **`NET_01` y `NET_02` dejan de anunciar su franqueza.** Quien se declara franco posiciona al otro como el que no lo es; la transición de «usted ya sabe» a «lo que cambió» se hace sola, sin anunciarla. El antes y el después, en el CHANGELOG.
+**v6.31** (10 sep 2026) — **`WHY_01` 🔒 dice por qué existimos desde adentro.** El porqué deja de contarse en clave de mercado y pasa a ser una creencia sobre la vida de las personas, en la forma de Nu. Es la misma frase de la Home v16 y de la apertura del canal.
 
-**v6.29** (9 sep 2026) — **`WHY_01` 🔒 reescrito con el Director.** Entra la tesis del hero (dueño de su sistema, desde el celular, cobra cada vez que mueve producto) y los tres elementos ensamblados. Sin anunciar la propia franqueza. Desde el 9 sep el candado solitario lo emite el backend, así que sale literal siempre.
+**v6.30** (9 sep 2026) — **`NET_01` y `NET_02` dejan de anunciar su franqueza.** Quien se declara franco posiciona al otro como el que no lo es; la transición se hace sola, sin anunciarla.
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
 
@@ -191,7 +191,7 @@ Es para quien ya tiene una ocupación y no piensa dejarla —empleados, profesio
 
 Y lo único que de verdad hace falta usted ya lo tiene: **un círculo que lo respeta**. Cuando alguien a quien le tienen confianza comparte algo, lo miran.
 
-No hace falta ser vendedor ni saber de tecnología: explicar y resolver dudas es mío, a toda hora, y el método viene hecho.
+No hace falta ser vendedor ni saber de tecnología: explicar y resolver dudas es mío, a toda hora, y el método viene hecho. Lo que sí pedimos es sencillo de reconocer: que quiera hacerle bien a las personas con las que va a trabajar.
 
 **Pregunta de seguimiento:** ¿Le muestro qué haría usted en el día a día?
 
@@ -515,13 +515,13 @@ Todas van directo a Gano Excel por sus canales oficiales: consignación o transf
 <verbatim_lock>
 Le doy la razón de fondo.
 
-Hoy, la estabilidad económica de la mayoría depende de variables que no controla, donde basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee.
+Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.
 
-Y para rematar, cuando el ingreso sí llega, usualmente ya tiene dueño: el banco, las cuotas, los recibos.
+Porque hoy la estabilidad económica de la mayoría depende de variables que no controla: basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee. Y cuando el ingreso sí llega, usualmente ya tiene dueño: el banco, las cuotas, los recibos.
 
-Un sistema de distribución es un plan para protegerse de eso: construye un ingreso que corre en paralelo a su actividad actual, y que sale del consumo que se repite cada mes entre sus clientes y sus distribuidores.
+Un sistema de distribución es la manera de recuperar ese control: construye un ingreso que corre en paralelo a su actividad actual, que sale del consumo que se repite cada mes entre sus clientes y sus distribuidores, y que no depende de que usted esté encima para generarse.
 
-Y lo construye en paralelo, porque la parte pesada no la carga usted: Gano Excel fabrica y despacha, y yo converso con cada interesado y maduro su decisión. Lo que le queda es decidir con quién lo comparte y ver crecer su sistema.
+Y no depende de usted porque la parte pesada no la carga usted: Gano Excel fabrica y despacha, y yo converso con cada interesado y maduro su decisión. Lo suyo es compartir su enlace con quien quiera, y recibir a quien llega con interés.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le cuento cómo se gana?
@@ -692,7 +692,9 @@ Y el pago va por una sola vía: un porcentaje del producto que se vende por su s
 
 No está eligiendo un equipo. Está eligiendo con qué herramientas va a trabajar.
 
-El producto, el plan y el respaldo de Gano Excel son los mismos entre con quien entre, y cada equipo construye lo suyo encima. Lo nuestro tiene nombre: **creatuactivo.com** y **queswa.app**, y este es el único equipo que le da acceso a los dos. Ahí estoy yo, explicando y resolviendo dudas a toda hora, y ahí tiene su Dashboard para ver cómo va su sistema.
+El producto, el plan y el respaldo de Gano Excel son los mismos sea con quien sea, y cada equipo construye lo suyo encima. Lo nuestro tiene nombre: **creatuactivo.com** y **queswa.app**, y este es el único equipo que le da acceso a los dos. Ahí estoy yo, explicando y resolviendo dudas a toda hora, y ahí tiene su Dashboard para ver cómo va su sistema.
+
+Y la elección va en las dos direcciones. Acompañar así toma tiempo, y no alcanza para todos a la vez: por eso el acceso va por lista de espera. Lo que pedimos es lo mismo que ponemos — que quien se una quiera hacerle bien a las personas con las que va a trabajar.
 
 Usted no recibe un catálogo; recibe la herramienta andando desde el primer día.
 
@@ -763,9 +765,11 @@ Funciona parecido a una suscripción de streaming: mientras la mantiene activa, 
 **[Índice]:** Quién está detrás de esto, quiénes son ustedes, quién responde. Si esto de verdad funciona y hay pruebas de que le sirve a alguien.
 **[Concepto Nuclear]:** Quienes construyeron esto usan a diario la misma herramienta que le entregan. La biografía de Luis es STORY_01; aquí se responde quién le responde a usted. ⚠️ **Aquí llegan también las preguntas de CRED_03**, eliminada el 9 ago 2026: ⛔ **No se invoca al gurú para negarlo.** Abría con *«personas con resultados verificables, no gurús de internet»*: le mete esa imagen a quien no la traía, y *resultados verificables* es un adjetivo de credibilidad donde ya viene el hecho. La respuesta arranca directo en el hecho. su argumento era que el prospecto había llegado *sin que nadie lo persiguiera*, y eso deja de ser cierto en el momento en que un socio le escribe por WhatsApp — que es como llega casi todo el tráfico. La prueba que sí se sostiene es esta: **quienes construyeron la herramienta primero construyeron el negocio con ella.** El respaldo del producto (INVIMA, TGA, 30 años) es **FREQ_07**.
 
-Luis Cabrejo y el equipo de creatuactivo.com construyeron su propio sistema dentro de Gano Excel, y crearon Queswa para quitarse de encima el trabajo pesado en sus propios negocios.
+CreaTuActivo es una **empresa de tecnología**. Detrás están Luis Cabrejo y el equipo de creatuactivo.com; del producto responde **Gano Excel**, que lo fabrica y lo despacha.
 
-Lo que usted ve hoy es la misma herramienta que ellos usan cada día para crecer lo suyo.
+Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero. Y creemos que lo complejo tiene que volverse sencillo para estar al alcance de cualquiera: para eso aplicamos tecnología.
+
+De ahí salieron **queswa.app**, donde usted maneja su sistema desde el celular, y yo, que converso a toda hora con cada persona que llega — las mismas dos herramientas con las que ellos trabajan todos los días.
 
 **Pregunta de seguimiento:** ¿Le muestro qué hace esa herramienta por usted desde el primer día?
 
@@ -895,13 +899,13 @@ Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
 
 ### **EAM_02: "¿Por qué entrar ahora? / ¿La urgencia es real o es marketing?"**
 **[Índice]:** Por qué entrar ahora y no después, cuándo es el lanzamiento, si hay urgencia real o puedo esperar. Siento que me están apurando o presionando para decidir.
-**[Concepto Nuclear]:** La ventaja de arrancar ahora es de **apalancamiento**: el trabajo de esta etapa ocurre igual, y a quien ya está montado lo empuja. ⚠️ **El permiso abre y cierra la respuesta** — es lo que la hace funcionar; sin él la urgencia se lee como presión, y ante la presión la persona se defiende. La urgencia que se nombra es la de él y la consecuencia que se cita es del negocio; la puerta se describe siempre abierta.
+**[Concepto Nuclear]:** Aquí vive la **lista de espera** (Director, 10 sep 2026), y se dice **como hecho en presente**, nunca como cambio que viene ni como táctica: *acompañar uno a uno toma tiempo y no alcanza para todos a la vez, por eso el acceso va por lista de espera*. La restricción es real —el tiempo del núcleo— y por eso no es urgencia falsa. ⚠️ **El permiso abre y cierra la respuesta** — es lo que la hace funcionar; sin él la urgencia se lee como presión, y ante la presión la persona se defiende. Y la fila **le quita presión, no se la pone**: si hay fila no puede apurarse aunque quiera, así que *nadie lo va a apurar* y *va por lista de espera* se sostienen. El cierre convierte la fila en un paso concreto: la conversación no es el obstáculo, es la puerta. ⛔ **Sin número** (15 y 150 se confunden — se confirman con el Director antes de citarlos) y ⛔ **sin la mecánica de la selección**, que por doctrina no se escribe en los arsenales. Lo que salió el 10 sep: *«la puerta está abierta y sigue abierta»*, que contradecía de frente el video del día 4; y el párrafo del apalancamiento, que apilaba tres abstracciones y definía una palabra (Director: *«ni yo lo entiendo, está todo enredado»*). El mismo argumento sobrevive en `FREQ_14` y `PERFIL_01`.
 
-Es una pregunta justa, y la respuesta es corta: la puerta está abierta y sigue abierta. Usted arranca el día que decida, y aquí nadie lo va a apurar.
+Es una pregunta justa: aquí nadie lo va a apurar. La decisión es suya y madura conversando.
 
-Dicho eso, quiero que tenga un dato antes de decidir. En esta etapa el equipo de creatuactivo.com se está sentando uno a uno con cada socio nuevo a montarle su sistema, y las herramientas nuevas llegan apenas salen. Ese trabajo se hace con usted o sin usted. La diferencia es de posición: si su sistema ya está montado, ese trabajo también lo empuja a usted; si todavía no, sigue su curso.
+Lo que sí quiero que sepa es cómo trabajamos. En esta etapa el equipo de creatuactivo.com se sienta uno a uno con cada socio nuevo a montarle su sistema, y acompañar así toma tiempo: no alcanza para todos a la vez. Por eso el acceso va por lista de espera, con una conversación de por medio.
 
-Eso es apalancamiento — capitalizar un impulso que ya está en marcha, en vez de tener que crearlo solo. Es un dato para que usted decida, no una razón para apurarse.
+Así que tómelo con calma. Cuando quiera, empezamos por esa conversación.
 
 **Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
 

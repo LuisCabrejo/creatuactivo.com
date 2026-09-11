@@ -5,6 +5,7 @@
  */
 
 import { ImageResponse } from 'next/og'
+import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
 export const alt = 'Catálogo de Productos - Infraestructura Bioactiva Global'
@@ -15,6 +16,8 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
+  const fonts = await fuentesInter()
+
   return new ImageResponse(
     (
       <div
@@ -28,6 +31,7 @@ export default async function Image() {
           background: '#0F1115',
           padding: '80px',
           position: 'relative',
+          fontFamily: 'Inter',
         }}
       >
         {/* Subtle gold gradient overlay */}
@@ -73,7 +77,6 @@ export default async function Image() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            fontFamily: 'Georgia, serif',
           }}
         >
           <span style={{ display: 'flex' }}>Catálogo de</span>
@@ -137,6 +140,7 @@ export default async function Image() {
     ),
     {
       ...size,
+      fonts,
     }
   )
 }

@@ -9,6 +9,7 @@
  */
 
 import { ImageResponse } from 'next/og'
+import { fuentesInter } from '@/lib/og-fuentes'
 
 // Configuración de la imagen
 export const runtime = 'edge'
@@ -20,9 +21,10 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
-  const logoData = await fetch(
-    new URL('../../../public/images/logotipo.png', import.meta.url)
-  ).then((res) => res.arrayBuffer())
+  const [logoData, fonts] = await Promise.all([
+    fetch(new URL('../../../public/images/logotipo.png', import.meta.url)).then((res) => res.arrayBuffer()),
+    fuentesInter({ negra: true }),
+  ])
 
   return new ImageResponse(
     (
@@ -36,6 +38,7 @@ export default async function Image() {
           justifyContent: 'center',
           background: 'linear-gradient(135deg, #0F1115 0%, #15171C 100%)',
           padding: '80px',
+          fontFamily: 'Inter',
         }}
       >
         {/* Número grande - FOCAL POINT */}
@@ -104,6 +107,7 @@ export default async function Image() {
     ),
     {
       ...size,
+      fonts,
     }
   )
 }

@@ -81,6 +81,17 @@ Fuentes cargadas en [layout.tsx](src/app/layout.tsx) vía `next/font/google`: **
 - ❌ NUNCA dos `<h1>` en una página (rompe SEO/a11y).
 - ❌ NUNCA `fontFamily` con fuente no cargada en layout.tsx.
 
+> ⚠️ **Excepción del titular largo — la Home no es un incumplimiento** (11 sep 2026). La regla institucional de arriba se escribió para titulares cortos: *Nosotros*, *Tecnología*, *Paquetes*. Cuando el H1 es una frase —la Home dice «Sea dueño de un sistema de distribución que no depende de que usted esté encima»— va en **Inter 700, caja natural, `--color-text-primary`**, sin `uppercase` ni `letter-spacing`. Doce palabras en versalitas con 0,08em de tracking no caben en pantalla, y en mayúsculas dejan de leerse como una afirmación y suenan a grito. La familia y el peso no cambian: lo que cede es la caja. La Home escribe su `<h1>` a mano por eso, sin pasar por `IndustrialHeader`. **No la «corrija» hacia la tabla.**
+
+### Tarjetas Open Graph (las que se ven al compartir un enlace)
+
+Las pinta `next/og` (satori), que **no ve el CSS del sitio**: no hay tokens, no hay `var(--font-sans)`, y la fuente hay que pasársela como archivo. Fuente única: [src/lib/og-fuentes.ts](src/lib/og-fuentes.ts) → **Inter** (400/700, y 900 solo donde hay una cifra grande), con los `.ttf` en `public/fonts/`.
+
+- ❌ **NUNCA declarar una fuente que no se le pasó al `ImageResponse`.** Hasta el 11 sep 2026 tres tarjetas pedían `Georgia, serif` —que ni es de marca ni está cargada— y las nueve caían en la sans que satori trae dentro. Se veía parecido y no lo era.
+- ⚠️ **satori NO lee woff2**, solo ttf/otf/woff. Por eso los archivos van aparte y no se reusan los de `next/font`.
+- ⚠️ **La sans por defecto de satori trae UN peso**, así que un `fontWeight: 900` se veía igual que un 400. Al cargar Inter, las cifras grandes empiezan a pesar de verdad y hay que revisar interlineados: `lineHeight: 1` con Inter Black deja las tildes rozando la línea de arriba.
+- ⛔ **Un hijo que desborda el ancho no se recorta: BORRA la tarjeta.** satori descarta *todo* el contenido en flujo y deja solo lo que va en `position: absolute`. No lanza error —la ruta responde 200— así que se ve como un fondo vacío. `/nosotros` estuvo así en producción con el titular a 92px. **Toda tarjeta se renderiza y se MIRA antes de subirla:** `npm run dev` y `curl localhost:3000/<ruta>/opengraph-image -o /tmp/t.png`.
+
 ### Microtipografía financiera
 - `font-feature-settings: 'case' 1` — alinea %/−/+/() con mayúsculas.
 - `font-variant-numeric: tabular-nums` — ancho fijo en cifras (tablas/balances).

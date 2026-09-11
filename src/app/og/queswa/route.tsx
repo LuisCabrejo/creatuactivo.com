@@ -10,19 +10,28 @@
  * descripción a 26px era ilegible en la tarjeta. Aquí va solo lo que se lee:
  * el logotipo y el titular, en el léxico vigente (sistema de distribución, desde el 6 sep 2026).
  *
+ * 11 sep 2026 — el titular pasa a ser el H1 entero de la Home, con su cláusula:
+ * "que no depende de que usted esté encima". El ORO se muda de «sistema de
+ * distribución» a la cláusula: en una tarjeta leída en miniatura el ojo cae
+ * primero en la línea dorada, y la novedad ya no es el nombre del activo sino
+ * la cualidad que lo hace valer. Las dos líneas tienen 39 caracteres cada una
+ * —bloque parejo—, y por eso el cuerpo baja de 66 a 50px.
+ *
  * Misma estética que src/app/opengraph-image.tsx (carbón + champán). Vive como
  * route handler y no como opengraph-image.tsx dentro de [slug]/[destino]
  * porque ese archivo aplicaría a TODOS los destinos (reels, manifiesto…).
  */
 
 import { ImageResponse } from 'next/og'
+import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
 
 export async function GET() {
-  const logoData = await fetch(
-    new URL('../../../../public/images/logotipo.png', import.meta.url)
-  ).then((res) => res.arrayBuffer())
+  const [logoData, fonts] = await Promise.all([
+    fetch(new URL('../../../../public/images/logotipo.png', import.meta.url)).then((res) => res.arrayBuffer()),
+    fuentesInter(),
+  ])
 
   return new ImageResponse(
     (
@@ -37,6 +46,7 @@ export async function GET() {
           background: '#0F1115',
           padding: '80px',
           position: 'relative',
+          fontFamily: 'Inter',
         }}
       >
         <div
@@ -60,7 +70,7 @@ export async function GET() {
         <div
           style={{
             fontSize: 26,
-            fontWeight: 500,
+            fontWeight: 400,
             color: '#A3A3A3',
             marginBottom: 40,
             letterSpacing: '0.3em',
@@ -73,25 +83,26 @@ export async function GET() {
 
         <div
           style={{
-            fontSize: 66,
-            fontWeight: 300,
+            fontSize: 46,
+            fontWeight: 700,
             color: '#E5E5E5',
             textAlign: 'center',
             lineHeight: 1.2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter',
           }}
         >
-          <span style={{ display: 'flex' }}>Sea dueño de su propio</span>
-          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>sistema de distribución</span>
+          <span style={{ display: 'flex' }}>Sea dueño de un sistema de distribución</span>
+          <span style={{ display: 'flex', color: '#C5A059' }}>que no depende de que usted esté encima</span>
         </div>
       </div>
     ),
     {
       width: 1200,
       height: 630,
+      fonts,
       headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400' },
     }
   )

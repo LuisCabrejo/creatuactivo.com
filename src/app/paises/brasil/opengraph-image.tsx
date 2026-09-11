@@ -4,6 +4,7 @@
  */
 
 import { ImageResponse } from 'next/og'
+import { fuentesInter } from '@/lib/og-fuentes'
 
 // Configuración de la imagen
 export const runtime = 'edge'
@@ -15,9 +16,10 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
-  const logoData = await fetch(
-    new URL('../../../../public/images/logotipo.png', import.meta.url)
-  ).then((res) => res.arrayBuffer())
+  const [logoData, fonts] = await Promise.all([
+    fetch(new URL('../../../../public/images/logotipo.png', import.meta.url)).then((res) => res.arrayBuffer()),
+    fuentesInter({ negra: true }),
+  ])
 
   return new ImageResponse(
     (
@@ -33,6 +35,7 @@ export default async function Image() {
           backgroundColor: '#0f172a', // Slate 900
           backgroundImage: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
           position: 'relative',
+          fontFamily: 'Inter',
         }}
       >
         {/* Efecto de Luz Verde/Amarilla (Brasil) en el fondo */}
@@ -163,6 +166,7 @@ export default async function Image() {
     ),
     {
       ...size,
+      fonts,
     }
   )
 }

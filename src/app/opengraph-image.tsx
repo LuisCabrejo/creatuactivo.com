@@ -1,13 +1,30 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * OpenGraph Image - Quiet Luxury Branding
- * Estilo: Private Equity / Banca Privada
+ * Tarjeta (Open Graph) de la Home — Quiet Luxury, carbón + champán.
+ *
+ * 11 sep 2026 — quedó igual a la del enlace de Queswa (src/app/og/queswa/route.tsx)
+ * por tres razones:
+ *
+ *  (1) El titular decía "Un segundo ingreso, en paralelo al que ya tiene" mientras
+ *      el título que WhatsApp imprime DEBAJO ya decía el H1 nuevo: dos titulares
+ *      distintos en la misma tarjeta. Y ese titular es el que el Director descartó
+ *      el 29 ago para la tarjeta de Queswa — un amigo dice "le tengo un negocio",
+ *      no "le tengo un segundo ingreso". El ingreso baja al cuerpo de la página.
+ *  (2) La descripción a 26px y el pie a 18px no se leen en la miniatura. Aquí va
+ *      solo lo que se lee: logotipo, marca y titular.
+ *  (3) Un mismo socio comparte la Home y el enlace de Queswa: dos tarjetas con la
+ *      misma estructura son una sola identidad.
+ *
+ * El ORO carga la cláusula, no el nombre del activo: en miniatura el ojo cae
+ * primero en la línea dorada, y la novedad es la cualidad. Las dos líneas tienen
+ * 39 caracteres cada una — bloque parejo a 50px.
  */
 
 import { ImageResponse } from 'next/og'
+import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
-export const alt = 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene'
+export const alt = 'Sea dueño de un sistema de distribución que no depende de que usted esté encima'
 export const size = {
   width: 1200,
   height: 630,
@@ -16,9 +33,10 @@ export const contentType = 'image/png'
 
 export default async function Image() {
   // Logo 3D bimetálico — bundled vía import.meta.url para que esté disponible en build/edge
-  const logoData = await fetch(
-    new URL('../../public/images/logotipo.png', import.meta.url)
-  ).then((res) => res.arrayBuffer())
+  const [logoData, fonts] = await Promise.all([
+    fetch(new URL('../../public/images/logotipo.png', import.meta.url)).then((res) => res.arrayBuffer()),
+    fuentesInter(),
+  ])
 
   return new ImageResponse(
     (
@@ -33,6 +51,7 @@ export default async function Image() {
           background: '#0F1115',
           padding: '80px',
           position: 'relative',
+          fontFamily: 'Inter',
         }}
       >
         {/* Subtle gold gradient overlay */}
@@ -51,20 +70,20 @@ export default async function Image() {
         {/* Logo 3D bimetálico */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          width={108}
-          height={108}
+          width={132}
+          height={132}
           src={logoData as unknown as string}
           alt="CreaTuActivo"
-          style={{ marginBottom: 20 }}
+          style={{ marginBottom: 28 }}
         />
 
         {/* Wordmark */}
         <div
           style={{
-            fontSize: 24,
-            fontWeight: 500,
+            fontSize: 26,
+            fontWeight: 400,
             color: '#A3A3A3',
-            marginBottom: 32,
+            marginBottom: 40,
             letterSpacing: '0.3em',
             display: 'flex',
             textTransform: 'uppercase',
@@ -73,84 +92,28 @@ export default async function Image() {
           CreaTuActivo
         </div>
 
-        {/* Título principal */}
+        {/* Titular — el H1 de la Home, entero */}
         <div
           style={{
-            fontSize: 60,
-            fontWeight: 300,
+            fontSize: 46,
+            fontWeight: 700,
             color: '#E5E5E5',
             textAlign: 'center',
             lineHeight: 1.2,
-            marginBottom: 20,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter',
           }}
         >
-          <span style={{ display: 'flex' }}>Un segundo ingreso,</span>
-          <span style={{ display: 'flex', color: '#C5A059', fontWeight: 400 }}>en paralelo al que ya tiene</span>
-        </div>
-
-        {/* Descripción */}
-        <div
-          style={{
-            fontSize: 26,
-            fontWeight: 400,
-            color: '#A3A3A3',
-            textAlign: 'center',
-            display: 'flex',
-            marginTop: 18,
-            maxWidth: 820,
-            lineHeight: 1.5,
-          }}
-        >
-          Café y suplementos premium, manejado desde su celular. La inteligencia artificial explica y atiende por usted; se liquida cada viernes.
-        </div>
-
-        {/* Footer - Byline */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 50,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 40,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 18,
-              color: '#6B7280',
-              fontWeight: 400,
-              display: 'flex',
-            }}
-          >
-            Luis Cabrejo Parra — Dirección Corporativa
-          </div>
-          <div
-            style={{
-              width: 1,
-              height: 20,
-              backgroundColor: '#374151',
-              display: 'flex',
-            }}
-          />
-          <div
-            style={{
-              fontSize: 18,
-              color: '#6B7280',
-              fontWeight: 400,
-              display: 'flex',
-            }}
-          >
-            Presencia en más de 60 países
-          </div>
+          <span style={{ display: 'flex' }}>Sea dueño de un sistema de distribución</span>
+          <span style={{ display: 'flex', color: '#C5A059' }}>que no depende de que usted esté encima</span>
         </div>
       </div>
     ),
     {
       ...size,
+      fonts,
     }
   )
 }

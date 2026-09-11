@@ -58,8 +58,12 @@ const baseUrl = 'https://creatuactivo.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
+  // ⚠️ Dos titulares a propósito (11 sep 2026), el mismo criterio que src/app/page.tsx:
+  // el <title> lleva la frase BUSCABLE —Google trunca cerca de 60 caracteres— y la
+  // TARJETA (openGraph/twitter, abajo) lleva el H1 entero con su cláusula, porque ahí
+  // se lee completa y es la que ve quien abre el enlace de un socio.
   title: {
-    default: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
+    default: 'CreaTuActivo | Sea dueño de su propio sistema de distribución',
     template: '%s | CreaTuActivo'
   },
   description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
@@ -148,14 +152,14 @@ export const metadata: Metadata = {
     locale: 'es_CO',
     alternateLocale: ['pt_BR'],
     url: baseUrl,
-    title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
+    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'CreaTuActivo | Un segundo ingreso, en paralelo al que ya tiene',
+    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
     creator: '@creatuactivo',
   },

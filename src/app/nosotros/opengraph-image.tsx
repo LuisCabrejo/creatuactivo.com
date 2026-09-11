@@ -2,9 +2,21 @@
  * Copyright © 2026 CreaTuActivo.com
  * OG image de /nosotros (29 ago 2026 — antes, la del Manifiesto).
  * Estética Bimetálica: carbón + dorado champán + titanio.
+ *
+ * ⚠️ 11 sep 2026 — ESTA TARJETA SALÍA EN BLANCO EN PRODUCCIÓN. El titular estaba a
+ * 92px y su segunda línea medía ~1.570px contra los 1.040 de ancho útil (1200 menos
+ * los 80 de padding a cada lado). Cuando un hijo en flujo desborda, satori no lo
+ * recorta: **descarta todo el contenido en flujo** y deja solo lo que va en
+ * `position: absolute` — por eso se veía el filete dorado y el pie, y nada más. No
+ * avisa: la ruta responde 200 y el PNG pesa lo que pesa un fondo.
+ *
+ * Medido con las dos líneas aisladas: a 92px se cae, a 60px entra completa. Queda en
+ * 56 porque Inter Bold es más ancha que la sans por defecto con la que se midió.
+ * ⛔ Antes de subirle el tamaño a un titular de tarjeta, renderícela y MÍRELA.
  */
 
 import { ImageResponse } from 'next/og'
+import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
 export const alt = 'Nosotros - CreaTuActivo.com'
@@ -12,9 +24,10 @@ export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export default async function Image() {
-  const logoData = await fetch(
-    new URL('../../../public/images/logotipo.png', import.meta.url)
-  ).then((res) => res.arrayBuffer())
+  const [logoData, fonts] = await Promise.all([
+    fetch(new URL('../../../public/images/logotipo.png', import.meta.url)).then((res) => res.arrayBuffer()),
+    fuentesInter(),
+  ])
 
   return new ImageResponse(
     (
@@ -29,6 +42,7 @@ export default async function Image() {
           background: 'linear-gradient(135deg, #0F1115 0%, #15171C 100%)',
           padding: '80px',
           position: 'relative',
+          fontFamily: 'Inter',
         }}
       >
         {/* Acento dorado superior */}
@@ -61,8 +75,8 @@ export default async function Image() {
         {/* Principio — focal point */}
         <div
           style={{
-            fontSize: 92,
-            fontWeight: 800,
+            fontSize: 56,
+            fontWeight: 700,
             textAlign: 'center',
             lineHeight: 1.1,
             letterSpacing: '-0.02em',
@@ -78,8 +92,8 @@ export default async function Image() {
         {/* Subtítulo */}
         <div
           style={{
-            fontSize: 40,
-            fontWeight: 600,
+            fontSize: 30,
+            fontWeight: 400,
             color: '#94A3B8',
             textAlign: 'center',
             display: 'flex',
@@ -106,6 +120,6 @@ export default async function Image() {
         </div>
       </div>
     ),
-    { ...size }
+    { ...size, fonts }
   )
 }

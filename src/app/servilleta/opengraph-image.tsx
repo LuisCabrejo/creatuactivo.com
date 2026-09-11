@@ -6,7 +6,8 @@
  * QUESWA.SYS Industrial Design
  */
 
-import { ImageResponse } from 'next/og';
+import { ImageResponse } from 'next/og'
+import { fuentesInter } from '@/lib/og-fuentes';
 
 export const runtime = 'edge';
 
@@ -19,6 +20,8 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const fonts = await fuentesInter({ negra: true })
+
   return new ImageResponse(
     (
       <div
@@ -32,8 +35,8 @@ export default async function Image() {
           backgroundColor: '#0F1115',
           backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)',
           backgroundSize: '40px 40px',
-          fontFamily: 'sans-serif',
           position: 'relative',
+          fontFamily: 'Inter',
         }}
       >
         {/* Marco Perimetral Industrial */}
@@ -92,7 +95,7 @@ export default async function Image() {
               fontSize: 90,
               color: '#E0DFDB',
               margin: 0,
-              lineHeight: 0.9,
+              lineHeight: 1,
               fontWeight: 900,
               letterSpacing: '-0.03em',
               textShadow: '0 10px 30px rgba(0,0,0,0.5)',
@@ -107,7 +110,7 @@ export default async function Image() {
               fontSize: 90,
               color: '#E0DFDB',
               margin: 0,
-              lineHeight: 0.9,
+              lineHeight: 1,
               fontWeight: 900,
               letterSpacing: '-0.03em',
               textShadow: '0 10px 30px rgba(0,0,0,0.5)',
@@ -165,6 +168,7 @@ export default async function Image() {
     ),
     {
       ...size,
+      fonts,
     }
   );
 }

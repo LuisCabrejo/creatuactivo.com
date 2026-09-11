@@ -1,6 +1,25 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * Homepage v17 — «La cualidad va pegada al sustantivo» (10 sep 2026) · aprobada por el Director
+ *
+ * Cambia SOLO el H1. Motivo, y es el hallazgo de la sesión — el Director se puso en el
+ * lugar de sí mismo hace doce años: *«si me hubieran dicho que aquí yo iba a ser dueño de
+ * mi propio sistema de distribución de productos de bienestar, habría pensado: para
+ * distribuir productos sigo con lo mío. Lo ganador estuvo cuando entendí que aquí me
+ * quedaba un sistema que funcionaba sin que yo tuviera que estar encima»*.
+ *
+ * El H1 decía exactamente esa frase —«Sea dueño de su propio sistema de distribución»— y
+ * ahí cortaba, en el sitio donde el lector decide si sigue leyendo. Hoy la cualidad llega
+ * dentro de la misma frase: **es una sola idea, no dos**, y por eso no puede decidir sin
+ * ella. «Su propio» pasó a «un» a propósito: con «un» la cláusula es RESTRICTIVA —define
+ * cuál sistema—; con «su propio» queda de apéndice. La propiedad la carga «Sea dueño».
+ *
+ * ⛔ La forma «que funciona sin que usted esté encima» está BLOQUEADA por la batería de
+ *    negocio (patrón de esfuerzo mínimo: `funciona sin que usted`) — medido el 10 sep. La
+ *    forma aprobada es «no depende de que usted esté encima», y no es intercambiable.
+ * ⚠️ El <title> NO sincroniza, a propósito: ver la nota junto a `metadata`.
+ *
  * Homepage v16 — «Desde adentro» (10 sep 2026) · aprobada por el Director desde /prueba
  *
  * Cambia el HERO. Motivo (Director): el hero hablaba desde AFUERA —le decía al lector
@@ -155,6 +174,11 @@ import QueswaCTAButton from '@/components/QueswaCTAButton'
 export const dynamic = 'force-static'
 
 export const metadata = {
+  // ⚠️ El <title> NO sincroniza con el H1 a propósito (10 sep 2026). El H1 lleva la
+  // cláusula de la cualidad —«que no depende de que usted esté encima»— y con ella el
+  // título se iría a 94 caracteres: Google trunca cerca de 60, y esa cláusula no es lo
+  // que nadie busca. Aquí se conserva la frase BUSCABLE; la tarjeta OG sí lleva el H1
+  // entero, porque ahí se lee completa y es la que ve quien abre el enlace de un socio.
   title: 'CreaTuActivo | Sea dueño de su propio sistema de distribución',
   description:
     'Un negocio de distribución de productos premium de bienestar —café y suplementos con Ganoderma— que usted maneja desde el celular. Una inteligencia artificial explica y atiende por WhatsApp; usted cobra cada vez que su sistema mueve producto.',
@@ -168,13 +192,13 @@ export const metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com',
-    title: 'Sea dueño de su propio sistema de distribución',
+    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description:
       'Productos premium de bienestar —café y suplementos con Ganoderma— que Gano Excel fabrica y despacha por usted, y una inteligencia artificial que explica y atiende por WhatsApp. Usted cobra cada vez que su sistema mueve producto.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sea dueño de su propio sistema de distribución',
+    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description:
       'Productos premium de bienestar con Ganoderma, una fábrica con 30 años detrás, y una IA que explica y atiende por usted en WhatsApp. Usted cobra cada vez que su sistema mueve producto.',
   },
@@ -370,7 +394,8 @@ export default function HomePage() {
               margin: '0 0 1.5rem',
             }}
           >
-            Sea dueño de su propio sistema de distribución.
+            Sea dueño de un sistema de distribución que no depende de que usted esté
+            encima.
           </h1>
 
           <Eyebrow>En qué creemos</Eyebrow>

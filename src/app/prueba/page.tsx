@@ -1,6 +1,25 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * /prueba — HOME v17 candidata — «La cualidad va pegada al sustantivo» (10 sep 2026) · aprobada por el Director
+ *
+ * Cambia SOLO el H1. Motivo, y es el hallazgo de la sesión — el Director se puso en el
+ * lugar de sí mismo hace doce años: *«si me hubieran dicho que aquí yo iba a ser dueño de
+ * mi propio sistema de distribución de productos de bienestar, habría pensado: para
+ * distribuir productos sigo con lo mío. Lo ganador estuvo cuando entendí que aquí me
+ * quedaba un sistema que funcionaba sin que yo tuviera que estar encima»*.
+ *
+ * El H1 decía exactamente esa frase —«Sea dueño de su propio sistema de distribución»— y
+ * ahí cortaba, en el sitio donde el lector decide si sigue leyendo. Hoy la cualidad llega
+ * dentro de la misma frase: **es una sola idea, no dos**, y por eso no puede decidir sin
+ * ella. «Su propio» pasó a «un» a propósito: con «un» la cláusula es RESTRICTIVA —define
+ * cuál sistema—; con «su propio» queda de apéndice. La propiedad la carga «Sea dueño».
+ *
+ * ⛔ La forma «que funciona sin que usted esté encima» está BLOQUEADA por la batería de
+ *    negocio (patrón de esfuerzo mínimo: `funciona sin que usted`) — medido el 10 sep. La
+ *    forma aprobada es «no depende de que usted esté encima», y no es intercambiable.
+ * ⚠️ El <title> NO sincroniza, a propósito: ver la nota junto a `metadata`.
+ *
  * /prueba — HOME v16 candidata: «desde adentro» (10 sep 2026) · pendiente de aprobación
  *
  * Idéntica a la Home v15.2 salvo el HERO. Motivo (Director): el hero habla desde
@@ -272,7 +291,8 @@ export default function PruebaPage() {
               margin: '0 0 1.5rem',
             }}
           >
-            Sea dueño de su propio sistema de distribución.
+            Sea dueño de un sistema de distribución que no depende de que usted esté
+            encima.
           </h1>
 
           <Eyebrow>En qué creemos</Eyebrow>

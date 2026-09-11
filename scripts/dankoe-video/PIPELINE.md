@@ -20,18 +20,56 @@ Acabado cinematográfico de reels (estilo Dan Koe/Naval) en M1, todo por código
   - **`sfx.py`** sintetiza el kit de SFX (whoosh/boom/riser/shimmer/finale_boom) por numpy → `out/kit/*.wav` (cero licencias). Colocar cada insert con `enable='between(t,…)'` y un whoosh de entrada/salida; dejar ≥~1.5s de talking-head entre cutaways (gaps <1s = "parpadeo", se nota).
 - **Assets de audio versionados en git** (aunque `out/` esté gitignored para los `.mp4`): el **kit de SFX** (`motion/out/kit/*.wav`) y **`motion/sfx.py`** sí están commiteados; si se borran los wavs, regenerarlos con `python sfx.py`. La **música** también (ver abajo). Así un clon fresco re-ensambla cualquier reel sin assets externos.
 - **`music/`** — camas de fondo (royalty-free, **commiteadas**): `hook-diagnostico_suspense.mp3` (acto 1; ~144s) + `solucion-cta_calm-corporate.mp3` (acto 2; ~29s). ⚠️ **La del acto 2 quedó RETIRADA el 5 sep 2026** (Director): la vigente es **`solucion-cta_pulse-corporate.mp3`** ("Pulse — Corporate Technology Ambient Background", 223s — sin `stream_loop`, alcanza cualquier acto 2), la misma que Luis usa en todos sus proyectos de CapCut. La fuente canónica de ambas pistas vive en `~/Downloads/reels-equipo/audios/` (`suspense-in-piano.MP3` + `pulse-corporate-technolofy.MP3`); el `hook-diagnostico_suspense.mp3` del repo es el mismo tema con otro encode — ante la duda, usar los archivos de esa carpeta. **Convención de audio — se calibra POR PIEZA, no por regla fija** (corregido 6 sep 2026). ⚠️ Aquí decía *«Luis la calibra al alza — nunca bajar»* y el 5 sep pidió lo contrario: **bajarla al 50%** en el video ancla del reto (intro 0.325 · solución 0.50), después de dos rondas de ajuste a la baja. La regla vieja venía de una sesión de junio y se generalizó de más. **Los niveles de abajo son el punto de partida; el Director ajusta y ese ajuste manda.** Nivel por formato: reels de **nicho** (módulo) = `volume=0.80` (`networkers` = 0.90); reels **reflexivos de documentación** (talking-head, serie diaria) = **`volume=1.00`** en AMBAS camas (subido de 0.80 el 23 jun 2026, Día 11, por pedido del Director). El **cambio suspense→corporativa cae exacto en el pivot narrativo diagnóstico→solución**: en los reels de nicho es "La respuesta a este sistema…" (en los 4 normales coincide con la costura del módulo; en `empresarios` la corporativa entra en "La respuesta" dentro del segmento A); en los reflexivos es la frase-bisagra del guion (Día 9 "Por eso esta semana…" 31.1s · Día 10 "Ahora imagine su propia empresa digital" 33.0s · Día 11 "Pero cambió una cosa: la inteligencia artificial" 22.0s) — el timestamp se lee del `*_stamps.json` del forced alignment. ⚠️ Si el pivot cae temprano (Día 11 a 22.0s) la corporativa de 29s no cubre el acto 2 (37.8s) → **`-stream_loop 1`** en el input corporativo + `atrim` a la duración exacta. Camas **ducked bajo la voz** (`sidechaincompress`).
-> ⚠️ **Blanqueamiento dental — `blanquear_dientes.py`** (8 sep 2026). Máscara por el contorno
-> INTERNO de los labios (mediapipe FaceLandmarker, modelo en `modelos/face_landmarker.task`);
-> dentro de ella los dientes se separan del interior oscuro por percentil de luminancia, y sobre esa
-> zona se sube **L\*** y se lleva **b\*** al neutro — que es literalmente lo que hace un
-> blanqueamiento: más luz y menos amarillo. Borde difuminado a 3 px para que no se recorte.
-> `--fuerza` escala el efecto; `--prueba t1,t2` escribe pares antes/después sin procesar el video.
+> ⭐ **Retoque facial — `blanquear_dientes.py`** (8 sep 2026 · piel y calibración el 11 sep).
+> Máscara por el contorno INTERNO de los labios (mediapipe FaceLandmarker, modelo en
+> `modelos/face_landmarker.task`); dentro de ella los dientes se separan del interior oscuro por
+> percentil de luminancia, y sobre esa zona se sube **L\*** y se lleva **b\*** al neutro — que es
+> literalmente lo que hace un blanqueamiento: más luz y menos amarillo. Desde el 11 sep también
+> **suaviza la piel** sobre el óvalo facial menos ojos, cejas, boca y nariz, con filtro bilateral
+> mezclado. Bordes difuminados. **Corre sobre el montaje curado, ANTES del color**, y conserva el
+> audio del original.
+>
+> ```bash
+> captions/.venv/bin/python blanquear_dientes.py curado.mov retocado.mov      # usa los valores buenos
+> captions/.venv/bin/python blanquear_dientes.py curado.mov /tmp/x --medir 9.0,35.4,33.8
+> ```
+>
+> **⭐ Los niveles óptimos, y cómo se comprueban.** `--medir t1,t2` imprime los dos números que
+> deciden si quedó natural o cargado. No se juzga de memoria ni en la miniatura:
+>
+> | Qué | Natural | Cargado | Dónde se lee |
+> |---|---|---|---|
+> | separación dientes−piel (L\*) | **30 a 42** | > 50 | `--medir`, «separación después» |
+> | textura de piel conservada | **65 a 80 %** | < 55 % | `--medir`, «textura conservada» |
+>
+> **Valores por defecto, ya calibrados: `--fuerza 0.85` y `--piel 0.45`** — dan separación ~35 y
+> ~80 % de textura en el rodaje del día 4. El suavizado es discreto a propósito: en un reel de
+> documentación una cara sin poro se lee como filtro de teléfono y contradice la pieza.
 >
 > ⛔ **En OpenCV L\* va de 0 a 255, NO de 0 a 100.** La primera versión apuntaba a 92 creyendo la
-> escala de 100 y **oscurecía los dientes**, con lo poco visible viniendo solo del ajuste de b\*.
-> **El objetivo se fija midiendo, nunca de memoria:** en este rodaje los dientes salieron en L\*=106
-> y la piel en 89 —17 puntos de separación, cuando una imagen bien resuelta tiene entre 40 y 60—, y
-> el objetivo quedó en 140. Mídalo con el fragmento de diagnóstico antes de tocar la constante.
+> escala de 100 y **oscurecía los dientes**.
+>
+> ⛔ **Y el objetivo NO puede ser una constante.** Quedó fijo en 140 —medido el 8 sep sobre un
+> rodaje con los dientes en L\*=106— y el 11 sep **no hizo absolutamente nada**: en el día 4 los
+> dientes ya salían entre 150 y 194, así que el margen daba cero y `--fuerza` no cambiaba una coma.
+> Hoy el objetivo se deriva de la **piel de la cara** del propio fotograma (`SEPARACION_OBJETIVO`,
+> 46 puntos). ⚠️ La referencia es la piel de la CARA, no el interior de la boca: con el interior
+> como referencia el objetivo volvía a caer por debajo de los dientes y el efecto desaparecía otra
+> vez. Una constante de exposición ajena es una constante equivocada.
+
+> **Rótulo del día — `rotulo_dia.py`.** Genera el PNG de «JUEVES · DÍA 4» en Montserrat Black sobre
+> oro de marca, centrado al 15.5 % de altura: por encima de los subtítulos (76 %) y por debajo de la
+> interfaz de historias. **El cuerpo se ajusta solo** hasta que el texto quepa en el 84 % del ancho —
+> «DÍA 4» a 96 px ocupa 287 px, pero «JUEVES · DÍA 4» al mismo cuerpo se sale del cuadro. Se compone
+> al final, sobre el video ya acabado:
+>
+> ```bash
+> captions/.venv/bin/python rotulo_dia.py /tmp/rotulo.png "VIERNES · DÍA 5"
+> ffmpeg -i listo.mp4 -loop 1 -t 3.8 -i /tmp/rotulo.png -filter_complex \
+>   "[1:v]format=rgba,fade=t=in:st=0:d=0.45:alpha=1,fade=t=out:st=3.1:d=0.7:alpha=1[l];\
+>    [0:v][l]overlay=0:0:enable='lt(t,3.8)'[v]" -map "[v]" -map 0:a -c:a copy entrega.mp4
+> ```
+
 >
 > ⚠️ **Va DESPUÉS del color y de la atmósfera, sobre el máster ya montado.** Y el escritor de OpenCV
 > se canaliza a x264: `VideoWriter` con `mp4v` es MPEG-4 Parte 2 y degrada el máster.
@@ -121,13 +159,62 @@ Acabado cinematográfico de reels (estilo Dan Koe/Naval) en M1, todo por código
 
 ---
 
+## Reel hablado de varias tomas — `armar-curado.py` va ANTES de la píldora (sep 2026)
+
+`pildora.py` toma UN archivo y lo acaba. Cuando el día trae **tres clips, el audio del micrófono
+aparte y tomas que se descartan**, el corte se arma primero:
+
+**EL ORDEN COMPLETO DE UN DÍA DEL RETO**, que es lo único que hay que recordar:
+
+```bash
+# 1 · corte curado: sincronía, niveles, tomas buenas, frontera de cuadro  (+ verificación)
+captions/.venv/bin/python armar-curado.py corte-diaN.json --salida curado.mov
+# 2 · retoque facial ANTES del color (dientes + piel; conserva el audio)
+captions/.venv/bin/python blanquear_dientes.py curado.mov retocado.mov
+# 3 · color, subtítulos, atmósfera, marca de agua, música y outro
+captions/.venv/bin/python pildora.py retocado.mov --lut --guion texto.txt --sin-recorte --sin-compuerta --outro
+# 4 · rótulo del día, encima del video ya acabado
+captions/.venv/bin/python rotulo_dia.py /tmp/rotulo.png "VIERNES · DÍA 5"   # y el overlay de arriba
+```
+
+⚠️ **El retoque va en el paso 2 y no en otro sitio.** Antes del LUT la cara está sin grano ni
+viñeta, que es donde mediapipe la encuentra mejor y donde el bilateral no pelea con la atmósfera;
+después de los subtítulos sería peor todavía, porque el suavizado los tocaría.
+
+El `corte.json` declara los clips con su **desfase de sincronía** y los segmentos que se usan, en
+tiempo de video (el formato está en la cabecera del script). Un ejemplo real y comentado, con lo
+descartado y por qué: [`~/Downloads/reels-equipo/0910/corte-dia4.json`].
+
+**Las cuatro cosas que hace, y que a mano se equivocan.** Las cuatro salieron de fallas medidas el
+10 sep 2026 en el reel del día 4, grabado en un centro comercial:
+
+1. **Limpia el micrófono con `arnndn` (RNNoise), no con `afftdn`.** Con ruido de sala continuo
+   RNNoise bajó el fondo **26 dB** y dejó la voz intacta; `afftdn` bajaba 4. El modelo vive en
+   `rnnoise/sh.rnnn`.
+2. ⚠️ **Normaliza el archivo ENTERO y en dos pasadas, ANTES de aplicar el desfase.** El orden no es
+   cosmético: al normalizar cada tramo ya desplazado, `loudnorm` de una pasada es adaptativo y cada
+   uno queda distinto. Medido: el segundo tramo del clip 1 quedó **16 dB por debajo** y esa frase
+   «casi no se escuchaba».
+3. ⚠️ **Un mismo clip puede necesitar DOS desfases.** El micrófono DJI dio un **salto de 1.17 s** a
+   mitad del clip 1 —−214 ms antes de una pausa, +956 ms después—. Se declara dos veces y se corta
+   en esa pausa. **Por eso el desfase se mide con ventanas cortas a lo largo del clip, nunca con una
+   sola correlación global**: la global cayó en el valor de la segunda mitad y dejó la primera
+   corrida más de un segundo.
+4. **Corta en frontera de cuadro.** `trim` corta el video al cuadro y el audio al instante exacto;
+   con varios segmentos el error se SUMA. Medido: seis islas dejaron el video **222 ms** por delante
+   del audio, y en pantalla eso son los labios fuera de sincronía.
+
+**Y verifica antes de que usted publique.** Al terminar avisa de tres cosas: una frase que suene más
+de 6 dB por debajo de las demás, un corte que deje menos de 0.25 s tras la última palabra (se oye
+truncada), y video y audio de distinto largo. Si marca algo, se corrige antes de entregar.
+
 ## Píldoras diarias — la receta LIGERA (`pildora.py`, sep 2026)
 
 Para el reto de los 90 días hay un video por día y no se puede curar cada uno a mano. `pildora.py`
 hace sola la parte mecánica, de archivo crudo a reel publicable:
 
 ```bash
-captions/.venv/bin/python pildora.py <entrada.mp4> [--lut] [--sin-musica] [--outro]
+captions/.venv/bin/python pildora.py <entrada.mp4> [--lut] [--sin-musica] [--outro] [--guion <texto.txt>]
 ```
 
 transcribe (faster-whisper) → alinea por forzado (`captions/align.py`, los tiempos de whisper no
@@ -137,7 +224,15 @@ agua y atmósfera → música → `loudnorm` a −14 LUFS. `--lut` aplica el D-L
 aplica **aunque el archivo diga que no es de la Osmo**: la app de DJI reenvuelve y le deja la firma
 del teléfono; la prueba es aplicar el LUT y medir la saturación, no leer el metadato.
 
-**NO hace** curaduría de tomas, arco musical con pivot ni corrección de texto en pantalla — para
+⚠️ **Con ruido de fondo, el subtítulo hay que dárselo escrito: `--guion <texto.txt>`.** Se salta a
+whisper y la alineación forzada solo resuelve tiempos, así que en pantalla salen las palabras del
+guion y no las que el modelo creyó oír. El día 4 se grabó en un centro comercial y whisper escribió
+*«seguimos **arruinando** el equipo»*, *«y **crean** devolverle»*, y se comió *«me mueve»* de la
+pregunta de apertura — cuatro errores que se habrían quemado en pantalla. ⚠️ El texto debe ser lo
+que **se oye en el archivo de entrada**, no el guion aprobado completo: si al curar se descartó una
+toma, su texto no va, y si el Director improvisó, manda lo improvisado.
+
+**NO hace** curaduría de tomas ni arco musical con pivot — para
 eso está el pipeline completo de arriba. Los guiones aprobados y su registro por día viven en
 `public/contexto/produccion/guiones/reels/aprobados/`.
 

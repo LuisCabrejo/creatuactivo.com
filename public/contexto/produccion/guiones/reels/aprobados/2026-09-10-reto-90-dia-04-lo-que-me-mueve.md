@@ -4,10 +4,14 @@
 |---|---|
 | **Fecha** | Jueves 10 de septiembre de 2026 |
 | **Serie** | Reto de los 90 días (documentación en vivo) |
-| **Estado** | ✅ **Aprobado — pendiente de grabar** (en la calle, con el celular) |
+| **Estado** | 🎬 **Montado y entregado** (grabado en un centro comercial, con la Osmo y el micrófono de solapa) |
 | **Formato** | Vertical 9:16, para historias. Caminando en 1 y 5; **quieto y a cámara en 2, 3 y 4** |
 | **Rejilla** | Jueves = *la píldora* (historia corta con enseñanza). La historia es su mañana real |
-| **Montaje** | `scripts/dankoe-video/pildora.py` — la frase del tiempo 2 es la única que tiene que salir limpia; si la repite, se escoge la mejor toma |
+| **Versiones** | Historia **1080×1920 · 56.9 s** (con outro) |
+| **Entrega** | `~/Downloads/reels-equipo/0910/entrega/reto-dia4-historia.mp4` · y en Drive, `reto-90/salida/` |
+| **Fuente** | `~/Downloads/reels-equipo/0910/` — tres clips y tres WAV del micrófono DJI |
+| **Corte** | `~/Downloads/reels-equipo/0910/corte-dia4.json` — declara desfases, segmentos y lo descartado con su razón |
+| **Montaje** | Los cuatro pasos del reto (ver [PIPELINE.md](../../../../../scripts/dankoe-video/PIPELINE.md)): `armar-curado.py` → `blanquear_dientes.py` → `pildora.py` → `rotulo_dia.py` |
 
 ---
 
@@ -27,6 +31,24 @@
 
 **5 · Retoma el paso**
 > Mañana les sigo contando.
+
+---
+
+## Lo que se dijo al grabar, y en qué se apartó del guion
+
+El Director grabó casi literal. Tres diferencias, y ninguna se corrigió:
+
+- **«entregarle» por «darle»** en el tiempo 2. Mejora: *entregar* carga la idea de cederlo.
+- **«y recibir tan poco a cambio»** se dijo, y se **cortó en montaje**: el guion la descartó ese mismo
+  día por juicio de cantidad (el remate de `STORY_03` existe para cerrar esa salida).
+- **El cierre del tiempo 4** salió reformulado y más largo: *«y es muy importante que las personas
+  que se unan en este momento compartan exactamente la misma filosofía»*. Se conservó.
+
+⛔ **Y una frase se cayó por el equipo, no por el guion: «tengo la familia en tres ciudades».** Al
+micrófono DJI le faltan **1.19 s en mitad de esa frase** —dura 2.58 s en la cámara y 1.39 s en el
+micrófono—, así que sonaba enredada y no hay corte ni sincronía que lo arregle. Como es un inciso, el
+tiempo 1 funciona sin ella: *«He estado en labores de padre. Y con un quebranto de salud. Pero
+tranquilos, sobreviviré.»*
 
 ---
 

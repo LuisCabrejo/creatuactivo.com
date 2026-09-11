@@ -2,11 +2,29 @@
 """Receta LIGERA para píldoras diarias — de un archivo crudo a un reel publicable.
 
     captions/.venv/bin/python pildora.py <entrada.mp4> [--lut] [--sin-musica] [--outro]
+                                         [--guion <texto.txt>]
+                                         [--sin-recorte] [--sin-compuerta]
 
 Hace sola lo que en el video Top se decide a mano: recorta silencios, arma el
 montaje, alinea subtítulos, pone marca de agua y atmósfera, y normaliza a -14 LUFS.
-NO hace: curaduría de tomas, arco musical con pivot, ni correcciones de texto en
-pantalla. Para eso está el pipeline completo (ver PIPELINE.md).
+NO hace: curaduría de tomas ni arco musical con pivot. Para eso está el pipeline
+completo (ver PIPELINE.md).
+
+--guion <texto.txt> entrega el texto REAL de lo que se dijo y se salta a whisper:
+la alineación forzada solo resuelve tiempos, así que el subtítulo sale con las
+palabras del guion aprobado y no con lo que el modelo creyó oír. Con ruido de calle
+whisper confunde palabras enteras —«armando» por «arruinando», y se come frases—, y
+ese error se quema en pantalla. El texto debe ser lo que se OYE en el archivo de
+entrada, no el guion completo: si una toma se descartó al cortar, su texto no va.
+
+--sin-recorte deja las pausas como vienen. Para material YA curado a mano, donde el
+ritmo se decidió al cortar y volver a apretarlo se come el aire que se puso a
+propósito.
+
+--sin-compuerta no atenúa las pausas. La compuerta usa los tiempos de la alineación
+y el alineador cierra la palabra antes de que el sonido se apague, así que la cola
+se pierde: se comió 240 ms del «.com» de CreaTuActivo.com. Con audio ya limpio
+(micrófono de solapa pasado por arnndn) no hay roces que matar — úsela siempre.
 """
 import json, os, subprocess, sys, shutil, tempfile, math
 
@@ -31,23 +49,37 @@ def main():
     usar_lut  = "--lut" in sys.argv
     con_musica= "--sin-musica" not in sys.argv
     con_outro = "--outro" in sys.argv
+    sin_recorte = "--sin-recorte" in sys.argv
+    sin_compuerta = "--sin-compuerta" in sys.argv
+    guion_ext = None
+    if "--guion" in sys.argv:
+        i = sys.argv.index("--guion")
+        if i+1 >= len(sys.argv): sys.exit("--guion necesita la ruta de un .txt")
+        guion_ext = os.path.abspath(sys.argv[i+1])
+        if not os.path.exists(guion_ext): sys.exit(f"no existe {guion_ext}")
     nombre = os.path.splitext(os.path.basename(src))[0]
     W = os.path.join(BASE, "captions/work", f"pildora-{nombre}")
     shutil.rmtree(W, ignore_errors=True); os.makedirs(W)
     print(f"▸ {nombre}")
 
-    # 1 · audio y transcripción
+    # 1 · audio y texto
     wav = f"{W}/a16k.wav"
     sh("ffmpeg","-y","-v","error","-i",src,"-vn","-ac","1","-ar","16000",wav)
-    from faster_whisper import WhisperModel
-    m = WhisperModel("medium", device="cpu", compute_type="int8")
-    segs,_ = m.transcribe(wav, language="es", word_timestamps=True, vad_filter=False)
-    words = [{"word":w.word,"start":w.start,"end":w.end} for s in segs for w in s.words]
-    if not words: sys.exit("sin habla detectable")
-    print(f"  {len(words)} palabras")
+    if guion_ext:
+        texto = " ".join(open(guion_ext,encoding="utf-8").read().split())
+        if not texto: sys.exit("el guion está vacío")
+        print(f"  guion dado: {len(texto.split())} palabras (no se transcribe)")
+    else:
+        from faster_whisper import WhisperModel
+        m = WhisperModel("medium", device="cpu", compute_type="int8")
+        segs,_ = m.transcribe(wav, language="es", word_timestamps=True, vad_filter=False)
+        words = [{"word":w.word,"start":w.start,"end":w.end} for s in segs for w in s.words]
+        if not words: sys.exit("sin habla detectable")
+        texto = " ".join(w["word"].strip() for w in words)
+        print(f"  {len(words)} palabras")
 
     # 2 · guion exacto -> alineación forzada (los tiempos de whisper no son fiables)
-    open(f"{W}/guion.txt","w").write(" ".join(w["word"].strip() for w in words))
+    open(f"{W}/guion.txt","w").write(texto)
     sh(PY, os.path.join(BASE,"captions/align.py"), wav, f"{W}/guion.txt", f"{W}/stamps.json","spa")
     AW = json.load(open(f"{W}/stamps.json"))["words"]
     if AW[-1]["end"]-AW[-1]["start"] > 1.0: AW[-1]["end"] = AW[-1]["start"]+0.6
@@ -60,12 +92,26 @@ def main():
         else:
             cur.append(w)
     isl.append(cur)
-    segs_edl, t = [], 0.0
-    for g in isl:
-        a, b = max(0,g[0]["start"]-PRE), g[-1]["end"]+GAP
-        segs_edl.append((a,b)); t += b-a
+    # el corte se CUANTIZA a frontera de cuadro del origen: trim corta el video al cuadro
+    # y el audio al instante exacto, así que un corte a media exposición desfasa hasta 1/fps,
+    # y con varias islas ese error se SUMA. Medido el 10 sep 2026: 6 islas dejaron el video
+    # 222 ms por delante del audio, y en pantalla eso son los labios fuera de sincronía.
+    crudo = float(probe(src,"duration") or 0)
+    try:    n_, d_ = probe(src,"r_frame_rate").split("/"); fps_src = float(n_)/float(d_)
+    except Exception: fps_src = 24.0
+    cuad = lambda t: round(t*fps_src)/fps_src
+    if sin_recorte:
+        isl = [[w for g in isl for w in g]]
+        segs_edl = [(0.0, cuad(crudo))]
+        t = segs_edl[0][1]
+    else:
+        segs_edl, t = [], 0.0
+        for g in isl:
+            a, b = cuad(max(0,g[0]["start"]-PRE)), cuad(g[-1]["end"]+GAP)
+            segs_edl.append((a,b)); t += b-a
     dur = round(t,2)
-    print(f"  {len(segs_edl)} islas · {dur}s (crudo {float(probe(src,'duration') or 0) or 'n/d'})")
+    print(f"  {len(segs_edl)} isla(s) · {dur}s (crudo {crudo or 'n/d'})"
+          + ("  [sin recorte de pausas]" if sin_recorte else ""))
 
     # 4 · encuadre 9:16 y ensamble
     w0,h0 = int(probe(src,"width")), int(probe(src,"height"))
@@ -132,12 +178,17 @@ def main():
        "-pix_fmt","yuv420p","-r","24","-c:a","copy",f"{W}/vid.mp4")
 
     # 7 · voz limpia (pausas atenuadas: mata roces de silla y teclado) + cama suave
+    # ⚠️ La compuerta se guía por los tiempos de la ALINEACIÓN, y el alineador cierra la palabra
+    # antes de que se apague el sonido: la cola queda fuera y se atenúa 24 dB. Medido el 10 sep
+    # 2026: se comió 240 ms del «.com» de CreaTuActivo.com y en pantalla sonaba «creatuactivo.c».
+    # Con audio ya denoised (micrófono de solapa + arnndn) la compuerta no aporta nada: use
+    # --sin-compuerta.
     sh("ffmpeg","-y","-v","error","-i",f"{W}/vid.mp4","-vn","-ac","1","-ar","48000",f"{W}/voz.wav")
     import wave, array
     ww=wave.open(f"{W}/voz.wav","rb"); sr=ww.getframerate(); n=ww.getnframes()
     a=array.array("h"); a.frombytes(ww.readframes(n)); ww.close()
-    g=[0.06]*n
-    for x in out:
+    g=[1.0]*n if sin_compuerta else [0.06]*n
+    for x in ([] if sin_compuerta else out):
         for i in range(max(0,int((x["start"]-0.14)*sr)), min(n,int((x["end"]+0.14)*sr))): g[i]=1.0
     k=int(0.030*sr); pre_s=[0.0]*(n+1)
     for i in range(n): pre_s[i+1]=pre_s[i]+g[i]

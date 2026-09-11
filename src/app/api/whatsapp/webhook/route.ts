@@ -87,6 +87,8 @@ import {
   RECHAZO_SALUD_COMUN_PREGUNTA,
   RECHAZO_SALUD_EVIDENCIA,
   RECHAZO_SALUD_CORTO,
+  RECHAZO_SALUD_SOCIO,
+  RECHAZO_SALUD_SOCIO_OTRA_VEZ,
   NUCLEO_REINCIDE,
   rechazoSaludPorFamilia,
   esRechazoSaludComun,
@@ -799,6 +801,31 @@ async function procesarEntrante(body: any): Promise<void> {
     // anota lo que el mensaje traía además.
     await capturarContextoDelMensaje(supabase, waFingerprint, messageText, patrocinador?.userId ?? existingProspect?.constructor_id ?? null);
 
+    // ─── 1.38 ¿Es el dueño de un canal, y no un prospecto? ────────────────────
+    // ⚠️ Va ANTES del guardarraíl de salud (10 sep 2026): ese bloque CORTA el
+    // turno, así que mientras corrió después, un socio que preguntaba por salud
+    // no llegaba nunca al modo socio y recibía la derivación escrita para un
+    // prospecto que cuenta su condición. Le pasó a Patricia Reyes, dos veces.
+    // El canal atiende a los dos por el mismo número. Sin esta consulta, el socio
+    // recibía la apertura de prospecto y Queswa se presentaba ante él como la
+    // asistente de sí mismo, para después explicarle el negocio que ya compró.
+    // La detección es determinística —su teléfono está en `constructor_slugs`—,
+    // así que no hay margen de error ni costo de modelo.
+    const socioQueEscribe = await identificarSocio(supabase, phoneNumber);
+    // El hilo del socio empieza el día en que se le reconoció como tal: los turnos
+    // anteriores —donde se le vendió el negocio que ya tenía— no vuelven al modelo.
+    let socioDesde: string | null = existingProspect?.device_info?.socio_desde ?? null;
+    if (socioQueEscribe) {
+      console.log(`👤 [WA Webhook] Escribe el dueño de /${socioQueEscribe.slug} — modo socio`);
+      // El prospecto que pasó a ser socio queda configurado como socio, y de ahí
+      // en adelante el trato se abre únicamente como distribuidor (Director, 10 sep
+      // 2026). Patricia escribió tres veces como prospecta antes de esto.
+      if (existingProspect && !existingProspect.device_info?.es_socio) {
+        const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
+        if (convertido) socioDesde = new Date().toISOString();
+      }
+    }
+
     // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────
     // Va ANTES de la apertura a propósito: un primer contacto que escribe sobre
     // una condición de salud no puede recibir el saludo comercial con botones —
@@ -818,6 +845,21 @@ async function procesarEntrante(body: any): Promise<void> {
     }
 
     const saludEntrada = clasificarPreguntaSalud(messageText);
+
+    // ⚠️ AL DISTRIBUIDOR SE LE DA LA LÍNEA, NO LA DERIVACIÓN (10 sep 2026).
+    // No consulta por lo suyo: se prepara para lo que le van a preguntar a él. El
+    // núcleo legal no se ablanda —con un socio importa MÁS, porque lo que él crea
+    // permitido se lo dirá a sus clientes—; lo que cambia es a quién se le habla.
+    // La emergencia, arriba, sigue cortando igual para todo el mundo.
+    if (saludEntrada && socioQueEscribe) {
+      const otraVez = await yaRecibioLaLineaDeSalud(supabase, waFingerprint);
+      const texto = otraVez ? RECHAZO_SALUD_SOCIO_OTRA_VEZ : RECHAZO_SALUD_SOCIO;
+      console.warn(`⛔ [WA Guardrail Salud] Socio /${socioQueEscribe.slug} pregunta por salud ("${saludEntrada.termino}")${otraVez ? ' — otra vez' : ''} — se le da la línea`);
+      await sendWhatsAppMessage(phoneNumber, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      return;
+    }
+
     if (saludEntrada) {
       // Reincidencia: si esta conversación ya recibió un rechazo de salud, se
       // endurece a la versión corta (la marca de "conversación contaminada" del
@@ -875,27 +917,7 @@ async function procesarEntrante(body: any): Promise<void> {
       }
     }
 
-    // ─── 1.45 ¿Es el dueño de un canal, y no un prospecto? ────────────────────
-    // El canal atiende a los dos por el mismo número. Sin esta consulta, el socio
-    // recibía la apertura de prospecto y Queswa se presentaba ante él como la
-    // asistente de sí mismo, para después explicarle el negocio que ya compró.
-    // La detección es determinística —su teléfono está en `constructor_slugs`—,
-    // así que no hay margen de error ni costo de modelo.
-    const socioQueEscribe = await identificarSocio(supabase, phoneNumber);
-    // El hilo del socio empieza el día en que se le reconoció como tal: los turnos
-    // anteriores —donde se le vendió el negocio que ya tenía— no vuelven al modelo.
-    let socioDesde: string | null = existingProspect?.device_info?.socio_desde ?? null;
-    if (socioQueEscribe) {
-      console.log(`👤 [WA Webhook] Escribe el dueño de /${socioQueEscribe.slug} — modo socio`);
-      // El prospecto que pasó a ser socio queda configurado como socio, y de ahí
-      // en adelante el trato se abre únicamente como distribuidor (Director, 10 sep
-      // 2026). Patricia escribió tres veces como prospecta antes de esto.
-      if (existingProspect && !existingProspect.device_info?.es_socio) {
-        const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
-        if (convertido) socioDesde = new Date().toISOString();
-      }
-    }
-
+    // ─── 1.45 El saludo del socio, una sola vez ───────────────────────────────
     // Al socio se le saluda UNA vez, con lo suyo: su enlace y lo que Queswa puede
     // hacer por él. No la explicación del negocio. ⚠️ La condición ya no es «no
     // tiene ficha»: quien escribió antes como prospecto tiene ficha y aun así no
@@ -2543,6 +2565,38 @@ async function estadoSaludPrevio(
     console.error('⚠️ [WA Guardrail Salud] Error consultando el núcleo previo:', err);
   }
   return nada;
+}
+
+/**
+ * ¿A este socio ya se le dio la línea de salud en las últimas tres horas? La
+ * misma ventana que `estadoSaludPrevio`: «lo que le acabo de decir» solo es
+ * cierto dentro de la misma conversación. Best-effort — ante fallo, se da entera.
+ */
+async function yaRecibioLaLineaDeSalud(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+): Promise<boolean> {
+  try {
+    const { data } = await supabase
+      .from('nexus_conversations')
+      .select('messages')
+      .eq('fingerprint_id', fingerprint)
+      .gte('created_at', new Date(Date.now() - 3 * 3600e3).toISOString())
+      .order('created_at', { ascending: false })
+      .limit(12);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    for (const fila of ((data || []) as any[])) {
+      if (!Array.isArray(fila.messages)) continue;
+      for (const m of fila.messages) {
+        if (m?.role === 'assistant' && typeof m.content === 'string'
+            && m.content.trimStart().startsWith(RECHAZO_SALUD_SOCIO.slice(0, 40))) return true;
+      }
+    }
+  } catch (err) {
+    console.error('⚠️ [WA Guardrail Salud] Error mirando si el socio ya recibió la línea:', err);
+  }
+  return false;
 }
 
 /**

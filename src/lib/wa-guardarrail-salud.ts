@@ -510,10 +510,49 @@ export function rechazoSaludPorFamilia(
   return { familia, texto, declara };
 }
 
+/**
+ * ── LA LÍNEA DE SALUD, DICHA A UN DISTRIBUIDOR ───────────────────────────────
+ *
+ * El socio que pregunta por salud NO está consultando por lo suyo: se está
+ * preparando para lo que le van a preguntar a él. Patricia Reyes —docente
+ * universitaria y socia desde julio— abrió con cáncer de colon y quimioterapia,
+ * y recibió dos veces, letra por letra, la derivación escrita para un prospecto
+ * que cuenta su condición. Ni siquiera era su caso.
+ *
+ * El NÚCLEO no se ablanda: la línea del INVIMA es la misma para todos, y con un
+ * distribuidor importa más, porque lo que él crea permitido se lo va a decir a
+ * sus clientes. Lo que cambia es a quién se le habla. Aprobado por el Director
+ * el 10 sep 2026; verificado contra los dos guardarraíles de salida.
+ */
+export const RECHAZO_SALUD_SOCIO =
+  'Esa pregunta le va a llegar seguido, así que le dejo la línea con claridad.\n\n' +
+  'Nuestra línea está registrada ante el INVIMA como alimentos y suplementos dietarios, no como ' +
+  'medicamentos. Eso fija lo que se puede decir: nada de enfermedades, tratamientos ni resultados ' +
+  'de salud. La norma mira lo que quedó escrito, y lo escribe usted.\n\n' +
+  'Lo que sí está de su lado, y es bastante: es el hongo más estudiado que existe, Gano Excel lleva ' +
+  'treinta años fabricándolo, cada producto tiene su registro sanitario, y la gente lo incorpora a ' +
+  'su rutina por energía y bienestar.\n\n' +
+  'Y cuando alguien le cuente una condición concreta, hay una sola respuesta que les sirve a los ' +
+  'dos: eso lo ve con su médico, que conoce su caso. Devolverle la decisión a quien sabe no le ' +
+  'resta autoridad a usted — se la da.\n\n' +
+  '¿Le armo la respuesta para la pregunta que le hicieron?';
+
+/**
+ * La segunda vez, dentro de la misma conversación. No se repite el texto
+ * completo: ese fue exactamente el error con Patricia el 8 sep (dos veces el
+ * mismo bloque). Se nombra lo dicho y se ofrece lo único que falta — la frase
+ * concreta para responderle a esa persona.
+ */
+export const RECHAZO_SALUD_SOCIO_OTRA_VEZ =
+  'La línea es la misma de hace un momento, y ahí no hay matices.\n\n' +
+  'Si quiere, dígame con qué palabras se lo preguntaron y le armo la respuesta que sí puede dar.';
+
 // Prefijos distintivos de los textos de arriba. Sirven para (a) detectar
 // reincidencia en el historial y endurecer al rechazo corto, y (b) que el
 // saneamiento del historial reconozca sus propias correcciones.
 const PREFIJOS_RECHAZO = [
+  'Esa pregunta le va a llegar seguido',
+  'La línea es la misma de hace un momento',
   'Comprendo su objetivo, y me alegra que esté buscando opciones',
   'Comprendo su consulta, y hace muy bien en cuidar esos detalles',
   'Buena pregunta, y de las que más nos hacen',

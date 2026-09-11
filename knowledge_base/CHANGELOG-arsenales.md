@@ -368,6 +368,24 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.31 — WHY_01 🔒 dice por qué existimos desde adentro (10 sep 2026)
+
+El párrafo del **por qué existimos** deja de contarse en clave de mercado —*montar un negocio que requiere que usted esté encima no es difícil; lo difícil es multiplicarlo*— y pasa a ser una **creencia sobre la vida de las personas**, en la forma de Nu (David Vélez): se nombra el ciclo, se absuelve, y se nombra la deuda que existimos para saldar. Es la misma frase que ese mismo día entró en la Home v16 y en la apertura del canal, de modo que los tres sitios dicen por primera vez lo mismo.
+
+**Lo que entró:** *«Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero. No es culpa de nadie: ni el empleo ni el emprendimiento le garantizan hoy a una persona que su trabajo termine asegurándole el futuro. Nosotros existimos para saldar esa deuda: le entregamos ensamblados los tres elementos con los que el suyo se multiplica, y no depende de que usted esté encima.»*
+
+**La regla que lo prohibía se retiró A MEDIAS, y la mitad que queda importa.** La cabecera decía *«el porqué se cuenta en clave de lo que cambió en el mundo, no de lo que anda mal en su vida»*. Tenía dos cosas adentro: **no diagnosticarle la vida a quien pregunta** —que se conserva, y por eso la creencia va en **tercera persona y universal** (*nadie*, *las personas*)— y **no hablar de la vida en absoluto**, que es lo que dejaba el porqué correcto y dicho desde afuera. Doctrina del Director: los descubrimientos ajustan las normas, no al revés.
+
+**Dos cosas que NO entraron, y por qué:**
+- ⛔ **El juicio de cantidad.** El borrador decía *«y recibir tan poco a cambio»*. Es una afirmación sobre **cuánto** se recibe, y el remate de `STORY_03` existe justo para cerrar esa salida: quien gana bien se exime con un *«ese no es mi caso»* y se acabó la conversación. El ciclo no se discute; la cantidad sí.
+- ⛔ **El «absoluto» de Nu** (*«el control absoluto sobre su dinero y su tiempo»*): en un banco es la cuenta del propio cliente; aquí sería una promesa.
+
+⚠️ **La anáfora es deliberada.** Dos frases que abren igual (*Creemos que… Creemos en…*) son recurso de manifiesto y ganan fuerza. Lo que sí era defecto —y se corrigió antes de desplegar— era unirlas con una coma en una sola frase: ahí se leían como una lista.
+
+**La comparación de Ray Kroc sale de este fragmento y no se pierde:** vive en `WHY_02` y en la sección «Por qué ahora sí» de la Home.
+
+**Verificado antes y después:** las tres baterías en verde (salud, negocio, clasificador 58/58); los tres tenants con 176 fragmentos y contenido idéntico; y la recuperación intacta —solo cambió el cuerpo, y lo que se vectoriza es `title` + `[Índice]`—: `WHY_01` sigue en el top 3 de sus tres paráfrasis (1º en *«de qué se trata esto»*).
+
 ### v6.30 — NET_01 y NET_02 dejan de anunciar su franqueza (9 sep 2026)
 
 Mismo criterio que sacó «se lo digo sin rodeos» de WHY_01 en la v6.29: quien se declara franco posiciona al otro como el que espera rodeos. NET_01 abría con *«Usted ya conoce el mercadeo en red, así que le hablo sin rodeos»* → *«…así que voy a lo que cambió»*, que abre con lo que la persona tiene y termina con lo que el párrafo siguiente desarrolla. NET_02 decía *«Así que seré directo: si en su momento no despegó…»* → *«Y si en su momento no despegó…»*, enganchado al párrafo anterior. Ninguno lleva candado; el resto de los dos cuerpos queda igual.

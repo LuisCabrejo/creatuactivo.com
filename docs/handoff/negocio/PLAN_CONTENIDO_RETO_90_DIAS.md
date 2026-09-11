@@ -111,9 +111,9 @@ de urgencia falsa. Criterio y mecánica →
 
 Desde el día 4 la serie tiene su porqué, y es el mismo de la Home:
 
-> **Creemos que nadie debería darle su vida entera al ciclo de trabajar, pagar cuentas y
-> repetir, y recibir tan poco a cambio. Y creemos en devolverle a las personas el control de su
-> tiempo y de su dinero.**
+> **Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y
+> repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su
+> dinero.**
 
 Se dice completa cuando toca decirla; se alude cuando no. Y sirve de prueba para cualquier
 pieza: si el guion del día no cabe debajo de esa frase, no es de esta serie.

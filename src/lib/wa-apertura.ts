@@ -363,6 +363,28 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     '',
     identidad,
     '',
+    // LA CREENCIA VA ANTES DE LO QUE HACEMOS (Director, 10 sep 2026). El saludo
+    // explicaba qué construimos sin decir nunca por qué — hablaba desde afuera.
+    // Se calca la MECÁNICA de la frase de Nu (David Vélez), no sus palabras: se
+    // nombra un adversario, se absuelve a las personas, y se termina devolviendo
+    // lo que falta. Es la misma frase de la Home v16 y de WHY_01.
+    // • La ANÁFORA es deliberada: dos frases que abren igual son recurso de
+    //   manifiesto y ganan fuerza. Lo que sí era defecto —y se corrigió— era
+    //   unirlas con una coma en una sola frase: ahí se leían como lista.
+    // • «Creemos que nadie debería» y no «Nadie debería» a secas: lo segundo es
+    //   un juicio moral; lo primero es una casa diciendo en qué cree.
+    // • La marca va DENTRO de la primera frase y no en un renglón aparte: un
+    //   lead-in que termina en «creemos» choca con el «Creemos» que sigue, y de
+    //   paso el mensaje no crece. En la variante con socio, «CreaTuActivo» no
+    //   aparecía en ningún otro lado.
+    // ⛔ SIN «y recibir tan poco a cambio» (10 sep 2026). Es una afirmación de
+    //    CANTIDAD, y el remate de STORY_03 existe justo para cerrar esa salida:
+    //    quien gana bien se exime («ese no es mi caso») y se acabó la
+    //    conversación. El ciclo no se discute; la cantidad sí.
+    // ⛔ SIN «absoluto» (que sí dice Nu): en un banco es su propia cuenta; aquí
+    //    sería una promesa.
+    `En CreaTuActivo creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.`,
+    '',
     // PROMETE UN CANAL, NO UN INGRESO (Director, 7 ago 2026). "Construir un
     // ingreso" describe un resultado sin causa —dinero que aparece—, que es la
     // forma exacta que tiene una estafa en la cabeza de cualquiera. Nombrar la
@@ -404,19 +426,31 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //    — la pila deja de leerse de un golpe, que es para lo que se diseñó.
     // «premium» (Director, 31 ago 2026): «productos de bienestar» a secas
     // sonaba a catálogo corriente; el estante es premium y se dice.
-    'Le explico cómo se construye un *sistema de distribución de productos premium de bienestar*, en paralelo a su actividad:',
+    'Por eso le explico cómo se construye un *sistema de distribución de productos premium de bienestar*, en paralelo a su actividad y que no depende de que usted esté encima:',
     '',
     '• Se arma una sola vez.',
     '• Usted es el dueño.',
-    '• Le paga cada vez que hay consumo.',
     '',
-    // LA ASPIRACIÓN VUELVE, Y VUELVE POR PALABRA DEL DIRECTOR (6 sep 2026) —
-    // que es el único modo previsto arriba. Va COMO REMATE y no dentro de la
-    // tercera viñeta: metida ahí, esa línea pasa de cinco palabras a diecisiete
-    // y la pila deja de leerse de un golpe, que es para lo que se diseñó. De
-    // remate además pega más fuerte: la recompensa va última.
-    'Con el potencial de igualar o superar sus *ingresos actuales*.',
-    '',
+    // ⛔ LA TERCERA VIÑETA SE RETIRÓ (Director, 10 sep 2026): decía «Le paga cada
+    //    vez que hay consumo» y es lo que hace que la gente huela la industria en
+    //    el primer mensaje. Sin decir DE QUIÉN es ese consumo, el lector lo
+    //    rellena — y lo rellena con la escalera de gente, que es la silueta que
+    //    reconoce como pirámide. Respaldo medido: el 5 sep, 2 de 4 personas que
+    //    tocaron «Cómo funciona» se fueron en la respuesta que ponía el origen
+    //    del dinero en la segunda línea. El mecanismo se explica solo cuando la
+    //    persona pregunta cómo se gana, y ahí queda claro que es por movimiento
+    //    de producto. ⚠️ De paso resuelve la personificación: un sistema no paga.
+    //    Si algún día la cascada sabe a poco, el reemplazo NO es dinero — sería
+    //    «• Usted decide con quién lo comparte».
+    // ⛔ Y SALE EL REMATE DE LA ASPIRACIÓN COMPARATIVA («con el potencial de
+    //    igualar o superar sus ingresos actuales»), POR DECISIÓN DEL DIRECTOR
+    //    (10 sep 2026), el mismo día que salió de la Home. La historia importa y
+    //    ya está escrita arriba: la ratificó el 17 ago, tres agentes la
+    //    «corrigieron» por reglas viejas y se restauró las tres veces, la quitó
+    //    él el 1 sep y la devolvió él el 6 sep. Esta vez la quita ÉL otra vez.
+    //    ⚠️ QUIEN LA ECHE DE MENOS, QUE NO LA REPONGA SIN PREGUNTARLE. El ingreso
+    //    hoy se nombra por su NATURALEZA —no depende de que usted esté encima—,
+    //    que va arriba, en la línea del sistema.
     // La prueba social va aquí, en presente y verificable — cientos de personas
     // distintas han conversado con Queswa. ⚠️ El remate «mientras construyen el
     // suyo» se retiró (Director, 1 sep 2026): causaba fricción — le atribuía a

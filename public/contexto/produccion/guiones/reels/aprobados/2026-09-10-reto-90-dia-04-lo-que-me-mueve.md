@@ -17,7 +17,7 @@
 > Día 4. Hoy no le escribí a nadie. He estado en labores de padre — tengo la familia repartida en tres ciudades — y de paso con un quebranto de salud. Pero tranquilos: sobreviviré.
 
 **2 · Se detiene. Mira a cámara. Serio, con algo de disgusto — contra el ciclo, nunca contra nadie**
-> ¿Saben qué me mueve? Creo que nadie debería darle su vida entera al ciclo de trabajar, pagar cuentas y repetir… y recibir tan poco a cambio. Y creo en devolverle a las personas el control de su tiempo y de su dinero.
+> ¿Saben qué me mueve? Creo que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creo en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.
 
 **3 · Quieto**
 > Eso creemos en creatuactivo.com, y por eso hacemos lo que hacemos.
@@ -33,7 +33,7 @@
 ## Por qué quedó así
 
 1. ⭐ **Es la primera vez que la serie dice el porqué antes del qué.** El tiempo 2 es la frase de identidad de CreaTuActivo —la misma que estrenó la Home ese mismo día— dicha en primera persona (*creo*) y luego en plural (*eso creemos*). Se calca la **mecánica** de la frase de Nu, no sus palabras: se nombra el ciclo, se dice lo que se devuelve.
-2. **La segunda mitad —«devolverle el control de su tiempo y de su dinero»— la pidió el Director.** Leyó la frase de Vélez y sintió que la nuestra se quedaba en la queja. Y el villano canónico ya la pedía: si *«ese dinero ya tiene dueño»* (STORY_03), lo que hacemos es devolvérselo. Sin *«absoluto»*: en un banco es su cuenta; en nosotros sería una promesa.
+2. **La segunda mitad —«recuperen el control de su tiempo y de su dinero»— la pidió el Director.** Leyó la frase de Vélez y sintió que la nuestra se quedaba en la queja. Y el villano canónico ya la pedía: si *«ese dinero ya tiene dueño»* (STORY_03), lo que hacemos es devolvérselo. Sin *«absoluto»*: en un banco es su cuenta; en nosotros sería una promesa. ⛔ Y **sin juicio de cantidad**: el primer borrador decía *«y recibir tan poco a cambio»* y se descartó el mismo día —el remate de `STORY_03` existe justo para que quien gana bien no se exima con un *«ese no es mi caso»*—. La **anáfora** (*Creo que… Creo en…*) es deliberada.
 3. ⛔ **Se anuncia nada; se afirma todo** (Director). El primer borrador del cierre decía *«vienen cambios para hacer esto más en serio»* y él lo tumbó: *«escucho eso y pienso: ¿y antes no lo hacía en serio?»*. Anunciar un cambio le pide permiso al que escucha; el que sabe para dónde va describe cómo trabaja, **en presente y como hecho**. De ahí *«con una regla: el acceso es limitado y funciona por lista de espera»* — y ni *serio*, ni *profesional*, ni *parámetros*: el que las dice es el que no las tiene.
 4. **Lo que se pide tiene que verse.** *«Tener claro qué es lo importante»* se descartó por abstracto. Quedó *«hacerle bien a las personas»*: es una filosofía que se puede reconocer en alguien, y es la de encender el corazón que ya rige toda la voz.
 5. **La lista de espera se empieza a sembrar desde hoy**, no en el mes 2 como decía la rejilla — decisión del Director, y la rejilla se corrigió. La analogía suya: *«al que vende desesperado nadie le pone cuidado; el que sabe para dónde va, atrae»*. Se dice como consecuencia de una capacidad real, nunca como táctica.

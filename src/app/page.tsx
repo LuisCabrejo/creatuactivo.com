@@ -360,8 +360,6 @@ export default function HomePage() {
         }}
       >
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <Eyebrow>CreaTuActivo · Lo que estamos construyendo</Eyebrow>
-
           <h1
             style={{
               fontFamily: 'var(--font-sans)',
@@ -375,6 +373,8 @@ export default function HomePage() {
             Sea dueño de su propio sistema de distribución.
           </h1>
 
+          <Eyebrow>En qué creemos</Eyebrow>
+
           {/* La postura, en la forma de Vélez: la creencia, la deuda, y lo que
               construimos para saldarla. El mecanismo cierra el bloque. */}
           <p
@@ -387,8 +387,9 @@ export default function HomePage() {
               maxWidth: 700,
             }}
           >
-            Creemos que nadie debería darle su vida entera al ciclo de trabajar, pagar
-            cuentas y repetir, y recibir tan poco a cambio.
+            Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar
+            cuentas y repetir. Creemos en empoderar a las personas para que recuperen el
+            control de su tiempo y de su dinero.
           </p>
 
           <p style={heroBodyStyle}>
@@ -398,8 +399,7 @@ export default function HomePage() {
 
           <p style={heroBodyStyle}>
             Por eso construimos lo que hacía falta para saldarla: una infraestructura que
-            cualquiera con deseos de superación puede poner a andar, y multiplicar, para
-            que su trabajo por fin le asegure el futuro.
+            cualquiera con deseos de superación puede poner a andar, y multiplicar.
           </p>
 
           <p style={{ ...heroBodyStyle, margin: '0 0 2.5rem' }}>

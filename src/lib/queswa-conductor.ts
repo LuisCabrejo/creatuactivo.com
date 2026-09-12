@@ -103,6 +103,14 @@ export interface RespuestaConductor {
 
 /** El país por el prefijo del teléfono (WhatsApp). */
 export function paisDeTelefono(phone: string): PaisConductor {
+  // ⚠️ Quien escribe con nombre de usuario NO manda teléfono, sino un BSUID
+  // (`CO.2192485721669269`), y el país va en sus dos primeras letras. El motor
+  // ya lo leía (`detectVisitorCountry`); esta función no, así que devolvía 'XX'
+  // y el turno DICTADO cotizaba en dólares. Miriam, colombiana, vio el Kit como
+  // «$98 USD ($443.600 COP)» en el turno 3 y solo en pesos en los siguientes:
+  // dos monedas distintas para la misma persona, en el mismo hilo (11 sep 2026).
+  const bsuid = /^([A-Z]{2})\./.exec(phone || '');
+  if (bsuid) return bsuid[1] === 'CO' ? 'CO' : bsuid[1] === 'US' ? 'US' : 'XX';
   return phone.startsWith('57') ? 'CO' : phone.startsWith('1') ? 'US' : 'XX';
 }
 

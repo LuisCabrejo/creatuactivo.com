@@ -795,7 +795,7 @@ Este ejemplo usa consumo estándar: **4 cajas de Ganocafe AL MES por cliente** (
 | 100 | 56 CV | $952 USD | ~$4.3M COP |
 | 1,000 | 56 CV | $9,520 USD | ~$42.8M COP |
 
-**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula de cálculo al prospecto.** Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas.
+**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula de cálculo al prospecto.** Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas. **Toda cifra de esta tabla es MENSUAL y se entrega diciéndolo.** El 11 sep 2026 la línea de cierre nombraba el viernes justo debajo de la tabla y el modelo entregó los ~$428K **cada viernes** — el monto de un mes dicho como el de una semana, cuatro veces inflado, a una persona real.
 
 **Lo que significa en la practica:**
 | Escenario | Mensual (USD) | Mensual (COP) |
@@ -803,7 +803,7 @@ Este ejemplo usa consumo estándar: **4 cajas de Ganocafe AL MES por cliente** (
 | 10 clientes por frente | $95 USD | ~$428K COP |
 | 100 clientes por frente | $952 USD | ~$4.3M COP |
 
-Con diez clientes consumiendo en cada canal la comisión ya se liquida cada viernes, y el Binario paga sobre todo el sistema, sin límite de profundidad.
+Esas cifras son al mes. Lo que pasa cada semana es el pago: Gano Excel liquida los viernes, así que el mes le llega repartido. Y el Binario corre sobre todo el sistema, sin límite de profundidad.
 
 **Pregunta de seguimiento:** ¿Le muestro qué necesita para cobrarlo?
 

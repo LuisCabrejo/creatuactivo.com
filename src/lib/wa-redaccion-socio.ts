@@ -73,6 +73,11 @@
  *    ese hallazgo es un requisito de LECTURA, no un estado: el socio manda párrafos
  *    largos y notas de voz transcritas, no comandos limpios.
  *
+ * ⚠️ ESTE TEXTO TAMBIÉN LO USA EL DASHBOARD (12 sep 2026, decisión del Director:
+ * el socio vive los dos lugares como la misma experiencia). queswa.app lo lee de
+ * `nexus_documents` (tenant `dashboard`, categoría `esqueleto_redaccion_socio`).
+ * Después de tocar este archivo: `npx tsx scripts/desplegar-redaccion-socio.mts`.
+ *
  * Fundamento → docs/investigaciones/resultados/PRIMER_MENSAJE_COLOMBIA_NICHOS_AGO2026.md
  *              docs/investigaciones/resultados/Auditoría Diseño Conversacional Colombiano.md
  *              docs/investigaciones/resultados/Estrategia De Prospección En WhatsApp.md

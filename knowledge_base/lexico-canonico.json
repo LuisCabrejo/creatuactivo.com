@@ -1,0 +1,271 @@
+{
+  "$comment": "Léxico canónico legible por máquina. FUENTE DE VERDAD: BRANDING.md §7 (+ Addendum 8–14 ago) y CLAUDE.md § Léxico y voz. Este archivo es su resumen operativo: lo que un auditor puede buscar con una expresión regular. Lo consume Dashboard/scripts/auditar-lexico.mjs. Cuando el Director retire o adopte un término, se agrega aquí la fila con su fecha — y el Dashboard se entera en la próxima auditoría. Las expresiones son sobre texto que ve una persona (copy y prompts), NUNCA sobre identificadores de código.",
+  "version": "2026-09-12",
+  "activo_canonico": "sistema de distribución",
+  "sinonimos_vivos": [
+    "empresa de distribución",
+    "maquinaria de distribución"
+  ],
+  "retirados": [
+    {
+      "id": "canal-de-distribucion",
+      "regex": "\\bcanal(es)? de distribuci[oó]n\\b",
+      "vigente": "sistema de distribución",
+      "desde": "2026-09-06",
+      "nota": "Un canal se abre; un sistema se construye. Sinónimo vivo: empresa de distribución.",
+      "excepciones": [
+        "canal (izquierd|derech)",
+        "canales? oficial",
+        "canal de WhatsApp",
+        "canal de pago"
+      ]
+    },
+    {
+      "id": "su-canal",
+      "regex": "\\b(su|el|del|este|mi|un) canal\\b(?! de WhatsApp)(?! izquierd)(?! derech)",
+      "vigente": "su sistema (de distribución)",
+      "desde": "2026-09-06",
+      "nota": "«su canal» era el swap de «su organización» (9 ago); desde el 6 sep el activo es «sistema».",
+      "excepciones": [
+        "canal de WhatsApp",
+        "el canal (de WhatsApp|de Queswa)",
+        "canal izquierd",
+        "canal derech",
+        "canal:",
+        "contactar el canal",
+        "canal directo",
+        "el canal (est[aá]|queda|responde|no)"
+      ]
+    },
+    {
+      "id": "empresa-digital",
+      "regex": "\\b(empresa|negocio) digital\\b",
+      "vigente": "sistema de distribución",
+      "desde": "2026-08-03",
+      "nota": "Contenedor vacío; el oyente lo rellena con pirámides o cripto. Solo en la Academia y en el prompt hacia el socio, caso por caso con el Director.",
+      "excepciones": []
+    },
+    {
+      "id": "propietario-cargo",
+      "regex": "\\bPropietarios?\\b",
+      "vigente": "socio (y a él en 2ª persona sin título: usted es el dueño)",
+      "desde": "2026-08-08",
+      "nota": "El rol no se nombra como cargo.",
+      "excepciones": [
+        "propietario del (número|dominio|dispositivo)"
+      ]
+    },
+    {
+      "id": "su-organizacion",
+      "regex": "\\b(su|la|de la) organizaci[oó]n\\b",
+      "vigente": "su sistema; y si el colectivo compra o consume, nombrar a quién: sus clientes, sus socios",
+      "desde": "2026-08-09",
+      "nota": "Un sistema es una estructura y no consume.",
+      "excepciones": [
+        "organización completa",
+        "organización de \\w+ (leída|derivada)"
+      ]
+    },
+    {
+      "id": "dirigir",
+      "regex": "\\bdirig(ir|e|a|ir[aá]|iendo)\\b",
+      "vigente": "ser dueño de / decidir / manejar",
+      "desde": "2026-08-08",
+      "nota": "Evoca hojas de cálculo y pide una identidad que aún no se atribuye.",
+      "excepciones": [
+        "se dirig",
+        "dirig(e|ir)(se)? a la (página|pantalla|ruta)"
+      ]
+    },
+    {
+      "id": "tridente-eam",
+      "regex": "\\bTridente( EAM)?\\b",
+      "vigente": "El Método Comprobado",
+      "desde": "2026-06-16",
+      "nota": "",
+      "excepciones": []
+    },
+    {
+      "id": "tres-comandos",
+      "regex": "\\b(los )?(3|tres) [Cc]omandos\\b|\\bComando (Expandir|Activar|Multiplicaci[oó]n)\\b",
+      "vigente": "dos acciones: Compartir · Recibir; la multiplicación es la consecuencia",
+      "desde": "2026-08-08",
+      "nota": "Como tarea suma peso; como resultado lo quita.",
+      "excepciones": []
+    },
+    {
+      "id": "base-operativa",
+      "regex": "\\bBase Operativa\\b",
+      "vigente": "sistema de distribución",
+      "desde": "2026-08-14",
+      "nota": "",
+      "excepciones": []
+    },
+    {
+      "id": "matriz-fisica",
+      "regex": "\\bMatriz F[ií]sica\\b",
+      "vigente": "El Respaldo Operativo (Gano Excel)",
+      "desde": "2026-06-16",
+      "nota": "",
+      "excepciones": []
+    },
+    {
+      "id": "arquitecto",
+      "regex": "\\bArquitectos? de (Patrimonio|Activos)\\b|\\bel Arquitecto\\b",
+      "vigente": "socio",
+      "desde": "2026-06-16",
+      "nota": "",
+      "excepciones": []
+    },
+    {
+      "id": "estructura-patrimonial",
+      "regex": "\\b(Estructura|Patrimonio) [Pp]atrimonial\\b|\\bpatrimonio paralelo\\b",
+      "vigente": "estructura de ingresos recurrentes",
+      "desde": "2026-06-16",
+      "nota": "",
+      "excepciones": []
+    },
+    {
+      "id": "ingreso-pasivo",
+      "regex": "\\bingresos? pasivos?\\b",
+      "vigente": "ingreso recurrente",
+      "desde": "2026-06-16",
+      "nota": "",
+      "excepciones": []
+    },
+    {
+      "id": "libertad-financiera",
+      "regex": "\\b(libertad|soberan[ií]a) financiera\\b|\\bsoberan[ií]a\\b",
+      "vigente": "ingreso recurrente / estabilidad / tranquilidad",
+      "desde": "2026-06-16",
+      "nota": "",
+      "excepciones": []
+    },
+    {
+      "id": "reclutar",
+      "regex": "\\breclut\\w+",
+      "vigente": "invitar / compartir su enlace",
+      "desde": "2026-06-16",
+      "nota": "",
+      "excepciones": [
+        "no .{0,30}reclut",
+        "nunca .{0,30}reclut",
+        "prohib.{0,30}reclut"
+      ]
+    },
+    {
+      "id": "red-desnuda",
+      "regex": "\\b(su|una|la) red\\b(?! de (clientes|socios|distribuidores))",
+      "vigente": "su sistema de distribución · red de clientes y socios",
+      "desde": "2026-06-16",
+      "nota": "La palabra no está prohibida; usada sola es tóxica.",
+      "excepciones": [
+        "red social",
+        "red WiFi",
+        "red móvil",
+        "sin red"
+      ]
+    },
+    {
+      "id": "de-por-vida",
+      "regex": "\\bde por vida\\b|\\brenta vitalicia\\b|\\bperpetu[oa]s?\\b",
+      "vigente": "la recompensa se nombra por su repetición: cobra cada vez que se compra un paquete empresarial en su sistema",
+      "desde": "2026-08-14",
+      "nota": "Duración garantizada = promesa de ingreso.",
+      "excepciones": []
+    },
+    {
+      "id": "ingreso-inmediato",
+      "regex": "\\b[Ii]ngreso [Ii]nmediato\\b|\\bpaga r[aá]pido\\b|\\bCapitalizaci[oó]n Inmediata\\b",
+      "vigente": "Bono GEN5 = compra de paquetes empresariales · Binario = consumo recurrente",
+      "desde": "2026-08-14",
+      "nota": "Nombrar un bono por velocidad es falso y siembra «se gana por traer gente».",
+      "excepciones": []
+    },
+    {
+      "id": "transaccion",
+      "regex": "\\btransacci[oó]n(es)?\\b",
+      "vigente": "compra",
+      "desde": "2026-08-14",
+      "nota": "Palabra de extracto bancario.",
+      "excepciones": [
+        "transacci[oó]n PSE",
+        "transacci[oó]n (de|en) PayU"
+      ]
+    },
+    {
+      "id": "socio-digital",
+      "regex": "\\b[Ss]ocio [Dd]igital\\b",
+      "vigente": "Queswa / su Centro de Mando",
+      "desde": "2026-08-14",
+      "nota": "Libera «socio» para la gente del sistema del usuario.",
+      "excepciones": []
+    },
+    {
+      "id": "infraestructura",
+      "regex": "\\binfraestructura\\b",
+      "vigente": "la fábrica / lo que ya está montado",
+      "desde": "2026-08-03",
+      "nota": "Jerga; falla el test Beto.",
+      "excepciones": []
+    },
+    {
+      "id": "pipeline-copy",
+      "regex": "\\bpipeline\\b",
+      "vigente": "flujo de prospectos",
+      "desde": "2026-07-16",
+      "nota": "Solo en texto al socio; los identificadores técnicos no se tocan.",
+      "excepciones": [
+        "/pipeline",
+        "pipeline/",
+        "pipeline_",
+        "PipelineKanban",
+        "tab=pipeline",
+        "'pipeline'"
+      ]
+    },
+    {
+      "id": "perseguir",
+      "regex": "\\bpersegu\\w+|\\bpersecuci[oó]n\\b",
+      "vigente": "andar detrás de alguien / insistir / presionar",
+      "desde": "2026-08-03",
+      "nota": "",
+      "excepciones": [
+        "nunca .{0,20}persegu",
+        "jam[aá]s .{0,20}persegu",
+        "no .{0,20}persegu"
+      ]
+    },
+    {
+      "id": "horas-por-dinero",
+      "regex": "\\b(cambiar|intercambiar|cambia|intercambia) (horas|tiempo) por (dinero|plata|un salario)\\b",
+      "vigente": "el villano es la dependencia: el día que para, el ingreso para",
+      "desde": "2026-08-03",
+      "nota": "El trabajo es digno.",
+      "excepciones": []
+    },
+    {
+      "id": "es-matematica",
+      "regex": "\\b(es|pura) matem[aá]tica\\b|\\bconsecuencia matem[aá]tica\\b",
+      "vigente": "(no junto a una historia)",
+      "desde": "2026-08-03",
+      "nota": "Enfría la emoción.",
+      "excepciones": []
+    },
+    {
+      "id": "tuteo",
+      "regex": "\\b(tú|tus|puedes|tienes|quieres|verifica|ingresa|escribe|toca|sube|completa|intenta|describe|usa) \\b|\\bcontáctalo\\b",
+      "vigente": "siempre usted",
+      "desde": "2026-05-28",
+      "nota": "Regla transversal; no requiere aprobación fila por fila. Excepción: el texto de la plantilla AUTHENTICATION de Meta, que no se puede editar.",
+      "excepciones": [
+        "tratamos de tú",
+        "de tú",
+        "tú o usted",
+        "usted o tú",
+        "tuteo",
+        "tratamiento"
+      ]
+    }
+  ]
+}

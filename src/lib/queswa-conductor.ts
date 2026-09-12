@@ -130,9 +130,19 @@ export function banderasDelHilo(mensaje: string, historial: Turno[]) {
   // Aceptación SOLA: «Listo, ¿cómo me inscribo?» arranca con «listo» y trae
   // una pregunta nueva — sin este guard reabría el simulador en vez de
   // responder lo que la persona preguntó (ejercicio del 1 sep 2026).
-  const aceptaSola = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|de una|h[aá]gale|h[aá]g[aá]mosl[eo]|mu[eé]str[ea]me(lo)?|quiero|s[ií] por favor|genial|perfecto|de acuerdo|vamos|excelente)(?![a-záéíóúñ])/i.test(mensaje.trim())
+  // ⚠️ La CABEZA se mide aparte del RESTO (12 sep 2026). Cuando esto era un solo
+  // regex sobre el mensaje entero, tumbaba dos formas que la gente sí escribe:
+  // «Sii» —la vocal repetida rompía el `(?![a-záéíóúñ])`— y «claro que sí», que
+  // se descalificaba sola, porque su propio «que» matcheaba el guard de pregunta.
+  // El endurecimiento ya existía en `esAceptacion` desde el caso Betsabe (5 sep)
+  // y nunca bajó hasta acá — que es la puerta del hilo de los 12 Niveles, del
+  // simulador y de la vinculación, o sea el destino del botón principal de la
+  // apertura. Misma semántica que `esAceptacion`, a propósito: si las dos se
+  // separan otra vez, el «sí» vale distinto según por dónde entre.
+  const _cabeza = /^(claro que s[ií]+|s[ií]+,? por favor|s[ií]+ claro|s[ií]+|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|h[aá]g[aá]mosl[eo]|mu[eé]str[ea]me(l[oa]s?)?|quiero|genial|perfecto|de acuerdo|vamos|excelente)(?![a-záéíóúñ])/i.exec(mensaje.trim());
+  const aceptaSola = !!_cabeza
     && !/[?¿]/.test(mensaje)
-    && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(mensaje);
+    && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(mensaje.trim().slice(_cabeza[0].length));
   // «¿Seguimos con el simulador?» + «sí» debe reenviar la tarjeta — la forma
   // estricta («escenario en el simulador») dejó pasar la paráfrasis del
   // modelo y el turno cayó al motor, que improvisó una pregunta de

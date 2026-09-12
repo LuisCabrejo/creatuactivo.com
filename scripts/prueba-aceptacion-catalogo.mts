@@ -57,5 +57,25 @@ r2 ? mal('un «sí» con pregunta se lo tragó el nodo del catálogo') : ok('«s
 const r3 = await atenderEnlaceCatalogo('Si', [{ role: 'assistant', content: 'Buena pregunta.\n\n¿Le muestro cómo se ve en números?' }], async () => 'luis-cabrejo');
 r3 ? mal('un «sí» a la oferta de números abrió el catálogo') : ok('«sí» a otra oferta no abre el catálogo');
 
+// ─── Las DOS puertas del «sí» miden igual ────────────────────────────────────
+// El endurecimiento del caso Betsabe vivía solo en `esAceptacion`, y el conductor
+// —puerta del hilo de los 12 Niveles, del simulador y de la vinculación, o sea el
+// destino del botón principal de la apertura— se quedó con la versión vieja hasta
+// el 12 sep 2026: tumbaba «Sii» por la vocal repetida y «claro que sí» porque su
+// propio «que» matcheaba el guard de pregunta. Si las dos se separan otra vez, el
+// «sí» vale distinto según por dónde entre, y eso no se ve en producción.
+console.log('\n── Las dos puertas del «sí» coinciden ──');
+const { banderasDelHilo } = await import('../src/lib/queswa-conductor');
+const OFERTA_ESTRATEGIA = [{ role: 'assistant', content: '¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?' }];
+const delConductor = (t: string) => banderasDelHilo(t, OFERTA_ESTRATEGIA as never).aceptaSola;
+for (const a of ACEPTA) {
+  if (esAceptacion(a) === delConductor(a)) ok(`"${a}" — las dos puertas coinciden`);
+  else mal(`"${a}" — catálogo: ${esAceptacion(a)} · conductor: ${delConductor(a)}`);
+}
+for (const a of NO_ACEPTA) {
+  if (!delConductor(a)) ok(`"${a}" tampoco abre el hilo de los 12 Niveles`);
+  else mal(`"${a}" abrió el hilo de los 12 Niveles`);
+}
+
 console.log(fallos ? `\n❌ ${fallos} fallo(s)\n` : '\n✅ Todo en orden\n');
 process.exit(fallos ? 1 : 0);

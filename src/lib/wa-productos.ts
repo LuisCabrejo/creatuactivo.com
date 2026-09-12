@@ -262,6 +262,43 @@ function normalizar(t: string): string {
  * envío cuesta reputación con Meta eso es exactamente lo que no se hace.
  */
 /**
+ * ¿El borrador del modelo AFIRMA que no puede mandar imágenes?
+ *
+ * ⚠️ El motor no sabe lo que manda el webhook, y cuando una petición de foto se
+ * le escapa al detector, el modelo compone la limitación por su cuenta: es lo
+ * que «sabe» un modelo de texto. Las dos formas medidas en producción:
+ *   · 20 ago 2026 — «por este canal no puedo enviar imágenes»
+ *   · 12 sep 2026 — «las imágenes del catálogo las maneja el equipo
+ *     directamente», que además se lo atribuye a otros
+ *
+ * Las dos son falsas: las 22 fotos de producto y las cinco de familia están en
+ * el CDN. Y las dos llegaron a una persona real. Por eso hay red debajo: si el
+ * borrador dice esto y el mensaje nombraba un producto o una línea, el webhook
+ * lo descarta y **manda la imagen** — reemplazar por la acción correcta, no por
+ * una disculpa. Es el patrón de los guardarraíles de salida, con mejor final.
+ *
+ * ⚠️ NO confundir con la negativa de PIEZAS publicitarias (`TEXTO_NO_PIEZAS`),
+ * que es correcta y aprobada: esa habla de material para publicar, no de las
+ * fotos del catálogo, y la dicta el webhook sin pasar por aquí.
+ */
+const RE_NIEGA_IMAGEN = [
+  /no\s+(puedo|podemos|tengo forma de|es posible)\s+(enviar|mandar|compartir|adjuntar|generar|crear)\s*(le)?\s*(im[aá]genes|fotos?|archivos?)/i,
+  /(solo|[uú]nicamente)\s+puedo\s+(enviar|mandar|manejar|trabajar con)\s+texto/i,
+  /(im[aá]genes|fotos?)\s+(del cat[aá]logo\s+)?las\s+maneja\s+(el|directamente el)\s+equipo/i,
+  /no\s+(genero|env[ií]o|manejo)\s+(im[aá]genes|fotos)/i,
+  /soy\s+(una\s+)?(inteligencia artificial|ia)\s+de\s+texto/i,
+  /no\s+est[aá]\s+en\s+mis?\s+manos[^.]{0,40}(im[aá]gen|foto)/i,
+];
+
+export function detectarNegativaDeImagen(texto: string): string | null {
+  for (const re of RE_NIEGA_IMAGEN) {
+    const m = re.exec(texto || '');
+    if (m) return m[0].slice(0, 70);
+  }
+  return null;
+}
+
+/**
  * ¿Esta palabra QUISO decir «imagen» o «foto»?
  *
  * ⚠️ Existe porque un typo tumbó el nodo entero (12 sep 2026). El Director
@@ -325,20 +362,61 @@ export function detectarProducto(texto: string): ProductoWA | null {
   const t = normalizar(texto);
   const encontrados = new Set<ProductoWA>();
 
+  // ⚠️ Segunda pasada por DISTANCIA, y solo si la exacta no encontró nada
+  // (12 sep 2026). `includes` es una coincidencia literal: «corygold» no
+  // encuentra el Cordygold, y quien pregunta por un producto con una letra de
+  // menos recibe el precio del vecino o ninguno — el fallo que ya tuvo el
+  // Ganocafé Clásico. Se mide sobre palabras SUELTAS de seis letras o más: las
+  // cortas («latte», «3en1») quedarían a distancia de sus vecinas y volverían
+  // ambiguo lo que hoy es exacto. El arnés que lo vigila:
+  // `npx tsx scripts/prueba-typos.mts`.
+  // Qué clave hizo coincidir a cada producto: la desambiguación de abajo la
+  // necesita, porque lo específico es la CLAVE, no el nombre del producto.
+  const claveQueCoincidio = new Map<ProductoWA, string>();
   for (const p of PRODUCTOS_WA) {
     const claves = [normalizar(p.nombre), ...p.alias.map(normalizar)];
-    // Se ordena por longitud: "luvoco fuerte" debe ganarle a "luvoco".
-    if (claves.some((k) => k.length >= 4 && t.includes(k))) encontrados.add(p);
+    // La más larga de las que coinciden: "luvoco fuerte" le gana a "luvoco".
+    const coincide = claves.filter((k) => k.length >= 4 && t.includes(k)).sort((a, b) => b.length - a.length)[0];
+    if (coincide) { encontrados.add(p); claveQueCoincidio.set(p, coincide); }
+  }
+
+  // ⚠️ La segunda pasada por DISTANCIA corre SOLO si la exacta no encontró nada
+  // (12 sep 2026). `includes` es literal: «corygold» no encuentra el Cordygold, y
+  // quien pregunta con una letra de menos recibe el precio del vecino o ninguno
+  // — el fallo que ya tuvo el Ganocafé Clásico.
+  //
+  // ⚠️ Y corre DESPUÉS, nunca en paralelo: al mezclarlas, «Gano Schokolade»
+  // —que es su propio alias y matcheaba exacto— sumó también el Ganorico Shoko
+  // Rico por parecido, y la desambiguación se quedó con el equivocado. La
+  // coincidencia exacta manda; el parecido es solo la red de abajo.
+  //
+  // Se mide sobre palabras SUELTAS de seis letras o más: las cortas («latte»,
+  // «3en1») quedarían a distancia de sus vecinas. Vigilado por
+  // `npx tsx scripts/prueba-typos.mts`.
+  if (encontrados.size === 0) {
+    const palabras = t.split(' ').filter((w) => w.length >= 6);
+    for (const p of PRODUCTOS_WA) {
+      const largas = [normalizar(p.nombre), ...p.alias.map(normalizar)]
+        .filter((k) => k.length >= 6 && !k.includes(' '));
+      if (largas.some((k) => palabras.some((w) => Math.abs(w.length - k.length) <= 2 && distancia(w, k) <= 2))) encontrados.add(p);
+    }
   }
 
   if (encontrados.size === 0) return null;
   if (encontrados.size === 1) return [...encontrados][0];
 
-  // Varios candidatos: si uno es más específico que otro y lo contiene, gana el
-  // específico ("luvoco fuerte" contiene "luvoco"). Si no, es ambiguo.
+  // Varios candidatos: gana el que coincidió por la clave MÁS ESPECÍFICA.
+  //
+  // ⚠️ Antes ganaba el de nombre más largo, y por eso «Gano Schokolade» devolvía
+  // el **Ganorico Shoko Rico** con su precio (bug anterior al 12 sep 2026, que
+  // destapó el arnés de typos): «schokolade» contiene «choko», que es alias del
+  // Shoko Rico, y «Ganorico Shoko Rico» es un nombre más largo que «Gano
+  // Schokolade». Pero la clave que coincidió medía 10 letras contra 5 — lo
+  // específico era el Schokolade. Recibir el precio del producto vecino es el
+  // fallo que cuesta plata, y es el mismo que tuvo el Ganocafé Clásico.
   const lista = [...encontrados];
   const masEspecifico = lista.reduce((a, b) =>
-    (normalizar(b.nombre).length > normalizar(a.nombre).length ? b : a));
+    ((claveQueCoincidio.get(b) ?? '').length > (claveQueCoincidio.get(a) ?? '').length ? b : a));
   const resto = lista.filter((p) => p !== masEspecifico);
   const contenido = resto.every((p) =>
     normalizar(masEspecifico.nombre).includes(normalizar(p.nombre))

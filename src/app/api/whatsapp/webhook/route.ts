@@ -65,7 +65,8 @@ import {
   nombreCorto, RE_PEDIDO_CARGADO,
   RE_OFERTA_PEDIDO_SEDE, esAceptacion,
 } from '@/lib/wa-pedido';
-import { pideImagen, detectarProducto, detectarFamilia, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA } from '@/lib/wa-productos';
+import { pideImagen, detectarProducto, detectarFamilia, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
+  detectarNegativaDeImagen, urlImagen, pieDeFoto } from '@/lib/wa-productos';
 import {
   slugLibre,
   normalizarWhatsApp,
@@ -2181,6 +2182,39 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       await sendWhatsAppMessage(phoneNumber, reemplazoSalud);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, reemplazoSalud);
       return;
+    }
+
+    // ─── 3.9 RED: el borrador niega una imagen que SÍ tenemos ─────────────────
+    // El motor no sabe lo que manda el webhook, así que cuando una petición de
+    // foto se le escapa al detector, el modelo compone la limitación por su
+    // cuenta —«no puedo enviar imágenes», «las maneja el equipo»— y es falsa: las
+    // 22 fotos y las cinco de familia están en el CDN. Pasó dos veces con
+    // personas reales (20 ago y 12 sep 2026, la segunda al Director).
+    //
+    // A diferencia de los guardarraíles de arriba, aquí el reemplazo NO es un
+    // texto correctivo: es la IMAGEN que la persona pidió. Descartar y hacer lo
+    // correcto, en vez de descartar y disculparse. Si no hay a qué foto apuntar,
+    // el borrador sigue su curso — una negativa sin destino no se puede mejorar.
+    {
+      const niega = detectarNegativaDeImagen(queswaReply);
+      if (niega) {
+        const prod = detectarProducto(messageText);
+        const fam = detectarFamilia(messageText);
+        console.error(`🖼️ [WA Red] El borrador niega una imagen que existe («${niega}») — ${phoneNumber}`);
+        if (prod || fam) {
+          const url = prod ? urlImagen(prod) : urlImagenFamilia(fam!);
+          const pie = prod ? pieDeFoto(prod) : pieDeFotoFamilia(fam!, FAMILIAS_WA[fam!].seguimiento);
+          const enviada = await sendImage(phoneNumber, url, pie);
+          if (enviada.ok) {
+            await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, pie, `negó la imagen: ${niega}`);
+            console.log(`🖼️ [WA Red] Imagen entregada en su lugar: ${url}`);
+            return;
+          }
+          console.warn(`⚠️ [WA Red] No se pudo enviar la imagen (${enviada.error}) — sigue el borrador`);
+        } else {
+          console.warn('⚠️ [WA Red] La negativa no apunta a ningún producto ni línea — sigue el borrador');
+        }
+      }
     }
 
     // ─── 4. Enviar respuesta al héroe via Meta API ────────────────────────────

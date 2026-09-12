@@ -17,7 +17,7 @@ import {
   APERTURA_PRODUCTOS_OPCIONES,
 } from '../src/lib/wa-apertura.ts';
 import { atenderFoto, atenderPidePieza, detectarPidePieza, detectarPidePiezaPublico, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ } from '../src/lib/queswa-conductor.ts';
-import { familiaOfrecida } from '../src/lib/wa-productos.ts';
+import { familiaOfrecida, pideImagen, detectarFamilia } from '../src/lib/wa-productos.ts';
 import { detectarClaimSaludEnSalida } from '../src/lib/wa-guardarrail-salud.ts';
 
 let fallos = 0;
@@ -85,6 +85,20 @@ es(atenderPidePieza('un guión general que hable de los beneficios del consumo d
 es(atenderPidePieza('un guión general que hable de los beneficios del consumo de ganoderma', 'Claro, Patricia. ¿Le muestro el catálogo?') === null, 'la misma frase sin la negativa antes NO dispara');
 es(atenderPidePieza('Sí', TEXTO_NO_PIEZAS) === null, 'el «sí» tras la negativa sigue libre para 2.25a (portafolio)');
 es(atenderPidePieza('armeme el guión', TEXTO_NO_PIEZAS)?.texto === TEXTO_NO_PIEZAS_OTRA_VEZ, 'insistir con verbo tras la negativa → segunda negativa');
+
+console.log('\n── 5. Lo del 12 sep: el typo de «imagen» y el síntoma ──');
+// El Director escribió «aimgane» y recibió «eso no está en mis manos».
+for (const t of ['dame un aimgane de todos los productos', 'mandame la imagem de los productos', 'pasame una fto del cordygold'])
+  es(pideImagen(t), `pide imagen con typo: «${t}»`);
+for (const t of ['cómo es eso, dame contexto', 'dame más información del negocio', 'cuánto cuesta el ganocafe'])
+  es(!pideImagen(t), `NO pide imagen: «${t}»`);
+es(detectarFamilia('dame un aimgane de todos los productos') === 'portafolio', 'y la familia sigue siendo el portafolio');
+// MFernanda: un síntoma NO es una pregunta de paquete.
+const RE_FREQ30 = /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))(?![\s\S]*(producto|caf[eé]|c[aá]psula|bebida|suplemento|jab[oó]n|champ[uú]|organismo|limpieza|tomar|consumir|para (la|el|mi) (salud|piel|cabello|energ)|cansad|cansancio|agotad|fatiga|sin energ[ií]a|desanimad|d[ou]erm|dormir|sue[ñn]o|insomni|estr[eé]s|estresad|me siento|me duele))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i;
+for (const t of ['Me siento cansada cual me recomienda', 'Me siento cansada cual producto me recomienda consumir', 'no duermo bien, cuál me recomienda'])
+  es(!RE_FREQ30.test(t), `un síntoma NO abre la puerta de paquetes: «${t.slice(0,46)}»`);
+for (const t of ['cuál paquete me recomienda', 'Con cuál paquetes me recomiendas iniciar', 'con cuál empiezo', 'cuál me conviene'])
+  es(RE_FREQ30.test(t), `y la pregunta de paquete SÍ la abre: «${t}»`);
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

@@ -2634,7 +2634,12 @@ function analizarIntencionSemantica(userMessage: string): string[] {
       // PRODUCTO, con «productos» y «organismo» en el mismo mensaje— abría esta
       // puerta y recibía «¿con cuál arranca?». Si el mensaje habla de producto,
       // la recomendación no es de paquete.
-      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))(?![\s\S]*(producto|caf[eé]|c[aá]psula|bebida|suplemento|jab[oó]n|champ[uú]|organismo|limpieza|tomar|consumir|para (la|el|mi) (salud|piel|cabello|energ)))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
+      // 12 sep 2026: «Me siento cansada cual me recomienda» abrió la puerta y
+      // recibió el texto de los paquetes — a alguien que preguntaba qué tomar.
+      // Un SÍNTOMA no nombra producto, así que el filtro de arriba no lo veía;
+      // ahora también excluye el estado de la persona (cansancio, sueño, estrés)
+      // y la fórmula «me siento». Quien cuenta cómo se siente no pide paquete.
+      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))(?![\s\S]*(producto|caf[eé]|c[aá]psula|bebida|suplemento|jab[oó]n|champ[uú]|organismo|limpieza|tomar|consumir|para (la|el|mi) (salud|piel|cabello|energ)|cansad|cansancio|agotad|fatiga|sin energ[ií]a|desanimad|d[ou]erm|dormir|sue[ñn]o|insomni|estr[eé]s|estresad|me siento|me duele))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
     },
     {
       // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor

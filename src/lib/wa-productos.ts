@@ -261,14 +261,57 @@ function normalizar(t: string): string {
  * la conversación en un catálogo que dispara solo, y en un canal donde cada
  * envío cuesta reputación con Meta eso es exactamente lo que no se hace.
  */
+/**
+ * ¿Esta palabra QUISO decir «imagen» o «foto»?
+ *
+ * ⚠️ Existe porque un typo tumbó el nodo entero (12 sep 2026). El Director
+ * escribió *«dame un aimgane de todos los productos»* y `pideImagen` devolvió
+ * false: la familia sí se detectó (portafolio), pero sin el sustantivo el nodo
+ * de la foto no disparó, el turno cayó al motor y el modelo compuso **«eso no
+ * está en mis manos, las imágenes las maneja el equipo»** — que es falso, las
+ * 22 fotos y las cinco de familia están en el CDN.
+ *
+ * La gente escribe con el pulgar y transpone letras; no se puede listar cada
+ * typo, así que se mide la distancia de edición contra las formas correctas.
+ * Dos operaciones cubren la transposición doble («aimgane») sin abrir la puerta
+ * a otra palabra: ninguna de 5+ letras del vocabulario del canal queda a esa
+ * distancia de «imagen» o «foto».
+ */
+function distancia(a: string, b: string): number {
+  const m = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 0; j <= b.length; j++) m[0][j] = j;
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      m[i][j] = Math.min(
+        m[i - 1][j] + 1, m[i][j - 1] + 1,
+        m[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
+  return m[a.length][b.length];
+}
+
+const FORMAS_IMAGEN = ['imagen', 'imagenes', 'foto', 'fotos', 'pantallazo'];
+
+export function pareceSustantivoDeImagen(texto: string): boolean {
+  for (const palabra of normalizar(texto).split(/[^a-z]+/)) {
+    if (palabra.length < 4) continue;
+    for (const forma of FORMAS_IMAGEN) {
+      // Una palabra corta admite un error; de seis letras en adelante, dos.
+      const tope = forma.length <= 5 ? 1 : 2;
+      if (Math.abs(palabra.length - forma.length) <= tope && distancia(palabra, forma) <= tope) return true;
+    }
+  }
+  return false;
+}
+
 export function pideImagen(texto: string): boolean {
-  // Un sustantivo de imagen pide la foto por sí solo.
+  // Un sustantivo de imagen pide la foto por sí solo — aunque venga con typos.
   if (/\b(foto|fotos|imagen|imagenes|imágenes|pantallazo|c[oó]mo se ve)\b/i.test(texto)) return true;
+  if (pareceSustantivoDeImagen(texto)) return true;
   // Un verbo de mostrar o un «cómo es» solo cuentan si el MISMO mensaje nombra
   // un producto o una línea. Sin eso, «cómo es eso, dame contexto» y «cómo es la
   // ganancia por paquetes» recibían la foto del café que la persona acababa de
   // pedir, sacado del hilo, y el turno se cerraba ahí (prueba del 29 ago 2026).
-  const verboDebil = /\b(c[oó]mo es|mu[eé]streme|ens[eé][ñn]eme|man?d[eé]me|env[ií]eme|p[aá]seme|quiero ver|d[eé]jeme ver)\b/i.test(texto);
+  const verboDebil = /\b(c[oó]mo es|mu[eé]streme|mu[eé]strame|ens[eé][ñn][ea]me|man?d[eé]me|m[aá]ndame|env[ií]e?me|p[aá]same|p[aá]seme|reg[aá]la?[em]e|quiero ver|d[eé]jeme ver|d[ae]me)\b/i.test(texto);
   return verboDebil && (detectarProducto(texto) !== null || detectarFamilia(texto) !== null);
 }
 

@@ -258,8 +258,23 @@ export async function convertirProspectoEnSocio(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prospecto: { id?: string; device_info?: Record<string, any> | null } | null,
 ): Promise<boolean> {
-  if (!prospecto) return false;
-  const previo = prospecto.device_info || {};
+  // ⚠️ `prospecto` llega NULO cuando el socio escribe por primera vez: el webhook
+  // lee la ficha antes de crearla, así que en ese turno todavía no existía. Hasta
+  // el 12 sep 2026 aquí se devolvía `false` y el socio quedaba registrado como
+  // prospecto en `expansion`, sin `user_id` — o sea, como una venta pendiente en
+  // el Radar de alguien. Le pasó a Miguel Barahona, que recibió su saludo de socio
+  // y quedó archivado como prospecto en el mismo turno. Se relee la ficha en vez
+  // de dar por perdida la conversión; el `select` extra solo corre en ese caso.
+  let previo: Record<string, any> = prospecto?.device_info || {};
+  if (!prospecto) {
+    const { data } = await supabase
+      .from('prospects')
+      .select('device_info')
+      .eq('fingerprint_id', fingerprint)
+      .maybeSingle();
+    if (!data) return false;
+    previo = data.device_info || {};
+  }
   // Ya convertido: solo se vuelve a tocar si le repusieron la temperatura de
   // prospecto (pasaba en cada mensaje hasta el 11 sep 2026, ver el scoring).
   const tieneTemperatura = previo.momento_optimo != null || previo.interest_level != null || previo.hilo_12_niveles != null;

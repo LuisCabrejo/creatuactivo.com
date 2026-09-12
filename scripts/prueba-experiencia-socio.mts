@@ -60,6 +60,23 @@ es(!('momento_optimo' in limpio) && !('interest_level' in limpio), 'se le retira
 es(limpio.invited_by === 'alguien', 'se conserva de quién vino (historia, no pipeline)');
 es(await convertirProspectoEnSocio(s, 'wa_inexistente_prueba', patricia!, { device_info: { es_socio: true } }) === false,
    'no reconvierte a quien ya está marcado');
+// ⚠️ El socio que escribe por PRIMERA vez llega aquí con la ficha en nulo: el
+// webhook la lee antes de crearla. Hasta el 12 sep 2026 eso abortaba la
+// conversión y el socio quedaba en `expansion`, contado como venta pendiente —
+// le pasó a Miguel Barahona en su primer mensaje. Ahora se relee de la base.
+es(await convertirProspectoEnSocio(s, 'wa_inexistente_prueba', patricia!, null) === false,
+   'sin ficha en la base tampoco inventa una');
+const fpNuevo = `wa_prueba_socio_${Date.now()}`;
+await s.from('prospects').insert({ fingerprint_id: fpNuevo, stage: 'expansion', source: 'whatsapp_inbound',
+  device_info: { channel: 'whatsapp', name: 'Socio Primerizo', phone: '570000000000' } });
+es(await convertirProspectoEnSocio(s, fpNuevo, patricia!, null) === true,
+   'el socio que escribe por primera vez SÍ se convierte (ficha recién creada, `prospecto` en nulo)');
+const { data: recien } = await s.from('prospects').select('stage, user_id, device_info').eq('fingerprint_id', fpNuevo).maybeSingle();
+es(recien?.stage === 'maestria' && !!recien?.user_id && recien?.device_info?.es_socio === true,
+   'queda en maestría, con user_id y marcado como socio');
+es(recien?.device_info?.name === 'Socio Primerizo' && recien?.device_info?.channel === 'whatsapp',
+   'y al releer la ficha no se le borra lo que ya traía');
+await s.from('prospects').delete().eq('fingerprint_id', fpNuevo);
 const { data: fichas } = await s.from('prospects').select('fingerprint_id, stage, user_id, device_info')
   .in('fingerprint_id', ['wa_573128586701', 'wa_573102066593']);
 for (const f of fichas || []) {

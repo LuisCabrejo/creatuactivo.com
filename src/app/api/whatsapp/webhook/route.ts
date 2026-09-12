@@ -821,7 +821,13 @@ async function procesarEntrante(body: any): Promise<void> {
       // El prospecto que pasó a ser socio queda configurado como socio, y de ahí
       // en adelante el trato se abre únicamente como distribuidor (Director, 10 sep
       // 2026). Patricia escribió tres veces como prospecta antes de esto.
-      if (existingProspect && !existingProspect.device_info?.es_socio) {
+      // ⚠️ La puerta NO es «tiene ficha previa» (12 sep 2026). La ficha se lee
+      // arriba, ANTES de crearla, así que el socio que escribe por primera vez
+      // llegaba aquí con `existingProspect` nulo y se saltaba la conversión
+      // entera: quedaba en `expansion`, sin `user_id`, o sea contado como venta
+      // pendiente. Es el mismo error de puerta que el del saludo, un piso más
+      // abajo. `convertirProspectoEnSocio` relee la ficha cuando no se le pasa.
+      if (!existingProspect?.device_info?.es_socio) {
         const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
         if (convertido) socioDesde = new Date().toISOString();
       }

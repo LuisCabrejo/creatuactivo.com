@@ -39,9 +39,11 @@
  * ⚠️ Los patrones corren sobre texto normalizado (minúsculas, sin tildes).
  */
 
+import { normalizarSuave } from '@/lib/texto-normalizar';
+
 /** lower + sin diacríticos. Los patrones de este módulo asumen esta forma. */
 export function normalizarNegocio(texto: string): string {
-  return (texto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return normalizarSuave(texto);
 }
 
 export const RE_PROMESA_INGRESO: RegExp[] = [

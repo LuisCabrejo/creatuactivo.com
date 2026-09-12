@@ -78,6 +78,7 @@ import {
   convertirProspectoEnSocio,
   marcarSaludoDeSocio,
 } from '@/lib/wa-onboarding';
+import { normalizarParaSlug } from '@/lib/texto-normalizar';
 import {
   detectarEmergencia,
   clasificarPreguntaSalud,
@@ -2905,8 +2906,12 @@ async function activarCanal(
   // se exigían 12 y un socio de EE. UU. moría con «el número no parece completo».
   if (!whatsapp || whatsapp.length < 11) return { ok: false, error: 'el número no parece completo' };
 
-  const sinTildes = (t: string) =>
-    t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+  // ⚠️ Normaliza para SLUG, no para cotejar: aquí la puntuación se BORRA en vez
+  // de volverse espacio, y de eso depende que «O'Brien» quede `obrien` y no
+  // `o-brien`. `constructor_id` es la llave que comparten el canal, el Dashboard
+  // y la página del reel; cambiarle la forma le rompe el enlace a quien ya lo
+  // tenga. Ver src/lib/texto-normalizar.ts.
+  const sinTildes = (t: string) => normalizarParaSlug(t);
 
   try {
     // Repetir el comando es lo normal cuando el primer envío cayó fuera de

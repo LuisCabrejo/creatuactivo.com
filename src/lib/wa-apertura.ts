@@ -42,6 +42,7 @@
 import type { WAButton } from '@/lib/wa-channel';
 import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
 import { aFormatoWhatsApp } from '@/lib/wa-formato';
+import { sinDiacriticos } from '@/lib/texto-normalizar';
 
 /**
  * Las tres preguntas reales del prospecto, en su voz, como botones VISIBLES.
@@ -169,9 +170,7 @@ export function sexoDelNombre(nombre?: string): 'm' | 'f' | null {
 }
 
 function sinTildes(s: string): string {
-  // Rango de diacríticos combinantes, escapado a propósito: escribirlo literal
-  // deja caracteres invisibles en el fuente y cualquier editor puede comérselos.
-  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return sinDiacriticos(s);
 }
 
 /**

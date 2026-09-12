@@ -10,6 +10,8 @@
  * Precisión: 90% con embeddings Voyage AI + pgvector cosine similarity
  */
 
+import { normalizarSuave } from '@/lib/texto-normalizar';
+
 // Keywords que indican objeciones (para enriquecer queries cortas)
 const OBJECTION_KEYWORDS = ['mlm', 'multinivel', 'piramide', 'pirámide', 'estafa', 'scam', 'fraude', 'ponzi'];
 
@@ -17,7 +19,7 @@ const OBJECTION_KEYWORDS = ['mlm', 'multinivel', 'piramide', 'pirámide', 'estaf
  * Enriquece queries cortas con contexto adicional para mejor matching
  */
 function enrichQuery(query: string): string {
-  const normalized = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const normalized = normalizarSuave(query);
 
   // Si la query menciona objeciones comunes, añadir contexto
   const hasObjection = OBJECTION_KEYWORDS.some(kw => normalized.includes(kw));

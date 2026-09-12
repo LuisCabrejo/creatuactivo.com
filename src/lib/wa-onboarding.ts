@@ -34,6 +34,7 @@
  */
 
 import { sendText } from '@/lib/wa-channel';
+import { normalizarParaSlug } from '@/lib/texto-normalizar';
 
 /**
  * Cada hito se avisa UNA vez por prospecto — no hay cupo numérico.
@@ -84,10 +85,7 @@ export function normalizarWhatsApp(numero: string): string {
  * "liliana-moreno", no "liliana-patricia" (10 sep 2026).
  */
 export function slugDesdeNombre(nombre: string): string {
-  const palabras = (nombre || '')
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase().replace(/[^a-z0-9\s-]/g, '')
-    .trim().split(/\s+/).filter(Boolean);
+  const palabras = normalizarParaSlug(nombre, true).split(/\s+/).filter(Boolean);
   const elegidas = palabras.length >= 4 ? [palabras[0], palabras[2]] : palabras.slice(0, 2);
   return elegidas.join('-').replace(/-+/g, '-') || 'socio';
 }

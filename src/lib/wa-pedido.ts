@@ -32,6 +32,7 @@ import { PRODUCTOS_WA, detectarProducto, productoDelHilo, type ProductoWA } from
 import { sendTemplate } from '@/lib/wa-channel';
 import { avisarPorCorreo } from '@/lib/wa-radicacion';
 import { enlaceCatalogo } from '@/lib/wa-onboarding';
+import { normalizarDuro } from '@/lib/texto-normalizar';
 
 export interface LineaPedido { producto: ProductoWA; cantidad: number }
 
@@ -43,11 +44,7 @@ export interface SocioPedido {
 }
 
 function norm(t: string): string {
-  return t.toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return normalizarDuro(t);
 }
 
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;

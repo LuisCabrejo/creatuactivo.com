@@ -26,6 +26,8 @@
  * (precio, registro INVIMA e imagen). Si allá cambia un precio, cambia aquí.
  */
 
+import { normalizarDuro } from '@/lib/texto-normalizar';
+
 export interface ProductoWA {
   slug: string
   nombre: string
@@ -247,11 +249,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
 
 /** Sin tildes, minúsculas y sin puntuación: como llega un mensaje de WhatsApp. */
 function normalizar(t: string): string {
-  return t.toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return normalizarDuro(t);
 }
 
 /**

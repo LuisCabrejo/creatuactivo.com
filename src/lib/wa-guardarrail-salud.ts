@@ -36,9 +36,11 @@
  * patrones toleran los tipeos vistos en pruebas reales (diabetis, artitis).
  */
 
+import { normalizarSuave } from '@/lib/texto-normalizar';
+
 /** lower + sin diacríticos (á→a, ñ→n). Los patrones de este módulo asumen esta forma. */
 export function normalizarSalud(texto: string): string {
-  return (texto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return normalizarSuave(texto);
 }
 
 // ─── CAPA 0 — Emergencia ──────────────────────────────────────────────────────

@@ -62,9 +62,11 @@
  * Fundamento completo → docs/investigaciones/resultados/CIENCIA_CONDUCTUAL_SEGUIMIENTO_Y_ACUERDO_AGO2026.md
  */
 
+import { normalizarSuave } from '@/lib/texto-normalizar';
+
 /** lower + sin diacríticos. Todos los patrones asumen esta forma. */
 export function normalizarAmb(texto: string): string {
-  return (texto || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  return normalizarSuave(texto);
 }
 
 /**

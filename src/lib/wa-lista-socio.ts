@@ -27,6 +27,8 @@
  * «Beto». Devolvérselo con sus palabras es lo que hace que reconozca su lista.
  */
 
+import { normalizarSuave } from '@/lib/texto-normalizar';
+
 export type ContactoLista = {
   id: number;
   nombre: string;
@@ -213,7 +215,7 @@ export function preguntaPorLaLista(mensaje: string): boolean {
 }
 
 function normalizar(t: string): string {
-  return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return normalizarSuave(t);
 }
 
 /**

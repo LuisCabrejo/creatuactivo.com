@@ -47,11 +47,12 @@
 
 import { sendTemplate } from '@/lib/wa-channel';
 import { construirApertura } from '@/lib/wa-apertura';
+import { normalizarSuave } from '@/lib/texto-normalizar';
 
 /** Número del WABA (Queswa). Solo dígitos, como lo exige wa.me. */
 const NUMERO_QUESWA = (process.env.WHATSAPP_DISPLAY_NUMBER || '573215193909').replace(/\D/g, '');
 
-const norm = (t: string) => (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const norm = (t: string) => normalizarSuave(t);
 
 // ─── 1. ¿Va a consultarlo con su pareja? ─────────────────────────────────────
 

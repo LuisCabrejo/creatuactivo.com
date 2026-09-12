@@ -210,3 +210,19 @@ Auditoría a pedido del Director: *«me comentó que ha estado creando mensajes 
 - [ ] **El socio de EE. UU. y los avisos:** Meta no entrega plantillas MARKETING a números +1, así que el enlace de canal le llega por reenvío del Director. Sin cambio posible por copy (ver la fila del enlace de canal en CLAUDE.md).
 
 **Cerrado en esta vuelta:** la ficha de Patricia como prospecta caliente (la conversión la reclasificó, no se borró: la historia de quién la invitó se conserva).
+
+## 9. Quinta vuelta — 11 sep 2026: dos hilos reales, y una cifra inflada cuatro veces
+
+**Linda** (`317 502 6454`, tres turnos a las 17:04 por el enlace de luis-cabrejo): los tres salieron dictados y los tres son el copy correcto —apertura sin el origen del dinero, franquicia, 12 Niveles—, y el «sí» del tercer turno se leyó bien. Paró al ver la cifra de los 103 millones y no volvió. ⚠️ **Su apellido NO está en el sistema:** el nombre «Linda» lo manda el perfil de WhatsApp, no lo dio ella; no hay ningún «Lozano» en prospects, private_users, constructor_slugs, pending_activations ni funnel_leads. Para confirmar una identidad que solo tiene nombre de perfil, hay que preguntárselo.
+
+**Miriam** (BSUID `CO.2192485721669269`, doce turnos entre las 12:33 y las 18:04) destapó tres fallos, los tres corregidos el mismo día (`9cb5e87`):
+
+- ⛔ **La cifra de un MES entregada como la de una SEMANA.** `COMP_BIN_10` cierra su tabla —cuyo encabezado dice «Comisión MENSUAL»— con una línea que nombraba el viernes, y el modelo las fundió: *«el Binario ya liquida ~$428.000 COP cada viernes»*. Cuatro veces inflado, a una persona real, y **contradiciendo al simulador dos turnos después** ($378.000 al mes para diez clientes). Los dos guardarraíles lo dejaron pasar: la cifra es correcta, lo que estaba mal era su unidad de tiempo. **Lección: una tabla y su línea de cierre se leen juntas — si la tabla es mensual, la línea no puede nombrar el viernes al lado del monto.**
+- ⛔ **El BSUID trae el país y el conductor no lo leía.** `paisDeTelefono` devolvía `XX` para `CO.…`, así que el turno **dictado** cotizó el Kit en «$98 USD ($443.600 COP)» a una colombiana, mientras los turnos del motor —que sí lee ese prefijo con `detectVisitorCountry`— salían solo en pesos. **Dos funciones de país y solo una sabía leer el identificador oculto de Meta.**
+- **Léxico viejo en `PROD_04`** («para su canal» dicho del activo). Corregido; cero fragmentos vivos con ese uso. El título y el índice conservan *canal* porque son las palabras del prospecto.
+
+### 9.1 Lo que quedó abierto de esta vuelta
+
+- [ ] **La tabla de `COMP_BIN_10` corre al 17 %**, la tarifa del Visionario, cuando el 3 sep se bajó el ejemplo de `arsenal_12_niveles` al **10 %** —la tasa base real— justamente para no tener dos tarifas en la misma avenida. Compensación quedó fuera de ese cambio, y por eso Miriam vio $428K (17 %) y después $378.000 (15 % del simulador) para escenarios vecinos. **Decisión del Director:** bajar la tabla al 10 % como se hizo en 12 niveles, o dejarla y acotar cuándo se sirve.
+- [ ] **El modelo compone el marco del consumo vetado.** Medido en producción el 11 sep: a la pregunta del consumo mensual respondió *«usted compra lo que ya iba a consumir»* — el marco retirado en agosto. **No está en ningún fragmento** (verificado sobre los 176 vivos), así que no se arregla en el arsenal: o lo trae el prompt, o es memoria del modelo. Mismo origen que *«es el producto que ya estaba buscando»* (turno 11) y que «su canal / su red» de los turnos 8 y 12, ninguno de los cuales vive en un fragmento.
+- [ ] **Cabo suelto: el paquete ESP-1 en la ficha de Miriam.** El único mensaje suyo que nombra un paquete es el reporte del simulador, y el guard que lo ataja **funciona** (probado contra producción con ese texto exacto y con la pregunta del turno 10: ninguno captura). El dato entró por una vía que no se reproduce. Mismo síntoma que Liliana el 1 sep.

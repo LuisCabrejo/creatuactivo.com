@@ -1500,6 +1500,17 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
 
   // 🔧 NUEVA CLASIFICACIÓN ROBUSTA: PRODUCTOS INDIVIDUALES (CATÁLOGO) - FIX 2025-10-25: AGREGADO "VALOR"
   const patrones_productos = [
+    // ⚠️ UN SÍNTOMA MÁS UN PEDIDO DE RECOMENDACIÓN ES UNA PREGUNTA DE PRODUCTO
+    // (12 sep 2026). MFernanda escribió «Me siento cansada cual me recomienda» y
+    // recibió el texto de los paquetes; al cerrar esa puerta, el vector la mandó
+    // a `STORY_03` —el villano, con candado y dictado— o sea que a alguien que
+    // preguntaba qué tomar se le entregó el diagnóstico del ciclo de trabajar y
+    // pagar cuentas. Y el propio arsenal advierte que ese texto NO se abre en
+    // frío. Quien cuenta cómo se siente y pide una recomendación está pidiendo
+    // un producto, así que se decide aquí y no en el vector.
+    /(me siento|estoy|ando|me encuentro|amanec[ií])[^.?]{0,25}(cansad|agotad|sin energ[ií]a|fatigad|decaíd|decaid|estresad|sin [aá]nimo|sin fuerzas)[\s\S]{0,60}(recomiend|recomend|aconsej|sugier|qu[eé] (tomo|tomar|me sirve|puedo tomar)|qu[eé] producto)/i,
+    /(recomiend|recomend|aconsej|sugier)[^.?]{0,40}(porque|ya que|es que)?[\s\S]{0,25}(me siento|estoy|ando)[^.?]{0,20}(cansad|agotad|sin energ[ií]a|fatigad|estresad)/i,
+
     // ===== CÁPSULAS CORDYGOLD (PROBLEMA ESPECÍFICO) =====
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:cordy gold|cordygold|cordy|gano cordyceps)/i,
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*cordyceps/i,

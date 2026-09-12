@@ -243,6 +243,12 @@ MFernanda preguntó qué tomar y recibió **«¿Con cuál arranca?»**. Abrió l
 
 **Arreglo:** el filtro excluye también el estado de la persona (`cansad · cansancio · agotad · fatiga · sin energía · duerm · sueño · insomni · estrés · me siento · me duele`). Con la puerta cerrada la pregunta recupera el catálogo: `FAQ_04` a 0.588 y `FAQ_03` a 0.560, que trae la fila **«Energía y enfoque → Ganocafé 3 en 1 + Excellium»** — la respuesta que ella pedía. El guardarraíl de salud no la toca: energía y vitalidad son vocabulario permitido.
 
-### 10.3 La lección de la vuelta
+### 10.3 Verificado en producción, y la capa que falta
+
+Con el build vivo (`c7971c1`): «Me siento cansada cual me recomienda» devuelve el **Ganocafé 3 en 1** con su alternativa sin cafeína, y `atenderFoto` con el typo devuelve `portafolio.jpg` (122 KB en el CDN) con su pie y cerrando el turno. El arreglo del síntoma necesitó **dos pasos**: cerrar la puerta de paquetes dejó la pregunta en manos del vector, que la mandó al villano.
+
+- [ ] **Segunda capa pendiente: el motor sigue afirmando una limitación falsa.** Llamado sin el webhook, a la misma petición responde *«por este canal solo puedo enviar texto, así que no tengo forma de compartir imágenes»*. Hoy no se ve porque el nodo 2.25a ataja antes, pero **el día que un typo nuevo se escape, el modelo volverá a decirlo** — y con la variante del 12 sep, a atribuírselo al equipo. Es el problema que CLAUDE.md ya nombra («el motor NO sabe lo que manda el webhook»), y la defensa no es prohibir la frase —nombrarla es dictarla— sino que el modo de producto afirme que las imágenes existen y se ofrecen. **Copy de instrucción: a proponer al Director.**
+
+### 10.4 La lección de la vuelta
 
 **Las dos veces el copy estaba bien escrito y la respuesta correcta existía.** Lo que falló fue la puerta: una por un typo, la otra por una categoría que el filtro no contemplaba. Es la tercera vuelta seguida en que el fallo es de enrutamiento y no de redacción, y la segunda en que **un regex de cara a la persona exigía ortografía perfecta** — la regla está escrita en CLAUDE.md desde agosto y se rompió otra vez en un patrón nuevo. ⚠️ **Cuando un nodo no dispara, el modelo compone — y al componer afirma limitaciones que no tenemos.**

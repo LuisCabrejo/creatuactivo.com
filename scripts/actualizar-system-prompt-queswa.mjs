@@ -31,7 +31,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.1_sin_bloque_espejo_de_datos';
+const VERSION_LABEL = 'v5.2_sistema_de_distribucion_y_el_activo';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 const CANALES = {

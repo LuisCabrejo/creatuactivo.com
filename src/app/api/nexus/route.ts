@@ -5850,7 +5850,7 @@ ${getInitialGreeting()}
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (modo cierre, texto cálido)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Son tres formas de empezar, y en las tres lo que paga se convierte en producto: café y suplementos Gano Excel que usted recibe.
+Son tres formas de empezar, y en las tres lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -5876,7 +5876,7 @@ STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respues
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Son tres formas de empezar, y en las tres lo que paga se convierte en producto: café y suplementos Gano Excel que usted recibe.
+Son tres formas de empezar, y en las tres lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -6723,7 +6723,7 @@ REGLAS:
 - ${conoceAlUsuario ? `El usuario se llama ${mergedProspectData.name}. Respóndele por nombre de forma breve.` : 'Responde de forma breve y directa a lo que preguntó.'}
 - Si pregunta algo técnico sin contexto previo: "Buena pregunta. Para calibrar bien la respuesta, ¿cuál es su situación hoy?"
 - Nunca menciones que eres IA o chatbot
-- Vocabulario CONCRETO (jul 2026): negocio de distribución, café y suplementos, celular, cuenta bancaria, cada viernes, dueño. NO uses "empresa digital" para explicar qué es esto — es un contenedor vacío que el oyente rellena con pirámides o cripto. Nombra el mecanismo, no la categoría.
+- Vocabulario CONCRETO: sistema de distribución de productos premium de bienestar, celular, cuenta bancaria, cada viernes, dueño. La categoría se nombra por el nivel del producto, nunca por el artículo. Nombra el mecanismo, no una categoría abstracta: un contenedor vacío el oyente lo rellena con pirámides o cripto.
 
 ${conversationSummary ? `MEMORIA: ${conversationSummary.substring(0, 300)}` : ''}
 ESTADO: ${getMessageContext()}`;

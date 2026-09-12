@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.34** (10 sep 2026) — **`FREQ_14` reclama el conjunto, y `WHY_02` pierde el eco.** La exclusividad pasa de dos herramientas a **los tres elementos ensamblados** —creatuactivo.com, queswa.app y la metodología de dos pasos—, que es lo que nadie más puede tener junto. Y en `WHY_02` 🔒 la segunda comparación **se conserva** —generaliza de una marca a una categoría, y eso es lo que impide archivar McDonald's como excepción— pero pierde el *«casi nadie»* repetido, que sonaba a fórmula.
+**Versión actual: v6.35** (12 sep 2026) — **`FREQ_03` 🔒 nombra la categoría por su nivel, no por el artículo.** Decía que lo pagado se convierte en el artículo de supermercado, justo al lado del precio del Visionario; ahora dice **el portafolio premium de bienestar de Gano Excel**. Lo concreto seguía trabajando a favor —no está comprando aire, le llega mercancía— y eso se conserva; lo que cambia es el nivel con que se nombra. ⚠️ El candado vive por triplicado: aquí y en los **dos espejos** de `route.ts` (Estado 2, modo cierre e informativo), que se sincronizaron en el mismo commit.
+
+**v6.34** (10 sep 2026) — **`FREQ_14` reclama el conjunto, y `WHY_02` pierde el eco.** La exclusividad pasa de dos herramientas a **los tres elementos ensamblados** —creatuactivo.com, queswa.app y la metodología de dos pasos—, que es lo que nadie más puede tener junto. Y en `WHY_02` 🔒 la segunda comparación **se conserva** —generaliza de una marca a una categoría, y eso es lo que impide archivar McDonald's como excepción— pero pierde el *«casi nadie»* repetido, que sonaba a fórmula.
 
 **v6.33** (10 sep 2026) — **`WHY_02` 🔒 le pega la cualidad al sustantivo.** Decía *«su propio sistema de distribución»* y ahí cortaba; ahora la frase no le da tiempo, y las tres cosas ensambladas dejan de ser una lista de requisitos para ser **la razón** de esa cualidad.
 
@@ -231,7 +233,7 @@ Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com.
 **[Concepto Nuclear]:** Quien pregunta cómo se inicia ya decidió, y se le trata como a quien mira una propiedad y pregunta dónde firma: a nadie le gusta que le vendan, pero comprar sí gusta. Tabla escaneable de los tres paquetes con su precio, y un paso claro. La nomenclatura del plan va literal —*Binario 17%*, *Bono GEN5*—, porque el porcentaje corre sobre el GCV y traducirlo a lenguaje llano hace calcularlo sobre la facturación. La línea de datos de cada nivel ya los diferencia. `[PRECIO]` lo llena `getPaquetesPricingPin()` en la moneda del visitante — es el único hueco del arsenal, y es a propósito: una cifra que depende del país no cabe dentro de un texto que se entrega carácter por carácter.
 
 <verbatim_lock>
-Son tres formas de empezar, y en las tres lo que paga se convierte en producto: café y suplementos Gano Excel que usted recibe.
+Son tres formas de empezar, y en las tres lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · [PRECIO]
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo

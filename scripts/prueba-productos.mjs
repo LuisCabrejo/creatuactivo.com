@@ -177,7 +177,9 @@ function evaluar(q, esperado, extra, texto) {
   if (extra && !extra.test(texto)) f.push(`no cumple ${extra}`);
 
   // Cumplimiento, en toda respuesta
-  const negativa = RE_NEGATIVA.test(texto);
+  // Una respuesta que ES el rechazo de salud no se audita por claims: el rechazo
+  // nombra la categoría a propósito. Se reconoce por sus prefijos, no por un regex.
+  const negativa = esRechazoSalud(texto);
   const salud = negativa ? null : (detectarClaimSaludEnSalida(texto) ?? clasificarPreguntaSalud(texto)?.termino);
   if (salud) f.push(`SALUD: ${salud}`);
   const neg = detectarPromesaDeIngreso(texto);

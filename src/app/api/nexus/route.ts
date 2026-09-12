@@ -2974,7 +2974,13 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // Routing directo por categoría — evita fallos de vector search en consultas por categoría
     // "dame el precio de los suplementos" → SUP_01 directamente sin depender de similitud vectorial
     const msgL = userMessage.toLowerCase();
-    const esBebidaCategoria  = /precio.*bebida|bebidas.*precio|precio.*caf[eé]|cuánto.*caf[eé]|cuánto.*bebida|lista.*bebida|todos.*caf[eé]|(dem[aá]s|otras|resto|cu[aá]les son las).{0,18}bebidas/i.test(msgL) && !/específico|rooibos|latte|mocha|shoko|spirulina|cereal|colágeno|reskine|schokolade|clásico|classic/i.test(msgL);
+    // ⚠️ Esta puerta exigía el artículo «las» (12 sep 2026). «¿Cuáles son SUS
+    // bebidas?» —como lo escribió el Director— no abría, ni «qué bebidas tienen»,
+    // mientras la de suplementos abre con la palabra suelta. Por eso la misma
+    // pregunta funcionaba en una categoría y en la otra no. Es la regla de los
+    // regex de cara al prospecto: aquí no era ortografía, era un artículo.
+    // El plural y `!nombraUnProducto` son los que mantienen esto COLECTIVO.
+    const esBebidaCategoria  = /precio.*bebida|bebidas.*precio|precio.*caf[eé]|cuánto.*caf[eé]|cuánto.*bebida|lista.*bebida|todos.*caf[eé]|(dem[aá]s|otras|resto|cu[aá]les son las).{0,18}bebidas|(?:cu[aá]les|qu[eé]|todas|lista de|h[aá]bl[aeo]me|mu[eé]str[ea]me|cu[eé]nt[aeo]me)\b[^.?!¿]{0,28}\bbebidas\b/i.test(msgL) && !/específico|rooibos|latte|mocha|shoko|spirulina|cereal|colágeno|reskine|schokolade|clásico|classic/i.test(msgL);
     const esSuplementoCat    = /suplemento|cápsula|capsula|ganoderma caps|excellium|cordygold/i.test(msgL);
     const esLuvocoCat        = /luvoco|m[aá]quina.*caf[eé]|caf[eé].*m[aá]quina/i.test(msgL);
     const esCuidadoPersonal  = /cuidado.*personal|jabón|jabon|shampoo|acondicionador|exfoliante|pasta.*diente|toothpaste|gano\s*soap/i.test(msgL);
@@ -3023,7 +3029,14 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
           title: 'Catálogo — categoría específica',
           content: combinedContent,
           category: 'catalogo_productos',
-          metadata: { categories: categoriasDirectas },
+          metadata: {
+            categories: categoriasDirectas,
+            // Misma razón que arriba: una tabla con candado entregada sola se dicta.
+            fragment_count: directFrags.length,
+            fragment_categories: directFrags.map(f => f.category),
+            candado_solitario: directFrags.length === 1
+              && (directFrags[0]?.content || '').includes('<verbatim_lock>'),
+          },
           source: '/knowledge_base/catalogo_productos.txt',
           search_method: 'category_direct'
         }];
@@ -3066,7 +3079,15 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       const preguntanPorLaMaquina = /m[aá]quina|cafetera|el aparato|el equipo/i.test(userMessage);
       let fragmentosAEntregar = fragments;
       const top = fragments[0];
-      if (esTablaCategoria(top) && !preguntanPorLaMaquina) {
+      // ⚠️ …pero SOLO si la persona nombró un producto (12 sep 2026). La regla se
+      // escribió para «¿precio del Ganocafé 3 en 1?» y decía, en su propio
+      // comentario, «si la persona pregunta por UN producto» — pero nunca lo
+      // comprobaba. Resultado: a «¿cuáles son sus bebidas?», una pregunta
+      // COLECTIVA, la tabla de las nueve se retiraba porque la ficha del té
+      // quedaba a 0.043, y el modelo componía la lista él solo: cuatro de nueve,
+      // sin precios, y nombres inventados («Ganocafé Mocha», «Gano Chocolate»).
+      // Es justo lo que el candado de estas tablas existe para impedir.
+      if (esTablaCategoria(top) && !preguntanPorLaMaquina && nombraUnProducto) {
         const fichaCerca = fragments.find((f, i) =>
           i > 0 && !esTablaCategoria(f) && ((top.similarity ?? 0) - (f.similarity ?? 0)) <= 0.05);
         if (fichaCerca) {
@@ -3093,6 +3114,14 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
           fragment_count: fragmentosAEntregar.length,
           fragment_categories: fragmentosAEntregar.map(f => f.category),
           total_chars: totalFragmentChars,
+          // ⚠️ El catálogo tiene su PROPIO camino de fragmentos, y hasta el 12 sep
+          // 2026 su metadata no llevaba esta bandera: la regla del candado solitario
+          // —y el dictado por el backend que cuelga de ella— no le aplicaban NUNCA.
+          // O sea que el <verbatim_lock> de BEB_01, SUP_01, LUV_01, PERS_01 y
+          // PROD_OVERVIEW estaba puesto y no hacía nada, que es exactamente el bug
+          // que ese candado existe para impedir: el modelo simplificando nombres.
+          candado_solitario: fragmentosAEntregar.length === 1
+            && (fragmentosAEntregar[0]?.content || '').includes('<verbatim_lock>'),
           top_similarity: fragments[0]?.similarity ?? null
         },
         source: '/knowledge_base/catalogo_productos.txt',

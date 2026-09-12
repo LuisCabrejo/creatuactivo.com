@@ -5454,7 +5454,7 @@ o esa misma línea — no sobre otro.`;
         // aquí: sin ella el modelo la compone de memoria — el 30 ago inventó
         // «jugo de frutas» y un «café sin cafeína» que no existen.
         const catalogo = 'Bebidas: Ganocafé 3 en 1, Ganocafé Clásico, Ganorico Latte Rico, Ganorico Mocha Rico, '
-          + 'Ganorico Shoko Rico, Gano Schokolade, Espirulina Gano C\'Real, Oleaf Gano Rooibos (el único sin cafeína), '
+          + 'Ganorico Shoko Rico, Gano Schokolade, Gano C\'Real Spirulina, Oleaf Gano Rooibos (el único sin cafeína), '
           + 'Reskine Colágeno. Cápsulas: de Ganoderma, Excellium, Cordygold. Cuidado personal: pasta Gano Fresh, '
           + 'dos jabones, champú, acondicionador y exfoliante Piel&Brillo. Y el sistema Luvoco: máquina y tres cápsulas.';
         const cierre = otraVez ? CIERRE_REINCIDE

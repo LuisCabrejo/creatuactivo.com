@@ -193,8 +193,8 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 
 **[Sección interna — no es contenido servido]:** CATEGORÍA 1: BEBIDAS FUNCIONALES
 
-### BEB_01: "¿Cuáles son los cafés disponibles? / ¿Cuáles son sus bebidas? / ¿Qué productos tienen? / Háblame de los productos / ¿Cuáles son los productos?"
-**[Índice]:** Cuáles son las bebidas y los cafés disponibles, qué productos tienen, la lista de bebidas con precios.
+### BEB_01: "¿Cuáles son sus bebidas? / ¿Cuáles son los cafés disponibles? / ¿Qué bebidas tienen?"
+**[Índice]:** Cuáles son las bebidas, cuáles son los cafés disponibles, qué bebidas tienen, la lista de bebidas con precios.
 **[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **Los únicos productos de bebidas son los 9 de esta tabla**, con estos nombres exactos: el té es Oleaf Gano Rooibos, el chocolate es Gano Schokolade y el café puro es Ganocafé Clásico.
 
 <verbatim_lock>

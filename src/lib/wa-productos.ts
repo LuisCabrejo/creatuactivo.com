@@ -92,12 +92,18 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'espirulina-gano-creal',
-    nombre: 'Espirulina Gano C\'Real',
+    nombre: 'Gano C\'Real Spirulina',
     precioCOP: 119900,
     presentacion: 'caja de 15 sobres',
     invima: 'NSA-0012963-2022',
     imagen: '/productos/bebidas/ganocereal-spirulina-min.png',
-    alias: ['espirulina', 'spirulina', 'cereal', 'c real', 'gano creal'],
+    // ⚠️ El nombre correcto es *Gano C'Real Spirulina* (Director, 12 sep 2026).
+    // El pin decía «Espirulina Gano C'Real» y era el ÚNICO sitio del proyecto que
+    // lo invertía: los cuatro arsenales ya lo traían bien. Como el pin manda sobre
+    // el modelo, el nombre malo salía en el pie de la foto de bebidas y en la ficha
+    // del producto, mientras el modelo —leyendo el arsenal— lo decía bien.
+    // `slug` NO se toca: es la llave de la imagen en el CDN, no el nombre visible.
+    alias: ['espirulina', 'spirulina', 'cereal', 'c real', 'gano creal', 'gano cereal'],
   },
   {
     slug: 'bebida-oleaf-gano-rooibos',

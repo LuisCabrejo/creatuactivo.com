@@ -226,3 +226,23 @@ Auditoría a pedido del Director: *«me comentó que ha estado creando mensajes 
 - [ ] **La tabla de `COMP_BIN_10` corre al 17 %**, la tarifa del Visionario, cuando el 3 sep se bajó el ejemplo de `arsenal_12_niveles` al **10 %** —la tasa base real— justamente para no tener dos tarifas en la misma avenida. Compensación quedó fuera de ese cambio, y por eso Miriam vio $428K (17 %) y después $378.000 (15 % del simulador) para escenarios vecinos. **Decisión del Director:** bajar la tabla al 10 % como se hizo en 12 niveles, o dejarla y acotar cuándo se sirve.
 - [ ] **El modelo compone el marco del consumo vetado.** Medido en producción el 11 sep: a la pregunta del consumo mensual respondió *«usted compra lo que ya iba a consumir»* — el marco retirado en agosto. **No está en ningún fragmento** (verificado sobre los 176 vivos), así que no se arregla en el arsenal: o lo trae el prompt, o es memoria del modelo. Mismo origen que *«es el producto que ya estaba buscando»* (turno 11) y que «su canal / su red» de los turnos 8 y 12, ninguno de los cuales vive en un fragmento.
 - [ ] **Cabo suelto: el paquete ESP-1 en la ficha de Miriam.** El único mensaje suyo que nombra un paquete es el reporte del simulador, y el guard que lo ataja **funciona** (probado contra producción con ese texto exacto y con la pregunta del turno 10: ninguno captura). El dato entró por una vía que no se reproduce. Mismo síntoma que Liliana el 1 sep.
+
+## 10. Sexta vuelta — 12 sep 2026: cuatro visitantes, y dos regex que exigían ortografía
+
+Cuatro hilos reales entre las 8:49 y las 9:54. **Lo que funcionó**, y conviene no tocar: el saludo de socio salió con su enlace a los dos socios que escribieron (el Director y **Miguel Barahona**, socio nuevo, a la primera); el esqueleto de redacción pidió los dos datos y entregó el mensaje de los cuatro tiempos con el tuteo pedido; y los dos prospectos que llegaron por el enlace recibieron la apertura, Compartir y Recibir, y el catálogo con el ref del socio. **Los dos fallos fueron el mismo problema:** un regex que exigía la palabra escrita sin errores.
+
+### 10.1 «dame un aimgane de todos los productos» → «eso no está en mis manos»
+
+El Director pidió la imagen del portafolio a las 9:04 y recibió **«las imágenes del catálogo las maneja el equipo directamente»**, que es falso: las 22 fotos de producto y las cinco de familia están en el CDN, y el nodo 2.25a existe para eso. `pideImagen` devolvió `false` por el typo —la familia sí se detectaba— así que el turno cayó al motor, y el modelo compuso una limitación que no tenemos **y se la atribuyó al equipo**.
+
+**Arreglo:** el sustantivo se reconoce por **distancia de edición** contra `imagen · imagenes · foto · fotos · pantallazo` (dos operaciones en las formas largas, una en las cortas), y `dame · mándame · pásame · regáleme` cuentan como verbo de entrega cuando el mensaje nombra producto o línea. ⚠️ **No se puede listar cada typo**: la lista se agota y el siguiente error de dedo vuelve a tumbar el nodo.
+
+### 10.2 «Me siento cansada cual me recomienda» → el texto de los paquetes
+
+MFernanda preguntó qué tomar y recibió **«¿Con cuál arranca?»**. Abrió la puerta de `FREQ_30`, cuyo filtro excluye los mensajes que nombran producto, café, cápsula, organismo… **pero un SÍNTOMA no nombra ninguna de esas cosas.** Al repetirlo diciendo «cual producto me recomienda consumir», el filtro sí la excluyó, y entonces el vector la mandó a `WHY_01` —qué es CreaTuActivo— por candado. **Dos veces preguntó qué tomar y las dos recibió otra cosa; se fue en ese turno.**
+
+**Arreglo:** el filtro excluye también el estado de la persona (`cansad · cansancio · agotad · fatiga · sin energía · duerm · sueño · insomni · estrés · me siento · me duele`). Con la puerta cerrada la pregunta recupera el catálogo: `FAQ_04` a 0.588 y `FAQ_03` a 0.560, que trae la fila **«Energía y enfoque → Ganocafé 3 en 1 + Excellium»** — la respuesta que ella pedía. El guardarraíl de salud no la toca: energía y vitalidad son vocabulario permitido.
+
+### 10.3 La lección de la vuelta
+
+**Las dos veces el copy estaba bien escrito y la respuesta correcta existía.** Lo que falló fue la puerta: una por un typo, la otra por una categoría que el filtro no contemplaba. Es la tercera vuelta seguida en que el fallo es de enrutamiento y no de redacción, y la segunda en que **un regex de cara a la persona exigía ortografía perfecta** — la regla está escrita en CLAUDE.md desde agosto y se rompió otra vez en un patrón nuevo. ⚠️ **Cuando un nodo no dispara, el modelo compone — y al componer afirma limitaciones que no tenemos.**

@@ -171,16 +171,16 @@ Suyo es el cultivo de tejidos con el que hoy se produce, y la idea de reunir las
 El portafolio del ecosistema se estructura en **cuatro categorías** de consumo, todas con extracto propietario de Ganoderma lucidum de Gano Excel:
 
 **1. Bebidas funcionales** — 9 productos
-> Ganocafés (3 en 1, Clásico), Ganoricos (Latte, Mocha, Shoko), Gano C'Real Spirulina, Oleaf Gano Rooibos, Gano Schokolade, Reskine Colágeno. Rango: $110,900 — $216,900 COP.
+> Ganocafés (3 en 1, Clásico), Ganoricos (Latte, Mocha, Shoko), Gano C'Real Spirulina, Oleaf Gano Rooibos, Gano Schokolade, Reskine Colágeno. Rango: $110.900 — $216.900 COP.
 
 **2. Sistema LUVOCO** — 4 productos
-> Máquina italiana de 15 bares + 3 intensidades de cápsulas exclusivas (Suave, Medio, Fuerte). Máquina: $1,026,000 COP · Cápsulas: $110,900 COP cada presentación.
+> Máquina italiana de 15 bares + 3 intensidades de cápsulas exclusivas (Suave, Medio, Fuerte). Máquina: $1.026.000 COP · Cápsulas: $110.900 COP cada presentación.
 
 **3. Suplementos Avanzados** — 3 productos
-> Cápsulas concentradas: Ganoderma (apoyo inmune), Excellium (claridad mental), Cordygold (rendimiento físico). Rango: $272,500 — $336,900 COP.
+> Cápsulas concentradas: Ganoderma (apoyo inmune), Excellium (claridad mental), Cordygold (rendimiento físico). Rango: $272.500 — $336.900 COP.
 
 **4. Cuidado Personal** — 6 productos
-> Línea diaria del hogar: Gano Fresh (pasta dental), Jabón Gano, Jabón Transparente, Shampoo + Acondicionador + Exfoliante Piel&Brillo. Rango: $73,900 — $78,500 COP.
+> Línea diaria del hogar: Gano Fresh (pasta dental), Jabón Gano, Jabón Transparente, Shampoo + Acondicionador + Exfoliante Piel&Brillo. Rango: $73.900 — $78.500 COP.
 
 
 **Pregunta de seguimiento:** ¿Por cuál línea quiere que empecemos?
@@ -202,15 +202,15 @@ La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — t
 
 | Producto | Precio COP | Presentación | Beneficio |
 |----------|------------|--------------|-----------|
-| **Ganocafé 3 en 1** | $110,900 | 20 sobres | Energía sin nerviosismo |
-| **Ganocafé Clásico** | $110,900 | 30 sobres | Claridad mental |
-| **Ganorico Latte Rico** | $119,900 | 20 sobres | Café gourmet funcional |
-| **Ganorico Mocha Rico** | $119,900 | 20 sobres | Satisface sin culpas |
-| **Ganorico Shoko Rico** | $124,900 | 20 sobres | Toda la familia |
-| **Gano C'Real Spirulina** | $119,900 | 15 sobres | Desayuno inteligente |
-| **Oleaf Gano Rooibos** | $119,900 | 20 sobres | Sin cafeína, antioxidantes |
-| **Gano Schokolade** | $124,900 | 20 sobres | Chocolate premium |
-| **Reskine Colágeno** | $216,900 | 10 sachets | Piel, cabello, articulaciones |
+| **Ganocafé 3 en 1** | $110.900 | 20 sobres | Energía sin nerviosismo |
+| **Ganocafé Clásico** | $110.900 | 30 sobres | Claridad mental |
+| **Ganorico Latte Rico** | $119.900 | 20 sobres | Café gourmet funcional |
+| **Ganorico Mocha Rico** | $119.900 | 20 sobres | Satisface sin culpas |
+| **Ganorico Shoko Rico** | $124.900 | 20 sobres | Toda la familia |
+| **Gano C'Real Spirulina** | $119.900 | 15 sobres | Desayuno inteligente |
+| **Oleaf Gano Rooibos** | $119.900 | 20 sobres | Sin cafeína, antioxidantes |
+| **Gano Schokolade** | $124.900 | 20 sobres | Chocolate premium |
+| **Reskine Colágeno** | $216.900 | 10 sachets | Piel, cabello, articulaciones |
 
 </verbatim_lock>
 
@@ -262,7 +262,7 @@ El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el
 - Antioxidantes de dos fuentes: Rooibos + Ganoderma lucidum
 - Sabor suave y natural — fácil de integrar en cualquier rutina
 
-**Presentación:** 20 sobres · Precio: $119,900 COP
+**Presentación:** 20 sobres · Precio: $119.900 COP
 
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
@@ -279,7 +279,7 @@ El **Gano C'Real Spirulina** (pronunciado "Gano-Cereal") es una bebida instantá
 **¿Para quién es ideal?**
 Personas activas, deportistas o quienes quieren un desayuno funcional sin recurrir a cápsulas o suplementos adicionales.
 
-**Presentación:** 15 sobres · Precio: $119,900 COP
+**Presentación:** 15 sobres · Precio: $119.900 COP
 
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
@@ -295,7 +295,7 @@ Tampoco es colágeno con saborizante. Lleva colágeno de pescado y los betagluca
 
 Es la única forma de tomar colágeno en la que uno espera con ganas el momento de tomarlo.
 
-**Presentación:** 10 sobres · **Precio: $216,900 COP**
+**Presentación:** 10 sobres · **Precio: $216.900 COP**
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
 ---
@@ -395,10 +395,10 @@ El sistema **LUVOCO** es un ecosistema cerrado: máquina italiana + cápsulas ex
 
 | Producto | Precio COP | Descripción |
 |----------|------------|-------------|
-| **Máquina LUVOCO** | $1,026,000 | Diseño italiano, 15 bares, garantía 12 meses |
-| **Cápsulas Suave x15** | $110,900 | Intensidad 4/10 |
-| **Cápsulas Medio x15** | $110,900 | Intensidad 6/10 |
-| **Cápsulas Fuerte x15** | $110,900 | Intensidad 8/10 |
+| **Máquina LUVOCO** | $1.026.000 | Diseño italiano, 15 bares, garantía 12 meses |
+| **Cápsulas Suave x15** | $110.900 | Intensidad 4/10 |
+| **Cápsulas Medio x15** | $110.900 | Intensidad 6/10 |
+| **Cápsulas Fuerte x15** | $110.900 | Intensidad 8/10 |
 
 Las cápsulas son exclusivas para la máquina LUVOCO — no compatibles con Nespresso.
 </verbatim_lock>
@@ -460,9 +460,9 @@ La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrado
 
 | Producto | Precio COP | Duración | Enfoque |
 |----------|------------|----------|---------|
-| **Cápsulas Ganoderma** | $272,500 | 90 caps (3 meses) | Apoyo al sistema inmune |
-| **Cápsulas Excellium** | $272,500 | 90 caps (3 meses) | Claridad mental, enfoque |
-| **Cápsulas Cordygold** | $336,900 | 90 caps (3 meses) | Rendimiento físico |
+| **Cápsulas Ganoderma** | $272.500 | 90 caps (3 meses) | Apoyo al sistema inmune |
+| **Cápsulas Excellium** | $272.500 | 90 caps (3 meses) | Claridad mental, enfoque |
+| **Cápsulas Cordygold** | $336.900 | 90 caps (3 meses) | Rendimiento físico |
 
 Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea.
 </verbatim_lock>
@@ -482,12 +482,12 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 
 | Producto | Precio COP | Presentación | Beneficio |
 |----------|------------|--------------|-----------|
-| **Gano Fresh** (pasta dental) | $73,900 | 150g | Sin flúor, encías saludables |
-| **Jabón Gano** | $73,900 | 2 barras 100g | Hidratación, anti-inflamatorio |
-| **Jabón Transparente** | $78,500 | 1 barra 100g | Pieles sensibles |
-| **Shampoo Piel&Brillo** | $73,900 | 250ml | Reduce caída |
-| **Acondicionador Piel&Brillo** | $73,900 | 250ml | Hidratación profunda |
-| **Exfoliante Piel&Brillo** | $73,900 | 200g | Renovación celular |
+| **Gano Fresh** (pasta dental) | $73.900 | 150g | Sin flúor, encías saludables |
+| **Jabón Gano** | $73.900 | 2 barras 100g | Hidratación, anti-inflamatorio |
+| **Jabón Transparente** | $78.500 | 1 barra 100g | Pieles sensibles |
+| **Shampoo Piel&Brillo** | $73.900 | 250ml | Reduce caída |
+| **Acondicionador Piel&Brillo** | $73.900 | 250ml | Hidratación profunda |
+| **Exfoliante Piel&Brillo** | $73.900 | 200g | Renovación celular |
 </verbatim_lock>
 
 
@@ -717,11 +717,11 @@ Claro, y es lo más común: la mayoría arma su propia combinación con lo que y
 **Rangos de precios:**
 | Categoría | Rango COP |
 |-----------|-----------|
-| Cuidado Personal | $73,900 - $78,500 |
-| Bebidas Funcionales | $110,900 - $124,900 |
-| Colágeno Premium | $216,900 |
-| Suplementos Avanzados | $272,500 - $336,900 |
-| Máquina LUVOCO | $1,026,000 |
+| Cuidado Personal | $73.900 - $78.500 |
+| Bebidas Funcionales | $110.900 - $124.900 |
+| Colágeno Premium | $216.900 |
+| Suplementos Avanzados | $272.500 - $336.900 |
+| Máquina LUVOCO | $1.026.000 |
 
 **[Referencia interna — este bloque se sirve pegado a FAQ_04, así que se escribe con el mismo criterio]:**
 - 22 productos, con extracto propio

@@ -5071,6 +5071,27 @@ ${summaryParts.join('\n')}
       }
     }
 
+    // ── Negación pelada: no se busca NADA (12 sep 2026) ───────────────────────
+    // La contraparte del «sí», y le faltaba. MFernanda dijo «No» a «¿le gustaría
+    // saber cómo pedirlo?» y recibió `WHY_01` —qué es CreaTuActivo, con candado y
+    // literal—: un cambio de tema al discurso del negocio, a alguien que acababa
+    // de rechazar algo.
+    //
+    // El mecanismo es que el sistema ENTENDIÓ el rechazo y tiró el dato: el CQR
+    // registró «el usuario rechazó la oferta de información sobre cómo pedir» y
+    // su salvaguarda descartó la reescritura, así que al buscador le llegó la
+    // palabra «No» sola. «No» no ancla nada, y en ese vacío gana cualquier
+    // candado.
+    //
+    // ⚠️ Y anclarlo con la oferta —lo que se hace con el «sí»— sería PEOR: traería
+    // el fragmento de lo que la persona acaba de rechazar, y el modelo se lo
+    // explicaría igual. Un «no» no pide material nuevo: pide que se le reconozca
+    // y se le ofrezca otra cosa. Eso el modelo lo hace con el hilo, que ya trae
+    // lo que se habló. Por eso aquí no se busca nada.
+    const _negacionPelada = /^(no|nop|nel|no gracias|ahora no|todav[ií]a no|a[uú]n no|por ahora no|despu[eé]s|luego|m[aá]s tarde|ninguno|ninguna)(?![a-záéíóúñ])[,.!… ]*$/i
+      .test((latestUserMessage || '').trim());
+    if (_negacionPelada) console.log('🚫 [Negación pelada] No se busca: un «no» no pide material nuevo');
+
     // Si el mensaje ya matchea un patrón del clasificador, se basta solo — el
     // CQR no tiene nada que reconstruir y sí mucho que dañar: a "hay formación?"
     // (2 palabras, pasaba el gate) Haiku le inyectó el contexto de la radicación
@@ -5087,7 +5108,7 @@ ${summaryParts.join('\n')}
     // negocio", que además es léxico de negocio en modo consultor.
     const _nombraProducto = detectarProducto(latestUserMessage) !== null;
 
-    if (!_aceptacionPelada && !_yaClasificaPorPatron && !_nombraProducto && canalDictado && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+    if (!_aceptacionPelada && !_negacionPelada && !_yaClasificaPorPatron && !_nombraProducto && canalDictado && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       const historialPrevio = (Array.isArray(messages) ? messages : [])
         .slice(0, -1)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -5099,7 +5120,7 @@ ${summaryParts.join('\n')}
       consultaRecuperacion = cqr.consulta;
     }
 
-    if (!isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+    if (!isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly && !_negacionPelada) {
       if (tenantId === 'ecommerce') {
         // ── TENANT ECOMMERCE (ganocafe.online) ──────────────────────────────────
         // Siempre usar arsenal_ganocafe — ignora clasificación de creatuactivo

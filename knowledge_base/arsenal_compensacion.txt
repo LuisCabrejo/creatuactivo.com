@@ -41,17 +41,17 @@ Frases canónicas válidas para Respaldo Operativo Gano Excel:
 
 **[Concepto Nuclear]:** Estandar Financiero Global. El activo se consolida en divisa fuerte (USD) y liquida dividendos en moneda local (COP) bajo tasa blindada.
 
-Gano Excel está en más de 60 países, así que el plan se valora en dólares para que sea el mismo en todos. Y para que el dólar no le mueva el piso, la empresa fija su propia tasa inamovible de $4,500 COP por dolar**.
+Gano Excel está en más de 60 países, así que el plan se valora en dólares para que sea el mismo en todos. Y para que el dólar no le mueva el piso, la empresa fija su propia tasa inamovible de $4.500 COP por dolar**.
 
 **Tabla de Valoracion:**
 | Nivel | Valor Global (USD) | Liquidacion Local (COP) |
 |-------|-------------------|-------------------------|
-| ESP-3 | $1,000 USD | ~$4,500,000 COP |
-| ESP-2 | $500 USD | ~$2,250,000 COP |
-| ESP-1 | $200 USD | ~$900,000 COP |
-| Gen 1 Bono | $150 USD | ~$675,000 COP |
-| Gen 2-4 Bono | $20 USD | ~$90,000 COP |
-| Gen 5 Bono | $40 USD | ~$180,000 COP |
+| ESP-3 | $1,000 USD | ~$4.500.000 COP |
+| ESP-2 | $500 USD | ~$2.250.000 COP |
+| ESP-1 | $200 USD | ~$900.000 COP |
+| Gen 1 Bono | $150 USD | ~$675.000 COP |
+| Gen 2-4 Bono | $20 USD | ~$90.000 COP |
+| Gen 5 Bono | $40 USD | ~$180.000 COP |
 
 Su sistema se valora en dólares y sus comisiones le llegan en pesos, a esa tasa fija. La conversión la asume Gano Excel.
 
@@ -428,42 +428,42 @@ En corto: los PV son suyos y lo mantienen activo; el CV es el de su sistema y es
 **Tabla completa PV, CV y Precio (vigente 2026):**
 | Cod. | Producto | PV | CV | Precio COP |
 |------|----------|-----|-----|------------|
-| 501 | Ganocafé 3 en 1 | 15 | 14 | $110,900 |
-| 505 | Ganocafé Clásico | 15 | 14 | $110,900 |
-| 502 | Gano Schokolade | 17 | 15.6 | $124,900 |
-| 507 | Gano C'Real Spirulina | 17 | 15 | $119,900 |
-| 504 | Oleaf Gano Rooibos | 17 | 15 | $119,900 |
-| 503 | Ganorico Mocha Rico | 17 | 15 | $119,900 |
-| 509 | Ganorico Latte Rico | 17 | 15 | $119,900 |
-| 512 | Ganorico Shoko Rico | 17 | 15.6 | $124,900 |
-| 530 | Reskine Colágeno | 31 | 27.6 | $216,900 |
-| 801 | Ganoderma Cápsulas | 41 | 34.5 | $272,500 |
-| 803 | Excellium Cápsulas | 41 | 34.5 | $272,500 |
-| 805 | Cordygold Cápsulas | 49 | 43 | $336,900 |
-| 816 | Cápsulas Luvoco Suave | 15 | 14 | $110,900 |
-| 817 | Cápsulas Luvoco Medio | 15 | 14 | $110,900 |
-| 818 | Cápsulas Luvoco Fuerte | 15 | 14 | $110,900 |
-| 997 | Máquina LUVOCO | 0 | 0 | $1,026,000 |
-| 301 | Jabón Gano | 10.4 | 8.9 | $73,900 |
-| 302 | Gano Fresh (pasta dental) | 11 | 9.5 | $73,900 |
-| 303 | Jabón Transparente | 12 | 10 | $78,500 |
-| 305 | Shampoo Piel&Brillo | 11 | 9 | $73,900 |
-| 306 | Acondicionador Piel&Brillo | 11 | 9 | $73,900 |
-| 307 | Exfoliante Piel&Brillo | 11 | 9 | $73,900 |
+| 501 | Ganocafé 3 en 1 | 15 | 14 | $110.900 |
+| 505 | Ganocafé Clásico | 15 | 14 | $110.900 |
+| 502 | Gano Schokolade | 17 | 15.6 | $124.900 |
+| 507 | Gano C'Real Spirulina | 17 | 15 | $119.900 |
+| 504 | Oleaf Gano Rooibos | 17 | 15 | $119.900 |
+| 503 | Ganorico Mocha Rico | 17 | 15 | $119.900 |
+| 509 | Ganorico Latte Rico | 17 | 15 | $119.900 |
+| 512 | Ganorico Shoko Rico | 17 | 15.6 | $124.900 |
+| 530 | Reskine Colágeno | 31 | 27.6 | $216.900 |
+| 801 | Ganoderma Cápsulas | 41 | 34.5 | $272.500 |
+| 803 | Excellium Cápsulas | 41 | 34.5 | $272.500 |
+| 805 | Cordygold Cápsulas | 49 | 43 | $336.900 |
+| 816 | Cápsulas Luvoco Suave | 15 | 14 | $110.900 |
+| 817 | Cápsulas Luvoco Medio | 15 | 14 | $110.900 |
+| 818 | Cápsulas Luvoco Fuerte | 15 | 14 | $110.900 |
+| 997 | Máquina LUVOCO | 0 | 0 | $1.026.000 |
+| 301 | Jabón Gano | 10.4 | 8.9 | $73.900 |
+| 302 | Gano Fresh (pasta dental) | 11 | 9.5 | $73.900 |
+| 303 | Jabón Transparente | 12 | 10 | $78.500 |
+| 305 | Shampoo Piel&Brillo | 11 | 9 | $73.900 |
+| 306 | Acondicionador Piel&Brillo | 11 | 9 | $73.900 |
+| 307 | Exfoliante Piel&Brillo | 11 | 9 | $73.900 |
 
 **Ejemplo para llegar a 50 PV (activación minima):**
 | Productos | PV | Costo aprox. |
 |-----------|-----|--------------|
-| 3x Ganocafé 3 en 1 | 45 PV | $332,700 |
-| 1x Jabón Gano | 10.4 PV | $73,900 |
-| **Total** | **55.4 PV** ✓ | ~$406,600 |
+| 3x Ganocafé 3 en 1 | 45 PV | $332.700 |
+| 1x Jabón Gano | 10.4 PV | $73.900 |
+| **Total** | **55.4 PV** ✓ | ~$406.600 |
 
 **Ejemplo para llegar a 100 PV (Premium Activo — Gen5 doble):**
 | Productos | PV | Costo aprox. |
 |-----------|-----|--------------|
-| 6x Ganocafé 3 en 1 | 90 PV | $665,400 |
-| 1x Gano Schokolade | 17 PV | $124,900 |
-| **Total** | **107 PV** ✓ | ~$790,300 |
+| 6x Ganocafé 3 en 1 | 90 PV | $665.400 |
+| 1x Gano Schokolade | 17 PV | $124.900 |
+| **Total** | **107 PV** ✓ | ~$790.300 |
 
 La máquina LUVOCO no suma PV ni CV: los puntos están en las cápsulas, 15 PV cada caja. Con siete cajas llega a 105 PV.
 
@@ -819,10 +819,10 @@ Esas cifras son al mes. Lo que pasa cada semana es el pago: Gano Excel liquida l
 **Comparativa de Paquetes:**
 | Paquete | Inversión (USD) | Inversión (COP) | Productos | % Binario | GEN5? |
 |---------|-----------------|-----------------|-----------|-----------|-------|
-| Kit Inicio | ~$100 USD | ~$443,600 COP | Variable | 10% | NO |
-| ESP-1 | $200 USD | $900,000 COP | 7 | 15% (2 meses) | Sí |
-| ESP-2 | $500 USD | $2,250,000 COP | 18 | 16% (4 meses) | Sí |
-| ESP-3 | $1,000 USD | $4,500,000 COP | 35 | 17% (6 meses) | Sí |
+| Kit Inicio | ~$100 USD | ~$443.600 COP | Variable | 10% | NO |
+| ESP-1 | $200 USD | $900.000 COP | 7 | 15% (2 meses) | Sí |
+| ESP-2 | $500 USD | $2.250.000 COP | 18 | 16% (4 meses) | Sí |
+| ESP-3 | $1,000 USD | $4.500.000 COP | 35 | 17% (6 meses) | Sí |
 
 **Bono GEN5 Gen 1 (socio directo):**
 | Su Paquete | Nuevo ESP-3 | Nuevo ESP-2 | Nuevo ESP-1 |
@@ -842,7 +842,7 @@ El Kit abre el sistema de distribución con la Regalía de Equipo al 10%; el Bon
 
 **[Concepto Nuclear]:** 7 productos para conocer el sistema. Ideal para arrancar.
 
-**Contenido ESP-1 ($200 USD / $900,000 COP):**
+**Contenido ESP-1 ($200 USD / $900.000 COP):**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 1 |
@@ -865,7 +865,7 @@ El ESP-1 abre el sistema de distribución con acceso al Bono GEN5, con el techo 
 
 **[Concepto Nuclear]:** 18 productos. Balance entre inversion y beneficio.
 
-**Contenido ESP-2 ($500 USD / $2,250,000 COP):**
+**Contenido ESP-2 ($500 USD / $2.250.000 COP):**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 3 |
@@ -893,7 +893,7 @@ El ESP-2 sube el techo del GEN5 respecto al ESP-1 y llega con más inventario.
 
 **[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
 
-**Contenido ESP-3 ($1,000 USD / $4,500,000 COP) — vigente desde 25 marzo 2026:**
+**Contenido ESP-3 ($1,000 USD / $4.500.000 COP) — vigente desde 25 marzo 2026:**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 9 |
@@ -930,7 +930,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 
 **[Concepto Nuclear]:** Al mejorar de nivel solo paga la diferencia de inversion y recibe los productos que completan el paquete superior. No compra el paquete de nuevo — recibe el faltante.
 
-**Upgrade ESP-1 → ESP-2 (11 productos, diferencia $300 USD / $1,350,000 COP):**
+**Upgrade ESP-1 → ESP-2 (11 productos, diferencia $300 USD / $1.350.000 COP):**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 2 |
@@ -944,7 +944,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 | Acondicionador Piel&Brillo | 1 |
 | **Total** | **11** |
 
-**Upgrade ESP-1 → ESP-3 (28 productos, diferencia $800 USD / $3,600,000 COP):**
+**Upgrade ESP-1 → ESP-3 (28 productos, diferencia $800 USD / $3.600.000 COP):**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 8 |
@@ -961,7 +961,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 | Acondicionador Piel&Brillo | 1 |
 | **Total** | **28** |
 
-**Upgrade ESP-2 → ESP-3 (17 productos, diferencia $500 USD / $2,250,000 COP):**
+**Upgrade ESP-2 → ESP-3 (17 productos, diferencia $500 USD / $2.250.000 COP):**
 | Producto | Cantidad |
 |----------|----------|
 | Ganocafé 3 en 1 | 6 |
@@ -990,8 +990,8 @@ El Auto Envío es un programa de lealtad.
 **Beneficio por Nivel:**
 | Su PV Mensual | Producto Gratis (valor) |
 |---------------|------------------------|
-| 50-99 PV | $73,000-$78,500 COP |
-| 100+ PV | $110,900-$124,900 COP |
+| 50-99 PV | $73.000-$78.500 COP |
+| 100+ PV | $110.900-$124.900 COP |
 
 **Requisitos:**
 | Requisito | Detalle |
@@ -1015,9 +1015,9 @@ Si ya hace su recompra de 50 PV al mes, el Auto Envío le suma un producto sin c
 **Ejemplo con Ganocafé 3 en 1:**
 | Concepto | Valor |
 |----------|-------|
-| Su costo | $110,900 |
-| Precio público | $140,000 |
-| Su ganancia | $29,100 |
+| Su costo | $110.900 |
+| Precio público | $140.000 |
+| Su ganancia | $29.100 |
 
 En la práctica casi nadie sale a vender: lo que ocurre es que hay conocidos que consumen los productos de forma habitual y se registran como Clientes VIP para comprarlos a su precio. Eso no es venta al detal — es consumo que pasa por su sistema.
 

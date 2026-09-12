@@ -101,8 +101,8 @@ Eso que le nombraron como ingreso inmediato es el **Bono GEN5**: una comisión p
 
 Con el nivel ESP-3 (Visionario), las cuentas son así:
 
-- Por cada paquete que se compra en su primera generación, Gano Excel le paga **$150 USD / ~$675,000 COP a tasa Gano Excel**.
-- Por cada paquete que se compra en las generaciones 2 a 5 de su sistema, usted recibe **$20 USD / ~$90,000 COP por cada uno**.
+- Por cada paquete que se compra en su primera generación, Gano Excel le paga **$150 USD / ~$675.000 COP a tasa Gano Excel**.
+- Por cada paquete que se compra en las generaciones 2 a 5 de su sistema, usted recibe **$20 USD / ~$90.000 COP por cada uno**.
 
 **Pregunta de cierre:** ¿Quiere armar su propio escenario en el simulador?
 

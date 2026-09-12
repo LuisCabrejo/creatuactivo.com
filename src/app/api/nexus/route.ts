@@ -2980,7 +2980,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // pregunta funcionaba en una categoría y en la otra no. Es la regla de los
     // regex de cara al prospecto: aquí no era ortografía, era un artículo.
     // El plural y `!nombraUnProducto` son los que mantienen esto COLECTIVO.
-    const esBebidaCategoria  = /precio.*bebida|bebidas.*precio|precio.*caf[eé]|cuánto.*caf[eé]|cuánto.*bebida|lista.*bebida|todos.*caf[eé]|(dem[aá]s|otras|resto|cu[aá]les son las).{0,18}bebidas|(?:cu[aá]les|qu[eé]|todas|lista de|h[aá]bl[aeo]me|mu[eé]str[ea]me|cu[eé]nt[aeo]me)\b[^.?!¿]{0,28}\bbebidas\b/i.test(msgL) && !/específico|rooibos|latte|mocha|shoko|spirulina|cereal|colágeno|reskine|schokolade|clásico|classic/i.test(msgL);
+    const esBebidaCategoria  = /precio.*bebida|bebidas.*precio|precio.*caf[eé]|cuánto.*caf[eé]|cuánto.*bebida|lista.*bebida|todos.*caf[eé]|(dem[aá]s|otras|resto|cu[aá]les son las).{0,18}bebidas|(?:cu[aá]les|qu[eé]|todas|lista de|h[aá]bl[aeo]me|mu[eé]str[ea]me|cu[eé]nt[aeo]me)(?![a-záéíóúñ])[^.?!¿]{0,28}bebidas(?![a-záéíóúñ])/i.test(msgL) && !/específico|rooibos|latte|mocha|shoko|spirulina|cereal|colágeno|reskine|schokolade|clásico|classic/i.test(msgL);
     const esSuplementoCat    = /suplemento|cápsula|capsula|ganoderma caps|excellium|cordygold/i.test(msgL);
     const esLuvocoCat        = /luvoco|m[aá]quina.*caf[eé]|caf[eé].*m[aá]quina/i.test(msgL);
     const esCuidadoPersonal  = /cuidado.*personal|jabón|jabon|shampoo|acondicionador|exfoliante|pasta.*diente|toothpaste|gano\s*soap/i.test(msgL);

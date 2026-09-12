@@ -42,6 +42,14 @@ const CASOS: [string, string][] = [
   ['¿cuáles son los suplementos?',          'catalogo_productos_SUP_01'],
   ['qué suplementos tienen',                'catalogo_productos_SUP_01'],
   ['¿qué productos de cuidado personal tienen?', 'catalogo_productos_PERS_01'],
+  // ⚠️ Como la escribe un pulgar. Estas puertas viven INLINE en route.ts, así que
+  // `prueba-typos.mts` no las ve —solo importa detectores exportados— y esta es la
+  // única red que las cubre. «qué bebidas tienen» falló en la primera medición por
+  // el `\b` tras vocal acentuada: en JS no cierra después de «qué», la trampa que
+  // ya estaba documentada. Se arregló con `(?![a-záéíóúñ])`.
+  ['que bebidas tienen',                    'catalogo_productos_BEB_01'],
+  ['muéstreme las bebidas',                 'catalogo_productos_BEB_01'],
+  ['cuales son sus bebidas',                'catalogo_productos_BEB_01'],
 ];
 // Y la contraparte: quien SÍ nombra un producto recibe su ficha, no la tabla.
 const FICHAS: [string, RegExp][] = [

@@ -267,5 +267,7 @@
         "tratamiento"
       ]
     }
-  ]
+  ],
+  "$comment_activo": "«Activo» NO es un cuarto sinónimo del sistema: es lo que el sistema produce («su sistema de distribución le permite construir un activo que produce sin que usted tenga que estar encima»). Va siempre pegado a su causa (sus clientes siguen pidiendo) y nunca como adjetivo de una persona (en esta industria «activo» = al día con la compra mensual; del código sí: «su código está activo»).",
+  "$comment_verbos": "Director, 10 sep 2026: el problema no es la palabra sino el verbo que se le cuelga. «El sistema empareja los puntos» se queda (un software empareja). Lo que solo hace una persona —consumir, comprar, pedir— cambia de SUJETO, no de verbo: «mientras sus distribuidores y sus clientes sigan comprando». Regla de decisión: propiedad → empresa de distribución · funciona sin él → maquinaria de distribución · lo que le queda → activo con su causa · todo lo demás → sistema de distribución."
 }

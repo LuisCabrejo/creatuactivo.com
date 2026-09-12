@@ -20,6 +20,29 @@
  *    forma aprobada es «no depende de que usted esté encima», y no es intercambiable.
  * ⚠️ El <title> NO sincroniza, a propósito: ver la nota junto a `metadata`.
  *
+ * Homepage v16.1 — «El activo es lo que el sistema produce» (12 sep 2026) · aprobada por el Director
+ *
+ * Dos palabras, dos lugares, y ninguna de adorno. La página construía el argumento
+ * entero del activo —«a su nombre», «sigue produciendo», «puede dejarle a los
+ * suyos»— y no lo nombraba ni una vez en 974 líneas: el sitio se llama
+ * CreaTuActivo y nunca cerraba su propio nombre.
+ *
+ * · El CIERRE nombra las dos cosas distintas (Director, 12 sep 2026): el sistema
+ *   es lo que usted monta, el activo es lo que le queda. Usarlas como sinónimos
+ *   vaciaría la frase — diría que su sistema le permite construir un sistema.
+ *   ⚠️ Y el activo va PEGADO a su causa —«porque sus clientes siguen pidiendo»—:
+ *   «sigue produciendo aunque usted no esté presente», dicho solo, es una
+ *   afirmación sin mecanismo, que es la forma de una promesa.
+ * · «MAQUINARIA de distribución» entra en «Por qué ahora sí», justo después de
+ *   nombrar las dos piezas que hacen el trabajo pesado: ahí llega con su contexto
+ *   puesto y no hay que explicarla, igual que «cadena hotelera». Rescata además
+ *   la línea más floja del bloque y engancha con el hero, que promete una
+ *   infraestructura «que cualquiera puede poner a andar».
+ *
+ * ⛔ El H1 y el título para buscadores NO se tocaron, a propósito: son el lugar
+ * más indexado del sitio y ahí manda el canónico —sistema de distribución—, y si
+ * «activo» aparece también arriba pierde el efecto de remate.
+ *
  * Homepage v16 — «Desde adentro» (10 sep 2026) · aprobada por el Director desde /prueba
  *
  * Cambia el HERO. Motivo (Director): el hero hablaba desde AFUERA —le decía al lector
@@ -598,8 +621,9 @@ export default function HomePage() {
         </Body>
         <Body mt>
           Eso fue lo que cambió. Hoy el trabajo pesado lo hacen dos: una fábrica con
-          30 años, y una inteligencia artificial que no duerme. Su sistema se maneja desde
-          una aplicación, y buena parte desde WhatsApp.
+          30 años, y una inteligencia artificial que no duerme. Con esas dos piezas su
+          maquinaria de distribución queda andando, y usted la maneja desde una aplicación,
+          buena parte desde WhatsApp.
         </Body>
 
         <div
@@ -898,7 +922,7 @@ export default function HomePage() {
             vez que se vende.
           </p>
 
-          <H2>Al final, el sistema es suyo.</H2>
+          <H2>Al final, el activo es suyo.</H2>
           <p
             style={{
               fontSize: '1.05rem',
@@ -908,9 +932,10 @@ export default function HomePage() {
               margin: '0 auto 2.5rem',
             }}
           >
-            Un negocio a su nombre, que sigue produciendo aunque usted no esté presente, y
-            que puede dejarle a los suyos. Imagínese un viernes en que entra algo que no le
-            debe nada a nadie. Empieza con una conversación — y esa conversación la atiende
+            Su sistema de distribución le deja un activo a su nombre: sigue produciendo
+            aunque usted no esté presente, porque sus clientes siguen pidiendo — y puede
+            dejárselo a los suyos. Imagínese un viernes en que entra algo que no le debe
+            nada a nadie. Empieza con una conversación — y esa conversación la atiende
             Queswa ahora mismo.
           </p>
           <QueswaCTAButton className="cta-base cta-primary">Hablar con Queswa</QueswaCTAButton>

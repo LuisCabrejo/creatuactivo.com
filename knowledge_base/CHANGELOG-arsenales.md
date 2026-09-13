@@ -368,6 +368,14 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.36 — WHY_01 🔒 se escribe como lo escribiría Vélez (13 sep 2026)
+
+La respuesta a *«¿qué es CreaTuActivo?»* tenía cuatro párrafos: la tesis con *«cobra cada vez que mueve producto»* en la primera línea, el credo, *«no es culpa de nadie… saldar esa deuda»*, y los tres elementos ensamblados completos, que `WHY_02` vuelve a dar enteros en el turno siguiente. El Director la retiró por **carga cognitiva**, con un paradigma que aplica a todo el copy: *«si yo quiero que la gente vea que es sencillo, los primeros que tienen que hacerse así las cosas somos nosotros, eso incluye cómo lo decimos»*.
+
+El ejercicio fue escribirla como la escribiría David Vélez —frases de una idea, el lector como sujeto, sustantivos que se ven, cero adjetivos de credibilidad—, y es la misma forma que el mismo día tomaron el **perfil del WABA** (de 512 a 382 caracteres; ver `docs/handoff/queswa/WABA_REFERENCIA.md`) y la **apertura del canal** (`wa-apertura.ts`). Queda: la palabra llana sola en su línea · el credo · *«Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace. Yo converso con quien llega. Usted recibe. Todo desde el celular.»* · Gano Excel como estatus en una línea.
+
+**Se cayeron a propósito:** el cobro en la primera línea (el origen del dinero, la silueta que el 5 sep costó 2 de 4 personas), la deuda (sobrevive en la Home), los tres elementos (son de `WHY_02`) y *«con Ganoderma»*. La categoría **sí** se queda aquí, porque quien pregunta *qué es exactamente* mide legitimidad; en la apertura del canal, en cambio, salió: estaba para que *«le paga cada vez que hay consumo»* no dejara abierto *consumo de qué*, y esa viñeta se retiró el 10 sep. ⚠️ Las dos acciones ahora se dicen antes de `EAM_01`; el hueco sin responder se muda a *de dónde sale la plata*. Índice y título sin cambios; recuperación medida antes y después (ver la sesión del 13 sep). Pendiente declarado: la Home tiene la misma silueta (*«una infraestructura»*, *«saldarla»*, el cobro) y su descripción OG también.
+
 ### v6.33 — WHY_02 🔒 le pega la cualidad al sustantivo (10 sep 2026)
 
 Lo pidió el Director con su propio recuerdo, y es el hallazgo de la sesión: *«me voy mentalmente a hace doce años; si me hubieran dicho que aquí yo iba a ser dueño de mi propio sistema de distribución de productos de bienestar, yo habría pensado: para distribuir productos sigo con lo mío. Lo ganador estuvo cuando entendí que aquí podía quedarme un sistema que funcionaba sin que yo tuviera que estar encima»*.

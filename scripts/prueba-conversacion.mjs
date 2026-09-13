@@ -40,17 +40,19 @@ const DETALLE = process.argv.includes('--detalle');
 // La persona: empleada bancaria en Cali, escribe con el pulgar, escéptica.
 const FP = `wa_57310${String(Date.now()).slice(-7)}`;
 
-const APERTURA = `Hola. Un gusto saludarle. 🤝
+const APERTURA = `Hola. Un gusto saludarle.
 
-Soy Queswa, la inteligencia artificial que asiste a Luis Cabrejo.
+Soy Queswa, la inteligencia artificial que asiste a Luis Cabrejo. Atiendo a cientos de personas, las 24 horas.
 
-Le explico cómo se construye un *canal de distribución* en paralelo a su actividad, con el potencial de igualar o superar sus *ingresos actuales*:
+En CreaTuActivo creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.
 
-⚙️ Se arma una sola vez.
-🔑 Usted es el dueño.
-🔄 Le paga cada vez que hay consumo.
+Por eso hicimos sencillo lo que antes era complicado: tener su propio *sistema de distribución*.
 
-¿Por dónde prefiere empezar?`;
+• Usted comparte un enlace.
+• Yo converso con quien llega.
+• Usted recibe.
+
+Todo desde el celular. Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?`;
 
 /**
  * Guiones. `via` fuerza una capa; sin ella decide el arnés como el webhook:

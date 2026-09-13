@@ -384,89 +384,61 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
     //    sería una promesa.
     `En CreaTuActivo creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.`,
     '',
-    // PROMETE UN CANAL, NO UN INGRESO (Director, 7 ago 2026). "Construir un
-    // ingreso" describe un resultado sin causa —dinero que aparece—, que es la
-    // forma exacta que tiene una estafa en la cabeza de cualquiera. Nombrar la
-    // máquina hace que el ingreso deje de ser la promesa y pase a ser la
-    // consecuencia: no hay que defenderlo, se explica solo. Cuesta temperatura
-    // (quien buscaba plata rápida no toca ningún botón) y eso es deseable.
-    //
-    // CASCADA VERTICAL (Director + investigación, 8 ago 2026). Los tres golpes
-    // iban corridos en el párrafo; ahora se apilan, uno por línea. El texto en
-    // WhatsApp es interfaz, no literatura: el bloque denso produce ceguera por
-    // formato, y la pila obliga a detener el scroll y leer la ecuación paso a
-    // paso. Cada línea sigue respondiendo una pregunta sin nombrarla: cuánto
-    // trabajo · de quién es · de dónde sale la plata. La recompensa va última.
-    //
-    // • ⚠️ LA ASPIRACIÓN COMPARATIVA («con el potencial de igualar o superar
-    //   sus ingresos actuales») SE RETIRÓ EL 1 SEP 2026 POR DECISIÓN DEL
-    //   DIRECTOR, para el ejercicio de mercado con la proyección de los 12
-    //   Niveles. La historia completa importa: el 17 ago un handoff externo la
-    //   marcó como promesa y el Director la RATIFICÓ (es aspiración sin cifra
-    //   ni plazo — decirlo no promete, ubica); tres agentes la "corrigieron"
-    //   por reglas viejas y se restauró las tres veces. Esta vez la quita ÉL,
-    //   que es distinto: si vuelve, vuelve por su palabra — ni se restaura por
-    //   la ratificación del 17 ago, ni se da por muerta por esta retirada.
-    // • VIÑETAS PLANAS, SIN EMOJIS (Director, 1 sep 2026). Los pictogramas
-    //   ⚙️🔑🔄 y el 🤝 del saludo se retiraron tras la prueba real: leían como
-    //   adorno, y la sobriedad de la viñeta es la que corresponde al registro.
-    //   La apertura queda sin un solo emoji — no los reintroduzca.
-    // • Negritas solo en los dos anclajes (*sistema de distribución* · *ingresos
-    //   actuales*) — asterisco simple, que es la negrita nativa de WhatsApp.
-    // CATEGORÍA EN LA APERTURA (Director, 25 ago 2026). El saludo no nombraba
-    // ningún producto, así que «le paga cada vez que hay consumo» dejaba sin
-    // responder CONSUMO DE QUÉ, y el que llega frío lo rellena con cualquier
-    // cosa. Se nombra la CATEGORÍA, no el producto: «bienestar» ubica la
-    // conversación en una industria antes de que el lector la ubique él en
-    // otra, y evita que la primera impresión sea «esto es café» — que era el
-    // temor real, y que la auditoría encontró concentrado en FREQ_16.
-    // ⚠️ Va AQUÍ y no en la cascada: las tres líneas de abajo tienen cuatro y
-    //    cinco palabras, y meterle la categoría a la del ciclo la lleva a nueve
-    //    — la pila deja de leerse de un golpe, que es para lo que se diseñó.
-    // «premium» (Director, 31 ago 2026): «productos de bienestar» a secas
-    // sonaba a catálogo corriente; el estante es premium y se dice.
-    'Por eso le explico cómo se construye un *sistema de distribución de productos premium de bienestar*, en paralelo a su actividad y que no depende de que usted esté encima:',
+    // LA SENCILLEZ SE MODELA EN EL TEXTO (Director, 13 sep 2026). Lo que seguía
+    // al credo era una frase de treinta palabras con tres calificativos
+    // («premium de bienestar» · «en paralelo a su actividad» · «no depende de
+    // que usted esté encima») y dos viñetas. Un texto que promete sencillez con
+    // una frase de cinco cláusulas se desmiente solo: «si queremos que la gente
+    // vea que es sencillo, los primeros que tienen que hacer las cosas sencillas
+    // somos nosotros, y eso incluye cómo lo decimos». El ejercicio fue escribirla
+    // como la escribiría David Vélez: frases de una idea, el lector como sujeto,
+    // sustantivos que se ven (enlace, celular), cero adjetivos. Es la misma
+    // forma del perfil del WABA (WABA_REFERENCIA.md) y de WHY_01 🔒 (v6.36).
+    // • «Hicimos sencillo lo que antes era complicado» es la columna del 26 ago
+    //   en una frase y sin inventario de la faena.
+    // • «Su propio sistema de distribución» nombra el NEGOCIO, no el ingreso
+    //   (Director, 7 ago 2026: construir un ingreso es un resultado sin causa,
+    //   la forma exacta de una estafa). «Propio» carga la propiedad que decía
+    //   la viñeta «Usted es el dueño».
+    // • Las tres viñetas son el Método tal cual —compartir · quién hace el
+    //   trabajo · recibir—, cuatro palabras cada una: la pila se lee de un golpe.
+    //   «Yo converso» y no «Queswa conversa»: aquí habla ella en primera persona.
+    //   ⚠️ Con esto las dos acciones se dicen ANTES de EAM_01. El hueco que la
+    //   doctrina pide dejar sin responder no desaparece: se muda a «de dónde
+    //   sale la plata», que es el botón del medio.
+    // • «Todo desde el celular» es la prueba de sencillez como HECHO, no como
+    //   adjetivo. Va pegado a «Pregunte lo que quiera» para no abrir otro párrafo.
+    // ⛔ LA CATEGORÍA («productos premium de bienestar») SALE DE LA APERTURA.
+    //    El Director la puso el 25 ago para que «le paga cada vez que hay
+    //    consumo» no dejara abierto CONSUMO DE QUÉ; esa viñeta la retiró él el
+    //    10 sep, así que el trabajo que hacía la categoría ya no existe. Quien
+    //    toca «Cómo funciona» la recibe en la primera línea de WHY_02.
+    // ⛔ SIN «le paga cada vez que hay consumo» (Director, 10 sep 2026): sin
+    //    decir DE QUIÉN es el consumo, el lector lo rellena con la escalera de
+    //    gente. Medido: el 5 sep, 2 de 4 personas que tocaron «Cómo funciona»
+    //    se fueron en la respuesta que ponía el origen del dinero en la segunda
+    //    línea. El mecanismo se explica cuando la persona pregunta cómo se gana.
+    // ⛔ SIN LA ASPIRACIÓN COMPARATIVA («con el potencial de igualar o superar
+    //    sus ingresos actuales»). La historia importa: el 17 ago un handoff la
+    //    marcó como promesa y el Director la RATIFICÓ (aspiración sin cifra ni
+    //    plazo); tres agentes la «corrigieron» por reglas viejas y se restauró
+    //    las tres veces; la quitó ÉL el 1 sep, la devolvió él el 6 sep y la
+    //    quitó él otra vez el 10 sep. ⚠️ QUIEN LA ECHE DE MENOS, QUE NO LA
+    //    REPONGA SIN PREGUNTARLE.
+    // ⛔ SIN EMOJIS (Director, 1 sep 2026): leían como adorno. Negrita solo en
+    //    el anclaje *sistema de distribución*, con asterisco simple de WhatsApp.
+    // ⚠️ El arnés prueba-conversacion.mjs emula esta apertura: si cambia aquí,
+    //    cambia allá.
+    'Por eso hicimos sencillo lo que antes era complicado: tener su propio *sistema de distribución*.',
     '',
-    '• Se arma una sola vez.',
-    '• Usted es el dueño.',
+    '• Usted comparte un enlace.',
+    '• Yo converso con quien llega.',
+    '• Usted recibe.',
     '',
-    // ⛔ LA TERCERA VIÑETA SE RETIRÓ (Director, 10 sep 2026): decía «Le paga cada
-    //    vez que hay consumo» y es lo que hace que la gente huela la industria en
-    //    el primer mensaje. Sin decir DE QUIÉN es ese consumo, el lector lo
-    //    rellena — y lo rellena con la escalera de gente, que es la silueta que
-    //    reconoce como pirámide. Respaldo medido: el 5 sep, 2 de 4 personas que
-    //    tocaron «Cómo funciona» se fueron en la respuesta que ponía el origen
-    //    del dinero en la segunda línea. El mecanismo se explica solo cuando la
-    //    persona pregunta cómo se gana, y ahí queda claro que es por movimiento
-    //    de producto. ⚠️ De paso resuelve la personificación: un sistema no paga.
-    //    Si algún día la cascada sabe a poco, el reemplazo NO es dinero — sería
-    //    «• Usted decide con quién lo comparte».
-    // ⛔ Y SALE EL REMATE DE LA ASPIRACIÓN COMPARATIVA («con el potencial de
-    //    igualar o superar sus ingresos actuales»), POR DECISIÓN DEL DIRECTOR
-    //    (10 sep 2026), el mismo día que salió de la Home. La historia importa y
-    //    ya está escrita arriba: la ratificó el 17 ago, tres agentes la
-    //    «corrigieron» por reglas viejas y se restauró las tres veces, la quitó
-    //    él el 1 sep y la devolvió él el 6 sep. Esta vez la quita ÉL otra vez.
-    //    ⚠️ QUIEN LA ECHE DE MENOS, QUE NO LA REPONGA SIN PREGUNTARLE. El ingreso
-    //    hoy se nombra por su NATURALEZA —no depende de que usted esté encima—,
-    //    que va arriba, en la línea del sistema.
-    // La prueba social va aquí, en presente y verificable — cientos de personas
-    // distintas han conversado con Queswa. ⚠️ El remate «mientras construyen el
-    // suyo» se retiró (Director, 1 sep 2026): causaba fricción — le atribuía a
-    // esos cientos una construcción en marcha que el lector no puede verificar,
-    // y le pedía procesar dos ideas donde cabía una. «Las 24 horas» dice lo
-    // mismo que importa (esto no duerme) con un hecho plano; por eso también
-    // salió el «a cualquier hora», que lo duplicaba.
-    // MECANISMO, NO SOLO VOLUMEN (Director, 3 sep 2026, auditoría con Gemini).
-    // «Esto que está viendo» pasó a «esto que estamos haciendo ahora»: la
-    // persona conversa, no mira. Y la línea nombra qué hace Queswa —conversar,
-    // explicar, resolver dudas— antes de decir a cuántos; «interesado» y no
-    // «persona» porque presupone interés, no reclutamiento. ⚠️ De la propuesta
-    // de Gemini NO entró «así como lo atiendo hoy»: ese «lo» es el prospecto y
-    // trata en masculino a las mujeres.
     // «Sin ningún afán» le quita presión al momento exacto en que se pide una
     // elección, y «pregunte lo que quiera» le avisa a quien no toca botones que
-    // puede escribir (3 sep 2026, tomado de la propuesta de Gemini).
-    'Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?',
+    // puede escribir (3 sep 2026, tomado de la propuesta de Gemini). La prueba
+    // social ya subió a la identidad (6 sep 2026): no se repite aquí.
+    'Todo desde el celular. Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?',
   ].join('\n');
 }

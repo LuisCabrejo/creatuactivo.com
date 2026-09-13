@@ -1,10 +1,12 @@
 # Arsenal de Compensacion: Infraestructura de Ingresos — la versión vigente está en «Version», abajo
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
-**Enfoque:** Registro accesible (Beto) / Usted — Construccion de Ingresos Recurrentes (No MLM tradicional)
-**Version:** 8.10 (3 sep 2026) — **La recompra son cuatro cajas al mes, o el equivalente a 50 PV** (Director): *tres o cuatro* dejaba creer que con menos alcanza; corregido en COMP_BIN_06 y COMP_BIN_09. Previa **8.3** (25 ago 2026) — **La comisión del GEN5 se cotiza en la moneda del visitante.** COMP_GEN5_01 va bajo candado, así que las cifras que ganó en la v8.2 quedaron escritas en pesos dentro de un texto que se entrega carácter por carácter: un prospecto de Estados Unidos recibía COP. Ahora el candado trae `[GEN1]` y `[GEN2_5]` y los llena `getPinComisionGEN5()` — mismo reparto que FREQ_03. Cifras del plan intactas. Previa **8.2** (24 ago 2026) — **La vía del GEN5 se explica con su rango, y la pregunta de cierre nombra lo que ofrece.** COMP_GEN5_01: la primera respuesta pasa a llevar el rango por generación anclado al paquete propio (decisión del Director) — quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y en abstracto esa cuenta se la hace el prospecto solo, casi siempre hacia arriba. La compra se nombra sin persona, en registro de gran distribución. ⚠️ **La pregunta de cierre nombra el paquete a propósito**: el pin del motor decide el tipo de ejemplo por la oferta y su default es la renta, así que un cierre que no nombra la vía hacía que el «sí» entregara el ejemplo del Binario después de haber explicado el GEN5. Cifras, %, CV/PV y tasas INTACTAS. Previa **8.1** (23 ago 2026) — **El Binario se explica por emparejamiento, con el canal izquierdo y el canal derecho nombrados.** El sistema empareja cada punto de un canal con su equivalente en el otro y paga sobre el volumen emparejado; los puntos sin emparejar se guardan para el siguiente ciclo mientras la persona esté activa con su recompra mensual. Cuatro respuestas nuevas o reescritas: BIN_06 (los tres requisitos, en llano), BIN_09 (los puntos que sobran, con el ejemplo 1.050 / 5.070), GEN5_09 (las dos condiciones del GEN5) y PV_09 (una caja a la semana). El detalle, en el CHANGELOG. Cifras del plan intactas. Previa **8.0** (22 ago 2026) — **Los productos se nombran como los ve el cliente.** Las tablas de puntos y de composición usan los mismos nombres del catálogo, en español y con su ortografía; el signo «&» de Piel&Brillo va escrito. Las cifras del plan no cambian. Detalle en el CHANGELOG.
+**Enfoque:** Registro accesible (Beto) / Usted — Construcción de Ingresos Recurrentes
+**Versión actual: v8.11** (13 sep 2026) — **Auditoría con el Director: las instrucciones para el modelo salen del cuerpo servido, y «activo» pasa al código.** Siete fragmentos llevaban avisos internos dentro de lo que lee el modelo —tres *«Referencia interna»* y cuatro instrucciones que narraban el error a evitar—; ahora viven en el `[Concepto Nuclear]` y en el cuerpo queda una línea en positivo. *Activo* deja de decirse de la persona en ocho sitios; *entrar* y *red* desnuda salen de dos candados; *por frente* → *por canal*; mayúsculas de énfasis a minúscula; tildes; sin bloque de instrucciones en PAQ_04. Cifras del plan intactas.
+
+**v8.10** (3 sep 2026) — **La recompra son cuatro cajas al mes, o el equivalente a 50 PV** (Director): *tres o cuatro* dejaba creer que con menos alcanza; corregido en COMP_BIN_06 y COMP_BIN_09. Previa **8.3** (25 ago 2026) — **La comisión del GEN5 se cotiza en la moneda del visitante.** COMP_GEN5_01 va bajo candado, así que las cifras que ganó en la v8.2 quedaron escritas en pesos dentro de un texto que se entrega carácter por carácter: un prospecto de Estados Unidos recibía COP. Ahora el candado trae `[GEN1]` y `[GEN2_5]` y los llena `getPinComisionGEN5()` — mismo reparto que FREQ_03. Cifras del plan intactas. Previa **8.2** (24 ago 2026) — **La vía del GEN5 se explica con su rango, y la pregunta de cierre nombra lo que ofrece.** COMP_GEN5_01: la primera respuesta pasa a llevar el rango por generación anclado al paquete propio (decisión del Director) — quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y en abstracto esa cuenta se la hace el prospecto solo, casi siempre hacia arriba. La compra se nombra sin persona, en registro de gran distribución. ⚠️ **La pregunta de cierre nombra el paquete a propósito**: el pin del motor decide el tipo de ejemplo por la oferta y su default es la renta, así que un cierre que no nombra la vía hacía que el «sí» entregara el ejemplo del Binario después de haber explicado el GEN5. Cifras, %, CV/PV y tasas INTACTAS. Previa **8.1** (23 ago 2026) — **El Binario se explica por emparejamiento, con el canal izquierdo y el canal derecho nombrados.** El sistema empareja cada punto de un canal con su equivalente en el otro y paga sobre el volumen emparejado; los puntos sin emparejar se guardan para el siguiente ciclo mientras la persona esté activa con su recompra mensual. Cuatro respuestas nuevas o reescritas: BIN_06 (los tres requisitos, en llano), BIN_09 (los puntos que sobran, con el ejemplo 1.050 / 5.070), GEN5_09 (las dos condiciones del GEN5) y PV_09 (una caja a la semana). El detalle, en el CHANGELOG. Cifras del plan intactas. Previa **8.0** (22 ago 2026) — **Los productos se nombran como los ve el cliente.** Las tablas de puntos y de composición usan los mismos nombres del catálogo, en español y con su ortografía; el signo «&» de Piel&Brillo va escrito. Las cifras del plan no cambian. Detalle en el CHANGELOG.
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Aquí no se narran las versiones viejas: sus notas citaban entrecomillada cada frase retirada —*negocio digital*, *Base Operativa*, *escalar*— y esta cabecera es el primer texto que lee quien vaya a editar.
 
-**Versión actual: v8.9** (31 ago 2026) — **La tabla canónica del Binario se copia entera: rótulos incluidos y sin derivar cifras.** En producción el modelo conservó los números exactos de COMP_BIN_08 pero cambió un rótulo de columna y derivó con regla de tres una cifra a otra tasa que ningún documento respalda; la instrucción interna del fragmento ahora cierra las dos puertas. Cifras del plan intactas. Previa **v8.8** (26 ago 2026) — **Auditoría completa de los 40.** Las cuatro familias revisadas; cifras, porcentajes, GCV, PV/CV y nombres del plan intactos. Detalle en el CHANGELOG.
+**v8.9** (31 ago 2026) — **La tabla canónica del Binario se copia entera: rótulos incluidos y sin derivar cifras.** En producción el modelo conservó los números exactos de COMP_BIN_08 pero cambió un rótulo de columna y derivó con regla de tres una cifra a otra tasa que ningún documento respalda; la instrucción interna del fragmento ahora cierra las dos puertas. Cifras del plan intactas. Previa **v8.8** (26 ago 2026) — **Auditoría completa de los 40.** Las cuatro familias revisadas; cifras, porcentajes, GCV, PV/CV y nombres del plan intactos. Detalle en el CHANGELOG.
 
 ---
 
@@ -41,10 +43,10 @@ Frases canónicas válidas para Respaldo Operativo Gano Excel:
 
 **[Concepto Nuclear]:** Estandar Financiero Global. El activo se consolida en divisa fuerte (USD) y liquida dividendos en moneda local (COP) bajo tasa blindada.
 
-Gano Excel está en más de 60 países, así que el plan se valora en dólares para que sea el mismo en todos. Y para que el dólar no le mueva el piso, la empresa fija su propia tasa inamovible de $4.500 COP por dolar**.
+Gano Excel está en más de 60 países, así que el plan se valora en dólares para que sea el mismo en todos. Y para que el dólar no le mueva el piso, la empresa fija su propia tasa inamovible de $4.500 COP por dólar.
 
-**Tabla de Valoracion:**
-| Nivel | Valor Global (USD) | Liquidacion Local (COP) |
+**Tabla de valoración:**
+| Nivel | Valor global (USD) | Liquidación local (COP) |
 |-------|-------------------|-------------------------|
 | ESP-3 | $1,000 USD | ~$4.500.000 COP |
 | ESP-2 | $500 USD | ~$2.250.000 COP |
@@ -64,14 +66,14 @@ Su sistema se valora en dólares y sus comisiones le llegan en pesos, a esa tasa
 ### COMP_MODELO_01: "¿Cómo se gana en el negocio? / ¿Cómo funciona el plan de compensación?"
 **[Índice]:** Cómo se gana en el negocio, cómo funciona el plan de compensación, de qué formas entra el dinero.
 
-**[Concepto Nuclear]:** La PRIMERA respuesta sobre las ganancias **no lleva cifras ni tablas** (doctrina 7 ago 2026). Se explica que todo sale del **movimiento de producto por su sistema**, se nombran las dos formas, y se entrega SOLO la primera —el consumo recurrente, que es la que construye seguridad financiera—; la segunda queda ofrecida en la pregunta de cierre. Entregar las dos de una vez alarga la respuesta y obliga a explicar los dos centros de negocio antes de que exista el concepto. ⚠️ **Una sola pregunta al final, de una sola salida**: NO "¿cuál de las dos quiere primero?" — el lector retiene la última opción y responde "sí" pensando en la otra. ⚠️ **Vocabulario de la estructura**: clientes · clientes VIP · red de clientes · consumidores · distribuidores · red de distribuidores · socios de negocio. Un sistema de distribución se explica entero con esas palabras — salen de la estructura misma del negocio y por eso no hay que defenderlas. La cuenta que debe quedarle al prospecto es de producto que se mueve. ⚠️ **La segunda vía se nombra por la COMPRA, no por quien la hace** (17 ago 2026): *"la compra de paquetes empresariales en su sistema"*. Contar entrantes dibuja la escalera de gente, que es la silueta que el prospecto reconoce como pirámide. ⚠️ **El crecimiento se explica por su causa —la compra que se repite— y el ingreso se define por la presencia, no por la ausencia de trabajo**: *"no depende de que usted esté presente en cada venta"*. El crecimiento siempre se atribuye a su causa comercial —la compra que se repite—, que es lo que sostiene la seriedad de una decisión patrimonial. ⚠️ **Registro: se eleva desde las finanzas, nunca desde el gremio del mercadeo en red** (doctrina 8 ago 2026, analogía del cannabis: esa industria cambió su estigma tomando prestado el léxico de la medicina, no refinando el suyo propio). El vocabulario correcto es el de una firma de inversión — *flujo de ganancias · percibe · liquida · volumen · principio financiero · estructura*. La prueba antes de subir cualquier palabra de registro: ¿la diría una banca privada, o solo alguien que lleva años en esta industria? Si es lo segundo, baja el estatus aunque suene técnica.
+**[Concepto Nuclear]:** La PRIMERA respuesta sobre las ganancias **no lleva cifras ni tablas** (doctrina 7 ago 2026). Se explica que todo sale del **movimiento de producto por su sistema**, se nombran las dos formas, y se entrega SOLO la primera —el consumo recurrente, que es la que construye seguridad financiera—; la segunda queda ofrecida en la pregunta de cierre. Entregar las dos de una vez alarga la respuesta y obliga a explicar los dos centros de negocio antes de que exista el concepto. ⚠️ **Una sola pregunta al final, de una sola salida**: NO "¿cuál de las dos quiere primero?" — el lector retiene la última opción y responde "sí" pensando en la otra. ⚠️ **Vocabulario de la estructura**: clientes · clientes VIP · red de clientes · consumidores · distribuidores · red de distribuidores · socios de negocio. Un sistema de distribución se explica entero con esas palabras — salen de la estructura misma del negocio y por eso no hay que defenderlas. La cuenta que debe quedarle al prospecto es de producto que se mueve. ⚠️ **La segunda vía se nombra por la COMPRA, no por quien la hace** (17 ago 2026): *"la compra de paquetes empresariales en su sistema"*. Contar entrantes dibuja la escalera de gente, que es la silueta que el prospecto reconoce como pirámide. ⚠️ **El crecimiento se explica por su causa —la compra que se repite— y el ingreso se define por la presencia, no por la ausencia de trabajo**: *"no depende de que usted esté presente en cada venta"*. El crecimiento siempre se atribuye a su causa comercial —la compra que se repite—, que es lo que sostiene la seriedad de una decisión patrimonial. ⚠️ **Registro: se eleva desde las finanzas, nunca desde el gremio del mercadeo en red** (doctrina 8 ago 2026, analogía del cannabis: esa industria cambió su estigma tomando prestado el léxico de la medicina, no refinando el suyo propio). El vocabulario correcto es el de una firma de inversión — *flujo de ganancias · percibe · liquida · volumen · principio financiero · estructura*. La prueba antes de subir cualquier palabra de registro: ¿la diría una banca privada, o solo alguien que lleva años en esta industria? Si es lo segundo, baja el estatus aunque suene técnica. **Referencia interna (movida aquí el 13 sep 2026 — hasta entonces se servía al modelo dentro del cuerpo):** el plan tiene **12 formas de ganar**, repartidas por horizonte: **cinco a corto plazo, tres a mediano y cuatro a largo** (dato de campo del Director, 25 ago 2026). La explicación de las doce viene en físico dentro del kit de inicio. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas estan activas desde el dia uno, y son las dos principales AL INICIO: las otras diez piden volumen o rango que todavia no existe. Estar activas y ser las principales son dos hechos distintos — no confundirlos. Las otras diez se detallan solo si preguntan por el plan completo. **v8.11 (13 sep 2026):** *«el consumo de su propia red»* → *«de sus propios clientes»* en el candado: *red* desnuda.
 
 <verbatim_lock>
 Con gusto. Su flujo de ganancias se alimenta de dos formas: el consumo que se repite, y la compra de paquetes empresariales en su sistema.
 
 Empecemos por la primera, que es la que construye su seguridad financiera: su red de clientes vuelve a pedir, y usted recibe una comisión sobre todo ese movimiento cada viernes.
 
-Es el efecto bola de nieve: usted empieza con las compras de sus primeros clientes, y cada distribuidor que abre su sistema suma el consumo de su propia red.
+Es el efecto bola de nieve: usted empieza con las compras de sus primeros clientes, y cada distribuidor que abre su sistema suma el consumo de sus propios clientes.
 
 El volumen crece con cada compra que se repite, y Gano Excel le liquida por cada una de las que ocurren en su sistema.
 
@@ -80,12 +82,10 @@ Es un ingreso que no depende de que usted esté presente en cada venta.
 
 **Pregunta de seguimiento:** ¿Le muestro esa bola de nieve en números?
 
-**[Referencia interna — NO mostrar al prospecto]:** el plan tiene **12 formas de ganar**, repartidas por horizonte: **cinco a corto plazo, tres a mediano y cuatro a largo** (dato de campo del Director, 25 ago 2026). La explicación de las doce viene en físico dentro del kit de inicio. Las dos que se explican de cara al prospecto son el Binario (consumo recurrente → COMP_BIN_01) y el GEN5 (paquetes empresariales → COMP_GEN5_01). Ambas estan activas desde el dia uno, y son las dos principales AL INICIO: las otras diez piden volumen o rango que todavia no existe. Estar activas y ser las principales son dos hechos distintos — no confundirlos. Las otras diez se detallan solo si preguntan por el plan completo.
-
 ### COMP_GEN5_01: "¿Qué es el Bono GEN5? / ¿Cómo se gana rápido?"
 **[Índice]:** Qué es el Bono GEN5, explíqueme el Gen5, en qué consiste esa vía, de dónde sale esa comisión.
 
-**[Concepto Nuclear]:** La vía que **se mueve por la compra de paquetes empresariales**: comisión directa cada vez que se compra uno en el sistema, hasta 5 generaciones. ⚠️ **Se nombra por lo que la mueve** (Director, 9 ago 2026): la compra de un paquete es esporádica, y lo que se afirma es *cada vez que ocurre*, sin prometer ritmo ni duración. La función sí se conserva: es la plata que financia el crecimiento en la etapa temprana. ⚠️ **La primera respuesta SÍ lleva el rango** (Director, 24 ago 2026 — acota la doctrina del 7 ago, que la dejaba sin cifras): quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y esa pregunta se la hace todo el que tiene interés real. Contestarla en abstracto la deja abierta y el prospecto la resuelve solo, casi siempre hacia arriba. Con Visionario propio, cada paquete empresarial comprado en el sistema genera **$150 USD** en la primera generación y desde **$20 USD** de la segunda a la quinta ($40 USD en la quinta). ⚠️ **Las cifras van como `[GEN1]` y `[GEN2_5]`, y las llena `getPinComisionGEN5()` en la moneda del visitante** — mismo reparto que FREQ_03: el candado pone el texto, el pin pone la cifra. Una cifra que depende del país no puede vivir dentro de un texto que se entrega carácter por carácter; escrita en pesos, un prospecto de Estados Unidos recibía COP. ⚠️ **El rango se ancla al paquete propio**: con Inicial el techo de la primera generación es $112.500, no $675.000 — se cobra el menor entre su techo y lo que genera el nuevo (COMP_GEN5_02). ⚠️ **La compra se nombra sin persona**: *comprado en su sistema de distribución*, que es registro de gran distribución; nombrar a quien compró devuelve la escalera de gente. ⚠️ **Sin precio de entrada en el mismo mensaje**: una inversión al lado de un rendimiento es una proyección de retorno. El ejemplo completo de las cinco generaciones se entrega cuando lo piden, y lo dicta el pin. ⚠️ **AUTOSUFICIENTE**: se llega aquí por dos caminos —tras COMP_MODELO_01 ("¿le explico también la segunda forma?") o en frío, preguntando cómo se gana rápido— así que NO puede apoyarse en la bola de nieve ni decir "esa segunda forma": serían referencias a algo que puede no haberse dicho. La otra forma se nombra en cinco palabras: si ya se explicó suena a eco, y si no, la presenta. ⚠️ **Cuándo llega la comisión:** Gano Excel liquida por ciclos semanales —una semana de corte y otra de cierre—, así que el pago cae **dos viernes después** del evento (detalle en COMP_BIN_05). La única cadencia que se afirma es *"le llega cada viernes"*. ⚠️ **El puntaje no cobrado se acumula**, y es una ventaja del plan: así se dice. ⚠️ Vocabulario: se cuentan **compras de paquetes**, y la unidad del GEN5 es la **generación**, nombrada por su número (Gen 1 a Gen 5). Es la nomenclatura del propio plan —GEN5 son cinco generaciones— y la que ya usan el ejemplo dictado en `route.ts` (*"Generación 1 — 5 paquetes"*), la referencia interna de aquí abajo y los otros fragmentos GEN5. Además la generación es una unidad **horizontal**: describe quién vino después, no cuánto se baja. La imagen vertical es la del esquema que el prospecto teme, y esta respuesta suele llegar uno o dos turnos después de esa objeción.
+**[Concepto Nuclear]:** La vía que **se mueve por la compra de paquetes empresariales**: comisión directa cada vez que se compra uno en el sistema, hasta 5 generaciones. ⚠️ **Se nombra por lo que la mueve** (Director, 9 ago 2026): la compra de un paquete es esporádica, y lo que se afirma es *cada vez que ocurre*, sin prometer ritmo ni duración. La función sí se conserva: es la plata que financia el crecimiento en la etapa temprana. ⚠️ **La primera respuesta SÍ lleva el rango** (Director, 24 ago 2026 — acota la doctrina del 7 ago, que la dejaba sin cifras): quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y esa pregunta se la hace todo el que tiene interés real. Contestarla en abstracto la deja abierta y el prospecto la resuelve solo, casi siempre hacia arriba. Con Visionario propio, cada paquete empresarial comprado en el sistema genera **$150 USD** en la primera generación y desde **$20 USD** de la segunda a la quinta ($40 USD en la quinta). ⚠️ **Las cifras van como `[GEN1]` y `[GEN2_5]`, y las llena `getPinComisionGEN5()` en la moneda del visitante** — mismo reparto que FREQ_03: el candado pone el texto, el pin pone la cifra. Una cifra que depende del país no puede vivir dentro de un texto que se entrega carácter por carácter; escrita en pesos, un prospecto de Estados Unidos recibía COP. ⚠️ **El rango se ancla al paquete propio**: con Inicial el techo de la primera generación es $112.500, no $675.000 — se cobra el menor entre su techo y lo que genera el nuevo (COMP_GEN5_02). ⚠️ **La compra se nombra sin persona**: *comprado en su sistema de distribución*, que es registro de gran distribución; nombrar a quien compró devuelve la escalera de gente. ⚠️ **Sin precio de entrada en el mismo mensaje**: una inversión al lado de un rendimiento es una proyección de retorno. El ejemplo completo de las cinco generaciones se entrega cuando lo piden, y lo dicta el pin. ⚠️ **AUTOSUFICIENTE**: se llega aquí por dos caminos —tras COMP_MODELO_01 ("¿le explico también la segunda forma?") o en frío, preguntando cómo se gana rápido— así que NO puede apoyarse en la bola de nieve ni decir "esa segunda forma": serían referencias a algo que puede no haberse dicho. La otra forma se nombra en cinco palabras: si ya se explicó suena a eco, y si no, la presenta. ⚠️ **Cuándo llega la comisión:** Gano Excel liquida por ciclos semanales —una semana de corte y otra de cierre—, así que el pago cae **dos viernes después** del evento (detalle en COMP_BIN_05). La única cadencia que se afirma es *"le llega cada viernes"*. ⚠️ **El puntaje no cobrado se acumula**, y es una ventaja del plan: así se dice. ⚠️ Vocabulario: se cuentan **compras de paquetes**, y la unidad del GEN5 es la **generación**, nombrada por su número (Gen 1 a Gen 5). Es la nomenclatura del propio plan —GEN5 son cinco generaciones— y la que ya usan el ejemplo dictado en `route.ts` (*"Generación 1 — 5 paquetes"*), la referencia interna de aquí abajo y los otros fragmentos GEN5. Además la generación es una unidad **horizontal**: describe quién vino después, no cuánto se baja. La imagen vertical es la del esquema que el prospecto teme, y esta respuesta suele llegar uno o dos turnos después de esa objeción. **Referencia interna (movida aquí el 13 sep 2026 — hasta entonces se servía al modelo dentro del cuerpo):** tasas por paquete propio ESP-3 — directos $150 USD · generaciones 2 a 4 $20 USD · 5ª generación $40 USD (doble). Cifras completas y proyección en el pin dictado de route.ts (getPinCifrasGEN5) y en COMP_GEN5_07/08.
 
 <verbatim_lock>
 Con gusto. Lo que mueve dinero desde el principio es la compra de paquetes empresariales.
@@ -99,8 +99,6 @@ Corre en paralelo con la otra forma de ganar, la del consumo que se repite: esta
 
 **[Concepto Nuclear]:** ⏳ **CHOQUE ABIERTO, medido y sin resolver:** *"¿qué es el bono GEN5?"* la gana `COMP_GEN5_02` (0.624) y *"explíqueme el Gen5"* la gana `COMP_GEN5_08` (0.644) — esta, que es **la canónica y va bajo candado**, queda en el puesto 2. Se probaron tres redacciones del índice y **ninguna lo movió**: el atractor no está en el índice, igual que pasó con `OBJ_01`. La causa probable es que `GEN5_02` y `GEN5_03` responden casi lo mismo —el techo— y entre las dos concentran el vocabulario del bono. **Se resuelve consolidando la familia, no retocando índices**, y se mide antes. Mientras tanto queda en top-3, así que el motor sí la entrega. ⛔ **El GEN5 se cuenta en COMPRAS, nunca en personas** — y el 26 ago 2026 toda la familia lo contaba al revés: *"cuando alguien se vincula"*, *"conecta 2 socios"*, *"cuánto gano si conecto 2 personas"*, una columna rotulada **Vinculaciones** y *"las 62 vinculaciones"*. Esa es la escalera de gente, la silueta exacta que el prospecto reconoce como pirámide. **Ninguna cifra cambió**: lo que cambió es qué se cuenta — *paquetes comprados*. ⚠️ **Y el motivo es de campo, no de cumplimiento:** doce años del Director muestran que matizar los bonos hace que la gente pregunte *"o sea que si yo arranco usted se gana 675.000 pesos"*, y ahí se acabó la conversación. Por eso salieron los tres empujones al ESP-3 (*"con ESP-1 siempre deja dinero en la mesa"*, *"la diferencia es 6x"*, *"ESP-3 captura $300, ESP-1 captura $50"*): son la misma construcción del *"41% sobre la mesa"* retirado de NIVELES_03. El techo se explica; no se usa para hacer sentir mal a quien mira el paquete pequeño.
 
-**[Referencia interna — NO mostrar al prospecto]:** tasas por paquete propio ESP-3 — directos $150 USD · generaciones 2 a 4 $20 USD · 5ª generación $40 USD (doble). Cifras completas y proyección en el pin dictado de route.ts (getPinCifrasGEN5) y en COMP_GEN5_07/08.
-
 ---
 
 ### COMP_GEN5_02: "¿Cuánto paga el Bono GEN5?"
@@ -108,7 +106,7 @@ Corre en paralelo con la otra forma de ganar, la del consumo que se repite: esta
 
 **[Concepto Nuclear]:** Cobra el MENOR entre su techo y lo que genera el nuevo.
 
-Su paquete determina su techo (máximo que puede cobrar). El paquete del nuevo determina lo que GENERA.
+Su paquete determina su techo, lo máximo que puede cobrar. El paquete que se compra determina lo que genera.
 
 Usted cobra lo que genere el paquete que se compró, hasta donde llegue su propio techo.
 
@@ -151,7 +149,7 @@ El techo de la primera generación es lo que más varía entre un nivel y otro; 
 
 **[Concepto Nuclear]:** El paquete del nuevo determina cuanto genera para toda la línea ascendente.
 
-**Valores que GENERA cada paquete (USD):**
+**Valores que genera cada paquete (USD):**
 | Generación | ESP-1 Genera | ESP-2 Genera | ESP-3 Genera |
 |------------|--------------|--------------|--------------|
 | Gen 1 | $25 USD | $75 USD | $150 USD |
@@ -196,7 +194,7 @@ Los mismos dos paquetes comprados dejan una comisión distinta según el nivel c
 ### COMP_GEN5_08: "¿Cuánto deja el GEN5 con las cinco generaciones? / Ejemplo completo con números"
 **[Índice]:** Ejemplo completo del GEN5 con las cinco generaciones, cuánto deja en total, la cuenta con números.
 
-**[Concepto Nuclear]:** Cobra mientras construye. Cada vinculación = un pago.
+**[Concepto Nuclear]:** Cobra mientras construye. Cada vinculación = un pago. **v8.11 (13 sep 2026):** el cuerpo llevaba una instrucción en mayúsculas para el modelo (*copiar esta tabla exactamente… NO inventar otros valores*); ahora dice en positivo que la tabla se entrega tal cual. Las cifras únicas: Gen 1 $150 USD · Gen 2-4 $20 USD · Gen 5 $40 USD.
 
 Esta vía se mueve por la compra de paquetes empresariales: cada uno que se compra en su sistema le entra como comisión, y es la que financia el crecimiento temprano.
 
@@ -211,7 +209,7 @@ Esta vía se mueve por la compra de paquetes empresariales: cada uno que se comp
 | 4 | 16 | $20 USD | $860 USD |
 | 5 | 32 | $40 USD | $2,140 USD |
 
-**⚠️ QUESWA: COPIAR ESTA TABLA EXACTAMENTE. Gen 1 = $150 USD. Gen 2-4 = $20 USD. Gen 5 = $40 USD. NO inventar otros valores.**
+Esta tabla se entrega tal cual, con sus rótulos y sus cifras.
 
 **Total al completar estructura: $2,140 USD** (~$9.6M COP)
 
@@ -268,7 +266,7 @@ La semana en que se compra el paquete es la que se factura, la siguiente se cier
 
 **[Concepto Nuclear]:** Las dos condiciones del GEN5, dichas juntas (Director, 23 ago 2026): haber comprado un paquete empresarial y estar activo con la recompra mensual. El monto es proporcional al propio paquete —su paquete es el techo, COMP_GEN5_02/03— y la quinta generación se dobla con 100 PV (COMP_GEN5_06). Fragmento corto a propósito: es la puerta; el ejemplo con cifras lo dicta el pin del motor cuando la persona acepta (la oferta nombra el GEN5), y los techos por generación viven en COMP_GEN5_03.
 
-Con gusto. Para cobrar el Bono GEN5 hay dos condiciones: haber comprado un paquete empresarial —ESP-1, ESP-2 o ESP-3— y estar activo con su recompra mensual.
+Con gusto. Para cobrar el Bono GEN5 hay dos condiciones: haber comprado un paquete empresarial —ESP-1, ESP-2 o ESP-3— y tener su código activo con su recompra mensual.
 
 Cumplidas las dos, cobra por cada paquete que se compre en su sistema hasta la quinta generación, y el bono es proporcional a su propio paquete: su paquete es el techo de lo que cobra por cada compra. Con 100 puntos de recompra al mes, la quinta generación le paga el doble.
 
@@ -288,10 +286,10 @@ Los PV son puntos que genera con sus compras personales.
 **Umbrales Importantes:**
 | PV | Qué Desbloquea |
 |----|----------------|
-| 50+ PV | Activo para comisiones |
+| 50+ PV | Código activo para cobrar |
 | 100+ PV | Gen 5 al doble |
 
-Con 50 PV al mes queda activo para cobrar; con 100 PV la quinta generación del GEN5 le paga el doble.
+Con 50 PV al mes su código queda activo para cobrar; con 100 PV la quinta generación del GEN5 le paga el doble.
 
 **Pregunta de seguimiento:** ¿Le muestro qué productos suman esos 50 PV?
 
@@ -309,8 +307,8 @@ Puede hacer varias compras durante la semana.
 |-----|--------|--------------|
 | Lunes | 2 cafés | 30 PV |
 | Miércoles | 2 chocolates | 64 PV |
-| Viernes | 1 jabon + 1 pasta | 85.4 PV |
-| Sabado | 1 cafe | 100.4 PV ✓ |
+| Viernes | 1 jabón + 1 pasta | 85.4 PV |
+| Sábado | 1 café | 100.4 PV ✓ |
 
 Lo que cuenta es el PV total al cierre del ciclo, el domingo — no en qué día se hizo cada compra.
 
@@ -346,7 +344,7 @@ CV son los puntos que se usan para calcular el Bono Binario.
 
 *Excepción: Si compra más de 120 PV, el excedente Sí va a su centro.
 
-Su compra personal sirve para dejarlo activo; el CV que alimenta el Binario viene de las compras de su sistema.
+Su compra personal sirve para mantener su código activo; el CV que alimenta el Binario viene de las compras de su sistema.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se calcula la comisión del Binario?
 
@@ -378,9 +376,9 @@ El GCV crece con el volumen que mueve su sistema, y es la base sobre la que se c
 Son dos métricas diferentes con propósitos diferentes:
 
 **Comparativa PV vs CV:**
-| Métrica | Significa | Para que sirve | Quien lo genera |
+| Métrica | Significa | Para qué sirve | Quién lo genera |
 |---------|-----------|----------------|-----------------|
-| PV | Puntos de Volumen Personal | Activarle (50-100 PV) | Usted con sus compras |
+| PV | Puntos de Volumen Personal | Mantener su código activo (50-100 PV) | Usted con sus compras |
 | CV | Volumen Comisional | Calcular Bono Binario | Su sistema con sus compras |
 
 **Relación entre PV y CV (tabla oficial vigente 2026):**
@@ -414,7 +412,7 @@ Son dos métricas diferentes con propósitos diferentes:
 
 **Regla práctica:** CV es siempre menor que PV (entre 1 y 6.5 puntos menos, según categoría). Excepción: Máquina LUVOCO da 0 PV y 0 CV — el negocio está en las cápsulas, no en la máquina.
 
-En corto: los PV son suyos y lo mantienen activo; el CV es el de su sistema y es sobre el que se liquida el Binario.
+En corto: los PV son suyos y mantienen su código activo; el CV es el de su sistema y es sobre el que se liquida el Binario.
 
 **Pregunta de seguimiento:** ¿Le muestro qué productos suman sus 50 PV?
 
@@ -451,7 +449,7 @@ En corto: los PV son suyos y lo mantienen activo; el CV es el de su sistema y es
 | 306 | Acondicionador Piel&Brillo | 11 | 9 | $73.900 |
 | 307 | Exfoliante Piel&Brillo | 11 | 9 | $73.900 |
 
-**Ejemplo para llegar a 50 PV (activación minima):**
+**Ejemplo para llegar a 50 PV (activación mínima):**
 | Productos | PV | Costo aprox. |
 |-----------|-----|--------------|
 | 3x Ganocafé 3 en 1 | 45 PV | $332.700 |
@@ -478,7 +476,7 @@ La máquina LUVOCO no suma PV ni CV: los puntos están en las cápsulas, 15 PV c
 
 Esta regla es para socios que compran inventario grande.
 
-**Como Funciona:**
+**Cómo funciona:**
 | Su Compra | Activación | Centro de Cobro |
 |-----------|------------|-----------------|
 | 200 PV | 120 PV | 80 PV |
@@ -533,7 +531,7 @@ Lo que cuenta es llegar a 50 PV al cierre del ciclo. No tiene que ser una sola c
 
 **[Concepto Nuclear]:** La recompra se explica como RITMO, no como cifra (Director, 23 ago 2026): una caja a la semana → cuatro en el ciclo de cuatro semanas → 60 PV, por encima de los 50. Cada caja de Ganocafé suma 15 PV (COMP_PV_08). Y en la práctica una caja se queda corta: se toma en casa y se comparte. Las combinaciones viven en COMP_PV_08.
 
-Es la rutina más sencilla del negocio: una caja a la semana. Cada caja de Ganocafé suma 15 PV, así que en un ciclo de cuatro semanas lleva cuatro cajas y 60 PV — por encima de los 50 que se piden para estar activo. Con esa rutina la recompra se cumple sola, sin tener que pensarla.
+Es la rutina más sencilla del negocio: una caja a la semana. Cada caja de Ganocafé suma 15 PV, así que en un ciclo de cuatro semanas lleva cuatro cajas y 60 PV — por encima de los 50 que se piden para tener el código activo. Con esa rutina la recompra se cumple sola, sin tener que pensarla.
 
 Y una caja a la semana se queda corta: se toma en casa y se comparte, y compartir es la mitad del negocio.
 
@@ -546,7 +544,7 @@ Y una caja a la semana se queda corta: se toma en casa y se comparte, y comparti
 ### COMP_BIN_01: "¿Qué es la Regalía de Equipo? / ¿Qué es el Bono Binario?"
 **[Índice]:** Qué es la Regalía de Equipo, explíqueme el Bono Binario. Cómo es esa comisión del consumo que se repite mes a mes.
 
-**[Concepto Nuclear]:** ⛔ **Aquí vivía una bola de nieve que contaba GENTE** (retirada el 26 ago 2026): *"usted arranca con unos pocos socios, y cada uno de ellos arma su propia red… la bola crece sola"*. Dos defectos graves en una analogía bajo candado — la **escalera de personas**, que es la silueta exacta que el prospecto reconoce como pirámide, y **crece sola**, promesa de esfuerzo mínimo. En su lugar, el crecimiento **por acumulación**: cada vez que alguien vuelve a pedir, ese consumo se suma al que ya venía. ⚠️ **La bola de nieve de `COMP_MODELO_01` SÍ se conserva** y no es contradicción: allá acumula **compras** —*"el volumen crece con cada compra que se repite"*—, que es la forma correcta. El defecto nunca fue la analogía; era contar personas con ella. ⚠️ **La pregunta de cierre salió del candado**, donde vivía: el candado protege el argumento y la pregunta tiene que poder adaptarse. ⚠️ La PRIMERA respuesta sobre el Binario **no lleva cifras ni tablas**. Doctrina del Director (7 ago 2026), sacada de cómo lo explica él en el 1-a-1: primero se pinta con palabras el concepto nuclear —*usted gana por todas las compras que se generan dentro de su red de clientes y socios*— y solo cuando la persona ya lo entendió se ofrece el ejemplo gráfico. Empezar por los números obliga a explicar los dos centros de negocio antes de que exista el concepto, y ahí se pierde. La imagen es la **bola de nieve** (la misma que el slide 4 de `/servilleta` ya implementa en el control del simulador). ⚠️ NO se mencionan los dos frentes ni el CV en esta respuesta — eso vive en COMP_BIN_11 y en las proyecciones. ⚠️ Vocabulario de empresa: **clientes** y **socios de negocio**; la palabra **red** siempre acompañada — *red de clientes y socios* — porque así nombra una base comercial. La pregunta de cierre es la bisagra hacia COMP_BIN_10.
+**[Concepto Nuclear]:** ⛔ **Aquí vivía una bola de nieve que contaba GENTE** (retirada el 26 ago 2026): *"usted arranca con unos pocos socios, y cada uno de ellos arma su propia red… la bola crece sola"*. Dos defectos graves en una analogía bajo candado — la **escalera de personas**, que es la silueta exacta que el prospecto reconoce como pirámide, y **crece sola**, promesa de esfuerzo mínimo. En su lugar, el crecimiento **por acumulación**: cada vez que alguien vuelve a pedir, ese consumo se suma al que ya venía. ⚠️ **La bola de nieve de `COMP_MODELO_01` SÍ se conserva** y no es contradicción: allá acumula **compras** —*"el volumen crece con cada compra que se repite"*—, que es la forma correcta. El defecto nunca fue la analogía; era contar personas con ella. ⚠️ **La pregunta de cierre salió del candado**, donde vivía: el candado protege el argumento y la pregunta tiene que poder adaptarse. ⚠️ La PRIMERA respuesta sobre el Binario **no lleva cifras ni tablas**. Doctrina del Director (7 ago 2026), sacada de cómo lo explica él en el 1-a-1: primero se pinta con palabras el concepto nuclear —*usted gana por todas las compras que se generan dentro de su red de clientes y socios*— y solo cuando la persona ya lo entendió se ofrece el ejemplo gráfico. Empezar por los números obliga a explicar los dos centros de negocio antes de que exista el concepto, y ahí se pierde. La imagen es la **bola de nieve** (la misma que el slide 4 de `/servilleta` ya implementa en el control del simulador). ⚠️ NO se mencionan los dos frentes ni el CV en esta respuesta — eso vive en COMP_BIN_11 y en las proyecciones. ⚠️ Vocabulario de empresa: **clientes** y **socios de negocio**; la palabra **red** siempre acompañada — *red de clientes y socios* — porque así nombra una base comercial. La pregunta de cierre es la bisagra hacia COMP_BIN_10. **Referencia interna (movida aquí el 13 sep 2026 — hasta entonces se servía al modelo dentro del cuerpo):** el sistema empareja el volumen comisionable de su canal izquierdo con su equivalente en el canal derecho (sin importar quién invitó a quién) y liquida un porcentaje sobre el volumen emparejado. Tasa base 10%; tasa Fundador ESP-3 17%. El volumen comisionable es el valor base oficial que Gano Excel asigna a cada producto, distinto del precio de venta al público. Se liquida cada viernes.
 
 <verbatim_lock>
 Claro que sí. El Bono Binario es el que le construye estabilidad.
@@ -559,8 +557,6 @@ Por eso no depende de que usted esté encima — lo que mueve la comisión es el
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro un ejemplo con números?
-
-**[Referencia interna — NO mostrar al prospecto]:** el sistema empareja el volumen comisionable de su canal izquierdo con su equivalente en el canal derecho (sin importar quién invitó a quién) y liquida un porcentaje sobre el volumen emparejado. Tasa base 10%; tasa Fundador ESP-3 17%. El volumen comisionable es el valor base oficial que Gano Excel asigna a cada producto, distinto del precio de venta al público. Se liquida cada viernes.
 
 ---
 
@@ -666,10 +662,10 @@ El sistema toma el más alto por defecto, así que tener varias fuentes nunca le
 ### COMP_BIN_05: "¿Cuándo me pagan el Binario? / ¿Cada cuánto liquida Gano Excel?"
 **[Índice]:** Cuándo cae el pago del Binario, qué día liquida Gano Excel, lo de esta semana cuándo entra, cada cuánto se liquida. El calendario, no la fuente.
 
-**[Concepto Nuclear]:** Cada viernes, con dos semanas de desfase. Se explica con el CICLO, no con los números de ciclo (893/894/895 no le dicen nada a nadie). Lo decisivo es el remate: el desfase es **solo al arrancar** — después el viernes llega todas las semanas. Sin esa última línea, el desfase suena a demora; con ella, se entiende que esto tiene un ritmo. Aplica igual al GEN5 y al Binario: se pagan el mismo día y aparecen en el mismo estado de cuenta. ⚠️ La pregunta de cierre **propone un paso concreto**: quien pregunta cuándo le pagan ya entendió cómo se gana y está mirando lo práctico.
+**[Concepto Nuclear]:** Cada viernes, con dos semanas de desfase. Se explica con el CICLO, no con los números de ciclo (893/894/895 no le dicen nada a nadie). Lo decisivo es el remate: el desfase es **solo al arrancar** — después el viernes llega todas las semanas. Sin esa última línea, el desfase suena a demora; con ella, se entiende que esto tiene un ritmo. Aplica igual al GEN5 y al Binario: se pagan el mismo día y aparecen en el mismo estado de cuenta. ⚠️ La pregunta de cierre **propone un paso concreto**: quien pregunta cuándo le pagan ya entendió cómo se gana y está mirando lo práctico. **v8.11 (13 sep 2026):** *«acaba de entrar»* → *«acaba de vincularse»* en el candado (verbo vetado el 3 sep, Director).
 
 <verbatim_lock>
-Gano Excel liquida por semanas, y el ciclo tiene dos tiempos: la semana en que se hacen las compras es la que se factura, y la siguiente se cierra en firme — a veces falta un documento de alguien que acaba de entrar.
+Gano Excel liquida por semanas, y el ciclo tiene dos tiempos: la semana en que se hacen las compras es la que se factura, y la siguiente se cierra en firme — a veces falta un documento de alguien que acaba de vincularse.
 
 Por eso lo de esta semana no cae este viernes: cae dos viernes después. Y de ahí en adelante la liquidación es todos los viernes.
 </verbatim_lock>
@@ -685,11 +681,11 @@ Por eso lo de esta semana no cae este viernes: cae dos viernes después. Y de ah
 
 Con gusto. Para cobrar el Binario en una semana se cumplen tres condiciones:
 
-• Estar activo con su recompra mensual: cuatro cajas al mes, o el equivalente a 50 PV.
-• Tener al menos un cliente o distribuidor activo, patrocinado directamente por usted, en su canal izquierdo y otro en su canal derecho.
+• Tener su código activo con su recompra mensual: cuatro cajas al mes, o el equivalente a 50 PV.
+• Tener al menos un cliente o distribuidor con su código activo, vinculado directamente por usted, en su canal izquierdo y otro en su canal derecho.
 • Tener mínimo 100 puntos emparejados — el sistema paga por centenas.
 
-Si una semana le falta un activo en un canal o no completa la centena, esa semana no se liquida y sus puntos quedan guardados para la siguiente. Lo único que borra los puntos guardados es dejar de estar activo con la recompra mensual.
+Si una semana le falta un activo en un canal o no completa la centena, esa semana no se liquida y sus puntos quedan guardados para la siguiente. Lo único que borra los puntos guardados es dejar caer la recompra mensual.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se cumple la recompra con una caja a la semana?
 
@@ -719,21 +715,21 @@ El rango se califica cada semana, según el volumen que mueva su sistema.
 ### COMP_BIN_08: "¿Cuánto se gana si mi sistema crece? / Ejemplo del Binario con números"
 **[Índice]:** Ejemplo del Binario, cuánto gano si mi sistema crece, la cuenta con números del ingreso recurrente.
 
-**[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es su ingreso recurrente, semana a semana.
+**[Concepto Nuclear]:** El GEN5 es el arranque. El Binario es su ingreso recurrente, semana a semana. **v8.11 (13 sep 2026) — las instrucciones salen del cuerpo servido.** Llevaba tres avisos para el modelo que narraban el error a evitar (*semanal*, la regla de tres, el «$2.520.000» inventado), que es la forma de dictarlo. En el cuerpo queda una línea en positivo; la protección real la dan el candado solitario y el pin de cifras del motor. Lo que decían, para quien edita: **⚠️ CORRECCION 7 ago 2026 — el período estaba mal.** Esta tabla rotulaba las cifras como comision SEMANAL y multiplicaba por 4 para la mensual, inflando la proyeccion al cuadruple. El consumo estándar de 56 CV es POR MES (4 cajas, una por semana), así que 560 CV × 17% = $95 son de un MES completo. Confirmado por el Director. Las cifras no cambiaron: cambio el período al que corresponden. · **⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Usa SIEMPRE esta tabla con sus números exactos **y sus rótulos exactos: la columna dice «Clientes por canal» y así se entrega — ese rótulo es deliberado, la tabla habla del consumo de clientes**. Y las cifras escritas son las únicas que existen: **no derives cifras nuevas a partir de la tabla** (otra tasa, otro período, una regla de tres) — en producción salió un «a mes 12 con 10% son $2.520.000» que ningún documento respalda. **PROHIBIDO exponer la fórmula matemática al prospecto.** El usuario ve solo la tabla terminada. Si pregunta cómo se calcula, responde con el párrafo de COMP_BIN_11: el sistema empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el porcentaje sobre ese volumen — sin fórmula explícita. La doctrina nombra **el canal izquierdo y el canal derecho** y usa el verbo **emparejar**. NO improvises números.
 
-El Binario paga CADA SEMANA sobre TODO el volumen de su sistema, sin límite de profundidad.
+El Binario paga cada semana sobre todo el volumen de su sistema, sin importar a qué profundidad esté cada compra.
 
 **Cómo funciona:**
 - Su sistema se divide en dos: el canal izquierdo y el canal derecho
-- Cada compra de su sistema genera CV (Consumo estándar: 4 cajas = 56 CV/persona)
+- Cada compra de su sistema genera CV (consumo estándar: 4 cajas = 56 CV por cliente)
 - El sistema empareja cada punto del canal izquierdo con su equivalente en el derecho
 - Se liquida el 17% sobre el volumen emparejado
 
-**⚠️ QUESWA REGLA CRÍTICA:** Cuando los dos canales tienen el MISMO volumen, se empareja todo: el volumen emparejado = el CV total de UN canal (NO la mitad).
+Cuando los dos canales tienen el mismo volumen se empareja todo: el volumen emparejado es el CV total de un canal.
 
-**TABLA CANÓNICA - Proyección con Consumo Estándar (56 CV AL MES por cliente, 17%):**
+**Proyección con consumo estándar (56 CV al mes por cliente, 17%):**
 
-| Mes | Clientes por canal | CV al mes por canal | Volumen emparejado | Comisión MENSUAL |
+| Mes | Clientes por canal | CV al mes por canal | Volumen emparejado | Comisión mensual |
 |-----|---------------------|----------------------|-----------------|------------------|
 | 1 | 10 | 560 CV | 560 CV | $95 USD |
 | 3 | 25 | 1,400 CV | 1,400 CV | $238 USD |
@@ -741,11 +737,9 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su sistema, sin límite de 
 | 12 | 100 | 5,600 CV | 5,600 CV | $952 USD |
 | 18 | 200 vs 100 | 11,200 CV | 5,600 CV | $952 USD |
 
-**⚠️ CORRECCION 7 ago 2026 — el período estaba mal.** Esta tabla rotulaba las cifras como comision SEMANAL y multiplicaba por 4 para la mensual, inflando la proyeccion al cuadruple. El consumo estándar de 56 CV es POR MES (4 cajas, una por semana), así que 560 CV × 17% = $95 son de un MES completo. Confirmado por el Director. Las cifras no cambiaron: cambio el período al que corresponden.
-
 **Nota sobre Mes 18:** Ejemplo de canales desiguales (200 vs 100). Volumen emparejado = 5,600 CV; el resto se guarda para el siguiente ciclo.
 
-**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Usa SIEMPRE esta tabla con sus números exactos **y sus rótulos exactos: la columna dice «Clientes por canal» y así se entrega — ese rótulo es deliberado, la tabla habla del consumo de clientes**. Y las cifras escritas son las únicas que existen: **no derives cifras nuevas a partir de la tabla** (otra tasa, otro período, una regla de tres) — en producción salió un «a mes 12 con 10% son $2.520.000» que ningún documento respalda. **PROHIBIDO exponer la fórmula matemática al prospecto.** El usuario ve solo la tabla terminada. Si pregunta cómo se calcula, responde con el párrafo de COMP_BIN_11: el sistema empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el porcentaje sobre ese volumen — sin fórmula explícita. La doctrina nombra **el canal izquierdo y el canal derecho** y usa el verbo **emparejar**. NO improvises números.
+Esta tabla se entrega tal cual, con sus rótulos y sus cifras, y toda cifra es mensual. Si pregunta cómo se calcula: el sistema empareja cada punto de su canal izquierdo con su equivalente en el canal derecho y le paga el porcentaje sobre ese volumen.
 
 **Lo que significa Rango Diamante:**
 | Período | Binario (USD) | Binario (COP) |
@@ -758,7 +752,7 @@ El Binario paga CADA SEMANA sobre TODO el volumen de su sistema, sin límite de 
 | Bono | Cuando Paga | Duración |
 |------|-------------|----------|
 | GEN5 | Una vez por cada paquete comprado | Único |
-| Binario | CADA semana mientras haya actividad | Recurrente |
+| Binario | Cada semana mientras haya actividad | Recurrente |
 
 El GEN5 aporta liquidez temprana, y el Binario es el que sostiene el ingreso recurrente. Las cifras de arriba corresponden a **rango Diamante**, que pide 12.000 CV semanales: son el techo de la tabla, no el punto de partida.
 
@@ -771,11 +765,11 @@ El GEN5 aporta liquidez temprana, y el Binario es el que sostiene el ingreso rec
 
 **[Concepto Nuclear]:** Los puntos sin emparejar se guardan para el siguiente ciclo MIENTRAS la persona esté activa con su recompra mensual; sin actividad, se pierden (doctrina del Director, 23 ago 2026). Se paga por centenas. El requisito se presenta por lo que es —cuatro cajas al mes— y con la observación de que una caja a la semana se queda corta en la práctica. El ejemplo es 1.050 / 5.070 para que el sobrante y lo emparejado no se confundan, y para que se vea que ni los picos se pierden.
 
-No, mientras usted esté activo. Gano Excel paga por centenas de puntos emparejados, y lo que no alcanza a completar una centena se guarda para el siguiente ciclo.
+No, mientras su código esté activo. Gano Excel paga por centenas de puntos emparejados, y lo que no alcanza a completar una centena se guarda para el siguiente ciclo.
 
 Un ejemplo: con 1.050 puntos en su canal izquierdo y 5.070 en el derecho, se emparejan 1.000 de cada canal. Los 50 que sobran en el izquierdo y los 4.070 del derecho se guardan, y la semana siguiente arranca con ellos — nunca empieza desde cero.
 
-La condición es una sola: estar activo con su recompra mensual: cuatro cajas al mes, o el equivalente a 50 PV — una a la semana. Si un mes no la cumple, los puntos guardados se pierden. Y en la práctica una caja a la semana se queda corta: se toma en casa y se comparte, así que la recompra sale sola.
+La condición es una sola: tener su código activo con su recompra mensual: cuatro cajas al mes, o el equivalente a 50 PV — una a la semana. Si un mes no la cumple, los puntos guardados se pierden. Y en la práctica una caja a la semana se queda corta: se toma en casa y se comparte, así que la recompra sale sola.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se cumple la recompra con una caja a la semana?
 
@@ -784,24 +778,24 @@ La condición es una sola: estar activo con su recompra mensual: cuatro cajas al
 ### COMP_BIN_10: "Ejemplo práctico del Binario con consumo estándar"
 **[Índice]:** Ejemplo del Binario con consumo estándar, cuánto deja un sistema donde cada cliente pide lo normal.
 
-**[Concepto Nuclear]:** 10 clientes por frente consumiendo = ~$95 USD AL MES. 100 clientes = ~$952 USD al mes. ⚠️ Este fragmento se entrega DESPUES de COMP_BIN_01 (el concepto sin cifras), nunca como primera respuesta.
+**[Concepto Nuclear]:** 10 clientes por frente consumiendo = ~$95 USD AL MES. 100 clientes = ~$952 USD al mes. ⚠️ Este fragmento se entrega DESPUES de COMP_BIN_01 (el concepto sin cifras), nunca como primera respuesta. **v8.11 (13 sep 2026):** *por frente* pasa a *por canal* (el rótulo que el Director fijó en BIN_08; dos nombres para la misma columna). La instrucción interna que narraba el fallo del 11 sep sale del cuerpo y queda aquí: **⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula de cálculo al prospecto.** Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas. **Toda cifra de esta tabla es MENSUAL y se entrega diciéndolo.** El 11 sep 2026 la línea de cierre nombraba el viernes justo debajo de la tabla y el modelo entregó los ~$428K **cada viernes** — el monto de un mes dicho como el de una semana, cuatro veces inflado, a una persona real.
 
-Este ejemplo usa consumo estándar: **4 cajas de Ganocafe AL MES por cliente** (14 CV × 4 = 56 CV al mes).
+Este ejemplo usa consumo estándar: **4 cajas de Ganocafé al mes por cliente** (14 CV × 4 = 56 CV al mes).
 
 **Proyección con Consumo Estándar (56 CV al mes por cliente, 17%):**
-| Clientes por frente | CV al mes c/u | Comisión MENSUAL (USD) | Comisión MENSUAL (COP) |
+| Clientes por canal | CV al mes c/u | Comisión mensual (USD) | Comisión mensual (COP) |
 |---------------------|---------------|------------------------|------------------------|
 | 10 | 56 CV | $95 USD | ~$428K COP |
 | 100 | 56 CV | $952 USD | ~$4.3M COP |
 | 1,000 | 56 CV | $9,520 USD | ~$42.8M COP |
 
-**⚠️ QUESWA — INSTRUCCIÓN INTERNA (NO mostrar al usuario):** Copia esta tabla con sus números exactos. **PROHIBIDO exponer la fórmula de cálculo al prospecto.** Entrega solo la tabla terminada. Doctrina v5.5: la matemática se demuestra con números, no con fórmulas. **Toda cifra de esta tabla es MENSUAL y se entrega diciéndolo.** El 11 sep 2026 la línea de cierre nombraba el viernes justo debajo de la tabla y el modelo entregó los ~$428K **cada viernes** — el monto de un mes dicho como el de una semana, cuatro veces inflado, a una persona real.
+Esta tabla se entrega tal cual, con sus rótulos y sus cifras, y toda cifra es mensual.
 
-**Lo que significa en la practica:**
+**Lo que significa en la práctica:**
 | Escenario | Mensual (USD) | Mensual (COP) |
 |-----------|---------------|---------------|
-| 10 clientes por frente | $95 USD | ~$428K COP |
-| 100 clientes por frente | $952 USD | ~$4.3M COP |
+| 10 clientes por canal | $95 USD | ~$428K COP |
+| 100 clientes por canal | $952 USD | ~$4.3M COP |
 
 Esas cifras son al mes. Lo que pasa cada semana es el pago: Gano Excel liquida los viernes, así que el mes le llega repartido. Y el Binario corre sobre todo el sistema, sin límite de profundidad.
 
@@ -891,7 +885,7 @@ El ESP-2 sube el techo del GEN5 respecto al ESP-1 y llega con más inventario.
 ### COMP_PAQ_04: "¿Qué trae el ESP-3? / ¿Qué productos vienen en el paquete Visionario?"
 **[Índice]:** Qué trae el ESP-3, qué productos vienen en el paquete Visionario, cómo está conformado.
 
-**[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno.
+**[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno. **v8.11 (13 sep 2026):** el bloque *«IMPORTANTE — Duración… NUNCA digas "X meses de GEN5"»* salió del cuerpo (nombraba la frase a evitar) y queda una línea en positivo. Regla: Binario alto 6/4/2 meses según paquete, luego base 10% si no recompra; GEN5 sin término mientras el código esté activo.
 
 **Contenido ESP-3 ($1,000 USD / $4.500.000 COP) — vigente desde 25 marzo 2026:**
 | Producto | Cantidad |
@@ -904,7 +898,7 @@ El ESP-2 sube el techo del GEN5 respecto al ESP-1 y llega con más inventario.
 | Gano C'Real Spirulina | 1 |
 | Ganorico Latte Rico | 1 |
 | Reskine Colágeno | 1 |
-| Cordygold Capsulas | 1 |
+| Cordygold Cápsulas | 1 |
 | Jabón Gano (2 por paquete) | 1 |
 | Gano Fresh (pasta dental) | 1 |
 | Jabón Transparente | 1 |
@@ -917,11 +911,7 @@ El ESP-3 tiene el techo más alto del GEN5 y abre con el Binario al 17% durante 
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se mantiene el porcentaje alto?.
 
-**IMPORTANTE — Duración de los componentes (evitar confusión):**
-- **Binario al porcentaje alto** (17% ESP-3 / 16% ESP-2 / 15% ESP-1): TIENE término — 6/4/2 meses respectivamente. Después baja a base 10% si no recompra.
-- **GEN5 (compra de paquetes empresariales):** SIN término de meses — activo desde el primer día y permanece mientras el sistema esté activo.
-
-NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del Binario al porcentaje alto.
+Los meses son del Binario al porcentaje alto —seis, cuatro o dos, según el paquete—; el GEN5 no tiene término.
 
 ---
 
@@ -954,7 +944,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 | Oleaf Gano Rooibos | 1 |
 | Ganorico Latte Rico | 1 |
 | Reskine Colágeno | 1 |
-| Cordygold Capsulas | 1 |
+| Cordygold Cápsulas | 1 |
 | Jabón Gano (2 por paquete) | 1 |
 | Gano Fresh (pasta dental) | 1 |
 | Shampoo Piel&Brillo | 1 |
@@ -968,7 +958,7 @@ NUNCA digas "X meses de GEN5". El "X meses" siempre se refiere al período del B
 | Ganocafé Classic | 6 |
 | Ganorico Shoko Rico | 2 |
 | Ganorico Latte Rico | 1 |
-| Cordygold Capsulas | 1 |
+| Cordygold Cápsulas | 1 |
 | Jabón Gano (2 por paquete) | 1 |
 | **Total** | **17** |
 
@@ -1030,13 +1020,13 @@ En la práctica casi nadie sale a vender: lo que ocurre es que hay conocidos que
 
 **[Concepto Nuclear]:** NO. El Cliente VIP activa su código con una compra mínima de 50 PV — sin paquete empresarial. NO requiere compras mínimas mensuales, aunque se sugiere mínimo un producto cada cinco meses.
 
-NO. El Cliente VIP no requiere adquirir un Paquete Empresarial.
+No. El Cliente VIP no requiere adquirir un Paquete Empresarial.
 
 **Activación inicial:**
 Para activar su código y acceder al precio de distribuidor, el VIP realiza una compra inicial mínima de **50 PV (Puntos de Volumen)** en productos Gano Excel. Esa misma compra ES su activación y su primera adquisición a precio preferencial.
 
 **Compras recurrentes:**
-El Cliente VIP NO tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para mantener la cuenta operativa dentro del sistema Gano Excel.
+El Cliente VIP no tiene obligación de compras mínimas mensuales para mantener su código activo. Sin embargo, se sugiere realizar **mínimo una compra de producto cada cinco meses** para que la cuenta siga abierta en Gano Excel.
 
 **Diferencia funcional con el distribuidor:**
 - El distribuidor compra un Paquete Empresarial —ESP-1, ESP-2 o ESP-3— para abrir su sistema de distribución, y mantiene su recompra de 50 PV al mes para conservar el derecho a cobrar comisiones.
@@ -1119,27 +1109,3 @@ Por eso el Cliente VIP es la puerta más sencilla para quien solo quiere el prod
 **Para bonos no documentados:** Escalar a la Dirección Estratégica.
 
 ---
-
-## CHANGELOG
-
-### v6.1 (03 May 2026) — Léxico Canónico
-* Header: "Arquitectura de Activos" → "Arquitectura Patrimonial"
-* Tuteo residual corregido (5 instancias): "Te pagan" → "Le pagan", "pierdes" → "pierde", "estes" → "esté", "pregunta/dame" → "pregunte/deme" (x2)
-* "equipo de liderazgo" → "Dirección Estratégica" (2 instancias — Reglas Críticas + Formas de Ganar)
-* Diccionario: "Lado de Mayor Tracción" → "Centro de negocios de Mayor Volumen Acumulado"
-
-### v6.0 (12 Abr 2026) — Lujo Clinico / Usted
-* Tuteo eliminado en los 38 fragmentos → Usted consistente
-* COMP_MONEDA_01: "Estandar Financiero Global" + "tasa blindada" + "friccion logistica"
-* COMP_MODELO_01: Reescrito — "Monetizacion de Doble Velocidad" (Velocidad 1 GEN5 / Velocidad 2 Binario). Sin Spotify/Netflix.
-* "Piensalo asi:" → "Analogia:" en todos los fragmentos
-* "Pierna Fuerte/Debil" → "Lado de Mayor Traccion / Lado de Compensacion"
-* "ingreso residual" → "ingreso recurrente"
-* Insight COMP_BIN_01: "verdadero ingreso residual" → "verdadero ingreso recurrente"
-
-### v5.2 (19 Enero 2026)
-* Protocolo Arquitecto + Respuestas Canonicas
-
-**Fin del Arsenal de Compensacion v6.2**
-**Total:** 38 respuestas documentadas + Diccionario Tecnico
-

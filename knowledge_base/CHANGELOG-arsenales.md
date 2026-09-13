@@ -12,6 +12,42 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.11 — Las instrucciones para el modelo salen del cuerpo servido, y «activo» pasa al código (13 sep 2026)
+
+Auditoría de las cuarenta respuestas con los lentes del día. Lo que el pie del archivo llevaba —«Reglas críticas para Queswa», el diccionario técnico y la tabla de bonos pendientes— **no se sirve** (el fragmentador corta antes) y se conserva como doctrina para quien edita. Lo que sí llegaba al modelo:
+
+- **Tres *«Referencia interna — NO mostrar al prospecto»*** después de la pregunta de cierre de `COMP_MODELO_01`, `COMP_GEN5_01` y `COMP_BIN_01` → movidas verbatim al `[Concepto Nuclear]`, que el fragmentador recorta.
+- **Cuatro instrucciones que narraban el error a evitar** —`COMP_BIN_08` (*«el período estaba mal… semanal… inflando al cuádruple»*, *«a mes 12 con 10% son $2.520.000»*), `COMP_BIN_10` (*«~$428K cada viernes»*), `COMP_GEN5_08` (*«COPIAR ESTA TABLA EXACTAMENTE… NO inventar»*) y `COMP_PAQ_04` (*«NUNCA digas "X meses de GEN5"»*)— → en el cuerpo queda **una línea en positivo** (*esta tabla se entrega tal cual, con sus rótulos y sus cifras, y toda cifra es mensual* · *los meses son del Binario; el GEN5 no tiene término*), y la narración va al concepto. La protección real de la tabla la dan el candado solitario y el pin de cifras del motor, no una advertencia dentro del texto.
+
+**Léxico.** *Activo* dicho de la persona → del código, en `GEN5_09`, `PV_01`, `PV_04`, `CV_01`, `PV_09`, `BIN_06` (×2) y `BIN_09` (×2); *«le falta un activo en un canal»* se queda (plan). Candados: `COMP_BIN_05` *«acaba de entrar»* → *«acaba de vincularse»*; `COMP_MODELO_01` *«su propia red»* → *«sus propios clientes»* (Director, 13 sep). `BIN_10` *«por frente»* → *«por canal»* (el rótulo fijado en BIN_08). `GEN5_02` *«el paquete del nuevo… GENERA»* → *«el paquete que se compra determina lo que genera»*. `BIN_06` *«patrocinado»* → *«vinculado»*. `VIP_01` *«cuenta operativa»* → *«siga abierta»*, y sin *NO* en mayúsculas. `BIN_08` sin *CADA SEMANA / TODO / MISMO / UN / NO*, *«sin límite de profundidad»* → *«sin importar a qué profundidad esté cada compra»*, *«56 CV/persona»* → *«por cliente»*. Tildes en cuerpos (*valoración, liquidación, cómo funciona, jabón, sábado, café, cápsulas, activación mínima*) y un `**` suelto tras *dólar*.
+
+**Cabecera y pie.** Tenía dos versiones a la vez (*Version 8.10* y *Versión actual v8.9*): queda una. *Enfoque* sin *«(No MLM tradicional)»*. El CHANGELOG viejo del pie (v6.1 · v6.0 · v5.2, que cerraba con *«38 respuestas»* cuando son 40) se movió aquí abajo. Índices sin cambio; despliegue con el orden sin ventana.
+
+#### Historial movido del pie del archivo (verbatim, 13 sep 2026)
+
+
+### v6.1 (03 May 2026) — Léxico Canónico
+* Header: "Arquitectura de Activos" → "Arquitectura Patrimonial"
+* Tuteo residual corregido (5 instancias): "Te pagan" → "Le pagan", "pierdes" → "pierde", "estes" → "esté", "pregunta/dame" → "pregunte/deme" (x2)
+* "equipo de liderazgo" → "Dirección Estratégica" (2 instancias — Reglas Críticas + Formas de Ganar)
+* Diccionario: "Lado de Mayor Tracción" → "Centro de negocios de Mayor Volumen Acumulado"
+
+### v6.0 (12 Abr 2026) — Lujo Clinico / Usted
+* Tuteo eliminado en los 38 fragmentos → Usted consistente
+* COMP_MONEDA_01: "Estandar Financiero Global" + "tasa blindada" + "friccion logistica"
+* COMP_MODELO_01: Reescrito — "Monetizacion de Doble Velocidad" (Velocidad 1 GEN5 / Velocidad 2 Binario). Sin Spotify/Netflix.
+* "Piensalo asi:" → "Analogia:" en todos los fragmentos
+* "Pierna Fuerte/Debil" → "Lado de Mayor Traccion / Lado de Compensacion"
+* "ingreso residual" → "ingreso recurrente"
+* Insight COMP_BIN_01: "verdadero ingreso residual" → "verdadero ingreso recurrente"
+
+### v5.2 (19 Enero 2026)
+* Protocolo Arquitecto + Respuestas Canonicas
+
+**Fin del Arsenal de Compensacion v6.2**
+**Total:** 38 respuestas documentadas + Diccionario Tecnico
+
+
 ### v8.10 — COMP_BIN_06 y COMP_BIN_09: cuatro cajas al mes, el equivalente a 50 PV (3 sep 2026)
 
 *«Unas tres o cuatro cajas al mes, una a la semana»* dejaba creer que con menos alcanza (Director, sobre la prueba del 3 sep). Ahora: *cuatro cajas al mes, el equivalente a 50 PV*. Cifras del plan intactas. `COMP_GEN5_09` ya decía lo correcto —haber comprado un paquete empresarial y estar activo con la recompra—; lo que fallaba era el pin de cifras del motor, que le robaba la pregunta con solo ver «gen 5» (corregido en `route.ts`).

@@ -145,9 +145,9 @@ async function deployArsenalCompensacion() {
   console.log('\n🔍 Verificando contenido v2.0...\n');
 
   const checks = [
-    { name: 'GEN5 - Regla del TECHO', found: content.includes('TECHO') && content.includes('GENERA') },
+    { name: 'GEN5 - Regla del techo', found: /determina su techo/i.test(content) && /determina lo que genera/i.test(content) },
     { name: 'GEN5 - Techos ESP-1 ($25)', found: content.includes('Gen 1 | $25 USD') },
-    { name: 'GEN5 - Techos ESP-2 ($75)', found: content.includes('Gen 1 | $75 USD') },
+    { name: 'GEN5 - Techos ESP-2 ($75)', found: content.includes('| Gen 1 | $25 USD | $75 USD | $150 USD |') },
     { name: 'GEN5 - Techos ESP-3 ($150)', found: content.includes('Gen 1 | $150 USD') },
     { name: 'Gen 5 Doble (100 PV)', found: content.includes('100 PV') && content.includes('DOBLE') },
     { name: 'Ciclos semanales (Domingo-Sabado)', found: content.includes('Domingo a Sabado') },

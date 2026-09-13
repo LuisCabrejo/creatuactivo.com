@@ -129,21 +129,19 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Funciona con la misma lógica de una franquicia.
+const MASTER_WHY_02 = `Con gusto. Funciona con la lógica de una franquicia.
 
-Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. Y es que lo difícil de cualquier negocio nunca es abrirlo: es multiplicarlo. Un buen restaurante lo saca adelante mucha gente; una cadena, muy pocos.
+Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. La diferencia no está en el local ni en la venta: está en ser dueño del sistema que distribuye.
 
-La clave nunca está en la venta al menudeo ni en tener un punto. Está en ser dueño del sistema que distribuye.
+Eso es lo que usted arma acá: su propio sistema de distribución de productos premium de bienestar, que no depende de que esté encima. Lo recibe ensamblado, con las tres cosas que hacen falta ya puestas.
 
-Eso es lo que usted arma acá: su propio sistema de distribución, que no depende de que esté encima para que funcione. Y no depende, porque acá lo recibe ensamblado — las tres cosas que hacen falta ya están puestas.
+Una fábrica: **Gano Excel**, 30 años y más de 60 países. Fabrica y despacha cada pedido a la casa del cliente, sean diez clientes o mil.
 
-Una fábrica: **Gano Excel**, 30 años y en más de 60 países. Fabrica y despacha cada pedido directo a la casa del cliente, sean diez clientes o sean mil.
+Alguien que atienda: eso lo hago **yo**. Converso con cada persona que llega y maduro su decisión de avanzar.
 
-Alguien que atienda: eso lo hago **yo**. Converso con cada persona que llega, sea que le interese el producto o el modelo de negocio, y maduro su decisión de avanzar.
+Y una metodología de dos pasos.
 
-Y una metodología sencilla, de dos pasos.
-
-Cada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo lo controla desde su celular.
+Cada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo desde el celular.
 
 ¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?`;
 

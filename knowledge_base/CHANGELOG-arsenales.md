@@ -368,6 +368,16 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.37 — WHY_02 🔒 pierde el argumento que le sobraba a la analogía (13 sep 2026)
+
+Segundo texto del día con el mismo ejercicio —¿cómo lo diría Vélez?— tras `WHY_01` (v6.36), la apertura del canal y el perfil del WABA. `WHY_02` responde al botón «Cómo funciona» y al primer chip de la web por Camino A (`respuestas-maestras.ts`), y en el canal lo emite el backend como candado dictado.
+
+**Lo que pesaba:** la analogía de la franquicia ocupaba tres párrafos y traía tesis propia (*lo difícil no es abrirlo, es multiplicarlo · un buen restaurante lo saca adelante mucha gente; una cadena, muy pocos*) — la analogía es un puente, no un argumento. Y dos precisiones para quien no sabe música: *«sea que le interese el producto o el modelo de negocio»* y la repetición de *«sean diez clientes o sean mil»*.
+
+**Queda:** la franquicia en una frase que compara hacia arriba —*«Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. La diferencia no está en el local ni en la venta: está en ser dueño del sistema que distribuye.»*—; el sistema con su categoría y su cualidad pegadas al sustantivo; los tres elementos apilados en líneas propias; el cobro al final, por su repetición y sin cifra; *«todo desde el celular»*. De 1.109 a 830 caracteres, mismo orden.
+
+⚠️ La categoría (*productos premium de bienestar*) entra aquí porque salió de la apertura contando con esto. ⚠️ Las tres frases del Método no se repiten: las dijo la apertura y las entrega `EAM_01`. ⛔ La pregunta de cierre no cambia: el conductor reconoce el «sí» por *«estrategia con la que se construye»*. Prefijo TS ↔ candado verificado (830 = 830). Recuperación medida antes y después con tres paráfrasis. Dato previo, no de este cambio: *«y esto cómo es que funciona»* la gana `PERFIL_01` por 0.012; el chip exacto no pasa por el vector.
+
 ### v6.36 — WHY_01 🔒 se escribe como lo escribiría Vélez (13 sep 2026)
 
 La respuesta a *«¿qué es CreaTuActivo?»* tenía cuatro párrafos: la tesis con *«cobra cada vez que mueve producto»* en la primera línea, el credo, *«no es culpa de nadie… saldar esa deuda»*, y los tres elementos ensamblados completos, que `WHY_02` vuelve a dar enteros en el turno siguiente. El Director la retiró por **carga cognitiva**, con un paradigma que aplica a todo el copy: *«si yo quiero que la gente vea que es sencillo, los primeros que tienen que hacerse así las cosas somos nosotros, eso incluye cómo lo decimos»*.

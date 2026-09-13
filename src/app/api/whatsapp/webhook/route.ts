@@ -77,6 +77,9 @@ import {
   saludoDeSocio,
   convertirProspectoEnSocio,
   marcarSaludoDeSocio,
+  extraerVinculoSocio,
+  vincularSocioPorToken,
+  mensajeSocioEnlace,
 } from '@/lib/wa-onboarding';
 import { normalizarParaSlug } from '@/lib/texto-normalizar';
 import {
@@ -801,7 +804,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // Va ANTES de todos los nodos, así que cualquiera que corte el turno hereda
     // la captura sin tener que acordarse de hacerla. No responde nada: solo
     // anota lo que el mensaje traía además.
-    await capturarContextoDelMensaje(supabase, waFingerprint, messageText, patrocinador?.userId ?? existingProspect?.constructor_id ?? null);
+    // ⚠️ Al socio no se le anota paquete ni ciudad: no está eligiendo (13 sep 2026).
+    if (!existingProspect?.device_info?.es_socio) {
+      await capturarContextoDelMensaje(supabase, waFingerprint, messageText, patrocinador?.userId ?? existingProspect?.constructor_id ?? null);
+    }
 
     // ─── 1.38 ¿Es el dueño de un canal, y no un prospecto? ────────────────────
     // ⚠️ Va ANTES del guardarraíl de salud (10 sep 2026): ese bloque CORTA el
@@ -813,7 +819,41 @@ async function procesarEntrante(body: any): Promise<void> {
     // asistente de sí mismo, para después explicarle el negocio que ya compró.
     // La detección es determinística —su teléfono está en `constructor_slugs`—,
     // así que no hay margen de error ni costo de modelo.
-    const socioQueEscribe = await identificarSocio(supabase, phoneNumber);
+    let socioQueEscribe = await identificarSocio(supabase, phoneNumber);
+
+    // ─── 1.385 El vínculo por token: el socio al que no se le ve el teléfono ──
+    // Meta esconde el número de quien usa nombre de usuario tras un BSUID, y por
+    // teléfono no hay forma de reconocerlo: Victor Armando Rojas, aprobado a las
+    // 18:35 del 12 sep 2026, escribió a las 19:05 y recibió la apertura de
+    // prospecto. El Dashboard le da un enlace a este chat con «soy socio ·
+    // {constructor_id}.{firma}»; aquí se verifica la firma y la huella queda
+    // atada a su cuenta, de modo que `identificarSocio` la reconozca desde el
+    // turno siguiente. Con teléfono visible el vínculo sobra, pero el mensaje
+    // igual se atiende aquí para que no llegue al modelo con una firma adentro.
+    const _vinculo = extraerVinculoSocio(messageText);
+    if (_vinculo) {
+      if (!socioQueEscribe) {
+        socioQueEscribe = await vincularSocioPorToken(supabase, waFingerprint, _vinculo, existingProspect);
+        if (socioQueEscribe) console.log(`🔗 [WA Webhook] Huella ${waFingerprint} vinculada a /${socioQueEscribe.slug} por token`);
+      }
+      if (!socioQueEscribe) {
+        const aviso = 'Ese código de vínculo no me sirve. Ábralo otra vez desde su Centro de Mando en queswa.app, o escríbame desde el número con el que se registró.';
+        console.warn(`🔗 [WA Webhook] Token de vínculo inválido para ${_vinculo.constructorId} desde ${waFingerprint}`);
+        await sendWhatsAppMessage(phoneNumber, aviso);
+        await persistirTurnoDictado(supabase, waFingerprint, 'Hola Queswa, soy socio.', aviso);
+        return;
+      }
+      const yaSaludado = !!existingProspect?.device_info?.saludo_socio_en;
+      const texto = yaSaludado
+        ? `Listo${socioQueEscribe.nombre ? ', ' + socioQueEscribe.nombre : ''}: este chat queda reconocido como el suyo.\n\n¿Le redacto el mensaje para enviárselo a alguien?`
+        : saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug);
+      await sendWhatsAppMessage(phoneNumber, texto);
+      if (!yaSaludado) await marcarSaludoDeSocio(supabase, waFingerprint);
+      // La firma no se guarda en el historial: el modelo no tiene por qué verla.
+      await persistirTurnoDictado(supabase, waFingerprint, 'Hola Queswa, soy socio.', texto);
+      return;
+    }
+
     // El hilo del socio empieza el día en que se le reconoció como tal: los turnos
     // anteriores —donde se le vendió el negocio que ya tenía— no vuelven al modelo.
     let socioDesde: string | null = existingProspect?.device_info?.socio_desde ?? null;
@@ -1098,6 +1138,25 @@ async function procesarEntrante(body: any): Promise<void> {
     }
     if (_vieneDeProductos && _preguntaProductos) {
       console.log(`🛒 [WA Webhook] Llega desde /productos CON pregunta ("${_preguntaProductos.slice(0, 45)}") — responde el motor en modo asesora`);
+    }
+
+    // ─── 1.48 El SOCIO que toca un enlace de canal ────────────────────────────
+    // Miguel Barahona tocó el suyo el 12 sep 2026 a las 19:47 (el Director lo
+    // estaba estrenando con él). La apertura lo excluye por ser socio, y el modo
+    // socio no sabía qué hacer con «vengo del enlace de miguel-barahona»: el
+    // modelo compuso «Bienvenido, Antonio. Ya lo tengo en el sistema de Miguel» y
+    // le vendió el negocio durante once turnos, con un método inventado. Si el
+    // saludo de socio acaba de salir en este mismo turno, ya dijo lo que había que
+    // decir y no se le encima otro mensaje.
+    if (socioQueEscribe && _vieneDelEnlace) {
+      if (!existingProspect?.device_info?.saludo_socio_en) return;
+      const slugEnlace = (/vengo del enlace de\s+([a-z0-9-]+)/i.exec(messageText)
+        ?? /creatuactivo\.com\/([a-z0-9-]+)/i.exec(messageText))?.[1]?.toLowerCase() ?? null;
+      const texto = mensajeSocioEnlace(socioQueEscribe, slugEnlace);
+      await sendWhatsAppMessage(phoneNumber, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      console.log(`🔗 [WA Webhook] El socio /${socioQueEscribe.slug} tocó el enlace de ${slugEnlace ?? '(sin slug)'} — se le dice qué hace`);
+      return;
     }
 
     if (existingProspect && !socioQueEscribe && !llegaDecidido && (_soloSaludo || _vieneDelEnlace) && !detectarIntencionCompra(messageText)) {
@@ -2250,7 +2309,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // El Flow es un extra, nunca un bloqueo: la conversación ya tiene el
       // ejemplo completo en texto. Cada ejemplo dictado abre el simulador en SU
       // pantalla — el de paquetes en el menú GEN5, el de renta en las tarifas.
-      const flowSimulador = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
+      // ⚠️ Al socio no se le manda la tarjeta (13 sep 2026): el simulador es parte
+      // de la secuencia de venta, y Miguel, socio, terminó la noche del 12 sep en
+      // la composición del ESP-3 con «¿Seguimos con la activación?».
+      const flowSimulador = pageContext === 'whatsapp_socio' ? undefined : process.env.WHATSAPP_FLOW_SIMULADOR_ID;
 
       // ⚠️ El silencio deja de ser silencioso (9 ago 2026). Si la env falta, el
       // `if (flowSimulador && …)` no hacía NADA y no decía nada: el ejemplo de
@@ -2261,7 +2323,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // invisible.
       const dictoEjemplo = queswaReply.includes('Le pongo un ejemplo con números redondos')
         || queswaReply.includes('Le pongo el ejemplo con un supuesto modesto');
-      if (!flowSimulador && dictoEjemplo) {
+      if (!flowSimulador && dictoEjemplo && pageContext !== 'whatsapp_socio') {
         console.warn('⚠️ [WA Webhook] Se dictó un ejemplo de cifras pero WHATSAPP_FLOW_SIMULADOR_ID no está definida — el simulador NO se ofreció. Definirla en Vercel.');
       }
 

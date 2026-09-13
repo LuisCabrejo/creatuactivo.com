@@ -303,6 +303,12 @@ export async function atenderEnlaceCatalogo(
  * si el turno es del motor.
  */
 export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<RespuestaConductor | null> {
+  // Un socio que escribe no entra al hilo (13 sep 2026): es la secuencia de
+  // venta —los «sí» encadenados, el simulador, la composición del paquete— y
+  // Miguel Barahona, socio, la recorrió entera la noche del 12 sep hasta
+  // «¿Seguimos con la activación?». Si un socio pregunta por el plan para
+  // explicarlo, lo atiende el motor en modo socio, con el arsenal de material.
+  if (ctx.socioQueEscribe) return null;
   const { mensaje, historial } = ctx;
   const b = banderasDelHilo(mensaje, historial);
   const vieneDelSimulador = !!ctx.vieneDelSimulador;

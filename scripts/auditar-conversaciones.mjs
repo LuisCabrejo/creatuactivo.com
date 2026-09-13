@@ -35,7 +35,8 @@ const salida = arg('--salida', path.join('docs', 'respaldos', `auditoria-${hoy}`
 
 const RE_ARNES = /conv|probe|_p_|q23|wa_e3_|^wa_5730\d{9,}|sede_probe|deploy/;
 const huellaDePersona = (fp) => !fp || fp === 'null' || (!RE_ARNES.test(fp) && /^wa_(57\d{10}|CO\.\d+|[A-Z]{2}\.\d+)$/.test(fp));
-const abreComoPersona = (primerMensaje) => /vengo del enlace|^\s*(hola|buenas|buenos)/i.test(primerMensaje || '');
+// «Bna noche» dejó fuera del volcado al socio Victor Armando (12 sep 2026): la gente abrevia.
+const abreComoPersona = (primerMensaje) => /vengo del enlace|soy socio|^\s*(hola|buenas|buenos|bna|bn\b|buen\b|hey|saludos|qu[eé] tal)/i.test(primerMensaje || '');
 
 const s = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 const desde = new Date(Date.now() - dias * 864e5).toISOString();

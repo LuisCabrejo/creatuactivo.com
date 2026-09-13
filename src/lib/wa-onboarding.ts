@@ -226,6 +226,8 @@ export interface SocioIdentificado {
   constructorId: string;
   /** `private_users.id` — el que va en `prospects.user_id` al convertirlo. */
   userId: string | null;
+  /** Nombre completo del socio, para que la ficha no se quede con el de su perfil de WhatsApp. */
+  nombreCompleto?: string;
 }
 
 /**
@@ -275,11 +277,22 @@ export async function convertirProspectoEnSocio(
   }
   // Ya convertido: solo se vuelve a tocar si le repusieron la temperatura de
   // prospecto (pasaba en cada mensaje hasta el 11 sep 2026, ver el scoring).
-  const tieneTemperatura = previo.momento_optimo != null || previo.interest_level != null || previo.hilo_12_niveles != null;
+  // ⚠️ La temperatura no son solo dos campos (13 sep 2026). Miguel Barahona,
+  // socio, tocó su propio enlace y al final de la noche su ficha decía paquete
+  // ESP-3, arquetipo «emprendedor» e hilo de 12 Niveles: la guarda del scoring
+  // solo cuidaba `momento_optimo` e `interest_level`, y todo lo demás que el
+  // motor le captura a un prospecto se le seguía escribiendo al socio.
+  const CAMPOS_DE_PROSPECTO = ['momento_optimo', 'interest_level', 'hilo_12_niveles', 'package', 'archetype', 'objections'] as const;
+  const tieneTemperatura = CAMPOS_DE_PROSPECTO.some((k) => previo[k] != null);
   if (previo.es_socio && !tieneTemperatura) return false;
-  const { momento_optimo: _m, interest_level: _i, hilo_12_niveles: _h, ...resto } = previo;
+  const resto: Record<string, any> = { ...previo };
+  for (const k of CAMPOS_DE_PROSPECTO) delete resto[k];
   const device_info = {
     ...resto,
+    // Solo si la ficha no traía nombre: lo que ya tiene no se pisa. El del perfil
+    // de WhatsApp puede ser basura («antonio barahona283@gmail»), y eso se
+    // corrige a mano con `scripts/vincular-huella-a-socio.mts --nombre`.
+    ...(!previo.name && socio.nombreCompleto ? { name: socio.nombreCompleto } : {}),
     es_socio: true,
     socio_desde: previo.socio_desde ?? new Date().toISOString(),
     socio_constructor_id: socio.constructorId,
@@ -334,6 +347,15 @@ export async function identificarSocio(
   supabase: any,
   telefono: string,
 ): Promise<SocioIdentificado | null> {
+  // ── Quien escribe con nombre de usuario de WhatsApp no trae teléfono ──────
+  // Meta lo esconde tras un BSUID (`CO.1955991631759265`), así que aquí no hay
+  // número que comparar. Victor Armando Rojas, aprobado como socio a las 18:35
+  // del 12 sep 2026, escribió a las 19:05 desde una cuenta así y recibió la
+  // apertura de prospecto. La única forma de reconocerlo es que su huella ya
+  // esté vinculada a su cuenta (`vincularSocioPorToken`): la ficha queda con
+  // `es_socio` y `socio_constructor_id`, y de ahí se lee.
+  if (esBsuid(telefono)) return socioPorHuellaVinculada(supabase, `wa_${telefono}`);
+
   const wa = normalizarWhatsApp(telefono);
   if (!wa) return null;
   try {
@@ -359,6 +381,7 @@ export async function identificarSocio(
         nombre: (fila.display_name || '').split(/\s+/)[0] || '',
         constructorId: fila.constructor_id,
         userId: pu?.id ?? null,
+        nombreCompleto: fila.display_name || undefined,
       };
     }
 
@@ -400,11 +423,148 @@ export async function identificarSocio(
       nombre: (slugFila?.display_name || usuario.name || '').split(/\s+/)[0] || '',
       constructorId: usuario.constructor_id,
       userId: usuario.id ?? null,
+      nombreCompleto: slugFila?.display_name || usuario.name || undefined,
     };
   } catch (err) {
     console.error('⚠️ [WA Onboarding] Error identificando al socio:', err);
     return null;
   }
+}
+
+/** `CO.1955991631759265` — el identificador con que Meta esconde un teléfono. */
+export function esBsuid(identidad: string): boolean {
+  return /^[A-Z]{2}\.[A-Za-z0-9]{6,}$/.test(identidad || '');
+}
+
+/**
+ * El socio por su `constructor_id` — la llave de texto que comparte con el
+ * Dashboard. Si no tiene slug se le asigna, igual que por teléfono.
+ */
+export async function socioPorConstructorId(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  constructorId: string,
+): Promise<SocioIdentificado | null> {
+  try {
+    const { data: usuario } = await supabase
+      .from('private_users').select('id, name, constructor_id, whatsapp')
+      .eq('constructor_id', constructorId).maybeSingle();
+    if (!usuario?.constructor_id) return null;
+    const { data: slugFila } = await supabase
+      .from('constructor_slugs').select('slug, display_name')
+      .eq('constructor_id', constructorId).maybeSingle();
+    const slug: string | null = slugFila?.slug || (await asignarSlugPorDefecto(supabase, usuario));
+    if (!slug) return null;
+    return {
+      slug,
+      nombre: (slugFila?.display_name || usuario.name || '').split(/\s+/)[0] || '',
+      constructorId,
+      userId: usuario.id ?? null,
+      nombreCompleto: slugFila?.display_name || usuario.name || undefined,
+    };
+  } catch (err) {
+    console.error('⚠️ [WA Onboarding] Error buscando al socio por constructor_id:', err);
+    return null;
+  }
+}
+
+/** La huella (BSUID) que ya quedó vinculada a un socio se reconoce por su ficha. */
+async function socioPorHuellaVinculada(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+): Promise<SocioIdentificado | null> {
+  try {
+    const { data } = await supabase
+      .from('prospects').select('device_info')
+      .eq('fingerprint_id', fingerprint).maybeSingle();
+    const d = data?.device_info || {};
+    if (!d.es_socio || !d.socio_constructor_id) return null;
+    return socioPorConstructorId(supabase, d.socio_constructor_id);
+  } catch {
+    return null;
+  }
+}
+
+// ─── El vínculo por token: para el socio al que no se le ve el teléfono ───────
+//
+// El Dashboard le muestra al socio un enlace `wa.me` a Queswa con este texto
+// prellenado. Cuando llega, el webhook verifica la firma y ata la huella —sea
+// teléfono o BSUID— a su cuenta. La firma es un HMAC del `constructor_id` con
+// `WA_BRIDGE_SECRET`, que los dos repositorios ya comparten: no hay tabla, no
+// caduca (es identidad, no sesión) y no se puede fabricar sin el secreto.
+// Web Crypto a propósito: este archivo también lo importa una ruta Edge.
+
+const RE_VINCULO_SOCIO = /soy socio\W+([a-z0-9-]+)\.([A-Za-z0-9_-]{8,})/i;
+
+export function extraerVinculoSocio(texto: string): { constructorId: string; token: string } | null {
+  const m = RE_VINCULO_SOCIO.exec(texto || '');
+  return m ? { constructorId: m[1].toLowerCase(), token: m[2] } : null;
+}
+
+export async function tokenDeVinculoSocio(constructorId: string, secreto = process.env.WA_BRIDGE_SECRET): Promise<string | null> {
+  const clave = (secreto || '').trim();
+  if (!clave) return null;
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey('raw', enc.encode(clave), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const firma = new Uint8Array(await crypto.subtle.sign('HMAC', key, enc.encode(constructorId.toLowerCase())));
+  let bin = '';
+  for (const byte of firma) bin += String.fromCharCode(byte);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '').slice(0, 16);
+}
+
+export async function verificarTokenDeVinculo(constructorId: string, token: string): Promise<boolean> {
+  const esperado = await tokenDeVinculoSocio(constructorId);
+  return !!esperado && esperado === token;
+}
+
+/** El texto prellenado del enlace que el Dashboard le da al socio. */
+export async function textoVinculoSocio(constructorId: string): Promise<string | null> {
+  const token = await tokenDeVinculoSocio(constructorId);
+  // Sin emojis ni tildes: la precarga de wa.me convierte algunos caracteres en U+FFFD.
+  return token ? `Hola Queswa, soy socio: ${constructorId.toLowerCase()}.${token}` : null;
+}
+
+/**
+ * Ata la huella que escribe a la cuenta del socio y la deja configurada como
+ * tal. Devuelve al socio si el token es válido; `null` si no lo es.
+ */
+export async function vincularSocioPorToken(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+  vinculo: { constructorId: string; token: string },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  prospecto: { id?: string; device_info?: Record<string, any> | null } | null,
+): Promise<SocioIdentificado | null> {
+  if (!(await verificarTokenDeVinculo(vinculo.constructorId, vinculo.token))) return null;
+  const socio = await socioPorConstructorId(supabase, vinculo.constructorId);
+  if (!socio) return null;
+  await convertirProspectoEnSocio(supabase, fingerprint, socio, prospecto);
+  return socio;
+}
+
+/**
+ * El socio que toca un enlace de canal —el suyo o el de otro socio— no es un
+ * prospecto que llega: está mirando. Hasta el 12 sep 2026 ese mensaje no tenía
+ * dueño: la apertura lo excluye por ser socio y el modo socio no sabe qué hacer
+ * con «vengo del enlace de miguel-barahona», así que el modelo compuso
+ * «Bienvenido, Antonio. Ya lo tengo en el sistema de Miguel» y de ahí en
+ * adelante le vendió el negocio a Miguel con un método inventado. Se le dice
+ * qué hace ese enlace y se le propone lo suyo, una sola salida.
+ */
+export function mensajeSocioEnlace(socio: SocioIdentificado, slugDelEnlace: string | null): string {
+  const nombre = socio.nombre ? `, ${socio.nombre}` : '';
+  const propio = !slugDelEnlace || slugDelEnlace === socio.slug;
+  const primera = propio
+    ? `Ese enlace es el suyo${nombre}, y funciona: quien lo toque llega aquí conmigo y recibe la apertura con usted como patrocinador.`
+    : `Ese enlace es de ${slugDelEnlace}${nombre}, y funciona igual que el suyo: quien lo toque llega aquí conmigo y queda con ${slugDelEnlace} como patrocinador.`;
+  return (
+    `${primera}\n\n` +
+    `A usted no le abro esa conversación porque ya lo conozco como socio. Si quiere verla tal como la vive un prospecto, ábrala desde otro número.\n\n` +
+    (propio ? '' : `El suyo es ${enlaceDeCanal(socio.slug)}.\n\n`) +
+    `¿Le redacto el mensaje para enviárselo a alguien?`
+  );
 }
 
 /**

@@ -1000,6 +1000,14 @@ async function captureProspectData(
     data.momento_optimo = _nivel >= 7 ? 'caliente' : _nivel >= 4 ? 'tibio' : 'frio';
   }
 
+  // ⚠️ Al socio tampoco se le anotan paquete, arquetipo, objeciones ni ocupación
+  // (13 sep 2026). La guarda de arriba cuidaba la temperatura y nada más: Miguel
+  // Barahona, socio, terminó la noche del 12 sep con «paquete ESP-3» y arquetipo
+  // «emprendedor» en su ficha, o sea con la silueta de una venta pendiente.
+  if (existingData?.es_socio) {
+    for (const k of ['package', 'archetype', 'objections', 'occupation']) delete (data as Record<string, unknown>)[k];
+  }
+
   // GUARDAR EN SUPABASE SI HAY DATOS
   if (Object.keys(data).length > 0 && fingerprint) {
     try {

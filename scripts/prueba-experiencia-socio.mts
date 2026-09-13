@@ -24,10 +24,11 @@ import { config } from 'dotenv'; config({ path: '.env.local' });
 import { createClient } from '@supabase/supabase-js';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { identificarSocio, saludoDeSocio, convertirProspectoEnSocio, slugDesdeNombre } =
+const { identificarSocio, saludoDeSocio, convertirProspectoEnSocio, slugDesdeNombre,
+        esBsuid, extraerVinculoSocio, tokenDeVinculoSocio, mensajeSocioEnlace } =
   require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 const { esSoloSaludo } = require('../src/lib/wa-apertura.ts') as typeof import('../src/lib/wa-apertura.ts');
-const { atenderPidePieza, detectarPidePieza, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ } =
+const { atenderPidePieza, detectarPidePieza, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ, atenderHiloNiveles } =
   require('../src/lib/queswa-conductor.ts') as typeof import('../src/lib/queswa-conductor.ts');
 const g = require('../src/lib/wa-guardarrail-salud.ts') as typeof import('../src/lib/wa-guardarrail-salud.ts');
 const negocio = require('../src/lib/wa-guardarrail-negocio.ts') as typeof import('../src/lib/wa-guardarrail-negocio.ts');
@@ -124,6 +125,34 @@ es(detectarPidePieza('hazme un flyer con la presentación del Ganocafé'), 'y un
 // El saludo no se lleva la petición: la puerta distingue saludo pelado de petición.
 es(esSoloSaludo('Hola') && esSoloSaludo('buenas'), 'el saludo pelado se reconoce');
 es(!esSoloSaludo(PIDE), 'una petición NO es saludo pelado → el turno sigue al motor tras saludar');
+
+console.log('\n── 7. El socio que toca un enlace, y el socio al que no se le ve el teléfono (12 sep 2026) ──');
+// Miguel Barahona tocó su propio enlace a las 19:47 y el modelo compuso «Bienvenido,
+// Antonio. Ya lo tengo en el sistema de Miguel», y de ahí once turnos de venta.
+const miguel = { slug: 'miguel-barahona', nombre: 'Miguel', constructorId: 'miguel-barahona-7020577', userId: 'x' };
+const propio = mensajeSocioEnlace(miguel, 'miguel-barahona');
+es(/es el suyo, Miguel/.test(propio) && /¿Le redacto el mensaje/.test(propio), 'su propio enlace: se le dice qué hace y se le propone lo suyo');
+es(!/paquete|invers|ESP-|Bienvenido/i.test(propio), 'sin venderle nada y sin darle la bienvenida como prospecto');
+const ajeno = mensajeSocioEnlace(miguel, 'luis-cabrejo');
+es(/es de luis-cabrejo, Miguel/.test(ajeno) && /miguel-barahona\/queswa/.test(ajeno), 'el enlace de otro socio: se le recuerda el suyo');
+es(negocio.detectarPromesaDeIngreso(propio) === null && negocio.detectarPromesaDeIngreso(ajeno) === null, 'los dos pasan el guardarraíl de negocio');
+// Victor Armando Rojas, aprobado a las 18:35, escribió a las 19:05 desde una cuenta
+// con nombre de usuario y recibió la apertura de prospecto.
+es(esBsuid('CO.1955991631759265') && !esBsuid('573142445710'), 'la huella con nombre de usuario se distingue del teléfono');
+const tok = await tokenDeVinculoSocio('victor-armando-rojas-beltran-9097', 'secreto-de-prueba');
+es(!!tok && tok.length === 16 && /^[A-Za-z0-9_-]+$/.test(tok), 'el token es corto y cabe en una URL');
+es(tok === await tokenDeVinculoSocio('Victor-Armando-Rojas-Beltran-9097', 'secreto-de-prueba'), 'y no depende de mayúsculas');
+es(tok !== await tokenDeVinculoSocio('victor-armando-rojas-beltran-9097', 'otro-secreto'), 'pero sí del secreto');
+es((await tokenDeVinculoSocio('x', '')) === null, 'sin secreto no hay token (el vínculo se niega, no se abre)');
+const v = extraerVinculoSocio(`Hola Queswa, soy socio · victor-armando-rojas-beltran-9097.${tok}`);
+es(v?.constructorId === 'victor-armando-rojas-beltran-9097' && v?.token === tok, 'el texto prellenado se lee de vuelta');
+es(extraerVinculoSocio('Soy socio, y necesito ver el café 3 en 1') === null, 'y «soy socio» a secas no es un vínculo');
+// El hilo de Los 12 Niveles es la secuencia de venta: a un socio no se le dicta.
+const hist = [{ role: 'assistant', content: 'Los 12 Niveles es nuestra estrategia para construirlo paso a paso. La lógica es la duplicación 2×2. ¿Quiere verlo en el simulador, con la cifra de cada nivel?' }];
+const ctxNiveles = (socioQueEscribe: boolean) => ({ canal: 'whatsapp', mensaje: 'Si quiero ver esa cifra', historial: hist, pais: 'CO',
+  hiloDoceNiveles: true, simuladorDisponible: true, socioQueEscribe, supabase: s, tenant: 'whatsapp' }) as any;
+es((await atenderHiloNiveles(ctxNiveles(true))) === null, 'el «sí» al simulador de un SOCIO no dispara el hilo de venta');
+es((await atenderHiloNiveles(ctxNiveles(false)))?.simulador != null, 'y el de un prospecto sí');
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

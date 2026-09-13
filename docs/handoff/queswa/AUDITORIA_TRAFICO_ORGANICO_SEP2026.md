@@ -252,3 +252,29 @@ Con el build vivo (`c7971c1`): «Me siento cansada cual me recomienda» devuelve
 ### 10.4 La lección de la vuelta
 
 **Las dos veces el copy estaba bien escrito y la respuesta correcta existía.** Lo que falló fue la puerta: una por un typo, la otra por una categoría que el filtro no contemplaba. Es la tercera vuelta seguida en que el fallo es de enrutamiento y no de redacción, y la segunda en que **un regex de cara a la persona exigía ortografía perfecta** — la regla está escrita en CLAUDE.md desde agosto y se rompió otra vez en un patrón nuevo. ⚠️ **Cuando un nodo no dispara, el modelo compone — y al componer afirma limitaciones que no tenemos.**
+
+## 11. Séptima vuelta — 13 sep 2026: la noche del 12 sep, dos socios atendidos como prospectos
+
+Cinco hilos reales entre las 18:43 y las 22:19, cero envíos fallidos. Volcado en `docs/respaldos/auditoria-2026-09-13/`. **Lo que funcionó:** Luz, prospecto real por el enlace de luis-cabrejo a las 22:14, recorrió apertura → WHY → 12 Niveles → simulador nivel 2 → GEN5 → simulador ESP-1 → composición, **ocho turnos dictados sin que el modelo compusiera uno**. Lo que falló fue el trato al socio, por dos causas distintas.
+
+### 11.1 Miguel Barahona tocó su propio enlace (19:47 a 20:47)
+
+El Director estaba estrenando el canal con él: a las 19:46 tocó el enlace de Miguel desde el número Business, y a las 19:47 Miguel tocó el suyo. El webhook lo reconoció como socio, pero la rama de «vengo del enlace» excluye al socio a propósito y no había rama de socio para ese mensaje, así que bajó al motor en modo socio con un mensaje de prospecto. El modelo compuso **«Bienvenido, Antonio. Ya lo tengo en el sistema de Miguel»** (Antonio es su nombre de perfil de WhatsApp) y en los tres turnos siguientes inventó el método: *«1. Usted consume, 2. Usted comparte»*, *«usted no tiene que explicar nada»*, *«más personas consumiendo»*, *«listo para operar»*. Después el conductor de 12 Niveles tomó el hilo —solo el seguimiento de salud y los nodos de persona, envío y sedes estaban cerrados al socio— hasta la tabla del ESP-3 y **«¿Seguimos con la activación?»**. Su ficha de socio terminó con `package: ESP-3`, `archetype`, `hilo_12_niveles` y el nombre `antonio barahona283@gmail`: la guarda del 11 sep solo protegía la temperatura. **Lo que Miguel vio fue peor que lo que recibe un prospecto real, y no tiene cómo saberlo.**
+
+**Arreglo:** bloque 1.48 del webhook — el socio que toca un enlace recibe `mensajeSocioEnlace` (qué hace ese enlace, que a él no se le abre esa conversación, y la propuesta de redactar un mensaje). `atenderHiloNiveles` devuelve `null` para un socio, la tarjeta del simulador no se le manda, `convertirProspectoEnSocio` retira también paquete, arquetipo y objeciones, y el motor no se los captura (`captureProspectData`). Ficha reparada con `scripts/vincular-huella-a-socio.mts --nombre "Miguel Barahona"`.
+
+### 11.2 Victor Armando Rojas escribió desde una cuenta con nombre de usuario (19:05)
+
+Aprobado como socio a las 18:35, entró al Dashboard a las 18:57 y a las 19:05 le escribió a Queswa «Bna noche» desde una cuenta que Meta esconde tras un **BSUID** (`CO.1955991631759265`). `identificarSocio` compara teléfonos, y con BSUID no llega ninguno: recibió la apertura de prospecto sin patrocinador y quedó como prospecto sin `constructor_id`. No volvió a escribir. El comando ACTIVAR tampoco lo resolvía: también es por teléfono. A las 16:54, otra persona desde BSUID escribió «Soy socio, y necesito ver el café 3 en 1» y fue atendida como prospecta: el mismo hueco.
+
+**Arreglo:** el **vínculo por token**. El Dashboard muestra en la Home, bajo «Su enlace», la fila «Hablar con Queswa por WhatsApp» (`/api/constructor/vinculo-queswa`), que abre el chat con `Hola Queswa, soy socio: {constructor_id}.{firma}`; la firma es un HMAC con `WA_BRIDGE_SECRET`, que los dos repositorios ya comparten. El webhook la verifica en el bloque 1.385 y deja la huella configurada como socio; `identificarSocio` la reconoce después por la ficha. La huella de Armando quedó vinculada a mano (`vincular-huella-a-socio.mts`), con el slug `victor-rojas` asignado por defecto.
+
+### 11.3 Lo que se vio y no se tocó
+
+- A Luz se le grabó `package: ESP-1` por decir «sí» a «¿le detallo qué trae el paquete Inicial?». Misma lógica del caso Liliana: aceptar ver un paquete no es elegirlo. La temperatura quedó en frío, así que en el Dashboard solo se ve la etiqueta. Queda a criterio del Director.
+- La composición cerró con «¿Seguimos con la activación?» a las 22:19, a alguien que solo pidió ver los productos; no respondió.
+- El volcado estándar dejaba fuera a Armando porque «Bna noche» no contaba como saludo de persona. El filtro del script ya acepta las abreviaturas.
+
+### 11.4 La lección de la vuelta
+
+**El socio se prueba a sí mismo con las herramientas del prospecto**, y el sistema no tenía un camino para eso: tocar el propio enlace es lo primero que hace un socio nuevo, y el resultado era una conversación de venta compuesta por el modelo. Y **la identidad por teléfono tiene un borde que Meta mueve**: los nombres de usuario esconden el número, así que el reconocimiento del socio necesitaba una segunda llave que no dependa de él. Arnés: `npx tsx scripts/prueba-experiencia-socio.mts` (sección 7).

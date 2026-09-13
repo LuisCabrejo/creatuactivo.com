@@ -5,12 +5,11 @@
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (2) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + METH (1) = 16 respuestas.
-**Versión:** 13.5 (25 ago 2026) — **Los 16 fragmentos ganan su `[Índice]`.** Es lo único que se vectoriza; el cuerpo se sirve y el `[Concepto Nuclear]` se queda en este archivo, recortado por el fragmentador. Sin índice, este arsenal competía con su cuerpo largo contra los índices cortos de `arsenal_inicial` y perdía consultas que le pertenecían — *«¿yo tengo que enseñarles?»* se iba a la respuesta de capacitación, que además lleva candado y se sirve sola. Detalle en el CHANGELOG.
-**Versión actual: v14.2** (3 sep 2026) — `ADV_VAL_03` pierde el empujón contra el paquete pequeño y deja claro que la recomendación es `FREQ_30`; `ADV_VAL_04` dice **cuatro cajas** (50 PV), no *tres o cuatro*. Cifras intactas.
+**Versión actual: v14.3** (13 sep 2026) — **Auditoría con el Director.** Los dos fragmentos de cierre dejan de llevar una instrucción servida al modelo y de pedir nombre y ciudad: `ADV_ESC_01` dice lo que dicta el conductor y `ADV_ESC_02` la frase puente de la radicación. `ADV_VAL_05` responde sin describir encuentros (regla del 25 ago). Salen *Centro de Mando*, *dueño del camino*, *bebidas y suplementos*, *usted no enseña; Queswa multiplica*, *entra* (persona) y *nosotros le quitamos ese peso*. Cifras intactas.
+
+**v14.2** (3 sep 2026) — `ADV_VAL_03` pierde el empujón contra el paquete pequeño y deja claro que la recomendación es `FREQ_30`; `ADV_VAL_04` dice **cuatro cajas** (50 PV), no *tres o cuatro*. Cifras intactas.
 
 **v14.1** (3 sep 2026) — **«Entrar» sale de `ADV_VAL_03`**: *si entra en el nivel inicial / Visionario* → *si compra el ESP-1 Inicial / el ESP-3 Visionario*. El verbo está vetado cuando nombra comprar el paquete (Director). Cifras intactas.
-
-**v14.0** (26 ago 2026) — **Auditoría completa de los 16.** Dos títulos rotos por el fragmentador, un cuerpo que nunca alcanzó a su cabecera, la silueta de pirámide de la visión a 5 años y un viaje internacional prometido sin su condición. Detalle en el CHANGELOG.
 
 ---
 
@@ -18,11 +17,11 @@
 
 ### ADV_OBJ_01: "¿Es esto demasiado bueno para ser verdad? ¿Dónde está el truco?"
 **[Índice]:** Esto suena demasiado bueno para ser verdad, dónde está el truco, algo tiene que haber. La desconfianza de quien mira un modelo digital con ojos de negocio tradicional.
-**[Concepto Nuclear]:** No hay truco. Lo que parece anomalía es apalancamiento: una empresa de más de 60 países carga el peso y la tecnología hace el resto.
+**[Concepto Nuclear]:** No hay truco. Lo que parece anomalía es apalancamiento: una empresa de más de 60 países carga el peso y la tecnología hace el resto. **v14.3 (13 sep 2026):** *«nosotros le quitamos ese peso de encima»* nos definía por la faena vieja (la columna del 26 ago); y *«para siempre»* sobraba.
 
 Esa sensación es normal: usted está mirando un modelo digital con los ojos de un negocio tradicional, y por eso le parece raro.
 
-En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de más de 60 países. Y yo, como su tecnología, converso con cada persona interesada y maduro su decisión de avanzar. Lo suyo es decidir con quién lo comparte y saludar a quien llega con interés. El modelo viejo lo amarra a trabajar físicamente para siempre; nosotros le quitamos ese peso de encima.
+En un negocio de toda la vida, crecer cuesta fricción: más bodegas, más nómina, más inventario. Aquí no. La parte pesada —fabricar, almacenar, despachar— la carga Gano Excel, una empresa real de más de 60 países. Y yo, como su tecnología, converso con cada persona interesada y maduro su decisión de avanzar. Lo suyo es decidir con quién lo comparte y saludar a quien llega con interés. El modelo viejo lo amarra a estar presente; este no.
 
 Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando alguien deja de cargar todo solo.
 
@@ -75,11 +74,11 @@ No vivimos de vender publicidad ni datos; somos una firma privada. La informaci�
 
 ### ADV_TECH_03: "¿Qué soporte técnico real tengo si la plataforma falla?"
 **[Índice]:** Qué pasa si la plataforma se cae o el sistema deja de funcionar, si la tecnología falla. Qué respaldos hay y a quién llamo.
-**[Concepto Nuclear]:** Responde **«¿qué soporte tengo?»** en su sentido amplio, no solo el técnico (Director, 25 ago 2026). Quien lo pregunta no está pidiendo un plan de contingencia: está preguntando si lo van a dejar solo. ⚠️ **El disparador anterior lo encerraba en *si la plataforma falla***, y por eso la pregunta general se iba a la respuesta de capacitación — que es otra cosa: formación no es soporte. ⚠️ **Son CUATRO apoyos, no tres:** se sumó el **Dashboard**, que es la herramienta que él usa todos los días y era la que faltaba. ⚠️ **La pregunta de cierre propone un paso.** La anterior pedía que estuviera de acuerdo —*«¿le da más confianza…?»*— y para conseguirlo tenía que nombrar el escenario del negocio que se cae: introducir el miedo para descartarlo es lo que lo instala. ⚠️ Los cuatro apoyos son **independientes**, y de ahí sale la tranquilidad: la operación se sostiene aunque uno tenga un problema.
+**[Concepto Nuclear]:** Responde **«¿qué soporte tengo?»** en su sentido amplio, no solo el técnico (Director, 25 ago 2026). Quien lo pregunta no está pidiendo un plan de contingencia: está preguntando si lo van a dejar solo. ⚠️ **El disparador anterior lo encerraba en *si la plataforma falla***, y por eso la pregunta general se iba a la respuesta de capacitación — que es otra cosa: formación no es soporte. ⚠️ **Son CUATRO apoyos, no tres:** se sumó el **Dashboard**, que es la herramienta que él usa todos los días y era la que faltaba. ⚠️ **La pregunta de cierre propone un paso.** La anterior pedía que estuviera de acuerdo —*«¿le da más confianza…?»*— y para conseguirlo tenía que nombrar el escenario del negocio que se cae: introducir el miedo para descartarlo es lo que lo instala. ⚠️ Los cuatro apoyos son **independientes**, y de ahí sale la tranquilidad: la operación se sostiene aunque uno tenga un problema. **v14.3 (13 sep 2026):** *«su Centro de Mando»* era etiqueta interna retirada.
 
 Usted tiene cuatro apoyos, y se cubren entre sí.
 
-**Queswa, su Centro de Mando:** converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar, a toda hora.
+**Queswa:** converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar, a toda hora.
 
 **El Dashboard:** ahí ve su sistema, su actividad y sus números, y desde ahí maneja el día a día.
 
@@ -91,7 +90,7 @@ Usted tiene cuatro apoyos, y se cubren entre sí.
 
 ---
 
-## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación) - 4 respuestas
+## 💰 MATEMÁTICA FINANCIERA (Plan de Compensación) - 5 respuestas
 
 ### ADV_VAL_01: "Explícame el Ingreso Inmediato con números / ¿Qué es el ingreso inmediato?"
 **[Índice]:** Me hablaron del ingreso inmediato y quiero los números: qué es, cuánto paga, cómo se calcula el Bono GEN5 por paquete.
@@ -110,13 +109,13 @@ Con el nivel ESP-3 (Visionario), las cuentas son así:
 
 ### ADV_VAL_02: "Explícame el Ingreso Recurrente con números"
 **[Índice]:** Quiero los números del ingreso recurrente: cómo se calcula el Bono Binario, cuánto paga el consumo que se repite.
-**[Concepto Nuclear]:** El ingreso recurrente es el importante: regalías por el consumo que se repite, sin depender de que usted esté presente.
+**[Concepto Nuclear]:** El ingreso recurrente es el importante: regalías por el consumo que se repite, sin depender de que usted esté presente. **v14.3 (13 sep 2026):** *«dueño del camino»* → *«dueño del sistema»*: *camino* era un cuarto nombre del sistema.
 
 El Bono Binario es la meta de fondo: el ingreso del consumo que se repite, que no depende de que usted esté presente.
 
-Gano Excel mide el consumo internacional de todo su sistema, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran las bebidas y suplementos de Gano Excel a través de su sistema en el continente, usted gana por todos ellos.
+Gano Excel mide el consumo internacional de todo su sistema, por ambos lados (izquierda y derecha), sin importar qué tan profunda sea la conexión. La empresa le paga hasta el **17%** compensado sobre el volumen comisionable (GCV). Si 1,000 clientes compran los productos de Gano Excel a través de su sistema en el continente, usted gana por todos ellos.
 
-Y las comisiones las paga directamente Gano Excel, no CreaTuActivo. Gano fabrica, empaca y transporta; usted es el **dueño del camino** por donde pasa, todos los días, ese consumo.
+Y las comisiones las paga directamente Gano Excel, no CreaTuActivo. Gano fabrica, empaca y transporta; usted es el **dueño del sistema** por donde pasa, todos los días, ese consumo.
 
 **Pregunta de cierre:** ¿Le muestro de dónde sale ese ingreso recurrente?
 
@@ -149,15 +148,9 @@ Eso no es una cuota de administración: es mercancía que le llega a la casa. Y 
 ### ADV_VAL_05: "¿Existen otros incentivos además de las comisiones? / ¿Hay viajes corporativos o reconocimientos?"
 **[Índice]:** Hay otros incentivos además de las comisiones: viajes, eventos, reconocimientos, premios para los socios que crecen.
 
-**[Concepto Nuclear]:** Además de las comisiones, Gano Excel cubre el viaje a dos encuentros internacionales al año **para quien alcanza la calificación de cada uno**. ⛔ **La condición NO se puede omitir** (26 ago 2026): decía *"pagados completamente por la empresa"* y *"socios activos"*, así que cualquiera al día con sus 50 PV entendía que tenía dos viajes pagos al año. **Un premio material prometido sin su condición es exigible bajo el Estatuto del Consumidor exactamente igual que un ingreso**, y el guardarraíl no lo ve: no hay conjunción de dinero con plazo ni con garantía. ⏳ **El criterio exacto de calificación no está en el corpus** — se nombra el mecanismo (*"los socios que alcanzan la calificación"*) sin detallarlo, hasta que el Director lo aporte. ⚠️ Salió *"sin que usted ponga un solo peso"*: es una lista de ausencias y además cotiza en moneda colombiana ante una audiencia de tres países. ⚠️ **Un sistema no se motiva** — cuando el colectivo hace algo humano se nombra a quién: *sus socios*. ⚠️ Mencionar los encuentros aquí es la **excepción explícita** de la v6.05 del arsenal inicial: la prohibición de nombrar encuentros en vivo es de canal —mensaje saliente en frío—, y aquí los trajo la persona; además `FREQ_35` responde *"nada obligatorio"* apoyándose en que existen.
+**[Concepto Nuclear]:** Además de las comisiones, Gano Excel cubre el viaje a dos encuentros internacionales al año **para quien alcanza la calificación de cada uno**. ⛔ **La condición NO se puede omitir** (26 ago 2026): decía *"pagados completamente por la empresa"* y *"socios activos"*, así que cualquiera al día con sus 50 PV entendía que tenía dos viajes pagos al año. **Un premio material prometido sin su condición es exigible bajo el Estatuto del Consumidor exactamente igual que un ingreso**, y el guardarraíl no lo ve: no hay conjunción de dinero con plazo ni con garantía. ⏳ **El criterio exacto de calificación no está en el corpus** — se nombra el mecanismo (*"los socios que alcanzan la calificación"*) sin detallarlo, hasta que el Director lo aporte. ⚠️ Salió *"sin que usted ponga un solo peso"*: es una lista de ausencias y además cotiza en moneda colombiana ante una audiencia de tres países. ⚠️ **Un sistema no se motiva** — cuando el colectivo hace algo humano se nombra a quién: *sus socios*. ⚠️ Mencionar los encuentros aquí es la **excepción explícita** de la v6.05 del arsenal inicial: la prohibición de nombrar encuentros en vivo es de canal —mensaje saliente en frío—, y aquí los trajo la persona; además `FREQ_35` responde *"nada obligatorio"* apoyándose en que existen. **v14.3 (13 sep 2026):** describía dos encuentros internacionales al año, con sede y fábricas. Regla del 25 ago (Director): de cara al prospecto no se nombran eventos ni encuentros — marcador del gremio con restricción de Meta encima. Se responde la pregunta (sí hay reconocimientos y viajes por calificación, ninguno obligatorio) sin describir el evento; lo retirado, para quien edite: *«Encuentro del continente americano»* (16 países) y *«Encuentro Asia-Europa»* (sede rotativa, dirección global, fábricas en Malasia).
 
-Además de las comisiones por el consumo de su sistema, Gano Excel hace dos encuentros internacionales al año y cubre el viaje completo a los socios que alcanzan la calificación de cada uno.
-
-**Encuentro del continente americano:** reúne cada año a socios de los 16 países de América.
-
-**Encuentro Asia-Europa:** sede rotativa entre Asia y Europa, con acceso a la dirección global de la empresa y a las fábricas en Malasia.
-
-Son una forma de mantener unidos a sus socios, y los cubre la empresa.
+Sí. Además de las comisiones, Gano Excel premia con reconocimientos y viajes a los socios que alcanzan ciertas calificaciones. Son incentivos de la empresa, aparte del plan de comisiones, y ninguno es obligatorio.
 
 **Pregunta de cierre:** ¿Le muestro cómo se gana?
 
@@ -181,9 +174,9 @@ Y ese movimiento no depende de que usted esté: Gano Excel fabrica y despacha, y
 
 ### ADV_SIST_02: "¿Cuál es la visión a 5 años? ¿A dónde vamos?"
 **[Índice]:** Cuál es la visión a cinco años, para dónde va la empresa, qué se están proponiendo, cuál es la meta grande.
-**[Concepto Nuclear]:** Para 2030, 4 millones de familias en América comprando por este sistema. Hoy usted asegura su posición antes de esa ola.
+**[Concepto Nuclear]:** Para 2030, 4 millones de familias en América comprando por este sistema. Hoy usted asegura su posición antes de esa ola. **v14.3 (13 sep 2026):** *«bebidas y suplementos premium»* → *«productos premium de bienestar»*: la categoría no se nombra por el artículo (prompt v5.2, 12 sep).
 
-La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles un sistema de distribución para que construyan su tranquilidad financiera, y ser el sistema de distribución de bebidas y suplementos premium más eficiente del continente.
+La meta a cinco años es clara: ayudar a 4 millones de familias en América, entregándoles un sistema de distribución para que construyan su tranquilidad financiera, y ser el sistema de distribución de productos premium de bienestar más eficiente del continente.
 
 Hoy el trabajo está en dejar montados los sistemas por donde va a pasar ese consumo. La apuesta es que para 2030 buena parte del mercado compre así, enganchado por la calidad del producto, y lo que se está armando ahora es la estructura que lo soporta.
 
@@ -193,17 +186,17 @@ Hoy el trabajo está en dejar montados los sistemas por donde va a pasar ese con
 
 ### ADV_SIST_03: "¿Cómo funciona Queswa para mi equipo? ¿Yo tengo que enseñarles?"
 **[Índice]:** Yo tengo que enseñarles a los que entren conmigo, me toca sentarme con cada uno, tengo que estar encima de mi equipo. Quién se encarga de los míos.
-**[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a sus socios; usted acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo.
+**[Concepto Nuclear]:** Usted no enseña a mano. El sistema forma a sus socios; usted acompaña en lo humano. Si dependiera de su agenda, sería un empleo, no un activo. **v14.3 (13 sep 2026):** *«persona que entra»* → *«socio que se vincula»* (verbo vetado, y *socio* nombra la estructura); el doble remate de la agenda queda en una frase. El cierre lleva a `FREQ_35`.
 
-No. Usted no tiene que sentarse a enseñarle a cada persona que entra a su sistema.
+No. Usted no tiene que sentarse a enseñarle a cada socio que se vincula a su sistema.
 
 De esa parte nos encargamos Maestría y yo: formamos a cada socio nuevo desde el primer día, a toda hora, con el mismo material para el primero y para el último que llegue.
 
 Lo suyo es lo que ninguna máquina reemplaza: acompañar a los suyos en lo humano.
 
-Por eso su sistema no aprende de su agenda: aprende de nosotros. Y lo que no depende de su agenda tampoco topa con ella.
+Por eso su sistema no depende de su agenda.
 
-**Pregunta de cierre:** ¿Le muestro qué formación recibe quien entra?
+**Pregunta de cierre:** ¿Le muestro qué formación recibe quien se vincula?
 
 ---
 
@@ -211,29 +204,19 @@ Por eso su sistema no aprende de su agenda: aprende de nosotros. Y lo que no dep
 
 ### ADV_ESC_01: "Me interesa, pero necesito hablar con un humano."
 **[Índice]:** Me interesa pero quiero hablar con una persona de verdad, con un humano, no con la máquina. Quiero que alguien me llame.
-**[Concepto Nuclear]:** Paso a un humano (handoff). El equipo de creatuactivo.com toma el relevo sin fricción.
+**[Concepto Nuclear]:** Paso a un humano (handoff). El equipo de creatuactivo.com toma el relevo sin fricción. **v14.3 (13 sep 2026):** el cuerpo llevaba *«[INSTRUCCIÓN PARA QUESWA: Ejecutar Protocolo Handoff Guante Blanco. Pedir Nombre y Ciudad]»* servida al modelo y pedía nombre y ciudad — contra la regla del 9 sep (el modelo no pide datos). «Quiero hablar con una persona» lo dicta el conductor (nodo 2.46, `respuestaPersona` en wa-pedido.ts) y avisa al socio de verdad; este fragmento dice ahora el mismo texto, para que cuando el vector lo traiga no contradiga al nodo. ⚠️ Si cambia `respuestaPersona`, cambiar aquí.
 
-**[INSTRUCCIÓN PARA QUESWA: Ejecutar Protocolo Handoff Guante Blanco. No enumerar pasos. Pedir Nombre y Ciudad].**
+Claro que sí. Ya le avisé al equipo de creatuactivo.com, y se comunica con usted por este mismo medio.
 
-Excelente decisión.
-
-Es el paso normal. Para cerrar bien, el equipo de creatuactivo.com lo acompaña de forma personal. Es una conversación corta para ubicar el nivel correcto para usted y arrancar.
-
-Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿me podría indicar su nombre completo y desde qué ciudad nos escribe?
+Mientras tanto cuente conmigo: ¿hay algo que le pueda ir resolviendo?
 
 ---
 
 ### ADV_ESC_02: "Estoy listo. ¿Cómo pago y empiezo?"
 **[Índice]:** Estoy listo, decidido, quiero empezar ya. Cómo pago y cómo arranco.
-**[Concepto Nuclear]:** Paso a un humano (handoff). El equipo de creatuactivo.com toma el relevo sin fricción.
+**[Concepto Nuclear]:** Paso a un humano (handoff). El equipo de creatuactivo.com toma el relevo sin fricción. **v14.3 (13 sep 2026):** misma limpieza que ADV_ESC_01. El cuerpo es ahora la frase puente `OFERTA_RADICAR_MODELO` de wa-radicacion.ts, idéntica: el «sí» de la persona abre el trámite de los cuatro datos en el backend. ⚠️ Si cambia la constante, cambiar aquí.
 
-**[INSTRUCCIÓN PARA QUESWA: Ejecutar Protocolo Handoff Guante Blanco. No enumerar pasos de pago. Pedir Nombre y Ciudad].**
-
-Excelente decisión.
-
-Es el paso normal. Para cerrar bien, el equipo de creatuactivo.com lo acompaña de forma personal. Es una conversación corta para ubicar el nivel correcto para usted y arrancar.
-
-Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿me podría indicar su nombre completo y desde qué ciudad nos escribe?
+Con gusto. Cuando quiera, le tomo los datos de la vinculación.
 
 ---
 
@@ -242,15 +225,15 @@ Para no hacerle repetir datos y conectarlo con el equipo de creatuactivo.com, ¿
 
 ### METH_01: "¿Cómo es el proceso de trabajo? ¿Qué tengo que hacer exactamente?"
 **[Índice]:** Cómo es el proceso de trabajo, qué tengo que hacer exactamente, en qué consiste la operación del día a día.
-**[Concepto Nuclear]:** El Método Comprobado son **dos acciones desde el celular — Compartir · Recibir** (8 ago 2026), y la **Multiplicación es la consecuencia**, no un tercer paso. ⚠️ **CUMPLIMIENTO:** la consecuencia que se nombra es del NEGOCIO (multiplicación, aumento de la facturación), nunca un pago al usuario con día ni monto — eso sería una promesa de ingreso, que Meta sanciona en el canal y que en Colombia el Estatuto del Consumidor vuelve vinculante. Este fragmento es el hermano PROFUNDO de EAM_01: la misma tríada, pero aquí sí se explica **el mecanismo de la multiplicación** (yo formo a cada socio nuevo, así que hace exactamente lo mismo). Esa es su razón de existir y por eso cierra hacia los números de la duplicación, no hacia los productos. ⚠️ La tríada **nunca va sola**: sin decir quién trabaja en el intermedio, tres acciones tan simples se leen como una promesa sin causa.
+**[Concepto Nuclear]:** El Método Comprobado son **dos acciones desde el celular — Compartir · Recibir** (8 ago 2026), y la **Multiplicación es la consecuencia**, no un tercer paso. ⚠️ **CUMPLIMIENTO:** la consecuencia que se nombra es del NEGOCIO (multiplicación, aumento de la facturación), nunca un pago al usuario con día ni monto — eso sería una promesa de ingreso, que Meta sanciona en el canal y que en Colombia el Estatuto del Consumidor vuelve vinculante. Este fragmento es el hermano PROFUNDO de EAM_01: la misma tríada, pero aquí sí se explica **el mecanismo de la multiplicación** (yo formo a cada socio nuevo, así que hace exactamente lo mismo). Esa es su razón de existir y por eso cierra hacia los números de la duplicación, no hacia los productos. ⚠️ La tríada **nunca va sola**: sin decir quién trabaja en el intermedio, tres acciones tan simples se leen como una promesa sin causa. **v14.3 (13 sep 2026):** fuera la cursiva *«Usted no enseña; Queswa multiplica. Usted crece.»* — la fórmula *usted no X, Queswa X* retirada por no dar conversión; y *«entra al final»* → *«aparece al final»* (verbo vetado).
 
 Su día a día son **dos acciones**, las dos desde el celular:
 
 **Compartir:** usted pasa un enlace a quien quiera; lo que hay que explicar lo explico yo.
 
-**Recibir:** yo converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar. Usted entra al final, con quien ya está listo. *Cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar.*
+**Recibir:** yo converso con cada persona interesada, resuelvo sus dudas y maduro su decisión de avanzar. Usted aparece al final, con quien ya está listo. *Cuando alguien ya decidió, usted lo recibe — la calidez que solo un humano puede dar.*
 
-Y de ahí sale la multiplicación: a cada socio nuevo lo formo yo desde el primer día, así que hace exactamente lo mismo que usted. De ahí salen el crecimiento de su negocio y el aumento de su facturación, sin que usted cargue con la enseñanza. *Usted no enseña; Queswa multiplica. Usted crece.*
+Y de ahí sale la multiplicación: a cada socio nuevo lo formo yo desde el primer día, así que hace exactamente lo mismo que usted. De ahí salen el crecimiento de su negocio y el aumento de su facturación, sin que usted cargue con la enseñanza.
 
 **Pregunta de cierre:** ¿Le muestro cuánto se mueve con cien clientes consumiendo?
 

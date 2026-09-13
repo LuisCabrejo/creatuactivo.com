@@ -1739,6 +1739,14 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 
 ## arsenal_avanzado
 
+### v14.3 — Auditoría con el Director: los cierres dejan de pedir datos, y sin encuentros (13 sep 2026)
+
+Cuarto arsenal del día con los mismos lentes. Lo que rompía una regla: `ADV_ESC_01` y `ADV_ESC_02` llevaban *«[INSTRUCCIÓN PARA QUESWA: Ejecutar Protocolo Handoff Guante Blanco. Pedir Nombre y Ciudad]»* dentro del cuerpo servido y pedían nombre y ciudad, contra la regla del 9 sep (el modelo no pide datos; la radicación la abre el backend). Ahora `ESC_01` dice el mismo texto que dicta el conductor en 2.46 (`respuestaPersona`) y `ESC_02` la frase puente `OFERTA_RADICAR_MODELO`. `ADV_VAL_05` describía dos encuentros internacionales con sede y fábricas: responde sin nombrar eventos (regla del 25 ago, Meta). `METH_01` pierde *«Usted no enseña; Queswa multiplica. Usted crece.»* (fórmula retirada) y *«entra al final»*.
+
+**Léxico.** `ADV_TECH_03` *«Queswa, su Centro de Mando»* → *«Queswa»*; `ADV_VAL_02` *«dueño del camino»* → *«dueño del sistema»*; `ADV_SIST_02` *«bebidas y suplementos premium»* → *«productos premium de bienestar»*; `ADV_SIST_03` *«persona que entra»* → *«socio que se vincula»* y el doble remate de la agenda en una frase; `ADV_OBJ_01` *«nosotros le quitamos ese peso de encima… para siempre»* → *«El modelo viejo lo amarra a estar presente; este no.»*
+
+**Cabecera:** una sola versión (tenía *13.5* y *v14.2* a la vez) y el rótulo de valor cuenta cinco. Revisadas y sin cambio: `ADV_OBJ_02`, `ADV_TECH_01`, `ADV_TECH_02`, `ADV_VAL_01`, `VAL_03`, `VAL_04`, `ADV_SIST_01`. Índices sin cambio; despliegue con el orden sin ventana. Nota de la v13.5 que salió de la cabecera, verbatim: **Versión:** 13.5 (25 ago 2026) — **Los 16 fragmentos ganan su `[Índice]`.** Es lo único que se vectoriza; el cuerpo se sirve y el `[Concepto Nuclear]` se queda en este archivo, recortado por el fragmentador. Sin índice, este arsenal competía con su cuerpo largo contra los índices cortos de `arsenal_inicial` y perdía consultas que le pertenecían — *«¿yo tengo que enseñarles?»* se iba a la respuesta de capacitación, que además lleva candado y se sirve sola. Detalle en el CHANGELOG.
+
 ### v14.2 — ADV_VAL_03 sin el empujón contra el paquete pequeño; cuatro cajas en ADV_VAL_04 (3 sep 2026)
 
 En la prueba, *«¿con cuál paquete me recomiendas iniciar?»* recibió `ADV_VAL_03` (la defensa del ESP-3 al 17%) dentro de un hilo que acababa de explicar el Kit al 10%: dos tarifas otra vez, el Kit ausente, y el remate *«arrancar en un nivel más bajo significa hacer exactamente el mismo trabajo con un porcentaje menor»*, el empujón que ya se había retirado de compensación. La recomendación es `FREQ_30` 🔒 —*con el que le resulte cómodo hoy*— y así lo dice ahora el concepto de ADV_VAL_03; salió el remate y *entrando* del índice. `ADV_VAL_04`: cuatro cajas (50 PV).

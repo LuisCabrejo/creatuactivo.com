@@ -90,9 +90,10 @@ async function deployArsenalAvanzado() {
   console.log('\n🔍 Verificando contenido...\n');
 
   const checks = [
-    { name: 'VAL_03b presente', found: content.includes('VAL_03b') },
-    { name: 'VAL_03d presente', found: content.includes('VAL_03d') },
-    { name: 'Proyección mensual al 17%', found: content.includes('Proyección mensual al 17%') },
+    // VAL_03b / VAL_03d y la «Proyección mensual al 17%» se retiraron del arsenal hace versiones;
+    // salían en rojo en cada despliegue bueno. Lo que vale comprobar es lo que hoy existe (13 sep 2026).
+    { name: 'ADV_VAL_03 presente', found: content.includes('### ADV_VAL_03:') },
+    { name: 'METH_01 con las dos acciones', found: content.includes('**Compartir:**') && content.includes('**Recibir:**') },
     { name: 'Lista formato mobile-friendly', found: content.includes('• 10 personas cada lado') }
   ];
 

@@ -297,8 +297,16 @@ export default function PruebaPage() {
 
           <Eyebrow>En qué creemos</Eyebrow>
 
-          {/* La postura, en la forma de Vélez: la creencia, la deuda, y lo que
-              construimos para saldarla. El mecanismo cierra el bloque. */}
+          {/* La postura, en la forma de Vélez (13 sep 2026): la creencia, y lo que
+              sigue dicho como él lo diría — frases de una idea, el lector como sujeto,
+              sustantivos que se ven. «Si queremos que la gente vea que es sencillo, los
+              primeros que tienen que hacer las cosas sencillas somos nosotros, y eso
+              incluye cómo lo decimos» (Director). Misma forma que el perfil del WABA,
+              la apertura del canal y WHY_01 🔒. Se cayeron a propósito: la deuda («no
+              es culpa de las personas…»), «una infraestructura» (aposición que le daba
+              un cuarto nombre al sistema), «cualquiera con deseos de superación», el
+              cobro y el ingreso en negrita — el H1 ya carga la promesa entera. Gano
+              Excel queda como estatus en una línea, nunca como alegato. */}
           <p
             style={{
               fontSize: 'clamp(1.2rem, 2.9vw, 1.55rem)',
@@ -315,24 +323,18 @@ export default function PruebaPage() {
           </p>
 
           <p style={heroBodyStyle}>
-            No es culpa de las personas: ni el empleo ni el emprendimiento le garantizan
-            hoy a alguien que su trabajo termine asegurándole el futuro. Ahí hay una deuda.
+            Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de
+            distribución de productos premium de bienestar.
           </p>
 
           <p style={heroBodyStyle}>
-            Por eso construimos lo que hacía falta para saldarla: una infraestructura que
-            cualquiera con deseos de superación puede poner a andar, y multiplicar.
+            Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde
+            el celular.
           </p>
 
           <p style={{ ...heroBodyStyle, margin: '0 0 2.5rem' }}>
-            Acá esa infraestructura tiene nombre: su propio sistema de distribución de
-            productos premium de bienestar con Ganoderma, que Gano Excel fabrica y despacha
-            por usted, y que una inteligencia artificial atiende por WhatsApp, a toda hora.
-            Usted lo maneja desde el celular, y cobra cada vez que mueve producto.{' '}
-            <Strong>
-              A usted le queda un ingreso en paralelo al que ya tiene, y que no depende de
-              que esté encima para generarse.
-            </Strong>
+            Detrás está Gano Excel, que fabrica y despacha cada pedido: 30 años, más de 60
+            países.
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>

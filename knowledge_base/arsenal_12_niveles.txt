@@ -1,54 +1,16 @@
-# Arsenal Conversacional: Los 12 Niveles v6.19 — BAUTIZO EMPRESARIAL (distribuidores)
+# Arsenal Conversacional: Los 12 Niveles — la versión vigente está en «Versión actual», abajo
+
+**Versión actual: v6.20** (13 sep 2026) — **Auditoría con el Director: «activo» con su causa, sin léxico del gremio.** Doce respuestas tocadas. `INV_05` usaba *activo* como otro nombre del sistema y `INV_03` lo gritaba entre paréntesis con la herencia fuera de `FREQ_05`; en `INV_01`, `INV_04` e `INV_06` se decía de la persona y pasa al código. `NIVELES_06` reescrita entera (encadenaba pasos a un ingreso y cerraba con presión); `NIVELES_07` pierde *«los expertos»* y el cierre de la lista de nombres. Mayúsculas de urgencia a minúscula; *GRATIS*, *opera*, *costo operativo* y *entra al plan* fuera. Cifras del plan intactas.
 
 **v6.19 (3 sep 2026):** `INV_04`: la recompra son **cuatro cajas** (50 PV), no *tres o cuatro* — decir menos deja creer que con menos alcanza (Director). Sin más cambios.
 
 **v6.18 (3 sep 2026):** **«Entrar» sale de NIVELES_01 🔒**: *entra a cobrar* → *empieza a cobrar*. El verbo está vetado cuando nombra comprar el paquete o iniciar: a una cadena se entra, un inventario se compra (Director). Sin más cambios.
 
-**v6.17 (3 sep 2026):** **El apalancamiento se pliega dentro de NIVELES_01, y cada nodo ofrece UNA sola cosa** (Director, auditoría con Gemini). Entre «cómo funciona» y la estrategia había un mensaje de puro concepto con una pregunta en medio: ahora la duda del «yo solo» y el mecanismo —lo que compran sus clientes, sus distribuidores y los clientes de cada uno— abren la respuesta de la estrategia, que es donde le dan causa al 2×2. Cuatro criterios: **no se califica el tamaño** (*grande* fija el techo justo donde hay que abrir la mente; el nivel 12 se nombra como base), **la parte del socio se dice explícita** (*empieza con esos dos*: el obstáculo no es imaginar el sistema, es imaginarse consiguiendo a todos), **el Kit lleva su razón** (la entrada más baja, para que nadie se frene) y **una oferta por turno**: el texto ya no sale acompañado de la tarjeta del simulador; la pregunta de seguimiento ofrece el simulador, el «sí» manda la tarjeta, y la tabla en texto (NIVELES_02) queda de respaldo. **Las formas de ganar no se numeran**: hay doce, y las dos que se muestran al inicio se nombran por su mecanismo —el ingreso recurrente y las ganancias por la compra de paquetes empresariales—, nunca como primera y segunda.
-
-**v6.16 (3 sep 2026):** **El apalancamiento reemplaza el ejemplo de clientes propios, y el GEN5 pasa a ser un SEGUNDO botín tras la estrategia** (Director). El ejemplo de recurrentes al 10% ($2.520.000 por 200 clientes) anclaba modesto y reforzaba «una red de miles es trabajo personal» —la objeción que la estrategia debe DESARMAR—. En su lugar, el **apalancamiento**: sin cifra, explica que la ganancia crece porque cada distribuidor construye su propia red de consumo y el ingreso es un % de todo ese volumen; cierra ofreciendo la estrategia. Y el **reorden del cierre**: la tabla NIVELES_02 (y el simulador de renta) ya no cierra ofreciendo la vinculación sino **«¿Le muestro la segunda forma de ganar en este negocio?»** → el «sí» dicta el GEN5 como bono directo por paquete (webhook 2.355), su «sí» dicta el ejemplo de cifras GEN5, y ese cierra con «¿cómo se vincula?». El GEN5 queda **después** de la estrategia, nunca antes, y solo lo ve quien recorre la avenida completa. El texto del apalancamiento es el que MÁS se duplica —el prospecto lo repite al explicar el negocio—. Fundamento → `FLUIDEZ_DEL_FLUJO_12NIVELES_SEP2026.md`.
-
-**v6.15 (3 sep 2026):** **El ejemplo de recurrentes pasa al 10% — una sola tarifa en toda la avenida.** Corría al 17% del Visionario ($428.000 / $4.3M) y luego la estrategia al 10% del Kit: dos tarifas, un salto, un número que se encogía a mitad de camino, y un puente-parche para explicarlo. Ahora el ejemplo corre al **10%** ($252.000 / $2.520.000), que es la tasa base real de Gano Excel —donde arranca todo distribuidor— y la misma de la estrategia; se retiró la coletilla «la tarifa con la que arranca todo distribuidor» (sobra: el desinterés en venderle el paquete grande es lo que da la confianza). Fundamento conductual (reactancia, anclaje, processing fluency, vacío de curiosidad) → `docs/investigaciones/resultados/FLUIDEZ_DEL_FLUJO_12NIVELES_SEP2026.md`. Los paquetes empresariales quedan solo por pull; el upgrade lo maneja el Director en el 1-a-1.
-
-**v6.14 (3 sep 2026):** **La estrategia pasa a la avenida principal — el ejemplo de INGRESOS RECURRENTES también cierra ofreciéndola** (Director). El camino usual es cómo funciona → recurrentes, y ese nodo lo toca todo el mundo; con la estrategia solo tras el GEN5, quien iba por defecto nunca la veía (recorrido de Edilberto: 8 turnos sin ella). Ahora **los dos ejemplos —renta y GEN5— y el simulador de renta cierran con «¿Le muestro la estrategia de los 12 Niveles…?»**; el «sí» dicta NIVELES_01 con su simulador de niveles. Se retiró el puente renta→GEN5 (era el último empujón a GEN5 sin que nadie lo pidiera); el GEN5 sigue respondiéndose por pull.
-
-**v6.13 (2 sep 2026):** La estrategia entra al camino usual por el GEN5 (superado por v6.14, que la lleva también a los ingresos recurrentes). Se descartó ponerla en los botones de la apertura: silueta ante Meta y WhatsApp solo permite tres botones.
-
-**v6.12 (1 sep 2026):** El Director presenta la estrategia en su 1-a-1 como *el plan estratégico que se lanza el 1 de septiembre* y manda a sus prospectos a preguntarle a Queswa por ella. Entran los nombres con que van a llegar —plan de septiembre, plan estratégico, plan nuevo, el que están lanzando— al índice de NIVELES_01 (y al clasificador, al dictado del webhook y al prompt). Nace `NIVELES_09` para la pregunta que ese encuadre provoca: ¿hasta cuándo va? **No tiene fecha de cierre: nace hoy para quedarse.** Queswa no habla de lanzamiento — eso lo dice el Director en su chat. NIVELES (9) + INV (6) = 15 respuestas.
-
-**v6.11 (1 sep 2026):** El índice de `NIVELES_04` carga la oferta literal con que cierran la tabla y el simulador («¿Le muestro cómo se vincula a la estrategia?»). Medido: puesto 1 por vector (0.517). ⚠️ En el canal ese «sí» además se dicta desde el webhook (bloque 2.36) porque un patrón del clasificador se lo llevaba a arsenal_inicial antes de llegar al vector.
-
-**v6.10 (1 sep 2026):** El índice de `NIVELES_01` carga las formas en que se oye mal el nombre —plan de dos ciclos, de dos niveles, de 12 días / semanas / meses—. El clasificador ya las enrutaba aquí, pero el modelo, al no reconocer el nombre, componía un «no es un término que manejemos» en vez de entregar el candado. El prompt del canal (v4.32) las nombra también.
-
-**v6.9 (1 sep 2026) — EL HILO SE CIERRA SOBRE SÍ MISMO (doctrina del Director).** Este plan existe para desarmar tres objeciones mentales: *«esto es para ganar en 50 años»*, *«toca hacerlo con el paquete de $1.000»* y *«una red de miles es trabajo personal»*. El ejemplo demuestra lo contrario: una organización de más de 8.000 puede empezar con dos distribuidores, las ganancias vienen de crecer en escala, y se puede iniciar desde el paquete más pequeño. Observación de campo: **mostrar el paquete grande produce procrastinación, y de 50 que procrastinan vuelve uno**; si 50 ven que es estratégico iniciar ya en el Kit, ocurre lo importante — se construye la base de consumo y distribución, que es el objetivo (las ganancias recurrentes, no los bonos de inicio). Quien inicia con el Kit y desarrolla el proyecto luego se pasa a un paquete empresarial por su cuenta. **Por eso en este hilo NO se muestran las otras opciones salvo que la persona las pida:** sale la tabla de tarifas de NIVELES_02 y la frase de los empresariales de NIVELES_03; los cierres encadenan dentro de la estrategia (tabla → después → vinculación). Misma regla en el prompt del canal.
-
-**v6.8 (1 sep 2026):** **La proyección pasa a MENSUAL, y la cuenta queda coherente con el consumo** (corrección del Director). La tabla ponía $51.609.600 «a la semana» en el nivel 12: era la semana en que se compran los 4.096 kits de ese nivel —un evento de construcción—, no el ingreso del sistema consumiendo, que con 8.190 distribuidores a 4 cajas al mes es 229.320 CV por lado → **$103.194.000 al mes** (lo que NIVELES_08 ya decía). Y la vieja columna «acumulado» ($25.200 × (2ⁿ−1)) era exactamente el mensual del sistema con ese tamaño (T × $12.600), mal rotulada durante meses. NIVELES_01 y NIVELES_02 lo dicen ahora como regalía mensual; el Flow y `respuestaNiveles()` calculan igual. Cifras del plan (CV por caja, tasa, 10%) intactas.
-
-**v6.7 (1 sep 2026):** `NIVELES_01` y `NIVELES_02` pasan bajo **candado** `<verbatim_lock>` (cierre afuera, como manda el contrato). Ejercicio de punta a punta contra producción: sin candado, el modelo reescribía NIVELES_01 degradando el sistema a «café y suplementos», y ante el «sí» a la tabla —cuyo cierre compuesto se fue a COMP_BIN_08— inventó una tabla entera con cifras que no existen. El candado se entrega tal cual y solo. El índice de NIVELES_02 carga además el cierre literal de NIVELES_01 (medido: 0.533, puesto 1). Cifras intactas.
-
-**v6.6 (1 sep 2026):** `NIVELES_01` se simplifica a los conceptos nucleares (texto del Director): tres párrafos cortos, cierre hacia la tabla, y el $103M vuelve a la primera respuesta — pegado a su origen en la misma frase. Y **«mínimo dos»** entra como forma canónica de la duplicación (aquí y en NIVELES_02): *conecta dos* es la geometría rígida de la pirámide; *mínimo dos* es un piso, como habla un negocio, y vuelve la proyección un escenario base.
-
-**v6.5 (31 ago 2026):** Nace `NIVELES_08` — el «después»: cuánto queda ganando cuando el sistema ya está construido. No tenía puerta, y la cuenta se verificó antes de escribirla: con los 8.190 consumiendo sus cuatro cajas, el mensual del sistema completo es el mismo $103M del recorrido — la misma aritmética (4.095 unidades de 56 CV al 10%). NIVELES (8) + INV (6) = 14 respuestas.
-
-**v6.4 (31 ago 2026):** La tabla de `NIVELES_02` pivota al consumo (Director): las filas cuentan **distribuidores consumiendo → regalía semanal**, y salen las columnas de nivel, entrantes por nivel y acumulado — la escalera con columnas. La duplicación 2×2 baja a prosa como lo que construye el tamaño, y el $103M queda junto a su origen. Misma decisión aplicada en la pantalla REGALIA_EQUIPO del Flow y en `respuestaRegalia()`. Cifras intactas.
-
-**v6.3 (31 ago 2026):** El índice de `NIVELES_02` gana la pregunta por las ganancias mensuales dentro del hilo («cuáles serían las ganancias mensuales en esta estrategia») — en la prueba del Director esa consulta caía en compensación y el modelo pivotaba al GEN5, que el Kit ni incluye. Medido: con el hilo anclado gana 0.525 contra 0.402; la consulta sin hilo se queda en compensación (su dueño correcto) y COMP_BIN_08 conserva las suyas. El marco de la respuesta —las ganancias las determina el movimiento de producto, no el calendario— vive en el prompt v4.27.
-
-**v6.2 (31 ago 2026):** `NIVELES_05` y `NIVELES_07` dejan de definir «su rol» con fórmula propia (Director): el rol de cara al prospecto son siempre las dos acciones —Compartir y Recibir— y las dicta EAM_01. En este arsenal, *conectar* queda solo como descripción del mecanismo 2×2, nunca como definición del rol.
-
-**v6.1 (31 ago 2026):** `NIVELES_04` deja de mandar afuera a quien quiere vincularse: la vinculación se radica en el canal con los cuatro datos, la misma condición de quien inicia con paquete empresarial (Director). Sus «dos vías» eran la misma vía escrita dos veces. El bloque de datos coincide con `pedirDatos()` de wa-radicacion.ts a propósito — red de respaldo del detector de volición.
-
-**v6.0 (31 ago 2026):** **Barrido de coherencia tras la auditoría con el Director.** El arsenal estaba a medio migrar: las decisiones del 26 y 29 de agosto vivían en INV_00 y en las cabeceras, pero los cuerpos vecinos no se barrieron. Lo hecho: `NIVELES_01` pasa al estilo trabajado — tesis primero, el conteo en compras, y el número grande se queda en NIVELES_02 junto a su origen, porque suelto en la primera respuesta se lee como magia. Se retiran de `NIVELES_03`, `NIVELES_06` e `INV_02` los marcos que INV_00 ya había retirado — el cálculo comparativo de comisión entre paquetes y el empujón hacia el paquete mayor: la decisión era del corpus, no de un fragmento; el alcance del Kit se dice en afirmativo y la subida de paquete es *cuando desee*, sin condición. `INV_03` corrige la cobertura a **los 16 países de América**. Los precios de paquetes salen de los cuerpos — los pone el pin por país (`getPaquetesPricingPin` / `getPinKitInicio`), y las cifras del GEN5 viven en COMP_GEN5_01 con el suyo. La cabecera se consolida a un solo riel de versión. Cifras del plan, PV/CV y nombres de producto INTACTOS.
-
-**v5.6 (31 ago 2026):** `NIVELES_02` carga en su índice las ofertas de cierre literales — la escrita en NIVELES_01 y la de la tabla nivel a nivel. En WhatsApp una aceptación pelada busca con la última pregunta del bot, y sin la oferta en el índice el «sí» a la tabla de los niveles se iba al ejemplo mensual del Binario (prueba del Director, 31 ago). Medido con arnés antes de desplegar: las dos ofertas de cadena pasan al puesto 1 y COMP_BIN_08 mantiene las suyas.
-
-**v5.5 (29 ago 2026):** `INV_00` reescrita con el Director. Sale el marco de escasez (compadece, y compadecer baja el estatus de quien pregunta) y sale el párrafo que pedía disculpas. ⚠️ **Anclaje:** no se nombra *el paquete más grande* —mide por el precio y valida el costo como obstáculo—; se nombra **la entrada estándar / los tres paquetes principales**, y el Kit queda como *una puerta más liviana*. La diferencia del plan se da como hecho neutro.
-
 **Historial anterior** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md) (aquí solo la versión actual y las dos previas).
 
 **Propósito:** Respuestas sobre inversión, paquetes, recompra, PV y Los 12 Niveles para Queswa.
 **Audiencia:** Sobre todo quienes están empezando; también un distribuidor activo que quiera desarrollar los 12 niveles — crear su equipo con nuevos distribuidores y compartirles la visión.
-**Categorías:** NIVELES (9) + INV (6) = 15 respuestas
+**Categorías:** NIVELES (9) + INV (7) = 16 respuestas
 
 ---
 
@@ -99,8 +61,6 @@ Ese tamaño lo construye la duplicación 2×2 — usted conecta mínimo dos, cad
 
 Por eso se repite: mientras sus distribuidores y sus clientes sigan comprando, hay comisión; si dejan de comprar, no la hay. La compañía no paga por gente vinculada — paga un porcentaje de lo que se vende.
 
-**Se liquida:** por ciclos semanales.
-
 **⚠️ Importante:** Estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su sistema. No son resultados garantizados.
 </verbatim_lock>
 
@@ -123,11 +83,11 @@ La inversión mínima es el **Kit de Inicio: [PRECIO_KIT]**.
 - Acceso completo a CreaTuActivo.com y Queswa
 
 **¿Para quién es ideal?**
-- Quienes quieren arrancar YA sin esperar
+- Quienes quieren arrancar ya, sin esperar
 - Quienes buscan velocidad de ejecución
 - Quienes quieren probar el sistema con inversión accesible
 
-El Kit entra al plan con la Regalía de Equipo al 10%, y con eso queda abierto su código y su sistema igual que cualquiera.
+El Kit da acceso al plan con la Regalía de Equipo al 10%, y con eso queda abierto su código y su sistema igual que cualquiera.
 
 **Pregunta de seguimiento:** ¿Le muestro qué trae cada paquete?
 
@@ -152,7 +112,7 @@ Con eso queda radicada, y le aviso a quien le compartió el enlace para que le c
 ### **NIVELES_05: "¿Qué pasa si me demoro en completar mis dos del primer nivel?"**
 **[Índice]:** Qué pasa si me demoro en completar mis dos del primer nivel, si todavía no los tengo, si voy más lento de lo que pensaba.
 
-**[Concepto Nuclear]:** Consistencia importa más que velocidad; la posición se toma hoy y se construye al ritmo de cada quien. ⚠️ Se retiró la línea final que definía «su rol» con una fórmula propia (Director, 31 ago 2026): el rol de cara al prospecto son SIEMPRE las dos acciones —Compartir y Recibir— y las dicta EAM_01; una segunda formulación aquí condiciona las respuestas de rol en todo el corpus. Conectar aparece en este arsenal solo como descripción del mecanismo 2×2, nunca como definición del rol.
+**[Concepto Nuclear]:** Consistencia importa más que velocidad; la posición se toma hoy y se construye al ritmo de cada quien. ⚠️ Se retiró la línea final que definía «su rol» con una fórmula propia (Director, 31 ago 2026): el rol de cara al prospecto son SIEMPRE las dos acciones —Compartir y Recibir— y las dicta EAM_01; una segunda formulación aquí condiciona las respuestas de rol en todo el corpus. Conectar aparece en este arsenal solo como descripción del mecanismo 2×2, nunca como definición del rol. **v6.20 (13 sep 2026):** salió el bloque *«lo que sí es crítico es que arranque HOY»* con sus tres viñetas: mayúsculas de urgencia, el registro del gremio. Queda una frase: la posición se fija al abrir el código, y Queswa atiende desde ese día.
 
 No pasa nada. Los 12 Niveles son una guía de aceleración, no una obligación.
 
@@ -160,10 +120,7 @@ Si tarda más tiempo en completar su primer nivel, está bien. Lo importante es 
 
 **El sistema 2×2 funciona cuando cada quien encuentra su ritmo.**
 
-Lo que sí es crítico es que **arranque HOY**, porque:
-- Su posición en el sistema se fija al comenzar
-- Mientras más temprano empiece, más tiempo tiene para construir
-- Queswa explica, atiende y madura las decisiones de sus interesados a toda hora
+Lo que sí cuenta es empezar: su posición en el sistema se fija al abrir su código, y desde ese día Queswa atiende a quien usted le comparta el enlace.
 
 **Pregunta de seguimiento:** ¿Le muestro qué hace el sistema por usted?
 
@@ -172,41 +129,30 @@ Lo que sí es crítico es que **arranque HOY**, porque:
 ### **NIVELES_06: "¿Por qué es tan accesible el Kit de Inicio?"**
 **[Índice]:** Por qué el Kit de Inicio es tan barato, por qué solo cuesta eso, si algo tan accesible sirve de verdad.
 
-**[Concepto Nuclear]:** Velocidad de ejecución: arrancar hoy vs esperar el paquete perfecto. ⚠️ **El título traía la cifra en COP** —*"¿Por qué solo $443.600?"*— y el título se vectoriza y se sirve: a un visitante de Estados Unidos le llegaba una cifra en pesos dentro de la propia pregunta. Se retiró el 26 ago 2026; el precio lo pone el pin donde hace falta.
+**[Concepto Nuclear]:** Velocidad de ejecución: arrancar hoy vs esperar el paquete perfecto. ⚠️ **El título traía la cifra en COP** —*"¿Por qué solo $443.600?"*— y el título se vectoriza y se sirve: a un visitante de Estados Unidos le llegaba una cifra en pesos dentro de la propia pregunta. Se retiró el 26 ago 2026; el precio lo pone el pin donde hace falta. **v6.20 (13 sep 2026) — reescrita entera.** La versión anterior encadenaba cuatro pasos numerados a un ingreso (*genera su primer ingreso recurrente; con ese ingreso compra su Paquete*), la silueta de acciones simples atadas a un pago; le ponía la objeción en la boca (*no cuando «tenga más dinero»*), que compadece —la falla que salió de INV_00—; y remataba con presión (*los que esperan… siguen esperando*, *¿Arrancamos hoy?*). Ahora: el Kit existe para que empezar no dependa del presupuesto; el paso a los paquetes principales es decisión de la persona con su sistema ya facturando. Cierra al simulador con la tarifa del Kit, como INV_00.
 
-Porque favorecemos la **velocidad de ejecución**.
+Porque el Kit existe para que empezar no dependa del presupuesto.
 
-El Kit de Inicio existe para que usted tome su posición **HOY**, no cuando "tenga más dinero".
+Con el Kit abre su código, recibe cuatro cajas y empieza a construir su sistema con la Regalía de Equipo al 10%. Más adelante, con su sistema ya facturando, usted decide si le sirve pasar a uno de los tres paquetes principales, que suman el Bono GEN5 y tarifas más altas.
 
-**La estrategia paso a paso:**
-
-1. Arranca con el Kit de Inicio (baja fricción)
-2. Construye su sistema y genera su primer ingreso recurrente
-3. Con ese ingreso recurrente, compra su Paquete Empresarial
-4. Accede al Bono GEN5 y a porcentajes más altos
-
-Los que esperan el paquete perfecto, siguen esperando. Los que arrancan, ya están construyendo.
-
-**Pregunta de seguimiento:** ¿Arrancamos hoy?
+**Pregunta de seguimiento:** ¿Quiere armar su propio escenario en el simulador con la tarifa del Kit?
 
 ---
 
 ### **NIVELES_07: "¿Qué pasa si alguien de mi equipo no invita a sus dos?"**
 **[Índice]:** Qué pasa si alguien de mi equipo se queda quieto y no invita a sus dos, si el de abajo no hace nada.
 
-**[Concepto Nuclear]:** Su crecimiento depende de su acción continua, no de la velocidad de otros.
+**[Concepto Nuclear]:** Su crecimiento depende de su acción continua, no de la velocidad de otros. **v6.20 (13 sep 2026):** salió *«los expertos recomiendan»* (autoridad sin nombre) y el cierre *«¿cuántos nombres tiene en su lista para invitar?»* — la lista de nombres es el marcador más reconocible del gremio, y ningún fragmento podía atender la respuesta. Cierra a *con cuánto se empieza* (INV_01 / NIVELES_03). Mayúsculas de urgencia a minúscula.
 
 Este es un temor común.
 
 **La realidad:** No todos van a avanzar al mismo ritmo. Algunos se quedarán quietos. Eso es normal en cualquier proyecto.
 
-**Por eso los expertos recomiendan:**
+Por eso conviene conectar más de dos: entre más distribuidores tenga usted directamente, menos depende de lo que haga cada uno. La compañía paga sobre los **puntos emparejados** entre su canal izquierdo y su canal derecho, así que conviene ayudar a crecer el canal que va más despacio: cada punto que entra ahí encuentra su pareja de inmediato.
 
-Conectar más de dos le da más margen: entre más distribuidores tenga usted directamente, menos depende de lo que haga cada uno. La compañía paga sobre los **puntos emparejados** entre su canal izquierdo y su canal derecho, así que conviene ayudar a crecer el canal que va más despacio: cada punto que entra ahí encuentra su pareja de inmediato.
+**La clave:** Su éxito no depende de que todos avancen. Depende de que usted siga construyendo su sistema.
 
-**La clave:** Su éxito no depende de que TODOS avancen. Depende de que USTED siga construyendo su sistema.
-
-**Pregunta de seguimiento:** ¿Cuántos nombres tiene en su lista para invitar?
+**Pregunta de seguimiento:** ¿Le muestro con cuánto se empieza?
 
 ---
 
@@ -251,7 +197,7 @@ Buena pregunta, y de buen criterio: en cualquier negocio la primera decisión es
 
 Lo estándar son los tres paquetes principales, y a ellos puede llegar cuando quiera. Para empezar hoy mismo hay una puerta más liviana: el *Kit de Inicio*, que cuesta [PRECIO_KIT]. Le llegan cuatro cajas de producto a su dirección y queda con su código y su sistema abiertos igual que cualquiera.
 
-Para que decida con los números claros: el Kit entra al plan con la Regalía de Equipo al 10%, y el Bono GEN5 se activa con los tres paquetes principales. Más adelante, con su sistema ya facturando, usted decide si le sirve pasar a uno de ellos.
+Para que decida con los números claros: el Kit da acceso al plan con la Regalía de Equipo al 10%, y el Bono GEN5 se activa con los tres paquetes principales. Más adelante, con su sistema ya facturando, usted decide si le sirve pasar a uno de ellos.
 
 **Pregunta de seguimiento:** ¿Quiere armar su propio escenario en el simulador con la tarifa del Kit?
 
@@ -264,7 +210,7 @@ Para que decida con los números claros: el Kit entra al plan con la Regalía de
 
 La inversión más accesible es el **Kit de Inicio: [PRECIO_KIT]** (4 cajas Gano Café 3en1).
 
-Con eso tiene todo lo que necesita para activarse y empezar a construir su sistema desde el primer día.
+Con eso tiene todo lo que necesita para abrir su código y empezar a construir su sistema desde el primer día.
 
 **60 PV / 56 CV** que se suman a su sistema. Eso es lo que importa.
 
@@ -290,12 +236,12 @@ Hay 4 opciones de inversión. Todas le dan acceso completo al sistema:
 | **ESP-2 Empresarial** | 250 | 16% | 4 meses | **SÍ** |
 | **ESP-3 Visionario** | 500 | 17% | 6 meses | **SÍ** |
 
-- **Kit de Inicio** → Para quien quiere arrancar YA con la inversión mínima, con la Regalía de Equipo al 10%.
+- **Kit de Inicio** → Para quien quiere arrancar ya con la inversión mínima, con la Regalía de Equipo al 10%.
 - **ESP-1** → 15% de Regalía de Equipo, con el Bono GEN5 activo.
 - **ESP-2** → 16% de Regalía de Equipo, con el Bono GEN5 activo.
 - **ESP-3** → 17% —la tarifa más alta— y el GEN5 completo, con el sistema surtido de una vez (35 productos).
 
-Recuerde: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
+creatuactivo.com y queswa.app vienen incluidos con cualquiera de los cuatro.
 
 **Pregunta de seguimiento:** ¿Le muestro cuánto vale cada uno?
 
@@ -304,14 +250,14 @@ Recuerde: La tecnología (Queswa + CreaTuActivo.com) es **GRATIS** para todos.
 ### **INV_03: "¿Qué recibo con cada paquete?"**
 **[Índice]:** Qué recibo con cada paquete, qué me llega cuando compro, qué incluye la inversión además del producto.
 
-**[Concepto Nuclear]:** La inversión determina su porcentaje de ingreso recurrente y acceso al Bono GEN5.
+**[Concepto Nuclear]:** La inversión determina su porcentaje de ingreso recurrente y acceso al Bono GEN5. **v6.20 (13 sep 2026):** *«Posición heredable (es un ACTIVO)»* → *«Su código, a su nombre»*: el activo sin causa y la herencia fuera de `FREQ_05`. *«donde opera el sistema»* → *«donde está»* (verbo vetado de cara al prospecto). *«Sistema de duplicación automatizado»* era etiqueta interna.
 
 Todos los paquetes incluyen:
 
 **1. Acceso completo a la tecnología:**
 - Queswa, que trabaja 24/7
 - CreaTuActivo.com (su plataforma personalizada)
-- Sistema de duplicación automatizado
+- La estrategia de Los 12 Niveles
 
 **2. Inventario de productos:**
 - Kit de Inicio: 4 cajas Gano Café 3en1 + My Gano Plan Negocios
@@ -321,8 +267,8 @@ Todos los paquetes incluyen:
 
 **3. Posición en el sistema:**
 - Su código de afiliado permanente
-- Posición heredable (es un ACTIVO)
-- Derecho a construir en los 16 países de América donde opera el sistema
+- Su código, a su nombre
+- Derecho a construir en los 16 países de América donde está el sistema
 
 **4. Mentoría y soporte:**
 - Acompañamiento del equipo de creatuactivo.com
@@ -344,13 +290,13 @@ Todos los paquetes incluyen:
 ### **INV_04: "¿Todos los meses debo hacer recompra? / ¿Para qué sirve esa compra mensual?"**
 **[Índice]:** Para qué sirve la recompra mensual dentro de Los 12 Niveles, qué me deja esa compra, qué pasa si un mes no la hago.
 
-**[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso recurrente.
+**[Concepto Nuclear]:** Recompra mensual (50 PV) = costo operativo que genera ingreso recurrente. **v6.20 (13 sep 2026):** *activo* deja de decirse de la persona y pasa al código (*mantiene su código activo*). Salió la negación *«no es conectar sin parar»*, que invocaba el fantasma para negarlo.
 
 Sí: cuatro cajas de producto al mes, o el equivalente a **50 PV**.
 
-Esa compra es la que lo mantiene activo, y estar activo es lo que le conserva el derecho a cobrar las comisiones de su sistema. Si un mes no la hace, ese derecho queda suspendido hasta que la retome.
+Esa compra mantiene su código activo, y con el código activo conserva el derecho a cobrar las comisiones de su sistema. Si un mes no la hace, ese derecho queda suspendido hasta que la retome.
 
-Lo que sostiene el negocio a la larga no es conectar sin parar: es que sus distribuidores y sus clientes sigan consumiendo mes a mes. Por eso la recompra no es un requisito administrativo — es el mismo movimiento que genera el ingreso.
+Lo que sostiene el negocio a la larga es que sus distribuidores y sus clientes sigan consumiendo mes a mes. Por eso la recompra no es un requisito administrativo — es el mismo movimiento que genera el ingreso.
 
 **Lo que recibe a cambio:**
 
@@ -368,7 +314,7 @@ Lo que sostiene el negocio a la larga no es conectar sin parar: es que sus distr
 ### **INV_05: "¿Todos los meses debo comprar paquetes empresariales?"**
 **[Índice]:** Todos los meses debo comprar paquetes empresariales, el paquete se compra una sola vez o se repite.
 
-**[Concepto Nuclear]:** Paquete Empresarial = inversión única. Recompra = mensual (50 PV en productos).
+**[Concepto Nuclear]:** Paquete Empresarial = inversión única. Recompra = mensual (50 PV en productos). **v6.20 (13 sep 2026):** *«El activo es su sistema, en acción»* era el uso vetado el 12 sep —el activo como otro nombre del sistema—; ahora el rótulo dice lo que el párrafo explica: lo que se compra una vez y lo que se repite. Salió *«costo operativo»* con sus comillas.
 
 **No.** El paquete empresarial se compra **una sola vez**.
 
@@ -384,9 +330,9 @@ Son Puntos de Volumen que equivalen a una compra de productos. No necesita compr
 • Mantiene su posición activa
 • Cobra las comisiones que mueve su sistema
 
-**El activo es su sistema, en acción:**
+**Lo que se compra una vez, y lo que se repite:**
 
-Su inversión inicial (paquete) le da la posición y los porcentajes. Su recompra mensual (50 PV) es su "costo operativo" - y lo recibe en productos reales, no es una cuota administrativa.
+Su inversión inicial (paquete) le da la posición y los porcentajes. Su recompra mensual (50 PV) es lo que mantiene su código activo, y la recibe en producto: no es una cuota.
 
 **Resumen:** Paquete empresarial = una vez. Recompra mensual = 50 PV en productos.
 
@@ -458,7 +404,7 @@ Tiene varias opciones para completar sus 50 PV mensuales:
 - Los puntos del paquete activan su posición y generan CV para su sistema
 - No es necesario volver a comprar el paquete - es una única vez
 
-**Recuerde:** Mínimo 50 PV mensual para mantenerse activo. Puede elegir los productos que prefiera consumir o compartir.
+**Recuerde:** Mínimo 50 PV mensual para mantener su código activo. Puede elegir los productos que prefiera consumir o compartir.
 
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se cumple con una caja a la semana?

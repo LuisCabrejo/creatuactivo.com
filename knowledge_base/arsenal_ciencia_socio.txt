@@ -1,0 +1,154 @@
+# Arsenal de Ciencia para el Socio — solo Dashboard (queswa.app)
+
+**Versión actual: v1.0** (13 sep 2026). Para quien ya es distribuidor y se prepara para lo que le van a preguntar. Vive **únicamente en el tenant `dashboard`**: el Dashboard es privado y no se indexa; el canal de WhatsApp y la web conservan sus guardarraíles. Historial y doctrina → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Despliegue: `node scripts/desplegar-arsenal-ciencia-socio.mjs`.
+
+Cada respuesta tiene tres niveles: qué es y qué contiene · qué dice la evidencia en personas, con su identificador (PMID) y su calibre, incluido lo que no cambió · **lo que el socio sí puede decirle a su cliente**, en el registro de la etiqueta.
+
+---
+
+### CS_00: "¿Qué puedo decirle a un cliente sobre la salud? / ¿Qué está permitido decir del Ganoderma? / ¿Hasta dónde puedo hablar de beneficios?"
+**[Índice]:** Qué puedo decir y qué no sobre salud, qué está permitido afirmar de los productos, hasta dónde llego con un cliente, qué frases me pueden meter en problemas, qué dice la ley sobre lo que afirmo.
+
+Dos registros, y la línea entre ellos la pone la ley, no la prudencia.
+
+Con usted, aquí, hablo de la ciencia como es: qué se ha medido en personas, en cuántas, por cuánto tiempo y qué no cambió. Es su formación, y el Dashboard es privado.
+
+Con su cliente, lo que usted diga es publicidad. En Colombia, el Decreto 3249 de 2006 prohíbe atribuirle a un suplemento cualquier efecto preventivo o terapéutico, y exige que la publicidad la apruebe INVIMA. En Estados Unidos, la FTC responsabiliza a la empresa por lo que afirman sus distribuidores, incluso en una conversación uno a uno. Un estudio que yo le muestre no autoriza una frase a su cliente: la autoriza la etiqueta.
+
+Lo que sí puede decir, y con respaldo: *apoya*, *contribuye*, *favorece*. Energía, vitalidad, antioxidante, «apoya el sistema inmune». El ritual y lo sensorial.
+
+Lo que no se dice, con estudio o sin él: una enfermedad por su nombre; *cura*, *trata*, *previene*, *alivia*; cifras y plazos; adelgazar; y preguntar por la salud de la persona para venderle.
+
+Cuando un cliente le pregunte por una enfermedad, la respuesta es siempre la misma: eso lo ve con su médico; el producto está registrado como suplemento dietario, y lo que él va a encontrar aquí es nutrición para el día a día.
+
+**Pregunta de seguimiento:** ¿Le muestro qué dice la evidencia del Ganoderma?
+
+---
+
+### CS_01: "¿Qué dice la ciencia del Ganoderma? / ¿Hay estudios del Ganoderma en humanos? / referencias en PubMed del reishi"
+**[Índice]:** Qué dice la ciencia del Ganoderma, hay estudios en humanos, referencias de PubMed del reishi, qué está comprobado del hongo, evidencia clínica del Ganoderma lucidum, qué dicen los ensayos.
+
+Sí, y le doy los tres que más pesan, con su calibre.
+
+**El resumen más amplio** es un metaanálisis con evaluación GRADE de 17 ensayos controlados aleatorizados y 971 personas, con la literatura hasta agosto de 2024 (Food Science & Nutrition, 2025; PMID 40510787). Con dosis de 200 a 11.200 mg al día durante 1 a 24 semanas, encontró reducciones pequeñas pero significativas en el índice de masa corporal, la creatinina y la frecuencia cardíaca, y un aumento de la glutatión peroxidasa, una enzima antioxidante. **No encontró efecto** en grasa corporal, presión arterial, glucosa en ayunas, lípidos, marcadores de inflamación ni enzimas del hígado.
+
+**En inmunidad**, un ensayo doble ciego con placebo en adultos sanos de 18 a 55 años, 84 días con betaglucanos de Ganoderma (Foods, 2023; PMID 36766186), midió más linfocitos T (CD3+, CD4+, CD8+), mejor relación CD4/CD8, más inmunoglobulina A en suero y mayor citotoxicidad de las células NK que en el grupo placebo, sin cambios en la función del riñón ni del hígado.
+
+**Y el resultado nulo que hay que conocer:** un ensayo doble ciego en 84 personas con diabetes tipo 2 y síndrome metabólico, 3 g al día durante 16 semanas, con o sin Cordyceps (Scientific Reports, 2016; PMID 27511742), no cambió la hemoglobina glicosilada, la glucosa ni ningún otro marcador cardiovascular. Los autores concluyen que la evidencia no respalda usarlo para eso.
+
+Lo de los triterpenos y la inflamación, que es lo que más circula en redes, es casi todo en laboratorio y en animales, y el metaanálisis en personas no lo confirmó.
+
+**Lo que usted puede decirle a su cliente:** que el Ganoderma aporta betaglucanos y antioxidantes, y que apoya el sistema inmune. Nada de presión, azúcar, colesterol ni inflamación: ahí la evidencia en personas dice que no, y la ley dice que no se afirma.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se lee el calibre de un estudio?
+
+---
+
+### CS_02: "¿Qué evidencia tiene el Cordyceps? / estudios del CordyGold / ¿el Cordyceps sirve para el rendimiento?"
+**[Índice]:** Qué evidencia tiene el Cordyceps, estudios del CordyGold, si el Cordyceps sirve para el rendimiento físico o el aguante, qué se ha medido en personas con Cordyceps sinensis.
+
+El CordyGold lleva Cordyceps sinensis, 500 mg por cápsula. La evidencia en personas es más corta que la del Ganoderma, y se la digo con su tamaño.
+
+**Rendimiento físico en adultos mayores sanos:** un ensayo doble ciego con placebo, 20 personas de 50 a 75 años, 12 semanas con 1 g diario de un cultivo de Cordyceps sinensis (Cs-4) (Journal of Alternative and Complementary Medicine, 2010; PMID 20804368). Subieron el umbral metabólico (10,5 %) y el ventilatorio (8,5 %); el consumo máximo de oxígeno no cambió en ningún grupo. Es un piloto: veinte personas.
+
+**Inmunidad, con otra especie:** un ensayo controlado con una bebida de Cordyceps militaris en adultos sanos, 8 semanas, 20 personas (Scientific Reports, 2024; PMID 38580687), midió más actividad de células NK en los hombres a las cuatro semanas. La especie es distinta a la del CordyGold, así que se cuenta como indicio, no como respaldo directo.
+
+Y en el ensayo de síndrome metabólico que le mostré con el Ganoderma (PMID 27511742), sumarle Cordyceps no cambió ningún marcador.
+
+**Lo que usted puede decirle a su cliente:** que es el hongo que se asocia con el aguante y el rendimiento físico, y que aporta al bienestar de quien entrena o tiene jornadas largas. Sin cifras de rendimiento, y sin prometerle nada a quien tiene una condición.
+
+**Pregunta de seguimiento:** ¿Le muestro la evidencia de la espirulina, que es la más sólida de la línea?
+
+---
+
+### CS_03: "¿Qué dice la ciencia de la espirulina? / estudios de la spirulina / ¿la espirulina baja el colesterol o la presión?"
+**[Índice]:** Qué dice la ciencia de la espirulina, estudios de la spirulina en personas, si baja el colesterol o la presión, qué evidencia tiene el Gano C'Real, metaanálisis de espirulina.
+
+Es el ingrediente con la evidencia humana más sólida del portafolio, y justo por eso es donde más cuidado pide lo que se dice.
+
+**Lípidos:** un metaanálisis con evaluación GRADE de 20 estudios, 23 brazos y 1.076 participantes (Pharmacological Research, 2023; PMID 37263369) encontró reducciones de colesterol total, LDL y triglicéridos, y un aumento del HDL.
+
+**Presión arterial:** un metaanálisis de 5 ensayos con 230 personas (Nutrients, 2021; PMID 34578932), con 1 a 8 g al día durante 2 a 12 semanas, encontró reducciones de 4,6 mmHg en la sistólica y de 7 mmHg en la diastólica, sobre todo en hipertensos. Los propios autores piden ensayos más exactos.
+
+Dos cosas para ubicar eso. Las dosis de los estudios son de gramos de espirulina al día, y el Gano C'Real es una bebida de desayuno, no un suplemento de espirulina en esa dosis. Y lo que se midió son marcadores de enfermedad, que es exactamente lo que la ley le prohíbe prometer.
+
+**Lo que usted puede decirle a su cliente:** que la espirulina es un alga con alta densidad de proteína, hierro y vitamina B12, y que el Gano C'Real es un desayuno funcional. «Baja la presión» o «baja el colesterol» es una indicación terapéutica bajo el Decreto 3249, con estudio o sin él.
+
+**Pregunta de seguimiento:** ¿Le muestro qué se sabe del rooibos?
+
+---
+
+### CS_04: "¿Qué evidencia tiene el rooibos? / estudios del té rooibos / ¿el Oleaf tiene respaldo científico?"
+**[Índice]:** Qué evidencia tiene el rooibos, estudios del té rooibos en personas, si el Oleaf Gano Rooibos tiene respaldo científico, qué se sabe de la aspalatina.
+
+Aquí la respuesta honesta es que la evidencia en personas es escasa.
+
+La revisión sistemática más reciente sobre rooibos en humanos (Beverages, 2024; doi 10.3390/beverages10040113) encontró ocho estudios con 175 participantes en total, con resultados mixtos, y concluye que no alcanza para sostener beneficios definidos. Lo que se dice de la aspalatina, su flavonoide principal, viene sobre todo de estudios en animales y en células.
+
+Lo que sí es un hecho: es una infusión sin cafeína, con antioxidantes propios, y en el Oleaf va combinada con el extracto de Ganoderma.
+
+**Lo que usted puede decirle a su cliente:** sin cafeína, para cualquier hora, incluso de noche; antioxidantes de dos fuentes; sabor suave. Nada más, porque no hay más.
+
+**Pregunta de seguimiento:** ¿Le muestro qué se sabe del micelio del Excellium?
+
+---
+
+### CS_05: "¿Qué evidencia tiene el Excellium? / ¿el micelio del Ganoderma tiene estudios? / diferencia entre micelio y cuerpo del hongo"
+**[Índice]:** Qué evidencia tiene el Excellium, si el micelio del Ganoderma tiene estudios, diferencia entre el micelio y el cuerpo del hongo, qué puedo decir del Excellium.
+
+El Excellium se diferencia por la parte del hongo que lleva: el micelio joven del Ganoderma, no el cuerpo maduro que llevan las otras cápsulas.
+
+La evidencia humana que le mostré del Ganoderma se hizo con extractos del cuerpo del hongo o con betaglucanos purificados. Ensayos en personas con micelio en particular prácticamente no hay. Lo que puede decir del Excellium con respaldo es lo que aplica al Ganoderma en general —betaglucanos, antioxidantes, apoyo al sistema inmune—, y lo que lo distingue se dice por su composición, no por un efecto: es la parte joven del hongo.
+
+**Lo que usted puede decirle a su cliente:** que es el Ganoderma en su etapa de micelio, el que suele buscar quien quiere llegar despierto a la tarde y lo acompaña con el café. Sin atribuirle un efecto que el cuerpo maduro no tenga demostrado.
+
+**Pregunta de seguimiento:** ¿Le muestro lo que sí está aprobado decir del colágeno?
+
+---
+
+### CS_06: "¿Qué puedo decir del colágeno? / declaración aprobada del Reskine / ¿el colágeno tiene respaldo de INVIMA?"
+**[Índice]:** Qué puedo decir del colágeno, declaración de salud aprobada por INVIMA para el colágeno, qué respaldo tiene el Reskine, si puedo hablar de articulaciones.
+
+El colágeno es el único ingrediente de la línea con declaraciones de salud aprobadas por INVIMA, y se citan con sus condiciones, porque las condiciones son parte de la declaración.
+
+Del Acta 10 de 2017 de la Sala Especializada de Alimentos: *«El consumo regular de colágeno, junto con una dieta balanceada y actividad física, puede contribuir a una adecuada salud articular»*, y *«El colágeno hidrolizado, junto con una dieta balanceada y actividad física, ayuda a mantener el buen funcionamiento de las articulaciones, permitiendo el movimiento»*.
+
+Ese es el carril blindado: lo puede decir tal cual, con el *junto con una dieta balanceada y actividad física* adentro. Lo que se sale de ahí —piel, arrugas, dolor, artritis— no está aprobado y no se dice.
+
+**Lo que usted puede decirle a su cliente:** la declaración aprobada, tal cual, y lo sensorial del Reskine: una bebida de frutos rojos que uno espera con ganas.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se lee el calibre de un estudio?
+
+---
+
+### CS_07: "¿Cómo leo un estudio? / ¿Qué es un ensayo controlado? / ¿Los dos mil estudios del Ganoderma son un argumento?"
+**[Índice]:** Cómo leer un estudio científico, qué es un ensayo controlado aleatorizado, qué diferencia hay entre un estudio en células y uno en personas, si los dos mil estudios del Ganoderma sirven como argumento, qué es un PMID.
+
+Cuatro preguntas le dicen cuánto pesa un estudio, en este orden.
+
+**¿En quién?** En células o en animales no cuenta como evidencia de lo que pasa en una persona; es una hipótesis. La FTC, por ejemplo, no acepta estudios in vitro ni en animales como sustento de un claim.
+
+**¿Cómo?** Un ensayo controlado aleatorizado, con placebo y doble ciego, es el estándar. Un estudio observacional o un testimonio no lo reemplaza.
+
+**¿Cuántos y por cuánto tiempo?** Veinte personas durante ocho semanas es un piloto. Novecientas personas en diecisiete ensayos es un resumen serio.
+
+**¿Qué no cambió?** Un buen estudio reporta también lo que no se movió. Cuando alguien le cite solo lo que subió, pregunte por lo demás.
+
+Por eso «hay más de dos mil estudios sobre el Ganoderma» no es un argumento: la mayoría son de laboratorio, y lo que importa es lo que se midió en personas. Cuando quiera ver una referencia, pídame el PMID: es el número con el que se busca en PubMed.
+
+**Pregunta de seguimiento:** ¿Le muestro qué responder cuando un cliente pregunta por una enfermedad?
+
+---
+
+### CS_08: "Un cliente me pregunta si sirve para una enfermedad / me preguntan por la diabetes, la presión o el cáncer / ¿qué respondo cuando me hablan de una condición?"
+**[Índice]:** Un cliente me pregunta si sirve para una enfermedad, qué respondo cuando me hablan de diabetes, presión, cáncer o una condición, cómo contesto sin perder al cliente, me dicen que a un amigo le sirvió.
+
+Le va a pasar, y la respuesta es una sola, en dos partes.
+
+Primero, con calidez: *«Eso lo ve con su médico, que es quien conoce su caso»*. Segundo, lo que sí hay: *«Lo que yo le ofrezco está registrado como suplemento dietario, no como tratamiento, así que lo que va a encontrar aquí es nutrición y bienestar para el día a día: energía, antioxidantes, un ritual que se disfruta»*.
+
+No se repite el nombre de la enfermedad, no se cita un estudio para ese caso y no se pregunta por síntomas. Si la persona insiste con *«pero a un amigo le sirvió»*, se le concede la experiencia sin adoptarla: *«Cada persona es distinta, y por eso ese punto es de su médico»*.
+
+Lo que usted ha leído aquí conmigo es para que entienda lo que vende. La conversación con su cliente se queda en el carril de la etiqueta, y ese carril vende bien: la gente compra el café porque le gusta y le sienta, no por un estudio.
+
+**Pregunta de seguimiento:** ¿Le muestro qué puede decir de cada producto, uno por uno?

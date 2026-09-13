@@ -450,6 +450,18 @@ Auditoría general con el Director tras la prueba del canal. Las decisiones del 
 
 Cifras del plan, PV/CV y nombres de producto intactos.
 
+## arsenal_ciencia_socio (solo tenant `dashboard`)
+
+### v1.0 — Nace el arsenal de ciencia para el socio (13 sep 2026)
+
+**Por qué.** Antes de la aplicación ante Meta, el catálogo traía «ciencia» (*2.000+ estudios en PubMed*, *Fuente: PubMed (2023)*, y claims de enfermedad como *alivia hiperglucemia*) que se retiró el 17 ago 2026. Los distribuidores la usaban como guía. El Director (13 sep) pidió que el canal conserve sus guardarraíles y que **Queswa en el Dashboard —privado, no indexado— sí pueda hablar de la evidencia y citar PubMed**. Auditado: la ciencia vieja no estaba en Supabase y no era citable (sin identificadores); se construyó de nuevo con referencias verificadas contra la API de PubMed.
+
+**Hasta dónde, y por qué.** Decreto 3249 de 2006 (Colombia): en rótulo y publicidad de suplementos, ninguna indicación preventiva ni terapéutica, y la publicidad la aprueba INVIMA. FTC (EE. UU.): la empresa responde por lo que afirman sus distribuidores en cualquier medio, y la sustentación son ensayos controlados en humanos, no in vitro ni animales. Conclusión: explicarle la evidencia a un socio en una herramienta privada no es publicidad; lo que el socio repita a un cliente sí lo es. Por eso **cada respuesta termina en «lo que usted sí puede decirle a su cliente»** en el registro de la etiqueta, y ese puente es el guardarraíl del Dashboard, por diseño.
+
+**Nueve respuestas.** `CS_00` la línea (dos registros) · `CS_01` Ganoderma: metaanálisis GRADE 17 ECA/971 (PMID 40510787, con lo que NO cambió), betaglucanos en adultos sanos (PMID 36766186), nulo en síndrome metabólico (PMID 27511742) · `CS_02` Cordyceps: piloto Cs-4 n=20 (PMID 20804368), militaris n=20 (PMID 38580687) como indicio · `CS_03` espirulina: lípidos GRADE 20 estudios/1.076 (PMID 37263369), presión 5 ECA/230 (PMID 34578932) — y por qué es la que más cuidado pide · `CS_04` rooibos: 8 estudios/175, insuficiente (doi 10.3390/beverages10040113) · `CS_05` Excellium: casi sin ensayos con micelio · `CS_06` colágeno: las declaraciones INVIMA del Acta 10 de 2017, con sus condiciones · `CS_07` cómo leer un estudio · `CS_08` qué responder cuando un cliente pregunta por una enfermedad.
+
+**Arquitectura.** Parent + fragmentos solo en `dashboard` (`desplegar-arsenal-ciencia-socio.mjs`); bloque `canal:dashboard` en el prompt maestro (desplegado `--solo dashboard`); el arsenal como cuarto bucket en el `route.ts` del Dashboard (otro repo, traspasado a su agente). El `.txt` va sin `[Concepto Nuclear]`: el Dashboard sirve el padre entero.
+
 ## arsenal_inicial
 
 ### v6.38 — «Activo» con su causa, y *maquinaria* entra al arsenal (13 sep 2026)

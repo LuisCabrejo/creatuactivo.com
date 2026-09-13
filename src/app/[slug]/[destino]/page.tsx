@@ -7,7 +7,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
-import { notFound, redirect } from 'next/navigation'
+import { notFound, permanentRedirect, redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
@@ -58,6 +58,53 @@ const OG_QUESWA = {
 // configurado en private_users (mismo default que /productos)
 const WHATSAPP_ORGANICO_DEFAULT = '+573206805737'
 
+/**
+ * Resuelve el slug de la URL a su fila de `constructor_slugs`, o NO VUELVE:
+ *
+ *  · existe → devuelve la fila (constructor_id, display_name, foto_url);
+ *  · no existe pero es el enlace VIEJO de un socio que cambió de seudónimo
+ *    (13 sep 2026; el Dashboard guarda el anterior en `constructor_slug_aliases`)
+ *    → redirect permanente (308) a la misma ruta con el slug actual, así un
+ *    enlace ya compartido o impreso sigue llevando a su dueño y de paso la
+ *    URL se actualiza en quien lo abre;
+ *  · ninguna de las dos → 404.
+ *
+ * Un solo resolvedor para los tres destinos (reel, queswa y redirect
+ * genérico): antes cada uno consultaba la tabla por su cuenta. Devolver la
+ * fila —en vez de validar aparte con un `if (!c)`— es lo que deja a `c` sin
+ * `null` para TypeScript: un `await` de una función que "nunca vuelve" no
+ * estrecha el tipo, pero un `return` sí.
+ */
+async function resolverSlug(slug: string, destino: string) {
+  const { data } = await supabase
+    .from('constructor_slugs')
+    .select('display_name, foto_url, constructor_id')
+    .eq('slug', slug)
+    .maybeSingle()
+
+  if (data) return data
+
+  const { data: alias } = await supabase
+    .from('constructor_slug_aliases')
+    .select('constructor_id')
+    .eq('slug', slug)
+    .maybeSingle()
+
+  if (alias) {
+    const { data: actual } = await supabase
+      .from('constructor_slugs')
+      .select('slug')
+      .eq('constructor_id', alias.constructor_id)
+      .maybeSingle()
+
+    if (actual?.slug && actual.slug !== slug) {
+      permanentRedirect(`/${actual.slug}/${destino}`)
+    }
+  }
+
+  notFound()
+}
+
 export default async function DestinoRoute({
   params,
 }: {
@@ -67,13 +114,7 @@ export default async function DestinoRoute({
 
   // ── Caso Reel: renderiza la página (NO redirige) ───────────────
   if (isReelNicho(destino)) {
-    const { data: c } = await supabase
-      .from('constructor_slugs')
-      .select('display_name, foto_url, constructor_id')
-      .eq('slug', slug)
-      .single()
-
-    if (!c) notFound()
+    const c = await resolverSlug(slug, destino)
 
     // El WhatsApp del arquitecto es la fuente de verdad en private_users
     // (igual que /api/constructor/[id]). Fallback al número orgánico.
@@ -110,13 +151,7 @@ export default async function DestinoRoute({
   // marca en vez de nombrarlo. Todo eso sin un solo error visible. Con un socio
   // era invisible; con diez es una fuga silenciosa de prospectos.
   if (destino === 'queswa' || destino === 'acceso') {
-    const { data: c } = await supabase
-      .from('constructor_slugs')
-      .select('constructor_id')
-      .eq('slug', slug)
-      .single()
-
-    if (!c) notFound()
+    await resolverSlug(slug, destino)
 
     // ⚠️ Sin emoji, y medido (19 ago 2026). La redirección entrega el carácter
     // bien —`%F0%9F%AA%A2` para 🪢, verificado en la cabecera Location—, pero lo
@@ -149,13 +184,7 @@ export default async function DestinoRoute({
 
   // ── Caso redirect (comportamiento original) ────────────────────
   // 1. Resolver constructor_id desde el slug
-  const { data: record } = await supabase
-    .from('constructor_slugs')
-    .select('constructor_id')
-    .eq('slug', slug)
-    .single()
-
-  if (!record) notFound()
+  const record = await resolverSlug(slug, destino)
 
   // 2. Resolver destino → ruta real
   const resolver = DESTINO_MAP[destino]

@@ -368,6 +368,16 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.38 — «Activo» con su causa, y *maquinaria* entra al arsenal (13 sep 2026)
+
+Auditoría de las diecisiete apariciones de *activo* en lo que se sirve del arsenal inicial, a pedido del Director. Once son verbo o nomenclatura (*se activa*, *Bono GEN5 activo*, *acceso queda activo*, *mantiene el sistema activo*) y no tocan la regla. `WHY_04` 🔒 y `FREQ_05` la aplican de manual (causa delante, el activo definido por lo que produce). Tres se corrigieron:
+
+- **`WHY_03`:** *«que nadie le puede pedir de vuelta, y que se convierte en un activo heredable»* → *«y que le permite ser dueño de un activo: no requiere de que usted esté encima para generar»*. El activo iba sin causa, y *heredable* sacaba la durabilidad de `FREQ_05`. La cláusula *«nadie le puede pedir de vuelta»* sobraba (Director).
+- **`WHY_05` 🔒:** los dos últimos párrafos siguen ahora el orden del uno a uno del Director —credo → *«le entregamos ensamblados los tres elementos que hacen falta para crear un sistema de distribución: el fabricante, Gano Excel…; yo…; y una metodología sencilla, de dos pasos»* → *«Esa maquinaria le permite ser dueño de un activo»* con su causa en la frase siguiente—. **Primera aparición de *maquinaria de distribución* en un arsenal**: el Director la usa en el uno a uno y el prompt la reconoce como sinónimo vivo, pero ningún arsenal la decía. Entra como eco de *sistema*, donde la frase trata de que funciona sola. Salen las dos acciones (las dijo la apertura y las entrega `EAM_01`).
+- **`FREQ_33`:** *«el sistema los mantiene activos por usted»* → *«hace que sigan pidiendo, por usted»*: *activos* dicho de personas es el sentido del gremio, que el prospecto no conoce.
+
+Registrado y no tocado: la apertura de `WHY_03` (*«Precisamente porque ya tiene un buen ingreso»*) sigue siendo la forma de rebatir que el protocolo OBJ prohíbe. Índices sin cambio; recuperación medida antes y después.
+
 ### v6.37 — WHY_02 🔒 pierde el argumento que le sobraba a la analogía (13 sep 2026)
 
 Segundo texto del día con el mismo ejercicio —¿cómo lo diría Vélez?— tras `WHY_01` (v6.36), la apertura del canal y el perfil del WABA. `WHY_02` responde al botón «Cómo funciona» y al primer chip de la web por Camino A (`respuestas-maestras.ts`), y en el canal lo emite el backend como candado dictado.

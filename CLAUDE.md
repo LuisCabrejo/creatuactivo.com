@@ -786,6 +786,8 @@ where (metadata->>'is_fragment')::boolean is true group by 1 order by 2 desc"
 
 ⚠️ El `delete` del paso 3 **no filtra por tenant a propósito**: borra esa categoría en los tres de una vez, que es justo lo que hace falta antes de volver a clonar.
 
+⚠️ **Pero entre el paso 3 y el 4 el fragmento NO EXISTE en producción** (13 sep 2026): un Gateway Timeout de Supabase en el paso 4 dejó `WHY_02` ausente en los tres tenants durante dos minutos, y en ese lapso «cómo funciona el negocio» caía a compensación. **El orden sin ventana** es el que se usó para la v6.38 el mismo día: en vez de borrar, **renombrar** la categoría vieja (`update … set category = category || '_old'`, en los tres tenants; el fragmentador solo salta lo que coincide exacto), correr el paso 4, clonar, y **borrar `_old` al final**. Durante el proceso se sirve el fragmento viejo, que es lo correcto; si el paso 4 falla, no hay nada que restaurar.
+
 **Verificar con un `content like` sobre lo que entró Y sobre lo que debía salir, en los tres tenants** — comprobar solo lo nuevo deja pasar los residuos. Después `node scripts/auditar-frases-vetadas.mjs`. Si el fragmento es de **doble fuente**, sincronizar antes `src/lib/respuestas-maestras.ts` y confirmar longitudes idénticas.
 
 **Patrón validado para purgar (24 May 2026, v5.4 deploy):**

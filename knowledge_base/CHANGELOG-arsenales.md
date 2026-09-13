@@ -1888,6 +1888,32 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.11 — La línea roja de salud dentro de los candados, y el texto interno fuera de ellos (13 sep 2026)
+
+Quinto y último arsenal auditado con el Director con los lentes del día (activo · léxico del gremio · texto interno servido · carga) más el de salud, que aquí es el que pesa. Comprobado en Supabase: las «secciones internas» y el bloque de FAQ_04 **no** se sirven; lo que sigue sí.
+
+**Salud.** `CIENCIA_04` decía *«la tecnología de extracción dual elimina la barrera y garantiza asimilación completa por el sistema gastrointestinal»* —la afirmación de absorción con *garantiza* que el 26 ago se retiró del pie y sobrevivía en el cuerpo—; ahora en prosa: extracto, no polvo; seis variedades; cultivo de tejidos; hidrosoluble. `CIENCIA_01` pierde *«el cuerpo tiene que poder absorberlo»* y *«secreto industrial»*. `BEB_05` *«adaptógeno milenario»* y `FAQ_01` *«desde hace siglos»* salen por la regla del prompt (nunca situar el producto en la medicina). `BEB_03` tenía la cifra al revés (*13 tazas de café convencional = 1 de Ganocafé*), en tuteo y sin fuente: queda *«bastante menos que un café convencional»*. **Las columnas Beneficio de los candados**, que salen literales siempre: `BEB_01` *Claridad mental* → *Café negro puro*, *Satisface sin culpas* → *Café y chocolate*, *Piel, cabello, articulaciones* → *Colágeno para las articulaciones*; `SUP_01` y `PROD_OVERVIEW` *Claridad mental, enfoque* → *Para llegar despierto a la tarde* / *el micelio del hongo*; `PERS_01` *anti-inflamatorio* → *piel suave*, *Reduce caída* → *Brillo y limpieza suave*, *Renovación celular* → *Piel suave al tacto*. **Revisado y no tocado, a criterio del Director:** `BEB_02` (*amortigua la cafeína… sin acidez*), calibrado en agosto y validado por la investigación.
+
+**Texto interno y léxico.** `PROD_OVERVIEW` servía dentro del candado *«La lógica operativa no es vender productos individuales — es reasignar el gasto que el hogar ya hace en bienestar hacia un activo con ingreso recurrente… sin persuasión comercial»* (marco retirado del gasto del hogar, *operativa*, *activo* como el negocio): fuera. *«del ecosistema»* → *«de Gano Excel»* (`PROD_OVERVIEW`, `BEB_01`), *«ecosistema cerrado»* → *«conjunto cerrado»* (`LUV_01`). `PROD_04` *«para mi canal»* → *«para mi negocio»* (título e índice: medido). `SUP_02` *«la gente»* → *«se asocia»*; `FAQ_04` *Atleta/Activo* → *Deportista*, *Schokoladde* → *Schokolade*, *Shampoo P&B* → *champú Piel&Brillo*; `BEB_04` *personas sensibles* → *quien es sensible a la cafeína*. `CIENCIA_05`: línea duplicada, *«Regulador más estricto»* → *«Regulador sanitario de Australia»*, fila *ISO 9001:2000* fuera (norma reemplazada en 2015, sin certificado que verificar).
+
+**Cabecera y pie.** El título decía *Lujo Clínico* (etiqueta retirada); la cabecera pasa de nueve versiones a tres (las demás abajo, verbatim); el pie *«Versión 6.0 JOBS/NAVAL, 17 enero 2026»* se va. Precios intactos, todos con punto. Despliegue del arsenal entero con el orden sin ventana.
+
+#### Historial movido desde la cabecera (verbatim, 13 sep 2026)
+
+**v7.8 (22 ago 2026):** La pregunta de seguimiento de LUV_00 nombra el sistema Luvoco, para que el «sí» recupere la tabla de precios (LUV_01) y no vuelva al mismo fragmento. Sin cambios de precios ni CV/PV.
+
+**v7.7 (22 ago 2026):** BEB_07 sitúa el Clásico en el registro premium del resto de la línea —cuerpo, aroma y amargo justo, el de una buena cafetería—, y la línea Luvoco gana una puerta corta, LUV_00, que responde la pregunta genérica por el café Luvoco como experiencia (extracción a presión, tres intensidades elegidas por paladar) con hechos del fabricante; la tabla de precios sigue en LUV_01. El detalle, en el CHANGELOG. Sin cambios de precios ni CV/PV.
+
+**v7.6 (22 ago 2026):** La nota de versión y las cabeceras de BEB_09 y PERS_03 dejan de citar lo que rechazan — las dos viajan dentro de texto indexado, así que enunciarlo era dictarlo. El criterio queda en afirmativo; el motivo, en el CHANGELOG. Sin cambios de precios ni CV/PV.
+
+**v7.5 (20 ago 2026):** **Los 22 productos tienen respuesta propia.** Faltaban 16 —entre ellos el Ganocafé Clásico, que al preguntarse devolvía la ficha del 3 en 1 con su composición, su presentación y su precio, todo incorrecto para el producto preguntado—. El deseo se construye desde lo SENSORIAL y el ritual (el amargo justo, la espuma de cafetería, la piel sin tirantez), no desde la salud: es lo que se puede prometer sin exponer a nadie y es lo que la persona comprueba el primer día. ⚠️ De la ficha del catálogo web se tomaron los HECHOS —ingredientes, preparación, presentación, precio— y se dejaron fuera sus `benefits`: la declaración de órgano y la de mecanismo viven fuera de este arsenal. El detalle, en el CHANGELOG. ⚠️ Cada respuesta dice por qué existe FRENTE A SUS HERMANAS, que es lo que decide una compra dentro de una misma línea. ⚠️ Cápsulas de Ganoderma: **una al día** (Director, 20 ago) — la ficha web decía dos y con eso el frasco duraría mes y medio, no tres. Sin cambios de precios ni CV/PV.
+
+**v7.4 (19 ago 2026):** Los candados de las tablas por categoría dejan de enunciar lo que no existe — toda aclaración de nombres va en afirmativo, y el adjetivo de dosis se retira de los suplementos (criterio INVIMA: se describe la presentación, no el efecto). Sin cambios de precios ni CV/PV.
+
+**v7.3 (7 ago 2026):** "Flujo de caja" retirado (decisión del Director): PROD_02 "estabilidad del ingreso" · PROD_OVERVIEW (verbatim_lock) "activo con ingreso recurrente". Sin cambios de precios ni CV/PV.
+
+**v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
+
 ### v7.10 — Nace RUTINA_01 (cómo se toman a lo largo de un día); las respuestas de bienestar cierran hacia él (3 sep 2026)
 
 Auditoría de la prueba del Director. `CIENCIA_03`, `FAQ_01` y `FAQ_02` cerraban con *«¿Le muestro cómo se integra en el día a día?»*: sin fragmento destino, y con «día a día» como patrón del clasificador hacia `EAM_01`. En la prueba el «sí» recibió Compartir y Recibir como contexto y el modelo compuso: «en lugar del café de siempre» (marco de consumo diario retirado), «no lo compran a un tercero» (fantasma negado), «ese hábito mensual», una afirmación de cultivo propio que ningún fragmento respalda, y un producto inexistente (*Ganocelium*).

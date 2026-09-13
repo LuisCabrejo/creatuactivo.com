@@ -1,14 +1,10 @@
-# CATÁLOGO OFICIAL PRODUCTOS GANO EXCEL v7.10
-**Informe de Tecnología Nutricional — Precios Verificados 2026 — Lujo Clínico**
+# Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
+**Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
+
+**Versión actual: v7.11** (13 sep 2026) — **Auditoría con el Director: la línea roja de salud dentro de los candados, y el texto interno fuera de ellos.** Las columnas *Beneficio* de BEB_01, SUP_01 y PERS_01 dejan de decir *claridad mental*, *anti-inflamatorio*, *renovación celular*, *reduce caída* y *sin culpas*; CIENCIA_04 y CIENCIA_01 pierden la absorción garantizada y el secreto industrial; BEB_05 y FAQ_01 dejan la medicina y los siglos; BEB_03 pierde un 13 a 1 al revés y sin fuente; PROD_OVERVIEW pierde el párrafo de estrategia interna que servía al prospecto; *ecosistema* → *Gano Excel*. Precios intactos.
+
 **v7.10 (3 sep 2026):** **Nace `RUTINA_01` —cómo se toman a lo largo de un día— y las tres respuestas de bienestar cierran hacia él** (Director, auditoría de la prueba). Tres fragmentos (CIENCIA_03, FAQ_01, FAQ_02) cerraban con *«¿Le muestro cómo se integra en el día a día?»* sin destino escrito, y «día a día» es un patrón del clasificador que manda a EAM_01: el «sí» recibía Compartir y Recibir como contexto y el modelo componía —«en lugar del café de siempre», un fantasma negado, y un producto que no existe (Ganocelium)—. El fragmento nuevo es un HORARIO, no un argumento: lo que una persona espera al aceptar esa oferta es verse un día (en qué momentos, qué producto, cómo se prepara, cuántos, para quién), y no volver a oír beneficios (intenciones de implementación de Gollwitzer; anchor moment de Fogg). Cero beneficios, solo hechos de las fichas. CIENCIA_03 nombra las cuatro líneas para que nadie salga pensando que esto es café. Sin cambios de precios.
 **v7.9 (22 ago 2026):** PROD_04 explica el modelo Luvoco por su mecanismo —la máquina se compra una vez, las cápsulas se repiten— en el mismo registro del resto del catálogo, y cierra hacia la tabla de precios (LUV_01). Sin cambios de precios ni CV/PV.
-**v7.8 (22 ago 2026):** La pregunta de seguimiento de LUV_00 nombra el sistema Luvoco, para que el «sí» recupere la tabla de precios (LUV_01) y no vuelva al mismo fragmento. Sin cambios de precios ni CV/PV.
-**v7.7 (22 ago 2026):** BEB_07 sitúa el Clásico en el registro premium del resto de la línea —cuerpo, aroma y amargo justo, el de una buena cafetería—, y la línea Luvoco gana una puerta corta, LUV_00, que responde la pregunta genérica por el café Luvoco como experiencia (extracción a presión, tres intensidades elegidas por paladar) con hechos del fabricante; la tabla de precios sigue en LUV_01. El detalle, en el CHANGELOG. Sin cambios de precios ni CV/PV.
-**v7.6 (22 ago 2026):** La nota de versión y las cabeceras de BEB_09 y PERS_03 dejan de citar lo que rechazan — las dos viajan dentro de texto indexado, así que enunciarlo era dictarlo. El criterio queda en afirmativo; el motivo, en el CHANGELOG. Sin cambios de precios ni CV/PV.
-**v7.5 (20 ago 2026):** **Los 22 productos tienen respuesta propia.** Faltaban 16 —entre ellos el Ganocafé Clásico, que al preguntarse devolvía la ficha del 3 en 1 con su composición, su presentación y su precio, todo incorrecto para el producto preguntado—. El deseo se construye desde lo SENSORIAL y el ritual (el amargo justo, la espuma de cafetería, la piel sin tirantez), no desde la salud: es lo que se puede prometer sin exponer a nadie y es lo que la persona comprueba el primer día. ⚠️ De la ficha del catálogo web se tomaron los HECHOS —ingredientes, preparación, presentación, precio— y se dejaron fuera sus `benefits`: la declaración de órgano y la de mecanismo viven fuera de este arsenal. El detalle, en el CHANGELOG. ⚠️ Cada respuesta dice por qué existe FRENTE A SUS HERMANAS, que es lo que decide una compra dentro de una misma línea. ⚠️ Cápsulas de Ganoderma: **una al día** (Director, 20 ago) — la ficha web decía dos y con eso el frasco duraría mes y medio, no tres. Sin cambios de precios ni CV/PV.
-**v7.4 (19 ago 2026):** Los candados de las tablas por categoría dejan de enunciar lo que no existe — toda aclaración de nombres va en afirmativo, y el adjetivo de dosis se retira de los suplementos (criterio INVIMA: se describe la presentación, no el efecto). Sin cambios de precios ni CV/PV.
-**v7.3 (7 ago 2026):** "Flujo de caja" retirado (decisión del Director): PROD_02 "estabilidad del ingreso" · PROD_OVERVIEW (verbatim_lock) "activo con ingreso recurrente". Sin cambios de precios ni CV/PV.
-**v7.1 (10 May 2026):** Cleanup léxico "tecnología celular" → "tecnología propietaria de bioactivación" / "tecnología de bioactivación" (alineación servilleta v3 SLIDE 3)
 
 **[Concepto Nuclear del archivo]:** Ganoderma Lucidum con extracción propia, más de 30 años de proceso y más de 200 compuestos. ⛔ **Decía *"Biodisponibilidad 100%"*** — retirado el 26 ago 2026: **la composición se afirma; la absorción no.** Esta cabecera no se sirve, pero es lo primero que lee quien vaya a editar.
 
@@ -54,8 +50,8 @@ En bebidas hay chocolate, té rooibos y un cereal con spirulina, para quien no t
 
 ---
 
-### PROD_04: "¿Cómo funciona el modelo LUVOCO? / el luvoco como negocio / por qué el luvoco conviene para mi canal"
-**[Índice]:** El Luvoco como negocio, por qué conviene la máquina para mi canal, cómo funciona ese modelo.
+### PROD_04: "¿Cómo funciona el modelo LUVOCO? / el luvoco como negocio / por qué el luvoco conviene para mi negocio"
+**[Índice]:** El Luvoco como negocio, por qué conviene la máquina para mi negocio, cómo funciona ese modelo.
 **[Concepto Nuclear]:** El Luvoco visto desde el NEGOCIO: la máquina se compra una vez y las cápsulas son las que se repiten — ahí vive la recompra. Se nombra el mecanismo; la experiencia del café está en LUV_00 y la tabla de precios en LUV_01.
 
 Con gusto. El Luvoco funciona al revés de lo que parece: la máquina, que es lo costoso ($1.026.000 COP), se compra una sola vez; lo que se repite son las cápsulas — caja de 15 en $110.900 COP, en tres intensidades.
@@ -82,11 +78,11 @@ De ahí, quien quiere algo más concentrado pasa a las cápsulas: Ganoderma, Exc
 
 ### CIENCIA_01: "¿Qué es el Ganoderma Lucidum? / ¿De qué es el hongo?"
 **[Índice]:** Qué es el Ganoderma Lucidum, qué es ese hongo, de qué está hecho lo que venden.
-**[Concepto Nuclear]:** Quien pregunta qué es el Ganoderma está midiendo si esto es serio. El eje de la respuesta es **la absorción**: tener el ingrediente no basta, el cuerpo tiene que poder asimilarlo — y ahí es donde Gano Excel se separa del hongo molido que vende cualquiera. La prueba es observable en la taza (se disuelve completo), no citada. ⚠️ El respaldo del proceso se nombra en AFIRMATIVO —**secreto industrial**, protección indefinida— sin explicar la mecánica legal de las patentes: es ruido cognitivo y desvía del beneficio. ⚠️ **La composición se nombra; la función se atribuye solo al conjunto.** Nada de estudios, revistas ni rutas biológicas: la evidencia verificable —fundador con nombre y año, seis variedades, hidrosolubilidad— vence a cualquier paper. El detalle del proceso (sustrato de corteza de caucho, CO2 supercrítico, cultivo de tejidos) vive en CIENCIA_04 y se entrega solo si preguntan cómo lo hacen.
+**[Concepto Nuclear]:** Quien pregunta qué es el Ganoderma está midiendo si esto es serio. El eje de la respuesta es **la absorción**: tener el ingrediente no basta, el cuerpo tiene que poder asimilarlo — y ahí es donde Gano Excel se separa del hongo molido que vende cualquiera. La prueba es observable en la taza (se disuelve completo), no citada. ⚠️ El respaldo del proceso se nombra en AFIRMATIVO —**secreto industrial**, protección indefinida— sin explicar la mecánica legal de las patentes: es ruido cognitivo y desvía del beneficio. ⚠️ **La composición se nombra; la función se atribuye solo al conjunto.** Nada de estudios, revistas ni rutas biológicas: la evidencia verificable —fundador con nombre y año, seis variedades, hidrosolubilidad— vence a cualquier paper. El detalle del proceso (sustrato de corteza de caucho, CO2 supercrítico, cultivo de tejidos) vive en CIENCIA_04 y se entrega solo si preguntan cómo lo hacen. **v7.11 (13 sep 2026):** fuera *«el cuerpo tiene que poder absorberlo. Ahí está la ventaja»* (absorción) y *«que la empresa protege como secreto industrial»* (suena a que hay algo que esconder) — las dos habían salido de FAQ_04 el 26 ago y seguían aquí.
 
-Con gusto. El Ganoderma lucidum es un hongo reconocido por sus compuestos bioactivos, que apoyan el sistema inmune y el equilibrio del cuerpo. Pero no basta con tener el ingrediente: el cuerpo tiene que poder absorberlo.
+Con gusto. El Ganoderma lucidum es un hongo reconocido por sus compuestos bioactivos, que apoyan el sistema inmune y el equilibrio del cuerpo. Pero no basta con tener el ingrediente: importa en qué forma llega a la taza.
 
-Ahí está la ventaja de Gano Excel. Su fundador —un micólogo malasio que estudia este hongo desde 1983— reunió en un solo híbrido las seis variedades de mayor valor, los seis colores del Reishi: rojo, púrpura, verde, blanco, amarillo y negro. Y desarrolló el proceso para extraerlo, que la empresa protege como secreto industrial.
+Ahí está la ventaja de Gano Excel. Su fundador —un micólogo malasio que estudia este hongo desde 1983— reunió en un solo híbrido las seis variedades de mayor valor, los seis colores del Reishi: rojo, púrpura, verde, blanco, amarillo y negro. Y desarrolló el proceso propio para extraerlo.
 
 El resultado es un extracto 100% hidrosoluble: se disuelve por completo en la taza, sin dejar residuo. Y esa misma tecnología está en toda la línea: las bebidas, las cápsulas y hasta el cuidado personal.
 
@@ -121,43 +117,33 @@ El mismo extracto va en cuatro líneas: bebidas como el café y el chocolate, su
 
 ### CIENCIA_04: "¿Qué hace diferente a Gano Excel?"
 **[Índice]:** Qué hace diferente a Gano Excel de otras marcas, por qué su producto no es igual al de la tienda.
-**[Concepto Nuclear]:** Híbrido único de 6 variedades + extracto 100% hidrosoluble. Secreto industrial (no patentes públicas, protección indefinida).
+**[Concepto Nuclear]:** Híbrido único de 6 variedades + extracto 100% hidrosoluble. Secreto industrial (no patentes públicas, protección indefinida). **v7.11 (13 sep 2026):** salió *«la tecnología de extracción dual elimina la barrera y garantiza asimilación completa por el sistema gastrointestinal»* —la afirmación de absorción, con *garantiza*, que el 26 ago se retiró del pie y sobrevivía aquí— y la lista técnica (*Clonación genética (consistencia perfecta)*, *CO2 supercrítico + ultrasonido*) pasó a prosa. **La composición se afirma; la absorción no.**
 
-**Origen único (el hongo):**
-- Híbrido propietario de las **6 variedades** de Ganoderma Lucidum de mayor valor nutricional — los 6 colores del Reishi: Rojo, Púrpura, Verde, Blanco, Amarillo, Negro. Lo mejor de cada una, reunido en un solo hongo.
+Con gusto. Casi todo lo que se consigue en el mercado es Ganoderma en polvo: el hongo molido. Gano Excel no vende polvo, vende extracto, y la diferencia empieza antes, en el hongo.
 
-**Tecnología propietaria (la extracción):**
-- Cultivo de Tejidos: Clonación genética (consistencia perfecta)
-- Sustrato Exclusivo: Corteza de caucho malasio + cáscara de arroz
-- Extracción Dual: Acuosa + CO2 supercrítico + ultrasonido
-- Spray Drying: Extracto 100% hidrosoluble
+Trabaja con un híbrido propio de las seis variedades de Ganoderma lucidum de mayor valor, los seis colores del Reishi: rojo, púrpura, verde, blanco, amarillo y negro. Lo cultiva por tejidos, para que cada lote sea igual al anterior, sobre un sustrato propio de corteza de caucho malasio y cáscara de arroz.
 
-**La diferencia:**
-Casi todo lo que se consigue en el mercado es Ganoderma en polvo, el hongo molido. Gano Excel no vende polvo: vende **extracto**, obtenido con la tecnología de extracción dual elimina la barrera y garantiza asimilación completa por el sistema gastrointestinal. No es "Ganoderma" a secas: es el híbrido de las 6 variedades de mayor valor, en extracto puro hidrosoluble.
-
+De ahí sale un extracto hidrosoluble: se disuelve por completo en la taza, sin dejar residuo. Y ese mismo extracto va en toda la línea, de las bebidas al cuidado personal.
 
 **Pregunta de seguimiento:** ¿Le muestro los productos que lo llevan?
 ---
 
 ### CIENCIA_05: "¿Quién fundó Gano Excel?"
 **[Índice]:** Quién fundó Gano Excel, quién está detrás de la empresa, de dónde salió la compañía.
-**[Concepto Nuclear]:** Dr. Leow Soon Seng. Micólogo malasio. Investigador desde 1983.
+**[Concepto Nuclear]:** Dr. Leow Soon Seng. Micólogo malasio. Investigador desde 1983. **v7.11 (13 sep 2026):** línea *Certificaciones* duplicada; *«Regulador más estricto»* era superlativo sin fuente; la fila *ISO 9001:2000* salió — es una norma reemplazada en 2015 y no hay certificado vigente que verificar (si aparece, vuelve con su número).
 
 Gano Excel la fundó un micólogo malasio que estudia el Ganoderma desde 1983 — es decir, la empresa nació de alguien que llevaba una década con el hongo antes de venderlo, no al revés.
 
 Suyo es el cultivo de tejidos con el que hoy se produce, y la idea de reunir las seis variedades del Reishi —rojo, púrpura, verde, blanco, amarillo y negro— en un solo híbrido.
 
 **Certificaciones:**
-
-**Certificaciones:**
 | Certificación | Descripción |
 |---------------|-------------|
 | NPRA Malasia | Múltiples registros MAL |
 | INVIMA Colombia | Registro sanitario vigente para cada producto |
-| TGA Australia | Regulador más estricto |
+| TGA Australia | Regulador sanitario de Australia |
 | Halal JAKIM | Pureza y proceso |
 | GMP | Good Manufacturing Practices |
-| ISO 9001:2000 | Gestión de calidad |
 
 
 **Pregunta de seguimiento:** ¿Le muestro qué hace diferente al producto?
@@ -165,10 +151,10 @@ Suyo es el cultivo de tejidos con el que hoy se produce, y la idea de reunir las
 
 ### PROD_OVERVIEW: "¿Cómo se estructura el portafolio? / ¿Cuáles son las categorías de productos? / ¿Qué tipo de productos tienen? / ¿Cuál es el producto? / vista general del portafolio / dame un resumen de los productos"
 **[Índice]:** Cómo se estructura el portafolio, cuáles son las categorías, qué tipo de productos tienen, el catálogo completo con precios.
-**[Concepto Nuclear]:** Vista global del portafolio. **El portafolio se estructura en CUATRO categorías, y las cuatro se nombran siempre juntas: Bebidas, LUVOCO, Suplementos y Cuidado Personal.**
+**[Concepto Nuclear]:** Vista global del portafolio. **El portafolio se estructura en CUATRO categorías, y las cuatro se nombran siempre juntas: Bebidas, LUVOCO, Suplementos y Cuidado Personal.** **v7.11 (13 sep 2026):** salió del candado el párrafo *«La lógica operativa no es vender productos individuales — es reasignar el gasto que el hogar ya hace en bienestar hacia un activo con ingreso recurrente… se ejecuta automáticamente sin persuasión comercial»*: estrategia interna servida literal al prospecto, con el marco retirado del gasto del hogar y *activo* como el negocio. *«del ecosistema»* → *«de Gano Excel»*; *Excellium (claridad mental)* → *(el micelio del hongo)*.
 
 <verbatim_lock>
-El portafolio del ecosistema se estructura en **cuatro categorías** de consumo, todas con extracto propietario de Ganoderma lucidum de Gano Excel:
+El portafolio de Gano Excel se estructura en **cuatro categorías** de consumo, todas con extracto propietario de Ganoderma lucidum de Gano Excel:
 
 **1. Bebidas funcionales** — 9 productos
 > Ganocafés (3 en 1, Clásico), Ganoricos (Latte, Mocha, Shoko), Gano C'Real Spirulina, Oleaf Gano Rooibos, Gano Schokolade, Reskine Colágeno. Rango: $110.900 — $216.900 COP.
@@ -177,7 +163,7 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 > Máquina italiana de 15 bares + 3 intensidades de cápsulas exclusivas (Suave, Medio, Fuerte). Máquina: $1.026.000 COP · Cápsulas: $110.900 COP cada presentación.
 
 **3. Suplementos Avanzados** — 3 productos
-> Cápsulas concentradas: Ganoderma (apoyo inmune), Excellium (claridad mental), Cordygold (rendimiento físico). Rango: $272.500 — $336.900 COP.
+> Cápsulas concentradas: Ganoderma (apoyo inmune), Excellium (el micelio del hongo), Cordygold (rendimiento físico). Rango: $272.500 — $336.900 COP.
 
 **4. Cuidado Personal** — 6 productos
 > Línea diaria del hogar: Gano Fresh (pasta dental), Jabón Gano, Jabón Transparente, Shampoo + Acondicionador + Exfoliante Piel&Brillo. Rango: $73.900 — $78.500 COP.
@@ -185,8 +171,6 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 
 **Pregunta de seguimiento:** ¿Por cuál línea quiere que empecemos?
 ---
-
-**Total: 22 productos.** La lógica operativa no es vender productos individuales — es reasignar el gasto que el hogar ya hace en bienestar hacia un activo con ingreso recurrente. El consumo en Cuidado Personal y Bebidas se ejecuta automáticamente sin persuasión comercial.
 </verbatim_lock>
 
 ---
@@ -195,22 +179,22 @@ El portafolio del ecosistema se estructura en **cuatro categorías** de consumo,
 
 ### BEB_01: "¿Cuáles son sus bebidas? / ¿Cuáles son los cafés disponibles? / ¿Qué bebidas tienen?"
 **[Índice]:** Cuáles son las bebidas, cuáles son los cafés disponibles, qué bebidas tienen, la lista de bebidas con precios.
-**[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **Los únicos productos de bebidas son los 9 de esta tabla**, con estos nombres exactos: el té es Oleaf Gano Rooibos, el chocolate es Gano Schokolade y el café puro es Ganocafé Clásico.
+**[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **Los únicos productos de bebidas son los 9 de esta tabla**, con estos nombres exactos: el té es Oleaf Gano Rooibos, el chocolate es Gano Schokolade y el café puro es Ganocafé Clásico. **v7.11 (13 sep 2026):** columna Beneficio sin claims fuera de la línea roja: *Claridad mental* → *Café negro puro* · *Satisface sin culpas* → *Café y chocolate* · *Piel, cabello, articulaciones* → *Colágeno para las articulaciones* (solo articulaciones tiene declaración INVIMA). *«del ecosistema»* → *«de Gano Excel»*.
 
 <verbatim_lock>
-La línea de bebidas funcionales del ecosistema cuenta con **9 productos** — todos contienen extracto propietario de Ganoderma lucidum de Gano Excel:
+La línea de bebidas funcionales de Gano Excel cuenta con **9 productos** — todos contienen extracto propietario de Ganoderma lucidum de Gano Excel:
 
 | Producto | Precio COP | Presentación | Beneficio |
 |----------|------------|--------------|-----------|
 | **Ganocafé 3 en 1** | $110.900 | 20 sobres | Energía sin nerviosismo |
-| **Ganocafé Clásico** | $110.900 | 30 sobres | Claridad mental |
+| **Ganocafé Clásico** | $110.900 | 30 sobres | Café negro puro |
 | **Ganorico Latte Rico** | $119.900 | 20 sobres | Café gourmet funcional |
-| **Ganorico Mocha Rico** | $119.900 | 20 sobres | Satisface sin culpas |
+| **Ganorico Mocha Rico** | $119.900 | 20 sobres | Café y chocolate |
 | **Ganorico Shoko Rico** | $124.900 | 20 sobres | Toda la familia |
 | **Gano C'Real Spirulina** | $119.900 | 15 sobres | Desayuno inteligente |
 | **Oleaf Gano Rooibos** | $119.900 | 20 sobres | Sin cafeína, antioxidantes |
 | **Gano Schokolade** | $124.900 | 20 sobres | Chocolate premium |
-| **Reskine Colágeno** | $216.900 | 10 sachets | Piel, cabello, articulaciones |
+| **Reskine Colágeno** | $216.900 | 10 sachets | Colágeno para las articulaciones |
 
 </verbatim_lock>
 
@@ -237,14 +221,11 @@ La caja trae 20 sobres —uno cada mañana, le alcanza para veinte— y cuesta $
 
 ### BEB_03: "¿El Ganocafé tiene cafeína? / ¿Cuánta cafeína tiene?"
 **[Índice]:** El Ganocafé tiene cafeína, cuánta cafeína trae, me va a quitar el sueño.
-**[Concepto Nuclear]:** Sí tiene cafeína, pero en proporción controlada — 13 veces menor que el café convencional.
+**[Concepto Nuclear]:** Sí tiene cafeína, pero en proporción controlada — 13 veces menor que el café convencional. **v7.11 (13 sep 2026):** decía *«necesitarías tomar 13 tazas de café convencional para equivaler a la cantidad de cafeína de 1 taza de Ganocafé»* — la cifra al revés (decía que el Ganocafé tiene trece veces MÁS cafeína), en tuteo, y sin fuente para el 13 a 1. Sin fuente no se afirma; si aparece una, se pone con ella.
 
-Sí, el Ganocafé contiene cafeína natural. Sin embargo, la proporción es significativamente menor que en el café tradicional:
+Sí, lleva cafeína natural, bastante menos que un café convencional: es café soluble con extracto de Ganoderma, no un espresso.
 
-**La relación es 13 a 1:** necesitarías tomar 13 tazas de café convencional para equivaler a la cantidad de cafeína de 1 taza de Ganocafé. Esto es lo que permite la energía sostenida sin el nerviosismo ni el "crash" de la tarde.
-
-El resultado práctico: puede tomar su café en la mañana y no sentir la sobreestimulación ni la caída brusca de energía que produce el café con alta concentración de cafeína.
-
+Por eso la energía entra pareja y no se siente el bajón de la tarde. Quien es sensible a la cafeína tiene el Rooibos, que no lleva.
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
@@ -258,7 +239,7 @@ El **Oleaf Gano Rooibos** es la única infusión de la línea GanoCafé, y la op
 El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el extracto propietario de Ganoderma lucidum de Gano Excel, el resultado es una bebida funcional de sabor suave que puede tomarse en cualquier momento del día, incluso en la noche.
 
 **¿Por qué elegirlo?**
-- Sin cafeína: ideal para consumo nocturno o personas sensibles
+- Sin cafeína: ideal para la noche o para quien es sensible a la cafeína
 - Antioxidantes de dos fuentes: Rooibos + Ganoderma lucidum
 - Sabor suave y natural — fácil de integrar en cualquier rutina
 
@@ -270,11 +251,11 @@ El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el
 
 ### BEB_05: "¿Tienen cereal? / háblame del Gano C'Real / ¿qué es la spirulina? / Gano cereal / bebida con spirulina"
 **[Índice]:** Tienen cereal, qué es el Gano C'Real, la bebida con spirulina, el cereal de ustedes.
-**[Concepto Nuclear]:** Gano C'Real Spirulina — el "cereal" funcional de la línea. Spirulina + Ganoderma. El desayuno inteligente.
+**[Concepto Nuclear]:** Gano C'Real Spirulina — el "cereal" funcional de la línea. Spirulina + Ganoderma. El desayuno inteligente. **v7.11 (13 sep 2026):** *«el adaptógeno milenario»* → *«el extracto de Ganoderma»*: el prompt prohíbe situar el producto en la medicina o en los siglos de uso.
 
 El **Gano C'Real Spirulina** (pronunciado "Gano-Cereal") es una bebida instantánea de desayuno que combina:
 - **Spirulina:** alga con alta densidad proteica, rica en hierro, vitamina B12 y clorofila
-- **Ganoderma Lucidum:** el adaptógeno milenario de Gano Excel
+- **Ganoderma Lucidum:** el extracto de Ganoderma de Gano Excel
 
 **¿Para quién es ideal?**
 Personas activas, deportistas o quienes quieren un desayuno funcional sin recurrir a cápsulas o suplementos adicionales.
@@ -388,10 +369,10 @@ La máquina se compra una vez; las cápsulas son las que se repiten.
 
 ### LUV_01: "¿Qué es el sistema LUVOCO? / ¿Cuánto cuesta la máquina LUVOCO? / ¿Qué cápsulas hay?"
 **[Índice]:** Qué es el sistema Luvoco, cuánto cuesta la máquina, qué cápsulas hay y sus precios.
-**[Concepto Nuclear]:** Ecosistema Cerrado de Consumo Recurrente. Terminal italiana de precisión + insumo exclusivo propietario.
+**[Concepto Nuclear]:** Ecosistema Cerrado de Consumo Recurrente. Terminal italiana de precisión + insumo exclusivo propietario. **v7.11 (13 sep 2026):** *«un ecosistema cerrado»* → *«un conjunto cerrado»*: etiqueta interna.
 
 <verbatim_lock>
-El sistema **LUVOCO** es un ecosistema cerrado: máquina italiana + cápsulas exclusivas. La línea completa son **4 productos**:
+El sistema **LUVOCO** es un conjunto cerrado: máquina italiana y cápsulas exclusivas. La línea completa son **4 productos**:
 
 | Producto | Precio COP | Descripción |
 |----------|------------|-------------|
@@ -453,7 +434,7 @@ Caja de 15 cápsulas, $110.900 COP.
 
 ### SUP_01: "¿Cuáles son los suplementos? / ¿Tienen suplementos dietarios? / ¿Qué cápsulas hay? / suplementos concentrados / suplemento dietario"
 **[Índice]:** Cuáles son los suplementos, qué cápsulas hay, los suplementos dietarios con sus precios.
-**[Concepto Nuclear]:** Concentrados en cápsula, sin dilución. **Es una de las 4 categorías del portafolio y se lista siempre junto a las otras tres.** Los tres nombres exactos son Cápsulas Ganoderma, Cápsulas Excellium y Cápsulas Cordygold.
+**[Concepto Nuclear]:** Concentrados en cápsula, sin dilución. **Es una de las 4 categorías del portafolio y se lista siempre junto a las otras tres.** Los tres nombres exactos son Cápsulas Ganoderma, Cápsulas Excellium y Cápsulas Cordygold. **v7.11 (13 sep 2026):** *Claridad mental, enfoque* → *Para llegar despierto a la tarde*, lo que ya dice SUP_04 en prosa.
 
 <verbatim_lock>
 La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrados en cápsulas:
@@ -461,7 +442,7 @@ La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrado
 | Producto | Precio COP | Duración | Enfoque |
 |----------|------------|----------|---------|
 | **Cápsulas Ganoderma** | $272.500 | 90 caps (3 meses) | Apoyo al sistema inmune |
-| **Cápsulas Excellium** | $272.500 | 90 caps (3 meses) | Claridad mental, enfoque |
+| **Cápsulas Excellium** | $272.500 | 90 caps (3 meses) | Para llegar despierto a la tarde |
 | **Cápsulas Cordygold** | $336.900 | 90 caps (3 meses) | Rendimiento físico |
 
 Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea.
@@ -475,7 +456,7 @@ Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional d
 
 ### PERS_01: "¿Qué productos hay para cuidado personal? / ¿Tienen jabón? / ¿Tienen pasta de dientes? / ¿Tienen shampoo? / cuidado personal"
 **[Índice]:** Qué hay para cuidado personal, tienen jabón, pasta de dientes o shampoo, la línea de aseo con precios.
-**[Concepto Nuclear]:** Mercado Invisible. Captura hogares sin café. Consumo obligatorio diario.
+**[Concepto Nuclear]:** Mercado Invisible. Captura hogares sin café. Consumo obligatorio diario. **v7.11 (13 sep 2026):** *anti-inflamatorio* (clase farmacológica, en un jabón) → *piel suave* · *Reduce caída* → *Brillo y limpieza suave* · *Renovación celular* (mecanismo celular) → *Piel suave al tacto*.
 
 <verbatim_lock>
 La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea contiene extracto propietario de Ganoderma lucidum:
@@ -483,11 +464,11 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 | Producto | Precio COP | Presentación | Beneficio |
 |----------|------------|--------------|-----------|
 | **Gano Fresh** (pasta dental) | $73.900 | 150g | Sin flúor, encías saludables |
-| **Jabón Gano** | $73.900 | 2 barras 100g | Hidratación, anti-inflamatorio |
+| **Jabón Gano** | $73.900 | 2 barras 100g | Hidratación, piel suave |
 | **Jabón Transparente** | $78.500 | 1 barra 100g | Pieles sensibles |
-| **Shampoo Piel&Brillo** | $73.900 | 250ml | Reduce caída |
+| **Shampoo Piel&Brillo** | $73.900 | 250ml | Brillo y limpieza suave |
 | **Acondicionador Piel&Brillo** | $73.900 | 250ml | Hidratación profunda |
-| **Exfoliante Piel&Brillo** | $73.900 | 200g | Renovación celular |
+| **Exfoliante Piel&Brillo** | $73.900 | 200g | Piel suave al tacto |
 </verbatim_lock>
 
 
@@ -586,7 +567,7 @@ Cuesta $73.900 COP.
 
 Con gusto. El CordyGold es el único de la línea que no gira alrededor del Ganoderma: su ingrediente es el **Cordyceps sinensis**, 500 mg por cápsula — la concentración más alta de todo el portafolio.
 
-El Cordyceps es el hongo que la gente asocia con el rendimiento físico y el aguante. Por eso este es el que suele buscar quien entrena, quien tiene jornadas largas de pie, o quien ya toma el café y quiere sumar algo distinto en vez de más de lo mismo.
+El Cordyceps es el hongo que se asocia con el rendimiento físico y el aguante. Por eso este es el que suele buscar quien entrena, quien tiene jornadas largas de pie, o quien ya toma el café y quiere sumar algo distinto en vez de más de lo mismo.
 
 Viene en frasco de 90 cápsulas, una al día, y cuesta $336.900 COP.
 
@@ -636,11 +617,11 @@ Los suplementos vienen en frascos de 90 cápsulas, una al día: le rinden tres m
 
 ### FAQ_01: "¿Es seguro el consumo diario?"
 **[Índice]:** Es seguro tomarlo todos los días, hace daño el consumo diario, tiene contraindicaciones.
-**[Concepto Nuclear]:** 2,000 años de uso. Perfil de seguridad excelente.
+**[Concepto Nuclear]:** 2,000 años de uso. Perfil de seguridad excelente. **v7.11 (13 sep 2026):** *«se consume en Asia desde hace siglos»* salió por la misma regla; queda el hecho verificable (treinta años, registro sanitario).
 
 Sí, y de hecho está pensado para eso: es una bebida, no un tratamiento. Se toma todos los días, como se toma un café.
 
-El Ganoderma se consume en Asia desde hace siglos, y en Gano Excel lleva treinta años de producción propia con registro sanitario vigente en cada país.
+En Gano Excel el Ganoderma lleva treinta años de producción propia, con registro sanitario vigente en cada país.
 
 Y lo sensato de siempre: si usted está en tratamiento médico o tiene alguna condición, coméntelo con su médico antes — igual que con cualquier alimento o suplemento nuevo.
 
@@ -704,8 +685,8 @@ Claro, y es lo más común: la mayoría arma su propia combinación con lo que y
 | Perfil | Productos |
 |--------|-----------|
 | Profesional Corporativo | LUVOCO + Ganocafé 3en1 + Excellium |
-| Atleta/Activo | Ganocafé Clásico + Cordygold + Spirulina |
-| Familia Consciente | Schokoladde + Jabón Gano + Shampoo P&B |
+| Deportista | Ganocafé Clásico + Cordygold + Spirulina |
+| Familia Consciente | Schokolade + Jabón Gano + champú Piel&Brillo |
 | Minimalista | Cápsulas de Ganoderma |
 
 **Pregunta de seguimiento:** ¿Le muestro el catálogo completo con precios?
@@ -736,13 +717,3 @@ Claro, y es lo más común: la mayoría arma su propia combinación con lo que y
 Cada producto Gano Excel tiene su propio registro ante el INVIMA, y la categoría depende del producto: las bebidas y suplementos están registrados como alimento o como suplemento dietario, y los de cuidado personal como cosmético. **Ninguno es un medicamento**, y no pretenden diagnosticar, tratar, curar ni prevenir enfermedades.
 
 ⚠️ **CORREGIDO el 26 ago 2026.** Este disclaimer decía *"los productos Gano Excel son alimentos funcionales"* —los 22, incluidos el champú, los dos jabones, el acondicionador, el exfoliante y la pasta de dientes—, y la tabla de certificaciones decía *"Registros SD vigentes"*, presentándolos todos como suplemento dietario. **Las dos afirmaciones eran globales y falsas, en direcciones opuestas.** Los registros reales (en `src/lib/wa-productos.ts`, que es la fuente que Queswa dicta por producto) son de tres tipos: **SD** para el Ganocafé 3 en 1, el Ganocafé Clásico y las Cápsulas de Ganoderma · **NSA** para las otras doce bebidas y cápsulas · **NSOC/NSO** para los seis de cuidado personal. La máquina Luvoco es dispositivo con certificado CE. ⚠️ **La categoría NO se afirma en bloque nunca más:** se dice por producto, o se dice que depende del producto.
-
----
-
-**Versión:** 6.0 JOBS/NAVAL
-**Fecha:** 17 Enero 2026
-**Cambios v6.0:**
-- [Concepto Nuclear] en cada sección
-- Estilo Naval/Jobs (frases cortas, sin exclamaciones)
-- Actualización año 2025 → 2026
-- Reorganización por categorías de respuesta

@@ -269,10 +269,10 @@ Aprobado como socio a las 18:35, entró al Dashboard a las 18:57 y a las 19:05 l
 
 **Arreglo:** el **vínculo por token**. El Dashboard muestra en la Home, bajo «Su enlace», la fila «Hablar con Queswa por WhatsApp» (`/api/constructor/vinculo-queswa`), que abre el chat con `Hola Queswa, soy socio: {constructor_id}.{firma}`; la firma es un HMAC con `WA_BRIDGE_SECRET`, que los dos repositorios ya comparten. El webhook la verifica en el bloque 1.385 y deja la huella configurada como socio; `identificarSocio` la reconoce después por la ficha. La huella de Armando quedó vinculada a mano (`vincular-huella-a-socio.mts`), con el slug `victor-rojas` asignado por defecto.
 
-### 11.3 Lo que se vio y no se tocó
+### 11.3 El paquete que el simulador dejaba grabado, y el cierre que sugería activar
 
-- A Luz se le grabó `package: ESP-1` por decir «sí» a «¿le detallo qué trae el paquete Inicial?». Misma lógica del caso Liliana: aceptar ver un paquete no es elegirlo. La temperatura quedó en frío, así que en el Dashboard solo se ve la etiqueta. Queda a criterio del Director.
-- La composición cerró con «¿Seguimos con la activación?» a las 22:19, a alguien que solo pidió ver los productos; no respondió.
+- **A Luz se le grabó `package: ESP-1`, y a Miguel `ESP-3`, por mover el simulador.** El primer diagnóstico dijo que fue el «sí» a ver la composición; no. Fue el reporte que el webhook redacta al completar el Flow («Acabo de usar el simulador: paquete ESP-1…»): el bloque 1.35 de captura le pasa el regex de paquete y lo encuentra. La regla del caso Liliana (1 sep) se aplicó solo en el motor; la captura del webhook, añadida el 29 ago, nunca la recibió. **Una regla en dos puertas se escribe una vez:** `esReporteDelSimulador` en `wa-simulador.ts`, usada por las dos. Arnés: sección 8 de `prueba-experiencia-socio.mts`.
+- **La tabla de composición cerraba con «¿Seguimos con la activación?»** a quien solo pidió ver qué trae el paquete. Luz la recibió a las 22:19 y no volvió a escribir. Decisión del Director (13 sep): es un error. Ahora cierra con la pregunta del pie de la foto de familia —en qué se diferencian estos productos—, que es la continuación natural de una lista de productos y el catálogo atiende. La puerta de ACTIVACION_01 que lee «seguimos con la activación» sigue para FREQ_31, donde la persona sí preguntó cómo se paga.
 - El volcado estándar dejaba fuera a Armando porque «Bna noche» no contaba como saludo de persona. El filtro del script ya acepta las abreviaturas.
 
 ### 11.4 La lección de la vuelta

@@ -154,5 +154,17 @@ const ctxNiveles = (socioQueEscribe: boolean) => ({ canal: 'whatsapp', mensaje: 
 es((await atenderHiloNiveles(ctxNiveles(true))) === null, 'el «sí» al simulador de un SOCIO no dispara el hilo de venta');
 es((await atenderHiloNiveles(ctxNiveles(false)))?.simulador != null, 'y el de un prospecto sí');
 
+console.log('\n── 8. Mover el simulador no es elegir un paquete (caso Liliana, 1 sep; Luz y Miguel, 12 sep) ──');
+// La regla vivía solo en el motor; la captura del webhook (1.35) la saltaba.
+const { esReporteDelSimulador } = require('../src/lib/wa-simulador.ts') as typeof import('../src/lib/wa-simulador.ts');
+for (const r of [
+  'Acabo de usar el simulador: paquete ESP-1, con 1 paquetes comprados en cada generación.',
+  'Acabo de usar el simulador de renta: tarifa ESP-3 Visionario — 17%, con 10 clientes en cada centro de negocio.',
+  'Acabo de usar el simulador de Los 12 Niveles: nivel 2.',
+  'Acabo de usar el simulador de la Regalía de Equipo: 6 distribuidores consumiendo.',
+]) es(esReporteDelSimulador(r), `reporte del Flow reconocido: «${r.slice(0, 48)}…»`);
+es(!esReporteDelSimulador('quiero el visionario'), 'pero «quiero el visionario» sí es una elección');
+es(!esReporteDelSimulador('me interesa el ESP-1, ¿cómo arranco?'), 'y nombrar el paquete con sus palabras también');
+
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

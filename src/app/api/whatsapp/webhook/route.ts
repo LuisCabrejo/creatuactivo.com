@@ -54,7 +54,7 @@ import {
   preguntaDelCafe, listaGuardada, siguienteDeLaLista, listaTerminada, resumenParaElSocio,
 } from '@/lib/wa-lista-socio';
 import { aFormatoWhatsApp, partirParaWhatsApp, partesConBorradorAparte } from '@/lib/wa-formato';
-import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles } from '@/lib/wa-simulador';
+import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esReporteDelSimulador } from '@/lib/wa-simulador';
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
@@ -2582,7 +2582,11 @@ async function capturarContextoDelMensaje(
 ): Promise<void> {
   const datos: Record<string, string> = {};
 
-  const mp = RE_PAQUETE_ELEGIDO.exec(texto);
+  // ⚠️ El reporte del simulador nombra el paquete que la persona movió para VER
+  // una cifra, no uno que eligió. El motor ya lo ignoraba desde el caso Liliana
+  // (1 sep 2026); esta captura no, y Luz y Miguel quedaron con «paquete» la
+  // noche del 12 sep por haber jugado con el Flow.
+  const mp = esReporteDelSimulador(texto) ? null : RE_PAQUETE_ELEGIDO.exec(texto);
   if (mp) {
     const t = mp[0].toLowerCase();
     datos.package = /kit/.test(t) ? 'KIT'

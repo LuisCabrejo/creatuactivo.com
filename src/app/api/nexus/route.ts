@@ -53,6 +53,7 @@ import {
 } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { detectarProducto } from '@/lib/wa-productos';
+import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
@@ -774,7 +775,8 @@ async function captureProspectData(
   // Visionario…») lo redacta el webhook a partir del Flow: la persona eligió una
   // tarifa para VER una cifra, no un paquete para comprarlo. Liliana (1 sep 2026)
   // quedó con «paquete ESP-3» y momento caliente en el Radar del socio por eso.
-  const _reporteSimulador = /^acabo de usar el simulador/i.test(messageLower.trim());
+  // Misma función que usa la captura del webhook: ver esReporteDelSimulador.
+  const _reporteSimulador = esReporteDelSimulador(messageLower);
 
   if (_reporteSimulador) {
     console.log('🚫 [NEXUS] Paquete en el reporte del simulador — es la tarifa elegida para ver una cifra, NO una selección');
@@ -3936,7 +3938,15 @@ function tablaPaqueteDictada(codigo: string, tablaMarkdown: string, country: str
   const filas = tablaMarkdown.split('\n').filter((l) => l.trim().startsWith('|'));
   if (filas.length < 3) return null;
   const precio = country === 'CO' ? m.cop : country === 'US' ? m.usd : `${m.usd} (${m.cop})`;
-  return `Con gusto. El *${m.nombre}* vale *${precio}* y le activa inmediatamente este inventario:\n\n${filas.join('\n')}\n\n${m.mix}\n\n¿Seguimos con la activación?`;
+  // ⛔ No cierra con la activación (Director, 13 sep 2026): quien llega aquí pidió
+  // VER qué trae el paquete — Luz, la noche del 12 sep, a las 22:19, y no volvió
+  // a escribir—. Sugerirle la activación a quien solo quiso mirar es un error. La
+  // continuación natural de una lista de productos son los productos: la misma
+  // pregunta con que cierra el pie de la foto de familia, que el catálogo atiende.
+  const cierre = codigo === 'ESP-1'
+    ? '¿Le cuento en qué se diferencian estas bebidas?'
+    : '¿Le cuento en qué se diferencian estos productos entre ellos?';
+  return `Con gusto. El *${m.nombre}* vale *${precio}* y le activa inmediatamente este inventario:\n\n${filas.join('\n')}\n\n${m.mix}\n\n${cierre}`;
 }
 
 /**
@@ -6456,7 +6466,7 @@ ${visitorCountry === 'CO'
   1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : visitorCountry === 'US' ? 'en USD' : 'USD ($X COP entre paréntesis)'} + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
   3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal."
-  4. Pregunta de seguimiento conversacional: "¿Seguimos con la activación?"
+  4. Pregunta de seguimiento conversacional: "¿Le cuento en qué se diferencian estos productos entre ellos?" (quien pidió ver el paquete quiso MIRAR; la activación se ofrece solo cuando la persona la nombra — Director, 13 sep 2026)
 - USA EXACTAMENTE los productos y cantidades de la tabla. NO inventes referencias, NO estimes.
 - Si el usuario pregunta por características científicas específicas no documentadas, deriva al equipo de CreaTuActivo — pero la composición SÍ está respondida arriba.`;
     };

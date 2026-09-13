@@ -39,6 +39,21 @@ const GEN5_POR_PAQUETE: Record<string, { etiqueta: string; suma: number }> = {
   'ESP-1': { etiqueta: 'ESP-1 Inicial',     suma:   225_000 },
 };
 
+/**
+ * ¿Este mensaje es el reporte que el webhook redacta al completar el Flow
+ * («Acabo de usar el simulador…»)? La persona eligió una tarifa o un paquete
+ * para VER una cifra, no para comprarlo: nada de lo que nombra es una selección.
+ *
+ * Una sola función para las DOS capturas de paquete —la del motor y la del
+ * webhook (bloque 1.35)—. La regla nació el 1 sep 2026 con Liliana y se aplicó
+ * solo en el motor; la del webhook la saltó, y Luz (12 sep) quedó con «paquete
+ * ESP-1» por haber movido el simulador. Una regla en dos puertas se escribe una
+ * vez.
+ */
+export function esReporteDelSimulador(texto: string): boolean {
+  return /^\s*acabo de usar el simulador/i.test(texto || '');
+}
+
 export interface EscenarioRenta   { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string }
 export interface EscenarioGen5    { paquete: string; cantidad: string }
 export interface EscenarioRegalia { tipo: 'regalia'; distribuidores: string }

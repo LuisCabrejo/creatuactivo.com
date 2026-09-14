@@ -29,9 +29,10 @@
  * «Soy todo oídos.», que además es la invitación a responder — y la respuesta
  * del socio es lo que abre la ventana de 24 h para que Queswa converse libre.
  *
- * Diseño (14 sep 2026, probado en el teléfono del Director con tres variantes por
- * texto libre): viñetas, una por emoticón, con línea en blanco antes y después —
- * «respira» y no colapsa con «Leer más»; el párrafo corrido sí colapsaba.
+ * Diseño (14 sep 2026, probado en el teléfono del Director por texto libre): una
+ * viñeta por emoticón y UNA LÍNEA EN BLANCO ENTRE CADA UNA, como el mensaje de
+ * lunes que Meta le mandó. El párrafo corrido colapsaba con «Leer más»; las
+ * viñetas pegadas se veían apiñadas. Esta no colapsa y «respira».
  *
  * Uso:
  *   node scripts/someter-plantilla-lunes-socio.mjs --editar  # actualiza la aprobada (vuelve a revisión)
@@ -46,14 +47,18 @@ dotenv.config({ path: '.env.local' });
 const GRAPH   = 'https://graph.facebook.com/v24.0';
 const WABA_ID = process.env.WHATSAPP_WABA_ID;
 const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
-const NOMBRE  = 'lunes_socio';
+// v2 (14 sep 2026): el diseño con una línea en blanco entre viñetas llegó el mismo
+// día de la edición anterior, y Meta solo deja editar una plantilla activa una vez
+// cada 24 h (error_subcode 2388124). Nombre nuevo en vez de esperar a mañana.
+// `lunes_socio` (v1) queda aprobada y sin uso.
+const NOMBRE  = 'lunes_socio_v2';
 
 /** El mismo texto vive en src/lib/wa-lunes-socio.ts (texto libre dentro de ventana). Cambiar los dos a la vez. */
 export const CUERPO_LUNES_SOCIO =
   'Hola {{1}} 👋, espero que esté genial y vamos por una gran semana.\n\n' +
-  'Aquí estoy para ayudarle:\n' +
-  '🎯 A cumplir sus metas.\n' +
-  '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n' +
+  'Aquí estoy para ayudarle:\n\n' +
+  '🎯 A cumplir sus metas.\n\n' +
+  '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n\n' +
   '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
   'Soy todo oídos.';
 

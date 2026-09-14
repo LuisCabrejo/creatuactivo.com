@@ -36,6 +36,37 @@ if (!enviar) {
 
 if (enSilencioBogota(ahora)) { console.error('🌙 Horas de silencio en Bogotá: no se envía.'); process.exit(1); }
 
-const { resultados } = await enviarLunes(supabase, ahora, { solo });
-console.table(resultados.map(r => ({ socio: r.nombre, via: r.via ?? '—', ok: r.ok, error: r.error ?? '' })));
+const { decisiones, resultados } = await enviarLunes(supabase, ahora, { solo });
+
+// ── Conciliación ─────────────────────────────────────────────────────────────
+// Meta acepta el envío (200 + wamid) y lo rechaza DESPUÉS por el webhook: texto
+// fuera de ventana (131047), plantilla de marketing a un número de EE. UU., número
+// sin WhatsApp (131026). Un «ok» de la llamada no prueba entrega, así que se
+// espera y se cruza contra wa_envios_fallidos; lo que Meta tumbó se marca como
+// fallido en el registro y se retira del historial de Queswa (no le escribimos).
+const telefonoDe = new Map(decisiones.map(x => [x.d.constructorId, x.d.telefono]));
+const aceptados = resultados.filter(r => r.ok);
+if (aceptados.length) {
+  console.log('\n⏳ Esperando 20 s los estados que Meta reporta por el webhook…');
+  await new Promise(r => setTimeout(r, 20_000));
+  const telefonos = aceptados.map(r => telefonoDe.get(r.constructorId)!).filter(Boolean);
+  const { data: fallos } = await supabase
+    .from('wa_envios_fallidos')
+    .select('destino, codigo, titulo, creado_at')
+    .in('destino', telefonos)
+    .gte('creado_at', ahora.toISOString());
+  for (const f of fallos ?? []) {
+    const r = aceptados.find(x => telefonoDe.get(x.constructorId) === f.destino);
+    if (!r) continue;
+    r.ok = false;
+    r.error = `#${f.codigo} ${f.titulo ?? ''}`.trim();
+    await supabase.from('wa_lunes_socio_envios')
+      .update({ ok: false, error: `${r.error} (rechazado por Meta después de aceptar el envío)` })
+      .eq('constructor_id', r.constructorId).eq('semana', semanaISO(ahora)).eq('ok', true);
+    await supabase.from('nexus_conversations')
+      .delete().eq('fingerprint_id', `wa_${f.destino}`).gte('created_at', ahora.toISOString());
+  }
+}
+
+console.table(resultados.map(r => ({ socio: r.nombre, via: r.via ?? '—', entregado: r.ok, error: r.error ?? '' })));
 console.log(`✅ ${resultados.filter(r => r.ok).length} entregados · ❌ ${resultados.filter(r => !r.ok).length} fallidos`);

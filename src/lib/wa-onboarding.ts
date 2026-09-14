@@ -91,6 +91,48 @@ export function slugDesdeNombre(nombre: string): string {
 }
 
 /**
+ * El nombre con que Queswa le habla al socio: primer nombre y primer apellido,
+ * con la misma regla del slug y con mayúscula inicial. «MONICA ALEJANDRA MALAGON
+ * CARDENAS» → «Monica Malagon»; «Miguel  barahona» → «Miguel Barahona».
+ */
+export function nombreCortoDeSocio(nombre: string): string {
+  const palabras = (nombre || '').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
+  const elegidas = palabras.length >= 4 ? [palabras[0], palabras[2]] : palabras.slice(0, 2);
+  return elegidas
+    .map((p) => p.charAt(0).toLocaleUpperCase('es') + p.slice(1).toLocaleLowerCase('es'))
+    .join(' ');
+}
+
+/**
+ * Qué nombre dejar en la ficha al convertirla en socio (14 sep 2026).
+ *
+ * El motor le habla a la persona con `device_info.name`, y la ficha NACE con el
+ * nombre de su perfil de WhatsApp. Hasta hoy la conversión solo ponía el nombre
+ * registrado si la ficha no traía ninguno — y siempre trae el del perfil. Así Queswa
+ * le dijo «Yenireth» a Erika Cabrejo, «Adri Flrz» con flores a Adriana Flores y
+ * «Nidiadent» a Nidia Cabrejo.
+ *
+ * • **En la PRIMERA conversión el nombre registrado manda**, y el del perfil se
+ *   guarda aparte en `nombre_perfil_whatsapp`: a esa altura el nombre de la ficha
+ *   siempre salió del perfil.
+ * • **Si la ficha ya era de socio, no se pisa.** Esos nombres pueden venir de una
+ *   corrección a mano (`scripts/vincular-huella-a-socio.mts --nombre`), como el
+ *   «Armando Rojas» de Victor Armando Rojas.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function nombreParaFichaDeSocio(previo: Record<string, any>, socio: Pick<SocioIdentificado, 'nombreCompleto'>): Record<string, string> {
+  const registrado = socio.nombreCompleto ? nombreCortoDeSocio(socio.nombreCompleto) : '';
+  if (!registrado) return {};
+  if (!previo.es_socio) {
+    return {
+      name: registrado,
+      ...(previo.name && previo.name !== registrado ? { nombre_perfil_whatsapp: String(previo.name) } : {}),
+    };
+  }
+  return previo.name ? {} : { name: registrado };
+}
+
+/**
  * El primer slug libre a partir del nombre: `patricia-reyes`, y si ya existe,
  * `patricia-reyes2`… Dos personas con el mismo nombre no pueden pelearse la URL.
  * Lo usan el comando ACTIVAR y la asignación por defecto de `identificarSocio`.
@@ -289,10 +331,7 @@ export async function convertirProspectoEnSocio(
   for (const k of CAMPOS_DE_PROSPECTO) delete resto[k];
   const device_info = {
     ...resto,
-    // Solo si la ficha no traía nombre: lo que ya tiene no se pisa. El del perfil
-    // de WhatsApp puede ser basura («antonio barahona283@gmail»), y eso se
-    // corrige a mano con `scripts/vincular-huella-a-socio.mts --nombre`.
-    ...(!previo.name && socio.nombreCompleto ? { name: socio.nombreCompleto } : {}),
+    ...nombreParaFichaDeSocio(previo, socio),
     es_socio: true,
     socio_desde: previo.socio_desde ?? new Date().toISOString(),
     socio_constructor_id: socio.constructorId,

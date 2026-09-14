@@ -75,8 +75,12 @@ es(await convertirProspectoEnSocio(s, fpNuevo, patricia!, null) === true,
 const { data: recien } = await s.from('prospects').select('stage, user_id, device_info').eq('fingerprint_id', fpNuevo).maybeSingle();
 es(recien?.stage === 'maestria' && !!recien?.user_id && recien?.device_info?.es_socio === true,
    'queda en maestría, con user_id y marcado como socio');
-es(recien?.device_info?.name === 'Socio Primerizo' && recien?.device_info?.channel === 'whatsapp',
+es(recien?.device_info?.channel === 'whatsapp' && recien?.device_info?.phone === '570000000000',
    'y al releer la ficha no se le borra lo que ya traía');
+// 14 sep 2026: en la primera conversión el nombre REGISTRADO reemplaza al del
+// perfil de WhatsApp, que se guarda aparte (caso Erika Cabrejo, «Yenireth»).
+es(recien?.device_info?.name === 'Patricia Reyes' && recien?.device_info?.nombre_perfil_whatsapp === 'Socio Primerizo',
+   'y el nombre de la ficha pasa a ser el registrado, con el del perfil guardado aparte');
 await s.from('prospects').delete().eq('fingerprint_id', fpNuevo);
 const { data: fichas } = await s.from('prospects').select('fingerprint_id, stage, user_id, device_info')
   .in('fingerprint_id', ['wa_573128586701', 'wa_573102066593']);
@@ -165,6 +169,27 @@ for (const r of [
 ]) es(esReporteDelSimulador(r), `reporte del Flow reconocido: «${r.slice(0, 48)}…»`);
 es(!esReporteDelSimulador('quiero el visionario'), 'pero «quiero el visionario» sí es una elección');
 es(!esReporteDelSimulador('me interesa el ESP-1, ¿cómo arranco?'), 'y nombrar el paquete con sus palabras también');
+
+console.log('\n── 14 sep 2026: respuestas al mensaje de los lunes ──');
+const { normalizarLetrasDecorativas } = require('../src/lib/texto-normalizar.ts') as typeof import('../src/lib/texto-normalizar.ts');
+const { nombreCortoDeSocio, nombreParaFichaDeSocio } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
+for (const [entrada, esperado] of [
+  ['𝕐 𝕖𝕤𝕠', 'Y eso'],
+  ['ℍ𝕒𝕔𝕖𝕣', 'Hacer'],
+  ['ℚ𝕦𝕖 𝕖𝕤 𝕝𝕒 𝕥𝕖𝕔𝕟𝕠𝕝𝕠𝕘𝕚𝕒', 'Que es la tecnologia'],
+  ['𝐇𝐨𝐥𝐚 ①', 'Hola 1'],
+  ['Ａｃｃｅｓｏ', 'Acceso'],
+] as const) es(normalizarLetrasDecorativas(entrada) === esperado, `letras decorativas: «${entrada}» → «${esperado}»`);
+const intacto = 'Señora, mi paquete Nº 3 ™ ½ café 🇨🇴 👋';
+es(normalizarLetrasDecorativas(intacto) === intacto, 'y no toca tildes, eñes, Nº, ™, ½, banderas ni emojis');
+es(nombreCortoDeSocio('Erika Julieth Cabrejo Moreno') === 'Erika Cabrejo', 'nombre corto: dos nombres y dos apellidos → nombre y primer apellido');
+es(nombreCortoDeSocio('MONICA ALEJANDRA MALAGON CARDENAS') === 'Monica Malagon', 'nombre corto: la mayúscula sostenida no se repite a gritos');
+es(nombreCortoDeSocio('Miguel  barahona') === 'Miguel Barahona', 'nombre corto: espacios dobles y minúscula');
+const erika = nombreParaFichaDeSocio({ name: 'Yenireth Urariyu' }, { nombreCompleto: 'Erika Julieth Cabrejo Moreno' });
+es(erika.name === 'Erika Cabrejo' && erika.nombre_perfil_whatsapp === 'Yenireth Urariyu',
+  'primera conversión: manda el nombre registrado y el del perfil queda aparte (Erika, no «Yenireth»)');
+es(Object.keys(nombreParaFichaDeSocio({ es_socio: true, name: 'Armando Rojas' }, { nombreCompleto: 'Victor Armando Rojas Beltrán' })).length === 0,
+  'ficha que ya era de socio: no se pisa el nombre (puede ser corrección a mano)');
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

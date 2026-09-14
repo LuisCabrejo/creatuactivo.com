@@ -80,8 +80,13 @@ import {
   extraerVinculoSocio,
   vincularSocioPorToken,
   mensajeSocioEnlace,
+  // ⚠️ Faltaba desde el 9 sep 2026 (09244d9): el botón «Lista de precios» de la
+  // apertura de productos la usaba sin importarla, y como marketing construye
+  // con ignoreBuildErrors el error no frenó nada — el turno se caía al ejecutarse
+  // y el prospecto se quedaba sin respuesta. Lo destapó el compilador el 14 sep.
+  mensajeEnlaceCatalogo,
 } from '@/lib/wa-onboarding';
-import { normalizarParaSlug } from '@/lib/texto-normalizar';
+import { normalizarParaSlug, normalizarLetrasDecorativas } from '@/lib/texto-normalizar';
 import {
   detectarEmergencia,
   clasificarPreguntaSalud,
@@ -487,6 +492,19 @@ async function procesarEntrante(body: any): Promise<void> {
           'Perdón, no logré escuchar bien su nota de voz. ¿Me la escribe en un mensaje?',
         );
         return;
+      }
+    }
+
+    // ─── Letras decorativas → texto normal ────────────────────────────────────
+    // «𝕐 𝕖𝕤𝕠» no son letras para ningún patrón del canal. Se convierte aquí, antes
+    // de cualquier detector y antes de guardarlo, para que todo lo de abajo lea lo
+    // mismo que la persona quiso escribir (Erika Cabrejo, 14 sep 2026). Ver
+    // `normalizarLetrasDecorativas`: tildes, emojis y símbolos pasan intactos.
+    if (messageText) {
+      const plano = normalizarLetrasDecorativas(messageText);
+      if (plano !== messageText) {
+        console.log(`🔤 [WA Webhook] ${phoneNumber} escribió con letras decorativas — normalizado a "${plano.slice(0, 60)}"`);
+        messageText = plano;
       }
     }
 
@@ -1175,7 +1193,12 @@ async function procesarEntrante(body: any): Promise<void> {
     // Quiero pedir: …») no recibe la apertura: viene a comprar, y el nodo del
     // pedido lo atiende más abajo. Y quien llega desde /productos con pregunta
     // tampoco: el motor se la responde en modo asesora.
-    if (!existingProspect && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
+    // ⚠️ `!socioQueEscribe` (14 sep 2026): un distribuidor que le escribe a Queswa por
+    // PRIMERA vez tampoco tiene ficha, y sin esta guarda recibía el saludo de socio
+    // Y ADEMÁS la apertura de prospecto — «Soy Queswa… atiendo a cientos de
+    // personas» — en el mismo turno. Le pasó a Erika Cabrejo al responder el
+    // mensaje de los lunes.
+    if (!existingProspect && !socioQueEscribe && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
       const apertura = construirApertura(patrocinador?.nombre, contactName);
 
       const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
@@ -2087,10 +2110,15 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}${saludCompuesta.paquete ? `_${saludCompuesta.paquete.toLowerCase().replace('-', '')}` : ''}${saludCompuesta.otraVez ? '_otravez' : ''}`
       : fotoEnviada
       ? 'whatsapp_foto_enviada'
-      : (!existingProspect && _traePregunta)
-      ? 'whatsapp_primer_contacto'
+      // ⚠️ El socio va ANTES que el primer contacto (14 sep 2026). Un distribuidor
+      // que escribe por primera vez con una pregunta no tiene ficha, y con el orden
+      // anterior el motor lo atendía como prospecto en primer contacto: Adriana
+      // Flores preguntó «De qué es» al recibir el mensaje de los lunes y le
+      // respondieron con la presentación de la empresa para prospectos.
       : socioQueEscribe
       ? 'whatsapp_socio'
+      : (!existingProspect && _traePregunta)
+      ? 'whatsapp_primer_contacto'
       : ambivalencia
       ? ambivalencia
       // Modo asesora (9 sep 2026): llegó desde /productos, o lo hizo en las

@@ -82,3 +82,44 @@ export function normalizarParaSlug(texto: string, conservarGuion = false): strin
     .replace(conservarGuion ? /[^a-z0-9\s-]/g : /[^a-z0-9\s]/g, '')
     .trim();
 }
+
+/**
+ * Letras decorativas → texto normal (14 sep 2026).
+ *
+ * WhatsApp y los teclados de «fuentes bonitas» no cambian la fuente: cambian las
+ * LETRAS. «𝕐 𝕖𝕤𝕠» son caracteres del bloque matemático de Unicode que se ven como
+ * «Y eso» pero no lo son, y ningún patrón del canal —ni el clasificador, ni los
+ * guardarraíles, ni el motor— los lee como palabras. Erika Cabrejo, socia, le
+ * escribió así a Queswa el 14 sep 2026 respondiendo el mensaje de los lunes: su
+ * «𝕐 𝕖𝕤𝕠» se leyó como un saludo vacío y recibió la presentación de prospecto, y
+ * «ℍ𝕒𝕔𝕖𝕣» se tomó como si pidiera redactar un mensaje.
+ *
+ * ⚠️ NO es un `normalize('NFKC')` sobre todo el texto. NFKC también convierte
+ * «Nº» en «No», «™» en «TM» y «½» en «1⁄2», y cambiaría lo que la persona quiso
+ * escribir. Aquí se convierte un carácter SOLO si está en un bloque de letras de
+ * estilo Y su forma compatible es una letra o dígito ASCII. Todo lo demás
+ * —tildes, eñes, emojis, banderas, símbolos— pasa intacto.
+ */
+const BLOQUES_DECORATIVOS: ReadonlyArray<readonly [number, number]> = [
+  [0x1d400, 0x1d7ff], // letras y dígitos matemáticos: negrita, cursiva, doble trazo, gótica, monoespaciada
+  [0x2100, 0x214f],   // letras de estilo sueltas del bloque «letterlike» (doble trazo H, Q, C, N, R, Z…)
+  [0x2460, 0x24ff],   // letras y números en círculo
+  [0xff10, 0xff5a],   // letras y dígitos de ancho completo
+  [0x1f130, 0x1f149], // letras en cuadro
+];
+
+export function normalizarLetrasDecorativas(texto: string): string {
+  if (!texto) return texto;
+  let cambio = false;
+  let salida = '';
+  for (const ch of texto) {
+    const cp = ch.codePointAt(0) ?? 0;
+    if (cp > 0x7f && BLOQUES_DECORATIVOS.some(([a, b]) => cp >= a && cp <= b)) {
+      const plano = ch.normalize('NFKC');
+      if (/^[A-Za-z0-9]$/.test(plano)) { salida += plano; cambio = true; continue; }
+    }
+    salida += ch;
+  }
+  return cambio ? salida : texto;
+}
+

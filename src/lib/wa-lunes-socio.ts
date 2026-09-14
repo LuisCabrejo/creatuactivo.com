@@ -52,7 +52,10 @@ export const PLANTILLA_LUNES_SOCIO = 'lunes_socio';
 export function cuerpoLunesSocio(nombre: string): string {
   return (
     `Hola ${nombre} 👋, espero que esté genial y vamos por una gran semana.\n\n` +
-    'Aquí estoy para ayudarle: 🎯 a cumplir sus metas, ✍️ a redactarle el mensaje para esa persona que tiene en mente, y 💬 a responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
+    'Aquí estoy para ayudarle:\n' +
+    '🎯 A cumplir sus metas.\n' +
+    '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n' +
+    '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
     'Soy todo oídos.'
   );
 }

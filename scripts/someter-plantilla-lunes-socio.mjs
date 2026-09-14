@@ -29,7 +29,12 @@
  * «Soy todo oídos.», que además es la invitación a responder — y la respuesta
  * del socio es lo que abre la ventana de 24 h para que Queswa converse libre.
  *
+ * Diseño (14 sep 2026, probado en el teléfono del Director con tres variantes por
+ * texto libre): viñetas, una por emoticón, con línea en blanco antes y después —
+ * «respira» y no colapsa con «Leer más»; el párrafo corrido sí colapsaba.
+ *
  * Uso:
+ *   node scripts/someter-plantilla-lunes-socio.mjs --editar  # actualiza la aprobada (vuelve a revisión)
  *   node scripts/someter-plantilla-lunes-socio.mjs --dry     # muestra sin enviar
  *   node scripts/someter-plantilla-lunes-socio.mjs           # somete a Meta
  *   node scripts/someter-plantilla-lunes-socio.mjs --estado  # consulta aprobación
@@ -46,7 +51,10 @@ const NOMBRE  = 'lunes_socio';
 /** El mismo texto vive en src/lib/wa-lunes-socio.ts (texto libre dentro de ventana). Cambiar los dos a la vez. */
 export const CUERPO_LUNES_SOCIO =
   'Hola {{1}} 👋, espero que esté genial y vamos por una gran semana.\n\n' +
-  'Aquí estoy para ayudarle: 🎯 a cumplir sus metas, ✍️ a redactarle el mensaje para esa persona que tiene en mente, y 💬 a responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
+  'Aquí estoy para ayudarle:\n' +
+  '🎯 A cumplir sus metas.\n' +
+  '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n' +
+  '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
   'Soy todo oídos.';
 
 const PLANTILLA = {
@@ -80,6 +88,22 @@ if (args.includes('--estado')) {
     console.log(`${icono} ${t.name} — ${t.status} · ${t.category}${movida ? ` (se sometió como ${t.previous_category})` : ''}${t.rejected_reason && t.rejected_reason !== 'NONE' ? ` · motivo: ${t.rejected_reason}` : ''}`);
   }
   if (!(j.data || []).length) console.log('No existe todavía. Corra el script sin --estado para someterla.');
+  process.exit(0);
+}
+
+if (args.includes('--editar')) {
+  const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates?name=${NOMBRE}&fields=id,status,category`, { headers: { Authorization: `Bearer ${TOKEN}` } });
+  const j = await r.json();
+  const t = (j.data || [])[0];
+  if (!t) { console.error('❌ No existe la plantilla; sométala primero.'); process.exit(1); }
+  const e = await fetch(`${GRAPH}/${t.id}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ components: PLANTILLA.components }),
+  });
+  const je = await e.json();
+  if (!e.ok) { console.error('❌ Meta rechazó la edición:', JSON.stringify(je.error || je, null, 2)); process.exit(1); }
+  console.log(`✅ Editada (id ${t.id}, era ${t.status} · ${t.category}). Vuelve a revisión. Consulte con --estado.`);
   process.exit(0);
 }
 

@@ -12,6 +12,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 import { createClient } from '@supabase/supabase-js';
 import { decidir, enviarLunes, enSilencioBogota, semanaISO } from '../src/lib/wa-lunes-socio';
+import { dentroDeVentana } from '../src/lib/wa-ventana';
 
 const args = process.argv.slice(2);
 const enviar = args.includes('--enviar');
@@ -25,6 +26,7 @@ if (!enviar) {
   const decisiones = await decidir(supabase, ahora);
   console.table(decisiones.map(x => ({
     socio: x.d.nombre, telefono: x.d.telefono, accion: x.accion, motivo: x.motivo,
+    via: x.accion === 'enviar' ? (dentroDeVentana(x.ultimoMensajeSocio, ahora) ? 'texto libre' : 'plantilla') : '—',
     ultimoMensaje: x.ultimoMensajeSocio ? x.ultimoMensajeSocio.slice(0, 10) : 'nunca',
     ultimoEnvio: x.ultimoEnvio ? x.ultimoEnvio.slice(0, 10) : '—',
   })));

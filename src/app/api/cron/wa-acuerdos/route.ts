@@ -38,6 +38,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { sendText, sendTemplate } from '@/lib/wa-channel';
 import { acuerdosVencidos, cerrarAcuerdo } from '@/lib/wa-acuerdos';
+import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -122,12 +123,18 @@ export async function GET(request: NextRequest) {
   for (const a of pendientes) {
     try {
       // Dentro de la ventana el texto libre entra y no cuesta nada.
-      const libre = await sendText(a.telefono, textoRecordatorio(a.que));
-      if (libre.ok) {
-        await cerrarAcuerdo(supabase, a.id, 'cumplido');
-        cumplidos++;
-        console.log(`✅ [CRON acuerdos] ${a.fingerprintId} — entregado en texto libre`);
-        continue;
+      // ⚠️ La ventana se decide ANTES (wa-ventana.ts): fuera de ella la API acepta
+      // el texto con 200 + wamid y lo tumba un segundo después por el webhook
+      // (131047), así que un `ok` aquí no probaba que el acuerdo se cumpliera.
+      // Descubierto el 14 sep 2026 con el mensaje de los lunes.
+      if (await enVentanaPorTelefono(supabase, a.telefono, ahora)) {
+        const libre = await sendText(a.telefono, textoRecordatorio(a.que));
+        if (libre.ok) {
+          await cerrarAcuerdo(supabase, a.id, 'cumplido');
+          cumplidos++;
+          console.log(`✅ [CRON acuerdos] ${a.fingerprintId} — entregado en texto libre`);
+          continue;
+        }
       }
 
       // Fuera de ventana: entra la plantilla de utilidad.

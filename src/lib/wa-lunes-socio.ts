@@ -18,9 +18,12 @@
  *   constructor, menos las cuentas de sistema (la tienda, el admin). La lista se
  *   auditó a mano el 14 sep 2026: 20 personas más el Director.
  *
- * • **Texto libre si se puede; plantilla si toca.** Igual que el cron de acuerdos:
- *   dentro de la ventana de 24 h `sendText` entra y no cuesta nada; fuera, la
- *   plantilla `lunes_socio`. Meta la clasifica como MARKETING (es Queswa tomando
+ * • **Texto libre si se puede; plantilla si toca — y la ventana se decide ANTES.**
+ *   Dentro de la ventana de 24 h `sendText` entra y no cuesta nada; fuera, la
+ *   plantilla `lunes_socio`. ⚠️ No se «intenta texto y se cae a plantilla»: fuera
+ *   de ventana la API acepta el texto (200 + wamid) y lo tumba un segundo después
+ *   por el webhook (131047). Pasó con el primer envío al Director. La ventana la
+ *   dice `wa-ventana.ts` mirando el último mensaje DE LA PERSONA. Meta la clasifica como MARKETING (es Queswa tomando
  *   la iniciativa, no una respuesta a algo pedido): ~90 pesos por envío, y cuenta
  *   contra la calificación del número que atiende a los prospectos.
  *
@@ -41,6 +44,7 @@
  */
 
 import { sendText, sendTemplate, normalizePhone } from '@/lib/wa-channel';
+import { ultimoMensajeDePersona, dentroDeVentana } from '@/lib/wa-ventana';
 
 export const PLANTILLA_LUNES_SOCIO = 'lunes_socio';
 
@@ -132,21 +136,15 @@ export async function destinatarios(supabase: Supa): Promise<Destinatario[]> {
   return out;
 }
 
-/** Última vez que ESTE socio le escribió a Queswa por WhatsApp (por teléfono o por huella vinculada). */
-async function ultimoMensajeDelSocio(supabase: Supa, d: Destinatario): Promise<string | null> {
+/** Última vez que ESTE socio le escribió a Queswa por WhatsApp (por teléfono o por huella vinculada). Solo cuentan SUS mensajes, no los nuestros. */
+export async function ultimoMensajeDelSocio(supabase: Supa, d: Destinatario): Promise<string | null> {
   const huellas = new Set<string>([`wa_${d.telefono}`]);
   const { data: vinculadas } = await supabase
     .from('device_info')
     .select('fingerprint')
     .eq('socio_constructor_id', d.constructorId);
   for (const v of vinculadas ?? []) if (v.fingerprint) huellas.add(String(v.fingerprint));
-  const { data } = await supabase
-    .from('nexus_conversations')
-    .select('created_at')
-    .in('fingerprint_id', [...huellas])
-    .order('created_at', { ascending: false })
-    .limit(1);
-  return data?.[0]?.created_at ?? null;
+  return ultimoMensajeDePersona(supabase, [...huellas]);
 }
 
 export async function decidir(supabase: Supa, ahora = new Date()): Promise<Decision[]> {
@@ -192,20 +190,25 @@ export interface ResultadoEnvio {
 }
 
 /** Manda el mensaje a un destinatario: texto libre si está en ventana, plantilla si no. Registra siempre. */
-export async function enviarLunesA(supabase: Supa, d: Destinatario, ahora = new Date()): Promise<ResultadoEnvio> {
+export async function enviarLunesA(supabase: Supa, d: Destinatario, ahora = new Date(), ultimoMensajeSocio?: string | null): Promise<ResultadoEnvio> {
   const semana = semanaISO(ahora);
   const texto = cuerpoLunesSocio(d.primerNombre);
-  let via: ResultadoEnvio['via'] = null;
-  let res = await sendText(d.telefono, texto);
-  if (res.ok) via = 'texto';
-  else {
+  const ultimo = ultimoMensajeSocio === undefined ? await ultimoMensajeDelSocio(supabase, d) : ultimoMensajeSocio;
+  const enVentana = dentroDeVentana(ultimo, ahora);
+  let via: ResultadoEnvio['via'] = enVentana ? 'texto' : 'plantilla';
+  let res = enVentana
+    ? await sendText(d.telefono, texto)
+    : await sendTemplate(d.telefono, PLANTILLA_LUNES_SOCIO, 'es', [d.primerNombre]);
+  // Si el texto libre falló en la llamada (no por ventana: eso no falla ahí), la plantilla es el respaldo.
+  if (!res.ok && enVentana) {
     res = await sendTemplate(d.telefono, PLANTILLA_LUNES_SOCIO, 'es', [d.primerNombre]);
-    if (res.ok) via = 'plantilla';
+    via = 'plantilla';
   }
+  if (!res.ok) via = null;
   try {
     await supabase.from('wa_lunes_socio_envios').insert({
       constructor_id: d.constructorId, telefono: d.telefono, semana,
-      via: via ?? 'plantilla', wamid: res.messageId ?? null, ok: res.ok, error: res.ok ? null : (res.error ?? 'desconocido'),
+      via: via ?? (enVentana ? 'texto' : 'plantilla'), wamid: res.messageId ?? null, ok: res.ok, error: res.ok ? null : (res.error ?? 'desconocido'),
     });
   } catch (err) { console.error('⚠️ [Lunes socio] No se pudo registrar el envío:', err); }
   if (res.ok) {
@@ -227,7 +230,7 @@ export async function enviarLunes(supabase: Supa, ahora = new Date(), opts: { so
     if (dec.accion !== 'enviar') continue;
     if (opts.solo && dec.d.constructorId !== opts.solo) continue;
     try {
-      resultados.push(await enviarLunesA(supabase, dec.d, ahora));
+      resultados.push(await enviarLunesA(supabase, dec.d, ahora, dec.ultimoMensajeSocio));
     } catch (err) {
       console.error(`❌ [Lunes socio] Falló ${dec.d.constructorId}:`, err);
       resultados.push({ constructorId: dec.d.constructorId, nombre: dec.d.nombre, via: null, ok: false, error: String((err as Error)?.message ?? err) });

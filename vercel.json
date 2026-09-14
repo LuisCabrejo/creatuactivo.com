@@ -8,6 +8,10 @@
     {
       "path": "/api/cron/wa-acuerdos",
       "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/wa-lunes-socio",
+      "schedule": "0 13 * * 1"
     }
   ]
 }

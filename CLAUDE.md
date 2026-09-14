@@ -437,6 +437,7 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 | `/api/funnel` | Node | 10s | Calculadora de Días de Libertad → soap-opera (Email1) + tracking de página |
 | `/api/subscribe` | Node | — | Newsletter "Suscríbete" (jun 2026) — upsert `funnel_leads` (source `newsletter`) + adjunta correo al prospecto (update_prospect_data) + bienvenida institucional (Equipo CreaTuActivo) + aviso a `sistema@`. Single opt-in; pendiente double opt-in + envío real. Ver [[project_newsletter_suscripcion]] |
 | `/api/fundadores` | Node | 10s | Founder registration || `/api/cron/process-emails` | Node | 60s | Soap Opera sequence || `/api/emails/send-sequence` | Node | 30s | Generic email dispatch |
+| `/api/cron/wa-lunes-socio` | Node | 60s | **Mensaje de los lunes a cada distribuidor** (14 sep 2026, texto del Director con sus cuatro emoticones). Lunes 13:00 UTC = 08:00 Bogotá. Lógica en `src/lib/wa-lunes-socio.ts`: solo `private_users` activos con WhatsApp y rol constructor menos las cuentas de sistema; texto libre si está en ventana de 24 h, si no plantilla `lunes_socio` (sometida UTILITY, esperable MARKETING: ~90 pesos, cuenta contra la calificación del número, **no llega a números de EE. UU.**); **semanal solo a quien le escribió a Queswa en 30 días, cada 4 semanas al que calla**; un envío por socio y semana ISO en `wa_lunes_socio_envios`; horas de silencio 21–07; el envío queda en `nexus_conversations` con la huella del socio. `?dry=1` lista sin enviar, `?forzar=1` fuera de lunes. A mano: `npx tsx scripts/enviar-lunes-socio.mts [--enviar] [--solo <constructor_id>]` |
 | `/api/constructor/[id]` | Node | 10s | Constructor dashboard |
 | `/api/fundadores/pre-registro` | Node | 10s | Pre-registration flow |
 | `/api/fundadores/registro-diciembre` | Node | 10s | Legacy December registration |
@@ -1135,6 +1136,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 **Testing del canal** (correr antes de desplegar; todas devuelven exit 1 si fallan):
 - `benchmark-clasificador.mjs --tenant whatsapp` — enrutamiento, 48 casos
+- `someter-plantilla-lunes-socio.mjs` (`--dry` / `--estado`) + `enviar-lunes-socio.mts` (`npx tsx`; sin `--enviar` solo muestra a quién le toca y por qué) — el mensaje de los lunes a los distribuidores; ver `/api/cron/wa-lunes-socio`. ⚠️ El texto vive dos veces (plantilla y `cuerpoLunesSocio` en `src/lib/wa-lunes-socio.ts`, para el texto libre dentro de ventana): cambiar los dos a la vez, y un cambio de plantilla es un NOMBRE nuevo
 - `test-guardarrail-salud.mjs` · `test-guardarrail-negocio.mjs` — las dos direcciones: que bloqueen lo grave Y que no toquen el copy aprobado
 - `prueba-40-preguntas.mjs` — negocio, preguntas sueltas contra producción
 - `prueba-productos.mjs` — los 22 productos por 7 ángulos (nombre exacto, apodo, typo, precio, uso, comparación entre hermanos, categoría). ⚠️ Verifica por **dato duro** —precio y presentación—, no por parecido de texto: recibir el precio del producto vecino es el fallo que cuesta plata, y es el que tuvo el Ganocafé Clásico

@@ -39,7 +39,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.2_canal_dashboard';
+const VERSION_LABEL = 'v5.3_dashboard_con_rol';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 export const CANALES = {

@@ -45,7 +45,10 @@ const PLANTILLA = {
   components: [
     {
       type: 'BODY',
-      text: '{{1}}, su cuenta en Gano tiene {{2}} PV vigentes. Le faltan {{3}} PV ({{4}}) para los 50 del corte del domingo a medianoche. Compre y pague antes.',
+      // ⚠️ Meta no admite una variable al principio ni al final del cuerpo
+      // (rechazo del 15 sep 2026: "No se permite incluir parámetros al principio
+      // ni al final"). Por eso «Hola, {{1}}.» y no «{{1}}, …».
+      text: 'Hola, {{1}}. Su cuenta en Gano tiene {{2}} PV vigentes. Le faltan {{3}} PV ({{4}}) para los 50 del corte del domingo a medianoche. Compre y pague antes.',
       example: { body_text: [['Nidia', '15', '35', '3 cajas']] },
     },
   ],

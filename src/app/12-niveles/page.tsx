@@ -1,4 +1,17 @@
 /**
+ * v7.0 (9 sep 2026) — Léxico vigente «sistema de distribución» (Director, 6 sep 2026):
+ *  - Slide 1: «CREE SU NEGOCIO DIGITAL» → «CONSTRUYA SU SISTEMA DE DISTRIBUCIÓN» (un canal se
+ *    abre; un sistema se construye). Nav de escritorio y móvil con el mismo nombre.
+ *  - Slide 2: Gano Excel y Queswa se nombran por su nombre, sin rótulo interno al lado (un
+ *    rótulo le confirma la duda a quien duda); el Método dice sus dos acciones: Compartir y
+ *    Recibir (las dicta EAM_01).
+ *  - Slide 4: el GEN5 se cuenta en PAQUETES COMPRADOS, nunca en personas; la pestaña se nombra
+ *    por lo que la mueve (la compra de paquetes), no por su ritmo; el colectivo es «su sistema»;
+ *    el simulador de niveles rotula «regalía mensual» (v6.8 del arsenal: «renta acumulada» era
+ *    la etiqueta equivocada de la misma cifra) y cuenta «distribuidores», no «usuarios».
+ *  - Slide 3 se deja como está a propósito (copy del guion servilleta v6.7, revisar con el Director).
+ *  ⚠️ /servilleta NO se migra (conserva léxico viejo por SEO, decisión del Director 27 jun 2026).
+ *
  * /12-niveles — FORK del deck servilleta (jul 2026). Slides 1–3 idénticas a
  * /servilleta; el SLIDE 4 reemplaza el simulador INMEDIATO/RECURRENTE por el
  * SIMULADOR DE 12 NIVELES (proyección 2×2, 12 puntos, COP primario + USD/usuarios
@@ -74,8 +87,10 @@ const LAST_CARD: Record<number, number> = { 1: 3, 2: 3 };
 // (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
 const AMBIENT_VOLUME = 0.125;
 
-// Proyección 2×2 sobre 12 niveles — cifras del plan de compensación (Renta Acumulada COP).
-// `people` = crecimiento en número de usuarios EN ese nivel (duplicación 2×2). USD = COP ÷ 4.500 (tasa fija Gano).
+// Proyección 2×2 sobre 12 niveles — cifras del plan de compensación: REGALÍA MENSUAL en COP
+// (misma tabla que NIVELES_02 del arsenal, v6.8: 10% del CV emparejado con cada distribuidor
+// consumiendo 56 CV al mes). `people` = distribuidores NUEVOS en ese nivel (duplicación 2×2).
+// USD = COP ÷ 4.500 (tasa fija Gano).
 const PROYECCION_12: { level: number; people: number; income: number }[] = [
   { level: 1, people: 2, income: 25200 },
   { level: 2, people: 4, income: 75600 },
@@ -1115,7 +1130,7 @@ export default function ServilletaPage() {
 
         /* AMBOS sliders del simulador (gen5 + binario) usan el MISMO padding
            vertical → así la "caja" del controls-container tiene altura idéntica
-           al alternar entre INGRESO INMEDIATO ↔ INGRESO RECURRENTE.
+           al alternar entre POR PAQUETES ↔ INGRESO RECURRENTE.
            El padding es necesario para que el thumb del snowball (hasta 50px)
            no se choque con elementos vecinos. Al aplicarlo también al slider
            de gen5 (thumb default ~16px), ambos ocupan el mismo espacio
@@ -1199,7 +1214,7 @@ export default function ServilletaPage() {
           text-align: center;
           /* min-height igual a la altura del texto MÁS largo (gen5 = 3 líneas).
              El insight-text de binario (2 líneas) se rellena con whitespace.
-             Esto elimina el "salto" al alternar entre INGRESO INMEDIATO ↔ RECURRENTE. */
+             Esto elimina el "salto" al alternar entre POR PAQUETES ↔ RECURRENTE. */
           min-height: 4.2em;
           line-height: 1.5;
         }
@@ -1287,7 +1302,7 @@ export default function ServilletaPage() {
           padding: 6px 10px; transition: all 0.3s;
         }
         .mobile-nav-btn span.nav-icon { font-size: 20px; }
-        .mobile-nav-btn span.nav-label { font-size: 0.55rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px; }
+        .mobile-nav-btn span.nav-label { font-size: 0.55rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px; text-align: center; line-height: 1.25; max-width: 84px; }
         .mobile-nav-btn.active { color: var(--cyan); }
         .mobile-nav-btn.active span.nav-label { font-weight: bold; }
 
@@ -1970,7 +1985,7 @@ export default function ServilletaPage() {
           </div>
           <div className="nav-controls">
             {[
-              { id: 1, label: '01 SU NEGOCIO DIGITAL' },
+              { id: 1, label: '01 SU SISTEMA DE DISTRIBUCI\u00d3N' },
               { id: 2, label: '02 C\u00d3MO FUNCIONA' },
               { id: 3, label: '03 EL PRODUCTO' },
               { id: 4, label: '04 SIMULADOR' },
@@ -2003,7 +2018,7 @@ export default function ServilletaPage() {
         <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
           <div className="mobile-nav-inner">
             {[
-              { id: 1, label: 'Su Negocio Digital' },
+              { id: 1, label: 'Su Sistema de Distribuci\u00f3n' },
               { id: 2, label: 'C\u00f3mo Funciona' },
               { id: 3, label: 'El Producto' },
               { id: 4, label: 'Simulador' },
@@ -2032,7 +2047,7 @@ export default function ServilletaPage() {
           onTouchCancel={handleTouchCancel}
         >
 
-          {/* ===== SLIDE 1: ¿QUÉ ES UNA EMPRESA DIGITAL? (card-scroller, clips Gemini Dan Koe) ===== */}
+          {/* ===== SLIDE 1: CONSTRUYA SU SISTEMA DE DISTRIBUCIÓN (card-scroller, clips Gemini Dan Koe) ===== */}
           <section
             id="slide-1"
             className={`slide ${activeSlide === 1 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
@@ -2044,7 +2059,7 @@ export default function ServilletaPage() {
               {!oneCardMode && (
                 <div className="slide-2-header">
                   <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                    CREE SU NEGOCIO DIGITAL
+                    CONSTRUYA SU SISTEMA DE DISTRIBUCI&Oacute;N
                   </h2>
                   <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
                     Un negocio a su nombre, con un ingreso que no depende de su presencia.
@@ -2083,7 +2098,7 @@ export default function ServilletaPage() {
               {oneCardMode && activeCardIndex === 0 && (
                 <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
                   <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    CREE SU NEGOCIO DIGITAL
+                    CONSTRUYA SU SISTEMA DE DISTRIBUCI&Oacute;N
                   </h2>
                   <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
                     Un negocio a su nombre, con un ingreso que no depende de su presencia.
@@ -2108,7 +2123,7 @@ export default function ServilletaPage() {
                 </div>
               </div>
 
-              {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
+              {/* Concepto 2: El puente (Amazon/MercadoLibre — un sistema de distribución) */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
                 <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/empresa-digital.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s1-empresa-digital')}
@@ -2139,10 +2154,11 @@ export default function ServilletaPage() {
           </section>
 
           {/* ===== SLIDE 2: LO DIFÍCIL YA ESTÁ HECHO — primeros principios (clips 3D) =====
-              Tres condiciones ya resueltas: alguien fabrica (Gano, socio logístico y
-              financiero) · una plataforma atiende a las personas (Queswa, socio digital) ·
-              usted sabe qué hacer (Método). Gano se USA, no se entra. NUNCA "pilares" ni
-              "fuerzas". Guión servilleta v5.8. */}
+              Tres condiciones ya resueltas: alguien fabrica (Gano Excel, por su nombre) ·
+              una plataforma atiende a las personas (Queswa, por su nombre) · usted sabe
+              qué hacer (el Método Comprobado: Compartir y Recibir). Gano se USA, no se
+              compra. NUNCA "pilares" ni "fuerzas", y ningún rótulo interno junto al nombre:
+              el nombre solo. Guión servilleta v5.8 + léxico 9 sep 2026. */}
           <section
             id="slide-2"
             className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
@@ -2192,23 +2208,23 @@ export default function ServilletaPage() {
                 </div>
               )}
 
-              {/* Lo primero · alguien fabrica → Gano Excel, socio logístico y financiero */}
+              {/* Lo primero · alguien fabrica → Gano Excel */}
               <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-respaldo')}>
                 <video className="card-bg" data-slide="2" data-card="1" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-respaldo')}
                 <div className="card-content">
-                  <span className="pillar-eyebrow">Su socio log&iacute;stico y financiero</span>
+                  <span className="pillar-eyebrow">Fabrica y despacha</span>
                   <h3 className="pillar-name">Gano Excel</h3>
                 </div>
               </div>
 
-              {/* Lo segundo · una plataforma atiende a las personas → Queswa, socio digital */}
+              {/* Lo segundo · una plataforma atiende a las personas → Queswa */}
               <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-queswa')}>
                 <video className="card-bg" data-slide="2" data-card="2" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-queswa')}
                 <div className="card-content">
-                  <span className="pillar-eyebrow">Su socio digital</span>
-                  <h3 className="pillar-name">Queswa, su Centro de Mando</h3>
+                  <span className="pillar-eyebrow">Inteligencia artificial</span>
+                  <h3 className="pillar-name">Queswa</h3>
                   <button
                     style={{
                       marginTop: 10, background: 'transparent',
@@ -2231,8 +2247,8 @@ export default function ServilletaPage() {
                 <video className="card-bg" data-slide="2" data-card="3" src="/videos/servilleta/metodo.mp4" muted loop playsInline preload="none" />
                 {clipCenterToggle('s2-metodo')}
                 <div className="card-content">
-                  <span className="pillar-eyebrow">Su m&eacute;todo comprobado</span>
-                  <h3 className="pillar-name">Los pasos exactos</h3>
+                  <span className="pillar-eyebrow">El M&eacute;todo Comprobado</span>
+                  <h3 className="pillar-name">Compartir y Recibir</h3>
                 </div>
               </div>
 
@@ -2346,7 +2362,7 @@ export default function ServilletaPage() {
                     className={`sim-tab ${simMode === 'gen5' ? 'active' : ''}`}
                     onClick={() => setSimMode('gen5')}
                   >
-                    INGRESO INMEDIATO
+                    POR PAQUETES
                   </button>
                   <button
                     className={`sim-tab ${simMode === 'binario' ? 'active' : ''}`}
@@ -2381,7 +2397,7 @@ export default function ServilletaPage() {
                       ))}
                     </div>
                     <label>
-                      PERSONAS EN SU ORGANIZACI&Oacute;N:
+                      PAQUETES COMPRADOS EN SU SISTEMA:
                       <span className="highlight-text">{gen5Socios}</span>
                     </label>
                     <input
@@ -2392,7 +2408,7 @@ export default function ServilletaPage() {
                       onChange={(e) => setGen5Socios(parseInt(e.target.value))}
                       className="sim-slider"
                     />
-                    <p className="insight-text">Esta velocidad est&aacute; dise&ntilde;ada para un objetivo claro: optimizar su flujo de caja desde la primera semana de activaci&oacute;n.</p>
+                    <p className="insight-text">Cada vez que se compra un paquete empresarial en su sistema, usted cobra este bono. Es lo que financia el crecimiento al inicio.</p>
                   </div>
                 )}
 
@@ -2403,7 +2419,7 @@ export default function ServilletaPage() {
                       <button className="pkg-btn" tabIndex={-1}>·</button>
                     </div>
                     <label>
-                      HOGARES EN SU ORGANIZACI&Oacute;N:
+                      HOGARES EN SU SISTEMA:
                       <span className="highlight-text">{binarioParejas}</span>
                     </label>
                     <input
@@ -2416,7 +2432,7 @@ export default function ServilletaPage() {
                       className="sim-slider snowball-slider"
                       style={{ ['--thumb-size' as string]: `${snowballSize}px` } as React.CSSProperties}
                     />
-                    <p className="insight-text">Ingreso recurrente que crece con su organizaci&oacute;n — independiente de su presencia f&iacute;sica.</p>
+                    <p className="insight-text">Ingreso recurrente que crece con lo que consumen sus clientes y distribuidores, y no depende de su presencia.</p>
                   </div>
                 )}
               </div>
@@ -2440,14 +2456,14 @@ export default function ServilletaPage() {
                   ))}
                 </div>
 
-                {/* Display: COP primario (lo relevante), USD y usuarios en pequeño */}
+                {/* Display: COP primario (lo relevante), USD y distribuidores en pequeño */}
                 {(() => {
                   const sel = PROYECCION_12[nivel12Level - 1];
                   const usd = Math.round(sel.income / 4500);
-                  // sel.people = usuarios NUEVOS en el nivel (2^nivel).
-                  // Total acumulado de la organización (interés compuesto) =
+                  // sel.people = distribuidores NUEVOS en el nivel (2^nivel).
+                  // Total acumulado del sistema (interés compuesto) =
                   // 2 + 4 + ... + 2^nivel = 2^(nivel+1) − 2.
-                  const totalUsuarios = Math.pow(2, sel.level + 1) - 2;
+                  const totalDistribuidores = Math.pow(2, sel.level + 1) - 2;
                   return (
                     <>
                       <div className="nivel-tag">NIVEL {sel.level}</div>
@@ -2457,7 +2473,7 @@ export default function ServilletaPage() {
                         <span className="unit"> COP</span>
                       </div>
                       <div className="cop-ref">&asymp; ${usd.toLocaleString('es-CO')} USD</div>
-                      <div className="nivel-users">{sel.people.toLocaleString('es-CO')} usuarios nuevos en este punto &middot; total: {totalUsuarios.toLocaleString('es-CO')}</div>
+                      <div className="nivel-users">{sel.people.toLocaleString('es-CO')} distribuidores nuevos en este nivel &middot; total: {totalDistribuidores.toLocaleString('es-CO')}</div>
                     </>
                   );
                 })()}
@@ -2476,7 +2492,7 @@ export default function ServilletaPage() {
                     className="sim-slider snowball-slider"
                     style={{ ['--thumb-size' as string]: `${nivel12ThumbSize}px` } as React.CSSProperties}
                   />
-                  <p className="insight-text">Cada nivel duplica su organizaci&oacute;n (2&times;2). Renta acumulada proyectada sobre el plan de compensaci&oacute;n.</p>
+                  <p className="insight-text">Cada nivel duplica su sistema (2&times;2). Regal&iacute;a mensual proyectada: el 10% de lo que consumen sus distribuidores.</p>
                 </div>
               </div>
             </div>

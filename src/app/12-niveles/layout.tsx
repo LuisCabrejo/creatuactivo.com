@@ -7,7 +7,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Los 12 Niveles | CreaTuActivo',
-  description: 'El método de duplicación 2×2: 12 niveles para construir su organización de distribución con CreaTuActivo',
+  description: 'La estrategia de duplicación 2×2: 12 niveles para construir su sistema de distribución con CreaTuActivo',
   robots: {
     index: false,
     follow: false,

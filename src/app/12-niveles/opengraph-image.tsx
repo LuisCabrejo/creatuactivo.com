@@ -59,7 +59,7 @@ export default async function Image() {
           }}
         >
           <span style={{ fontSize: 24, fontWeight: 800, color: '#0F1115', letterSpacing: '0.15em', display: 'flex' }}>
-            SU NEGOCIO DIGITAL
+            SU SISTEMA DE DISTRIBUCIÓN
           </span>
         </div>
 
@@ -106,7 +106,7 @@ export default async function Image() {
             marginBottom: 16,
           }}
         >
-          El método de duplicación 2×2
+          La estrategia de duplicación 2×2
         </div>
 
         {/* Stats en línea */}
@@ -123,7 +123,7 @@ export default async function Image() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <span style={{ fontSize: 32, fontWeight: 800, color: '#A78BFA', display: 'flex' }}>8,190</span>
-            <span style={{ fontSize: 16, color: '#64748b', display: 'flex' }}>PERSONAS</span>
+            <span style={{ fontSize: 16, color: '#64748b', display: 'flex' }}>DISTRIBUIDORES</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <span style={{ fontSize: 32, fontWeight: 800, color: '#34D399', display: 'flex' }}>2×2</span>

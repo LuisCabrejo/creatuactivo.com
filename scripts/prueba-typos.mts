@@ -25,6 +25,7 @@ import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
 import { detectarPidePieza } from '../src/lib/queswa-conductor.ts';
+import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
 // lexer de Node se detiene en la «ñ» de `notificarDueño`, así que todo export
 // posterior en orden alfabético «no existe» para un import con llaves.
@@ -53,6 +54,7 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'esAceptacion',            fn: esAceptacion,          frase: 'sí, claro', llaves: ['claro'], tope: 0 },
   { nombre: 'esSoloSaludo',            fn: esSoloSaludo,          frase: 'buenas tardes', llaves: ['buenas'], tope: 4,
     nota: 'un saludo mal escrito se va al motor en vez de recibir la apertura con botones' },
+  { nombre: 'mencionaElReto',          fn: mencionaElReto,        frase: 'cómo va el reto de Luis', llaves: ['reto'], tope: 0 },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

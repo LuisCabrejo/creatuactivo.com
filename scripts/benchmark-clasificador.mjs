@@ -114,6 +114,12 @@ const CASOS = [
   ['puedo pagar en dos partes',                  'arsenal_inicial'],     // 23 ago: FREQ_32 (puerta directa, respuesta primero)
   ['por qué uno debería desarrollar este negocio', 'arsenal_inicial'],  // 24 ago: WHY_05 (puerta); por vector caía en ADV_OBJ_02
   ['tengo muchas dudas',                         'arsenal_inicial'],     // 24 ago: DUDAS_01 (puerta)
+  // 14 sep: el reto de los 90 días de Luis (puerta RETO_01). Antes caían en compensación por `/reto/i`.
+  ['cuáles son las tres condiciones del reto',   'arsenal_inicial'],
+  ['cómo va el reto, ya van en el día 8',        'arsenal_inicial'],
+  ['yo también puedo hacer el reto?',            'arsenal_inicial'],
+  ['el reto de los 12 niveles',                  'arsenal_12_niveles'],
+  ['el plan de los 90 días de qué se trata',     'arsenal_12_niveles'],  // así oyen la estrategia de los socios: NO es la puerta del reto
   ['qué necesito para cobrar el GEN5',           'arsenal_compensacion'], // 23 ago: COMP_GEN5_09
   ['se pierden los puntos que sobran',           'arsenal_compensacion'], // 23 ago: COMP_BIN_09
   ['con una caja a la semana estoy activo',      'arsenal_compensacion'], // 23 ago: COMP_PV_09 // 22 ago: INV_00 (Kit de Inicio); antes → compensación, tabla del ESP-1
@@ -181,8 +187,23 @@ const RE_PROCESO = (() => {
   try { return { si: new RegExp(m[1], m[2].replace('g', '')), no: new RegExp(m[3], m[4].replace('g', '')) }; } catch { return null; }
 })();
 
+// PUERTA DEL RETO (14 sep 2026) — las puertas de route.ts corren ANTES que la
+// clasificación, así que se modela primero. Los dos regex se leen del módulo,
+// una línea cada uno, para que la batería no pueda discrepar de producción.
+const RE_RETO = (() => {
+  const src = fs.readFileSync('src/lib/puerta-reto.ts', 'utf8');
+  const leer = (n) => {
+    const m = src.match(new RegExp(`export const ${n} = \\/(.+)\\/([gimsuy]*);`));
+    try { return m ? new RegExp(m[1], m[2].replace('g', '')) : null; } catch { return null; }
+  };
+  const si = leer('RE_RETO'), no = leer('RE_RETO_NO');
+  if (!si || !no) { console.warn('⚠️  No se pudo extraer la puerta del reto\n'); return null; }
+  return { si, no };
+})();
+
 function porPatrones(q) {
   const m = q.toLowerCase();
+  if (RE_RETO && RE_RETO.si.test(m) && !RE_RETO.no.test(m)) return 'arsenal_inicial'; // puerta RETO_01
   if (RE_GEN5 && RE_GEN5.test(m)) return 'arsenal_compensacion';
   if (RE_PROCESO && RE_PROCESO.si.test(m) && !RE_PROCESO.no.test(m)) return 'arsenal_inicial';
   if (pega('patrones_productos', m) || pega('patrones_beneficios_productos', m)) return 'catalogo_productos';

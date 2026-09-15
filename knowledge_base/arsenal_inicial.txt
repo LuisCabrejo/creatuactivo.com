@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.38** (13 sep 2026) — **«Activo» con su causa, y *maquinaria* entra al arsenal.** `WHY_05` 🔒 sigue el orden del uno a uno (credo → los tres elementos con nombre → el activo) y estrena *maquinaria de distribución* como eco de *sistema*; `WHY_03` deja de nombrar un activo sin causa ni la herencia fuera de `FREQ_05`; `FREQ_33` dice *siguen pidiendo* en vez del *activos* del gremio.
+**Versión actual: v6.39** (14 sep 2026) — **Nace el bloque del reto: `RETO_01` responde las tres condiciones.** El video del día 8 del reto de los 90 días se publicó nombrándolas y Queswa no tenía respuesta propia: la pregunta se repartía entre seis fragmentos ajenos, con las condiciones de cobro del Binario cerca. La tercera condición se presenta como lo que el reto pone a prueba, nunca como resultado; sin precio; cierra hacia `WHY_02`. Índice medido contra el corpus real antes de desplegar (7 de 7, sin quitarle consultas a sus vecinos).
+
+**v6.38** (13 sep 2026) — **«Activo» con su causa, y *maquinaria* entra al arsenal.** `WHY_05` 🔒 sigue el orden del uno a uno (credo → los tres elementos con nombre → el activo) y estrena *maquinaria de distribución* como eco de *sistema*; `WHY_03` deja de nombrar un activo sin causa ni la herencia fuera de `FREQ_05`; `FREQ_33` dice *siguen pidiendo* en vez del *activos* del gremio.
 
 **v6.37** (13 sep 2026) — **`WHY_02` 🔒 pierde el argumento que le sobraba a la analogía.** La franquicia pasa de tres párrafos a un puente de una frase que compara hacia arriba; salen dos precisiones para quien no sabe música. Mismo orden, de 1.109 a 830 caracteres. Sincronizado por prefijo con `respuestas-maestras.ts`; la pregunta de cierre no cambia.
-
-**v6.36** (13 sep 2026) — **`WHY_01` 🔒 se escribe como lo escribiría Vélez.** Cuatro párrafos pasan a cinco frases: la palabra llana, el credo, «hicimos sencillo lo que antes era complicado» con las dos acciones, y Gano Excel como estatus en una línea. Salen el cobro de la primera línea, la deuda y los tres elementos, que son de `WHY_02`. Misma forma que el perfil del WABA y la apertura del canal.
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
 
@@ -1021,6 +1021,24 @@ Y si en su momento no despegó como quería, lo más probable es que no fuera po
 Ahí está la diferencia que vale la pena que vea: todo se maneja desde una aplicación, y buena parte desde WhatsApp. Usted comparte su enlace; yo converso con cada interesado, aclaro sus dudas y maduro su decisión de avanzar, a la hora que sea — por usted y por todo su sistema.
 
 **Pregunta de seguimiento:** Cuénteme qué lo frenó en su momento, y le muestro qué cambia ahora.
+
+---
+
+## 🎬 BLOQUE 11: EL RETO DE LOS 90 DÍAS - 1 respuesta
+
+### **RETO_01: "¿Cuáles son las tres condiciones del reto?"**
+**[Índice]:** Cuáles son las tres condiciones del reto de Luis Cabrejo: la empresa que está creando en 90 días, que se inicia con poco capital, funciona sin estar encima y genera ingresos para tener tranquilidad financiera.
+**[Concepto Nuclear]:** Existe porque el video del día 8 (14 sep 2026) se publicó nombrando las tres condiciones y quien lo ve escribe preguntándolas (Director, 14 sep 2026). Son las del día 0, dichas en cámara; la tercera se formula desde el día 8 como *tranquilidad financiera* (el día 0 decía *vivir cómodo*) y así se sostiene de aquí en adelante. ⛔ **La tercera NO es un resultado prometido:** es lo que el reto pone a prueba en público, con marcador semanal que incluye lo que falla; nunca *«usted va a lograr»*, nunca cifra ni plazo. Nombra el MECANISMO (la recompra de sus clientes y distribuidores), decisión explícita del Director aunque la apertura del canal lo calla, porque aquí la persona preguntó justo por esa condición. ⛔ Sin precio: si preguntan cuánto cuesta, lo atiende `FREQ_03` con el pin por país. Las dos acciones van con quién hace el trabajo. ⚠️ **Colisiones medidas antes de desplegar:** *tres condiciones* vive también en `COMP_BIN_06` (cobro del Binario) y *plan de los 90 días* en el índice de `NIVELES_01`; con este índice las siete formas de preguntar por el reto llegan aquí primero y los dos vecinos conservan sus consultas. El índice nombra *reto* y *Luis* a propósito: son las palabras que separan esta pregunta de las otras dos.
+
+Con gusto. Son las tres condiciones que Luis Cabrejo se puso para el reto de los 90 días: construir, delante de todos, una empresa de distribución que otras personas puedan tener como suya.
+
+**1. Que se pueda iniciar con bajo capital.** Un negocio tradicional le pide arriendo, nómina e inventario antes de la primera venta. Aquí se inicia con un paquete de producto.
+
+**2. Que funcione sin que usted tenga que estar encima.** Gano Excel fabrica, almacena y despacha. Queswa conversa con quien llega, resuelve sus dudas y madura la decisión. A usted le quedan dos acciones: compartir y recibir.
+
+**3. Que genere ingresos para tener tranquilidad financiera.** El ingreso sale de la recompra: cada vez que sus clientes y sus distribuidores vuelven a comprar. Si esta tercera se cumple es justo lo que el reto va mostrando, semana a semana, con lo que funciona y con lo que falla.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
 
 ---
 

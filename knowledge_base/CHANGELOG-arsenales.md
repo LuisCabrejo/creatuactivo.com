@@ -464,6 +464,16 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.39 — Nace el bloque del reto: `RETO_01` responde las tres condiciones (14 sep 2026)
+
+El video del día 8 del reto de los 90 días (la intro semanal) se publicó nombrando las tres condiciones de la empresa que Luis construye en público, y Queswa no tenía respuesta propia. Medido antes de escribirla: *«¿cuáles son las tres condiciones?»* se repartía entre seis fragmentos ajenos (`NIVELES_09`, `FREQ_02`, `WHY_05`…), con `COMP_MODELO_01` en el top 6 y `COMP_BIN_06` —las condiciones de cobro del Binario— como colisión léxica directa. Un primer contacto recibiendo el plan de compensación es el fallo que más cuesta.
+
+- **`RETO_01`, bloque 11 nuevo.** Las tres condiciones tal como se dijeron en cámara, la tercera formulada como lo que el reto pone a prueba (nunca como resultado), sin precio, las dos acciones con quién hace el trabajo y cierre hacia `WHY_02` con la misma oferta de `WHY_01`. Nombra la recompra como origen del ingreso por decisión explícita del Director: la persona preguntó por esa condición.
+- **Índice medido contra el corpus real sin desplegar** (arnés validado: reembebe `WHY_01`, `PERFIL_01` y `FREQ_14` con 0.9998–1.0000 contra lo guardado). Siete paráfrasis del reto → 7/7 en el puesto 1. Vecinos intactos: *«qué necesito para cobrar el binario»* sigue en `COMP_BIN_06`, *«de qué se trata el plan de los 90 días»* en `NIVELES_01`, *«cómo funciona el negocio»* en `WHY_02`, *«cuánto cuesta empezar»* en `FREQ_03`. Un índice más corto se descartó: perdía *«la empresa que se inicia con poco capital y sin estar encima»* (puesto 15).
+- Guardarraíl de negocio sobre el cuerpo antes de desplegar: promesa de ingreso, precio con comisión, modelo inventado y marca interna, los cuatro sin disparar.
+
+⏳ **Pendiente, a pedido del Director:** una solución general para que lo que se estrene en un video del reto tenga respuesta en Queswa antes de publicarse (la séptima regla del plan, que sigue sin confirmar).
+
 ### v6.38 — «Activo» con su causa, y *maquinaria* entra al arsenal (13 sep 2026)
 
 Auditoría de las diecisiete apariciones de *activo* en lo que se sirve del arsenal inicial, a pedido del Director. Once son verbo o nomenclatura (*se activa*, *Bono GEN5 activo*, *acceso queda activo*, *mantiene el sistema activo*) y no tocan la regla. `WHY_04` 🔒 y `FREQ_05` la aplican de manual (causa delante, el activo definido por lo que produce). Tres se corrigieron:

@@ -52,6 +52,7 @@ import {
   contieneNucleoSalud, declaraCondicion, pideEvidencia,
 } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
+import { mencionaElReto } from '@/lib/puerta-reto';
 import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
@@ -1610,8 +1611,8 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /(12|doce)\s*nivel.*simulador/i,     // "los 12 niveles del simulador"
   ];
 
-  // 🔥 CLASIFICACIÓN: RETO 12 DÍAS + COMPENSACIÓN GENERAL (arsenal_compensacion)
-  // Prioridad alta para capturar preguntas sobre el reto, inversión mínima y formas de ganar
+  // 🔥 CLASIFICACIÓN: COMPENSACIÓN GENERAL (arsenal_compensacion)
+  // Prioridad alta para capturar preguntas sobre inversión mínima y formas de ganar
   const patrones_compensacion = [
     // "Bola de nieve" — el propio arsenal la introduce en COMP_MODELO_01 y
     // COMP_BIN_01, así que la pregunta de seguimiento llega segura. El vector la
@@ -1621,11 +1622,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // silueta que el prospecto reconoce como pirámide. Un concepto que nosotros
     // nombramos tiene que tener su puerta puesta a mano (10 ago 2026).
     /bola de nieve/i,
-    // ===== RETO DE LOS 12 DÍAS =====
-    /reto/i,                           // "reto", "el reto"
+    // ===== RESTOS DEL RETO DE LOS 12 DÍAS =====
+    // «reto» ya no se atrapa aquí (14 sep 2026): la palabra hoy nombra el reto de
+    // los 90 días de Luis, y la atiende su puerta (src/lib/puerta-reto.ts).
     /12.*días/i,                       // "12 días"
     /doce.*días/i,                     // "doce días"
-    /reto.*diciembre/i,                // "reto de diciembre"
     /campaña.*diciembre/i,             // "campaña de diciembre"
     /construir.*diciembre/i,           // "construir en diciembre"
 
@@ -1667,10 +1668,7 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     /cuánto.*puedo.*ganar/i,           // "cuánto puedo ganar"
     /cuanto.*puedo.*ganar/i,           // sin tilde
     /potencial.*ganancias/i,           // "potencial de ganancias"
-    /ganar.*reto/i,                    // "ganar con el reto"
     /ganar.*12.*días/i,                // "ganar en 12 días"
-    /ganancias.*reto/i,                // "ganancias del reto"
-    /ingresos.*reto/i,                 // "ingresos del reto"
 
     // ===== DUPLICACIÓN 2x2 =====
     /2.*x.*2/i,                        // "2x2"
@@ -2001,9 +1999,9 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     return 'arsenal_12_niveles';
   }
 
-  // 🔥 PRIORIDAD 3: RETO 12 DÍAS + COMPENSACIÓN (arsenal_compensacion)
+  // 🔥 PRIORIDAD 3: COMPENSACIÓN (arsenal_compensacion)
   if (patrones_compensacion.some(patron => patron.test(messageLower))) {
-    console.log('🔥 Clasificación: RETO 12 DÍAS + COMPENSACIÓN (arsenal_compensacion)');
+    console.log('🔥 Clasificación: COMPENSACIÓN (arsenal_compensacion)');
     return 'arsenal_compensacion';
   }
 
@@ -2546,7 +2544,18 @@ function analizarIntencionSemantica(userMessage: string): string[] {
   // largo no mueve su vector (medido); lo que funciona es decidirlo en código.
   //
   // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
-  const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: RegExp; porque: string; dictar?: boolean }[] = [
+  const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp, 'test'>; porque: string; dictar?: boolean }[] = [
+    {
+      // 14 sep 2026: el reto de los 90 días que Luis documenta en sus historias.
+      // «¿cuáles son las tres condiciones del reto?» caía en compensación por el
+      // `/reto/i` heredado del Reto de los 12 días, y el modelo negaba que el reto
+      // existiera. Va primera: quien nombra el reto viene de un video y ninguna
+      // otra puerta lo atiende. La llave y sus exclusiones → src/lib/puerta-reto.ts
+      fragmento: 'arsenal_inicial_RETO_01',
+      titulo: 'El reto de los 90 días — RETO_01',
+      porque: 'pregunta por el reto de los 90 días',
+      cuando: { test: mencionaElReto },
+    },
     {
       // 24 ago: «¿por qué uno debería desarrollar este negocio?» recuperaba
       // ADV_OBJ_02 (escrito para quien ya tiene negocio) y de ahí salió «lo

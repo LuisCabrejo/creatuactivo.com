@@ -51,6 +51,8 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // v3 (aprobada por el Director el 15 sep 2026): ALERTA DE CUENTA con solo dos datos —
 // nombre y PV vigentes— y el mínimo como hecho. Sin cajas ni «le faltan»: ninguna
 // cantidad a comprar. Si Meta también la pasa a MARKETING, los avisos quedan solo por push.
+// 🔴 RESULTADO (15 sep 2026): APPROVED · MARKETING (previous_category UTILITY). No usar.
+// Tres intentos: Meta lee cualquier aviso de umbral antes del corte como comercial → solo push.
 const NOMBRE  = 'activacion_50pv_v3';
 
 const PLANTILLA = {

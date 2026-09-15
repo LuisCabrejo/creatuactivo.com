@@ -18,10 +18,9 @@
  * (hay que cambiar de nombre). La v1 cayó justo ahí; ver la nota junto a NOMBRE.
  *
  * Variables (en este orden, las manda el Dashboard):
- *   {{1}} primer nombre · {{2}} PV vigentes · {{3}} PV que faltan ·
- *   {{4}} cajas CON la palabra ("1 caja" / "3 cajas") — así el singular se lee bien
+ *   {{1}} primer nombre · {{2}} PV vigentes (v3; la v2 llevaba además faltan y cajas)
  *
- * Después de aprobada COMO UTILITY: WA_PLANTILLA_ACTIVACION=activacion_50pv_v2 en Vercel del
+ * Después de aprobada COMO UTILITY: WA_PLANTILLA_ACTIVACION=activacion_50pv_v3 en Vercel del
  * DASHBOARD, y verificar la categoría contra la API (--estado), no en el Manager.
  *
  * Uso:
@@ -49,7 +48,10 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // 🔴 RESULTADO (15 sep 2026, --estado): APPROVED · MARKETING (previous_category UTILITY).
 // Tampoco sirve: un aviso de «le faltan N PV (M cajas)» Meta lo lee como empuje a
 // comprar aunque no haya imperativo. NO poner esta plantilla en WA_PLANTILLA_ACTIVACION.
-const NOMBRE  = 'activacion_50pv_v2';
+// v3 (aprobada por el Director el 15 sep 2026): ALERTA DE CUENTA con solo dos datos —
+// nombre y PV vigentes— y el mínimo como hecho. Sin cajas ni «le faltan»: ninguna
+// cantidad a comprar. Si Meta también la pasa a MARKETING, los avisos quedan solo por push.
+const NOMBRE  = 'activacion_50pv_v3';
 
 const PLANTILLA = {
   name: NOMBRE,
@@ -63,8 +65,8 @@ const PLANTILLA = {
       // ni al final"). Por eso «Hola, {{1}}.» y el cierre en texto fijo.
       // ⚠️ Sin imperativos comerciales («compre», «pague», «comparta»): son los que
       // hacen que Meta reclasifique a MARKETING.
-      text: 'Hola, {{1}}. Estado de su cuenta en Gano: {{2}} PV vigentes. La calificación pide 50 PV en el corte del domingo a medianoche, así que le faltan {{3}} PV ({{4}}). Cualquier duda, aquí estoy.',
-      example: { body_text: [['Nidia', '15', '35', '3 cajas']] },
+      text: 'Hola, {{1}}. Alerta de su cuenta en Gano: al día de hoy tiene {{2}} PV vigentes y el mínimo para calificar en el corte del domingo a medianoche es de 50 PV. Cualquier duda, aquí estoy.',
+      example: { body_text: [['Nidia', '15']] },
     },
   ],
 };

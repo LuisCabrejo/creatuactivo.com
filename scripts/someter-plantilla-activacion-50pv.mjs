@@ -46,6 +46,9 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // pasaron a MARKETING las que piden una acción comercial («Compre…», «Compártalo…»).
 // Por eso la v2 es un ESTADO DE CUENTA sin orden de compra, y cierra como
 // recordatorio_acuerdo. Texto aprobado por el Director el 15 sep 2026.
+// 🔴 RESULTADO (15 sep 2026, --estado): APPROVED · MARKETING (previous_category UTILITY).
+// Tampoco sirve: un aviso de «le faltan N PV (M cajas)» Meta lo lee como empuje a
+// comprar aunque no haya imperativo. NO poner esta plantilla en WA_PLANTILLA_ACTIVACION.
 const NOMBRE  = 'activacion_50pv_v2';
 
 const PLANTILLA = {

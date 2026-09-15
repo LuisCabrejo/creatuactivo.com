@@ -174,7 +174,7 @@ captions/.venv/bin/python blanquear_dientes.py curado.mov retocado.mov
 # 3 · color, subtítulos, atmósfera, marca de agua, música y outro
 captions/.venv/bin/python pildora.py retocado.mov --lut --guion texto.txt --sin-recorte --sin-compuerta --outro
 # 4 · rótulo del día, encima del video ya acabado
-captions/.venv/bin/python rotulo_dia.py /tmp/rotulo.png "VIERNES · DÍA 5"   # y el overlay de arriba
+captions/.venv/bin/python rotulo_dia.py /tmp/rotulo.png "VIERNES · DÍA 5"   # overlay + outro corto → «Cerrar el día», abajo
 ```
 
 ⚠️ **Si los clips del día se grabaron con luces incompatibles, el color va POR CLIP** (campo
@@ -193,6 +193,130 @@ el resto era el edificio y el cielo. Las dos quedaron en ~113.
   simultáneo; el número no.
 - ⚠️ Un percentil de negros en 0 **no siempre es un defecto**: en estos rodajes es la chaqueta negra.
   No perseguir ese número.
+
+⭐ **CUÁNTO SE PUEDE APRETAR UN CORTE — se mide, no se supone** (12 sep 2026, día 6). El Director
+pidió bajar de 67 s a 60 y listó cinco espacios para eliminar. Cuatro de los cinco ya no existían:
+midiendo los cuadros por encima del piso, el cuerpo tenía **59.4 s de VOZ REAL**. Por debajo de
+~62 s ya no se quitan silencios — se quitan palabras, y esa decisión es del Director, no del montaje.
+**Antes de prometer una duración, medir el habla**: suma de cuadros por encima de `piso+5 dB` dentro
+de las islas detectadas con umbral generoso. Ese número es el suelo físico de la pieza.
+
+⛔ **CORRECCIÓN del mismo día: esos «59.4 s de voz real» estaban mal medidos.** Con ruido de centro
+comercial, `piso+5` cuenta el MURMULLO como voz (ver el umbral de apertura, abajo). Con el umbral por
+encima del murmullo salieron **7.5 s de nada**, y el guion entero —con las tres frases que se habían
+quitado— cupo en **59.0 s**. Lección: **no se le propone al Director quitar frases hasta haber medido
+el habla con el umbral correcto**; él oyó los huecos y tenía razón.
+
+⛔ **DOS ISLAS CASI PEGADAS SON UNA SOLA PALABRA PARTIDA.** Una sílaba átona puede vivir en el hueco
+entre dos islas y desaparecer sin que ningún aviso salte. Pasó tres veces el mismo día con *«sin la
+**ayuda** de mis hijos»*, cuya primera sílaba toca el piso (−1.7 dB): el detector cerraba en 30.39 y
+reabría en 30.71. **Se unen las islas separadas por menos de 0.40 s**, y no cuesta duración porque se
+ahorran el margen de entrada y el de cola de la isla que desaparece. ⚠️ Dos intentos fallaron por
+centésimas —0.26 y 0.30— y el segundo porque los tiempos que estaba comparando **ya llevaban los
+márgenes sumados**: el hueco real era 0.32 s, no 0.19. Se compara isla contra isla, antes de márgenes.
+
+⚠️ **El umbral de CIERRE se baja por zona, no en toda la pieza.** Bajarlo globalmente para rescatar
+una átona estira todos los bordes y le costó **8 segundos** a la pieza. Se baja a `piso+2.5` solo en
+la zona donde vive la palabra floja y se deja en `piso+4.5` en el resto.
+
+⭐ **Y la comprobación que de verdad decide: transcribir el montaje y comparar contra el guion.**
+Los avisos del verificador se pueden discutir; una palabra que no está en la transcripción, no está.
+Es lo único que cazó las tres pérdidas del día 6 —*ayuda*, *mentiría* y el *«Es»* de *«Es normal»*—.
+⚠️ Whisper escribe *asiática* por **ciática** y *no soy de hacer* por **no soy de acero**: eso es la
+transcripción, no el audio. Por eso el subtítulo va siempre del guion escrito (`--guion`).
+
+⚠️ **El arnés de `--medir` mentía, y costó media hora perseguir un fantasma** (12 sep 2026). Usaba
+**una sola malla de mediapipe en modo VÍDEO** para el fotograma original y el procesado; como el
+modo vídeo arrastra el seguimiento del cuadro anterior y ahí se le alternan originales y procesados
+de instantes distintos, colocaba la boca donde ya no estaba. El informe decía que el blanqueamiento
+**oscurecía** los dientes 47 puntos (117 → 70). Con una malla limpia por medición, el mismo fotograma
+da **88.8 → 103.2**: aclara, como debe. Ya está corregido en el script. ⚠️ Y una **separación
+negativa no es un fallo**: es la boca cerrada, y entonces se está midiendo el brillo del labio. El
+retoque se juzga solo en los cuadros de boca abierta — se localizan barriendo la pieza y quedándose
+con los de mayor separación.
+
+⚠️ **Cuando la comparación contra el guion marca VARIAS palabras seguidas como faltantes, primero se transcribe ese tramo AISLADO** (14 sep 2026, día 8). Transcrito entero, el montaje de 57 s «perdió» *«Queremos cambiar las reglas del juego, simplificar la vida»*. Transcrito solo el tramo de 22 a 36 s, la frase estaba completa y en su lugar: el modelo, con audio largo, **se salta frases enteras**. Una palabra suelta que falta suele ser un corte; un bloque contiguo que falta suele ser la transcripción. Se verifica antes de reconstruir el corte.
+
+⚠️ **En sala silenciosa, los avisos de «segmento sin voz» y de «cola negativa» del verificador de `armar-curado.py` pueden ser falsos** (mismo día). Con el piso de ruido en −74 dB y las pausas al nivel del piso, marcó ocho segmentos «sin voz» y cuatro colas negativas, y la transcripción aislada mostró todas las palabras en su sitio. Con ruido de centro comercial (día 6) esos mismos avisos sí eran reales. **La regla del día 6 se corrige así: un aviso con cola negativa nunca se descarta sin mirar, pero lo que decide es la transcripción del tramo, no el aviso.** ⏳ Pendiente: calibrar el verificador contra el piso de ruido de cada fuente.
+
+⭐ **EL UMBRAL DE APERTURA VA POR ENCIMA DEL MURMULLO, no «unos dB sobre el piso»** (12 sep 2026, día 6).
+Medido en el centro comercial: el murmullo de fondo se sienta en **+5 a +13 dB** sobre el piso de
+ruido y la voz en **+20 a +36**. Con la apertura en `piso+10` las islas se abrían sobre ruido: entraron
+**4.2 s sin una palabra** antes de «hoy empecé a sentirme mejor» y 2.1 s detrás de «de mis hijos», y
+ese era el vacío que el Director oyó y marcó. **Apertura en `piso+18`**; el cierre sigue bajo (+4.5 a
++8, y +2.5 a +5 donde vive una átona). En sala silenciosa (día 8, piso −74 dB) el mismo esquema
+funciona sin retoques. **Antes de fijar la apertura, mirar el histograma de energía de un tramo sin
+voz**: el murmullo es el primer bulto por encima del piso.
+
+### Cómo se arman los `segmentos` del `corte.json` — el detector de islas
+
+⚠️ **Este detector NO vive en ningún archivo del repo**: se escribió en línea durante los días 6 y 8.
+Aquí queda el algoritmo con los parámetros que funcionaron, para rehacerlo en minutos. ⏳ Llevarlo a
+`armar-curado.py` como opción es decisión pendiente.
+
+1. **Energía** del WAV del micrófono ya limpio (RNNoise, 16 kHz, mono) en ventanas de **10 ms**, en dB.
+   **Piso** = percentil 15.
+2. **Zonas por línea del guion**: se transcribe el micrófono con tiempos por palabra y se declara una
+   zona `(inicio, fin, nota, cierre_dB)` por frase buena, descartando tomas repetidas. El cierre es
+   **+8** por defecto y **+5** (o menos) en la zona de una átona.
+3. **Islas con histéresis**: se abre cuando la energía pasa `piso+18`; se retrocede mientras siga sobre
+   el cierre; se avanza mientras siga sobre el cierre **o** haya voz de apertura en los próximos
+   **0.26 s** (salta respiraciones cortas). Islas de menos de 0.20 s se descartan.
+4. **Unir** islas separadas por menos de **0.40 s** (se compara isla contra isla, ANTES de márgenes).
+5. **Pausas internas**: dentro de cada isla, un tramo de **0.38 s o más** por debajo de `piso+8` se
+   recorta dejando **0.16 s** (mitad a cada lado).
+6. **Márgenes y sincronía**: `de = inicio − 0.04 + desfase`, `a = fin + 0.09 + desfase`, redondeado a
+   centésimas. Con esos márgenes la pieza respira sin arrastrarse: con 0.54 s entre frases, el día 6
+   tenía **20 s de silencio en 79**.
+7. Se escribe `segmentos` y un `_descartado` con lo que se quitó y **por qué** (tomas repetidas,
+   alucinaciones de Whisper sobre silencio, reglas del Director).
+
+**La comprobación que decide**, siempre al final: transcribir el curado con faster-whisper
+`large-v3` (`vad_filter=False`, `condition_on_previous_text=False`, `beam_size=5`) y buscar una
+palabra llave de cada frase del guion. Si falta un bloque contiguo, transcribir ESE tramo aislado
+antes de tocar el corte (ver arriba).
+
+### Cerrar el día — rótulo, outro corto y entrega
+
+La historia de Instagram y Facebook entra en **una sola tarjeta de 60 s**: apuntar a **59–59.5 s en
+total**. El outro canónico dura 3.1 s; el **outro corto dura 1.42 s** y se arma quitándole el logo
+congelado del medio (el logo está quieto, así que el recorte no se nota):
+
+```bash
+cd scripts/dankoe-video; W=<carpeta de trabajo del día>
+ffmpeg -y -v error -i motion/out/outro.mp4 -t 0.83 -c:v libx264 -crf 16 -pix_fmt yuv420p -r 24 -an $W/o_a.mp4
+ffmpeg -y -v error -ss 2.46 -i motion/out/outro.mp4 -c:v libx264 -crf 16 -pix_fmt yuv420p -r 24 -an $W/o_b.mp4
+printf "file '%s'\nfile '%s'\n" $W/o_a.mp4 $W/o_b.mp4 > $W/lista.txt
+ffmpeg -y -v error -f concat -safe 0 -i $W/lista.txt -c copy $W/outro_mudo.mp4
+ffmpeg -y -v error -i motion/out/outro.mp4 -vn -af "atrim=0:0.83,asetpts=N/SR/TB" -c:a pcm_s16le $W/oa_a.wav
+ffmpeg -y -v error -i motion/out/outro.mp4 -vn -af "atrim=2.46,asetpts=N/SR/TB" -c:a pcm_s16le $W/oa_b.wav
+ffmpeg -y -v error -i $W/oa_a.wav -i $W/oa_b.wav -filter_complex "[0:a][1:a]concat=n=2:v=0:a=1[a]" -map "[a]" $W/outro_audio.wav
+ffmpeg -y -v error -i $W/outro_mudo.mp4 -i $W/outro_audio.wav -c:v copy -c:a aac -b:a 192k -shortest $W/outro_corto.mp4
+```
+
+Con la píldora corrida **sin `--outro`** (deja `<nombre>-listo.mp4` en `Mi unidad/videos/reto-90/salida`),
+el rótulo entra con fundido durante 3.8 s y después se concatena el outro corto:
+
+```bash
+captions/.venv/bin/python rotulo_dia.py $W/rotulo.png "LUNES · DÍA 8"
+ffmpeg -y -v error -i "$V/<nombre>-listo.mp4" -loop 1 -t 3.8 -i $W/rotulo.png -filter_complex \
+  "[1:v]format=rgba,fade=t=in:st=0:d=0.45:alpha=1,fade=t=out:st=3.1:d=0.7:alpha=1[l];[0:v][l]overlay=0:0:enable='lt(t,3.8)'[v]" \
+  -map "[v]" -map 0:a -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -r 24 -c:a copy $W/cuerpo.mp4
+ffmpeg -y -v error -i $W/cuerpo.mp4 -i $W/outro_corto.mp4 -filter_complex \
+  "[0:v]scale=1080:1920,fps=24,setsar=1,format=yuv420p[v0];[1:v]scale=1080:1920,fps=24,setsar=1,format=yuv420p[v1];[0:a]aformat=fltp:48000:stereo[a0];[1:a]aformat=fltp:48000:stereo,loudnorm=I=-14:TP=-1.5:LRA=11[a1];[v0][a0][v1][a1]concat=n=2:v=1:a=1[v][a]" \
+  -map "[v]" -map "[a]" -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -r 24 -c:a aac -b:a 192k -movflags +faststart \
+  ~/Downloads/reels-equipo/<MMDD>/entrega/reto-diaN-historia.mp4
+```
+
+Y se copia la entrega a `Mi unidad/videos/reto-90/salida/`. Se comprueba duración (`ffprobe`),
+sonoridad (`ebur128`, alrededor de −14 LUFS) y tres fotogramas: el rótulo, el medio y el outro.
+
+⛔ **CADA PASO SE COMPRUEBA POR SU SALIDA, no por el ✅ de un `grep`** (12 sep 2026). Una edición de
+la documentación interna de `blanquear_dientes.py` dejó una cadena sin cerrar; el script murió con
+`SyntaxError`, el `grep "✅"` que filtraba su salida escondió el error, y `pildora.py` procesó el
+`retocado.mov` **de la corrida anterior**: salió una entrega sin el corte nuevo. Desde entonces:
+filtrar con `grep -E "✅|Error|Traceback"`, confirmar que el archivo de salida es **más nuevo** que el
+de entrada, y después de tocar un `.py` correr `python -m py_compile` antes de usarlo.
 
 ⚠️ **El retoque va en el paso 2 y no en otro sitio.** Antes del LUT la cara está sin grano ni
 viñeta, que es donde mediapipe la encuentra mejor y donde el bilateral no pelea con la atmósfera;

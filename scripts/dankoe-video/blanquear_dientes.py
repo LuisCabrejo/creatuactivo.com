@@ -179,22 +179,30 @@ def main():
     piel   = float(sys.argv[sys.argv.index("--piel")+1])   if "--piel"   in sys.argv else 0.45
     prueba = sys.argv[sys.argv.index("--prueba")+1].split(",") if "--prueba" in sys.argv else None
     if "--medir" in sys.argv:
-        cap = cv2.VideoCapture(ent); malla = crear_malla(); m2 = crear_malla()
+        cap = cv2.VideoCapture(ent)
         print(f"  fuerza={fuerza}  piel={piel}")
         print(f"  {'momento':>9s} {'separación':>22s}  {'textura conservada':>20s}")
         for t in sys.argv[sys.argv.index("--medir")+1].split(","):
             cap.set(cv2.CAP_PROP_POS_MSEC, float(t)*1000)
             ok, f = cap.read()
             if not ok: continue
-            a = medir(f, malla)
-            g, _ = procesar(f.copy(), m2, fuerza, piel)
-            b = medir(g, malla)
+            # ⚠️ UNA MALLA NUEVA POR MEDICIÓN. Con una sola compartida, mediapipe
+            # trabaja en modo VÍDEO y arrastra el seguimiento del fotograma anterior:
+            # como aquí se le alternan originales y procesados de instantes distintos,
+            # coloca la boca donde ya no está y la medición miente. El 12 sep 2026 eso
+            # hizo creer que el blanqueamiento OSCURECÍA los dientes 47 puntos (117 → 70).
+            # Con mallas limpias, el mismo fotograma da 88.8 → 103.2: aclara, como debe.
+            a = medir(f, crear_malla())
+            g, _ = procesar(f.copy(), crear_malla(), fuerza, piel)
+            b = medir(g, crear_malla())
             if not a or not b: print(f"  {t:>9s}  (sin cara detectada)"); continue
             cons = 100*b["textura"]/max(a["textura"], 1e-6)
             print(f"  {t:>9s}s  {a['separacion']:6.1f} → {b['separacion']:6.1f} puntos L*"
                   f"      {cons:5.1f} %")
         cap.release()
         print("\n  natural: separación 30-42 · textura conservada 65-80 %")
+        print("  ⚠️ una separación NEGATIVA no es un fallo: es la boca cerrada, y entonces")
+        print("     lo que se mide es el brillo del labio. Se juzga con la boca abierta.")
         print("  cargado: separación > 50 · textura < 55 %")
         return
     cap = cv2.VideoCapture(ent)

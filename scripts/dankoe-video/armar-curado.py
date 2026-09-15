@@ -234,6 +234,19 @@ def main():
         else: i += 1
     niveles = [(a, b, 20*math.log10(math.sqrt(np.mean(
                  np.power(10, e[int(a/paso):int(b/paso)]/10)))+1e-9)) for a, b in islas]
+    # ⚠️ Una isla CORTA y MUY por debajo del resto no es una frase floja: es una
+    # respiración. Medido el 12 sep 2026 — ocho avisos de «frase baja» en un mismo
+    # montaje resultaron ser las ocho respiraciones entre frases, todas de menos de
+    # un segundo y 13 a 16 dB abajo (Whisper las transcribe como «Gracias»). Avisar
+    # por ellas entrena a ignorar el informe, que es peor que no tenerlo.
+    if niveles:
+        _m = float(np.median([d for _,_,d in niveles]))
+        # Umbral calibrado sobre el día 6: las respiraciones llegaron a 1.14 s y a
+        # 7.6 dB, así que 0.85 s / 8 dB dejaba pasar dos. ⚠️ El costo es que una frase
+        # REAL de menos de 1.2 s que suene 7 dB abajo se silencia; se acepta porque
+        # una frase tan corta y tan baja la caza igual el oído, y un informe que grita
+        # ocho veces por respiraciones no lo lee nadie.
+        niveles = [(a,b,d) for a,b,d in niveles if not (b-a < 1.2 and _m-d > 7)]
     print(f"\nVERIFICACIÓN  ({len(islas)} frases detectadas)")
     avisos = []
     if niveles:

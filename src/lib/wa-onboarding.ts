@@ -602,9 +602,12 @@ export function mensajeSocioEnlace(socio: SocioIdentificado, slugDelEnlace: stri
     `${primera}\n\n` +
     `A usted no le abro esa conversación porque ya lo conozco como socio. Si quiere verla tal como la vive un prospecto, ábrala desde otro número.\n\n` +
     (propio ? '' : `El suyo es ${enlaceDeCanal(socio.slug)}.\n\n`) +
-    `¿Le redacto el mensaje para enviárselo a alguien?`
+    OFERTA_REDACTAR
   );
 }
+
+/** La oferta con que el canal cierra con el socio: redactarle el mensaje para alguien. */
+export const OFERTA_REDACTAR = '¿Le redacto el mensaje para enviárselo a alguien?';
 
 /**
  * Saludo para el dueño de canal. Es lo contrario del de prospecto: no explica el
@@ -622,6 +625,115 @@ export function saludoDeSocio(nombreCorto: string, slug: string): string {
     `en concreto, revisar cómo va cada persona que ha llegado, o resolver cualquier ` +
     `detalle del plan.`
   );
+}
+
+// ─── Lo que es del Centro de Mando se pide en el Centro de Mando ──────────────
+//
+// Decisión del Director (16 sep 2026, hablada con Patricia y con los demás
+// empresarios que tienen Dashboard): Queswa en WhatsApp está hecha para atender a
+// los PROSPECTOS del socio. Queswa en el Centro de Mando (queswa.app) está hecha
+// para el DISTRIBUIDOR: conoce sus metas, aprende cómo escribe, entra a su back
+// office y carga compras. A los distribuidores se les enseñó que la redacción
+// la obtienen en mejor calidad allá.
+//
+// ⚠️ PERO EL MENSAJE PARA UNA PERSONA SÍ SE REDACTA AQUÍ (Director, el mismo
+// día, tras probarlo él: «para mí eso es genial»). Si el socio está en WhatsApp y
+// pide un mensaje para su amigo, su hermana, un conocido con oficio, se le hace
+// el mejor trabajo posible con el esqueleto (`wa-redaccion-socio.ts`, en el MODO
+// SOCIO del motor). Lo que va al Centro de Mando es el mensaje para un NEGOCIO o
+// una EMPRESA —restaurantes, tiendas, el gerente, los dueños de—, además de
+// cargar compras y ver su lista, que aquí no existen.
+//
+// El caso que lo decidió: el 15 sep Patricia Reyes gastó 20 turnos y 28 minutos
+// aquí pidiendo un correo para restaurantes de autor. El motor del canal no tiene
+// su lista, ni sus metas, ni su voz, y lo que produjo fueron ocho borradores con
+// claims que el guardarraíl no vio. La capacidad vive donde está el contexto.
+//
+// Por eso, cuando el socio pide aquí algo que es del Dashboard, recibe una
+// invitación amable —dicha como algo que él tiene por ser socio, nunca como un
+// rechazo— y el «sí» le manda el acceso en el mismo chat (plantilla
+// `acceso_centro_mando_v2`, UTILITY, verificada contra Meta el 16 sep 2026).
+
+/** Verbo de escribir + la cosa que se escribe. Tolerante al pulgar (`prueba-typos.mts`). */
+const RE_PIDE_REDACCION =
+  /\b(red[aá]ct|escr[ií]b|arm|prep[aá]r|h[aá]g|haz|cre|gener|dise[ñn]|ay[uú]d)[a-záéíóúñ]*\b[^.?!]{0,50}?\b(mensajes?|textos?|correos?|e-?mails?|cartas?|invitaci[oó]n(es)?|notas?|escritos?|contenidos?|comunicaci[oó]n|propuestas?)\b|\b(necesito|quiero|quisiera|me gustar[ií]a|dame|deme|env[ií][ae]me|m[aá]nd[ae]me)\b[^.?!]{0,30}?\b(un|el|una|la)\s+(mensaje|texto|correo|carta|invitaci[oó]n)\b|\bescr[ií]b[ae]le a\b/i;
+
+/** Cargar una compra, ver su lista o su avance: todo eso vive en su Centro de Mando. */
+const RE_PIDE_FUNCION_DASHBOARD =
+  /\b(c[aá]rg|sub|mont|registr|ingres|hac|pon|cre)[a-záéíóúñ]*\s+(una?\s+|la\s+|el\s+|mi\s+)?(compra|pedido|orden)\b|\b(mi|mis)\s+(lista|prospectos|contactos|metas?|objetivos?|avance|pipeline|estad[ií]sticas)\b|\b(c[oó]mo (va|van)|qui[eé]n(es)? (ha|han) llegado|cu[aá]nt[oa]s (han )?llegado)\b/i;
+
+/** El destinatario es un NEGOCIO: el establecimiento, su cargo, o varios de ellos. */
+const RE_DESTINO_NEGOCIO =
+  /\b(restaurantes?|tiendas?|negocios?|empresas?|empresari[oa]s?|comercios?|locales?|almac[eé]n(es)?|supermercados?|cafeter[ií]as?|hoteles?|hotel|cl[ií]nicas?|spas?|gimnasios?|drogue?r[ií]as?|farmacias?|naturistas?|panader[ií]as?|oficinas?|compa[ñn][ií]as?|corporativ[oa]s?|proveedor(es)?|gerentes?|due[ñn][oa]s? de|encargad[oa]s? de|administrador(es|a|as)? de|propietari[oa]s? de|b2b)\b/i;
+
+/** Una relación personal delante del destinatario lo vuelve PERSONA aunque tenga negocio. */
+const RE_DESTINO_PERSONA =
+  /\b(mi|una?|el|la|ese|esa)\s+(amig[oa]s?|herman[oa]s?|prim[oa]s?|compadre|comadre|vecin[oa]s?|cu[ñn]ad[oa]s?|t[ií][oa]s?|sobrin[oa]s?|colegas?|jefe|conocid[oa]s?|pareja|espos[oa]|novi[oa]|pap[aá]|mam[aá]|hij[oa]s?|compa[ñn]er[oa]s?|excompa[ñn]er[oa]s?|contacto|persona|se[ñn]or|se[ñn]ora)\b|\balguien\b|\bescr[ií]b[ae]le a\s+[A-ZÁÉÍÓÚ][a-záéíóúñ]+/i;
+
+export type MotivoDashboard = 'redaccion' | 'funcion';
+
+/**
+ * ¿El socio pide aquí algo que es del Centro de Mando? `redaccion` SOLO cuando el
+ * mensaje es para un negocio o una empresa; el mensaje para una persona se queda
+ * en el canal y lo redacta el motor con el esqueleto.
+ */
+export function detectarPideFuncionDashboard(texto: string): MotivoDashboard | null {
+  const t = texto || '';
+  if (RE_PIDE_REDACCION.test(t) && RE_DESTINO_NEGOCIO.test(t) && !RE_DESTINO_PERSONA.test(t)) return 'redaccion';
+  if (RE_PIDE_FUNCION_DASHBOARD.test(t)) return 'funcion';
+  return null;
+}
+
+const CIERRE_INVITACION = 'Es una de las cosas que usted tiene por ser socio. ¿Le mando el acceso?';
+
+/** Copy aprobado por el Director el 16 sep 2026. `insiste` = ya se le invitó en el turno anterior. */
+export function invitacionAlDashboard(nombre: string, motivo: MotivoDashboard, insiste = false): string {
+  const n = nombre ? `, ${nombre}` : '';
+  if (insiste) {
+    return `Aquí no tengo su lista ni la forma en que usted escribe; en su Centro de Mando sí. ¿Le mando el acceso?`;
+  }
+  const primera = motivo === 'redaccion'
+    ? `Un mensaje para un negocio se lo hago mejor desde su Centro de Mando${n}. Allá tengo su lista, sus metas y la forma en que usted escribe, y por eso le sale con su voz y listo para copiar.`
+    : `Eso lo tiene en su Centro de Mando${n}. Allá están su lista, sus metas y su back office, y desde ahí se carga la compra y se ve cómo va cada persona.`;
+  return `${primera}\n\n${CIERRE_INVITACION}`;
+}
+
+/** ¿El último turno del bot fue la invitación? El «sí» que sigue pide el acceso. */
+export function botInvitoAlDashboard(ultimoBot: string): boolean {
+  return (ultimoBot || '').trimEnd().endsWith('¿Le mando el acceso?');
+}
+
+export const ACCESO_NO_ENVIADO =
+  'No me dejó enviarle el acceso ahora mismo. Entre por queswa.app con su correo registrado y le llega en un momento.';
+
+/**
+ * Manda el acceso al Centro de Mando por el mismo camino que usa el Dashboard
+ * (`POST /api/auth/magic-link`, canal whatsapp): el token se genera allá, es de un
+ * solo uso y vence en 24 h, y la plantilla la dispara ese endpoint. Si el canal
+ * falla, el endpoint cae al correo — aquí eso cuenta como no enviado, para que
+ * el socio sepa dónde buscarlo.
+ */
+export async function enviarAccesoDashboard(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  socio: SocioIdentificado,
+): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { data } = await supabase.from('private_users').select('email').eq('constructor_id', socio.constructorId).maybeSingle();
+    const email = (data?.email || '').trim().toLowerCase();
+    if (!email) return { ok: false, error: 'el socio no tiene correo en private_users' };
+    const base = process.env.DASHBOARD_URL || 'https://queswa.app';
+    const r = await fetch(`${base}/api/auth/magic-link`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, canal: 'whatsapp' }),
+    });
+    const j = (await r.json().catch(() => ({}))) as { canal?: string; error?: string };
+    if (r.ok && j.canal === 'whatsapp') return { ok: true };
+    return { ok: false, error: j.error || (j.canal === 'email' ? 'el canal falló y cayó a correo' : `HTTP ${r.status}`) };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
 }
 
 /** Cómo se nombra cada evento. Concreto: qué hizo la persona, no una métrica. */

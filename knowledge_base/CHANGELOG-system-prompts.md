@@ -6,6 +6,18 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.4 — Queswa sabe quién es Luis y qué es el reto de los 90 días (16 sep 2026)
+
+**Por qué.** La auditoría del video del día 9 (`scripts/auditar-guion-queswa.mjs`) dio tres ❌ con la misma raíz: el prompt no sabía que Luis documenta un reto en video. A *«¿qué le pasó a Luis?»* negó haber visto el video y lo llamó «el socio»; a *«¿qué era eso del helado?»* dijo que el mensaje venía de otro chat; a *«lo del después que nunca llega»* lo llevó al dinero.
+
+**Qué se agregó**, en `<role_and_objective>` y solo para `web whatsapp` (el socio del Dashboard no llega desde los videos): quién es Luis, qué es el reto (desde el 7 sep 2026, historias de Instagram y Facebook, una empresa que otras personas puedan tener como suya), que muchas personas escriben tras ver un video, y que lo que mencionen de un video se toma como parte del reto. **La salud, con los datos que dio el Director:** *«tuvo un quebranto de salud y hoy está bien. Eso es todo lo que se cuenta.»* — ningún otro detalle, por decisión suya.
+
+**Redactado en positivo** a propósito: la regla de no nombrar la frase que se quiere evitar aplica también al prompt.
+
+**Desplegado** con `--solo web` y `--solo whatsapp`; `queswa_dashboard` sigue en v5.3. Verificado contra lo desplegado (idéntico carácter por carácter) y, antes de desplegar, que la v5.2 en producción era idéntica al archivo sin la línea nueva: no se subió nada más.
+
+---
+
 ## v5.0 — Un prompt para los dos canales (4 sep 2026)
 
 **Decisión del Director:** la web es el respaldo del canal de WhatsApp si Meta lo cierra, y un respaldo que responde distinto no es respaldo. Hasta hoy eran dos documentos: `queswa_whatsapp` iba en v4.36 (2 sep) con la arquitectura nueva —`<trato>`, `<narrativa>`, `<constraint_framework>`—, y `nexus_main` quedó en v30.0 (27 ago) con la estructura vieja: "Lujo Clínico", Pirámide McKinsey, Centro de Mando, tabla de swaps MLM, ESCALACIÓN, KYC, `CONSTRUCTOR_CONTEXT` con marcadores que ningún código reemplazaba. Todo lo calibrado con el Director en las dos semanas de pruebas del canal no había llegado a la web.

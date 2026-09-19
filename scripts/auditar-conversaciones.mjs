@@ -12,7 +12,9 @@
  *
  * Por defecto solo salen las HUELLAS REALES: una persona llega por el enlace
  * del socio («Hola Queswa, vengo del enlace de …») o saludando, desde `wa_57`
- * + 10 dígitos, un BSUID `wa_CO.…` o una huella web nula. Los arneses arrancan
+ * + 10 dígitos, un BSUID `wa_CO.…` o una huella web nula. El socio se reconoce por
+ * su ficha (abre con la tarea, no saludando) y el chat del Centro de Mando llega
+ * como `dash_{constructor_id}` (queswa.app lo guarda desde el 16 sep 2026). Los arneses arrancan
  * con la pregunta de prueba directamente (wa_5730…, wa_5731… de 4 turnos,
  * wa_conv_*, web_probe_*, wa_e3_*…) y son la mayoría de las filas; salen con --todo.
  *
@@ -34,7 +36,9 @@ const hoy = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' 
 const salida = arg('--salida', path.join('docs', 'respaldos', `auditoria-${hoy}`));
 
 const RE_ARNES = /conv|probe|_p_|q23|wa_e3_|^wa_5730\d{9,}|sede_probe|deploy/;
-const huellaDePersona = (fp) => !fp || fp === 'null' || (!RE_ARNES.test(fp) && /^wa_(57\d{10}|CO\.\d+|[A-Z]{2}\.\d+)$/.test(fp));
+// `dash_{constructor_id}` es el chat del socio en el Centro de Mando (queswa.app
+// guarda cada turno desde el 16 sep 2026): siempre es una persona y siempre socio.
+const huellaDePersona = (fp) => !fp || fp === 'null' || fp.startsWith('dash_') || (!RE_ARNES.test(fp) && /^wa_(57\d{10}|CO\.\d+|[A-Z]{2}\.\d+)$/.test(fp));
 // «Bna noche» dejó fuera del volcado al socio Victor Armando (12 sep 2026): la gente abrevia.
 const abreComoPersona = (primerMensaje) => /vengo del enlace|soy socio|^\s*(hola|buenas|buenos|bna|bn\b|buen\b|hey|saludos|qu[eé] tal)/i.test(primerMensaje || '');
 
@@ -47,17 +51,23 @@ if (error) throw error;
 const bogota = (iso) => new Date(iso).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour12: false }).replace(',', '');
 const porHuella = {};
 for (const r of data) (porHuella[r.fingerprint_id ?? 'null'] ||= []).push(r);
+// El SOCIO no saluda: abre con la tarea («ayúdame con redactar…»). El filtro del
+// saludo dejó fuera las 20 vueltas de Patricia Reyes del 15 sep 2026 —justo el
+// tráfico del distribuidor que la auditoría §8 pide mirar—. Se reconoce por su ficha.
+const { data: socios } = await s.from('prospects').select('fingerprint_id')
+  .in('fingerprint_id', Object.keys(porHuella)).eq('device_info->>es_socio', 'true');
+const esSocio = new Set((socios || []).map((p) => p.fingerprint_id));
 if (!todo) {
   for (const [fp, filas] of Object.entries(porHuella)) {
     const primero = (filas[0].messages || []).find((m) => m.role === 'user')?.content;
-    if (!huellaDePersona(fp) || (fp !== 'null' && !abreComoPersona(primero))) delete porHuella[fp];
+    if (!huellaDePersona(fp) || (fp !== 'null' && !esSocio.has(fp) && !fp.startsWith('dash_') && !abreComoPersona(primero))) delete porHuella[fp];
   }
 }
 
 let txt = '', tsv = 'canal\thuella\tfecha_bogota\tturno\tmensaje\tsearch_method\tfragmentos\n';
 for (const [fp, filas] of Object.entries(porHuella).sort((a, b) => a[1][0].created_at.localeCompare(b[1][0].created_at))) {
-  const canal = fp.startsWith('wa_') ? 'WA' : 'WEB';
-  txt += `\n\n==================== ${canal} ${fp} · ${filas.length} turnos · ${bogota(filas[0].created_at)} → ${bogota(filas.at(-1).created_at)} ====================\n`;
+  const canal = fp.startsWith('wa_') ? 'WA' : fp.startsWith('dash_') ? 'DASHBOARD' : 'WEB';
+  txt += `\n\n==================== ${canal} ${fp}${esSocio.has(fp) || canal === 'DASHBOARD' ? ' · SOCIO' : ''} · ${filas.length} turnos · ${bogota(filas[0].created_at)} → ${bogota(filas.at(-1).created_at)} ====================\n`;
   filas.forEach((r, i) => {
     const sm = r.metadata?.search_method || '-';
     const docs = (r.metadata?.documents_used || []).map((d) => String(d).replace(/^.*\//, '')).join(',');

@@ -28,13 +28,13 @@ import {
   microPromptDudaPropia, microPromptPareja, microPromptMotivo, microPromptEscalera,
   microPromptNoPrimero, microPromptPuertaAbierta,
 } from '@/lib/wa-ambivalencia';
-import { ESQUELETO_REDACCION_SOCIO } from '@/lib/wa-redaccion-socio';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
 import {
   detectarEmergencia, clasificarPreguntaSalud, esRechazoSalud,
   rechazoSaludPorFamilia, saludSeCompone, nucleoSalud, detectarClaimSaludEnSalida,
   RESPUESTA_EMERGENCIA, RECHAZO_SALUD_GRAVE, RECHAZO_SALUD_ESTANDAR, RECHAZO_SALUD_CORTO,
 } from '@/lib/wa-guardarrail-salud';
+import { ESQUELETO_REDACCION_SOCIO } from '@/lib/wa-redaccion-socio';
 import {
   detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
@@ -5635,17 +5635,26 @@ entrega en persona.
 Esta persona YA compró y ya tiene su sistema. Nada de convencerla, nada de
 explicarle el modelo, nada de ofrecerle los paquetes: eso ya pasó.
 
-✅ SU TRABAJO AQUÍ es que él avance con SU canal:
-• Redactarle el mensaje para alguien concreto, cuando le diga a quién le va a
-  escribir. Se le entrega LISTO PARA COPIAR, siguiendo el esqueleto que va al
-  final de estas instrucciones. ⚠️ El enlace NO va en ese primer mensaje — se
-  comparte cuando el amigo diga «sí, mándemelo».
+✅ SU TRABAJO AQUÍ es que él avance con SU sistema:
+• Redactarle el mensaje para una PERSONA concreta —su amigo, su hermana, un
+  conocido con oficio—, cuando le diga a quién le va a escribir. Se le entrega
+  LISTO PARA COPIAR, siguiendo el esqueleto que va al final de estas
+  instrucciones. ⚠️ El enlace NO va en ese primer mensaje — se comparte cuando
+  el amigo diga «sí, mándemelo».
 • Su enlace, el que comparte: ${typeof socioEnlace === 'string' && socioEnlace ? socioEnlace : '(no disponible en este turno)'}.
   Déselo tal cual cuando lo pida o cuando le cuente que alguien ya dijo que sí.
 • Prepararlo para lo que le van a preguntar: cuánto invirtió, si es pirámide, si
   a él le está funcionando. Se le da la respuesta que ÉL puede dar, no la nuestra.
-• Resolverle dudas del plan que necesita para explicar (no para decidir).
-• Contarle cómo va la gente que ha llegado por su enlace.
+• Resolverle dudas del plan y de los productos que necesita para explicar (no
+  para decidir).
+
+⛔ LO QUE ES DE SU CENTRO DE MANDO NO SE HACE AQUÍ: el mensaje para un NEGOCIO o
+una EMPRESA (restaurantes, tiendas, el gerente, los dueños de), cargar una compra
+en su back office, ver su lista o cómo va cada persona que ha llegado. Eso vive
+en queswa.app, donde Queswa conoce sus metas, su voz y su back office. Si lo
+pide, dígaselo con calidez y como algo que él tiene por ser socio —nunca como un
+rechazo—, en una línea, y cierre con «¿Le mando el acceso?» (el backend manda el
+acceso cuando él diga que sí). No redacte usted ese mensaje «mientras tanto».
 
 ⚠️ EL TRATO CAMBIA: es un colega, no alguien a quien hay que persuadir. Se le
 habla con la confianza de quien trabaja con él — sin argumentario de venta y sin

@@ -464,6 +464,22 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.40 — `FREQ_04` 🔒 recibe las preguntas de plazo que llegaban al catálogo (16 sep 2026)
+
+La auditoría del video del día 9 del reto preguntó *«¿esto da resultados rápido o toca esperar años?»* y Queswa contestó con beneficios de salud del producto: la consulta la ganaba `catalogo_productos_FAQ_02` (*«¿Cuánto tiempo para notar beneficios?»*, 0.528) y `FREQ_04`, que tiene la respuesta correcta con candado, quedaba segunda (0.408). Era enrutamiento, no copy.
+
+**Qué cambió:** dos frases aparte al final del índice de `FREQ_04` —*«Si esto da resultados rápido o toca esperar años.»* y *«En cuánto tiempo se empieza a ver la plata.»*—. El cuerpo no se toca.
+
+**Medido antes de desplegar** (laboratorio que reemplaza solo el vector de `FREQ_04` y enfrenta los rivales reales del tenant `whatsapp`; validado: vector recalculado contra el guardado, similitud 0.9997):
+
+| | Hoy | Dos frases aparte | Fundido en la línea |
+|---|---|---|---|
+| 7 paráfrasis de plazo en el puesto 1 | 0 | **4** | 0 |
+| En el top 3 | 2 | 5 | 2 |
+| Consultas vecinas que cambian de fragmento (10 + las 40 del arnés general) | — | **0** | 0 |
+
+Dos de las siete están casi literales en el índice; la prueba real son *«cuánto se demora uno en ver ganancias con esto»* y *«esto es de largo plazo o se gana pronto»*, que no están escritas en ningún lado y pasan al puesto 1. Siguen fuera *«a los cuántos meses ya uno está ganando»* (2.º, detrás de `NIVELES_08`) y *«cuándo empieza a producir el negocio»* (`WHY_02`); ninguna cae en salud. **Fundir las frases dentro de la línea existente no mueve nada**, como ya se había visto con otros índices.
+
 ### v6.39 — Nace el bloque del reto: `RETO_01` responde las tres condiciones (14 sep 2026)
 
 El video del día 8 del reto de los 90 días (la intro semanal) se publicó nombrando las tres condiciones de la empresa que Luis construye en público, y Queswa no tenía respuesta propia. Medido antes de escribirla: *«¿cuáles son las tres condiciones?»* se repartía entre seis fragmentos ajenos (`NIVELES_09`, `FREQ_02`, `WHY_05`…), con `COMP_MODELO_01` en el top 6 y `COMP_BIN_06` —las condiciones de cobro del Binario— como colisión léxica directa. Un primer contacto recibiendo el plan de compensación es el fallo que más cuesta.

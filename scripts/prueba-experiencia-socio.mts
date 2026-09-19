@@ -191,5 +191,38 @@ es(erika.name === 'Erika Cabrejo' && erika.nombre_perfil_whatsapp === 'Yenireth 
 es(Object.keys(nombreParaFichaDeSocio({ es_socio: true, name: 'Armando Rojas' }, { nombreCompleto: 'Victor Armando Rojas Beltrán' })).length === 0,
   'ficha que ya era de socio: no se pisa el nombre (puede ser corrección a mano)');
 
-console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
+
+// ── 9. Lo que es del Centro de Mando se pide en el Centro de Mando (16 sep 2026) ──
+// Patricia gastó 20 turnos aquí pidiendo un correo para restaurantes. El mensaje
+// para un NEGOCIO, cargar compras y ver su lista viven en queswa.app: aquí recibe
+// la invitación y el «sí» le manda el acceso. El mensaje para una PERSONA sí se
+// redacta aquí (Director, tras probarlo). Las piezas (guion, video) siguen en su negativa.
+console.log('\n── 9. Lo que es del Centro de Mando ──');
+const { detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, saludoDeSocio: saludoNuevo } =
+  require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
+for (const [frase, motivo] of [
+  ['ayúdame con redactar el contenido de un correo electrónico, dirigido a un restaurante en el que hacen comida de autor', 'redaccion'],
+  ['redactar un texto que provoque el consumo de los productos, al gerente de un restaurante', 'redaccion'],
+  ['necesito una invitación que llame la atención a dueños de restaurantes y tiendas naturistas', 'redaccion'],
+  ['Redácta un mensaje para varias empresas de la ciudad', 'redaccion'],
+  ['cárgueme una compra de 4 cajas de 3 en 1', 'funcion'],
+  ['cómo van las personas que han llegado por mi enlace', 'funcion'],
+  ['quiero ver mi lista', 'funcion'],
+] as const) es(detectarPideFuncionDashboard(frase) === motivo, `«${frase.slice(0, 60)}» → ${motivo}`);
+for (const frase of [
+  'redáctame un mensaje para mi amigo Andrés, tiene una ferretería',
+  'escríbale a Sandra',
+  'necesito un mensaje para mi hermana, es dueña de una tienda',
+  'ayúdame a escribirle a un conocido que tiene un restaurante',
+  '¿cuánto vale el paquete ESP-2?', '¿qué le respondo si me pregunta si es pirámide?', 'en qué presentación viene el Ganocafé', 'Gracias',
+]) es(detectarPideFuncionDashboard(frase) === null, `«${frase}» se queda en el canal`);
+const inv = invitacionAlDashboard('Patricia', 'redaccion');
+es(/para un negocio/.test(inv) && /Centro de Mando, Patricia/.test(inv) && /por ser socio/.test(inv) && inv.endsWith('¿Le mando el acceso?'), 'la invitación suena a privilegio y cierra ofreciendo el acceso');
+es(botInvitoAlDashboard(inv), 'el «sí» que sigue se reconoce por el cierre de la invitación');
+es(/en su Centro de Mando sí/.test(invitacionAlDashboard('Patricia', 'redaccion', true)), 'si insiste, una línea y la misma puerta');
+es(atenderPidePieza('hazme un video para instagram')?.texto === TEXTO_NO_PIEZAS && detectarPideFuncionDashboard('hazme un video para instagram') === null,
+   'una pieza para publicar sigue en su negativa, no va al Dashboard');
+es(/redactar un mensaje a la medida/.test(saludoNuevo('Ana', 'ana-x')), 'el saludo del socio sigue ofreciendo redactar (para personas)');
+
+console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);
 process.exit(fallos ? 1 : 0);

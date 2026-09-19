@@ -175,6 +175,9 @@ const SALIDA_POSITIVOS = [
   'ayuda a reducir el colesterol y la presión arterial',
   'si usted sufre de gastritis, este es el indicado',
   'verá resultados en 4 semanas',
+  // Ciencia como credencial sin cita (borrador a una socia, 15 sep 2026)
+  'lleva extracto de Ganoderma — un hongo que llevan décadas estudiando por lo que le hace al cuerpo',
+  'es el hongo más investigado del planeta, con más de 40 años de investigación detrás',
 ];
 
 // Respuestas BUENAS del canal (prueba real del 14 ago) — no pueden bloquearse

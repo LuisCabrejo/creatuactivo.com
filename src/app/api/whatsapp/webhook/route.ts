@@ -85,6 +85,7 @@ import {
   // con ignoreBuildErrors el error no frenó nada — el turno se caía al ejecutarse
   // y el prospecto se quedaba sin respuesta. Lo destapó el compilador el 14 sep.
   mensajeEnlaceCatalogo,
+  OFERTA_REDACTAR, detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, enviarAccesoDashboard, ACCESO_NO_ENVIADO,
 } from '@/lib/wa-onboarding';
 import { normalizarParaSlug, normalizarLetrasDecorativas } from '@/lib/texto-normalizar';
 import {
@@ -113,7 +114,7 @@ import {
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
 import {
-  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza,
+  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza,
   slugDelSocio, textoDeCandado, paisDeTelefono,
 } from '@/lib/queswa-conductor';
 
@@ -863,7 +864,7 @@ async function procesarEntrante(body: any): Promise<void> {
       }
       const yaSaludado = !!existingProspect?.device_info?.saludo_socio_en;
       const texto = yaSaludado
-        ? `Listo${socioQueEscribe.nombre ? ', ' + socioQueEscribe.nombre : ''}: este chat queda reconocido como el suyo.\n\n¿Le redacto el mensaje para enviárselo a alguien?`
+        ? `Listo${socioQueEscribe.nombre ? ', ' + socioQueEscribe.nombre : ''}: este chat queda reconocido como el suyo.\n\n${OFERTA_REDACTAR}`
         : saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug);
       await sendWhatsAppMessage(phoneNumber, texto);
       if (!yaSaludado) await marcarSaludoDeSocio(supabase, waFingerprint);
@@ -1351,6 +1352,42 @@ async function procesarEntrante(body: any): Promise<void> {
 
     if (turnosSaneados > 0) {
       console.warn(`🧹 [WA Webhook] ${turnosSaneados} turno(s) bloqueado(s) saneado(s) en el historial de ${waFingerprint}`);
+    }
+
+    // ─── 2.22 El SOCIO pide aquí lo que es del Centro de Mando ────────────────
+    // El mensaje para un NEGOCIO o una EMPRESA, cargar una compra, ver su lista
+    // (Director, 16 sep 2026): eso vive en queswa.app, donde Queswa tiene sus
+    // metas, su voz y su back office. Aquí recibe la invitación —como algo que
+    // tiene por ser socio— y el «sí» le manda el acceso en el mismo chat.
+    // ⚠️ El mensaje para una PERSONA sí se redacta aquí, con el esqueleto del MODO
+    // SOCIO: sigue al motor. Las piezas para publicar (guion, video, flyer) siguen
+    // en 2.49 con su negativa, porque tampoco se hacen allá.
+    // Motivo de fondo → wa-onboarding.ts, «Lo que es del Centro de Mando».
+    if (socioQueEscribe) {
+      const _ultimoBotSocio = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+      const _yaInvitado = botInvitoAlDashboard(_ultimoBotSocio);
+      if (_yaInvitado && esAceptacion(messageText)) {
+        const envio = await enviarAccesoDashboard(supabase, socioQueEscribe);
+        const registro = envio.ok ? '(acceso al Centro de Mando enviado por plantilla)' : ACCESO_NO_ENVIADO;
+        if (!envio.ok) {
+          console.warn(`⚠️ [WA Webhook] Acceso al Dashboard NO enviado a /${socioQueEscribe.slug}: ${envio.error}`);
+          await sendWhatsAppMessage(phoneNumber, ACCESO_NO_ENVIADO);
+        } else {
+          console.log(`🔑 [WA Webhook] Acceso al Centro de Mando enviado a /${socioQueEscribe.slug}`);
+        }
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, registro);
+        return;
+      }
+      const motivo = detectarPideFuncionDashboard(messageText);
+      // Solo la pieza de verdad (guion, video, flyer) se le deja a 2.49: «un
+      // mensaje para dueños de restaurantes» es del Dashboard, no una pieza.
+      if (motivo && !detectarPidePieza(messageText)) {
+        const texto = invitacionAlDashboard(socioQueEscribe.nombre, motivo, _yaInvitado);
+        await sendWhatsAppMessage(phoneNumber, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log(`🏛️ [WA Webhook] 2.22 el socio /${socioQueEscribe.slug} pide ${motivo} — invitado al Centro de Mando${_yaInvitado ? ' (insiste)' : ''}`);
+        return;
+      }
     }
 
     // ─── 2.23 La consulta con la pareja — nodo dictado ───────────────────────

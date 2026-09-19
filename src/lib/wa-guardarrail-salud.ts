@@ -190,6 +190,16 @@ export const RE_CLAIM_SALIDA: RegExp[] = [
   /tonico para el cerebro|oxigenacion celular|regeneracion celular|desintoxicacion (natural|del organismo)|efecto detox/,
   // Plazos y resultados clínicos prometidos
   /(resultados?|mejoria|mejoras?|cambios?|efectos?) (visibles |notables )?(en|a los|a las) \d+ (dias|semanas|meses)/,
+  // La ciencia como credencial SIN cita y el efecto en el cuerpo sin nombrarlo:
+  // «un hongo que llevan décadas estudiando por lo que le hace al cuerpo» (borrador
+  // que Queswa le redactó a una socia para un restaurante, 15 sep 2026, y que salió
+  // entero). No cita nada y no nombra órgano ni enfermedad, así que ningún patrón
+  // de arriba lo veía; lo que afirma es que hay evidencia y que hay efecto, que es
+  // justo lo que la etiqueta no autoriza. ⚠️ «cultiva desde hace 30 años» y «el
+  // Rey de las Hierbas» siguen verdes: son historia, no evidencia.
+  // Backtest: 1 de 1.000 respuestas reales (30 días) —«años de investigación», un
+  // verdadero positivo de la web— y 0 de 370 fragmentos de whatsapp y dashboard.
+  /(decadas|siglos|anos|milenios) (estudiand|investigand|de estudios?|de investigacion)|lo que (le )?hace (al|a su|en el|en su) (cuerpo|organismo)/,
 ];
 
 function primerMatch(patrones: RegExp[], textoNormalizado: string): string | null {

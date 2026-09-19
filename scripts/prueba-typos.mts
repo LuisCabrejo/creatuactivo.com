@@ -31,7 +31,7 @@ import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 // posterior en orden alfabético «no existe» para un import con llaves.
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { pideEnlaceCatalogo } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
+const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 import { esAceptacion } from '../src/lib/wa-pedido.ts';
 import { esSoloSaludo } from '../src/lib/wa-apertura.ts';
 
@@ -52,6 +52,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'el «Redácta» de Patricia (11 sep) sí está cubierto; el verbo y el sustantivo, no' },
   { nombre: 'pideEnlaceCatalogo',      fn: pideEnlaceCatalogo,    frase: 'mándame el catálogo', llaves: ['catálogo'], tope: 3 },
   { nombre: 'esAceptacion',            fn: esAceptacion,          frase: 'sí, claro', llaves: ['claro'], tope: 0 },
+  { nombre: 'detectarPideFuncionDashboard', fn: detectarPideFuncionDashboard, frase: 'redáctame un mensaje para dueños de restaurantes', llaves: ['redáctame', 'restaurantes'], tope: 3,
+    nota: 'el mensaje para un NEGOCIO va al Centro de Mando; el de una persona se queda (16 sep 2026)' },
   { nombre: 'esSoloSaludo',            fn: esSoloSaludo,          frase: 'buenas tardes', llaves: ['buenas'], tope: 4,
     nota: 'un saludo mal escrito se va al motor en vez de recibir la apertura con botones' },
   { nombre: 'mencionaElReto',          fn: mencionaElReto,        frase: 'cómo va el reto de Luis', llaves: ['reto'], tope: 0 },

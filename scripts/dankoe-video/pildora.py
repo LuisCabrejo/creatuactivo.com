@@ -4,6 +4,7 @@
     captions/.venv/bin/python pildora.py <entrada.mp4> [--lut] [--sin-musica] [--outro]
                                          [--guion <texto.txt>]
                                          [--sin-recorte] [--sin-compuerta]
+                                         [--musica-lufs -26] [--musica-vol 0.85]
 
 Hace sola lo que en el video Top se decide a mano: recorta silencios, arma el
 montaje, alinea subtítulos, pone marca de agua y atmósfera, y normaliza a -14 LUFS.
@@ -25,6 +26,11 @@ propósito.
 y el alineador cierra la palabra antes de que el sonido se apague, así que la cola
 se pierde: se comió 240 ms del «.com» de CreaTuActivo.com. Con audio ya limpio
 (micrófono de solapa pasado por arnndn) no hay roces que matar — úsela siempre.
+
+--musica-lufs / --musica-vol fijan la cama musical (por defecto −26 LUFS × 0.85). Con el
+sidechain de ratio 12 y un reel hablado casi sin pausas, el default deja la música ~21 dB bajo
+la voz y NO se oye. Día 9 del reto (15 sep 2026), aprobado por el Director: −22 LUFS × 1.20
+(«2 puntos» = +0.20 de volumen). La música se sube, nunca se recalibra a la baja.
 """
 import json, os, subprocess, sys, shutil, tempfile, math
 
@@ -51,6 +57,12 @@ def main():
     con_outro = "--outro" in sys.argv
     sin_recorte = "--sin-recorte" in sys.argv
     sin_compuerta = "--sin-compuerta" in sys.argv
+    # Nivel de la cama musical. Por defecto −26 LUFS × 0.85, que con el sidechain (ratio 12)
+    # queda ~21 dB bajo la voz: en un reel hablado casi sin pausas NO se oye (día 9, 15 sep 2026,
+    # medido −36.2 LUFS de música contra −15.6 de voz). El Director la pidió más arriba; se
+    # sube por aquí sin cambiar el default de las demás píldoras.
+    mus_lufs = float(sys.argv[sys.argv.index("--musica-lufs")+1]) if "--musica-lufs" in sys.argv else -26.0
+    mus_vol  = float(sys.argv[sys.argv.index("--musica-vol")+1])  if "--musica-vol"  in sys.argv else 0.85
     guion_ext = None
     if "--guion" in sys.argv:
         i = sys.argv.index("--guion")
@@ -201,7 +213,7 @@ def main():
 
     if con_musica and os.path.exists(MUS):
         sh("ffmpeg","-y","-v","error","-i",MUS,"-af",
-           f"loudnorm=I=-26:TP=-3:LRA=11,atrim=0:{dur},asetpts=N/SR/TB,volume=0.85,"
+           f"loudnorm=I={mus_lufs}:TP=-3:LRA=11,atrim=0:{dur},asetpts=N/SR/TB,volume={mus_vol},"
            f"afade=t=in:st=0:d=1.0,afade=t=out:st={max(0,dur-1.6):.2f}:d=1.6",
            "-ar","48000","-ac","2",f"{W}/cama.wav")
         sh("ffmpeg","-y","-v","error","-i",f"{W}/vid.mp4","-i",f"{W}/voz_ok.wav","-i",f"{W}/cama.wav",

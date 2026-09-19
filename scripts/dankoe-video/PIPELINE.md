@@ -173,6 +173,7 @@ captions/.venv/bin/python armar-curado.py corte-diaN.json --salida curado.mov
 captions/.venv/bin/python blanquear_dientes.py curado.mov retocado.mov
 # 3 · color, subtítulos, atmósfera, marca de agua, música y outro
 captions/.venv/bin/python pildora.py retocado.mov --lut --guion texto.txt --sin-recorte --sin-compuerta --outro
+#     reel hablado casi sin pausas: añadir --musica-lufs -22 --musica-vol 1.20 (día 9; con el default la música no se oye)
 # 4 · rótulo del día, encima del video ya acabado
 captions/.venv/bin/python rotulo_dia.py /tmp/rotulo.png "VIERNES · DÍA 5"   # overlay + outro corto → «Cerrar el día», abajo
 ```
@@ -336,6 +337,12 @@ descartado y por qué: [`~/Downloads/reels-equipo/0910/corte-dia4.json`].
    cosmético: al normalizar cada tramo ya desplazado, `loudnorm` de una pasada es adaptativo y cada
    uno queda distinto. Medido: el segundo tramo del clip 1 quedó **16 dB por debajo** y esa frase
    «casi no se escuchaba».
+   ⚠️ **Y la normalización es con GANANCIA FIJA + limitador, no con `loudnorm`** (15 sep 2026, día 9).
+   El micrófono grabó a −42 LUFS; llevarlo a −16 pide +26 dB, el pico rebasa el techo y `loudnorm`
+   **abandona el modo lineal sin avisar** y pasa al dinámico, que arranca con una rampa: las seis
+   primeras frases salieron 12 dB abajo (−39 → −26 → −14 en 20 s) y el verificador solo lo marcó a
+   medias. Ya está corregido en el script. **Se detecta midiendo el nivel por segmento del curado**,
+   no la sonoridad global.
 3. ⚠️ **Un mismo clip puede necesitar DOS desfases.** El micrófono DJI dio un **salto de 1.17 s** a
    mitad del clip 1 —−214 ms antes de una pausa, +956 ms después—. Se declara dos veces y se corta
    en esa pausa. **Por eso el desfase se mide con ventanas cortas a lo largo del clip, nunca con una

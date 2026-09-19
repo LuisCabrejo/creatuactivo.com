@@ -47,7 +47,9 @@ LO QUE HACE, Y POR QUÉ EN ESE ORDEN
 -----------------------------------
 1. Limpia cada micrófono (highpass 80 Hz + arnndn, modelo `lq`). Con ruido de centro
    comercial RNNoise baja la sala 26 dB y casi no toca la voz; `afftdn` solo bajaba 4.
-2. Normaliza **el archivo entero, en dos pasadas**, ANTES de desplazarlo. Este orden
+2. Normaliza **el archivo entero, con ganancia FIJA y limitador** (no `loudnorm`, que con
+   un micrófono grabado bajo abandona el modo lineal y mete una rampa al inicio: día 9,
+   15 sep 2026, las primeras frases 12 dB abajo), ANTES de desplazarlo. Este orden
    no es cosmético: normalizar después del desplazamiento deja cada tramo en un
    nivel distinto porque loudnorm de una pasada es adaptativo. Medido el 10 sep: el
    segundo tramo del clip 1 quedó **16 dB por debajo** del resto y esa frase «casi
@@ -174,14 +176,19 @@ def main():
             if not os.path.exists(base):
                 sh("ffmpeg","-y","-v","error","-i",wav,"-af",
                    f"highpass=f=80,arnndn=m={RNN}","-ac","1","-ar","48000", base+".tmp.wav")
+                # ⚠️ GANANCIA FIJA + limitador, no `loudnorm linear=true` (15 sep 2026, día 9).
+                # Con el micrófono grabado bajo (−42 LUFS) llevarlo a −16 pide +26 dB; el pico
+                # rebasa TP, y loudnorm ABANDONA el modo lineal en silencio y pasa al dinámico,
+                # que arranca con una rampa de ganancia: las primeras frases del día 9 salieron
+                # 12 dB por debajo (−39 → −26 → −14 en los primeros 20 s). Una ganancia fija
+                # no tiene rampa; el limitador se come solo los picos.
                 m = medir_loudness(base+".tmp.wav")
+                ganancia = -16.0 - float(m["input_i"])
                 sh("ffmpeg","-y","-v","error","-i",base+".tmp.wav","-af",
-                   f"loudnorm=I=-16:TP=-1.5:LRA=11:measured_I={m['input_i']}:"
-                   f"measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:"
-                   f"measured_thresh={m['input_thresh']}:linear=true",
+                   f"volume={ganancia:.2f}dB,alimiter=limit=0.84:attack=5:release=50:level=disabled",
                    "-ac","1","-ar","48000", base)
                 os.remove(base+".tmp.wav")
-                print(f"  limpio y nivelado: {os.path.basename(wav)}  ({m['input_i']} → −16 LUFS)")
+                print(f"  limpio y nivelado: {os.path.basename(wav)}  ({m['input_i']} LUFS, ganancia fija {ganancia:+.1f} dB)")
             pistas[wav] = base
         # 3 · desfase de sincronía, sobre el archivo YA nivelado
         d = float(c["desfase"]); pista = os.path.join(trabajo, f"sync-{nombre}.wav")

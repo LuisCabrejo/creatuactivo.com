@@ -12,6 +12,10 @@
     {
       "path": "/api/cron/wa-lunes-socio",
       "schedule": "0 13 * * 1"
+    },
+    {
+      "path": "/api/cron/vigilar-motor",
+      "schedule": "*/15 * * * *"
     }
   ]
 }

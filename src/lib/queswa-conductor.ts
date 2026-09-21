@@ -348,12 +348,20 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
         // le dice por qué (prueba del Director, 1 sep, 12:16 → 12:17).
         const vieneDel17 = historial.some((m) => m.role === 'assistant' && /17\s?%/.test(m.content));
         const puente = vieneDel17 ? 'Esta estrategia corre con el Kit, al 10%: la misma regalía, con la tarifa de entrada.\n\n' : '';
+        // El pin de apalancamiento del motor abre con el MISMO párrafo que
+        // NIVELES_01, a propósito (quien llega por la renta lee lo mismo que
+        // quien llega por el hilo). Pero cuando la persona pasa por los dos en
+        // fila —«¿cómo entra el dinero?» → «sí» → «sí»— lo lee dos veces
+        // seguidas (prospecto del 20 sep 2026, turnos 4 y 5). Si el último turno
+        // del bot ya lo dijo, el nodo arranca en «Los 12 Niveles es nuestra…».
+        const yaDijoLaDuda = /La primera duda que suele surgir/i.test(b.ultimoBot);
+        const cuerpo = yaDijoLaDuda ? texto.replace(/^\s*La primera duda que suele surgir[\s\S]*?\n\s*\n/, '') : texto;
         // Sin tarjeta automática (Director, 3 sep 2026): el texto cerraba
         // preguntando por la tabla Y llegaba la tarjeta — dos ofertas en un
         // turno. La pregunta de seguimiento ofrece el simulador y el «sí» lo trae.
         return {
           nodo: '2.34 NIVELES_01 (nombre mal oído / sí a la estrategia)',
-          texto: puente + texto.replace(/\[PRECIO_KIT\]/g, precioKit(ctx.pais)),
+          texto: puente + cuerpo.replace(/\[PRECIO_KIT\]/g, precioKit(ctx.pais)),
           marcarHiloDoceNiveles: true,
         };
       }

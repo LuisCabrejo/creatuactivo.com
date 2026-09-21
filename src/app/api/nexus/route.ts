@@ -1000,7 +1000,14 @@ async function captureProspectData(
   // tocado (11 sep 2026).
   if (!existingData?.es_socio) {
     const _nivel = data.interest_level ?? 0;
-    data.momento_optimo = _nivel >= 7 ? 'caliente' : _nivel >= 4 ? 'tibio' : 'frio';
+    const _calculada = _nivel >= 7 ? 'caliente' : _nivel >= 4 ? 'tibio' : 'frio';
+    // La temperatura por AVANCE que marca el webhook de WhatsApp (estrategia,
+    // simulador, GEN5 — 21 sep 2026) no se pisa con la puntuación de un turno
+    // suelto: un «¿qué debo hacer yo?» con interés 0 devolvía a «frío» a quien
+    // acababa de usar el simulador. Solo aplica si existe esa marca.
+    const _rango: Record<string, number> = { frio: 0, tibio: 1, caliente: 2, listo: 3 };
+    const _porAvance = String(existingData?.temperatura_por_avance ?? '');
+    data.momento_optimo = (_rango[_porAvance] ?? -1) > (_rango[_calculada] ?? 0) ? _porAvance : _calculada;
   }
 
   // ⚠️ Al socio tampoco se le anotan paquete, arquetipo, objeciones ni ocupación

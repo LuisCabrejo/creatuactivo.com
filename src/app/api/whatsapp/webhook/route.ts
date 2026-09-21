@@ -364,7 +364,11 @@ async function procesarEntrante(body: any): Promise<void> {
     }
 
     const phoneNumber = _telefono || _prefijado || _candidatos[0];
-    const contactName = (contact?.profile?.name as string | undefined) || 'Constructor';
+    // Un perfil sin una sola letra («...», un emoji, «---») no es un nombre: iba
+    // a la ficha y al socio le llegaba «... llegó a su enlace» (20 sep 2026).
+    // Se trata como perfil sin nombre, igual que cuando Meta no lo manda.
+    const _nombrePerfil = (contact?.profile?.name as string | undefined)?.trim();
+    const contactName = (_nombrePerfil && /\p{L}/u.test(_nombrePerfil) ? _nombrePerfil : undefined) || 'Constructor';
 
     if (!phoneNumber) {
       // Sin identidad no hay a quién responderle, y crear un prospecto
@@ -1179,6 +1183,19 @@ async function procesarEntrante(body: any): Promise<void> {
     }
 
     if (existingProspect && !socioQueEscribe && !llegaDecidido && (_soloSaludo || _vieneDelEnlace) && !detectarIntencionCompra(messageText)) {
+      // Con la conversación VIVA, el enlace tocado otra vez no es un regreso: la
+      // persona volvió a tocar el botón de wa.me (20 sep 2026: cuatro segundos
+      // después de preguntar «¿qué debo hacer yo?» recibió «Qué bueno que
+      // vuelva» y perdió la pregunta que Queswa acababa de hacerle). Si el
+      // último turno fue hace minutos, se repite esa pregunta y se sigue.
+      const _vivo = await ultimaPreguntaReciente(supabase, waFingerprint);
+      if (_vivo) {
+        const texto = `Sigo aquí. ${_vivo}`;
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        console.log(`🔁 [WA Webhook] ${contactName} tocó el enlace con la conversación viva — se repite la última pregunta`);
+        return;
+      }
       const retorno = aperturaRetorno(contactName);
       const enviadoR = await sendReplyButtons(phoneNumber, retorno, APERTURA_OPCIONES);
       if (!enviadoR.ok) {
@@ -1626,6 +1643,30 @@ async function procesarEntrante(body: any): Promise<void> {
         });
       } catch { /* best-effort */ }
     };
+    // Temperatura por AVANCE (21 sep 2026). Los turnos dictados no pasan por el
+    // motor, así que su puntuación de interés nunca se mueve: el prospecto del
+    // 20 sep recorrió la estrategia, usó el simulador, vio el GEN5 y preguntó
+    // «¿qué debo hacer yo?» y quedó «frío» con interés 0 — y el Centro de Mando
+    // solo levanta la mano por los calientes. Aquí sube por lo que hizo: la
+    // estrategia lo pone tibio; el simulador, la tabla, el GEN5 o la vinculación
+    // lo ponen caliente. Solo sube, nunca baja; el motor respeta la marca
+    // (`temperatura_por_avance`) y no la pisa con un turno de puntuación baja.
+    const RANGO_TEMPERATURA: Record<string, number> = { frio: 0, tibio: 1, caliente: 2, listo: 3 };
+    const marcarTemperatura = async (nivel: 'tibio' | 'caliente') => {
+      if (socioQueEscribe) return;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const actual = String((existingProspect?.device_info as any)?.momento_optimo ?? 'frio');
+      if ((RANGO_TEMPERATURA[actual] ?? 0) >= RANGO_TEMPERATURA[nivel]) return;
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).rpc('update_prospect_data', {
+          p_fingerprint_id: waFingerprint,
+          p_data: { momento_optimo: nivel, temperatura_por_avance: nivel },
+          p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+        });
+        console.log(`🌡️ [WA Webhook] ${phoneNumber} pasa a ${nivel} por avance`);
+      } catch { /* best-effort */ }
+    };
     // ─── 2.3 El escenario del simulador se responde dictado ───────────────────
     // La persona acaba de elegir tarifa y clientes (o paquete y cantidad) y vio
     // el resultado en el Flow. Lo que espera es que la conversación reconozca
@@ -1667,6 +1708,7 @@ async function procesarEntrante(body: any): Promise<void> {
       await sendWhatsAppMessage(phoneNumber, respuestaSimulador, { wamid });
       await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaSimulador);
       if ('tipo' in escenarioSimulador && escenarioSimulador.tipo === 'niveles') await marcarHiloDoceNiveles();
+      await marcarTemperatura('caliente');
       console.log(`🧮 [WA Webhook] Escenario del simulador respondido dictado para ${phoneNumber}`);
       return;
       }
@@ -1709,6 +1751,8 @@ async function procesarEntrante(body: any): Promise<void> {
         if (nodo.texto || tarjetaOk) {
           await persistirTurnoDictado(supabase, waFingerprint, messageText, nodo.persistir ?? nodo.texto ?? '');
           if (nodo.marcarHiloDoceNiveles) await marcarHiloDoceNiveles();
+          if (/NIVELES_01/.test(nodo.nodo)) await marcarTemperatura('tibio');
+          else if (/NIVELES_02|GEN5|vinculaci/i.test(nodo.nodo)) await marcarTemperatura('caliente');
           console.log(`🧭 [WA Webhook] ${nodo.nodo} — dictado por el conductor para ${phoneNumber}`);
           return;
         }
@@ -2681,6 +2725,36 @@ async function capturarContextoDelMensaje(
  */
 const RE_HABLA_DE_NEGOCIO =
   /negocio|ganar|\bgana(n|s)?\b|ganancia|comisi[oó]n|paquete|invertir|inversi[oó]n|sistema de distribuci[oó]n|niveles|\bplan\b|c[oó]mo funciona|dinero|plata|ingreso|socio|vincul|afili|registr|c[oó]mo (empiezo|inicio|arranco)|distribuidor/i;
+
+/**
+ * Si el último turno de esta huella fue hace menos de `ventanaMin` minutos,
+ * devuelve la última pregunta que hizo Queswa en él (la última línea que
+ * termina en «?»); si no, null. Sirve para no reabrir una conversación viva
+ * cuando la persona vuelve a tocar el enlace. Best-effort: ante error, null.
+ */
+async function ultimaPreguntaReciente(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+  ventanaMin = 15,
+): Promise<string | null> {
+  try {
+    const { data } = await supabase.from('nexus_conversations')
+      .select('messages, created_at')
+      .eq('fingerprint_id', fingerprint)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    const t = data?.[0];
+    if (!t?.created_at || Date.now() - new Date(t.created_at).getTime() > ventanaMin * 60_000) return null;
+    const bot = [...(Array.isArray(t.messages) ? t.messages : [])].reverse().find((m) => m?.role === 'assistant')?.content;
+    if (typeof bot !== 'string') return null;
+    const lineas = bot.split('\n').map((l: string) => l.trim()).filter(Boolean);
+    const pregunta = [...lineas].reverse().find((l) => l.endsWith('?'));
+    return pregunta && pregunta.length <= 220 ? pregunta : null;
+  } catch {
+    return null;
+  }
+}
 
 async function persistirTurnoDictado(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

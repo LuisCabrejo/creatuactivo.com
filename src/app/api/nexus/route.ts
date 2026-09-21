@@ -3925,10 +3925,13 @@ function extraerEjemploDictado(pin: string): string | null {
   //   el «sí» manda la tarjeta (reenvío del Flow en el webhook, pantalla
   //   GEN_MENU heredada de «Generación 1»), y la vinculación se ofrece tras la
   //   composición del paquete, que es lo que sigue al escenario armado.
+  // ⚠️ Sin «12 Niveles» en la pregunta (21 sep 2026): es nomenclatura interna,
+  // salió de WHY_02 el 6 sep por eso mismo, y el conductor reconoce el «sí» por
+  // «estrategia con la que se construye». Es la misma pregunta que cierra WHY_02.
   const esGen5 = pin.includes('EJEMPLO GEN5');
   const cierre = esGen5
     ? '¿Quiere armar su propio escenario en el simulador?'
-    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese sistema, paso a paso?';
+    : '¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?';
   return `${cuerpo}\n\n${cierre}`;
 }
 
@@ -3988,7 +3991,7 @@ function gen5PrimerPaqueteDictado(codigo: string, country: string | null | undef
 
 Se liquida por ciclos semanales, cada viernes.
 
-¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese sistema, paso a paso?`;
+¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?`;
 }
 
 /** ¿Pregunta cuánto gana cuando en su canal se compra UN paquete concreto? Devuelve el código o null. */
@@ -6130,7 +6133,7 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // esta guarda salía antes de llegar a _aceptaEjemplo, declarado 60 líneas
       // más abajo. El modelo, sin pin, respondió pidiendo el paquete — rompiendo
       // la regla del prompt: al "sí" se entrega lo ofrecido, no otra pregunta.
-      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n|cu[aá]nto genera cada paquete|quiere ver c[oó]mo se gana|bola de nieve en n[uú]meros|cu[aá]nto es (ese|el) bono/i.test(_ultimoBotMsg);
+      const _ofrecioEjemplo = /le muestro (un )?ejemplo|ejemplo con n[uú]meros|ver (los )?n[uú]meros|c[oó]mo se ve en n[uú]meros|c[oó]mo crece ese porcentaje|cu[aá]nto se mueve con|c[oó]mo se ve esa multiplicaci[oó]n|cu[aá]nto genera cada paquete|quiere ver c[oó]mo se gana|bola de nieve en n[uú]meros|cu[aá]nto es (ese|el) bono/i.test(_ultimoBotMsg);
       // (?![a-záéíóúñ]) y no \b: en JS la í no es carácter de palabra, así que
       // "sí" CON tilde —como lo escribe el teclado del teléfono— nunca cerraba
       // el \b y la aceptación solo funcionaba escrita "Si" a secas.

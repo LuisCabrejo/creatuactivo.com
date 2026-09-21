@@ -500,6 +500,14 @@ Auditoría de las diecisiete apariciones de *activo* en lo que se sirve del arse
 
 Registrado y no tocado: la apertura de `WHY_03` (*«Precisamente porque ya tiene un buen ingreso»*) sigue siendo la forma de rebatir que el protocolo OBJ prohíbe. Índices sin cambio; recuperación medida antes y después.
 
+### v6.41 — WHY_04 cierra prometiendo lo que de verdad llega (21 sep 2026)
+
+Auditoría del tráfico del 20 sep 2026 (prospecto `wa_573103381227`, 10 turnos por el enlace del Director). En «¿cómo entra el dinero?» → «sí» → «sí», la persona dijo «sí» a *«¿Le muestro cómo se ve en números?»* y recibió el párrafo de apalancamiento **sin un solo número**, con otra pregunta al final; los números llegaron un «sí» después, en `NIVELES_01`.
+
+**Por qué pasaba:** hasta el 3 sep ese «sí» entregaba el ejemplo de clientes con cifras, y la pregunta prometía eso. La v6.16 reemplazó el ejemplo por el apalancamiento (sin cifra, a propósito) y **la pregunta de cierre no se cambió con él**. El 6 sep el principio *la pregunta promete lo que de verdad llega* se aplicó a `WHY_02` (y «12 Niveles» salió de su cierre por ser nomenclatura interna), pero no a `WHY_04`. Ningún commit posterior tocó el pin: no era una respuesta vieja sino una pregunta desfasada.
+
+**Queda:** `WHY_04` cierra con *«¿Le muestro cómo crece ese porcentaje sin que le toque conseguir a todos los clientes usted?»* — nombra lo que el apalancamiento responde. Doble fuente sincronizada (`respuestas-maestras.ts` + este arsenal). En `route.ts`, `_ofrecioEjemplo` reconoce el «sí» por *«cómo crece ese porcentaje»* (la forma vieja se conserva para los hilos en curso). Y los tres cierres que todavía decían *«la estrategia de los 12 Niveles, con la que se construye…»* —el del apalancamiento, el del ejemplo GEN5 y el del simulador de renta— pasan a la pregunta ya aprobada para `WHY_02`: *«¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?»*, que el conductor reconoce por *«estrategia con la que se construye»* desde el 6 sep. Efecto colateral correcto: `hilo_12_niveles` deja de encenderse por una OFERTA y se enciende cuando `NIVELES_01` de verdad se entregó.
+
 ### v6.37 — WHY_02 🔒 pierde el argumento que le sobraba a la analogía (13 sep 2026)
 
 Segundo texto del día con el mismo ejercicio —¿cómo lo diría Vélez?— tras `WHY_01` (v6.36), la apertura del canal y el perfil del WABA. `WHY_02` responde al botón «Cómo funciona» y al primer chip de la web por Camino A (`respuestas-maestras.ts`), y en el canal lo emite el backend como candado dictado.

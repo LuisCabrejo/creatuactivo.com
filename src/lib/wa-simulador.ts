@@ -170,7 +170,7 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
     ? cierreRadicado(opciones.radicado)
     : opciones.estrategiaYaVista
     ? '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?'
-    : '¿Le muestro la estrategia de los 12 Niveles, con la que se construye ese sistema, paso a paso?';
+    : '¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?';
 
   return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
 

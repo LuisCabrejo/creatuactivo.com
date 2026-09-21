@@ -51,7 +51,12 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // día de la edición anterior, y Meta solo deja editar una plantilla activa una vez
 // cada 24 h (error_subcode 2388124). Nombre nuevo en vez de esperar a mañana.
 // `lunes_socio` (v1) queda aprobada y sin uso.
-const NOMBRE  = 'lunes_socio_v2';
+// v3 (20 sep 2026): el Director pidió invitar a terminar de ajustar la cuenta.
+// Nombre nuevo, NO edición de la v2: editar la aprobada la manda a revisión, y si
+// Meta no alcanza a aprobarla antes del cron del lunes (8:00 Bogotá) el envío se
+// cae para todos los que estén fuera de la ventana de 24 h. Con v3 aparte, v2
+// sigue sirviendo hasta que v3 esté aprobada.
+const NOMBRE  = 'lunes_socio_v4';
 
 /** El mismo texto vive en src/lib/wa-lunes-socio.ts (texto libre dentro de ventana). Cambiar los dos a la vez. */
 export const CUERPO_LUNES_SOCIO =
@@ -60,6 +65,7 @@ export const CUERPO_LUNES_SOCIO =
   '🎯 A cumplir sus metas.\n\n' +
   '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n\n' +
   '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
+  '📲 Estamos en constante innovación para mejorar su experiencia. Le invito a completar su información en Ajustes de Cuenta: así me pongo la 10 para ayudarle con sus objetivos.\n\n' +
   'Soy todo oídos.';
 
 const PLANTILLA = {

@@ -47,7 +47,7 @@ import { sendText, sendTemplate, normalizePhone } from '@/lib/wa-channel';
 import { ultimoMensajeDePersona, dentroDeVentana } from '@/lib/wa-ventana';
 
 /** v2 desde el 14 sep 2026: una línea en blanco entre viñetas. `lunes_socio` (v1) quedó sin uso — Meta no dejó editarla dos veces el mismo día. */
-export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v2';
+export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v4';
 
 /** Mismo texto que la plantilla (scripts/someter-plantilla-lunes-socio.mjs). Cambiar los dos a la vez. */
 export function cuerpoLunesSocio(nombre: string): string {
@@ -57,6 +57,7 @@ export function cuerpoLunesSocio(nombre: string): string {
     '🎯 A cumplir sus metas.\n\n' +
     '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n\n' +
     '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
+    '📲 Estamos en constante innovación para mejorar su experiencia. Le invito a completar su información en Ajustes de Cuenta: así me pongo la 10 para ayudarle con sus objetivos.\n\n' +
     'Soy todo oídos.'
   );
 }

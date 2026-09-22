@@ -382,8 +382,39 @@ export function respuestaOficinaProspecto(
 export const RE_PIDE_PERSONA =
   /\basesor(a)?\b|hablar con (alguien|una persona|un humano|una humana|un[ao] asesor|luis|el socio|la socia|el distribuidor)|una persona real|que me llame|me pueden? llamar|ll[aá]meme|prefiero hablar con|cont[aá]ct(en)?me|comun[ií]queme con|pasarme con|eres? (un )?(robot|bot|m[aá]quina)/i;
 
+// Pedir una REUNIÓN es pedir una persona (Director, 21 sep 2026): hoy el negocio se
+// cierra en reuniones 1-a-1, y el video del día 15 lo dice. Queswa respondía que no
+// había reuniones y volcaba precios. Exige un verbo de PETICIÓN cerca del sustantivo,
+// para que «¿hacen reuniones?» —la pregunta por eventos, que atiende FREQ_35— no entre.
+/** Para las puertas nuevas: sin tildes y sin letras repetidas («qúiero», «reuunión», «dónnde»).
+ *  ⚠️ Colapsar dobles convierte «llamada» en «lamada»: los patrones de abajo ya vienen así. */
+function normalizarPuerta(texto: string): string {
+  return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/(\p{L})\1+/gu, '$1');
+}
+
+export const RE_PIDE_REUNION =
+  /(q[ui]{1,3}e?r[oa]|quisiera|me gustaria|necesit[oa]|podemos|podriamos|agend\w*|program\w*|cuadr\w*|separ\w*|pedir|solicit\w*|tener)\b[^.?!\n]{0,25}?(reu?n?i?on|cita|video ?lamada|una lamada)|reunirme con|reunirnos|nos (podemos |podriamos )?reunir|cuando (nos )?(podemos |puede ser (la )?)?(reunion|reunimos|vernos)/;
+
 export function detectarPidePersona(texto: string): boolean {
-  return RE_PIDE_PERSONA.test(texto);
+  return RE_PIDE_PERSONA.test(texto) || RE_PIDE_REUNION.test(normalizarPuerta(texto));
+}
+
+// Las CHARLAS de Luis (Director, 21 sep 2026, opción a): el video del día 15 dice
+// «cuando doy charla», y Queswa respondía que no hay charlas presenciales. No se
+// describe ningún evento —restricción de Meta sobre esta industria, ver FREQ_35—:
+// se dice dónde vive lo que explica (los videos del reto) y se avisa al socio.
+export const RE_PREGUNTA_CHARLA = /\bc(ha|ah)r?las?\b|conferencias?/;
+const RE_INTERES_CHARLA =
+  /\bd(onde|one|node|ode)\b|cuando|puedo (ir|asistir)|asistir|proxima|inscrib|inviten|invitan|me invita|hay (alguna|charla)|alguna c|la siguiente/;
+
+export function detectarPreguntaCharla(texto: string): boolean {
+  const t = normalizarPuerta(texto);
+  return RE_PREGUNTA_CHARLA.test(t) && RE_INTERES_CHARLA.test(t);
+}
+
+export function respuestaCharla(socio: SocioPedido | null): string {
+  const quien = socio?.nombre || 'el equipo de creatuactivo.com';
+  return `Luis comparte lo que explica en sus charlas en los videos del reto. Si quiere saber de la próxima, ya le avisé a ${quien}, y se comunica con usted por este mismo medio.\n\nMientras tanto cuente conmigo: ¿hay algo que le pueda ir resolviendo?`;
 }
 
 export function respuestaPersona(socio: SocioPedido | null): string {

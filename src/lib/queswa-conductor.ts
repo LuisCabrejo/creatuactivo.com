@@ -42,6 +42,7 @@ import { pedirDatos, CLAVES_CANAL, type ClaveRadicacion, type DatosRadicacion } 
 import {
   seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO, RE_OFERTA_FOTO_PRODUCTO,
   detectarPidePersona, respuestaPersona, avisarPidePersona,
+  detectarPreguntaCharla, respuestaCharla,
   detectarPreguntaEnvio, respuestaEnvio,
   detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
   type SocioPedido,
@@ -672,6 +673,13 @@ export async function atenderSocio(ctx: ContextoSocio): Promise<RespuestaConduct
   if (ctx.socioQueEscribe) return null;
   const { mensaje, historial, socio } = ctx;
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+
+  // 2.46b — Las charlas de Luis (21 sep 2026): dónde viven y aviso al socio.
+  if (detectarPreguntaCharla(mensaje)) {
+    const ultimoUsuario = [...historial].reverse().find((m) => m.role === 'user')?.content ?? '';
+    await avisarPidePersona(ctx.contacto, ctx.nombreProspecto, socio, ultimoUsuario);
+    return { nodo: '2.46b pregunta por las charlas (socio y equipo avisados)', texto: respuestaCharla(socio) };
+  }
 
   // 2.46 — Hasta el 27 ago el modelo escribía «le aviso al socio» y no pasaba nada.
   // Y hasta el 9 sep el «ok» a la OFERTA de conectarla tampoco: el bot preguntaba

@@ -32,7 +32,7 @@ import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
-import { esAceptacion } from '../src/lib/wa-pedido.ts';
+import { esAceptacion, detectarPidePersona, detectarPreguntaCharla } from '../src/lib/wa-pedido.ts';
 import { esSoloSaludo } from '../src/lib/wa-apertura.ts';
 
 const DETALLE = process.argv.includes('--detalle');
@@ -57,6 +57,10 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'esSoloSaludo',            fn: esSoloSaludo,          frase: 'buenas tardes', llaves: ['buenas'], tope: 4,
     nota: 'un saludo mal escrito se va al motor en vez de recibir la apertura con botones' },
   { nombre: 'mencionaElReto',          fn: mencionaElReto,        frase: 'cómo va el reto de Luis', llaves: ['reto'], tope: 0 },
+  { nombre: 'detectarPidePersona · reunión', fn: detectarPidePersona, frase: 'quiero una reunión para saber cómo iniciar', llaves: ['reunión', 'quiero'], tope: 1,
+    nota: 'pedir una reunión es pedir una persona — el video del día 15 dice que Luis se reúne con interesados (21 sep 2026)' },
+  { nombre: 'detectarPreguntaCharla',   fn: detectarPreguntaCharla, frase: 'dónde da esas charlas', llaves: ['charlas', 'dónde'], tope: 0,
+    nota: 'las charlas de Luis: dónde viven y aviso al socio (21 sep 2026)' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

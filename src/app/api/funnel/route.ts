@@ -28,6 +28,40 @@ async function notifyConstructor(constructorId: string, title: string, body: str
   }).catch(() => { /* silencioso */ })
 }
 
+/**
+ * ¿Toca avisar al socio que este visitante está en el catálogo? Solo si no se
+ * avisó en las últimas 24 h. La marca vive en la ficha del prospecto
+ * (`device_info.catalogo_avisado_at`), así que vale entre instancias. Sin huella
+ * no hay forma de no repetir: no se avisa (la página espera la huella antes de
+ * mandar el evento).
+ */
+async function avisoCatalogoPermitido(fingerprint: unknown): Promise<boolean> {
+  if (typeof fingerprint !== 'string' || !fingerprint) return false
+  try {
+    const { data: fila } = await getSupabaseClient()
+      .from('prospects')
+      .select('constructor_id, device_info')
+      .eq('fingerprint_id', fingerprint)
+      .maybeSingle()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const di = ((fila as any)?.device_info ?? {}) as Record<string, unknown>
+    const ultimo = typeof di.catalogo_avisado_at === 'string' ? Date.parse(di.catalogo_avisado_at) : NaN
+    if (!Number.isNaN(ultimo) && Date.now() - ultimo < 24 * 60 * 60 * 1000) return false
+    if (fila) {
+      await (getSupabaseClient().rpc as any)('update_prospect_data', {
+        p_fingerprint_id: fingerprint,
+        p_data: { catalogo_avisado_at: new Date().toISOString() },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        p_constructor_id: (fila as any).constructor_id ?? null,
+      })
+    }
+    return true
+  } catch (e) {
+    console.warn('⚠️ [FUNNEL] No se pudo comprobar el aviso del catálogo:', e)
+    return true
+  }
+}
+
 // Lazy initialization de Resend client
 let resendClient: Resend | null = null;
 function getResendClient(): Resend {
@@ -78,24 +112,31 @@ export async function POST(request: NextRequest) {
     if (data.step === 'vio_pagina_gracias' && constructorRef) {
       notifyConstructor(
         constructorRef,
-        `👀 ¡Tu prospecto está en la página de confirmación!`,
-        `Alguien llegó a tu página de confirmación. Momento de contactar.`
+        `👀 Su prospecto está en la página de confirmación`,
+        `Alguien llegó a su página de confirmación. Es el momento de escribirle.`
       )
     }
 
+    // El aviso del catálogo sale UNA vez por visitante y día (22 sep 2026): la
+    // página lo mandaba en cada carga y, junto con el «Nuevo visitante» del
+    // Dashboard, un solo teléfono le puso 16 avisos al Director en 12 minutos.
     if (data.step === 'vio_catalogo' && constructorRef) {
-      notifyConstructor(
-        constructorRef,
-        `🛍️ ¡Un prospecto está viendo tu catálogo!`,
-        `Alguien está revisando los productos de Gano Excel en tu enlace.`
-      )
+      if (await avisoCatalogoPermitido(data.fingerprint)) {
+        notifyConstructor(
+          constructorRef,
+          `🛍️ Un prospecto está viendo su catálogo`,
+          `Alguien está revisando los productos de Gano Excel en su enlace.`
+        )
+      } else {
+        console.log('🔕 [FUNNEL] vio_catalogo ya avisado hoy para', data.fingerprint)
+      }
     }
 
     if (data.step === 'vio_calculadora' && constructorRef) {
       notifyConstructor(
         constructorRef,
-        `🧮 ¡Tu prospecto está calculando su libertad!`,
-        `Alguien referido por ti está usando la Calculadora de Días de Libertad.`
+        `🧮 Su prospecto está usando la Calculadora`,
+        `Alguien referido por usted está usando la Calculadora de Días de Libertad.`
       )
     }
 

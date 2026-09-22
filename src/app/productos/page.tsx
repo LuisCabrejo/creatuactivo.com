@@ -654,21 +654,38 @@ export default function CatalogoEstrategico() {
     const constructorRef = localStorage.getItem('constructor_ref')
     console.log('🎯 [Productos] Constructor ref desde localStorage:', constructorRef)
 
-    // Tracking: prospecto vio el catálogo de productos
-    const fingerprint =
-      (window as any).FrameworkIAA?.fingerprint ||
-      localStorage.getItem('iaa_fingerprint') ||
-      null
-    fetch('/api/funnel', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        source: 'catalogo-productos',
-        step: 'vio_catalogo',
-        fingerprint,
-        constructor_ref: constructorRef,
-      }),
-    }).catch(() => {/* silencioso — no bloqueante */})
+    // Tracking: prospecto vio el catálogo de productos.
+    // ⚠️ Se espera a que tracking.js tenga la huella (22 sep 2026): sin ella el
+    // aviso al socio no se puede acotar a una vez por visitante y le llegaba uno
+    // por cada recarga. `iaa_fingerprint` nunca existió; la clave es
+    // `nexus_fingerprint`, la que escribe tracking.js.
+    const leerHuella = (): string | null => {
+      try {
+        return (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || null
+      } catch { return null }
+    }
+    const avisarCatalogo = (fingerprint: string | null) => {
+      fetch('/api/funnel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'catalogo-productos',
+          step: 'vio_catalogo',
+          fingerprint,
+          constructor_ref: constructorRef,
+        }),
+      }).catch(() => {/* silencioso — no bloqueante */})
+    }
+    const huellaInicial = leerHuella()
+    if (huellaInicial) {
+      avisarCatalogo(huellaInicial)
+    } else {
+      let avisado = false
+      const alEstarLista = () => { if (avisado) return; avisado = true; avisarCatalogo(leerHuella()) }
+      window.addEventListener('nexusTrackingReady', alEstarLista, { once: true })
+      // Si tracking.js no llega a identificar (bloqueado, sin red), se avisa igual a los 5 s.
+      setTimeout(alEstarLista, 5000)
+    }
 
     buscarDistribuidor(constructorRef).then(profile => {
       setDistributor(profile || {

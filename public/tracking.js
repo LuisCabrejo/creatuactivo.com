@@ -34,8 +34,12 @@
             screen.colorDepth,
             screen.width + 'x' + screen.height,
             new Date().getTimezoneOffset(),
-            canvasData,
-            Math.random().toString()
+            canvasData
+            // ⚠️ Sin componente aleatorio (22 sep 2026): con `Math.random()` cada
+            // carga de página era una huella nueva, o sea un prospecto nuevo y un
+            // aviso «Nuevo visitante» nuevo al socio en cada recarga (16 avisos en
+            // 12 minutos por un solo teléfono). La huella tiene que ser la misma
+            // para el mismo navegador; lo que cambia por visita lo cuenta `visits`.
         ];
 
         const fingerprint = await crypto.subtle.digest('SHA-256',
@@ -112,7 +116,12 @@
     // Identificar prospecto al cargar
     async function identifyProspect() {
         try {
-            const fingerprint = await generateFingerprint();
+            // La huella se conserva entre visitas: si ya se generó en este
+            // navegador, se reutiliza (es lo que hace que `is_returning` y
+            // `visits` signifiquen algo). Solo se genera si no hay una válida.
+            let fingerprint = null;
+            try { fingerprint = localStorage.getItem('nexus_fingerprint'); } catch (e) {}
+            if (!fingerprint || !/^[0-9a-f]{64}$/.test(fingerprint)) fingerprint = await generateFingerprint();
             const cookieId = getCookieId();
             const deviceInfo = getDeviceInfo();
             const constructorRef = getConstructorRef();

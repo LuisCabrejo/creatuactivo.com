@@ -1667,6 +1667,13 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`🌡️ [WA Webhook] ${phoneNumber} pasa a ${nivel} por avance`);
       } catch { /* best-effort */ }
     };
+    // Preguntar un precio o cómo se compra también es avance (22 sep 2026): el
+    // prospecto del 20 sep volvió al día siguiente a preguntar cuánto cuesta una
+    // caja y siguió «frío, interés 0» — al socio nunca le llegó. Esas preguntas
+    // van al motor, no al conductor, así que aquí se marcan antes de atenderlas.
+    if (!socioQueEscribe && /cu[aá]nto\s+(vale|cuesta|sale)|\bprecio\b|c[oó]mo\s+(se pide|lo pido|se compra|lo compro|compro|pedir|comprar)|d[oó]nde\s+(lo|la|los)?\s*(compro|consigo|pido)/i.test(messageText)) {
+      await marcarTemperatura('tibio');
+    }
     // ─── 2.3 El escenario del simulador se responde dictado ───────────────────
     // La persona acaba de elegir tarifa y clientes (o paquete y cantidad) y vio
     // el resultado en el Flow. Lo que espera es que la conversación reconozca
@@ -1777,7 +1784,16 @@ async function procesarEntrante(body: any): Promise<void> {
       : null;
     // El «sí» a «¿Le abro el pedido con el que queda su código activo?» (cierre
     // de la respuesta de sede) entra al pedido pidiendo los productos.
-    const _aceptaPedidoSede = RE_OFERTA_PEDIDO_SEDE.test(_ultimoBotPedido) && esAceptacion(messageText);
+    // …y el «sí» a «¿Le cuento cómo se pide?» —la oferta que improvisa el
+    // modelo al dar un precio— también (22 sep 2026).
+    // La oferta que el MODELO improvisa al dar un precio («¿Le cuento cómo se
+    // pide?»). El conductor no la conocía, así que el «Sí» iba al motor con esa
+    // pregunta, el vector la leía como «¿qué debo hacer yo?» y dictaba EAM_01: el
+    // prospecto del 20 sep preguntó el precio de una caja y recibió las dos
+    // acciones del socio (21 sep 2026).
+    const RE_OFERTA_COMO_SE_PIDE = /¿(Le|Te) (cuento|explico|digo|muestro) c[oó]mo (se pide|pedirl[oa]|se compra|comprarl[oa]|se hace el pedido|hacer el pedido)\?\s*$/i;
+    const _aceptaPedidoSede = (RE_OFERTA_PEDIDO_SEDE.test(_ultimoBotPedido) || RE_OFERTA_COMO_SE_PIDE.test(_ultimoBotPedido))
+      && esAceptacion(messageText);
     const _enPedido = !socioQueEscribe && (pedidoAbierto(_ultimoBotPedido) || _aceptaPedidoSede);
     const _hayPedido = !socioQueEscribe && pedidoCargado(historial);
 

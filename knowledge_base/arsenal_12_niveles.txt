@@ -1,10 +1,10 @@
 # Arsenal Conversacional: Los 12 Niveles — la versión vigente está en «Versión actual», abajo
 
-**Versión actual: v6.20** (13 sep 2026) — **Auditoría con el Director: «activo» con su causa, sin léxico del gremio.** Doce respuestas tocadas. `INV_05` usaba *activo* como otro nombre del sistema y `INV_03` lo gritaba entre paréntesis con la herencia fuera de `FREQ_05`; en `INV_01`, `INV_04` e `INV_06` se decía de la persona y pasa al código. `NIVELES_06` reescrita entera (encadenaba pasos a un ingreso y cerraba con presión); `NIVELES_07` pierde *«los expertos»* y el cierre de la lista de nombres. Mayúsculas de urgencia a minúscula; *GRATIS*, *opera*, *costo operativo* y *entra al plan* fuera. Cifras del plan intactas.
+**Versión actual: v6.21** (22 sep 2026) — **`NIVELES_06` nombra lo que trae el Kit.** Cuatro cajas de Ganocafé 3 en 1 y el material de inicio, My Gano Plan, y nada más. El dato vivía solo en el system prompt (salió en la v5.6 por la puerta «hecho → arsenal») y en producción el modelo había compuesto un Kit de siete productos con precio redondeado. Sin más cambios.
+
+**v6.20 (13 sep 2026):** **Auditoría con el Director: «activo» con su causa, sin léxico del gremio.** Doce respuestas tocadas. `INV_05` usaba *activo* como otro nombre del sistema y `INV_03` lo gritaba entre paréntesis con la herencia fuera de `FREQ_05`; en `INV_01`, `INV_04` e `INV_06` se decía de la persona y pasa al código. `NIVELES_06` reescrita entera (encadenaba pasos a un ingreso y cerraba con presión); `NIVELES_07` pierde *«los expertos»* y el cierre de la lista de nombres. Mayúsculas de urgencia a minúscula; *GRATIS*, *opera*, *costo operativo* y *entra al plan* fuera. Cifras del plan intactas.
 
 **v6.19 (3 sep 2026):** `INV_04`: la recompra son **cuatro cajas** (50 PV), no *tres o cuatro* — decir menos deja creer que con menos alcanza (Director). Sin más cambios.
-
-**v6.18 (3 sep 2026):** **«Entrar» sale de NIVELES_01 🔒**: *entra a cobrar* → *empieza a cobrar*. El verbo está vetado cuando nombra comprar el paquete o iniciar: a una cadena se entra, un inventario se compra (Director). Sin más cambios.
 
 **Historial anterior** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md) (aquí solo la versión actual y las dos previas).
 
@@ -133,7 +133,7 @@ Lo que sí cuenta es empezar: su posición en el sistema se fija al abrir su có
 
 Porque el Kit existe para que empezar no dependa del presupuesto.
 
-Con el Kit abre su código, recibe cuatro cajas y empieza a construir su sistema con la Regalía de Equipo al 10%. Más adelante, con su sistema ya facturando, usted decide si le sirve pasar a uno de los tres paquetes principales, que suman el Bono GEN5 y tarifas más altas.
+Con el Kit abre su código, recibe cuatro cajas de Ganocafé 3 en 1 y el material de inicio —My Gano Plan—, y empieza a construir su sistema con la Regalía de Equipo al 10%. Eso es todo lo que trae; su precio se lo confirma el sistema. Más adelante, con su sistema ya facturando, usted decide si le sirve pasar a uno de los tres paquetes principales, que suman el Bono GEN5 y tarifas más altas.
 
 **Pregunta de seguimiento:** ¿Quiere armar su propio escenario en el simulador con la tarifa del Kit?
 

@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.41** (21 sep 2026) — **`WHY_04` cierra prometiendo lo que llega:** *«¿Le muestro cómo crece ese porcentaje sin que le toque conseguir a todos los clientes usted?»* en vez de *«cómo se ve en números»*, que desde el 3 sep entregaba el apalancamiento sin cifras. Los cierres del apalancamiento, del ejemplo GEN5 y del simulador de renta dejan de nombrar «12 Niveles» (nomenclatura interna, retirada de WHY_02 el 6 sep) y usan la misma pregunta que WHY_02. Anterior: **v6.40** (16 sep 2026) — **`FREQ_04` 🔒 recibe las preguntas de plazo que llegaban al catálogo.** Dos frases aparte en su índice, con las palabras de quien pregunta si el negocio da resultados pronto. Sin ellas, esa pregunta se la ganaba una ficha de producto y la respuesta hablaba de beneficios del café. Medido en laboratorio contra los fragmentos reales: 4 de 7 paráfrasis en el puesto 1 (antes 0) y ninguna de 50 consultas vecinas cambia de fragmento.
+**Versión actual: v6.42** (22 sep 2026) — **`FREQ_30` lleva su segundo tiempo.** Fuera del candado y solo si la persona insiste: *«Si fuera yo, el Visionario…»*, el texto que hasta hoy vivía verbatim en el system prompt contra la regla del CLAUDE.md (salió en la v5.6). El primer tiempo —el candado— no cambia. Sin más cambios.
+
+**v6.41 (21 sep 2026):** **`WHY_04` cierra prometiendo lo que llega:** *«¿Le muestro cómo crece ese porcentaje sin que le toque conseguir a todos los clientes usted?»* en vez de *«cómo se ve en números»*, que desde el 3 sep entregaba el apalancamiento sin cifras. Los cierres del apalancamiento, del ejemplo GEN5 y del simulador de renta dejan de nombrar «12 Niveles» (nomenclatura interna, retirada de WHY_02 el 6 sep) y usan la misma pregunta que WHY_02. Anterior: **v6.40** (16 sep 2026) — **`FREQ_04` 🔒 recibe las preguntas de plazo que llegaban al catálogo.** Dos frases aparte en su índice, con las palabras de quien pregunta si el negocio da resultados pronto. Sin ellas, esa pregunta se la ganaba una ficha de producto y la respuesta hablaba de beneficios del café. Medido en laboratorio contra los fragmentos reales: 4 de 7 paráfrasis en el puesto 1 (antes 0) y ninguna de 50 consultas vecinas cambia de fragmento.
 
 **v6.39** (14 sep 2026) — **Nace el bloque del reto: `RETO_01` responde las tres condiciones.** El video del día 8 del reto de los 90 días se publicó nombrándolas y Queswa no tenía respuesta propia: la pregunta se repartía entre seis fragmentos ajenos, con las condiciones de cobro del Binario cerca. La tercera condición se presenta como lo que el reto pone a prueba, nunca como resultado; sin precio; cierra hacia `WHY_02`. Índice medido contra el corpus real antes de desplegar (7 de 7, sin quitarle consultas a sus vecinos).
-
-**v6.38** (13 sep 2026) — **«Activo» con su causa, y *maquinaria* entra al arsenal.** `WHY_05` 🔒 sigue el orden del uno a uno (credo → los tres elementos con nombre → el activo) y estrena *maquinaria de distribución* como eco de *sistema*; `WHY_03` deja de nombrar un activo sin causa ni la herencia fuera de `FREQ_05`; `FREQ_33` dice *siguen pidiendo* en vez del *activos* del gremio.
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
 
@@ -481,6 +481,8 @@ Hoy son Canadá, Estados Unidos, México, Puerto Rico, República Dominicana, Ho
 <verbatim_lock>
 Con el que le resulte cómodo hoy. Más allá del tamaño del paquete, lo importante es iniciar: el negocio no está en el paquete sino en el sistema que usted construye, y de paquete se puede subir después.
 </verbatim_lock>
+
+**Solo si la persona insiste** —*«pero si fuera usted, ¿con cuál?»*, *«¿cuál es el mejor?»*—, y nunca antes: *«Si fuera yo, el Visionario: es el que arranca con el sistema completo — 35 productos y la tarifa más alta del Binario. Pero lo que cuenta es que usted inicie; el tamaño lo decide usted.»*
 
 **Pregunta de seguimiento:** ¿Con cuál arranca?
 

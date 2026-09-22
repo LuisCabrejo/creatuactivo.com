@@ -6685,8 +6685,42 @@ ${visitorCountry === 'CO'
       // (La supresión ocurre donde se arma sessionInstructions, más abajo.)
     }
 
+// 🎯 La doctrina del hilo de Los 12 Niveles vivía en el prompt de todos (2.300
+// caracteres que leía quien preguntaba por el café). Desde la v5.6 (22 sep 2026)
+// carga solo cuando el hilo está abierto — misma idea que `whatsapp_socio`.
+// Cerrado al socio: a él no se le vende la estrategia que ya tiene.
+const _enHiloDoceNiveles = pageContext !== 'whatsapp_socio' && (
+  pageContext === '12_niveles'
+  || !!(existingProspectData as any)?.hilo_12_niveles
+  || (messages as any[]).some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(String(m?.content ?? '')))
+);
+const _instruccionHiloDoceNiveles = _enHiloDoceNiveles ? `
+🎯 HILO DE LOS 12 NIVELES — la persona está dentro de la estrategia
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• La estrategia —la duplicación 2×2— corre con CUALQUIER paquete de inicio; lo
+  que cambia es el porcentaje: 10 % con el Kit y más con los empresariales
+  (hasta 17 %). No presente el Kit como si el 10 % fuera su única tarifa.
+• Si el hilo ya mostró un ejemplo al 17 % y la persona entra a la estrategia,
+  una frase de puente antes del material: «Esta estrategia corre con el Kit, al
+  10 %: la misma regalía, con la tarifa de entrada.» Sin ella ve dos tarifas y
+  nadie le dice por qué.
+• Este hilo se cierra sobre sí mismo. Existe para desarmar tres ideas: que esto
+  es para ganar en cincuenta años, que toca hacerlo con el paquete grande, y que
+  una red de miles es trabajo de una sola persona. Por eso el ejemplo corre con
+  el Kit al 10 %, y los otros paquetes y el GEN5 NO se ofrecen ni se mencionan:
+  aparecen solo si la persona los pide. Mostrar el paquete grande aquí produce
+  procrastinación; lo que importa es que empiece a construir su base de consumo.
+• Los cierres encadenan dentro de la estrategia: la tabla, lo que queda ganando
+  con el sistema construido, y cómo se vincula. Al pedir los cuatro datos en
+  este hilo, el cuarto se pregunta así: «el paquete con el que inicia — el Kit
+  de Inicio, o uno de los tres principales si lo prefiere».
+• La diferencia entre tarifas se nombra como porcentaje y ahí termina: no se
+  calcula ni se ofrece calcular cuánto más dejaría una tarifa sobre el mismo
+  sistema.
+` : '';
+
 const sessionInstructions = `
-${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}
+${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}${_instruccionHiloDoceNiveles}
 ${visitorCountry ? `🌎 UBICACIÓN DEL VISITANTE (estimada por IP/teléfono, best-effort): ${COUNTRY_NAMES[visitorCountry] || visitorCountry}. Aplica la regla de cotización en su moneda local. Si el usuario menciona que vive o se registrará en otro país (caso diáspora), ESE país define su moneda y sus reglas de registro — confírmalo, no asumas por la ubicación detectada.` : ''}
 ${marchaInteres ? `🌉 PUENTE SUAVE (Marcha 2 — interés sin decisión): el usuario mostró interés en un paquete o preguntó por el proceso, pero NO declaró que quiere iniciar. (1) Responde con SUSTANCIA lo que preguntó —contenido del paquete, cómo se gana con él, los pasos— usando el contexto del arsenal. (2) CIERRA con un puente suave, sin pedir datos ni asumir compra: "Cuando quiera dar el paso, coordinamos su activación. Si prefiere, seguimos viendo lo que necesite." PROHIBIDO pedir nombre o WhatsApp en este turno. PROHIBIDO decir "lo registramos". Espera una señal clara de intención antes de avanzar al registro.` : ''}
 ${getPageContextInstructions()}

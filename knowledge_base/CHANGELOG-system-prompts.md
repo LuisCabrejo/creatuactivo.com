@@ -6,6 +6,37 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.6 — Presupuesto de 20.000 caracteres, y los videos salen del prompt (22 sep 2026)
+
+**Por qué.** El prompt había llegado a 29.000 caracteres por canal (38 KB el archivo), con la mitad en `<core_behavior>`. El Director fijó el techo en **20.000 por canal desplegado**. Y el bloque «lo que se publicó esta semana» de la v5.5 crecía 450 caracteres por video: sin cota, en un mes pesaba más que todo el recorte. La auditoría encontró además dos reglas de «activo», tres «una sola pregunta», tres «relea el hilo», la línea del video repetida en el rol, una **contradicción** (una regla prohibía la lista de ausencias y la siguiente la dictaba: *«lo que no hay es inventario, bodega ni entregas»*), y **arrastre**: el prompt citaba lo que veta —«sin bodega, sin inventario», «entre el 20 y el 30 %», «tranquilo» tres veces—, que es la regla más repetida del CLAUDE.md.
+
+**Resultado:** WhatsApp 17.082 · web 17.498 · Dashboard 15.050. Ninguna regla se perdió: cambió de casa por una de cuatro puertas.
+
+**1. Justificación → aquí.** Las reglas se quedaron; salió su historia. Lo que se retiró del prompt y por qué existía cada regla, para quien la edite:
+- *Siglas*: «(Ya lo hace bien con términos ajenos evidentes; el riesgo son las siglas cortas que se parecen a algo del plan)». La regla nació de una sigla inventada con definición técnica.
+- *Cadencia del pago*: el porqué de «nunca lo de esta semana llega este viernes» — decepciona en la primera semana, que es el peor momento. El calendario lo dicta `respuestaCiclo()`.
+- *Sistema toma el turno*: «(8 sep 2026: el bloque de los cuatro datos vivía aquí como red de respaldo y el modelo lo copió a alguien que solo quería ver números; hoy vive únicamente en el sistema)». La frase puente `OFERTA_RADICAR_MODELO` sigue literal en el prompt y en `wa-radicacion.ts`.
+- *Kit de Inicio*: «En producción el modelo compuso un Kit de siete productos variados con un precio redondeado — ninguna de las dos cosas existe». La composición pasó a `NIVELES_06` (puerta 3); en el prompt queda una línea.
+- *Diferencia entre tarifas*: «esa cuenta hace que la persona calcule lo que gana quien la invitó, y ahí se acaba la conversación (Director, 26 ago 2026)».
+- *Los tres nombres del sistema* y *el activo*: los ensayos («Su fuerza está en que nombra dos cosas distintas…», «Un canal es un conducto y no consume…») viven en el CLAUDE.md y en `lexico-canonico.json`. En el prompt quedó un párrafo de léxico con la regla y el ejemplo.
+- *Tabla a medias*: «una tabla a medias con el conteo de cada nivel es la escalera dibujada, y el guardarraíl la bloquea entera».
+- *Villano*: «Son dos piezas las que hacen el trabajo…» — queda el texto de referencia y una línea: el remate es la mitad del párrafo y va siempre.
+- *Candado*: «Un candado recortado es un candado roto» y el párrafo de las etiquetas se fundieron en el primero.
+- *Margen*: la cifra citada para prohibirla salió; queda la regla en positivo.
+- *Lista de ausencias*: se resolvió hacia el positivo. Se describe lo que Gano Excel hace; la lista no aparece ni como ejemplo de lo que no se dice.
+
+**2. Hecho → arsenal.** «My Gano Plan» solo existía en el prompt: ahora está en `NIVELES_06` (arsenal de 12 Niveles). El «Si fuera yo, el Visionario…» —verbatim en el prompt, contra la regla del CLAUDE.md— está en `FREQ_30` fuera del candado, como segundo tiempo del mismo fragmento: un fragmento nuevo competiría con FREQ_30 en el vector y el CQR de una insistencia corta lo devolvería al primero.
+
+**3. Hilo → instrucción de sesión.** Las cuatro reglas de Los 12 Niveles (no es exclusiva del Kit · la frase puente 17→10 % · el hilo se cierra sobre sí mismo · la diferencia entre tarifas) viven en `route.ts` como `_instruccionHiloDoceNiveles`, que se inyecta en `sessionInstructions` cuando `pageContext === '12_niveles'`, cuando la ficha trae `hilo_12_niveles`, o cuando el hilo nombra la estrategia — y nunca para `whatsapp_socio`. En el prompt queda solo la regla de reconocer el plan cuando lo nombran mal, porque esa aplica en cualquier conversación.
+
+**4. Los videos del reto.** El prompt conserva **los dos más recientes**, hoy y ayer, con tope duro de dos. Los anteriores van al arsenal como fragmentos `RETO_dNN` (cinco líneas: qué contó, la cita, la anécdota; índice escrito como pregunta la gente) el mismo día que sale el nuevo, y la auditoría del guion los prueba antes de publicar. El costo de un video en el prompt lo paga cada conversación; el de un fragmento, solo quien pregunta por él.
+
+**Formato compartido.** Las siete viñetas idénticas de los tres `<channel_formatting>` se escriben una vez fuera de los marcadores; quedan marcadas solo las propias de cada canal. Cero cambio en lo desplegado; una edición futura en vez de tres.
+
+**Desplegado** a los tres canales con `--dry` primero, y verificado con las baterías del clasificador, salud, negocio y typos. ⚠️ Un tropiezo del mismo día, ya anotado en el CLAUDE.md: importar `renderizarCanal` desde el script para medir un borrador **ejecuta el despliegue**; redesplegó la v5.5 sin cambiar el texto (verificado por diff), pero movió la etiqueta del Dashboard de v5.3 a v5.5.
+
+---
+
 ## v5.5 — «Lo que se publicó esta semana», y las charlas de Luis (22 sep 2026)
 
 **Por qué.** La v5.4 le dio a Queswa quién es Luis y qué es el reto, y eso resolvió tres ❌ de la auditoría del día 15. La del día 16 mostró el siguiente escalón: Queswa no sabe **qué dice cada video**. A *«¿cómo se llama el señor que nombró al final?»* —Mario Alonso Puig, dicho en el video— respondía con el discurso de ingresos; *«ya escribí las diez, ¿esto para qué es?»* lo leía como una lista de prospectos; y *«¿qué es eso de 1.500 personas?»* lo convertía en 1.500 consumidores del reto.

@@ -403,9 +403,9 @@ export function detectarPidePersona(texto: string): boolean {
 // «cuando doy charla», y Queswa respondía que no hay charlas presenciales. No se
 // describe ningún evento —restricción de Meta sobre esta industria, ver FREQ_35—:
 // se dice dónde vive lo que explica (los videos del reto) y se avisa al socio.
-export const RE_PREGUNTA_CHARLA = /\bc(ha|ah)r?las?\b|conferencias?/;
+export const RE_PREGUNTA_CHARLA = /\bc(ha|ah)r?las?\b|conferencias?|conferencista|ponente|expositor|\borador\b|invitarl[oe] a (hablar|dar)|(venir|ir) a hablar|hablar (en|para|con) (mi|nuestra|la) (empresa|equipo|gente|compa[nñ]ia)/;
 const RE_INTERES_CHARLA =
-  /\bd(onde|one|node|ode)\b|cuando|puedo (ir|asistir)|asistir|proxima|inscrib|inviten|invitan|me invita|hay (alguna|charla)|alguna c|la siguiente/;
+  /\bd(onde|one|node|ode)\b|cuando|puedo (ir|asistir)|asistir|proxima|inscrib|invit\w*|hay (alguna|charla)|alguna c|la siguiente|cobr\w*|cuesta|vale|contrat\w*|honorari\w*|\b(da|das|dan|dicta|dictan|hace|hacen)\b/;
 
 export function detectarPreguntaCharla(texto: string): boolean {
   const t = normalizarPuerta(texto);

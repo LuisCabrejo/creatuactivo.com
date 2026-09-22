@@ -6,6 +6,19 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.5 — «Lo que se publicó esta semana», y las charlas de Luis (22 sep 2026)
+
+**Por qué.** La v5.4 le dio a Queswa quién es Luis y qué es el reto, y eso resolvió tres ❌ de la auditoría del día 15. La del día 16 mostró el siguiente escalón: Queswa no sabe **qué dice cada video**. A *«¿cómo se llama el señor que nombró al final?»* —Mario Alonso Puig, dicho en el video— respondía con el discurso de ingresos; *«ya escribí las diez, ¿esto para qué es?»* lo leía como una lista de prospectos; y *«¿qué es eso de 1.500 personas?»* lo convertía en 1.500 consumidores del reto.
+
+**Qué se agregó**, en `<role_and_objective>` y solo para `web whatsapp`:
+
+1. **Un bloque «lo que se publicó esta semana»** con dos o tres líneas por video: el día 15 (la jornada, la cita de David Vélez, el ejemplo de adelgazar) y el día 16 (las 1.500 personas en Neiva, el ejercicio de las diez cosas, la cita de Puig). ⚠️ **Se actualiza cuando un video estrena un tema** — es la pieza que envejece más rápido del prompt. Cierra con la salida honesta: lo que no esté ahí se dice con naturalidad.
+2. **Dos líneas sobre las charlas:** Luis da charlas y acepta invitaciones; quien pregunte —dónde, cuándo, si lo pueden invitar, cuánto cobra— va al nodo de charlas (2.46b), y el modelo **no cotiza ni agenda**.
+
+**Desplegado** con `--solo web` y `--solo whatsapp`; `queswa_dashboard` sigue en v5.3. Antes de desplegar se verificó que lo que estaba en producción fuera idéntico al archivo sin este cambio, y después, que el texto en Supabase sea idéntico al archivo.
+
+---
+
 ## v5.4 — Queswa sabe quién es Luis y qué es el reto de los 90 días (16 sep 2026)
 
 **Por qué.** La auditoría del video del día 9 (`scripts/auditar-guion-queswa.mjs`) dio tres ❌ con la misma raíz: el prompt no sabía que Luis documenta un reto en video. A *«¿qué le pasó a Luis?»* negó haber visto el video y lo llamó «el socio»; a *«¿qué era eso del helado?»* dijo que el mensaje venía de otro chat; a *«lo del después que nunca llega»* lo llevó al dinero.

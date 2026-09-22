@@ -63,6 +63,7 @@ def main():
     # sube por aquí sin cambiar el default de las demás píldoras.
     mus_lufs = float(sys.argv[sys.argv.index("--musica-lufs")+1]) if "--musica-lufs" in sys.argv else -26.0
     mus_vol  = float(sys.argv[sys.argv.index("--musica-vol")+1])  if "--musica-vol"  in sys.argv else 0.85
+    sin_duck = "--sin-duck" in sys.argv
     guion_ext = None
     if "--guion" in sys.argv:
         i = sys.argv.index("--guion")
@@ -218,10 +219,16 @@ def main():
            "-ar","48000","-ac","2",f"{W}/cama.wav")
         sh("ffmpeg","-y","-v","error","-i",f"{W}/vid.mp4","-i",f"{W}/voz_ok.wav","-i",f"{W}/cama.wav",
            "-filter_complex",
-           "[1:a]aformat=fltp:48000:stereo,loudnorm=I=-16:TP=-1.5:LRA=11,asplit[v][sc];"
-           "[2:a]aformat=fltp:48000:stereo[c];[c][sc]sidechaincompress=threshold=0.03:ratio=12:"
-           "attack=15:release=350:makeup=1[d];[v][d]amix=inputs=2:duration=first:normalize=0,"
-           "loudnorm=I=-14:TP=-1.5:LRA=11[a]",
+           # --sin-duck: cama a volumen CONSTANTE. Con el sidechain la música sube en cada
+           # pausa y se hunde bajo la voz; en un reel hablado casi sin pausas eso se oye
+           # como bombeo (Director, día 15 del reto, 21 sep 2026).
+           ("[1:a]aformat=fltp:48000:stereo,loudnorm=I=-16:TP=-1.5:LRA=11[v];"
+            "[2:a]aformat=fltp:48000:stereo[d];[v][d]amix=inputs=2:duration=first:normalize=0,"
+            "loudnorm=I=-14:TP=-1.5:LRA=11[a]") if sin_duck else
+           ("[1:a]aformat=fltp:48000:stereo,loudnorm=I=-16:TP=-1.5:LRA=11,asplit[v][sc];"
+            "[2:a]aformat=fltp:48000:stereo[c];[c][sc]sidechaincompress=threshold=0.03:ratio=12:"
+            "attack=15:release=350:makeup=1[d];[v][d]amix=inputs=2:duration=first:normalize=0,"
+            "loudnorm=I=-14:TP=-1.5:LRA=11[a]"),
            "-map","0:v","-map","[a]","-c:v","copy","-c:a","aac","-b:a","192k",f"{W}/mix.mp4")
     else:
         sh("ffmpeg","-y","-v","error","-i",f"{W}/vid.mp4","-i",f"{W}/voz_ok.wav","-filter_complex",

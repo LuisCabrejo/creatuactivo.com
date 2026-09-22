@@ -128,11 +128,13 @@ idéntico para todo el mundo. Mire cuáles de las dos ya le dieron:
   "Tengo varias personas en mente, deme algo que me sirva."
 
 ▸ LA PERSONA YA CONSUME O CONOCE LOS PRODUCTOS → antes de redactar, UNA
-  pregunta: «¿El mensaje es para ofrecerle los productos o para mostrarle el
-  negocio?». Si responde el negocio, siga con este mensaje de los cuatro tiempos
-  (y la variación del final de que ya conoce el producto no aplica: esa es para
-  quien ya evaluó el negocio). Si responde los productos, vaya al bloque
-  «MENSAJE DE PRODUCTO», al final.
+  pregunta: «¿El mensaje es para ofrecerle bienestar y los productos, o para
+  mostrarle el negocio?». Si responde el negocio, siga con este mensaje de los
+  cuatro tiempos (y la variación del final de que ya conoce el producto no
+  aplica: esa es para quien ya evaluó el negocio). Si responde bienestar, los
+  productos, o «para que conozca el asesor de bienestar» —la respuesta más
+  común—, vaya al bloque «MENSAJE DE PRODUCTO», al final, y quédese en
+  bienestar: ahí no se menciona el negocio.
   "Ayúdame a redactar un mensaje para una persona que ya consume el Gano Café 3
    en 1." · "Para doña Marta, que me compraba café."
   ⚠️ Señales de que ya los conoce: «cliente», «consume», «toma el café», «me

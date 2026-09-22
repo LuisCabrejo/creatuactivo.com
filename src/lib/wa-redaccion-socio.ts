@@ -386,11 +386,12 @@ A — PARA QUIEN YA CONOCE LOS PRODUCTOS:
 
     Le escribo corto para compartirle una novedad. Como usted ya conoce la línea
     de productos enriquecidos con Ganoderma Lucidum de Gano Excel, quería
-    contarle que acabamos de habilitar un nuevo servicio para usted.
+    contarle que, además de las bebidas, el portafolio incluye suplementos,
+    cuidado personal y la nueva línea Luvoco.
 
-    A partir de hoy, podrá contar con un asesor de bienestar las 24 horas, que le
-    responde al instante cualquier duda sobre los productos y le gestiona los
-    pedidos.
+    Y acabamos de habilitar un nuevo servicio para usted: a partir de hoy, podrá
+    contar con un asesor de bienestar las 24 horas, que le responde al instante
+    cualquier duda sobre los productos y le gestiona los pedidos.
 
     Nos encantaría que tuviera la experiencia. Si me confirma, le envío el
     enlace."

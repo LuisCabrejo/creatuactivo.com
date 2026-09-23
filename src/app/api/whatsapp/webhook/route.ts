@@ -1175,7 +1175,21 @@ async function procesarEntrante(body: any): Promise<void> {
       if (!existingProspect?.device_info?.saludo_socio_en) return;
       const slugEnlace = (/vengo del enlace de\s+([a-z0-9-]+)/i.exec(messageText)
         ?? /creatuactivo\.com\/([a-z0-9-]+)/i.exec(messageText))?.[1]?.toLowerCase() ?? null;
-      const texto = mensajeSocioEnlace(socioQueEscribe, slugEnlace);
+      // El nombre del dueño del enlace, con las dos primeras palabras: el enlace
+      // trae el slug o el constructor_id, y ninguno de los dos se le lee a nadie.
+      let nombreEnlace: string | null = null;
+      if (slugEnlace && slugEnlace !== socioQueEscribe.slug) {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const sb = supabase as any;
+          const { data: porSlug } = await sb.from('constructor_slugs').select('display_name').eq('slug', slugEnlace).maybeSingle();
+          const crudo: unknown = porSlug?.display_name
+            ?? (await sb.from('private_users').select('name').eq('constructor_id', slugEnlace).maybeSingle()).data?.name
+            ?? null;
+          nombreEnlace = crudo ? String(crudo).trim().split(/\s+/).slice(0, 2).join(' ') : null;
+        } catch { /* best-effort: sale el identificador */ }
+      }
+      const texto = mensajeSocioEnlace(socioQueEscribe, slugEnlace, nombreEnlace);
       await sendWhatsAppMessage(phoneNumber, texto);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
       console.log(`🔗 [WA Webhook] El socio /${socioQueEscribe.slug} tocó el enlace de ${slugEnlace ?? '(sin slug)'} — se le dice qué hace`);
@@ -1672,6 +1686,15 @@ async function procesarEntrante(body: any): Promise<void> {
     // caja y siguió «frío, interés 0» — al socio nunca le llegó. Esas preguntas
     // van al motor, no al conductor, así que aquí se marcan antes de atenderlas.
     if (!socioQueEscribe && /cu[aá]nto\s+(vale|cuesta|sale)|\bprecio\b|c[oó]mo\s+(se pide|lo pido|se compra|lo compro|compro|pedir|comprar)|d[oó]nde\s+(lo|la|los)?\s*(compro|consigo|pido)/i.test(messageText)) {
+      await marcarTemperatura('tibio');
+    }
+    // Llegar al TERCER botón de la apertura —«Qué debo hacer yo»— también es
+    // avance (22 sep 2026): Isabella Rojas recorrió los tres botones, aceptó ver
+    // los productos y quedó «fría, interés 0», así que al socio no le llegó
+    // ninguna señal de alguien que acababa de hacer cuatro preguntas seguidas.
+    // Es el botón más hondo de la apertura: quien lo toca ya se está imaginando
+    // haciéndolo.
+    if (!socioQueEscribe && /^\s*qu[eé] debo hacer yo\s*[?.!]*\s*$/i.test(messageText)) {
       await marcarTemperatura('tibio');
     }
     // ─── 2.3 El escenario del simulador se responde dictado ───────────────────

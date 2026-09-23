@@ -24,7 +24,7 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { detectarPidePieza } from '../src/lib/queswa-conductor.ts';
+import { detectarPidePieza, declaraPerfil } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
 // lexer de Node se detiene en la «ñ» de `notificarDueño`, así que todo export
@@ -33,6 +33,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 import { esAceptacion, detectarPidePersona, detectarPreguntaCharla } from '../src/lib/wa-pedido.ts';
+import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
 import { esSoloSaludo } from '../src/lib/wa-apertura.ts';
 
 const DETALLE = process.argv.includes('--detalle');
@@ -52,10 +53,15 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'el «Redácta» de Patricia (11 sep) sí está cubierto; el verbo y el sustantivo, no' },
   { nombre: 'pideEnlaceCatalogo',      fn: pideEnlaceCatalogo,    frase: 'mándame el catálogo', llaves: ['catálogo'], tope: 3 },
   { nombre: 'esAceptacion',            fn: esAceptacion,          frase: 'sí, claro', llaves: ['claro'], tope: 0 },
+  { nombre: 'aceptación pelada · porfavor', fn: (t) => RE_ACEPTACION_PELADA.test(t.trim()), frase: 'si porfavor', llaves: ['porfavor'], tope: 4,
+    nota: 'el «Si porfavor» de Isabella (22 sep) cayó al CQR y recibió la tabla de suplementos — la cola `por\\s?fa[a-z]*` cubre porfa/porfavor/por favor; misma cola en `_aceptacionPelada` de route.ts' },
   { nombre: 'detectarPideFuncionDashboard', fn: detectarPideFuncionDashboard, frase: 'redáctame un mensaje para dueños de restaurantes', llaves: ['redáctame', 'restaurantes'], tope: 3,
     nota: 'el mensaje para un NEGOCIO va al Centro de Mando; el de una persona se queda (16 sep 2026)' },
   { nombre: 'esSoloSaludo',            fn: esSoloSaludo,          frase: 'buenas tardes', llaves: ['buenas'], tope: 4,
     nota: 'un saludo mal escrito se va al motor en vez de recibir la apertura con botones' },
+  { nombre: 'declaraPerfil · empresario', fn: declaraPerfil, frase: 'ya tengo un negocio propio y me va bien', llaves: ['negocio'], tope: 0,
+    nota: 'si no dispara, al empresario le sale la respuesta escrita para quien no tiene negocio (23 sep 2026)' },
+  { nombre: 'declaraPerfil · freelance',  fn: declaraPerfil, frase: 'soy independiente, para qué me sirve', llaves: ['independiente'], tope: 0 },
   { nombre: 'mencionaElReto',          fn: mencionaElReto,        frase: 'cómo va el reto de Luis', llaves: ['reto'], tope: 0 },
   { nombre: 'detectarPidePersona · reunión', fn: detectarPidePersona, frase: 'quiero una reunión para saber cómo iniciar', llaves: ['reunión', 'quiero'], tope: 1,
     nota: 'pedir una reunión es pedir una persona — el video del día 15 dice que Luis se reúne con interesados (21 sep 2026)' },

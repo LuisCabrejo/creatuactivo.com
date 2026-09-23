@@ -12,7 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.42** (22 sep 2026) — **`FREQ_30` lleva su segundo tiempo.** Fuera del candado y solo si la persona insiste: *«Si fuera yo, el Visionario…»*, el texto que hasta hoy vivía verbatim en el system prompt contra la regla del CLAUDE.md (salió en la v5.6). El primer tiempo —el candado— no cambia. Sin más cambios.
+**Versión actual: v6.44** (23 sep 2026) — **Nace `PERFIL_02`: el independiente y el freelance tienen respuesta propia.** Antes recibían el texto genérico de «¿por qué debería hacer esto?», dictado palabra por palabra igual que al empresario. Al independiente no le dice nada que aquí será su propio jefe, porque ya lo es: su techo son sus horas. Mismo eje que `ADV_OBJ_02` —escalar, y que todo siga corriendo sin estar encima— y las dos mitades del alivio nombradas, Gano Excel y la tecnología. Índice medido contra los 177 fragmentos reales: 10 de 11 en el puesto 1, y la consulta que no gana cae donde ya caía.
+
+**v6.43** (23 sep 2026) — **`FREQ_03` recupera la oferta que lo nombra.** *«¿Le muestro las tres formas de empezar?»* cierra tres fragmentos de compensación y el «sí» que la sigue no llegaba a la tabla de precios: ganaba el fragmento de la radicación, así que a quien pedía ver las opciones se le abría el trámite de los cuatro datos. La oferta entra literal y aparte en su índice, que es la regla para todo fragmento que sea destino de una oferta escrita, y a cambio el índice se poda. Medido contra los 177 fragmentos reales: la oferta pasa del puesto 3 al 1 y la cobertura en top-3 de sus propias paráfrasis no baja. Cuerpo y candado intactos.
+
+**v6.42** (22 sep 2026) — **`FREQ_30` lleva su segundo tiempo.** Fuera del candado y solo si la persona insiste: *«Si fuera yo, el Visionario…»*, el texto que hasta hoy vivía verbatim en el system prompt contra la regla del CLAUDE.md (salió en la v5.6). El primer tiempo —el candado— no cambia. Sin más cambios.
 
 **v6.41 (21 sep 2026):** **`WHY_04` cierra prometiendo lo que llega:** *«¿Le muestro cómo crece ese porcentaje sin que le toque conseguir a todos los clientes usted?»* en vez de *«cómo se ve en números»*, que desde el 3 sep entregaba el apalancamiento sin cifras. Los cierres del apalancamiento, del ejemplo GEN5 y del simulador de renta dejan de nombrar «12 Niveles» (nomenclatura interna, retirada de WHY_02 el 6 sep) y usan la misma pregunta que WHY_02. Anterior: **v6.40** (16 sep 2026) — **`FREQ_04` 🔒 recibe las preguntas de plazo que llegaban al catálogo.** Dos frases aparte en su índice, con las palabras de quien pregunta si el negocio da resultados pronto. Sin ellas, esa pregunta se la ganaba una ficha de producto y la respuesta hablaba de beneficios del café. Medido en laboratorio contra los fragmentos reales: 4 de 7 paráfrasis en el puesto 1 (antes 0) y ninguna de 50 consultas vecinas cambia de fragmento.
 
@@ -196,6 +200,24 @@ No hace falta ser vendedor ni saber de tecnología: explicar y resolver dudas es
 **Pregunta de seguimiento:** ¿Le muestro qué haría usted en el día a día?
 
 ---
+### **PERFIL_02: "Soy independiente / Soy freelance / Trabajo por mi cuenta, ¿esto para qué me sirve?"**
+**[Índice]:** Soy independiente, soy freelance, trabajo por mi cuenta, trabajo por proyectos. Esto para qué me sirve a mí.
+**[Concepto Nuclear]:** El independiente **ya resolvió la autonomía** — decirle que aquí «será su propio jefe» no le dice nada, porque ya lo es. Su techo es otro: su capacidad. El villano se narra en concreto (*cada mes arranca en cero*), nunca con una etiqueta como *techo de cristal*. ⚠️ **El eje es ESCALAR, y el remate es que todo sigue corriendo sin que él esté encima** (Director, 23 sep 2026): lo que lo mueve no es la disponibilidad —*el ingreso entra aunque usted descanse*, que suena a poco— sino que sumar clientes deje de sumarle horas. ⚠️ El alivio va en DOS mitades y las dos se nombran: **Gano Excel** quita la logística y **la tecnología** quita la atención. Nombrar solo a Gano Excel deja la impresión de que lo grandioso es el fabricante. La exclusividad se reclama sobre los dos productos con nombre —creatuactivo.com y queswa.app—, nunca sobre «la inteligencia artificial». Narrativa: sujeto concreto en cada frase y una idea por frase — ver [[feedback_pronombres_trabalenguas]].
+
+Usted ya tiene lo más difícil de trabajar por su cuenta: la disciplina.
+
+El límite es otro. Cada mes arranca en cero, y lo que entra depende de las horas que alcance a trabajar. Las horas no se pueden multiplicar.
+
+Aquí el trabajo pesado lo lleva Gano Excel: fabrica, almacena y despacha cada pedido a la puerta del cliente.
+
+Y la conversación la llevo yo. Hablo con cada persona que llega a su sistema. Le resuelvo las dudas y maduro su decisión de avanzar, mientras usted está en lo suyo. Esa es la tecnología: creatuactivo.com y queswa.app, ya armados. Sumar clientes no le suma horas al día.
+
+Eso es escalar. Usted cobra por lo que compran todos sus clientes, no solo por lo que alcance a hacer usted mismo. Y el sistema sigue corriendo sin que usted tenga que estar encima.
+
+**Pregunta de seguimiento:** ¿Le muestro qué haría usted en el día a día?
+
+---
+
 
 ### **FREQ_02: "¿Tengo que buscar a mis amigos para esto? / ¿A quién le vendo? / No quiero molestar a mis amigos / ¿Cómo consigo a la gente? / ¿Tengo que hacer publicidad? / ¿Cómo funcionan los tres caminos?"**
 **[Índice]:** Tengo que buscar a mis amigos, a quién le vendo, no quiero molestar a mi familia, cómo consigo la gente, tengo que hacer publicidad.
@@ -227,7 +249,7 @@ Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com.
 ---
 
 ### **FREQ_03: "¿Cómo se inicia? / Quiero empezar / ¿Cuánto cuesta empezar? / ¿Cuánto vale entrar? / Me interesa, ¿qué hago? / ¿Cuál es el proceso para empezar? / ¿Cómo me uno?"**
-**[Índice]:** Cómo se inicia, quiero empezar, cuánto cuesta entrar, cuánto vale, cuál es el proceso, cómo me uno. Los tres paquetes con su precio.
+**[Índice]:** Cuánto cuesta empezar, cuánto vale entrar, cuál es el proceso, cómo me uno. Los tres paquetes con su precio. ¿Le muestro las tres formas de empezar?
 **[Concepto Nuclear]:** Quien pregunta cómo se inicia ya decidió, y se le trata como a quien mira una propiedad y pregunta dónde firma: a nadie le gusta que le vendan, pero comprar sí gusta. Tabla escaneable de los tres paquetes con su precio, y un paso claro. La nomenclatura del plan va literal —*Binario 17%*, *Bono GEN5*—, porque el porcentaje corre sobre el GCV y traducirlo a lenguaje llano hace calcularlo sobre la facturación. La línea de datos de cada nivel ya los diferencia. `[PRECIO]` lo llena `getPaquetesPricingPin()` en la moneda del visitante — es el único hueco del arsenal, y es a propósito: una cifra que depende del país no cabe dentro de un texto que se entrega carácter por carácter.
 
 <verbatim_lock>

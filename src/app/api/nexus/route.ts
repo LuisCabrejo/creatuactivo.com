@@ -42,7 +42,7 @@ import {
 import { gestionarCierre, CLAVES_CANAL, CLAVES_WEB } from '@/lib/wa-radicacion';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, fotoParaWeb, aFormatoWeb,
-  slugDelSocio, textoSimuladorWeb, paisDeCodigo,
+  slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import {
@@ -1209,19 +1209,30 @@ async function getDocumentsWithEmbeddings(): Promise<DocumentWithEmbedding[]> {
 // Reduce tokens de entrada de ~60K a ~3K por request
 // ========================================
 
-// Cache para fragmentos de arsenales
-const fragmentsCache: { data: DocumentWithEmbedding[]; timestamp: number } = { data: [], timestamp: 0 };
+// Cache para fragmentos de arsenales — POR TENANT (23 sep 2026)
+const fragmentsCache = new Map<string, { data: DocumentWithEmbedding[]; timestamp: number }>();
 const FRAGMENTS_CACHE_TTL = 5 * 60 * 1000; // 5 minutos
 
 /**
- * Obtiene todos los fragmentos de arsenales con embeddings
- * Los fragmentos tienen categoría como: arsenal_inicial_WHY_01, arsenal_avanzado_OBJ_03, etc.
+ * Obtiene los fragmentos de arsenales con embeddings, del tenant que se pida.
+ *
+ * ⚠️ **Se filtra por tenant desde el 23 sep 2026.** La consulta no lo hacía, con
+ * el argumento de que el filtro real llegaba después por prefijo de categoría.
+ * Eso era cierto cuando los clones no existían; hoy la MISMA categoría vive en
+ * `creatuactivo_marketing`, en `whatsapp` y en `dashboard`. Medido ese día:
+ * **575 filas, 354 de ellas duplicados de un fragmento ya traído, 4,4 MB y
+ * 1,6 s** para usar 177. Lo paga cada arranque en frío de una instancia Edge, y
+ * las puertas directas —catálogo, paquetes, tabla de precios— pasan por aquí.
+ *
+ * La búsqueda vectorial principal NO usa esta función: resuelve la similitud en
+ * la base con `match_fragments_512`, que sí filtra por tenant (~300 ms). Esto es
+ * para las puertas directas y para el respaldo en memoria.
  */
-async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
-  // Check cache
-  if (fragmentsCache.data.length > 0 && (Date.now() - fragmentsCache.timestamp) < FRAGMENTS_CACHE_TTL) {
-    console.log(`⚡ [Fragments] Usando ${fragmentsCache.data.length} fragmentos desde cache`);
-    return fragmentsCache.data;
+async function getArsenalFragments(tenantId = 'creatuactivo_marketing'): Promise<DocumentWithEmbedding[]> {
+  const cached = fragmentsCache.get(tenantId);
+  if (cached && cached.data.length > 0 && (Date.now() - cached.timestamp) < FRAGMENTS_CACHE_TTL) {
+    console.log(`⚡ [Fragments] Usando ${cached.data.length} fragmentos de ${tenantId} desde cache`);
+    return cached.data;
   }
 
   try {
@@ -1229,8 +1240,7 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
       .from('nexus_documents')
       .select('category, title, content, embedding_512, metadata')
       .or('category.like.arsenal_%_%, category.like.catalogo_productos_%')  // Match arsenal_inicial_WHY_01, catalogo_productos_BEB_01, etc.
-      // Sin filtro de tenant: se carga todos los fragmentos (creatuactivo_marketing + ecommerce + marca_personal)
-      // El filtro real ocurre en searchArsenalFragments → filter(f => f.category.startsWith(arsenalType))
+      .eq('tenant_id', tenantId)
       .not('embedding_512', 'is', null);
 
     if (error) {
@@ -1261,9 +1271,8 @@ async function getArsenalFragments(): Promise<DocumentWithEmbedding[]> {
       }));
 
     // Update cache
-    fragmentsCache.data = fragments;
-    fragmentsCache.timestamp = Date.now();
-    console.log(`⚡ [Fragments] Cacheados ${fragments.length} fragmentos de arsenales`);
+    fragmentsCache.set(tenantId, { data: fragments, timestamp: Date.now() });
+    console.log(`⚡ [Fragments] Cacheados ${fragments.length} fragmentos de ${tenantId}`);
 
     return fragments;
   } catch (error) {
@@ -1331,7 +1340,7 @@ async function searchArsenalFragments(
 
   // ── RESPALDO: búsqueda en memoria (el camino histórico) ───────────────────
   try {
-    const allFragments = await getArsenalFragments();
+    const allFragments = await getArsenalFragments(tenantId);
 
     // Filtrar fragmentos del arsenal específico
     const arsenalFragments = allFragments.filter(f =>
@@ -1462,7 +1471,7 @@ async function clasificarDocumentoVectorial(
   try {
     // Mismo corpus que usa la búsqueda real, y ya cacheado en memoria: clasificar
     // y recuperar dejan de poder discrepar.
-    const fragments = await getArsenalFragments();
+    const fragments = await getArsenalFragments(tenantId);
 
     if (fragments.length === 0) {
       console.log('[VectorSearch] No fragments with embeddings found');
@@ -2551,7 +2560,10 @@ function analizarIntencionSemantica(userMessage: string): string[] {
   // largo no mueve su vector (medido); lo que funciona es decidirlo en código.
   //
   // Cada puerta se abrió con una prueba que falló, y la nota dice cuál:
-  const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp, 'test'>; porque: string; dictar?: boolean }[] = [
+  // La pregunta de validación en frío: «¿por qué debería hacer esto?».
+const RE_PREGUNTA_POR_QUE = /por\s*qu[eé]\s+(uno\s+)?(deber[ií]a|debo|habr[ií]a\s+de|tendr[ií]a\s+que|har[ií]a|me\s+meter[ií]a|entrar[ií]a|hacer\s+esto|desarrollar\s+este)|qu[eé]\s+gano\s+yo|para\s+qu[eé]\s+me\s+sirve|por\s*qu[eé]\s+(esto|este\s+negocio)\b|qu[eé]\s+me\s+aporta/i;
+
+const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp, 'test'>; porque: string; dictar?: boolean }[] = [
     {
       // 14 sep 2026: el reto de los 90 días que Luis documenta en sus historias.
       // «¿cuáles son las tres condiciones del reto?» caía en compensación por el
@@ -2569,10 +2581,20 @@ function analizarIntencionSemantica(userMessage: string): string[] {
       // demuestra su negocio actual» a alguien que nunca lo dijo. WHY_05 responde
       // en frío, sin perfil. Va antes que DUDAS_01: quien pregunta por qué está
       // validando, aunque diga de paso que tiene dudas.
+      // ⚠️ **Se hace a un lado si la persona NOMBRA su situación** (23 sep 2026).
+      // Esta puerta responde «en frío, sin perfil», y por eso disparaba también
+      // cuando el perfil venía dicho: «ya tengo un negocio propio y me va bien,
+      // ¿por qué haría esto?» y «soy independiente, ¿esto para qué me sirve?»
+      // recibían el MISMO texto, palabra por palabra, dictado sin que el modelo
+      // viera la pregunta. A un empresario se le respondía como si no tuviera
+      // negocio. Con el perfil dicho mandan ADV_OBJ_02 y PERFIL_02, que están
+      // escritos para cada uno.
       fragmento: 'arsenal_inicial_WHY_05',
       titulo: 'Por qué hacerlo — WHY_05',
-      porque: 'pregunta por qué debería hacerlo',
-      cuando: /por\s*qu[eé]\s+(uno\s+)?(deber[ií]a|debo|habr[ií]a\s+de|tendr[ií]a\s+que|har[ií]a|me\s+meter[ií]a|entrar[ií]a|hacer\s+esto|desarrollar\s+este)|qu[eé]\s+gano\s+yo|para\s+qu[eé]\s+me\s+sirve|por\s*qu[eé]\s+(esto|este\s+negocio)\b|qu[eé]\s+me\s+aporta/i,
+      porque: 'pregunta por qué debería hacerlo, sin decir quién es',
+      cuando: {
+        test: (t: string) => RE_PREGUNTA_POR_QUE.test(t) && !declaraPerfil(t),
+      },
     },
     {
       // 24 ago: quien dice que tiene dudas está incómodo, no pide argumentos.
@@ -2827,10 +2849,13 @@ function analizarIntencionSemantica(userMessage: string): string[] {
     },
   ];
 
-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '') {
+async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = []) {
   // El socio recibe el directorio de sedes (FREQ_34) y el prospecto no: la
   // caché no puede mezclar a los dos.
-  const cacheKey = `hibrido_${pageContext === 'whatsapp_socio' ? 'socio_' : ''}${query.toLowerCase()}`;
+  // ⚠️ Lo ya servido entra en la CLAVE del caché: el resultado filtrado es de
+  // ESTE hilo, y sin esto la siguiente persona con la misma consulta heredaría
+  // la exclusión de otro.
+  const cacheKey = `hibrido_${pageContext === 'whatsapp_socio' ? 'socio_' : ''}${query.toLowerCase()}${yaServidos.length ? `__srv_${[...yaServidos].sort().join('|')}` : ''}`;
 
   // Las puertas van primero: son la decisión más barata y la que no puede fallar.
 
@@ -2855,7 +2880,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // costarla.
     const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage) || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
     if (puerta) {
-      const allFragments = await getArsenalFragments();
+      const allFragments = await getArsenalFragments(tenantId);
       const frag = allFragments.find(f => f.category === puerta.fragmento);
       if (frag) {
         console.log(`🚪 [Puerta] ${puerta.porque} → ${puerta.fragmento} directo`);
@@ -2965,7 +2990,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     const esListaCompleta = /cat[aá]logo.*completo|lista.*completa|todos.*los.*producto|todos.*los.*precio|dame.*todos|completo.*con.*precio|precio.*todos|22.*producto|lista.*precio|precio.*lista|dame.*(?:los\s*)?precio|cu[aá]les.*(?:son.*)?(?:los\s*)?precio|cat[aá]logo.*precio|precios?.*(?:de\s*)?todos/i.test(userMessage.toLowerCase());
     if (esListaCompleta) {
       console.log('📋 [Catálogo] Lista completa → recuperando tablas de precio (BEB_01+LUV_01+SUP_01+PERS_01)');
-      const allFragments = await getArsenalFragments();
+      const allFragments = await getArsenalFragments(tenantId);
       const precioIds = [
         'catalogo_productos_BEB_01',
         'catalogo_productos_LUV_01',
@@ -3046,7 +3071,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
 
     if (categoriasDirectas.length > 0) {
       console.log(`🎯 [Catálogo] Routing directo por categoría: ${categoriasDirectas.join(', ')}`);
-      const allFragments = await getArsenalFragments();
+      const allFragments = await getArsenalFragments(tenantId);
       const directFrags = allFragments.filter(f => categoriasDirectas.includes(f.category));
       if (directFrags.length > 0) {
         const combinedContent = directFrags.map(f => f.content).join('\n\n---\n\n');
@@ -3161,7 +3186,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // Fallback inteligente: 4 tablas de precio (~2K chars) en lugar del doc monolítico (14K)
     // Cubre productos como "Reskine" que no tienen fragmento propio pero sí aparecen en BEB_01
     console.log('⚠️ [Catálogo] Vector search sin resultados → fallback tablas de precio (BEB_01+SUP_01+LUV_01+PERS_01)');
-    const allFragsFallback = await getArsenalFragments();
+    const allFragsFallback = await getArsenalFragments(tenantId);
     const precioTableIds = [
       'catalogo_productos_BEB_01',
       'catalogo_productos_SUP_01',
@@ -3206,7 +3231,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     const esListaPrecios = /\bcv\b|\bpv\b|puntos/i.test(msgLp);
     if (esListaPrecios) {
       console.log('📊 [COMP_PV_06] Routing directo → tabla completa precios+CV+PV');
-      const allFragments = await getArsenalFragments();
+      const allFragments = await getArsenalFragments(tenantId);
       const pvFrags = allFragments.filter(f => f.category === 'arsenal_compensacion_COMP_PV_06');
       if (pvFrags.length > 0) {
         const result = [{
@@ -3251,7 +3276,7 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       if (esESP2 || (!esESP1 && !esESP3)) paqIds.push('arsenal_compensacion_COMP_PAQ_03');
       if (esESP3 || (!esESP1 && !esESP2)) paqIds.push('arsenal_compensacion_COMP_PAQ_04');
 
-      const allFragments = await getArsenalFragments();
+      const allFragments = await getArsenalFragments(tenantId);
       const paqFrags = allFragments.filter(f => paqIds.includes(f.category));
       console.log(`🎯 [Paquetes] Routing directo: ${paqFrags.map(f => f.category).join(', ')}`);
       if (paqFrags.length > 0) {
@@ -3309,6 +3334,19 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         if (!_esSocio && fragments.some((f) => /_FREQ_34$/.test(f.category))) {
           fragments = fragments.filter((f) => !/_FREQ_34$/.test(f.category));
           console.log('🏢 [Directorio] FREQ_34 retirado del contexto — solo para socios');
+        }
+
+        // ── Lo que este hilo ya sirvió sale de los candidatos ─────────────
+        // El anillo de María (21 sep 2026) y el porqué de hacerlo AQUÍ y no en
+        // el prompt: ver `sinLoYaServido` en el conductor. Solo el camino
+        // vectorial: las puertas directas devuelven un fragmento fijo porque la
+        // persona pidió exactamente ese, y excluirlo ahí rompería la puerta.
+        if (yaServidos.length) {
+          const antes = fragments.length;
+          fragments = sinLoYaServido(fragments, yaServidos, mensajeCrudo);
+          if (fragments.length < antes) {
+            console.log(`🔁 [Sin repetir] ${antes - fragments.length} fragmento(s) ya servidos en el hilo salen del contexto — queda ${fragments[0]?.category}`);
+          }
         }
 
         const primeroConCandado = fragments[0]?.content.includes('<verbatim_lock>');
@@ -3613,46 +3651,46 @@ function interpretQueryHibrido(userMessage: string): string {
   // 🔧 NUEVO: MAPEO ESPECÍFICO DE PRODUCTOS INDIVIDUALES
   const mapeos_productos_especificos: Record<string, string> = {
     // Productos específicos con nombres exactos para evitar confusiones
-    'cordy gold': 'CÁPSULAS CORDYGOLD precio $336,900 COP presentación 90 cápsulas Cordyceps Sinensis',
-    'cordygold': 'CÁPSULAS CORDYGOLD precio $336,900 COP presentación 90 cápsulas Cordyceps Sinensis',
-    'cápsulas cordy gold': 'CÁPSULAS CORDYGOLD precio $336,900 COP presentación 90 cápsulas Cordyceps Sinensis',
+    'cordy gold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 90 cápsulas Cordyceps Sinensis',
+    'cordygold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 90 cápsulas Cordyceps Sinensis',
+    'cápsulas cordy gold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 90 cápsulas Cordyceps Sinensis',
 
-    'cápsulas ganoderma lucidum': 'CÁPSULAS GANODERMA precio $272,500 COP presentación 90 cápsulas extracto puro Ganoderma',
-    'ganoderma lucidum': 'CÁPSULAS GANODERMA precio $272,500 COP presentación 90 cápsulas extracto puro Ganoderma',
-    'cápsulas ganoderma': 'CÁPSULAS GANODERMA precio $272,500 COP presentación 90 cápsulas extracto puro Ganoderma',
+    'cápsulas ganoderma lucidum': 'CÁPSULAS GANODERMA precio $272.500 COP presentación 90 cápsulas extracto puro Ganoderma',
+    'ganoderma lucidum': 'CÁPSULAS GANODERMA precio $272.500 COP presentación 90 cápsulas extracto puro Ganoderma',
+    'cápsulas ganoderma': 'CÁPSULAS GANODERMA precio $272.500 COP presentación 90 cápsulas extracto puro Ganoderma',
 
-    'excellium': 'CÁPSULAS EXCELLIUM precio $272,500 COP presentación 90 cápsulas nutrición cerebral energía mental',
-    'cápsulas excellium': 'CÁPSULAS EXCELLIUM precio $272,500 COP presentación 90 cápsulas nutrición cerebral energía mental',
+    'excellium': 'CÁPSULAS EXCELLIUM precio $272.500 COP presentación 90 cápsulas nutrición cerebral energía mental',
+    'cápsulas excellium': 'CÁPSULAS EXCELLIUM precio $272.500 COP presentación 90 cápsulas nutrición cerebral energía mental',
 
     // GANO CAFÉ 3 EN 1 - Todas las variaciones coloquiales
-    'gano café 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'ganocafé 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'café 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'cafe ganoderma 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'gano café tres en uno': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'cafe gano excel 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'capuchino': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'háblame del capuchino': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
-    'del capuchino': 'GANOCAFÉ 3 EN 1 precio $110,900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'gano café 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'ganocafé 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'café 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'cafe ganoderma 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'gano café tres en uno': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'cafe gano excel 3 en 1': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'capuchino': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'háblame del capuchino': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
+    'del capuchino': 'GANOCAFÉ 3 EN 1 precio $110.900 COP presentación 30 sobres 21g café cremoso Ganoderma',
 
     // GANO CAFÉ CLÁSICO - Todas las variaciones coloquiales
-    'ganocafé clásico': 'GANOCAFÉ CLÁSICO precio $110,900 COP presentación 30 sobres café negro robusto',
-    'gano café clásico': 'GANOCAFÉ CLÁSICO precio $110,900 COP presentación 30 sobres café negro robusto',
-    'café negro': 'GANOCAFÉ CLÁSICO precio $110,900 COP presentación 30 sobres café negro robusto',
-    'café negrito': 'GANOCAFÉ CLÁSICO precio $110,900 COP presentación 30 sobres café negro robusto',
-    'café ganoderma negro': 'GANOCAFÉ CLÁSICO precio $110,900 COP presentación 30 sobres café negro robusto',
-    'café classic': 'GANOCAFÉ CLÁSICO precio $110,900 COP presentación 30 sobres café negro robusto',
+    'ganocafé clásico': 'GANOCAFÉ CLÁSICO precio $110.900 COP presentación 30 sobres café negro robusto',
+    'gano café clásico': 'GANOCAFÉ CLÁSICO precio $110.900 COP presentación 30 sobres café negro robusto',
+    'café negro': 'GANOCAFÉ CLÁSICO precio $110.900 COP presentación 30 sobres café negro robusto',
+    'café negrito': 'GANOCAFÉ CLÁSICO precio $110.900 COP presentación 30 sobres café negro robusto',
+    'café ganoderma negro': 'GANOCAFÉ CLÁSICO precio $110.900 COP presentación 30 sobres café negro robusto',
+    'café classic': 'GANOCAFÉ CLÁSICO precio $110.900 COP presentación 30 sobres café negro robusto',
 
-    'máquina luvoco': 'MÁQUINA LUVOCO precio $1,026,000 COP preparación café automática exclusiva',
-    'luvoco': 'MÁQUINA LUVOCO precio $1,026,000 COP preparación café automática exclusiva',
+    'máquina luvoco': 'MÁQUINA LUVOCO precio $1.026.000 COP preparación café automática exclusiva',
+    'luvoco': 'MÁQUINA LUVOCO precio $1.026.000 COP preparación café automática exclusiva',
 
-    'colágeno reskine': 'BEBIDA COLÁGENO RESKINE precio $216,900 COP belleza bienestar desde adentro',
-    'reskine': 'BEBIDA COLÁGENO RESKINE precio $216,900 COP belleza bienestar desde adentro',
+    'colágeno reskine': 'BEBIDA COLÁGENO RESKINE precio $216.900 COP belleza bienestar desde adentro',
+    'reskine': 'BEBIDA COLÁGENO RESKINE precio $216.900 COP belleza bienestar desde adentro',
 
-    'pasta dientes gano fresh': 'PASTA DIENTES GANO FRESH precio $73,900 COP tubo 150g cuidado oral natural sin flúor',
-    'gano fresh': 'PASTA DIENTES GANO FRESH precio $73,900 COP tubo 150g cuidado oral natural sin flúor',
+    'pasta dientes gano fresh': 'PASTA DIENTES GANO FRESH precio $73.900 COP tubo 150g cuidado oral natural sin flúor',
+    'gano fresh': 'PASTA DIENTES GANO FRESH precio $73.900 COP tubo 150g cuidado oral natural sin flúor',
 
-    'jabón gano': 'JABÓN GANO precio $73,900 COP barra 100g limpieza nutrición piel Ganoderma'
+    'jabón gano': 'JABÓN GANO precio $73.900 COP barra 100g limpieza nutrición piel Ganoderma'
   };
 
   // PRIORIDAD 1: Buscar mapeos específicos de productos individuales
@@ -4174,7 +4212,7 @@ function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3', country: string): 
  * un texto que se entrega carácter por carácter — de ahí el hueco.
  */
 function getPaquetesPricingPin(country: string): string {
-  const cop = { e1: '$900,000 COP', e2: '$2,250,000 COP', e3: '$4,500,000 COP' };
+  const cop = { e1: '$900.000 COP', e2: '$2.250.000 COP', e3: '$4.500.000 COP' };
   const usd = { e1: '$200 USD', e2: '$500 USD', e3: '$1,000 USD' };
 
   if (country === 'CO') {
@@ -4546,15 +4584,30 @@ export async function POST(req: Request) {
          .catch((err: any) => { console.error('❌ [NEXUS] Error cargando historial:', err); return { data: null, error: err }; })
       : Promise.resolve({ data: null, error: null });
 
+    // Los fragmentos que este hilo YA sirvió. `documents_used` se escribía en
+    // cada turno y no lo leía nadie (auditoría 22 sep 2026). Va en el mismo
+    // Promise.all que el resto, así que no suma espera.
+    const servidosPromise: Promise<string[]> = (canalDictado && fingerprint)
+      ? Promise.resolve(
+          getSupabaseClient()
+            .from('nexus_conversations')
+            .select('metadata')
+            .eq('fingerprint_id', fingerprint)
+            .order('created_at', { ascending: false })
+            .limit(8)
+        ).then(({ data }: any) => fragmentosServidos(data ?? [])).catch(() => [])
+      : Promise.resolve([]);
+
     const systemPromptPromise = getSystemPrompt(tenantId);
 
     // ⚡ Todas las llamadas de BD + system prompt corren en paralelo
     const t0 = Date.now();
-    const [constructorUUID, prospectResult, conversationsResult, baseSystemPromptRaw] = await Promise.all([
+    const [constructorUUID, prospectResult, conversationsResult, baseSystemPromptRaw, yaServidos] = await Promise.all([
       constructorUUIDPromise,
       prospectPromise,
       conversationsPromise,
       systemPromptPromise,
+      servidosPromise,
     ]);
     console.log(`⏱️ [TIMING] Promise.all BD: ${Date.now() - t0}ms`);
 
@@ -5074,7 +5127,7 @@ ${summaryParts.join('\n')}
     // tablas por un «¿cuánto cuesta el cordygold?» es ahogar la respuesta.
     const isPreciosQuery = pideListaPreciosEarly && tenantId !== 'ecommerce' && !detectarProducto(latestUserMessage);
     if (isPreciosQuery) {
-      const allFrags = await getArsenalFragments();
+      const allFrags = await getArsenalFragments(tenantId);
       const _pidePuntos = /\bcv\b|\bpv\b|puntos/i.test(lastUserMessageForPrices);
       if (_pidePuntos) {
         const pvFrag = allFrags.find(f => f.category === 'arsenal_compensacion_COMP_PV_06');
@@ -5126,8 +5179,11 @@ ${summaryParts.join('\n')}
     // <verbatim_lock> inventadas alrededor de su propia respuesta. Cero costo,
     // cero latencia, y no puede errar el tema: la oferta es literal.
     // El apelativo que la gente le cuelga al «sí» no lo vuelve otra cosa: «Si mi
-    // diamante» (Betsabe, 5 sep 2026) tiene que valer lo mismo que «Sí».
-    const _aceptacionPelada = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií],? por favor|as[ií] es|vale|perfecto)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|porfa|por favor))?[!. ]*$/i
+    // diamante» (Betsabe, 5 sep 2026) tiene que valer lo mismo que «Sí». Y «Si
+    // porfavor», pegado (Isabella, 22 sep 2026): sin el ancla el CQR reescribió,
+    // cayó en `category_direct` y la persona recibió la tabla de suplementos con
+    // una taxonomía inventada, cuando había aceptado ver los productos.
+    const _aceptacionPelada = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]galo|mu[eé]streme|s[ií],? por favor|as[ií] es|vale|perfecto)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|por\s?fa[a-z]*))?[!. ]*$/i
       .test((latestUserMessage || '').trim());
     if (_aceptacionPelada && _ultimoBotMsg) {
       const _preguntas = _ultimoBotMsg.match(/¿[^?]{5,160}\?/g);
@@ -5224,7 +5280,7 @@ ${summaryParts.join('\n')}
         // así que la expansión de chips sigue funcionando igual.
         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '');
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos);
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {
@@ -5301,6 +5357,12 @@ ${doc.content}
 
 `;
       documentsUsed.push(doc.source || doc.category);
+      // …y los FRAGMENTOS que de verdad llegaron al contexto (23 sep 2026).
+      // Hasta hoy aquí quedaba solo la ruta del arsenal, así que este campo no
+      // respondía la pregunta para la que existe. Ver `fragmentosServidos`.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const _cats = (doc.metadata as any)?.fragment_categories;
+      if (Array.isArray(_cats)) documentsUsed.push(..._cats.filter((c: unknown) => typeof c === 'string'));
     }
 
     // Agregar contexto del prospecto (DATOS ACUMULADOS + NUEVOS)
@@ -6304,7 +6366,11 @@ ${filasGen5}`;
       const esDocCompensacion = relevantDocuments[0]?.category === 'arsenal_compensacion'
         || relevantDocuments[0]?.category?.startsWith('arsenal_compensacion');
       const pideEjemploComision = /ejemplo.*(ge?n[\s.-]?5|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|comisi|ingreso|gana)|dame.*(ge?n[\s.-]?5|b[ia]+n[a-z]?r[a-z]?i?o|velocidad|n[uú]mero|cifra|cu[aá]nto)|ge?n[\s.-]?5.*(ejemplo|gr[aá]fico|n[uú]mero)|b[ia]+n[a-z]?r[a-z]?i?o.*(ejemplo|gr[aá]fico|n[uú]mero)/i.test(latestUserMessage);
-      const esConsultaCompensacion = esDocCompensacion && /gen[\s.-]?5|binario|bono|comisi[oó]n|ingreso\s*(inmediato|recurrente)|cu[aá]nto\s*(gano|se\s*gana|paga)|ganancias|n[uú]meros/i.test(latestUserMessage);
+      // Se evalúa también sobre la consulta anclada: un «Sí» a «¿Le muestro cómo
+      // funciona el Binario?» no nombra nada por sí mismo, y sin este pin el
+      // modelo sirvió la tabla del arsenal en USD a una socia colombiana y
+      // convirtió mal una fila del GEN5 (María, 21 sep 2026).
+      const esConsultaCompensacion = esDocCompensacion && /gen[\s.-]?5|binario|bono|comisi[oó]n|ingreso\s*(inmediato|recurrente)|cu[aá]nto\s*(gano|se\s*gana|paga)|ganancias|n[uú]meros/i.test(`${latestUserMessage} ${consultaRecuperacion}`);
       if (!pideEjemploComision && !esConsultaCompensacion && closingState !== 2) return '';
       const monedaCO = visitorCountry === 'CO';
       const filaGen5 = monedaCO
@@ -6318,9 +6384,16 @@ ${filasGen5}`;
 | Gen 3 | $20 USD | $10 USD | $5 USD |
 | Gen 4 | $20 USD | $10 USD | $5 USD |
 | Gen 5 | $40 USD | $20 USD | $10 USD |`;
+      // Las dos tablas del arsenal (COMP_GEN5, COMP_BIN_08) viven en USD, y la
+      // conversión ×4.500 se la dejábamos al modelo: escribió $3.150.000 donde
+      // $860 USD son $3.870.000. La cifra que el backend conoce, la pone el backend.
+      const tablasCOP = monedaCO ? `Las tablas del arsenal YA convertidas a COP — cópielas tal cual, no las recalcules:
+- GEN5 con todos los paquetes en ESP-3 (bono por paquete · total acumulado): Gen 1: 2 paquetes · $675.000 · $1.350.000 | Gen 2: 4 · $90.000 · $1.710.000 | Gen 3: 8 · $90.000 · $2.430.000 | Gen 4: 16 · $90.000 · $3.870.000 | Gen 5: 32 · $180.000 · $9.630.000. Total al completar la estructura: $9.630.000 COP.
+- Binario al 17%, 56 CV al mes por cliente, comisión MENSUAL (se entrega diciendo que es al mes): mes 1, 10 clientes por canal · $427.500 | mes 3, 25 · $1.071.000 | mes 6, 50 · $2.142.000 | mes 12, 100 · $4.284.000 | mes 18, 200 frente a 100 · $4.284.000.
+` : '';
       return `
 📊 GUARDARRAÍL COMPENSACIÓN — el ARSENAL recuperado LIDERA la explicación, el formato y los ejemplos (NO reescribas su estructura ni la reemplaces por tablas rígidas). Esto solo asegura moneda, simplicidad y veracidad:
-${monedaCO ? '🇨🇴 Convierte TODAS las cifras del arsenal a COP (×$4.500). NUNCA muestres USD.\n' : ''}- RESPUESTAS SENCILLAS, sin fricción técnica (como un buen vendedor explica algo del motor a su cliente: la esencia, no la ingeniería). GEN5 = comisión directa por cada paquete empresarial que se compra en su canal, cada viernes. Binario = *"un porcentaje sobre todo el consumo que fluye por su canal, liquidado cada viernes"*.
+${monedaCO ? '🇨🇴 Convierte TODAS las cifras del arsenal a COP (×$4.500). NUNCA muestres USD.\n' : ''}${tablasCOP}- RESPUESTAS SENCILLAS, sin fricción técnica (como un buen vendedor explica algo del motor a su cliente: la esencia, no la ingeniería). GEN5 = comisión directa por cada paquete empresarial que se compra en su canal, cada viernes. Binario = *"un porcentaje sobre todo el consumo que fluye por su canal, liquidado cada viernes"*.
 - 🚫 NUNCA des fórmulas ("X CV × 17% × \$1", "\$X × 17%") por defecto. La mecánica CV/GCV es contexto que TIENES, SOLO la usas si preguntan explícitamente "¿cómo se calcula?".
 - 🚫 El binario es sobre volumen comisionable, NUNCA sobre valor de VENTA (calcularlo sobre ventas infla la cifra y es falso).
 - 🚫 NUNCA fabriques proyecciones (empresas/mes, crecimiento, totales) ni ofrezcas "mostrar un escenario con números". Concepto, no proyección.
@@ -6369,45 +6442,48 @@ ${filaGen5}`;
 inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
     };
 
-      // Datos verificados (arsenal_compensacion.txt COMP_PAQ_02/03/04, vigente 25 marzo 2026)
+      // Datos verificados (arsenal_compensacion.txt COMP_PAQ_02/03/04, vigente 25 marzo 2026).
+      // Los nombres son los del catálogo del canal (`wa-productos.ts`), no los del
+      // back office: a un prospecto le salió «Gano Fresh Toothpaste» y
+      // «Piel8Brillo Shampoo» (21 sep 2026).
       const composiciones: Record<string, string> = {
-        'ESP-1': `**Contenido ESP-1 Inicial ($200 USD / $900,000 COP) — vigente desde 25 marzo 2026:**
+        'ESP-1': `**Contenido ESP-1 Inicial ($200 USD / $900.000 COP) — vigente desde 25 marzo 2026:**
 | Producto | Cantidad |
 |---|---|
 | Ganocafé 3 en 1 | 2 |
-| Ganocafé Classic | 2 |
+| Ganocafé Clásico | 2 |
 | Ganorico Mocha Rico | 1 |
 | Gano C'Real Spirulina | 1 |
 | Ganorico Shoko Rico | 1 |
 | **Total** | **7** |`,
-        'ESP-2': `**Contenido ESP-2 Empresarial ($500 USD / $2,250,000 COP) — vigente desde 25 marzo 2026:**
+        'ESP-2': `**Contenido ESP-2 Empresarial ($500 USD / $2.250.000 COP) — vigente desde 25 marzo 2026:**
 | Producto | Cantidad |
 |---|---|
 | Ganocafé 3 en 1 | 5 |
-| Ganocafé Classic | 5 |
+| Ganocafé Clásico | 5 |
 | Ganorico Mocha Rico | 2 |
 | Gano C'Real Spirulina | 1 |
 | Ganorico Shoko Rico | 2 |
-| Reskine Collagen Drink | 1 |
-| Gano Soap (2/pkg) | 1 |
-| Gano Fresh Toothpaste | 1 |
+| Reskine Colágeno | 1 |
+| Jabón Gano (paquete de 2) | 1 |
+| Gano Fresh · Pasta de Dientes | 1 |
 | **Total** | **18** |`,
-        'ESP-3': `**Contenido ESP-3 Visionario ($1,000 USD / $4,500,000 COP) — vigente desde 25 marzo 2026:**
+        'ESP-3': `**Contenido ESP-3 Visionario ($1,000 USD / $4.500.000 COP) — vigente desde 25 marzo 2026:**
 | Producto | Cantidad |
 |---|---|
 | Ganocafé 3 en 1 | 9 |
-| Ganocafé Classic | 9 |
+| Ganocafé Clásico | 9 |
 | Ganorico Mocha Rico | 3 |
 | Gano C'Real Spirulina | 2 |
 | Ganorico Shoko Rico | 4 |
-| Reskine Collagen Drink | 1 |
-| Cordygold Cápsulas | 1 |
-| Gano Soap (2/pkg) | 1 |
-| Gano Fresh Toothpaste | 1 |
-| Gano Transparent Soap | 1 |
-| Piel8Brillo Shampoo | 1 |
-| Piel8Brillo Acondicionador | 1 |
-| Piel8Brillo Exfoliante | 1 |
+| Reskine Colágeno | 1 |
+| Cápsulas Cordygold | 1 |
+| Jabón Gano (paquete de 2) | 1 |
+| Gano Fresh · Pasta de Dientes | 1 |
+| Jabón Transparente Gano | 1 |
+| Champú Piel&Brillo | 1 |
+| Acondicionador Piel&Brillo | 1 |
+| Exfoliante Corporal Piel&Brillo | 1 |
 | **Total** | **35** |`,
       };
 
@@ -6489,7 +6565,7 @@ ${visitorCountry === 'CO'
   ? `- Indica el precio en COP (moneda local). NO muestres el equivalente en USD al lado — crea fricción de conversión. El USD solo si el usuario lo pide o reclama por la tasa (ver FREQ_27).`
   : visitorCountry === 'US'
   ? `- Indica el precio en USD limpio (no muestres COP, irrelevante para el visitante).`
-  : `- Indica precio en USD con COP entre paréntesis ($1 USD = $4,500 COP — tasa fija Gano Excel, NO tasa de mercado). Si el usuario indica su país de registro, ajusta a su moneda local.`}
+  : `- Indica precio en USD con COP entre paréntesis ($1 USD = $4.500 COP — tasa fija Gano Excel, NO tasa de mercado). Si el usuario indica su país de registro, ajusta a su moneda local.`}
 - Estructura sugerida:
   1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : visitorCountry === 'US' ? 'en USD' : 'USD ($X COP entre paréntesis)'} + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
@@ -6573,7 +6649,31 @@ ${visitorCountry === 'CO'
       if (canalDictado && (_esPuertaDictada || _esCandadoSolitario)) {
         const _cuerpo = extraerCandadoDictado(_doc0.content || '');
         const _conMarcadores = !!_cuerpo && /\[[A-ZÁÉÍÓÚÑ0-9_ \-]{3,}\]|\{[^}]+\}/.test(_cuerpo);
-        if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
+        // ── Un candado dictado NO se repite dos turnos seguidos ───────────────
+        // Oswaldo Romero recibió `FREQ_30` palabra por palabra CUATRO veces
+        // seguidas (22 sep 2026, 19:47 a 19:50): dijo «Sistema», «Con el del
+        // principio» —o sea, ya había respondido a «¿con cuál arranca?»— y «Que
+        // paquetes hay», y las cuatro veces le volvió el mismo párrafo. Se fue
+        // ahí, estando caliente. El backend emite el candado SIN modelo, así que
+        // nada miraba si acababa de decirlo; y el modelo tampoco podía salvarlo,
+        // porque nunca vio el turno. Se compara normalizado: el canal guarda el
+        // markdown del fragmento tal cual. La comparación vive en el conductor
+        // para que `prueba-bucle-candado.mts` la vigile.
+        const _yaLoDijo = !!_cuerpo && candadoYaDicho(_ultimoBotMsg, _cuerpo);
+        // Y cuando el FSM ya decidió mostrar la tabla de los tres paquetes
+        // («¿qué paquetes hay?» → Estado 2 informativo), un candado de
+        // recomendación no manda sobre ella: son dos dictados para el mismo
+        // turno, y el que responde la pregunta es la tabla.
+        const _tablaManda = closingState === 2 && !_esPuertaDictada;
+        if (_cuerpo && (_yaLoDijo || _tablaManda)) {
+          // El candado se queda como MATERIAL, sin la orden de copiarlo literal:
+          // así el modelo responde lo que la persona preguntó de verdad, con el
+          // fragmento delante. Quitárselo lo dejaría componiendo sin material,
+          // que es exactamente cuando vuelven las frases retiradas.
+          _doc0.content = (_doc0.content || '').replace(/<\/?verbatim_lock>/gi, '');
+          _meta0.candado_solitario = false;
+          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'ya salió en el turno anterior' : 'cede ante la tabla del Estado 2'} — lo redacta el modelo`);
+        } else if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
           const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
           const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';
           console.log(`⚡ [${_esPuertaDictada ? 'Puerta' : 'Candado'} dictado] ${_idFrag} entregado directo, sin modelo`);

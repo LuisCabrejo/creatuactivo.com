@@ -139,6 +139,9 @@ es(/es el suyo, Miguel/.test(propio) && /¿Le redacto el mensaje/.test(propio), 
 es(!/paquete|invers|ESP-|Bienvenido/i.test(propio), 'sin venderle nada y sin darle la bienvenida como prospecto');
 const ajeno = mensajeSocioEnlace(miguel, 'luis-cabrejo');
 es(/es de luis-cabrejo, Miguel/.test(ajeno) && /miguel-barahona\/queswa/.test(ajeno), 'el enlace de otro socio: se le recuerda el suyo');
+const conNombre = mensajeSocioEnlace(miguel, 'luis-cabrejo-1288', 'Luis Cabrejo');
+es(/es de Luis Cabrejo, Miguel/.test(conNombre) && !/1288/.test(conNombre), 'con el nombre resuelto no se le lee el identificador (Liliana, 21 sep)');
+es(!/como socio\b/.test(conNombre), 'y sin género: «ya hace parte del equipo»');
 es(negocio.detectarPromesaDeIngreso(propio) === null && negocio.detectarPromesaDeIngreso(ajeno) === null, 'los dos pasan el guardarraíl de negocio');
 // Victor Armando Rojas, aprobado a las 18:35, escribió a las 19:05 desde una cuenta
 // con nombre de usuario y recibió la apertura de prospecto.

@@ -5,7 +5,9 @@
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (2) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + METH (1) = 16 respuestas.
-**Versión actual: v14.3** (13 sep 2026) — **Auditoría con el Director.** Los dos fragmentos de cierre dejan de llevar una instrucción servida al modelo y de pedir nombre y ciudad: `ADV_ESC_01` dice lo que dicta el conductor y `ADV_ESC_02` la frase puente de la radicación. `ADV_VAL_05` responde sin describir encuentros (regla del 25 ago). Salen *Centro de Mando*, *dueño del camino*, *bebidas y suplementos*, *usted no enseña; Queswa multiplica*, *entra* (persona) y *nosotros le quitamos ese peso*. Cifras intactas.
+**Versión actual: v14.4** (23 sep 2026) — **`ADV_OBJ_02` cambia de eje: del riesgo de una sola fuente a no poder escalar** (Director). Al empresario no lo mueve que su negocio esté en riesgo; lo mueve que esté topado. Y el techo tiene dos causas, así que la respuesta nombra las dos mitades del alivio: **Gano Excel** quita la logística y **la tecnología** —creatuactivo.com y queswa.app, con nombre— quita la atención. Sin la segunda, la respuesta deja la impresión de que lo grandioso es el fabricante. Narrativa reescrita para que fluya sin frenar: sujeto concreto en cada frase, una idea por frase.
+
+**v14.3** (13 sep 2026) — **Auditoría con el Director.** Los dos fragmentos de cierre dejan de llevar una instrucción servida al modelo y de pedir nombre y ciudad: `ADV_ESC_01` dice lo que dicta el conductor y `ADV_ESC_02` la frase puente de la radicación. `ADV_VAL_05` responde sin describir encuentros (regla del 25 ago). Salen *Centro de Mando*, *dueño del camino*, *bebidas y suplementos*, *usted no enseña; Queswa multiplica*, *entra* (persona) y *nosotros le quitamos ese peso*. Cifras intactas.
 
 **v14.2** (3 sep 2026) — `ADV_VAL_03` pierde el empujón contra el paquete pequeño y deja claro que la recomendación es `FREQ_30`; `ADV_VAL_04` dice **cuatro cajas** (50 PV), no *tres o cuatro*. Cifras intactas.
 
@@ -30,17 +32,20 @@ Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando a
 ---
 
 ### ADV_OBJ_02: "Ya tengo un negocio exitoso, ¿para qué quiero esto?"
-**[Índice]:** Ya tengo un negocio que funciona y me va bien, para qué quiero esto. Depender de una sola fuente de ingreso es el riesgo.
-**[Concepto Nuclear]:** Un negocio exitoso no lo blinda. Depender de un solo motor es el riesgo; esto es otro motor que corre en paralelo.
+**[Índice]:** Ya tengo un negocio que funciona y me va bien, para qué quiero esto. Soy empresario, tengo mi empresa, tengo mi local. Crecer me pide más operación, más inventario y más nómina.
+**[Concepto Nuclear]:** **v14.4 (23 sep 2026) — el eje pasa de DIVERSIFICAR a ESCALAR** (Director). La versión anterior argumentaba que depender de una sola fuente es el riesgo, y cerraba con la imagen del dueño del edificio. Le hablaba a un miedo que el empresario no siempre tiene. El techo sí lo está viviendo: su negocio funciona y no puede crecerlo sin crecer la operación. ⚠️ **Nunca comparar de lado**: el Director lo vivió antes de Gano Excel — le presentaban algo parecido a lo que ya hacía y pensaba *«para vender, vendo lo mío»*. ⚠️ **El techo tiene DOS causas y las dos se responden**: la logística la quita Gano Excel, las horas las quita la tecnología. Nombrar solo al fabricante deja la impresión de que lo grandioso es Gano Excel. La exclusividad se reclama sobre creatuactivo.com y queswa.app, con nombre, nunca sobre «la inteligencia artificial» (falso y fanfarrón). El alivio va ANTES del reparto del trabajo, y las presencias sustituyen a las ausencias: se nombra quién SÍ hace cada cosa. Narrativa: sujeto concreto en cada frase, una idea por frase — ver [[feedback_pronombres_trabalenguas]].
 
-Que su negocio funcione demuestra que usted sabe ejecutar. Pero no lo blinda. Depender de una sola fuente es el riesgo: si ese motor se frena —por su sector, por la economía, por lo que sea—, todo se frena con él.
+Usted ya logró lo más difícil: que su negocio funcione.
 
-Un sistema de distribución no compite con su negocio; lo protege. Lo que usted tiene hoy le da un ingreso atado a su presencia y a cómo le vaya a su industria. Aquí su ingreso se apoya en el producto que se mueve por su sistema, no en su sector ni en que usted esté encima.
+El problema llega al crecer. Vender el doble pide el doble de inventario, más espacio y más nómina. Y atender a más clientes pide más gente atendiendo. Hoy su techo no lo pone el mercado. Lo ponen la logística y las horas.
 
-Como dueño de un edificio: mientras su oficina trabaja a tope, los demás pisos rentan aparte.
+Aquí la logística la lleva Gano Excel. Usted no entra a Gano Excel; Gano Excel trabaja para usted: fabrica, almacena y despacha cada pedido a la puerta del cliente, en más de 60 países.
 
-**Pregunta de seguimiento:** Hoy, si su industria principal se frenara unos meses, ¿tiene algún ingreso que siguiera entrando por su cuenta?
+Y la parte comercial la llevo yo. Converso con cada persona que llega. Le resuelvo las dudas y maduro su decisión de avanzar, las 24 horas. Esa es la tecnología: creatuactivo.com y queswa.app, ya armados. Atender a mil personas no le cuesta a usted una hora más.
 
+Eso es escalar. Su trabajo es el mismo con diez clientes y con diez mil. Usted multiplica su sistema de distribución por todo el continente, y el negocio crece sin que usted tenga que estar encima.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se construye ese sistema, paso a paso?
 ---
 
 

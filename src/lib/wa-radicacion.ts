@@ -175,7 +175,9 @@ const RE_YA_RADICADO = /qued[oó] radicada|su vinculaci[oó]n qued[oó]|ya le av
  */
 export const OFERTA_RADICAR_MODELO = 'Cuando quiera, le tomo los datos de la vinculación.';
 const RE_BOT_OFRECIO_RADICAR = /le tomo los datos de la vinculaci[oó]n/i;
-const RE_ACEPTACION_PELADA = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|mu[eé]streme|mu[eé]stremelo|perfecto|vale|adelante|de acuerdo|me parece)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|porfa|por favor))?[\s.,!]*$/i;
+// «porfavor» pegado vale lo mismo que «por favor» (22 sep 2026). Exportada para
+// que `prueba-typos.mts` la vigile.
+export const RE_ACEPTACION_PELADA = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|mu[eé]streme|mu[eé]stremelo|perfecto|vale|adelante|de acuerdo|me parece)(?![a-záéíóúñ])(,?\s+(mi\s+[a-záéíóúñ]+|se[ñn]or(a|ita)?|amig[oa]|querid[oa]|gracias|por\s?fa[a-z]*))?[\s.,!]*$/i;
 
 // ─── Paquetes ─────────────────────────────────────────────────────────────────
 

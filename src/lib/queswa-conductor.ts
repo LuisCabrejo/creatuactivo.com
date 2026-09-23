@@ -713,3 +713,151 @@ export async function atenderSocio(ctx: ContextoSocio): Promise<RespuestaConduct
 
   return null;
 }
+
+
+/**
+ * ¿El texto que el backend va a dictar es el mismo que acaba de decir?
+ *
+ * Oswaldo Romero recibió `FREQ_30` palabra por palabra CUATRO veces seguidas
+ * (22 sep 2026, 19:47 a 19:50). Dijo «Sistema», «Con el del principio» —ya
+ * había respondido a «¿con cuál arranca?»— y «Que paquetes hay», y las cuatro
+ * veces le volvió el mismo párrafo. Se fue ahí, estando caliente.
+ *
+ * El candado lo emite el backend sin pasar por el modelo, que es lo correcto
+ * para que salga literal; el precio de eso es que nada miraba el turno
+ * anterior, y el modelo no podía salvarlo porque nunca vio el mensaje.
+ *
+ * Se compara normalizado —el canal guarda el markdown del fragmento tal cual— y
+ * por el ARRANQUE del cuerpo: la pregunta de seguimiento puede variar.
+ */
+export function candadoYaDicho(ultimoBot: string, cuerpo: string): boolean {
+  const norm = (t: string) => (t || '').replace(/[*_`]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+  const c = norm(cuerpo);
+  if (c.length < 40) return false;
+  return norm(ultimoBot).includes(c.slice(0, 120));
+}
+
+/**
+ * Los candidatos de la recuperación, menos lo que este hilo ya sirvió.
+ *
+ * María Angel (21 sep 2026) recorrió un ANILLO de once turnos: GEN5 → Binario →
+ * condiciones de cobro → recompra → combinaciones de PV → 100 PV → GEN5 otra
+ * vez. Los turnos 10 y 11 fueron los turnos 4 y 5, palabra por palabra en su
+ * estructura, y ella dijo «Si» ocho veces seguidas sin preguntar nada nuevo.
+ * El anillo existe porque cada fragmento cierra ofreciendo el siguiente, y
+ * nadie dibujó que el grafo de esas ofertas tuviera un ciclo.
+ *
+ * ⛔ **Esto NO se le dice al modelo.** Pasarle los fragmentos ya servidos como
+ * lista de lo que no debe repetir es la forma exacta del error que este
+ * proyecto ya conoce: nombrar algo sube su probabilidad, venga o no con un
+ * «no» delante (Director, 23 sep 2026). Se arregla donde se arregló el
+ * `[Concepto Nuclear]` — cortándolo antes de que llegue al contexto, no
+ * pidiéndole que lo ignore. Mismo patrón que el filtro de `FREQ_34`.
+ *
+ * ⚠️ Corre ANTES del colapso del candado solitario, a propósito: después, los
+ * otros candidatos ya se descartaron y el turno se quedaría sin material.
+ *
+ * Dos guardas, las dos hacia servir de más:
+ *  - quien lo pide otra vez por su nombre («repítame eso», «otra vez») lo recibe;
+ *  - si al excluir no queda ningún candidato, no se excluye nada — un turno sin
+ *    material es peor que uno repetido.
+ */
+const RE_PIDE_OTRA_VEZ = /otra vez|de nuevo|nuevamente|rep[ií]t|me lo repite|vuelv[ae] a (mostrar|explicar|decir|mandar|enviar)|lo anterior|lo de (antes|arriba)/i;
+
+export function sinLoYaServido<T extends { category: string }>(
+  candidatos: T[],
+  yaServidos: readonly string[],
+  mensajeCrudo = '',
+): T[] {
+  if (!candidatos.length || !yaServidos.length) return candidatos;
+  if (RE_PIDE_OTRA_VEZ.test(mensajeCrudo)) return candidatos;
+  const servidos = new Set(yaServidos);
+  const quedan = candidatos.filter((c) => !servidos.has(c.category));
+  return quedan.length ? quedan : candidatos;
+}
+
+/**
+ * Los fragmentos que un hilo ya sirvió, leídos de `metadata.documents_used`.
+ *
+ * ⚠️ Ese campo se escribía en cada turno y **no lo leía nadie**, así que nadie
+ * notó que para el camino vectorial guardaba la RUTA del arsenal
+ * (`/knowledge_base/arsenal_conversacional_compensacion.txt`) y no el fragmento.
+ * Solo los turnos dictados guardaban la categoría real. Medido sobre el tráfico
+ * del 20 al 23 sep 2026: siete de los métodos de búsqueda guardaban la ruta.
+ *
+ * Dos consecuencias, y las dos importaban: el campo no respondía la pregunta
+ * para la que existe —qué fragmento llegó al contexto, que es lo primero que
+ * pide el CLAUDE.md al diagnosticar—, y excluir por él habría sacado el arsenal
+ * ENTERO de los candidatos en vez de un fragmento.
+ *
+ * Por eso se exige el prefijo de categoría: una ruta empieza por `/` y nunca
+ * entra.
+ */
+export function fragmentosServidos(filas: readonly { metadata?: { documents_used?: unknown } | null }[]): string[] {
+  const cats = new Set<string>();
+  for (const fila of filas ?? []) {
+    const usados = fila?.metadata?.documents_used;
+    if (!Array.isArray(usados)) continue;
+    for (const d of usados) {
+      if (typeof d === 'string' && /^(arsenal_|catalogo_)[a-z0-9_]*_[A-Z]/.test(d)) cats.add(d);
+    }
+  }
+  return [...cats];
+}
+
+/**
+ * ¿La persona DIJO quién es? Empresario, independiente, freelance.
+ *
+ * La puerta de «¿por qué debería hacer esto?» responde en frío, sin perfil, y
+ * por eso disparaba también cuando el perfil venía dicho en la misma frase:
+ * «ya tengo un negocio propio y me va bien, ¿por qué haría esto?» y «soy
+ * independiente, ¿esto para qué me sirve?» recibían el MISMO texto, palabra por
+ * palabra, dictado sin que el modelo viera la pregunta (auditoría 23 sep 2026).
+ * A un empresario se le respondía como si no tuviera negocio.
+ *
+ * Con el perfil dicho mandan `ADV_OBJ_02` y `PERFIL_02`, escritos para cada uno.
+ * Vive aquí, y no en el motor, para que `prueba-typos.mts` lo vigile: una letra
+ * de más no puede costarle a un empresario la respuesta escrita para él.
+ */
+const RE_DECLARA_PERFIL = /\b(ya\s+)?(tengo|manejo|mont[eé])\s+(un[ao]?\s+|mi\s+|mis\s+)?(negocio|empresa|local|emprendimiento|compa[ñn][ií]a|tienda|restaurante|consultorio)|soy\s+(independiente|freelance|freelancer|empresari[oa]|comerciante|emprendedor[a]?|due[ñn][oa]\s+de)|trabajo\s+(por\s+mi\s+cuenta|por\s+proyectos|independiente)|tengo\s+mi\s+propio\s+negocio/i;
+
+// Los sustantivos que nombran la identidad. Se comparan por distancia de edición
+// para que un dedo torpe no cambie la respuesta: «negcio», «ngeocio» y
+// «neggocio» siguen siendo un negocio. Ninguna palabra corriente del canal cae
+// a distancia 1 de estas, así que no abre falsos positivos.
+const PALABRAS_PERFIL = [
+  'negocio', 'negocios', 'empresa', 'emprendimiento', 'consultorio',
+  'independiente', 'freelance', 'freelancer', 'empresario', 'empresaria',
+  'comerciante', 'emprendedor', 'emprendedora',
+];
+// Un verbo o un «soy» tienen que acompañar al sustantivo: «el negocio de ellos»
+// no declara nada, y «empresa» suelta aparece en cualquier explicación nuestra.
+const RE_MARCA_DE_PERFIL = /\b(ya\s+)?(tengo|manejo|mont[eé]|soy|trabajo)\b/i;
+
+// ⚠️ Cuenta la TRANSPOSICIÓN como un solo error (Damerau). Sin ese paso,
+// «ngeocio» e «idnependiente» quedan a distancia 2 y el detector no dispara —
+// y cambiar dos letras de lugar es de los tropiezos más comunes al escribir
+// rápido con el pulgar.
+function distanciaCorta(a: string, b: string): number {
+  const m = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 0; j <= b.length; j++) m[0][j] = j;
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++) {
+      m[i][j] = Math.min(m[i - 1][j] + 1, m[i][j - 1] + 1,
+        m[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        m[i][j] = Math.min(m[i][j], m[i - 2][j - 2] + 1);
+      }
+    }
+  return m[a.length][b.length];
+}
+
+export function declaraPerfil(texto: string): boolean {
+  const t = (texto || '');
+  if (RE_DECLARA_PERFIL.test(t)) return true;
+  // Segunda pasada: el sustantivo mal escrito, con la marca de identidad cerca.
+  if (!RE_MARCA_DE_PERFIL.test(t)) return false;
+  const limpio = t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return limpio.split(/[^a-zñ]+/).some((palabra) =>
+    palabra.length >= 6 && PALABRAS_PERFIL.some((clave) => distanciaCorta(palabra, clave) <= 1));
+}

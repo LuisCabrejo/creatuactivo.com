@@ -592,15 +592,20 @@ export async function vincularSocioPorToken(
  * adelante le vendió el negocio a Miguel con un método inventado. Se le dice
  * qué hace ese enlace y se le propone lo suyo, una sola salida.
  */
-export function mensajeSocioEnlace(socio: SocioIdentificado, slugDelEnlace: string | null): string {
+export function mensajeSocioEnlace(socio: SocioIdentificado, slugDelEnlace: string | null, nombreDelEnlace?: string | null): string {
   const nombre = socio.nombre ? `, ${socio.nombre}` : '';
+  // El enlace puede traer el slug o el constructor_id (`luis-cabrejo-1288`):
+  // Liliana leyó ese identificador tres veces (21 sep 2026). Quien llama resuelve
+  // el nombre; si no lo tiene, sale el identificador antes que nada.
+  const dueño = nombreDelEnlace || slugDelEnlace;
   const propio = !slugDelEnlace || slugDelEnlace === socio.slug;
   const primera = propio
     ? `Ese enlace es el suyo${nombre}, y funciona: quien lo toque llega aquí conmigo y recibe la apertura con usted como patrocinador.`
-    : `Ese enlace es de ${slugDelEnlace}${nombre}, y funciona igual que el suyo: quien lo toque llega aquí conmigo y queda con ${slugDelEnlace} como patrocinador.`;
+    : `Ese enlace es de ${dueño}${nombre}, y funciona igual que el suyo: quien lo toque llega aquí conmigo y queda con ${dueño} como patrocinador.`;
   return (
     `${primera}\n\n` +
-    `A usted no le abro esa conversación porque ya lo conozco como socio. Si quiere verla tal como la vive un prospecto, ábrala desde otro número.\n\n` +
+    // Sin género: «ya lo conozco como socio» se lo leyeron Liliana y Nidia.
+    `A usted no le abro esa conversación porque ya hace parte del equipo. Si quiere verla tal como la vive un prospecto, ábrala desde otro número.\n\n` +
     (propio ? '' : `El suyo es ${enlaceDeCanal(socio.slug)}.\n\n`) +
     OFERTA_REDACTAR
   );

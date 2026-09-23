@@ -1,7 +1,9 @@
 # Arsenal de Compensacion: Infraestructura de Ingresos — la versión vigente está en «Version», abajo
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construcción de Ingresos Recurrentes
-**Versión actual: v8.11** (13 sep 2026) — **Auditoría con el Director: las instrucciones para el modelo salen del cuerpo servido, y «activo» pasa al código.** Siete fragmentos llevaban avisos internos dentro de lo que lee el modelo —tres *«Referencia interna»* y cuatro instrucciones que narraban el error a evitar—; ahora viven en el `[Concepto Nuclear]` y en el cuerpo queda una línea en positivo. *Activo* deja de decirse de la persona en ocho sitios; *entrar* y *red* desnuda salen de dos candados; *por frente* → *por canal*; mayúsculas de énfasis a minúscula; tildes; sin bloque de instrucciones en PAQ_04. Cifras del plan intactas.
+**Versión actual: v8.12** (23 sep 2026) — **Cuatro preguntas de cierre dejan de mandar el «sí» a otra parte.** Medido: la que ofrecía el Binario entregaba la tabla con cifras y no el concepto, contra lo que manda la propia cabecera de ese fragmento; la que decía *un ejemplo con números* vivía en cuatro fragmentos con tres destinos posibles, así que el destino lo elegía el azar del vector; y la que ofrecía cobrar no distinguía entre las dos vías. Ahora cada una nombra adónde va y se midió contra el corpus real antes de escribirse. Cifras, %, GCV, PV/CV y nombres del plan intactos.
+
+**v8.11** (13 sep 2026) — **Auditoría con el Director: las instrucciones para el modelo salen del cuerpo servido, y «activo» pasa al código.** Siete fragmentos llevaban avisos internos dentro de lo que lee el modelo —tres *«Referencia interna»* y cuatro instrucciones que narraban el error a evitar—; ahora viven en el `[Concepto Nuclear]` y en el cuerpo queda una línea en positivo. *Activo* deja de decirse de la persona en ocho sitios; *entrar* y *red* desnuda salen de dos candados; *por frente* → *por canal*; mayúsculas de énfasis a minúscula; tildes; sin bloque de instrucciones en PAQ_04. Cifras del plan intactas.
 
 **v8.10** (3 sep 2026) — **La recompra son cuatro cajas al mes, o el equivalente a 50 PV** (Director): *tres o cuatro* dejaba creer que con menos alcanza; corregido en COMP_BIN_06 y COMP_BIN_09. Previa **8.3** (25 ago 2026) — **La comisión del GEN5 se cotiza en la moneda del visitante.** COMP_GEN5_01 va bajo candado, así que las cifras que ganó en la v8.2 quedaron escritas en pesos dentro de un texto que se entrega carácter por carácter: un prospecto de Estados Unidos recibía COP. Ahora el candado trae `[GEN1]` y `[GEN2_5]` y los llena `getPinComisionGEN5()` — mismo reparto que FREQ_03. Cifras del plan intactas. Previa **8.2** (24 ago 2026) — **La vía del GEN5 se explica con su rango, y la pregunta de cierre nombra lo que ofrece.** COMP_GEN5_01: la primera respuesta pasa a llevar el rango por generación anclado al paquete propio (decisión del Director) — quien pregunta cómo gana pronto está preguntando cómo recupera lo que puso, y en abstracto esa cuenta se la hace el prospecto solo, casi siempre hacia arriba. La compra se nombra sin persona, en registro de gran distribución. ⚠️ **La pregunta de cierre nombra el paquete a propósito**: el pin del motor decide el tipo de ejemplo por la oferta y su default es la renta, así que un cierre que no nombra la vía hacía que el «sí» entregara el ejemplo del Binario después de haber explicado el GEN5. Cifras, %, CV/PV y tasas INTACTAS. Previa **8.1** (23 ago 2026) — **El Binario se explica por emparejamiento, con el canal izquierdo y el canal derecho nombrados.** El sistema empareja cada punto de un canal con su equivalente en el otro y paga sobre el volumen emparejado; los puntos sin emparejar se guardan para el siguiente ciclo mientras la persona esté activa con su recompra mensual. Cuatro respuestas nuevas o reescritas: BIN_06 (los tres requisitos, en llano), BIN_09 (los puntos que sobran, con el ejemplo 1.050 / 5.070), GEN5_09 (las dos condiciones del GEN5) y PV_09 (una caja a la semana). El detalle, en el CHANGELOG. Cifras del plan intactas. Previa **8.0** (22 ago 2026) — **Los productos se nombran como los ve el cliente.** Las tablas de puntos y de composición usan los mismos nombres del catálogo, en español y con su ortografía; el signo «&» de Piel&Brillo va escrito. Las cifras del plan no cambian. Detalle en el CHANGELOG.
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Aquí no se narran las versiones viejas: sus notas citaban entrecomillada cada frase retirada —*negocio digital*, *Base Operativa*, *escalar*— y esta cabecera es el primer texto que lee quien vaya a editar.
@@ -160,7 +162,7 @@ El techo de la primera generación es lo que más varía entre un nivel y otro; 
 
 Cada paquete que se compra genera comisión para su generación y para las cuatro que vienen arriba.
 
-**Pregunta de seguimiento:** ¿Le muestro un ejemplo con números?
+**Pregunta de seguimiento:** ¿Le muestro lo que suman los paquetes de su primera generación?
 
 ---
 
@@ -224,7 +226,7 @@ Esa comisión entra a medida que se compran los paquetes, cada viernes: no esper
 
 El GEN5 financia el crecimiento temprano; el Binario es el que sostiene el ingreso recurrente después. Las dos corren en paralelo desde el primer día.
 
-**Pregunta de seguimiento:** ¿Le muestro cómo funciona el Binario?
+**Pregunta de seguimiento:** ¿Le cuento qué es la Regalía de Equipo?
 
 ---
 
@@ -556,7 +558,7 @@ Y crece por acumulación: cada vez que alguien vuelve a pedir, ese consumo se su
 Por eso no depende de que usted esté encima — lo que mueve la comisión es el producto que sale.
 </verbatim_lock>
 
-**Pregunta de seguimiento:** ¿Le muestro un ejemplo con números?
+**Pregunta de seguimiento:** ¿Le muestro cuánto deja el Binario cuando su sistema crece?
 
 ---
 
@@ -799,7 +801,7 @@ Esta tabla se entrega tal cual, con sus rótulos y sus cifras, y toda cifra es m
 
 Esas cifras son al mes. Lo que pasa cada semana es el pago: Gano Excel liquida los viernes, así que el mes le llega repartido. Y el Binario corre sobre todo el sistema, sin límite de profundidad.
 
-**Pregunta de seguimiento:** ¿Le muestro qué necesita para cobrarlo?
+**Pregunta de seguimiento:** ¿Le muestro las tres condiciones para cobrar el Binario?
 
 ---
 

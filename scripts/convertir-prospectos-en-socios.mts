@@ -5,7 +5,10 @@
  * un socio (decisión del Director, 10 sep 2026: el prospecto que pasa a
  * distribuidor queda configurado como distribuidor, y el trato se abre solo así).
  *
- *   npx tsx scripts/convertir-prospectos-en-socios.mts [--dry]
+ *   npx tsx scripts/convertir-prospectos-en-socios.mts [--dry] [--solo wa_57…]
+ *
+ *   --solo limita la corrida a UNA huella: el barrido completo también convertiría
+ *   la huella de prueba del Director (wa_573206805737), que es prospecto a propósito.
  *
  * Lo mismo que hace el webhook al vuelo (`convertirProspectoEnSocio`), aplicado
  * a los que ya estaban: Patricia y Liliana escribieron como prospectas y
@@ -19,6 +22,8 @@ const { identificarSocio, convertirProspectoEnSocio } = require('../src/lib/wa-o
   typeof import('../src/lib/wa-onboarding.ts');
 
 const dry = process.argv.includes('--dry');
+const _i = process.argv.indexOf('--solo');
+const solo = _i > -1 ? process.argv[_i + 1] : null;
 const s = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 const { data: prospectos, error } = await s.from('prospects')
   .select('id, fingerprint_id, stage, user_id, device_info').like('fingerprint_id', 'wa_%');
@@ -26,6 +31,7 @@ if (error) throw error;
 
 let n = 0;
 for (const p of prospectos || []) {
+  if (solo && p.fingerprint_id !== solo) continue;
   const tel = p.fingerprint_id.replace(/^wa_/, '');
   if (!/^\d{10,15}$/.test(tel)) continue;
   const socio = await identificarSocio(s, tel);

@@ -55,9 +55,9 @@ function getResendClient(): Resend {
  * Mapping de paquete code → nombre descriptivo + datos clave.
  */
 const PACKAGE_INFO: Record<string, { nombre: string; precioUSD: string; precioCOP: string; rentabilidad: string }> = {
-  'ESP-1': { nombre: 'ESP-1 Inicial', precioUSD: '$200 USD', precioCOP: '$900,000 COP', rentabilidad: '15%' },
-  'ESP-2': { nombre: 'ESP-2 Empresarial', precioUSD: '$500 USD', precioCOP: '$2,250,000 COP', rentabilidad: '16%' },
-  'ESP-3': { nombre: 'ESP-3 Visionario', precioUSD: '$1,000 USD', precioCOP: '$4,500,000 COP', rentabilidad: '17%' },
+  'ESP-1': { nombre: 'ESP-1 Inicial', precioUSD: '$200 USD', precioCOP: '$900.000 COP', rentabilidad: '15%' },
+  'ESP-2': { nombre: 'ESP-2 Empresarial', precioUSD: '$500 USD', precioCOP: '$2.250.000 COP', rentabilidad: '16%' },
+  'ESP-3': { nombre: 'ESP-3 Visionario', precioUSD: '$1,000 USD', precioCOP: '$4.500.000 COP', rentabilidad: '17%' },
 };
 
 export interface ProspectDataForHandoff {

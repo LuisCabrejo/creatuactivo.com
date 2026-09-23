@@ -12,6 +12,21 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.12 — Cuatro preguntas de cierre dejan de mandar el «sí» a otra parte (23 sep 2026)
+
+Nace de la auditoría del tráfico real. María Angel, socia, dijo «Si» ocho veces seguidas entre las 8:03 y las 9:03 del 21 sep y recorrió un **anillo**: el ejemplo del GEN5 ofrecía el Binario, el Binario ofrecía las condiciones de cobro, y seis turnos después estaba de vuelta en el GEN5. Los turnos 10 y 11 fueron los turnos 4 y 5.
+
+El anillo no lo causa una pregunta mal escrita. Lo causa que **cada fragmento lleva su oferta pegada al cuerpo y no puede saber de dónde viene la persona**. Medido sobre los 40: siete ofertas están repetidas en dos, tres o cuatro fragmentos distintos, y **solo dos de las cuarenta ofrecen algo fuera del plan de compensación**. Es un mundo cerrado con dos puertas.
+
+Lo corregido, con el texto de cada oferta medido contra los 177 fragmentos reales **antes** de escribirse:
+
+- **`COMP_GEN5_08`** ofrecía *el Binario* y el «sí» entregaba `COMP_BIN_08`, la tabla con cifras, cuando la cabecera de ese mismo fragmento manda entregarlo **después** del concepto y nunca como primera respuesta. Ahora ofrece la Regalía de Equipo y aterriza en `COMP_BIN_01` (0.593, puesto 1, margen 0.157).
+- **`COMP_BIN_01`** y **`COMP_GEN5_04`** cerraban las dos con *un ejemplo con números*, texto que vivía en cuatro fragmentos con tres destinos posibles: lo elegía el azar del vector. Cada una nombra ahora el suyo — el Binario creciendo (`COMP_BIN_08`, 0.759) y los paquetes de la primera generación (`COMP_GEN5_05`, 0.711).
+- **`COMP_BIN_10`** ofrecía *qué necesita para cobrarlo* sin decir cuál de las dos vías. Ahora nombra las tres condiciones del Binario (`COMP_BIN_06`, 0.663).
+
+⏳ **Quedan seis ofertas repetidas** (la recompra semanal, el porcentaje alto, las tres formas de empezar, el ejemplo con números en otros dos fragmentos, los 50 PV y los rangos). No se tocaron: la salida de fondo es que la oferta se **elija** de un catálogo según el hilo en vez de ir pegada al fragmento, y eso está en diseño. Cifras, %, GCV, PV/CV y nombres del plan intactos.
+
+
 ### v8.11 — Las instrucciones para el modelo salen del cuerpo servido, y «activo» pasa al código (13 sep 2026)
 
 Auditoría de las cuarenta respuestas con los lentes del día. Lo que el pie del archivo llevaba —«Reglas críticas para Queswa», el diccionario técnico y la tabla de bonos pendientes— **no se sirve** (el fragmentador corta antes) y se conserva como doctrina para quien edita. Lo que sí llegaba al modelo:
@@ -463,6 +478,35 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 **Arquitectura.** Parent + fragmentos solo en `dashboard` (`desplegar-arsenal-ciencia-socio.mjs`); bloque `canal:dashboard` en el prompt maestro (desplegado `--solo dashboard`); el arsenal como cuarto bucket en el `route.ts` del Dashboard (otro repo, traspasado a su agente). El `.txt` va sin `[Concepto Nuclear]`: el Dashboard sirve el padre entero.
 
 ## arsenal_inicial
+
+### v6.44 — Nace `PERFIL_02`: el independiente y el freelance tienen respuesta propia (23 sep 2026)
+
+La auditoría del tráfico mostró que **«soy independiente, ¿esto para qué me sirve?» y «ya tengo un negocio propio, ¿por qué haría esto?» recibían el MISMO texto, palabra por palabra**. Una puerta directa los mandaba a `WHY_05`, que responde en frío y sin perfil, y el candado lo dictaba el backend sin que el modelo viera la pregunta. A un empresario se le respondía como si no tuviera negocio.
+
+`PERFIL_02` responde al independiente en su propio eje. **Decirle que aquí será su propio jefe no le dice nada, porque ya lo es**: su techo son sus horas, y cada mes arranca en cero. El alivio se nombra en dos mitades, Gano Excel para la logística y la tecnología para la atención, y el remate es que el sistema sigue corriendo sin que él esté encima.
+
+**Índice medido en laboratorio** contra los 177 fragmentos reales, en tres variantes. La que quedó ancla solo en la identidad (*soy independiente, soy freelance, trabajo por mi cuenta, trabajo por proyectos*): 10 de 11 consultas en el puesto 1, y la única que no gana cae donde ya caía hoy. Las otras dos se descartaron por volverse atractores: con *«cada mes arranco en cero»* en el índice, el fragmento le robaba consultas a `OBJ_01` y al dueño de local.
+
+⚠️ La puerta de `WHY_05` **se hace a un lado cuando la persona nombra su situación** (`declaraPerfil` en el conductor, con segunda pasada por distancia de edición para que un typo no cambie la respuesta; vigilado en `prueba-typos.mts`).
+
+
+### v6.43 — `FREQ_03` recupera la oferta que lo nombra (23 sep 2026)
+
+*«¿Le muestro las tres formas de empezar?»* cierra tres fragmentos de compensación, y el «sí» que la sigue **no llegaba a la tabla de precios**: ganaba `ADV_ESC_02`, cuyo cuerpo es la frase puente de la radicación. A quien pedía ver las opciones se le abría el trámite de los cuatro datos, que es un cierre servido a alguien que está explorando.
+
+Se aplicó la regla conocida —**un fragmento que es destino de una oferta escrita lleva esa oferta literal y aparte en su índice**— y, para no pagarla con dilución, el índice se podó a cambio. Las cuatro variantes se midieron en laboratorio contra los 177 fragmentos reales antes de desplegar:
+
+| Variante | La oferta | Cobertura en top-3 |
+|---|---|---|
+| Hoy | puesto 3 | 9 de 10 |
+| Hoy + la oferta | puesto 1 | 8 de 10 |
+| **Podada + la oferta** (elegida) | **puesto 1** | **9 de 10** |
+| Sin *proceso / me uno* | puesto 1 | 8 de 10 |
+
+En producción la oferta queda en 0.723 con margen de 0.100 sobre el segundo. *«Cómo se inicia»* sigue perdiendo contra `ADV_ESC_02` a nivel vectorial, igual que antes de este cambio: lo atiende el clasificador por patrón, y queda anotado como pendiente propio.
+
+Cuerpo y candado intactos.
+
 
 ### v6.40 — `FREQ_04` 🔒 recibe las preguntas de plazo que llegaban al catálogo (16 sep 2026)
 
@@ -1784,6 +1828,19 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 ---
 
 ## arsenal_avanzado
+
+### v14.4 — `ADV_OBJ_02` cambia de eje: del riesgo de una sola fuente a no poder escalar (23 sep 2026)
+
+Decisión del Director. La versión anterior argumentaba **diversificación**: su negocio funciona, pero depender de una sola fuente es el riesgo, y cerraba con la imagen del dueño del edificio cuyos otros pisos rentan aparte. Le hablaba a un miedo que el empresario no siempre tiene.
+
+El eje nuevo es el **techo**. Su negocio funciona y no puede crecerlo sin crecer la operación. ⚠️ Y el techo tiene **dos causas**, así que la respuesta nombra las dos mitades del alivio: la logística la quita **Gano Excel**, las horas las quita **la tecnología**. Nombrar solo al fabricante dejaba la impresión de que lo grandioso es Gano Excel — corrección del Director sobre el primer borrador.
+
+⚠️ **Nunca comparar de lado.** El Director lo vivió antes de Gano Excel: le presentaban algo parecido a lo que ya hacía y pensaba *«para vender, vendo lo mío»*. La comparación va hacia arriba, al dueño del sistema.
+
+La exclusividad se reclama sobre **creatuactivo.com y queswa.app**, con nombre; nunca sobre «la inteligencia artificial», que hoy es falso y suena a fanfarronada. Y se nombra el **mecanismo** —converso, resuelvo dudas, maduro la decisión—, nunca el resultado *«hago la parte comercial por usted»*, que es una deuda que alguien cobra después.
+
+**Narrativa.** Dos borradores míos se cayeron por carga cognitiva: *«Lo que se atraviesa después es que crecer cuesta operación»*, *«Aquí esa parte ya está resuelta, y no es suya»*. Sujeto abstracto y frases encadenadas con dos puntos. La versión final tiene sujeto concreto en cada frase y una idea por frase.
+
 
 ### v14.3 — Auditoría con el Director: los cierres dejan de pedir datos, y sin encuentros (13 sep 2026)
 

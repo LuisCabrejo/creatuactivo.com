@@ -2734,10 +2734,25 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // villano del empleado —recorte, reestructuración, decisiones de otra
       // oficina—, porque WHY_03 comparte el "ya me va bien" y está escrita para
       // quien vive de un salario.
-      fragmento: 'arsenal_inicial_FREQ_10',
-      titulo: 'Negocio tradicional vs canal — FREQ_10',
-      porque: 'ya tiene negocio propio',
-      cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(independiente|comerciante|empresari[oa])\b|\btrabajo\s+por\s+mi\s+cuenta\b/i,
+      //
+      // ⚠️ **Esa puerta cubría a DOS personas distintas y las mandaba al mismo
+      // sitio** (23 sep 2026). Hoy cada una tiene su respuesta, así que se parte
+      // en dos: el empresario tiene un techo de operación, el independiente
+      // tiene un techo de horas, y no se les habla igual. Lo destapó repetir la
+      // pregunta contra producción: la puerta ganaba y el fragmento nuevo, que
+      // en el vector va 0.701 contra 0.544, no llegaba nunca.
+      fragmento: 'arsenal_avanzado_ADV_OBJ_02',
+      titulo: 'Ya tengo un negocio — ADV_OBJ_02',
+      porque: 'ya tiene negocio propio o se declara empresario',
+      cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(comerciante|empresari[oa])\b/i,
+    },
+    {
+      // El independiente y el freelance: su techo son sus horas, no la
+      // operación. `PERFIL_02` (arsenal v6.44) está escrita para él.
+      fragmento: 'arsenal_inicial_PERFIL_02',
+      titulo: 'Independiente y freelance — PERFIL_02',
+      porque: 'se declara independiente o freelance',
+      cuando: /\bsoy\s+(independiente|freelance|freelancer)\b|\btrabajo\s+(por\s+mi\s+cuenta|por\s+proyectos|independiente)\b|\bcomo\s+independiente\b/i,
     },
     {
       // Prueba de 40 preguntas, 19 ago: "ya tuve código de Gano Excel antes"

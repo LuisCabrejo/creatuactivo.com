@@ -45,6 +45,11 @@ for (const q of [
   '¿Quiere que le cuente cómo se pide o prefiere el catálogo?',
   '¿Le paso el enlace o se lo explico por aquí?',
   '¿Seguimos con el simulador o le muestro los paquetes?',
+  // Tercera forma: el verbo va DESPUÉS del «o». Apareció al repetir una
+  // conversación real (23 sep 2026) y a la rama anterior se le escapaba.
+  '¿Toma café en las mañanas, o prefiere algo sin cafeína?',
+  '¿Sigue con los productos, o prefiere ver el negocio?',
+  '¿Lo vemos ahora o prefiere mañana?',
 ]) {
   const cuerpo = `Aquí tiene el detalle completo de lo que preguntó, con su precio y su presentación, para que lo vea con calma.\n\n${q}`;
   es(detectarPreguntaDeDosSalidas(cuerpo) === q, `se caza · ${q}`);

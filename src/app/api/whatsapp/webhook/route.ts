@@ -1815,7 +1815,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // pregunta, el vector la leía como «¿qué debo hacer yo?» y dictaba EAM_01: el
     // prospecto del 20 sep preguntó el precio de una caja y recibió las dos
     // acciones del socio (21 sep 2026).
-    const RE_OFERTA_COMO_SE_PIDE = /¿(Le|Te) (cuento|explico|digo|muestro) c[oó]mo (se pide|pedirl[oa]|se compra|comprarl[oa]|se hace el pedido|hacer el pedido)\?\s*$/i;
+    const RE_OFERTA_COMO_SE_PIDE = /¿(Le|Te) (cuento|explico|digo|muestro) c[oó]mo (se piden?|pedirl[oa]s?|se compran?|comprarl[oa]s?|se hace el pedido|hacer el pedido)\?\s*$/i;
     const _aceptaPedidoSede = (RE_OFERTA_PEDIDO_SEDE.test(_ultimoBotPedido) || RE_OFERTA_COMO_SE_PIDE.test(_ultimoBotPedido))
       && esAceptacion(messageText);
     const _enPedido = !socioQueEscribe && (pedidoAbierto(_ultimoBotPedido) || _aceptaPedidoSede);

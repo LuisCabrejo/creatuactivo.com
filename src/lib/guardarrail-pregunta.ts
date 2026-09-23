@@ -3,19 +3,26 @@
  *
  * La pregunta de cierre con DOS SALIDAS — el fallo que más gente nos cuesta.
  *
- * ── EL DATO (investigación del 23 sep 2026) ──────────────────────────────────
+ * ── EL DATO, YA CORREGIDO (23 sep 2026) ─────────────────────────────────────
  *
- * Sobre 819 turnos de personas reales en 30 días:
+ * ⚠️ La primera versión de esta cabecera citaba 819 turnos, 41 aceptaciones y un
+ * 71 % de abandono. **Esas cifras eran de un universo contaminado**: el filtro
+ * por patrón dejaba pasar los arneses, y `prueba-productos.mjs` genera huellas
+ * de doce dígitos idénticas a un móvil colombiano que empieza por 300.
  *
- *   · abandono normal en turnos que no son el primero ........  15 %
- *   · abandono tras un «sí» que cayó al vector ...............  71 %   (41 casos)
- *   · de esos 41, eran preguntas de dos salidas ..............  16, y 15 mataron el hilo
+ * Contra los entrantes reales del webhook, sobre 30 días: **40 personas, 339
+ * turnos**, abandono base del 11 %, y **5 turnos** con pregunta de dos salidas,
+ * ninguno de los cuales mató un hilo.
  *
- * Las frases reales: «¿Cuál de los dos tiene en su pedido?» (5 veces, 5 muertes),
- * «¿Cuál de los dos va más con su rutina?» (3 de 3), «¿Prefiere el tinto solo o
- * le gusta con crema y dulce?». La persona no elige: contesta «sí», el motor
- * busca con esa pregunta como ancla, la pregunta no es de ningún fragmento, y
- * devuelve lo que se le parezca. La persona pidió elegir y recibió un discurso.
+ * Entonces esto NO es el fallo que más gente nos cuesta. Sigue valiendo la pena
+ * porque el modelo rompe una regla escrita y porque la poda no cuesta nada
+ * (1,6 microsegundos por respuesta), no porque sea urgente.
+ *
+ * Las frases son reales: «¿Cuál de los dos tiene en su pedido?», «¿Cuál de los
+ * dos va más con su rutina?», «¿Toma café en las mañanas, o prefiere algo sin
+ * cafeína?». La persona no elige: contesta «sí», el motor busca con esa pregunta
+ * como ancla, la pregunta no es de ningún fragmento, y devuelve lo que se le
+ * parezca. La persona pidió elegir y recibió un discurso.
  *
  * ── POR QUÉ EN CÓDIGO Y NO EN EL PROMPT ──────────────────────────────────────
  *
@@ -38,9 +45,10 @@
  */
 
 /**
- * Dos formas de la misma falla, las dos vistas en producción:
+ * Tres formas de la misma falla, las tres vistas en producción:
  *  1. La elección explícita entre dos cosas ya nombradas: «¿cuál de los dos…?»
- *  2. La oferta disyuntiva: «¿le muestro X o prefiere Y?»
+ *  2. La oferta disyuntiva con el verbo delante: «¿le muestro X o prefiere Y?»
+ *  3. La disyuntiva con el verbo detrás: «¿toma café, o prefiere algo sin…?»
  *
  * ⚠️ NO entra «¿Con cuál arranca?», que es la pregunta de seguimiento de
  * `FREQ_30` y está aprobada: es abierta, no ofrece dos caminos cerrados.
@@ -50,9 +58,13 @@ const RE_DOS_SALIDAS = new RegExp(
     // 1 — la elección entre dos
     'cu[aá]l(es)?\\s+(de\\s+(los|las)\\s+dos|de\\s+esos|de\\s+esas|de\\s+estos|de\\s+estas' +
       '|va\\s+m[aá]s|se\\s+acerca\\s+m[aá]s|le\\s+suena\\s+m[aá]s|prefiere\\s+de)' +
-    // 2 — la oferta con «o» en medio
+    // 2 — la oferta con «o» en medio, con el verbo ANTES del «o»
     '|(prefiere|le\\s+gusta|le\\s+provoca|quiere|le\\s+muestro|le\\s+cuento|le\\s+env[ií]o|le\\s+paso' +
       '|empezamos|seguimos|arrancamos)[^?¿]{0,90}\\s+o\\s+[^?¿]{0,90}' +
+    // 3 — …y con el verbo DESPUÉS del «o»: «¿Toma café en las mañanas, o
+    //     prefiere algo sin cafeína?». Apareció al repetir una conversación
+    //     real (23 sep 2026) y a la rama 2 se le escapaba por el orden.
+    '|,?\\s+o\\s+(prefiere|prefieres|quiere|le\\s+gusta|le\\s+provoca|m[aá]s\\s+bien|mejor)\\b' +
   ')[^?¿]*\\?', 'i');
 
 /** El texto tras la pregunta: espacios, emojis o un cierre corto. Nada más. */

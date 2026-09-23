@@ -6,6 +6,10 @@
  * Elegancia Cinética: imagen B&W + overlay oscuro + título serif dorado.
  * La imagen es OPCIONAL desde el 29 ago 2026 (Director: /tecnologia sin foto en el
  * encabezado): sin `imageSrc` el fondo es el spotlight titanio + dorado de BRANDING §5.
+ *
+ * `imageTone` (23 sep 2026): el B&W de origen apaga el color del producto. En /productos la
+ * foto ES el producto —la taza servida—, así que ahí se usa `warm`: desatura poco y oscurece
+ * más, de modo que el café conserva su tono y el título dorado sigue legible encima.
  */
 
 import Image from 'next/image';
@@ -17,6 +21,11 @@ interface IndustrialHeaderProps {
   refCode: string;
   imageSrc?: string;
   imageAlt?: string;
+  /**
+   * bw (default): grises 70% — el tratamiento institucional de siempre.
+   * warm: grises 25% y más oscura — para cuando la foto es el producto y su color comunica.
+   */
+  imageTone?: 'bw' | 'warm';
   /**
    * institutional (default): Inter uppercase letter-spacing — para títulos cortos institucionales
    *   (Memorándum Directivo, Insights Estratégicos, Construcción de Estructura Patrimonial).
@@ -32,9 +41,11 @@ export function IndustrialHeader({
   refCode,
   imageSrc,
   imageAlt,
+  imageTone = 'bw',
   variant = 'institutional',
 }: IndustrialHeaderProps) {
   const isEditorial = variant === 'editorial';
+  const esCalida = imageTone === 'warm';
 
   return (
     <section style={{ height: '45vh', position: 'relative', overflow: 'hidden' }}>
@@ -47,8 +58,10 @@ export function IndustrialHeader({
             fill
             style={{
               objectFit: 'cover',
-              filter: 'grayscale(70%) contrast(1.1) brightness(0.75)',
-              opacity: 0.9,
+              filter: esCalida
+                ? 'grayscale(25%) contrast(1.05) brightness(0.62)'
+                : 'grayscale(70%) contrast(1.1) brightness(0.75)',
+              opacity: esCalida ? 0.95 : 0.9,
               WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
               maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
             }}

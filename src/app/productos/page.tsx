@@ -879,8 +879,9 @@ export default function CatalogoEstrategico() {
           title="CATÁLOGO BIO-INTELIGENTE"
           subtitle="Nutrición Celular con Ingeniería de Extracción"
           refCode="CLINICAL_CATALOG_V1"
-          imageSrc="/images/header-productos.jpg"
-          imageAlt="Catálogo Bio-Inteligente Gano Excel"
+          imageSrc="/images/servilleta/producto-cafe-wide.webp"
+          imageAlt="Taza de café servida sobre una encimera oscura"
+          imageTone="warm"
         />
 
         {/* Botón carrito flotante - Hard Surface + Bio-Emerald */}

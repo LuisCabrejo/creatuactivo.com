@@ -53,12 +53,48 @@ export const DESTINO_REVISION = (process.env.ALERTA_SISTEMA_EMAIL || 'sistema@cr
 
 const MODELO_JUEZ = 'claude-haiku-4-5-20251001';
 
-/** Los arneses y las pruebas no son personas: no entran a la cola. */
-const RE_ARNES = /conv|probe|_p_|q23|wa_e3_|^wa_5730\d{9,}|sede_probe|deploy/;
+/**
+ * ⚠️ **Una persona real se reconoce porque el webhook la vio entrar, no por la
+ * forma de su huella** (23 sep 2026, y costó una conclusión falsa).
+ *
+ * El filtro por patrón que se usaba antes —el mismo de `auditar-conversaciones`—
+ * deja pasar los arneses: `prueba-productos.mjs` genera `wa_57300` + 7 dígitos,
+ * que son exactamente doce, la longitud de un móvil colombiano que empieza por
+ * 300. No hay forma de distinguirlos mirando la cadena.
+ *
+ * Medido ese día sobre 30 días: de 1198 huellas de WhatsApp en
+ * `nexus_conversations`, **solo 40 tenían un mensaje entrante de verdad**. Las
+ * otras 1158 eran pruebas. Un análisis hecho sobre ese universo daba un 84 % de
+ * hilos de un solo turno y un 71 % de abandono tras una aceptación; sobre las
+ * personas de verdad son 18 % y 8 %.
+ *
+ * `wa_mensajes_procesados` es la guarda de reenvíos del webhook: cada mensaje
+ * que una persona manda de verdad deja su fila con el `wamid` y su identidad.
+ * Un arnés llama a `/api/nexus` directo y nunca pasa por ahí. Esa tabla es la
+ * única fuente que no se puede imitar desde un script.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function huellasDePersonas(s: any, desde: string): Promise<Set<string>> {
+  const huellas = new Set<string>();
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await s.from('wa_mensajes_procesados')
+      .select('identidad').gt('creado_at', desde).range(from, from + 999);
+    if (error) break;
+    for (const fila of data ?? []) {
+      const id = fila?.identidad ?? {};
+      for (const v of [id.from, id.wa_id, id.user_id, id.msg_user_id]) {
+        if (typeof v === 'string' && v) huellas.add(`wa_${v.replace(/^\+/, '')}`);
+      }
+    }
+    if ((data ?? []).length < 1000) break;
+  }
+  return huellas;
+}
+
+/** El Centro de Mando y la web no pasan por el webhook: siempre son personas. */
 export function esPersonaReal(fp: string | null): boolean {
   if (!fp || fp === 'null') return true;
-  if (fp.startsWith('dash_')) return true;
-  return !RE_ARNES.test(fp) && /^wa_(57\d{10}|CO\.\d+|[A-Z]{2}\.\d+)$/.test(fp);
+  return fp.startsWith('dash_');
 }
 
 export type Turno = {
@@ -208,7 +244,10 @@ export async function revisarTurnos(opciones: {
     if ((data as Turno[]).length < 1000) break;
   }
 
-  const personas = filas.filter((t) => esPersonaReal(t.fingerprint_id));
+  // Las de WhatsApp se confirman contra los entrantes del webhook; el resto
+  // (Centro de Mando, web) no pasa por ahí y entra por su prefijo.
+  const conEntrante = await huellasDePersonas(s, desde);
+  const personas = filas.filter((t) => conEntrante.has(t.fingerprint_id ?? '') || esPersonaReal(t.fingerprint_id));
   const hilos: Record<string, Turno[]> = {};
   for (const t of personas) (hilos[t.fingerprint_id ?? 'null'] ||= []).push(t);
 

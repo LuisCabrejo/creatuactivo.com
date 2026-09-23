@@ -2,13 +2,54 @@
 
 **Investigación · 23 sep 2026 · encargada por el Director**
 
-> **La pregunta:** las primeras personas que entraron al canal tuvieron malas experiencias. ¿Qué mecanismo evita que se repitan?
+> ## ⛔ CORRECCIÓN DEL MISMO DÍA — LEER ANTES QUE NADA
 >
-> **La respuesta corta:** el fallo que más gente nos cuesta **no es de recuperación ni de copy**. Es que Queswa hace una pregunta que la persona no puede contestar, la persona contesta «sí», y ese «sí» no tiene destino. Se detecta con una expresión regular, antes de enviar, y cuesta cero.
+> **La primera versión de este documento midió sobre un universo contaminado y su
+> conclusión principal era falsa.** Queda escrita abajo, tachada, porque el error
+> vale más que el hallazgo.
+>
+> **Qué pasó.** Separé las personas de los arneses con el filtro por patrón de
+> `auditar-conversaciones.mjs`. Ese filtro no sirve: `prueba-productos.mjs`
+> genera huellas `wa_57300` + 7 dígitos, que son exactamente doce, la longitud de
+> un móvil colombiano que empieza por 300. Mirando la cadena no hay forma de
+> distinguirlos.
+>
+> **La señal que sí funciona** es `wa_mensajes_procesados`, la guarda de reenvíos
+> del webhook: cada mensaje que una persona manda de verdad deja su fila. Un
+> arnés llama a `/api/nexus` directo y nunca pasa por ahí.
+>
+> | | Como lo medí primero | **La verdad** |
+> |---|---|---|
+> | Huellas de WhatsApp | 403 | **40** |
+> | Turnos de personas | 819 | **339** |
+> | Hilos de un solo turno | 84 % | **18 %** |
+> | Abandono base | 15 % | **11 %** |
+> | Abandono tras un «sí» que cayó al vector | **71 %** (41 casos) | **8 %** (13 casos) |
+> | Preguntas de dos salidas | 50, y 15 mataron el hilo | **5, y ninguna mató un hilo** |
+>
+> **Qué se cae:** que la pregunta de dos salidas sea el fallo que más gente nos
+> cuesta. No lo es. Era el eco de un arnés que hace preguntas de producto en
+> sesiones de un solo turno, así que todos sus «hilos» morían por construcción.
+>
+> **Qué se sostiene:** que el modelo compone preguntas de dos salidas contra una
+> regla escrita (5 turnos reales), y los bucles de Oswaldo y de María, que no
+> salieron de ninguna estadística sino de leer sus conversaciones.
+>
+> **Lo que de verdad enseña este documento** es que *el universo de medición se
+> valida antes que la medición*. Y que el tráfico real del canal son **40
+> personas en 30 días**: cada una pesa el 2,5 %, ninguna conclusión se sostiene
+> en promedios, y leer las conversaciones una por una no es artesanía, es el
+> método correcto a esta escala.
 
 ---
 
-## 1. Lo que se midió
+> **La pregunta:** las primeras personas que entraron al canal tuvieron malas experiencias. ¿Qué mecanismo evita que se repitan?
+>
+> **La respuesta corta, ya corregida:** el canal atiende **40 personas en 30 días**. A esa escala no hay fallo «dominante» que un promedio revele: los que se llevaron una mala experiencia se encontraron leyendo sus conversaciones, una por una, y así se van a seguir encontrando. Lo que sí escala es **detectar y encolar** lo que ya sabemos reconocer, para que nadie dependa de acordarse de mirar.
+
+---
+
+## 1. Lo que se midió ⛔ (cifras contaminadas — ver la corrección de arriba)
 
 Treinta días de `nexus_conversations`, separando a las personas de los arneses con el mismo filtro de `auditar-conversaciones.mjs`.
 
@@ -38,7 +79,11 @@ Siete detectores corridos sobre los 819 turnos. La columna que importa no es cu�
 
 ⚠️ Esto es correlación, no causa probada. Pero 71 % contra 15 % no se explica por azar, y las conversaciones se leen: la persona dice «sí», recibe algo que no pidió, y no vuelve a escribir.
 
-## 3. El hallazgo: la pregunta que no se puede contestar con «sí»
+## 3. El hallazgo ⛔ RETIRADO: la pregunta que no se puede contestar con «sí»
+
+> Lo que sigue se midió sobre el universo contaminado. Sobre personas reales son
+> 5 turnos y ninguno mató un hilo. Se conserva porque el mecanismo que describe
+> es real y la regla que lo prohíbe existe; lo que era falso es su tamaño.
 
 Al mirar **qué estaba aceptando** cada una de esas 41 personas, el patrón salta a la vista.
 
@@ -142,11 +187,13 @@ Una tabla, `turnos_marcados`, con el turno, el detector que lo marcó y su estad
 
 ## 8. Cómo sabremos si funcionó
 
-La misma medición de este documento, repetida. Un solo número manda:
+⛔ **Corregido.** El número que proponía —el abandono tras una aceptación— resultó ser ruido de arneses. Con 40 personas al mes, un porcentaje se mueve entero porque una sola persona hizo algo, y no significa nada.
 
-> **La tasa de abandono tras una aceptación, contra el 15 % de línea base.** Hoy está en 71 %.
+A esta escala la medida honesta no es una tasa, son **casos**:
 
-Y dos de control, para que el remedio no sea peor: que la mediana del turno no pase de 10 s, y que el juez no bloquee ninguna de las respuestas que las baterías dan por buenas.
+> **Cuántos turnos entran a la cola cada semana, y cuántos de ellos resultan ser fallos de verdad al mirarlos.**
+
+Si la cola trae diez y ocho son reales, el detector sirve. Si trae cien y tres son reales, nadie la va a mirar y hay que apretarla. Las dos de control siguen valiendo: que la mediana del turno no pase de 10 s, y que ningún detector bloquee una respuesta que las baterías dan por buena.
 
 ## 9. Límites de esta investigación
 

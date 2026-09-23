@@ -24,7 +24,10 @@
  *   porque es lógica condicional contextual, no copy duplicado
  * - Saludo de página /productos — vive en useNEXUSChat.ts por la misma razón
  *
- * Última actualización léxica: 30 jul 2026 — MISION a LENGUAJE CONCRETO. Se retira
+ * Última actualización léxica: 23 sep 2026 — el saludo pasa a ser el MISMO del
+ * canal de WhatsApp (identidad + credo + método). El porqué está junto a las
+ * constantes, abajo. Lo que sigue es el historial.
+ * Previo: 30 jul 2026 — MISION a LENGUAJE CONCRETO. Se retira
  * "propietario de una empresa digital": el término es un vacío semántico que el
  * oyente rellena con lo que le suena (pirámides, cripto) — la misma causa por la
  * que el modelo alucinaba infoproductos. Dato de campo: dos meses de conversaciones
@@ -42,9 +45,42 @@
  * (12 años de campo Luis Cabrejo) + patrón Gemini "verbalización + pregunta concreta".
  */
 
-const MISION = `Estoy aquí para mostrarle cómo construir un segundo ingreso, en paralelo al que ya tiene: usted distribuye productos que millones de personas ya consumen, y yo hablo con cada persona interesada por usted.`;
+/**
+ * IDENTIDAD + CREDO + MÉTODO — la misma apertura del canal de WhatsApp
+ * (`construirApertura` en src/lib/wa-apertura.ts), variante sin socio nombrado.
+ *
+ * Decisión del Director, 23 sep 2026. Motivo: el saludo de la web prometía
+ * «construir un segundo ingreso», que es justo lo que él retiró el 7 de agosto
+ * — construir un ingreso es un resultado sin causa, la forma exacta de una
+ * estafa. Se nombra el NEGOCIO (su propio sistema de distribución), no el
+ * ingreso. Además faltaban el credo y el léxico canónico.
+ *
+ * ⚠️ Se planteó una versión corta para /pitch-deck, donde la persona acaba de
+ * ver el credo en la pantalla 1 y las tres piezas en la 5. El Director la
+ * descartó: en el 1-a-1 él le anuncia al prospecto que lo primero que hace
+ * Queswa es entregar la filosofía, así que verla otra vez CONFIRMA lo que
+ * acaba de decir. La repetición ahí es prueba de consistencia, no ripio.
+ *
+ * ⚠️ Cambio aquí = cambio en Chat.tsx, useNEXUSChat.ts y el micro-prompt M1 de
+ * route.ts, que importan `getInitialGreeting()`. Si cambia la apertura del
+ * canal, cambia esta — son la misma voz y el mismo léxico a propósito.
+ */
+const IDENTIDAD = `Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.`;
 
-const TRANSICION = `¿Por dónde quiere empezar?`;
+// El credo va SIN «En CreaTuActivo» (que sí lleva la versión de WhatsApp):
+// aquí la marca ya se dijo en la línea de identidad y repetirla dos renglones
+// seguidos suena a formulario. El texto es el de la Home v16 y WHY_01 🔒.
+const CREDO = `Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.`;
+
+// Viñetas en Markdown (la web renderiza Markdown; el canal usa asteriscos de
+// WhatsApp). Tres líneas de cuatro palabras: la pila se lee de un golpe.
+const METODO = `Por eso hicimos sencillo lo que antes era complicado: tener su propio **sistema de distribución**.
+
+- Usted comparte un enlace.
+- Yo converso con quien llega.
+- Usted recibe.`;
+
+const TRANSICION = `Todo desde el celular. Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?`;
 
 /**
  * Las 4 preguntas que el avatar hace en orden de frecuencia documentada
@@ -139,7 +175,7 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
  * Usado por Chat.tsx, useNEXUSChat.ts (rama 3) y route.ts (M1 micro-prompt FSM).
  */
 export function getInitialGreeting(): string {
-  return `Le doy la bienvenida.\n\n${MISION}\n\n${TRANSICION}`;
+  return `Le doy la bienvenida.\n\n${IDENTIDAD}\n\n${CREDO}\n\n${METODO}\n\n${TRANSICION}`;
 }
 
 /**

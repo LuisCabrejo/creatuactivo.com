@@ -27,12 +27,13 @@ export const ORBE_MODO: ModoOrbe = 'whatsapp'
 /**
  * Rutas que conservan el chat web SIEMPRE, sea cual sea el modo.
  *
- * Los decks (`/servilleta`, `/12-niveles`) se presentan en vivo delante del
- * prospecto: el botón "PREGÚNTALE ALGO EN VIVO" del slide 2 existe para DEMOSTRAR
+ * Los decks (`/servilleta`, `/12-niveles`, `/pitch-deck`) se presentan en vivo delante
+ * del prospecto: el botón de la demo ("PREGÚNTALE ALGO EN VIVO" en la servilleta,
+ * "PREGÚNTELE ALGO AHORA" en el pitch deck) existe para DEMOSTRAR
  * la tecnología en la misma pantalla. Mandar esa demo a WhatsApp la rompe — saca
  * al prospecto de la presentación que el socio está dando.
  */
-export const RUTAS_ORBE_QUESWA_WEB = ['/servilleta', '/12-niveles'] as const
+export const RUTAS_ORBE_QUESWA_WEB = ['/servilleta', '/12-niveles', '/pitch-deck'] as const
 
 /**
  * Cuentas cuya PÁGINA DE PRODUCTOS conserva el chat web — la excepción por ref

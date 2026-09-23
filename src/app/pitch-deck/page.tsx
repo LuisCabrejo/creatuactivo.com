@@ -1,0 +1,903 @@
+'use client';
+
+/**
+ * Copyright © 2026 CreaTuActivo.com
+ *
+ * /pitch-deck — la herramienta de presentación 1-a-1 (23 sep 2026).
+ *
+ * POR QUÉ EXISTE, Y POR QUÉ NO ES UN FORK DE /servilleta
+ * ------------------------------------------------------
+ * La servilleta y /12-niveles se dejaron a un lado a propósito (decisión del
+ * Director). Esta pieza tiene otra gramática: es un PITCH DECK — se abre por lo
+ * que creemos (de adentro hacia afuera), reclama el momento, narra el villano,
+ * nombra un defecto de diseño y remata con la oscilación de Jobs. Forkear 2.900
+ * líneas de card-scrollers con b-rolls habría traído mecánica que aquí estorba.
+ * Lo que SÍ se reutiliza es lo aprobado: la ficha del producto y los dos
+ * simuladores (el de la servilleta y el de los 12 niveles de /12-niveles).
+ *
+ * LA ESPINA (7 pantallas)
+ * -----------------------
+ *  1 QUÉ CREEMOS   · el credo, verbatim aprobado (Home v16, apertura del canal,
+ *                    WHY_01). Hace de primera diapositiva de pitch deck porque
+ *                    dice quiénes somos y el problema en la misma respiración.
+ *  2 EL MOMENTO    · el reclamo va DESPUÉS de la creencia; antes suena a bombo.
+ *                    Deliberadamente sin cifras: Jobs abre sin datos.
+ *  3 EL CICLO      · el villano NARRADO, con sus tres piezas canónicas
+ *                    (STORY_03): el dinero que ya tiene dueño + el ciclo + el
+ *                    remate «al que gana dos y al que gana más de veinte». Sin
+ *                    el remate, quien gana bien se exime y se acaba la charla.
+ *  4 EL DEFECTO    · concede que la categoría funciona ANTES de tocarle nada, y
+ *                    nombra el defecto como ARQUITECTURA, no como mala fama:
+ *                    «el modelo dependía de que usted fuera el sistema».
+ *                    ⛔ Aquí NO se nombra el gremio ni se invoca el fantasma de
+ *                    perseguir conocidos: enunciarlo se lo planta a quien no lo
+ *                    traía y nos cambia la postura de fundador a acusado. Quien
+ *                    conoce la categoría completa la conclusión solo.
+ *  5 LAS TRES      · la oscilación (5 beats). Aquí se va la mitad del tiempo.
+ *  6 EL PRODUCTO   · ficha y categorías (patrón servilleta).
+ *  7 LOS NÚMEROS   · simulador de la servilleta + simulador de los 12 niveles.
+ *
+ * REGLAS QUE ROMPEN ALGO SI SE TOCAN
+ * ----------------------------------
+ *  · El botón «PREGÚNTELE ALGO AHORA» es el clímax real de la 5: la tecnología
+ *    deja de ser un claim y pasa a ser una experiencia. Por eso /pitch-deck está
+ *    en RUTAS_ORBE_QUESWA_WEB (orbe-config.ts) y en `isDeck` de UnifiedQueswaOrb
+ *    — mandar esa demo a WhatsApp la rompe: saca al prospecto de la reunión.
+ *  · Moneda: pesos con PUNTO de miles, dólares con COMA. Por eso los locales van
+ *    explícitos ('es-CO' / 'en-US') y no un toLocaleString() pelado, que depende
+ *    del navegador de quien presenta.
+ *  · En el simulador NO conviven precio de entrada y comisión — eso es promesa
+ *    de ingreso. Aquí solo hay comisiones; los precios viven en /paquetes.
+ *  · Swipe: solo los <input> (sliders) exoneran el gesto. No añadir paneles ni
+ *    botones a esa lista — bloquea el swipe-back de la última pantalla.
+ */
+
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+const TOTAL_SLIDES = 7;
+
+/** Beats internos por pantalla. Solo la 5 (la oscilación) tiene más de uno. */
+const BEATS: Record<number, number> = { 5: 5 };
+const beatsOf = (slide: number) => BEATS[slide] ?? 1;
+
+/** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
+ *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola». */
+const PIEZAS = [
+  {
+    label: 'UN FABRICANTE',
+    img: '/images/servilleta/colapso-fabrica.webp',
+    sub: 'Gano Excel fabrica, almacena y despacha. Treinta años haciéndolo, en más de sesenta países.',
+  },
+  {
+    label: 'UNA TECNOLOGÍA QUE ATIENDE',
+    img: '/images/servilleta/colapso-conversacion.webp',
+    sub: 'Queswa conversa con cada interesado, le resuelve las dudas y madura la decisión de avanzar. A toda hora.',
+  },
+  {
+    label: 'DOS PASOS SENCILLOS',
+    img: '/images/servilleta/colapso-metodo-v2.webp',
+    sub: 'Usted comparte. Y recibe a quien llega interesado.',
+  },
+];
+
+const CATEGORIAS = [
+  { label: 'BEBIDAS', img: '/productos/compuestas/categoria-bebidas.jpg' },
+  { label: 'SUPLEMENTOS', img: '/productos/compuestas/categoria-suplementos.jpg' },
+  { label: 'CUIDADO PERSONAL', img: '/productos/compuestas/categoria-cuidado-personal.jpg' },
+  { label: 'LUVOCO', img: '/productos/compuestas/categoria-luvoco.jpg' },
+];
+
+/** Proyección 2×2 sobre 12 niveles — misma tabla que NIVELES_02 del arsenal
+ *  (v6.8: 10% del CV emparejado, cada distribuidor consumiendo 56 CV al mes).
+ *  `people` = distribuidores NUEVOS en ese nivel. Copiada de /12-niveles: si allá
+ *  cambia, aquí también. */
+const PROYECCION_12: { level: number; people: number; income: number }[] = [
+  { level: 1, people: 2, income: 25200 },
+  { level: 2, people: 4, income: 75600 },
+  { level: 3, people: 8, income: 176400 },
+  { level: 4, people: 16, income: 378000 },
+  { level: 5, people: 32, income: 781200 },
+  { level: 6, people: 64, income: 1587600 },
+  { level: 7, people: 128, income: 3200400 },
+  { level: 8, people: 256, income: 6426000 },
+  { level: 9, people: 512, income: 12877200 },
+  { level: 10, people: 1024, income: 25779600 },
+  { level: 11, people: 2048, income: 51584400 },
+  { level: 12, people: 4096, income: 103194000 },
+];
+
+/** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
+const TRM = 4500;
+const GEN5_BONOS: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
+
+const enUSD = (n: number) => n.toLocaleString('en-US');
+const enCOP = (n: number) => n.toLocaleString('es-CO');
+
+export default function PitchDeckPage() {
+  const [slide, setSlide] = useState(1);
+  const [beat, setBeat] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [catalogoAbierto, setCatalogoAbierto] = useState(false);
+
+  // Simuladores
+  const [simMode, setSimMode] = useState<'binario' | 'gen5'>('binario');
+  const [gen5Paquetes, setGen5Paquetes] = useState(2);
+  const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
+  const [hogares, setHogares] = useState(50);
+  const [nivel12, setNivel12] = useState(12);
+
+  const ingresoGen5 = gen5Paquetes * GEN5_BONOS[gen5Nivel];
+  const ingresoBinario = Math.round(hogares * 4.76);
+  const usd = simMode === 'gen5' ? ingresoGen5 : ingresoBinario;
+  const cop = usd * TRM;
+
+  // Bola de nieve: el thumb crece con los hogares (la metáfora, literal).
+  const thumbHogares = Math.round(20 + (hogares / 1000) * 30);
+  const thumbNivel = Math.round(20 + ((nivel12 - 1) / 11) * 30);
+
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchLastX = useRef(0);
+  const touchLastY = useRef(0);
+  const swipeIgnore = useRef(false);
+
+  // ⚠️ Las dos transiciones se calculan con los valores actuales y NO anidando un
+  // setSlide dentro del updater de setBeat: un updater debe ser puro, React lo
+  // ejecuta dos veces en desarrollo y el efecto colateral se pierde — con esa
+  // versión el deck no pasaba de la primera pantalla (bug real, 23 sep 2026).
+  const avanzar = useCallback(() => {
+    if (beat < beatsOf(slide) - 1) { setBeat(beat + 1); return; }
+    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(0); }
+  }, [slide, beat]);
+
+  const retroceder = useCallback(() => {
+    if (beat > 0) { setBeat(beat - 1); return; }
+    if (slide > 1) {
+      const destino = slide - 1;
+      setSlide(destino);
+      // El retroceso aterriza en el ÚLTIMO beat de la pantalla destino: quien
+      // vuelve quiere ver de nuevo el remate, no empezar esa pantalla otra vez.
+      setBeat(beatsOf(destino) - 1);
+    }
+  }, [slide, beat]);
+
+  const irA = useCallback((n: number) => {
+    setSlide(n);
+    setBeat(0);
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
+    else document.exitFullscreen?.().catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const onFs = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFs);
+    return () => document.removeEventListener('fullscreenchange', onFs);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
+      if (catalogoAbierto && e.key === 'Escape') { setCatalogoAbierto(false); return; }
+      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
+      else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
+      else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+      else if (e.key === 'Home') irA(1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [avanzar, retroceder, toggleFullscreen, irA, catalogoAbierto]);
+
+  // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
+  // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
+  const onClickSlide = (e: React.MouseEvent) => {
+    const t = e.target as HTMLElement;
+    if (t.closest('button, a, input, label, .panel, .no-advance')) return;
+    avanzar();
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+    // SOLO los <input>: arrastrar el thumb de un slider es horizontal legítimo.
+    swipeIgnore.current = !!(e.target as HTMLElement).closest('input');
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+  };
+
+  const evaluarSwipe = (endX: number, endY: number) => {
+    if (swipeIgnore.current) { swipeIgnore.current = false; return; }
+    const dx = touchStartX.current - endX;
+    const dy = touchStartY.current - endY;
+    // Guard de eje: un scroll vertical que derive en X no debe navegar.
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx > 0) avanzar(); else retroceder();
+    }
+  };
+
+  const nivelSel = PROYECCION_12[nivel12 - 1];
+  const totalDistribuidores = Math.pow(2, nivelSel.level + 1) - 2;
+
+  return (
+    <>
+      <style>{`
+        .pd-root {
+          --pd-gold: var(--color-brand, #C5A059);
+          --pd-data: var(--color-data, #22D3EE);
+          --pd-bg: var(--color-bg-primary, #0F1115);
+          --pd-elev: var(--color-bg-elevated, #15171C);
+          --pd-text: var(--color-text-primary, #E0DFDB);
+          --pd-muted: var(--color-text-muted, #878681);
+          position: fixed; inset: 0;
+          background: var(--pd-bg);
+          color: var(--pd-text);
+          font-family: var(--font-sans);
+          overflow: hidden;
+          touch-action: pan-y;
+        }
+        .pd-root * { box-sizing: border-box; }
+
+        /* ── HUD ─────────────────────────────────────────────────────────── */
+        .pd-hud {
+          position: absolute; top: 0; left: 0; right: 0; height: 56px;
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 0 clamp(16px, 4vw, 40px);
+          z-index: 40; pointer-events: none;
+        }
+        .pd-brand {
+          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.28em;
+          color: var(--pd-muted); text-transform: uppercase;
+        }
+        .pd-hud-right { display: flex; align-items: center; gap: 14px; pointer-events: auto; }
+        .pd-dots { display: flex; gap: 7px; }
+        .pd-dot {
+          width: 7px; height: 7px; border-radius: 50%; padding: 0;
+          border: 1px solid rgba(255,255,255,0.22); background: transparent;
+          cursor: pointer; transition: all 0.25s;
+        }
+        .pd-dot.done { border-color: rgba(197,160,89,0.45); background: rgba(197,160,89,0.28); }
+        .pd-dot.active { border-color: var(--pd-gold); background: var(--pd-gold); transform: scale(1.35); }
+        .pd-fs {
+          background: transparent; border: 1px solid rgba(255,255,255,0.14);
+          color: var(--pd-muted); font-family: var(--font-mono); font-size: 0.6rem;
+          letter-spacing: 0.18em; padding: 7px 11px; cursor: pointer; transition: all 0.25s;
+        }
+        .pd-fs:hover { color: var(--pd-gold); border-color: rgba(197,160,89,0.45); }
+        .pd-fs-corto { display: none; }
+        .pd-counter {
+          position: absolute; bottom: 14px; right: clamp(16px, 4vw, 40px);
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+          color: #3d4048; z-index: 40;
+        }
+
+        /* ── Pantallas ───────────────────────────────────────────────────── */
+        /* margin:auto en el hijo centra cuando sobra espacio y NO recorta por
+           arriba cuando falta — con justify-content: center, el contenido alto se
+           salía de la pantalla por el borde superior y quedaba inalcanzable. */
+        .pd-slide {
+          position: absolute; inset: 0;
+          display: flex; flex-direction: column;
+          padding: 74px clamp(20px, 6vw, 80px) 56px;
+          opacity: 0; visibility: hidden; pointer-events: none;
+          transition: opacity 0.5s ease;
+          overflow-y: auto; cursor: pointer;
+        }
+        .pd-slide.on { opacity: 1; visibility: visible; pointer-events: auto; }
+        .pd-wrap { width: 100%; max-width: 980px; margin: auto; }
+
+        .pd-eyebrow {
+          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.32em;
+          color: var(--pd-data); text-transform: uppercase; margin: 0 0 1.6rem;
+        }
+        .pd-h2 {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          letter-spacing: 0.02em; line-height: 1.08;
+          font-size: clamp(1.7rem, 4.6vw, 3.1rem); margin: 0 0 1.5rem;
+          color: #FFFFFF;
+        }
+        .pd-p {
+          font-size: clamp(1rem, 2.1vw, 1.32rem); line-height: 1.62;
+          color: var(--color-text-body, #C8C7C2); margin: 0 0 1.1rem; max-width: 46ch;
+        }
+        .pd-gold { color: var(--pd-gold); }
+        .pd-kicker {
+          font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
+          color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
+        }
+
+        /* ── 1 · El credo ────────────────────────────────────────────────── */
+        /* ⚠️ Playfair se pide por su variable propia y NO por var(--font-serif):
+           ese token se declara en :root (globals.css) como var(--font-playfair),
+           Georgia, serif, pero --font-playfair lo define next/font en el <body>.
+           Una custom property se sustituye en el elemento que la DECLARA, así que
+           en :root queda inválida y hereda vacía — el titular caía a Inter. */
+        .pd-credo h1 {
+          font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
+          font-size: clamp(1.55rem, 4.2vw, 3rem); line-height: 1.3;
+          margin: 0 0 1.4rem; color: #FFFFFF; max-width: 22ch;
+        }
+        .pd-credo .segunda { color: var(--pd-gold); max-width: 24ch; }
+        .pd-credo-rule {
+          width: 56px; height: 1px; background: var(--pd-gold); margin: 2.4rem 0 1.2rem;
+        }
+
+        /* ── 4 · Hechos verificables ─────────────────────────────────────── */
+        .pd-hechos {
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+          gap: 1px; background: rgba(255,255,255,0.07); margin-top: 2.6rem;
+          border: 1px solid rgba(255,255,255,0.07);
+        }
+        .pd-hecho { background: var(--pd-bg); padding: 1rem 1.1rem; }
+        .pd-hecho .k {
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
+          color: var(--pd-data); text-transform: uppercase; display: block; margin-bottom: 0.4rem;
+        }
+        .pd-hecho .v { font-size: 0.9rem; color: var(--pd-text); }
+
+        /* ── 5 · La oscilación ───────────────────────────────────────────── */
+        .pd-beat { position: absolute; inset: 0; display: flex; flex-direction: column;
+          padding: 74px clamp(20px, 6vw, 80px) 56px; overflow-y: auto;
+          opacity: 0; visibility: hidden; transition: opacity 0.45s ease; }
+        .pd-beat > * { margin-block: auto; }
+        .pd-beat.on { opacity: 1; visibility: visible; }
+        .pd-pieza { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 64px);
+          align-items: center; max-width: 1040px; margin: 0 auto; width: 100%; }
+        .pd-figura {
+          aspect-ratio: 1 / 1; background-size: cover; background-position: center;
+          border: 1px solid rgba(255,255,255,0.08);
+        }
+        .pd-pieza-label {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
+          margin: 0 0 1.1rem;
+        }
+        .pd-demo {
+          margin-top: 1.6rem; background: transparent; border: 1px solid var(--pd-gold);
+          color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
+          letter-spacing: 0.2em; padding: 13px 22px; cursor: pointer; transition: all 0.25s;
+        }
+        .pd-demo:hover { background: var(--pd-gold); color: #0F1115; }
+
+        .pd-tres { display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: clamp(12px, 3vw, 36px); max-width: 940px; margin: 0 auto; width: 100%; }
+        .pd-tres .pd-figura { animation: pdPulso 3.6s infinite; opacity: 0.32; }
+        .pd-tres .col:nth-child(1) .pd-figura { animation-delay: 0s; }
+        .pd-tres .col:nth-child(2) .pd-figura { animation-delay: 1.2s; }
+        .pd-tres .col:nth-child(3) .pd-figura { animation-delay: 2.4s; }
+        @keyframes pdPulso { 0%, 24% { opacity: 1; } 34%, 100% { opacity: 0.3; } }
+        .pd-tres .cap {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
+          color: var(--pd-muted); text-transform: uppercase; text-align: center;
+          margin-top: 0.9rem; min-height: 2.4em;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-tres .pd-figura { animation: none; opacity: 1; }
+        }
+        .pd-remate { text-align: center; max-width: 720px; margin: 0 auto; }
+        .pd-remate .grande {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
+          color: var(--pd-gold); margin: 1rem 0 1.6rem;
+        }
+        .pd-remate .marca {
+          font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.3em;
+          color: var(--pd-muted); text-transform: uppercase; margin-top: 2.2rem;
+        }
+
+        /* ── 6 · Producto ────────────────────────────────────────────────── */
+        .pd-foto {
+          position: absolute; inset: 0; background-size: cover; background-position: center;
+          opacity: 0.3;
+        }
+        .pd-producto { display: grid; grid-template-columns: 1.05fr 0.95fr;
+          gap: clamp(24px, 5vw, 56px); align-items: center; position: relative; z-index: 2; }
+        .pd-ficha { border: 1px solid rgba(255,255,255,0.1); background: rgba(15,17,21,0.82);
+          padding: 1.4rem 1.5rem; }
+        .pd-ficha .titulo {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.24em;
+          color: var(--pd-gold); text-transform: uppercase; padding-bottom: 0.9rem;
+          border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.9rem;
+        }
+        .pd-fila { display: flex; justify-content: space-between; align-items: baseline;
+          padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .pd-fila .k { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.16em;
+          color: var(--pd-muted); text-transform: uppercase; }
+        .pd-fila .v { font-family: var(--font-mono); font-size: 1.05rem; color: var(--pd-text); }
+        .pd-ficha .pie { font-size: 0.78rem; color: var(--pd-muted); line-height: 1.55; margin: 0.9rem 0 0; }
+        .pd-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 1.6rem; }
+        .pd-cat { position: relative; aspect-ratio: 1 / 1; background-size: cover;
+          background-position: center; border: 1px solid rgba(255,255,255,0.08); }
+        .pd-cat span {
+          position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 4px;
+          background: linear-gradient(transparent, rgba(15,17,21,0.92));
+          font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em;
+          text-align: center; color: var(--pd-text); text-transform: uppercase;
+        }
+        .pd-link {
+          margin-top: 1.4rem; background: transparent; border: none; padding: 0;
+          color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
+          letter-spacing: 0.18em; cursor: pointer; border-bottom: 1px solid rgba(197,160,89,0.4);
+        }
+        .pd-link:hover { border-bottom-color: var(--pd-gold); }
+
+        /* ── 7 · Números ─────────────────────────────────────────────────── */
+        .pd-paneles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 32px); }
+        .panel { border: 1px solid rgba(255,255,255,0.1); background: var(--pd-elev);
+          padding: 1.4rem 1.4rem 1.6rem; cursor: default; }
+        .panel h3 {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+          color: var(--pd-muted); text-transform: uppercase; text-align: center;
+          margin: 0 0 1.2rem;
+        }
+        .pd-tabs { display: flex; gap: 1px; background: rgba(255,255,255,0.08); margin-bottom: 1.2rem; }
+        .pd-tab { flex: 1; background: var(--pd-bg); border: none; color: var(--pd-muted);
+          font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.14em;
+          padding: 10px 6px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+        .pd-tab.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-display { font-family: var(--font-mono); font-size: clamp(1.6rem, 4.6vw, 2.5rem);
+          color: var(--pd-gold); text-align: center; letter-spacing: -0.02em; line-height: 1.1; }
+        .pd-display .u { font-size: 0.42em; color: var(--pd-muted); letter-spacing: 0.1em; }
+        .pd-sub { font-family: var(--font-mono); font-size: 0.72rem; color: var(--pd-muted);
+          text-align: center; margin: 0.4rem 0 1.3rem; }
+        .pd-pkgs { display: flex; gap: 1px; background: rgba(255,255,255,0.08); margin-bottom: 1.1rem; }
+        .pd-pkg { flex: 1; background: var(--pd-bg); border: none; color: var(--pd-muted);
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+          padding: 9px 4px; cursor: pointer; text-transform: uppercase; }
+        .pd-pkg.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-label { display: block; font-family: var(--font-mono); font-size: 0.58rem;
+          letter-spacing: 0.14em; color: var(--pd-muted); text-transform: uppercase;
+          margin-bottom: 0.7rem; }
+        .pd-label b { color: var(--pd-gold); font-weight: 400; margin-left: 6px; }
+        /* El margen inferior deja pasar el thumb grande del último nivel (50px):
+           con 1rem, la bola se montaba encima del texto de abajo. */
+        .pd-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 2px;
+          background: rgba(255,255,255,0.14); outline: none; margin: 0.9rem 0 2.6rem; }
+        .pd-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+          width: var(--thumb, 22px); height: var(--thumb, 22px); border-radius: 50%;
+          background: var(--pd-gold); cursor: pointer; }
+        .pd-slider::-moz-range-thumb { width: var(--thumb, 22px); height: var(--thumb, 22px);
+          border-radius: 50%; background: var(--pd-gold); border: none; cursor: pointer; }
+        .pd-insight { font-size: 0.78rem; line-height: 1.55; color: var(--pd-muted); margin: 0; }
+        .pd-niveles { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 1.1rem; }
+        .pd-nivel { width: 26px; height: 26px; border: 1px solid rgba(255,255,255,0.14);
+          background: transparent; color: var(--pd-muted); font-family: var(--font-mono);
+          font-size: 0.6rem; cursor: pointer; transition: all 0.2s; }
+        .pd-nivel.done { border-color: rgba(197,160,89,0.4); color: var(--pd-gold);
+          background: rgba(197,160,89,0.06); }
+        .pd-nivel.active { border-color: var(--pd-gold); background: var(--pd-gold); color: #0F1115; }
+        .pd-cierre { text-align: center; font-family: var(--font-mono); font-size: 0.62rem;
+          letter-spacing: 0.2em; color: var(--pd-muted); text-transform: uppercase;
+          margin-top: 1.8rem; }
+
+        /* ── Modal catálogo ──────────────────────────────────────────────── */
+        .pd-overlay { position: fixed; inset: 0; background: rgba(5,6,8,0.94); z-index: 200;
+          display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .pd-modal { position: relative; max-width: min(92vw, 900px); max-height: 88vh; }
+        .pd-modal img { width: 100%; height: auto; max-height: 88vh; object-fit: contain; display: block; }
+        .pd-close { position: absolute; top: -40px; right: 0; background: transparent;
+          border: none; color: var(--pd-muted); font-size: 1.7rem; cursor: pointer; line-height: 1; }
+
+        /* ── Móvil ───────────────────────────────────────────────────────── */
+        @media (max-width: 860px) {
+          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
+          .pd-pieza .pd-figura { max-width: 58vw; margin: 0 auto; }
+          .pd-tres { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+          .pd-tres .cap { font-size: 0.48rem; letter-spacing: 0.1em; }
+          .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+          .pd-slide { padding: 68px 20px 48px; }
+          .pd-beat { padding: 68px 20px 48px; }
+          .pd-hechos { grid-template-columns: 1fr 1fr; }
+          /* En un teléfono la marca y los puntos se montaban encima del botón.
+             La marca ya está en la pantalla 1 y en el remate: aquí sobra. */
+          .pd-brand { display: none; }
+          .pd-fs-largo { display: none; }
+          .pd-fs-corto { display: inline; }
+        }
+      `}</style>
+
+      <div
+        className="pd-root"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={(e) => evaluarSwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}
+        onTouchCancel={() => evaluarSwipe(touchLastX.current, touchLastY.current)}
+      >
+        {/* ── HUD ─────────────────────────────────────────────────────── */}
+        <div className="pd-hud">
+          <span className="pd-brand">CreaTuActivo.com</span>
+          <div className="pd-hud-right">
+            <div className="pd-dots">
+              {Array.from({ length: TOTAL_SLIDES }, (_, i) => i + 1).map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  className={`pd-dot ${n === slide ? 'active' : ''} ${n < slide ? 'done' : ''}`}
+                  onClick={() => irA(n)}
+                  aria-label={`Ir a la pantalla ${n}`}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="pd-fs"
+              onClick={toggleFullscreen}
+              aria-label={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
+            >
+              <span className="pd-fs-largo">{isFullscreen ? 'SALIR' : 'PANTALLA COMPLETA'}</span>
+              <span className="pd-fs-corto">{isFullscreen ? '✕' : '⛶'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── 1 · QUÉ CREEMOS ─────────────────────────────────────────── */}
+        <section className={`pd-slide pd-credo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">En qué creemos</p>
+            <h1>
+              Creemos que nadie debería entregar su vida entera al ciclo de trabajar,
+              pagar cuentas y repetir.
+            </h1>
+            <h1 className="segunda" aria-hidden="false">
+              Creemos en empoderar a las personas para que recuperen el control de su
+              tiempo y de su dinero.
+            </h1>
+            <div className="pd-credo-rule" />
+            <p className="pd-kicker">CreaTuActivo · Presentación</p>
+          </div>
+        </section>
+
+        {/* ── 2 · EL MOMENTO ──────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">El momento</p>
+            <h2 className="pd-h2">Pocas veces aparece un momento así.</h2>
+            <p className="pd-p">
+              Dos industrias están cambiando a la vez: la forma en que un producto llega
+              a las personas, y la forma en que una persona puede tener empresa.
+            </p>
+            <p className="pd-p">
+              Lo que antes era complicado de desarrollar, hoy no lo es.{' '}
+              <span className="pd-gold">Y eso le cambia el plan a millones de personas.</span>
+            </p>
+          </div>
+        </section>
+
+        {/* ── 3 · EL CICLO ────────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">El problema</p>
+            <h2 className="pd-h2">Nos enseñaron dos caminos.</h2>
+            <p className="pd-p">
+              Emplearse, o montar un negocio. Los dos cobran lo mismo: su presencia.
+            </p>
+            <p className="pd-p">
+              Usted trabaja el mes entero. Y al día siguiente de que le entra la plata,
+              ese dinero ya tiene dueño: el banco, las cuotas, los recibos. Es un ciclo
+              de trabajar, pagar cuentas y repetir.
+            </p>
+            <p className="pd-p pd-gold">
+              Y le pasa exactamente igual al que gana dos millones y al que gana más de
+              veinte.
+            </p>
+            <p className="pd-kicker">Ninguno de los dos caminos venía con un plan</p>
+          </div>
+        </section>
+
+        {/* ── 4 · EL DEFECTO DE DISEÑO ────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">El defecto de diseño</p>
+            <h2 className="pd-h2">Había un tercer camino. Y tenía un defecto.</h2>
+            <p className="pd-p">
+              La distribución funciona: treinta años, más de sesenta países, producto real
+              y pagos reales.
+            </p>
+            <p className="pd-p pd-gold">
+              Su defecto era de diseño: el modelo dependía de que usted fuera el sistema.
+            </p>
+            <p className="pd-p">Nadie lo había tratado como un problema de tecnología.</p>
+
+            <div className="pd-hechos">
+              <div className="pd-hecho">
+                <span className="k">Marco legal</span>
+                <span className="v">Ley 1700 de 2013</span>
+              </div>
+              <div className="pd-hecho">
+                <span className="k">Presencia en Colombia</span>
+                <span className="v">Nueve sedes abiertas al público</span>
+              </div>
+              <div className="pd-hecho">
+                <span className="k">Registro sanitario</span>
+                <span className="v">INVIMA vigente</span>
+              </div>
+              <div className="pd-hecho">
+                <span className="k">Certificación</span>
+                <span className="v">TGA de Australia</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5 · LAS TRES PIEZAS (oscilación) ────────────────────────── */}
+        <section className={`pd-slide ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+          {/* Beats 0-2: cada pieza a solas y grande */}
+          {[0, 1, 2].map((i) => (
+            <div key={i} className={`pd-beat ${slide === 5 && beat === i ? 'on' : ''}`}>
+              <div className="pd-pieza">
+                <div className="pd-figura" style={{ backgroundImage: `url(${PIEZAS[i].img})` }} />
+                <div>
+                  <p className="pd-eyebrow">Cómo funciona · {i + 1} de 3</p>
+                  <p className="pd-pieza-label">{PIEZAS[i].label}</p>
+                  <p className="pd-p">{PIEZAS[i].sub}</p>
+                  {i === 1 && (
+                    <button
+                      type="button"
+                      className="pd-demo"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.dispatchEvent(new CustomEvent('open-queswa'));
+                      }}
+                    >
+                      PREGÚNTELE ALGO AHORA →
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Beat 3: las tres oscilando */}
+          <div className={`pd-beat ${slide === 5 && beat === 3 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ textAlign: 'center' }}>
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
+              <div className="pd-tres">
+                {PIEZAS.map((p) => (
+                  <div className="col" key={p.label}>
+                    <div className="pd-figura" style={{ backgroundImage: `url(${p.img})` }} />
+                    <p className="cap">{p.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
+                Un fabricante… una tecnología… dos pasos…
+              </p>
+            </div>
+          </div>
+
+          {/* Beat 4: el remate */}
+          <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="pd-p" style={{ margin: '0 auto', textAlign: 'center' }}>
+                No son tres cosas que usted tenga que conseguir.
+              </p>
+              <p className="grande">Es una sola, y ya está armada.</p>
+              <p className="pd-p" style={{ margin: '0 auto', textAlign: 'center' }}>
+                Lo que usted recibe es su sistema de distribución. Usted delega el explicar
+                y el atender; se queda con decidir y con conectar.
+              </p>
+              <p className="marca">CreaTuActivo.com</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 6 · EL PRODUCTO ─────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-foto" style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)' }} />
+          <div className="pd-wrap">
+            <div className="pd-producto">
+              <div>
+                <p className="pd-eyebrow">El producto</p>
+                <h2 className="pd-h2">Un hábito que no cambia</h2>
+                <p className="pd-p">
+                  El café de siempre — ahora con Ganoderma Lucidum, el hongo más estudiado
+                  del planeta, con más de 2.000 estudios publicados. En un extracto que se
+                  disuelve por completo en el agua: no se queda nada en el fondo de la taza.
+                </p>
+                <div className="pd-cats">
+                  {CATEGORIAS.map((c) => (
+                    <div className="pd-cat" key={c.label} style={{ backgroundImage: `url(${c.img})` }}>
+                      <span>{c.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="pd-link"
+                  onClick={(e) => { e.stopPropagation(); setCatalogoAbierto(true); }}
+                >
+                  VER TODO EL PORTAFOLIO →
+                </button>
+              </div>
+
+              <div className="pd-ficha panel">
+                <div className="titulo">Ganoderma Lucidum</div>
+                <div className="pd-fila">
+                  <span className="k">Estudios publicados</span>
+                  <span className="v">2.000+</span>
+                </div>
+                <div className="pd-fila">
+                  <span className="k">Variedades en el híbrido</span>
+                  <span className="v">6</span>
+                </div>
+                <div className="pd-fila">
+                  <span className="k">Compuestos bioactivos</span>
+                  <span className="v">200+</span>
+                </div>
+                <p className="pie">
+                  Tres décadas de ciencia del <strong>Dr. Leow Soon Seng</strong>, pionero
+                  mundial en el cultivo de este hongo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 7 · LOS NÚMEROS ─────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+            <p className="pd-eyebrow">Cómo se gana</p>
+            <div className="pd-paneles">
+              {/* Panel A — el mecanismo, con su cifra */}
+              <div className="panel">
+                <h3>Simulador de ingresos</h3>
+                <div className="pd-tabs">
+                  <button
+                    type="button"
+                    className={`pd-tab ${simMode === 'binario' ? 'active' : ''}`}
+                    onClick={() => setSimMode('binario')}
+                  >
+                    Ingreso recurrente
+                  </button>
+                  <button
+                    type="button"
+                    className={`pd-tab ${simMode === 'gen5' ? 'active' : ''}`}
+                    onClick={() => setSimMode('gen5')}
+                  >
+                    Ingreso por paquetes
+                  </button>
+                </div>
+
+                <div className="pd-display">
+                  ${enUSD(usd)}<span className="u"> USD</span>
+                </div>
+                <div className="pd-sub">≈ ${enCOP(cop)} COP</div>
+
+                {simMode === 'gen5' ? (
+                  <>
+                    <div className="pd-pkgs">
+                      {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
+                        <button
+                          key={p}
+                          type="button"
+                          className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
+                          onClick={() => setGen5Nivel(p)}
+                        >
+                          {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
+                        </button>
+                      ))}
+                    </div>
+                    <label className="pd-label">
+                      Paquetes comprados en su sistema<b>{gen5Paquetes}</b>
+                    </label>
+                    <input
+                      type="range"
+                      min={1}
+                      max={10}
+                      value={gen5Paquetes}
+                      onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
+                      className="pd-slider"
+                    />
+                    <p className="pd-insight">
+                      Cada vez que se compra un paquete empresarial en su sistema, usted cobra
+                      este bono. Es lo que financia el crecimiento al inicio.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <label className="pd-label">
+                      Hogares en su sistema<b>{hogares}</b>
+                    </label>
+                    <input
+                      type="range"
+                      min={10}
+                      max={1000}
+                      step={10}
+                      value={hogares}
+                      onChange={(e) => setHogares(parseInt(e.target.value))}
+                      className="pd-slider"
+                      style={{ ['--thumb' as string]: `${thumbHogares}px` } as React.CSSProperties}
+                    />
+                    <p className="pd-insight">
+                      Ingreso recurrente que crece con lo que consumen sus clientes y
+                      distribuidores, y no depende de su presencia.
+                    </p>
+                  </>
+                )}
+              </div>
+
+              {/* Panel B — los 12 niveles (2×2), de /12-niveles */}
+              <div className="panel">
+                <h3>Los 12 niveles (2×2)</h3>
+                <div className="pd-niveles">
+                  {PROYECCION_12.map((n) => (
+                    <button
+                      key={n.level}
+                      type="button"
+                      className={`pd-nivel ${n.level === nivel12 ? 'active' : ''} ${n.level < nivel12 ? 'done' : ''}`}
+                      onClick={() => setNivel12(n.level)}
+                      aria-label={`Nivel ${n.level}`}
+                    >
+                      {n.level}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="pd-display">
+                  ${enCOP(nivelSel.income)}<span className="u"> COP</span>
+                </div>
+                <div className="pd-sub">
+                  ≈ ${enUSD(Math.round(nivelSel.income / TRM))} USD · {enCOP(nivelSel.people)} distribuidores
+                  nuevos en este nivel · total: {enCOP(totalDistribuidores)}
+                </div>
+
+                <label className="pd-label">
+                  Recorra los 12 niveles<b>Nivel {nivel12}</b>
+                </label>
+                <input
+                  type="range"
+                  min={1}
+                  max={12}
+                  value={nivel12}
+                  onChange={(e) => setNivel12(parseInt(e.target.value))}
+                  className="pd-slider"
+                  style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
+                />
+                <p className="pd-insight">
+                  Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el 10% de
+                  lo que consumen sus distribuidores.
+                </p>
+              </div>
+            </div>
+            <p className="pd-cierre">El siguiente paso es una conversación</p>
+          </div>
+        </section>
+
+        <div className="pd-counter">
+          {slide} / {TOTAL_SLIDES}
+        </div>
+
+        {/* ── Modal del portafolio ────────────────────────────────────── */}
+        {catalogoAbierto && (
+          <div
+            className="pd-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Portafolio de productos"
+            onClick={() => setCatalogoAbierto(false)}
+          >
+            <div className="pd-modal" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="pd-close"
+                onClick={() => setCatalogoAbierto(false)}
+                aria-label="Cerrar portafolio"
+              >
+                ×
+              </button>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/productos/productos.webp" alt="Portafolio de productos Gano Excel" />
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}

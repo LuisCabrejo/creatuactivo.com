@@ -153,8 +153,9 @@ type VoiceState = 'idle' | 'recording' | 'processing' | 'speaking' | 'error'
 export default function UnifiedQueswaOrb() {
   const pathname  = usePathname()
   // Rutas "deck" que comparten el comportamiento de /servilleta (orbe oculto salvo el
-  // botón "PREGÚNTALE ALGO EN VIVO" del slide 2). /12-niveles forkea ese deck (jul 2026).
-  const isDeck = pathname === '/servilleta' || pathname === '/12-niveles'
+  // botón de la demo en vivo). /12-niveles forkea ese deck (jul 2026); /pitch-deck es
+  // la pieza 1-a-1 del 23 sep 2026 y su demo es el clímax de la pantalla 5.
+  const isDeck = pathname === '/servilleta' || pathname === '/12-niveles' || pathname === '/pitch-deck'
 
   // Ruta de reel (/{slug}/{nicho}): el reel dispara su propia burbuja contextual
   // al terminar/scrollear (ReelVideo), así que aquí suprimimos el tooltip genérico.

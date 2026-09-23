@@ -136,7 +136,11 @@ export function detectoresDeterministas(turno: Turno, anterior: Turno | null, ya
     marcas.push('aceptación que no encontró nodo');
   }
 
-  if (/\$\d{1,3}(,\d{3})+\s*COP|\$\d{1,3}(,\d{3}){2}/.test(t)) marcas.push('pesos con coma de miles');
+  // ⚠️ Exigía el sufijo «COP» y se perdía lo más común: una cifra en una tabla,
+  // sin moneda al lado. Al repetir conversaciones reales apareció «$110,900» en
+  // una tabla de margen, que el detector no veía (23 sep 2026). Ahora basta la
+  // coma de miles, salvo que venga en dólares, donde la coma es correcta.
+  if (/\$\d{1,3}(,\d{3})+(?!\s*(USD|US))/.test(t)) marcas.push('pesos con coma de miles');
 
   // El tic: abrir anunciando que se va a responder bien. Posiciona al lector
   // como si esperara una respuesta deshonesta (regla del Director).

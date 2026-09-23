@@ -15,7 +15,7 @@
  */
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { createClient } from '@supabase/supabase-js';
-import { revisarTurnos, esPersonaReal } from '../src/lib/revisar-turnos.ts';
+import { revisarTurnos } from '../src/lib/revisar-turnos.ts';
 
 const arg = (k: string, d?: string) => { const i = process.argv.indexOf(k); return i > -1 ? process.argv[i + 1] : d; };
 const bog = (iso: string) => new Date(iso).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour12: false });
@@ -26,7 +26,10 @@ if (process.argv.includes('--cola')) {
     .select('fingerprint_id, created_at, metadata')
     .not('metadata->marcado', 'is', null).order('created_at', { ascending: false }).limit(60);
   if (error) throw error;
-  const pend = (data ?? []).filter((t) => !t.metadata?.revisado && esPersonaReal(t.fingerprint_id));
+  // ⚠️ Aquí NO se vuelve a filtrar por persona: lo que tiene `marcado` ya se
+  // confirmó contra los entrantes del webhook cuando se marcó. Volver a pasar el
+  // filtro barato dejaba fuera 28 de 30 (23 sep 2026).
+  const pend = (data ?? []).filter((t) => !t.metadata?.revisado);
   console.log(`\n📋 En la cola, sin revisar: ${pend.length}\n`);
   for (const t of pend) {
     console.log(`${bog(t.created_at)}  ${t.fingerprint_id}`);

@@ -40,6 +40,7 @@ import {
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
 import { gestionarCierre, CLAVES_CANAL, CLAVES_WEB } from '@/lib/wa-radicacion';
+import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, fotoParaWeb, aFormatoWeb,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
@@ -5187,9 +5188,18 @@ ${summaryParts.join('\n')}
       .test((latestUserMessage || '').trim());
     if (_aceptacionPelada && _ultimoBotMsg) {
       const _preguntas = _ultimoBotMsg.match(/¿[^?]{5,160}\?/g);
-      if (_preguntas && _preguntas.length) {
+      // ⚠️ Una pregunta de DOS SALIDAS no sirve de ancla, y anclarse a ella es
+      // lo que mataba el hilo. «¿Cuál de los dos va más con su rutina?» no es de
+      // ningún fragmento, así que el buscador devuelve lo que se le parezca: la
+      // persona pidió elegir entre dos cosas y recibía un discurso. Sin ancla, el
+      // turno lo atiende el modelo con el hilo delante, que es lo correcto
+      // cuando lo que falta es saber cuál de las dos quiso decir.
+      const _anclaMala = !!_preguntas?.length && !!detectarPreguntaDeDosSalidas(_ultimoBotMsg);
+      if (_preguntas && _preguntas.length && !_anclaMala) {
         consultaRecuperacion = _preguntas[_preguntas.length - 1];
         console.log(`🔁 [Aceptación] Se busca con la oferta del bot: "${consultaRecuperacion.slice(0, 80)}"`);
+      } else if (_anclaMala) {
+        console.log('🔁 [Aceptación] La oferta anterior tenía dos salidas — no se ancla, lo atiende el modelo');
       }
     }
 
@@ -7129,6 +7139,18 @@ ESTADO: ${getMessageContext()}`;
       }
       if (_motivo) {
         console.error(`🚨 [Guardarraíl web] BLOQUEADO — ${_motivo}. Borrador: "${_borrador.slice(0, 300)}"`);
+      }
+
+      // La pregunta de cierre con DOS SALIDAS se poda, igual que en el canal.
+      // Va DESPUÉS de los guardarraíles: si el turno ya se reemplazó por un
+      // texto nuestro, ese texto no lleva preguntas malas y esto no lo toca.
+      {
+        const _dosSalidas = detectarPreguntaDeDosSalidas(_final);
+        if (_dosSalidas) {
+          const _podado = podarPreguntaDeDosSalidas(_final);
+          console.error(`✂️ [Pregunta web] Dos salidas al cierre («${_dosSalidas}») — ${_podado === _final ? 'sale igual, el cuerpo no da' : 'podada'}`);
+          _final = _podado;
+        }
       }
 
       const _textoFinal = _fotoWebPrefijo ? `${_fotoWebPrefijo}\n\n${_final}` : _final;

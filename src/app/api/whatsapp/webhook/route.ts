@@ -113,6 +113,7 @@ import {
   detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
   RESPUESTA_CORRECTIVA, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
+import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza,
   slugDelSocio, textoDeCandado, paisDeTelefono,
@@ -2428,6 +2429,31 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         } else {
           console.warn('⚠️ [WA Red] La negativa no apunta a ningún producto ni línea — sigue el borrador');
         }
+      }
+    }
+
+    // ─── 3.95 La pregunta de cierre con DOS SALIDAS se poda ───────────────────
+    // El fallo que más gente nos costó. Medido sobre 819 turnos de personas
+    // reales en 30 días: el abandono normal es del 15 %, y tras un «sí» que cayó
+    // al vector sube al 71 %. De esos 41 casos, 16 eran preguntas de dos salidas
+    // y 15 mataron el hilo: «¿Cuál de los dos tiene en su pedido?» salió cinco
+    // veces y las cinco fueron el último mensaje de esa persona.
+    //
+    // La regla existe desde el 7 ago 2026 y el modelo la sigue rompiendo, porque
+    // esas preguntas las compone él. Validado sobre el mes: de las 50 respuestas
+    // que este detector marca, las 50 venían del modelo y NINGUNA de un nodo
+    // dictado — no toca una sola línea de copy nuestro.
+    //
+    // Se PODA, no se reescribe: un modelo que corrige su propio texto conserva
+    // el error y cambia el envoltorio. Y cerrar sin pregunta está permitido
+    // (Director, 23 sep 2026). Detalle → docs/investigaciones/resultados/
+    // CALIDAD_DE_RESPUESTA_EN_PRODUCCION_SEP2026.md
+    {
+      const dosSalidas = detectarPreguntaDeDosSalidas(queswaReply);
+      if (dosSalidas) {
+        const podado = podarPreguntaDeDosSalidas(queswaReply);
+        console.error(`✂️ [WA Pregunta] Dos salidas al cierre («${dosSalidas}») — ${podado === queswaReply ? 'el cuerpo no da para podarla, sale igual' : 'podada'} · ${phoneNumber}`);
+        queswaReply = podado;
       }
     }
 

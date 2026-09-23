@@ -26,14 +26,20 @@
  *                    (STORY_03): el dinero que ya tiene dueño + el ciclo + el
  *                    remate «al que gana dos y al que gana más de veinte». Sin
  *                    el remate, quien gana bien se exime y se acaba la charla.
- *  4 EL DEFECTO    · concede que la categoría funciona ANTES de tocarle nada, y
- *                    nombra el defecto como ARQUITECTURA, no como mala fama:
- *                    «el modelo dependía de que usted fuera el sistema».
- *                    ⛔ Aquí NO se nombra el gremio ni se invoca el fantasma de
- *                    perseguir conocidos: enunciarlo se lo planta a quien no lo
- *                    traía y nos cambia la postura de fundador a acusado. Quien
- *                    conoce la categoría completa la conclusión solo.
+ *  4 LA OPORTUNIDAD· concede que la categoría funciona ANTES de tocarle nada, y
+ *                    gira en la bisagra del deck: «El problema: multiplicarse.
+ *                    Solo se multiplica lo que es sencillo.» (Director, 23 sep).
+ *                    Todos quieren crecer, crecer es multiplicarse, y ahí era
+ *                    donde el modelo se rompía — es la razón por la que él
+ *                    empezó esto. ⛔ NO se nombra el gremio ni se invoca el
+ *                    fantasma de perseguir conocidos: eso es el SÍNTOMA, y
+ *                    enunciarlo se lo planta a quien no lo traía. La causa se
+ *                    dice entera y el que tenga el recuerdo lo pone solo.
  *  5 LAS TRES      · la oscilación (5 beats). Aquí se va la mitad del tiempo.
+ *                    El remate cierra el círculo de la 4: lo que se le pasa al
+ *                    siguiente no es una habilidad —eso no se copia— sino esto
+ *                    mismo, armado. Así la multiplicación queda como
+ *                    CONSECUENCIA y no como un tercer paso.
  *  6 EL PRODUCTO   · ficha y categorías (patrón servilleta).
  *  7 LOS NÚMEROS   · simulador de la servilleta + simulador de los 12 niveles.
  *
@@ -117,7 +123,9 @@ export default function PitchDeckPage() {
   const [slide, setSlide] = useState(1);
   const [beat, setBeat] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [catalogoAbierto, setCatalogoAbierto] = useState(false);
+  // El visor no es solo del portafolio: cada categoría se abre en grande desde su
+  // miniatura. En la tira caben cuatro y ahí no se lee nada; el producto se mira.
+  const [visor, setVisor] = useState<{ src: string; alt: string } | null>(null);
 
   // Simuladores
   const [simMode, setSimMode] = useState<'binario' | 'gen5'>('binario');
@@ -181,7 +189,7 @@ export default function PitchDeckPage() {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
       if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
-      if (catalogoAbierto && e.key === 'Escape') { setCatalogoAbierto(false); return; }
+      if (visor && e.key === 'Escape') { setVisor(null); return; }
       if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
       else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
       else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
@@ -189,7 +197,7 @@ export default function PitchDeckPage() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [avanzar, retroceder, toggleFullscreen, irA, catalogoAbierto]);
+  }, [avanzar, retroceder, toggleFullscreen, irA, visor]);
 
   // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
   // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
@@ -308,6 +316,13 @@ export default function PitchDeckPage() {
           color: var(--color-text-body, #C8C7C2); margin: 0 0 1.1rem; max-width: 46ch;
         }
         .pd-gold { color: var(--pd-gold); }
+        /* La bisagra: la línea más grande de la pantalla después del titular.
+           Es el giro del deck entero, así que pesa como tal. */
+        .pd-bisagra {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.5rem, 3.8vw, 2.5rem); line-height: 1.1; letter-spacing: 0.01em;
+          color: var(--pd-gold); margin: 2rem 0 1.2rem;
+        }
         .pd-kicker {
           font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
           color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
@@ -414,7 +429,10 @@ export default function PitchDeckPage() {
         .pd-ficha .pie { font-size: 0.78rem; color: var(--pd-muted); line-height: 1.55; margin: 0.9rem 0 0; }
         .pd-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 1.6rem; }
         .pd-cat { position: relative; aspect-ratio: 1 / 1; background-size: cover;
-          background-position: center; border: 1px solid rgba(255,255,255,0.08); }
+          background-position: center; border: 1px solid rgba(255,255,255,0.08);
+          padding: 0; cursor: zoom-in; transition: border-color 0.25s, transform 0.25s;
+          display: block; width: 100%; }
+        .pd-cat:hover { border-color: rgba(197,160,89,0.55); transform: translateY(-2px); }
         .pd-cat span {
           position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 4px;
           background: linear-gradient(transparent, rgba(15,17,21,0.92));
@@ -594,16 +612,31 @@ export default function PitchDeckPage() {
         {/* ── 4 · EL DEFECTO DE DISEÑO ────────────────────────────────── */}
         <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
-            <p className="pd-eyebrow">El defecto de diseño</p>
-            <h2 className="pd-h2">Había un tercer camino. Y tenía un defecto.</h2>
+            {/* El rótulo NO dice «El problema»: la bisagra de abajo ya lo dice, y
+                repetido en mayúsculas a cinco líneas se lee a trompicones. Nombra la
+                sección por lo que es — dónde está la oportunidad. */}
+            <p className="pd-eyebrow">La oportunidad</p>
+            <h2 className="pd-h2">Había un tercer camino.</h2>
             <p className="pd-p">
               La distribución funciona: treinta años, más de sesenta países, producto real
               y pagos reales.
             </p>
-            <p className="pd-p pd-gold">
-              Su defecto era de diseño: el modelo dependía de que usted fuera el sistema.
-            </p>
-            <p className="pd-p">Nadie lo había tratado como un problema de tecnología.</p>
+            {/* LA BISAGRA DE TODA LA HERRAMIENTA (Director, 23 sep 2026).
+                Antes decía «el modelo dependía de que usted fuera el sistema»: exacto y
+                frío — arquitectura, no algo en que alguien se reconozca. Y la otra salida
+                que se consideró, nombrar que nadie quiere andar detrás de sus conocidos,
+                es el SÍNTOMA: le planta la escena a quien no la traía y nos deja hablando
+                de lo que se teme de la categoría en la única pantalla donde decimos que
+                funciona.
+                La causa es esta: en este negocio todos quieren crecer, crecer es
+                multiplicarse, y ahí era donde el modelo se rompía. Es la razón por la que
+                el Director empezó esto.
+                ⚠️ «Y eso no era sencillo» se deja SIN DECIR a propósito: la ley lo implica
+                y el que oye lo completa solo. Y la multiplicación aquí es tarea del modelo
+                VIEJO — en el nuestro se nombra como consecuencia, nunca como un tercer
+                paso; el contraste refuerza esa regla en vez de romperla. */}
+            <p className="pd-bisagra">El problema: multiplicarse.</p>
+            <p className="pd-p">Solo se multiplica lo que es sencillo.</p>
 
             <div className="pd-hechos">
               <div className="pd-hecho">
@@ -683,6 +716,13 @@ export default function PitchDeckPage() {
                 Lo que usted recibe es su sistema de distribución. Usted delega el explicar
                 y el atender; se queda con decidir y con conectar.
               </p>
+              {/* Cierra el círculo que abre la pantalla 4 («solo se multiplica lo que es
+                  sencillo»): lo que se le pasa al siguiente NO es una habilidad —eso no se
+                  copia— sino esto mismo, funcionando. Así la multiplicación queda dicha
+                  como CONSECUENCIA y no como un tercer paso que le encargamos. */}
+              <p className="pd-p pd-gold" style={{ margin: '1.2rem auto 0', textAlign: 'center' }}>
+                Y lo que usted le pasa al siguiente es exactamente esto mismo, armado.
+              </p>
               <p className="marca">CreaTuActivo.com</p>
             </div>
           </div>
@@ -703,15 +743,22 @@ export default function PitchDeckPage() {
                 </p>
                 <div className="pd-cats">
                   {CATEGORIAS.map((c) => (
-                    <div className="pd-cat" key={c.label} style={{ backgroundImage: `url(${c.img})` }}>
+                    <button
+                      type="button"
+                      className="pd-cat"
+                      key={c.label}
+                      style={{ backgroundImage: `url(${c.img})` }}
+                      aria-label={`Ver la línea ${c.label} en grande`}
+                      onClick={(e) => { e.stopPropagation(); setVisor({ src: c.img, alt: `Línea ${c.label}` }); }}
+                    >
                       <span>{c.label}</span>
-                    </div>
+                    </button>
                   ))}
                 </div>
                 <button
                   type="button"
                   className="pd-link"
-                  onClick={(e) => { e.stopPropagation(); setCatalogoAbierto(true); }}
+                  onClick={(e) => { e.stopPropagation(); setVisor({ src: '/productos/productos.webp', alt: 'Portafolio de productos Gano Excel' }); }}
                 >
                   VER TODO EL PORTAFOLIO →
                 </button>
@@ -875,25 +922,25 @@ export default function PitchDeckPage() {
         </div>
 
         {/* ── Modal del portafolio ────────────────────────────────────── */}
-        {catalogoAbierto && (
+        {visor && (
           <div
             className="pd-overlay"
             role="dialog"
             aria-modal="true"
-            aria-label="Portafolio de productos"
-            onClick={() => setCatalogoAbierto(false)}
+            aria-label={visor.alt}
+            onClick={() => setVisor(null)}
           >
             <div className="pd-modal" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
                 className="pd-close"
-                onClick={() => setCatalogoAbierto(false)}
-                aria-label="Cerrar portafolio"
+                onClick={() => setVisor(null)}
+                aria-label="Cerrar"
               >
                 ×
               </button>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/productos/productos.webp" alt="Portafolio de productos Gano Excel" />
+              <img src={visor.src} alt={visor.alt} />
             </div>
           </div>
         )}

@@ -343,6 +343,7 @@ export default function PitchDeckPage() {
         .pd-credo-rule {
           width: 56px; height: 1px; background: var(--pd-gold); margin: 2.4rem 0 1.2rem;
         }
+        .pd-credo-sub { margin-top: 1.8rem; max-width: 52ch; }
 
         /* ── 4 · Hechos verificables ─────────────────────────────────────── */
         .pd-hechos {
@@ -597,6 +598,7 @@ export default function PitchDeckPage() {
           .pd-credo .pd-wrap { display: grid; grid-template-columns: 1fr 1fr;
             gap: 0 2.2rem; align-items: start; max-width: 1100px; }
           .pd-credo .pd-eyebrow,
+          .pd-credo .pd-credo-sub,
           .pd-credo .pd-credo-rule,
           .pd-credo .pd-kicker { grid-column: 1 / -1; }
           .pd-credo h1 { font-size: clamp(1.05rem, 2.4vw, 1.6rem); margin-bottom: 0;
@@ -651,6 +653,16 @@ export default function PitchDeckPage() {
               Creemos en empoderar a las personas para que recuperen el control de su
               tiempo y de su dinero.
             </h1>
+            {/* Subtítulo del Director (24 sep 2026). «La gente que sabe trabajar»
+                honra al héroe en vez de diagnosticarlo, y «capital real» eleva el
+                registro desde las finanzas. ⚠️ Se le cortó el remate original («y no
+                solo en pagar el mes a mes»): el credo, dos líneas arriba, ya dice el
+                ciclo — repetirlo con palabras más flojas apaga la frase. Termina en
+                lo nuevo, que es donde debe terminar. */}
+            <p className="pd-p pd-credo-sub">
+              Creemos en entregarle una herramienta de alto nivel a la gente que sabe
+              trabajar, para que su esfuerzo se traduzca en capital real.
+            </p>
             <div className="pd-credo-rule" />
             <p className="pd-kicker">CreaTuActivo · Presentación</p>
           </div>
@@ -661,13 +673,22 @@ export default function PitchDeckPage() {
           <div className="pd-wrap">
             <p className="pd-eyebrow">El momento</p>
             <h2 className="pd-h2">Pocas veces aparece un momento así.</h2>
+            {/* El antes y el después, que es la gramática del «por qué ahora» de un
+                pitch deck. La lista de costos va en PRESENCIAS del modelo viejo, no en
+                ausencias del nuestro: el lector no tiene que construir cada cosa para
+                después tacharla.
+                ⛔ Se descartó «con el capital que antes se gastaba en un fin de semana»
+                (propuesta del 24 sep): abarata la decisión justo donde tratamos al
+                prospecto como inversionista —quien pone plata espera que le cueste—, y
+                para buena parte del mercado no es cierto, que es una fuga de
+                credibilidad en la pantalla donde reclamamos un momento histórico. */}
             <p className="pd-p">
-              Dos industrias están cambiando a la vez: la forma en que un producto llega
-              a las personas, y la forma en que una persona puede tener empresa.
+              Armar una empresa de distribución costaba millones en bodegas, nóminas e
+              inventarios.
             </p>
             <p className="pd-p">
-              Lo que antes era complicado de desarrollar, hoy no lo es.{' '}
-              <span className="pd-gold">Y eso le cambia el plan a millones de personas.</span>
+              Hoy, la inteligencia artificial y la logística global{' '}
+              <span className="pd-gold">permiten armarla desde el celular.</span>
             </p>
           </div>
         </section>
@@ -677,19 +698,27 @@ export default function PitchDeckPage() {
           <div className="pd-wrap">
             <p className="pd-eyebrow">El problema</p>
             <h2 className="pd-h2">Nos enseñaron dos caminos.</h2>
-            <p className="pd-p">
-              Emplearse, o montar un negocio. Los dos cobran lo mismo: su presencia.
-            </p>
+            {/* Los dos caminos los NARRA el socio en vivo (Director, 24 sep): la
+                pantalla solo sostiene el ciclo, que es donde los dos desembocan.
+                ⚠️ La analogía va SIN remate propio: «pero financieramente avanza muy
+                poco» explica en literal lo que la imagen ya dijo, y con dos tesis el
+                oyente no se queda con ninguna. Quítela y el párrafo sigue en pie.
+                ⛔ El remate de los veinte millones NO se toca aunque la propuesta lo
+                omitía: existe para que quien gana bien no se exima («ese no es mi
+                caso») — y el mercado de esta herramienta es justamente gente que gana
+                bien. Sin él la conversación se acaba en silencio. */}
             <p className="pd-p">
               Usted trabaja el mes entero. Y al día siguiente de que le entra la plata,
-              ese dinero ya tiene dueño: el banco, las cuotas, los recibos. Es un ciclo
-              de trabajar, pagar cuentas y repetir.
+              ese dinero ya tiene dueño: el banco, las cuotas, los recibos.
+            </p>
+            <p className="pd-p">
+              Es un ciclo infinito de trabajar, pagar cuentas y repetir. Es como estar en
+              una bicicleta estática: usted le da y le da con todas sus fuerzas.
             </p>
             <p className="pd-p pd-gold">
               Y le pasa exactamente igual al que gana dos millones y al que gana más de
               veinte.
             </p>
-            <p className="pd-kicker">Ninguno de los dos caminos venía con un plan</p>
           </div>
         </section>
 
@@ -700,10 +729,14 @@ export default function PitchDeckPage() {
                 repetido en mayúsculas a cinco líneas se lee a trompicones. Nombra la
                 sección por lo que es — dónde está la oportunidad. */}
             <p className="pd-eyebrow">La oportunidad</p>
-            <h2 className="pd-h2">Había un tercer camino.</h2>
+            {/* El titular cruza la imagen de la pantalla anterior y la paga: la
+                bicicleta estática entra en la 3 y se resuelve aquí (Director, 24 sep).
+                «Ser dueño del sistema que conecta, no del que produce» es su tesis de
+                la conectividad —Amazon, MercadoLibre— en catorce palabras. */}
+            <h2 className="pd-h2">Cómo bajarse de la bicicleta estática.</h2>
             <p className="pd-p">
-              La distribución funciona: treinta años, más de sesenta países, producto real
-              y pagos reales.
+              Lo que hace falta es ser dueño del sistema que conecta, no del que produce.{' '}
+              <span className="pd-gold">Así funciona una empresa moderna.</span>
             </p>
             {/* LA BISAGRA DE TODA LA HERRAMIENTA (Director, 23 sep 2026).
                 Antes decía «el modelo dependía de que usted fuera el sistema»: exacto y
@@ -721,6 +754,15 @@ export default function PitchDeckPage() {
                 paso; el contraste refuerza esa regla en vez de romperla. */}
             <p className="pd-bisagra">El problema: multiplicarse.</p>
             <p className="pd-p">Solo se multiplica lo que es sencillo.</p>
+            {/* MODERNIZAR, NO CAMBIAR DE VIDA (Director, 24 sep 2026). El hallazgo de
+                campo: presentado como ACTUALIZACIÓN la gente se interesa; presentado
+                como cambio, se defiende. Baja la amenaza sin bajar el estatus, y es la
+                misma mecánica del «upgrade» que ya usamos para el ingreso en paralelo.
+                Va al cierre de la pantalla, justo antes de que la 5 entregue la
+                solución: es la última cosa que oye antes de ver de qué se trata.
+                ⚠️ NO dice «modernizar la forma de producir» — nos acabamos de definir
+                por la conexión y no por la producción; se contradiría a dos líneas. */}
+            <p className="pd-kicker">No es cambiar de vida. Es modernizar la forma de hacer empresa</p>
 
             <div className="pd-hechos">
               <div className="pd-hecho">
@@ -797,8 +839,8 @@ export default function PitchDeckPage() {
               </p>
               <p className="grande">Es una sola, y ya está armada.</p>
               <p className="pd-p" style={{ margin: '0 auto', textAlign: 'center' }}>
-                Lo que usted recibe es su sistema de distribución. Usted delega el explicar
-                y el atender; se queda con decidir y con conectar.
+                Lo que usted recibe es una empresa de distribución moderna. Usted delega
+                el explicar y el atender; se queda con decidir y con conectar.
               </p>
               {/* Cierra el círculo que abre la pantalla 4 («solo se multiplica lo que es
                   sencillo»): lo que se le pasa al siguiente NO es una habilidad —eso no se

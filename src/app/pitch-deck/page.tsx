@@ -674,21 +674,26 @@ export default function PitchDeckPage() {
             <p className="pd-eyebrow">El momento</p>
             <h2 className="pd-h2">Pocas veces aparece un momento así.</h2>
             {/* El antes y el después, que es la gramática del «por qué ahora» de un
-                pitch deck. La lista de costos va en PRESENCIAS del modelo viejo, no en
-                ausencias del nuestro: el lector no tiene que construir cada cosa para
-                después tacharla.
+                pitch deck. El eje es el ALCANCE, no el costo.
+                ⛔ Se retiró «costaba millones en bodegas, nóminas e inventarios»
+                (Director, 24 sep 2026), aunque estaba en la forma aprobada —presencias
+                del modelo viejo, no ausencias del nuestro—. El motivo no es la
+                polaridad sino el TRÍO: bodega, nómina e inventario es la silueta exacta
+                del pitch de la industria del mercadeo en red, y quien ya oyó una
+                presentación la reconoce dicha en positivo o en negativo. «Estuvo al
+                alcance de muy pocos» cambia el eje a un privilegio que se abrió, que es
+                el registro de una firma de inversión y no el de un catálogo.
                 ⛔ Se descartó «con el capital que antes se gastaba en un fin de semana»
                 (propuesta del 24 sep): abarata la decisión justo donde tratamos al
                 prospecto como inversionista —quien pone plata espera que le cueste—, y
                 para buena parte del mercado no es cierto, que es una fuga de
                 credibilidad en la pantalla donde reclamamos un momento histórico. */}
             <p className="pd-p">
-              Armar una empresa de distribución costaba millones en bodegas, nóminas e
-              inventarios.
+              Tener una empresa de distribución estuvo siempre al alcance de muy pocos.
             </p>
             <p className="pd-p">
               Hoy, la inteligencia artificial y la logística global{' '}
-              <span className="pd-gold">permiten armarla desde el celular.</span>
+              <span className="pd-gold">la ponen en un celular.</span>
             </p>
           </div>
         </section>
@@ -843,11 +848,16 @@ export default function PitchDeckPage() {
                 el explicar y el atender; se queda con decidir y con conectar.
               </p>
               {/* Cierra el círculo que abre la pantalla 4 («solo se multiplica lo que es
-                  sencillo»): lo que se le pasa al siguiente NO es una habilidad —eso no se
-                  copia— sino esto mismo, funcionando. Así la multiplicación queda dicha
-                  como CONSECUENCIA y no como un tercer paso que le encargamos. */}
+                  sencillo»): lo que se transmite NO es una habilidad —eso no se copia—
+                  sino esto mismo, funcionando. Así la multiplicación queda dicha como
+                  CONSECUENCIA y no como un tercer paso que le encargamos.
+                  ⚠️ Decía «lo que usted le pasa AL SIGUIENTE» y se corrigió: «el
+                  siguiente» dibuja una cadena de personas, que es la silueta que el
+                  prospecto reconoce como pirámide. Se nombra lo que se transmite, no
+                  a quién — misma regla que cuenta el GEN5 en compras y nunca en gente. */}
               <p className="pd-p pd-gold" style={{ margin: '1.2rem auto 0', textAlign: 'center' }}>
-                Y lo que usted le pasa al siguiente es exactamente esto mismo, armado.
+                Por eso se multiplica: lo que se transmite no es una habilidad, es esto
+                mismo, armado.
               </p>
               <p className="marca">CreaTuActivo.com</p>
             </div>

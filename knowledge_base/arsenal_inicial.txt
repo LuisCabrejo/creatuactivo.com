@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.45** (23 sep 2026) — **Las dos acciones de `EAM_01` se leen una sobre otra.** Llevaban un solo salto de línea entre Compartir y Recibir, y el formato lo colapsaba en un renglón: en el pitch deck salían pegadas (Director, 23 sep). Ahora van con línea en blanco, como viñetas de verdad. Cambiado a la vez en el candado y en `respuestas-maestras.ts`, que son fuente dual con contrato de prefijo. Texto idéntico por lo demás.
+**Versión actual: v6.46** (23 sep 2026) — **`WHY_PROD_01` responde la pregunta en la primera línea.** Quien pregunta cuáles son los productos recibía primero una distinción que no pidió —el café no es el producto, lo es el Ganoderma— y las categorías llegaban de corrido en el segundo párrafo (Director: *«el primer párrafo prácticamente sobra»*). Ahora abre con la postura —**ningún modelo funciona si el producto no rota**, línea propuesta por el agente Gemini y aprobada por el Director— y sigue con las cuatro líneas en viñetas, con sus conteos verificados contra `wa-productos.ts`. El Ganoderma y la diferencia de extracción quedan después, que es donde el Director los puso. El cierre nombra la **recompra**, nunca la duración. ⚠️ Del borrador de Gemini NO se tomaron: *canal de distribución* (retirado), *hábitos que la gente ya tiene* (el marco del consumo que iba a ocurrir igual) ni *no somos medicamentos* (negar un fantasma que el lector no traía). Pasa los cuatro guardarraíles. Índice sin tocar, así que la recuperación no se mueve.
+
+**v6.45** (23 sep 2026) — **Las dos acciones de `EAM_01` se leen una sobre otra.** Llevaban un solo salto de línea entre Compartir y Recibir, y el formato lo colapsaba en un renglón: en el pitch deck salían pegadas (Director, 23 sep). Ahora van con línea en blanco, como viñetas de verdad. Cambiado a la vez en el candado y en `respuestas-maestras.ts`, que son fuente dual con contrato de prefijo. Texto idéntico por lo demás.
 
 **v6.44** (23 sep 2026) — **Nace `PERFIL_02`: el independiente y el freelance tienen respuesta propia.** Antes recibían el texto genérico de «¿por qué debería hacer esto?», dictado palabra por palabra igual que al empresario. Al independiente no le dice nada que aquí será su propio jefe, porque ya lo es: su techo son sus horas. Mismo eje que `ADV_OBJ_02` —escalar, y que todo siga corriendo sin estar encima— y las dos mitades del alivio nombradas, Gano Excel y la tecnología. Índice medido contra los 177 fragmentos reales: 10 de 11 en el puesto 1, y la consulta que no gana cae donde ya caía.
 
@@ -885,13 +887,21 @@ Usted decide con cuánto abre.
 **[Concepto Nuclear]:** Los productos vistos desde el NEGOCIO (qué distribuyo y por qué se sigue vendiendo), no desde la salud — el catálogo con precios y categorías es PROD_OVERVIEW. ⚠️ **El café se admite y se BAJA a presentación; la categoría que se sube es el Ganoderma** (26 ago 2026, analogía del Director). Antes abría con *"el ancla es el café, pero en una categoría propia"*: admitía y elevaba —correcto— pero dejaba el café de titular, y ahí la comparación con el estante del supermercado ya está servida antes de la segunda línea. **El matiz que lo resuelve es el de Apple:** no niegan que sea un teléfono, rechazan el **sustantivo genérico** —*"no vendemos celulares, vendemos iPhone"*—. Es un renombramiento, no un desmentido, y por eso no tensiona. Aquí: el café pasa a ser **una** de las presentaciones y lo que se distribuye es Ganoderma. ⚠️ **La analogía de Apple NO va en el texto**: es el puente que trajo la decisión, y nombrarla invita a que nos midan con esa vara. ⚠️ **Negarlo de plano sigue prohibido** — quien pregunta *"¿es vender café?"* lo desmiente solo con mirar el catálogo. ⚠️ Dato que respalda el orden: en 1.538 mensajes reales, **29 personas nombran «Ganoderma»** y ninguna pregunta literalmente si es un negocio de vender café. La palabra que ellos traen no es *café*. ⚠️ **El registro es Clinical Luxury**, el mismo del catálogo: estos productos cuestan entre $73.900 y $1.026.000, así que el vocabulario los sitúa arriba (categoría propia, extracto propio, sistema barista) y jamás en el estante del supermercado. ⚠️ El sistema barista italiano de 15 bares (LUVOCO) hace el trabajo que ningún adjetivo puede: un adjetivo se discute, una máquina de un millón de pesos rompe sola la idea de "café de multinivel". ⚠️ **La composición se afirma; la absorción no.** *Más de 200 nutrientes* es composición y se sostiene; *que el cuerpo los aprovecha* es fisiología, y eso pertenece a la etiqueta, no a una conversación de negocio. ⚠️ **`/sistema/productos` NO es respaldo citable:** la auditoría del 17 ago 2026 la halló con catorce de veintidós productos en discrepancia grave contra la ficha del fabricante, y la página se reescribió el 22 ago por sus declaraciones de salud. *Catálogo bio-inteligente* sí es su título y se conserva. ⚠️ **AUTOSUFICIENTE**: se llega desde EAM_01 ("¿le muestro los productos?"), desde "¿qué es lo que venden?" y desde "¿es vender café?"; no puede apoyarse en nada dicho antes.
 
 <verbatim_lock>
-Con gusto, y vale la pena la distinción. El café es una de las presentaciones; lo que se distribuye es **Ganoderma**, con extracto propio.
+Vamos al punto, porque ningún modelo funciona si el producto no rota.
 
-Viene en bebidas, en suplementos y en cuidado personal —22 productos en cuatro líneas—, y hasta en un sistema barista italiano de 15 bares con cápsulas propias.
+Son 22 productos en cuatro líneas:
 
-La diferencia está en la extracción: más de 200 nutrientes en un producto premium que su cliente incorpora a su rutina.
+• **Bebidas** — nueve: los cafés Ganocafé y Ganorico, el cereal con espirulina, el té rooibos, el chocolate y el colágeno.
 
-Ahí está la lógica del negocio: el cliente que nota la diferencia no vuelve al genérico. Vuelve a pedir el mes siguiente, y esa compra ya no le cuesta trabajo a usted.
+• **Suplementos** — tres en cápsulas: Ganoderma, Excellium y Cordygold.
+
+• **Cuidado personal** — seis: pasta de dientes, dos jabones, champú, acondicionador y exfoliante.
+
+• **Luvoco** — la máquina barista italiana de 15 bares y sus tres cápsulas.
+
+Todos llevan el mismo extracto propio de Ganoderma. Ahí está la diferencia, en la extracción que Gano Excel protege: más de 200 nutrientes en un producto premium que su cliente incorpora a su rutina.
+
+Y ahí está la lógica del negocio. Su cliente nota la diferencia, no vuelve al genérico y vuelve a pedir el mes siguiente. Esa recompra es la que sostiene lo que factura su sistema de distribución.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro el catálogo completo con precios?

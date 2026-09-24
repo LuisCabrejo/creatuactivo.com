@@ -479,6 +479,22 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.46 — `WHY_PROD_01` responde la pregunta en la primera línea (23 sep 2026)
+
+Auditoría del pitch deck. Quien preguntaba cuáles son los productos recibía primero una distinción que no había pedido —el café no es el producto, lo es el Ganoderma— y las categorías llegaban de corrido en el segundo párrafo. Director: *«la respuesta no es consecuente a la pregunta… el primer párrafo prácticamente sobra»*.
+
+Ahora abre con la **postura** —*«Vamos al punto, porque ningún modelo funciona si el producto no rota»*, línea del agente Gemini que el Director aprobó— y sigue con las cuatro líneas en viñetas y sus conteos, verificados uno por uno contra `wa-productos.ts`. El Ganoderma y la extracción quedan después.
+
+⚠️ **Del borrador de Gemini NO se tomaron tres cosas**, y conviene que quede escrito porque volverán a aparecer:
+
+- *canal de distribución* y *su canal* — término retirado en septiembre.
+- *hábitos que la gente ya tiene* — es el marco prohibido del consumo que iba a ocurrir igual, el que planta la comparación con el estante del supermercado justo antes de hablar de precio.
+- *no nos movemos en la industria de los medicamentos* — niega un fantasma que quien pregunta por productos no traía. Los guardarraíles la dejan pasar; la regla de copy no.
+
+Los cuatro guardarraíles en verde y el **índice sin tocar**, así que la recuperación no se mueve: *«qué es lo que venden»* sigue ganándolo en 0.582.
+
+⚠️ Nota sobre el chip: *«¿Cuáles son los productos y para qué sirven?»* lo gana `PROD_OVERVIEW` (0.544), no este fragmento, y está bien — ese chip pide la lista con precios. `WHY_PROD_01` responde *qué es lo que se vende*, que es otra pregunta.
+
 ### v6.44 — Nace `PERFIL_02`: el independiente y el freelance tienen respuesta propia (23 sep 2026)
 
 La auditoría del tráfico mostró que **«soy independiente, ¿esto para qué me sirve?» y «ya tengo un negocio propio, ¿por qué haría esto?» recibían el MISMO texto, palabra por palabra**. Una puerta directa los mandaba a `WHY_05`, que responde en frío y sin perfil, y el candado lo dictaba el backend sin que el modelo viera la pregunta. A un empresario se le respondía como si no tuviera negocio.

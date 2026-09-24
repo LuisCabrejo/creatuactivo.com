@@ -696,14 +696,22 @@ export default function PitchDeckPage() {
                 encima. Eso sí era casi imposible, y no se lo discute nadie.
                 De paso, la primera línea DEFINE «moderna», así que la pantalla 4 puede
                 usar la palabra sin explicarla.
+                ⚠️ VA EN SUBJUNTIVO, y no es capricho: «una empresa moderna VENDE en todo
+                el continente» afirma un hecho sobre una categoría e invita a preguntar
+                «¿según quién?» — suena a entrada de diccionario. «Que venda… que
+                facture…» deja de definir y pasa a describir algo que uno querría tener,
+                y solo entonces la escasez muerde, porque ya lo quiere. Las dos frases
+                se fundieron en una por la misma razón (Director, 24 sep 2026): el
+                objeto y su veredicto son un solo pensamiento.
+                ⚠️ Y dice «usted» y no «el dueño»: lo mete a él dentro de la frase.
                 ⚠️ Dice «factura» y no «produce»: en la 4 nos definimos por el sistema
                 que CONECTA y no por el que produce — se contradiría dos pantallas
                 después. */}
             <p className="pd-p">
-              Una empresa de distribución moderna vende en todo el continente y factura
-              sin que el dueño esté encima.
+              Una empresa de distribución moderna que venda en todo el continente y
+              facture sin que usted tenga que estar encima — hasta hace poco, tener una
+              así era casi imposible.
             </p>
-            <p className="pd-p">Hasta hace poco, tener una era casi imposible.</p>
             <p className="pd-p">
               Hoy, la inteligencia artificial y la logística global{' '}
               <span className="pd-gold">la ponen en un celular.</span>

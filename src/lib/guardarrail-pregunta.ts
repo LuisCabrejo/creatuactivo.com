@@ -45,10 +45,11 @@
  */
 
 /**
- * Tres formas de la misma falla, las tres vistas en producción:
+ * Cuatro formas de la misma falla, las cuatro vistas en producción:
  *  1. La elección explícita entre dos cosas ya nombradas: «¿cuál de los dos…?»
  *  2. La oferta disyuntiva con el verbo delante: «¿le muestro X o prefiere Y?»
  *  3. La disyuntiva con el verbo detrás: «¿toma café, o prefiere algo sin…?»
+ *  4. La misma preposición a los dos lados: «¿desde Colombia o desde el Reino Unido?»
  *
  * ⚠️ NO entra «¿Con cuál arranca?», que es la pregunta de seguimiento de
  * `FREQ_30` y está aprobada: es abierta, no ofrece dos caminos cerrados.
@@ -64,7 +65,11 @@ const RE_DOS_SALIDAS = new RegExp(
     // 3 — …y con el verbo DESPUÉS del «o»: «¿Toma café en las mañanas, o
     //     prefiere algo sin cafeína?». Apareció al repetir una conversación
     //     real (23 sep 2026) y a la rama 2 se le escapaba por el orden.
-    '|,?\\s+o\\s+(prefiere|prefieres|quiere|le\\s+gusta|le\\s+provoca|m[aá]s\\s+bien|mejor)\\b' +
+    '|,?\\s+o\\s+(prefiere|prefieres|quiere|le\\s+gusta|le\\s+provoca|m[aá]s\\s+bien|mejor|tiene)\\b' +
+    // 4 — …y la disyuntiva con la misma preposición a los dos lados: «¿Se
+    //     registraría desde Colombia o desde el Reino Unido?» (prueba del
+    //     Director, 24 sep 2026). Ofrece dos caminos igual que las otras.
+    '|\\b(desde|en|con|por|para)\\s+[^?¿,]{2,40}\\s+o\\s+(desde|en|con|por|para)\\s+' +
   ')[^?¿]*\\?', 'i');
 
 /** El texto tras la pregunta: espacios, emojis o un cierre corto. Nada más. */

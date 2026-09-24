@@ -105,6 +105,9 @@ const ENTRADA_COMUN = [
   '¿sirve para la presión alta?',
   '¿es bueno para el corazón?',
   'sufro de gastritis',
+  // El sistema nombrado sin enfermedad (prueba del Director, 24 sep 2026).
+  'Cuál producto sirve para la salud digestiva',
+  '¿algo para la digestión?',
   'algo para el insomnio, no puedo dormir',
   'tomo metformina, ¿lo puedo combinar?',
   '¿el hongo ese es medicinal?',

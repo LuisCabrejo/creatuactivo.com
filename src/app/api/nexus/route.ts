@@ -46,6 +46,22 @@ import {
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
+import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, type Bitacora } from '@/lib/queswa-bitacora';
+import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto } from '@/lib/queswa-envoltura';
+import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
+
+/**
+ * El supervisor antes de enviar, APAGADO (24 sep 2026). Se probó en tres
+ * ensayos completos de la conversación del Director: detecta bien —marcó cada
+ * dato inventado del caso de Inglaterra—, pero de sus doce reescrituras tres
+ * mejoraron la respuesta, seis la empeoraron y tres quedaron igual. Metió «Buena
+ * pregunta», el marco del consumo diario, «reposición garantizada», y en un
+ * turno inventó justo lo que había marcado («desde sus bodegas en Colombia»).
+ * Encima sumaba dos segundos por turno. La detección ya la hace el juez de la
+ * revisión diaria (`revisar-turnos.ts`), sin tocar lo que sale. Se enciende
+ * solo si una versión nueva gana en el ensayo (`scripts/repetir-por-webhook.mts`).
+ */
+const SUPERVISOR_ANTES_DE_ENVIAR = false;
 import {
   NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, NUCLEO_EVIDENCIA, NUCLEO_REINCIDE,
   CIERRE_SALUD, CIERRE_EVIDENCIA, CIERRE_REINCIDE,
@@ -2577,6 +2593,28 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       cuando: { test: mencionaElReto },
     },
     {
+      // Prueba del Director, 24 sep 2026: «actualmente estoy en Inglaterra,
+      // ¿cómo podría desarrollar el negocio?» no abría ninguna puerta, el vector
+      // trajo fragmentos del empresario, y el modelo le dijo que se registraba
+      // «en este caso, Reino Unido», con «el equipo de Reino Unido» y precios «en
+      // libras». DIASPORA_03 ya tenía la respuesta: el sistema se ancla a un país
+      // de América, el producto va a una dirección de ese país y la comisión a
+      // una cuenta de ese país. Envío, registro o cobro nombrando un país de
+      // fuera → DIASPORA_03. Y quien dice que vive fuera y pregunta si puede
+      // hacerlo → DIASPORA_01, con candado. La cotización no entra: el precio lo
+      // pone el pin por país, y la bitácora le recuerda al modelo dónde vive.
+      fragmento: 'arsenal_inicial_DIASPORA_03',
+      titulo: 'Registro, pagos y envíos desde el exterior — DIASPORA_03',
+      porque: 'envío, registro o cobro nombrando un país de fuera',
+      cuando: { test: (t: string) => !!lugarExterior(t) && /env[ií]|llega|mand[ae]n|despach|registr|document|papeles|pag(o|an|ar)\b|cobr|cuenta\s+banc/i.test(t) && !/cu[aá]nto\s+(cuesta|vale)|precio/i.test(t) },
+    },
+    {
+      fragmento: 'arsenal_inicial_DIASPORA_01',
+      titulo: 'Desde fuera del país natal — DIASPORA_01',
+      porque: 'dice que vive fuera y pregunta si puede hacerlo',
+      cuando: { test: (t: string) => !!residenciaDeclarada([t]) && /puedo|podr[ií]a|c[oó]mo|funciona|desarroll|hacer|particip|inici|empez|trabaj|negocio|sirve/i.test(t) && !/cu[aá]nto\s+(cuesta|vale)|precio/i.test(t) },
+    },
+    {
       // 24 ago: «¿por qué uno debería desarrollar este negocio?» recuperaba
       // ADV_OBJ_02 (escrito para quien ya tiene negocio) y de ahí salió «lo
       // demuestra su negocio actual» a alguien que nunca lo dijo. WHY_05 responde
@@ -2745,6 +2783,8 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       titulo: 'Ya tengo un negocio — ADV_OBJ_02',
       porque: 'ya tiene negocio propio o se declara empresario',
       cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(comerciante|empresari[oa])\b/i,
+      // Se entrega literal con envoltura (24 sep 2026): ver `queswa-envoltura.ts`.
+      dictar: true,
     },
     {
       // ⚠️ **La cifra que el pitch deck imprime en pantalla** (23 sep 2026). El
@@ -2771,6 +2811,8 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       titulo: 'Independiente y freelance — PERFIL_02',
       porque: 'se declara independiente o freelance',
       cuando: /\bsoy\s+(independiente|freelance|freelancer)\b|\btrabajo\s+(por\s+mi\s+cuenta|por\s+proyectos|independiente)\b|\bcomo\s+independiente\b/i,
+      // Se entrega literal con envoltura (24 sep 2026): ver `queswa-envoltura.ts`.
+      dictar: true,
     },
     {
       // Prueba de 40 preguntas, 19 ago: "ya tuve código de Gano Excel antes"
@@ -2827,7 +2869,48 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       fragmento: 'arsenal_inicial_WHY_PROD_01',
       titulo: 'Qué productos son — WHY_PROD_01',
       porque: 'pregunta general por los productos',
-      cuando: /(para qu[eé] sirven|qu[eé] son|cu[aá]les son|d[oó]nde (puedo )?ve[or]|mu[eé]streme|qu[eé] venden)[^.?]{0,25}(los |sus |todos los )?productos|qu[eé] es lo que venden|h[aá]bleme de los productos/i,
+      // 24 sep 2026: «Qué productos son los que venden» (prueba del Director) no
+      // abría —el sustantivo va antes del verbo— y el modelo armó el catálogo con
+      // la lista de un PAQUETE: tres líneas, el C'Real y el Reskine donde no van,
+      // sin Luvoco ni Excellium. Se suman las formas con «productos» adelante;
+      // lo que trae un paquete sigue yendo a su tabla.
+      cuando: /^(?![\s\S]*(paquete|esp-?\s?[123]|kit|trae|incluye|viene))[\s\S]*((para qu[eé] sirven|qu[eé] son|cu[aá]les son|d[oó]nde (puedo )?ve[or]|mu[eé]streme|qu[eé] venden)[^.?]{0,25}(los |sus |todos los )?productos|qu[eé] es lo que venden|h[aá]bleme de los productos|qu[eé] productos\s+(son|venden|manejan|tienen|ofrecen|hay)|cu[aá]les\s+productos|productos\s+(que\s+)?(venden|manejan|ofrecen))/i,
+      // Se entrega literal con envoltura (24 sep 2026): ver `queswa-envoltura.ts`.
+      dictar: true,
+    },
+    {
+      // Las cuatro líneas (24 sep 2026). A «Me hablaste de las bebidas, esperé
+      // que me hablaras de ellas» el vector trajo fichas sueltas y el modelo
+      // dio 4 de las 9, bajo un nombre inventado («línea GanoCafé»). Cada línea
+      // tiene su tabla con candado; quien nombra la línea EN COLECTIVO la recibe.
+      // Lo individual («el café clásico», «las cápsulas de ganoderma») sigue al
+      // pin de producto, y la salud la ataja antes el guardarraíl de entrada.
+      fragmento: 'catalogo_productos_BEB_01',
+      titulo: 'Las bebidas — BEB_01',
+      porque: 'pregunta por la línea de bebidas',
+      cuando: /^(?![\s\S]*(sirve[n]? para|salud|enferm|foto|imagen))[\s\S]*\b(las|sus|qu[eé]|cu[aá]les)\s+(son\s+las\s+)?bebidas\b|l[ií]nea\s+de\s+(las\s+)?bebidas|h[aá]bl\w*\s+de\s+las\s+bebidas/i,
+      dictar: true,
+    },
+    {
+      fragmento: 'catalogo_productos_SUP_01',
+      titulo: 'Los suplementos — SUP_01',
+      porque: 'pregunta por la línea de suplementos',
+      cuando: /^(?![\s\S]*(sirve[n]? para|salud|enferm|foto|imagen))[\s\S]*\b(los|sus|qu[eé]|cu[aá]les)\s+(son\s+los\s+)?suplementos\b|l[ií]nea\s+de\s+(los\s+)?suplementos/i,
+      dictar: true,
+    },
+    {
+      fragmento: 'catalogo_productos_PERS_01',
+      titulo: 'Cuidado personal — PERS_01',
+      porque: 'pregunta por la línea de cuidado personal',
+      cuando: /^(?![\s\S]*(sirve[n]? para|salud|enferm|foto|imagen))[\s\S]*\b(l[ií]nea|productos)\s+de\s+cuidado\s+personal\b|\b(qu[eé]|cu[aá]les)\s+(productos\s+)?de\s+cuidado\s+personal/i,
+      dictar: true,
+    },
+    {
+      fragmento: 'catalogo_productos_LUV_01',
+      titulo: 'Luvoco — LUV_01',
+      porque: 'pregunta por la línea Luvoco',
+      cuando: /^(?![\s\S]*(foto|imagen))[\s\S]*\bl[ií]nea\s+luvoco\b|\b(qu[eé]|cu[aá]les)\s+(son\s+)?(los\s+productos\s+)?(de\s+)?luvoco\b|\bqu[eé]\s+es\s+(el\s+)?luvoco\b/i,
+      dictar: true,
     },
     {
       // Prueba conversacional, 20 ago (turno 15, corrida 3): "¿cada cuánto
@@ -2864,7 +2947,14 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       fragmento: 'arsenal_inicial_EAM_01',
       titulo: 'El día a día — EAM_01',
       porque: 'pregunta por el día a día',
-      cuando: /d[ií]a\s+a\s+d[ií]a|mi\s+d[ií]a\s+(como|de)\s+(socio|due[ñn]o)|rutina\s+(diaria|del?\s+negocio)/i,
+      // 24 sep 2026: «Qué debo hacer yo» ESCRITO (no con el botón de la apertura)
+      // se iba al vector, y el modelo compuso un método de dos pasos con «hacer
+      // su pedido mensual» como segunda acción. Las dos acciones son Compartir y
+      // Recibir, y las dicta EAM_01. Solo la pregunta sola: «¿qué debo hacer
+      // para inscribirme?» es otra cosa.
+      cuando: /d[ií]a\s+a\s+d[ií]a|mi\s+d[ií]a\s+(como|de)\s+(socio|due[ñn]o)|rutina\s+(diaria|del?\s+negocio)|^\s*[¿]?\s*(y\s+)?qu[eé]\s+(debo|tengo\s+que|tendr[ií]a\s+que|me\s+toca(r[ií]a)?)\s+hacer(\s+yo)?\s*[?!.]*\s*$|^\s*[¿]?\s*(y\s+)?qu[eé]\s+(har[ií]a|hago)\s+yo\s*[?!.]*\s*$|cu[aá]l\s+(ser[ií]a|es)\s+mi\s+(trabajo|papel|rol|parte)\b/i,
+      // Se entrega literal con envoltura (24 sep 2026): ver `queswa-envoltura.ts`.
+      dictar: true,
     },
     {
       // Prueba de 40 preguntas, 19 ago: "ya estuve en un multinivel y no me fue
@@ -2883,13 +2973,13 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
     },
   ];
 
-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = []) {
+async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = [], textosPrevios: readonly string[] = []) {
   // El socio recibe el directorio de sedes (FREQ_34) y el prospecto no: la
   // caché no puede mezclar a los dos.
   // ⚠️ Lo ya servido entra en la CLAVE del caché: el resultado filtrado es de
   // ESTE hilo, y sin esto la siguiente persona con la misma consulta heredaría
   // la exclusión de otro.
-  const cacheKey = `hibrido_${pageContext === 'whatsapp_socio' ? 'socio_' : ''}${query.toLowerCase()}${yaServidos.length ? `__srv_${[...yaServidos].sort().join('|')}` : ''}`;
+  const cacheKey = `hibrido_${pageContext === 'whatsapp_socio' ? 'socio_' : ''}${query.toLowerCase()}${yaServidos.length ? `__srv_${[...yaServidos].sort().join('|')}` : ''}${textosPrevios.length ? `__txt_${textosPrevios.length}_${(textosPrevios[textosPrevios.length - 1] || '').length}` : ''}`;
 
   // Las puertas van primero: son la decisión más barata y la que no puede fallar.
 
@@ -3375,9 +3465,9 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         // el prompt: ver `sinLoYaServido` en el conductor. Solo el camino
         // vectorial: las puertas directas devuelven un fragmento fijo porque la
         // persona pidió exactamente ese, y excluirlo ahí rompería la puerta.
-        if (yaServidos.length) {
+        if (yaServidos.length || textosPrevios.length) {
           const antes = fragments.length;
-          fragments = sinLoYaServido(fragments, yaServidos, mensajeCrudo);
+          fragments = sinLoYaServido(fragments, yaServidos, mensajeCrudo, textosPrevios);
           if (fragments.length < antes) {
             console.log(`🔁 [Sin repetir] ${antes - fragments.length} fragmento(s) ya servidos en el hilo salen del contexto — queda ${fragments[0]?.category}`);
           }
@@ -3406,6 +3496,10 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
             // en hilos largos el modelo lo parafraseaba —Patricia tras tres turnos
             // de salud, Liliana en el turno 17—, y «casi siempre» no es un dictado.
             candado_solitario: primeroConCandado,
+            // Qué tan claro ganó (24 sep 2026): el dictado sin modelo exige que no
+            // haya empate. Ver `_candadoEmpatado` en el bloque del dictado.
+            similitud: fragments[0]?.similarity ?? null,
+            margen: fragments.length > 1 ? (fragments[0].similarity ?? 0) - (fragments[1].similarity ?? 0) : null,
             total_chars: totalFragmentChars,
             // Confianza de la recuperación. Se propaga porque "encontré algo" y
             // "encontré algo pertinente" no son lo mismo: con el umbral en 0.30 casi
@@ -4098,7 +4192,10 @@ async function logConversationHibrida(
   searchMethod: string,
   sessionId: string,
   fingerprint: string,
-  prospectData?: ProspectData
+  prospectData?: ProspectData,
+  // Lo que pasó alrededor del texto (envoltura, supervisor): queda en la fila
+  // para que la revisión diaria y el diagnóstico lo lean sin adivinar.
+  extra?: Record<string, unknown>,
 ) {
   try {
     const { error } = await getSupabaseClient().from('nexus_conversations').insert({
@@ -4120,7 +4217,8 @@ async function logConversationHibrida(
         documents_used: documentsUsed,
         search_method: searchMethod,
         prospect_data: prospectData || {},
-        api_version: API_VERSION
+        api_version: API_VERSION,
+        ...(extra ?? {}),
       },
       created_at: new Date().toISOString()
     });
@@ -4251,6 +4349,9 @@ function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3', country: string): 
  * moneda del visitante. Una cifra que depende del país no puede vivir dentro de
  * un texto que se entrega carácter por carácter — de ahí el hueco.
  */
+// El Kit va en el pin de paquetes desde el 24 sep 2026: en la prueba del
+// Director, a «¿Qué paquetes hay?» el modelo listó los tres con su precio y dejó
+// el Kit sin cifra, remitiéndolo «al sistema». Si lo nombra, que tenga el dato.
 function getPaquetesPricingPin(country: string): string {
   const cop = { e1: '$900.000 COP', e2: '$2.250.000 COP', e3: '$4.500.000 COP' };
   const usd = { e1: '$200 USD', e2: '$500 USD', e3: '$1,000 USD' };
@@ -4260,6 +4361,7 @@ function getPaquetesPricingPin(country: string): string {
 • ESP-1 Inicial = ${cop.e1}
 • ESP-2 Empresarial = ${cop.e2}
 • ESP-3 Visionario = ${cop.e3}
+• Kit de Inicio (la entrada menor, solo si viene al caso) = $443.600 COP
 🇨🇴 COTIZA EN COP (moneda local). NO muestres el equivalente en USD al lado del precio del paquete — obliga al usuario a una conversión mental que crea fricción ("el dólar no está a 4,500"). El USD solo aparece si el usuario lo pide o reclama por la tasa → en ese caso usa la respuesta de FREQ_27. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
   }
   if (country === 'US') {
@@ -4267,6 +4369,7 @@ function getPaquetesPricingPin(country: string): string {
 • ESP-1 Inicial = ${usd.e1}
 • ESP-2 Empresarial = ${usd.e2}
 • ESP-3 Visionario = ${usd.e3}
+• Kit de Inicio (la entrada menor, solo si viene al caso) = $98 USD
 🇺🇸 COTIZA EN USD limpio. NO muestres COP (irrelevante para el visitante). NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
   }
   // Default / desconocido / otros países sin lista local cargada
@@ -4275,6 +4378,7 @@ function getPaquetesPricingPin(country: string): string {
 • ESP-1 Inicial = ${usd.e1} (${cop.e1})
 • ESP-2 Empresarial = ${usd.e2} (${cop.e2})
 • ESP-3 Visionario = ${usd.e3} (${cop.e3})
+• Kit de Inicio (la entrada menor, solo si viene al caso) = $98 USD ($443.600 COP)
 🌎 Cotiza en USD (moneda de referencia internacional) con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica su país de registro, ajusta a su moneda local. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
 }
 
@@ -4612,15 +4716,26 @@ export async function POST(req: Request) {
          .catch(() => ({ data: null, error: null }))
       : Promise.resolve({ data: null, error: null });
 
+    // ⚠️ Hasta el 24 sep 2026 esto traía las CINCO PRIMERAS filas de la
+    // conversación (orden ascendente con límite): el modelo recordaba cómo
+    // empezó y los últimos tres intercambios, y todo lo del medio no existía.
+    // Así le volvió a explicar al Director en el turno 22 lo que ya le había
+    // explicado en el 9. Hoy trae las ÚLTIMAS 40, con su metadata, y de ahí sale
+    // la bitácora (`queswa-bitacora.ts`).
+    // ⚠️ Y con la llave de SERVIDOR, no la pública (24 sep 2026): con la anon,
+    // la seguridad de filas de `nexus_conversations` devuelve CERO filas sin
+    // error. El «historial» del motor nunca tuvo datos en producción —el log
+    // decía «Sin historial previo» en cada turno— y lo destapó el ensayo por
+    // webhook de la prueba del Director. Lo mismo le pasaba a `servidosPromise`.
     const conversationsPromise: Promise<{ data: any; error: any }> = fingerprint
       ? Promise.resolve(
-          getSupabaseClient()
+          getSupabaseAdmin()
             .from('nexus_conversations')
-            .select('messages, created_at')
+            .select('messages, created_at, metadata')
             .eq('fingerprint_id', fingerprint)
-            .order('created_at', { ascending: true })
-            .limit(5) // ⚡ Reducido de 10 → 5 para menor latencia
-        ).then(({ data, error }: any) => ({ data, error }))
+            .order('created_at', { ascending: false })
+            .limit(40)
+        ).then(({ data, error }: any) => ({ data: Array.isArray(data) ? [...data].reverse() : data, error }))
          .catch((err: any) => { console.error('❌ [NEXUS] Error cargando historial:', err); return { data: null, error: err }; })
       : Promise.resolve({ data: null, error: null });
 
@@ -4629,7 +4744,7 @@ export async function POST(req: Request) {
     // Promise.all que el resto, así que no suma espera.
     const servidosPromise: Promise<string[]> = (canalDictado && fingerprint)
       ? Promise.resolve(
-          getSupabaseClient()
+          getSupabaseAdmin()
             .from('nexus_conversations')
             .select('metadata')
             .eq('fingerprint_id', fingerprint)
@@ -4709,6 +4824,10 @@ export async function POST(req: Request) {
 
     // 🧠 HISTORIAL DE CONVERSACIONES PREVIAS — ya cargado en paralelo
     let conversationSummary = '';
+    // La memoria de la conversación completa (24 sep 2026). Solo en el canal —la
+    // web y WhatsApp— y nunca en MODO SOCIO, que trae su propio encuadre. Los
+    // demás tenants conservan el resumen de siempre.
+    let _bitacora: Bitacora | null = null;
 
     if (fingerprint) {
       try {
@@ -4716,13 +4835,29 @@ export async function POST(req: Request) {
 
         if (convError) {
           console.error('❌ [NEXUS] Error cargando historial:', convError);
+        } else if (conversations && conversations.length > 0 && canalDictado && pageContext !== 'whatsapp_socio') {
+          const userDataSection = userData.name || userData.email || userData.whatsapp ? `
+**DATOS DE LA PERSONA (ya capturados):**
+${userData.name ? `- Nombre: ${userData.name}` : ''}
+${userData.email ? `- Email: ${userData.email}` : ''}
+${userData.whatsapp ? `- WhatsApp: ${userData.whatsapp}` : ''}
+${userData.consent_granted ? `- Consentimiento de datos: ya otorgado` : ''}
+Esos datos ya los dio: se usan, no se vuelven a pedir.
+` : '';
+          _bitacora = construirBitacora(conversations, existingProspectData, {
+            paisDeOrigen: COUNTRY_NAMES[visitorCountry] ?? 'Colombia',
+          });
+          conversationSummary = `\n\n---\n${userDataSection}\n${_bitacora.texto}\n\n---\n`;
+          console.log(`🧠 [Bitácora] ${conversations.length} turnos · mostrado: ${[..._bitacora.temasMostrados].join(', ') || '—'} · residencia: ${_bitacora.residencia?.pais ?? '—'} · siguiente: ${_bitacora.siguientePaso ?? '—'} (${_bitacora.texto.length} chars)`);
         } else if (conversations && conversations.length > 0) {
           console.log(`✅ [NEXUS] Historial encontrado: ${conversations.length} conversaciones previas`);
           try {
             // Generar resumen del historial para el System Prompt
             const summaryParts: string[] = [];
 
-            conversations.forEach((conv: any, _index: number) => {
+            // Los demás tenants conservan el resumen de siempre: las cinco
+            // primeras filas (la consulta ahora trae las últimas cuarenta).
+            conversations.slice(0, 5).forEach((conv: any, _index: number) => {
               const messages = conv.messages || [];
               const userMessages = messages.filter((m: any) => m.role === 'user').map((m: any) => m.content);
               const assistantMessages = messages.filter((m: any) => m.role === 'assistant').map((m: any) => m.content);
@@ -4759,7 +4894,7 @@ ${userDataSection}
 
 ## 📜 HISTORIAL DE CONVERSACIONES PREVIAS
 
-Este usuario ha conversado contigo antes. Aquí está el resumen de sus últimas ${conversations.length} interacciones:
+Este usuario ha conversado contigo antes. Aquí está el resumen de sus primeras ${Math.min(conversations.length, 5)} interacciones:
 
 ${summaryParts.join('\n')}
 
@@ -5329,7 +5464,7 @@ ${summaryParts.join('\n')}
         // así que la expansión de chips sigue funcionando igual.
         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos, _bitacora?.textosDelBot ?? []);
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {
@@ -6693,7 +6828,10 @@ ${visitorCountry === 'CO'
       const _doc0 = relevantDocuments[0];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const _meta0 = (_doc0?.metadata ?? {}) as any;
-      const _esPuertaDictada = _doc0?.search_method === 'puerta_directa' && !!_meta0.dictar;
+      // La salud y el MODO SOCIO se componen siempre: allá el núcleo legal es la
+      // única fuente del turno, y al socio el candado le sirve de material.
+      const _esPuertaDictada = _doc0?.search_method === 'puerta_directa' && !!_meta0.dictar
+        && !pageContext?.startsWith('whatsapp_salud_') && pageContext !== 'whatsapp_socio' && !_saludCompuestaWeb;
       // ⚠️ El candado NO se dicta en MODO SOCIO (11 sep 2026). Patricia, socia,
       // pidió que le redactaran una presentación y el vector llevó su mensaje a
       // `WHY_01` —que tiene candado—: el backend lo emitió literal y ella recibió
@@ -6718,29 +6856,71 @@ ${visitorCountry === 'CO'
         // porque nunca vio el turno. Se compara normalizado: el canal guarda el
         // markdown del fragmento tal cual. La comparación vive en el conductor
         // para que `prueba-bucle-candado.mts` la vigile.
-        const _yaLoDijo = !!_cuerpo && candadoYaDicho(_ultimoBotMsg, _cuerpo);
+        // ⚠️ Contra TODA la conversación, no solo contra el turno anterior (24
+        // sep 2026): el Director recibió en el turno 10 el «Cómo funciona» del
+        // turno 2, palabra por palabra, porque solo se miraba el 9. Quien lo
+        // pide otra vez por su nombre («repítamelo») sí lo recibe literal.
+        const _pideOtraVez = /otra vez|de nuevo|nuevamente|rep[ií]t|vuelv[ae] a (mostrar|explicar|decir|mandar|enviar)/i.test(String(latestUserMessage ?? ''));
+        const _yaLoDijo = !!_cuerpo && !_pideOtraVez
+          && (candadoYaDicho(_ultimoBotMsg, _cuerpo) || (!!_bitacora && yaLoRecibio(_bitacora.textosDelBot, _cuerpo)));
         // Y cuando el FSM ya decidió mostrar la tabla de los tres paquetes
         // («¿qué paquetes hay?» → Estado 2 informativo), un candado de
         // recomendación no manda sobre ella: son dos dictados para el mismo
         // turno, y el que responde la pregunta es la tabla.
         const _tablaManda = closingState === 2 && !_esPuertaDictada;
-        if (_cuerpo && (_yaLoDijo || _tablaManda)) {
+        // ── Un candado que ganó EMPATADO no se dicta (24 sep 2026) ──────────
+        // «¿No me puedes ayudar?», en medio de la radicación, llevó a WHY_01
+        // (0.517) empatado al milésimo con DIASPORA_01 (0.517), y el backend
+        // dictó «CreaTuActivo es una empresa de tecnología…» sin que el modelo
+        // leyera el turno. Con un empate el enrutamiento no está seguro de nada:
+        // el fragmento va solo, como siempre —así no se mezclan dos—, pero como
+        // material, y el modelo responde con la bitácora delante.
+        const _candadoEmpatado = !_esPuertaDictada && typeof _meta0.margen === 'number' && _meta0.margen < 0.02;
+        // ── Una queja o una corrección tampoco se contesta con un texto dictado ─
+        // «Ya me hablaste de los productos» no pide contenido: pide que se le
+        // reconozca y se siga. Lo que devuelva la búsqueda para esa frase es
+        // ruido —en el ensayo del 24 sep dictó el «¿Qué es CreaTuActivo?»—. Es
+        // reparación de la conversación, y la hace el modelo con la bitácora
+        // (el reparto de Rasa CALM: el modelo repara, el código pone el dato).
+        const _esReparacion = /\bya me (lo )?(habl[aoó]\w*|dij\w*|explic\w*|mostr\w*|cont\w*)\b|\bno me (repit|repet)|\b(eso|esto) ya (lo )?(s[eé]|vimos|me lo)|\bya (lo )?(vimos|s[eé] eso)\b|me est[aá]s? repitiendo|otra vez lo mismo/i.test(String(latestUserMessage ?? ''));
+        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || (_esReparacion && !_esPuertaDictada))) {
           // El candado se queda como MATERIAL, sin la orden de copiarlo literal:
           // así el modelo responde lo que la persona preguntó de verdad, con el
           // fragmento delante. Quitárselo lo dejaría componiendo sin material,
           // que es exactamente cuando vuelven las frases retiradas.
           _doc0.content = (_doc0.content || '').replace(/<\/?verbatim_lock>/gi, '');
           _meta0.candado_solitario = false;
-          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'ya salió en el turno anterior' : 'cede ante la tabla del Estado 2'} — lo redacta el modelo`);
+          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
         } else if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
           const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
           const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';
-          console.log(`⚡ [${_esPuertaDictada ? 'Puerta' : 'Candado'} dictado] ${_idFrag} entregado directo, sin modelo`);
+          // ── La envoltura (24 sep 2026) ────────────────────────────────────
+          // El texto aprobado sale LITERAL; lo que va alrededor lo escribe el
+          // modelo con la bitácora delante: una línea que conecte con lo que la
+          // persona acaba de decir, si hace falta, y la pregunta de cierre, que
+          // no ofrece lo que ya vio. Ver `queswa-envoltura.ts`. En el primer
+          // contacto no hay historia que leer, y sale como siempre.
+          const _lock = _cuerpo.replace(/\n\n¿[^\n]*\?\s*$/, '').trim();
+          const _cierreDefecto = _cuerpo.slice(_lock.length).trim();
+          const _nucleo = sinElogioSiNoPregunto(_lock, String(latestUserMessage ?? ''));
+          // Sin historia que leer, sale el texto aprobado con su pregunta; pero el
+          // elogio a una pregunta que no se hizo se quita igual.
+          let _turno = armarTurno({ apertura: '', cierre: _cierreDefecto }, _nucleo);
+          let _envoltura: { origen: string; ms: number; apertura: string; cierre: string } | null = null;
+          if (_bitacora && _bitacora.textosDelBot.length) {
+            _envoltura = await envolverTextoAprobado({
+              anthropic, bitacora: _bitacora, mensajePersona: String(latestUserMessage ?? ''),
+              ultimoBot: _ultimoBotMsg, nucleo: _nucleo, cierrePorDefecto: _cierreDefecto,
+            });
+            _turno = armarTurno(_envoltura, _nucleo);
+          }
+          console.log(`⚡ [${_esPuertaDictada ? 'Puerta' : 'Candado'} dictado] ${_idFrag} entregado literal${_envoltura ? ` · envoltura ${_envoltura.origen} (${_envoltura.ms}ms)${_envoltura.apertura ? ' con apertura' : ''}${_envoltura.cierre !== _cierreDefecto ? ` · cierre «${_envoltura.cierre || 'sin pregunta'}»` : ''}` : ''}`);
           if (sessionId && fingerprint) {
-            logConversationHibrida(latestUserMessage, _cuerpo, [_idFrag], _metodo, sessionId, fingerprint, mergedProspectData)
+            logConversationHibrida(latestUserMessage, _turno, [_idFrag], _metodo, sessionId, fingerprint, mergedProspectData,
+              _envoltura ? { envoltura: { origen: _envoltura.origen, ms: _envoltura.ms, apertura: !!_envoltura.apertura, cierre_cambiado: _envoltura.cierre !== _cierreDefecto } } : undefined)
               .catch((err) => console.error(`❌ [${_metodo}] Error logging:`, err));
           }
-          return new StreamingTextResponse(buildVerbatimStream(_cuerpo), { headers: getCorsHeaders(origin) });
+          return new StreamingTextResponse(buildVerbatimStream(_turno), { headers: getCorsHeaders(origin) });
         }
         if (_cuerpo && _conMarcadores) console.log(`🔒 [Candado] ${_meta0.fragment_categories?.[0]} trae marcadores de pin — lo redacta el modelo`);
       }
@@ -6878,8 +7058,24 @@ const _instruccionHiloDoceNiveles = _enHiloDoceNiveles ? `
   sistema.
 ` : '';
 
+// ── Quien vive fuera de su país (24 sep 2026) ───────────────────────────────
+// Misma idea que el hilo de los 12 Niveles: la doctrina de UN hilo entra solo
+// cuando ese hilo está abierto. El Director escribió que estaba en Inglaterra
+// y, en los turnos siguientes —«¿No me puedes ayudar?», «El 3»—, el modelo le
+// inventó un equipo de Reino Unido y precios en libras: la puerta de la
+// diáspora solo ve el mensaje del turno, y esos no nombraban ningún país. Los
+// hechos son los de DIASPORA_01 y DIASPORA_03, ya aprobados.
+const _instruccionDiaspora = _bitacora?.residencia ? `
+<persona_en_el_exterior>
+La persona vive en ${_bitacora.residencia.pais}, fuera de su país. Así funciona su caso:
+• Su sistema se ancla al país por el que se registre, que es uno de los 16 países de América donde Gano Excel tiene operación. Ese país lo confirma ella; no se deduce de dónde vive.
+• El producto se envía a una dirección dentro de ese país, que no tiene que ser la suya: puede ser la de un familiar de confianza. Y las comisiones se pagan a una cuenta bancaria de ese mismo país.
+• Desde donde vive, maneja todo a distancia: comparte su enlace con quien quiera, y yo atiendo a quien llega.
+• Los precios y los paquetes van en la moneda del país de registro, con las cifras del material.
+</persona_en_el_exterior>` : '';
+
 const sessionInstructions = `
-${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}${_instruccionHiloDoceNiveles}
+${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}${_instruccionHiloDoceNiveles}${_instruccionDiaspora}
 ${visitorCountry ? `🌎 UBICACIÓN DEL VISITANTE (estimada por IP/teléfono, best-effort): ${COUNTRY_NAMES[visitorCountry] || visitorCountry}. Aplica la regla de cotización en su moneda local. Si el usuario menciona que vive o se registrará en otro país (caso diáspora), ESE país define su moneda y sus reglas de registro — confírmalo, no asumas por la ubicación detectada.` : ''}
 ${marchaInteres ? `🌉 PUENTE SUAVE (Marcha 2 — interés sin decisión): el usuario mostró interés en un paquete o preguntó por el proceso, pero NO declaró que quiere iniciar. (1) Responde con SUSTANCIA lo que preguntó —contenido del paquete, cómo se gana con él, los pasos— usando el contexto del arsenal. (2) CIERRA con un puente suave, sin pedir datos ni asumir compra: "Cuando quiera dar el paso, coordinamos su activación. Si prefiere, seguimos viendo lo que necesite." PROHIBIDO pedir nombre o WhatsApp en este turno. PROHIBIDO decir "lo registramos". Espera una señal clara de intención antes de avanzar al registro.` : ''}
 ${getPageContextInstructions()}
@@ -6971,7 +7167,11 @@ conectarlo con el socio que lo invitó. Cualquiera de las tres salidas es correc
 
     // 🧠 MEMORIA A LARGO PLAZO: Usar solo mensajes de sesión actual
     // El historial se inyecta como RESUMEN en el System Prompt (no como mensajes)
-    const recentMessages = messages.length > 6 ? messages.slice(-6) : messages;
+    // Con la bitácora delante, el canal ve cinco intercambios completos en vez
+    // de tres: la bitácora cuenta TODO en corto, y los últimos turnos van
+    // enteros porque es de ahí de donde se responde (24 sep 2026).
+    const _ventana = _bitacora ? 10 : 6;
+    const recentMessages = messages.length > _ventana ? messages.slice(-_ventana) : messages;
     console.log(`⚡ Mensajes de sesión actual: ${recentMessages.length} (últimos 3 intercambios)`);
 
     // ⚡ FASE 2 — HAIKU ROUTER: Usar clasificación anticipada (ya calculada antes del vector search)
@@ -7062,6 +7262,9 @@ ESTADO: ${getMessageContext()}`;
     // Lo que corre cuando el modelo terminó: extracción semántica, log de la
     // conversación y el warm handoff. En WhatsApp y los demás tenants va en el
     // `onFinal` del stream; en la web se llama a mano, después de validar.
+    // Lo que el supervisor y la red de ofertas hicieron con este turno; se
+    // guarda en la fila junto con el texto (ver el bloque del canal, abajo).
+    let _extraLog: Record<string, unknown> | undefined;
     const alTerminar = async (completion: string) => {
         const totalTime = Date.now() - startTime;
         console.log(`✅ NEXUS híbrido completado en ${totalTime}ms - Método: ${searchMethod}`);
@@ -7115,7 +7318,8 @@ ESTADO: ${getMessageContext()}`;
           searchMethod,
           sessionId,
           fingerprint,
-          finalData  // ✅ Incluir datos semánticos en el log
+          finalData,  // ✅ Incluir datos semánticos en el log
+          _extraLog,
         );
 
         // ── WARM HANDOFF EMAIL (re-activado 19 jun 2026) ──────────────────────
@@ -7150,7 +7354,11 @@ ESTADO: ${getMessageContext()}`;
     // DESCARTA y se reemplaza — nunca se corrige ni se reintenta. El costo es
     // que la web deja de ver el texto letra a letra: llega entero, como en
     // WhatsApp. Lo que se guarda en la base es lo que la persona leyó.
-    if (canalWeb) {
+    // ── EL CANAL LEE LA RESPUESTA COMPLETA ANTES DE EMITIRLA ─────────────────
+    // La web desde el 4 sep 2026 (guardarraíles); WhatsApp desde el 24 sep, por
+    // el supervisor. En WhatsApp no cambia nada para la persona: el webhook ya
+    // esperaba el texto entero antes de mandarlo.
+    if (canalDictado) {
       const _lector = AnthropicStream(response as any).getReader();
       const _dec = new TextDecoder();
       let _borrador = '';
@@ -7160,6 +7368,91 @@ ESTADO: ${getMessageContext()}`;
         _borrador += _dec.decode(value, { stream: true });
       }
       _borrador = _borrador.trim();
+
+      // ── El supervisor (24 sep 2026) ─────────────────────────────────────
+      // Una segunda mirada antes de enviar —el patrón de Sierra y de Intercom—:
+      // Haiku lee la bitácora, el material y el borrador, y marca solo tres
+      // problemas claros: repetir lo ya mostrado, inventar un dato, o no
+      // responder lo que la persona dijo. Si marca, el motor redacta de nuevo
+      // UNA vez con esa nota. Nunca frena el turno: si tarda o falla, sale el
+      // borrador. Ver `queswa-supervisor.ts`.
+      let _veredicto: VeredictoSupervisor | null = null;
+      let _reescrito = false;
+      // Nunca en un turno de salud (24 sep 2026): en el ensayo, a «¿cuál producto
+      // sirve para la salud digestiva?» el revisor pidió «responder qué productos
+      // apoyan la digestión» — o sea, empujó hacia la declaración que el canal
+      // tiene prohibida. Ahí manda el guardarraíl de salud, no el revisor.
+      const _turnoDeSalud = _saludCompuesta || !!clasificarPreguntaSalud(String(latestUserMessage ?? ''));
+      if (SUPERVISOR_ANTES_DE_ENVIAR && _bitacora && !_turnoDeSalud && !isSimpleQuery && _borrador) {
+        _veredicto = await revisarBorrador({
+          anthropic,
+          bitacora: _bitacora.texto,
+          material: `${arsenalParaCierre}\n\n${sessionInstructions}`,
+          mensajePersona: String(latestUserMessage ?? ''),
+          borrador: _borrador,
+        });
+        console.log(`🧐 [Supervisor] ${_veredicto.ok ? 'aprobado' : `${_veredicto.problema}: ${_veredicto.detalle}`} (${_veredicto.ms}ms)${_veredicto.error ? ` · ${_veredicto.error}` : ''}`);
+        // ⚠️ Solo se REDACTA DE NUEVO ante un dato inventado (24 sep 2026). En el
+        // ensayo, las reescrituras por «repite» o «ignora» salieron peores que el
+        // borrador —metieron «Buena pregunta», el marco del consumo diario y hasta
+        // «reposición garantizada»—, y una de sus razones empujaba a declarar un
+        // beneficio de salud. Las que corrigieron algo fueron las de datos
+        // inventados (el caso de Inglaterra). Las otras dos quedan anotadas en la
+        // fila para la revisión diaria, sin tocar lo que sale.
+        if (!_veredicto.ok && _veredicto.problema === 'INVENTA' && Date.now() - startTime < 30_000) {
+          try {
+            const _r = await anthropic.messages.create({
+              model: 'claude-sonnet-4-6',
+              system: [
+                { type: 'text' as const, text: baseSystemPrompt, cache_control: { type: 'ephemeral' as const } },
+                { type: 'text' as const, text: arsenalParaCierre, cache_control: { type: 'ephemeral' as const } },
+                { type: 'text' as const, text: sessionInstructions + notaDeRevision(_veredicto) },
+              ],
+              max_tokens: maxTokens,
+              temperature: 0.5,
+              messages: recentMessages,
+            }, { timeout: 20_000, maxRetries: 0 });
+            const _nuevo = _r.content.map((b: any) => (b.type === 'text' ? b.text : '')).join('').trim();
+            if (_nuevo) {
+              console.log(`✍️ [Supervisor] Redactado de nuevo. Antes: "${_borrador.slice(0, 160)}…"`);
+              _borrador = _nuevo;
+              _reescrito = true;
+            }
+          } catch (e) {
+            console.warn('⚠️ [Supervisor] La nueva redacción falló — sale el borrador:', e);
+          }
+        }
+      }
+
+      // ── La pregunta de cierre que ofrece lo que la persona ya vio ─────────
+      // La red debajo del criterio del modelo: con la bitácora delante casi
+      // nunca pasa, y si pasa, la persona no lo recibe otra vez.
+      let _ofertaCambiada: string | null = null;
+      if (_bitacora) {
+        const _r = renovarOfertaVista(_borrador, _bitacora);
+        if (_r.cambio) {
+          console.log(`🔁 [Oferta vista] ${_r.cambio}`);
+          _borrador = _r.texto;
+          _ofertaCambiada = _r.cambio;
+        }
+      }
+      _extraLog = _veredicto || _ofertaCambiada
+        ? {
+            ...(_veredicto ? { supervisor: { ok: _veredicto.ok, problema: _veredicto.problema ?? null, detalle: _veredicto.detalle ?? null, ms: _veredicto.ms, reescrito: _reescrito, error: _veredicto.error ?? null } } : {}),
+            ...(_ofertaCambiada ? { oferta_cambiada: _ofertaCambiada } : {}),
+          }
+        : undefined;
+
+      if (!canalWeb) {
+        const streamCanal = new ReadableStream({
+          async start(controller) {
+            controller.enqueue(new TextEncoder().encode(_borrador));
+            try { await alTerminar(_borrador); } catch (e) { console.error('❌ [NEXUS·canal] alTerminar:', e); }
+            controller.close();
+          },
+        });
+        return new StreamingTextResponse(streamCanal, { headers: getCorsHeaders(origin) });
+      }
 
       const _historialSalida = (messages as any[])
         .filter((m) => m?.role === 'user' || m?.role === 'assistant')

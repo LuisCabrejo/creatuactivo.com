@@ -82,7 +82,10 @@ export const RE_SALUD_COMUN: RegExp[] = [
   /diabet|glucosa|insulina|glucemia|a[sz]ucar (alta|alto|elevad|descompensad|descontrolad)|para (el|la) a[sz]ucar|a[sz]ucar en la sangre/,
   /artr?itis|artitis|artrosis|reuma|osteoporosis|fibromialgia|dolor (articular|muscular)/,
   /dolor de (cabeza|espalda|rodilla|estomago|huesos|articulacion|coyuntura|cintura|cuello)|coyunturas\b|me duele(n)? (la |el |las |los |todo|mucho)/,
-  /gastritis|colitis|ulcera|reflujo|estrenimiento|hemorroides|colon irritable/,
+  // «¿Cuál producto sirve para la salud digestiva?» (prueba del Director, 24 sep
+  // 2026) no se reconocía: el sistema nombrado, sin enfermedad. Es la misma
+  // declaración de órgano que ya ataja «bueno para el colon».
+  /gastritis|colitis|ulcera|reflujo|estrenimiento|hemorroides|colon irritable|digesti(on|vo|va)|salud digestiva|sistema digestivo|\bintestin/,
   /migrana|jaqueca|sinusitis|bronquitis|\bgripa\b|\btos\b|\basma\b|alergi/,
   /colesterol|triglicerid|hipertension|(presion|tension) (alta|baja|arterial)/,
   /tiroides|higado graso|prostata|menopausia|\brinon(es)?\b|calculos renales|anemia/,

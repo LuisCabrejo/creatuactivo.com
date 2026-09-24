@@ -133,6 +133,10 @@ const PROMESAS = [
   'Es un ingreso pasivo.',
   'Usted gana dinero mientras duerme.',
   'El canal crece solo, sin que usted haga nada.',
+  // La promesa aprobada tiene un límite (24 sep 2026): «sin que usted tenga que
+  // estar encima» pasa; «sin que usted haga nada» no.
+  'El negocio crece sin que usted haga nada.',
+  'Su sistema trabaja sin que usted mueva un dedo.',
   // Comisión contada en personas
   'Por cada persona que entre a su canal usted recibe $112.500 COP.',
   'Cada vez que un socio se vincula, gana $75 USD.',
@@ -143,6 +147,12 @@ const PROMESAS = [
 
 // ─── Lo que NO puede bloquearse ───────────────────────────────────────────────
 const LEGITIMAS = [
+  // ── La promesa aprobada (24 sep 2026) ──────────────────────────────────────
+  // Un negocio que no depende de su presencia. El patrón de ingreso pasivo la
+  // bloqueaba en el candado de ADV_OBJ_02, respuesta aprobada del empresario.
+  'Usted multiplica su sistema de distribución por todo el continente, y el negocio crece sin que usted tenga que estar encima.',
+  'Y el sistema sigue corriendo sin que usted tenga que estar encima.',
+  'Un negocio que crece sin que usted esté encima.',
   // ── El falso positivo del 1 sep 2026: el disclaimer de NIVELES_02 ─────────
   // «No son resultados garantizados» es la línea de CUMPLIMIENTO del fragmento,
   // y el patrón de garantías la bloqueaba por no ver la negación. El primer día

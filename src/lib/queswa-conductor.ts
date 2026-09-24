@@ -51,8 +51,9 @@ import { pideEnlaceCatalogo, mensajeEnlaceCatalogo } from '@/lib/wa-onboarding';
 import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
   esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
-  esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
+  esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto,
 } from '@/lib/wa-productos';
+import { yaLoRecibio, residenciaDeclarada, lugarExterior } from '@/lib/queswa-bitacora';
 
 export type PaisConductor = 'CO' | 'US' | 'XX';
 export type CanalConductor = 'whatsapp' | 'web';
@@ -396,7 +397,8 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
     const vacio: DatosRadicacion = { nombre: null, cedula: null, ciudad: null, paquete: null, whatsapp: null };
     return {
       nodo: '2.36 vinculación → datos de la radicación',
-      texto: pedirDatos(vacio, ctx.socioNombre, ctx.hiloDoceNiveles, ctx.clavesRadicacion ?? CLAVES_CANAL),
+      texto: pedirDatos(vacio, ctx.socioNombre, ctx.hiloDoceNiveles, ctx.clavesRadicacion ?? CLAVES_CANAL,
+        !!residenciaDeclarada([...historial.filter((m) => m.role === 'user').map((m) => m.content), mensaje])),
     };
   }
 
@@ -511,8 +513,25 @@ export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | 
   // 2.25a — la línea va ANTES que el producto: «las cápsulas» en plural es la
   // línea; «las cápsulas de ganoderma» es el producto.
   const familiaAceptada = familiaOfrecida(ultimoBot);
-  const familia = (familiaAceptada && esAceptacionCorta(mensaje)) ? familiaAceptada
-    : (preguntoCualLinea(ultimoBot) && detectarFamilia(mensaje)) ? detectarFamilia(mensaje)
+  // La oferta de una línea también se acepta con otras palabras (24 sep 2026):
+  // a «¿Le muestro las bebidas de la línea?» el Director respondió «Dame una
+  // imagen de la línea» y recibió las Cápsulas de Ganoderma, sacadas de una
+  // respuesta anterior. Si pide imagen sin nombrar producto ni otra línea, lo
+  // que pide es la línea que se le acaba de ofrecer.
+  const aceptaConOtrasPalabras = !!familiaAceptada && pideImagen(mensaje)
+    && !detectarProducto(mensaje) && (!detectarFamilia(mensaje) || detectarFamilia(mensaje) === familiaAceptada);
+  // Tras el portafolio («¿Cuál línea le muestro de cerca?») se elige UNA línea;
+  // el portafolio ya lo tiene. «Me interesa iniciar, ¿cómo lo hago, para que los
+  // productos lleguen aquí?» se leía como elegir el portafolio y lo recibió dos
+  // veces seguidas (24 sep 2026).
+  const lineaElegida = preguntoCualLinea(ultimoBot) ? detectarFamilia(mensaje) : null;
+  // «Dame una imagen de la línea» sin oferta de por medio: la línea es la de la
+  // conversación, la que nombraba el último turno del bot.
+  const lineaDelHilo = !familiaAceptada && pideImagen(mensaje) && /\b(la|esa|esta|de\s+la)\s+l[ií]nea\b/i.test(mensaje)
+    && !detectarProducto(mensaje) && !detectarFamilia(mensaje) ? familiaDelTexto(ultimoBot) : null;
+  const familia = (familiaAceptada && (esAceptacionCorta(mensaje) || aceptaConOtrasPalabras)) ? familiaAceptada
+    : (lineaElegida && lineaElegida !== 'portafolio') ? lineaElegida
+    : lineaDelHilo ? lineaDelHilo
     : (pideImagen(mensaje) && !detectarProducto(mensaje)) ? detectarFamilia(mensaje)
     : null;
   if (familia) {
@@ -663,6 +682,14 @@ export interface ContextoSocio {
   /** Ya hay un pedido cargado en el hilo (solo WhatsApp lo lleva). */
   hayPedido: boolean;
   socioQueEscribe?: boolean;
+  /**
+   * El turno anterior fue un pedido de datos de la radicación. Lo que la
+   * persona conteste es para el trámite, aunque diga «envío» o «dirección»:
+   * el 24 sep 2026 el Director respondió «35261707, para envio a Villavicencio»
+   * a «¿Cuál es su número de identificación?», el nodo de envíos se quedó con
+   * el turno por la palabra «envio», y la cédula nunca se registró.
+   */
+  radicacionAbierta?: boolean;
 }
 
 /**
@@ -692,9 +719,20 @@ export async function atenderSocio(ctx: ContextoSocio): Promise<RespuestaConduct
     return { nodo: '2.46 pide una persona (socio y equipo avisados)', texto: respuestaPersona(socio) };
   }
 
+  // Con la radicación abierta, lo que la persona escribe son sus datos: el
+  // envío y las sedes esperan (ver `radicacionAbierta`).
+  if (ctx.radicacionAbierta) return null;
+
   // 2.47 — El envío lo coordina con el socio, por su nombre.
-  if (detectarPreguntaEnvio(mensaje) && !detectarPreguntaOficina(mensaje)) {
-    return { nodo: '2.47 envío', texto: respuestaEnvio(socio) };
+  // ⚠️ Salvo que la persona esté FUERA del país (24 sep 2026): a «¿me llegaría el
+  // producto a Inglaterra?» este nodo respondió «Servientrega, llega de un día
+  // para otro». Quien vive fuera recibe el producto en una dirección del país
+  // por el que se registra; eso lo responde el motor con DIASPORA_03 y la
+  // bitácora, que saben dónde vive.
+  const _escritosPersona = [...historial.filter((m) => m.role === 'user').map((m) => m.content), mensaje];
+  const _fuera = !!lugarExterior(mensaje) || !!residenciaDeclarada(_escritosPersona);
+  if (detectarPreguntaEnvio(mensaje) && !detectarPreguntaOficina(mensaje) && !_fuera) {
+    return { nodo: '2.47 envío', texto: respuestaEnvio(socio, ctx.hayPedido) };
   }
 
   // 2.48 — Las direcciones son información de socio (Director, 27 ago 2026):
@@ -764,15 +802,26 @@ export function candadoYaDicho(ultimoBot: string, cuerpo: string): boolean {
  */
 const RE_PIDE_OTRA_VEZ = /otra vez|de nuevo|nuevamente|rep[ií]t|me lo repite|vuelv[ae] a (mostrar|explicar|decir|mandar|enviar)|lo anterior|lo de (antes|arriba)/i;
 
-export function sinLoYaServido<T extends { category: string }>(
+export function sinLoYaServido<T extends { category: string; content?: string }>(
   candidatos: T[],
   yaServidos: readonly string[],
   mensajeCrudo = '',
+  textosPrevios: readonly string[] = [],
 ): T[] {
-  if (!candidatos.length || !yaServidos.length) return candidatos;
+  if (!candidatos.length || (!yaServidos.length && !textosPrevios.length)) return candidatos;
   if (RE_PIDE_OTRA_VEZ.test(mensajeCrudo)) return candidatos;
   const servidos = new Set(yaServidos);
-  const quedan = candidatos.filter((c) => !servidos.has(c.category));
+  // ⚠️ Y por TEXTO, además de por categoría (24 sep 2026): lo que dicta el
+  // webhook —el «Cómo funciona» del botón de la apertura, por ejemplo— no deja
+  // la categoría en `documents_used`, así que la exclusión no lo veía. El
+  // Director dijo «Ya me hablaste de los productos» y recibió, palabra por
+  // palabra, el texto del turno 2. Un candidato con candado cuyo arranque ya
+  // está en lo que la persona recibió, cuenta como servido.
+  const yaRecibido = (c: T) => {
+    const lock = c.content?.match(/<verbatim_lock>([\s\S]*?)<\/verbatim_lock>/i)?.[1];
+    return !!lock && yaLoRecibio(textosPrevios, lock);
+  };
+  const quedan = candidatos.filter((c) => !servidos.has(c.category) && !yaRecibido(c));
   return quedan.length ? quedan : candidatos;
 }
 

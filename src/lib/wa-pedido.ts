@@ -310,9 +310,13 @@ export function detectarPreguntaEnvio(texto: string): boolean {
   return RE_PREGUNTA_ENVIO.test(texto);
 }
 
-export function respuestaEnvio(socio: SocioPedido | null): string {
+export function respuestaEnvio(socio: SocioPedido | null, hayPedido = true): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  return `Eso lo acuerda directamente con ${quien} cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro.\n\n¿Le sumo algo más al pedido mientras tanto?`;
+  const cuerpo = `Eso lo acuerda directamente con ${quien} cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro.`;
+  // La pregunta de sumar al pedido, solo si HAY pedido (24 sep 2026): el
+  // Director preguntó por el envío sin haber pedido nada y le llegó «¿Le sumo
+  // algo más al pedido mientras tanto?».
+  return hayPedido ? `${cuerpo}\n\n¿Le sumo algo más al pedido mientras tanto?` : cuerpo;
 }
 
 // ─── Las oficinas, para el prospecto ─────────────────────────────────────────

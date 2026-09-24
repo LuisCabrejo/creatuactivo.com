@@ -17,6 +17,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { waitUntil } from '@vercel/functions';
+import { construirBitacora, renovarOfertaVista } from '@/lib/queswa-bitacora';
 import {
   sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage,
   marcarLeidoYEscribiendo,
@@ -395,6 +396,9 @@ async function procesarEntrante(body: any): Promise<void> {
     const wamid = message.id as string | undefined;
     const t0 = Date.now();
     _turnoEmpezoEn = t0;
+    // La bitácora es de módulo: sin esto, un envío anterior a su carga usaría la
+    // del turno previo de esta instancia — la de otra persona.
+    _bitacoraDelTurno = null;
     if (wamid) await marcarLeidoYEscribiendo(wamid);
 
     // ─── Entrada: texto o nota de voz ─────────────────────────────────────────
@@ -1295,6 +1299,26 @@ async function procesarEntrante(body: any): Promise<void> {
       console.warn(`⚠️ [WA Webhook] Enlace del botón no se pudo enviar: ${enviado.error} — sigue al motor`);
     }
 
+    // La conversación se carga ANTES del botón dictado: su texto también pasa por
+    // la red de ofertas, y para eso necesita la bitácora (24 sep 2026).
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: prevTurns } = await (supabase as any)
+      .from('nexus_conversations')
+      .select('messages, created_at, metadata')
+      .eq('fingerprint_id', waFingerprint)
+      .order('created_at', { ascending: false })
+      .limit(40);
+
+    // Cuarenta filas para la bitácora; el historial que viaja al motor y a los
+    // nodos sigue siendo el de las últimas doce, como siempre.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const _filasCrono = ((prevTurns || []) as any[]).slice().reverse()
+      .filter((t) => !(socioQueEscribe && socioDesde && t.created_at && t.created_at < socioDesde));
+    // La bitácora del canal (24 sep 2026): con ella, los textos que dicta el
+    // webhook tampoco cierran ofreciendo lo que la persona ya vio. Ver
+    // `sendWhatsAppMessage`. Al socio no: su conversación es otra.
+    _bitacoraDelTurno = socioQueEscribe ? null : construirBitacora(_filasCrono, existingProspect?.device_info ?? null);
+
     const dictada = opcionElegida ? getRespuestaBoton(opcionElegida) : null;
     if (dictada) {
       await sendWhatsAppMessage(phoneNumber, dictada);
@@ -1322,13 +1346,6 @@ async function procesarEntrante(body: any): Promise<void> {
     // el mensaje actual → cree que SIEMPRE es el primer turno (re-saluda en cada
     // respuesta) y Queswa pierde la memoria de la conversación. Cargamos los
     // últimos turnos y los aplanamos en orden cronológico.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: prevTurns } = await (supabase as any)
-      .from('nexus_conversations')
-      .select('messages, created_at, metadata')
-      .eq('fingerprint_id', waFingerprint)
-      .order('created_at', { ascending: false })
-      .limit(12);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const historial: { role: string; content: string }[] = [];
@@ -1336,10 +1353,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // esos reabren el trámite: un texto parecido escrito por el modelo no cuenta.
     const pedidosDelBackend: string[] = [];
     let turnosSaneados = 0;
-    for (const t of ((prevTurns || []) as any[]).reverse()) {
+    for (const t of _filasCrono.slice(-12)) {
       if (!Array.isArray(t.messages)) continue;
-      // El socio no arrastra su historial de prospecto (ver `socioDesde`).
-      if (socioQueEscribe && socioDesde && t.created_at && t.created_at < socioDesde) continue;
+      // El socio no arrastra su historial de prospecto (ver `socioDesde`): ya
+      // viene filtrado en `_filasCrono`.
       if (t.metadata?.nodo === 'radicacion') {
         for (const m of t.messages) if (m?.role === 'assistant' && typeof m.content === 'string') pedidosDelBackend.push(m.content);
       }
@@ -1933,6 +1950,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // Viven en el conductor desde el 5 sep 2026 (iguales en la web). El aviso al
     // socio y al equipo lo dispara el conductor; aquí solo se entrega el texto.
     {
+      // El turno anterior fue un pedido de datos de la radicación: lo que la
+      // persona escriba es para el trámite (ver `radicacionAbierta`).
+      const _ultimoBotSocio = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
       const nodoSocio = await atenderSocio({
         mensaje:         messageText,
         historial,
@@ -1941,6 +1961,7 @@ async function procesarEntrante(body: any): Promise<void> {
         contacto:        phoneNumber,
         hayPedido:       _hayPedido,
         socioQueEscribe: !!socioQueEscribe,
+        radicacionAbierta: !!_ultimoBotSocio && pedidosDelBackend.includes(_ultimoBotSocio),
       });
       if (nodoSocio?.texto) {
         await sendWhatsAppMessage(phoneNumber, nodoSocio.texto, { wamid });
@@ -2512,9 +2533,14 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // tarjeta se le adelantaba a la de distribuidores consumiendo.
       const _esDoceNiveles = /12 Niveles/i.test(queswaReply)
         && /103[.,]?194[.,]?000|103 millones/i.test(queswaReply);
+      // ⚠️ Y no cuando la respuesta LISTA los paquetes (24 sep 2026): desde que el
+      // pin de paquetes lleva el precio del Kit, «¿qué paquetes hay?» nombra el
+      // Kit con su cifra, y la tarjeta llegaba pegada a «¿con cuál se siente
+      // cómodo?» — dos ofertas en un turno.
+      const _listaPaquetes = /ESP-1[\s\S]{0,400}ESP-2[\s\S]{0,400}ESP-3/i.test(queswaReply);
       const _ofreceKit = !_esDoceNiveles
         && (/escenario en el simulador con la tarifa del Kit/i.test(queswaReply)
-          || (/Kit de Inicio/i.test(queswaReply) && /443[.,]?600/.test(queswaReply)));
+          || (/Kit de Inicio/i.test(queswaReply) && /443[.,]?600/.test(queswaReply) && !_listaPaquetes));
       if (flowSimulador && _ofreceKit) {
         const enviado = await sendFlow(
           phoneNumber,
@@ -2562,7 +2588,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // herramienta que no viene al caso rompe el hilo justo cuando la persona
       // estaba mirando lo que se lleva.
       const _esComposicion = /\|\s*Producto\s*\||lo que trae|le activa inmediatamente este inventario|productos para arrancar/i.test(queswaReply);
-      const _explicaGen5 = !_esComposicion && /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+      // Una LISTA de los tres paquetes tampoco explica cifras (24 sep 2026): nombra
+      // el Binario o el GEN5 con su precio al lado y la tarjeta llegaba pegada a
+      // «¿con cuál se siente cómodo?» — dos ofertas en un turno.
+      const _explicaGen5 = !_esComposicion && !_listaPaquetes && /ge?n[\s.-]?5/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
 
       // La tabla de Los 12 Niveles → el simulador abre en SU pantalla, con el
       // consumo como eje. Sin este caso, la tabla —que menciona «ingreso
@@ -2579,7 +2608,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         else console.warn(`⚠️ [WA Webhook] Flow de niveles no se pudo enviar: ${enviado.error}`);
       }
 
-      const _explicaBinario = !_esComposicion && !_esDoceNiveles && /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
+      const _explicaBinario = !_esComposicion && !_esDoceNiveles && !_listaPaquetes && /b[ia]+n[a-z]?r[a-z]?i?o|ingreso recurrente/i.test(queswaReply) && /\$\s?\d/.test(queswaReply);
       if (flowSimulador && _explicaBinario && !_explicaGen5 && !dictoEjemplo && !_ofreceNumeros && !_ofreceKit) {
         const enviado = await sendFlow(
           phoneNumber,
@@ -2651,6 +2680,12 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
 let _turnoEmpezoEn = 0;
 
 /**
+ * La bitácora del turno en curso, para la red de ofertas de `sendWhatsAppMessage`.
+ * De módulo por la misma razón que `_turnoEmpezoEn`: dieciocho puntos de envío.
+ */
+let _bitacoraDelTurno: ReturnType<typeof construirBitacora> | null = null;
+
+/**
  * "Escribiendo…" tiene que alcanzar a verse.
  *
  * Los turnos que dicta el backend —la apertura, el ejemplo de cifras, la foto,
@@ -2663,8 +2698,18 @@ let _turnoEmpezoEn = 0;
  * líneas en un instante, y una respuesta instantánea a una pregunta de fondo se
  * lee como una máquina contestando, no como alguien que le está respondiendo.
  */
-async function pisoDeEscritura(): Promise<void> {
-  const PISO_MS = 1000;
+async function pisoDeEscritura(largo = 0): Promise<void> {
+  // ⚠️ Un segundo no alcanzaba (Director, 24 sep 2026): los turnos dictados
+  // salían en dos o tres segundos contados desde que llega el mensaje, y
+  // «escribiendo…» apenas asomaba —él lo vio en uno de cada tres turnos, justo
+  // los que tardaron ocho segundos o más—. El resto le llegaba «en una sola
+  // instantánea». Ahora el piso crece con lo que se va a mandar: 2,5 s para una
+  // línea, hasta 4 s para un párrafo largo. Los turnos del modelo ya tardan más
+  // que eso, así que a ellos no les suma nada.
+  // La API tiene un solo tipo de indicador, y Meta lo acepta en cada turno
+  // (`success: true`); en el teléfono del Director se ve como «escribiendo…»
+  // arriba, y los puntos dentro del chat no aparecen (24 sep 2026).
+  const PISO_MS = Math.min(4000, 2500 + Math.round(largo * 2));
   if (!_turnoEmpezoEn) return;
   const falta = PISO_MS - (Date.now() - _turnoEmpezoEn);
   if (falta > 0) await new Promise((r) => setTimeout(r, falta));
@@ -2675,7 +2720,18 @@ async function sendWhatsAppMessage(
   text: string,
   opciones: { wamid?: string; citar?: boolean; borradorAparte?: boolean } = {},
 ): Promise<void> {
-  await pisoDeEscritura();
+  // ── La pregunta final no ofrece lo que la persona ya vio (24 sep 2026) ──
+  // Los textos que dicta el webhook traen su pregunta fija: el botón «Qué debo
+  // hacer yo» cerró ofreciendo los productos al Director, que acababa de
+  // verlos. La misma red que usa el motor, con la bitácora del canal.
+  if (_bitacoraDelTurno && !opciones.borradorAparte) {
+    const r = renovarOfertaVista(text, _bitacoraDelTurno);
+    if (r.cambio) {
+      console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
+      text = r.texto;
+    }
+  }
+  await pisoDeEscritura(text.length);
   // `borradorAparte` (modo socio): si la respuesta trae un bloque entre líneas
   // de guiones, ese bloque es el mensaje que el socio va a copiar y sale en
   // burbuja propia, sin partirse. Sin el bloque, camino de siempre.

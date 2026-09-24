@@ -65,6 +65,24 @@ function credentials() {
   return { phoneNumberId, systemToken, wabaId };
 }
 
+// ─── Modo ensayo ──────────────────────────────────────────────────────────────
+
+/**
+ * Con `WA_DRY_RUN=1` nada sale hacia Meta: cada envío se anota en el log con la
+ * marca `[WA_DRY_RUN]` y devuelve éxito (24 sep 2026). Existe para repetir una
+ * conversación real de punta a punta —webhook, conductor y motor— en un
+ * servidor local, sin escribirle a nadie. Lo usa
+ * `scripts/repetir-por-webhook.mts`. En producción la variable no existe.
+ */
+function enEnsayo(): boolean {
+  return process.env.WA_DRY_RUN === '1';
+}
+
+function ensayo(tipo: string, datos: Record<string, unknown>): WAResult {
+  console.log(`[WA_DRY_RUN] ${JSON.stringify({ tipo, ...datos, en: new Date().toISOString() })}`);
+  return { ok: true, messageId: `wamid.ensayo.${Date.now()}.${Math.random().toString(36).slice(2, 8)}` };
+}
+
 /**
  * Meta exige formato internacional sin "+" ni separadores (ej: 573001234567).
  * Acepta lo que escriba un humano en la consola y lo normaliza.
@@ -132,6 +150,7 @@ export async function sendText(
   text: string,
   opciones: { responderA?: string } = {},
 ): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('texto', { to, text, responderA: opciones.responderA ?? null });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -192,6 +211,7 @@ export async function sendImage(
   link: string,
   caption?: string,
 ): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('imagen', { to, link, caption: caption ?? null });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -255,6 +275,7 @@ export async function sendImage(
  * respuesta.
  */
 export async function marcarLeidoYEscribiendo(messageId: string): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('escribiendo', { messageId });
   const creds = credentials();
   if ('error' in creds) return { ok: false, error: creds.error };
   if (!messageId) return { ok: false, error: '[WA] Falta el message_id del entrante' };
@@ -343,6 +364,7 @@ export async function sendReplyButtons(
   bodyText: string,
   buttons: WAButton[],
 ): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('botones', { to, bodyText, buttons });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -411,6 +433,7 @@ export async function sendFlow(
   ctaLabel: string,
   opciones: { headerText?: string; screen?: string } = {},
 ): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('flow', { to, flowId, bodyText, ctaLabel, screen: opciones.screen ?? null });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -475,6 +498,7 @@ export async function sendInteractiveList(
   rows: WAListRow[],
   sectionTitle = 'Temas',
 ): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('lista', { to, bodyText, buttonLabel, rows });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -546,6 +570,7 @@ export async function sendTemplate(
   parameters: string[] = [],
   buttonUrlParam?: string,
 ): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('plantilla', { to, templateName, parameters, buttonUrlParam: buttonUrlParam ?? null });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);

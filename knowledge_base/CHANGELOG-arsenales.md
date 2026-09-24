@@ -381,6 +381,14 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.22 — `NIVELES_06` dice el precio del Kit (24 sep 2026)
+
+`NIVELES_06` («¿Por qué es tan accesible el Kit?») cerraba remitiendo el precio al sistema en vez de decirlo. En la prueba del Director del 24 sep, al preguntar «¿Qué paquetes hay?», Queswa listó los tres paquetes con su precio y dejó el Kit sin cifra, con esa misma fórmula, aunque el precio se conoce ($443.600 COP · $98 USD). La frase pasa a *«Eso es todo lo que trae, por [PRECIO_KIT]»*: el pin `getPinKitInicio` llena el marcador en la moneda del país, el mismo mecanismo que ya usa `NIVELES_01`. Propuesto y aprobado en el chat el mismo día.
+
+### v6.21 — `NIVELES_06` nombra lo que trae el Kit (22 sep 2026)
+
+Cuatro cajas de Ganocafé 3 en 1 y el material de inicio, My Gano Plan, y nada más. El dato vivía solo en el system prompt y el modelo había compuesto un Kit de siete productos con precio redondeado.
+
 ### v6.20 — Auditoría con el Director: «activo» con su causa, sin léxico del gremio (13 sep 2026)
 
 Auditoría de las dieciséis respuestas con los lentes del día: la regla del *activo* (12 sep), el léxico vigente y la carga cognitiva. Las del hilo principal reescritas en septiembre (`NIVELES_01`, `02`, `04`, `08`, `09`, `INV_00`) pasaron limpias; las demás conservaban el registro anterior. Cifras del plan intactas; verificado que `NIVELES_08` y `NIVELES_02` cuadran (458.640 CV = 2 × 229.320).
@@ -479,6 +487,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.47 — `PERFIL_02` va con candado (24 sep 2026)
+
+En la prueba del Director del 24 sep, a *«yo soy independiente y me va bien, ¿por qué debería hacer este negocio?»* la puerta llevó a `PERFIL_02`, pero el fragmento no tenía candado y el modelo lo reescribió: se perdieron *«Esa es la tecnología: creatuactivo.com y queswa.app, ya armados»* y el remate de escalar, las dos líneas que el Director había pedido, y entró *«Buena pregunta, y tiene toda la razón en hacerla»*. Ahora el cuerpo va con candado y la puerta dicta; la apertura y la pregunta de cierre las escribe el modelo con la bitácora delante, para que conecte con lo que la persona dijo y no ofrezca lo que ya vio. Texto e índice sin tocar.
+
 ### v6.46 — `WHY_PROD_01` responde la pregunta en la primera línea (23 sep 2026)
 
 Auditoría del pitch deck. Quien preguntaba cuáles son los productos recibía primero una distinción que no había pedido —el café no es el producto, lo es el Ganoderma— y las categorías llegaban de corrido en el segundo párrafo. Director: *«la respuesta no es consecuente a la pregunta… el primer párrafo prácticamente sobra»*.
@@ -494,6 +506,10 @@ Ahora abre con la **postura** —*«Vamos al punto, porque ningún modelo funcio
 Los cuatro guardarraíles en verde y el **índice sin tocar**, así que la recuperación no se mueve: *«qué es lo que venden»* sigue ganándolo en 0.582.
 
 ⚠️ Nota sobre el chip: *«¿Cuáles son los productos y para qué sirven?»* lo gana `PROD_OVERVIEW` (0.544), no este fragmento, y está bien — ese chip pide la lista con precios. `WHY_PROD_01` responde *qué es lo que se vende*, que es otra pregunta.
+
+### v6.45 — Las dos acciones de `EAM_01` se leen una sobre otra (23 sep 2026)
+
+**Las dos acciones de `EAM_01` se leen una sobre otra.** Llevaban un solo salto de línea entre Compartir y Recibir, y el formato lo colapsaba en un renglón: en el pitch deck salían pegadas (Director, 23 sep). Ahora van con línea en blanco, como viñetas de verdad. Cambiado a la vez en el candado y en `respuestas-maestras.ts`, que son fuente dual con contrato de prefijo. Texto idéntico por lo demás.
 
 ### v6.44 — Nace `PERFIL_02`: el independiente y el freelance tienen respuesta propia (23 sep 2026)
 
@@ -559,6 +575,10 @@ Auditoría de las diecisiete apariciones de *activo* en lo que se sirve del arse
 - **`FREQ_33`:** *«el sistema los mantiene activos por usted»* → *«hace que sigan pidiendo, por usted»*: *activos* dicho de personas es el sentido del gremio, que el prospecto no conoce.
 
 Registrado y no tocado: la apertura de `WHY_03` (*«Precisamente porque ya tiene un buen ingreso»*) sigue siendo la forma de rebatir que el protocolo OBJ prohíbe. Índices sin cambio; recuperación medida antes y después.
+
+### v6.42 — `FREQ_30` lleva su segundo tiempo (22 sep 2026)
+
+**`FREQ_30` lleva su segundo tiempo.** Fuera del candado y solo si la persona insiste: *«Si fuera yo, el Visionario…»*, el texto que hasta hoy vivía verbatim en el system prompt contra la regla del CLAUDE.md (salió en la v5.6). El primer tiempo —el candado— no cambia. Sin más cambios.
 
 ### v6.41 — WHY_04 cierra prometiendo lo que de verdad llega (21 sep 2026)
 
@@ -1844,6 +1864,10 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 ---
 
 ## arsenal_avanzado
+
+### v14.5 — `ADV_OBJ_02` va con candado (24 sep 2026)
+
+Mismo motivo que `PERFIL_02` (arsenal inicial v6.47): el texto del empresario, aprobado el 23 sep, salía parafraseado porque el fragmento no tenía candado. Ahora sale literal por la puerta, con la envoltura del modelo alrededor. Texto e índice sin tocar.
 
 ### v14.4 — `ADV_OBJ_02` cambia de eje: del riesgo de una sola fuente a no poder escalar (23 sep 2026)
 

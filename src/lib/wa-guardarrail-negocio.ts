@@ -122,7 +122,14 @@ export const RE_PROMESA_INGRESO: RegExp[] = [
   // respuesta que le explicaba cómo comprar (27 ago 2026). Si en los 90
   // caracteres anteriores hay un verbo de operación del fabricante, no dispara.
   /(?<!(?:despach|envi|entreg|cobr|empac|factur|recib)\w*[\s\S]{0,90})no tiene que hacer nada/,
-  /(crece|funciona|trabaja)[^.]{0,15}(solo|por si (solo|mismo)|en automatico|sin que usted)/,
+  // ⚠️ «…sin que usted tenga que estar encima» NO es ingreso pasivo: es la
+  // promesa aprobada del proyecto —un negocio que no depende de su presencia—,
+  // y está en el candado de `ADV_OBJ_02` (Director, 23 sep 2026). El patrón la
+  // bloqueaba: el empresario que preguntaba recibía la respuesta correctiva en
+  // vez de la suya, en WhatsApp y en la web. Lo cazó la batería de «cero fuego
+  // amigo» el 24 sep, cuando ese fragmento pasó a llevar candado. «Crece sin
+  // que usted haga nada» sigue bloqueándose.
+  /(crece|funciona|trabaja)[^.]{0,15}(solo|por si (solo|mismo)|en automatico|sin que usted(?! (tenga que )?(estar|este) encima))/,
 
   // ── La comisión contada en PERSONAS ────────────────────────────────────────
   // Es la silueta que el prospecto reconoce como pirámide. El GEN5 se cuenta en

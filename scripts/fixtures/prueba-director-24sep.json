@@ -1,0 +1,550 @@
+{
+ "nota": "Prueba del Director desde su número de negocio, 24 sep 2026, 29 turnos (8:11–8:35 Bogotá). Teléfonos reemplazados. Base de prueba-bitacora.mts y del replay por webhook.",
+ "ficha": {
+  "pareja_nombre": "Liliana",
+  "package": "ESP-3"
+ },
+ "filas": [
+  {
+   "created_at": "2026-09-24T13:11:12.192232+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hola Queswa, vengo del enlace de luis-cabrejo"
+    },
+    {
+     "role": "assistant",
+     "content": "Hola. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo. Atiendo a cientos de personas, las 24 horas.\n\nEn CreaTuActivo creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.\n\nPor eso hicimos sencillo lo que antes era complicado: tener su propio *sistema de distribución*.\n\n• Usted comparte un enlace.\n• Yo converso con quien llega.\n• Usted recibe.\n\nTodo desde el celular. Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:12:14.760477+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Cómo funciona"
+    },
+    {
+     "role": "assistant",
+     "content": "Con gusto. Funciona con la lógica de una franquicia.\n\nVender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. La diferencia no está en el local ni en la venta: está en ser dueño del sistema que distribuye.\n\nEso es lo que usted arma acá: su propio sistema de distribución de productos premium de bienestar, que no depende de que esté encima. Lo recibe ensamblado, con las tres cosas que hacen falta ya puestas.\n\nUna fábrica: *Gano Excel*, 30 años y más de 60 países. Fabrica y despacha cada pedido a la casa del cliente, sean diez clientes o mil.\n\nAlguien que atienda: eso lo hago *yo*. Converso con cada persona que llega y maduro su decisión de avanzar.\n\nY una metodología de dos pasos.\n\nCada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo desde el celular.\n\n¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:12:39.971084+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si"
+    },
+    {
+     "role": "assistant",
+     "content": "La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No: su sistema factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos, y de todo eso a usted le queda un porcentaje.\n\nLos 12 Niveles es nuestra estrategia para construirlo paso a paso. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y así se multiplica el sistema.\n\nLa entrada es el Kit de Inicio ($443.600 COP), la más baja de todas: usted recibe cuatro cajas de producto, abre su código y empieza a cobrar el 10% sobre las compras que facture su sistema.\n\nAl nivel 12, su sistema llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los **$103 millones COP**: exactamente el 10% del volumen facturado. Y ese nivel es la base, no el techo.\n\n¿Quiere verlo en el simulador, con la cifra de cada nivel?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:13:53.114011+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si"
+    },
+    {
+     "role": "assistant",
+     "content": "Elija el nivel y la cifra sale al instante, con los distribuidores que la producen. [Simulador enviado]"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:14:10.30768+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Acabo de usar el simulador de Los 12 Niveles: nivel 12."
+    },
+    {
+     "role": "assistant",
+     "content": "Ese es el *nivel 12*: 8.190 distribuidores consumiendo, y una regalía cercana a *$103.194.000 COP al mes*, liquidada por ciclos semanales.\n\nLa cifra la produce el consumo: mientras sus distribuidores compren sus cajas cada mes, hay regalía. Es el potencial matemático de la duplicación 2×2, y el ritmo lo pone cada sistema.\n\n¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:14:31.268433+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si"
+    },
+    {
+     "role": "assistant",
+     "content": "Hay tres paquetes empresariales, cada uno con su inventario de productos:\n\n• *ESP-1 Inicial*: 7 productos · $900.000 COP\n• *ESP-2 Empresarial*: 18 productos · $2.250.000 COP\n• *ESP-3 Visionario*: 35 productos · $4.500.000 COP\n\nSi usted compra uno de ellos como su inversión inicial, califica para cobrar el bono por la compra de paquetes empresariales en su sistema. Por ejemplo: por cada Visionario que se compre en su primera generación, $675.000 COP; y el bono sigue en las cuatro generaciones siguientes.\n\nEsa comisión le entra a medida que se compran los paquetes.\n\nJuegue con los números y arme el escenario que prefiera."
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:15:08.677588+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Acabo de usar el simulador: paquete ESP-1, con 5 paquetes comprados en cada generación."
+    },
+    {
+     "role": "assistant",
+     "content": "Con *5 paquetes ESP-1 Inicial* comprados en cada una de las cinco generaciones, la suma de esas 25 compras es *$1.125.000 COP*.\n\nEsa comisión le entra a medida que se compran los paquetes.\n\n¿Le detallo exactamente qué productos trae el paquete Inicial?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:15:48.54+00:00",
+   "metadata": {
+    "search_method": "fragment_vector_search",
+    "documents_used": [
+     "/knowledge_base/arsenal_conversacional_avanzado.txt",
+     "arsenal_avanzado_ADV_OBJ_02",
+     "arsenal_avanzado_ADV_VAL_03",
+     "arsenal_avanzado_ADV_VAL_05",
+     "arsenal_avanzado_ADV_ESC_02",
+     "arsenal_avanzado_ADV_VAL_01"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Qué productos son los que venden"
+    },
+    {
+     "role": "assistant",
+     "content": "Perfecto. El catálogo de Gano Excel tiene tres líneas principales:\n\n*Bebidas enriquecidas*\n- Ganocafé 3 en 1\n- Ganocafé Clásico\n- Ganorico Mocha Rico\n- Ganorico Shoko Rico\n\n*Suplementos*\n- Gano C'Real Spirulina\n- Cápsulas Cordygold\n\n*Cuidado personal*\n- Reskine Colágeno\n- Jabón Gano\n- Gano Fresh · Pasta de Dientes\n- Jabón Transparente Gano\n- Champú Piel&Brillo\n- Acondicionador Piel&Brillo\n- Exfoliante Corporal Piel&Brillo\n\nTodos llevan extracto de Ganoderma, un hongo que se usa en nutrición de bienestar. El cliente los pide, Gano Excel los despacha directamente a su puerta, y usted no maneja inventario.\n\n¿Le cuento qué trae el paquete con el que le gustaría arrancar?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:16:39.616782+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Qué debo hacer yo"
+    },
+    {
+     "role": "assistant",
+     "content": "Me gusta esa pregunta — es la que de verdad importa. 🪢\n\nSu día a día se resume en dos acciones:\n\n📲 *Compartir:* usted pasa un enlace a quien quiera.\n\n🤝 *Recibir:* usted saluda a quien llega con interés.\n\nEntre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.\n\nY quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.\n\n¿Le muestro los productos que mueven todo esto?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:17:25.69+00:00",
+   "metadata": {
+    "search_method": "candado_dictado",
+    "documents_used": [
+     "arsenal_inicial_WHY_02"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Ya me hablaste de los productos"
+    },
+    {
+     "role": "assistant",
+     "content": "Con gusto. Funciona con la lógica de una franquicia.\n\nVender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. La diferencia no está en el local ni en la venta: está en ser dueño del sistema que distribuye.\n\nEso es lo que usted arma acá: su propio sistema de distribución de productos premium de bienestar, que no depende de que esté encima. Lo recibe ensamblado, con las tres cosas que hacen falta ya puestas.\n\nUna fábrica: **Gano Excel**, 30 años y más de 60 países. Fabrica y despacha cada pedido a la casa del cliente, sean diez clientes o mil.\n\nAlguien que atienda: eso lo hago **yo**. Converso con cada persona que llega y maduro su decisión de avanzar.\n\nY una metodología de dos pasos.\n\nCada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo desde el celular.\n\n¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:19:45.021+00:00",
+   "metadata": {
+    "search_method": "puerta_directa",
+    "documents_used": [
+     "/knowledge_base/arsenal_inicial.txt",
+     "arsenal_inicial_WHY_PROD_01"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Dime para qué sirven los productos"
+    },
+    {
+     "role": "assistant",
+     "content": "Vamos al punto, porque ningún modelo funciona si el producto no rota.\n\nSon 22 productos en cuatro líneas:\n\n• **Bebidas** — nueve: los cafés Ganocafé y Ganorico, el cereal con espirulina, el té rooibos, el chocolate y el colágeno.\n\n• **Suplementos** — tres en cápsulas: Ganoderma, Excellium y Cordygold.\n\n• **Cuidado personal** — seis: pasta de dientes, dos jabones, champú, acondicionador y exfoliante.\n\n• **Luvoco** — la máquina barista italiana de 15 bares y sus tres cápsulas.\n\nTodos llevan el mismo extracto propio de Ganoderma. Ahí está la diferencia, en la extracción que Gano Excel protege: más de 200 nutrientes en un producto premium que su cliente incorpora a su rutina.\n\nY ahí está la lógica del negocio. Su cliente nota la diferencia, no vuelve al genérico y vuelve a pedir el mes siguiente. Esa recompra es la que sostiene lo que factura su sistema de distribución.\n\n¿Le muestro el catálogo completo con precios?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:20:53.189+00:00",
+   "metadata": {
+    "search_method": "puerta_directa",
+    "documents_used": [
+     "/knowledge_base/arsenal_inicial.txt",
+     "arsenal_inicial_WHY_PROD_01"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Cuál producto sirve para la salud digestiva"
+    },
+    {
+     "role": "assistant",
+     "content": "Buena pregunta.\n\nPara orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición de salud, que es terreno médico.\n\nDicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, pensadas para acompañar su día con energía y bienestar.\n\n¿Le muestro el catálogo completo para que vea las presentaciones?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:21:24.610105+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si"
+    },
+    {
+     "role": "assistant",
+     "content": "Con gusto. Aquí está el catálogo completo, con fotos, presentaciones y precios:\n\nhttps://creatuactivo.com/luis-cabrejo/productos\n\nSi algo le llama la atención mientras lo mira, me escribe por aquí y lo vemos.\n\n¿Le muestro las bebidas de la línea?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:21:57.342146+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Dame una imagen de la línea"
+    },
+    {
+     "role": "assistant",
+     "content": "*Cápsulas de Ganoderma*\n$272.500 COP · INVIMA SD2013-0002860\n\n¿Le muestro los otros suplementos de la línea?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:22:48.199+00:00",
+   "metadata": {
+    "search_method": "fragment_vector_search",
+    "documents_used": [
+     "/knowledge_base/catalogo_productos.txt",
+     "catalogo_productos_BEB_04",
+     "catalogo_productos_PROD_03",
+     "catalogo_productos_BEB_08",
+     "catalogo_productos_BEB_07"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Me hablaste de las bebidas, esperé que me hablaras de ellos"
+    },
+    {
+     "role": "assistant",
+     "content": "Tiene razón, me adelanté. Las bebidas de la línea GanoCafé son:\n\n- *Ganocafé 3 en 1* — café con crema y azúcar, el más popular de la línea\n- *Ganocafé Clásico* — tinto negro puro, sin crema ni azúcar, 30 sobres a $110.900 COP\n- *Latte Rico* — café con leche cremoso, 20 sobres a $119.900 COP\n- *Oleaf Gano Rooibos* — infusión sin cafeína, ideal para la noche, 20 sobres a $119.900 COP\n\nTodas llevan el mismo extracto de Ganoderma lucidum de Gano Excel.\n\n¿Cuál le llama más la atención para contarle más de ese?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:23:47.108+00:00",
+   "metadata": {
+    "search_method": "candado_dictado",
+    "documents_used": [
+     "arsenal_inicial_FREQ_30"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Con cuál paquete inicio"
+    },
+    {
+     "role": "assistant",
+     "content": "Con el que le resulte cómodo hoy. Más allá del tamaño del paquete, lo importante es iniciar: el negocio no está en el paquete sino en el sistema que usted construye, y de paquete se puede subir después.\n\n¿Con cuál arranca?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:24:37.2+00:00",
+   "metadata": {
+    "search_method": "fragment_vector_search",
+    "documents_used": [
+     "/knowledge_base/arsenal_conversacional_inicial.txt",
+     "arsenal_inicial_FREQ_30"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Qué paquetes hay?"
+    },
+    {
+     "role": "assistant",
+     "content": "Los paquetes de inicio son tres:\n\n- *ESP-1 Inicial* — $900.000 COP\n- *ESP-2 Empresarial* — $2.250.000 COP\n- *ESP-3 Visionario* — $4.500.000 COP\n\nY si quiere algo para arrancar más liviano, está el *Kit de Inicio* — trae cuatro cajas de Ganocafé 3 en 1 y el material de arranque; su precio lo confirma el sistema.\n\n¿Con cuál se siente cómodo para empezar?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:25:12.580134+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Esp3, pero debo consultar con mi esposa"
+    },
+    {
+     "role": "assistant",
+     "content": "Perfecto — una decisión así se toma entre los dos.\n\nSi quiere, le genero ahora mismo un enlace para que se lo comparta: al abrirlo me escribe directo, yo ya sé que viene de su parte, y le respondo lo que quiera preguntar sin que usted tenga que repetirle nada.\n\n¿Se lo genero?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:25:33.034841+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si"
+    },
+    {
+     "role": "assistant",
+     "content": "Con gusto. ¿Cómo se llama su pareja? Así, cuando me escriba, la recibo por su nombre."
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:25:42.49478+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Liliana"
+    },
+    {
+     "role": "assistant",
+     "content": "Aquí está — se lo puede reenviar tal cual:\n\nhttps://creatuactivo.com/s/5730000000\n\nSeguramente lo revisan hoy mismo. ¿Le parece si lo retomamos mañana, o en dos días?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:26:44.834+00:00",
+   "metadata": {
+    "search_method": "puerta_directa",
+    "documents_used": [
+     "/knowledge_base/arsenal_inicial.txt",
+     "arsenal_inicial_PERFIL_02"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si está bien, yo soy independiente y me va bien, porqué debería hacer este negocio"
+    },
+    {
+     "role": "assistant",
+     "content": "Buena pregunta, y tiene toda la razón en hacerla.\n\nUsted ya resolvió lo más difícil: trabajar por su cuenta y que le vaya bien. El límite no es la capacidad — es que las horas del día no se multiplican. Lo que entra depende de lo que usted alcance a hacer, y ese techo existe aunque le vaya muy bien.\n\nAquí el trabajo pesado lo lleva Gano Excel: fabrica, almacena y despacha cada pedido. Y yo hablo con cada persona que llega a su sistema, le resuelvo las dudas y maduro su decisión, mientras usted está en lo suyo. Sumar clientes no le suma horas al día.\n\nEso es lo que cambia: usted cobra por lo que compran todos sus clientes, no solo por lo que alcance a hacer usted mismo.\n\n¿Le muestro qué haría usted en el día a día?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:27:17.283+00:00",
+   "metadata": {
+    "search_method": "puerta_directa",
+    "documents_used": [
+     "/knowledge_base/arsenal_inicial.txt",
+     "arsenal_inicial_EAM_01"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si"
+    },
+    {
+     "role": "assistant",
+     "content": "Me gusta esa pregunta — es la que de verdad importa. 🪢\n\nSu día a día se resume en dos acciones:\n\n📲 **Compartir:** usted pasa un enlace a quien quiera.\n\n🤝 **Recibir:** usted saluda a quien llega con interés.\n\nEntre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.\n\nY quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.\n\n¿Le muestro los productos que mueven todo esto?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:29:21.577+00:00",
+   "metadata": {
+    "search_method": "fragment_vector_search",
+    "documents_used": [
+     "/knowledge_base/arsenal_conversacional_avanzado.txt",
+     "arsenal_avanzado_ADV_OBJ_02",
+     "arsenal_avanzado_ADV_TECH_01",
+     "arsenal_avanzado_ADV_OBJ_01",
+     "arsenal_avanzado_ADV_SIST_02",
+     "arsenal_avanzado_ADV_SIST_01"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Ya me hablate de los productos, no me gusta que me respiras las preguntas, actualmente estoy en Inglaterra, como podría desarrollar el negocio"
+    },
+    {
+     "role": "assistant",
+     "content": "Entendido, y tiene razón — no vuelvo a lo que ya vimos.\n\nDesde Inglaterra el negocio funciona igual, porque todo corre en digital: su enlace llega a quien usted quiera, sin importar dónde estén. Gano Excel opera en más de 60 países, así que sus clientes y socios pueden estar en Colombia, en el Reino Unido o en cualquier otro punto del mapa, y cada pedido llega directo a su puerta.\n\nLo único que define las condiciones de su registro es el país donde usted se vincula. ¿Se registraría desde Colombia o desde el Reino Unido?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:30:14.500348+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Me llegaria el producto a Inglaterra a, desde dónde lo envían?"
+    },
+    {
+     "role": "assistant",
+     "content": "Eso lo acuerda directamente con Luis Cabrejo cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro.\n\n¿Le sumo algo más al pedido mientras tanto?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:31:23.8731+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Espera estamos hablando de hacer el negocio no de comprar los productos, pero ya que lo mencionas, le pediré a mi esposa que compre una caja, dame la dirección de Bogotá"
+    },
+    {
+     "role": "assistant",
+     "content": "*Portafolio Gano Excel* · 22 productos\nBebidas (9) · Luvoco (4) · Suplementos (3) · Cuidado personal (6)\n\n¿Cuál línea le muestro de cerca?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:33:23.272009+00:00",
+   "metadata": {
+    "search_method": null,
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Me interesa iniciar, cómo lo hago, para que los productos lleguen aquí a Londres"
+    },
+    {
+     "role": "assistant",
+     "content": "*Portafolio Gano Excel* · 22 productos\nBebidas (9) · Luvoco (4) · Suplementos (3) · Cuidado personal (6)\n\n¿Cuál línea le muestro de cerca?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:33:54.032+00:00",
+   "metadata": {
+    "search_method": "fragment_vector_search",
+    "documents_used": [
+     "/knowledge_base/arsenal_conversacional_avanzado.txt",
+     "arsenal_avanzado_ADV_OBJ_02",
+     "arsenal_avanzado_ADV_TECH_01",
+     "arsenal_avanzado_ADV_OBJ_01",
+     "arsenal_avanzado_ADV_SIST_02",
+     "arsenal_avanzado_ADV_SIST_01"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "No me puedes ayudar?"
+    },
+    {
+     "role": "assistant",
+     "content": "Claro que sí, con mucho gusto.\n\nUsted puede registrarse desde Londres sin problema: Gano Excel opera en más de 60 países, y el registro se hace en línea. Lo que define su moneda y las condiciones del despacho es el país donde se registra — en este caso, Reino Unido.\n\nPara arrancar hay tres formas:\n\n1. *Kit de Inicio* — la entrada más económica, con cuatro cajas de Ganocafé 3 en 1 y el material de inicio.\n2. *ESP-1 Inicial* — el primer paquete empresarial, con una tarifa de comisión más alta.\n3. *ESP-2 Empresarial* o *ESP-3 Visionario* — para quien quiere arrancar con más músculo desde el primer día.\n\nComo usted se registraría en Reino Unido, los precios y el despacho los confirma el equipo para ese mercado — yo manejo los números de Colombia.\n\n¿Con cuál de las tres opciones se identifica más, para que el sistema tome sus datos y el equipo de Reino Unido lo contacte de inmediato?"
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:34:40.352+00:00",
+   "metadata": {
+    "search_method": "paquete_direct",
+    "documents_used": [
+     "/knowledge_base/arsenal_compensacion.txt"
+    ]
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "El 3"
+    },
+    {
+     "role": "assistant",
+     "content": "Me alegra que lo tenga claro.\n\nEl ESP-3 Visionario es el paquete con el techo más alto: abre el Binario al 17 % durante seis meses y el Bono GEN5 activo desde el primer día, sin término. Trae 35 productos — toda la línea de bebidas, suplementos y cuidado personal.\n\nComo su registro es en Reino Unido, los precios exactos en libras y la logística del despacho los confirma el equipo para ese mercado.\n\nCuando quiera, le tomo los datos de la vinculación."
+    }
+   ]
+  },
+  {
+   "created_at": "2026-09-24T13:35:16.907813+00:00",
+   "metadata": {
+    "search_method": "radicacion",
+    "documents_used": []
+   },
+   "messages": [
+    {
+     "role": "user",
+     "content": "Si"
+    },
+    {
+     "role": "assistant",
+     "content": "Perfecto. Anoté ESP-3 Visionario.\n\nMe faltan tres datos:\n\n• Nombre completo, como aparece en su documento\n• Número de identificación\n• La ciudad donde está\n\nLa ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá, así que de una vez conoce el lugar y al equipo. Si no hay, le llega a su dirección.\n\nCon eso queda radicado, y le aviso a Luis Cabrejo para que le confirme y coordinen el pago."
+    }
+   ]
+  }
+ ]
+}

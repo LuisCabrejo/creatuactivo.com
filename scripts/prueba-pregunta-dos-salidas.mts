@@ -50,6 +50,11 @@ for (const q of [
   '¿Toma café en las mañanas, o prefiere algo sin cafeína?',
   '¿Sigue con los productos, o prefiere ver el negocio?',
   '¿Lo vemos ahora o prefiere mañana?',
+  // Cuarta forma: la misma preposición a los dos lados (prueba del Director,
+  // 24 sep 2026). El detector no la veía y salió tal cual.
+  '¿Se registraría desde Colombia o desde el Reino Unido?',
+  '¿Lo ve en pesos o en dólares?',
+  '¿Se registraría por Colombia, o tiene otro país en mente?',
 ]) {
   const cuerpo = `Aquí tiene el detalle completo de lo que preguntó, con su precio y su presentación, para que lo vea con calma.\n\n${q}`;
   es(detectarPreguntaDeDosSalidas(cuerpo) === q, `se caza · ${q}`);

@@ -352,8 +352,15 @@ export function pideImagen(texto: string): boolean {
   // un producto o una línea. Sin eso, «cómo es eso, dame contexto» y «cómo es la
   // ganancia por paquetes» recibían la foto del café que la persona acababa de
   // pedir, sacado del hilo, y el turno se cerraba ahí (prueba del 29 ago 2026).
-  const verboDebil = /\b(c[oó]mo es|mu[eé]streme|mu[eé]strame|ens[eé][ñn][ea]me|man?d[eé]me|m[aá]ndame|env[ií]e?me|p[aá]same|p[aá]seme|reg[aá]la?[em]e|quiero ver|d[eé]jeme ver|d[ae]me)\b/i.test(texto);
-  return verboDebil && (detectarProducto(texto) !== null || detectarFamilia(texto) !== null);
+  // ⚠️ Y el producto o la línea tiene que ser lo que el verbo pide, no algo que
+  // aparezca en otra parte de la frase (24 sep 2026): «…no de comprar los
+  // productos, pero ya que lo mencionas… dame la dirección de Bogotá» recibió el
+  // portafolio, porque «dame» y «los productos» estaban en el mismo mensaje. Se
+  // mira solo el tramo que sigue al verbo.
+  const verbo = /\b(c[oó]mo es|mu[eé]streme|mu[eé]strame|ens[eé][ñn][ea]me|man?d[eé]me|m[aá]ndame|env[ií]e?me|p[aá]same|p[aá]seme|reg[aá]la?[em]e|quiero ver|d[eé]jeme ver|d[ae]me)\b/i.exec(texto);
+  if (!verbo) return false;
+  const tramo = texto.slice(verbo.index + verbo[0].length, verbo.index + verbo[0].length + 60);
+  return detectarProducto(tramo) !== null || detectarFamilia(tramo) !== null;
 }
 
 /**
@@ -650,6 +657,23 @@ export function detectarFamilia(texto: string): FamiliaWA | null {
   for (const [f, def] of Object.entries(FAMILIAS_WA) as [FamiliaWA, FamiliaDef][]) {
     if (def.patron.test(t)) return f;
   }
+  return null;
+}
+
+/**
+ * La línea de la que HABLA un texto (24 sep 2026): una sola → esa; varias → el
+ * portafolio; ninguna → null. Sirve para «dame una imagen de la línea» cuando
+ * el bot venía hablando de los suplementos sin ofrecer la foto: la persona
+ * pedía la línea de la conversación y le llegaba la negativa inventada «no
+ * tengo imágenes para enviar por este canal».
+ */
+export function familiaDelTexto(texto: string): FamiliaWA | null {
+  const t = normalizar(texto);
+  const halladas = (Object.entries(FAMILIAS_WA) as [FamiliaWA, FamiliaDef][])
+    .filter(([f, def]) => f !== 'portafolio' && def.patron.test(t))
+    .map(([f]) => f);
+  if (halladas.length === 1) return halladas[0];
+  if (halladas.length > 1) return 'portafolio';
   return null;
 }
 

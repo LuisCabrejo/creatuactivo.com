@@ -60,11 +60,16 @@ function tablaABloques(filas: string[]): string {
 
   // La primera celda de la cabecera solo aporta si nombra algo ("Gen", "Mes");
   // los rótulos genéricos de columna-guía se omiten del título del bloque.
-  const cabeceraGenerica = /^(detalle|campo|concepto|dato|item|ítem|descripci[oó]n)?$/i.test(cabecera[0] ?? '');
+  // «Producto», «Paquete» y «Nombre» también son rótulos de columna-guía (24 sep
+  // 2026): con ellos, las tablas del catálogo salían «*Producto *Ganocafé 3 en
+  // 1**» en el teléfono — el rótulo delante y la negrita de la celda metida
+  // dentro de la del título.
+  const cabeceraGenerica = /^(detalle|campo|concepto|dato|item|ítem|descripci[oó]n|producto|paquete|nombre)?$/i.test(cabecera[0] ?? '');
+  const sinNegrita = (t: string) => (t ?? '').replace(/\*\*/g, '').replace(/^\*|\*$/g, '').trim();
 
   return cuerpo
     .map((fila) => {
-      const titulo = (cabeceraGenerica ? fila[0] : [cabecera[0], fila[0]].filter(Boolean).join(' ')).trim();
+      const titulo = sinNegrita(cabeceraGenerica ? fila[0] : [cabecera[0], fila[0]].filter(Boolean).join(' '));
       const resto = fila
         .slice(1)
         .map((valor, i) => {

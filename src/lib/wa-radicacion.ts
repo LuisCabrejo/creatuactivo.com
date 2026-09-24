@@ -28,6 +28,7 @@
  * Al editar uno, editar el otro.
  */
 
+import { residenciaDeclarada } from './queswa-bitacora';
 import Anthropic from '@anthropic-ai/sdk';
 import { Resend } from 'resend';
 import { sendTemplate } from '@/lib/wa-channel';
@@ -416,6 +417,16 @@ const EN_LETRAS = ['', 'un', 'dos', 'tres', 'cuatro', 'cinco'];
 const JUSTIFICACION_CIUDAD =
   'La ciudad se la pido por algo práctico: si hay oficina de Gano Excel donde usted vive, la entrega se hace allá, así que de una vez conoce el lugar y al equipo. Si no hay, le llega a su dirección.';
 
+// ── Quien vive fuera de su país (Director, 24 sep 2026) ──────────────────────
+// Al Director, escribiendo desde Londres, la radicación le pidió «la ciudad
+// donde está» y le habló de la oficina de Gano Excel de su ciudad. Su sistema
+// se ancla al país de América por el que se registra (DIASPORA_01): ese es el
+// dato, junto con la ciudad donde recibirá el producto allá.
+const ETIQUETA_CIUDAD_EXTERIOR = 'El país de América por el que hará el registro, y la ciudad donde recibirá el producto allá';
+const EN_PROSA_CIUDAD_EXTERIOR = 'el país de América por el que hará el registro, y la ciudad donde recibirá el producto allá';
+const JUSTIFICACION_CIUDAD_EXTERIOR =
+  'El país se lo pido porque su sistema queda anclado a él: allá recibe el producto y allá le pagan. Y la ciudad, porque si hay oficina de Gano Excel ahí, la entrega se hace en la oficina; si no, le llega a la dirección que usted indique, que puede ser la de un familiar de confianza.';
+
 /** Cómo se le devuelve a la persona cada dato que ya entregó. */
 function ecoDe(clave: ClaveRadicacion, datos: DatosRadicacion): string | null {
   switch (clave) {
@@ -460,10 +471,13 @@ export function pedirDatos(
   socio?: string,
   enKit = false,
   claves: readonly ClaveRadicacion[] = CLAVES_CANAL,
+  enElExterior = false,
 ): string {
   const faltantes = claves.filter((k) => !datos[k]);
   const partes: string[] = [];
-  const etiqueta = (f: ClaveRadicacion) => (f === 'paquete' && enKit ? ETIQUETA_PAQUETE_KIT : ETIQUETAS[f]);
+  const etiqueta = (f: ClaveRadicacion) => (f === 'paquete' && enKit ? ETIQUETA_PAQUETE_KIT
+    : f === 'ciudad' && enElExterior ? ETIQUETA_CIUDAD_EXTERIOR : ETIQUETAS[f]);
+  const enProsa = (f: ClaveRadicacion) => (f === 'ciudad' && enElExterior ? EN_PROSA_CIUDAD_EXTERIOR : EN_PROSA[f]);
 
   // El nombre no se devuelve en una viñeta: se usa para saludar. Es el acuse de
   // recibo más cálido que existe y sale gratis — ya lo tenemos.
@@ -494,16 +508,16 @@ export function pedirDatos(
     partes.push(eco.length > 0 ? `${saludo} Anoté ${enumerar(eco)}.` : saludo, '');
 
     if (faltantes.length === 1) {
-      partes.push(`Me falta ${EN_PROSA[faltantes[0]]} y quedamos.`);
+      partes.push(`Me falta ${enProsa(faltantes[0])} y quedamos.`);
     } else if (faltantes.length === 2) {
       // Dos caben en una frase; tres ya piden lista para poder leerse.
-      partes.push(`Me faltan dos cosas: ${EN_PROSA[faltantes[0]]}, y ${EN_PROSA[faltantes[1]]}.`);
+      partes.push(`Me faltan dos cosas: ${enProsa(faltantes[0])}, y ${enProsa(faltantes[1])}.`);
     } else {
       partes.push(`Me faltan ${EN_LETRAS[faltantes.length]} datos:`, '', faltantes.map((f) => `• ${etiqueta(f)}`).join('\n'));
     }
   }
 
-  if (faltantes.includes('ciudad')) partes.push('', JUSTIFICACION_CIUDAD);
+  if (faltantes.includes('ciudad')) partes.push('', enElExterior ? JUSTIFICACION_CIUDAD_EXTERIOR : JUSTIFICACION_CIUDAD);
 
   partes.push(
     '',
@@ -532,9 +546,9 @@ function enumerar(xs: string[]): string {
  */
 export function pedirUnDato(
   clave: ClaveRadicacion,
-  opciones: { reintento?: boolean; socio?: string } = {},
+  opciones: { reintento?: boolean; socio?: string; enElExterior?: boolean } = {},
 ): string {
-  const { reintento } = opciones;
+  const { reintento, enElExterior } = opciones;
 
   switch (clave) {
     case 'nombre':
@@ -553,6 +567,15 @@ export function pedirUnDato(
         : 'Gracias. ¿Cuál es su *número de identificación*?';
 
     case 'ciudad':
+      if (enElExterior) {
+        return [
+          reintento
+            ? '¿Por cuál país de América hará el registro, y en qué ciudad de allá recibirá el producto?'
+            : 'Listo. ¿Por cuál país de América hará el registro, y en qué ciudad de allá recibirá el producto?',
+          '',
+          JUSTIFICACION_CIUDAD_EXTERIOR,
+        ].join('\n');
+      }
       return [
         reintento ? '¿En qué ciudad está?' : 'Listo. ¿En qué ciudad está?',
         '',
@@ -797,6 +820,9 @@ export async function gestionarCierre(params: {
   pedidosDelBackend?: string[];
 }): Promise<ResultadoCierre | null> {
   const { mensajeActual, historial, socio } = params;
+  // Vive fuera de su país: el dato de la ciudad pasa a ser el país de América
+  // por el que se registra y la ciudad donde recibe el producto allá.
+  const enElExterior = !!residenciaDeclarada([...historial.filter((m) => m.role === 'user').map((m) => m.content), mensajeActual]);
 
   // Ya radicado: el cierre no se reabre. Si la persona quiere cambiar algo, lo
   // resuelve con el socio, que es quien tiene la conversación viva.
@@ -895,7 +921,7 @@ export async function gestionarCierre(params: {
     // simulador de Los 12 Niveles») también; y el texto tras el Flow dice
     // «duplicación 2×2». Con el detector viejo pidió «cuál de los tres paquetes».
     const enKit = !!params.hiloDoceNiveles || historial.some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(m.content)) || /12 niveles/i.test(mensajeActual);
-    if (!botPidio) return { texto: pedirDatos(datos, socio, enKit, claves), radicado: false };
+    if (!botPidio) return { texto: pedirDatos(datos, socio, enKit, claves, enElExterior), radicado: false };
 
     // Una duda a mitad del trámite se responde; el cierre no la atropella. Se
     // considera digresión todo lo que no traiga datos nuevos y además parezca
@@ -974,7 +1000,7 @@ export async function gestionarCierre(params: {
     const esBloqueDePedirDatos = /necesito (cuatro|cinco) datos|me falta(n)? (un dato|estos datos|\w+ datos)|ya tengo:|^a usted\.|quedo pendiente/i.test(ultimoBot);
     const reintento = !esBloqueDePedirDatos && pidioEsteDato(ultimoBot, siguiente);
 
-    return { texto: pedirUnDato(siguiente, { reintento, socio }), radicado: false };
+    return { texto: pedirUnDato(siguiente, { reintento, socio, enElExterior }), radicado: false };
   }
 
   const ok = await radicarPreAfiliacion(datos, {

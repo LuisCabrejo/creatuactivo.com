@@ -334,16 +334,15 @@ export default function PitchDeckPage() {
            Georgia, serif, pero --font-playfair lo define next/font en el <body>.
            Una custom property se sustituye en el elemento que la DECLARA, así que
            en :root queda inválida y hereda vacía — el titular caía a Inter. */
-        .pd-credo h1 {
+        .pd-credo h1, .pd-credo .pd-credo-linea {
           font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
           font-size: clamp(1.55rem, 4.2vw, 3rem); line-height: 1.3;
           margin: 0 0 1.4rem; color: #FFFFFF; max-width: 22ch;
         }
-        .pd-credo .segunda { color: var(--pd-gold); max-width: 24ch; }
+        .pd-credo .segunda { color: var(--pd-gold); max-width: 26ch; }
         .pd-credo-rule {
           width: 56px; height: 1px; background: var(--pd-gold); margin: 2.4rem 0 1.2rem;
         }
-        .pd-credo-sub { margin-top: 1.8rem; max-width: 52ch; }
 
         /* ── 4 · Hechos verificables ─────────────────────────────────────── */
         .pd-hechos {
@@ -573,7 +572,7 @@ export default function PitchDeckPage() {
           .pd-h2 { font-size: clamp(1.4rem, 5.6vw, 2rem); margin-bottom: 1rem; }
           .pd-p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.8rem; }
           .pd-bisagra { font-size: clamp(1.3rem, 6vw, 1.9rem); margin: 1.2rem 0 0.8rem; }
-          .pd-credo h1 { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
+          .pd-credo h1, .pd-credo .pd-credo-linea { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
           .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
           .pd-hechos { margin-top: 1.4rem; }
           .pd-hecho { padding: 0.7rem 0.85rem; }
@@ -598,11 +597,10 @@ export default function PitchDeckPage() {
           .pd-credo .pd-wrap { display: grid; grid-template-columns: 1fr 1fr;
             gap: 0 2.2rem; align-items: start; max-width: 1100px; }
           .pd-credo .pd-eyebrow,
-          .pd-credo .pd-credo-sub,
           .pd-credo .pd-credo-rule,
           .pd-credo .pd-kicker { grid-column: 1 / -1; }
-          .pd-credo h1 { font-size: clamp(1.05rem, 2.4vw, 1.6rem); margin-bottom: 0;
-            max-width: none; }
+          .pd-credo h1, .pd-credo .pd-credo-linea { font-size: clamp(1.05rem, 2.4vw, 1.6rem);
+            margin-bottom: 0; max-width: none; }
           .pd-credo-rule { margin: 1.1rem 0 0.7rem; }
         }
       `}</style>
@@ -649,17 +647,19 @@ export default function PitchDeckPage() {
               Creemos que nadie debería entregar su vida entera al ciclo de trabajar,
               pagar cuentas y repetir.
             </h1>
-            <h1 className="segunda" aria-hidden="false">
-              Creemos en empoderar a las personas para que recuperen el control de su
-              tiempo y de su dinero.
-            </h1>
-            {/* Subtítulo del Director (24 sep 2026). «La gente que sabe trabajar»
-                honra al héroe en vez de diagnosticarlo, y «capital real» eleva el
-                registro desde las finanzas. ⚠️ Se le cortó el remate original («y no
-                solo en pagar el mes a mes»): el credo, dos líneas arriba, ya dice el
-                ciclo — repetirlo con palabras más flojas apaga la frase. Termina en
-                lo nuevo, que es donde debe terminar. */}
-            <p className="pd-p pd-credo-sub">
+            {/* ⚠️ SEGUNDA MITAD PROPIA DEL DECK (Director, 24 sep 2026). En el resto
+                del sitio el credo remata en «Creemos en empoderar a las personas para
+                que recuperen el control de su tiempo y de su dinero» — Home v16, la
+                apertura del canal y WHY_01 🔒. Aquí la reemplaza esta, que conserva la
+                anáfora y la mecánica de Nu (adversario, absolución, restitución: el
+                esfuerzo se restituye en capital), y además nombra al oyente: «la gente
+                que sabe trabajar» lo honra en vez de diagnosticarlo, y «capital real»
+                eleva el registro desde las finanzas.
+                ⚠️ Esto deja al deck DIVERGENTE del credo desplegado en los otros tres
+                sitios. Si se decide propagarla, se toca junto: page.tsx de la Home,
+                wa-apertura.ts y el candado de WHY_01.
+                ⚠️ Va en <p> y no en <h1>: solo puede haber un h1 por página. */}
+            <p className="pd-credo-linea segunda">
               Creemos en entregarle una herramienta de alto nivel a la gente que sabe
               trabajar, para que su esfuerzo se traduzca en capital real.
             </p>
@@ -688,9 +688,22 @@ export default function PitchDeckPage() {
                 prospecto como inversionista —quien pone plata espera que le cueste—, y
                 para buena parte del mercado no es cierto, que es una fuga de
                 credibilidad en la pantalla donde reclamamos un momento histórico. */}
+            {/* ⚠️ «Tener una empresa de distribución estuvo al alcance de muy pocos»
+                SONABA A MENTIRA (Director, 24 sep 2026) y se ganaba la objeción sola:
+                cualquiera puede abrir una distribuidora. La escasez hay que ganarla
+                describiendo el objeto, no reclamándola: lo raro no es distribuir, es
+                distribuir en un continente y que el negocio facture sin el dueño
+                encima. Eso sí era casi imposible, y no se lo discute nadie.
+                De paso, la primera línea DEFINE «moderna», así que la pantalla 4 puede
+                usar la palabra sin explicarla.
+                ⚠️ Dice «factura» y no «produce»: en la 4 nos definimos por el sistema
+                que CONECTA y no por el que produce — se contradiría dos pantallas
+                después. */}
             <p className="pd-p">
-              Tener una empresa de distribución estuvo siempre al alcance de muy pocos.
+              Una empresa de distribución moderna vende en todo el continente y factura
+              sin que el dueño esté encima.
             </p>
+            <p className="pd-p">Hasta hace poco, tener una era casi imposible.</p>
             <p className="pd-p">
               Hoy, la inteligencia artificial y la logística global{' '}
               <span className="pd-gold">la ponen en un celular.</span>

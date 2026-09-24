@@ -297,6 +297,12 @@ const RE_INVERSION_MARKETING =
 const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
   '¿y esto cómo funciona, exactamente?': MASTER_WHY_02,
   '¿cómo lo haría yo? ¿qué hago en el día a día?': MASTER_EAM_01,
+  // El botón del dinero de WhatsApp, escrito con su texto corto. La web lo
+  // ofrece como «¿De dónde sale el dinero?», que ya resuelve por la expresión
+  // regular de abajo; esto cubre a quien escriba la forma del botón, para que
+  // los dos canales no se separen por una conjugación (23 sep 2026).
+  'cómo entra el dinero': MASTER_DINERO_01,
+  '¿cómo entra el dinero?': MASTER_DINERO_01,
 };
 
 /**

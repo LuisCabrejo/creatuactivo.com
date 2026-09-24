@@ -94,16 +94,33 @@ const TRANSICION = `Todo desde el celular. Pregunte lo que quiera, sin ningún a
  * "activo físico", "flujo de caja", "monetiza", "vías de liquidez"). Pregunta
  * reformulada estilo Gemini, no sustantivos densos. Test abuela/Beto.
  */
+/**
+ * ⚠️ **Las mismas tres entradas que WhatsApp** (Director, 23 sep 2026): un
+ * prospecto tiene que encontrar el mismo camino venga por donde venga, y el
+ * socio explica uno solo.
+ *
+ * Equivalen botón por botón a `APERTURA_OPCIONES` de `wa-apertura.ts` y
+ * resuelven a las mismas tres respuestas con candado: WHY_02, WHY_04 y EAM_01.
+ * El texto es más largo que el del botón porque Meta limita los suyos a 20
+ * caracteres y la web no; lo que importa es que el destino sea el mismo.
+ *
+ * **Salieron dos chips, y cada uno por su motivo** (auditoría del pitch deck):
+ *  · *«¿Cómo es el plan que se multiplica hasta los $103 millones?»* — medido
+ *    contra el corpus, su fragmento canónico queda en el puesto 4 con 0.297,
+ *    bajo el umbral. Era un chip sin respuesta fiable, y componía cada vez algo
+ *    distinto. La pregunta escrita se sigue atendiendo; lo que se retira es
+ *    ofrecerla de entrada.
+ *  · *«Quiero ver los números: ¿cómo y cuánto se gana?»* — entraba en frío al
+ *    ejemplo del GEN5, saltándose el ingreso recurrente. El orden correcto es
+ *    recurrente primero, y por ahí entra ahora la pregunta del dinero.
+ *
+ * Los productos dejan de ser entrada y pasan a ser seguimiento, como en
+ * WhatsApp: `WHY_PROD_01` se ofrece al final de las dos acciones.
+ */
 export const QUESWA_QUICK_REPLIES = [
   '¿Y esto cómo funciona, exactamente?',
-  // Chip del plan 12×2 en 2º lugar (decisión Director, jul 2026) — para quien llega
-  // cebado por el mensaje 1-a-1 del arquitecto (el que promete el plan de $103M).
-  // Engancha con ese número. NO es Camino A: va por RAG → arsenal_12_niveles
-  // (disparadores "103 millones" / "duplicación" / "2×2" en route.ts + expansión abajo).
-  '¿Cómo es el plan que se multiplica hasta los $103 millones?',
+  '¿De dónde sale el dinero?',
   '¿Cómo lo haría yo? ¿Qué hago en el día a día?',
-  '¿Cuáles son los productos y para qué sirven?',
-  'Quiero ver los números: ¿cómo y cuánto se gana?',
 ] as const;
 
 /**
@@ -162,6 +179,10 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
     'cómo funciona el negocio sistema distribución tres pilares apalancamiento empresa digital',
   '¿cómo lo haría yo? ¿qué hago en el día a día?':
     'qué tengo que hacer cuál es mi rol metodología método comprobado día a día comandos',
+  '¿de dónde sale el dinero?':
+    'de dónde sale el dinero quién paga cómo entra el ingreso producto que se vende',
+  // Se conservan los de los chips retirados: la persona puede escribir esas
+  // preguntas aunque ya no se le ofrezcan, y la expansión les sigue sirviendo.
   '¿cuáles son los productos y para qué sirven?':
     'qué productos cuáles son para qué sirven beneficios catálogo Ganoderma Gano Excel',
   'quiero ver los números: ¿cómo y cuánto se gana?':

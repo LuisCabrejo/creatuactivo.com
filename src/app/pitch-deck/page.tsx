@@ -365,7 +365,12 @@ export default function PitchDeckPage() {
         .pd-beat.on { opacity: 1; visibility: visible; }
         .pd-pieza { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 64px);
           align-items: center; max-width: 1040px; margin: 0 auto; width: 100%; }
+        /* ⚠️ El ancho va EXPLÍCITO. Sin él, como .pd-pieza lleva align-items:center,
+           el ítem de la rejilla no se estira, su alto queda en 0 y aspect-ratio le
+           deja 2px de ancho: en el teléfono las tres piezas no se veían (bug real,
+           24 sep 2026). En escritorio no aparecía porque la columna daba el ancho. */
         .pd-figura {
+          width: 100%;
           aspect-ratio: 1 / 1; background-size: cover; background-position: center;
           border: 1px solid rgba(255,255,255,0.08);
         }
@@ -506,18 +511,97 @@ export default function PitchDeckPage() {
         /* ── Móvil ───────────────────────────────────────────────────────── */
         @media (max-width: 860px) {
           .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
-          .pd-pieza .pd-figura { max-width: 58vw; margin: 0 auto; }
+          /* La pieza manda en el teléfono: es lo único que se mira mientras el
+             socio narra. Ancho fijo y centrada, no un max-width que la colapse. */
+          .pd-pieza .pd-figura { width: min(64vw, 310px); margin: 0 auto; }
           .pd-tres { grid-template-columns: repeat(3, 1fr); gap: 8px; }
           .pd-tres .cap { font-size: 0.48rem; letter-spacing: 0.1em; }
-          .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+          /* Dos por dos, no cuatro en fila: a 83px no se distingue un producto de
+             otro, y esta es la pantalla donde el producto se mira. Cada una abre
+             en grande al tocarla. */
+          .pd-cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
           .pd-slide { padding: 68px 20px 48px; }
           .pd-beat { padding: 68px 20px 48px; }
           .pd-hechos { grid-template-columns: 1fr 1fr; }
+
+          /* LOS NÚMEROS CABEN ENTEROS EN EL TELÉFONO (24 sep 2026). Desbordaban
+             114px y el segundo simulador quedaba debajo del borde: quien presenta
+             no se entera de que hay algo más abajo, y el prospecto tampoco. Se
+             aprieta lo que no es la cifra; la cifra no se toca. */
+          .pd-numeros .panel { padding: 1rem 1.1rem 1.2rem; }
+          .pd-numeros .panel h3 { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-tabs,
+          .pd-numeros .pd-pkgs,
+          .pd-numeros .pd-niveles { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-sub { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-slider { margin: 0.7rem 0 1.9rem; }
+          .pd-numeros .pd-insight { font-size: 0.74rem; }
+          .pd-numeros .pd-cierre { margin-top: 1.1rem; }
+          .pd-numeros { padding-bottom: 28px; }
+
+          /* ANCLAJE DE DESPLAZAMIENTO — el patrón de la servilleta para las
+             pantallas que no caben en un teléfono. En «el producto» no caben a la
+             vez la historia (título, párrafo, las cuatro líneas, el portafolio) y
+             la ficha del Ganoderma: son 985px contra 728 útiles. Sin anclaje la
+             ficha queda debajo del borde y quien presenta ni se entera de que está.
+             Con él, un deslizamiento la trae entera.
+             ⚠️ proximity y NO mandatory: en la servilleta el obligatorio peleaba
+             con el gesto horizontal. El guard de eje del swipe (|dx| > |dy| * 1.2)
+             ya impide que bajar cambie de pantalla. */
+          .pd-slide { scroll-snap-type: y proximity; }
+          .pd-producto > * { scroll-snap-align: start; }
+          .pd-numeros .panel { scroll-snap-align: start; }
           /* En un teléfono la marca y los puntos se montaban encima del botón.
              La marca ya está en la pantalla 1 y en el remate: aquí sobra. */
           .pd-brand { display: none; }
           .pd-fs-largo { display: none; }
           .pd-fs-corto { display: inline; }
+        }
+
+        /* PANTALLAS CORTAS (teléfonos de 640px de alto, y cualquiera en apaisado).
+           No es un ancho distinto: es un ALTO distinto, y por eso va por max-height
+           y no por max-width. Se aprieta el aire — titulares y cuerpo bajan un
+           punto; las cifras no se tocan.
+           El caso que lo obligó: la pantalla 4 se pasaba 77px en un teléfono de
+           640, y es la única del deck que NO puede pedir desplazamiento — si la ley
+           (solo se multiplica lo que es sencillo) queda debajo del borde, el giro
+           del deck se pierde. */
+        @media (max-height: 700px) {
+          .pd-slide, .pd-beat { padding-top: 60px; padding-bottom: 34px; }
+          .pd-eyebrow { margin-bottom: 1rem; }
+          .pd-h2 { font-size: clamp(1.4rem, 5.6vw, 2rem); margin-bottom: 1rem; }
+          .pd-p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.8rem; }
+          .pd-bisagra { font-size: clamp(1.3rem, 6vw, 1.9rem); margin: 1.2rem 0 0.8rem; }
+          .pd-credo h1 { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
+          .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
+          .pd-hechos { margin-top: 1.4rem; }
+          .pd-hecho { padding: 0.7rem 0.85rem; }
+          .pd-pieza-label { font-size: clamp(1.15rem, 5.2vw, 1.9rem); margin-bottom: 0.8rem; }
+          .pd-pieza .pd-figura { width: min(48vw, 230px); }
+          .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
+        }
+
+        /* TELÉFONO GIRADO. Ancho de sobra y altura mínima: exactamente lo contrario
+           de lo que asume el bloque de móvil, que apila todo en una columna porque
+           supone un teléfono vertical. Aquí apilar es el error — se vuelve a dos
+           columnas y las figuras se achican, que es como se recupera el alto.
+           Pasa de verdad: el socio gira el teléfono para mostrar los números. */
+        @media (max-height: 560px) and (min-width: 600px) {
+          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
+          .pd-hechos { grid-template-columns: repeat(4, 1fr); }
+          .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+          .pd-pieza .pd-figura { width: min(34vw, 230px); }
+          .pd-slide, .pd-beat { padding-top: 56px; padding-bottom: 26px; }
+          /* El credo son dos bloques largos y en 390px de alto no caben: se leen a
+             dos columnas, que además es la forma natural de una anáfora. */
+          .pd-credo .pd-wrap { display: grid; grid-template-columns: 1fr 1fr;
+            gap: 0 2.2rem; align-items: start; max-width: 1100px; }
+          .pd-credo .pd-eyebrow,
+          .pd-credo .pd-credo-rule,
+          .pd-credo .pd-kicker { grid-column: 1 / -1; }
+          .pd-credo h1 { font-size: clamp(1.05rem, 2.4vw, 1.6rem); margin-bottom: 0;
+            max-width: none; }
+          .pd-credo-rule { margin: 1.1rem 0 0.7rem; }
         }
       `}</style>
 
@@ -788,7 +872,7 @@ export default function PitchDeckPage() {
         </section>
 
         {/* ── 7 · LOS NÚMEROS ─────────────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-numeros ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap" style={{ maxWidth: 1040 }}>
             <p className="pd-eyebrow">Cómo se gana</p>
             <div className="pd-paneles">

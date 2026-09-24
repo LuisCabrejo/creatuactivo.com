@@ -68,7 +68,7 @@ const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
  *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola». */
-const PIEZAS = [
+const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
   {
     label: 'UN FABRICANTE',
     img: '/images/servilleta/colapso-fabrica.webp',
@@ -77,12 +77,23 @@ const PIEZAS = [
   {
     label: 'UNA TECNOLOGÍA QUE ATIENDE',
     img: '/images/servilleta/colapso-conversacion.webp',
-    sub: 'Queswa conversa con cada interesado, le resuelve las dudas y madura la decisión de avanzar. A toda hora.',
+    sub: 'Queswa conversa con cada interesado, le resuelve las dudas y madura su decisión de avanzar. A toda hora.',
+    // LA SEGUNDA CARA (Director, 24 sep 2026). La pieza hablaba solo de los
+    // prospectos, y buena parte de lo construido vive del otro lado: en el Centro
+    // de Mando, donde Queswa es el asistente del distribuidor. Sin esto el
+    // prospecto oye que la tecnología atiende a otros y no ve qué hace por él.
+    // ⚠️ Va en MECANISMO y no en resultado: qué hace, no a dónde lo lleva.
+    // «Pasar de donde está a donde quiere estar» es voz de coach y queda fuera.
+    extra: 'Y con usted trabaja aparte: conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
   },
   {
     label: 'DOS PASOS SENCILLOS',
     img: '/images/servilleta/colapso-metodo-v2.webp',
     sub: 'Usted comparte. Y recibe a quien llega interesado.',
+    // La ley de la multiplicación vive aquí (Director, 24 sep 2026): es la pieza
+    // que habla de lo sencillo, así que es donde la ley se comprueba sola. Venía
+    // del remate, donde competía con «es una sola, y ya está armada».
+    extra: 'Solo se multiplica lo que es sencillo. Y lo que se transmite no es una habilidad: es esto mismo, armado.',
   },
 ];
 
@@ -413,6 +424,14 @@ export default function PitchDeckPage() {
           font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
           color: var(--pd-gold); margin: 1rem 0 1.6rem;
         }
+        .pd-remate .pd-preparacion {
+          font-size: clamp(0.95rem, 1.9vw, 1.12rem); line-height: 1.5;
+          color: var(--pd-muted); margin: 0;
+        }
+        .pd-remate .pd-cierre-linea {
+          margin: 0 auto 0.5rem; text-align: center; max-width: 42ch;
+        }
+        .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
         .pd-remate .marca {
           font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.3em;
           color: var(--pd-muted); text-transform: uppercase; margin-top: 2.2rem;
@@ -804,6 +823,7 @@ export default function PitchDeckPage() {
                   <p className="pd-eyebrow">Cómo funciona · {i + 1} de 3</p>
                   <p className="pd-pieza-label">{PIEZAS[i].label}</p>
                   <p className="pd-p">{PIEZAS[i].sub}</p>
+                  {PIEZAS[i].extra && <p className="pd-p pd-gold">{PIEZAS[i].extra}</p>}
                   {/* Los hechos verificables viven aquí y no en la pantalla 4 (Director,
                       24 sep 2026): es la pieza que los reclama. Van como ESTATUS —hay
                       una empresa grande detrás—, nunca como alegato: nadie escoge al
@@ -869,31 +889,21 @@ export default function PitchDeckPage() {
 
           {/* Beat 4: el remate */}
           <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
+            {/* JERARQUÍA EN TRES TIEMPOS (Director, 24 sep 2026: «distribuye mejor los
+                textos»). Antes eran cuatro bloques del mismo peso apilados y el remate
+                se leía como un párrafo. Ahora: la preparación en pequeño y apagada, el
+                golpe en grande y dorado, y el cierre en dos frases cortas separadas —
+                el punto y coma metía las dos ideas en un solo renglón denso.
+                La línea de la multiplicación se fue al beat de los dos pasos, que es
+                donde la ley se comprueba; aquí competía con «es una sola». */}
             <div className="pd-remate">
-              <p className="pd-p" style={{ margin: '0 auto', textAlign: 'center' }}>
-                No son tres cosas que usted tenga que conseguir.
-              </p>
+              <p className="pd-preparacion">No son tres cosas que usted tenga que conseguir.</p>
               <p className="grande">Es una sola, y ya está armada.</p>
-              <p className="pd-p" style={{ margin: '0 auto', textAlign: 'center' }}>
-                Lo que usted recibe es una empresa de distribución moderna. Usted delega
-                el explicar y el atender; se queda con decidir y con conectar.
+              <p className="pd-p pd-cierre-linea">
+                Lo que usted recibe es una empresa de distribución moderna.
               </p>
-              {/* Cierra el círculo que abre la pantalla 4 («solo se multiplica lo que es
-                  sencillo»): lo que se transmite NO es una habilidad —eso no se copia—
-                  sino esto mismo, funcionando. Así la multiplicación queda dicha como
-                  CONSECUENCIA y no como un tercer paso que le encargamos.
-                  ⚠️ Decía «lo que usted le pasa AL SIGUIENTE» y se corrigió: «el
-                  siguiente» dibuja una cadena de personas, que es la silueta que el
-                  prospecto reconoce como pirámide. Se nombra lo que se transmite, no
-                  a quién — misma regla que cuenta el GEN5 en compras y nunca en gente.
-                  ⚠️ Y se sostiene SOLA: la ley vivía en la pantalla 4 («el problema:
-                  multiplicarse»), que el Director retiró el 24 sep por repetir el
-                  encabezado del problema dos pantallas seguidas. Sin ella, un «por eso
-                  se multiplica» se quedaba sin antecedente, así que la ley se mudó
-                  aquí — que es además donde se cumple. */}
-              <p className="pd-p pd-gold" style={{ margin: '1.2rem auto 0', textAlign: 'center' }}>
-                Solo se multiplica lo que es sencillo. Y lo que se transmite no es una
-                habilidad: es esto mismo, armado.
+              <p className="pd-p pd-cierre-linea">
+                Usted delega el explicar y el atender. Se queda con decidir y con conectar.
               </p>
               <p className="marca">CreaTuActivo.com</p>
             </div>

@@ -6715,7 +6715,15 @@ ${visitorCountry === 'CO'
       const _esCandadoSolitario = _meta0.candado_solitario === true && _meta0.fragment_count === 1
         && !pageContext?.startsWith('whatsapp_salud_')
         && pageContext !== 'whatsapp_socio';
-      if (canalDictado && (_esPuertaDictada || _esCandadoSolitario)) {
+      // ⚠️ Y nunca cuando el turno trae un EJEMPLO dictado (24 sep 2026). La
+      // doctrina es del 14 ago —el ejemplo gana sobre el candado; dos dictados a
+      // la vez se contradicen—, pero este bloque llegó después (9 sep) y quedó
+      // escrito ANTES que el del ejemplo. No se notaba hasta que ADV_OBJ_02
+      // ganó candado: el «sí» a «¿Le muestro cómo crece ese porcentaje…?» (la
+      // oferta de «¿De dónde sale el dinero?») lo gana el empresario por la
+      // palabra «crece», y la persona recibía «Usted ya logró lo más difícil:
+      // que su negocio funcione» en vez del ejemplo que aceptó.
+      if (canalDictado && !_pinDictaEjemplo && (_esPuertaDictada || _esCandadoSolitario)) {
         const _cuerpo = extraerCandadoDictado(_doc0.content || '');
         const _conMarcadores = !!_cuerpo && /\[[A-ZÁÉÍÓÚÑ0-9_ \-]{3,}\]|\{[^}]+\}/.test(_cuerpo);
         // ── Un candado dictado NO se repite dos turnos seguidos ───────────────

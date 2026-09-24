@@ -2747,6 +2747,24 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(comerciante|empresari[oa])\b/i,
     },
     {
+      // ⚠️ **La cifra que el pitch deck imprime en pantalla** (23 sep 2026). El
+      // clasificador acierta el arsenal —el patrón «103 millones» manda a los 12
+      // Niveles— pero dentro del arsenal el vector elegía mal: `NIVELES_01`, que
+      // es la respuesta canónica y está bajo candado, quedaba en el puesto 4 con
+      // 0.297, bajo el umbral. Así que el modelo componía, y en producción salió
+      // «cada PERSONA que ENTRA a su sistema»: dos términos retirados en una sola
+      // frase, a la pregunta que el deck induce.
+      //
+      // La respuesta ya existía y ya cumple —«usted conecta mínimo dos
+      // distribuidores», «8.190 distribuidores consumiendo»—; lo que faltaba era
+      // que llegara. Por la cadena del ingreso recurrente sí llegaba (WHY_04
+      // ofrece la estrategia y el «sí» la dicta); preguntándola directo, no.
+      fragmento: 'arsenal_12_niveles_NIVELES_01',
+      titulo: 'Los 12 Niveles — NIVELES_01',
+      porque: 'pregunta por el plan de los $103 millones',
+      cuando: /103\s*(millones|194|\.194)|(plan|estrategia|c[oó]mo\s+funcionan?)[^.?]{0,30}(12|doce)\s*niveles|(12|doce)\s*niveles[^.?]{0,30}(plan|estrategia|c[oó]mo)|duplicaci[oó]n\s*2\s*[x×]\s*2/i,
+    },
+    {
       // El independiente y el freelance: su techo son sus horas, no la
       // operación. `PERFIL_02` (arsenal v6.44) está escrita para él.
       fragmento: 'arsenal_inicial_PERFIL_02',

@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.44** (23 sep 2026) — **Nace `PERFIL_02`: el independiente y el freelance tienen respuesta propia.** Antes recibían el texto genérico de «¿por qué debería hacer esto?», dictado palabra por palabra igual que al empresario. Al independiente no le dice nada que aquí será su propio jefe, porque ya lo es: su techo son sus horas. Mismo eje que `ADV_OBJ_02` —escalar, y que todo siga corriendo sin estar encima— y las dos mitades del alivio nombradas, Gano Excel y la tecnología. Índice medido contra los 177 fragmentos reales: 10 de 11 en el puesto 1, y la consulta que no gana cae donde ya caía.
+**Versión actual: v6.45** (23 sep 2026) — **Las dos acciones de `EAM_01` se leen una sobre otra.** Llevaban un solo salto de línea entre Compartir y Recibir, y el formato lo colapsaba en un renglón: en el pitch deck salían pegadas (Director, 23 sep). Ahora van con línea en blanco, como viñetas de verdad. Cambiado a la vez en el candado y en `respuestas-maestras.ts`, que son fuente dual con contrato de prefijo. Texto idéntico por lo demás.
+
+**v6.44** (23 sep 2026) — **Nace `PERFIL_02`: el independiente y el freelance tienen respuesta propia.** Antes recibían el texto genérico de «¿por qué debería hacer esto?», dictado palabra por palabra igual que al empresario. Al independiente no le dice nada que aquí será su propio jefe, porque ya lo es: su techo son sus horas. Mismo eje que `ADV_OBJ_02` —escalar, y que todo siga corriendo sin estar encima— y las dos mitades del alivio nombradas, Gano Excel y la tecnología. Índice medido contra los 177 fragmentos reales: 10 de 11 en el puesto 1, y la consulta que no gana cae donde ya caía.
 
 **v6.43** (23 sep 2026) — **`FREQ_03` recupera la oferta que lo nombra.** *«¿Le muestro las tres formas de empezar?»* cierra tres fragmentos de compensación y el «sí» que la sigue no llegaba a la tabla de precios: ganaba el fragmento de la radicación, así que a quien pedía ver las opciones se le abría el trámite de los cuatro datos. La oferta entra literal y aparte en su índice, que es la regla para todo fragmento que sea destino de una oferta escrita, y a cambio el índice se poda. Medido contra los 177 fragmentos reales: la oferta pasa del puesto 3 al 1 y la cobertura en top-3 de sus propias paráfrasis no baja. Cuerpo y candado intactos.
 
@@ -912,6 +914,7 @@ Me gusta esa pregunta — es la que de verdad importa. 🪢
 Su día a día se resume en dos acciones:
 
 📲 **Compartir:** usted pasa un enlace a quien quiera.
+
 🤝 **Recibir:** usted saluda a quien llega con interés.
 
 Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.

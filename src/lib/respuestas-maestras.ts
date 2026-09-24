@@ -158,6 +158,7 @@ const MASTER_EAM_01 = `Me gusta esa pregunta — es la que de verdad importa. �
 Su día a día se resume en dos acciones:
 
 📲 **Compartir:** usted pasa un enlace a quien quiera.
+
 🤝 **Recibir:** usted saluda a quien llega con interés.
 
 Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.

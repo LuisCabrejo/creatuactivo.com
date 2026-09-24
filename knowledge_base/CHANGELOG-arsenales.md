@@ -2019,6 +2019,12 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.12 — `PROD_01` deja el marco del café que ya se toma (24 sep 2026)
+
+`PROD_01` («¿Por qué el café es el producto estrella?») era el único fragmento de los cinco arsenales que conservaba en su cuerpo el marco del consumo que iba a ocurrir igual: vendía el café porque la persona ya lo toma todos los días y solo tiene que cambiarlo por uno mejor. Es el marco que el léxico retiró el 8 ago —pone el producto en el estante del supermercado justo antes del precio— y en el ensayo de la prueba del Director el modelo lo compuso tres veces por su cuenta. Se barrió el corpus con el mismo patrón que ahora vigila la revisión diaria: `COMP_PV_08` y `FAQ_03` coinciden pero no son el marco (la compra del propio socio y la combinación de productos de la línea).
+
+El texto nuevo, aprobado por el Director en el chat: el café es la puerta de entrada porque es la forma más sencilla de conocer la línea —una taza premium, con el extracto propio de Ganoderma—, y la recompra se explica por el resultado, con el mismo cierre que `WHY_PROD_01`. Índice y pregunta de seguimiento sin tocar.
+
 ### v7.11 — La línea roja de salud dentro de los candados, y el texto interno fuera de ellos (13 sep 2026)
 
 Quinto y último arsenal auditado con el Director con los lentes del día (activo · léxico del gremio · texto interno servido · carga) más el de salud, que aquí es el que pesa. Comprobado en Supabase: las «secciones internas» y el bloque de FAQ_04 **no** se sirven; lo que sigue sí.

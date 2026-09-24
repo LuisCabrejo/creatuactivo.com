@@ -1,10 +1,11 @@
 # Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
 **Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
 
-**Versión actual: v7.11** (13 sep 2026) — **Auditoría con el Director: la línea roja de salud dentro de los candados, y el texto interno fuera de ellos.** Las columnas *Beneficio* de BEB_01, SUP_01 y PERS_01 dejan de decir *claridad mental*, *anti-inflamatorio*, *renovación celular*, *reduce caída* y *sin culpas*; CIENCIA_04 y CIENCIA_01 pierden la absorción garantizada y el secreto industrial; BEB_05 y FAQ_01 dejan la medicina y los siglos; BEB_03 pierde un 13 a 1 al revés y sin fuente; PROD_OVERVIEW pierde el párrafo de estrategia interna que servía al prospecto; *ecosistema* → *Gano Excel*. Precios intactos.
+**Versión actual: v7.12** (24 sep 2026) — **`PROD_01` deja el marco del café que ya se toma.** Vendía el café como el que la persona ya toma todos los días, el marco que pone el producto en el estante del supermercado justo antes del precio. Ahora es la puerta de entrada a la línea: una taza premium que el cliente incorpora a su rutina, y la recompra por resultado, con el mismo cierre que `WHY_PROD_01`. Texto aprobado por el Director en el chat. Índice sin tocar.
+
+**v7.11** (13 sep 2026) — **Auditoría con el Director: la línea roja de salud dentro de los candados, y el texto interno fuera de ellos.** Las columnas *Beneficio* de BEB_01, SUP_01 y PERS_01 dejan de decir *claridad mental*, *anti-inflamatorio*, *renovación celular*, *reduce caída* y *sin culpas*; CIENCIA_04 y CIENCIA_01 pierden la absorción garantizada y el secreto industrial; BEB_05 y FAQ_01 dejan la medicina y los siglos; BEB_03 pierde un 13 a 1 al revés y sin fuente; PROD_OVERVIEW pierde el párrafo de estrategia interna que servía al prospecto; *ecosistema* → *Gano Excel*. Precios intactos.
 
 **v7.10 (3 sep 2026):** **Nace `RUTINA_01` —cómo se toman a lo largo de un día— y las tres respuestas de bienestar cierran hacia él** (Director, auditoría de la prueba). Tres fragmentos (CIENCIA_03, FAQ_01, FAQ_02) cerraban con *«¿Le muestro cómo se integra en el día a día?»* sin destino escrito, y «día a día» es un patrón del clasificador que manda a EAM_01: el «sí» recibía Compartir y Recibir como contexto y el modelo componía —«en lugar del café de siempre», un fantasma negado, y un producto que no existe (Ganocelium)—. El fragmento nuevo es un HORARIO, no un argumento: lo que una persona espera al aceptar esa oferta es verse un día (en qué momentos, qué producto, cómo se prepara, cuántos, para quién), y no volver a oír beneficios (intenciones de implementación de Gollwitzer; anchor moment de Fogg). Cero beneficios, solo hechos de las fichas. CIENCIA_03 nombra las cuatro líneas para que nadie salga pensando que esto es café. Sin cambios de precios.
-**v7.9 (22 ago 2026):** PROD_04 explica el modelo Luvoco por su mecanismo —la máquina se compra una vez, las cápsulas se repiten— en el mismo registro del resto del catálogo, y cierra hacia la tabla de precios (LUV_01). Sin cambios de precios ni CV/PV.
 
 **[Concepto Nuclear del archivo]:** Ganoderma Lucidum con extracción propia, más de 30 años de proceso y más de 200 compuestos. ⛔ **Decía *"Biodisponibilidad 100%"*** — retirado el 26 ago 2026: **la composición se afirma; la absorción no.** Esta cabecera no se sirve, pero es lo primero que lee quien vaya a editar.
 
@@ -16,11 +17,9 @@
 **[Índice]:** Por qué el café es el producto estrella, por qué arrancan con café, qué tiene de especial ese producto para el negocio.
 **[Concepto Nuclear]:** El café como puerta de entrada, visto **desde el negocio**. ⚠️ Esta respuesta es para quien pregunta por la estrategia; a quien pregunta por el producto lo atienden `BEB_02` y la línea de bebidas. ⛔ **La instrucción de contexto vivía FUERA del `[Concepto Nuclear]`** (corregido 26 ago 2026), y el fragmentador solo recorta lo que está dentro: se le servía al modelo como texto, con su *"NO para consultas de consumidor"* en negativo. Toda nota para quien edita va aquí adentro. ⚠️ Salió también el registro viejo —*"penetración logística sin fricción"*, *"hábito biológico inquebrantable"*, *"bioactivación de grado médico"*—: jerga de consultoría y una afirmación farmacológica.
 
-El café es la puerta más sencilla porque nadie tiene que cambiar de hábito: ya se toma todos los días, en todas las casas.
+El café es la puerta de entrada porque es la forma más sencilla de conocer la línea: una taza premium, con el extracto propio de Ganoderma que Gano Excel protege.
 
-Ahí está la diferencia con casi cualquier otro producto. No hay que convencer a nadie de empezar algo nuevo — solo de cambiar el que ya toma por uno mejor.
-
-Y como se acaba, se vuelve a pedir. Esa recompra es la que sostiene el ingreso.
+Su cliente lo incorpora a su rutina, nota la diferencia y vuelve a pedirlo el mes siguiente. Esa recompra es la que sostiene lo que factura su sistema de distribución.
 
 **Pregunta de seguimiento:** ¿Le muestro la línea completa de bebidas?
 
@@ -145,7 +144,6 @@ Suyo es el cultivo de tejidos con el que hoy se produce, y la idea de reunir las
 | Halal JAKIM | Pureza y proceso |
 | GMP | Good Manufacturing Practices |
 
-
 **Pregunta de seguimiento:** ¿Le muestro qué hace diferente al producto?
 ---
 
@@ -167,7 +165,6 @@ El portafolio de Gano Excel se estructura en **cuatro categorías** de consumo, 
 
 **4. Cuidado Personal** — 6 productos
 > Línea diaria del hogar: Gano Fresh (pasta dental), Jabón Gano, Jabón Transparente, Shampoo + Acondicionador + Exfoliante Piel&Brillo. Rango: $73.900 — $78.500 COP.
-
 
 **Pregunta de seguimiento:** ¿Por cuál línea quiere que empecemos?
 ---
@@ -197,7 +194,6 @@ La línea de bebidas funcionales de Gano Excel cuenta con **9 productos** — to
 | **Reskine Colágeno** | $216.900 | 10 sachets | Colágeno para las articulaciones |
 
 </verbatim_lock>
-
 
 **Pregunta de seguimiento:** ¿Sobre cuál quiere que le cuente?
 ---
@@ -245,7 +241,6 @@ El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el
 
 **Presentación:** 20 sobres · Precio: $119.900 COP
 
-
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
 
@@ -261,7 +256,6 @@ El **Gano C'Real Spirulina** (pronunciado "Gano-Cereal") es una bebida instantá
 Personas activas, deportistas o quienes quieren un desayuno funcional sin recurrir a cápsulas o suplementos adicionales.
 
 **Presentación:** 15 sobres · Precio: $119.900 COP
-
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
@@ -384,7 +378,6 @@ El sistema **LUVOCO** es un conjunto cerrado: máquina italiana y cápsulas excl
 Las cápsulas son exclusivas para la máquina LUVOCO — no compatibles con Nespresso.
 </verbatim_lock>
 
-
 **Pregunta de seguimiento:** ¿Le cuento cómo funciona la máquina?
 ---
 
@@ -448,7 +441,6 @@ La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrado
 Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea.
 </verbatim_lock>
 
-
 **Pregunta de seguimiento:** ¿Sobre cuál quiere que le cuente?
 ---
 
@@ -470,7 +462,6 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 | **Acondicionador Piel&Brillo** | $73.900 | 250ml | Hidratación profunda |
 | **Exfoliante Piel&Brillo** | $73.900 | 200g | Piel suave al tacto |
 </verbatim_lock>
-
 
 **Pregunta de seguimiento:** ¿Sobre cuál quiere que le cuente?
 ---

@@ -152,6 +152,15 @@ export function detectoresDeterministas(turno: Turno, anterior: Turno | null, ya
     marcas.push('léxico retirado');
   }
 
+  // El marco del consumo que iba a ocurrir igual (24 sep 2026): «reemplazan el
+  // café que ya toma», «productos de consumo diario». Pone el producto en el
+  // estante del supermercado justo antes del precio; el marco aprobado es el
+  // producto premium que el cliente incorpora a su rutina. En el ensayo de la
+  // prueba del Director salió tres veces en turnos que el modelo compuso solo.
+  if (/productos? de consumo diario|alimentos[^.]{0,30}de consumo diario|(que|lo que) (usted |su cliente |la persona |ya )?ya (toma|consume|usa)\b|reemplaz\w* (el|lo|la) (caf[eé] |chocolate )?(que|de la ma[ñn]ana)|cambiar el que ya toma|ya iba a (tomar|consumir|comprar)|de todos modos (va|iba) a|mercado de la casa|(no|nadie) (tiene|tenga|hay) que cambiar de h[aá]bito/i.test(t)) {
+    marcas.push('marco del consumo diario');
+  }
+
   if (!t.trim()) marcas.push('respuesta vacía');
 
   return marcas;

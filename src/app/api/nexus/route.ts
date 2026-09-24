@@ -2491,75 +2491,6 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
   return null; // Búsqueda general si no hay clasificación clara
 }
 
-// NUEVA FUNCIÓN: Consultar catálogo de productos
-async function consultarCatalogoProductos(query: string): Promise<any[]> {
-  console.log('🛒 Consultando catálogo de productos...');
-
-  try {
-    // Buscar por category (más confiable) o por pattern de título
-    // NOTA: No usar id.eq.8 porque la tabla usa UUIDs, no integers
-    const { data, error } = await getSupabaseClient()
-      .from('nexus_documents')
-      .select('id, title, content, category, metadata')
-      .or('category.eq.catalogo_productos,title.ilike.%Catálogo%Productos%')
-      .limit(1);
-
-    if (error) {
-      console.error('Error consultando catálogo de productos:', error);
-      return [];
-    }
-
-    const docs = data as Array<{ id: string; title: string; content: string; category: string; metadata: Record<string, unknown> }> | null;
-    if (!docs || docs.length === 0) {
-      console.warn('⚠️ Catálogo de productos no encontrado en Supabase');
-      return [];
-    }
-
-    const catalogoDoc = docs[0];
-    console.log('✅ Catálogo de productos encontrado:', catalogoDoc.title);
-
-    // Agregar metadata de identificación
-    const result = {
-      ...catalogoDoc,
-      search_method: 'catalogo_productos',
-      source: '/knowledge_base/catalogo_productos_gano_excel.txt'
-    };
-
-    return [result];
-
-  } catch (error) {
-    console.error('Error accediendo catálogo de productos:', error);
-    return [];
-  }
-}
-
-// Analizador de intención semántica
-function analizarIntencionSemantica(userMessage: string): string[] {
-  const messageLower = userMessage.toLowerCase();
-
-  // Conceptos semánticos principales (ESCALABLES)
-  const conceptos = {
-    "funcionamiento": ["funciona", "cómo", "proceso", "sistema", "método"],
-    "inversión": ["costo", "precio", "inversión", "dinero", "pagar", "vale"],
-    "tiempo": ["cuándo", "tiempo", "retorno", "resultados", "rápido", "demora"],
-    "credibilidad": ["confiable", "legítimo", "real", "funciona", "verdad", "estafa"],
-    "soporte": ["ayuda", "apoyo", "soporte", "asistencia", "enseñan", "formación"],
-    "escalación": ["hablar", "contactar", "siguiente", "empezar", "activar", "proceder"],
-    "automatización": ["automatiza", "trabajo", "esfuerzo", "80%", "sistema"],
-    "compensación": ["ganar", "ingreso", "dinero", "cuánto", "porcentaje"]
-  };
-
-  const conceptos_detectados = [];
-
-  for (const [concepto, palabras] of Object.entries(conceptos)) {
-    if (palabras.some(palabra => messageLower.includes(palabra))) {
-      conceptos_detectados.push(concepto);
-    }
-  }
-
-  console.log('Conceptos semánticos detectados:', conceptos_detectados);
-  return conceptos_detectados;
-}
 
 // CORRECCIÓN: Búsqueda híbrida escalable en Arsenal MVP + Catálogo
 // ⚡ PUERTAS DIRECTAS — a nivel de módulo y evaluadas ANTES del caché (23 ago 2026).
@@ -3137,13 +3068,10 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
         return result;
       }
-      // Fallback: si los fragmentos no están disponibles, usar doc monolítico
-      console.log('⚠️ [Catálogo] Fragmentos de precio no disponibles → fallback doc completo');
-      const catalogoResult = await consultarCatalogoProductos(query);
-      if (catalogoResult.length > 0) {
-        searchCache.set(cacheKey, { data: catalogoResult, timestamp: Date.now() });
-        return catalogoResult;
-      }
+      // El respaldo del catálogo monolítico se retiró el 24 sep 2026: ver
+      // `consultarCatalogoProductos` en el historial de git. Nunca funcionó
+      // (llave pública) y habría servido el documento padre con sus notas.
+      console.log('⚠️ [Catálogo] Fragmentos de precio no disponibles — sigue la búsqueda normal');
     }
 
     // Routing directo por categoría — evita fallos de vector search en consultas por categoría
@@ -3334,13 +3262,9 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
       return result;
     }
 
-    // Último recurso: doc completo (solo si las tablas de precio no están disponibles)
-    console.log('⚠️ [Catálogo] Tablas de precio no disponibles → doc completo (último recurso)');
-    const catalogoResult = await consultarCatalogoProductos(query);
-    if (catalogoResult.length > 0) {
-      searchCache.set(cacheKey, { data: catalogoResult, timestamp: Date.now() });
-      return catalogoResult;
-    }
+    // Sin tablas de precio no hay «último recurso» monolítico (retirado el 24 sep
+    // 2026, ver arriba): sigue la búsqueda normal.
+    console.log('⚠️ [Catálogo] Tablas de precio no disponibles — sigue la búsqueda normal');
   }
 
   // ⚡ ROUTING DIRECTO: TABLA DE PRECIOS COMPLETA → COMP_PV_06
@@ -3519,31 +3443,15 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
         return result;
       }
 
-      // FALLBACK: Si no hay fragmentos, usar arsenal completo (legacy)
-      console.log(`⚠️ [Fragments] No fragments found, falling back to full arsenal`);
-      const { data, error } = await getSupabaseClient()
-        .from('nexus_documents')
-        .select('id, title, content, category, metadata')
-        .eq('category', documentType)
-        .limit(1);
-
-      const docs = data as Array<{ id: string; title: string; content: string; category: string; metadata: Record<string, unknown> }> | null;
-      if (!error && docs && docs.length > 0) {
-        console.log(`✅ Arsenal ${documentType} (fallback) - ${(docs[0].metadata as { respuestas_totales?: string })?.respuestas_totales || 'N/A'} respuestas disponibles`);
-
-        const result = docs.map(doc => ({
-          ...doc,
-          source: `/knowledge_base/arsenal_conversacional_${documentType.replace('arsenal_', '')}.txt`,
-          search_method: 'full_arsenal_fallback'
-        }));
-
-        searchCache.set(cacheKey, {
-          data: result,
-          timestamp: Date.now()
-        });
-
-        return result;
-      }
+      // Respaldo «arsenal completo» (esquema anterior a los fragmentos).
+      // ⚠️ RETIRADO el 24 sep 2026 — y NO se «arregla» cambiando la llave. Leía con la
+  // llave pública, y la seguridad de filas de `nexus_documents` devuelve cero
+  // filas sin error: este respaldo NUNCA funcionó, y lo que corre en producción
+  // es lo que sigue. Con la llave de servidor traería el DOCUMENTO PADRE entero
+  // (el arsenal inicial pesa 145.000 caracteres), con sus cabeceras de
+  // `[Concepto Nuclear]` citando las frases vetadas — justo lo que el
+  // fragmentador existe para que el modelo nunca lea.
+      console.log(`⚠️ [Fragments] Sin fragmentos en ${documentType} — sigue al respaldo de fragmentos`);
     } catch (error) {
       console.error(`Error consulta fragmentada ${documentType}:`, error);
     }
@@ -3591,46 +3499,18 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     }
   }
 
-  // PASO 2: Fallback con búsqueda semántica general
-  console.log('📡 Consulta híbrida - fallback búsqueda semántica');
-
-  // PASO 3: Analizar intención para mejorar búsqueda
-  const conceptos = analizarIntencionSemantica(userMessage);
-  const searchTerms = conceptos.length > 0 ? conceptos.join(' ') : query;
-
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (getSupabaseClient().rpc as any)('search_nexus_documents', {
-      search_query: searchTerms,
-      match_count: maxResults
-    });
-
-    if (error) {
-      console.error('Error búsqueda semántica híbrida:', error);
-      return [];
-    }
-
-    const rawData = data as Array<{ category: string; title: string; content: string; metadata: Record<string, unknown> }> | null;
-    const result = (rawData || []).filter((doc) =>
-      doc.category && doc.category.includes('arsenal')
-    ).map((doc) => ({
-      ...doc,
-      search_method: 'hibrid_semantic'
-    }));
-
-    console.log(`Consulta híbrida semántica: ${result.length} documentos encontrados`);
-
-    searchCache.set(cacheKey, {
-      data: result,
-      timestamp: Date.now()
-    });
-
-    return result;
-
-  } catch (error) {
-    console.error('Error consulta híbrida general:', error);
-    return [];
-  }
+  // PASO 2 — la búsqueda general por RPC (`search_nexus_documents`).
+  // ⚠️ RETIRADO el 24 sep 2026 — y NO se «arregla» cambiando la llave. Leía con la
+  // llave pública, y la seguridad de filas de `nexus_documents` devuelve cero
+  // filas sin error: este respaldo NUNCA funcionó, y lo que corre en producción
+  // es lo que sigue. Con la llave de servidor traería el DOCUMENTO PADRE entero
+  // (el arsenal inicial pesa 145.000 caracteres), con sus cabeceras de
+  // `[Concepto Nuclear]` citando las frases vetadas — justo lo que el
+  // fragmentador existe para que el modelo nunca lea.
+  // Medido ese día: con la llave de servidor devolvía el arsenal inicial, el de
+  // compensación y el de los 12 Niveles enteros — 249.000 caracteres.
+  console.log('📡 Consulta híbrida sin material: ni patrones, ni puertas, ni fragmentos');
+  return [];
 }
 
 /// ✅ MULTI-TENANT v15.0: getSystemPrompt acepta tenantId inyectado por middleware.ts
@@ -5444,19 +5324,11 @@ ${summaryParts.join('\n')}
             search_method: 'fragment_vector_search'
           }];
         } else {
-          // Fallback: cargar arsenal completo si no hay fragmentos
-          console.log('⚠️ [GanoCafe] Sin fragmentos, usando arsenal completo');
-          const { data: gcData } = await getSupabaseClient()
-            .from('nexus_documents')
-            .select('id, title, content, category, metadata')
-            .eq('category', 'arsenal_ganocafe')
-            .limit(1);
-          if (gcData && gcData.length > 0) {
-            relevantDocuments = (gcData as any[]).map(doc => ({
-              ...doc,
-              search_method: 'full_arsenal_fallback'
-            }));
-          }
+          // Sin fragmentos responde el prompt de ganocafe, que trae el catálogo.
+          // El respaldo «arsenal completo» se retiró el 24 sep 2026: con la llave
+          // pública nunca devolvió nada, y con la de servidor serviría el
+          // documento padre (21.000 caracteres, con sus notas de edición).
+          console.log('⚠️ [GanoCafe] Sin fragmentos — responde el prompt de ganocafe');
         }
       } else {
         // `consultaRecuperacion` es el mensaje original salvo en WhatsApp, donde
@@ -7533,7 +7405,10 @@ Si el problema persiste, puede continuar la conversación directamente en **crea
 // Health check híbrido
 export async function GET() {
   try {
-    const supabase = getSupabaseClient();
+    // Con la llave de servidor (24 sep 2026): con la pública, la seguridad de
+    // filas de `nexus_documents` devolvía cero filas y este chequeo informaba
+    // «0 documentos» con el arsenal completo en su sitio.
+    const supabase = getSupabaseAdmin();
 
     // Verificar Arsenal MVP completo
     const { data: arsenalDocs, error: arsenalError } = await supabase

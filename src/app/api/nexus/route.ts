@@ -4196,7 +4196,13 @@ function detectVisitorCountry(req: Request, tenantId: string, fingerprint?: stri
   if (process.env.NODE_ENV !== 'production' && process.env.DEV_FORCE_COUNTRY) {
     return process.env.DEV_FORCE_COUNTRY.toUpperCase();
   }
-  return '';
+  // ⚠️ **Sin dato, se cotiza en PESOS** (Director, 23 sep 2026). Antes se
+  // devolvía vacío y eso caía al default internacional, «USD (~COP)»: el 23 sep
+  // la misma pregunta dio dólares en una visita y pesos en otra, según llegara o
+  // no el encabezado de país de Vercel. Un deck que se comparte en Colombia no
+  // puede cotizar en dólares por un encabezado que faltó. Quien SÍ trae país
+  // —US, MX— sigue con el suyo; esto solo cambia el «no sé».
+  return 'CO';
 }
 
 // Línea de precio de un paquete según el país (tablas Estado 2 + pin).
@@ -6269,10 +6275,20 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       // hereda del turno anterior del bot, igual que en la aceptación (prueba
       // 18:38 — el pin no disparó y el modelo compuso, con "activo" incluido).
       const _pideEjemplo = /ejemplo|gr[aá]fic|proyecci[oó]n|detall|n[uú]mer|simul/i.test(latestUserMessage);
+      // ⚠️ **El orden de cómo se gana lo fija el Director** (23 sep 2026):
+      // primero el ingreso RECURRENTE, luego su ejemplo gráfico, y solo después
+      // la compra de paquetes empresariales con el suyo. La doctrina ya decía
+      // que el default es la renta, pero el código hacía lo contrario: solo la
+      // entregaba si la persona nombraba el binario o si el bot se lo había
+      // ofrecido antes, así que una pregunta general —«¿cómo y cuánto se
+      // gana?»— caía al GEN5 por descarte. Medido el 23 sep en los DOS canales
+      // en frío: los dos abrían con el GEN5. Ahora cualquier petición de números
+      // que no nombre el GEN5 empieza por la renta, que es el orden correcto.
       const esRenta = (/b[ia]+n[a-z]?r[a-z]?i?o|regal[ií]a|renta|recurrente/i.test(latestUserMessage)
         && /ejemplo|n[uú]mer|cu[aá]nto|gr[aá]fic|simul|mu[eé]str|ver (el|la|los|c[oó]mo)/i.test(latestUserMessage))
         || ((_aceptaEjemplo || _pideEjemplo) && !_nombraGen5 && _ofrecioRenta)
-        || (_aceptaEjemplo && !_nombraGen5);
+        || (_aceptaEjemplo && !_nombraGen5)
+        || (_pideEjemplo && !_nombraGen5);
       if (canalDictado && esRenta) {
         // EL APALANCAMIENTO reemplaza el ejemplo de clientes propios (Director,
         // 3 sep 2026). Reescrito la misma noche en la auditoría con Gemini: la

@@ -34,6 +34,12 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   '12-niveles':    (id) => `/12-niveles/${id}`,
   // Activación inmediata → página de paquetes (mismo destino que el botón de la servilleta)
   'activacion':    (id) => `/paquetes?ref=${id}`,
+  // El pitch deck. ⚠️ Sin esta fila, `/{slug}/pitch-deck` caía al fallback y el
+  // distribuidor no tenía forma de compartirlo con su identificador: el chat no
+  // recibía `ref`, y el enlace al catálogo salía pelado, sin atribuirle la venta
+  // a nadie (auditoría del 23 sep 2026). Es la trampa que el CLAUDE.md advierte.
+  'pitch-deck':    (id) => `/pitch-deck?ref=${id}`,
+  'deck':          (id) => `/pitch-deck?ref=${id}`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {

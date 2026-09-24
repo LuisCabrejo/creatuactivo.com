@@ -418,23 +418,41 @@ export default function PitchDeckPage() {
         @media (prefers-reduced-motion: reduce) {
           .pd-tres .pd-figura { animation: none; opacity: 1; }
         }
-        .pd-remate { text-align: center; max-width: 720px; margin: 0 auto; }
+        /* ⚠️ margin:auto en los cuatro lados y NO 0 auto: el cero pisaba el
+           margin-block:auto con el que .pd-beat centra a su hijo, y este beat era el
+           único que se quedaba pegado arriba con media pantalla vacía debajo. */
+        .pd-remate { text-align: center; max-width: 760px; margin: auto; }
+
+        .pd-fusion {
+          display: flex; margin: 0 auto;
+          width: min(520px, 76vw);
+          border: 1px solid rgba(197,160,89,0.55);
+          box-shadow: 0 0 70px rgba(197,160,89,0.10);
+        }
+        .pd-fusion-parte {
+          flex: 1; aspect-ratio: 1 / 1;
+          background-size: cover; background-position: center;
+        }
         .pd-remate .grande {
           font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
           font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
-          color: var(--pd-gold); margin: 1rem 0 1.6rem;
+          color: var(--pd-gold); margin: 2rem 0 1.5rem;
         }
         .pd-remate .pd-preparacion {
           font-size: clamp(0.95rem, 1.9vw, 1.12rem); line-height: 1.5;
-          color: var(--pd-muted); margin: 0;
+          color: var(--pd-muted); margin: 0 0 1.8rem;
         }
         .pd-remate .pd-cierre-linea {
           margin: 0 auto 0.5rem; text-align: center; max-width: 42ch;
         }
         .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
+        /* La marca del remate se OCULTA en escritorio: el HUD ya la lleva arriba a
+           la izquierda y salía dos veces en la misma pantalla. En el teléfono el HUD
+           la esconde, así que allá esta es la única y sí se muestra. */
         .pd-remate .marca {
+          display: none;
           font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.3em;
-          color: var(--pd-muted); text-transform: uppercase; margin-top: 2.2rem;
+          color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
         }
 
         /* ── 6 · Producto ────────────────────────────────────────────────── */
@@ -579,6 +597,7 @@ export default function PitchDeckPage() {
           /* En un teléfono la marca y los puntos se montaban encima del botón.
              La marca ya está en la pantalla 1 y en el remate: aquí sobra. */
           .pd-brand { display: none; }
+          .pd-remate .marca { display: block; }
           .pd-fs-largo { display: none; }
           .pd-fs-corto { display: inline; }
         }
@@ -898,7 +917,31 @@ export default function PitchDeckPage() {
                 donde la ley se comprueba; aquí competía con «es una sola». */}
             <div className="pd-remate">
               <p className="pd-preparacion">No son tres cosas que usted tenga que conseguir.</p>
-              <p className="grande">Es una sola, y ya está armada.</p>
+
+              {/* LA FUSIÓN — el pago visual de la oscilación (24 sep 2026). Este beat
+                  era el ÚNICO sin gráfica: después de cuatro pantallas con la imagen
+                  de protagonista, el clímax llegaba en puro texto y con media pantalla
+                  en negro. Son las mismas tres figuras del beat anterior, ahora sin
+                  separación y dentro de un solo marco dorado: se VE que son una.
+                  Es el movimiento de Jobs — estos no son tres aparatos, es uno solo.
+                  ⚠️ Sin rótulos: ya se nombraron una por una en los beats 0-2 y otra
+                  vez en el 3. Aquí la imagen tiene que hablar sola. */}
+              <div className="pd-fusion">
+                {PIEZAS.map((p) => (
+                  <div
+                    key={p.label}
+                    className="pd-fusion-parte"
+                    style={{ backgroundImage: `url(${p.img})` }}
+                  />
+                ))}
+              </div>
+
+              {/* Dos líneas explícitas y no un solo bloque: el titular rompía en
+                  «…Y YA ESTÁ / ARMADA.» y dejaba huérfana la palabra que carga el
+                  remate del deck. La coma es la pausa, y aquí es el corte. */}
+              <p className="grande">
+                Es una sola,<br />y ya está armada.
+              </p>
               <p className="pd-p pd-cierre-linea">
                 Lo que usted recibe es una empresa de distribución moderna.
               </p>

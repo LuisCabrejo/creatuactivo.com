@@ -26,20 +26,20 @@
  *                    (STORY_03): el dinero que ya tiene dueño + el ciclo + el
  *                    remate «al que gana dos y al que gana más de veinte». Sin
  *                    el remate, quien gana bien se exime y se acaba la charla.
- *  4 LA OPORTUNIDAD· concede que la categoría funciona ANTES de tocarle nada, y
- *                    gira en la bisagra del deck: «El problema: multiplicarse.
- *                    Solo se multiplica lo que es sencillo.» (Director, 23 sep).
- *                    Todos quieren crecer, crecer es multiplicarse, y ahí era
- *                    donde el modelo se rompía — es la razón por la que él
- *                    empezó esto. ⛔ NO se nombra el gremio ni se invoca el
- *                    fantasma de perseguir conocidos: eso es el SÍNTOMA, y
- *                    enunciarlo se lo planta a quien no lo traía. La causa se
- *                    dice entera y el que tenga el recuerdo lo pone solo.
+ *  4 LA OPORTUNIDAD· tres líneas y nada más (Director, 24 sep): el titular cruza
+ *                    la bicicleta de la 3 y la paga, la tesis de la conectividad
+ *                    («el sistema que conecta, no el que produce») y el cierre
+ *                    que baja la amenaza («no es cambiar de vida, es modernizar
+ *                    la forma de hacer empresa»). ⛔ NO se nombra el gremio ni se
+ *                    invoca el fantasma de perseguir conocidos: eso es el
+ *                    SÍNTOMA, y enunciarlo se lo planta a quien no lo traía.
  *  5 LAS TRES      · la oscilación (5 beats). Aquí se va la mitad del tiempo.
- *                    El remate cierra el círculo de la 4: lo que se le pasa al
- *                    siguiente no es una habilidad —eso no se copia— sino esto
- *                    mismo, armado. Así la multiplicación queda como
- *                    CONSECUENCIA y no como un tercer paso.
+ *                    El beat del fabricante carga los hechos verificables, que
+ *                    es la pieza que los reclama. Y el remate se lleva la ley de
+ *                    la multiplicación —vivía en la 4 hasta el 24 sep— porque
+ *                    aquí es donde se cumple: lo que se transmite no es una
+ *                    habilidad sino esto mismo, armado. Así la multiplicación
+ *                    queda como CONSECUENCIA y no como un tercer paso.
  *  6 EL PRODUCTO   · ficha y categorías (patrón servilleta).
  *  7 LOS NÚMEROS   · simulador de la servilleta + simulador de los 12 niveles.
  *
@@ -351,6 +351,12 @@ export default function PitchDeckPage() {
           border: 1px solid rgba(255,255,255,0.07);
         }
         .pd-hecho { background: var(--pd-bg); padding: 1rem 1.1rem; }
+        /* Dentro de la pieza del fabricante van más apretados: comparten la columna
+           con el rótulo y su línea, y el protagonista ahí es la imagen. */
+        .pd-hechos--pieza { margin-top: 1.5rem; grid-template-columns: repeat(2, 1fr); }
+        .pd-hechos--pieza .pd-hecho { padding: 0.6rem 0.75rem; }
+        .pd-hechos--pieza .k { font-size: 0.5rem; margin-bottom: 0.25rem; }
+        .pd-hechos--pieza .v { font-size: 0.78rem; }
         .pd-hecho .k {
           font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
           color: var(--pd-data); text-transform: uppercase; display: block; margin-bottom: 0.4rem;
@@ -734,10 +740,6 @@ export default function PitchDeckPage() {
                 caso») — y el mercado de esta herramienta es justamente gente que gana
                 bien. Sin él la conversación se acaba en silencio. */}
             <p className="pd-p">
-              Usted trabaja el mes entero. Y al día siguiente de que le entra la plata,
-              ese dinero ya tiene dueño: el banco, las cuotas, los recibos.
-            </p>
-            <p className="pd-p">
               Es un ciclo infinito de trabajar, pagar cuentas y repetir. Es como estar en
               una bicicleta estática: usted le da y le da con todas sus fuerzas.
             </p>
@@ -778,8 +780,7 @@ export default function PitchDeckPage() {
                 y el que oye lo completa solo. Y la multiplicación aquí es tarea del modelo
                 VIEJO — en el nuestro se nombra como consecuencia, nunca como un tercer
                 paso; el contraste refuerza esa regla en vez de romperla. */}
-            <p className="pd-bisagra">El problema: multiplicarse.</p>
-            <p className="pd-p">Solo se multiplica lo que es sencillo.</p>
+
             {/* MODERNIZAR, NO CAMBIAR DE VIDA (Director, 24 sep 2026). El hallazgo de
                 campo: presentado como ACTUALIZACIÓN la gente se interesa; presentado
                 como cambio, se defiende. Baja la amenaza sin bajar el estatus, y es la
@@ -789,25 +790,6 @@ export default function PitchDeckPage() {
                 ⚠️ NO dice «modernizar la forma de producir» — nos acabamos de definir
                 por la conexión y no por la producción; se contradiría a dos líneas. */}
             <p className="pd-kicker">No es cambiar de vida. Es modernizar la forma de hacer empresa</p>
-
-            <div className="pd-hechos">
-              <div className="pd-hecho">
-                <span className="k">Marco legal</span>
-                <span className="v">Ley 1700 de 2013</span>
-              </div>
-              <div className="pd-hecho">
-                <span className="k">Presencia en Colombia</span>
-                <span className="v">Nueve sedes abiertas al público</span>
-              </div>
-              <div className="pd-hecho">
-                <span className="k">Registro sanitario</span>
-                <span className="v">INVIMA vigente</span>
-              </div>
-              <div className="pd-hecho">
-                <span className="k">Certificación</span>
-                <span className="v">TGA de Australia</span>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -822,6 +804,34 @@ export default function PitchDeckPage() {
                   <p className="pd-eyebrow">Cómo funciona · {i + 1} de 3</p>
                   <p className="pd-pieza-label">{PIEZAS[i].label}</p>
                   <p className="pd-p">{PIEZAS[i].sub}</p>
+                  {/* Los hechos verificables viven aquí y no en la pantalla 4 (Director,
+                      24 sep 2026): es la pieza que los reclama. Van como ESTATUS —hay
+                      una empresa grande detrás—, nunca como alegato: nadie escoge al
+                      niño impopular porque le muestren el boletín de notas. */}
+                  {i === 0 && (
+                    <div className="pd-hechos pd-hechos--pieza">
+                      <div className="pd-hecho">
+                        <span className="k">Marco legal</span>
+                        <span className="v">Ley 1700 de 2013</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Operación en América</span>
+                        <span className="v">16 países</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Sedes en Colombia</span>
+                        <span className="v">Nueve, abiertas al público</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Registro sanitario</span>
+                        <span className="v">INVIMA vigente</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Certificación</span>
+                        <span className="v">TGA de Australia</span>
+                      </div>
+                    </div>
+                  )}
                   {i === 1 && (
                     <button
                       type="button"
@@ -875,10 +885,15 @@ export default function PitchDeckPage() {
                   ⚠️ Decía «lo que usted le pasa AL SIGUIENTE» y se corrigió: «el
                   siguiente» dibuja una cadena de personas, que es la silueta que el
                   prospecto reconoce como pirámide. Se nombra lo que se transmite, no
-                  a quién — misma regla que cuenta el GEN5 en compras y nunca en gente. */}
+                  a quién — misma regla que cuenta el GEN5 en compras y nunca en gente.
+                  ⚠️ Y se sostiene SOLA: la ley vivía en la pantalla 4 («el problema:
+                  multiplicarse»), que el Director retiró el 24 sep por repetir el
+                  encabezado del problema dos pantallas seguidas. Sin ella, un «por eso
+                  se multiplica» se quedaba sin antecedente, así que la ley se mudó
+                  aquí — que es además donde se cumple. */}
               <p className="pd-p pd-gold" style={{ margin: '1.2rem auto 0', textAlign: 'center' }}>
-                Por eso se multiplica: lo que se transmite no es una habilidad, es esto
-                mismo, armado.
+                Solo se multiplica lo que es sencillo. Y lo que se transmite no es una
+                habilidad: es esto mismo, armado.
               </p>
               <p className="marca">CreaTuActivo.com</p>
             </div>

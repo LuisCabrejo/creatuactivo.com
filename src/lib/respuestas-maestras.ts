@@ -39,6 +39,24 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
+ * Reescritura 25 sep 2026 — LOS TRES ELEMENTOS Y EL CLIENTE A SU NOMBRE (texto del
+ *   Director, pulido en la sesión de naming). La versión de la franquicia daba el «ajá»
+ *   con una analogía de dos párrafos y nunca decía de quién es el cliente: «cada vez que
+ *   alguien compra» dejaba el hueco que el lector llena con la escalera de gente.
+ *   • Responde en la primera línea: recibe ensamblados los tres elementos de un negocio
+ *     MODERNO de distribución. «Moderno» insinúa lo de antes sin nombrarlo, y los tres
+ *     elementos lo pagan en el acto (docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md).
+ *   • El fabricante va SIN NOMBRE hasta la última línea (Director): quien lee «Gano Excel»
+ *     arriba clasifica el negocio y deja de leer. No se omite —ocultarlo deja peor
+ *     impresión que decirlo—: llega al final, en su mejor papel, el de quien paga.
+ *   • «Esta conversación es una muestra»: la tecnología se demuestra, no se anuncia.
+ *   • La propiedad es la tesis de su párrafo, y la recompra es su CONSECUENCIA: el cliente
+ *     queda a su nombre (el vínculo es permanente, confirmado por el Director) → por eso
+ *     cada recompra le deja un porcentaje. Sin plazo ni duración atados al pago.
+ *   • El crecimiento se dice abiertamente —quien quiere distribuir recibe las mismas
+ *     herramientas y hace lo mismo—: la red no se esconde (Ley 1700, art. 5).
+ *   ⛔ La pregunta de cierre no se toca: cinco lugares del código la reconocen.
+ *   ⚠️ Si cambia el arranque, se actualiza la firma `como_funciona` de queswa-bitacora.ts.
  * Ajuste 3 sep 2026 — AUDITORÍA CON GEMINI (Director). Cuatro tomas de su borrador: la
  *   tesis del párrafo de la recompra en su primera línea («la clave de la estabilidad»),
  *   «la marca genérica» y «vuelve a pedir», el despacho «directo a la casa del cliente»,
@@ -129,19 +147,19 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Funciona con la lógica de una franquicia.
+const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe, ensamblados en una sola aplicación, los tres elementos de un negocio moderno de distribución.
 
-Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi nadie. La diferencia no está en el local ni en la venta: está en ser dueño del sistema que distribuye.
+1. **Un fabricante**, que empaca y despacha cada pedido hasta la casa del cliente.
 
-Eso es lo que usted arma acá: su propio sistema de distribución de productos premium de bienestar, que no depende de que esté encima. Lo recibe ensamblado, con las tres cosas que hacen falta ya puestas.
+2. **Tecnología:** esta conversación es una muestra. Yo atiendo a cada persona que llega, a cualquier hora, y maduro su decisión.
 
-Una fábrica: **Gano Excel**, 30 años y más de 60 países. Fabrica y despacha cada pedido a la casa del cliente, sean diez clientes o mil.
+3. **Dos pasos sencillos:** usted comparte su enlace y recibe a quien llega con interés.
 
-Alguien que atienda: eso lo hago **yo**. Converso con cada persona que llega y maduro su decisión de avanzar.
+Lo que hace distinto a este modelo es la propiedad: cada cliente que llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje.
 
-Y una metodología de dos pasos.
+Y quien se interese en distribuir recibe estas mismas herramientas y hace lo mismo que usted. Así se arma, a su nombre, todo un sistema de distribución: clientes comprando en América y distribuidores creciendo.
 
-Cada vez que alguien compra a través de su sistema, a usted le queda un porcentaje. Todo desde el celular.
+Las comisiones las paga el fabricante: **Gano Excel**, con 30 años en más de 60 países.
 
 ¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?`;
 

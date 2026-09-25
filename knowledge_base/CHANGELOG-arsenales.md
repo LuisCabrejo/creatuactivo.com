@@ -487,6 +487,23 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.48 — `WHY_02` 🔒 responde cómo funciona con los tres elementos y el cliente a su nombre (25 sep 2026)
+
+Sale de la investigación de naming del 25 sep (`docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md`). El Director sentía la respuesta muy larga y con demasiado contexto; la auditoría encontró además que en WhatsApp repetía un tercio de lo que el saludo acababa de decir, y que en la línea del dinero decía *«cada vez que alguien compra»* sin decir de quién es el cliente: el mismo hueco por el que el 10 sep se retiró la viñeta del consumo.
+
+**El texto es del Director**, pulido en tres rondas en el chat. Se probaron antes un proceso en cinco pasos, un híbrido con la pregunta del fundador de Amazon (su ejemplo del 1-a-1) y una versión al estilo de Vélez; él escribió la suya con los tres elementos ensamblados, y la versión final toma de un borrador de Gemini el fabricante sin nombre y la propiedad como tesis.
+
+**Decisiones:**
+- **Primera línea = la respuesta:** recibe, ensamblados en una sola aplicación, los tres elementos de un negocio **moderno** de distribución. «Moderno» insinúa lo de antes sin nombrarlo; los tres elementos lo pagan en el acto.
+- **El fabricante sin nombre hasta la última línea** (Director): quien lee el nombre arriba clasifica el negocio y deja de leer. No se omite, porque ocultarlo deja peor impresión que decirlo: llega como quien paga las comisiones, con sus credenciales.
+- **«Esta conversación es una muestra»:** la tecnología se demuestra mientras se lee.
+- **La propiedad como tesis y la recompra como consecuencia:** cada cliente queda a nombre del socio (permanente, confirmado por el Director) → por eso cada recompra le deja un porcentaje. Sin plazo ni duración.
+- **El crecimiento, abierto:** quien quiere distribuir recibe las mismas herramientas y hace lo mismo.
+
+**Del borrador de Gemini NO se tomaron:** los tres mensajes, la lista de lo que el socio no tiene que hacer, la jerga de *fricción operativa* y *ecosistema*, *la maquinaria hace el resto* (esfuerzo mínimo), *codificado* y su pregunta de cierre hacia un ejemplo con números, que rompe el paso que dicta el conductor.
+
+**Técnico:** doble fuente con `respuestas-maestras.ts` (919 caracteres, prefijo idéntico). La firma `como_funciona` de `queswa-bitacora.ts` reconoce el texto nuevo y conserva la vieja para el historial anterior. Índice y pregunta de cierre sin tocar. ⏳ La categoría del producto ya no aparece ni en la apertura del canal ni aquí: llega con la oferta de productos.
+
 ### v6.47 — `PERFIL_02` va con candado (24 sep 2026)
 
 En la prueba del Director del 24 sep, a *«yo soy independiente y me va bien, ¿por qué debería hacer este negocio?»* la puerta llevó a `PERFIL_02`, pero el fragmento no tenía candado y el modelo lo reescribió: se perdieron *«Esa es la tecnología: creatuactivo.com y queswa.app, ya armados»* y el remate de escalar, las dos líneas que el Director había pedido, y entró *«Buena pregunta, y tiene toda la razón en hacerla»*. Ahora el cuerpo va con candado y la puerta dicta; la apertura y la pregunta de cierre las escribe el modelo con la bitácora delante, para que conecte con lo que la persona dijo y no ofrezca lo que ya vio. Texto e índice sin tocar.

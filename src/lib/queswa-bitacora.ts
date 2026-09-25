@@ -74,8 +74,10 @@ export interface TemaBitacora {
 export const TEMAS: TemaBitacora[] = [
   {
     id: 'como_funciona',
-    nombre: 'cómo funciona el negocio (la lógica de una franquicia y las tres piezas)',
-    firma: /l[oó]gica de una franquicia|Vender hamburguesas lo puede hacer cualquiera/i,
+    nombre: 'cómo funciona el negocio (los tres elementos ensamblados y el cliente a su nombre)',
+    // La firma vieja (la franquicia) se conserva: el historial de quien la
+    // recibió antes del 25 sep 2026 sigue en sus últimas 40 filas.
+    firma: /tres elementos de un negocio moderno|l[oó]gica de una franquicia|Vender hamburguesas lo puede hacer cualquiera/i,
     fragmentos: ['arsenal_inicial_WHY_02'],
   },
   {

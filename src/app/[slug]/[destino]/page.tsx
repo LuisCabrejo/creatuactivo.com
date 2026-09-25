@@ -11,6 +11,9 @@ import { notFound, permanentRedirect, redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
+import { OG_PITCH_DECK } from '@/app/pitch-deck/og'
+
+const esPitchDeck = (destino: string) => destino === 'pitch-deck' || destino === 'deck'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -199,7 +202,23 @@ export default async function DestinoRoute({
     redirect(`/?ref=${record.constructor_id}`)
   }
 
-  redirect(resolver(record.constructor_id))
+  const destinoReal = resolver(record.constructor_id)
+
+  // 🔴 El pitch deck tampoco redirige a los robots de vista previa (24 sep 2026),
+  // por la misma razón que Queswa: un scraper que sigue el 307 arma la tarjeta
+  // con el `og:url` de /pitch-deck — SIN el identificador del distribuidor — y
+  // Facebook publica ese enlace pelado: la visita no queda atribuida a nadie.
+  // Al robot se le sirve esta página mínima con el OG de abajo (url del slug);
+  // la persona sigue recibiendo el redirect directo.
+  if (esPitchDeck(destino) && esScraperDePreview()) {
+    return (
+      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
+        <a href={destinoReal} style={{ color: '#C5A059' }}>{OG_PITCH_DECK.title}</a>
+      </main>
+    )
+  }
+
+  redirect(destinoReal)
 }
 
 // Metadata dinámica — OG de video para reels, mínima para redirects
@@ -252,6 +271,29 @@ export async function generateMetadata({
         images: [{ url: 'https://creatuactivo.com/og/queswa', width: 1200, height: 630, alt: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima' }],
       },
       twitter: { card: 'summary_large_image', title: OG_QUESWA.title, description: OG_QUESWA.description },
+    }
+  }
+
+  // Tarjeta propia para el pitch deck, con la url DEL SLUG (24 sep 2026). La
+  // imagen y el copy son los de /pitch-deck; lo que cambia es el `og:url`, que
+  // es lo que Facebook publica. Ver el porqué en el componente, arriba.
+  if (esPitchDeck(destino)) {
+    const url = `https://creatuactivo.com/${slug}/${destino}`
+    return {
+      title: `${OG_PITCH_DECK.title} | CreaTuActivo`,
+      description: OG_PITCH_DECK.description,
+      robots: { index: false },
+      alternates: { canonical: url },
+      openGraph: {
+        type: 'website',
+        siteName: 'CreaTuActivo.com',
+        locale: 'es_CO',
+        url,
+        title: OG_PITCH_DECK.title,
+        description: OG_PITCH_DECK.description,
+        images: [{ url: OG_PITCH_DECK.image, width: 1200, height: 630, alt: OG_PITCH_DECK.alt }],
+      },
+      twitter: { card: 'summary_large_image', title: OG_PITCH_DECK.title, description: OG_PITCH_DECK.description },
     }
   }
 

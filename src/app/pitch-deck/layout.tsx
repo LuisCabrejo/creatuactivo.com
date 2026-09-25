@@ -9,9 +9,11 @@
  */
 
 import type { Metadata } from 'next'
+import { OG_PITCH_DECK } from './og'
 
-const DESCRIPCION =
-  'Una empresa de distribución moderna vende en todo el continente y factura sin que usted esté encima. Hasta hace poco, tener una era casi imposible.'
+// El texto vive en og.ts porque lo comparte la ruta corta /{slug}/pitch-deck.
+const DESCRIPCION = OG_PITCH_DECK.description
+const TITULO_OG = `${OG_PITCH_DECK.title} | CreaTuActivo`
 
 export const metadata: Metadata = {
   title: 'Pitch Deck | CreaTuActivo',
@@ -33,12 +35,12 @@ export const metadata: Metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com/pitch-deck',
-    title: 'Una empresa de distribución moderna | CreaTuActivo',
+    title: TITULO_OG,
     description: DESCRIPCION,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Una empresa de distribución moderna | CreaTuActivo',
+    title: TITULO_OG,
     description: DESCRIPCION,
   },
 }

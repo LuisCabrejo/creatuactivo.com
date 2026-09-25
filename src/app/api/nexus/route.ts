@@ -6502,8 +6502,7 @@ ${filaGen5}`;
       return `
 💠 DATOS OFICIALES DEL PRODUCTO POR EL QUE PREGUNTAN (úsalos exactos):
 • Nombre correcto: ${prod.nombre}${pres}
-• Precio: ${precio}
-• Registro: ${prod.invima}
+• Precio: ${precio}${prod.invima ? `\n• Registro INVIMA: ${prod.invima}` : ''}
 ⚠️ El precio va SIEMPRE en la respuesta, y el nombre se escribe así, sin
 inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
     };

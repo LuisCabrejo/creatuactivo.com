@@ -141,7 +141,7 @@ const productData: ProductData = {
     name: 'Ganocafé 3 en 1',
     price: 110900,
     image: '/productos/bebidas/ganocafe-3-en-1-gano-excel-min.png',
-    invima: 'SD2012-0002589',
+    invima: 'RSA-0011698-2021',
     presentacion: 'Caja de 20 sobres',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -161,7 +161,7 @@ const productData: ProductData = {
     name: 'Ganocafé Clásico',
     price: 110900,
     image: '/productos/bebidas/gano-cafe-clasico-gano-excel-min.png',
-    invima: 'SD2013-0002947',
+    invima: '',
     presentacion: 'Caja de 30 sobres',
     categoria: 'Suplemento dietario',
     llevaGanoderma: true,
@@ -181,7 +181,7 @@ const productData: ProductData = {
     name: 'Ganorico Latte Rico',
     price: 119900,
     image: '/productos/bebidas/latte-rico-gano-excel-min.png',
-    invima: 'NSA-0012966-2022',
+    invima: 'NSA-0010760-2021',
     presentacion: 'Caja de 20 sobres',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -201,7 +201,7 @@ const productData: ProductData = {
     name: 'Ganorico Mocha Rico',
     price: 119900,
     image: '/productos/bebidas/mocha-rico-gano-excel-min.png',
-    invima: 'NSA-0012965-2022',
+    invima: 'NSA-0010760-2021',
     presentacion: 'Caja de 20 sobres',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -221,7 +221,7 @@ const productData: ProductData = {
     name: 'Ganorico Shoko Rico',
     price: 124900,
     image: '/productos/bebidas/shoko-rico-gano-excel-min.png',
-    invima: 'NSA-0012964-2022',
+    invima: 'NSA-0010766-2021',
     presentacion: 'Caja de 20 sobres',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -241,9 +241,9 @@ const productData: ProductData = {
     name: 'Gano C\'Real Spirulina',
     price: 119900,
     image: '/productos/bebidas/ganocereal-spirulina-min.png',
-    invima: 'NSA-0012963-2022',
+    invima: 'PSA-0004956-2024',
     presentacion: 'Caja de 15 sobres',
-    categoria: 'Suplemento dietario',
+    categoria: 'Alimento',
     llevaGanoderma: true,
     goals: ['Desayuno', 'Sin café'],
     shortDescription: 'Un cereal instantáneo con espirulina y extracto de Ganoderma: el desayuno que se prepara en un minuto.',
@@ -261,7 +261,7 @@ const productData: ProductData = {
     name: 'Oleaf Gano Rooibos',
     price: 119900,
     image: '/productos/bebidas/te-rooibos-gano-excel-min.png',
-    invima: 'NSA-0012962-2022',
+    invima: 'SD2017-0004109',
     presentacion: 'Caja de 20 sobres',
     categoria: 'Suplemento dietario',
     llevaGanoderma: true,
@@ -281,9 +281,9 @@ const productData: ProductData = {
     name: 'Gano Schokolade',
     price: 124900,
     image: '/productos/bebidas/gano-schokolade-gano-excel-min.png',
-    invima: 'NSA-0012961-2022',
+    invima: 'NSA-0013117-2022',
     presentacion: 'Caja de 20 sobres',
-    categoria: 'Suplemento dietario',
+    categoria: 'Alimento',
     llevaGanoderma: true,
     goals: ['Cacao intenso', 'Adultos'],
     shortDescription: 'El chocolate del adulto: cacao intenso, del que se toma despacio, con el extracto de Ganoderma adentro.',
@@ -301,7 +301,7 @@ const productData: ProductData = {
     name: 'Reskine Colágeno',
     price: 216900,
     image: '/productos/bebidas/gano-plus-reskine-collagen-drink-gano-excel-min.png',
-    invima: 'NSA-0012959-2022',
+    invima: 'RSA-0025739-2023',
     presentacion: 'Caja de 10 sachets',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -321,7 +321,7 @@ const productData: ProductData = {
     name: 'Cápsulas de Ganoderma',
     price: 272500,
     image: '/productos/suplementos/capsulas-de-ganoderma-gano-excel-min.png',
-    invima: 'SD2013-0002860',
+    invima: '',
     presentacion: 'Frasco de 90 cápsulas',
     categoria: 'Suplemento dietario',
     llevaGanoderma: true,
@@ -341,7 +341,7 @@ const productData: ProductData = {
     name: 'Cápsulas Excellium',
     price: 272500,
     image: '/productos/suplementos/capsulas-de-excellium-gano-excel-min.png',
-    invima: 'NSA-0012958-2022',
+    invima: '',
     presentacion: 'Frasco de 90 cápsulas',
     categoria: 'Suplemento dietario',
     llevaGanoderma: true,
@@ -361,7 +361,7 @@ const productData: ProductData = {
     name: 'Cápsulas Cordygold',
     price: 336900,
     image: '/productos/suplementos/capsulas-de-cordy-gold-gano-excel-min.png',
-    invima: 'NSA-0012957-2022',
+    invima: 'SD2017-0004056',
     presentacion: 'Frasco de 90 cápsulas',
     categoria: 'Suplemento dietario',
     llevaGanoderma: false,
@@ -421,7 +421,7 @@ const productData: ProductData = {
     name: 'Jabón Transparente Gano',
     price: 78500,
     image: '/productos/cuidado-personal/jabon-transparent-soap-gano-excel-min.png',
-    invima: 'NSO09915-21CO',
+    invima: 'NSOC09915-21CO',
     presentacion: 'Barra de 100 g',
     categoria: 'Cosmético',
     llevaGanoderma: true,
@@ -441,7 +441,7 @@ const productData: ProductData = {
     name: 'Champú Piel&Brillo',
     price: 73900,
     image: '/productos/cuidado-personal/shampoo-p&b-gano-excel-min.png',
-    invima: 'NSOC96485-19CO',
+    invima: 'NSOC07407-21CO',
     presentacion: 'Frasco de 250 ml',
     categoria: 'Cosmético',
     llevaGanoderma: true,
@@ -461,7 +461,7 @@ const productData: ProductData = {
     name: 'Acondicionador Piel&Brillo',
     price: 73900,
     image: '/productos/cuidado-personal/acondicionador-p&b-gano-excel-min.png',
-    invima: 'NSOC96486-19CO',
+    invima: 'NSOC07389-21CO',
     presentacion: 'Frasco de 250 ml',
     categoria: 'Cosmético',
     llevaGanoderma: true,
@@ -501,9 +501,9 @@ const productData: ProductData = {
     name: 'Máquina Luvoco',
     price: 1026000,
     image: '/productos/luvoco/luvoco55-1-1024x1024.png',
-    invima: 'Certificado CE',
+    invima: '',
     presentacion: 'Máquina de espresso para cápsulas Luvoco',
-    categoria: 'Dispositivo (certificado CE)',
+    categoria: 'Electrodoméstico',
     llevaGanoderma: false,
     goals: ['Espresso', 'Se compra una vez'],
     shortDescription: 'La máquina italiana de 15 bares que hace el espresso de la casa, con las cápsulas propias de Luvoco.',
@@ -522,7 +522,7 @@ const productData: ProductData = {
     name: 'Luvoco Suave · 15 cápsulas',
     price: 110900,
     image: '/productos/luvoco/luvoco-suave-gano-excel-min.png',
-    invima: 'NSA-0012955-2022',
+    invima: 'NSA-0012966-2022',
     presentacion: 'Caja de 15 cápsulas de 8 g',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -542,7 +542,7 @@ const productData: ProductData = {
     name: 'Luvoco Medio · 15 cápsulas',
     price: 110900,
     image: '/productos/luvoco/luvoco-medio-gano-excel-min.png',
-    invima: 'NSA-0012954-2022',
+    invima: 'NSA-0012956-2022',
     presentacion: 'Caja de 15 cápsulas de 8 g',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -562,7 +562,7 @@ const productData: ProductData = {
     name: 'Luvoco Fuerte · 15 cápsulas',
     price: 110900,
     image: '/productos/luvoco/luvoco-fuerte-gano-excel-min.png',
-    invima: 'NSA-0012953-2022',
+    invima: 'NSA-0012958-2022',
     presentacion: 'Caja de 15 cápsulas de 8 g',
     categoria: 'Alimento',
     llevaGanoderma: true,
@@ -1676,7 +1676,7 @@ export default function CatalogoEstrategico() {
                   {product.taglineEstrategico && (
                     <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion} · INVIMA {product.invima}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion}{product.invima ? ` · INVIMA ${product.invima}` : ''}</p>
                   <p className="text-sm mb-6 leading-relaxed line-clamp-3" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -2079,7 +2079,7 @@ export default function CatalogoEstrategico() {
                   {product.taglineEstrategico && (
                     <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion} · INVIMA {product.invima}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion}{product.invima ? ` · INVIMA ${product.invima}` : ''}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -2209,7 +2209,7 @@ export default function CatalogoEstrategico() {
                   {product.taglineEstrategico && (
                     <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
                   )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion} · INVIMA {product.invima}</p>
+                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion}{product.invima ? ` · INVIMA ${product.invima}` : ''}</p>
                   <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -2401,9 +2401,6 @@ export default function CatalogoEstrategico() {
                     <p className="text-sm">Mejora claridad mental y enfoque</p>
                   </div>
                 </div>
-                <p className="text-sm text-[#A3A3A3] italic">
-                  ✅ Registro INVIMA: SD2012-0002589 | Respaldado por 30+ años de investigación científica
-                </p>
               </div>
             </details>
 
@@ -2834,7 +2831,7 @@ export default function CatalogoEstrategico() {
                       <div>
                         <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Qué lleva</h3>
                         <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>
-                          {selectedProduct.presentacion} · {selectedProduct.categoria} · {selectedProduct.invima.startsWith('Certificado') ? selectedProduct.invima : `Registro ${selectedProduct.invima}`}
+                          {selectedProduct.presentacion} · {selectedProduct.categoria}{selectedProduct.invima ? ` · Registro INVIMA ${selectedProduct.invima}` : ''}
                         </p>
                         <ul className="space-y-1">
                           {selectedProduct.ingredients.map((ingredient, index) => (
@@ -2890,12 +2887,6 @@ export default function CatalogoEstrategico() {
                           }}
                         >
                           {selectedProduct.usage}
-                        </p>
-                      </div>
-
-                      <div>
-                        <p className="text-sm" style={{ color: C.textMuted }}>
-                          <strong>{selectedProduct.invima.startsWith('Certificado') ? 'Certificación:' : 'Registro INVIMA:'}</strong> {selectedProduct.invima.replace(/^Certificado /, '')}
                         </p>
                       </div>
                     </div>

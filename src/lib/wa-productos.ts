@@ -34,7 +34,7 @@ export interface ProductoWA {
   precioCOP: number
   /** Vacío cuando el producto es unitario (un jabón, la máquina). */
   presentacion: string
-  /** Registro sanitario o certificado — el dato verificable del pie de foto. */
+  /** Registro sanitario INVIMA confirmado en datos.gov.co (25 sep 2026). Vacío = no se cita. */
   invima: string
   /** Ruta pública; se sirve desde creatuactivo.com. */
   imagen: string
@@ -48,7 +48,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Ganocafé 3 en 1',
     precioCOP: 110900,
     presentacion: 'caja de 20 sobres',
-    invima: 'SD2012-0002589',
+    invima: 'RSA-0011698-2021',
     imagen: '/productos/bebidas/ganocafe-3-en-1-gano-excel-min.png',
     // «El capuchino» es como mucha gente pide el 3 en 1 (Director, 31 ago 2026):
     // lleva crema y azúcar, y ese es el nombre de cafetería que le queda.
@@ -59,7 +59,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Ganocafé Clásico',
     precioCOP: 110900,
     presentacion: 'caja de 30 sobres',
-    invima: 'SD2013-0002947',
+    invima: '',
     imagen: '/productos/bebidas/gano-cafe-clasico-gano-excel-min.png',
     alias: ['clasico', 'classic', 'cafe negro', 'negrito', 'cafe puro'],
   },
@@ -68,7 +68,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Ganorico Latte Rico',
     precioCOP: 119900,
     presentacion: 'caja de 20 sobres',
-    invima: 'NSA-0012966-2022',
+    invima: 'NSA-0010760-2021',
     imagen: '/productos/bebidas/latte-rico-gano-excel-min.png',
     alias: ['latte', 'late rico', 'latte rico'],
   },
@@ -77,7 +77,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Ganorico Mocha Rico',
     precioCOP: 119900,
     presentacion: 'caja de 20 sobres',
-    invima: 'NSA-0012965-2022',
+    invima: 'NSA-0010760-2021',
     imagen: '/productos/bebidas/mocha-rico-gano-excel-min.png',
     alias: ['mocha', 'moka', 'mocha rico'],
   },
@@ -86,7 +86,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Ganorico Shoko Rico',
     precioCOP: 124900,
     presentacion: 'caja de 20 sobres',
-    invima: 'NSA-0012964-2022',
+    invima: 'NSA-0010766-2021',
     imagen: '/productos/bebidas/shoko-rico-gano-excel-min.png',
     alias: ['shoko', 'choko', 'shoko rico', 'chocolate de los ninos'],
   },
@@ -95,7 +95,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Gano C\'Real Spirulina',
     precioCOP: 119900,
     presentacion: 'caja de 15 sobres',
-    invima: 'NSA-0012963-2022',
+    invima: 'PSA-0004956-2024',
     imagen: '/productos/bebidas/ganocereal-spirulina-min.png',
     // ⚠️ El nombre correcto es *Gano C'Real Spirulina* (Director, 12 sep 2026).
     // El pin decía «Espirulina Gano C'Real» y era el ÚNICO sitio del proyecto que
@@ -110,7 +110,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Oleaf Gano Rooibos',
     precioCOP: 119900,
     presentacion: 'caja de 20 sobres',
-    invima: 'NSA-0012962-2022',
+    invima: 'SD2017-0004109',
     imagen: '/productos/bebidas/te-rooibos-gano-excel-min.png',
     alias: ['rooibos', 'oleaf', 'el te', 'te rojo', 'te de la linea'],
   },
@@ -119,7 +119,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Gano Schokolade',
     precioCOP: 124900,
     presentacion: 'caja de 20 sobres',
-    invima: 'NSA-0012961-2022',
+    invima: 'NSA-0013117-2022',
     imagen: '/productos/bebidas/gano-schokolade-gano-excel-min.png',
     // 'schokolad' (sin la e) también casa con «Schokoladde», la doble d con la
     // que el catálogo web escribe el nombre — es lo que llega del carrito.
@@ -130,7 +130,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Reskine Colágeno',
     precioCOP: 216900,
     presentacion: 'caja de 10 sachets',
-    invima: 'NSA-0012959-2022',
+    invima: 'RSA-0025739-2023',
     imagen: '/productos/bebidas/gano-plus-reskine-collagen-drink-gano-excel-min.png',
     alias: ['reskine', 'colageno', 'colageno reskine'],
   },
@@ -139,7 +139,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Cápsulas de Ganoderma',
     precioCOP: 272500,
     presentacion: 'frasco de 90 cápsulas',
-    invima: 'SD2013-0002860',
+    invima: '',
     imagen: '/productos/suplementos/capsulas-de-ganoderma-gano-excel-min.png',
     alias: ['capsulas de ganoderma', 'ganoderma en capsulas', 'capsulas ganoderma'],
   },
@@ -148,7 +148,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Cápsulas Excellium',
     precioCOP: 272500,
     presentacion: 'frasco de 90 cápsulas',
-    invima: 'NSA-0012958-2022',
+    invima: '',
     imagen: '/productos/suplementos/capsulas-de-excellium-gano-excel-min.png',
     alias: ['excellium', 'excelium', 'exelium'],
   },
@@ -157,7 +157,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Cápsulas Cordygold',
     precioCOP: 336900,
     presentacion: 'frasco de 90 cápsulas',
-    invima: 'NSA-0012957-2022',
+    invima: 'SD2017-0004056',
     imagen: '/productos/suplementos/capsulas-de-cordy-gold-gano-excel-min.png',
     alias: ['cordygold', 'cordy gold', 'cordigold', 'cordyceps', 'cortigol'],
   },
@@ -184,7 +184,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Jabón Transparente Gano',
     precioCOP: 78500,
     presentacion: '',
-    invima: 'NSO09915-21CO',
+    invima: 'NSOC09915-21CO',
     imagen: '/productos/cuidado-personal/jabon-transparent-soap-gano-excel-min.png',
     alias: ['jabon transparente', 'transparent soap'],
   },
@@ -193,7 +193,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Champú Piel&Brillo',
     precioCOP: 73900,
     presentacion: '',
-    invima: 'NSOC96485-19CO',
+    invima: 'NSOC07407-21CO',
     imagen: '/productos/cuidado-personal/shampoo-p&b-gano-excel-min.png',
     alias: ['shampoo', 'champu', 'piel y brillo shampoo'],
   },
@@ -202,7 +202,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Acondicionador Piel&Brillo',
     precioCOP: 73900,
     presentacion: '',
-    invima: 'NSOC96486-19CO',
+    invima: 'NSOC07389-21CO',
     imagen: '/productos/cuidado-personal/acondicionador-p&b-gano-excel-min.png',
     alias: ['acondicionador'],
   },
@@ -220,7 +220,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Máquina de Café Luvoco',
     precioCOP: 1026000,
     presentacion: '',
-    invima: 'Certificado CE - Dispositivo',
+    invima: '',
     imagen: '/productos/luvoco/luvoco55-1-1024x1024.png',
     alias: ['maquina luvoco', 'cafetera', 'maquina de cafe', 'luvoco maquina'],
   },
@@ -229,7 +229,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Luvoco Suave · 15 cápsulas',
     precioCOP: 110900,
     presentacion: 'caja de cápsulas',
-    invima: 'NSA-0012955-2022',
+    invima: 'NSA-0012966-2022',
     imagen: '/productos/luvoco/luvoco-suave-gano-excel-min.png',
     // 'capsulas suave' con s: el carrito web manda «LUVOCO CÁPSULAS SUAVE x15».
     alias: ['luvoco suave', 'capsula suave', 'capsulas suave'],
@@ -239,7 +239,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Luvoco Medio · 15 cápsulas',
     precioCOP: 110900,
     presentacion: 'caja de cápsulas',
-    invima: 'NSA-0012954-2022',
+    invima: 'NSA-0012956-2022',
     imagen: '/productos/luvoco/luvoco-medio-gano-excel-min.png',
     alias: ['luvoco medio', 'capsula media', 'capsulas medio'],
   },
@@ -248,7 +248,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     nombre: 'Luvoco Fuerte · 15 cápsulas',
     precioCOP: 110900,
     presentacion: 'caja de cápsulas',
-    invima: 'NSA-0012953-2022',
+    invima: 'NSA-0012958-2022',
     imagen: '/productos/luvoco/luvoco-fuerte-gano-excel-min.png',
     alias: ['luvoco fuerte', 'capsula fuerte', 'capsulas fuerte'],
   },];
@@ -500,7 +500,13 @@ export function pieDeFoto(p: ProductoWA, seguimiento?: string): string {
   // detrás de "Leer más" se pierde justo lo que va al final. Con esto la
   // pregunta cabe sin empujar nada.
   const datos = [cop(p.precioCOP)];
-  if (p.invima) datos.push(/certificado/i.test(p.invima) ? p.invima : `INVIMA ${p.invima}`);
+  // El registro se cita solo si está confirmado (25 sep 2026). Hasta ese día más
+  // de la mitad de estos códigos eran de productos de OTRAS empresas —el del
+  // Shoko Rico, de unos dulces de San Valentín— y el del 3 en 1 figuraba negado
+  // desde 2019. Cada código de `invima` se contrastó con los datos abiertos del
+  // INVIMA (datos.gov.co, ui32-p9f2 y uqkt-7tia): vacío = sin registro vigente
+  // confirmado (Clásico, cápsulas de Ganoderma, Excellium) o no aplica (máquina).
+  if (p.invima) datos.push(`INVIMA ${p.invima}`);
 
   // ⚠️ La pregunta viaja DENTRO del pie, no en un mensaje aparte. Enviada
   // suelta llegaba ANTES que la imagen —Meta tarda en descargar la foto de la

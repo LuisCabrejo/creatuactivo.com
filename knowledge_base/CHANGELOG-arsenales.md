@@ -2019,6 +2019,14 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.13 — `BEB_02` sale del estómago (25 sep 2026)
+
+`BEB_02` (Ganocafé 3 en 1) pintaba el café común con «los nervios alterados y el estómago resentido a media mañana» y remataba con «amortigua la cafeína… Sin nervios, sin acidez, sin factura». La acidez es un síntoma del estómago: dicha como ausencia, al lado de ese villano, se lee como beneficio digestivo. El modelo lo generalizó a toda la línea («la energía pareja y sin acidez la tiene en los dos») y salió así en 28 respuestas en 30 días; el 24 sep el Dashboard se lo dio a una socia como ángulo para presentarlo a deportistas.
+
+Ahora: *«Y a media mañana se la cobra con intereses: los nervios de punta y el bajón»* · *«Con el extracto de Ganoderma que Gano Excel cultiva y extrae desde hace 30 años, la energía entra pareja y se queda, sin factura a media mañana.»* El Director aprobó en el chat el cambio del estómago; «amortigua la cafeína» salió después, por la investigación del mismo día: ningún estudio en personas muestra que el Ganoderma amortigüe la cafeína ni cambie la acidez, Gano Excel ya no lo publica en sus sitios oficiales, y describe un mecanismo, que el guardarraíl de salud prohíbe.
+
+Base (25 sep 2026, tres frentes): en Colombia «apoya la digestión» es una declaración de «otras funciones» que exige aprobación previa del INVIMA (Res. 3096/2007 art. 20 para suplementos; Res. 810/2021 arts. 24-26 para alimentos) y no hay ninguna para Ganoderma y digestión; «reduce la acidez» es alivio de un síntoma, prohibido en los dos regímenes (D. 3249 art. 25; Res. 810 arts. 6 y 25) y en EE. UU. es indicación de antiácido (21 CFR 331.30). El art. 5 del D. 3249 no vuelve vinculante a la FDA: ordena construir el listado, que es la Res. 3096. Meta no nombra la digestión ni la acidez en ninguna norma; el freno es INVIMA/SIC. Lo que sí es limpio en todos los canales es lo sensorial («taza suave, poco ácida al paladar»), y aun eso pide una medición propia de pH antes de afirmarlo.
+
 ### v7.12 — `PROD_01` deja el marco del café que ya se toma (24 sep 2026)
 
 `PROD_01` («¿Por qué el café es el producto estrella?») era el único fragmento de los cinco arsenales que conservaba en su cuerpo el marco del consumo que iba a ocurrir igual: vendía el café porque la persona ya lo toma todos los días y solo tiene que cambiarlo por uno mejor. Es el marco que el léxico retiró el 8 ago —pone el producto en el estante del supermercado justo antes del precio— y en el ensayo de la prueba del Director el modelo lo compuso tres veces por su cuenta. Se barrió el corpus con el mismo patrón que ahora vigila la revisión diaria: `COMP_PV_08` y `FAQ_03` coinciden pero no son el marco (la compra del propio socio y la combinación de productos de la línea).

@@ -161,6 +161,15 @@ export function detectoresDeterministas(turno: Turno, anterior: Turno | null, ya
     marcas.push('marco del consumo diario');
   }
 
+  // Efecto digestivo (25 sep 2026): «sin acidez», «reduce la acidez», «el
+  // estómago resentido», «ayuda a la digestión». BEB_02 lo decía y el modelo lo
+  // generalizó a toda la línea (28 respuestas en 30 días). En Colombia es una
+  // declaración que exige aprobación del INVIMA y el Ganoderma no tiene
+  // ninguna. «Acidez viva» o «de sabor» es cata del Luvoco y no cuenta.
+  if (/(sin|reduce\w*|baja|menos|no (le )?(da|produce|causa)) (la )?acidez(?! (viva|al paladar|en (la )?taza|de sabor))|est[oó]mago (resentido|sensible|delicado)|(ayuda|apoya|favorece|mejora)\w* (a )?(la )?(digesti[oó]n|salud digestiva)|salud digestiva/i.test(t)) {
+    marcas.push('efecto digestivo');
+  }
+
   if (!t.trim()) marcas.push('respuesta vacía');
 
   return marcas;

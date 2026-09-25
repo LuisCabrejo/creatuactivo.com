@@ -202,6 +202,13 @@ Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
  * WHY_02 dice "el producto que se mueve por su sistema" sin desglosar: el
  * desglose (al detal / paquetes empresariales) vive aquí.
  *
+ * Ajuste 25 sep 2026 (auditoría tras WHY_02 v6.48): la recompra se explicaba porque el
+ * producto SE ACABA («se consume y se vuelve a pedir»), el marco que la doctrina de
+ * WHY_02 prohíbe, y sin dueño del cliente. Ahora el párrafo ata las dos cosas: cada
+ * cliente queda a su nombre (vínculo permanente, confirmado por el Director) y el que
+ * nota la diferencia vuelve a pedir — recompra por RESULTADO, con la frase canónica
+ * que comparte con FREQ_10. La pregunta de cierre no se tocó (route.ts la reconoce
+ * por «cómo crece ese porcentaje»).
  * ⚠️ Gano Excel aparece al final y como QUIEN CONSIGNA, no como la fuente. El
  * dinero sale del producto que se vende por el sistema del prospecto; invertir ese
  * orden dispara el fantasma del multinivel ([[feedback_gano_respaldo_no_titular]]).
@@ -215,7 +222,7 @@ El dinero sale de una sola fuente: el producto que se vende por su sistema — c
 
 Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio sistema. De cada venta a usted le queda un porcentaje.
 
-Y no es una sola vez: el producto se consume y se vuelve a pedir. Esa repetición es la que vuelve su sistema un activo: produce sin que usted tenga que estar encima.
+Y no es una sola vez: cada cliente queda a su nombre, y el que nota la diferencia vuelve a pedir. Esa repetición es la que vuelve su sistema un activo: produce sin que usted tenga que estar encima.
 
 Quien le consigna es **Gano Excel**, y lo hace en **su cuenta bancaria cada viernes**. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco.
 
@@ -254,6 +261,17 @@ const RE_DIA_A_DIA =
  * el modelo sintetizaba una respuesta de pilares en vez de la definición accesible.
  * Sincronizado carácter por carácter con arsenal_inicial.txt v5.28 BLOQUE 1 (EMPRESA_DIGITAL_01).
  *
+ * Reescritura 25 sep 2026 — EMPRESA MODERNA DE DISTRIBUCIÓN (Director, sesión de naming:
+ * «es mejor empresa moderna»). Tres cambios: (1) el canónico de la primera línea pasa a
+ * *empresa moderna de distribución*, con el puente a *sistema de distribución* para que
+ * el vocabulario duplicable no se parta; «moderna» se paga dos frases después con hechos
+ * (cabe en el celular, atención a toda hora). (2) El fabricante pierde el nombre en el
+ * párrafo del medio y **Gano Excel aparece al final como quien liquida** — mismo patrón
+ * de WHY_02 v6.48: quien lee la marca arriba clasifica el negocio y deja de leer.
+ * (3) Entra el mecanismo de la propiedad: cada cliente queda a su nombre, y de ahí el
+ * porcentaje. La pregunta de cierre no se tocó. Firma `que_es` de queswa-bitacora.ts
+ * actualizada (conserva la vieja para el historial).
+ *
  * Reescritura 31 jul 2026 — la versión anterior definía la categoría hacia arriba
  * (Amazon/MercadoLibre/Rappi = el puente) y abría con "funciona sobre internet, NO sobre
  * activos físicos", que contradice de frente el candado de confianza de WHY_02 (café físico
@@ -262,11 +280,11 @@ const RE_DIA_A_DIA =
  * dirigirlo (celular, sin local ni bodega); lo que se mueve es físico. El candado se AFIRMA,
  * nunca se niega — decir "no es dinero en la nube" invoca el elefante rosado.
  */
-const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos **sistema de distribución** —o **empresa de distribución**, es lo mismo—: un negocio propio con sus beneficios, sin tener que montar la operación física.
+const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos una **empresa moderna de distribución** —o un sistema de distribución, es lo mismo—: un negocio propio con sus beneficios, sin tener que montar la operación física.
 
-En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí usted es dueño de un sistema de distribución, y todo eso lo asume **Gano Excel**: fabrica el café y los suplementos, y los despacha hasta la casa de su cliente.
+En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí todo eso lo asume el fabricante: produce cada producto y lo despacha hasta la casa de su cliente.
 
-Y es digital porque el sistema entero cabe en su celular. Yo atiendo a sus clientes a toda hora, y de cada compra a usted le queda un porcentaje que se liquida en **su cuenta bancaria cada viernes**.
+Y es moderna porque la empresa entera cabe en su celular: yo atiendo a sus clientes a toda hora, y cada cliente queda a su nombre — de cada compra que haga, a usted le queda un porcentaje. Se lo liquida el fabricante, **Gano Excel**, en **su cuenta bancaria cada viernes**.
 
 ¿Quiere que le muestre con números cómo se vería en su caso?`;
 

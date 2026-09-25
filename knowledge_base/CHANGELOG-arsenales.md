@@ -487,6 +487,18 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.49 — El contexto de la v6.48 llega a sus otros puntos: WHY_04, WHY_05, VS_01 y EMPRESA_DIGITAL_01 (25 sep 2026)
+
+Auditoría pedida por el Director tras aprobar la v6.48: dónde más aplican el fabricante al final, el cliente a su nombre y «moderno».
+
+- **`WHY_04` 🔒 (el botón «Cómo entra el dinero»):** la recompra decía que el producto *se consume y se vuelve a pedir* — el marco del agotamiento que la propia doctrina de WHY_02 prohíbe — y no decía de quién es el cliente. Ahora: *cada cliente queda a su nombre, y el que nota la diferencia vuelve a pedir*. Gano al final como quien consigna ya estaba: ese patrón nació aquí.
+- **`WHY_05` 🔒:** el fabricante pierde el nombre dentro de la lista de los tres elementos — la línea exacta donde el Director vio que la gente deja de leer. El hueco queda abierto a propósito; su pregunta de cierre lleva a WHY_04, donde el nombre aparece como quien consigna.
+- **`VS_01`:** cambia de diferencial. Decía que la diferencia con el dropshipping es quién carga la parte física — que es justo lo que el dropshipping también resuelve (invitaba al «lo hago directo») — y le atribuía riesgos de Amazon FBA (contenedor, aduana). Ahora el diferencial es la propiedad: el cliente del dropshipper no es suyo y cada mes arranca de cero; aquí queda a su nombre y su recompra le paga. ⛔ **Hallazgo del despliegue:** `detectarModeloInventado` corre sobre toda salida sin mirar si la persona trajo la palabra, y una oración que abra *«En dropshipping usted…»* se reemplaza por la correctiva — **así estaba el cuerpo viejo**, y cuando el modelo lo calcaba, quien preguntaba por dropshipping recibía la correctiva en vez de la comparación. El cuerpo nuevo usa la forma que el filtro acepta (*comparado con el dropshipping*), verificado contra la función real.
+- **`EMPRESA_DIGITAL_01` 🔒:** responde con **empresa moderna de distribución** (Director: «es mejor empresa moderna»), con el puente a *sistema de distribución* para que el vocabulario duplicable no se parta; «moderna» pagada dos frases después con hechos (cabe en el celular, atención a toda hora); el fabricante sin nombre hasta el final, donde **Gano Excel aparece como quien liquida**; y entra el mecanismo de la propiedad. Firma `que_es` de la bitácora actualizada (conserva la vieja).
+- **`FREQ_10`:** su nota decía que *el cliente que nota la diferencia* «es la frase canónica de WHY_02» — vieja desde la v6.37 (13 sep). Ahora la frase compartida vive entre FREQ_10 y WHY_04.
+
+Índices y preguntas de cierre sin tocar (recuperación verificada: los cuatro ganan su paráfrasis en el puesto 1). Dobles fuentes WHY_04 y EMPRESA_DIGITAL_01 sincronizadas por prefijo. Desplegado a los tres tenants (178/178/187, sin duplicados). Acompaña al prompt **v5.7** (ver CHANGELOG-system-prompts.md).
+
 ### v6.48 — `WHY_02` 🔒 responde cómo funciona con los tres elementos y el cliente a su nombre (25 sep 2026)
 
 Sale de la investigación de naming del 25 sep (`docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md`). El Director sentía la respuesta muy larga y con demasiado contexto; la auditoría encontró además que en WhatsApp repetía un tercio de lo que el saludo acababa de decir, y que en la línea del dinero decía *«cada vez que alguien compra»* sin decir de quién es el cliente: el mismo hueco por el que el 10 sep se retiró la viñeta del consumo.

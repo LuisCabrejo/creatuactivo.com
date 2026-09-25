@@ -6,6 +6,16 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.7 — «Moderno» con su hecho, la propiedad como mecanismo, y el fabricante al final (25 sep 2026)
+
+Sale de la investigación de naming del 25 sep (`docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md`) y de la auditoría que el Director pidió después. Tres adiciones al bloque de léxico compartido, para los turnos donde el modelo compone sin candado:
+
+1. **El marco de presentación en frío es *un negocio moderno de distribución***, con sus tres reglas medidas: «moderno» pegado al sustantivo (nunca *distribución moderna* a secas — jerga de supermercados), una sola vez por conversación, y pagado en la misma frase con un hecho que se vea. El Director lo venía usando en sus 1-a-1 con reacción visible; la investigación explica por qué (señal de novedad que compra interés si lo que sigue se entiende) y por qué no se fosiliza en un nombre.
+2. **El diferencial dicho como mecanismo:** cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga. Hecho confirmado por el Director (el vínculo no puede cambiarse); es lo que ni el dropshipper ni el afiliado tienen.
+3. **El nombre de Gano Excel llega al final de la explicación, como quien fabrica y paga** — nunca en la primera línea de qué es esto. Observación de campo del Director: quien lee la marca arriba clasifica el negocio y deja de leer. Se añadió a la viñeta de Gano que ya existía, no como regla aparte.
+
+**Presupuesto:** WhatsApp 17.582 · web 17.998 · Dashboard 15.550 — unos 500 caracteres más que la v5.6, dentro del techo de 20.000 aun con la ventana de dos videos (~900). Acompaña al arsenal v6.48–v6.49, donde el mismo contexto entró a WHY_02, WHY_04, WHY_05, VS_01 y EMPRESA_DIGITAL_01 (esta última ahora responde *empresa moderna de distribución*).
+
 ## v5.6 — Presupuesto de 20.000 caracteres, y los videos salen del prompt (22 sep 2026)
 
 **Por qué.** El prompt había llegado a 29.000 caracteres por canal (38 KB el archivo), con la mitad en `<core_behavior>`. El Director fijó el techo en **20.000 por canal desplegado**. Y el bloque «lo que se publicó esta semana» de la v5.5 crecía 450 caracteres por video: sin cota, en un mes pesaba más que todo el recorte. La auditoría encontró además dos reglas de «activo», tres «una sola pregunta», tres «relea el hilo», la línea del video repetida en el rol, una **contradicción** (una regla prohibía la lista de ausencias y la siguiente la dictaba: *«lo que no hay es inventario, bodega ni entregas»*), y **arrastre**: el prompt citaba lo que veta —«sin bodega, sin inventario», «entre el 20 y el 30 %», «tranquilo» tres veces—, que es la regla más repetida del CLAUDE.md.

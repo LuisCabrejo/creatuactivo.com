@@ -39,7 +39,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.6_presupuesto_20k_y_ventana_de_videos';
+const VERSION_LABEL = 'v5.7_moderno_propiedad_y_fabricante_al_final';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 export const CANALES = {

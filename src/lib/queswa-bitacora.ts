@@ -82,8 +82,10 @@ export const TEMAS: TemaBitacora[] = [
   },
   {
     id: 'que_es',
-    nombre: 'qué es un sistema de distribución',
-    firma: /Aqu[ií] lo llamamos \*{0,2}sistema de distribuci[oó]n/i,
+    nombre: 'qué es una empresa moderna de distribución (el sistema de distribución)',
+    // La variante vieja («Aquí lo llamamos sistema de distribución») se conserva
+    // para el historial anterior al 25 sep 2026.
+    firma: /Aqu[ií] lo llamamos (una )?\*{0,2}(empresa moderna de distribuci[oó]n|sistema de distribuci[oó]n)/i,
     fragmentos: ['arsenal_inicial_EMPRESA_DIGITAL_01'],
   },
   {

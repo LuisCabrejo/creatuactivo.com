@@ -548,11 +548,14 @@ export default function HomePage() {
           <Strong>su cuenta bancaria cada viernes</Strong>.
         </Body>
         <Body mt>
-          Y lo que casi nadie ve a la primera: <Strong>el cliente nota la diferencia</Strong>.
-          Quien lo prueba no vuelve al producto genérico: cuando se le acaba, vuelve a
-          pedir el mismo, y esa venta ya no le cuesta trabajo a usted. Ahí es donde el
-          ingreso deja de depender de su presencia y empieza a depender de cuántos
-          clientes ya están consumiendo.
+          {/* 25 sep 2026 (auditoría de naming): entra el diferencial dicho como
+              mecanismo — el cliente queda a su nombre — y sale «cuando se le acaba»,
+              el marco del agotamiento que la doctrina de la recompra prohíbe. */}
+          Y lo que casi nadie ve a la primera: <Strong>cada cliente que llega por su
+          enlace queda a su nombre</Strong>. El que nota la diferencia no vuelve al
+          producto genérico: vuelve a pedir el mismo, y esa compra también le paga a
+          usted. Ahí es donde el ingreso deja de depender de su presencia y empieza a
+          depender de cuántos clientes ya están consumiendo.
         </Body>
 
         {/* La ecuación: producto + fábrica = porcentaje. Proceso en titanio, resultado
@@ -627,11 +630,14 @@ export default function HomePage() {
           complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
           para eso.
         </Body>
+        {/* «Moderno» va UNA vez en toda la página y pagado en la misma frase con los
+            dos hechos (25 sep 2026, investigación de naming): adjetivo pegado al
+            sustantivo, nunca «distribución moderna» a secas. */}
         <Body mt>
-          Eso fue lo que cambió. Hoy el trabajo pesado lo hacen dos: una fábrica con
-          30 años, y una inteligencia artificial que no duerme. Con esas dos piezas su
-          maquinaria de distribución queda andando, y usted la maneja desde una aplicación,
-          buena parte desde WhatsApp.
+          Eso fue lo que cambió: hoy es un negocio moderno de distribución. El trabajo
+          pesado lo hacen dos — una fábrica con 30 años, y una inteligencia artificial
+          que no duerme. Con esas dos piezas su maquinaria de distribución queda andando,
+          y usted la maneja desde una aplicación, buena parte desde WhatsApp.
         </Body>
 
         <div
@@ -844,9 +850,8 @@ export default function HomePage() {
               <Strong>no se queda nada en el fondo de la taza</Strong>.
             </Body>
             <Body mt>
-              El cliente que nota la diferencia no vuelve al producto genérico: cuando se le
-              acaba, vuelve a pedir el mismo. Y esa recompra es la base de todo lo que leyó
-              arriba.
+              El cliente que nota la diferencia no vuelve al producto genérico: vuelve a
+              pedir el mismo. Y esa recompra es la base de todo lo que leyó arriba.
             </Body>
           </div>
           <figure style={{ margin: 0 }}>
@@ -926,8 +931,7 @@ export default function HomePage() {
             }}
           >
             Y ya está. Eso es todo el negocio: un producto que las personas vuelven a
-            pedir, una tecnología que atiende por usted, y un porcentaje que entra cada
-            vez que se vende.
+            pedir, una tecnología que atiende por usted, y cada cliente a su nombre.
           </p>
 
           <H2>Al final, el activo es suyo.</H2>

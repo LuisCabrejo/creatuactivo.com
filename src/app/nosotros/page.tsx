@@ -120,8 +120,9 @@ export default function NosotrosPage() {
         <Body>
           Distribuir productos que las personas vuelven a pedir siempre ha sido buen
           negocio. Lo que lo hacía complicado era atender a cada interesado, uno por uno
-          — y nadie tiene la vida para eso. Eso fue lo que cambió: hoy el trabajo pesado
-          lo hacen dos, y a usted le queda ser el dueño.
+          — y nadie tiene la vida para eso. Eso fue lo que cambió: hoy es un negocio
+          moderno de distribución — el trabajo pesado lo hacen dos, y a usted le queda
+          ser el dueño.
         </Body>
 
         <div style={{ marginTop: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>

@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
-import { Bot, Target, Users, CheckCircle, X } from 'lucide-react';
+import { Bot, Target, Users, CheckCircle, X, PenLine, Handshake, LayoutDashboard } from 'lucide-react';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 import QueswaCTAButton from '@/components/QueswaCTAButton';
 
@@ -51,7 +51,7 @@ const jsonLd = {
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       url: 'https://queswa.app',
-      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para socios que manejan y multiplican su negocio con el Método Comprobado.',
+      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para socios que manejan y multiplican su negocio con el Método Comprobado, donde cada cliente que llega por el enlace de un socio queda a su nombre.',
       creator: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       provider: { '@id': 'https://creatuactivo.com/#organization' },
     },
@@ -95,9 +95,14 @@ export default function TecnologiaPage() {
 
         <div className="relative z-10">
           {/* Hero Section */}
+          {/* Subtítulo reemplazado (26 sep 2026, Director): el anterior —«Construya una
+              estructura de ingresos recurrentes — usted decide; Queswa hace el trabajo»—
+              abría con el ingreso en vez del negocio (regla del 29 ago 2026) y usaba el
+              patrón retirado «usted no hace X» (29 jun 2026). Ahora: el negocio primero
+              y la promesa canónica de Queswa. */}
           <IndustrialHeader
             title="TECNOLOGÍA QUE TRABAJA POR USTED"
-            subtitle="Construya una estructura de ingresos recurrentes — usted decide; Queswa hace el trabajo."
+            subtitle="La inteligencia artificial de su sistema de distribución: explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas."
             refCode="SISTEMA_QUESWA_V3"
           />
 
@@ -125,6 +130,7 @@ export default function TecnologiaPage() {
                   <strong>CreaTuActivo.com</strong>: el entorno desde donde cada socio maneja y
                   multiplica su negocio. La inteligencia artificial asume el trabajo pesado
                   —explica, convierte y hace seguimiento las 24 horas—; usted solo decide.
+                  Y cada cliente que llega por el enlace de un socio queda a su nombre.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
                   Fue concebida por <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#C5A059', fontWeight: 600, textDecoration: 'none' }}>Luis Cabrejo</a>,
@@ -300,6 +306,68 @@ export default function TecnologiaPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Para el dueño — lo construido para el EMPRESARIO, no solo para sus
+              interesados (Director, 26 sep 2026). Todo lo que se afirma existe hoy:
+              el modo socio del canal (Queswa reconoce al distribuidor por su teléfono
+              y le cambia el trato), la redacción de mensajes para una persona
+              (wa-redaccion-socio), el plan completo con los ciclos calculados, y el
+              Centro de Mando con Maestría y la evidencia de cada ingrediente
+              (arsenal_ciencia_socio, tenant dashboard). */}
+          <section className="py-20 px-6">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-16">
+                <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]">
+                  Para el dueño
+                </span>
+                <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
+                  Y cuando usted ya es socio, Queswa trabaja para usted.
+                </h2>
+                <p className="text-[#A3A3A3] mt-4 max-w-2xl mx-auto leading-relaxed">
+                  Queswa lo reconoce y le cambia el trato: deja de presentarle el negocio
+                  y pasa a ser su equipo de trabajo, por el mismo WhatsApp.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="p-6 bg-[#16181D] border border-[rgba(197,160,89,0.15)] text-center">
+                  <div className="w-14 h-14 bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
+                    <PenLine className="w-7 h-7 text-[#C5A059]" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Le redacta los mensajes</h3>
+                  <p className="text-sm text-[#A3A3A3]">
+                    Dígale a quién quiere invitar — su hermana, un colega, un conocido — y
+                    Queswa le escribe el mensaje con su voz, cuidando las reglas del negocio.
+                    Usted lo revisa y lo envía.
+                  </p>
+                </div>
+
+                <div className="p-6 bg-[#16181D] border border-[rgba(197,160,89,0.15)] text-center">
+                  <div className="w-14 h-14 bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
+                    <Handshake className="w-7 h-7 text-[#C5A059]" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Le responde de colega a colega</h3>
+                  <p className="text-sm text-[#A3A3A3]">
+                    El plan de compensación completo, el ciclo de pago vigente, la ficha y el
+                    precio de cada producto — lo que usted necesita a la mano para atender a
+                    sus clientes y a sus distribuidores.
+                  </p>
+                </div>
+
+                <div className="p-6 bg-[#16181D] border border-[rgba(197,160,89,0.15)] text-center">
+                  <div className="w-14 h-14 bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
+                    <LayoutDashboard className="w-7 h-7 text-[#C5A059]" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Su Centro de Mando</h3>
+                  <p className="text-sm text-[#A3A3A3]">
+                    En queswa.app vive su lista con su pipeline en tiempo real, la formación
+                    de Maestría — liderazgo, comunicación y producto — y la evidencia
+                    científica de cada ingrediente, con lo que sí puede decirle a su cliente.
+                  </p>
+                </div>
               </div>
             </div>
           </section>

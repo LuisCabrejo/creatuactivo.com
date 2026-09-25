@@ -65,7 +65,7 @@ export default function BlogPage() {
           {/* Header */}
           <IndustrialHeader
             title="INSIGHTS ESTRATÉGICOS"
-            subtitle="Inteligencia para construir soberanía financiera"
+            subtitle="Ideas para construir ingresos recurrentes"
             refCode="KNOWLEDGE_BASE_V1"
             imageSrc="/images/blog/header-blog.jpg"
             imageAlt=""

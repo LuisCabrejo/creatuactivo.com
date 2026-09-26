@@ -6,6 +6,14 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.8 — El acuse de recibo no juzga la pregunta (26 sep 2026)
+
+`<channel_formatting>` ordenaba abrir cada turno con una fórmula de acuse de recibo y la lista incluía *Buena pregunta* y *Me gusta que pregunte eso*. El modelo obedecía: desde el 27 ago, **137 de 583 respuestas compuestas para personas reales (23,5%) abrían con «Buena pregunta»**, 11% la última semana, y en el ensayo del 26 sep por el webhook, 3 de unas 12. Es el tic que el Director ya había marcado en las aperturas de la envoltura, y el mismo que ese día salió de los candados `WHY_04` y `EAM_01` (arsenal v6.50).
+
+Las dos fórmulas se quitan de la lista; quedan *Con gusto · Claro que sí · Entiendo · Perfecto · Listo*, que acusan recibo sin opinar sobre la pregunta. ⚠️ **No se escribe una prohibición** («no diga…»): nombrar la frase en el prompt se la dicta al modelo. La red debajo es código: `quitarElogioInicial` (`queswa-envoltura.ts`), aplicada en el motor antes de enviar y de guardar el turno, en WhatsApp y en la web.
+
+**Presupuesto:** WhatsApp 17.533 · web 17.949 · Dashboard 15.501 (unos 50 caracteres menos que la v5.7).
+
 ## v5.7 — «Moderno» con su hecho, la propiedad como mecanismo, y el fabricante al final (25 sep 2026)
 
 Sale de la investigación de naming del 25 sep (`docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md`) y de la auditoría que el Director pidió después. Tres adiciones al bloque de léxico compartido, para los turnos donde el modelo compone sin candado:

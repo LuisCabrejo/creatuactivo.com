@@ -47,7 +47,7 @@ import {
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, type Bitacora } from '@/lib/queswa-bitacora';
-import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto } from '@/lib/queswa-envoltura';
+import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto, quitarElogioInicial } from '@/lib/queswa-envoltura';
 import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
 
 /**
@@ -7339,10 +7339,26 @@ ESTADO: ${getMessageContext()}`;
           _ofertaCambiada = _r.cambio;
         }
       }
-      _extraLog = _veredicto || _ofertaCambiada
+
+      // ── El elogio de la pregunta no sale (26 sep 2026) ────────────────────
+      // Hasta el prompt v5.8, «Buena pregunta» estaba entre las fórmulas para
+      // abrir, y una de cada cuatro respuestas compuestas arrancaba así. Esta es
+      // la red por si el hábito vuelve. Va antes de enviar y antes de guardar:
+      // el historial tiene que decir lo mismo que la persona recibió.
+      let _elogioQuitado = false;
+      {
+        const _sinElogio = quitarElogioInicial(_borrador);
+        if (_sinElogio !== _borrador) {
+          console.log(`✂️ [Elogio] Quitado al abrir: «${_borrador.slice(0, 60).replace(/\n/g, ' ')}…»`);
+          _borrador = _sinElogio;
+          _elogioQuitado = true;
+        }
+      }
+      _extraLog = _veredicto || _ofertaCambiada || _elogioQuitado
         ? {
             ...(_veredicto ? { supervisor: { ok: _veredicto.ok, problema: _veredicto.problema ?? null, detalle: _veredicto.detalle ?? null, ms: _veredicto.ms, reescrito: _reescrito, error: _veredicto.error ?? null } } : {}),
             ...(_ofertaCambiada ? { oferta_cambiada: _ofertaCambiada } : {}),
+            ...(_elogioQuitado ? { elogio_quitado: true } : {}),
           }
         : undefined;
 

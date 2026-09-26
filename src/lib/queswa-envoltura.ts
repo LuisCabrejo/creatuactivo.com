@@ -76,6 +76,45 @@ export function sinElogioSiNoPregunto(nucleo: string, mensajePersona: string): s
   return nucleo;
 }
 
+/** Una respuesta que abre opinando sobre la pregunta. */
+const RE_ELOGIO_INICIAL = /^\s*(?:(?:muy\s+)?(?:buena|excelente|gran)\s+pregunta|me\s+gusta\s+(?:esa\s+pregunta|que\s+pregunte)|qu[eé]\s+buena\s+pregunta)/i;
+
+/**
+ * Quita el elogio con que el modelo abre una respuesta que redactó él mismo
+ * («Buena pregunta. …», «Buena pregunta, Milena. …», «Buena pregunta — y tiene
+ * sentido…»). Es la red debajo del prompt: hasta la v5.8 el prompt ponía
+ * *Buena pregunta* entre las fórmulas para abrir, y una de cada cuatro
+ * respuestas compuestas arrancaba así (26 sep 2026, 137 de 583).
+ *
+ * Trabaja por FRASE, no por párrafo: «Buena pregunta para empezar. El Ganocafé
+ * 3 en 1 cuesta $110.900…» conserva el precio. La primera versión quitaba el
+ * párrafo entero y se llevaba el dato. Solo si el párrafo era únicamente el
+ * elogio se va completo; si la frase no cierra en punto («Buena pregunta — la
+ * diferencia está en esto:»), se quitan solo las palabras del elogio.
+ * Medido sobre 802 respuestas reales: 163 limpias, cero tocadas sin elogio.
+ */
+export function quitarElogioInicial(texto: string): string {
+  if (!RE_ELOGIO_INICIAL.test(texto || '')) return texto;
+  const mayuscula = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
+  const partes = texto.split(/\n\s*\n/);
+  const primero = partes[0];
+  const frase = primero.match(/^[\s\S]*?[.!](?=\s|$)/);
+  if (frase && frase[0].length <= 220) {
+    const resto = primero.slice(frase[0].length).trim();
+    if (resto) {
+      partes[0] = mayuscula(resto);
+      return partes.join('\n\n');
+    }
+    return partes.length > 1 ? partes.slice(1).join('\n\n') : texto;
+  }
+  const sinElogio = primero.replace(/^\s*(?:muy\s+)?(?:buena|excelente|gran)\s+pregunta(?:\s+para\s+empezar)?(?:,\s*[A-ZÁÉÍÓÚ][a-záéíóúñ]+)?\s*(?:[—–-]|,)\s*/i, '');
+  if (sinElogio !== primero && sinElogio.trim()) {
+    partes[0] = mayuscula(sinElogio.trim());
+    return partes.join('\n\n');
+  }
+  return texto;
+}
+
 function validarApertura(apertura: unknown, nucleo: string): string {
   if (typeof apertura !== 'string') return '';
   const a = apertura.trim().replace(/^["«]|["»]$/g, '');

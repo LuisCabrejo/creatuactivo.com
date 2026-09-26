@@ -44,7 +44,9 @@
  *                    aquí es donde se cumple: lo que se transmite no es una
  *                    habilidad sino esto mismo, armado. Así la multiplicación
  *                    queda como CONSECUENCIA y no como un tercer paso.
- *  6 EL PRODUCTO   · ficha y categorías (patrón servilleta).
+ *  6 EL PRODUCTO   · la taza premium como puerta de entrada a la línea, la
+ *                    recompra por resultado (prepara la 7) y una ficha de
+ *                    oficio —híbrido, cultivo propio, años—, sin ciencia.
  *  7 LOS NÚMEROS   · simulador de la servilleta + simulador de los 12 niveles.
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
@@ -480,6 +482,9 @@ export default function PitchDeckPage() {
         .pd-fila .v { font-family: var(--font-mono); font-size: 1.05rem; color: var(--pd-text); }
         .pd-ficha .pie { font-size: 0.78rem; color: var(--pd-muted); line-height: 1.55; margin: 0.9rem 0 0; }
         .pd-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 1.6rem; }
+        .pd-cats-lead { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
+          color: var(--pd-muted); text-transform: uppercase; margin: 1.6rem 0 0; }
+        .pd-cats-lead + .pd-cats { margin-top: 0.7rem; }
         .pd-cat { position: relative; aspect-ratio: 1 / 1; background-size: cover;
           background-position: center; border: 1px solid rgba(255,255,255,0.08);
           padding: 0; cursor: zoom-in; transition: border-color 0.25s, transform 0.25s;
@@ -1009,12 +1014,35 @@ export default function PitchDeckPage() {
             <div className="pd-producto">
               <div>
                 <p className="pd-eyebrow">El producto</p>
-                <h2 className="pd-h2">Un hábito que no cambia</h2>
+                {/* LA TAZA ES LA PUERTA DE ENTRADA, NO EL CAFÉ DE SIEMPRE (Director, 26 sep
+                    2026). Decía «Un hábito que no cambia» y «El café de siempre»: el marco
+                    del consumo diario, vetado porque pone el producto en el estante del
+                    supermercado. Ahora el café es la entrada a la línea (PROD_01 del
+                    catálogo), y el «todo» anuncia que detrás viene más: la pantalla no
+                    reduce el negocio a vender café.
+                    ⛔ Salió la ciencia usada para vender —«el hongo más estudiado del
+                    planeta, con más de 2.000 estudios»—: el 3 en 1 está registrado como
+                    ALIMENTO, y la ciencia al servicio de la venta deja de ser información y
+                    pasa a ser publicidad (NUCLEO_EVIDENCIA, wa-guardarrail-salud.ts).
+                    Lo sensorial es de BEB_07; «no se queda nada en el fondo de la taza» es
+                    del Director, y habla de la composición, no de la absorción. */}
+                <h2 className="pd-h2">Todo empieza con una taza premium.</h2>
                 <p className="pd-p">
-                  El café de siempre — ahora con Ganoderma Lucidum, el hongo más estudiado
-                  del planeta, con más de 2.000 estudios publicados. En un extracto que se
-                  disuelve por completo en el agua: no se queda nada en el fondo de la taza.
+                  Café de cuerpo, aroma y el amargo justo de una buena cafetería, con el
+                  extracto de Ganoderma que Gano Excel cultiva y extrae por su cuenta. Se
+                  disuelve por completo: no se queda nada en el fondo de la taza.
                 </p>
+                {/* LA RECOMPRA POR RESULTADO, verbatim de PROD_01 (aprobado 24 sep 2026).
+                    Prepara la pantalla 7: aquí se dice por qué el cliente vuelve; allá, por
+                    qué esa recompra le paga. El dinero NO entra en esta pantalla.
+                    ⚠️ «Incorpora a su rutina» es la fórmula aprobada; lo vetado es el
+                    producto como algo que ya se consume. Y nunca «vuelve porque se le
+                    acaba»: vuelve porque nota la diferencia. */}
+                <p className="pd-p pd-gold">
+                  Su cliente lo incorpora a su rutina, nota la diferencia y vuelve a pedirlo
+                  el mes siguiente.
+                </p>
+                <p className="pd-cats-lead">El mismo extracto va en toda la línea</p>
                 <div className="pd-cats">
                   {CATEGORIAS.map((c) => (
                     <button
@@ -1039,22 +1067,31 @@ export default function PitchDeckPage() {
               </div>
 
               <div className="pd-ficha panel">
-                <div className="titulo">Ganoderma Lucidum</div>
-                <div className="pd-fila">
-                  <span className="k">Estudios publicados</span>
-                  <span className="v">2.000+</span>
-                </div>
+                {/* OFICIO, NO CIENCIA (Director, 26 sep 2026). Salieron «Estudios
+                    publicados 2.000+», «Compuestos bioactivos 200+» y «pionero mundial»
+                    (superlativo sin fuente). Quedan datos de CÓMO SE HACE —el híbrido, el
+                    cultivo propio, los años de proceso—, nunca de lo que hace en el cuerpo.
+                    El doctor queda como el origen del producto, no como autoridad
+                    científica. Fuente: la respuesta del catálogo sobre el Ganoderma.
+                    ⚠️ «lucidum» con minúscula: es nombre de especie (el CSS lo pone en
+                    mayúsculas igual). */}
+                <div className="titulo">Ganoderma lucidum</div>
                 <div className="pd-fila">
                   <span className="k">Variedades en el híbrido</span>
                   <span className="v">6</span>
                 </div>
                 <div className="pd-fila">
-                  <span className="k">Compuestos bioactivos</span>
-                  <span className="v">200+</span>
+                  <span className="k">Cultivo y extracción</span>
+                  <span className="v">Propios</span>
+                </div>
+                <div className="pd-fila">
+                  <span className="k">Años de proceso</span>
+                  <span className="v">Más de 30</span>
                 </div>
                 <p className="pie">
-                  Tres décadas de ciencia del <strong>Dr. Leow Soon Seng</strong>, pionero
-                  mundial en el cultivo de este hongo.
+                  Los seis colores del Reishi en un solo híbrido, obra del{' '}
+                  <strong>Dr. Leow Soon Seng</strong>, micólogo malasio que estudia este
+                  hongo desde 1983.
                 </p>
               </div>
             </div>

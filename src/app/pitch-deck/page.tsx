@@ -47,7 +47,10 @@
  *  6 EL PRODUCTO   · la taza premium como puerta de entrada a la línea, la
  *                    recompra por resultado (prepara la 7) y una ficha de
  *                    oficio —híbrido, cultivo propio, años—, sin ciencia.
- *  7 LOS NÚMEROS   · simulador de la servilleta + simulador de los 12 niveles.
+ *  7 LOS NÚMEROS   · el modelo en una frase («cada cliente que llega por su
+ *                    enlace queda a su nombre») y dos simuladores: el Bono GEN5
+ *                    y los 12 niveles con el porcentaje de cada forma de
+ *                    iniciar. Pesos por defecto.
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
  * ----------------------------------
@@ -129,6 +132,18 @@ const PROYECCION_12: { level: number; people: number; income: number }[] = [
   { level: 12, people: 4096, income: 103194000 },
 ];
 
+/** El porcentaje del Binario según la forma de iniciar (COMP_BIN_02 del arsenal de
+ *  compensación). ⚠️ Solo el 10% del Kit es permanente: el 15, 16 y 17% rigen 2, 4
+ *  y 6 meses, y después el sistema aplica el más alto entre el 10% base y el del
+ *  rango. Por eso la pantalla lo dice cada vez que se elige uno de los tres — sin
+ *  esa línea, el nivel 12 al 17% sería una cifra que el plan no paga. */
+const TARIFAS_12 = [
+  { pct: 10, nombre: 'Kit', paquete: 'Kit de Inicio', meses: 0 },
+  { pct: 15, nombre: 'Inicial', paquete: 'paquete Inicial', meses: 2 },
+  { pct: 16, nombre: 'Empresarial', paquete: 'paquete Empresarial', meses: 4 },
+  { pct: 17, nombre: 'Visionario', paquete: 'paquete Visionario', meses: 6 },
+] as const;
+
 /** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
 const TRM = 4500;
 const GEN5_BONOS: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
@@ -145,19 +160,22 @@ export default function PitchDeckPage() {
   const [visor, setVisor] = useState<{ src: string; alt: string } | null>(null);
 
   // Simuladores
-  const [simMode, setSimMode] = useState<'binario' | 'gen5'>('binario');
+  // ⚠️ MONEDA: COP por defecto (Director, 26 sep 2026) — en Colombia se muestra solo
+  // pesos. El USD queda a un toque para quien presenta fuera del país, y cada cifra
+  // sale en UNA moneda, nunca las dos a la vez.
+  const [moneda, setMoneda] = useState<'COP' | 'USD'>('COP');
   const [gen5Paquetes, setGen5Paquetes] = useState(2);
   const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
-  const [hogares, setHogares] = useState(50);
   const [nivel12, setNivel12] = useState(12);
+  const [tarifa12, setTarifa12] = useState(0); // índice en TARIFAS_12: el Kit, al 10%
 
-  const ingresoGen5 = gen5Paquetes * GEN5_BONOS[gen5Nivel];
-  const ingresoBinario = Math.round(hogares * 4.76);
-  const usd = simMode === 'gen5' ? ingresoGen5 : ingresoBinario;
-  const cop = usd * TRM;
+  const ingresoGen5COP = gen5Paquetes * GEN5_BONOS[gen5Nivel] * TRM;
+  const tarifa = TARIFAS_12[tarifa12];
+  const monto = (cop: number) => moneda === 'COP'
+    ? <>${enCOP(cop)}<span className="u"> COP</span></>
+    : <>${enUSD(Math.round(cop / TRM))}<span className="u"> USD</span></>;
 
-  // Bola de nieve: el thumb crece con los hogares (la metáfora, literal).
-  const thumbHogares = Math.round(20 + (hogares / 1000) * 30);
+  // Bola de nieve: el thumb crece con el nivel (la metáfora, literal).
   const thumbNivel = Math.round(20 + ((nivel12 - 1) / 11) * 30);
 
   const touchStartX = useRef(0);
@@ -512,11 +530,20 @@ export default function PitchDeckPage() {
           color: var(--pd-muted); text-transform: uppercase; text-align: center;
           margin: 0 0 1.2rem;
         }
-        .pd-tabs { display: flex; gap: 1px; background: rgba(255,255,255,0.08); margin-bottom: 1.2rem; }
-        .pd-tab { flex: 1; background: var(--pd-bg); border: none; color: var(--pd-muted);
-          font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.14em;
-          padding: 10px 6px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
-        .pd-tab.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-numeros-top { display: flex; justify-content: space-between; align-items: center;
+          gap: 1rem; margin-bottom: 1.1rem; }
+        .pd-numeros-top .pd-eyebrow { margin: 0; }
+        .pd-moneda { display: flex; gap: 1px; background: rgba(255,255,255,0.08); }
+        .pd-moneda button { background: var(--pd-bg); border: none; color: var(--pd-muted);
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.14em;
+          padding: 6px 11px; cursor: pointer; }
+        .pd-moneda button.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-numeros .pd-h2 { font-size: clamp(1.25rem, 2.6vw, 1.9rem); margin-bottom: 0.5rem; }
+        .pd-numeros-lead { margin-bottom: 1.5rem; }
+        .pd-display + .pd-pkgs { margin-top: 1.3rem; }
+        .pd-pkg b { display: block; font-weight: 400; margin-top: 3px; font-size: 0.62rem; }
+        .pd-insight.pd-vigencia { margin-top: 0.6rem; }
+        .pd-nota { text-align: center; font-size: 0.72rem; color: var(--pd-muted); margin: 1.4rem 0 0; }
         .pd-display { font-family: var(--font-mono); font-size: clamp(1.6rem, 4.6vw, 2.5rem);
           color: var(--pd-gold); text-align: center; letter-spacing: -0.02em; line-height: 1.1; }
         .pd-display .u { font-size: 0.42em; color: var(--pd-muted); letter-spacing: 0.1em; }
@@ -582,14 +609,30 @@ export default function PitchDeckPage() {
              aprieta lo que no es la cifra; la cifra no se toca. */
           .pd-numeros .panel { padding: 1rem 1.1rem 1.2rem; }
           .pd-numeros .panel h3 { margin-bottom: 0.9rem; }
-          .pd-numeros .pd-tabs,
           .pd-numeros .pd-pkgs,
           .pd-numeros .pd-niveles { margin-bottom: 0.9rem; }
           .pd-numeros .pd-sub { margin-bottom: 0.9rem; }
           .pd-numeros .pd-slider { margin: 0.7rem 0 1.9rem; }
           .pd-numeros .pd-insight { font-size: 0.74rem; }
-          .pd-numeros .pd-cierre { margin-top: 1.1rem; }
           .pd-numeros { padding-bottom: 28px; }
+          /* El titular y el selector de porcentaje (26 sep 2026) sumaron ~190px, y
+             esta pantalla tiene que caber entera. Lo que se aprieta no es la cifra:
+             la fila de botones de nivel se va en el teléfono porque el deslizador
+             elige el mismo nivel y su rótulo lo dice. */
+          .pd-numeros .pd-niveles { display: none; }
+          .pd-numeros-top { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-h2 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+          .pd-numeros-lead { font-size: 0.9rem; margin-bottom: 0.9rem; }
+          .pd-numeros .pd-nota { margin-top: 0.8rem; }
+          .pd-numeros .pd-cierre { margin-top: 0.5rem; }
+          /* En el teléfono el panel de paquetes se queda con su título y su rótulo,
+             que ya dicen qué cuenta. Y cuando se elige un porcentaje temporal, su
+             vigencia REEMPLAZA a la línea general en vez de sumarse: es la línea que
+             no puede quedar debajo del borde. */
+          .pd-numeros .panel:first-child .pd-insight { display: none; }
+          .pd-numeros .panel:first-child .pd-slider { margin-bottom: 1.2rem; }
+          .pd-numeros .pd-insight:has(+ .pd-vigencia) { display: none; }
+          .pd-numeros .pd-insight.pd-vigencia { margin-top: 0; }
 
           /* ANCLAJE DE DESPLAZAMIENTO — el patrón de la servilleta para las
              pantallas que no caben en un teléfono. En «el producto» no caben a la
@@ -1101,87 +1144,76 @@ export default function PitchDeckPage() {
         {/* ── 7 · LOS NÚMEROS ─────────────────────────────────────────── */}
         <section className={`pd-slide pd-numeros ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap" style={{ maxWidth: 1040 }}>
-            <p className="pd-eyebrow">Cómo se gana</p>
+            <div className="pd-numeros-top">
+              <p className="pd-eyebrow">Cómo se gana</p>
+              <div className="pd-moneda" role="group" aria-label="Moneda">
+                {(['COP', 'USD'] as const).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    className={moneda === m ? 'active' : ''}
+                    onClick={() => setMoneda(m)}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {/* EL MODELO DE NEGOCIO EN UNA FRASE, ANTES DE LAS CIFRAS (Director, 26 sep
+                2026) — como la línea de Airbnb antes de sus números. Es el diferencial
+                del 25 sep dicho como mecanismo: el cliente que llega por su enlace
+                queda a su nombre, y por eso su recompra le paga. La pantalla 6 cerró
+                en que el cliente vuelve a pedir; aquí se dice qué le deja a usted.
+                ⚠️ La permanencia se dice del CLIENTE, nunca del pago: nada de «de por
+                vida». La recompensa se nombra por su repetición. */}
+            <h2 className="pd-h2">Cada cliente que llega por su enlace queda a su nombre.</h2>
+            <p className="pd-p pd-numeros-lead">Cada vez que vuelve a pedir, usted cobra.</p>
             <div className="pd-paneles">
-              {/* Panel A — el mecanismo, con su cifra */}
+              {/* Panel A — el Bono GEN5. El simulador de ingreso recurrente por hogares
+                  salió (Director, 26 sep 2026): lo recurrente lo cuenta el de los 12
+                  niveles, y dos simuladores de lo mismo se estorban. */}
               <div className="panel">
-                <h3>Simulador de ingresos</h3>
-                <div className="pd-tabs">
-                  <button
-                    type="button"
-                    className={`pd-tab ${simMode === 'binario' ? 'active' : ''}`}
-                    onClick={() => setSimMode('binario')}
-                  >
-                    Ingreso recurrente
-                  </button>
-                  <button
-                    type="button"
-                    className={`pd-tab ${simMode === 'gen5' ? 'active' : ''}`}
-                    onClick={() => setSimMode('gen5')}
-                  >
-                    Ingreso por paquetes
-                  </button>
+                <h3>Ingreso por paquetes</h3>
+                <div className="pd-display">{monto(ingresoGen5COP)}</div>
+                <div className="pd-pkgs">
+                  {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
+                      onClick={() => setGen5Nivel(p)}
+                    >
+                      {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
+                    </button>
+                  ))}
                 </div>
-
-                <div className="pd-display">
-                  ${enUSD(usd)}<span className="u"> USD</span>
-                </div>
-                <div className="pd-sub">≈ ${enCOP(cop)} COP</div>
-
-                {simMode === 'gen5' ? (
-                  <>
-                    <div className="pd-pkgs">
-                      {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
-                        <button
-                          key={p}
-                          type="button"
-                          className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
-                          onClick={() => setGen5Nivel(p)}
-                        >
-                          {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
-                        </button>
-                      ))}
-                    </div>
-                    <label className="pd-label">
-                      Paquetes comprados en su sistema<b>{gen5Paquetes}</b>
-                    </label>
-                    <input
-                      type="range"
-                      min={1}
-                      max={10}
-                      value={gen5Paquetes}
-                      onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
-                      className="pd-slider"
-                    />
-                    <p className="pd-insight">
-                      Cada vez que se compra un paquete empresarial en su sistema, usted cobra
-                      este bono. Es lo que financia el crecimiento al inicio.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <label className="pd-label">
-                      Hogares en su sistema<b>{hogares}</b>
-                    </label>
-                    <input
-                      type="range"
-                      min={10}
-                      max={1000}
-                      step={10}
-                      value={hogares}
-                      onChange={(e) => setHogares(parseInt(e.target.value))}
-                      className="pd-slider"
-                      style={{ ['--thumb' as string]: `${thumbHogares}px` } as React.CSSProperties}
-                    />
-                    <p className="pd-insight">
-                      Ingreso recurrente que crece con lo que consumen sus clientes y
-                      distribuidores, y no depende de su presencia.
-                    </p>
-                  </>
-                )}
+                <label className="pd-label">
+                  Paquetes comprados en su sistema<b>{gen5Paquetes}</b>
+                </label>
+                <input
+                  type="range"
+                  min={1}
+                  max={10}
+                  value={gen5Paquetes}
+                  onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
+                  className="pd-slider"
+                />
+                <p className="pd-insight">
+                  Cada vez que se compra un paquete empresarial en su sistema, usted cobra
+                  este bono. Es lo que financia el crecimiento al inicio.
+                </p>
               </div>
 
-              {/* Panel B — los 12 niveles (2×2), de /12-niveles */}
+              {/* Panel B — los 12 niveles (2×2), de /12-niveles.
+                  SE QUEDA EN EL DECK (Director, 26 sep 2026): quien oye esto no es un
+                  inversionista acostumbrado al largo plazo, y trae tres creencias —que
+                  esto es para ganar en 50 años, que hay que quemar los barcos, y que
+                  para ganar de verdad hay que iniciar con el paquete grande—. Este
+                  simulador desarma las tres.
+                  EL PORCENTAJE SE ELIGE, y arranca en el 10% del Kit: la cifra por
+                  defecto es la de la forma más pequeña de iniciar, que es justo la
+                  tercera creencia desarmada. El 15, 16 y 17% son temporales, y la línea
+                  de abajo lo dice cada vez que se elige uno (ver TARIFAS_12). */}
               <div className="panel">
                 <h3>Los 12 niveles (2×2)</h3>
                 <div className="pd-niveles">
@@ -1198,12 +1230,23 @@ export default function PitchDeckPage() {
                   ))}
                 </div>
 
-                <div className="pd-display">
-                  ${enCOP(nivelSel.income)}<span className="u"> COP</span>
-                </div>
+                <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
                 <div className="pd-sub">
-                  ≈ ${enUSD(Math.round(nivelSel.income / TRM))} USD · {enCOP(nivelSel.people)} distribuidores
-                  nuevos en este nivel · total: {enCOP(totalDistribuidores)}
+                  {enCOP(nivelSel.people)} distribuidores nuevos en este nivel · total:{' '}
+                  {enCOP(totalDistribuidores)}
+                </div>
+
+                <div className="pd-pkgs">
+                  {TARIFAS_12.map((t, i) => (
+                    <button
+                      key={t.pct}
+                      type="button"
+                      className={`pd-pkg ${tarifa12 === i ? 'active' : ''}`}
+                      onClick={() => setTarifa12(i)}
+                    >
+                      {t.nombre}<b>{t.pct}%</b>
+                    </button>
+                  ))}
                 </div>
 
                 <label className="pd-label">
@@ -1219,11 +1262,22 @@ export default function PitchDeckPage() {
                   style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
                 />
                 <p className="pd-insight">
-                  Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el 10% de
-                  lo que consumen sus distribuidores.
+                  Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
+                  {tarifa.pct}% de lo que consumen sus distribuidores.
                 </p>
+                {tarifa.meses > 0 && (
+                  <p className="pd-insight pd-vigencia">
+                    Con el {tarifa.paquete}, el {tarifa.pct}% rige los primeros{' '}
+                    {tarifa.meses} meses; después aplica el más alto entre el 10% base y el
+                    de su rango.
+                  </p>
+                )}
               </div>
             </div>
+            {/* La cadencia real, para no insinuar un pago al día siguiente de la compra.
+                ⚠️ Sin la tasa de $4.500: con los pesos por defecto nadie ve una
+                conversión, y nombrarla le planta la queja del dólar caro (FREQ_27). */}
+            <p className="pd-nota">Gano Excel paga cada semana, los viernes.</p>
             <p className="pd-cierre">El siguiente paso es una conversación</p>
           </div>
         </section>

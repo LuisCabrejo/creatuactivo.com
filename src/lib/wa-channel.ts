@@ -252,6 +252,62 @@ export async function sendImage(
   }
 }
 
+/**
+ * Envía un video por URL pública, con pie opcional. Mismo contrato que
+ * `sendImage`: Meta descarga el `link`, así que no caduca como un `media_id`.
+ *
+ * ⚠️ Meta acepta MP4 con video H.264 y audio AAC, **hasta 16 MB**: 70–80 s
+ * verticales caben a 720×1280. La miniatura que ve la persona sale del primer
+ * cuadro del video — la API no deja escoger portada.
+ * ⚠️ WhatsApp no avisa si la persona lo reprodujo. La señal que queda es el
+ * tiempo hasta su siguiente mensaje.
+ */
+export async function sendVideo(
+  to: string,
+  link: string,
+  caption?: string,
+): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('video', { to, link, caption: caption ?? null });
+  const creds = credentials();
+  if ('error' in creds) {
+    console.error(creds.error);
+    return { ok: false, error: creds.error };
+  }
+
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${creds.systemToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        ...destinatario(to),
+        type: 'video',
+        video: { link, ...(caption && { caption: caption.slice(0, 1024) }) },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const msg = metaError(response.status, data);
+      console.error(`❌ [WA] sendVideo — ${msg}`);
+      return { ok: false, error: msg };
+    }
+
+    const messageId = data?.messages?.[0]?.id;
+    console.log(`✅ [WA] Video enviado a ${normalizePhone(to)} (msg: ${messageId})`);
+    return { ok: true, messageId };
+
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] sendVideo error:', msg);
+    return { ok: false, error: msg };
+  }
+}
+
 // ─── Acuse: visto azul + "escribiendo…" ───────────────────────────────────────
 
 /**

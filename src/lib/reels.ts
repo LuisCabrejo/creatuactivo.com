@@ -21,6 +21,14 @@ export const HOME_MANIFESTO_POSTER = '/videos/home/poster.webp'
 export const PLAN_SERVILLETA_VIDEO = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/plan-servilleta/video-plan-servilleta.mp4'
 export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 
+// «Cómo funciona» para el canal de WhatsApp (80 s, 720×1280, 9,5 MB — el tope de
+// Meta es 16 MB). Lo manda el botón «Cómo funciona» de la apertura, con la pregunta
+// de cierre de WHY_02 como pie: la voz dice casi palabra por palabra ese texto.
+// Cierra con «esta conversación es una muestra», así que es para que lo mande
+// Queswa, no para compartir fuera del chat. Si se vuelve a cortar, se sube con
+// otro nombre (-v2): Meta y los teléfonos guardan copia de la URL.
+export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v1.mp4'
+
 // Poster único (branded) para el <video> de todos los reels — local en /public,
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.
 export const REEL_POSTER = '/videos/reels/poster.webp'

@@ -19,9 +19,10 @@ import { createClient } from '@supabase/supabase-js';
 import { waitUntil } from '@vercel/functions';
 import { construirBitacora, renovarOfertaVista } from '@/lib/queswa-bitacora';
 import {
-  sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage,
+  sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo,
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
+import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -1309,6 +1310,32 @@ async function procesarEntrante(body: any): Promise<void> {
     _bitacoraDelTurno = socioQueEscribe ? null : construirBitacora(_filasCrono, existingProspect?.device_info ?? null);
 
     const dictada = opcionElegida ? getRespuestaBoton(opcionElegida) : null;
+
+    // «Cómo funciona» se responde con el VIDEO (Director, 26 sep 2026). El texto
+    // se ojeaba: de 21 personas que tocaron el botón en septiembre, 7 no pasaron
+    // de esa respuesta. La voz del video dice casi palabra por palabra WHY_02, así
+    // que el pie es solo su pregunta de cierre —la que ya lleva a Los 12 Niveles—
+    // y la fila guarda el texto entero: la bitácora lo reconoce por su firma, el
+    // modelo recuerda lo que la persona vio y su «sí» se lee contra esa pregunta.
+    // Si Meta no acepta el video, sale el texto de siempre.
+    if (dictada && opcionElegida === 'apertura_sistema') {
+      const r = _bitacoraDelTurno ? renovarOfertaVista(dictada, _bitacoraDelTurno) : { texto: dictada, cambio: null };
+      if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
+      const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
+      await pisoDeEscritura();
+      const envio = await sendVideo(phoneNumber, VIDEO_COMO_FUNCIONA_WA, pie);
+      if (envio.ok) {
+        await persistirTurnoDictado(
+          supabase, waFingerprint, messageText,
+          `[Video «Cómo funciona», 80 s. Esto es lo que dice:]\n\n${r.texto}`,
+          'botón de la apertura: apertura_sistema (video)',
+        );
+        console.log(`🎬 [WA Webhook] Video «Cómo funciona» → ${phoneNumber}`);
+        return;
+      }
+      console.warn(`⚠️ [WA Webhook] El video «Cómo funciona» no salió (${envio.error}) — va el texto`);
+    }
+
     if (dictada) {
       await sendWhatsAppMessage(phoneNumber, dictada);
       await persistirTurnoDictado(supabase, waFingerprint, messageText, dictada, `botón de la apertura: ${opcionElegida}`);

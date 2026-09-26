@@ -230,9 +230,12 @@ Quien le consigna es **Gano Excel**, y lo hace en **su cuenta bancaria cada vier
  * Deliberadamente NO captura "cómo se gana" a secas: esa es la pregunta por las
  * cifras del plan y le corresponde a arsenal_compensacion. Aquí solo entran las
  * formulaciones de procedencia ("de dónde sale/viene") y de pagador ("quién paga").
+ * ⚠️ «¿Quién paga el envío?» NO es esta pregunta (26 sep 2026): el atajo corre
+ * antes que el nodo del envío del conductor, y en la web la respondía con el
+ * origen del dinero. El envío, el domicilio y el flete quedan fuera.
  */
 const RE_DE_DONDE_SALE_EL_DINERO =
-  /de\s+d[oó]nde\s+(sale|salen|viene|vienen)\s+(el|la|los|las)?\s*(dinero|plata|platica|ingresos?|ganancias?)|qui[eé]n\s+(me\s+)?(paga|consigna)/i;
+  /de\s+d[oó]nde\s+(sale|salen|viene|vienen)\s+(el|la|los|las)?\s*(dinero|plata|platica|ingresos?|ganancias?)|qui[eé]n\s+(me\s+)?(paga|consigna)(?!\s+(el|los|la|las)?\s*(env[ií]os?|domicilios?|fletes?|transporte|mensajer[ií]a))/i;
 
 /**
  * Detecta la pregunta por el día a día escrita con palabras propias.

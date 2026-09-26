@@ -743,7 +743,11 @@ export default function PitchDeckPage() {
              ⚠️ proximity y NO mandatory: en la servilleta el obligatorio peleaba
              con el gesto horizontal. El guard de eje del swipe (|dx| > |dy| * 1.2)
              ya impide que bajar cambie de pantalla. */
-          .pd-slide { scroll-snap-type: y proximity; }
+          /* ⚠️ scroll-padding-top = el margen superior de la pantalla (26 sep 2026).
+             Sin él, el anclaje alineaba la primera columna con el borde de arriba:
+             la pantalla se desplazaba justo esos 68px al abrir y el rótulo
+             quedaba debajo de la barra de puntos. */
+          .pd-slide { scroll-snap-type: y proximity; scroll-padding-top: 68px; }
           .pd-producto > * { scroll-snap-align: start; }
           .pd-numeros .panel { scroll-snap-align: start; }
           /* En un teléfono la marca y los puntos se montaban encima del botón.
@@ -764,6 +768,7 @@ export default function PitchDeckPage() {
            del deck se pierde. */
         @media (max-height: 700px) {
           .pd-slide, .pd-beat { padding-top: 60px; padding-bottom: 34px; }
+          .pd-slide { scroll-padding-top: 60px; }
           .pd-eyebrow { margin-bottom: 1rem; }
           .pd-h2 { font-size: clamp(1.4rem, 5.6vw, 2rem); margin-bottom: 1rem; }
           .pd-p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.8rem; }

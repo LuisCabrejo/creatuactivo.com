@@ -1313,27 +1313,38 @@ async function procesarEntrante(body: any): Promise<void> {
 
     // «Cómo funciona» se responde con el VIDEO (Director, 26 sep 2026). El texto
     // se ojeaba: de 21 personas que tocaron el botón en septiembre, 7 no pasaron
-    // de esa respuesta. La voz del video dice casi palabra por palabra WHY_02, así
-    // que el pie es solo su pregunta de cierre —la que ya lleva a Los 12 Niveles—
-    // y la fila guarda el texto entero: la bitácora lo reconoce por su firma, el
-    // modelo recuerda lo que la persona vio y su «sí» se lee contra esa pregunta.
-    // Si Meta no acepta el video, sale el texto de siempre.
+    // de esa respuesta. Sale una línea de entrada y el video SIN pie ni pregunta:
+    // la respuesta es el video (Director, tras verlo en su teléfono). Los otros
+    // dos botones de la apertura siguen a la vista para el paso siguiente.
+    // La voz dice casi palabra por palabra WHY_02, así que la fila guarda ese
+    // texto sin su pregunta de cierre —que la persona no vio—: la bitácora lo
+    // reconoce por su firma y el modelo recuerda lo que la persona escuchó.
+    // Si Meta no acepta el video, el texto sigue a la entrada que ya salió.
     if (dictada && opcionElegida === 'apertura_sistema') {
-      const r = _bitacoraDelTurno ? renovarOfertaVista(dictada, _bitacoraDelTurno) : { texto: dictada, cambio: null };
-      if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
-      const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
-      await pisoDeEscritura();
-      const envio = await sendVideo(phoneNumber, VIDEO_COMO_FUNCIONA_WA, pie);
+      const INTRO = 'Con gusto. Funciona así:';
+      const cuerpo = dictada.startsWith(INTRO) ? dictada.slice(INTRO.length).trim() : dictada;
+      await sendWhatsAppMessage(phoneNumber, INTRO);
+      // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
+      if (wamid) await marcarLeidoYEscribiendo(wamid);
+      await new Promise((r) => setTimeout(r, 800));
+      const envio = await sendVideo(phoneNumber, VIDEO_COMO_FUNCIONA_WA);
       if (envio.ok) {
+        const loQueDice = cuerpo.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
         await persistirTurnoDictado(
           supabase, waFingerprint, messageText,
-          `[Video «Cómo funciona», 80 s. Esto es lo que dice:]\n\n${r.texto}`,
+          `${INTRO}\n\n[Video «Cómo funciona», 80 s. Lo que dice la voz:]\n\n${loQueDice}`,
           'botón de la apertura: apertura_sistema (video)',
         );
         console.log(`🎬 [WA Webhook] Video «Cómo funciona» → ${phoneNumber}`);
         return;
       }
       console.warn(`⚠️ [WA Webhook] El video «Cómo funciona» no salió (${envio.error}) — va el texto`);
+      await sendWhatsAppMessage(phoneNumber, cuerpo);
+      // `_ofertaRenovada` lo escribe `sendWhatsAppMessage`; TS no lo ve y lo da por null.
+      const renovada = _ofertaRenovada as { original: string; enviado: string } | null;
+      const enviado = renovada?.original === cuerpo ? renovada.enviado : cuerpo;
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, `${INTRO} ${enviado}`, 'botón de la apertura: apertura_sistema (sin video)');
+      return;
     }
 
     if (dictada) {

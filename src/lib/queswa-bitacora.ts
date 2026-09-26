@@ -193,7 +193,12 @@ const OFERTA_A_TEMA: [RegExp, string][] = [
   [/d[ií]a a d[ií]a|qu[eé] (hace|har[ií]a) usted/i, 'dia_a_dia'],
   [/los productos que mueven|le (muestro|cuento) (cu[aá]les son )?los productos\b|para qu[eé] sirven los productos/i, 'productos'],
   [/cat[aá]logo/i, 'catalogo'],
-  [/la estrategia|c[oó]mo se construye ese sistema/i, 'estrategia'],
+  // «¿Le muestro cómo crece ese porcentaje sin que le toque conseguir a todos
+  // los clientes usted?» (el cierre de WHY_04) promete lo mismo que Los 12
+  // Niveles, que abre respondiendo esa duda. Su «sí» lleva al ejemplo de renta,
+  // pero quien ya vio la estrategia la recibía como una oferta repetida: en la
+  // prueba del 26 sep la persona la ignoró y tocó el botón siguiente.
+  [/la estrategia|c[oó]mo se construye ese sistema|c[oó]mo crece ese porcentaje/i, 'estrategia'],
   [/c[oó]mo funciona (el negocio|esto|exactamente)/i, 'como_funciona'],
   [/tres formas de empezar|con cu[aá]nto se empieza|cu[aá]nto vale cada uno|diferencias entre los tres/i, 'paquetes'],
   [/ganancias por la compra de paquetes/i, 'ganancia_paquetes'],

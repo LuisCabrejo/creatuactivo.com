@@ -487,6 +487,14 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.50 — `WHY_04` y `EAM_01` arrancan en la respuesta; `WHY_PROD_01` deja fuera a la máquina (26 sep 2026)
+
+Sale de auditar dos pruebas del canal. Los botones «Cómo entra el dinero» y «Qué debo hacer yo» son seguidos en la apertura, y la persona recibió uno tras otro *«Buena pregunta, y la más importante.»* y *«Me gusta esa pregunta — es la que de verdad importa.»*: dos elogios en dos turnos, y cada uno declarando que su pregunta era la que importaba. Es el tic que el Director ya había marcado en las aperturas que escribe el modelo. Se quita el párrafo de los dos candados (Director, 26 sep); `sinElogioSiNoPregunto` de `queswa-envoltura.ts` queda sin trabajo sobre ellos, pero se conserva para cualquier texto futuro.
+
+`WHY_PROD_01`: *«Todos llevan el mismo extracto propio de Ganoderma»* venía justo después de nombrar la máquina Luvoco, que es un aparato con certificado CE. Pasa a *«Todos, salvo la máquina, llevan…»* — el mismo criterio que corrigió el disclaimer del catálogo el 26 ago: una afirmación en bloque que no vale para todos no se hace.
+
+Índices y preguntas de cierre sin tocar. `respuestas-maestras.ts` sincronizado (contrato de prefijo verificado: 718 y 462 caracteres idénticos). Desplegado con el orden sin ventana (renombrar a `_old`, fragmentar, clonar a `whatsapp` y `dashboard`, borrar `_old`).
+
 ### v6.49 — El contexto de la v6.48 llega a sus otros puntos: WHY_04, WHY_05, VS_01 y EMPRESA_DIGITAL_01 (25 sep 2026)
 
 Auditoría pedida por el Director tras aprobar la v6.48: dónde más aplican el fabricante al final, el cliente a su nombre y «moderno».

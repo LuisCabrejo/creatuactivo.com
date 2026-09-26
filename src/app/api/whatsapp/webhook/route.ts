@@ -399,6 +399,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // La bitácora es de módulo: sin esto, un envío anterior a su carga usaría la
     // del turno previo de esta instancia — la de otra persona.
     _bitacoraDelTurno = null;
+    _ofertaRenovada = null;
     if (wamid) await marcarLeidoYEscribiendo(wamid);
 
     // ─── Entrada: texto o nota de voz ─────────────────────────────────────────
@@ -868,7 +869,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const aviso = 'Ese código de vínculo no me sirve. Ábralo otra vez desde su Centro de Mando en queswa.app, o escríbame desde el número con el que se registró.';
         console.warn(`🔗 [WA Webhook] Token de vínculo inválido para ${_vinculo.constructorId} desde ${waFingerprint}`);
         await sendWhatsAppMessage(phoneNumber, aviso);
-        await persistirTurnoDictado(supabase, waFingerprint, 'Hola Queswa, soy socio.', aviso);
+        await persistirTurnoDictado(supabase, waFingerprint, 'Hola Queswa, soy socio.', aviso, 'socio: vínculo inválido');
         return;
       }
       const yaSaludado = !!existingProspect?.device_info?.saludo_socio_en;
@@ -878,7 +879,7 @@ async function procesarEntrante(body: any): Promise<void> {
       await sendWhatsAppMessage(phoneNumber, texto);
       if (!yaSaludado) await marcarSaludoDeSocio(supabase, waFingerprint);
       // La firma no se guarda en el historial: el modelo no tiene por qué verla.
-      await persistirTurnoDictado(supabase, waFingerprint, 'Hola Queswa, soy socio.', texto);
+      await persistirTurnoDictado(supabase, waFingerprint, 'Hola Queswa, soy socio.', texto, 'socio: saludo por vínculo');
       return;
     }
 
@@ -916,7 +917,7 @@ async function procesarEntrante(body: any): Promise<void> {
     if (emergencia) {
       console.error(`🆘 [WA Guardrail Salud] EMERGENCIA detectada ("${emergencia}") — ${phoneNumber}. Derivado a línea 123, cero producto.`);
       await sendWhatsAppMessage(phoneNumber, RESPUESTA_EMERGENCIA);
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, RESPUESTA_EMERGENCIA);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, RESPUESTA_EMERGENCIA, 'salud: emergencia');
       return;
     }
 
@@ -932,7 +933,7 @@ async function procesarEntrante(body: any): Promise<void> {
       const texto = otraVez ? RECHAZO_SALUD_SOCIO_OTRA_VEZ : RECHAZO_SALUD_SOCIO;
       console.warn(`⛔ [WA Guardrail Salud] Socio /${socioQueEscribe.slug} pregunta por salud ("${saludEntrada.termino}")${otraVez ? ' — otra vez' : ''} — se le da la línea`);
       await sendWhatsAppMessage(phoneNumber, texto);
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'salud: línea al socio');
       return;
     }
 
@@ -955,7 +956,7 @@ async function procesarEntrante(body: any): Promise<void> {
       if (_previo.reincidioYa) {
         console.warn(`⛔ [WA Guardrail Salud] Segunda reincidencia seguida ("${saludEntrada.termino}") — texto corto — ${phoneNumber}`);
         await sendWhatsAppMessage(phoneNumber, RECHAZO_SALUD_CORTO);
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, RECHAZO_SALUD_CORTO);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, RECHAZO_SALUD_CORTO, 'salud: reincidencia, texto corto');
         return;
       }
       const reincide = _previo.nucleoDicho
@@ -988,7 +989,7 @@ async function procesarEntrante(body: any): Promise<void> {
         };
       } else {
         await sendWhatsAppMessage(phoneNumber, rechazo);
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, rechazo, 'salud: derivación');
         return;
       }
     }
@@ -1010,13 +1011,13 @@ async function procesarEntrante(body: any): Promise<void> {
       // mismo defecto que en el primer contacto del prospecto: responder vale más
       // que presentarse. Si trae petición, el saludo va aparte y el turno sigue.
       if (esSoloSaludo(messageText)) {
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, saludo);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, saludo, 'socio: saludo');
         return;
       }
       // El mensaje del usuario va vacío a propósito: lo persiste después el motor
       // con su respuesta, y así no queda dos veces en el historial (el lector de
       // turnos salta los mensajes sin contenido).
-      await persistirTurnoDictado(supabase, waFingerprint, '', saludo);
+      await persistirTurnoDictado(supabase, waFingerprint, '', saludo, 'socio: saludo');
       console.log('💬 [WA Webhook] …y su petición sigue al motor');
     }
 
@@ -1100,7 +1101,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
         await sendWhatsAppMessage(phoneNumber, `${aperturaPareja}\n\n${opciones}`);
       }
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, aperturaPareja);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, aperturaPareja, '1.5b apertura de la pareja');
       try {
         // Queda anotado de quién viene, para el Dashboard y para el motor.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1160,7 +1161,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const opciones = APERTURA_PRODUCTOS_OPCIONES.map((o) => `• ${o.title}`).join('\n');
         await sendWhatsAppMessage(phoneNumber, `${texto}\n\n${opciones}`);
       }
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'apertura de productos');
       console.log(`🛒 [WA Webhook] Llega desde /productos (${existingProspect ? 'vuelve' : 'nuevo'}) — apertura de productos con dos botones`);
       return;
     }
@@ -1196,7 +1197,7 @@ async function procesarEntrante(body: any): Promise<void> {
       }
       const texto = mensajeSocioEnlace(socioQueEscribe, slugEnlace, nombreEnlace);
       await sendWhatsAppMessage(phoneNumber, texto);
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'socio: tocó un enlace de canal');
       console.log(`🔗 [WA Webhook] El socio /${socioQueEscribe.slug} tocó el enlace de ${slugEnlace ?? '(sin slug)'} — se le dice qué hace`);
       return;
     }
@@ -1211,7 +1212,7 @@ async function procesarEntrante(body: any): Promise<void> {
       if (_vivo) {
         const texto = `Sigo aquí. ${_vivo}`;
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'enlace con la conversación viva');
         console.log(`🔁 [WA Webhook] ${contactName} tocó el enlace con la conversación viva — se repite la última pregunta`);
         return;
       }
@@ -1221,7 +1222,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
         await sendWhatsAppMessage(phoneNumber, `${retorno}\n\n${opciones}`);
       }
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, retorno);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, retorno, 'retorno');
       console.log(`👋 [WA Webhook] Vuelve ${contactName} — recibimiento corto con botones`);
       return;
     }
@@ -1248,19 +1249,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${opciones}`);
       }
 
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await (supabase as any).from('nexus_conversations').insert({
-          fingerprint_id: waFingerprint,
-          session_id: waFingerprint,
-          messages: [
-            { role: 'user',      content: messageText, timestamp: new Date().toISOString() },
-            { role: 'assistant', content: apertura,    timestamp: new Date().toISOString() },
-          ],
-        });
-      } catch (err) {
-        console.error('⚠️ [WA Webhook] No se pudo persistir la apertura:', err);
-      }
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, apertura, 'apertura');
 
       console.log(`👋 [WA Webhook] Apertura entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
       return;
@@ -1280,7 +1269,7 @@ async function procesarEntrante(body: any): Promise<void> {
       const pie = pieDeFotoFamilia('portafolio', FAMILIAS_WA.portafolio.seguimiento);
       const enviada = await sendImage(phoneNumber, urlImagenFamilia('portafolio'), pie);
       if (enviada.ok) {
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, pie);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, pie, 'botón: portafolio');
         console.log(`📷 [WA Webhook] Botón «Ver el portafolio» → imagen enviada a ${phoneNumber}`);
         return;
       }
@@ -1292,7 +1281,7 @@ async function procesarEntrante(body: any): Promise<void> {
       const texto = mensajeEnlaceCatalogo(slug);
       const enviado = await sendText(phoneNumber, texto);
       if (enviado.ok) {
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'botón: lista de precios');
         console.log(`🔗 [WA Webhook] Botón «Lista de precios» → enlace del catálogo a ${phoneNumber}`);
         return;
       }
@@ -1322,19 +1311,7 @@ async function procesarEntrante(body: any): Promise<void> {
     const dictada = opcionElegida ? getRespuestaBoton(opcionElegida) : null;
     if (dictada) {
       await sendWhatsAppMessage(phoneNumber, dictada);
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await (supabase as any).from('nexus_conversations').insert({
-          fingerprint_id: waFingerprint,
-          session_id: waFingerprint,
-          messages: [
-            { role: 'user',      content: messageText, timestamp: new Date().toISOString() },
-            { role: 'assistant', content: dictada,     timestamp: new Date().toISOString() },
-          ],
-        });
-      } catch (err) {
-        console.error('⚠️ [WA Webhook] No se pudo persistir la respuesta dictada:', err);
-      }
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, dictada, `botón de la apertura: ${opcionElegida}`);
       console.log(`📌 [WA Webhook] Respuesta dictada para "${opcionElegida}" → ${phoneNumber}`);
       return;
     }
@@ -1424,7 +1401,7 @@ async function procesarEntrante(body: any): Promise<void> {
         } else {
           console.log(`🔑 [WA Webhook] Acceso al Centro de Mando enviado a /${socioQueEscribe.slug}`);
         }
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, registro);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, registro, '2.22 acceso al Centro de Mando');
         return;
       }
       const motivo = detectarPideFuncionDashboard(messageText);
@@ -1433,7 +1410,7 @@ async function procesarEntrante(body: any): Promise<void> {
       if (motivo && !detectarPidePieza(messageText)) {
         const texto = invitacionAlDashboard(socioQueEscribe.nombre, motivo, _yaInvitado);
         await sendWhatsAppMessage(phoneNumber, texto);
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.22 invitación al Centro de Mando');
         console.log(`🏛️ [WA Webhook] 2.22 el socio /${socioQueEscribe.slug} pide ${motivo} — invitado al Centro de Mando${_yaInvitado ? ' (insiste)' : ''}`);
         return;
       }
@@ -1532,7 +1509,7 @@ async function procesarEntrante(body: any): Promise<void> {
 
       if (respuestaPareja) {
         await sendWhatsAppMessage(phoneNumber, respuestaPareja, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaPareja);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaPareja, '2.23 pareja');
         if (plazoParaAviso) {
           const socioP = patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id);
           await avisarAlSocioPareja({ nombreProspecto: contactName, whatsapp: phoneNumber, plazo: plazoParaAviso, nombreSocio: socioP?.nombre });
@@ -1559,7 +1536,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await pisoDeEscritura();
         const enviado = await sendText(phoneNumber, nodoPieza.texto);
         if (enviado.ok) {
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoPieza.texto);
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoPieza.texto, nodoPieza.nodo);
           console.log(`🎬 [WA Webhook] ${nodoPieza.nodo} — turno cerrado sin motor`);
           return;
         }
@@ -1578,7 +1555,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await pisoDeEscritura();
         const enviado = await sendText(phoneNumber, nodoCatalogo.texto);
         if (enviado.ok) {
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoCatalogo.texto);
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoCatalogo.texto, nodoCatalogo.nodo);
           console.log(`🔗 [WA Webhook] ${nodoCatalogo.nodo} — turno cerrado sin motor`);
           return;
         }
@@ -1621,7 +1598,7 @@ async function procesarEntrante(body: any): Promise<void> {
             // Se persiste el PIE tal cual, no un marcador entre corchetes: el
             // modelo lee este turno en el hilo, y con "[Foto ... enviada]" lo
             // interpretaba como que el tema eran las imágenes (21 ago).
-            await persistirTurnoDictado(supabase, waFingerprint, messageText, foto.pie);
+            await persistirTurnoDictado(supabase, waFingerprint, messageText, foto.pie, foto.nodo);
             console.log('📷 [WA Webhook] Turno cerrado sin motor');
             return;
           }
@@ -1754,7 +1731,7 @@ async function procesarEntrante(body: any): Promise<void> {
         console.warn('⚠️ [WA Webhook] Escenario del simulador ilegible — el turno sigue al motor');
       } else {
       await sendWhatsAppMessage(phoneNumber, respuestaSimulador, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaSimulador);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaSimulador, '2.3 resultado del simulador');
       if ('tipo' in escenarioSimulador && escenarioSimulador.tipo === 'niveles') await marcarHiloDoceNiveles();
       await marcarTemperatura('caliente');
       console.log(`🧮 [WA Webhook] Escenario del simulador respondido dictado para ${phoneNumber}`);
@@ -1797,7 +1774,7 @@ async function procesarEntrante(body: any): Promise<void> {
         // era SOLO tarjeta y falló sigue al motor: mejor una respuesta en texto
         // que un silencio.
         if (nodo.texto || tarjetaOk) {
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodo.persistir ?? nodo.texto ?? '');
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodo.persistir ?? nodo.texto ?? '', nodo.nodo);
           if (nodo.marcarHiloDoceNiveles) await marcarHiloDoceNiveles();
           if (/NIVELES_01/.test(nodo.nodo)) await marcarTemperatura('tibio');
           else if (/NIVELES_02|GEN5|vinculaci/i.test(nodo.nodo)) await marcarTemperatura('caliente');
@@ -1869,7 +1846,7 @@ async function procesarEntrante(body: any): Promise<void> {
         }
         const texto = confirmarPedido(lineasP, _socioPedido, nombreDado);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido cargado con nombre');
         console.log(`🛒 [WA Webhook] Pedido cargado con nombre (${id ?? 'sin registro'}) — turno cerrado sin motor`);
         return;
       }
@@ -1883,7 +1860,7 @@ async function procesarEntrante(body: any): Promise<void> {
       if (!variante && esGanocafeSinVariante(messageText)) {
         const texto = preguntarCualGanocafe();
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido: Ganocafé sin variante');
         console.log('🛒 [WA Webhook] Ganocafé sin variante — se pregunta cuál');
         return;
       }
@@ -1901,7 +1878,7 @@ async function procesarEntrante(body: any): Promise<void> {
       if (_aceptaPedidoSede && lineas.length === 0) {
         const texto = pedirProductos(_nombrePedido, _notaPrecioDistribuidor);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido abierto desde la sede');
         console.log('🛒 [WA Webhook] Pedido abierto desde la sede — esperando los productos');
         return;
       }
@@ -1913,7 +1890,7 @@ async function procesarEntrante(body: any): Promise<void> {
         if (!_nombrePedido) {
           const texto = pedirNombrePedido(_socioPedido?.nombre);
           await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido: falta el nombre');
           console.log('🛒 [WA Webhook] Pedido con productos — falta el nombre, se pide');
           return;
         }
@@ -1923,7 +1900,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido);
         const texto = confirmarPedido(lineas, _socioPedido, _nombrePedido);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido cargado');
         console.log(`🛒 [WA Webhook] Pedido cargado (${id ?? 'sin registro'}) — ${lineas.length} línea(s) — turno cerrado sin motor`);
         return;
       }
@@ -1940,7 +1917,7 @@ async function procesarEntrante(body: any): Promise<void> {
           ? noEntendiProductos(RE_NO_ENTENDI.test(_ultimoBotPedido))
           : pedirProductos(_nombrePedido, _notaPrecioDistribuidor);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido abierto');
         console.log('🛒 [WA Webhook] Pedido abierto — esperando los productos');
         return;
       }
@@ -1965,7 +1942,7 @@ async function procesarEntrante(body: any): Promise<void> {
       });
       if (nodoSocio?.texto) {
         await sendWhatsAppMessage(phoneNumber, nodoSocio.texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoSocio.texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoSocio.texto, nodoSocio.nodo);
         console.log(`🧭 [WA Webhook] ${nodoSocio.nodo} — dictado por el conductor`);
         return;
       }
@@ -1993,14 +1970,14 @@ async function procesarEntrante(body: any): Promise<void> {
           } catch (err) { console.error('⚠️ [WA Webhook] No se pudo guardar el opt-in:', err); }
           const texto = respuestaOptin(acepta);
           await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'opt-in de marketing: respuesta');
           console.log(`📣 [WA Webhook] Opt-in de marketing: ${acepta ? 'SÍ' : 'no'}`);
           return;
         }
       } else if (esCierreDeConversacion(messageText) && !optinYaOfrecido(historial)) {
         const texto = ofrecerOptin(_nombrePedido);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'opt-in de marketing: oferta');
         console.log('📣 [WA Webhook] Opt-in de marketing ofrecido');
         return;
       }
@@ -2078,7 +2055,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
 
 ¿Le cuento cuál es el que más piden?`;
       await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.24 enlace al catálogo');
       console.log(`🔗 [WA Webhook] Catálogo dictado: ${url}`);
       return;
     }
@@ -2689,6 +2666,15 @@ let _turnoEmpezoEn = 0;
 let _bitacoraDelTurno: ReturnType<typeof construirBitacora> | null = null;
 
 /**
+ * Lo que la red de ofertas cambió en el turno: el texto dictado y el que salió.
+ * `persistirTurnoDictado` guarda el que salió. Hasta el 26 sep 2026 la fila
+ * guardaba el dictado, así que cuando la red cambiaba la pregunta final, la
+ * conversación registraba una oferta que la persona nunca vio — y su «sí» se
+ * leía contra esa oferta, no contra la que recibió (pasó una vez, el 24 sep).
+ */
+let _ofertaRenovada: { original: string; enviado: string } | null = null;
+
+/**
  * "Escribiendo…" tiene que alcanzar a verse.
  *
  * Los turnos que dicta el backend —la apertura, el ejemplo de cifras, la foto,
@@ -2731,6 +2717,7 @@ async function sendWhatsAppMessage(
     const r = renovarOfertaVista(text, _bitacoraDelTurno);
     if (r.cambio) {
       console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
+      _ofertaRenovada = { original: text, enviado: r.texto };
       text = r.texto;
     }
   }
@@ -2886,15 +2873,26 @@ async function persistirTurnoDictado(
   fingerprint: string,
   textoUsuario: string,
   textoAsistente: string,
+  // Qué nodo dictó el turno (26 sep 2026). Sin esto, auditar una conversación
+  // obligaba a deducir de dónde salió cada texto: la fila no traía metadata.
+  // ⚠️ `nodo === 'radicacion'` sigue siendo exclusivo del cierre, que tiene su
+  // propio insert: aquí nunca se usa ese valor.
+  nodo?: string,
 ): Promise<void> {
+  // Se guarda lo que la persona RECIBIÓ: si la red de ofertas cambió la pregunta
+  // final, el historial tiene que tener la nueva (ver `_ofertaRenovada`).
+  const guardado = _ofertaRenovada && _ofertaRenovada.original === textoAsistente
+    ? _ofertaRenovada.enviado
+    : textoAsistente;
   try {
     await supabase.from('nexus_conversations').insert({
       fingerprint_id: fingerprint,
       session_id: fingerprint,
       messages: [
-        { role: 'user',      content: textoUsuario,   timestamp: new Date().toISOString() },
-        { role: 'assistant', content: textoAsistente, timestamp: new Date().toISOString() },
+        { role: 'user',      content: textoUsuario, timestamp: new Date().toISOString() },
+        { role: 'assistant', content: guardado,     timestamp: new Date().toISOString() },
       ],
+      metadata: { search_method: 'webhook_dictado', ...(nodo ? { nodo } : {}) },
     });
   } catch (err) {
     console.error('⚠️ [WA Guardrail Salud] No se pudo persistir el turno dictado:', err);

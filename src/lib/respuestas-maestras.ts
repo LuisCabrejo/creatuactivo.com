@@ -171,9 +171,7 @@ Las comisiones las paga el fabricante: **Gano Excel**, con 30 años en más de 6
  * acompañamiento Queswa + humano. Sin lista de "no requiere", sin "Protocolo de Validación", sin
  * "audita y autoriza", sin línea de prueba social (la claridad genera la convicción).
  */
-const MASTER_EAM_01 = `Me gusta esa pregunta — es la que de verdad importa. 🪢
-
-Su día a día se resume en dos acciones:
+const MASTER_EAM_01 = `Su día a día se resume en dos acciones:
 
 📲 **Compartir:** usted pasa un enlace a quien quiera.
 
@@ -216,9 +214,7 @@ Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
  * nunca se niega — nombrar el elefante lo invoca. Lo reemplaza el ancla física
  * del último párrafo (fábrica → dirección; empresa de 30 años → su banco).
  */
-const MASTER_DINERO_01 = `Buena pregunta, y la más importante.
-
-El dinero sale de una sola fuente: el producto que se vende por su sistema — café, bebidas y suplementos premium con ganoderma.
+const MASTER_DINERO_01 = `El dinero sale de una sola fuente: el producto que se vende por su sistema — café, bebidas y suplementos premium con ganoderma.
 
 Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio sistema. De cada venta a usted le queda un porcentaje.
 

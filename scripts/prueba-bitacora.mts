@@ -17,6 +17,7 @@ import {
   construirBitacora, residenciaDeclarada, renovarOfertaVista, temaDeOferta, yaLoRecibio,
   type FilaBitacora,
 } from '../src/lib/queswa-bitacora';
+import { getRespuestaMaestra } from '../src/lib/respuestas-maestras';
 
 const { filas, ficha } = JSON.parse(fs.readFileSync(new URL('./fixtures/prueba-director-24sep.json', import.meta.url), 'utf8')) as {
   filas: FilaBitacora[]; ficha: Record<string, unknown>;
@@ -87,6 +88,14 @@ console.log('\n── La pregunta de cierre que ofrece lo ya visto ──');
   ok(!!r3.cambio && /cat[aá]logo/.test(r3.texto.slice(-80)) && !/d[ií]a a d[ií]a/i.test(r3.texto.slice(-80)),
     `el día a día, tras ver los productos, ofrece el catálogo — ni los productos ni a sí mismo (${r3.cambio ?? 'sin cambio'})`);
   ok(renovarOfertaVista('Texto largo suficiente para que haya cuerpo de respuesta, más de sesenta caracteres en total.\n\n¿Le muestro el catálogo completo con precios?', antesDe(5)).cambio === null, 'no toca una oferta que la persona aún no ha visto');
+  // Prueba del 26 sep: tras Los 12 Niveles y el simulador, el botón «Cómo entra
+  // el dinero» cerró ofreciendo «cómo crece ese porcentaje sin que le toque
+  // conseguir a todos los clientes» — la duda con la que abre la estrategia.
+  const dinero = getRespuestaMaestra('¿de dónde sale el dinero?')!;
+  const conEstrategia = construirBitacora([{ messages: [{ role: 'user', content: 'Si' }, { role: 'assistant', content: 'Los 12 Niveles es nuestra estrategia para construirlo paso a paso.' }] }], null);
+  const r4 = renovarOfertaVista(dinero, conEstrategia);
+  ok(!!r4.cambio && !/crece ese porcentaje/.test(r4.texto.slice(-140)), `WHY_04, tras ver la estrategia, no vuelve a ofrecerla (${r4.cambio ?? 'sin cambio'})`);
+  ok(renovarOfertaVista(dinero, construirBitacora([], null)).cambio === null, 'WHY_04 en frío conserva su oferta (el «sí» lleva al ejemplo de renta)');
 }
 
 console.log('\n── Un texto aprobado que ya recibió, en cualquier turno ──');

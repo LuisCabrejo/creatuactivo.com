@@ -15,7 +15,7 @@
  * Lo que SÍ se reutiliza es lo aprobado: la ficha del producto y los dos
  * simuladores (el de la servilleta y el de los 12 niveles de /12-niveles).
  *
- * LA ESPINA (7 pantallas)
+ * LA ESPINA (8 pantallas)
  * -----------------------
  *  1 QUÉ CREEMOS   · el credo, verbatim aprobado (Home v16, apertura del canal,
  *                    WHY_01). Hace de primera diapositiva de pitch deck porque
@@ -45,12 +45,16 @@
  *                    habilidad sino esto mismo, armado. Así la multiplicación
  *                    queda como CONSECUENCIA y no como un tercer paso.
  *  6 EL PRODUCTO   · la taza premium como puerta de entrada a la línea, la
- *                    recompra por resultado (prepara la 7) y una ficha de
+ *                    recompra por resultado (prepara la 8) y una ficha de
  *                    oficio —híbrido, cultivo propio, años—, sin ciencia.
- *  7 LOS NÚMEROS   · el modelo en una frase («cada cliente que llega por su
+ *  7 EL PROBLEMA,  · tres cifras verificadas y una pregunta, justo antes del
+ *    EN CIFRAS       dinero (Director, 26 sep 2026): con los detalles el prospecto
+ *                    se oscurece, y lo que lo devuelve es re-aterrizar el
+ *                    problema. Cierra en «¿Y usted, qué plan tiene…?».
+ *  8 LOS NÚMEROS   · el modelo en una frase («cada cliente que llega por su
  *                    enlace queda a su nombre») y dos simuladores: el Bono GEN5
- *                    hasta la quinta generación y los 12 niveles con el porcentaje de cada forma de
- *                    iniciar. Pesos por defecto.
+ *                    hasta la quinta generación y los 12 niveles con el
+ *                    porcentaje de cada forma de iniciar. Pesos por defecto.
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
  * ----------------------------------
@@ -69,7 +73,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const TOTAL_SLIDES = 7;
+const TOTAL_SLIDES = 8;
 
 /** Beats internos por pantalla. Solo la 5 (la oscilación) tiene más de uno. */
 const BEATS: Record<number, number> = { 5: 5 };
@@ -143,6 +147,44 @@ const TARIFAS_12 = [
   { pct: 16, nombre: 'Empresarial', paquete: 'paquete Empresarial', meses: 4 },
   { pct: 17, nombre: 'Visionario', paquete: 'paquete Visionario', meses: 6 },
 ] as const;
+
+/** Las tres cifras de «El problema, en cifras» (aprobadas por el Director, 26 sep
+ *  2026). Cada una se verificó en su fuente primaria ese día; si se cambia una, se
+ *  vuelve a la fuente — no a un artículo que la cite.
+ *  · DANE, Encuesta Nacional de Calidad de Vida 2025 (anexo, cuadro 35): el 31,3 %
+ *    de los hogares dice que su ingreso «no alcanza para cubrir los gastos mínimos»
+ *    y el 61,0 % que «alcanza para cubrir los gastos mínimos»; solo el 7,7 % que
+ *    «cubre más». Se usa la SUMA (92,3 %) a propósito: el «no alcanza» solo viene
+ *    bajando desde 2022, mientras que el «cubre más» lleva entre 7 y 8 % desde 2019.
+ *    https://www.dane.gov.co/files/operaciones/ECV/anex-ECV-2025.xlsx
+ *  · GEM 2023/2024 Global Report, perfil de Colombia (datos 2023, adultos de 18 a
+ *    64): «good opportunities to start a business in my area» 60,0 %; TEA 23,6 %
+ *    («just under one in four», puesto 7 de 46). Colombia no participó en 2024 ni
+ *    en 2025: por eso va con su año. La TEA cuenta negocios NUEVOS (hasta 42
+ *    meses), y por eso la frase dice «que abrió hace poco».
+ *    https://www.gemconsortium.org/country-profile/52
+ *  ⛔ Descartadas: el «9 de cada 10 quieren emprender / 63 % sin recursos» es un
+ *  estudio de Amway (2021) — la fuente confirma la categoría que no se nombra —; la
+ *  «intención emprendedora» del GEM (18,5 % en el global, 43,2 % en el nacional) es
+ *  inconsistente; y la carga financiera del Banco de la República (31 %, feb. 2026)
+ *  cubre solo a los hogares con créditos. */
+const CIFRAS_PROBLEMA = [
+  {
+    n: '9 de cada 10',
+    texto: 'hogares colombianos dicen que su ingreso no alcanza, o que alcanza solo para lo mínimo.',
+    fuente: 'DANE · Encuesta de Calidad de Vida 2025',
+  },
+  {
+    n: '6 de cada 10',
+    texto: 'adultos en Colombia ven buenas oportunidades para emprender donde viven.',
+    fuente: 'Global Entrepreneurship Monitor · 2023',
+  },
+  {
+    n: 'Casi 1 de cada 4',
+    texto: 'ya está empezando un negocio propio, o maneja uno que abrió hace poco.',
+    fuente: 'Global Entrepreneurship Monitor · 2023',
+  },
+];
 
 /** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
 const TRM = 4500;
@@ -533,7 +575,21 @@ export default function PitchDeckPage() {
         }
         .pd-link:hover { border-bottom-color: var(--pd-gold); }
 
-        /* ── 7 · Números ─────────────────────────────────────────────────── */
+        /* ── 7 · El problema, en cifras ───────────────────────────────────── */
+        .pd-cifras-lista { display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: clamp(16px, 3vw, 32px); margin-top: 0.4rem; }
+        .pd-cifra { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 1.1rem; }
+        .pd-cifra .n { font-family: var(--font-sans); font-weight: 700; color: #FFFFFF;
+          font-size: clamp(1.5rem, 3.2vw, 2.3rem); line-height: 1.1; margin: 0 0 0.6rem; }
+        .pd-cifra .t { font-size: clamp(0.95rem, 1.6vw, 1.08rem); line-height: 1.5;
+          color: var(--color-text-body, #C8C7C2); margin: 0 0 0.8rem; }
+        /* La pregunta del cierre: en computador partía en «…SALIR DEL / CICLO?» y
+           dejaba huérfana la palabra que la amarra al credo. */
+        .pd-cifras .pd-bisagra { text-wrap: balance; }
+        .pd-cifra .f { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
+          color: var(--pd-muted); text-transform: uppercase; margin: 0; }
+
+        /* ── 8 · Números ─────────────────────────────────────────────────── */
         .pd-paneles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 32px); }
         .panel { border: 1px solid rgba(255,255,255,0.1); background: var(--pd-elev);
           padding: 1.4rem 1.4rem 1.6rem; cursor: default; }
@@ -633,6 +689,10 @@ export default function PitchDeckPage() {
           .pd-numeros .pd-slider { margin: 0.7rem 0 1.9rem; }
           .pd-numeros .pd-insight { font-size: 0.74rem; }
           .pd-numeros { padding-bottom: 28px; }
+          .pd-cifras-lista { grid-template-columns: 1fr; gap: 1rem; }
+          .pd-cifra { padding-top: 0.8rem; }
+          .pd-cifra .n { margin-bottom: 0.35rem; }
+          .pd-cifra .t { margin-bottom: 0.45rem; }
           /* El titular y el selector de porcentaje (26 sep 2026) sumaron ~190px, y
              esta pantalla tiene que caber entera. Lo que se aprieta no es la cifra:
              la fila de botones de nivel se va en el teléfono porque el deslizador
@@ -1104,7 +1164,7 @@ export default function PitchDeckPage() {
                   disuelve por completo: no se queda nada en el fondo de la taza.
                 </p>
                 {/* LA RECOMPRA POR RESULTADO, verbatim de PROD_01 (aprobado 24 sep 2026).
-                    Prepara la pantalla 7: aquí se dice por qué el cliente vuelve; allá, por
+                    Prepara la pantalla 8: aquí se dice por qué el cliente vuelve; allá, por
                     qué esa recompra le paga. El dinero NO entra en esta pantalla.
                     ⚠️ «Incorpora a su rutina» es la fórmula aprobada; lo vetado es el
                     producto como algo que ya se consume. Y nunca «vuelve porque se le
@@ -1169,8 +1229,38 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 7 · LOS NÚMEROS ─────────────────────────────────────────── */}
-        <section className={`pd-slide pd-numeros ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+        {/* ── 7 · EL PROBLEMA, EN CIFRAS ──────────────────────────────── */}
+        <section className={`pd-slide pd-cifras ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+            {/* JUSTO ANTES DEL DINERO (Director, 26 sep 2026). En el 1-a-1 el prospecto
+                se entusiasma con el problema y, al entrar en los detalles, se le
+                oscurece todo: «los productos son caros», «la gente está muy mal»,
+                «nadie busca oportunidades». Lo que lo devuelve es re-aterrizar el
+                problema. Las cifras contestan esas dos últimas con dato, y la pregunta
+                la contesta él («ninguno»): con alguien que duda, mueve que diga sus
+                propias razones (CIENCIA_CONDUCTUAL §3).
+                ⚠️ Dolor de HOY, no miedo al futuro: las cifras de pensión se dejaron
+                fuera a propósito — en quien duda producen «lo pienso». Las cuenta el
+                socio en vivo, si el prospecto es mayor.
+                ⚠️ «El ciclo» retoma el credo y la pantalla 2 sin repetirlos. La voz de
+                confianza con que el Director lo dice en vivo NO se escribe aquí.
+                Fuentes y descartes: ver CIFRAS_PROBLEMA. */}
+            <p className="pd-eyebrow">El problema, en cifras</p>
+            <div className="pd-cifras-lista">
+              {CIFRAS_PROBLEMA.map((c) => (
+                <div className="pd-cifra" key={c.n}>
+                  <p className="n">{c.n}</p>
+                  <p className="t">{c.texto}</p>
+                  <p className="f">{c.fuente}</p>
+                </div>
+              ))}
+            </div>
+            <p className="pd-bisagra">¿Y usted, qué plan tiene para salir del ciclo?</p>
+          </div>
+        </section>
+
+        {/* ── 8 · LOS NÚMEROS ─────────────────────────────────────────── */}
+        <section className={`pd-slide pd-numeros ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap" style={{ maxWidth: 1040 }}>
             <div className="pd-numeros-top">
               <p className="pd-eyebrow">Cómo se gana</p>

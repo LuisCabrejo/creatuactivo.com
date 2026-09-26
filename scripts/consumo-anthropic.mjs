@@ -82,7 +82,7 @@ const porOrigen = {};
 const porConversacion = {};
 for (const fila of filas) {
   const o = origenDe(fila);
-  const a = (porOrigen[o] ??= { medidos: 0, sinMedir: 0, dolares: 0, tokens: 0, modelos: {} });
+  const a = (porOrigen[o] ??= { medidos: 0, sinMedir: 0, dolares: 0, tokens: 0, modelos: {}, claves: {} });
   const consumo = Array.isArray(fila.metadata?.consumo) ? fila.metadata.consumo : [];
   if (!consumo.length) {
     const m = fila.metadata?.search_method;
@@ -90,6 +90,8 @@ for (const fila of filas) {
     continue;
   }
   a.medidos++;
+  // Desde el 26 sep las filas de prueba dicen qué clave pagó el turno.
+  if (fila.metadata?.clave) a.claves[fila.metadata.clave] = (a.claves[fila.metadata.clave] || 0) + 1;
   let usdFila = 0;
   for (const c of consumo) {
     const usd = dolares(c);
@@ -115,7 +117,8 @@ for (const [o, a] of Object.entries(porOrigen).sort((x, y) => y[1].dolares - x[1
   if (!a.medidos && !a.sinMedir) continue;
   const parte = total ? ` (${Math.round((a.dolares / total) * 100)} %)` : '';
   const prom = a.medidos ? ` · ${usd(a.dolares / a.medidos)} por turno` : '';
-  console.log(`▸ ${o.padEnd(10)} ${usd(a.dolares)}${parte} · ${a.medidos} turnos medidos${prom}${a.sinMedir ? ` · ${a.sinMedir} con modelo sin medir` : ''}`);
+  const claves = Object.entries(a.claves).map(([k, n]) => `${n} con la clave ${k}`).join(', ');
+  console.log(`▸ ${o.padEnd(10)} ${usd(a.dolares)}${parte} · ${a.medidos} turnos medidos${prom}${a.sinMedir ? ` · ${a.sinMedir} con modelo sin medir` : ''}${claves ? ` · ${claves}` : ''}`);
   for (const [k, m] of Object.entries(a.modelos).sort((x, y) => y[1].dolares - x[1].dolares)) {
     const hit = m.lectura + m.escritura + m.entrada ? Math.round((m.lectura / (m.lectura + m.escritura + m.entrada)) * 100) : 0;
     console.log(`    ${k.padEnd(44)} ${String(m.llamadas).padStart(4)} llamadas · ${usd(m.dolares).padStart(7)} · entrada desde caché ${hit} % · salida media ${Math.round(m.salida / m.llamadas)}`);

@@ -4396,12 +4396,16 @@ export async function POST(req: Request) {
   // `node scripts/consumo-anthropic.mjs`. Ver `consumo-anthropic.ts`.
   const _consumo: Consumo[] = [];
   const _esPrueba = esPeticionDePrueba(req);
-  const anthropic = (_esPrueba && clienteParaPruebas()) || anthropicPrincipal;
+  const _clientePruebas = _esPrueba ? clienteParaPruebas() : null;
+  const anthropic = _clientePruebas || anthropicPrincipal;
+  // Qué clave pagó el turno de prueba: 'principal' quiere decir que la variable
+  // ANTHROPIC_API_KEY_PRUEBAS no está definida donde corre el motor.
+  const _clave = _clientePruebas ? 'pruebas' : 'principal';
   const logConversationHibrida: typeof logConversationHibridaBase = (u, a, d, m, s, f, p, extra) =>
     logConversationHibridaBase(u, a, d, m, s, f, p, {
       ...(extra ?? {}),
       ...(_consumo.length ? { consumo: [..._consumo] } : {}),
-      ...(_esPrueba ? { origen: 'prueba' } : {}),
+      ...(_esPrueba ? { origen: 'prueba', clave: _clave } : {}),
     });
 
   try {
@@ -7154,7 +7158,7 @@ ESTADO: ${getMessageContext()}`;
     const response = contarTokens(await callAnthropic(), 'respuesta', (c) => {
       _consumo.push(c);
       const marca = c.cache_lectura > 0 ? '✅ [CACHE HIT]' : '⚠️ [CACHE MISS]';
-      console.log(`${marca} ${c.modelo} · cache_lectura=${c.cache_lectura} · cache_escritura=${c.cache_escritura} · entrada=${c.entrada} · salida=${c.salida}${_esPrueba ? ' · prueba' : ''}`);
+      console.log(`${marca} ${c.modelo} · cache_lectura=${c.cache_lectura} · cache_escritura=${c.cache_escritura} · entrada=${c.entrada} · salida=${c.salida}${_esPrueba ? ` · prueba (clave ${_clave})` : ''}`);
     });
 
     // Lo que corre cuando el modelo terminó: extracción semántica, log de la

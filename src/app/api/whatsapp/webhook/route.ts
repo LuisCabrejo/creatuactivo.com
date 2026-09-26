@@ -1313,13 +1313,14 @@ async function procesarEntrante(body: any): Promise<void> {
 
     // «Cómo funciona» se responde con el VIDEO (Director, 26 sep 2026). El texto
     // se ojeaba: de 21 personas que tocaron el botón en septiembre, 7 no pasaron
-    // de esa respuesta. Sale una línea de entrada y el video SIN pie ni pregunta:
-    // la respuesta es el video (Director, tras verlo en su teléfono). Los otros
-    // dos botones de la apertura siguen a la vista para el paso siguiente.
+    // de esa respuesta. Sale una línea de entrada y el video, con la pregunta de
+    // cierre de WHY_02 como pie —una sola vez, después del video— (Director, tras
+    // verlo en su teléfono). Va en el pie y no en un mensaje aparte: un texto
+    // suelto llega ANTES que el video, que pesa más.
     // La voz dice casi palabra por palabra WHY_02, así que la fila guarda ese
-    // texto sin su pregunta de cierre —que la persona no vio—: la bitácora lo
-    // reconoce por su firma y el modelo recuerda lo que la persona escuchó.
-    // Si Meta no acepta el video, el texto sigue a la entrada que ya salió.
+    // texto con la pregunta que salió en el pie: la bitácora lo reconoce por su
+    // firma, el modelo recuerda lo que la persona escuchó y su «sí» se lee contra
+    // esa pregunta. Si Meta no acepta el video, el texto sigue a la entrada.
     if (dictada && opcionElegida === 'apertura_sistema') {
       const INTRO = 'Con gusto. Funciona así:';
       const cuerpo = dictada.startsWith(INTRO) ? dictada.slice(INTRO.length).trim() : dictada;
@@ -1327,12 +1328,16 @@ async function procesarEntrante(body: any): Promise<void> {
       // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
       if (wamid) await marcarLeidoYEscribiendo(wamid);
       await new Promise((r) => setTimeout(r, 800));
-      const envio = await sendVideo(phoneNumber, VIDEO_COMO_FUNCIONA_WA);
+      // La pregunta pasa por la red de ofertas: no ofrece lo que la persona ya vio.
+      const r = _bitacoraDelTurno ? renovarOfertaVista(cuerpo, _bitacoraDelTurno) : { texto: cuerpo, cambio: null };
+      if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
+      const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
+      const envio = await sendVideo(phoneNumber, VIDEO_COMO_FUNCIONA_WA, pie);
       if (envio.ok) {
-        const loQueDice = cuerpo.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
+        const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
         await persistirTurnoDictado(
           supabase, waFingerprint, messageText,
-          `${INTRO}\n\n[Video «Cómo funciona», 80 s. Lo que dice la voz:]\n\n${loQueDice}`,
+          `${INTRO}\n\n[Video «Cómo funciona», 80 s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`,
           'botón de la apertura: apertura_sistema (video)',
         );
         console.log(`🎬 [WA Webhook] Video «Cómo funciona» → ${phoneNumber}`);

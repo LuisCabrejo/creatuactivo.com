@@ -23,7 +23,8 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 
 // «Cómo funciona» para el canal de WhatsApp (80 s, 720×1280, 9,5 MB — el tope de
 // Meta es 16 MB). Lo manda el botón «Cómo funciona» de la apertura, tras la línea
-// «Con gusto. Funciona así:» y sin pie: la voz dice casi palabra por palabra WHY_02.
+// «Con gusto. Funciona así:», con la pregunta de cierre de WHY_02 como pie: la voz
+// dice casi palabra por palabra ese texto.
 // Cierra con «esta conversación es una muestra», así que es para que lo mande
 // Queswa, no para compartir fuera del chat. Si se vuelve a cortar, se sube con
 // otro nombre (-v2): Meta y los teléfonos guardan copia de la URL.

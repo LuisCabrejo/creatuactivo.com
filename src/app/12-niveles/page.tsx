@@ -2492,7 +2492,7 @@ export default function ServilletaPage() {
                     className="sim-slider snowball-slider"
                     style={{ ['--thumb-size' as string]: `${nivel12ThumbSize}px` } as React.CSSProperties}
                   />
-                  <p className="insight-text">Cada nivel duplica su sistema (2&times;2). Regal&iacute;a mensual proyectada: el 10% de lo que consumen sus distribuidores.</p>
+                  <p className="insight-text">Cada nivel duplica su sistema (2&times;2). Regal&iacute;a mensual proyectada: el 10% del volumen comisionable (GCV) de su sistema.</p>
                 </div>
               </div>
             </div>

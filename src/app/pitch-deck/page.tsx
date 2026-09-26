@@ -1429,7 +1429,7 @@ export default function PitchDeckPage() {
                 <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
                   <p className="pd-insight pd-tarifa-general">
                     Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
-                    {tarifa.pct}% de lo que consumen sus distribuidores.
+                    {tarifa.pct}% del volumen comisionable (GCV) de su sistema.
                   </p>
                   <div className="pd-vigencias">
                     {TARIFAS_12.map((t, i) => (

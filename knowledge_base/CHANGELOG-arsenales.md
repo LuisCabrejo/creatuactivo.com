@@ -381,6 +381,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.23 — `NIVELES_01` 🔒: el 10 % corre sobre el GCV (26 sep 2026)
+
+El candado decía *«empieza a cobrar el 10% sobre las compras que facture su sistema»* y cerraba el $103M con *«exactamente el 10% del volumen facturado»*. El Director lo detectó al revisar el video de Los 12 Niveles: alguien puede asumir que el porcentaje se calcula sobre la venta bruta, y la Regalía de Equipo corre sobre el GCV (volumen comisionable grupal). Quedó *«…el 10% del volumen comisionable de su sistema»* y *«exactamente el 10% del GCV, el volumen comisionable grupal»*, las mismas frases del video. La misma corrección se hizo en la línea del pie de los dos simuladores (pitch deck y `/12-niveles`), que decía *«el 10% de lo que consumen sus distribuidores»*.
+
 ### v6.22 — `NIVELES_06` dice el precio del Kit (24 sep 2026)
 
 `NIVELES_06` («¿Por qué es tan accesible el Kit?») cerraba remitiendo el precio al sistema en vez de decirlo. En la prueba del Director del 24 sep, al preguntar «¿Qué paquetes hay?», Queswa listó los tres paquetes con su precio y dejó el Kit sin cifra, con esa misma fórmula, aunque el precio se conoce ($443.600 COP · $98 USD). La frase pasa a *«Eso es todo lo que trae, por [PRECIO_KIT]»*: el pin `getPinKitInicio` llena el marcador en la moneda del país, el mismo mecanismo que ya usa `NIVELES_01`. Propuesto y aprobado en el chat el mismo día.

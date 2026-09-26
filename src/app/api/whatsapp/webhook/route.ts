@@ -1806,7 +1806,34 @@ async function procesarEntrante(body: any): Promise<void> {
         tenant:              'whatsapp',
       });
       if (nodo) {
-        if (nodo.texto) await sendWhatsAppMessage(phoneNumber, nodo.texto, { wamid });
+        // El nodo con video (2.34, Los 12 Niveles — Director, 26 sep 2026): la
+        // entrada, y el video con la pregunta final como pie, igual que «Cómo
+        // funciona». La fila guarda lo que dice la voz y esa pregunta, así la
+        // bitácora lo reconoce y el «sí» se lee contra ella. Si Meta no acepta
+        // el video, el texto sigue a la entrada que ya salió.
+        let persistirVideo: string | null = null;
+        if (nodo.video && nodo.texto) {
+          const { url, entrada } = nodo.video;
+          const resto = nodo.texto.startsWith(entrada) ? nodo.texto.slice(entrada.length).trim() : nodo.texto;
+          const r = _bitacoraDelTurno ? renovarOfertaVista(resto, _bitacoraDelTurno) : { texto: resto, cambio: null };
+          if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
+          const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
+          await sendWhatsAppMessage(phoneNumber, entrada, { wamid });
+          // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
+          if (wamid) await marcarLeidoYEscribiendo(wamid);
+          await new Promise((res) => setTimeout(res, 800));
+          const envio = await sendVideo(phoneNumber, url, pie);
+          if (envio.ok) {
+            const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
+            persistirVideo = `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`;
+            console.log(`🎬 [WA Webhook] Video «Los 12 Niveles» → ${phoneNumber}`);
+          } else {
+            console.warn(`⚠️ [WA Webhook] El video de ${nodo.nodo} no salió (${envio.error}) — va el texto`);
+            await sendWhatsAppMessage(phoneNumber, resto, { wamid });
+            const renovada = _ofertaRenovada as { original: string; enviado: string } | null;
+            persistirVideo = `${entrada}\n\n${renovada?.original === resto ? renovada.enviado : resto}`;
+          }
+        } else if (nodo.texto) await sendWhatsAppMessage(phoneNumber, nodo.texto, { wamid });
         let tarjetaOk = false;
         if (nodo.simulador && flowSimuladorId) {
           const r = await sendFlow(phoneNumber, flowSimuladorId, nodo.simulador.cuerpo, 'Abrir el simulador', { screen: nodo.simulador.pantalla });
@@ -1817,7 +1844,7 @@ async function procesarEntrante(body: any): Promise<void> {
         // era SOLO tarjeta y falló sigue al motor: mejor una respuesta en texto
         // que un silencio.
         if (nodo.texto || tarjetaOk) {
-          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodo.persistir ?? nodo.texto ?? '', nodo.nodo);
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, persistirVideo ?? nodo.persistir ?? nodo.texto ?? '', nodo.nodo);
           if (nodo.marcarHiloDoceNiveles) await marcarHiloDoceNiveles();
           if (/NIVELES_01/.test(nodo.nodo)) await marcarTemperatura('tibio');
           else if (/NIVELES_02|GEN5|vinculaci/i.test(nodo.nodo)) await marcarTemperatura('caliente');

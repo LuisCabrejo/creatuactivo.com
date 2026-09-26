@@ -30,6 +30,12 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // otro nombre (-v2): Meta y los teléfonos guardan copia de la URL.
 export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v1.mp4'
 
+// «Los 12 Niveles» para el canal (59 s, 720×1280, 8,7 MB). La voz es NIVELES_01
+// palabra por palabra, sin el precio del Kit; en pantalla, el simulador con su
+// advertencia («Potencial matemático… No es un resultado garantizado»). Lo manda
+// el nodo 2.34 del conductor con la pregunta de cierre de NIVELES_01 como pie.
+export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-v1.mp4'
+
 // Poster único (branded) para el <video> de todos los reels — local en /public,
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.
 export const REEL_POSTER = '/videos/reels/poster.webp'

@@ -54,6 +54,7 @@ import {
   esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto,
 } from '@/lib/wa-productos';
 import { yaLoRecibio, residenciaDeclarada, lugarExterior } from '@/lib/queswa-bitacora';
+import { VIDEO_DOCE_NIVELES_WA } from '@/lib/reels';
 
 export type PaisConductor = 'CO' | 'US' | 'XX';
 export type CanalConductor = 'whatsapp' | 'web';
@@ -99,6 +100,12 @@ export interface RespuestaConductor {
   /** Lo que se guarda como turno del asistente cuando difiere del texto (el marcador del simulador). */
   persistir?: string;
   marcarHiloDoceNiveles?: boolean;
+  /**
+   * El nodo tiene video (26 sep 2026). WhatsApp manda `entrada`, el video y la
+   * pregunta final de `texto` como pie; `texto` sigue completo para la web y
+   * para el respaldo si Meta no acepta el video.
+   */
+  video?: { url: string; entrada: string };
 }
 
 // ─── País ─────────────────────────────────────────────────────────────────────
@@ -361,10 +368,13 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
         // Sin tarjeta automática (Director, 3 sep 2026): el texto cerraba
         // preguntando por la tabla Y llegaba la tarjeta — dos ofertas en un
         // turno. La pregunta de seguimiento ofrece el simulador y el «sí» lo trae.
+        // En WhatsApp va el video (Director, 26 sep 2026): su voz es NIVELES_01
+        // entero. La entrada es el puente cuando lo hay; si no, una línea.
         return {
           nodo: '2.34 NIVELES_01 (nombre mal oído / sí a la estrategia)',
           texto: puente + cuerpo.replace(/\[PRECIO_KIT\]/g, precioKit(ctx.pais)),
           marcarHiloDoceNiveles: true,
+          video: { url: VIDEO_DOCE_NIVELES_WA, entrada: puente ? puente.trim() : 'Con gusto. Esta es la estrategia:' },
         };
       }
     } catch (err) {

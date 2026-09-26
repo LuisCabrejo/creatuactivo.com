@@ -15,7 +15,7 @@
  * Lo que SÍ se reutiliza es lo aprobado: la ficha del producto y los dos
  * simuladores (el de la servilleta y el de los 12 niveles de /12-niveles).
  *
- * LA ESPINA (8 pantallas)
+ * LA ESPINA (9 pantallas)
  * -----------------------
  *  1 QUÉ CREEMOS   · el credo, verbatim aprobado (Home v16, apertura del canal,
  *                    WHY_01). Hace de primera diapositiva de pitch deck porque
@@ -55,6 +55,10 @@
  *                    enlace queda a su nombre») y dos simuladores: el Bono GEN5
  *                    hasta la quinta generación y los 12 niveles con el
  *                    porcentaje de cada forma de iniciar. Pesos por defecto.
+ *  9 EL SIGUIENTE  · la petición, y el deck cierra como abrió: la segunda mitad
+ *    PASO            del credo, la lista de espera dicha como hecho, y «El
+ *                    siguiente paso es una conversación» — una afirmación, no
+ *                    una pregunta (Director, 26 sep 2026).
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
  * ----------------------------------
@@ -73,7 +77,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const TOTAL_SLIDES = 8;
+const TOTAL_SLIDES = 9;
 
 /** Beats internos por pantalla. Solo la 5 (la oscilación) tiene más de uno. */
 const BEATS: Record<number, number> = { 5: 5 };
@@ -649,9 +653,17 @@ export default function PitchDeckPage() {
         .pd-nivel.done { border-color: rgba(197,160,89,0.4); color: var(--pd-gold);
           background: rgba(197,160,89,0.06); }
         .pd-nivel.active { border-color: var(--pd-gold); background: var(--pd-gold); color: #0F1115; }
-        .pd-cierre { text-align: center; font-family: var(--font-mono); font-size: 0.62rem;
-          letter-spacing: 0.2em; color: var(--pd-muted); text-transform: uppercase;
-          margin-top: 1.8rem; }
+
+        /* ── 9 · El siguiente paso ───────────────────────────────────────── */
+        /* El credo con la misma letra de la pantalla 1: se tiene que VER que el deck
+           cierra donde abrió. Ver el aviso de Playfair en «1 · El credo». */
+        .pd-final-credo {
+          font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
+          font-size: clamp(1.4rem, 3.4vw, 2.5rem); line-height: 1.3;
+          margin: 0 0 1.4rem; color: #FFFFFF; max-width: 26ch;
+        }
+        .pd-final .pd-bisagra { margin: 1.8rem 0 0; text-wrap: balance; }
+        .pd-final .pd-p { text-wrap: pretty; }
 
         /* ── Modal catálogo ──────────────────────────────────────────────── */
         .pd-overlay { position: fixed; inset: 0; background: rgba(5,6,8,0.94); z-index: 200;
@@ -702,7 +714,7 @@ export default function PitchDeckPage() {
           .pd-numeros .pd-h2 { font-size: 1.05rem; margin-bottom: 0.3rem; }
           .pd-numeros-lead { font-size: 0.9rem; margin-bottom: 0.9rem; }
           .pd-numeros .pd-nota { margin-top: 0.8rem; }
-          .pd-numeros .pd-cierre { margin-top: 0.5rem; }
+          .pd-final-credo { font-size: clamp(1.2rem, 5.2vw, 1.8rem); }
           /* En el teléfono el panel de paquetes se queda con su título y su rótulo,
              que ya dicen qué cuenta. Y cuando se elige un porcentaje temporal, su
              vigencia REEMPLAZA a la línea general en vez de sumarse: es la línea que
@@ -1415,7 +1427,39 @@ export default function PitchDeckPage() {
                 ⚠️ Sin la tasa de $4.500: con los pesos por defecto nadie ve una
                 conversión, y nombrarla le planta la queja del dólar caro (FREQ_27). */}
             <p className="pd-nota">Gano Excel paga cada semana, los viernes.</p>
-            <p className="pd-cierre">El siguiente paso es una conversación</p>
+          </div>
+        </section>
+
+        {/* ── 9 · EL SIGUIENTE PASO ───────────────────────────────────── */}
+        <section className={`pd-slide pd-final ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            {/* EL DECK CIERRA COMO ABRIÓ (Director, 26 sep 2026). El rótulo es el de la
+                pantalla 1, y vuelve la SEGUNDA mitad del credo: el ciclo ya se nombró
+                en la 1, la 2 y la 7, y aquí el deck termina en la restitución —el
+                esfuerzo convertido en capital—, justo después de ver los números.
+                La lista de espera va como la dice el arsenal desde el 10 sep (EAM_02):
+                una capacidad real, en presente, sin número y sin la mecánica de la
+                selección.
+                ⚠️ EL CIERRE ES UNA AFIRMACIÓN, NO UNA PREGUNTA (Director, 26 sep 2026).
+                Se propusieron «¿Le reservo su lugar?» y «¿Arrancamos con su Kit de
+                Inicio?»; el Director prefirió «El siguiente paso es una conversación»,
+                que vivía al pie de la pantalla de los números. Encaja con la lista de
+                espera, que el arsenal dice «con una conversación de por medio». La
+                pregunta la hace el socio en vivo.
+                ⛔ Sin paquetes ni precios: el precio de entrada no convive con las
+                comisiones de la pantalla anterior. */}
+            <p className="pd-eyebrow">En qué creemos</p>
+            <p className="pd-final-credo">
+              Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
+              en capital real.
+            </p>
+            <p className="pd-p">
+              Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
+              vez. Por eso el acceso va por lista de espera.
+            </p>
+            <p className="pd-bisagra">El siguiente paso es una conversación.</p>
+            <div className="pd-credo-rule" />
+            <p className="pd-kicker">CreaTuActivo.com</p>
           </div>
         </section>
 

@@ -49,7 +49,7 @@
  *                    oficio —híbrido, cultivo propio, años—, sin ciencia.
  *  7 LOS NÚMEROS   · el modelo en una frase («cada cliente que llega por su
  *                    enlace queda a su nombre») y dos simuladores: el Bono GEN5
- *                    y los 12 niveles con el porcentaje de cada forma de
+ *                    hasta la quinta generación y los 12 niveles con el porcentaje de cada forma de
  *                    iniciar. Pesos por defecto.
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
@@ -146,7 +146,16 @@ const TARIFAS_12 = [
 
 /** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
 const TRM = 4500;
-const GEN5_BONOS: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
+/** Bono GEN5 por paquete, generación por generación (USD) — COMP_GEN5_04 del arsenal
+ *  de compensación. Cada paquete que se compra deja bono en su generación y en las
+ *  cuatro de arriba, y el paquete propio es el techo: el ejemplo supone el mismo
+ *  paquete arriba y abajo. La quinta va con su valor completo (100 PV en el mes),
+ *  igual que el simulador de WhatsApp (GEN5_POR_PAQUETE en wa-simulador.ts). */
+const GEN5_POR_GENERACION: Record<'ESP1' | 'ESP2' | 'ESP3', number[]> = {
+  ESP1: [25, 5, 5, 5, 10],
+  ESP2: [75, 10, 10, 10, 20],
+  ESP3: [150, 20, 20, 20, 40],
+};
 
 const enUSD = (n: number) => n.toLocaleString('en-US');
 const enCOP = (n: number) => n.toLocaleString('es-CO');
@@ -169,11 +178,14 @@ export default function PitchDeckPage() {
   const [nivel12, setNivel12] = useState(12);
   const [tarifa12, setTarifa12] = useState(0); // índice en TARIFAS_12: el Kit, al 10%
 
-  const ingresoGen5COP = gen5Paquetes * GEN5_BONOS[gen5Nivel] * TRM;
+  const gen5Por = GEN5_POR_GENERACION[gen5Nivel];
+  const ingresoGen5COP = gen5Paquetes * gen5Por.reduce((a, b) => a + b, 0) * TRM;
   const tarifa = TARIFAS_12[tarifa12];
   const monto = (cop: number) => moneda === 'COP'
     ? <>${enCOP(cop)}<span className="u"> COP</span></>
     : <>${enUSD(Math.round(cop / TRM))}<span className="u"> USD</span></>;
+  const montoCorto = (cop: number) =>
+    moneda === 'COP' ? `$${enCOP(cop)}` : `$${enUSD(Math.round(cop / TRM))}`;
 
   // Bola de nieve: el thumb crece con el nivel (la metáfora, literal).
   const thumbNivel = Math.round(20 + ((nivel12 - 1) / 11) * 30);
@@ -540,7 +552,13 @@ export default function PitchDeckPage() {
         .pd-moneda button.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
         .pd-numeros .pd-h2 { font-size: clamp(1.25rem, 2.6vw, 1.9rem); margin-bottom: 0.5rem; }
         .pd-numeros-lead { margin-bottom: 1.5rem; }
-        .pd-display + .pd-pkgs { margin-top: 1.3rem; }
+        .pd-gens { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+          background: rgba(255,255,255,0.08); margin: 1rem 0 1.1rem; }
+        .pd-gen { background: var(--pd-bg); padding: 7px 2px; text-align: center; }
+        .pd-gen .k { display: block; font-family: var(--font-mono); font-size: 0.5rem;
+          letter-spacing: 0.12em; color: var(--pd-muted); text-transform: uppercase; }
+        .pd-gen .v { display: block; font-family: var(--font-mono); font-size: 0.6rem;
+          color: var(--pd-text); margin-top: 3px; white-space: nowrap; }
         .pd-pkg b { display: block; font-weight: 400; margin-top: 3px; font-size: 0.62rem; }
         .pd-insight.pd-vigencia { margin-top: 0.6rem; }
         .pd-nota { text-align: center; font-size: 0.72rem; color: var(--pd-muted); margin: 1.4rem 0 0; }
@@ -633,6 +651,16 @@ export default function PitchDeckPage() {
           .pd-numeros .panel:first-child .pd-slider { margin-bottom: 1.2rem; }
           .pd-numeros .pd-insight:has(+ .pd-vigencia) { display: none; }
           .pd-numeros .pd-insight.pd-vigencia { margin-top: 0; }
+          /* La tira de las cinco generaciones sumó ~45px (26 sep 2026): se recuperan
+             en márgenes y en el conteo de distribuidores, que cabe en una línea. */
+          .pd-numeros .panel h3 { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-gens { margin: 0.7rem 0 0.8rem; }
+          .pd-numeros .panel:first-child .pd-slider { margin-bottom: 0.8rem; }
+          .pd-numeros .pd-sub { font-size: 0.64rem; margin-bottom: 0.8rem; }
+          .pd-numeros-top { margin-bottom: 0.5rem; }
+          .pd-numeros-lead { margin-bottom: 0.6rem; }
+          .pd-numeros .pd-nota { margin-top: 0.5rem; }
+          .pd-numeros .panel { padding-bottom: 0.9rem; }
 
           /* ANCLAJE DE DESPLAZAMIENTO — el patrón de la servilleta para las
              pantallas que no caben en un teléfono. En «el producto» no caben a la
@@ -1171,10 +1199,28 @@ export default function PitchDeckPage() {
             <div className="pd-paneles">
               {/* Panel A — el Bono GEN5. El simulador de ingreso recurrente por hogares
                   salió (Director, 26 sep 2026): lo recurrente lo cuenta el de los 12
-                  niveles, y dos simuladores de lo mismo se estorban. */}
+                  niveles, y dos simuladores de lo mismo se estorban.
+                  HASTA LA QUINTA GENERACIÓN (Director, 26 sep 2026): antes mostraba
+                  solo la primera, que es la mitad de la historia. La tira dice cuánto
+                  deja cada generación y la cifra grande es la suma.
+                  ⚠️ El MISMO número de paquetes en cada generación, a propósito: en la
+                  práctica las de abajo suelen tener más, así que el ejemplo se queda
+                  corto y nadie puede decir que infla. Se descartó el 2×2 (2, 4, 8, 16,
+                  32): serían dos proyecciones geométricas lado a lado, y exigiría
+                  paquetes empresariales en todas las generaciones — contra el Kit que
+                  los 12 niveles dejan por defecto.
+                  ⚠️ Se cuentan PAQUETES COMPRADOS, nunca personas. */}
               <div className="panel">
                 <h3>Ingreso por paquetes</h3>
                 <div className="pd-display">{monto(ingresoGen5COP)}</div>
+                <div className="pd-gens">
+                  {gen5Por.map((usd, i) => (
+                    <div key={i} className="pd-gen">
+                      <span className="k">Gen {i + 1}</span>
+                      <span className="v">{montoCorto(gen5Paquetes * usd * TRM)}</span>
+                    </div>
+                  ))}
+                </div>
                 <div className="pd-pkgs">
                   {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
                     <button
@@ -1188,7 +1234,7 @@ export default function PitchDeckPage() {
                   ))}
                 </div>
                 <label className="pd-label">
-                  Paquetes comprados en su sistema<b>{gen5Paquetes}</b>
+                  Paquetes comprados en cada generación<b>{gen5Paquetes}</b>
                 </label>
                 <input
                   type="range"
@@ -1199,8 +1245,9 @@ export default function PitchDeckPage() {
                   className="pd-slider"
                 />
                 <p className="pd-insight">
-                  Cada vez que se compra un paquete empresarial en su sistema, usted cobra
-                  este bono. Es lo que financia el crecimiento al inicio.
+                  Cada vez que se compra un paquete empresarial en su sistema, hasta la
+                  quinta generación, usted cobra este bono. Es lo que financia el
+                  crecimiento al inicio.
                 </p>
               </div>
 
@@ -1232,8 +1279,8 @@ export default function PitchDeckPage() {
 
                 <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
                 <div className="pd-sub">
-                  {enCOP(nivelSel.people)} distribuidores nuevos en este nivel · total:{' '}
-                  {enCOP(totalDistribuidores)}
+                  {enCOP(nivelSel.people)} distribuidores nuevos · {enCOP(totalDistribuidores)} en
+                  total
                 </div>
 
                 <div className="pd-pkgs">

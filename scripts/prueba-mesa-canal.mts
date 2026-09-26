@@ -29,7 +29,7 @@ const ok = (s: string) => console.log('   ✅ ' + s);
 const mal = (s: string) => { console.log('   ❌ ' + s); fallos++; };
 
 async function motor(texto: string, pageContext: string): Promise<string> {
-  const r = await fetch(`${BASE}/api/nexus`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp' },
+  const r = await fetch(`${BASE}/api/nexus`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp', 'x-queswa-origen': 'prueba' },
     body: JSON.stringify({ messages: [...hist, { role: 'user', content: texto }], sessionId: FP, fingerprint: FP, pageContext }) });
   return (await r.text()).trim();
 }

@@ -20,6 +20,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+import { consumoDe, type Consumo } from './consumo-anthropic';
 
 let anthropicClient: Anthropic | null = null;
 function getAnthropicClient(): Anthropic {
@@ -85,7 +86,9 @@ export interface ResultadoReescritura {
 export async function reescribirConsultaConversacional(
   mensajeActual: string,
   historial: { role: string; content: string }[],
-  opciones: { maxTurnos?: number } = {},
+  // `cliente`: el del turno (una prueba gasta de su propia clave). `registrar`:
+  // recibe los tokens de la llamada, para la fila del turno.
+  opciones: { maxTurnos?: number; cliente?: Anthropic; registrar?: (c: Consumo) => void } = {},
 ): Promise<ResultadoReescritura> {
   const inicio = Date.now();
   const original: ResultadoReescritura = { consulta: mensajeActual, reescrita: false, ms: 0 };
@@ -103,7 +106,7 @@ export async function reescribirConsultaConversacional(
     .join('\n');
 
   try {
-    const respuesta = await getAnthropicClient().messages.create({
+    const respuesta = await (opciones.cliente ?? getAnthropicClient()).messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 80,
       system: INSTRUCCIONES,
@@ -115,6 +118,7 @@ export async function reescribirConsultaConversacional(
       ],
     });
 
+    opciones.registrar?.(consumoDe('reescritura', respuesta.model, respuesta.usage));
     const bloque = respuesta.content.find((b) => b.type === 'text');
     const texto = bloque?.type === 'text' ? bloque.text.trim().replace(/^["'`]|["'`]$/g, '') : '';
 

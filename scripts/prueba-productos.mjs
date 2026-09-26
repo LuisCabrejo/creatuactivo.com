@@ -28,7 +28,7 @@ const TENANT_ID    = TENANT === 'web' ? 'creatuactivo_marketing' : TENANT;
 const PAGE_CONTEXT = TENANT === 'whatsapp' ? 'whatsapp_inbound' : 'default';
 // En producción Vercel pone el país en `x-vercel-ip-country`; en local nadie lo pone
 // y el motor cotizaría en USD. El arnés lo fija en CO para la web.
-const CABECERAS    = { 'Content-Type': 'application/json', 'x-tenant-id': TENANT_ID, ...(TENANT !== 'whatsapp' && { 'x-vercel-ip-country': 'CO' }) };
+const CABECERAS    = { 'Content-Type': 'application/json', 'x-tenant-id': TENANT_ID, 'x-queswa-origen': 'prueba', ...(TENANT !== 'whatsapp' && { 'x-vercel-ip-country': 'CO' }) };
 const BASE = arg('--base', 'https://creatuactivo.com');
 const DETALLE = process.argv.includes('--detalle');
 const SOLO = Number(arg('--solo', 0));

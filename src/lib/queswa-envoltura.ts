@@ -28,6 +28,7 @@
  * por defecto ofrece algo ya visto—, que es exactamente lo que salía antes.
  */
 import type Anthropic from '@anthropic-ai/sdk';
+import { consumoDe, type Consumo } from './consumo-anthropic';
 import { detectarPreguntaDeDosSalidas } from './guardarrail-pregunta';
 import { temaDeOferta, temasDelTexto, type Bitacora } from './queswa-bitacora';
 
@@ -124,6 +125,8 @@ function validarCierre(cierre: unknown, permitidos: string[]): string | null {
  */
 export async function envolverTextoAprobado(p: {
   anthropic: Anthropic;
+  /** Recibe los tokens de la llamada, para la fila del turno. */
+  registrar?: (c: Consumo) => void;
   bitacora: Bitacora | null;
   mensajePersona: string;
   ultimoBot: string;
@@ -160,6 +163,7 @@ ${permitidos.length ? permitidos.map((q) => `• ${q}`).join('\n') : '• (ningu
       system: SISTEMA,
       messages: [{ role: 'user', content: usuario }],
     }, { timeout: p.timeoutMs ?? 7000, maxRetries: 0 });
+    p.registrar?.(consumoDe('envoltura', r.model, r.usage));
     const texto = r.content.map((b) => (b.type === 'text' ? b.text : '')).join('').trim();
     const json = texto.match(/\{[\s\S]*\}/)?.[0];
     if (!json) return respaldo('sin JSON');

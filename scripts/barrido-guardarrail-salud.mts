@@ -48,7 +48,7 @@ async function preguntar(q: string): Promise<string> {
   const fp = `wa_barrido_${Math.random().toString(36).slice(2, 9)}`;
   try {
     const r = await fetch(`${BASE}/api/nexus`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp' },
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp', 'x-queswa-origen': 'prueba' },
       body: JSON.stringify({ messages: [{ role: 'user', content: q }], sessionId: fp, fingerprint: fp, pageContext: 'whatsapp_inbound' }),
     });
     return (await r.text()).trim();

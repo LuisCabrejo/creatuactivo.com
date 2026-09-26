@@ -93,7 +93,7 @@ for (const [fp, ts] of hilos) {
     let ahora = '';
     try {
       const r = await fetch(`${BASE}/api/nexus`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp' },
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp', 'x-queswa-origen': 'prueba' },
         body: JSON.stringify({ messages: [...historia, { role: 'user', content: pregunta }],
           sessionId: `rep_${fp}`, fingerprint: `rep_${fp}` }),
       });

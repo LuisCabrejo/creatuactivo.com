@@ -64,7 +64,8 @@ function extraerGuion(texto) {
 const guion = extraerGuion(readFileSync(archivo, 'utf8'));
 if (guion.length < 40) { console.error('❌ No encontré el guion en el archivo.'); process.exit(2); }
 
-const claude = new Anthropic();
+// El juez gasta de la clave de pruebas si existe (ver src/lib/consumo-anthropic.ts).
+const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY_PRUEBAS || process.env.ANTHROPIC_API_KEY });
 
 // Salida estructurada con una herramienta estricta. No se fuerza tool_choice: Claude Opus 5 piensa
 // por defecto, así que va en auto con la instrucción de llamarla, y se reintenta una vez.
@@ -158,7 +159,7 @@ await enParalelo(todas, 4, async (t, k) => {
   try {
     const r = await fetch(`${BASE}/api/nexus`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-tenant-id': TENANT, ...(TENANT !== 'whatsapp' && { 'x-vercel-ip-country': 'CO' }) },
+      headers: { 'Content-Type': 'application/json', 'x-tenant-id': TENANT, 'x-queswa-origen': 'prueba', ...(TENANT !== 'whatsapp' && { 'x-vercel-ip-country': 'CO' }) },
       body: JSON.stringify({ messages: [{ role: 'user', content: t.pregunta }], sessionId: t.huella, fingerprint: t.huella, pageContext: TENANT === 'whatsapp' ? 'whatsapp_inbound' : 'default' }),
     });
     t.respuesta = r.ok ? (await r.text()).trim() : '';

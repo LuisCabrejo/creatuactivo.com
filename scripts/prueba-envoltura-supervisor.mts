@@ -23,7 +23,8 @@ import { envolverTextoAprobado, armarTurno } from '../src/lib/queswa-envoltura';
 import { revisarBorrador } from '../src/lib/queswa-supervisor';
 
 dotenv.config({ path: '.env.local', quiet: true });
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+// Gasta de la clave de pruebas si existe (ver src/lib/consumo-anthropic.ts).
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY_PRUEBAS || process.env.ANTHROPIC_API_KEY });
 
 const { filas, ficha } = JSON.parse(fs.readFileSync(new URL('./fixtures/prueba-director-24sep.json', import.meta.url), 'utf8')) as {
   filas: FilaBitacora[]; ficha: Record<string, unknown>;

@@ -74,6 +74,7 @@ import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
+import { contarTokens, consumoDe, esPeticionDePrueba, clienteParaPruebas, type Consumo } from '@/lib/consumo-anthropic';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
 // Ola 4 (25 May) lo había desactivado en favor del handoff 100% WhatsApp. Ahora
 // COEXISTEN: el prospecto recibe el link wa.me pre-llenado (Estado 4) Y el equipo
@@ -82,7 +83,9 @@ import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
 // mantiene viva la función Edge hasta que el email se envía.
 
 // 1. Configuración de Clientes
-const anthropic = new Anthropic({
+// Dentro de POST se usa `anthropic`, que es este mismo cliente salvo en una
+// petición de prueba con clave propia (ver `consumo-anthropic.ts`).
+const anthropicPrincipal = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
@@ -4065,7 +4068,7 @@ function extraerCandadoDictado(content: string): string | null {
 }
 
 // Logging mejorado para arquitectura híbrida - CORREGIDO 2025-10-17
-async function logConversationHibrida(
+async function logConversationHibridaBase(
   userMessage: string,
   assistantResponse: string,
   documentsUsed: string[],
@@ -4384,6 +4387,22 @@ export async function POST(req: Request) {
   // Lo que en WhatsApp hace el webhook antes de llamar aquí (salud de entrada,
   // radicación, filtros de salida), en la web lo hace este mismo handler.
   const canalWeb = tenantId === 'creatuactivo_marketing';
+
+  // ── LO QUE GASTA EL TURNO Y DE QUIÉN ES EL GASTO (26 sep 2026) ────────────
+  // Cada llamada al modelo deja sus tokens en `_consumo`, y la fila del turno
+  // los guarda en `metadata.consumo`; una petición de prueba queda además con
+  // `metadata.origen = 'prueba'` y gasta de su propia clave si existe. Así se
+  // sabe cuánto cuesta una conversación y cuánto del gasto es gente. Informe:
+  // `node scripts/consumo-anthropic.mjs`. Ver `consumo-anthropic.ts`.
+  const _consumo: Consumo[] = [];
+  const _esPrueba = esPeticionDePrueba(req);
+  const anthropic = (_esPrueba && clienteParaPruebas()) || anthropicPrincipal;
+  const logConversationHibrida: typeof logConversationHibridaBase = (u, a, d, m, s, f, p, extra) =>
+    logConversationHibridaBase(u, a, d, m, s, f, p, {
+      ...(extra ?? {}),
+      ...(_consumo.length ? { consumo: [..._consumo] } : {}),
+      ...(_esPrueba ? { origen: 'prueba' } : {}),
+    });
 
   try {
     const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace } = await req.json();
@@ -5302,7 +5321,9 @@ ${summaryParts.join('\n')}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .map((m: any) => ({ role: m.role as string, content: m.content as string }));
 
-      const cqr = await reescribirConsultaConversacional(latestUserMessage, historialPrevio);
+      const cqr = await reescribirConsultaConversacional(latestUserMessage, historialPrevio, {
+        cliente: anthropic, registrar: (c) => _consumo.push(c),
+      });
       consultaRecuperacion = cqr.consulta;
     }
 
@@ -6788,7 +6809,7 @@ ${visitorCountry === 'CO'
           let _envoltura: { origen: string; ms: number; apertura: string; cierre: string } | null = null;
           if (_bitacora && _bitacora.textosDelBot.length) {
             _envoltura = await envolverTextoAprobado({
-              anthropic, bitacora: _bitacora, mensajePersona: String(latestUserMessage ?? ''),
+              anthropic, registrar: (c) => _consumo.push(c), bitacora: _bitacora, mensajePersona: String(latestUserMessage ?? ''),
               ultimoBot: _ultimoBotMsg, nucleo: _nucleo, cierrePorDefecto: _cierreDefecto,
             });
             _turno = armarTurno(_envoltura, _nucleo);
@@ -7126,17 +7147,15 @@ ESTADO: ${getMessageContext()}`;
         throw err;
       }
     };
-    const response = await callAnthropic();
-
-    // ⚡ LOG DE CACHÉ: Verificar si Anthropic está usando prompt cache
-    const cacheReadTokens = (response as any).usage?.cache_read_input_tokens ?? 0;
-    const cacheCreationTokens = (response as any).usage?.cache_creation_input_tokens ?? 0;
-    const inputTokens = (response as any).usage?.input_tokens ?? 0;
-    if (cacheReadTokens > 0) {
-      console.log(`✅ [CACHE HIT] cache_read=${cacheReadTokens} tokens | cache_creation=${cacheCreationTokens} | input=${inputTokens}`);
-    } else {
-      console.warn(`⚠️ [CACHE MISS] cache_read=0 | cache_creation=${cacheCreationTokens} | input=${inputTokens} — Cold start, próximo request debería hacer hit`);
-    }
+    // ⚡ LOG DE CACHÉ Y CONSUMO: los tokens vienen en los eventos del stream, no
+    // en el objeto que devuelve `create` — leerlos de ahí daba siempre
+    // «CACHE MISS … input=0» (corregido el 26 sep 2026). `contarTokens` los lee
+    // al paso, sin tocar el texto, y los deja en `_consumo` al terminar.
+    const response = contarTokens(await callAnthropic(), 'respuesta', (c) => {
+      _consumo.push(c);
+      const marca = c.cache_lectura > 0 ? '✅ [CACHE HIT]' : '⚠️ [CACHE MISS]';
+      console.log(`${marca} ${c.modelo} · cache_lectura=${c.cache_lectura} · cache_escritura=${c.cache_escritura} · entrada=${c.entrada} · salida=${c.salida}${_esPrueba ? ' · prueba' : ''}`);
+    });
 
     // Lo que corre cuando el modelo terminó: extracción semántica, log de la
     // conversación y el warm handoff. En WhatsApp y los demás tenants va en el
@@ -7291,6 +7310,7 @@ ESTADO: ${getMessageContext()}`;
               temperature: 0.5,
               messages: recentMessages,
             }, { timeout: 20_000, maxRetries: 0 });
+            _consumo.push(consumoDe('nueva_redaccion', _r.model, _r.usage));
             const _nuevo = _r.content.map((b: any) => (b.type === 'text' ? b.text : '')).join('').trim();
             if (_nuevo) {
               console.log(`✍️ [Supervisor] Redactado de nuevo. Antes: "${_borrador.slice(0, 160)}…"`);

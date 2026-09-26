@@ -2297,6 +2297,9 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         headers: {
           'Content-Type': 'application/json',
           'x-tenant-id': 'whatsapp',
+          // Un ensayo (`repetir-por-webhook.mts`) es una prueba: el motor lo
+          // anota así y gasta de la clave de pruebas si existe.
+          ...(process.env.WA_DRY_RUN === '1' ? { 'x-queswa-origen': 'prueba' } : {}),
         },
         body: JSON.stringify({
           messages:    [...historial, { role: 'user', content: messageText }],

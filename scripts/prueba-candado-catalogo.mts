@@ -64,7 +64,7 @@ async function preguntar(q: string): Promise<string> {
   const fp = `wa_57300${String(Date.now()).slice(-7)}`;
   const r = await fetch(`${BASE}/api/nexus`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp' },
+    headers: { 'Content-Type': 'application/json', 'x-tenant-id': 'whatsapp', 'x-queswa-origen': 'prueba' },
     body: JSON.stringify({ messages: [{ role: 'user', content: q }], sessionId: fp, fingerprint: fp, pageContext: 'whatsapp' }),
   });
   return r.ok ? (await r.text()).trim() : '';

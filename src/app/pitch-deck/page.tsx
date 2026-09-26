@@ -620,7 +620,14 @@ export default function PitchDeckPage() {
         .pd-gen .v { display: block; font-family: var(--font-mono); font-size: 0.6rem;
           color: var(--pd-text); margin-top: 3px; white-space: nowrap; }
         .pd-pkg b { display: block; font-weight: 400; margin-top: 3px; font-size: 0.62rem; }
-        .pd-insight.pd-vigencia { margin-top: 0.6rem; }
+        /* LA FORMA NO CAMBIA AL ELEGIR PORCENTAJE (Director, 26 sep 2026). La línea
+           de vigencia existía solo con el 15, 16 y 17%: al pasar del Kit a otro, el
+           panel crecía, la fila de paneles con él, y se reacomodaba la pantalla
+           entera. Ahora las cuatro variantes ocupan la MISMA celda de una rejilla y
+           solo se ve la elegida: la celda mide lo que la más larga, siempre. */
+        .pd-tarifa-notas .pd-vigencias { display: grid; margin-top: 0.6rem; }
+        .pd-tarifa-notas .pd-vigencias > p { grid-area: 1 / 1; visibility: hidden; }
+        .pd-tarifa-notas .pd-vigencias > p.on { visibility: visible; }
         .pd-nota { text-align: center; font-size: 0.72rem; color: var(--pd-muted); margin: 1.4rem 0 0; }
         .pd-display { font-family: var(--font-mono); font-size: clamp(1.6rem, 4.6vw, 2.5rem);
           color: var(--pd-gold); text-align: center; letter-spacing: -0.02em; line-height: 1.1; }
@@ -721,8 +728,12 @@ export default function PitchDeckPage() {
              no puede quedar debajo del borde. */
           .pd-numeros .panel:first-child .pd-insight { display: none; }
           .pd-numeros .panel:first-child .pd-slider { margin-bottom: 1.2rem; }
-          .pd-numeros .pd-insight:has(+ .pd-vigencia) { display: none; }
-          .pd-numeros .pd-insight.pd-vigencia { margin-top: 0; }
+          /* En el teléfono la línea general y las tres de vigencia comparten UNA
+             celda: la vigencia la reemplaza, y la celda mide lo que la más larga. */
+          .pd-numeros .pd-tarifa-notas { display: grid; }
+          .pd-numeros .pd-tarifa-notas > * { grid-area: 1 / 1; }
+          .pd-numeros .pd-tarifa-notas .pd-vigencias { margin-top: 0; }
+          .pd-numeros .pd-tarifa-notas.temporal .pd-tarifa-general { visibility: hidden; }
           /* La tira de las cinco generaciones sumó ~45px (26 sep 2026): se recuperan
              en márgenes y en el conteo de distribuidores, que cabe en una línea. */
           .pd-numeros .panel h3 { margin-bottom: 0.7rem; }
@@ -1415,17 +1426,24 @@ export default function PitchDeckPage() {
                   className="pd-slider"
                   style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
                 />
-                <p className="pd-insight">
-                  Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
-                  {tarifa.pct}% de lo que consumen sus distribuidores.
-                </p>
-                {tarifa.meses > 0 && (
-                  <p className="pd-insight pd-vigencia">
-                    Con el {tarifa.paquete}, el {tarifa.pct}% rige los primeros{' '}
-                    {tarifa.meses} meses; después aplica el más alto entre el 10% base y el
-                    de su rango.
+                <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
+                  <p className="pd-insight pd-tarifa-general">
+                    Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
+                    {tarifa.pct}% de lo que consumen sus distribuidores.
                   </p>
-                )}
+                  <div className="pd-vigencias">
+                    {TARIFAS_12.map((t, i) => (
+                      <p
+                        key={t.pct}
+                        className={`pd-insight ${tarifa12 === i && t.meses > 0 ? 'on' : ''}`}
+                        aria-hidden={tarifa12 !== i || t.meses === 0}
+                      >
+                        {t.meses > 0 &&
+                          `Con el ${t.paquete}, el ${t.pct}% rige los primeros ${t.meses} meses; después aplica el más alto entre el 10% base y el de su rango.`}
+                      </p>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
             {/* La cadencia real, para no insinuar un pago al día siguiente de la compra.

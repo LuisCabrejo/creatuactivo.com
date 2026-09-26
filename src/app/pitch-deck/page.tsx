@@ -20,14 +20,18 @@
  *  1 QUÉ CREEMOS   · el credo, verbatim aprobado (Home v16, apertura del canal,
  *                    WHY_01). Hace de primera diapositiva de pitch deck porque
  *                    dice quiénes somos y el problema en la misma respiración.
- *  2 EL MOMENTO    · el reclamo va DESPUÉS de la creencia; antes suena a bombo.
- *                    Deliberadamente sin cifras: Jobs abre sin datos.
- *  3 EL CICLO      · el villano NARRADO, con sus tres piezas canónicas
- *                    (STORY_03): el dinero que ya tiene dueño + el ciclo + el
- *                    remate «al que gana dos y al que gana más de veinte». Sin
- *                    el remate, quien gana bien se exime y se acaba la charla.
+ *  2 EL PROBLEMA   · «Aprendimos dos caminos»: el socio los narra en vivo con su
+ *                    propia historia, y la pantalla sostiene adónde llevan los
+ *                    dos — el mismo ciclo, la bicicleta estática y el remate
+ *                    «al que gana dos y al que gana más de veinte». Sin el
+ *                    remate, quien gana bien se exime y se acaba la charla.
+ *  3 POR QUÉ AHORA · va DESPUÉS del problema (Director, 26 sep 2026): el «por
+ *                    qué ahora» solo pega si el oyente ya sabe qué era
+ *                    imposible. Hacer empresa siempre fue difícil; una empresa
+ *                    moderna de distribución, casi imposible; hoy la ponen en un
+ *                    celular CreaTuActivo.com y Queswa.app. Sin cifras.
  *  4 LA OPORTUNIDAD· tres líneas y nada más (Director, 24 sep): el titular cruza
- *                    la bicicleta de la 3 y la paga, la tesis de la conectividad
+ *                    la bicicleta de la 2 y la paga, la tesis de la conectividad
  *                    («el sistema que conecta, no el que produce») y el cierre
  *                    que baja la amenaza («no es cambiar de vida, es modernizar
  *                    la forma de hacer empresa»). ⛔ NO se nombra el gremio ni se
@@ -710,7 +714,7 @@ export default function PitchDeckPage() {
                 pantalla, ni disfrazada de «el sistema correcto»: esa es frase de cajón
                 de la industria y le roba la revelación a la pantalla 4. Llega en la 5.
                 ⛔ Tampoco «sobrevivir al mes a mes»: es juicio de cantidad y deja
-                eximirse al que gana veinte, contra el remate de la pantalla 3.
+                eximirse al que gana veinte, contra el remate de la pantalla 2.
                 ⚠️ Esto deja al deck DIVERGENTE del credo desplegado en los otros tres
                 sitios. Si se decide propagarla, se toca junto: page.tsx de la Home,
                 wa-apertura.ts y el candado de WHY_01.
@@ -724,64 +728,24 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 2 · EL MOMENTO ──────────────────────────────────────────── */}
+        {/* ── 2 · EL PROBLEMA ─────────────────────────────────────────── */}
         <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
-            <p className="pd-eyebrow">El momento</p>
-            <h2 className="pd-h2">Pocas veces aparece un momento así.</h2>
-            {/* El antes y el después, que es la gramática del «por qué ahora» de un
-                pitch deck. El eje es el ALCANCE, no el costo.
-                ⛔ Se retiró «costaba millones en bodegas, nóminas e inventarios»
-                (Director, 24 sep 2026), aunque estaba en la forma aprobada —presencias
-                del modelo viejo, no ausencias del nuestro—. El motivo no es la
-                polaridad sino el TRÍO: bodega, nómina e inventario es la silueta exacta
-                del pitch de la industria del mercadeo en red, y quien ya oyó una
-                presentación la reconoce dicha en positivo o en negativo. «Estuvo al
-                alcance de muy pocos» cambia el eje a un privilegio que se abrió, que es
-                el registro de una firma de inversión y no el de un catálogo.
-                ⛔ Se descartó «con el capital que antes se gastaba en un fin de semana»
-                (propuesta del 24 sep): abarata la decisión justo donde tratamos al
-                prospecto como inversionista —quien pone plata espera que le cueste—, y
-                para buena parte del mercado no es cierto, que es una fuga de
-                credibilidad en la pantalla donde reclamamos un momento histórico. */}
-            {/* ⚠️ «Tener una empresa de distribución estuvo al alcance de muy pocos»
-                SONABA A MENTIRA (Director, 24 sep 2026) y se ganaba la objeción sola:
-                cualquiera puede abrir una distribuidora. La escasez hay que ganarla
-                describiendo el objeto, no reclamándola: lo raro no es distribuir, es
-                distribuir en un continente y que el negocio facture sin el dueño
-                encima. Eso sí era casi imposible, y no se lo discute nadie.
-                De paso, la primera línea DEFINE «moderna», así que la pantalla 4 puede
-                usar la palabra sin explicarla.
-                ⚠️ VA EN SUBJUNTIVO, y no es capricho: «una empresa moderna VENDE en todo
-                el continente» afirma un hecho sobre una categoría e invita a preguntar
-                «¿según quién?» — suena a entrada de diccionario. «Que venda… que
-                facture…» deja de definir y pasa a describir algo que uno querría tener,
-                y solo entonces la escasez muerde, porque ya lo quiere. Las dos frases
-                se fundieron en una por la misma razón (Director, 24 sep 2026): el
-                objeto y su veredicto son un solo pensamiento.
-                ⚠️ Y dice «usted» y no «el dueño»: lo mete a él dentro de la frase.
-                ⚠️ Dice «factura» y no «produce»: en la 4 nos definimos por el sistema
-                que CONECTA y no por el que produce — se contradiría dos pantallas
-                después. */}
-            <p className="pd-p">
-              Una empresa de distribución moderna que venda en todo el continente y
-              facture sin que usted tenga que estar encima — hasta hace poco, tener una
-              así era casi imposible.
-            </p>
-            <p className="pd-p">
-              Hoy, la inteligencia artificial y la logística global{' '}
-              <span className="pd-gold">la ponen en un celular.</span>
-            </p>
-          </div>
-        </section>
-
-        {/* ── 3 · EL CICLO ────────────────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
-          <div className="pd-wrap">
             <p className="pd-eyebrow">El problema</p>
-            <h2 className="pd-h2">Nos enseñaron dos caminos.</h2>
-            {/* Los dos caminos los NARRA el socio en vivo (Director, 24 sep): la
+            <h2 className="pd-h2">Aprendimos dos caminos.</h2>
+            {/* VA ANTES DEL «POR QUÉ AHORA» (Director, 26 sep 2026). Hasta ese día el
+                orden era credo → momento → problema: la pantalla del momento contaba
+                el problema y lo resolvía en la misma respiración, y a esta solo le
+                quedaba volver al ciclo que el credo ya había dicho. Es el orden de un
+                pitch deck: el «por qué ahora» solo pega si el oyente ya sabe qué era
+                imposible.
+                ⚠️ «Aprendimos» y no «Nos enseñaron»: el que presenta se incluye en vez
+                de señalar a otros, y aquí cuenta su propia historia.
+                Los dos caminos los NARRA el socio en vivo (Director, 24 sep): la
                 pantalla solo sostiene el ciclo, que es donde los dos desembocan.
+                ⚠️ «Los dos terminan en el mismo ciclo», y no la tríada otra vez: esta
+                pantalla va pegada al credo, y «trabajar, pagar cuentas y repetir» en
+                dos pantallas seguidas cansa. «El mismo» la retoma sin repetirla.
                 ⚠️ La analogía cierra DENTRO de su propia imagen: «pero sigue en el
                 mismo punto» es la física de la bicicleta estática, no una segunda
                 tesis (Director, 25 sep). Lo que sigue vetado es el remate LITERAL
@@ -793,13 +757,82 @@ export default function PitchDeckPage() {
                 caso») — y el mercado de esta herramienta es justamente gente que gana
                 bien. Sin él la conversación se acaba en silencio. */}
             <p className="pd-p">
-              Es un ciclo infinito de trabajar, pagar cuentas y repetir. Es como estar en
-              una bicicleta estática: usted le da y le da con todas sus fuerzas, pero
-              sigue en el mismo punto.
+              Los dos terminan en el mismo ciclo. Es como estar en una bicicleta
+              estática: usted le da y le da con todas sus fuerzas, pero sigue en el
+              mismo punto.
             </p>
             <p className="pd-p pd-gold">
               Y le pasa exactamente igual al que gana dos millones y al que gana más de
               veinte.
+            </p>
+          </div>
+        </section>
+
+        {/* ── 3 · POR QUÉ AHORA ───────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            {/* «Por qué ahora» y no «El momento» (Director, 26 sep 2026): el rótulo
+                dice qué pregunta responde la pantalla. */}
+            <p className="pd-eyebrow">Por qué ahora</p>
+            {/* EL TITULAR ES UNA FRASE QUE LA PERSONA SE RECONOCE DICIENDO —«siento que
+                tengo que hacer algo»— y no un diagnóstico en voz de coach (Director,
+                26 sep 2026). De paso pone a la mayoría del lado de actuar: el estigma
+                de esta categoría es de popularidad, no de fraude.
+                ⚠️ LOS DOS «HOY» SON DELIBERADOS: abren y cierran la pantalla alrededor
+                del «hasta hace poco». El primero es la necesidad; el segundo, lo que ya
+                la resuelve. Reemplaza a «Pocas veces aparece un momento así», que
+                reclamaba el momento sin decir de quién era. */}
+            <h2 className="pd-h2">Hoy, la mayoría de las personas siente que tiene que hacer algo.</h2>
+            {/* «Hacer empresa siempre ha sido difícil» es el problema en palabras del
+                Director y en UNA frase, sin inventario de la faena. Arma la escalera
+                difícil → casi imposible → hoy en un celular, y anticipa el cierre de la
+                pantalla 4 («modernizar la forma de hacer empresa»).
+                ⛔ Se retiró «costaba millones en bodegas, nóminas e inventarios»
+                (Director, 24 sep 2026), aunque estaba en la forma aprobada —presencias
+                del modelo viejo, no ausencias del nuestro—. El motivo no es la
+                polaridad sino el TRÍO: bodega, nómina e inventario es la silueta exacta
+                del pitch de la industria del mercadeo en red, y quien ya oyó una
+                presentación la reconoce dicha en positivo o en negativo.
+                ⛔ Se descartó «con el capital que antes se gastaba en un fin de semana»
+                (propuesta del 24 sep): abarata la decisión justo donde tratamos al
+                prospecto como inversionista —quien pone plata espera que le cueste—, y
+                para buena parte del mercado no es cierto.
+                ⚠️ «Tener una empresa de distribución estuvo al alcance de muy pocos»
+                SONABA A MENTIRA (Director, 24 sep 2026) y se ganaba la objeción sola:
+                cualquiera puede abrir una distribuidora. Por lo mismo tampoco va
+                «reservado para grandes corporaciones» (26 sep). La escasez hay que
+                ganarla describiendo el objeto, no reclamándola: lo raro no es
+                distribuir, es distribuir en un continente y que el negocio facture sin
+                el dueño encima. Eso sí era casi imposible, y no se lo discute nadie.
+                De paso, esta línea DEFINE «moderna», así que la pantalla 4 puede usar
+                la palabra sin explicarla. Y va «empresa MODERNA DE distribución»: el
+                adjetivo pegado al sustantivo, porque «distribución moderna» en consumo
+                masivo significa supermercados.
+                ⚠️ VA EN SUBJUNTIVO, y no es capricho: «una empresa moderna VENDE en todo
+                el continente» afirma un hecho sobre una categoría e invita a preguntar
+                «¿según quién?» — suena a entrada de diccionario. «Que venda… que
+                facture…» deja de definir y pasa a describir algo que uno querría tener,
+                y solo entonces la escasez muerde, porque ya lo quiere. Por eso el
+                objeto va primero y el veredicto después de la raya.
+                ⚠️ Y dice «usted» y no «el dueño»: lo mete a él dentro de la frase.
+                ⚠️ Dice «factura» y no «produce»: en la 4 nos definimos por el sistema
+                que CONECTA y no por el que produce — se contradiría una pantalla
+                después. */}
+            <p className="pd-p">
+              Hacer empresa siempre ha sido difícil. Una empresa moderna de distribución
+              que venda en todo el continente y facture sin que usted tenga que estar
+              encima — hasta hace poco, tener una así era casi imposible.
+            </p>
+            {/* NOMBRA LOS PRODUCTOS, NO LA TECNOLOGÍA (Director, 26 sep 2026). Decía «la
+                inteligencia artificial y la logística global»: cierto, pero de todos.
+                CreaTuActivo.com y Queswa.app son verificables —el oyente puede abrirlos
+                ahí mismo— y la exclusividad se reclama sobre productos con nombre,
+                nunca sobre la tecnología. Así el celular deja de ser metáfora.
+                ⚠️ Gano Excel NO va aquí: se nombra al final de la explicación, como
+                quien fabrica y despacha — en la pantalla 5, con sus hechos. */}
+            <p className="pd-p">
+              Hoy, CreaTuActivo.com y Queswa.app{' '}
+              <span className="pd-gold">la ponen en un celular.</span>
             </p>
           </div>
         </section>
@@ -812,7 +845,7 @@ export default function PitchDeckPage() {
                 sección por lo que es — dónde está la oportunidad. */}
             <p className="pd-eyebrow">La oportunidad</p>
             {/* El titular cruza la imagen de la pantalla anterior y la paga: la
-                bicicleta estática entra en la 3 y se resuelve aquí (Director, 24 sep).
+                bicicleta estática entra en la 2 y se resuelve aquí (Director, 24 sep).
                 «Ser dueño del sistema que conecta, no del que produce» es su tesis de
                 la conectividad —Amazon, MercadoLibre— en catorce palabras. */}
             <h2 className="pd-h2">Cómo bajarse de la bicicleta estática.</h2>
@@ -959,7 +992,7 @@ export default function PitchDeckPage() {
                 Es una sola,<br />y ya está armada.
               </p>
               <p className="pd-p pd-cierre-linea">
-                Lo que usted recibe es una empresa de distribución moderna.
+                Lo que usted recibe es una empresa moderna de distribución.
               </p>
               <p className="pd-p pd-cierre-linea">
                 Usted delega el explicar y el atender. Se queda con decidir y con conectar.

@@ -699,13 +699,25 @@ export default function PitchDeckPage() {
                 esfuerzo se restituye en capital), y además nombra al oyente: «la gente
                 que sabe trabajar» lo honra en vez de diagnosticarlo, y «capital real»
                 eleva el registro desde las finanzas.
+                ⚠️ LAS DOS FRASES LLEVAN EL MISMO MOLDE, «creemos que… debería» (Director,
+                26 sep 2026): una norma negativa y una positiva. La versión anterior
+                —«Creemos en entregarle una herramienta de alto nivel a…»— desentonaba
+                por tres cosas: lo que se creía era la entrega de un producto (una
+                oferta, no una creencia; «empoderar» se sostiene porque es una postura),
+                el «entregar» repetido con sentido opuesto armaba un trueque (usted le
+                dio su vida al ciclo, nosotros le damos una herramienta), y el
+                protagonista pasaba a ser la casa. ⛔ La herramienta NO vuelve a esta
+                pantalla, ni disfrazada de «el sistema correcto»: esa es frase de cajón
+                de la industria y le roba la revelación a la pantalla 4. Llega en la 5.
+                ⛔ Tampoco «sobrevivir al mes a mes»: es juicio de cantidad y deja
+                eximirse al que gana veinte, contra el remate de la pantalla 3.
                 ⚠️ Esto deja al deck DIVERGENTE del credo desplegado en los otros tres
                 sitios. Si se decide propagarla, se toca junto: page.tsx de la Home,
                 wa-apertura.ts y el candado de WHY_01.
                 ⚠️ Va en <p> y no en <h1>: solo puede haber un h1 por página. */}
             <p className="pd-credo-linea segunda">
-              Creemos en entregarle una herramienta de alto nivel a la gente que sabe
-              trabajar, para que su esfuerzo se traduzca en capital real.
+              Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
+              en capital real.
             </p>
             <div className="pd-credo-rule" />
             <p className="pd-kicker">CreaTuActivo · Presentación</p>
@@ -770,16 +782,20 @@ export default function PitchDeckPage() {
             <h2 className="pd-h2">Nos enseñaron dos caminos.</h2>
             {/* Los dos caminos los NARRA el socio en vivo (Director, 24 sep): la
                 pantalla solo sostiene el ciclo, que es donde los dos desembocan.
-                ⚠️ La analogía va SIN remate propio: «pero financieramente avanza muy
-                poco» explica en literal lo que la imagen ya dijo, y con dos tesis el
-                oyente no se queda con ninguna. Quítela y el párrafo sigue en pie.
+                ⚠️ La analogía cierra DENTRO de su propia imagen: «pero sigue en el
+                mismo punto» es la física de la bicicleta estática, no una segunda
+                tesis (Director, 25 sep). Lo que sigue vetado es el remate LITERAL
+                —«pero financieramente avanza muy poco»—, que traduce la imagen a
+                dinero y deja al oyente con dos tesis. La frase sin ninguna
+                consecuencia quedaba colgando en «con todas sus fuerzas».
                 ⛔ El remate de los veinte millones NO se toca aunque la propuesta lo
                 omitía: existe para que quien gana bien no se exima («ese no es mi
                 caso») — y el mercado de esta herramienta es justamente gente que gana
                 bien. Sin él la conversación se acaba en silencio. */}
             <p className="pd-p">
               Es un ciclo infinito de trabajar, pagar cuentas y repetir. Es como estar en
-              una bicicleta estática: usted le da y le da con todas sus fuerzas.
+              una bicicleta estática: usted le da y le da con todas sus fuerzas, pero
+              sigue en el mismo punto.
             </p>
             <p className="pd-p pd-gold">
               Y le pasa exactamente igual al que gana dos millones y al que gana más de

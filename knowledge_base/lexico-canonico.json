@@ -1,6 +1,6 @@
 {
   "$comment": "Léxico canónico legible por máquina. FUENTE DE VERDAD: BRANDING.md §7 (+ Addendum 8–14 ago) y CLAUDE.md § Léxico y voz. Este archivo es su resumen operativo: lo que un auditor puede buscar con una expresión regular. Lo consume Dashboard/scripts/auditar-lexico.mjs. Cuando el Director retire o adopte un término, se agrega aquí la fila con su fecha — y el Dashboard se entera en la próxima auditoría. Las expresiones son sobre texto que ve una persona (copy y prompts), NUNCA sobre identificadores de código.",
-  "version": "2026-09-12",
+  "version": "2026-09-25",
   "activo_canonico": "sistema de distribución",
   "sinonimos_vivos": [
     "empresa de distribución",
@@ -266,8 +266,40 @@
         "tuteo",
         "tratamiento"
       ]
+    },
+    {
+      "id": "distribucion-moderna",
+      "regex": "\\bdistribuci[oó]n moderna\\b",
+      "vigente": "un negocio moderno de distribución (el adjetivo pegado al sustantivo negocio/sistema)",
+      "desde": "2026-09-25",
+      "nota": "«Distribución moderna» a secas es jerga del consumo masivo: el canal de supermercados frente a la tienda de barrio. El marco aprobado califica al negocio, no a la distribución.",
+      "excepciones": [
+        "keywords:"
+      ]
+    },
+    {
+      "id": "modern-shipping",
+      "regex": "\\bmodern\\s*-?\\s*shipping\\b",
+      "vigente": "un negocio moderno de distribución",
+      "desde": "2026-09-25",
+      "nota": "Candidato de nombre investigado y DESCARTADO por el Director: el sustantivo nombra la logística de Gano (no lo que el socio posee), está en inglés, el nombre lo ocupan navieras desde 2003, y «la evolución del dropshipping» es comparación de lado. No reabrirlo sin la investigación delante.",
+      "excepciones": []
+    },
+    {
+      "id": "recompra-por-agotamiento",
+      "regex": "\\bcuando se (le )?acab(a|e)\\b",
+      "vigente": "la recompra por resultado: «el que nota la diferencia vuelve a pedir el mismo»",
+      "desde": "2026-09-25",
+      "nota": "La recompra se explica por RESULTADO, nunca porque el producto se agote. Estuvo dos veces en la Home y en WHY_04 hasta el 25 sep. Solo aplica al copy nuestro que explica la recompra; la voz del prospecto en disparadores/índices se exonera.",
+      "excepciones": [
+        "si se acaba",
+        "[Índice]",
+        "disparador"
+      ]
     }
   ],
   "$comment_activo": "«Activo» NO es un cuarto sinónimo del sistema: es lo que el sistema produce («su sistema de distribución le permite construir un activo que produce sin que usted tenga que estar encima»). Va siempre pegado a su causa (sus clientes siguen pidiendo) y nunca como adjetivo de una persona (en esta industria «activo» = al día con la compra mensual; del código sí: «su código está activo»).",
-  "$comment_verbos": "Director, 10 sep 2026: el problema no es la palabra sino el verbo que se le cuelga. «El sistema empareja los puntos» se queda (un software empareja). Lo que solo hace una persona —consumir, comprar, pedir— cambia de SUJETO, no de verbo: «mientras sus distribuidores y sus clientes sigan comprando». Regla de decisión: propiedad → empresa de distribución · funciona sin él → maquinaria de distribución · lo que le queda → activo con su causa · todo lo demás → sistema de distribución."
+  "$comment_verbos": "Director, 10 sep 2026: el problema no es la palabra sino el verbo que se le cuelga. «El sistema empareja los puntos» se queda (un software empareja). Lo que solo hace una persona —consumir, comprar, pedir— cambia de SUJETO, no de verbo: «mientras sus distribuidores y sus clientes sigan comprando». Regla de decisión: propiedad → empresa de distribución · funciona sin él → maquinaria de distribución · lo que le queda → activo con su causa · todo lo demás → sistema de distribución.",
+  "marco_presentacion_en_frio": "un negocio moderno de distribución",
+  "$comment_moderno": "Adoptado 25 sep 2026 (investigación de naming → marketing/docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md). «Moderno» es ADJETIVO, nunca nombre: va pegado al sustantivo, una sola vez por conversación, y pagado en la misma frase con un hecho que se vea. A «¿qué es una empresa digital?» se responde «empresa moderna de distribución», con el puente a «sistema de distribución» (no es un cuarto nombre del activo). El diferencial se dice como mecanismo: cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga — la permanencia se dice del CLIENTE, nunca del pago. Gano Excel se nombra al FINAL de la explicación, como quien fabrica y paga, nunca en la primera línea de qué es esto."
 }

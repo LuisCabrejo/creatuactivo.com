@@ -22,7 +22,7 @@ import {
   sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo,
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
-import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels';
+import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA } from '@/lib/reels';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -1327,8 +1327,16 @@ async function procesarEntrante(body: any): Promise<void> {
     // texto con la pregunta que salió en el pie: la bitácora lo reconoce por su
     // firma, el modelo recuerda lo que la persona escuchó y su «sí» se lee contra
     // esa pregunta. Si Meta no acepta el video, el texto sigue a la entrada.
-    if (dictada && opcionElegida === 'apertura_sistema') {
-      const INTRO = 'Con gusto. Funciona así:';
+    // «Cómo entra el dinero» va igual desde el 27 sep 2026: la voz es WHY_04 sin
+    // su pregunta de cierre, que sale como pie. La entrada es una línea nueva
+    // porque el candado no trae ninguna.
+    const VIDEOS_APERTURA: Record<string, { url: string; intro: string; titulo: string; seg: number }> = {
+      apertura_sistema: { url: VIDEO_COMO_FUNCIONA_WA, intro: 'Con gusto. Funciona así:', titulo: 'Cómo funciona', seg: 80 },
+      apertura_dinero:  { url: VIDEO_COMO_ENTRA_EL_DINERO_WA, intro: 'Con gusto. Se lo muestro en menos de un minuto:', titulo: 'Cómo entra el dinero', seg: 50 },
+    };
+    const videoApertura = opcionElegida ? VIDEOS_APERTURA[opcionElegida] : undefined;
+    if (dictada && videoApertura) {
+      const INTRO = videoApertura.intro;
       const cuerpo = dictada.startsWith(INTRO) ? dictada.slice(INTRO.length).trim() : dictada;
       await sendWhatsAppMessage(phoneNumber, INTRO);
       // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
@@ -1338,23 +1346,23 @@ async function procesarEntrante(body: any): Promise<void> {
       const r = _bitacoraDelTurno ? renovarOfertaVista(cuerpo, _bitacoraDelTurno) : { texto: cuerpo, cambio: null };
       if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
       const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
-      const envio = await sendVideo(phoneNumber, VIDEO_COMO_FUNCIONA_WA, pie);
+      const envio = await sendVideo(phoneNumber, videoApertura.url, pie);
       if (envio.ok) {
         const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
         await persistirTurnoDictado(
           supabase, waFingerprint, messageText,
-          `${INTRO}\n\n[Video «Cómo funciona», 80 s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`,
-          'botón de la apertura: apertura_sistema (video)',
+          `${INTRO}\n\n[Video «${videoApertura.titulo}», ${videoApertura.seg} s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`,
+          `botón de la apertura: ${opcionElegida} (video)`,
         );
-        console.log(`🎬 [WA Webhook] Video «Cómo funciona» → ${phoneNumber}`);
+        console.log(`🎬 [WA Webhook] Video «${videoApertura.titulo}» → ${phoneNumber}`);
         return;
       }
-      console.warn(`⚠️ [WA Webhook] El video «Cómo funciona» no salió (${envio.error}) — va el texto`);
+      console.warn(`⚠️ [WA Webhook] El video «${videoApertura.titulo}» no salió (${envio.error}) — va el texto`);
       await sendWhatsAppMessage(phoneNumber, cuerpo);
       // `_ofertaRenovada` lo escribe `sendWhatsAppMessage`; TS no lo ve y lo da por null.
       const renovada = _ofertaRenovada as { original: string; enviado: string } | null;
       const enviado = renovada?.original === cuerpo ? renovada.enviado : cuerpo;
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, `${INTRO} ${enviado}`, 'botón de la apertura: apertura_sistema (sin video)');
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, `${INTRO} ${enviado}`, `botón de la apertura: ${opcionElegida} (sin video)`);
       return;
     }
 

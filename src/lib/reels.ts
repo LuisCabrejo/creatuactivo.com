@@ -36,6 +36,15 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // el nodo 2.34 del conductor con la pregunta de cierre de NIVELES_01 como pie.
 export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-v1.mp4'
 
+// «Cómo entra el dinero» para el canal (50 s, 720×1280, 7,7 MB; 27 sep 2026). La voz
+// es WHY_04 palabra por palabra, sin la pregunta de cierre, que va como pie. Lo
+// manda el botón del medio de la apertura (`apertura_dinero`), como el de
+// «Cómo funciona». Clips nuevos con Gemini sobre el mismo mundo 3D: los paquetes
+// que salen del celular, las dos formas de venta, el anillo del cliente, el orbe
+// que se posa en un cubo mientras siguen las entregas, y fábrica y banco que
+// destellan juntos en la quinta baldosa (cada viernes).
+export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v1.mp4'
+
 // Poster único (branded) para el <video> de todos los reels — local en /public,
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.
 export const REEL_POSTER = '/videos/reels/poster.webp'

@@ -6,6 +6,15 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.9 — El video «Cómo funciona» entra al prompt como permanente (27 sep 2026)
+
+El video «Cómo funciona» (guion aprobado en la sesión del tercer elemento — ver el traspaso `HANDOFF_APLICACION_PERSONALIZADA_SEP2026.md` y el arsenal v6.52–v6.53) **se publica el 27 sep** y es el que la mayoría verá antes de escribir. Dos cambios en el bloque de videos del rol (`canal:web whatsapp`):
+
+1. **Entrada permanente para «Cómo funciona»**, aparte de los dos videos del reto que rotan: resume los tres elementos (fabricante · Queswa · su aplicación personalizada, con Waze en MECANISMO), el diferencial de la propiedad, y la regla de resolución — quien dice *«vi el video»* sin más señas vio este. Es permanente porque no es un día del reto: es el video del embudo, y no sale del prompt cuando el reto avance.
+2. **La instrucción vieja decía «tómelo como parte del reto»** ante cualquier mención de video — correcto hasta hoy, falso desde hoy. Ahora el reto atiende solo las menciones de videos del reto. El porqué es la auditoría del guion del 27 sep (`auditar-guion-queswa.mjs`): ante *«vi el video de Luis y no entendí»*, el motor ofrecía solo los dos videos del reto **y editorializaba** («Luis suele dejar mucho en el aire») — de ahí la línea *nunca un juicio sobre Luis ni sobre cómo explica*, escrita en positivo dentro de la entrada del video.
+
+**Presupuesto:** WhatsApp 18.265 · web 18.681 · Dashboard 15.501 (~730 caracteres más que la v5.8 en los dos canales del prospecto; el margen del recorte v5.6 estaba reservado justo para el bloque de videos).
+
 ## v5.8 — El acuse de recibo no juzga la pregunta (26 sep 2026)
 
 `<channel_formatting>` ordenaba abrir cada turno con una fórmula de acuse de recibo y la lista incluía *Buena pregunta* y *Me gusta que pregunte eso*. El modelo obedecía: desde el 27 ago, **137 de 583 respuestas compuestas para personas reales (23,5%) abrían con «Buena pregunta»**, 11% la última semana, y en el ensayo del 26 sep por el webhook, 3 de unas 12. Es el tic que el Director ya había marcado en las aperturas de la envoltura, y el mismo que ese día salió de los candados `WHY_04` y `EAM_01` (arsenal v6.50).
@@ -47,7 +56,7 @@ Sale de la investigación de naming del 25 sep (`docs/investigaciones/resultados
 
 **3. Hilo → instrucción de sesión.** Las cuatro reglas de Los 12 Niveles (no es exclusiva del Kit · la frase puente 17→10 % · el hilo se cierra sobre sí mismo · la diferencia entre tarifas) viven en `route.ts` como `_instruccionHiloDoceNiveles`, que se inyecta en `sessionInstructions` cuando `pageContext === '12_niveles'`, cuando la ficha trae `hilo_12_niveles`, o cuando el hilo nombra la estrategia — y nunca para `whatsapp_socio`. En el prompt queda solo la regla de reconocer el plan cuando lo nombran mal, porque esa aplica en cualquier conversación.
 
-**4. Los videos del reto.** El prompt conserva **los dos más recientes**, hoy y ayer, con tope duro de dos. Los anteriores van al arsenal como fragmentos `RETO_dNN` (cinco líneas: qué contó, la cita, la anécdota; índice escrito como pregunta la gente) el mismo día que sale el nuevo, y la auditoría del guion los prueba antes de publicar. El costo de un video en el prompt lo paga cada conversación; el de un fragmento, solo quien pregunta por él.
+**4. Los videos del reto.** El prompt conserva **los dos más recientes**, hoy y ayer, con tope duro de dos. Los anteriores van al arsenal como fragmentos `RETO_DNN` (cinco líneas: qué contó, la cita, la anécdota; índice escrito como pregunta la gente) el mismo día que sale el nuevo, y la auditoría del guion los prueba antes de publicar. El costo de un video en el prompt lo paga cada conversación; el de un fragmento, solo quien pregunta por él.
 
 **Formato compartido.** Las siete viñetas idénticas de los tres `<channel_formatting>` se escriben una vez fuera de los marcadores; quedan marcadas solo las propias de cada canal. Cero cambio en lo desplegado; una edición futura en vez de tres.
 

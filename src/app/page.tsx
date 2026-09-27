@@ -33,11 +33,12 @@
  *   ⚠️ Y el activo va PEGADO a su causa —«porque sus clientes siguen pidiendo»—:
  *   «sigue produciendo aunque usted no esté presente», dicho solo, es una
  *   afirmación sin mecanismo, que es la forma de una promesa.
- * · «MAQUINARIA de distribución» entra en «Por qué ahora sí», justo después de
- *   nombrar las dos piezas que hacen el trabajo pesado: ahí llega con su contexto
- *   puesto y no hay que explicarla, igual que «cadena hotelera». Rescata además
- *   la línea más floja del bloque y engancha con el hero, que promete una
- *   infraestructura «que cualquiera puede poner a andar».
+ * · «MAQUINARIA de distribución» vivió en «Por qué ahora sí» hasta el 27 sep 2026:
+ *   ese párrafo pasó al entregable de TRES elementos (fabricante · Queswa · su
+ *   aplicación personalizada — Director, sesión del video «Cómo funciona», calcado
+ *   de WHY_02 v6.52) y la línea de la maquinaria salió con el marco de «las dos
+ *   piezas». El sinónimo sigue vivo en doctrina; si un bloque nuevo habla de que
+ *   funciona sola, es el lugar para recuperarla.
  *
  * ⛔ El H1 y el título para buscadores NO se tocaron, a propósito: son el lugar
  * más indexado del sitio y ahí manda el canónico —sistema de distribución—, y si
@@ -190,6 +191,7 @@ import {
   Share2,
   Handshake,
   Check,
+  Route,
 } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
@@ -619,7 +621,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ═══ POR QUÉ AHORA — las dos fuerzas en tarjetas + cifras verificables ═══ */}
+      {/* ═══ POR QUÉ AHORA — los tres elementos en tarjetas + cifras verificables ═══ */}
       <Section elevated>
         <Eyebrow>Por qué ahora sí</Eyebrow>
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
@@ -633,11 +635,13 @@ export default function HomePage() {
         {/* «Moderno» va UNA vez en toda la página y pagado en la misma frase con los
             dos hechos (25 sep 2026, investigación de naming): adjetivo pegado al
             sustantivo, nunca «distribución moderna» a secas. */}
+        {/* EL ENTREGABLE SON TRES ELEMENTOS (Director, 27 sep 2026, sesión del video
+            «Cómo funciona»): fabricante · Queswa · su aplicación personalizada. Los
+            tres responden qué RECIBE la persona; qué HACE sigue siendo Compartir ·
+            Recibir, en su propia sección más abajo. Arranque calcado de WHY_02 v6.52. */}
         <Body mt>
-          Eso fue lo que cambió: hoy es un negocio moderno de distribución. El trabajo
-          pesado lo hacen dos — una fábrica con 30 años, y una inteligencia artificial
-          que no duerme. Con esas dos piezas su maquinaria de distribución queda andando,
-          y usted la maneja desde una aplicación, buena parte desde WhatsApp.
+          Eso fue lo que cambió: hoy es un negocio moderno de distribución. Usted recibe
+          en una sola aplicación los tres elementos que eliminan la fricción de montarlo.
         </Body>
 
         <div
@@ -690,6 +694,36 @@ export default function HomePage() {
               Conversa por WhatsApp con cada persona interesada, le resuelve las dudas y
               madura su decisión de avanzar, a toda hora. Usted no le repite lo mismo a
               cada uno.
+            </p>
+          </div>
+
+          {/* El tercer elemento (Director, 27 sep 2026). ⚠️ Waze va en MECANISMO,
+              nunca en resultado: «le marca la ruta» ✅ · «lo lleva a donde quiere
+              estar» ⛔ (voz de coach). Espejo de WHY_APP_01 v6.53 del arsenal. */}
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
+              <IconTile icon={Route} />
+              <div>
+                <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
+                  Su aplicación personalizada
+                </p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-muted)',
+                  }}
+                >
+                  Le marca la ruta
+                </p>
+              </div>
+            </div>
+            <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
+              Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando
+              la ruta. Usted no arranca solo ni adivinando el siguiente paso.
             </p>
           </div>
         </div>

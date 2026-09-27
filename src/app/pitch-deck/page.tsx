@@ -39,11 +39,13 @@
  *                    SÍNTOMA, y enunciarlo se lo planta a quien no lo traía.
  *  5 LAS TRES      · la oscilación (5 beats). Aquí se va la mitad del tiempo.
  *                    El beat del fabricante carga los hechos verificables, que
- *                    es la pieza que los reclama. Y el remate se lleva la ley de
- *                    la multiplicación —vivía en la 4 hasta el 24 sep— porque
- *                    aquí es donde se cumple: lo que se transmite no es una
- *                    habilidad sino esto mismo, armado. Así la multiplicación
- *                    queda como CONSECUENCIA y no como un tercer paso.
+ *                    es la pieza que los reclama. La pieza 3 es SU APLICACIÓN
+ *                    PERSONALIZADA (Director, 27 sep 2026, sesión del video
+ *                    «Cómo funciona»): los tres elementos responden qué RECIBE
+ *                    la persona; qué HACE —los dos pasos— vive en el remate,
+ *                    junto a la ley de la multiplicación, porque ahí es donde se
+ *                    cumple: lo que se transmite no es una habilidad sino esto
+ *                    mismo, armado. Multiplicación = CONSECUENCIA, no un paso.
  *  6 EL PRODUCTO   · la taza premium como puerta de entrada a la línea, la
  *                    recompra por resultado (prepara la 8) y una ficha de
  *                    oficio —híbrido, cultivo propio, años—, sin ciencia.
@@ -95,22 +97,25 @@ const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
     label: 'UNA TECNOLOGÍA QUE ATIENDE',
     img: '/images/servilleta/colapso-conversacion.webp',
     sub: 'Queswa conversa con cada interesado, le resuelve las dudas y madura su decisión de avanzar. A toda hora.',
-    // LA SEGUNDA CARA (Director, 24 sep 2026). La pieza hablaba solo de los
-    // prospectos, y buena parte de lo construido vive del otro lado: en el Centro
-    // de Mando, donde Queswa es el asistente del distribuidor. Sin esto el
-    // prospecto oye que la tecnología atiende a otros y no ve qué hace por él.
-    // ⚠️ Va en MECANISMO y no en resultado: qué hace, no a dónde lo lleva.
-    // «Pasar de donde está a donde quiere estar» es voz de coach y queda fuera.
-    extra: 'Y con usted trabaja aparte: conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
+    // La segunda cara (metas · redacta · avisa) vivió aquí como `extra` del 24 al
+    // 27 sep 2026; se mudó a la pieza 3, que ES esa cara con nombre propio. Esta
+    // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.
   },
   {
-    label: 'DOS PASOS SENCILLOS',
-    img: '/images/servilleta/colapso-metodo-v2.webp',
-    sub: 'Usted comparte. Y recibe a quien llega interesado.',
-    // La ley de la multiplicación vive aquí (Director, 24 sep 2026): es la pieza
-    // que habla de lo sencillo, así que es donde la ley se comprueba sola. Venía
-    // del remate, donde competía con «es una sola, y ya está armada».
-    extra: 'Solo se multiplica lo que es sencillo. Y lo que se transmite no es una habilidad: es esto mismo, armado.',
+    // EL TERCER ELEMENTO ES SU APLICACIÓN PERSONALIZADA (Director, 27 sep 2026,
+    // sesión del video «Cómo funciona»): los tres elementos responden qué RECIBE
+    // la persona; las dos acciones responden qué HACE y viven en el remate del
+    // beat 4. Espejo de WHY_02 v6.52 / WHY_APP_01 v6.53 del arsenal.
+    // ⚠️ Waze va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ ·
+    // «lo lleva a donde quiere estar» ⛔ (voz de coach, vetada el 24 sep).
+    // El render es un PIN DE MAPA con pasos de ruta — se hizo para «método» pero
+    // es la imagen de Waze literal, así que sirve a esta pieza mejor que a la
+    // anterior. Va como copia con nombre propio (colapso-aplicacion.webp) para
+    // que el deck no dependa del asset «metodo», que es de /servilleta (quieta).
+    label: 'SU APLICACIÓN PERSONALIZADA',
+    img: '/images/servilleta/colapso-aplicacion.webp',
+    sub: 'Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando la ruta, paso a paso.',
+    extra: 'Conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
   },
 ];
 
@@ -1114,7 +1119,7 @@ export default function PitchDeckPage() {
                 ))}
               </div>
               <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
-                Un fabricante… una tecnología… dos pasos…
+                Un fabricante… una tecnología que atiende… su aplicación…
               </p>
             </div>
           </div>
@@ -1126,8 +1131,11 @@ export default function PitchDeckPage() {
                 se leía como un párrafo. Ahora: la preparación en pequeño y apagada, el
                 golpe en grande y dorado, y el cierre en dos frases cortas separadas —
                 el punto y coma metía las dos ideas en un solo renglón denso.
-                La línea de la multiplicación se fue al beat de los dos pasos, que es
-                donde la ley se comprueba; aquí competía con «es una sola». */}
+                Los dos pasos y la ley de la multiplicación viven AQUÍ desde el 27 sep
+                2026 (la pieza 3 pasó a ser la aplicación personalizada): los tres
+                elementos dicen qué RECIBE, este remate dice qué HACE, y la ley remata
+                haciendo eco de «ya está armada». De paso salió «decidir y conectar»,
+                que es doctrina interna — al prospecto se le dan Compartir y Recibir. */}
             <div className="pd-remate">
               <p className="pd-preparacion">No son tres cosas que usted tenga que conseguir.</p>
 
@@ -1159,7 +1167,12 @@ export default function PitchDeckPage() {
                 Lo que usted recibe es una empresa moderna de distribución.
               </p>
               <p className="pd-p pd-cierre-linea">
-                Usted delega el explicar y el atender. Se queda con decidir y con conectar.
+                Lo suyo son dos pasos: usted comparte un enlace, y recibe a quien llega
+                con interés.
+              </p>
+              <p className="pd-p pd-cierre-linea">
+                Solo se multiplica lo que es sencillo. Y lo que se transmite no es una
+                habilidad: es esto mismo, armado.
               </p>
               <p className="marca">CreaTuActivo.com</p>
             </div>

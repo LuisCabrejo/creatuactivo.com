@@ -495,6 +495,14 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.57 — Nace `WHY_APP_02`: una sola aplicación, y cómo se entra (27 sep 2026)
+
+De la auditoría del guion del video «Cómo funciona»: *«¿todo viene en una sola app o toca descargar varias?»* recibía una composición que **contradecía el video** —*«todo vive en creatuactivo.com»*, con queswa.app como cosa aparte— y disparaba el guardarraíl de negocio («funciona solo»). La pregunta no tenía dueño.
+
+- **Doctrina del Director (27 sep, en el chat):** queswa.app es el **lugar por defecto del distribuidor** — el acceso llega por enlace al correo (magic link); ahí viven las notificaciones, las compras, la formación, el material para compartir y el seguimiento del negocio con acceso directo a su **back office de Gano Excel** (*back office* se queda con su nombre — se le propuso «su cuenta» y lo descartó). El enfoque de Queswa en WhatsApp es atender a los prospectos.
+- **Copy aprobado en el chat**, lista de presencias, sin candado. La última línea dice *por ahí* (no *por aquí*) para que el fragmento sea igual de cierto en la web; el *«como estamos conversando usted y yo ahora»* vale en los dos canales. Cierra hacia `EAM_01` con la misma pregunta de `WHY_APP_01`.
+- **Índice medido en laboratorio contra los rivales de producción:** gana sus seis paráfrasis (una sola app / descargar / instalar / cómo entro / aparte de WhatsApp / qué app dan) en 0.511–0.714, sin robarle a `WHY_APP_01` (canónicas re-medidas en puesto 1), a `FREQ_09` (el costo mensual sigue suyo) ni a `FREQ_33`.
+
 ### v6.56 — Nace `FREQ_38`: la disponibilidad a toda hora (27 sep 2026)
 
 De la auditoría del guion del video «Cómo funciona» (agente de creatuactivo.com, 27 sep): *«¿y si un cliente escribe a las 2 am usted le responde?»* caía en el candado de `FREQ_37` —`candado_dictado`, emitido literal sin que el modelo viera el turno— y la persona recibía el vínculo del cliente en vez de la disponibilidad. La pregunta no tenía dueño: la atención 24 horas vivía solo como cláusula dentro de `WHY_02`, y un fragmento largo no gana una consulta corta.

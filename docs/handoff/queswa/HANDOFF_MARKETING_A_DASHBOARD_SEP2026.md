@@ -30,3 +30,15 @@ El video dice literalmente *«los tres elementos que eliminan la fricción»*, a
 
 - **Pitch deck y Home** alineados al entregable de tres elementos (la pieza 3 es la aplicación personalizada; los dos pasos y la ley de la multiplicación viven en el remate del deck). `/servilleta` quedó quieta por decisión del Director.
 - **Prompt v5.9 desplegado a los tres canales** (27 sep, RPC verificado): el video «Cómo funciona» entró como entrada **permanente** del bloque de videos — el tercer ❌ de la auditoría (*«vi el video de Luis y no entendí»* devolvía solo los dos videos del reto y un juicio sobre Luis) se resolvió por ese lado. La instrucción «tómelo como parte del reto» ya no cubre cualquier mención de video.
+
+## Segunda corrida de la auditoría (27 sep, más tarde) — lo que este repo cerró y lo que le queda a usted
+
+Otra sesión de creatuactivo.com corrió la auditoría de nuevo tras el despliegue de v6.55 y cerró, con aprobación del Director en su chat:
+
+- **`FREQ_38` (arsenal v6.56, desplegado y clonado a los tres tenants):** *«¿y si un cliente escribe a las 2 am usted le responde?»* caía en el **candado de `FREQ_37`** —emitido literal— y la persona recibía el vínculo del cliente en vez de la disponibilidad. Dos líneas sin candado, cierre hacia `FREQ_37`. ⚠️ **Si usted re-mide `FREQ_37`, espere esta migración a propósito:** *«¿usted es la misma IA que atiende a mis clientes?»* ahora la gana `FREQ_38` (0.593 vs 0.546) — la palabra de la persona es *atiende*, y es mejor casa. Las paráfrasis propias de `FREQ_37` (queda a mi nombre, en qué momento, si abren mi enlace) siguen ganándolas él, re-medidas.
+- **Puerta `WHY_PROD_01` (route.ts de este repo):** la pregunta mixta *«¿Gano Excel qué es? ¿qué productos venden?»* recibía solo el catálogo; ahora el backend antepone la línea de credenciales (30 años, más de 60 países — estatus, en hechos). No toca arsenales.
+
+**Dos preexistentes que el arnés destapó y son de sus arsenales** (medidos contra los rivales de producción, no los causa nada de hoy):
+
+- *«¿me lo pueden quitar después?»* → gana `FREQ_15` y `FREQ_37` queda en el puesto **5** (0.457), aunque «si me lo pueden quitar» está literal en su índice. Suma al caso del atractor de FREQ_37 que ya está arriba.
+- *«en el video hablaban de una ruta paso a paso, ¿qué es eso?»* → `EAM_01` (0.493) le gana a `WHY_APP_01` (0.485) por 0.008. Si toca el índice de `WHY_APP_01`, esa paráfrasis («la ruta paso a paso del video») es candidata — midiendo que EAM_01 no pierda las suyas.

@@ -491,6 +491,14 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.51 — Nace `FREQ_37`: en qué momento el cliente queda a nombre del socio (26 sep 2026)
+
+`WHY_02` 🔒 y el video «Cómo funciona», que Queswa manda desde ese mismo día al tocar el botón, dicen que cada cliente que llega por el enlace queda a nombre del socio. Ninguna respuesta decía **cuándo**. La auditoría del guion del video (`auditar-guion-queswa.mjs`) lo destapó: *«como es lo de que el cliente queda a mi nombre»* cayó en fichas de producto y el modelo compuso su propia versión del vínculo.
+
+El dato es del Director: el vínculo nace cuando la persona se registra en Gano Excel con el código del socio, y vale igual para el cliente y para el distribuidor nuevo, que queda bajo su patrocinador; el registro se hace con el acompañamiento de quien compartió la información. La persona puede comprar con código propio, a precio de distribuidor, o comprarle directamente al socio, y el equipo recomienda lo primero: al distribuidor le construye independencia y al cliente le da el precio preferencial y los beneficios de su código. Texto del Director, aprobado en el chat.
+
+Va bajo candado, sin cifras (el ahorro lo da `CLIENTE_VIP_01` 🔒) y con la pregunta de cierre hacia `FREQ_24`. Índice medido en laboratorio antes de desplegar, contra los fragmentos reales del tenant `whatsapp`: gana 8/8 paráfrasis coloquiales y no le quita ninguna de sus preguntas a `FREQ_33`, `FREQ_22`, `CLIENTE_VIP_01`, `FREQ_24`, `FREQ_21`, `WHY_02` ni `WHY_04`. Fragmento nuevo: se desplegó sin purgar nada (documento padre, fragmentar, clonar a `whatsapp` y `dashboard`).
+
 ### v6.50 — `WHY_04` y `EAM_01` arrancan en la respuesta; `WHY_PROD_01` deja fuera a la máquina (26 sep 2026)
 
 Sale de auditar dos pruebas del canal. Los botones «Cómo entra el dinero» y «Qué debo hacer yo» son seguidos en la apertura, y la persona recibió uno tras otro *«Buena pregunta, y la más importante.»* y *«Me gusta esa pregunta — es la que de verdad importa.»*: dos elogios en dos turnos, y cada uno declarando que su pregunta era la que importaba. Es el tic que el Director ya había marcado en las aperturas que escribe el modelo. Se quita el párrafo de los dos candados (Director, 26 sep); `sinElogioSiNoPregunto` de `queswa-envoltura.ts` queda sin trabajo sobre ellos, pero se conserva para cualquier texto futuro.

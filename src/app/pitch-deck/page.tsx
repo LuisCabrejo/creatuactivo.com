@@ -1168,8 +1168,13 @@ export default function PitchDeckPage() {
               {/* Dos líneas explícitas y no un solo bloque: el titular rompía en
                   «…Y YA ESTÁ / ARMADA.» y dejaba huérfana la palabra que carga el
                   remate del deck. La coma es la pausa, y aquí es el corte. */}
+              {/* El golpe nombra la APLICACIÓN desde el 27 sep 2026 (Director): con la
+                  pieza 3 elevada a «su aplicación personalizada», la fusión paga literal
+                  lo que dice WHY_02 v6.52 — los tres elementos llegan en una sola
+                  aplicación. La empresa queda para la línea siguiente: la aplicación es
+                  el vehículo, la empresa es lo que queda suyo. */}
               <p className="grande">
-                Es una sola,<br />y ya está armada.
+                Es una sola aplicación,<br />y ya está armada.
               </p>
               <p className="pd-p pd-cierre-linea">
                 Lo que usted recibe es una empresa moderna de distribución.

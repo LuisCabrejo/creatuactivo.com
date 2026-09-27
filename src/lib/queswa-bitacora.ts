@@ -74,10 +74,12 @@ export interface TemaBitacora {
 export const TEMAS: TemaBitacora[] = [
   {
     id: 'como_funciona',
-    nombre: 'cómo funciona el negocio (los tres elementos ensamblados y el cliente a su nombre)',
-    // La firma vieja (la franquicia) se conserva: el historial de quien la
-    // recibió antes del 25 sep 2026 sigue en sus últimas 40 filas.
-    firma: /tres elementos de un negocio moderno|l[oó]gica de una franquicia|Vender hamburguesas lo puede hacer cualquiera/i,
+    nombre: 'cómo funciona el negocio (los tres elementos, con la aplicación personalizada, y el cliente a su nombre)',
+    // Las firmas viejas (la franquicia, y los «tres elementos de un negocio
+    // moderno» de la v6.48) se conservan: el historial de quien las recibió
+    // antes sigue en sus últimas 40 filas. La nueva (v6.52, 27 sep 2026) es el
+    // arranque de la fricción; cubre también el video, cuya fila guarda ese texto.
+    firma: /tres elementos (de un negocio moderno|que eliminan la fricci[oó]n)|l[oó]gica de una franquicia|Vender hamburguesas lo puede hacer cualquiera/i,
     fragmentos: ['arsenal_inicial_WHY_02'],
   },
   {

@@ -39,6 +39,12 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
+ * Ajuste 27 sep 2026 — EL TERCER ELEMENTO ES SU APLICACIÓN PERSONALIZADA (texto del
+ *   Director, sesión del guion del video a 60 s). Los tres elementos responden qué
+ *   RECIBE la persona; las dos acciones responden qué HACE y viven en EAM_01/WHY_01.
+ *   El enlace sube al elemento 2 para que la propiedad lo reciba explicado. Waze va
+ *   en MECANISMO («le voy marcando la ruta»), nunca «lo lleva» — promesa de ingreso.
+ *   Sincronizado carácter por carácter con arsenal_inicial.txt v6.52.
  * Reescritura 25 sep 2026 — LOS TRES ELEMENTOS Y EL CLIENTE A SU NOMBRE (texto del
  *   Director, pulido en la sesión de naming). La versión de la franquicia daba el «ajá»
  *   con una analogía de dos párrafos y nunca decía de quién es el cliente: «cada vez que
@@ -147,15 +153,15 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe, ensamblados en una sola aplicación, los tres elementos de un negocio moderno de distribución.
+const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe en una sola aplicación los tres elementos que eliminan la fricción de montar un negocio moderno de distribución.
 
 1. **Un fabricante**, que empaca y despacha cada pedido hasta la casa del cliente.
 
-2. **Tecnología:** esta conversación es una muestra. Yo atiendo a cada persona que llega, a cualquier hora, y maduro su decisión.
+2. **Tecnología:** esta conversación es una muestra. Yo atiendo, las 24 horas, a quien llega por su enlace.
 
-3. **Dos pasos sencillos:** usted comparte su enlace y recibe a quien llega con interés.
+3. **Su aplicación personalizada:** como en Waze, usted me dice a dónde quiere llegar, y yo le voy marcando la ruta.
 
-Lo que hace distinto a este modelo es la propiedad: cada cliente que llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje.
+La diferencia es la propiedad: cada cliente que llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje.
 
 Y quien se interese en distribuir recibe estas mismas herramientas y hace lo mismo que usted. Así se arma, a su nombre, todo un sistema de distribución: clientes comprando en América y distribuidores creciendo.
 

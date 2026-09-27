@@ -491,6 +491,27 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.54 — `WHY_05` 🔒 y `FREQ_14` entregan la aplicación personalizada (27 sep 2026)
+
+Cierre del criterio de la v6.52 en sus otros dos puntos (aprobado por el Director en el chat). `WHY_05` listaba *«una metodología sencilla, de dos pasos»* como tercer elemento entregado → ahora *«su aplicación personalizada, que le va marcando la ruta»*. `FREQ_14` decía *«su Dashboard para ver cómo va su sistema»* —nombre interno— → *«su aplicación personalizada, que le va marcando la ruta y le muestra cómo va su sistema»*; su lista de herramientas conserva *«una metodología de dos pasos»* a propósito, porque ahí responde qué hace la persona junto a lo que recibe. Índices y preguntas de cierre sin tocar; recuperación verificada tras desplegar (los dos conservan su pregunta canónica en el puesto 1).
+
+### v6.53 — Nace `WHY_APP_01` 🔒: qué es la aplicación personalizada (27 sep 2026)
+
+Es la respuesta que el video «Cómo funciona» a 60 s estrena — el tercer elemento de `WHY_02` v6.52. Texto del Director (aprobado en el chat, sesión del guion): el Centro de Mando dicho en MECANISMO —*usted me dice a dónde quiere llegar, y yo le voy marcando la ruta: le digo el paso que sigue, le redacto los mensajes, le aviso cuando alguien llega por su enlace*—, nunca en resultado («lo lleva» es voz de coach y silueta de promesa de ingreso). Cada frase es verificable hoy en queswa.app. Sin cifras. Cierra hacia `EAM_01` (qué hace la persona en el día a día).
+
+Índice medido en laboratorio antes de desplegar (arnés candidato-como-documento contra los 179 rivales reales): **gana sus 6 paráfrasis en el puesto 1** («qué es la aplicación personalizada» 0.512 · «cómo me guía» 0.612 · «lo de Waze» 0.515 · «cómo funciona la aplicación» 0.517, con WHY_02 segundo a 0.507) **y no le roba ninguna** a WHY_02, WHY_01, EAM_01, FREQ_14 ni EMPRESA_DIGITAL_01.
+
+### v6.52 — `WHY_02` 🔒: el tercer elemento pasa a ser su aplicación personalizada (27 sep 2026)
+
+Sale de la sesión del guion del video «Cómo funciona» a 60 segundos (Director + agente del Dashboard). El Director lo dijo así: *«aquí no le está volviendo el valor a lo construido, y sé que cualquier persona que quiera montar una empresa quiere una aplicación»*. El diagnóstico técnico coincide: la versión anterior listaba las dos acciones como tercer elemento — respondía **qué hace la persona** dentro de la respuesta que promete decir **qué recibe** — y con eso el elemento de más valor (la aplicación que la acompaña) no aparecía en «cómo funciona».
+
+- **El arranque nombra la fricción**: *usted recibe en una sola aplicación los tres elementos que eliminan la fricción de montar un negocio moderno de distribución*. «Moderno» sigue yendo una sola vez y los tres elementos lo pagan en el acto.
+- **El enlace sube al elemento 2** (*yo atiendo, las 24 horas, a quien llega por su enlace*): así el párrafo de la propiedad lo recibe ya explicado, en vez de estrenarlo.
+- **El tercer elemento es la aplicación personalizada**, con la imagen de Waze dicha en MECANISMO: *usted me dice a dónde quiere llegar, y yo le voy marcando la ruta*. Nunca «lo lleva a donde quiere estar» — voz de coach (vetada en el pitch deck el 24 sep) y silueta de promesa de ingreso. Es cierta hoy: en el Centro de Mando el socio escribe sus referencias y Queswa lo guía con ellas.
+- **Las dos acciones no desaparecen**: viven donde se responde qué hace la persona — `EAM_01` y la línea de `WHY_01` (*Usted comparte un enlace. Yo converso con quien llega. Usted recibe*). `WHY_05` y la respuesta de «¿por qué con ustedes?» siguen listando la metodología entre lo que se entrega — revisarlas es decisión aparte del Director, igual que las tarjetas del pitch deck y la servilleta.
+- **Pregunta de cierre intacta** (el conductor reconoce el «sí» por ella). Firma `como_funciona` de `queswa-bitacora.ts` ampliada con el arranque nuevo, conservando las viejas. `respuestas-maestras.ts` sincronizado carácter por carácter.
+- ⚠️ **Ventana de desfase conocida**: el video del chat (`queswa/como-funciona-v1.mp4`) sigue diciendo la voz anterior hasta que se produzca el corte nuevo de 60 s (guion aprobado el 27 sep, con cierre propio para el chat: *«Usted ya está viendo esta tecnología en vivo: pregúnteme cómo aplicaría para usted»*). Mientras tanto, la fila que el webhook guarda como «lo que dice la voz» sale del texto nuevo. Prioridad: producir y subir los dos cortes.
+
 ### v6.51 — Nace `FREQ_37`: en qué momento el cliente queda a nombre del socio (26 sep 2026)
 
 `WHY_02` 🔒 y el video «Cómo funciona», que Queswa manda desde ese mismo día al tocar el botón, dicen que cada cliente que llega por el enlace queda a nombre del socio. Ninguna respuesta decía **cuándo**. La auditoría del guion del video (`auditar-guion-queswa.mjs`) lo destapó: *«como es lo de que el cliente queda a mi nombre»* cayó en fichas de producto y el modelo compuso su propia versión del vínculo.

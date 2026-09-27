@@ -42,10 +42,12 @@
  *                    es la pieza que los reclama. La pieza 3 es SU APLICACIÓN
  *                    PERSONALIZADA (Director, 27 sep 2026, sesión del video
  *                    «Cómo funciona»): los tres elementos responden qué RECIBE
- *                    la persona; qué HACE —los dos pasos— vive en el remate,
- *                    junto a la ley de la multiplicación, porque ahí es donde se
- *                    cumple: lo que se transmite no es una habilidad sino esto
- *                    mismo, armado. Multiplicación = CONSECUENCIA, no un paso.
+ *                    la persona; qué HACE —los dos pasos— NO se lista en el
+ *                    deck (el Director lo retiró del remate ese día): lo cuenta
+ *                    Queswa en vivo. La ley de la multiplicación sí vive en el
+ *                    remate, donde se cumple: lo que se transmite no es una
+ *                    habilidad sino esto mismo, armado. Multiplicación =
+ *                    CONSECUENCIA, no un paso.
  *  6 EL PRODUCTO   · la taza premium como puerta de entrada a la línea, la
  *                    recompra por resultado (prepara la 8) y una ficha de
  *                    oficio —híbrido, cultivo propio, años—, sin ciencia.
@@ -104,8 +106,9 @@ const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
   {
     // EL TERCER ELEMENTO ES SU APLICACIÓN PERSONALIZADA (Director, 27 sep 2026,
     // sesión del video «Cómo funciona»): los tres elementos responden qué RECIBE
-    // la persona; las dos acciones responden qué HACE y viven en el remate del
-    // beat 4. Espejo de WHY_02 v6.52 / WHY_APP_01 v6.53 del arsenal.
+    // la persona; las dos acciones responden qué HACE y en el deck no se listan
+    // (las cuenta Queswa en vivo — EAM_01). Espejo de WHY_02 v6.52 / WHY_APP_01
+    // v6.53 del arsenal.
     // ⚠️ Waze va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ ·
     // «lo lleva a donde quiere estar» ⛔ (voz de coach, vetada el 24 sep).
     // El render es un PIN DE MAPA con pasos de ruta — se hizo para «método» pero
@@ -1139,11 +1142,13 @@ export default function PitchDeckPage() {
                 se leía como un párrafo. Ahora: la preparación en pequeño y apagada, el
                 golpe en grande y dorado, y el cierre en dos frases cortas separadas —
                 el punto y coma metía las dos ideas en un solo renglón denso.
-                Los dos pasos y la ley de la multiplicación viven AQUÍ desde el 27 sep
-                2026 (la pieza 3 pasó a ser la aplicación personalizada): los tres
-                elementos dicen qué RECIBE, este remate dice qué HACE, y la ley remata
-                haciendo eco de «ya está armada». De paso salió «decidir y conectar»,
-                que es doctrina interna — al prospecto se le dan Compartir y Recibir. */}
+                La ley de la multiplicación vive AQUÍ desde el 27 sep 2026 (la pieza 3
+                pasó a ser la aplicación personalizada) y remata haciendo eco de «ya
+                está armada». ⛔ Los dos pasos NO se listan en el remate: se probaron
+                ese mismo día y el Director los retiró («este texto sobra») — qué HACE
+                la persona lo cuenta Queswa en vivo (EAM_01), no esta pantalla. También
+                salió «decidir y conectar», doctrina interna que no se le da al
+                prospecto. */}
             <div className="pd-remate">
               <p className="pd-preparacion">No son tres cosas que usted tenga que conseguir.</p>
 
@@ -1178,10 +1183,6 @@ export default function PitchDeckPage() {
               </p>
               <p className="pd-p pd-cierre-linea">
                 Lo que usted recibe es una empresa moderna de distribución.
-              </p>
-              <p className="pd-p pd-cierre-linea">
-                Lo suyo son dos pasos: usted comparte un enlace, y recibe a quien llega
-                con interés.
               </p>
               <p className="pd-p pd-cierre-linea">
                 Solo se multiplica lo que es sencillo. Y lo que se transmite no es una

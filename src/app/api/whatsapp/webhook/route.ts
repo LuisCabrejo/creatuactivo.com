@@ -89,7 +89,7 @@ import {
   mensajeEnlaceCatalogo,
   OFERTA_REDACTAR, detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, enviarAccesoDashboard, ACCESO_NO_ENVIADO,
 } from '@/lib/wa-onboarding';
-import { normalizarParaSlug, normalizarLetrasDecorativas } from '@/lib/texto-normalizar';
+import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado } from '@/lib/texto-normalizar';
 import {
   detectarEmergencia,
   clasificarPreguntaSalud,
@@ -517,6 +517,12 @@ async function procesarEntrante(body: any): Promise<void> {
       if (plano !== messageText) {
         console.log(`🔤 [WA Webhook] ${phoneNumber} escribió con letras decorativas — normalizado a "${plano.slice(0, 60)}"`);
         messageText = plano;
+      }
+      // «Di» suelto es un «sí» con la tecla de al lado (ver `corregirSiTecleado`).
+      const si = corregirSiTecleado(messageText);
+      if (si !== messageText) {
+        console.log(`🔤 [WA Webhook] ${phoneNumber} escribió "${messageText.trim()}" — se lee como «Sí»`);
+        messageText = si;
       }
     }
 

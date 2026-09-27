@@ -123,3 +123,21 @@ export function normalizarLetrasDecorativas(texto: string): string {
   return cambio ? salida : texto;
 }
 
+
+/**
+ * El «sí» con la tecla de al lado: «Di», «Ai», «Wi», «Ei», «Xi», «Zi».
+ *
+ * La «s» tiene seis vecinas en el teclado del celular, y un «sí» escrito con el
+ * pulgar cae en cualquiera. Solo se corrige cuando el mensaje ENTERO es eso
+ * (con puntuación opcional): «Di» suelto después de una pregunta no es el
+ * imperativo de «decir», pero «Di mi nombre» sí lo es y pasa intacto.
+ * Motivo: el Director respondió «Di» a «¿Quiere verlo en el simulador…?»
+ * (26 sep 2026); ningún detector de aceptación lo leyó como «sí», el turno cayó
+ * al motor y en vez de la tarjeta del simulador recibió la tabla entera de
+ * NIVELES_02. Se corrige a la entrada, una sola vez, y no en cada uno de los
+ * cuatro detectores de «sí» (conductor, pedido, motor, radicación).
+ */
+export function corregirSiTecleado(texto: string): string {
+  if (!texto) return texto;
+  return /^\s*[adwexz][ií]+\s*[.!]*\s*$/i.test(texto) ? 'Sí' : texto;
+}

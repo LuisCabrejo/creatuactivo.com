@@ -381,6 +381,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.24 — `INV_03` deja de ser un atractor (27 sep 2026)
+
+Su índice decía *«qué me llega cuando compro»* y con eso ganaba las preguntas de la entrega, del inventario en casa y hasta *«quién paga el envío»* — todas de `FREQ_33`. Acotado al paquete (*qué incluye cada paquete además del producto, la diferencia entre el Kit y los ESP*). Cuerpo intacto; su canónica sigue en el puesto 1 (0.669). Ver arsenal_inicial v6.55 para la matriz completa.
+
 ### v6.23 — `NIVELES_01` 🔒: el 10 % corre sobre el GCV (26 sep 2026)
 
 El candado decía *«empieza a cobrar el 10% sobre las compras que facture su sistema»* y cerraba el $103M con *«exactamente el 10% del volumen facturado»*. El Director lo detectó al revisar el video de Los 12 Niveles: alguien puede asumir que el porcentaje se calcula sobre la venta bruta, y la Regalía de Equipo corre sobre el GCV (volumen comisionable grupal). Quedó *«…el 10% del volumen comisionable de su sistema»* y *«exactamente el 10% del GCV, el volumen comisionable grupal»*, las mismas frases del video. La misma corrección se hizo en la línea del pie de los dos simuladores (pitch deck y `/12-niveles`), que decía *«el 10% de lo que consumen sus distribuidores»*.
@@ -490,6 +494,15 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 **Arquitectura.** Parent + fragmentos solo en `dashboard` (`desplegar-arsenal-ciencia-socio.mjs`); bloque `canal:dashboard` en el prompt maestro (desplegado `--solo dashboard`); el arsenal como cuarto bucket en el `route.ts` del Dashboard (otro repo, traspasado a su agente). El `.txt` va sin `[Concepto Nuclear]`: el Dashboard sirve el padre entero.
 
 ## arsenal_inicial
+
+### v6.55 — `FREQ_33` responde quién paga el envío y recibe las preguntas del inventario y del despacho (27 sep 2026)
+
+De la auditoría del guion del video (agente de creatuactivo.com, 27 sep): la binaria *«¿quién paga el envío, el cliente o yo?»* recibía una evasiva compuesta, y *«¿tengo que guardar producto en la casa?»* caía en los INV_* del 12 Niveles, que le metían el paquete y la recompra que nadie preguntó.
+
+- **La línea del pagador es copy del Director:** *«El envío lo paga quien compra, dentro de su propio pedido: Gano Excel despacha desde sus bodegas hasta la puerta del cliente.»* — integrada en el párrafo del envío, delante de la tarifa.
+- **El arreglo de recuperación tuvo DOS mitades, y la primera sola no bastó:** (1) `INV_03` (12 Niveles v6.24) era un atractor — *«qué me llega cuando compro»* en su índice le ganaba todo lo que oliera a entrega; (2) aun sin el atractor, la paráfrasis negada de la auditoría empataba a 0.50 con FREQ_25 e INV_05 **aunque estuviera literal en el índice** — el título de FREQ_33 tenía seis preguntas y repartía la señal. Recortado a dos (el lever documentado de INV_00/EAM_01), ganó a 0.506–0.699. Matriz final: **17/17** — FREQ_33 gana sus diez formas de preguntar; INV_03, INV_05, FREQ_37, FREQ_25, FREQ_30, PROD_02 y FAQ_03 conservan las suyas.
+- **«Su Dashboard» → su aplicación personalizada** en el cuerpo (criterio v6.54: el nombre interno no se enseña).
+- Hallazgo lateral de la auditoría, sin cambio de archivo: la frase *«a la dirección que usted registre»* que contradijo el despacho **no vive en ningún fragmento** — la compuso el modelo; con FREQ_33 ganando la pregunta, recibe la respuesta correcta (la puerta del cliente).
 
 ### v6.54 — `WHY_05` 🔒 y `FREQ_14` entregan la aplicación personalizada (27 sep 2026)
 

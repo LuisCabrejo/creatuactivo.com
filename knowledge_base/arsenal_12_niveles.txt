@@ -1,6 +1,8 @@
 # Arsenal Conversacional: Los 12 Niveles — la versión vigente está en «Versión actual», abajo
 
-**Versión actual: v6.23** (26 sep 2026) — **`NIVELES_01` 🔒 dice sobre qué corre el 10 %: el volumen comisionable (GCV).** Referido a lo que se vende, el porcentaje se calcula sobre la venta bruta, y el plan no paga eso (Director). Mismas frases que el video de Los 12 Niveles. Sin más cambios.
+**Versión actual: v6.24** (27 sep 2026) — **`INV_03` deja de ser un atractor: su índice se acota al paquete.** *«Qué me llega cuando compro»* le ganaba las preguntas de la entrega y del inventario en casa, que son de `FREQ_33` (arsenal_inicial v6.55, auditoría del guion del video). Cuerpo sin tocar; conserva su pregunta canónica en el puesto 1. Sin más cambios.
+
+**v6.23** (26 sep 2026) — **`NIVELES_01` 🔒 dice sobre qué corre el 10 %: el volumen comisionable (GCV).** Referido a lo que se vende, el porcentaje se calcula sobre la venta bruta, y el plan no paga eso (Director). Mismas frases que el video de Los 12 Niveles. Sin más cambios.
 
 **v6.22** (24 sep 2026) — **`NIVELES_06` dice el precio del Kit.** Cerraba sin cifra, y en la prueba del Director el modelo repitió ese cierre al listar los paquetes, aunque el precio se conoce. Ahora lleva el marcador `[PRECIO_KIT]`, que el pin llena en pesos o en dólares según el país. Sin más cambios.
 
@@ -248,9 +250,9 @@ creatuactivo.com y queswa.app vienen incluidos con cualquiera de los cuatro.
 ---
 
 ### **INV_03: "¿Qué recibo con cada paquete?"**
-**[Índice]:** Qué recibo con cada paquete, qué me llega cuando compro, qué incluye la inversión además del producto.
+**[Índice]:** Qué recibo con cada paquete, qué incluye cada paquete además del producto, la diferencia entre el Kit, el ESP-1, el ESP-2 y el ESP-3.
 
-**[Concepto Nuclear]:** La inversión determina su porcentaje de ingreso recurrente y acceso al Bono GEN5. **v6.20 (13 sep 2026):** *«Posición heredable (es un ACTIVO)»* → *«Su código, a su nombre»*: el activo sin causa y la herencia fuera de `FREQ_05`. *«donde opera el sistema»* → *«donde está»* (verbo vetado de cara al prospecto). *«Sistema de duplicación automatizado»* era etiqueta interna.
+**[Concepto Nuclear]:** La inversión determina su porcentaje de ingreso recurrente y acceso al Bono GEN5. ⚠️ **El índice se acotó al paquete (v6.24):** *«qué me llega cuando compro»* lo volvía un ATRACTOR de todo lo que oliera a entrega o producto en casa — la auditoría del guion del video (27 sep 2026) encontró que *«¿tengo que guardar producto en la casa?»* y *«¿quién paga el envío?»* caían aquí, y la respuesta les metía el paquete y la recompra que nadie preguntó. Esas preguntas son de `FREQ_33` (alivio operativo), medido 17/17 en el arnés; este fragmento conserva las suyas (0.669 su canónica). **v6.20 (13 sep 2026):** *«Posición heredable (es un ACTIVO)»* → *«Su código, a su nombre»*: el activo sin causa y la herencia fuera de `FREQ_05`. *«donde opera el sistema»* → *«donde está»* (verbo vetado de cara al prospecto). *«Sistema de duplicación automatizado»* era etiqueta interna.
 
 Todos los paquetes incluyen:
 

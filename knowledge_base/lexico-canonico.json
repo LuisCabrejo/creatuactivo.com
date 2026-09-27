@@ -1,6 +1,6 @@
 {
   "$comment": "Léxico canónico legible por máquina. FUENTE DE VERDAD: BRANDING.md §7 (+ Addendum 8–14 ago) y CLAUDE.md § Léxico y voz. Este archivo es su resumen operativo: lo que un auditor puede buscar con una expresión regular. Lo consume Dashboard/scripts/auditar-lexico.mjs. Cuando el Director retire o adopte un término, se agrega aquí la fila con su fecha — y el Dashboard se entera en la próxima auditoría. Las expresiones son sobre texto que ve una persona (copy y prompts), NUNCA sobre identificadores de código.",
-  "version": "2026-09-25",
+  "version": "2026-09-27",
   "activo_canonico": "sistema de distribución",
   "sinonimos_vivos": [
     "empresa de distribución",
@@ -293,7 +293,18 @@
       "nota": "La recompra se explica por RESULTADO, nunca porque el producto se agote. Estuvo dos veces en la Home y en WHY_04 hasta el 25 sep. Solo aplica al copy nuestro que explica la recompra; la voz del prospecto en disparadores/índices se exonera.",
       "excepciones": [
         "si se acaba",
-        "[Índice]",
+        "\\[Índice\\]",
+        "disparador"
+      ]
+    },
+    {
+      "id": "tener-con-que",
+      "regex": "\\b(tiene[ns]?|tengo|tenemos|tener|tenga[ns]?|tuvo|tuviera[ns]?)\\s+con\\s+qu[eé](?![a-záéíóúñ])",
+      "vigente": "nombrar lo que falta del NEGOCIO, nunca de la persona: «muy pocos tienen la infraestructura para armar un negocio moderno de distribución»",
+      "desde": "2026-09-27",
+      "nota": "PROHIBIDO (Director, 27 sep 2026). El contexto que se veta es CONFRONTAR a la persona con que no puede hacer algo: en Colombia, decirle a alguien que «no tiene con qué» es rebajarlo — se oye como que no tiene dinero, ni capacidad, ni valentía. Lo que falta se dice de la OPERACIÓN (infraestructura, fábrica, logística), nunca de quien escucha. La voz del propio prospecto en índices y disparadores («no tengo con qué pagarlo») se exonera: ahí lo dice él de sí mismo, no nosotros de él.",
+      "excepciones": [
+        "\\[Índice\\]",
         "disparador"
       ]
     }

@@ -166,11 +166,19 @@ const TARIFAS_12 = [
  *    «cubre más». Se usa la SUMA (92,3 %) a propósito: el «no alcanza» solo viene
  *    bajando desde 2022, mientras que el «cubre más» lleva entre 7 y 8 % desde 2019.
  *    https://www.dane.gov.co/files/operaciones/ECV/anex-ECV-2025.xlsx
+ *  · Colpensiones + U. Javeriana, primer estudio de Silver Economy en Colombia
+ *    (presentado jul. 2022, datos 2021): de 7,1 millones de personas en edad de
+ *    retiro (hombres 62+, mujeres 57+), 1,6 millones reciben alguna pensión —
+ *    cobertura del 23 %. «3 de cada 4» sin pensión es la versión CONSERVADORA
+ *    (el real es 77 %): solo puede sorprender hacia arriba. Reemplazó el 27 sep
+ *    2026 (Director) a la cifra del GEM de «buenas oportunidades» (60 %): la
+ *    pensión es el destino del ciclo y cierra mejor el arco hoy → final → los
+ *    demás ya se mueven.
+ *    https://www.larepublica.co/finanzas/cobertura-pensional-es-de-apenas-23-segun-estudio-de-colpensiones-y-unijaveriana-3398629
  *  · GEM 2023/2024 Global Report, perfil de Colombia (datos 2023, adultos de 18 a
- *    64): «good opportunities to start a business in my area» 60,0 %; TEA 23,6 %
- *    («just under one in four», puesto 7 de 46). Colombia no participó en 2024 ni
- *    en 2025: por eso va con su año. La TEA cuenta negocios NUEVOS (hasta 42
- *    meses), y por eso la frase dice «que abrió hace poco».
+ *    64): TEA 23,6 % («just under one in four», puesto 7 de 46). Colombia no
+ *    participó en 2024 ni en 2025: por eso va con su año. La TEA cuenta negocios
+ *    NUEVOS (hasta 42 meses), y por eso la frase dice «que abrió hace poco».
  *    https://www.gemconsortium.org/country-profile/52
  *  ⛔ Descartadas: el «9 de cada 10 quieren emprender / 63 % sin recursos» es un
  *  estudio de Amway (2021) — la fuente confirma la categoría que no se nombra —; la
@@ -184,9 +192,9 @@ const CIFRAS_PROBLEMA = [
     fuente: 'DANE · Encuesta de Calidad de Vida 2025',
   },
   {
-    n: '6 de cada 10',
-    texto: 'adultos en Colombia ven buenas oportunidades para emprender donde viven.',
-    fuente: 'Global Entrepreneurship Monitor · 2023',
+    n: '3 de cada 4',
+    texto: 'colombianos en edad de pensionarse no reciben una pensión.',
+    fuente: 'Colpensiones · U. Javeriana, 2022',
   },
   {
     n: 'Casi 1 de cada 4',

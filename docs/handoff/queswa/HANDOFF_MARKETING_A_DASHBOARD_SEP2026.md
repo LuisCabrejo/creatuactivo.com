@@ -17,6 +17,10 @@ Dónde viva (una línea en `FREQ_37`, o donde el índice lo recupere ante *«qui
 
 El fondo lo responde bien (no hay inventario ni entregas), pero agrega como hecho *«su propia recompra mensual»* y *«el paquete con el que arranca»* — un compromiso de compra que nadie preguntó, metido en la respuesta que existe para quitar cargas. El fragmento pone el argumento del inventario; la recompra tiene su propia casa y su propio momento.
 
+## 🟡 El índice de `WHY_02` no tiene la paráfrasis «los tres elementos»
+
+El video dice literalmente *«los tres elementos que eliminan la fricción»*, así que la gente va a preguntar con esas palabras (*«¿cuáles son los tres elementos?»*, *«lo de los tres elementos»*). Hoy la cobertura aguda la pone el prompt v5.9 (el resumen de los tres viaja en toda conversación del prospecto), pero lo robusto es que el índice de `WHY_02` gane esas paráfrasis — al medir, meter en la mesa a `WHY_APP_01`, `WHY_01` y `EAM_01`, que son los que podrían perderla o robarla.
+
 ## 🟡 Dos flojas, dentro de ideas que pasaron
 
 - **`FREQ_37` (candado) responde titularidad a quien preguntó otra cosa:** *«¿y si el cliente quiere hablar conmigo directo, qué pasa?»* recibió el candado completo de registro, dos formas de comprar y precios preferenciales, sin decir nunca qué pasa si el cliente lo busca a él. Huele a candado solitario ganando una consulta que no es la suya — vale medir si el índice de `FREQ_37` está atrayendo el «hablar directo».

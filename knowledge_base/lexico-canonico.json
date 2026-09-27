@@ -40,9 +40,9 @@
     {
       "id": "empresa-digital",
       "regex": "\\b(empresa|negocio) digital\\b",
-      "vigente": "sistema de distribución",
+      "vigente": "empresa de distribución moderna (la forma IDEAL para reemplazarla, Director 27 sep 2026 — presentación en frío: reels, piezas; con el puente a sistema de distribución, que sigue siendo el canónico)",
       "desde": "2026-08-03",
-      "nota": "Contenedor vacío; el oyente lo rellena con pirámides o cripto. Solo en la Academia y en el prompt hacia el socio, caso por caso con el Director.",
+      "nota": "Contenedor vacío; el oyente lo rellena con pirámides o cripto. Solo en la Academia y en el prompt hacia el socio, caso por caso con el Director. Director, 27 sep 2026 (auditoría de la voz de los reels): donde un reel viejo dice «empresa digital», la voz nueva dice «empresa de distribución moderna» — «moderna» es más relevante que «digital», va una vez por pieza y pagada en la misma frase con un hecho que se vea.",
       "excepciones": []
     },
     {
@@ -311,6 +311,6 @@
   ],
   "$comment_activo": "«Activo» NO es un cuarto sinónimo del sistema: es lo que el sistema produce («su sistema de distribución le permite construir un activo que produce sin que usted tenga que estar encima»). Va siempre pegado a su causa (sus clientes siguen pidiendo) y nunca como adjetivo de una persona (en esta industria «activo» = al día con la compra mensual; del código sí: «su código está activo»).",
   "$comment_verbos": "Director, 10 sep 2026: el problema no es la palabra sino el verbo que se le cuelga. «El sistema empareja los puntos» se queda (un software empareja). Lo que solo hace una persona —consumir, comprar, pedir— cambia de SUJETO, no de verbo: «mientras sus distribuidores y sus clientes sigan comprando». Regla de decisión: propiedad → empresa de distribución · funciona sin él → maquinaria de distribución · lo que le queda → activo con su causa · todo lo demás → sistema de distribución.",
-  "marco_presentacion_en_frio": "un negocio moderno de distribución",
-  "$comment_moderno": "Adoptado 25 sep 2026 (investigación de naming → marketing/docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md). «Moderno» es ADJETIVO, nunca nombre: va pegado al sustantivo, una sola vez por conversación, y pagado en la misma frase con un hecho que se vea. A «¿qué es una empresa digital?» se responde «empresa moderna de distribución», con el puente a «sistema de distribución» (no es un cuarto nombre del activo). El diferencial se dice como mecanismo: cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga — la permanencia se dice del CLIENTE, nunca del pago. Gano Excel se nombra al FINAL de la explicación, como quien fabrica y paga, nunca en la primera línea de qué es esto."
+  "marco_presentacion_en_frio": "una empresa de distribución moderna",
+  "$comment_moderno": "Adoptado 25 sep 2026 (investigación de naming → marketing/docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md); FORMA IDEAL refinada por el Director el 27 sep 2026: «empresa de distribución moderna» (el adjetivo al final, calificando la empresa de distribución — sinónimo vivo de la propiedad). «Moderno» es ADJETIVO, nunca nombre: va pegado al sustantivo, una sola vez por conversación, y pagado en la misma frase con un hecho que se vea. A «¿qué es una empresa digital?» se responde «empresa moderna de distribución», con el puente a «sistema de distribución» (no es un cuarto nombre del activo). El diferencial se dice como mecanismo: cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga — la permanencia se dice del CLIENTE, nunca del pago. Gano Excel se nombra al FINAL de la explicación, como quien fabrica y paga, nunca en la primera línea de qué es esto."
 }

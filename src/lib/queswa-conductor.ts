@@ -613,6 +613,15 @@ export function fotoParaWeb(foto: FotoDictada): string {
 const RE_PIDE_PIEZA =
   /\b(haz|hazme|h[aá]game|h[aá]gamelo|arma|[aá]rm[ea]me|arme|crea|cr[eé][ea]me|red[aá]ct[ae](me|nos)?|escr[ií]b[ae](me|nos)?|dise[ñn]a|dise[ñn][ea]me|genera|gen[eé]r[ea]me|prep[aá]r[ea]me|puedes?\s+(hacer|hacerme|crear|crearme|armar|armarme|redactar|dise[ñn]ar|generar|preparar)|me\s+(haces|armas|creas|redactas|dise[ñn]as|generas|preparas)|necesito|quiero|quisiera|me gustar[ií]a)(?!\s+(ver|mirar|conocer|saber|entender))\b[^.?!]{0,60}?\b(gui[oó]n(es)?|v[ií]deos?|reels?|diapositivas?|slides?|piezas?|flyers?|volantes?|publicidad|anuncios?|posts?|historias? (de|para)|estados? (de|para)|contenido|campa[ñn]a|banner|afiche|cartel|tarjetas? de presentaci[oó]n|folletos?|brochures?|propuestas? (comercial|de proveedur[ií]a|para (restaurantes|tiendas|negocios|empresas))|presentaci[oó]n(es)?)\b/i;
 
+// ── La mitad de EMPRESA de una pregunta mixta (27 sep 2026) ──────────────────
+// «¿Gano Excel qué es? ¿qué productos venden?» abre la puerta de WHY_PROD_01 en
+// route.ts y el candado responde solo los productos; cuando el mensaje también
+// pide qué es la empresa, el backend antepone la línea de credenciales (estatus,
+// en hechos). Vive aquí para que `prueba-typos.mts` lo vigile — la persona
+// escribe con el pulgar, y «que es gano ecxel» también tiene que abrir.
+export const RE_PREGUNTA_EMPRESA_GANO =
+  /qu[eé]\s+es\s+(gano\s*e[xc]{1,3}[eé]?ll?|esa?\s+empresa|la\s+empresa)|gano\s*e[xc]{1,3}[eé]?ll?[^.?\n]{0,8}qu[eé]\s+es|qui[eé]n(?:es)?\s+(?:es|son)\s+gano\s*e[xc]{1,3}[eé]?ll?/i;
+
 export const TEXTO_NO_PIEZAS =
   'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +
   'Lo que sí le mando ahora mismo es la imagen del portafolio, o la de cualquier línea o producto, tal cual la usa el equipo. ' +

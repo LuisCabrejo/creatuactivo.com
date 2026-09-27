@@ -495,6 +495,15 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.56 — Nace `FREQ_38`: la disponibilidad a toda hora (27 sep 2026)
+
+De la auditoría del guion del video «Cómo funciona» (agente de creatuactivo.com, 27 sep): *«¿y si un cliente escribe a las 2 am usted le responde?»* caía en el candado de `FREQ_37` —`candado_dictado`, emitido literal sin que el modelo viera el turno— y la persona recibía el vínculo del cliente en vez de la disponibilidad. La pregunta no tenía dueño: la atención 24 horas vivía solo como cláusula dentro de `WHY_02`, y un fragmento largo no gana una consulta corta.
+
+- **Cuerpo de dos líneas, aprobado por el Director en el chat:** la disponibilidad como hecho (*atiendo a toda hora, todos los días*) y la escena devuelta al dueño (*usted ve después, en su aplicación, quién llegó*). Sin candado: no hay cifra ni frase legal que proteger.
+- **Cierra hacia `FREQ_37`** — de la atención a la propiedad, la continuación natural.
+- **Índice medido en laboratorio contra los rivales de producción** (arnés de candidatos, mismo texto que embebe el fragmentador): gana sus paráfrasis de madrugada/festivos/toda hora en 0.536–0.741, sin robarle a `FREQ_37`, `WHY_APP_01`, `FREQ_09` ni `FREQ_33`. *«¿Usted es la misma IA que atiende a mis clientes?»* migra de FREQ_37 aquí (0.593 vs 0.546) — mejor casa: la palabra de la persona es *atiende*. *«¿Usted trabaja de noche?»* queda en PERFIL_02 por 0.007, a propósito: pelearla arriesgaba las consultas de quien habla de su propio turno nocturno.
+- **Preexistentes que el arnés destapó y NO son de esta versión** (anotados para el Dashboard): *«me lo pueden quitar después?»* → FREQ_15 (FREQ_37 en puesto 5) · *«en el video hablaban de una ruta paso a paso»* → EAM_01 sobre WHY_APP_01 por 0.008.
+
 ### v6.55 — `FREQ_33` responde quién paga el envío y recibe las preguntas del inventario y del despacho (27 sep 2026)
 
 De la auditoría del guion del video (agente de creatuactivo.com, 27 sep): la binaria *«¿quién paga el envío, el cliente o yo?»* recibía una evasiva compuesta, y *«¿tengo que guardar producto en la casa?»* caía en los INV_* del 12 Niveles, que le metían el paquete y la recompra que nadie preguntó.

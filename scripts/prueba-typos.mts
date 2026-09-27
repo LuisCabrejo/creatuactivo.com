@@ -24,7 +24,7 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { detectarPidePieza, declaraPerfil } from '../src/lib/queswa-conductor.ts';
+import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
 // lexer de Node se detiene en la «ñ» de `notificarDueño`, así que todo export
@@ -67,6 +67,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'pedir una reunión es pedir una persona — el video del día 15 dice que Luis se reúne con interesados (21 sep 2026)' },
   { nombre: 'detectarPreguntaCharla',   fn: detectarPreguntaCharla, frase: 'dónde da esas charlas', llaves: ['charlas', 'dónde'], tope: 0,
     nota: 'las charlas de Luis: dónde viven y aviso al socio (21 sep 2026)' },
+  { nombre: 'pregunta empresa · gano excel', fn: (t) => RE_PREGUNTA_EMPRESA_GANO.test(t), frase: 'gano excel que es? que productos venden', llaves: ['excel'], tope: 0,
+    nota: 'la mitad de empresa de la pregunta mixta antepone las credenciales al candado de WHY_PROD_01 (27 sep 2026); tolera exel/ecxel' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

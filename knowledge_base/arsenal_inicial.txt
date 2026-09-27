@@ -12,11 +12,12 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.55** (27 sep 2026) — **`FREQ_33` responde quién paga el envío y recibe las preguntas del inventario y del despacho.** De la auditoría del guion del video (agente de creatuactivo.com): la binaria del envío recibía una evasiva y *«¿tengo que guardar producto en la casa?»* caía en los INV_* del 12 Niveles, que le metían el paquete y la recompra que nadie preguntó. La línea del pagador es copy del Director; el título bajó de seis preguntas a dos (el lever de INV_00/EAM_01) y las paráfrasis van literales en el índice: 17/17 en el arnés — gana sus diez formas de preguntar sin robarle a FREQ_37, INV_03, INV_05, FREQ_25, FREQ_30, PROD_02 ni FAQ_03. La otra mitad del arreglo es del 12 Niveles (v6.24): INV_03 era un atractor. «Su Dashboard» → su aplicación personalizada (criterio v6.54).
+**Versión actual: v6.56** (27 sep 2026) — **Nace `FREQ_38`: la disponibilidad a toda hora.** De la auditoría del guion del video «Cómo funciona»: *«¿y si un cliente escribe a las 2 am usted le responde?»* caía en el candado de `FREQ_37` —emitido literal, sin que el modelo viera el turno— y la persona recibía el vínculo del cliente en vez de la disponibilidad, que no tenía dueño (vivía como cláusula dentro de `WHY_02`). Dos líneas aprobadas por el Director, sin candado; cierra hacia `FREQ_37`. Índice medido contra los rivales de producción: gana sus paráfrasis (0.536–0.741) sin robar; «¿usted es la misma IA que atiende a mis clientes?» migra aquí desde FREQ_37 — la palabra de la persona es *atiende*.
+
+**v6.55** (27 sep 2026) — **`FREQ_33` responde quién paga el envío y recibe las preguntas del inventario y del despacho.** De la auditoría del guion del video (agente de creatuactivo.com): la binaria del envío recibía una evasiva y *«¿tengo que guardar producto en la casa?»* caía en los INV_* del 12 Niveles, que le metían el paquete y la recompra que nadie preguntó. La línea del pagador es copy del Director; el título bajó de seis preguntas a dos (el lever de INV_00/EAM_01) y las paráfrasis van literales en el índice: 17/17 en el arnés — gana sus diez formas de preguntar sin robarle a FREQ_37, INV_03, INV_05, FREQ_25, FREQ_30, PROD_02 ni FAQ_03. La otra mitad del arreglo es del 12 Niveles (v6.24): INV_03 era un atractor. «Su Dashboard» → su aplicación personalizada (criterio v6.54).
 
 **v6.54** (27 sep 2026) — **`WHY_05` 🔒 y `FREQ_14` entregan la aplicación personalizada.** Las dos listaban la metodología como tercer entregable; con el criterio de `WHY_02` v6.52, lo que se entrega es la aplicación que marca la ruta (en `FREQ_14`, además, es la que muestra cómo va el sistema — reemplaza «su Dashboard», que era nombre interno). «Una metodología de dos pasos» se queda en la lista de herramientas de `FREQ_14`: ahí sí responde qué hace la persona. Texto aprobado por el Director; índices y preguntas de cierre sin tocar.
 
-**v6.53** (27 sep 2026) — **Nace `WHY_APP_01` 🔒: qué es la aplicación personalizada.** Es la respuesta que el video «Cómo funciona» a 60 s estrena (tercer elemento de `WHY_02` v6.52): el Centro de Mando dicho en mecanismo —marca la ruta, redacta, avisa—, cada frase verificable en queswa.app, sin cifras. Cierra hacia `EAM_01`. Texto aprobado por el Director; índice medido en laboratorio antes de desplegar.
 
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
@@ -407,6 +408,18 @@ En este equipo recomendamos lo primero, porque es lo mejor para los dos. Para us
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se registra alguien con su código?
+
+---
+
+### **FREQ_38: "¿Usted atiende a cualquier hora? / ¿Y si un cliente escribe de madrugada, le responde?"**
+**[Índice]:** Si atiende a toda hora o a qué horas responde. ¿Y si un cliente escribe a las 2 de la mañana usted le responde? Si responde de madrugada, de noche, un domingo o un festivo. Quién atiende cuando yo estoy durmiendo.
+**[Concepto Nuclear]:** La disponibilidad dicha como HECHO del mecanismo, sin adjetivos. Nace de la auditoría del guion del video «Cómo funciona» (27 sep 2026): *«¿y si un cliente escribe a las 2 am usted le responde?»* caía en el candado de `FREQ_37` —que en el canal se emite literal, sin que el modelo vea el turno— y la persona recibía el vínculo del cliente en vez de la disponibilidad. La respuesta es corta a propósito (la consulta domina la señal — lección `FAQ_05`) y **sin candado**: no hay cifra ni frase legal que proteger, y el modelo puede acomodarla al hilo. ⚠️ La segunda línea le devuelve la escena al dueño y dice **su aplicación** (criterio v6.54: el nombre interno no se enseña). ⚠️ Se dice *recibe respuesta*, nunca lo que esa respuesta logra — la disponibilidad es mecanismo, el resultado sería promesa. Cierra hacia `FREQ_37`: de la atención a la propiedad, que es la continuación natural. Copy aprobado por el Director en el chat (27 sep 2026). Índice medido contra los rivales de producción antes de desplegar: gana sus paráfrasis (0.536–0.741) sin robarle a `FREQ_37` —las suyas re-medidas—, a `WHY_APP_01`, a `FREQ_09` ni a `FREQ_33`; *«¿usted es la misma IA que atiende a mis clientes?»* migra aquí desde FREQ_37, y es mejor casa: la palabra de la persona es *atiende*.
+
+Sí. Yo atiendo a toda hora, todos los días — quien escriba a las 2 de la mañana recibe respuesta en ese momento.
+
+Usted ve después, en su aplicación, quién llegó y en qué quedó cada conversación.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo queda esa persona a su nombre?
 
 ---
 

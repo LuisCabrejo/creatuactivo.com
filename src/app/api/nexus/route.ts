@@ -44,6 +44,7 @@ import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/g
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, fotoParaWeb, aFormatoWeb,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
+  RE_PREGUNTA_EMPRESA_GANO,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, type Bitacora } from '@/lib/queswa-bitacora';
@@ -6806,7 +6807,21 @@ ${visitorCountry === 'CO'
           // contacto no hay historia que leer, y sale como siempre.
           const _lock = _cuerpo.replace(/\n\n¿[^\n]*\?\s*$/, '').trim();
           const _cierreDefecto = _cuerpo.slice(_lock.length).trim();
-          const _nucleo = sinElogioSiNoPregunto(_lock, String(latestUserMessage ?? ''));
+          let _nucleo = sinElogioSiNoPregunto(_lock, String(latestUserMessage ?? ''));
+          // ── La mitad de EMPRESA de una pregunta mixta (27 sep 2026) ─────────
+          // Auditoría del guion del video: «¿Gano Excel qué es? ¿qué productos
+          // venden?» abre la puerta de WHY_PROD_01 y el candado responde solo los
+          // productos — la mitad de la empresa queda sin contestar, y el modelo
+          // de la envoltura no tiene esos datos (compuso un cierre hacia la
+          // facturación). Cuando la pregunta también pide qué es la empresa, el
+          // backend antepone la línea de credenciales — como estatus, en hechos,
+          // nunca como alegato (doctrina del 6 sep). Aprobado por el Director
+          // («arregla», 27 sep 2026). El regex vive en el conductor para que
+          // `prueba-typos.mts` lo vigile.
+          if (_idFrag === 'arsenal_inicial_WHY_PROD_01'
+            && RE_PREGUNTA_EMPRESA_GANO.test(String(latestUserMessage ?? ''))) {
+            _nucleo = `Gano Excel es el fabricante: 30 años de operación y presencia en más de 60 países.\n\n${_nucleo}`;
+          }
           // Sin historia que leer, sale el texto aprobado con su pregunta; pero el
           // elogio a una pregunta que no se hizo se quita igual.
           let _turno = armarTurno({ apertura: '', cierre: _cierreDefecto }, _nucleo);

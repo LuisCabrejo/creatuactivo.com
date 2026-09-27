@@ -7,6 +7,15 @@
 
 Acabado cinematográfico de reels (estilo Dan Koe/Naval) en M1, todo por código. Entrada: export de CapCut ya graduado (LUT Osmo Pocket 3 + ajustes); salida: 1080×1920·24fps con subtítulos + motion graphics de marca + SFX + atmósfera + música, mezclado a −14 LUFS. **La música ahora vive en el pipeline (no en CapCut).**
 
+> 🎙️ **LA VOZ DE LOS REELS ES «Andres Felipe»** (ElevenLabs, masculina, colombiana —
+> `d2Cxiyh5zS7CQNTlRrdT`, en la cuenta de `ELEVENLABS_API_KEY`; ajustes de los videos:
+> stability 0.5 · similarity 0.75 · speed 1.05 · multilingual_v2, calibrados el 27 sep 2026
+> contra las tomas del video «Cómo funciona»). ⛔ **`ELEVENLABS_VOICE_ID` del .env NO es
+> esta voz: es Sarah, la voz femenina del TTS de Queswa en la web** — una tanda entera
+> salió con ella el 27 sep por usar esa variable como default, y una coincidencia de
+> duración la disfrazó de calibración buena. La voz se confirma por NOMBRE contra
+> `/v1/voices`. Generador reproducible: `captions/work/como-funciona/generar-vo.mjs`.
+>
 > **Variante b-roll 100% IA (jun 2026):** algunos reels no tienen talking-head — son **clips Gemini/Veo** (ya graduados, estética bimetálica/orbe-héroe) secuenciados bajo un **VO de ElevenLabs**. Mismo pipeline (forced alignment **sobre el VO** → subtítulos · música suspense→corporativa con el cambio en el giro narrativo · SFX · outro), con tres particularidades: (1) **logo-bug** (`emblema.png` ~170px abajo-derecha + `drawbox` negro debajo) que **tapa la marca de agua ✦ de Gemini**; (2) los clips de 10s se **retiman** (`setpts=PTS*factor`) para calzar la duración de cada beat del VO; (3) **sin atmósfera** (los clips ya vienen graduados — misma regla que los reels de CapCut). Caso de referencia: reel **"Bezos / dueño del sistema"** (`masters/bezos-3d.mp4`, serie de documentación, entregado para Stories — CTA a Queswa/home, no deploy). ⚠️ **Gotcha zsh:** el Bash tool corre con semántica zsh → **arrays indexados desde 1** (no 0) y, peor, **las variables de un `filter_complex` se vacían dentro de una función de shell** (`...,$F[v]` → `No such filter: ''`). Para ffmpeg con filtros: comandos **explícitos e inline**, sin función ni variables para el filtergraph.
 
 > ⚠️ **El base de CapCut debe exportarse SIN música (pista de música en MUTE)** — solo voz + grade. Si trae la música de CapCut bakeada, el pipeline la trata como "voz" y nuestra música queda enterrada (doble música). Verificar con `silencedetect`/`volumedetect`: en una pausa del habla un base limpio mide ~−60 dB; con música bakeada ~−30 dB. Si el video ya viene con música y no se puede re-exportar, separar la voz con Demucs (IA) — imperfecto.

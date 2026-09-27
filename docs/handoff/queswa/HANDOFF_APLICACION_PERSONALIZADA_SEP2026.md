@@ -32,10 +32,45 @@ Desplegado por el Dashboard el 27 sep (verificado en los tres tenants, 180/180/1
 4. **System prompt** (`knowledge_base/system-prompt-queswa.md`): buscar «dos pasos» / «tres elementos» / cómo se nombra la aplicación; si algo contradice el tercer elemento nuevo, ajustar y desplegar con `actualizar-system-prompt-queswa.mjs` (⚠️ presupuesto: < 20.000 caracteres por canal desplegado, medido con `--dry`; una regla nueva se paga quitando otra).
 5. **Después de sus cambios:** correr `auditar-guion-queswa.mjs` sobre el guion nuevo del video (abajo) — `WHY_APP_01` ya existe para atender lo que estrena.
 
-## Lo que NO es suyo (lo lleva el Dashboard)
+## El video «Cómo funciona» a 60 s — AHORA ES SUYO (Director, 27 sep 2026)
 
-- Los arsenales. `WHY_05` (*«…y una metodología sencilla, de dos pasos»*) y `FREQ_14` (*«…y una metodología de dos pasos… su Dashboard»*) listan la metodología como entregable: el texto nuevo está propuesto al Director y lo despliega el Dashboard cuando él apruebe.
-- **El video «Cómo funciona»** (los dos cortes de 60 s). Guion aprobado:
+El Director reasignó la producción del video a este repo («ya tiene todo el contexto y
+los elementos»). **Buena parte ya está hecha y vive aquí** — no lo rehaga:
+
+- **La voz, generada y calibrada:** `captions/work/como-funciona/vo-v2/` — 22 tomas
+  (2 semillas × 11 bloques) con **Andres Felipe** (`d2Cxiyh5zS7CQNTlRrdT`, stability 0.5 ·
+  similarity 0.75 · **speed 1.05**, calibrada contra la toma del video actual: desvío 33 ms).
+  Borradores ensamblados para que el Director elija: `borrador-compartible.wav` (59.7 s),
+  `borrador-chat.wav` (59.2 s), `borrador-chat-alt.wav` (60.2 s) y
+  `comparacion-A-B-por-bloque.wav` (seed 11 · bip · seed 23, bloque por bloque).
+  Generador reproducible: `generar-vo.mjs` en ese directorio. ⛔ **La voz NUNCA sale de
+  `ELEVENLABS_VOICE_ID` del .env (es Sarah, la de Queswa web)** — ver PIPELINE.md.
+- **El plan completo:** `captions/work/como-funciona/PLAN-VIDEO-60S.md` — beats por
+  bloque, mapa bloque→clip (los clips existentes cubren todo menos el b05), duraciones,
+  y los pasos que faltan (segmentos v2, subtítulos karaoke, música, masters, Blob `-v2`).
+- **El visual del b05 (Waze), en borrador Remotion:** `motion/src/Ruta3D.tsx` (comiteado)
+  + registro en `Root.tsx` (LOCAL, sin comitear — ese archivo trae cambios ajenos). Render
+  de muestra: `motion/out/ruta3d.mp4` (7.5 s). El orbe, el pin que cae, la ruta punteada
+  que se enciende en oro y tres hitos que pulsan — beats anclados a la toma b05 seed 11.
+  ⚠️ El orbe NO llega al pin, a propósito: la ruta se marca, la llegada no se promete.
+- **Decisiones del Director aún pendientes:** tomas por bloque (seed 11 = la lectura del
+  video actual; el total va justo — b03/b05/b08 en seed 23 ahorran ~1.7 s) · cierre del
+  chat («pregúnteme» aprobado, pero cambia la voz del narrador; «pregúntele aquí mismo»
+  la conserva — las dos tomas existen) · si el visual b05 es el insert Remotion o un clip
+  Veo suyo (prompt en el plan).
+- **Al terminar, el Dashboard hace su parte:** cambiar la URL del corte del chat en
+  `Dashboard/src/lib/videos-queswa.ts` (subir a Blob con NOMBRE NUEVO, `-v2`: Meta y los
+  teléfonos cachean), y reemplazar el compartible + poster + caption en
+  `Dashboard/public/videos/reels-equipo/` y `REELS_EQUIPO_DATA`. Avísele al agente del
+  Dashboard o al Director.
+- Después de ensamblar: `auditar-guion-queswa.mjs` sobre el guion (WHY_APP_01 ya existe).
+
+## Lo que sigue siendo del Dashboard
+
+- Los arsenales: `WHY_02` v6.52, `WHY_APP_01` v6.53 y `WHY_05`/`FREQ_14` v6.54 ya están
+  desplegados y verificados — no los toque.
+
+## El guion aprobado:
 
 ```
 Hoy todos quieren vender por internet, pero muy pocos tienen la infraestructura para armar un negocio moderno de distribución. Funciona así: usted recibe en una sola aplicación los tres elementos que eliminan la fricción de montarlo.
@@ -56,4 +91,4 @@ Las comisiones las paga el fabricante: Gano Excel, treinta años, más de sesent
 [Corte del chat]    Usted ya está viendo esta tecnología en vivo: pregúnteme cómo aplicaría para usted.
 ```
 
-- ⚠️ **Ventana de desfase conocida:** hasta que los cortes nuevos estén subidos, los videos en producción dicen la voz anterior mientras `WHY_02` ya dice el texto nuevo. Está anotada en el CHANGELOG v6.52; no la "arregle" revirtiendo el arsenal.
+⚠️ **Ventana de desfase conocida:** hasta que los cortes nuevos estén subidos, los videos en producción dicen la voz anterior mientras `WHY_02` ya dice el texto nuevo. Está anotada en el CHANGELOG v6.52; no la "arregle" revirtiendo el arsenal — se cierra produciendo.

@@ -1022,7 +1022,11 @@ export default function PitchDeckPage() {
                 nunca sobre la tecnología. Así el celular deja de ser metáfora.
                 ⚠️ Gano Excel NO va aquí: se nombra al final de la explicación, como
                 quien fabrica y despacha — en la pantalla 5, con sus hechos. */}
-            <p className="pd-p">
+            {/* LA LÍNEA DE PAGO VA SEPARADA (Director, 28 sep 2026: «debe haber una
+                separación en los textos»). Con el margen normal de .pd-p los dos
+                párrafos se leían como un solo bloque, y el «hasta hace poco → hoy»
+                es justamente la pausa de la pantalla. */}
+            <p className="pd-p" style={{ marginTop: '1.6rem' }}>
               Hoy, CreaTuActivo.com y Queswa.app{' '}
               <span className="pd-gold">la ponen en un celular.</span>
             </p>
@@ -1311,9 +1315,10 @@ export default function PitchDeckPage() {
                 problema. Las cifras contestan esas dos últimas con dato, y la pregunta
                 la contesta él («ninguno»): con alguien que duda, mueve que diga sus
                 propias razones (CIENCIA_CONDUCTUAL §3).
-                ⚠️ Dolor de HOY, no miedo al futuro: las cifras de pensión se dejaron
-                fuera a propósito — en quien duda producen «lo pienso». Las cuenta el
-                socio en vivo, si el prospecto es mayor.
+                ⚠️ La cifra de pensión ENTRÓ el 27 sep 2026 por decisión del Director
+                (reemplazó al GEM de oportunidades — ver CIFRAS_PROBLEMA): es el
+                destino del ciclo y cierra el arco hoy → final → los demás ya se
+                mueven. Esto reemplaza la nota del 26 sep que la dejaba fuera.
                 ⚠️ «El ciclo» retoma el credo y la pantalla 2 sin repetirlos. La voz de
                 confianza con que el Director lo dice en vivo NO se escribe aquí.
                 Fuentes y descartes: ver CIFRAS_PROBLEMA. */}

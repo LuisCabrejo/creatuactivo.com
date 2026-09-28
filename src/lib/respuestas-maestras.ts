@@ -41,7 +41,7 @@
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
  * Ajuste 27 sep 2026 — EL TERCER ELEMENTO ES SU APLICACIÓN PERSONALIZADA (texto del
  *   Director, sesión del guion del video a 60 s). Los tres elementos responden qué
- *   RECIBE la persona; las dos acciones responden qué HACE y viven en EAM_01/WHY_01.
+ *   RECIBE la persona; las dos acciones responden qué HACE y viven en EAM_01 (WHY_01 solo nombra los 3 elementos, v6.59).
  *   El enlace sube al elemento 2 para que la propiedad lo reciba explicado. Waze va
  *   en MECANISMO («le voy marcando la ruta»), nunca «lo lleva» — promesa de ingreso.
  *   Sincronizado carácter por carácter con arsenal_inicial.txt v6.52 (arranque: v6.58, «empresa de distribución moderna»).

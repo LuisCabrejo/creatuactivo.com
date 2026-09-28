@@ -495,6 +495,17 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.59 — `WHY_01` nombra los 3 elementos sin listarlos (28 sep 2026)
+
+El Director preguntó en el Centro de Mando «Queswa cómo funciona el negoció» y recibió `WHY_01` (el detector del video descartaba el pedido por el vocativo; corregido en el Dashboard, `8dd2694`). Al leerlo lo vio con **contexto viejo**: el marco anterior al 27 sep.
+
+- **Salió:** *«tener su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace. Yo converso con quien llega. Usted recibe.»* — la categoría del producto (llega con la oferta, como en `WHY_02`) y las dos acciones, que desde el criterio de `WHY_02` v6.52 responden qué HACE la persona y viven solo en `EAM_01`.
+- **Entró:** *«tener su propia empresa de distribución. Usted recibe los 3 elementos en una sola aplicación, y lo maneja todo desde el celular.»* y *«El fabricante es **Gano Excel**: 30 años, más de 60 países.»*
+- **Por qué nombrarlos y no listarlos:** el 13 sep (v6.36) el Director sacó de aquí los tres elementos por carga cognitiva —`WHY_02` los da completos en el turno siguiente, y ahora con su video—. Se le propusieron las dos formas y eligió esta. No volver a listarlos aquí.
+- *Empresa* porque la frase trata de propiedad (regla del 10 sep); **sin «moderna»**, que dice `WHY_02` en el turno siguiente (una vez por conversación); el «3» en número (Director).
+- Referencias cruzadas corregidas: `WHY_02` y `WHY_05` decían que las dos acciones viven «en EAM_01 y WHY_01».
+- **Despliegue sin ventana:** índice y título intactos → embedding intacto. Reemplazo atómico en los tres tenants + documento padre.
+
 ### v6.58 — Una sola forma: «empresa de distribución moderna» (28 sep 2026)
 
 Convivían tres formas del mismo adjetivo: *un negocio moderno de distribución* (`WHY_02`, el prompt, la Home y el guion del video «Cómo funciona»), *empresa moderna de distribución* (`EMPRESA_DIGITAL_01` y el pitch deck, desde el 25-26 sep) y *empresa de distribución moderna* (el ideal del Director del 27 sep, y la tarjeta del pitch deck desde el 24). El vocabulario de este negocio se duplica, y tres formas casi iguales se degradan tres eslabones abajo. El Director fijó la tercera, en todas partes.

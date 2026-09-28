@@ -81,5 +81,26 @@ const notaNiv = notaVideoDoceNivelesVisto();
 espera('la nota lleva la firma del tema «estrategia» de la bitácora', temasDelTexto(notaNiv).has('estrategia'));
 espera('la nota no trae el precio del Kit (el video no lo dice)', !/PRECIO_KIT|\$\s?\d{3}\.\d{3}/.test(notaNiv));
 
+console.log('\n5 · «Cómo entra el dinero» y «Qué debo hacer yo» (/{slug}/como-entra-el-dinero · /{slug}/que-debo-hacer-yo)');
+const { videoDeReelVisto, opcionesTrasReel, construirAperturaTrasReel, aperturaRetornoTrasReel, notaVideoReelVisto } = await import('../src/lib/wa-apertura');
+const ENL = 'Hola Queswa, vengo del enlace de luis-cabrejo. ';
+espera('reconoce el enlace del dinero', videoDeReelVisto(ENL + 'Ya vi el video de cómo entra el dinero.') === 'apertura_dinero');
+espera('reconoce el enlace del día a día', videoDeReelVisto(ENL + 'Ya vi el video de qué debo hacer yo.') === 'apertura_rol');
+espera('no se dispara con el saludo normal ni con los otros reels',
+  videoDeReelVisto(ENL.trim()) === null && videoDeReelVisto(ENL + 'Ya vi el video de cómo funciona.') === null && videoDeReelVisto(ENL + 'Ya vi el video de los 12 niveles.') === null);
+espera('no se dispara con quien PREGUNTA', videoDeReelVisto('¿de dónde sale el dinero?') === null && videoDeReelVisto('¿qué debo hacer yo?') === null);
+espera('los otros reels no confunden estos enlaces', !vieneDelVideoComoFunciona(ENL + 'Ya vi el video de cómo entra el dinero.') && !vieneDelVideoDoceNiveles(ENL + 'Ya vi el video de qué debo hacer yo.'));
+for (const [v, tema, misma] of [['apertura_dinero', 'dinero', false], ['apertura_rol', 'dia_a_dia', true]] as const) {
+  const op = opcionesTrasReel(v);
+  espera(`${v}: dos botones, sin el del video visto`, op.length === 2 && !op.some((o) => o.id === v));
+  const ap = construirAperturaTrasReel(v, 'Luis Cabrejo', 'Marcela');
+  espera(`${v}: «la misma del video» ${misma ? 'sí' : 'no'}`, /la misma del video/.test(ap) === misma);
+  espera(`${v}: una sola pregunta, al final`, /¿Por dónde seguimos\?$/.test(ap) && (ap.match(/\?/g) || []).length === 1);
+  espera(`${v}: el retorno reconoce el video`, /ya vio el video de/.test(aperturaRetornoTrasReel(v, 'Marcela')));
+  const n = notaVideoReelVisto(v);
+  espera(`${v}: la nota marca el tema «${tema}» en la bitácora`, temasDelTexto(n).has(tema));
+  espera(`${v}: la nota no trae la pregunta de cierre`, !/\?\s*$/m.test(n));
+}
+
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

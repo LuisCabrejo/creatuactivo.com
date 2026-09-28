@@ -165,7 +165,7 @@ export default async function DestinoRoute({
   // lo reconoce con vieneDelVideoComoFunciona(), en wa-apertura.ts).
   // /{slug}/estrategia (28 sep 2026) es el del reel «Los 12 Niveles»: avisa que ya
   // vio ese video (vieneDelVideoDoceNiveles) y Queswa le ofrece el simulador.
-  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia') {
+  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia' || destino === 'como-entra-el-dinero' || destino === 'que-debo-hacer-yo') {
     await resolverSlug(slug, destino)
 
     // ⚠️ Sin emoji, y medido (19 ago 2026). La redirección entrega el carácter
@@ -179,7 +179,13 @@ export default async function DestinoRoute({
       ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de cómo funciona.`
       : destino === 'estrategia'
         ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de los 12 niveles.`
-        : `Hola Queswa, vengo del enlace de ${slug}`
+        // Los reels «Cómo entra el dinero» y «Qué debo hacer yo» (28 sep 2026): el
+        // webhook los reconoce con videoDeReelVisto() en wa-apertura.ts.
+        : destino === 'como-entra-el-dinero'
+          ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de cómo entra el dinero.`
+          : destino === 'que-debo-hacer-yo'
+            ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de qué debo hacer yo.`
+            : `Hola Queswa, vengo del enlace de ${slug}`
     const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto)}`
 
     // 🔴 A los robots de vista previa NO se les redirige (28 ago 2026). Un
@@ -266,7 +272,7 @@ export async function generateMetadata({
 
   // Tarjeta propia para el enlace de Queswa. La imagen vive en /og/queswa
   // (route handler propio, no la del home: ver el porqué en ese archivo).
-  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia') {
+  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia' || destino === 'como-entra-el-dinero' || destino === 'que-debo-hacer-yo') {
     const url = `https://creatuactivo.com/${slug}/${destino}`
     return {
       title: `${OG_QUESWA.title} | CreaTuActivo`,

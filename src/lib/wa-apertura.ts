@@ -465,6 +465,74 @@ export function notaVideoDoceNivelesVisto(): string {
   ].join('\n');
 }
 
+// ─── Quien YA VIO «Cómo entra el dinero» o «Qué debo hacer yo» (28 sep 2026) ─
+//
+// Mismo patrón que «Cómo funciona»: el reel compartible lleva `/{slug}/como-entra-
+// el-dinero` o `/{slug}/que-debo-hacer-yo`, que abren WhatsApp con «Hola Queswa,
+// vengo del enlace de {slug}. Ya vi el video de …». La apertura reconoce el video,
+// no ofrece el botón que lo repetiría, y la fila guarda lo que dice la voz para
+// que la bitácora dé el tema por mostrado.
+// • «la misma del video» solo en «Qué debo hacer yo», donde la voz es la de
+//   Queswa («entre las dos estoy yo»); en el del dinero Queswa no aparece, como
+//   en «Los 12 Niveles».
+// Copy aprobado por el Director el 28 sep 2026.
+
+export type VideoDeReel = 'apertura_dinero' | 'apertura_rol';
+
+const REELS_VISTOS: Record<VideoDeReel, { re: RegExp; loQueVio: string; titulo: string; seg: number; mismaDelVideo: boolean }> = {
+  apertura_dinero: {
+    re: /(?<![a-záéíóúñ])vi\s+(el\s+)?v[ií]deo\s+(de\s+)?c[oó]mo\s+entra\s+el\s+dinero/i,
+    loQueVio: 'cómo entra el dinero', titulo: 'Cómo entra el dinero', seg: 50, mismaDelVideo: false,
+  },
+  apertura_rol: {
+    re: /(?<![a-záéíóúñ])vi\s+(el\s+)?v[ií]deo\s+(de\s+)?qu[eé]\s+debo\s+hacer(\s+yo)?/i,
+    loQueVio: 'qué haría usted en el día a día', titulo: 'Qué debo hacer yo', seg: 42, mismaDelVideo: true,
+  },
+};
+
+/** El reel nuevo que la persona dice haber visto, por la frase del enlace. */
+export function videoDeReelVisto(texto: string): VideoDeReel | null {
+  for (const k of Object.keys(REELS_VISTOS) as VideoDeReel[]) if (REELS_VISTOS[k].re.test(texto || '')) return k;
+  return null;
+}
+
+/** Los botones de la apertura, sin el del video que ya vio. */
+export function opcionesTrasReel(video: VideoDeReel): WAButton[] {
+  return APERTURA_OPCIONES.filter((o) => o.id !== video);
+}
+
+export function construirAperturaTrasReel(video: VideoDeReel, nombreSocio?: string, nombreProspecto?: string): string {
+  const r = REELS_VISTOS[video];
+  const nombre = nombreUtil(nombreProspecto);
+  const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
+  const socio = nombreSocioCorto(nombreSocio);
+  const misma = r.mismaDelVideo ? ', la misma del video' : '';
+  const identidad = socio
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}${misma}. Atiendo a cientos de personas, las 24 horas.`
+    : `Soy Queswa, la inteligencia artificial de CreaTuActivo${misma}. Atiendo a cientos de personas, las 24 horas.`;
+  return [
+    `${saludo} Un gusto saludarle.`,
+    '',
+    identidad,
+    '',
+    `Como ya vio ${r.loQueVio}, arrancamos desde ahí. Pregunte lo que quiera, sin ningún afán. ¿Por dónde seguimos?`,
+  ].join('\n');
+}
+
+/** Quien ya había conversado y vuelve por el enlace del reel. */
+export function aperturaRetornoTrasReel(video: VideoDeReel, nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. Como ya vio el video de ${REELS_VISTOS[video].loQueVio}, seguimos desde ahí. ¿Por dónde retomamos?`;
+}
+
+/** Lo que se guarda como ya mostrado: lo mismo que guarda el botón al mandar el video. */
+export function notaVideoReelVisto(video: VideoDeReel): string {
+  const r = REELS_VISTOS[video];
+  const texto = getRespuestaBoton(video) ?? '';
+  const loQueDice = texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
+  return `[La persona llegó por el enlace del reel: antes de escribir vio el video «${r.titulo}», ${r.seg} s. Lo que dice la voz:]\n\n${loQueDice}`;
+}
+
 export function construirApertura(nombreSocio?: string, nombreProspecto?: string): string {
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';

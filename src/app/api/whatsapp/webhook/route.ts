@@ -42,6 +42,7 @@ import {
   aperturaRetornoTrasVideo,
   notaVideoComoFuncionaVisto,
   vieneDelVideoDoceNiveles,
+  videoDeReelVisto, opcionesTrasReel, construirAperturaTrasReel, aperturaRetornoTrasReel, notaVideoReelVisto,
   construirAperturaTrasVideoNiveles,
   aperturaRetornoTrasVideoNiveles,
   notaVideoDoceNivelesVisto,
@@ -1103,6 +1104,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // ⚠️ La marca va aquí y no con `marcarHiloDoceNiveles`: esa se declara más
     // abajo, y llamarla desde la apertura sería usar un const en zona muerta.
     const _vieneDelVideoNiveles = _vieneDelEnlace && vieneDelVideoDoceNiveles(messageText);
+    // Y los reels «Cómo entra el dinero» (/{slug}/como-entra-el-dinero) y «Qué debo
+    // hacer yo» (/{slug}/que-debo-hacer-yo), 28 sep 2026: misma apertura que tras
+    // «Cómo funciona», sin el botón del video que ya vio (wa-apertura.ts).
+    const _videoDeReel = _vieneDelEnlace ? videoDeReelVisto(messageText) : null;
     const marcarHiloPorVideoNiveles = async () => {
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1262,6 +1267,16 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`👋 [WA Webhook] Vuelve ${contactName} por el enlace del video «Los 12 Niveles» — se le ofrece el simulador`);
         return;
       }
+      if (_videoDeReel) {
+        const retornoR = aperturaRetornoTrasReel(_videoDeReel, contactName);
+        const opcionesRR = opcionesTrasReel(_videoDeReel);
+        const enviadoRR = await sendReplyButtons(phoneNumber, retornoR, opcionesRR);
+        if (!enviadoRR.ok) await sendWhatsAppMessage(phoneNumber, `${retornoR}\n\n${opcionesRR.map((o) => `• ${o.title}`).join('\n')}`);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText,
+          `${notaVideoReelVisto(_videoDeReel)}\n\n${retornoR}`, `retorno tras el reel ${_videoDeReel}`);
+        console.log(`👋 [WA Webhook] Vuelve ${contactName} por el enlace del reel ${_videoDeReel} — recibimiento corto con botones`);
+        return;
+      }
       // Vuelve por el enlace del reel «Cómo funciona»: ya vio el video, así que
       // se reconoce, se anota como mostrado y el botón que lo repetiría no sale.
       const retorno = _vieneDelVideo ? aperturaRetornoTrasVideo(contactName) : aperturaRetorno(contactName);
@@ -1295,6 +1310,16 @@ async function procesarEntrante(body: any): Promise<void> {
           `${notaVideoDoceNivelesVisto()}\n\n${texto}`, 'apertura tras el video «Los 12 Niveles»');
         await marcarHiloPorVideoNiveles();
         console.log(`👋 [WA Webhook] Apertura tras el video «Los 12 Niveles» entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
+        return;
+      }
+      if (_videoDeReel) {
+        const aperturaR = construirAperturaTrasReel(_videoDeReel, patrocinador?.nombre, contactName);
+        const opcionesAR = opcionesTrasReel(_videoDeReel);
+        const enviadoAR = await sendReplyButtons(phoneNumber, aperturaR, opcionesAR);
+        if (!enviadoAR.ok) await sendWhatsAppMessage(phoneNumber, `${aperturaR}\n\n${opcionesAR.map((o) => `• ${o.title}`).join('\n')}`);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText,
+          `${notaVideoReelVisto(_videoDeReel)}\n\n${aperturaR}`, `apertura tras el reel ${_videoDeReel}`);
+        console.log(`👋 [WA Webhook] Apertura tras el reel ${_videoDeReel} entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
         return;
       }
       // Quien llega por el enlace del reel «Cómo funciona» ya vio el video

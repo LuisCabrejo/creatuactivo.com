@@ -46,18 +46,18 @@
 import { sendText, sendTemplate, normalizePhone } from '@/lib/wa-channel';
 import { ultimoMensajeDePersona, dentroDeVentana } from '@/lib/wa-ventana';
 
-/** v2 desde el 14 sep 2026: una línea en blanco entre viñetas. `lunes_socio` (v1) quedó sin uso — Meta no dejó editarla dos veces el mismo día. */
-export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v4';
+/** Una plantilla nueva cada semana (Director, 20 sep 2026). v5 desde el 28 sep: «objetivos» en vez de «metas» y el video «Cómo funciona» como línea de la semana. */
+export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v5';
 
 /** Mismo texto que la plantilla (scripts/someter-plantilla-lunes-socio.mjs). Cambiar los dos a la vez. */
 export function cuerpoLunesSocio(nombre: string): string {
   return (
     `Hola ${nombre} 👋, espero que esté genial y vamos por una gran semana.\n\n` +
     'Aquí estoy para ayudarle:\n\n' +
-    '🎯 A cumplir sus metas.\n\n' +
+    '🎯 A cumplir sus objetivos.\n\n' +
     '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n\n' +
     '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
-    '📲 Estamos en constante innovación para mejorar su experiencia. Le invito a completar su información en Ajustes de Cuenta: así me pongo la 10 para ayudarle con sus objetivos.\n\n' +
+    '🎬 Ya tiene el video «Cómo funciona» con su enlace puesto, listo para sus Estados. Es el mismo que yo le muestro a quien me pregunta. Lo encuentra en queswa.app, en Compartir → Reels.\n\n' +
     'Soy todo oídos.'
   );
 }

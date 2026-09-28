@@ -56,16 +56,19 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // Meta no alcanza a aprobarla antes del cron del lunes (8:00 Bogotá) el envío se
 // cae para todos los que estén fuera de la ventana de 24 h. Con v3 aparte, v2
 // sigue sirviendo hasta que v3 esté aprobada.
-const NOMBRE  = 'lunes_socio_v4';
+// v5 (28 sep 2026): «metas» → «objetivos» (el 19 sep el Director decidió que se
+// llaman referencias y que Queswa no introduce «meta»), y la línea de la semana es
+// el video «Cómo funciona» en Compartir → Reels, con el enlace del socio puesto.
+const NOMBRE  = 'lunes_socio_v5';
 
 /** El mismo texto vive en src/lib/wa-lunes-socio.ts (texto libre dentro de ventana). Cambiar los dos a la vez. */
 export const CUERPO_LUNES_SOCIO =
   'Hola {{1}} 👋, espero que esté genial y vamos por una gran semana.\n\n' +
   'Aquí estoy para ayudarle:\n\n' +
-  '🎯 A cumplir sus metas.\n\n' +
+  '🎯 A cumplir sus objetivos.\n\n' +
   '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n\n' +
   '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
-  '📲 Estamos en constante innovación para mejorar su experiencia. Le invito a completar su información en Ajustes de Cuenta: así me pongo la 10 para ayudarle con sus objetivos.\n\n' +
+  '🎬 Ya tiene el video «Cómo funciona» con su enlace puesto, listo para sus Estados. Es el mismo que yo le muestro a quien me pregunta. Lo encuentra en queswa.app, en Compartir → Reels.\n\n' +
   'Soy todo oídos.';
 
 const PLANTILLA = {

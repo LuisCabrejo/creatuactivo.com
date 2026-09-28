@@ -495,6 +495,17 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.60 — Nace `FREQ_39`: la razón social y el NIT de Gano Excel (28 sep 2026)
+
+El Director le preguntó a Queswa en queswa.app *«queswa sabes el nit de Gano Excel»* y la respuesta fue que no le aparecía en el material. Era cierto: ningún arsenal traía la razón social ni el NIT.
+
+- **El dato:** *Gano Excel S.A.*, NIT *900296200-1*. Lo dio el Director; contrastado con los directorios que publican el RUES (NIT 900296200, Bogotá) y con el dígito de verificación de la DIAN (da 1).
+- **El copy, aprobado en el chat:** una línea, *«En Colombia, la compañía está registrada como Gano Excel S.A., con NIT 900296200-1.»* *En Colombia* porque es la sociedad de este país y a quien está fuera no se le da como suyo. Se le ofreció una segunda línea que remitía al RUES para consultarla, y quedó fuera: quien pide el NIT ya sabe para qué lo quiere.
+- **Sin candado, a propósito.** `consultar_arsenal` del Dashboard conserva como candado el primer fragmento con candado de los cinco que trae, **aunque llegue tercero**. Este aparece en el top 5 de *«¿tengo que declarar renta por las comisiones?»* y de *«cómo me registro en Gano Excel»*: con candado, a esas preguntas les habría respondido el NIT.
+- **Índice medido en laboratorio** (nueve redacciones contra los fragmentos de producción del tenant `whatsapp`): la elegida pone 10 de 14 paráfrasis en el puesto 1 —la pregunta real del Director, *razón social* en tres formas, *datos para una factura*, *nombre legal*, *número de identificación tributaria*— y no le quita el primer puesto a `FREQ_13`, `FREQ_34`, `FREQ_31`, `CRED_01`, `CRED_02` ni `CRED_05`. ⚠️ **Lo que no alcanza:** *«nit»* suelto y *«me pasa el nit de gano»*; el embedding entiende mal la palabra sola. En WhatsApp el CQR reescribe el mensaje corto y en queswa.app el modelo redacta la búsqueda, y las dos formas completas llegan al puesto 1. Si hiciera falta, la salida es una puerta por patrón, no más índice.
+- **La pregunta de cierre** se midió antes de escribirla: *«¿Le muestro dónde quedan las oficinas de Gano Excel en Colombia?»* lleva a `FREQ_34` en 0.728 (margen 0.06). *«¿Le paso la dirección de la sede más cercana?»* no llegaba (0.399, Δ0.021).
+- **Cabecera:** salieron v6.57 y v6.56, que viven abajo; quedan la actual y las dos previas.
+
 ### v6.59 — `WHY_01` nombra los 3 elementos sin listarlos (28 sep 2026)
 
 El Director preguntó en el Centro de Mando «Queswa cómo funciona el negoció» y recibió `WHY_01` (el detector del video descartaba el pedido por el vocativo; corregido en el Dashboard, `8dd2694`). Al leerlo lo vio con **contexto viejo**: el marco anterior al 27 sep.

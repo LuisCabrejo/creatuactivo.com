@@ -12,14 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.59** (28 sep 2026) — **`WHY_01` 🔒 nombra los 3 elementos sin listarlos** (Director). Salen la categoría del producto y las dos acciones (viven en `EAM_01`); entra *«Usted recibe los 3 elementos en una sola aplicación»*, sin enumerarlos para no repetir lo que `WHY_02` y su video dan en el turno siguiente. Gano cierra como el fabricante. Índice y título intactos: el embedding no cambia. Detalle → CHANGELOG.
+**Versión actual: v6.60** (28 sep 2026) — **Nace `FREQ_39`: la razón social y el NIT de Gano Excel.** El Director lo pidió en queswa.app y Queswa respondió que no lo tenía. Una línea, sin candado (queswa.app toma el primer candado entre sus cinco fragmentos aunque llegue tercero), abierta con *En Colombia* porque es la sociedad de este país. Cierra hacia `FREQ_34`. Índice medido: 10 de 14 paráfrasis en el puesto 1, sin robos. Detalle → CHANGELOG.
+
+**v6.59** (28 sep 2026) — **`WHY_01` 🔒 nombra los 3 elementos sin listarlos** (Director). Salen la categoría del producto y las dos acciones (viven en `EAM_01`); entra *«Usted recibe los 3 elementos en una sola aplicación»*, sin enumerarlos para no repetir lo que `WHY_02` y su video dan en el turno siguiente. Gano cierra como el fabricante. Índice y título intactos: el embedding no cambia. Detalle → CHANGELOG.
 
 **v6.58** (28 sep 2026) — **Una sola forma para presentar el negocio en frío: *empresa de distribución moderna*** (Director). Convivían tres variantes del mismo adjetivo, y el vocabulario de este negocio se duplica. Gana la del Director: *empresa de distribución* ya es sinónimo vivo del sistema, se construye igual que *sistema de distribución*, y el adjetivo al final lleva el acento. Cambia una frase en dos candados, `WHY_02` 🔒 y `EMPRESA_DIGITAL_01` 🔒, con su espejo en `respuestas-maestras.ts`; el índice no se tocó. Detalle → CHANGELOG.
-
-**v6.57** (27 sep 2026) — **Nace `WHY_APP_02`: una sola aplicación, y cómo se entra.** De la auditoría del guion del video: *«¿todo viene en una sola app o toca descargar varias?»* recibía una composición que contradecía el video («todo vive en creatuactivo.com», queswa.app aparte) y disparaba el guardarraíl. Doctrina del Director: queswa.app es el lugar por defecto del distribuidor — acceso por enlace al correo; notificaciones, compras, formación, material para compartir y el back office de Gano Excel (*back office* se queda con su nombre, decisión suya). WhatsApp atiende a los prospectos. Copy aprobado en el chat; índice medido (0.511–0.714, sin robos).
-
-**v6.56** (27 sep 2026) — **Nace `FREQ_38`: la disponibilidad a toda hora.** De la auditoría del guion del video «Cómo funciona»: *«¿y si un cliente escribe a las 2 am usted le responde?»* caía en el candado de `FREQ_37` —emitido literal, sin que el modelo viera el turno— y la persona recibía el vínculo del cliente en vez de la disponibilidad, que no tenía dueño (vivía como cláusula dentro de `WHY_02`). Dos líneas aprobadas por el Director, sin candado; cierra hacia `FREQ_37`. Índice medido contra los rivales de producción: gana sus paráfrasis (0.536–0.741) sin robar; «¿usted es la misma IA que atiende a mis clientes?» migra aquí desde FREQ_37 — la palabra de la persona es *atiende*.
-
 
 
 
@@ -479,6 +476,16 @@ Son nueve en el país, y estas son las direcciones:
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le queda cerca alguna?
+
+---
+
+### **FREQ_39: "¿Cuál es el NIT de Gano Excel? / ¿Cuál es la razón social?"**
+**[Índice]:** La razón social y el NIT de Gano Excel: el nombre legal de la compañía, su número de identificación tributaria, los datos para una factura.
+**[Concepto Nuclear]:** Dato de registro. Nace el 28 sep 2026: el Director lo pidió en queswa.app y no constaba en ningún arsenal. Fuente: Director, contrastado con los directorios que publican el RUES (NIT 900296200, Bogotá) y con el dígito de verificación de la DIAN, que da 1. ⚠️ **Es la sociedad de Colombia** — por eso la frase abre con *En Colombia*: en otro país la razón social es otra, y a quien está fuera no se le da este número como si fuera el suyo. ⚠️ **Sin candado, a propósito:** queswa.app toma como candado el primer fragmento con candado entre los cinco que recupera aunque llegue tercero, y este aparece en el top 5 de preguntas vecinas (la renta de las comisiones, cómo registrarse); con candado, a esas preguntas les respondería el NIT. Un número de diez dígitos el modelo lo copia sin paráfrasis. ⚠️ Una sola línea: quien pide el NIT ya sabe para qué lo quiere. Índice medido en laboratorio contra los rivales de producción: 10 de 14 paráfrasis en el puesto 1, sin robarle el primero a FREQ_13, FREQ_34, FREQ_31, CRED_01, CRED_02 ni CRED_05. Cierra hacia **FREQ_34** (0.728).
+
+En Colombia, la compañía está registrada como **Gano Excel S.A.**, con NIT **900296200-1**.
+
+**Pregunta de seguimiento:** ¿Le muestro dónde quedan las oficinas de Gano Excel en Colombia?
 
 ---
 

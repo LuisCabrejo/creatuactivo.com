@@ -536,6 +536,13 @@ export default function PitchDeckPage() {
           font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
           color: var(--pd-gold); margin: 2rem 0 1.5rem;
         }
+        /* La línea del NOMBRE (mecánica de Jobs). Más pequeña que el golpe para que
+           las cuatro palabras quepan en UNA línea hasta en el teléfono — los espacios
+           duros del JSX impiden el corte que dejaría «distribución moderna» sola.
+           `p.` sube la especificidad para ganarle a la media query del móvil. */
+        .pd-remate p.grande--nombre {
+          font-size: clamp(1rem, 3.4vw, 2rem); margin: 0 0 1.5rem;
+        }
         .pd-remate .pd-preparacion {
           font-size: clamp(0.95rem, 1.9vw, 1.12rem); line-height: 1.5;
           color: var(--pd-muted); margin: 0 0 1.8rem;
@@ -1173,19 +1180,24 @@ export default function PitchDeckPage() {
                 ))}
               </div>
 
-              {/* Dos líneas explícitas y no un solo bloque: el titular rompía en
-                  «…Y YA ESTÁ / ARMADA.» y dejaba huérfana la palabra que carga el
-                  remate del deck. La coma es la pausa, y aquí es el corte. */}
-              {/* El golpe nombra la APLICACIÓN desde el 27 sep 2026 (Director): con la
-                  pieza 3 elevada a «su aplicación personalizada», la fusión paga literal
-                  lo que dice WHY_02 v6.52 — los tres elementos llegan en una sola
-                  aplicación. La empresa queda para la línea siguiente: la aplicación es
-                  el vehículo, la empresa es lo que queda suyo. */}
+              {/* EL REMATE ES LA MECÁNICA DE JOBS COMPLETA (Director, 28 sep 2026):
+                  negar los tres → afirmar el uno → NOMBRAR («…y lo hemos llamado
+                  iPhone»). El golpe volvió a «Es una sola» sin sustantivo —la
+                  aplicación ya tiene su pieza y su beat— para que el nombre caiga
+                  como revelación en su propia línea, no como redundancia. La línea
+                  aparte «Lo que usted recibe es…» se fundió aquí: decía qué recibe
+                  por segunda vez y diluía el golpe.
+                  ⛔ Las cuatro palabras del nombre van JUNTAS en una sola línea
+                  (espacios duros + tamaño propio): un corte que deje «distribución
+                  moderna» sola a la vista es la jerga del canal de supermercados
+                  (doctrina 28 sep). El corte del golpe sigue en la coma: el titular
+                  rompía en «…Y YA ESTÁ / ARMADA.» y dejaba huérfana la palabra que
+                  carga el remate. */}
               <p className="grande">
-                Es una sola aplicación,<br />y ya está armada.
+                Es una sola,<br />y ya está armada:
               </p>
-              <p className="pd-p pd-cierre-linea">
-                Lo que usted recibe es una empresa de distribución moderna.
+              <p className="grande grande--nombre">
+                su&nbsp;empresa&nbsp;de&nbsp;distribución&nbsp;moderna.
               </p>
               <p className="pd-p pd-cierre-linea">
                 Solo se multiplica lo que es sencillo. Y lo que se transmite no es una

@@ -22,7 +22,7 @@ import {
   sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo,
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
-import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA } from '@/lib/reels';
+import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA, VIDEO_DOCE_NIVELES_WA } from '@/lib/reels';
 import { videoQuePide } from '@/lib/queswa-videos-intencion';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
@@ -43,6 +43,7 @@ import {
   notaVideoComoFuncionaVisto,
   vieneDelVideoDoceNiveles,
   videoDeReelVisto, opcionesTrasReel, construirAperturaTrasReel, aperturaRetornoTrasReel, notaVideoReelVisto,
+  niegaHaberVistoVideo, reelSinVer, vozVideoDoceNiveles, OFERTA_SIMULADOR_NIVELES,
   construirAperturaTrasVideoNiveles,
   aperturaRetornoTrasVideoNiveles,
   notaVideoDoceNivelesVisto,
@@ -1469,6 +1470,45 @@ async function procesarEntrante(body: any): Promise<void> {
       await persistirTurnoDictado(supabase, waFingerprint, messageText, dictada, `botón de la apertura: ${opcionElegida}`);
       console.log(`📌 [WA Webhook] Respuesta dictada para "${opcionElegida}" → ${phoneNumber}`);
       return;
+    }
+
+    // ─── 1.95 «No he visto el video», después de llegar por un reel (28 sep 2026) ─
+    // El texto del reel invita a tocar el enlace, y mucha gente toca sin ver el
+    // video: le llega «…Ya vi el video de…», lo manda igual y después aclara
+    // («no lo he visto», «¿cuál video?»). La nota del reel ya dio el tema por
+    // mostrado, así que sin este nodo nadie le mandaba el video. Aquí se le
+    // manda ESE video, con la misma entrada y el mismo pie que el botón (o, para
+    // «Los 12 Niveles», la oferta del simulador de su apertura). Solo si ese video
+    // no se le mandó ya en el chat (reelSinVer, wa-apertura.ts).
+    if (!socioQueEscribe && messageText && _bitacoraDelTurno && niegaHaberVistoVideo(messageText)) {
+      const reel = reelSinVer(_bitacoraDelTurno.textosDelBot);
+      if (reel === 'doce_niveles') {
+        const entrada = 'Con gusto. Esta es la estrategia:';
+        await sendWhatsAppMessage(phoneNumber, entrada);
+        if (wamid) await marcarLeidoYEscribiendo(wamid);
+        await new Promise((r) => setTimeout(r, 800));
+        const envio = await sendVideo(phoneNumber, VIDEO_DOCE_NIVELES_WA, OFERTA_SIMULADOR_NIVELES);
+        if (!envio.ok) await sendWhatsAppMessage(phoneNumber, `${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText,
+          `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`,
+          `no había visto el video del reel: doce_niveles${envio.ok ? '' : ' (sin video)'}`);
+        console.log(`🎬 [WA Webhook] No había visto el video del reel «Los 12 Niveles» — se le manda`);
+        return;
+      }
+      if (reel) {
+        const textoBoton = getRespuestaBoton(reel) ?? '';
+        const intro = VIDEOS_APERTURA[reel].intro;
+        const cuerpo = textoBoton.startsWith(intro) ? textoBoton.slice(intro.length).trim() : textoBoton;
+        console.log(`🎬 [WA Webhook] No había visto el video del reel ${reel} — se le manda`);
+        const m = await mandarVideoApertura(reel, cuerpo);
+        if (m.ok) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, m.fila, `no había visto el video del reel: ${reel}`);
+        } else {
+          await sendWhatsAppMessage(phoneNumber, cuerpo);
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, `${intro} ${cuerpo}`, `no había visto el video del reel: ${reel} (sin video)`);
+        }
+        return;
+      }
     }
 
     // ─── 2. Reconstruir historial + llamar al motor Queswa ────────────────────

@@ -358,7 +358,7 @@ export function aperturaRetornoProductos(nombreProspecto?: string): string {
 export const RE_VIENE_DEL_VIDEO_COMO_FUNCIONA = /(?<![a-záéíóúñ])vi\s+(el\s+)?v[ií]deo\s+(de\s+)?c[oó]mo\s+funciona/i;
 
 export function vieneDelVideoComoFunciona(texto: string): boolean {
-  return RE_VIENE_DEL_VIDEO_COMO_FUNCIONA.test(texto || '');
+  return RE_VIENE_DEL_VIDEO_COMO_FUNCIONA.test(texto || '') && !niegaHaberVistoVideo(texto);
 }
 
 export const APERTURA_TRAS_VIDEO_OPCIONES: WAButton[] = APERTURA_OPCIONES.filter((o) => o.id !== 'apertura_sistema');
@@ -413,10 +413,10 @@ export function notaVideoComoFuncionaVisto(): string {
 export const RE_VIENE_DEL_VIDEO_DOCE_NIVELES = /(?<![a-záéíóúñ])vi\s+(el\s+)?v[ií]deo\s+(de\s+)?(los\s+)?(12|doce)\s+niveles/i;
 
 export function vieneDelVideoDoceNiveles(texto: string): boolean {
-  return RE_VIENE_DEL_VIDEO_DOCE_NIVELES.test(texto || '');
+  return RE_VIENE_DEL_VIDEO_DOCE_NIVELES.test(texto || '') && !niegaHaberVistoVideo(texto);
 }
 
-const OFERTA_SIMULADOR_NIVELES = '¿Quiere verlo en el simulador, con la cifra de cada nivel?';
+export const OFERTA_SIMULADOR_NIVELES = '¿Quiere verlo en el simulador, con la cifra de cada nivel?';
 
 export function construirAperturaTrasVideoNiveles(nombreSocio?: string, nombreProspecto?: string): string {
   const nombre = nombreUtil(nombreProspecto);
@@ -492,6 +492,7 @@ const REELS_VISTOS: Record<VideoDeReel, { re: RegExp; loQueVio: string; titulo: 
 
 /** El reel nuevo que la persona dice haber visto, por la frase del enlace. */
 export function videoDeReelVisto(texto: string): VideoDeReel | null {
+  if (niegaHaberVistoVideo(texto)) return null;
   for (const k of Object.keys(REELS_VISTOS) as VideoDeReel[]) if (REELS_VISTOS[k].re.test(texto || '')) return k;
   return null;
 }
@@ -531,6 +532,65 @@ export function notaVideoReelVisto(video: VideoDeReel): string {
   const texto = getRespuestaBoton(video) ?? '';
   const loQueDice = texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
   return `[La persona llegó por el enlace del reel: antes de escribir vio el video «${r.titulo}», ${r.seg} s. Lo que dice la voz:]\n\n${loQueDice}`;
+}
+
+// ─── «No he visto el video» (28 sep 2026, Director) ─────────────────────────
+//
+// El texto del reel termina en «Si quiere ver esta tecnología atendiendo en
+// vivo, toque aquí», y mucha gente toca SIN ver el video. Le llega el mensaje
+// pre-llenado «…Ya vi el video de…» y hace una de dos: lo corrige antes de
+// mandarlo («no vi el video de cómo funciona»), o lo manda y después aclara
+// («no lo he visto», «¿cuál video?»). Sin esto, las dos le salían mal: la
+// primera contaba como vista (el detector leía «vi el video de…» dentro de «no
+// vi el video de…»), y en la segunda la bitácora ya daba el tema por mostrado,
+// así que ni la apertura ni el pedido con palabras propias le mandaban el video.
+// • En el primer mensaje, una negación anula el «ya lo vi»: apertura normal.
+// • Después de llegar por un reel, la negación trae ESE video (webhook 1.95),
+//   con la misma entrada y el mismo pie que el botón. Sin copy nuevo.
+
+// Tolerantes al pulgar (prueba-typos): «vísto», «viso», «vsito»; «vido», «vdieo», «viddeo».
+const VISTO = 'v[ií]?s{1,2}[ií]?t?o';
+const VIDEO = 'v[ií]?d{1,2}[ií]?e?o';
+const NEG = '(?<![a-záéíóúñ])(no|nunca|todav[ií]a\\s+no|a[uú]n\\s+no|tampoco)';
+// «no he visto el video», «no vi ningún video», «no me cargó el video», «no pude ver el video»
+const RE_NIEGA_VIDEO = new RegExp(NEG + '[\\s,]+[^.?!]{0,22}?(vi|' + VISTO + '|veo|ver|verlo|sali[oó]|carg[oó]|carga|abr[ií]|abre|abri[oó]|reproduc[a-z]*|alcanc[eé])(?![a-záéíóúñ])[^.?!]{0,25}?' + VIDEO, 'i');
+// «no lo he visto», «aún no lo veo», «no lo vi», «no he visto nada» (mensaje corto, sin nombrar otra cosa)
+const RE_NIEGA_CORTO = new RegExp('^[\\s¿¡]*' + NEG + '([\\s,]+no)?[\\s,]+(lo\\s+|la\\s+)?(he\\s+)?(vi|' + VISTO + '|veo|alcanc[eé]\\s+a\\s+verlo|pude\\s+verlo|he\\s+podido\\s+verlo)(\\s+nada|\\s+todav[ií]a|\\s+a[uú]n)?[\\s.!,]*(la\\s+verdad|todav[ií]a|a[uú]n)?[\\s.!]*$', 'i');
+// «¿cuál video?», «¿qué video?», «no sé de qué video me habla»
+const RE_CUAL_VIDEO = new RegExp('(?<![a-záéíóúñ])(cu[aá]l|qu[eé])\\s+' + VIDEO + '(?![a-záéíóúñ])', 'i');
+
+export function niegaHaberVistoVideo(texto: string): boolean {
+  const t = texto || '';
+  return RE_NIEGA_VIDEO.test(t) || RE_NIEGA_CORTO.test(t) || RE_CUAL_VIDEO.test(t);
+}
+
+export type ReelDeLlegada = 'apertura_sistema' | 'apertura_dinero' | 'apertura_rol' | 'doce_niveles';
+const REEL_POR_TITULO: Record<string, ReelDeLlegada> = {
+  'Cómo funciona': 'apertura_sistema', 'Cómo entra el dinero': 'apertura_dinero',
+  'Qué debo hacer yo': 'apertura_rol', 'Los 12 Niveles': 'doce_niveles',
+};
+
+/**
+ * El reel por el que la persona llegó y cuyo video NUNCA se le mandó en el chat:
+ * la última nota «…vio el video «X»…» sin un «[Video «X»» después. Recibe los
+ * textos del bot en orden cronológico.
+ */
+export function reelSinVer(textosDelBot: readonly string[]): ReelDeLlegada | null {
+  let titulo: string | null = null;
+  let desde = -1;
+  textosDelBot.forEach((t, i) => {
+    const m = (t || '').match(/\[La persona llegó por el enlace del reel: antes de escribir vio el video «([^»]+)»/);
+    if (m) { titulo = m[1]; desde = i; }
+  });
+  if (!titulo) return null;
+  const t = titulo as string;
+  if (textosDelBot.slice(desde + 1).some((x) => (x || '').includes(`[Video «${t}»`))) return null;
+  return REEL_POR_TITULO[t] ?? null;
+}
+
+/** Lo que dice la voz del video «Los 12 Niveles», sin el encabezado de la nota. */
+export function vozVideoDoceNiveles(): string {
+  return notaVideoDoceNivelesVisto().split('\n').slice(2).join('\n').trim();
 }
 
 export function construirApertura(nombreSocio?: string, nombreProspecto?: string): string {

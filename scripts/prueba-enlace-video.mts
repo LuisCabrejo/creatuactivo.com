@@ -44,7 +44,7 @@ for (const t of SI) espera(`reconoce: «${t.slice(-45)}»`, vieneDelVideoComoFun
 for (const t of NO.slice(0, 4)) espera(`no se dispara: «${t.slice(-45)}»`, !vieneDelVideoComoFunciona(t));
 // «no vi el video» contiene «vi el video» pero no «de cómo funciona» pegado: se
 // documenta el comportamiento en vez de fingir que el regex entiende negaciones.
-console.log(`  ℹ️  «${NO[4]}» → ${vieneDelVideoComoFunciona(NO[4]) ? 'se dispara' : 'no se dispara'} (solo llega por el enlace: el webhook exige además «vengo del enlace»)`);
+espera(`no se dispara con una negación: «${NO[4]}»`, !vieneDelVideoComoFunciona(NO[4]));
 
 console.log('\n2 · Las aperturas');
 espera('dos botones, sin «Cómo funciona»', APERTURA_TRAS_VIDEO_OPCIONES.length === 2 && !APERTURA_TRAS_VIDEO_OPCIONES.some((o) => o.id === 'apertura_sistema'));
@@ -101,6 +101,21 @@ for (const [v, tema, misma] of [['apertura_dinero', 'dinero', false], ['apertura
   espera(`${v}: la nota marca el tema «${tema}» en la bitácora`, temasDelTexto(n).has(tema));
   espera(`${v}: la nota no trae la pregunta de cierre`, !/\?\s*$/m.test(n));
 }
+
+console.log('\n6 · «No he visto el video» (28 sep 2026): quien toca el enlace sin ver el video');
+const { niegaHaberVistoVideo, reelSinVer } = await import('../src/lib/wa-apertura');
+for (const t of ['no he visto el video', 'No lo he visto', 'no, no lo he visto', 'no lo vi', 'aún no lo veo', 'todavía no lo he visto', 'no he visto nada', 'no vi ningún video', 'no me cargó el video', 'no pude ver el video', '¿cuál video?', 'qué video?', 'no sé de qué video me habla', 'nunca vi el video', 'no alcancé a ver el video'])
+  espera(`niega: «${t}»`, niegaHaberVistoVideo(t));
+for (const t of [ENL + 'Ya vi el video de cómo funciona.', 'sí, ya lo vi', 'ya vi el video, cómo inicio', 'no he visto los productos', 'no vi el precio', 'no tengo tiempo', 'me encantó el video', 'no', 'no gracias', 'no entiendo cómo funciona'])
+  espera(`no niega: «${t.slice(-50)}»`, !niegaHaberVistoVideo(t));
+espera('editado antes de mandarlo: «No vi el video de cómo funciona» no cuenta como visto', !vieneDelVideoComoFunciona(ENL + 'No vi el video de cómo funciona.'));
+espera('editado: «Todavía no he visto el video de cómo entra el dinero» no cuenta', videoDeReelVisto(ENL + 'Todavía no he visto el video de cómo entra el dinero') === null);
+espera('editado: «no he visto el video de los 12 niveles» no cuenta', !vieneDelVideoDoceNiveles(ENL + 'no he visto el video de los 12 niveles'));
+const notaDe = (t: string) => `[La persona llegó por el enlace del reel: antes de escribir vio el video «${t}», 60 s. Lo que dice la voz:]\n\nbla`;
+espera('reel pendiente tras llegar por «Cómo funciona»', reelSinVer([notaDe('Cómo funciona'), 'Hola…']) === 'apertura_sistema');
+espera('reel pendiente tras llegar por «Los 12 Niveles»', reelSinVer([notaDe('Los 12 Niveles')]) === 'doce_niveles');
+espera('si ya se le mandó en el chat, nada pendiente', reelSinVer([notaDe('Qué debo hacer yo'), 'x', 'Con gusto. Se lo muestro:\n\n[Video «Qué debo hacer yo», 42 s. Lo que dice la voz:]']) === null);
+espera('sin reel, nada pendiente', reelSinVer(['hola', 'otra']) === null);
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

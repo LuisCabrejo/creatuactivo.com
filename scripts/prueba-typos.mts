@@ -34,7 +34,7 @@ const require = createRequire(import.meta.url);
 const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 import { esAceptacion, detectarPidePersona, detectarPreguntaCharla } from '../src/lib/wa-pedido.ts';
 import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
-import { esSoloSaludo, vieneDelVideoComoFunciona, vieneDelVideoDoceNiveles, videoDeReelVisto } from '../src/lib/wa-apertura.ts';
+import { esSoloSaludo, vieneDelVideoComoFunciona, vieneDelVideoDoceNiveles, videoDeReelVisto, niegaHaberVistoVideo } from '../src/lib/wa-apertura.ts';
 
 const DETALLE = process.argv.includes('--detalle');
 
@@ -75,6 +75,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'ídem, enlace del reel de los 12 Niveles (28 sep 2026)' },
   { nombre: 'videoDeReelVisto · dinero', fn: (t) => videoDeReelVisto(t) === 'apertura_dinero', frase: 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de cómo entra el dinero.', llaves: ['video', 'dinero'], tope: 7,
     nota: 'lo pre-llena el enlace del reel (28 sep 2026); solo importa si la persona lo edita' },
+  { nombre: 'niegaHaberVistoVideo', fn: niegaHaberVistoVideo, frase: 'no he visto el video', llaves: ['visto', 'video'], tope: 0,
+    nota: 'tras llegar por un reel sin ver el video (28 sep 2026): «no lo he visto», «¿cuál video?»' },
   { nombre: 'videoDeReelVisto · rol', fn: (t) => videoDeReelVisto(t) === 'apertura_rol', frase: 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de qué debo hacer yo.', llaves: ['video', 'hacer'], tope: 7,
     nota: 'lo pre-llena el enlace del reel (28 sep 2026); solo importa si la persona lo edita' },
 ];

@@ -34,7 +34,7 @@ const require = createRequire(import.meta.url);
 const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 import { esAceptacion, detectarPidePersona, detectarPreguntaCharla } from '../src/lib/wa-pedido.ts';
 import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
-import { esSoloSaludo, vieneDelVideoComoFunciona } from '../src/lib/wa-apertura.ts';
+import { esSoloSaludo, vieneDelVideoComoFunciona, vieneDelVideoDoceNiveles } from '../src/lib/wa-apertura.ts';
 
 const DETALLE = process.argv.includes('--detalle');
 
@@ -71,6 +71,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'la mitad de empresa de la pregunta mixta antepone las credenciales al candado de WHY_PROD_01 (27 sep 2026); tolera exel/ecxel' },
   { nombre: 'vieneDelVideoComoFunciona', fn: vieneDelVideoComoFunciona, frase: 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de cómo funciona.', llaves: ['video', 'funciona'], tope: 7,
     nota: 'el texto lo pre-llena el enlace del reel (28 sep 2026); solo importa si la persona lo edita' },
+  { nombre: 'vieneDelVideoDoceNiveles', fn: vieneDelVideoDoceNiveles, frase: 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de los 12 niveles.', llaves: ['video', 'niveles'], tope: 7,
+    nota: 'ídem, enlace del reel de los 12 Niveles (28 sep 2026)' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

@@ -163,7 +163,9 @@ export default async function DestinoRoute({
   // reel: va en el texto del video «Cómo funciona» que el socio comparte desde el
   // Centro de Expansión, y le avisa a Queswa que la persona ya lo vio (el webhook
   // lo reconoce con vieneDelVideoComoFunciona(), en wa-apertura.ts).
-  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona') {
+  // /{slug}/estrategia (28 sep 2026) es el del reel «Los 12 Niveles»: avisa que ya
+  // vio ese video (vieneDelVideoDoceNiveles) y Queswa le ofrece el simulador.
+  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia') {
     await resolverSlug(slug, destino)
 
     // ⚠️ Sin emoji, y medido (19 ago 2026). La redirección entrega el carácter
@@ -175,7 +177,9 @@ export default async function DestinoRoute({
     // de Queswa, que salen por la API y sí lo conservan.
     const texto = destino === 'como-funciona'
       ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de cómo funciona.`
-      : `Hola Queswa, vengo del enlace de ${slug}`
+      : destino === 'estrategia'
+        ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de los 12 niveles.`
+        : `Hola Queswa, vengo del enlace de ${slug}`
     const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto)}`
 
     // 🔴 A los robots de vista previa NO se les redirige (28 ago 2026). Un
@@ -262,7 +266,7 @@ export async function generateMetadata({
 
   // Tarjeta propia para el enlace de Queswa. La imagen vive en /og/queswa
   // (route handler propio, no la del home: ver el porqué en ese archivo).
-  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona') {
+  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia') {
     const url = `https://creatuactivo.com/${slug}/${destino}`
     return {
       title: `${OG_QUESWA.title} | CreaTuActivo`,

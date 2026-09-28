@@ -40,6 +40,10 @@ import {
   construirAperturaTrasVideo,
   aperturaRetornoTrasVideo,
   notaVideoComoFuncionaVisto,
+  vieneDelVideoDoceNiveles,
+  construirAperturaTrasVideoNiveles,
+  aperturaRetornoTrasVideoNiveles,
+  notaVideoDoceNivelesVisto,
 } from '@/lib/wa-apertura';
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
@@ -1091,6 +1095,23 @@ async function procesarEntrante(body: any): Promise<void> {
     // El enlace del reel «Cómo funciona» (/{slug}/como-funciona) agrega «Ya vi el
     // video de cómo funciona.» al saludo del enlace (28 sep 2026).
     const _vieneDelVideo = _vieneDelEnlace && vieneDelVideoComoFunciona(messageText);
+    // Y el del reel «Los 12 Niveles» (/{slug}/estrategia) agrega «Ya vi el video
+    // de los 12 niveles.». Su apertura ofrece UNA cosa —el simulador, que es lo
+    // que prometía el texto del reel— y deja la ficha en el hilo de la
+    // estrategia, igual que cuando Queswa manda este video en el chat (nodo 2.34).
+    // ⚠️ La marca va aquí y no con `marcarHiloDoceNiveles`: esa se declara más
+    // abajo, y llamarla desde la apertura sería usar un const en zona muerta.
+    const _vieneDelVideoNiveles = _vieneDelEnlace && vieneDelVideoDoceNiveles(messageText);
+    const marcarHiloPorVideoNiveles = async () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any).rpc('update_prospect_data', {
+          p_fingerprint_id: waFingerprint,
+          p_data: { hilo_12_niveles: true },
+          p_constructor_id: patrocinador?.userId ?? existingProspect?.constructor_id ?? null,
+        });
+      } catch { /* best-effort */ }
+    };
     const _textoSinUrls = messageText.replace(/https?:\/\/\S+|\b[a-z0-9.-]+\.(com|app|co|net|org)\/\S*/gi, ' ').trim();
     const _traePregunta = !_soloSaludo && !_vieneDelEnlace
       && (/\?|(?<![a-záéíóúñ])(c[oó]mo|qu[eé]|cu[aá]l(es)?|cu[aá]nto|d[oó]nde|por qu[eé]|qui[eé]n|deseo|quiero|me interesa|necesito|inform[a-z]*)(?![a-záéíóúñ])/i.test(_textoSinUrls)
@@ -1231,6 +1252,15 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`🔁 [WA Webhook] ${contactName} tocó el enlace con la conversación viva — se repite la última pregunta`);
         return;
       }
+      if (_vieneDelVideoNiveles) {
+        const texto = aperturaRetornoTrasVideoNiveles(contactName);
+        await sendWhatsAppMessage(phoneNumber, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText,
+          `${notaVideoDoceNivelesVisto()}\n\n${texto}`, 'retorno tras el video «Los 12 Niveles»');
+        await marcarHiloPorVideoNiveles();
+        console.log(`👋 [WA Webhook] Vuelve ${contactName} por el enlace del video «Los 12 Niveles» — se le ofrece el simulador`);
+        return;
+      }
       // Vuelve por el enlace del reel «Cómo funciona»: ya vio el video, así que
       // se reconoce, se anota como mostrado y el botón que lo repetiría no sale.
       const retorno = _vieneDelVideo ? aperturaRetornoTrasVideo(contactName) : aperturaRetorno(contactName);
@@ -1257,6 +1287,15 @@ async function procesarEntrante(body: any): Promise<void> {
     // personas» — en el mismo turno. Le pasó a Erika Cabrejo al responder el
     // mensaje de los lunes.
     if (!existingProspect && !socioQueEscribe && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
+      if (_vieneDelVideoNiveles) {
+        const texto = construirAperturaTrasVideoNiveles(patrocinador?.nombre, contactName);
+        await sendWhatsAppMessage(phoneNumber, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText,
+          `${notaVideoDoceNivelesVisto()}\n\n${texto}`, 'apertura tras el video «Los 12 Niveles»');
+        await marcarHiloPorVideoNiveles();
+        console.log(`👋 [WA Webhook] Apertura tras el video «Los 12 Niveles» entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
+        return;
+      }
       // Quien llega por el enlace del reel «Cómo funciona» ya vio el video
       // (28 sep 2026): su propia apertura, dos botones, y el video anotado como
       // mostrado para que la bitácora no lo repita.

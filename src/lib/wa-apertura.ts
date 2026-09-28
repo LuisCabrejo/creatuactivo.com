@@ -397,6 +397,72 @@ export function notaVideoComoFuncionaVisto(): string {
   return `[La persona llegó por el enlace del reel: antes de escribir vio el video «Cómo funciona», 60 s. Lo que dice la voz:]\n\n${loQueDice}`;
 }
 
+// ─── Quien YA VIO el video «Los 12 Niveles» (28 sep 2026) ───────────────────
+//
+// Mismo patrón que «Cómo funciona», arriba: el reel de los 12 Niveles lleva el
+// enlace `/{slug}/estrategia`, que abre WhatsApp con «Hola Queswa, vengo del
+// enlace de {slug}. Ya vi el video de los 12 niveles.». Antes ese enlace abría
+// el simulador en la web; ahora el simulador se lo muestra Queswa aquí.
+// • UNA sola oferta y sin botones: el simulador, que es lo que prometía el texto
+//   del reel y la misma pregunta con que Queswa acompaña este video en el chat
+//   (pie de NIVELES_01). El «sí» lo atiende el nodo 2.4 del conductor, que abre
+//   la tarjeta en la pantalla de los niveles porque el turno nombra «12 Niveles».
+// • Sin «la misma del video»: en este video Queswa no aparece.
+// Copy aprobado por el Director el 28 sep 2026.
+
+export const RE_VIENE_DEL_VIDEO_DOCE_NIVELES = /(?<![a-záéíóúñ])vi\s+(el\s+)?v[ií]deo\s+(de\s+)?(los\s+)?(12|doce)\s+niveles/i;
+
+export function vieneDelVideoDoceNiveles(texto: string): boolean {
+  return RE_VIENE_DEL_VIDEO_DOCE_NIVELES.test(texto || '');
+}
+
+const OFERTA_SIMULADOR_NIVELES = '¿Quiere verlo en el simulador, con la cifra de cada nivel?';
+
+export function construirAperturaTrasVideoNiveles(nombreSocio?: string, nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
+  const socio = nombreSocioCorto(nombreSocio);
+  const identidad = socio
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Atiendo a cientos de personas, las 24 horas.`
+    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.';
+  return [
+    `${saludo} Un gusto saludarle.`,
+    '',
+    identidad,
+    '',
+    'Como ya vio la estrategia de los 12 Niveles, arrancamos desde ahí. Pregunte lo que quiera, sin ningún afán.',
+    '',
+    OFERTA_SIMULADOR_NIVELES,
+  ].join('\n');
+}
+
+/** Quien ya había conversado y vuelve por el enlace del video. */
+export function aperturaRetornoTrasVideoNiveles(nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. Como ya vio el video de los 12 Niveles, seguimos desde ahí. ${OFERTA_SIMULADOR_NIVELES}`;
+}
+
+/**
+ * Lo que dice la voz del video «Los 12 Niveles» publicado (doce-niveles-v1.mp4,
+ * guion en scripts/dankoe-video/captions/work/doce-niveles/guion-vo.txt), con
+ * cifras en vez de palabras: NIVELES_01 sin el precio del Kit. Es texto FIJO a
+ * propósito —describe un video que no cambia—, y lleva la firma del tema
+ * `estrategia` de la bitácora («Los 12 Niveles es nuestra estrategia»).
+ */
+export function notaVideoDoceNivelesVisto(): string {
+  return [
+    '[La persona llegó por el enlace del reel: antes de escribir vio el video «Los 12 Niveles», 59 s. Lo que dice la voz:]',
+    '',
+    'La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No. Su sistema factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos. Y de todo eso, a usted le queda un porcentaje.',
+    '',
+    'Los 12 Niveles es nuestra estrategia para construirlo paso a paso. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y así se multiplica el sistema.',
+    '',
+    'La entrada es el Kit de Inicio, la más baja de todas: usted recibe cuatro cajas de producto, abre su código y empieza a cobrar el 10% sobre las compras que facture su sistema.',
+    '',
+    'Al nivel 12, su sistema llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los 103 millones de pesos: exactamente el 10% del volumen facturado. Y ese nivel es la base, no el techo.',
+  ].join('\n');
+}
+
 export function construirApertura(nombreSocio?: string, nombreProspecto?: string): string {
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';

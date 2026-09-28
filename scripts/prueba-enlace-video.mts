@@ -1,5 +1,5 @@
 /**
- * Prueba del enlace del reel «Cómo funciona» (28 sep 2026).
+ * Prueba de los enlaces de los reels «Cómo funciona» y «Los 12 Niveles» (28 sep 2026).
  *
  * El texto del reel compartible lleva `creatuactivo.com/{slug}/como-funciona`,
  * que abre WhatsApp con «Hola Queswa, vengo del enlace de {slug}. Ya vi el video
@@ -17,6 +17,7 @@ import { config } from 'dotenv'; config({ path: '.env.local', quiet: true });
 const {
   vieneDelVideoComoFunciona, APERTURA_TRAS_VIDEO_OPCIONES, APERTURA_OPCIONES,
   construirAperturaTrasVideo, aperturaRetornoTrasVideo, notaVideoComoFuncionaVisto,
+  vieneDelVideoDoceNiveles, construirAperturaTrasVideoNiveles, aperturaRetornoTrasVideoNiveles, notaVideoDoceNivelesVisto,
 } = await import('../src/lib/wa-apertura');
 const { temasDelTexto } = await import('../src/lib/queswa-bitacora');
 
@@ -63,6 +64,22 @@ const nota = notaVideoComoFuncionaVisto();
 espera('la nota lleva la firma de WHY_02 (la bitácora lo da por mostrado)', temasDelTexto(nota).has('como_funciona'));
 espera('la nota dice la forma única del gancho', /empresa de distribuci[oó]n moderna/.test(nota));
 espera('la nota no trae la pregunta de cierre de WHY_02', !/\?\s*$/m.test(nota));
+
+console.log('\n4 · «Los 12 Niveles» (/{slug}/estrategia)');
+const NIV = 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de los 12 niveles.';
+espera('reconoce la frase del enlace', vieneDelVideoDoceNiveles(NIV));
+espera('reconoce «doce» y sin tilde en vídeo', vieneDelVideoDoceNiveles('ya vi el video de los doce niveles') && vieneDelVideoDoceNiveles('ya vi el vídeo de 12 niveles'));
+espera('no se cruza con «Cómo funciona»', !vieneDelVideoComoFunciona(NIV) && !vieneDelVideoDoceNiveles(SI[0]));
+espera('no se dispara con quien pregunta por la estrategia', !vieneDelVideoDoceNiveles('¿qué son los 12 niveles?'));
+const aNiv = construirAperturaTrasVideoNiveles('Luis Cabrejo', 'Marcela');
+console.log(`\n${aNiv}\n\n---\n\n${aperturaRetornoTrasVideoNiveles('Marcela')}\n`);
+espera('una sola oferta: el simulador, al final', /¿Quiere verlo en el simulador, con la cifra de cada nivel\?$/.test(aNiv) && (aNiv.match(/\?/g) || []).length === 1);
+espera('nombra «12 Niveles» (el nodo 2.4 abre la pantalla de los niveles)', /12 Niveles/.test(aNiv));
+espera('sin «la misma del video» (Queswa no sale en este video)', !/la misma del video/.test(aNiv));
+espera('el retorno ofrece el simulador', /simulador/.test(aperturaRetornoTrasVideoNiveles('Marcela')));
+const notaNiv = notaVideoDoceNivelesVisto();
+espera('la nota lleva la firma del tema «estrategia» de la bitácora', temasDelTexto(notaNiv).has('estrategia'));
+espera('la nota no trae el precio del Kit (el video no lo dice)', !/PRECIO_KIT|\$\s?\d{3}\.\d{3}/.test(notaNiv));
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

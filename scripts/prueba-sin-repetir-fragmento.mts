@@ -72,6 +72,15 @@ for (const pide of ['repítame eso', 'muéstreme otra vez el binario', 'de nuevo
 const todoServido = sinLoYaServido(candidatos, cats(candidatos));
 es(todoServido.length === 3, 'si al excluir no queda ninguno, no se excluye nada — un turno sin material es peor');
 
+// Prueba del 28 sep 2026: el NIT, y en el turno siguiente la razón social. Con
+// FREQ_39 excluido, el modelo inventó «Gano Excel International LLC».
+const razonSocial = sinLoYaServido(
+  [frag('arsenal_inicial_FREQ_39'), frag('arsenal_inicial_FREQ_20'), frag('arsenal_inicial_CRED_05')],
+  ['arsenal_inicial_FREQ_39'],
+  'me regala la razón social de Gano Excel',
+);
+es(cats(razonSocial)[0] === 'arsenal_inicial_FREQ_39', 'un dato ya servido (el NIT) se sirve otra vez y sigue encabezando');
+
 console.log('\n── 5. Lo que NO se toca ──');
 es(sinLoYaServido(candidatos, ['PIN_CIFRAS_BACKEND_DICTATOR', 'CICLO_CALCULADO_BACKEND']).length === 3,
    'los marcadores del backend no son candidatos de búsqueda y no excluyen nada');

@@ -814,12 +814,29 @@ export function candadoYaDicho(ultimoBot: string, cuerpo: string): boolean {
  * ⚠️ Corre ANTES del colapso del candado solitario, a propósito: después, los
  * otros candidatos ya se descartaron y el turno se quedaría sin material.
  *
- * Dos guardas, las dos hacia servir de más:
+ * Tres guardas, las tres hacia servir de más:
  *  - quien lo pide otra vez por su nombre («repítame eso», «otra vez») lo recibe;
+ *  - un fragmento de dato (`FRAGMENTOS_DE_DATO`, el NIT) se sirve aunque ya haya
+ *    salido;
  *  - si al excluir no queda ningún candidato, no se excluye nada — un turno sin
  *    material es peor que uno repetido.
  */
 const RE_PIDE_OTRA_VEZ = /otra vez|de nuevo|nuevamente|rep[ií]t|me lo repite|vuelv[ae] a (mostrar|explicar|decir|mandar|enviar)|lo anterior|lo de (antes|arriba)/i;
+
+/**
+ * Fragmentos cuyo cuerpo ES un dato, y que por eso nunca salen por «ya servidos».
+ *
+ * Prueba del 28 sep 2026: «¿cuál es el NIT de Gano Excel?» recibió FREQ_39, y
+ * en el turno siguiente «me regala la razón social de Gano Excel» lo encontró
+ * excluido. Sin el dato en el contexto, el modelo respondió «Gano Excel
+ * International LLC, con sede principal en los Estados Unidos», que es falso.
+ * El filtro existe para cortar anillos de OFERTAS; un dato pedido otra vez se
+ * da otra vez, y darlo repetido no abre ningún anillo.
+ *
+ * Criterio para sumar uno: el cuerpo es un dato que la persona puede necesitar
+ * de nuevo (un número, un registro) y su oferta de cierre no vuelve a él.
+ */
+const FRAGMENTOS_DE_DATO: ReadonlySet<string> = new Set(['arsenal_inicial_FREQ_39']);
 
 export function sinLoYaServido<T extends { category: string; content?: string }>(
   candidatos: T[],
@@ -840,7 +857,7 @@ export function sinLoYaServido<T extends { category: string; content?: string }>
     const lock = c.content?.match(/<verbatim_lock>([\s\S]*?)<\/verbatim_lock>/i)?.[1];
     return !!lock && yaLoRecibio(textosPrevios, lock);
   };
-  const quedan = candidatos.filter((c) => !servidos.has(c.category) && !yaRecibido(c));
+  const quedan = candidatos.filter((c) => FRAGMENTOS_DE_DATO.has(c.category) || (!servidos.has(c.category) && !yaRecibido(c)));
   return quedan.length ? quedan : candidatos;
 }
 

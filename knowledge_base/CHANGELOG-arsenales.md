@@ -495,6 +495,14 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.62 — `PERFIL_03` habla con las palabras de ella (28 sep 2026)
+
+El Director, al ver la v6.61: *gerente del hogar* es su forma de elevarles la autoestima, pero **ninguna ama de casa se presenta así**. Escriben *ama de casa*, y muchas veces se quitan el mérito: *«yo no hago nada, el que trabaja es mi esposo»*. Medido en producción, justo esa frase caía en `PERFIL_02` 🔒 (dictada literal, la del independiente) y *«no trabajo, mi esposo es el que trabaja»* en `FREQ_15`.
+
+**Cambia el título y el índice; el cuerpo no.** Título: *«Soy ama de casa, ¿esto me sirve?»*. Índice: *«Soy ama de casa, yo no hago nada, yo no trabajo: me quedo en la casa con los niños. Esto me sirve a mí, lo puedo hacer yo.»* *Gerente del hogar* se queda en el cuerpo, que es donde trabaja: le responde a quien dijo *«no hago nada»* con lo que sí hace.
+
+**Medido en el arnés contra los embeddings reales del canal** (catorce paráfrasis propias, doce ajenas). Tres variantes que decían *esposo* ganaban las catorce pero le quitaban el primer puesto a *«lo tengo que consultar con mi esposo»* y a *«mi esposo no me deja»*; la elegida no dice *esposo* y aun así gana *«el que trabaja es mi esposo»* (0,604 contra 0,579 de `PERFIL_02`). Márgenes más justos: *no trabajo, mi esposo es el que trabaja* +0,009 sobre `FREQ_15`, *soy gerente del hogar* +0,024. Sin robos a `PERFIL_01`, `PERFIL_02`, `FREQ_15`, `FREQ_25` ni `OBJ_01`.
+
 ### v6.61 — Nace `PERFIL_03`: la gerente del hogar (28 sep 2026)
 
 El video del día 22 del reto cierra con *«¿Quiere ver cómo aplicaría para usted, sea empleado, empresario o gerente del hogar? Pregúntele a Queswa»*. Medido con Voyage antes de publicarlo: tres de cuatro formas en que una ama de casa pregunta si esto le sirve llegaban a `PERFIL_02` 🔒, la respuesta del independiente (*cada mes arranca en cero, y lo que entra depende de las horas que alcance a trabajar*), que el backend emite literal sin pasar por el modelo. Una línea en el prompt no la habría corregido.

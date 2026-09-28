@@ -22,7 +22,7 @@ import {
   sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo,
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
-import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA } from '@/lib/reels';
+import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA } from '@/lib/reels';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -1389,10 +1389,12 @@ async function procesarEntrante(body: any): Promise<void> {
     // esa pregunta. Si Meta no acepta el video, el texto sigue a la entrada.
     // «Cómo entra el dinero» va igual desde el 27 sep 2026: la voz es WHY_04 sin
     // su pregunta de cierre, que sale como pie. La entrada es una línea nueva
-    // porque el candado no trae ninguna.
+    // porque el candado no trae ninguna. «Qué debo hacer yo» desde el 28 sep 2026:
+    // la voz es EAM_01 y el pie, su pregunta de cierre (los productos).
     const VIDEOS_APERTURA: Record<string, { url: string; intro: string; titulo: string; seg: number }> = {
       apertura_sistema: { url: VIDEO_COMO_FUNCIONA_WA, intro: 'Con gusto. Funciona así:', titulo: 'Cómo funciona', seg: 60 },
       apertura_dinero:  { url: VIDEO_COMO_ENTRA_EL_DINERO_WA, intro: 'Con gusto. Se lo muestro en menos de un minuto:', titulo: 'Cómo entra el dinero', seg: 50 },
+      apertura_rol:     { url: VIDEO_QUE_DEBO_HACER_YO_WA, intro: 'Con gusto. Se lo muestro:', titulo: 'Qué debo hacer yo', seg: 42 },
     };
     const videoApertura = opcionElegida ? VIDEOS_APERTURA[opcionElegida] : undefined;
     if (dictada && videoApertura) {

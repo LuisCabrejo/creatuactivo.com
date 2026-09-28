@@ -52,6 +52,15 @@ export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.verce
 // destellan juntos en la quinta baldosa (cada viernes).
 export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v1.mp4'
 
+// «Qué debo hacer yo» para el canal (42 s, 720×1280, 6,4 MB; 28 sep 2026). La voz es
+// EAM_01 palabra por palabra, sin los emojis ni la pregunta de cierre, que va como
+// pie. Lo manda el tercer botón de la apertura (`apertura_rol`). Usted es la figura
+// blanca con su celular y el orbe encima: comparte (avioncitos hacia las figuras que
+// se encienden), recibe (saluda a la que llega), Queswa conversa y, cuando alguien
+// está listo, le llega la notificación. Abre con el boom preferido del Director y la
+// voz entra a 1,9 s, al 90 % de velocidad.
+export const VIDEO_QUE_DEBO_HACER_YO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/que-debo-hacer-yo-v1.mp4'
+
 // Poster único (branded) para el <video> de todos los reels — local en /public,
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.
 export const REEL_POSTER = '/videos/reels/poster.webp'

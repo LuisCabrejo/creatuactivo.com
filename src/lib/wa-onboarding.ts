@@ -35,6 +35,7 @@
 
 import { sendText } from '@/lib/wa-channel';
 import { normalizarParaSlug } from '@/lib/texto-normalizar';
+import { SEMANA_EN_SALUDO_SOCIO } from '@/lib/wa-lunes-socio';
 
 /**
  * Cada hito se avisa UNA vez por prospecto — no hay cupo numérico.
@@ -620,15 +621,19 @@ export const OFERTA_REDACTAR = '¿Le redacto el mensaje para enviárselo a algui
  *
  * Una sola salida, y es la que su propia experiencia señala como la que arranca:
  * escribirle a alguien. El resto de lo que Queswa puede hacer por él se ofrece
- * cuando lo pida, no en el saludo.
+ * cuando lo pida, no en el saludo. Hasta el 28 sep 2026 el texto ofrecía tres
+ * cosas, y una era «revisar cómo va cada persona que ha llegado», que desde el
+ * 16 sep es del Centro de Mando.
+ *
+ * Retoma la línea de la semana (`SEMANA_EN_SALUDO_SOCIO`, junto al mensaje de
+ * los lunes): el saludo casi siempre llega como respuesta a ese mensaje.
  */
 export function saludoDeSocio(nombreCorto: string, slug: string): string {
+  const semana = SEMANA_EN_SALUDO_SOCIO;
   return (
     `Hola${nombreCorto ? ', ' + nombreCorto : ''}. Un gusto saludarle.\n\n` +
     `Aquí tiene su enlace a la mano:\n${enlaceDeCanal(slug)}\n\n` +
-    `¿En qué nos enfocamos hoy? Podemos redactar un mensaje a la medida para alguien ` +
-    `en concreto, revisar cómo va cada persona que ha llegado, o resolver cualquier ` +
-    `detalle del plan.`
+    (semana ? `${semana.puente}\n\n${semana.oferta}` : OFERTA_REDACTAR)
   );
 }
 

@@ -225,7 +225,14 @@ es(botInvitoAlDashboard(inv), 'el «sí» que sigue se reconoce por el cierre de
 es(/en su Centro de Mando sí/.test(invitacionAlDashboard('Patricia', 'redaccion', true)), 'si insiste, una línea y la misma puerta');
 es(atenderPidePieza('hazme un video para instagram')?.texto === TEXTO_NO_PIEZAS && detectarPideFuncionDashboard('hazme un video para instagram') === null,
    'una pieza para publicar sigue en su negativa, no va al Dashboard');
-es(/redactar un mensaje a la medida/.test(saludoNuevo('Ana', 'ana-x')), 'el saludo del socio sigue ofreciendo redactar (para personas)');
+es(/Le redacto el mensaje/.test(saludoNuevo('Ana', 'ana-x')), 'el saludo del socio sigue ofreciendo redactar (para personas)');
+// 28 sep 2026: ver la lista es del Centro de Mando, y el saludo cierra con UNA pregunta.
+const { SEMANA_EN_SALUDO_SOCIO } = require('../src/lib/wa-lunes-socio.ts') as typeof import('../src/lib/wa-lunes-socio.ts');
+const sNuevo = saludoNuevo('Ana', 'ana-x');
+es(!/c[oó]mo va cada persona|persona que ha llegado/i.test(sNuevo), 'el saludo ya no ofrece revisar la lista (es del Centro de Mando)');
+es((sNuevo.match(/\?/g) || []).length === 1, 'el saludo cierra con una sola pregunta');
+es(!SEMANA_EN_SALUDO_SOCIO || (sNuevo.includes(SEMANA_EN_SALUDO_SOCIO.puente) && sNuevo.endsWith(SEMANA_EN_SALUDO_SOCIO.oferta)),
+   'retoma la línea de la semana del mensaje de los lunes');
 
 console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);
 process.exit(fallos ? 1 : 0);

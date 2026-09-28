@@ -49,7 +49,7 @@ import { ultimoMensajeDePersona, dentroDeVentana } from '@/lib/wa-ventana';
 /** Una plantilla nueva cada semana (Director, 20 sep 2026). v5 desde el 28 sep: «objetivos» en vez de «metas» y el video «Cómo funciona» como línea de la semana. */
 export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v5';
 
-/** Mismo texto que la plantilla (scripts/someter-plantilla-lunes-socio.mjs). Cambiar los dos a la vez. */
+/** Mismo texto que la plantilla (scripts/someter-plantilla-lunes-socio.mjs). Cambiar los dos a la vez, y con ellos `SEMANA_EN_SALUDO_SOCIO`. */
 export function cuerpoLunesSocio(nombre: string): string {
   return (
     `Hola ${nombre} 👋, espero que esté genial y vamos por una gran semana.\n\n` +
@@ -61,6 +61,24 @@ export function cuerpoLunesSocio(nombre: string): string {
     'Soy todo oídos.'
   );
 }
+
+/**
+ * La línea de la semana, retomada en el saludo del socio (`saludoDeSocio` en
+ * wa-onboarding.ts). Ese saludo sale una sola vez por socio, y casi siempre como
+ * respuesta a un mensaje de lunes (Erika, Liliana y Adriana el 14 sep, Nidia el
+ * 21, Milton el 28): si no retoma lo que el lunes le acaba de contar, le ofrece
+ * otra cosa. Cambia cada semana JUNTO con `PLANTILLA_LUNES_SOCIO` y
+ * `cuerpoLunesSocio()`.
+ *
+ * El puente tiene que entenderse solo: lo lee también el socio que no recibió el
+ * mensaje de esta semana (al que calla le llega uno al mes). La oferta es UNA
+ * pregunta y es de redactar para una persona, que el canal sí hace. `null` = el
+ * saludo sale sin puente y cierra con la oferta de siempre.
+ */
+export const SEMANA_EN_SALUDO_SOCIO: { puente: string; oferta: string } | null = {
+  puente: 'Es el mismo que ya lleva el video «Cómo funciona», en Compartir → Reels: quien lo toque llega aquí a conversar conmigo.',
+  oferta: '¿Le redacto el mensaje para mandarle el video a alguien?',
+};
 
 /** Cuentas de sistema que viven en private_users con WhatsApp pero no son personas. */
 const CORREOS_EXCLUIDOS = new Set(['admin@ganocafe.online', 'sistema@creatuactivo.com']);

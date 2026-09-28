@@ -337,6 +337,66 @@ export function aperturaRetornoProductos(nombreProspecto?: string): string {
   return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. Aquí sigo con su conversación, y ahora vamos con los productos. ¿Le muestro el portafolio completo?`;
 }
 
+// ─── Quien YA VIO el video «Cómo funciona» (28 sep 2026) ────────────────────
+//
+// El reel compartible de «Cómo funciona» (Centro de Expansión del Dashboard)
+// lleva en su texto el enlace `/{slug}/como-funciona`, que abre WhatsApp con
+// «Hola Queswa, vengo del enlace de {slug}. Ya vi el video de cómo funciona.»
+// (src/app/[slug]/[destino]/page.tsx). Director: el enlace tiene que entregarle
+// a Queswa el contexto de que la persona ya vio el video. Mismo patrón que la
+// frase de /productos, arriba.
+// • Dos botones y no tres: eran las tres preguntas reales del prospecto, y el
+//   video ya contestó la primera.
+// • «La misma del video» une lo que vio con lo que está viviendo, y el cierre
+//   retoma la promesa del video («Queswa le muestra, en vivo, cómo aplicaría
+//   para usted»).
+// • Sin el credo ni las viñetas de la apertura estándar: llega tibia, después de
+//   60 s de explicación, y repetirle el marco la haría esperar. Se conserva la
+//   prueba social de la identidad («cientos de personas, las 24 horas»).
+// Copy aprobado por el Director el 28 sep 2026.
+
+export const RE_VIENE_DEL_VIDEO_COMO_FUNCIONA = /(?<![a-záéíóúñ])vi\s+(el\s+)?v[ií]deo\s+(de\s+)?c[oó]mo\s+funciona/i;
+
+export function vieneDelVideoComoFunciona(texto: string): boolean {
+  return RE_VIENE_DEL_VIDEO_COMO_FUNCIONA.test(texto || '');
+}
+
+export const APERTURA_TRAS_VIDEO_OPCIONES: WAButton[] = APERTURA_OPCIONES.filter((o) => o.id !== 'apertura_sistema');
+
+export function construirAperturaTrasVideo(nombreSocio?: string, nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
+  const socio = nombreSocioCorto(nombreSocio);
+  const identidad = socio
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}, la misma del video. Atiendo a cientos de personas, las 24 horas.`
+    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo, la misma del video. Atiendo a cientos de personas, las 24 horas.';
+  return [
+    `${saludo} Un gusto saludarle.`,
+    '',
+    identidad,
+    '',
+    'Como ya vio cómo funciona, arrancamos desde ahí. Pregunte lo que quiera, sin ningún afán. Para ver cómo aplicaría en su caso, ¿por dónde seguimos?',
+  ].join('\n');
+}
+
+/** Quien ya había conversado y vuelve por el enlace del video. */
+export function aperturaRetornoTrasVideo(nombreProspecto?: string): string {
+  const nombre = nombreUtil(nombreProspecto);
+  return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. Como ya vio el video de cómo funciona, seguimos desde ahí. ¿Por dónde retomamos?`;
+}
+
+/**
+ * Lo que se guarda como ya mostrado cuando la persona llega habiendo visto el
+ * video: lo mismo que guarda el botón «Cómo funciona» al mandarlo (webhook,
+ * VIDEOS_APERTURA). La bitácora reconoce el tema por la firma de WHY_02, así
+ * que el modelo no se lo vuelve a explicar y su siguiente oferta avanza.
+ */
+export function notaVideoComoFuncionaVisto(): string {
+  const why02 = getRespuestaBoton('apertura_sistema') ?? '';
+  const loQueDice = why02.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
+  return `[La persona llegó por el enlace del reel: antes de escribir vio el video «Cómo funciona», 60 s. Lo que dice la voz:]\n\n${loQueDice}`;
+}
+
 export function construirApertura(nombreSocio?: string, nombreProspecto?: string): string {
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';

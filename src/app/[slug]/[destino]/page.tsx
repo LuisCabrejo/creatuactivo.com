@@ -159,7 +159,11 @@ export default async function DestinoRoute({
   // Radar del socio, sin aviso, y con la apertura cayendo al saludo genérico de
   // marca en vez de nombrarlo. Todo eso sin un solo error visible. Con un socio
   // era invisible; con diez es una fuga silenciosa de prospectos.
-  if (destino === 'queswa' || destino === 'acceso') {
+  // /{slug}/como-funciona (28 sep 2026) es el mismo enlace, con el contexto del
+  // reel: va en el texto del video «Cómo funciona» que el socio comparte desde el
+  // Centro de Expansión, y le avisa a Queswa que la persona ya lo vio (el webhook
+  // lo reconoce con vieneDelVideoComoFunciona(), en wa-apertura.ts).
+  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona') {
     await resolverSlug(slug, destino)
 
     // ⚠️ Sin emoji, y medido (19 ago 2026). La redirección entrega el carácter
@@ -169,7 +173,9 @@ export default async function DestinoRoute({
     // primer mensaje de la conversación es el peor lugar para un cuadrito roto,
     // así que aquí va texto limpio; el nudo de la marca vive en las respuestas
     // de Queswa, que salen por la API y sí lo conservan.
-    const texto = `Hola Queswa, vengo del enlace de ${slug}`
+    const texto = destino === 'como-funciona'
+      ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de cómo funciona.`
+      : `Hola Queswa, vengo del enlace de ${slug}`
     const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto)}`
 
     // 🔴 A los robots de vista previa NO se les redirige (28 ago 2026). Un
@@ -256,7 +262,7 @@ export async function generateMetadata({
 
   // Tarjeta propia para el enlace de Queswa. La imagen vive en /og/queswa
   // (route handler propio, no la del home: ver el porqué en ese archivo).
-  if (destino === 'queswa' || destino === 'acceso') {
+  if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona') {
     const url = `https://creatuactivo.com/${slug}/${destino}`
     return {
       title: `${OG_QUESWA.title} | CreaTuActivo`,

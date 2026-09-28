@@ -34,7 +34,7 @@ const require = createRequire(import.meta.url);
 const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 import { esAceptacion, detectarPidePersona, detectarPreguntaCharla } from '../src/lib/wa-pedido.ts';
 import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
-import { esSoloSaludo } from '../src/lib/wa-apertura.ts';
+import { esSoloSaludo, vieneDelVideoComoFunciona } from '../src/lib/wa-apertura.ts';
 
 const DETALLE = process.argv.includes('--detalle');
 
@@ -69,6 +69,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'las charlas de Luis: dónde viven y aviso al socio (21 sep 2026)' },
   { nombre: 'pregunta empresa · gano excel', fn: (t) => RE_PREGUNTA_EMPRESA_GANO.test(t), frase: 'gano excel que es? que productos venden', llaves: ['excel'], tope: 0,
     nota: 'la mitad de empresa de la pregunta mixta antepone las credenciales al candado de WHY_PROD_01 (27 sep 2026); tolera exel/ecxel' },
+  { nombre: 'vieneDelVideoComoFunciona', fn: vieneDelVideoComoFunciona, frase: 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de cómo funciona.', llaves: ['video', 'funciona'], tope: 7,
+    nota: 'el texto lo pre-llena el enlace del reel (28 sep 2026); solo importa si la persona lo edita' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

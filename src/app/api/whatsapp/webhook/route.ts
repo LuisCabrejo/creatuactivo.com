@@ -35,6 +35,11 @@ import {
   APERTURA_PRODUCTOS_OPCIONES,
   construirAperturaProductos,
   aperturaRetornoProductos,
+  vieneDelVideoComoFunciona,
+  APERTURA_TRAS_VIDEO_OPCIONES,
+  construirAperturaTrasVideo,
+  aperturaRetornoTrasVideo,
+  notaVideoComoFuncionaVisto,
 } from '@/lib/wa-apertura';
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
@@ -1083,6 +1088,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // de las direcciones.
     const _traeUrlPropia = /creatuactivo\.com\/|queswa\.app\//i.test(messageText);
     const _vieneDelEnlace = _traeUrlPropia || /vengo del enlace/i.test(messageText);
+    // El enlace del reel «Cómo funciona» (/{slug}/como-funciona) agrega «Ya vi el
+    // video de cómo funciona.» al saludo del enlace (28 sep 2026).
+    const _vieneDelVideo = _vieneDelEnlace && vieneDelVideoComoFunciona(messageText);
     const _textoSinUrls = messageText.replace(/https?:\/\/\S+|\b[a-z0-9.-]+\.(com|app|co|net|org)\/\S*/gi, ' ').trim();
     const _traePregunta = !_soloSaludo && !_vieneDelEnlace
       && (/\?|(?<![a-záéíóúñ])(c[oó]mo|qu[eé]|cu[aá]l(es)?|cu[aá]nto|d[oó]nde|por qu[eé]|qui[eé]n|deseo|quiero|me interesa|necesito|inform[a-z]*)(?![a-záéíóúñ])/i.test(_textoSinUrls)
@@ -1223,14 +1231,19 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`🔁 [WA Webhook] ${contactName} tocó el enlace con la conversación viva — se repite la última pregunta`);
         return;
       }
-      const retorno = aperturaRetorno(contactName);
-      const enviadoR = await sendReplyButtons(phoneNumber, retorno, APERTURA_OPCIONES);
+      // Vuelve por el enlace del reel «Cómo funciona»: ya vio el video, así que
+      // se reconoce, se anota como mostrado y el botón que lo repetiría no sale.
+      const retorno = _vieneDelVideo ? aperturaRetornoTrasVideo(contactName) : aperturaRetorno(contactName);
+      const opcionesR = _vieneDelVideo ? APERTURA_TRAS_VIDEO_OPCIONES : APERTURA_OPCIONES;
+      const enviadoR = await sendReplyButtons(phoneNumber, retorno, opcionesR);
       if (!enviadoR.ok) {
-        const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+        const opciones = opcionesR.map((o) => `• ${o.title}`).join('\n');
         await sendWhatsAppMessage(phoneNumber, `${retorno}\n\n${opciones}`);
       }
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, retorno, 'retorno');
-      console.log(`👋 [WA Webhook] Vuelve ${contactName} — recibimiento corto con botones`);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText,
+        _vieneDelVideo ? `${notaVideoComoFuncionaVisto()}\n\n${retorno}` : retorno,
+        _vieneDelVideo ? 'retorno tras el video «Cómo funciona»' : 'retorno');
+      console.log(`👋 [WA Webhook] Vuelve ${contactName}${_vieneDelVideo ? ' por el enlace del video «Cómo funciona»' : ''} — recibimiento corto con botones`);
       return;
     }
 
@@ -1244,21 +1257,29 @@ async function procesarEntrante(body: any): Promise<void> {
     // personas» — en el mismo turno. Le pasó a Erika Cabrejo al responder el
     // mensaje de los lunes.
     if (!existingProspect && !socioQueEscribe && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
-      const apertura = construirApertura(patrocinador?.nombre, contactName);
+      // Quien llega por el enlace del reel «Cómo funciona» ya vio el video
+      // (28 sep 2026): su propia apertura, dos botones, y el video anotado como
+      // mostrado para que la bitácora no lo repita.
+      const apertura = _vieneDelVideo
+        ? construirAperturaTrasVideo(patrocinador?.nombre, contactName)
+        : construirApertura(patrocinador?.nombre, contactName);
+      const opcionesA = _vieneDelVideo ? APERTURA_TRAS_VIDEO_OPCIONES : APERTURA_OPCIONES;
 
-      const enviado = await sendReplyButtons(phoneNumber, apertura, APERTURA_OPCIONES);
+      const enviado = await sendReplyButtons(phoneNumber, apertura, opcionesA);
 
       // Si Meta rechaza el interactivo (formato, límites), no dejar a la persona
       // sin respuesta: cae a texto plano con las mismas opciones enumeradas.
       if (!enviado.ok) {
         console.warn('⚠️ [WA Webhook] Botones rechazados — fallback a texto plano');
-        const opciones = APERTURA_OPCIONES.map((o) => `• ${o.title}`).join('\n');
+        const opciones = opcionesA.map((o) => `• ${o.title}`).join('\n');
         await sendWhatsAppMessage(phoneNumber, `${apertura}\n\n${opciones}`);
       }
 
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, apertura, 'apertura');
+      await persistirTurnoDictado(supabase, waFingerprint, messageText,
+        _vieneDelVideo ? `${notaVideoComoFuncionaVisto()}\n\n${apertura}` : apertura,
+        _vieneDelVideo ? 'apertura tras el video «Cómo funciona»' : 'apertura');
 
-      console.log(`👋 [WA Webhook] Apertura entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
+      console.log(`👋 [WA Webhook] Apertura${_vieneDelVideo ? ' tras el video «Cómo funciona»' : ''} entregada a ${phoneNumber}${patrocinador ? ` (socio: ${patrocinador.nombre})` : ' (sin socio)'}`);
       return;
     }
 

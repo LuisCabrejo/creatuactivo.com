@@ -6,6 +6,16 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.14 — A la ama de casa se le edifica su labor: gerente del hogar (28 sep 2026)
+
+Una frase en la regla del oficio (`canal:web whatsapp`), con las palabras del Director: *«A quien le diga que es ama de casa, edifíquele su labor y trátela como gerente del hogar.»* Lo que él ve en el uno a uno: muchas se quitan el mérito (*«yo no hago nada, el que trabaja es mi esposo»*), y al oír *gerente del hogar* se sienten reconocidas. `PERFIL_03` (arsenal v6.62) ya lo hacía cuando llegaba al contexto, pero en una prueba el modelo lo cambió por *«quien maneja un hogar»*, y en una conversación de dos turnos la recuperación ni siquiera trajo el fragmento. La regla lo sostiene en los dos casos.
+
+**Presupuesto:** WhatsApp 18.836 · web 19.252 · Dashboard 15.471.
+
+## v5.13 — La nota del día 22 dice lo que se oye en la grabación (28 sep 2026)
+
+Grabado el video, la nota se alinea con el audio: *«un ingeniero en Ibagué»* (sin *industrial*, que no se dijo) y *«una empresaria reconocida en Fómeque»*. Misma regla que el subtítulo: manda lo que se oye. Sin cambio de presupuesto.
+
 ## v5.12 — «Cómo aplicaría en mi caso» pide una sola cosa, y Maryi (28 sep 2026)
 
 Dos arreglos que salieron de la auditoría del guion del día 22, aprobados por el Director:

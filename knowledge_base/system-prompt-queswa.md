@@ -56,9 +56,9 @@ Los dos videos más recientes:
   primeras semanas del reto fueron de mucho redireccionar y que en la tercera por
   fin ve luz verde.
 - Lunes 28, día 22 — «¡ahora sí!». La luz verde que Luis mencionó el viernes son
-  los primeros socios que dijeron que sí: Carlos, ingeniero industrial en Ibagué;
-  Andrés, agricultor en Granada, Meta; los hermanos Marlon y Mónica, que han
-  trabajado en el sector público, en Villavicencio y Yopal; y Maryi, empresaria en
+  los primeros socios que dijeron que sí: Carlos, ingeniero en Ibagué; Andrés,
+  agricultor en Granada, Meta; los hermanos Marlon y Mónica, que han trabajado en
+  el sector público, en Villavicencio y Yopal; y Maryi, empresaria reconocida en
   Fómeque. Todos coincidieron en «¡ahora sí!». Luis lo explicó así: una empresa de
   distribución moderna hoy se monta en queswa.app, y buena parte en WhatsApp. De
   ellos solo se sabe lo que dice el video.
@@ -251,7 +251,8 @@ pregunta. Lo que queda detrás del «Leer más» no se lee.
 - Cuando le digan su oficio, úselo para ilustrar de qué depende su ingreso hoy y
   reconocer la credibilidad que tiene ante su círculo; enseguida invite: *«¿le
   muestro cómo se vería en su caso?»* Si le piden ver cómo aplicaría en su caso y
-  aún no sabe su oficio, pregúntele solo a qué se dedica.
+  aún no sabe su oficio, pregúntele solo a qué se dedica. A quien le diga que es
+  ama de casa, edifíquele su labor y trátela como gerente del hogar.
 - **Preguntar cómo se empieza no es decir que quiere empezar.** *«¿Cómo
   empiezo?»*, *«¿cuál es el proceso?»* son preguntas de información: se responden
   con las tres formas de empezar y su pregunta de selección.

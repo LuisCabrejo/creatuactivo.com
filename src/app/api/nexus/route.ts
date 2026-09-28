@@ -2149,6 +2149,12 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
 
   // Resto de clasificaciones originales - PATRONES ACTUALIZADOS
   const patrones_inicial = [
+    // PERFIL_03 — gerente del hogar (28 sep 2026). «Soy ama de casa» se basta sola:
+    // sin patrón pasaba por el CQR, que le pegaba el turno anterior («vi el video de
+    // Luis…») y recuperaba WHY_01 con candado, dictado literal a quien acababa de
+    // contar su oficio. Con patrón se busca con el mensaje crudo, que gana PERFIL_03.
+    // Tolerante a typos (scripts/prueba-typos.mts lo lee de aquí por este comentario).
+    /\bam[aá]\s*de\s*(l[aá]\s*)?(c[aá]{0,2}s{1,2}[aá]{0,2}|acsa)(?![a-záéíóúñ])|\bam[aá]\s*de\s*h?[oó]?g+[aá]?r|g[eé]?r+e?[eé]?n+t[eé]\s*del?\s*(mi\s*)?(h?[oó]?g+[aá]?r|hgoar)|me\s+dedico\s+(a\s+(mi|la)\s+casa|al\s+h?ogar)|mam[aá]\s+de\s+tiempo\s+completo/i,
     // Mudados desde patrones_compensacion (10 ago 2026): la puerta va donde vive
     // la respuesta — FREQ_03 entrega las tres formas de empezar con su candado.
     /c[oó]mo\s+(se\s+)?(inici[ao]|empies[ao]|empiez[ao])/i,

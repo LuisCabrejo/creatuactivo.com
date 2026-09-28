@@ -53,6 +53,8 @@ const CASOS = [
   ['¿Esto es una pirámide?',                     'arsenal_inicial'],
   ['¿Cuánto cuesta empezar?',                    'arsenal_inicial'],
   ['¿Tengo que comprar todos los meses?',        'arsenal_inicial'],
+  ['Soy ama de casa',                            'arsenal_inicial'],  // PERFIL_03 — sin patrón, el CQR la desviaba
+  ['yo solo soy gerente del hogar, me sirve?',   'arsenal_inicial'],
   ['¿Hay capacitación?',                         'arsenal_inicial'],
   ['Quiero iniciar',                             null], // lo intercepta wa-radicacion antes del motor
 

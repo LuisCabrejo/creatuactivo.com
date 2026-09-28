@@ -36,6 +36,16 @@ import { esAceptacion, detectarPidePersona, detectarPreguntaCharla } from '../sr
 import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
 import { esSoloSaludo, vieneDelVideoComoFunciona, vieneDelVideoDoceNiveles, videoDeReelVisto, niegaHaberVistoVideo } from '../src/lib/wa-apertura.ts';
 
+// El patrón de la gerente del hogar vive en `patrones_inicial` de route.ts (el
+// benchmark del clasificador solo lee literales de ahí); se lee por su comentario.
+import { readFileSync } from 'node:fs';
+const RE_HOGAR = (() => {
+  const m = readFileSync('src/app/api/nexus/route.ts', 'utf8')
+    .match(/PERFIL_03 — gerente del hogar[\s\S]*?\n\s*\/((?:[^/\\\n]|\\.)+)\/([gimsuy]*)\s*,/);
+  if (!m) throw new Error('No se encontró el patrón PERFIL_03 en route.ts');
+  return new RegExp(m[1], m[2]);
+})();
+
 const DETALLE = process.argv.includes('--detalle');
 
 /** `tope` = deformaciones que hoy rompen el detector. Se BAJA al arreglarlo. */
@@ -79,6 +89,9 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'tras llegar por un reel sin ver el video (28 sep 2026): «no lo he visto», «¿cuál video?»' },
   { nombre: 'videoDeReelVisto · rol', fn: (t) => videoDeReelVisto(t) === 'apertura_rol', frase: 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de qué debo hacer yo.', llaves: ['video', 'hacer'], tope: 7,
     nota: 'lo pre-llena el enlace del reel (28 sep 2026); solo importa si la persona lo edita' },
+  { nombre: 'clasificador · ama de casa', fn: (t) => RE_HOGAR.test(t), frase: 'soy ama de casa', llaves: ['casa', 'ama'], tope: 0,
+    nota: 'PERFIL_03 (28 sep 2026): sin patrón, el CQR la mandaba a WHY_01' },
+  { nombre: 'clasificador · gerente del hogar', fn: (t) => RE_HOGAR.test(t), frase: 'soy gerente del hogar', llaves: ['hogar', 'gerente'], tope: 0 },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

@@ -6,6 +6,25 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.12 — «Cómo aplicaría en mi caso» pide una sola cosa, y Maryi (28 sep 2026)
+
+Dos arreglos que salieron de la auditoría del guion del día 22, aprobados por el Director:
+
+1. **El llamado del video** (*«¿Quiere ver cómo aplicaría para usted? Pregúntele a Queswa»*) recibía dos preguntas, y la segunda era por la disponibilidad de la persona, la que planta el marco de horas extra. La regla del oficio (`canal:web whatsapp`) suma una frase en positivo: si piden ver su caso y no se sabe el oficio, se pregunta solo a qué se dedica. No nombra la pregunta vetada: nombrarla se la dicta al modelo.
+2. **La nota del día 22 ponía en boca de los socios una frase de Luis.** Con dos puntos tras «¡ahora sí!», el motor contó que *los socios* dijeron lo de queswa.app. Ahora: *«Todos coincidieron en ¡ahora sí!. Luis lo explicó así: …»*. Y entra **Maryi, empresaria en Fómeque**, la quinta socia, que el Director sumó al guion.
+
+**Presupuesto:** WhatsApp 18.744 · web 19.160 · Dashboard 15.471. Las tres filas verificadas por RPC.
+
+## v5.11 — Los videos del reto: días 19 y 22 (28 sep 2026)
+
+Rotación del bloque de videos recientes (`canal:web whatsapp`), con las dos notas aprobadas por el Director en el chat:
+
+1. **Entra el día 19** (viernes 25, «honor a la pausa», el Coyote). Nunca había entrado: desde el viernes, quien preguntaba por ese video recibía un «no lo tengo».
+2. **Entra el día 22** (lunes 28, «¡ahora sí!»): los primeros socios —Carlos, Andrés, Marlon y Mónica— con su oficio y su ciudad, **solo el nombre** (Director). Cierra con *«De ellos solo se sabe lo que dice el video»*: sin eso, quien pregunte por ellos recibiría detalles compuestos por el modelo.
+3. **Salen los días 15 y 16.** Sus historias vencieron hace una semana. ⏳ Van al arsenal como `RETO_D15` / `RETO_D16`, con el índice medido antes de desplegar: el del 15 no puede nombrar el ejemplo de adelgazar, que atraería consultas de salud. Ningún `RETO_DNN` existe todavía: la rutina de la v5.6 no se había ejecutado.
+
+**Presupuesto:** WhatsApp 18.589 · web 19.005 · Dashboard 15.471 (sin cambio: el bloque no le llega). Las tres filas verificadas por RPC.
+
 ## v5.10 — Una sola forma: «empresa de distribución moderna» (28 sep 2026)
 
 El Director fijó una sola forma para presentar el negocio en frío, la misma del arsenal v6.58, del video y de la web (el porqué, en el CHANGELOG de arsenales). Dos cambios:

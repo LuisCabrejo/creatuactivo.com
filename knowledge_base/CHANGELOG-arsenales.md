@@ -495,6 +495,14 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.61 — Nace `PERFIL_03`: la gerente del hogar (28 sep 2026)
+
+El video del día 22 del reto cierra con *«¿Quiere ver cómo aplicaría para usted, sea empleado, empresario o gerente del hogar? Pregúntele a Queswa»*. Medido con Voyage antes de publicarlo: tres de cuatro formas en que una ama de casa pregunta si esto le sirve llegaban a `PERFIL_02` 🔒, la respuesta del independiente (*cada mes arranca en cero, y lo que entra depende de las horas que alcance a trabajar*), que el backend emite literal sin pasar por el modelo. Una línea en el prompt no la habría corregido.
+
+**El texto** lo aprobó el Director en el chat: lo que ella ya tiene (organiza, decide, tiene la confianza de quienes la rodean — el mismo movimiento de `PERFIL_01`), todo desde el celular con Gano Excel y Queswa haciendo el trabajo, y la propiedad como mecanismo (*cada cliente que llega por su enlace queda a su nombre*). *Gerente del hogar* es su término para elevar el oficio; el disparador conserva *ama de casa* porque es como ella escribe. Sin candado, para que el modelo conecte la apertura con lo que ella dijo. Cierra hacia `EAM_01`.
+
+**El índice**, medido en un arnés que embebe el candidato como documento y lo enfrenta con los embeddings reales del tenant `whatsapp`: de tres variantes, las tres ganaban 7/7 paráfrasis (ama de casa · gerente del hogar · me dedico a mi casa y a mis hijos · yo no trabajo, cuido a mis hijos · yo solo estoy en la casa · mi esposo trabaja y yo me quedo en la casa · mamá de tiempo completo) sin quitarle el primer puesto a `PERFIL_01`, `PERFIL_02`, `FREQ_15` ni `FREQ_25`. Se eligió la más fuerte en *gerente del hogar* (0,636 contra 0,494 del segundo), que es la palabra que la gente trae del video.
+
 ### v6.60 — Nace `FREQ_39`: la razón social y el NIT de Gano Excel (28 sep 2026)
 
 El Director le preguntó a Queswa en queswa.app *«queswa sabes el nit de Gano Excel»* y la respuesta fue que no le aparecía en el material. Era cierto: ningún arsenal traía la razón social ni el NIT.

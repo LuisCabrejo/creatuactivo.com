@@ -12,11 +12,12 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.60** (28 sep 2026) — **Nace `FREQ_39`: la razón social y el NIT de Gano Excel.** El Director lo pidió en queswa.app y Queswa respondió que no lo tenía. Una línea, sin candado (queswa.app toma el primer candado entre sus cinco fragmentos aunque llegue tercero), abierta con *En Colombia* porque es la sociedad de este país. Cierra hacia `FREQ_34`. Índice medido: 10 de 14 paráfrasis en el puesto 1, sin robos. Detalle → CHANGELOG.
+**Versión actual: v6.61** (28 sep 2026) — **Nace `PERFIL_03`: la gerente del hogar.** El video del día 22 del reto invita a preguntar *«sea empleado, empresario o gerente del hogar»*, y quien se dedica al hogar caía en `PERFIL_02` 🔒, la del independiente, dictada literal. Término del Director: *gerente del hogar*. Sin candado. Índice medido contra los fragmentos reales del canal: 7 de 7 paráfrasis en el puesto 1, sin robos a `PERFIL_01`, `PERFIL_02`, `FREQ_15` ni `FREQ_25`. Detalle → CHANGELOG.
+
+**v6.60** (28 sep 2026) — **Nace `FREQ_39`: la razón social y el NIT de Gano Excel.** El Director lo pidió en queswa.app y Queswa respondió que no lo tenía. Una línea, sin candado (queswa.app toma el primer candado entre sus cinco fragmentos aunque llegue tercero), abierta con *En Colombia* porque es la sociedad de este país. Cierra hacia `FREQ_34`. Índice medido: 10 de 14 paráfrasis en el puesto 1, sin robos. Detalle → CHANGELOG.
 
 **v6.59** (28 sep 2026) — **`WHY_01` 🔒 nombra los 3 elementos sin listarlos** (Director). Salen la categoría del producto y las dos acciones (viven en `EAM_01`); entra *«Usted recibe los 3 elementos en una sola aplicación»*, sin enumerarlos para no repetir lo que `WHY_02` y su video dan en el turno siguiente. Gano cierra como el fabricante. Índice y título intactos: el embedding no cambia. Detalle → CHANGELOG.
 
-**v6.58** (28 sep 2026) — **Una sola forma para presentar el negocio en frío: *empresa de distribución moderna*** (Director). Convivían tres variantes del mismo adjetivo, y el vocabulario de este negocio se duplica. Gana la del Director: *empresa de distribución* ya es sinónimo vivo del sistema, se construye igual que *sistema de distribución*, y el adjetivo al final lleva el acento. Cambia una frase en dos candados, `WHY_02` 🔒 y `EMPRESA_DIGITAL_01` 🔒, con su espejo en `respuestas-maestras.ts`; el índice no se tocó. Detalle → CHANGELOG.
 
 
 
@@ -245,6 +246,20 @@ Y la conversación la llevo yo. Hablo con cada persona que llega a su sistema. L
 
 Eso es escalar. Usted cobra por lo que compran todos sus clientes, no solo por lo que alcance a hacer usted mismo. Y el sistema sigue corriendo sin que usted tenga que estar encima.
 </verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le muestro qué haría usted en el día a día?
+
+---
+
+### **PERFIL_03: "Soy ama de casa / gerente del hogar, ¿esto me sirve?"**
+**[Índice]:** Soy ama de casa o gerente del hogar, me quedo en la casa cuidando a mis hijos. Esto es para mí, lo puedo hacer yo desde la casa.
+**[Concepto Nuclear]:** Existe porque el video del día 22 del reto (28 sep 2026) invita a preguntar *«sea empleado, empresario o gerente del hogar»*, y quien se dedica al hogar caía en `PERFIL_02` 🔒, escrita para el independiente —*cada mes arranca en cero, lo que entra depende de las horas que alcance a trabajar*— y dictada literal por el backend: una respuesta que no le habla. **Gerente del hogar** es el término del Director para elevar el oficio (*«así le digo a las amas de casa, lo entienden y les gusta»*); el disparador conserva *ama de casa* porque es como ella escribe. Se responde con lo que ella ya tiene —organiza, decide y tiene la confianza de quienes la rodean—, como en `PERFIL_01`, y con el mecanismo de la propiedad. Sin candado: el modelo le conecta la apertura a lo que ella dijo. Texto aprobado por el Director en el chat. Medido antes de desplegar contra los fragmentos reales del canal: gana siete paráfrasis coloquiales (ama de casa, gerente del hogar, cuido a mis hijos, mamá de tiempo completo, me quedo en la casa) y no le quita ninguna consulta a `PERFIL_01`, `PERFIL_02`, `FREQ_15` ni `FREQ_25`.
+
+Con mucho gusto. Una gerente del hogar ya hace lo que muchas empresas quisieran: organiza, decide y tiene la confianza de quienes la rodean. Cuando usted recomienda algo, la escuchan.
+
+Todo se maneja desde el celular. Gano Excel fabrica y despacha cada pedido hasta la casa del cliente, y yo converso con cada persona que llega por su enlace, a la hora que sea.
+
+Usted comparte su enlace con quien quiera, y cada cliente que llega por él queda a su nombre.
 
 **Pregunta de seguimiento:** ¿Le muestro qué haría usted en el día a día?
 

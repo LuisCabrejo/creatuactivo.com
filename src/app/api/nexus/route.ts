@@ -435,16 +435,27 @@ async function captureProspectData(
   // ✅ v12.3: Expandida para prevenir captura de paquetes como "visionario"
   const nameBlacklist = /^(yo|tu|tú|él|ella|usted|ustedes|nosotros|nosotras|ellos|ellas|mi|mí|me|te|nos|le|les|conmigo|contigo|hola|gracias|si|sí|no|ok|bien|claro|perfecto|excelente|entiendo|estoy listo|el|la|los|las|ese|este|aquel|aquella|el más|el de|la de|lo de|para|con|sin|sobre|desde|hasta|quiero|necesito|dame|busco|visionario|inicial|empresarial|constructor|estratégico|estrategico|acepto|a|b|c|d|e|f|profesional|emprendedor|freelancer|independiente|lider|líder|joven|ambicion|ambición|hogar|comunidad|vision|visión|dueño|dueno|negocio|empleo|empleado|empleada|trabajo|trabajador|trabajadora|comerciante|empresario|empresaria|ingeniero|ingeniera|médico|medico|médica|medica|doctor|doctora|abogado|abogada|profesor|profesora|docente|estudiante|pensionado|pensionada|jubilado|jubilada|gerente|director|directora|consultor|consultora|vendedor|vendedora|contador|contadora|administrador|administradora|jefe|CEO|CFO|CTO|muéstrame|háblame|cuéntame|explícame|deseo|deseamos|deseamos iniciar|hagámoslo|hagamoslo|hagamos|hácelo|hazlo|dale|adelante|procedamos|procedan|vamos|empecemos|comencemos|listo|proceder|iniciar|empezar|comenzar|activar|entrar|registrar|registrarme|me anoto)$/i;
 
+  // La lista de arriba compara la captura ENTERA, y «soy» + palabras se lleva todo lo
+  // que sigue: «Soy gerente del hogar» guardaba «gerente del hogar» como nombre, igual
+  // que «ama de casa» o «de Bogotá» (28 sep 2026 — el video del día 22 invita a escribir
+  // justo así). Por eso también se mira la PRIMERA palabra, contra la misma lista más
+  // los oficios y enlaces que le faltaban.
+  const primeraPalabraNoEsNombre = (captura: string) => {
+    const primera = captura.split(/\s+/)[0];
+    return nameBlacklist.test(primera) ||
+      /^(de|del|un|una|muy|ama|mam[aá]|madre|agricultor|agricultora|campesino|campesina|desempleado|desempleada|funcionario|funcionaria)$/i.test(primera);
+  };
+
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
     if (match) {
       const capturedName = match[1].trim();
       // Validar que no sea palabra blacklisted (paquetes, opciones, etc)
-      if (capturedName.length >= 2 && !nameBlacklist.test(capturedName)) {
+      if (capturedName.length >= 2 && !nameBlacklist.test(capturedName) && !primeraPalabraNoEsNombre(capturedName)) {
         data.name = capturedName;
         console.log('✅ [NEXUS] Nombre capturado:', data.name, 'del mensaje:', message.substring(0, 50));
         break;
-      } else if (nameBlacklist.test(capturedName)) {
+      } else if (capturedName.length >= 2) {
         console.log('⚠️ [NEXUS] Nombre rechazado (blacklist):', capturedName);
       }
     }

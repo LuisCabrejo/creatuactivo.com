@@ -443,9 +443,11 @@ export function aperturaRetornoTrasVideoNiveles(nombreProspecto?: string): strin
 }
 
 /**
- * Lo que dice la voz del video «Los 12 Niveles» publicado (doce-niveles-v1.mp4,
- * guion en scripts/dankoe-video/captions/work/doce-niveles/guion-vo.txt), con
- * cifras en vez de palabras: NIVELES_01 sin el precio del Kit. Es texto FIJO a
+ * Lo que dice la voz del video «Los 12 Niveles» publicado (doce-niveles-v1.mp4),
+ * con cifras en vez de palabras: NIVELES_01 sin el precio del Kit. ⚠️ La fuente es
+ * `scripts/dankoe-video/captions/work/doce-niveles/stamps.json` (lo que de verdad se
+ * oye), NO `guion-vo.txt`: el tramo del Kit y de la cifra se regrabó el 26 sep con
+ * «volumen comisionable» y «GCV», y el guion quedó con la versión anterior. Es texto FIJO a
  * propósito —describe un video que no cambia—, y lleva la firma del tema
  * `estrategia` de la bitácora («Los 12 Niveles es nuestra estrategia»).
  */
@@ -457,9 +459,9 @@ export function notaVideoDoceNivelesVisto(): string {
     '',
     'Los 12 Niveles es nuestra estrategia para construirlo paso a paso. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y así se multiplica el sistema.',
     '',
-    'La entrada es el Kit de Inicio, la más baja de todas: usted recibe cuatro cajas de producto, abre su código y empieza a cobrar el 10% sobre las compras que facture su sistema.',
+    'La entrada es el Kit de Inicio, la más baja de todas: usted recibe cuatro cajas de producto, abre su código y empieza a cobrar el 10% del volumen comisionable de su sistema.',
     '',
-    'Al nivel 12, su sistema llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los 103 millones de pesos: exactamente el 10% del volumen facturado. Y ese nivel es la base, no el techo.',
+    'Al nivel 12, su sistema llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los 103 millones de pesos: exactamente el 10% del GCV, el volumen comisionable grupal. Y ese nivel es la base, no el techo.',
   ].join('\n');
 }
 

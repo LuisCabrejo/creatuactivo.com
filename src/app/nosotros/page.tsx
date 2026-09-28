@@ -120,8 +120,8 @@ export default function NosotrosPage() {
         <Body>
           Distribuir productos que las personas vuelven a pedir siempre ha sido buen
           negocio. Lo que lo hacía complicado era atender a cada interesado, uno por uno
-          — y nadie tiene la vida para eso. Eso fue lo que cambió: hoy es un negocio
-          moderno de distribución — el trabajo pesado lo hacen dos, y a usted le queda
+          — y nadie tiene la vida para eso. Eso fue lo que cambió: hoy es una empresa
+          de distribución moderna — el trabajo pesado lo hacen dos, y a usted le queda
           ser el dueño.
         </Body>
 

@@ -28,7 +28,7 @@
  *  3 POR QUÉ AHORA · va DESPUÉS del problema (Director, 26 sep 2026): el «por
  *                    qué ahora» solo pega si el oyente ya sabe qué era
  *                    imposible. Hacer empresa siempre fue difícil; una empresa
- *                    moderna de distribución, casi imposible; hoy la ponen en un
+ *                    de distribución moderna, casi imposible; hoy la ponen en un
  *                    celular CreaTuActivo.com y Queswa.app. Sin cifras.
  *  4 LA OPORTUNIDAD· tres líneas y nada más (Director, 24 sep): el titular cruza
  *                    la bicicleta de la 2 y la paga, la tesis de la conectividad
@@ -985,9 +985,12 @@ export default function PitchDeckPage() {
                 distribuir, es distribuir en un continente y que el negocio facture sin
                 el dueño encima. Eso sí era casi imposible, y no se lo discute nadie.
                 De paso, esta línea DEFINE «moderna», así que la pantalla 4 puede usar
-                la palabra sin explicarla. Y va «empresa MODERNA DE distribución»: el
-                adjetivo pegado al sustantivo, porque «distribución moderna» en consumo
-                masivo significa supermercados.
+                la palabra sin explicarla. Y va «empresa de distribución moderna», la
+                forma única (Director, 28 sep 2026): deja entero el sinónimo «empresa de
+                distribución» y el adjetivo cae al final, donde va el acento. Las cuatro
+                palabras van juntas: si las dos últimas quedan solas a la vista —en un
+                título o partidas por un salto de línea— se leen como la jerga del canal
+                de supermercados.
                 ⚠️ VA EN SUBJUNTIVO, y no es capricho: «una empresa moderna VENDE en todo
                 el continente» afirma un hecho sobre una categoría e invita a preguntar
                 «¿según quién?» — suena a entrada de diccionario. «Que venda… que
@@ -999,7 +1002,7 @@ export default function PitchDeckPage() {
                 que CONECTA y no por el que produce — se contradiría una pantalla
                 después. */}
             <p className="pd-p">
-              Hacer empresa siempre ha sido difícil. Una empresa moderna de distribución
+              Hacer empresa siempre ha sido difícil. Una empresa de distribución moderna
               que venda en todo el continente y facture sin que usted tenga que estar
               encima — hasta hace poco, tener una así era casi imposible.
             </p>
@@ -1182,7 +1185,7 @@ export default function PitchDeckPage() {
                 Es una sola aplicación,<br />y ya está armada.
               </p>
               <p className="pd-p pd-cierre-linea">
-                Lo que usted recibe es una empresa moderna de distribución.
+                Lo que usted recibe es una empresa de distribución moderna.
               </p>
               <p className="pd-p pd-cierre-linea">
                 Solo se multiplica lo que es sencillo. Y lo que se transmite no es una

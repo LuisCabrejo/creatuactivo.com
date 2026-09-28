@@ -1,6 +1,6 @@
 {
   "$comment": "Léxico canónico legible por máquina. FUENTE DE VERDAD: BRANDING.md §7 (+ Addendum 8–14 ago) y CLAUDE.md § Léxico y voz. Este archivo es su resumen operativo: lo que un auditor puede buscar con una expresión regular. Lo consume Dashboard/scripts/auditar-lexico.mjs. Cuando el Director retire o adopte un término, se agrega aquí la fila con su fecha — y el Dashboard se entera en la próxima auditoría. Las expresiones son sobre texto que ve una persona (copy y prompts), NUNCA sobre identificadores de código.",
-  "version": "2026-09-27",
+  "version": "2026-09-28",
   "activo_canonico": "sistema de distribución",
   "sinonimos_vivos": [
     "empresa de distribución",
@@ -40,7 +40,7 @@
     {
       "id": "empresa-digital",
       "regex": "\\b(empresa|negocio) digital\\b",
-      "vigente": "empresa de distribución moderna (la forma IDEAL para reemplazarla, Director 27 sep 2026 — presentación en frío: reels, piezas; con el puente a sistema de distribución, que sigue siendo el canónico)",
+      "vigente": "empresa de distribución moderna (la forma ÚNICA para presentar el negocio en frío, Director 28 sep 2026; con el puente a sistema de distribución, que sigue siendo el canónico)",
       "desde": "2026-08-03",
       "nota": "Contenedor vacío; el oyente lo rellena con pirámides o cripto. Solo en la Academia y en el prompt hacia el socio, caso por caso con el Director. Director, 27 sep 2026 (auditoría de la voz de los reels): donde un reel viejo dice «empresa digital», la voz nueva dice «empresa de distribución moderna» — «moderna» es más relevante que «digital», va una vez por pieza y pagada en la misma frase con un hecho que se vea.",
       "excepciones": []
@@ -269,18 +269,34 @@
     },
     {
       "id": "distribucion-moderna",
-      "regex": "\\bdistribuci[oó]n moderna\\b",
-      "vigente": "un negocio moderno de distribución (el adjetivo pegado al sustantivo negocio/sistema)",
+      "regex": "(?<!(?:empresa\\s+|^\\s*)de\\s+)\\bdistribuci[oó]n moderna\\b",
+      "vigente": "una empresa de distribución moderna (las cuatro palabras juntas y en ese orden)",
       "desde": "2026-09-25",
-      "nota": "«Distribución moderna» a secas es jerga del consumo masivo: el canal de supermercados frente a la tienda de barrio. El marco aprobado califica al negocio, no a la distribución.",
+      "nota": "«Distribución moderna» sola es jerga del consumo masivo: el canal de supermercados frente a la tienda de barrio. Dentro de la forma única «empresa de distribución moderna» (Director, 28 sep 2026) no estorba, porque «empresa de distribución» la ancla; lo que se veta es que quede sola a la vista: en un título, en un rótulo o partida por un salto de línea («UNA EMPRESA DE / DISTRIBUCIÓN MODERNA»). El regex la exonera cuando la precede «empresa de», también si «de» abre la línea (el salto cae en el código fuente, no en lo que se ve).",
       "excepciones": [
         "keywords:"
       ]
     },
     {
+      "id": "negocio-moderno-de-distribucion",
+      "regex": "\\bnegocio moderno de distribuci[oó]n\\b",
+      "vigente": "una empresa de distribución moderna",
+      "desde": "2026-09-28",
+      "nota": "Fue el marco de presentación en frío del 25 al 28 sep 2026 (WHY_02, el prompt, la Home y el primer video «Cómo funciona»). El Director fijó una sola forma el 28 sep: «empresa de distribución» ya es sinónimo vivo del sistema —«negocio de distribución» no lo es— y el adjetivo al final lleva el acento. El video ya publicado conserva su voz: un guion emitido no se edita, se sucede.",
+      "excepciones": []
+    },
+    {
+      "id": "empresa-moderna-de-distribucion",
+      "regex": "\\bempresa moderna de distribuci[oó]n\\b",
+      "vigente": "una empresa de distribución moderna",
+      "desde": "2026-09-28",
+      "nota": "Fue la respuesta de EMPRESA_DIGITAL_01 y del pitch deck del 25 al 28 sep 2026. Misma palabra, otro orden: se unifica porque el vocabulario de este negocio se duplica y tres formas casi iguales se degradan tres eslabones abajo. Con el adjetivo en medio, la frase termina en «distribución», la palabra más plana, y parte el sinónimo «empresa de distribución».",
+      "excepciones": []
+    },
+    {
       "id": "modern-shipping",
       "regex": "\\bmodern\\s*-?\\s*shipping\\b",
-      "vigente": "un negocio moderno de distribución",
+      "vigente": "una empresa de distribución moderna",
       "desde": "2026-09-25",
       "nota": "Candidato de nombre investigado y DESCARTADO por el Director: el sustantivo nombra la logística de Gano (no lo que el socio posee), está en inglés, el nombre lo ocupan navieras desde 2003, y «la evolución del dropshipping» es comparación de lado. No reabrirlo sin la investigación delante.",
       "excepciones": []
@@ -300,7 +316,7 @@
     {
       "id": "tener-con-que",
       "regex": "\\b(tiene[ns]?|tengo|tenemos|tener|tenga[ns]?|tuvo|tuviera[ns]?)\\s+con\\s+qu[eé](?![a-záéíóúñ])",
-      "vigente": "nombrar lo que falta del NEGOCIO, nunca de la persona: «muy pocos tienen la infraestructura para armar un negocio moderno de distribución»",
+      "vigente": "nombrar lo que falta del NEGOCIO, nunca de la persona: «muy pocos tienen la infraestructura para armar una empresa de distribución moderna»",
       "desde": "2026-09-27",
       "nota": "PROHIBIDO (Director, 27 sep 2026). El contexto que se veta es CONFRONTAR a la persona con que no puede hacer algo: en Colombia, decirle a alguien que «no tiene con qué» es rebajarlo — se oye como que no tiene dinero, ni capacidad, ni valentía. Lo que falta se dice de la OPERACIÓN (infraestructura, fábrica, logística), nunca de quien escucha. La voz del propio prospecto en índices y disparadores («no tengo con qué pagarlo») se exonera: ahí lo dice él de sí mismo, no nosotros de él.",
       "excepciones": [
@@ -312,5 +328,5 @@
   "$comment_activo": "«Activo» NO es un cuarto sinónimo del sistema: es lo que el sistema produce («su sistema de distribución le permite construir un activo que produce sin que usted tenga que estar encima»). Va siempre pegado a su causa (sus clientes siguen pidiendo) y nunca como adjetivo de una persona (en esta industria «activo» = al día con la compra mensual; del código sí: «su código está activo»).",
   "$comment_verbos": "Director, 10 sep 2026: el problema no es la palabra sino el verbo que se le cuelga. «El sistema empareja los puntos» se queda (un software empareja). Lo que solo hace una persona —consumir, comprar, pedir— cambia de SUJETO, no de verbo: «mientras sus distribuidores y sus clientes sigan comprando». Regla de decisión: propiedad → empresa de distribución · funciona sin él → maquinaria de distribución · lo que le queda → activo con su causa · todo lo demás → sistema de distribución.",
   "marco_presentacion_en_frio": "una empresa de distribución moderna",
-  "$comment_moderno": "Adoptado 25 sep 2026 (investigación de naming → marketing/docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md); FORMA IDEAL refinada por el Director el 27 sep 2026: «empresa de distribución moderna» (el adjetivo al final, calificando la empresa de distribución — sinónimo vivo de la propiedad). «Moderno» es ADJETIVO, nunca nombre: va pegado al sustantivo, una sola vez por conversación, y pagado en la misma frase con un hecho que se vea. A «¿qué es una empresa digital?» se responde «empresa moderna de distribución», con el puente a «sistema de distribución» (no es un cuarto nombre del activo). El diferencial se dice como mecanismo: cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga — la permanencia se dice del CLIENTE, nunca del pago. Gano Excel se nombra al FINAL de la explicación, como quien fabrica y paga, nunca en la primera línea de qué es esto."
+  "$comment_moderno": "Adoptado 25 sep 2026 (investigación de naming → marketing/docs/investigaciones/resultados/NAMING_DISTRIBUCION_MODERNA_SEP2026.md). FORMA ÚNICA fijada por el Director el 28 sep 2026: «empresa de distribución moderna», en todas partes — video, WHY_02, EMPRESA_DIGITAL_01, prompt, web y Dashboard. Por qué esa: «empresa de distribución» ya es sinónimo vivo del sistema y se construye igual que «sistema de distribución», así que el puente se ve; y el adjetivo al final lleva el acento (lo dado primero, lo nuevo al final). Condición: las cuatro palabras van juntas; «distribución moderna» nunca queda sola a la vista (título, rótulo, salto de línea), porque sola es la jerga del canal de supermercados. «Moderna» es ADJETIVO, nunca nombre: una sola vez por conversación y pagada en la misma frase con un hecho que se vea. El diferencial se dice como mecanismo: cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga — la permanencia se dice del CLIENTE, nunca del pago. Gano Excel se nombra al FINAL de la explicación, como quien fabrica y paga, nunca en la primera línea de qué es esto."
 }

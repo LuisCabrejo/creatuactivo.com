@@ -632,16 +632,17 @@ export default function HomePage() {
           complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
           para eso.
         </Body>
-        {/* «Moderno» va UNA vez en toda la página y pagado en la misma frase con los
-            dos hechos (25 sep 2026, investigación de naming): adjetivo pegado al
-            sustantivo, nunca «distribución moderna» a secas. */}
+        {/* «Moderna» va UNA vez en toda la página y pagada en la misma frase con los
+            hechos (25 sep 2026, investigación de naming). La forma es una sola,
+            «empresa de distribución moderna» (Director, 28 sep 2026): las cuatro
+            palabras juntas, nunca partidas. */}
         {/* EL ENTREGABLE SON TRES ELEMENTOS (Director, 27 sep 2026, sesión del video
             «Cómo funciona»): fabricante · Queswa · su aplicación personalizada. Los
             tres responden qué RECIBE la persona; qué HACE sigue siendo Compartir ·
             Recibir, en su propia sección más abajo. Arranque calcado de WHY_02 v6.52. */}
         <Body mt>
-          Eso fue lo que cambió: hoy es un negocio moderno de distribución. Usted recibe
-          en una sola aplicación los tres elementos que eliminan la fricción de montarlo.
+          Eso fue lo que cambió: hoy es una empresa de distribución moderna. Usted recibe
+          en una sola aplicación los tres elementos que eliminan la fricción de montarla.
         </Body>
 
         <div

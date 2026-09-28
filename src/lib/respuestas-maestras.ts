@@ -44,7 +44,7 @@
  *   RECIBE la persona; las dos acciones responden qué HACE y viven en EAM_01/WHY_01.
  *   El enlace sube al elemento 2 para que la propiedad lo reciba explicado. Waze va
  *   en MECANISMO («le voy marcando la ruta»), nunca «lo lleva» — promesa de ingreso.
- *   Sincronizado carácter por carácter con arsenal_inicial.txt v6.52.
+ *   Sincronizado carácter por carácter con arsenal_inicial.txt v6.52 (arranque: v6.58, «empresa de distribución moderna»).
  * Reescritura 25 sep 2026 — LOS TRES ELEMENTOS Y EL CLIENTE A SU NOMBRE (texto del
  *   Director, pulido en la sesión de naming). La versión de la franquicia daba el «ajá»
  *   con una analogía de dos párrafos y nunca decía de quién es el cliente: «cada vez que
@@ -153,7 +153,7 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe en una sola aplicación los tres elementos que eliminan la fricción de montar un negocio moderno de distribución.
+const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe en una sola aplicación los tres elementos que eliminan la fricción de montar una empresa de distribución moderna.
 
 1. **Un fabricante**, que empaca y despacha cada pedido hasta la casa del cliente.
 
@@ -266,6 +266,12 @@ const RE_DIA_A_DIA =
  * el modelo sintetizaba una respuesta de pilares en vez de la definición accesible.
  * Sincronizado carácter por carácter con arsenal_inicial.txt v5.28 BLOQUE 1 (EMPRESA_DIGITAL_01).
  *
+ * 28 sep 2026 — UNA SOLA FORMA: *empresa de distribución moderna* (Director), la misma de
+ * WHY_02 y del video. Deja entero el sinónimo *empresa de distribución*, que se construye
+ * igual que *sistema de distribución*, y el adjetivo cae al final, donde va el acento.
+ * *Distribución moderna* nunca queda sola ni partida en un título (jerga de supermercados).
+ * Sincronizado con arsenal_inicial.txt v6.58.
+ *
  * Reescritura 25 sep 2026 — EMPRESA MODERNA DE DISTRIBUCIÓN (Director, sesión de naming:
  * «es mejor empresa moderna»). Tres cambios: (1) el canónico de la primera línea pasa a
  * *empresa moderna de distribución*, con el puente a *sistema de distribución* para que
@@ -285,7 +291,7 @@ const RE_DIA_A_DIA =
  * dirigirlo (celular, sin local ni bodega); lo que se mueve es físico. El candado se AFIRMA,
  * nunca se niega — decir "no es dinero en la nube" invoca el elefante rosado.
  */
-const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos una **empresa moderna de distribución** —o un sistema de distribución, es lo mismo—: un negocio propio con sus beneficios, sin tener que montar la operación física.
+const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos una **empresa de distribución moderna** —o un sistema de distribución, es lo mismo—: un negocio propio con sus beneficios, sin tener que montar la operación física.
 
 En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí todo eso lo asume el fabricante: produce cada producto y lo despacha hasta la casa de su cliente.
 

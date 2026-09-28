@@ -495,6 +495,16 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.58 — Una sola forma: «empresa de distribución moderna» (28 sep 2026)
+
+Convivían tres formas del mismo adjetivo: *un negocio moderno de distribución* (`WHY_02`, el prompt, la Home y el guion del video «Cómo funciona»), *empresa moderna de distribución* (`EMPRESA_DIGITAL_01` y el pitch deck, desde el 25-26 sep) y *empresa de distribución moderna* (el ideal del Director del 27 sep, y la tarjeta del pitch deck desde el 24). El vocabulario de este negocio se duplica, y tres formas casi iguales se degradan tres eslabones abajo. El Director fijó la tercera, en todas partes.
+
+- **Por qué esa.** *Empresa de distribución* ya es sinónimo vivo del sistema —*negocio de distribución* no lo es— y se construye igual que *sistema de distribución*, así que el puente de `EMPRESA_DIGITAL_01` se ve. Y el adjetivo al final lleva el acento: con *moderna* en medio, la frase terminaba en *distribución*, la palabra más plana.
+- **El costo, medido en las notas de la investigación de naming:** *distribución moderna* es la jerga del canal de supermercados en España; en Colombia y México el gremio dice *canal moderno*. Dentro de la frase llega la lectura llana (distribuir de forma moderna), que favorece. **Condición:** las cuatro palabras van juntas; las dos últimas nunca quedan solas a la vista.
+- **Cambió una frase en dos candados**, con su espejo en `respuestas-maestras.ts` (contrato de prefijo verificado): `WHY_02` 🔒 (*…de montar una empresa de distribución moderna.*) y `EMPRESA_DIGITAL_01` 🔒 (*Aquí lo llamamos una **empresa de distribución moderna***). La firma `que_es` de `queswa-bitacora.ts` reconoce la forma nueva y conserva las dos viejas para el historial.
+- **Despliegue sin ventana:** el índice y el título no cambiaron, así que el embedding tampoco. En vez de purgar y regenerar, un `update … replace()` atómico en los tres tenants; verificado con `content like` sobre lo nuevo y lo viejo en toda la tabla (cero residuos, padre incluido).
+- **La nota de versión de la cabecera** se escribió primero citando las tres formas y se corrigió antes de desplegar: nombra el criterio, no las formas retiradas.
+
 ### v6.57 — Nace `WHY_APP_02`: una sola aplicación, y cómo se entra (27 sep 2026)
 
 De la auditoría del guion del video «Cómo funciona»: *«¿todo viene en una sola app o toca descargar varias?»* recibía una composición que **contradecía el video** —*«todo vive en creatuactivo.com»*, con queswa.app como cosa aparte— y disparaba el guardarraíl de negocio («funciona solo»). La pregunta no tenía dueño.

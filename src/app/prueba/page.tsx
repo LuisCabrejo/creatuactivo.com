@@ -481,7 +481,7 @@ export default function PruebaPage() {
           para eso.
         </Body>
         <Body mt>
-          Eso fue lo que cambió: hoy es un negocio moderno de distribución. El trabajo
+          Eso fue lo que cambió: hoy es una empresa de distribución moderna. El trabajo
           pesado lo hacen dos — una fábrica con 30 años, y una inteligencia artificial
           que no duerme. Su sistema se maneja desde una aplicación, y buena parte desde
           WhatsApp.

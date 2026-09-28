@@ -18,8 +18,15 @@
  * ⚠️ EL TAMAÑO DEL TITULAR SE MIDE, NO SE SUPONE. satori no recorta: cuando un
  * hijo en flujo desborda, DESCARTA todo lo que no va en position:absolute y la
  * tarjeta sale casi vacía, con 200 y con un PNG que pesa lo normal. Le pasó a la
- * de /nosotros. La línea larga aquí es «DISTRIBUCIÓN MODERNA» (20 caracteres) y
- * a 72px mide ~890px contra los 1.040 útiles. Antes de subirlo, renderice y MIRE.
+ * de /nosotros. La línea larga aquí es «DE DISTRIBUCIÓN» (15 caracteres), holgada
+ * contra los 1.040 útiles. Antes de subirlo, renderice y MIRE.
+ *
+ * ⛔ EL TITULAR VA EN TRES LÍNEAS, y el dorado es solo «MODERNA» (Director, 28 sep
+ * 2026): la forma única es «empresa de distribución moderna», con las cuatro
+ * palabras juntas. Hasta ese día la tarjeta ponía «UNA EMPRESA DE» en blanco y
+ * «DISTRIBUCIÓN MODERNA» sola en dorado, que es la jerga del canal de
+ * supermercados vuelta titular. «UNA EMPRESA DE DISTRIBUCIÓN» en una línea no
+ * cabe a 72px (27 caracteres), y por eso se parte donde no separa nada.
  */
 
 import { ImageResponse } from 'next/og'
@@ -89,7 +96,20 @@ export default async function Image() {
               display: 'flex',
             }}
           >
-            Una empresa de
+            Una empresa
+          </span>
+          <span
+            style={{
+              fontSize: 72,
+              fontWeight: 700,
+              color: '#FFFFFF',
+              lineHeight: 1.08,
+              letterSpacing: '-0.01em',
+              textTransform: 'uppercase',
+              display: 'flex',
+            }}
+          >
+            de distribución
           </span>
           <span
             style={{
@@ -102,7 +122,7 @@ export default async function Image() {
               display: 'flex',
             }}
           >
-            distribución moderna
+            moderna
           </span>
         </div>
 

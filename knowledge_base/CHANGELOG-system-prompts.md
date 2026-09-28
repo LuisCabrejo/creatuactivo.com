@@ -6,6 +6,15 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.10 — Una sola forma: «empresa de distribución moderna» (28 sep 2026)
+
+El Director fijó una sola forma para presentar el negocio en frío, la misma del arsenal v6.58, del video y de la web (el porqué, en el CHANGELOG de arsenales). Dos cambios:
+
+1. **El resumen del video «Cómo funciona»** (bloque de videos del rol) dice *eliminan la fricción de montar una empresa de distribución moderna*, que es lo que dice el corte nuevo.
+2. **La regla de léxico** decía que el marco era *un negocio moderno de distribución* y nombraba la forma que se quería evitar. Ahora dice el marco en positivo —*una empresa de distribución moderna, las cuatro palabras juntas y en ese orden*— sin citar la jerga: nombrar la frase vetada en el prompt se la dicta al modelo.
+
+**Presupuesto:** WhatsApp 18.236 · web 18.652 · Dashboard 15.471 (unos 30 caracteres menos que la v5.9). Baterías de salud, negocio (34 candados) y clasificador (63/63) en verde antes de desplegar; las tres filas verificadas por RPC.
+
 ## v5.9 — El video «Cómo funciona» entra al prompt como permanente (27 sep 2026)
 
 El video «Cómo funciona» (guion aprobado en la sesión del tercer elemento — ver el traspaso `HANDOFF_APLICACION_PERSONALIZADA_SEP2026.md` y el arsenal v6.52–v6.53) **se publica el 27 sep** y es el que la mayoría verá antes de escribir. Dos cambios en el bloque de videos del rol (`canal:web whatsapp`):

@@ -84,10 +84,11 @@ export const TEMAS: TemaBitacora[] = [
   },
   {
     id: 'que_es',
-    nombre: 'qué es una empresa moderna de distribución (el sistema de distribución)',
-    // La variante vieja («Aquí lo llamamos sistema de distribución») se conserva
-    // para el historial anterior al 25 sep 2026.
-    firma: /Aqu[ií] lo llamamos (una )?\*{0,2}(empresa moderna de distribuci[oó]n|sistema de distribuci[oó]n)/i,
+    nombre: 'qué es una empresa de distribución moderna (el sistema de distribución)',
+    // Las variantes viejas («Aquí lo llamamos sistema de distribución», antes del
+    // 25 sep, y «empresa moderna de distribución», del 25 al 28 sep 2026) se
+    // conservan para el historial de quien las recibió.
+    firma: /Aqu[ií] lo llamamos (una )?\*{0,2}(empresa de distribuci[oó]n moderna|empresa moderna de distribuci[oó]n|sistema de distribuci[oó]n)/i,
     fragmentos: ['arsenal_inicial_EMPRESA_DIGITAL_01'],
   },
   {

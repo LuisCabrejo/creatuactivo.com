@@ -1331,7 +1331,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // su pregunta de cierre, que sale como pie. La entrada es una línea nueva
     // porque el candado no trae ninguna.
     const VIDEOS_APERTURA: Record<string, { url: string; intro: string; titulo: string; seg: number }> = {
-      apertura_sistema: { url: VIDEO_COMO_FUNCIONA_WA, intro: 'Con gusto. Funciona así:', titulo: 'Cómo funciona', seg: 80 },
+      apertura_sistema: { url: VIDEO_COMO_FUNCIONA_WA, intro: 'Con gusto. Funciona así:', titulo: 'Cómo funciona', seg: 60 },
       apertura_dinero:  { url: VIDEO_COMO_ENTRA_EL_DINERO_WA, intro: 'Con gusto. Se lo muestro en menos de un minuto:', titulo: 'Cómo entra el dinero', seg: 50 },
     };
     const videoApertura = opcionElegida ? VIDEOS_APERTURA[opcionElegida] : undefined;

@@ -47,7 +47,7 @@ import {
   RE_PREGUNTA_EMPRESA_GANO,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
-import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, type Bitacora } from '@/lib/queswa-bitacora';
+import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
 import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto, quitarElogioInicial } from '@/lib/queswa-envoltura';
 import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
 
@@ -75,6 +75,7 @@ import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
+import { videoQuePide, type VideoIntencion } from '@/lib/queswa-videos-intencion';
 import { contarTokens, consumoDe, esPeticionDePrueba, clienteParaPruebas, type Consumo } from '@/lib/consumo-anthropic';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
 // Ola 4 (25 May) lo había desactivado en favor del handoff 100% WhatsApp. Ahora
@@ -4544,9 +4545,24 @@ export async function POST(req: Request) {
     // ════════════════════════════════════════════════════════════════════════════
     // Gate por tenant: los textos Master son doctrina de creatuactivo — ganocafe.online
     // (ecommerce) tiene su propio arsenal y nunca debe servirlos.
-    const respuestaMaestra = (typeof latestUserMessage === 'string' && tenantId !== 'ecommerce')
+    const _respuestaMaestraBruta = (typeof latestUserMessage === 'string' && tenantId !== 'ecommerce')
       ? getRespuestaMaestra(latestUserMessage)
       : null;
+    // ⚠️ Si el hilo YA le mostró ese tema, no se dicta otra vez (28 sep 2026). Quien
+    // llegó por el reel «Qué debo hacer yo» y preguntó «¿y cuál sería mi trabajo
+    // exactamente?» recibió EAM_01 entero: el mismo texto que el video acababa de
+    // decirle. Este atajo corre antes de que exista la bitácora, así que lee el
+    // tema en el historial que trae la petición (las firmas de queswa-bitacora:
+    // el texto dictado, el video mandado o la nota del reel). Sin atajo, el turno
+    // sigue el flujo normal, donde el candado ya recibido llega como material y
+    // el modelo responde lo que falta.
+    const _temasDeLaMaestra = _respuestaMaestraBruta ? temasDelTexto(_respuestaMaestraBruta) : new Set<string>();
+    const _maestraYaMostrada = _temasDeLaMaestra.size > 0 && (Array.isArray(messages) ? messages : [])
+      .slice(0, -1)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .some((m: any) => m?.role === 'assistant' && typeof m.content === 'string' && [...temasDelTexto(m.content)].some((t) => _temasDeLaMaestra.has(t)));
+    if (_maestraYaMostrada) console.log(`🔁 [VERBATIM_LOCK] La respuesta maestra (${[..._temasDeLaMaestra].join(', ')}) ya se mostró en el hilo — sigue el flujo normal`);
+    const respuestaMaestra = _maestraYaMostrada ? null : _respuestaMaestraBruta;
 
     // ── CICLOS DE PAGO: respuesta calculada, no recordada ────────────────────
     // "¿En qué ciclo estamos?" tiene una respuesta que cambia cada lunes; dejarla
@@ -5329,7 +5345,32 @@ ${summaryParts.join('\n')}
     // negocio", que además es léxico de negocio en modo consultor.
     const _nombraProducto = detectarProducto(latestUserMessage) !== null;
 
-    if (!_aceptacionPelada && !_negacionPelada && !_yaClasificaPorPatron && !_nombraProducto && canalDictado && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
+    // ── El tema de un video, reconocido por SIGNIFICADO, ancla la búsqueda (28 sep 2026) ──
+    // «pero entonces qué más tendría que hacer yo», dicho después del video del
+    // día a día, pasó por el CQR («entonces» lo dispara), que le puso el último
+    // tema del hilo: «Cómo funciona el plan de compensación y qué acciones
+    // generan ingresos…». El clasificador la mandó a compensación y la persona
+    // recibió COMP_MODELO_01 (la bola de nieve) a una pregunta sobre su rol.
+    // El mismo detector que manda los videos en el canal reconoce las tres
+    // preguntas de la apertura con cualquier redacción; si reconoce una, se busca
+    // con su pregunta canónica y el CQR no corre. Si el tema ya se le mostró, el
+    // candado llega como material y el modelo responde lo que falta, sin repetir.
+    // No con el socio: su «qué tengo que hacer» es su día, no el del prospecto.
+    const ANCLA_DE_VIDEO: Record<VideoIntencion, string> = {
+      apertura_sistema: '¿Y esto cómo funciona, exactamente?',
+      apertura_dinero: '¿De dónde sale el dinero?',
+      apertura_rol: '¿Cómo lo haría yo? ¿Qué hago en el día a día?',
+    };
+    let _anclaPorIntencion = false;
+    if (!_aceptacionPelada && !_negacionPelada && !_yaClasificaPorPatron && !_nombraProducto && canalDictado && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly && pageContext !== 'whatsapp_socio') {
+      const intencion = await videoQuePide(latestUserMessage);
+      if (intencion) {
+        consultaRecuperacion = ANCLA_DE_VIDEO[intencion];
+        _anclaPorIntencion = true;
+        console.log(`🧭 [Intención] «${latestUserMessage.slice(0, 60)}» es la pregunta de ${intencion} — se busca con «${consultaRecuperacion}», sin CQR`);
+      }
+    }
+    if (!_anclaPorIntencion && !_aceptacionPelada && !_negacionPelada && !_yaClasificaPorPatron && !_nombraProducto && canalDictado && !isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly) {
       const historialPrevio = (Array.isArray(messages) ? messages : [])
         .slice(0, -1)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

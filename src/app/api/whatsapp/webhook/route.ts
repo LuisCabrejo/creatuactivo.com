@@ -23,6 +23,7 @@ import {
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
 import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA } from '@/lib/reels';
+import { videoQuePide } from '@/lib/queswa-videos-intencion';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
   construirApertura,
@@ -1396,11 +1397,15 @@ async function procesarEntrante(body: any): Promise<void> {
       apertura_dinero:  { url: VIDEO_COMO_ENTRA_EL_DINERO_WA, intro: 'Con gusto. Se lo muestro en menos de un minuto:', titulo: 'Cómo entra el dinero', seg: 50 },
       apertura_rol:     { url: VIDEO_QUE_DEBO_HACER_YO_WA, intro: 'Con gusto. Se lo muestro:', titulo: 'Qué debo hacer yo', seg: 42 },
     };
-    const videoApertura = opcionElegida ? VIDEOS_APERTURA[opcionElegida] : undefined;
-    if (dictada && videoApertura) {
-      const INTRO = videoApertura.intro;
-      const cuerpo = dictada.startsWith(INTRO) ? dictada.slice(INTRO.length).trim() : dictada;
-      await sendWhatsAppMessage(phoneNumber, INTRO);
+    // El tema de la bitácora que cuenta cada video: si ya se le mostró, no se repite.
+    const TEMA_DE_VIDEO: Record<string, string> = { apertura_sistema: 'como_funciona', apertura_dinero: 'dinero', apertura_rol: 'dia_a_dia' };
+    // La entrada y el video con la pregunta de cierre como pie. Devuelve lo que
+    // la fila debe guardar: lo que dice la voz y la pregunta, para que la
+    // bitácora lo reconozca y el «sí» se lea contra ella. Lo usan el botón (1.9),
+    // el pedido con palabras propias (2.9) y la red detrás del motor (3.85).
+    const mandarVideoApertura = async (opcion: string, cuerpo: string) => {
+      const v = VIDEOS_APERTURA[opcion];
+      await sendWhatsAppMessage(phoneNumber, v.intro);
       // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
       if (wamid) await marcarLeidoYEscribiendo(wamid);
       await new Promise((r) => setTimeout(r, 800));
@@ -1408,18 +1413,24 @@ async function procesarEntrante(body: any): Promise<void> {
       const r = _bitacoraDelTurno ? renovarOfertaVista(cuerpo, _bitacoraDelTurno) : { texto: cuerpo, cambio: null };
       if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
       const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
-      const envio = await sendVideo(phoneNumber, videoApertura.url, pie);
-      if (envio.ok) {
-        const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
-        await persistirTurnoDictado(
-          supabase, waFingerprint, messageText,
-          `${INTRO}\n\n[Video «${videoApertura.titulo}», ${videoApertura.seg} s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`,
-          `botón de la apertura: ${opcionElegida} (video)`,
-        );
-        console.log(`🎬 [WA Webhook] Video «${videoApertura.titulo}» → ${phoneNumber}`);
+      const envio = await sendVideo(phoneNumber, v.url, pie);
+      const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
+      if (envio.ok) console.log(`🎬 [WA Webhook] Video «${v.titulo}» → ${phoneNumber}`);
+      else console.warn(`⚠️ [WA Webhook] El video «${v.titulo}» no salió (${envio.error}) — va el texto`);
+      return {
+        ok: envio.ok,
+        fila: `${v.intro}\n\n[Video «${v.titulo}», ${v.seg} s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`,
+      };
+    };
+    const videoApertura = opcionElegida ? VIDEOS_APERTURA[opcionElegida] : undefined;
+    if (dictada && videoApertura) {
+      const INTRO = videoApertura.intro;
+      const cuerpo = dictada.startsWith(INTRO) ? dictada.slice(INTRO.length).trim() : dictada;
+      const m = await mandarVideoApertura(opcionElegida!, cuerpo);
+      if (m.ok) {
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, m.fila, `botón de la apertura: ${opcionElegida} (video)`);
         return;
       }
-      console.warn(`⚠️ [WA Webhook] El video «${videoApertura.titulo}» no salió (${envio.error}) — va el texto`);
       await sendWhatsAppMessage(phoneNumber, cuerpo);
       // `_ofertaRenovada` lo escribe `sendWhatsAppMessage`; TS no lo ve y lo da por null.
       const renovada = _ofertaRenovada as { original: string; enviado: string } | null;
@@ -2407,6 +2418,35 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // indicador desaparece justo antes de que llegue el texto — y ese hueco es
     // el que se siente como abandono. Mientras se espera al motor, se renueva
     // cada 20 s. Se apaga en `finally`, pase lo que pase.
+    // ─── 2.9 El video, pedido con palabras propias (28 sep 2026) ─────────────
+    // El botón solo sale una vez; la gente escribe «¿y yo qué tendría que
+    // hacer?», «¿quién me paga?», «explíqueme el negocio». El detector compara
+    // por significado contra ejemplos y contrastes (src/lib/queswa-videos-
+    // intencion.ts; arnés scripts/prueba-videos-intencion.mts). Corre con el
+    // prospecto en conversación general —no en catálogo, con un comprador, con
+    // alguien radicado, en salud ni con el socio— y no repite un tema que la
+    // bitácora ya le mostró. Si no hay video, el turno sigue al motor como siempre.
+    const _contextoGeneral = pageContext === 'whatsapp_primer_contacto' || pageContext === 'whatsapp_inbound' || pageContext.startsWith('whatsapp_ctwa');
+    if (_contextoGeneral && !socioQueEscribe && messageText) {
+      const opcionVideo = await videoQuePide(messageText);
+      if (opcionVideo && _bitacoraDelTurno?.temasMostrados.has(TEMA_DE_VIDEO[opcionVideo])) {
+        console.log(`🎬 [WA Webhook] Pide «${VIDEOS_APERTURA[opcionVideo].titulo}» con sus palabras, pero ya se le mostró — sigue al motor`);
+      } else if (opcionVideo) {
+        const textoBoton = getRespuestaBoton(opcionVideo) ?? '';
+        const intro = VIDEOS_APERTURA[opcionVideo].intro;
+        const cuerpo = textoBoton.startsWith(intro) ? textoBoton.slice(intro.length).trim() : textoBoton;
+        console.log(`🎬 [WA Webhook] «${messageText.slice(0, 60)}» pide el video «${VIDEOS_APERTURA[opcionVideo].titulo}»`);
+        const m = await mandarVideoApertura(opcionVideo, cuerpo);
+        if (m.ok) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, m.fila, `video por pedido propio: ${opcionVideo}`);
+        } else {
+          await sendWhatsAppMessage(phoneNumber, cuerpo);
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, `${intro} ${cuerpo}`, `video por pedido propio: ${opcionVideo} (sin video)`);
+        }
+        return;
+      }
+    }
+
     const tMotor = Date.now();
     const keepalive = wamid
       ? setInterval(() => { void marcarLeidoYEscribiendo(wamid); }, 20_000)
@@ -2544,6 +2584,34 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       await sendWhatsAppMessage(phoneNumber, reemplazoSalud);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, reemplazoSalud);
       return;
+    }
+
+    // ─── 3.85 RED: el motor respondió con el TEXTO de un candado que tiene video ─
+    // Lo que el detector de 2.9 no reconoció pero el motor llevó igual al candado
+    // (por la búsqueda o por el atajo de las respuestas maestras) sale como
+    // video, igual que el botón. Solo si la respuesta ES el candado —casi todas
+    // sus frases están—: una respuesta que apenas lo cita la redactó el modelo.
+    // Y no si la bitácora ya le mostró ese tema.
+    if (!socioQueEscribe && queswaReply) {
+      const plano = (t: string) => t.replace(/[*_]/g, '').replace(/[^\p{L}\p{N}\s.,:;¿?¡!]/gu, '').replace(/\s+/g, ' ').trim().toLowerCase();
+      const respuestaPlana = plano(queswaReply);
+      for (const opcion of Object.keys(TEMA_DE_VIDEO)) {
+        if (_bitacoraDelTurno?.temasMostrados.has(TEMA_DE_VIDEO[opcion])) continue;
+        const candado = getRespuestaBoton(opcion) ?? '';
+        const frases = candado.split('\n').map((l) => plano(l)).filter((l) => l.length >= 25 && !l.endsWith('?'));
+        const presentes = frases.filter((f) => respuestaPlana.includes(f)).length;
+        if (frases.length && presentes / frases.length >= 0.7) {
+          const intro = VIDEOS_APERTURA[opcion].intro;
+          const cuerpo = candado.startsWith(intro) ? candado.slice(intro.length).trim() : candado;
+          console.log(`🎬 [WA Red] El motor respondió con el candado de «${VIDEOS_APERTURA[opcion].titulo}» (${presentes}/${frases.length}) — va el video`);
+          const m = await mandarVideoApertura(opcion, cuerpo);
+          if (m.ok) {
+            await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, m.fila, `video en lugar del candado: ${opcion}`);
+            return;
+          }
+          break; // sin video: sigue el texto del motor
+        }
+      }
     }
 
     // ─── 3.9 RED: el borrador niega una imagen que SÍ tenemos ─────────────────

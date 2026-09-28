@@ -539,7 +539,9 @@ export default function PitchDeckPage() {
         /* La línea del NOMBRE (mecánica de Jobs). Más pequeña que el golpe para que
            las cuatro palabras quepan en UNA línea hasta en el teléfono — los espacios
            duros del JSX impiden el corte que dejaría «distribución moderna» sola.
-           `p.` sube la especificidad para ganarle a la media query del móvil. */
+           El selector con "p." sube la especificidad para ganarle a la media query
+           del móvil. OJO: nada de acentos graves en estos comentarios — cierran la
+           plantilla de JS que envuelve todo este CSS (rompió el build, 28 sep). */
         .pd-remate p.grande--nombre {
           font-size: clamp(1rem, 3.4vw, 2rem); margin: 0 0 1.5rem;
         }

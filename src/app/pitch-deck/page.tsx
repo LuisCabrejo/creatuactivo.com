@@ -424,6 +424,20 @@ export default function PitchDeckPage() {
           font-size: clamp(1rem, 2.1vw, 1.32rem); line-height: 1.62;
           color: var(--color-text-body, #C8C7C2); margin: 0 0 1.1rem; max-width: 46ch;
         }
+        /* Viñetas del deck (Director, 28 sep 2026): mismo cuerpo que .pd-p, marcador
+           dorado sobrio. Nacieron para despiezar «Por qué ahora». */
+        .pd-vinetas {
+          list-style: none; margin: 0 0 1.1rem; padding: 0; max-width: 46ch;
+        }
+        .pd-vinetas li {
+          font-size: clamp(1rem, 2.1vw, 1.32rem); line-height: 1.62;
+          color: var(--color-text-body, #C8C7C2);
+          position: relative; padding-left: 1.15rem;
+        }
+        .pd-vinetas li::before {
+          content: '·'; position: absolute; left: 0;
+          color: var(--pd-gold); font-weight: 700;
+        }
         .pd-gold { color: var(--pd-gold); }
         /* La bisagra: la línea más grande de la pantalla después del titular.
            Es el giro del deck entero, así que pesa como tal. */
@@ -808,6 +822,8 @@ export default function PitchDeckPage() {
           .pd-eyebrow { margin-bottom: 1rem; }
           .pd-h2 { font-size: clamp(1.4rem, 5.6vw, 2rem); margin-bottom: 1rem; }
           .pd-p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.8rem; }
+          .pd-vinetas { margin-bottom: 0.8rem; }
+          .pd-vinetas li { font-size: 0.95rem; line-height: 1.5; }
           .pd-bisagra { font-size: clamp(1.3rem, 6vw, 1.9rem); margin: 1.2rem 0 0.8rem; }
           .pd-credo h1, .pd-credo .pd-credo-linea { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
           .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
@@ -1010,11 +1026,20 @@ export default function PitchDeckPage() {
                 ⚠️ Dice «factura» y no «produce»: en la 4 nos definimos por el sistema
                 que CONECTA y no por el que produce — se contradiría una pantalla
                 después. */}
-            <p className="pd-p">
-              Hacer empresa siempre ha sido difícil. Una empresa de distribución moderna
-              que venda en todo el continente y facture sin que usted tenga que estar
-              encima — hasta hace poco, tener una así era casi imposible.
+            {/* DESPIEZADO EN VIÑETAS (Director, 28 sep 2026: «separan los textos…
+                inclusive para matizarlo usa viñetas»). Es la MISMA frase aprobada,
+                solo que respirada: la dificultad en una línea, el objeto deseable con
+                sus dos propiedades en subjuntivo como viñetas, y el veredicto solo en
+                su renglón — así el «casi imposible» cae con peso propio. */}
+            <p className="pd-p">Hacer empresa siempre ha sido difícil.</p>
+            <p className="pd-p" style={{ marginBottom: '0.5rem' }}>
+              Una empresa de distribución moderna:
             </p>
+            <ul className="pd-vinetas">
+              <li>que venda en todo el continente</li>
+              <li>que facture sin que usted tenga que estar encima</li>
+            </ul>
+            <p className="pd-p">Tener una así, hasta hace poco, era casi imposible.</p>
             {/* NOMBRA LOS PRODUCTOS, NO LA TECNOLOGÍA (Director, 26 sep 2026). Decía «la
                 inteligencia artificial y la logística global»: cierto, pero de todos.
                 CreaTuActivo.com y Queswa.app son verificables —el oyente puede abrirlos
@@ -1041,28 +1066,41 @@ export default function PitchDeckPage() {
                 sección por lo que es — dónde está la oportunidad. */}
             <p className="pd-eyebrow">La oportunidad</p>
             {/* El titular cruza la imagen de la pantalla anterior y la paga: la
-                bicicleta estática entra en la 2 y se resuelve aquí (Director, 24 sep).
-                «Ser dueño del sistema que conecta, no del que produce» es su tesis de
-                la conectividad —Amazon, MercadoLibre— en catorce palabras. */}
+                bicicleta estática entra en la 2 y se resuelve aquí (Director, 24 sep). */}
             <h2 className="pd-h2">Cómo bajarse de la bicicleta estática.</h2>
+            {/* LA TESIS DE LA CONECTIVIDAD, PINTADA (Director, 28 sep 2026: «el texto
+                debe pintar con palabras que el negocio moderno no está en la
+                producción y sí en generar la conexión»). La versión anterior la decía
+                en abstracto —«ser dueño del sistema que conecta, no del que
+                produce»— y era exacta pero no se veía. Ahora la pinta UNA analogía
+                (la regla medida: una sola, en puente, sin remate propio): Uber, la
+                más grande del transporte, sin un solo carro. Comparación hacia
+                ARRIBA —el dueño del sistema—, nunca de lado. El mapa con la
+                bicicleta queda cerrado: pedalear es producir; bajarse es ser dueño
+                de la conexión. La línea dorada es la tesis con las palabras del
+                Director, y al soltar «Así funciona una empresa moderna» el adjetivo
+                baja de tres usos a dos en el deck (la 3 lo define, aquí se usa ya
+                definido, el remate lleva la forma canónica completa). */}
             <p className="pd-p">
-              Lo que hace falta es ser dueño del sistema que conecta, no del que produce.{' '}
-              <span className="pd-gold">Así funciona una empresa moderna.</span>
+              Piense en las empresas más grandes de esta era: Uber es la más grande del
+              transporte, y no tiene un solo carro. Su negocio no está en producir los
+              viajes — está en ser dueña de la conexión entre quien viaja y quien
+              conduce.
             </p>
-            {/* LA BISAGRA DE TODA LA HERRAMIENTA (Director, 23 sep 2026).
-                Antes decía «el modelo dependía de que usted fuera el sistema»: exacto y
-                frío — arquitectura, no algo en que alguien se reconozca. Y la otra salida
-                que se consideró, nombrar que nadie quiere andar detrás de sus conocidos,
-                es el SÍNTOMA: le planta la escena a quien no la traía y nos deja hablando
-                de lo que se teme de la categoría en la única pantalla donde decimos que
-                funciona.
-                La causa es esta: en este negocio todos quieren crecer, crecer es
-                multiplicarse, y ahí era donde el modelo se rompía. Es la razón por la que
-                el Director empezó esto.
-                ⚠️ «Y eso no era sencillo» se deja SIN DECIR a propósito: la ley lo implica
-                y el que oye lo completa solo. Y la multiplicación aquí es tarea del modelo
-                VIEJO — en el nuestro se nombra como consecuencia, nunca como un tercer
-                paso; el contraste refuerza esa regla en vez de romperla. */}
+            <p className="pd-p">
+              <span className="pd-gold">
+                El negocio moderno no está en la producción: está en la conexión.
+              </span>
+            </p>
+            {/* HISTORIA DE LA BISAGRA (23-28 sep 2026), para que nadie regrese a las
+                versiones descartadas: «el modelo dependía de que usted fuera el
+                sistema» era exacto y frío — arquitectura, no algo en que alguien se
+                reconozca. ⛔ Nombrar que nadie quiere andar detrás de sus conocidos es
+                el SÍNTOMA: le planta la escena a quien no la traía, en la única
+                pantalla donde decimos que funciona. ⚠️ «Y eso no era sencillo» se deja
+                SIN DECIR: la ley lo implica y el que oye lo completa solo; la
+                multiplicación como tarea es del modelo viejo — en el nuestro es
+                consecuencia, nunca un tercer paso. */}
 
             {/* MODERNIZAR, NO CAMBIAR DE VIDA (Director, 24 sep 2026). El hallazgo de
                 campo: presentado como ACTUALIZACIÓN la gente se interesa; presentado

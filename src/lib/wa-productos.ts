@@ -259,6 +259,25 @@ function normalizar(t: string): string {
 }
 
 /**
+ * ¿La clave aparece en el texto como palabra(s), y no como pedazo de otra?
+ *
+ * `includes` a secas leyó el té dentro de «el TEma de los 12 niveles» (alias
+ * «el te», Marlon, 27 sep 2026) y su pregunta más caliente recibió la ficha del
+ * Rooibos. La frontera del INICIO es estricta; la del FINAL admite solo la «s»
+ * o «es» del plural pegado («capuchinos» sigue encontrando el 3 en 1) — más
+ * letras es otra palabra. Ambos lados operan sobre texto ya normalizado, donde
+ * solo quedan [a-z0-9 ], así que basta mirar el carácter vecino.
+ */
+function coincideConFrontera(t: string, k: string): boolean {
+  for (let i = t.indexOf(k); i !== -1; i = t.indexOf(k, i + 1)) {
+    if (i > 0 && /[a-z0-9]/.test(t[i - 1])) continue;
+    const cola = /^[a-z0-9]*/.exec(t.slice(i + k.length))![0];
+    if (cola === '' || cola === 's' || cola === 'es') return true;
+  }
+  return false;
+}
+
+/**
  * ¿La persona está pidiendo una imagen?
  *
  * Se exige que lo PIDA. Mandar la foto porque el producto se mencionó convierte
@@ -387,7 +406,7 @@ export function detectarProducto(texto: string): ProductoWA | null {
   for (const p of PRODUCTOS_WA) {
     const claves = [normalizar(p.nombre), ...p.alias.map(normalizar)];
     // La más larga de las que coinciden: "luvoco fuerte" le gana a "luvoco".
-    const coincide = claves.filter((k) => k.length >= 4 && t.includes(k)).sort((a, b) => b.length - a.length)[0];
+    const coincide = claves.filter((k) => k.length >= 4 && coincideConFrontera(t, k)).sort((a, b) => b.length - a.length)[0];
     if (coincide) { encontrados.add(p); claveQueCoincidio.set(p, coincide); }
   }
 

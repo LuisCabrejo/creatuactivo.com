@@ -4584,8 +4584,12 @@ export async function POST(req: Request) {
       && !/recicl|bicicl|motocicl|ciclo\s+de\s+(vida|venta|producto)/i.test(latestUserMessage)
       // …ni «el ciclo de 12 niveles» (prueba del Director, 1 sep, 10:43): si el
       // mensaje nombra Los 12 Niveles de cualquier forma, el calendario no es
-      // lo que pregunta.
-      && !/(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*ciclos|(12|doce|dos)\s*niveles/i.test(latestUserMessage);
+      // lo que pregunta. Y «nivel» en cualquier parte, o «12/doce ciclos»,
+      // también lo excluyen (Marlon, 27 sep 2026: «el negocio los 12 ciclos o
+      // niveles» recibió el calendario del ciclo 929 — los ciclos de pago nunca
+      // se cuentan de a doce, así que «12 ciclos» es la estrategia mal nombrada;
+      // en la duda, mejor el modelo que un dictado equivocado).
+      && !/(plan|estrategia|programa|sistema|eso)\s+de\s+(los\s+)?(12|doce|dos)\s*ciclos|\bnivel(es)?\b|\b(12|doce)\s*ciclos\b/i.test(latestUserMessage);
     if (_preguntaCiclo) {
       const _numPedido = latestUserMessage.match(/ciclo\s+(\d{3,4})\b/i);
       const _rCiclo = respuestaCiclo(new Date(), _numPedido ? Number(_numPedido[1]) : undefined);

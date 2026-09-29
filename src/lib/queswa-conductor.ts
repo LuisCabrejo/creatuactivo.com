@@ -331,8 +331,11 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
   // pregunta por qué es el plan recibe NIVELES_01 tal cual.
   // Se acota a la pregunta de QUÉ ES; «¿cuánto se gana con el plan de 12
   // días?» sigue al motor, que la lleva a NIVELES_02.
-  const nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b|(plan|estrategia)\s+(estrat[eé]gic[oa]|nuev[oa]|de septiembre|del?\s+(1|primero|1ro)\s+de\s+septiembre|que\s+(est[aá]n\s+)?lanz\w+)|nuev[oa]\s+(plan|estrategia)|plan\s+de\s+lanzamiento/i.test(mensaje);
-  const preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bl[aoó]|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n|averigua|saber|conocer|entender|no me acuerdo/i.test(mensaje)
+  // «12 ciclos» a secas también es la estrategia: los ciclos de pago nunca se
+  // cuentan de a doce (Marlon, 27 sep 2026: «el negocio los 12 ciclos o
+  // niveles» — la puerta del calendario ya lo deja pasar, y aquí aterriza).
+  const nombreMalOido = /(plan|estrategia|programa|sistema|eso|ciclos?)\s+de\s+(los\s+)?(12|doce|dos)\s*(niveles|ciclos|d[ií]as|semanas|meses|pasos|etapas|escalones)?\b|\b(12|dos|doce)\s*niveles\b|\b(12|doce)\s*ciclos\b|(plan|estrategia)\s+(estrat[eé]gic[oa]|nuev[oa]|de septiembre|del?\s+(1|primero|1ro)\s+de\s+septiembre|que\s+(est[aá]n\s+)?lanz\w+)|nuev[oa]\s+(plan|estrategia)|plan\s+de\s+lanzamiento/i.test(mensaje);
+  const preguntaQueEs = /qu[eé]\s+es|qu[eé]\s+son|c[oó]mo\s+es|expl[ií]ca|h[aá]bl[aoó]|cu[eé]nta|me hablaron|en qu[eé] consiste|de qu[eé] se trata|informaci[oó]n|averigua|saber|conocer|entender|no me acuerdo|pregunt[oa]/i.test(mensaje)
     && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(mensaje);
   // El «sí» a las ofertas de la estrategia — las escritas Y las que el modelo
   // compone nombrando Los 12 Niveles («¿le muestro cómo funciona con su

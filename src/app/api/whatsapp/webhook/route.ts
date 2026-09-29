@@ -600,12 +600,28 @@ async function procesarEntrante(body: any): Promise<void> {
     const waFingerprint = `wa_${phoneNumber}`;
     const supabase = getSupabase();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: existingProspect } = await (supabase as any)
+    // ⚠️ Una lectura que FALLA no es una ficha que no existe (29 sep 2026). El
+    // error se ignoraba, y con Supabase caído un instante `existingProspect`
+    // salía nulo: Yesid Triana, en su turno 11, recibió la apertura de primer
+    // contacto —sin el nombre del socio— y después el video que ya había visto.
+    // Se reintenta una vez; si sigue fallando, la persona se atiende como
+    // conocida: una apertura repetida a mitad de conversación se nota mucho más
+    // que una que falta. `esPrimerContacto` es la única puerta de «es nuevo».
+    const leerFicha = () => (supabase as any) // eslint-disable-line @typescript-eslint/no-explicit-any
       .from('prospects')
       .select('id, source, constructor_id, device_info')
       .eq('fingerprint_id', waFingerprint)
       .maybeSingle();
+    let { data: existingProspect, error: _errorFicha } = await leerFicha();
+    if (_errorFicha) {
+      await new Promise((r) => setTimeout(r, 500));
+      ({ data: existingProspect, error: _errorFicha } = await leerFicha());
+    }
+    const fichaIlegible = !!_errorFicha;
+    if (fichaIlegible) {
+      console.error(`🚨 [WA Webhook] No se pudo leer la ficha de ${waFingerprint} (${_errorFicha?.code ?? ''} ${_errorFicha?.message ?? ''}) — se atiende como conocido: sin apertura ni alta nueva`);
+    }
+    const esPrimerContacto = !existingProspect && !fichaIlegible;
 
     // ─── Atribución al socio ──────────────────────────────────────────────────
     // El enlace que comparte el socio lleva su código en el texto pre-llenado
@@ -630,7 +646,7 @@ async function procesarEntrante(body: any): Promise<void> {
       console.log(`🎟️ [WA Webhook] Llega por pase de ${compartidor?.nombre ?? 'un prospecto'} (${_tokenPase})`);
     }
 
-    if (!existingProspect) {
+    if (esPrimerContacto) {
       // Primer mensaje — crear prospect con atribución completa
       const source = isCTWA ? 'whatsapp_ctwa' : 'whatsapp_inbound';
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -684,7 +700,7 @@ async function procesarEntrante(body: any): Promise<void> {
       } else {
         console.log(`✅ [WA Webhook] Prospect registrado: ${waFingerprint} (${source})`);
       }
-    } else {
+    } else if (existingProspect) {
       // Prospect ya existe. Dos actualizaciones posibles, ninguna destructiva:
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const patch: Record<string, any> = {};
@@ -1018,7 +1034,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // hacer por él. No la explicación del negocio. ⚠️ La condición ya no es «no
     // tiene ficha»: quien escribió antes como prospecto tiene ficha y aun así no
     // ha recibido nunca su enlace — Patricia y Liliana, 10 sep 2026.
-    if (socioQueEscribe && (!existingProspect || !existingProspect.device_info?.saludo_socio_en)) {
+    if (socioQueEscribe && (esPrimerContacto || (existingProspect && !existingProspect.device_info?.saludo_socio_en))) {
       const saludo = saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug);
       await sendWhatsAppMessage(phoneNumber, saludo);
       await marcarSaludoDeSocio(supabase, waFingerprint);
@@ -1053,7 +1069,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // este aviso de los de la web, donde el visitante es un hash sin identidad.
     // Es el momento de mayor valor para el socio: la persona está conversando
     // AHORA, y él puede saludarla desde su propio chat mientras eso ocurre.
-    if (!existingProspect && patrocinador?.constructorId) {
+    if (esPrimerContacto && patrocinador?.constructorId) {
       const r = await avisarSocioNuevoProspecto(
         supabase, patrocinador.constructorId, contactName, phoneNumber,
       );
@@ -1124,7 +1140,7 @@ async function procesarEntrante(body: any): Promise<void> {
       && (/\?|(?<![a-záéíóúñ])(c[oó]mo|qu[eé]|cu[aá]l(es)?|cu[aá]nto|d[oó]nde|por qu[eé]|qui[eé]n|deseo|quiero|me interesa|necesito|inform[a-z]*)(?![a-záéíóúñ])/i.test(_textoSinUrls)
           || _textoSinUrls.split(/\s+/).filter(Boolean).length >= 4);
 
-    if (!existingProspect && _traePregunta) {
+    if (esPrimerContacto && _traePregunta) {
       console.log(`💬 [WA Webhook] Primer contacto CON pregunta ("${messageText.slice(0, 45)}") — responde el motor, sin apertura`);
     }
 
@@ -1134,7 +1150,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // atribuyó al mismo socio; aquí se le da la apertura estándar con sus
     // botones y una línea que reconoce de parte de quién viene — nunca una
     // pregunta abierta a quien apenas está viendo la información (Director).
-    const _llegaPareja = !existingProspect ? detectarLlegadaDePareja(messageText) : null;
+    const _llegaPareja = esPrimerContacto ? detectarLlegadaDePareja(messageText) : null;
     if (_llegaPareja) {
       // Si el enlace traía su nombre («soy Marcela, la pareja de…»), la
       // apertura la saluda con él — el perfil de WhatsApp es el respaldo.
@@ -1196,7 +1212,7 @@ async function procesarEntrante(body: any): Promise<void> {
       } catch { /* best-effort */ }
     }
     if (_vieneDeProductos && !_preguntaProductos) {
-      const texto = existingProspect
+      const texto = !esPrimerContacto
         ? aperturaRetornoProductos(contactName)
         : construirAperturaProductos(patrocinador?.nombre, contactName);
       const enviadoP = await sendReplyButtons(phoneNumber, texto, APERTURA_PRODUCTOS_OPCIONES);
@@ -1205,7 +1221,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, `${texto}\n\n${opciones}`);
       }
       await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, 'apertura de productos');
-      console.log(`🛒 [WA Webhook] Llega desde /productos (${existingProspect ? 'vuelve' : 'nuevo'}) — apertura de productos con dos botones`);
+      console.log(`🛒 [WA Webhook] Llega desde /productos (${esPrimerContacto ? 'nuevo' : 'vuelve'}) — apertura de productos con dos botones`);
       return;
     }
     if (_vieneDeProductos && _preguntaProductos) {
@@ -1303,7 +1319,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // Y ADEMÁS la apertura de prospecto — «Soy Queswa… atiendo a cientos de
     // personas» — en el mismo turno. Le pasó a Erika Cabrejo al responder el
     // mensaje de los lunes.
-    if (!existingProspect && !socioQueEscribe && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
+    if (esPrimerContacto && !socioQueEscribe && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
       if (_vieneDelVideoNiveles) {
         const texto = construirAperturaTrasVideoNiveles(patrocinador?.nombre, contactName);
         await sendWhatsAppMessage(phoneNumber, texto);
@@ -2458,14 +2474,14 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // respondieron con la presentación de la empresa para prospectos.
       : socioQueEscribe
       ? 'whatsapp_socio'
-      : (!existingProspect && _traePregunta)
+      : (esPrimerContacto && _traePregunta)
       ? 'whatsapp_primer_contacto'
       : ambivalencia
       ? ambivalencia
       // Modo asesora (9 sep 2026): llegó desde /productos, o lo hizo en las
       // últimas tres horas y no está preguntando por el negocio.
       : _modoCatalogo
-      ? (_vieneDeProductos && !existingProspect ? 'whatsapp_catalogo_primer_contacto' : 'whatsapp_catalogo')
+      ? (_vieneDeProductos && esPrimerContacto ? 'whatsapp_catalogo_primer_contacto' : 'whatsapp_catalogo')
       // Ya radicó: el motor no lo sabía y ante un «Perfecto» volvió a pedir los
       // cuatro datos copiando el bloque espejo del prompt (Liliana, 27 ago 2026).
       // Va después de la ambivalencia a propósito: un «lo consulto con mi esposa»

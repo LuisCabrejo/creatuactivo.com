@@ -24,7 +24,7 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO } from '../src/lib/queswa-conductor.ts';
+import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
 // lexer de Node se detiene en la «ñ» de `notificarDueño`, así que todo export
@@ -92,6 +92,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'clasificador · ama de casa', fn: (t) => RE_HOGAR.test(t), frase: 'soy ama de casa', llaves: ['casa', 'ama'], tope: 0,
     nota: 'PERFIL_03 (28 sep 2026): sin patrón, el CQR la mandaba a WHY_01' },
   { nombre: 'clasificador · gerente del hogar', fn: (t) => RE_HOGAR.test(t), frase: 'soy gerente del hogar', llaves: ['hogar', 'gerente'], tope: 0 },
+  { nombre: 'objeción de presupuesto', fn: (t) => RE_OBJECION_PRESUPUESTO.test(t), frase: 'eso afecta mi presupuesto', llaves: ['presupuesto', 'afecta'], tope: 0,
+    nota: 'la objeción baja el candado a material (Yesid, 29 sep 2026); si no dispara, se dicta «Claro que sí… ¿Le ayudo a abrir su código?»' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

@@ -44,7 +44,7 @@ import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/g
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, fotoParaWeb, aFormatoWeb,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
-  RE_PREGUNTA_EMPRESA_GANO,
+  RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
@@ -70,6 +70,7 @@ import {
   contieneNucleoSalud, declaraCondicion, pideEvidencia,
 } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
+import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
 import { mencionaElReto } from '@/lib/puerta-reto';
 import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
@@ -820,7 +821,7 @@ async function captureProspectData(
     console.log('🚫 [NEXUS] "paquetes empresariales" (plural) es el genérico del GEN5 — NO es selección de ESP-2');
   } else {
     for (const [label, value] of Object.entries(packageMap)) {
-      if (messageLower.includes(label)) {
+      if (mencionaPaqueteComoEleccion(messageLower, label)) {
         data.package = value;
         console.log('✅ [NEXUS] Paquete capturado:', value, 'desde label:', label);
         break;
@@ -6850,14 +6851,18 @@ ${visitorCountry === 'CO'
         // reparación de la conversación, y la hace el modelo con la bitácora
         // (el reparto de Rasa CALM: el modelo repara, el código pone el dato).
         const _esReparacion = /\bya me (lo )?(habl[aoó]\w*|dij\w*|explic\w*|mostr\w*|cont\w*)\b|\bno me (repit|repet)|\b(eso|esto) ya (lo )?(s[eé]|vimos|me lo)|\bya (lo )?(vimos|s[eé] eso)\b|me est[aá]s? repitiendo|otra vez lo mismo/i.test(String(latestUserMessage ?? ''));
-        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || (_esReparacion && !_esPuertaDictada))) {
+        // Y una objeción de presupuesto tampoco: ver RE_OBJECION_PRESUPUESTO en el
+        // conductor (Yesid, 29 sep 2026 — «¿no afecta el presupuesto…?» recibió
+        // «Claro que sí… ¿Le ayudo a abrir su código?»).
+        const _esObjecionPresupuesto = RE_OBJECION_PRESUPUESTO.test(String(latestUserMessage ?? ''));
+        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || ((_esReparacion || _esObjecionPresupuesto) && !_esPuertaDictada))) {
           // El candado se queda como MATERIAL, sin la orden de copiarlo literal:
           // así el modelo responde lo que la persona preguntó de verdad, con el
           // fragmento delante. Quitárselo lo dejaría componiendo sin material,
           // que es exactamente cuando vuelven las frases retiradas.
           _doc0.content = (_doc0.content || '').replace(/<\/?verbatim_lock>/gi, '');
           _meta0.candado_solitario = false;
-          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
+          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : _esObjecionPresupuesto ? 'el mensaje es una objeción de presupuesto' : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
         } else if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
           const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
           const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';

@@ -979,15 +979,22 @@ async function captureProspectData(
   console.log('📊 ═══════════════════════════════════════════════');
 
   // DETECCIÓN DE OBJECIONES (SEMÁNTICA)
+  // ⚠️ Por la FRASE que expresa la objeción, no por una palabra suelta (29 sep
+  // 2026). «real» marcaba «confianza» a quien preguntó por el Gano C'Real y a
+  // Yesid Triana por «una óptica real»; «no puedo pagarlo» contaba como falta de
+  // TIEMPO; y el presupuesto que no alcanza —su objeción de verdad— no se veía.
+  // La de precio usa el mismo detector que baja el candado ante esa objeción.
+  // Vigilado por `npx tsx scripts/prueba-objecion-presupuesto.mts`.
   const objeciones: string[] = [];
+  const _reObjecionPrecio = /(?<![a-záéíóúñ])caros?(?![a-záéíóúñ])|mucho dinero|no tengo dinero/i;
+  const _reObjecionTiempo = /tiempo|ocupad[oa]|no puedo(?!\s+(pagar|costear|invertir|comprar))/i;
+  const _reObjecionConfianza = /estafa|confianza|(?<![a-záéíóúñ])(es|ser[aá]|sea|son)\s+(esto\s+|eso\s+)?real(es)?(?![a-záéíóúñ])/i;
 
-  if (messageLower.includes('caro') || messageLower.includes('mucho dinero') ||
-      messageLower.includes('no tengo dinero')) {
+  if (_reObjecionPrecio.test(messageLower) || RE_OBJECION_PRESUPUESTO.test(messageLower)) {
     objeciones.push('precio');
   }
 
-  if (messageLower.includes('tiempo') || messageLower.includes('ocupado') ||
-      messageLower.includes('no puedo')) {
+  if (_reObjecionTiempo.test(messageLower)) {
     objeciones.push('tiempo');
   }
 
@@ -996,8 +1003,7 @@ async function captureProspectData(
     objeciones.push('mlm');
   }
 
-  if (messageLower.includes('estafa') || messageLower.includes('real') ||
-      messageLower.includes('confianza')) {
+  if (_reObjecionConfianza.test(messageLower)) {
     objeciones.push('confianza');
   }
 

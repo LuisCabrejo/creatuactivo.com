@@ -636,7 +636,7 @@ export const RE_PREGUNTA_EMPRESA_GANO =
 // y sigue dictada. `afecta` solo cuenta pegado a lo que afecta, porque «¿me
 // afecta si tengo gastritis?» es salud, no bolsillo.
 export const RE_OBJECION_PRESUPUESTO =
-  /p[er]{1,3}[eé]*s?u?p[uú]?e?s?t|costo\s+de\s+(la\s+)?vida|canasta|(primera|1\s*era|1ra)\s+necesidad|necesidades\s+b[aá]sicas|salario\s+m[ií]nimo|m[ií]nimo\s+vital|no\s+(me\s+)?alcanza|no\s+tengo\s+(plata|dinero|con\s+qu[eé]|c[oó]mo\s+pagar)|no\s+me\s+queda\s+(plata|dinero)|(muy|demasiado|bastante|algo|re)\s+car[oa]|\b(es|est[aá])\s+car[oa]|mucha\s+plata|fin\s+de\s+mes|apretad[oa]s?\b|no\s+(lo\s+)?puedo\s+(pagar|costear)|bolsillo|afecta[^.?\n]{0,40}(necesidad|p[er]{1,3}[eé]*s?u?p[uú]?e?s?t|bolsillo|econom|plata|dinero)/i;
+  /p[er]{1,3}[eé]*s?u?p[uú]?e?s?t|costo\s+de\s+(la\s+)?vida|canasta|(primera|1\s*era|1ra)\s+necesidad|necesidades\s+b[aá]sicas|salario\s+m[ií]nimo|m[ií]nimo\s+vital|no\s+(me\s+)?alcanza|no\s+tengo\s+(plata|dinero|con\s+qu[eé]|c[oó]mo\s+pagar)|no\s+me\s+queda\s+(plata|dinero)|(muy|demasiado|bastante|algo|re)\s+car[oa]|\b(es|est[aá])\s+car[oa]|(sale|queda|resulta)\s+(muy\s+)?car[oa]|mucha\s+plata|fin\s+de\s+mes|apretad[oa]s?\b|no\s+(lo\s+)?puedo\s+(pagar|costear)|bolsillo|afecta[^.?\n]{0,40}(necesidad|p[er]{1,3}[eé]*s?u?p[uú]?e?s?t|bolsillo|econom|plata|dinero)/i;
 
 export const TEXTO_NO_PIEZAS =
   'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +

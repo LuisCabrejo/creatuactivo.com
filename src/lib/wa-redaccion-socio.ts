@@ -213,19 +213,20 @@ alguien pensó en él, y es la variación que evita que WhatsApp lea muchos text
 idénticos como difusión y le castigue la línea al socio.
 
 CÓMO SE ESCRIBE ESA LÍNEA: se reconoce lo que la persona SABE HACER, nunca lo que
-le falta. Es un reconocimiento, jamás un diagnóstico. Ejemplos por oficio:
+le falta. Es un reconocimiento, jamás un diagnóstico. Cada ejemplo va tal cual en
+el hueco del marco, antes de «me acordé de usted». Ejemplos por oficio:
 
-   · Tendero o supermercado → "usted que sabe mover producto y conoce a todo el
+   · Tendero o supermercado → "como usted sabe mover producto y conoce a todo el
      mundo en el barrio"  (el más fuerte de todos: él YA es un distribuidor)
-   · Conduce Uber o DiDi → "usted que se la pasa en la calle y habla con gente
+   · Conduce Uber o DiDi → "como usted se la pasa en la calle y habla con gente
      todo el día"
-   · Restaurante → "usted que maneja proveedores y sabe de números"
-   · Ferretería → "usted que lleva años atendiendo clientes y sabe de negocio"
-   · Industria petrolera → "usted que se ha movido en una industria grande y
+   · Restaurante → "como usted maneja proveedores y sabe de números"
+   · Ferretería → "como usted lleva años atendiendo clientes y sabe de negocio"
+   · Industria petrolera → "como usted se ha movido en una industria grande y
      piensa a largo plazo"
-   · Sector bancario → "usted que sabe de plata y de números mejor que yo"
-   · Área médica → "usted que es de mirar las cosas con lupa antes de creerlas"
-   · Negocio propio ya consolidado → "usted que ya sabe lo que es sacar un
+   · Sector bancario → "como usted sabe de plata y de números mejor que yo"
+   · Área médica → "como usted es de mirar las cosas con lupa antes de creerlas"
+   · Negocio propio ya consolidado → "como usted ya sabe lo que es sacar un
      negocio adelante"
 
 ⚠️ UN SOLO RECONOCIMIENTO POR MENSAJE, NUNCA DOS. «Conoce el comercio y además
@@ -235,7 +236,7 @@ traen el tope.
 
 ⚠️ SI EL OFICIO NO ESTÁ EN LA LISTA, NO LO DESCRIBA CON PALABRAS PROPIAS: use la
 línea del pariente más cercano (quien vende accesorios para carros es comercio:
-«usted que lleva años vendiendo y conoce a su clientela») o la de negocio propio.
+«como usted lleva años vendiendo y conoce a su clientela») o la de negocio propio.
 Una paráfrasis inventada del oficio sale rara la mitad de las veces — a un
 vendedor de lujos para vehículos le salió «conoce el negocio de mover cosas de
 valor», que suena a otra cosa — y una frase rara ahí delata a la máquina justo

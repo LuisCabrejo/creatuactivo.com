@@ -36,6 +36,7 @@
 import { sendText } from '@/lib/wa-channel';
 import { normalizarParaSlug } from '@/lib/texto-normalizar';
 import { SEMANA_EN_SALUDO_SOCIO } from '@/lib/wa-lunes-socio';
+import { ultimoMensajeDePersona, dentroDeVentana as ventanaAbierta } from '@/lib/wa-ventana';
 
 /**
  * Cada hito se avisa UNA vez por prospecto — no hay cupo numérico.
@@ -778,28 +779,22 @@ export function mensajeDeActividad(evento: EventoDueño, restantes: number): str
  * Se mide por el último mensaje que **la persona** escribió: los nuestros no la
  * reabren. Ante cualquier error de consulta devuelve `false` — no enviar de más
  * cuesta un aviso; enviar fuera de ventana cuesta calidad de la línea.
+ *
+ * ⚠️ Delega en `wa-ventana.ts` (29 sep 2026). Esta función miraba la última
+ * fila de conversación de cualquier tipo, y el mensaje de los lunes queda
+ * guardado como fila: durante las ~24 h siguientes, todo socio que no había
+ * escrito parecía estar en ventana. Los cuatro avisos de «nuevo prospecto» del
+ * Director del 28-29 sep (Granola, Edilberto, Yina, Yesid) salieron así y Meta
+ * los rechazó con 131047; el lunes 14 sep pasó lo mismo.
  */
 export async function dentroDeVentana(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,
   whatsapp: string,
 ): Promise<boolean> {
-  const fingerprint = `wa_${normalizarWhatsApp(whatsapp)}`;
   try {
-    const { data } = await supabase
-      .from('nexus_conversations')
-      .select('messages, created_at')
-      .eq('fingerprint_id', fingerprint)
-      .order('created_at', { ascending: false })
-      .limit(1);
-
-    const fila = (data || [])[0];
-    if (!fila) return false;
-
-    // Un turno se persiste con el mensaje del usuario adentro, así que la fecha
-    // de la fila es una buena aproximación del último inbound.
-    const horas = (Date.now() - new Date(fila.created_at).getTime()) / 36e5;
-    return horas < 23.5; // margen de media hora contra relojes desfasados
+    const ultimo = await ultimoMensajeDePersona(supabase, [`wa_${normalizarWhatsApp(whatsapp)}`]);
+    return ventanaAbierta(ultimo);
   } catch (err) {
     console.error('⚠️ [WA Onboarding] No se pudo verificar la ventana:', err);
     return false;

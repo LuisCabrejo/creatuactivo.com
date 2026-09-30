@@ -3,107 +3,30 @@
  * Tarjeta (Open Graph) del enlace de Queswa — creatuactivo.com/{slug}/queswa
  *
  * Es lo primero que ve un contacto cuando un socio le pega ese enlace en
- * WhatsApp. Hasta el 29 ago 2026 reusaba la imagen del home ("Un segundo
- * ingreso, en paralelo al que ya tiene") y el Director la cambió por dos
- * razones: (1) hablar de un ingreso de entrada pone en alerta — un amigo diría
- * "le tengo un negocio", no "le tengo un segundo ingreso"; (2) la línea de
- * descripción a 26px era ilegible en la tarjeta. Aquí va solo lo que se lee:
- * el logotipo y el titular, en el léxico vigente (sistema de distribución, desde el 6 sep 2026).
+ * WhatsApp, y la usan también /acceso y los enlaces de los videos (/como-funciona,
+ * /estrategia, /como-entra-el-dinero, /que-debo-hacer-yo).
  *
- * 11 sep 2026 — el titular pasa a ser el H1 entero de la Home, con su cláusula:
- * "que no depende de que usted esté encima". El ORO se muda de «sistema de
- * distribución» a la cláusula: en una tarjeta leída en miniatura el ojo cae
- * primero en la línea dorada, y la novedad ya no es el nombre del activo sino
- * la cualidad que lo hace valer. Las dos líneas tienen 39 caracteres cada una
- * —bloque parejo—, y por eso el cuerpo baja de 66 a 50px.
+ * 30 sep 2026 — LA MISMA IMAGEN DE LA PRESENTACIÓN (Director): los pares de la
+ * modernización (domicilios → Rappi, taxis → Uber, la fila del banco → Nequi),
+ * con el rótulo «CreaTuActivo · Queswa». Para quien todavía no sabe nada, marcas
+ * que ya usa se entienden mejor que una promesa en abstracto, y es lo que al
+ * Director le funciona en campo. Vive en src/lib/og-modernizacion.tsx.
+ * ⚠️ Desde ese día esta tarjeta YA NO va en sincronía con el titular de la Home
+ * («Sea dueño de un sistema de distribución que no depende de que usted esté
+ * encima», que fue su imagen del 11 al 30 sep). Fue a propósito: no la
+ * «resincronice». El título y la descripción viven en OG_QUESWA de
+ * [slug]/[destino]/page.tsx.
  *
- * Misma estética que src/app/opengraph-image.tsx (carbón + champán). Vive como
- * route handler y no como opengraph-image.tsx dentro de [slug]/[destino]
+ * Vive como route handler y no como opengraph-image.tsx dentro de [slug]/[destino]
  * porque ese archivo aplicaría a TODOS los destinos (reels, manifiesto…).
  */
 
-import { ImageResponse } from 'next/og'
-import { fuentesInter } from '@/lib/og-fuentes'
+import { tarjetaModernizacion } from '@/lib/og-modernizacion'
 
 export const runtime = 'edge'
 
 export async function GET() {
-  const [logoData, fonts] = await Promise.all([
-    fetch(new URL('../../../../public/images/logotipo.png', import.meta.url)).then((res) => res.arrayBuffer()),
-    fuentesInter(),
-  ])
-
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#0F1115',
-          padding: '80px',
-          position: 'relative',
-          fontFamily: 'Inter',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            top: 0, left: 0, right: 0, bottom: 0,
-            background: 'radial-gradient(ellipse at 50% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 60%)',
-            display: 'flex',
-          }}
-        />
-
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          width={132}
-          height={132}
-          src={logoData as unknown as string}
-          alt="CreaTuActivo"
-          style={{ marginBottom: 28 }}
-        />
-
-        <div
-          style={{
-            fontSize: 26,
-            fontWeight: 400,
-            color: '#A3A3A3',
-            marginBottom: 40,
-            letterSpacing: '0.3em',
-            display: 'flex',
-            textTransform: 'uppercase',
-          }}
-        >
-          CreaTuActivo
-        </div>
-
-        <div
-          style={{
-            fontSize: 46,
-            fontWeight: 700,
-            color: '#E5E5E5',
-            textAlign: 'center',
-            lineHeight: 1.2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            fontFamily: 'Inter',
-          }}
-        >
-          <span style={{ display: 'flex' }}>Sea dueño de un sistema de distribución</span>
-          <span style={{ display: 'flex', color: '#C5A059' }}>que no depende de que usted esté encima</span>
-        </div>
-      </div>
-    ),
-    {
-      width: 1200,
-      height: 630,
-      fonts,
-      headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400' },
-    }
-  )
+  return tarjetaModernizacion('CreaTuActivo · Queswa', {
+    headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400' },
+  })
 }

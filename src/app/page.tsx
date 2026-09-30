@@ -103,7 +103,8 @@
  * que vende hamburguesas vs. el dueño de McDonald's, no funciona con un conducto).
  * De paso salen dos «opera/operando» (léxico retirado: funciona / presente). El
  * título, la tarjeta OG y /prueba van en sincronía; la tarjeta del enlace de
- * Queswa (/og/queswa) también.
+ * Queswa (/og/queswa) también lo fue hasta el 30 sep 2026, cuando pasó a llevar
+ * la imagen de los pares de la modernización, como /presentacion (Director).
  *
  * Homepage v15.0 — "El sistema desplegado" (29 ago 2026) · aprobada por el Director desde /prueba
  *

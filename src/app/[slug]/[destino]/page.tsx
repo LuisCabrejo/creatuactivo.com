@@ -64,9 +64,21 @@ function esScraperDePreview(): boolean {
   return SCRAPERS_DE_PREVIEW.test(headers().get('user-agent') ?? '')
 }
 
+// La tarjeta del enlace de Queswa (30 sep 2026, Director): la MISMA imagen y el
+// mismo título de la presentación (la imagen de los pares vive en
+// src/lib/og-modernizacion.tsx). Lo único propio es la descripción, porque este
+// enlace abre un chat de WhatsApp y la tarjeta tiene que avisarlo: si no, quien
+// la toca se sorprende. Junta el título y la descripción que ya estaban
+// aprobados. El `?v=` de la imagen es para que las cachés de los scrapers no
+// sirvan la versión anterior (la URL de la ruta no cambió).
 const OG_QUESWA = {
-  title: 'Hable con Queswa por WhatsApp',
-  description: 'La inteligencia artificial de CreaTuActivo le explica cómo funciona y le responde a cualquier hora.',
+  title: OG_PRESENTACION.title,
+  description: 'Hable con Queswa por WhatsApp: le explica cómo funciona y le responde a cualquier hora.',
+  image: 'https://creatuactivo.com/og/queswa?v=20260930',
+  alt: OG_PRESENTACION.alt,
+  // El <title> de la página (solo lo ven los robots: a la persona se le redirige).
+  // Sin «| CreaTuActivo»: el layout raíz lo agrega con su template.
+  pestana: 'Hable con Queswa',
 }
 
 // Número orgánico de CreaTuActivo — fallback si el arquitecto no tiene WhatsApp
@@ -277,20 +289,22 @@ export async function generateMetadata({
   }
 
   // Tarjeta propia para el enlace de Queswa. La imagen vive en /og/queswa
-  // (route handler propio, no la del home: ver el porqué en ese archivo).
+  // (route handler propio: ver el porqué en ese archivo).
   if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia' || destino === 'como-entra-el-dinero' || destino === 'que-debo-hacer-yo') {
     const url = `https://creatuactivo.com/${slug}/${destino}`
     return {
-      title: `${OG_QUESWA.title} | CreaTuActivo`,
+      title: OG_QUESWA.pestana,
       description: OG_QUESWA.description,
       robots: { index: false },
       alternates: { canonical: url },
       openGraph: {
+        type: 'website',
+        locale: 'es_CO',
         title: OG_QUESWA.title,
         description: OG_QUESWA.description,
         url,
         siteName: 'CreaTuActivo.com',
-        images: [{ url: 'https://creatuactivo.com/og/queswa', width: 1200, height: 630, alt: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima' }],
+        images: [{ url: OG_QUESWA.image, width: 1200, height: 630, alt: OG_QUESWA.alt }],
       },
       twitter: { card: 'summary_large_image', title: OG_QUESWA.title, description: OG_QUESWA.description },
     }

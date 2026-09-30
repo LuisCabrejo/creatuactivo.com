@@ -705,7 +705,11 @@ export default function ServilletaPage() {
 
   return (
     <>
-      <style>{`
+      {/* El CSS va por dangerouslySetInnerHTML y NO como hijo de <style> (30 sep 2026):
+         como hijo, React lo escapa en el servidor (' → &#x27;, > → &gt;) y dentro de
+         <style> el navegador no decodifica entidades, así que el CSS llegaba roto
+         y la hidratación fallaba en toda la página. */}
+      <style dangerouslySetInnerHTML={{ __html: `
         /* --- VARIABLES INDUSTRIALES --- */
         /* Servilleta — migrada al Sistema de Diseño Lujo Silencioso (15 May 2026).
            Variables locales mantienen sus nombres legacy (--bg-dark, --concrete, etc.)
@@ -2251,7 +2255,7 @@ export default function ServilletaPage() {
             height: 36px;
           }
         }
-      `}</style>
+      ` }} />
 
       <div className={`industrial-theme${isKiosk ? ' kiosk' : ''}`}>
 

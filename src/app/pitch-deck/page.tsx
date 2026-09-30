@@ -391,7 +391,11 @@ export default function PitchDeckPage() {
 
   return (
     <>
-      <style>{`
+      {/* El CSS va por dangerouslySetInnerHTML y NO como hijo de <style> (30 sep 2026):
+         como hijo, React lo escapa en el servidor (' → &#x27;, > → &gt;) y dentro de
+         <style> el navegador no decodifica entidades, así que el CSS llegaba roto
+         y la hidratación fallaba en toda la página. */}
+      <style dangerouslySetInnerHTML={{ __html: `
         .pd-root {
           --pd-gold: var(--color-brand, #C5A059);
           --pd-data: var(--color-data, #22D3EE);
@@ -955,7 +959,7 @@ export default function PitchDeckPage() {
              quepan en el ancho y no abran un desplazamiento lateral. */
           .pd-propuesta { font-size: min(1.2rem, 5.1vw); }
         }
-      `}</style>
+      ` }} />
 
       <div
         className="pd-root"

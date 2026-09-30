@@ -245,13 +245,25 @@ export default function RootLayout({
   return (
     <html lang="es" className="h-full">
       <head>
-        {/* Material Symbols Sharp — carga diferida, sin preconnect (async no se beneficia) */}
+        {/* Material Symbols Sharp — carga diferida, sin preconnect (async no se beneficia).
+            ⚠️ NO con onLoad como texto (30 sep 2026): React descarta un onLoad que no es
+            función, así que desde el 31 mar la hoja se precargaba y NUNCA se aplicaba —
+            el botón de pantalla completa de /servilleta y /12-niveles mostraba la
+            palabra «fullscreen». Patrón media="print": no bloquea el render, y el script
+            de abajo la pasa a "all" al cargar. suppressHydrationWarning porque el script
+            cambia el atributo antes de hidratar. */}
         <link
-          rel="preload"
-          as="style"
+          id="material-symbols-css"
+          rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0"
-          // @ts-ignore
-          onLoad="this.onload=null;this.rel='stylesheet'"
+          media="print"
+          suppressHydrationWarning
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var l=document.getElementById('material-symbols-css');if(!l)return;var on=function(){l.media='all'};if(l.sheet){on()}else{l.addEventListener('load',on)}})();",
+          }}
         />
         <noscript>
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />

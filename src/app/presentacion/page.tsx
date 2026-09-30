@@ -3,7 +3,9 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * /pitch-deck — la herramienta de presentación 1-a-1.
+ * /presentacion — la herramienta de presentación 1-a-1. Se llamó /pitch-deck
+ * hasta el 30 sep 2026 («pitch deck» no pasa la prueba de la abuela); esa URL
+ * redirige aquí.
  *
  * SE PRESENTA EN VIVO (Director, 30 sep 2026): el socio conduce el deck delante
  * de la persona y solo DESPUÉS le comparte el enlace, así que puede apoyarse en
@@ -12,7 +14,7 @@
  * COLUMNA NUEVA (30 sep 2026). La del 23 sep se construyó pantalla por pantalla y
  * tenía disonancias: revelaba la solución tres veces antes del clímax, contaba el
  * negocio distinto a WHY_02 y la pantalla del dinero discutía consigo misma. Esa
- * versión queda navegable en /pitch-deck/anterior (commit 7e5cc61).
+ * versión queda navegable en /presentacion/anterior (commit 7e5cc61).
  *
  * REGLA: cada pantalla responde UNA pregunta del prospecto, y el titular es la
  * respuesta. Cada idea se dice una vez.
@@ -40,7 +42,7 @@
  *                      el remate y la propiedad.
  *  6 QUÉ HACE USTED  · Compartir · Recibir con Queswa en medio (EAM_01);
  *                      beat 2: solo se multiplica lo que es sencillo.
- *  7 EL PRODUCTO     · la de /pitch-deck, sin cambios. Gano se nombra aquí
+ *  7 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
  *                      por primera vez, como quien lo fabrica.
  *  8 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
  *  9 CÓMO SE GANA    · beat 1, lo principal: la recompra le paga + los 12
@@ -56,7 +58,7 @@
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
  * ----------------------------------
  *  · El botón «PREGÚNTELE ALGO AHORA» (pieza 2 de la pantalla 5) convierte la
- *    tecnología en experiencia. Por eso /pitch-deck está en RUTAS_ORBE_QUESWA_WEB
+ *    tecnología en experiencia. Por eso /presentacion está en RUTAS_ORBE_QUESWA_WEB
  *    (orbe-config.ts) y en `isDeck` de UnifiedQueswaOrb: mandar esa demo a
  *    WhatsApp la rompe, porque saca al prospecto de la reunión.
  *  · «Network marketing» va SOLO como nombre del sector (pantalla 3). Cómo se hace

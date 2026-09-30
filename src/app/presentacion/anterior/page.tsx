@@ -2,9 +2,11 @@
 
 /**
  * ⚠️ RESPALDO — el pitch deck como estaba hasta el 30 sep 2026 (commit 7e5cc61).
- * La versión viva es /pitch-deck. Esta copia existe para compararla o presentarla
- * si hiciera falta; no se edita. Para restaurarla: copiar este archivo sobre
- * src/app/pitch-deck/page.tsx y devolverle el nombre PitchDeckPage.
+ * La versión viva es /presentacion (antes /pitch-deck). Esta copia existe para
+ * compararla o presentarla si hiciera falta; no se edita — los comentarios de
+ * abajo hablan de /pitch-deck porque son de su época. Para restaurarla: copiar
+ * este archivo sobre src/app/presentacion/page.tsx y devolverle el nombre
+ * PitchDeckPage.
  */
 
 /**

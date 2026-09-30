@@ -11,9 +11,12 @@ import { notFound, permanentRedirect, redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
-import { OG_PITCH_DECK } from '@/app/pitch-deck/og'
+import { OG_PRESENTACION } from '@/app/presentacion/og'
 
-const esPitchDeck = (destino: string) => destino === 'pitch-deck' || destino === 'deck'
+// La presentación 1-a-1. «presentacion» es el nombre vigente (30 sep 2026);
+// «pitch-deck» y «deck» son los enlaces que ya circulan y siguen funcionando.
+const DESTINOS_PRESENTACION = ['presentacion', 'pitch-deck', 'deck']
+const esPresentacion = (destino: string) => DESTINOS_PRESENTACION.includes(destino)
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -32,17 +35,20 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   // Legado — siguen funcionando si alguien tiene el link guardado
   'video-plan-servilleta': (id) => `/video-plan-servilleta?ref=${id}`,
   'video-plan':            (id) => `/video-plan-servilleta?ref=${id}`,
-  'presentacion':  (id) => `/presentacion-empresarial/${id}`,
   'reto':          (id) => `/12-niveles/${id}`,
   '12-niveles':    (id) => `/12-niveles/${id}`,
   // Activación inmediata → página de paquetes (mismo destino que el botón de la servilleta)
   'activacion':    (id) => `/paquetes?ref=${id}`,
-  // El pitch deck. ⚠️ Sin esta fila, `/{slug}/pitch-deck` caía al fallback y el
-  // distribuidor no tenía forma de compartirlo con su identificador: el chat no
+  // La presentación 1-a-1. ⚠️ Sin estas filas, el enlace caía al fallback y el
+  // distribuidor no tenía forma de compartirla con su identificador: el chat no
   // recibía `ref`, y el enlace al catálogo salía pelado, sin atribuirle la venta
   // a nadie (auditoría del 23 sep 2026). Es la trampa que el CLAUDE.md advierte.
-  'pitch-deck':    (id) => `/pitch-deck?ref=${id}`,
-  'deck':          (id) => `/pitch-deck?ref=${id}`,
+  // «presentacion» llevó hasta el 30 sep 2026 a /presentacion-empresarial, la
+  // herramienta anterior, que ya no se ofrecía en el Dashboard: desde ese día abre
+  // la presentación vigente. /presentacion-empresarial sigue viva en su URL.
+  'presentacion':  (id) => `/presentacion?ref=${id}`,
+  'pitch-deck':    (id) => `/presentacion?ref=${id}`,
+  'deck':          (id) => `/presentacion?ref=${id}`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {
@@ -220,16 +226,16 @@ export default async function DestinoRoute({
 
   const destinoReal = resolver(record.constructor_id)
 
-  // 🔴 El pitch deck tampoco redirige a los robots de vista previa (24 sep 2026),
+  // 🔴 La presentación tampoco redirige a los robots de vista previa (24 sep 2026),
   // por la misma razón que Queswa: un scraper que sigue el 307 arma la tarjeta
-  // con el `og:url` de /pitch-deck — SIN el identificador del distribuidor — y
+  // con el `og:url` de /presentacion — SIN el identificador del distribuidor — y
   // Facebook publica ese enlace pelado: la visita no queda atribuida a nadie.
   // Al robot se le sirve esta página mínima con el OG de abajo (url del slug);
   // la persona sigue recibiendo el redirect directo.
-  if (esPitchDeck(destino) && esScraperDePreview()) {
+  if (esPresentacion(destino) && esScraperDePreview()) {
     return (
       <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
-        <a href={destinoReal} style={{ color: '#C5A059' }}>{OG_PITCH_DECK.title}</a>
+        <a href={destinoReal} style={{ color: '#C5A059' }}>{OG_PRESENTACION.title}</a>
       </main>
     )
   }
@@ -290,14 +296,15 @@ export async function generateMetadata({
     }
   }
 
-  // Tarjeta propia para el pitch deck, con la url DEL SLUG (24 sep 2026). La
-  // imagen y el copy son los de /pitch-deck; lo que cambia es el `og:url`, que
-  // es lo que Facebook publica. Ver el porqué en el componente, arriba.
-  if (esPitchDeck(destino)) {
-    const url = `https://creatuactivo.com/${slug}/${destino}`
+  // Tarjeta propia para la presentación, con la url DEL SLUG (24 sep 2026). La
+  // imagen y el copy son los de /presentacion; lo que cambia es el `og:url`, que
+  // es lo que Facebook publica. Ver el porqué en el componente, arriba. Un enlace
+  // viejo (/{slug}/pitch-deck) publica ya la url con el nombre vigente.
+  if (esPresentacion(destino)) {
+    const url = `https://creatuactivo.com/${slug}/presentacion`
     return {
-      title: `${OG_PITCH_DECK.title} | CreaTuActivo`,
-      description: OG_PITCH_DECK.description,
+      title: 'Presentación', // el layout raíz agrega « | CreaTuActivo» (template)
+      description: OG_PRESENTACION.description,
       robots: { index: false },
       alternates: { canonical: url },
       openGraph: {
@@ -305,11 +312,11 @@ export async function generateMetadata({
         siteName: 'CreaTuActivo.com',
         locale: 'es_CO',
         url,
-        title: OG_PITCH_DECK.title,
-        description: OG_PITCH_DECK.description,
-        images: [{ url: OG_PITCH_DECK.image, width: 1200, height: 630, alt: OG_PITCH_DECK.alt }],
+        title: OG_PRESENTACION.title,
+        description: OG_PRESENTACION.description,
+        images: [{ url: OG_PRESENTACION.image, width: 1200, height: 630, alt: OG_PRESENTACION.alt }],
       },
-      twitter: { card: 'summary_large_image', title: OG_PITCH_DECK.title, description: OG_PITCH_DECK.description },
+      twitter: { card: 'summary_large_image', title: OG_PRESENTACION.title, description: OG_PRESENTACION.description },
     }
   }
 

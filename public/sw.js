@@ -39,10 +39,12 @@ const BYPASS_CACHE_PATTERNS = [
   '/mapa-de-salida',
   '/reto-5-dias',
   '/negocio-digital',
-  // El pitch deck se PRESENTA delante de una persona: si el SW sirve una copia
+  // La presentación se PRESENTA delante de una persona: si el SW sirve una copia
   // vieja, React no hidrata y el deck no avanza con nada (pasó el 23 sep 2026).
   // Una presentación muerta delante de un prospecto no se puede arriesgar por
-  // ahorrar una descarga: esta ruta va siempre a la red.
+  // ahorrar una descarga: esta ruta va siempre a la red. /pitch-deck es su nombre
+  // anterior (30 sep 2026) y ahora redirige: va a la red como las demás legacy.
+  '/presentacion',
   '/pitch-deck',
 ];
 

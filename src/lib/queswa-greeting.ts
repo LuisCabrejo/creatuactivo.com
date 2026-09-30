@@ -55,7 +55,7 @@
  * estafa. Se nombra el NEGOCIO (su propio sistema de distribución), no el
  * ingreso. Además faltaban el credo y el léxico canónico.
  *
- * ⚠️ Se planteó una versión corta para /pitch-deck, donde la persona acaba de
+ * ⚠️ Se planteó una versión corta para /presentacion (antes /pitch-deck), donde la persona acaba de
  * ver el credo en la pantalla 1 y las tres piezas en la 5. El Director la
  * descartó: en el 1-a-1 él le anuncia al prospecto que lo primero que hace
  * Queswa es entregar la filosofía, así que verla otra vez CONFIRMA lo que

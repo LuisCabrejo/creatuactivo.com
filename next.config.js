@@ -156,6 +156,10 @@ const nextConfig = {
       // El Manifiesto salió del proceso de Fundadores; «Nosotros» es ahora /nosotros.
       { source: '/manifiesto', destination: '/nosotros', permanent: true },
       { source: '/:slug/manifiesto', destination: '/nosotros', permanent: true },
+      // 30 sep 2026 — el pitch deck se llama «presentación» («pitch deck» no pasa
+      // la prueba de la abuela). La query (?ref del socio) se conserva sola.
+      { source: '/pitch-deck', destination: '/presentacion', permanent: true },
+      { source: '/pitch-deck/:path*', destination: '/presentacion/:path*', permanent: true },
     ]
   },
 }

@@ -1,91 +1,97 @@
 'use client';
 
 /**
+ * ⚠️ RESPALDO — el pitch deck como estaba hasta el 30 sep 2026 (commit 7e5cc61).
+ * La versión viva es /pitch-deck. Esta copia existe para compararla o presentarla
+ * si hiciera falta; no se edita. Para restaurarla: copiar este archivo sobre
+ * src/app/pitch-deck/page.tsx y devolverle el nombre PitchDeckPage.
+ */
+
+/**
  * Copyright © 2026 CreaTuActivo.com
  *
- * /pitch-deck — la herramienta de presentación 1-a-1.
+ * /pitch-deck — la herramienta de presentación 1-a-1 (23 sep 2026).
  *
- * SE PRESENTA EN VIVO (Director, 30 sep 2026): el socio conduce el deck delante
- * de la persona y solo DESPUÉS le comparte el enlace, así que puede apoyarse en
- * su voz.
+ * POR QUÉ EXISTE, Y POR QUÉ NO ES UN FORK DE /servilleta
+ * ------------------------------------------------------
+ * La servilleta y /12-niveles se dejaron a un lado a propósito (decisión del
+ * Director). Esta pieza tiene otra gramática: es un PITCH DECK — se abre por lo
+ * que creemos (de adentro hacia afuera), reclama el momento, narra el villano,
+ * nombra un defecto de diseño y remata con la oscilación de Jobs. Forkear 2.900
+ * líneas de card-scrollers con b-rolls habría traído mecánica que aquí estorba.
+ * Lo que SÍ se reutiliza es lo aprobado: la ficha del producto y los dos
+ * simuladores (el de la servilleta y el de los 12 niveles de /12-niveles).
  *
- * COLUMNA NUEVA (30 sep 2026). La del 23 sep se construyó pantalla por pantalla y
- * tenía disonancias: revelaba la solución tres veces antes del clímax, contaba el
- * negocio distinto a WHY_02 y la pantalla del dinero discutía consigo misma. Esa
- * versión queda navegable en /pitch-deck/anterior (commit 7e5cc61).
- *
- * REGLA: cada pantalla responde UNA pregunta del prospecto, y el titular es la
- * respuesta. Cada idea se dice una vez.
- *
- * Las pantallas 2 a 5 son la columna del Director, probada en sus conversaciones:
- * modernizar dos sectores. Nombrar «network marketing» dentro de la ola de
- * modernización resolvió el «ah, es como Herbalife»: el enfoque queda en la
- * oportunidad. Tiene la forma de la narrativa estratégica de Andy Raskin: un
- * cambio en el mundo → quién se queda atrás → la tierra prometida → las
- * herramientas.
- *
- *  1 EN QUÉ CREEMOS  · solo la primera mitad del credo (el ciclo).
- *  2 LA OPORTUNIDAD  · modernizar industrias frente a nuestros ojos: cinco pares
- *                      (domicilios → Rappi … Adpostal → WhatsApp).
- *  3 DOS SECTORES    · la industria del network marketing y el sector laboral.
- *                      ⚠️ SOLO el nombre del sector, sin describir cómo se hace
- *                      hoy: el contexto lo da el socio en vivo, y una pieza no
- *                      concede (memoria feedback_pieza_no_concede).
- *  4 EL SECTOR       · la fila del banco → los dos caminos → el mismo dolor
- *    LABORAL           (inestabilidad, incertidumbre); beat 2: las dos cifras,
- *                      que prueban justo esas dos palabras.
- *  5 LA PROPUESTA    · beat 0: una empresa de distribución moderna a su nombre,
- *    Y CÓMO FUNCIONA   «se requieren tres elementos»; luego el orden de WHY_02:
- *                      las tres piezas (el fabricante SIN nombre), la oscilación,
- *                      el remate y la propiedad.
- *  6 QUÉ HACE USTED  · Compartir · Recibir con Queswa en medio (EAM_01);
- *                      beat 2: solo se multiplica lo que es sencillo.
- *  7 EL PRODUCTO     · la de /pitch-deck, sin cambios. Gano se nombra aquí
- *                      por primera vez, como quien lo fabrica.
- *  8 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
- *  9 CÓMO SE GANA    · beat 1, lo principal: la recompra le paga + los 12
- *                      niveles desde el Kit. Beat 2: el bono por paquetes
- *                      empresariales (Director, 30 sep 2026: quien inicia muchas
- *                      veces necesita ganar pronto, y la industria lo tiene; no
- *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
- *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
- *                      final.
- * 10 EL SIGUIENTE    · la segunda mitad del credo, la lista de espera y la
- *    PASO              conversación con el socio del ?ref (nombre y WhatsApp).
+ * LA ESPINA (9 pantallas)
+ * -----------------------
+ *  1 QUÉ CREEMOS   · el credo, verbatim aprobado (Home v16, apertura del canal,
+ *                    WHY_01). Hace de primera diapositiva de pitch deck porque
+ *                    dice quiénes somos y el problema en la misma respiración.
+ *  2 EL PROBLEMA   · «Aprendimos dos caminos»: el socio los narra en vivo con su
+ *                    propia historia, y la pantalla sostiene adónde llevan los
+ *                    dos — el mismo ciclo, la bicicleta estática y el remate
+ *                    «al que gana dos y al que gana más de veinte». Sin el
+ *                    remate, quien gana bien se exime y se acaba la charla.
+ *  3 POR QUÉ AHORA · va DESPUÉS del problema (Director, 26 sep 2026): el «por
+ *                    qué ahora» solo pega si el oyente ya sabe qué era
+ *                    imposible. Hacer empresa siempre fue difícil; una empresa
+ *                    de distribución moderna, casi imposible; hoy la ponen en un
+ *                    celular CreaTuActivo.com y Queswa.app. Sin cifras.
+ *  4 LA OPORTUNIDAD· tres líneas y nada más (Director, 24 sep): el titular cruza
+ *                    la bicicleta de la 2 y la paga, la tesis de la conectividad
+ *                    («el sistema que conecta, no el que produce») y el cierre
+ *                    que baja la amenaza («no es cambiar de vida, es modernizar
+ *                    la forma de hacer empresa»). ⛔ NO se nombra el gremio ni se
+ *                    invoca el fantasma de perseguir conocidos: eso es el
+ *                    SÍNTOMA, y enunciarlo se lo planta a quien no lo traía.
+ *  5 LAS TRES      · la oscilación (5 beats). Aquí se va la mitad del tiempo.
+ *                    El beat del fabricante carga los hechos verificables, que
+ *                    es la pieza que los reclama. La pieza 3 es SU APLICACIÓN
+ *                    PERSONALIZADA (Director, 27 sep 2026, sesión del video
+ *                    «Cómo funciona»): los tres elementos responden qué RECIBE
+ *                    la persona; qué HACE —los dos pasos— NO se lista en el
+ *                    deck (el Director lo retiró del remate ese día): lo cuenta
+ *                    Queswa en vivo. La ley de la multiplicación sí vive en el
+ *                    remate, donde se cumple: lo que se transmite no es una
+ *                    habilidad sino esto mismo, armado. Multiplicación =
+ *                    CONSECUENCIA, no un paso.
+ *  6 EL PRODUCTO   · la taza premium como puerta de entrada a la línea, la
+ *                    recompra por resultado (prepara la 8) y una ficha de
+ *                    oficio —híbrido, cultivo propio, años—, sin ciencia.
+ *  7 EL PROBLEMA,  · tres cifras verificadas y una pregunta, justo antes del
+ *    EN CIFRAS       dinero (Director, 26 sep 2026): con los detalles el prospecto
+ *                    se oscurece, y lo que lo devuelve es re-aterrizar el
+ *                    problema. Cierra en «¿Y usted, qué plan tiene…?».
+ *  8 LOS NÚMEROS   · el modelo en una frase («cada cliente que llega por su
+ *                    enlace queda a su nombre») y dos simuladores: el Bono GEN5
+ *                    hasta la quinta generación y los 12 niveles con el
+ *                    porcentaje de cada forma de iniciar. Pesos por defecto.
+ *  9 EL SIGUIENTE  · la petición, y el deck cierra como abrió: la segunda mitad
+ *    PASO            del credo, la lista de espera dicha como hecho, y «El
+ *                    siguiente paso es una conversación» — una afirmación, no
+ *                    una pregunta (Director, 26 sep 2026).
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
  * ----------------------------------
- *  · El botón «PREGÚNTELE ALGO AHORA» (pieza 2 de la pantalla 5) convierte la
- *    tecnología en experiencia. Por eso /pitch-deck está en RUTAS_ORBE_QUESWA_WEB
- *    (orbe-config.ts) y en `isDeck` de UnifiedQueswaOrb: mandar esa demo a
- *    WhatsApp la rompe, porque saca al prospecto de la reunión.
- *  · «Network marketing» va SOLO como nombre del sector (pantalla 3). Cómo se hace
- *    hoy lo cuenta el socio en vivo: una pieza no concede, y describirlo aquí sería
- *    un juicio sin voz sobre el método de otros.
- *  · El bono por paquetes se nombra por lo que lo mueve (la compra de un paquete) y
- *    por su función (financia el crecimiento al inicio), NUNCA por su velocidad. Se
- *    cuentan paquetes comprados, nunca personas.
- *  · La última pantalla nombra al socio del ?ref y trae su WhatsApp. El socio toca
- *    su nombre y escribe el del prospecto: la prueba en vivo de la pieza 3, su
- *    aplicación personalizada. «En su caso, esta pantalla dirá el suyo» es frase de
- *    la voz del socio: no va escrita.
+ *  · El botón «PREGÚNTELE ALGO AHORA» es el clímax real de la 5: la tecnología
+ *    deja de ser un claim y pasa a ser una experiencia. Por eso /pitch-deck está
+ *    en RUTAS_ORBE_QUESWA_WEB (orbe-config.ts) y en `isDeck` de UnifiedQueswaOrb
+ *    — mandar esa demo a WhatsApp la rompe: saca al prospecto de la reunión.
  *  · Moneda: pesos con PUNTO de miles, dólares con COMA. Por eso los locales van
  *    explícitos ('es-CO' / 'en-US') y no un toLocaleString() pelado, que depende
  *    del navegador de quien presenta.
- *  · En el deck NO conviven precio de entrada y comisión: eso es promesa de
- *    ingreso. Aquí solo hay comisiones; los precios viven en /paquetes.
- *  · Swipe: solo los <input> (sliders y el nombre) exoneran el gesto. No añadir
- *    paneles ni botones a esa lista: bloquea el swipe-back de la última pantalla.
- *  · Nada de acentos graves en los comentarios del CSS: cierran la plantilla de JS
- *    que lo envuelve (rompió el build el 28 sep 2026).
+ *  · En el simulador NO conviven precio de entrada y comisión — eso es promesa
+ *    de ingreso. Aquí solo hay comisiones; los precios viven en /paquetes.
+ *  · Swipe: solo los <input> (sliders) exoneran el gesto. No añadir paneles ni
+ *    botones a esa lista — bloquea el swipe-back de la última pantalla.
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const TOTAL_SLIDES = 10;
+const TOTAL_SLIDES = 9;
 
-/** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 4: 2, 5: 7, 6: 2, 9: 2 };
+/** Beats internos por pantalla. Solo la 5 (la oscilación) tiene más de uno. */
+const BEATS: Record<number, number> = { 5: 5 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
@@ -94,8 +100,7 @@ const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
   {
     label: 'UN FABRICANTE',
     img: '/images/servilleta/colapso-fabrica.webp',
-    // Sin nombre, como en WHY_02: Gano se nombra en el producto y al final, como quien paga.
-    sub: 'Fabrica, empaca y despacha cada pedido hasta la casa de su cliente.',
+    sub: 'Gano Excel fabrica, almacena y despacha. Treinta años haciéndolo, en más de sesenta países.',
   },
   {
     label: 'UNA TECNOLOGÍA QUE ATIENDE',
@@ -122,16 +127,6 @@ const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
     sub: 'Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando la ruta, paso a paso.',
     extra: 'Conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
   },
-];
-
-/** La ola de modernización (Director, 30 sep 2026): lo que antes era una
- *  industria a la antigua, hoy es una aplicación. */
-const PARES_MODERNIZACION: [string, string][] = [
-  ['Domicilios', 'Rappi'],
-  ['Taxis', 'Uber'],
-  ['La fila del banco', 'Nequi'],
-  ['Comprar DVDs', 'Netflix'],
-  ['Adpostal', 'WhatsApp'],
 ];
 
 const CATEGORIAS = [
@@ -172,10 +167,8 @@ const TARIFAS_12 = [
   { pct: 17, nombre: 'Visionario', paquete: 'paquete Visionario', meses: 6 },
 ] as const;
 
-/** Las cifras del sector laboral (aprobadas por el Director, 26 sep 2026). Desde el
- *  30 sep prueban las dos palabras del dolor: el ingreso que no alcanza es la
- *  inestabilidad; la pensión que no llega, la incertidumbre. La del GEM (casi 1 de
- *  cada 4 empezando un negocio) salió con «Por qué ahora»; su fuente queda abajo. Cada una se verificó en su fuente primaria ese día; si se cambia una, se
+/** Las tres cifras de «El problema, en cifras» (aprobadas por el Director, 26 sep
+ *  2026). Cada una se verificó en su fuente primaria ese día; si se cambia una, se
  *  vuelve a la fuente — no a un artículo que la cite.
  *  · DANE, Encuesta Nacional de Calidad de Vida 2025 (anexo, cuadro 35): el 31,3 %
  *    de los hogares dice que su ingreso «no alcanza para cubrir los gastos mínimos»
@@ -213,6 +206,11 @@ const CIFRAS_PROBLEMA = [
     texto: 'colombianos en edad de pensionarse no reciben una pensión.',
     fuente: 'Colpensiones · U. Javeriana, 2022',
   },
+  {
+    n: 'Casi 1 de cada 4',
+    texto: 'ya está empezando un negocio propio, o maneja uno que abrió hace poco.',
+    fuente: 'Global Entrepreneurship Monitor · 2023',
+  },
 ];
 
 /** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
@@ -231,7 +229,7 @@ const GEN5_POR_GENERACION: Record<'ESP1' | 'ESP2' | 'ESP3', number[]> = {
 const enUSD = (n: number) => n.toLocaleString('en-US');
 const enCOP = (n: number) => n.toLocaleString('es-CO');
 
-export default function PitchDeckPage() {
+export default function PitchDeckAnteriorPage() {
   const [slide, setSlide] = useState(1);
   const [beat, setBeat] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -245,46 +243,9 @@ export default function PitchDeckPage() {
   // sale en UNA moneda, nunca las dos a la vez.
   const [moneda, setMoneda] = useState<'COP' | 'USD'>('COP');
   const [gen5Paquetes, setGen5Paquetes] = useState(2);
-  const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP1');
+  const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [nivel12, setNivel12] = useState(12);
   const [tarifa12, setTarifa12] = useState(0); // índice en TARIFAS_12: el Kit, al 10%
-
-  // El socio del ?ref: la última pantalla lo nombra y abre su WhatsApp. Sin ref,
-  // o si la consulta falla, la pantalla queda genérica.
-  const [socio, setSocio] = useState<{ nombre: string; whatsapp: string | null } | null>(null);
-  useEffect(() => {
-    let ref: string | null = null;
-    try { ref = new URL(window.location.href).searchParams.get('ref'); } catch { /* sin ref */ }
-    if (!ref) return;
-    fetch(`/api/constructor/${encodeURIComponent(ref)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (d?.nombre) setSocio({ nombre: d.nombre, whatsapp: d.whatsapp ?? null }); })
-      .catch(() => {});
-  }, []);
-  const primerNombre = socio?.nombre?.trim().split(/\s+/)[0] ?? null;
-  const waSocio = socio?.whatsapp && primerNombre
-    ? `https://wa.me/${socio.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${primerNombre}, acabo de ver la presentación de CreaTuActivo.`)}`
-    : null;
-
-  // EL NOMBRE DEL PROSPECTO, EN VIVO (Director, 30 sep 2026). El socio presenta a
-  // su nombre y, en la última pantalla, toca su nombre y escribe el de la persona
-  // que tiene enfrente: «en su caso, esta pantalla dirá el suyo». Es la prueba en
-  // vivo de la pieza 3, su aplicación personalizada. Solo cambia lo que se VE: el
-  // botón queda sin enlace mientras se muestra otro nombre, porque abriría el
-  // WhatsApp del socio con el nombre del prospecto. Al salir de la pantalla vuelve
-  // el nombre del socio.
-  const [nombreDemo, setNombreDemo] = useState<string | null>(null);
-  const [editandoNombre, setEditandoNombre] = useState(false);
-  const [nombreEscrito, setNombreEscrito] = useState('');
-  const nombreVisible = nombreDemo ?? primerNombre;
-  useEffect(() => {
-    if (slide !== TOTAL_SLIDES) { setNombreDemo(null); setEditandoNombre(false); }
-  }, [slide]);
-  const confirmarNombre = (valor: string) => {
-    const v = valor.trim();
-    setNombreDemo(v && v.toLowerCase() !== (primerNombre ?? '').toLowerCase() ? v : null);
-    setEditandoNombre(false);
-  };
 
   const gen5Por = GEN5_POR_GENERACION[gen5Nivel];
   const ingresoGen5COP = gen5Paquetes * gen5Por.reduce((a, b) => a + b, 0) * TRM;
@@ -513,7 +474,26 @@ export default function PitchDeckPage() {
           width: 56px; height: 1px; background: var(--pd-gold); margin: 2.4rem 0 1.2rem;
         }
 
-        /* ── 5 · La propuesta y la oscilación ───────────────────────────────────────────── */
+        /* ── 4 · Hechos verificables ─────────────────────────────────────── */
+        .pd-hechos {
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+          gap: 1px; background: rgba(255,255,255,0.07); margin-top: 2.6rem;
+          border: 1px solid rgba(255,255,255,0.07);
+        }
+        .pd-hecho { background: var(--pd-bg); padding: 1rem 1.1rem; }
+        /* Dentro de la pieza del fabricante van más apretados: comparten la columna
+           con el rótulo y su línea, y el protagonista ahí es la imagen. */
+        .pd-hechos--pieza { margin-top: 1.5rem; grid-template-columns: repeat(2, 1fr); }
+        .pd-hechos--pieza .pd-hecho { padding: 0.6rem 0.75rem; }
+        .pd-hechos--pieza .k { font-size: 0.5rem; margin-bottom: 0.25rem; }
+        .pd-hechos--pieza .v { font-size: 0.78rem; }
+        .pd-hecho .k {
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
+          color: var(--pd-data); text-transform: uppercase; display: block; margin-bottom: 0.4rem;
+        }
+        .pd-hecho .v { font-size: 0.9rem; color: var(--pd-text); }
+
+        /* ── 5 · La oscilación ───────────────────────────────────────────── */
         .pd-beat { position: absolute; inset: 0; display: flex; flex-direction: column;
           padding: 74px clamp(20px, 6vw, 80px) 56px; overflow-y: auto;
           opacity: 0; visibility: hidden; transition: opacity 0.45s ease; }
@@ -603,7 +583,7 @@ export default function PitchDeckPage() {
           color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
         }
 
-        /* ── 7 · Producto ────────────────────────────────────────────────── */
+        /* ── 6 · Producto ────────────────────────────────────────────────── */
         .pd-foto {
           position: absolute; inset: 0; background-size: cover; background-position: center;
           opacity: 0.3;
@@ -645,7 +625,7 @@ export default function PitchDeckPage() {
         }
         .pd-link:hover { border-bottom-color: var(--pd-gold); }
 
-        /* ── 4 · El sector laboral, en cifras ───────────────────────────────────── */
+        /* ── 7 · El problema, en cifras ───────────────────────────────────── */
         .pd-cifras-lista { display: grid; grid-template-columns: repeat(3, 1fr);
           gap: clamp(16px, 3vw, 32px); margin-top: 0.4rem; }
         .pd-cifra { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 1.1rem; }
@@ -659,7 +639,7 @@ export default function PitchDeckPage() {
         .pd-cifra .f { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
           color: var(--pd-muted); text-transform: uppercase; margin: 0; }
 
-        /* ── 9 · Cómo se gana ─────────────────────────────────────────────────── */
+        /* ── 8 · Números ─────────────────────────────────────────────────── */
         .pd-paneles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 32px); }
         .panel { border: 1px solid rgba(255,255,255,0.1); background: var(--pd-elev);
           padding: 1.4rem 1.4rem 1.6rem; cursor: default; }
@@ -727,7 +707,7 @@ export default function PitchDeckPage() {
           background: rgba(197,160,89,0.06); }
         .pd-nivel.active { border-color: var(--pd-gold); background: var(--pd-gold); color: #0F1115; }
 
-        /* ── 10 · El siguiente paso ───────────────────────────────────────── */
+        /* ── 9 · El siguiente paso ───────────────────────────────────────── */
         /* El credo con la misma letra de la pantalla 1: se tiene que VER que el deck
            cierra donde abrió. Ver el aviso de Playfair en «1 · El credo». */
         .pd-final-credo {
@@ -760,6 +740,7 @@ export default function PitchDeckPage() {
           .pd-cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
           .pd-slide { padding: 68px 20px 48px; }
           .pd-beat { padding: 68px 20px 48px; }
+          .pd-hechos { grid-template-columns: 1fr 1fr; }
 
           /* LOS NÚMEROS CABEN ENTEROS EN EL TELÉFONO (24 sep 2026). Desbordaban
              114px y el segundo simulador quedaba debajo del borde: quien presenta
@@ -791,8 +772,8 @@ export default function PitchDeckPage() {
              que ya dicen qué cuenta. Y cuando se elige un porcentaje temporal, su
              vigencia REEMPLAZA a la línea general en vez de sumarse: es la línea que
              no puede quedar debajo del borde. */
-          .pd-numeros .panel--gen5 .pd-insight { display: none; }
-          .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 1.2rem; }
+          .pd-numeros .panel:first-child .pd-insight { display: none; }
+          .pd-numeros .panel:first-child .pd-slider { margin-bottom: 1.2rem; }
           /* En el teléfono la línea general y las tres de vigencia comparten UNA
              celda: la vigencia la reemplaza, y la celda mide lo que la más larga. */
           .pd-numeros .pd-tarifa-notas { display: grid; }
@@ -803,7 +784,7 @@ export default function PitchDeckPage() {
              en márgenes y en el conteo de distribuidores, que cabe en una línea. */
           .pd-numeros .panel h3 { margin-bottom: 0.7rem; }
           .pd-numeros .pd-gens { margin: 0.7rem 0 0.8rem; }
-          .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 0.8rem; }
+          .pd-numeros .panel:first-child .pd-slider { margin-bottom: 0.8rem; }
           .pd-numeros .pd-sub { font-size: 0.64rem; margin-bottom: 0.8rem; }
           .pd-numeros-top { margin-bottom: 0.5rem; }
           .pd-numeros-lead { margin-bottom: 0.6rem; }
@@ -853,6 +834,8 @@ export default function PitchDeckPage() {
           .pd-bisagra { font-size: clamp(1.3rem, 6vw, 1.9rem); margin: 1.2rem 0 0.8rem; }
           .pd-credo h1, .pd-credo .pd-credo-linea { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
           .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
+          .pd-hechos { margin-top: 1.4rem; }
+          .pd-hecho { padding: 0.7rem 0.85rem; }
           .pd-pieza-label { font-size: clamp(1.15rem, 5.2vw, 1.9rem); margin-bottom: 0.8rem; }
           .pd-pieza .pd-figura { width: min(48vw, 230px); }
           .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
@@ -865,6 +848,7 @@ export default function PitchDeckPage() {
            Pasa de verdad: el socio gira el teléfono para mostrar los números. */
         @media (max-height: 560px) and (min-width: 600px) {
           .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
+          .pd-hechos { grid-template-columns: repeat(4, 1fr); }
           .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
           .pd-pieza .pd-figura { width: min(34vw, 230px); }
           .pd-slide, .pd-beat { padding-top: 56px; padding-bottom: 26px; }
@@ -878,82 +862,6 @@ export default function PitchDeckPage() {
           .pd-credo h1, .pd-credo .pd-credo-linea { font-size: clamp(1.05rem, 2.4vw, 1.6rem);
             margin-bottom: 0; max-width: none; }
           .pd-credo-rule { margin: 1.1rem 0 0.7rem; }
-        }
-
-        /* ═══ Columna del 30 sep 2026 ══════════════════════════════════════ */
-        .pd-credo--solo h1 { font-size: clamp(1.9rem, 5vw, 3.7rem); max-width: 20ch; }
-        .pd-p--grande { font-size: clamp(1.15rem, 2.6vw, 1.6rem); max-width: 40ch; }
-        .pd-cifras-lista--dos { grid-template-columns: repeat(2, 1fr); gap: clamp(24px, 5vw, 64px); }
-        .pd-cifras-lista--dos .pd-cifra .n { font-size: clamp(2.2rem, 6vw, 4.2rem); }
-        .pd-cifras-lista--dos .pd-cifra .t { font-size: clamp(1.05rem, 2vw, 1.35rem); }
-        .pd-acciones {
-          display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 1px;
-          background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08);
-          margin-top: 1.2rem;
-        }
-        .pd-accion { background: var(--pd-bg); padding: 1.7rem 1.5rem;
-          display: flex; flex-direction: column; justify-content: center; }
-        .pd-accion .k { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.26em;
-          color: var(--pd-data); }
-        .pd-accion .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
-          font-size: clamp(1.3rem, 3vw, 2rem); color: #FFFFFF; margin: 0.5rem 0 0.7rem; }
-        .pd-accion .d { font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55;
-          color: var(--color-text-body, #C8C7C2); margin: 0; }
-        .pd-accion--queswa { background: var(--pd-elev); align-items: center; text-align: center; }
-        .pd-accion--queswa .img { width: 92px; aspect-ratio: 1 / 1; background-size: cover;
-          background-position: center; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 1rem; }
-        .pd-accion--queswa .d { font-size: clamp(0.9rem, 1.5vw, 1rem); color: var(--pd-muted); }
-        .pd-pregunta { text-align: center; max-width: 920px; }
-        .pd-pregunta .pd-bisagra { font-size: clamp(1.9rem, 5.2vw, 3.6rem); margin: 0; text-wrap: balance; }
-        .pd-paneles--uno { grid-template-columns: minmax(0, 560px); justify-content: center; }
-        .pd-credenciales { text-align: center; font-family: var(--font-mono); font-size: 0.6rem;
-          letter-spacing: 0.2em; color: var(--pd-muted); text-transform: uppercase; margin: 0.5rem 0 0; }
-        .pd-socio { display: inline-block; text-decoration: none; margin-top: 1.8rem; }
-        .pd-nombre {
-          font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
-          background: none; border: none; padding: 0; cursor: text;
-          border-bottom: 2px dotted rgba(197,160,89,0.45);
-        }
-        .pd-nombre-input {
-          font: inherit; letter-spacing: inherit; text-transform: uppercase;
-          color: var(--pd-gold); background: transparent; border: none; outline: none;
-          border-bottom: 2px solid var(--pd-gold); padding: 0; min-width: 4ch;
-        }
-        .pd-nombre-input::placeholder { color: rgba(197,160,89,0.35); }
-        @media (max-width: 860px) {
-          .pd-cifras-lista--dos { grid-template-columns: 1fr; gap: 1.2rem; }
-          .pd-acciones { grid-template-columns: 1fr; }
-          .pd-accion { padding: 1rem 1.1rem; }
-          .pd-accion--queswa .img { width: 60px; margin-bottom: 0.6rem; }
-        }
-
-        /* ═══ Oportunidad, dos sectores y propuesta (30 sep 2026) ═══════════ */
-        .pd-h2--media { font-size: clamp(1.45rem, 3.6vw, 2.5rem); max-width: 30ch; }
-        .pd-pares { list-style: none; padding: 0; margin: 2rem 0 0; max-width: 720px;
-          border-top: 1px solid rgba(255,255,255,0.1); }
-        .pd-pares li { display: grid; grid-template-columns: minmax(0, 15rem) 2.6rem 1fr; align-items: baseline;
-          padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .pd-pares .de { font-size: clamp(1.05rem, 2.4vw, 1.5rem); color: var(--pd-muted); white-space: nowrap; }
-        .pd-pares .fl { color: var(--pd-gold); text-align: center; font-size: clamp(1rem, 2.2vw, 1.4rem); }
-        .pd-pares .a { font-weight: 700; font-size: clamp(1.15rem, 2.8vw, 1.8rem); color: #FFFFFF; }
-        .pd-sectores { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 2rem;
-          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
-        .pd-sector { background: var(--pd-bg); padding: clamp(1.4rem, 3vw, 2.4rem); }
-        .pd-sector .k { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.26em;
-          color: var(--pd-data); }
-        .pd-sector .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
-          font-size: clamp(1.35rem, 3.2vw, 2.3rem); line-height: 1.12; color: #FFFFFF;
-          margin: 0.7rem 0 0; }
-        .pd-propuesta { font-family: var(--font-sans); font-weight: 700;
-          font-size: clamp(1.35rem, 3.4vw, 2.3rem); line-height: 1.25; color: #FFFFFF;
-          margin: 0 auto; max-width: 28ch; text-wrap: balance; }
-        .pd-remate .pd-bisagra { text-align: center; }
-        @media (max-width: 860px) {
-          .pd-sectores { grid-template-columns: 1fr; }
-          .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
-          /* Las cuatro palabras van sin corte; en el teléfono la letra baja para que
-             quepan en el ancho y no abran un desplazamiento lateral. */
-          .pd-propuesta { font-size: min(1.2rem, 5.1vw); }
         }
       `}</style>
 
@@ -991,130 +899,233 @@ export default function PitchDeckPage() {
           </div>
         </div>
 
-        {/* ── 1 · EN QUÉ CREEMOS (primera mitad) ─────────────────────── */}
-        <section className={`pd-slide pd-credo pd-credo--solo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
+        {/* ── 1 · QUÉ CREEMOS ─────────────────────────────────────────── */}
+        <section className={`pd-slide pd-credo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">En qué creemos</p>
             <h1>
               Creemos que nadie debería entregar su vida entera al ciclo de trabajar,
               pagar cuentas y repetir.
             </h1>
+            {/* ⚠️ SEGUNDA MITAD PROPIA DEL DECK (Director, 24 sep 2026). En el resto
+                del sitio el credo remata en «Creemos en empoderar a las personas para
+                que recuperen el control de su tiempo y de su dinero» — Home v16, la
+                apertura del canal y WHY_01 🔒. Aquí la reemplaza esta, que conserva la
+                anáfora y la mecánica de Nu (adversario, absolución, restitución: el
+                esfuerzo se restituye en capital), y además nombra al oyente: «la gente
+                que sabe trabajar» lo honra en vez de diagnosticarlo, y «capital real»
+                eleva el registro desde las finanzas.
+                ⚠️ LAS DOS FRASES LLEVAN EL MISMO MOLDE, «creemos que… debería» (Director,
+                26 sep 2026): una norma negativa y una positiva. La versión anterior
+                —«Creemos en entregarle una herramienta de alto nivel a…»— desentonaba
+                por tres cosas: lo que se creía era la entrega de un producto (una
+                oferta, no una creencia; «empoderar» se sostiene porque es una postura),
+                el «entregar» repetido con sentido opuesto armaba un trueque (usted le
+                dio su vida al ciclo, nosotros le damos una herramienta), y el
+                protagonista pasaba a ser la casa. ⛔ La herramienta NO vuelve a esta
+                pantalla, ni disfrazada de «el sistema correcto»: esa es frase de cajón
+                de la industria y le roba la revelación a la pantalla 4. Llega en la 5.
+                ⛔ Tampoco «sobrevivir al mes a mes»: es juicio de cantidad y deja
+                eximirse al que gana veinte, contra el remate de la pantalla 2.
+                ⚠️ Esto deja al deck DIVERGENTE del credo desplegado en los otros tres
+                sitios. Si se decide propagarla, se toca junto: page.tsx de la Home,
+                wa-apertura.ts y el candado de WHY_01.
+                ⚠️ Va en <p> y no en <h1>: solo puede haber un h1 por página. */}
+            <p className="pd-credo-linea segunda">
+              Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
+              en capital real.
+            </p>
             <div className="pd-credo-rule" />
             <p className="pd-kicker">CreaTuActivo · Presentación</p>
           </div>
         </section>
 
-        {/* ── 2 · LA OPORTUNIDAD ──────────────────────────────────────── */}
-        {/* Palabras del Director (30 sep 2026). Los pares van como lista: la lista
-            es la imagen, y el patrón se entiende sin explicarlo. */}
+        {/* ── 2 · EL PROBLEMA ─────────────────────────────────────────── */}
         <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
-            <p className="pd-eyebrow">La oportunidad</p>
-            <h2 className="pd-h2 pd-h2--media">
-              Hay una oportunidad enorme en modernizar industrias que están frente a
-              nuestros ojos.
-            </h2>
-            <ul className="pd-pares">
-              {PARES_MODERNIZACION.map(([de, a]) => (
-                <li key={a}>
-                  <span className="de">{de}</span>
-                  <span className="fl">→</span>
-                  <span className="a">{a}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="pd-eyebrow">El problema</p>
+            <h2 className="pd-h2">Aprendimos dos caminos.</h2>
+            {/* VA ANTES DEL «POR QUÉ AHORA» (Director, 26 sep 2026). Hasta ese día el
+                orden era credo → momento → problema: la pantalla del momento contaba
+                el problema y lo resolvía en la misma respiración, y a esta solo le
+                quedaba volver al ciclo que el credo ya había dicho. Es el orden de un
+                pitch deck: el «por qué ahora» solo pega si el oyente ya sabe qué era
+                imposible.
+                ⚠️ «Aprendimos» y no «Nos enseñaron»: el que presenta se incluye en vez
+                de señalar a otros, y aquí cuenta su propia historia.
+                Los dos caminos los NARRA el socio en vivo (Director, 24 sep): la
+                pantalla solo sostiene el ciclo, que es donde los dos desembocan.
+                ⚠️ «Los dos terminan en el mismo ciclo», y no la tríada otra vez: esta
+                pantalla va pegada al credo, y «trabajar, pagar cuentas y repetir» en
+                dos pantallas seguidas cansa. «El mismo» la retoma sin repetirla.
+                ⚠️ La analogía cierra DENTRO de su propia imagen: «pero sigue en el
+                mismo punto» es la física de la bicicleta estática, no una segunda
+                tesis (Director, 25 sep). Lo que sigue vetado es el remate LITERAL
+                —«pero financieramente avanza muy poco»—, que traduce la imagen a
+                dinero y deja al oyente con dos tesis. La frase sin ninguna
+                consecuencia quedaba colgando en «con todas sus fuerzas».
+                ⛔ El remate de los veinte millones NO se toca aunque la propuesta lo
+                omitía: existe para que quien gana bien no se exima («ese no es mi
+                caso») — y el mercado de esta herramienta es justamente gente que gana
+                bien. Sin él la conversación se acaba en silencio. */}
+            <p className="pd-p">
+              Los dos terminan en el mismo ciclo. Es como estar en una bicicleta
+              estática: usted le da y le da con todas sus fuerzas, pero sigue en el
+              mismo punto.
+            </p>
+            <p className="pd-p pd-gold">
+              Y le pasa exactamente igual al que gana dos millones y al que gana más de
+              veinte.
+            </p>
           </div>
         </section>
 
-        {/* ── 3 · DOS SECTORES ────────────────────────────────────────── */}
-        {/* «Network marketing» va ESCRITO (Director, 30 sep 2026): dentro de la ola
-            de modernización se lee como oportunidad, y resolvió el «ah, es como
-            Herbalife». ⚠️ Solo el nombre: cómo se hace hoy lo cuenta el socio en
-            vivo. Describirlo aquí sería un juicio sin voz sobre el método de otros. */}
+        {/* ── 3 · POR QUÉ AHORA ───────────────────────────────────────── */}
         <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
-            <p className="pd-eyebrow">Dónde la vemos</p>
-            <h2 className="pd-h2 pd-h2--media">Nosotros vemos esa oportunidad en dos sectores:</h2>
-            <div className="pd-sectores">
-              <div className="pd-sector">
-                <span className="k">01</span>
-                <p className="t">La industria del network marketing</p>
-              </div>
-              <div className="pd-sector">
-                <span className="k">02</span>
-                <p className="t">El sector laboral</p>
-              </div>
-            </div>
+            {/* «Por qué ahora» y no «El momento» (Director, 26 sep 2026): el rótulo
+                dice qué pregunta responde la pantalla. */}
+            <p className="pd-eyebrow">Por qué ahora</p>
+            {/* EL TITULAR ES UNA FRASE QUE LA PERSONA SE RECONOCE DICIENDO —«siento que
+                tengo que hacer algo»— y no un diagnóstico en voz de coach (Director,
+                26 sep 2026). De paso pone a la mayoría del lado de actuar: el estigma
+                de esta categoría es de popularidad, no de fraude.
+                ⚠️ LOS DOS «HOY» SON DELIBERADOS: abren y cierran la pantalla alrededor
+                del «hasta hace poco». El primero es la necesidad; el segundo, lo que ya
+                la resuelve. Reemplaza a «Pocas veces aparece un momento así», que
+                reclamaba el momento sin decir de quién era. */}
+            <h2 className="pd-h2">Hoy, la mayoría de las personas siente que tiene que hacer algo.</h2>
+            {/* «Hacer empresa siempre ha sido difícil» es el problema en palabras del
+                Director y en UNA frase, sin inventario de la faena. Arma la escalera
+                difícil → casi imposible → hoy en un celular, y anticipa el cierre de la
+                pantalla 4 («modernizar la forma de hacer empresa»).
+                ⛔ Se retiró «costaba millones en bodegas, nóminas e inventarios»
+                (Director, 24 sep 2026), aunque estaba en la forma aprobada —presencias
+                del modelo viejo, no ausencias del nuestro—. El motivo no es la
+                polaridad sino el TRÍO: bodega, nómina e inventario es la silueta exacta
+                del pitch de la industria del mercadeo en red, y quien ya oyó una
+                presentación la reconoce dicha en positivo o en negativo.
+                ⛔ Se descartó «con el capital que antes se gastaba en un fin de semana»
+                (propuesta del 24 sep): abarata la decisión justo donde tratamos al
+                prospecto como inversionista —quien pone plata espera que le cueste—, y
+                para buena parte del mercado no es cierto.
+                ⚠️ «Tener una empresa de distribución estuvo al alcance de muy pocos»
+                SONABA A MENTIRA (Director, 24 sep 2026) y se ganaba la objeción sola:
+                cualquiera puede abrir una distribuidora. Por lo mismo tampoco va
+                «reservado para grandes corporaciones» (26 sep). La escasez hay que
+                ganarla describiendo el objeto, no reclamándola: lo raro no es
+                distribuir, es distribuir en un continente y que el negocio facture sin
+                el dueño encima. Eso sí era casi imposible, y no se lo discute nadie.
+                De paso, esta línea DEFINE «moderna», así que la pantalla 4 puede usar
+                la palabra sin explicarla. Y va «empresa de distribución moderna», la
+                forma única (Director, 28 sep 2026): deja entero el sinónimo «empresa de
+                distribución» y el adjetivo cae al final, donde va el acento. Las cuatro
+                palabras van juntas: si las dos últimas quedan solas a la vista —en un
+                título o partidas por un salto de línea— se leen como la jerga del canal
+                de supermercados.
+                ⚠️ VA EN SUBJUNTIVO, y no es capricho: «una empresa moderna VENDE en todo
+                el continente» afirma un hecho sobre una categoría e invita a preguntar
+                «¿según quién?» — suena a entrada de diccionario. «Que venda… que
+                facture…» deja de definir y pasa a describir algo que uno querría tener,
+                y solo entonces la escasez muerde, porque ya lo quiere. Por eso el
+                objeto va primero y el veredicto después de la raya.
+                ⚠️ Y dice «usted» y no «el dueño»: lo mete a él dentro de la frase.
+                ⚠️ Dice «factura» y no «produce»: en la 4 nos definimos por el sistema
+                que CONECTA y no por el que produce — se contradiría una pantalla
+                después. */}
+            {/* DESPIEZADO EN VIÑETAS (Director, 28 sep 2026: «separan los textos…
+                inclusive para matizarlo usa viñetas»). Es la MISMA frase aprobada,
+                solo que respirada: la dificultad en una línea, el objeto deseable con
+                sus dos propiedades en subjuntivo como viñetas, y el veredicto solo en
+                su renglón — así el «casi imposible» cae con peso propio. */}
+            <p className="pd-p">Hacer empresa siempre ha sido difícil.</p>
+            <p className="pd-p" style={{ marginBottom: '0.5rem' }}>
+              Una empresa de distribución moderna:
+            </p>
+            <ul className="pd-vinetas">
+              <li>que venda en todo el continente</li>
+              <li>que facture sin que usted tenga que estar encima</li>
+            </ul>
+            <p className="pd-p">Tener una así, hasta hace poco, era casi imposible.</p>
+            {/* NOMBRA LOS PRODUCTOS, NO LA TECNOLOGÍA (Director, 26 sep 2026). Decía «la
+                inteligencia artificial y la logística global»: cierto, pero de todos.
+                CreaTuActivo.com y Queswa.app son verificables —el oyente puede abrirlos
+                ahí mismo— y la exclusividad se reclama sobre productos con nombre,
+                nunca sobre la tecnología. Así el celular deja de ser metáfora.
+                ⚠️ Gano Excel NO va aquí: se nombra al final de la explicación, como
+                quien fabrica y despacha — en la pantalla 5, con sus hechos. */}
+            {/* LA LÍNEA DE PAGO VA SEPARADA (Director, 28 sep 2026: «debe haber una
+                separación en los textos»). Con el margen normal de .pd-p los dos
+                párrafos se leían como un solo bloque, y el «hasta hace poco → hoy»
+                es justamente la pausa de la pantalla. */}
+            <p className="pd-p" style={{ marginTop: '1.6rem' }}>
+              Hoy, CreaTuActivo.com y Queswa.app{' '}
+              <span className="pd-gold">la ponen en un celular.</span>
+            </p>
           </div>
         </section>
 
-        {/* ── 4 · EL SECTOR LABORAL ───────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          <div className={`pd-beat ${slide === 4 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-wrap">
-              <p className="pd-eyebrow">El sector laboral</p>
-              {/* La fila del banco retoma el par de Nequi de la pantalla 2: el
-                  trabajo es la próxima fila por modernizar. */}
-              <h2 className="pd-h2 pd-h2--media">
-                Así como nos acostumbramos a hacer la fila del banco, aprendimos que solo
-                había dos caminos para ganar.
-              </h2>
-              <p className="pd-p pd-p--grande">
-                Emplearse, o trabajar como independiente: en ventas, con un negocio
-                propio o con una empresa.
-              </p>
-              <p className="pd-p pd-p--grande pd-gold">
-                Y todos manifiestan el mismo dolor: inestabilidad e incertidumbre hacia
-                el futuro.
-              </p>
-              {/* El remate de los veinte: sin él, quien gana bien se exime. */}
-              <p className="pd-p" style={{ color: 'var(--pd-muted)' }}>
-                Y le pasa exactamente igual al que gana dos millones y al que gana más de
-                veinte.
-              </p>
-            </div>
-          </div>
-          <div className={`pd-beat ${slide === 4 && beat === 1 ? 'on' : ''}`}>
-            <div className="pd-wrap pd-cifras" style={{ maxWidth: 940 }}>
-              {/* Las dos cifras prueban las dos palabras: el ingreso que no alcanza
-                  es la inestabilidad; la pensión que no llega, la incertidumbre. */}
-              <p className="pd-eyebrow">El mismo dolor, en cifras</p>
-              <div className="pd-cifras-lista pd-cifras-lista--dos">
-                {CIFRAS_PROBLEMA.slice(0, 2).map((c) => (
-                  <div className="pd-cifra" key={c.n}>
-                    <p className="n">{c.n}</p>
-                    <p className="t">{c.texto}</p>
-                    <p className="f">{c.fuente}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* ── 4 · EL DEFECTO DE DISEÑO ────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            {/* El rótulo NO dice «El problema»: la bisagra de abajo ya lo dice, y
+                repetido en mayúsculas a cinco líneas se lee a trompicones. Nombra la
+                sección por lo que es — dónde está la oportunidad. */}
+            <p className="pd-eyebrow">La oportunidad</p>
+            {/* El titular cruza la imagen de la pantalla anterior y la paga: la
+                bicicleta estática entra en la 2 y se resuelve aquí (Director, 24 sep). */}
+            <h2 className="pd-h2">Cómo bajarse de la bicicleta estática.</h2>
+            {/* LA TESIS DE LA CONECTIVIDAD, PINTADA (Director, 28 sep 2026: «el texto
+                debe pintar con palabras que el negocio moderno no está en la
+                producción y sí en generar la conexión»). La versión anterior la decía
+                en abstracto —«ser dueño del sistema que conecta, no del que
+                produce»— y era exacta pero no se veía. Ahora la pinta UNA analogía
+                (la regla medida: una sola, en puente, sin remate propio): Uber, la
+                más grande del transporte, sin un solo carro. Comparación hacia
+                ARRIBA —el dueño del sistema—, nunca de lado. El mapa con la
+                bicicleta queda cerrado: pedalear es producir; bajarse es ser dueño
+                de la conexión. La línea dorada es la tesis con las palabras del
+                Director, y al soltar «Así funciona una empresa moderna» el adjetivo
+                baja de tres usos a dos en el deck (la 3 lo define, aquí se usa ya
+                definido, el remate lleva la forma canónica completa). */}
+            <p className="pd-p">
+              Piense en las empresas más grandes de esta era: Uber es la más grande del
+              transporte, y no tiene un solo carro. Su negocio no está en producir los
+              viajes — está en ser dueña de la conexión entre quien viaja y quien
+              conduce.
+            </p>
+            <p className="pd-p">
+              <span className="pd-gold">
+                El negocio moderno no está en la producción: está en la conexión.
+              </span>
+            </p>
+            {/* HISTORIA DE LA BISAGRA (23-28 sep 2026), para que nadie regrese a las
+                versiones descartadas: «el modelo dependía de que usted fuera el
+                sistema» era exacto y frío — arquitectura, no algo en que alguien se
+                reconozca. ⛔ Nombrar que nadie quiere andar detrás de sus conocidos es
+                el SÍNTOMA: le planta la escena a quien no la traía, en la única
+                pantalla donde decimos que funciona. ⚠️ «Y eso no era sencillo» se deja
+                SIN DECIR: la ley lo implica y el que oye lo completa solo; la
+                multiplicación como tarea es del modelo viejo — en el nuestro es
+                consecuencia, nunca un tercer paso. */}
+
+            {/* MODERNIZAR, NO CAMBIAR DE VIDA (Director, 24 sep 2026). El hallazgo de
+                campo: presentado como ACTUALIZACIÓN la gente se interesa; presentado
+                como cambio, se defiende. Baja la amenaza sin bajar el estatus, y es la
+                misma mecánica del «upgrade» que ya usamos para el ingreso en paralelo.
+                Va al cierre de la pantalla, justo antes de que la 5 entregue la
+                solución: es la última cosa que oye antes de ver de qué se trata.
+                ⚠️ NO dice «modernizar la forma de producir» — nos acabamos de definir
+                por la conexión y no por la producción; se contradiría a dos líneas. */}
+            <p className="pd-kicker">No es cambiar de vida. Es modernizar la forma de hacer empresa</p>
           </div>
         </section>
 
         {/* ── 5 · LAS TRES PIEZAS (oscilación) ────────────────────────── */}
         <section className={`pd-slide ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          {/* Beat 0: la propuesta, en palabras del Director (30 sep 2026). «Le vamos
-              a dar» pasó a «le damos»: se afirma, no se anuncia. La primera línea es
-              la frase aprobada del 26 sep, que se quedó sin pantalla. */}
-          <div className={`pd-beat ${slide === 5 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La propuesta</p>
-              <p className="pd-preparacion">
-                Hoy, la mayoría de las personas siente que tiene que hacer algo.
-              </p>
-              <p className="pd-propuesta">
-                Le damos la oportunidad de montar una{' '}
-                <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>{' '}
-                a su nombre, similar a Uber, Rappi o Nequi.
-              </p>
-              <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>Se requieren tres elementos:</p>
-            </div>
-          </div>
-
-          {/* Beats 1-3: cada pieza a solas y grande */}
+          {/* Beats 0-2: cada pieza a solas y grande */}
           {[0, 1, 2].map((i) => (
-            <div key={i} className={`pd-beat ${slide === 5 && beat === i + 1 ? 'on' : ''}`}>
+            <div key={i} className={`pd-beat ${slide === 5 && beat === i ? 'on' : ''}`}>
               <div className="pd-pieza">
                 <div className="pd-figura" style={{ backgroundImage: `url(${PIEZAS[i].img})` }} />
                 <div>
@@ -1126,6 +1137,30 @@ export default function PitchDeckPage() {
                       24 sep 2026): es la pieza que los reclama. Van como ESTATUS —hay
                       una empresa grande detrás—, nunca como alegato: nadie escoge al
                       niño impopular porque le muestren el boletín de notas. */}
+                  {i === 0 && (
+                    <div className="pd-hechos pd-hechos--pieza">
+                      <div className="pd-hecho">
+                        <span className="k">Marco legal</span>
+                        <span className="v">Ley 1700 de 2013</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Operación en América</span>
+                        <span className="v">16 países</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Sedes en Colombia</span>
+                        <span className="v">Nueve, abiertas al público</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Registro sanitario</span>
+                        <span className="v">INVIMA vigente</span>
+                      </div>
+                      <div className="pd-hecho">
+                        <span className="k">Certificación</span>
+                        <span className="v">TGA de Australia</span>
+                      </div>
+                    </div>
+                  )}
                   {i === 1 && (
                     <button
                       type="button"
@@ -1144,7 +1179,7 @@ export default function PitchDeckPage() {
           ))}
 
           {/* Beat 3: las tres oscilando */}
-          <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 5 && beat === 3 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ textAlign: 'center' }}>
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
               <div className="pd-tres">
@@ -1162,7 +1197,7 @@ export default function PitchDeckPage() {
           </div>
 
           {/* Beat 4: el remate */}
-          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
             {/* JERARQUÍA EN TRES TIEMPOS (Director, 24 sep 2026: «distribuye mejor los
                 textos»). Antes eran cuatro bloques del mismo peso apilados y el remate
                 se leía como un párrafo. Ahora: la preparación en pequeño y apagada, el
@@ -1215,64 +1250,17 @@ export default function PitchDeckPage() {
               <p className="grande grande--nombre">
                 su&nbsp;empresa&nbsp;de&nbsp;distribución&nbsp;moderna.
               </p>
+              <p className="pd-p pd-cierre-linea">
+                Solo se multiplica lo que es sencillo. Y lo que se transmite no es una
+                habilidad: es esto mismo, armado.
+              </p>
               <p className="marca">CreaTuActivo.com</p>
             </div>
           </div>
-
-          {/* Beat 6: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
-              nombre» de la propuesta. */}
-          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
-              <p className="grande">Cada cliente que llega por su enlace queda a su nombre.</p>
-            </div>
-          </div>
         </section>
 
-        {/* ── 6 · QUÉ HACE USTED ──────────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          <div className={`pd-beat ${slide === 6 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
-              <p className="pd-eyebrow">Qué hace usted</p>
-              <h2 className="pd-h2">Su día a día se resume en dos acciones.</h2>
-              {/* EAM_01, con Queswa dibujada ENTRE las dos acciones. */}
-              <div className="pd-acciones">
-                <div className="pd-accion">
-                  <span className="k">01</span>
-                  <p className="t">Compartir</p>
-                  <p className="d">Usted pasa un enlace a quien quiera.</p>
-                </div>
-                <div className="pd-accion pd-accion--queswa">
-                  <div className="img" style={{ backgroundImage: 'url(/images/servilleta/colapso-conversacion.webp)' }} />
-                  <p className="d">
-                    Entre las dos está Queswa: conversa con cada persona que llega, resuelve
-                    sus dudas y madura su decisión de avanzar. Cuando alguien está listo, le
-                    avisa.
-                  </p>
-                </div>
-                <div className="pd-accion">
-                  <span className="k">02</span>
-                  <p className="t">Recibir</p>
-                  <p className="d">Usted saluda a quien llega con interés.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={`pd-beat ${slide === 6 && beat === 1 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="grande">Solo se multiplica lo que es sencillo.</p>
-              <p className="pd-p pd-cierre-linea">
-                Quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
-              </p>
-              <p className="pd-p pd-cierre-linea">
-                De ahí salen la multiplicación de su negocio y el aumento de su facturación.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 7 · EL PRODUCTO ─────────────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+        {/* ── 6 · EL PRODUCTO ─────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-foto" style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)' }} />
           <div className="pd-wrap">
             <div className="pd-producto">
@@ -1362,210 +1350,221 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 8 · LA PREGUNTA ─────────────────────────────────────────── */}
-        {/* Sola, justo antes del dinero (caso Marlon, 26 sep 2026): con los detalles
-            el prospecto se oscurece, y lo que lo devuelve es una pregunta que él
-            contesta. Las cifras ya se dieron con el problema, en la 2. */}
-        <section className={`pd-slide ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide}>
-          <div className="pd-wrap pd-pregunta">
+        {/* ── 7 · EL PROBLEMA, EN CIFRAS ──────────────────────────────── */}
+        <section className={`pd-slide pd-cifras ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+            {/* JUSTO ANTES DEL DINERO (Director, 26 sep 2026). En el 1-a-1 el prospecto
+                se entusiasma con el problema y, al entrar en los detalles, se le
+                oscurece todo: «los productos son caros», «la gente está muy mal»,
+                «nadie busca oportunidades». Lo que lo devuelve es re-aterrizar el
+                problema. Las cifras contestan esas dos últimas con dato, y la pregunta
+                la contesta él («ninguno»): con alguien que duda, mueve que diga sus
+                propias razones (CIENCIA_CONDUCTUAL §3).
+                ⚠️ La cifra de pensión ENTRÓ el 27 sep 2026 por decisión del Director
+                (reemplazó al GEM de oportunidades — ver CIFRAS_PROBLEMA): es el
+                destino del ciclo y cierra el arco hoy → final → los demás ya se
+                mueven. Esto reemplaza la nota del 26 sep que la dejaba fuera.
+                ⚠️ «El ciclo» retoma el credo y la pantalla 2 sin repetirlos. La voz de
+                confianza con que el Director lo dice en vivo NO se escribe aquí.
+                Fuentes y descartes: ver CIFRAS_PROBLEMA. */}
+            <p className="pd-eyebrow">El problema, en cifras</p>
+            <div className="pd-cifras-lista">
+              {CIFRAS_PROBLEMA.map((c) => (
+                <div className="pd-cifra" key={c.n}>
+                  <p className="n">{c.n}</p>
+                  <p className="t">{c.texto}</p>
+                  <p className="f">{c.fuente}</p>
+                </div>
+              ))}
+            </div>
             <p className="pd-bisagra">¿Y usted, qué plan tiene para salir del ciclo?</p>
           </div>
         </section>
 
-        {/* ── 9 · CÓMO SE GANA ────────────────────────────────────────── */}
-        <section className={`pd-slide pd-numeros ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          {/* Beat 0 — LO PRINCIPAL: el ingreso que se repite, con los 12 niveles
-              desde el Kit. */}
-          <div className={`pd-beat ${slide === 9 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
-              <div className="pd-numeros-top">
-                <p className="pd-eyebrow">Cómo se gana</p>
-                <div className="pd-moneda" role="group" aria-label="Moneda">
-                  {(['COP', 'USD'] as const).map((m) => (
-                    <button
-                      key={m}
-                      type="button"
-                      className={moneda === m ? 'active' : ''}
-                      onClick={() => setMoneda(m)}
-                    >
-                      {m}
-                    </button>
-                  ))}
-                </div>
+        {/* ── 8 · LOS NÚMEROS ─────────────────────────────────────────── */}
+        <section className={`pd-slide pd-numeros ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+            <div className="pd-numeros-top">
+              <p className="pd-eyebrow">Cómo se gana</p>
+              <div className="pd-moneda" role="group" aria-label="Moneda">
+                {(['COP', 'USD'] as const).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    className={moneda === m ? 'active' : ''}
+                    onClick={() => setMoneda(m)}
+                  >
+                    {m}
+                  </button>
+                ))}
               </div>
-              {/* El titular dice lo que el panel muestra: consumo que se repite, de
-                  clientes y de distribuidores. La propiedad ya se dijo en la 5. */}
-              <h2 className="pd-h2">
-                Cada vez que sus clientes y sus distribuidores vuelven a pedir, a usted le
-                queda un porcentaje.
-              </h2>
-              <p className="pd-p pd-numeros-lead">
-                Así se ve si su sistema crece de a dos, empezando por el Kit de Inicio.
-              </p>
-              <div className="pd-paneles pd-paneles--uno">
-                {/* Panel B — los 12 niveles (2×2), de /12-niveles.
-                    SE QUEDA EN EL DECK (Director, 26 sep 2026): quien oye esto no es un
-                    inversionista acostumbrado al largo plazo, y trae tres creencias —que
-                    esto es para ganar en 50 años, que hay que quemar los barcos, y que
-                    para ganar de verdad hay que iniciar con el paquete grande—. Este
-                    simulador desarma las tres.
-                    EL PORCENTAJE SE ELIGE, y arranca en el 10% del Kit: la cifra por
-                    defecto es la de la forma más pequeña de iniciar, que es justo la
-                    tercera creencia desarmada. El 15, 16 y 17% son temporales, y la línea
-                    de abajo lo dice cada vez que se elige uno (ver TARIFAS_12). */}
-                <div className="panel">
-                  <h3>Los 12 niveles (2×2)</h3>
-                  <div className="pd-niveles">
-                    {PROYECCION_12.map((n) => (
-                      <button
-                        key={n.level}
-                        type="button"
-                        className={`pd-nivel ${n.level === nivel12 ? 'active' : ''} ${n.level < nivel12 ? 'done' : ''}`}
-                        onClick={() => setNivel12(n.level)}
-                        aria-label={`Nivel ${n.level}`}
-                      >
-                        {n.level}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
-                  <div className="pd-sub">
-                    {enCOP(nivelSel.people)} distribuidores nuevos · {enCOP(totalDistribuidores)} en
-                    total
-                  </div>
-
-                  <div className="pd-pkgs">
-                    {TARIFAS_12.map((t, i) => (
-                      <button
-                        key={t.pct}
-                        type="button"
-                        className={`pd-pkg ${tarifa12 === i ? 'active' : ''}`}
-                        onClick={() => setTarifa12(i)}
-                      >
-                        {t.nombre}<b>{t.pct}%</b>
-                      </button>
-                    ))}
-                  </div>
-
-                  <label className="pd-label">
-                    Recorra los 12 niveles<b>Nivel {nivel12}</b>
-                  </label>
-                  <input
-                    type="range"
-                    min={1}
-                    max={12}
-                    value={nivel12}
-                    onChange={(e) => setNivel12(parseInt(e.target.value))}
-                    className="pd-slider"
-                    style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
-                  />
-                  <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
-                    <p className="pd-insight pd-tarifa-general">
-                      Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
-                      {tarifa.pct}% del volumen comisionable (GCV) de su sistema.
-                    </p>
-                    <div className="pd-vigencias">
-                      {TARIFAS_12.map((t, i) => (
-                        <p
-                          key={t.pct}
-                          className={`pd-insight ${tarifa12 === i && t.meses > 0 ? 'on' : ''}`}
-                          aria-hidden={tarifa12 !== i || t.meses === 0}
-                        >
-                          {t.meses > 0 &&
-                            `Con el ${t.paquete}, el ${t.pct}% rige los primeros ${t.meses} meses; después aplica el más alto entre el 10% base y el de su rango.`}
-                        </p>
-                      ))}
+            </div>
+            {/* EL MODELO DE NEGOCIO EN UNA FRASE, ANTES DE LAS CIFRAS (Director, 26 sep
+                2026) — como la línea de Airbnb antes de sus números. Es el diferencial
+                del 25 sep dicho como mecanismo: el cliente que llega por su enlace
+                queda a su nombre, y por eso su recompra le paga. La pantalla 6 cerró
+                en que el cliente vuelve a pedir; aquí se dice qué le deja a usted.
+                ⚠️ La permanencia se dice del CLIENTE, nunca del pago: nada de «de por
+                vida». La recompensa se nombra por su repetición. */}
+            <h2 className="pd-h2">Cada cliente que llega por su enlace queda a su nombre.</h2>
+            <p className="pd-p pd-numeros-lead">Cada vez que vuelve a pedir, usted cobra.</p>
+            <div className="pd-paneles">
+              {/* Panel A — el Bono GEN5. El simulador de ingreso recurrente por hogares
+                  salió (Director, 26 sep 2026): lo recurrente lo cuenta el de los 12
+                  niveles, y dos simuladores de lo mismo se estorban.
+                  HASTA LA QUINTA GENERACIÓN (Director, 26 sep 2026): antes mostraba
+                  solo la primera, que es la mitad de la historia. La tira dice cuánto
+                  deja cada generación y la cifra grande es la suma.
+                  ⚠️ El MISMO número de paquetes en cada generación, a propósito: en la
+                  práctica las de abajo suelen tener más, así que el ejemplo se queda
+                  corto y nadie puede decir que infla. Se descartó el 2×2 (2, 4, 8, 16,
+                  32): serían dos proyecciones geométricas lado a lado, y exigiría
+                  paquetes empresariales en todas las generaciones — contra el Kit que
+                  los 12 niveles dejan por defecto.
+                  ⚠️ Se cuentan PAQUETES COMPRADOS, nunca personas. */}
+              <div className="panel">
+                <h3>Ingreso por paquetes</h3>
+                <div className="pd-display">{monto(ingresoGen5COP)}</div>
+                <div className="pd-gens">
+                  {gen5Por.map((usd, i) => (
+                    <div key={i} className="pd-gen">
+                      <span className="k">Gen {i + 1}</span>
+                      <span className="v">{montoCorto(gen5Paquetes * usd * TRM)}</span>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Beat 1 — EL BONO POR PAQUETES (Director, 30 sep 2026). Va DESPUÉS de lo
-              principal: quien inicia muchas veces necesita ganar pronto, y un deck que
-              no lo muestra parece haberlo olvidado. ⚠️ Se nombra por lo que lo mueve
-              —la compra de un paquete— y por su función —financia el crecimiento al
-              inicio—, NUNCA por su velocidad («rápido», «inmediato»): esa palabra la
-              pone el socio en vivo con su propia historia, que tampoco va a la
-              pantalla. Se cuentan PAQUETES COMPRADOS, nunca personas. */}
-          <div className={`pd-beat ${slide === 9 && beat === 1 ? 'on' : ''}`}>
-            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
-              <div className="pd-numeros-top">
-                <p className="pd-eyebrow">Cómo se gana</p>
-                <div className="pd-moneda" role="group" aria-label="Moneda">
-                  {(['COP', 'USD'] as const).map((m) => (
+                <div className="pd-pkgs">
+                  {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
                     <button
-                      key={m}
+                      key={p}
                       type="button"
-                      className={moneda === m ? 'active' : ''}
-                      onClick={() => setMoneda(m)}
+                      className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
+                      onClick={() => setGen5Nivel(p)}
                     >
-                      {m}
+                      {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
                     </button>
                   ))}
                 </div>
+                <label className="pd-label">
+                  Paquetes comprados en cada generación<b>{gen5Paquetes}</b>
+                </label>
+                <input
+                  type="range"
+                  min={1}
+                  max={10}
+                  value={gen5Paquetes}
+                  onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
+                  className="pd-slider"
+                />
+                <p className="pd-insight">
+                  Cada vez que se compra un paquete empresarial en su sistema, hasta la
+                  quinta generación, usted cobra este bono. Es lo que financia el
+                  crecimiento al inicio.
+                </p>
               </div>
-              <h2 className="pd-h2">
-                Y cada paquete empresarial que se compra en su sistema le deja un bono.
-              </h2>
-              <p className="pd-p pd-numeros-lead">
-                Hasta la quinta generación. Es lo que financia el crecimiento al inicio.
-              </p>
-              <div className="pd-paneles pd-paneles--uno">
-                <div className="panel panel--gen5">
-                  <h3>Ingreso por paquetes</h3>
-                  <div className="pd-display">{monto(ingresoGen5COP)}</div>
-                  <div className="pd-gens">
-                    {gen5Por.map((usd, i) => (
-                      <div key={i} className="pd-gen">
-                        <span className="k">Gen {i + 1}</span>
-                        <span className="v">{montoCorto(gen5Paquetes * usd * TRM)}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="pd-pkgs">
-                    {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
-                      <button
-                        key={p}
-                        type="button"
-                        className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
-                        onClick={() => setGen5Nivel(p)}
+
+              {/* Panel B — los 12 niveles (2×2), de /12-niveles.
+                  SE QUEDA EN EL DECK (Director, 26 sep 2026): quien oye esto no es un
+                  inversionista acostumbrado al largo plazo, y trae tres creencias —que
+                  esto es para ganar en 50 años, que hay que quemar los barcos, y que
+                  para ganar de verdad hay que iniciar con el paquete grande—. Este
+                  simulador desarma las tres.
+                  EL PORCENTAJE SE ELIGE, y arranca en el 10% del Kit: la cifra por
+                  defecto es la de la forma más pequeña de iniciar, que es justo la
+                  tercera creencia desarmada. El 15, 16 y 17% son temporales, y la línea
+                  de abajo lo dice cada vez que se elige uno (ver TARIFAS_12). */}
+              <div className="panel">
+                <h3>Los 12 niveles (2×2)</h3>
+                <div className="pd-niveles">
+                  {PROYECCION_12.map((n) => (
+                    <button
+                      key={n.level}
+                      type="button"
+                      className={`pd-nivel ${n.level === nivel12 ? 'active' : ''} ${n.level < nivel12 ? 'done' : ''}`}
+                      onClick={() => setNivel12(n.level)}
+                      aria-label={`Nivel ${n.level}`}
+                    >
+                      {n.level}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
+                <div className="pd-sub">
+                  {enCOP(nivelSel.people)} distribuidores nuevos · {enCOP(totalDistribuidores)} en
+                  total
+                </div>
+
+                <div className="pd-pkgs">
+                  {TARIFAS_12.map((t, i) => (
+                    <button
+                      key={t.pct}
+                      type="button"
+                      className={`pd-pkg ${tarifa12 === i ? 'active' : ''}`}
+                      onClick={() => setTarifa12(i)}
+                    >
+                      {t.nombre}<b>{t.pct}%</b>
+                    </button>
+                  ))}
+                </div>
+
+                <label className="pd-label">
+                  Recorra los 12 niveles<b>Nivel {nivel12}</b>
+                </label>
+                <input
+                  type="range"
+                  min={1}
+                  max={12}
+                  value={nivel12}
+                  onChange={(e) => setNivel12(parseInt(e.target.value))}
+                  className="pd-slider"
+                  style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
+                />
+                <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
+                  <p className="pd-insight pd-tarifa-general">
+                    Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
+                    {tarifa.pct}% del volumen comisionable (GCV) de su sistema.
+                  </p>
+                  <div className="pd-vigencias">
+                    {TARIFAS_12.map((t, i) => (
+                      <p
+                        key={t.pct}
+                        className={`pd-insight ${tarifa12 === i && t.meses > 0 ? 'on' : ''}`}
+                        aria-hidden={tarifa12 !== i || t.meses === 0}
                       >
-                        {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
-                      </button>
+                        {t.meses > 0 &&
+                          `Con el ${t.paquete}, el ${t.pct}% rige los primeros ${t.meses} meses; después aplica el más alto entre el 10% base y el de su rango.`}
+                      </p>
                     ))}
                   </div>
-                  <label className="pd-label">
-                    Paquetes comprados en cada generación<b>{gen5Paquetes}</b>
-                  </label>
-                  <input
-                    type="range"
-                    min={1}
-                    max={10}
-                    value={gen5Paquetes}
-                    onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
-                    className="pd-slider"
-                  />
                 </div>
               </div>
-              {/* Gano al final, como quien paga (WHY_02), con sus credenciales como
-                  estatus y no como alegato. */}
-              <p className="pd-nota">
-                Las comisiones las paga el fabricante, Gano Excel, cada semana, los viernes.
-              </p>
-              <p className="pd-credenciales">30 años · Más de 60 países · Nueve sedes en Colombia</p>
             </div>
+            {/* La cadencia real, para no insinuar un pago al día siguiente de la compra.
+                ⚠️ Sin la tasa de $4.500: con los pesos por defecto nadie ve una
+                conversión, y nombrarla le planta la queja del dólar caro (FREQ_27). */}
+            <p className="pd-nota">Gano Excel paga cada semana, los viernes.</p>
           </div>
         </section>
 
-        {/* ── 10 · EL SIGUIENTE PASO ──────────────────────────────────── */}
-        {/* La segunda mitad del credo cierra el deck: el cuerpo ya mostró cómo el
-            esfuerzo se vuelve capital (el cliente a su nombre que vuelve a pedir).
-            La conversación es con el socio del ?ref, para cuando el deck se envía. */}
-        <section className={`pd-slide pd-final ${slide === 10 ? 'on' : ''}`} onClick={onClickSlide}>
+        {/* ── 9 · EL SIGUIENTE PASO ───────────────────────────────────── */}
+        <section className={`pd-slide pd-final ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
+            {/* EL DECK CIERRA COMO ABRIÓ (Director, 26 sep 2026). El rótulo es el de la
+                pantalla 1, y vuelve la SEGUNDA mitad del credo: el ciclo ya se nombró
+                en la 1, la 2 y la 7, y aquí el deck termina en la restitución —el
+                esfuerzo convertido en capital—, justo después de ver los números.
+                La lista de espera va como la dice el arsenal desde el 10 sep (EAM_02):
+                una capacidad real, en presente, sin número y sin la mecánica de la
+                selección.
+                ⚠️ EL CIERRE ES UNA AFIRMACIÓN, NO UNA PREGUNTA (Director, 26 sep 2026).
+                Se propusieron «¿Le reservo su lugar?» y «¿Arrancamos con su Kit de
+                Inicio?»; el Director prefirió «El siguiente paso es una conversación»,
+                que vivía al pie de la pantalla de los números. Encaja con la lista de
+                espera, que el arsenal dice «con una conversación de por medio». La
+                pregunta la hace el socio en vivo.
+                ⛔ Sin paquetes ni precios: el precio de entrada no convive con las
+                comisiones de la pantalla anterior. */}
             <p className="pd-eyebrow">En qué creemos</p>
             <p className="pd-final-credo">
               Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
@@ -1575,61 +1574,7 @@ export default function PitchDeckPage() {
               Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
               vez. Por eso el acceso va por lista de espera.
             </p>
-            <p className="pd-bisagra">
-              El siguiente paso es una conversación
-              {nombreVisible && (
-                <>
-                  {' con '}
-                  {editandoNombre ? (
-                    <input
-                      className="pd-nombre-input"
-                      autoFocus
-                      value={nombreEscrito}
-                      maxLength={24}
-                      placeholder="Nombre"
-                      aria-label="Escriba el nombre de la persona"
-                      style={{ width: `${Math.max(6, nombreEscrito.length + 1)}ch` }}
-                      onClick={(e) => e.stopPropagation()}
-                      onChange={(e) => setNombreEscrito(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') confirmarNombre(nombreEscrito);
-                        if (e.key === 'Escape') confirmarNombre('');
-                      }}
-                      onBlur={() => confirmarNombre(nombreEscrito)}
-                    />
-                  ) : (
-                    <button
-                      type="button"
-                      className="pd-nombre"
-                      title="Toque para escribir el nombre de la persona"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setNombreEscrito('');
-                        setEditandoNombre(true);
-                      }}
-                    >
-                      {nombreVisible}
-                    </button>
-                  )}
-                </>
-              )}
-              .
-            </p>
-            {waSocio && (nombreDemo ? (
-              <span className="pd-demo pd-socio" aria-hidden="true">
-                ESCRIBIRLE A {nombreDemo.toUpperCase()} POR WHATSAPP →
-              </span>
-            ) : (
-              <a
-                className="pd-demo pd-socio"
-                href={waSocio}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-              >
-                ESCRIBIRLE A {primerNombre!.toUpperCase()} POR WHATSAPP →
-              </a>
-            ))}
+            <p className="pd-bisagra">El siguiente paso es una conversación.</p>
             <div className="pd-credo-rule" />
             <p className="pd-kicker">CreaTuActivo.com</p>
           </div>

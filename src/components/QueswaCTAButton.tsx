@@ -10,17 +10,20 @@ export default function QueswaCTAButton({
   children,
   className = 'cta-base cta-primary',
   style,
+  pregunta,
 }: {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  /** La pregunta que el botón precarga en WhatsApp (1 oct 2026: el hero de la Home). */
+  pregunta?: 'dinero';
 }) {
   return (
     <button
       type="button"
       className={className}
       style={style}
-      onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
+      onClick={() => window.dispatchEvent(new CustomEvent('open-queswa', { detail: { pregunta } }))}
     >
       {children}
     </button>

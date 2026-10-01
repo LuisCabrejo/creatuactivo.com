@@ -93,17 +93,50 @@ export type ContextoOrbe = 'general' | 'productos'
  * Sin él el prospecto entra sin dueño: fuera del Radar del socio, sin push, y la
  * apertura cae al saludo genérico de marca en vez de nombrarlo.
  */
+export interface OpcionesApertura {
+  /** Llegó al 80 % del video «Cómo funciona» de la Home (`vioVideoComoFunciona`). */
+  vioComoFunciona?: boolean
+  /** La pregunta del botón que abrió el chat. Hoy, solo la del hero de la Home. */
+  pregunta?: 'dinero'
+}
+
+const PREGUNTAS_PRECARGADAS: Record<NonNullable<OpcionesApertura['pregunta']>, string> = {
+  dinero: '¿Cómo entra el dinero?',
+}
+
 export function textoAperturaWhatsApp(
   ref?: string | null,
   contexto: ContextoOrbe = 'general',
+  opciones: OpcionesApertura = {},
 ): string {
-  return ref
-    ? contexto === 'productos'
+  if (contexto === 'productos') {
+    return ref
       ? `Hola Queswa, vengo del enlace de ${ref}. Quiero preguntar por los productos.`
-      : `Hola Queswa, vengo del enlace de ${ref}`
-    : contexto === 'productos'
-      ? 'Hola Queswa, quiero preguntar por los productos'
-      : 'Hola Queswa, quiero saber cómo funciona'
+      : 'Hola Queswa, quiero preguntar por los productos'
+  }
+  // La Home sabe si la persona vio el video «Cómo funciona» y qué preguntó (1 oct
+  // 2026). El webhook lo lee: «Ya vi el video de cómo funciona.» le quita ese botón
+  // y la explicación (vieneDelVideoComoFunciona), y «¿Cómo entra el dinero?» lo
+  // responde con el video del dinero (RE_PREGUNTA_DINERO_PRECARGADA). Sin ref la
+  // llegada se dice «vengo de creatuactivo.com», que el webhook también reconoce.
+  const { vioComoFunciona = false, pregunta } = opciones
+  const extra = [vioComoFunciona ? 'Ya vi el video de cómo funciona.' : '', pregunta ? PREGUNTAS_PRECARGADAS[pregunta] : '']
+    .filter(Boolean).join(' ')
+  if (ref) return extra ? `Hola Queswa, vengo del enlace de ${ref}. ${extra}` : `Hola Queswa, vengo del enlace de ${ref}`
+  return extra ? `Hola Queswa, vengo de creatuactivo.com. ${extra}` : 'Hola Queswa, quiero saber cómo funciona'
+}
+
+// ─── ¿Vio el video «Cómo funciona» de la Home? (1 oct 2026) ─────────────────
+// VideoComoFuncionaHome marca al llegar al 80 %; el orbe y el botón del hero lo
+// leen al armar el texto precargado. Es un booleano con fecha, no un dato personal.
+const LS_VIO_COMO_FUNCIONA = 'cta_vio_como_funciona'
+
+export function marcarVioComoFunciona(): void {
+  try { localStorage.setItem(LS_VIO_COMO_FUNCIONA, new Date().toISOString()) } catch { /* sin almacenamiento */ }
+}
+
+export function vioVideoComoFunciona(): boolean {
+  try { return !!localStorage.getItem(LS_VIO_COMO_FUNCIONA) } catch { return false }
 }
 
 export function enlaceQueswaWhatsApp(
@@ -176,9 +209,16 @@ function vigilarElRegreso(momentoDelSalto: number): void {
 export function abrirConversacionQueswa(
   ref?: string | null,
   contexto: ContextoOrbe = 'general',
+  opciones: OpcionesApertura = {},
 ): void {
   const retomando = yaConversoPorWhatsApp()
-  const texto = retomando ? '' : encodeURIComponent(textoAperturaWhatsApp(ref, contexto))
+  // Quien ya conversó abre el chat en blanco (no necesita el saludo con el ref);
+  // si llega por un botón con pregunta, se le precarga solo la pregunta, que los
+  // nodos del canal ya responden en una conversación viva (1 oct 2026).
+  const precarga = retomando
+    ? (opciones.pregunta ? PREGUNTAS_PRECARGADAS[opciones.pregunta] : '')
+    : textoAperturaWhatsApp(ref, contexto, opciones)
+  const texto = precarga ? encodeURIComponent(precarga) : ''
 
   const enlaceWeb = texto ? `https://wa.me/${QUESWA_WABA}?text=${texto}` : `https://wa.me/${QUESWA_WABA}`
   const enlaceApp = texto

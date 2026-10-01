@@ -1,6 +1,6 @@
 # Pendiente — Queswa sabe si la persona vio el video «Cómo funciona» en la Home (1 oct 2026)
 
-> **Estado: por hacer.** Encargo del Director el 1 oct 2026. Auditado ese día; las decisiones abiertas están marcadas **[Director]**.
+> **Estado: HECHO el 1 oct 2026**, salvo dos puntos marcados abajo como abiertos. El Director confirmó el texto del botón y aprobó el saludo corto el mismo día. Arnés: `npx tsx scripts/prueba-home-video-queswa.mts`.
 
 ## Por qué
 
@@ -46,20 +46,32 @@ Desde el 1 oct 2026 el hero de la Home trae el video «Cómo funciona» (`VideoC
 ## Checklist
 
 **Decisiones del Director**
-- [ ] Texto del botón de la Home.
-- [ ] Copy del saludo corto del primer turno, en sus dos variantes (vio / no vio).
+- [x] Texto del botón de la Home.
+- [x] Copy del saludo corto del primer turno, en sus dos variantes (vio / no vio).
 
 **Implementación**
-- [ ] `VideoComoFuncionaHome`: al llegar al 80 % guardar una marca local (`cta_vio_como_funciona` con la fecha). Es un booleano, no un dato personal.
-- [ ] `textoAperturaWhatsApp(ref, contexto, { vioComoFunciona, pregunta })`: las cinco variantes de la tabla. Sin `ref`, decir «vengo de creatuactivo.com» en vez de «quiero saber cómo funciona».
-- [ ] `QueswaCTAButton` en la Home: emitir `open-queswa` con `detail: { pregunta: 'dinero' }`; `WhatsAppOrb` lo lee y lo pasa.
-- [ ] Webhook: reconocer «vengo de creatuactivo.com» como llegada (hoy `_vieneDelEnlace` solo mira «vengo del enlace» o una URL con barra). Quitar la exigencia del enlace para el video visto, y atender en el primer turno la pregunta que trae el precargado.
-- [ ] Los botones después de la respuesta, según la marca de video visto. Verificar que la pregunta de cierre del video del dinero no ofrezca «Cómo funciona» a quien ya lo vio.
-- [ ] Si `ORBE_MODO` pasa a `'queswa'` (chat web): la misma marca va como `pageContext` al conductor, para que la web responda igual que WhatsApp.
-- [ ] Opcional: reportar a la ficha (`home_video_como_funciona`), para que la campanita del socio diga «vio el video "Cómo funciona" en la Home».
-- [ ] Subir `CACHE_VERSION` del service worker al desplegar.
+- [x] `VideoComoFuncionaHome`: al llegar al 80 % guardar una marca local (`cta_vio_como_funciona` con la fecha). Es un booleano, no un dato personal.
+- [x] `textoAperturaWhatsApp(ref, contexto, { vioComoFunciona, pregunta })`: las cinco variantes de la tabla. Sin `ref`, decir «vengo de creatuactivo.com» en vez de «quiero saber cómo funciona».
+- [x] `QueswaCTAButton` en la Home: emitir `open-queswa` con `detail: { pregunta: 'dinero' }`; `WhatsAppOrb` lo lee y lo pasa.
+- [x] Webhook: reconocer «vengo de creatuactivo.com» como llegada (hoy `_vieneDelEnlace` solo mira «vengo del enlace» o una URL con barra). Quitar la exigencia del enlace para el video visto, y atender en el primer turno la pregunta que trae el precargado.
+- [x] Los botones después de la respuesta, según la marca de video visto. Verificar que la pregunta de cierre del video del dinero no ofrezca «Cómo funciona» a quien ya lo vio.
+- [ ] **Abierto:** si `ORBE_MODO` pasa a `'queswa'` (chat web): la misma marca va como `pageContext` al conductor, para que la web responda igual que WhatsApp.
+- [ ] **Abierto (opcional):** reportar a la ficha (`home_video_como_funciona`), para que la campanita del socio diga «vio el video "Cómo funciona" en la Home».
+- [x] Subir `CACHE_VERSION` del service worker al desplegar.
 
 **Pruebas**
-- [ ] Arnés sin red de las cinco variantes del precargado y de su lectura en el webhook (vio / no vio / con y sin ref / niega haberlo visto).
-- [ ] Ensayo por webhook (`repetir-por-webhook.mts` con `WA_DRY_RUN=1`) de los dos primeros turnos en cada caso.
+- [x] Arnés sin red de las cinco variantes del precargado y de su lectura en el webhook (vio / no vio / con y sin ref / niega haberlo visto).
+- [x] Ensayo por webhook (`repetir-por-webhook.mts` con `WA_DRY_RUN=1`) de los dos primeros turnos en cada caso.
 - [ ] En el teléfono: ver el video completo → tocar el botón → comprobar el saludo, el video del dinero y que no se ofrezca «Cómo funciona».
+
+## Cómo quedó (1 oct 2026)
+
+- **Botón del hero:** «Pregúntele a Queswa cómo entra el dinero» (`QueswaCTAButton pregunta="dinero"`).
+- **Marca de video visto:** `VideoComoFuncionaHome` llama a `marcarVioComoFunciona()` al 80 %; el orbe la lee con `vioVideoComoFunciona()` (`orbe-config.ts`).
+- **Texto precargado:** `textoAperturaWhatsApp(ref, contexto, { vioComoFunciona, pregunta })`. Quien ya conversó abre con solo la pregunta.
+- **Webhook:** `_preguntaDinero` manda el saludo corto con los botones que faltan (`construirAperturaPreguntaDinero` / `aperturaRetornoPreguntaDinero` y `opcionesTrasPreguntaDinero`, en `wa-apertura.ts`), fija `opcionElegida = 'apertura_dinero'` y el nodo 1.6 manda el video del dinero. Saludo y video quedan en un solo turno, nodo `pregunta del dinero desde la Home (video)`.
+- **Ensayo por webhook** (WA_DRY_RUN, números ficticios, sin ref): nuevo que vio el video, nuevo que no lo vio y alguien que ya había escrito. Los tres responden como se diseñó.
+- **El saludo aprobado:**
+  - *Nuevo, vio:* «Hola, {nombre}. Un gusto saludarle. / Soy Queswa, la inteligencia artificial que asiste a {socio}, la misma del video. Atiendo a cientos de personas, las 24 horas. / Como ya vio cómo funciona, vamos con su pregunta.»
+  - *Nuevo, no vio:* lo mismo, sin «la misma del video», y cierra «Vamos con su pregunta.»
+  - *Vuelve:* «Qué bueno que vuelva{, nombre}. Como ya vio el video de cómo funciona, vamos con su pregunta.» (o solo «Vamos con su pregunta.»)

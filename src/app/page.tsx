@@ -477,8 +477,10 @@ export default function HomePage() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-              <QueswaCTAButton className="cta-base cta-primary">
-                Pregúntele a Queswa cómo funciona
+              {/* El video ya explica cómo funciona: el botón pregunta lo que sigue
+                  (Director, 1 oct 2026), y Queswa sabe si la persona vio el video. */}
+              <QueswaCTAButton className="cta-base cta-primary" pregunta="dinero">
+                Pregúntele a Queswa cómo entra el dinero
               </QueswaCTAButton>
             </div>
 

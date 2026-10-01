@@ -25,7 +25,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { abrirConversacionQueswa, leerRefSocio, yaConversoPorWhatsApp, type ContextoOrbe } from '@/lib/orbe-config'
+import { abrirConversacionQueswa, leerRefSocio, yaConversoPorWhatsApp, vioVideoComoFunciona, type ContextoOrbe, type OpcionesApertura } from '@/lib/orbe-config'
 import { REEL_NICHOS } from '@/lib/reels'
 
 const VERDE = '#25D366'
@@ -69,7 +69,7 @@ export default function WhatsAppOrb() {
       ? 'Pregúntele a su asesor de bienestar'
       : '¿Le muestro cómo funciona?'
 
-  const abrirWhatsApp = () => {
+  const abrirWhatsApp = (pregunta?: OpcionesApertura['pregunta']) => {
     // Guard de doble disparo: el clic en el orbe también emite `open-queswa` para
     // los oyentes de la página, y ese evento vuelve aquí.
     if (abriendo.current) return
@@ -81,7 +81,9 @@ export default function WhatsAppOrb() {
     // El contrato de engagement con el Dashboard: el socio ve que su prospecto
     // abrió la conversación (mismo evento que emitía el chat web al abrirse).
     window.dispatchEvent(new CustomEvent('queswa-opened'))
-    abrirConversacionQueswa(leerRefSocio(), contexto)
+    // Si vio el video «Cómo funciona» de la Home, Queswa lo sabe por el texto
+    // precargado; y si llegó por el botón del hero, también la pregunta (1 oct 2026).
+    abrirConversacionQueswa(leerRefSocio(), contexto, { vioComoFunciona: vioVideoComoFunciona(), pregunta })
   }
 
   useEffect(() => {
@@ -104,7 +106,7 @@ export default function WhatsAppOrb() {
   // Los CTAs que ya existen ("Hablar con Queswa", el del reel, el del manifiesto)
   // disparan `open-queswa`. En esta fase ese camino termina en WhatsApp.
   useEffect(() => {
-    const onOpen = () => abrirWhatsApp()
+    const onOpen = (e: Event) => abrirWhatsApp((e as CustomEvent<{ pregunta?: OpcionesApertura['pregunta'] }>).detail?.pregunta)
     window.addEventListener('open-queswa', onOpen)
     return () => window.removeEventListener('open-queswa', onOpen)
   }, [contexto])
@@ -160,7 +162,7 @@ export default function WhatsAppOrb() {
         type="button"
         data-nexus-button
         aria-label={retomando ? 'Retomar la conversación con Queswa en WhatsApp' : 'Conversar con Queswa por WhatsApp'}
-        onClick={abrirWhatsApp}
+        onClick={() => abrirWhatsApp()}
         className="wa-orb"
         style={{
           position: 'fixed',

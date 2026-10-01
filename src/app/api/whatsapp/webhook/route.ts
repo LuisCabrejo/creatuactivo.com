@@ -47,6 +47,8 @@ import {
   construirAperturaTrasVideoNiveles,
   aperturaRetornoTrasVideoNiveles,
   notaVideoDoceNivelesVisto,
+  RE_PREGUNTA_DINERO_PRECARGADA, RE_VENGO_DE_CREATUACTIVO, opcionesTrasPreguntaDinero,
+  construirAperturaPreguntaDinero, aperturaRetornoPreguntaDinero,
 } from '@/lib/wa-apertura';
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
@@ -1111,10 +1113,36 @@ async function procesarEntrante(body: any): Promise<void> {
     // como venir del enlace, y las palabras-pregunta se buscan completas y fuera
     // de las direcciones.
     const _traeUrlPropia = /creatuactivo\.com\/|queswa\.app\//i.test(messageText);
-    const _vieneDelEnlace = _traeUrlPropia || /vengo del enlace/i.test(messageText);
+    // «Vengo de creatuactivo.com» es quien llega desde la web SIN enlace de socio (el
+    // botón de la Home, 1 oct 2026): también es una llegada, no una pregunta.
+    const _vieneDelEnlace = _traeUrlPropia || /vengo del enlace/i.test(messageText) || RE_VENGO_DE_CREATUACTIVO.test(messageText);
     // El enlace del reel «Cómo funciona» (/{slug}/como-funciona) agrega «Ya vi el
     // video de cómo funciona.» al saludo del enlace (28 sep 2026).
     const _vieneDelVideo = _vieneDelEnlace && vieneDelVideoComoFunciona(messageText);
+    // El botón de la Home precarga «¿Cómo entra el dinero?» (1 oct 2026). Se saluda
+    // corto, se manda el video del dinero como si hubiera tocado ese botón (nodo
+    // 1.6, abajo) y se ofrecen los botones que falten: sin «Cómo funciona» si el
+    // precargado dice que ya vio el video. El saludo y el video quedan en un solo
+    // turno (`_saludoPrevio`).
+    const _preguntaDinero = _vieneDelEnlace && !socioQueEscribe && !llegaDecidido
+      && RE_PREGUNTA_DINERO_PRECARGADA.test(messageText) && !detectarIntencionCompra(messageText);
+    let _saludoPrevio: string | null = null;
+    if (_preguntaDinero) {
+      const notaVio = _vieneDelVideo ? `${notaVideoComoFuncionaVisto()}\n\n` : '';
+      if (esPrimerContacto || existingProspect) {
+        const saludo = esPrimerContacto
+          ? construirAperturaPreguntaDinero(patrocinador?.nombre, contactName, _vieneDelVideo)
+          : aperturaRetornoPreguntaDinero(contactName, _vieneDelVideo);
+        const opcionesD = opcionesTrasPreguntaDinero(_vieneDelVideo);
+        const enviadoD = await sendReplyButtons(phoneNumber, saludo, opcionesD);
+        if (!enviadoD.ok) await sendWhatsAppMessage(phoneNumber, `${saludo}\n\n${opcionesD.map((o) => `• ${o.title}`).join('\n')}`);
+        _saludoPrevio = `${notaVio}${saludo}`;
+      } else {
+        _saludoPrevio = notaVio.trim() || null;
+      }
+      opcionElegida = 'apertura_dinero';
+      console.log(`💵 [WA Webhook] Llega desde la Home con «¿Cómo entra el dinero?» (${_vieneDelVideo ? 'vio' : 'no vio'} el video «Cómo funciona») — saludo corto y video del dinero`);
+    }
     // Y el del reel «Los 12 Niveles» (/{slug}/estrategia) agrega «Ya vi el video
     // de los 12 niveles.». Su apertura ofrece UNA cosa —el simulador, que es lo
     // que prometía el texto del reel— y deja la ficha en el hilo de la
@@ -1262,7 +1290,7 @@ async function procesarEntrante(body: any): Promise<void> {
       return;
     }
 
-    if (existingProspect && !socioQueEscribe && !llegaDecidido && (_soloSaludo || _vieneDelEnlace) && !detectarIntencionCompra(messageText)) {
+    if (existingProspect && !socioQueEscribe && !llegaDecidido && !_preguntaDinero && (_soloSaludo || _vieneDelEnlace) && !detectarIntencionCompra(messageText)) {
       // Con la conversación VIVA, el enlace tocado otra vez no es un regreso: la
       // persona volvió a tocar el botón de wa.me (20 sep 2026: cuatro segundos
       // después de preguntar «¿qué debo hacer yo?» recibió «Qué bueno que
@@ -1320,7 +1348,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // Y ADEMÁS la apertura de prospecto — «Soy Queswa… atiendo a cientos de
     // personas» — en el mismo turno. Le pasó a Erika Cabrejo al responder el
     // mensaje de los lunes.
-    if (esPrimerContacto && !socioQueEscribe && !llegaDecidido && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
+    if (esPrimerContacto && !socioQueEscribe && !llegaDecidido && !_preguntaDinero && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
       if (_vieneDelVideoNiveles) {
         const texto = construirAperturaTrasVideoNiveles(patrocinador?.nombre, contactName);
         await sendWhatsAppMessage(phoneNumber, texto);
@@ -1470,15 +1498,19 @@ async function procesarEntrante(body: any): Promise<void> {
       const INTRO = videoApertura.intro;
       const cuerpo = dictada.startsWith(INTRO) ? dictada.slice(INTRO.length).trim() : dictada;
       const m = await mandarVideoApertura(opcionElegida!, cuerpo);
+      // Desde la Home con la pregunta del botón: el saludo corto ya salió arriba y
+      // va en el mismo turno que el video (y la nota del video visto, si la hay).
+      const prefijo = _saludoPrevio ? `${_saludoPrevio}\n\n` : '';
+      const nodoVideo = _saludoPrevio !== null ? 'pregunta del dinero desde la Home' : `botón de la apertura: ${opcionElegida}`;
       if (m.ok) {
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, m.fila, `botón de la apertura: ${opcionElegida} (video)`);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, `${prefijo}${m.fila}`, `${nodoVideo} (video)`);
         return;
       }
       await sendWhatsAppMessage(phoneNumber, cuerpo);
       // `_ofertaRenovada` lo escribe `sendWhatsAppMessage`; TS no lo ve y lo da por null.
       const renovada = _ofertaRenovada as { original: string; enviado: string } | null;
       const enviado = renovada?.original === cuerpo ? renovada.enviado : cuerpo;
-      await persistirTurnoDictado(supabase, waFingerprint, messageText, `${INTRO} ${enviado}`, `botón de la apertura: ${opcionElegida} (sin video)`);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, `${prefijo}${INTRO} ${enviado}`, `${nodoVideo} (sin video)`);
       return;
     }
 

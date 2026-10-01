@@ -23,6 +23,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { Play } from 'lucide-react'
 import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels'
+import { marcarVioComoFunciona } from '@/lib/orbe-config'
 
 export default function VideoComoFuncionaHome() {
   const [reproduciendo, setReproduciendo] = useState(false)
@@ -46,6 +47,12 @@ export default function VideoComoFuncionaHome() {
           autoPlay
           controls
           playsInline
+          // Al 80 % cuenta como visto (1 oct 2026): el botón del hero y el orbe le
+          // avisan a Queswa con «Ya vi el video de cómo funciona.» y no se lo repite.
+          onTimeUpdate={(e) => {
+            const v = e.currentTarget
+            if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona()
+          }}
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         />
       ) : (

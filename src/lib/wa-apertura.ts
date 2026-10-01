@@ -397,6 +397,43 @@ export function notaVideoComoFuncionaVisto(): string {
   return `[La persona llegó por el enlace del reel: antes de escribir vio el video «Cómo funciona», 60 s. Lo que dice la voz:]\n\n${loQueDice}`;
 }
 
+// ─── Llega desde la Home con la pregunta del botón (1 oct 2026) ─────────────
+//
+// El hero de la Home trae el video «Cómo funciona», y su botón es «Pregúntele a
+// Queswa cómo entra el dinero» (Director, 1 oct 2026). El texto precargado lleva la
+// pregunta y, si la persona llegó al 80 % del video, también «Ya vi el video de
+// cómo funciona.» (orbe-config.ts, textoAperturaWhatsApp). Queswa saluda corto,
+// responde la pregunta con el video del dinero —el mismo del botón— y ofrece los
+// botones que falten: sin «Cómo funciona» si ya lo vio. Copy aprobado por el
+// Director el 1 oct 2026. Checklist: docs/handoff/queswa/PENDIENTE_HOME_VIDEO_QUESWA_OCT2026.md
+export const RE_PREGUNTA_DINERO_PRECARGADA = /¿\s*c[oó]mo\s+entra\s+el\s+dinero\s*\?/i;
+/** «Vengo de creatuactivo.com»: quien llega desde la web sin enlace de socio. */
+export const RE_VENGO_DE_CREATUACTIVO = /vengo\s+de\s+creatuactivo\.com/i;
+
+/** Los botones que faltan después de responder el dinero. */
+export function opcionesTrasPreguntaDinero(vioComoFunciona: boolean): WAButton[] {
+  return APERTURA_OPCIONES.filter((o) => o.id !== 'apertura_dinero' && !(vioComoFunciona && o.id === 'apertura_sistema'));
+}
+
+export function construirAperturaPreguntaDinero(nombreSocio?: string, nombreProspecto?: string, vioComoFunciona = false): string {
+  const nombre = nombreUtil(nombreProspecto);
+  const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
+  const socio = nombreSocioCorto(nombreSocio);
+  const delVideo = vioComoFunciona ? ', la misma del video' : '';
+  const identidad = socio
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}${delVideo}. Atiendo a cientos de personas, las 24 horas.`
+    : `Soy Queswa, la inteligencia artificial de CreaTuActivo${delVideo}. Atiendo a cientos de personas, las 24 horas.`;
+  const cierre = vioComoFunciona ? 'Como ya vio cómo funciona, vamos con su pregunta.' : 'Vamos con su pregunta.';
+  return [`${saludo} Un gusto saludarle.`, '', identidad, '', cierre].join('\n');
+}
+
+/** Quien ya había conversado y vuelve por el botón de la Home. */
+export function aperturaRetornoPreguntaDinero(nombreProspecto?: string, vioComoFunciona = false): string {
+  const nombre = nombreUtil(nombreProspecto);
+  const cierre = vioComoFunciona ? 'Como ya vio el video de cómo funciona, vamos con su pregunta.' : 'Vamos con su pregunta.';
+  return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. ${cierre}`;
+}
+
 // ─── Quien YA VIO el video «Los 12 Niveles» (28 sep 2026) ───────────────────
 //
 // Mismo patrón que «Cómo funciona», arriba: el reel de los 12 Niveles lleva el

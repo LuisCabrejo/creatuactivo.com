@@ -643,7 +643,7 @@ export default function StrategicNavigation() {
         <div className="strategic-mobile-content">
           {/* Links Directos */}
           <div className="strategic-mobile-section">
-            <h3 className="strategic-mobile-section-title">Descubre</h3>
+            <h3 className="strategic-mobile-section-title">Descubra</h3>
             {directLinks.map((link) => (
               <Link
                 key={link.name}

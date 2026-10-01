@@ -35,7 +35,7 @@ const articles = [
   {
     slug: 'network-marketing-obsoleto',
     image: '/images/blog/thumb-blog-problem.jpg',
-    label: 'ANÁLISIS DE RIESGO',
+    label: 'INDUSTRIA',
     cardTitle: '¿Es el network marketing un modelo obsoleto?',
     excerpt: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy una empresa de distribución moderna, con atención a toda hora.',
     category: 'Industria',
@@ -44,7 +44,7 @@ const articles = [
   {
     slug: 'empleo-vs-activos',
     image: '/images/blog/thumb-blog-system.jpg',
-    label: 'INGRESOS RECURRENTES',
+    label: 'EDUCACIÓN FINANCIERA',
     cardTitle: 'Empleo vs. activos: ingreso lineal e ingreso recurrente',
     excerpt: 'Qué es un activo, ejemplos de los que producen ingreso recurrente —una propiedad en renta, un libro, un sistema de distribución— y lo que exige construir cada uno.',
     category: 'Educación Financiera',
@@ -53,7 +53,7 @@ const articles = [
   {
     slug: 'legalidad-network-marketing',
     image: '/images/blog/thumb-blog-sovereignty.jpg',
-    label: 'MENTALIDAD DE FUNDADOR',
+    label: 'LEGAL',
     cardTitle: '¿Es legal el network marketing? Lo que dice la Ley 1700',
     excerpt: 'La diferencia entre una empresa de redes de mercadeo y una pirámide: lo que exige la Ley 1700 en Colombia, lo que vigila la FTC y las preguntas que conviene hacer.',
     category: 'Legal',

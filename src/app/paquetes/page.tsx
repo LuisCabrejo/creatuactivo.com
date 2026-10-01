@@ -165,7 +165,10 @@ function Hero() {
           src="/images/paquetes/pacto-patrimonial.webp"
           alt=""
           fill
-          loading="lazy"
+          // priority, no lazy (1 oct 2026): esta imagen de fondo es la más grande de la
+          // primera pantalla, así que Chrome la mide como elemento principal (LCP) de
+          // todos modos. Con lazy se pedía tarde: 1,2 s de espera antes de empezar a bajar.
+          priority
           style={{ objectFit: 'cover', objectPosition: 'center' }}
           sizes="100vw"
         />

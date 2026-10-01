@@ -280,12 +280,15 @@ function processDeviceData(rows) {
 function generateSummary(data) {
   const { queries, pages, dates, countries, devices } = data;
 
-  // Calcular totales
-  const totalClicks = queries.reduce((sum, q) => sum + q.clicks, 0);
-  const totalImpressions = queries.reduce((sum, q) => sum + q.impressions, 0);
+  // Calcular totales — desde la serie por FECHA, no desde las consultas: Google
+  // oculta las consultas poco frecuentes (anonimizadas), así que sumarlas da una
+  // fracción del tráfico real (1 oct 2026: 5 clics por consultas, 67 por fecha).
+  // La posición se pondera por impresiones, como la calcula Search Console.
+  const totalClicks = dates.reduce((sum, d) => sum + d.clicks, 0);
+  const totalImpressions = dates.reduce((sum, d) => sum + d.impressions, 0);
   const avgCTR = totalImpressions > 0 ? (totalClicks / totalImpressions * 100).toFixed(2) : 0;
-  const avgPosition = queries.length > 0
-    ? (queries.reduce((sum, q) => sum + parseFloat(q.position), 0) / queries.length).toFixed(1)
+  const avgPosition = totalImpressions > 0
+    ? (dates.reduce((sum, d) => sum + parseFloat(d.position) * d.impressions, 0) / totalImpressions).toFixed(1)
     : 0;
 
   // Quick Wins: queries en posición 5-20 con buen CTR potencial

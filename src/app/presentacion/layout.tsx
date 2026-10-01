@@ -10,7 +10,11 @@
  *
  * noindex por decisión del Director: es una pieza que el socio conduce delante de
  * una persona, no una página que deba encontrarse en Google. /servilleta sí se
- * indexa (SEO de «plan servilleta»); esta no compite con ella ni la reemplaza.
+ * indexa (SEO de «plan servilleta») y sigue en pie.
+ *
+ * Desde el 1 oct 2026 el botón «Presentación» del menú lleva aquí y no a
+ * /servilleta (Director). Quien llega desde el menú sin ?ref ve a su socio si
+ * entró antes por su enlace, o al equipo si no.
  */
 
 import type { Metadata } from 'next'

@@ -272,6 +272,10 @@ export default function PitchDeckPage() {
   useEffect(() => {
     let ref: string | null = null;
     try { ref = new URL(window.location.href).searchParams.get('ref'); } catch { /* sin ref */ }
+    // Desde el menú se llega sin ?ref (1 oct 2026): quien entró antes por el enlace
+    // de un socio lo trae guardado (tracking.js lo deja en `constructor_ref`, y el
+    // catálogo ya lo lee así). Esa persona ve a su socio, no al equipo.
+    if (!ref) { try { ref = localStorage.getItem('constructor_ref'); } catch { /* sin almacenamiento */ } }
     if (!ref) { setSinSocio(true); return; }
     fetch(`/api/constructor/${encodeURIComponent(ref)}`)
       .then((r) => (r.ok ? r.json() : null))

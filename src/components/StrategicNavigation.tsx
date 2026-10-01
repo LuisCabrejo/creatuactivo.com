@@ -493,7 +493,8 @@ export default function StrategicNavigation() {
   const directLinks = [
     { name: 'Nosotros', href: '/nosotros' },
     { name: 'Tecnología', href: '/tecnologia' },
-    { name: 'Presentación', href: '/servilleta' },
+    // La presentación nueva (Director, 1 oct 2026). /servilleta sigue en pie e indexada.
+    { name: 'Presentación', href: '/presentacion' },
     { name: 'Insights', href: '/blog' },
   ]
 

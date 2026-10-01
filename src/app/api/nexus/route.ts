@@ -44,7 +44,7 @@ import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/g
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, fotoParaWeb, aFormatoWeb,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
-  RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO,
+  RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
@@ -900,7 +900,11 @@ async function captureProspectData(
     'más tarde', 'mas tarde', 'otro día', 'otro dia',
     'no es importante ahora', 'lo pienso', 'déjame pensarlo', 'dejame pensarlo'
   ];
-  if (noUrgencyPatterns.some(k => messageLower.includes(k))) {
+  // «Solo estoy revisando» también: Eduardo Castellanos (29 sep 2026) lo dijo
+  // después de dos ofertas de cierre y su ficha subió a 100/100 — el Radar lo
+  // mostraba listo para comprar a quien acababa de decir que solo miraba.
+  const _reSoloMirando = /\bs[oó]lo\W{0,3}(estoy\s+|estaba\s+|quer[ií]a\s+)?(revisando|mirando|viendo|curioseando|conociendo|averiguando|inform[aá]ndome|averiguar|curiosear|mirar)\b|\bpor\s+curiosidad\b/i;
+  if (noUrgencyPatterns.some(k => messageLower.includes(k)) || _reSoloMirando.test(message)) {
     negativeSignals -= 10;
     console.log('⏸️ [SCORING v3.0] NEG — Sin urgencia (-10)');
   }
@@ -2782,7 +2786,9 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       fragmento: 'arsenal_inicial_NET_02',
       titulo: 'Ya fue distribuidor de Gano Excel — NET_02',
       porque: 'ya tuvo código de Gano',
-      cuando: /(ya\s+)?(tuve|ten[ií]a|fui|estuve|hice)[^.?]{0,30}(c[oó]digo|distribuidor|gano\s*excel)|reactivar\s+(mi\s+)?c[oó]digo|c[oó]digo\s+(viejo|antiguo|inactivo)|volver\s+a\s+(activar|entrar)[^.?]{0,20}gano/i,
+      // «Yo me inscribí en una ocasión pero no desarrollé el negocio» (Eduardo,
+      // 29 sep 2026) también es esto: ver RE_YA_SE_INSCRIBIO en el conductor.
+      cuando: { test: (t: string) => /(ya\s+)?(tuve|ten[ií]a|fui|estuve|hice)[^.?]{0,30}(c[oó]digo|distribuidor|gano\s*excel)|reactivar\s+(mi\s+)?c[oó]digo|c[oó]digo\s+(viejo|antiguo|inactivo)|volver\s+a\s+(activar|entrar)[^.?]{0,20}gano/i.test(t) || RE_YA_SE_INSCRIBIO.test(t) },
     },
     {
       // Prueba del Director, 20 ago: el "sí" a "¿le muestro las tres formas de
@@ -2794,7 +2800,9 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       fragmento: 'arsenal_inicial_FREQ_03',
       titulo: 'Las tres formas de empezar — FREQ_03',
       porque: 'pide las tres formas de empezar',
-      cuando: /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i,
+      // Y la oferta de VER los paquetes en cualquier redacción —la del modelo
+      // incluida—: ver RE_OFERTA_VER_PAQUETES en el conductor (Eduardo, 29 sep).
+      cuando: { test: (t: string) => /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i.test(t) || RE_OFERTA_VER_PAQUETES.test(t) },
     },
     {
       // Guion 2, 20 ago (turno 2): "¿esto es de meter gente como omnilife?" —

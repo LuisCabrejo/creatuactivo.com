@@ -11,8 +11,8 @@
  *   preguntas.tsv       una fila por mensaje de la persona (para ver CÓMO preguntan)
  *
  * Por defecto solo salen las HUELLAS REALES: una persona llega por el enlace
- * del socio («Hola Queswa, vengo del enlace de …») o saludando, desde `wa_57`
- * + 10 dígitos, un BSUID `wa_CO.…` o una huella web nula. El socio se reconoce por
+ * del socio («Hola Queswa, vengo del enlace de …») o saludando, desde un número
+ * de cualquier país (`wa_57…`, `wa_1…`), un BSUID `wa_CO.…` o una huella web nula. El socio se reconoce por
  * su ficha (abre con la tarea, no saludando) y el chat del Centro de Mando llega
  * como `dash_{constructor_id}` (queswa.app lo guarda desde el 16 sep 2026). Los arneses arrancan
  * con la pregunta de prueba directamente (wa_5730…, wa_5731… de 4 turnos,
@@ -38,7 +38,10 @@ const salida = arg('--salida', path.join('docs', 'respaldos', `auditoria-${hoy}`
 const RE_ARNES = /conv|probe|_p_|q23|wa_e3_|^wa_5730\d{9,}|sede_probe|deploy/;
 // `dash_{constructor_id}` es el chat del socio en el Centro de Mando (queswa.app
 // guarda cada turno desde el 16 sep 2026): siempre es una persona y siempre socio.
-const huellaDePersona = (fp) => !fp || fp === 'null' || fp.startsWith('dash_') || (!RE_ARNES.test(fp) && /^wa_(57\d{10}|CO\.\d+|[A-Z]{2}\.\d+)$/.test(fp));
+// Cualquier país, no solo Colombia: Yellitza Rosario (+1 786, 30 sep 2026) quedó
+// fuera del volcado porque el patrón exigía `57` + 10 dígitos, y con ella toda la
+// diáspora de EE. UU. Los arneses siguen fuera por RE_ARNES y por cómo abren.
+const huellaDePersona = (fp) => !fp || fp === 'null' || fp.startsWith('dash_') || (!RE_ARNES.test(fp) && /^wa_(\d{10,15}|[A-Z]{2}\.\d+)$/.test(fp));
 // «Bna noche» dejó fuera del volcado al socio Victor Armando (12 sep 2026): la gente abrevia.
 const abreComoPersona = (primerMensaje) => /vengo del enlace|soy socio|^\s*(hola|buenas|buenos|bna|bn\b|buen\b|hey|saludos|qu[eé] tal)/i.test(primerMensaje || '');
 

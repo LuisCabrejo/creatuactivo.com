@@ -638,6 +638,26 @@ export const RE_PREGUNTA_EMPRESA_GANO =
 export const RE_OBJECION_PRESUPUESTO =
   /p[er]{1,3}[eé]*s?u?p[uú]?e?s?t|costo\s+de\s+(la\s+)?vida|canasta|(primera|1\s*era|1ra)\s+necesidad|necesidades\s+b[aá]sicas|salario\s+m[ií]nimo|m[ií]nimo\s+vital|no\s+(me\s+)?alcanza|no\s+tengo\s+(plata|dinero|con\s+qu[eé]|c[oó]mo\s+pagar)|no\s+me\s+queda\s+(plata|dinero)|(muy|demasiado|bastante|algo|re)\s+car[oa]|\b(es|est[aá])\s+car[oa]|(sale|queda|resulta)\s+(muy\s+)?car[oa]|mucha\s+plata|fin\s+de\s+mes|apretad[oa]s?\b|no\s+(lo\s+)?puedo\s+(pagar|costear)|bolsillo|afecta[^.?\n]{0,40}(necesidad|p[er]{1,3}[eé]*s?u?p[uú]?e?s?t|bolsillo|econom|plata|dinero)/i;
 
+// ── El «sí» a VER los paquetes va a la tabla, la diga como la diga (30 sep 2026) ─
+// Eduardo Castellanos: el modelo cerró con una oferta propia, «¿Le muestro los
+// tres paquetes con los que arranca, para que vea cuál le queda cómodo?». Su
+// «listo.» buscó con esa pregunta, y sus palabras —«con los que arranca», «cuál
+// le queda cómodo»— son las del índice de FREQ_30 (0.701 contra 0.626 de FREQ_03).
+// Se dictó «¿Con cuál arranca?» sin haber mostrado ningún paquete, y la persona
+// tuvo que corregirnos. Ofrecer VER los paquetes tiene un solo destino: la tabla.
+// Lo usa la puerta de FREQ_03 en route.ts, que se evalúa sobre la oferta anclada.
+export const RE_OFERTA_VER_PAQUETES =
+  /(muestro|presento|ense[ñn]o|comparto|paso|detallo)\s+(los|las)\s+(tres\s+|3\s+)?(paquetes|formas\s+de\s+(empezar|iniciar|arrancar|entrar)|opciones\s+(de|para)\s+(empezar|iniciar|arrancar))/i;
+
+// ── «Me inscribí una vez» es quien ya tuvo código, no un empresario (30 sep 2026) ─
+// Eduardo Castellanos: «Yo me inscribí en una ocasión pero no desarrollé el
+// negocio». El vector dio ADV_OBJ_02 (0.575), con candado, y le dictó «Usted ya
+// logró lo más difícil: que su negocio funcione» a quien acababa de decir que no
+// le funcionó. NET_02 («si en su momento no despegó como quería…») estaba a
+// 0.547. Lo usa la puerta de NET_02 en route.ts, junto a «tuve código».
+export const RE_YA_SE_INSCRIBIO =
+  /\bme\s+(inscrib[ií]|registr[eé]|afili[eé]|vincul[eé])\s+(en\s+una\s+ocasi[oó]n|una\s+vez|alguna\s+vez|antes|hace\s+(un|una|unos|unas|varios|varias|mucho|dos|tres|cuatro|cinco|\d+))|\bya\s+me\s+hab[ií]a\s+(inscrito|registrado|afiliado|vinculado)|\b(estuve|fui)\s+(inscrit|afiliad|registrad|vinculad)[oa]/i;
+
 export const TEXTO_NO_PIEZAS =
   'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +
   'Lo que sí le mando ahora mismo es la imagen del portafolio, o la de cualquier línea o producto, tal cual la usa el equipo. ' +

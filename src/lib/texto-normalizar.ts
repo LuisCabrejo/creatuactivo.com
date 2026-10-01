@@ -141,3 +141,20 @@ export function corregirSiTecleado(texto: string): string {
   if (!texto) return texto;
   return /^\s*[adwexz][ií]+\s*[.!]*\s*$/i.test(texto) ? 'Sí' : texto;
 }
+
+/**
+ * El «sí» sin palabras: un 👍, un 👌 o un ✅ que llega como MENSAJE (no como
+ * reacción, que es otro tipo y no se responde).
+ *
+ * Yina (28 sep 2026) respondió «👍🏼» a «¿Le muestro la estrategia…?». Ninguno
+ * de los detectores de «sí» lee emojis, así que el turno cayó al motor y en vez
+ * del video de los 12 Niveles recibió un texto compuesto. Se corrige aquí, a la
+ * entrada, por la misma razón que `corregirSiTecleado`: una vez, y no en cada
+ * detector. Solo cuando el mensaje es ÚNICAMENTE el gesto —con su tono de piel
+ * y repetido si quiere—; «👍 pero cuánto vale» pasa intacto.
+ */
+export function gestoAfirmativoComoSi(texto: string): string {
+  if (!texto) return texto;
+  const gesto = /^\s*(?:(?:\u{1F44D}|\u{1F44C}|\u{1F64C}|✅|✔|☑)[\u{1F3FB}-\u{1F3FF}️]*\s*)+[.!]*\s*$/u;
+  return gesto.test(texto) ? 'Sí' : texto;
+}

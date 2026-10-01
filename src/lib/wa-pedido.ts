@@ -69,8 +69,11 @@ const RE_PAQUETE = /paquete|\besp[- ]?[123]\b|kit de inicio|afiliar|inscribir|vi
 const RE_VERBO_COMPRA =
   /(quiero|quisiera|deseo|me gustar[ií]a|necesito|voy a|puedo|c[oó]mo|como|d[oó]nde|donde)\s+(comprar|pedir|encargar|ordenar|adquirir|conseguir|llevar|pido|compro|encargo|hacer\s+(el\s+|un\s+|mi\s+)?pedido|hago\s+(el\s+|un\s+|mi\s+)?pedido)/i;
 
+// «Montar» y «armar» un pedido son como lo dice la gente en Colombia (Ru, 28 sep
+// 2026: «Hola quiero montar un pedido me ayudas» no abrió el pedido, respondió el
+// modelo, y al turno siguiente le llegó el video del negocio).
 const RE_COMPRA_DIRECTA =
-  /\b(solo|s[oó]lo|nada m[aá]s)\s+quiero\b|quiero\s+(una|un|dos|tres|cuatro|cinco|\d+)\s+(caja|frasco|tarro|unidad|sobre)|me\s+(manda|env[ií]a|vende|lleva|trae)\s+(una|un|dos|tres|cuatro|\d+)|\b(v[eé]ndame|mand[ae]me|env[ií]eme)\b|hacer\s+(el\s+|un\s+|mi\s+)?pedido|hago\s+(el\s+|un\s+|mi\s+)?pedido|c[oó]mo\s+(pido|pedido|compro)|d[oó]nde\s+(pido|compro)|quiero\s+(comprar|pedir|encargar)|me interesa comprar|comprar\s+(una|un)\s+(caja|frasco|tarro)/i;
+  /\b(solo|s[oó]lo|nada m[aá]s)\s+quiero\b|quiero\s+(una|un|dos|tres|cuatro|cinco|\d+)\s+(caja|frasco|tarro|unidad|sobre)|me\s+(manda|env[ií]a|vende|lleva|trae)\s+(una|un|dos|tres|cuatro|\d+)|\b(v[eé]ndame|mand[ae]me|env[ií]eme)\b|(hacer|hago|montar|monto|armar|armo|poner|pongo)(me)?\s+(el\s+|un\s+|mi\s+|otro\s+)?pedido|c[oó]mo\s+(pido|pedido|compro)|d[oó]nde\s+(pido|compro)|quiero\s+(comprar|pedir|encargar)|me interesa comprar|comprar\s+(una|un)\s+(caja|frasco|tarro)/i;
 
 /**
  * ¿Quiere comprar PRODUCTO? Un verbo de compra sin vocabulario de paquete, o un
@@ -562,6 +565,44 @@ export async function avisarPidePersona(
   // Si ninguna plantilla salió —el canal caído, que es justo cuando la web hace
   // de respaldo—, el equipo se entera por correo.
   if (!algunoOk) await avisarPorCorreo(`[Queswa] Pide hablar con una persona — ${nombre || 'sin nombre'}`, [quien, que, socio?.nombre ? `Socio: ${socio.nombre}` : 'Sin socio']);
+}
+
+/**
+ * Alguien quiere comprar y todavía no dijo qué: el socio se entera YA, no cuando
+ * la persona termine de escribir los productos.
+ *
+ * Ru (28 sep 2026) volvió a escribir «quiero pedir productos», recibió «¿Qué
+ * productos va a llevar?» y no respondió más. El aviso al socio solo salía con
+ * el pedido completo, así que nadie supo que había alguien queriendo comprar, y
+ * la ventana de 24 h se cerró. Una intención de compra no espera a los datos:
+ * el pedido sin productos es justo el que más necesita una persona detrás.
+ * Misma plantilla aprobada que los demás avisos; solo cambian las variables.
+ */
+export async function avisarPedidoAbierto(
+  whatsapp: string,
+  nombre: string | undefined,
+  socio: SocioPedido | null,
+  mensaje: string,
+): Promise<void> {
+  const quien = `${nombre || 'Sin nombre'} (${whatsapp}) · QUIERE HACER UN PEDIDO`;
+  const que   = `Aún no dice qué productos. Escribió: «${mensaje.replace(/\s+/g, ' ').trim().slice(0, 120)}»`;
+  const destinos: [string, string][] = [];
+  if (socio?.whatsapp) destinos.push([socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio']);
+  destinos.push([WHATSAPP_EQUIPO(), 'equipo']);
+  let algunoOk = false;
+  for (const [to, saludo] of destinos) {
+    try {
+      const como = saludo === 'equipo' && socio?.nombre ? `escribirle para tomar el pedido (atiende ${socio.nombre})`
+        : saludo === 'equipo' ? 'escribirle para tomar el pedido — SIN SOCIO'
+        : 'escribirle para tomar el pedido';
+      const r = await sendTemplate(to, 'pre_afiliacion_nueva', 'es', [saludo, quien, que, como]);
+      algunoOk = algunoOk || r.ok;
+      console.log(`📨 [Pedido WA] Aviso «pedido abierto» a ${saludo}: ${r.ok ? 'enviado' : r.error}`);
+    } catch (err) {
+      console.error('❌ [Pedido WA] No se pudo avisar «pedido abierto»:', err);
+    }
+  }
+  if (!algunoOk) await avisarPorCorreo(`[Queswa] Quiere hacer un pedido — ${nombre || 'sin nombre'}`, [quien, que, socio?.nombre ? `Socio: ${socio.nombre}` : 'Sin socio']);
 }
 
 // ─── El «sí» después de las respuestas de salud ──────────────────────────────

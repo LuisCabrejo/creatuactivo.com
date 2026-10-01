@@ -278,3 +278,27 @@ Aprobado como socio a las 18:35, entró al Dashboard a las 18:57 y a las 19:05 l
 ### 11.4 La lección de la vuelta
 
 **El socio se prueba a sí mismo con las herramientas del prospecto**, y el sistema no tenía un camino para eso: tocar el propio enlace es lo primero que hace un socio nuevo, y el resultado era una conversación de venta compuesta por el modelo. Y **la identidad por teléfono tiene un borde que Meta mueve**: los nombres de usuario esconden el número, así que el reconocimiento del socio necesitaba una segunda llave que no dependa de él. Arnés: `npx tsx scripts/prueba-experiencia-socio.mts` (sección 7).
+
+## 12. Octava vuelta — 30 sep 2026: nueve prospectos, y cuatro se perdieron por enrutamiento
+
+**Tráfico real (28–30 sep):** Miguel Chit (7 turnos, recorrió todo hasta el simulador sin un tropiezo), Edilberto (18, volvió tres veces), Yesid Triana (13), Eduardo Castellanos (19), Ru (3), Yina (3), Granola y Edilson P. (2–3, se fueron tras el video «Cómo entra el dinero» sin fallo nuestro) y Yellitza Rosario (+1 786, solo la apertura). Arnés de la vuelta: `npx tsx scripts/prueba-trafico-30sep.mts`.
+
+### 12.1 Lo que se arregló
+
+- **Ru quería comprar y nadie se enteró.** «Quiero montar un pedido» no abría el 2.45 (`detectarIntencionCompra` solo conocía «hacer un pedido»); respondió el modelo («el equipo queda avisado», y no lo estaba), y a «¿Qué voy a hacer entonces?» el detector de videos (2.9) le mandó «Qué debo hacer yo». Cuando por fin se abrió el pedido, sin productos, no salía aviso. Ahora: «montar / armar / poner un pedido» abre el pedido; el 2.9 no corre con un pedido abierto ni con una intención de compra en el hilo; y el pedido que se abre sin productos avisa al socio y al equipo (`avisarPedidoAbierto`, plantilla `pre_afiliacion_nueva`, una vez por hilo).
+- **El «👍🏼» de Yina no era un «sí».** Ninguno de los seis detectores de aceptación lee emojis. `gestoAfirmativoComoSi` (texto-normalizar.ts) lo convierte a la entrada del webhook, junto a `corregirSiTecleado`. Las reacciones siguen sin respuesta.
+- **Eduardo aceptó ver los paquetes y recibió «¿Con cuál arranca?» sin tabla.** La oferta la inventó el modelo con las palabras del índice de FREQ_30 (0.701 contra 0.626). `RE_OFERTA_VER_PAQUETES` abre la puerta de FREQ_03 sobre la oferta anclada, se diga como se diga.
+- **«Me inscribí en una ocasión pero no desarrollé el negocio» recibió dictado ADV_OBJ_02** («usted ya logró que su negocio funcione»). No había puerta: `RE_YA_SE_INSCRIBIO` la abre ahora hacia NET_02, que es la respuesta escrita para quien ya tuvo código («si en su momento no despegó como quería…»).
+- **«No, solo revisando» le subió la ficha a 100/100.** `_reSoloMirando` resta como falta de urgencia.
+- **El volcado de auditoría dejaba fuera todo número que no fuera colombiano** (Yellitza, y la socia Susana +1 954). El filtro acepta cualquier país.
+
+### 12.2 Pendiente, con el diagnóstico hecho
+
+1. **La pregunta de Yesid** («¿cuánto necesita ganar para consumir una caja a la semana, o cuatro al mes?»). El modelo inventó «30 sobres» (son 20), una regla del 10% del ingreso y «cuatro cajas son el consumo de cuatro personas», contra el supuesto del propio simulador. Director (30 sep): la pregunta de fondo es cuánto hay que mover para que el negocio pague esa compra. Se responde con las tablas del simulador (14 CV por caja, $630 por caja y punto de tarifa): al 10% por defecto y hasta el 17%. Texto propuesto en el chat; el nodo se escribe cuando lo apruebe.
+2. **Presión de cierre en `paquete_direct`.** A quien solo nombró un paquete se le cerró dos veces con «¿Arrancamos con el ESP-3?», «para crecer rápido, el ESP-3» y «más herramientas activas» (falso: las herramientas son las mismas en los tres). Marcha 2 debía ser puente suave.
+3. **«ya es todo»** (= «¿eso es todo?») tras el video de las dos acciones se leyó como pedido de productos y sirvió solo SUP_01; dos turnos después, la misma tabla otra vez.
+4. **El modelo dijo que el distribuidor fija el precio de venta** ante «es costoso por la importación». Falta un fragmento para esa objeción.
+5. **El puntaje se infla solo:** las señales de ficha (nombre +5, teléfono +7) y el bono de conversación larga se suman en CADA turno, no una vez.
+6. **El juez de la revisión diaria no vio los tres peores turnos** (la tabla que no llegó, el candado que contradecía a la persona, el 👍).
+7. Edilberto pegó el enlace del catálogo y recibió «Qué bueno que vuelva» un minuto después (nodo `retorno`).
+8. **El margen de empate solo se mide dentro del arsenal ganador.** La búsqueda de fragmentos filtra por `category_prefix`, así que el caso de Eduardo (ADV_OBJ_02 0.575 contra DIASPORA_02 0.571, de otro arsenal) era un empate invisible. Se probó medir también contra el mejor de otro arsenal y **no se desplegó**: sobre los 21 turnos dictados a personas en 30 días habría pasado 3 a material, uno para bien (a un socio que pidió revisar un mensaje se le dictó CLIENTE_VIP_01 con PROD_01 por encima) y dos para mal (WHY_01 ante «cómo funciona», y WHY_PROD_01 frente a PROD_OVERVIEW, dos candados correctos). La regla necesita un criterio que distinga un rival de otro tema de un rival equivalente; mientras tanto, las puertas cubren los casos vistos.

@@ -72,7 +72,7 @@ import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esRe
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
-  noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido,
+  noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido, avisarPedidoAbierto,
   detectarPreguntaOficina, detectarCiudad,
   esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE, RE_NO_ENTENDI,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
@@ -101,7 +101,7 @@ import {
   mensajeEnlaceCatalogo,
   OFERTA_REDACTAR, detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, enviarAccesoDashboard, ACCESO_NO_ENVIADO,
 } from '@/lib/wa-onboarding';
-import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado } from '@/lib/texto-normalizar';
+import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado, gestoAfirmativoComoSi } from '@/lib/texto-normalizar';
 import {
   detectarEmergencia,
   clasificarPreguntaSalud,
@@ -531,7 +531,8 @@ async function procesarEntrante(body: any): Promise<void> {
         messageText = plano;
       }
       // «Di» suelto es un «sí» con la tecla de al lado (ver `corregirSiTecleado`).
-      const si = corregirSiTecleado(messageText);
+      // Y un 👍 / 👌 / ✅ solo también (ver `gestoAfirmativoComoSi`).
+      const si = gestoAfirmativoComoSi(corregirSiTecleado(messageText));
       if (si !== messageText) {
         console.log(`🔤 [WA Webhook] ${phoneNumber} escribió "${messageText.trim()}" — se lee como «Sí»`);
         messageText = si;
@@ -2113,11 +2114,17 @@ async function procesarEntrante(body: any): Promise<void> {
       // sin sede (hasta el 4 sep quedaba fuera de alcance).
       const _notaPrecioDistribuidor = /precio (de )?(distribuidor|mayorista|socio)|con descuento/i.test(messageText)
         ? 'Sí: el primer pedido va a precio de distribuidor, y con él queda abierto su código.' : undefined;
+      // El pedido que se abre sin productos avisa al socio en ese momento (Ru,
+      // 28 sep 2026: pidió comprar, no dijo qué, y nadie se enteró). Una sola
+      // vez por hilo: si el bot ya había pedido los productos antes, el aviso
+      // ya salió.
+      const _primerPedidoDelHilo = !historial.some((m) => m.role === 'assistant' && pedidoAbierto(m.content));
       if (_aceptaPedidoSede && lineas.length === 0) {
         const texto = pedirProductos(_nombrePedido, _notaPrecioDistribuidor);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido abierto desde la sede');
         console.log('🛒 [WA Webhook] Pedido abierto desde la sede — esperando los productos');
+        if (_primerPedidoDelHilo) await avisarPedidoAbierto(phoneNumber, _nombrePedido, _socioPedido, messageText);
         return;
       }
 
@@ -2157,6 +2164,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido abierto');
         console.log('🛒 [WA Webhook] Pedido abierto — esperando los productos');
+        if (!_enPedido && _primerPedidoDelHilo) await avisarPedidoAbierto(phoneNumber, _nombrePedido, _socioPedido, messageText);
         return;
       }
     }
@@ -2508,7 +2516,12 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // alguien radicado, en salud ni con el socio— y no repite un tema que la
     // bitácora ya le mostró. Si no hay video, el turno sigue al motor como siempre.
     const _contextoGeneral = pageContext === 'whatsapp_primer_contacto' || pageContext === 'whatsapp_inbound' || pageContext.startsWith('whatsapp_ctwa');
-    if (_contextoGeneral && !socioQueEscribe && messageText) {
+    // Tampoco a quien vino a COMPRAR (30 sep 2026): Ru pidió montar un pedido y a
+    // su «¿Qué voy a hacer entonces?» —qué hago para pedir— le llegó el video de
+    // las dos acciones del negocio. Con un pedido abierto, o con una intención de
+    // compra en el hilo, «qué hago» es una pregunta del pedido.
+    const _hiloDeCompra = _enPedido || historial.some((m) => m.role === 'user' && detectarIntencionCompra(m.content));
+    if (_contextoGeneral && !socioQueEscribe && !_hiloDeCompra && messageText) {
       const opcionVideo = await videoQuePide(messageText);
       if (opcionVideo && _bitacoraDelTurno?.temasMostrados.has(TEMA_DE_VIDEO[opcionVideo])) {
         console.log(`🎬 [WA Webhook] Pide «${VIDEOS_APERTURA[opcionVideo].titulo}» con sus palabras, pero ya se le mostró — sigue al motor`);

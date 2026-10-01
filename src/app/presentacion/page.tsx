@@ -285,15 +285,20 @@ export default function PitchDeckPage() {
   // primera pantalla ni si llegó al botón del final. Se guarda la pantalla más
   // lejana, si llegó al final y si tocó el WhatsApp (/api/track/presentacion).
   // ⚠️ Cada escritura dispara un webhook: solo en hitos, nunca en cada pantalla.
+  // ⚠️ En FILA, una después de otra: la ruta lee la ficha y escribe encima, así
+  // que dos peticiones cruzadas se pisan. Probado en producción el 1 oct 2026:
+  // pasando rápido, la de la pantalla 7 llegó después de la de la 10 y la ficha
+  // quedó «completa» en la pantalla 7.
+  const colaAvance = useRef<Promise<unknown>>(Promise.resolve());
   const reportarAvance = useCallback((datos: { pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean }) => {
     const fingerprint = (window as any).FrameworkIAA?.fingerprint;
     if (!fingerprint) return;
-    fetch('/api/track/presentacion', {
+    colaAvance.current = colaAvance.current.then(() => fetch('/api/track/presentacion', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fingerprint, ...datos }),
       keepalive: true,
-    }).catch(() => {});
+    })).catch(() => {});
   }, []);
   const primerNombre = socio?.nombre?.trim().split(/\s+/)[0] ?? null;
   const waSocio = socio?.whatsapp && primerNombre

@@ -598,7 +598,7 @@ Home → "Hablar con Queswa" (open-queswa) + "Suscríbete" (newsletter → /api/
 Blog (SEO) → /blog/* → Home
 ```
 
-⚠️ **Eliminadas el 1 oct 2026** (Director: nunca se usaron en producción): `/fundadores`, `/calculadora` y `/presentacion-empresarial`. Redirigen con 308 en `next.config.js` —las dos primeras a la Home con el `?ref` del socio, la última a `/presentacion`— y sus destinos cortos en `DESTINO_MAP` también. Las APIs (`/api/fundadores/*`, `/api/funnel`) y la secuencia de correos siguen en pie.
+⚠️ **Eliminadas el 1 oct 2026** (Director: nunca se usaron en producción): `/fundadores`, `/calculadora` y `/presentacion-empresarial`. Redirigen con 308 en `next.config.js` —las dos primeras a la Home con el `?ref` del socio, la última a `/presentacion`— y sus destinos cortos en `DESTINO_MAP` también. El mismo día salió `/paises/brasil` (→ Home): decía «Lançamento Oficial 2025» y «Gano Excel Oficial», y un distribuidor no se presenta como la página oficial de la marca; con ella se fue el hreflang `pt-BR` del layout raíz. Las APIs (`/api/fundadores/*`, `/api/funnel`) y la secuencia de correos siguen en pie.
 
 **Las tres trampas:**
 
@@ -1178,13 +1178,9 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 
 Automatically extracts performance data from Google Search Console API.
 
-**Setup (one-time)**:
-1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. Create/select project → Enable "Google Search Console API"
-3. APIs & Services → Credentials → Create OAuth Client (Desktop app)
-4. Download JSON → rename to `gsc-credentials.json` → move to `scripts/`
-5. Run: `node scripts/gsc-extractor.mjs`
-6. First run opens browser for OAuth authorization
+**Conectada el 1 oct 2026.** Cliente OAuth «App de escritorio» del proyecto de Google Cloud de luiscabrejo7@gmail.com, con la app **publicada** (en modo de prueba el permiso vence a los 7 días). Las credenciales viven en `scripts/gsc-credentials.json` y el permiso en `scripts/gsc-token.json`, los dos en `.gitignore`. Si el permiso vence o se revoca: `node scripts/gsc-autorizar.mjs` (abre el navegador y recibe el código solo). Después, `node scripts/gsc-extractor.mjs`.
+
+⚠️ **Los totales salen de la serie por FECHA, no de las consultas** (corregido el 1 oct 2026): Google oculta las búsquedas poco frecuentes, y sumar las consultas daba 5 clics en 90 días cuando fueron 67. Por la misma razón, cruzar dos dimensiones (página × país, página × dispositivo) devuelve cifras recortadas.
 
 **Output** (saved to `data/gsc/`):
 - `queries_FECHA.csv` - Top 1000 keywords

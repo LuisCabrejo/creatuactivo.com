@@ -139,6 +139,11 @@ const nextConfig = {
       { source: '/calculadora/:ref', destination: '/?ref=:ref', permanent: true },
       { source: '/presentacion-empresarial', destination: '/presentacion', permanent: true },
       { source: '/presentacion-empresarial/:ref', destination: '/presentacion?ref=:ref', permanent: true },
+      // La página de Brasil decía «Lançamento Oficial 2025» y «Gano Excel Oficial»: un
+      // distribuidor no puede presentarse como la página oficial de la marca, y el
+      // contenido estaba vencido. Si Brasil se vuelve mercado, se escribe una nueva.
+      { source: '/paises/brasil', destination: '/', permanent: true },
+      { source: '/paises/brasil/:path*', destination: '/', permanent: true },
 
       // 29 ago 2026 — URLs cortas: el catálogo vive en /productos (no hay categoría "sistema").
       { source: '/sistema/productos', destination: '/productos', permanent: true },

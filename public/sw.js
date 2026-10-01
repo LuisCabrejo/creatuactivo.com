@@ -22,7 +22,7 @@
 // Bump 1.4.3 (1 oct 2026): se eliminaron /fundadores, /calculadora y
 // /presentacion-empresarial — sin bump, quien las visitó las seguía viendo guardadas.
 // Bump 1.4.4 (1 oct 2026): el botón del hero pasa a «…cómo entra el dinero».
-const CACHE_VERSION = '1.4.4';
+const CACHE_VERSION = '1.4.5';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

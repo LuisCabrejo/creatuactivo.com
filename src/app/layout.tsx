@@ -92,18 +92,12 @@ export const metadata: Metadata = {
     telephone: false,
   },
 
-  // Configuración Internacional (Hreflang) - VITAL PARA BRASIL
-  // NO canonical global aquí: ponía canonical=homepage en TODA página que no lo
-  // sobrescriba → el "Compartir" del navegador (que usa el canonical) arrastraba
-  // solo creatuactivo.com, y SEO trataba cada página como duplicado de la home.
-  // Cada página declara su propio canonical; sin él, el share usa la URL real.
-  alternates: {
-    languages: {
-      'es': baseUrl,
-      'pt-BR': `${baseUrl}/paises/brasil`,
-      // 'en-US' retirado (2 ago 2026): apuntaba a /en, que no existe (hreflang roto).
-    },
-  },
+  // ⚠️ Sin `alternates` aquí, a propósito. NO canonical global: ponía canonical=homepage
+  // en TODA página que no lo sobrescribiera, el "Compartir" del navegador arrastraba solo
+  // creatuactivo.com y Google trataba cada página como duplicado de la Home. Cada página
+  // declara su propio canonical. Y NO hreflang global (retirado el 1 oct 2026): desde
+  // aquí cada página le decía a Google que su versión en portugués era /paises/brasil,
+  // que no traducía ninguna. El sitio tiene un solo idioma.
 
   icons: {
     icon: [

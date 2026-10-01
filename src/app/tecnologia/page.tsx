@@ -21,11 +21,14 @@ export const metadata = {
   description: 'Queswa es el Centro de Mando con inteligencia artificial de CreaTuActivo. Una plataforma de IA que asume el 90% del trabajo pesado de su negocio — usted solo decide.',
   keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, centro de mando creatuactivo, queswa ia, inteligencia artificial creatuactivo',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
+  alternates: { canonical: 'https://creatuactivo.com/tecnologia' },
   openGraph: {
     title: '¿Qué es Queswa.app? · CreaTuActivo',
     description: 'El Centro de Mando con inteligencia artificial de CreaTuActivo.com, creado por Luis Cabrejo.',
     url: 'https://creatuactivo.com/tecnologia',
     type: 'article',
+    // No tenía imagen en la tarjeta (auditoría SEO, 1 oct 2026): va la general del sitio.
+    images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630 }],
   },
 };
 

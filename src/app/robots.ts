@@ -19,7 +19,10 @@ import { MetadataRoute } from 'next';
  * - /api/* - Endpoints de API (NEXUS, fundadores, etc.)
  * - /dashboard/* - Panel de administración (si existe en el futuro)
  * - /admin/* - Área administrativa
- * - /_next/* - Archivos internos de Next.js
+ * ⚠️ /_next/ NO se bloquea (1 oct 2026): ahí viven el CSS, el JavaScript y las
+ *   imágenes optimizadas (/_next/image). Google necesita cargarlos para ver la
+ *   página como la ve una persona e indexar las imágenes; bloquearlos es el
+ *   error que Google documenta en «no bloquee CSS ni JavaScript».
  * - /private/* - Contenido privado
  *
  * PERMITIDO (implícito):
@@ -39,7 +42,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',           // Bloquear todos los endpoints de API
           '/dashboard/',     // Bloquear dashboard (si existe)
           '/admin/',         // Bloquear área administrativa
-          '/_next/',         // Bloquear archivos internos de Next.js
           '/private/',       // Bloquear contenido privado
           '/*.json$',        // Bloquear archivos JSON directos
           '/tracking.js',    // Bloquear script de tracking (no necesita indexarse)
@@ -53,7 +55,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/dashboard/',
           '/admin/',
-          '/_next/',
           '/private/',
         ],
       },
@@ -65,7 +66,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/dashboard/',
           '/admin/',
-          '/_next/',
           '/private/',
         ],
       },

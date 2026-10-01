@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'CreaTuActivo' }],
 
   // Open Graph (Facebook, WhatsApp, LinkedIn)
+  alternates: { canonical: `${siteUrl}/productos` },
   openGraph: {
     title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo 2026',
     description: '¿Para qué sirve el Gano Café? Descubre beneficios del Ganoderma Lucidum, precios oficiales, cómo tomarlo. Catálogo completo con envío a Latinoamérica. IA conversacional para asesorarte.',

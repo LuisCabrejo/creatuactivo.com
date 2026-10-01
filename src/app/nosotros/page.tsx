@@ -22,7 +22,7 @@ import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
 
 export const metadata = {
-  title: 'Nosotros | CreaTuActivo',
+  title: 'Nosotros', // la marca la agrega la plantilla raíz
   description:
     'CreaTuActivo es una empresa de tecnología: usted monta su propio sistema de distribución de productos premium de bienestar, y nosotros le ponemos la inteligencia artificial que explica y atiende a cada interesado.',
   robots: { index: false, follow: true },

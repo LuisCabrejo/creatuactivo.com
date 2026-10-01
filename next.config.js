@@ -126,27 +126,19 @@ const nextConfig = {
         permanent: true,
       },
 
-      // Fundadores redundantes → Fundadores principal
-      {
-        source: '/fundadores-network',
-        destination: '/fundadores',
-        permanent: true,
-      },
-      {
-        source: '/fundadores-network/:ref',
-        destination: '/fundadores/:ref',
-        permanent: true,
-      },
-      {
-        source: '/fundadores-profesionales',
-        destination: '/fundadores',
-        permanent: true,
-      },
-      {
-        source: '/fundadores-profesionales/:ref',
-        destination: '/fundadores/:ref',
-        permanent: true,
-      },
+      // 1 oct 2026 — páginas eliminadas por el Director: nunca se usaron en producción.
+      // Fundadores (y sus variantes viejas) y la Calculadora llevan a la Home con el
+      // ref del socio; la presentación empresarial, a la presentación que la reemplazó.
+      { source: '/fundadores', destination: '/', permanent: true },
+      { source: '/fundadores/:ref', destination: '/?ref=:ref', permanent: true },
+      { source: '/fundadores-network', destination: '/', permanent: true },
+      { source: '/fundadores-network/:ref', destination: '/?ref=:ref', permanent: true },
+      { source: '/fundadores-profesionales', destination: '/', permanent: true },
+      { source: '/fundadores-profesionales/:ref', destination: '/?ref=:ref', permanent: true },
+      { source: '/calculadora', destination: '/', permanent: true },
+      { source: '/calculadora/:ref', destination: '/?ref=:ref', permanent: true },
+      { source: '/presentacion-empresarial', destination: '/presentacion', permanent: true },
+      { source: '/presentacion-empresarial/:ref', destination: '/presentacion?ref=:ref', permanent: true },
 
       // 29 ago 2026 — URLs cortas: el catálogo vive en /productos (no hay categoría "sistema").
       { source: '/sistema/productos', destination: '/productos', permanent: true },

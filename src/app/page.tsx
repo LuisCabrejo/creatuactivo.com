@@ -1074,6 +1074,10 @@ function Footer() {
           <Link href="/privacidad" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Privacidad</Link>
           <Link href="/terminos" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Términos</Link>
           <Link href="/tecnologia" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Tecnología</Link>
+          {/* La servilleta salió del menú (1 oct 2026) y quedó sin enlaces internos;
+              responde la búsqueda «plan servilleta». Este enlace y el sitemap son
+              como Google la sigue encontrando. */}
+          <Link href="/servilleta" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Plan servilleta</Link>
         </div>
         <p style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
           © 2026 CreaTuActivo.com · Luis Cabrejo

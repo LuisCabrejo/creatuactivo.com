@@ -19,8 +19,8 @@ import { MetadataRoute } from 'next';
  * Google Search Console leerá este sitemap para indexar todas las páginas públicas.
  *
  * PÁGINAS EXCLUIDAS (noindex o herramientas internas):
- * - /fundadores → registro por invitación 1-a-1, no se posiciona (decisión 14 ago 2026)
- * - /presentacion-empresarial → herramienta interna 1-a-1, noindex
+ * - /fundadores y /calculadora → eliminadas el 1 oct 2026 (nunca se usaron); redirigen a la Home
+ * - /presentacion → la presentación 1-a-1, noindex (/presentacion-empresarial se eliminó el 1 oct 2026)
  * - /nosotros, /12-niveles, /lexico, /planes → noindex
  *
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
@@ -99,6 +99,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.85,
+    },
+    // La servilleta responde la búsqueda «plan servilleta» de Gano Excel. Salió
+    // del menú el 1 oct 2026 y quedó sin un solo enlace interno: aquí y en el pie
+    // de la Home es como Google la sigue encontrando (Director: clave, sin menú).
+    {
+      url: `${baseUrl}/servilleta`,
+      lastModified: new Date('2026-10-01'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
   ];
 }

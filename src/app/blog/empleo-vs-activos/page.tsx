@@ -13,9 +13,23 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 import QueswaCTAButton from '@/components/QueswaCTAButton';
 
+// La marca la agrega la plantilla del layout raíz: «| CreaTuActivo Blog | CreaTuActivo»
+// salía duplicada. canonical y openGraph propios (1 oct 2026): sin ellos, compartir
+// el artículo mostraba la tarjeta de la Home.
 export const metadata = {
-  title: 'Análisis Financiero: Empleo vs. Cartera de Activos | CreaTuActivo Blog',
+  title: 'Análisis Financiero: Empleo vs. Cartera de Activos',
   description: 'Por qué trabajar más horas no es la respuesta. La diferencia entre ingreso lineal e ingreso recurrente y cómo construir una cartera de activos autosustentables.',
+  alternates: { canonical: 'https://creatuactivo.com/blog/empleo-vs-activos' },
+  openGraph: {
+    type: 'article',
+    url: 'https://creatuactivo.com/blog/empleo-vs-activos',
+    title: 'Análisis Financiero: Empleo vs. Cartera de Activos',
+    description: 'Por qué trabajar más horas no es la respuesta. La diferencia entre ingreso lineal e ingreso recurrente y cómo construir una cartera de activos autosustentables.',
+    siteName: 'CreaTuActivo',
+    locale: 'es_CO',
+    // Declarar openGraph aquí corta la imagen heredada de la Home: va explícita.
+    images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630 }],
+  },
   keywords: 'análisis financiero, cartera de activos, ingreso recurrente, soberanía financiera, independencia financiera, apalancamiento estratégico, empleo vs activos',
 };
 

@@ -592,12 +592,13 @@ Tráfico (reel por nicho / orgánico WhatsApp) → creatuactivo.com/{slug}/{nich
                               ↓
               Reel + Queswa (conversa, madura la decisión) → 1-a-1 con el socio
                               ↓
-                         /paquetes (activación) · /fundadores (Oferta)
+                         /paquetes (activación)
 
 Home → "Hablar con Queswa" (open-queswa) + "Suscríbete" (newsletter → /api/subscribe)
-Blog (SEO) → /blog/* → Home / /fundadores
-/calculadora → soap-opera Email1-5 (cron process-emails) → Home / /fundadores
+Blog (SEO) → /blog/* → Home
 ```
+
+⚠️ **Eliminadas el 1 oct 2026** (Director: nunca se usaron en producción): `/fundadores`, `/calculadora` y `/presentacion-empresarial`. Redirigen con 308 en `next.config.js` —las dos primeras a la Home con el `?ref` del socio, la última a `/presentacion`— y sus destinos cortos en `DESTINO_MAP` también. Las APIs (`/api/fundadores/*`, `/api/funnel`) y la secuencia de correos siguen en pie.
 
 **Las tres trampas:**
 
@@ -607,7 +608,7 @@ Blog (SEO) → /blog/* → Home / /fundadores
 
 **Menú** ([StrategicNavigation.tsx](src/components/StrategicNavigation.tsx), array `directLinks`, 1 oct 2026): Presentación (`/presentacion`) · Productos (`/productos`) · Tecnología · Nosotros (`/nosotros`) + CTA **"Suscríbete"**. Cuatro enlaces planos, **sin submenú**, en el orden de las preguntas de quien llega (¿cómo funciona? · ¿qué se vende? · ¿con qué? · ¿quién está detrás?). Salieron `/servilleta` (sigue en pie e indexada) e Insights (`/blog`, sigue en el pie de la Home). Quien llega a `/presentacion` sin `?ref` ve a su socio si entró antes por su enlace (`constructor_ref`), o al equipo con el WhatsApp Business. ⚠️ **Los rótulos no coinciden con sus rutas a propósito** (jun 2026): el menú nombra *qué encuentra el visitante*, no la ruta técnica. `/presentacion-empresarial` es herramienta interna 1-a-1 y **no** está en el menú — no confundirla con el item "Presentación".
 
-**Indexadas:** `/`, `/fundadores`, `/blog/*`, `/tecnologia`, `/productos`, `/paquetes`. **noindex:** `/nosotros`, `/prueba`, `/12-niveles`, `/lexico`, decks internos.
+**Indexadas (y en el sitemap):** `/`, `/blog/*`, `/tecnologia`, `/productos`, `/paquetes`, `/servilleta` (fuera del menú desde el 1 oct 2026, pero clave: responde «plan servilleta»; la enlaza el pie de la Home). **noindex:** `/nosotros`, `/presentacion`, `/prueba`, `/12-niveles`, `/lexico`. ⚠️ **SEO técnico (auditoría 1 oct 2026):** `robots.txt` **no** bloquea `/_next/` (Google necesita el CSS, el JS y las imágenes optimizadas); cada página indexable declara su `canonical`, y el catálogo de cada socio (`/productos/{id}`) apunta a `/productos`.
 
 ### Servilleta Digital - Interactive Presentations
 
@@ -866,11 +867,7 @@ Archivos fuente y versiones actuales → ver la [tabla de arsenales](#1-nexus-ai
 
 ### Founder Spots Counter
 
-**Location**: [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx)
-
-**Status**: Static counter showing 150 spots. Dynamic system paused waiting for real sales data. Las fases ya no muestran fechas (retiradas jul 2026 — doctrina sin fecha dura) y el countdown estático con fechas vencidas fue reemplazado por la card "se cierra por cupos, no por calendario".
-
-**Test**: `node scripts/test-contador-cupos.mjs`
+⚠️ **La página `/fundadores` se eliminó el 1 oct 2026** (Director: nunca se usó en producción). Su contador estático de 150 cupos se fue con ella; `scripts/test-contador-cupos.mjs` queda como historia.
 
 ## Testing & Debugging
 
@@ -912,7 +909,7 @@ Returns: Arsenal counts, system prompt version, catalog availability, RPC status
 2. **Pre-Lanzamiento** - 22,500 Constructor spots (150 × 150)
 3. **Lanzamiento Público** - Target: 4M+ users
 
-⚠️ **150 vs 15 — no confundir**: **150** = cupos totales de la Lista Privada (contador estático en [src/app/fundadores/page.tsx](src/app/fundadores/page.tsx)); **15** = núcleo de socios estratégicos de la fase de cimentación — el número que usan Queswa y los arsenales (ver Queswa Official Constants). Antes de citar cualquiera de los dos en copy nuevo, confirmar con el Director cuál aplica.
+⚠️ **150 vs 15 — no confundir**: **150** = cupos totales de la Lista Privada (la página que lo mostraba, `/fundadores`, se eliminó el 1 oct 2026); **15** = núcleo de socios estratégicos de la fase de cimentación — el número que usan Queswa y los arsenales (ver Queswa Official Constants). Antes de citar cualquiera de los dos en copy nuevo, confirmar con el Director cuál aplica.
 
 **Actualizar fechas**: `node scripts/actualizar-fechas-prelanzamiento.mjs` (legacy — hoy la página no muestra fechas).
 

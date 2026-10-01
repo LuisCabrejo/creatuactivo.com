@@ -13,9 +13,23 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 import QueswaCTAButton from '@/components/QueswaCTAButton';
 
+// La marca la agrega la plantilla del layout raíz: «| CreaTuActivo Blog | CreaTuActivo»
+// salía duplicada. canonical y openGraph propios (1 oct 2026): sin ellos, compartir
+// el artículo mostraba la tarjeta de la Home.
 export const metadata = {
-  title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700) | CreaTuActivo Blog',
+  title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700)',
   description: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Ley 1700 en Colombia, criterios de la FTC y señales de alerta explicados.',
+  alternates: { canonical: 'https://creatuactivo.com/blog/legalidad-network-marketing' },
+  openGraph: {
+    type: 'article',
+    url: 'https://creatuactivo.com/blog/legalidad-network-marketing',
+    title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700)',
+    description: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Ley 1700 en Colombia, criterios de la FTC y señales de alerta explicados.',
+    siteName: 'CreaTuActivo',
+    locale: 'es_CO',
+    // Declarar openGraph aquí corta la imagen heredada de la Home: va explícita.
+    images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630 }],
+  },
   keywords: 'ley 1700 colombia, network marketing legal, negocios digitales legales, MLM legal, pirámide vs multinivel, FTC, multinivel legítimo',
 };
 

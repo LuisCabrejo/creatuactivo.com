@@ -12,9 +12,23 @@ import StrategicNavigation from '@/components/StrategicNavigation';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 import QueswaCTAButton from '@/components/QueswaCTAButton';
 
+// La marca la agrega la plantilla del layout raíz («%s | CreaTuActivo»): aquí iba
+// duplicada. canonical y openGraph propios (1 oct 2026): sin ellos, al compartir el
+// blog la vista previa mostraba la Home — título, descripción y dirección.
 export const metadata = {
-  title: 'Blog - Ideas para Construir Ingresos Recurrentes | CreaTuActivo',
+  title: 'Blog - Ideas para Construir Ingresos Recurrentes',
   description: 'Artículos y guías sobre ingresos recurrentes, sistemas de distribución y la tecnología que hace el trabajo pesado por usted.',
+  alternates: { canonical: 'https://creatuactivo.com/blog' },
+  openGraph: {
+    type: 'website',
+    url: 'https://creatuactivo.com/blog',
+    title: 'Blog - Ideas para Construir Ingresos Recurrentes',
+    description: 'Artículos y guías sobre ingresos recurrentes, sistemas de distribución y la tecnología que hace el trabajo pesado por usted.',
+    siteName: 'CreaTuActivo',
+    locale: 'es_CO',
+    // Declarar openGraph aquí corta la imagen heredada de la Home: va explícita.
+    images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630 }],
+  },
 };
 
 const articles = [

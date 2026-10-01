@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   description: 'Precios oficiales afiliación Gano Excel Colombia 2025. Paquetes ESP-1 ($300 USD), ESP-2 ($600 USD), ESP-3 ($1200 USD). Incluye NodeX + NEXUS IA + mentoría. Ingresos residuales + tecnología.',
   keywords: 'cuánto cuesta afiliarse gano excel, precios gano excel 2025, paquetes gano excel colombia, afiliación gano excel precios, esp-1 esp-2 esp-3 gano excel, precio afiliación distribuidor gano excel',
   authors: [{ name: 'CreaTuActivo.com' }],
+  alternates: { canonical: 'https://creatuactivo.com/paquetes' },
   openGraph: {
     type: 'website',
     locale: 'es_ES',

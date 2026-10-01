@@ -25,13 +25,15 @@ const supabase = createClient(
 
 // Mapa: destino corto → ruta real en creatuactivo.com
 const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
-  'calculadora':   (id) => `/calculadora/${id}`,
+  // Calculadora y Fundadores se eliminaron el 1 oct 2026: sus enlaces cortos
+  // guardados siguen funcionando y llevan a la Home con el ref del socio.
+  'calculadora':   (id) => `/?ref=${id}`,
   'productos':     (id) => `/productos/${id}`,
   'servilleta':    (id) => `/servilleta/${id}`,
   'home':          (id) => `/?ref=${id}`,
-  'fundadores':    (id) => `/fundadores/${id}`,
-  'fundadores-pro':(id) => `/fundadores-profesionales/${id}`,
-  'red':           (id) => `/fundadores-network/${id}`,
+  'fundadores':    (id) => `/?ref=${id}`,
+  'fundadores-pro':(id) => `/?ref=${id}`,
+  'red':           (id) => `/?ref=${id}`,
   // Legado — siguen funcionando si alguien tiene el link guardado
   'video-plan-servilleta': (id) => `/video-plan-servilleta?ref=${id}`,
   'video-plan':            (id) => `/video-plan-servilleta?ref=${id}`,
@@ -45,7 +47,8 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   // a nadie (auditoría del 23 sep 2026). Es la trampa que el CLAUDE.md advierte.
   // «presentacion» llevó hasta el 30 sep 2026 a /presentacion-empresarial, la
   // herramienta anterior, que ya no se ofrecía en el Dashboard: desde ese día abre
-  // la presentación vigente. /presentacion-empresarial sigue viva en su URL.
+  // la presentación vigente. /presentacion-empresarial se eliminó el 1 oct 2026
+  // y redirige a /presentacion (next.config.js).
   'presentacion':  (id) => `/presentacion?ref=${id}`,
   'pitch-deck':    (id) => `/presentacion?ref=${id}`,
   'deck':          (id) => `/presentacion?ref=${id}`,

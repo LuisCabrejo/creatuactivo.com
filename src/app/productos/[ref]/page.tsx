@@ -30,7 +30,10 @@ export default function ProductosWithRefPage() {
 // Metadata para SEO
 export async function generateMetadata({ params }: { params: { ref: string } }) {
   return {
+    // La versión oficial es /productos: cada socio tiene su copia del catálogo, y
+    // sin canonical competían entre sí como contenido duplicado (1 oct 2026).
     title: 'Catálogo de Productos | CreaTuActivo',
+    alternates: { canonical: 'https://creatuactivo.com/productos' },
     description: `Descubre los productos del ecosistema CreaTuActivo. Compartido por ${params.ref}.`,
   }
 }

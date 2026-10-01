@@ -73,6 +73,31 @@
  *    ese hallazgo es un requisito de LECTURA, no un estado: el socio manda párrafos
  *    largos y notas de voz transcritas, no comandos limpios.
  *
+ * ── 1 OCT 2026: EL PORQUÉ ES LA MODERNIZACIÓN, NO EL PRODUCTO ────────────────
+ *
+ * Observación de campo del Director: entrar por los productos o por Gano Excel no
+ * le ha dado resultado; lo que está funcionando es plantear que vemos una
+ * oportunidad enorme modernizando dos industrias — la misma columna de la
+ * Presentación (`src/app/presentacion/page.tsx`, pantallas 2 y 3). Los borradores
+ * reales lo confirmaban: todos remataban en «un sistema de distribución de
+ * productos premium de bienestar», y lo único concreto que le quedaba al amigo
+ * era «productos». Una socia (María Fernanda, 30 sep) corrigió sola su borrador
+ * de «Estoy distribuyendo» a «Hago parte del cambio».
+ *
+ * Lo que cambió en los tiempos 2 y 3, aprobado por el Director:
+ *   · «Encontré algo que me pareció interesante» → «Estoy en un proyecto nuevo»:
+ *     el tiempo 3 dice «nosotros vemos», y el socio tiene que estar adentro.
+ *   · El tiempo 3 es la modernización: una sola comparación (Rappi, la que el
+ *     Director usó con una amiga el 21 sep), las dos industrias, y la empresa de
+ *     distribución moderna a su nombre, pagada con el celular y la IA.
+ *   · Salen los productos y Gano Excel de la invitación: aparecen en la
+ *     presentación, como allá, en la pantalla del producto.
+ *   · «Network marketing» va ESCRITO. Es una excepción deliberada a la regla de
+ *     no nombrar el gremio fuera de NET_01/NET_02: esta no es la voz de Queswa
+ *     sino la del socio, y dentro de la ola de modernización se lee como
+ *     oportunidad (resolvió el «ah, es como Herbalife» en los 1-a-1). Lo que NO
+ *     se hace es describir cómo se hace hoy: el mensaje llega sin voz.
+ *
  * ⚠️ ESTE TEXTO TAMBIÉN LO USA EL DASHBOARD (12 sep 2026, decisión del Director:
  * el socio vive los dos lugares como la misma experiencia). queswa.app lo lee de
  * `nexus_documents` (tenant `dashboard`, categoría `esqueleto_redaccion_socio`).
@@ -184,24 +209,47 @@ PASO 2 — EL MENSAJE: CUATRO TIEMPOS, EN ESTE ORDEN
    parece una cuenta robada, y quien lo recibe duda medio segundo de si de verdad
    se lo mandó su amigo. Ese medio segundo es el mensaje perdido.
       "Hola Andrés, ¿cómo va todo? Espero que usted y la familia estén muy bien."
+   ⚠️ El nombre va tal cual lo dio el socio: «mi prima Carolina» → «Hola,
+   Carolina», jamás «Caro». Un diminutivo que él no escribió es una confianza
+   que usted no sabe si existe.
 
 2. EL PUENTE Y EL PORQUÉ ÉL — se anuncia que hay un motivo, y se dice por qué se
    acordó de ESA persona, con la salida adentro:
-      "Le cuento por qué le escribo. Encontré algo que me pareció interesante y,
-       como usted sabe mover producto, me acordé de usted — no sé si sea de su
-       interés ahora mismo, pero preferí preguntarle."
+      "Le cuento por qué le escribo. Estoy en un proyecto nuevo y, como usted
+       sabe mover producto, me acordé de usted — no sé si sea de su interés
+       ahora mismo, pero preferí preguntarle."
    Decir el motivo de frente es lo que desactiva la sospecha: el daño lo hace
    esconderlo, no tenerlo. Y el «no sé si sea de su interés» no es humildad — le
    devuelve el control al otro, y quien no se siente empujado no se defiende. El
    «preferí preguntarle» además es exacto: eso es lo que el mensaje hace, y por
    eso empata solo con el permiso del final.
+   «Estoy en un proyecto nuevo» va así porque el tiempo 3 dice «nosotros vemos»:
+   el socio habla desde adentro, no como quien se encontró algo por ahí.
 
 3. QUÉ ES, SIN VENDERLO — esta parte va **igual para todo el mundo**, palabra por
    palabra, porque es la que se duplica:
-      "Es una aplicación nueva con la que uno arma su propio sistema de distribución
-       de productos premium de bienestar, en paralelo a lo que ya hace, y se maneja
-       desde el celular. La inteligencia artificial es la que conversa con los
-       interesados y les resuelve las dudas."
+      "Así como Rappi modernizó los domicilios, nosotros vemos una oportunidad
+       enorme en modernizar dos industrias: el network marketing y el sector
+       laboral. Cada quien monta su empresa de distribución moderna, a su nombre:
+       se maneja desde el celular, y una inteligencia artificial atiende a los
+       interesados."
+   ⚠️ EL PORQUÉ DE ESTE MENSAJE ES LA OPORTUNIDAD DE MODERNIZAR, NO EL PRODUCTO.
+   Por eso aquí no van los productos, ni «bienestar», ni Gano Excel: quien lee
+   «productos» o «Gano» clasifica el mensaje antes de entenderlo. El producto y
+   quien lo fabrica los ve después, en la presentación y con Queswa.
+   ⚠️ LA COMPARACIÓN ES UNA SOLA, Y ES RAPPI, para todo el mundo. No la cambie
+   por Uber, Nequi ni otra según el oficio, y no le sume una segunda: dos
+   comparaciones son dos ideas. Al dueño de taxis, «así como Uber modernizó los
+   taxis» le nombraría a su competidor.
+   ⚠️ «El network marketing» y «el sector laboral» van con esas palabras, y
+   NUNCA se describe cómo se hace hoy ninguno de los dos, ni qué tiene de malo:
+   este mensaje llega sin la voz del socio, y una descripción sin voz se lee
+   como juicio sobre el método de otros o como diagnóstico de la vida de quien
+   lo recibe. Eso lo cuenta el socio en vivo, si hace falta.
+   ⚠️ «Empresa de distribución moderna» va con sus cuatro palabras juntas, y el
+   resto de esa frase es lo que la hace creíble: el celular y la inteligencia
+   artificial que atiende. No los quite.
+   Este tiempo no lleva «usted» ni «tú», así que va idéntico en los dos tratos.
 
 4. EL PERMISO — se pide autorización, y el enlace NO va todavía:
       "Si le interesa verlo, me dice y le mando el acceso."
@@ -214,7 +262,13 @@ idénticos como difusión y le castigue la línea al socio.
 
 CÓMO SE ESCRIBE ESA LÍNEA: se reconoce lo que la persona SABE HACER, nunca lo que
 le falta. Es un reconocimiento, jamás un diagnóstico. Cada ejemplo va tal cual en
-el hueco del marco, antes de «me acordé de usted». Ejemplos por oficio:
+el hueco del marco, antes de «me acordé de usted».
+
+⚠️ La línea arranca «como usted» + el verbo: «como usted conoce el campo», NUNCA
+«como usted QUE conoce el campo». Con el «que» la frase queda sin verbo y no
+cierra — salió así dos veces el 29 sep 2026, en mensajes reales.
+
+Ejemplos por oficio:
 
    · Tendero o supermercado → "como usted sabe mover producto y conoce a todo el
      mundo en el barrio"  (el más fuerte de todos: él YA es un distribuidor)

@@ -67,6 +67,10 @@
  *  · El bono por paquetes se nombra por lo que lo mueve (la compra de un paquete) y
  *    por su función (financia el crecimiento al inicio), NUNCA por su velocidad. Se
  *    cuentan paquetes comprados, nunca personas.
+ *  · Sin socio (visita orgánica o ?ref que no se encuentra), la conversación es con
+ *    el equipo, por el WhatsApp Business (Director, 1 oct 2026).
+ *  · La presentación reporta hasta dónde llegó cada persona en tres hitos, si llegó
+ *    al final y si tocó el WhatsApp (/api/track/presentacion → avisos del Dashboard).
  *  · La última pantalla nombra al socio del ?ref y trae su WhatsApp. El socio toca
  *    su nombre y escribe el del prospecto: la prueba en vivo de la pieza 3, su
  *    aplicación personalizada. «En su caso, esta pantalla dirá el suyo» es frase de
@@ -85,6 +89,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 const TOTAL_SLIDES = 10;
+/** Pantallas que se reportan a la ficha: un tercio, dos tercios y la última. */
+const HITOS_PRESENTACION = [4, 7, TOTAL_SLIDES];
+/** WhatsApp Business del equipo (+57 320 680 5737): el mismo número orgánico de
+ *  los reels (`WHATSAPP_ORGANICO_DEFAULT` en [slug]/[destino]). Para quien llega
+ *  a la presentación sin el enlace de un socio. */
+const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
 const BEATS: Record<number, number> = { 4: 2, 5: 7, 6: 2, 9: 2 };
@@ -254,14 +264,36 @@ export default function PitchDeckPage() {
   // El socio del ?ref: la última pantalla lo nombra y abre su WhatsApp. Sin ref,
   // o si la consulta falla, la pantalla queda genérica.
   const [socio, setSocio] = useState<{ nombre: string; whatsapp: string | null } | null>(null);
+  // Sin socio —visita orgánica, o un ?ref que no se encuentra— la conversación es
+  // con el equipo, por el WhatsApp Business (Director, 1 oct 2026). Hasta ese día
+  // la pantalla quedaba sin botón y quien la abría solo no tenía a quién escribir.
+  // Se espera a la consulta: con ?ref, el equipo no asoma mientras carga el socio.
+  const [sinSocio, setSinSocio] = useState(false);
   useEffect(() => {
     let ref: string | null = null;
     try { ref = new URL(window.location.href).searchParams.get('ref'); } catch { /* sin ref */ }
-    if (!ref) return;
+    if (!ref) { setSinSocio(true); return; }
     fetch(`/api/constructor/${encodeURIComponent(ref)}`)
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (d?.nombre) setSocio({ nombre: d.nombre, whatsapp: d.whatsapp ?? null }); })
-      .catch(() => {});
+      .then((d) => { if (d?.nombre) setSocio({ nombre: d.nombre, whatsapp: d.whatsapp ?? null }); else setSinSocio(true); })
+      .catch(() => setSinSocio(true));
+  }, []);
+  const waEquipo = `https://wa.me/${WHATSAPP_EQUIPO}?text=${encodeURIComponent('Hola, acabo de ver la presentación de CreaTuActivo.')}`;
+
+  // ── Hasta dónde llegó (1 oct 2026) ─────────────────────────────────────────
+  // De quien abría la presentación solo se sabía la página: no si pasó de la
+  // primera pantalla ni si llegó al botón del final. Se guarda la pantalla más
+  // lejana, si llegó al final y si tocó el WhatsApp (/api/track/presentacion).
+  // ⚠️ Cada escritura dispara un webhook: solo en hitos, nunca en cada pantalla.
+  const reportarAvance = useCallback((datos: { pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean }) => {
+    const fingerprint = (window as any).FrameworkIAA?.fingerprint;
+    if (!fingerprint) return;
+    fetch('/api/track/presentacion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fingerprint, ...datos }),
+      keepalive: true,
+    }).catch(() => {});
   }, []);
   const primerNombre = socio?.nombre?.trim().split(/\s+/)[0] ?? null;
   const waSocio = socio?.whatsapp && primerNombre
@@ -282,11 +314,26 @@ export default function PitchDeckPage() {
   useEffect(() => {
     if (slide !== TOTAL_SLIDES) { setNombreDemo(null); setEditandoNombre(false); }
   }, [slide]);
+  // Quien escribe un nombre en la demo es el socio presentando: esa ficha deja de
+  // generarle avisos (`dispositivo_del_socio`), o cada reunión le sonaría a él.
+  const demoReportada = useRef(false);
   const confirmarNombre = (valor: string) => {
     const v = valor.trim();
-    setNombreDemo(v && v.toLowerCase() !== (primerNombre ?? '').toLowerCase() ? v : null);
+    const otro = !!v && v.toLowerCase() !== (primerNombre ?? '').toLowerCase();
+    setNombreDemo(otro ? v : null);
     setEditandoNombre(false);
+    if (otro && !demoReportada.current) { demoReportada.current = true; reportarAvance({ en_vivo: true }); }
   };
+
+  // Los hitos: un tercio, dos tercios y el final. Un salto (teclado, retroceso)
+  // reporta el hito más alto que alcanzó, una sola vez cada uno.
+  const hitosReportados = useRef(new Set<number>());
+  useEffect(() => {
+    const hito = [...HITOS_PRESENTACION].reverse().find((h) => slide >= h);
+    if (!hito || hitosReportados.current.has(hito)) return;
+    hitosReportados.current.add(hito);
+    reportarAvance({ pantalla: slide, completa: slide === TOTAL_SLIDES || undefined });
+  }, [slide, reportarAvance]);
 
   const gen5Por = GEN5_POR_GENERACION[gen5Nivel];
   const ingresoGen5COP = gen5Paquetes * gen5Por.reduce((a, b) => a + b, 0) * TRM;
@@ -1619,8 +1666,20 @@ export default function PitchDeckPage() {
                   )}
                 </>
               )}
+              {!nombreVisible && sinSocio && ' con el equipo'}
               .
             </p>
+            {!waSocio && sinSocio && (
+              <a
+                className="pd-demo pd-socio"
+                href={waEquipo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
+              >
+                ESCRIBIRLE AL EQUIPO POR WHATSAPP →
+              </a>
+            )}
             {waSocio && (nombreDemo ? (
               <span className="pd-demo pd-socio" aria-hidden="true">
                 ESCRIBIRLE A {nombreDemo.toUpperCase()} POR WHATSAPP →
@@ -1631,7 +1690,7 @@ export default function PitchDeckPage() {
                 href={waSocio}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
               >
                 ESCRIBIRLE A {primerNombre!.toUpperCase()} POR WHATSAPP →
               </a>

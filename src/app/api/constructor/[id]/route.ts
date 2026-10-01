@@ -38,7 +38,7 @@ export async function GET(
 
     // Consultar Supabase con SERVICE_ROLE_KEY (bypasea RLS)
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/private_users?constructor_id=eq.${constructorId}&select=name,whatsapp,email`,
+      `${SUPABASE_URL}/rest/v1/private_users?constructor_id=eq.${encodeURIComponent(constructorId)}&select=name,whatsapp`,
       {
         headers: {
           'apikey': SERVICE_KEY,
@@ -68,11 +68,14 @@ export async function GET(
     const constructor = data[0]
     console.log('✅ [API Constructor] Encontrado:', constructor.name)
 
-    // Retornar solo datos públicos necesarios
+    // Solo lo que las páginas MUESTRAN: el nombre y el WhatsApp del socio.
+    // ⚠️ El correo salía aquí hasta el 1 oct 2026 y ninguna página lo usaba. El
+    // constructor_id va en cada enlace que el socio comparte (?ref=, /productos/…),
+    // así que quien recibía un enlace podía sacar el correo de ese socio. Esta
+    // ruta lee con la llave de servidor: devuelve lo mínimo, nunca más.
     return NextResponse.json({
       nombre: constructor.name,
       whatsapp: constructor.whatsapp,
-      email: constructor.email
     })
 
   } catch (error) {

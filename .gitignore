@@ -73,3 +73,9 @@ docs/respaldos/nexus_documents-*.json
 
 # modelos de visión descargados (3.6 MB, se rebajan con curl — ver PIPELINE.md)
 scripts/dankoe-video/modelos/*.task
+
+# Google Search Console (1 oct 2026): credenciales OAuth y token de acceso de la
+# cuenta del Director — nunca al repositorio. Los informes se quedan en local.
+scripts/gsc-credentials.json
+scripts/gsc-token.json
+data/gsc/

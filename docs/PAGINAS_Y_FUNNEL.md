@@ -59,7 +59,7 @@ Calculadora (/calculadora) → soap-opera Email1-5 (nurture, cron process-emails
 **Dynamic `[ref]` Routes**: Landing pages support referral tracking via `/page-name/referrer-id`.
 
 **Navigation** ([src/components/StrategicNavigation.tsx](src/components/StrategicNavigation.tsx) — array `directLinks`):
-- **Desktop/Mobile Menu**: Nosotros (`/manifiesto`) · Tecnología (`/tecnologia`) · Presentación (`/servilleta`) · Insights (`/blog`) + **"Suscríbete"** CTA (abre `SubscribeModal` → `/api/subscribe`; reemplazó "Auditoría Patrimonial"/"Iniciar Diagnóstico" en la reposición de la Home jun 2026 — ver callout 🏠 abajo)
+- **Desktop/Mobile Menu** (1 oct 2026): Presentación (`/presentacion`) · Productos (`/productos`) · Tecnología (`/tecnologia`) · Nosotros (`/nosotros`) + **"Suscríbete"** CTA. Antes: Nosotros · Tecnología · Presentación (`/servilleta`) · Insights (`/blog`); el porqué está junto a `directLinks` en StrategicNavigation.tsx. El CTA (abre `SubscribeModal` → `/api/subscribe`; reemplazó "Auditoría Patrimonial"/"Iniciar Diagnóstico" en la reposición de la Home jun 2026 — ver callout 🏠 abajo)
 - ⚠️ **Los rótulos NO coinciden con sus rutas a propósito** (decisión Jun 2026 — el menú nombra *qué encuentra el visitante*, no la ruta técnica): "Nosotros" abre la página Manifiesto; "Presentación" abre el deck Servilleta. Esto reemplazó "Manifiesto / El Sistema / Herramientas" (rótulos con fricción o ambiguos).
 - **Mobile CTA**: **"Suscríbete"** (abre `SubscribeModal`; antes "Unirme al Reto" → /empresa-digital)
 - **Removed from menu**: Soluciones, Ecosistema, Auditoría

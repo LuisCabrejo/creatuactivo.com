@@ -490,12 +490,18 @@ export default function StrategicNavigation() {
   }, [isMobileMenuOpen])
 
   // Links directos sin dropdown (Arquitectura de Activos - Quiet Luxury)
+  // El orden sigue las preguntas de quien llega (Director, 1 oct 2026): ¿cómo
+  // funciona? → ¿qué se vende? → ¿con qué se hace? → ¿quién está detrás? Cuatro
+  // enlaces planos, sin submenú: en el celular un submenú es un toque más y tres
+  // páginas que dejan de verse. Productos entra (157 visitantes en 60 días, la
+  // mitad desde el celular, y no estaba en el menú); Insights sale (22): el blog
+  // recibe su tráfico desde Google al artículo, y sigue en el pie de la Home.
+  // /servilleta sigue en pie e indexada.
   const directLinks = [
-    { name: 'Nosotros', href: '/nosotros' },
-    { name: 'Tecnología', href: '/tecnologia' },
-    // La presentación nueva (Director, 1 oct 2026). /servilleta sigue en pie e indexada.
     { name: 'Presentación', href: '/presentacion' },
-    { name: 'Insights', href: '/blog' },
+    { name: 'Productos', href: '/productos' },
+    { name: 'Tecnología', href: '/tecnologia' },
+    { name: 'Nosotros', href: '/nosotros' },
   ]
 
   const closeMobileMenu = () => {

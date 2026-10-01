@@ -495,6 +495,12 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.63 — Nace `WHY_MOD_01`: cuáles son las dos industrias (1 oct 2026)
+
+El mensaje que Queswa le redacta al socio (`src/lib/wa-redaccion-socio.ts`) cambió ese día a la columna del Director: *«Veo una oportunidad enorme en modernizar dos industrias, como hizo Rappi con los domicilios, o como cuando pasamos de hacer fila en el banco a usar una aplicación»*. **No nombra las industrias, a propósito**: así lo usa el Director, y genera la expectativa. La respuesta más probable es *«¿cuáles?»*, y hasta ese día ningún fragmento la tenía: `WHY_02` no las nombra, la tarjeta de la Presentación dice *«los dos sectores»* sin decir cuáles, y la única respuesta con «dos industrias» era `FREQ_16` (café premium y bienestar, la objeción de saturación), que habría contestado otra cosa.
+
+`WHY_MOD_01` responde de frente —**el network marketing y el sector laboral**— con las palabras de la Presentación (pantallas 3 y 4) y la línea de `NET_01` sobre la fama de difícil. No describe cómo se hace hoy el network marketing. Remata en la propuesta sin «moderna», que dice `WHY_02` en el turno siguiente. Sin candado. Cierra con *«¿Le cuento cómo funciona el negocio?»*, la misma oferta de `WHY_01` hacia `WHY_02`.
+
 ### v6.62 — `PERFIL_03` habla con las palabras de ella (28 sep 2026)
 
 El Director, al ver la v6.61: *gerente del hogar* es su forma de elevarles la autoestima, pero **ninguna ama de casa se presenta así**. Escriben *ama de casa*, y muchas veces se quitan el mérito: *«yo no hago nada, el que trabaja es mi esposo»*. Medido en producción, justo esa frase caía en `PERFIL_02` 🔒 (dictada literal, la del independiente) y *«no trabajo, mi esposo es el que trabaja»* en `FREQ_15`.

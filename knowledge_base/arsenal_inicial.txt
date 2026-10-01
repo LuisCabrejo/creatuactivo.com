@@ -12,11 +12,12 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.62** (28 sep 2026) — **`PERFIL_03` habla con las palabras de ella.** El Director: nadie se presenta como *gerente del hogar*; escriben *ama de casa*, y muchas *«yo no hago nada, el que trabaja es mi esposo»* — y esa frase caía en `PERFIL_02` 🔒, dictada literal. Título e índice nuevos, sin *gerente del hogar* (queda en el cuerpo, que la eleva) y sin *esposo* (robaba las consultas de pareja). 14 de 14 paráfrasis en el puesto 1, sin robos. Cuerpo intacto. Detalle → CHANGELOG.
+**Versión actual: v6.63** (1 oct 2026) — **Nace `WHY_MOD_01`: cuáles son las dos industrias.** El mensaje que Queswa le redacta al socio invita con *«Veo una oportunidad enorme en modernizar dos industrias…»* y no las nombra, a propósito (Director). Quien llega pregunta cuáles, y se le responde de frente: el network marketing y el sector laboral, con las palabras de la Presentación y de `NET_01`. Sin candado. Cierra hacia `WHY_02`.
+
+**v6.62** (28 sep 2026) — **`PERFIL_03` habla con las palabras de ella.** El Director: nadie se presenta como *gerente del hogar*; escriben *ama de casa*, y muchas *«yo no hago nada, el que trabaja es mi esposo»* — y esa frase caía en `PERFIL_02` 🔒, dictada literal. Título e índice nuevos, sin *gerente del hogar* (queda en el cuerpo, que la eleva) y sin *esposo* (robaba las consultas de pareja). 14 de 14 paráfrasis en el puesto 1, sin robos. Cuerpo intacto. Detalle → CHANGELOG.
 
 **v6.61** (28 sep 2026) — **Nace `PERFIL_03`: la gerente del hogar.** El video del día 22 del reto invita a preguntar *«sea empleado, empresario o gerente del hogar»*, y quien se dedica al hogar caía en `PERFIL_02` 🔒, la del independiente, dictada literal. Término del Director: *gerente del hogar*. Sin candado. Índice medido contra los fragmentos reales del canal: 7 de 7 paráfrasis en el puesto 1, sin robos a `PERFIL_01`, `PERFIL_02`, `FREQ_15` ni `FREQ_25`. Detalle → CHANGELOG.
 
-**v6.60** (28 sep 2026) — **Nace `FREQ_39`: la razón social y el NIT de Gano Excel.** El Director lo pidió en queswa.app y Queswa respondió que no lo tenía. Una línea, sin candado (queswa.app toma el primer candado entre sus cinco fragmentos aunque llegue tercero), abierta con *En Colombia* porque es la sociedad de este país. Cierra hacia `FREQ_34`. Índice medido: 10 de 14 paráfrasis en el puesto 1, sin robos. Detalle → CHANGELOG.
 
 
 
@@ -101,6 +102,22 @@ Ahí vive su negocio: le llegan las notificaciones, hace sus compras, tiene la f
 Y WhatsApp es la otra puerta: por ahí atiendo yo a quien llega por su enlace — como estamos conversando usted y yo ahora.
 
 **Pregunta de seguimiento:** ¿Le cuento qué haría usted en el día a día?
+
+---
+
+### **WHY_MOD_01: "¿Cuáles son las dos industrias que quieren modernizar?"**
+**[Índice]:** Cuáles son esas dos industrias que van a modernizar. En qué dos sectores ven la oportunidad enorme, cuáles son los dos sectores de la economía. Lo de Rappi con los domicilios y la fila del banco.
+**[Concepto Nuclear]:** Nace del mensaje que Queswa le redacta al socio (Director, 1 oct 2026): *«Veo una oportunidad enorme en modernizar dos industrias, como hizo Rappi con los domicilios, o como cuando pasamos de hacer fila en el banco a usar una aplicación»*. El mensaje **no las nombra a propósito** —genera la expectativa—, así que quien llega pregunta cuáles son, y se le responde **de frente**: esquivar es lo que de verdad parece esconder algo. ⚠️ Es la columna de la Presentación (pantallas 3 y 4) con sus palabras, y la línea del network marketing es la de `NET_01`: el modelo funciona, lo frenaba la **fama de difícil**, hoy se maneja desde una aplicación. **No se describe cómo se hace hoy** (nada de reuniones ni de mensajes a los amigos): sería un juicio sobre el método de otros. El sector laboral se dice en tercera persona y universal —*aprendimos, todos*—, nunca como diagnóstico de quien pregunta, y con el remate de los veinte para que quien gana bien no se exima. ⚠️ **No confundir con `FREQ_16`**, donde «dos industrias» son el café premium y el bienestar (la objeción de saturación). Remata en la propuesta **sin «moderna»**, que la dice `WHY_02` en el turno siguiente (una vez por conversación). Sin candado (queswa.app toma el primer candado entre sus cinco fragmentos aunque llegue tercero). Cierra hacia `WHY_02` con la misma pregunta de `WHY_01`.
+
+Son dos: la industria del network marketing y el sector laboral.
+
+En el network marketing, el modelo siempre ha funcionado, y el mercado sabe que la oportunidad es grande. Lo que lo frenaba es que se ganó fama de negocio difícil de desarrollar. Hoy el proceso se maneja desde una aplicación, y buena parte desde WhatsApp.
+
+En el sector laboral, así como nos acostumbramos a hacer la fila del banco, aprendimos que solo había dos caminos para ganar: emplearse, o trabajar como independiente. Y todos manifiestan el mismo dolor: inestabilidad e incertidumbre hacia el futuro. Le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
+
+De ahí sale la propuesta: montar su propia empresa de distribución, a su nombre, y manejarla desde el celular.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
 
 ---
 

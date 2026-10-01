@@ -18,7 +18,8 @@
 // flotante pasó a ser el de WhatsApp. Bump 1.4.1 (1 oct 2026): el menú nuevo
 // (Presentación · Productos · Tecnología · Nosotros) — salió en tres despliegues
 // sin bump, y un navegador que ya conocía el sitio siguió viendo el viejo.
-const CACHE_VERSION = '1.4.1';
+// Bump 1.4.2 (1 oct 2026): el hero nuevo de la Home, con el video «Cómo funciona».
+const CACHE_VERSION = '1.4.2';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

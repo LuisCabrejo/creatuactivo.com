@@ -174,9 +174,9 @@
  * - Voz neutra (la home la comparten todos los socios) · sin prometer que no hay
  *   venta ni cobro · "las personas", nunca "la gente".
  *
- * El reel del hero se RETIRÓ (14 ago 2026): el asset era viejo y no hay video nuevo
- * por ahora. Para restaurarlo: volver a importar HomeManifestoVideo + HOME_MANIFESTO_*
- * de @/lib/reels y montarlo antes del Eyebrow del hero (ver git log de este archivo).
+ * El video VOLVIÓ al hero el 1 oct 2026 (Director): «Cómo funciona», el mismo corte
+ * que Queswa manda en WhatsApp (VideoComoFuncionaHome). No arranca solo: pesa 10,7 MB.
+ * El de agosto (HomeManifestoVideo) se había retirado porque el asset era viejo.
  *
  * Estructural que NO se toca: `dynamic = 'force-static'` (TTFB CDN edge) · Footer con
  * "Fundada por Luis Cabrejo" (requisito de verificación WhatsApp Business / Meta).
@@ -196,6 +196,7 @@ import {
 } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
+import VideoComoFuncionaHome from '@/components/VideoComoFuncionaHome'
 
 export const dynamic = 'force-static'
 
@@ -422,29 +423,89 @@ export default function HomePage() {
     <main style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
       <StrategicNavigation />
 
-      {/* ═══ HERO — spotlight titanio + dorado (BRANDING §5) ═══ */}
+      {/* ═══ HERO — el título, una línea, el botón y el video (1 oct 2026) ═══ */}
+      {/* Director (1 oct 2026): el hero se veía cargado. No era el texto sino la
+          jerarquía: el credo en dorado y negrita competía con el título, el rótulo
+          «En qué creemos» quedaba debajo del título, y seis bloques de texto dejaban
+          el botón fuera de la primera pantalla. Ahora el hero tiene cuatro piezas, y
+          el video dice lo que decían los tres párrafos. En computador, texto a la
+          izquierda y video a la derecha; en celular, el título primero (carga al
+          instante y le da contexto al video) y el video justo debajo. El credo pasa
+          a su propia sección. Ninguna palabra cambió: solo el orden. */}
       <section
+        className="px-6 pt-14 pb-16 lg:pt-28 lg:pb-24"
         style={{
           background:
             'radial-gradient(ellipse 70% 55% at 30% 0%, rgba(148,163,184,0.09) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 75% 10%, rgba(197,160,89,0.07) 0%, transparent 65%), var(--color-bg-primary)',
-          padding: '72px 1.5rem 5rem',
         }}
       >
-        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+        <div
+          className="grid grid-cols-1 gap-y-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-8"
+          style={{ maxWidth: 1120, margin: '0 auto' }}
+        >
           <h1
+            className="lg:col-start-1 lg:row-start-1 lg:self-end"
             style={{
               fontFamily: 'var(--font-sans)',
               fontWeight: 700,
-              fontSize: 'clamp(2.1rem, 6vw, 3.4rem)',
+              fontSize: 'clamp(2.1rem, 4.2vw, 3rem)',
               lineHeight: 1.12,
               color: 'var(--color-text-primary)',
-              margin: '0 0 1.5rem',
+              margin: 0,
             }}
           >
             Sea dueño de un sistema de distribución que no depende de que usted esté
             encima.
           </h1>
 
+          <div className="flex justify-center lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:items-center">
+            <VideoComoFuncionaHome />
+          </div>
+
+          <div className="lg:col-start-1 lg:row-start-2 lg:self-start">
+            <p
+              style={{
+                fontSize: 'clamp(1.1rem, 1.8vw, 1.3rem)',
+                lineHeight: 1.6,
+                color: 'var(--color-text-body)',
+                margin: '0 0 2rem',
+                maxWidth: 560,
+              }}
+            >
+              Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde
+              el celular.
+            </p>
+
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <QueswaCTAButton className="cta-base cta-primary">
+                Pregúntele a Queswa cómo funciona
+              </QueswaCTAButton>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                flexWrap: 'wrap',
+                marginTop: '1.25rem',
+              }}
+            >
+              <QueswaOnline />
+              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
+                Nuestra inteligencia artificial. Responde al instante, sin compromiso.{' '}
+                Colombia · Estados Unidos · Latinoamérica.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ EN QUÉ CREEMOS — el credo con su propio escenario (1 oct 2026) ═══ */}
+      {/* Salió del hero, donde competía con el título. Aquí respira, con el rótulo
+          encima y en la letra con serifa del credo de /presentacion. */}
+      <section className="px-6 py-20 lg:py-32" style={{ background: 'var(--color-bg-primary)' }}>
+        <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <Eyebrow>En qué creemos</Eyebrow>
 
           {/* La postura, en la forma de Vélez (13 sep 2026): la creencia, y lo que
@@ -459,12 +520,15 @@ export default function HomePage() {
               Excel queda como estatus en una línea, nunca como alegato. */}
           <p
             style={{
-              fontSize: 'clamp(1.2rem, 2.9vw, 1.55rem)',
-              lineHeight: 1.5,
-              fontWeight: 600,
+              // Playfair por su variable propia, NO por var(--font-serif): ese token
+              // se declara en :root y --font-playfair lo pone next/font en el <body>,
+              // así que llega vacío (mismo aviso que en /presentacion).
+              fontFamily: 'var(--font-playfair), Georgia, serif',
+              fontSize: 'clamp(1.5rem, 3.4vw, 2.2rem)',
+              lineHeight: 1.35,
+              fontWeight: 400,
               color: GOLD,
-              margin: '0 0 1.35rem',
-              maxWidth: 700,
+              margin: '0 0 2rem',
             }}
           >
             Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar
@@ -477,37 +541,10 @@ export default function HomePage() {
             distribución de productos premium de bienestar.
           </p>
 
-          <p style={heroBodyStyle}>
-            Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde
-            el celular.
-          </p>
-
-          <p style={{ ...heroBodyStyle, margin: '0 0 2.5rem' }}>
+          <p style={{ ...heroBodyStyle, margin: 0 }}>
             Detrás está Gano Excel, que fabrica y despacha cada pedido: 30 años, más de 60
             países.
           </p>
-
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            <QueswaCTAButton className="cta-base cta-primary">
-              Pregúntele a Queswa cómo funciona
-            </QueswaCTAButton>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              flexWrap: 'wrap',
-              marginTop: '1.25rem',
-            }}
-          >
-            <QueswaOnline />
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
-              Nuestra inteligencia artificial. Responde al instante, sin compromiso.{' '}
-              Colombia · Estados Unidos · Latinoamérica.
-            </p>
-          </div>
         </div>
       </section>
 

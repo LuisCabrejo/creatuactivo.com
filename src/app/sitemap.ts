@@ -37,7 +37,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ========================================
     {
       url: baseUrl,
-      lastModified,
+      // El hero cambió el 1 oct 2026 (video «Cómo funciona»). Cada página lleva la
+      // fecha de su último cambio de contenido: así Google sabe cuál volver a leer.
+      lastModified: new Date('2026-10-01'),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
@@ -96,7 +98,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ========================================
     {
       url: `${baseUrl}/paquetes`,
-      lastModified,
+      lastModified: new Date('2026-10-01'),  // precios 2026 en la descripción
       changeFrequency: 'weekly',
       priority: 0.85,
     },

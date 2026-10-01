@@ -17,20 +17,20 @@ import QueswaCTAButton from '@/components/QueswaCTAButton';
 // salía duplicada. canonical y openGraph propios (1 oct 2026): sin ellos, compartir
 // el artículo mostraba la tarjeta de la Home.
 export const metadata = {
-  title: '¿Es el Network Marketing un modelo obsoleto? Por qué evolucionamos a la Arquitectura de Activos',
-  description: 'El modelo de distribución de los años 90 está obsoleto. Por qué evolucionamos hacia Arquitectura de Activos con tecnología y sistemas autosustentables.',
+  title: '¿Es el network marketing un modelo obsoleto?',
+  description: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy una empresa de distribución moderna, con atención a toda hora.',
   alternates: { canonical: 'https://creatuactivo.com/blog/network-marketing-obsoleto' },
   openGraph: {
     type: 'article',
     url: 'https://creatuactivo.com/blog/network-marketing-obsoleto',
-    title: '¿Es el Network Marketing un modelo obsoleto? Por qué evolucionamos a la Arquitectura de Activos',
-    description: 'El modelo de distribución de los años 90 está obsoleto. Por qué evolucionamos hacia Arquitectura de Activos con tecnología y sistemas autosustentables.',
+    title: '¿Es el network marketing un modelo obsoleto?',
+    description: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy una empresa de distribución moderna, con atención a toda hora.',
     siteName: 'CreaTuActivo',
     locale: 'es_CO',
     // Declarar openGraph aquí corta la imagen heredada de la Home: va explícita.
     images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630 }],
   },
-  keywords: 'network marketing obsoleto, arquitectura de activos, distribución moderna, multinivel 2026, sistema de activos, flujo de caja autosustentable, IA para negocios',
+  keywords: 'network marketing obsoleto, network marketing hoy, empresa de distribución moderna, sistema de distribución, multinivel 2026',
 };
 
 export default function NetworkMarketingObsoletoPage() {

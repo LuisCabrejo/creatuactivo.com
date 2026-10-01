@@ -17,20 +17,20 @@ import QueswaCTAButton from '@/components/QueswaCTAButton';
 // salía duplicada. canonical y openGraph propios (1 oct 2026): sin ellos, compartir
 // el artículo mostraba la tarjeta de la Home.
 export const metadata = {
-  title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700)',
-  description: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Ley 1700 en Colombia, criterios de la FTC y señales de alerta explicados.',
+  title: '¿Es legal el network marketing? Lo que dice la Ley 1700',
+  description: 'La diferencia entre una empresa de redes de mercadeo y una pirámide: lo que exige la Ley 1700 en Colombia, lo que vigila la FTC y las preguntas que conviene hacer.',
   alternates: { canonical: 'https://creatuactivo.com/blog/legalidad-network-marketing' },
   openGraph: {
     type: 'article',
     url: 'https://creatuactivo.com/blog/legalidad-network-marketing',
-    title: 'La verdad sobre la legalidad de los negocios digitales en América (Ley 1700)',
-    description: 'Cómo distinguir un negocio legítimo de un esquema piramidal. Ley 1700 en Colombia, criterios de la FTC y señales de alerta explicados.',
+    title: '¿Es legal el network marketing? Lo que dice la Ley 1700',
+    description: 'La diferencia entre una empresa de redes de mercadeo y una pirámide: lo que exige la Ley 1700 en Colombia, lo que vigila la FTC y las preguntas que conviene hacer.',
     siteName: 'CreaTuActivo',
     locale: 'es_CO',
     // Declarar openGraph aquí corta la imagen heredada de la Home: va explícita.
     images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630 }],
   },
-  keywords: 'ley 1700 colombia, network marketing legal, negocios digitales legales, MLM legal, pirámide vs multinivel, FTC, multinivel legítimo',
+  keywords: 'es legal el network marketing, ley 1700 colombia, redes de mercadeo legales, pirámide vs multinivel, FTC',
 };
 
 export default function LegalidadNetworkMarketingPage() {

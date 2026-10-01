@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     default: 'CreaTuActivo | Sea dueño de su propio sistema de distribución',
     template: '%s | CreaTuActivo'
   },
-  description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
+  description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
@@ -147,14 +147,14 @@ export const metadata: Metadata = {
     alternateLocale: ['pt_BR'],
     url: baseUrl,
     title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
-    description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
+    description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
-    description: 'Un negocio de distribución de café y suplementos premium, que usted maneja desde el celular. La IA explica y atiende por usted; se liquida cada viernes.',
+    description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
     creator: '@creatuactivo',
   },
 
@@ -215,7 +215,7 @@ export default function RootLayout({
           "price": "0",
           "priceCurrency": "USD"
         },
-        "description": "Plataforma propietaria con motor de inteligencia artificial: el Centro de Mando desde donde cada Propietario dirige y multiplica su negocio en el ecosistema CreaTuActivo. Explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas (queswa.app).",
+        "description": "Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas. En queswa.app usted ve quién llegó, qué preguntó y quién está listo.",
         "author": {
           "@id": `${baseUrl}/#organization`
         }

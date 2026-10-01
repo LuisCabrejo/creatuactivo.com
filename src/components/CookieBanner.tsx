@@ -56,7 +56,7 @@ export default function CookieBanner() {
               >
                 Política de Privacidad
               </Link>
-              {' — '}Usamos cookies para mejorar tu experiencia.
+              {' — '}Usamos cookies para mejorar su experiencia.
             </p>
           </div>
 

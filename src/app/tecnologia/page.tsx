@@ -17,14 +17,14 @@ import { IndustrialHeader } from '@/components/IndustrialHeader';
 import QueswaCTAButton from '@/components/QueswaCTAButton';
 
 export const metadata = {
-  title: '¿Qué es Queswa.app? El Centro de Mando con IA de CreaTuActivo · Luis Cabrejo',
-  description: 'Queswa es el Centro de Mando con inteligencia artificial de CreaTuActivo. Una plataforma de IA que asume el 90% del trabajo pesado de su negocio — usted solo decide.',
-  keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, centro de mando creatuactivo, queswa ia, inteligencia artificial creatuactivo',
+  title: '¿Qué es Queswa? La inteligencia artificial de CreaTuActivo',
+  description: 'Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas. En queswa.app usted ve quién llegó, qué preguntó y quién está listo.',
+  keywords: 'qué es queswa, queswa app, queswa.app, qué es queswa.app, aplicación queswa, queswa creatuactivo, luis cabrejo queswa, queswa ia, inteligencia artificial creatuactivo',
   authors: [{ name: 'Luis Cabrejo', url: 'https://luiscabrejo.com' }],
   alternates: { canonical: 'https://creatuactivo.com/tecnologia' },
   openGraph: {
-    title: '¿Qué es Queswa.app? · CreaTuActivo',
-    description: 'El Centro de Mando con inteligencia artificial de CreaTuActivo.com, creado por Luis Cabrejo.',
+    title: '¿Qué es Queswa? La inteligencia artificial de CreaTuActivo',
+    description: 'Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas. En queswa.app usted ve quién llegó, qué preguntó y quién está listo.',
     url: 'https://creatuactivo.com/tecnologia',
     type: 'article',
     // No tenía imagen en la tarjeta (auditoría SEO, 1 oct 2026): va la general del sitio.
@@ -38,8 +38,8 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Article',
-      headline: '¿Qué es Queswa.app? El Centro de Mando con IA de CreaTuActivo',
-      description: 'Queswa.app es el Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com, creado por Luis Cabrejo.',
+      headline: '¿Qué es Queswa? La inteligencia artificial de CreaTuActivo',
+      description: 'Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas. En queswa.app usted ve quién llegó, qué preguntó y quién está listo.',
       url: 'https://creatuactivo.com/tecnologia',
       author: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       publisher: { '@id': 'https://creatuactivo.com/#organization' },
@@ -50,11 +50,11 @@ const jsonLd = {
       '@type': 'SoftwareApplication',
       '@id': 'https://queswa.app/#app',
       name: 'Queswa.app',
-      alternateName: ['Queswa', 'Centro de Mando CreaTuActivo'],
+      alternateName: ['Queswa'],
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       url: 'https://queswa.app',
-      description: 'El Centro de Mando con inteligencia artificial de la infraestructura CreaTuActivo.com. No es una red social ni un chat público. Es un entorno de IA cerrado para socios que manejan y multiplican su negocio con el Método Comprobado, donde cada cliente que llega por el enlace de un socio queda a su nombre.',
+      description: 'Queswa explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas. En queswa.app usted ve quién llegó, qué preguntó y quién está listo.',
       creator: { '@id': 'https://creatuactivo.com/#luis-cabrejo' },
       provider: { '@id': 'https://creatuactivo.com/#organization' },
     },

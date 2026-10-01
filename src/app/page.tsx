@@ -208,7 +208,7 @@ export const metadata = {
   // entero, porque ahí se lee completa y es la que ve quien abre el enlace de un socio.
   title: 'CreaTuActivo | Sea dueño de su propio sistema de distribución',
   description:
-    'Su propio sistema de distribución de productos premium de bienestar, que usted maneja desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe. Gano Excel fabrica y despacha cada pedido, y de cada compra a usted le queda un porcentaje.',
+    'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
   // Canonical explícito: cada socio comparte /?ref=xyz — sin canonical, Google
   // trata cada variante como URL distinta con contenido duplicado.
   alternates: { canonical: 'https://creatuactivo.com' },

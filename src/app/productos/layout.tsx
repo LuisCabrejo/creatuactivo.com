@@ -14,18 +14,18 @@ import type { Metadata } from 'next'
 const siteUrl = 'https://creatuactivo.com'
 
 export const metadata: Metadata = {
-  title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo 2026 | Gano Excel',
-  description: 'Descubre para qué sirve el Gano Café: beneficios del Ganoderma Lucidum, precios oficiales, cómo tomarlo. Catálogo completo Gano Excel con envío a toda Latinoamérica. Café, suplementos, cosméticos con IA conversacional.',
+  title: 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma',
+  description: 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Queswa le ayuda a elegir y el pedido se hace por WhatsApp.',
 
   // Metadatos básicos optimizados para búsquedas de producto
-  keywords: ['gano cafe', 'gano cafe 3 en 1', 'para qué sirve el gano café', 'beneficios del gano café', 'gano cafe precio', 'ganoderma cafe', 'gano cafe beneficios y contraindicaciones', 'gano cafe como tomarlo', 'ganoderma lucidum cafe', 'cafe con ganoderma', 'productos gano excel', 'catálogo gano excel colombia'],
+  keywords: ['gano cafe', 'gano cafe 3 en 1', 'para qué sirve el gano café', 'gano cafe precio', 'ganoderma cafe', 'gano cafe como tomarlo', 'ganoderma lucidum cafe', 'cafe con ganoderma', 'productos gano excel', 'catálogo gano excel colombia'],
   authors: [{ name: 'CreaTuActivo' }],
 
   // Open Graph (Facebook, WhatsApp, LinkedIn)
   alternates: { canonical: `${siteUrl}/productos` },
   openGraph: {
-    title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo 2026',
-    description: '¿Para qué sirve el Gano Café? Descubre beneficios del Ganoderma Lucidum, precios oficiales, cómo tomarlo. Catálogo completo con envío a Latinoamérica. IA conversacional para asesorarte.',
+    title: 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma',
+    description: 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Queswa le ayuda a elegir y el pedido se hace por WhatsApp.',
     url: `${siteUrl}/productos`,
     siteName: 'CreaTuActivo',
     // Imagen OG: la genera el archivo colocado src/app/productos/opengraph-image.tsx
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
   // Twitter Card — usa la misma opengraph-image.tsx colocada
   twitter: {
     card: 'summary_large_image',
-    title: 'Gano Café 3 en 1: Beneficios, Precio y Catálogo Completo',
-    description: '¿Para qué sirve el Gano Café? Beneficios del Ganoderma, precios, cómo tomarlo. Catálogo + IA conversacional.',
+    title: 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma',
+    description: 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Queswa le ayuda a elegir y el pedido se hace por WhatsApp.',
     creator: '@creatuactivo',
   },
 

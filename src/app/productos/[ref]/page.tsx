@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
   return {
     // La versión oficial es /productos: cada socio tiene su copia del catálogo, y
     // sin canonical competían entre sí como contenido duplicado (1 oct 2026).
-    title: 'Catálogo de Productos | CreaTuActivo',
+    title: 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma',
     alternates: { canonical: 'https://creatuactivo.com/productos' },
-    description: `Descubre los productos del ecosistema CreaTuActivo. Compartido por ${params.ref}.`,
+    description: 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Queswa le ayuda a elegir y el pedido se hace por WhatsApp.',
   }
 }

@@ -29,7 +29,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://creatuactivo.com';
 
   // Fecha de última modificación (actualizar cuando hagas cambios importantes)
-  const lastModified = new Date('2026-08-14');
+  // 1 oct 2026: títulos y descripciones nuevos en todas las páginas del sitemap.
+  const lastModified = new Date('2026-10-01');
 
   return [
     // ========================================

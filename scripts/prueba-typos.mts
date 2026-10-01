@@ -24,7 +24,7 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO } from '../src/lib/queswa-conductor.ts';
+import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
 // lexer de Node se detiene en la «ñ» de `notificarDueño`, así que todo export
@@ -32,7 +32,7 @@ import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
-import { esAceptacion, detectarPidePersona, detectarPreguntaCharla } from '../src/lib/wa-pedido.ts';
+import { esAceptacion, detectarPidePersona, detectarPreguntaCharla, detectarIntencionCompra } from '../src/lib/wa-pedido.ts';
 import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
 import { esSoloSaludo, vieneDelVideoComoFunciona, vieneDelVideoDoceNiveles, videoDeReelVisto, niegaHaberVistoVideo } from '../src/lib/wa-apertura.ts';
 
@@ -94,6 +94,12 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'clasificador · gerente del hogar', fn: (t) => RE_HOGAR.test(t), frase: 'soy gerente del hogar', llaves: ['hogar', 'gerente'], tope: 0 },
   { nombre: 'objeción de presupuesto', fn: (t) => RE_OBJECION_PRESUPUESTO.test(t), frase: 'eso afecta mi presupuesto', llaves: ['presupuesto', 'afecta'], tope: 0,
     nota: 'la objeción baja el candado a material (Yesid, 29 sep 2026); si no dispara, se dicta «Claro que sí… ¿Le ayudo a abrir su código?»' },
+  { nombre: 'detectarIntencionCompra · montar', fn: detectarIntencionCompra, frase: 'quiero montar un pedido', llaves: ['montar', 'pedido'], tope: 8,
+    nota: 'Ru, 28 sep 2026: si no dispara, quien vino a comprar recibe el video del negocio y nadie avisa al socio' },
+  { nombre: 'ya se inscribió antes → NET_02', fn: (t) => RE_YA_SE_INSCRIBIO.test(t), frase: 'me inscribí en una ocasión pero no desarrollé el negocio', llaves: ['inscribí', 'ocasión'], tope: 6,
+    nota: 'Eduardo, 29 sep 2026: si no dispara, se le dicta «usted ya logró que su negocio funcione»' },
+  { nombre: 'cuánto cubre la compra (2.50)', fn: preguntaCuantoCubreLaCompra, frase: 'cuánto tengo que vender para pagar mi caja', llaves: ['vender', 'pagar', 'caja'], tope: 8,
+    nota: 'Yesid, 29 sep 2026: si no dispara, el modelo inventa los sobres y la regla del ingreso' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

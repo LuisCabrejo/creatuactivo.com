@@ -29,7 +29,10 @@
 // primero, los detalles después en el chat). La del 17% tuvo un desplegable de
 // clientes × cajas (16 combinaciones) del 25 ago al 1 sep; el decodificador
 // del webhook conserva ese formato por si una tarjeta vieja se completa.
-const COP_POR_CLIENTE_PUNTO_Y_CAJA = 630;
+export const CV_POR_CAJA = 14;
+/** COP que paga un CV por cada punto de tarifa: la tasa fija de $4.500 × 1%. */
+export const COP_POR_CV_Y_PUNTO = 45;
+const COP_POR_CLIENTE_PUNTO_Y_CAJA = CV_POR_CAJA * COP_POR_CV_Y_PUNTO; // 630
 const CAJAS_ESTANDAR = 4;
 
 /** GEN5: COP por UN paquete comprado en cada una de las cinco generaciones. */
@@ -271,4 +274,39 @@ export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): 
 Esa comisión le entra a medida que se compran los paquetes.
 
 ${cierre}`;
+}
+
+/**
+ * Cuánto producto tiene que moverse para que la comisión cubra la compra del
+ * distribuidor: una caja, o las cuatro del mes.
+ *
+ * Yesid Triana (29 sep 2026) preguntó cuánto necesita ganar una persona para
+ * consumir una caja a la semana o cuatro al mes, y el modelo inventó «30 sobres»
+ * (son 20) y una regla del 10% del ingreso. Director (30 sep): la pregunta, tal
+ * como viene, se responde sola —lo que vale la caja—; la de fondo es cuánto hay
+ * que mover para que el negocio la pague. Se responden las dos, con las mismas
+ * tablas del simulador: al 10%, la tarifa por defecto, y al 17%, el tope del
+ * plan. Texto aprobado por el Director el 30 sep 2026.
+ *
+ * ⚠️ Junta un precio con lo que hace falta para cubrirlo: es una excepción
+ * DECIDIDA a la regla de no poner precio y comisión en el mismo bloque (ver
+ * CLAUDE.md, «preguntaSoloPorPrecio»). No se «corrige». Las cifras se redondean
+ * hacia arriba: «unas 18 cajas» tiene que alcanzar, no quedarse corto.
+ */
+export function textoCubrirCompra(precioCaja: number, nombreCaja = 'Ganocafé 3 en 1'): string {
+  const cuatro = precioCaja * 4;
+  const cv = (monto: number, tarifa: number) => Math.ceil(monto / (tarifa * COP_POR_CV_Y_PUNTO));
+  const cajas = (monto: number, tarifa: number) => Math.ceil(monto / (tarifa * COP_POR_CV_Y_PUNTO * CV_POR_CAJA));
+  const n = (x: number) => x.toLocaleString('es-CO');
+  return [
+    `Una caja de ${nombreCaja} vale *${cop(precioCaja)}*, y las cuatro del mes, *${cop(cuatro)}*.`,
+    '',
+    `Para que la comisión le cubra esa compra, lo que cuenta es cuánto producto se mueve en su sistema, y eso se mide en puntos, no en pesos: cada caja aporta *${CV_POR_CAJA} CV*, y el Binario paga sobre el GCV que se empareja entre su canal izquierdo y su canal derecho.`,
+    '',
+    `• *Al 10%*, la tarifa por defecto, una caja se cubre con unos *${n(cv(precioCaja, 10))} CV* emparejados: unas ${n(cajas(precioCaja, 10))} cajas al mes en cada canal. Las cuatro, con unos *${n(cv(cuatro, 10))} CV*: unas ${n(cajas(cuatro, 10))} cajas en cada canal.`,
+    '',
+    `• *Al 17%*, el tope del plan, bastan unos *${n(cv(precioCaja, 17))} CV* para una caja (unas ${n(cajas(precioCaja, 17))} en cada canal) y unos *${n(cv(cuatro, 17))} CV* para las cuatro (unas ${n(cajas(cuatro, 17))} en cada canal).`,
+    '',
+    '¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?',
+  ].join('\n');
 }

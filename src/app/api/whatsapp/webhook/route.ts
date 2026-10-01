@@ -129,7 +129,7 @@ import {
 } from '@/lib/wa-guardarrail-negocio';
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
-  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza,
+  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
   slugDelSocio, textoDeCandado, paisDeTelefono,
 } from '@/lib/queswa-conductor';
 
@@ -1753,6 +1753,25 @@ async function procesarEntrante(body: any): Promise<void> {
           return;
         }
         console.warn(`⚠️ [WA Webhook] ${nodoPieza.nodo}: no se pudo enviar (${enviado.error}) — sigue al motor`);
+      }
+    }
+
+    // ─── 2.50 Cuánto hay que mover para cubrir la compra ──────────────────────
+    // «¿Cuánto necesita ganar una persona para consumir una caja a la semana?»
+    // (Yesid, 29 sep 2026). El precio y el volumen que la cubre, al 10% y al
+    // 17%, con las tablas del simulador. Va antes del pedido (2.45): «cuánto
+    // tengo que vender para comprar una caja» no es alguien comprando.
+    {
+      const nodoCubrir = atenderCubrirCompra(messageText, paisDeTelefono(phoneNumber), !!socioQueEscribe);
+      if (nodoCubrir?.texto) {
+        await pisoDeEscritura();
+        const enviado = await sendText(phoneNumber, nodoCubrir.texto);
+        if (enviado.ok) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoCubrir.texto, nodoCubrir.nodo);
+          console.log(`🧮 [WA Webhook] ${nodoCubrir.nodo} — turno cerrado sin motor`);
+          return;
+        }
+        console.warn(`⚠️ [WA Webhook] ${nodoCubrir.nodo}: no se pudo enviar (${enviado.error}) — sigue al motor`);
       }
     }
 

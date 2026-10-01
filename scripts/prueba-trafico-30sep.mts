@@ -14,13 +14,16 @@
  *   dictó FREQ_30 sin tabla; «me inscribí en una ocasión» dictó ADV_OBJ_02
  *   («usted ya logró que su negocio funcione»); y su «No, solo revisando» le
  *   subió la ficha a 100/100.
+ * - Yesid Triana (29 sep): «¿cuánto necesita ganar una persona para consumir
+ *   una caja a la semana?» → nodo 2.50, texto aprobado por el Director (30 sep).
  * - Yellitza Rosario (30 sep, +1 786): el volcado de auditoría la dejaba fuera.
  */
 import { readFileSync } from 'node:fs';
 import { config } from 'dotenv'; config({ path: '.env.local', quiet: true });
 import { detectarIntencionCompra, esAceptacion } from '../src/lib/wa-pedido.ts';
 import { gestoAfirmativoComoSi, corregirSiTecleado } from '../src/lib/texto-normalizar.ts';
-import { RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO } from '../src/lib/queswa-conductor.ts';
+import { RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO, atenderCubrirCompra, preguntaCuantoCubreLaCompra } from '../src/lib/queswa-conductor.ts';
+import { detectarPromesaDeIngreso, detectarModeloInventado } from '../src/lib/wa-guardarrail-negocio.ts';
 
 let fallos = 0;
 const revisar = (titulo: string, ok: boolean, detalle = '') => {
@@ -134,6 +137,41 @@ if (pat) {
     ['wa_conv_1', false], ['wa_57', false],
   ] as const) revisar(fp, re.test(fp) === espera);
 }
+
+// ── 8. Cuánto hay que mover para cubrir la compra (Yesid) ────────────────────
+console.log('\n🧮 Nodo 2.50 — cuánto hay que mover para cubrir la compra');
+const APROBADO = `Una caja de Ganocafé 3 en 1 vale *$110.900 COP*, y las cuatro del mes, *$443.600 COP*.
+
+Para que la comisión le cubra esa compra, lo que cuenta es cuánto producto se mueve en su sistema, y eso se mide en puntos, no en pesos: cada caja aporta *14 CV*, y el Binario paga sobre el GCV que se empareja entre su canal izquierdo y su canal derecho.
+
+• *Al 10%*, la tarifa por defecto, una caja se cubre con unos *247 CV* emparejados: unas 18 cajas al mes en cada canal. Las cuatro, con unos *986 CV*: unas 71 cajas en cada canal.
+
+• *Al 17%*, el tope del plan, bastan unos *145 CV* para una caja (unas 11 en cada canal) y unos *580 CV* para las cuatro (unas 42 en cada canal).
+
+¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?`;
+const YESID = 'Pregunta, Una persona del común, Cuánto necesita de ingresos para consumir semanal una caja de ganocafé 3x1 y o 4 cajas mensuales?';
+const r = atenderCubrirCompra(YESID, 'CO');
+revisar('el turno de Yesid recibe el texto aprobado, carácter por carácter', r?.texto === APROBADO);
+revisar('fuera de Colombia no se dicta (no hay precio en otra moneda)', atenderCubrirCompra(YESID, 'US') === null && atenderCubrirCompra(YESID, 'XX') === null);
+revisar('a un socio no se le dicta (lo atiende el modo socio)', atenderCubrirCompra(YESID, 'CO', true) === null);
+revisar('el guardarraíl de negocio no lo bloquea', !detectarPromesaDeIngreso(APROBADO) && !detectarModeloInventado(APROBADO));
+for (const [t, espera] of [
+  [YESID, true],
+  ['cuánto tengo que vender para pagar mi caja', true],
+  ['cuanto hay que mover para cubrir las cuatro cajas del mes', true],
+  ['con cuánto se paga la compra mensual', true],
+  ['cuánto debo generar para que el negocio me pague las cajas', true],
+  ['cuanto nesecito ganar pa comprar la caja', true],
+  ['cuánto necesita ganar una persona para comprarse 4 cajas al mes', true],
+  ['cuánto cuesta una caja', false],
+  ['cuánto vale la caja de ganocafé', false],
+  ['cuánto se gana por caja', false],
+  ['cuántas cajas tengo que comprar al mes para estar activo', false],
+  ['cuánto necesito para empezar', false],
+  ['cuánto tengo que ganar al mes para vivir tranquilo', false],
+  ['¿una caja no afecta el presupuesto?', false],
+  ['cuánto necesito vender para ganar un millón', false],
+] as const) revisar(`«${t.slice(0, 70)}»`, preguntaCuantoCubreLaCompra(t) === espera);
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

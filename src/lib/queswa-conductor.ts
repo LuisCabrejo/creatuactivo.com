@@ -51,8 +51,9 @@ import { pideEnlaceCatalogo, mensajeEnlaceCatalogo } from '@/lib/wa-onboarding';
 import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
   esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
-  esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto,
+  esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto, PRODUCTOS_WA,
 } from '@/lib/wa-productos';
+import { textoCubrirCompra } from '@/lib/wa-simulador';
 import { yaLoRecibio, residenciaDeclarada, lugarExterior } from '@/lib/queswa-bitacora';
 import { VIDEO_DOCE_NIVELES_WA } from '@/lib/reels';
 
@@ -648,6 +649,38 @@ export const RE_OBJECION_PRESUPUESTO =
 // Lo usa la puerta de FREQ_03 en route.ts, que se evalúa sobre la oferta anclada.
 export const RE_OFERTA_VER_PAQUETES =
   /(muestro|presento|ense[ñn]o|comparto|paso|detallo)\s+(los|las)\s+(tres\s+|3\s+)?(paquetes|formas\s+de\s+(empezar|iniciar|arrancar|entrar)|opciones\s+(de|para)\s+(empezar|iniciar|arrancar))/i;
+
+// ── 2.50 Cuánto hay que mover para que la comisión cubra la compra (30 sep 2026) ─
+// Yesid Triana: «¿Cuánto necesita de ingresos una persona para consumir semanal
+// una caja de Ganocafé 3x1, o 4 cajas mensuales?». El modelo inventó «30 sobres»
+// y una regla del 10% del ingreso. Director: la pregunta literal se responde sola
+// —lo que vale la caja—; la de fondo es cuánto hay que mover para que el negocio
+// la pague. El nodo responde las dos con las tablas del simulador
+// (`textoCubrirCompra`, texto aprobado). Tres condiciones a la vez, para no
+// tragarse «¿cuánto cuesta la caja?» (precio), «¿cuántas cajas compro al mes?»
+// (COMP_PV_09) ni «¿cuánto se gana por caja?» (compensación):
+//   1. cuánto + necesitar/tener que/deber + ganar/vender/mover/ingresos
+//   2. una caja, las cajas, la compra o el consumo del mes
+//   3. para consumir / comprar / pagar / cubrir
+// Solo Colombia: fuera no hay precio de la caja en otra moneda.
+const RE_CUANTO_HAY_QUE_MOVER =
+  /cu[aá]nt[oa]s?\b[^?.]{0,25}?(ne[cs]e?[cs]it|tengo\s+que|tiene\s+que|tendr[ií]a\s+que|hay\s+que|debo|debe|deber[ií]a|toca)[^?.]{0,40}?(ganar|generar|vender|mover|ingres|facturar|producir)|con\s+cu[aá]nto\s+(volumen\s+|producto\s+|puntos\s+)?(se\s+|me\s+)?(paga|cubre)/i;
+const RE_LA_COMPRA = /\bcajas?\b|compra\s+(mensual|del\s+mes)|consumo\s+(mensual|del\s+mes|semanal)|\b50\s*pv\b/i;
+const RE_PARA_PAGARLA =
+  /\bpa(ra)?\s+(consumir|comprar|pagar|cubrir|costear|tomar|sostener|mantener|que\s+(el\s+negocio|la\s+comisi[oó]n|el\s+sistema)\s+(me\s+|le\s+|se\s+)?(pague|cubra))|\bse\s+(paga|cubre)\b|\bme\s+(pague|cubra)\b/i;
+
+export function preguntaCuantoCubreLaCompra(mensaje: string): boolean {
+  // Sin tildes: «vénder», «págar» y «cája» son el pulgar, no otra pregunta.
+  const t = (mensaje || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return RE_CUANTO_HAY_QUE_MOVER.test(t) && RE_LA_COMPRA.test(t) && RE_PARA_PAGARLA.test(t);
+}
+
+export function atenderCubrirCompra(mensaje: string, pais: PaisConductor, socioQueEscribe = false): RespuestaConductor | null {
+  if (socioQueEscribe || pais !== 'CO' || !preguntaCuantoCubreLaCompra(mensaje)) return null;
+  const caja = PRODUCTOS_WA.find((p) => p.slug === 'ganocafe-3-en-1');
+  if (!caja?.precioCOP) return null;
+  return { nodo: '2.50 cuánto hay que mover para cubrir la compra', texto: textoCubrirCompra(caja.precioCOP, caja.nombre) };
+}
 
 // ── «Me inscribí una vez» es quien ya tuvo código, no un empresario (30 sep 2026) ─
 // Eduardo Castellanos: «Yo me inscribí en una ocasión pero no desarrollé el

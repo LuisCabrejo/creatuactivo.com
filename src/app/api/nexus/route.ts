@@ -42,7 +42,7 @@ import {
 import { gestionarCierre, CLAVES_CANAL, CLAVES_WEB } from '@/lib/wa-radicacion';
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
-  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, fotoParaWeb, aFormatoWeb,
+  atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, atenderCubrirCompra, fotoParaWeb, aFormatoWeb,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO,
   type RespuestaConductor,
@@ -4986,6 +4986,10 @@ ${summaryParts.join('\n')}
       // imágenes aprobadas, no una pieza (Director, 9 sep 2026).
       const _nodoPieza = atenderPidePieza(latestUserMessage);
       if (_nodoPieza) return _entregarDictado(_nodoPieza);
+
+      // 2.50 — cuánto hay que mover para que la comisión cubra la compra (30 sep 2026).
+      const _nodoCubrir = atenderCubrirCompra(latestUserMessage, paisDeCodigo(visitorCountry));
+      if (_nodoCubrir) return _entregarDictado(_nodoCubrir);
 
       const _nodoCatalogo = await atenderEnlaceCatalogo(latestUserMessage, _historialWeb, _resolverSlug);
       if (_nodoCatalogo) return _entregarDictado(_nodoCatalogo);

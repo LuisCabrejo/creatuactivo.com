@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
 import StrategicNavigation from '@/components/StrategicNavigation';
-import { Bot, Target, Users, CheckCircle, X, PenLine, Handshake, LayoutDashboard } from 'lucide-react';
+import { Bot, Target, Users, PenLine, Handshake, LayoutDashboard } from 'lucide-react';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 import QueswaCTAButton from '@/components/QueswaCTAButton';
 
@@ -104,7 +104,7 @@ export default function TecnologiaPage() {
               patrón retirado «usted no hace X» (29 jun 2026). Ahora: el negocio primero
               y la promesa canónica de Queswa. */}
           <IndustrialHeader
-            title="TECNOLOGÍA QUE TRABAJA POR USTED"
+            title="LA TECNOLOGÍA DE SU SISTEMA DE DISTRIBUCIÓN"
             subtitle="La inteligencia artificial de su sistema de distribución: explica, atiende y madura en cada interesado la decisión de avanzar, las 24 horas."
             refCode="SISTEMA_QUESWA_V3"
           />
@@ -128,87 +128,34 @@ export default function TecnologiaPage() {
                 <h2 className="text-2xl font-serif mb-4" style={{ color: '#C5A059' }}>
                   La Definición Oficial de Queswa.app
                 </h2>
+                {/* Texto aprobado por el Director el 1 oct 2026. */}
                 <p className="text-[#E5E5E5] leading-relaxed mb-4">
-                  <strong>Queswa.app</strong> es el Centro de Mando con inteligencia artificial de
-                  <strong>CreaTuActivo.com</strong>: el entorno desde donde cada socio maneja y
-                  multiplica su negocio. La inteligencia artificial asume el trabajo pesado
-                  —explica, convierte y hace seguimiento las 24 horas—; usted solo decide.
-                  Y cada cliente que llega por el enlace de un socio queda a su nombre.
+                  <strong>Queswa</strong> es la inteligencia artificial de{' '}
+                  <strong>CreaTuActivo</strong>. Conversa por WhatsApp con cada persona que llega
+                  por el enlace de un socio, le resuelve las dudas y madura en cada interesado la
+                  decisión de avanzar, a cualquier hora. Y cada cliente que se registra por ese
+                  enlace queda a nombre del socio.
                 </p>
                 <p className="text-[#A3A3A3] leading-relaxed">
-                  Fue concebida por <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#C5A059', fontWeight: 600, textDecoration: 'none' }}>Luis Cabrejo</a>,
-                  fundador de CreaTuActivo, con un objetivo claro: que tener un ingreso que no dependa
-                  de su presencia deje de ser cuestión de talento o de suerte. Queswa pone a trabajar
-                  por usted —las 24 horas— al mejor presentador, al mejor cerrador y al mejor mentor,
-                  para que cualquier persona, sin experiencia, logre lo que antes solo conseguían unos
-                  pocos. Su acceso está en <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a>,
-                  de uso exclusivo para socios activos.
+                  La concibió <a href="https://luiscabrejo.com" target="_blank" rel="noopener noreferrer" style={{ color: '#C5A059', fontWeight: 600, textDecoration: 'none' }}>Luis Cabrejo</a>,
+                  fundador de CreaTuActivo, para que tener un ingreso que no dependa de su presencia
+                  deje de ser cuestión de talento o de suerte. Los socios la usan en{' '}
+                  <a href="https://queswa.app" style={{ color: '#C5A059' }}>queswa.app</a>.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Intro glass container */}
-          <div className="px-6">
-            <div
-              className="max-w-4xl mx-auto text-center"
-              style={{
-                background: 'rgba(22, 24, 29, 0.8)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-                padding: 'clamp(1.5rem, 4vw, 3rem)',
-                marginTop: '-2rem',
-                position: 'relative',
-                zIndex: 10,
-                borderRadius: 'var(--radius-container)',
-              }}
-            >
-              <p className="text-xl text-[#A3A3A3] max-w-2xl mx-auto leading-relaxed">
-                La inteligencia artificial que explica, convierte y multiplica su negocio las
-                24 horas — haciendo a escala lo que una sola persona jamás podría sola. Asume el
-                90% del trabajo pesado; usted decide.
-              </p>
-            </div>
-          </div>
-
-          {/* El Problema que Resuelve */}
-          <section className="py-20 px-6 bg-[#16181D]">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]">
-                  El Problema
-                </span>
-                <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-                  ¿Por qué una sola persona tiene un techo?
-                </h2>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div className="p-6  bg-[#0B0C0C] border border-[rgba(197,160,89,0.15)]">
-                  <div className="text-[#6B7280] text-4xl font-bold mb-4">#1</div>
-                  <h3 className="text-xl font-semibold mb-3">Su día tiene 24 horas</h3>
-                  <p className="text-[#A3A3A3]">
-                    Usted atiende bien a uno, a cinco, a diez. Pero su tiempo es finito: no puede
-                    estar en cien conversaciones a la vez, ni responder a toda hora, ni en todos
-                    los países donde su negocio podría crecer.
-                  </p>
-                </div>
-
-                <div className="p-6  bg-[#0B0C0C] border border-[rgba(197,160,89,0.15)]">
-                  <div className="text-[#6B7280] text-4xl font-bold mb-4">#2</div>
-                  <h3 className="text-xl font-semibold mb-3">Y el detalle se escapa</h3>
-                  <p className="text-[#A3A3A3]">
-                    Recordar cada conversación, responder cada duda con la misma claridad y
-                    hacerle seguimiento a cada contacto es más de lo que una sola memoria
-                    sostiene. Las oportunidades se enfrían mientras usted duerme.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-8  bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
+          {/* La sección «El Problema» y el párrafo del 90% salieron el 1 oct 2026
+              (Director): describían con detalle la tarea vieja antes de liberar al lector.
+              La dificultad queda en una sola frase. */}
+          <section className="py-16 px-6 bg-[#16181D]">
+            <div className="max-w-3xl mx-auto">
+              <div className="p-8 bg-gradient-to-r from-[#16181D] to-[#22222e] border border-[#C5A059]/20 text-center">
                 <p className="text-xl">
-                  <span className="text-[#C5A059] font-semibold">Queswa, su Centro de Mando, rompe ese techo.</span>
+                  En ese entonces, atender a cada interesado a cualquier hora era imposible para
+                  una sola persona.{' '}
+                  <span className="text-[#C5A059] font-semibold">Hoy no lo es.</span>
                 </p>
               </div>
             </div>
@@ -222,7 +169,7 @@ export default function TecnologiaPage() {
                   La Solución
                 </span>
                 <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-                  ¿Qué hace Queswa por usted?
+                  ¿Qué hace Queswa?
                 </h2>
               </div>
 
@@ -232,8 +179,8 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Bot className="w-7 h-7 text-[#C5A059]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Explica por usted</h3>
-                  <p className="text-sm text-[#A3A3A3]">Presenta el modelo completo y resuelve cada duda con datos claros, las 24 horas. La misma explicación impecable para cada persona, sin memorizar guiones ni repetir lo mismo mil veces.</p>
+                  <h3 className="text-lg font-semibold mb-2">Explica</h3>
+                  <p className="text-sm text-[#A3A3A3]">Presenta el modelo completo y resuelve cada duda con datos claros, a cualquier hora. La misma explicación para cada persona.</p>
                 </div>
 
                 {/* Convierte */}
@@ -241,8 +188,8 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Target className="w-7 h-7 text-[#C5A059]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Convierte por usted</h3>
-                  <p className="text-sm text-[#A3A3A3]">No solo informa: madura en cada contacto la decisión de avanzar. Y le avisa en el momento — un contacto abrió su presentación, vio el video, está listo. Ve su negocio moverse en tiempo real.</p>
+                  <h3 className="text-lg font-semibold mb-2">Madura la decisión</h3>
+                  <p className="text-sm text-[#A3A3A3]">Conversa con cada interesado hasta que está listo para avanzar, y le avisa a usted en el momento: quién abrió su presentación, quién vio el video, quién está listo.</p>
                 </div>
 
                 {/* Multiplica */}
@@ -250,8 +197,8 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14  bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="w-7 h-7 text-[#C5A059]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Multiplica por usted</h3>
-                  <p className="text-sm text-[#A3A3A3]">Cuando alguien inicia con usted, recibe el mismo negocio, listo para crecer solo. Queswa replica el método a escala, con todo el conocimiento que una persona jamás podría sostener.</p>
+                  <h3 className="text-lg font-semibold mb-2">Se multiplica con usted</h3>
+                  <p className="text-sm text-[#A3A3A3]">Cuando alguien inicia con usted, recibe el mismo sistema, con la misma Queswa atendiendo a los suyos.</p>
                 </div>
               </div>
             </div>
@@ -278,7 +225,7 @@ export default function TecnologiaPage() {
                   },
                   {
                     step: '2',
-                    title: 'Queswa explica y convierte',
+                    title: 'Queswa conversa',
                     description: 'Presenta el modelo, resuelve dudas y madura la decisión de avanzar — 24/7, con cada contacto a la vez.'
                   },
                   {
@@ -288,8 +235,8 @@ export default function TecnologiaPage() {
                   },
                   {
                     step: '4',
-                    title: 'Usted decide',
-                    description: 'Dedica su tiempo a quienes ya decidieron avanzar. Lo demás, ya está hecho.'
+                    title: 'Usted recibe',
+                    description: 'Dedica su tiempo a quienes ya decidieron avanzar.'
                   }
                 ].map((item, i) => (
                   <div key={i} className="flex gap-6 items-start">
@@ -364,74 +311,12 @@ export default function TecnologiaPage() {
                   <div className="w-14 h-14 bg-[#C5A059]/10 flex items-center justify-center mx-auto mb-4">
                     <LayoutDashboard className="w-7 h-7 text-[#C5A059]" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Su Centro de Mando</h3>
+                  <h3 className="text-lg font-semibold mb-2">Su espacio en queswa.app</h3>
                   <p className="text-sm text-[#A3A3A3]">
                     En queswa.app vive su lista con su pipeline en tiempo real, la formación
                     de Maestría — liderazgo, comunicación y producto — y la evidencia
                     científica de cada ingrediente, con lo que sí puede decirle a su cliente.
                   </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Comparación */}
-          <section className="py-20 px-6">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <span className="text-sm font-medium uppercase tracking-widest text-[#C5A059]">
-                  La Diferencia
-                </span>
-                <h2 className="text-3xl sm:text-4xl mt-4 font-serif">
-                  Con Queswa vs Sin Queswa
-                </h2>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* Sin Queswa */}
-                <div className="p-8  bg-[#16181D] border border-[rgba(197,160,89,0.15)] opacity-60">
-                  <h3 className="text-xl font-semibold mb-6 text-[#6B7280]">Una sola persona</h3>
-                  <ul className="space-y-4 text-[#A3A3A3]">
-                    <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Atiende de a uno — su día tiene un límite</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Repite la misma explicación mil veces</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Las oportunidades se enfrían cuando usted no está</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <X className="w-5 h-5 text-[#6B7280] flex-shrink-0 mt-0.5" />
-                      <span>Lo que alcanza depende solo de usted</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Con Queswa */}
-                <div className="p-8  bg-[#16181D] border border-[#C5A059]/30 shadow-lg shadow-[#C5A059]/5">
-                  <h3 className="text-xl font-semibold mb-6 text-[#C5A059]">Con Queswa</h3>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>Atiende a todos a la vez, 24/7</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>La misma explicación impecable, siempre</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>Trabaja a toda hora, en toda América</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span>Usted ve cada paso en tiempo real</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
@@ -444,9 +329,8 @@ export default function TecnologiaPage() {
                 ¿Quiere comprobar esta tecnología?
               </h2>
               <p className="text-lg text-[#A3A3A3] mb-10">
-                Pregúntele a Queswa, con sus propios números, cómo esta tecnología
-                multiplica lo que hoy usted sostiene solo. Explica, atiende y madura en cada
-                interesado la decisión de avanzar, las 24 horas.
+                Pregúntele a Queswa, con sus propios números, cómo funcionaría su sistema de
+                distribución. Le responde a cualquier hora.
               </p>
 
               <QueswaCTAButton

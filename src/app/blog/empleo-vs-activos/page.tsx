@@ -49,7 +49,7 @@ export default function EmpleoVsActivosPage() {
       <main className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
-            title={<>Análisis Financiero:<span style={{ color: '#C5A059' }}> Empleo vs. Cartera de Activos</span></>}
+            title={<>Empleo vs. activos:<span style={{ color: '#C5A059' }}> ingreso lineal e ingreso recurrente</span></>}
             refCode="ARTICLE_SYSTEM_V1"
             imageSrc="/images/blog/thumb-blog-system.jpg"
             imageAlt=""
@@ -84,37 +84,32 @@ export default function EmpleoVsActivosPage() {
                 <span className="text-xs text-[#6B7280]">6 min de lectura</span>
               </div>
 
-              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader) */}
+              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader).
+                  Texto aprobado por el Director el 1 oct 2026. Las dos columnas de
+                  ingreso llevan el mismo marcador: el artículo no desprecia el empleo. */}
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
-                Por qué trabajar más horas no es la respuesta. El concepto de
-                apalancamiento estratégico explicado de forma simple.
+                Un empleo y un activo pagan de forma distinta. Entender la diferencia no es dejar
+                el empleo: es saber qué más se puede construir al lado.
               </p>
 
               {/* Content */}
               <div className="prose prose-invert max-w-none">
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    El problema con el plan tradicional
+                    El ciclo
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    La mayoría de las personas siguen un plan que sus padres les enseñaron:
-                    estudia, consigue un buen empleo, trabaja 40 años, retírate con una pensión.
-                  </p>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Pero hay un problema matemático con este plan: la pensión típica reemplaza
-                    solo el 40% de su último ingreso. Un ingreso que, siendo honestos,
-                    ya no alcanzaba mientras usted lo percibía completo.
-                  </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Y peor aún: si dejas de trabajar antes de tiempo—por enfermedad, por recortes,
-                    por cualquier razón—el ingreso simplemente para.
+                    Usted trabaja el mes entero, pero al día siguiente de que le entra la plata,
+                    ese dinero ya tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de
+                    trabajar, pagar cuentas y repetir, y le pasa exactamente igual al que gana dos
+                    millones y al que gana más de veinte.
                   </p>
                 </section>
 
                 <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
-                    &quot;El empleado gana dinero. El constructor de activos
-                    <span className="text-[#C5A059]"> construye máquinas que generan dinero.</span>&quot;
+                    &quot;Un empleo paga por el tiempo trabajado;
+                    <span className="text-[#C5A059]"> un activo, por lo que usted construyó.</span>&quot;
                   </p>
                 </div>
 
@@ -122,52 +117,41 @@ export default function EmpleoVsActivosPage() {
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
                     Dos tipos de ingreso
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    La diferencia fundamental que no enseñan en la escuela:
-                  </p>
 
                   {/* Comparison Cards */}
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="p-6 rounded-xl bg-[#0B0C0C] border border-[rgba(255,255,255,0.1)] opacity-70">
-                      <h3 className="text-lg font-semibold mb-4 text-[#9E2A3A]">Ingreso Lineal</h3>
-                      <ul className="space-y-3 text-sm text-[#A3A3A3]">
+                    <div className="p-6 rounded-xl bg-[#0B0C0C] border border-[rgba(255,255,255,0.1)]">
+                      <h3 className="text-lg font-semibold mb-4 text-[#E5E5E5]">Ingreso lineal</h3>
+                      <ul className="space-y-3 text-sm">
                         <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>Cambias 1 hora de trabajo por $X</span>
+                          <span className="text-[#94A3B8]">→</span>
+                          <span className="text-[#A3A3A3]">Se cobra por el tiempo trabajado</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>Si no trabajas, no ganas</span>
+                          <span className="text-[#94A3B8]">→</span>
+                          <span className="text-[#A3A3A3]">Es el que paga las cuentas de casi todos</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>Techo limitado por sus horas disponibles</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>No heredable (muere con usted)</span>
+                          <span className="text-[#94A3B8]">→</span>
+                          <span className="text-[#A3A3A3]">Cuando el trabajo se detiene, el ingreso también</span>
                         </li>
                       </ul>
                     </div>
 
-                    <div className="p-6 rounded-xl bg-[#0B0C0C] border border-[#C5A059]/30">
-                      <h3 className="text-lg font-semibold mb-4 text-[#C5A059]">Ingreso Recurrente</h3>
+                    <div className="p-6 rounded-xl bg-[#0B0C0C] border border-[rgba(255,255,255,0.1)]">
+                      <h3 className="text-lg font-semibold mb-4 text-[#C5A059]">Ingreso recurrente</h3>
                       <ul className="space-y-3 text-sm">
                         <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">Trabajo una vez, ganas repetidamente</span>
+                          <span className="text-[#94A3B8]">→</span>
+                          <span className="text-[#A3A3A3]">Se cobra cada vez que algo que usted construyó vuelve a producir</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">El sistema trabaja sin su presencia</span>
+                          <span className="text-[#94A3B8]">→</span>
+                          <span className="text-[#A3A3A3]">Una renta, una regalía, una recompra</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">Sin techo teórico de ingresos</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">Heredable a su familia</span>
+                          <span className="text-[#94A3B8]">→</span>
+                          <span className="text-[#A3A3A3]">No depende de que usted esté presente ese día</span>
                         </li>
                       </ul>
                     </div>
@@ -176,50 +160,46 @@ export default function EmpleoVsActivosPage() {
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Ejemplos de activos que generan ingreso recurrente
+                    Ejemplos de activos
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    Un activo es algo que pone a trabajar y sigue generando valor sin su
-                    intervención constante:
+                    Un activo es algo que usted construye o compra una vez y que sigue produciendo
+                    después. Cada uno exige algo distinto:
                   </p>
                   <ul className="space-y-4 mb-6">
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] mt-1">→</span>
                       <div>
-                        <strong className="text-[#E5E5E5]">Bienes raíces</strong>
+                        <strong className="text-[#E5E5E5]">Una propiedad en renta</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          Compras una propiedad, la rentas, recibe ingresos mensuales.
-                          (Requiere capital inicial alto)
+                          Paga un arriendo cada mes. Exige capital alto.
                         </p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] mt-1">→</span>
                       <div>
-                        <strong className="text-[#E5E5E5]">Dividendos de acciones</strong>
+                        <strong className="text-[#E5E5E5]">Acciones con dividendos</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          Inviertes en empresas, recibe porcentaje de ganancias.
-                          (Requiere ahorro significativo)
+                          Pagan una parte de las ganancias. Exigen un ahorro grande.
                         </p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] mt-1">→</span>
                       <div>
-                        <strong className="text-[#E5E5E5]">Propiedad intelectual</strong>
+                        <strong className="text-[#E5E5E5]">Un libro o una canción</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          Escribes un libro, grabas música, cada venta genera regalías.
-                          (Requiere talento específico)
+                          Pagan regalías por cada venta. Exigen talento y difusión.
                         </p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] mt-1">→</span>
                       <div>
-                        <strong className="text-[#E5E5E5]">Infraestructuras de consumo recurrente</strong>
+                        <strong className="text-[#E5E5E5]">Un sistema de distribución</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          Se construye un canal de demanda sostenida; el consumo habitual genera flujo de caja autosustentable.
-                          (Requiere tiempo y sistema correcto)
+                          Paga un porcentaje cada vez que sus clientes vuelven a comprar. Exige constancia: una red de clientes se construye.
                         </p>
                       </div>
                     </li>
@@ -228,19 +208,10 @@ export default function EmpleoVsActivosPage() {
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    La pregunta correcta
+                    La pregunta útil
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    La pregunta no es &quot;¿cuánto gana?&quot; sino &quot;¿qué pasaría con sus ingresos
-                    si usted deja de trabajar por 6 meses?&quot;
-                  </p>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Si la respuesta es &quot;desaparecerían&quot;, entonces no tiene activos.
-                    Tiene un empleo bien pagado—pero sigue usted en el ciclo de ingresos lineal.
-                  </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La soberanía financiera no se trata de cuánto se gana. Se trata de cuántos
-                    meses puede operar sin su presencia. Y eso solo se logra construyendo activos.
+                    ¿Qué pasaría con sus ingresos si dejara de trabajar seis meses?
                   </p>
                 </section>
 
@@ -248,20 +219,14 @@ export default function EmpleoVsActivosPage() {
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
                     ¿Por dónde empezar?
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Para la mayoría de las personas, las barreras de entrada a los activos
-                    tradicionales son altas:
-                  </p>
-                  <ul className="space-y-2 text-[#A3A3A3] mb-6">
-                    <li>• Bienes raíces: necesitas cientos de miles de dólares</li>
-                    <li>• Dividendos significativos: necesitas un portafolio de seis cifras</li>
-                    <li>• Negocio propio: necesitas capital, empleados, local</li>
-                  </ul>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    Existe un tipo de activo que puede construirse con una inversión de activación
-                    menor a $200 y unas pocas horas semanales: una infraestructura de consumo
-                    recurrente con logística externalizada. No es el único camino, pero elimina
-                    las barreras de capital y operación que frenan a la mayoría.
+                    La barrera de los activos tradicionales es el capital, el ahorro o el talento.
+                    Un sistema de distribución se inicia con producto: el Kit de Inicio o uno de
+                    los paquetes empresariales, que son inventario, no una cuota de afiliación
+                    (los precios están en{' '}
+                    <Link href="/paquetes" className="text-[#C5A059] underline">la página de paquetes</Link>).
+                    Desde ahí, usted comparte un enlace, Queswa atiende a quien llega y Gano Excel
+                    fabrica y despacha cada pedido.
                   </p>
                 </section>
               </div>
@@ -269,12 +234,10 @@ export default function EmpleoVsActivosPage() {
               {/* CTA Box - Industrial Geometry */}
               <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
-                  ¿Desea aprender a construir activos?
+                  ¿Quiere ver cómo se construye uno?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  Queswa le explica paso a paso cómo funciona un sistema diseñado para que
-                  perfiles sin capital inicial puedan empezar a construir un flujo de caja
-                  autosustentable. Las 24 horas.
+                  Pregúntele a Queswa qué se necesita para iniciar. Le responde a cualquier hora.
                 </p>
                 <QueswaCTAButton
                   className="cta-base cta-primary"

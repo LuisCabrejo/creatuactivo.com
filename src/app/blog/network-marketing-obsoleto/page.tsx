@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Blog Article: Network Marketing Obsoleto → Arquitectura de Activos
+ * Blog Article: ¿Es el network marketing un modelo obsoleto? (texto del 1 oct 2026)
  * SEO Shadow Funnel Content
  *
  * THE ARCHITECT'S SUITE - Bimetallic System v3.0
@@ -49,7 +49,7 @@ export default function NetworkMarketingObsoletoPage() {
       <main className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
-            title={<>¿Es el Network Marketing un modelo obsoleto?<span style={{ color: '#C5A059' }}> Por qué evolucionamos a la Arquitectura de Activos</span></>}
+            title="¿Es el network marketing un modelo obsoleto?"
             refCode="ARTICLE_PROBLEM_V1"
             imageSrc="/images/blog/thumb-blog-problem.jpg"
             imageAlt=""
@@ -84,118 +84,55 @@ export default function NetworkMarketingObsoletoPage() {
                 <span className="text-xs text-[#6B7280]">6 min de lectura</span>
               </div>
 
-              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader) */}
+              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader).
+                  Texto aprobado por el Director el 1 oct 2026. */}
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
-                El modelo de los 90s murió. Pero no lo reemplazamos con &quot;algo mejor&quot;—lo
-                transformamos en un sistema de construcción de activos.
+                El modelo de los años 90, sí. La forma de distribuir que había detrás sigue
+                viva, y hoy se maneja desde el celular.
               </p>
 
               {/* Content */}
               <div className="prose prose-invert max-w-none">
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    La verdad incómoda sobre el network marketing
+                    Lo que la gente recuerda
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Seamos honestos: cuando escuchas &quot;network marketing&quot; o &quot;multinivel&quot;,
-                    probablemente piensas en reuniones de hotel, listas de 100 amigos, y
-                    mensajes incómodos en Facebook.
-                  </p>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Y tiene razón. Ese modelo <strong className="text-[#E5E5E5]">está obsoleto</strong>.
-                    Era un sistema diseñado para una era sin internet, sin smartphones, sin
-                    inteligencia artificial.
+                    Cuando alguien oye &quot;network marketing&quot;, casi siempre piensa en
+                    reuniones de hotel y en mensajes incómodos a los amigos. Esa imagen tiene una
+                    razón: el modelo nació en una época sin internet, sin celular y sin
+                    inteligencia artificial, y todo dependía de estar ahí en persona.
                   </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    El problema es que muchos siguen intentando aplicar métodos de 1995
-                    en un mundo de 2026. Es como intentar competir en e-commerce usando
-                    un catálogo impreso.
+                    En ese entonces esto era complicado de desarrollar. Hoy no lo es.
                   </p>
                 </section>
 
                 <div className="p-6 rounded-lg bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
                   <p className="text-lg italic text-[#A3A3A3]">
-                    &quot;No eliminamos el network marketing.
-                    <span className="text-[#C5A059]"> Lo evolucionamos a Arquitectura de Activos.</span>&quot;
+                    &quot;La necesidad de distribuir productos no cambió.
+                    <span className="text-[#C5A059]"> Cambió la forma de hacerlo, como pasó del taxi a Uber.</span>&quot;
                   </p>
                 </div>
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    ¿Qué es la Arquitectura de Activos?
+                    Cómo funciona hoy
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    Es un cambio de mentalidad fundamental:
+                    Hoy una empresa de distribución moderna se maneja desde el celular: usted
+                    comparte un enlace, Queswa conversa con quien llega a cualquier hora, y Gano
+                    Excel fabrica y despacha cada pedido.
                   </p>
-
-                  {/* Comparison */}
-                  <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="p-5 rounded-xl bg-[#0B0C0C] border border-[rgba(255,255,255,0.1)] opacity-70">
-                      <h3 className="text-lg font-semibold mb-3 text-[#9E2A3A]">Network Marketing Tradicional</h3>
-                      <ul className="space-y-2 text-sm text-[#A3A3A3]">
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>Vender productos a conocidos</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>Hacer reuniones presenciales</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>Memorizar guiones de ventas</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#9E2A3A]">✕</span>
-                          <span>Perseguir prospectos</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="p-5 rounded-xl bg-[#0B0C0C] border border-[#C5A059]/30">
-                      <h3 className="text-lg font-semibold mb-3 text-[#C5A059]">Arquitectura de Activos</h3>
-                      <ul className="space-y-2 text-sm">
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">Construir sistemas que generan</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">IA que educa y acompaña 24/7</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">Funnels que trabajan solos</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-[#C5A059]">✓</span>
-                          <span className="text-[#E5E5E5]">Atraer en lugar de perseguir</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <p className="text-[#A3A3A3] leading-relaxed">
-                    La diferencia fundamental: en el modelo tradicional, <em>usted es el motor</em>.
-                    En la Arquitectura de Activos, <em>usted es el arquitecto</em> de un sistema
-                    que funciona sin su presencia constante.
-                  </p>
-                </section>
-
-                <section className="mb-12">
-                  <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Los 3 pilares de la evolución
-                  </h2>
 
                   <div className="space-y-6">
                     <div className="p-5 rounded-xl bg-[#16181D] border border-[rgba(255,255,255,0.1)]">
                       <div className="flex items-start gap-4">
                         <span className="text-2xl font-bold text-[#C5A059]">1</span>
                         <div>
-                          <h4 className="font-semibold text-[#E5E5E5] mb-2">Tecnología como multiplicador</h4>
+                          <h4 className="font-semibold text-[#E5E5E5] mb-2">Usted comparte</h4>
                           <p className="text-[#A3A3A3] text-sm">
-                            IA conversacional (Queswa) que responde preguntas, maneja objeciones
-                            y califica prospectos de forma autónoma, sin requerir su disponibilidad.
+                            Pasa un enlace por WhatsApp a quien quiera, y saluda a quien llega con interés.
                           </p>
                         </div>
                       </div>
@@ -205,11 +142,9 @@ export default function NetworkMarketingObsoletoPage() {
                       <div className="flex items-start gap-4">
                         <span className="text-2xl font-bold text-[#C5A059]">2</span>
                         <div>
-                          <h4 className="font-semibold text-[#E5E5E5] mb-2">Infraestructura probada</h4>
+                          <h4 className="font-semibold text-[#E5E5E5] mb-2">Queswa conversa</h4>
                           <p className="text-[#A3A3A3] text-sm">
-                            No empezamos de cero. Nos apalancamos en empresas con 28+ años,
-                            presencia en 60+ países, y logística global. El riesgo de
-                            &quot;startup&quot; no existe.
+                            La inteligencia artificial de CreaTuActivo explica, resuelve las dudas y madura en cada interesado la decisión de avanzar, las 24 horas.
                           </p>
                         </div>
                       </div>
@@ -219,11 +154,9 @@ export default function NetworkMarketingObsoletoPage() {
                       <div className="flex items-start gap-4">
                         <span className="text-2xl font-bold text-[#C5A059]">3</span>
                         <div>
-                          <h4 className="font-semibold text-[#E5E5E5] mb-2">Consumo recurrente como base</h4>
+                          <h4 className="font-semibold text-[#E5E5E5] mb-2">Gano Excel fabrica y despacha</h4>
                           <p className="text-[#A3A3A3] text-sm">
-                            No vendemos productos de una vez. Construimos canales de consumo
-                            diario (café, suplementos, cuidado personal) que generan ingresos
-                            mes tras mes.
+                            Una empresa con 30 años y presencia en más de 60 países produce, almacena y envía cada pedido.
                           </p>
                         </div>
                       </div>
@@ -233,70 +166,48 @@ export default function NetworkMarketingObsoletoPage() {
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    El problema del 95% resuelto
+                    Por qué la recompra es la base
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    ¿Por qué el 95% fracasa en network marketing tradicional?
-                    Dos razones principales:
-                  </p>
-                  <ul className="space-y-3 mb-6">
-                    <li className="flex items-start gap-3 text-[#A3A3A3]">
-                      <span className="text-[#9E2A3A] font-bold">1.</span>
-                      <span><strong className="text-[#E5E5E5]">&quot;No sé vender&quot;</strong> — Odian la idea de presionar a amigos y familia.</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-[#A3A3A3]">
-                      <span className="text-[#9E2A3A] font-bold">2.</span>
-                      <span><strong className="text-[#E5E5E5]">&quot;No tengo tiempo&quot;</strong> — Entre el trabajo y la familia, no hay horas para presentaciones.</span>
-                    </li>
-                  </ul>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La Arquitectura de Activos elimina ambos problemas. La IA hace el trabajo
-                    de &quot;vender&quot; (educar, acompañar, responder objeciones). Y los sistemas
-                    automatizados trabajan 24/7—no dependen de su tiempo.
+                    El ingreso sale del producto que se mueve. Cada cliente que se registra con
+                    su enlace queda a su nombre en Gano Excel, y cuando nota la diferencia y
+                    vuelve a pedir, de esa compra a usted le queda un porcentaje.
                   </p>
                 </section>
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    ¿Es esto para usted?
+                    ¿Para quién es?
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    La Arquitectura de Activos funciona para personas que:
+                    Para quien quiere un negocio propio que no dependa de que esté encima, y
+                    entiende que se construye. No es dinero rápido.
                   </p>
-                  <ul className="space-y-2 text-[#A3A3A3] mb-6">
+                  <ul className="space-y-2 text-[#A3A3A3]">
                     <li className="flex items-start gap-2">
                       <span className="text-[#C5A059]">→</span>
-                      <span>Buscan flujo de caja autosustentable, no otro empleo</span>
+                      <span>Quiere un negocio propio, con un fabricante detrás.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-[#C5A059]">→</span>
-                      <span>Prefieren sistemas a habilidades de ventas</span>
+                      <span>Prefiere que la tecnología explique y atienda, y dedicar su tiempo a quien ya decidió.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-[#C5A059]">→</span>
-                      <span>Entienden que los activos se construyen, no se compran</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#C5A059]">→</span>
-                      <span>Tienen paciencia para un proceso de 6-18 meses</span>
+                      <span>Entiende que una red de clientes se construye con constancia.</span>
                     </li>
                   </ul>
-                  <p className="text-[#A3A3A3] leading-relaxed">
-                    No es dinero rápido. Es construcción sistemática de algo que siga
-                    generando cuando usted no esté presente.
-                  </p>
                 </section>
               </div>
 
               {/* CTA Box - Industrial Geometry */}
               <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
-                  ¿Desea ver cómo funciona en la práctica?
+                  ¿Quiere ver cómo funciona en la práctica?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  Pregúntele a Queswa cómo pasamos de la distribución a pulso a un sistema
-                  que se maneja desde el celular — y cómo se construye el suyo. Explica,
-                  atiende y madura la decisión, las 24 horas.
+                  Pregúntele a Queswa cómo funciona y cómo se construye el suyo. Le responde a
+                  cualquier hora.
                 </p>
                 <QueswaCTAButton
                   className="cta-base cta-primary"

@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Blog Article: Legalidad Network Marketing
+ * Blog Article: ¿Es legal el network marketing? Lo que dice la Ley 1700 (texto del 1 oct 2026)
  * SEO Shadow Funnel Content
  *
  * THE ARCHITECT'S SUITE - Bimetallic System v3.0
@@ -49,7 +49,7 @@ export default function LegalidadNetworkMarketingPage() {
       <main className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
-            title={<>La verdad sobre la legalidad de los<span style={{ color: '#C5A059' }}> negocios digitales en América</span></>}
+            title={<>¿Es legal el network marketing?<span style={{ color: '#C5A059' }}> Lo que dice la Ley 1700</span></>}
             refCode="ARTICLE_SOVEREIGNTY_V1"
             imageSrc="/images/blog/thumb-blog-sovereignty.jpg"
             imageAlt=""
@@ -84,63 +84,44 @@ export default function LegalidadNetworkMarketingPage() {
                 <span className="text-xs text-[#6B7280]">7 min de lectura</span>
               </div>
 
-              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader) */}
+              {/* Deck (subtítulo introductorio — el H1 vive en el IndustrialHeader).
+                  Texto aprobado por el Director el 1 oct 2026. Lo que se dice de la
+                  Ley 1700 de 2013 se verificó ese día contra el texto de la ley; antes, el
+                  artículo la nombraba en el título y no la mencionaba ni una vez. */}
               <p className="text-xl text-[#A3A3A3] mb-12 leading-relaxed">
-                Cómo distinguir un negocio legítimo de un esquema piramidal.
-                Criterios de la FTC explicados de forma clara.
+                Sí, cuando el dinero sale de la venta de productos. En Colombia lo regula la Ley
+                1700 de 2013, y la diferencia con una pirámide se ve en una sola pregunta.
               </p>
 
               {/* Content */}
               <div className="prose prose-invert max-w-none">
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    La pregunta que todos hacen
+                    La pregunta que lo separa todo
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    &quot;¿Esto es una pirámide?&quot; es probablemente la pregunta más común cuando
-                    alguien escucha &quot;network marketing&quot; o &quot;multinivel&quot;.
-                  </p>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Es una pregunta válida. Existen esquemas fraudulentos que usan la estructura
-                    de redes para estafar personas. Pero también existen empresas legítimas
-                    que operan legalmente en más de 100 países.
-                  </p>
-                  <p className="text-[#A3A3A3] leading-relaxed">
-                    La diferencia es clara si usted sabe qué buscar.
-                  </p>
-                </section>
-
-                <section className="mb-12">
-                  <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    La definición legal
-                  </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Según la FTC (Federal Trade Commission de Estados Unidos), la diferencia
-                    entre un negocio legítimo y un esquema piramidal se reduce a una pregunta:
-                  </p>
                   <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-6">
                     <p className="text-lg text-[#E5E5E5] font-medium">
-                      ¿De dónde viene el dinero que se paga a los participantes?
+                      ¿De dónde sale el dinero que se le paga a cada participante?
                     </p>
                   </div>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] mt-1">→</span>
                       <div>
-                        <strong className="text-[#E5E5E5]">Esquema piramidal:</strong>
+                        <strong className="text-[#E5E5E5]">Pirámide:</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          El dinero viene principalmente de nuevos participantes que pagan
-                          por unirse. No hay producto real o el producto es solo una excusa.
+                          Sale de lo que pagan los que van llegando. El producto no existe o es
+                          una excusa.
                         </p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] mt-1">→</span>
                       <div>
-                        <strong className="text-[#E5E5E5]">Network marketing legítimo:</strong>
+                        <strong className="text-[#E5E5E5]">Empresa de redes de mercadeo legal:</strong>
                         <p className="text-[#A3A3A3] text-sm mt-1">
-                          El dinero viene de la venta de productos reales a consumidores
-                          finales. Las comisiones se pagan sobre ventas, no sobre reclutamiento.
+                          Sale de la venta de productos a consumidores. Las comisiones se pagan
+                          sobre lo que se compra, no sobre cuántas personas se inscriben.
                         </p>
                       </div>
                     </li>
@@ -149,70 +130,76 @@ export default function LegalidadNetworkMarketingPage() {
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Las 5 señales de alerta (Red Flags)
+                    Lo que exige la Ley 1700 de 2013
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    La FTC identifica estas señales de un posible esquema fraudulento:
-                  </p>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#C5A059] mt-1">→</span>
+                      <span className="text-[#A3A3A3]">Que la compensación provenga de la venta de bienes y servicios.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#C5A059] mt-1">→</span>
+                      <span className="text-[#A3A3A3]">Que la empresa tenga al menos una oficina abierta al público de manera permanente: una dirección física, no solo una página web.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#C5A059] mt-1">→</span>
+                      <span className="text-[#A3A3A3]">Que cada vendedor independiente firme un contrato escrito con el plan de compensación, la forma de pago y las causas de terminación, y que pueda terminarlo por escrito cuando quiera.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#C5A059] mt-1">→</span>
+                      <span className="text-[#A3A3A3]">Que ningún contrato le obligue a comprar inventario por fuera de lo pactado, ni a permanecer o a ser exclusivo.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#C5A059] mt-1">→</span>
+                      <span className="text-[#A3A3A3]">La Superintendencia de Sociedades vigila a las empresas que se dedican a esta actividad.</span>
+                    </li>
+                  </ul>
+                </section>
 
+                <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
+                  <p className="text-lg italic text-[#A3A3A3]">
+                    &quot;La ley no pregunta si hay una red.
+                    <span className="text-[#C5A059]"> Pregunta de dónde sale el dinero.</span>&quot;
+                  </p>
+                </div>
+
+                <section className="mb-12">
+                  <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
+                    Señales de alerta
+                  </h2>
                   <div className="space-y-4">
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#9E2A3A] text-xl">1</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Énfasis en reclutamiento sobre ventas</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si le dicen que la única forma de ganar es &quot;meter gente&quot;, cuidado.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5] mt-1">Le dicen que la única forma de ganar es inscribir personas.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#9E2A3A] text-xl">2</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Costos de entrada excesivos</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si le piden miles de dólares para &quot;unirse&quot; sin un producto equivalente, alerta.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5] mt-1">Le piden mucho dinero para inscribirse, sin un producto equivalente.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#9E2A3A] text-xl">3</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Producto sin valor real</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si nadie compraría el producto sin la &quot;oportunidad de negocio&quot;, problema.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5] mt-1">Nadie compraría el producto si no hubiera negocio de por medio.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#9E2A3A] text-xl">4</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Compras obligatorias mensuales altas</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si le obligan a comprar grandes cantidades de inventario cada mes, señal de alerta.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5] mt-1">Le obligan a comprar grandes cantidades cada mes.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#9E2A3A]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#9E2A3A] text-xl">5</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Promesas de ingresos garantizados</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            Si le garantizan que usted ganará X cantidad en Y tiempo, desconfíe. Ningún negocio real puede garantizar ingresos.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5] mt-1">Le garantizan una cifra en un plazo. Ninguna empresa seria garantiza ingresos.</p>
                       </div>
                     </div>
                   </div>
@@ -220,127 +207,85 @@ export default function LegalidadNetworkMarketingPage() {
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Las señales de legitimidad (Green Flags)
+                    Señales de una empresa seria
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    Qué buscar en una empresa de network marketing legítima:
-                  </p>
-
                   <div className="space-y-4">
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#C5A059]">✓</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Productos con demanda real</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            Productos que consumidores comprarían aunque no hubiera oportunidad de negocio.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5]">Productos que la gente compra por lo que son.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#C5A059]">✓</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Costo de entrada razonable</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            El costo inicial corresponde a producto real que usted mismo consume.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5]">Lo que se paga al iniciar es producto, no una cuota.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#C5A059]">✓</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Sin inventario obligatorio</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            La empresa envía directamente a clientes. No requiere usted mantener inventario en su domicilio.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5]">La empresa envía el pedido al cliente: usted no guarda inventario en su casa.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#C5A059]">✓</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Historial comprobable</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            Empresa con años de operación, presente en múltiples países, $0 deuda.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5]">Oficinas abiertas al público, años de operación y presencia en varios países.</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#C5A059]">✓</span>
-                        <div>
-                          <h4 className="font-medium text-[#E5E5E5]">Income disclosure transparente</h4>
-                          <p className="text-[#A3A3A3] text-sm mt-1">
-                            La empresa publica cuánto ganan sus distribuidores promedio, no solo los top.
-                          </p>
-                        </div>
+                        <p className="text-[#E5E5E5]">Registro sanitario de sus productos (en Colombia, el INVIMA) y afiliación a la asociación de venta directa (en Colombia, ACOVEDI).</p>
                       </div>
                     </div>
                   </div>
                 </section>
 
-                <div className="p-6  bg-[#16181D] border border-[rgba(255,255,255,0.1)] mb-12">
-                  <p className="text-lg italic text-[#A3A3A3]">
-                    &quot;La estructura de red no es ilegal. Lo ilegal es cuando
-                    <span className="text-[#C5A059]"> el dinero viene del reclutamiento, no de las ventas.</span>&quot;
-                  </p>
-                </div>
-
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Preguntas que debe hacer
+                    Preguntas que conviene hacer antes de iniciar
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    Antes de vincularse a cualquier oportunidad de este modelo:
-                  </p>
+                  {/* La 4 va así a propósito: nuestro modelo tiene una compra mensual de
+                      50 PV, y la pregunta invita a la respuesta real en vez de esconderla. */}
                   <ol className="space-y-3 text-[#A3A3A3]">
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] font-semibold">1.</span>
-                      <span>¿Compraría este producto si no hubiera oportunidad de negocio?</span>
+                      <span>¿Compraría este producto aunque no hubiera negocio de por medio?</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] font-semibold">2.</span>
-                      <span>¿Cuántos años lleva operando la empresa? ¿En cuántos países?</span>
+                      <span>¿Cuántos años lleva la empresa, en cuántos países, y dónde queda su oficina?</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] font-semibold">3.</span>
-                      <span>¿Cuál es el costo real de entrada y qué incluye?</span>
+                      <span>¿Cuánto cuesta iniciar y qué producto recibe a cambio?</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] font-semibold">4.</span>
-                      <span>¿Hay obligación de comprar inventario mensual?</span>
+                      <span>¿Hay una compra mínima cada mes, y para qué es?</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#C5A059] font-semibold">5.</span>
-                      <span>¿Las comisiones vienen de ventas de producto o de inscripciones?</span>
+                      <span>¿Las comisiones salen de la venta de productos o de las inscripciones?</span>
                     </li>
                   </ol>
                 </section>
 
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    La conclusión
+                    En resumen
                   </h2>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    El network marketing como modelo de distribución es 100% legal y está
-                    reconocido por reguladores en todo el mundo.
-                  </p>
-                  <p className="text-[#A3A3A3] leading-relaxed mb-4">
-                    Lo que no es legal son los esquemas que usan la estructura de red como
-                    fachada para transferir dinero de nuevos participantes a los de arriba.
-                  </p>
                   <p className="text-[#A3A3A3] leading-relaxed">
-                    La diferencia es fácil de detectar si hace las preguntas correctas.
+                    En Colombia la venta multinivel es legal y está regulada: la Ley 1700 pide
+                    oficina abierta, contrato por escrito y que el dinero salga de la venta de
+                    productos. Lo ilegal es usar la estructura de red para pasar dinero de los que
+                    llegan a los que ya estaban. Con estas cinco preguntas, la diferencia se ve.
                   </p>
                 </section>
               </div>
@@ -348,12 +293,13 @@ export default function LegalidadNetworkMarketingPage() {
               {/* CTA Box - Industrial Geometry */}
               <div className="mt-16 p-8 bg-[#16181D] border border-[#C5A059]/20 text-center">
                 <h3 className="text-xl font-serif mb-4">
-                  ¿Desea evaluar una oportunidad real?
+                  ¿Quiere hacerle estas preguntas a una empresa real?
                 </h3>
                 <p className="text-[#A3A3A3] mb-6">
-                  Queswa le explica un modelo con décadas de trayectoria y presencia global
-                  comprobable, con el plan de compensación en detalle. Sin presión, solo
-                  información — las 24 horas.
+                  Pregúntele a Queswa por Gano Excel, la empresa que fabrica y despacha nuestros
+                  productos: nueve sedes abiertas al público en Colombia, 30 años y presencia en
+                  más de 60 países. Le responde con el plan de compensación en detalle, a
+                  cualquier hora.
                 </p>
                 <QueswaCTAButton
                   className="cta-base cta-primary"

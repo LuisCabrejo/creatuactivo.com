@@ -43,7 +43,7 @@ import {
   notaVideoComoFuncionaVisto,
   vieneDelVideoDoceNiveles,
   videoDeReelVisto, opcionesTrasReel, construirAperturaTrasReel, aperturaRetornoTrasReel, notaVideoReelVisto,
-  niegaHaberVistoVideo, reelSinVer, vozVideoDoceNiveles, OFERTA_SIMULADOR_NIVELES,
+  niegaHaberVistoVideo, reelSinVer, vozVideoDoceNiveles, OFERTA_SIMULADOR_NIVELES, sinSimuladorParaSocio,
   construirAperturaTrasVideoNiveles,
   aperturaRetornoTrasVideoNiveles,
   notaVideoDoceNivelesVisto,
@@ -70,7 +70,7 @@ import {
   preguntaDelCafe, listaGuardada, siguienteDeLaLista, listaTerminada, resumenParaElSocio,
 } from '@/lib/wa-lista-socio';
 import { aFormatoWhatsApp, partirParaWhatsApp, partesConBorradorAparte } from '@/lib/wa-formato';
-import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esReporteDelSimulador } from '@/lib/wa-simulador';
+import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esReporteDelSimulador, paqueteParaNivelesSocio, respuestaNivelesSocio } from '@/lib/wa-simulador';
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
@@ -88,6 +88,7 @@ import {
   normalizarWhatsApp,
   mensajeDeBienvenida,
   enlaceDeCanal,
+  enlaceCatalogo,
   avisarSocioNuevoProspecto,
   identificarSocio,
   saludoDeSocio,
@@ -127,7 +128,7 @@ import {
 } from '@/lib/wa-guardarrail-salud';
 import {
   detectarPromesaDeIngreso, detectarModeloInventado, detectarMarcaInterna,
-  RESPUESTA_CORRECTIVA, correctivaSegunHilo,
+  RESPUESTA_CORRECTIVA, CORRECTIVA_SOCIO, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
@@ -1604,8 +1605,10 @@ async function procesarEntrante(body: any): Promise<void> {
         // turno siguiente elabora sobre la infracción. Los rechazos propios
         // (esRechazoSalud) nunca disparan detectarClaimSaludEnSalida, así que no
         // hay riesgo de re-sanear lo ya saneado.
+        // Al socio, la que él vio (2 oct 2026): con la de prospecto, su «sí» al
+        // «¿Le mando el acceso?» no caería en el nodo 2.22.
         if (rol === 'assistant' && detectarPromesaDeIngreso(m.content)) {
-          historial.push({ role: 'assistant', content: RESPUESTA_CORRECTIVA });
+          historial.push({ role: 'assistant', content: socioQueEscribe ? CORRECTIVA_SOCIO : RESPUESTA_CORRECTIVA });
           turnosSaneados++;
           continue;
         }
@@ -1616,7 +1619,10 @@ async function procesarEntrante(body: any): Promise<void> {
           continue;
         }
 
-        historial.push({ role: rol, content: m.content });
+        // El motor guarda su borrador; si la red de abajo le cambió al socio el
+        // cierre del simulador, el historial tiene que decir lo que él leyó —si
+        // no, su «sí» al acceso no caería en el nodo 2.22.
+        historial.push({ role: rol, content: socioQueEscribe && rol === 'assistant' ? sinSimuladorParaSocio(m.content) : m.content });
       }
     }
 
@@ -1646,6 +1652,17 @@ async function procesarEntrante(body: any): Promise<void> {
           console.log(`🔑 [WA Webhook] Acceso al Centro de Mando enviado a /${socioQueEscribe.slug}`);
         }
         await persistirTurnoDictado(supabase, waFingerprint, messageText, registro, '2.22 acceso al Centro de Mando');
+        return;
+      }
+      // 2.221 Los 12 Niveles a la tarifa de su paquete (2 oct 2026, Miguel
+      // Barahona, Visionario): la cifra la calcula el sistema —el modelo la
+      // compuso mal y el guardarraíl la bloqueó dos veces—. Ver wa-simulador.ts.
+      const paqueteNiveles = paqueteParaNivelesSocio(messageText, _ultimoBotSocio);
+      if (paqueteNiveles) {
+        const texto = respuestaNivelesSocio(paqueteNiveles, paisDeTelefono(phoneNumber));
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.221 los 12 Niveles a la tarifa del paquete');
+        console.log(`📊 [WA Webhook] 2.221 el socio /${socioQueEscribe.slug} pidió Los 12 Niveles con ${paqueteNiveles} — tabla calculada`);
         return;
       }
       const motivo = detectarPideFuncionDashboard(messageText);
@@ -1967,6 +1984,8 @@ async function procesarEntrante(body: any): Promise<void> {
       // vuelve a ofrecer: pide la elección (prueba conversacional del 20 ago —
       // repetía "¿le muestro qué trae el Empresarial?" ya atendida).
       const opciones = {
+        // La cifra en la moneda de quien escribe (2 oct 2026, Yellitza: +1 con el resultado en pesos).
+        pais: paisDeTelefono(phoneNumber),
         composicionYaOfrecida: historial.some((m) =>
           m.role === 'assistant' && /qu[eé] (productos )?trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
         // La estrategia ya se mostró: el simulador de renta no la vuelve a ofrecer.
@@ -2616,7 +2635,13 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
           pageContext,
           // En modo socio el motor conoce el enlace: sin esto, si el socio lo
           // pedía, el modelo decía que «lo tiene desde su saludo» y no lo daba.
-          ...(socioQueEscribe ? { socioEnlace: enlaceDeCanal(socioQueEscribe.slug) } : {}),
+          // Y conoce los DOS (2 oct 2026): el mensaje de producto promete un asesor
+          // de bienestar, y con un solo enlace el modelo le daba al cliente el del
+          // negocio (María Fernanda, para Brenda y Flor).
+          ...(socioQueEscribe ? {
+            socioEnlace:          enlaceDeCanal(socioQueEscribe.slug),
+            socioEnlaceProductos: enlaceCatalogo(socioQueEscribe.slug),
+          } : {}),
         }),
       });
 
@@ -2643,6 +2668,9 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
 
     const msMotor = Date.now() - tMotor;
     queswaReply = queswaReply.trim();
+    // Red del cierre del socio (2 oct 2026): si el modelo copió la oferta del
+    // simulador —cerrado para él—, sale la de su Proyección Patrimonial.
+    if (socioQueEscribe) queswaReply = sinSimuladorParaSocio(queswaReply);
     console.log(`💬 [WA Webhook] Queswa responde (${pageContext}, motor ${msMotor} ms): "${queswaReply.slice(0, 80)}..."`);
 
     // ─── 3.5 Guardrail de salida ──────────────────────────────────────────────
@@ -2701,7 +2729,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     const promesa = detectarPromesaDeIngreso(queswaReply);
     if (promesa) {
       console.error(`🚨 [WA Guardrail Negocio] BLOQUEADO — "${promesa}" en la respuesta a ${phoneNumber}. Texto: "${queswaReply.slice(0, 300)}"`);
-      const correctiva = correctivaSegunHilo(historial);
+      const correctiva = correctivaSegunHilo(historial, { socio: !!socioQueEscribe });
       await sendWhatsAppMessage(phoneNumber, correctiva);
       await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, correctiva, promesa);
       return;

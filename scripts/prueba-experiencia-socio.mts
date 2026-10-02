@@ -234,5 +234,40 @@ es((sNuevo.match(/\?/g) || []).length === 1, 'el saludo cierra con una sola preg
 es(!SEMANA_EN_SALUDO_SOCIO || (sNuevo.includes(SEMANA_EN_SALUDO_SOCIO.puente) && sNuevo.endsWith(SEMANA_EN_SALUDO_SOCIO.oferta)),
    'retoma la línea de la semana del mensaje de los lunes');
 
+// ── 10. Las cifras del socio (2 oct 2026, Miguel Barahona) ──
+// Visionario, vio la tabla del Kit al 10% y pidió «ese mismo sistema en paquetes
+// empresariales 3». El modelo la compuso mal, el guardarraíl la bloqueó dos veces
+// con reemplazos de prospecto, y después le ofreció el simulador —cerrado para él—
+// y se lo negó. Hoy: la tabla la calcula el sistema, el reemplazo es de socio y el
+// cierre lleva a su Proyección Patrimonial; todo cierra en «¿Le mando el acceso?».
+console.log('\n── 10. Las cifras del socio ──');
+const { paqueteParaNivelesSocio, respuestaNivelesSocio } =
+  require('../src/lib/wa-simulador.ts') as typeof import('../src/lib/wa-simulador.ts');
+const { sinSimuladorParaSocio, OFERTA_SIMULADOR_NIVELES, CIERRE_SOCIO_PROYECCION } =
+  require('../src/lib/wa-apertura.ts') as typeof import('../src/lib/wa-apertura.ts');
+const tablaKit = 'hasta llegar, al nivel 12, a los **8.190 distribuidores**.';
+es(paqueteParaNivelesSocio('Sería bueno ese mismo sistema en paquetes empresariales 3', tablaKit) === 'ESP-3',
+   '«ese mismo sistema en paquetes empresariales 3» pide la tabla con el ESP-3');
+es(paqueteParaNivelesSocio('y con el ESP 2 cuanto seria', tablaKit) === 'ESP-2' && paqueteParaNivelesSocio('la misma tabla con visonario', '') === 'ESP-3',
+   'el ESP-2 y el visionario mal escrito también');
+es(['qué trae el ESP-3?', 'cuánto cuesta el visionario', 'explíqueme el bono gen5 del esp-3', 'y con el kit?']
+     .every((m) => paqueteParaNivelesSocio(m, tablaKit) === null),
+   'lo que pregunta qué trae, cuánto cuesta o el bono sigue su camino');
+const tabla17 = respuestaNivelesSocio('ESP-3', 'CO');
+es(['$642.600 COP', '$10.924.200 COP', '$175.429.800 COP'].every((c) => tabla17.includes(c)),
+   'las cifras del 17% son las exactas (CV por lado × 17 × $45)');
+es(!negocio.detectarPromesaDeIngreso(tabla17), 'el guardarraíl no bloquea la tabla, ni el saneamiento la cambia al turno siguiente');
+es(respuestaNivelesSocio('ESP-3', 'US').includes('USD') && !respuestaNivelesSocio('ESP-3', 'US').includes('COP'), 'en dólares para un socio +1');
+es(botInvitoAlDashboard(tabla17), 'la tabla cierra en el acceso a su Proyección Patrimonial');
+const h = (c: string) => [{ role: 'assistant', content: c }];
+es(negocio.correctivaSegunHilo(h('x'), { socio: true }) === negocio.CORRECTIVA_SOCIO
+   && negocio.correctivaSegunHilo(h(negocio.CORRECTIVA_SOCIO), { socio: true }) === negocio.CORRECTIVA_SOCIO_BIS,
+   'el reemplazo por cifras es de socio, y cambia si insiste');
+es(botInvitoAlDashboard(negocio.CORRECTIVA_SOCIO) && botInvitoAlDashboard(negocio.CORRECTIVA_SOCIO_BIS), 'los dos reemplazos del socio cierran en el acceso');
+es(negocio.correctivaSegunHilo(h('x')) === negocio.RESPUESTA_CORRECTIVA, 'al prospecto le sigue llegando el suyo');
+const conOferta = sinSimuladorParaSocio(`Material de NIVELES_01.\n\n**Pregunta de seguimiento:** ${OFERTA_SIMULADOR_NIVELES}`);
+es(!conOferta.includes(OFERTA_SIMULADOR_NIVELES) && conOferta.endsWith(CIERRE_SOCIO_PROYECCION),
+   'al socio no se le ofrece el simulador: le llega el cierre de su Proyección Patrimonial');
+
 console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);
 process.exit(fallos ? 1 : 0);

@@ -394,9 +394,33 @@ export const RESPUESTA_CORRECTIVA =
 export const RESPUESTA_CORRECTIVA_BIS =
   'Mejor se lo muestro con lo que está escrito, para no confundirle con un resumen mío.\n\n¿Le explico cómo se gana?';
 
-/** La correctiva que toca: la segunda si la anterior ya fue una correctiva. */
-export function correctivaSegunHilo(historial: Array<{ role: string; content: string }>): string {
+/**
+ * Al SOCIO no se le vuelve a explicar el modelo (2 oct 2026). Miguel Barahona,
+ * Visionario, pidió la proyección de Los 12 Niveles con su paquete; el modelo la
+ * compuso al 17% con la aritmética mal y el guardarraíl la bloqueó dos veces, como
+ * debía, pero los dos reemplazos estaban escritos para un prospecto —«usted es el
+ * dueño de un sistema de distribución…»— y lo mandaron de vuelta a «cómo se gana».
+ * Al socio la cifra exacta se la da su Centro de Mando: la Proyección Patrimonial
+ * lee su tarifa del back office. Los dos cierran en «¿Le mando el acceso?», que es
+ * la frase con la que el nodo 2.22 del webhook reconoce el «sí» y manda el acceso.
+ * Solo para el bloqueo por cifras: es el único que un socio ha tenido siendo socio.
+ * Copy aprobado por el Director el 2 oct 2026.
+ */
+export const CORRECTIVA_SOCIO =
+  'Para que esa cifra le salga exacta —es la que usted le va a dar a otros—, la Proyección Patrimonial ' +
+  'de su Centro de Mando la calcula con la tarifa de cada paquete y con sus datos de Gano. ¿Le mando el acceso?';
+
+/** Si vuelve a pedir la cifra: una línea y la misma puerta. */
+export const CORRECTIVA_SOCIO_BIS =
+  'Con sus propios números se ve mejor, y en su Centro de Mando los tiene. ¿Le mando el acceso?';
+
+/** La correctiva que toca: la segunda si la anterior ya fue una correctiva. `socio` = bloqueo por cifras a un socio. */
+export function correctivaSegunHilo(
+  historial: Array<{ role: string; content: string }>,
+  opciones: { socio?: boolean } = {},
+): string {
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content?.trim();
+  if (opciones.socio) return ultimoBot === CORRECTIVA_SOCIO.trim() ? CORRECTIVA_SOCIO_BIS : CORRECTIVA_SOCIO;
   return ultimoBot === RESPUESTA_CORRECTIVA.trim() ? RESPUESTA_CORRECTIVA_BIS : RESPUESTA_CORRECTIVA;
 }
 

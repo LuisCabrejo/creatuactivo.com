@@ -29,6 +29,7 @@ import {
   microPromptNoPrimero, microPromptPuertaAbierta,
 } from '@/lib/wa-ambivalencia';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
+import { sinSimuladorParaSocio } from '@/lib/wa-apertura';
 import {
   detectarEmergencia, clasificarPreguntaSalud, esRechazoSalud,
   rechazoSaludPorFamilia, saludSeCompone, nucleoSalud, detectarClaimSaludEnSalida,
@@ -4443,7 +4444,7 @@ export async function POST(req: Request) {
     });
 
   try {
-    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace } = await req.json();
+    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos } = await req.json();
     // `let`: la salud compuesta de la web lo reasigna (ver guardarraíl de entrada).
     let pageContext: string | undefined = pageContextEntrada;
     // Respuesta de salud que el modelo COMPONE alrededor de un núcleo legal literal
@@ -5552,7 +5553,9 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // conversationSummary se inyecta en sessionInstructions (Bloque 3, no cacheable)
 
     // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
-    const arsenalContext = context; // Ya contiene el contenido del arsenal o catálogo
+    // Al socio, el material llega con el cierre de su Proyección Patrimonial en vez
+    // de la oferta del simulador del canal, que está cerrado para él (2 oct 2026).
+    const arsenalContext = pageContext === 'whatsapp_socio' ? sinSimuladorParaSocio(context) : context; // Ya contiene el contenido del arsenal o catálogo
     // ⚡ OPTIMIZADO v14.8: Eliminado topQueriesFAQ (~4,400 chars) - contenido ya está en arsenales
 
     // 🎯 BLOQUE 2 - NO CACHEABLE: Instrucciones específicas de la sesión
@@ -5876,8 +5879,12 @@ explicarle el modelo, nada de ofrecerle los paquetes: eso ya pasó.
   LISTO PARA COPIAR, siguiendo el esqueleto que va al final de estas
   instrucciones. ⚠️ El enlace NO va en ese primer mensaje — se comparte cuando
   el amigo diga «sí, mándemelo».
-• Su enlace, el que comparte: ${typeof socioEnlace === 'string' && socioEnlace ? socioEnlace : '(no disponible en este turno)'}.
-  Déselo tal cual cuando lo pida o cuando le cuente que alguien ya dijo que sí.
+• Sus dos enlaces. Déle tal cual el que corresponde cuando lo pida o cuando le
+  cuente que alguien ya dijo que sí:
+  – El del NEGOCIO, para quien recibió el mensaje del proyecto: ${typeof socioEnlace === 'string' && socioEnlace ? socioEnlace : '(no disponible en este turno)'}
+  – El de PRODUCTOS, para quien recibió el mensaje de bienestar o de producto: ${typeof socioEnlaceProductos === 'string' && socioEnlaceProductos ? socioEnlaceProductos : '(no disponible en este turno)'}
+  El que va es el del mensaje que esa persona recibió. Si lo pide sin decir para
+  qué, déle los dos, cada uno con su uso en una línea.
 • Prepararlo para lo que le van a preguntar: cuánto invirtió, si es pirámide, si
   a él le está funcionando. Se le da la respuesta que ÉL puede dar, no la nuestra.
 • Resolverle dudas del plan y de los productos que necesita para explicar (no

@@ -20,6 +20,10 @@
  * simulador-de-ingresos.flow.json). Si el Flow cambia, esto cambia con él.
  */
 
+// Solo el tipo: el conductor importa de este archivo, y un import de valor haría ciclo.
+import type { PaisConductor } from '@/lib/queswa-conductor';
+import { CIERRE_SOCIO_PROYECCION } from '@/lib/wa-apertura';
+
 /** Renta recurrente: COP por cliente, por punto de tarifa y POR CAJA al mes. */
 // La caja de Ganocafé aporta 14 CV, y el CV se liquida a la tasa fija: 14 × $45
 // por punto de tarifa = $630. El consumo estándar son 4 cajas al mes (una a la
@@ -104,6 +108,24 @@ const REGALIA_TABLA: Record<string, { semanal: number }> = {
 
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
 
+/** Pesos a dólares a la tasa fija de Gano. Bajo cien dólares lleva centavos: $5.60, no $6. */
+const COP_POR_USD = 4_500;
+const usd = (n: number) => {
+  const d = n / COP_POR_USD;
+  const decimales = d < 100 && !Number.isInteger(d) ? 2 : 0;
+  return `$${d.toLocaleString('en-US', { minimumFractionDigits: decimales, maximumFractionDigits: decimales })} USD`;
+};
+
+/**
+ * La cifra en la moneda del país (2 oct 2026), con la regla de `textoBonoPaquetes`:
+ * Colombia en pesos, Estados Unidos en dólares, otro país en dólares con los pesos
+ * al lado. Yellitza Rosario (+1, Miami) vio el Kit y los paquetes en dólares y el
+ * resultado del simulador en pesos, en el mismo hilo. Sin país, pesos (Director,
+ * 23 sep 2026). ⚠️ La tarjeta del Flow sigue en pesos: es JSON fijo en Meta.
+ */
+const dinero = (n: number, pais?: PaisConductor) =>
+  pais === 'US' ? usd(n) : pais === 'XX' ? `${usd(n)} (${cop(n)})` : cop(n);
+
 /** "ESP-2 Empresarial — 16%" → { nombre: 'ESP-2 Empresarial', pct: 16 } */
 function leerTarifa(tarifa: string): { nombre: string; pct: number } | null {
   const m = tarifa.match(/(\d+)\s*%/);
@@ -137,6 +159,8 @@ export interface OpcionesCierre {
     /** La composición de ESE paquete ya se mostró en el hilo. */
     composicionVista: boolean
   }
+  /** País de quien escribe: la cifra sale en su moneda (ver `dinero`). */
+  pais?: PaisConductor
 }
 
 /**
@@ -175,7 +199,7 @@ export function respuestaRenta(e: EscenarioRenta, opciones: OpcionesCierre = {})
     ? '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?'
     : '¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?';
 
-  return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${cop(monto)} al mes*.
+  return `Con la tarifa del *${t.nombre}* (${t.pct}%) y *${clientes} clientes en cada centro de negocio*, su renta estaría alrededor de *${dinero(monto, opciones.pais)} al mes*.
 
 ${cajas === 4 ? 'El cálculo supone que cada cliente compra una caja de Ganocafé a la semana' : `El cálculo supone que cada cliente compra ${cajas} cajas de Ganocafé al mes`}. Y ahí está la palanca: el sistema suma sus clientes y los de sus distribuidores, y ese volumen se le liquida cada viernes.
 
@@ -200,7 +224,7 @@ export function respuestaRegalia(e: EscenarioRegalia, opciones: OpcionesCierre =
 
   const cuantos = Number(e.distribuidores).toLocaleString('es-CO');
 
-  return `Con *${cuantos} distribuidores consumiendo* en su sistema —cada uno con sus cuatro cajas al mes—, la Regalía de Equipo al 10% del Kit estaría alrededor de *${cop(fila.semanal)} a la semana*.
+  return `Con *${cuantos} distribuidores consumiendo* en su sistema —cada uno con sus cuatro cajas al mes—, la Regalía de Equipo al 10% del Kit estaría alrededor de *${dinero(fila.semanal, opciones.pais)} a la semana*.
 
 Lo que produce esa cifra es el consumo: el sistema empareja su canal izquierdo con el derecho y liquida el 10% de ese volumen. Es el potencial matemático — el ritmo lo pone cada sistema.
 
@@ -237,7 +261,7 @@ export function respuestaNiveles(e: EscenarioNiveles, opciones: OpcionesCierre =
     : '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?';
   const n = (x: number) => x.toLocaleString('es-CO');
 
-  return `Ese es el *nivel ${e.nivel}*: ${n(fila.total)} distribuidores consumiendo, y una regalía cercana a *${cop(fila.mensual)} al mes*, liquidada por ciclos semanales.
+  return `Ese es el *nivel ${e.nivel}*: ${n(fila.total)} distribuidores consumiendo, y una regalía cercana a *${dinero(fila.mensual, opciones.pais)} al mes*, liquidada por ciclos semanales.
 
 La cifra la produce el consumo: mientras sus distribuidores compren sus cajas cada mes, hay regalía. Es el potencial matemático de la duplicación 2×2, y el ritmo lo pone cada sistema.
 
@@ -269,7 +293,7 @@ export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): 
   // en una sola línea, la del Director (3 sep 2026). Se descartó «ese escenario
   // proyecta un retorno»: «retorno» convierte una comisión en rendimiento sobre
   // lo invertido, y «para materializar esos números» promete que ocurren.
-  return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, la suma de esas ${compras} compras es *${cop(total)}*.
+  return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, la suma de esas ${compras} compras es *${dinero(total, opciones.pais)}*.
 
 Esa comisión le entra a medida que se compran los paquetes.
 
@@ -308,5 +332,77 @@ export function textoCubrirCompra(precioCaja: number, nombreCaja = 'Ganocafé 3 
     `• *Al 17%*, el tope del plan, bastan unos *${n(cv(precioCaja, 17))} CV* para una caja (unas ${n(cajas(precioCaja, 17))} en cada canal) y unos *${n(cv(cuatro, 17))} CV* para las cuatro (unas ${n(cajas(cuatro, 17))} en cada canal).`,
     '',
     '¿Le muestro la estrategia con la que se construye ese sistema, paso a paso?',
+  ].join('\n');
+}
+
+// ─── Los 12 Niveles a la tarifa del paquete, para el SOCIO (2 oct 2026) ──────
+//
+// Miguel Barahona, Visionario, vio la tabla de NIVELES_02 —la del Kit, al 10%— y
+// pidió «ese mismo sistema en paquetes empresariales 3»: su propia cifra. El modelo
+// la compuso con la aritmética mal ($641.880 donde da $642.600) y el guardarraíl la
+// bloqueó, como debía. El cálculo entre tarifas se retiró (26 ago) para que el
+// PROSPECTO no calcule lo que gana quien lo invitó; para un socio es su propio
+// ingreso, y el Director decidió dárselo (2 oct 2026). Lo calcula el sistema, nunca
+// el modelo: las mismas filas de NIVELES_02 y la misma aritmética (CV por lado ×
+// tarifa × $45). Solo lo llama el webhook, en el bloque del socio.
+// ⚠️ El encabezado NO dice «Regalía mensual N%»: ese patrón lo bloquea el
+// guardarraíl de negocio, y el saneamiento del historial cambiaría este turno por
+// la correctiva en el turno siguiente.
+
+export type PaqueteEsp = 'ESP-1' | 'ESP-2' | 'ESP-3';
+
+const TARIFA_DEL_PAQUETE: Record<PaqueteEsp, { pct: number; nombre: string }> = {
+  'ESP-1': { pct: 15, nombre: 'ESP-1 Inicial' },
+  'ESP-2': { pct: 16, nombre: 'ESP-2 Empresarial' },
+  'ESP-3': { pct: 17, nombre: 'ESP-3 Visionario' },
+};
+
+/** Las filas de NIVELES_02: 30 · 126 · 510 · 2.046 · 8.190 distribuidores. */
+const NIVELES_DE_LA_TABLA = [4, 6, 8, 10, 12];
+
+/** El paquete que nombra el mensaje: «esp-3», «esp 3», «paquetes empresariales 3», «visionario», «17%». */
+function paqueteNombrado(t: string): PaqueteEsp | null {
+  const n = /\besp\s*-?\s*([123])(?!\d)/.exec(t)?.[1]
+    ?? /\bpaquetes?\s+(?:empresariales?\s+)?(?:n[uú]mero\s+)?([123])(?!\d)/.exec(t)?.[1]
+    ?? (/\bvis[io]{1,2}nari[oa]s?\b/.test(t) ? '3' : null)
+    ?? ({ '15': '1', '16': '2', '17': '3' } as Record<string, string>)[/(?<!\d)(15|16|17)\s?%/.exec(t)?.[1] ?? ''];
+  return n ? (`ESP-${n}` as PaqueteEsp) : null;
+}
+
+/**
+ * ¿El socio pide la tabla de Los 12 Niveles con la tarifa de un paquete? Necesita
+ * el paquete y que se hable de esa tabla —en el mensaje («ese mismo sistema», «la
+ * tabla», «los niveles») o en el último turno del bot—. Lo que pregunta qué trae o
+ * cuánto cuesta un paquete, o por el bono, es otra cosa y sigue su camino.
+ */
+export function paqueteParaNivelesSocio(texto: string, ultimoBot: string): PaqueteEsp | null {
+  const t = (texto || '').toLowerCase();
+  if (/\b(trae|traen|incluye|contiene|productos?|inventario|cuesta|cuestan|vale|valen|precio|valor|bono|gen\s?5)\b/.test(t)) return null;
+  const paquete = paqueteNombrado(t);
+  if (!paquete) return null;
+  const hablaDeLaTabla = /\b(niveles?|mism[oa]s?|tabla|proyecci[oó]n|cifras?|n[uú]meros)\b/.test(t)
+    || /8\.190 distribuidores|los 12 niveles|regal[ií]a de equipo al 10/i.test(ultimoBot || '');
+  return hablaDeLaTabla ? paquete : null;
+}
+
+export function respuestaNivelesSocio(paquete: PaqueteEsp, pais?: PaisConductor): string {
+  const { pct, nombre } = TARIFA_DEL_PAQUETE[paquete];
+  const n = (x: number) => x.toLocaleString('es-CO');
+  const filas = NIVELES_DE_LA_TABLA.map((nivel) => {
+    const f = filaNivel(nivel)!;
+    return `| ${n(f.total)} | ${n(f.cvLado)} | ${dinero(f.cvLado * pct * COP_POR_CV_Y_PUNTO, pais)} |`;
+  });
+  return [
+    `En Los 12 Niveles con el *${nombre}*, la estructura es la misma; lo que cambia es la tarifa de la Regalía de Equipo, que sube al *${pct}%*.`,
+    '',
+    `| Distribuidores consumiendo | CV al mes por lado | Al mes, al ${pct}% |`,
+    '|---|---|---|',
+    ...filas,
+    '',
+    'Por eso se repite: mientras sus distribuidores y sus clientes sigan comprando, hay comisión; si dejan de comprar, no la hay.',
+    '',
+    '*⚠️ Importante:* estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su sistema. No son resultados garantizados.',
+    '',
+    CIERRE_SOCIO_PROYECCION,
   ].join('\n');
 }

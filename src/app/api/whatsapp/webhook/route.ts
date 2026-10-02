@@ -1656,15 +1656,15 @@ async function procesarEntrante(body: any): Promise<void> {
         await persistirTurnoDictado(supabase, waFingerprint, messageText, registro, '2.22 acceso al Centro de Mando');
         return;
       }
-      // 2.221 Los 12 Niveles a la tarifa de su paquete (2 oct 2026, Miguel
-      // Barahona, Visionario): la cifra la calcula el sistema —el modelo la
-      // compuso mal y el guardarraíl la bloqueó dos veces—. Ver wa-simulador.ts.
+      // 2.221 Los 12 Niveles con su paquete (2 oct 2026, Miguel Barahona,
+      // Visionario): la tarifa del paquete con su vigencia —vence— y su caso en la
+      // Proyección Patrimonial. El modelo la componía mal. Ver wa-simulador.ts.
       const paqueteNiveles = paqueteParaNivelesSocio(messageText, _ultimoBotSocio);
       if (paqueteNiveles) {
-        const texto = respuestaNivelesSocio(paqueteNiveles, paisDeTelefono(phoneNumber));
+        const texto = respuestaNivelesSocio(paqueteNiveles);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.221 los 12 Niveles a la tarifa del paquete');
-        console.log(`📊 [WA Webhook] 2.221 el socio /${socioQueEscribe.slug} pidió Los 12 Niveles con ${paqueteNiveles} — tabla calculada`);
+        console.log(`📊 [WA Webhook] 2.221 el socio /${socioQueEscribe.slug} pidió Los 12 Niveles con ${paqueteNiveles} — tarifa con su vigencia`);
         return;
       }
       // 2.222 / 2.223 La estrategia para el socio (Director, 2 oct 2026): la pide y

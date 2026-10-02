@@ -22,7 +22,7 @@
 
 // Solo el tipo: el conductor importa de este archivo, y un import de valor haría ciclo.
 import type { PaisConductor } from '@/lib/queswa-conductor';
-import { CIERRE_SOCIO_PROYECCION, CIERRE_VIDEO_NIVELES_SOCIO } from '@/lib/wa-apertura';
+import { CIERRE_SOCIO_PROYECCION, CIERRE_VIDEO_NIVELES_SOCIO, CIERRES_VIDEO_NIVELES_SOCIO_ANTERIORES } from '@/lib/wa-apertura';
 import { sinDiacriticos } from '@/lib/texto-normalizar';
 
 /** Renta recurrente: COP por cliente, por punto de tarifa y POR CAJA al mes. */
@@ -336,31 +336,35 @@ export function textoCubrirCompra(precioCaja: number, nombreCaja = 'Ganocafé 3 
   ].join('\n');
 }
 
-// ─── Los 12 Niveles a la tarifa del paquete, para el SOCIO (2 oct 2026) ──────
+// ─── Los 12 Niveles y el paquete del SOCIO (2 oct 2026) ──────────────────────
 //
 // Miguel Barahona, Visionario, vio la tabla de NIVELES_02 —la del Kit, al 10%— y
-// pidió «ese mismo sistema en paquetes empresariales 3»: su propia cifra. El modelo
-// la compuso con la aritmética mal ($641.880 donde da $642.600) y el guardarraíl la
-// bloqueó, como debía. El cálculo entre tarifas se retiró (26 ago) para que el
-// PROSPECTO no calcule lo que gana quien lo invitó; para un socio es su propio
-// ingreso, y el Director decidió dárselo (2 oct 2026). Lo calcula el sistema, nunca
-// el modelo: las mismas filas de NIVELES_02 y la misma aritmética (CV por lado ×
-// tarifa × $45). Solo lo llama el webhook, en el bloque del socio.
-// ⚠️ El encabezado NO dice «Regalía mensual N%»: ese patrón lo bloquea el
-// guardarraíl de negocio, y el saneamiento del historial cambiaría este turno por
-// la correctiva en el turno siguiente.
+// pidió «ese mismo sistema en paquetes empresariales 3». El modelo la compuso al 17%
+// con la aritmética mal y el guardarraíl la bloqueó, como debía.
+// ⚠️ Y el 17% NO es la tarifa del socio para Los 12 Niveles: la del paquete VENCE
+// —15% por dos meses, 16% por cuatro, 17% por seis— y después el sistema aplica la
+// más alta entre su rango (10% sin rango, hasta 15% en Diamante) y las promociones
+// de Gano (COMP_BIN_02, COMP_BIN_03, COMP_BIN_11). Solo el 10% no vence, y por eso
+// la estrategia se cuenta al 10%. Una tabla hasta el nivel 12 al 17% —estuvo en
+// producción unas horas el 2 oct— proyecta una tarifa de seis meses sobre una
+// estructura que tarda años. Ahora: la tabla, al 10%; la tarifa del paquete, en una
+// línea con su vigencia; su caso con su tarifa de hoy, en la Proyección Patrimonial.
+// Copy aprobado por el Director el 2 oct 2026. Solo lo llama el webhook, en el
+// bloque del socio.
 
 export type PaqueteEsp = 'ESP-1' | 'ESP-2' | 'ESP-3';
 
-const TARIFA_DEL_PAQUETE: Record<PaqueteEsp | 'KIT', { pct: number; nombre: string }> = {
-  'KIT':   { pct: 10, nombre: 'Kit de Inicio' },
-  'ESP-1': { pct: 15, nombre: 'ESP-1 Inicial' },
-  'ESP-2': { pct: 16, nombre: 'ESP-2 Empresarial' },
-  'ESP-3': { pct: 17, nombre: 'ESP-3 Visionario' },
+const TARIFA_DEL_PAQUETE: Record<PaqueteEsp | 'KIT', { pct: number; nombre: string; vigencia: string | null }> = {
+  'KIT':   { pct: 10, nombre: 'Kit de Inicio',     vigencia: null },
+  'ESP-1': { pct: 15, nombre: 'ESP-1 Inicial',     vigencia: 'dos meses' },
+  'ESP-2': { pct: 16, nombre: 'ESP-2 Empresarial', vigencia: 'cuatro meses' },
+  'ESP-3': { pct: 17, nombre: 'ESP-3 Visionario',  vigencia: 'seis meses' },
 };
 
 /** Las filas de NIVELES_02: 30 · 126 · 510 · 2.046 · 8.190 distribuidores. */
 const NIVELES_DE_LA_TABLA = [4, 6, 8, 10, 12];
+/** La tarifa con que se cuenta la estrategia: la única que no vence. */
+const PCT_BASE = 10;
 
 /** El paquete que nombra el mensaje: «esp-3», «esp 3», «paquetes empresariales 3», «visionario», «17%». */
 function paqueteNombrado(t: string): PaqueteEsp | null {
@@ -372,10 +376,10 @@ function paqueteNombrado(t: string): PaqueteEsp | null {
 }
 
 /**
- * ¿El socio pide la tabla de Los 12 Niveles con la tarifa de un paquete? Necesita
- * el paquete y que se hable de esa tabla —en el mensaje («ese mismo sistema», «la
- * tabla», «los niveles») o en el último turno del bot—. Lo que pregunta qué trae o
- * cuánto cuesta un paquete, o por el bono, es otra cosa y sigue su camino.
+ * ¿El socio pide Los 12 Niveles con la tarifa de un paquete? Necesita el paquete y
+ * que se hable de esa tabla —en el mensaje («ese mismo sistema», «la tabla», «los
+ * niveles») o en el último turno del bot—. Lo que pregunta qué trae o cuánto cuesta
+ * un paquete, o por el bono, es otra cosa y sigue su camino.
  */
 export function paqueteParaNivelesSocio(texto: string, ultimoBot: string): PaqueteEsp | null {
   const t = (texto || '').toLowerCase();
@@ -387,26 +391,21 @@ export function paqueteParaNivelesSocio(texto: string, ultimoBot: string): Paque
   return hablaDeLaTabla ? paquete : null;
 }
 
-export function respuestaNivelesSocio(paquete: PaqueteEsp, pais?: PaisConductor): string {
-  const { pct, nombre } = TARIFA_DEL_PAQUETE[paquete];
-  const n = (x: number) => x.toLocaleString('es-CO');
-  const filas = NIVELES_DE_LA_TABLA.map((nivel) => {
-    const f = filaNivel(nivel)!;
-    return `| ${n(f.total)} | ${n(f.cvLado)} | ${dinero(f.cvLado * pct * COP_POR_CV_Y_PUNTO, pais)} |`;
-  });
+/** «Ese mismo sistema con el ESP-3»: la tarifa con su vigencia, sin tabla, y su caso en la Proyección Patrimonial. */
+export function respuestaNivelesSocio(paquete: PaqueteEsp): string {
+  const { pct, nombre, vigencia } = TARIFA_DEL_PAQUETE[paquete];
   return [
-    `En Los 12 Niveles con el *${nombre}*, la estructura es la misma; lo que cambia es la tarifa de la Regalía de Equipo, que sube al *${pct}%*.`,
+    `Con el *${nombre}* la estructura es la misma, y la tarifa sube al *${pct}%* durante los primeros ${vigencia}; después el sistema aplica la más alta entre su rango y las promociones de Gano. Por eso Los 12 Niveles se cuentan con la base del ${PCT_BASE}%, que no vence.`,
     '',
-    `| Distribuidores consumiendo | CV al mes por lado | Al mes, al ${pct}% |`,
-    '|---|---|---|',
-    ...filas,
-    '',
-    'Por eso se repite: mientras sus distribuidores y sus clientes sigan comprando, hay comisión; si dejan de comprar, no la hay.',
-    '',
-    '*⚠️ Importante:* estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su sistema. No son resultados garantizados.',
-    '',
-    CIERRE_SOCIO_PROYECCION,
+    'Para ver su caso con su tarifa de hoy, la Proyección Patrimonial de su Centro de Mando lo calcula con sus datos de Gano. ¿Le mando el acceso?',
   ].join('\n');
+}
+
+/** La línea de la tarifa del paquete, con su vigencia (sin paquete o con el Kit, ninguna). */
+function lineaTarifaDelPaquete(paquete: PaqueteEsp | 'KIT' | null): string | null {
+  if (!paquete || paquete === 'KIT') return null;
+  const { pct, nombre, vigencia } = TARIFA_DEL_PAQUETE[paquete];
+  return `Con su *${nombre}*, los primeros ${vigencia} la tarifa es del *${pct}%*; después el sistema le aplica la más alta entre su rango y las promociones de Gano.`;
 }
 
 // ─── Los 12 Niveles para el SOCIO: el video y el detalle (2 oct 2026) ────────
@@ -429,7 +428,8 @@ const RE_OTRA_PREGUNTA_NIVELES = /hasta\s+cu[aá]ndo|qu[eé]\s+pasa\s+si|inversi
  * el detalle. Lo que nombra un paquete lo atiende antes el 2.221 con su tabla.
  */
 export function pasoNivelesSocio(texto: string, ultimoBot: string, acepta: boolean): 'video' | 'detalle' | null {
-  if (acepta && (ultimoBot || '').trimEnd().endsWith(CIERRE_VIDEO_NIVELES_SOCIO)) return 'detalle';
+  const pie = (ultimoBot || '').trimEnd();
+  if (acepta && [CIERRE_VIDEO_NIVELES_SOCIO, ...CIERRES_VIDEO_NIVELES_SOCIO_ANTERIORES].some((c) => pie.endsWith(c))) return 'detalle';
   const t = sinDiacriticos(texto || '');
   if (!RE_DOCE_NIVELES.test(t) || RE_OTRA_PREGUNTA_NIVELES.test(t)) return null;
   if (RE_PIDE_DETALLE.test(t)) return 'detalle';
@@ -437,29 +437,30 @@ export function pasoNivelesSocio(texto: string, ultimoBot: string, acepta: boole
 }
 
 /**
- * Los 12 Niveles en cuatro pasos y nivel por nivel, con la tarifa del paquete del
- * socio (sin paquete, el Kit: con esa tarifa se cuenta la estrategia). Copy aprobado
- * por el Director el 2 oct 2026. Termina en el enlace, sin pregunta: quien pidió
- * estudiarlo ya tiene adónde ir.
+ * Los 12 Niveles en cuatro pasos y nivel por nivel, al 10% —la tarifa que no vence—,
+ * con la del paquete del socio en una línea y su vigencia. Copy aprobado por el
+ * Director el 2 oct 2026. Termina en el enlace, sin pregunta: quien pidió estudiarlo
+ * ya tiene adónde ir, y en esa pantalla mueve el porcentaje él mismo.
  */
 export function detalleNivelesSocio(paquete: PaqueteEsp | 'KIT' | null, pais: PaisConductor | undefined, enlacePresentacion: string): string {
-  const { pct, nombre } = TARIFA_DEL_PAQUETE[paquete ?? 'KIT'];
   const n = (x: number) => x.toLocaleString('es-CO');
   const filas = NIVELES_DE_LA_TABLA.map((nivel) => {
     const f = filaNivel(nivel)!;
-    return `*Nivel ${nivel}* · ${n(f.total)} distribuidores · ${dinero(f.cvLado * pct * COP_POR_CV_Y_PUNTO, pais)} al mes`;
+    return `*Nivel ${nivel}* · ${n(f.total)} distribuidores · ${dinero(f.cvLado * PCT_BASE * COP_POR_CV_Y_PUNTO, pais)} al mes`;
   });
+  const tarifa = lineaTarifaDelPaquete(paquete);
   return [
     'Se lo explico en cuatro pasos:',
     '',
     '1. Usted conecta mínimo dos distribuidores: uno en su canal izquierdo y otro en el derecho.',
     '2. Cada uno hace lo mismo y conecta a otros dos. Eso es la duplicación 2×2, y cada vuelta es un nivel.',
     '3. Cada distribuidor compra sus cuatro cajas al mes, que son 56 CV.',
-    `4. La compañía empareja cada punto de su canal izquierdo con su equivalente en el derecho, y de ese volumen a usted le queda su tarifa: con el *${nombre}*, el *${pct}%*, liquidado por ciclos semanales.`,
+    `4. La compañía empareja cada punto de su canal izquierdo con su equivalente en el derecho y le paga el ${PCT_BASE}% sobre ese volumen, liquidado por ciclos semanales.`,
     '',
     'Así se ve, nivel por nivel:',
     '',
     ...filas,
+    ...(tarifa ? ['', tarifa] : []),
     '',
     'Es el potencial matemático bajo duplicación perfecta: mientras sus distribuidores y sus clientes sigan comprando, hay comisión, y el ritmo lo pone cada sistema.',
     '',

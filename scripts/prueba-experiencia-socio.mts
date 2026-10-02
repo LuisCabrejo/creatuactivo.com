@@ -253,12 +253,14 @@ es(paqueteParaNivelesSocio('y con el ESP 2 cuanto seria', tablaKit) === 'ESP-2' 
 es(['qué trae el ESP-3?', 'cuánto cuesta el visionario', 'explíqueme el bono gen5 del esp-3', 'y con el kit?']
      .every((m) => paqueteParaNivelesSocio(m, tablaKit) === null),
    'lo que pregunta qué trae, cuánto cuesta o el bono sigue su camino');
-const tabla17 = respuestaNivelesSocio('ESP-3', 'CO');
-es(['$642.600 COP', '$10.924.200 COP', '$175.429.800 COP'].every((c) => tabla17.includes(c)),
-   'las cifras del 17% son las exactas (CV por lado × 17 × $45)');
-es(!negocio.detectarPromesaDeIngreso(tabla17), 'el guardarraíl no bloquea la tabla, ni el saneamiento la cambia al turno siguiente');
-es(respuestaNivelesSocio('ESP-3', 'US').includes('USD') && !respuestaNivelesSocio('ESP-3', 'US').includes('COP'), 'en dólares para un socio +1');
-es(botInvitoAlDashboard(tabla17), 'la tabla cierra en el acceso a su Proyección Patrimonial');
+// ⚠️ El 17% del ESP-3 vence a los seis meses (COMP_BIN_02): Los 12 Niveles no se
+// proyectan con él. Unas horas del 2 oct salió una tabla hasta el nivel 12 al 17%.
+const conEsp3 = respuestaNivelesSocio('ESP-3');
+es(/17%\*? durante los primeros seis meses/.test(conEsp3) && /base del 10%, que no vence/.test(conEsp3) && !/175|\$/.test(conEsp3),
+   'con el ESP-3: la tarifa con su vigencia, sin tabla al 17%');
+es(/dos meses/.test(respuestaNivelesSocio('ESP-1')) && /cuatro meses/.test(respuestaNivelesSocio('ESP-2')), 'cada paquete con su vigencia');
+es(!negocio.detectarPromesaDeIngreso(conEsp3), 'el guardarraíl no la bloquea, ni el saneamiento la cambia al turno siguiente');
+es(botInvitoAlDashboard(conEsp3), 'cierra en el acceso a su Proyección Patrimonial');
 const h = (c: string) => [{ role: 'assistant', content: c }];
 es(negocio.correctivaSegunHilo(h('x'), { socio: true }) === negocio.CORRECTIVA_SOCIO
    && negocio.correctivaSegunHilo(h(negocio.CORRECTIVA_SOCIO), { socio: true }) === negocio.CORRECTIVA_SOCIO_BIS,
@@ -289,9 +291,14 @@ es(['hasta cuándo va el plan de 12 niveles', 'cuál es la inversión para los 1
    'las preguntas con respuesta propia en el arsenal siguen su camino');
 const enlace9 = enlacePresentacion('miguel-barahona', 9);
 const detalle = detalleNivelesSocio('ESP-3', 'CO', enlace9);
-es(detalle.includes('$175.429.800 COP al mes') && detalle.trimEnd().endsWith(enlace9) && enlace9.endsWith('/miguel-barahona/presentacion?pantalla=9'),
-   'el detalle va con su tarifa y termina en la pantalla 9 de su presentación');
-es(detalleNivelesSocio(null, 'CO', enlace9).includes('el *Kit de Inicio*, el *10%*'), 'sin paquete conocido, la estrategia se cuenta con el Kit');
+es(detalle.includes('*Nivel 12* · 8.190 distribuidores · $103.194.000 COP al mes') && !detalle.includes('175.429.800'),
+   'la tabla del detalle va al 10%, la tarifa que no vence');
+es(/los primeros seis meses la tarifa es del \*17%\*/.test(detalle), 'y la del paquete del socio, en una línea con su vigencia');
+es(detalle.trimEnd().endsWith(enlace9) && enlace9.endsWith('/miguel-barahona/presentacion?pantalla=9'), 'termina en la pantalla 9 de su presentación');
+es(!/tarifa es del/.test(detalleNivelesSocio(null, 'CO', enlace9)) && !/tarifa es del/.test(detalleNivelesSocio('KIT', 'CO', enlace9)),
+   'sin paquete, o con el Kit, no hay línea de vigencia');
+es(pasoNivelesSocio('sí', '…\n\n¿Se la explico en detalle, nivel por nivel y con la tarifa de su paquete?', true) === 'detalle',
+   'el «sí» al pie de unas horas del 2 oct sigue valiendo');
 es(!negocio.detectarPromesaDeIngreso(detalle) && !g.detectarClaimSaludEnSalida(detalle), 'ningún guardarraíl bloquea el detalle');
 
 console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);

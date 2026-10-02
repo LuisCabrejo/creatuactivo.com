@@ -476,8 +476,9 @@ export const CIERRE_SOCIO_PROYECCION =
  */
 export const ENTRADA_VIDEO_NIVELES_SOCIO =
   'Con gusto. Esta es la estrategia; es el mismo video que yo le muestro a quien llega por su enlace:';
-export const CIERRE_VIDEO_NIVELES_SOCIO =
-  '¿Se la explico en detalle, nivel por nivel y con la tarifa de su paquete?';
+export const CIERRE_VIDEO_NIVELES_SOCIO = '¿Se la explico en detalle, nivel por nivel?';
+/** El pie que estuvo unas horas del 2 oct: la tabla ya no va a la tarifa del paquete, que vence. Su «sí» sigue valiendo. */
+export const CIERRES_VIDEO_NIVELES_SOCIO_ANTERIORES = ['¿Se la explico en detalle, nivel por nivel y con la tarifa de su paquete?'];
 
 export function sinSimuladorParaSocio(texto: string): string {
   return (texto || '').split(OFERTA_SIMULADOR_NIVELES).join(CIERRE_SOCIO_PROYECCION);

@@ -791,13 +791,19 @@ export default function PitchDeckPage() {
         .pd-slider::-moz-range-thumb { width: var(--thumb, 22px); height: var(--thumb, 22px);
           border-radius: 50%; background: var(--pd-gold); border: none; cursor: pointer; }
         .pd-insight { font-size: 0.78rem; line-height: 1.55; color: var(--pd-muted); margin: 0; }
-        .pd-niveles { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 1.1rem; }
-        .pd-nivel { width: 26px; height: 26px; border: 1px solid rgba(255,255,255,0.14);
+        /* Los 12 niveles son CÍRCULOS, como en el deck de /12-niveles donde nacieron
+           (Director, 2 oct 2026): van sincronizados con el deslizador, y a medida que
+           se avanza se ve en qué nivel va y cuántos quedaron atrás. */
+        .pd-niveles { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 1.1rem; }
+        .pd-nivel { width: 28px; height: 28px; border-radius: 50%; padding: 0;
+          display: flex; align-items: center; justify-content: center;
+          border: 1px solid rgba(255,255,255,0.14);
           background: transparent; color: var(--pd-muted); font-family: var(--font-mono);
           font-size: 0.6rem; cursor: pointer; transition: all 0.2s; }
         .pd-nivel.done { border-color: rgba(197,160,89,0.4); color: var(--pd-gold);
           background: rgba(197,160,89,0.06); }
-        .pd-nivel.active { border-color: var(--pd-gold); background: var(--pd-gold); color: #0F1115; }
+        .pd-nivel.active { border-color: var(--pd-gold); background: var(--pd-gold); color: #0F1115;
+          box-shadow: 0 0 12px rgba(197,160,89,0.45); }
 
         /* ── 10 · El siguiente paso ───────────────────────────────────────── */
         /* El credo con la misma letra de la pantalla 1: se tiene que VER que el deck
@@ -849,11 +855,16 @@ export default function PitchDeckPage() {
           .pd-cifra { padding-top: 0.8rem; }
           .pd-cifra .n { margin-bottom: 0.35rem; }
           .pd-cifra .t { margin-bottom: 0.45rem; }
-          /* El titular y el selector de porcentaje (26 sep 2026) sumaron ~190px, y
-             esta pantalla tiene que caber entera. Lo que se aprieta no es la cifra:
-             la fila de botones de nivel se va en el teléfono porque el deslizador
-             elige el mismo nivel y su rótulo lo dice. */
-          .pd-numeros .pd-niveles { display: none; }
+          /* LOS 12 CÍRCULOS VUELVEN AL TELÉFONO (Director, 2 oct 2026). El 26 sep se
+             ocultaron para que la pantalla cupiera —el deslizador elige el mismo nivel
+             y su rótulo lo dice—, pero lo que hace creíble el crecimiento es ver en
+             qué nivel va, y el rótulo solo no lo muestra. Van en UNA fila de doce que
+             se reparte el ancho: medido el 2 oct, en 375×667 sobraban 89 px y la fila
+             ocupa unos 36; en 390×844 sobraban 182. */
+          .pd-numeros .pd-niveles { display: grid; grid-template-columns: repeat(12, 1fr);
+            gap: 3px; margin-bottom: 0.8rem; }
+          .pd-numeros .pd-nivel { width: 100%; height: auto; aspect-ratio: 1; max-width: 26px;
+            justify-self: center; font-size: 0.55rem; }
           .pd-numeros-top { margin-bottom: 0.7rem; }
           .pd-numeros .pd-h2 { font-size: 1.05rem; margin-bottom: 0.3rem; }
           .pd-numeros-lead { font-size: 0.9rem; margin-bottom: 0.9rem; }

@@ -467,6 +467,18 @@ export const OFERTA_SIMULADOR_NIVELES = '¿Quiere verlo en el simulador, con la 
 export const CIERRE_SOCIO_PROYECCION =
   'La Proyección Patrimonial de su Centro de Mando lo calcula con la tarifa de cada paquete y con sus datos de Gano. ¿Le mando el acceso?';
 
+/**
+ * El socio que pide la estrategia recibe el VIDEO (Director, 2 oct 2026: «me acaba
+ * de dar la estrategia pero sería mejor que me diera el video»). Es el mismo que ve
+ * el prospecto, y se le dice, porque es el que él va a compartir. El pie no ofrece
+ * el simulador —cerrado para el socio—: ofrece estudiarlo, y el «sí» lo atiende el
+ * nodo 2.223 del webhook (`detalleNivelesSocio`). Copy aprobado el 2 oct 2026.
+ */
+export const ENTRADA_VIDEO_NIVELES_SOCIO =
+  'Con gusto. Esta es la estrategia; es el mismo video que yo le muestro a quien llega por su enlace:';
+export const CIERRE_VIDEO_NIVELES_SOCIO =
+  '¿Se la explico en detalle, nivel por nivel y con la tarifa de su paquete?';
+
 export function sinSimuladorParaSocio(texto: string): string {
   return (texto || '').split(OFERTA_SIMULADOR_NIVELES).join(CIERRE_SOCIO_PROYECCION);
 }

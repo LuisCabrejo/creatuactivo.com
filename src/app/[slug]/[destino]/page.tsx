@@ -137,8 +137,10 @@ async function resolverSlug(slug: string, destino: string) {
 
 export default async function DestinoRoute({
   params,
+  searchParams,
 }: {
   params: { slug: string; destino: string }
+  searchParams?: Record<string, string | string[] | undefined>
 }) {
   const { slug, destino } = params
 
@@ -239,7 +241,11 @@ export default async function DestinoRoute({
     redirect(`/?ref=${record.constructor_id}`)
   }
 
-  const destinoReal = resolver(record.constructor_id)
+  // La pantalla de la presentación viaja con el enlace (2 oct 2026): Queswa le da
+  // al socio `/{slug}/presentacion?pantalla=9`, la de los números, para estudiarla.
+  const pantalla = esPresentacion(destino) && typeof searchParams?.pantalla === 'string'
+    && /^\d{1,2}$/.test(searchParams.pantalla) ? searchParams.pantalla : null
+  const destinoReal = resolver(record.constructor_id) + (pantalla ? `&pantalla=${pantalla}` : '')
 
   // 🔴 La presentación tampoco redirige a los robots de vista previa (24 sep 2026),
   // por la misma razón que Queswa: un scraper que sigue el 307 arma la tarjeta

@@ -241,6 +241,40 @@ export function enlaceCatalogo(slug?: string | null): string {
   return slug ? `${SITIO}/${slug}/productos` : `${SITIO}/productos`;
 }
 
+/**
+ * La presentación del socio, abierta en una pantalla (2 oct 2026): la 9 es la de
+ * los números, con el simulador de Los 12 Niveles y el porcentaje que se elige.
+ * `/{slug}/presentacion` pasa el `?pantalla=` al redirigir.
+ */
+export function enlacePresentacion(slug: string, pantalla?: number): string {
+  return `${SITIO}/${slug}/presentacion${pantalla ? `?pantalla=${pantalla}` : ''}`;
+}
+
+/**
+ * El paquete del socio, para hablarle con su tarifa (2 oct 2026). Primero lo que
+ * dice hoy su back office (`binario.espActual`, si conectó Gano); si no, el paquete
+ * con que se registró. Sin ninguno, null: la estrategia se cuenta con el Kit.
+ */
+export async function paqueteDelSocio(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  constructorId: string,
+): Promise<'KIT' | 'ESP-1' | 'ESP-2' | 'ESP-3' | null> {
+  try {
+    const { data: cred } = await supabase.from('gano_credentials')
+      .select('cached_data').eq('constructor_id', constructorId).maybeSingle();
+    const esp = /ESP\s*-?\s*([123])/i.exec(String(cred?.cached_data?.binario?.espActual ?? ''))?.[1];
+    if (esp) return `ESP-${esp}` as 'ESP-1' | 'ESP-2' | 'ESP-3';
+    const { data: u } = await supabase.from('private_users')
+      .select('plan_type').eq('constructor_id', constructorId).maybeSingle();
+    const porPlan: Record<string, 'KIT' | 'ESP-1' | 'ESP-2' | 'ESP-3'> =
+      { kit: 'KIT', inicial: 'ESP-1', empresarial: 'ESP-2', visionario: 'ESP-3' };
+    return porPlan[String(u?.plan_type ?? '')] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export function mensajeEnlaceCatalogo(slug?: string | null): string {
   return [
     'Con gusto. Aquí está el catálogo completo, con fotos, presentaciones y precios:',

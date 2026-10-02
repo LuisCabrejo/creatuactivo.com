@@ -387,6 +387,16 @@ export default function PitchDeckPage() {
     setBeat(0);
   }, []);
 
+  // Enlace a una pantalla (2 oct 2026): `?pantalla=9` abre en la de los números.
+  // Queswa se lo da al socio que quiere estudiar Los 12 Niveles y mover el
+  // porcentaje él mismo; sin el parámetro se entra por la portada, como siempre.
+  useEffect(() => {
+    try {
+      const p = Number(new URL(window.location.href).searchParams.get('pantalla'));
+      if (Number.isInteger(p) && p >= 1 && p <= TOTAL_SLIDES) irA(p);
+    } catch { /* sin parámetro */ }
+  }, [irA]);
+
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
     else document.exitFullscreen?.().catch(() => {});

@@ -43,7 +43,7 @@ import {
   notaVideoComoFuncionaVisto,
   vieneDelVideoDoceNiveles,
   videoDeReelVisto, opcionesTrasReel, construirAperturaTrasReel, aperturaRetornoTrasReel, notaVideoReelVisto,
-  niegaHaberVistoVideo, reelSinVer, vozVideoDoceNiveles, OFERTA_SIMULADOR_NIVELES, sinSimuladorParaSocio,
+  niegaHaberVistoVideo, reelSinVer, vozVideoDoceNiveles, OFERTA_SIMULADOR_NIVELES, sinSimuladorParaSocio, ENTRADA_VIDEO_NIVELES_SOCIO, CIERRE_VIDEO_NIVELES_SOCIO,
   construirAperturaTrasVideoNiveles,
   aperturaRetornoTrasVideoNiveles,
   notaVideoDoceNivelesVisto,
@@ -70,7 +70,7 @@ import {
   preguntaDelCafe, listaGuardada, siguienteDeLaLista, listaTerminada, resumenParaElSocio,
 } from '@/lib/wa-lista-socio';
 import { aFormatoWhatsApp, partirParaWhatsApp, partesConBorradorAparte } from '@/lib/wa-formato';
-import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esReporteDelSimulador, paqueteParaNivelesSocio, respuestaNivelesSocio } from '@/lib/wa-simulador';
+import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esReporteDelSimulador, paqueteParaNivelesSocio, respuestaNivelesSocio, pasoNivelesSocio, detalleNivelesSocio } from '@/lib/wa-simulador';
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
@@ -89,6 +89,8 @@ import {
   mensajeDeBienvenida,
   enlaceDeCanal,
   enlaceCatalogo,
+  enlacePresentacion,
+  paqueteDelSocio,
   avisarSocioNuevoProspecto,
   identificarSocio,
   saludoDeSocio,
@@ -1663,6 +1665,35 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.221 los 12 Niveles a la tarifa del paquete');
         console.log(`📊 [WA Webhook] 2.221 el socio /${socioQueEscribe.slug} pidió Los 12 Niveles con ${paqueteNiveles} — tabla calculada`);
+        return;
+      }
+      // 2.222 / 2.223 La estrategia para el socio (Director, 2 oct 2026): la pide y
+      // recibe el VIDEO, el mismo que ve su prospecto; el «sí» a estudiarla, o
+      // pedirla en detalle, recibe los cuatro pasos y la tabla con SU tarifa, más
+      // el enlace a la pantalla de los números de su presentación.
+      const pasoNiveles = pasoNivelesSocio(messageText, _ultimoBotSocio, esAceptacion(messageText));
+      if (pasoNiveles === 'video') {
+        await sendWhatsAppMessage(phoneNumber, ENTRADA_VIDEO_NIVELES_SOCIO, { wamid });
+        // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
+        if (wamid) await marcarLeidoYEscribiendo(wamid);
+        await new Promise((res) => setTimeout(res, 800));
+        const envio = await sendVideo(phoneNumber, VIDEO_DOCE_NIVELES_WA, CIERRE_VIDEO_NIVELES_SOCIO);
+        if (!envio.ok) {
+          console.warn(`⚠️ [WA Webhook] 2.222 el video no salió (${envio.error}) — va el texto`);
+          await sendWhatsAppMessage(phoneNumber, `${vozVideoDoceNiveles()}\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`);
+        }
+        await persistirTurnoDictado(supabase, waFingerprint, messageText,
+          `${ENTRADA_VIDEO_NIVELES_SOCIO}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`,
+          '2.222 el video de Los 12 Niveles (socio)');
+        console.log(`🎬 [WA Webhook] 2.222 video «Los 12 Niveles» al socio /${socioQueEscribe.slug}`);
+        return;
+      }
+      if (pasoNiveles === 'detalle') {
+        const paqueteSocio = await paqueteDelSocio(supabase, socioQueEscribe.constructorId);
+        const texto = detalleNivelesSocio(paqueteSocio, paisDeTelefono(phoneNumber), enlacePresentacion(socioQueEscribe.slug, 9));
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.223 Los 12 Niveles en detalle (socio)');
+        console.log(`📊 [WA Webhook] 2.223 detalle de Los 12 Niveles al socio /${socioQueEscribe.slug} (${paqueteSocio ?? 'sin paquete → Kit'})`);
         return;
       }
       const motivo = detectarPideFuncionDashboard(messageText);

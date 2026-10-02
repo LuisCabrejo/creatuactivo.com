@@ -22,7 +22,8 @@
 
 // Solo el tipo: el conductor importa de este archivo, y un import de valor haría ciclo.
 import type { PaisConductor } from '@/lib/queswa-conductor';
-import { CIERRE_SOCIO_PROYECCION } from '@/lib/wa-apertura';
+import { CIERRE_SOCIO_PROYECCION, CIERRE_VIDEO_NIVELES_SOCIO } from '@/lib/wa-apertura';
+import { sinDiacriticos } from '@/lib/texto-normalizar';
 
 /** Renta recurrente: COP por cliente, por punto de tarifa y POR CAJA al mes. */
 // La caja de Ganocafé aporta 14 CV, y el CV se liquida a la tasa fija: 14 × $45
@@ -351,7 +352,8 @@ export function textoCubrirCompra(precioCaja: number, nombreCaja = 'Ganocafé 3 
 
 export type PaqueteEsp = 'ESP-1' | 'ESP-2' | 'ESP-3';
 
-const TARIFA_DEL_PAQUETE: Record<PaqueteEsp, { pct: number; nombre: string }> = {
+const TARIFA_DEL_PAQUETE: Record<PaqueteEsp | 'KIT', { pct: number; nombre: string }> = {
+  'KIT':   { pct: 10, nombre: 'Kit de Inicio' },
   'ESP-1': { pct: 15, nombre: 'ESP-1 Inicial' },
   'ESP-2': { pct: 16, nombre: 'ESP-2 Empresarial' },
   'ESP-3': { pct: 17, nombre: 'ESP-3 Visionario' },
@@ -404,5 +406,63 @@ export function respuestaNivelesSocio(paquete: PaqueteEsp, pais?: PaisConductor)
     '*⚠️ Importante:* estos números son el potencial matemático bajo duplicación perfecta. Las comisiones reales dependen del crecimiento y consumo de su sistema. No son resultados garantizados.',
     '',
     CIERRE_SOCIO_PROYECCION,
+  ].join('\n');
+}
+
+// ─── Los 12 Niveles para el SOCIO: el video y el detalle (2 oct 2026) ────────
+//
+// Director, tras probarlo: pidió la estrategia y le llegó el texto; mejor el video.
+// Y quien quiere estudiarla pide detalles: se le explican en texto, en cuatro pasos
+// y nivel por nivel con SU tarifa, y se le da el enlace a la pantalla de los
+// números de su presentación (`?pantalla=9`), donde mueve el porcentaje él mismo.
+// El hilo de 12 Niveles del prospecto sigue cerrado al socio: esto es otra puerta.
+
+/** «12 niveles», «doce niveles», y el pulgar: «12 nivles», «docce», «nvieles». Se comparan sin tildes. */
+const RE_DOCE_NIVELES = /(?:\b12|\b(?:doc+e|dcoe|doec))\s*(?:niv[a-z]{0,5}|n[a-z]?v[a-z]?l|nv[a-z]{1,3}l)/i;
+const RE_PIDE_DETALLE = /d(?:e?t{1,2}|te)a?l{1,2}e|nivel por nivel|estudi|tabla|cifras?|n[uú]meros|c[oó]mo se gana|cu[aá]nto\s+(se gana|gano|ganar[ií]a|da|sale|deja|produce|genera)/i;
+const RE_PIDE_VERLO = /\b(ver|v[eé]rl[oa]s?|mu[eé]str|mostr|d[aáeé]me|env[ií]|m[aá]nd|quiero|estrategia|v[ií]deo|qu[eé]\s+(son|es)|expl[ií](c|qu)|c[oó]mo\s+(funciona|es|son))/i;
+/** Las preguntas sobre la estrategia que tienen respuesta propia en el arsenal (NIVELES_03 a 09). */
+const RE_OTRA_PREGUNTA_NIVELES = /hasta\s+cu[aá]ndo|qu[eé]\s+pasa\s+si|inversi[oó]n|cu[aá]nto\s+cuesta|particip|vincul|me\s+demoro|fecha/i;
+
+/**
+ * ¿El socio pide la estrategia (el video) o el detalle? El «sí» al pie del video es
+ * el detalle. Lo que nombra un paquete lo atiende antes el 2.221 con su tabla.
+ */
+export function pasoNivelesSocio(texto: string, ultimoBot: string, acepta: boolean): 'video' | 'detalle' | null {
+  if (acepta && (ultimoBot || '').trimEnd().endsWith(CIERRE_VIDEO_NIVELES_SOCIO)) return 'detalle';
+  const t = sinDiacriticos(texto || '');
+  if (!RE_DOCE_NIVELES.test(t) || RE_OTRA_PREGUNTA_NIVELES.test(t)) return null;
+  if (RE_PIDE_DETALLE.test(t)) return 'detalle';
+  return RE_PIDE_VERLO.test(t) ? 'video' : null;
+}
+
+/**
+ * Los 12 Niveles en cuatro pasos y nivel por nivel, con la tarifa del paquete del
+ * socio (sin paquete, el Kit: con esa tarifa se cuenta la estrategia). Copy aprobado
+ * por el Director el 2 oct 2026. Termina en el enlace, sin pregunta: quien pidió
+ * estudiarlo ya tiene adónde ir.
+ */
+export function detalleNivelesSocio(paquete: PaqueteEsp | 'KIT' | null, pais: PaisConductor | undefined, enlacePresentacion: string): string {
+  const { pct, nombre } = TARIFA_DEL_PAQUETE[paquete ?? 'KIT'];
+  const n = (x: number) => x.toLocaleString('es-CO');
+  const filas = NIVELES_DE_LA_TABLA.map((nivel) => {
+    const f = filaNivel(nivel)!;
+    return `*Nivel ${nivel}* · ${n(f.total)} distribuidores · ${dinero(f.cvLado * pct * COP_POR_CV_Y_PUNTO, pais)} al mes`;
+  });
+  return [
+    'Se lo explico en cuatro pasos:',
+    '',
+    '1. Usted conecta mínimo dos distribuidores: uno en su canal izquierdo y otro en el derecho.',
+    '2. Cada uno hace lo mismo y conecta a otros dos. Eso es la duplicación 2×2, y cada vuelta es un nivel.',
+    '3. Cada distribuidor compra sus cuatro cajas al mes, que son 56 CV.',
+    `4. La compañía empareja cada punto de su canal izquierdo con su equivalente en el derecho, y de ese volumen a usted le queda su tarifa: con el *${nombre}*, el *${pct}%*, liquidado por ciclos semanales.`,
+    '',
+    'Así se ve, nivel por nivel:',
+    '',
+    ...filas,
+    '',
+    'Es el potencial matemático bajo duplicación perfecta: mientras sus distribuidores y sus clientes sigan comprando, hay comisión, y el ritmo lo pone cada sistema.',
+    '',
+    `Si quiere estudiarlo con calma y mover el porcentaje usted mismo, está en la pantalla de los números de su presentación: ${enlacePresentacion}`,
   ].join('\n');
 }

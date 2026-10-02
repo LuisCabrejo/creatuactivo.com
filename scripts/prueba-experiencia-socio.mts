@@ -269,5 +269,30 @@ const conOferta = sinSimuladorParaSocio(`Material de NIVELES_01.\n\n**Pregunta d
 es(!conOferta.includes(OFERTA_SIMULADOR_NIVELES) && conOferta.endsWith(CIERRE_SOCIO_PROYECCION),
    'al socio no se le ofrece el simulador: le llega el cierre de su Proyección Patrimonial');
 
+// ── 11. La estrategia para el socio: el video y el detalle (2 oct 2026) ──
+// El Director la pidió y le llegó el texto compuesto, con un cierre inventado.
+// Hoy: la pide → el video, con el pie que ofrece estudiarla; el «sí» o pedirla en
+// detalle → cuatro pasos y la tabla con SU tarifa, y el enlace a la pantalla 9.
+console.log('\n── 11. La estrategia para el socio ──');
+const { pasoNivelesSocio, detalleNivelesSocio } =
+  require('../src/lib/wa-simulador.ts') as typeof import('../src/lib/wa-simulador.ts');
+const { CIERRE_VIDEO_NIVELES_SOCIO } = require('../src/lib/wa-apertura.ts') as typeof import('../src/lib/wa-apertura.ts');
+const { enlacePresentacion } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
+es(['Hola, dame la estrategia de los 12 niveles', 'Hola quiero ver los doce niveles', 'explíqueme los 12 nivles']
+     .every((m) => pasoNivelesSocio(m, '', false) === 'video'),
+   'pedir la estrategia (la del Director, la de Miguel, con typo) → el video');
+es(pasoNivelesSocio('Si', `…\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`, true) === 'detalle'
+   && pasoNivelesSocio('cuánto se gana en los 12 niveles', '', false) === 'detalle',
+   'el «sí» al pie del video, o pedirla en detalle → el detalle');
+es(['hasta cuándo va el plan de 12 niveles', 'cuál es la inversión para los 12 niveles', 'quiero 12 nuevos clientes']
+     .every((m) => pasoNivelesSocio(m, '', false) === null),
+   'las preguntas con respuesta propia en el arsenal siguen su camino');
+const enlace9 = enlacePresentacion('miguel-barahona', 9);
+const detalle = detalleNivelesSocio('ESP-3', 'CO', enlace9);
+es(detalle.includes('$175.429.800 COP al mes') && detalle.trimEnd().endsWith(enlace9) && enlace9.endsWith('/miguel-barahona/presentacion?pantalla=9'),
+   'el detalle va con su tarifa y termina en la pantalla 9 de su presentación');
+es(detalleNivelesSocio(null, 'CO', enlace9).includes('el *Kit de Inicio*, el *10%*'), 'sin paquete conocido, la estrategia se cuenta con el Kit');
+es(!negocio.detectarPromesaDeIngreso(detalle) && !g.detectarClaimSaludEnSalida(detalle), 'ningún guardarraíl bloquea el detalle');
+
 console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);
 process.exit(fallos ? 1 : 0);

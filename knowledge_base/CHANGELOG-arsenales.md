@@ -12,6 +12,15 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_compensacion
 
+### v8.13 — El GEN5 y el Binario dejan de comparar paquetes, y la vigencia del porcentaje se dice como hecho (2 oct 2026)
+
+Aprobado por el Director tras auditar su prueba en el Dashboard. A «¿Le muestro cómo se suman las ganancias por la compra de paquetes…?» → «sí», el modelo compuso: *«es lo que produce ingreso desde los primeros días»* y *«Si usted tuviese ESP-1… solo cobraría $25 USD de esos $150 — los $125 restantes se van. Por eso el nivel con que usted abrió su sistema importa tanto»*. Las dos salían de material servido:
+
+- **COMP_GEN5_08** cerraba con una *«Comparativa por paquete, sobre los mismos 62 paquetes comprados»* (ESP-3 $2,140 · ESP-2 –$1,070 · ESP-1 –$1,630) — la misma construcción de los tres empujones al ESP-3 que la familia retiró el 26 ago — y con *«se cobra desde el primero… Las dos corren en paralelo desde el primer día»*. Sale la comparativa; *«Esa comisión le entra a medida que se compran los paquetes.»* (la frase aprobada de `textoBonoPaquetes`) reemplaza la de los viernes, y el paralelo queda sin la marca de tiempo. La tabla del ejemplo y su total, intactos. En el `[Concepto Nuclear]`, *«Cada vinculación = un pago»* → *«Cada paquete que se compra = un pago»*.
+- **COMP_BIN_02** traía un ejemplo con 10.000 CV (Kit $1,000 · ESP-3 $1,700 · *«Diferencia +$700 USD»*) y remataba *«sobre el mismo volumen la diferencia se nota en cada liquidación»*, que además es falso: el 17% rige seis meses. Sale el ejemplo; la frase final dice que el porcentaje de arranque rige el tiempo de la tabla y que después el sistema aplica el más alto entre la base del 10%, el rango y las promociones de Gano (lo mismo que COMP_BIN_11 y la pantalla 9 de la presentación).
+
+**Revisado y NO tocado:** COMP_PAQ_04 dice *«El GEN5 queda activo desde el primer día, sin término»* — habla de la activación del bono, no del ritmo del pago; queda anotado por si el Director lo quiere revisar.
+
 ### v8.12 — Cuatro preguntas de cierre dejan de mandar el «sí» a otra parte (23 sep 2026)
 
 Nace de la auditoría del tráfico real. María Angel, socia, dijo «Si» ocho veces seguidas entre las 8:03 y las 9:03 del 21 sep y recorrió un **anillo**: el ejemplo del GEN5 ofrecía el Binario, el Binario ofrecía las condiciones de cobro, y seis turnos después estaba de vuelta en el GEN5. Los turnos 10 y 11 fueron los turnos 4 y 5.

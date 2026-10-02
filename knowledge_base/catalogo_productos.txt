@@ -468,7 +468,7 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 
 ### PERS_02: "¿Qué es el Gano Fresh? / la pasta de dientes / crema dental / pasta dental de ustedes / cuánto cuesta la pasta"
 **[Índice]:** Qué es el Gano Fresh, la crema dental, la pasta de dientes, cuánto cuesta.
-**[Concepto Nuclear]:** El argumento es SIN FLÚOR, que es la razón por la que una familia la busca, más el hecho de que el Ganoderma llegue hasta el cepillo. ⚠️ Nada sobre encías, caries ni sensibilidad: son condiciones y las cubre la línea roja. El registro es cosmético (NSOC), no sanitario de alimento.
+**[Concepto Nuclear]:** El argumento es SIN FLÚOR, que es la razón por la que una familia la busca, más el hecho de que el Ganoderma llegue hasta el cepillo. ⚠️ **«Encías saludables» sí va** (Director, 2 oct 2026): es la celda del Gano Fresh en `PERS_01`, es correcta y no se marca. Caries y sensibilidad siguen fuera. El registro es cosmético (NSOC), no sanitario de alimento.
 
 Con gusto. El Gano Fresh es la pasta dental de la línea, y lo que la distingue es lo que no lleva: no tiene flúor. Es la razón por la que la buscan las familias que revisan las etiquetas.
 

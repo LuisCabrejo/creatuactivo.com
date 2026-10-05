@@ -7,25 +7,35 @@
  *   npx tsx scripts/enviar-lunes-socio.mts                 # dice a quién le tocaría y por qué (no envía)
  *   npx tsx scripts/enviar-lunes-socio.mts --enviar        # envía a todos los que tocan
  *   npx tsx scripts/enviar-lunes-socio.mts --enviar --solo luis-cabrejo-1288   # solo a uno (prueba)
+ *   npx tsx scripts/enviar-lunes-socio.mts --todos [--enviar]   # a todos los distribuidores, sin la cadencia mensual
+ *   … --enviar --solo <id> --gancho --plantilla   # prueba: el gancho, por plantilla, a un solo teléfono
  */
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 import { createClient } from '@supabase/supabase-js';
-import { decidir, enviarLunes, enSilencioBogota, semanaISO } from '../src/lib/wa-lunes-socio';
+import { decidir, enviarLunes, enSilencioBogota, semanaISO, destinoDelSocio } from '../src/lib/wa-lunes-socio';
 import { dentroDeVentana } from '../src/lib/wa-ventana';
 
 const args = process.argv.slice(2);
 const enviar = args.includes('--enviar');
 const solo = args.includes('--solo') ? args[args.indexOf('--solo') + 1] : undefined;
+// --todos: a todos los distribuidores, sin la cadencia mensual del que calla (ver `decidir`).
+const todos = args.includes('--todos');
+// Para probar en un teléfono (con --solo): --gancho manda el gancho aunque tenga
+// destino; --plantilla manda la plantilla aunque esté en ventana.
+const variante = args.includes('--gancho') ? 'gancho' as const : undefined;
+const forzarPlantilla = args.includes('--plantilla');
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 const ahora = new Date();
 
 console.log(`📅 Semana ${semanaISO(ahora)} · ${enSilencioBogota(ahora) ? '🌙 horas de silencio' : 'horario permitido'}\n`);
 
 if (!enviar) {
-  const decisiones = await decidir(supabase, ahora);
+  const decisiones = await decidir(supabase, ahora, { todos });
+  const variante = new Map<string, string>();
+  for (const x of decisiones) variante.set(x.d.constructorId, (await destinoDelSocio(supabase, x.d.constructorId)) ? 'ruta' : 'gancho');
   console.table(decisiones.map(x => ({
-    socio: x.d.nombre, telefono: x.d.telefono, accion: x.accion, motivo: x.motivo,
+    socio: x.d.nombre, telefono: x.d.telefono, accion: x.accion, motivo: x.motivo, mensaje: variante.get(x.d.constructorId),
     via: x.accion === 'enviar' ? (dentroDeVentana(x.ultimoMensajeSocio, ahora) ? 'texto libre' : 'plantilla') : '—',
     ultimoMensaje: x.ultimoMensajeSocio ? x.ultimoMensajeSocio.slice(0, 10) : 'nunca',
     ultimoEnvio: x.ultimoEnvio ? x.ultimoEnvio.slice(0, 10) : '—',
@@ -36,7 +46,7 @@ if (!enviar) {
 
 if (enSilencioBogota(ahora)) { console.error('🌙 Horas de silencio en Bogotá: no se envía.'); process.exit(1); }
 
-const { decisiones, resultados } = await enviarLunes(supabase, ahora, { solo });
+const { decisiones, resultados } = await enviarLunes(supabase, ahora, { solo, todos, variante, forzarPlantilla });
 
 // ── Conciliación ─────────────────────────────────────────────────────────────
 // Meta acepta el envío (200 + wamid) y lo rechaza DESPUÉS por el webhook: texto

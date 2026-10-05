@@ -37,6 +37,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { sendText, sendTemplate } from '@/lib/wa-channel';
+import { recordatorioLunes } from '@/lib/wa-lunes-socio';
+import { enviarFormularioDestino } from '@/lib/wa-destino-socio';
 import { acuerdosVencidos, cerrarAcuerdo } from '@/lib/wa-acuerdos';
 import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 
@@ -128,7 +130,13 @@ export async function GET(request: NextRequest) {
       // (131047), así que un `ok` aquí no probaba que el acuerdo se cumpliera.
       // Descubierto el 14 sep 2026 con el mensaje de los lunes.
       if (await enVentanaPorTelefono(supabase, a.telefono, ahora)) {
-        const libre = await sendText(a.telefono, textoRecordatorio(a.que));
+        // El «Recuérdemelo a las 2» del lunes (modo Waze) vuelve con el formulario
+        // «Su destino», no con el recordatorio genérico. Lo guardado lo atiende el
+        // nodo 1.391 del webhook.
+        const lunes = recordatorioLunes(a.que, a.nombre);
+        const libre = lunes && a.constructorId
+          ? await enviarFormularioDestino(a.telefono, a.constructorId, null, lunes.texto, lunes.cta)
+          : await sendText(a.telefono, textoRecordatorio(a.que));
         if (libre.ok) {
           await cerrarAcuerdo(supabase, a.id, 'cumplido');
           cumplidos++;

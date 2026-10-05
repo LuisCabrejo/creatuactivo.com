@@ -64,6 +64,10 @@ import {
   esNoExplicito, yaSeEvoco, aceptaPuerta,
 } from '@/lib/wa-ambivalencia';
 import { extraerMomento, guardarAcuerdo, guardarPuertaAbierta } from '@/lib/wa-acuerdos';
+import { botonDelLunes, proximasDosPM, respuestaRecordar, QUE_LUNES, CUERPO_FORMULARIO } from '@/lib/wa-lunes-socio';
+import {
+  destinoDelSocio, leerFormularioDestino, atenderFormularioDestino, enviarFormularioDestino, type DestinoSocio,
+} from '@/lib/wa-destino-socio';
 import {
   extraerNombres, pareceListaDeNombres, guardarLista, siguienteContacto, resumenLista,
   marcarEnviado, pideAyudaParaEmpezar, diceQueYaEnvio, preguntaPorLaLista,
@@ -430,6 +434,9 @@ async function procesarEntrante(body: any): Promise<void> {
     // abajo (bloque 2.3), porque el cierre depende del historial y a esta altura
     // el historial no existe todavía.
     let escenarioSimulador: { tipo: 'renta'; tarifa: string; clientes: string; consumo?: string } | { tipo: 'regalia'; distribuidores: string } | { tipo: 'niveles'; nivel: string } | { paquete: string; cantidad: string } | null = null;
+    // El formulario «Su destino» del modo Waze (5 oct 2026): lo atiende el nodo 1.391.
+    let destinoDelFormulario: DestinoSocio | null = null;
+    let formularioDestino = false;
     const audioId = (message.audio?.id ?? message.voice?.id) as string | undefined;
 
     // Elección en un mensaje interactivo: Meta NO manda `text.body`. Sin esto, el
@@ -466,6 +473,13 @@ async function procesarEntrante(body: any): Promise<void> {
           const r = JSON.parse(interactivo.nfm_reply.response_json) as {
             paquete?: string; cantidad?: string; tipo?: string; tarifa?: string; clientes?: string; consumo?: string; escenario?: string; distribuidores?: string; nivel?: string;
           };
+          // El formulario «Su destino» (modo Waze, 5 oct 2026): { tipo: 'destino', gasto, vida, razon }.
+          if (r.tipo === 'destino') {
+            formularioDestino = true;
+            destinoDelFormulario = leerFormularioDestino(r as Record<string, unknown>);
+            messageText = 'Anoté mi destino en el formulario.';
+            console.log(`🧭 [WA Webhook] ${phoneNumber} guardó el formulario de destino${destinoDelFormulario ? '' : ' (incompleto)'}`);
+          }
           // La pantalla de Los 12 Niveles manda { tipo: 'niveles', nivel } — nivel
           // por nivel, con su causa al lado (Director, 1 sep 2026).
           if (r.tipo === 'niveles' && r.nivel) {
@@ -942,6 +956,56 @@ async function procesarEntrante(body: any): Promise<void> {
         const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
         if (convertido) socioDesde = new Date().toISOString();
       }
+    }
+
+    // ─── 1.39 Los botones del lunes — el modo Waze (5 oct 2026) ───────────────
+    // El mensaje de los lunes (wa-lunes-socio.ts) trae el formulario «Su destino»
+    // y, a quien no lo ha anotado, [Recuérdemelo a las 2]. Va ANTES del saludo del
+    // socio: el toque es su respuesta al lunes, y el saludo se llevaría el turno.
+    // Solo socios: estos botones solo le llegan a un distribuidor.
+    //
+    // 1.391 — guardó el formulario: queda en sus Ajustes de Cuenta (la misma tabla
+    // que lee el Dashboard) y la confirmación le deja el botón a queswa.app.
+    if (socioQueEscribe && formularioDestino && messageText) {
+      const texto = destinoDelFormulario
+        ? await atenderFormularioDestino(supabase, phoneNumber, socioQueEscribe, destinoDelFormulario)
+        : 'Me llegó incompleto. ¿Lo intenta otra vez? Son las dos cifras en pesos y su razón.';
+      if (!destinoDelFormulario) await sendWhatsAppMessage(phoneNumber, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '1.391 lunes: destino guardado');
+      console.log(`🧭 [WA Webhook] 1.391 destino de /${socioQueEscribe.slug} ${destinoDelFormulario ? 'guardado' : 'incompleto'}`);
+      return;
+    }
+    const _botonLunes = socioQueEscribe ? botonDelLunes(opcionElegida, messageText) : null;
+    if (socioQueEscribe && _botonLunes && messageText) {
+      let texto: string;
+      if (_botonLunes === 'anotar') {
+        // [Anotarlo ahora] dentro de la ventana: el formulario, sin salir del chat.
+        const destino = await destinoDelSocio(supabase, socioQueEscribe.constructorId);
+        const envio = await enviarFormularioDestino(phoneNumber, socioQueEscribe.constructorId, destino, CUERPO_FORMULARIO);
+        texto = CUERPO_FORMULARIO;
+        if (!envio.ok) {
+          console.warn(`⚠️ [WA Webhook] 1.39 formulario NO enviado a /${socioQueEscribe.slug}: ${envio.error}`);
+          texto = 'No me dejó abrirle el formulario ahora mismo. Lo puede anotar en queswa.app, en Ajustes de Cuenta.';
+          await sendWhatsAppMessage(phoneNumber, texto);
+        }
+      } else {
+        // El toque abre la ventana de 24 h: a las 2 p. m. (o mañana a las 2, si ya
+        // pasaron) el cron de acuerdos le devuelve el formulario.
+        const { cuando, manana } = proximasDosPM(new Date());
+        await guardarAcuerdo(supabase, {
+          fingerprintId: waFingerprint,
+          telefono:      phoneNumber,
+          que:           QUE_LUNES.anotar,
+          cuando,
+          nombre:        socioQueEscribe.nombre,
+          constructorId: socioQueEscribe.constructorId,
+        });
+        texto = respuestaRecordar(manana);
+        await sendWhatsAppMessage(phoneNumber, texto);
+      }
+      await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, `1.39 lunes: ${_botonLunes}`);
+      console.log(`🧭 [WA Webhook] 1.39 el socio /${socioQueEscribe.slug} tocó «${messageText}» (${_botonLunes})`);
+      return;
     }
 
     // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────

@@ -487,9 +487,9 @@ export async function sendFlow(
   flowId: string,
   bodyText: string,
   ctaLabel: string,
-  opciones: { headerText?: string; screen?: string } = {},
+  opciones: { headerText?: string; screen?: string; token?: string; data?: Record<string, string> } = {},
 ): Promise<WAResult> {
-  if (enEnsayo()) return ensayo('flow', { to, flowId, bodyText, ctaLabel, screen: opciones.screen ?? null });
+  if (enEnsayo()) return ensayo('flow', { to, flowId, bodyText, ctaLabel, screen: opciones.screen ?? null, token: opciones.token ?? null, data: opciones.data ?? null });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -517,11 +517,11 @@ export async function sendFlow(
               flow_message_version: '3',
               // Token de correlación, no de seguridad: vuelve en el nfm_reply y
               // permite saber qué envío originó la respuesta.
-              flow_token: `${normalizePhone(to)}_${Date.now()}`,
+              flow_token: opciones.token ?? `${normalizePhone(to)}_${Date.now()}`,
               flow_id: flowId,
               flow_cta: ctaLabel.slice(0, 30),
               flow_action: 'navigate',
-              ...(opciones.screen && { flow_action_payload: { screen: opciones.screen } }),
+              ...(opciones.screen && { flow_action_payload: { screen: opciones.screen, ...(opciones.data && { data: opciones.data }) } }),
             },
           },
         },
@@ -543,6 +543,55 @@ export async function sendFlow(
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error('❌ [WA] sendFlow error:', msg);
+    return { ok: false, error: msg };
+  }
+}
+
+/**
+ * Texto con UN botón que abre una dirección (`cta_url`), dentro de la ventana de
+ * 24 h. A diferencia del botón de URL de una plantilla, aquí la dirección va
+ * completa: no hay sufijo dinámico ni aprobación de Meta. Lo usa la confirmación
+ * del modo Waze para dejar al socio en sus Ajustes de Cuenta con la sesión abierta.
+ */
+export async function sendCtaUrl(
+  to: string,
+  bodyText: string,
+  textoBoton: string,
+  url: string,
+): Promise<WAResult> {
+  if (enEnsayo()) return ensayo('enlace', { to, bodyText, textoBoton, url });
+  const creds = credentials();
+  if ('error' in creds) {
+    console.error(creds.error);
+    return { ok: false, error: creds.error };
+  }
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${creds.systemToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        ...destinatario(to),
+        type: 'interactive',
+        interactive: {
+          type: 'cta_url',
+          body: { text: bodyText.slice(0, 1024) },
+          action: { name: 'cta_url', parameters: { display_text: textoBoton.slice(0, 20), url } },
+        },
+      }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      const msg = metaError(response.status, data);
+      console.error(`❌ [WA] sendCtaUrl — ${msg}`);
+      return { ok: false, error: msg };
+    }
+    const messageId = data?.messages?.[0]?.id;
+    console.log(`✅ [WA] Enlace enviado a ${normalizePhone(to)} (msg: ${messageId})`);
+    return { ok: true, messageId };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] sendCtaUrl error:', msg);
     return { ok: false, error: msg };
   }
 }
@@ -618,15 +667,26 @@ export async function sendInteractiveList(
  * `buttonUrlParam`: sufijo dinámico del botón de URL (plantillas con botón
  * `https://…/{{1}}`, ej. `acceso_centro_mando`). Meta lo exige como componente
  * `button` aparte — no viaja en los parámetros del BODY.
+ *
+ * `botones`: los parámetros de cada botón, en el orden de la plantilla (5 oct
+ * 2026). Respuesta rápida → el identificador que devuelve al tocarlo (sin él el
+ * webhook recibe solo el texto, que se puede parecer a lo que la persona
+ * escribe). Formulario (Flow) → el token que vuelve en el `nfm_reply` y, si la
+ * pantalla los declara, los datos con que abre (`flow_action_data`).
  */
+export type BotonPlantilla =
+  | { tipo: 'quick_reply'; payload: string }
+  | { tipo: 'flow'; token: string; data?: Record<string, string> };
+
 export async function sendTemplate(
   to: string,
   templateName: string,
   languageCode = 'es',
   parameters: string[] = [],
   buttonUrlParam?: string,
+  botones?: BotonPlantilla[],
 ): Promise<WAResult> {
-  if (enEnsayo()) return ensayo('plantilla', { to, templateName, parameters, buttonUrlParam: buttonUrlParam ?? null });
+  if (enEnsayo()) return ensayo('plantilla', { to, templateName, parameters, buttonUrlParam: buttonUrlParam ?? null, botones: botones ?? null });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -649,6 +709,11 @@ export async function sendTemplate(
       parameters: [{ type: 'text', text: buttonUrlParam }],
     });
   }
+  (botones ?? []).forEach((b, i) => {
+    componentList.push(b.tipo === 'quick_reply'
+      ? { type: 'button', sub_type: 'quick_reply', index: String(i), parameters: [{ type: 'payload', payload: b.payload }] }
+      : { type: 'button', sub_type: 'flow', index: String(i), parameters: [{ type: 'action', action: { flow_token: b.token, ...(b.data && { flow_action_data: b.data }) } }] });
+  });
   const components = componentList.length > 0 ? componentList : undefined;
 
   try {

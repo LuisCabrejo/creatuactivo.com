@@ -43,23 +43,133 @@
  * ⚠️ Un socio que falla NUNCA aborta el lote.
  */
 
-import { sendText, sendTemplate, normalizePhone } from '@/lib/wa-channel';
+import { sendTemplate, sendReplyButtons, normalizePhone, type WAButton, type BotonPlantilla, type WAResult } from '@/lib/wa-channel';
+import {
+  destinoDelSocio, datosFormulario, tokenFormulario, formatoPesos, razonParaPlantilla, enviarFormularioDestino,
+  type DestinoSocio,
+} from '@/lib/wa-destino-socio';
+
+export { destinoDelSocio } from '@/lib/wa-destino-socio';
 import { ultimoMensajeDePersona, dentroDeVentana } from '@/lib/wa-ventana';
 
-/** Una plantilla nueva cada semana (Director, 20 sep 2026). v5 desde el 28 sep: «objetivos» en vez de «metas» y el video «Cómo funciona» como línea de la semana. */
-export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v5';
+/**
+ * Una plantilla nueva cada semana (Director, 20 sep 2026).
+ *
+ * v7 (5 oct 2026) — el MODO WAZE, en DOS plantillas según lo que el socio tenga
+ * anotado en Ajustes de Cuenta (`socio_referencias`; ver wa-destino-socio.ts):
+ *   • `lunes_socio_v7_ruta` — quien anotó las tres (lo que necesita al mes, la
+ *     vida que quiere y su razón): su punto de partida, su destino y su razón con
+ *     SUS cifras y SUS palabras · [Actualizar destino] abre el formulario con lo
+ *     suyo ya escrito. Sin recordatorio: no tiene nada pendiente.
+ *   • `lunes_socio_v7` — los demás: «¿Ya conoce mi modo Waze?» · [Anotarlo
+ *     ahora] abre el formulario «Su destino» sin salir de WhatsApp ·
+ *     [Recuérdemelo a las 2].
+ * Lo que el Director descartó al verlo completo: ofrecerle al socio con destino
+ * «¿a quién tiene en mente? Le redacto el mensaje» —el mensaje es de PROPÓSITO,
+ * no de tareas— y mandarlo a queswa.app a anotar, con el inicio de sesión de por
+ * medio. Las v6 (botones de respuesta) quedaron aprobadas y sin uso.
+ * Textos sometidos con `scripts/someter-plantilla-lunes-socio.mjs`; cambiar los
+ * dos lados a la vez.
+ */
+export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v7';
+export const PLANTILLA_LUNES_RUTA = 'lunes_socio_v7_ruta';
 
-/** Mismo texto que la plantilla (scripts/someter-plantilla-lunes-socio.mjs). Cambiar los dos a la vez, y con ellos `SEMANA_EN_SALUDO_SOCIO`. */
+/** Lo que devuelve cada botón de respuesta (payload de la plantilla e id del interactivo). Los atiende el nodo 1.39 del webhook. */
+export const BOTON_LUNES = {
+  anotar: 'lunes_waze_anotar',
+  recordar: 'lunes_waze_recordar',
+} as const;
+
+const B_ANOTAR: WAButton = { id: BOTON_LUNES.anotar, title: 'Anotarlo ahora' };
+const B_RECORDAR: WAButton = { id: BOTON_LUNES.recordar, title: 'Recuérdemelo a las 2' };
+
+/** Texto del mensaje con destino — el mismo de la plantilla `lunes_socio_v7_ruta`. */
+export function cuerpoLunesRuta(nombre: string, destino: DestinoSocio): string {
+  return (
+    `Hola ${nombre} 👋, iniciamos semana y estoy en modo Waze para usted: sé de dónde parte y a dónde va.\n\n` +
+    `📍 Punto de partida: lo que necesita hoy, ${formatoPesos(destino.gastoMes)} al mes.\n\n` +
+    `🏁 Destino: la vida que quiere, ${formatoPesos(destino.vidaMes)} al mes.\n\n` +
+    `❤️ Su razón: «${razonParaPlantilla(destino.razon)}».\n\n` +
+    'Ese es el destino con el que trabajo para usted. Cuando quiera, aquí estoy; y si su destino cambió, lo actualizamos en un minuto.'
+  );
+}
+
+/** Texto del gancho — el mismo de la plantilla `lunes_socio_v7`. */
 export function cuerpoLunesSocio(nombre: string): string {
   return (
-    `Hola ${nombre} 👋, espero que esté genial y vamos por una gran semana.\n\n` +
-    'Aquí estoy para ayudarle:\n\n' +
-    '🎯 A cumplir sus objetivos.\n\n' +
-    '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n\n' +
-    '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
-    '🎬 Ya tiene el video «Cómo funciona» con su enlace puesto, listo para sus Estados. Es el mismo que yo le muestro a quien me pregunta. Lo encuentra en queswa.app, en Compartir → Reels.\n\n' +
-    'Soy todo oídos.'
+    `Hola ${nombre} 👋, iniciamos semana. ¿Ya conoce mi modo Waze?\n\n` +
+    'Igual que Waze, le marco la ruta hacia donde usted quiere llegar. Solo me falta saber a dónde va: lo que necesita al mes, la vida que quiere y su razón.\n\n' +
+    'Son tres datos y un minuto, aquí mismo. Si hoy está a mil, se lo recuerdo a las 2 p. m.'
   );
+}
+
+/**
+ * El mensaje que le toca a cada socio: el texto (para el historial), cómo va por
+ * plantilla y cómo va dentro de la ventana, donde sale igual y sin costo.
+ */
+export function mensajeLunes(d: { primerNombre: string; constructorId: string; telefono: string }, destino: DestinoSocio | null) {
+  const token = tokenFormulario(d.constructorId);
+  const datos = datosFormulario(destino);
+  if (destino) {
+    const texto = cuerpoLunesRuta(d.primerNombre, destino);
+    return {
+      texto,
+      plantilla: PLANTILLA_LUNES_RUTA,
+      parametros: [d.primerNombre, formatoPesos(destino.gastoMes), formatoPesos(destino.vidaMes), razonParaPlantilla(destino.razon)],
+      botones: [{ tipo: 'flow', token, data: datos }] as BotonPlantilla[],
+      enVentana: (): Promise<WAResult> => enviarFormularioDestino(d.telefono, d.constructorId, destino, texto, 'Actualizar destino'),
+    };
+  }
+  const texto = cuerpoLunesSocio(d.primerNombre);
+  return {
+    texto,
+    plantilla: PLANTILLA_LUNES_SOCIO,
+    parametros: [d.primerNombre],
+    botones: [{ tipo: 'flow', token, data: datos }, { tipo: 'quick_reply', payload: BOTON_LUNES.recordar }] as BotonPlantilla[],
+    // Un mensaje interactivo lleva formulario O botones, no los dos: dentro de la
+    // ventana van los dos botones, y [Anotarlo ahora] trae el formulario (nodo 1.39).
+    enVentana: (): Promise<WAResult> => sendReplyButtons(d.telefono, texto, [B_ANOTAR, B_RECORDAR]),
+  };
+}
+
+// ─── Lo que pasa cuando toca un botón (nodo 1.39 del webhook) ─────────────────
+
+/** ¿El mensaje es uno de los botones del lunes? Por id/payload y, de respaldo, por el texto exacto del botón. */
+export function botonDelLunes(opcion: string | undefined, texto: string | undefined): keyof typeof BOTON_LUNES | null {
+  for (const [k, id] of Object.entries(BOTON_LUNES)) if (opcion === id) return k as keyof typeof BOTON_LUNES;
+  const t = (texto ?? '').trim().toLowerCase();
+  if (t === 'anotarlo ahora') return 'anotar';
+  if (t === 'recuérdemelo a las 2' || t === 'recuerdemelo a las 2') return 'recordar';
+  return null;
+}
+
+/** El cuerpo del formulario cuando se pide dentro de la conversación. */
+export const CUERPO_FORMULARIO = 'Son tres datos y un minuto, y quedan guardados en sus Ajustes de Cuenta de queswa.app.';
+
+/** Las 2 p. m. de Bogotá de hoy; si ya pasaron, las de mañana. */
+export function proximasDosPM(ahora: Date): { cuando: Date; manana: boolean } {
+  const b = bogota(ahora);
+  const hoy = Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate(), 14 - OFFSET_BOGOTA_H);
+  const manana = ahora.getTime() >= hoy;
+  return { cuando: new Date(manana ? hoy + 864e5 : hoy), manana };
+}
+
+export function respuestaRecordar(manana: boolean): string {
+  return manana ? 'Listo. Mañana a las 2 p. m. le escribo.' : 'Listo. A las 2 p. m. le escribo.';
+}
+
+/**
+ * El tema del acuerdo (`wa_acuerdos.que`). Valor fijo a propósito: el cron de
+ * acuerdos lo reconoce y, en vez del recordatorio genérico, le devuelve el
+ * formulario. Fuera de la ventana cae a la plantilla `recordatorio_acuerdo`,
+ * donde el tema se lee bien solo («…para retomar lo de anotar su destino»).
+ */
+export const QUE_LUNES = { anotar: 'lo de anotar su destino' } as const;
+
+export function recordatorioLunes(que: string, nombre?: string | null): { texto: string; cta: string } | null {
+  if (que !== QUE_LUNES.anotar) return null;
+  const hola = `Hola${nombre ? ', ' + nombre.split(/\s+/)[0] : ''}.`;
+  return { texto: `${hola} Como quedamos: para marcarle la ruta solo me falta su destino. Se lo dejo a un toque.`, cta: 'Anotar mi destino' };
 }
 
 /**
@@ -74,11 +184,12 @@ export function cuerpoLunesSocio(nombre: string): string {
  * mensaje de esta semana (al que calla le llega uno al mes). La oferta es UNA
  * pregunta y es de redactar para una persona, que el canal sí hace. `null` = el
  * saludo sale sin puente y cierra con la oferta de siempre.
+ *
+ * v6 (5 oct 2026): `null`. Los botones del modo Waze los atiende el nodo 1.39
+ * antes del saludo, y el saludo cierra con la oferta de redactar, que es la
+ * misma de [Arranquemos].
  */
-export const SEMANA_EN_SALUDO_SOCIO: { puente: string; oferta: string } | null = {
-  puente: 'Es el mismo que ya lleva el video «Cómo funciona», en Compartir → Reels: quien lo toque llega aquí a conversar conmigo.',
-  oferta: '¿Le redacto el mensaje para mandarle el video a alguien?',
-};
+export const SEMANA_EN_SALUDO_SOCIO: { puente: string; oferta: string } | null = null;
 
 /** Cuentas de sistema que viven en private_users con WhatsApp pero no son personas. */
 const CORREOS_EXCLUIDOS = new Set(['admin@ganocafe.online', 'sistema@creatuactivo.com']);
@@ -170,7 +281,14 @@ export async function ultimoMensajeDelSocio(supabase: Supa, d: Destinatario): Pr
   return ultimoMensajeDePersona(supabase, [...huellas]);
 }
 
-export async function decidir(supabase: Supa, ahora = new Date()): Promise<Decision[]> {
+/**
+ * `todos` (Director, 5 oct 2026 — el primer lunes del modo Waze): a todos los
+ * distribuidores registrados, sin la cadencia mensual del que calla. Sigue
+ * valiendo uno por semana. ⚠️ Es una excepción de un envío, no el nuevo default:
+ * la cadencia existe porque insistirle a quien no contesta es lo que Meta lee
+ * como spam, y el bloqueo lo paga el número de todos.
+ */
+export async function decidir(supabase: Supa, ahora = new Date(), opts: { todos?: boolean } = {}): Promise<Decision[]> {
   const lista = await destinatarios(supabase);
   const semana = semanaISO(ahora);
   const { data: envios, error } = await supabase
@@ -194,6 +312,14 @@ export async function decidir(supabase: Supa, ahora = new Date()): Promise<Decis
     let accion: Decision['accion'] = 'enviar';
     let motivo = dias(ultimoMensajeSocio) <= DIAS_CONVERSACION_RECIENTE ? 'conversa: semanal' : 'primer envío';
     if (enviadoEstaSemana.has(d.constructorId)) { accion = 'omitir'; motivo = 'ya recibió el de esta semana'; }
+    else if (d.telefono.startsWith('1') && !dentroDeVentana(ultimoMensajeSocio, ahora)) {
+      // Meta no entrega plantillas de MARKETING a números de EE. UU.: la acepta con
+      // 200 y la tumba después. Dentro de la ventana sí le llega el texto libre.
+      accion = 'omitir'; motivo = 'EE. UU. fuera de ventana: Meta no entrega MARKETING';
+    }
+    else if (opts.todos) {
+      motivo = dias(ultimoMensajeSocio) <= DIAS_CONVERSACION_RECIENTE ? 'conversa: semanal' : 'envío a todos (5 oct)';
+    }
     else if (dias(ultimoMensajeSocio) > DIAS_CONVERSACION_RECIENTE && dias(ultimoEnvio) < DIAS_ENTRE_ENVIOS_SI_CALLA) {
       accion = 'omitir'; motivo = `sin conversación en ${DIAS_CONVERSACION_RECIENTE} días: mensual (último envío hace ${Math.round(dias(ultimoEnvio))} d)`;
     } else if (dias(ultimoMensajeSocio) > DIAS_CONVERSACION_RECIENTE && ultimoEnvio) {
@@ -213,18 +339,29 @@ export interface ResultadoEnvio {
 }
 
 /** Manda el mensaje a un destinatario: texto libre si está en ventana, plantilla si no. Registra siempre. */
-export async function enviarLunesA(supabase: Supa, d: Destinatario, ahora = new Date(), ultimoMensajeSocio?: string | null): Promise<ResultadoEnvio> {
+/**
+ * `opts` es para PROBAR en un teléfono antes de mandar a todos: `variante:
+ * 'gancho'` manda el gancho aunque el socio tenga destino, y `forzarPlantilla`
+ * manda la plantilla aunque esté en ventana (es la que reciben casi todos).
+ */
+export async function enviarLunesA(
+  supabase: Supa, d: Destinatario, ahora = new Date(), ultimoMensajeSocio?: string | null,
+  opts: { variante?: 'gancho'; forzarPlantilla?: boolean } = {},
+): Promise<ResultadoEnvio> {
   const semana = semanaISO(ahora);
-  const texto = cuerpoLunesSocio(d.primerNombre);
+  const destino = opts.variante === 'gancho' ? null : await destinoDelSocio(supabase, d.constructorId);
+  const m = mensajeLunes(d, destino);
+  const texto = m.texto;
   const ultimo = ultimoMensajeSocio === undefined ? await ultimoMensajeDelSocio(supabase, d) : ultimoMensajeSocio;
-  const enVentana = dentroDeVentana(ultimo, ahora);
+  const enVentana = opts.forzarPlantilla ? false : dentroDeVentana(ultimo, ahora);
   let via: ResultadoEnvio['via'] = enVentana ? 'texto' : 'plantilla';
+  // Dentro de la ventana va el mismo texto con su botón, sin costo.
   let res = enVentana
-    ? await sendText(d.telefono, texto)
-    : await sendTemplate(d.telefono, PLANTILLA_LUNES_SOCIO, 'es', [d.primerNombre]);
+    ? await m.enVentana()
+    : await sendTemplate(d.telefono, m.plantilla, 'es', m.parametros, undefined, m.botones);
   // Si el texto libre falló en la llamada (no por ventana: eso no falla ahí), la plantilla es el respaldo.
   if (!res.ok && enVentana) {
-    res = await sendTemplate(d.telefono, PLANTILLA_LUNES_SOCIO, 'es', [d.primerNombre]);
+    res = await sendTemplate(d.telefono, m.plantilla, 'es', m.parametros, undefined, m.botones);
     via = 'plantilla';
   }
   if (!res.ok) via = null;
@@ -246,14 +383,17 @@ export async function enviarLunesA(supabase: Supa, d: Destinatario, ahora = new 
   return { constructorId: d.constructorId, nombre: d.nombre, via, ok: res.ok, error: res.ok ? undefined : res.error };
 }
 
-export async function enviarLunes(supabase: Supa, ahora = new Date(), opts: { solo?: string } = {}): Promise<{ decisiones: Decision[]; resultados: ResultadoEnvio[] }> {
-  const decisiones = await decidir(supabase, ahora);
+export async function enviarLunes(
+  supabase: Supa, ahora = new Date(),
+  opts: { solo?: string; todos?: boolean; variante?: 'gancho'; forzarPlantilla?: boolean } = {},
+): Promise<{ decisiones: Decision[]; resultados: ResultadoEnvio[] }> {
+  const decisiones = await decidir(supabase, ahora, { todos: opts.todos });
   const resultados: ResultadoEnvio[] = [];
   for (const dec of decisiones) {
     if (dec.accion !== 'enviar') continue;
     if (opts.solo && dec.d.constructorId !== opts.solo) continue;
     try {
-      resultados.push(await enviarLunesA(supabase, dec.d, ahora, dec.ultimoMensajeSocio));
+      resultados.push(await enviarLunesA(supabase, dec.d, ahora, dec.ultimoMensajeSocio, { variante: opts.variante, forzarPlantilla: opts.forzarPlantilla }));
     } catch (err) {
       console.error(`❌ [Lunes socio] Falló ${dec.d.constructorId}:`, err);
       resultados.push({ constructorId: dec.d.constructorId, nombre: dec.d.nombre, via: null, ok: false, error: String((err as Error)?.message ?? err) });

@@ -59,30 +59,67 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // v5 (28 sep 2026): «metas» → «objetivos» (el 19 sep el Director decidió que se
 // llaman referencias y que Queswa no introduce «meta»), y la línea de la semana es
 // el video «Cómo funciona» en Compartir → Reels, con el enlace del socio puesto.
-const NOMBRE  = 'lunes_socio_v5';
+// v6 (5 oct 2026, mañana): el MODO WAZE en dos plantillas, con botones de
+// respuesta. Aprobadas y nunca enviadas: el Director las revisó completas y pidió
+// que el destino se anote sin salir de WhatsApp.
+// v7 (5 oct 2026, mediodía): las dos de v6 con el formulario «Su destino»
+// (Flow `destino_socio`, scripts/publicar-flow-destino.mjs) en el botón:
+//   • `lunes_socio_v7` — quien no ha anotado su destino: «¿Ya conoce mi modo
+//     Waze?» · [Anotarlo ahora] abre el formulario · [Recuérdemelo a las 2].
+//   • `lunes_socio_v7_ruta` — quien ya lo anotó: su punto de partida, su destino
+//     y su razón, con SUS cifras de GASTO y SUS palabras · [Actualizar destino]
+//     abre el formulario con lo suyo ya escrito. Sin recordatorio: no tiene nada
+//     pendiente.
+// ⛔ «Le marco la ruta», nunca «lo llevo» (regla de WHY_02: llevarlo es prometer el
+// resultado). Por eso «HACIA donde quiere llegar», no «hasta».
+// Botones ≤ 20 caracteres (el interactivo del texto libre no admite más).
+// Se somete ya como MARKETING: las anteriores se sometieron UTILITY y Meta las
+// movió todas.
+
+const FLOW_DESTINO_ID = '1735859347501922';
 
 /** El mismo texto vive en src/lib/wa-lunes-socio.ts (texto libre dentro de ventana). Cambiar los dos a la vez. */
-export const CUERPO_LUNES_SOCIO =
-  'Hola {{1}} 👋, espero que esté genial y vamos por una gran semana.\n\n' +
-  'Aquí estoy para ayudarle:\n\n' +
-  '🎯 A cumplir sus objetivos.\n\n' +
-  '✍️ A redactarle el mensaje para esa persona que tiene en mente.\n\n' +
-  '💬 A responderle cualquier duda de los productos o del proyecto, antes de que se la hagan a usted.\n\n' +
-  '🎬 Ya tiene el video «Cómo funciona» con su enlace puesto, listo para sus Estados. Es el mismo que yo le muestro a quien me pregunta. Lo encuentra en queswa.app, en Compartir → Reels.\n\n' +
-  'Soy todo oídos.';
+export const CUERPO_LUNES_GANCHO =
+  'Hola {{1}} 👋, iniciamos semana. ¿Ya conoce mi modo Waze?\n\n' +
+  'Igual que Waze, le marco la ruta hacia donde usted quiere llegar. Solo me falta saber a dónde va: lo que necesita al mes, la vida que quiere y su razón.\n\n' +
+  'Son tres datos y un minuto, aquí mismo. Si hoy está a mil, se lo recuerdo a las 2 p. m.';
 
-const PLANTILLA = {
-  name: NOMBRE,
-  language: 'es',
-  category: 'UTILITY',
-  components: [
-    {
-      type: 'BODY',
-      text: CUERPO_LUNES_SOCIO,
-      example: { body_text: [['Liliana']] },
-    },
-  ],
-};
+export const CUERPO_LUNES_RUTA =
+  'Hola {{1}} 👋, iniciamos semana y estoy en modo Waze para usted: sé de dónde parte y a dónde va.\n\n' +
+  '📍 Punto de partida: lo que necesita hoy, {{2}} al mes.\n\n' +
+  '🏁 Destino: la vida que quiere, {{3}} al mes.\n\n' +
+  '❤️ Su razón: «{{4}}».\n\n' +
+  'Ese es el destino con el que trabajo para usted. Cuando quiera, aquí estoy; y si su destino cambió, lo actualizamos en un minuto.';
+
+const formulario = (text) => ({ type: 'FLOW', text, flow_id: FLOW_DESTINO_ID, navigate_screen: 'DESTINO', flow_action: 'navigate' });
+const respuesta = (text) => ({ type: 'QUICK_REPLY', text });
+
+const PLANTILLAS = [
+  {
+    name: 'lunes_socio_v7',
+    language: 'es',
+    category: 'MARKETING',
+    components: [
+      { type: 'BODY', text: CUERPO_LUNES_GANCHO, example: { body_text: [['Liliana']] } },
+      { type: 'BUTTONS', buttons: [formulario('Anotarlo ahora'), respuesta('Recuérdemelo a las 2')] },
+    ],
+  },
+  {
+    name: 'lunes_socio_v7_ruta',
+    language: 'es',
+    category: 'MARKETING',
+    components: [
+      { type: 'BODY', text: CUERPO_LUNES_RUTA, example: { body_text: [['Liliana', '$2.500.000', '$5.000.000', 'Tener más tiempo con mi familia']] } },
+      { type: 'BUTTONS', buttons: [formulario('Actualizar destino')] },
+    ],
+  },
+];
+
+for (const p of PLANTILLAS) {
+  for (const b of p.components.find(c => c.type === 'BUTTONS').buttons) {
+    if (b.text.length > 20) { console.error(`❌ Botón «${b.text}» pasa de 20 caracteres (límite del botón interactivo).`); process.exit(1); }
+  }
+}
 
 if (!WABA_ID || !TOKEN) {
   console.error('❌ Faltan WHATSAPP_WABA_ID o WHATSAPP_SYSTEM_TOKEN en .env.local');
@@ -92,56 +129,42 @@ if (!WABA_ID || !TOKEN) {
 const args = process.argv.slice(2);
 
 if (args.includes('--estado')) {
-  const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates?name=${NOMBRE}&fields=name,status,category,previous_category,rejected_reason`, {
-    headers: { Authorization: `Bearer ${TOKEN}` },
-  });
-  const j = await r.json();
-  for (const t of j.data || []) {
+  for (const p of PLANTILLAS) {
+    const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates?name=${p.name}&fields=name,status,category,previous_category,rejected_reason`, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    });
+    const j = await r.json();
+    const t = (j.data || []).find(x => x.name === p.name);
+    if (!t) { console.log(`· ${p.name} — no existe todavía`); continue; }
     const icono = t.status === 'APPROVED' ? '✅' : t.status === 'REJECTED' ? '❌' : '⏳';
     const movida = t.previous_category && t.previous_category !== t.category;
     console.log(`${icono} ${t.name} — ${t.status} · ${t.category}${movida ? ` (se sometió como ${t.previous_category})` : ''}${t.rejected_reason && t.rejected_reason !== 'NONE' ? ` · motivo: ${t.rejected_reason}` : ''}`);
   }
-  if (!(j.data || []).length) console.log('No existe todavía. Corra el script sin --estado para someterla.');
   process.exit(0);
 }
 
-if (args.includes('--editar')) {
-  const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates?name=${NOMBRE}&fields=id,status,category`, { headers: { Authorization: `Bearer ${TOKEN}` } });
-  const j = await r.json();
-  const t = (j.data || [])[0];
-  if (!t) { console.error('❌ No existe la plantilla; sométala primero.'); process.exit(1); }
-  const e = await fetch(`${GRAPH}/${t.id}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ components: PLANTILLA.components }),
-  });
-  const je = await e.json();
-  if (!e.ok) { console.error('❌ Meta rechazó la edición:', JSON.stringify(je.error || je, null, 2)); process.exit(1); }
-  console.log(`✅ Editada (id ${t.id}, era ${t.status} · ${t.category}). Vuelve a revisión. Consulte con --estado.`);
-  process.exit(0);
+for (const p of PLANTILLAS) {
+  const cuerpo = p.components.find(c => c.type === 'BODY');
+  const ejemplo = cuerpo.example.body_text[0];
+  console.log(`\n📋 ${p.name}\n` + '─'.repeat(70));
+  console.log(ejemplo.reduce((t, v, i) => t.replace(`{{${i + 1}}}`, v), cuerpo.text));
+  console.log('Botones: ' + p.components.find(c => c.type === 'BUTTONS').buttons.map(b => `[${b.text}]`).join(' '));
+  console.log('─'.repeat(70) + `\n${p.category} · ${cuerpo.text.length} caracteres`);
 }
-
-console.log('\n📋 Plantilla a someter\n' + '─'.repeat(70));
-console.log(CUERPO_LUNES_SOCIO.replace('{{1}}', 'Liliana'));
-console.log('─'.repeat(70));
-console.log(`nombre: ${NOMBRE} · categoría: ${PLANTILLA.category} · idioma: ${PLANTILLA.language} · ${CUERPO_LUNES_SOCIO.length} caracteres\n`);
 
 if (args.includes('--dry')) {
-  console.log('🟡 --dry: no se envió nada a Meta.');
+  console.log('\n🟡 --dry: no se envió nada a Meta.');
   process.exit(0);
 }
 
-const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates`, {
-  method: 'POST',
-  headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
-  body: JSON.stringify(PLANTILLA),
-});
-const j = await r.json();
-
-if (!r.ok) {
-  console.error('❌ Meta rechazó la solicitud:', JSON.stringify(j.error || j, null, 2));
-  process.exit(1);
+for (const p of PLANTILLAS) {
+  const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(p),
+  });
+  const j = await r.json();
+  if (!r.ok) { console.error(`❌ ${p.name}: Meta rechazó la solicitud:`, JSON.stringify(j.error || j, null, 2)); continue; }
+  console.log(`✅ ${p.name} sometida. id: ${j.id} · estado: ${j.status || 'PENDING'} · categoría: ${j.category || p.category}`);
 }
-
-console.log(`✅ Sometida. id: ${j.id} · estado: ${j.status || 'PENDING'} · categoría: ${j.category || PLANTILLA.category}`);
 console.log('\nConsulte con:\n  node scripts/someter-plantilla-lunes-socio.mjs --estado');

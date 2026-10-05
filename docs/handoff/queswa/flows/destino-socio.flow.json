@@ -1,0 +1,73 @@
+{
+ "version": "6.3",
+ "screens": [
+  {
+   "id": "DESTINO",
+   "title": "Su destino",
+   "terminal": true,
+   "success": true,
+   "data": {
+    "gasto": { "type": "string", "__example__": "2500000" },
+    "vida": { "type": "string", "__example__": "5000000" },
+    "razon": { "type": "string", "__example__": "Que mis hijos estudien sin deudas" }
+   },
+   "layout": {
+    "type": "SingleColumnLayout",
+    "children": [
+     {
+      "type": "TextBody",
+      "text": "Queda guardado en sus Ajustes de Cuenta de queswa.app."
+     },
+     {
+      "type": "Form",
+      "name": "destino",
+      "init-values": {
+       "gasto": "${data.gasto}",
+       "vida": "${data.vida}",
+       "razon": "${data.razon}"
+      },
+      "children": [
+       {
+        "type": "TextInput",
+        "name": "gasto",
+        "label": "Lo que necesita",
+        "input-type": "number",
+        "required": true,
+        "helper-text": "En pesos, al mes: lo que hoy le cuesta su mes."
+       },
+       {
+        "type": "TextInput",
+        "name": "vida",
+        "label": "La vida que quiere",
+        "input-type": "number",
+        "required": true,
+        "helper-text": "En pesos, al mes: lo que costaría esa vida."
+       },
+       {
+        "type": "TextArea",
+        "name": "razon",
+        "label": "Su razón",
+        "required": true,
+        "max-length": 300,
+        "helper-text": "Para quién o para qué lo hace."
+       },
+       {
+        "type": "Footer",
+        "label": "Guardar",
+        "on-click-action": {
+         "name": "complete",
+         "payload": {
+          "tipo": "destino",
+          "gasto": "${form.gasto}",
+          "vida": "${form.vida}",
+          "razon": "${form.razon}"
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

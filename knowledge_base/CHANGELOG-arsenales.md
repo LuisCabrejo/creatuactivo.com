@@ -10,6 +10,18 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ---
 
+## arsenal_socio (solo tenant `dashboard`)
+
+### v1.0 — Nace con `WAZE_01`: qué es el modo Waze (5 oct 2026)
+
+El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidores, y la Queswa del Dashboard no sabía qué responder cuando le preguntaban qué era. El Director quiso la explicación en el arsenal, pero **solo para el distribuidor**: al prospecto lo mismo ya se le cuenta, como lo que recibiría, en `WHY_APP_01` (que él ratificó como correcto para prospectos). Si las dos versiones vivieran en `arsenal_inicial` competirían por la palabra «Waze», y a un prospecto le podría llegar la contraseña de Gano y sus Ajustes de Cuenta. Por eso es el **segundo arsenal que no se clona** a los tres tenants, tras `arsenal_ciencia_socio`.
+
+- **WAZE_01** — tres cosas que necesita Waze: de dónde sale (lo que necesita hoy al mes), a dónde va (la vida que quiere y su razón) y por dónde va (la contraseña de Gano: cómo avanza su sistema). *«Usted maneja y yo le marco la ruta»* — nunca «lo llevo».
+- Medido contra los fragmentos reales del Dashboard: «qué es el modo waze» 0.663 frente a `WHY_APP_01` 0.533; con typo («modo wase») y suelto también gana. «Cómo funciona lo del waze» queda en casi empate y lo gana `WHY_APP_01`, que al socio también le sirve. Ninguna consulta de control se movió (aplicación personalizada, cómo funciona el negocio, Binario). Un índice con «y cómo funciona» empataba esa por 0.001 y perdía en el typo: se dejó el corto.
+- El motor del Dashboard (`dashboard-ai`) recibió una línea en «SUS DOS REFERENCIAS» para buscarlo y agregar lo que le falta a cada socio.
+
+---
+
 ## arsenal_compensacion
 
 ### v8.13 — El GEN5 y el Binario dejan de comparar paquetes, y la vigencia del porcentaje se dice como hecho (2 oct 2026)

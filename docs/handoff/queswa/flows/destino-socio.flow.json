@@ -15,10 +15,6 @@
     "type": "SingleColumnLayout",
     "children": [
      {
-      "type": "TextBody",
-      "text": "Queda guardado en sus Ajustes de Cuenta de queswa.app."
-     },
-     {
       "type": "Form",
       "name": "destino",
       "init-values": {
@@ -28,12 +24,32 @@
       },
       "children": [
        {
+        "type": "TextBody",
+        "text": "Dónde está y a dónde va, en cifras suyas. Queda guardado en sus Ajustes de Cuenta de queswa.app, y lo puede cambiar cuando quiera."
+       },
+       {
+        "type": "TextSubheading",
+        "text": "Lo que necesita al mes"
+       },
+       {
+        "type": "TextBody",
+        "text": "Con cuánto cubre un mes normal de hoy, sin angustia: arriendo o cuota, servicios, mercado, transporte, colegio, deudas, y lo que siempre aparece sin avisar."
+       },
+       {
         "type": "TextInput",
         "name": "gasto",
         "label": "Lo que necesita",
         "input-type": "number",
         "required": true,
-        "helper-text": "En pesos, al mes: lo que hoy le cuesta su mes."
+        "helper-text": "En pesos al mes, solo números. Ej: 2500000"
+       },
+       {
+        "type": "TextSubheading",
+        "text": "La vida que usted quiere"
+       },
+       {
+        "type": "TextBody",
+        "text": "Con cuánto al mes viviría como usted quiere vivir. Es su cifra; la cambia cuando quiera."
        },
        {
         "type": "TextInput",
@@ -41,7 +57,15 @@
         "label": "La vida que quiere",
         "input-type": "number",
         "required": true,
-        "helper-text": "En pesos, al mes: lo que costaría esa vida."
+        "helper-text": "En pesos al mes, solo números. Ej: 8000000"
+       },
+       {
+        "type": "TextSubheading",
+        "text": "Su razón, en una frase"
+       },
+       {
+        "type": "TextBody",
+        "text": "Lo que se recuerda a sí mismo cuando está bajo de ánimo. Ejemplos: «no quiero volver a emplearme», «que a mi hija no le falte la universidad»."
        },
        {
         "type": "TextArea",
@@ -49,7 +73,7 @@
         "label": "Su razón",
         "required": true,
         "max-length": 300,
-        "helper-text": "Para quién o para qué lo hace."
+        "helper-text": "Escríbala como la diría."
        },
        {
         "type": "Footer",

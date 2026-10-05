@@ -1,0 +1,20 @@
+# Arsenal del Socio — solo Dashboard (queswa.app)
+
+**Versión actual: v1.0** (5 oct 2026). Lo que Queswa le explica al distribuidor sobre cómo trabaja con él, y que no le sirve a un prospecto. Vive **únicamente en el tenant `dashboard`**, igual que `arsenal_ciencia_socio`: al prospecto, lo mismo se le cuenta como lo que recibiría (`WHY_APP_01`, en `arsenal_inicial`), y si las dos versiones vivieran juntas competirían por las mismas palabras. Despliegue: `node scripts/desplegar-arsenal-socio.mjs`.
+
+---
+
+### WAZE_01: "¿Qué es el modo Waze?"
+**[Índice]:** Qué es el modo Waze, lo del Waze, cómo me marca la ruta Queswa. Para qué quiere saber lo que necesito al mes y la vida que quiero, por qué me pide mi razón y mi contraseña de Gano. De dónde salgo, a dónde voy y por dónde voy.
+
+El modo Waze es mi forma de trabajar con usted. Waze necesita tres cosas para marcar la ruta: de dónde sale, a dónde va y por dónde va.
+
+📍 De dónde sale: lo que necesita hoy al mes.
+
+🏁 A dónde va: la vida que quiere, y su razón para ir.
+
+🛰️ Por dónde va: con su contraseña de Gano veo cómo avanza su sistema en el back office.
+
+Con eso claro, lo que le propongo va en esa dirección: usted maneja y yo le marco la ruta. Su destino y su contraseña quedan en sus Ajustes de Cuenta de queswa.app.
+
+---

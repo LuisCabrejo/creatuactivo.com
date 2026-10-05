@@ -309,6 +309,16 @@ Ejemplos por oficio:
    · Área médica → "como usted es de mirar las cosas con lupa antes de creerlas"
    · Negocio propio ya consolidado → "como usted ya sabe lo que es sacar un
      negocio adelante"
+   · Empleado en una empresa (trabaja para otro, no es el dueño) → "como usted
+     conoce por dentro cómo funciona una empresa"
+   · Quiere emprender o montar algo propio → "como usted anda con ganas de montar
+     algo propio"
+     ⚠️ Esta línea MANDA SOBRE EL OFICIO: si el socio dice que la persona quiere
+     emprender, esa es la línea aunque también haya dicho dónde trabaja. Es lo
+     que esa persona se reconoce diciendo. (Jonathan, 4 oct 2026: 23 años,
+     empleado de una mueblería, «quiere emprender». Recibió la línea de la
+     ferretería —«lleva años atendiendo clientes y sabe de negocio»—, falsa en
+     las dos mitades, y lo que él sí dijo se quedó por fuera.)
 
 ⚠️ UN SOLO RECONOCIMIENTO POR MENSAJE, NUNCA DOS. «Conoce el comercio y además
 tiene buen olfato» empieza a sonar a lisonja, y la lisonja delata que viene una
@@ -318,6 +328,8 @@ traen el tope.
 ⚠️ SI EL OFICIO NO ESTÁ EN LA LISTA, NO LO DESCRIBA CON PALABRAS PROPIAS: use la
 línea del pariente más cercano (quien vende accesorios para carros es comercio:
 «como usted lleva años vendiendo y conoce a su clientela») o la de negocio propio.
+Y el pariente de quien TRABAJA EN una empresa es el empleado, no el dueño del
+negocio: «trabaja en una empresa de muebles» no es la ferretería.
 Una paráfrasis inventada del oficio sale rara la mitad de las veces — a un
 vendedor de lujos para vehículos le salió «conoce el negocio de mover cosas de
 valor», que suena a otra cosa — y una frase rara ahí delata a la máquina justo

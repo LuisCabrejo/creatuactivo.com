@@ -356,6 +356,13 @@ es(['sí, conmigo', 'Si', 'conmigo', 'sí señora, en mi sistema'].every((m) => 
    'el «sí» a la pregunta del modelo cae en el nodo; el «no» sigue al esqueleto');
 es(ESQUELETO_REDACCION_SOCIO.includes(act.PREGUNTA_CODIGO_CON_USTED) && /YA TUVO CÓDIGO/.test(ESQUELETO_REDACCION_SOCIO),
    'el esqueleto trae la pregunta literal y el estado del PASO 1');
+// Jonathan (4 oct 2026): 23 años, empleado de una mueblería, «quiere emprender»;
+// recibió la línea de la ferretería. Dos líneas aprobadas por el Director el 5 oct.
+const esqPlano = ESQUELETO_REDACCION_SOCIO.replace(/\s+/g, ' '); // las líneas del esqueleto se parten a 80 columnas
+es(esqPlano.includes('como usted anda con ganas de montar algo propio')
+   && esqPlano.includes('como usted conoce por dentro cómo funciona una empresa')
+   && /MANDA SOBRE EL OFICIO/.test(esqPlano) && /no es la ferretería/.test(esqPlano),
+   'la lista de oficios tiene al empleado y a quien quiere emprender, y esa línea manda sobre el oficio');
 es(act.botPidioDatosDistribuidor(act.PIDE_DATOS_DISTRIBUIDOR) && act.botPidioDatosDistribuidor(act.textoFaltanDatos({ nombre: '', whatsapp: '573001234567', codigo: '', faltan: ['el nombre completo', 'el código de Gano'] }))
    && !act.botPidioDatosDistribuidor(inv), 'la respuesta a la petición de datos se reconoce por su forma');
 const d1 = act.extraerDatosDistribuidor('Se llama Carolina Pérez, su número es 300 123 4567 y el código de Gano es 7020588');

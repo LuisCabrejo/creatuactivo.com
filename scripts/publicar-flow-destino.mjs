@@ -27,7 +27,11 @@ dotenv.config({ path: '.env.local' });
 const GRAPH   = 'https://graph.facebook.com/v21.0';
 const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 const WABA_ID = process.env.WHATSAPP_WABA_ID;
-const NOMBRE  = 'destino_socio';
+// v2 (5 oct 2026): con las explicaciones completas de Ajustes de Cuenta. Nombre
+// nuevo a propósito: WhatsApp guarda en el teléfono el formulario que ya abrió, y
+// el Director siguió viendo la versión corta tras republicar `destino_socio`. Un
+// identificador nuevo no tiene nada guardado en ningún teléfono.
+const NOMBRE  = 'destino_socio_v2';
 const RUTA    = 'docs/handoff/queswa/flows/destino-socio.flow.json';
 
 if (!TOKEN || !WABA_ID) { console.error('❌ Faltan WHATSAPP_SYSTEM_TOKEN o WHATSAPP_WABA_ID'); process.exit(1); }

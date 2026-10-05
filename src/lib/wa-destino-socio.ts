@@ -23,8 +23,13 @@
 
 import { sendCtaUrl, sendText, sendFlow, type WAResult } from '@/lib/wa-channel';
 
-/** El Flow «Su destino». Publicado el 5 oct 2026; la env permite cambiarlo sin desplegar. */
-export const FLOW_DESTINO_ID = process.env.WHATSAPP_FLOW_DESTINO_ID || '1735859347501922';
+/**
+ * El Flow «Su destino» (`destino_socio_v2`, 5 oct 2026, con las explicaciones de
+ * Ajustes de Cuenta). La env permite cambiarlo sin desplegar. ⚠️ El botón de las
+ * plantillas del lunes queda atado al formulario con que se sometieron: cambiar
+ * este id exige someterlas de nuevo.
+ */
+export const FLOW_DESTINO_ID = process.env.WHATSAPP_FLOW_DESTINO_ID || '967176575826968';
 export const PANTALLA_DESTINO = 'DESTINO';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

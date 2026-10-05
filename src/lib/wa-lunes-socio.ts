@@ -71,8 +71,9 @@ import { ultimoMensajeDePersona, dentroDeVentana } from '@/lib/wa-ventana';
  * Textos sometidos con `scripts/someter-plantilla-lunes-socio.mjs`; cambiar los
  * dos lados a la vez.
  */
-export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v7';
-export const PLANTILLA_LUNES_RUTA = 'lunes_socio_v7_ruta';
+// v8: las mismas de v7, con el botón atado al formulario `destino_socio_v2`.
+export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v8';
+export const PLANTILLA_LUNES_RUTA = 'lunes_socio_v8_ruta';
 
 /** Lo que devuelve cada botón de respuesta (payload de la plantilla e id del interactivo). Los atiende el nodo 1.39 del webhook. */
 export const BOTON_LUNES = {

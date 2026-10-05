@@ -76,7 +76,11 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // Se somete ya como MARKETING: las anteriores se sometieron UTILITY y Meta las
 // movió todas.
 
-const FLOW_DESTINO_ID = '1735859347501922';
+// v8 (5 oct 2026, tarde): las de v7, idénticas, apuntando al formulario
+// `destino_socio_v2` (con las explicaciones completas de Ajustes de Cuenta). El
+// botón de una plantilla queda atado al formulario con que se sometió, y el
+// primero se quedó guardado corto en el teléfono del Director.
+const FLOW_DESTINO_ID = '967176575826968';
 
 /** El mismo texto vive en src/lib/wa-lunes-socio.ts (texto libre dentro de ventana). Cambiar los dos a la vez. */
 export const CUERPO_LUNES_GANCHO =
@@ -96,7 +100,7 @@ const respuesta = (text) => ({ type: 'QUICK_REPLY', text });
 
 const PLANTILLAS = [
   {
-    name: 'lunes_socio_v7',
+    name: 'lunes_socio_v8',
     language: 'es',
     category: 'MARKETING',
     components: [
@@ -105,7 +109,7 @@ const PLANTILLAS = [
     ],
   },
   {
-    name: 'lunes_socio_v7_ruta',
+    name: 'lunes_socio_v8_ruta',
     language: 'es',
     category: 'MARKETING',
     components: [

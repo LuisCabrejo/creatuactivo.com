@@ -212,6 +212,23 @@ export function preguntaPorModoWaze(texto: string | undefined): boolean {
   return RE_PREGUNTA_QUE_ES.test(t) || t.split(/\s+/).length <= 3;
 }
 
+/**
+ * 2.235 — el PROSPECTO que pregunta qué es el modo Waze recibe `WHY_APP_01`, en
+ * los dos canales (la web es el respaldo de WhatsApp: tiene que responder igual).
+ * Al socio identificado en WhatsApp lo atiende antes el nodo 1.392 con la versión
+ * del distribuidor; la web no identifica socios, así que aquí todos son prospectos.
+ */
+export async function atenderModoWaze(
+  mensaje: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  tenant: string,
+): Promise<RespuestaConductor | null> {
+  if (!preguntaPorModoWaze(mensaje)) return null;
+  const texto = await textoDeCandado(supabase, tenant, 'arsenal_inicial_WHY_APP_01');
+  return texto ? { nodo: '2.235 modo Waze (prospecto)', texto } : null;
+}
+
 /** Cuerpo + pregunta de seguimiento, listos para entregar. Null si no hay candado. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function textoDeCandado(supabase: any, tenant: string, categoria: string): Promise<string | null> {

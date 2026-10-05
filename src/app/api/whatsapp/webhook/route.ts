@@ -144,7 +144,7 @@ import {
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
-  slugDelSocio, textoDeCandado, paisDeTelefono, preguntaPorModoWaze,
+  slugDelSocio, textoDeCandado, paisDeTelefono, preguntaPorModoWaze, atenderModoWaze,
 } from '@/lib/queswa-conductor';
 
 export const runtime = 'nodejs';
@@ -1944,13 +1944,14 @@ async function procesarEntrante(body: any): Promise<void> {
     // Recibe `WHY_APP_01` —lo que recibiría, su aplicación personalizada—, que el
     // Director ratificó como la respuesta del prospecto (5 oct 2026). Al socio le
     // responde el nodo 1.392 con la versión del distribuidor. Determinístico:
-    // con un error de dedo el vector mandaba la Luvoco.
-    if (!socioQueEscribe && messageText && preguntaPorModoWaze(messageText)) {
-      const texto = await textoDeCandado(supabase, 'whatsapp', 'arsenal_inicial_WHY_APP_01');
-      if (texto) {
-        await sendWhatsAppMessage(phoneNumber, texto);
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.235 modo Waze (prospecto)');
-        console.log(`🧭 [WA Webhook] 2.235 el prospecto ${phoneNumber} preguntó por el modo Waze → WHY_APP_01`);
+    // con un error de dedo el vector mandaba la Luvoco. Vive en el conductor: la
+    // web responde igual.
+    if (!socioQueEscribe && messageText) {
+      const nodoWaze = await atenderModoWaze(messageText, supabase, 'whatsapp');
+      if (nodoWaze?.texto) {
+        await sendWhatsAppMessage(phoneNumber, nodoWaze.texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoWaze.texto, nodoWaze.nodo);
+        console.log(`🧭 [WA Webhook] ${nodoWaze.nodo} — ${phoneNumber} → WHY_APP_01`);
         return;
       }
     }

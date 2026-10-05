@@ -46,6 +46,7 @@ import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, atenderCubrirCompra, fotoParaWeb, aFormatoWeb,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO,
+  atenderModoWaze,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
@@ -4991,6 +4992,11 @@ ${summaryParts.join('\n')}
       // 2.50 — cuánto hay que mover para que la comisión cubra la compra (30 sep 2026).
       const _nodoCubrir = atenderCubrirCompra(latestUserMessage, paisDeCodigo(visitorCountry));
       if (_nodoCubrir) return _entregarDictado(_nodoCubrir);
+
+      // 2.235 — qué es el modo Waze: `WHY_APP_01`, como en el canal (5 oct 2026).
+      // Llave de servidor: el fragmento se lee de nexus_documents.
+      const _nodoWaze = await atenderModoWaze(latestUserMessage, getSupabaseAdmin(), tenantId);
+      if (_nodoWaze) return _entregarDictado(_nodoWaze);
 
       const _nodoCatalogo = await atenderEnlaceCatalogo(latestUserMessage, _historialWeb, _resolverSlug);
       if (_nodoCatalogo) return _entregarDictado(_nodoCatalogo);

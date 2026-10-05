@@ -27,6 +27,7 @@ import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-pro
 import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
+import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
 // lexer de Node se detiene en la «ñ» de `notificarDueño`, así que todo export
 // posterior en orden alfabético «no existe» para un import con llaves.
@@ -106,6 +107,10 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'la estrategia → el video (2.222, socio)', fn: (t) => pasoNivelesSocio(t, '', false) === 'video', frase: 'dame la estrategia de los doce niveles', llaves: ['estrategia', 'doce', 'niveles'], tope: 0,
     nota: 'el Director, 2 oct 2026: pidió la estrategia y recibió el texto compuesto en vez del video' },
   { nombre: 'la estrategia en detalle (2.223, socio)', fn: (t) => pasoNivelesSocio(t, '', false) === 'detalle', frase: 'los doce niveles en detalle', llaves: ['doce', 'niveles', 'detalle'], tope: 0 },
+  { nombre: 'el socio pide su acceso (2.226)', fn: detectarPideAcceso, frase: 'mándeme el acceso a queswa.app', llaves: ['mándeme', 'acceso'], tope: 0,
+    nota: 'Miguel Barahona, 3 oct 2026: si no dispara, el modelo compone que el equipo ya se lo envió' },
+  { nombre: 'distribuidor del socio quiere activarse (2.225)', fn: (t) => detectarDistribuidorQuiereActivarse(t, ''), frase: 'tiene código conmigo y quiere trabajar', llaves: ['código', 'conmigo', 'quiere'], tope: 0,
+    nota: 'Carolina, 3 oct 2026: si no dispara, su distribuidora recibe la invitación de frío con el enlace de prospecto' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

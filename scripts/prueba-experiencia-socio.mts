@@ -222,6 +222,32 @@ for (const frase of [
 const inv = invitacionAlDashboard('Patricia', 'redaccion');
 es(/para un negocio/.test(inv) && /Centro de Mando, Patricia/.test(inv) && /por ser socio/.test(inv) && inv.endsWith('¿Le mando el acceso?'), 'la invitación suena a privilegio y cierra ofreciendo el acceso');
 es(botInvitoAlDashboard(inv), 'el «sí» que sigue se reconoce por el cierre de la invitación');
+// 5 oct 2026 (Miguel Barahona): la bitácora hace que el modelo re-ofrezca el acceso
+// con sus palabras, y «Si» caía al motor; el modelo escribió que el equipo le acababa
+// de enviar el acceso y no se había enviado nada. La oferta se reconoce por su FORMA.
+const { detectarAccesoInventado, TEXTO_ACCESO_ENVIADO, ACCESO_NO_ENVIADO } =
+  require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
+es([
+  'Hola, Miguel. Quedamos en mandarle el acceso a queswa.app para que vea la Proyección Patrimonial con sus datos.\n\n¿Le mando el enlace de acceso ahora?',
+  '¿Quiere que le mande el acceso a queswa.app?',
+  'Eso lo ve en su Centro de Mando. ¿Se lo paso?'.replace('¿Se lo paso?', '¿Le paso el acceso?'),
+  'Su Proyección Patrimonial está en queswa.app. ¿Le envío el acceso ahora mismo?',
+].every(botInvitoAlDashboard), 'la oferta del acceso se reconoce por su forma, con las palabras del modelo');
+es([
+  '¿Le mando el enlace del catálogo?', '¿Le mando la foto del Cordygold?', '¿Le mando el acceso al catálogo?',
+  'Le mando el acceso cuando quiera. ¿Qué más necesita?', 'Cuando quiera, le tomo los datos de la vinculación.',
+  'El equipo le acaba de enviar el acceso a queswa.app.\n\n¿Hay algo más en lo que le pueda ayudar mientras tanto?',
+].every((m) => !botInvitoAlDashboard(m)), 'ni el catálogo, ni una foto, ni una oferta que no cierra el turno cuentan como oferta de acceso');
+es([
+  'Listo. El equipo le acaba de enviar el acceso a queswa.app.',
+  'Ya le envié el acceso; revise su WhatsApp.', 'Le acabo de mandar el enlace de acceso.',
+  'El acceso ya fue enviado a su chat.', 'El equipo le manda el acceso en un momento.',
+].every((m) => !!detectarAccesoInventado(m)), 'el borrador que da por enviado el acceso se caza');
+es([
+  '¿Le mando el acceso?', inv, ACCESO_NO_ENVIADO, 'Cuando entre, busca la Proyección Patrimonial y la corre con su tarifa.',
+  'Le acabo de enviar el enlace del catálogo.', 'El acceso lo manda el sistema cuando usted diga que sí.',
+].every((m) => detectarAccesoInventado(m) === null), 'la oferta, la invitación, el aviso de no enviado y el catálogo no se confunden con un acceso inventado');
+es(/queswa\.app/.test(TEXTO_ACCESO_ENVIADO) && /mismo chat/.test(TEXTO_ACCESO_ENVIADO), 'el texto del acceso enviado dice dónde llega');
 es(/en su Centro de Mando sí/.test(invitacionAlDashboard('Patricia', 'redaccion', true)), 'si insiste, una línea y la misma puerta');
 es(atenderPidePieza('hazme un video para instagram')?.texto === TEXTO_NO_PIEZAS && detectarPideFuncionDashboard('hazme un video para instagram') === null,
    'una pieza para publicar sigue en su negativa, no va al Dashboard');
@@ -274,7 +300,7 @@ es(!conOferta.includes(OFERTA_SIMULADOR_NIVELES) && conOferta.endsWith(CIERRE_SO
 // ── 11. La estrategia para el socio: el video y el detalle (2 oct 2026) ──
 // El Director la pidió y le llegó el texto compuesto, con un cierre inventado.
 // Hoy: la pide → el video, con el pie que ofrece estudiarla; el «sí» o pedirla en
-// detalle → cuatro pasos y la tabla con SU tarifa, y el enlace a la pantalla 9.
+// detalle → la tabla de los doce niveles (5 oct 2026) y el enlace a la pantalla 9.
 console.log('\n── 11. La estrategia para el socio ──');
 const { pasoNivelesSocio, detalleNivelesSocio } =
   require('../src/lib/wa-simulador.ts') as typeof import('../src/lib/wa-simulador.ts');
@@ -291,15 +317,61 @@ es(['hasta cuándo va el plan de 12 niveles', 'cuál es la inversión para los 1
    'las preguntas con respuesta propia en el arsenal siguen su camino');
 const enlace9 = enlacePresentacion('miguel-barahona', 9);
 const detalle = detalleNivelesSocio('ESP-3', 'CO', enlace9);
-es(detalle.includes('*Nivel 12* · 8.190 distribuidores · $103.194.000 COP al mes') && !detalle.includes('175.429.800'),
-   'la tabla del detalle va al 10%, la tarifa que no vence');
-es(/los primeros seis meses la tarifa es del \*17%\*/.test(detalle), 'y la del paquete del socio, en una línea con su vigencia');
+// 5 oct 2026, Director: «demasiada carga cognitiva». Doce filas, llegan → total;
+// «distribuidores» completo solo en el nivel 1 y «Total:» solo en el nivel 2; sin los cuatro pasos, sin la tarifa
+// del paquete y sin el potencial matemático.
+es(detalle.includes('*Nivel 1* · 2 distribuidores · $25.200 COP')
+   && detalle.includes('*Nivel 2* · llegan 4 · Total: 6 Dist. · $75.600 COP')
+   && detalle.includes('*Nivel 3* · llegan 8 · 14 Dist. · $176.400 COP')
+   && detalle.includes('*Nivel 12* · llegan 4.096 · 8.190 Dist. · $103.194.000 COP') && !detalle.includes('175.429.800'),
+   'doce filas al 10%: cuántos llegan, el total y la regalía del mes');
+es((detalle.match(/^\*Nivel \d+\*/gm) || []).length === 12 && (detalle.match(/distribuidores/g) || []).length === 1
+   && (detalle.match(/Total:/g) || []).length === 1,
+   '«distribuidores» va completo solo en el nivel 1 y «Total:» solo en el nivel 2; después «Dist.» y la cifra sola');
+es(!/tarifa es del|cuatro pasos|potencial matem|canal izquierdo/.test(detalle), 'sin la tarifa del paquete, sin los pasos y sin el potencial matemático');
 es(detalle.trimEnd().endsWith(enlace9) && enlace9.endsWith('/miguel-barahona/presentacion?pantalla=9'), 'termina en la pantalla 9 de su presentación');
 es(!/tarifa es del/.test(detalleNivelesSocio(null, 'CO', enlace9)) && !/tarifa es del/.test(detalleNivelesSocio('KIT', 'CO', enlace9)),
    'sin paquete, o con el Kit, no hay línea de vigencia');
 es(pasoNivelesSocio('sí', '…\n\n¿Se la explico en detalle, nivel por nivel y con la tarifa de su paquete?', true) === 'detalle',
    'el «sí» al pie de unas horas del 2 oct sigue valiendo');
 es(!negocio.detectarPromesaDeIngreso(detalle) && !g.detectarClaimSaludEnSalida(detalle), 'ningún guardarraíl bloquea el detalle');
+
+// ── 12. El distribuidor del socio que quiere activarse, y el socio que pide su acceso (5 oct 2026) ──
+// Miguel Barahona, 3 oct: Carolina ya tenía código con él y quería trabajar; Queswa le
+// redactó la invitación de frío y le dio a Miguel su enlace de prospecto. Nadie activa por
+// fuera de administración: Queswa pide los tres datos y la solicitud va a sistema@.
+console.log('\n── 12. El distribuidor que quiere activarse, y el acceso directo ──');
+const act = require('../src/lib/wa-activacion-distribuidor.ts') as typeof import('../src/lib/wa-activacion-distribuidor.ts');
+const { ESQUELETO_REDACCION_SOCIO } = require('../src/lib/wa-redaccion-socio.ts') as typeof import('../src/lib/wa-redaccion-socio.ts');
+es(act.detectarDistribuidorQuiereActivarse('Tengo una persona que tiene código en Gano Excel conmigo y quiere generar unos que le digo', ''),
+   'la frase de Miguel (Carolina: código conmigo + quiere generar) abre el nodo');
+es(['mi distribuidora quiere arrancar, qué le digo', 'ella ya está inscrita conmigo y quiere trabajar el negocio', 'lo inscribí yo hace un año y ahora quiere activarse']
+     .every((m) => act.detectarDistribuidorQuiereActivarse(m, '')), 'otras formas de decirlo también');
+es(['Tengo una persona que tiene código en Gano Excel y quiere volver hacer este proyecto como le digo',
+    'mi distribuidora pregunta cuánto vale el ESP-2', 'redáctame un mensaje para mi amigo Andrés, tiene una ferretería', '¿cuánto vale el paquete ESP-2?']
+     .every((m) => !act.detectarDistribuidorQuiereActivarse(m, '')), 'la de Andrea (sin decir de quién es el código), una pregunta del plan y una redacción normal no');
+const preguntaModelo = `Con gusto. ${act.PREGUNTA_CODIGO_CON_USTED} Y ¿se tratan de tú o de usted?`;
+es(['sí, conmigo', 'Si', 'conmigo', 'sí señora, en mi sistema'].every((m) => act.detectarDistribuidorQuiereActivarse(m, preguntaModelo))
+   && ['no, con otra persona', 'No', 'no sé'].every((m) => !act.detectarDistribuidorQuiereActivarse(m, preguntaModelo)),
+   'el «sí» a la pregunta del modelo cae en el nodo; el «no» sigue al esqueleto');
+es(ESQUELETO_REDACCION_SOCIO.includes(act.PREGUNTA_CODIGO_CON_USTED) && /YA TUVO CÓDIGO/.test(ESQUELETO_REDACCION_SOCIO),
+   'el esqueleto trae la pregunta literal y el estado del PASO 1');
+es(act.botPidioDatosDistribuidor(act.PIDE_DATOS_DISTRIBUIDOR) && act.botPidioDatosDistribuidor(act.textoFaltanDatos({ nombre: '', whatsapp: '573001234567', codigo: '', faltan: ['el nombre completo', 'el código de Gano'] }))
+   && !act.botPidioDatosDistribuidor(inv), 'la respuesta a la petición de datos se reconoce por su forma');
+const d1 = act.extraerDatosDistribuidor('Se llama Carolina Pérez, su número es 300 123 4567 y el código de Gano es 7020588');
+es(d1.nombre === 'Carolina Pérez' && d1.whatsapp === '573001234567' && d1.codigo === '7020588' && d1.faltan.length === 0, 'nombre, WhatsApp y código salen del mensaje escrito como la gente escribe');
+const d2 = act.extraerDatosDistribuidor('Carolina Pérez 3001234567');
+es(d2.nombre === 'Carolina Pérez' && d2.whatsapp === '573001234567' && d2.codigo === '' && d2.faltan.join() === 'el código de Gano', 'sin código: no frena, se anota como faltante');
+const d3 = act.extraerDatosDistribuidor('Carolina Pérez');
+es(d3.nombre === 'Carolina Pérez' && !d3.whatsapp && /el WhatsApp/.test(act.textoFaltanDatos(d3)) && !/código/.test(act.textoFaltanDatos(d3)), 'sin WhatsApp se pide solo el WhatsApp');
+es(!act.extraerDatosDistribuidor('¿y ella tiene que pagar algo?').nombre, 'una pregunta no se lee como datos');
+const correo = act.cuerpoSolicitudActivacion({ nombre: 'Miguel Barahona', slug: 'miguel-barahona', constructorId: 'miguel-barahona-7020577' }, '573188292631', d1, 'Se llama Carolina…');
+es(/ACTIVAR Carolina Pérez 573001234567 7020588/.test(correo.texto) && /\[Activación\] Carolina Pérez/.test(correo.asunto), 'el correo a administración trae el comando listo para copiar');
+es(/equipo de creatuactivo\.com/.test(act.textoSolicitudEnviada('Carolina')) && !/equipo directivo/.test(act.PIDE_DATOS_DISTRIBUIDOR + act.TEXTO_SOLICITUD_NO_ENVIADA), 'el equipo se nombra como manda el léxico');
+es(['mándeme el acceso', 'quiero entrar a queswa.app', 'no puedo entrar a mi cuenta', 'cómo ingreso al centro de mando', 'me manda el acceso al dashboard por favor']
+     .every(act.detectarPideAcceso), 'el socio que pide su acceso lo recibe sin invitación de por medio');
+es(['mándeme mi enlace', 'mándeme el enlace de productos', 'el acceso para mi amigo Andrés', '¿cuánto vale el ESP-2?', 'dame acceso al catálogo', 'quiero entrar con un paquete']
+     .every((m) => !act.detectarPideAcceso(m)), 'su enlace, el acceso para otro, el catálogo y una pregunta del plan no');
 
 console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);
 process.exit(fallos ? 1 : 0);

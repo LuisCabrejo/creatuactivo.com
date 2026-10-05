@@ -97,6 +97,9 @@ function filaNivel(n: number): { total: number; cvLado: number; mensual: number;
  * pirámide. El mismo número contado por distribuidores consumiendo muestra la
  * cadena real: gente → consumo → comisión. Por lo mismo el acumulado no viaja
  * aquí — vive en el arsenal, junto a su origen.
+ * ⚠️ Esta regla es del PROSPECTO. El detalle para el SOCIO (`detalleNivelesSocio`,
+ * abajo) sí va nivel por nivel, del 1 al 12, por decisión del Director (5 oct
+ * 2026): el distribuidor necesita ver el crecimiento paso a paso. No «corregirlo».
  */
 const REGALIA_TABLA: Record<string, { semanal: number }> = {
   '6':    { semanal: 50_400 },
@@ -361,8 +364,6 @@ const TARIFA_DEL_PAQUETE: Record<PaqueteEsp | 'KIT', { pct: number; nombre: stri
   'ESP-3': { pct: 17, nombre: 'ESP-3 Visionario',  vigencia: 'seis meses' },
 };
 
-/** Las filas de NIVELES_02: 30 · 126 · 510 · 2.046 · 8.190 distribuidores. */
-const NIVELES_DE_LA_TABLA = [4, 6, 8, 10, 12];
 /** La tarifa con que se cuenta la estrategia: la única que no vence. */
 const PCT_BASE = 10;
 
@@ -401,19 +402,22 @@ export function respuestaNivelesSocio(paquete: PaqueteEsp): string {
   ].join('\n');
 }
 
-/** La línea de la tarifa del paquete, con su vigencia (sin paquete o con el Kit, ninguna). */
-function lineaTarifaDelPaquete(paquete: PaqueteEsp | 'KIT' | null): string | null {
-  if (!paquete || paquete === 'KIT') return null;
-  const { pct, nombre, vigencia } = TARIFA_DEL_PAQUETE[paquete];
-  return `Con su *${nombre}*, los primeros ${vigencia} la tarifa es del *${pct}%*; después el sistema le aplica la más alta entre su rango y las promociones de Gano.`;
-}
 
 // ─── Los 12 Niveles para el SOCIO: el video y el detalle (2 oct 2026) ────────
 //
 // Director, tras probarlo: pidió la estrategia y le llegó el texto; mejor el video.
-// Y quien quiere estudiarla pide detalles: se le explican en texto, en cuatro pasos
-// y nivel por nivel con SU tarifa, y se le da el enlace a la pantalla de los
-// números de su presentación (`?pantalla=9`), donde mueve el porcentaje él mismo.
+// Y quien quiere estudiarla pide detalles: la tabla de los doce niveles y el enlace
+// a la pantalla de los números de su presentación (`?pantalla=9`), donde mueve el
+// porcentaje él mismo.
+// ⚠️ El detalle fue cuatro pasos + tabla de cinco filas + la tarifa del paquete +
+// el potencial matemático, y el Director lo probó el 5 oct 2026: «demasiada carga
+// cognitiva». El video que llega antes ya explica el 2×2 y el 10%; lo que la
+// persona necesita ver en números es el crecimiento paso a paso, del nivel 1 al 12.
+// Cada fila dice cuántos LLEGAN y el TOTAL. Las etiquetas van UNA vez, donde
+// enseñan la secuencia: «distribuidores» completo solo en el nivel 1 y «Total:»
+// solo en el nivel 2 —para que el segundo número no deje a nadie perdido—;
+// después «Dist.» y la cifra sola, para no saturar cada fila (Director, 5 oct
+// 2026). Ni la tarifa del paquete ni el potencial matemático.
 // El hilo de 12 Niveles del prospecto sigue cerrado al socio: esto es otra puerta.
 
 /** «12 niveles», «doce niveles», y el pulgar: «12 nivles», «docce», «nvieles». Se comparan sin tildes. */
@@ -437,33 +441,30 @@ export function pasoNivelesSocio(texto: string, ultimoBot: string, acepta: boole
 }
 
 /**
- * Los 12 Niveles en cuatro pasos y nivel por nivel, al 10% —la tarifa que no vence—,
- * con la del paquete del socio en una línea y su vigencia. Copy aprobado por el
- * Director el 2 oct 2026. Termina en el enlace, sin pregunta: quien pidió estudiarlo
- * ya tiene adónde ir, y en esa pantalla mueve el porcentaje él mismo.
+ * Los 12 Niveles nivel por nivel, al 10% —la tarifa que no vence—: cuántos llegan en
+ * cada nivel, el total y la regalía del mes. Copy aprobado por el Director el 5 oct
+ * 2026. Termina en el enlace, sin pregunta: quien pidió estudiarlo ya tiene adónde
+ * ir, y en esa pantalla mueve el porcentaje él mismo.
+ * `_paquete` se conserva en la firma por si la tarifa del paquete vuelve: hoy no se
+ * nombra (Director, 5 oct 2026), y el 2.221 la responde cuando el socio la pide.
  */
-export function detalleNivelesSocio(paquete: PaqueteEsp | 'KIT' | null, pais: PaisConductor | undefined, enlacePresentacion: string): string {
+export function detalleNivelesSocio(_paquete: PaqueteEsp | 'KIT' | null, pais: PaisConductor | undefined, enlacePresentacion: string): string {
   const n = (x: number) => x.toLocaleString('es-CO');
-  const filas = NIVELES_DE_LA_TABLA.map((nivel) => {
+  const filas = Array.from({ length: 12 }, (_, i) => i + 1).map((nivel) => {
     const f = filaNivel(nivel)!;
-    return `*Nivel ${nivel}* · ${n(f.total)} distribuidores · ${dinero(f.cvLado * PCT_BASE * COP_POR_CV_Y_PUNTO, pais)} al mes`;
+    const regalia = dinero(f.cvLado * PCT_BASE * COP_POR_CV_Y_PUNTO, pais);
+    const llegan = 2 ** nivel;
+    // «distribuidores» completo solo en el nivel 1 y «Total:» solo en el nivel 2:
+    // cada etiqueta una vez, para enseñar la secuencia sin saturar las filas.
+    return nivel === 1
+      ? `*Nivel 1* · ${n(f.total)} distribuidores · ${regalia}`
+      : `*Nivel ${nivel}* · llegan ${n(llegan)} · ${nivel === 2 ? 'Total: ' : ''}${n(f.total)} Dist. · ${regalia}`;
   });
-  const tarifa = lineaTarifaDelPaquete(paquete);
   return [
-    'Se lo explico en cuatro pasos:',
-    '',
-    '1. Usted conecta mínimo dos distribuidores: uno en su canal izquierdo y otro en el derecho.',
-    '2. Cada uno hace lo mismo y conecta a otros dos. Eso es la duplicación 2×2, y cada vuelta es un nivel.',
-    '3. Cada distribuidor compra sus cuatro cajas al mes, que son 56 CV.',
-    `4. La compañía empareja cada punto de su canal izquierdo con su equivalente en el derecho y le paga el ${PCT_BASE}% sobre ese volumen, liquidado por ciclos semanales.`,
-    '',
-    'Así se ve, nivel por nivel:',
+    `Así crece, nivel por nivel (regalía al ${PCT_BASE}%, al mes):`,
     '',
     ...filas,
-    ...(tarifa ? ['', tarifa] : []),
     '',
-    'Es el potencial matemático bajo duplicación perfecta: mientras sus distribuidores y sus clientes sigan comprando, hay comisión, y el ritmo lo pone cada sistema.',
-    '',
-    `Si quiere estudiarlo con calma y mover el porcentaje usted mismo, está en la pantalla de los números de su presentación: ${enlacePresentacion}`,
+    `Si quiere moverlo usted mismo, está en la pantalla de los números de su presentación: ${enlacePresentacion}`,
   ].join('\n');
 }

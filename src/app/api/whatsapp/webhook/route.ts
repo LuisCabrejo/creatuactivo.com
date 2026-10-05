@@ -109,8 +109,13 @@ import {
   // y el prospecto se quedaba sin respuesta. Lo destapó el compilador el 14 sep.
   mensajeEnlaceCatalogo,
   OFERTA_REDACTAR, detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, enviarAccesoDashboard, ACCESO_NO_ENVIADO,
+  detectarAccesoInventado, TEXTO_ACCESO_ENVIADO,
 } from '@/lib/wa-onboarding';
 import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado, gestoAfirmativoComoSi } from '@/lib/texto-normalizar';
+import {
+  detectarDistribuidorQuiereActivarse, botPidioDatosDistribuidor, extraerDatosDistribuidor, PIDE_DATOS_DISTRIBUIDOR,
+  textoFaltanDatos, textoSolicitudEnviada, TEXTO_SOLICITUD_NO_ENVIADA, solicitarActivacionDistribuidor, detectarPideAcceso,
+} from '@/lib/wa-activacion-distribuidor';
 import {
   detectarEmergencia,
   clasificarPreguntaSalud,
@@ -530,10 +535,14 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`🎙 [WA Webhook] Nota de voz de ${phoneNumber} transcrita`);
       } else {
         // No dejar a la persona hablando sola: se le dice qué pasó y se sigue.
-        await sendWhatsAppMessage(
-          phoneNumber,
-          'Perdón, no logré escuchar bien su nota de voz. ¿Me la escribe en un mensaje?',
-        );
+        // Y queda registrado (5 oct 2026): hasta hoy esta salida no dejaba fila
+        // ni rastro, y un número llevaba seis mensajes desde agosto sin que
+        // ninguna auditoría pudiera saber qué mandó. No crea ficha a propósito:
+        // la apertura de primer contacto la decide la ficha, y abrirla aquí le
+        // quitaría la bienvenida al primer mensaje escrito.
+        const acuseAudio = 'Perdón, no logré escuchar bien su nota de voz. ¿Me la escribe en un mensaje?';
+        await sendWhatsAppMessage(phoneNumber, acuseAudio);
+        await persistirTurnoDictado(getSupabase(), `wa_${phoneNumber}`, '[nota de voz que no se pudo transcribir]', acuseAudio, 'acuse: nota de voz');
         return;
       }
     }
@@ -599,6 +608,9 @@ async function procesarEntrante(body: any): Promise<void> {
 
       const acuse = ACUSE_NO_PROCESABLE[tipo ?? ''] ?? ACUSE_NO_PROCESABLE.default;
       await sendWhatsAppMessage(phoneNumber, acuse, { wamid, citar: true });
+      // Registrado desde el 5 oct 2026 (ver la nota de voz, arriba): sin fila,
+      // quien solo manda una foto no aparece en ninguna auditoría.
+      await persistirTurnoDictado(getSupabase(), `wa_${phoneNumber}`, `[${tipo ?? 'mensaje'} sin texto]`, acuse, `acuse: ${tipo ?? 'sin tipo'}`);
       console.log(`📎 [WA Webhook] ${phoneNumber} envió "${tipo}" — acusado sin procesar`);
       return;
     }
@@ -1760,6 +1772,48 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`📊 [WA Webhook] 2.223 detalle de Los 12 Niveles al socio /${socioQueEscribe.slug} (${paqueteSocio ?? 'sin paquete → Kit'})`);
         return;
       }
+      // ─── 2.225 El distribuidor del socio que quiere activarse (5 oct 2026) ──
+      // «Tiene código conmigo y quiere generar» (Miguel Barahona, Carolina): esa
+      // persona ya está en su sistema y lo que necesita es su propia cuenta, no
+      // una invitación. Queswa pide los tres datos y la solicitud va a
+      // administración (sistema@creatuactivo.com); nadie activa por fuera de
+      // ella. Motivo y copy → wa-activacion-distribuidor.ts.
+      if (detectarDistribuidorQuiereActivarse(messageText, _ultimoBotSocio)) {
+        await sendWhatsAppMessage(phoneNumber, PIDE_DATOS_DISTRIBUIDOR, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, PIDE_DATOS_DISTRIBUIDOR, '2.225 distribuidor del socio: pide los datos');
+        console.log(`🪪 [WA Webhook] 2.225 el socio /${socioQueEscribe.slug} tiene un distribuidor que quiere activarse — se piden los datos`);
+        return;
+      }
+      if (botPidioDatosDistribuidor(_ultimoBotSocio) && !/[?¿]/.test(messageText)) {
+        const datos = extraerDatosDistribuidor(messageText);
+        if (datos.nombre && datos.whatsapp) {
+          const envio = await solicitarActivacionDistribuidor(socioQueEscribe, phoneNumber, datos, messageText);
+          const texto = envio.ok ? textoSolicitudEnviada(datos.nombre) : TEXTO_SOLICITUD_NO_ENVIADA;
+          if (!envio.ok) console.warn(`⚠️ [WA Webhook] 2.225 la solicitud de activación NO salió: ${envio.error}`);
+          await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, `2.225 distribuidor del socio: solicitud ${envio.ok ? 'enviada' : 'NO enviada'}`);
+          console.log(`🪪 [WA Webhook] 2.225 solicitud de activación de ${datos.nombre} (${datos.whatsapp}, ${datos.codigo || 'sin código'}) por /${socioQueEscribe.slug} → ${envio.ok ? 'administración' : 'falló'}`);
+          return;
+        }
+        if (datos.nombre || datos.whatsapp || datos.codigo) {
+          const texto = textoFaltanDatos(datos);
+          await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.225 distribuidor del socio: faltan datos');
+          return;
+        }
+      }
+      // ─── 2.226 El socio pide su acceso al Centro de Mando (5 oct 2026) ──────
+      // Escribe desde el número con que está registrado: esa es la identidad
+      // (Director). Se manda el acceso sin invitación de por medio.
+      if (detectarPideAcceso(messageText)) {
+        const envio = await enviarAccesoDashboard(supabase, socioQueEscribe);
+        const texto = envio.ok ? TEXTO_ACCESO_ENVIADO : ACCESO_NO_ENVIADO;
+        if (!envio.ok) console.warn(`⚠️ [WA Webhook] 2.226 acceso NO enviado a /${socioQueEscribe.slug}: ${envio.error}`);
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, `2.226 acceso directo${envio.ok ? '' : ' (NO enviado)'}`);
+        console.log(`🔑 [WA Webhook] 2.226 el socio /${socioQueEscribe.slug} pidió su acceso → ${envio.ok ? 'enviado' : 'falló'}`);
+        return;
+      }
       const motivo = detectarPideFuncionDashboard(messageText);
       // Solo la pieza de verdad (guion, video, flyer) se le deja a 2.49: «un
       // mensaje para dueños de restaurantes» es del Dashboard, no una pieza.
@@ -2912,6 +2966,26 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         } else {
           console.warn('⚠️ [WA Red] La negativa no apunta a ningún producto ni línea — sigue el borrador');
         }
+      }
+    }
+
+    // ─── 3.91 RED: el borrador da por ENVIADO un acceso que no se envió ───────
+    // Misma lección que 3.9, con otro objeto (Miguel Barahona, 3 oct 2026): el
+    // «sí» al acceso se le escapó al nodo 2.22 porque el modelo había re-ofrecido
+    // el acceso con otras palabras, y el borrador decía «el equipo le acaba de
+    // enviar el acceso». Nadie lo envió. Aquí se descarta el borrador y se ENVÍA
+    // el acceso de verdad —el reemplazo es la acción— y, si Meta no deja, se le
+    // dice dónde entrar. Solo socios: el acceso es del Centro de Mando.
+    if (socioQueEscribe) {
+      const inventa = detectarAccesoInventado(queswaReply);
+      if (inventa) {
+        console.error(`🔑 [WA Red] El borrador da por enviado el acceso («${inventa}») — /${socioQueEscribe.slug}`);
+        const envio = await enviarAccesoDashboard(supabase, socioQueEscribe);
+        const texto = envio.ok ? TEXTO_ACCESO_ENVIADO : ACCESO_NO_ENVIADO;
+        if (!envio.ok) console.warn(`⚠️ [WA Red] Acceso NO enviado a /${socioQueEscribe.slug}: ${envio.error}`);
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, texto, `dio por enviado el acceso: ${inventa}`);
+        return;
       }
     }
 

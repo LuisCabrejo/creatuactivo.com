@@ -42,3 +42,14 @@ Otra sesión de creatuactivo.com corrió la auditoría de nuevo tras el desplieg
 
 - *«¿me lo pueden quitar después?»* → gana `FREQ_15` y `FREQ_37` queda en el puesto **5** (0.457), aunque «si me lo pueden quitar» está literal en su índice. Suma al caso del atractor de FREQ_37 que ya está arriba.
 - *«en el video hablaban de una ruta paso a paso, ¿qué es eso?»* → `EAM_01` (0.493) le gana a `WHY_APP_01` (0.485) por 0.008. Si toca el índice de `WHY_APP_01`, esa paráfrasis («la ruta paso a paso del video») es candidata — midiendo que EAM_01 no pierda las suyas.
+
+## 5 oct 2026 — El detalle de Los 12 Niveles para el socio, sin los cuatro pasos
+
+El Director probó el nodo del canal (2.223) y lo devolvió por «demasiada carga cognitiva»: el video que llega antes ya explica el 2×2 y el 10%, y lo que la persona necesita es ver el crecimiento paso a paso. En WhatsApp quedó así (`detalleNivelesSocio`, `src/lib/wa-simulador.ts`): una línea de entrada, las doce filas (`*Nivel 2* · llegan 4 · Total: 6 Dist. · $75.600 COP`, con «distribuidores» completo solo en el nivel 1 y «Total:» solo en el nivel 2) y el enlace a la pantalla 9. Salieron los cuatro pasos, la línea de la tarifa del paquete y «el potencial matemático bajo duplicación perfecta».
+
+**El Dashboard responde al mismo «Si» con el texto viejo** (`dash_luis-cabrejo-1288`, 5 oct 08:27): «Se lo explico en cuatro pasos…», `[[simulador:doce-niveles]]`, la tarifa del ESP-3 y el potencial matemático. Lo que pide el Director aplica igual allá: queda «Así se ve, nivel por nivel. Arranca en el 10% del Kit; mueva el porcentaje para ver el de su paquete:» y el simulador. Nada antes, nada después. Si el simulador no muestra cuántos LLEGAN en cada nivel, conviene que lo haga: fue la secuencia que él pidió ver.
+
+## 5 oct 2026 — Dos cosas más del Director, para el Dashboard
+
+- **Acceso con Google.** Decisión del Director (5 oct): el distribuidor debe poder entrar al Dashboard con su cuenta de Google, sin depender del enlace de un solo uso. El callback `api/auth/google` ya existe en este repositorio; lo que falta es que sea la puerta por defecto para el socio. Queda en el checklist de pendientes.
+- **El esqueleto de redacción cambió** (desplegado al tenant `dashboard` el 5 oct, categoría `esqueleto_redaccion_socio`): estado nuevo del PASO 1 para quien ya tuvo código o ya evaluó el negocio. Si el socio no dijo de quién es el código, el modelo pregunta literal «¿Ese código lo tiene con usted, en su sistema?». Si es con él, en el Dashboard el modelo le dice que mande los tres datos (nombre completo, WhatsApp, código de Gano) a sistema@creatuactivo.com y administración activa; en WhatsApp ese «sí» lo atiende el webhook (nodo 2.225) y la solicitud sale sola a ese correo. Nadie activa a nadie por fuera de administración.

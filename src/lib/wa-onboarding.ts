@@ -743,10 +743,55 @@ export function invitacionAlDashboard(nombre: string, motivo: MotivoDashboard, i
   return `${primera}\n\n${CIERRE_INVITACION}`;
 }
 
-/** ¿El último turno del bot fue la invitación? El «sí» que sigue pide el acceso. */
+/**
+ * ¿El último turno del bot ofreció el acceso? El «sí» que sigue lo pide.
+ *
+ * ⚠️ Se reconoce por su FORMA, no por la frase exacta (5 oct 2026, Miguel
+ * Barahona). El backend dictó «¿Le mando el acceso?» el 1 oct y él no contestó;
+ * dos días después escribió «Hola», la bitácora le dio al modelo el paso
+ * pendiente y el modelo lo re-ofreció con sus palabras: «¿Le mando el enlace de
+ * acceso ahora?». El «Si» cayó al motor, y el modelo escribió que el equipo le
+ * acababa de enviar el acceso. No se había enviado nada. La regla es la del caso
+ * Betsabe: una oferta del bot se reconoce por su forma, nunca por una frase.
+ * Vale cualquier pregunta final que ofrezca mandar, enviar o pasar el acceso (o
+ * el enlace de acceso); no vale el acceso a otra cosa (catálogo, lista, página).
+ */
+const RE_OFRECE_ACCESO = /(?:le|se\s+lo)\s+(?:mando|mande|env[ií]o|env[ií]e|paso|pase|comparto|comparta|hago\s+llegar)\s+(?:el\s+|su\s+)?(?:enlace\s+(?:de\s+|del\s+)?|link\s+(?:de\s+|del\s+)?)?acceso(?!\s+(?:al|a\s+la|a\s+los|del)\s+(?:cat[aá]logo|lista|presentaci[oó]n|p[aá]gina|video|simulador))[^?¿\n]*\?\s*$/i;
 export function botInvitoAlDashboard(ultimoBot: string): boolean {
-  return (ultimoBot || '').trimEnd().endsWith('¿Le mando el acceso?');
+  const t = (ultimoBot || '').trimEnd();
+  return t.endsWith('¿Le mando el acceso?') || RE_OFRECE_ACCESO.test(t);
 }
+
+/**
+ * ¿El borrador del modelo da por ENVIADO un acceso que el webhook no envió?
+ * Devuelve el fragmento que lo delata, o null.
+ *
+ * El motor no sabe lo que manda el webhook (misma lección que la red 3.9 de las
+ * imágenes): cuando el «sí» al acceso se le escapa al nodo 2.22, el modelo
+ * compone «el equipo le acaba de enviar el acceso» y el socio se queda esperando
+ * algo que no llega (Miguel Barahona, 3 oct 2026: 45 segundos después escribió
+ * «Ayudeme»). La red 3.91 del webhook lo caza y ENVÍA el acceso de verdad: el
+ * reemplazo es la acción, no una disculpa. Se corre solo sobre borradores del
+ * modelo, nunca sobre textos dictados.
+ */
+const RE_ACCESO_INVENTADO = [
+  /(?:acab[oa]|acabamos)\s+de\s+(?:enviar|mandar)(?:le)?\s+(?:el\s+|su\s+)?(?:enlace\s+de\s+|link\s+de\s+)?acceso/i,
+  /(?:ya|reci[eé]n)\s+(?:le\s+)?(?:envi[eé]|mand[eé]|enviamos|mandamos|envi[oó]|mand[oó])\s+(?:el\s+|su\s+)?(?:enlace\s+de\s+|link\s+de\s+)?acceso/i,
+  /el\s+equipo\s+(?:le\s+)?(?:acaba\s+de\s+(?:enviar|mandar)|envi[oó]|mand[oó]|est[aá]\s+enviando|le\s+env[ií]a|le\s+manda)\s+(?:el\s+|su\s+)?(?:enlace\s+de\s+)?acceso/i,
+  /acceso\s+(?:ya\s+)?(?:fue\s+enviado|est[aá]\s+enviado|qued[oó]\s+enviado|va\s+en\s+camino|est[aá]\s+en\s+camino|le\s+llega(?:r[aá])?\s+en\s+(?:un\s+momento|unos\s+minutos|breve|segundos))/i,
+];
+export function detectarAccesoInventado(borrador: string): string | null {
+  const t = borrador || '';
+  for (const re of RE_ACCESO_INVENTADO) {
+    const m = re.exec(t);
+    if (m) return m[0];
+  }
+  return null;
+}
+
+/** Lo que recibe el socio cuando la red 3.91 envía el acceso en lugar del borrador. */
+export const TEXTO_ACCESO_ENVIADO =
+  'Listo. Le acabo de enviar el acceso a queswa.app: le llega en un momento, en este mismo chat.';
 
 export const ACCESO_NO_ENVIADO =
   'No me dejó enviarle el acceso ahora mismo. Entre por queswa.app con su correo registrado y le llega en un momento.';

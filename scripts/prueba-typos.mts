@@ -24,7 +24,7 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra } from '../src/lib/queswa-conductor.ts';
+import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
 import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
@@ -67,6 +67,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'esAceptacion',            fn: esAceptacion,          frase: 'sí, claro', llaves: ['claro'], tope: 0 },
   { nombre: 'aceptación pelada · porfavor', fn: (t) => RE_ACEPTACION_PELADA.test(t.trim()), frase: 'si porfavor', llaves: ['porfavor'], tope: 4,
     nota: 'el «Si porfavor» de Isabella (22 sep) cayó al CQR y recibió la tabla de suplementos — la cola `por\\s?fa[a-z]*` cubre porfa/porfavor/por favor; misma cola en `_aceptacionPelada` de route.ts' },
+  { nombre: 'preguntaPorModoWaze', fn: preguntaPorModoWaze, frase: 'qué es el modo waze', llaves: ['waze', 'modo'], tope: 3,
+    nota: 'nodos 1.392 (socio) y 2.235 (prospecto), 5 oct 2026' },
   { nombre: 'detectarPideFuncionDashboard', fn: detectarPideFuncionDashboard, frase: 'redáctame un mensaje para dueños de restaurantes', llaves: ['redáctame', 'restaurantes'], tope: 3,
     nota: 'el mensaje para un NEGOCIO va al Centro de Mando; el de una persona se queda (16 sep 2026)' },
   { nombre: 'esSoloSaludo',            fn: esSoloSaludo,          frase: 'buenas tardes', llaves: ['buenas'], tope: 4,

@@ -226,3 +226,34 @@ export async function enviarFormularioDestino(
     data: datosFormulario(destino),
   });
 }
+
+// ─── «¿Qué es el modo Waze?» — el DISTRIBUIDOR en WhatsApp (5 oct 2026) ──────
+
+/** El fragmento del arsenal del socio; vive solo en el tenant `dashboard` y se lee de ahí: un solo texto para los dos canales. */
+export const FRAGMENTO_MODO_WAZE = 'arsenal_socio_WAZE_01';
+
+/**
+ * La explicación del modo Waze al socio que la pide por WhatsApp, con el botón de
+ * lo que le falta en el mismo mensaje: sin destino → el formulario; con destino y
+ * sin contraseña de Gano → sus Ajustes, en la sección de Gano; con todo → el
+ * formulario con lo suyo ya escrito, para actualizarlo. Devuelve el texto
+ * entregado, o `null` si no se pudo (el turno sigue al motor).
+ */
+export async function atenderModoWazeSocio(
+  supabase: Supa,
+  telefono: string,
+  socio: { constructorId: string },
+): Promise<string | null> {
+  const { data: frag } = await supabase.from('nexus_documents').select('content')
+    .eq('tenant_id', 'dashboard').eq('category', FRAGMENTO_MODO_WAZE).maybeSingle();
+  const texto = String(frag?.content ?? '').replace(/^###[^\n]*\n+/, '').trim();
+  if (!texto) { console.warn(`⚠️ [Destino] No está ${FRAGMENTO_MODO_WAZE} en el tenant dashboard`); return null; }
+  const destino = await destinoDelSocio(supabase, socio.constructorId);
+  if (destino && !(await tieneContrasenaGano(supabase, socio.constructorId))) {
+    const url = await enlaceAjustes(socio.constructorId, 'ajustes-gano');
+    if (url && (await sendCtaUrl(telefono, texto, TEXTO_BOTON_AJUSTES, url)).ok) return texto;
+  }
+  const r = await enviarFormularioDestino(telefono, socio.constructorId, destino, texto, destino ? 'Actualizar destino' : CTA_FORMULARIO);
+  if (r.ok) return texto;
+  return (await sendText(telefono, texto)).ok ? texto : null;
+}

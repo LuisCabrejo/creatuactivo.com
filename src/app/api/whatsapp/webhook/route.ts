@@ -66,7 +66,7 @@ import {
 import { extraerMomento, guardarAcuerdo, guardarPuertaAbierta } from '@/lib/wa-acuerdos';
 import { botonDelLunes, proximasDosPM, respuestaRecordar, QUE_LUNES, CUERPO_FORMULARIO } from '@/lib/wa-lunes-socio';
 import {
-  destinoDelSocio, leerFormularioDestino, atenderFormularioDestino, enviarFormularioDestino, type DestinoSocio,
+  destinoDelSocio, leerFormularioDestino, atenderFormularioDestino, enviarFormularioDestino, atenderModoWazeSocio, type DestinoSocio,
 } from '@/lib/wa-destino-socio';
 import {
   extraerNombres, pareceListaDeNombres, guardarLista, siguienteContacto, resumenLista,
@@ -144,7 +144,7 @@ import {
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
-  slugDelSocio, textoDeCandado, paisDeTelefono,
+  slugDelSocio, textoDeCandado, paisDeTelefono, preguntaPorModoWaze,
 } from '@/lib/queswa-conductor';
 
 export const runtime = 'nodejs';
@@ -1018,6 +1018,17 @@ async function procesarEntrante(body: any): Promise<void> {
       await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, `1.39 lunes: ${_botonLunes}`);
       console.log(`🧭 [WA Webhook] 1.39 el socio /${socioQueEscribe.slug} tocó «${messageText}» (${_botonLunes})`);
       return;
+    }
+    // 1.392 — el socio pregunta qué es el modo Waze: la explicación del arsenal del
+    // socio (`WAZE_01`, la misma del Dashboard) con el botón de lo que le falta. Al
+    // prospecto se le responde `WHY_APP_01` en el nodo 2.235 (Director, 5 oct 2026).
+    if (socioQueEscribe && messageText && preguntaPorModoWaze(messageText)) {
+      const texto = await atenderModoWazeSocio(supabase, phoneNumber, socioQueEscribe);
+      if (texto) {
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '1.392 modo Waze (socio)');
+        console.log(`🧭 [WA Webhook] 1.392 el socio /${socioQueEscribe.slug} preguntó por el modo Waze`);
+        return;
+      }
     }
 
     // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────
@@ -1925,6 +1936,21 @@ async function procesarEntrante(body: any): Promise<void> {
           await avisarAlSocioPareja({ nombreProspecto: contactName, whatsapp: phoneNumber, plazo: plazoParaAviso, nombreSocio: socioP?.nombre });
         }
         console.log(`💑 [WA Webhook] Nodo pareja atendido para ${phoneNumber}${plazoParaAviso ? ` (plazo: ${plazoParaAviso})` : ''} — turno cerrado sin motor`);
+        return;
+      }
+    }
+
+    // ─── 2.235 El PROSPECTO pregunta qué es el modo Waze ──────────────────────
+    // Recibe `WHY_APP_01` —lo que recibiría, su aplicación personalizada—, que el
+    // Director ratificó como la respuesta del prospecto (5 oct 2026). Al socio le
+    // responde el nodo 1.392 con la versión del distribuidor. Determinístico:
+    // con un error de dedo el vector mandaba la Luvoco.
+    if (!socioQueEscribe && messageText && preguntaPorModoWaze(messageText)) {
+      const texto = await textoDeCandado(supabase, 'whatsapp', 'arsenal_inicial_WHY_APP_01');
+      if (texto) {
+        await sendWhatsAppMessage(phoneNumber, texto);
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.235 modo Waze (prospecto)');
+        console.log(`🧭 [WA Webhook] 2.235 el prospecto ${phoneNumber} preguntó por el modo Waze → WHY_APP_01`);
         return;
       }
     }

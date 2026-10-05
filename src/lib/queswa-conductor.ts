@@ -195,6 +195,23 @@ export async function leerCandado(
   return { cuerpo, cierre };
 }
 
+/**
+ * ¿PREGUNTA POR EL MODO WAZE? (5 oct 2026). El mensaje de los lunes se lo
+ * presentó a los distribuidores, y cada público tiene su respuesta (Director):
+ * al PROSPECTO, `WHY_APP_01` —lo que recibiría—; al DISTRIBUIDOR, `WAZE_01` del
+ * arsenal del socio —cómo trabaja Queswa con él—. Determinístico porque el
+ * vector no basta: con el pulgar («modo wase») ganaba un fragmento de la Luvoco.
+ * Pide que sea pregunta (o el término solo): «ya anoté lo del modo waze» no es
+ * pedir la explicación. Tolerancia: `scripts/prueba-typos.mts`.
+ */
+const RE_WAZE = /\bmodo\s+(?:w|u|gu)[ae][iy]?[sz]e?(?![a-záéíóúñ])|(?<![a-záéíóúñ])(?:w|gu)a[iy]?(?:z|ze|se)(?![a-záéíóúñ])/i;
+const RE_PREGUNTA_QUE_ES = /\?|(?<![a-záéíóúñ])(?:(?:qu[eé]|c[oó]mo|eso)(?![a-záéíóúñ])|expl[ií][cq]|signific|cu[aá]l|entend[ií]|entiend)/i;
+export function preguntaPorModoWaze(texto: string | undefined): boolean {
+  const t = (texto ?? '').trim();
+  if (!t || !RE_WAZE.test(t)) return false;
+  return RE_PREGUNTA_QUE_ES.test(t) || t.split(/\s+/).length <= 3;
+}
+
 /** Cuerpo + pregunta de seguimiento, listos para entregar. Null si no hay candado. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function textoDeCandado(supabase: any, tenant: string, categoria: string): Promise<string | null> {

@@ -5562,7 +5562,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // conversationSummary se inyecta en sessionInstructions (Bloque 3, no cacheable)
 
     // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
-    // Al socio, el material llega con el cierre de su Proyección Patrimonial en vez
+    // Al socio, el material llega con el cierre de su Semana en Gano en vez
     // de la oferta del simulador del canal, que está cerrado para él (2 oct 2026).
     const arsenalContext = pageContext === 'whatsapp_socio' ? sinSimuladorParaSocio(context) : context; // Ya contiene el contenido del arsenal o catálogo
     // ⚡ OPTIMIZADO v14.8: Eliminado topQueriesFAQ (~4,400 chars) - contenido ya está en arsenales
@@ -5908,8 +5908,8 @@ rechazo—, en una línea, y cierre con «¿Le mando el acceso?» (el backend ma
 acceso cuando él diga que sí). No redacte usted ese mensaje «mientras tanto».
 
 ⛔ EL ACCESO LO ENVÍA EL BACKEND, Y SOLO CUANDO ÉL DICE QUE SÍ. Por eso, cada
-vez que ofrezca el acceso a su Centro de Mando —por lo que sea: su Proyección
-Patrimonial, su lista, un paso que quedó pendiente de otro día—, la oferta es la
+vez que ofrezca el acceso a su Centro de Mando —por lo que sea: su Semana en
+Gano, su lista, un paso que quedó pendiente de otro día—, la oferta es la
 frase literal «¿Le mando el acceso?», al final y sin nada después. Mientras él no
 responda, el acceso no ha salido: lo único que usted puede afirmar es que se lo
 ofrece.

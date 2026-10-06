@@ -351,7 +351,7 @@ export function textoCubrirCompra(precioCaja: number, nombreCaja = 'Ganocafé 3 
 // la estrategia se cuenta al 10%. Una tabla hasta el nivel 12 al 17% —estuvo en
 // producción unas horas el 2 oct— proyecta una tarifa de seis meses sobre una
 // estructura que tarda años. Ahora: la tabla, al 10%; la tarifa del paquete, en una
-// línea con su vigencia; su caso con su tarifa de hoy, en la Proyección Patrimonial.
+// línea con su vigencia; su caso con su tarifa de hoy, en «Semana en Gano» (antes Proyección Patrimonial; renombrada el 6 oct 2026).
 // Copy aprobado por el Director el 2 oct 2026. Solo lo llama el webhook, en el
 // bloque del socio.
 
@@ -392,13 +392,13 @@ export function paqueteParaNivelesSocio(texto: string, ultimoBot: string): Paque
   return hablaDeLaTabla ? paquete : null;
 }
 
-/** «Ese mismo sistema con el ESP-3»: la tarifa con su vigencia, sin tabla, y su caso en la Proyección Patrimonial. */
+/** «Ese mismo sistema con el ESP-3»: la tarifa con su vigencia, sin tabla, y su caso en «Semana en Gano». */
 export function respuestaNivelesSocio(paquete: PaqueteEsp): string {
   const { pct, nombre, vigencia } = TARIFA_DEL_PAQUETE[paquete];
   return [
     `Con el *${nombre}* la estructura es la misma, y la tarifa sube al *${pct}%* durante los primeros ${vigencia}; después el sistema aplica la más alta entre su rango y las promociones de Gano. Por eso Los 12 Niveles se cuentan con la base del ${PCT_BASE}%, que no vence.`,
     '',
-    'Para ver su caso con su tarifa de hoy, la Proyección Patrimonial de su Centro de Mando lo calcula con sus datos de Gano. ¿Le mando el acceso?',
+    'Su caso con su tarifa de hoy lo calcula «Semana en Gano», en su Centro de Mando, con sus datos de Gano. ¿Le mando el acceso?',
   ].join('\n');
 }
 

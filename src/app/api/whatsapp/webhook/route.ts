@@ -1768,7 +1768,7 @@ async function procesarEntrante(body: any): Promise<void> {
       }
       // 2.221 Los 12 Niveles con su paquete (2 oct 2026, Miguel Barahona,
       // Visionario): la tarifa del paquete con su vigencia —vence— y su caso en la
-      // Proyección Patrimonial. El modelo la componía mal. Ver wa-simulador.ts.
+      // Semana en Gano (antes Proyección Patrimonial). El modelo la componía mal. Ver wa-simulador.ts.
       const paqueteNiveles = paqueteParaNivelesSocio(messageText, _ultimoBotSocio);
       if (paqueteNiveles) {
         const texto = respuestaNivelesSocio(paqueteNiveles);
@@ -2868,7 +2868,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     const msMotor = Date.now() - tMotor;
     queswaReply = queswaReply.trim();
     // Red del cierre del socio (2 oct 2026): si el modelo copió la oferta del
-    // simulador —cerrado para él—, sale la de su Proyección Patrimonial.
+    // simulador —cerrado para él—, sale la de su Semana en Gano.
     if (socioQueEscribe) queswaReply = sinSimuladorParaSocio(queswaReply);
     console.log(`💬 [WA Webhook] Queswa responde (${pageContext}, motor ${msMotor} ms): "${queswaReply.slice(0, 80)}..."`);
 

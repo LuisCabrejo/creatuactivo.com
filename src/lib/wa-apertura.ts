@@ -509,25 +509,27 @@ export function aperturaRetornoTrasVideoNiveles(nombreProspecto?: string): strin
 }
 
 /**
- * Lo que dice la voz del video «Los 12 Niveles» publicado (doce-niveles-v1.mp4),
- * con cifras en vez de palabras: NIVELES_01 sin el precio del Kit. ⚠️ La fuente es
- * `scripts/dankoe-video/captions/work/doce-niveles/stamps.json` (lo que de verdad se
- * oye), NO `guion-vo.txt`: el tramo del Kit y de la cifra se regrabó el 26 sep con
- * «volumen comisionable» y «GCV», y el guion quedó con la versión anterior. Es texto FIJO a
- * propósito —describe un video que no cambia—, y lleva la firma del tema
- * `estrategia` de la bitácora («Los 12 Niveles es nuestra estrategia»).
+ * Lo que dice la voz del video «Los 12 Niveles» publicado (v2 del 6 oct 2026: el
+ * del chat, Blob doce-niveles-v2.mp4, y el compartible del Centro de Expansión), con
+ * cifras en vez de palabras. ⚠️ La fuente es
+ * `scripts/dankoe-video/captions/work/doce-niveles/stamps_v2_a.json` (lo que de verdad
+ * se oye), NO `guion-vo.txt` ni NIVELES_01: en la v2 la voz dice «los clientes de
+ * ellos» y cierra la cifra con «el mismo 10% que empezó a cobrar con el Kit», y el
+ * candado del arsenal se quedó con su texto (Director). Es texto FIJO a propósito
+ * —describe un video que no cambia—, y lleva la firma del tema `estrategia` de la
+ * bitácora («Los 12 Niveles es nuestra estrategia»).
  */
 export function notaVideoDoceNivelesVisto(): string {
   return [
     '[La persona llegó por el enlace del reel: antes de escribir vio el video «Los 12 Niveles», 59 s. Lo que dice la voz:]',
     '',
-    'La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No. Su sistema factura con lo que compran sus clientes, sus distribuidores y los clientes de cada uno de ellos. Y de todo eso, a usted le queda un porcentaje.',
+    'La primera duda que suele surgir es si le toca conseguir cientos de clientes usted solo. No. Su sistema factura con lo que compran sus clientes, sus distribuidores y los clientes de ellos. Y de todo eso, a usted le queda un porcentaje.',
     '',
     'Los 12 Niveles es nuestra estrategia para construirlo paso a paso. La lógica es la duplicación 2×2: usted conecta mínimo dos distribuidores, ellos conectan a otros dos, y así se multiplica el sistema.',
     '',
     'La entrada es el Kit de Inicio, la más baja de todas: usted recibe cuatro cajas de producto, abre su código y empieza a cobrar el 10% del volumen comisionable de su sistema.',
     '',
-    'Al nivel 12, su sistema llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los 103 millones de pesos: exactamente el 10% del GCV, el volumen comisionable grupal. Y ese nivel es la base, no el techo.',
+    'Al nivel 12, su sistema llega a 8.190 distribuidores consumiendo, y la regalía mensual supera los 103 millones de pesos: el mismo 10% que empezó a cobrar con el Kit. Y ese nivel es la base, no el techo.',
   ].join('\n');
 }
 

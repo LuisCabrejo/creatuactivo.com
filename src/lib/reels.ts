@@ -37,11 +37,17 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // copia de la URL.
 export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v4.mp4'
 
-// «Los 12 Niveles» para el canal (59 s, 720×1280, 8,7 MB). La voz es NIVELES_01
-// palabra por palabra, sin el precio del Kit; en pantalla, el simulador con su
-// advertencia («Potencial matemático… No es un resultado garantizado»). Lo manda
-// el nodo 2.34 del conductor con la pregunta de cierre de NIVELES_01 como pie.
-export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-v1.mp4'
+// «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
+// sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial
+// matemático… No es un resultado garantizado»). Lo manda el nodo 2.34 del conductor
+// con la pregunta de cierre de NIVELES_01 como pie.
+// v2 (6 oct 2026, Director): el «No» con acento y medio segundo de silencio, sobre
+// el orbe solo —la tienda entra con «Su sistema factura»—; «de cada uno de ellos» →
+// «de ellos», y la cifra cierra con «el mismo 10% que empezó a cobrar con el Kit»
+// en vez de repetir la definición del GCV. Por eso la voz ya no es el candado
+// palabra por palabra: lo que se oye está en `notaVideoDoceNivelesVisto()`.
+// Sale de scripts/dankoe-video/captions/work/doce-niveles/armar_v2.py.
+export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-v2.mp4'
 
 // «Cómo entra el dinero» para el canal (50 s, 720×1280, 7,7 MB; 27 sep 2026). La voz
 // es WHY_04 palabra por palabra, sin la pregunta de cierre, que va como pie. Lo

@@ -33,7 +33,7 @@ import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/
 // posterior en orden alfabético «no existe» para un import con llaves.
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { pideEnlaceCatalogo, detectarPideFuncionDashboard } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
+const { pideEnlaceCatalogo, detectarPideFuncionDashboard, esSoloAgradecimiento } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 import { esAceptacion, detectarPidePersona, detectarPreguntaCharla, detectarIntencionCompra } from '../src/lib/wa-pedido.ts';
 import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
 import { esSoloSaludo, vieneDelVideoComoFunciona, vieneDelVideoDoceNiveles, videoDeReelVisto, niegaHaberVistoVideo } from '../src/lib/wa-apertura.ts';
@@ -67,6 +67,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'esAceptacion',            fn: esAceptacion,          frase: 'sí, claro', llaves: ['claro'], tope: 0 },
   { nombre: 'aceptación pelada · porfavor', fn: (t) => RE_ACEPTACION_PELADA.test(t.trim()), frase: 'si porfavor', llaves: ['porfavor'], tope: 4,
     nota: 'el «Si porfavor» de Isabella (22 sep) cayó al CQR y recibió la tabla de suplementos — la cola `por\\s?fa[a-z]*` cubre porfa/porfavor/por favor; misma cola en `_aceptacionPelada` de route.ts' },
+  { nombre: 'esSoloAgradecimiento', fn: esSoloAgradecimiento, frase: 'muchas gracias', llaves: ['gracias', 'muchas'], tope: 6,
+    nota: 'nodo 1.393: el socio que agradece recibe una cortesía, no una tarea (6 oct 2026)' },
   { nombre: 'preguntaPorModoWaze', fn: preguntaPorModoWaze, frase: 'qué es el modo waze', llaves: ['waze', 'modo'], tope: 3,
     nota: 'nodos 1.392 (socio) y 2.235 (prospecto), 5 oct 2026' },
   { nombre: 'detectarPideFuncionDashboard', fn: detectarPideFuncionDashboard, frase: 'redáctame un mensaje para dueños de restaurantes', llaves: ['redáctame', 'restaurantes'], tope: 3,

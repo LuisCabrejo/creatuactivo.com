@@ -109,6 +109,7 @@ import {
   // y el prospecto se quedaba sin respuesta. Lo destapó el compilador el 14 sep.
   mensajeEnlaceCatalogo,
   OFERTA_REDACTAR, detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, enviarAccesoDashboard, ACCESO_NO_ENVIADO,
+  esSoloAgradecimiento, cortesiaDeSocio,
   detectarAccesoInventado, TEXTO_ACCESO_ENVIADO,
 } from '@/lib/wa-onboarding';
 import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado, gestoAfirmativoComoSi } from '@/lib/texto-normalizar';
@@ -1030,6 +1031,16 @@ async function procesarEntrante(body: any): Promise<void> {
         return;
       }
     }
+    // 1.393 — el socio solo agradece: una cortesía y nada más (6 oct 2026). Ni el
+    // saludo con su oferta ni el motor, que cierra ofreciendo una tarea: Maryi
+    // pidió «Recuérdemelo a las 2», escribió «Gracias» y recibió dos.
+    if (socioQueEscribe && esSoloAgradecimiento(messageText)) {
+      const texto = cortesiaDeSocio(socioQueEscribe.nombre);
+      await sendWhatsAppMessage(phoneNumber, texto);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText!, texto, '1.393 cortesía (socio)');
+      console.log(`🙏 [WA Webhook] 1.393 el socio /${socioQueEscribe.slug} agradeció — cortesía`);
+      return;
+    }
 
     // ─── 1.4 Guardarraíl de salud — ENTRADA (Capa 0 + derivación) ─────────────
     // Va ANTES de la apertura a propósito: un primer contacto que escribe sobre
@@ -1128,7 +1139,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // tiene ficha»: quien escribió antes como prospecto tiene ficha y aun así no
     // ha recibido nunca su enlace — Patricia y Liliana, 10 sep 2026.
     if (socioQueEscribe && (esPrimerContacto || (existingProspect && !existingProspect.device_info?.saludo_socio_en))) {
-      const saludo = saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug);
+      // Si pidió que le recordaran algo, el saludo no le ofrece una tarea antes.
+      const { data: _recordatorioPendiente } = await supabase.from('wa_acuerdos').select('id')
+        .eq('fingerprint_id', waFingerprint).eq('estado', 'pendiente').limit(1);
+      const saludo = saludoDeSocio(socioQueEscribe.nombre, socioQueEscribe.slug, { sinOferta: !!_recordatorioPendiente?.length });
       await sendWhatsAppMessage(phoneNumber, saludo);
       await marcarSaludoDeSocio(supabase, waFingerprint);
       console.log(`👋 [WA Webhook] Saludo de socio entregado a /${socioQueEscribe.slug}`);

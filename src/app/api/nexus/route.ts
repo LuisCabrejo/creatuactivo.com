@@ -7057,6 +7057,10 @@ const _enHiloDoceNiveles = pageContext !== 'whatsapp_socio' && (
   || !!(existingProspectData as any)?.hilo_12_niveles
   || (messages as any[]).some((m) => /12 Niveles|duplicaci[oó]n 2×2/i.test(String(m?.content ?? '')))
 );
+// ⚠️ La instrucción nombra solo la frase, nunca un rótulo para ella (6 oct 2026):
+// decía «una frase de puente antes del material: «…»», y en la prueba del
+// Director en la web el modelo escribió «Antes de entrar a la estrategia, una
+// frase de puente: …» — copió el rótulo, y en un hilo que no había mostrado el 17 %.
 const _instruccionHiloDoceNiveles = _enHiloDoceNiveles ? `
 🎯 HILO DE LOS 12 NIVELES — la persona está dentro de la estrategia
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -7064,9 +7068,9 @@ const _instruccionHiloDoceNiveles = _enHiloDoceNiveles ? `
   que cambia es el porcentaje: 10 % con el Kit y más con los empresariales
   (hasta 17 %). No presente el Kit como si el 10 % fuera su única tarifa.
 • Si el hilo ya mostró un ejemplo al 17 % y la persona entra a la estrategia,
-  una frase de puente antes del material: «Esta estrategia corre con el Kit, al
-  10 %: la misma regalía, con la tarifa de entrada.» Sin ella ve dos tarifas y
-  nadie le dice por qué.
+  antes del material diga: «Esta estrategia corre con el Kit, al 10 %: la misma
+  regalía, con la tarifa de entrada.» Si no mostró ese ejemplo, no lo diga. Sin
+  esa frase la persona ve dos tarifas y nadie le dice por qué.
 • Este hilo se cierra sobre sí mismo. Existe para desarmar tres ideas: que esto
   es para ganar en cincuenta años, que toca hacerlo con el paquete grande, y que
   una red de miles es trabajo de una sola persona. Por eso el ejemplo corre con

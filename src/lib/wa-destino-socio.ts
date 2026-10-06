@@ -185,6 +185,12 @@ export async function enlaceAjustes(constructorId: string, seccion: 'ajustes' | 
  * sus cifras y se le deja el botón a sus Ajustes. Devuelve el texto que recibió,
  * para el historial.
  */
+/** La pregunta cuando la vida que quiere quedó por debajo de lo que necesita hoy; `null` si las cifras cuadran. */
+export function cifraDudosa(d: DestinoSocio): string | null {
+  if (d.vidaMes >= d.gastoMes) return null;
+  return `Me quedó una duda: la vida que quiere quedó en ${formatoPesos(d.vidaMes)} al mes, menos de lo que necesita hoy. ¿Quiso escribir otra cifra? Aquí se la dejo para corregirla.`;
+}
+
 export async function atenderFormularioDestino(
   supabase: Supa,
   telefono: string,
@@ -196,6 +202,17 @@ export async function atenderFormularioDestino(
     const t = 'No me dejó guardarlo ahora mismo. Lo puede anotar en queswa.app, en Ajustes de Cuenta, o volver a intentarlo aquí en un rato.';
     await sendText(telefono, t);
     return t;
+  }
+  // La vida que quiere por debajo de lo que necesita hoy es casi siempre un dedo
+  // (Nidia, 5 oct 2026: $8.000.000 y $600.000), y repetirla como destino la
+  // dejaría en el mensaje del lunes. Se guarda —es lo que escribió— y se le
+  // pregunta, con el formulario ya escrito para corregirla.
+  const duda = cifraDudosa(d);
+  if (duda) {
+    const r = await enviarFormularioDestino(telefono, socio.constructorId, d, duda, 'Corregir mi destino');
+    if (r.ok) return duda;
+    await sendText(telefono, duda);
+    return duda;
   }
   const conGano = await tieneContrasenaGano(supabase, socio.constructorId);
   const texto = confirmacionDestino(socio.nombre, d, conGano);

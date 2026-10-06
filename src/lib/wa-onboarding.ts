@@ -663,13 +663,32 @@ export const OFERTA_REDACTAR = '¿Le redacto el mensaje para enviárselo a algui
  * Retoma la línea de la semana (`SEMANA_EN_SALUDO_SOCIO`, junto al mensaje de
  * los lunes): el saludo casi siempre llega como respuesta a ese mensaje.
  */
-export function saludoDeSocio(nombreCorto: string, slug: string): string {
+export function saludoDeSocio(nombreCorto: string, slug: string, opts: { sinOferta?: boolean } = {}): string {
   const semana = SEMANA_EN_SALUDO_SOCIO;
-  return (
+  const saludo =
     `Hola${nombreCorto ? ', ' + nombreCorto : ''}. Un gusto saludarle.\n\n` +
-    `Aquí tiene su enlace a la mano:\n${enlaceDeCanal(slug)}\n\n` +
-    (semana ? `${semana.puente}\n\n${semana.oferta}` : OFERTA_REDACTAR)
-  );
+    `Aquí tiene su enlace a la mano:\n${enlaceDeCanal(slug)}`;
+  // Quien pidió que le recordaran algo dijo «ahora no»: el saludo le deja su
+  // enlace y no le ofrece una tarea antes de esa hora (Maryi, 5 oct 2026).
+  if (opts.sinOferta) return saludo;
+  return `${saludo}\n\n` + (semana ? `${semana.puente}\n\n${semana.oferta}` : OFERTA_REDACTAR);
+}
+
+/**
+ * ¿El socio solo está agradeciendo? (6 oct 2026). Maryi pidió «Recuérdemelo a
+ * las 2», escribió «Gracias», y recibió el saludo con una oferta de redactar y,
+ * debajo, «¿Hay alguien en mente a quien quiera escribirle hoy?»: dos tareas a
+ * quien acababa de decir «ahora no». Un gracias se responde con una cortesía y
+ * nada más. ⚠️ Solo el agradecimiento: «listo» o «👍» pueden ser un «sí» a una
+ * oferta y tienen su propio camino. Tolerancia: `scripts/prueba-typos.mts`.
+ */
+const RE_SOLO_GRACIAS = /^(?:(?:ok(?:ey)?|listo|perfecto|vale|bueno|s[uú]per|bien)[\s,.!]*)?(?:(?:muchas|much[ií]simas|mil)\s+)?(?:gr(?:a|á)+(?:c|s)i(?:a|á)s?|grax|graxias|grs)(?:\s+(?:queswa|a\s+usted|de\s+verdad))?[\s,.!¡🙏🙌😊🤗👏❤️♥️💛]*$/iu;
+export function esSoloAgradecimiento(texto: string | undefined): boolean {
+  return RE_SOLO_GRACIAS.test((texto ?? '').trim());
+}
+
+export function cortesiaDeSocio(nombreCorto: string): string {
+  return `Con gusto${nombreCorto ? ', ' + nombreCorto : ''}.`;
 }
 
 // ─── Lo que es del Centro de Mando se pide en el Centro de Mando ──────────────

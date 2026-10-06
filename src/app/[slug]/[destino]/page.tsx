@@ -74,9 +74,13 @@ function esScraperDePreview(): boolean {
 // la toca se sorprende. Junta el título y la descripción que ya estaban
 // aprobados. El `?v=` de la imagen es para que las cachés de los scrapers no
 // sirvan la versión anterior (la URL de la ruta no cambió).
+// 6 oct 2026 (Director, caso Felipe): el título en negrita dice ahora dónde
+// ocurre la conversación. Felipe tocó el enlace, se le abrió WhatsApp con el
+// mensaje escrito y creyó que había un error: esperaba la pantalla de un agente.
+// La promesa de la empresa pasa a la descripción.
 const OG_QUESWA = {
-  title: OG_PRESENTACION.title,
-  description: 'Hable con Queswa por WhatsApp: le explica cómo funciona y le responde a cualquier hora.',
+  title: 'Hable con Queswa por WhatsApp',
+  description: 'Le explica y le responde a cualquier hora cómo usted puede tener a su nombre una empresa de distribución moderna.',
   image: 'https://creatuactivo.com/og/queswa?v=20260930',
   alt: OG_PRESENTACION.alt,
   // El <title> de la página (solo lo ven los robots: a la persona se le redirige).

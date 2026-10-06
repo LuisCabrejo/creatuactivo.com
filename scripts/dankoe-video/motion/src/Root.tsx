@@ -36,6 +36,7 @@ import { BezosSistema, FRAMES_TOTALES as BEZOS_FRAMES } from "./BezosSistema";
 import { ReelBezos, FRAMES_TOTALES as REEL_BEZOS_FRAMES } from "./ReelBezos";
 import { ReelDistribucion, FRAMES_TOTALES as REEL_DIST_FRAMES } from "./ReelDistribucion";
 import { ReelFinal, FRAMES_TOTALES as REEL_FINAL_FRAMES } from "./ReelFinal";
+import { Ruta3D, RUTA_FRAMES } from "./Ruta3D";
 
 const W = 1080;
 const H = 1920;
@@ -44,6 +45,7 @@ const FPS = 30;
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition id="Ruta3D" component={Ruta3D} durationInFrames={RUTA_FRAMES} fps={24} width={W} height={H} />
       <Composition id="Ajedrez3D" component={Ajedrez3D} durationInFrames={AJEDREZ_FRAMES} fps={24} width={W} height={H} />
       <Composition id="Ajedrez3D2" component={Ajedrez3D} defaultProps={{ fase: 2 }} durationInFrames={168} fps={24} width={W} height={H} />
       <Composition id="Ajedrez3D3" component={Ajedrez3D} defaultProps={{ fase: 3 }} durationInFrames={144} fps={24} width={W} height={H} />
@@ -211,6 +213,9 @@ export const RemotionRoot: React.FC = () => {
       />
       <Composition id="Sever3D" component={Sever3D} durationInFrames={4 * FPS} fps={FPS} width={W} height={H} defaultProps={{ topLabel: "EMPRESA", bottomLabel: "USTED" }} />
       <Composition id="Dependencia3D" component={Dependencia3D} durationInFrames={Math.round(7.5 * FPS)} fps={FPS} width={W} height={H} defaultProps={{ topLabel: "UN TERCERO", baseA: "SU INGRESO", baseB: "ESTILO DE VIDA", threadNote: "1 solo hilo" }} />
+      {/* === VIDEO «CÓMO FUNCIONA» (25 sep 2026) — sin texto: la narración y los subtítulos lo dicen === */}
+      <Composition id="GloboFabricante" component={Matriz3D} durationInFrames={Math.round(6.4 * FPS)} fps={FPS} width={W} height={H} defaultProps={{ eyebrow: "", count: 0, unit: "", sub: "" }} />
+      <Composition id="OrbeQueswaCierre" component={IAOnda3D} durationInFrames={Math.round(7.3 * FPS)} fps={FPS} width={W} height={H} defaultProps={{ eyebrow: "", title: "", sub: "" }} />
       <Composition id="IAOnda3D" component={IAOnda3D} durationInFrames={5 * FPS} fps={FPS} width={W} height={H} defaultProps={{ eyebrow: "PILAR 2 · QUESWA", title: "INTELIGENCIA\nARTIFICIAL", sub: "Busca · Filtra · Atiende — 24/7" }} />
       <Composition id="Checklist3D" component={Checklist3D} durationInFrames={Math.round(5 * FPS)} fps={FPS} width={W} height={H} defaultProps={{ eyebrow: "PILAR 3 · MÉTODO COMPROBADO", title: "EL MÉTODO", sub: "Los pasos exactos · Sin ensayo ni error", steps: ["PASO 01", "PASO 02", "PASO 03"] }} />
       <Composition id="Metricas3D" component={Metricas3D} durationInFrames={Math.round(4.5 * FPS)} fps={FPS} width={W} height={H} defaultProps={{ eyebrow: "EL INTERCAMBIO", title: "AÑOS POR POCO", sub: "Mucho servicio · Poco patrimonio", labelA: "AÑOS DE SERVICIO", labelB: "PATRIMONIO" }} />

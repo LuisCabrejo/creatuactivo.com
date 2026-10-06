@@ -38,7 +38,9 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 PY   = os.path.join(BASE, "captions/.venv/bin/python")
 LUT  = os.path.join(BASE, "luts/dji-osmo-pocket3-dlogm-to-709.cube")
 WM   = os.path.join(BASE, "captions/work/_assets/watermark.png")
-MUS  = os.path.expanduser("~/Downloads/reels-equipo/audios/pulse-corporate-technolofy.MP3")
+# La cama vive en el repo. Antes apuntaba a ~/Downloads/reels-equipo/audios/, y al vaciar esa
+# carpeta (22 sep 2026) el día 19 salió SIN música y sin aviso (misma pista, mismo hash).
+MUS  = os.path.join(BASE, "music/solucion-cta_pulse-corporate.mp3")
 OUTRO= os.path.join(BASE, "motion/out/outro.mp4")
 
 GAP_CORTA, PRE, GAP = 0.75, 0.10, 0.28   # pausa que se recorta · pre-roll · pausa que queda
@@ -212,6 +214,8 @@ def main():
     wo=wave.open(f"{W}/voz_ok.wav","wb"); wo.setnchannels(1); wo.setsampwidth(2); wo.setframerate(sr)
     wo.writeframes(o.tobytes()); wo.close()
 
+    if con_musica and not os.path.exists(MUS):
+        print(f"⚠️ SIN MÚSICA: no existe {MUS}")
     if con_musica and os.path.exists(MUS):
         sh("ffmpeg","-y","-v","error","-i",MUS,"-af",
            f"loudnorm=I={mus_lufs}:TP=-3:LRA=11,atrim=0:{dur},asetpts=N/SR/TB,volume={mus_vol},"

@@ -6,9 +6,24 @@ AL:  Fondo negro cinematografico con gradiente radial sutil + color grading mood
 
 Cambio v2: bypass de rembg.new_session() — usa onnxruntime directo
 para evitar el bloqueo de pooch al verificar checksum del modelo.
+
+Uso:
+    python process_video.py <video> [--modelo u2net|birefnet] [--cpu]
+
+Cada modelo corre a SU resolución de entrenamiento: U2Net-human-seg a 320 y
+BiRefNet a 1024. Alimentar BiRefNet a 320 le quita el detalle de cabello y bordes
+que justifica su peso.
+
+Medido en el M1 de 8 GB (26 sep 2026):
+- U2Net corre en CoreML y es el default local.
+- BiRefNet NO compila en CoreML: el formato MLProgram rechaza sus convoluciones
+  deformables («Required param 'pad' is missing»), y el formato NeuralNetwork pasó
+  más de 20 minutos compilando sin terminar. En CPU tarda 78–157 s por fotograma
+  (≈24 h para un reel de 30 s). Para un reel completo con BiRefNet se usa
+  colab_birefnet.ipynb en Kaggle (GPU T4), que es la configuración validada.
 """
 
-import sys
+import argparse
 import subprocess
 import time
 from pathlib import Path
@@ -19,9 +34,22 @@ from tqdm import tqdm
 from PIL import Image
 
 # ============ CONFIG ============
-INPUT_VIDEO   = sys.argv[1] if len(sys.argv) > 1 else "input/video.mp4"
+_args = argparse.ArgumentParser()
+_args.add_argument("video", nargs="?", default="input/video.mp4")
+_args.add_argument("--modelo", choices=["u2net", "birefnet"], default="u2net")
+_args.add_argument("--cpu", action="store_true", help="no usar CoreML")
+ARGS = _args.parse_args()
+
+INPUT_VIDEO   = ARGS.video
 OUTPUT_VIDEO  = "output/video_dankoe.mp4"
-MODEL_PATH    = Path.home() / ".u2net" / "u2net_human_seg.onnx"  # 175MB, 320x320, CPU
+U2NET_DIR     = Path.home() / ".u2net"
+# archivo · lado de entrada · salida en logits (BiRefNet) o ya en probabilidad (U2Net) · CoreML
+MODELOS = {
+    "u2net":    (U2NET_DIR / "u2net_human_seg.onnx",   320, False, True),
+    "birefnet": (U2NET_DIR / "birefnet-general.onnx", 1024, True,  False),
+}
+MODEL_PATH, MODEL_SIZE, MODEL_LOGITS, MODEL_COREML = MODELOS[ARGS.modelo]
+COREML_CACHE  = U2NET_DIR / "coreml-cache"
 OUTPUT_WIDTH  = 1080
 OUTPUT_HEIGHT = 1920                 # 9:16 vertical (Reels/TikTok/Shorts)
 
@@ -53,26 +81,37 @@ OUTLINE_COLOR_BGR = (30, 30, 30)  # gris oscuro #1e1e1e — outline intencional
 # Fade-to-black inferior (oculta corte brusco de la mesa)
 FADE_START_Y     = 0.72    # 0.0=arriba, 1.0=abajo — donde empieza el fade
 
-# ============ BIREFNET DIRECTO (sin rembg/pooch) ============
+# ============ SEGMENTACIÓN DIRECTA (sin rembg/pooch) ============
 
 def load_model():
-    """Carga BiRefNet via onnxruntime directo — sin pooch, sin lock, sin red."""
+    """Carga el modelo via onnxruntime directo — sin pooch, sin lock, sin red."""
     if not MODEL_PATH.exists():
         print(f"ERROR: modelo no encontrado en {MODEL_PATH}")
         print("       Descargalo con:")
         print("       curl -L -o ~/.u2net/birefnet-general.onnx \\")
         print("         https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx")
-        sys.exit(1)
+        raise SystemExit(1)
 
-    providers = ["CPUExecutionProvider"]
-
-    print(f"    Provider: {providers[0]}")
-    session = ort.InferenceSession(str(MODEL_PATH), providers=providers)
+    session = None
+    if MODEL_COREML and not ARGS.cpu:
+        COREML_CACHE.mkdir(parents=True, exist_ok=True)
+        coreml = ("CoreMLExecutionProvider", {"ModelFormat": "MLProgram", "MLComputeUnits": "ALL",
+                                              "ModelCacheDirectory": str(COREML_CACHE)})
+        try:
+            session = ort.InferenceSession(str(MODEL_PATH), providers=[coreml, "CPUExecutionProvider"])
+        except Exception as e:
+            print(f"    CoreML no compiló ({str(e).splitlines()[0][:120]}); sigo en CPU")
+    if session is None:
+        session = ort.InferenceSession(str(MODEL_PATH), providers=["CPUExecutionProvider"])
+    if ARGS.modelo == "birefnet":
+        print("    ⚠️  BiRefNet en este M1 tarda 1–2,5 min por fotograma. Para un reel completo: "
+              "colab_birefnet.ipynb en Kaggle (GPU).")
+    print(f"    Modelo: {ARGS.modelo} a {MODEL_SIZE}x{MODEL_SIZE} · {', '.join(session.get_providers())}")
     return session
 
 def preprocess(img_rgb: np.ndarray) -> np.ndarray:
-    """Preprocesa imagen RGB para u2net: resize 320x320 + normalizar."""
-    img = cv2.resize(img_rgb, (320, 320), interpolation=cv2.INTER_LINEAR)
+    """Redimensiona al lado del modelo y normaliza con la media/desviación de ImageNet."""
+    img = cv2.resize(img_rgb, (MODEL_SIZE, MODEL_SIZE), interpolation=cv2.INTER_LINEAR)
     img = img.astype(np.float32) / 255.0
     mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
     std  = np.array([0.229, 0.224, 0.225], dtype=np.float32)
@@ -84,10 +123,11 @@ def predict_mask(session, img_rgb: np.ndarray, orig_w: int, orig_h: int) -> np.n
     """Devuelve alpha mask float32 [0,1] del tamaño original."""
     inp = preprocess(img_rgb)
     input_name = session.get_inputs()[0].name
-    out = session.run(None, {input_name: inp})[0]  # (1, 1, 1024, 1024)
+    out = session.run(None, {input_name: inp})[0]  # (1, 1, MODEL_SIZE, MODEL_SIZE)
 
-    # Sigmoid + squeeze
-    pred = 1.0 / (1.0 + np.exp(-out[0, 0]))
+    pred = out[0, 0]
+    if MODEL_LOGITS:
+        pred = 1.0 / (1.0 + np.exp(-pred))
     mi, ma = pred.min(), pred.max()
     if ma > mi:
         pred = (pred - mi) / (ma - mi)
@@ -227,7 +267,7 @@ def process_video():
 
     if not input_path.exists():
         print(f"ERROR: no encuentro {input_path}")
-        sys.exit(1)
+        raise SystemExit(1)
 
     print("==> Analizando video...")
     fps, w, h, n_frames = get_video_info(input_path)
@@ -241,7 +281,7 @@ def process_video():
     off_y    = (target_h - scaled_h) // 2
 
     print(f"==> Salida: {target_w}x{target_h} (9:16)")
-    print(f"==> Cargando modelo BiRefNet...")
+    print(f"==> Cargando modelo de recorte...")
     session = load_model()
     print(f"    Modelo listo en {time.time()-t0:.1f}s")
 

@@ -4,6 +4,11 @@
 > de una pared blanca y componer un fondo infinito. Ya **no se usa**: hay fondo físico
 > (pared carbón). El paso de color ahora vive en código → ver **`grade.py`** abajo.
 > El resto de este README documenta el flujo BiRefNet legacy (referencia histórica).
+>
+> Si se retoma: el default local es **U2Net a 320 en CoreML** (~1 s por fotograma).
+> `--modelo birefnet` corre a su resolución real, 1024, pero **solo en CPU y a 78–157 s
+> por fotograma** en el M1 de 8 GB — no compila en CoreML (medido el 26 sep 2026). Para un
+> reel completo con calidad BiRefNet se usa `colab_birefnet.ipynb` en Kaggle (GPU).
 
 ## PASO 0 — `grade.py` (color grade automatizado — OPCIONAL)
 

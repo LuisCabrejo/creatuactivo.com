@@ -682,7 +682,7 @@ export const RE_OBJECION_PRESUPUESTO =
 // tuvo que corregirnos. Ofrecer VER los paquetes tiene un solo destino: la tabla.
 // Lo usa la puerta de FREQ_03 en route.ts, que se evalúa sobre la oferta anclada.
 export const RE_OFERTA_VER_PAQUETES =
-  /(muestro|presento|ense[ñn]o|comparto|paso|detallo)\s+(los|las)\s+(tres\s+|3\s+)?(paquetes|formas\s+de\s+(empezar|iniciar|arrancar|entrar)|opciones\s+(de|para)\s+(empezar|iniciar|arrancar))/i;
+  /(muestro|presento|ense[ñn]o|comparto|paso|detallo)\s+(los|las)\s+(tres\s+|3\s+|cuatro\s+|4\s+)?(paquetes|formas\s+de\s+(empezar|iniciar|arrancar|entrar)|opciones\s+(de|para)\s+(empezar|iniciar|arrancar))/i;
 
 // ── 2.50 Cuánto hay que mover para que la comisión cubra la compra (30 sep 2026) ─
 // Yesid Triana: «¿Cuánto necesita de ingresos una persona para consumir semanal

@@ -2800,11 +2800,12 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // teatro de "— buscando en arsenal —" entre etiquetas que él mismo se
       // fabricó. Las tres formas de empezar SON FREQ_03; se decide en código.
       fragmento: 'arsenal_inicial_FREQ_03',
-      titulo: 'Las tres formas de empezar — FREQ_03',
-      porque: 'pide las tres formas de empezar',
+      // Cuatro desde el 6 oct 2026 (el Kit al final): la puerta abre con las dos.
+      titulo: 'Las cuatro formas de empezar — FREQ_03',
+      porque: 'pide las formas de empezar',
       // Y la oferta de VER los paquetes en cualquier redacción —la del modelo
       // incluida—: ver RE_OFERTA_VER_PAQUETES en el conductor (Eduardo, 29 sep).
-      cuando: { test: (t: string) => /tres\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i.test(t) || RE_OFERTA_VER_PAQUETES.test(t) },
+      cuando: { test: (t: string) => /(tres|cuatro)\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i.test(t) || RE_OFERTA_VER_PAQUETES.test(t) },
     },
     {
       // Guion 2, 20 ago (turno 2): "¿esto es de meter gente como omnilife?" —
@@ -4242,9 +4243,11 @@ function detectVisitorCountry(req: Request, tenantId: string, fingerprint?: stri
 
 // Línea de precio de un paquete según el país (tablas Estado 2 + pin).
 // CO → COP solo · US → USD limpio · resto/desconocido → USD (COP).
-function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3', country: string): string {
-  const usd: Record<string, string> = { 'ESP-1': '$200 USD', 'ESP-2': '$500 USD', 'ESP-3': '$1,000 USD' };
-  const cop: Record<string, string> = { 'ESP-1': '$900K COP', 'ESP-2': '$2.25M COP', 'ESP-3': '$4.5M COP' };
+// El Kit de Inicio es la cuarta forma de empezar (Director, 6 oct 2026). Los pesos
+// van con punto de miles, como en todo el arsenal (antes «$900K» y «$4.5M»).
+function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3' | 'KIT', country: string): string {
+  const usd: Record<string, string> = { KIT: '$98 USD', 'ESP-1': '$200 USD', 'ESP-2': '$500 USD', 'ESP-3': '$1,000 USD' };
+  const cop: Record<string, string> = { KIT: '$443.600 COP', 'ESP-1': '$900.000 COP', 'ESP-2': '$2.250.000 COP', 'ESP-3': '$4.500.000 COP' };
   if (country === 'CO') return cop[esp];
   if (country === 'US') return usd[esp];
   return `${usd[esp]} (~${cop[esp]})`;
@@ -6170,7 +6173,7 @@ ${getInitialGreeting()}
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (modo cierre, texto cálido)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Son tres formas de empezar, y en las tres lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
+Son cuatro formas de empezar, y en las cuatro lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -6181,7 +6184,10 @@ Son tres formas de empezar, y en las tres lo que paga se convierte en producto: 
 **ESP-1 — Inicial** · ${precioPaqueteLinea('ESP-1', visitorCountry)}
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
 
-Para dejarlo andando necesito dos cosas: **su nombre completo** y **cuál de los tres eligió**.
+**Kit de Inicio** · ${precioPaqueteLinea('KIT', visitorCountry)}
+> 4 cajas de producto · su código y su sistema abiertos desde el primer día
+
+Para dejarlo andando necesito dos cosas: **su nombre completo** y **con cuál empieza**.
 
 STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respuesta del usuario con nombre + nivel.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
@@ -6196,7 +6202,7 @@ STOP. No expliques onboarding adicional. No pidas datos extra. Espera la respues
 🎯 ESTADO 2 — TABLA DE CAPITALIZACIÓN (informativo)
 Tu única tarea: presentar la tabla con el framing exacto a continuación. Imprime EXACTAMENTE este texto:
 
-Son tres formas de empezar, y en las tres lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
+Son cuatro formas de empezar, y en las cuatro lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · ${precioPaqueteLinea('ESP-3', visitorCountry)}
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -6206,6 +6212,9 @@ Son tres formas de empezar, y en las tres lo que paga se convierte en producto: 
 
 **ESP-1 — Inicial** · ${precioPaqueteLinea('ESP-1', visitorCountry)}
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
+
+**Kit de Inicio** · ${precioPaqueteLinea('KIT', visitorCountry)}
+> 4 cajas de producto · su código y su sistema abiertos desde el primer día
 
 ¿Le muestro cómo se proyectan las comisiones en cada nivel?
 
@@ -7074,9 +7083,9 @@ const _instruccionHiloDoceNiveles = _enHiloDoceNiveles ? `
 • Este hilo se cierra sobre sí mismo. Existe para desarmar tres ideas: que esto
   es para ganar en cincuenta años, que toca hacerlo con el paquete grande, y que
   una red de miles es trabajo de una sola persona. Por eso el ejemplo corre con
-  el Kit al 10 %, y los otros paquetes y el GEN5 NO se ofrecen ni se mencionan:
-  aparecen solo si la persona los pide. Mostrar el paquete grande aquí produce
-  procrastinación; lo que importa es que empiece a construir su base de consumo.
+  el Kit al 10 %, y el GEN5 no se ofrece. Si la persona pregunta cómo empezar, se
+  le muestran las cuatro formas de empezar tal como vienen: el Kit va al final y
+  sin porcentaje. Lo que importa es que empiece a construir su base de consumo.
 • Los cierres encadenan dentro de la estrategia: la tabla, lo que queda ganando
   con el sistema construido, y cómo se vincula. Al pedir los cuatro datos en
   este hilo, el cuarto se pregunta así: «el paquete con el que inicia — el Kit

@@ -158,7 +158,7 @@ function pidioEsteDato(mensajeBot: string, clave: keyof DatosRadicacion): boolea
     case 'nombre':  return /nombre completo/.test(t);
     case 'cedula':  return /n[uú]mero de identificaci[oó]n/.test(t);
     case 'ciudad':  return /en qu[eé] ciudad/.test(t);
-    case 'paquete': return /cu[aá]l de los tres paquetes de inicio|con cu[aá]l de los tres se va/.test(t);
+    case 'paquete': return /cu[aá]l de los tres paquetes de inicio|con cu[aá]l de los tres se va|con cu[aá]l de las cuatro formas|con cu[aá]l de las cuatro se va/.test(t);
     case 'whatsapp': return /n[uú]mero de whatsapp/.test(t);
   }
 }
@@ -189,7 +189,10 @@ export const RE_ACEPTACION_PELADA = /^(s[ií]|claro|dale|listo|ok(ay)?|bueno|por
  * capitalización. Normalizamos a los códigos ESP antes de salir: es el único
  * vocabulario que las dos partes hablan.
  */
-const PAQUETES: Record<string, 'ESP-1' | 'ESP-2' | 'ESP-3'> = {
+const PAQUETES: Record<string, 'ESP-1' | 'ESP-2' | 'ESP-3' | 'KIT'> = {
+  // El Kit de Inicio es la cuarta forma de empezar (Director, 6 oct 2026); el
+  // Dashboard lo guarda como plan_type 'kit' (scripts/20 del Dashboard).
+  kit: 'KIT', 'kit de inicio': 'KIT', 'el kit': 'KIT', 'kit inicio': 'KIT',
   'esp-1': 'ESP-1', esp1: 'ESP-1', 'esp 1': 'ESP-1', '1': 'ESP-1', inicial: 'ESP-1',
   'esp-2': 'ESP-2', esp2: 'ESP-2', 'esp 2': 'ESP-2', '2': 'ESP-2', empresarial: 'ESP-2', estrategico: 'ESP-2', 'estratégico': 'ESP-2',
   'esp-3': 'ESP-3', esp3: 'ESP-3', 'esp 3': 'ESP-3', '3': 'ESP-3', visionario: 'ESP-3',
@@ -199,12 +202,14 @@ const NOMBRE_PAQUETE: Record<string, string> = {
   'ESP-1': 'ESP-1 Inicial',
   'ESP-2': 'ESP-2 Empresarial',
   'ESP-3': 'ESP-3 Visionario',
+  KIT: 'Kit de Inicio',
 };
 
 function normalizarPaquete(raw: string | null | undefined): string | null {
   if (!raw) return null;
   const k = raw.toLowerCase().trim().replace(/[·.]/g, '').replace(/\s+/g, ' ');
   if (PAQUETES[k]) return PAQUETES[k];
+  if (/(?<![a-z])kit(?![a-z])/.test(k)) return 'KIT';
   const m = k.match(/esp\s*-?\s*([123])/);
   return m ? PAQUETES[`esp-${m[1]}`] : null;
 }
@@ -251,11 +256,12 @@ Reglas:
 - "cedula": el número de identificación, solo dígitos. Un número de teléfono NO es la
   cédula: descarte los de 10 dígitos que empiezan por 3 y los que llevan prefijo +57.
 - "ciudad": la ciudad donde vive. Un país no es una ciudad.
-- "paquete": literalmente ESP-1, ESP-2 o ESP-3. Si dijo "el inicial" es ESP-1, "el
-  empresarial" o "el estratégico" es ESP-2, "el visionario" es ESP-3. Quien acaba de
-  ver la tabla suele nombrarlo por su contenido: 7 productos es ESP-1, 18 productos es
-  ESP-2, 35 productos es ESP-3. También lo nombran por el precio, si la tabla lo
-  mostró. Si nombró un paquete solo para preguntar por él, sin elegirlo, use null.
+- "paquete": literalmente ESP-1, ESP-2, ESP-3 o KIT. Si dijo "el inicial" es ESP-1, "el
+  empresarial" o "el estratégico" es ESP-2, "el visionario" es ESP-3, "el kit" o "el
+  kit de inicio" es KIT. Quien acaba de ver la tabla suele nombrarlo por su
+  contenido: 7 productos es ESP-1, 18 productos es ESP-2, 35 productos es ESP-3, las
+  4 cajas es KIT. También lo nombran por el precio, si la tabla lo mostró. Si nombró
+  un paquete solo para preguntar por él, sin elegirlo, use null.
 - "whatsapp": el número de WhatsApp que la persona dio para que le escriban, solo
   dígitos, con indicativo si lo dio. Un número de 10 dígitos que empieza por 3 es un
   celular colombiano, no una cédula. Si no dio ninguno, null.
@@ -399,7 +405,7 @@ const ETIQUETAS: Record<ClaveRadicacion, string> = {
   nombre:   'Nombre completo, como aparece en su documento',
   cedula:   'Número de identificación',
   ciudad:   'La ciudad donde está',
-  paquete:  'Cuál de los tres paquetes de inicio quiere',
+  paquete:  'Con cuál de las cuatro formas quiere empezar',
   whatsapp: 'Un número de WhatsApp donde el socio pueda escribirle',
 };
 
@@ -408,7 +414,7 @@ const EN_PROSA: Record<ClaveRadicacion, string> = {
   nombre:   'su nombre completo, como aparece en el documento',
   cedula:   'su número de identificación',
   ciudad:   'la ciudad donde está',
-  paquete:  'cuál de los tres paquetes de inicio quiere',
+  paquete:  'con cuál de las cuatro formas quiere empezar',
   whatsapp: 'un número de WhatsApp donde el socio pueda escribirle',
 };
 
@@ -456,15 +462,14 @@ function ecoDe(clave: ClaveRadicacion, datos: DatosRadicacion): string | null {
  * hay una oficina física, con gente.
  */
 /**
- * Los paquetes de inicio canónicos son los tres empresariales — así los maneja
- * Gano Excel, así los nombra el liderazgo y así los va a oír la persona en
- * cualquier evento corporativo (Director, 3 sep 2026). El Kit no es un cuarto
- * paquete: es la MECÁNICA de entrada de Los 12 Niveles, y por eso solo se nombra
- * en ese hilo, como puente y después de los tres. La versión anterior lo ponía
- * primero y a los tres «si lo prefiere», que es la jerarquía al revés. Fuera del
- * hilo la etiqueta es la de los tres paquetes, sin más.
+ * Las formas de empezar son CUATRO, en todas partes (Director, 6 oct 2026): «en la
+ * mayoría de casos Queswa responde con los tres paquetes y no da la opción del
+ * Kit». Reemplaza la decisión del 3 sep, que nombraba el Kit solo dentro del hilo
+ * de Los 12 Niveles. El orden es el de FREQ_03: el Visionario primero, como
+ * anclaje, y el Kit al final. `enKit` se conserva por compatibilidad: hoy la
+ * etiqueta es la misma dentro y fuera del hilo.
  */
-const ETIQUETA_PAQUETE_KIT = 'Cuál de los tres paquetes de inicio quiere, o el Kit de Inicio si va con la estrategia de los 12 Niveles';
+const ETIQUETA_PAQUETE_KIT = ETIQUETAS.paquete;
 
 export function pedirDatos(
   datos: DatosRadicacion,
@@ -585,12 +590,13 @@ export function pedirUnDato(
     case 'paquete':
       return [
         reintento
-          ? '¿Con cuál de los tres se va?'
-          : 'Última cosa: ¿cuál de los tres paquetes de inicio quiere?',
+          ? '¿Con cuál de las cuatro se va?'
+          : 'Última cosa: ¿con cuál de las cuatro formas quiere empezar?',
         '',
-        '• *ESP-1 Inicial* — 7 productos, para arrancar rápido',
-        '• *ESP-2 Empresarial* — 18 productos, crecimiento sostenido',
-        '• *ESP-3 Visionario* — 35 productos, máxima velocidad',
+        '• *ESP-3 Visionario* — 35 productos',
+        '• *ESP-2 Empresarial* — 18 productos',
+        '• *ESP-1 Inicial* — 7 productos',
+        '• *Kit de Inicio* — 4 cajas de producto',
       ].join('\n');
 
     case 'whatsapp':

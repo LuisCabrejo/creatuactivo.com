@@ -516,6 +516,15 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.64 — Las formas de empezar son cuatro (6 oct 2026)
+
+Decisión del Director tras auditar su prueba en la web: *«queswa en la mayoría de casos responde con los tres paquetes y no da la opción del kit de inicio… la mejor solución puede ser aplicar por defecto las cuatro opciones»*. Reemplaza la decisión del 3 sep, que nombraba el Kit solo dentro del hilo de Los 12 Niveles.
+
+- **FREQ_03** 🔒 — cuatro formas: el Visionario primero, como anclaje, y el *Kit de Inicio* al final, **sin porcentaje** (Director: mostrar la diferencia de ganancia hace que la persona aplace; se quiere que empiece, y la tarifa se mejora después). `[PRECIO_KIT]` lo llena `getPinKitInicio()`. Índice y oferta literal pasan a *cuatro*; medido contra el canal: la oferta nueva llega a FREQ_03 con 0.750 (la vieja, en hilos abiertos, 0.700) y ninguna consulta del Kit (precio, inversión mínima, algo más barato) cambió de fragmento.
+- **ACTIVACION_01** 🔒 — nombra el Kit entre las opciones y cierra hacia FREQ_03 con *«¿Le muestro las cuatro formas de empezar?»*.
+- **Acompañan** (código): la toma de datos acepta y pide el Kit (`KIT`, plan_type `kit` del Dashboard), la puerta de FREQ_03 y el detector del conductor reconocen *cuatro*, la lista de cierres aprobados, las dos copias del Estado 2 en route.ts y el prompt v5.15.
+
+
 ### v6.63 — Nace `WHY_MOD_01`: cuáles son las dos industrias (1 oct 2026)
 
 El mensaje que Queswa le redacta al socio (`src/lib/wa-redaccion-socio.ts`) cambió ese día a la columna del Director: *«Veo una oportunidad enorme en modernizar dos industrias, como hizo Rappi con los domicilios, o como cuando pasamos de hacer fila en el banco a usar una aplicación»*. **No nombra las industrias, a propósito**: así lo usa el Director, y genera la expectativa. La respuesta más probable es *«¿cuáles?»*, y hasta ese día ningún fragmento la tenía: `WHY_02` no las nombra, la tarjeta de la Presentación dice *«los dos sectores»* sin decir cuáles, y la única respuesta con «dos industrias» era `FREQ_16` (café premium y bienestar, la objeción de saturación), que habría contestado otra cosa.

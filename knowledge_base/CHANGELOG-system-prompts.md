@@ -6,6 +6,10 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.15 — Las formas de empezar son cuatro (6 oct 2026)
+
+Dos menciones pasan de *tres* a *cuatro formas de empezar*: la regla de que preguntar cómo se empieza es pedir información, y la lista de ofertas del cierre. Acompaña a `FREQ_03` v6.64, que suma el *Kit de Inicio* al final de la tabla y sin porcentaje (Director: en la mayoría de las conversaciones Queswa ofrecía tres paquetes y el Kit no aparecía). Sin reglas nuevas.
+
 ## v5.14 — A la ama de casa se le edifica su labor: gerente del hogar (28 sep 2026)
 
 Una frase en la regla del oficio (`canal:web whatsapp`), con las palabras del Director: *«A quien le diga que es ama de casa, edifíquele su labor y trátela como gerente del hogar.»* Lo que él ve en el uno a uno: muchas se quitan el mérito (*«yo no hago nada, el que trabaja es mi esposo»*), y al oír *gerente del hogar* se sienten reconocidas. `PERFIL_03` (arsenal v6.62) ya lo hacía cuando llegaba al contexto, pero en una prueba el modelo lo cambió por *«quien maneja un hogar»*, y en una conversación de dos turnos la recuperación ni siquiera trajo el fragmento. La regla lo sostiene en los dos casos.

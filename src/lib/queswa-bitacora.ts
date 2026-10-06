@@ -133,8 +133,9 @@ export const TEMAS: TemaBitacora[] = [
   },
   {
     id: 'paquetes',
-    nombre: 'los tres paquetes empresariales con su precio',
-    firma: /ESP-1 Inicial[\s\S]{0,300}ESP-2[\s\S]{0,300}ESP-3/i,
+    // Cuatro desde el 6 oct 2026 (el Kit al final); la firma reconoce la tabla en cualquier orden.
+    nombre: 'las cuatro formas de empezar con su precio',
+    firma: /ESP-1[\s\S]{0,300}ESP-2[\s\S]{0,300}ESP-3|ESP-3[\s\S]{0,300}ESP-2[\s\S]{0,300}ESP-1/i,
     fragmentos: ['arsenal_inicial_FREQ_03'],
   },
   {
@@ -188,7 +189,7 @@ export const RECORRIDO: { tema: string; oferta: string }[] = [
   { tema: 'dia_a_dia', oferta: '¿Le muestro qué haría usted en el día a día?' },
   { tema: 'productos', oferta: '¿Le muestro los productos que mueven todo esto?' },
   { tema: 'catalogo', oferta: '¿Le muestro el catálogo completo con precios?' },
-  { tema: 'paquetes', oferta: '¿Le muestro las tres formas de empezar?' },
+  { tema: 'paquetes', oferta: '¿Le muestro las cuatro formas de empezar?' },
 ];
 
 /** De qué tema es una pregunta de cierre. Null si no se reconoce. */
@@ -203,7 +204,7 @@ const OFERTA_A_TEMA: [RegExp, string][] = [
   // prueba del 26 sep la persona la ignoró y tocó el botón siguiente.
   [/la estrategia|c[oó]mo se construye ese sistema|c[oó]mo crece ese porcentaje/i, 'estrategia'],
   [/c[oó]mo funciona (el negocio|esto|exactamente)/i, 'como_funciona'],
-  [/tres formas de empezar|con cu[aá]nto se empieza|cu[aá]nto vale cada uno|diferencias entre los tres/i, 'paquetes'],
+  [/(tres|cuatro) formas de empezar|con cu[aá]nto se empieza|cu[aá]nto vale cada uno|diferencias entre los tres/i, 'paquetes'],
   [/ganancias por la compra de paquetes/i, 'ganancia_paquetes'],
   [/de d[oó]nde sale (el|ese|esa) (ingreso|dinero|plata)|c[oó]mo entra el dinero/i, 'dinero'],
   [/en el simulador/i, 'simulador'],

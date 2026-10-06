@@ -12,11 +12,12 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.63** (1 oct 2026) — **Nace `WHY_MOD_01`: cuáles son las dos industrias.** El mensaje que Queswa le redacta al socio invita con *«Veo una oportunidad enorme en modernizar dos industrias…»* y no las nombra, a propósito (Director). Quien llega pregunta cuáles, y se le responde de frente: el network marketing y el sector laboral, con las palabras de la Presentación y de `NET_01`. Sin candado. Cierra hacia `WHY_02`.
+**Versión actual: v6.64** (6 oct 2026) — **Las formas de empezar son cuatro.** `FREQ_03` suma el *Kit de Inicio* al final de la tabla, sin porcentaje: dice lo que la persona recibe. El Visionario sigue primero, como anclaje, y el Kit se lee como la puerta para empezar ya (Director). `ACTIVACION_01` lo nombra entre las opciones y cierra hacia `FREQ_03`. Motivo: en la mayoría de las conversaciones Queswa ofrecía tres paquetes y el Kit no aparecía; la persona tenía que traerlo ella.
+
+**v6.63** (1 oct 2026) — **Nace `WHY_MOD_01`: cuáles son las dos industrias.** El mensaje que Queswa le redacta al socio invita con *«Veo una oportunidad enorme en modernizar dos industrias…»* y no las nombra, a propósito (Director). Quien llega pregunta cuáles, y se le responde de frente: el network marketing y el sector laboral, con las palabras de la Presentación y de `NET_01`. Sin candado. Cierra hacia `WHY_02`.
 
 **v6.62** (28 sep 2026) — **`PERFIL_03` habla con las palabras de ella.** El Director: nadie se presenta como *gerente del hogar*; escriben *ama de casa*, y muchas *«yo no hago nada, el que trabaja es mi esposo»* — y esa frase caía en `PERFIL_02` 🔒, dictada literal. Título e índice nuevos, sin *gerente del hogar* (queda en el cuerpo, que la eleva) y sin *esposo* (robaba las consultas de pareja). 14 de 14 paráfrasis en el puesto 1, sin robos. Cuerpo intacto. Detalle → CHANGELOG.
 
-**v6.61** (28 sep 2026) — **Nace `PERFIL_03`: la gerente del hogar.** El video del día 22 del reto invita a preguntar *«sea empleado, empresario o gerente del hogar»*, y quien se dedica al hogar caía en `PERFIL_02` 🔒, la del independiente, dictada literal. Término del Director: *gerente del hogar*. Sin candado. Índice medido contra los fragmentos reales del canal: 7 de 7 paráfrasis en el puesto 1, sin robos a `PERFIL_01`, `PERFIL_02`, `FREQ_15` ni `FREQ_25`. Detalle → CHANGELOG.
 
 
 
@@ -314,11 +315,11 @@ Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com.
 ---
 
 ### **FREQ_03: "¿Cómo se inicia? / Quiero empezar / ¿Cuánto cuesta empezar? / ¿Cuánto vale entrar? / Me interesa, ¿qué hago? / ¿Cuál es el proceso para empezar? / ¿Cómo me uno?"**
-**[Índice]:** Cuánto cuesta empezar, cuánto vale entrar, cuál es el proceso, cómo me uno. Los tres paquetes con su precio. ¿Le muestro las tres formas de empezar?
-**[Concepto Nuclear]:** Quien pregunta cómo se inicia ya decidió, y se le trata como a quien mira una propiedad y pregunta dónde firma: a nadie le gusta que le vendan, pero comprar sí gusta. Tabla escaneable de los tres paquetes con su precio, y un paso claro. La nomenclatura del plan va literal —*Binario 17%*, *Bono GEN5*—, porque el porcentaje corre sobre el GCV y traducirlo a lenguaje llano hace calcularlo sobre la facturación. La línea de datos de cada nivel ya los diferencia. `[PRECIO]` lo llena `getPaquetesPricingPin()` en la moneda del visitante — es el único hueco del arsenal, y es a propósito: una cifra que depende del país no cabe dentro de un texto que se entrega carácter por carácter.
+**[Índice]:** Cuánto cuesta empezar, cuánto vale entrar, cuál es el proceso, cómo me uno. Las cuatro formas de empezar con su precio. ¿Le muestro las cuatro formas de empezar?
+**[Concepto Nuclear]:** Quien pregunta cómo se inicia ya decidió, y se le trata como a quien mira una propiedad y pregunta dónde firma: a nadie le gusta que le vendan, pero comprar sí gusta. Tabla escaneable de las cuatro formas de empezar con su precio, y un paso claro. **Desde el 6 oct 2026 son cuatro (Director):** el Visionario primero, como anclaje, y el *Kit de Inicio* al final y **sin porcentaje** —mostrar la diferencia de ganancia hace que la persona aplace; lo que se quiere es que empiece, y la tarifa se mejora después—. `[PRECIO_KIT]` lo llena `getPinKitInicio()`. La nomenclatura del plan va literal —*Binario 17%*, *Bono GEN5*—, porque el porcentaje corre sobre el GCV y traducirlo a lenguaje llano hace calcularlo sobre la facturación. La línea de datos de cada nivel ya los diferencia. `[PRECIO]` lo llena `getPaquetesPricingPin()` en la moneda del visitante — es el único hueco del arsenal, y es a propósito: una cifra que depende del país no cabe dentro de un texto que se entrega carácter por carácter.
 
 <verbatim_lock>
-Son tres formas de empezar, y en las tres lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
+Son cuatro formas de empezar, y en las cuatro lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
 
 **ESP-3 — Visionario** · [PRECIO]
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo
@@ -328,6 +329,9 @@ Son tres formas de empezar, y en las tres lo que paga se convierte en producto: 
 
 **ESP-1 — Inicial** · [PRECIO]
 > 7 productos · Binario 15% por 2 meses · Bono GEN5 activo
+
+**Kit de Inicio** · [PRECIO_KIT]
+> 4 cajas de producto · su código y su sistema abiertos desde el primer día
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Con cuál quiere arrancar?
@@ -341,14 +345,14 @@ Son tres formas de empezar, y en las tres lo que paga se convierte en producto: 
 <verbatim_lock>
 Con gusto, y le va a gustar lo corto que es. Son tres pasos:
 
-**1. Elige su paquete de inicio** —ESP-1, ESP-2 o ESP-3—, que es el inventario con el que arranca. Lo recoge en una oficina de Gano Excel o se lo envían a su casa.
+**1. Elige su paquete de inicio** —ESP-3, ESP-2, ESP-1 o el Kit de Inicio—, que es el inventario con el que arranca. Lo recoge en una oficina de Gano Excel o se lo envían a su casa.
 
 **2. Llena un formulario corto**, físico o digital, con sus datos y la cuenta donde quiere recibir sus comisiones.
 
 **3. Alguien del equipo lo llama** para acompañarlo en los primeros pasos, y su acceso a queswa.app queda activo ese mismo día.
 </verbatim_lock>
 
-**Pregunta de seguimiento:** ¿Le muestro las diferencias entre los tres niveles?
+**Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
 
 ---
 

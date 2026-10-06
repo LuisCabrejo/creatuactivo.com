@@ -39,7 +39,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.14_gerente_del_hogar';
+const VERSION_LABEL = 'v5.15_cuatro_formas_de_empezar';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 export const CANALES = {

@@ -30,6 +30,14 @@ const GRAPH   = 'https://graph.facebook.com/v21.0';
 const WABA_ID = process.env.WHATSAPP_WABA_ID;
 const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 const NOMBRE  = 'codigo_acceso_centro_mando';
+// 🛑 29 sep 2026: este archivo quedó con la versión UTILITY que Meta RECHAZÓ el
+// 21 ago (INCORRECT_CATEGORY: un código de acceso solo va por AUTHENTICATION), y
+// ese nombre quedó quemado. La plantilla que se usa es `codigo_centro_mando`,
+// AUTHENTICATION, con texto impuesto por Meta y botón «Copiar código». Hasta hoy
+// `--estado` buscaba el nombre quemado, respondía «No existe todavía. Corra el
+// script sin --estado para someterla» y llevaba a someter otra vez lo rechazado.
+// Ahora `--estado` consulta la vigente, y someter o editar se niega.
+const NOMBRE_VIGENTE = 'codigo_centro_mando';
 
 const PLANTILLA = {
   name: NOMBRE,
@@ -55,17 +63,22 @@ if (!WABA_ID || !TOKEN) {
 const args = process.argv.slice(2);
 
 if (args.includes('--estado')) {
-  const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates?name=${NOMBRE}&fields=name,status,category,rejected_reason`, {
+  const r = await fetch(`${GRAPH}/${WABA_ID}/message_templates?name=${NOMBRE_VIGENTE}&fields=name,status,category,rejected_reason`, {
     headers: { Authorization: `Bearer ${TOKEN}` },
   });
   const j = await r.json();
-  for (const t of j.data || []) {
+  // `name=` de la Graph API busca por prefijo: se filtra el nombre exacto.
+  const vigentes = (j.data || []).filter((t) => t.name === NOMBRE_VIGENTE);
+  for (const t of vigentes) {
     const icono = t.status === 'APPROVED' ? '✅' : t.status === 'REJECTED' ? '❌' : '⏳';
-    console.log(`${icono} ${t.name} (${t.language || 'es'}) — ${t.status}${t.rejected_reason ? ` · motivo: ${t.rejected_reason}` : ''}`);
+    console.log(`${icono} ${t.name} (${t.language || 'es'}) — ${t.status} · ${t.category}${t.rejected_reason && t.rejected_reason !== 'NONE' ? ` · motivo: ${t.rejected_reason}` : ''}`);
   }
-  if (!(j.data || []).length) console.log('No existe todavía. Corra el script sin --estado para someterla.');
+  if (!vigentes.length) console.log(`🔴 No existe ${NOMBRE_VIGENTE} en la cuenta: el código de acceso a la app instalada NO puede salir. No se arregla con este script (su versión UTILITY la rechaza Meta); hay que someter una AUTHENTICATION.`);
   process.exit(0);
 }
+
+console.error(`🛑 Retirado: ${NOMBRE} (UTILITY) lo rechazó Meta el 21 ago 2026. La vigente es ${NOMBRE_VIGENTE} (AUTHENTICATION). Use --estado para consultarla.`);
+process.exit(1);
 
 if (args.includes('--editar')) {
   const r0 = await fetch(`${GRAPH}/${WABA_ID}/message_templates?name=${NOMBRE}&fields=id,status,category`, {

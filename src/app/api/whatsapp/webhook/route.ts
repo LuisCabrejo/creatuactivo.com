@@ -65,6 +65,7 @@ import {
 } from '@/lib/wa-ambivalencia';
 import { extraerMomento, guardarAcuerdo, guardarPuertaAbierta } from '@/lib/wa-acuerdos';
 import { botonDelLunes, proximasDosPM, respuestaRecordar, QUE_LUNES, CUERPO_FORMULARIO } from '@/lib/wa-lunes-socio';
+import { esBotonPendientes, atenderVerPendientes } from '@/lib/wa-pendientes-socio';
 import {
   destinoDelSocio, leerFormularioDestino, atenderFormularioDestino, enviarFormularioDestino, atenderModoWazeSocio, type DestinoSocio,
 } from '@/lib/wa-destino-socio';
@@ -1030,6 +1031,14 @@ async function procesarEntrante(body: any): Promise<void> {
         console.log(`🧭 [WA Webhook] 1.392 el socio /${socioQueEscribe.slug} preguntó por el modo Waze`);
         return;
       }
+    }
+    // 1.394 — [Ver qué me abre] del mensaje semanal de pendientes (6 oct 2026):
+    // solo lo que le falta, cada cosa con lo que le abre, y el botón a sus Ajustes.
+    if (socioQueEscribe && esBotonPendientes(opcionElegida, messageText)) {
+      const texto = await atenderVerPendientes(supabase, phoneNumber, socioQueEscribe.constructorId);
+      await persistirTurnoDictado(supabase, waFingerprint, messageText!, texto, '1.394 pendientes: lo que le abre');
+      console.log(`🧭 [WA Webhook] 1.394 el socio /${socioQueEscribe.slug} pidió ver sus pendientes`);
+      return;
     }
     // 1.393 — el socio solo agradece: una cortesía y nada más (6 oct 2026). Ni el
     // saludo con su oferta ni el motor, que cierra ofreciendo una tarea: Maryi

@@ -160,7 +160,7 @@ export const TEXTO_BOTON_AJUSTES = 'Ir a mis Ajustes';
  * Cuenta (`/api/auth/enlace-canal` del Dashboard, con la llave del puente).
  * `null` si no se pudo: la confirmación cae al «¿Le mando el acceso?» de siempre.
  */
-export async function enlaceAjustes(constructorId: string, seccion: 'ajustes' | 'ajustes-gano'): Promise<string | null> {
+export async function enlaceAjustes(constructorId: string, seccion: 'ajustes' | 'ajustes-gano' | 'ajustes-destino'): Promise<string | null> {
   const secreto = process.env.WA_BRIDGE_SECRET?.trim();
   if (!secreto) { console.warn('⚠️ [Destino] Sin WA_BRIDGE_SECRET: no hay enlace directo'); return null; }
   try {

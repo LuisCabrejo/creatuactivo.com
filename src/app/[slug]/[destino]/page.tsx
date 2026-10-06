@@ -231,6 +231,22 @@ export default async function DestinoRoute({
       )
     }
 
+    // 📈 Cada apertura queda registrada antes de saltar a WhatsApp (6 oct 2026,
+    // caso Felipe): quien abre el enlace y no toca «Enviar» no le llega a Queswa
+    // y era invisible. Va en `page_visits` (tabla existente sin otro uso):
+    // mentor_ref_id = slug, page_entry = /{slug}/{destino}. Los robots de vista
+    // previa ya salieron arriba. Si falla, se redirige igual: medir no puede
+    // costar una persona. Comparar con `node scripts/medir-aperturas-enlace.mjs`.
+    try {
+      await supabase.from('page_visits').insert({
+        session_id: crypto.randomUUID(),
+        mentor_ref_id: slug,
+        page_entry: `/${slug}/${destino}`,
+      })
+    } catch (e) {
+      console.warn('⚠️ [Enlace Queswa] No se registró la apertura:', e)
+    }
+
     redirect(waUrl)
   }
 

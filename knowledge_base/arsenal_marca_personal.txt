@@ -77,8 +77,8 @@ No a través del esfuerzo ilimitado, sino a través de la arquitectura correcta.
 
 El método son dos acciones, y las dos se hacen desde el celular:
 
-📲 **Compartir:** usted pasa un enlace a quien quiera.
-🤝 **Recibir:** usted saluda a quien llega con interés.
+**Compartir:** usted pasa un enlace a quien quiera.
+**Recibir:** usted saluda a quien llega con interés.
 
 Entre las dos está Queswa: conversa con cada persona, resuelve sus dudas y madura su decisión de avanzar. Cuando alguien está listo, le avisa.
 

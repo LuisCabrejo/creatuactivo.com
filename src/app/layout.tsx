@@ -183,12 +183,16 @@ export default function RootLayout({
           "width": 512,
           "height": 512
         },
+        // sameAs = la MISMA entidad en otros sitios. luiscabrejo.com es el sitio del
+        // fundador, no de la empresa: va como founder (7 oct 2026).
         "sameAs": [
           "https://facebook.com/creatuactivo",
           "https://instagram.com/creatuactivo",
-          "https://linkedin.com/company/creatuactivo",
-          "https://luiscabrejo.com"
+          "https://linkedin.com/company/creatuactivo"
         ],
+        "founder": {
+          "@id": "https://luiscabrejo.com/#luis-cabrejo"
+        },
         // Número real del canal de tráfico orgánico = la WABA de Queswa
         // (2 ago 2026, decisión del Director). Reemplaza el placeholder
         // inventado +57-300-1234567 que estuvo publicado como dato estructurado.
@@ -207,6 +211,7 @@ export default function RootLayout({
       },
       {
         "@type": "SoftwareApplication",
+        "@id": "https://queswa.app/#app",
         "name": "Queswa",
         "operatingSystem": "Web",
         "applicationCategory": "BusinessApplication",
@@ -221,13 +226,17 @@ export default function RootLayout({
         }
       },
       {
+        // El fundador es UNA entidad en todo el ecosistema: el @id lo define
+        // luiscabrejo.com, su sitio, y aquí se reutiliza (7 oct 2026).
         "@type": "Person",
+        "@id": "https://luiscabrejo.com/#luis-cabrejo",
         "name": "Luis Cabrejo",
-        "jobTitle": "Fundador de CreaTuActivo",
+        "jobTitle": "Fundador y CEO de CreaTuActivo",
         "url": "https://luiscabrejo.com",
         "sameAs": [
           "https://www.linkedin.com/in/luiscabrejo/",
-          "https://instagram.com/luiscabrejo"
+          "https://instagram.com/luiscabrejo",
+          "https://www.facebook.com/luis.cabrejo/"
         ],
         "worksFor": {
           "@id": `${baseUrl}/#organization`

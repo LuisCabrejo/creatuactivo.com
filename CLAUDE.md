@@ -1205,6 +1205,25 @@ Automatically extracts performance data from Google Search Console API.
 
 **Quick Wins**: Queries in position 5-20 with high impressions = opportunities to optimize and reach top 3.
 
+### Inspección de URL — solo lectura (7 oct 2026)
+
+**Script**: [scripts/gsc-inspeccionar.mjs](scripts/gsc-inspeccionar.mjs) — mismo acceso OAuth del extractor. Por URL devuelve lo del informe «Inspección de URL»: veredicto, último rastreo, canonical declarado y el que eligió Google, y resultados enriquecidos detectados. Sirve en las dos propiedades del ecosistema (el token de luiscabrejo7@gmail.com es propietario de las dos):
+
+```bash
+node scripts/gsc-inspeccionar.mjs https://creatuactivo.com/ https://creatuactivo.com/tecnologia
+node scripts/gsc-inspeccionar.mjs https://luiscabrejo.com/historia https://luiscabrejo.com/ecosistema
+```
+
+⚠️ **«Solicitar indexación» NO existe en el API** (el API de Indexing de Google es solo para empleos y transmisiones en vivo). Se hace en el panel: Inspección de URL → pegar la URL → *Solicitar indexación*. Una URL por solicitud: pedir `/blog` no hace que Google vuelva a rastrear cada artículo.
+
+**Procedimiento después de un cambio de SEO (metadata, canonical, datos estructurados):**
+1. Deploy en verde y verificación en el HTML vivo (`curl` + el JSON-LD o la meta que cambió).
+2. Panel de Search Console → *Solicitar indexación* de cada URL que cambió, una por una.
+3. Al día siguiente o a los dos días, `gsc-inspeccionar.mjs` sobre esas URL: el último rastreo debe ser posterior al deploy y el canonical de Google, el declarado.
+4. Datos estructurados: validar en la [Prueba de resultados enriquecidos](https://search.google.com/test/rich-results) — ahí se ve el JSON-LD vivo sin esperar el rastreo.
+
+**Registro del 7 oct 2026 — entidad del fundador unificada.** El nodo `Person` de `layout.tsx` y de `/tecnologia` usa ahora `@id: https://luiscabrejo.com/#luis-cabrejo` (el mismo de luiscabrejo.com, su sitio) con `jobTitle: Fundador y CEO de CreaTuActivo` y `sameAs` solo de perfiles de la persona (LinkedIn, Instagram, Facebook `luis.cabrejo`, confirmado por el Director). La `Organization` (`#organization`) dejó de declarar `luiscabrejo.com` como `sameAs` —le decía a Google que la empresa y el sitio personal son la misma entidad— y lo nombra como `founder`. `/tecnologia` dejó de declarar `sameAs` hacia sí misma y hacia queswa.app. Línea base antes del rastreo: `/` y `/tecnologia` indexadas, último rastreo 6 oct y 21 sep, ningún resultado enriquecido. Pendiente del Director en el panel: *Solicitar indexación* de `https://creatuactivo.com/` y `https://creatuactivo.com/tecnologia`.
+
 **Google Account**: luiscabrejo7@gmail.com (owner of GSC for creatuactivo.com)
 
 ## Léxico y voz — lo que se aplica en cada línea de copy

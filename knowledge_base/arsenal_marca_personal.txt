@@ -1,10 +1,10 @@
-# Arsenal Conversacional: Marca Personal Luis Cabrejo v1.0
+# Arsenal Conversacional: Marca Personal Luis Cabrejo v2.1
 #
 # Tenant:  marca_personal (luiscabrejo.com)
 # Queswa:  Representante digital de Luis Cabrejo Parra
 # Tono:    Quiet Luxury — brevedad de autoridad, sin hype
 # Misión:  Posicionar. No vender. Cada respuesta eleva el liderazgo intelectual.
-# Fecha:   16 Mar 2026
+# Fecha:   16 Mar 2026 · v2.1 6 oct 2026 (usted en todo el cuerpo; el activo es «sistema de distribución moderna»; sin Mapa de Salida, vehículo ni app.creatuactivo.com)
 
 ---
 
@@ -20,23 +20,23 @@ Viene del mundo corporativo y de ahí pasó a montar sus propias empresas. En Ga
 
 De esa incomodidad salieron creatuactivo.com y Queswa. Este sitio documenta cómo piensa y por qué construyó lo que construyó.
 
-**Pregunta de seguimiento:** ¿Te cuento cuál fue el punto de quiebre?
+**Pregunta de seguimiento:** ¿Le cuento cuál fue el punto de quiebre?
 
 ---
 
 ### HIST_01: "¿Cuál es tu historia? / ¿Cómo empezaste?"
-**[Índice]:** Cuál es tu historia, cómo empezaste, de dónde vienes, qué te llevó a esto.
+**[Índice]:** Cuál es tu historia, cómo empezaste, de dónde vienes, qué te llevó a esto. Cuál es la historia de Luis Cabrejo, cómo empezó Luis, cuénteme su historia.
 **[Concepto Nuclear]:** Las promesas en Buena Vista. El Plan por Defecto. El vehículo incorrecto.
 
 En los Llanos Orientales, en un mirador llamado Buena Vista, Luis le hizo tres promesas a su esposa: una casa de campo, libertad para comprar sin mirar precios y tres hijos.
 Catorce años después, solo había cumplido con los tres hijos.
 
 No fue falta de esfuerzo — trabajaba sin descanso.
-El problema era estructural: el Plan por Defecto (trabajar, pagar cuentas, repetir) no estaba diseñado para llegar a ningún otro destino.
+El problema era de estructura: trabajar el mes entero, pagar cuentas y repetir no lleva a ningún otro destino, así se trabaje sin descanso.
 
 Esa brecha entre lo prometido y lo cumplido fue el punto de quiebre que lo llevó a construir un modelo diferente desde cero.
 
-**Pregunta de seguimiento:** ¿Te cuento por qué dejó los modelos anteriores?
+**Pregunta de seguimiento:** ¿Le cuento por qué dejó los modelos anteriores?
 ---
 
 ### HIST_02: "¿Por qué dejaste los modelos anteriores? / Las dos epifanías"
@@ -49,9 +49,9 @@ Primera epifanía: su equipo no replicaba sus resultados. Lo que para él era na
 Segunda vez: e-commerce durante la pandemia, con ventas en todo el continente. Segunda epifanía: crecer pedía dominar marketing, SEO, logística e importaciones. De nuevo, algo hecho para expertos y no para la persona promedio.
 
 La conclusión fue definitiva: **el problema nunca fue la gente. El problema siempre fue el modelo.**
-Por eso dejó de mejorar vehículos rotos y construyó uno nuevo desde los cimientos.
+Por eso dejó de remendar modelos que fallaban para la mayoría y construyó uno nuevo desde los cimientos.
 
-**Pregunta de seguimiento:** ¿Te cuento cuál es su misión?
+**Pregunta de seguimiento:** ¿Le cuento cuál es su misión?
 ---
 
 ## BLOQUE 2: VISIÓN Y MISIÓN
@@ -61,12 +61,12 @@ Por eso dejó de mejorar vehículos rotos y construyó uno nuevo desde los cimie
 **[Concepto Nuclear]:** Soberanía no es lujo. Es la capacidad de cumplir tu palabra.
 
 La soberanía financiera no tiene que ver con yates ni relojes.
-Tiene que ver con una pregunta muy simple: ¿puedes cumplir las promesas que les hiciste a las personas que amas?
+Tiene que ver con una pregunta muy simple: ¿puede usted cumplir las promesas que les hizo a las personas que ama?
 
-Luis define su misión como construir un vehículo que le permita a millones de personas responder esa pregunta con un sí.
+Luis define su misión como construir un sistema que le permita a millones de personas responder esa pregunta con un sí.
 No a través del esfuerzo ilimitado, sino a través de la arquitectura correcta.
 
-**Pregunta de seguimiento:** ¿Te cuento cómo funciona el método?
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el método?
 ---
 
 ## BLOQUE 3: METODOLOGÍA
@@ -77,28 +77,28 @@ No a través del esfuerzo ilimitado, sino a través de la arquitectura correcta.
 
 El método son dos acciones, y las dos se hacen desde el celular:
 
-📲 **Compartir:** pasas un enlace a quien quieras.
-🤝 **Recibir:** saludas a quien llega con interés.
+📲 **Compartir:** usted pasa un enlace a quien quiera.
+🤝 **Recibir:** usted saluda a quien llega con interés.
 
-Entre las dos está Queswa: conversa con cada persona, resuelve sus dudas y madura su decisión de avanzar. Cuando alguien está listo, te avisa.
+Entre las dos está Queswa: conversa con cada persona, resuelve sus dudas y madura su decisión de avanzar. Cuando alguien está listo, le avisa.
 
-Y como quien entra hace exactamente lo mismo, de ahí salen la multiplicación del negocio y el aumento de la facturación.
+Y como quien inicia hace exactamente lo mismo, de ahí salen la multiplicación del negocio y el aumento de la facturación.
 
-**Pregunta de seguimiento:** ¿Te cuento qué es lo que se construye?
+**Pregunta de seguimiento:** ¿Le cuento qué es lo que se construye?
 
 ---
 
 ### ACTIVO_01: "¿En qué se diferencia esto de un empleo? / ¿Qué es lo que se construye?"
-**[Índice]:** Qué es un canal de distribución, en qué se diferencia de un empleo, por qué no es lo mismo que un sueldo.
+**[Índice]:** Qué es un sistema de distribución moderna, en qué se diferencia de un empleo, por qué no es lo mismo que un sueldo.
 **[Concepto Nuclear]:** Arriendo contra vivienda propia. ⛔ Lo que la persona construye se nombra **sistema de distribución** (Director, 6 sep 2026), con *empresa de distribución* y *maquinaria de distribución* como sinónimos vivos: los tres comparten *de distribución*, que es lo que se duplica. ⚠️ **«Activo» no es otro nombre del sistema: es lo que el sistema produce** (Director, 12 sep 2026) — *su sistema de distribución le permite construir un activo que produce sin que usted tenga que estar encima*. Esta nota decía lo contrario, que el activo se nombraba por el sistema; equiparados, la frase diría que su sistema le permite construir un sistema.
 
-Un empleo es como vivir en arriendo: funciona mientras pagas con tu tiempo. Si dejas de presentarte, el ingreso se detiene, y no queda nada a tu nombre.
+Un empleo es como vivir en arriendo: funciona mientras usted paga con su tiempo. Si deja de presentarse, el ingreso se detiene, y no queda nada a su nombre.
 
-Un canal de distribución es la vivienda propia. Pide construcción al principio, y lo que se mueve por él no depende de que tú estés encima.
+Un sistema de distribución moderna es la vivienda propia. Pide construcción al principio, y después sus clientes siguen pidiendo sin que usted tenga que estar encima.
 
-La diferencia no está en cuánto ganas — está en a quién le pertenece lo que construiste.
+La diferencia no está en cuánto gana, sino en a quién le pertenece lo que construyó.
 
-**Pregunta de seguimiento:** ¿Te cuento cómo se construye ese canal?
+**Pregunta de seguimiento:** ¿Le cuento cómo se construye ese sistema?
 
 ---
 
@@ -108,13 +108,13 @@ La diferencia no está en cuánto ganas — está en a quién le pertenece lo qu
 
 Son tres partes, y cada una tiene su trabajo:
 
-**Gano Excel** pone lo físico — más de 60 países, con plantas, logística y despacho propios. Tú no fabricas ni almacenas nada.
+**Gano Excel** pone lo físico: fabrica, almacena y despacha, con 30 años y presencia en más de 60 países.
 
 **Queswa** pone la conversación — habla con cada interesado, resuelve sus dudas y madura su decisión de avanzar, a toda hora.
 
-**Y tú eres el dueño:** decides con quién compartes tu canal, y recibes a quien llega. El canal es tuyo.
+**Y usted es el dueño:** decide con quién comparte su enlace y recibe a quien llega. Cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga.
 
-**Pregunta de seguimiento:** ¿Te cuento qué haces tú en el día a día?
+**Pregunta de seguimiento:** ¿Le cuento qué hace usted en el día a día?
 
 ---
 
@@ -125,12 +125,12 @@ Son tres partes, y cada una tiene su trabajo:
 **[Concepto Nuclear]:** Nueva categoría. Activos Empresariales ≠ captación masiva de personas.
 
 La confusión es comprensible — el mercado está lleno de modelos que dependen de captar personas masivamente.
-Este no. Lo que se construye es un canal de distribución, y el ingreso sale de dos sitios: el consumo de producto real de Gano Excel y la compra de paquetes empresariales. Se cuenta por producto que se mueve, no por personas que entran.
+Este no. Lo que se construye es un sistema de distribución moderna, y el ingreso sale de dos sitios: el consumo recurrente de producto y la compra de paquetes empresariales. Se cuenta por producto que se mueve, no por personas. Quien fabrica y paga es Gano Excel.
 
 Las operaciones de Gano Excel tienen presencia en más de 60 países, con cumplimiento regulatorio en cada uno.
-Si lo que buscas es profundizar en la estructura legal, creatuactivo.com tiene la documentación disponible.
+Si lo que busca es profundizar en la estructura legal, creatuactivo.com tiene la documentación disponible.
 
-**Pregunta de seguimiento:** ¿Te cuento de dónde sale el ingreso?
+**Pregunta de seguimiento:** ¿Le cuento de dónde sale el ingreso?
 ---
 
 ### OBJ_02: "¿Por qué debería confiar en Luis? / ¿Qué resultados tiene?"
@@ -141,9 +141,9 @@ La pregunta correcta no es "¿cuánto gana Luis?" — es "¿el sistema que dise�
 
 Luis no construyó este modelo para demostrar su propio éxito; lo construyó porque los dos modelos anteriores — donde tuvo éxito personal — no funcionaban para su equipo. Esa insatisfacción con el éxito exclusivo es la razón por la que el diseño del sistema prioriza la replicabilidad sobre el rendimiento individual.
 
-El indicador más confiable no es su resultado personal. Es cuánta gente tiene hoy su propio canal andando sin depender de él.
+El indicador más confiable no es su resultado personal. Es cuántos socios tienen hoy su propio sistema de distribución moderna andando sin depender de él.
 
-**Pregunta de seguimiento:** ¿Te cuento cuál es su historia?
+**Pregunta de seguimiento:** ¿Le cuento cuál es su historia?
 ---
 
 ## BLOQUE 5: ECOSISTEMA Y CONTACTO
@@ -155,13 +155,13 @@ El indicador más confiable no es su resultado personal. Es cuánta gente tiene 
 Luis opera un ecosistema de cuatro plataformas, cada una con un trabajo distinto:
 
 - **luiscabrejo.com** — Este sitio. Marca personal, metodología y pensamiento editorial.
-- **creatuactivo.com** — La plataforma de distribución y el vehículo para constructores activos.
-- **queswa.app** — Dashboard operativo para constructores: pipeline, métricas, comandos de voz.
-- **ganocafe.online** — Canal e-commerce de productos Gano Excel.
+- **creatuactivo.com** — La empresa de tecnología: ahí la persona monta su propio sistema de distribución moderna y Queswa conversa con cada interesado.
+- **queswa.app** — El Centro de Mando del socio: su flujo de prospectos, sus datos de Gano al día y Queswa por voz.
+- **ganocafe.online** — La tienda en línea de los productos Gano Excel.
 
-Si lo que estás evaluando es si tiene sentido construir en este ecosistema, el paso siguiente es creatuactivo.com.
+Si lo que está evaluando es si tiene sentido construir aquí, el paso siguiente es creatuactivo.com.
 
-**Pregunta de seguimiento:** ¿Te cuento por dónde empezar?
+**Pregunta de seguimiento:** ¿Le cuento por dónde empezar?
 ---
 
 ### CONTACTO_01: "¿Cómo unirme? / ¿Cómo empezar? / ¿Dónde me registro?"
@@ -170,8 +170,8 @@ Si lo que estás evaluando es si tiene sentido construir en este ecosistema, el 
 
 El punto de entrada es uno: **creatuactivo.com**.
 
-Ahí está Queswa, que conversa contigo y resuelve lo que quieras preguntar — sin formularios, sin listas de espera y sin que nadie te llame antes de que tú lo pidas.
+Ahí está Queswa, que conversa con usted en vivo, le resuelve lo que quiera preguntar y le muestra cómo aplicaría para su caso. Y el contacto humano llega cuando usted lo pida.
 
-**Pregunta de seguimiento:** ¿Quieres que te cuente qué vas a encontrar ahí?
+**Pregunta de seguimiento:** ¿Le cuento qué va a encontrar ahí?
 
 ---

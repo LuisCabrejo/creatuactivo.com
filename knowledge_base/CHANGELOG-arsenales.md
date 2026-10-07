@@ -2449,6 +2449,19 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_marca_personal
 
+### v2.1 — Usted en los once cuerpos, y el activo con su adjetivo (6 oct 2026)
+
+Auditoría completa de luiscabrejo.com contra `lexico-canonico.json` (sesión del 6 oct 2026, aprobada por el Director en el chat). La v2.0 había corregido la doctrina pero dejó los once cuerpos en tuteo («¿Te cuento…?», «pasas un enlace», «tú eres el dueño») y nombraba el activo como *canal de distribución* (retirado el 6 sep). Lo aplicado, 35 reemplazos:
+
+- **Tuteo → usted** en los once cuerpos y en las once preguntas de seguimiento. Los `[Índice]` conservan la voz del prospecto («¿Cuál es tu historia?») porque se vectorizan.
+- **El activo es «sistema de distribución moderna»** (Director, 6 oct 2026: *«es importante aplicar el adjetivo»*): `ACTIVO_01` (índice y cuerpo), `ACTIVO_02`, `OBJ_01`, `OBJ_02`, `PROYECTO_01`. Un sistema no consume: *«sus clientes siguen pidiendo sin que usted tenga que estar encima»*.
+- `ACTIVO_02`: fuera la lista de ausencias («Tú no fabricas ni almacenas nada») → *«Gano Excel pone lo físico: fabrica, almacena y despacha, con 30 años y presencia en más de 60 países»*; el diferencial dicho como mecanismo (*cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga*).
+- `HIST_01`: «Plan por Defecto» como etiqueta → villano narrado. `HIST_02` y `VISION_01`: *vehículo* → modelo / sistema. `METOD_01`: *quien entra* → *quien inicia*.
+- `PROYECTO_01`: `app.creatuactivo.com` no existe → **queswa.app, el Centro de Mando del socio**; creatuactivo.com es *la empresa de tecnología*; ganocafe.online *la tienda en línea*. Fuera *pipeline*, *constructores*, *vehículo*.
+- `CONTACTO_01`: fuera la lista de ausencias («sin formularios, sin listas de espera…») → *Queswa conversa con usted en vivo… y el contacto humano llega cuando usted lo pida*.
+
+**Lo que se revisó y no se tocó:** `VISION_01` conserva el lema de Luis; las cabeceras `[Concepto Nuclear]` no llegan al modelo. Desplegado al tenant `marca_personal` el mismo día (padre + 11 fragmentos regenerados con Voyage, sin ventana: los viejos se apartaron con sufijo `_OLD` y se borraron después). Verificado: cero términos retirados en los once cuerpos.
+
 ### v2.0 — Un arsenal entero congelado en el léxico de mayo (26 ago 2026)
 
 Auditoría completa de los 11, y cierra la revisión de los siete archivos del corpus. Sirve a **luiscabrejo.com** desde el tenant `marca_personal`.

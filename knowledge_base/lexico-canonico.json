@@ -1,6 +1,6 @@
 {
   "$comment": "Léxico canónico legible por máquina. FUENTE DE VERDAD: BRANDING.md §7 (+ Addendum 8–14 ago) y CLAUDE.md § Léxico y voz. Este archivo es su resumen operativo: lo que un auditor puede buscar con una expresión regular. Lo consume Dashboard/scripts/auditar-lexico.mjs. Cuando el Director retire o adopte un término, se agrega aquí la fila con su fecha — y el Dashboard se entera en la próxima auditoría. Las expresiones son sobre texto que ve una persona (copy y prompts), NUNCA sobre identificadores de código.",
-  "version": "2026-09-28",
+  "version": "2026-10-06",
   "activo_canonico": "sistema de distribución",
   "sinonimos_vivos": [
     "empresa de distribución",
@@ -269,10 +269,10 @@
     },
     {
       "id": "distribucion-moderna",
-      "regex": "(?<!(?:empresa\\s+|^\\s*)de\\s+)\\bdistribuci[oó]n moderna\\b",
-      "vigente": "una empresa de distribución moderna (las cuatro palabras juntas y en ese orden)",
+      "regex": "(?<!(?:empresas?\\s+|sistemas?\\s+|^\\s*)de\\s+)\\bdistribuci[oó]n moderna\\b",
+      "vigente": "una empresa de distribución moderna · su sistema de distribución moderna (las cuatro palabras juntas y en ese orden)",
       "desde": "2026-09-25",
-      "nota": "«Distribución moderna» sola es jerga del consumo masivo: el canal de supermercados frente a la tienda de barrio. Dentro de la forma única «empresa de distribución moderna» (Director, 28 sep 2026) no estorba, porque «empresa de distribución» la ancla; lo que se veta es que quede sola a la vista: en un título, en un rótulo o partida por un salto de línea («UNA EMPRESA DE / DISTRIBUCIÓN MODERNA»). El regex la exonera cuando la precede «empresa de», también si «de» abre la línea (el salto cae en el código fuente, no en lo que se ve).",
+      "nota": "«Distribución moderna» sola es jerga del consumo masivo: el canal de supermercados frente a la tienda de barrio. Dentro de la forma única «empresa de distribución moderna» (Director, 28 sep 2026) no estorba, porque «empresa de distribución» la ancla; lo que se veta es que quede sola a la vista: en un título, en un rótulo o partida por un salto de línea («UNA EMPRESA DE / DISTRIBUCIÓN MODERNA»). El regex la exonera cuando la precede «empresa de», también si «de» abre la línea (el salto cae en el código fuente, no en lo que se ve). ⭐ 6 oct 2026 (Director, luiscabrejo.com): el activo se nombra también «sistema de distribución moderna» — «es importante aplicar el adjetivo». El regex exonera «sistema de» igual que «empresa de».",
       "excepciones": [
         "keywords:"
       ]

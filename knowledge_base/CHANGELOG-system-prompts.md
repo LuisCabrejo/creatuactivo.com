@@ -463,3 +463,13 @@ Reemplaza la regla de v4.19 por la doctrina completa del Director: la recomendac
 
 Prueba del Director, 22 ago: la persona preguntó *"¿y cuál me recomiendas?"* y el modelo respondió *"para un emprendedor que ya tiene negocio y círculo propio, el ESP-2…"* — un perfil que nunca dijo, y sobre ese invento la bajó del ESP-3 que ella misma había nombrado veinte turnos antes. Nueva regla junto a la del margen: nunca atribuirle a la persona un perfil que no dijo; la recomendación de paquete se apoya en lo que ella dijo, y si ya nombró uno, se parte de ese.
 
+---
+
+## Tenant `marca_personal` (luiscabrejo.com) — `system-prompt-marca-personal-v2.0.md`
+
+### v2.0_lexico_oct2026 — El prompt de la marca personal se pone al día (6 oct 2026)
+
+Desplegado con `actualizar-system-prompt-marca-personal-v1.mjs` (hoy apunta al archivo v2.0) tras la auditoría de luiscabrejo.com aprobada por el Director. La v1.0 (19 mar 2026, 6.503 caracteres) llevaba seis meses sin tocarse: tuteo, *El Tridente EAM* como opción del menú, *Arquitecto*, *vehículo*, *«Ingresos pasivos» → «Flujo sin presencia física»*, *soberanía financiera* como vocabulario, y una llamada a la acción a **El Mapa de Salida**, embudo eliminado en julio cuya URL da 404.
+
+La v2.0 (7.339 caracteres) hereda del prompt único de creatuactivo.com (v5.15) los bloques `<trato>`, `<narrativa>` resumida, el bloque de **léxico** de `<core_behavior>` y el `<constraint_framework>` con `verbatim_lock`; conserva lo propio del tenant (no vende; el punto de entrada es creatuactivo.com; precios y plan no se explican aquí; límite de diez mensajes; no pide WhatsApp). Identidad, la misma línea que la web y la voz: *«Soy Queswa, la inteligencia artificial de CreaTuActivo, la empresa que fundó Luis Cabrejo»*. El menú de apertura pasa a cuatro caminos en usted (quién es Luis · el método · qué se construye · si encaja con su situación), y la señal de avance manda a creatuactivo.com con Queswa en vivo. El lema de Luis se cita literal y atribuido.
+

@@ -1,6 +1,6 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
- * Deploy System Prompt: marca_personal v1.0 → luiscabrejo.com
+ * Deploy System Prompt: marca_personal v2.0 (léxico oct 2026) → luiscabrejo.com
  *
  * Crea (o actualiza) la fila con tenant_id='marca_personal' en system_prompts.
  * El RPC get_tenant_system_prompt usa tenant_id para resolución — sin esta fila,
@@ -17,7 +17,7 @@ dotenv.config({ path: '.env.local' });
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const promptContent = readFileSync(
-  join(__dirname, '../knowledge_base/system-prompt-marca-personal-v1.0.md'),
+  join(__dirname, '../knowledge_base/system-prompt-marca-personal-v2.0.md'),
   'utf-8'
 );
 
@@ -43,7 +43,7 @@ async function deploy() {
       .from('system_prompts')
       .update({
         prompt: promptContent,
-        version: 'v1.0_marca_personal',
+        version: 'v2.1_apertura_oct2026',
         updated_at: new Date().toISOString(),
       })
       .eq('tenant_id', 'marca_personal')
@@ -61,7 +61,7 @@ async function deploy() {
         name: 'marca_personal',
         tenant_id: 'marca_personal',
         prompt: promptContent,
-        version: 'v1.0_marca_personal',
+        version: 'v2.1_apertura_oct2026',
         updated_at: new Date().toISOString(),
       })
       .select()

@@ -1,7 +1,8 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * /prueba — HOME v18 candidata — «Un solo eje» (8 oct 2026) · pendiente de aprobación
+ * /prueba — HOME v18 candidata — «Un solo eje» (8 oct 2026) · aprobada por el Director el
+ *   mismo día y promovida a la Home (src/app/page.tsx)
  *
  * Mismo texto que la Home v17, palabra por palabra. Cambia la ESTRUCTURA, tras la
  * auditoría del 8 oct (Director: «el botón inicial, tabulado a la izquierda, no es
@@ -21,12 +22,10 @@
  *    objetivo de esa decisión era el botón en la primera pantalla, y en celular no se
  *    cumplía. Queswa sabe si la persona vio el video y ajusta la apertura, así que tocar
  *    el botón antes de verlo no rompe nada.
- * 3. LAS FUENTES DEL SISTEMA. --font-serif y --font-mono se declaran en :root apuntando a
- *    variables que next/font pone en <body>, y llegan vacías en todo el sitio: los H2
- *    salían en Inter delgada y los rótulos «mono» en Inter. Aquí se redefinen en el
- *    contenedor de la página, donde sí resuelven, para verla con Playfair y Roboto Mono
- *    como manda BRANDING.md. Arreglarlo en todo el sitio es otra decisión (una línea en
- *    layout.tsx).
+ * 3. LAS FUENTES DEL SISTEMA. --font-serif y --font-mono llegaban vacías en todo el sitio
+ *    (se declaran en :root y next/font ponía sus variables en <body>). Esta candidata las
+ *    redefinía en su contenedor; al aprobarse, el arreglo pasó a layout.tsx para todo el
+ *    sitio y la redefinición local salió.
  * 4. LÍNEAS DE 36em (~75 caracteres). Los párrafos iban a ~107 por línea (Baymard: 50–75).
  * 5. LOS TRES ELEMENTOS, EN TRES. Se veían 2 + 1 con un hueco: cada tarjeta pedía 280 px
  *    y en 860 cabían dos.
@@ -36,7 +35,7 @@
  * La historia de versiones del TEXTO vive en src/app/page.tsx. El noindex, en layout.tsx.
  */
 
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
   Coffee,
@@ -67,13 +66,6 @@ const MEDIDA = '36em'
 
 /** Ancho de los módulos que se leen de arriba abajo (Compartir · Queswa · Recibir). */
 const MEDIDA_MODULO = '46rem'
-
-/** Los tokens tipográficos, redefinidos donde las variables de next/font sí existen. */
-const FUENTES = {
-  '--font-sans': 'var(--font-inter), system-ui, -apple-system, sans-serif',
-  '--font-serif': 'var(--font-playfair), Georgia, serif',
-  '--font-mono': "var(--font-roboto-mono), 'Courier New', monospace",
-} as CSSProperties
 
 const heroBodyStyle = {
   fontSize: 'clamp(1.05rem, 2.4vw, 1.25rem)',
@@ -310,7 +302,7 @@ export default function PruebaPage() {
   return (
     // <div> y no <main>: el layout ya envuelve cada página en un <main>, y dos anidados
     // no son HTML válido (los lectores de pantalla anuncian dos regiones principales).
-    <div style={{ ...FUENTES, background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
       <StrategicNavigation />
 
       {/* ═══ HERO — un eje y un orden por ancho (8 oct 2026) ═══ */}

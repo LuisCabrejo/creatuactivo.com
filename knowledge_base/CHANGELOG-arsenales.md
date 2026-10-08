@@ -516,6 +516,13 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.66 — `WHY_PROD_01` afirma la composición sin cifra (8 oct 2026)
+
+Aprobado por el Director en el chat, tras auditar el inicio de `/productos`. El candado de `WHY_PROD_01` —Queswa lo sirve literal, sin modelo, a quien pregunta qué se vende— llevaba la cifra del Ganoderma como *nutrientes*. `CIENCIA_02` fija la única forma en que esa cifra se dice (variantes de triterpenos identificadas en el hongo: dato de composición), porque la categoría nutricional está regulada y exige tabla que la respalde; y en una respuesta de negocio la cifra no hace falta.
+
+- **WHY_PROD_01** 🔒 — *«Ahí está la diferencia, en la extracción que Gano Excel protege: un producto premium que su cliente incorpora a su rutina.»* El resto del candado, el índice y el título, intactos.
+- El mismo día salieron de `/productos` la absorción («su cuerpo lo aprovecha», «100% fácil de absorber») y la cifra como nutrientes; las tarjetas quedaron en la forma de `CIENCIA_01`/`CIENCIA_02`.
+
 ### v6.65 — `VS_01` dice la recompra como `WHY_02` (8 oct 2026)
 
 Aprobado por el Director en el chat, tras la auditoría de la Home. El mismo día se retiró en el prompt, en la marca personal y en la Home la forma que ponía a la compra como la que paga (`lexico-canonico.json`, `recompra-le-paga`); `VS_01` la conservaba con otras palabras y el detector no la veía, porque busca la cadena exacta.

@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.65** (8 oct 2026) — **`VS_01` dice la recompra como `WHY_02`.** El cliente es quien compra; usted, quien recibe: *«cada vez que vuelve a comprar, a usted le queda un porcentaje»*. Es la misma forma de la Home, del prompt y de `WHY_02` (Director, 8 oct 2026). Solo cambia esa línea del cuerpo; el índice y el título no.
+**Versión actual: v6.66** (8 oct 2026) — **`WHY_PROD_01` afirma la composición sin cifra.** El candado deja la extracción y el producto premium; la cifra del Ganoderma tiene una sola forma aprobada, la de `CIENCIA_02` (triterpenos, dato de composición), y no va en una respuesta de negocio (Director, 8 oct 2026).
+
+**v6.65** (8 oct 2026) — **`VS_01` dice la recompra como `WHY_02`.** El cliente es quien compra; usted, quien recibe: *«cada vez que vuelve a comprar, a usted le queda un porcentaje»*. Es la misma forma de la Home, del prompt y de `WHY_02` (Director, 8 oct 2026). Solo cambia esa línea del cuerpo; el índice y el título no.
 
 **v6.64** (6 oct 2026) — **Las formas de empezar son cuatro.** `FREQ_03` suma el *Kit de Inicio* al final de la tabla, sin porcentaje: dice lo que la persona recibe. El Visionario sigue primero, como anclaje, y el Kit se lee como la puerta para empezar ya (Director). `ACTIVACION_01` lo nombra entre las opciones y cierra hacia `FREQ_03`. Motivo: en la mayoría de las conversaciones Queswa ofrecía tres paquetes y el Kit no aparecía; la persona tenía que traerlo ella.
-
-**v6.63** (1 oct 2026) — **Nace `WHY_MOD_01`: cuáles son las dos industrias.** El mensaje que Queswa le redacta al socio invita con *«Veo una oportunidad enorme en modernizar dos industrias…»* y no las nombra, a propósito (Director). Quien llega pregunta cuáles, y se le responde de frente: el network marketing y el sector laboral, con las palabras de la Presentación y de `NET_01`. Sin candado. Cierra hacia `WHY_02`.
 
 
 
@@ -1002,7 +1002,7 @@ Son 22 productos en cuatro líneas:
 
 • **Luvoco** — la máquina barista italiana de 15 bares y sus tres cápsulas.
 
-Todos, salvo la máquina, llevan el mismo extracto propio de Ganoderma. Ahí está la diferencia, en la extracción que Gano Excel protege: más de 200 nutrientes en un producto premium que su cliente incorpora a su rutina.
+Todos, salvo la máquina, llevan el mismo extracto propio de Ganoderma. Ahí está la diferencia, en la extracción que Gano Excel protege: un producto premium que su cliente incorpora a su rutina.
 
 Y ahí está la lógica del negocio. Su cliente nota la diferencia, no vuelve al genérico y vuelve a pedir el mes siguiente. Esa recompra es la que sostiene lo que factura su sistema de distribución.
 </verbatim_lock>

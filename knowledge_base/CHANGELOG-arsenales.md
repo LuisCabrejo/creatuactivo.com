@@ -2063,6 +2063,10 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 
 ## arsenal_avanzado
 
+### v14.8 — `ADV_SIST_02` va con candado (8 oct 2026)
+
+Mismo motivo que `ADV_OBJ_02` (v14.5): el texto aprobado salía parafraseado. Medido con el modelo real —`claude-sonnet-4-6`, temperatura 0.65, prompt `marca_personal` vivo y el fragmento recuperado, 8 muestras por lado—, sin candado la frase de los cuatro millones salía literal 0/8: *«clientes VIP»* 0/8, *«distribuidores»* 2/8, y en 6/8 los distribuidores pasaban a *«personas»*. Con la meta y la apuesta dentro de `<verbatim_lock>`: literal 8/8, *«personas»* 0/8; la fecha (2032, tres a siete años) ya salía bien en los dos. El modelo sigue escribiendo la entrada y la pregunta de cierre. Aprobado por el Director.
+
 ### v14.7 — `ADV_SIST_02` dice quiénes son los cuatro millones (8 oct 2026)
 
 Aprobado por el Director el mismo día que la v14.6. El cuerpo servido todavía decía *«ayudar a 4 millones de familias en América, entregándoles un sistema de distribución para que construyan su tranquilidad financiera»*: presentaba a los cuatro millones como dueños de un sistema. Ahora la meta los nombra como el Director los piensa: **clientes VIP con los productos y distribuidores con su propio sistema de distribución moderna**, la misma frase que la imagen OG de luiscabrejo.com/vision.
@@ -2473,6 +2477,10 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_marca_personal
 
+### v2.6 — `OPER_01` también responde el cobro al cliente (8 oct 2026)
+
+*«¿Yo tengo que cobrarles?»* recuperaba `COMP_BIN_06` (*¿qué necesito para cobrar el Binario?*): *cobrar* tiene dos sentidos —cobrarle al cliente y recibir la comisión— y el índice de `OPER_01` lo nombraba de pasada. Sin respuesta aprobada, el motor improvisaba: *«la mayoría de los modelos que la gente conoce funcionan así: usted vende, usted cobra, usted persigue el pago»* y *«no hay factura que enviar, no hay dinero que recibir, no hay cobranza que hacer»* (habla de cómo lo hacen otros, lista de ausencias, y *no hay dinero que recibir* desmiente la comisión). El cuerpo de `OPER_01` ya lo respondía —*la empresa cobra, empaca y despacha*— y no cambia. Índice nuevo: *«Me toca guardar producto en la casa, tengo que tener inventario, empacar o hacer envíos. Yo tengo que cobrarles a mis clientes, quién les cobra, quién recibe la plata del pedido. Quién despacha y cómo les llega el pedido.»* Medido sobre el corpus real: las seis formas de *cobrarle al cliente* pasan de 2/6 a 6/6 (dos con Δ0.007); las del Binario, la comisión y los PV siguen en `COMP_BIN_06`, `COMP_GEN5_07`, `FREQ_17` y `COMP_PV_02`; `FREQ_33` y `ACTIVO_02` conservan las suyas (15/15). Con el modelo real, 8/8 por pregunta con el cuerpo exacto y 0/8 con lista. Aprobado por el Director en el chat.
+
 ### v2.5 — `ACTIVO_02` bajo candado (8 oct 2026)
 
 Con el índice nuevo `ACTIVO_02` ya se recuperaba, pero sin candado el motor respondía en el orden de la pregunta: con 8 muestras, lista de ausencias 5/8 y Gano Excel primero 6/8. Bajo `<verbatim_lock>` (el cuerpo aprobado en v2.3, sin cambiar una palabra): 0/8, 0/8 y texto exacto 8/8. Meter la cortesía dentro del candado, como en `OPER_01`, salió peor (etiquetas visibles 4/10): el motor igual escribe la suya. Las etiquetas que a veces pega se quitan en el widget de luiscabrejo.com (`src/lib/queswa-videos.ts`, commit `8f413af`), en pantalla y en voz. ⚠️ El Concepto Nuclear de un fragmento viaja al modelo con el fragmento: se deja neutro y sin describir la falla, para no sembrarla. Aprobado por el Director en el chat.
@@ -2483,7 +2491,7 @@ Dos hallazgos de la prueba en vivo de v2.3, medidos contra el corpus real que le
 
 - **`ACTIVO_02` no se recuperaba** con *«¿Qué pone Gano Excel, qué pone Queswa y qué pongo yo?»*: ganaba `CRED_05` (Gano iTouch vs Gano Excel, 0.614), el atractor de toda pregunta que nombra al fabricante, y el motor improvisaba. Índice nuevo, con la voz del prospecto adelante: *«Qué pone Gano Excel, qué pone Queswa y qué pongo yo. Quién hace cada cosa y cómo se reparte el trabajo. Por qué la tecnología hace el noventa por ciento.»* → 0.652 (+0.04); *¿quién hace cada cosa?* +0.06 y *¿cómo se reparte el trabajo?* +0.07 sobre `EAM_01`. Se probaron seis índices; los que solo sumaban palabras quedaban en empate (Δ0.004).
 - **`OPER_01` (nuevo, 12 fragmentos):** *«¿Me toca guardar producto o hacer envíos?»* recuperaba bien `FREQ_33`, cuyo cuerpo es afirmativo, y aun así el motor le agregaba la lista de lo que el socio no hace (4/4) y una apertura que pintaba la carga (*«nadie quiere convertir su sala en bodega»*). Ninguna instrucción del prompt lo corregía sin sembrar las tareas en otras respuestas. `OPER_01` es `FREQ_33` casi literal bajo `<verbatim_lock>`, con la cortesía dentro del candado: 6/6 la entregan exacta, 0/6 con lista o carga. Gana *¿me toca guardar producto…?* (0.692 vs 0.619), *¿tengo que tener inventario?* y *¿quién paga el envío?*; `FREQ_33` conserva *¿cómo compran mis clientes?* y *¿quién les despacha?*. Gano Excel en la primera línea es la excepción de `FREQ_33`. Aprobado por el Director en el chat.
-- ⚠️ Pendiente visto en la medición, sin tocar: *«¿Yo tengo que cobrarles?»* recupera `COMP_BIN_06` (cobro del Binario).
+- *«¿Yo tengo que cobrarles?»* recuperaba `COMP_BIN_06` (cobro del Binario) → resuelto en v2.6.
 - ⚠️ **En vivo, pasada la caché:** `OPER_01` sale exacto. *«¿Qué pone Gano Excel, qué pone Queswa y qué pongo yo?»* ya recupera `ACTIVO_02`, pero el motor responde en el orden de la pregunta: con 8 muestras, lista de ausencias 5/8 y Gano primero 6/8 (las 4 muestras del primer A/B dieron 0/4 por azar). `ACTIVO_02` bajo `<verbatim_lock>` lo lleva a 0/8 y 0/8, pero el motor escribe su propia cortesía y pega el bloque con las etiquetas visibles (2/8; con la cortesía dentro del candado, 4/10). `OPER_01` no filtra etiquetas (0/18). Pendiente de decisión del Director: candado en `ACTIVO_02` + quitar las etiquetas en el código.
 
 ### v2.3 — `ACTIVO_02` en el orden de WHY_02 (8 oct 2026)

@@ -123,7 +123,7 @@ Son tres partes, y cada una tiene su trabajo:
 ---
 
 ### OPER_01: "¿Me toca guardar producto o hacer envíos? / ¿Quién despacha y quién cobra?"
-**[Índice]:** Me toca guardar producto en la casa, tengo que tener inventario, empacar, hacer envíos o cobrarles a los clientes. Quién despacha, quién cobra, cómo les llega el pedido a mis clientes.
+**[Índice]:** Me toca guardar producto en la casa, tengo que tener inventario, empacar o hacer envíos. Yo tengo que cobrarles a mis clientes, quién les cobra, quién recibe la plata del pedido. Quién despacha y cómo les llega el pedido.
 **[Concepto Nuclear]:** Se responde con quién hace cada cosa, con las palabras de FREQ_33 del arsenal inicial, y termina en lo que le queda a usted. Va completo y exacto (Director, 8 oct 2026; medido con el modelo real). Gano Excel en la primera línea es la excepción de FREQ_33: a quien pregunta quién despacha, se le responde con el nombre.
 
 <verbatim_lock>

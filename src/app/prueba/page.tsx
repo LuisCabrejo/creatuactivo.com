@@ -1,93 +1,42 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * /prueba — HOME v17 candidata — «La cualidad va pegada al sustantivo» (10 sep 2026) · aprobada por el Director
+ * /prueba — HOME v18 candidata — «Un solo eje» (8 oct 2026) · pendiente de aprobación
  *
- * Cambia SOLO el H1. Motivo, y es el hallazgo de la sesión — el Director se puso en el
- * lugar de sí mismo hace doce años: *«si me hubieran dicho que aquí yo iba a ser dueño de
- * mi propio sistema de distribución de productos de bienestar, habría pensado: para
- * distribuir productos sigo con lo mío. Lo ganador estuvo cuando entendí que aquí me
- * quedaba un sistema que funcionaba sin que yo tuviera que estar encima»*.
+ * Mismo texto que la Home v17, palabra por palabra. Cambia la ESTRUCTURA, tras la
+ * auditoría del 8 oct (Director: «el botón inicial, tabulado a la izquierda, no es
+ * correcto»). El botón no fallaba por estar a la izquierda —en computador es lo que pide
+ * un texto alineado a la izquierda—: fallaba porque no compartía eje con nada, y en
+ * celular porque quedaba fuera de la primera pantalla.
  *
- * El H1 decía exactamente esa frase —«Sea dueño de su propio sistema de distribución»— y
- * ahí cortaba, en el sitio donde el lector decide si sigue leyendo. Hoy la cualidad llega
- * dentro de la misma frase: **es una sola idea, no dos**, y por eso no puede decidir sin
- * ella. «Su propio» pasó a «un» a propósito: con «un» la cláusula es RESTRICTIVA —define
- * cuál sistema—; con «su propio» queda de apéndice. La propiedad la carga «Sea dueño».
+ * 1. UN SOLO EJE. En computador la página tenía cuatro bordes izquierdos (logo 108 px ·
+ *    hero 156 · secciones 286 · credo 336). Ahora todo vive en el contenedor del menú
+ *    (`EJE`, el mismo de StrategicNavigation) y el texto arranca donde arranca el logo.
+ * 2. EL HERO SEGÚN EL ANCHO. Computador: texto a la izquierda, centrado en vertical
+ *    frente al video (antes, debajo del botón quedaba un vacío). Tableta: una columna
+ *    centrada (antes, título a la izquierda, video centrado y botón a la izquierda).
+ *    Celular: título → frase → botón → video, para que el botón entre en la primera
+ *    pantalla (antes caía a 1.113 px en un iPhone de 844).
+ *    ⚠️ Esto cambia el orden del 1 oct («el título primero y el video justo debajo»). El
+ *    objetivo de esa decisión era el botón en la primera pantalla, y en celular no se
+ *    cumplía. Queswa sabe si la persona vio el video y ajusta la apertura, así que tocar
+ *    el botón antes de verlo no rompe nada.
+ * 3. LAS FUENTES DEL SISTEMA. --font-serif y --font-mono se declaran en :root apuntando a
+ *    variables que next/font pone en <body>, y llegan vacías en todo el sitio: los H2
+ *    salían en Inter delgada y los rótulos «mono» en Inter. Aquí se redefinen en el
+ *    contenedor de la página, donde sí resuelven, para verla con Playfair y Roboto Mono
+ *    como manda BRANDING.md. Arreglarlo en todo el sitio es otra decisión (una línea en
+ *    layout.tsx).
+ * 4. LÍNEAS DE 36em (~75 caracteres). Los párrafos iban a ~107 por línea (Baymard: 50–75).
+ * 5. LOS TRES ELEMENTOS, EN TRES. Se veían 2 + 1 con un hueco: cada tarjeta pedía 280 px
+ *    y en 860 cabían dos.
+ * 6. QUESWA ENTRE LAS DOS. En «Qué hace usted» iba después de Compartir y Recibir; el
+ *    texto dice «Entre las dos está Queswa» y la doctrina lo pone entre una y otra.
  *
- * ⛔ La forma «que funciona sin que usted esté encima» está BLOQUEADA por la batería de
- *    negocio (patrón de esfuerzo mínimo: `funciona sin que usted`) — medido el 10 sep. La
- *    forma aprobada es «no depende de que usted esté encima», y no es intercambiable.
- * ⚠️ El <title> NO sincroniza, a propósito: ver la nota junto a `metadata`.
- *
- * /prueba — HOME v16 candidata: «desde adentro» (10 sep 2026) · pendiente de aprobación
- *
- * Idéntica a la Home v15.2 salvo el HERO. Motivo (Director): el hero habla desde
- * afuera —le dice al lector lo que puede tener— y Vélez habla desde adentro: declara
- * lo que la empresa cree y qué construyó, y el lector se reconoce solo. Aquí se calca
- * la mecánica de la frase de Nu, no sus palabras: se nombra un adversario, se absuelve
- * a las personas, y se termina devolviendo lo que falta.
- *
- * Tres cambios, y el H1 NO se toca (vive en el title, la tarjeta OG, /prueba y el
- * enlace de Queswa — nueve lugares en sincronía):
- *
- * 1. El párrafo del hero pasa a ser el bloque de postura, en tres tiempos: la creencia
- *    («nadie debería entregar su vida entera al ciclo…»), la deuda, y lo que construimos
- *    para saldarla. El mecanismo cierra el bloque, para que nadie llegue al CTA sin
- *    saber qué es esto.
- *    ⚠️ La apertura NO dice «la vida es muy corta». Investigación del 10 sep: en
- *    publicidad hispana esa frase viene pegada al hedonismo (disfruta · date el gusto ·
- *    «La vida es corta, divórciate»), e importaría «gástatelo» justo donde pedimos
- *    «asegúrelo»; y la literatura de terror management mide que el recordatorio de
- *    finitud empuja al gasto en lujo (con la salvedad de que Many Labs 4 no reprodujo
- *    el efecto central). Lo que sí mueve a actuar no es el miedo sino el arrepentimiento
- *    anticipado —los llamados al miedo solos dan d≈0.11, no significativo—, así que la
- *    línea nombra una pérdida EN CURSO y no un final. Y dice «tan poco a cambio», no
- *    «nada»: los extremos invitan al «ese no es mi caso», y quien está relativamente
- *    bien es justo el que no queremos que se exima.
- * 1b. El H1 se queda en UNA línea —la misma del title y de la tarjeta OG— y el dorado
- *    se muda a la postura: marca la creencia, no el mecanismo (Director, 10 sep: la
- *    sección se veía cargada). «Cobra cada vez que mueve producto» no se pierde, baja
- *    al párrafo del mecanismo: es la fórmula que nombra el mecanismo y no el resultado.
- * 1c. El ingreso se nombra por su NATURALEZA, no por su tamaño (Director, 10 sep):
- *    «no depende de que esté encima para generarse». Es léxico aprobado —no promete
- *    plazo, ni garantía, ni sustitución del salario—. Sale «con el potencial de
- *    igualarlo o superarlo», que es doctrina ratificada del 17 ago: salió por decisión
- *    del Director, NO por un barrido, y el tamaño lo trabaja el simulador. Se conserva
- *    «en paralelo», que es lo que desactiva el miedo a tener que dejar lo que ya tiene.
- * 2. El eyebrow deja de ser geografía. Era una credencial, y el estigma es de
- *    popularidad, no de fraude (doctrina 6 sep): responde una pregunta que el lector no
- *    se hace. La geografía baja al renglón pequeño del CTA, donde sí es dato útil.
- * 3. La comparación hacia arriba (McDonald's) se muda a «Por qué ahora sí», que ya
- *    argumentaba lo mismo —distribuir siempre fue buen negocio, lo pesado era el
- *    resto—. Sale del hero para no pelear con la postura, y no se pierde: sigue siendo
- *    el candado de WHY_02 (decisión ratificada del 7 sep).
- *
- * /prueba — HOME v15 candidata: "El sistema desplegado" (29 ago 2026)
- *
- * Mismo copy que la Home v14.1 (aprobada hoy). Lo que cambia es el COLOR y la
- * ESTRUCTURA VISUAL, tras la auditoría de branding del 29 ago:
- *
- * - La Home v14 aplicaba solo la restricción del sistema (carbón + dorado) y no
- *   su despliegue. La investigación de branding advierte contra "la fatiga visual
- *   inherente a las interfaces planas" y pide desdoblar el duopolio en superficies,
- *   titanio y semánticos. la Home v15 lo demuestra con los mismos colores (/infraestructura, la referencia de entonces, se eliminó el 29 ago).
- * - Cuatro roles, cada uno con una frase: carbón el lienzo · titanio la estructura
- *   (iconos, líneas, cifras) · cian el dato y Queswa en línea (`--color-data`, regla
- *   nueva en BRANDING.md) · dorado el dinero y el logro.
- * - Verde salvia (`--color-success`) SOLO en el módulo del banco: la investigación
- *   lo reserva para "transferencias liquidadas y flujos a favor".
- * - Ecuación visual del dinero (producto + fábrica = porcentaje), dos fuerzas en
- *   tarjetas lado a lado (WHY_02: "verlos apilados es lo que convierte una
- *   explicación en un alivio"), fila de cifras verificables, iconos en titanio
- *   (patrón de la referencia anterior), foto REAL del portafolio (la misma placa que Queswa
- *   manda por WhatsApp — nunca generada), textura de hormigón en secciones elevadas.
- *
- * Performance: sin backdropFilter, sin Framer, iconos lucide (SVG en el bundle por
-Home), la foto va lazy bajo el pliegue, el LCP sigue siendo el H1.
+ * La historia de versiones del TEXTO vive en src/app/page.tsx. El noindex, en layout.tsx.
  */
 
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import Link from 'next/link'
 import {
   Coffee,
@@ -97,22 +46,41 @@ import {
   Share2,
   Handshake,
   Check,
+  Route,
 } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
+import VideoComoFuncionaHome from '@/components/VideoComoFuncionaHome'
+
+export const dynamic = 'force-static'
 
 const GOLD = 'var(--color-brand)'
 const TITANIUM = 'var(--color-titanium)'
 const DATA = 'var(--color-data)'
 const TEXTURE = "url('/images/servilleta/hormigon-tile.webp')"
 
-/** Cuerpo de los párrafos del hero (el bloque de postura y el mecanismo). */
+/** El eje de la página: el contenedor del menú (80rem, con 1 / 1.5 / 2rem a los lados). */
+const EJE = 'mx-auto w-full max-w-[80rem] px-4 sm:px-6 lg:px-8'
+
+/** La medida del texto corrido: ~75 caracteres por línea, escala con la letra. */
+const MEDIDA = '36em'
+
+/** Ancho de los módulos que se leen de arriba abajo (Compartir · Queswa · Recibir). */
+const MEDIDA_MODULO = '46rem'
+
+/** Los tokens tipográficos, redefinidos donde las variables de next/font sí existen. */
+const FUENTES = {
+  '--font-sans': 'var(--font-inter), system-ui, -apple-system, sans-serif',
+  '--font-serif': 'var(--font-playfair), Georgia, serif',
+  '--font-mono': "var(--font-roboto-mono), 'Courier New', monospace",
+} as CSSProperties
+
 const heroBodyStyle = {
   fontSize: 'clamp(1.05rem, 2.4vw, 1.25rem)',
   lineHeight: 1.65,
   color: 'var(--color-text-body)',
   margin: '0 0 1.1rem',
-  maxWidth: 680,
+  maxWidth: MEDIDA,
 } as const
 
 // ─── Primitivas ────────────────────────────────────────────────────────────────
@@ -135,10 +103,10 @@ function Section({
           : 'var(--color-bg-primary)',
         backgroundSize: elevated ? 'auto, 200px 200px' : undefined,
         borderTop: '1px solid rgba(148,163,184,0.12)',
-        padding: '5rem 1.5rem',
+        padding: '5rem 0',
       }}
     >
-      <div style={{ maxWidth: 860, margin: '0 auto' }}>{children}</div>
+      <div className={EJE}>{children}</div>
     </section>
   )
 }
@@ -161,15 +129,18 @@ function Eyebrow({ children }: { children: ReactNode }) {
   )
 }
 
-function H2({ children }: { children: ReactNode }) {
+function H2({ children, center = false }: { children: ReactNode; center?: boolean }) {
   return (
     <h2
+      className="text-balance"
       style={{
         fontFamily: 'var(--font-serif)',
         fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
         lineHeight: 1.3,
         color: 'var(--color-text-primary)',
-        margin: '0 0 1.5rem',
+        margin: center ? '0 auto 1.5rem' : '0 0 1.5rem',
+        maxWidth: '22em',
+        textAlign: center ? 'center' : undefined,
       }}
     >
       {children}
@@ -185,6 +156,7 @@ function Body({ children, mt = false }: { children: ReactNode; mt?: boolean }) {
         lineHeight: 1.75,
         color: 'var(--color-text-body)',
         marginTop: mt ? '1.25rem' : 0,
+        maxWidth: MEDIDA,
       }}
     >
       {children}
@@ -235,7 +207,14 @@ function IconTile({
 }
 
 /** El punto que pulsa del widget de Queswa: "la máquina está despierta". */
-function QueswaOnline({ label = 'Queswa · en línea' }: { label?: string }) {
+function QueswaOnline({
+  label = 'Queswa · en línea',
+  compacto = false,
+}: {
+  label?: string
+  /** Menos espaciado: en Roboto Mono la etiqueta larga parte en dos dentro de una tarjeta. */
+  compacto?: boolean
+}) {
   return (
     <span
       style={{
@@ -244,7 +223,8 @@ function QueswaOnline({ label = 'Queswa · en línea' }: { label?: string }) {
         gap: '0.5rem',
         fontFamily: 'var(--font-mono)',
         fontSize: '0.72rem',
-        letterSpacing: '0.15em',
+        letterSpacing: compacto ? '0.06em' : '0.15em',
+        whiteSpace: compacto ? 'nowrap' : undefined,
         textTransform: 'uppercase',
         color: DATA,
       }}
@@ -265,56 +245,152 @@ const cardStyle = {
   padding: '1.5rem',
 } as const
 
+const etiquetaMono = {
+  margin: 0,
+  fontFamily: 'var(--font-mono)',
+  fontSize: '0.68rem',
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase',
+  color: 'var(--color-text-muted)',
+} as const
+
+/** Una de las dos acciones de «Qué hace usted». */
+function Movimiento({
+  n,
+  icon,
+  t,
+  d,
+}: {
+  n: string
+  icon: typeof Coffee
+  t: string
+  d: string
+}) {
+  return (
+    <div
+      style={{
+        ...cardStyle,
+        display: 'flex',
+        gap: '1.25rem',
+        padding: '1.75rem',
+        alignItems: 'flex-start',
+      }}
+    >
+      <IconTile icon={icon} size={48} />
+      <div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.5rem' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: GOLD }}>{n}</span>
+          <h3
+            style={{
+              fontSize: '1.1rem',
+              fontWeight: 600,
+              color: 'var(--color-text-primary)',
+              margin: 0,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+            }}
+          >
+            {t}
+          </h3>
+        </div>
+        <p style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)', margin: 0 }}>{d}</p>
+      </div>
+    </div>
+  )
+}
+
+/** El trazo cian que une las dos acciones a través de Queswa. */
+const Trazo = () => (
+  <span aria-hidden="true" style={{ width: 1, flex: 1, minHeight: 14, background: 'rgba(34,211,238,0.35)' }} />
+)
+
 // ─── Página ────────────────────────────────────────────────────────────────────
 
 export default function PruebaPage() {
   return (
-    <main style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
+    // <div> y no <main>: el layout ya envuelve cada página en un <main>, y dos anidados
+    // no son HTML válido (los lectores de pantalla anuncian dos regiones principales).
+    <div style={{ ...FUENTES, background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
       <StrategicNavigation />
 
-      {/* ═══ HERO — spotlight titanio + dorado (BRANDING §5) ═══ */}
+      {/* ═══ HERO — un eje y un orden por ancho (8 oct 2026) ═══ */}
+      {/* Celular: título → frase → botón → video, todo al borde del logo y el botón a
+          lo ancho. Tableta: la misma columna, centrada, porque el video va centrado.
+          Computador: texto a la izquierda centrado en vertical frente al video, y el
+          video contra el borde derecho del eje (donde termina «Suscríbete»). */}
       <section
+        className="pt-10 pb-16 md:pt-14 lg:pt-24 lg:pb-24"
         style={{
           background:
             'radial-gradient(ellipse 70% 55% at 30% 0%, rgba(148,163,184,0.09) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 75% 10%, rgba(197,160,89,0.07) 0%, transparent 65%), var(--color-bg-primary)',
-          padding: '72px 1.5rem 5rem',
         }}
       >
-        <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <h1
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontWeight: 700,
-              fontSize: 'clamp(2.1rem, 6vw, 3.4rem)',
-              lineHeight: 1.12,
-              color: 'var(--color-text-primary)',
-              margin: '0 0 1.5rem',
-            }}
-          >
-            Sea dueño de un sistema de distribución que no depende de que usted esté
-            encima.
-          </h1>
+        <div className={`${EJE} grid grid-cols-1 gap-y-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center lg:gap-x-16`}>
+          <div className="md:text-center lg:text-left">
+            <h1
+              className="m-0 text-balance md:mx-auto lg:mx-0"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 700,
+                fontSize: 'clamp(2.1rem, 4.2vw, 3rem)',
+                lineHeight: 1.12,
+                color: 'var(--color-text-primary)',
+                maxWidth: '15em',
+              }}
+            >
+              Sea dueño de un sistema de distribución que no depende de que usted esté
+              encima.
+            </h1>
 
+            <p
+              className="mt-6 mb-8 md:mx-auto lg:mx-0"
+              style={{
+                fontSize: 'clamp(1.1rem, 1.8vw, 1.3rem)',
+                lineHeight: 1.6,
+                color: 'var(--color-text-body)',
+                maxWidth: 560,
+              }}
+            >
+              Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde
+              el celular.
+            </p>
+
+            {/* El video ya explica cómo funciona: el botón pregunta lo que sigue
+                (Director, 1 oct 2026), y Queswa sabe si la persona vio el video. */}
+            <QueswaCTAButton className="cta-base cta-primary w-full md:w-auto" pregunta="dinero">
+              Pregúntele a Queswa cómo entra el dinero
+            </QueswaCTAButton>
+
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 md:justify-center lg:justify-start">
+              <QueswaOnline />
+              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
+                Nuestra inteligencia artificial. Responde al instante, sin compromiso.{' '}
+                Colombia · Estados Unidos · Latinoamérica.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-center lg:justify-end">
+            <VideoComoFuncionaHome />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ EN QUÉ CREEMOS — el credo, al borde del eje ═══ */}
+      <section className="py-20 lg:py-32" style={{ background: 'var(--color-bg-primary)' }}>
+        <div className={EJE}>
           <Eyebrow>En qué creemos</Eyebrow>
 
-          {/* La postura, en la forma de Vélez (13 sep 2026): la creencia, y lo que
-              sigue dicho como él lo diría — frases de una idea, el lector como sujeto,
-              sustantivos que se ven. «Si queremos que la gente vea que es sencillo, los
-              primeros que tienen que hacer las cosas sencillas somos nosotros, y eso
-              incluye cómo lo decimos» (Director). Misma forma que el perfil del WABA,
-              la apertura del canal y WHY_01 🔒. Se cayeron a propósito: la deuda («no
-              es culpa de las personas…»), «una infraestructura» (aposición que le daba
-              un cuarto nombre al sistema), «cualquiera con deseos de superación», el
-              cobro y el ingreso en negrita — el H1 ya carga la promesa entera. Gano
-              Excel queda como estatus en una línea, nunca como alegato. */}
           <p
+            className="text-balance"
             style={{
-              fontSize: 'clamp(1.2rem, 2.9vw, 1.55rem)',
-              lineHeight: 1.5,
-              fontWeight: 600,
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(1.5rem, 3.4vw, 2.2rem)',
+              lineHeight: 1.35,
+              fontWeight: 400,
               color: GOLD,
-              margin: '0 0 1.35rem',
-              maxWidth: 700,
+              margin: '0 0 2rem',
+              maxWidth: '22em',
             }}
           >
             Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar
@@ -327,37 +403,10 @@ export default function PruebaPage() {
             distribución de productos premium de bienestar.
           </p>
 
-          <p style={heroBodyStyle}>
-            Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde
-            el celular.
-          </p>
-
-          <p style={{ ...heroBodyStyle, margin: '0 0 2.5rem' }}>
+          <p style={{ ...heroBodyStyle, margin: 0 }}>
             Detrás está Gano Excel, que fabrica y despacha cada pedido: 30 años, más de 60
             países.
           </p>
-
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            <QueswaCTAButton className="cta-base cta-primary">
-              Pregúntele a Queswa cómo funciona
-            </QueswaCTAButton>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              flexWrap: 'wrap',
-              marginTop: '1.25rem',
-            }}
-          >
-            <QueswaOnline />
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
-              Nuestra inteligencia artificial. Responde al instante, sin compromiso.{' '}
-              Colombia · Estados Unidos · Latinoamérica.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -410,33 +459,14 @@ export default function PruebaPage() {
 
         {/* La ecuación: producto + fábrica = porcentaje. Proceso en titanio, resultado
             en dorado (es dinero) con el icono en salvia (transferencia liquidada). */}
-        <div
-          style={{
-            marginTop: '2.5rem',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '0.75rem',
-            alignItems: 'stretch',
-          }}
-        >
+        <div className="mt-10 grid grid-cols-1 gap-3 md:grid-cols-3">
           {[
             { icon: Coffee, k: 'El producto', v: 'Un producto que se toma' },
             { icon: Factory, k: 'La fábrica', v: 'Una fábrica que se puede visitar' },
           ].map((c) => (
             <div key={c.k} style={cardStyle}>
               <IconTile icon={c.icon} />
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.68rem',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-text-muted)',
-                  margin: '1rem 0 0.35rem',
-                }}
-              >
-                {c.k}
-              </p>
+              <p style={{ ...etiquetaMono, margin: '1rem 0 0.35rem', letterSpacing: '0.15em' }}>{c.k}</p>
               <p style={{ fontSize: '1.02rem', color: 'var(--color-text-primary)', margin: 0, lineHeight: 1.5 }}>
                 {c.v}
               </p>
@@ -450,16 +480,7 @@ export default function PruebaPage() {
             }}
           >
             <IconTile icon={Landmark} tone="success" />
-            <p
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.68rem',
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: GOLD,
-                margin: '1rem 0 0.35rem',
-              }}
-            >
+            <p style={{ ...etiquetaMono, margin: '1rem 0 0.35rem', letterSpacing: '0.15em', color: GOLD }}>
               El porcentaje
             </p>
             <p style={{ fontSize: '1.02rem', color: 'var(--color-text-primary)', margin: 0, lineHeight: 1.5 }}>
@@ -469,7 +490,7 @@ export default function PruebaPage() {
         </div>
       </Section>
 
-      {/* ═══ POR QUÉ AHORA — las dos fuerzas en tarjetas + cifras verificables ═══ */}
+      {/* ═══ POR QUÉ AHORA — los tres elementos, en tres columnas + cifras verificables ═══ */}
       <Section elevated>
         <Eyebrow>Por qué ahora sí</Eyebrow>
         <H2>Distribuir siempre fue buen negocio. Lo pesado era todo lo demás.</H2>
@@ -480,21 +501,16 @@ export default function PruebaPage() {
           complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
           para eso.
         </Body>
+        {/* «Moderna» va UNA vez en toda la página: ver la nota en src/app/page.tsx. */}
         <Body mt>
-          Eso fue lo que cambió: hoy es una empresa de distribución moderna. El trabajo
-          pesado lo hacen dos — una fábrica con 30 años, y una inteligencia artificial
-          que no duerme. Su sistema se maneja desde una aplicación, y buena parte desde
-          WhatsApp.
+          Eso fue lo que cambió: hoy es una empresa de distribución moderna. Usted recibe
+          en una sola aplicación los tres elementos que eliminan la fricción de montarla.
         </Body>
 
-        <div
-          style={{
-            marginTop: '2rem',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1rem',
-          }}
-        >
+        {/* Tres elementos, tres columnas (8 oct 2026): con `auto-fit, minmax(280px)` en
+            860 px cabían dos y el tercero quedaba solo, con un hueco al lado. Abajo de
+            1024 van apilados, nunca 2 + 1. */}
+        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Factory} />
@@ -502,18 +518,7 @@ export default function PruebaPage() {
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
                   Gano Excel
                 </p>
-                <p
-                  style={{
-                    margin: 0,
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-text-muted)',
-                  }}
-                >
-                  Fabrica y despacha
-                </p>
+                <p style={etiquetaMono}>Fabrica y despacha</p>
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
@@ -530,7 +535,7 @@ export default function PruebaPage() {
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
                   Queswa
                 </p>
-                <QueswaOnline label="Inteligencia artificial · en línea" />
+                <QueswaOnline label="Inteligencia artificial · en línea" compacto />
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
@@ -539,19 +544,30 @@ export default function PruebaPage() {
               cada uno.
             </p>
           </div>
+
+          {/* ⚠️ Waze va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ ·
+              «lo lleva a donde quiere estar» ⛔. Espejo de WHY_APP_01. */}
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
+              <IconTile icon={Route} />
+              <div>
+                <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
+                  Su aplicación personalizada
+                </p>
+                <p style={etiquetaMono}>Le marca la ruta</p>
+              </div>
+            </div>
+            <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
+              Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando
+              la ruta. Usted no arranca solo ni adivinando el siguiente paso.
+            </p>
+          </div>
         </div>
 
         {/* Cifras verificables — en titanio claro, no en dorado: son hechos, no premios. */}
         <div
-          style={{
-            marginTop: '2.5rem',
-            paddingTop: '2rem',
-            borderTop: '1px solid rgba(148,163,184,0.15)',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-            gap: '1.5rem',
-            textAlign: 'center',
-          }}
+          className="mt-10 grid grid-cols-2 gap-6 pt-8 text-center md:grid-cols-4"
+          style={{ borderTop: '1px solid rgba(148,163,184,0.15)' }}
         >
           {[
             { n: '30', l: 'años de Gano Excel' },
@@ -567,127 +583,83 @@ export default function PruebaPage() {
                   color: 'var(--color-text-primary)',
                   margin: '0 0 0.25rem',
                   lineHeight: 1,
-                  fontVariantNumeric: 'tabular-nums',
+                  // Números alineados: Playfair trae por defecto los de estilo antiguo.
+                  fontVariantNumeric: 'lining-nums tabular-nums',
                 }}
               >
                 {s.n}
               </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.68rem',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-text-muted)',
-                  margin: 0,
-                }}
-              >
-                {s.l}
-              </p>
+              <p style={etiquetaMono}>{s.l}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      {/* ═══ QUÉ HACE USTED — Compartir · Recibir, con icono ═══ */}
+      {/* ═══ QUÉ HACE USTED — Compartir · Queswa · Recibir ═══ */}
+      {/* Queswa va ENTRE las dos (8 oct 2026), unido por un trazo cian, sin número y sin
+          tarjeta: no es un tercer movimiento, es quien hace el trabajo de en medio. */}
       <Section>
         <Eyebrow>Qué hace usted</Eyebrow>
         <H2>Dos movimientos. Ninguno le exige dejar lo que hace hoy.</H2>
 
-        {[
-          {
-            n: '01',
-            icon: Share2,
-            t: 'Compartir',
-            d: 'Usted pasa un enlace a quien quiera. Lo que esa persona recibe ya está preparado: la página, el video y Queswa, a nombre suyo.',
-          },
-          {
-            n: '02',
-            icon: Handshake,
-            t: 'Recibir',
-            d: 'Usted saluda a quien llega con interés. Cuando alguien ya decidió, lo recibe de persona a persona y le da la bienvenida — que es justo lo que mejor le sale a un ser humano.',
-          },
-        ].map((item) => (
+        <div style={{ maxWidth: MEDIDA_MODULO }}>
+          <Movimiento
+            n="01"
+            icon={Share2}
+            t="Compartir"
+            d="Usted pasa un enlace a quien quiera. Lo que esa persona recibe ya está preparado: la página, el video y Queswa, a nombre suyo."
+          />
+
+          <div style={{ display: 'flex', gap: '1.25rem', padding: '0 1.75rem' }}>
+            <div style={{ width: 48, display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+              <Trazo />
+              <IconTile icon={Bot} tone="data" size={36} />
+              <Trazo />
+            </div>
+            <p
+              style={{
+                fontSize: '1.05rem',
+                lineHeight: 1.75,
+                color: 'var(--color-text-body)',
+                margin: 0,
+                padding: '1.25rem 0',
+                alignSelf: 'center',
+              }}
+            >
+              Entre las dos está <Strong>Queswa</Strong>: conversa con cada persona que
+              llega, resuelve sus dudas y madura su decisión de avanzar. Cuando alguien está
+              listo, le avisa.
+            </p>
+          </div>
+
+          <Movimiento
+            n="02"
+            icon={Handshake}
+            t="Recibir"
+            d="Usted saluda a quien llega con interés. Cuando alguien ya decidió, lo recibe de persona a persona y le da la bienvenida — que es justo lo que mejor le sale a un ser humano."
+          />
+
           <div
-            key={item.n}
             style={{
-              ...cardStyle,
-              display: 'flex',
-              gap: '1.25rem',
-              padding: '1.75rem',
-              marginBottom: '1rem',
-              alignItems: 'flex-start',
+              marginTop: '2rem',
+              padding: '1.5rem',
+              borderLeft: `2px solid ${GOLD}`,
+              background: 'rgba(197,160,89,0.04)',
             }}
           >
-            <IconTile icon={item.icon} size={48} />
-            <div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: GOLD }}>
-                  {item.n}
-                </span>
-                <h3
-                  style={{
-                    fontSize: '1.1rem',
-                    fontWeight: 600,
-                    color: 'var(--color-text-primary)',
-                    margin: 0,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.06em',
-                  }}
-                >
-                  {item.t}
-                </h3>
-              </div>
-              <p style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)', margin: 0 }}>
-                {item.d}
-              </p>
-            </div>
+            <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
+              Y como es así de sencillo, quien inicia con usted hace exactamente lo mismo.{' '}
+              <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación</Strong>{' '}
+              — con Queswa formando a cada socio nuevo desde el día uno, y con Gano Excel
+              presente en más de 60 países, su sistema no se detiene en la frontera.
+            </p>
           </div>
-        ))}
-
-        <div
-          style={{
-            display: 'flex',
-            gap: '0.85rem',
-            alignItems: 'flex-start',
-            marginTop: '1.5rem',
-          }}
-        >
-          <IconTile icon={Bot} tone="data" size={36} />
-          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
-            Entre las dos está <Strong>Queswa</Strong>: conversa con cada persona que
-            llega, resuelve sus dudas y madura su decisión de avanzar. Cuando alguien está
-            listo, le avisa.
-          </p>
-        </div>
-
-        <div
-          style={{
-            marginTop: '2rem',
-            padding: '1.5rem',
-            borderLeft: `2px solid ${GOLD}`,
-            background: 'rgba(197,160,89,0.04)',
-          }}
-        >
-          <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
-            Y como es así de sencillo, quien inicia con usted hace exactamente lo mismo.{' '}
-            <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación</Strong>{' '}
-            — con Queswa formando a cada socio nuevo desde el día uno, y con Gano Excel
-            presente en más de 60 países, su sistema no se detiene en la frontera.
-          </p>
         </div>
       </Section>
 
       {/* ═══ EL PRODUCTO — con la foto real del portafolio ═══ */}
       <Section elevated>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2.5rem',
-            alignItems: 'center',
-          }}
-        >
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
           <div>
             <Eyebrow>El producto</Eyebrow>
             <H2>Un producto que el cliente vuelve a pedir genera un ingreso que se repite.</H2>
@@ -717,17 +689,7 @@ export default function PruebaPage() {
                 border: '1px solid rgba(255,255,255,0.1)',
               }}
             />
-            <figcaption
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.68rem',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'var(--color-text-muted)',
-                marginTop: '0.75rem',
-                textAlign: 'center',
-              }}
-            >
+            <figcaption style={{ ...etiquetaMono, marginTop: '0.75rem', textAlign: 'center' }}>
               Los 22 productos · registro INVIMA
             </figcaption>
           </figure>
@@ -744,14 +706,7 @@ export default function PruebaPage() {
           a precio de distribuidor. Y hay quienes arrancan de una vez con todo. Las dos
           puertas están abiertas.
         </Body>
-        <div
-          style={{
-            marginTop: '1.75rem',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '0.75rem',
-          }}
-        >
+        <div className="mt-7 grid grid-cols-1 gap-3 md:grid-cols-2">
           {[
             'Comprando el producto para su casa, a precio de distribuidor',
             'Arrancando de una vez con todo, con su sistema listo desde el primer día',
@@ -764,7 +719,7 @@ export default function PruebaPage() {
         </div>
       </Section>
 
-      {/* ═══ ANTICLÍMAX + CIERRE ═══ */}
+      {/* ═══ ANTICLÍMAX + CIERRE — centrado a propósito: es el remate, y es corto ═══ */}
       <Section elevated>
         <div style={{ textAlign: 'center' }}>
           <p
@@ -781,7 +736,7 @@ export default function PruebaPage() {
             pedir, una tecnología que atiende por usted, y cada cliente a su nombre.
           </p>
 
-          <H2>Al final, el sistema es suyo.</H2>
+          <H2 center>Al final, el activo es suyo.</H2>
           <p
             style={{
               fontSize: '1.05rem',
@@ -791,9 +746,10 @@ export default function PruebaPage() {
               margin: '0 auto 2.5rem',
             }}
           >
-            Un negocio a su nombre, que sigue produciendo aunque usted no esté presente, y
-            que puede dejarle a los suyos. Imagínese un viernes en que entra algo que no le
-            debe nada a nadie. Empieza con una conversación — y esa conversación la atiende
+            Su sistema de distribución le deja un activo a su nombre: sigue produciendo
+            aunque usted no esté presente, porque sus clientes siguen pidiendo — y puede
+            dejárselo a los suyos. Imagínese un viernes en que entra algo que no le debe
+            nada a nadie. Empieza con una conversación — y esa conversación la atiende
             Queswa ahora mismo.
           </p>
           <QueswaCTAButton className="cta-base cta-primary">Hablar con Queswa</QueswaCTAButton>
@@ -807,7 +763,7 @@ export default function PruebaPage() {
       </Section>
 
       <Footer />
-    </main>
+    </div>
   )
 }
 
@@ -815,22 +771,12 @@ function Footer() {
   return (
     <footer
       style={{
-        padding: '40px 24px',
+        padding: '40px 0',
         borderTop: '1px solid rgba(148, 163, 184, 0.12)',
         background: 'rgba(0,0,0,0.5)',
       }}
     >
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '24px',
-        }}
-      >
+      <div className={`${EJE} flex flex-wrap items-center justify-between gap-6`}>
         <div>
           <p style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.1em', color: GOLD, fontWeight: 600 }}>
             CreaTuActivo
@@ -842,11 +788,14 @@ function Footer() {
             Fundada por Luis Cabrejo
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '32px', fontSize: '0.85rem' }}>
+        {/* Con salto de línea (8 oct 2026): sin él, en un celular de 390 px los cinco
+            enlaces medían 46 px más que la pantalla y la página se arrastraba de lado. */}
+        <div className="flex flex-wrap gap-x-8 gap-y-3" style={{ fontSize: '0.85rem' }}>
           <Link href="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Blog</Link>
           <Link href="/privacidad" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Privacidad</Link>
           <Link href="/terminos" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Términos</Link>
           <Link href="/tecnologia" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Tecnología</Link>
+          <Link href="/servilleta" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>Plan servilleta</Link>
         </div>
         <p style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
           © 2026 CreaTuActivo.com · Luis Cabrejo

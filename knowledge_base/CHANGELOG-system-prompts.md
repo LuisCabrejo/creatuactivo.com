@@ -473,6 +473,10 @@ Prueba del Director, 22 ago: la persona preguntó *"¿y cuál me recomiendas?"* 
 
 ## Tenant `marca_personal` (luiscabrejo.com) — `system-prompt-marca-personal-v2.0.md`
 
+### v2.4_quien_hace_cada_cosa_oct2026 — La regla sin el ejemplo que la rompía (8 oct 2026)
+
+En la prueba de v2.3, a *«¿Qué pone Gano Excel, qué pone Queswa y qué pongo yo?»* el motor respondió *«Usted no toca producto, no hace envíos y no lleva cuentas»* y *«ese trabajo ocurre solo»*. Las dos salían de este prompt: la regla contra las listas de ausencias traía su propia lista (*«lo que no hay es inventario ni despachos a cargo suyo»*), y *maquinaria de distribución* se definía *«cuando se habla de que funciona sola»*. El modelo copia el ejemplo, no la regla. Ahora la regla da el modelo afirmativo de FREQ_33 (*el fabricante cobra, empaca y despacha a la puerta de cada cliente*), con el fabricante sin nombre para no chocar con *Gano Excel al final*; y *maquinaria* se usa *cuando se habla de que no depende de que usted esté encima*. Aprobado por el Director en el chat. 7.796 caracteres.
+
 ### v2.3_recompra_oct2026 — El cliente compra, usted recibe (8 oct 2026)
 
 La misma frase de v5.16 en la regla del diferencial, más la razón en positivo: *«El cliente es quien compra; usted, quien recibe.»* Acompaña al hero nuevo de luiscabrejo.com (commit `a44210f` de ese repo) y a `ACTIVO_02` v2.2 del arsenal. 7.603 caracteres.

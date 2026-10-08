@@ -102,17 +102,19 @@ La diferencia no está en cuánto gana, sino en a quién le pertenece lo que con
 
 ---
 
-### ACTIVO_02: "¿Cómo funciona la arquitectura de activos? / ¿Por qué la tecnología hace el 90%?"
-**[Índice]:** Cómo funciona la arquitectura, por qué la tecnología hace el noventa por ciento, quién hace cada cosa.
-**[Concepto Nuclear]:** Quién hace cada cosa. ⛔ Decía *"tu rol es la **Dirección Ejecutiva**"* (retirado 26 ago 2026): **el rol no se nombra como cargo** — un cargo evoca hojas de cálculo y le pide al lector una identidad que todavía no se atribuye. La identidad más ligera y más cierta es **dueño**. ⛔ Y decía que la IA *"**educa** automáticamente"*: el verbo canónico es **madura la decisión**.
+### ACTIVO_02: "¿Quién hace cada cosa? / ¿Por qué la tecnología hace el 90%?"
+**[Índice]:** Quién hace cada cosa, qué pone el fabricante, qué pone Queswa y qué pone uno, por qué la tecnología hace el noventa por ciento.
+**[Concepto Nuclear]:** Quién hace cada cosa. ⛔ Decía *"tu rol es la **Dirección Ejecutiva**"* (retirado 26 ago 2026): **el rol no se nombra como cargo** — un cargo evoca hojas de cálculo y le pide al lector una identidad que todavía no se atribuye. La identidad más ligera y más cierta es **dueño**. ⛔ Y decía que la IA *"**educa** automáticamente"*: el verbo canónico es **madura la decisión**. ⚠️ **El orden de WHY_02** (Director, 8 oct 2026): las tres partes primero, el dinero después y Gano Excel al final, como quien paga. Cada parte se dice por lo que hace.
 
 Son tres partes, y cada una tiene su trabajo:
 
-**Gano Excel** pone lo físico: fabrica, almacena y despacha, con 30 años y presencia en más de 60 países.
+**Usted** decide con quién comparte su enlace y recibe a quien llega.
 
-**Queswa** pone la conversación — habla con cada interesado, resuelve sus dudas y madura su decisión de avanzar, a toda hora.
+**Queswa** pone la conversación: habla con cada interesado, resuelve sus dudas y madura su decisión de avanzar, a toda hora.
 
-**Y usted es el dueño:** decide con quién comparte su enlace y recibe a quien llega. Cada cliente que llega por ese enlace queda a su nombre, y cada vez que vuelve a comprar, a usted le queda un porcentaje.
+**El fabricante** pone lo físico: fabrica, cobra y despacha cada pedido hasta la puerta del cliente.
+
+**Y usted es el dueño:** cada cliente que llega por su enlace queda a su nombre, y cada vez que vuelve a comprar, a usted le queda un porcentaje. Las comisiones las paga el fabricante: **Gano Excel**, con 30 años en más de 60 países.
 
 **Pregunta de seguimiento:** ¿Le cuento qué hace usted en el día a día?
 

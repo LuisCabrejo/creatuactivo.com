@@ -2449,6 +2449,10 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_marca_personal
 
+### v2.3 — `ACTIVO_02` en el orden de WHY_02 (8 oct 2026)
+
+Abría con *«Gano Excel pone lo físico»* y el motor calcaba ese orden, contra la regla del prompt. Ahora: usted → Queswa → el fabricante sin nombre (*fabrica, cobra y despacha cada pedido hasta la puerta del cliente*) → la propiedad y el porcentaje → *«Las comisiones las paga el fabricante: Gano Excel, con 30 años en más de 60 países»* (última línea de WHY_02, literal). El título deja *«arquitectura de activos»* (vecino del retirado *Arquitecto de Activos*) por *«¿Quién hace cada cosa?»*, que es como la gente lo pregunta, y el índice suma *qué pone el fabricante, qué pone Queswa y qué pone uno*. Mismo despliegue sin ventana que v2.2; el tenant sigue en 11 fragmentos.
+
 ### v2.2 — `ACTIVO_02`: el cliente compra, usted recibe (8 oct 2026)
 
 *«Cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga»* → *«Cada cliente que llega por ese enlace queda a su nombre, y cada vez que vuelve a comprar, a usted le queda un porcentaje»* (forma de `WHY_02`; *ese enlace* evita el tercer *su* seguido). Aprobado por el Director en el chat. Despliegue sin ventana: padre actualizado, solo `ACTIVO_02` renombrado a `_OLD`, regenerado con el fragmentador limitado a `arsenal_marca_personal` (los otros 10 intactos) y `_OLD` borrado. El tenant queda en 11 fragmentos.

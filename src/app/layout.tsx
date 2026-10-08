@@ -308,6 +308,10 @@ export default function RootLayout({
       </head>
       <body className="font-sans h-full bg-carbon text-smoke antialiased">
         <NavigationProgress />
+        {/* El ÚNICO <main> del sitio (8 oct 2026): las páginas envuelven su contenido en
+            un <div>. Quince lo anidaban y quedaban dos regiones principales: HTML inválido,
+            los lectores de pantalla anunciaban dos, y en la app instalada el margen
+            inferior de globals.css («main {…}») se aplicaba dos veces. */}
         <main className="relative">
           {children}
         </main>

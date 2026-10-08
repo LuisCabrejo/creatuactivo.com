@@ -70,7 +70,7 @@ export default function MiDispositivoPage() {
   const t = textos[estado];
 
   return (
-    <main
+    <div
       style={{
         minHeight: '100vh',
         background: 'var(--color-bg-primary)',
@@ -92,6 +92,6 @@ export default function MiDispositivoPage() {
           <p key={p} style={{ fontSize: 17, lineHeight: 1.6, marginBottom: 14, color: 'var(--color-text-body)' }}>{p}</p>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

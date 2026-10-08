@@ -86,7 +86,7 @@ const card = { background: 'var(--color-bg-surface)', border: '1px solid rgba(25
 
 export default function NosotrosPage() {
   return (
-    <main style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--color-bg-primary)', minHeight: '100vh' }}>
       <StrategicNavigation />
 
       <section
@@ -218,6 +218,6 @@ export default function NosotrosPage() {
       <footer style={{ padding: '32px 24px', borderTop: '1px solid rgba(148,163,184,0.12)', textAlign: 'center', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
         © 2026 CreaTuActivo.com · Fundada por Luis Cabrejo
       </footer>
-    </main>
+    </div>
   )
 }

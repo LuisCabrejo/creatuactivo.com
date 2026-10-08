@@ -638,14 +638,14 @@ export default function PaquetesPage() {
       fontFamily: 'var(--font-sans)', minHeight: '100vh',
     }}>
       <StrategicNavigation />
-      <main>
+      <div>
         <Hero />
         <DestinoDelCapital />
         <CuatroOpciones />
         <NombresDelPlan />
         <Faq />
         <Cierre />
-      </main>
+      </div>
       <Footer />
     </div>
   );

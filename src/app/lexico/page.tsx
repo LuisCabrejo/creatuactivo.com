@@ -188,7 +188,7 @@ export default function LexicoPage() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', background: C.bg, color: C.text, fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)' }}>
+    <div style={{ minHeight: '100vh', background: C.bg, color: C.text, fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)' }}>
       <div style={{ maxWidth: 620, margin: '0 auto', padding: '28px 18px 80px' }}>
 
         {/* Encabezado */}
@@ -385,6 +385,6 @@ export default function LexicoPage() {
           </button>
         </p>
       </div>
-    </main>
+    </div>
   )
 }

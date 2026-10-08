@@ -596,13 +596,13 @@ export default function PlanesPage() {
       backgroundRepeat: 'no-repeat, repeat',
     }}>
       <StrategicNavigation />
-      <main>
+      <div>
         <Hero />
         <Planes />
         <QueHace />
         <Faq />
         <CtaFinal />
-      </main>
+      </div>
       <Footer />
     </div>
   );

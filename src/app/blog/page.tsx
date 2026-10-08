@@ -74,7 +74,7 @@ export default function BlogPage() {
         }
       `}} />
       <StrategicNavigation />
-      <main className="min-h-screen text-[#E5E5E5]">
+      <div className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           {/* Header */}
           <IndustrialHeader
@@ -208,7 +208,7 @@ export default function BlogPage() {
             </div>
           </footer>
         </div>
-      </main>
+      </div>
     </>
   );
 }

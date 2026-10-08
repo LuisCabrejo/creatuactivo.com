@@ -2324,7 +2324,7 @@ export default function ServilletaPage() {
         <div className="slide-counter">{activeSlide} / {TOTAL_SLIDES}</div>
 
         {/* MAIN DECK */}
-        <main
+        <div
           className="deck-container"
           onClick={handleSlideClick}
           onTouchStart={handleTouchStart}
@@ -2851,7 +2851,7 @@ export default function ServilletaPage() {
             </div>
           </section>
 
-        </main>
+        </div>
 
         {/* MODAL BOLETÍN — OPCIÓN 2 del cierre (Slide 4): puerta de entrada suave */}
         <SubscribeModal isOpen={subscribeOpen} onClose={() => setSubscribeOpen(false)} />

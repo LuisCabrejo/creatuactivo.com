@@ -225,9 +225,9 @@ export default async function DestinoRoute({
     // sigue recibiendo el redirect directo, sin pasar por aquí.
     if (esScraperDePreview()) {
       return (
-        <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
           <a href={waUrl} style={{ color: '#C5A059' }}>{OG_QUESWA.title}</a>
-        </main>
+        </div>
       )
     }
 
@@ -275,9 +275,9 @@ export default async function DestinoRoute({
   // la persona sigue recibiendo el redirect directo.
   if (esPresentacion(destino) && esScraperDePreview()) {
     return (
-      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
         <a href={destinoReal} style={{ color: '#C5A059' }}>{OG_PRESENTACION.title}</a>
-      </main>
+      </div>
     )
   }
 

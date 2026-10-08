@@ -46,7 +46,7 @@ export default function NetworkMarketingObsoletoPage() {
         }
       `}} />
       <StrategicNavigation />
-      <main className="min-h-screen text-[#E5E5E5]">
+      <div className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
             title="¿Es el network marketing un modelo obsoleto?"
@@ -247,7 +247,7 @@ export default function NetworkMarketingObsoletoPage() {
             </div>
           </footer>
         </div>
-      </main>
+      </div>
     </>
   );
 }

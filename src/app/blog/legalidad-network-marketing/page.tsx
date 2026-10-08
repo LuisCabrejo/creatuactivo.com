@@ -46,7 +46,7 @@ export default function LegalidadNetworkMarketingPage() {
         }
       `}} />
       <StrategicNavigation />
-      <main className="min-h-screen text-[#E5E5E5]">
+      <div className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
             title={<>¿Es legal el network marketing?<span style={{ color: '#C5A059' }}> Lo que dice la Ley 1700</span></>}
@@ -339,7 +339,7 @@ export default function LegalidadNetworkMarketingPage() {
             </div>
           </footer>
         </div>
-      </main>
+      </div>
     </>
   );
 }

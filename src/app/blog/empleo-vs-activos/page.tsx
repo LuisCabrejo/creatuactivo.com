@@ -46,7 +46,7 @@ export default function EmpleoVsActivosPage() {
         }
       `}} />
       <StrategicNavigation />
-      <main className="min-h-screen text-[#E5E5E5]">
+      <div className="min-h-screen text-[#E5E5E5]">
         <div className="relative z-10">
           <IndustrialHeader
             title={<>Empleo vs. activos:<span style={{ color: '#C5A059' }}> ingreso lineal e ingreso recurrente</span></>}
@@ -277,7 +277,7 @@ export default function EmpleoVsActivosPage() {
             </div>
           </footer>
         </div>
-      </main>
+      </div>
     </>
   );
 }

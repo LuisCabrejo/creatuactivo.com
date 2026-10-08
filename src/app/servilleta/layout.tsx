@@ -8,7 +8,11 @@ import { Metadata } from 'next';
 // SEO Metadata optimizado para búsquedas de "Plan Servilleta Gano Excel"
 export const metadata: Metadata = {
   title: 'Plan Servilleta Digital 2026 | Calculadora de Compensación Gano Excel',
-  description: 'Plan Servilleta interactivo oficial para Gano Excel 2026. Calcula tu proyección de ingresos con el sistema binario y Gen5. Simulador del plan de compensación con proyección en tiempo real.',
+  // 8 oct 2026 (Director): sin «oficial» —un distribuidor no se presenta como la
+  // página de la marca, mismo criterio que retiró /paises/brasil— y sin «proyección
+  // de ingresos», que Google ya citaba en su respuesta de IA («para calcular
+  // proyecciones»). Investigación: reports/Plan servilleta top 3 Google.md
+  description: 'La presentación del plan servilleta de Gano Excel en una página, con un simulador del plan de compensación. Por CreaTuActivo, distribuidores independientes.',
 
   keywords: [
     'plan servilleta',
@@ -38,7 +42,7 @@ export const metadata: Metadata = {
   // OpenGraph para WhatsApp/redes sociales
   openGraph: {
     title: 'Plan Servilleta Digital 2026 | CreaTuActivo',
-    description: 'Simula tu proyección de ingresos con el Plan Servilleta oficial de Gano Excel. Sistema interactivo con cálculo en tiempo real.',
+    description: 'La presentación del plan servilleta de Gano Excel, con un simulador del plan de compensación. Por CreaTuActivo, distribuidores independientes.',
     type: 'website',
     locale: 'es_CO',
     siteName: 'CreaTuActivo',
@@ -55,7 +59,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Plan Servilleta Digital 2026',
-    description: 'Calculadora interactiva del plan de compensación Gano Excel',
+    description: 'La presentación del plan servilleta de Gano Excel, por CreaTuActivo, distribuidores independientes.',
   },
 
   alternates: {

@@ -42,7 +42,9 @@
   --radius-action: 4px;            /* Botones, inputs */
   --radius-container: 8px;         /* Cards, módulos */
 
-  /* --- TIPOGRAFÍA (familias semánticas) --- */
+  /* --- TIPOGRAFÍA (familias semánticas) ---
+     Resuelven porque layout.tsx pone las variables de next/font en <html>, que es
+     :root. Hasta el 8 oct 2026 estaban en <body> y los tres tokens llegaban vacíos. */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-playfair), Georgia, serif;
   --font-mono: var(--font-roboto-mono), 'Courier New', monospace;

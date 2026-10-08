@@ -570,11 +570,11 @@ export default function PitchDeckPage() {
         }
 
         /* ── 1 · El credo ────────────────────────────────────────────────── */
-        /* ⚠️ Playfair se pide por su variable propia y NO por var(--font-serif):
-           ese token se declara en :root (globals.css) como var(--font-playfair),
-           Georgia, serif, pero --font-playfair lo define next/font en el <body>.
-           Una custom property se sustituye en el elemento que la DECLARA, así que
-           en :root queda inválida y hereda vacía — el titular caía a Inter. */
+        /* Playfair se pide por su variable propia. Hasta el 8 oct 2026 era
+           obligatorio: --font-serif se declara en :root y --font-playfair vivía en
+           el <body>, así que el token llegaba vacío y el titular caía a Inter. Hoy
+           las variables de next/font están en <html> y var(--font-serif) también
+           sirve; esto se deja como está porque funciona igual. */
         .pd-credo h1, .pd-credo .pd-credo-linea {
           font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
           font-size: clamp(1.55rem, 4.2vw, 3rem); line-height: 1.3;

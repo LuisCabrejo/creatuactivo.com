@@ -245,8 +245,16 @@ export default function RootLayout({
     ]
   };
 
+  // Las variables de next/font van en <html> y no en <body> (8 oct 2026). globals.css
+  // declara en :root los tokens --font-sans / --font-serif / --font-mono a partir de
+  // ellas, y :root ES el <html>: con las variables en <body>, los tres tokens llegaban
+  // vacíos en todo el sitio — los títulos «serif» salían en Inter y los rótulos «mono»
+  // también. Si alguna vez vuelven al <body>, los tokens se rompen en silencio.
   return (
-    <html lang="es" className="h-full">
+    <html
+      lang="es"
+      className={`${playfair.variable} ${inter.variable} ${robotoMono.variable} h-full`}
+    >
       <head>
         {/* Material Symbols Sharp — carga diferida, sin preconnect (async no se beneficia).
             ⚠️ NO con onLoad como texto (30 sep 2026): React descarta un onLoad que no es
@@ -298,7 +306,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${playfair.variable} ${inter.variable} ${robotoMono.variable} font-sans h-full bg-carbon text-smoke antialiased`}>
+      <body className="font-sans h-full bg-carbon text-smoke antialiased">
         <NavigationProgress />
         <main className="relative">
           {children}

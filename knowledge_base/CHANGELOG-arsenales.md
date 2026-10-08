@@ -2063,6 +2063,10 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 
 ## arsenal_avanzado
 
+### v14.7 — `ADV_SIST_02` dice quiénes son los cuatro millones (8 oct 2026)
+
+Aprobado por el Director el mismo día que la v14.6. El cuerpo servido todavía decía *«ayudar a 4 millones de familias en América, entregándoles un sistema de distribución para que construyan su tranquilidad financiera»*: presentaba a los cuatro millones como dueños de un sistema. Ahora la meta los nombra como el Director los piensa: **clientes VIP con los productos y distribuidores con su propio sistema de distribución moderna**, la misma frase que la imagen OG de luiscabrejo.com/vision.
+
 ### v14.6 — `ADV_SIST_02`: la Visión 4M es a 2032, en un horizonte de tres a siete años (8 oct 2026)
 
 Decisión del Director. El ecosistema decía tres cosas distintas sobre la misma meta: esta ficha, *«la meta a cinco años»* y *«para 2030»*; luiscabrejo.com/vision, un plan por etapas hasta **2032**; el Queswa del Dashboard, *«un horizonte de 3 a 7 años»*. El Director: *«el horizonte es de tres a siete años, es correcto aplicar 2032»*. La respuesta servida cambia solo en esas dos piezas; la pregunta (*«¿Cuál es la visión a 5 años?»*) y el índice se quedan porque así preguntan las personas.

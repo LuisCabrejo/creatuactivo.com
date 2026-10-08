@@ -5,7 +5,9 @@
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (2) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + METH (1) = 16 respuestas.
-**Versión actual: v14.6** (8 oct 2026) — **`ADV_SIST_02`: la Visión 4M es a 2032, en un horizonte de tres a siete años** (Director). La ficha, luiscabrejo.com/vision y el Dashboard dicen lo mismo. La pregunta y el índice no cambian: así preguntan las personas.
+**Versión actual: v14.7** (8 oct 2026) — **`ADV_SIST_02` dice quiénes son los cuatro millones:** clientes VIP con los productos y distribuidores con su propio sistema de distribución moderna, la misma frase de luiscabrejo.com/vision (Director).
+
+**v14.6** (8 oct 2026) — **`ADV_SIST_02`: la Visión 4M es a 2032, en un horizonte de tres a siete años** (Director). La ficha, luiscabrejo.com/vision y el Dashboard dicen lo mismo. La pregunta y el índice no cambian: así preguntan las personas.
 
 **v14.5** (24 sep 2026) — **`ADV_OBJ_02` va con candado.** Mismo motivo que `PERFIL_02` en el arsenal inicial: el texto aprobado salía parafraseado. Ahora sale literal y el modelo escribe solo lo que va alrededor, con la bitácora delante. Texto e índice sin tocar.
 
@@ -185,7 +187,7 @@ Y ese movimiento no depende de que usted esté: Gano Excel fabrica y despacha, y
 **[Índice]:** Cuál es la visión a cinco años, para dónde va la empresa, qué se están proponiendo, cuál es la meta grande.
 **[Concepto Nuclear]:** Para 2032, 4 millones de familias en América: clientes VIP con los productos y distribuidores con su propio sistema de distribución moderna. Hoy usted asegura su posición antes de esa ola. **v14.6 (8 oct 2026, Director):** la fecha es 2032, en un horizonte de tres a siete años, y los cuatro millones son clientes VIP y distribuidores. **v14.3 (13 sep 2026):** *«bebidas y suplementos premium»* → *«productos premium de bienestar»*: la categoría no se nombra por el artículo (prompt v5.2, 12 sep).
 
-La meta, en un horizonte de tres a siete años, es clara: ayudar a 4 millones de familias en América, entregándoles un sistema de distribución para que construyan su tranquilidad financiera, y ser el sistema de distribución de productos premium de bienestar más eficiente del continente.
+La meta, en un horizonte de tres a siete años, es clara: 4 millones de familias en América —clientes VIP con los productos y distribuidores con su propio sistema de distribución moderna— y ser el sistema de distribución de productos premium de bienestar más eficiente del continente.
 
 Hoy el trabajo está en dejar montados los sistemas por donde va a pasar ese consumo. La apuesta es que para 2032 buena parte del mercado compre así, enganchado por la calidad del producto, y lo que se está armando ahora es la estructura que lo soporta.
 

@@ -516,6 +516,13 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.65 — `VS_01` dice la recompra como `WHY_02` (8 oct 2026)
+
+Aprobado por el Director en el chat, tras la auditoría de la Home. El mismo día se retiró en el prompt, en la marca personal y en la Home la forma que ponía a la compra como la que paga (`lexico-canonico.json`, `recompra-le-paga`); `VS_01` la conservaba con otras palabras y el detector no la veía, porque busca la cadena exacta.
+
+- **VS_01** — la línea del cliente a su nombre cierra igual que `WHY_02`: *«cada vez que vuelve a comprar, a usted le queda un porcentaje»*. El cliente es quien compra; usted, quien recibe. Índice, título y el resto del cuerpo, intactos.
+- Desplegado en orden sin ventana (renombrar a `_old`, fragmentar, clonar a `whatsapp` y `dashboard`, borrar `_old`).
+
 ### v6.64 — Las formas de empezar son cuatro (6 oct 2026)
 
 Decisión del Director tras auditar su prueba en la web: *«queswa en la mayoría de casos responde con los tres paquetes y no da la opción del kit de inicio… la mejor solución puede ser aplicar por defecto las cuatro opciones»*. Reemplaza la decisión del 3 sep, que nombraba el Kit solo dentro del hilo de Los 12 Niveles.

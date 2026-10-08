@@ -2063,6 +2063,12 @@ WHY_02 reescrito: Pilar 3 = La Metodología Automatizada (El Tridente EAM), no "
 
 ## arsenal_avanzado
 
+### v14.6 — `ADV_SIST_02`: la Visión 4M es a 2032, en un horizonte de tres a siete años (8 oct 2026)
+
+Decisión del Director. El ecosistema decía tres cosas distintas sobre la misma meta: esta ficha, *«la meta a cinco años»* y *«para 2030»*; luiscabrejo.com/vision, un plan por etapas hasta **2032**; el Queswa del Dashboard, *«un horizonte de 3 a 7 años»*. El Director: *«el horizonte es de tres a siete años, es correcto aplicar 2032»*. La respuesta servida cambia solo en esas dos piezas; la pregunta (*«¿Cuál es la visión a 5 años?»*) y el índice se quedan porque así preguntan las personas.
+
+⚠️ **Quiénes son los cuatro millones.** El Concepto Nuclear decía *«comprando por este sistema»*. El Director no piensa la cifra como compradores sino como familias que se benefician de los productos y de la oportunidad: **clientes VIP con los productos y distribuidores con su propio sistema de distribución moderna** (la misma frase quedó en la imagen OG de luiscabrejo.com/vision).
+
 ### v14.5 — `ADV_OBJ_02` va con candado (24 sep 2026)
 
 Mismo motivo que `PERFIL_02` (arsenal inicial v6.47): el texto del empresario, aprobado el 23 sep, salía parafraseado porque el fragmento no tenía candado. Ahora sale literal por la puerta, con la envoltura del modelo alrededor. Texto e índice sin tocar.

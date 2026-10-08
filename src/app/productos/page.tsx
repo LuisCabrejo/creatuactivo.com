@@ -2303,14 +2303,16 @@ export default function CatalogoEstrategico() {
             «empresa digital» está retirado, y un precio escrito aquí envejece — el que da
             Queswa lo calcula el sistema por país. Queda el puente: qué es y a quién
             preguntarle. El botón abre la conversación GENERAL, no la de productos
-            (`contexto` en el evento, ver WhatsAppOrb). */}
+            (`contexto` en el evento, ver WhatsAppOrb). El párrafo va en «usted» de
+            punta a punta: la primera versión abría en «quien los distribuye» y
+            cerraba en «usted recibe», y no se sabía de quién se hablaba. */}
         <section className="mb-16 mt-20">
           <div className="bg-[#16181D] border border-[#E5C279]/20  p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[color:var(--color-text-primary)] mb-6">
               Estos mismos productos pueden ser su negocio.
             </h2>
             <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto mb-8">
-              Quien los distribuye tiene su propio sistema de distribución: comparte un enlace, Queswa conversa con quien llega y usted recibe. Las cuatro formas de empezar, con su precio, se las muestra Queswa.
+              Usted puede tener su propio sistema de distribución: comparte un enlace, Queswa conversa con quien llega y usted recibe. Las cuatro formas de empezar, con su precio, se las muestra Queswa.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

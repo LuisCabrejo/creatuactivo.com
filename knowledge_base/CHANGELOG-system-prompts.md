@@ -8,9 +8,9 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ## v5.16 — El cliente compra, usted recibe (8 oct 2026)
 
-Una frase en la regla del diferencial: *«cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga»* → *«…queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje»* (la forma de `WHY_02`). El Director la marcó por fricción en el hero de luiscabrejo.com: el tercer *su* (su enlace · su nombre · su recompra) se lee como la compra del propio lector, y la recompra queda de pagador. Retirada en `lexico-canonico.json` (`recompra-le-paga`). ⚠️ **Desplegado solo en web y WhatsApp**, como lo aprobó el Director; la línea está fuera de los bloques `canal:` y también entra en la variante del Dashboard, cuya fila sigue en v5.15 hasta que él lo decida.
+Una frase en la regla del diferencial: *«cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga»* → *«…queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje»* (la forma de `WHY_02`). El Director la marcó por fricción en el hero de luiscabrejo.com: el tercer *su* (su enlace · su nombre · su recompra) se lee como la compra del propio lector, y la recompra queda de pagador. Retirada en `lexico-canonico.json` (`recompra-le-paga`). La línea está fuera de los bloques `canal:`, así que entra en las tres variantes: web y WhatsApp se desplegaron primero y el Dashboard el mismo día, cuando el Director lo aprobó.
 
-**Presupuesto:** WhatsApp 18.883 · web 19.299 · Dashboard 15.514 (sin desplegar). Las dos filas verificadas por RPC.
+**Presupuesto:** WhatsApp 18.883 · web 19.299 · Dashboard 15.514. Las tres filas verificadas por RPC.
 
 ## v5.15 — Las formas de empezar son cuatro (6 oct 2026)
 

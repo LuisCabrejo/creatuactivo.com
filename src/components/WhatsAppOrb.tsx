@@ -137,7 +137,7 @@ export default function WhatsAppOrb() {
         <div
           style={{
             position: 'fixed',
-            bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px)',
+            bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px + var(--alto-aviso-cookies, 0px))',
             right: '1rem',
             zIndex: 199,
             background: 'rgba(8,9,12,0.96)',
@@ -166,7 +166,7 @@ export default function WhatsAppOrb() {
         className="wa-orb"
         style={{
           position: 'fixed',
-          bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px))',
+          bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + var(--alto-aviso-cookies, 0px))',
           right: '1rem',
           zIndex: 200,
           width: 56,
@@ -185,7 +185,7 @@ export default function WhatsAppOrb() {
           userSelect: 'none',
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(80px)',
-          transition: 'opacity 0.35s ease-out, transform 0.45s cubic-bezier(0.22,1,0.36,1)',
+          transition: 'opacity 0.35s ease-out, transform 0.45s cubic-bezier(0.22,1,0.36,1), bottom 0.3s ease-out',
           animation: visible ? 'waOrbBreath 3s ease-in-out infinite' : 'none',
         }}
       >

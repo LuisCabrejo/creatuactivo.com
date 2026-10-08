@@ -621,7 +621,7 @@ export default function UnifiedQueswaOrb() {
             transition={{ duration: 0.3 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px)',
+              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px + var(--alto-aviso-cookies, 0px))',
               right: '1rem',
               zIndex: 199,
               background: 'rgba(8,9,12,0.96)',
@@ -653,7 +653,7 @@ export default function UnifiedQueswaOrb() {
             transition={{ duration: 0.2 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 68px)',
+              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 68px + var(--alto-aviso-cookies, 0px))',
               right: '1rem',
               zIndex: 201,
               pointerEvents: 'none',
@@ -712,7 +712,7 @@ export default function UnifiedQueswaOrb() {
           position: 'fixed',
           bottom: isOpen
             ? 'calc(5rem + env(safe-area-inset-bottom, 24px))'
-            : 'calc(1.5rem + env(safe-area-inset-bottom, 16px))',
+            : 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + var(--alto-aviso-cookies, 0px))',
           right: '1rem',
           zIndex: 200,
           width: 56,

@@ -352,7 +352,7 @@ export default function ReelVideo({ poster, src, nicho }: { poster: string; src:
         <div
           style={{
             position: 'fixed',
-            bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 68px)',
+            bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 68px + var(--alto-aviso-cookies, 0px))',
             right: '1rem',
             zIndex: 199,
             maxWidth: 240,

@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Verificar si el usuario ya dio consentimiento
@@ -14,6 +15,27 @@ export default function CookieBanner() {
       setTimeout(() => setShowBanner(true), 1000);
     }
   }, []);
+
+  // Mientras el aviso está a la vista, publica su altura en --alto-aviso-cookies y
+  // los orbes (WhatsAppOrb, UnifiedQueswaOrb) se suben esa distancia (8 oct 2026).
+  // En celular el orbe, que va en una capa más alta, tapaba la esquina superior
+  // derecha de «Aceptar»: un toque ahí abría WhatsApp en vez de aceptar.
+  useEffect(() => {
+    const raiz = document.documentElement;
+    const el = bannerRef.current;
+    if (!showBanner || !el) {
+      raiz.style.removeProperty('--alto-aviso-cookies');
+      return;
+    }
+    const medir = () => raiz.style.setProperty('--alto-aviso-cookies', `${el.offsetHeight}px`);
+    medir();
+    const observador = new ResizeObserver(medir);
+    observador.observe(el);
+    return () => {
+      observador.disconnect();
+      raiz.style.removeProperty('--alto-aviso-cookies');
+    };
+  }, [showBanner]);
 
   const handleAccept = () => {
     localStorage.setItem('cookie_consent', 'accepted');
@@ -36,6 +58,7 @@ export default function CookieBanner() {
 
   return (
     <div
+      ref={bannerRef}
       className="fixed bottom-0 left-0 right-0 z-50 shadow-lg"
       style={{
         background: 'rgba(22, 24, 29, 0.97)',

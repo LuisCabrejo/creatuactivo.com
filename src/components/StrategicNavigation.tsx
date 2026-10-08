@@ -136,7 +136,12 @@ const CRITICAL_NAVIGATION_CSS = `
     gap: 2rem;
   }
 
-  @media (min-width: 768px) {
+  /* Desde 1024 y no desde 768 (8 oct 2026): logo + cuatro enlaces + Suscríbete
+     piden ~870 px, y entre 768 y ~870 (iPad mini, iPad Air) el botón quedaba
+     cortado y la página entera ganaba scroll horizontal. En tableta va el menú
+     móvil, que también trae Suscríbete. Los tres bloques (menú, CTA y toggle)
+     cambian juntos. */
+  @media (min-width: 1024px) {
     .strategic-menu-desktop {
       display: flex;
     }
@@ -265,7 +270,7 @@ const CRITICAL_NAVIGATION_CSS = `
     transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .strategic-cta-button {
       display: flex;
     }
@@ -289,7 +294,7 @@ const CRITICAL_NAVIGATION_CSS = `
     transition: color 0.3s ease;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .strategic-mobile-toggle {
       display: none;
     }

@@ -473,6 +473,10 @@ Prueba del Director, 22 ago: la persona preguntó *"¿y cuál me recomiendas?"* 
 
 ## Tenant `marca_personal` (luiscabrejo.com) — `system-prompt-marca-personal-v2.0.md`
 
+### v2.5_lo_que_le_queda_oct2026 — Después del fabricante, lo que le queda a usted (8 oct 2026)
+
+La v2.4 quitó la lista sembrada, pero en vivo el motor la seguía armando por su cuenta. Medido con el modelo real (claude-sonnet-4-6, temp 0.65, 4 a 6 muestras por caso, con el fragmento que de verdad recupera cada pregunta): la última frase de la regla pasa a ser el segundo tiempo de FREQ_33 —*«…despacha a la puerta de cada uno. A usted le queda la comisión.»*—. Con `ACTIVO_02` recuperado, la lista de ausencias bajó de 1/4 a 0/4 y *Gano Excel primero* de 2/4 a 0/4. ⛔ **Lo que se probó y NO entra:** una instrucción que nombra las tareas (*«si preguntan si les toca guardar producto, empacar o hacer envíos…»*) arreglaba esa pregunta (0/6) pero sembraba las tareas en *«¿qué pone Gano Excel, qué pone Queswa y qué pongo yo?»* (de 0/4 a 4/6). La pregunta logística se resuelve en el arsenal (`OPER_01`), no en el prompt. 7.928 caracteres.
+
 ### v2.4_quien_hace_cada_cosa_oct2026 — La regla sin el ejemplo que la rompía (8 oct 2026)
 
 En la prueba de v2.3, a *«¿Qué pone Gano Excel, qué pone Queswa y qué pongo yo?»* el motor respondió *«Usted no toca producto, no hace envíos y no lleva cuentas»* y *«ese trabajo ocurre solo»*. Las dos salían de este prompt: la regla contra las listas de ausencias traía su propia lista (*«lo que no hay es inventario ni despachos a cargo suyo»*), y *maquinaria de distribución* se definía *«cuando se habla de que funciona sola»*. El modelo copia el ejemplo, no la regla. Ahora la regla da el modelo afirmativo de FREQ_33 (*el fabricante cobra, empaca y despacha a la puerta de cada cliente*), con el fabricante sin nombre para no chocar con *Gano Excel al final*; y *maquinaria* se usa *cuando se habla de que no depende de que usted esté encima*. Aprobado por el Director en el chat. 7.796 caracteres.

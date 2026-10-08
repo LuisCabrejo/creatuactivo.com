@@ -2449,6 +2449,10 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_marca_personal
 
+### v2.2 — `ACTIVO_02`: el cliente compra, usted recibe (8 oct 2026)
+
+*«Cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga»* → *«Cada cliente que llega por ese enlace queda a su nombre, y cada vez que vuelve a comprar, a usted le queda un porcentaje»* (forma de `WHY_02`; *ese enlace* evita el tercer *su* seguido). Aprobado por el Director en el chat. Despliegue sin ventana: padre actualizado, solo `ACTIVO_02` renombrado a `_OLD`, regenerado con el fragmentador limitado a `arsenal_marca_personal` (los otros 10 intactos) y `_OLD` borrado. El tenant queda en 11 fragmentos.
+
 ### v2.1 — Usted en los once cuerpos, y el activo con su adjetivo (6 oct 2026)
 
 Auditoría completa de luiscabrejo.com contra `lexico-canonico.json` (sesión del 6 oct 2026, aprobada por el Director en el chat). La v2.0 había corregido la doctrina pero dejó los once cuerpos en tuteo («¿Te cuento…?», «pasas un enlace», «tú eres el dueño») y nombraba el activo como *canal de distribución* (retirado el 6 sep). Lo aplicado, 35 reemplazos:

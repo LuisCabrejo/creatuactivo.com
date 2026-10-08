@@ -39,7 +39,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.15_cuatro_formas_de_empezar';
+const VERSION_LABEL = 'v5.16_recompra_oct2026';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 export const CANALES = {

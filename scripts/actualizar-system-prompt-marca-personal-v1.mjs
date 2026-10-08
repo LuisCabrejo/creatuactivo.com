@@ -43,7 +43,7 @@ async function deploy() {
       .from('system_prompts')
       .update({
         prompt: promptContent,
-        version: 'v2.2_sin_emoticonos_oct2026',
+        version: 'v2.3_recompra_oct2026',
         updated_at: new Date().toISOString(),
       })
       .eq('tenant_id', 'marca_personal')
@@ -61,7 +61,7 @@ async function deploy() {
         name: 'marca_personal',
         tenant_id: 'marca_personal',
         prompt: promptContent,
-        version: 'v2.2_sin_emoticonos_oct2026',
+        version: 'v2.3_recompra_oct2026',
         updated_at: new Date().toISOString(),
       })
       .select()

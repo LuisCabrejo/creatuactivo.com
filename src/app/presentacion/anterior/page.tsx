@@ -1292,7 +1292,7 @@ export default function PitchDeckAnteriorPage() {
                 </p>
                 {/* LA RECOMPRA POR RESULTADO, verbatim de PROD_01 (aprobado 24 sep 2026).
                     Prepara la pantalla 8: aquí se dice por qué el cliente vuelve; allá, por
-                    qué esa recompra le paga. El dinero NO entra en esta pantalla.
+                    qué esa recompra le deja un porcentaje. El dinero NO entra aquí.
                     ⚠️ «Incorpora a su rutina» es la fórmula aprobada; lo vetado es el
                     producto como algo que ya se consume. Y nunca «vuelve porque se le
                     acaba»: vuelve porque nota la diferencia. */}
@@ -1408,7 +1408,7 @@ export default function PitchDeckAnteriorPage() {
             {/* EL MODELO DE NEGOCIO EN UNA FRASE, ANTES DE LAS CIFRAS (Director, 26 sep
                 2026) — como la línea de Airbnb antes de sus números. Es el diferencial
                 del 25 sep dicho como mecanismo: el cliente que llega por su enlace
-                queda a su nombre, y por eso su recompra le paga. La pantalla 6 cerró
+                queda a su nombre, y cada recompra le deja un porcentaje. La 6 cerró
                 en que el cliente vuelve a pedir; aquí se dice qué le deja a usted.
                 ⚠️ La permanencia se dice del CLIENTE, nunca del pago: nada de «de por
                 vida». La recompensa se nombra por su repetición. */}

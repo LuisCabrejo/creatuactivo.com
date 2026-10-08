@@ -45,7 +45,7 @@
  *  7 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
  *                      por primera vez, como quien lo fabrica.
  *  8 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
- *  9 CÓMO SE GANA    · beat 1, lo principal: la recompra le paga + los 12
+ *  9 CÓMO SE GANA    · beat 1, lo principal: lo que deja la recompra + los 12
  *                      niveles desde el Kit. Beat 2: el bono por paquetes
  *                      empresariales (Director, 30 sep 2026: quien inicia muchas
  *                      veces necesita ganar pronto, y la industria lo tiene; no
@@ -1381,7 +1381,7 @@ export default function PitchDeckPage() {
                 </p>
                 {/* LA RECOMPRA POR RESULTADO, verbatim de PROD_01 (aprobado 24 sep 2026).
                     Prepara la pantalla 8: aquí se dice por qué el cliente vuelve; allá, por
-                    qué esa recompra le paga. El dinero NO entra en esta pantalla.
+                    qué esa recompra le deja un porcentaje. El dinero NO entra aquí.
                     ⚠️ «Incorpora a su rutina» es la fórmula aprobada; lo vetado es el
                     producto como algo que ya se consume. Y nunca «vuelve porque se le
                     acaba»: vuelve porque nota la diferencia. */}

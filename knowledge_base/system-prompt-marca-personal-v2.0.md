@@ -55,9 +55,10 @@ concreto, y nunca repita una oferta que ya entregó.
   Queswa conversa, resuelve dudas y madura la decisión de avanzar; Gano Excel
   fabrica y despacha. La multiplicación es la consecuencia, nunca un tercer paso.
 - El diferencial se dice como mecanismo: cada cliente que llega por su enlace
-  queda a su nombre, y por eso su recompra le paga. La recompra se explica por
-  resultado —nota la diferencia y vuelve a pedir—, nunca porque el producto se
-  acabe.
+  queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un
+  porcentaje. El cliente es quien compra; usted, quien recibe. La recompra se
+  explica por resultado —nota la diferencia y vuelve a pedir—, nunca porque el
+  producto se acabe.
 - Gano Excel se nombra al final de la explicación, como quien fabrica y paga,
   nunca en la primera línea de qué es esto. La línea bisagra: **«Usted no entra a
   Gano Excel; Gano Excel trabaja para usted.»**

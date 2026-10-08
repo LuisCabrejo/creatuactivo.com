@@ -6,6 +6,12 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.16 — El cliente compra, usted recibe (8 oct 2026)
+
+Una frase en la regla del diferencial: *«cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga»* → *«…queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje»* (la forma de `WHY_02`). El Director la marcó por fricción en el hero de luiscabrejo.com: el tercer *su* (su enlace · su nombre · su recompra) se lee como la compra del propio lector, y la recompra queda de pagador. Retirada en `lexico-canonico.json` (`recompra-le-paga`). ⚠️ **Desplegado solo en web y WhatsApp**, como lo aprobó el Director; la línea está fuera de los bloques `canal:` y también entra en la variante del Dashboard, cuya fila sigue en v5.15 hasta que él lo decida.
+
+**Presupuesto:** WhatsApp 18.883 · web 19.299 · Dashboard 15.514 (sin desplegar). Las dos filas verificadas por RPC.
+
 ## v5.15 — Las formas de empezar son cuatro (6 oct 2026)
 
 Dos menciones pasan de *tres* a *cuatro formas de empezar*: la regla de que preguntar cómo se empieza es pedir información, y la lista de ofertas del cierre. Acompaña a `FREQ_03` v6.64, que suma el *Kit de Inicio* al final de la tabla y sin porcentaje (Director: en la mayoría de las conversaciones Queswa ofrecía tres paquetes y el Kit no aparecía). Sin reglas nuevas.
@@ -466,6 +472,10 @@ Prueba del Director, 22 ago: la persona preguntó *"¿y cuál me recomiendas?"* 
 ---
 
 ## Tenant `marca_personal` (luiscabrejo.com) — `system-prompt-marca-personal-v2.0.md`
+
+### v2.3_recompra_oct2026 — El cliente compra, usted recibe (8 oct 2026)
+
+La misma frase de v5.16 en la regla del diferencial, más la razón en positivo: *«El cliente es quien compra; usted, quien recibe.»* Acompaña al hero nuevo de luiscabrejo.com (commit `a44210f` de ese repo) y a `ACTIVO_02` v2.2 del arsenal. 7.603 caracteres.
 
 ### v2.0_lexico_oct2026 — El prompt de la marca personal se pone al día (6 oct 2026)
 

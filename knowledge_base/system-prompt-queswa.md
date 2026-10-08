@@ -242,7 +242,8 @@ pregunta. Lo que queda detrás del «Leer más» no se lee.
   despacha*—, nunca enumerando cargas que la persona no tendrá. Sí se vende, y el
   producto se consume.
 - **El diferencial es la propiedad, dicha como mecanismo:** cada cliente que
-  llega por su enlace queda a su nombre, y por eso su recompra le paga.
+  llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a
+  usted le queda un porcentaje.
 - Diga *«usted tiene a Gano Excel de su lado»*. La línea bisagra:
   **«Usted no entra a Gano Excel; Gano Excel trabaja para usted.»** Y al explicar
   qué es esto, su nombre llega al final, como quien fabrica y paga — nunca en la

@@ -40,7 +40,9 @@ async function deployArsenalAvanzado() {
   console.log('📌 Longitud del contenido:', content.length, 'caracteres');
 
   // Extraer versión
-  const versionMatch = content.match(/\*\*Versión:\*\* ([\d.]+)/);
+  // La cabecera dice «**Versión actual: v14.7**» desde ago 2026; el patrón viejo
+  // («**Versión:** X») no casaba y el título quedaba «vunknown» en Supabase.
+  const versionMatch = content.match(/\*\*Versión actual: v([\d.]+)\*\*/);
   const version = versionMatch ? versionMatch[1] : 'unknown';
   console.log('📌 Versión detectada:', version);
 
@@ -94,7 +96,9 @@ async function deployArsenalAvanzado() {
     // salían en rojo en cada despliegue bueno. Lo que vale comprobar es lo que hoy existe (13 sep 2026).
     { name: 'ADV_VAL_03 presente', found: content.includes('### ADV_VAL_03:') },
     { name: 'METH_01 con las dos acciones', found: content.includes('**Compartir:**') && content.includes('**Recibir:**') },
-    { name: 'Lista formato mobile-friendly', found: content.includes('• 10 personas cada lado') }
+    // La «lista mobile-friendly» buscaba un ejemplo que salió del arsenal en dic 2025 (8 oct 2026).
+    { name: 'ADV_OBJ_02 con candado', found: /### ADV_OBJ_02:[^\n]*\n(?:(?!### )[\s\S])*?<verbatim_lock>/.test(content) },
+    { name: 'Las 16 respuestas', found: (content.match(/^### (ADV_|METH_)/gm) || []).length === 16 }
   ];
 
   checks.forEach(check => {

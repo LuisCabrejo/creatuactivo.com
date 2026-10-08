@@ -42,8 +42,10 @@ async function deployArsenalCompensacion() {
   console.log('📌 Longitud del contenido:', content.length, 'caracteres');
 
   // Extraer versión
-  const versionMatch = content.match(/Version:\s*([\d.]+)/);
-  const version = versionMatch ? versionMatch[1] : '2.0';
+  // La cabecera dice «**Versión actual: v8.13**»; el patrón viejo no casaba y el
+  // respaldo '2.0' dejaba el título congelado en «v2.0» sin que se notara.
+  const versionMatch = content.match(/\*\*Versión actual: v([\d.]+)\*\*/);
+  const version = versionMatch ? versionMatch[1] : 'unknown';
   console.log('📌 Version detectada:', version);
 
   // Contar respuestas por categoría v2.0
@@ -142,24 +144,22 @@ async function deployArsenalCompensacion() {
   }
 
   // Verificaciones de contenido v2.0
-  console.log('\n🔍 Verificando contenido v2.0...\n');
+  console.log('\n🔍 Verificando contenido...\n');
 
   const checks = [
     { name: 'GEN5 - Regla del techo', found: /determina su techo/i.test(content) && /determina lo que genera/i.test(content) },
-    { name: 'GEN5 - Techos ESP-1 ($25)', found: content.includes('Gen 1 | $25 USD') },
-    { name: 'GEN5 - Techos ESP-2 ($75)', found: content.includes('| Gen 1 | $25 USD | $75 USD | $150 USD |') },
-    { name: 'GEN5 - Techos ESP-3 ($150)', found: content.includes('Gen 1 | $150 USD') },
+    // Ocho de estas salían en rojo con el contenido presente: buscaban el formato de la v2.0.
+    // Revisadas contra el .txt el 8 oct 2026. El ciclo es de lunes a domingo (dato del Director, ago 2026).
+    { name: 'GEN5 - Techos por paquete ($25 / $75 / $150)', found: content.includes('| Gen 1 | $25 USD | $75 USD | $150 USD |') },
     { name: 'Gen 5 Doble (100 PV)', found: content.includes('100 PV') && content.includes('DOBLE') },
-    { name: 'Ciclos semanales (Domingo-Sabado)', found: content.includes('Domingo a Sabado') },
+    { name: 'Ciclo semanal de lunes a domingo', found: content.includes('lunes a domingo') },
     { name: 'PV/CV/GCV definiciones', found: content.includes('COMP_PV_01') && content.includes('COMP_PV_04') },
     { name: 'Binario porcentajes (10-17%)', found: content.includes('15%') && content.includes('16%') && content.includes('17%') },
-    { name: '3 estrategias mantener %', found: content.includes('ESTRATEGIA 1') && content.includes('ESTRATEGIA 2') && content.includes('ESTRATEGIA 3') },
+    { name: 'Estrategias para mantener el %', found: content.includes('Estrategias para Mantener % Alto') },
     { name: 'Regla mayor porcentaje', found: content.includes('MAS ALTO') },
-    { name: 'Productos ESP-1 (7)', found: content.includes('ESP-1 - 7 productos') },
-    { name: 'Productos ESP-2 (18)', found: content.includes('ESP-2 - 18 productos') },
-    { name: 'Productos ESP-3 (35)', found: content.includes('ESP-3 - 35 productos') },
-    { name: 'Auto Envio programa', found: content.includes('Auto Envio') && content.includes('4 meses') },
-    { name: 'Rangos CV semanal', found: content.includes('Bronce') && content.includes('1,500 CV') }
+    { name: 'Paquetes: qué trae cada uno (COMP_PAQ_01 a 05)', found: [1, 2, 3, 4, 5].every(n => content.includes(`### COMP_PAQ_0${n}:`)) },
+    { name: 'Auto Envío (COMP_AUTO_01)', found: content.includes('### COMP_AUTO_01:') },
+    { name: 'Rangos CV semanal (Bronce 1.500 → 11%)', found: /\| Bronce \| 1[.,]500 \| 11% \|/.test(content) }
   ];
 
   checks.forEach(check => {

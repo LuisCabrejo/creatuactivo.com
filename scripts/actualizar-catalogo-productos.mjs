@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 /**
- * Script para actualizar el catálogo de productos en Supabase
- * Versión 6.0 JOBS/NAVAL - [Concepto Nuclear] + Estilo Naval
- * Fecha: 17 Enero 2026
+ * Sube knowledge_base/catalogo_productos.txt como documento padre a Supabase.
+ * La versión la lee de la cabecera del archivo.
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -39,52 +38,45 @@ async function actualizarCatalogo() {
   console.log(`📊 Tamaño: ${contenido.length} caracteres`);
   console.log('');
 
-  // Actualizar en Supabase
+  // La versión sale de la cabecera («**Versión actual: v7.13**»). Hasta el 8 oct 2026
+  // el título y la lista de cambios estaban fijos en la v6.0 de enero, y el health
+  // check de /api/nexus reportaba esa versión. El historial vive en CHANGELOG-arsenales.md.
+  const versionMatch = contenido.match(/\*\*Versión actual: v([\d.]+)\*\*/);
+  const version = versionMatch ? versionMatch[1] : 'unknown';
+  console.log(`📌 Versión detectada: ${version}\n`);
+
+  // Actualizar en Supabase (el documento padre, en todos los tenants que lo tengan)
   console.log('🔄 Actualizando en Supabase...\n');
 
   const { data, error } = await supabase
     .from('nexus_documents')
     .update({
       content: contenido,
-      title: 'Catálogo Oficial Productos Gano Excel 2026 v6.0',
+      title: `Catálogo Oficial Productos Gano Excel v${version}`,
       metadata: {
-        version: '6.0 JOBS/NAVAL',
+        version,
         last_updated: new Date().toISOString(),
-        changes: [
-          '[Concepto Nuclear] agregado a cada sección',
-          'Estilo Naval/Jobs (frases cortas, sin exclamaciones)',
-          'Actualización año 2025 → 2026',
-          'Reorganización por categorías de respuesta'
-        ],
-        total_productos: 22,
-        categorias: [
-          'Estrategia de Portafolio',
-          'Respaldo Científico',
-          'Bebidas Funcionales',
-          'Línea LUVOCO',
-          'Suplementos Avanzados',
-          'Cuidado Personal',
-          'FAQs'
-        ]
+        total_productos: 22
       },
       updated_at: new Date().toISOString()
     })
-    .eq('category', 'catalogo_productos');
+    .eq('category', 'catalogo_productos')
+    .select('tenant_id');
 
   if (error) {
     console.error('❌ Error al actualizar Supabase:', error);
     process.exit(1);
   }
 
-  console.log('✅ Catálogo actualizado correctamente en Supabase\n');
-  console.log('='.repeat(60));
-  console.log('\n📋 CAMBIOS v6.0 JOBS/NAVAL:\n');
-  console.log('  ✅ [Concepto Nuclear] en cada sección');
-  console.log('  ✅ Estilo Naval/Jobs (frases cortas)');
-  console.log('  ✅ Año actualizado: 2025 → 2026');
-  console.log('  ✅ Reorganizado por categorías de respuesta');
+  if (!data || data.length === 0) {
+    console.error('❌ No se encontró ningún documento con category=catalogo_productos');
+    process.exit(1);
+  }
+
+  console.log(`✅ Catálogo v${version} actualizado en: ${data.map(d => d.tenant_id).join(', ')}`);
   console.log('');
-  console.log('🎯 Catálogo v6.0 JOBS/NAVAL desplegado correctamente');
+  console.log('⚠️  Esto sube el documento padre. Si cambió el cuerpo de un fragmento,');
+  console.log('   siga la receta de despliegue de CLAUDE.md (purgar, fragmentar, clonar).');
   console.log('');
 }
 

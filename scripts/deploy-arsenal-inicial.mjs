@@ -40,17 +40,18 @@ async function deployArsenalInicial() {
 
   console.log('📌 Longitud del contenido:', content.length, 'caracteres');
 
-  // Extraer versión (soporta HÍBRIDO y PEAJE)
-  const versionMatch = content.match(/([\d.]+)\s+(HÍBRIDO|PEAJE|JOBS)/i);
+  // La cabecera dice «**Versión actual: v6.67**». El patrón viejo buscaba una
+  // etiqueta de estructura (HÍBRIDO/PEAJE) que ya no existe y el título quedaba
+  // «vunknown PEAJE» en Supabase (8 oct 2026).
+  const versionMatch = content.match(/\*\*Versión actual: v([\d.]+)\*\*/);
   const version = versionMatch ? versionMatch[1] : 'unknown';
-  const versionTag = versionMatch ? versionMatch[2].toUpperCase() : 'PEAJE';
-  console.log('📌 Versión detectada:', version, versionTag);
+  console.log('📌 Versión detectada:', version);
 
   // Actualizar en Supabase por categoría
   const { data, error } = await supabase
     .from('nexus_documents')
     .update({
-      title: `Arsenal Inicial v${version} ${versionTag}`,
+      title: `Arsenal Inicial v${version}`,
       content: content,
       updated_at: new Date().toISOString()
     })
@@ -70,7 +71,7 @@ async function deployArsenalInicial() {
       .from('nexus_documents')
       .insert({
         category: 'arsenal_inicial',
-        title: `Arsenal Inicial v${version} ${versionTag}`,
+        title: `Arsenal Inicial v${version}`,
         content: content
       })
       .select();

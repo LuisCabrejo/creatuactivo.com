@@ -42,8 +42,10 @@ async function deployArsenal12Niveles() {
   console.log('📌 Longitud del contenido:', content.length, 'caracteres');
 
   // Extraer versión
-  const versionMatch = content.match(/Versión:\s*([\d.]+\s*[A-Z\/]*)/);
-  const version = versionMatch ? versionMatch[1].trim() : '4.0';
+  // La cabecera dice «**Versión actual: v6.24**»; el patrón viejo no casaba y el
+  // respaldo '4.0' dejaba el título congelado en «v4.0» sin que se notara.
+  const versionMatch = content.match(/\*\*Versión actual: v([\d.]+)\*\*/);
+  const version = versionMatch ? versionMatch[1] : 'unknown';
   console.log('📌 Versión detectada:', version);
 
   // Contar respuestas
@@ -130,14 +132,15 @@ async function deployArsenal12Niveles() {
   }
 
   // Verificaciones de contenido
-  console.log('\n🔍 Verificando contenido v4.0 JOBS/NAVAL...\n');
+  console.log('\n🔍 Verificando contenido...\n');
 
   const checks = [
     { name: '[Concepto Nuclear] presente', found: content.includes('[Concepto Nuclear]') },
     { name: 'NIVELES_01 (Qué son Los 12 Niveles)', found: content.includes('NIVELES_01') },
     { name: 'Terminología limpia (Regalía de Equipo)', found: content.includes('Regalía de Equipo') },
     { name: 'Sin "Bono Binario" (MLM cleanup)', found: !content.includes('Bono Binario') },
-    { name: 'Lado de menor crecimiento (no pierna débil)', found: content.includes('lado de menor crecimiento') },
+    // El Binario se dice «canal izquierdo / canal derecho» y «emparejar» (8 oct 2026).
+    { name: 'Binario: canal izquierdo y derecho, emparejados', found: content.includes('canal izquierdo') && /empareja/.test(content) },
     { name: 'Advertencia ⚠️ Kit de Inicio', found: content.includes('⚠️') },
     { name: 'Kit Inicio $443,600', found: content.includes('443,600') || content.includes('443.600') },
     { name: 'Tabla de proyección (103 millones)', found: content.includes('103') },

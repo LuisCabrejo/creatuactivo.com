@@ -2469,6 +2469,10 @@ Deploy: `node scripts/actualizar-fragmentos-catalogo-v7.2.mjs`. 5/5 fragments ac
 
 ## arsenal_marca_personal
 
+### v2.5 — `ACTIVO_02` bajo candado (8 oct 2026)
+
+Con el índice nuevo `ACTIVO_02` ya se recuperaba, pero sin candado el motor respondía en el orden de la pregunta: con 8 muestras, lista de ausencias 5/8 y Gano Excel primero 6/8. Bajo `<verbatim_lock>` (el cuerpo aprobado en v2.3, sin cambiar una palabra): 0/8, 0/8 y texto exacto 8/8. Meter la cortesía dentro del candado, como en `OPER_01`, salió peor (etiquetas visibles 4/10): el motor igual escribe la suya. Las etiquetas que a veces pega se quitan en el widget de luiscabrejo.com (`src/lib/queswa-videos.ts`, commit `8f413af`), en pantalla y en voz. ⚠️ El Concepto Nuclear de un fragmento viaja al modelo con el fragmento: se deja neutro y sin describir la falla, para no sembrarla. Aprobado por el Director en el chat.
+
 ### v2.4 — `ACTIVO_02` se encuentra y nace `OPER_01` (8 oct 2026)
 
 Dos hallazgos de la prueba en vivo de v2.3, medidos contra el corpus real que lee luiscabrejo.com (marca_personal + los fragmentos de creatuactivo_marketing):

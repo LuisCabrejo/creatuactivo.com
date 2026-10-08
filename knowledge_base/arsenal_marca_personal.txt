@@ -104,8 +104,9 @@ La diferencia no está en cuánto gana, sino en a quién le pertenece lo que con
 
 ### ACTIVO_02: "¿Quién hace cada cosa? / ¿Por qué la tecnología hace el 90%?"
 **[Índice]:** Qué pone Gano Excel, qué pone Queswa y qué pongo yo. Quién hace cada cosa y cómo se reparte el trabajo. Por qué la tecnología hace el noventa por ciento.
-**[Concepto Nuclear]:** Quién hace cada cosa. ⛔ Decía *"tu rol es la **Dirección Ejecutiva**"* (retirado 26 ago 2026): **el rol no se nombra como cargo** — un cargo evoca hojas de cálculo y le pide al lector una identidad que todavía no se atribuye. La identidad más ligera y más cierta es **dueño**. ⛔ Y decía que la IA *"**educa** automáticamente"*: el verbo canónico es **madura la decisión**. ⚠️ **El orden de WHY_02** (Director, 8 oct 2026): las tres partes primero, el dinero después y Gano Excel al final, como quien paga. Cada parte se dice por lo que hace.
+**[Concepto Nuclear]:** Quién hace cada cosa. ⛔ Decía *"tu rol es la **Dirección Ejecutiva**"* (retirado 26 ago 2026): **el rol no se nombra como cargo** — un cargo evoca hojas de cálculo y le pide al lector una identidad que todavía no se atribuye. La identidad más ligera y más cierta es **dueño**. ⛔ Y decía que la IA *"**educa** automáticamente"*: el verbo canónico es **madura la decisión**. ⚠️ **El orden de WHY_02** (Director, 8 oct 2026): las tres partes primero, el dinero después y Gano Excel al final, como quien paga. Cada parte se dice por lo que hace. Va completo y exacto (Director, 8 oct 2026; medido con el modelo real).
 
+<verbatim_lock>
 Son tres partes, y cada una tiene su trabajo:
 
 **Usted** decide con quién comparte su enlace y recibe a quien llega.
@@ -115,6 +116,7 @@ Son tres partes, y cada una tiene su trabajo:
 **El fabricante** pone lo físico: fabrica, cobra y despacha cada pedido hasta la puerta del cliente.
 
 **Y usted es el dueño:** cada cliente que llega por su enlace queda a su nombre, y cada vez que vuelve a comprar, a usted le queda un porcentaje. Las comisiones las paga el fabricante: **Gano Excel**, con 30 años en más de 60 países.
+</verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le cuento qué hace usted en el día a día?
 

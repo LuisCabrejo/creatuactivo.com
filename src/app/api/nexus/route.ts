@@ -81,6 +81,9 @@ import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
 import { videoQuePide, type VideoIntencion } from '@/lib/queswa-videos-intencion';
+import { VIDEOS_QUESWA, videoDeUrl, videoDeCandado, separarVozYPie, textoWebDelVideo, filaDelVideo, type VideoQueswa } from '@/lib/queswa-videos';
+import { expandirVideosDelHistorial, videoDeMaestra, atenderVideoPorIntencion, atenderEstrategiaWeb } from '@/lib/queswa-videos-web';
+import { detectarIntencionCompra } from '@/lib/wa-pedido';
 import { contarTokens, consumoDe, esPeticionDePrueba, clienteParaPruebas, type Consumo } from '@/lib/consumo-anthropic';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
 // Ola 4 (25 May) lo había desactivado en favor del handoff 100% WhatsApp. Ahora
@@ -4453,7 +4456,12 @@ export async function POST(req: Request) {
     });
 
   try {
-    const { messages, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos } = await req.json();
+    const { messages: _messagesEntrada, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos } = await req.json();
+    // El chat web devuelve el marcador `[[video:…]]` de los videos que ya mostró; se
+    // expande con lo que dice la voz —la misma forma de la fila de WhatsApp—, así el
+    // modelo sabe lo que la persona vio, la bitácora lo da por mostrado y el «sí» se
+    // lee contra la pregunta que cerró el video (8 oct 2026). Ver queswa-videos-web.ts.
+    const messages = expandirVideosDelHistorial(_messagesEntrada);
     // `let`: la salud compuesta de la web lo reasigna (ver guardarraíl de entrada).
     let pageContext: string | undefined = pageContextEntrada;
     // Respuesta de salud que el modelo COMPONE alrededor de un núcleo legal literal
@@ -4561,6 +4569,43 @@ export async function POST(req: Request) {
       }
     }
 
+    // ── EL VIDEO EN LA WEB (8 oct 2026, Director) ────────────────────────────────
+    // En WhatsApp «Cómo funciona», «Cómo entra el dinero», «Qué debo hacer yo» y
+    // «Los 12 Niveles» se responden con video desde el 26–28 sep; la web entregaba
+    // el texto. Aquí sale lo mismo que el canal: la entrada, el marcador del video
+    // (el chat pinta el reproductor) y la pregunta de cierre como pie, renovada si
+    // ofrece algo ya visto. La fila guarda lo que dice la voz, como la de WhatsApp.
+    // Lo usan el Camino A (los botones), los nodos del conductor y el candado
+    // dictado. La bitácora se pasa como argumento: el Camino A corre antes de que
+    // exista.
+    const _temasVistosEnElHilo = (): Set<string> => new Set(
+      (Array.isArray(messages) ? messages : []).slice(0, -1)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .filter((m: any) => m?.role === 'assistant' && typeof m.content === 'string')
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .flatMap((m: any) => [...temasDelTexto(m.content)]),
+    );
+    const _responderConVideoWeb = (
+      video: VideoQueswa, texto: string, entrada: string, nodo: string, docs: string[],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      bitacora: Bitacora | null, datos: any = {},
+    ) => {
+      const { voz, pie: pieOriginal } = separarVozYPie(texto, entrada);
+      const vistos = new Set([...(bitacora?.temasMostrados ?? []), ..._temasVistosEnElHilo()]);
+      const r = renovarOfertaVista(pieOriginal ? `${voz}\n\n${pieOriginal}` : voz, {
+        temasMostrados: vistos, siguientePaso: bitacora ? bitacora.siguientePaso : 'sin bitácora',
+      });
+      if (r.cambio) console.log(`🔁 [Video web] Oferta vista: ${r.cambio}`);
+      const pie = separarVozYPie(r.texto, '').pie;
+      const textoCliente = aFormatoWeb(textoWebDelVideo(video, entrada, pie));
+      console.log(`🎬 [Video web] ${nodo} → «${video.titulo}» — dictado sin modelo`);
+      if (sessionId && fingerprint) {
+        logConversationHibrida(latestUserMessage, filaDelVideo(video, entrada, voz, pie), docs, 'video_web', sessionId, fingerprint, datos)
+          .catch((err) => console.error('❌ [Video web] Error logging:', err));
+      }
+      return new StreamingTextResponse(buildVerbatimStream(textoCliente), { headers: getCorsHeaders(origin) });
+    };
+
     // ════════════════════════════════════════════════════════════════════════════
     // ⚡ CAMINO A — BACKEND DICTADOR (VERBATIM_LOCK Master Responses)
     // ════════════════════════════════════════════════════════════════════════════
@@ -4627,6 +4672,14 @@ export async function POST(req: Request) {
     }
 
     if (respuestaMaestra) {
+      // En la web, «Cómo funciona», «Cómo entra el dinero» y «Qué debo hacer yo» son
+      // un video, como en WhatsApp (8 oct 2026). No en la página de productos, donde
+      // Queswa es asesora de bienestar.
+      const _idVideoMaestra = canalWeb && pageContext !== 'catalogo_productos' ? videoDeMaestra(respuestaMaestra) : null;
+      if (_idVideoMaestra) {
+        const _v = VIDEOS_QUESWA[_idVideoMaestra];
+        return _responderConVideoWeb(_v, respuestaMaestra, _v.entrada, `botón o pregunta canónica: ${_v.titulo}`, ['VERBATIM_LOCK_BACKEND_DICTATOR', _v.candado], null);
+      }
       const bypassStartTime = Date.now();
       console.log(`⚡ [VERBATIM_LOCK] Chip canónico detectado → respuesta Master directa (${respuestaMaestra.length} chars, $0 tokens)`);
 
@@ -4992,6 +5045,12 @@ ${summaryParts.join('\n')}
       if (nodo.avisarAlEquipo) {
         await pushAlDashboard(process.env.EQUIPO_CONSTRUCTOR_ID || 'luis-cabrejo-1288', nodo.avisarAlEquipo.titulo, nodo.avisarAlEquipo.cuerpo);
       }
+      // El nodo con video (2.34 Los 12 Niveles, y los de la apertura): sale el video,
+      // como en WhatsApp. `texto` trae lo que dice la voz y la pregunta de pie.
+      const _videoNodo = nodo.video && nodo.texto ? videoDeUrl(nodo.video.url) : null;
+      if (_videoNodo && nodo.video) {
+        return _responderConVideoWeb(_videoNodo, aFormatoWeb(nodo.texto ?? ''), nodo.video.entrada, nodo.nodo, ['CONDUCTOR_DICTADO', _videoNodo.candado], _bitacora, mergedProspectData);
+      }
       console.log(`🧭 [Conductor web] ${nodo.nodo} — dictado sin modelo`);
       if (sessionId && fingerprint) {
         logConversationHibrida(latestUserMessage, texto, ['CONDUCTOR_DICTADO'], 'conductor_web', sessionId, fingerprint, prospectData)
@@ -5041,7 +5100,10 @@ ${summaryParts.join('\n')}
         simuladorDisponible: true,
         socioQueEscribe:     false,
         clavesRadicacion:    _telefonoFicha.length >= 10 ? CLAVES_CANAL : CLAVES_WEB,
-        supabase:            getSupabaseClient(),
+        // Llave de SERVIDOR (8 oct 2026): el nodo lee NIVELES_01 de nexus_documents,
+        // y con la pública la seguridad de filas devuelve cero filas sin error — en la
+        // web el 2.34 no se disparaba nunca y el modelo componía la estrategia.
+        supabase:            getSupabaseAdmin(),
         tenant:              tenantId,
       });
       if (_nodoHilo) return _entregarDictado(_nodoHilo);
@@ -5115,6 +5177,26 @@ ${summaryParts.join('\n')}
             .catch((err) => console.error('❌ [Cierre web] Error logging:', err));
         }
         return new StreamingTextResponse(buildVerbatimStream(aFormatoWeb(_cierreWeb.texto)), { headers: getCorsHeaders(origin) });
+      }
+    }
+
+    // ── 2.9 de la web — el video, pedido con palabras propias (8 oct 2026) ──────
+    // «Explíqueme el negocio», «¿y yo qué tendría que hacer?», «¿quién me paga?» y
+    // «¿qué estrategia tienen?» se responden con su video, como en WhatsApp (nodo
+    // 2.9 del webhook, mismo detector por significado). Corre después de la
+    // radicación, como allá. No en la página de productos, no a quien vino a
+    // comprar —su «¿qué hago?» es del pedido— y no un tema que ya vio: en ese caso
+    // el turno sigue al motor, que tiene el candado como material.
+    if (canalWeb && typeof latestUserMessage === 'string' && pageContext !== 'catalogo_productos' && !_fotoWebPrefijo) {
+      const _hiloDeCompraWeb = [..._historialWeb.filter((m) => m.role === 'user').map((m) => m.content), latestUserMessage]
+        .some((t) => detectarIntencionCompra(t));
+      if (!_hiloDeCompraWeb) {
+        const _vistos = new Set([...(_bitacora?.temasMostrados ?? []), ..._temasVistosEnElHilo()]);
+        const _nodoVideo = (await atenderEstrategiaWeb({
+          mensaje: latestUserMessage, temasMostrados: _vistos, pais: paisDeCodigo(visitorCountry),
+          supabase: getSupabaseAdmin(), tenant: tenantId,
+        })) ?? (await atenderVideoPorIntencion(latestUserMessage, _vistos));
+        if (_nodoVideo) return _entregarDictado(_nodoVideo);
       }
     }
 
@@ -6939,6 +7021,14 @@ ${visitorCountry === 'CO'
         } else if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
           const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
           const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';
+          // ── La red de la web: el candado que tiene video sale como video (8 oct 2026) ─
+          // Lo que el detector por significado no reconoció pero la búsqueda llevó al
+          // candado de un video —WHY_02, WHY_04, EAM_01— se entrega como en WhatsApp
+          // (la red 3.85 del webhook). No en la página de productos.
+          const _videoCandado = canalWeb && pageContext !== 'catalogo_productos' ? videoDeCandado(String(_idFrag)) : null;
+          if (_videoCandado && _videoCandado.id !== 'doce-niveles') {
+            return _responderConVideoWeb(_videoCandado, _cuerpo, _videoCandado.entrada, `${_metodo} con video`, [String(_idFrag)], _bitacora, mergedProspectData);
+          }
           // ── La envoltura (24 sep 2026) ────────────────────────────────────
           // El texto aprobado sale LITERAL; lo que va alrededor lo escribe el
           // modelo con la bitácora delante: una línea que conecte con lo que la

@@ -16,6 +16,10 @@ import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
 import { QUESWA_QUICK_REPLIES, QUESWA_PRODUCTS_QUICK_REPLIES, QUESWA_CTA_LABEL } from '@/lib/queswa-greeting';
+// Los videos que Queswa entrega en la conversación (8 oct 2026): el motor manda
+// el marcador [[video:…]] y aquí se pinta el reproductor. Ver queswa-videos.ts.
+import { partirVideos, quitarMarcadoresVideo, type TrozoVideo } from '@/lib/queswa-videos';
+import VideoQueswa from './VideoQueswa';
 
 // 🤖 ELEGANCIA CINÉTICA - Terminal de Comando Avanzada (FASE F)
 const QUIET_LUXURY = {
@@ -701,7 +705,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                       {/* 🔊 Botón TTS — iconografía pura, sin bordes rígidos */}
                       {message.role === 'assistant' && (
                         <button
-                          onClick={() => speakMessage(message.content, message.id)}
+                          onClick={() => speakMessage(quitarMarcadoresVideo(message.content), message.id)}
                           title={playingId === message.id ? 'Detener' : 'Escuchar respuesta'}
                           disabled={loadingAudioId !== null && loadingAudioId !== message.id}
                           className="group flex items-center gap-1.5 mb-3 transition-all duration-200 hover:scale-105"
@@ -746,7 +750,16 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                         </button>
                       )}
 
+                      {/* Un mensaje con video llega partido en texto y reproductor; el
+                          marcador a medio llegar, mientras el texto entra, no se muestra. */}
+                      {(message.role === 'assistant'
+                        ? partirVideos(message.content, { completo: false })
+                        : ([{ tipo: 'texto', contenido: message.content }] as TrozoVideo[])
+                      ).map((trozo, idx) => trozo.tipo === 'video' ? (
+                        <VideoQueswa key={`v${idx}`} video={trozo.video} />
+                      ) : (
                       <ReactMarkdown
+                        key={`t${idx}`}
                         remarkPlugins={[remarkGfm]}
                         components={{
                           strong: ({children}) => <strong style={{ fontWeight: 600, color: QUIET_LUXURY.gold }}>{children}</strong>,
@@ -829,8 +842,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                           )
                         }}
                       >
-                        {message.role === 'assistant' ? highlightCaptureQuestions(message.content) : message.content}
+                        {message.role === 'assistant' ? highlightCaptureQuestions(trozo.contenido) : trozo.contenido}
                       </ReactMarkdown>
+                      ))}
                     </div>
                   </div>
                 );

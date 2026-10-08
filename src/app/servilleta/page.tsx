@@ -68,6 +68,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import SubscribeModal from '@/components/SubscribeModal';
+import GuiaPlanServilleta from './GuiaPlanServilleta';
 import HomeManifestoVideo from '@/components/HomeManifestoVideo';
 import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 
@@ -512,7 +513,30 @@ export default function ServilletaPage() {
   const showSlide = useCallback((index: number) => {
     setActiveSlide(index);
     setActiveCardIndex(0);
+    // Desde el 8 oct 2026 la página tiene texto debajo del deck: quien está leyendo
+    // y toca una pantalla en la barra vuelve arriba a verla.
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+  // ¿La persona bajó a leer la explicación? (8 oct 2026) Con el deck casi fuera de
+  // vista, la barra, la navegación móvil y el contador se esconden —son del deck y
+  // tapaban el texto— y los clips se pausan para que no suenen mientras lee.
+  const deckRef = React.useRef<HTMLDivElement | null>(null);
+  const [leyendoGuia, setLeyendoGuia] = useState(false);
+  useEffect(() => {
+    const deck = deckRef.current;
+    if (!deck || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setLeyendoGuia(entry.intersectionRatio < 0.25),
+      { threshold: [0, 0.25, 0.5] }
+    );
+    observer.observe(deck);
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!leyendoGuia) return;
+    deckRef.current?.querySelectorAll('video').forEach((v) => v.pause());
+  }, [leyendoGuia]);
 
   // Al navegar (slide o card), se libera cualquier pausa manual del tap-to-pause
   useEffect(() => { setPausedKey(null); }, [activeSlide, activeCardIndex]);
@@ -787,6 +811,13 @@ export default function ServilletaPage() {
           position: fixed; bottom: 15px; right: 20px;
           font-family: var(--font-mono); font-size: 0.65rem; color: #444;
           z-index: 101; letter-spacing: 1px;
+        }
+
+        /* Leyendo la explicación de abajo (8 oct 2026): la barra, la navegación móvil y
+           el contador son del deck y, fijos, tapaban el texto. */
+        .top-hud, .mobile-nav, .slide-counter { transition: opacity 0.25s ease; }
+        .leyendo-guia .top-hud, .leyendo-guia .mobile-nav, .leyendo-guia .slide-counter {
+          opacity: 0; pointer-events: none;
         }
 
         /* Click cursor on slides */
@@ -2257,7 +2288,7 @@ export default function ServilletaPage() {
         }
       ` }} />
 
-      <div className={`industrial-theme${isKiosk ? ' kiosk' : ''}`}>
+      <div className={`industrial-theme${isKiosk ? ' kiosk' : ''}${leyendoGuia ? ' leyendo-guia' : ''}`}>
 
         {/* TOP HUD - Desktop */}
         <nav className="top-hud" style={queswaOpen ? { display: 'none' } : undefined}>
@@ -2325,6 +2356,7 @@ export default function ServilletaPage() {
 
         {/* MAIN DECK */}
         <div
+          ref={deckRef}
           className="deck-container"
           onClick={handleSlideClick}
           onTouchStart={handleTouchStart}
@@ -2852,6 +2884,11 @@ export default function ServilletaPage() {
           </section>
 
         </div>
+
+        {/* LA EXPLICACIÓN EN TEXTO (8 oct 2026) — fuera del deck-container a propósito:
+            ahí no la alcanzan el clic que avanza ni el swipe, y Google la lee sin
+            interacción. Lleva el único <h1> de la página. Ver GuiaPlanServilleta.tsx */}
+        <GuiaPlanServilleta />
 
         {/* MODAL BOLETÍN — OPCIÓN 2 del cierre (Slide 4): puerta de entrada suave */}
         <SubscribeModal isOpen={subscribeOpen} onClose={() => setSubscribeOpen(false)} />

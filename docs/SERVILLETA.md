@@ -32,6 +32,17 @@ Estructura de las 4 slides (**estado 2 ago 2026**): **01 EL PROBLEMA** (portada 
 
 ⚠️ **Léxico**: el deck v6.2 ya está migrado al registro accesible. El copy "Abr 2026" que vivía aquí (PATRIMONIO PARALELO, Base Operativa, UNIDAD DE SUMINISTRO, "tecnología nutricional") es **léxico retirado** — no reintroducir (ver [BRANDING.md §7](../BRANDING.md#7-léxico-queswa--vocabulario-canónico-aprobado--prohibido)).
 
+## La explicación en texto, debajo del deck (8 oct 2026)
+
+[GuiaPlanServilleta.tsx](../src/app/servilleta/GuiaPlanServilleta.tsx) es una sección de texto que va **debajo** del `deck-container`: qué es el plan servilleta, las cuatro pantallas, el Binario y el GEN5 con su nombre en el plan, las cuatro formas de empezar, cómo leer el simulador y unas preguntas frecuentes. Existe para que Google sepa de qué trata la página: el deck le daba unas 260 palabras sin «servilleta» y sin `<h1>`, y la página se quedaba en el puesto 6–7 de «plan servilleta gano excel» (investigación: `reports/Plan servilleta top 3 Google.md`).
+
+- ⚠️ **Lleva el ÚNICO `<h1>` de la página.** Las portadas del deck son `<h2>`; un `<h1>` en una diapositiva deja la página con dos.
+- **No aparece al presentar:** se oculta en pantalla completa y en el modo kiosco (el iframe del modo vertical). Al bajar a leerla, la barra, la navegación móvil y el contador del deck se esconden y los clips se pausan (`leyendo-guia` en `page.tsx`).
+- Su botón abre **Queswa en WhatsApp** (decisión del Director): quien llega desde Google lee solo y la conversación le queda en el teléfono. El botón «PREGÚNTALE ALGO EN VIVO» del deck sigue abriendo el chat de la página, que es la demostración en vivo.
+- Sin precios ni montos de comisión: los precios viven en `/paquetes` y las cifras en el simulador, cuya nota («un ejemplo del cálculo, no un ingreso esperado») va aquí y no en el panel, porque el Director retiró esa letra pequeña del panel el 2 ago 2026.
+- La fecha «Actualizada» se cambia **solo con cambios reales** de la página; el título conserva «2026» y se revisa en diciembre.
+- `/12-niveles` (copia del deck, `noindex`) **no** lleva esta sección: no compite en Google.
+
 ## Arquitectura Mobile (Abr 2026 — no revertir)
 
 **Slides 1 y 2**: Grid de 3 tarjetas (`.card-industrial`). **Desde jun 2026 el fondo es un `<video>` 3D full-bleed** (ver [B-rolls 3D](#b-rolls-3d-en-slides-1-y-2-jun-2026)), no una imagen split:

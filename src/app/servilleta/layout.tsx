@@ -5,14 +5,51 @@
 
 import { Metadata } from 'next';
 
+const URL_PAGINA = 'https://creatuactivo.com/servilleta';
+const TITULO = 'Plan servilleta Gano Excel: presentación 2026';
+const DESCRIPCION =
+  'La presentación del plan servilleta de Gano Excel en una página, con un simulador del plan de compensación. Por CreaTuActivo, distribuidores independientes.';
+
+// Datos estructurados propios de la página (8 oct 2026). Gano Excel va en `about`
+// —de qué trata la página—, nunca como autor ni editor: la publica CreaTuActivo.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${URL_PAGINA}#webpage`,
+      url: URL_PAGINA,
+      name: TITULO,
+      description: DESCRIPCION,
+      inLanguage: 'es',
+      dateModified: '2026-10-08',
+      publisher: { '@id': 'https://creatuactivo.com/#organization' },
+      about: { '@type': 'Organization', name: 'Gano Excel' },
+      breadcrumb: { '@id': `${URL_PAGINA}#breadcrumb` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${URL_PAGINA}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://creatuactivo.com' },
+        { '@type': 'ListItem', position: 2, name: 'Plan servilleta', item: URL_PAGINA },
+      ],
+    },
+  ],
+};
+
 // SEO Metadata optimizado para búsquedas de "Plan Servilleta Gano Excel"
 export const metadata: Metadata = {
-  title: 'Plan Servilleta Digital 2026 | Calculadora de Compensación Gano Excel',
+  // 8 oct 2026 (Director): «presentación» es la palabra de las búsquedas donde no
+  // aparecíamos, y el año se conserva porque el autocompletado lo sugiere — a
+  // cambio, el cuerpo dice cuándo se actualizó (GuiaPlanServilleta.tsx) y se revisa
+  // de verdad en diciembre. 60 caracteres con el « | CreaTuActivo» de la plantilla.
+  title: TITULO,
   // 8 oct 2026 (Director): sin «oficial» —un distribuidor no se presenta como la
   // página de la marca, mismo criterio que retiró /paises/brasil— y sin «proyección
   // de ingresos», que Google ya citaba en su respuesta de IA («para calcular
   // proyecciones»). Investigación: reports/Plan servilleta top 3 Google.md
-  description: 'La presentación del plan servilleta de Gano Excel en una página, con un simulador del plan de compensación. Por CreaTuActivo, distribuidores independientes.',
+  description: DESCRIPCION,
 
   keywords: [
     'plan servilleta',
@@ -41,7 +78,8 @@ export const metadata: Metadata = {
 
   // OpenGraph para WhatsApp/redes sociales
   openGraph: {
-    title: 'Plan Servilleta Digital 2026 | CreaTuActivo',
+    title: TITULO,
+    url: URL_PAGINA,
     description: 'La presentación del plan servilleta de Gano Excel, con un simulador del plan de compensación. Por CreaTuActivo, distribuidores independientes.',
     type: 'website',
     locale: 'es_CO',
@@ -58,7 +96,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Plan Servilleta Digital 2026',
+    title: TITULO,
     description: 'La presentación del plan servilleta de Gano Excel, por CreaTuActivo, distribuidores independientes.',
   },
 
@@ -72,6 +110,11 @@ export default function ServilletaLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {children}
+    </>
+  );
 }
 

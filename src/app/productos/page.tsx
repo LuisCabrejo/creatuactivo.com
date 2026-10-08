@@ -2,7 +2,18 @@
  * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
- * CATÁLOGO BIO-INTELIGENTE - Clinical Luxury Edition v1.0
+ * CATÁLOGO GANO EXCEL — base visual «Clinical Luxury» v1.0 (feb 2026)
+ *
+ * El inicio de la página se reescribió el 8 oct 2026 (Director, auditoría de la Home):
+ * era de febrero y de junio, y la limpieza de salud del 22 ago revisó las fichas pero
+ * no llegó aquí. Salieron «cuida su salud» (promesa de mejora de salud: la prohíben las
+ * políticas de Gano Excel para afiliados, 2023 §49.B), «más de 200 nutrientes que su
+ * cuerpo aprovecha» (cifra sin fuente + absorción), «Catálogo Oficial» (un distribuidor
+ * no se presenta como la página oficial de la marca — mismo motivo que retiró
+ * /paises/brasil), «Nutrición Celular» y «Bio-Inteligente» (mecanismo celular y jerga),
+ * «Cada Día» (el marco de consumo diario) y «Cuéntele cómo se siente» (invitaba a
+ * narrar síntomas). Lo que queda es lo que se puede decir sin trámite: composición, lo
+ * sensorial y lo institucional (docs/investigaciones/resultados/SALUD_CLAIMS_SINTESIS_SEP2026.md §5).
  * Estética: Pharma-Teal + Bio-Emerald (Lab/Clinical spectrum)
  * Geometría: Hard Surface (ZERO border-radius)
  *
@@ -876,9 +887,9 @@ export default function CatalogoEstrategico() {
             INDUSTRIAL HEADER - Clinical Biolab
             ═══════════════════════════════════════════════════════════════ */}
         <IndustrialHeader
-          title="CATÁLOGO BIO-INTELIGENTE"
-          subtitle="Nutrición Celular con Ingeniería de Extracción"
-          refCode="CLINICAL_CATALOG_V1"
+          title="CATÁLOGO GANO EXCEL"
+          subtitle="Café, bebidas, suplementos y cuidado personal con Ganoderma, con su precio en pesos"
+          refCode="CATALOGO_2026"
           imageSrc="/images/servilleta/producto-cafe-wide.webp"
           imageAlt="Taza de café servida sobre una encimera oscura"
           imageTone="warm"
@@ -1344,22 +1355,24 @@ export default function CatalogoEstrategico() {
                 fontFamily: "var(--font-mono)",
               }}
             >
-              Catálogo Oficial Gano Excel
+              22 productos · cuatro líneas
             </span>
           </div>
 
+          {/* Un escalón menos que antes (8 oct 2026): eran tres palabras y ahora es una
+              frase completa; a 6xl ocupaba todo el ancho y pesaba más que el titular. */}
           <h2
-            className="text-4xl md:text-6xl font-serif font-bold mb-4"
-            style={{ color: C.textMain }}
+            className="text-3xl md:text-5xl font-serif font-bold mb-4 mx-auto text-balance"
+            style={{ color: C.textMain, maxWidth: '20em' }}
           >
-            Siéntase Bien <span style={{ color: C.bioEmerald }}>Cada Día</span>
+            Lo prueba, nota la diferencia y <span style={{ color: C.bioEmerald }}>vuelve a pedir el mismo</span>.
           </h2>
 
           <p
             className="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed"
             style={{ color: C.textMuted }}
           >
-            Imagine empezar su mañana con un café que además de despertarlo, cuida su salud. Nuestros productos tienen el poder del hongo <span style={{ color: C.bioEmerald }}>Ganoderma</span>: más de 200 nutrientes naturales que su cuerpo aprovecha fácilmente.
+            Café, bebidas y suplementos premium de bienestar, con <span style={{ color: C.bioEmerald }}>Ganoderma</span>. El café y las bebidas se disuelven por completo en el agua: no se queda nada en el fondo de la taza. Los fabrica y los despacha Gano Excel, con 30 años y presencia en más de 60 países.
           </p>
 
           {/* CTA al asesor de salud y bienestar — abre Queswa (modo asesor vía pageContext catalogo_productos) */}
@@ -1374,7 +1387,7 @@ export default function CatalogoEstrategico() {
               <span>Pregúntele a Queswa, su asesor de bienestar →</span>
             </button>
             <p className="text-sm max-w-md" style={{ color: C.textMuted }}>
-              ¿No sabe cuál elegir? Cuéntele cómo se siente y le recomienda los productos ideales para usted, sin compromiso.
+              ¿No sabe cuál elegir? Cuéntele qué le gusta tomar —café, té o chocolate— y le ayuda a escoger, sin compromiso.
             </p>
           </div>
 

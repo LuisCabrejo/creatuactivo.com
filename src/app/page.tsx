@@ -1,6 +1,13 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * Homepage v18.1 (8 oct 2026, mismo día) · aprobada por el Director en el chat
+ *
+ * Dos líneas de texto: la recompra en la forma de WHY_02 (el cliente compra, usted
+ * recibe: «cada vez que lo pide, a usted le queda un porcentaje») y el pie de la foto
+ * del portafolio sin «registro INVIMA», confirmado en 19 de los 22. Detalle junto a
+ * cada una.
+ *
  * Homepage v18 — «Un solo eje» (8 oct 2026) · aprobada por el Director desde /prueba
  *
  * Mismo texto que la v17, palabra por palabra. Cambia la ESTRUCTURA, tras la auditoría
@@ -685,12 +692,17 @@ export default function HomePage() {
         <Body mt>
           {/* 25 sep 2026 (auditoría de naming): entra el diferencial dicho como
               mecanismo — el cliente queda a su nombre — y sale «cuando se le acaba»,
-              el marco del agotamiento que la doctrina de la recompra prohíbe. */}
+              el marco del agotamiento que la doctrina de la recompra prohíbe.
+              8 oct 2026: «esa compra también le paga a usted» → «cada vez que lo pide, a
+              usted le queda un porcentaje». Es la forma de WHY_02: el cliente es quien
+              compra; usted, quien recibe — la compra no es la que paga. «Lo pide» y no
+              «vuelve a comprar», para no sumar un tercer «vuelve». El eco con el párrafo
+              de arriba es a propósito: allá la regla, aquí la regla repitiéndose. */}
           Y lo que casi nadie ve a la primera: <Strong>cada cliente que llega por su
           enlace queda a su nombre</Strong>. El que nota la diferencia no vuelve al
-          producto genérico: vuelve a pedir el mismo, y esa compra también le paga a
-          usted. Ahí es donde el ingreso deja de depender de su presencia y empieza a
-          depender de cuántos clientes ya están consumiendo.
+          producto genérico: vuelve a pedir el mismo, y cada vez que lo pide, a usted le
+          queda un porcentaje. Ahí es donde el ingreso deja de depender de su presencia y
+          empieza a depender de cuántos clientes ya están consumiendo.
         </Body>
 
         {/* La ecuación: producto + fábrica = porcentaje. Proceso en titanio, resultado
@@ -933,8 +945,11 @@ export default function HomePage() {
                 border: '1px solid rgba(255,255,255,0.1)',
               }}
             />
+            {/* 8 oct 2026: decía «Los 22 productos · registro INVIMA», y el registro está
+                confirmado en 19 (faltan el Clásico, las cápsulas y el Excellium; la
+                máquina no lo necesita) — SALUD_CLAIMS_SINTESIS_SEP2026.md §4. */}
             <figcaption style={{ ...etiquetaMono, marginTop: '0.75rem', textAlign: 'center' }}>
-              Los 22 productos · registro INVIMA
+              Los 22 productos de Gano Excel
             </figcaption>
           </figure>
         </div>

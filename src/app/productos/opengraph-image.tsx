@@ -8,7 +8,9 @@ import { ImageResponse } from 'next/og'
 import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
-export const alt = 'Catálogo de Productos - Infraestructura Bioactiva Global'
+// Mismo texto que el inicio de /productos (8 oct 2026): salen «Infraestructura Bioactiva»
+// y «200+ Fitonutrientes», la cifra sin fuente que también salió de la página.
+export const alt = 'Catálogo Gano Excel: café, bebidas, suplementos y cuidado personal con Ganoderma'
 export const size = {
   width: 1200,
   height: 630,
@@ -62,7 +64,7 @@ export default async function Image() {
             borderRadius: 100,
           }}
         >
-          Infraestructura Global
+          22 productos · cuatro líneas
         </div>
 
         {/* Título principal */}
@@ -94,7 +96,7 @@ export default async function Image() {
             marginTop: 20,
           }}
         >
-          Extracto exclusivo de Ganoderma Lucidum · 200+ Fitonutrientes
+          Café, bebidas, suplementos y cuidado personal con Ganoderma
         </div>
 
         {/* Footer */}

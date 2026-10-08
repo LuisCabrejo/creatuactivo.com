@@ -516,6 +516,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.67 — `NET_01` da la bienvenida a quien viene de otra compañía (8 oct 2026)
+
+Aprobado por el Director en el chat. Caso Aldo Moller (6 oct 2026): escribió *«ya soy distribuidor o socio. tengo mi codigo»* y Queswa no supo si era de otro equipo de Gano Excel, de otra compañía o alguien que tuvo código. Quedan tres respuestas distintas: quien es de **otra compañía** es bienvenido y recibe `NET_01`, que ahora abre *«Usted ya conoce el mercadeo en red, y aquí eso suma»*; quien **tuvo** código de Gano Excel recibe `NET_02`; y quien está **activo en Gano Excel con otro equipo** lo atiende el nodo 2.51 del conductor (`src/lib/queswa-conductor.ts`) con el texto aprobado, sin capacitarlo, sin guiarlo y sin venderle: entre líneas de Gano Excel se respeta el equipo de cada quien. Si no dice de qué compañía es, el nodo le pregunta *«¿Su código es de Gano Excel?»*. El índice y el título de `NET_01` no cambian.
+
 ### v6.66 — `WHY_PROD_01` afirma la composición sin cifra (8 oct 2026)
 
 Aprobado por el Director en el chat, tras auditar el inicio de `/productos`. El candado de `WHY_PROD_01` —Queswa lo sirve literal, sin modelo, a quien pregunta qué se vende— llevaba la cifra del Ganoderma como *nutrientes*. `CIENCIA_02` fija la única forma en que esa cifra se dice (variantes de triterpenos identificadas en el hongo: dato de composición), porque la categoría nutricional está regulada y exige tabla que la respalde; y en una respuesta de negocio la cifra no hace falta.

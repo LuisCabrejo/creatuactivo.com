@@ -145,12 +145,13 @@ import {
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
   destinatarioDe, origenDeLlegada, avisarLlegada, avisarSiRegresa, revisarDestacado,
-  detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb,
+  detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb, pushAlDashboard,
 } from '@/lib/wa-avisos-contexto';
 import { nombrePais, paisDeContactoWA } from '@/lib/paises';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
   slugDelSocio, textoDeCandado, paisDeTelefono, preguntaPorModoWaze, atenderModoWaze,
+  atenderDistribuidorActivo, esSocioNuestroPorNombre,
 } from '@/lib/queswa-conductor';
 
 export const runtime = 'nodejs';
@@ -1908,6 +1909,51 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, texto);
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.22 invitación al Centro de Mando');
         console.log(`🏛️ [WA Webhook] 2.22 el socio /${socioQueEscribe.slug} pide ${motivo} — invitado al Centro de Mando${_yaInvitado ? ' (insiste)' : ''}`);
+        return;
+      }
+    }
+
+    // ─── 2.51 Quien ya es distribuidor (8 oct 2026, caso Aldo Moller) ─────────
+    // De otro equipo de Gano Excel, o de este con un número que no se reconoce.
+    // Va antes de los demás nodos: el «sí» a «¿Su código es de Gano Excel?» es
+    // suyo, y otro nodo podría leerlo como aceptación de otra cosa. Otra compañía
+    // y el código viejo siguen a sus respuestas del arsenal (NET_01 y NET_02).
+    {
+      const nodoDistribuidor = await atenderDistribuidorActivo({
+        mensaje:         messageText ?? '',
+        historial,
+        yaMarcado:       existingProspect?.device_info?.distribuidor_otro_equipo === true,
+        socioQueEscribe: !!socioQueEscribe,
+        esSocioNuestro:  (nombre) => esSocioNuestroPorNombre(supabase, nombre),
+      });
+      if (nodoDistribuidor?.texto) {
+        await sendWhatsAppMessage(phoneNumber, nodoDistribuidor.texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, nodoDistribuidor.texto, nodoDistribuidor.nodo);
+        if (nodoDistribuidor.marcarFicha) {
+          await (supabase as any).rpc('update_prospect_data', { // eslint-disable-line @typescript-eslint/no-explicit-any
+            p_fingerprint_id: waFingerprint, p_data: nodoDistribuidor.marcarFicha, p_constructor_id: undefined,
+          });
+        }
+        if (nodoDistribuidor.avisarAlEquipo) {
+          waitUntil(pushAlDashboard(
+            process.env.EQUIPO_CONSTRUCTOR_ID || 'luis-cabrejo-1288',
+            nodoDistribuidor.avisarAlEquipo.titulo,
+            `${contactName && contactName !== 'Constructor' ? `${contactName} · ` : ''}${nodoDistribuidor.avisarAlEquipo.cuerpo}`,
+          ));
+        }
+        // Que ya es distribuidor de Gano Excel también es noticia para el socio
+        // o el equipo: el aviso de «vale la pena» lo lee de la ficha recién marcada.
+        if (nodoDistribuidor.marcarFicha?.distribuidor_otro_equipo === true) {
+          waitUntil(revisarDestacado(supabase, {
+            dest: destinatarioDe(patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id)),
+            fingerprint: waFingerprint,
+            nombre: contactName,
+            contacto: phoneNumber,
+            historial,
+            mensaje: messageText ?? '',
+          }));
+        }
+        console.log(`🧭 [WA Webhook] ${nodoDistribuidor.nodo} — dictado por el conductor`);
         return;
       }
     }

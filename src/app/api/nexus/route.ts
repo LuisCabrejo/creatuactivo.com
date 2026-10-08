@@ -44,11 +44,13 @@ import { gestionarCierre, CLAVES_CANAL, CLAVES_WEB } from '@/lib/wa-radicacion';
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, atenderCubrirCompra, fotoParaWeb, aFormatoWeb,
+  atenderDistribuidorActivo, esSocioNuestroPorNombre,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO,
   atenderModoWaze,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
+import { pushAlDashboard } from '@/lib/wa-avisos-contexto';
 import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
 import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto, quitarElogioInicial } from '@/lib/queswa-envoltura';
 import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
@@ -4980,6 +4982,16 @@ ${summaryParts.join('\n')}
           p_constructor_id: _socioUUID || undefined,
         }).then(({ error }: any) => { if (error) console.warn('⚠️ [Conductor web] No se marcó el hilo:', error); });
       }
+      if (nodo.marcarFicha && fingerprint) {
+        getSupabaseClient().rpc('update_prospect_data', {
+          p_fingerprint_id: fingerprint,
+          p_data: nodo.marcarFicha,
+          p_constructor_id: _socioUUID || undefined,
+        }).then(({ error }: any) => { if (error) console.warn('⚠️ [Conductor web] No se marcó la ficha:', error); });
+      }
+      if (nodo.avisarAlEquipo) {
+        await pushAlDashboard(process.env.EQUIPO_CONSTRUCTOR_ID || 'luis-cabrejo-1288', nodo.avisarAlEquipo.titulo, nodo.avisarAlEquipo.cuerpo);
+      }
       console.log(`🧭 [Conductor web] ${nodo.nodo} — dictado sin modelo`);
       if (sessionId && fingerprint) {
         logConversationHibrida(latestUserMessage, texto, ['CONDUCTOR_DICTADO'], 'conductor_web', sessionId, fingerprint, prospectData)
@@ -5033,6 +5045,17 @@ ${summaryParts.join('\n')}
         tenant:              tenantId,
       });
       if (_nodoHilo) return _entregarDictado(_nodoHilo);
+
+      // 2.51 — quien ya es distribuidor: de otro equipo de Gano Excel, o de
+      // este con un número que no se reconoce (8 oct 2026, caso Aldo Moller).
+      const _nodoDistribuidor = await atenderDistribuidorActivo({
+        mensaje:         latestUserMessage,
+        historial:       _historialWeb,
+        yaMarcado:       (existingProspectData as any)?.distribuidor_otro_equipo === true,
+        socioQueEscribe: false,
+        esSocioNuestro:  (nombre) => esSocioNuestroPorNombre(getSupabaseAdmin(), nombre),
+      });
+      if (_nodoDistribuidor) return _entregarDictado(_nodoDistribuidor);
 
       // 2.46 → 2.48 — hablar con una persona · el envío · las sedes.
       const _nodoSocio = await atenderSocio({
@@ -7114,8 +7137,20 @@ La persona vive en ${_bitacora.residencia.pais}, fuera de su país. Así funcion
 • Los precios y los paquetes van en la moneda del país de registro, con las cifras del material.
 </persona_en_el_exterior>` : '';
 
+// ── Distribuidor activo de otro equipo de Gano Excel (8 oct 2026) ────────────
+// Lo marca el nodo 2.51 del conductor. Entre líneas de Gano Excel se respeta el
+// equipo de cada quien (Director): a Aldo Moller el modelo le siguió vendiendo
+// hasta confirmarle el ESP-3. Escrito en positivo, sin nombrar lo que no se hace.
+const _instruccionDistribuidorOtroEquipo = pageContext !== 'whatsapp_socio'
+  && (existingProspectData as any)?.distribuidor_otro_equipo === true ? `
+<distribuidor_de_otro_equipo>
+La persona ya es distribuidora activa de Gano Excel con otro equipo, y ese equipo es su casa.
+• Respóndale con datos lo que pregunte: los productos, la compañía, cómo funciona el plan.
+• Cierre sin pregunta: los siguientes pasos los propone la persona.
+</distribuidor_de_otro_equipo>` : '';
+
 const sessionInstructions = `
-${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}${_instruccionHiloDoceNiveles}${_instruccionDiaspora}
+${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}${_instruccionHiloDoceNiveles}${_instruccionDiaspora}${_instruccionDistribuidorOtroEquipo}
 ${visitorCountry ? `🌎 UBICACIÓN DEL VISITANTE (estimada por IP/teléfono, best-effort): ${COUNTRY_NAMES[visitorCountry] || visitorCountry}. Aplica la regla de cotización en su moneda local. Si el usuario menciona que vive o se registrará en otro país (caso diáspora), ESE país define su moneda y sus reglas de registro — confírmalo, no asumas por la ubicación detectada.` : ''}
 ${marchaInteres ? `🌉 PUENTE SUAVE (Marcha 2 — interés sin decisión): el usuario mostró interés en un paquete o preguntó por el proceso, pero NO declaró que quiere iniciar. (1) Responde con SUSTANCIA lo que preguntó —contenido del paquete, cómo se gana con él, los pasos— usando el contexto del arsenal. (2) CIERRA con un puente suave, sin pedir datos ni asumir compra: "Cuando quiera dar el paso, coordinamos su activación. Si prefiere, seguimos viendo lo que necesite." PROHIBIDO pedir nombre o WhatsApp en este turno. PROHIBIDO decir "lo registramos". Espera una señal clara de intención antes de avanzar al registro.` : ''}
 ${getPageContextInstructions()}

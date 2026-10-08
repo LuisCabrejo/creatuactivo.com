@@ -107,6 +107,10 @@ export interface RespuestaConductor {
    * para el respaldo si Meta no acepta el video.
    */
   video?: { url: string; entrada: string };
+  /** Lo que el nodo deja anotado en la ficha (`update_prospect_data`). */
+  marcarFicha?: Record<string, unknown>;
+  /** Push al equipo en el Dashboard (wa-avisos-contexto.ts, `pushAlDashboard`). */
+  avisarAlEquipo?: { titulo: string; cuerpo: string };
 }
 
 // ─── País ─────────────────────────────────────────────────────────────────────
@@ -774,6 +778,163 @@ export function atenderPidePieza(mensaje: string, ultimoBot = ''): RespuestaCond
   // La repregunta sin verbo, justo después de la negativa.
   if (ultimoBot.startsWith(TEXTO_NO_PIEZAS.slice(0, 40)) && RE_NOMBRA_PIEZA.test(mensaje || '')) {
     return { nodo: '2.49 pide una pieza publicitaria (repregunta)', texto: TEXTO_NO_PIEZAS_OTRA_VEZ };
+  }
+  return null;
+}
+
+// ─── 2.51 Quien ya es distribuidor (8 oct 2026) ──────────────────────────────
+//
+// Tres personas distintas dicen casi lo mismo, y Queswa las confundía:
+//   · quien está ACTIVO en Gano Excel con otro equipo — entre líneas de Gano se
+//     respeta el equipo de cada quien: no se le capacita, no se le guía y no se
+//     le venden paquetes (Director, 8 oct 2026);
+//   · quien TUVO código de Gano Excel y quiere reactivarlo — NET_02, por su puerta;
+//   · quien es distribuidor de OTRA compañía — bienvenido: NET_01, por la puerta
+//     de las marcas.
+// Aldo Moller (6 oct 2026) escribió «ya soy distribuidor o socio. tengo mi
+// codigo» sin decir de qué compañía; el modelo supuso, le siguió vendiendo y
+// terminó confirmándole el ESP-3. Si no lo dice, se le pregunta.
+//
+// Los textos los aprobó el Director el 8 oct 2026. Del primero quitó a propósito
+// una frase sobre no capacitar a otros equipos: «la frase debe ser más amable».
+// Ese respeto se cumple en el comportamiento (`distribuidor_otro_equipo` en la
+// ficha, que el motor lee), no se anuncia.
+
+export const TEXTO_CODIGO_DE_QUE_COMPANIA =
+  'Qué bueno: entonces ya conoce el mercadeo en red por dentro.\n\n¿Su código es de Gano Excel?';
+
+export const TEXTO_DISTRIBUIDOR_GANO =
+  'Qué bueno: entonces ya conoce Gano Excel por dentro, y sabe que los productos y la empresa son reales.\n\n¿Qué inquietud quiere que le ayude a resolver?';
+
+export const TEXTO_CAMBIO_DE_EQUIPO =
+  'Los cambios de equipo los define Gano Excel con sus propias reglas, y esa conversación es entre usted y la oficina de Gano Excel de su país.\n\n'
+  + 'Si en algún momento queda libre de elegir equipo y decide conocer el nuestro, aquí tiene las puertas abiertas.';
+
+/**
+ * Un socio NUESTRO que escribe desde un número que Queswa no reconoce (Director,
+ * 8 oct 2026). No se le manda a vincular el WhatsApp: el Director retiró ese
+ * botón de queswa.app el 13 sep 2026 —el socio habla con Queswa dentro de la app,
+ * y WhatsApp es la vía de sus prospectos—. Al equipo le llega un aviso por si hay
+ * que atar ese número a su cuenta (`scripts/vincular-huella-a-socio.mts`).
+ */
+export const TEXTO_SOCIO_NO_RECONOCIDO =
+  'Qué bien: entonces es del equipo. Como socio, me encuentra en queswa.app con su cuenta: ahí ya sé quién es y tengo más herramientas para usted.';
+
+export const TEXTO_CAPACITACION_OTRO_EQUIPO =
+  'Eso se lo acompaña mejor su propio equipo, que conoce su caso. Aquí con gusto le resuelvo lo de los productos y lo de la compañía.';
+
+/** Otras compañías de mercadeo en red. La misma lista de la puerta de NET_01, más algunas. */
+export const RE_OTRA_COMPANIA = /herbalife|amway|omnilife|4\s?life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b|\bnatura\b|\bavon\b|jeunesse|isagenix|young\s+living|doterra|forever\s+living|nu\s?skin|usana|unicity|mary\s+kay|arbonne|melaleuca/i;
+const RE_GANO = /\bg(?:[aá]n+|na)o\b|gano\s*excel|ganoexcel/i;
+// Pasado: lo atiende NET_02 (reactivar).
+const RE_CODIGO_PASADO = /\b(tuve|ten[ií]a|fui|estuve|hice)\b[^.?]{0,30}\b(c[oó]d[ií]go|distrib|gano)|reactiv/i;
+// Quien acaba de radicar pregunta «¿cuándo tengo mi código?»: eso no es tenerlo.
+export const RE_TENGO_CODIGO = /(?<!(cu[aá]ndo|c[oó]mo|d[oó]nde|qu[eé]|ya)\s+)\bt(?:[eé]n+g?|neg)o\s+(mi|un|el)\s+c(?:[oó]d+[ií]?g|do[ií]g)o\b/i;
+// «Soy distribuidor» SOLO, sin un «de alimentos» detrás: el que distribuye otros
+// productos no es de esta conversación.
+const RE_SOY_DISTRIBUIDOR_SOLO = /\b(ya\s+)?soy\s+(distrib[a-z]*|soci[oa])(?=\s*(?:[.,;!]|$|\s+o\s+|\s+y\s+))/i;
+// Activo en Gano Excel, dicho con la compañía.
+export const RE_ACTIVO_EN_GANO = /\b(ya\s+)?(soy|estoy|trabajo|milito)\s+(distrib[a-z]*\s+|soci[oa]\s+|activ[oa]\s+)?(de|en|con)\s+g(?:[aá]n+|na)o\b|\b(tengo|manejo)\s+(mi\s+|un\s+)?(c(?:[oó]d+[ií]?g|do[ií]g)o|equipo|red|l[ií]nea)\s+(de|en|con)\s+g(?:[aá]n+|na)o\b|\bc(?:[oó]d+[ií]?g|do[ií]g)o\s+(es\s+)?de\s+g(?:[aá]n+|na)o\b|\botro\s+equipo\s+de\s+g(?:[aá]n+|na)o\b|\bg(?:[aá]n+|na)o\b[^.?]{0,25}\botro\s+equipo\b/i;
+export const RE_CAMBIO_DE_EQUIPO = /\b(cambiar(me)?|p(?:[aá]s+|sa)a?r(me)?|trasladar(me)?|mover(me)?)\s+(de|a|al|a\s+su|a\s+tu|a\s+este)\s+(equipo|l[ií]nea|patrocinador)|\bcambio\s+de\s+(equipo|l[ií]nea|patrocinador)\b|\bme\s+puedo\s+(pasar|cambiar)\s+(a|al|de|con)\b/i;
+// Dice que es de NUESTRO equipo. «creatuactivo» o Luis bastan; otro nombre se
+// verifica contra los socios (`esSocioNuestro`): «soy del equipo de Juan» puede
+// ser de otra línea.
+const RE_DE_LA_CASA = /creatu\s*activo|\b(equipo|l[ií]nea|grupo)\s+de\s+luis\b|\bcabrejo\b|\bsoy\s+(soci[oa]|distrib[a-z]*)\s+de\s+ustedes\b|\bsoy\s+de\s+ustedes\b|\b(de|en)\s+(este|su)\s+(mismo\s+)?equipo\b/i;
+const RE_NOMBRA_PATROCINADOR = /\b(?:equipo|l[ií]nea|grupo)\s+de\s+([\p{L}]+(?:\s+[\p{L}]+)?)|\bmi\s+patrocinador[a]?\s+(?:es\s+)?([\p{L}]+(?:\s+[\p{L}]+)?)|\bme\s+(?:inscribi[oó]|afili[oó]|vincul[oó]|patrocin[oó])\s+([\p{L}]+(?:\s+[\p{L}]+)?)/iu;
+const RE_PIDE_CAPACITACION = /capacit|ens[eé][ñn]|(c[oó]mo|qu[eé])\s+(hago|hacer|puedo\s+hacer|debo\s+hacer)\s+(para\s+)?(crecer|desarrollar|construir|armar|duplicar)|estrategia\s+para\s+(mi|crecer)|c[oó]mo\s+(recluto|consigo\s+(gente|distribuidores|socios))/i;
+
+/**
+ * ¿Este nombre es de un socio nuestro? Por el nombre visible de su canal, con las
+ * dos primeras palabras (la misma red de respaldo que `resolverPatrocinador`).
+ * Una sola palabra no alcanza: «Juan» es de todos.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function esSocioNuestroPorNombre(supabase: any, nombre: string): Promise<boolean> {
+  const limpio = (nombre || '').trim().split(/\s+/).slice(0, 2).join(' ');
+  if (limpio.split(' ').length < 2) return false;
+  try {
+    const { data } = await supabase.from('constructor_slugs').select('constructor_id').ilike('display_name', `${limpio}%`).limit(1);
+    return Array.isArray(data) && data.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+export interface ContextoDistribuidor {
+  mensaje: string;
+  historial: Turno[];
+  /** La ficha ya dice que es distribuidor activo de otro equipo de Gano Excel. */
+  yaMarcado: boolean;
+  socioQueEscribe?: boolean;
+  /** ¿Este nombre es de un socio nuestro? (display_name de constructor_slugs). */
+  esSocioNuestro?: (nombre: string) => Promise<boolean>;
+}
+
+/**
+ * 2.51 — quien ya es distribuidor. Devuelve el texto aprobado, o null para que
+ * siga el turno (otra compañía, código viejo o nada de esto).
+ */
+export async function atenderDistribuidorActivo(ctx: ContextoDistribuidor): Promise<RespuestaConductor | null> {
+  if (ctx.socioQueEscribe) return null;
+  const m = (ctx.mensaje || '').trim();
+  if (!m) return null;
+  const ultimoBot = [...ctx.historial].reverse().find((t) => t.role === 'assistant')?.content ?? '';
+  const marcar = { distribuidor_otro_equipo: true, distribuidor_otro_equipo_desde: new Date().toISOString() };
+
+  // 2.51e — es de NUESTRO equipo y su número no está registrado. Se mira cuando
+  // el hilo ya va por aquí (se le preguntó o se le respondió como distribuidor),
+  // o cuando lo dice de entrada con creatuactivo o con Luis.
+  const enEsteHilo = ctx.yaMarcado || /¿Su código es de Gano Excel\?|ya conoce Gano Excel por dentro/.test(ultimoBot);
+  if (enEsteHilo || /creatu\s*activo/i.test(m)) {
+    let deLaCasa = RE_DE_LA_CASA.test(m);
+    const nombrado = RE_NOMBRA_PATROCINADOR.exec(m);
+    const nombre = (nombrado?.[1] || nombrado?.[2] || nombrado?.[3] || '').trim();
+    if (!deLaCasa && nombre && ctx.esSocioNuestro) {
+      try { deLaCasa = await ctx.esSocioNuestro(nombre); } catch { /* sin respuesta: no se asume */ }
+    }
+    if (deLaCasa) {
+      return {
+        nodo: '2.51e dice ser socio nuestro (número no registrado)',
+        texto: TEXTO_SOCIO_NO_RECONOCIDO,
+        marcarFicha: { distribuidor_otro_equipo: false, dice_ser_socio: true },
+        avisarAlEquipo: {
+          titulo: '🪪 Dice ser socio y su número no está registrado',
+          cuerpo: `Escribió: «${m.slice(0, 140)}». Si es socio, vincule ese número a su cuenta.`,
+        },
+      };
+    }
+  }
+
+  // 2.51c — el cambio de equipo: lo define Gano Excel, y la decisión es suya.
+  if (RE_CAMBIO_DE_EQUIPO.test(m)) return { nodo: '2.51c pregunta por cambiarse de equipo', texto: TEXTO_CAMBIO_DE_EQUIPO };
+
+  // 2.51d — ya marcado como de otro equipo, pide que le enseñen a desarrollar su negocio.
+  if (ctx.yaMarcado && RE_PIDE_CAPACITACION.test(m)) {
+    return { nodo: '2.51d distribuidor de otro equipo pide capacitación', texto: TEXTO_CAPACITACION_OTRO_EQUIPO };
+  }
+
+  // Otra compañía o código viejo: tienen su respuesta en el arsenal.
+  if (RE_OTRA_COMPANIA.test(m) || RE_CODIGO_PASADO.test(m)) return null;
+
+  // 2.51b — la respuesta a «¿Su código es de Gano Excel?».
+  if (ultimoBot.includes('¿Su código es de Gano Excel?')) {
+    if (/^\s*no\b/i.test(m)) return null; // otra compañía: el motor y la puerta de las marcas
+    if (esAceptacion(m) || RE_GANO.test(m)) {
+      return { nodo: '2.51b su código es de Gano Excel', texto: TEXTO_DISTRIBUIDOR_GANO, marcarFicha: marcar };
+    }
+    return null;
+  }
+
+  // Ya se le respondió como distribuidor: no se repite la bienvenida.
+  if (ctx.yaMarcado || ctx.historial.some((t) => t.role === 'assistant' && t.content.includes('ya conoce Gano Excel por dentro'))) return null;
+
+  // 2.51a — activo en Gano Excel, dicho con la compañía.
+  if (RE_ACTIVO_EN_GANO.test(m)) return { nodo: '2.51a distribuidor activo de Gano Excel', texto: TEXTO_DISTRIBUIDOR_GANO, marcarFicha: marcar };
+
+  // 2.51 — dice que ya es distribuidor y no de qué compañía: se pregunta.
+  if (RE_TENGO_CODIGO.test(m) || RE_SOY_DISTRIBUIDOR_SOLO.test(m)) {
+    if (ctx.historial.some((t) => t.role === 'assistant' && t.content.includes('¿Su código es de Gano Excel?'))) return null;
+    return { nodo: '2.51 ya es distribuidor, ¿de qué compañía?', texto: TEXTO_CODIGO_DE_QUE_COMPANIA };
   }
   return null;
 }

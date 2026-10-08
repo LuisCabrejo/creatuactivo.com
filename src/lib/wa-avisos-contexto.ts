@@ -335,7 +335,7 @@ export async function avisarSiRegresa(
 // ─── 3. Destacado ────────────────────────────────────────────────────────────
 
 /** «Ya soy distribuidor», «tengo mi código»: distinto de NET_02, que es pasado. */
-export const RE_DISTRIBUIDOR_ACTIVO = /\b(ya\s+)?soy\s+(distribuidor|distribuidora|socio|socia|empresari[oa])\b|\btengo\s+(mi|un|el)\s+c[oó]digo\b|\bestoy\s+(activ[oa]\s+)?en\s+gano\b|\bsoy\s+de\s+gano\b|\btrabajo\s+con\s+gano\b/i;
+export const RE_DISTRIBUIDOR_ACTIVO = /\b(ya\s+)?soy\s+(distribuidor|distribuidora|socio|socia)\b|\btengo\s+(mi|un|el)\s+c[oó]digo\b|\bestoy\s+(activ[oa]\s+)?en\s+gano\b|\bsoy\s+de\s+gano\b|\btrabajo\s+con\s+gano\b/i;
 
 export type TipoSenal = 'distribuidor' | 'paises' | 'paquete';
 
@@ -343,24 +343,27 @@ export interface Senales {
   tipos: TipoSenal[];
   paises: string[];
   paquete?: string;
+  /** El nodo 2.51 confirmó que su código es de Gano Excel, con otro equipo. */
+  otroEquipoGano?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function leerSenales(textosDeLaPersona: string[], di: Record<string, any> | null | undefined): Senales {
   const todo = textosDeLaPersona.join('\n');
   const tipos: TipoSenal[] = [];
-  const distribuidor = RE_DISTRIBUIDOR_ACTIVO.test(todo) || (typeof di?.occupation === 'string' && /distribuid|socio/i.test(di.occupation));
+  // El nodo 2.51 lo deja anotado: a «¿Su código es de Gano Excel?» basta un «sí».
+  const distribuidor = di?.distribuidor_otro_equipo === true || RE_DISTRIBUIDOR_ACTIVO.test(todo) || (typeof di?.occupation === 'string' && /distribuid|socio/i.test(di.occupation));
   if (distribuidor) tipos.push('distribuidor');
   const paises = paisesNombrados(todo).filter((p) => p !== 'Colombia');
   if (paises.length) tipos.push('paises');
   const paquete = typeof di?.package === 'string' && di.package ? di.package : undefined;
   if (paquete) tipos.push('paquete');
-  return { tipos, paises, paquete };
+  return { tipos, paises, paquete, otroEquipoGano: di?.distribuidor_otro_equipo === true };
 }
 
 function vinetasDeRespaldo(s: Senales): string[] {
   const v: string[] = [];
-  if (s.tipos.includes('distribuidor')) v.push('· Dice que ya es distribuidor de Gano Excel.');
+  if (s.tipos.includes('distribuidor')) v.push(s.otroEquipoGano ? '· Ya es distribuidor de Gano Excel, con otro equipo.' : '· Dice que ya es distribuidor.');
   if (s.paises.length) v.push(`· Le interesa ${s.paises.join(', ').replace(/, ([^,]*)$/, ' y $1')}.`);
   if (s.paquete) v.push(`· Eligió el ${s.paquete}.`);
   return v;

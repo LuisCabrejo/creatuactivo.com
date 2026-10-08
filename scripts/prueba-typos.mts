@@ -24,7 +24,7 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze } from '../src/lib/queswa-conductor.ts';
+import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze, RE_TENGO_CODIGO, RE_ACTIVO_EN_GANO, RE_CAMBIO_DE_EQUIPO } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
 import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
@@ -115,6 +115,11 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'Miguel Barahona, 3 oct 2026: si no dispara, el modelo compone que el equipo ya se lo envió' },
   { nombre: 'distribuidor del socio quiere activarse (2.225)', fn: (t) => detectarDistribuidorQuiereActivarse(t, ''), frase: 'tiene código conmigo y quiere trabajar', llaves: ['código', 'conmigo', 'quiere'], tope: 0,
     nota: 'Carolina, 3 oct 2026: si no dispara, su distribuidora recibe la invitación de frío con el enlace de prospecto' },
+  { nombre: 'ya tiene su código (2.51)', fn: (t) => RE_TENGO_CODIGO.test(t), frase: 'ya soy distribuidor, tengo mi codigo', llaves: ['tengo', 'codigo'], tope: 0,
+    nota: 'Aldo Moller, 6 oct 2026: si no dispara, Queswa supone la compañía y le vende el paquete' },
+  { nombre: 'activo en Gano con otro equipo (2.51a)', fn: (t) => RE_ACTIVO_EN_GANO.test(t), frase: 'estoy en gano con otro equipo', llaves: ['estoy', 'gano', 'equipo'], tope: 0 },
+  { nombre: 'cambiarse de equipo (2.51c)', fn: (t) => RE_CAMBIO_DE_EQUIPO.test(t), frase: 'me puedo pasar a su equipo', llaves: ['puedo', 'pasar', 'equipo'], tope: 0,
+    nota: 'si no dispara, el modelo compone la regla de traslado' },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

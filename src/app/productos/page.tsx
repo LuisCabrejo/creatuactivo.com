@@ -27,7 +27,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { ShoppingCart, X, Heart, Sparkles, Waves, Trophy, Send, Bot, Star, Zap, TrendingUp, Gift, Download, Coffee, Pill, Target, MessageCircle, Shield, Brain, Users, Rocket } from 'lucide-react'
+import { ShoppingCart, X, Heart, Sparkles, Waves, Trophy, Send, Bot, Star, Zap, TrendingUp, Gift, Download, Coffee, Pill, Target, MessageCircle, Users, Rocket, Handshake } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import { IndustrialHeader } from '@/components/IndustrialHeader'
 import Link from 'next/link'
@@ -1402,15 +1402,23 @@ export default function CatalogoEstrategico() {
                 marginBottom: '2rem',
               }}
             >
-              <Rocket className="h-4 w-4 mr-2 animate-pulse" style={{ color: C.bioEmerald }} />
+              {/* 8 oct 2026: decía «Especialista en bienestar», que le atribuye al socio un
+                  saber profesional de salud. «Distribuidor independiente» es la figura de la
+                  Ley 1700 y dice quién es — y quién no: no es la página oficial de la marca. */}
+              <Handshake className="h-4 w-4 mr-2" style={{ color: C.bioEmerald }} />
               <span style={{ color: C.textMuted }}>
-                Especialista en bienestar: <span className="font-bold" style={{ color: C.bioEmerald }}>{distributor.nombre}</span>
+                Distribuidor independiente: <span className="font-bold" style={{ color: C.bioEmerald }}>{distributor.nombre}</span>
               </span>
             </div>
           )}
         </div>
 
 {/* Nueva Sección: La Ventaja Competitiva - Clinical Luxury */}
+{/* 8 oct 2026: «la composición se afirma; la absorción no» (catalogo_productos.txt,
+    26 ago y 13 sep). Salen «Nutrición que su cuerpo realmente aprovecha», «su cuerpo
+    necesita poder absorberlos», «200+ nutrientes en cada producto» (la categoría
+    nutricional está regulada, y la máquina no lleva extracto) y «100% fácil de
+    absorber». Todo lo que queda está en CIENCIA_01 y CIENCIA_02. */}
 <section className="mb-16">
   <div className="text-center mb-12">
     <div
@@ -1437,14 +1445,14 @@ export default function CatalogoEstrategico() {
     </div>
 
     <h2
-      className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight"
-      style={{ color: C.textMain }}
+      className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight mx-auto text-balance"
+      style={{ color: C.textMain, maxWidth: '20em' }}
     >
-      Nutrición que Su Cuerpo <span style={{ color: C.bioEmerald }}>Realmente Aprovecha</span>
+      No basta con tener el ingrediente: <span style={{ color: C.bioEmerald }}>importa en qué forma llega a la taza</span>.
     </h2>
 
     <p className="text-lg max-w-4xl mx-auto" style={{ color: C.textMuted }}>
-      No basta con tener buenos ingredientes, su cuerpo necesita poder absorberlos. Nuestro extracto de Ganoderma se disuelve completamente, permitiendo que reciba todos sus beneficios en cada taza o cápsula.
+      El fundador de Gano Excel, un micólogo malasio que estudia este hongo desde 1983, reunió en un solo híbrido las seis variedades de mayor valor del Reishi y desarrolló un proceso propio para extraerlo. Ese extracto está en toda la línea: las bebidas, las cápsulas y el cuidado personal.
     </p>
   </div>
 
@@ -1461,13 +1469,13 @@ export default function CatalogoEstrategico() {
               className="group hover:scale-105 transition-all"
             >
               <div
-                className="text-5xl font-serif font-bold mb-2"
+                className="text-5xl font-serif font-bold mb-2 lining-nums"
                 style={{ color: C.bioEmerald }}
               >
                 200+
               </div>
-              <div className="font-semibold" style={{ color: C.textMain }}>Nutrientes Naturales</div>
-              <div className="text-sm mt-2" style={{ color: C.textDim }}>En cada producto</div>
+              <div className="font-semibold" style={{ color: C.textMain }}>Variantes de triterpenos</div>
+              <div className="text-sm mt-2" style={{ color: C.textDim }}>Identificadas en el Ganoderma</div>
             </div>
 
             <div
@@ -1481,13 +1489,13 @@ export default function CatalogoEstrategico() {
               className="group hover:scale-105 transition-all"
             >
               <div
-                className="text-5xl font-serif font-bold mb-2"
+                className="text-5xl font-serif font-bold mb-2 lining-nums"
                 style={{ color: C.bioEmerald }}
               >
                 100%
               </div>
-              <div className="font-semibold" style={{ color: C.textMain }}>Fácil de Absorber</div>
-              <div className="text-sm mt-2" style={{ color: C.textDim }}>Su cuerpo lo aprovecha completo</div>
+              <div className="font-semibold" style={{ color: C.textMain }}>Hidrosoluble</div>
+              <div className="text-sm mt-2" style={{ color: C.textDim }}>Se disuelve sin dejar residuo</div>
             </div>
 
             <div
@@ -1501,13 +1509,13 @@ export default function CatalogoEstrategico() {
               className="group hover:scale-105 transition-all"
             >
               <div
-                className="text-5xl font-serif font-bold mb-2"
+                className="text-5xl font-serif font-bold mb-2 lining-nums"
                 style={{ color: C.bioEmerald }}
               >
                 6
               </div>
-              <div className="font-semibold" style={{ color: C.textMain }}>Tipos de Ganoderma</div>
-              <div className="text-sm mt-2" style={{ color: C.textDim }}>Unidos en una fórmula única</div>
+              <div className="font-semibold" style={{ color: C.textMain }}>Variedades de Ganoderma</div>
+              <div className="text-sm mt-2" style={{ color: C.textDim }}>En un solo híbrido</div>
             </div>
           </div>
 
@@ -2287,62 +2295,42 @@ export default function CatalogoEstrategico() {
           </div>
         </section>
 
-        {/* Sección CTA Final: Construye su Sistema - Quiet Luxury */}
+        {/* Sección CTA Final — el puente al negocio (8 oct 2026, Director) */}
+        {/* Mostraba los tres paquetes con precio en dólares, nombres retirados
+            («Constructor», «Bono Tecnológico», «Plan Rascacielos») y un mensaje de
+            WhatsApp con «empresa digital». Chocaba con cuatro reglas: a Colombia se le
+            muestra solo en pesos, las formas de empezar son cuatro (el Kit al final),
+            «empresa digital» está retirado, y un precio escrito aquí envejece — el que da
+            Queswa lo calcula el sistema por país. Queda el puente: qué es y a quién
+            preguntarle. El botón abre la conversación GENERAL, no la de productos
+            (`contexto` en el evento, ver WhatsAppOrb). */}
         <section className="mb-16 mt-20">
           <div className="bg-[#16181D] border border-[#E5C279]/20  p-12 text-center">
-            <Shield className="w-16 h-16 text-[color:var(--color-brand)] mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[color:var(--color-text-primary)] mb-6">
-              ¿Le Interesa Emprender con Productos de Bienestar?
+              Estos mismos productos pueden ser su negocio.
             </h2>
             <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto mb-8">
-              Si desea conocer más sobre cómo estos productos pueden ayudarle, o le interesa compartirlos con otros, estamos aquí para ayudarle.
+              Quien los distribuye tiene su propio sistema de distribución: comparte un enlace, Queswa conversa con quien llega y usted recibe. Las cuatro formas de empezar, con su precio, se las muestra Queswa.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
-              <div className="bg-[#0B0C0C] border border-[#E5C279]/20  p-6">
-                <div className="text-2xl font-serif font-bold text-[color:var(--color-brand)] mb-2">Constructor Inicial</div>
-                <p className="text-[color:var(--color-text-primary)] font-semibold mb-2">$200 USD</p>
-                <p className="text-[#A3A3A3] text-sm">~$900.000 COP</p>
-                <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
-                <p className="text-[#6B7280] text-xs">2 meses cortesía Plan Cimiento</p>
-              </div>
-
-              <div className="bg-[#0B0C0C] border border-[#E5C279]/30  p-6">
-                <div className="text-2xl font-serif font-bold text-[color:var(--color-brand)] mb-2">Constructor Empresarial</div>
-                <p className="text-[color:var(--color-text-primary)] font-semibold mb-2">$500 USD</p>
-                <p className="text-[#A3A3A3] text-sm">~$2.250.000 COP</p>
-                <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
-                <p className="text-[#6B7280] text-xs">4 meses cortesía Plan Estructura</p>
-              </div>
-
-              <div className="bg-[#0B0C0C] border border-[#E5C279]/40  p-6">
-                <div className="text-2xl font-serif font-bold text-[color:var(--color-brand)] mb-2">Constructor Visionario</div>
-                <p className="text-[color:var(--color-text-primary)] font-semibold mb-2">$1,000 USD</p>
-                <p className="text-[#A3A3A3] text-sm">~$4.500.000 COP</p>
-                <p className="text-[#6B7280] text-xs mt-3">Bono Tecnológico incluido</p>
-                <p className="text-[#6B7280] text-xs">6 meses cortesía Plan Rascacielos</p>
-              </div>
-            </div>
-
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href={`https://wa.me/${(distributor?.whatsapp || '+573215193909').replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Me interesa conocer más sobre los Paquetes Constructor ESP y cómo puedo empezar mi empresa digital con CreaTuActivo.com')}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent('open-queswa', { detail: { contexto: 'general' } }))}
                 className="cta-base cta-primary"
                 style={{ padding: '1rem 2rem', fontSize: '1rem' }}
               >
                 <MessageCircle className="h-5 w-5" />
-                Quiero Ser Constructor
-              </a>
-
-              <button
-                onClick={() => window.open('https://creatuactivo.com/servilleta', '_blank')}
-                className="bg-[#0B0C0C] border border-[#E5C279]/30 text-[color:var(--color-text-primary)] px-8 py-4  font-bold text-lg hover:border-[#E5C279]/60 transition-all inline-flex items-center justify-center gap-3"
-              >
-                <Brain className="h-5 w-5" />
-                Ver Presentación del Ecosistema
+                Pregúntele a Queswa cómo funciona
               </button>
+
+              <Link
+                href="/presentacion"
+                className="cta-base cta-secondary"
+                style={{ padding: '1rem 2rem', fontSize: '1rem' }}
+              >
+                Ver la presentación
+              </Link>
             </div>
           </div>
         </section>

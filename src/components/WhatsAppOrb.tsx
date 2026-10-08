@@ -69,7 +69,10 @@ export default function WhatsAppOrb() {
       ? 'Pregúntele a su asesor de bienestar'
       : '¿Le muestro cómo funciona?'
 
-  const abrirWhatsApp = (pregunta?: OpcionesApertura['pregunta']) => {
+  // `contextoForzado`: un botón puede pedir otra conversación que la de su página
+  // (8 oct 2026: «Pregúntele a Queswa cómo funciona» vive en /productos y abre la
+  // general, no la del asesor de bienestar). Sin él, manda la ruta.
+  const abrirWhatsApp = (pregunta?: OpcionesApertura['pregunta'], contextoForzado?: ContextoOrbe) => {
     // Guard de doble disparo: el clic en el orbe también emite `open-queswa` para
     // los oyentes de la página, y ese evento vuelve aquí.
     if (abriendo.current) return
@@ -83,7 +86,7 @@ export default function WhatsAppOrb() {
     window.dispatchEvent(new CustomEvent('queswa-opened'))
     // Si vio el video «Cómo funciona» de la Home, Queswa lo sabe por el texto
     // precargado; y si llegó por el botón del hero, también la pregunta (1 oct 2026).
-    abrirConversacionQueswa(leerRefSocio(), contexto, { vioComoFunciona: vioVideoComoFunciona(), pregunta })
+    abrirConversacionQueswa(leerRefSocio(), contextoForzado ?? contexto, { vioComoFunciona: vioVideoComoFunciona(), pregunta })
   }
 
   useEffect(() => {
@@ -106,7 +109,10 @@ export default function WhatsAppOrb() {
   // Los CTAs que ya existen ("Hablar con Queswa", el del reel, el del manifiesto)
   // disparan `open-queswa`. En esta fase ese camino termina en WhatsApp.
   useEffect(() => {
-    const onOpen = (e: Event) => abrirWhatsApp((e as CustomEvent<{ pregunta?: OpcionesApertura['pregunta'] }>).detail?.pregunta)
+    const onOpen = (e: Event) => {
+      const detalle = (e as CustomEvent<{ pregunta?: OpcionesApertura['pregunta']; contexto?: ContextoOrbe }>).detail
+      abrirWhatsApp(detalle?.pregunta, detalle?.contexto)
+    }
     window.addEventListener('open-queswa', onOpen)
     return () => window.removeEventListener('open-queswa', onOpen)
   }, [contexto])

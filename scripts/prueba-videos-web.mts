@@ -23,8 +23,9 @@ import {
   VIDEOS_QUESWA, partirVideos, separarVozYPie, textoWebDelVideo, filaDelVideo, quitarMarcadoresVideo,
 } from '../src/lib/queswa-videos.ts';
 import {
-  expandirVideosDelHistorial, pideLaEstrategia, videoDeMaestra, textoDelVideo, vozDelVideo,
+  expandirVideosDelHistorial, videoDeMaestra, textoDelVideo, vozDelVideo,
 } from '../src/lib/queswa-videos-web.ts';
+import { pideLaEstrategia } from '../src/lib/queswa-conductor.ts';
 import { temasDelTexto } from '../src/lib/queswa-bitacora.ts';
 
 let fallos = 0;

@@ -18,19 +18,17 @@
  *     WhatsApp guarda. Sin eso el modelo no sabría qué acaba de ver la persona, y
  *     las firmas de la bitácora no reconocerían el tema como mostrado;
  *   · el pedido con palabras propias (el mismo detector por significado del
- *     nodo 2.9 del webhook) y la pregunta por la estrategia.
+ *     nodo 2.9 del webhook).
  *
- * ⚠️ La pregunta por la estrategia con palabras propias («¿qué estrategia
- * tienen?») hoy solo la reconoce la WEB. En WhatsApp el video de Los 12 Niveles
- * sale con el «sí» a la oferta y con «¿qué son los 12 niveles?» (nodo 2.34 del
- * conductor); «¿cuál es la estrategia?» a secas va al motor. Si se lleva al
- * canal, se mueve al conductor y lo usan los dos.
+ * La estrategia («¿qué estrategia tienen?», «¿qué son los 12 niveles?», el «sí»
+ * a la oferta) NO vive aquí: la atiende el nodo 2.34 del conductor, que usan los
+ * dos canales (`pideLaEstrategia`, 8 oct 2026).
  */
 
 import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
 import { vozVideoDoceNiveles } from '@/lib/wa-apertura';
 import { videoQuePide, type VideoIntencion } from '@/lib/queswa-videos-intencion';
-import { textoDeCandado, precioKit, type PaisConductor, type RespuestaConductor } from '@/lib/queswa-conductor';
+import type { RespuestaConductor } from '@/lib/queswa-conductor';
 import {
   VIDEOS_QUESWA, separarVozYPie, rotuloDeVoz, marcadorDe, type VideoQueswaId,
 } from '@/lib/queswa-videos';
@@ -104,62 +102,4 @@ export async function atenderVideoPorIntencion(mensaje: string, temasMostrados: 
   const texto = textoDelVideo(video.id);
   if (!texto) return null;
   return { nodo: `video por pedido propio: ${intencion}`, texto, video: { url: video.url, entrada: video.entrada } };
-}
-
-// ── La estrategia, pedida con palabras propias ───────────────────────────────
-//
-// «¿Qué estrategia tienen?», «¿cuál es la estrategia?», «explíqueme la
-// estrategia». Es lo que en el Dashboard abre el video de Los 12 Niveles.
-// ⚠️ NO la estrategia de otra cosa: de marketing, de ventas, para conseguir
-// clientes —esa es una pregunta del día a día o de la publicidad—, ni cuánto se
-// gana con ella, que va a NIVELES_02. Tolerante a un dedo torpe en «estrategia»
-// (prueba-typos.mts).
-// «estategia», «etsrategia», «esttrategia», «estratejia», «estrategía».
-const ESTRATEGIA = 'e(?:s|x|ts|st)t*r?[aá]?t+[eé]?[gj]+[ií]?[aá]';
-const CUAL = 'c[uú]?[aá]{1,2}[uú]?l';           // «cául», «cuáál»
-const TIENEN = 't[iíeé]{1,3}n?[eé]{0,2}n';      // «tíenen», «tieen», «teinen»
-const NO_SIGUE_LETRA = '(?![a-záéíóúñ])';
-const RE_PIDE_ESTRATEGIA = new RegExp([
-  // ¿cuál es / qué es la estrategia?
-  `(${CUAL}|qu[eé])\\s+(es|ser[ií]a)\\s+(la|su|esa|esta|tu)\\s+${ESTRATEGIA}${NO_SIGUE_LETRA}`,
-  // ¿qué estrategia tienen / usan / manejan?
-  `(qu[eé]|${CUAL})\\s+${ESTRATEGIA}\\s+(${TIENEN}|tiene|usan|usa|manejan|maneja|siguen|sigue|aplican|aplica|hay|es|proponen|recomiendan)${NO_SIGUE_LETRA}`,
-  // explíqueme / muéstreme / cuénteme / hábleme de la estrategia
-  `(expl[ií]\\w*|mu[eé]str\\w*|cu[eé]nt\\w*|h[aá]bl\\w*|ens[eé][ñn]\\w*)\\s+(me\\s+|nos\\s+)?(de\\s+)?(la|su|esa|esta)\\s+${ESTRATEGIA}${NO_SIGUE_LETRA}`,
-  // «¿y la estrategia?», solo
-  `^[\\s¿¡]*(y\\s+)?(la|su|esa)\\s+${ESTRATEGIA}[\\s?!.]*$`,
-].join('|'), 'i');
-const RE_ESTRATEGIA_DE_OTRA_COSA = new RegExp(`${ESTRATEGIA}\\s+(de|para|en)\\s+(marketing|mercadeo|ventas?|publicidad|redes|contenido|vender|conseguir|captar|promocionar|anunciar|publicar|instagram|facebook|tiktok|whatsapp)`, 'i');
-const RE_CIFRAS = /cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i;
-
-export function pideLaEstrategia(mensaje: string): boolean {
-  const m = (mensaje || '').trim();
-  return m.length > 0 && m.length <= 160 && RE_PIDE_ESTRATEGIA.test(m) && !RE_ESTRATEGIA_DE_OTRA_COSA.test(m) && !RE_CIFRAS.test(m);
-}
-
-/** 2.34 de la web, por palabras propias: NIVELES_01 con su video, si no la vio ya. */
-export async function atenderEstrategiaWeb(ctx: {
-  mensaje: string; temasMostrados: ReadonlySet<string>; pais: PaisConductor;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  supabase: any; tenant: string;
-}): Promise<RespuestaConductor | null> {
-  if (!pideLaEstrategia(ctx.mensaje)) return null;
-  const video = VIDEOS_QUESWA['doce-niveles'];
-  if (ctx.temasMostrados.has(video.tema)) {
-    console.log('🎬 [Video web] Pregunta por la estrategia, pero ya la vio — sigue al motor');
-    return null;
-  }
-  try {
-    const texto = await textoDeCandado(ctx.supabase, ctx.tenant, video.candado);
-    if (!texto) return null;
-    return {
-      nodo: '2.34 NIVELES_01 (pregunta por la estrategia)',
-      texto: texto.replace(/\[PRECIO_KIT\]/g, precioKit(ctx.pais)),
-      marcarHiloDoceNiveles: true,
-      video: { url: video.url, entrada: video.entrada },
-    };
-  } catch (err) {
-    console.warn('⚠️ [Video web] No se pudo leer NIVELES_01 — sigue al motor:', err);
-    return null;
-  }
 }

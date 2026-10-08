@@ -7,6 +7,8 @@
  *      ⚠️ En una COPIA del proyecto si ya hay un `next dev` corriendo en esta
  *      carpeta: dos servidores sobre el mismo `.next` se pisan.
  *   2. npx tsx scripts/repetir-por-webhook.mts [--base http://localhost:3055] [--log <archivo del servidor>] [--hasta 29]
+ *      Con `--mensajes "Hola Queswa | ¿Qué estrategia tienen?"` manda esas frases
+ *      (separadas por «|») en lugar de la conversación del Director.
  *
  * Por qué existe (24 sep 2026): las pruebas del motor no ven el webhook —los
  * botones, las fotos, el simulador, la pareja, la radicación viven allá—, y la
@@ -36,7 +38,9 @@ const s = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABA
 
 type Entrada = { texto?: string; boton?: { id: string; title: string }; flow?: Record<string, string> };
 const { filas } = JSON.parse(fs.readFileSync(new URL('./fixtures/prueba-director-24sep.json', import.meta.url), 'utf8')) as { filas: { messages: { role: string; content: string }[] }[] };
-const entradas: Entrada[] = filas.map((f, i) => {
+// Frases propias en lugar de la conversación grabada (8 oct 2026).
+const MENSAJES = arg('--mensajes', '');
+const entradas: Entrada[] = MENSAJES ? MENSAJES.split('|').map((t) => ({ texto: t.trim() })).filter((e) => e.texto) : filas.map((f, i) => {
   const u = f.messages.find((m) => m.role === 'user')!.content;
   if (i === 0) return { texto: 'Hola Queswa' };
   // Los botones de la apertura: en la prueba se tocaron, no se escribieron.
@@ -98,7 +102,9 @@ for (let i = DESDE - 1; i < Math.min(HASTA, entradas.length); i++) {
     // ⚠️ Se corta en BYTES: el log trae tildes y emojis, y cortar el texto con
     // el tamaño en bytes se saltaba las líneas nuevas.
     ? fs.readFileSync(LOG).subarray(tamLog).toString('utf8').split('\n').filter((l) => l.includes('[WA_DRY_RUN]'))
-      .map((l) => JSON.parse(l.slice(l.indexOf('{'))) as Record<string, unknown>)
+      // No toda línea del modo ensayo es un envío: los avisos al socio (8 oct 2026)
+      // se anotan en texto plano, y parsearlos tumbaba el ensayo entero.
+      .flatMap((l) => { try { return [JSON.parse(l.slice(l.indexOf('{'))) as Record<string, unknown>]; } catch { return []; } })
       .filter((x) => x.to === TEL && x.tipo !== 'escribiendo')
     : []);
   let filasAhora = antes;

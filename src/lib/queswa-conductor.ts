@@ -344,6 +344,35 @@ export async function atenderEnlaceCatalogo(
   return { nodo: `2.24 enlace al catálogo (${slug ?? 'sin socio'})`, texto: mensajeEnlaceCatalogo(slug) };
 }
 
+// ── La estrategia, pedida con palabras propias (8 oct 2026, Director) ─────────
+//
+// «¿Qué estrategia tienen?», «¿cuál es la estrategia?», «explíqueme la
+// estrategia». Nació en la web ese mismo día y pasó aquí para que WhatsApp y la
+// web respondan igual: el 2.34 la atiende con NIVELES_01 y su video. Hasta
+// entonces el video de Los 12 Niveles salía solo con el «sí» a la oferta y con
+// «¿qué son los 12 niveles?»; la pregunta a secas iba al modelo, que componía
+// «la estrategia tiene dos movimientos…». El Dashboard ya la reconocía.
+// ⚠️ NO la estrategia de otra cosa —de marketing, de ventas, para conseguir
+// clientes—, ni cuánto se gana con ella, que va a NIVELES_02. Tolerante a un dedo
+// torpe (prueba-typos.mts): «estategia», «etsrategia», «cául», «tíenen».
+const ESTRATEGIA = 'e(?:s|x|ts|st)t*r?[aá]?t+[eé]?[gj]+[ií]?[aá]';
+const CUAL = 'c[uú]?[aá]{1,2}[uú]?l';
+const TIENEN = 't[iíeé]{1,3}n?[eé]{0,2}n';
+const NO_SIGUE_LETRA = '(?![a-záéíóúñ])';
+const RE_PIDE_ESTRATEGIA = new RegExp([
+  `(${CUAL}|qu[eé])\\s+(es|ser[ií]a)\\s+(la|su|esa|esta|tu)\\s+${ESTRATEGIA}${NO_SIGUE_LETRA}`,
+  `(qu[eé]|${CUAL})\\s+${ESTRATEGIA}\\s+(${TIENEN}|tiene|usan|usa|manejan|maneja|siguen|sigue|aplican|aplica|hay|es|proponen|recomiendan)${NO_SIGUE_LETRA}`,
+  `(expl[ií]\\w*|mu[eé]str\\w*|cu[eé]nt\\w*|h[aá]bl\\w*|ens[eé][ñn]\\w*)\\s+(me\\s+|nos\\s+)?(de\\s+)?(la|su|esa|esta)\\s+${ESTRATEGIA}${NO_SIGUE_LETRA}`,
+  `^[\\s¿¡]*(y\\s+)?(la|su|esa)\\s+${ESTRATEGIA}[\\s?!.]*$`,
+].join('|'), 'i');
+const RE_ESTRATEGIA_DE_OTRA_COSA = new RegExp(`${ESTRATEGIA}\\s+(de|para|en)\\s+(marketing|mercadeo|ventas?|publicidad|redes|contenido|vender|conseguir|captar|promocionar|anunciar|publicar|instagram|facebook|tiktok|whatsapp)`, 'i');
+
+export function pideLaEstrategia(mensaje: string): boolean {
+  const m = (mensaje || '').trim();
+  return m.length > 0 && m.length <= 160 && RE_PIDE_ESTRATEGIA.test(m)
+    && !RE_ESTRATEGIA_DE_OTRA_COSA.test(m) && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(m);
+}
+
 /**
  * 2.34 → 2.44 — El hilo de Los 12 Niveles y el simulador.
  *
@@ -390,7 +419,11 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
     && /12 niveles|estrategia de los 12|estrategia con la que se construye/i.test(b.ultimoBot)
     && !b.ofrecioTablaNiveles && !b.ofrecioVinculacion && !b.ofrecioSegundaForma
     && !/simulador/i.test(b.ultimoBot);
-  if (!vieneDelSimulador && ((nombreMalOido && preguntaQueEs) || aceptaEstrategia)) {
+  // La pregunta con palabras propias, si no la vio ya: quien la recibió y vuelve
+  // a preguntar va al modelo, que tiene el candado como material.
+  const preguntaPorLaEstrategia = pideLaEstrategia(mensaje)
+    && !historial.some((m) => m.role === 'assistant' && /Los 12 Niveles es nuestra estrategia/i.test(m.content));
+  if (!vieneDelSimulador && ((nombreMalOido && preguntaQueEs) || aceptaEstrategia || preguntaPorLaEstrategia)) {
     try {
       const texto = await textoDeCandado(ctx.supabase, ctx.tenant, 'arsenal_12_niveles_NIVELES_01');
       if (texto) {
@@ -413,7 +446,7 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
         // En WhatsApp va el video (Director, 26 sep 2026): su voz es NIVELES_01
         // entero. La entrada es el puente cuando lo hay; si no, una línea.
         return {
-          nodo: '2.34 NIVELES_01 (nombre mal oído / sí a la estrategia)',
+          nodo: preguntaPorLaEstrategia ? '2.34 NIVELES_01 (pregunta por la estrategia)' : '2.34 NIVELES_01 (nombre mal oído / sí a la estrategia)',
           texto: puente + cuerpo.replace(/\[PRECIO_KIT\]/g, precioKit(ctx.pais)),
           marcarHiloDoceNiveles: true,
           video: { url: VIDEO_DOCE_NIVELES_WA, entrada: puente ? puente.trim() : 'Con gusto. Esta es la estrategia:' },

@@ -82,7 +82,7 @@ import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
 import { reescribirConsultaConversacional } from '@/lib/query-rewrite';
 import { videoQuePide, type VideoIntencion } from '@/lib/queswa-videos-intencion';
 import { VIDEOS_QUESWA, videoDeUrl, videoDeCandado, separarVozYPie, textoWebDelVideo, filaDelVideo, type VideoQueswa } from '@/lib/queswa-videos';
-import { expandirVideosDelHistorial, videoDeMaestra, atenderVideoPorIntencion, atenderEstrategiaWeb } from '@/lib/queswa-videos-web';
+import { expandirVideosDelHistorial, videoDeMaestra, atenderVideoPorIntencion } from '@/lib/queswa-videos-web';
 import { detectarIntencionCompra } from '@/lib/wa-pedido';
 import { contarTokens, consumoDe, esPeticionDePrueba, clienteParaPruebas, type Consumo } from '@/lib/consumo-anthropic';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
@@ -5181,9 +5181,10 @@ ${summaryParts.join('\n')}
     }
 
     // ── 2.9 de la web — el video, pedido con palabras propias (8 oct 2026) ──────
-    // «Explíqueme el negocio», «¿y yo qué tendría que hacer?», «¿quién me paga?» y
-    // «¿qué estrategia tienen?» se responden con su video, como en WhatsApp (nodo
-    // 2.9 del webhook, mismo detector por significado). Corre después de la
+    // «Explíqueme el negocio», «¿y yo qué tendría que hacer?» y «¿quién me paga?»
+    // se responden con su video, como en WhatsApp (nodo 2.9 del webhook, mismo
+    // detector por significado). La estrategia la atiende el 2.34 del conductor,
+    // más arriba, igual en los dos canales. Corre después de la
     // radicación, como allá. No en la página de productos, no a quien vino a
     // comprar —su «¿qué hago?» es del pedido— y no un tema que ya vio: en ese caso
     // el turno sigue al motor, que tiene el candado como material.
@@ -5192,10 +5193,7 @@ ${summaryParts.join('\n')}
         .some((t) => detectarIntencionCompra(t));
       if (!_hiloDeCompraWeb) {
         const _vistos = new Set([...(_bitacora?.temasMostrados ?? []), ..._temasVistosEnElHilo()]);
-        const _nodoVideo = (await atenderEstrategiaWeb({
-          mensaje: latestUserMessage, temasMostrados: _vistos, pais: paisDeCodigo(visitorCountry),
-          supabase: getSupabaseAdmin(), tenant: tenantId,
-        })) ?? (await atenderVideoPorIntencion(latestUserMessage, _vistos));
+        const _nodoVideo = await atenderVideoPorIntencion(latestUserMessage, _vistos);
         if (_nodoVideo) return _entregarDictado(_nodoVideo);
       }
     }

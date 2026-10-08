@@ -24,9 +24,8 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze, RE_TENGO_CODIGO, RE_ACTIVO_EN_GANO, RE_CAMBIO_DE_EQUIPO } from '../src/lib/queswa-conductor.ts';
+import { pideLaEstrategia, detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze, RE_TENGO_CODIGO, RE_ACTIVO_EN_GANO, RE_CAMBIO_DE_EQUIPO } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
-import { pideLaEstrategia } from '../src/lib/queswa-videos-web.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
 import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
@@ -109,9 +108,9 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'Yesid, 29 sep 2026: si no dispara, el modelo inventa los sobres y la regla del ingreso' },
   { nombre: 'niveles a la tarifa del paquete (2.221, socio)', fn: (t) => paqueteParaNivelesSocio(t, ''), frase: 'la misma tabla con el visionario', llaves: ['tabla', 'visionario'], tope: 3,
     nota: 'Miguel Barahona, 1 oct 2026: si no dispara, el modelo compone la tabla y el guardarraíl la bloquea' },
-  { nombre: 'la estrategia → el video (web, prospecto)', fn: pideLaEstrategia, frase: 'qué estrategia tienen', llaves: ['estrategia', 'tienen'], tope: 0,
-    nota: '8 oct 2026: «¿qué estrategia tienen?» abre el video de Los 12 Niveles en la web' },
-  { nombre: 'la estrategia · cuál es (web)', fn: pideLaEstrategia, frase: 'cuál es la estrategia', llaves: ['estrategia', 'cuál'], tope: 0 },
+  { nombre: 'la estrategia → el video (2.34, prospecto)', fn: pideLaEstrategia, frase: 'qué estrategia tienen', llaves: ['estrategia', 'tienen'], tope: 0,
+    nota: '8 oct 2026: «¿qué estrategia tienen?» abre el video de Los 12 Niveles (2.34, los dos canales)' },
+  { nombre: 'la estrategia · cuál es (2.34)', fn: pideLaEstrategia, frase: 'cuál es la estrategia', llaves: ['estrategia', 'cuál'], tope: 0 },
   { nombre: 'la estrategia → el video (2.222, socio)', fn: (t) => pasoNivelesSocio(t, '', false) === 'video', frase: 'dame la estrategia de los doce niveles', llaves: ['estrategia', 'doce', 'niveles'], tope: 0,
     nota: 'el Director, 2 oct 2026: pidió la estrategia y recibió el texto compuesto en vez del video' },
   { nombre: 'la estrategia en detalle (2.223, socio)', fn: (t) => pasoNivelesSocio(t, '', false) === 'detalle', frase: 'los doce niveles en detalle', llaves: ['doce', 'niveles', 'detalle'], tope: 0 },

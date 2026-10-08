@@ -43,7 +43,7 @@ async function deploy() {
       .from('system_prompts')
       .update({
         prompt: promptContent,
-        version: 'v2.5_lo_que_le_queda_oct2026',
+        version: 'v2.6_cortesia_valida_oct2026',
         updated_at: new Date().toISOString(),
       })
       .eq('tenant_id', 'marca_personal')
@@ -61,7 +61,7 @@ async function deploy() {
         name: 'marca_personal',
         tenant_id: 'marca_personal',
         prompt: promptContent,
-        version: 'v2.5_lo_que_le_queda_oct2026',
+        version: 'v2.6_cortesia_valida_oct2026',
         updated_at: new Date().toISOString(),
       })
       .select()

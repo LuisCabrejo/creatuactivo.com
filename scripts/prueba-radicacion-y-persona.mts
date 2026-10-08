@@ -22,7 +22,7 @@ import fs from 'node:fs';
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { gestionarCierre, RE_VOLICION, OFERTA_RADICAR_MODELO, pedirDatos } from '../src/lib/wa-radicacion.ts';
 import { botOfrecioPersona } from '../src/lib/queswa-conductor.ts';
-import { esAceptacion } from '../src/lib/wa-pedido.ts';
+import { esAceptacion, respuestaPersona } from '../src/lib/wa-pedido.ts';
 import { RECHAZO_SALUD_CORTO, NUCLEO_REINCIDE } from '../src/lib/wa-guardarrail-salud.ts';
 
 let fallos = 0;
@@ -62,6 +62,12 @@ es(NUCLEO_REINCIDE.startsWith('Ahí aplica lo mismo'), 'la referencia a lo dicho
 console.log('\n── 3. El «ok» a la oferta de conectar con el equipo ──');
 es(botOfrecioPersona(RECHAZO_SALUD_CORTO), 'el texto corto ofrece una persona');
 es(botOfrecioPersona('Le entiendo.\n\n¿Quiere que le avise al socio para que la llame?'), '«¿quiere que le avise al socio?» ofrece una persona');
+// Aldo, 6 oct 2026: «al equipo» es contracción, y el patrón pedía «el equipo».
+es(botOfrecioPersona('¿Quiere que le avise al equipo para que le envíe el catálogo canadiense?'), '«¿quiere que le avise al equipo…?» ofrece una persona (caso Aldo)');
+es(botOfrecioPersona('¿Quiere que le avise a Luis, del equipo?'), '«¿le aviso a Luis, del equipo?» ofrece una persona');
+es(!botOfrecioPersona('¿Le muestro cómo trabaja el equipo con usted?'), 'mostrar cómo trabaja el equipo NO es una persona');
+es(/le avisé al equipo de creatuactivo\.com/.test(respuestaPersona(null)), 'sin socio dice «al equipo», no «a el equipo»');
+es(/le avisé a Luis/.test(respuestaPersona({ nombre: 'Luis' } as never)), 'con socio lo nombra');
 es(!botOfrecioPersona('¿Le muestro el catálogo completo con precios?'), 'la oferta del catálogo NO es una persona');
 es(!botOfrecioPersona('Ya le avisé a Luis, y se comunica con usted por este medio.\n\n¿Hay algo que le pueda ir resolviendo?'), 'el aviso ya hecho no vuelve a ofrecer');
 for (const t of ['Ok', 'Bueno', 'sí', 'Dale']) es(esAceptacion(t), `«${t}» acepta`);

@@ -33,6 +33,8 @@ import { sendTemplate } from '@/lib/wa-channel';
 import { avisarPorCorreo } from '@/lib/wa-radicacion';
 import { enlaceCatalogo } from '@/lib/wa-onboarding';
 import { normalizarDuro } from '@/lib/texto-normalizar';
+import { pushAlDashboard, quien as quienConPais } from '@/lib/wa-avisos-contexto';
+import { esBsuid } from '@/lib/paises';
 
 export interface LineaPedido { producto: ProductoWA; cantidad: number }
 
@@ -419,14 +421,15 @@ export function detectarPreguntaCharla(texto: string): boolean {
   return RE_PREGUNTA_CHARLA.test(t) && RE_INTERES_CHARLA.test(t);
 }
 
+// «a» + «el equipo» se contrae: sin socio, el texto decía «le avisé a el equipo».
+const avisadoA = (socio: SocioPedido | null) => socio?.nombre ? `a ${socio.nombre}` : 'al equipo de creatuactivo.com';
+
 export function respuestaCharla(socio: SocioPedido | null): string {
-  const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  return `Luis comparte lo que explica en sus charlas en los videos del reto. Si quiere saber de la próxima, ya le avisé a ${quien}, y se comunica con usted por este mismo medio.\n\nMientras tanto cuente conmigo: ¿hay algo que le pueda ir resolviendo?`;
+  return `Luis comparte lo que explica en sus charlas en los videos del reto. Si quiere saber de la próxima, ya le avisé ${avisadoA(socio)}, y se comunica con usted por este mismo medio.\n\nMientras tanto cuente conmigo: ¿hay algo que le pueda ir resolviendo?`;
 }
 
 export function respuestaPersona(socio: SocioPedido | null): string {
-  const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  return `Claro que sí. Ya le avisé a ${quien}, y se comunica con usted por este mismo medio.\n\nMientras tanto cuente conmigo: ¿hay algo que le pueda ir resolviendo?`;
+  return `Claro que sí. Ya le avisé ${avisadoA(socio)}, y se comunica con usted por este mismo medio.\n\nMientras tanto cuente conmigo: ¿hay algo que le pueda ir resolviendo?`;
 }
 
 // ─── Autorización de marketing ───────────────────────────────────────────────
@@ -547,8 +550,19 @@ export async function avisarPidePersona(
   socio: SocioPedido | null,
   contexto: string,
 ): Promise<void> {
-  const quien = `${nombre || 'Sin nombre'} (${whatsapp}) · PIDE HABLAR CON UNA PERSONA`;
+  // Con nombre de usuario de WhatsApp no hay teléfono: el aviso decía
+  // «Aldo Moller (CA.951546381359010)», un código que no sirve para marcarle.
+  // Se dice de dónde es y que no vemos su número (8 oct 2026).
+  const quien = esBsuid(whatsapp)
+    ? `${quienConPais(nombre || 'Sin nombre', whatsapp, false)}, sin teléfono visible · PIDE HABLAR CON UNA PERSONA`
+    : `${nombre || 'Sin nombre'} (${whatsapp}) · PIDE HABLAR CON UNA PERSONA`;
   const que   = contexto.slice(0, 160) || '—';
+  // El push llega siempre: la plantilla puede fallar y el correo se lee tarde.
+  await pushAlDashboard(
+    socio?.constructorId || process.env.EQUIPO_CONSTRUCTOR_ID || 'luis-cabrejo-1288',
+    `🙋 ${quienConPais(nombre, whatsapp, false)} pide hablar con una persona`,
+    `Lo último que escribió: «${que}»`,
+  );
   const destinos: [string, string][] = [];
   if (socio?.whatsapp) destinos.push([socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio']);
   destinos.push([WHATSAPP_EQUIPO(), 'equipo']);

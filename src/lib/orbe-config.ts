@@ -217,7 +217,7 @@ export function abrirConversacionQueswa(
   // nodos del canal ya responden en una conversación viva (1 oct 2026).
   const precarga = retomando
     ? (opciones.pregunta ? PREGUNTAS_PRECARGADAS[opciones.pregunta] : '')
-    : textoAperturaWhatsApp(ref, contexto, opciones)
+    : conHuellaWeb(textoAperturaWhatsApp(ref, contexto, opciones))
   const texto = precarga ? encodeURIComponent(precarga) : ''
 
   const enlaceWeb = texto ? `https://wa.me/${QUESWA_WABA}?text=${texto}` : `https://wa.me/${QUESWA_WABA}`
@@ -257,6 +257,23 @@ export function abrirConversacionQueswa(
   }, 1200)
 
   if (!retomando) vigilarElRegreso(momentoDelSalto)
+}
+
+/**
+ * El comienzo de la huella del navegador al final del texto (`w:31ebf4f5`), como
+ * el `de:xxxxxx` del pase. El webhook lo retira antes de leer el mensaje y ata la
+ * ficha de este navegador a la de WhatsApp: así lo que la persona haga después en
+ * el sitio llega al Dashboard con su nombre y su país (8 oct 2026, caso Aldo
+ * Moller: su computador vio la presentación como «un visitante»). Sin huella,
+ * el texto sale igual.
+ */
+function conHuellaWeb(texto: string): string {
+  try {
+    const huella = (window as unknown as { FrameworkIAA?: { fingerprint?: string } }).FrameworkIAA?.fingerprint
+    return huella && /^[0-9a-f]{8}/i.test(huella) ? `${texto} w:${huella.slice(0, 8).toLowerCase()}` : texto
+  } catch {
+    return texto
+  }
 }
 
 /** Lee la atribución del socio en el cliente: ?ref= de la URL, luego localStorage. */

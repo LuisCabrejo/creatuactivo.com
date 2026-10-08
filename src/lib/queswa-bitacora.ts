@@ -204,7 +204,7 @@ const OFERTA_A_TEMA: [RegExp, string][] = [
   // prueba del 26 sep la persona la ignoró y tocó el botón siguiente.
   [/la estrategia|c[oó]mo se construye ese sistema|c[oó]mo crece ese porcentaje/i, 'estrategia'],
   [/c[oó]mo funciona (el negocio|esto|exactamente)/i, 'como_funciona'],
-  [/(tres|cuatro) formas de empezar|con cu[aá]nto se empieza|cu[aá]nto vale cada uno|diferencias entre los tres/i, 'paquetes'],
+  [/(tres|cuatro|3|4) formas de empezar|con cu[aá]nto se empieza|cu[aá]nto vale cada uno|diferencias entre los tres/i, 'paquetes'],
   [/ganancias por la compra de paquetes/i, 'ganancia_paquetes'],
   [/de d[oó]nde sale (el|ese|esa) (ingreso|dinero|plata)|c[oó]mo entra el dinero/i, 'dinero'],
   [/en el simulador/i, 'simulador'],

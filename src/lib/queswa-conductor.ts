@@ -785,12 +785,17 @@ export function atenderPidePieza(mensaje: string, ultimoBot = ''): RespuestaCond
  * reconoce por la forma —«¿le sirve que lo comunique con alguien del equipo?»,
  * «¿quiere que le avise al socio?»— y solo si esa oferta es la pregunta con la
  * que cierra. Un «sí» a eso es pedir una persona.
+ *
+ * ⚠️ «al equipo» es la contracción de «a el equipo», y el patrón pedía «el
+ * equipo» completo: «¿Quiere que le avise al equipo para que le envíe el
+ * catálogo canadiense?» no se reconocía. Aldo (6 oct 2026) dijo «si porfa», el
+ * aviso no salió, y el modelo escribió tres veces «le aviso al equipo».
  */
 export function botOfrecioPersona(ultimoBot: string): boolean {
   const cierre = (ultimoBot || '').trim().split('\n').filter(Boolean).pop() ?? '';
   return /\?\s*$/.test(cierre)
     // «comuniQue» lleva q: el tallo es comuni[cq].
-    && /(comuni[cq]|conect|pas[aáe]r?l[oa]|aviso?|avis[ae]|contact)[a-záéíóúñ]*\s+(con\s+|a\s+|al\s+)?(alguien|una persona|un asesor|una asesora|el equipo|(el |la )?soci[oa]|[a-záéíóúñ]+ del equipo)/i.test(cierre);
+    && /(comuni[cq]|conect|pas[aáe]r?l[oa]|aviso?|avis[ae]|contact)[a-záéíóúñ]*\s+(con\s+|a\s+|al\s+)?(alguien|una persona|un asesor|una asesora|(el\s+)?equipo|(el |la )?soci[oa]|[a-záéíóúñ]+,?\s+del equipo)/i.test(cierre);
 }
 
 export interface ContextoSocio {

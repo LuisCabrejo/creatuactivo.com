@@ -2805,7 +2805,10 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       porque: 'pide las formas de empezar',
       // Y la oferta de VER los paquetes en cualquier redacción —la del modelo
       // incluida—: ver RE_OFERTA_VER_PAQUETES en el conductor (Eduardo, 29 sep).
-      cuando: { test: (t: string) => /(tres|cuatro)\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|tres\s+(paquetes|niveles)\s+de\s+inicio/i.test(t) || RE_OFERTA_VER_PAQUETES.test(t) },
+      // Y con el número en cifra: Aldo (6 oct 2026) escribió «muestrame las 4
+      // formas de empezar», la puerta pedía la palabra, y el modelo compuso las
+      // formas al revés de lo decidido (el Kit primero, con su 10 %, sin precios).
+      cuando: { test: (t: string) => /(tres|cuatro|3|4)\s+formas\s+de\s+(empezar|entrar|arrancar|iniciar|inicio)|(tres|3)\s+(paquetes|niveles)\s+de\s+inicio/i.test(t) || RE_OFERTA_VER_PAQUETES.test(t) },
     },
     {
       // Guion 2, 20 ago (turno 2): "¿esto es de meter gente como omnilife?" —

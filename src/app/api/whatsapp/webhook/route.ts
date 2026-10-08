@@ -96,7 +96,6 @@ import {
   enlaceCatalogo,
   enlacePresentacion,
   paqueteDelSocio,
-  avisarSocioNuevoProspecto,
   identificarSocio,
   saludoDeSocio,
   convertirProspectoEnSocio,
@@ -144,6 +143,11 @@ import {
   RESPUESTA_CORRECTIVA, CORRECTIVA_SOCIO, correctivaSegunHilo,
 } from '@/lib/wa-guardarrail-negocio';
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
+import {
+  destinatarioDe, origenDeLlegada, avisarLlegada, avisarSiRegresa, revisarDestacado,
+  detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb,
+} from '@/lib/wa-avisos-contexto';
+import { nombrePais, paisDeContactoWA } from '@/lib/paises';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
   slugDelSocio, textoDeCandado, paisDeTelefono, preguntaPorModoWaze, atenderModoWaze,
@@ -679,6 +683,12 @@ async function procesarEntrante(body: any): Promise<void> {
       messageText = limpiarMarcador(messageText);
       console.log(`🎟️ [WA Webhook] Llega por pase de ${compartidor?.nombre ?? 'un prospecto'} (${_tokenPase})`);
     }
+    // El marcador del orbe del sitio (`w:31ebf4f5`, comienzo de la huella del
+    // navegador): se retira igual que el del pase, y al final de este bloque ata
+    // la ficha web a esta (ver `atarHuellaWeb`, 8 oct 2026).
+    const _huellaWeb = extraerHuellaWeb(messageText);
+    if (_huellaWeb && messageText) messageText = limpiarHuellaWeb(messageText);
+    const _paisCodigo = paisDeContactoWA(phoneNumber);
 
     if (esPrimerContacto) {
       // Primer mensaje — crear prospect con atribución completa
@@ -702,6 +712,8 @@ async function procesarEntrante(body: any): Promise<void> {
             channel: 'whatsapp',
             phone: phoneNumber,
             name: contactName,
+            // El país, dicho: el Dashboard lo pone en sus avisos (8 oct 2026).
+            ...(_paisCodigo && { pais: nombrePais(_paisCodigo) ?? _paisCodigo, pais_codigo: _paisCodigo }),
             ...(patrocinador && {
               invited_by:          patrocinador.constructorId,
               patrocinador_nombre: patrocinador.nombre,
@@ -756,6 +768,17 @@ async function procesarEntrante(body: any): Promise<void> {
           .update(patch)
           .eq('fingerprint_id', waFingerprint);
       }
+    }
+    // Las fichas anteriores al 8 oct 2026 no traen el país: se completa al pasar.
+    if (existingProspect && _paisCodigo && !existingProspect.device_info?.pais) {
+      waitUntil((supabase as any).rpc('update_prospect_data', { // eslint-disable-line @typescript-eslint/no-explicit-any
+        p_fingerprint_id: waFingerprint,
+        p_data: { pais: nombrePais(_paisCodigo) ?? _paisCodigo, pais_codigo: _paisCodigo },
+        p_constructor_id: undefined,
+      }).then(() => {}, () => {}));
+    }
+    if (_huellaWeb) {
+      waitUntil(atarHuellaWeb(supabase, { prefijo: _huellaWeb, fingerprintWA: waFingerprint, nombre: contactName, contacto: phoneNumber }));
     }
 
     // ─── 1.35 Comando de activación del Director ──────────────────────────────
@@ -972,6 +995,24 @@ async function procesarEntrante(body: any): Promise<void> {
       }
     }
 
+    // ─── 1.386 Vuelve a escribir después de una pausa (8 oct 2026) ────────────
+    // Aldo Moller habló con Queswa el 6 oct y regresó a la web el 8; nadie supo
+    // que volvía. Ahora, quien escribe otra vez tras seis horas o más le llega al
+    // socio —o al equipo, si no tiene— con lo que escribió y lo que ya se sabía.
+    // Va antes de cualquier nodo: varios responden y cortan el turno. Corre en
+    // segundo plano para no demorar la respuesta.
+    if (existingProspect && !socioQueEscribe && !esPrimerContacto) {
+      waitUntil(avisarSiRegresa(supabase, {
+        destino: async () => destinatarioDe(patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id)),
+        fingerprint: waFingerprint,
+        nombre: contactName,
+        contacto: phoneNumber,
+        mensaje: messageText ?? '',
+        inicioTurno: new Date(t0).toISOString(),
+        deviceInfo: existingProspect.device_info,
+      }));
+    }
+
     // ─── 1.39 Los botones del lunes — el modo Waze (5 oct 2026) ───────────────
     // El mensaje de los lunes (wa-lunes-socio.ts) trae el formulario «Su destino»
     // y, a quien no lo ha anotado, [Recuérdemelo a las 2]. Va ANTES del saludo del
@@ -1185,11 +1226,22 @@ async function procesarEntrante(body: any): Promise<void> {
     // este aviso de los de la web, donde el visitante es un hash sin identidad.
     // Es el momento de mayor valor para el socio: la persona está conversando
     // AHORA, y él puede saludarla desde su propio chat mientras eso ocurre.
-    if (esPrimerContacto && patrocinador?.constructorId) {
-      const r = await avisarSocioNuevoProspecto(
-        supabase, patrocinador.constructorId, contactName, phoneNumber,
-      );
-      if (r !== 'enviado') console.log(`🔕 [WA Webhook] aviso de prospecto nuevo no enviado: ${r}`);
+    // Desde el 8 oct 2026 lleva país, por dónde llegó y su primer mensaje, y SIN
+    // SOCIO le llega al equipo: Aldo Moller (Canadá) llegó por el sitio y no se
+    // enteró nadie. Ver wa-avisos-contexto.ts.
+    if (esPrimerContacto && !socioQueEscribe) {
+      waitUntil(avisarLlegada(supabase, {
+        dest: destinatarioDe(patrocinador),
+        nombre: contactName,
+        contacto: phoneNumber,
+        origen: origenDeLlegada({
+          porEnlace: !!patrocinador,
+          compartidoPor: compartidor?.nombre ?? null,
+          anuncio: isCTWA,
+          texto: messageText ?? '',
+        }),
+        primerMensaje: messageText ?? '',
+      }));
     }
 
     // ⚠️ Quien LLEGA DECIDIDO no recibe la bienvenida: recibe la radicación.
@@ -3039,6 +3091,32 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       }
     }
 
+    // ─── 3.92 RED: el borrador promete un aviso al equipo (8 oct 2026) ────────
+    // A Aldo Moller el modelo le escribió «le aviso al equipo ahora mismo», «le
+    // incluyo Chile y Brasil en el mismo aviso» y «le transmito al equipo», y no
+    // salió nada: el modelo no tiene cómo avisar. El texto se deja —con esto es
+    // verdad— y el aviso sale, con lo que pidió y lo que se le dijo.
+    if (!socioQueEscribe) {
+      const promesa = detectarPromesaDeAviso(queswaReply);
+      if (promesa) {
+        const _suyos = [...historial.filter((m) => m.role === 'user').map((m) => m.content), messageText ?? ''].filter(Boolean);
+        // A un «sí» suelto se le antepone lo que pidió antes: «si porfa» no dice nada.
+        const pidio = (messageText ?? '').trim().length < 20 && _suyos.length > 1
+          ? `${_suyos[_suyos.length - 2]} → ${messageText}`
+          : (messageText ?? '');
+        console.warn(`📌 [WA Red] El borrador promete un aviso («${promesa.slice(0, 80)}») — sale de verdad · ${phoneNumber}`);
+        waitUntil(avisarPromesa(supabase, {
+          dest: destinatarioDe(socio),
+          fingerprint: waFingerprint,
+          nombre: contactName,
+          contacto: phoneNumber,
+          pidio,
+          promesa,
+          deviceInfo: existingProspect?.device_info,
+        }));
+      }
+    }
+
     // ─── 3.95 La pregunta de cierre con DOS SALIDAS se poda ───────────────────
     // El fallo que más gente nos costó. Medido sobre 819 turnos de personas
     // reales en 30 días: el abandono normal es del 15 %, y tras un «sí» que cayó
@@ -3225,6 +3303,20 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // y ofrecía los paquetes sin que nadie los pidiera. El ejemplo cierra
       // ofreciendo la estrategia, y el «sí» dicta NIVELES_01 con SU simulador
       // (el de niveles, al 10%). El simulador de renta queda solo por pull.
+    }
+
+    // ─── 4.5 ¿La conversación ya dice que vale la pena? (8 oct 2026) ──────────
+    // Ya es distribuidor, nombra otro país o eligió paquete: el socio —o el
+    // equipo— recibe el resumen. La respuesta ya salió; esto no la demora.
+    if (!socioQueEscribe && queswaReply) {
+      waitUntil(revisarDestacado(supabase, {
+        dest: destinatarioDe(socio),
+        fingerprint: waFingerprint,
+        nombre: contactName,
+        contacto: phoneNumber,
+        historial,
+        mensaje: messageText ?? '',
+      }));
     }
 
     // ─── Cronómetro del turno ─────────────────────────────────────────────────

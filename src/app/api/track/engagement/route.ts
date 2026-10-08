@@ -19,6 +19,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { nombrePais } from '@/lib/paises'
 import { notificarDueño, type EventoDueño } from '@/lib/wa-onboarding'
 
 export const runtime = 'edge'
@@ -70,6 +71,13 @@ export async function POST(request: NextRequest) {
     if (typeof visit_count === 'number') data.visit_count = Math.max(di.visit_count ?? 0, visit_count)
     if (completed === true) data.reel_completed = true
     if (queswa_opened === true) data.queswa_opened = true
+    // El país de la conexión, una vez, junto a un hito (8 oct 2026): el Dashboard
+    // lo pone en el aviso. Mismo criterio que /api/track/presentacion.
+    const codigoPais = request.headers.get('x-vercel-ip-country')?.toUpperCase()
+    if (Object.keys(data).length && codigoPais && !di.pais) {
+      data.pais = nombrePais(codigoPais) ?? codigoPais
+      data.pais_codigo = codigoPais
+    }
 
     if (Object.keys(data).length === 0) {
       return NextResponse.json({ ok: true, skipped: true })

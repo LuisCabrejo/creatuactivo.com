@@ -25,6 +25,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { nombrePais } from '@/lib/paises'
 
 export const runtime = 'edge'
 
@@ -51,6 +52,13 @@ export async function POST(request: NextRequest) {
     if (completa === true && di.presentacion_completa !== true) data.presentacion_completa = true
     if (whatsapp === true && di.presentacion_whatsapp !== true) data.presentacion_whatsapp = true
     if (en_vivo === true && di.dispositivo_del_socio !== true) data.dispositivo_del_socio = true
+    // El país de la conexión, una vez (8 oct 2026): el Dashboard lo pone en el
+    // aviso. Solo acompaña a un hito: por sí solo no justifica una escritura.
+    const codigoPais = request.headers.get('x-vercel-ip-country')?.toUpperCase()
+    if (Object.keys(data).length && codigoPais && !di.pais) {
+      data.pais = nombrePais(codigoPais) ?? codigoPais
+      data.pais_codigo = codigoPais
+    }
 
     if (Object.keys(data).length === 0) return NextResponse.json({ ok: true, skipped: true })
 

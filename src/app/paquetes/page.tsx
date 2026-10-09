@@ -471,6 +471,14 @@ function NombresDelPlan() {
           calma y con ejemplos. El Kit de Inicio activa únicamente la Regalía de Equipo; los
           paquetes empresariales activan las dos vías.
         </p>
+        {/* Enlace interno a /servilleta (9 oct 2026). Ver reports/Plan servilleta top 3 Google.md */}
+        <p style={{ marginTop: 12, color: C.muted, fontSize: '0.82rem', lineHeight: 1.7 }}>
+          Si prefiere verlas con un ejemplo, la{' '}
+          <Link href="/servilleta" style={{ color: 'var(--color-brand)', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+            presentación del plan servilleta de Gano Excel
+          </Link>{' '}
+          recorre las dos vías en cuatro pantallas, con un simulador.
+        </p>
       </div>
     </section>
   );

@@ -275,6 +275,11 @@ export default function LegalidadNetworkMarketingPage() {
                       <span>¿Las comisiones salen de la venta de productos o de las inscripciones?</span>
                     </li>
                   </ol>
+                  <p className="text-[#A3A3A3] leading-relaxed mt-6">
+                    En el caso de Gano Excel, la quinta se responde a la vista en la{' '}
+                    <Link href="/servilleta" className="text-[#C5A059] underline">presentación del plan servilleta</Link>:
+                    cada comisión sale de una compra de producto.
+                  </p>
                 </section>
 
                 <section className="mb-12">

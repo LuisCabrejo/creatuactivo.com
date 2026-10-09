@@ -226,7 +226,9 @@ export default function EmpleoVsActivosPage() {
                     (los precios están en{' '}
                     <Link href="/paquetes" className="text-[#C5A059] underline">la página de paquetes</Link>).
                     Desde ahí, usted comparte un enlace, Queswa atiende a quien llega y Gano Excel
-                    fabrica y despacha cada pedido.
+                    fabrica y despacha cada pedido. Cómo se gana en ese sistema, paso a paso, lo
+                    muestra la{' '}
+                    <Link href="/servilleta" className="text-[#C5A059] underline">presentación del plan servilleta de Gano Excel</Link>.
                   </p>
                 </section>
               </div>

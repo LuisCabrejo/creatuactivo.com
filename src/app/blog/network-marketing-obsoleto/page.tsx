@@ -162,6 +162,12 @@ export default function NetworkMarketingObsoletoPage() {
                       </div>
                     </div>
                   </div>
+                  {/* Enlace interno a /servilleta (9 oct 2026): el texto ancla dice lo que se
+                      busca. Ver reports/Plan servilleta top 3 Google.md */}
+                  <p className="text-[#A3A3A3] leading-relaxed mt-6">
+                    El mismo recorrido, con las cifras del plan, está en la{' '}
+                    <Link href="/servilleta" className="text-[#C5A059] underline">presentación del plan servilleta de Gano Excel</Link>.
+                  </p>
                 </section>
 
                 <section className="mb-12">

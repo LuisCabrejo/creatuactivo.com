@@ -112,7 +112,7 @@ import {
   esSoloAgradecimiento, cortesiaDeSocio,
   detectarAccesoInventado, TEXTO_ACCESO_ENVIADO,
 } from '@/lib/wa-onboarding';
-import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado, gestoAfirmativoComoSi } from '@/lib/texto-normalizar';
+import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado, gestoAfirmativoComoSi, nombrePropio } from '@/lib/texto-normalizar';
 import {
   detectarDistribuidorQuiereActivarse, botPidioDatosDistribuidor, extraerDatosDistribuidor, PIDE_DATOS_DISTRIBUIDOR,
   textoFaltanDatos, textoSolicitudEnviada, TEXTO_SOLICITUD_NO_ENVIADA, solicitarActivacionDistribuidor, detectarPideAcceso,
@@ -1446,7 +1446,7 @@ async function procesarEntrante(body: any): Promise<void> {
           const crudo: unknown = porSlug?.display_name
             ?? (await sb.from('private_users').select('name').eq('constructor_id', slugEnlace).maybeSingle()).data?.name
             ?? null;
-          nombreEnlace = crudo ? String(crudo).trim().split(/\s+/).slice(0, 2).join(' ') : null;
+          nombreEnlace = crudo ? nombrePropio(String(crudo).trim().split(/\s+/).slice(0, 2).join(' ')) : null;
         } catch { /* best-effort: sale el identificador */ }
       }
       const texto = mensajeSocioEnlace(socioQueEscribe, slugEnlace, nombreEnlace);
@@ -3895,7 +3895,7 @@ async function resolverPatrocinador(
         return {
           userId: porId.id,
           constructorId: porId.constructor_id,
-          nombre: porId.name,
+          nombre: nombrePropio(porId.name ?? ''),
           whatsapp: porId.whatsapp ?? undefined,
         };
       }
@@ -3919,7 +3919,7 @@ async function resolverPatrocinador(
           return {
             userId: user.id,
             constructorId: user.constructor_id,
-            nombre: user.name,
+            nombre: nombrePropio(user.name ?? ''),
             whatsapp: user.whatsapp ?? undefined,
           };
         }
@@ -3947,7 +3947,7 @@ async function resolverPatrocinador(
           .eq('constructor_id', porNombre.constructor_id).maybeSingle();
         if (user) {
           console.log(`🔗 [WA Webhook] Patrocinador por nombre visible: ${mNombre[1]} → ${user.constructor_id}`);
-          return { userId: user.id, constructorId: user.constructor_id, nombre: user.name, whatsapp: user.whatsapp ?? undefined };
+          return { userId: user.id, constructorId: user.constructor_id, nombre: nombrePropio(user.name ?? ''), whatsapp: user.whatsapp ?? undefined };
         }
       }
     } catch (err) {

@@ -123,6 +123,31 @@ export function normalizarLetrasDecorativas(texto: string): string {
   return cambio ? salida : texto;
 }
 
+/**
+ * Un nombre con mayúscula inicial: «JEISSON DAVID» → «Jeisson David»,
+ * «Miguel Antonio barahona» → «Miguel Antonio Barahona».
+ *
+ * Los nombres del registro llegan como se escribieron en la cédula o en el
+ * formulario, y la apertura le dijo a un prospecto «la inteligencia artificial
+ * que asiste a JEISSON DAVID» (9 oct 2026): en un chat, las mayúsculas se leen
+ * como un grito. Solo se toca la palabra que viene TODA en mayúsculas o toda en
+ * minúsculas; una grafía mixta («McAllister», «DeAngelo») es intencional y pasa
+ * intacta. Las partículas (de, del, la…) van en minúscula salvo al comienzo.
+ */
+const PARTICULAS_NOMBRE = new Set(['de', 'del', 'la', 'las', 'los', 'y', 'e', 'da', 'das', 'do', 'dos', 'van', 'von']);
+
+export function nombrePropio(nombre: string): string {
+  if (!nombre) return nombre;
+  return nombre.split(/(\s+)/).map((palabra, i) => {
+    if (!/\p{L}/u.test(palabra)) return palabra;
+    const mayus = palabra.toLocaleUpperCase('es');
+    const minus = palabra.toLocaleLowerCase('es');
+    if (palabra !== mayus && palabra !== minus) return palabra;
+    if (i > 0 && PARTICULAS_NOMBRE.has(minus)) return minus;
+    return minus.replace(/(^|-)(\p{L})/gu, (_, sep, letra) => sep + letra.toLocaleUpperCase('es'));
+  }).join('');
+}
+
 
 /**
  * El «sí» con la tecla de al lado: «Di», «Ai», «Wi», «Ei», «Xi», «Zi».

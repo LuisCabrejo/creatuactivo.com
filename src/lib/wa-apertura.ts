@@ -42,7 +42,7 @@
 import type { WAButton } from '@/lib/wa-channel';
 import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
 import { aFormatoWhatsApp } from '@/lib/wa-formato';
-import { sinDiacriticos } from '@/lib/texto-normalizar';
+import { sinDiacriticos, nombrePropio } from '@/lib/texto-normalizar';
 
 /**
  * Las tres preguntas reales del prospecto, en su voz, como botones VISIBLES.
@@ -232,7 +232,7 @@ function nombreSocioCorto(nombre?: string): string | undefined {
   if (!nombre) return undefined;
   const partes = nombre.trim().split(/\s+/).filter(Boolean);
   if (partes.length === 0) return undefined;
-  return partes.slice(0, 2).join(' ');
+  return nombrePropio(partes.slice(0, 2).join(' '));
 }
 
 /**

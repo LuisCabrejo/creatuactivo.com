@@ -1662,7 +1662,7 @@ async function procesarEntrante(body: any): Promise<void> {
       const r = _bitacoraDelTurno ? renovarOfertaVista(cuerpo, _bitacoraDelTurno) : { texto: cuerpo, cambio: null };
       if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
       const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
-      const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, v.url, v.seg, pie, `video ${v.titulo}`);
+      const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, v.url, v.seg, pie, `video ${v.titulo}`, wamid);
       const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
       if (envio.ok) console.log(`🎬 [WA Webhook] Video «${v.titulo}» → ${phoneNumber}`);
       else console.warn(`⚠️ [WA Webhook] El video «${v.titulo}» no salió (${envio.error}) — va el texto`);
@@ -1726,7 +1726,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, entrada);
         if (wamid) await marcarLeidoYEscribiendo(wamid);
         await new Promise((r) => setTimeout(r, 800));
-        const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, VIDEO_DOCE_NIVELES_WA, 59, OFERTA_SIMULADOR_NIVELES, 'video Los 12 Niveles');
+        const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, VIDEO_DOCE_NIVELES_WA, 59, OFERTA_SIMULADOR_NIVELES, 'video Los 12 Niveles', wamid);
         if (!envio.ok) await sendWhatsAppMessage(phoneNumber, `${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`);
         await persistirTurnoDictado(supabase, waFingerprint, messageText,
           `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}${envio.ok ? '' : `\n\n${OFERTA_SIMULADOR_NIVELES}`}`,
@@ -2400,7 +2400,7 @@ async function procesarEntrante(body: any): Promise<void> {
           // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
           if (wamid) await marcarLeidoYEscribiendo(wamid);
           await new Promise((res) => setTimeout(res, 800));
-          const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, url, 59, pie, 'video Los 12 Niveles');
+          const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, url, 59, pie, 'video Los 12 Niveles', wamid);
           if (envio.ok) {
             const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
             persistirVideo = `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${loQueDice}`;
@@ -3504,8 +3504,16 @@ async function pisoDeEscritura(largo = 0): Promise<void> {
  * entre 20 y 45 s después de su duración.
  * La pregunta NO sale si la persona escribió o tocó otro botón mientras tanto:
  * ya siguió por su lado.
+ * ⚠️ EL TIEMPO (Director, 9 oct 2026, en su teléfono): con 15 s de margen la
+ * pregunta llegó ~7 s después de que el video terminó, y esa pantalla quieta es
+ * donde se pierde la gente. El video pesa de 6 a 10 MB y la persona lo empieza
+ * unos 5 a 8 s después de recibirlo, así que la pregunta sale a la duración +
+ * 5 s —llega justo cuando termina— y los puntos de «escribiendo…» aparecen 2 s
+ * antes de la duración, para que el final del video nunca caiga en silencio.
+ * Si alguien lo empieza más tarde, la pregunta ya lo está esperando debajo.
  */
-const MARGEN_TRAS_VIDEO_S = 15;
+const ESCRIBIENDO_ANTES_DEL_FINAL_S = 2;
+const PREGUNTA_TRAS_EL_FINAL_S = 5;
 
 async function enviarVideoYPreguntarAlFinal(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -3516,9 +3524,10 @@ async function enviarVideoYPreguntarAlFinal(
   seg: number,
   pie: string | undefined,
   nodo: string,
+  wamidEntrante?: string,
 ) {
   const envio = await sendVideo(phone, url);
-  if (envio.ok && pie) waitUntil(preguntarAlTerminarElVideo(supabase, phone, fingerprint, pie, seg, nodo, new Date()));
+  if (envio.ok && pie) waitUntil(preguntarAlTerminarElVideo(supabase, phone, fingerprint, pie, seg, nodo, new Date(), wamidEntrante));
   return envio;
 }
 
@@ -3531,19 +3540,32 @@ async function preguntarAlTerminarElVideo(
   seg: number,
   nodo: string,
   desde: Date,
+  wamidEntrante?: string,
 ): Promise<void> {
-  await new Promise((r) => setTimeout(r, (seg + MARGEN_TRAS_VIDEO_S) * 1000));
-  try {
-    // Cada mensaje entrante queda en la guarda de reenvíos apenas llega, antes
-    // de procesarse: es la señal más rápida de que la persona ya siguió.
-    const { data } = await supabase.from('wa_mensajes_procesados').select('identidad').gt('creado_at', desde.toISOString());
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const siguio = (data ?? []).some((r: any) => [r.identidad?.from, r.identidad?.wa_id, r.identidad?.user_id, r.identidad?.msg_user_id].includes(phone));
-    if (siguio) {
-      console.log(`⏭️ [WA Webhook] ${phone} siguió antes de que terminara el video — no se manda «${pie}»`);
-      return;
-    }
-  } catch { /* si no se puede comprobar, se pregunta: una pregunta de más pesa menos que una que no llega */ }
+  // Cada mensaje entrante queda en la guarda de reenvíos apenas llega, antes de
+  // procesarse: es la señal más rápida de que la persona ya siguió. Si no se
+  // puede comprobar, se pregunta: una pregunta de más pesa menos que una que no llega.
+  const siguio = async () => {
+    try {
+      const { data } = await supabase.from('wa_mensajes_procesados').select('identidad').gt('creado_at', desde.toISOString());
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (data ?? []).some((r: any) => [r.identidad?.from, r.identidad?.wa_id, r.identidad?.user_id, r.identidad?.msg_user_id].includes(phone));
+    } catch { return false; }
+  };
+  const esperar = (s: number) => new Promise((r) => setTimeout(r, Math.max(0, s) * 1000));
+
+  await esperar(seg - ESCRIBIENDO_ANTES_DEL_FINAL_S);
+  if (await siguio()) {
+    console.log(`⏭️ [WA Webhook] ${phone} siguió antes de que terminara el video — no se manda «${pie}»`);
+    return;
+  }
+  // «escribiendo…» dura hasta que sale un mensaje (o 25 s): cubre el final del video.
+  if (wamidEntrante) await marcarLeidoYEscribiendo(wamidEntrante);
+  await esperar(ESCRIBIENDO_ANTES_DEL_FINAL_S + PREGUNTA_TRAS_EL_FINAL_S);
+  if (await siguio()) {
+    console.log(`⏭️ [WA Webhook] ${phone} siguió justo al terminar el video — no se manda «${pie}»`);
+    return;
+  }
   const boton = botonParaOferta(pie);
   const r = boton ? await sendReplyButtons(phone, pie, [boton]) : await sendText(phone, pie);
   if (!r.ok) {

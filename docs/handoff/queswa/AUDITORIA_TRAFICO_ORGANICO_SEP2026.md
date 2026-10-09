@@ -354,3 +354,28 @@ Es el caso Betsabe (§3) en el lado del socio: **una oferta del bot se reconoce 
 - **Nodo 2.226, el socio pide su acceso** («mándeme el acceso», «no puedo entrar a mi cuenta», «cómo ingreso al centro de mando») → `enviarAccesoDashboard` directo. Tolerante al pulgar (`máneme`, `accso`): los dos nodos están en `prueba-typos.mts` con tope 0.
 - **Esqueleto, PASO 1:** estado «YA TUVO CÓDIGO, YA ESTUVO EN GANO EXCEL O YA EVALUÓ EL NEGOCIO, Y QUIERE VOLVER»: si el socio no dijo de quién es el código, el modelo pregunta la frase literal (y el «sí» cae en 2.225); si no es con él, el tiempo 2 lleva la historia en vez del oficio («Sé que usted ya conoce Gano Excel, y por eso me acordé de usted…»). Desplegado al tenant `dashboard`.
 - Fijado en las secciones 9 y 12 de `prueba-experiencia-socio.mts` (dieciocho aserciones nuevas, verde). El proyecto compila igual que antes (`tsc` no marca ninguno de los tres archivos tocados). ⚠️ El webhook lleva además el bloque 1.39 de otra sesión (los botones del lunes), sin comitear: los dos cambios van juntos o no va ninguno.
+
+## 14. Décima vuelta — 9 oct 2026: las últimas 24 horas, y un prospecto que se fue cuando se le acabaron los botones
+
+**Tráfico (jue 8 oct 09:51 → vie 9 oct 09:51):** 11 filas, 6 huellas. Una persona nueva (Gerardo Velasquez, por el enlace de Jeisson Villamil), cuatro socios que tocaron [Ver qué me abre] del envío de pendientes del jueves, dos conversaciones web que eran pruebas internas (el mismo Mac; una se escribió desde el servidor local antes del commit) y un arnés. Cero envíos fallidos, vigilante en verde, 4–5 s por turno. Ningún turno de una persona pasó por el modelo: todo lo dictó el backend.
+
+### 14.1 Lo que se encontró
+
+- **Gerardo vio los tres videos y se fue cuando se le acabaron los botones.** Usó los botones de la apertura como lista: tocó el siguiente 84 s después del video de 60 y 67 s después del de 50. No contestó ninguna de las tres preguntas que iban de pie. Después del tercero, lo único que quedaba era escribir «sí» a «¿Le muestro los productos…?», y no lo hizo. Mismo hallazgo de septiembre: la gente toca, no escribe.
+- **La apertura le dijo «asiste a JEISSON DAVID».** El nombre del registro está en mayúsculas sostenidas (también el de Monica Malagon), y `nombreSocioCorto` no lo arreglaba.
+- **A Jeisson le llegó «Gerardo llegó a su enlace» y nada más**: el aviso «destacado» solo se dispara cuando la persona ya es distribuidora, nombra otro país o elige un paquete. Ver los tres videos no contaba.
+- **Pendientes del jueves:** 20 socios, todos por plantilla; 4 tocaron (20 %). Liliana activó las notificaciones a los 1,5 min y Patricia anotó su destino a los 4 min. Angy y Miguel, a quienes solo les faltaban las notificaciones, no las activaron: en iPhone el botón abre el navegador, y ahí no se pueden activar.
+- **Una apertura sin mensaje** (enlace de Miguel Barahona, jue 17:49). Los robots de vista previa ya se filtran, así que fue una persona que no tocó «Enviar».
+
+### 14.2 Lo que se arregló (aprobado por el Director el 9 oct)
+
+- **`nombrePropio()`** (texto-normalizar.ts): mayúscula inicial solo en la palabra escrita toda en mayúsculas o toda en minúsculas; las partículas en minúscula. Aplicado en `resolverPatrocinador`, en las aperturas y en el saludo de los avisos al socio.
+- **El video con botón** (`sendVideoConBoton` en wa-channel.ts, `enviarVideoConPregunta` en el webhook): la pregunta de cierre de cada video va con un solo botón — [Sí, muéstreme], [Sí, cuénteme] o [Sí, quiero verlo] según el verbo (`botonParaOferta`, wa-apertura.ts). El toque entra como un «Sí» escrito (`ID_BOTON_SI`), así que lo atiende el mismo nodo. Cubre los tres videos de la apertura y el de Los 12 Niveles, cuyo «sí» trae el simulador. Si Meta rechaza el mensaje interactivo, sale el video con la pregunta como pie, como antes.
+- **El aviso de los tres videos** (`avisarTresVideos`, wa-avisos-contexto.ts): una vez por persona (`aviso_tres_videos_en`), por push y por WhatsApp si la ventana está abierta, sin correo (el de respaldo le llega al equipo, no al socio).
+- **La línea del iPhone** en lo que abre el pendiente de notificaciones, con los mismos pasos que muestra queswa.app.
+- Arnés: `npx tsx scripts/prueba-videos-con-boton.mts`. Ensayo de punta a punta: `repetir-por-webhook.mts --mensajes` acepta ahora toques de botón como `[id:Título]`.
+
+### 14.3 Lo que queda por mirar
+
+- **Cómo se ve en el teléfono un video con botón.** La vista previa de Meta no existe para esto: verlo en el primer prospecto real, y si sale mal, el registro dirá «El video con botón no salió».
+- **El efecto del botón**: en la próxima vuelta, contar cuántos tocan [Sí, muéstreme] frente a cuántos se iban después del tercer video.

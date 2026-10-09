@@ -39,6 +39,7 @@ import { sendText } from './wa-channel';
 import { dentroDeVentana, normalizarWhatsApp } from './wa-onboarding';
 import { avisarPorCorreo } from './wa-radicacion';
 import { esBsuid, nombrePais, paisDeContactoWA, paisesNombrados } from './paises';
+import { nombrePropio } from './texto-normalizar';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Supa = any;
@@ -71,7 +72,7 @@ export function destinatarioDe(
     return {
       constructorId: socio.constructorId,
       whatsapp: socio.whatsapp ?? undefined,
-      nombreCorto: (socio.nombre ?? '').trim().split(/\s+/)[0] || undefined,
+      nombreCorto: nombrePropio((socio.nombre ?? '').trim().split(/\s+/)[0] ?? '') || undefined,
       esEquipo: false,
     };
   }
@@ -453,6 +454,48 @@ export async function revisarDestacado(
     }, `destacado (${nuevas.join(', ')})`);
   } catch (err) {
     console.error('⚠️ [Avisos] Destacado:', err);
+  }
+}
+
+// ─── 3b. Los tres videos ─────────────────────────────────────────────────────
+
+/** Los tres videos de la apertura, por el tema con que la bitácora los reconoce. */
+export const TEMAS_TRES_VIDEOS = ['como_funciona', 'dinero', 'dia_a_dia'] as const;
+
+export function textoTresVideos(dest: Destinatario, nombre: string | null | undefined, contacto: string): string {
+  const saludo = dest.nombreCorto ? `${dest.nombreCorto}, ` : '';
+  return [
+    `🎬 ${saludo}${quien(nombre, contacto)} ya vio los tres videos: cómo funciona, cómo entra el dinero y qué haría en el día a día.`,
+    `Le conviene escribirle usted. ${lineaContacto(contacto)}`,
+  ].join('\n\n');
+}
+
+/**
+ * Quien ve los tres videos de la apertura da una de las señales de interés más
+ * claras, y hasta el 9 oct 2026 el socio no se enteraba: a Jeisson le llegó
+ * «Gerardo llegó a su enlace» y nada más, aunque Gerardo vio los tres seguidos.
+ * Sale una sola vez por persona (`aviso_tres_videos_en` en la ficha), por push
+ * y por WhatsApp si la ventana está abierta. Sin correo: el de respaldo le
+ * llega al equipo, no al socio. «Vio» es lo que la bitácora da por mostrado:
+ * WhatsApp no avisa si la persona reprodujo el video.
+ */
+export async function avisarTresVideos(
+  supabase: Supa,
+  args: { dest: Destinatario; fingerprint: string; nombre?: string | null; contacto: string },
+): Promise<void> {
+  try {
+    const { dest, fingerprint, nombre, contacto } = args;
+    const { data: ficha } = await supabase.from('prospects').select('device_info').eq('fingerprint_id', fingerprint).maybeSingle();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const di: Record<string, any> = ficha?.device_info ?? {};
+    if (di.es_socio === true || di.aviso_tres_videos_en) return;
+    await marcarFicha(supabase, fingerprint, { aviso_tres_videos_en: new Date().toISOString() });
+    await entregar(supabase, dest, {
+      push: { titulo: `🎬 ${quien(nombre, contacto, false)} ya vio los tres videos`, cuerpo: 'Cómo funciona, cómo entra el dinero y qué haría en el día a día. Le conviene escribirle usted.' },
+      texto: textoTresVideos(dest, nombre, contacto),
+    }, 'tres videos');
+  } catch (err) {
+    console.error('⚠️ [Avisos] Tres videos:', err);
   }
 }
 

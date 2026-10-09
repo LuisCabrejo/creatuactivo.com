@@ -19,7 +19,7 @@ import { createClient } from '@supabase/supabase-js';
 import { waitUntil } from '@vercel/functions';
 import { construirBitacora, renovarOfertaVista } from '@/lib/queswa-bitacora';
 import {
-  sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo,
+  sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo, sendVideoConBoton,
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
 import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA, VIDEO_DOCE_NIVELES_WA } from '@/lib/reels';
@@ -49,6 +49,7 @@ import {
   notaVideoDoceNivelesVisto,
   RE_PREGUNTA_DINERO_PRECARGADA, RE_VENGO_DE_CREATUACTIVO, opcionesTrasPreguntaDinero,
   construirAperturaPreguntaDinero, aperturaRetornoPreguntaDinero,
+  botonParaOferta, ID_BOTON_SI,
 } from '@/lib/wa-apertura';
 import {
   detectarConsultaConPareja, textoOfrecerEnlace, botOfrecioEnlace, aceptaEnlace, enlaceOfrecidoReciente,
@@ -144,7 +145,7 @@ import {
 } from '@/lib/wa-guardarrail-negocio';
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
-  destinatarioDe, origenDeLlegada, avisarLlegada, avisarSiRegresa, revisarDestacado,
+  destinatarioDe, origenDeLlegada, avisarLlegada, avisarSiRegresa, revisarDestacado, avisarTresVideos, TEMAS_TRES_VIDEOS,
   detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb, pushAlDashboard,
 } from '@/lib/wa-avisos-contexto';
 import { nombrePais, paisDeContactoWA } from '@/lib/paises';
@@ -464,6 +465,13 @@ async function procesarEntrante(body: any): Promise<void> {
         messageText = elegido.title;
         opcionElegida = elegido.id;
         console.log(`👆 [WA Webhook] ${phoneNumber} eligió "${elegido.title}" (${elegido.id})`);
+      }
+      // El botón que va debajo de un video («Sí, muéstreme», 9 oct 2026) es un
+      // «sí» a la pregunta del pie: entra como si lo hubiera escrito, para que
+      // lo atienda el mismo nodo que atiende el «sí» tecleado.
+      if (opcionElegida === ID_BOTON_SI) {
+        messageText = 'Sí';
+        opcionElegida = undefined;
       }
 
       // Toque de un botón de respuesta rápida de una PLANTILLA: Meta NO lo manda
@@ -1650,10 +1658,21 @@ async function procesarEntrante(body: any): Promise<void> {
       const r = _bitacoraDelTurno ? renovarOfertaVista(cuerpo, _bitacoraDelTurno) : { texto: cuerpo, cambio: null };
       if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
       const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
-      const envio = await sendVideo(phoneNumber, v.url, pie);
+      const envio = await enviarVideoConPregunta(phoneNumber, v.url, pie);
       const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
       if (envio.ok) console.log(`🎬 [WA Webhook] Video «${v.titulo}» → ${phoneNumber}`);
       else console.warn(`⚠️ [WA Webhook] El video «${v.titulo}» no salió (${envio.error}) — va el texto`);
+      // Con este, ¿ya tiene los tres? Se le avisa al socio una sola vez (9 oct
+      // 2026, caso Gerardo): es de las señales de interés más claras.
+      const vistos = new Set([...(_bitacoraDelTurno?.temasMostrados ?? []), TEMA_DE_VIDEO[opcion]]);
+      if (envio.ok && !socioQueEscribe && TEMAS_TRES_VIDEOS.every((t) => vistos.has(t))) {
+        waitUntil(avisarTresVideos(supabase, {
+          dest: destinatarioDe(patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id)),
+          fingerprint: waFingerprint,
+          nombre: contactName,
+          contacto: phoneNumber,
+        }));
+      }
       return {
         ok: envio.ok,
         fila: `${v.intro}\n\n[Video «${v.titulo}», ${v.seg} s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`,
@@ -1702,7 +1721,7 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, entrada);
         if (wamid) await marcarLeidoYEscribiendo(wamid);
         await new Promise((r) => setTimeout(r, 800));
-        const envio = await sendVideo(phoneNumber, VIDEO_DOCE_NIVELES_WA, OFERTA_SIMULADOR_NIVELES);
+        const envio = await enviarVideoConPregunta(phoneNumber, VIDEO_DOCE_NIVELES_WA, OFERTA_SIMULADOR_NIVELES);
         if (!envio.ok) await sendWhatsAppMessage(phoneNumber, `${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`);
         await persistirTurnoDictado(supabase, waFingerprint, messageText,
           `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`,
@@ -2358,7 +2377,7 @@ async function procesarEntrante(body: any): Promise<void> {
           // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
           if (wamid) await marcarLeidoYEscribiendo(wamid);
           await new Promise((res) => setTimeout(res, 800));
-          const envio = await sendVideo(phoneNumber, url, pie);
+          const envio = await enviarVideoConPregunta(phoneNumber, url, pie);
           if (envio.ok) {
             const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
             persistirVideo = `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`;
@@ -3446,6 +3465,23 @@ async function pisoDeEscritura(largo = 0): Promise<void> {
   if (!_turnoEmpezoEn) return;
   const falta = PISO_MS - (Date.now() - _turnoEmpezoEn);
   if (falta > 0) await new Promise((r) => setTimeout(r, falta));
+}
+
+/**
+ * Un video con su pregunta de cierre (9 oct 2026). Si la pregunta tiene botón
+ * —«¿Le muestro…?», «¿Le cuento…?», «¿Quiere verlo…?»—, sale como mensaje
+ * interactivo: el video arriba, la pregunta y el botón debajo, y el «sí» queda a
+ * un toque (`botonParaOferta`, wa-apertura.ts). Si Meta lo rechaza, o la
+ * pregunta no tiene botón, sale el video con la pregunta como pie, como antes.
+ */
+async function enviarVideoConPregunta(phone: string, url: string, pie: string | undefined) {
+  const boton = botonParaOferta(pie);
+  if (pie && boton) {
+    const r = await sendVideoConBoton(phone, url, pie, boton);
+    if (r.ok) return r;
+    console.warn(`⚠️ [WA Webhook] El video con botón no salió (${r.error}) — va con la pregunta de pie`);
+  }
+  return sendVideo(phone, url, pie);
 }
 
 async function sendWhatsAppMessage(

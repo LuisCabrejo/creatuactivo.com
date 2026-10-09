@@ -68,6 +68,30 @@ export const APERTURA_OPCIONES: WAButton[] = [
   { id: 'apertura_rol',     title: 'Qué debo hacer yo' },
 ];
 
+/**
+ * El botón que contesta «sí» a la pregunta que va debajo de un video (9 oct 2026).
+ *
+ * Al tocarlo, el webhook lo convierte en un «Sí» escrito (`ID_BOTON_SI`), así
+ * que sigue exactamente el camino de quien lo teclea: se lee contra la última
+ * pregunta del bot. El título sigue al verbo de la pregunta —las ofertas del
+ * recorrido son «¿Le muestro…?» o «¿Le cuento…?», y la del simulador «¿Quiere
+ * verlo…?»— y va en primera persona,
+ * porque Meta lo manda como mensaje de la persona. Una sola pregunta, un solo
+ * botón: nunca una segunda salida.
+ */
+export const ID_BOTON_SI = 'oferta_si';
+
+export function botonParaOferta(pregunta: string | undefined): WAButton | null {
+  const p = (pregunta ?? '').trim();
+  if (!p.endsWith('?')) return null;
+  if (/^¿\s*le\s+muestro\b/i.test(p)) return { id: ID_BOTON_SI, title: 'Sí, muéstreme' };
+  if (/^¿\s*le\s+cuento\b/i.test(p)) return { id: ID_BOTON_SI, title: 'Sí, cuénteme' };
+  // La pregunta del video de Los 12 Niveles (`OFERTA_SIMULADOR_NIVELES`): su
+  // «sí» trae la tarjeta del simulador. Sin botón, la cadena se cortaba ahí.
+  if (/^¿\s*quiere\s+verlo\b/i.test(p)) return { id: ID_BOTON_SI, title: 'Sí, quiero verlo' };
+  return null;
+}
+
 // La traducción de formato vive en `wa-formato.ts`: aquí solo se aplica. La
 // versión local hacía únicamente `**` → `*`, y las respuestas maestras traen
 // también viñetas y separadores de Markdown que WhatsApp imprime literales.

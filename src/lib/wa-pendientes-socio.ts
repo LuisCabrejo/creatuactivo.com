@@ -75,7 +75,11 @@ export function cuerpoPendientes(nombre: string, p: Pendiente[]): string {
 const LO_QUE_ABRE: Record<Pendiente, string> = {
   destino: '🏁 *Su destino:* le marco la ruta hacia la vida que quiere.',
   gano: '🛰️ *Su contraseña de Gano:* veo cómo avanza su sistema y le cargo la compra cuando la necesite, sin entrar al back office.',
-  notificaciones: '🔔 *Las notificaciones:* le aviso al instante cuando alguien llega por su enlace.',
+  // La línea del iPhone (9 oct 2026): Angy y Miguel tocaron [Ver qué me abre],
+  // solo les faltaban las notificaciones y no las activaron. En iPhone el botón
+  // abre el navegador, y ahí no se pueden activar: solo desde la app instalada.
+  // Los pasos son los mismos que muestra el Dashboard (PushNotificationPrompt).
+  notificaciones: '🔔 *Las notificaciones:* le aviso al instante cuando alguien llega por su enlace.\n_En iPhone se activan desde la app: en Safari, Compartir → «Agregar a inicio», y luego ábrala desde su pantalla de inicio._',
   foto: '📸 *Su foto:* es la que ven las personas en las páginas de los videos que usted comparte.',
 };
 const ORDEN_LO_QUE_ABRE: Pendiente[] = ['destino', 'gano', 'notificaciones', 'foto'];

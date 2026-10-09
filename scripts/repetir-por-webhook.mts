@@ -8,7 +8,8 @@
  *      carpeta: dos servidores sobre el mismo `.next` se pisan.
  *   2. npx tsx scripts/repetir-por-webhook.mts [--base http://localhost:3055] [--log <archivo del servidor>] [--hasta 29]
  *      Con `--mensajes "Hola Queswa | ¿Qué estrategia tienen?"` manda esas frases
- *      (separadas por «|») en lugar de la conversación del Director.
+ *      (separadas por «|») en lugar de la conversación del Director. Un toque de
+ *      botón se escribe «[id:Título]»: `[apertura_sistema:Cómo funciona]`.
  *
  * Por qué existe (24 sep 2026): las pruebas del motor no ven el webhook —los
  * botones, las fotos, el simulador, la pareja, la radicación viven allá—, y la
@@ -40,7 +41,12 @@ type Entrada = { texto?: string; boton?: { id: string; title: string }; flow?: R
 const { filas } = JSON.parse(fs.readFileSync(new URL('./fixtures/prueba-director-24sep.json', import.meta.url), 'utf8')) as { filas: { messages: { role: string; content: string }[] }[] };
 // Frases propias en lugar de la conversación grabada (8 oct 2026).
 const MENSAJES = arg('--mensajes', '');
-const entradas: Entrada[] = MENSAJES ? MENSAJES.split('|').map((t) => ({ texto: t.trim() })).filter((e) => e.texto) : filas.map((f, i) => {
+// Un toque de botón va como «[id:Título]» (9 oct 2026): «[apertura_sistema:Cómo funciona]».
+const entradaDe = (t: string): Entrada => {
+  const b = t.match(/^\[([a-z_]+):(.+)\]$/);
+  return b ? { boton: { id: b[1], title: b[2] } } : { texto: t };
+};
+const entradas: Entrada[] = MENSAJES ? MENSAJES.split('|').map((t) => t.trim()).filter(Boolean).map(entradaDe) : filas.map((f, i) => {
   const u = f.messages.find((m) => m.role === 'user')!.content;
   if (i === 0) return { texto: 'Hola Queswa' };
   // Los botones de la apertura: en la prueba se tocaron, no se escribieron.
@@ -126,7 +132,8 @@ for (let i = DESDE - 1; i < Math.min(HASTA, entradas.length); i++) {
   if (envios.length) {
     for (const x of envios) {
       const cuerpo = (x.text ?? x.caption ?? x.bodyText ?? '') as string;
-      escribir(`[${String(x.tipo).toUpperCase()}] ${x.link ? `${x.link}\n` : ''}${cuerpo}`);
+      const botones = [x.button, ...((x.buttons as unknown[]) ?? [])].filter(Boolean).map((b) => `[${(b as { title: string }).title}]`).join(' ');
+      escribir(`[${String(x.tipo).toUpperCase()}] ${x.link ? `${x.link}\n` : ''}${cuerpo}${botones ? `\n${botones}` : ''}`);
     }
   } else if (filasAhora > antes) {
     escribir(`[GUARDADO] ${fila?.messages?.find((m: { role: string }) => m.role === 'assistant')?.content ?? ''}`);

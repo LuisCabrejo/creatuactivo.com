@@ -66,6 +66,7 @@ import {
 } from '@/lib/wa-ambivalencia';
 import { extraerMomento, guardarAcuerdo, guardarPuertaAbierta } from '@/lib/wa-acuerdos';
 import { botonDelLunes, proximasDosPM, respuestaRecordar, QUE_LUNES, CUERPO_FORMULARIO } from '@/lib/wa-lunes-socio';
+import { botPidioCumple, socioDiceSuCumple, pareceIntentoDeFecha, guardarCumpleEnDashboard, respuestaGuardado, RESPUESTA_NO_ENTENDI } from '@/lib/wa-cumpleanos-socio';
 import { esBotonPendientes, atenderVerPendientes } from '@/lib/wa-pendientes-socio';
 import {
   destinoDelSocio, leerFormularioDestino, atenderFormularioDestino, enviarFormularioDestino, atenderModoWazeSocio, type DestinoSocio,
@@ -1825,6 +1826,24 @@ async function procesarEntrante(body: any): Promise<void> {
     // Motivo de fondo → wa-onboarding.ts, «Lo que es del Centro de Mando».
     if (socioQueEscribe) {
       const _ultimoBotSocio = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
+      // 2.20 Su cumpleaños (9 oct 2026, Director): el mensaje que lo pide dice
+      // «escríbamelo aquí y yo lo guardo». La fecha la lee el Dashboard (el mismo
+      // código de Ajustes); aquí solo se decide si el mensaje es la respuesta. Si
+      // no se entiende y parecía un intento de fecha, se pide de nuevo; si era
+      // otro tema (una pregunta, un mensaje largo), sigue su camino.
+      const _pidioCumple = botPidioCumple(_ultimoBotSocio);
+      if (_pidioCumple || socioDiceSuCumple(messageText)) {
+        const cumple = await guardarCumpleEnDashboard(socioQueEscribe.constructorId, messageText);
+        const textoCumple = cumple?.ok
+          ? respuestaGuardado(cumple.legible)
+          : (cumple && _pidioCumple && pareceIntentoDeFecha(messageText) ? RESPUESTA_NO_ENTENDI : null);
+        if (textoCumple) {
+          await sendWhatsAppMessage(phoneNumber, textoCumple, { wamid });
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, textoCumple, '2.20 su cumpleaños');
+          console.log(`🎂 [WA Webhook] 2.20 /${socioQueEscribe.slug}: ${cumple?.ok ? `cumpleaños guardado (${cumple.legible})` : 'no se entendió la fecha'}`);
+          return;
+        }
+      }
       const _yaInvitado = botInvitoAlDashboard(_ultimoBotSocio);
       if (_yaInvitado && esAceptacion(messageText)) {
         const envio = await enviarAccesoDashboard(supabase, socioQueEscribe);

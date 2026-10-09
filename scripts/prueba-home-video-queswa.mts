@@ -80,10 +80,10 @@ revisar('no lo vio: «Cómo funciona» y «Qué debo hacer yo»', JSON.stringify
 
 console.log('\n👋 Saludo aprobado por el Director (1 oct 2026)');
 revisar('primer contacto · vio · con socio', construirAperturaPreguntaDinero('Luis Cabrejo Parra', 'Eduardo', true) ===
-  'Hola, Eduardo. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo, la misma del video. Atiendo a cientos de personas, las 24 horas.\n\nComo ya vio cómo funciona, vamos con su pregunta.',
+  'Hola, Eduardo. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo, la misma del video.\n\nComo ya vio cómo funciona, vamos con su pregunta.',
   construirAperturaPreguntaDinero('Luis Cabrejo Parra', 'Eduardo', true));
 revisar('primer contacto · no vio · sin socio', construirAperturaPreguntaDinero(undefined, undefined, false) ===
-  'Hola. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.\n\nVamos con su pregunta.',
+  'Hola. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial de CreaTuActivo.\n\nVamos con su pregunta.',
   construirAperturaPreguntaDinero(undefined, undefined, false));
 revisar('retorno · vio', aperturaRetornoPreguntaDinero('Eduardo', true) === 'Qué bueno que vuelva, Eduardo. Como ya vio el video de cómo funciona, vamos con su pregunta.');
 revisar('retorno · no vio', aperturaRetornoPreguntaDinero(undefined, false) === 'Qué bueno que vuelva. Vamos con su pregunta.');

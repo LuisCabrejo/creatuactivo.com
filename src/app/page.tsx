@@ -281,13 +281,13 @@ export const metadata = {
     url: 'https://creatuactivo.com',
     title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description:
-      'Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
+      'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
     description:
-      'Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
+      'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
   },
 }
 
@@ -620,7 +620,11 @@ export default function HomePage() {
               es culpa de las personas…»), «una infraestructura» (aposición que le daba
               un cuarto nombre al sistema), «cualquiera con deseos de superación», el
               cobro y el ingreso en negrita — el H1 ya carga la promesa entera. Gano
-              Excel queda como estatus en una línea, nunca como alegato. */}
+              Excel queda como estatus en una línea, nunca como alegato.
+              La segunda frase del credo cambió el 9 oct 2026 (Director), igual que en la
+              apertura del canal y en WHY_01: antes «Creemos en empoderar a las personas
+              para que recuperen el control de su tiempo y de su dinero». La nueva le
+              responde a la primera y le da sentido al nombre de la marca. */}
           <p
             className="text-balance"
             style={{
@@ -634,8 +638,8 @@ export default function HomePage() {
             }}
           >
             Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar
-            cuentas y repetir. Creemos en empoderar a las personas para que recuperen el
-            control de su tiempo y de su dinero.
+            cuentas y repetir. Creemos que el trabajo de cada persona debería convertirse
+            en un activo.
           </p>
 
           <p style={heroBodyStyle}>

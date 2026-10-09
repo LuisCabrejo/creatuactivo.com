@@ -12,17 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.67** (8 oct 2026) — **`NET_01` da la bienvenida a quien viene de otra compañía.** La primera línea suma *«y aquí eso suma»*: quien es distribuidor de otra compañía de mercadeo en red es bienvenido (Director, 8 oct 2026). Quien está activo en Gano Excel con otro equipo ya no llega aquí: lo atiende el nodo 2.51 del conductor, con un texto aprobado y sin venderle. El índice y el título no cambian.
+**Versión actual: v6.68** (9 oct 2026) — **La segunda frase del credo cambia en `WHY_01` 🔒, `WHY_05` 🔒 y `CRED_01`:** *«Creemos que el trabajo de cada persona debería convertirse en un activo.»* Le responde a la primera frase —el trabajo que hoy se va en el ciclo— y le da sentido al nombre de la marca. Es la misma frase de la Home y de la apertura del canal (Director, 9 oct 2026). Los índices y los títulos no cambian.
+
+**v6.67** (8 oct 2026) — **`NET_01` da la bienvenida a quien viene de otra compañía.** La primera línea suma *«y aquí eso suma»*: quien es distribuidor de otra compañía de mercadeo en red es bienvenido (Director, 8 oct 2026). Quien está activo en Gano Excel con otro equipo ya no llega aquí: lo atiende el nodo 2.51 del conductor, con un texto aprobado y sin venderle. El índice y el título no cambian.
 
 **v6.66** (8 oct 2026) — **`WHY_PROD_01` afirma la composición sin cifra.** El candado deja la extracción y el producto premium; la cifra del Ganoderma tiene una sola forma aprobada, la de `CIENCIA_02` (triterpenos, dato de composición), y no va en una respuesta de negocio (Director, 8 oct 2026).
-
-**v6.65** (8 oct 2026) — **`VS_01` dice la recompra como `WHY_02`.** El cliente es quien compra; usted, quien recibe: *«cada vez que vuelve a comprar, a usted le queda un porcentaje»*. Es la misma forma de la Home, del prompt y de `WHY_02` (Director, 8 oct 2026). Solo cambia esa línea del cuerpo; el índice y el título no.
-
-
-
-
-
-
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
 
@@ -39,7 +33,7 @@ Con gusto.
 
 CreaTuActivo es una **empresa de tecnología**.
 
-Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.
+Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos que el trabajo de cada persona debería convertirse en un activo.
 
 Por eso hicimos sencillo lo que antes era complicado: tener su propia empresa de distribución. Usted recibe los 3 elementos en una sola aplicación, y lo maneja todo desde el celular.
 
@@ -648,7 +642,7 @@ Todas van directo a Gano Excel por sus canales oficiales: consignación o transf
 <verbatim_lock>
 Le doy la razón de fondo.
 
-Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.
+Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos que el trabajo de cada persona debería convertirse en un activo.
 
 Porque hoy la estabilidad económica de la mayoría depende de variables que no controla: basta un recorte de personal, un mal trimestre en su sector o una semana de poco trabajo para que todo tambalee. Y cuando el ingreso sí llega, usualmente ya tiene dueño: el banco, las cuotas, los recibos.
 
@@ -900,7 +894,7 @@ Funciona parecido a una suscripción de streaming: mientras la mantiene activa, 
 
 CreaTuActivo es una **empresa de tecnología**. Detrás están Luis Cabrejo y el equipo de creatuactivo.com; del producto responde **Gano Excel**, que lo fabrica y lo despacha.
 
-Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero. Y creemos que lo complejo tiene que volverse sencillo para estar al alcance de cualquiera: para eso aplicamos tecnología.
+Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos que el trabajo de cada persona debería convertirse en un activo. Y creemos que lo complejo tiene que volverse sencillo para estar al alcance de cualquiera: para eso aplicamos tecnología.
 
 De ahí salieron **queswa.app**, donde usted maneja su sistema desde el celular, y yo, que converso a toda hora con cada persona que llega — las mismas dos herramientas con las que ellos trabajan todos los días.
 

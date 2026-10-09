@@ -42,17 +42,11 @@ const FP = `wa_57310${String(Date.now()).slice(-7)}`;
 
 const APERTURA = `Hola. Un gusto saludarle.
 
-Soy Queswa, la inteligencia artificial que asiste a Luis Cabrejo. Atiendo a cientos de personas, las 24 horas.
+Soy Queswa, la inteligencia artificial que asiste a Luis Cabrejo.
 
-En CreaTuActivo creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.
+En CreaTuActivo creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos que el trabajo de cada persona debería convertirse en un activo.
 
-Por eso hicimos sencillo lo que antes era complicado: tener su propio *sistema de distribución*.
-
-• Usted comparte un enlace.
-• Yo converso con quien llega.
-• Usted recibe.
-
-Todo desde el celular. Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?`;
+Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?`;
 
 /**
  * Guiones. `via` fuerza una capa; sin ella decide el arnés como el webhook:

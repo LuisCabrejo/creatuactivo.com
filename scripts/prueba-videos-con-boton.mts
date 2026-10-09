@@ -6,15 +6,20 @@
  * iban de pie y se fue cuando se le acabaron los botones. Además la apertura le
  * dijo «asiste a JEISSON DAVID», y a Jeisson solo le llegó «llegó a su enlace».
  *
- *   1. El nombre del socio con mayúscula inicial (nombrePropio).
- *   2. La pregunta debajo de cada video lleva un botón (botonParaOferta), y su
+ *   1. El nombre del socio con mayúscula inicial (nombrePropio), y el saludo en
+ *      tres ideas con la segunda frase nueva del credo.
+ *   2. La pregunta que sigue a cada video lleva un botón (botonParaOferta), y su
  *      toque entra como un «Sí» escrito: abre el mismo nodo que el «sí» tecleado.
+ *      La pregunta llega cuando el video termina (preguntarAlTerminarElVideo, en
+ *      el webhook); eso se prueba por el webhook con --conservar, abajo.
  *   3. El aviso al socio cuando su prospecto ya vio los tres videos.
  *   4. La línea del iPhone en lo que abre el pendiente de notificaciones.
  *
  * Correr:  npx tsx scripts/prueba-videos-con-boton.mts   (exit 1 si algo falla)
  * De punta a punta, por el webhook en modo ensayo:
- *   npx tsx scripts/repetir-por-webhook.mts --log <log> --mensajes "Hola Queswa | [apertura_sistema:Cómo funciona] | [oferta_si:Sí, muéstreme]"
+ *   npx tsx scripts/repetir-por-webhook.mts --log <log> --conservar --mensajes "Hola Queswa | [apertura_sistema:Cómo funciona] | [apertura_dinero:Cómo entra el dinero]"
+ *   (la pregunta del primer video no debe salir; la del segundo sí, ~65 s después.
+ *   Con --conservar, borrar después el rastro de wa_573009990024 y de wamid.ensayo.%)
  */
 import { config } from 'dotenv'; config({ path: '.env.local' });
 const { nombrePropio } = await import('../src/lib/texto-normalizar');
@@ -38,6 +43,17 @@ igual(nombrePropio('McAllister Ruiz'), 'McAllister Ruiz', 'grafía mixta intacta
 igual(nombrePropio('Luis Cabrejo'), 'Luis Cabrejo', 'un nombre bien escrito no cambia');
 const apertura = construirApertura('JEISSON DAVID VILLAMIL HERNANDEZ', 'Gerardo Velasquez');
 apertura.includes('asiste a Jeisson David.') ? ok('la apertura dice «asiste a Jeisson David»') : mal('la apertura no corrige el nombre del socio');
+
+console.log('\n── 1b. El saludo en tres ideas (9 oct 2026) ──');
+const { getInitialGreeting } = await import('../src/lib/queswa-greeting');
+const CREDO_NUEVO = 'Creemos que el trabajo de cada persona debería convertirse en un activo.';
+for (const [donde, texto] of [['WhatsApp con socio', apertura], ['WhatsApp sin socio', construirApertura()], ['web', getInitialGreeting()]] as const) {
+  texto.includes(CREDO_NUEVO) ? ok(`${donde}: lleva la segunda frase nueva del credo`) : mal(`${donde}: falta la segunda frase nueva del credo`);
+  !/cientos de personas|hicimos sencillo|Usted recibe|Todo desde el celular|recuperen el control/.test(texto) ? ok(`${donde}: sin lo que salió`) : mal(`${donde}: quedó algo de lo que salió`);
+}
+const palabras = apertura.split(/\s+/).filter(Boolean).length;
+palabras <= 60 ? ok(`la apertura con socio tiene ${palabras} palabras`) : mal(`la apertura volvió a crecer: ${palabras} palabras`);
+(construirApertura().match(/CreaTuActivo/g) ?? []).length === 1 ? ok('sin socio, la marca aparece una sola vez') : mal('sin socio, la marca se repite');
 igual(destinatarioDe({ constructorId: 'x', nombre: 'JEISSON DAVID VILLAMIL HERNANDEZ' }).nombreCorto, 'Jeisson', 'el saludo de los avisos al socio');
 
 console.log('\n── 2. El botón debajo de cada video ──');

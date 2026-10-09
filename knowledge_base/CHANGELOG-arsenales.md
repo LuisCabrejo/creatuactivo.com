@@ -516,6 +516,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.68 — La segunda frase del credo (9 oct 2026)
+
+Aprobado por el Director en el chat, tras auditar la apertura del canal. La frase de identidad remataba en *«Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero»*; desde hoy remata en *«Creemos que el trabajo de cada persona debería convertirse en un activo»*. La nueva le responde a la primera —el trabajo que hoy se va en el ciclo de trabajar, pagar cuentas y repetir debería volverse un activo— y le da sentido al nombre de la marca. Se eligió *activo* y no *capital real*: *capital*, en un primer mensaje, suena a inversión, y *real* sugiere que hay otro falso. *Activo* va sin su causa porque es una creencia, no una promesa; la causa la dice el video «Cómo entra el dinero» (*«Esa repetición es la que vuelve su sistema un activo»*). Cambia en `WHY_01` 🔒, `WHY_05` 🔒 y `CRED_01`, igual que en la Home, en la apertura del canal (`wa-apertura.ts`) y en el saludo de la web (`queswa-greeting.ts`). La Presentación conserva su propia segunda mitad (*«…la gente que sabe trabajar… capital real»*, Director, 24-26 sep 2026). Los índices y los títulos no cambian.
+
 ### v6.67 — `NET_01` da la bienvenida a quien viene de otra compañía (8 oct 2026)
 
 Aprobado por el Director en el chat. Caso Aldo Moller (6 oct 2026): escribió *«ya soy distribuidor o socio. tengo mi codigo»* y Queswa no supo si era de otro equipo de Gano Excel, de otra compañía o alguien que tuvo código. Quedan tres respuestas distintas: quien es de **otra compañía** es bienvenido y recibe `NET_01`, que ahora abre *«Usted ya conoce el mercadeo en red, y aquí eso suma»*; quien **tuvo** código de Gano Excel recibe `NET_02`; y quien está **activo en Gano Excel con otro equipo** lo atiende el nodo 2.51 del conductor (`src/lib/queswa-conductor.ts`) con el texto aprobado, sin capacitarlo, sin guiarlo y sin venderle: entre líneas de Gano Excel se respeta el equipo de cada quien. Si no dice de qué compañía es, el nodo le pregunta *«¿Su código es de Gano Excel?»*. El índice y el título de `NET_01` no cambian.

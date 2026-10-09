@@ -260,6 +260,22 @@ function nombreSocioCorto(nombre?: string): string | undefined {
 }
 
 /**
+ * Quién habla: Queswa, la inteligencia artificial del socio (o de la marca, si
+ * no hay socio). Una sola línea para todas las aperturas.
+ *
+ * ⛔ SIN «Atiendo a cientos de personas, las 24 horas» (Director, 9 oct 2026).
+ * Entró el 6 sep como prueba social para un estigma de popularidad, pero la
+ * investigación dice que lo que mueve es ver gente normal con resultados, no la
+ * capacidad del asistente; en WhatsApp eran unas cincuenta personas, y el video
+ * «Cómo funciona» ya dice «Yo atiendo, las 24 horas» un toque después.
+ */
+function identidadDeQueswa(socio: string | undefined, sufijo = ''): string {
+  return socio
+    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}${sufijo}.`
+    : `Soy Queswa, la inteligencia artificial de CreaTuActivo${sufijo}.`;
+}
+
+/**
  * Cuerpo del mensaje de apertura.
  *
  * @param nombreSocio      Nombre del arquitecto que refirió; sin él se cae a la
@@ -341,9 +357,7 @@ export function construirAperturaProductos(nombreSocio?: string, nombreProspecto
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
   const socio = nombreSocioCorto(nombreSocio);
-  const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Atiendo a cientos de personas, las 24 horas.`
-    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.';
+  const identidad = identidadDeQueswa(socio);
   return [
     `${saludo} Un gusto saludarle.`,
     '',
@@ -375,8 +389,8 @@ export function aperturaRetornoProductos(nombreProspecto?: string): string {
 //   retoma la promesa del video («Queswa le muestra, en vivo, cómo aplicaría
 //   para usted»).
 // • Sin el credo ni las viñetas de la apertura estándar: llega tibia, después de
-//   60 s de explicación, y repetirle el marco la haría esperar. Se conserva la
-//   prueba social de la identidad («cientos de personas, las 24 horas»).
+//   60 s de explicación, y repetirle el marco la haría esperar. (La prueba
+//   social de la identidad salió el 9 oct 2026: ver `identidadDeQueswa`.)
 // Copy aprobado por el Director el 28 sep 2026.
 
 export const RE_VIENE_DEL_VIDEO_COMO_FUNCIONA = /(?<![a-záéíóúñ])vi\s+(el\s+)?v[ií]deo\s+(de\s+)?c[oó]mo\s+funciona/i;
@@ -391,9 +405,7 @@ export function construirAperturaTrasVideo(nombreSocio?: string, nombreProspecto
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
   const socio = nombreSocioCorto(nombreSocio);
-  const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}, la misma del video. Atiendo a cientos de personas, las 24 horas.`
-    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo, la misma del video. Atiendo a cientos de personas, las 24 horas.';
+  const identidad = identidadDeQueswa(socio, ', la misma del video');
   return [
     `${saludo} Un gusto saludarle.`,
     '',
@@ -444,9 +456,7 @@ export function construirAperturaPreguntaDinero(nombreSocio?: string, nombrePros
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
   const socio = nombreSocioCorto(nombreSocio);
   const delVideo = vioComoFunciona ? ', la misma del video' : '';
-  const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}${delVideo}. Atiendo a cientos de personas, las 24 horas.`
-    : `Soy Queswa, la inteligencia artificial de CreaTuActivo${delVideo}. Atiendo a cientos de personas, las 24 horas.`;
+  const identidad = identidadDeQueswa(socio, delVideo);
   const cierre = vioComoFunciona ? 'Como ya vio cómo funciona, vamos con su pregunta.' : 'Vamos con su pregunta.';
   return [`${saludo} Un gusto saludarle.`, '', identidad, '', cierre].join('\n');
 }
@@ -512,9 +522,7 @@ export function construirAperturaTrasVideoNiveles(nombreSocio?: string, nombrePr
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
   const socio = nombreSocioCorto(nombreSocio);
-  const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Atiendo a cientos de personas, las 24 horas.`
-    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.';
+  const identidad = identidadDeQueswa(socio);
   return [
     `${saludo} Un gusto saludarle.`,
     '',
@@ -600,9 +608,7 @@ export function construirAperturaTrasReel(video: VideoDeReel, nombreSocio?: stri
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
   const socio = nombreSocioCorto(nombreSocio);
   const misma = r.mismaDelVideo ? ', la misma del video' : '';
-  const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}${misma}. Atiendo a cientos de personas, las 24 horas.`
-    : `Soy Queswa, la inteligencia artificial de CreaTuActivo${misma}. Atiendo a cientos de personas, las 24 horas.`;
+  const identidad = identidadDeQueswa(socio, misma);
   return [
     `${saludo} Un gusto saludarle.`,
     '',
@@ -694,99 +700,55 @@ export function construirApertura(nombreSocio?: string, nombreProspecto?: string
   // mujeres; y sobre todo no era cierto: nadie pidió recibir a esa persona en
   // particular. La transferencia de confianza ya la produce nombrar al socio.
   const socio = nombreSocioCorto(nombreSocio);
-  // La prueba social sube AQUÍ (6 sep 2026). Antes vivía en un párrafo largo
-  // más abajo que también explicaba qué hace Queswa — y esa explicación se
-  // mudó a WHY_02, donde queda mejor dicha. Repetirla en la apertura gastaba
-  // el momento de mayor atención en algo que se iba a volver a decir. Lo que
-  // sí valía la pena rescatar es el hecho social —cientos de personas, las 24
-  // horas—: con un estigma de POPULARIDAD (no de fraude), la prueba de que
-  // otros ya están aquí trabaja más que cualquier credencial.
-  const identidad = socio
-    ? `Soy Queswa, la inteligencia artificial que asiste a ${socio}. Atiendo a cientos de personas, las 24 horas.`
-    : 'Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.';
 
+  // TRES IDEAS Y NADA MÁS (Director, 9 oct 2026): quién habla, en qué creemos,
+  // y la invitación. Pasó de 103 palabras a 56. Lo que salió —«Por eso hicimos
+  // sencillo lo que antes era complicado: tener su propio sistema de
+  // distribución», las tres viñetas del Método y «Todo desde el celular»— se
+  // escribió el 13 sep, cuando los botones respondían con texto; desde el 26
+  // sep responden con VIDEO, y los videos lo dicen un toque después. Aquí era
+  // lectura sin nada nuevo, para alguien que llega de primera vez y sin
+  // contexto. Lo que el saludo tiene que sembrar es expectativa y aspiración.
+  // De paso salió «Usted recibe.», que sola se leía como «recibe dinero».
+  // Medido antes del cambio: 19 de 22 personas siguieron después del saludo; el
+  // recorte no arregla una fuga, mejora la primera impresión.
+  // ⛔ No volver a explicar aquí el mecanismo ni de dónde sale la plata
+  //    (Director, 10 sep 2026: 2 de 4 se fueron en la respuesta que ponía el
+  //    origen del dinero en la segunda línea). Tampoco la categoría de producto
+  //    ni la aspiración comparativa («igualar o superar sus ingresos»), que el
+  //    Director quitó él mismo el 10 sep: QUIEN LA ECHE DE MENOS, QUE NO LA
+  //    REPONGA SIN PREGUNTARLE. Y sin emojis (1 sep 2026).
   return [
     `${saludo} Un gusto saludarle.`,
     '',
-    identidad,
+    identidadDeQueswa(socio),
     '',
-    // LA CREENCIA VA ANTES DE LO QUE HACEMOS (Director, 10 sep 2026). El saludo
-    // explicaba qué construimos sin decir nunca por qué — hablaba desde afuera.
-    // Se calca la MECÁNICA de la frase de Nu (David Vélez), no sus palabras: se
-    // nombra un adversario, se absuelve a las personas, y se termina devolviendo
-    // lo que falta. Es la misma frase de la Home v16 y de WHY_01.
-    // • La ANÁFORA es deliberada: dos frases que abren igual son recurso de
-    //   manifiesto y ganan fuerza. Lo que sí era defecto —y se corrigió— era
-    //   unirlas con una coma en una sola frase: ahí se leían como lista.
-    // • «Creemos que nadie debería» y no «Nadie debería» a secas: lo segundo es
-    //   un juicio moral; lo primero es una casa diciendo en qué cree.
-    // • La marca va DENTRO de la primera frase y no en un renglón aparte: un
-    //   lead-in que termina en «creemos» choca con el «Creemos» que sigue, y de
-    //   paso el mensaje no crece. En la variante con socio, «CreaTuActivo» no
-    //   aparecía en ningún otro lado.
-    // ⛔ SIN «y recibir tan poco a cambio» (10 sep 2026). Es una afirmación de
-    //    CANTIDAD, y el remate de STORY_03 existe justo para cerrar esa salida:
-    //    quien gana bien se exime («ese no es mi caso») y se acabó la
-    //    conversación. El ciclo no se discute; la cantidad sí.
-    // ⛔ SIN «absoluto» (que sí dice Nu): en un banco es su propia cuenta; aquí
-    //    sería una promesa.
-    `En CreaTuActivo creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.`,
-    '',
-    // LA SENCILLEZ SE MODELA EN EL TEXTO (Director, 13 sep 2026). Lo que seguía
-    // al credo era una frase de treinta palabras con tres calificativos
-    // («premium de bienestar» · «en paralelo a su actividad» · «no depende de
-    // que usted esté encima») y dos viñetas. Un texto que promete sencillez con
-    // una frase de cinco cláusulas se desmiente solo: «si queremos que la gente
-    // vea que es sencillo, los primeros que tienen que hacer las cosas sencillas
-    // somos nosotros, y eso incluye cómo lo decimos». El ejercicio fue escribirla
-    // como la escribiría David Vélez: frases de una idea, el lector como sujeto,
-    // sustantivos que se ven (enlace, celular), cero adjetivos. Es la misma
-    // forma del perfil del WABA (WABA_REFERENCIA.md) y de WHY_01 🔒 (v6.36).
-    // • «Hicimos sencillo lo que antes era complicado» es la columna del 26 ago
-    //   en una frase y sin inventario de la faena.
-    // • «Su propio sistema de distribución» nombra el NEGOCIO, no el ingreso
-    //   (Director, 7 ago 2026: construir un ingreso es un resultado sin causa,
-    //   la forma exacta de una estafa). «Propio» carga la propiedad que decía
-    //   la viñeta «Usted es el dueño».
-    // • Las tres viñetas son el Método tal cual —compartir · quién hace el
-    //   trabajo · recibir—, cuatro palabras cada una: la pila se lee de un golpe.
-    //   «Yo converso» y no «Queswa conversa»: aquí habla ella en primera persona.
-    //   ⚠️ Con esto las dos acciones se dicen ANTES de EAM_01. El hueco que la
-    //   doctrina pide dejar sin responder no desaparece: se muda a «de dónde
-    //   sale la plata», que es el botón del medio.
-    // • «Todo desde el celular» es la prueba de sencillez como HECHO, no como
-    //   adjetivo. Va pegado a «Pregunte lo que quiera» para no abrir otro párrafo.
-    // ⛔ LA CATEGORÍA («productos premium de bienestar») SALE DE LA APERTURA.
-    //    El Director la puso el 25 ago para que «le paga cada vez que hay
-    //    consumo» no dejara abierto CONSUMO DE QUÉ; esa viñeta la retiró él el
-    //    10 sep, así que el trabajo que hacía la categoría ya no existe. Quien
-    //    toca «Cómo funciona» la recibe en la primera línea de WHY_02.
-    // ⛔ SIN «le paga cada vez que hay consumo» (Director, 10 sep 2026): sin
-    //    decir DE QUIÉN es el consumo, el lector lo rellena con la escalera de
-    //    gente. Medido: el 5 sep, 2 de 4 personas que tocaron «Cómo funciona»
-    //    se fueron en la respuesta que ponía el origen del dinero en la segunda
-    //    línea. El mecanismo se explica cuando la persona pregunta cómo se gana.
-    // ⛔ SIN LA ASPIRACIÓN COMPARATIVA («con el potencial de igualar o superar
-    //    sus ingresos actuales»). La historia importa: el 17 ago un handoff la
-    //    marcó como promesa y el Director la RATIFICÓ (aspiración sin cifra ni
-    //    plazo); tres agentes la «corrigieron» por reglas viejas y se restauró
-    //    las tres veces; la quitó ÉL el 1 sep, la devolvió él el 6 sep y la
-    //    quitó él otra vez el 10 sep. ⚠️ QUIEN LA ECHE DE MENOS, QUE NO LA
-    //    REPONGA SIN PREGUNTARLE.
-    // ⛔ SIN EMOJIS (Director, 1 sep 2026): leían como adorno. Negrita solo en
-    //    el anclaje *sistema de distribución*, con asterisco simple de WhatsApp.
-    // ⚠️ El arnés prueba-conversacion.mjs emula esta apertura: si cambia aquí,
-    //    cambia allá.
-    'Por eso hicimos sencillo lo que antes era complicado: tener su propio *sistema de distribución*.',
-    '',
-    '• Usted comparte un enlace.',
-    '• Yo converso con quien llega.',
-    '• Usted recibe.',
+    // LA FRASE DE IDENTIDAD: la misma de la Home y de WHY_01 🔒. Calca la
+    // mecánica de la frase de Nu (David Vélez): se nombra un adversario —el
+    // ciclo—, se absuelve a las personas y se termina devolviendo lo que falta.
+    // • La segunda frase cambió el 9 oct 2026 (Director): antes «Creemos en
+    //   empoderar a las personas para que recuperen el control de su tiempo y de
+    //   su dinero». La nueva le responde a la primera —el trabajo que hoy se va
+    //   en el ciclo debería volverse un activo— y le da sentido al nombre de la
+    //   marca, que va en la misma frase. «Activo» y no «capital real»: capital,
+    //   en un primer mensaje, suena a inversión. «Activo» va sin su causa porque
+    //   es una creencia, no una promesa; la causa la dice el video «Cómo entra
+    //   el dinero» («Esa repetición es la que vuelve su sistema un activo»).
+    // • La anáfora («Creemos que…» dos veces) es deliberada: recurso de
+    //   manifiesto. «Creemos que nadie debería» y no «Nadie debería» a secas:
+    //   lo segundo es un juicio moral; lo primero, una casa diciendo en qué cree.
+    // ⛔ SIN «y recibir tan poco a cambio»: es un juicio de CANTIDAD, y quien
+    //    gana bien se exime («ese no es mi caso»). ⛔ SIN «absoluto» (que sí dice
+    //    Nu): aquí sería una promesa.
+    // • Sin socio, la marca ya está en la identidad: el credo arranca en
+    //   «Creemos» para no repetirla dos renglones seguidos.
+    `${socio ? 'En CreaTuActivo creemos' : 'Creemos'} que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos que el trabajo de cada persona debería convertirse en un activo.`,
     '',
     // «Sin ningún afán» le quita presión al momento exacto en que se pide una
     // elección, y «pregunte lo que quiera» le avisa a quien no toca botones que
-    // puede escribir (3 sep 2026, tomado de la propuesta de Gemini). La prueba
-    // social ya subió a la identidad (6 sep 2026): no se repite aquí.
-    'Todo desde el celular. Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?',
+    // puede escribir (3 sep 2026).
+    // ⚠️ El arnés prueba-conversacion.mjs emula esta apertura: si cambia aquí,
+    // cambia allá.
+    'Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?',
   ].join('\n');
 }

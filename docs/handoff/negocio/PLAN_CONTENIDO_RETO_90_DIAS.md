@@ -131,8 +131,11 @@ donde entre.
 Desde el día 4 la serie tiene su porqué, y es el mismo de la Home:
 
 > **Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y
-> repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su
-> dinero.**
+> repetir. Creemos que el trabajo de cada persona debería convertirse en un activo.**
+
+La segunda frase cambió el 9 oct 2026 (Director): antes era *«Creemos en empoderar a las personas
+para que recuperen el control de su tiempo y de su dinero»*, y los videos grabados antes de esa
+fecha la conservan. Desde ese día, la que se dice es la de arriba.
 
 Se dice completa cuando toca decirla; se alude cuando no. Y sirve de prueba para cualquier
 pieza: si el guion del día no cabe debajo de esa frase, no es de esta serie.

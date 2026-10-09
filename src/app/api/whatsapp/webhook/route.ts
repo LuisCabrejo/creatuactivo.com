@@ -19,7 +19,7 @@ import { createClient } from '@supabase/supabase-js';
 import { waitUntil } from '@vercel/functions';
 import { construirBitacora, renovarOfertaVista } from '@/lib/queswa-bitacora';
 import {
-  sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo, sendVideoConBoton,
+  sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo,
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
 import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA, VIDEO_DOCE_NIVELES_WA } from '@/lib/reels';
@@ -163,7 +163,10 @@ export const runtime = 'nodejs';
 // es holgura de verdad — un turno lento deja de significar una persona que ve
 // "escribiendo…" y no recibe nada. El proyecto corre en Fluid compute, donde el
 // costo se cuenta por CPU activa: esperar al modelo no se cobra como cómputo.
-export const maxDuration = 90;
+// 150 desde el 9 oct 2026: la pregunta que sigue a un video sale cuando el
+// video termina (`preguntarAlTerminarElVideo`), y el de «Cómo funciona» dura
+// 60 s. Esperar no se cobra como cómputo.
+export const maxDuration = 150;
 
 // Las correctivas del guardarraíl viven en `wa-guardarrail-negocio.ts` desde el
 // 4 sep 2026: el motor las usa también en la web.
@@ -1659,7 +1662,7 @@ async function procesarEntrante(body: any): Promise<void> {
       const r = _bitacoraDelTurno ? renovarOfertaVista(cuerpo, _bitacoraDelTurno) : { texto: cuerpo, cambio: null };
       if (r.cambio) console.log(`🔁 [WA Webhook] Oferta vista: ${r.cambio}`);
       const pie = r.texto.split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => l.endsWith('?'));
-      const envio = await enviarVideoConPregunta(phoneNumber, v.url, pie);
+      const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, v.url, v.seg, pie, `video ${v.titulo}`);
       const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
       if (envio.ok) console.log(`🎬 [WA Webhook] Video «${v.titulo}» → ${phoneNumber}`);
       else console.warn(`⚠️ [WA Webhook] El video «${v.titulo}» no salió (${envio.error}) — va el texto`);
@@ -1676,7 +1679,8 @@ async function procesarEntrante(body: any): Promise<void> {
       }
       return {
         ok: envio.ok,
-        fila: `${v.intro}\n\n[Video «${v.titulo}», ${v.seg} s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`,
+        // La pregunta no va aquí: tiene su propia fila cuando de verdad sale.
+        fila: `${v.intro}\n\n[Video «${v.titulo}», ${v.seg} s. Lo que dice la voz:]\n\n${loQueDice}`,
       };
     };
     const videoApertura = opcionElegida ? VIDEOS_APERTURA[opcionElegida] : undefined;
@@ -1722,10 +1726,10 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, entrada);
         if (wamid) await marcarLeidoYEscribiendo(wamid);
         await new Promise((r) => setTimeout(r, 800));
-        const envio = await enviarVideoConPregunta(phoneNumber, VIDEO_DOCE_NIVELES_WA, OFERTA_SIMULADOR_NIVELES);
+        const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, VIDEO_DOCE_NIVELES_WA, 59, OFERTA_SIMULADOR_NIVELES, 'video Los 12 Niveles');
         if (!envio.ok) await sendWhatsAppMessage(phoneNumber, `${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`);
         await persistirTurnoDictado(supabase, waFingerprint, messageText,
-          `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`,
+          `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}${envio.ok ? '' : `\n\n${OFERTA_SIMULADOR_NIVELES}`}`,
           `no había visto el video del reel: doce_niveles${envio.ok ? '' : ' (sin video)'}`);
         console.log(`🎬 [WA Webhook] No había visto el video del reel «Los 12 Niveles» — se le manda`);
         return;
@@ -2396,10 +2400,10 @@ async function procesarEntrante(body: any): Promise<void> {
           // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
           if (wamid) await marcarLeidoYEscribiendo(wamid);
           await new Promise((res) => setTimeout(res, 800));
-          const envio = await enviarVideoConPregunta(phoneNumber, url, pie);
+          const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, url, 59, pie, 'video Los 12 Niveles');
           if (envio.ok) {
             const loQueDice = r.texto.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
-            persistirVideo = `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${loQueDice}${pie ? `\n\n${pie}` : ''}`;
+            persistirVideo = `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${loQueDice}`;
             console.log(`🎬 [WA Webhook] Video «Los 12 Niveles» → ${phoneNumber}`);
           } else {
             console.warn(`⚠️ [WA Webhook] El video de ${nodo.nodo} no salió (${envio.error}) — va el texto`);
@@ -3487,20 +3491,78 @@ async function pisoDeEscritura(largo = 0): Promise<void> {
 }
 
 /**
- * Un video con su pregunta de cierre (9 oct 2026). Si la pregunta tiene botón
- * —«¿Le muestro…?», «¿Le cuento…?», «¿Quiere verlo…?»—, sale como mensaje
- * interactivo: el video arriba, la pregunta y el botón debajo, y el «sí» queda a
- * un toque (`botonParaOferta`, wa-apertura.ts). Si Meta lo rechaza, o la
- * pregunta no tiene botón, sale el video con la pregunta como pie, como antes.
+ * Un video, y su pregunta con el botón cuando el video termina (Director, 9 oct 2026).
+ *
+ * La pregunta iba primero como pie del video y después en el mismo mensaje con
+ * el botón; el Director lo vio en su teléfono y notó que el botón competía con
+ * el video: quien toca «Sí, muéstreme» antes de verlo se salta justo lo que
+ * pidió. WhatsApp no deja que un video arranque solo (la API no tiene esa
+ * opción), así que el orden se resuelve en el tiempo: el video sale solo, y la
+ * pregunta con su botón llega cuando el video debería haber terminado, que es
+ * además el momento de una notificación. Medido antes del cambio: en 23 de 25
+ * videos la persona escribió cuando el video ya había terminado, casi siempre
+ * entre 20 y 45 s después de su duración.
+ * La pregunta NO sale si la persona escribió o tocó otro botón mientras tanto:
+ * ya siguió por su lado.
  */
-async function enviarVideoConPregunta(phone: string, url: string, pie: string | undefined) {
+const MARGEN_TRAS_VIDEO_S = 15;
+
+async function enviarVideoYPreguntarAlFinal(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  phone: string,
+  fingerprint: string,
+  url: string,
+  seg: number,
+  pie: string | undefined,
+  nodo: string,
+) {
+  const envio = await sendVideo(phone, url);
+  if (envio.ok && pie) waitUntil(preguntarAlTerminarElVideo(supabase, phone, fingerprint, pie, seg, nodo, new Date()));
+  return envio;
+}
+
+async function preguntarAlTerminarElVideo(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  phone: string,
+  fingerprint: string,
+  pie: string,
+  seg: number,
+  nodo: string,
+  desde: Date,
+): Promise<void> {
+  await new Promise((r) => setTimeout(r, (seg + MARGEN_TRAS_VIDEO_S) * 1000));
+  try {
+    // Cada mensaje entrante queda en la guarda de reenvíos apenas llega, antes
+    // de procesarse: es la señal más rápida de que la persona ya siguió.
+    const { data } = await supabase.from('wa_mensajes_procesados').select('identidad').gt('creado_at', desde.toISOString());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const siguio = (data ?? []).some((r: any) => [r.identidad?.from, r.identidad?.wa_id, r.identidad?.user_id, r.identidad?.msg_user_id].includes(phone));
+    if (siguio) {
+      console.log(`⏭️ [WA Webhook] ${phone} siguió antes de que terminara el video — no se manda «${pie}»`);
+      return;
+    }
+  } catch { /* si no se puede comprobar, se pregunta: una pregunta de más pesa menos que una que no llega */ }
   const boton = botonParaOferta(pie);
-  if (pie && boton) {
-    const r = await sendVideoConBoton(phone, url, pie, boton);
-    if (r.ok) return r;
-    console.warn(`⚠️ [WA Webhook] El video con botón no salió (${r.error}) — va con la pregunta de pie`);
+  const r = boton ? await sendReplyButtons(phone, pie, [boton]) : await sendText(phone, pie);
+  if (!r.ok) {
+    console.warn(`⚠️ [WA Webhook] La pregunta tras el video no salió (${r.error})`);
+    return;
   }
-  return sendVideo(phone, url, pie);
+  // Su propia fila, sin mensaje de la persona: así el «sí» se lee contra ella,
+  // y si no salió, el historial no dice que se preguntó.
+  try {
+    await supabase.from('nexus_conversations').insert({
+      fingerprint_id: fingerprint,
+      session_id: fingerprint,
+      messages: [{ role: 'assistant', content: pie, timestamp: new Date().toISOString() }],
+      metadata: { search_method: 'webhook_dictado', nodo: `${nodo} · pregunta al terminar el video` },
+    });
+  } catch (err) {
+    console.error('⚠️ [WA Webhook] No se pudo guardar la pregunta tras el video:', err);
+  }
+  console.log(`❓ [WA Webhook] Pregunta tras el video → ${phone}: «${pie}»`);
 }
 
 async function sendWhatsAppMessage(

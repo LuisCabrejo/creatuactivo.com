@@ -34,7 +34,7 @@ es(preguntaTrasOrbeProductos(PATRICIA).startsWith('quiero saber qué producto'),
 
 console.log('\n── 2. Los copys aprobados ──');
 const APERTURA = construirAperturaProductos('Luis Cabrejo Parra', undefined);
-es(APERTURA === 'Hola. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo. Atiendo a cientos de personas, las 24 horas.\n\nAquí puede preguntar lo que quiera de los productos: qué lleva cada uno, cómo se prepara, en qué presentación viene y cuánto cuesta. La línea es de Gano Excel, con extracto propio de Ganoderma y registro sanitario en cada producto.\n\n¿Le muestro el portafolio completo?', 'apertura nueva = copy aprobado');
+es(APERTURA === 'Hola. Un gusto saludarle.\n\nSoy Queswa, la inteligencia artificial que asiste a Luis Cabrejo.\n\nAquí puede preguntar lo que quiera de los productos: qué lleva cada uno, cómo se prepara, en qué presentación viene y cuánto cuesta. La línea es de Gano Excel, con extracto propio de Ganoderma y registro sanitario en cada producto.\n\n¿Le muestro el portafolio completo?', 'apertura nueva = copy aprobado');
 es(aperturaRetornoProductos('Liliana') === 'Qué bueno que vuelva, Liliana. Aquí sigo con su conversación, y ahora vamos con los productos. ¿Le muestro el portafolio completo?', 'retorno = copy aprobado');
 es(APERTURA_PRODUCTOS_OPCIONES.length === 2 && APERTURA_PRODUCTOS_OPCIONES.every((o) => o.title.length <= 20), 'dos botones, cada título cabe en los 20 caracteres de Meta');
 es(!detectarClaimSaludEnSalida(APERTURA) && !detectarClaimSaludEnSalida(TEXTO_NO_PIEZAS), 'los textos pasan el filtro de salud');

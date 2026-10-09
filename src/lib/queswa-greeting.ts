@@ -46,7 +46,7 @@
  */
 
 /**
- * IDENTIDAD + CREDO + MÉTODO — la misma apertura del canal de WhatsApp
+ * IDENTIDAD + CREDO + INVITACIÓN — la misma apertura del canal de WhatsApp
  * (`construirApertura` en src/lib/wa-apertura.ts), variante sin socio nombrado.
  *
  * Decisión del Director, 23 sep 2026. Motivo: el saludo de la web prometía
@@ -64,23 +64,23 @@
  * ⚠️ Cambio aquí = cambio en Chat.tsx, useNEXUSChat.ts y el micro-prompt M1 de
  * route.ts, que importan `getInitialGreeting()`. Si cambia la apertura del
  * canal, cambia esta — son la misma voz y el mismo léxico a propósito.
+ *
+ * 9 oct 2026 (Director): la apertura quedó en tres ideas —quién habla, en qué
+ * creemos y la invitación—. Salieron «Atiendo a cientos de personas», el MÉTODO
+ * («Por eso hicimos sencillo…» y sus viñetas) y «Todo desde el celular»: los
+ * botones responden con video y el video lo dice un toque después. El porqué
+ * completo está en `construirApertura` (wa-apertura.ts).
  */
-const IDENTIDAD = `Soy Queswa, la inteligencia artificial de CreaTuActivo. Atiendo a cientos de personas, las 24 horas.`;
+const IDENTIDAD = `Soy Queswa, la inteligencia artificial de CreaTuActivo.`;
 
-// El credo va SIN «En CreaTuActivo» (que sí lleva la versión de WhatsApp):
-// aquí la marca ya se dijo en la línea de identidad y repetirla dos renglones
-// seguidos suena a formulario. El texto es el de la Home v16 y WHY_01 🔒.
-const CREDO = `Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos en empoderar a las personas para que recuperen el control de su tiempo y de su dinero.`;
+// El credo va SIN «En CreaTuActivo» (que sí lleva la versión de WhatsApp con
+// socio): aquí la marca ya se dijo en la línea de identidad y repetirla dos
+// renglones seguidos suena a formulario. El texto es el de la Home y WHY_01 🔒;
+// la segunda frase cambió el 9 oct 2026 (antes «Creemos en empoderar a las
+// personas para que recuperen el control de su tiempo y de su dinero»).
+const CREDO = `Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir. Creemos que el trabajo de cada persona debería convertirse en un activo.`;
 
-// Viñetas en Markdown (la web renderiza Markdown; el canal usa asteriscos de
-// WhatsApp). Tres líneas de cuatro palabras: la pila se lee de un golpe.
-const METODO = `Por eso hicimos sencillo lo que antes era complicado: tener su propio **sistema de distribución**.
-
-- Usted comparte un enlace.
-- Yo converso con quien llega.
-- Usted recibe.`;
-
-const TRANSICION = `Todo desde el celular. Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?`;
+const TRANSICION = `Pregunte lo que quiera, sin ningún afán. ¿Por dónde prefiere empezar?`;
 
 /**
  * Las 4 preguntas que el avatar hace en orden de frecuencia documentada
@@ -196,7 +196,7 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
  * Usado por Chat.tsx, useNEXUSChat.ts (rama 3) y route.ts (M1 micro-prompt FSM).
  */
 export function getInitialGreeting(): string {
-  return `Le doy la bienvenida.\n\n${IDENTIDAD}\n\n${CREDO}\n\n${METODO}\n\n${TRANSICION}`;
+  return `Le doy la bienvenida.\n\n${IDENTIDAD}\n\n${CREDO}\n\n${TRANSICION}`;
 }
 
 /**

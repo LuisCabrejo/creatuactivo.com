@@ -611,7 +611,7 @@ Home → "Hablar con Queswa" (open-queswa) + "Suscríbete" (newsletter → /api/
 Blog (SEO) → /blog/* → Home
 ```
 
-⚠️ **Eliminadas el 1 oct 2026** (Director: nunca se usaron en producción): `/fundadores`, `/calculadora` y `/presentacion-empresarial`. Redirigen con 308 en `next.config.js` —las dos primeras a la Home con el `?ref` del socio, la última a `/presentacion`— y sus destinos cortos en `DESTINO_MAP` también. El mismo día salió `/paises/brasil` (→ Home): decía «Lançamento Oficial 2025» y «Gano Excel Oficial», y un distribuidor no se presenta como la página oficial de la marca; con ella se fue el hreflang `pt-BR` del layout raíz. Las APIs (`/api/fundadores/*`, `/api/funnel`) y la secuencia de correos siguen en pie.
+⚠️ **Eliminadas el 1 oct 2026** (Director: nunca se usaron en producción): `/fundadores`, `/calculadora` y `/presentacion-empresarial`. Redirigen con 308 en `next.config.js` —las dos primeras a la Home con el `?ref` del socio, la última a `/servilleta`— y sus destinos cortos en `DESTINO_MAP` también. El mismo día salió `/paises/brasil` (→ Home): decía «Lançamento Oficial 2025» y «Gano Excel Oficial», y un distribuidor no se presenta como la página oficial de la marca; con ella se fue el hreflang `pt-BR` del layout raíz. Las APIs (`/api/fundadores/*`, `/api/funnel`) y la secuencia de correos siguen en pie.
 
 **Las tres trampas:**
 
@@ -621,28 +621,19 @@ Blog (SEO) → /blog/* → Home
 
 **El enlace de Queswa** (`/{slug}/queswa` y los cuatro de los videos) redirige directo a WhatsApp con el mensaje escrito; la persona tiene que tocar «Enviar». Desde el 6 oct 2026 la tarjeta dice en negrita **«Hable con Queswa por WhatsApp»** (`OG_QUESWA`, caso Felipe: creyó que era un error porque no se abrió la pantalla de un agente) y cada apertura queda en `page_visits` antes de redirigir (`scripts/medir-aperturas-enlace.mjs`). El orbe web en verde quedó en observación.
 
-**Menú** ([StrategicNavigation.tsx](src/components/StrategicNavigation.tsx), array `directLinks`, 1 oct 2026): Presentación (`/presentacion`) · Productos (`/productos`) · Tecnología · Nosotros (`/nosotros`) + CTA **"Suscríbete"**. Cuatro enlaces planos, **sin submenú**, en el orden de las preguntas de quien llega (¿cómo funciona? · ¿qué se vende? · ¿con qué? · ¿quién está detrás?). Salieron `/servilleta` (sigue en pie e indexada) e Insights (`/blog`, sigue en el pie de la Home). Quien llega a `/presentacion` sin `?ref` ve a su socio si entró antes por su enlace (`constructor_ref`), o al equipo con el WhatsApp Business. ⚠️ **Los rótulos no coinciden con sus rutas a propósito** (jun 2026): el menú nombra *qué encuentra el visitante*, no la ruta técnica. `/presentacion-empresarial` es herramienta interna 1-a-1 y **no** está en el menú — no confundirla con el item "Presentación".
+**Menú** ([StrategicNavigation.tsx](src/components/StrategicNavigation.tsx), array `directLinks`, 1 oct 2026): Presentación (`/servilleta` desde el 10 oct) · Productos (`/productos`) · Tecnología · Nosotros (`/nosotros`) + CTA **"Suscríbete"**. Cuatro enlaces planos, **sin submenú**, en el orden de las preguntas de quien llega (¿cómo funciona? · ¿qué se vende? · ¿con qué? · ¿quién está detrás?). Insights salió (`/blog`, sigue en el pie de la Home). Quien llega a la presentación sin `?ref` ve a su socio si entró antes por su enlace (`constructor_ref`), o al equipo con el WhatsApp Business. ⚠️ **Los rótulos no coinciden con sus rutas a propósito** (jun 2026): el menú nombra *qué encuentra el visitante*, no la ruta técnica.
 
-**Indexadas (y en el sitemap):** `/`, `/blog/*`, `/tecnologia`, `/productos`, `/paquetes`, `/servilleta` (fuera del menú desde el 1 oct 2026, pero clave: responde «plan servilleta»; la enlaza el pie de la Home). **noindex:** `/nosotros`, `/presentacion`, `/prueba`, `/12-niveles`, `/lexico`. ⚠️ **SEO técnico (auditoría 1 oct 2026):** `robots.txt` **no** bloquea `/_next/` (Google necesita el CSS, el JS y las imágenes optimizadas); cada página indexable declara su `canonical`, y el catálogo de cada socio (`/productos/{id}`) apunta a `/productos`.
+**Indexadas (y en el sitemap):** `/`, `/blog/*`, `/tecnologia`, `/productos`, `/paquetes`, `/servilleta` (la presentación única desde el 10 oct 2026; responde «plan servilleta»). **noindex:** `/nosotros`, `/prueba`, `/lexico`. ⚠️ **SEO técnico (auditoría 1 oct 2026):** `robots.txt` **no** bloquea `/_next/` (Google necesita el CSS, el JS y las imágenes optimizadas); cada página indexable declara su `canonical`, y el catálogo de cada socio (`/productos/{id}`) apunta a `/productos`.
 
-### Servilleta Digital - Interactive Presentations
+### La presentación única — `/servilleta`
 
-Deck de 4 slides para conversaciones 1-a-1. **Fuente viva completa → [docs/SERVILLETA.md](docs/SERVILLETA.md)** (arquitectura mobile, b-rolls 3D, beat del colapso, comandos de re-render, reglas de iconos).
+⭐ **UNA sola presentación, en la URL con el SEO de «plan servilleta»** (Director, 10 oct 2026): quien busca «plan servilleta gano excel» es un distribuidor buscando una herramienta, así que la que se usa y la que se encuentra son la misma. Es la columna que nació en `/presentacion` (23 sep 2026), mudada aquí. **Fuente viva completa → [docs/SERVILLETA.md](docs/SERVILLETA.md)**; el mapa de pantallas y las reglas viven en la cabecera de [src/app/servilleta/page.tsx](src/app/servilleta/page.tsx).
 
-| Version | Route | Notas |
-|---------|-------|-------|
-| v6.7 (Main) | `/servilleta` | 4 slides; 1 y 2 son card-scrollers con b-rolls 3D + portada. Fullscreen (F), keyboard nav, swipe |
-| v6.7 (Ref) | `/servilleta/[constructorId]` | Re-exporta la página principal; el `constructorId` se lee del path en cliente para tracking |
-
-Estructura (2 ago 2026): **01 EL PROBLEMA** · **02 LAS TRES COSAS** (+ beat del colapso) · **03 EL PRODUCTO** · **04 LOS NÚMEROS**. El slide "QUÉ HACE USTED" se eliminó el 2 ago 2026 (5 → 4 slides).
-
-**Lo que rompe producción si lo toca sin leer el doc:**
-- ❌ NO revertir `.card-bg` a `object-fit: cover` ni al split `height: 50%` — recorta el 3D
-- ❌ NO añadir `.simulator-panel`, tabs ni botones a `touchSwipeIgnore` — bloquea el swipe-back del Slide 4 (la exoneración es SOLO para `<input>`)
-- ❌ NO unificar el Slide 4 a `justify-content: center` en ambos modos — en fullscreen mobile empuja el 2º botón fuera de pantalla
-- ❌ NO reintroducir strings de Material Symbols en `<span>` — renderizan como texto en inglés hasta que carga la fuente
-- ❌ NO mostrar el orbe Queswa flotante en `/servilleta` — el chat abre solo desde "PREGÚNTALE ALGO EN VIVO" (slide 2)
-- ⚠️ El **copy verbatim NO se documenta** — vive en [src/app/servilleta/page.tsx](src/app/servilleta/page.tsx); la narración en [guion_maestro_servilleta_v3.md](public/contexto/produccion/guiones/servilleta/guion_maestro_servilleta_v3.md) (nombre legacy `v3`, contenido v5.8)
+- **Retiradas** (viven en git): el deck viejo de 4 pantallas de la servilleta, `/presentacion` (+ `/anterior`) y la copia `/12-niveles`. Redirigen con 308 conservando `?ref` y `?pantalla`: `/presentacion`, `/pitch-deck`, `/presentacion-empresarial` → `/servilleta`; `/12-niveles` y los slugs del reto → `/servilleta?pantalla=9` (la de los números). `/servilleta/{id}` → `?ref={id}`.
+- ⛔ **Todo apunta aquí**, incluido el simulador que Queswa ofrece en la web (`textoSimuladorWeb` → `?pantalla=9`) y los enlaces cortos del socio (`DESTINO_MAP`: presentacion · deck · pitch-deck · servilleta → `?ref`; 12-niveles · reto → `&pantalla=9`), que comparten la tarjeta del prospecto (`OG_PRESENTACION` en `src/app/servilleta/og.ts`: sin Gano Excel arriba, `og:url` del slug).
+- **Dos pisos:** el deck ocupa la primera pantalla (100dvh) y debajo va la guía SEO ([GuiaPlanServilleta.tsx](src/app/servilleta/GuiaPlanServilleta.tsx), el **único `<h1>`** — el credo del deck es `<h2>`). En pantalla completa la guía se oculta; mientras se lee, el teclado no pasa diapositivas.
+- **Modo Vertical para Meet:** botón con ícono de celular; iframe `?kiosk=1` a 412×732 escalado, que abre en la pantalla y con el `?ref` del socio. En kiosco: sin guía, sin botones de modo, sin reportar avance, sin aviso de cookies.
+- ⛔ **Un asset que cambia lleva NOMBRE NUEVO** (`telefono-union-v4.mp4` → `-v5`…): el service worker sirve los estáticos cache-first y el navegador también; con el mismo nombre, quien ya abrió el deck sigue viendo el viejo.
 
 ## Environment Variables
 
@@ -1092,7 +1083,7 @@ Posicionamiento, doctrina de venta, diáspora latina, eventos corporativos Gano 
 > 📁 **`docs/` (jul 2026)** — handoffs de trabajo e investigaciones, **fuera de `public/`** (no se sirven en la web). Índice en [docs/README.md](docs/README.md). Estructura: `docs/handoff/{reels,queswa,negocio}/` + `docs/investigaciones/{prompts,resultados}/`. Los docs **núcleo** (este archivo, `README.md`, `BRANDING.md`, `POSICIONAMIENTO.md`, `EPIPHANY_BRIDGE_OFICIAL.md`, `MANIFIESTO_FUNDADORES.md`, `HANDOFF_CONTEXTO_COMPLETO.md`, `HANDOFF_QUESWA_TECNICO.md`) siguen en la raíz a propósito.
 
 **Extraídos de este archivo (4 ago 2026)** — se movieron para que CLAUDE.md no los cargue en cada sesión:
-- [docs/SERVILLETA.md](docs/SERVILLETA.md) - Deck `/servilleta` completo (aplica igual a su copia `/12-niveles`)
+- [docs/SERVILLETA.md](docs/SERVILLETA.md) - La presentación única en `/servilleta` (desde el 10 oct 2026)
 - [docs/handoff/reels/VIDEO_Y_ANIMACIONES.md](docs/handoff/reels/VIDEO_Y_ANIMACIONES.md) - Video estándar, color grade DaVinci, animaciones Canvas
 - [docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md](docs/handoff/negocio/ESTRATEGIA_CONTENIDO_Y_VOZ.md) - Estrategia de contenido, voz de Queswa (3 niveles), migración léxica, historia del fundador
 - [BRANDING.md](BRANDING.md) - Design System completo + léxico aprobado/prohibido (§7)

@@ -11,6 +11,17 @@
  * de la persona y solo DESPUÉS le comparte el enlace, así que puede apoyarse en
  * su voz.
  *
+ * CONSOLIDACIÓN EN UNA SOLA PRESENTACIÓN (Director, 10 oct 2026): esta página es
+ * la base de la presentación ÚNICA, que terminará viviendo en la URL de la
+ * servilleta — la que tiene el SEO (quien busca «plan servilleta» es un
+ * distribuidor buscando una herramienta → reports/Plan servilleta top 3
+ * Google.md). Fase 1 (hecha): las tres piezas en VIDEO, la forma de la
+ * servilleta. Fase 2: mudanza a /servilleta (guía SEO reescrita, metadata sin
+ * «oficial», redirects con ?ref) y retiro de las copias — TODO apuntará a la
+ * única, incluido el enlace de Queswa tras NIVELES_01 (→ ?pantalla=9) que hoy
+ * va a /12-niveles. Fase 3: el video-herramienta del socio (doble destino:
+ * WhatsApp y el carrusel de YouTube de «plan servilleta»).
+ *
  * COLUMNA NUEVA (30 sep 2026). La del 23 sep se construyó pantalla por pantalla y
  * tenía disonancias: revelaba la solución tres veces antes del clímax, contaba el
  * negocio distinto a WHY_02 y la pantalla del dinero discutía consigo misma. Esa
@@ -106,17 +117,29 @@ const BEATS: Record<number, number> = { 5: 7, 6: 2, 9: 2 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
- *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola». */
-const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
+ *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola».
+ *  EN VIDEO desde el 10 oct 2026 (Fase 1 de la consolidación con la servilleta,
+ *  aprobada por el Director): el movimiento sostiene la mirada mientras el socio
+ *  narra — es para lo que la servilleta fue diseñada, y sus b-rolls son el mismo
+ *  universo del que salieron estas imágenes. Los loops son recortes CUADRADOS
+ *  propios del deck (public/videos/presentacion/, desde los clips de
+ *  public/videos/servilleta/ sin su cubo de portada), MUDOS a propósito: en vivo
+ *  la banda sonora es el socio. La imagen queda como poster — se ve al instante
+ *  y cubre la carga (preload none). Ritmo movimiento/quietud deliberado: piezas
+ *  en video; el credo, las cifras y el teléfono del remate QUIETOS — un
+ *  manifiesto y un número no deben moverse. */
+const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: string }[] = [
   {
     label: 'UN FABRICANTE',
     img: '/images/servilleta/colapso-fabrica.webp',
+    video: '/videos/presentacion/pieza-fabricante.mp4',
     // Sin nombre, como en WHY_02: Gano se nombra en el producto y al final, como quien paga.
     sub: 'Fabrica, empaca y despacha cada pedido hasta la casa de su cliente.',
   },
   {
     label: 'UNA TECNOLOGÍA QUE ATIENDE',
     img: '/images/servilleta/colapso-conversacion.webp',
+    video: '/videos/presentacion/pieza-atiende.mp4',
     sub: 'Queswa conversa con cada interesado, le resuelve las dudas y madura su decisión de avanzar. A toda hora.',
     // La segunda cara (metas · redacta · avisa) vivió aquí como `extra` del 24 al
     // 27 sep 2026; se mudó a la pieza 3, que ES esa cara con nombre propio. Esta
@@ -139,6 +162,7 @@ const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
     // no dependa del asset «metodo», que es de /servilleta (quieta).
     label: 'SABER QUÉ HACER',
     img: '/images/servilleta/colapso-aplicacion.webp',
+    video: '/videos/presentacion/pieza-ruta.mp4',
     sub: 'Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando la ruta, paso a paso.',
     extra: 'Conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
   },
@@ -402,6 +426,24 @@ export default function PitchDeckPage() {
     setBeat(0);
   }, []);
 
+  // ── Las piezas en video (10 oct 2026) ──────────────────────────────────────
+  // Solo el beat activo reproduce; la pieza abandonada se pausa y rebobina — el
+  // control central de media de la servilleta, adaptado. Con movimiento reducido
+  // del sistema, el video no arranca y queda el poster (la imagen de siempre).
+  useEffect(() => {
+    const reduce = typeof window !== 'undefined'
+      && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll<HTMLVideoElement>('video[data-pieza]').forEach((v) => {
+      const activo = slide === 5 && beat === Number(v.dataset.pieza) + 1;
+      if (activo && !reduce) {
+        v.play().catch(() => { /* autoplay bloqueado: queda el poster */ });
+      } else {
+        v.pause();
+        try { v.currentTime = 0; } catch { /* sin metadata todavía */ }
+      }
+    });
+  }, [slide, beat]);
+
   // Enlace a una pantalla (2 oct 2026): `?pantalla=9` abre en la de los números.
   // Queswa se lo da al socio que quiere estudiar Los 12 Niveles y mover el
   // porcentaje él mismo; sin el parámetro se entra por la portada, como siempre.
@@ -617,6 +659,9 @@ export default function PitchDeckPage() {
           aspect-ratio: 1 / 1; background-size: cover; background-position: center;
           border: 1px solid rgba(255,255,255,0.08);
         }
+        /* La pieza en video: el loop ya es cuadrado, cover lo deja exacto; el
+           fondo carbón cubre el instante antes del poster. */
+        video.pd-figura { object-fit: cover; display: block; background: #0F1115; }
         .pd-pieza-label {
           font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
           font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
@@ -1195,7 +1240,22 @@ export default function PitchDeckPage() {
           {[0, 1, 2].map((i) => (
             <div key={i} className={`pd-beat ${slide === 5 && beat === i + 1 ? 'on' : ''}`}>
               <div className="pd-pieza">
-                <div className="pd-figura" style={{ backgroundImage: `url(${PIEZAS[i].img})` }} />
+                {/* La pieza VIVE (10 oct 2026): loop cuadrado, mudo, con la imagen
+                    de siempre como poster. El efecto de media de abajo reproduce
+                    solo el beat activo y rebobina al salir — el patrón de la
+                    servilleta. El tap sobre el video sigue AVANZANDO, como en todo
+                    el deck: la pausa por tap de la servilleta existe para clips
+                    con audio y narrativa propia; un loop mudo no la necesita. */}
+                <video
+                  className="pd-figura"
+                  data-pieza={i}
+                  src={PIEZAS[i].video}
+                  poster={PIEZAS[i].img}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                />
                 <div>
                   <p className="pd-eyebrow">Cómo funciona · {i + 1} de 3</p>
                   <p className="pd-pieza-label">{PIEZAS[i].label}</p>

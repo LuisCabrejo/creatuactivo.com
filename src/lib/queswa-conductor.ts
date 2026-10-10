@@ -699,16 +699,57 @@ export const RE_PREGUNTA_EMPRESA_GANO =
 // Es la PREGUNTA por la categoría, no una objeción: abre la puerta de FREQ_40 en
 // route.ts. Exige el marco de pregunta («es…», «eso es como…») para no tragarse
 // las comparaciones («¿en qué se diferencia del multinivel?», «es mejor que un
-// multinivel»), que son de NET_01 o del vector. Quien YA estuvo («trabajé en
-// Herbalife», «ya hice multinivel») lo atiende la puerta de NET_01, que va antes.
+// multinivel», «¿por qué esto no es como los multiniveles de antes?»): la puerta
+// solo dicta un «Sí.» a una pregunta de sí o no, así que rechaza la pregunta
+// abierta y la comparación (ver `siFueraDeLugar`, abajo); esas van al vector, y
+// si gana FREQ_40 la redacta el modelo. Quien YA estuvo («trabajé en Herbalife»,
+// «ya hice multinivel») lo atiende la puerta de NET_01, que va antes.
 // Vive aquí para que `prueba-typos.mts` la vigile: la persona escribe con el pulgar.
 const CATEGORIA_MULTINIVEL =
   String.raw`(?:m(?:[uú]l*|l+[uú])t*[ií]\s*-?\s*ni?[vb]e?l+|\bmlm\b|mercadeo\s+(?:en\s+red|mul?ti\S*)|network\s*marketing|redes?\s+de\s+mercadeo|herbalife|amway|omnilife|4\s*life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b)`;
-export const RE_PREGUNTA_ES_MULTINIVEL = new RegExp(
+const RE_FORMA_ES_MULTINIVEL = new RegExp(
   String.raw`\bes\s+(?:(?:un|una|como|tipo|de|esas?|esos?|las?|los?|empresa|compa[ñn][ií]a|negocio|modelo|sistema)\s+){0,3}` + CATEGORIA_MULTINIVEL
   + String.raw`|^\s*[¿?]?\s*(?:y\s+)?(?:esto\s+|eso\s+)?` + CATEGORIA_MULTINIVEL + String.raw`\s*[?¿.!]*\s*$`,
   'i',
 );
+
+// ── Un candado que abre con «Sí.» responde una pregunta de sí o no (10 oct 2026) ─
+// FREQ_40 abre con «Sí.», y el mismo día de publicarlo ganó por vector «¿en qué
+// se diferencia de un multinivel?», «cuál es la diferencia con el multinivel» y
+// «¿es mejor que un multinivel?»: el backend le dictaba «Sí. Gano Excel
+// distribuye con el modelo de mercadeo en red…» a quien preguntaba EN QUÉ se
+// diferencia. DIASPORA_01 («Sí, totalmente…») tiene la misma forma. Ganado por
+// vector, un candado así va como MATERIAL cuando la pregunta es abierta o
+// compara, y el modelo responde lo que se preguntó con el fragmento delante (la
+// diferencia está ahí: la tecnología y quién empieza la conversación). Por su
+// puerta se dicta siempre. «Claro que sí» (CLIENTE_VIP_01, COMP_BIN_01) queda
+// fuera a propósito: se lee como cortesía y cabe ante cualquier pedido.
+const RE_CANDADO_ABRE_CON_SI = /^\s*(?:\*\*)?s[ií]\s*[.,]/i;
+// La pregunta abierta empieza por su interrogativo, al comienzo del mensaje o de
+// una de sus frases. «¿Esto es multinivel o qué?» NO es abierta: ese «qué» es
+// coletilla, y no lo antecede un comienzo de frase.
+export const RE_PREGUNTA_ABIERTA =
+  /(?:^|[.!?¿¡\n]\s*)(?:(?:y|pero|entonces|bueno|ok|vale|ah)\s*,?\s+)?(?:(?:en|de|con|para|a|por)\s+)?(?:qu[eé]|c[oó]mo|cu[aá]l(?:es)?|cu[aá]nt[oa]s?|por\s*qu[eé]|d[oó]nde|cu[aá]ndo|qui[eé]n(?:es)?)(?![a-záéíóúñ])/i;
+export const RE_COMPARACION =
+  /d[iíe]?f+[iíe]?[eé]?r[eé]?n\w*|distint\w*|(?:mejor|peor)\s+que|cambi[aoó]\w*|compar\w*|frente\s+a|versus|\bvs\b|a\s+diferencia|no\s+es\s+como|en\s+vez\s+de/i;
+export function siFueraDeLugar(cuerpoCandado: string, mensaje: string): boolean {
+  return RE_CANDADO_ABRE_CON_SI.test(cuerpoCandado)
+    && (RE_PREGUNTA_ABIERTA.test(mensaje) || RE_COMPARACION.test(mensaje));
+}
+
+// La puerta de FREQ_40: la forma de la pregunta, y que sea de sí o no.
+export const RE_PREGUNTA_ES_MULTINIVEL: Pick<RegExp, 'test'> = {
+  test: (t: string) => RE_FORMA_ES_MULTINIVEL.test(t) && !RE_PREGUNTA_ABIERTA.test(t) && !RE_COMPARACION.test(t),
+};
+
+// La puerta de la COMPARACIÓN con la categoría, hacia NET_01 («qué cambió»):
+// «¿en qué se diferencia de un multinivel?», «¿es mejor que un multinivel?»,
+// «¿en qué cambia frente a Herbalife?». Con FREQ_40 como único material el
+// modelo rellenaba la diferencia con estereotipos (10 oct 2026).
+const RE_CATEGORIA_MULTINIVEL = new RegExp(CATEGORIA_MULTINIVEL, 'i');
+export const RE_COMPARA_CON_MULTINIVEL: Pick<RegExp, 'test'> = {
+  test: (t: string) => RE_COMPARACION.test(t) && RE_CATEGORIA_MULTINIVEL.test(t),
+};
 
 // ── La objeción de PRESUPUESTO no se contesta con un texto dictado (29 sep 2026) ─
 // Yesid Triana: «Con el costo de vida disparado, ¿una caja de Ganocafé no afecta

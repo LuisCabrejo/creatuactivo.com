@@ -47,7 +47,7 @@ import {
   atenderDistribuidorActivo, esSocioNuestroPorNombre,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO,
-  RE_PREGUNTA_ES_MULTINIVEL,
+  RE_PREGUNTA_ES_MULTINIVEL, RE_COMPARA_CON_MULTINIVEL, siFueraDeLugar,
   atenderModoWaze,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
@@ -2603,8 +2603,12 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       fragmento: 'arsenal_inicial_WHY_05',
       titulo: 'Por qué hacerlo — WHY_05',
       porque: 'pregunta por qué debería hacerlo, sin decir quién es',
+      // ⚠️ Y cede ante la COMPARACIÓN con el multinivel (10 oct 2026): «¿por qué
+      // esto no es como los multiniveles de antes?» es de NET_01 («qué cambió»);
+      // con WHY_05 de material, el modelo compuso «el ingreso dependía de cuántas
+      // personas reclutaba».
       cuando: {
-        test: (t: string) => RE_PREGUNTA_POR_QUE.test(t) && !declaraPerfil(t),
+        test: (t: string) => RE_PREGUNTA_POR_QUE.test(t) && !declaraPerfil(t) && !RE_COMPARA_CON_MULTINIVEL.test(t),
       },
     },
     {
@@ -2950,6 +2954,18 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // la doctrina prohíbe. NET_01 responde el frame correcto: qué cambió, sin
       // atacar a nadie.
       cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)|(estuve|hice|trabaj[eé]|particip[eé]|met[ií]|fui|soy|estoy|vendo|vend[ií]a?|tengo\s+c[oó]digo)[^.?]{0,30}(herbalife|amway|omnilife|4\s*life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b)/i,
+    },
+    {
+      // 10 oct 2026: la COMPARACIÓN con la categoría —«¿en qué se diferencia de
+      // un multinivel?», «¿es mejor que un multinivel?», «¿en qué cambia frente a
+      // Herbalife?»— es de NET_01 («qué cambió»), como lo era antes de FREQ_40.
+      // Por vector la ganaba FREQ_40, cuyo «Sí.» no responde una diferencia; y
+      // con solo ese material el modelo rellenaba la diferencia con «perseguir
+      // personas» y hablaba del competidor. Sin `dictar`: NET_01 es material.
+      fragmento: 'arsenal_inicial_NET_01',
+      titulo: 'Compara con el multinivel — NET_01',
+      porque: 'compara con el multinivel',
+      cuando: RE_COMPARA_CON_MULTINIVEL,
     },
     {
       // 10 oct 2026 (Director): «¿esto es multinivel?» es la PREGUNTA por la
@@ -7026,14 +7042,25 @@ ${visitorCountry === 'CO'
         // conductor (Yesid, 29 sep 2026 — «¿no afecta el presupuesto…?» recibió
         // «Claro que sí… ¿Le ayudo a abrir su código?»).
         const _esObjecionPresupuesto = RE_OBJECION_PRESUPUESTO.test(String(latestUserMessage ?? ''));
-        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || ((_esReparacion || _esObjecionPresupuesto) && !_esPuertaDictada))) {
+        // Y un candado que abre con «Sí.» no se le dicta a quien pregunta «¿en qué
+        // se diferencia…?»: ver `siFueraDeLugar` en el conductor (FREQ_40, 10 oct 2026).
+        const _siFueraDeLugar = !!_cuerpo && siFueraDeLugar(_cuerpo, String(latestUserMessage ?? ''));
+        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || ((_esReparacion || _esObjecionPresupuesto || _siFueraDeLugar) && !_esPuertaDictada))) {
           // El candado se queda como MATERIAL, sin la orden de copiarlo literal:
           // así el modelo responde lo que la persona preguntó de verdad, con el
           // fragmento delante. Quitárselo lo dejaría componiendo sin material,
           // que es exactamente cuando vuelven las frases retiradas.
+          // ⚠️ Y del bloque que VIAJA en el prompt (10 oct 2026): `arsenalParaCierre`
+          // se armó con el texto de `_doc0` cientos de líneas arriba, así que
+          // limpiar solo el documento no le quitaba nada al modelo — la misma
+          // trampa del ejemplo dictado (ver «el ejemplo dictado gana»). Con las
+          // etiquetas a la vista el modelo obedecía la regla del candado: a «¿en
+          // qué se diferencia de un multinivel?» devolvió el «Sí.» de FREQ_40 con
+          // las etiquetas <verbatim_lock> impresas en el mensaje.
           _doc0.content = (_doc0.content || '').replace(/<\/?verbatim_lock>/gi, '');
+          arsenalParaCierre = arsenalParaCierre.replace(/<\/?verbatim_lock>/gi, '');
           _meta0.candado_solitario = false;
-          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : _esObjecionPresupuesto ? 'el mensaje es una objeción de presupuesto' : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
+          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : _esObjecionPresupuesto ? 'el mensaje es una objeción de presupuesto' : _siFueraDeLugar ? 'abre con «Sí» y la pregunta no es de sí o no' : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
         } else if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
           const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
           const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';

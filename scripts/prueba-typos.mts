@@ -24,7 +24,7 @@
 import { config } from 'dotenv'; config({ path: '.env.local' });
 import { typosQueRompen } from './lib/typos.mts';
 import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-productos.ts';
-import { pideLaEstrategia, detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_PREGUNTA_ES_MULTINIVEL, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze, RE_TENGO_CODIGO, RE_ACTIVO_EN_GANO, RE_CAMBIO_DE_EQUIPO } from '../src/lib/queswa-conductor.ts';
+import { pideLaEstrategia, detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_PREGUNTA_ES_MULTINIVEL, RE_COMPARA_CON_MULTINIVEL, siFueraDeLugar, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze, RE_TENGO_CODIGO, RE_ACTIVO_EN_GANO, RE_CAMBIO_DE_EQUIPO } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
 import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
@@ -85,6 +85,10 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
     nota: 'las charlas de Luis: dónde viven y aviso al socio (21 sep 2026)' },
   { nombre: 'pregunta · ¿es multinivel?', fn: (t) => RE_PREGUNTA_ES_MULTINIVEL.test(t), frase: 'esto es multinivel o que', llaves: ['multinivel'], tope: 0,
     nota: '10 oct 2026: la puerta de FREQ_40 (el «sí» llano); tolera múltinivel, mulinivel, mlutinivel y mulltinivel' },
+  { nombre: 'candado «Sí» · comparación', fn: (t) => siFueraDeLugar('Sí. Gano Excel distribuye…', t), frase: 'es diferente a un multinivel', llaves: ['diferente'], tope: 0,
+    nota: '10 oct 2026: un candado que abre con «Sí.» no se dicta a quien compara (FREQ_40 ganaba «¿es diferente a un multinivel?»)' },
+  { nombre: 'compara con el multinivel', fn: (t) => RE_COMPARA_CON_MULTINIVEL.test(t), frase: 'en que se diferencia de un multinivel', llaves: ['diferencia', 'multinivel'], tope: 0,
+    nota: '10 oct 2026: la comparación con la categoría va a NET_01 («qué cambió»), no al «Sí.» de FREQ_40' },
   { nombre: 'pregunta empresa · gano excel', fn: (t) => RE_PREGUNTA_EMPRESA_GANO.test(t), frase: 'gano excel que es? que productos venden', llaves: ['excel'], tope: 0,
     nota: 'la mitad de empresa de la pregunta mixta antepone las credenciales al candado de WHY_PROD_01 (27 sep 2026); tolera exel/ecxel' },
   { nombre: 'vieneDelVideoComoFunciona', fn: vieneDelVideoComoFunciona, frase: 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de cómo funciona.', llaves: ['video', 'funciona'], tope: 7,

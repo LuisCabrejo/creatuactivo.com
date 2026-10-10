@@ -236,7 +236,7 @@ const sendMessage = useCallback(async (content: string) => {
     const pagePath = typeof window !== 'undefined' ? window.location.pathname : '';
     const pageContext = pagePath.includes('/productos')
       ? 'catalogo_productos'       // Modo asesor de salud/bienestar
-      : pagePath.includes('/12-niveles')
+      : pagePath.includes('/12-niveles')   // retirado el 10 oct 2026 (redirige a /servilleta?pantalla=9); se conserva por si una pestaña vieja sigue abierta
       ? '12_niveles'               // Deck Los 12 Niveles (simulador 2×2)
       : 'default';                 // Modo asesor de negocio
 

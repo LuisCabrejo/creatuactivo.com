@@ -3,7 +3,7 @@
  *
  * La imagen de los pares de la modernización para las tarjetas al compartir
  * (30 sep 2026). La usan dos tarjetas y SOLO cambia el rótulo de arriba:
- *  · /presentacion           → «CreaTuActivo · Presentación»
+ *  · /servilleta             → «CreaTuActivo · Plan servilleta» (la presentación única desde el 10 oct 2026)
  *  · /{slug}/queswa (/og/queswa) y los enlaces de los videos → «CreaTuActivo · Queswa»
  *
  * Por qué los pares: son marcas que la persona ya usa, el patrón se entiende sin

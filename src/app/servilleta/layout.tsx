@@ -22,7 +22,7 @@ const jsonLd = {
       name: TITULO,
       description: DESCRIPCION,
       inLanguage: 'es',
-      dateModified: '2026-10-08',
+      dateModified: '2026-10-10',
       publisher: { '@id': 'https://creatuactivo.com/#organization' },
       about: { '@type': 'Organization', name: 'Gano Excel' },
       breadcrumb: { '@id': `${URL_PAGINA}#breadcrumb` },
@@ -84,14 +84,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_CO',
     siteName: 'CreaTuActivo',
-    images: [
-      {
-        url: '/favicon-cta.png?v=6',
-        width: 1200,
-        height: 1200,
-        alt: 'Plan Servilleta CreaTuActivo - Calculadora Gano Excel',
-      },
-    ],
+    // La imagen la genera opengraph-image.tsx (los pares de la modernización).
   },
 
   twitter: {

@@ -1,527 +1,413 @@
-/**
- * SERVILLETA DIGITAL v6.7 — slides 1 y 2 como card-scrollers con b-rolls 3D
- * 4-Slide Interactive Presentation (Slide Deck)
- *
- * v6.7 (3 jul 2026) — Tríada Slide 2 sin pronombre ambiguo (guión servilleta v5.8):
- *  - Subtítulo/portada: "alguien la fabrica, algo la atiende" → "alguien fabrica, una
- *    plataforma atiende a las personas" (nadie "fabrica" una empresa; "una plataforma"
- *    mapea limpio con Queswa). Sync con reel home + src/app/page.tsx.
- *
- * v6.6 (2 jul 2026) — Auditoría de navegación + media (no parches):
- *  - Control CENTRAL de media: un solo efecto gobierna TODOS los videos (data-slide/
- *    data-card) — antes los clips de la slide abandonada seguían sonando ocultos
- *    (display:none no pausa un <video>) → audio acumulado. Grid desktop = todo en mute.
- *  - Slides 1 y 2 SIMÉTRICAS: cada una abre con SU portada (índice 0) y sigue con
- *
- * ⚠️ CABECERA DESACTUALIZADA DESDE v7.0 (jul 2026) — lo que sigue describe la
- *    estructura ANTERIOR de 4 slides y el léxico "empresa digital", ya retirado.
- *    ESTRUCTURA VIGENTE (4 slides — el Slide 3 se eliminó el 2 ago 2026):
- *      1 · EL PROBLEMA        "Trabajar, pagar cuentas y repetir"  (el ciclo del dinero)
- *      2 · LAS TRES COSAS     "Lo difícil ya está hecho"  (respaldo · queswa · metodo + colapso)
- *      3 · EL PRODUCTO        "Un hábito que no cambia"   ⏳ pendiente foto de banco
- *      4 · LOS NÚMEROS        cierre en clave Vélez       ⏳ textos pendientes
- *
- *    🔴 "QUÉ HACE USTED" ELIMINADO (decisión del Director). El clip de Queswa ya mostraba
- *    los tres pasos, así que "su centro de mando → método comprobado → usted solo comparte"
- *    decía lo mismo tres veces seguidas. Los tres movimientos viven ahora en la card del
- *    método (Slide 2): cian "Método comprobado" + blanco "Compartir · Recibir · Multiplicar".
- *    Quedaron sin uso compartir.mp4 / recibir.mp4 / multiplicar.mp4.
- *    ⚠️ Las clases .slide-4-layout y .slide-4-bottom viven dentro de #slide-3 (el producto):
- *    ya estaban corridas un número ANTES de esta eliminación. No es un bug de la renumeración.
- *    "empresa digital" ya NO aparece en pantalla en ninguna slide (solo en estos
- *    comentarios). Fuente de verdad del copy: guion_maestro_servilleta_v3.md v6.8.
- *    3 clips (1-3). Slide 1 = "CREE SU EMPRESA DIGITAL" · Slide 2 = "3 COSAS TIENEN
- *    QUE SER CIERTAS" (H1 fuera de las diapositivas, solo en su portada).
- *  - Tap = pausa SOLO táctil; en desktop el click conserva el avance (capturarlo
- *    dejaba al presentador trabado en el clip 1) + botón ⏸/▶ de esquina por card.
- *  - Retroceso de slide aterriza en la ÚLTIMA card de la slide destino (LAST_CARD),
- *    no en la portada. Eliminado el efecto reset-a-0 que lo clobbearía.
- *  - Slide 4: swipe-back habilitado desde el simulador (.simulator-panel fuera de la
- *    exoneración táctil) + guard de eje |dx|>|dy| para no navegar con scroll vertical.
- *  - Eliminado IntersectionObserver muerto (one-card usa display:none → nunca intersecta).
- *
- * v6.5 (30 jun 2026) — Slide 2 sincronizado con el guión servilleta v5.7:
- *  - Slide 1 = "qué es una empresa digital" (cards: depende de usted · usted es el puente ·
- *    imagine el suyo). Slide 2 = "LO DIFÍCIL YA ESTÁ HECHO" (primeros principios): alguien la
- *    fabrica (Gano, socio logístico y financiero) · algo la atiende (Queswa, socio digital) ·
- *    usted sabe qué hacer (Método). Eyebrow de rol (frame-before-name); Gano se USA, no se entra
- *
- * v6.4 (jun 2026) — B-rolls 3D en slides 1 y 2 (ver CLAUDE.md "B-rolls 3D en Slides 1 y 2"):
- *  - b-rolls 3D + nombre por card; .card-bg aloja <video> object-fit:contain (full-bleed sin
- *    recorte); one-card-mode generalizado; fix del salto a la card 3 (reset de activeCardIndex
- *    en batch). ⚠️ El mapeo slide→contenido de esta entrada quedó desfasado con el reorden
- *    WHAT→HOW posterior (ver v6.5 arriba)
- *
- * v6.3 (jun 2026) — Migración al léxico actual:
- *  - Slide 1: H1 "INGRESOS RECURRENTES" (antes "Estructura Patrimonial"); pilares = El Respaldo
- *    Operativo · Queswa, su Centro de Mando · El Método Comprobado; rol = Propietario
- *  - Queswa: "explica, atiende y madura" (antes "acompaña / persuadir/filtrar")
- *  - Slide 4: botón "ACTIVAR SU EMPRESA DIGITAL" · "SIMULADOR DE INGRESOS RECURRENTES"
- *
- * v6.1 (15 May 2026, léxico previo v26.5 — histórico):
- *  - Slide 1: reescritura (texto reducido 78%) + imagen 3-pilares.webp; "Patrimonio Paralelo" →
- *    "Estructura Patrimonial"; "tres capas" → "tres pilares"
- *  - Slide 2: "Tres movimientos" → "Tres comandos"; Slide 3: "tecnología patentada" → "propietaria"
- */
-
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import SubscribeModal from '@/components/SubscribeModal';
+/**
+ * Copyright © 2026 CreaTuActivo.com
+ *
+ * /servilleta — LA presentación única de CreaTuActivo (consolidada el 10 oct
+ * 2026, Director). Nació como /presentacion (antes /pitch-deck, 23 sep 2026) y
+ * se mudó a esta URL porque es la que tiene el SEO de «plan servilleta». El deck
+ * viejo de la servilleta (4 pantallas) y /12-niveles se retiraron (viven en git);
+ * /presentacion, /pitch-deck, /presentacion-empresarial y /12-niveles redirigen
+ * aquí conservando el ?ref (y /12-niveles abre en ?pantalla=9). Debajo del deck
+ * va la guía en texto (GuiaPlanServilleta.tsx) con el ÚNICO h1 de la página.
+ *
+ * SE PRESENTA EN VIVO (Director, 30 sep 2026): el socio conduce el deck delante
+ * de la persona y solo DESPUÉS le comparte el enlace, así que puede apoyarse en
+ * su voz.
+ *
+ * CONSOLIDACIÓN (Director, 10 oct 2026): quien busca «plan servilleta» es un
+ * distribuidor buscando una herramienta (reports/Plan servilleta top 3
+ * Google.md), así que la presentación que se usa y la que se encuentra son la
+ * misma. TODO apunta aquí, incluido el simulador que Queswa ofrece en la web
+ * (textoSimuladorWeb → ?pantalla=9). Pendiente: Fase 3, el video-herramienta del
+ * socio (doble destino: WhatsApp y el carrusel de YouTube de «plan servilleta»).
+ *
+ * LA PÁGINA TIENE DOS PISOS: el deck ocupa la primera pantalla (100dvh) y debajo
+ * va la guía. Al presentar, la guía no existe (en pantalla completa se oculta) y
+ * mientras alguien la lee el deck no escucha el teclado ni reproduce videos.
+ *
+ * COLUMNA NUEVA (30 sep 2026). La del 23 sep se construyó pantalla por pantalla y
+ * tenía disonancias: revelaba la solución tres veces antes del clímax, contaba el
+ * negocio distinto a WHY_02 y la pantalla del dinero discutía consigo misma. Esa
+ * versión queda navegable en /presentacion/anterior (commit 7e5cc61).
+ *
+ * REGLA: cada pantalla responde UNA pregunta del prospecto, y el titular es la
+ * respuesta. Cada idea se dice una vez.
+ *
+ * Las pantallas 2 a 5 son la columna del Director, probada en sus conversaciones:
+ * modernizar dos sectores. Nombrar «network marketing» dentro de la ola de
+ * modernización resolvió el «ah, es como Herbalife»: el enfoque queda en la
+ * oportunidad. Tiene la forma de la narrativa estratégica de Andy Raskin: un
+ * cambio en el mundo → quién se queda atrás → la tierra prometida → las
+ * herramientas.
+ *
+ *  1 EN QUÉ CREEMOS  · solo la primera mitad del credo (el ciclo).
+ *  2 LA OPORTUNIDAD  · modernizar industrias frente a nuestros ojos: cinco pares
+ *                      (domicilios → Rappi … Adpostal → WhatsApp).
+ *  3 DOS SECTORES    · la industria del network marketing y el sector laboral.
+ *                      ⚠️ SOLO el nombre del sector, sin describir cómo se hace
+ *                      hoy: el contexto lo da el socio en vivo, y una pieza no
+ *                      concede (memoria feedback_pieza_no_concede).
+ *  4 EL DOLOR,       · tres cifras verificadas en fuente primaria (el ingreso que
+ *    EN CIFRAS         no alcanza · la informalidad · la pensión que no llega). El
+ *                      beat de «dos caminos» se eliminó el 9 oct 2026: ese contexto
+ *                      lo da el socio en vivo, y las analogías (Nequi, Uber) las
+ *                      toma de la pantalla 2 según su público.
+ *  5 LA PROPUESTA    · beat 0: una empresa de distribución moderna a su nombre,
+ *    Y CÓMO FUNCIONA   «se requieren tres elementos»; luego el orden de WHY_02:
+ *                      las tres piezas (el fabricante SIN nombre; la 3ª es SABER
+ *                      QUÉ HACER desde el 9 oct 2026), la oscilación, el remate
+ *                      en UNA diapositiva (10 oct 2026): el teléfono con la UNIÓN
+ *                      de los tres adentro (telefono-union-v4.mp4, 60 s, el cubo
+ *                      encendido latiendo) y «Queswa.app», que entra solo cuando
+ *                      el cubo ya se encendió — la secuencia de Jobs sin clic;
+ *                      cierra la propiedad.
+ *                      → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
+ *  6 QUÉ HACE USTED  · Compartir · Recibir con Queswa en medio (EAM_01);
+ *                      beat 2: solo se multiplica lo que es sencillo.
+ *  7 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
+ *                      por primera vez, como quien lo fabrica.
+ *  8 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
+ *  9 CÓMO SE GANA    · beat 1, lo principal: lo que deja la recompra + los 12
+ *                      niveles desde el Kit. Beat 2: el bono por paquetes
+ *                      empresariales (Director, 30 sep 2026: quien inicia muchas
+ *                      veces necesita ganar pronto, y la industria lo tiene; no
+ *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
+ *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
+ *                      final.
+ * 10 EL SIGUIENTE    · la segunda mitad del credo, la lista de espera y la
+ *    PASO              conversación con el socio del ?ref (nombre y WhatsApp).
+ *
+ * REGLAS QUE ROMPEN ALGO SI SE TOCAN
+ * ----------------------------------
+ *  · El botón «PREGÚNTELE ALGO AHORA» (pieza 2 de la pantalla 5) convierte la
+ *    tecnología en experiencia. Por eso /presentacion está en RUTAS_ORBE_QUESWA_WEB
+ *    (orbe-config.ts) y en `isDeck` de UnifiedQueswaOrb: mandar esa demo a
+ *    WhatsApp la rompe, porque saca al prospecto de la reunión.
+ *  · «Network marketing» va SOLO como nombre del sector (pantalla 3). Cómo se hace
+ *    hoy lo cuenta el socio en vivo: una pieza no concede, y describirlo aquí sería
+ *    un juicio sin voz sobre el método de otros.
+ *  · El bono por paquetes se nombra por lo que lo mueve (la compra de un paquete) y
+ *    por su función (financia el crecimiento al inicio), NUNCA por su velocidad. Se
+ *    cuentan paquetes comprados, nunca personas.
+ *  · Sin socio (visita orgánica o ?ref que no se encuentra), la conversación es con
+ *    el equipo, por el WhatsApp Business (Director, 1 oct 2026).
+ *  · La presentación reporta hasta dónde llegó cada persona en tres hitos, si llegó
+ *    al final y si tocó el WhatsApp (/api/track/presentacion → avisos del Dashboard).
+ *  · La última pantalla nombra al socio del ?ref y trae su WhatsApp. El socio toca
+ *    su nombre y escribe el del prospecto: la prueba en vivo de la personalización
+ *    de Queswa.app, la aplicación que el remate nombra. «En su caso, esta pantalla
+ *    dirá el suyo» es frase de
+ *    la voz del socio: no va escrita.
+ *  · Moneda: pesos con PUNTO de miles, dólares con COMA. Por eso los locales van
+ *    explícitos ('es-CO' / 'en-US') y no un toLocaleString() pelado, que depende
+ *    del navegador de quien presenta.
+ *  · En el deck NO conviven precio de entrada y comisión: eso es promesa de
+ *    ingreso. Aquí solo hay comisiones; los precios viven en /paquetes.
+ *  · Swipe: solo los <input> (sliders y el nombre) exoneran el gesto. No añadir
+ *    paneles ni botones a esa lista: bloquea el swipe-back de la última pantalla.
+ *  · Nada de acentos graves en los comentarios del CSS: cierran la plantilla de JS
+ *    que lo envuelve (rompió el build el 28 sep 2026).
+ */
+
+import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
-import HomeManifestoVideo from '@/components/HomeManifestoVideo';
-import { PLAN_SERVILLETA_VIDEO, PLAN_SERVILLETA_POSTER } from '@/lib/reels';
 
-// (El control de pausa es ÚNICO y central — ver clipCenterToggle dentro del componente.
-//  Decisión Director 2 jul 2026: un solo botón, el del centro; el de esquina se retiró.)
+const TOTAL_SLIDES = 10;
+/** Pantallas que se reportan a la ficha: un tercio, dos tercios y la última. */
+const HITOS_PRESENTACION = [4, 7, TOTAL_SLIDES];
+/** WhatsApp Business del equipo (+57 320 680 5737): el mismo número orgánico de
+ *  los reels (`WHATSAPP_ORGANICO_DEFAULT` en [slug]/[destino]). Para quien llega
+ *  a la presentación sin el enlace de un socio. */
+const WHATSAPP_EQUIPO = '573206805737';
 
-// Al RETROCEDER de slide se aterriza en la ÚLTIMA card de la slide destino: el usuario
-// regresa a revisar lo último que vio, no la portada (pedido Director 2 jul 2026).
-// Avanzar o saltar por nav → card 0 (portada). Slides 1 y 2 = portada + 3 clips (máx 3).
-// El BEAT DEL COLAPSO (Slide 2) ocupa 6 índices de card (4..9), uno por tiempo del
-// patrón Jobs. Al vivir dentro del mismo contador de cards hereda clic, swipe y
-// flechas sin tocar la navegación: el orador lo pasa a su ritmo, no hay reloj.
-// El CLIP DEL MÉTODO (Slide 2) ocupa 3 índices (3..5): el video se detiene solo en cada
-// disco luminoso del camino y espera el clic. NO hay temporizador — una ventana de 2-3s
-// es una trampa para quien narra: si está a mitad de una frase, se le va. Los tres pasos
-// se explican aquí en vez de en una diapositiva propia (decisión del Director 3 ago 2026:
-// entre más simple, mejor; el clip ya cuenta el recorrido).
-const METODO_FROM = 3;
-// Segundos en que el orbe pisa cada punto. Medidos cuadro a cuadro sobre metodo.mp4
-// (8.0s @ 24fps). Si el clip se re-renderiza, hay que volver a medirlos.
-// Criterio del Director (3 ago 2026): la pausa cae donde TERMINA el sonido del punto,
-// no donde empieza — pero el sonido por sí solo no basta: la pausa debe caer donde
-// TAMBIÉN el orbe ya se ve asentado en el punto (las dos señales encimadas).
-// Punto 1: el golpe de audio estalla en 2.158 y cae al piso de ambiente en 2.30 —
-// ahí mismo el orbe ya está quieto bajo su marcador. Coinciden, sin ajuste.
-// Puntos 2 y 3: valores medidos por el Director con cronómetro sobre la reproducción
-// real (3 ago 2026) — del punto 1 al punto 2 hay 1.96s exactos, de ahí 4.26. Priman
-// sobre las mediciones hechas sobre el archivo: dos intentos previos derivados del
-// audio (4.88) y del rastreo de posición del orbe cuadro a cuadro (4.96) dieron un
-// resultado que en vivo se ve pasado de largo, así que el reloj sobre la reproducción
-// es el juez, no el análisis del .mp4.
-const METODO_STOPS = [2.22, 4.14, 6.00];
-// El rótulo va ARRIBA y grande, en HTML sobre el video: cambiar una palabra no debe
-// exigir re-render, misma regla que los nombres de las cards.
-// Dos acciones y su consecuencia (doctrina 8 ago 2026): la multiplicación se nombra
-// como RESULTADO, nunca como tercer paso — por eso el tercer punto del clip no lleva
-// ordinal. La card ya decía "Dos pasos sencillos"; el rótulo iba desincronizado.
-const METODO_PASOS = ['Compartir', 'Recibir', 'Y se multiplica'];
+/** Beats internos por pantalla. */
+const BEATS: Record<number, number> = { 5: 7, 6: 2, 9: 2 };
+const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
-const COLAPSO_FROM = METODO_FROM + METODO_STOPS.length;
-const COLAPSO_BEATS = 5;
+/** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
+ *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola».
+ *  EN VIDEO desde el 10 oct 2026 (Fase 1 de la consolidación con la servilleta,
+ *  aprobada por el Director): el movimiento sostiene la mirada mientras el socio
+ *  narra — es para lo que la servilleta fue diseñada, y sus b-rolls son el mismo
+ *  universo del que salieron estas imágenes. Los loops son recortes CUADRADOS
+ *  propios del deck (public/videos/presentacion/, desde los clips de
+ *  public/videos/servilleta/ sin su cubo de portada), MUDOS a propósito: en vivo
+ *  la banda sonora es el socio. La imagen queda como poster — se ve al instante
+ *  y cubre la carga (preload none). Ritmo movimiento/quietud deliberado: piezas
+ *  en video; el credo, las cifras y el teléfono del remate QUIETOS — un
+ *  manifiesto y un número no deben moverse. */
+const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: string }[] = [
+  {
+    label: 'UN FABRICANTE',
+    img: '/images/servilleta/colapso-fabrica.webp',
+    video: '/videos/presentacion/pieza-fabricante.mp4',
+    // Sin nombre, como en WHY_02: Gano se nombra en el producto y al final, como quien paga.
+    sub: 'Fabrica, empaca y despacha cada pedido hasta la casa de su cliente.',
+  },
+  {
+    label: 'UNA TECNOLOGÍA QUE ATIENDE',
+    img: '/images/servilleta/colapso-conversacion.webp',
+    video: '/videos/presentacion/pieza-atiende.mp4',
+    sub: 'Queswa conversa con cada interesado, le resuelve las dudas y madura su decisión de avanzar. A toda hora.',
+    // La segunda cara (metas · redacta · avisa) vivió aquí como `extra` del 24 al
+    // 27 sep 2026; se mudó a la pieza 3, que ES esa cara con nombre propio. Esta
+    // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.
+  },
+  {
+    // EL TERCER ELEMENTO ES SABER QUÉ HACER (Director, 9 oct 2026 — reemplaza a
+    // «su aplicación personalizada» del 27 sep). Los tres elementos son FUNCIONES
+    // (fabricar · atender · saber qué hacer) y la aplicación subió de rango: es el
+    // ENVASE de los tres, revelado en el remate (Queswa.app). Resuelve la
+    // circularidad app-contiene-app que el Director sintió presentando en vivo, y
+    // la evidencia la respalda: el control percibido («¿seré capaz?») es el
+    // predictor nº 1 de la intención de emprender (β=0,39, meta-análisis TPB 2025)
+    // → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md.
+    // Las dos acciones siguen SIN listarse aquí (las cuenta Queswa — EAM_01).
+    // ⚠️ Waze va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ ·
+    // «lo lleva a donde quiere estar» ⛔ (voz de coach, vetada el 24 sep).
+    // El render es un PIN DE MAPA con pasos de ruta — la imagen de Waze literal.
+    // Va como copia con nombre propio (colapso-aplicacion.webp) para que el deck
+    // no dependa del asset «metodo», que es de /servilleta (quieta).
+    label: 'SABER QUÉ HACER',
+    img: '/images/servilleta/colapso-aplicacion.webp',
+    video: '/videos/presentacion/pieza-ruta.mp4',
+    sub: 'Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando la ruta, paso a paso.',
+    extra: 'Conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
+  },
+];
 
-// Maqueta blanca sobre negro (2 ago 2026): las tres caras se generaron como un SET —
-// misma cámara, misma luz, mismo material y misma huella en el piso. Esa constancia es
-// lo que hace legible el giro; si se reemplaza una sola, hay que regenerar las tres.
-const COLAPSO_PIEZAS = [
-  { id: 'fabrica', corto: 'La fábrica', src: '/images/servilleta/colapso-fabrica.webp' },
-  { id: 'conversacion', corto: 'La conversación', src: '/images/servilleta/colapso-conversacion.webp' },
-  { id: 'metodo', corto: 'El método', src: '/images/servilleta/colapso-metodo-v2.webp' },
+/** La ola de modernización (Director, 30 sep 2026): lo que antes era una
+ *  industria a la antigua, hoy es una aplicación. */
+const PARES_MODERNIZACION: [string, string][] = [
+  ['Domicilios', 'Rappi'],
+  ['Taxis', 'Uber'],
+  ['La fila del banco', 'Nequi'],
+  ['Comprar DVDs', 'Netflix'],
+  ['Adpostal', 'WhatsApp'],
+];
+
+const CATEGORIAS = [
+  { label: 'BEBIDAS', img: '/productos/compuestas/categoria-bebidas.jpg' },
+  { label: 'SUPLEMENTOS', img: '/productos/compuestas/categoria-suplementos.jpg' },
+  { label: 'CUIDADO PERSONAL', img: '/productos/compuestas/categoria-cuidado-personal.jpg' },
+  { label: 'LUVOCO', img: '/productos/compuestas/categoria-luvoco.jpg' },
+];
+
+/** Proyección 2×2 sobre 12 niveles — misma tabla que NIVELES_02 del arsenal
+ *  (v6.8: 10% del CV emparejado, cada distribuidor consumiendo 56 CV al mes).
+ *  `people` = distribuidores NUEVOS en ese nivel. Copiada de /12-niveles: si allá
+ *  cambia, aquí también. */
+const PROYECCION_12: { level: number; people: number; income: number }[] = [
+  { level: 1, people: 2, income: 25200 },
+  { level: 2, people: 4, income: 75600 },
+  { level: 3, people: 8, income: 176400 },
+  { level: 4, people: 16, income: 378000 },
+  { level: 5, people: 32, income: 781200 },
+  { level: 6, people: 64, income: 1587600 },
+  { level: 7, people: 128, income: 3200400 },
+  { level: 8, people: 256, income: 6426000 },
+  { level: 9, people: 512, income: 12877200 },
+  { level: 10, people: 1024, income: 25779600 },
+  { level: 11, people: 2048, income: 51584400 },
+  { level: 12, people: 4096, income: 103194000 },
+];
+
+/** El porcentaje del Binario según la forma de iniciar (COMP_BIN_02 del arsenal de
+ *  compensación). ⚠️ Solo el 10% del Kit es permanente: el 15, 16 y 17% rigen 2, 4
+ *  y 6 meses, y después el sistema aplica el más alto entre el 10% base y el del
+ *  rango. Por eso la pantalla lo dice cada vez que se elige uno de los tres — sin
+ *  esa línea, el nivel 12 al 17% sería una cifra que el plan no paga. */
+const TARIFAS_12 = [
+  { pct: 10, nombre: 'Kit', paquete: 'Kit de Inicio', meses: 0 },
+  { pct: 15, nombre: 'Inicial', paquete: 'paquete Inicial', meses: 2 },
+  { pct: 16, nombre: 'Empresarial', paquete: 'paquete Empresarial', meses: 4 },
+  { pct: 17, nombre: 'Visionario', paquete: 'paquete Visionario', meses: 6 },
 ] as const;
 
-// Un texto por beat. El último cierra con la frase; el nombre grande lo pone
-// .colapso-nombre.
-const COLAPSO_TEXTO: Array<{ eyebrow: string; nombre: string }> = [
-  { eyebrow: 'Ya las vio', nombre: 'Las tres cosas' },
-  { eyebrow: 'Alguien fabrica', nombre: 'La fábrica' },
-  { eyebrow: 'Alguien atiende', nombre: 'La conversación' },
-  { eyebrow: 'Usted sabe qué hacer', nombre: 'El método' },
-  { eyebrow: 'No son tres cosas', nombre: 'Ya vienen juntas' },
+/** Las cifras del dolor (las dos primeras aprobadas por el Director el 26 sep 2026;
+ *  la de informalidad, el 9 oct 2026). Cuentan una sola historia: el ingreso de hoy
+ *  no alcanza → así se trabaja hoy → así termina. Cada una se verificó en su fuente
+ *  primaria; si se cambia una, se vuelve a la fuente — no a un artículo que la cite.
+ *  · DANE, Empleo informal y seguridad social (GEIH): proporción de ocupación
+ *    informal 54,6 % para el total nacional, trimestre móvil may–jul 2026 (un año
+ *    antes: 55,0 %). ⚠️ El dato ROTA cada mes: al tocar esta pantalla, re-verificar
+ *    el trimestre vigente y actualizar cifra + rótulo de fuente juntos.
+ *    https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-informal-y-seguridad-social
+ *  · DANE, Encuesta Nacional de Calidad de Vida 2025 (anexo, cuadro 35): el 31,3 %
+ *    de los hogares dice que su ingreso «no alcanza para cubrir los gastos mínimos»
+ *    y el 61,0 % que «alcanza para cubrir los gastos mínimos»; solo el 7,7 % que
+ *    «cubre más». Se usa la SUMA (92,3 %) a propósito: el «no alcanza» solo viene
+ *    bajando desde 2022, mientras que el «cubre más» lleva entre 7 y 8 % desde 2019.
+ *    https://www.dane.gov.co/files/operaciones/ECV/anex-ECV-2025.xlsx
+ *  · Colpensiones + U. Javeriana, primer estudio de Silver Economy en Colombia
+ *    (presentado jul. 2022, datos 2021): de 7,1 millones de personas en edad de
+ *    retiro (hombres 62+, mujeres 57+), 1,6 millones reciben alguna pensión —
+ *    cobertura del 23 %. «3 de cada 4» sin pensión es la versión CONSERVADORA
+ *    (el real es 77 %): solo puede sorprender hacia arriba. Reemplazó el 27 sep
+ *    2026 (Director) a la cifra del GEM de «buenas oportunidades» (60 %): la
+ *    pensión es el destino del ciclo y cierra mejor el arco hoy → final → los
+ *    demás ya se mueven.
+ *    https://www.larepublica.co/finanzas/cobertura-pensional-es-de-apenas-23-segun-estudio-de-colpensiones-y-unijaveriana-3398629
+ *  ⛔ Descartadas: la del GEM (TEA 23,6 %, «casi 1 de cada 4 montando un negocio»)
+ *  la descartó el Director el 9 oct 2026 — «casi uno de cada cuatro» produce
+ *  disonancia aritmética en vivo («¿cómo así, casi uno?»), y prefirió un porcentaje
+ *  exacto y de dolor puro (la informalidad); el «9 de cada 10 quieren emprender /
+ *  63 % sin recursos» es un estudio de Amway (2021) — la fuente confirma la
+ *  categoría que no se nombra —; la «intención emprendedora» del GEM es
+ *  inconsistente; y la carga financiera del Banco de la República (31 %, feb. 2026)
+ *  cubre solo a los hogares con créditos. */
+const CIFRAS_PROBLEMA = [
+  {
+    n: '9 de cada 10',
+    texto: 'hogares colombianos dicen que su ingreso no alcanza, o que alcanza solo para lo mínimo.',
+    fuente: 'DANE · Encuesta de Calidad de Vida 2025',
+  },
+  {
+    n: '54,6 %',
+    texto: 'de las personas que trabajan en Colombia lo hacen en la informalidad.',
+    fuente: 'DANE · GEIH, may–jul 2026',
+  },
+  {
+    n: '3 de cada 4',
+    texto: 'colombianos en edad de pensionarse no reciben una pensión.',
+    fuente: 'Colpensiones · U. Javeriana, 2022',
+  },
 ];
-// Puntos que se PINTAN en el indicador: el método y el colapso cuentan como UNO cada
-// uno, aunque por dentro ocupen varios índices. El público ve 4 partes, no 11 pasos.
-const CARD_DOTS: Record<number, number> = { 1: 3, 2: 4 };
-const dotFor = (slide: number, idx: number) => {
-  if (slide !== 2) return idx;
-  if (idx < METODO_FROM) return idx;                 // 1 respaldo · 2 queswa
-  if (idx < COLAPSO_FROM) return METODO_FROM;        // 3..5 → el método
-  return METODO_FROM + 1;                            // 6..10 → el colapso
+
+/** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
+const TRM = 4500;
+/** Bono GEN5 por paquete, generación por generación (USD) — COMP_GEN5_04 del arsenal
+ *  de compensación. Cada paquete que se compra deja bono en su generación y en las
+ *  cuatro de arriba, y el paquete propio es el techo: el ejemplo supone el mismo
+ *  paquete arriba y abajo. La quinta va con su valor completo (100 PV en el mes),
+ *  igual que el simulador de WhatsApp (GEN5_POR_PAQUETE en wa-simulador.ts). */
+const GEN5_POR_GENERACION: Record<'ESP1' | 'ESP2' | 'ESP3', number[]> = {
+  ESP1: [25, 5, 5, 5, 10],
+  ESP2: [75, 10, 10, 10, 20],
+  ESP3: [150, 20, 20, 20, 40],
 };
-const LAST_CARD: Record<number, number> = { 1: 3, 2: COLAPSO_FROM + COLAPSO_BEATS - 1 };
-const MAX_CARD: Record<number, number> = { 1: 3, 2: COLAPSO_FROM + COLAPSO_BEATS - 1 };
 
-// Volumen de los b-rolls: el sonido acompaña, no compite con quien presenta
-// (reporte de usuarios jul 2026: "suena muy duro"). Único punto de calibración.
-const AMBIENT_VOLUME = 0.125;
+const enUSD = (n: number) => n.toLocaleString('en-US');
+const enCOP = (n: number) => n.toLocaleString('es-CO');
 
-export default function ServilletaPage() {
-  const TOTAL_SLIDES = 4;
-  const [activeSlide, setActiveSlide] = useState(1);
-  // Default 'binario' (INGRESO RECURRENTE): el valor principal de la oferta es el
-  // ingreso por la red de consumo; el inmediato (GEN5) es la segunda pestaña.
-  const [simMode, setSimMode] = useState<'gen5' | 'binario'>('binario');
-  const [gen5Socios, setGen5Socios] = useState(2);
-  const [gen5Package, setGen5Package] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
-  const [binarioParejas, setBinarioParejas] = useState(50);
+export default function PitchDeckPage() {
+  const [slide, setSlide] = useState(1);
+  const [beat, setBeat] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [queswaOpen, setQueswaOpen] = useState(false);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
-  const [ctaVisible, setCtaVisible] = useState(false);
-  const [productCatalogOpen, setProductCatalogOpen] = useState(false);
-  const [subscribeOpen, setSubscribeOpen] = useState(false);
-  const [pausedKey, setPausedKey] = useState<string | null>(null);
-  // Modo Vertical (presentación en Meet): un monitor horizontal no puede ir a
-  // fullscreen portrait, así que se SIMULA — un iframe del deck a ancho de móvil
-  // (dispara el layout vertical), centrado en negro, con la nav oculta. `isKiosk`
-  // = esta instancia corre DENTRO del iframe (?kiosk=1): oculta nav + botón.
-  const [isKiosk, setIsKiosk] = useState(false);
-  const [verticalMode, setVerticalMode] = useState(false);
-  const [vScale, setVScale] = useState(1);
-  const vOverlayRef = React.useRef<HTMLDivElement | null>(null);
-  // Video del Plan en modal DENTRO del deck (no navega fuera) → tras verlo se
-  // vuelve a la portada y se avanza a los clips sin perder el hilo.
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const touchStartX = React.useRef(0);
-  const touchStartY = React.useRef(0);
-  const touchLastX = React.useRef(0);
-  const touchLastY = React.useRef(0);
-  const touchSwipeIgnore = React.useRef(false);
-  const clickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  const tripleClickCount = React.useRef(0);
-  const tripleClickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  // El visor no es solo del portafolio: cada categoría se abre en grande desde su
+  // miniatura. En la tira caben cuatro y ahí no se lee nada; el producto se mira.
+  const [visor, setVisor] = useState<{ src: string; alt: string } | null>(null);
 
-  // Fuentes: Rajdhani + Roboto Mono ya cargadas via next/font en layout.tsx
-  // Material Symbols Sharp cargado en layout.tsx — no se necesita useEffect aquí
+  // Simuladores
+  // ⚠️ MONEDA: COP por defecto (Director, 26 sep 2026) — en Colombia se muestra solo
+  // pesos. El USD queda a un toque para quien presenta fuera del país, y cada cifra
+  // sale en UNA moneda, nunca las dos a la vez.
+  const [moneda, setMoneda] = useState<'COP' | 'USD'>('COP');
+  const [gen5Paquetes, setGen5Paquetes] = useState(2);
+  const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP1');
+  const [nivel12, setNivel12] = useState(12);
+  const [tarifa12, setTarifa12] = useState(0); // índice en TARIFAS_12: el Kit, al 10%
 
-  // ¿Esta instancia corre dentro del iframe del Modo Vertical? (?kiosk=1)
+  // El socio del ?ref: la última pantalla lo nombra y abre su WhatsApp. Sin ref,
+  // o si la consulta falla, la pantalla queda genérica.
+  const [socio, setSocio] = useState<{ nombre: string; whatsapp: string | null } | null>(null);
+  // Sin socio —visita orgánica, o un ?ref que no se encuentra— la conversación es
+  // con el equipo, por el WhatsApp Business (Director, 1 oct 2026). Hasta ese día
+  // la pantalla quedaba sin botón y quien la abría solo no tenía a quién escribir.
+  // Se espera a la consulta: con ?ref, el equipo no asoma mientras carga el socio.
+  const [sinSocio, setSinSocio] = useState(false);
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get('kiosk') === '1') setIsKiosk(true);
+    let ref: string | null = null;
+    try { ref = new URL(window.location.href).searchParams.get('ref'); } catch { /* sin ref */ }
+    // Desde el menú se llega sin ?ref (1 oct 2026): quien entró antes por el enlace
+    // de un socio lo trae guardado (tracking.js lo deja en `constructor_ref`, y el
+    // catálogo ya lo lee así). Esa persona ve a su socio, no al equipo.
+    if (!ref) { try { ref = localStorage.getItem('constructor_ref'); } catch { /* sin almacenamiento */ } }
+    if (!ref) { setSinSocio(true); return; }
+    fetch(`/api/constructor/${encodeURIComponent(ref)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (d?.nombre) setSocio({ nombre: d.nombre, whatsapp: d.whatsapp ?? null }); else setSinSocio(true); })
+      .catch(() => setSinSocio(true));
   }, []);
+  const waEquipo = `https://wa.me/${WHATSAPP_EQUIPO}?text=${encodeURIComponent('Hola, acabo de ver la presentación de CreaTuActivo.')}`;
 
-  // Escala del marco portrait 9:16 (412×732 lógicos) para llenar la pantalla.
-  // Tamaño fijo de móvil → dispara el layout vertical dentro del iframe; el
-  // transform sólo lo agranda para presentar.
-  useEffect(() => {
-    if (!verticalMode) return;
-    const W = 412, H = 732;
-    const calc = () => setVScale(Math.min(window.innerHeight / H, window.innerWidth / W));
-    calc();
-    window.addEventListener('resize', calc);
-    return () => window.removeEventListener('resize', calc);
-  }, [verticalMode]);
-
-  // Modo Vertical = también fullscreen NATIVO del overlay (si el navegador está a
-  // media pantalla, expande a toda la pantalla igual que el fullscreen normal).
-  // Salir del fullscreen (Esc nativo) cierra el modo; cerrar con ✕ sale de ambos.
-  useEffect(() => {
-    if (!verticalMode) return;
-    vOverlayRef.current?.requestFullscreen?.().catch(() => {});
-    const onFs = () => { if (!document.fullscreenElement) setVerticalMode(false); };
-    document.addEventListener('fullscreenchange', onFs);
-    return () => {
-      document.removeEventListener('fullscreenchange', onFs);
-      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-    };
-  }, [verticalMode]);
-
-  // Al abrir/cerrar el modal del video se limpia la detección de click: si no,
-  // el click que cierra + el que avanza se leían como doble-click → fullscreen en
-  // vez de avanzar al clip 1 (por eso "si lo escucho" —hay pausa— sí avanzaba).
-  useEffect(() => {
-    if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null; }
-    tripleClickCount.current = 0;
-  }, [videoModalOpen]);
-
-  // Esc cierra el modal del video o sale del modo vertical (sin tocar el fullscreen)
-  useEffect(() => {
-    if (!videoModalOpen && !verticalMode) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
-      if (videoModalOpen) setVideoModalOpen(false);
-      else if (verticalMode) setVerticalMode(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [videoModalOpen, verticalMode]);
-
-  // Si Queswa se abre desde el panel final del video (o su CTA), el chat (z-50)
-  // quedaría tapado por el overlay del modal (z-10002) → cerrar el modal primero.
-  useEffect(() => {
-    if (!videoModalOpen) return;
-    const close = () => setVideoModalOpen(false);
-    window.addEventListener('open-queswa', close);
-    return () => window.removeEventListener('open-queswa', close);
-  }, [videoModalOpen]);
-
-  // Detectar cambios de fullscreen (ESC del navegador)
-  useEffect(() => {
-    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
-    document.addEventListener('fullscreenchange', onFsChange);
-    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  // ── Hasta dónde llegó (1 oct 2026) ─────────────────────────────────────────
+  // De quien abría la presentación solo se sabía la página: no si pasó de la
+  // primera pantalla ni si llegó al botón del final. Se guarda la pantalla más
+  // lejana, si llegó al final y si tocó el WhatsApp (/api/track/presentacion).
+  // ⚠️ Cada escritura dispara un webhook: solo en hitos, nunca en cada pantalla.
+  // ⚠️ En FILA, una después de otra: la ruta lee la ficha y escribe encima, así
+  // que dos peticiones cruzadas se pisan. Probado en producción el 1 oct 2026:
+  // pasando rápido, la de la pantalla 7 llegó después de la de la 10 y la ficha
+  // quedó «completa» en la pantalla 7.
+  const colaAvance = useRef<Promise<unknown>>(Promise.resolve());
+  const reportarAvance = useCallback((datos: { pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean }) => {
+    const fingerprint = (window as any).FrameworkIAA?.fingerprint;
+    if (!fingerprint) return;
+    colaAvance.current = colaAvance.current.then(() => fetch('/api/track/presentacion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fingerprint, ...datos }),
+      keepalive: true,
+    })).catch(() => {});
   }, []);
+  const primerNombre = socio?.nombre?.trim().split(/\s+/)[0] ?? null;
+  const waSocio = socio?.whatsapp && primerNombre
+    ? `https://wa.me/${socio.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${primerNombre}, acabo de ver la presentación de CreaTuActivo.`)}`
+    : null;
 
-  // Detectar viewport mobile/tablet — define el modo one-card-at-a-time
-  // en slide 2 (mismo modelo que fullscreen desktop). Breakpoint 1024px coincide
-  // con el ya usado en el observer de cards activas (línea ~161).
+  // EL NOMBRE DEL PROSPECTO, EN VIVO (Director, 30 sep 2026). El socio presenta a
+  // su nombre y, en la última pantalla, toca su nombre y escribe el de la persona
+  // que tiene enfrente: «en su caso, esta pantalla dirá el suyo». Es la prueba en
+  // vivo de la personalización de Queswa.app. Solo cambia lo que se VE: el
+  // botón queda sin enlace mientras se muestra otro nombre, porque abriría el
+  // WhatsApp del socio con el nombre del prospecto. Al salir de la pantalla vuelve
+  // el nombre del socio.
+  const [nombreDemo, setNombreDemo] = useState<string | null>(null);
+  const [editandoNombre, setEditandoNombre] = useState(false);
+  const [nombreEscrito, setNombreEscrito] = useState('');
+  const nombreVisible = nombreDemo ?? primerNombre;
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  // Cerrar modal catálogo con tecla Escape
-  useEffect(() => {
-    if (!productCatalogOpen) return;
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setProductCatalogOpen(false);
-    };
-    window.addEventListener('keydown', onEsc);
-    return () => window.removeEventListener('keydown', onEsc);
-  }, [productCatalogOpen]);
-
-  // Fullscreen toggle (Mac + Windows)
-  const toggleFullscreen = useCallback(() => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-      document.exitFullscreen().catch(() => {});
-    }
-  }, []);
-
-  // one-card-mode: contextos donde slides 1 y 2 (portada + 3 clips cada una)
-  // muestran una card a la vez, compartiendo activeCardIndex (0 = portada, 1-3 = clips).
-  const oneCardMode = (activeSlide === 1 || activeSlide === 2) && (isFullscreen || isMobile);
-  const maxCardIndex = MAX_CARD[activeSlide] ?? 3;
-  // Beat activo del colapso (−1 = no estamos en él). Los 6 tiempos comparten un solo
-  // punto en el indicador, por eso el contador visible se calcula aparte.
-  const colapsoBeat =
-    activeSlide === 2 && activeCardIndex >= COLAPSO_FROM ? activeCardIndex - COLAPSO_FROM : -1;
-  // Parada activa del clip del método (−1 = no estamos en él).
-  const metodoStop =
-    activeSlide === 2 && activeCardIndex >= METODO_FROM && activeCardIndex < COLAPSO_FROM
-      ? activeCardIndex - METODO_FROM
-      : -1;
-  const dotCount = CARD_DOTS[activeSlide] ?? maxCardIndex;
-  const dotIndex = Math.min(dotFor(activeSlide, activeCardIndex), dotCount);
-
-  // Navegación por teclado
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement)?.tagName;
-      const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement)?.isContentEditable;
-      if (isEditable) return;
-      // Slide 2 one-card-mode (fullscreen desktop o mobile):
-      // avanza/retrocede entre cards antes de cambiar de slide
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        if (oneCardMode && activeCardIndex < maxCardIndex) {
-          setActiveCardIndex((prev) => prev + 1);
-        } else {
-          setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
-          setActiveCardIndex(0);
-        }
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        if (oneCardMode && activeCardIndex > 0) {
-          setActiveCardIndex((prev) => prev - 1);
-        } else {
-          const target = Math.max(activeSlide - 1, 1);
-          setActiveSlide(target);
-          setActiveCardIndex(LAST_CARD[target] ?? 0); // retroceso → última card de la slide destino
-        }
-      } else if (e.key === 'f' || e.key === 'F') {
-        toggleFullscreen();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [oneCardMode, activeCardIndex, maxCardIndex, toggleFullscreen, activeSlide]);
-
-  // Click-to-advance (single clic) / Fullscreen (double clic) / Queswa demo (triple clic)
-  const handleSlideClick = useCallback((e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.closest('button, a, input, .sim-tabs, .pkg-selector, .controls-container, .simulator-panel, .cta-buttons')) {
-      return;
-    }
-
-    // Triple click → toggle Queswa (puerta trasera para demos)
-    tripleClickCount.current += 1;
-    if (tripleClickTimer.current) clearTimeout(tripleClickTimer.current);
-    if (tripleClickCount.current >= 3) {
-      tripleClickCount.current = 0;
-      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null; }
-      window.dispatchEvent(new CustomEvent('open-queswa'));
-      return;
-    }
-    tripleClickTimer.current = setTimeout(() => { tripleClickCount.current = 0; }, 600);
-
-    // Si hay timer pendiente → es double-click → fullscreen
-    if (clickTimer.current) {
-      clearTimeout(clickTimer.current);
-      clickTimer.current = null;
-      toggleFullscreen();
-      return;
-    }
-    // Single click → esperar 300ms para confirmar que no es double
-    clickTimer.current = setTimeout(() => {
-      clickTimer.current = null;
-      // one-card-mode (slide 1/2): avanza entre cards antes de cambiar de slide
-      if (oneCardMode && activeCardIndex < maxCardIndex) {
-        setActiveCardIndex((prev) => prev + 1);
-      } else {
-        setActiveSlide((prev) => (prev < TOTAL_SLIDES ? prev + 1 : prev));
-        setActiveCardIndex(0);
-      }
-    }, 300);
-  }, [toggleFullscreen, oneCardMode, activeCardIndex, maxCardIndex]);
-
-  // Touch swipe para mobile — debe funcionar en CUALQUIER lugar de la pantalla
-  // (pedido Director 2 jul 2026: antes solo respondía en la franja superior; sobre
-  // el contenido el navegador secuestraba el gesto como scroll nativo y disparaba
-  // touchcancel → nuestro touchend jamás corría). Dos capas de defensa:
-  //  1. CSS `touch-action: pan-y` en .deck-container → el navegador NO captura los
-  //     gestos horizontales (solo el pan vertical sigue siendo nativo).
-  //  2. onTouchMove registra la última posición y onTouchCancel evalúa el swipe con
-  //     ella → aunque el gesto sea cancelado, el swipe se procesa igual.
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-    touchLastX.current = e.touches[0].clientX;
-    touchLastY.current = e.touches[0].clientY;
-    // SOLO los <input> (sliders del simulador) exoneran el swipe: arrastrar el thumb
-    // es un gesto horizontal legítimo que NO debe navegar. Todo lo demás (tabs,
-    // selector, botones, paneles) permite swipe — un TAP dispara su click normal y
-    // un DESPLAZAMIENTO es navegación; no compiten ("la plataforma debe identificar
-    // entre un clic y un scroll" — Director 2 jul 2026). Historial: la lista llegó a
-    // incluir .simulator-panel (bloqueaba TODO el swipe-back del Slide 4) y luego
-    // tabs/selector/botones (dejaban zonas muertas dispersas en el Slide 4).
-    const target = e.target as HTMLElement;
-    touchSwipeIgnore.current = !!target.closest('input');
-  }, []);
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    touchLastX.current = e.touches[0].clientX;
-    touchLastY.current = e.touches[0].clientY;
-  }, []);
-
-  // Evalúa el gesto y navega. endX/endY = posición final del dedo.
-  const evaluateSwipe = useCallback((endX: number, endY: number) => {
-    if (touchSwipeIgnore.current) {
-      touchSwipeIgnore.current = false;
-      return;
-    }
-    const diff = touchStartX.current - endX;
-    const diffY = touchStartY.current - endY;
-    // Solo navega si el gesto es claramente HORIZONTAL: un scroll vertical (simulador,
-    // paneles con scroll) que derive un poco en X no debe cambiar de slide.
-    if (Math.abs(diff) > 60 && Math.abs(diff) > Math.abs(diffY) * 1.2) {
-      if (diff > 0) {
-        // swipe izquierda → avanzar
-        if (oneCardMode && activeCardIndex < maxCardIndex) {
-          setActiveCardIndex((prev) => prev + 1);
-        } else {
-          setActiveSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES));
-          setActiveCardIndex(0);
-        }
-      } else {
-        // swipe derecha → retroceder
-        if (oneCardMode && activeCardIndex > 0) {
-          setActiveCardIndex((prev) => prev - 1);
-        } else {
-          const target = Math.max(activeSlide - 1, 1);
-          setActiveSlide(target);
-          setActiveCardIndex(LAST_CARD[target] ?? 0); // retroceso → última card de la slide destino
-        }
-      }
-    }
-  }, [oneCardMode, activeCardIndex, maxCardIndex, activeSlide]);
-
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    evaluateSwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-  }, [evaluateSwipe]);
-
-  // El navegador canceló el gesto (scroll nativo, etc.) → evaluar con la última posición
-  const handleTouchCancel = useCallback(() => {
-    evaluateSwipe(touchLastX.current, touchLastY.current);
-  }, [evaluateSwipe]);
-
-  // Núcleo pausa/play de un clip (lo usan el tap táctil y el botón de esquina)
-  const toggleClip = useCallback((container: HTMLElement | null, key: string) => {
-    const video = container?.querySelector<HTMLVideoElement>('video.card-bg');
-    if (!video) return;
-    if (video.paused) {
-      video.play().catch(() => {});
-      setPausedKey(null);
-    } else {
-      video.pause();
-      setPausedKey(key);
-    }
-  }, []);
-
-  // Tap sobre el clip = pausa/play — SOLO en dispositivos táctiles (estándar Stories/
-  // TikTok; ver INVESTIGACION_UX_SERVILLETA_SCROLL_VIDEO.md). En desktop el click
-  // CONSERVA el avance de presentación (handleSlideClick): la card llena la pantalla
-  // en fullscreen y capturar el click dejaba al presentador "trabado" en el clip 1
-  // (reporte Director 2 jul 2026). La pausa en desktop vive en el botón de esquina.
-  const handleClipTap = useCallback((e: React.MouseEvent, key: string) => {
-    const target = e.target as HTMLElement;
-    if (target.closest('button, a')) return; // deja pasar los botones de la card
-    if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-    e.stopPropagation();
-    toggleClip(e.currentTarget as HTMLElement, key);
-  }, [toggleClip]);
-
-  // Control ÚNICO de pausa — botón CENTRAL sobre el clip (Director 2 jul 2026: solo
-  // el del centro). Estados: pausado → ▶ visible siempre (ambas plataformas);
-  // reproduciendo → invisible; en desktop aparece ⏸ al hover (vía CSS @media hover)
-  // porque allí el click sobre el clip avanza la presentación, no pausa.
-  const clipCenterToggle = (key: string) => {
-    const paused = pausedKey === key;
-    return (
-      <div className={`clip-pause-overlay ${paused ? 'is-paused' : ''}`}>
-        <button
-          className="clip-pause-btn"
-          aria-label={paused ? 'Reproducir clip' : 'Pausar clip'}
-          style={{ paddingLeft: paused ? 4 : 0 }}
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleClip((e.currentTarget as HTMLElement).closest('.card-industrial') as HTMLElement, key);
-          }}
-        >
-          {paused ? (
-            <svg width="24" height="28" viewBox="0 0 24 28" fill="none" aria-hidden="true"><path d="M3 2 L22 14 L3 26 Z" fill="#C5A059" /></svg>
-          ) : (
-            <svg width="22" height="26" viewBox="0 0 22 26" fill="none" aria-hidden="true"><rect x="2" y="2" width="6" height="22" fill="#C5A059" /><rect x="14" y="2" width="6" height="22" fill="#C5A059" /></svg>
-          )}
-        </button>
-      </div>
-    );
+    if (slide !== TOTAL_SLIDES) { setNombreDemo(null); setEditandoNombre(false); }
+  }, [slide]);
+  // Quien escribe un nombre en la demo es el socio presentando: esa ficha deja de
+  // generarle avisos (`dispositivo_del_socio`), o cada reunión le sonaría a él.
+  const demoReportada = useRef(false);
+  const confirmarNombre = (valor: string) => {
+    const v = valor.trim();
+    const otro = !!v && v.toLowerCase() !== (primerNombre ?? '').toLowerCase();
+    setNombreDemo(otro ? v : null);
+    setEditandoNombre(false);
+    if (otro && !demoReportada.current) { demoReportada.current = true; reportarAvance({ en_vivo: true }); }
   };
 
-  // Lógica del Simulador
-  const TRM = 4500;
-  const gen5Bonuses: Record<string, number> = { ESP1: 25, ESP2: 75, ESP3: 150 };
-  const gen5Income = gen5Socios * gen5Bonuses[gen5Package];
-  const binarioIncomeUSD = Math.round(binarioParejas * 4.76);
+  // Los hitos: un tercio, dos tercios y el final. Un salto (teclado, retroceso)
+  // reporta el hito más alto que alcanzó, una sola vez cada uno.
+  const hitosReportados = useRef(new Set<number>());
+  useEffect(() => {
+    const hito = [...HITOS_PRESENTACION].reverse().find((h) => slide >= h);
+    if (!hito || hitosReportados.current.has(hito)) return;
+    hitosReportados.current.add(hito);
+    reportarAvance({ pantalla: slide, completa: slide === TOTAL_SLIDES || undefined });
+  }, [slide, reportarAvance]);
 
-  const currentUSD = simMode === 'gen5' ? gen5Income : binarioIncomeUSD;
-  const currentCOP = (currentUSD * TRM).toLocaleString();
+  const gen5Por = GEN5_POR_GENERACION[gen5Nivel];
+  const ingresoGen5COP = gen5Paquetes * gen5Por.reduce((a, b) => a + b, 0) * TRM;
+  const tarifa = TARIFAS_12[tarifa12];
+  const monto = (cop: number) => moneda === 'COP'
+    ? <>${enCOP(cop)}<span className="u"> COP</span></>
+    : <>${enUSD(Math.round(cop / TRM))}<span className="u"> USD</span></>;
+  const montoCorto = (cop: number) =>
+    moneda === 'COP' ? `$${enCOP(cop)}` : `$${enUSD(Math.round(cop / TRM))}`;
 
-  // Snowball metaphor — el thumb del slider de INGRESO RECURRENTE crece a
-  // medida que el usuario lo desliza hacia más hogares (más ingreso recurrente).
-  // Visualiza la metáfora literal: bola de nieve rodando montaña abajo.
-  // Rango: 20px (10 hogares, ~$50) → 50px (1000 hogares, ~$4,760).
-  const snowballSize = Math.round(20 + (binarioParejas / 1000) * 30);
+  // Bola de nieve: el thumb crece con el nivel (la metáfora, literal).
+  const thumbNivel = Math.round(20 + ((nivel12 - 1) / 11) * 30);
 
-  // Salto directo por nav/botones → siempre card 0 (inicio de esa slide, en el mismo batch).
-  // El índice de card NO se resetea en ningún efecto: cada ruta de navegación lo fija
-  // explícitamente (avanzar → 0 · retroceder → LAST_CARD · showSlide → 0). El viejo efecto
-  // reset-en-[activeSlide] clobbearía el aterrizaje del retroceso (auditoría 2 jul 2026).
-  const showSlide = useCallback((index: number) => {
-    setActiveSlide(index);
-    setActiveCardIndex(0);
-    // Desde el 8 oct 2026 la página tiene texto debajo del deck: quien está leyendo
-    // y toca una pantalla en la barra vuelve arriba a verla.
-    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  // ¿La persona bajó a leer la explicación? (8 oct 2026) Con el deck casi fuera de
-  // vista, la barra, la navegación móvil y el contador se esconden —son del deck y
-  // tapaban el texto— y los clips se pausan para que no suenen mientras lee.
-  const deckRef = React.useRef<HTMLDivElement | null>(null);
+  // ¿La persona bajó a leer la guía? Con el deck casi fuera de vista, el teclado
+  // deja de pasar diapositivas (las flechas y la barra espaciadora vuelven a
+  // desplazar la página) y los videos se pausan.
+  const deckRef = useRef<HTMLDivElement | null>(null);
   const [leyendoGuia, setLeyendoGuia] = useState(false);
   useEffect(() => {
     const deck = deckRef.current;
@@ -538,194 +424,126 @@ export default function ServilletaPage() {
     deckRef.current?.querySelectorAll('video').forEach((v) => v.pause());
   }, [leyendoGuia]);
 
-  // Al navegar (slide o card), se libera cualquier pausa manual del tap-to-pause
-  useEffect(() => { setPausedKey(null); }, [activeSlide, activeCardIndex]);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchLastX = useRef(0);
+  const touchLastY = useRef(0);
+  const swipeIgnore = useRef(false);
 
-  // Queswa en servilleta: SIN orbe flotante (la burbuja sobre los clips no es la
-  // experiencia buscada — Director 2 jul 2026). El chat abre únicamente desde el botón
-  // "PREGÚNTALE ALGO EN VIVO" (open-queswa); UnifiedQueswaOrb monta solo mientras
-  // el chat está abierto. No se despacha show-queswa-orb.
+  // ⚠️ Las dos transiciones se calculan con los valores actuales y NO anidando un
+  // setSlide dentro del updater de setBeat: un updater debe ser puro, React lo
+  // ejecuta dos veces en desarrollo y el efecto colateral se pierde — con esa
+  // versión el deck no pasaba de la primera pantalla (bug real, 23 sep 2026).
+  const avanzar = useCallback(() => {
+    if (beat < beatsOf(slide) - 1) { setBeat(beat + 1); return; }
+    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(0); }
+  }, [slide, beat]);
 
-  // ═══ CONTROL CENTRAL DE MEDIA (auditoría 2 jul 2026) ═══
-  // UN solo efecto gobierna play/pause/mute de TODOS los b-rolls del deck — incluidos
-  // los de la slide que se acaba de abandonar. Antes el efecto solo tocaba los videos
-  // de `#slide-{activeSlide}`: al cambiar de slide, el clip activo de la slide anterior
-  // seguía sonando oculto (display:none NO pausa un <video>) → audio acumulado con
-  // cada transición. Cada video declara su posición con data-slide / data-card.
-  // Reglas:
-  //  · Slide no activa → pausa + rebobina + mute (nada suena "detrás").
-  //  · one-card (presentación mobile/fullscreen) → SOLO la card activa reproduce y
-  //    suena, desde 0s. Las demás pausadas.
-  //  · Grid desktop → los 3 clips de la slide activa reproducen EN MUTE (conviven
-  //    visibles: con sonido serían cacofonía — reporte Director 2 jul 2026).
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    // Un clip SOLO reproduce cuando de verdad está visible: si el deck está tapado
-    // (modal del video o Modo Vertical) o la pestaña está oculta, todos se pausan.
-    const deckCovered = videoModalOpen || verticalMode;
-    const apply = () => {
-      const hidden = document.visibilityState === 'hidden';
-      const vids = document.querySelectorAll<HTMLVideoElement>('video.card-bg');
-      vids.forEach((v) => {
-        // Los clips por tramos (data-card-span > 1 — hoy solo el método) NO pasan por
-        // aquí en absoluto. Se intentó coordinar dos efectos sobre el mismo <video> con
-        // un guard, y la coordinación era fràgil: el video se pasaba de largo del punto
-        // donde debía detenerse (bug real, 3 ago 2026). Ahora ese video tiene UN SOLO
-        // dueño — el efecto dedicado más abajo — y este control central lo ignora.
-        if (v.dataset.cardSpan) return;
-        const slide = Number(v.dataset.slide);
-        const card = Number(v.dataset.card);
-        const inActiveSlide = slide === activeSlide;
-        const isActiveCard = inActiveSlide && activeCardIndex === card;
-        const shouldPlay = !deckCovered && !hidden && inActiveSlide && (!oneCardMode || isActiveCard);
-        const audible = oneCardMode && isActiveCard && shouldPlay;
-        v.muted = !audible;
-        // El audio del b-roll es ATMÓSFERA, no protagonista: a volumen pleno tapaba la
-        // voz de quien presenta y los usuarios lo reportaron "muy duro" (jul 2026).
-        // Se siente, no se impone. Calibrar aquí, no por clip.
-        v.volume = AMBIENT_VOLUME;
-        if (shouldPlay) {
-          // La card activa en presentación SIEMPRE arranca desde 0s (avance o retroceso).
-          if (oneCardMode && isActiveCard) { try { v.currentTime = 0; } catch { /* noop */ } }
-          v.play().catch(() => {
-            // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
-            if (!v.muted) { v.muted = true; v.play().catch(() => {}); }
-          });
-        } else {
-          try { v.pause(); v.currentTime = 0; } catch { /* noop */ }
-        }
-      });
-    };
-    apply();
-    document.addEventListener('visibilitychange', apply);
-    return () => document.removeEventListener('visibilitychange', apply);
-  }, [activeSlide, activeCardIndex, oneCardMode, videoModalOpen, verticalMode]);
-
-  // ===== CLIP DEL MÉTODO: se detiene en cada punto y espera el clic =====
-  // Dueño ÚNICO de este <video> — el control central de media (arriba) lo ignora por
-  // completo (`data-card-span`). Se intentó que ambos efectos coordinaran sobre el
-  // mismo elemento con un guard, y la coordinación era fràgil: el clip se pasaba de
-  // largo del punto donde debía detenerse (bug real, 3 ago 2026). Un solo dueño,
-  // un solo lugar para razonar sobre qué hace este video en cada momento.
-  //
-  // Al entrar a una parada, el clip reproduce DESDE la parada anterior y se congela al
-  // llegar a la suya. Sin temporizador: el orador dispone del tiempo que necesite y
-  // avanza con un clic, igual que en el resto del deck. Retroceder repite el tramo,
-  // que es lo deseable en vivo (vuelve a mostrar el movimiento, no solo el resultado).
-  //
-  // El ÚLTIMO paso NO pausa (pedido del Director 3 ago 2026: el pin ya está en su
-  // clímax visual y forzar una pausa ahí se sentía como un error) — se deja correr
-  // libre hasta el final real del archivo. El rótulo, sin embargo, SÍ se marca por
-  // currentTime como los pasos intermedios (METODO_STOPS[2] = 7.90), no con el evento
-  // 'ended': 'ended' solo dispara al tocar el final exacto (~8.0s) y el rótulo se
-  // sentía tardío. El pin ya terminó de abrirse mucho antes de 7.90 (fotogramas
-  // idénticos de 6.0s a 8.0s — verificado cuadro a cuadro), así que no hay pérdida
-  // visual por marcarlo antes del último instante. Por eso el <video> NO lleva `loop`:
-  // con loop, el navegador reiniciaría solo al llegar al final, sin darnos aviso, y el
-  // clip nunca se quedaría quieto en el pin abierto.
-  //
-  // El rótulo NO se muestra durante el trayecto: aparece cuando el orbe ya llegó.
-  // ⚠️ NO usar un booleano aparte reseteado por efecto: metodoStop cambia YA en el
-  // render del clic, pero un useEffect corre DESPUÉS del paint — el navegador alcanza
-  // a pintar un fotograma con el texto nuevo y la marca 'visible' del punto anterior
-  // todavía puesta (flash de ~1 cuadro, bug real detectado 3 ago 2026). Se guarda en
-  // su lugar QUÉ STOP se alcanzó y se compara contra el actual: si metodoStop cambia,
-  // la comparación da false en el MISMO render, sin esperar ningún efecto.
-  const [metodoReached, setMetodoReached] = useState(-1);
-  const metodoEnPunto = metodoStop >= 0 && metodoReached === metodoStop;
-  const METODO_LAST = METODO_STOPS.length - 1;
-
-  useEffect(() => {
-    const v = document.querySelector<HTMLVideoElement>('video[data-card-span]');
-    if (!v) return;
-
-    if (metodoStop < 0) {
-      // Se salió de la card: silencio y de vuelta al arranque para la próxima vez.
-      v.muted = true;
-      try { v.pause(); v.currentTime = 0; } catch { /* noop */ }
-      return;
+  const retroceder = useCallback(() => {
+    if (beat > 0) { setBeat(beat - 1); return; }
+    if (slide > 1) {
+      const destino = slide - 1;
+      setSlide(destino);
+      // El retroceso aterriza en el ÚLTIMO beat de la pantalla destino: quien
+      // vuelve quiere ver de nuevo el remate, no empezar esa pantalla otra vez.
+      setBeat(beatsOf(destino) - 1);
     }
+  }, [slide, beat]);
 
-    v.muted = false;
-    v.volume = AMBIENT_VOLUME;
-    const desde = metodoStop === 0 ? 0 : METODO_STOPS[metodoStop - 1];
-    const seek = () => { try { v.currentTime = desde; } catch { /* noop */ } };
-    // Si el clip aún no tiene metadatos, currentTime se ignora en silencio.
-    if (v.readyState >= 1) seek(); else v.addEventListener('loadedmetadata', seek, { once: true });
-    v.play().catch(() => {
-      // Autoplay-con-sonido bloqueado (sin gesto previo) → cae a mute y reproduce.
-      v.muted = true;
-      v.play().catch(() => {});
-    });
-
-    // Vigilado cuadro a cuadro con requestAnimationFrame, NO con 'timeupdate' — ese
-    // evento avisa unas 4 veces por segundo, insuficiente para marcar el punto a
-    // tiempo exacto. El último paso NO pausa (se deja correr al final real), los
-    // intermedios sí.
-    const target = METODO_STOPS[metodoStop];
-    let raf = 0;
-    const tick = () => {
-      if (v.currentTime >= target) {
-        if (metodoStop !== METODO_LAST) v.pause();
-        setMetodoReached(metodoStop);
-        return;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [metodoStop]);
-
-  // NOTA auditoría: aquí vivía un IntersectionObserver que fijaba activeCardIndex por
-  // scroll. Quedó muerto cuando one-card-mode pasó a ocultar las cards no activas con
-  // display:none (nunca intersectan) — y su mapeo por offset corrompería índices tras
-  // mover la portada al slide 2. Navegación = swipe / flechas / dots / click fuera del clip.
-
-  // Ocultar nav mobile cuando Queswa está abierto
-  // También libera body overflow para que el teclado virtual no tape el input
-  useEffect(() => {
-    const open = () => {
-      setQueswaOpen(true);
-      document.body.style.overflow = 'auto';
-      document.body.style.height = 'auto';
-    };
-    const close = () => {
-      setQueswaOpen(false);
-      document.body.style.overflow = '';
-      document.body.style.height = '';
-    };
-    window.addEventListener('open-queswa', open);
-    window.addEventListener('close-queswa', close);
-    return () => {
-      window.removeEventListener('open-queswa', open);
-      window.removeEventListener('close-queswa', close);
-      document.body.style.overflow = '';
-      document.body.style.height = '';
-    };
+  const irA = useCallback((n: number) => {
+    setSlide(n);
+    setBeat(0);
   }, []);
 
-  // CTA reveal: grayscale → color
-  // Desktop: solo CSS :hover (sin auto-reveal) — el usuario decide con el mouse
-  // Mobile: IntersectionObserver activa color al hacer scroll-snap al panel CTA
+  // ── Los videos del deck (10 oct 2026) ──────────────────────────────────────
+  // Cada <video> declara su beat en data-beat="pantalla-beat". Solo el activo
+  // reproduce; el abandonado se pausa y rebobina — el control central de media
+  // de la servilleta, adaptado. Con movimiento reducido del sistema, el video no
+  // arranca y queda el poster.
   useEffect(() => {
-    if (activeSlide !== 5) { setCtaVisible(false); return; }
-    if (typeof window === 'undefined') return;
-    if (window.innerWidth > 1024) {
-      // Desktop: imagen queda gris hasta hover — el CSS :hover lo maneja
-      return;
+    const reduce = typeof window !== 'undefined'
+      && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const activo = `${slide}-${beat}`;
+    document.querySelectorAll<HTMLVideoElement>('video[data-beat]').forEach((v) => {
+      if (v.dataset.beat === activo && !reduce) {
+        v.play().catch(() => { /* autoplay bloqueado: queda el poster */ });
+      } else {
+        v.pause();
+        try { v.currentTime = 0; } catch { /* sin metadata todavía */ }
+      }
+    });
+  }, [slide, beat]);
+
+  // Enlace a una pantalla (2 oct 2026): `?pantalla=9` abre en la de los números.
+  // Queswa se lo da al socio que quiere estudiar Los 12 Niveles y mover el
+  // porcentaje él mismo; sin el parámetro se entra por la portada, como siempre.
+  useEffect(() => {
+    try {
+      const p = Number(new URL(window.location.href).searchParams.get('pantalla'));
+      if (Number.isInteger(p) && p >= 1 && p <= TOTAL_SLIDES) irA(p);
+    } catch { /* sin parámetro */ }
+  }, [irA]);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
+    else document.exitFullscreen?.().catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const onFs = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFs);
+    return () => document.removeEventListener('fullscreenchange', onFs);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
+      if (visor && e.key === 'Escape') { setVisor(null); return; }
+      if (leyendoGuia) return;
+      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
+      else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
+      else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+      else if (e.key === 'Home') irA(1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia]);
+
+  // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
+  // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
+  const onClickSlide = (e: React.MouseEvent) => {
+    const t = e.target as HTMLElement;
+    if (t.closest('button, a, input, label, .panel, .no-advance')) return;
+    avanzar();
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+    // SOLO los <input>: arrastrar el thumb de un slider es horizontal legítimo.
+    swipeIgnore.current = !!(e.target as HTMLElement).closest('input');
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+  };
+
+  const evaluarSwipe = (endX: number, endY: number) => {
+    if (swipeIgnore.current) { swipeIgnore.current = false; return; }
+    const dx = touchStartX.current - endX;
+    const dy = touchStartY.current - endY;
+    // Guard de eje: un scroll vertical que derive en X no debe navegar.
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx > 0) avanzar(); else retroceder();
     }
-    // Mobile: IntersectionObserver cuando el panel hace scroll-snap
-    setCtaVisible(false);
-    const scrollRoot = document.querySelector('#slide-4');
-    const cta = document.querySelector('#slide-4 .cta-panel');
-    if (!cta || !scrollRoot) return;
-    const observer = new IntersectionObserver(
-      (entries) => { entries.forEach((e) => setCtaVisible(e.isIntersecting && e.intersectionRatio >= 0.4)); },
-      { root: scrollRoot, threshold: 0.4 }
-    );
-    observer.observe(cta);
-    return () => observer.disconnect();
-  }, [activeSlide, isFullscreen]);
+  };
+
+  const nivelSel = PROYECCION_12[nivel12 - 1];
+  const totalDistribuidores = Math.pow(2, nivelSel.level + 1) - 2;
 
   return (
     <>
@@ -734,2243 +552,1416 @@ export default function ServilletaPage() {
          <style> el navegador no decodifica entidades, así que el CSS llegaba roto
          y la hidratación fallaba en toda la página. */}
       <style dangerouslySetInnerHTML={{ __html: `
-        /* --- VARIABLES INDUSTRIALES --- */
-        /* Servilleta — migrada al Sistema de Diseño Lujo Silencioso (15 May 2026).
-           Variables locales mantienen sus nombres legacy (--bg-dark, --concrete, etc.)
-           pero apuntan a los tokens globales para coherencia con homepage + funnel. */
-        :root {
-          --bg-dark: var(--color-bg-primary);          /* #0F1115 */
-          --concrete: var(--color-bg-elevated);        /* #15171C */
-          --steel: var(--color-titanium-dark);         /* #475569 */
-          --cyan: #22D3EE;                             /* Acento data/labels técnicos (consistente con homepage) */
-          --orange: var(--color-brand);                /* #C5A059 Dorado Champán — reemplaza el safety orange industrial */
-          --text-main: var(--color-text-primary);      /* #E0DFDB titanium-light */
-          --text-muted: var(--color-text-muted);       /* #878681 titanium-core */
-          --font-head: var(--font-sans);
-          --font-mono: var(--font-mono);
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-          margin: 0;
-          background-color: var(--bg-dark);
-          color: var(--text-main);
-          font-family: var(--font-mono);
-        }
-
-        .deck-container {
-          height: 100vh;
+        .pd-root {
+          --pd-gold: var(--color-brand, #C5A059);
+          --pd-data: var(--color-data, #22D3EE);
+          --pd-bg: var(--color-bg-primary, #0F1115);
+          --pd-elev: var(--color-bg-elevated, #15171C);
+          --pd-text: var(--color-text-primary, #E0DFDB);
+          --pd-muted: var(--color-text-muted, #878681);
+          /* Primer piso de la página (10 oct 2026): antes era una capa fija; ahora
+             ocupa la primera pantalla y debajo va la guía (GuiaPlanServilleta). */
+          position: relative; width: 100%; height: 100vh; height: 100dvh;
+          background: var(--pd-bg);
+          color: var(--pd-text);
+          font-family: var(--font-sans);
           overflow: hidden;
-        }
-
-        /* HUD SUPERIOR */
-        .top-hud {
-          position: fixed;
-          top: 0; left: 0; width: 100%;
-          height: 60px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 25px;
-          background: rgba(10, 10, 10, 0.9);
-          border-bottom: 1px solid #333;
-          z-index: 100;
-          backdrop-filter: blur(5px);
-        }
-
-        .brand {
-          display: flex; gap: 10px; align-items: center;
-          font-family: var(--font-head); font-weight: 700; letter-spacing: 2px;
-        }
-
-        .nav-controls { display: flex; gap: 5px; align-items: center; }
-        .nav-btn {
-          background: transparent; border: 1px solid transparent; color: #555;
-          font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer;
-          padding: 8px 12px; transition: all 0.3s; border-radius: 0;
-        }
-        .nav-btn:hover { color: var(--text-main); background: #222; }
-        .nav-btn.active { color: var(--cyan); background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.2); }
-
-        /* Fullscreen button */
-        .btn-fullscreen {
-          background: transparent; border: 1px solid #444; color: #666;
-          cursor: pointer; padding: 6px 8px; border-radius: 0;
-          display: flex; align-items: center; justify-content: center;
-          transition: all 0.3s; margin-left: 10px; flex-shrink: 0;
-        }
-        .btn-fullscreen-mobile {
-          display: none;
-        }
-        .btn-fullscreen:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0,229,255,0.1); }
-        .btn-fullscreen .material-symbols-sharp { font-size: 18px; }
-
-        /* Slide counter indicator */
-        .slide-counter {
-          position: fixed; bottom: 15px; right: 20px;
-          font-family: var(--font-mono); font-size: 0.65rem; color: #444;
-          z-index: 101; letter-spacing: 1px;
-        }
-
-        /* Leyendo la explicación de abajo (8 oct 2026): la barra, la navegación móvil y
-           el contador son del deck y, fijos, tapaban el texto. */
-        .top-hud, .mobile-nav, .slide-counter { transition: opacity 0.25s ease; }
-        .leyendo-guia .top-hud, .leyendo-guia .mobile-nav, .leyendo-guia .slide-counter {
-          opacity: 0; pointer-events: none;
-        }
-
-        /* Click cursor on slides */
-        .slide { cursor: pointer; }
-
-        /* CONTENEDOR DE DIAPOSITIVAS */
-        .deck-container {
-          position: relative;
-          width: 100%; height: 100vh;
-          /* El pan vertical sigue siendo nativo (scroll del simulador, cards); los
-             gestos horizontales son NUESTROS → el swipe navega desde cualquier
-             punto de la pantalla, el navegador no lo secuestra. */
           touch-action: pan-y;
         }
-
-        .slide {
-          position: absolute;
-          top: 0; left: 0; width: 100%; height: 100%;
-          display: none;
-          padding-top: 60px;
-          animation: fadeIn 0.5s ease;
-        }
-        .slide.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-
-        /* ELEMENTOS COMUNES */
-        .bg-image {
-          position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-          background-size: cover; background-position: center;
-          filter: grayscale(80%) contrast(120%) brightness(50%);
-          z-index: 0;
-        }
-
-        .content-overlay {
-          position: relative; z-index: 10;
-          height: 100%; display: flex; flex-direction: column; justify-content: center;
-          padding: 0 50px;
-        }
-        .center-focus { align-items: center; text-align: center; }
-        .side-focus { align-items: flex-start; text-align: left; max-width: 600px; background: linear-gradient(to right, rgba(0,0,0,0.9), transparent); padding: 40px 50px; }
-
-        .technical-label {
-          color: var(--cyan); font-family: var(--font-mono); font-size: 0.8rem;
-          border-left: 3px solid var(--cyan); padding-left: 10px; margin-bottom: 20px;
-        }
-
-        /* Placeholder de b-roll pendiente de render (jul 2026): franjas sutiles en
-           lugar de un vacío negro, para que en la presentación se note qué falta. */
-        .card-bg[data-pending="1"] {
-          background-image: repeating-linear-gradient(45deg,
-            rgba(197,160,89,0.05) 0px, rgba(197,160,89,0.05) 12px,
-            transparent 12px, transparent 24px);
-          background-color: var(--bg-dark);
-        }
-        /* ===== BEAT DEL COLAPSO (Slide 2, tarjeta 4) =====
-           Las tres piezas entran desde sus esquinas, se encogen hacia el centro y
-           desaparecen dentro del celular, que se enciende en dorado. Solo corre
-           cuando la tarjeta está activa, para que el beat caiga cuando el orador
-           llega a él y no antes. */
-        /* ===== CLIP DEL MÉTODO — el paso, arriba y grande ===== */
-        .metodo .metodo-paso {
-          position: absolute; top: 0; left: 0; right: 0; z-index: 4;
-          display: flex; flex-direction: column; align-items: center; gap: 6px;
-          padding: clamp(22px, 6vh, 54px) 20px 40px;
-          font-family: var(--font-head); font-weight: 700;
-          font-size: clamp(1.9rem, 8vw, 3.6rem); line-height: 1;
-          letter-spacing: -0.01em; color: var(--text-main); text-align: center;
-          background: linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 100%);
-          pointer-events: none;
-          opacity: 0; transform: translateY(-10px);
-          transition: opacity .35s ease, transform .35s ease;
-        }
-        .metodo .metodo-paso.visible { opacity: 1; transform: translateY(0); }
-        .metodo .metodo-orden {
-          font-family: var(--font-mono); font-weight: 600;
-          font-size: 0.72rem; letter-spacing: 0.22em; color: var(--cyan);
-        }
-
-        .colapso .colapso-escena {
-          position: absolute; inset: 0; display: grid; place-items: center;
-          background: var(--bg-dark); perspective: 1200px;
-        }
-        .colapso .colapso-trio,
-        .colapso .colapso-objeto,
-        .colapso .colapso-nombre {
-          position: absolute; opacity: 0; pointer-events: none;
-          transition: opacity .45s ease;
-        }
-
-        /* --- Beat 0: los tres juntos, pequeños y nombrados --- */
-        /* Mobile = columna: tres cuadrados en fila se apiñaban y ninguno tenía peso.
-           Desktop = fila, pero grandes. El beat 0 solo funciona si cada pieza se
-           reconoce; si hay que entrecerrar los ojos, el resto del colapso no cierra. */
-        .colapso .colapso-trio {
-          display: flex; flex-direction: column; align-items: center;
-          gap: clamp(12px, 3vh, 26px);
-        }
-        .colapso[data-beat="0"] .colapso-trio { opacity: 1; }
-        .colapso-mini { margin: 0; text-align: center; display: flex; align-items: center; gap: 16px; }
-        .colapso-mini img {
-          display: block; width: clamp(96px, 26vw, 190px); aspect-ratio: 1;
-          object-fit: cover; border-radius: 14px;
-          border: 1px solid rgba(197,160,89,0.28);
-        }
-        .colapso-mini figcaption {
-          font-family: var(--font-mono); font-size: clamp(0.72rem, 3vw, 0.95rem);
-          letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan);
-          text-align: left; white-space: nowrap;
-        }
-        /* Desktop: vuelve a fila, con el rótulo debajo y las piezas grandes. */
-        @media (min-width: 768px) {
-          .colapso .colapso-trio { flex-direction: row; align-items: flex-end; gap: clamp(24px, 4vw, 56px); }
-          .colapso-mini { flex-direction: column; gap: 14px; }
-          .colapso-mini figcaption { text-align: center; }
-        }
-
-        /* --- Beats 1-4: UN objeto que gira y cambia de cara --- */
-        .colapso .colapso-objeto {
-          width: clamp(190px, 66vw, 400px); aspect-ratio: 1;
-          transform-style: preserve-3d; will-change: transform;
-          transition: opacity .45s ease, transform .62s cubic-bezier(.55,.06,.25,1);
-        }
-        .colapso[data-beat="1"] .colapso-objeto,
-        .colapso[data-beat="2"] .colapso-objeto,
-        .colapso[data-beat="3"] .colapso-objeto { opacity: 1; }
-        .colapso[data-beat="1"] .colapso-objeto { transform: rotateY(0deg); }
-        .colapso[data-beat="2"] .colapso-objeto { transform: rotateY(180deg); }
-        .colapso[data-beat="3"] .colapso-objeto { transform: rotateY(360deg); }
-        /* Beat 4 · UN giro más y se resuelve en el nombre. Antes era un bucle infinito
-           y se leía como error: un loop sin destino no remata, solo repite. */
-        .colapso[data-beat="4"] .colapso-objeto {
-          opacity: 0; transform: rotateY(540deg) scale(.82);
-        }
-
-        .colapso-cara {
-          position: absolute; inset: 0; width: 100%; height: 100%;
-          object-fit: cover; border-radius: 20px; opacity: 0;
-          border: 1px solid rgba(197,160,89,0.35);
-          box-shadow: 0 0 60px rgba(197,160,89,0.18);
-          /* el cambio de cara cae a mitad del giro, cuando el objeto está de canto:
-             ahí el ojo no ve el corte y lee "es el mismo, mostrando otro lado". */
-          transition: opacity .18s linear .30s;
-          backface-visibility: hidden;
-        }
-        .colapso[data-beat="1"] .cara-1,
-        .colapso[data-beat="2"] .cara-2,
-        .colapso[data-beat="3"] .cara-3 { opacity: 1; }
-        /* contra-rotación: la cara 2 vive en la espalda del objeto */
-        .colapso .cara-2 { transform: rotateY(180deg); }
-
-        /* En el último giro la cara se desvanece con el objeto (sin retardo), para que
-           no reaparezca a mitad de la vuelta mientras el nombre entra. */
-        .colapso[data-beat="4"] .colapso-cara { transition: opacity .25s linear; }
-
-        /* --- Beat 5: el nombre. Sin imagen: el vacío alrededor es el efecto. --- */
-        .colapso .colapso-nombre {
-          font-family: var(--font-head); font-weight: 700;
-          font-size: clamp(2.2rem, 11vw, 5.4rem); letter-spacing: -0.01em;
-          color: var(--text-main); text-align: center; line-height: 1;
-          transform: scale(.94); transition: opacity .5s ease, transform .5s ease;
-        }
-        .colapso[data-beat="4"] .colapso-nombre { opacity: 1; transform: scale(1); }
-
-        @media (prefers-reduced-motion: reduce) {
-          .colapso .colapso-trio,
-          .colapso .colapso-objeto,
-          .colapso .colapso-cara,
-          .colapso .colapso-nombre { transition-duration: .01s; animation: none; }
-          .colapso[data-beat="4"] .colapso-nombre { opacity: 1; }
-        }
-        .deck-h1, .deck-h2 { font-family: var(--font-head); text-transform: uppercase; margin: 0 0 20px 0; line-height: 0.9; color: var(--text-main); }
-        .deck-h1 { font-size: 4rem; }
-        .deck-h2 { font-size: 3rem; }
-        .deck-p { color: #ccc; line-height: 1.6; max-width: 600px; margin: 0; text-shadow: 0px 1px 3px black; }
-
-        /* "Ver video" en la portada → acceso al explainer de 6 min antes de la presentación */
-        .ver-video-link {
-          display: inline-flex; align-items: center; gap: 8px;
-          font-family: var(--font-mono, monospace); font-size: 0.85rem;
-          letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
-          color: var(--orange, #C5A059);
-          border: 1.5px solid rgba(197,160,89,0.45); border-radius: 4px;
-          padding: 10px 20px; background: rgba(197,160,89,0.08);
-          transition: background 0.2s ease, border-color 0.2s ease;
-        }
-        .ver-video-link:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.8); }
-        .ver-video-link span { font-size: 0.7rem; }
-
-
-        /* Kiosk (dentro del iframe del Modo Vertical): solo la presentación */
-        .kiosk .top-hud { display: none !important; }
-        .kiosk .mobile-nav { display: none !important; }
-        .kiosk .slide-counter { display: none !important; }
-        /* Sin navs no hay que reservarles espacio: el @media mobile mete
-           padding 70px arriba (top-hud) y 80px abajo (mobile-nav) → aquí se
-           compacta y la card activa se ajusta al alto disponible en vez de
-           exigir 70vh (que desbordaba el marco 9:16 y cortaba el clip). */
-        .kiosk .one-card-mode .grid-layout-slide-2 { padding: 10px 14px 14px !important; gap: 10px !important; }
-        .kiosk .slide-2-header { padding-top: 0 !important; }
-        .kiosk .slide-2-header .slide-2-subtitle { margin-top: 6px !important; }
-        .kiosk .card-dots { margin: 6px 0 0 !important; }
-        .kiosk .one-card-mode .card-industrial.card-active,
-        .kiosk .one-card-mode .full-width.card-active {
-          min-height: 0 !important;
-          height: auto !important;
-          flex: 1 1 auto;
-          overflow: hidden;
-        }
-        .kiosk #slide-4,
-        .kiosk .slide-4-bottom { padding-bottom: 16px !important; }
-
-        /* Modo Vertical: marco portrait 9:16 centrado en negro, tapa la nav */
-        .vertical-present-overlay {
-          position: fixed; inset: 0; z-index: 10000; background: #000;
-          display: flex; align-items: center; justify-content: center; overflow: hidden;
-        }
-        .vp-frame { flex: none; transform-origin: center center; }
-        .vp-frame iframe { width: 100%; height: 100%; border: 0; display: block; background: #0F1115; }
-        .vp-exit {
-          position: fixed; top: 16px; right: 16px; z-index: 10001;
-          width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
-          display: flex; align-items: center; justify-content: center;
-          background: rgba(8,9,12,0.8); border: 1px solid rgba(197,160,89,0.5);
-          color: #C5A059; font-size: 20px; line-height: 1;
-        }
-        .vp-exit:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.85); }
-
-        /* Modal del video del Plan (dentro del deck): vertical 9:16 centrado en negro */
-        .video-plan-overlay {
-          position: fixed; inset: 0; z-index: 10002; background: rgba(0,0,0,0.94);
-          display: flex; align-items: center; justify-content: center; overflow: hidden;
-        }
-        .video-plan-player-wrap {
-          width: min(100vw, calc(92vh * 9 / 16));
-        }
-
-        /* Slide 1: tratamiento de imagen alineado con la Home — preserva detalle arquitectónico
-           del visual de los tres pilares (sin filter agresivo tipo "hormigón") */
-        /* El único momento fotográfico del deck: conserva su color cálido en vez del
-           gris del filtro base — el cambio de material es el efecto. La máscara oscurece
-           el tercio inferior, que es donde va el bloque de texto. */
-        /* Calibrado 2 ago 2026 (pedido del Director: "que la imagen se vea más").
-           Antes: grayscale(18%) brightness(78%) — la taza quedaba enterrada justo
-           en el ÚNICO slide fotográfico. Ahora sin gris y por encima del 100%: es
-           una foto oscura de origen (mesa negra, luz lateral), así que subirla no
-           la lava; solo la deja existir. */
-        #slide-3 .bg-image {
-          filter: grayscale(0%) saturate(112%) contrast(104%) brightness(115%);
-        }
-        /* Dos encuadres de la MISMA foto: la vertical no sirve en escritorio — con
-           background-size cover sobre 16:9 se amplía tanto que la taza se sale. La
-           horizontal va en espejo para que la taza caiga a la derecha, lejos del
-           bloque de texto (que en escritorio vive a la izquierda). */
-        @media (min-width: 769px) {
-          #slide-3 .bg-image {
-            background-image: url(/images/servilleta/producto-cafe-wide.webp) !important;
-          }
-          /* El bloque SÍ vive a la izquierda (2 ago 2026). Antes el layout centraba
-             y encima el bloque llevaba margin-left: 10%, así que en pantallas anchas
-             terminaba centro-derecha: dejaba un tercio muerto a la izquierda y se
-             montaba justo sobre la taza que la foto en espejo puso a la derecha.
-             Intención y CSS se contradecían. Ahora se ancla a la izquierda con una
-             sangría fluida que crece con la pantalla pero se detiene, para que en
-             ultrawide el bloque no se vaya al borde. */
-          #slide-3 .slide-4-layout {
-            justify-content: flex-start;
-            padding-left: clamp(32px, 6vw, 220px);
-          }
-          #slide-3 .slide-4-bottom { margin-left: 0; }
-        }
-        /* El degradado del panel ya oscurece el pie; sumarle una máscara al fondo
-           borraba la taza. Aquí se abre para que la foto se vea a través. */
-        #slide-3 .slide-4-bottom {
-          background: linear-gradient(to top,
-            rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.34) 45%, rgba(0,0,0,0) 100%);
-        }
-        /* La tarjeta era opaca y tapaba la foto entera. Translúcida en todas las
-           pantallas: la taza se lee a través. El blur sostiene la legibilidad, así
-           que la opacidad puede bajar sin que el texto sufra. */
-        #slide-3 .bio-metrics-panel {
-          background: rgba(15, 15, 15, 0.40);
-          border-color: rgba(255, 255, 255, 0.16);
-        }
-
-        #slide-1 .bg-image {
-          filter: grayscale(70%) contrast(110%) brightness(55%);
-          opacity: 0.75;
-          -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-          mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-        }
-
-        /* PLACA DE CONTRASTE (Slide 1 readability) */
-        .contrast-plate {
-          background: rgba(0, 0, 0, 0.7);
-          padding: 20px 25px;
-          border-radius: 0;
-          backdrop-filter: blur(4px);
-        }
-
-        /* H1 Slide 1: placa oscura + sombra para máxima legibilidad */
-        #slide-1 .deck-h1 {
-          text-shadow:
-            0 0 4px rgba(0,0,0,1),
-            0 0 15px rgba(0,0,0,1),
-            0 0 35px rgba(0,0,0,0.9),
-            2px 2px 0 rgba(0,0,0,1),
-            -2px -2px 0 rgba(0,0,0,1);
-          background: rgba(0, 0, 0, 0.45);
-          padding: 12px 28px;
-          backdrop-filter: blur(6px);
-          border-radius: 0;
-          margin-bottom: 24px;
-        }
-
-        /* LISTA DE COMPONENTES (Slide 1) */
-        .components-list {
-          width: 100%; margin-top: 25px;
-          display: flex; flex-direction: column; gap: 15px;
-          font-family: var(--font-head); font-size: 1.1rem; color: var(--text-main);
-        }
-        .components-list .comp-row {
-          background: rgba(15, 15, 15, 0.85);
-          border: 1px solid #222;
-          padding: 18px 20px;
-          border-radius: 0;
-          border-left: 3px solid var(--cyan);
-          opacity: 0;
-          transform: translateY(15px);
-          animation: bootSequence 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        .components-list .comp-row:nth-child(1) { animation-delay: 0.2s; border-left-color: var(--cyan); }
-        .components-list .comp-row:nth-child(2) { animation-delay: 0.4s; border-left-color: var(--cyan); }
-        .components-list .comp-row:nth-child(3) { animation-delay: 0.6s; border-left-color: var(--orange); }
-        @keyframes bootSequence {
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* BOTÓN SIGUIENTE */
-        .btn-next {
-          margin-top: 30px;
-          padding: 15px 30px;
-          background: rgba(10, 10, 10, 0.8);
-          border: 1px solid var(--orange);
-          color: var(--orange);
-          font-family: var(--font-head);
-          font-size: 1.2rem;
-          cursor: pointer;
-          display: inline-flex; align-items: center; gap: 10px;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(6px);
-          text-shadow: none;
-          border-radius: 0;
-        }
-        .btn-next:hover { background: var(--orange); color: #000; }
-
-        /* --- SLIDE 2: GRID LAYOUT --- */
-        .slide-2-header {
-          grid-column: span 2;
-          text-align: center;
-          padding-bottom: 5px;
-        }
-        .slide-2-subtitle {
-          font-family: var(--font-mono);
-          font-size: 0.7rem;
-          color: var(--cyan);
-          letter-spacing: 2px;
-        }
-        .grid-layout-slide-2 {
-          position: relative; z-index: 10;
-          display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-          padding: 80px 50px 30px; height: 100%; align-content: center;
-        }
-        .card-industrial {
-          position: relative; height: 250px; background: var(--bg-dark);
-          border: 1px solid #444; overflow: hidden;
-          display: flex; align-items: flex-end;
-          transition: border-color 0.3s;
-        }
-        .card-industrial:hover { border-color: var(--orange); }
-        .full-width { grid-column: span 2; height: 200px; }
-
-        /* .card-bg aloja b-rolls 3D (video). object-fit:CONTAIN para mostrar el objeto
-           3D completo sin recorte; el letterbox es invisible porque el fondo del clip
-           es el mismo carbón del deck. Filtro de BRILLO (no grayscale) — no mata el dorado. */
-        .card-bg {
-          position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-          background-size: cover; background-position: center;
-          object-fit: contain; background: var(--bg-dark);
-          filter: brightness(0.45); transition: filter 0.5s;
-        }
-        .card-industrial:hover .card-bg { filter: brightness(1); }
-
-        /* Control ÚNICO de pausa — botón central sobre el clip.
-           · Pausado → ▶ visible siempre (mobile y desktop).
-           · Reproduciendo → invisible; en desktop aparece ⏸ al hover (el click
-             sobre el clip allí avanza la presentación, no pausa).
-           El overlay NO bloquea (pointer-events: none); solo el botón captura. */
-        .clip-pause-overlay {
-          position: absolute; inset: 0; z-index: 3;
-          display: flex; align-items: center; justify-content: center;
-          pointer-events: none;
-          opacity: 0;
-          transition: opacity 0.2s ease;
-        }
-        .clip-pause-overlay.is-paused { opacity: 1; }
-        .clip-pause-overlay.is-paused .clip-pause-btn { pointer-events: auto; }
-        @media (hover: hover) {
-          .card-industrial:hover .clip-pause-overlay { opacity: 1; }
-          .card-industrial:hover .clip-pause-btn { pointer-events: auto; }
-        }
-        .clip-pause-btn {
-          width: 72px; height: 72px; border-radius: 50%;
-          background: rgba(15,17,21,0.55);
-          border: 1.5px solid rgba(197,160,89,0.65);
-          display: flex; align-items: center; justify-content: center;
-          cursor: pointer;
-          transition: background 0.2s, border-color 0.2s;
-        }
-        .clip-pause-btn:hover { background: rgba(15,17,21,0.8); border-color: var(--orange); }
-        :fullscreen .clip-pause-btn { width: 104px; height: 104px; }
-        :fullscreen .clip-pause-btn svg { width: 34px; height: 40px; }
-
-        .card-content {
-          position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 24px 22px;
-          background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.75) 35%, rgba(0,0,0,0.3) 68%, transparent 100%);
-        }
-        .card-content h3 { font-family: var(--font-head); display: flex; align-items: center; gap: 10px; margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem; }
-        .card-content p { font-size: 0.95rem; margin: 0; color: #CFD8DC; line-height: 1.6; }
-        /* Slide 1: nombre del pilar (único texto) — prominente, sin descripción */
-        .card-content h3.pillar-name { font-size: 1.7rem; letter-spacing: 0.01em; margin: 0; }
-        :fullscreen .card-content h3.pillar-name { font-size: 2.6rem; }
-        /* Slide 2: eyebrow de rol (frame-before-name) sobre el nombre del socio/método */
-        .card-content .pillar-eyebrow {
-          display: block; font-family: var(--font-mono); font-size: 0.72rem;
-          letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin: 0 0 6px 0;
-        }
-        :fullscreen .card-content .pillar-eyebrow { font-size: 1rem; margin-bottom: 8px; }
-        /* Oculto en desktop — solo visible en mobile dentro de card-1 */
-
-
-        /* OSCILACIONES DUARTE (Slide 2) */
-        .oscillation-text {
-          background: rgba(0,0,0,0.4);
-          padding: 8px;
-          border-radius: 0;
-          margin-bottom: 10px;
-          font-family: var(--font-mono);
-          font-size: 0.75rem;
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-        }
-        .oscillation-text .bad {
-          color: #b8b8b8;
-          text-decoration: line-through;
-          text-decoration-color: rgba(255,80,80,0.7);
-          text-decoration-thickness: 2px;
-          font-size: 0.7rem;
-        }
-        .oscillation-text .arrow {
-          color: var(--text-muted);
-          font-size: 0.6rem;
-          align-self: center;
-        }
-        .oscillation-text .good {
-          color: var(--cyan);
-          font-weight: bold;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-
-        /* --- SLIDE 3: BIO-METRÍA --- */
-        .slide-4-layout {
-          position: relative; z-index: 10;
-          display: flex; width: 100%; height: 100%;
-          padding: 0;
-          align-items: center;
-          justify-content: center;
-        }
-
-        /* margin-left en 0 (2 ago 2026): la sangría izquierda del bloque vive ahora
-           en el layout, en la media query de escritorio. Ver el comentario de
-           #slide-3 .slide-4-layout. */
-        .slide-4-bottom {
-          width: 100%;
-          display: flex; gap: 30px; align-items: flex-end;
-          padding: 40px 60px;
-          margin-left: 0;
-          max-width: 900px;
-          background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
-          border-radius: 0;
-        }
-
-        .bio-text-panel {
-          flex: 1; max-width: 450px;
-          padding-bottom: 10px;
-        }
-
-        .bio-metrics-container {
-          flex: 1; max-width: 400px;
-          display: flex; flex-direction: column; gap: 20px;
-        }
-
-        .bio-metrics-panel {
-          width: 100%;
-          background: rgba(15, 15, 15, 0.9);
-          border: 1px solid #333;
-          padding: 20px 25px;
-          backdrop-filter: blur(10px);
-          border-radius: 0;
-        }
-
-        .bio-metrics-panel .panel-title {
-          font-family: var(--font-head);
-          font-size: 0.85rem;
-          color: var(--cyan);
-          margin-bottom: 15px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          border-bottom: 1px solid #444;
-          padding-bottom: 8px;
-        }
-
-        /* Ficha técnica del producto. El gap + el flex-shrink del valor son
-           obligatorios: la maqueta anterior (space-between sin gap) colisionaba
-           rótulo y valor cuando el valor era largo ("RECUPERACIÓN62% - EN PROCESO"). */
-        .spec-row {
-          display: flex; justify-content: space-between; align-items: baseline;
-          gap: 18px;
-          padding: 10px 0;
-          border-bottom: 1px solid rgba(255,255,255,0.07);
-        }
-        .spec-row:last-of-type { border-bottom: 0; }
-        .spec-row .metric-value { flex-shrink: 0; }
-        .panel-footnote {
-          margin: 12px 0 0; padding-top: 12px;
-          border-top: 1px solid rgba(255,255,255,0.12);
-          font-size: 0.78rem; line-height: 1.5; color: #9AA4AD;
-        }
-        .panel-footnote strong { color: var(--text-main); font-weight: 600; }
-        .metric-label { font-size: 0.7rem; color: #888; letter-spacing: 1px; }
-        .metric-value { font-family: var(--font-head); color: var(--cyan); font-size: 1.1rem; font-weight: 600; }
-        /* .progress-bar / .fill / .metric-value.warning-text ELIMINADOS (2 ago 2026)
-           junto con las cifras inventadas del panel. No reponer. */
-
-        /* --- SLIDE 4: SIMULADOR --- */
-        .simulator-layout {
-          position: relative; z-index: 10;
-          display: flex; height: 100%; padding: 80px 40px 40px; gap: 40px;
-          align-items: center;
-        }
-
-        .simulator-panel {
-          flex: 1; background: #1a1a1a; border: 1px solid #444;
-          padding: 30px; border-radius: 0;
-          box-shadow: 0 0 30px rgba(0,0,0,0.5);
-        }
-
-        /* Ritmo vertical del panel (recalibrado 2 ago 2026 al retirar los dos textos
-           en letra pequeña): el espacio liberado NO se deja como hueco al pie — se
-           reparte entre los elementos que quedan, que era la queja de origen
-           ("se ven un poco amontonados"). Neto: el panel sigue siendo ~65px más
-           bajo que antes, pero respira. */
-        .simulator-panel h3 {
-          font-family: var(--font-head);
-          display: flex; align-items: center; justify-content: center; gap: 10px;
-          margin: 0 0 24px 0; font-size: 1.3rem; color: var(--text-main);
-          text-align: center;
-        }
-
-        .sim-tabs { display: flex; border-bottom: 1px solid #333; margin-bottom: 34px; }
-        .sim-tab {
-          flex: 1; background: transparent; border: none; border-bottom: 2px solid transparent; color: #666;
-          padding: 15px; font-family: var(--font-mono); font-weight: bold; cursor: pointer;
-          font-size: 0.75rem; transition: all 0.3s;
-        }
-        .sim-tab:hover { color: #aaa; }
-        .sim-tab.active { color: var(--cyan); border-bottom: 2px solid var(--cyan); background: rgba(0,229,255,0.05); }
-
-        .digital-display {
-          font-family: var(--font-head); text-align: center;
-          font-size: 4rem; color: var(--text-main); margin: 28px 0;
-        }
-        .digital-display .currency { color: #666; font-size: 2rem; vertical-align: top; }
-        .digital-display .unit { font-size: 1.5rem; color: var(--cyan); }
-        .cop-ref { text-align: center; color: #666; font-family: var(--font-mono); margin-bottom: 28px; font-size: 1.05rem; }
-
-
-        .pkg-selector { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; }
-        .pkg-btn {
-          padding: 8px 16px; background: transparent; border: 1px solid #444;
-          color: #666; font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer;
-          text-transform: uppercase; font-weight: bold; transition: all 0.3s;
-        }
-        .pkg-btn:hover { border-color: #888; color: #aaa; }
-        .pkg-btn.active {
-          background: rgba(0, 229, 255, 0.1);
-          color: var(--cyan);
-          border-color: var(--cyan);
-          box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.2);
-        }
-
-        .controls-container label {
-          display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; margin-bottom: 14px;
-        }
-        .highlight-text { color: var(--cyan); font-weight: bold; font-size: 1.1rem; }
-        input[type=range] { width: 100%; accent-color: var(--cyan); }
-
-        /* AMBOS sliders del simulador (gen5 + binario) usan el MISMO padding
-           vertical → así la "caja" del controls-container tiene altura idéntica
-           al alternar entre INGRESO INMEDIATO ↔ INGRESO RECURRENTE.
-           El padding es necesario para que el thumb del snowball (hasta 50px)
-           no se choque con elementos vecinos. Al aplicarlo también al slider
-           de gen5 (thumb default ~16px), ambos ocupan el mismo espacio
-           vertical y el layout no salta. */
-        .controls-container input[type=range] {
-          padding: 25px 0;
-          margin: 8px 0;
-          display: block;
-          box-sizing: content-box;
-        }
-
-        /* ----- SIMULATOR SLIDERS — TRACK + THUMB BASE COMPARTIDO -----
-           Ambos sliders (gen5 + binario) usan .sim-slider para garantizar
-           EXACTAMENTE el mismo grosor del track y mismo thumb base.
-           Sin esto, el accent-color del default OS variaba el grosor visible. */
-        .sim-slider {
-          -webkit-appearance: none;
-          appearance: none;
-          background: transparent;
-          cursor: pointer;
-        }
-        /* Track — idéntico en gen5 y binario. 6px + 2 × 1px borde = 8px total */
-        .sim-slider::-webkit-slider-runnable-track {
-          height: 6px;
-          background: #3B3B3B;
-          border-radius: 3px;
-          border: 1px solid rgba(255, 255, 255, 0.45);
-        }
-        .sim-slider::-moz-range-track {
-          height: 6px;
-          background: #3B3B3B;
-          border-radius: 3px;
-          border: 1px solid rgba(255, 255, 255, 0.45);
-        }
-        /* Thumb base — blanco, 20px, mismo estilo en ambos sliders */
-        .sim-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          background: #FFFFFF;
-          border: none;
-          margin-top: -7px; /* (8 - 20) / 2 + ajuste fino */
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4),
-                      0 0 0 1px rgba(255, 255, 255, 0.1);
-          cursor: grab;
-        }
-        .sim-slider::-webkit-slider-thumb:active { cursor: grabbing; }
-        .sim-slider::-moz-range-thumb {
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          background: #FFFFFF;
-          border: none;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-          cursor: grab;
-        }
-
-        /* Snowball-slider — extiende .sim-slider con thumb DINÁMICO (binario).
-           Solo sobrescribe el tamaño del thumb usando --thumb-size inline.
-           Track y resto del thumb hereda de .sim-slider (idéntico al de gen5). */
-        .snowball-slider::-webkit-slider-thumb {
-          width: var(--thumb-size, 20px);
-          height: var(--thumb-size, 20px);
-          margin-top: calc((8px - var(--thumb-size, 20px)) / 2);
-          transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                      height 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                      margin-top 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .snowball-slider::-moz-range-thumb {
-          width: var(--thumb-size, 20px);
-          height: var(--thumb-size, 20px);
-          transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                      height 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        /* .insight-text ELIMINADO (2 ago 2026): los dos textos bajo el slider se
-           retiraron con el candado del encabezado. Su min-height de 4.2em existía
-           solo para que el panel no saltara al cambiar de pestaña; sin los textos,
-           el placeholder invisible del pkg-selector ya garantiza esa simetría. */
-
-        .cta-panel {
-          flex: 1; position: relative; height: 450px;
-          border: 1px solid var(--orange); overflow: hidden;
-        }
-        .bg-image-cta {
-          position: absolute; width: 100%; height: 100%;
-          background-size: cover; background-position: center;
-          filter: grayscale(100%) brightness(55%);
-          transition: filter 1s ease-in-out;
-        }
-        .cta-panel.cta-revealed .bg-image-cta,
-        .cta-panel:hover .bg-image-cta { filter: grayscale(0%) brightness(85%); }
-        .cta-overlay {
-          position: relative; z-index: 2; height: 100%;
-          display: flex; flex-direction: column; justify-content: center; align-items: center;
-          gap: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px; text-align: center;
-        }
-        .cta-inaccion { display: none; }
-        .cta-buttons { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
-        .cta-overlay h2 {
-          font-family: var(--font-head); font-size: 2rem; text-transform: uppercase;
-          letter-spacing: 2px; margin: 0 0 10px 0; color: var(--text-main);
-        }
-        .cta-overlay p { font-size: 0.85rem; color: #aaa; margin: 0 0 25px 0; line-height: 1.5; }
-
-        /* Botón primario Lujo Silencioso (Carbón + Borde Dorado + Texto Dorado) */
-        .btn-industrial {
-          background: var(--color-bg-elevated);
-          color: var(--color-brand);
-          text-decoration: none;
-          padding: 16px 36px;
-          font-family: var(--font-sans);
-          font-weight: 600;
-          font-size: 1rem;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          border: 1px solid var(--color-brand);
-          border-radius: var(--radius-action);
-          cursor: pointer;
-          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-        }
-        .btn-industrial:hover {
-          background: var(--color-bg-surface);
-          border-color: var(--color-brand-hover);
-          color: var(--color-brand-hover);
-        }
-
-        /* Botón secundario Lujo Silencioso (transparente + borde titanio) */
-        .btn-industrial.secondary {
-          background: transparent;
-          border: 1px solid var(--color-titanium-muted);
-          color: var(--color-titanium);
-          padding: 12px 24px;
-          font-size: 0.9rem;
-        }
-        .btn-industrial.secondary:hover {
-          background: rgba(148, 163, 184, 0.06);
-          border-color: var(--color-titanium);
-          color: var(--color-text-body);
-          border-color: var(--cyan);
-          transform: scale(1.02);
-        }
-
-        /* MOBILE NAV (bottom) */
-        .mobile-nav {
-          display: none;
-          position: fixed; bottom: 0; left: 0; width: 100%;
-          background: rgba(10, 10, 10, 0.95); border-top: 1px solid #333;
-          z-index: 100; backdrop-filter: blur(5px);
-        }
-        .mobile-nav-inner {
-          display: flex; justify-content: space-around; padding: 8px 0;
-        }
-        .mobile-nav-btn {
-          background: none; border: none; color: #555; cursor: pointer;
-          display: flex; flex-direction: column; align-items: center; gap: 4px;
-          padding: 6px 10px; transition: all 0.3s;
-        }
-        .mobile-nav-btn span.nav-icon { font-size: 20px; }
-        .mobile-nav-btn span.nav-label { font-size: 0.55rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px; }
-        .mobile-nav-btn.active { color: var(--cyan); }
-        .mobile-nav-btn.active span.nav-label { font-weight: bold; }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-          .deck-h1 { font-size: 2rem !important; line-height: 1.1; margin-bottom: 25px !important; }
-          .deck-h2 { font-size: 2rem; }
-          .content-overlay { padding: 0 25px; }
-          .side-focus { padding: 30px 25px; max-width: 100%; }
-
-          .nav-controls { display: none; }
-          .btn-fullscreen-mobile { display: flex; position: absolute; right: 15px; }
-          .top-hud { justify-content: center; }
-          .mobile-nav { display: block; }
-          .slide-counter { display: none; }
-
-          /* Slide 1: Contraste mobile */
-          .deck-p { font-weight: 500; }
-          .components-list { font-weight: 500; }
-          .deck-h1 { text-shadow: 0px 2px 6px rgba(0,0,0,0.8); }
-          .technical-label { text-shadow: 0px 1px 3px black; }
-
-          .slide {
-            padding-bottom: 70px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: contain;
-          }
-
-          /* Slide 1 mobile: permitir scroll suave y optimizado */
-          #slide-1 {
-            scroll-behavior: smooth;
-          }
-          #slide-1 .content-overlay {
-            height: auto;
-            justify-content: flex-start;
-            padding-top: 60px;
-            padding-bottom: 20px;
-            will-change: transform;
-          }
-          .contrast-plate {
-            margin-bottom: 40px !important;
-            padding: 30px 24px !important;
-          }
-
-          /* Scroll-snap: cada tarjeta ocupa pantalla completa */
-          .grid-layout-slide-2 {
-            grid-template-columns: 1fr;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 70px 15px 80px;
-            gap: 15px;
-          }
-          .slide-2-header { text-align: center; padding-bottom: 0; }
-          .slide-2-header .deck-h2 { font-size: 1.5rem !important; }
-          /* Split layout: imagen arriba 50%, texto abajo 55% (5% solapamiento) */
-          .card-industrial, .full-width {
-            min-height: 55vh !important;
-            height: auto !important;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-          }
-          .card-bg {
-            height: 100% !important;
-            top: 0;
-            background-position: center !important;
-            /* NO desplazar el video: cada b-roll lleva su rótulo quemado arriba-izq
-               ("LA EMPRESA DE TODA LA VIDA", etc). object-fit:contain muestra el frame
-               completo; un translateY hacia arriba recortaba ese rótulo (incl. sonrisaslindas). */
-          }
-          .card-content {
-            height: auto !important;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 30%, transparent 60%) !important;
-            padding: 18px 20px 20px !important;
-            justify-content: flex-end;
-          }
-          /* Títulos inferiores más compactos: caben en 1–2 líneas y no tapan la gráfica */
-          .card-content h3.pillar-name {
-            font-size: 1.25rem !important;
-            line-height: 1.2;
-          }
-
-          .slide-4-layout { flex-direction: column; align-items: stretch; justify-content: flex-end; }
-          .slide-4-bottom {
-            flex-direction: column;
-            padding: 0 20px 20px;
-            margin-left: 0;
-            max-width: 100%;
-            border-radius: 0;
-            gap: 30px !important;
-          }
-          /* En mobile el bloque llenaba la pantalla —el H2 se cortaba arriba— y no
-             dejaba ver la foto. Se compacta y la tarjeta de métricas pasa a
-             translúcida: la taza se lee A TRAVÉS del panel en vez de pelear por un
-             espacio que no existe. Es la única slide fotográfica del deck; si el
-             contenido la tapa entera, la foto no aporta nada. */
-          #slide-3 .slide-4-bottom {
-            gap: 20px !important;
-            padding-bottom: 26px !important;
-          }
-          /* Bloque ANCLADO ARRIBA (2 ago 2026): la foto vertical se ve completa en un
-             teléfono (1080×1935 sobre un viewport más estrecho ⇒ cover escala por alto
-             y no hay recorte vertical), así que la taza está fija en el tercio bajo del
-             encuadre. La única forma de que se vea es dejarle libre la mitad inferior:
-             todo el contenido sube y el degradado se invierte (oscuro arriba, tras el
-             texto; transparente abajo, sobre la taza). */
-          #slide-3 .slide-4-layout { justify-content: flex-start !important; }
-          #slide-3 .slide-4-bottom {
-            padding-top: 16px !important;
-            /* ⚠️ align-items: stretch OBLIGATORIO. El bloque hereda flex-end del
-               layout de escritorio (donde el eje cruzado es vertical y significa
-               "al pie"), pero en móvil la dirección es columna y ese mismo valor
-               pasa a significar "a la derecha": el panel de texto se encogía al
-               ancho de su línea más larga, se pegaba al borde derecho y el H1
-               ("QUE NO CAMBIA") salía de pantalla. Antes no se notaba porque el
-               párrafo, ya retirado, estiraba el panel a todo el ancho. */
-            align-items: stretch !important;
-            background: linear-gradient(to bottom,
-              rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 62%, rgba(0,0,0,0) 100%) !important;
-          }
-          /* Y el mismo seguro puesto sobre el hijo, que es lo que de verdad decide:
-             align-self gana sobre el align-items del padre venga de donde venga
-             (base, :fullscreen o .kiosk), y el width al 100% evita el shrink-to-fit
-             que dejaba el panel del ancho de su línea más larga. Sin esto el H1
-             volvía a salirse por la derecha. */
-          #slide-3 .bio-text-panel {
-            align-self: stretch !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            text-align: left !important;
-          }
-          /* Fuera en móvil: el párrafo (queda solo el H1 — decisión del Director) y el
-             CTA "VER LOS NÚMEROS", porque aquí la slide se pasa deslizando. */
-          #slide-3 .bio-text-panel .deck-p { display: none !important; }
-          #slide-3 .bio-text-panel .catalog-trigger { display: none !important; }
-          #slide-3 .slide3-cta-wrap { display: none !important; }
-          /* El enlace queda sobre la foto (ya no sobre el degradado): una sombra
-             sutil lo despega de la madera sin ponerle una placa encima. */
-          #slide-3 .catalog-trigger--mobile {
-            display: inline-block !important;
-            align-self: flex-start !important;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.9) !important;
-          }
-          #slide-3 .deck-h2 { font-size: 1.9rem !important; line-height: 1.05 !important; }
-          #slide-3 .bio-metrics-panel {
-            background: rgba(15, 15, 15, 0.40) !important;
-            border-color: rgba(255,255,255,0.16) !important;
-          }
-          /* GRADACIÓN MÓVIL (2 ago 2026): el asset vertical apoya la taza sobre una
-             tabla de madera rústica que en pantalla chica lee "vieja, roída" — muy
-             lejos del lujo silencioso que sí tiene la encimera de piedra del asset
-             horizontal. No se puede recortar el horizontal a vertical: allí la taza
-             mide 590px de ancho sobre 1072 de alto y un teléfono solo alcanza a
-             mostrar ~493px, así que quedaría cortada. Se corrige por gradación:
-             - saturate bajo → apaga los naranjas de la madera (son los que gritan
-               "rústico"); la taza, que es casi neutra, no se resiente.
-             - contrast alto → la veta lee como textura, no como rayón.
-             - el box-shadow inset hunde el borde inferior, que es la zona más
-               desgastada: la taza queda apoyada en oscuridad, no en una tabla.
-             El Y del background solo actúa en tablets verticales (en teléfono la
-             foto entra completa y no hay recorte vertical que mover). */
-          #slide-3 .bg-image {
-            background-position: center 70% !important;
-            filter: saturate(55%) contrast(118%) brightness(118%) !important;
-            box-shadow: inset 0 -150px 120px -60px rgba(0,0,0,0.92) !important;
-          }
-          #slide-3 .bio-metrics-container { gap: 10px !important; }
-
-          /* ══ LA FOTO MANDA (medido sobre el asset, 1080×1935) ══
-             taza: 58%–79% del alto · vapor: 44%–58% · el 44% de arriba es
-             negro vacío. En el teléfono la foto se ve COMPLETA (no hay recorte
-             vertical), así que esas franjas son fijas: no se pueden mover con
-             background-position. Para que se vea la taza ENTERA —con su borde,
-             no solo la base— el contenido tiene que terminar antes del 58%, y
-             venía terminando en el 63%. De ahí que este bloque sea agresivo:
-             cada píxel que se le quita al texto es taza que aparece. */
-          #slide-3 .slide-4-bottom { padding-top: 10px !important; gap: 10px !important; }
-          #slide-3 .deck-h2 { margin-bottom: 6px !important; }
-          #slide-3 .technical-label { margin-bottom: 6px !important; }
-          #slide-3 .bio-metrics-panel { padding: 14px 16px !important; }
-          #slide-3 .bio-metrics-panel .panel-title {
-            margin-bottom: 10px !important;
-            padding-bottom: 6px !important;
-          }
-          #slide-3 .spec-row { padding: 6px 0 !important; }
-          /* La nota del Dr. Leow sale SOLO en móvil: es el bloque más alto de la
-             ficha y es justo lo que se interpone entre el texto y la taza. Sigue
-             viva en escritorio, y en vivo el orador la narra igual. Si se quiere
-             de vuelta, se cambia por el vapor. */
-          #slide-3 .panel-footnote { display: none !important; }
-          #slide-3 .metric-label {
-            font-size: 0.85rem !important;
-            font-weight: 600 !important;
-            letter-spacing: 1.5px !important;
-            color: #B0BEC5 !important;
-          }
-          .bio-text-panel { max-width: 100%; }
-          .bio-metrics-container { max-width: 100%; }
-
-          /* ── Slide 4 mobile: scroll-snap vertical ── */
-          #slide-4 {
-            overflow-y: scroll;
-            scroll-snap-type: y proximity; /* proximity (no mandatory): mandatory atrapaba el scroll hacia arriba entre paneles */
-            -webkit-overflow-scrolling: touch;
-            padding-top: 0;
-          }
-          .simulator-layout {
-            flex-direction: column;
-            height: auto;
-            padding: 0;
-            gap: 0;
-            align-items: stretch;
-          }
-          .simulator-panel {
-            height: 100vh;
-            min-height: 100vh;
-            width: 100%;
-            flex-shrink: 0;
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* NO center: centrar contenido más alto que la pantalla dejaba el tope inalcanzable (solo se podía bajar) */
-            padding: 70px 20px 90px;
-            overflow-y: auto;
-            box-sizing: border-box;
-          }
-          .cta-panel {
-            height: 100vh;
-            min-height: 100vh;
-            width: 100%;
-            flex-shrink: 0;
-            scroll-snap-align: start;
-            position: relative;
-            overflow: hidden;
-            border-left: none;
-            border-right: none;
-          }
-          .bg-image-cta {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            width: 100%;
-            height: 48%;
-            background-size: cover;
-            background-position: center;
-            filter: grayscale(100%) brightness(50%);
-            transition: filter 0.8s ease-in-out;
-          }
-          .cta-panel.cta-revealed .bg-image-cta {
-            filter: grayscale(0%) brightness(90%);
-          }
-          .cta-overlay {
-            position: absolute;
-            top: 48%; left: 0; right: 0; bottom: 0;
-            height: auto;
-            background: #111;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 24px 24px 40px;
-            text-align: center;
-          }
-          .cta-overlay h2 { font-size: 1.5rem !important; line-height: 1.15 !important; margin: 0 0 8px !important; }
-          .cta-overlay p { margin: 0 0 16px !important; font-size: 0.82rem !important; }
-          .cta-inaccion { display: block !important; }
-          .cta-buttons { gap: 20px !important; }
-          .cta-buttons .btn-industrial:not(.secondary) { width: 100% !important; justify-content: center !important; font-size: 1.1rem !important; padding: 16px 24px !important; }
-          .cta-buttons .btn-industrial.secondary { font-size: 0.65rem !important; padding: 10px 20px !important; width: auto !important; letter-spacing: 1.5px !important; }
-          .digital-display { font-size: 3rem; }
-          .btn-industrial { font-size: 1rem; padding: 12px 20px; }
-        }
-
-        /* === FULLSCREEN OVERRIDES === */
-
-        /* -- SLIDE 2: ONE CARD AT A TIME --
-           Activado en fullscreen desktop Y en mobile (<1024px) vía la clase
-           .one-card-mode (toggle JS-driven). Solo la card .card-active es
-           visible y ocupa todo el canvas. El usuario avanza con
-           click/teclado/swipe izquierda y retrocede con swipe derecha. */
-        .one-card-mode .grid-layout-slide-2 {
-          gap: 18px;
-          grid-template-columns: 1fr;
-          grid-template-rows: auto 1fr;
-          max-width: 1400px;
-          margin: 0 auto;
-          height: 100%;
-          align-content: stretch;
-          overflow-y: visible;
-          display: grid;
-          flex-direction: initial;
-        }
-        /* Padding amplio solo en desktop fullscreen — en mobile hereda el del @media */
-        /* En fullscreen el top-hud y la mobile-nav se ocultan, pero el padding seguía
-           reservando 70px arriba para una barra que ya no está — contra 30 abajo. El
-           bloque quedaba bajo, con más aire sobre el contador que bajo la tarjeta. */
-        :fullscreen .one-card-mode .grid-layout-slide-2 {
-          padding: max(30px, env(safe-area-inset-top)) 60px 30px;
-        }
-        .one-card-mode .card-industrial:not(.card-active) {
-          display: none !important;
-        }
-        .one-card-mode .card-industrial.card-active,
-        .one-card-mode .full-width.card-active {
-          grid-column: 1 / -1;
-          height: auto !important;
-          min-height: 70vh !important;
-          display: flex !important;
-        }
-        :fullscreen .card-bg {
-          background-size: cover;
-          background-position: center;
-        }
-
-        /* Dots indicador — solo visible en one-card-mode (mobile + fullscreen).
-           Patrón visual estándar de carousel ejecutivo, sutil pero discoverable. */
-        .card-dots {
-          display: flex;
-          gap: 14px;
-          justify-content: center;
-          margin: 14px 0 0;
-        }
-        .card-dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.18);
-          border: 1px solid rgba(255, 255, 255, 0.32);
-          padding: 0;
-          cursor: pointer;
-          transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
-        }
-        .card-dot:hover {
-          background: rgba(255, 255, 255, 0.35);
-        }
-        .card-dot.active {
-          background: var(--cyan);
-          border-color: var(--cyan);
-          transform: scale(1.25);
-        }
-
-        /* -- SLIDE 3: Center content vertically, scale up -- */
-        :fullscreen .slide-4-layout {
-          align-items: center;
-          justify-content: flex-start;
-          padding-left: clamp(32px, 6vw, 220px);
-        }
-        :fullscreen .slide-4-bottom {
-          padding: 40px 60px;
-          margin-left: 0;
-          max-width: 900px;
-          background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.4) 100%);
-          border-radius: 0;
-        }
-        :fullscreen .bio-text-panel {
-          max-width: 500px;
-        }
-        :fullscreen .bio-text-panel .deck-h2 {
-          font-size: 3.5rem;
-        }
-        :fullscreen .bio-text-panel .deck-p {
-          font-size: 1.1rem;
-        }
-        :fullscreen .bio-metrics-container {
-          max-width: 450px;
-        }
-        :fullscreen .bio-metrics-panel {
-          padding: 30px 35px;
-        }
-        :fullscreen .metric-value {
-          font-size: 1.4rem;
-        }
-        :fullscreen .metric-label {
-          font-size: 0.8rem;
-        }
-        :fullscreen .spec-row { padding: 13px 0; }
-        :fullscreen .panel-footnote { font-size: 0.9rem; }
-
-        /* -- SLIDE 4: Simulator + massive CTA door -- */
-        :fullscreen .simulator-layout {
-          padding: 80px 60px 40px;
-          max-width: 1400px;
-          margin: 0 auto;
-          gap: 40px;
-        }
-        :fullscreen .simulator-panel {
-          flex: 1;
-          padding: 40px;
-        }
-        :fullscreen .cta-panel {
-          flex: 2;
-          height: auto;
-          min-height: 600px;
-          align-self: stretch;
-        }
-        :fullscreen .cta-overlay {
-          height: 100%;
-          padding: 60px;
-          gap: 15px;
-          justify-content: center;
-        }
-        :fullscreen .cta-overlay h2 {
-          font-size: 3rem;
-          letter-spacing: 4px;
-        }
-        :fullscreen .cta-overlay p {
-          font-size: 1.1rem;
-        }
-        :fullscreen .digital-display {
-          font-size: 5rem;
-        }
-        :fullscreen .btn-industrial {
-          font-size: 1.6rem;
-          padding: 24px 50px;
-        }
-        :fullscreen .btn-industrial.secondary {
-          font-size: 1.1rem;
-          padding: 16px 32px;
-        }
-
-        /* === MOBILE FULLSCREEN OPTIMIZATIONS === */
-        /* Override fullscreen rules on mobile to MAXIMIZE screen usage */
-        @media (max-width: 768px) {
-          /* SLIDE 2: Ventanas en fullscreen mobile */
-          :fullscreen .grid-layout-slide-2 {
-            padding: 20px 15px 40px !important;
-            gap: 15px !important;
-            grid-template-rows: unset !important;
-            height: auto !important;
-            min-height: 100% !important;
-          }
-          :fullscreen .slide-2-header {
-            padding-bottom: 0 !important;
-          }
-          :fullscreen .slide-2-header .deck-h2 {
-            font-size: 1.6rem !important;
-            margin-bottom: 2px !important;
-          }
-          :fullscreen .slide-2-subtitle {
-            font-size: 0.6rem !important;
-          }
-          :fullscreen .card-industrial,
-          :fullscreen .full-width {
-            min-height: 55vh !important;
-            height: auto !important;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-          }
-          /* Base en fullscreen mobile — la tarjeta activa lo sobreescribe abajo */
-          :fullscreen .card-industrial .card-bg {
-            filter: brightness(0.45) !important;
-          }
-          :fullscreen .card-industrial.card-active .card-bg {
-            filter: brightness(1) !important;
-          }
-          :fullscreen .card-industrial.card-active {
-            border-color: var(--orange);
-          }
-
-          /* SLIDE 4: Figuras deben CRECER en fullscreen mobile */
-          /* ── Slide 4 fullscreen mobile ── */
-          :fullscreen #slide-4 { overflow-y: scroll !important; scroll-snap-type: y proximity !important; height: 100vh !important; padding: 0 !important; -webkit-overflow-scrolling: touch; }
-          :fullscreen #slide-4 .simulator-layout { flex-direction: column !important; height: auto !important; padding: 0 !important; gap: 0 !important; align-items: stretch !important; }
-          :fullscreen #slide-4 .simulator-panel { height: 100vh !important; min-height: 100vh !important; width: 100% !important; flex: none !important; scroll-snap-align: start !important; display: flex !important; flex-direction: column !important; justify-content: flex-start !important; padding: 20px 20px 60px !important; overflow-y: auto !important; box-sizing: border-box !important; }
-          :fullscreen #slide-4 .cta-panel { height: 100vh !important; min-height: 100vh !important; scroll-snap-align: start !important; flex: none !important; width: 100% !important; border: none !important; }
-          :fullscreen #slide-4 .bg-image-cta { height: 48% !important; }
-          /* flex-start (no center): en fullscreen la .mobile-nav se oculta, así que
-             centrar empuja el 2º botón fuera de pantalla. Anclar arriba (justo bajo
-             la imagen) replica la vista normal y garantiza ver ambos botones. */
-          :fullscreen #slide-4 .cta-overlay { top: 48% !important; justify-content: flex-start !important; padding: 32px 24px 40px !important; }
-          :fullscreen .cta-overlay h2 {
-            font-size: 2rem !important;
-            letter-spacing: 2px !important;
-          }
-          :fullscreen .digital-display {
-            font-size: 3rem !important;
-          }
-          :fullscreen .btn-industrial {
-            font-size: 1.2rem !important;
-            padding: 18px 35px !important;
-          }
-
-          /* HIDE NAV IN FULLSCREEN (both orientations) */
-          :fullscreen .top-hud { display: none !important; }
-          :fullscreen .mobile-nav { display: none !important; }
-
-          /* SLIDE 3: mobile vertical fullscreen — evitar overflow */
-          :fullscreen #slide-3 { overflow-y: auto !important; }
-          :fullscreen .slide-4-layout {
-            align-items: flex-start !important;
-            overflow-y: auto !important;
-            padding-top: 20px !important;
-            /* anula la sangría izquierda de escritorio: en vertical el bloque
-               ocupa todo el ancho y esa sangría lo dejaba descentrado */
-            padding-left: 0 !important;
-            justify-content: center !important;
-          }
-          :fullscreen .slide-4-bottom {
-            flex-direction: column !important;
-            padding: 20px 20px 40px !important;
-            margin-left: 0 !important;
-            max-width: 100% !important;
-            border-radius: 0 !important;
-            gap: 15px !important;
-          }
-          :fullscreen .bio-text-panel { max-width: 100% !important; }
-          :fullscreen .bio-text-panel .deck-h2 { font-size: 2rem !important; }
-          :fullscreen .bio-text-panel .deck-p { font-size: 0.85rem !important; line-height: 1.5 !important; }
-          :fullscreen .bio-metrics-container { max-width: 100% !important; }
-          :fullscreen .bio-metrics-panel { padding: 15px 18px !important; }
-          :fullscreen .metric-value { font-size: 1rem !important; }
-          :fullscreen .metric-label { font-size: 0.65rem !important; }
-          :fullscreen .spec-row { padding: 8px 0 !important; }
-          :fullscreen .panel-footnote { font-size: 0.72rem !important; }
-        }
-
-        /* === LANDSCAPE MOBILE FULLSCREEN === */
-        /* Phones in landscape are 844–926px wide — outside max-width:768px, need separate rule */
-        @media (orientation: landscape) and (max-width: 1024px) {
-          :fullscreen .slide {
-            overflow-y: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-          }
-          :fullscreen .top-hud { display: none !important; }
-          :fullscreen .mobile-nav { display: none !important; }
-        }
-
-        /* === LARGE SCREEN OVERRIDES (same as fullscreen, for manual resize) === */
-        @media (min-width: 1200px) {
-          /* -- SLIDE 2 -- */
-          .grid-layout-slide-2 {
-            max-width: 1200px;
-            margin: 0 auto;
-          }
-          .card-industrial {
-            height: auto;
-            min-height: 28vh;
-          }
-          .full-width {
-            height: auto;
-            min-height: 28vh;
-          }
-
-          /* -- SLIDE 4 -- */
-          .simulator-layout {
-            max-width: 1400px;
-            margin: 0 auto;
-          }
-          .cta-panel {
-            flex: 2;
-            height: auto;
-            min-height: 500px;
-          }
-          .cta-overlay {
-            height: 100%;
-            padding: 50px;
-          }
-          .cta-overlay h2 {
-            font-size: 2.5rem;
-            letter-spacing: 3px;
-          }
-        }
-
-        /* === MOBILE SCROLL-ACTIVATED CARD HIGHLIGHT === */
-        /* Mismo efecto que el hover en desktop: imagen a color completo + scale */
-        @media (max-width: 1024px) {
-          .card-industrial.card-active .card-bg {
-            filter: brightness(1) !important;
-          }
-          .card-industrial.card-active {
-            border-color: var(--orange);
-          }
-        }
-
-        /* SCROLLBAR */
-        .industrial-theme {
-          scrollbar-width: thin;
-          scrollbar-color: #333 #1a1a1a;
-        }
-
-        /* ============ CATÁLOGO DE PRODUCTOS — MODAL OVERLAY ============
-           Trigger: link clickable debajo del texto del Slide 3.
-           Despliega imagen del catálogo en overlay sin sacar al prospecto
-           del deck. Cierre: X arriba derecha, click backdrop, tecla Escape. */
-
-        /* Trigger: link clickable estilo Lujo Clínico */
-        /* Enlace de acción → DORADO (2 ago 2026). En cian competía con el CTA
-           dorado del mismo slide; por el sistema bimetálico las acciones son oro. */
-        .catalog-trigger {
-          display: inline-block;
-          background: transparent;
-          border: none;
-          color: var(--orange);
-          font-family: var(--font-mono);
-          font-size: 0.85rem;
-          letter-spacing: 0.05em;
-          margin-top: 14px;
-          padding: 4px 0;
-          cursor: pointer;
-          text-decoration: underline;
-          text-decoration-thickness: 1px;
-          text-underline-offset: 5px;
-          transition: color 0.25s ease, text-underline-offset 0.25s ease;
-        }
-        /* La copia móvil del enlace no existe en escritorio (ver el comentario del JSX) */
-        .catalog-trigger--mobile { display: none; align-self: flex-start; margin-top: 4px; }
-        .catalog-trigger:hover {
-          color: var(--color-brand-hover, #D4AF37);
-          text-underline-offset: 7px;
-        }
-
-        /* Overlay — fondo carbón translúcido con blur sutil */
-        .product-catalog-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(15, 17, 21, 0.92);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          z-index: 9999;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 40px 24px;
-          animation: catalogFadeIn 0.25s ease;
-        }
-        @keyframes catalogFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
-        /* Modal container — limita ancho y respeta viewport */
-        .product-catalog-modal {
-          position: relative;
-          max-width: 1100px;
-          width: 100%;
-          max-height: 90vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .catalog-image {
-          width: 100%;
-          height: auto;
-          max-height: 88vh;
-          object-fit: contain;
-          display: block;
-        }
-
-        /* Botón cerrar — círculo titanio arriba-derecha */
-        .catalog-close {
-          position: absolute;
-          top: -18px;
-          right: -18px;
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-          background: var(--bg-dark, #121212);
-          border: 1px solid #878681;
+        .pd-root * { box-sizing: border-box; }
+
+        /* ── HUD ─────────────────────────────────────────────────────────── */
+        .pd-hud {
+          position: absolute; top: 0; left: 0; right: 0; height: 56px;
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 0 clamp(16px, 4vw, 40px);
+          z-index: 40; pointer-events: none;
+        }
+        .pd-brand {
+          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.28em;
+          color: var(--pd-muted); text-transform: uppercase;
+        }
+        .pd-hud-right { display: flex; align-items: center; gap: 14px; pointer-events: auto; }
+        .pd-dots { display: flex; gap: 7px; }
+        .pd-dot {
+          width: 7px; height: 7px; border-radius: 50%; padding: 0;
+          border: 1px solid rgba(255,255,255,0.22); background: transparent;
+          cursor: pointer; transition: all 0.25s;
+        }
+        .pd-dot.done { border-color: rgba(197,160,89,0.45); background: rgba(197,160,89,0.28); }
+        .pd-dot.active { border-color: var(--pd-gold); background: var(--pd-gold); transform: scale(1.35); }
+        .pd-fs {
+          background: transparent; border: 1px solid rgba(255,255,255,0.14);
+          color: var(--pd-muted); font-family: var(--font-mono); font-size: 0.6rem;
+          letter-spacing: 0.18em; padding: 7px 11px; cursor: pointer; transition: all 0.25s;
+        }
+        .pd-fs:hover { color: var(--pd-gold); border-color: rgba(197,160,89,0.45); }
+        .pd-fs-corto { display: none; }
+        .pd-counter {
+          position: absolute; bottom: 14px; right: clamp(16px, 4vw, 40px);
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+          color: #3d4048; z-index: 40;
+        }
+
+        /* ── Pantallas ───────────────────────────────────────────────────── */
+        /* margin:auto en el hijo centra cuando sobra espacio y NO recorta por
+           arriba cuando falta — con justify-content: center, el contenido alto se
+           salía de la pantalla por el borde superior y quedaba inalcanzable. */
+        .pd-slide {
+          position: absolute; inset: 0;
+          display: flex; flex-direction: column;
+          padding: 74px clamp(20px, 6vw, 80px) 56px;
+          opacity: 0; visibility: hidden; pointer-events: none;
+          transition: opacity 0.5s ease;
+          overflow-y: auto; cursor: pointer;
+        }
+        .pd-slide.on { opacity: 1; visibility: visible; pointer-events: auto; }
+        .pd-wrap { width: 100%; max-width: 980px; margin: auto; }
+
+        .pd-eyebrow {
+          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.32em;
+          color: var(--pd-data); text-transform: uppercase; margin: 0 0 1.6rem;
+        }
+        .pd-h2 {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          letter-spacing: 0.02em; line-height: 1.08;
+          font-size: clamp(1.7rem, 4.6vw, 3.1rem); margin: 0 0 1.5rem;
           color: #FFFFFF;
-          font-size: 22px;
-          line-height: 1;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-family: var(--font-mono);
-          transition: all 0.2s ease;
-          padding: 0;
         }
-        .catalog-close:hover {
-          border-color: var(--cyan);
-          color: var(--cyan);
-          transform: scale(1.08);
+        .pd-p {
+          font-size: clamp(1rem, 2.1vw, 1.32rem); line-height: 1.62;
+          color: var(--color-text-body, #C8C7C2); margin: 0 0 1.1rem; max-width: 46ch;
+        }
+        /* Viñetas del deck (Director, 28 sep 2026): mismo cuerpo que .pd-p, marcador
+           dorado sobrio. Nacieron para despiezar «Por qué ahora». */
+        .pd-vinetas {
+          list-style: none; margin: 0 0 1.1rem; padding: 0; max-width: 46ch;
+        }
+        .pd-vinetas li {
+          font-size: clamp(1rem, 2.1vw, 1.32rem); line-height: 1.62;
+          color: var(--color-text-body, #C8C7C2);
+          position: relative; padding-left: 1.15rem;
+        }
+        .pd-vinetas li::before {
+          content: '·'; position: absolute; left: 0;
+          color: var(--pd-gold); font-weight: 700;
+        }
+        .pd-gold { color: var(--pd-gold); }
+        /* La bisagra: la línea más grande de la pantalla después del titular.
+           Es el giro del deck entero, así que pesa como tal. */
+        .pd-bisagra {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.5rem, 3.8vw, 2.5rem); line-height: 1.1; letter-spacing: 0.01em;
+          color: var(--pd-gold); margin: 2rem 0 1.2rem;
+        }
+        .pd-kicker {
+          font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
+          color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
         }
 
-        /* Mobile: cerrar dentro del frame para no quedar fuera de viewport */
-        @media (max-width: 768px) {
-          .product-catalog-overlay { padding: 20px 12px; }
-          .catalog-close {
-            top: 8px;
-            right: 8px;
-            width: 36px;
-            height: 36px;
-          }
+        /* ── 1 · El credo ────────────────────────────────────────────────── */
+        /* Playfair se pide por su variable propia. Hasta el 8 oct 2026 era
+           obligatorio: --font-serif se declara en :root y --font-playfair vivía en
+           el <body>, así que el token llegaba vacío y el titular caía a Inter. Hoy
+           las variables de next/font están en <html> y var(--font-serif) también
+           sirve; esto se deja como está porque funciona igual. */
+        .pd-credo .pd-credo-titulo, .pd-credo .pd-credo-linea {
+          font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
+          font-size: clamp(1.55rem, 4.2vw, 3rem); line-height: 1.3;
+          margin: 0 0 1.4rem; color: #FFFFFF; max-width: 22ch;
+        }
+        .pd-credo .segunda { color: var(--pd-gold); max-width: 26ch; }
+        .pd-credo-rule {
+          width: 56px; height: 1px; background: var(--pd-gold); margin: 2.4rem 0 1.2rem;
+        }
+
+        /* ── 5 · La propuesta y la oscilación ───────────────────────────────────────────── */
+        .pd-beat { position: absolute; inset: 0; display: flex; flex-direction: column;
+          padding: 74px clamp(20px, 6vw, 80px) 56px; overflow-y: auto;
+          opacity: 0; visibility: hidden; transition: opacity 0.45s ease; }
+        .pd-beat > * { margin-block: auto; }
+        .pd-beat.on { opacity: 1; visibility: visible; }
+        /* LA PIEZA ES LA PROTAGONISTA (Director, 10 oct 2026: «los clips se ven más
+           pequeños que en la servilleta»). El deck se presenta en Mac, proyector y
+           teléfono, así que la figura se dimensiona POR ALTURA DE PANTALLA, no solo
+           por columna: en un proyector 16:9 el ancho sobra y la altura manda.
+           Respaldo: diapositiva = afirmación en una línea + evidencia VISUAL
+           dominante (assertion-evidence, Garner & Alley 2013); el socio narra el
+           resto — el mismo principio name-only de la servilleta. */
+        .pd-pieza { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 5vw, 64px);
+          align-items: center; max-width: 1160px; margin: 0 auto; width: 100%; }
+        .pd-pieza .pd-figura { width: min(100%, calc(100vh - 230px)); justify-self: center; }
+        /* ⚠️ El ancho va EXPLÍCITO. Sin él, como .pd-pieza lleva align-items:center,
+           el ítem de la rejilla no se estira, su alto queda en 0 y aspect-ratio le
+           deja 2px de ancho: en el teléfono las tres piezas no se veían (bug real,
+           24 sep 2026). En escritorio no aparecía porque la columna daba el ancho. */
+        .pd-figura {
+          width: 100%;
+          aspect-ratio: 1 / 1; background-size: cover; background-position: center;
+          border: 1px solid rgba(255,255,255,0.08);
+        }
+        /* La pieza en video: el loop ya es cuadrado, cover lo deja exacto; el
+           fondo carbón cubre el instante antes del poster. */
+        video.pd-figura { object-fit: cover; display: block; background: #0F1115; }
+        /* El clip de la multiplicación (remate de «Qué hace usted»): acotado por
+           la altura para que el golpe y las dos líneas del cierre siempre quepan. */
+        .pd-multiplica {
+          display: block; width: min(320px, 58vw, calc(100vh - 460px));
+          aspect-ratio: 1 / 1; object-fit: cover; margin: 0 auto 0.6rem;
+          background: #0F1115; border: 1px solid rgba(255,255,255,0.08);
+        }
+        .pd-pieza-label {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
+          margin: 0 0 1.1rem;
+        }
+        .pd-demo {
+          margin-top: 1.6rem; background: transparent; border: 1px solid var(--pd-gold);
+          color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
+          letter-spacing: 0.2em; padding: 13px 22px; cursor: pointer; transition: all 0.25s;
+        }
+        .pd-demo:hover { background: var(--pd-gold); color: #0F1115; }
+
+        .pd-tres { display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: clamp(12px, 3vw, 36px); max-width: 940px; margin: 0 auto; width: 100%; }
+        .pd-tres .pd-figura { animation: pdPulso 3.6s infinite; opacity: 0.32; }
+        .pd-tres .col:nth-child(1) .pd-figura { animation-delay: 0s; }
+        .pd-tres .col:nth-child(2) .pd-figura { animation-delay: 1.2s; }
+        .pd-tres .col:nth-child(3) .pd-figura { animation-delay: 2.4s; }
+        @keyframes pdPulso { 0%, 24% { opacity: 1; } 34%, 100% { opacity: 0.3; } }
+        .pd-tres .cap {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
+          color: var(--pd-muted); text-transform: uppercase; text-align: center;
+          margin-top: 0.9rem; min-height: 2.4em;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-tres .pd-figura { animation: none; opacity: 1; }
+        }
+        /* ⚠️ margin:auto en los cuatro lados y NO 0 auto: el cero pisaba el
+           margin-block:auto con el que .pd-beat centra a su hijo, y este beat era el
+           único que se quedaba pegado arriba con media pantalla vacía debajo. */
+        .pd-remate { text-align: center; max-width: 760px; margin: auto; }
+
+        /* EL CLÍMAX EN UNA DIAPOSITIVA (10 oct 2026): el teléfono con la UNIÓN
+           adentro y, al lado, el paso y el nombre. En pantalla ancha van lado a
+           lado (en 16:9 apilados no caben); en el teléfono, apilados. El
+           teléfono lo acota la altura real de la pantalla. */
+        .pd-remate.pd-union { max-width: 1060px; }
+        .pd-union-cuerpo {
+          display: grid; grid-template-columns: auto minmax(0, 1fr);
+          gap: clamp(28px, 5vw, 72px); align-items: center; margin-top: 1.4rem;
+        }
+        .pd-union-texto { text-align: left; }
+        .pd-union-texto p.grande--paso { margin-top: 0; }
+        .pd-telefono {
+          display: block; width: min(300px, 30vw, calc((100vh - 230px) * 0.52));
+          aspect-ratio: 720 / 1360; object-fit: cover;
+          margin: 0 auto; background: #0F1115;
+          border: 1px solid rgba(197,160,89,0.55);
+          box-shadow: 0 0 70px rgba(197,160,89,0.10);
+        }
+        .pd-remate p.pd-nombre-app {
+          font-size: clamp(2.3rem, 6.2vw, 4.6rem); margin: 0.3rem 0 0;
+        }
+        /* EL TEXTO LLEGA CUANDO EL CUBO YA SE ENCENDIÓ — la secuencia de Jobs
+           (primero el aparato, después la palabra) sin pedirle un clic al
+           socio. Tiempos atados al clip: trío ~1 s → fusión → el cubo armado a
+           2,48 s → la luz llega a plena ~3,6 s. Si cambia la receta del clip,
+           se mueven estos tres retrasos. */
+        .pd-beat.on .pd-union-texto > * { animation: pdEntra 0.6s ease-out both; }
+        .pd-beat.on .pd-union-texto > :nth-child(1) { animation-delay: 3.0s; }
+        .pd-beat.on .pd-union-texto > :nth-child(2) { animation-delay: 3.9s; }
+        .pd-beat.on .pd-union-texto > :nth-child(3) { animation-delay: 4.4s; }
+        @media (max-width: 860px) {
+          .pd-union-cuerpo { grid-template-columns: 1fr; gap: 1rem; margin-top: 0.8rem; }
+          .pd-union-texto { text-align: center; }
+          /* Apilado, el teléfono deja sitio al texto de abajo (~260px). */
+          .pd-telefono { width: min(52vw, calc((100vh - 430px) * 0.52)); }
+        }
+        /* El golpe del remate en blanco y un punto menor: el oro y el tamaño
+           completo son del NOMBRE, que es lo nuevo y cae de último. */
+        .pd-remate p.grande--paso {
+          color: #FFFFFF; font-size: clamp(1.15rem, 3vw, 1.9rem);
+          margin: 2rem 0 0.6rem;
+        }
+        .pd-remate .grande {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
+          color: var(--pd-gold); margin: 2rem 0 1.5rem;
+        }
+        .pd-remate .pd-preparacion {
+          font-size: clamp(0.95rem, 1.9vw, 1.12rem); line-height: 1.5;
+          color: var(--pd-muted); margin: 0 0 1.8rem;
+        }
+        .pd-remate .pd-cierre-linea {
+          margin: 0 auto 0.5rem; text-align: center; max-width: 42ch;
+        }
+        .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
+        /* La marca del remate se OCULTA en escritorio: el HUD ya la lleva arriba a
+           la izquierda y salía dos veces en la misma pantalla. En el teléfono el HUD
+           la esconde, así que allá esta es la única y sí se muestra. */
+        .pd-remate .marca {
+          display: none;
+          font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.3em;
+          color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
+        }
+
+        /* ── 7 · Producto ────────────────────────────────────────────────── */
+        .pd-foto {
+          position: absolute; inset: 0; background-size: cover; background-position: center;
+          opacity: 0.3;
+        }
+        .pd-producto { display: grid; grid-template-columns: 1.05fr 0.95fr;
+          gap: clamp(24px, 5vw, 56px); align-items: center; position: relative; z-index: 2; }
+        .pd-ficha { border: 1px solid rgba(255,255,255,0.1); background: rgba(15,17,21,0.82);
+          padding: 1.4rem 1.5rem; }
+        .pd-ficha .titulo {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.24em;
+          color: var(--pd-gold); text-transform: uppercase; padding-bottom: 0.9rem;
+          border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.9rem;
+        }
+        .pd-fila { display: flex; justify-content: space-between; align-items: baseline;
+          padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .pd-fila .k { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.16em;
+          color: var(--pd-muted); text-transform: uppercase; }
+        .pd-fila .v { font-family: var(--font-mono); font-size: 1.05rem; color: var(--pd-text); }
+        .pd-ficha .pie { font-size: 0.78rem; color: var(--pd-muted); line-height: 1.55; margin: 0.9rem 0 0; }
+        .pd-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 1.6rem; }
+        .pd-cats-lead { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
+          color: var(--pd-muted); text-transform: uppercase; margin: 1.6rem 0 0; }
+        .pd-cats-lead + .pd-cats { margin-top: 0.7rem; }
+        .pd-cat { position: relative; aspect-ratio: 1 / 1; background-size: cover;
+          background-position: center; border: 1px solid rgba(255,255,255,0.08);
+          padding: 0; cursor: zoom-in; transition: border-color 0.25s, transform 0.25s;
+          display: block; width: 100%; }
+        .pd-cat:hover { border-color: rgba(197,160,89,0.55); transform: translateY(-2px); }
+        .pd-cat span {
+          position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 4px;
+          background: linear-gradient(transparent, rgba(15,17,21,0.92));
+          font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em;
+          text-align: center; color: var(--pd-text); text-transform: uppercase;
+        }
+        .pd-link {
+          margin-top: 1.4rem; background: transparent; border: none; padding: 0;
+          color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
+          letter-spacing: 0.18em; cursor: pointer; border-bottom: 1px solid rgba(197,160,89,0.4);
+        }
+        .pd-link:hover { border-bottom-color: var(--pd-gold); }
+
+        /* ── 4 · El dolor, en cifras ────────────────────────────────────── */
+        .pd-cifras-lista { display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: clamp(16px, 3vw, 32px); margin-top: 0.4rem; }
+        .pd-cifra { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 1.1rem; }
+        .pd-cifra .n { font-family: var(--font-sans); font-weight: 700; color: #FFFFFF;
+          font-size: clamp(1.5rem, 3.2vw, 2.3rem); line-height: 1.1; margin: 0 0 0.6rem; }
+        .pd-cifra .t { font-size: clamp(0.95rem, 1.6vw, 1.08rem); line-height: 1.5;
+          color: var(--color-text-body, #C8C7C2); margin: 0 0 0.8rem; }
+        /* La pregunta del cierre: en computador partía en «…SALIR DEL / CICLO?» y
+           dejaba huérfana la palabra que la amarra al credo. */
+        .pd-cifras .pd-bisagra { text-wrap: balance; }
+        .pd-cifra .f { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
+          color: var(--pd-muted); text-transform: uppercase; margin: 0; }
+
+        /* ── 9 · Cómo se gana ─────────────────────────────────────────────────── */
+        .pd-paneles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 32px); }
+        .panel { border: 1px solid rgba(255,255,255,0.1); background: var(--pd-elev);
+          padding: 1.4rem 1.4rem 1.6rem; cursor: default; }
+        .panel h3 {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+          color: var(--pd-muted); text-transform: uppercase; text-align: center;
+          margin: 0 0 1.2rem;
+        }
+        .pd-numeros-top { display: flex; justify-content: space-between; align-items: center;
+          gap: 1rem; margin-bottom: 1.1rem; }
+        .pd-numeros-top .pd-eyebrow { margin: 0; }
+        .pd-moneda { display: flex; gap: 1px; background: rgba(255,255,255,0.08); }
+        .pd-moneda button { background: var(--pd-bg); border: none; color: var(--pd-muted);
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.14em;
+          padding: 6px 11px; cursor: pointer; }
+        .pd-moneda button.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-numeros .pd-h2 { font-size: clamp(1.25rem, 2.6vw, 1.9rem); margin-bottom: 0.5rem; }
+        .pd-numeros-lead { margin-bottom: 1.5rem; }
+        .pd-gens { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+          background: rgba(255,255,255,0.08); margin: 1rem 0 1.1rem; }
+        .pd-gen { background: var(--pd-bg); padding: 7px 2px; text-align: center; }
+        .pd-gen .k { display: block; font-family: var(--font-mono); font-size: 0.5rem;
+          letter-spacing: 0.12em; color: var(--pd-muted); text-transform: uppercase; }
+        .pd-gen .v { display: block; font-family: var(--font-mono); font-size: 0.6rem;
+          color: var(--pd-text); margin-top: 3px; white-space: nowrap; }
+        .pd-pkg b { display: block; font-weight: 400; margin-top: 3px; font-size: 0.62rem; }
+        /* LA FORMA NO CAMBIA AL ELEGIR PORCENTAJE (Director, 26 sep 2026). La línea
+           de vigencia existía solo con el 15, 16 y 17%: al pasar del Kit a otro, el
+           panel crecía, la fila de paneles con él, y se reacomodaba la pantalla
+           entera. Ahora las cuatro variantes ocupan la MISMA celda de una rejilla y
+           solo se ve la elegida: la celda mide lo que la más larga, siempre. */
+        .pd-tarifa-notas .pd-vigencias { display: grid; margin-top: 0.6rem; }
+        .pd-tarifa-notas .pd-vigencias > p { grid-area: 1 / 1; visibility: hidden; }
+        .pd-tarifa-notas .pd-vigencias > p.on { visibility: visible; }
+        .pd-nota { text-align: center; font-size: 0.72rem; color: var(--pd-muted); margin: 1.4rem 0 0; }
+        .pd-display { font-family: var(--font-mono); font-size: clamp(1.6rem, 4.6vw, 2.5rem);
+          color: var(--pd-gold); text-align: center; letter-spacing: -0.02em; line-height: 1.1; }
+        .pd-display .u { font-size: 0.42em; color: var(--pd-muted); letter-spacing: 0.1em; }
+        .pd-sub { font-family: var(--font-mono); font-size: 0.72rem; color: var(--pd-muted);
+          text-align: center; margin: 0.4rem 0 1.3rem; }
+        .pd-pkgs { display: flex; gap: 1px; background: rgba(255,255,255,0.08); margin-bottom: 1.1rem; }
+        .pd-pkg { flex: 1; background: var(--pd-bg); border: none; color: var(--pd-muted);
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+          padding: 9px 4px; cursor: pointer; text-transform: uppercase; }
+        .pd-pkg.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-label { display: block; font-family: var(--font-mono); font-size: 0.58rem;
+          letter-spacing: 0.14em; color: var(--pd-muted); text-transform: uppercase;
+          margin-bottom: 0.7rem; }
+        .pd-label b { color: var(--pd-gold); font-weight: 400; margin-left: 6px; }
+        /* El margen inferior deja pasar el thumb grande del último nivel (50px):
+           con 1rem, la bola se montaba encima del texto de abajo. */
+        .pd-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 2px;
+          background: rgba(255,255,255,0.14); outline: none; margin: 0.9rem 0 2.6rem; }
+        .pd-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+          width: var(--thumb, 22px); height: var(--thumb, 22px); border-radius: 50%;
+          background: var(--pd-gold); cursor: pointer; }
+        .pd-slider::-moz-range-thumb { width: var(--thumb, 22px); height: var(--thumb, 22px);
+          border-radius: 50%; background: var(--pd-gold); border: none; cursor: pointer; }
+        .pd-insight { font-size: 0.78rem; line-height: 1.55; color: var(--pd-muted); margin: 0; }
+        /* Los 12 niveles son CÍRCULOS, como en el deck de /12-niveles donde nacieron
+           (Director, 2 oct 2026): van sincronizados con el deslizador, y a medida que
+           se avanza se ve en qué nivel va y cuántos quedaron atrás. */
+        .pd-niveles { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 1.1rem; }
+        .pd-nivel { width: 28px; height: 28px; border-radius: 50%; padding: 0;
+          display: flex; align-items: center; justify-content: center;
+          border: 1px solid rgba(255,255,255,0.14);
+          background: transparent; color: var(--pd-muted); font-family: var(--font-mono);
+          font-size: 0.6rem; cursor: pointer; transition: all 0.2s; }
+        .pd-nivel.done { border-color: rgba(197,160,89,0.4); color: var(--pd-gold);
+          background: rgba(197,160,89,0.06); }
+        .pd-nivel.active { border-color: var(--pd-gold); background: var(--pd-gold); color: #0F1115;
+          box-shadow: 0 0 12px rgba(197,160,89,0.45); }
+
+        /* ── 10 · El siguiente paso ───────────────────────────────────────── */
+        /* El credo con la misma letra de la pantalla 1: se tiene que VER que el deck
+           cierra donde abrió. Ver el aviso de Playfair en «1 · El credo». */
+        .pd-final-credo {
+          font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
+          font-size: clamp(1.4rem, 3.4vw, 2.5rem); line-height: 1.3;
+          margin: 0 0 1.4rem; color: #FFFFFF; max-width: 26ch;
+        }
+        .pd-final .pd-bisagra { margin: 1.8rem 0 0; text-wrap: balance; }
+        .pd-final .pd-p { text-wrap: pretty; }
+
+        /* ── Modal catálogo ──────────────────────────────────────────────── */
+        .pd-overlay { position: fixed; inset: 0; background: rgba(5,6,8,0.94); z-index: 200;
+          display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .pd-modal { position: relative; max-width: min(92vw, 900px); max-height: 88vh; }
+        .pd-modal img { width: 100%; height: auto; max-height: 88vh; object-fit: contain; display: block; }
+        .pd-close { position: absolute; top: -40px; right: 0; background: transparent;
+          border: none; color: var(--pd-muted); font-size: 1.7rem; cursor: pointer; line-height: 1; }
+
+        /* ── Móvil ───────────────────────────────────────────────────────── */
+        @media (max-width: 860px) {
+          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
+          /* La pieza manda en el teléfono: es lo único que se mira mientras el
+             socio narra. Subida de 64vw a 80vw el 10 oct 2026 (Director: se veía
+             más pequeña que en la servilleta, donde el clip llena la card). */
+          .pd-pieza .pd-figura { width: min(80vw, 400px); margin: 0 auto; }
+          .pd-tres { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+          .pd-tres .cap { font-size: 0.48rem; letter-spacing: 0.1em; }
+          /* Dos por dos, no cuatro en fila: a 83px no se distingue un producto de
+             otro, y esta es la pantalla donde el producto se mira. Cada una abre
+             en grande al tocarla. */
+          .pd-cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+          .pd-slide { padding: 68px 20px 48px; }
+          .pd-beat { padding: 68px 20px 48px; }
+
+          /* LOS NÚMEROS CABEN ENTEROS EN EL TELÉFONO (24 sep 2026). Desbordaban
+             114px y el segundo simulador quedaba debajo del borde: quien presenta
+             no se entera de que hay algo más abajo, y el prospecto tampoco. Se
+             aprieta lo que no es la cifra; la cifra no se toca. */
+          .pd-numeros .panel { padding: 1rem 1.1rem 1.2rem; }
+          .pd-numeros .panel h3 { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-pkgs,
+          .pd-numeros .pd-niveles { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-sub { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-slider { margin: 0.7rem 0 1.9rem; }
+          .pd-numeros .pd-insight { font-size: 0.74rem; }
+          .pd-numeros { padding-bottom: 28px; }
+          .pd-cifras-lista { grid-template-columns: 1fr; gap: 1rem; }
+          .pd-cifra { padding-top: 0.8rem; }
+          .pd-cifra .n { margin-bottom: 0.35rem; }
+          .pd-cifra .t { margin-bottom: 0.45rem; }
+          /* LOS 12 CÍRCULOS VUELVEN AL TELÉFONO (Director, 2 oct 2026). El 26 sep se
+             ocultaron para que la pantalla cupiera —el deslizador elige el mismo nivel
+             y su rótulo lo dice—, pero lo que hace creíble el crecimiento es ver en
+             qué nivel va, y el rótulo solo no lo muestra. Van en UNA fila de doce que
+             se reparte el ancho: medido el 2 oct, en 375×667 sobraban 89 px y la fila
+             ocupa unos 36; en 390×844 sobraban 182. */
+          .pd-numeros .pd-niveles { display: grid; grid-template-columns: repeat(12, 1fr);
+            gap: 3px; margin-bottom: 0.8rem; }
+          .pd-numeros .pd-nivel { width: 100%; height: auto; aspect-ratio: 1; max-width: 26px;
+            justify-self: center; font-size: 0.55rem; }
+          .pd-numeros-top { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-h2 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+          .pd-numeros-lead { font-size: 0.9rem; margin-bottom: 0.9rem; }
+          .pd-numeros .pd-nota { margin-top: 0.8rem; }
+          .pd-final-credo { font-size: clamp(1.2rem, 5.2vw, 1.8rem); }
+          /* En el teléfono el panel de paquetes se queda con su título y su rótulo,
+             que ya dicen qué cuenta. Y cuando se elige un porcentaje temporal, su
+             vigencia REEMPLAZA a la línea general en vez de sumarse: es la línea que
+             no puede quedar debajo del borde. */
+          .pd-numeros .panel--gen5 .pd-insight { display: none; }
+          .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 1.2rem; }
+          /* En el teléfono la línea general y las tres de vigencia comparten UNA
+             celda: la vigencia la reemplaza, y la celda mide lo que la más larga. */
+          .pd-numeros .pd-tarifa-notas { display: grid; }
+          .pd-numeros .pd-tarifa-notas > * { grid-area: 1 / 1; }
+          .pd-numeros .pd-tarifa-notas .pd-vigencias { margin-top: 0; }
+          .pd-numeros .pd-tarifa-notas.temporal .pd-tarifa-general { visibility: hidden; }
+          /* La tira de las cinco generaciones sumó ~45px (26 sep 2026): se recuperan
+             en márgenes y en el conteo de distribuidores, que cabe en una línea. */
+          .pd-numeros .panel h3 { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-gens { margin: 0.7rem 0 0.8rem; }
+          .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 0.8rem; }
+          .pd-numeros .pd-sub { font-size: 0.64rem; margin-bottom: 0.8rem; }
+          .pd-numeros-top { margin-bottom: 0.5rem; }
+          .pd-numeros-lead { margin-bottom: 0.6rem; }
+          .pd-numeros .pd-nota { margin-top: 0.5rem; }
+          .pd-numeros .panel { padding-bottom: 0.9rem; }
+
+          /* ANCLAJE DE DESPLAZAMIENTO — el patrón de la servilleta para las
+             pantallas que no caben en un teléfono. En «el producto» no caben a la
+             vez la historia (título, párrafo, las cuatro líneas, el portafolio) y
+             la ficha del Ganoderma: son 985px contra 728 útiles. Sin anclaje la
+             ficha queda debajo del borde y quien presenta ni se entera de que está.
+             Con él, un deslizamiento la trae entera.
+             ⚠️ proximity y NO mandatory: en la servilleta el obligatorio peleaba
+             con el gesto horizontal. El guard de eje del swipe (|dx| > |dy| * 1.2)
+             ya impide que bajar cambie de pantalla. */
+          /* ⚠️ scroll-padding-top = el margen superior de la pantalla (26 sep 2026).
+             Sin él, el anclaje alineaba la primera columna con el borde de arriba:
+             la pantalla se desplazaba justo esos 68px al abrir y el rótulo
+             quedaba debajo de la barra de puntos. */
+          .pd-slide { scroll-snap-type: y proximity; scroll-padding-top: 68px; }
+          .pd-producto > * { scroll-snap-align: start; }
+          .pd-numeros .panel { scroll-snap-align: start; }
+          /* En un teléfono la marca y los puntos se montaban encima del botón.
+             La marca ya está en la pantalla 1 y en el remate: aquí sobra. */
+          .pd-brand { display: none; }
+          .pd-remate .marca { display: block; }
+          .pd-fs-largo { display: none; }
+          .pd-fs-corto { display: inline; }
+        }
+
+        /* PANTALLAS CORTAS (teléfonos de 640px de alto, y cualquiera en apaisado).
+           No es un ancho distinto: es un ALTO distinto, y por eso va por max-height
+           y no por max-width. Se aprieta el aire — titulares y cuerpo bajan un
+           punto; las cifras no se tocan.
+           El caso que lo obligó: la pantalla 4 se pasaba 77px en un teléfono de
+           640, y es la única del deck que NO puede pedir desplazamiento — si la ley
+           (solo se multiplica lo que es sencillo) queda debajo del borde, el giro
+           del deck se pierde. */
+        @media (max-height: 700px) {
+          .pd-slide, .pd-beat { padding-top: 60px; padding-bottom: 34px; }
+          .pd-slide { scroll-padding-top: 60px; }
+          .pd-eyebrow { margin-bottom: 1rem; }
+          .pd-h2 { font-size: clamp(1.4rem, 5.6vw, 2rem); margin-bottom: 1rem; }
+          .pd-p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.8rem; }
+          .pd-vinetas { margin-bottom: 0.8rem; }
+          .pd-vinetas li { font-size: 0.95rem; line-height: 1.5; }
+          .pd-bisagra { font-size: clamp(1.3rem, 6vw, 1.9rem); margin: 1.2rem 0 0.8rem; }
+          .pd-credo .pd-credo-titulo, .pd-credo .pd-credo-linea { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
+          .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
+          .pd-pieza-label { font-size: clamp(1.15rem, 5.2vw, 1.9rem); margin-bottom: 0.8rem; }
+          /* ⚠️ Esta regla aplicaba min(48vw, 230px) a CUALQUIER pantalla de ≤700px
+             de alto — incluido un proyector a 1280×720, donde la pieza quedaba
+             diminuta. Era la causa de «los clips se ven pequeños» (Director,
+             10 oct 2026). Ahora manda la altura real: en 720p la pieza queda en
+             ~470px y en un teléfono acostado la acota el otro media query. */
+          .pd-pieza .pd-figura { width: min(42vw, calc(100vh - 250px)); }
+          .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
+          .pd-telefono { width: min(30vw, calc((100vh - 200px) * 0.52)); }
+        }
+
+        /* TELÉFONO GIRADO. Ancho de sobra y altura mínima: exactamente lo contrario
+           de lo que asume el bloque de móvil, que apila todo en una columna porque
+           supone un teléfono vertical. Aquí apilar es el error — se vuelve a dos
+           columnas y las figuras se achican, que es como se recupera el alto.
+           Pasa de verdad: el socio gira el teléfono para mostrar los números. */
+        @media (max-height: 560px) and (min-width: 600px) {
+          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
+          .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+          .pd-pieza .pd-figura { width: min(34vw, calc(100vh - 150px)); }
+          .pd-slide, .pd-beat { padding-top: 56px; padding-bottom: 26px; }
+          /* El credo son dos bloques largos y en 390px de alto no caben: se leen a
+             dos columnas, que además es la forma natural de una anáfora. */
+          .pd-credo .pd-wrap { display: grid; grid-template-columns: 1fr 1fr;
+            gap: 0 2.2rem; align-items: start; max-width: 1100px; }
+          .pd-credo .pd-eyebrow,
+          .pd-credo .pd-credo-rule,
+          .pd-credo .pd-kicker { grid-column: 1 / -1; }
+          .pd-credo .pd-credo-titulo, .pd-credo .pd-credo-linea { font-size: clamp(1.05rem, 2.4vw, 1.6rem);
+            margin-bottom: 0; max-width: none; }
+          .pd-credo-rule { margin: 1.1rem 0 0.7rem; }
+        }
+
+        /* ═══ Columna del 30 sep 2026 ══════════════════════════════════════ */
+        .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.9rem, 5vw, 3.7rem); max-width: 20ch; }
+        .pd-p--grande { font-size: clamp(1.15rem, 2.6vw, 1.6rem); max-width: 40ch; }
+        .pd-cifras-lista--tres { gap: clamp(20px, 4vw, 48px); }
+        .pd-cifras-lista--tres .pd-cifra .n { font-size: clamp(1.9rem, 4.6vw, 3.4rem); }
+        .pd-cifras-lista--tres .pd-cifra .t { font-size: clamp(1rem, 1.8vw, 1.22rem); }
+        /* El flujo de las dos acciones (10 oct 2026): tarjetas separadas con
+           flechas doradas entre ellas — el orden se lee solo — y entrada
+           escalonada cuando el beat se activa. */
+        .pd-acciones {
+          display: grid; grid-template-columns: 1fr auto 1.25fr auto 1fr;
+          gap: clamp(10px, 1.6vw, 18px); align-items: stretch;
+          margin-top: 1.2rem;
+        }
+        .pd-accion { background: var(--pd-bg); padding: 1.7rem 1.5rem;
+          border: 1px solid rgba(255,255,255,0.08);
+          display: flex; flex-direction: column; justify-content: center; }
+        /* El glifo va en ::before y cambia a ↓ en columna — NO con rotate:
+           la animacion de entrada anima transform y lo pisaria (fill both). */
+        .pd-flecha {
+          display: flex; align-items: center; justify-content: center;
+          color: var(--pd-gold); font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+          font-weight: 700;
+        }
+        .pd-flecha::before { content: '→'; }
+        @keyframes pdEntra {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: none; }
+        }
+        .pd-beat.on .pd-acciones > * { animation: pdEntra 0.45s ease-out both; }
+        .pd-beat.on .pd-acciones > :nth-child(1) { animation-delay: 0.1s; }
+        .pd-beat.on .pd-acciones > :nth-child(2) { animation-delay: 0.5s; }
+        .pd-beat.on .pd-acciones > :nth-child(3) { animation-delay: 0.75s; }
+        .pd-beat.on .pd-acciones > :nth-child(4) { animation-delay: 1.3s; }
+        .pd-beat.on .pd-acciones > :nth-child(5) { animation-delay: 1.55s; }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-beat.on .pd-acciones > *,
+          .pd-beat.on .pd-union-texto > * { animation: none; }
+        }
+        .pd-accion .k { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.26em;
+          color: var(--pd-data); }
+        .pd-accion .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.3rem, 3vw, 2rem); color: #FFFFFF; margin: 0.5rem 0 0.7rem; }
+        .pd-accion .d { font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55;
+          color: var(--color-text-body, #C8C7C2); margin: 0; }
+        .pd-accion--queswa { background: var(--pd-elev); align-items: center; text-align: center; }
+        .pd-accion--queswa .img { width: clamp(96px, 15vh, 150px); aspect-ratio: 1 / 1;
+          background-size: cover; background-position: center; object-fit: cover;
+          display: block; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 1rem; }
+        .pd-accion--queswa .d { font-size: clamp(0.9rem, 1.5vw, 1rem); color: var(--pd-muted); }
+        .pd-pregunta { text-align: center; max-width: 920px; }
+        .pd-pregunta .pd-bisagra { font-size: clamp(1.9rem, 5.2vw, 3.6rem); margin: 0; text-wrap: balance; }
+        .pd-paneles--uno { grid-template-columns: minmax(0, 560px); justify-content: center; }
+        .pd-credenciales { text-align: center; font-family: var(--font-mono); font-size: 0.6rem;
+          letter-spacing: 0.2em; color: var(--pd-muted); text-transform: uppercase; margin: 0.5rem 0 0; }
+        .pd-socio { display: inline-block; text-decoration: none; margin-top: 1.8rem; }
+        .pd-nombre {
+          font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
+          background: none; border: none; padding: 0; cursor: text;
+          border-bottom: 2px dotted rgba(197,160,89,0.45);
+        }
+        .pd-nombre-input {
+          font: inherit; letter-spacing: inherit; text-transform: uppercase;
+          color: var(--pd-gold); background: transparent; border: none; outline: none;
+          border-bottom: 2px solid var(--pd-gold); padding: 0; min-width: 4ch;
+        }
+        .pd-nombre-input::placeholder { color: rgba(197,160,89,0.35); }
+        @media (max-width: 860px) {
+          .pd-cifras-lista--tres { grid-template-columns: 1fr; gap: 1.2rem; }
+          .pd-acciones { grid-template-columns: 1fr; gap: 8px; }
+          .pd-accion { padding: 1rem 1.1rem; }
+          /* En columna el flujo baja. */
+          .pd-flecha { font-size: 1.2rem; line-height: 1; }
+          .pd-flecha::before { content: '↓'; }
+          .pd-accion--queswa .img { width: 76px; margin-bottom: 0.6rem; }
+        }
+
+        /* ═══ Oportunidad, dos sectores y propuesta (30 sep 2026) ═══════════ */
+        .pd-h2--media { font-size: clamp(1.45rem, 3.6vw, 2.5rem); max-width: 30ch; }
+        .pd-pares { list-style: none; padding: 0; margin: 2rem 0 0; max-width: 720px;
+          border-top: 1px solid rgba(255,255,255,0.1); }
+        .pd-pares li { display: grid; grid-template-columns: minmax(0, 15rem) 2.6rem 1fr; align-items: baseline;
+          padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .pd-pares .de { font-size: clamp(1.05rem, 2.4vw, 1.5rem); color: var(--pd-muted); white-space: nowrap; }
+        .pd-pares .fl { color: var(--pd-gold); text-align: center; font-size: clamp(1rem, 2.2vw, 1.4rem); }
+        .pd-pares .a { font-weight: 700; font-size: clamp(1.15rem, 2.8vw, 1.8rem); color: #FFFFFF; }
+        .pd-sectores { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 2rem;
+          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
+        .pd-sector { background: var(--pd-bg); padding: clamp(1.4rem, 3vw, 2.4rem); }
+        .pd-sector .k { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.26em;
+          color: var(--pd-data); }
+        .pd-sector .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.35rem, 3.2vw, 2.3rem); line-height: 1.12; color: #FFFFFF;
+          margin: 0.7rem 0 0; }
+        .pd-propuesta { font-family: var(--font-sans); font-weight: 700;
+          font-size: clamp(1.35rem, 3.4vw, 2.3rem); line-height: 1.25; color: #FFFFFF;
+          margin: 0 auto; max-width: 28ch; text-wrap: balance; }
+        .pd-remate .pd-bisagra { text-align: center; }
+        @media (max-width: 860px) {
+          .pd-sectores { grid-template-columns: 1fr; }
+          .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
+          /* Las cuatro palabras van sin corte; en el teléfono la letra baja para que
+             quepan en el ancho y no abran un desplazamiento lateral. */
+          .pd-propuesta { font-size: min(1.2rem, 5.1vw); }
         }
       ` }} />
 
-      <div className={`industrial-theme${isKiosk ? ' kiosk' : ''}${leyendoGuia ? ' leyendo-guia' : ''}`}>
-
-        {/* TOP HUD - Desktop */}
-        <nav className="top-hud" style={queswaOpen ? { display: 'none' } : undefined}>
-          <button className="btn-fullscreen btn-fullscreen-mobile" onClick={toggleFullscreen} title="Pantalla completa (F)">
-            <span className="material-symbols-sharp">
-              {isFullscreen ? 'fullscreen_exit' : 'fullscreen'}
-            </span>
-          </button>
-          <div className="brand">
-            <span>CreaTuActivo</span>
-          </div>
-          <div className="nav-controls">
-            {[
-              { id: 1, label: '01 EL PROBLEMA' },
-              { id: 2, label: '02 LAS TRES COSAS' },
-              { id: 3, label: '03 EL PRODUCTO' },
-              { id: 4, label: '04 LOS N\u00daMEROS' },
-            ].map((s) => (
-              <button
-                key={s.id}
-                className={`nav-btn ${activeSlide === s.id ? 'active' : ''}`}
-                onClick={() => showSlide(s.id)}
-              >
-                {s.label}
-              </button>
-            ))}
-            {!isKiosk && (
-              <button className="btn-fullscreen" onClick={() => setVerticalMode(true)} title="Modo vertical (para Meet)" aria-label="Modo vertical">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="7" y="2.5" width="10" height="19" rx="2" />
-                  <line x1="10.5" y1="18.5" x2="13.5" y2="18.5" />
-                </svg>
-              </button>
-            )}
-            <button className="btn-fullscreen" onClick={toggleFullscreen} title="Pantalla completa (F)">
-              <span className="material-symbols-sharp">
-                {isFullscreen ? 'fullscreen_exit' : 'fullscreen'}
-              </span>
+      <div
+        className="pd-root"
+        ref={deckRef}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={(e) => evaluarSwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}
+        onTouchCancel={() => evaluarSwipe(touchLastX.current, touchLastY.current)}
+      >
+        {/* ── HUD ─────────────────────────────────────────────────────── */}
+        <div className="pd-hud">
+          <span className="pd-brand">CreaTuActivo.com</span>
+          <div className="pd-hud-right">
+            <div className="pd-dots">
+              {Array.from({ length: TOTAL_SLIDES }, (_, i) => i + 1).map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  className={`pd-dot ${n === slide ? 'active' : ''} ${n < slide ? 'done' : ''}`}
+                  onClick={() => irA(n)}
+                  aria-label={`Ir a la pantalla ${n}`}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="pd-fs"
+              onClick={toggleFullscreen}
+              aria-label={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
+            >
+              <span className="pd-fs-largo">{isFullscreen ? 'SALIR' : 'PANTALLA COMPLETA'}</span>
+              <span className="pd-fs-corto">{isFullscreen ? '✕' : '⛶'}</span>
             </button>
           </div>
-        </nav>
-
-        {/* MOBILE BOTTOM NAV */}
-        <div className="mobile-nav" style={queswaOpen ? { display: 'none' } : undefined}>
-          <div className="mobile-nav-inner">
-            {[
-              { id: 1, label: 'El Problema' },
-              { id: 2, label: 'Las Tres Cosas' },
-              { id: 3, label: 'El Producto' },
-              { id: 4, label: 'Los N\u00fameros' },
-            ].map((s) => (
-              <button
-                key={s.id}
-                className={`mobile-nav-btn ${activeSlide === s.id ? 'active' : ''}`}
-                onClick={() => showSlide(s.id)}
-              >
-                <span className="nav-label">{s.label}</span>
-              </button>
-            ))}
-          </div>
         </div>
 
-        {/* Slide counter (desktop) */}
-        <div className="slide-counter">{activeSlide} / {TOTAL_SLIDES}</div>
+        {/* ── 1 · EN QUÉ CREEMOS (primera mitad) ─────────────────────── */}
+        <section className={`pd-slide pd-credo pd-credo--solo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">En qué creemos</p>
+            {/* h2 y no h1: el único h1 de la página es el de la guía de abajo
+                (GuiaPlanServilleta.tsx) — dos h1 rompen SEO y accesibilidad. */}
+            <h2 className="pd-credo-titulo">
+              Creemos que nadie debería entregar su vida entera al ciclo de trabajar,
+              pagar cuentas y repetir.
+            </h2>
+            <div className="pd-credo-rule" />
+            <p className="pd-kicker">CreaTuActivo · Presentación</p>
+          </div>
+        </section>
 
-        {/* MAIN DECK */}
-        <div
-          ref={deckRef}
-          className="deck-container"
-          onClick={handleSlideClick}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={handleTouchCancel}
-        >
+        {/* ── 2 · LA OPORTUNIDAD ──────────────────────────────────────── */}
+        {/* Palabras del Director (30 sep 2026). Los pares van como lista: la lista
+            es la imagen, y el patrón se entiende sin explicarlo. */}
+        <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">La oportunidad</p>
+            <h2 className="pd-h2 pd-h2--media">
+              Hay una oportunidad enorme en modernizar industrias que están frente a
+              nuestros ojos.
+            </h2>
+            <ul className="pd-pares">
+              {PARES_MODERNIZACION.map(([de, a]) => (
+                <li key={a}>
+                  <span className="de">{de}</span>
+                  <span className="fl">→</span>
+                  <span className="a">{a}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
-          {/* ===== SLIDE 1: ¿QUÉ ES UNA EMPRESA DIGITAL? (card-scroller, clips Gemini Dan Koe) ===== */}
-          <section
-            id="slide-1"
-            className={`slide ${activeSlide === 1 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
-          >
-            <div className="grid-layout-slide-2">
-              {/* Header: en grid (preview) = H1+subtítulo como título de sección;
-                  en one-card (presentación) = solo contador + dots sobre los clips
-                  (la portada índice 0 lleva el H1 full-screen). */}
-              {!oneCardMode && (
-                <div className="slide-2-header">
-                  <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 8 }}>
-                    TRABAJAR, PAGAR CUENTAS Y REPETIR
-                  </h2>
-                  <p className="deck-p" style={{ fontSize: '0.95rem', maxWidth: 540, margin: '0 auto', textAlign: 'center' }}>
-                    Usted trabaja el mes entero. Al d&iacute;a siguiente, ese dinero ya tiene due&ntilde;o.
-                  </p>
-                  <div style={{ textAlign: 'center', marginTop: 12 }}>
+        {/* ── 3 · DOS SECTORES ────────────────────────────────────────── */}
+        {/* «Network marketing» va ESCRITO (Director, 30 sep 2026): dentro de la ola
+            de modernización se lee como oportunidad, y resolvió el «ah, es como
+            Herbalife». ⚠️ Solo el nombre: cómo se hace hoy lo cuenta el socio en
+            vivo. Describirlo aquí sería un juicio sin voz sobre el método de otros. */}
+        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">Dónde la vemos</p>
+            <h2 className="pd-h2 pd-h2--media">Nosotros vemos esa oportunidad en dos sectores:</h2>
+            <div className="pd-sectores">
+              <div className="pd-sector">
+                <span className="k">01</span>
+                <p className="t">La industria del network marketing</p>
+              </div>
+              <div className="pd-sector">
+                <span className="k">02</span>
+                <p className="t">El sector laboral</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 4 · EL DOLOR, EN CIFRAS ─────────────────────────────────── */}
+        {/* El beat de «dos caminos para ganar» se ELIMINÓ el 9 oct 2026 (Director):
+            la pantalla 3 ya aplica la regla — el contexto lo da el socio en vivo, y
+            una pieza no concede. Las analogías (la fila del banco → Nequi, el taxi →
+            Uber) tampoco se escriben: la paleta del orador es la pantalla 2, y él
+            aplica la que le sirva a su público. El ciclo ya abrió el deck (credo).
+            El remate de los veinte lo cubre la cifra del DANE: 9 de cada 10 incluye
+            al que gana bien (solo el 7,7 % dice que le sobra). */}
+        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap pd-cifras" style={{ maxWidth: 940 }}>
+            {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
+            <p className="pd-eyebrow">El dolor, en cifras</p>
+            <div className="pd-cifras-lista pd-cifras-lista--tres">
+              {CIFRAS_PROBLEMA.map((c) => (
+                <div className="pd-cifra" key={c.n}>
+                  <p className="n">{c.n}</p>
+                  <p className="t">{c.texto}</p>
+                  <p className="f">{c.fuente}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5 · LAS TRES PIEZAS (oscilación) ────────────────────────── */}
+        <section className={`pd-slide ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+          {/* Beat 0: la propuesta, en palabras del Director (30 sep 2026). «Le vamos
+              a dar» pasó a «le damos»: se afirma, no se anuncia. La primera línea es
+              la frase aprobada del 26 sep, que se quedó sin pantalla. */}
+          <div className={`pd-beat ${slide === 5 && beat === 0 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La propuesta</p>
+              <p className="pd-preparacion">
+                Hoy, la mayoría de las personas siente que tiene que hacer algo.
+              </p>
+              <p className="pd-propuesta">
+                Le damos la oportunidad de montar una{' '}
+                <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>{' '}
+                a su nombre, similar a Uber, Rappi o Nequi.
+              </p>
+              <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>Se requieren tres elementos:</p>
+            </div>
+          </div>
+
+          {/* Beats 1-3: cada pieza a solas y grande */}
+          {[0, 1, 2].map((i) => (
+            <div key={i} className={`pd-beat ${slide === 5 && beat === i + 1 ? 'on' : ''}`}>
+              <div className="pd-pieza">
+                {/* La pieza VIVE (10 oct 2026): loop cuadrado, mudo, con la imagen
+                    de siempre como poster. El efecto de media de abajo reproduce
+                    solo el beat activo y rebobina al salir — el patrón de la
+                    servilleta. El tap sobre el video sigue AVANZANDO, como en todo
+                    el deck: la pausa por tap de la servilleta existe para clips
+                    con audio y narrativa propia; un loop mudo no la necesita. */}
+                <video
+                  className="pd-figura"
+                  data-beat={`5-${i + 1}`}
+                  src={PIEZAS[i].video}
+                  poster={PIEZAS[i].img}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                />
+                <div>
+                  <p className="pd-eyebrow">Cómo funciona · {i + 1} de 3</p>
+                  <p className="pd-pieza-label">{PIEZAS[i].label}</p>
+                  <p className="pd-p">{PIEZAS[i].sub}</p>
+                  {PIEZAS[i].extra && <p className="pd-p pd-gold">{PIEZAS[i].extra}</p>}
+                  {/* Los hechos verificables viven aquí y no en la pantalla 4 (Director,
+                      24 sep 2026): es la pieza que los reclama. Van como ESTATUS —hay
+                      una empresa grande detrás—, nunca como alegato: nadie escoge al
+                      niño impopular porque le muestren el boletín de notas. */}
+                  {i === 1 && (
                     <button
                       type="button"
-                      className="ver-video-link"
-                      onClick={(e) => { e.stopPropagation(); setVideoModalOpen(true); }}
+                      className="pd-demo"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.dispatchEvent(new CustomEvent('open-queswa'));
+                      }}
                     >
-                      <span aria-hidden="true">▶</span> Ver video
+                      PREGÚNTELE ALGO AHORA →
                     </button>
-                  </div>
-                </div>
-              )}
-              {oneCardMode && activeCardIndex >= 1 && (
-                <div className="slide-2-header">
-                  <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{activeCardIndex} / 0{maxCardIndex}
-                  </span>
-                  <div className="card-dots">
-                    {Array.from({ length: maxCardIndex }, (_, k) => k + 1).map((i) => (
-                      <button
-                        key={i}
-                        className={`card-dot ${activeCardIndex === i ? 'active' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Gráfica ${i} de 3`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Portada (índice 0): H1 + subtítulo centrados, pantalla completa.
-                  Solo one-card (en grid el H1 vive en el header). */}
-              {oneCardMode && activeCardIndex === 0 && (
-                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
-                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    TRABAJAR, PAGAR CUENTAS Y REPETIR
-                  </h2>
-                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    Usted trabaja el mes entero. Al d&iacute;a siguiente, ese dinero ya tiene due&ntilde;o.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={(e) => { e.stopPropagation(); setVideoModalOpen(true); }}
-                    className="ver-video-link"
-                    style={{ marginTop: 22 }}
-                  >
-                    <span aria-hidden="true">▶</span> Ver video
-                  </button>
-                </div>
-              )}
-
-              {/* Concepto 1: La empresa de toda la vida (depende de usted) */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-tradicional')}>
-                <video className="card-bg" data-slide="1" data-card="1" src="/videos/servilleta/problema-llega.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s1-empresa-tradicional')}
-                <div className="card-content">
-                  <h3 className="pillar-name">La plata llega</h3>
-                </div>
-              </div>
-
-              {/* Concepto 2: El puente (Amazon/MercadoLibre — una empresa digital) */}
-              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-empresa-digital')}>
-                <video className="card-bg" data-slide="1" data-card="2" src="/videos/servilleta/problema-reparte.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s1-empresa-digital')}
-                <div className="card-content">
-                  <h3 className="pillar-name">Ya tiene due&ntilde;o</h3>
-                </div>
-              </div>
-
-              {/* Concepto 3 (full-width): sonrisaslindas.app (imagine el suyo) */}
-              <div className={`card-industrial full-width ${activeCardIndex === 3 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's1-sonrisaslindas')}>
-                <video className="card-bg" data-slide="1" data-card="3" src="/videos/servilleta/problema-repite.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s1-sonrisaslindas')}
-                <div className="card-content">
-                  <h3 className="pillar-name">Y vuelve a empezar</h3>
-                </div>
-              </div>
-
-              {/* CTA — solo en grid (preview). En one-card/presentación se avanza
-                  con click/swipe/flecha, y el botón encogía el clip sonrisas. */}
-              {!oneCardMode && (
-                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
-                  <button className="btn-next" onClick={() => showSlide(2)}>
-                    C&oacute;mo lo hacemos →
-                  </button>
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* ===== SLIDE 2: LO DIFÍCIL YA ESTÁ HECHO — primeros principios (clips 3D) =====
-              Tres condiciones ya resueltas: alguien fabrica (Gano, socio logístico y
-              financiero) · una plataforma atiende a las personas (Queswa, socio digital) ·
-              usted sabe qué hacer (Método). Gano se USA, no se entra. NUNCA "pilares" ni
-              "fuerzas". Guión servilleta v5.8. */}
-          <section
-            id="slide-2"
-            className={`slide ${activeSlide === 2 ? 'active' : ''} ${oneCardMode ? 'one-card-mode' : ''}`}
-          >
-            <div className="grid-layout-slide-2">
-              {/* Header: en grid (preview) = H1+subtítulo como título de sección;
-                  en one-card (presentación) = solo contador + dots sobre los clips
-                  (el H1 vive en la portada índice 0) — pedido Director 2 jul 2026. */}
-              {!oneCardMode && (
-                <div className="slide-2-header">
-                  <h2 className="deck-h2" style={{ fontSize: '2rem', marginBottom: 4 }}>
-                    LO DIF&Iacute;CIL YA EST&Aacute; HECHO
-                  </h2>
-                  <span className="slide-2-subtitle">
-                    Tres cosas hacen falta para distribuir en serio. Las tres ya est&aacute;n resueltas.
-                  </span>
-                </div>
-              )}
-              {oneCardMode && activeCardIndex >= 1 && (
-                <div className="slide-2-header">
-                  <span className="slide-2-subtitle" style={{ display: 'block', marginTop: 10 }}>
-                    0{dotIndex} / 0{dotCount}
-                  </span>
-                  <div className="card-dots">
-                    {Array.from({ length: dotCount }, (_, k) => k + 1).map((i) => (
-                      <button
-                        key={i}
-                        className={`card-dot ${dotIndex === i ? 'active' : ''}`}
-                        onClick={(e) => { e.stopPropagation(); setActiveCardIndex(i); }}
-                        aria-label={`Parte ${i} de ${dotCount}`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Portada (índice 0): H1 + subtítulo centrados, espejo de la portada del
-                  slide 1. Solo one-card (en grid el H1 vive en el header). */}
-              {oneCardMode && activeCardIndex === 0 && (
-                <div style={{ gridColumn: '1 / -1', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#0F1115', padding: '2rem' }}>
-                  <h2 className="deck-h2" style={{ fontSize: 'clamp(1.9rem, 7vw, 3.6rem)', lineHeight: 1.05, marginBottom: 18 }}>
-                    LO DIF&Iacute;CIL YA EST&Aacute; HECHO
-                  </h2>
-                  <p className="deck-p" style={{ fontSize: 'clamp(0.98rem, 3.6vw, 1.35rem)', maxWidth: 620, lineHeight: 1.5 }}>
-                    Tres cosas hacen falta para distribuir en serio. Las tres ya est&aacute;n resueltas.
-                  </p>
-                </div>
-              )}
-
-              {/* Lo primero · alguien fabrica → Gano Excel, socio logístico y financiero */}
-              <div className={`card-industrial ${activeCardIndex === 1 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-respaldo')}>
-                <video className="card-bg" data-slide="2" data-card="1" src="/videos/servilleta/respaldo.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s2-respaldo')}
-                <div className="card-content">
-                  <span className="pillar-eyebrow">Fabrica y despacha</span>
-                  <h3 className="pillar-name">Gano Excel</h3>
-                </div>
-              </div>
-
-              {/* Lo segundo · una plataforma atiende a las personas → Queswa, socio digital */}
-              <div className={`card-industrial ${activeCardIndex === 2 ? 'card-active' : ''}`} onClick={(e) => handleClipTap(e, 's2-queswa')}>
-                <video className="card-bg" data-slide="2" data-card="2" src="/videos/servilleta/queswa.mp4" muted loop playsInline preload="none" />
-                {clipCenterToggle('s2-queswa')}
-                <div className="card-content">
-                  <span className="pillar-eyebrow">Conversa y atiende</span>
-                  <h3 className="pillar-name">Queswa, su inteligencia artificial</h3>
-                  <button
-                    style={{
-                      marginTop: 10, background: 'transparent',
-                      border: '1px solid rgba(0,229,255,0.4)', color: 'var(--cyan)',
-                      fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-                      padding: '5px 10px', cursor: 'pointer', letterSpacing: 1,
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={e => { (e.target as HTMLElement).style.background = 'rgba(0,229,255,0.1)'; (e.target as HTMLElement).style.borderColor = 'var(--cyan)'; }}
-                    onMouseLeave={e => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.borderColor = 'rgba(0,229,255,0.4)'; }}
-                    onClick={e => { e.stopPropagation(); window.dispatchEvent(new CustomEvent('open-queswa')); }}
-                  >
-                    PREGÚNTALE ALGO EN VIVO ›
-                  </button>
-                </div>
-              </div>
-
-              {/* Lo tercero · usted sabe qué hacer → el Método (clip metodo.mp4, full-width).
-                  Esta card ABSORBIÓ el antiguo Slide 3 "Qué hace usted" (eliminado 2 ago 2026,
-                  decisión del Director): el clip de Queswa ya mostraba los tres pasos, así que
-                  "su centro de mando → método comprobado → usted solo comparte" decía lo mismo
-                  tres veces seguidas. Los tres movimientos viven ahora aquí, sobre el mismo clip
-                  de los pasos exactos. Eyebrow = cian (ya lo era por CSS) · nombre = blanco. */}
-              <div
-                className={`card-industrial full-width metodo ${metodoStop >= 0 ? 'card-active' : ''}`}
-                onClick={(e) => {
-                  // Esta card NO usa el toggle pausa/play táctil del resto del deck: aquí
-                  // el video se pausa SOLO (llegó a un punto) y espera el clic para
-                  // AVANZAR — un tap que solo alternara play/pause reanudaría el clip sin
-                  // que nadie vigile el siguiente objetivo, y se pasa de largo (bug real,
-                  // detectado en pruebas 3 ago 2026). Se deja pasar el evento sin
-                  // stopPropagation: handleSlideClick (en el contenedor del deck) lo
-                  // recibe y avanza activeCardIndex igual que en cualquier otro punto
-                  // de la slide, en desktop y en táctil por igual.
-                  if ((e.target as HTMLElement).closest('button, a')) return;
-                }}
-              >
-                {/* SIN loop: el paso 3 deja correr el video hasta su final real y se
-                    queda en el último fotograma — con loop el navegador lo reiniciaría
-                    solo, sin avisar, justo cuando llega ahí. */}
-                <video
-                  className="card-bg" data-slide="2" data-card={METODO_FROM} data-card-span={METODO_STOPS.length}
-                  src="/videos/servilleta/metodo.mp4" muted playsInline preload="metadata"
-                />
-                {/* El paso va ARRIBA y grande: abajo, pequeño, se pierde contra el clip. */}
-                {/* El texto se lee de metodoReached (el paso que está EN PANTALLA), NO de
-                    metodoStop (el paso al que vamos). El rótulo se oculta con una transición
-                    de opacidad de .35s, así que al avanzar sigue visible mientras se apaga:
-                    si el texto saliera de metodoStop, cambiaría de golpe en el primer cuadro
-                    y se vería "Multiplicar" desvaneciéndose donde el público espera "Recibir"
-                    (bug reportado 3 ago 2026). Leyendo de metodoReached, el rótulo se apaga
-                    con SU propio texto y el cambio ocurre después, con la opacidad ya en 0. */}
-                <div className={`metodo-paso ${metodoEnPunto ? 'visible' : ''}`} aria-live="polite">
-                  {Math.max(metodoReached, 0) < 2 && (
-                    <span className="metodo-orden">0{Math.max(metodoReached, 0) + 1}</span>
                   )}
-                  {METODO_PASOS[Math.max(metodoReached, 0)]}
-                </div>
-                <div className="card-content">
-                  <span className="pillar-eyebrow">M&eacute;todo comprobado</span>
-                  <h3 className="pillar-name">Dos pasos sencillos</h3>
                 </div>
               </div>
-
-              {/* ===== BEAT 4 · EL COLAPSO =====
-                  Patrón Jobs (iPhone 2007): construir tres, hacer una pausa, y quitarlos
-                  — "estos no son tres aparatos; es uno solo". Aquí ataca la AVERSIÓN A
-                  CONSTRUIR documentada en el BRIEF ("quieren la certeza, sin el riesgo de
-                  levantar algo"): mostrar tres socios que coordinar alimenta ese miedo;
-                  mostrar que ya vienen juntos lo desarma.
-                  Sin render 3D: son los cuadros congelados de los tres clips que el
-                  público acaba de ver, para que el vínculo sea reconocimiento y no
-                  traducción. Animación en CSS puro (esta página no carga Framer). */}
-              <div
-                className={`card-industrial full-width colapso ${colapsoBeat >= 0 ? 'card-active' : ''}`}
-                data-beat={colapsoBeat}
-              >
-                <div className="colapso-escena" aria-hidden="true">
-                  {/* Beat 0 · los tres juntos, pequeños y nombrados (el establecimiento). */}
-                  <div className="colapso-trio">
-                    {COLAPSO_PIEZAS.map((p) => (
-                      <figure key={p.id} className="colapso-mini">
-                        <img src={p.src} alt="" />
-                        <figcaption>{p.corto}</figcaption>
-                      </figure>
-                    ))}
-                  </div>
-
-                  {/* Beats 1-4 · UN solo objeto que gira y cambia de cara. Que sea el
-                      mismo objeto girando —y no tres que entran y salen— es lo que
-                      siembra la idea antes de enunciarla. */}
-                  <div className="colapso-objeto">
-                    {COLAPSO_PIEZAS.map((p, i) => (
-                      <img key={p.id} src={p.src} alt="" className={`colapso-cara cara-${i + 1}`} />
-                    ))}
-                  </div>
-
-                  {/* Beat 5 · el remate es LA PALABRA, no otra imagen (patrón Jobs: tras
-                      jugar con los tres iconos no mostró un cuarto aparato — escribió
-                      "iPhone"). Aquí: Queswa.app. */}
-                  <div className="colapso-nombre">Queswa.app</div>
-                </div>
-                <div className="card-content">
-                  <span className="pillar-eyebrow">{COLAPSO_TEXTO[Math.max(colapsoBeat, 0)]?.eyebrow}</span>
-                  <h3 className="pillar-name">{COLAPSO_TEXTO[Math.max(colapsoBeat, 0)]?.nombre}</h3>
-                </div>
-              </div>
-
-              {/* CTA al fondo — solo en grid (preview). En presentación se avanza con
-                  click/swipe/flecha; el botón encogía el clip del método. */}
-              {!oneCardMode && (
-                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
-                  <button className="btn-next" onClick={() => showSlide(3)}>
-                    EL PRODUCTO →
-                  </button>
-                </div>
-              )}
             </div>
-          </section>
+          ))}
 
-          {/* ===== SLIDE 3: BIO-METRÍA (Panel único consolidado) ===== */}
-          <section id="slide-3" className={`slide ${activeSlide === 3 ? 'active' : ''}`}>
-            <div
-              className="bg-image"
-              /* ⏳ PENDIENTE: fotografía de banco — una taza, vapor, luz lateral cálida,
-                 mucho negro alrededor. Taza de CASA, no de barista (nada de latte art ni
-                 granos desparramados): el producto real se prepara en una cocina, y la foto
-                 de cafetería promete otra cosa. Es el único momento fotográfico del deck —
-                 todo lo demás es abstracción 3D — y ahí está su fuerza: la pantalla cambia
-                 de material justo cuando aparece lo único que uno se puede tomar.
-                 Se retiró salud-bio.jpg para que nadie la confunda con la definitiva. */
-              style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)', backgroundColor: 'var(--bg-dark)' }}
-            />
-            <div className="slide-4-layout">
-              <div className="slide-4-bottom">
-                <div className="bio-text-panel">
-                  <div className="technical-label">EL PRODUCTO</div>
-                  <h2 className="deck-h2">UN H&Aacute;BITO<br />QUE NO CAMBIA</h2>
-                  {/* El superlativo "más estudiado del planeta" es del guion v6.7 y se
-                      conserva, pero NUNCA suelto: va con su prueba (2.000+ estudios).
-                      El cierre vuelve a la imagen concreta del test Beto — decir solo
-                      "el cuerpo lo asimila" convertía una imagen en un claim técnico. */}
-                  <p className="deck-p">
-                    El caf&eacute; de siempre — ahora con Ganoderma Lucidum, el hongo m&aacute;s estudiado del planeta, con m&aacute;s de 2.000 estudios publicados. En un extracto que se disuelve por completo en el agua: no se queda nada en el fondo de la taza.
+          {/* Beat 3: las tres oscilando */}
+          <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ textAlign: 'center' }}>
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
+              <div className="pd-tres">
+                {PIEZAS.map((p) => (
+                  <div className="col" key={p.label}>
+                    <div className="pd-figura" style={{ backgroundImage: `url(${p.img})` }} />
+                    <p className="cap">{p.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
+                Un fabricante… una tecnología que atiende… saber qué hacer…
+              </p>
+            </div>
+          </div>
+
+          {/* Beat 5: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
+              10 oct 2026, tras presentarla en vivo: «mejor que el clip y el
+              texto estén en una sola»). Del 10 oct quedaron dos beats —primero
+              el aparato, un clic, después la palabra—, pero el clic de más caía
+              justo en el clímax, donde el socio más habla, y desde la v4 el cubo
+              queda quieto: ya no compite con el nombre, lo ilumina. La
+              secuencia de Jobs se conserva SIN clic: el texto entra cuando el
+              cubo ya se encendió (~3,8 s, sincronizado con el clip; ver
+              .pd-union en el CSS). En pantalla ancha, teléfono y texto van lado
+              a lado — en 16:9 apilados no caben —; en el teléfono, apilados.
+              El visual: el celular con la fusión de los tres elementos ADENTRO
+              (los tres cubos con sus íconos · la fábrica · la conversación · la
+              lista de pasos · volcándose en UNO) y el cubo que enciende su luz
+              interior y late, 60 s sin rearmarse. Receta reproducible:
+              captions/work/como-funciona/armar_telefono_union.py. ⚠️ El ORBE no
+              aparece (representa a la persona; aquí el protagonista es la
+              unión). El texto: lo dado primero (su empresa — la prometió el beat
+              0 — y la aplicación que la contiene, canon de WHY_02); lo NUEVO de
+              último: Queswa.app, que completa el patrón de la pantalla 2 (los
+              cinco pares resuelven en una app; el clímax, en la nuestra).
+              → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
+          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
+            <div className="pd-remate pd-union">
+              <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
+              <div className="pd-union-cuerpo">
+                <video
+                  className="pd-telefono"
+                  data-beat="5-5"
+                  src="/videos/presentacion/telefono-union-v4.mp4"
+                  poster="/videos/presentacion/telefono-union-v4-poster.webp"
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                />
+                <div className="pd-union-texto">
+                  <p className="grande grande--paso">
+                    Su empresa llega armada,<br />en una sola aplicación:
                   </p>
-                  <button
-                    type="button"
-                    className="catalog-trigger"
-                    onClick={(e) => { e.stopPropagation(); setProductCatalogOpen(true); }}
-                  >
-                    Ver los productos →
-                  </button>
-                </div>
-
-                <div className="bio-metrics-container">
-                  <div className="bio-metrics-panel">
-                    {/* ⚠️ FICHA TÉCNICA — datos verificados con el Director (08 jun 2026),
-                        los mismos del guion v6.7. Reemplaza (2 ago 2026) las barras de
-                        VITALIDAD 94% / RESISTENCIA 89% / RECUPERACIÓN 62%: eran cifras
-                        inventadas y, bajo el rótulo del principio activo y con barra de
-                        progreso, se leían como resultados clínicos medidos del producto
-                        → riesgo regulatorio (INVIMA/FDA) y contradicción directa con la
-                        regla que le exigimos a Queswa ("cada cifra viene del arsenal").
-                        NO reponer barras de progreso: una barra promete una medición;
-                        una ficha solo afirma lo que es cierto. */}
-                    <div className="panel-title">
-                      GANODERMA LUCIDUM
-                    </div>
-                    <div className="spec-row">
-                      <span className="metric-label">ESTUDIOS PUBLICADOS</span>
-                      <span className="metric-value">2.000+</span>
-                    </div>
-                    <div className="spec-row">
-                      <span className="metric-label">VARIEDADES EN EL H&Iacute;BRIDO</span>
-                      <span className="metric-value">6</span>
-                    </div>
-                    <div className="spec-row">
-                      <span className="metric-label">COMPUESTOS BIOACTIVOS</span>
-                      <span className="metric-value">200+</span>
-                    </div>
-                    <p className="panel-footnote">
-                      Tres d&eacute;cadas de ciencia del <strong>Dr. Leow Soon Seng</strong>, pionero mundial en el cultivo de este hongo.
-                    </p>
-                  </div>
-
-                  {/* El MISMO enlace, en dos posiciones: en escritorio vive bajo el
-                      texto (izquierda); en móvil se retira de allí y aparece aquí,
-                      bajo la ficha (decisión del Director 2 ago 2026). Se duplica en
-                      el DOM y se alterna por CSS porque en móvil el bloque de texto y
-                      la ficha son padres distintos: no hay `order` que los cruce. */}
-                  <button
-                    type="button"
-                    className="catalog-trigger catalog-trigger--mobile"
-                    onClick={(e) => { e.stopPropagation(); setProductCatalogOpen(true); }}
-                  >
-                    Ver los productos →
-                  </button>
-
-                  {/* CTA debajo del panel de métricas. Oculto en móvil: allí la slide
-                      se pasa deslizando y el botón se comía el alto que necesita la
-                      taza — que es el ancla concreta de este slide. */}
-                  <div className="slide3-cta-wrap" style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
-                    <button className="btn-next" onClick={() => showSlide(5)}>
-                      VER LOS N&Uacute;MEROS →
-                    </button>
-                  </div>
+                  <p className="grande pd-nombre-app">
+                    Queswa.app
+                  </p>
+                  <p className="marca">CreaTuActivo.com</p>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
 
-          {/* ===== SLIDE 4: SIMULACIÓN + DOBLE CTA ===== */}
-          <section id="slide-4" className={`slide ${activeSlide === 4 ? 'active' : ''}`}>
-            <div className="simulator-layout">
-              {/* Panel del Simulador */}
-              <div className="simulator-panel">
-                <h3 style={{ textAlign: 'center' }}>SIMULADOR DE INGRESOS RECURRENTES</h3>
-                {/* Retirado (2 ago 2026, decisión del Director): el candado en letra
-                    pequeña ("toda ganancia nace de una compra de producto") apretaba
-                    el panel y competía con la cifra, que es lo único que debe mirarse
-                    aquí. El candado NO se pierde: lo dice el orador y vive en WHY_02
-                    del arsenal, que es donde el prospecto lo pregunta. */}
+          {/* Beat 6: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+              nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
+              2026): el enlace se presenta en la pantalla siguiente (Compartir) y
+              aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
+              eco del golpe recién revelado. ⛔ No volver a «el mercado que se va
+              creando»: en Colombia «el mercado» a secas es el de la casa, y la
+              permanencia se dice del CLIENTE, nunca en abstracto. */}
+          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
+              <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>
+            </div>
+          </div>
+        </section>
 
-                {/* Tabs del Simulador */}
-                <div className="sim-tabs">
-                  <button
-                    className={`sim-tab ${simMode === 'binario' ? 'active' : ''}`}
-                    onClick={() => setSimMode('binario')}
-                  >
-                    INGRESO RECURRENTE
-                  </button>
-                  <button
-                    className={`sim-tab ${simMode === 'gen5' ? 'active' : ''}`}
-                    onClick={() => setSimMode('gen5')}
-                  >
-                    {/* "INGRESO INMEDIATO" hasta el 9 ago 2026. Se retiró el
-                        adjetivo de velocidad por decisión del Director: además de
-                        atraer por la razón equivocada, era falso — la compra de un
-                        paquete es esporádica. Cada vía se nombra por lo que la mueve. */}
-                    INGRESO POR PAQUETES
-                  </button>
+        {/* ── 6 · QUÉ HACE USTED ──────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+          <div className={`pd-beat ${slide === 6 && beat === 0 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+              <p className="pd-eyebrow">Qué hace usted</p>
+              <h2 className="pd-h2">Su día a día se resume en dos acciones.</h2>
+              {/* EAM_01, con Queswa dibujada ENTRE las dos acciones. EL FLUJO SE VE
+                  (Director, 10 oct 2026: «que sea evidente: dos pasos y Queswa en
+                  la mitad»): flechas doradas entre las tres columnas, entrada
+                  ESCALONADA al activarse el beat (Compartir → flecha → Queswa →
+                  flecha → Recibir: el orden se ve suceder) y el centro VIVO — el
+                  clip de Queswa atendiendo, el mismo de la pieza 2, porque es la
+                  misma entidad haciendo el mismo trabajo. Las dos acciones quedan
+                  quietas a propósito: lo que se mueve es quien trabaja. */}
+              <div className="pd-acciones">
+                <div className="pd-accion">
+                  <span className="k">01</span>
+                  <p className="t">Compartir</p>
+                  <p className="d">Usted pasa un enlace a quien quiera.</p>
                 </div>
-
-                {/* Display Digital */}
-                <div className="digital-display">
-                  <span className="currency">$</span>
-                  <span>{currentUSD.toLocaleString()}</span>
-                  <span className="unit"> USD</span>
+                <div className="pd-flecha" aria-hidden="true" />
+                <div className="pd-accion pd-accion--queswa">
+                  <video
+                    className="img"
+                    data-beat="6-0"
+                    src="/videos/presentacion/pieza-atiende.mp4"
+                    poster="/images/servilleta/colapso-conversacion.webp"
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                  />
+                  <p className="d">
+                    Entre las dos está Queswa: conversa con cada persona que llega, resuelve
+                    sus dudas y madura su decisión de avanzar. Cuando alguien está listo, le
+                    avisa.
+                  </p>
                 </div>
-                <div className="cop-ref">
-                  &asymp; ${currentCOP} COP
+                <div className="pd-flecha" aria-hidden="true" />
+                <div className="pd-accion">
+                  <span className="k">02</span>
+                  <p className="t">Recibir</p>
+                  <p className="d">Usted saluda a quien llega con interés.</p>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className={`pd-beat ${slide === 6 && beat === 1 ? 'on' : ''}`}>
+            {/* EL CABALLO DE TROYA DE LA MULTIPLICACIÓN (Director, 10 oct 2026):
+                esta pantalla es donde el empresario y el networker reconocen SU
+                problema — multiplicar es lo más difícil de cualquier empresa, y en
+                esta industria más (sin jefes ni horarios, el que triunfa es el que
+                multiplica). El clip lo MUESTRA en vez de decirlo: la figura usa el
+                celular y aparecen los demás, cada uno con el suyo, todos del mismo
+                tamaño — c-distribuir del video «Cómo funciona», ya aprobado; la
+                semántica anti-pirámide de la servilleta (réplicas idénticas, nunca
+                top-down). Poster = primer cuadro (el celular solo), para no
+                regalar el remate antes de que el clip lo cuente. */}
+            <div className="pd-remate">
+              <video
+                className="pd-multiplica"
+                data-beat="6-1"
+                src="/videos/presentacion/multiplicacion.mp4"
+                poster="/videos/presentacion/multiplicacion-poster.webp"
+                muted
+                loop
+                playsInline
+                preload="none"
+              />
+              <p className="grande">Solo se multiplica lo que es sencillo.</p>
+              <p className="pd-p pd-cierre-linea">
+                Quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
+              </p>
+              <p className="pd-p pd-cierre-linea">
+                De ahí salen la multiplicación de su negocio y el aumento de su facturación.
+              </p>
+            </div>
+          </div>
+        </section>
 
-                {/* Controles GEN5 */}
-                {simMode === 'gen5' && (
-                  <div className="controls-container">
-                    <div className="pkg-selector">
-                      {(['ESP1', 'ESP2', 'ESP3'] as const).map((pkg) => (
-                        <button
-                          key={pkg}
-                          className={`pkg-btn ${gen5Package === pkg ? 'active' : ''}`}
-                          onClick={() => setGen5Package(pkg)}
+        {/* ── 7 · EL PRODUCTO ─────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-foto" style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)' }} />
+          <div className="pd-wrap">
+            <div className="pd-producto">
+              <div>
+                <p className="pd-eyebrow">El producto</p>
+                {/* LA TAZA ES LA PUERTA DE ENTRADA, NO EL CAFÉ DE SIEMPRE (Director, 26 sep
+                    2026). Decía «Un hábito que no cambia» y «El café de siempre»: el marco
+                    del consumo diario, vetado porque pone el producto en el estante del
+                    supermercado. Ahora el café es la entrada a la línea (PROD_01 del
+                    catálogo), y el «todo» anuncia que detrás viene más: la pantalla no
+                    reduce el negocio a vender café.
+                    ⛔ Salió la ciencia usada para vender —«el hongo más estudiado del
+                    planeta, con más de 2.000 estudios»—: el 3 en 1 está registrado como
+                    ALIMENTO, y la ciencia al servicio de la venta deja de ser información y
+                    pasa a ser publicidad (NUCLEO_EVIDENCIA, wa-guardarrail-salud.ts).
+                    Lo sensorial es de BEB_07; «no se queda nada en el fondo de la taza» es
+                    del Director, y habla de la composición, no de la absorción. */}
+                <h2 className="pd-h2">Todo empieza con una taza premium.</h2>
+                <p className="pd-p">
+                  Café de cuerpo, aroma y el amargo justo de una buena cafetería, con el
+                  extracto de Ganoderma que Gano Excel cultiva y extrae por su cuenta. Se
+                  disuelve por completo: no se queda nada en el fondo de la taza.
+                </p>
+                {/* LA RECOMPRA POR RESULTADO, verbatim de PROD_01 (aprobado 24 sep 2026).
+                    Prepara la pantalla 8: aquí se dice por qué el cliente vuelve; allá, por
+                    qué esa recompra le deja un porcentaje. El dinero NO entra aquí.
+                    ⚠️ «Incorpora a su rutina» es la fórmula aprobada; lo vetado es el
+                    producto como algo que ya se consume. Y nunca «vuelve porque se le
+                    acaba»: vuelve porque nota la diferencia. */}
+                <p className="pd-p pd-gold">
+                  Su cliente lo incorpora a su rutina, nota la diferencia y vuelve a pedirlo
+                  el mes siguiente.
+                </p>
+                <p className="pd-cats-lead">El mismo extracto va en toda la línea</p>
+                <div className="pd-cats">
+                  {CATEGORIAS.map((c) => (
+                    <button
+                      type="button"
+                      className="pd-cat"
+                      key={c.label}
+                      style={{ backgroundImage: `url(${c.img})` }}
+                      aria-label={`Ver la línea ${c.label} en grande`}
+                      onClick={(e) => { e.stopPropagation(); setVisor({ src: c.img, alt: `Línea ${c.label}` }); }}
+                    >
+                      <span>{c.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="pd-link"
+                  onClick={(e) => { e.stopPropagation(); setVisor({ src: '/productos/productos.webp', alt: 'Portafolio de productos Gano Excel' }); }}
+                >
+                  VER TODO EL PORTAFOLIO →
+                </button>
+              </div>
+
+              <div className="pd-ficha panel">
+                {/* OFICIO, NO CIENCIA (Director, 26 sep 2026). Salieron «Estudios
+                    publicados 2.000+», «Compuestos bioactivos 200+» y «pionero mundial»
+                    (superlativo sin fuente). Quedan datos de CÓMO SE HACE —el híbrido, el
+                    cultivo propio, los años de proceso—, nunca de lo que hace en el cuerpo.
+                    El doctor queda como el origen del producto, no como autoridad
+                    científica. Fuente: la respuesta del catálogo sobre el Ganoderma.
+                    ⚠️ «lucidum» con minúscula: es nombre de especie (el CSS lo pone en
+                    mayúsculas igual). */}
+                <div className="titulo">Ganoderma lucidum</div>
+                <div className="pd-fila">
+                  <span className="k">Variedades en el híbrido</span>
+                  <span className="v">6</span>
+                </div>
+                <div className="pd-fila">
+                  <span className="k">Cultivo y extracción</span>
+                  <span className="v">Propios</span>
+                </div>
+                <div className="pd-fila">
+                  <span className="k">Años de proceso</span>
+                  <span className="v">Más de 30</span>
+                </div>
+                <p className="pie">
+                  Los seis colores del Reishi en un solo híbrido, obra del{' '}
+                  <strong>Dr. Leow Soon Seng</strong>, micólogo malasio que estudia este
+                  hongo desde 1983.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 8 · LA PREGUNTA ─────────────────────────────────────────── */}
+        {/* Sola, justo antes del dinero (caso Marlon, 26 sep 2026): con los detalles
+            el prospecto se oscurece, y lo que lo devuelve es una pregunta que él
+            contesta. Las cifras ya se dieron con el problema, en la 2. */}
+        <section className={`pd-slide ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap pd-pregunta">
+            <p className="pd-bisagra">¿Y usted, qué plan tiene para salir del ciclo?</p>
+          </div>
+        </section>
+
+        {/* ── 9 · CÓMO SE GANA ────────────────────────────────────────── */}
+        <section className={`pd-slide pd-numeros ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+          {/* Beat 0 — LO PRINCIPAL: el ingreso que se repite, con los 12 niveles
+              desde el Kit. */}
+          <div className={`pd-beat ${slide === 9 && beat === 0 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+              <div className="pd-numeros-top">
+                <p className="pd-eyebrow">Cómo se gana</p>
+                <div className="pd-moneda" role="group" aria-label="Moneda">
+                  {(['COP', 'USD'] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      className={moneda === m ? 'active' : ''}
+                      onClick={() => setMoneda(m)}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {/* El titular dice lo que el panel muestra: consumo que se repite, de
+                  clientes y de distribuidores. La propiedad ya se dijo en la 5. */}
+              <h2 className="pd-h2">
+                Cada vez que sus clientes y sus distribuidores vuelven a pedir, a usted le
+                queda un porcentaje.
+              </h2>
+              <p className="pd-p pd-numeros-lead">
+                Así se ve si su sistema crece de a dos, empezando por el Kit de Inicio.
+              </p>
+              <div className="pd-paneles pd-paneles--uno">
+                {/* Panel B — los 12 niveles (2×2), de /12-niveles.
+                    SE QUEDA EN EL DECK (Director, 26 sep 2026): quien oye esto no es un
+                    inversionista acostumbrado al largo plazo, y trae tres creencias —que
+                    esto es para ganar en 50 años, que hay que quemar los barcos, y que
+                    para ganar de verdad hay que iniciar con el paquete grande—. Este
+                    simulador desarma las tres.
+                    EL PORCENTAJE SE ELIGE, y arranca en el 10% del Kit: la cifra por
+                    defecto es la de la forma más pequeña de iniciar, que es justo la
+                    tercera creencia desarmada. El 15, 16 y 17% son temporales, y la línea
+                    de abajo lo dice cada vez que se elige uno (ver TARIFAS_12). */}
+                <div className="panel">
+                  <h3>Los 12 niveles (2×2)</h3>
+                  <div className="pd-niveles">
+                    {PROYECCION_12.map((n) => (
+                      <button
+                        key={n.level}
+                        type="button"
+                        className={`pd-nivel ${n.level === nivel12 ? 'active' : ''} ${n.level < nivel12 ? 'done' : ''}`}
+                        onClick={() => setNivel12(n.level)}
+                        aria-label={`Nivel ${n.level}`}
+                      >
+                        {n.level}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
+                  <div className="pd-sub">
+                    {enCOP(nivelSel.people)} distribuidores nuevos · {enCOP(totalDistribuidores)} en
+                    total
+                  </div>
+
+                  <div className="pd-pkgs">
+                    {TARIFAS_12.map((t, i) => (
+                      <button
+                        key={t.pct}
+                        type="button"
+                        className={`pd-pkg ${tarifa12 === i ? 'active' : ''}`}
+                        onClick={() => setTarifa12(i)}
+                      >
+                        {t.nombre}<b>{t.pct}%</b>
+                      </button>
+                    ))}
+                  </div>
+
+                  <label className="pd-label">
+                    Recorra los 12 niveles<b>Nivel {nivel12}</b>
+                  </label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={12}
+                    value={nivel12}
+                    onChange={(e) => setNivel12(parseInt(e.target.value))}
+                    className="pd-slider"
+                    style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
+                  />
+                  <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
+                    <p className="pd-insight pd-tarifa-general">
+                      Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
+                      {tarifa.pct}% del volumen comisionable (GCV) de su sistema.
+                    </p>
+                    <div className="pd-vigencias">
+                      {TARIFAS_12.map((t, i) => (
+                        <p
+                          key={t.pct}
+                          className={`pd-insight ${tarifa12 === i && t.meses > 0 ? 'on' : ''}`}
+                          aria-hidden={tarifa12 !== i || t.meses === 0}
                         >
-                          {pkg === 'ESP1' ? 'Inicial' : pkg === 'ESP2' ? 'Empresarial' : 'Visionario'}
-                        </button>
+                          {t.meses > 0 &&
+                            `Con el ${t.paquete}, el ${t.pct}% rige los primeros ${t.meses} meses; después aplica el más alto entre el 10% base y el de su rango.`}
+                        </p>
                       ))}
                     </div>
-                    <label>
-                      PAQUETES COMPRADOS EN SU CANAL:
-                      <span className="highlight-text">{gen5Socios}</span>
-                    </label>
-                    <input
-                      type="range"
-                      min={1}
-                      max={10}
-                      value={gen5Socios}
-                      onChange={(e) => setGen5Socios(parseInt(e.target.value))}
-                      className="sim-slider"
-                    />
                   </div>
-                )}
-
-                {/* Controles Binario */}
-                {simMode === 'binario' && (
-                  <div className="controls-container">
-                    {/* Placeholder invisible: ocupa el mismo espacio que el
-                        pkg-selector de INGRESO INMEDIATO para que el label y el
-                        slider queden EXACTAMENTE en la misma posición vertical al
-                        alternar entre tabs (sin saltos de layout). Con los textos
-                        bajo el slider ya retirados, ESTE es el único elemento que
-                        sostiene la simetría entre las dos pestañas: no quitarlo. */}
-                    <div className="pkg-selector" aria-hidden="true" style={{ visibility: 'hidden' }}>
-                      <button className="pkg-btn" tabIndex={-1}>·</button>
-                    </div>
-                    <label>
-                      VOLUMEN DE COMPRAS EN SU CANAL:
-                      <span className="highlight-text">{binarioParejas}</span>
-                    </label>
-                    <input
-                      type="range"
-                      min={10}
-                      max={1000}
-                      step={10}
-                      value={binarioParejas}
-                      onChange={(e) => setBinarioParejas(parseInt(e.target.value))}
-                      className="sim-slider snowball-slider"
-                      style={{ ['--thumb-size' as string]: `${snowballSize}px` } as React.CSSProperties}
-                    />
-                  </div>
-                )}
-              </div>
-
-              {/* Panel CTA - Doble acción */}
-              <div className={`cta-panel${ctaVisible ? ' cta-revealed' : ''}`}>
-                <div
-                  className="bg-image-cta"
-                  style={{ backgroundImage: "url('/images/servilleta/boton-accion.jpg')" }}
-                />
-                <div className="cta-overlay">
-                  <p className="technical-label" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
-                    UN VIERNES QUE NO LE DEBE NADA A NADIE
-                  </p>
-
-                  <div className="cta-buttons">
-                    {/* CTA Principal → /paquetes */}
-                    <a
-                      href="https://creatuactivo.com/paquetes"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-industrial secondary"
-                    >
-                      ACTIVAR SU NEGOCIO →
-                    </a>
-
-                  </div>
-
                 </div>
               </div>
             </div>
-          </section>
+          </div>
 
+          {/* Beat 1 — EL BONO POR PAQUETES (Director, 30 sep 2026). Va DESPUÉS de lo
+              principal: quien inicia muchas veces necesita ganar pronto, y un deck que
+              no lo muestra parece haberlo olvidado. ⚠️ Se nombra por lo que lo mueve
+              —la compra de un paquete— y por su función —financia el crecimiento al
+              inicio—, NUNCA por su velocidad («rápido», «inmediato»): esa palabra la
+              pone el socio en vivo con su propia historia, que tampoco va a la
+              pantalla. Se cuentan PAQUETES COMPRADOS, nunca personas. */}
+          <div className={`pd-beat ${slide === 9 && beat === 1 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+              <div className="pd-numeros-top">
+                <p className="pd-eyebrow">Cómo se gana</p>
+                <div className="pd-moneda" role="group" aria-label="Moneda">
+                  {(['COP', 'USD'] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      className={moneda === m ? 'active' : ''}
+                      onClick={() => setMoneda(m)}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <h2 className="pd-h2">
+                Y cada paquete empresarial que se compra en su sistema le deja un bono.
+              </h2>
+              <p className="pd-p pd-numeros-lead">
+                Hasta la quinta generación. Es lo que financia el crecimiento al inicio.
+              </p>
+              <div className="pd-paneles pd-paneles--uno">
+                <div className="panel panel--gen5">
+                  <h3>Ingreso por paquetes</h3>
+                  <div className="pd-display">{monto(ingresoGen5COP)}</div>
+                  <div className="pd-gens">
+                    {gen5Por.map((usd, i) => (
+                      <div key={i} className="pd-gen">
+                        <span className="k">Gen {i + 1}</span>
+                        <span className="v">{montoCorto(gen5Paquetes * usd * TRM)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="pd-pkgs">
+                    {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
+                      <button
+                        key={p}
+                        type="button"
+                        className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
+                        onClick={() => setGen5Nivel(p)}
+                      >
+                        {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
+                      </button>
+                    ))}
+                  </div>
+                  <label className="pd-label">
+                    Paquetes comprados en cada generación<b>{gen5Paquetes}</b>
+                  </label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={10}
+                    value={gen5Paquetes}
+                    onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
+                    className="pd-slider"
+                  />
+                </div>
+              </div>
+              {/* Gano al final, como quien paga (WHY_02), con sus credenciales como
+                  estatus y no como alegato. */}
+              <p className="pd-nota">
+                Las comisiones las paga el fabricante, Gano Excel, cada semana, los viernes.
+              </p>
+              <p className="pd-credenciales">30 años · Más de 60 países · Nueve sedes en Colombia</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 10 · EL SIGUIENTE PASO ──────────────────────────────────── */}
+        {/* La segunda mitad del credo cierra el deck: el cuerpo ya mostró cómo el
+            esfuerzo se vuelve capital (el cliente a su nombre que vuelve a pedir).
+            La conversación es con el socio del ?ref, para cuando el deck se envía. */}
+        <section className={`pd-slide pd-final ${slide === 10 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">En qué creemos</p>
+            <p className="pd-final-credo">
+              Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
+              en capital real.
+            </p>
+            <p className="pd-p">
+              Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
+              vez. Por eso el acceso va por lista de espera.
+            </p>
+            <p className="pd-bisagra">
+              El siguiente paso es una conversación
+              {nombreVisible && (
+                <>
+                  {' con '}
+                  {editandoNombre ? (
+                    <input
+                      className="pd-nombre-input"
+                      autoFocus
+                      value={nombreEscrito}
+                      maxLength={24}
+                      placeholder="Nombre"
+                      aria-label="Escriba el nombre de la persona"
+                      style={{ width: `${Math.max(6, nombreEscrito.length + 1)}ch` }}
+                      onClick={(e) => e.stopPropagation()}
+                      onChange={(e) => setNombreEscrito(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') confirmarNombre(nombreEscrito);
+                        if (e.key === 'Escape') confirmarNombre('');
+                      }}
+                      onBlur={() => confirmarNombre(nombreEscrito)}
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      className="pd-nombre"
+                      title="Toque para escribir el nombre de la persona"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setNombreEscrito('');
+                        setEditandoNombre(true);
+                      }}
+                    >
+                      {nombreVisible}
+                    </button>
+                  )}
+                </>
+              )}
+              {!nombreVisible && sinSocio && ' con el equipo'}
+              .
+            </p>
+            {!waSocio && sinSocio && (
+              <a
+                className="pd-demo pd-socio"
+                href={waEquipo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
+              >
+                ESCRIBIRLE AL EQUIPO POR WHATSAPP →
+              </a>
+            )}
+            {waSocio && (nombreDemo ? (
+              <span className="pd-demo pd-socio" aria-hidden="true">
+                ESCRIBIRLE A {nombreDemo.toUpperCase()} POR WHATSAPP →
+              </span>
+            ) : (
+              <a
+                className="pd-demo pd-socio"
+                href={waSocio}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
+              >
+                ESCRIBIRLE A {primerNombre!.toUpperCase()} POR WHATSAPP →
+              </a>
+            ))}
+            <div className="pd-credo-rule" />
+            <p className="pd-kicker">CreaTuActivo.com</p>
+          </div>
+        </section>
+
+        <div className="pd-counter">
+          {slide} / {TOTAL_SLIDES}
         </div>
 
-        {/* LA EXPLICACIÓN EN TEXTO (8 oct 2026) — fuera del deck-container a propósito:
-            ahí no la alcanzan el clic que avanza ni el swipe, y Google la lee sin
-            interacción. Lleva el único <h1> de la página. Ver GuiaPlanServilleta.tsx */}
-        <GuiaPlanServilleta />
-
-        {/* MODAL BOLETÍN — OPCIÓN 2 del cierre (Slide 4): puerta de entrada suave */}
-        <SubscribeModal isOpen={subscribeOpen} onClose={() => setSubscribeOpen(false)} />
-
-        {/* MODAL CATÁLOGO DE PRODUCTOS — opcional, abre desde Slide 3.
-            Permite mostrar la línea Gano Excel sin sacar al prospecto del deck. */}
-        {productCatalogOpen && (
+        {/* ── Modal del portafolio ────────────────────────────────────── */}
+        {visor && (
           <div
-            className="product-catalog-overlay"
-            onClick={() => setProductCatalogOpen(false)}
+            className="pd-overlay"
             role="dialog"
             aria-modal="true"
-            aria-label="Catálogo de productos"
+            aria-label={visor.alt}
+            onClick={() => setVisor(null)}
           >
-            <div className="product-catalog-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="pd-modal" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
-                className="catalog-close"
-                onClick={() => setProductCatalogOpen(false)}
-                aria-label="Cerrar catálogo"
-              >×</button>
-              <img
-                src="/productos/productos.webp"
-                alt="Catálogo Queswa — productos Gano Excel"
-                className="catalog-image"
-              />
+                className="pd-close"
+                onClick={() => setVisor(null)}
+                aria-label="Cerrar"
+              >
+                ×
+              </button>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={visor.src} alt={visor.alt} />
             </div>
-          </div>
-        )}
-
-        {/* MODO VERTICAL — deck en marco portrait 9:16 (iframe a ancho de móvil),
-            centrado en negro, nav oculta. Para presentar/compartir en Meet. */}
-        {verticalMode && !isKiosk && (
-          <div className="vertical-present-overlay" ref={vOverlayRef}>
-            <div
-              className="vp-frame"
-              style={{ width: 412, height: 732, transform: `scale(${vScale})` }}
-            >
-              <iframe src="/servilleta?kiosk=1" title="Presentación vertical" />
-            </div>
-            <button
-              type="button"
-              className="vp-exit"
-              onClick={() => setVerticalMode(false)}
-              aria-label="Salir del modo vertical"
-              title="Salir (Esc)"
-            >✕</button>
-          </div>
-        )}
-
-        {/* MODAL VIDEO DEL PLAN — se reproduce DENTRO del deck (no navega fuera):
-            tras verlo se cierra y se sigue en la portada para avanzar a los clips. */}
-        {videoModalOpen && (
-          <div
-            className="video-plan-overlay"
-            onClick={() => setVideoModalOpen(false)}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Video del Plan"
-          >
-            {/* Mismo reproductor de los reels/Home: autoplay MUTED (lo único que iOS
-                permite fuera de un gesto) + chip "ACTIVAR SONIDO" que reinicia con
-                audio. El <video> crudo con autoPlay sin muted quedaba bloqueado por
-                Safari iPhone — el modal abría con el poster muerto. */}
-            <div className="video-plan-player-wrap" onClick={(e) => e.stopPropagation()}>
-              <HomeManifestoVideo
-                src={PLAN_SERVILLETA_VIDEO}
-                poster={PLAN_SERVILLETA_POSTER}
-                enableFullscreen
-                maxWidth="min(100vw, calc(92vh * 9 / 16))"
-              />
-            </div>
-            <button
-              type="button"
-              className="vp-exit"
-              onClick={() => setVideoModalOpen(false)}
-              aria-label="Cerrar video"
-              title="Cerrar (Esc)"
-            >✕</button>
           </div>
         )}
       </div>
+
+      {/* LA GUÍA EN TEXTO — segundo piso, fuera del deck a propósito: ahí no la
+          alcanzan el clic que avanza ni el swipe, y Google la lee sin interacción.
+          Lleva el único h1 de la página. En pantalla completa se oculta. */}
+      <GuiaPlanServilleta />
     </>
   );
 }

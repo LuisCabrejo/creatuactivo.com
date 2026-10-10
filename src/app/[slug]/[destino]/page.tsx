@@ -11,11 +11,13 @@ import { notFound, permanentRedirect, redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
-import { OG_PRESENTACION } from '@/app/presentacion/og'
+import { OG_PRESENTACION } from '@/app/servilleta/og'
 
-// La presentación 1-a-1. «presentacion» es el nombre vigente (30 sep 2026);
-// «pitch-deck» y «deck» son los enlaces que ya circulan y siguen funcionando.
-const DESTINOS_PRESENTACION = ['presentacion', 'pitch-deck', 'deck']
+// La presentación 1-a-1, que desde el 10 oct 2026 vive en /servilleta (la
+// presentación ÚNICA). Todos sus nombres cortos —los vigentes y los que ya
+// circulan— comparten la tarjeta del prospecto (OG_PRESENTACION, con la url del
+// slug) y el `?pantalla=`. «12-niveles» y «reto» abren en la pantalla 9.
+const DESTINOS_PRESENTACION = ['presentacion', 'pitch-deck', 'deck', 'servilleta', '12-niveles', 'reto']
 const esPresentacion = (destino: string) => DESTINOS_PRESENTACION.includes(destino)
 
 const supabase = createClient(
@@ -29,7 +31,7 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   // guardados siguen funcionando y llevan a la Home con el ref del socio.
   'calculadora':   (id) => `/?ref=${id}`,
   'productos':     (id) => `/productos/${id}`,
-  'servilleta':    (id) => `/servilleta/${id}`,
+  'servilleta':    (id) => `/servilleta?ref=${id}`,
   'home':          (id) => `/?ref=${id}`,
   'fundadores':    (id) => `/?ref=${id}`,
   'fundadores-pro':(id) => `/?ref=${id}`,
@@ -37,8 +39,10 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   // Legado — siguen funcionando si alguien tiene el link guardado
   'video-plan-servilleta': (id) => `/video-plan-servilleta?ref=${id}`,
   'video-plan':            (id) => `/video-plan-servilleta?ref=${id}`,
-  'reto':          (id) => `/12-niveles/${id}`,
-  '12-niveles':    (id) => `/12-niveles/${id}`,
+  // El deck de /12-niveles se retiró el 10 oct 2026: la presentación única abre
+  // en la pantalla de los números (la 9: los 12 niveles y el simulador).
+  'reto':          (id) => `/servilleta?ref=${id}&pantalla=9`,
+  '12-niveles':    (id) => `/servilleta?ref=${id}&pantalla=9`,
   // Activación inmediata → página de paquetes (mismo destino que el botón de la servilleta)
   'activacion':    (id) => `/paquetes?ref=${id}`,
   // La presentación 1-a-1. ⚠️ Sin estas filas, el enlace caía al fallback y el
@@ -49,9 +53,10 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   // herramienta anterior, que ya no se ofrecía en el Dashboard: desde ese día abre
   // la presentación vigente. /presentacion-empresarial se eliminó el 1 oct 2026
   // y redirige a /presentacion (next.config.js).
-  'presentacion':  (id) => `/presentacion?ref=${id}`,
-  'pitch-deck':    (id) => `/presentacion?ref=${id}`,
-  'deck':          (id) => `/presentacion?ref=${id}`,
+  // Desde el 10 oct 2026 la presentación vive en /servilleta.
+  'presentacion':  (id) => `/servilleta?ref=${id}`,
+  'pitch-deck':    (id) => `/servilleta?ref=${id}`,
+  'deck':          (id) => `/servilleta?ref=${id}`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {
@@ -265,11 +270,13 @@ export default async function DestinoRoute({
   // al socio `/{slug}/presentacion?pantalla=9`, la de los números, para estudiarla.
   const pantalla = esPresentacion(destino) && typeof searchParams?.pantalla === 'string'
     && /^\d{1,2}$/.test(searchParams.pantalla) ? searchParams.pantalla : null
-  const destinoReal = resolver(record.constructor_id) + (pantalla ? `&pantalla=${pantalla}` : '')
+  const base = resolver(record.constructor_id)
+  // Si el destino ya fija una pantalla (12-niveles → 9), la del enlace no se suma.
+  const destinoReal = base + (pantalla && !base.includes('pantalla=') ? `&pantalla=${pantalla}` : '')
 
   // 🔴 La presentación tampoco redirige a los robots de vista previa (24 sep 2026),
   // por la misma razón que Queswa: un scraper que sigue el 307 arma la tarjeta
-  // con el `og:url` de /presentacion — SIN el identificador del distribuidor — y
+  // con el `og:url` de /servilleta — SIN el identificador del distribuidor — y
   // Facebook publica ese enlace pelado: la visita no queda atribuida a nadie.
   // Al robot se le sirve esta página mínima con el OG de abajo (url del slug);
   // la persona sigue recibiendo el redirect directo.

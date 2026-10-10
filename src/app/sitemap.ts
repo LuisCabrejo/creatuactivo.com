@@ -20,8 +20,8 @@ import { MetadataRoute } from 'next';
  *
  * PÁGINAS EXCLUIDAS (noindex o herramientas internas):
  * - /fundadores y /calculadora → eliminadas el 1 oct 2026 (nunca se usaron); redirigen a la Home
- * - /presentacion → la presentación 1-a-1, noindex (/presentacion-empresarial se eliminó el 1 oct 2026)
- * - /nosotros, /12-niveles, /lexico, /planes → noindex
+ * - /presentacion y /12-niveles → se retiraron el 10 oct 2026: la presentación única vive en /servilleta (indexada)
+ * - /nosotros, /lexico, /planes → noindex
  *
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
  */

@@ -33,7 +33,7 @@ export const ORBE_MODO: ModoOrbe = 'whatsapp'
  * la tecnología en la misma pantalla. Mandar esa demo a WhatsApp la rompe — saca
  * al prospecto de la presentación que el socio está dando.
  */
-export const RUTAS_ORBE_QUESWA_WEB = ['/servilleta', '/12-niveles', '/presentacion'] as const
+export const RUTAS_ORBE_QUESWA_WEB = ['/servilleta'] as const
 
 /**
  * Cuentas cuya PÁGINA DE PRODUCTOS conserva el chat web — la excepción por ref

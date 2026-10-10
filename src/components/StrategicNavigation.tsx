@@ -501,9 +501,9 @@ export default function StrategicNavigation() {
   // páginas que dejan de verse. Productos entra (157 visitantes en 60 días, la
   // mitad desde el celular, y no estaba en el menú); Insights sale (22): el blog
   // recibe su tráfico desde Google al artículo, y sigue en el pie de la Home.
-  // /servilleta sigue en pie e indexada.
+  // Desde el 10 oct 2026 la presentación ÚNICA vive en /servilleta (indexada).
   const directLinks = [
-    { name: 'Presentación', href: '/presentacion' },
+    { name: 'Presentación', href: '/servilleta' },
     { name: 'Productos', href: '/productos' },
     { name: 'Tecnología', href: '/tecnologia' },
     { name: 'Nosotros', href: '/nosotros' },

@@ -349,7 +349,7 @@ function PaqueteCard({ p }: { p: Paquete }) {
           borderLeft: `2px solid ${p.color}40`, paddingLeft: 10,
         }}>
           La puerta de la estrategia{' '}
-          <Link href="/12-niveles" style={{ color: C.gold, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+          <Link href="/servilleta?pantalla=9" style={{ color: C.gold, textDecoration: 'none', whiteSpace: 'nowrap' }}>
             Los 12 Niveles <ArrowRight size={11} style={{ display: 'inline', verticalAlign: 'middle' }} />
           </Link>
           {' '}Activa una de las dos vías del plan — la tabla de abajo lo muestra completo.
@@ -546,7 +546,7 @@ function Faq() {
           />
           <FaqItem
             q="¿Cuál es la diferencia entre el Kit de Inicio y un paquete empresarial?"
-            a={<>El Kit activa su código, le entrega 4 cajas de producto y abre la Regalía de Equipo al 10% — es la puerta de <Link href="/12-niveles" style={{ color: C.gold }}>Los 12 Niveles</Link>. Los empresariales entregan más inventario y activan las dos vías del plan, con la Regalía en 15, 16 o 17% según el nivel.</>}
+            a={<>El Kit activa su código, le entrega 4 cajas de producto y abre la Regalía de Equipo al 10% — es la puerta de <Link href="/servilleta?pantalla=9" style={{ color: C.gold }}>Los 12 Niveles</Link>. Los empresariales entregan más inventario y activan las dos vías del plan, con la Regalía en 15, 16 o 17% según el nivel.</>}
           />
           <FaqItem
             q="¿Cuál es el consumo mensual para mantenerlo activo?"

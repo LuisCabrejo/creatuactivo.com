@@ -305,16 +305,14 @@ export function precioKit(pais: PaisConductor): string {
 }
 
 /**
- * En la web el simulador no es una tarjeta sino un enlace al deck que lo trae:
- * `/12-niveles` para la estrategia (niveles y la renta al 10%), `/servilleta`
- * para las tarifas de renta y los paquetes. Los dos llevan el orbe de Queswa,
- * así que la conversación sigue allá.
+ * En la web el simulador no es una tarjeta sino un enlace a la presentación,
+ * que lo trae en su pantalla de los números (la 9: los 12 niveles con la renta
+ * de cada forma de empezar, y el bono por paquetes). Desde el 10 oct 2026 hay
+ * UNA presentación, en /servilleta; el deck de /12-niveles se retiró. Lleva el
+ * orbe de Queswa, así que la conversación sigue allá.
  */
 export function textoSimuladorWeb(sim: SimuladorDictado): string {
-  const url = sim.pantalla === 'NIVELES' || sim.pantalla === 'RENTA_DIEZ'
-    ? 'https://creatuactivo.com/12-niveles'
-    : 'https://creatuactivo.com/servilleta';
-  return `${sim.cuerpo}\n\n[Abrir el simulador](${url})`;
+  return `${sim.cuerpo}\n\n[Abrir el simulador](https://creatuactivo.com/servilleta?pantalla=9)`;
 }
 
 // ─── Los nodos ────────────────────────────────────────────────────────────────

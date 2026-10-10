@@ -1,7 +1,11 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * La explicación en texto de /servilleta (8 oct 2026, Director).
+ * La explicación en texto de /servilleta (8 oct 2026, Director). Reescrita el
+ * 10 oct 2026 para la presentación ÚNICA (la columna de /presentacion, mudada
+ * aquí): de «las cuatro pantallas» a lo que cuentan las diez, con el encuadre de
+ * los tres elementos de WHY_02 v6.69 (fabricante · tecnología que atiende ·
+ * saber qué hacer, en una sola aplicación).
  *
  * POR QUÉ EXISTE. Hasta este día Google sabía de qué trataba /servilleta solo por
  * sus metadatos: el cuerpo tenía unas 260 palabras, no decía «servilleta» ni una
@@ -38,7 +42,7 @@ import { abrirConversacionQueswa, leerRefSocio } from '@/lib/orbe-config';
 
 // Se cambia SOLO cuando la página cambia de verdad. Poner la fecha al día sin
 // cambios reales es, para Google, una señal de contenido hecho para buscadores.
-const ACTUALIZADA = { iso: '2026-10-08', texto: 'octubre de 2026' };
+const ACTUALIZADA = { iso: '2026-10-10', texto: 'octubre de 2026' };
 
 const FORMAS_DE_EMPEZAR = [
   { nombre: 'ESP-3 Visionario', detalle: '35 productos · Binario 17 % por 6 meses · Bono GEN5 activo' },
@@ -118,11 +122,11 @@ export default function GuiaPlanServilleta() {
           para su presentación de negocio.
         </p>
         <p>
-          Esta versión lo cuenta en las cuatro pantallas de arriba, y trae un simulador para hacer
-          las cuentas.
+          Esta versión lo cuenta en las diez pantallas de arriba, de la idea que la mueve a los
+          números, y trae dos simuladores para hacer las cuentas.
         </p>
 
-        <h2>Las cuatro pantallas de la presentación servilleta</h2>
+        <h2>Lo que cuenta la presentación servilleta</h2>
 
         <h3>1. El problema</h3>
         <p>
@@ -130,35 +134,65 @@ export default function GuiaPlanServilleta() {
           tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de trabajar, pagar cuentas y
           repetir, y le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
         </p>
+        <p>
+          La presentación lo pone en cifras: 9 de cada 10 hogares colombianos dicen que su ingreso no
+          alcanza o alcanza solo para lo mínimo (DANE, Encuesta de Calidad de Vida 2025); el 54,6 % de
+          las personas que trabajan lo hacen en la informalidad (DANE, mayo a julio de 2026), y 3 de
+          cada 4 colombianos en edad de pensionarse no reciben una pensión (Colpensiones y Universidad
+          Javeriana, 2022).
+        </p>
 
-        <h3>2. Las tres cosas</h3>
-        <p>Un negocio de distribución necesita tres cosas, y aquí cada una tiene quien la haga:</p>
+        <h3>2. La oportunidad</h3>
+        <p>
+          Muchas industrias se modernizaron frente a nuestros ojos: los domicilios pasaron a Rappi,
+          los taxis a Uber y la fila del banco a Nequi. La presentación ve esa misma oportunidad en dos
+          sectores: la industria del network marketing y el sector laboral.
+        </p>
+
+        <h3>3. Los tres elementos</h3>
+        <p>
+          Montar una empresa de distribución moderna requiere tres elementos, y aquí cada uno tiene
+          quien lo haga:
+        </p>
         <ul>
           <li>
-            <strong>Gano Excel</strong> fabrica, empaca y despacha cada pedido hasta la casa del
-            cliente.
+            <strong>Un fabricante:</strong> Gano Excel fabrica, empaca y despacha cada pedido hasta la
+            casa del cliente.
           </li>
           <li>
-            <strong>Queswa</strong>, la inteligencia artificial de CreaTuActivo, conversa y atiende a
-            toda hora a quien llega por su enlace.
+            <strong>Una tecnología que atiende:</strong> Queswa, la inteligencia artificial de
+            CreaTuActivo, conversa con cada interesado, le resuelve las dudas y madura su decisión de
+            avanzar, a toda hora.
           </li>
           <li>
-            <strong>El Método Comprobado</strong> son dos acciones: compartir su enlace con quien
-            quiera y recibir a quien llega con interés.
+            <strong>Saber qué hacer:</strong> como en Waze, usted le dice a Queswa a dónde quiere
+            llegar, y ella le va marcando la ruta, paso a paso.
           </li>
         </ul>
+        <p>
+          Los tres llegan armados en una sola aplicación, Queswa.app. Y cada cliente que llega a su
+          empresa queda a su nombre.
+        </p>
 
-        <h3>3. El producto</h3>
+        <h3>4. Qué hace usted</h3>
+        <p>
+          Su día a día se resume en dos acciones: compartir su enlace con quien quiera y recibir a quien
+          llega con interés. Entre las dos está Queswa, que conversa con cada persona y le avisa cuando
+          alguien está listo. Solo se multiplica lo que es sencillo: quien inicia con usted hace
+          exactamente lo mismo, con las mismas dos acciones.
+        </p>
+
+        <h3>5. El producto</h3>
         <p>
           Café, bebidas y suplementos con Ganoderma, y una línea de cuidado personal: 22 productos
           premium de bienestar en cuatro líneas. El cliente los incorpora a su rutina, nota la
           diferencia y vuelve a pedir, y esa recompra es la que mueve el negocio.
         </p>
 
-        <h3>4. Los números</h3>
+        <h3>6. Los números</h3>
         <p>
-          La última pantalla muestra cómo se gana, con un simulador. Aquí abajo va cada vía con su
-          nombre en el plan.
+          La pantalla de los números muestra las dos formas de ganar con las que se comienza, cada una
+          con su simulador. Aquí abajo va cada una con su nombre en el plan.
         </p>
 
         <h2>Cómo se gana en el plan de compensación de Gano Excel</h2>
@@ -206,20 +240,22 @@ export default function GuiaPlanServilleta() {
           para otro país, Queswa se los da en su moneda.
         </p>
 
-        <h2>Cómo leer el simulador</h2>
+        <h2>Cómo leer los simuladores</h2>
         <p>
-          El simulador de la cuarta pantalla aplica las tablas del plan a un volumen que usted elige:
-          en una pestaña, las compras que se repiten (Binario); en la otra, los paquetes comprados en
-          su sistema (GEN5). Las cifras son un ejemplo del cálculo del plan, no un ingreso esperado
-          ni garantizado: lo que cada quien gana depende de las compras que de verdad ocurren en su
-          sistema de distribución.
+          Los dos simuladores de la pantalla de los números aplican las tablas del plan. El primero
+          proyecta el Bono Binario nivel por nivel, en la estrategia de los 12 niveles, con el
+          porcentaje de la forma de empezar que usted elija. El segundo calcula el Bono GEN5 por los
+          paquetes empresariales que se compran en su sistema. Las cifras son un ejemplo del cálculo
+          del plan, no un ingreso esperado ni garantizado: lo que cada quien gana depende de las
+          compras que de verdad ocurren en su sistema de distribución.
         </p>
 
         <h2>Si usted ya es distribuidor: cómo presentar el plan servilleta</h2>
         <p>
           Esta presentación está hecha para una conversación uno a uno. Avanza con un clic, con las
-          flechas del teclado o deslizando el dedo, y la tecla F la pone en pantalla completa. Las
-          primeras pantallas llevan solo el nombre de cada idea; el resto lo pone quien presenta.
+          flechas del teclado o deslizando el dedo, y la tecla F la pone en pantalla completa.
+          Algunas pantallas avanzan por partes, una idea por clic; el resto lo pone quien presenta.
+          Si la comparte con su enlace, la última pantalla muestra su nombre y su WhatsApp.
         </p>
 
         <div className="guia-faq">

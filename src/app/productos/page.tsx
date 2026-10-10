@@ -2327,7 +2327,7 @@ export default function CatalogoEstrategico() {
               </button>
 
               <Link
-                href="/presentacion"
+                href="/servilleta"
                 className="cta-base cta-secondary"
                 style={{ padding: '1rem 2rem', fontSize: '1rem' }}
               >

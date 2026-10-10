@@ -22,7 +22,10 @@
 // Bump 1.4.3 (1 oct 2026): se eliminaron /fundadores, /calculadora y
 // /presentacion-empresarial — sin bump, quien las visitó las seguía viendo guardadas.
 // Bump 1.4.4 (1 oct 2026): el botón del hero pasa a «…cómo entra el dinero».
-const CACHE_VERSION = '1.4.6';
+// Bump 1.4.7 (10 oct 2026): la presentación única pasa a /servilleta; se retiran
+// /presentacion y /12-niveles, y los clips cambian de nombre — quien tenía el deck
+// viejo guardado no debe seguir viéndolo.
+const CACHE_VERSION = '1.4.7';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

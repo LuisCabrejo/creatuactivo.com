@@ -77,27 +77,16 @@ const nextConfig = {
         permanent: true,
       },
 
-      // Reto 12 días / Reto 12 niveles (slugs legacy) → /12-niveles
-      {
-        source: '/reto-12-dias',
-        destination: '/12-niveles',
-        permanent: true,
-      },
-      {
-        source: '/reto-12-dias/:ref',
-        destination: '/12-niveles/:ref',
-        permanent: true,
-      },
-      {
-        source: '/reto-12-niveles',
-        destination: '/12-niveles',
-        permanent: true,
-      },
-      {
-        source: '/reto-12-niveles/:ref',
-        destination: '/12-niveles/:ref',
-        permanent: true,
-      },
+      // 10 oct 2026 — LA PRESENTACIÓN ÚNICA vive en /servilleta (Director). El deck
+      // de /12-niveles se retiró: sus enlaces (y los slugs legacy del reto) abren la
+      // presentación en la pantalla de los números (pantalla 9, la de los 12
+      // niveles y el simulador). La query entrante (?ref del socio) se suma sola.
+      { source: '/12-niveles', destination: '/servilleta?pantalla=9', permanent: true },
+      { source: '/12-niveles/:ref', destination: '/servilleta?ref=:ref&pantalla=9', permanent: true },
+      { source: '/reto-12-dias', destination: '/servilleta?pantalla=9', permanent: true },
+      { source: '/reto-12-dias/:ref', destination: '/servilleta?ref=:ref&pantalla=9', permanent: true },
+      { source: '/reto-12-niveles', destination: '/servilleta?pantalla=9', permanent: true },
+      { source: '/reto-12-niveles/:ref', destination: '/servilleta?ref=:ref&pantalla=9', permanent: true },
 
       // Páginas antiguas eliminadas → Home
       {
@@ -137,8 +126,8 @@ const nextConfig = {
       { source: '/fundadores-profesionales/:ref', destination: '/?ref=:ref', permanent: true },
       { source: '/calculadora', destination: '/', permanent: true },
       { source: '/calculadora/:ref', destination: '/?ref=:ref', permanent: true },
-      { source: '/presentacion-empresarial', destination: '/presentacion', permanent: true },
-      { source: '/presentacion-empresarial/:ref', destination: '/presentacion?ref=:ref', permanent: true },
+      { source: '/presentacion-empresarial', destination: '/servilleta', permanent: true },
+      { source: '/presentacion-empresarial/:ref', destination: '/servilleta?ref=:ref', permanent: true },
       // La página de Brasil decía «Lançamento Oficial 2025» y «Gano Excel Oficial»: un
       // distribuidor no puede presentarse como la página oficial de la marca, y el
       // contenido estaba vencido. Si Brasil se vuelve mercado, se escribe una nueva.
@@ -153,10 +142,17 @@ const nextConfig = {
       // El Manifiesto salió del proceso de Fundadores; «Nosotros» es ahora /nosotros.
       { source: '/manifiesto', destination: '/nosotros', permanent: true },
       { source: '/:slug/manifiesto', destination: '/nosotros', permanent: true },
-      // 30 sep 2026 — el pitch deck se llama «presentación» («pitch deck» no pasa
-      // la prueba de la abuela). La query (?ref del socio) se conserva sola.
-      { source: '/pitch-deck', destination: '/presentacion', permanent: true },
-      { source: '/pitch-deck/:path*', destination: '/presentacion/:path*', permanent: true },
+      // 30 sep 2026 — el pitch deck se llamó «presentación»; 10 oct 2026 — la
+      // presentación se mudó a /servilleta (la URL con el SEO de «plan
+      // servilleta»). Todas sus URLs viejas llegan ahí; la query (?ref del socio,
+      // ?pantalla) se conserva sola. /presentacion/anterior (el respaldo del 23
+      // sep) se retiró con la consolidación: vive en git (commit 7e5cc61).
+      // Las tarjetas ya compartidas piden la imagen vieja: que la encuentren.
+      { source: '/presentacion/opengraph-image', destination: '/servilleta/opengraph-image', permanent: true },
+      { source: '/presentacion', destination: '/servilleta', permanent: true },
+      { source: '/presentacion/:path*', destination: '/servilleta', permanent: true },
+      { source: '/pitch-deck', destination: '/servilleta', permanent: true },
+      { source: '/pitch-deck/:path*', destination: '/servilleta', permanent: true },
     ]
   },
 }

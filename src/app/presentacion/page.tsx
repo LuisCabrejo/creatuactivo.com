@@ -1369,13 +1369,16 @@ export default function PitchDeckPage() {
               con sus íconos (la fábrica · la conversación · la lista de pasos)
               volcándose en UNO — el clip de «usted recibe en una sola aplicación
               los tres elementos» del video «Cómo funciona», recortado a la
-              pantalla del teléfono (telefono-union.mp4, receta en el scratchpad →
-              base teatro-2 t=3,0 con pantalla oscurecida + h_3-cosas-ciertas-v2
-              1,3–6,4 s). ⚠️ El ORBE salió de esta pantalla (Director: el orbe
-              representa a la persona; aquí el protagonista es la unión) y el
-              recorte termina ANTES de que el orbe aterrice en el cubo. ⚠️ Sin
-              rótulos ni texto de golpe: la imagen habla sola y el nombre tiene su
-              propio beat. */}
+              pantalla del teléfono — y al armarse, EL CUBO SE ENCIENDE (Director,
+              10 oct 2026: «cuando se arma, el cubo se enciende… sería genial»):
+              el marco blanco que crece en su cara, calcado de la intro de
+              respaldo.mp4 y sintetizado sobre nuestro cubo porque el de respaldo
+              trae el orbe encima; 2,8 s de aire tras el armado, con respiración.
+              Receta reproducible: captions/work/como-funciona/armar_telefono_union.py.
+              ⚠️ El ORBE salió de esta pantalla (Director: el orbe representa a la
+              persona; aquí el protagonista es la unión) y el recorte termina
+              ANTES de que el orbe aterrice en el cubo. ⚠️ Sin rótulos ni texto de
+              golpe: la imagen habla sola y el nombre tiene su propio beat. */}
           <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>

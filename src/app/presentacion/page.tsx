@@ -1052,13 +1052,38 @@ export default function PitchDeckPage() {
         .pd-cifras-lista--tres { gap: clamp(20px, 4vw, 48px); }
         .pd-cifras-lista--tres .pd-cifra .n { font-size: clamp(1.9rem, 4.6vw, 3.4rem); }
         .pd-cifras-lista--tres .pd-cifra .t { font-size: clamp(1rem, 1.8vw, 1.22rem); }
+        /* El flujo de las dos acciones (10 oct 2026): tarjetas separadas con
+           flechas doradas entre ellas — el orden se lee solo — y entrada
+           escalonada cuando el beat se activa. */
         .pd-acciones {
-          display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 1px;
-          background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08);
+          display: grid; grid-template-columns: 1fr auto 1.25fr auto 1fr;
+          gap: clamp(10px, 1.6vw, 18px); align-items: stretch;
           margin-top: 1.2rem;
         }
         .pd-accion { background: var(--pd-bg); padding: 1.7rem 1.5rem;
+          border: 1px solid rgba(255,255,255,0.08);
           display: flex; flex-direction: column; justify-content: center; }
+        /* El glifo va en ::before y cambia a ↓ en columna — NO con rotate:
+           la animacion de entrada anima transform y lo pisaria (fill both). */
+        .pd-flecha {
+          display: flex; align-items: center; justify-content: center;
+          color: var(--pd-gold); font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+          font-weight: 700;
+        }
+        .pd-flecha::before { content: '→'; }
+        @keyframes pdEntra {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: none; }
+        }
+        .pd-beat.on .pd-acciones > * { animation: pdEntra 0.45s ease-out both; }
+        .pd-beat.on .pd-acciones > :nth-child(1) { animation-delay: 0.1s; }
+        .pd-beat.on .pd-acciones > :nth-child(2) { animation-delay: 0.5s; }
+        .pd-beat.on .pd-acciones > :nth-child(3) { animation-delay: 0.75s; }
+        .pd-beat.on .pd-acciones > :nth-child(4) { animation-delay: 1.3s; }
+        .pd-beat.on .pd-acciones > :nth-child(5) { animation-delay: 1.55s; }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-beat.on .pd-acciones > * { animation: none; }
+        }
         .pd-accion .k { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.26em;
           color: var(--pd-data); }
         .pd-accion .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
@@ -1066,8 +1091,9 @@ export default function PitchDeckPage() {
         .pd-accion .d { font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55;
           color: var(--color-text-body, #C8C7C2); margin: 0; }
         .pd-accion--queswa { background: var(--pd-elev); align-items: center; text-align: center; }
-        .pd-accion--queswa .img { width: 92px; aspect-ratio: 1 / 1; background-size: cover;
-          background-position: center; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 1rem; }
+        .pd-accion--queswa .img { width: clamp(96px, 15vh, 150px); aspect-ratio: 1 / 1;
+          background-size: cover; background-position: center; object-fit: cover;
+          display: block; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 1rem; }
         .pd-accion--queswa .d { font-size: clamp(0.9rem, 1.5vw, 1rem); color: var(--pd-muted); }
         .pd-pregunta { text-align: center; max-width: 920px; }
         .pd-pregunta .pd-bisagra { font-size: clamp(1.9rem, 5.2vw, 3.6rem); margin: 0; text-wrap: balance; }
@@ -1088,9 +1114,12 @@ export default function PitchDeckPage() {
         .pd-nombre-input::placeholder { color: rgba(197,160,89,0.35); }
         @media (max-width: 860px) {
           .pd-cifras-lista--tres { grid-template-columns: 1fr; gap: 1.2rem; }
-          .pd-acciones { grid-template-columns: 1fr; }
+          .pd-acciones { grid-template-columns: 1fr; gap: 8px; }
           .pd-accion { padding: 1rem 1.1rem; }
-          .pd-accion--queswa .img { width: 60px; margin-bottom: 0.6rem; }
+          /* En columna el flujo baja. */
+          .pd-flecha { font-size: 1.2rem; line-height: 1; }
+          .pd-flecha::before { content: '↓'; }
+          .pd-accion--queswa .img { width: 76px; margin-bottom: 0.6rem; }
         }
 
         /* ═══ Oportunidad, dos sectores y propuesta (30 sep 2026) ═══════════ */
@@ -1383,21 +1412,39 @@ export default function PitchDeckPage() {
             <div className="pd-wrap" style={{ maxWidth: 1040 }}>
               <p className="pd-eyebrow">Qué hace usted</p>
               <h2 className="pd-h2">Su día a día se resume en dos acciones.</h2>
-              {/* EAM_01, con Queswa dibujada ENTRE las dos acciones. */}
+              {/* EAM_01, con Queswa dibujada ENTRE las dos acciones. EL FLUJO SE VE
+                  (Director, 10 oct 2026: «que sea evidente: dos pasos y Queswa en
+                  la mitad»): flechas doradas entre las tres columnas, entrada
+                  ESCALONADA al activarse el beat (Compartir → flecha → Queswa →
+                  flecha → Recibir: el orden se ve suceder) y el centro VIVO — el
+                  clip de Queswa atendiendo, el mismo de la pieza 2, porque es la
+                  misma entidad haciendo el mismo trabajo. Las dos acciones quedan
+                  quietas a propósito: lo que se mueve es quien trabaja. */}
               <div className="pd-acciones">
                 <div className="pd-accion">
                   <span className="k">01</span>
                   <p className="t">Compartir</p>
                   <p className="d">Usted pasa un enlace a quien quiera.</p>
                 </div>
+                <div className="pd-flecha" aria-hidden="true" />
                 <div className="pd-accion pd-accion--queswa">
-                  <div className="img" style={{ backgroundImage: 'url(/images/servilleta/colapso-conversacion.webp)' }} />
+                  <video
+                    className="img"
+                    data-beat="6-0"
+                    src="/videos/presentacion/pieza-atiende.mp4"
+                    poster="/images/servilleta/colapso-conversacion.webp"
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                  />
                   <p className="d">
                     Entre las dos está Queswa: conversa con cada persona que llega, resuelve
                     sus dudas y madura su decisión de avanzar. Cuando alguien está listo, le
                     avisa.
                   </p>
                 </div>
+                <div className="pd-flecha" aria-hidden="true" />
                 <div className="pd-accion">
                   <span className="k">02</span>
                   <p className="t">Recibir</p>

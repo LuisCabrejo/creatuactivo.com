@@ -426,16 +426,17 @@ export default function PitchDeckPage() {
     setBeat(0);
   }, []);
 
-  // ── Las piezas en video (10 oct 2026) ──────────────────────────────────────
-  // Solo el beat activo reproduce; la pieza abandonada se pausa y rebobina — el
-  // control central de media de la servilleta, adaptado. Con movimiento reducido
-  // del sistema, el video no arranca y queda el poster (la imagen de siempre).
+  // ── Los videos del deck (10 oct 2026) ──────────────────────────────────────
+  // Cada <video> declara su beat en data-beat="pantalla-beat". Solo el activo
+  // reproduce; el abandonado se pausa y rebobina — el control central de media
+  // de la servilleta, adaptado. Con movimiento reducido del sistema, el video no
+  // arranca y queda el poster.
   useEffect(() => {
     const reduce = typeof window !== 'undefined'
       && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    document.querySelectorAll<HTMLVideoElement>('video[data-pieza]').forEach((v) => {
-      const activo = slide === 5 && beat === Number(v.dataset.pieza) + 1;
-      if (activo && !reduce) {
+    const activo = `${slide}-${beat}`;
+    document.querySelectorAll<HTMLVideoElement>('video[data-beat]').forEach((v) => {
+      if (v.dataset.beat === activo && !reduce) {
         v.play().catch(() => { /* autoplay bloqueado: queda el poster */ });
       } else {
         v.pause();
@@ -648,8 +649,16 @@ export default function PitchDeckPage() {
           opacity: 0; visibility: hidden; transition: opacity 0.45s ease; }
         .pd-beat > * { margin-block: auto; }
         .pd-beat.on { opacity: 1; visibility: visible; }
-        .pd-pieza { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 64px);
-          align-items: center; max-width: 1040px; margin: 0 auto; width: 100%; }
+        /* LA PIEZA ES LA PROTAGONISTA (Director, 10 oct 2026: «los clips se ven más
+           pequeños que en la servilleta»). El deck se presenta en Mac, proyector y
+           teléfono, así que la figura se dimensiona POR ALTURA DE PANTALLA, no solo
+           por columna: en un proyector 16:9 el ancho sobra y la altura manda.
+           Respaldo: diapositiva = afirmación en una línea + evidencia VISUAL
+           dominante (assertion-evidence, Garner & Alley 2013); el socio narra el
+           resto — el mismo principio name-only de la servilleta. */
+        .pd-pieza { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 5vw, 64px);
+          align-items: center; max-width: 1160px; margin: 0 auto; width: 100%; }
+        .pd-pieza .pd-figura { width: min(100%, calc(100vh - 230px)); justify-self: center; }
         /* ⚠️ El ancho va EXPLÍCITO. Sin él, como .pd-pieza lleva align-items:center,
            el ítem de la rejilla no se estira, su alto queda en 0 y aspect-ratio le
            deja 2px de ancho: en el teléfono las tres piezas no se veían (bug real,
@@ -662,6 +671,13 @@ export default function PitchDeckPage() {
         /* La pieza en video: el loop ya es cuadrado, cover lo deja exacto; el
            fondo carbón cubre el instante antes del poster. */
         video.pd-figura { object-fit: cover; display: block; background: #0F1115; }
+        /* El clip de la multiplicación (remate de «Qué hace usted»): acotado por
+           la altura para que el golpe y las dos líneas del cierre siempre quepan. */
+        .pd-multiplica {
+          display: block; width: min(320px, 58vw, calc(100vh - 460px));
+          aspect-ratio: 1 / 1; object-fit: cover; margin: 0 auto 0.6rem;
+          background: #0F1115; border: 1px solid rgba(255,255,255,0.08);
+        }
         .pd-pieza-label {
           font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
           font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
@@ -888,8 +904,9 @@ export default function PitchDeckPage() {
         @media (max-width: 860px) {
           .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
           /* La pieza manda en el teléfono: es lo único que se mira mientras el
-             socio narra. Ancho fijo y centrada, no un max-width que la colapse. */
-          .pd-pieza .pd-figura { width: min(64vw, 310px); margin: 0 auto; }
+             socio narra. Subida de 64vw a 80vw el 10 oct 2026 (Director: se veía
+             más pequeña que en la servilleta, donde el clip llena la card). */
+          .pd-pieza .pd-figura { width: min(80vw, 400px); margin: 0 auto; }
           .pd-tres { grid-template-columns: repeat(3, 1fr); gap: 8px; }
           .pd-tres .cap { font-size: 0.48rem; letter-spacing: 0.1em; }
           /* Dos por dos, no cuatro en fila: a 83px no se distingue un producto de
@@ -997,7 +1014,12 @@ export default function PitchDeckPage() {
           .pd-credo h1, .pd-credo .pd-credo-linea { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
           .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
           .pd-pieza-label { font-size: clamp(1.15rem, 5.2vw, 1.9rem); margin-bottom: 0.8rem; }
-          .pd-pieza .pd-figura { width: min(48vw, 230px); }
+          /* ⚠️ Esta regla aplicaba min(48vw, 230px) a CUALQUIER pantalla de ≤700px
+             de alto — incluido un proyector a 1280×720, donde la pieza quedaba
+             diminuta. Era la causa de «los clips se ven pequeños» (Director,
+             10 oct 2026). Ahora manda la altura real: en 720p la pieza queda en
+             ~470px y en un teléfono acostado la acota el otro media query. */
+          .pd-pieza .pd-figura { width: min(42vw, calc(100vh - 250px)); }
           .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
           .pd-telefono { width: min(150px, 28vw); }
         }
@@ -1010,7 +1032,7 @@ export default function PitchDeckPage() {
         @media (max-height: 560px) and (min-width: 600px) {
           .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
           .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-          .pd-pieza .pd-figura { width: min(34vw, 230px); }
+          .pd-pieza .pd-figura { width: min(34vw, calc(100vh - 150px)); }
           .pd-slide, .pd-beat { padding-top: 56px; padding-bottom: 26px; }
           /* El credo son dos bloques largos y en 390px de alto no caben: se leen a
              dos columnas, que además es la forma natural de una anáfora. */
@@ -1248,7 +1270,7 @@ export default function PitchDeckPage() {
                     con audio y narrativa propia; un loop mudo no la necesita. */}
                 <video
                   className="pd-figura"
-                  data-pieza={i}
+                  data-beat={`5-${i + 1}`}
                   src={PIEZAS[i].video}
                   poster={PIEZAS[i].img}
                   muted
@@ -1385,7 +1407,27 @@ export default function PitchDeckPage() {
             </div>
           </div>
           <div className={`pd-beat ${slide === 6 && beat === 1 ? 'on' : ''}`}>
+            {/* EL CABALLO DE TROYA DE LA MULTIPLICACIÓN (Director, 10 oct 2026):
+                esta pantalla es donde el empresario y el networker reconocen SU
+                problema — multiplicar es lo más difícil de cualquier empresa, y en
+                esta industria más (sin jefes ni horarios, el que triunfa es el que
+                multiplica). El clip lo MUESTRA en vez de decirlo: la figura usa el
+                celular y aparecen los demás, cada uno con el suyo, todos del mismo
+                tamaño — c-distribuir del video «Cómo funciona», ya aprobado; la
+                semántica anti-pirámide de la servilleta (réplicas idénticas, nunca
+                top-down). Poster = primer cuadro (el celular solo), para no
+                regalar el remate antes de que el clip lo cuente. */}
             <div className="pd-remate">
+              <video
+                className="pd-multiplica"
+                data-beat="6-1"
+                src="/videos/presentacion/multiplicacion.mp4"
+                poster="/videos/presentacion/multiplicacion-poster.webp"
+                muted
+                loop
+                playsInline
+                preload="none"
+              />
               <p className="grande">Solo se multiplica lo que es sencillo.</p>
               <p className="pd-p pd-cierre-linea">
                 Quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.

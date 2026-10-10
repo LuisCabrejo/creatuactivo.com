@@ -52,11 +52,12 @@
  *  5 LA PROPUESTA    · beat 0: una empresa de distribución moderna a su nombre,
  *    Y CÓMO FUNCIONA   «se requieren tres elementos»; luego el orden de WHY_02:
  *                      las tres piezas (el fabricante SIN nombre; la 3ª es SABER
- *                      QUÉ HACER desde el 9 oct 2026), la oscilación, y el remate
- *                      en DOS beats (10 oct 2026, como Jobs: primero el aparato,
- *                      después la palabra): el teléfono con la UNIÓN de los tres
- *                      adentro (telefono-union.mp4) y el nombre «Queswa.app» a
- *                      solas, sin figura; cierra la propiedad.
+ *                      QUÉ HACER desde el 9 oct 2026), la oscilación, el remate
+ *                      en UNA diapositiva (10 oct 2026): el teléfono con la UNIÓN
+ *                      de los tres adentro (telefono-union-v4.mp4, 60 s, el cubo
+ *                      encendido latiendo) y «Queswa.app», que entra solo cuando
+ *                      el cubo ya se encendió — la secuencia de Jobs sin clic;
+ *                      cierra la propiedad.
  *                      → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
  *  6 QUÉ HACE USTED  · Compartir · Recibir con Queswa en medio (EAM_01);
  *                      beat 2: solo se multiplica lo que es sencillo.
@@ -116,7 +117,7 @@ const HITOS_PRESENTACION = [4, 7, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 8, 6: 2, 9: 2 };
+const BEATS: Record<number, number> = { 5: 7, 6: 2, 9: 2 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
@@ -713,26 +714,42 @@ export default function PitchDeckPage() {
            único que se quedaba pegado arriba con media pantalla vacía debajo. */
         .pd-remate { text-align: center; max-width: 760px; margin: auto; }
 
-        /* EL OBJETO ÚNICO DEL REMATE (10 oct 2026): el teléfono con la UNIÓN de
-           los tres elementos adentro — telefono-union.mp4, video. El beat ya no
-           carga golpe ni nombre (tienen su propio beat), así que el teléfono
-           crece: lo acota la altura real de la pantalla. */
+        /* EL CLÍMAX EN UNA DIAPOSITIVA (10 oct 2026): el teléfono con la UNIÓN
+           adentro y, al lado, el paso y el nombre. En pantalla ancha van lado a
+           lado (en 16:9 apilados no caben); en el teléfono, apilados. El
+           teléfono lo acota la altura real de la pantalla. */
+        .pd-remate.pd-union { max-width: 1060px; }
+        .pd-union-cuerpo {
+          display: grid; grid-template-columns: auto minmax(0, 1fr);
+          gap: clamp(28px, 5vw, 72px); align-items: center; margin-top: 1.4rem;
+        }
+        .pd-union-texto { text-align: left; }
+        .pd-union-texto p.grande--paso { margin-top: 0; }
         .pd-telefono {
-          display: block; width: min(330px, 56vw, calc((100vh - 210px) * 0.52));
+          display: block; width: min(300px, 30vw, calc((100vh - 230px) * 0.52));
           aspect-ratio: 720 / 1360; object-fit: cover;
           margin: 0 auto; background: #0F1115;
           border: 1px solid rgba(197,160,89,0.55);
           box-shadow: 0 0 70px rgba(197,160,89,0.10);
         }
-        /* El nombre, a solas (el ángulo Jobs): más grande que cualquier golpe, y
-           entra con una respiración después del paso. */
         .pd-remate p.pd-nombre-app {
-          font-size: clamp(2.3rem, 7.5vw, 4.6rem); margin-top: 0.4rem;
+          font-size: clamp(2.3rem, 6.2vw, 4.6rem); margin: 0.3rem 0 0;
         }
-        .pd-beat.on .pd-remate--nombre > * { animation: pdEntra 0.5s ease-out both; }
-        .pd-beat.on .pd-remate--nombre > :nth-child(1) { animation-delay: 0.15s; }
-        .pd-beat.on .pd-remate--nombre > :nth-child(2) { animation-delay: 0.85s; }
-        .pd-beat.on .pd-remate--nombre > :nth-child(3) { animation-delay: 1.35s; }
+        /* EL TEXTO LLEGA CUANDO EL CUBO YA SE ENCENDIÓ — la secuencia de Jobs
+           (primero el aparato, después la palabra) sin pedirle un clic al
+           socio. Tiempos atados al clip: trío ~1 s → fusión → el cubo armado a
+           2,48 s → la luz llega a plena ~3,6 s. Si cambia la receta del clip,
+           se mueven estos tres retrasos. */
+        .pd-beat.on .pd-union-texto > * { animation: pdEntra 0.6s ease-out both; }
+        .pd-beat.on .pd-union-texto > :nth-child(1) { animation-delay: 3.0s; }
+        .pd-beat.on .pd-union-texto > :nth-child(2) { animation-delay: 3.9s; }
+        .pd-beat.on .pd-union-texto > :nth-child(3) { animation-delay: 4.4s; }
+        @media (max-width: 860px) {
+          .pd-union-cuerpo { grid-template-columns: 1fr; gap: 1rem; margin-top: 0.8rem; }
+          .pd-union-texto { text-align: center; }
+          /* Apilado, el teléfono deja sitio al texto de abajo (~260px). */
+          .pd-telefono { width: min(52vw, calc((100vh - 430px) * 0.52)); }
+        }
         /* El golpe del remate en blanco y un punto menor: el oro y el tamaño
            completo son del NOMBRE, que es lo nuevo y cae de último. */
         .pd-remate p.grande--paso {
@@ -1031,7 +1048,7 @@ export default function PitchDeckPage() {
              ~470px y en un teléfono acostado la acota el otro media query. */
           .pd-pieza .pd-figura { width: min(42vw, calc(100vh - 250px)); }
           .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
-          .pd-telefono { width: min(44vw, calc((100vh - 190px) * 0.52)); }
+          .pd-telefono { width: min(30vw, calc((100vh - 200px) * 0.52)); }
         }
 
         /* TELÉFONO GIRADO. Ancho de sobra y altura mínima: exactamente lo contrario
@@ -1093,7 +1110,7 @@ export default function PitchDeckPage() {
         .pd-beat.on .pd-acciones > :nth-child(5) { animation-delay: 1.55s; }
         @media (prefers-reduced-motion: reduce) {
           .pd-beat.on .pd-acciones > *,
-          .pd-beat.on .pd-remate--nombre > * { animation: none; }
+          .pd-beat.on .pd-union-texto > * { animation: none; }
         }
         .pd-accion .k { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.26em;
           color: var(--pd-data); }
@@ -1362,69 +1379,62 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beat 5: LA UNIÓN, DENTRO DEL CELULAR (Director, 10 oct 2026 — dos
-              ángulos auditados y se quedaron los dos, en DOS beats, como hizo
-              Jobs: primero el aparato, después la palabra sola). El visual es el
-              celular con la fusión de los tres elementos ADENTRO: los tres cubos
-              con sus íconos (la fábrica · la conversación · la lista de pasos)
-              volcándose en UNO — el clip de «usted recibe en una sola aplicación
-              los tres elementos» del video «Cómo funciona», recortado a la
-              pantalla del teléfono — y al armarse, EL CUBO SE ENCIENDE (Director,
-              10 oct 2026: «cuando se arma, el cubo se enciende… sería genial»):
-              el marco blanco que crece en su cara, calcado de la intro de
-              respaldo.mp4 y sintetizado sobre nuestro cubo porque el de respaldo
-              trae el orbe encima; 2,8 s de aire tras el armado, con respiración.
-              Receta reproducible: captions/work/como-funciona/armar_telefono_union.py.
-              ⚠️ El ORBE salió de esta pantalla (Director: el orbe representa a la
-              persona; aquí el protagonista es la unión) y el recorte termina
-              ANTES de que el orbe aterrice en el cubo. ⚠️ Sin rótulos ni texto de
-              golpe: la imagen habla sola y el nombre tiene su propio beat. */}
-          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
-              <video
-                className="pd-telefono"
-                data-beat="5-5"
-                src="/videos/presentacion/telefono-union.mp4"
-                poster="/videos/presentacion/telefono-union-poster.webp"
-                muted
-                loop
-                playsInline
-                preload="none"
-              />
-            </div>
-          </div>
-
-          {/* Beat 6: EL NOMBRE, A SOLAS — el ángulo Jobs (Director, 10 oct 2026:
-              «cuando Jobs dice que no son tres, es uno, no aparece figura:
-              simplemente el texto iPhone»). Sin imagen que le robe el momento:
-              el paso en blanco y el nombre en oro, grande, entrando con una
-              respiración de por medio. Lo dado primero (su empresa — la prometió
-              el beat 0 — y la aplicación que la contiene, canon de WHY_02); lo
-              NUEVO de último: Queswa.app. Completa el patrón de la pantalla 2 —
-              los cinco pares resuelven en una app, el clímax resuelve en la
-              nuestra (canon WHY_APP_02: «Es una sola: queswa.app»).
+          {/* Beat 5: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
+              10 oct 2026, tras presentarla en vivo: «mejor que el clip y el
+              texto estén en una sola»). Del 10 oct quedaron dos beats —primero
+              el aparato, un clic, después la palabra—, pero el clic de más caía
+              justo en el clímax, donde el socio más habla, y desde la v4 el cubo
+              queda quieto: ya no compite con el nombre, lo ilumina. La
+              secuencia de Jobs se conserva SIN clic: el texto entra cuando el
+              cubo ya se encendió (~3,8 s, sincronizado con el clip; ver
+              .pd-union en el CSS). En pantalla ancha, teléfono y texto van lado
+              a lado — en 16:9 apilados no caben —; en el teléfono, apilados.
+              El visual: el celular con la fusión de los tres elementos ADENTRO
+              (los tres cubos con sus íconos · la fábrica · la conversación · la
+              lista de pasos · volcándose en UNO) y el cubo que enciende su luz
+              interior y late, 60 s sin rearmarse. Receta reproducible:
+              captions/work/como-funciona/armar_telefono_union.py. ⚠️ El ORBE no
+              aparece (representa a la persona; aquí el protagonista es la
+              unión). El texto: lo dado primero (su empresa — la prometió el beat
+              0 — y la aplicación que la contiene, canon de WHY_02); lo NUEVO de
+              último: Queswa.app, que completa el patrón de la pantalla 2 (los
+              cinco pares resuelven en una app; el clímax, en la nuestra).
               → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
-          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
-            <div className="pd-remate pd-remate--nombre">
-              <p className="grande grande--paso">
-                Su empresa llega armada,<br />en una sola aplicación:
-              </p>
-              <p className="grande pd-nombre-app">
-                Queswa.app
-              </p>
-              <p className="marca">CreaTuActivo.com</p>
+          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
+            <div className="pd-remate pd-union">
+              <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
+              <div className="pd-union-cuerpo">
+                <video
+                  className="pd-telefono"
+                  data-beat="5-5"
+                  src="/videos/presentacion/telefono-union-v4.mp4"
+                  poster="/videos/presentacion/telefono-union-v4-poster.webp"
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                />
+                <div className="pd-union-texto">
+                  <p className="grande grande--paso">
+                    Su empresa llega armada,<br />en una sola aplicación:
+                  </p>
+                  <p className="grande pd-nombre-app">
+                    Queswa.app
+                  </p>
+                  <p className="marca">CreaTuActivo.com</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Beat 7: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+          {/* Beat 6: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
               nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
               2026): el enlace se presenta en la pantalla siguiente (Compartir) y
               aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
               eco del golpe recién revelado. ⛔ No volver a «el mercado que se va
               creando»: en Colombia «el mercado» a secas es el de la casa, y la
               permanencia se dice del CLIENTE, nunca en abstracto. */}
-          <div className={`pd-beat ${slide === 5 && beat === 7 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
               <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>

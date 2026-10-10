@@ -13,7 +13,10 @@
 import { normalizarSuave } from '@/lib/texto-normalizar';
 
 // Keywords que indican objeciones (para enriquecer queries cortas)
-const OBJECTION_KEYWORDS = ['mlm', 'multinivel', 'piramide', 'pirámide', 'estafa', 'scam', 'fraude', 'ponzi'];
+// 10 oct 2026: «mlm» y «multinivel» salieron de la lista. Preguntar si esto es
+// multinivel es preguntar la categoría (FREQ_40, se responde con un «sí»), no una
+// objeción de legitimidad: el agregado de abajo la arrastraba a FREQ_13 (legalidad).
+const OBJECTION_KEYWORDS = ['piramide', 'pirámide', 'estafa', 'scam', 'fraude', 'ponzi'];
 
 /**
  * Enriquece queries cortas con contexto adicional para mejor matching

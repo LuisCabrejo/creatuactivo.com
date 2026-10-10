@@ -695,6 +695,21 @@ const RE_PIDE_PIEZA =
 export const RE_PREGUNTA_EMPRESA_GANO =
   /qu[eé]\s+es\s+(gano\s*e[xc]{1,3}[eé]?ll?|esa?\s+empresa|la\s+empresa)|gano\s*e[xc]{1,3}[eé]?ll?[^.?\n]{0,8}qu[eé]\s+es|qui[eé]n(?:es)?\s+(?:es|son)\s+gano\s*e[xc]{1,3}[eé]?ll?/i;
 
+// ── «¿Esto es multinivel?» se responde con un «sí» (10 oct 2026, Director) ─────
+// Es la PREGUNTA por la categoría, no una objeción: abre la puerta de FREQ_40 en
+// route.ts. Exige el marco de pregunta («es…», «eso es como…») para no tragarse
+// las comparaciones («¿en qué se diferencia del multinivel?», «es mejor que un
+// multinivel»), que son de NET_01 o del vector. Quien YA estuvo («trabajé en
+// Herbalife», «ya hice multinivel») lo atiende la puerta de NET_01, que va antes.
+// Vive aquí para que `prueba-typos.mts` la vigile: la persona escribe con el pulgar.
+const CATEGORIA_MULTINIVEL =
+  String.raw`(?:m(?:[uú]l*|l+[uú])t*[ií]\s*-?\s*ni?[vb]e?l+|\bmlm\b|mercadeo\s+(?:en\s+red|mul?ti\S*)|network\s*marketing|redes?\s+de\s+mercadeo|herbalife|amway|omnilife|4\s*life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b)`;
+export const RE_PREGUNTA_ES_MULTINIVEL = new RegExp(
+  String.raw`\bes\s+(?:(?:un|una|como|tipo|de|esas?|esos?|las?|los?|empresa|compa[ñn][ií]a|negocio|modelo|sistema)\s+){0,3}` + CATEGORIA_MULTINIVEL
+  + String.raw`|^\s*[¿?]?\s*(?:y\s+)?(?:esto\s+|eso\s+)?` + CATEGORIA_MULTINIVEL + String.raw`\s*[?¿.!]*\s*$`,
+  'i',
+);
+
 // ── La objeción de PRESUPUESTO no se contesta con un texto dictado (29 sep 2026) ─
 // Yesid Triana: «Con el costo de vida disparado, ¿una caja de Ganocafé no afecta
 // el presupuesto de una persona en productos de primera necesidad?». El vector

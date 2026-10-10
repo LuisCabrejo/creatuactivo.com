@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.69** (9 oct 2026) — **El tercer elemento es SABER QUÉ HACER, y la aplicación es el ENVASE de los tres** (Director; investigación → `docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md`). Cambian `WHY_02` 🔒 (el punto 3 del candado), `WHY_05` 🔒 (la lista de los tres) y la nota de `WHY_APP_01`. Los elementos quedan como funciones —fabricar · atender · saber qué hacer— y la aplicación sube de rango: es donde llegan los tres ensamblados (el nombre vive en `WHY_APP_02` y en el clímax de la Presentación). Misma forma en el video «Cómo funciona», la Home, la Presentación y `respuestas-maestras.ts` (Camino A, contrato de prefijo). Los índices y los títulos no cambian.
+**Versión actual: v6.70** (10 oct 2026) — **`FREQ_40`, nueva: «¿esto es multinivel?» se responde con un «sí».** La pregunta caía en `FREQ_13` (legalidad), que respondía «es legal» y nombraba la pirámide a quien no la traía; «¿es de esas redes de mercadeo?» caía en `NET_01`, escrita para quien ya hizo mercadeo en red. `FREQ_13` deja «es multinivel o MLM» de su índice y sigue respondiendo la legalidad. Puerta fija y criterio en `route.ts` y en el `[Concepto Nuclear]` de `FREQ_40`; historia en el CHANGELOG.
+
+**v6.69** (9 oct 2026) — **El tercer elemento es SABER QUÉ HACER, y la aplicación es el ENVASE de los tres** (Director; investigación → `docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md`). Cambian `WHY_02` 🔒 (el punto 3 del candado), `WHY_05` 🔒 (la lista de los tres) y la nota de `WHY_APP_01`. Los elementos quedan como funciones —fabricar · atender · saber qué hacer— y la aplicación sube de rango: es donde llegan los tres ensamblados (el nombre vive en `WHY_APP_02` y en el clímax de la Presentación). Misma forma en el video «Cómo funciona», la Home, la Presentación y `respuestas-maestras.ts` (Camino A, contrato de prefijo). Los índices y los títulos no cambian.
 
 **v6.68** (9 oct 2026) — **La segunda frase del credo cambia en `WHY_01` 🔒, `WHY_05` 🔒 y `CRED_01`:** *«Creemos que el trabajo de cada persona debería convertirse en un activo.»* Le responde a la primera frase —el trabajo que hoy se va en el ciclo— y le da sentido al nombre de la marca. Es la misma frase de la Home y de la apertura del canal (Director, 9 oct 2026). Los índices y los títulos no cambian.
-
-**v6.67** (8 oct 2026) — **`NET_01` da la bienvenida a quien viene de otra compañía.** La primera línea suma *«y aquí eso suma»*: quien es distribuidor de otra compañía de mercadeo en red es bienvenido (Director, 8 oct 2026). Quien está activo en Gano Excel con otro equipo ya no llega aquí: lo atiende el nodo 2.51 del conductor, con un texto aprobado y sin venderle. El índice y el título no cambian.
 
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
@@ -795,7 +795,7 @@ Usted se apoya en esa infraestructura para ser el dueño de su sistema de client
 
 
 ### **FREQ_13: "¿Es esto legal? / ¿Es una pirámide? / ¿Esto es un esquema piramidal? / ¿Está regulado? / ¿Es una estafa?"**
-**[Índice]:** Esto es legal, es una pirámide, es un esquema piramidal, es multinivel o MLM, es una estafa, está regulado. Qué dice la ley colombiana sobre el mercadeo multinivel.
+**[Índice]:** Esto es legal, es una pirámide, es un esquema piramidal, es una estafa, está regulado. Qué dice la ley colombiana sobre el mercadeo multinivel.
 **[Concepto Nuclear]:** La legalidad se prueba con **hechos institucionales verificables**, no con adjetivos. Son tres: la **Ley 1700 de 2013** regula el mercadeo multinivel en Colombia y exige **oficina abierta al público de manera permanente** —el criterio con el que el legislador separó el comercio del fraude, porque la captación ilegal opera desde la clandestinidad—; Gano Excel tiene **nueve sedes** en el país, dos de ellas en Bogotá; y está afiliada a **ACOVEDI**, el gremio de la venta directa. ⚠️ **El plan se nombra por lo que SÍ paga:** un porcentaje del producto que se vende por su sistema, con registro INVIMA. ⚠️ La aritmética —mil registrados que no consumen dan cero— es de **FREQ_20**; aquí va la prueba institucional, y por eso no se repite. ⚠️ **Sin conteo de países:** las fuentes discrepan y en la respuesta sobre legalidad esa es justo la cifra que un escéptico verifica. ⚠️ Cierra hacia **WHY_04**, contenido servido y verbatim.
 
 <verbatim_lock>
@@ -811,6 +811,19 @@ Y el pago va por una sola vía: un porcentaje del producto que se vende por su s
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro de dónde sale ese porcentaje?
+
+
+### **FREQ_40: "¿Esto es multinivel? / ¿Es mercadeo en red?"**
+**[Índice]:** Esto es multinivel o qué, es mercadeo en red, es de esas redes de mercadeo, es network marketing. Eso es un MLM, es como Herbalife, Amway u Omnilife.
+**[Concepto Nuclear]:** Quien pregunta «¿esto es multinivel?» pregunta la CATEGORÍA, no plantea una objeción, y se le responde con un «sí» en la primera palabra (Director, 10 oct 2026). Investigación del estigma (`docs/investigaciones/resultados/ESTIGMA_DE_CATEGORIA_*_SEP2026.md`): si preguntan, se dice sin rodeos y se ancla al marco en la misma frase — ocultar deja peor impresión que el hecho (PNAS 2016) —; el estigma es de POPULARIDAD, no de fraude, y su motivo n.º 1 es la incomodidad de proponérselo a los conocidos (AARP: 39 % de quienes se van). Por eso: (1) la categoría se nombra como la nombra la ley y la ley va como dato, no como defensa; nada de pirámide ni de estafa, que nadie trajo — eso es `FREQ_13`. (2) El papel verdadero, no un escape de categoría: Gano Excel opera el modelo; CreaTuActivo hace la tecnología que lo modernizó (reclamar «somos tecnología» para negar el modelo es lo que fracasó en Quixtar y WeWork). (3) El cuello de botella se resuelve sin nombrarlo, cambiando QUIÉN HABLA PRIMERO (el patrón de Bumble): la conversación la empieza quien se interesa, y la persona lo está comprobando al escribirle a Queswa — «como usted ahora». (4) Las creencias falsas (que es para ganar a largo plazo, que hay que quemar los barcos, que solo se hace con el paquete más caro) NO se listan: el cierre lleva a Los 12 Niveles, la pieza que las desarma, y el conductor reconoce ese «sí» («estrategia con la que se construye», nodo 2.34). «Muy bueno financieramente» se dice como historial verificable (30 años, 60 países), nunca como promesa. Texto aprobado por el Director el 10 oct 2026, tras el ejercicio «cómo lo diría David Vélez / Simón Borrero». La pregunta que llega con «ya estuve / ya hice multinivel» o con una marca en primera persona es de `NET_01`. Puerta fija en `route.ts` (`RE_PREGUNTA_ES_MULTINIVEL`, conductor).
+
+<verbatim_lock>
+Sí. Gano Excel distribuye con el modelo de mercadeo en red desde hace 30 años, en más de 60 países, y en Colombia lo regula la Ley 1700.
+
+En CreaTuActivo hacemos la parte de tecnología: modernizamos el modelo para que sea sencillo de hacer. Aquí la conversación la empieza quien se interesa: usted comparte un enlace con quien quiera, y quien quiere saber más me escribe a mí, como usted ahora.
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le muestro la estrategia con la que se construye, paso a paso?
 
 ---
 

@@ -47,6 +47,7 @@ import {
   atenderDistribuidorActivo, esSocioNuestroPorNombre,
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO,
+  RE_PREGUNTA_ES_MULTINIVEL,
   atenderModoWaze,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
@@ -2948,7 +2949,22 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // mal de un competidor real, con "reclutamiento" incluido, es justo lo que
       // la doctrina prohíbe. NET_01 responde el frame correcto: qué cambió, sin
       // atacar a nadie.
-      cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)|herbalife|amway|omnilife|4life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b/i,
+      cuando: /(ya\s+)?(estuve|hice|trabaj[eé]|particip[eé]|met[ií])[^.?]{0,30}(multinivel|mercadeo\s+en\s+red|network\s*marketing|mlm|red\s+de\s+mercadeo)|(multinivel|mlm|mercadeo\s+en\s+red)[^.?]{0,30}(no\s+me\s+fue|me\s+fue\s+mal|no\s+funcion|fracas)|ya\s+hago\s+(multinivel|mercadeo\s+en\s+red)|(estuve|hice|trabaj[eé]|particip[eé]|met[ií]|fui|soy|estoy|vendo|vend[ií]a?|tengo\s+c[oó]digo)[^.?]{0,30}(herbalife|amway|omnilife|4\s*life|fuxion|oriflame|yanbal|i[nm]munotec|tiens|\bdxn\b)/i,
+    },
+    {
+      // 10 oct 2026 (Director): «¿esto es multinivel?» es la PREGUNTA por la
+      // categoría y se responde con un «sí» — FREQ_40, con candado. Hasta hoy caía
+      // en FREQ_13 («Es legal…», con la pirámide nombrada a quien no la traía) y
+      // «¿es de esas redes de mercadeo?» en NET_01 (para quien YA lo hizo). Las
+      // marcas sueltas («¿esto es como Herbalife?») vienen aquí desde la misma
+      // fecha: FREQ_40 responde que sí, es el mismo modelo, sin hablar mal de
+      // nadie. Va DESPUÉS de NET_01 a propósito: quien dice «ya estuve» o «trabajé
+      // en Herbalife» es de NET_01. La expresión vive en el conductor.
+      fragmento: 'arsenal_inicial_FREQ_40',
+      titulo: '¿Esto es multinivel? — FREQ_40',
+      porque: 'pregunta si es multinivel',
+      cuando: RE_PREGUNTA_ES_MULTINIVEL,
+      dictar: true,
     },
   ];
 
@@ -3783,7 +3799,9 @@ function interpretQueryHibrido(userMessage: string): string {
     'contacto': 'contacto WhatsApp escalación constructor mentor equipo liderazgo',
 
     // Objeciones comunes
-    'mlm': 'MLM multinivel pirámide legítimo diferenciación nueva categoría',
+    // 10 oct 2026: «mlm» es la pregunta por la categoría (FREQ_40), no una objeción
+    // de legitimidad; el mapeo viejo («pirámide legítimo») arrastraba a FREQ_13.
+    'mlm': 'esto es multinivel mercadeo en red MLM',
     'tiempo': 'tiempo dedicar automatización 90% trabajo estratégico apalancamiento',
     'experiencia': 'experiencia ventas arquitecto operador sistema formación',
     'confianza': 'confianza credibilidad legítimo real funciona resultados',

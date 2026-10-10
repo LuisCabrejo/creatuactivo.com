@@ -23,7 +23,8 @@ const PAGE_VIEW_STEPS = ['vio_pagina_gracias', 'vio_catalogo', 'vio_calculadora'
 async function notifyConstructor(constructorId: string, title: string, body: string, url = '/inteligencia/primer-iniciar') {
   fetch(`${DASHBOARD_URL}/api/push/send`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    // 10 oct 2026: /api/push/send del Dashboard exige llave (estaba público).
+    headers: { 'Content-Type': 'application/json', ...(process.env.WA_BRIDGE_SECRET?.trim() ? { 'x-push-secret': process.env.WA_BRIDGE_SECRET.trim() } : {}) },
     body: JSON.stringify({ constructorId, type: 'new_prospect', title, body, url }),
   }).catch(() => { /* silencioso */ })
 }

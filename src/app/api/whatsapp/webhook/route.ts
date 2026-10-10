@@ -1201,7 +1201,14 @@ async function procesarEntrante(body: any): Promise<void> {
     // hacer por él. No la explicación del negocio. ⚠️ La condición ya no es «no
     // tiene ficha»: quien escribió antes como prospecto tiene ficha y aun así no
     // ha recibido nunca su enlace — Patricia y Liliana, 10 sep 2026.
-    if (socioQueEscribe && (esPrimerContacto || (existingProspect && !existingProspect.device_info?.saludo_socio_en))) {
+    // ⚠️ Y espera si el socio está respondiendo el pedido del cumpleaños (10 oct
+    // 2026). Carlos y Angy escribieron «19 de enero» y «20 de mayo»: el saludo
+    // salió primero, pasó a ser el último mensaje de Queswa, el nodo 2.20 ya no
+    // reconoció la fecha como respuesta y el modelo contestó «anotado» sin que
+    // nada se guardara. El saludo queda pendiente para la próxima conversación.
+    const _saludoSocioPendiente = !!socioQueEscribe && (esPrimerContacto || (!!existingProspect && !existingProspect.device_info?.saludo_socio_en));
+    const _respondeAlCumple = _saludoSocioPendiente && botPidioCumple(await ultimoMensajeDelBot(supabase, waFingerprint));
+    if (socioQueEscribe && _saludoSocioPendiente && !_respondeAlCumple) {
       // Si pidió que le recordaran algo, el saludo no le ofrece una tarea antes.
       const { data: _recordatorioPendiente } = await supabase.from('wa_acuerdos').select('id')
         .eq('fingerprint_id', waFingerprint).eq('estado', 'pendiente').limit(1);
@@ -3747,6 +3754,26 @@ async function ultimaPreguntaReciente(
     return pregunta && pregunta.length <= 220 ? pregunta : null;
   } catch {
     return null;
+  }
+}
+
+/** El último mensaje de Queswa en la conversación, sin ventana de tiempo. */
+async function ultimoMensajeDelBot(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+): Promise<string> {
+  try {
+    const { data } = await supabase.from('nexus_conversations')
+      .select('messages')
+      .eq('fingerprint_id', fingerprint)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    const msgs = Array.isArray(data?.[0]?.messages) ? data[0].messages : [];
+    const bot = [...msgs].reverse().find((m) => m?.role === 'assistant')?.content;
+    return typeof bot === 'string' ? bot : '';
+  } catch {
+    return '';
   }
 }
 

@@ -380,5 +380,28 @@ es(['mándeme el acceso', 'quiero entrar a queswa.app', 'no puedo entrar a mi cu
 es(['mándeme mi enlace', 'mándeme el enlace de productos', 'el acceso para mi amigo Andrés', '¿cuánto vale el ESP-2?', 'dame acceso al catálogo', 'quiero entrar con un paquete']
      .every((m) => !act.detectarPideAcceso(m)), 'su enlace, el acceso para otro, el catálogo y una pregunta del plan no');
 
+// ── 13. Lo que dejó el 9 de octubre (Victor, Carlos, Angy) ──
+console.log('\n── 13. La pregunta por su forma, el cumpleaños y el detector del socio ──');
+const preguntaVictor = 'Entendido. Antes de redactar algo, necesito confirmar un dato: ¿ese código lo tiene con usted, en su sistema? Y ¿se tratan de tú o de usted?';
+es(act.botPreguntoCodigoConUsted(preguntaVictor) && act.botPreguntoCodigoConUsted('¿Ese codigo lo tiene con usted?')
+   && !act.botPreguntoCodigoConUsted('¿Cómo se llama ella, y se tratan de usted o de tú?'),
+   'la pregunta del código se reconoce en minúscula y sin tilde (Victor); otra pregunta no');
+es(act.detectarDistribuidorQuiereActivarse('El código lo tiene en mi red pero es directa del exsuegro y el acabo de fallecer', preguntaVictor),
+   'la respuesta de Victor a esa pregunta cae en el nodo 2.225, no en el modelo');
+const cumple = require('../src/lib/wa-cumpleanos-socio.ts') as typeof import('../src/lib/wa-cumpleanos-socio.ts');
+es(cumple.botPidioCumple(cumple.cuerpoCumple('Carlos')) && !cumple.botPidioCumple(saludoDeSocio('Carlos', 'cafranco')),
+   'el pedido del cumpleaños se reconoce; el saludo de socio no (por eso el saludo espera: Carlos y Angy, 9 oct)');
+es(/Si quedó mal escrito, lo corrige en Ajustes de Cuenta/.test(cumple.respuestaGuardado('14 de octubre'))
+   && !/algún día/.test(cumple.respuestaGuardado('14 de octubre')),
+   'la confirmación dice cómo corregirlo, no «si algún día lo quiere cambiar» (texto aprobado el 10 oct)');
+const rt = require('../src/lib/revisar-turnos.ts') as typeof import('../src/lib/revisar-turnos.ts');
+const turnoRedaccion = { fingerprint_id: 'wa_573142445710', created_at: '2026-10-09T20:07:41Z',
+  messages: [{ role: 'user', content: 'Gustavo Ramirez ingeniero civil. De tu' }, { role: 'assistant', content: 'Listo. Aquí tiene: Hola, Gustavo…' }],
+  metadata: { documents_used: ['arsenal_inicial_WHY_01'] } };
+const servidos = new Set(['arsenal_inicial_WHY_01']);
+es(!rt.detectoresDeterministas(turnoRedaccion, null, servidos, { esSocio: true }).includes('sirve un fragmento ya servido en el hilo')
+   && rt.detectoresDeterministas(turnoRedaccion, null, servidos).includes('sirve un fragmento ya servido en el hilo'),
+   'el detector de fragmento repetido calla con el socio que redacta y sigue con el prospecto');
+
 console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);
 process.exit(fallos ? 1 : 0);

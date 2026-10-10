@@ -49,8 +49,15 @@ const RE_MI_DISTRIBUIDOR =
 const RE_QUIERE_TRABAJAR =
   /\b(?:q[uúü]?(?:[iu]+e*|e+)r[ea]n?|quisiera|desea|le interesa|est[aá] interesad[oa] en|tiene ganas de|decidi[oó]|va a|quiero que)\b[^.?!\n]{0,30}?\b(?:generar|trabajar|activ[a-záéíóú]*|arrancar|empezar|empesar|comenzar|iniciar|volver|retomar|mover|desarrollar|crecer|ganar|hacer (?:el|este) (?:proyecto|negocio)|montar|producir)\b/i;
 
+/**
+ * Por la FORMA, no por la frase exacta (10 oct 2026): el modelo la escribió
+ * «…necesito confirmar un dato: ¿ese código lo tiene con usted, en su sistema?»,
+ * con minúscula, y el `includes` no la reconoció — la respuesta de Victor se fue
+ * al modelo, que compuso el pedido de datos por su cuenta.
+ */
 export function botPreguntoCodigoConUsted(ultimoBot: string): boolean {
-  return (ultimoBot || '').includes(PREGUNTA_CODIGO_CON_USTED);
+  const t = (ultimoBot || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  return /codigo lo tiene con usted/.test(t);
 }
 
 /**

@@ -118,7 +118,9 @@ const RE_ACEPTA = /^(s[ií]+|claro|dale|listo|ok(ay)?|bueno|por supuesto|de una|
  * ⚠️ El orden es el de su daño medido, no el de su elegancia: el primero causó
  * el 52 % de los abandonos del mes.
  */
-export function detectoresDeterministas(turno: Turno, anterior: Turno | null, yaServidos: Set<string>): string[] {
+export function detectoresDeterministas(
+  turno: Turno, anterior: Turno | null, yaServidos: Set<string>, opts: { esSocio?: boolean } = {},
+): string[] {
   const t = dicho(turno);
   const u = preguntado(turno);
   const marcas: string[] = [];
@@ -127,9 +129,13 @@ export function detectoresDeterministas(turno: Turno, anterior: Turno | null, ya
 
   if (anterior && t.length > 80 && candadoYaDicho(dicho(anterior), t)) marcas.push('repite el turno anterior');
 
+  // Al SOCIO no (10 oct 2026): cuando redacta mensajes, la respuesta sale del
+  // esqueleto de redacción y el fragmento recuperado ni se usa. Los tres turnos
+  // de Victor marcados ese día eran tres mensajes distintos para dos personas;
+  // la repetición de verdad la sigue cazando «repite el turno anterior».
   const cats: string[] = (turno.metadata?.documents_used ?? [])
     .filter((d: unknown) => typeof d === 'string' && /^(arsenal_|catalogo_)[a-z0-9_]*_[A-Z]/.test(d as string));
-  if (cats.some((c) => yaServidos.has(c))) marcas.push('sirve un fragmento ya servido en el hilo');
+  if (!opts.esSocio && cats.some((c) => yaServidos.has(c))) marcas.push('sirve un fragmento ya servido en el hilo');
 
   // El "sí" que cayó al vector: la aceptación no encontró nodo y se fue a buscar.
   if (RE_ACEPTA.test(u.trim()) && /vector_search/.test(String(turno.metadata?.search_method ?? ''))) {
@@ -273,19 +279,28 @@ export async function revisarTurnos(opciones: {
   const hilos: Record<string, Turno[]> = {};
   for (const t of personas) (hilos[t.fingerprint_id ?? 'null'] ||= []).push(t);
 
+  // Los hilos de socios: ficha con `es_socio`, y todo lo del Centro de Mando.
+  const socios = new Set<string>(Object.keys(hilos).filter((fp) => fp.startsWith('dash_')));
+  const huellasWa = Object.keys(hilos).filter((fp) => fp.startsWith('wa_'));
+  for (let i = 0; i < huellasWa.length; i += 200) {
+    const { data } = await s.from('prospects').select('fingerprint_id')
+      .in('fingerprint_id', huellasWa.slice(i, i + 200)).eq('device_info->>es_socio', 'true');
+    for (const p of data ?? []) socios.add(p.fingerprint_id);
+  }
+
   const resumen: Resumen = { revisados: personas.length, marcados: 0, porDetector: {}, juzgados: 0, nuevos: [] };
   const sinMarca: Turno[] = [];
   // Para que el juez pueda leer la oferta que la persona aceptó.
   const anteriorDe = new Map<Turno, Turno | null>();
 
-  for (const turnos of Object.values(hilos)) {
+  for (const [fp, turnos] of Object.entries(hilos)) {
     turnos.sort((a, b) => a.created_at.localeCompare(b.created_at));
     const yaServidos = new Set<string>();
     for (let i = 0; i < turnos.length; i++) {
       const t = turnos[i];
       const anterior = i > 0 ? turnos[i - 1] : null;
       anteriorDe.set(t, anterior);
-      const marcas = detectoresDeterministas(t, anterior, yaServidos);
+      const marcas = detectoresDeterministas(t, anterior, yaServidos, { esSocio: socios.has(fp) });
       for (const c of (t.metadata?.documents_used ?? [])) {
         if (typeof c === 'string' && /^(arsenal_|catalogo_)[a-z0-9_]*_[A-Z]/.test(c)) yaServidos.add(c);
       }

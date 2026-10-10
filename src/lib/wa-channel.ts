@@ -914,3 +914,67 @@ export async function getPhoneAsset(): Promise<{ asset?: WAPhoneAsset; error?: s
     return { error: msg };
   }
 }
+
+// ─── Bloqueo de números (10 oct 2026) ────────────────────────────────────────
+
+/**
+ * Bloquea o desbloquea números en el WABA (API «Block Users» de Meta). Un número
+ * bloqueado ya no puede escribirle a Queswa. ⚠️ Meta solo deja bloquear a quien
+ * le escribió al número en las ÚLTIMAS 24 HORAS: pasado ese plazo hay que
+ * esperar a que vuelva a escribir. Primer uso: el +57 316 741 4801, que escribió
+ * siete veces desde el 24 de ago con mensajes ilegibles (el Director: spam).
+ */
+export async function bloquearUsuarios(
+  numeros: string[],
+  accion: 'bloquear' | 'desbloquear' = 'bloquear',
+): Promise<{ ok: boolean; bloqueados: string[]; fallidos: Array<{ numero: string; error: string }>; error?: string }> {
+  const creds = credentials();
+  if ('error' in creds) return { ok: false, bloqueados: [], fallidos: [], error: creds.error };
+
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/block_users`, {
+      method: accion === 'bloquear' ? 'POST' : 'DELETE',
+      headers: { Authorization: `Bearer ${creds.systemToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        block_users: numeros.map((n) => ({ user: n.replace(/\D/g, '') })),
+      }),
+    });
+    const data = await response.json().catch(() => ({}));
+    const bloque = data?.block_users ?? {};
+    const hechos: string[] = (accion === 'bloquear' ? bloque.added_users : bloque.removed_users ?? bloque.added_users ?? [])
+      ?.map((u: { input?: string; wa_id?: string }) => u.wa_id ?? u.input ?? '') ?? [];
+    const fallidos = (bloque.failed_users ?? []).map((u: { input?: string; errors?: Array<{ message?: string; error_data?: { details?: string } }> }) => ({
+      numero: u.input ?? '',
+      error: u.errors?.map((e) => e.error_data?.details || e.message).filter(Boolean).join(' · ') || 'sin detalle',
+    }));
+    if (!response.ok && !fallidos.length) {
+      const msg = metaError(response.status, data);
+      console.error(`❌ [WA] bloquearUsuarios — ${msg}`);
+      return { ok: false, bloqueados: hechos, fallidos, error: msg };
+    }
+    return { ok: !fallidos.length, bloqueados: hechos, fallidos };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('❌ [WA] bloquearUsuarios error:', msg);
+    return { ok: false, bloqueados: [], fallidos: [], error: msg };
+  }
+}
+
+/** Los números bloqueados hoy en el WABA. */
+export async function usuariosBloqueados(): Promise<{ numeros: string[]; error?: string }> {
+  const creds = credentials();
+  if ('error' in creds) return { numeros: [], error: creds.error };
+  try {
+    const response = await fetch(`${GRAPH}/${creds.phoneNumberId}/block_users?limit=100`, {
+      headers: { Authorization: `Bearer ${creds.systemToken}` },
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) return { numeros: [], error: metaError(response.status, data) };
+    const lista = (data?.data ?? []) as Array<{ wa_id?: string; block_users?: Array<{ wa_id?: string }> }>;
+    const numeros = lista.flatMap((x) => x.block_users ? x.block_users.map((u) => u.wa_id ?? '') : [x.wa_id ?? '']).filter(Boolean);
+    return { numeros };
+  } catch (err) {
+    return { numeros: [], error: err instanceof Error ? err.message : String(err) };
+  }
+}

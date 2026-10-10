@@ -35,8 +35,10 @@ export function cuerpoCumple(nombre: string): string {
 }
 
 export const RESPUESTA_NO_ENTENDI = '¿Me lo escribe con el día y el mes? Por ejemplo: 15 de marzo.';
+// «Si algún día lo quiere cambiar» se leyó literal: «ese día no se cambia,
+// seguirá siendo el mismo» (Victor, 9 oct 2026). Texto aprobado por el Director el 10 oct.
 export const respuestaGuardado = (legible: string) =>
-  `Listo, quedó guardado: ${legible}. 🎂 Si algún día lo quiere cambiar, está en Ajustes de Cuenta de queswa.app.`;
+  `Listo, quedó guardado: ${legible}. 🎂 Si quedó mal escrito, lo corrige en Ajustes de Cuenta de queswa.app.`;
 
 /** ¿El último mensaje de Queswa fue el pedido del cumpleaños? */
 export function botPidioCumple(ultimoBot: string): boolean {

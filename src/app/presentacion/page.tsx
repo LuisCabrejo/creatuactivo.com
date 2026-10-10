@@ -33,13 +33,17 @@
  *                      ⚠️ SOLO el nombre del sector, sin describir cómo se hace
  *                      hoy: el contexto lo da el socio en vivo, y una pieza no
  *                      concede (memoria feedback_pieza_no_concede).
- *  4 EL SECTOR       · la fila del banco → los dos caminos → el mismo dolor
- *    LABORAL           (inestabilidad, incertidumbre); beat 2: las dos cifras,
- *                      que prueban justo esas dos palabras.
+ *  4 EL DOLOR,       · tres cifras verificadas en fuente primaria (el ingreso que
+ *    EN CIFRAS         no alcanza · la informalidad · la pensión que no llega). El
+ *                      beat de «dos caminos» se eliminó el 9 oct 2026: ese contexto
+ *                      lo da el socio en vivo, y las analogías (Nequi, Uber) las
+ *                      toma de la pantalla 2 según su público.
  *  5 LA PROPUESTA    · beat 0: una empresa de distribución moderna a su nombre,
  *    Y CÓMO FUNCIONA   «se requieren tres elementos»; luego el orden de WHY_02:
- *                      las tres piezas (el fabricante SIN nombre), la oscilación,
- *                      el remate y la propiedad.
+ *                      las tres piezas (el fabricante SIN nombre; la 3ª es SABER
+ *                      QUÉ HACER desde el 9 oct 2026), la oscilación, el remate
+ *                      (un teléfono + «Queswa.app» — el envase de los tres) y la
+ *                      propiedad. → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
  *  6 QUÉ HACE USTED  · Compartir · Recibir con Queswa en medio (EAM_01);
  *                      beat 2: solo se multiplica lo que es sencillo.
  *  7 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
@@ -72,8 +76,9 @@
  *  · La presentación reporta hasta dónde llegó cada persona en tres hitos, si llegó
  *    al final y si tocó el WhatsApp (/api/track/presentacion → avisos del Dashboard).
  *  · La última pantalla nombra al socio del ?ref y trae su WhatsApp. El socio toca
- *    su nombre y escribe el del prospecto: la prueba en vivo de la pieza 3, su
- *    aplicación personalizada. «En su caso, esta pantalla dirá el suyo» es frase de
+ *    su nombre y escribe el del prospecto: la prueba en vivo de la personalización
+ *    de Queswa.app, la aplicación que el remate nombra. «En su caso, esta pantalla
+ *    dirá el suyo» es frase de
  *    la voz del socio: no va escrita.
  *  · Moneda: pesos con PUNTO de miles, dólares con COMA. Por eso los locales van
  *    explícitos ('es-CO' / 'en-US') y no un toLocaleString() pelado, que depende
@@ -97,7 +102,7 @@ const HITOS_PRESENTACION = [4, 7, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 4: 2, 5: 7, 6: 2, 9: 2 };
+const BEATS: Record<number, number> = { 5: 7, 6: 2, 9: 2 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
@@ -118,18 +123,21 @@ const PIEZAS: { label: string; img: string; sub: string; extra?: string }[] = [
     // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.
   },
   {
-    // EL TERCER ELEMENTO ES SU APLICACIÓN PERSONALIZADA (Director, 27 sep 2026,
-    // sesión del video «Cómo funciona»): los tres elementos responden qué RECIBE
-    // la persona; las dos acciones responden qué HACE y en el deck no se listan
-    // (las cuenta Queswa en vivo — EAM_01). Espejo de WHY_02 v6.52 / WHY_APP_01
-    // v6.53 del arsenal.
+    // EL TERCER ELEMENTO ES SABER QUÉ HACER (Director, 9 oct 2026 — reemplaza a
+    // «su aplicación personalizada» del 27 sep). Los tres elementos son FUNCIONES
+    // (fabricar · atender · saber qué hacer) y la aplicación subió de rango: es el
+    // ENVASE de los tres, revelado en el remate (Queswa.app). Resuelve la
+    // circularidad app-contiene-app que el Director sintió presentando en vivo, y
+    // la evidencia la respalda: el control percibido («¿seré capaz?») es el
+    // predictor nº 1 de la intención de emprender (β=0,39, meta-análisis TPB 2025)
+    // → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md.
+    // Las dos acciones siguen SIN listarse aquí (las cuenta Queswa — EAM_01).
     // ⚠️ Waze va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ ·
     // «lo lleva a donde quiere estar» ⛔ (voz de coach, vetada el 24 sep).
-    // El render es un PIN DE MAPA con pasos de ruta — se hizo para «método» pero
-    // es la imagen de Waze literal, así que sirve a esta pieza mejor que a la
-    // anterior. Va como copia con nombre propio (colapso-aplicacion.webp) para
-    // que el deck no dependa del asset «metodo», que es de /servilleta (quieta).
-    label: 'SU APLICACIÓN PERSONALIZADA',
+    // El render es un PIN DE MAPA con pasos de ruta — la imagen de Waze literal.
+    // Va como copia con nombre propio (colapso-aplicacion.webp) para que el deck
+    // no dependa del asset «metodo», que es de /servilleta (quieta).
+    label: 'SABER QUÉ HACER',
     img: '/images/servilleta/colapso-aplicacion.webp',
     sub: 'Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando la ruta, paso a paso.',
     extra: 'Conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
@@ -184,11 +192,15 @@ const TARIFAS_12 = [
   { pct: 17, nombre: 'Visionario', paquete: 'paquete Visionario', meses: 6 },
 ] as const;
 
-/** Las cifras del sector laboral (aprobadas por el Director, 26 sep 2026). Desde el
- *  30 sep prueban las dos palabras del dolor: el ingreso que no alcanza es la
- *  inestabilidad; la pensión que no llega, la incertidumbre. La del GEM (casi 1 de
- *  cada 4 empezando un negocio) salió con «Por qué ahora»; su fuente queda abajo. Cada una se verificó en su fuente primaria ese día; si se cambia una, se
- *  vuelve a la fuente — no a un artículo que la cite.
+/** Las cifras del dolor (las dos primeras aprobadas por el Director el 26 sep 2026;
+ *  la de informalidad, el 9 oct 2026). Cuentan una sola historia: el ingreso de hoy
+ *  no alcanza → así se trabaja hoy → así termina. Cada una se verificó en su fuente
+ *  primaria; si se cambia una, se vuelve a la fuente — no a un artículo que la cite.
+ *  · DANE, Empleo informal y seguridad social (GEIH): proporción de ocupación
+ *    informal 54,6 % para el total nacional, trimestre móvil may–jul 2026 (un año
+ *    antes: 55,0 %). ⚠️ El dato ROTA cada mes: al tocar esta pantalla, re-verificar
+ *    el trimestre vigente y actualizar cifra + rótulo de fuente juntos.
+ *    https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-informal-y-seguridad-social
  *  · DANE, Encuesta Nacional de Calidad de Vida 2025 (anexo, cuadro 35): el 31,3 %
  *    de los hogares dice que su ingreso «no alcanza para cubrir los gastos mínimos»
  *    y el 61,0 % que «alcanza para cubrir los gastos mínimos»; solo el 7,7 % que
@@ -204,14 +216,12 @@ const TARIFAS_12 = [
  *    pensión es el destino del ciclo y cierra mejor el arco hoy → final → los
  *    demás ya se mueven.
  *    https://www.larepublica.co/finanzas/cobertura-pensional-es-de-apenas-23-segun-estudio-de-colpensiones-y-unijaveriana-3398629
- *  · GEM 2023/2024 Global Report, perfil de Colombia (datos 2023, adultos de 18 a
- *    64): TEA 23,6 % («just under one in four», puesto 7 de 46). Colombia no
- *    participó en 2024 ni en 2025: por eso va con su año. La TEA cuenta negocios
- *    NUEVOS (hasta 42 meses), y por eso la frase dice «que abrió hace poco».
- *    https://www.gemconsortium.org/country-profile/52
- *  ⛔ Descartadas: el «9 de cada 10 quieren emprender / 63 % sin recursos» es un
- *  estudio de Amway (2021) — la fuente confirma la categoría que no se nombra —; la
- *  «intención emprendedora» del GEM (18,5 % en el global, 43,2 % en el nacional) es
+ *  ⛔ Descartadas: la del GEM (TEA 23,6 %, «casi 1 de cada 4 montando un negocio»)
+ *  la descartó el Director el 9 oct 2026 — «casi uno de cada cuatro» produce
+ *  disonancia aritmética en vivo («¿cómo así, casi uno?»), y prefirió un porcentaje
+ *  exacto y de dolor puro (la informalidad); el «9 de cada 10 quieren emprender /
+ *  63 % sin recursos» es un estudio de Amway (2021) — la fuente confirma la
+ *  categoría que no se nombra —; la «intención emprendedora» del GEM es
  *  inconsistente; y la carga financiera del Banco de la República (31 %, feb. 2026)
  *  cubre solo a los hogares con créditos. */
 const CIFRAS_PROBLEMA = [
@@ -219,6 +229,11 @@ const CIFRAS_PROBLEMA = [
     n: '9 de cada 10',
     texto: 'hogares colombianos dicen que su ingreso no alcanza, o que alcanza solo para lo mínimo.',
     fuente: 'DANE · Encuesta de Calidad de Vida 2025',
+  },
+  {
+    n: '54,6 %',
+    texto: 'de las personas que trabajan en Colombia lo hacen en la informalidad.',
+    fuente: 'DANE · GEIH, may–jul 2026',
   },
   {
     n: '3 de cada 4',
@@ -312,7 +327,7 @@ export default function PitchDeckPage() {
   // EL NOMBRE DEL PROSPECTO, EN VIVO (Director, 30 sep 2026). El socio presenta a
   // su nombre y, en la última pantalla, toca su nombre y escribe el de la persona
   // que tiene enfrente: «en su caso, esta pantalla dirá el suyo». Es la prueba en
-  // vivo de la pieza 3, su aplicación personalizada. Solo cambia lo que se VE: el
+  // vivo de la personalización de Queswa.app. Solo cambia lo que se VE: el
   // botón queda sin enlace mientras se muestra otro nombre, porque abriría el
   // WhatsApp del socio con el nombre del prospecto. Al salir de la pantalla vuelve
   // el nombre del socio.
@@ -634,29 +649,29 @@ export default function PitchDeckPage() {
            único que se quedaba pegado arriba con media pantalla vacía debajo. */
         .pd-remate { text-align: center; max-width: 760px; margin: auto; }
 
-        .pd-fusion {
-          display: flex; margin: 0 auto;
-          width: min(520px, 76vw);
+        /* EL OBJETO ÚNICO DEL REMATE (9 oct 2026): un teléfono con el orbe en la
+           pantalla — la mecánica de Jobs mostró UN aparato, y la fusión anterior
+           (las tres figuras apretadas en un marco) seguía mostrando tres. El
+           fotograma sale de clips2/queswa__teatro-2.mp4 (t=3,0 s) del video
+           «Cómo funciona», con el orbe de t=1,5 s compuesto en la pantalla:
+           mismo lenguaje 3D que las tres piezas. */
+        .pd-telefono {
+          width: min(230px, 42vw); aspect-ratio: 720 / 1360;
+          margin: 0 auto;
+          background-size: cover; background-position: center;
           border: 1px solid rgba(197,160,89,0.55);
           box-shadow: 0 0 70px rgba(197,160,89,0.10);
         }
-        .pd-fusion-parte {
-          flex: 1; aspect-ratio: 1 / 1;
-          background-size: cover; background-position: center;
+        /* El golpe del remate en blanco y un punto menor: el oro y el tamaño
+           completo son del NOMBRE, que es lo nuevo y cae de último. */
+        .pd-remate p.grande--paso {
+          color: #FFFFFF; font-size: clamp(1.15rem, 3vw, 1.9rem);
+          margin: 2rem 0 0.6rem;
         }
         .pd-remate .grande {
           font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
           font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
           color: var(--pd-gold); margin: 2rem 0 1.5rem;
-        }
-        /* La línea del NOMBRE (mecánica de Jobs). Más pequeña que el golpe para que
-           las cuatro palabras quepan en UNA línea hasta en el teléfono — los espacios
-           duros del JSX impiden el corte que dejaría «distribución moderna» sola.
-           El selector con "p." sube la especificidad para ganarle a la media query
-           del móvil. OJO: nada de acentos graves en estos comentarios — cierran la
-           plantilla de JS que envuelve todo este CSS (rompió el build, 28 sep). */
-        .pd-remate p.grande--nombre {
-          font-size: clamp(1rem, 3.4vw, 2rem); margin: 0 0 1.5rem;
         }
         .pd-remate .pd-preparacion {
           font-size: clamp(0.95rem, 1.9vw, 1.12rem); line-height: 1.5;
@@ -717,7 +732,7 @@ export default function PitchDeckPage() {
         }
         .pd-link:hover { border-bottom-color: var(--pd-gold); }
 
-        /* ── 4 · El sector laboral, en cifras ───────────────────────────────────── */
+        /* ── 4 · El dolor, en cifras ────────────────────────────────────── */
         .pd-cifras-lista { display: grid; grid-template-columns: repeat(3, 1fr);
           gap: clamp(16px, 3vw, 32px); margin-top: 0.4rem; }
         .pd-cifra { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 1.1rem; }
@@ -939,6 +954,7 @@ export default function PitchDeckPage() {
           .pd-pieza-label { font-size: clamp(1.15rem, 5.2vw, 1.9rem); margin-bottom: 0.8rem; }
           .pd-pieza .pd-figura { width: min(48vw, 230px); }
           .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
+          .pd-telefono { width: min(150px, 28vw); }
         }
 
         /* TELÉFONO GIRADO. Ancho de sobra y altura mínima: exactamente lo contrario
@@ -966,9 +982,9 @@ export default function PitchDeckPage() {
         /* ═══ Columna del 30 sep 2026 ══════════════════════════════════════ */
         .pd-credo--solo h1 { font-size: clamp(1.9rem, 5vw, 3.7rem); max-width: 20ch; }
         .pd-p--grande { font-size: clamp(1.15rem, 2.6vw, 1.6rem); max-width: 40ch; }
-        .pd-cifras-lista--dos { grid-template-columns: repeat(2, 1fr); gap: clamp(24px, 5vw, 64px); }
-        .pd-cifras-lista--dos .pd-cifra .n { font-size: clamp(2.2rem, 6vw, 4.2rem); }
-        .pd-cifras-lista--dos .pd-cifra .t { font-size: clamp(1.05rem, 2vw, 1.35rem); }
+        .pd-cifras-lista--tres { gap: clamp(20px, 4vw, 48px); }
+        .pd-cifras-lista--tres .pd-cifra .n { font-size: clamp(1.9rem, 4.6vw, 3.4rem); }
+        .pd-cifras-lista--tres .pd-cifra .t { font-size: clamp(1rem, 1.8vw, 1.22rem); }
         .pd-acciones {
           display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 1px;
           background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08);
@@ -1004,7 +1020,7 @@ export default function PitchDeckPage() {
         }
         .pd-nombre-input::placeholder { color: rgba(197,160,89,0.35); }
         @media (max-width: 860px) {
-          .pd-cifras-lista--dos { grid-template-columns: 1fr; gap: 1.2rem; }
+          .pd-cifras-lista--tres { grid-template-columns: 1fr; gap: 1.2rem; }
           .pd-acciones { grid-template-columns: 1fr; }
           .pd-accion { padding: 1rem 1.1rem; }
           .pd-accion--queswa .img { width: 60px; margin-bottom: 0.6rem; }
@@ -1131,46 +1147,26 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 4 · EL SECTOR LABORAL ───────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          <div className={`pd-beat ${slide === 4 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-wrap">
-              <p className="pd-eyebrow">El sector laboral</p>
-              {/* La fila del banco retoma el par de Nequi de la pantalla 2: el
-                  trabajo es la próxima fila por modernizar. */}
-              <h2 className="pd-h2 pd-h2--media">
-                Así como nos acostumbramos a hacer la fila del banco, aprendimos que solo
-                había dos caminos para ganar.
-              </h2>
-              <p className="pd-p pd-p--grande">
-                Emplearse, o trabajar como independiente: en ventas, con un negocio
-                propio o con una empresa.
-              </p>
-              <p className="pd-p pd-p--grande pd-gold">
-                Y todos manifiestan el mismo dolor: inestabilidad e incertidumbre hacia
-                el futuro.
-              </p>
-              {/* El remate de los veinte: sin él, quien gana bien se exime. */}
-              <p className="pd-p" style={{ color: 'var(--pd-muted)' }}>
-                Y le pasa exactamente igual al que gana dos millones y al que gana más de
-                veinte.
-              </p>
-            </div>
-          </div>
-          <div className={`pd-beat ${slide === 4 && beat === 1 ? 'on' : ''}`}>
-            <div className="pd-wrap pd-cifras" style={{ maxWidth: 940 }}>
-              {/* Las dos cifras prueban las dos palabras: el ingreso que no alcanza
-                  es la inestabilidad; la pensión que no llega, la incertidumbre. */}
-              <p className="pd-eyebrow">El mismo dolor, en cifras</p>
-              <div className="pd-cifras-lista pd-cifras-lista--dos">
-                {CIFRAS_PROBLEMA.slice(0, 2).map((c) => (
-                  <div className="pd-cifra" key={c.n}>
-                    <p className="n">{c.n}</p>
-                    <p className="t">{c.texto}</p>
-                    <p className="f">{c.fuente}</p>
-                  </div>
-                ))}
-              </div>
+        {/* ── 4 · EL DOLOR, EN CIFRAS ─────────────────────────────────── */}
+        {/* El beat de «dos caminos para ganar» se ELIMINÓ el 9 oct 2026 (Director):
+            la pantalla 3 ya aplica la regla — el contexto lo da el socio en vivo, y
+            una pieza no concede. Las analogías (la fila del banco → Nequi, el taxi →
+            Uber) tampoco se escriben: la paleta del orador es la pantalla 2, y él
+            aplica la que le sirva a su público. El ciclo ya abrió el deck (credo).
+            El remate de los veinte lo cubre la cifra del DANE: 9 de cada 10 incluye
+            al que gana bien (solo el 7,7 % dice que le sobra). */}
+        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap pd-cifras" style={{ maxWidth: 940 }}>
+            {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
+            <p className="pd-eyebrow">El dolor, en cifras</p>
+            <div className="pd-cifras-lista pd-cifras-lista--tres">
+              {CIFRAS_PROBLEMA.map((c) => (
+                <div className="pd-cifra" key={c.n}>
+                  <p className="n">{c.n}</p>
+                  <p className="t">{c.texto}</p>
+                  <p className="f">{c.fuente}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -1239,7 +1235,7 @@ export default function PitchDeckPage() {
                 ))}
               </div>
               <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
-                Un fabricante… una tecnología que atiende… su aplicación…
+                Un fabricante… una tecnología que atiende… saber qué hacer…
               </p>
             </div>
           </div>
@@ -1247,67 +1243,54 @@ export default function PitchDeckPage() {
           {/* Beat 4: el remate */}
           <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
             {/* JERARQUÍA EN TRES TIEMPOS (Director, 24 sep 2026: «distribuye mejor los
-                textos»). Antes eran cuatro bloques del mismo peso apilados y el remate
-                se leía como un párrafo. Ahora: la preparación en pequeño y apagada, el
-                golpe en grande y dorado, y el cierre en dos frases cortas separadas —
-                el punto y coma metía las dos ideas en un solo renglón denso.
-                La ley de la multiplicación vive AQUÍ desde el 27 sep 2026 (la pieza 3
-                pasó a ser la aplicación personalizada) y remata haciendo eco de «ya
-                está armada». ⛔ Los dos pasos NO se listan en el remate: se probaron
-                ese mismo día y el Director los retiró («este texto sobra») — qué HACE
-                la persona lo cuenta Queswa en vivo (EAM_01), no esta pantalla. También
-                salió «decidir y conectar», doctrina interna que no se le da al
-                prospecto. */}
+                textos»): la preparación en pequeño y apagada, el paso en blanco y el
+                nombre en oro a tamaño completo. ⛔ Los dos pasos NO se listan en el
+                remate (27 sep, «este texto sobra») — qué HACE la persona lo cuenta
+                Queswa en vivo (EAM_01), no esta pantalla. También salió «decidir y
+                conectar», doctrina interna que no se le da al prospecto. */}
             <div className="pd-remate">
-              <p className="pd-preparacion">No son tres cosas que usted tenga que conseguir.</p>
+              <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
 
-              {/* LA FUSIÓN — el pago visual de la oscilación (24 sep 2026). Este beat
-                  era el ÚNICO sin gráfica: después de cuatro pantallas con la imagen
-                  de protagonista, el clímax llegaba en puro texto y con media pantalla
-                  en negro. Son las mismas tres figuras del beat anterior, ahora sin
-                  separación y dentro de un solo marco dorado: se VE que son una.
-                  Es el movimiento de Jobs — estos no son tres aparatos, es uno solo.
-                  ⚠️ Sin rótulos: ya se nombraron una por una en los beats 0-2 y otra
-                  vez en el 3. Aquí la imagen tiene que hablar sola. */}
-              <div className="pd-fusion">
-                {PIEZAS.map((p) => (
-                  <div
-                    key={p.label}
-                    className="pd-fusion-parte"
-                    style={{ backgroundImage: `url(${p.img})` }}
-                  />
-                ))}
-              </div>
+              {/* EL TELÉFONO — el objeto único del clímax (Director, 9 oct 2026;
+                  reemplaza a la fusión de las tres figuras del 24 sep, que seguía
+                  mostrando TRES después de negar los tres). Jobs mostró un aparato.
+                  ⚠️ Sin rótulos: las piezas ya se nombraron en los beats 1-3 y otra
+                  vez en el 4. Aquí la imagen habla sola. */}
+              <div className="pd-telefono" style={{ backgroundImage: 'url(/images/servilleta/telefono-queswa.webp)' }} />
 
-              {/* EL REMATE ES LA MECÁNICA DE JOBS COMPLETA (Director, 28 sep 2026):
-                  negar los tres → afirmar el uno → NOMBRAR («…y lo hemos llamado
-                  iPhone»). El golpe volvió a «Es una sola» sin sustantivo —la
-                  aplicación ya tiene su pieza y su beat— para que el nombre caiga
-                  como revelación en su propia línea, no como redundancia. La línea
-                  aparte «Lo que usted recibe es…» se fundió aquí: decía qué recibe
-                  por segunda vez y diluía el golpe.
-                  ⛔ Las cuatro palabras del nombre van JUNTAS en una sola línea
-                  (espacios duros + tamaño propio): un corte que deje «distribución
-                  moderna» sola a la vista es la jerga del canal de supermercados
-                  (doctrina 28 sep). El corte del golpe sigue en la coma: el titular
-                  rompía en «…Y YA ESTÁ / ARMADA.» y dejaba huérfana la palabra que
-                  carga el remate. */}
-              <p className="grande">
-                Es una sola,<br />y ya está armada:
+              {/* EL REMATE ES LA MECÁNICA DE JOBS COMPLETA (28 sep 2026), con el
+                  NOMBRE nuevo desde el 9 oct: negar los tres → afirmar el uno →
+                  NOMBRAR («…y lo hemos llamado iPhone»). Lo dado va primero y en
+                  blanco (su empresa — la prometió el beat 0 — y la aplicación que
+                  la contiene, que es el canon de WHY_02: «usted recibe en una sola
+                  aplicación los tres elementos»); lo NUEVO cae de último, en oro y
+                  a tamaño completo: Queswa.app. Completa el patrón que la pantalla
+                  2 siembra — los cinco pares resuelven todos en una app, y el
+                  clímax resuelve en la nuestra (canon WHY_APP_02: «Es una sola:
+                  queswa.app»). La empresa no sale del clímax: va en el golpe, en la
+                  misma respiración — lo que se posee y cómo se sostiene en la mano.
+                  → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
+              <p className="grande grande--paso">
+                Su empresa llega armada,<br />en una sola aplicación:
               </p>
-              <p className="grande grande--nombre">
-                su&nbsp;empresa&nbsp;de&nbsp;distribución&nbsp;moderna.
+              <p className="grande">
+                Queswa.app
               </p>
               <p className="marca">CreaTuActivo.com</p>
             </div>
           </div>
 
           {/* Beat 6: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
-              nombre» de la propuesta. */}
+              nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
+              2026): el enlace se presenta en la pantalla siguiente (Compartir) y
+              aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
+              eco del golpe recién revelado. ⛔ No volver a «el mercado que se va
+              creando»: en Colombia «el mercado» a secas es el de la casa, y la
+              permanencia se dice del CLIENTE, nunca en abstracto. */}
           <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
-              <p className="grande">Cada cliente que llega por su enlace queda a su nombre.</p>
+              <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>
             </div>
           </div>
         </section>

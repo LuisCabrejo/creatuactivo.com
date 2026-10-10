@@ -159,7 +159,7 @@ const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe en una sola aplica
 
 2. **Tecnología:** esta conversación es una muestra. Yo atiendo, las 24 horas, a quien llega por su enlace.
 
-3. **Su aplicación personalizada:** como en Waze, usted me dice a dónde quiere llegar, y yo le voy marcando la ruta.
+3. **Saber qué hacer:** como en Waze, usted me dice a dónde quiere llegar, y yo le voy marcando la ruta.
 
 La diferencia es la propiedad: cada cliente que llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje.
 

@@ -757,10 +757,13 @@ export default function HomePage() {
             hechos (25 sep 2026, investigación de naming). La forma es una sola,
             «empresa de distribución moderna» (Director, 28 sep 2026): las cuatro
             palabras juntas, nunca partidas. */}
-        {/* EL ENTREGABLE SON TRES ELEMENTOS (Director, 27 sep 2026, sesión del video
-            «Cómo funciona»): fabricante · Queswa · su aplicación personalizada. Los
-            tres responden qué RECIBE la persona; qué HACE sigue siendo Compartir ·
-            Recibir, en su propia sección más abajo. Arranque calcado de WHY_02 v6.52. */}
+        {/* EL ENTREGABLE SON TRES ELEMENTOS, dichos como FUNCIONES (Director, 9 oct
+            2026 — reemplaza la forma del 27 sep): fabricante · Queswa · saber qué
+            hacer. La aplicación subió de rango: es el ENVASE de los tres («en una
+            sola aplicación», la línea de WHY_02), no un elemento. Los tres responden
+            qué RECIBE la persona; qué HACE sigue siendo Compartir · Recibir, en su
+            propia sección más abajo. Arranque calcado de WHY_02.
+            → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
         <Body mt>
           Eso fue lo que cambió: hoy es una empresa de distribución moderna. Usted recibe
           en una sola aplicación los tres elementos que eliminan la fricción de montarla.
@@ -804,15 +807,18 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* El tercer elemento (Director, 27 sep 2026). ⚠️ Waze va en MECANISMO,
-              nunca en resultado: «le marca la ruta» ✅ · «lo lleva a donde quiere
-              estar» ⛔ (voz de coach). Espejo de WHY_APP_01 v6.53 del arsenal. */}
+          {/* El tercer elemento: SABER QUÉ HACER (Director, 9 oct 2026 — antes «su
+              aplicación personalizada»; la aplicación es ahora el envase de los
+              tres). Es la función que ataca el «¿seré capaz?», la palanca más
+              fuerte de la intención de emprender (meta-análisis TPB 2025). ⚠️ Waze
+              va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ · «lo lleva
+              a donde quiere estar» ⛔ (voz de coach). */}
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Route} />
               <div>
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Su aplicación personalizada
+                  Saber qué hacer
                 </p>
                 <p style={etiquetaMono}>Le marca la ruta</p>
               </div>

@@ -6,6 +6,12 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.17 — El tercer elemento es «saber qué hacer» (9 oct 2026)
+
+Una frase en el bloque del video «Cómo funciona»: la descripción de lo que dice la voz cambia *«y su aplicación personalizada: como en Waze…»* → *«y saber qué hacer: como en Waze…»*. Acompaña a `WHY_02` v6.69 (el candado es la voz del video) y al corte v5 del video en Blob: los tres elementos quedaron como funciones —fabricar · atender · saber qué hacer— y la aplicación es el envase de los tres (Director, 9 oct 2026; investigación `ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md`). Sin reglas nuevas.
+
+**Presupuesto:** WhatsApp 18.871 · web 19.287 · Dashboard 15.514. Las tres filas verificadas por RPC.
+
 ## v5.16 — El cliente compra, usted recibe (8 oct 2026)
 
 Una frase en la regla del diferencial: *«cada cliente que llega por su enlace queda a su nombre, y por eso su recompra le paga»* → *«…queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje»* (la forma de `WHY_02`). El Director la marcó por fricción en el hero de luiscabrejo.com: el tercer *su* (su enlace · su nombre · su recompra) se lee como la compra del propio lector, y la recompra queda de pagador. Retirada en `lexico-canonico.json` (`recompra-le-paga`). La línea está fuera de los bloques `canal:`, así que entra en las tres variantes: web y WhatsApp se desplegaron primero y el Dashboard el mismo día, cuando el Director lo aprobó.

@@ -37,8 +37,8 @@ Aparte del reto está el video «Cómo funciona», el que más personas ven ante
 escribir. Dice: usted recibe en una sola aplicación los tres elementos que
 eliminan la fricción de montar una empresa de distribución moderna — un
 fabricante que empaca y despacha cada pedido hasta la casa del cliente; yo, que
-atiendo las 24 horas a quien llega por su enlace; y su aplicación personalizada:
-como en Waze, usted me dice a dónde quiere llegar y yo le voy marcando la ruta.
+atiendo las 24 horas a quien llega por su enlace; y saber qué hacer: como en
+Waze, usted me dice a dónde quiere llegar y yo le voy marcando la ruta.
 El diferencial es la propiedad: cada cliente que llega por su enlace queda a su
 nombre, y cada recompra le deja un porcentaje. Quien dice «vi el video» sin más
 señas vio este; si algo no le quedó claro, pregunte qué parte le quedó sonando —

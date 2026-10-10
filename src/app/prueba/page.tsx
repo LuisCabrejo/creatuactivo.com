@@ -544,7 +544,7 @@ export default function PruebaPage() {
               <IconTile icon={Route} />
               <div>
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Su aplicación personalizada
+                  Saber qué hacer
                 </p>
                 <p style={etiquetaMono}>Le marca la ruta</p>
               </div>

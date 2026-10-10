@@ -74,7 +74,7 @@ export interface TemaBitacora {
 export const TEMAS: TemaBitacora[] = [
   {
     id: 'como_funciona',
-    nombre: 'cómo funciona el negocio (los tres elementos, con la aplicación personalizada, y el cliente a su nombre)',
+    nombre: 'cómo funciona el negocio (los tres elementos, con saber qué hacer, y el cliente a su nombre)',
     // Las firmas viejas (la franquicia, y los «tres elementos de un negocio
     // moderno» de la v6.48) se conservan: el historial de quien las recibió
     // antes sigue en sus últimas 40 filas. La nueva (v6.52, 27 sep 2026) es el

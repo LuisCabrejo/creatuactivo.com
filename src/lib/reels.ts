@@ -25,17 +25,19 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // Meta es 16 MB). Lo manda el botón «Cómo funciona» de la apertura, tras la línea
 // «Con gusto. Funciona así:», con la pregunta de cierre de WHY_02 como pie: la voz
 // dice casi palabra por palabra ese texto.
-// v4 (28 sep 2026): el corte de 60 s con la aplicación personalizada (WHY_02 v6.52),
-// el gancho con la forma única, «…armar una empresa de distribución moderna», y los
-// dos sonidos del criterio de «Cómo entra el dinero»: registradora en «cada recompra»
-// (una venta) y contador de billetes bajo «las comisiones las paga el fabricante»
-// (el pago). La v3 es el mismo corte sin sonidos.
+// v5 (9 oct 2026, Director): el bloque 3 de la voz dice «Tres: saber qué hacer.»
+// — los tres elementos quedaron como funciones y la aplicación es el envase
+// (WHY_02 v6.69; investigación ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md). Mismo
+// montaje del 28 sep re-temporizado (58,1 s) con los mismos dos sonidos:
+// registradora en «cada recompra» (una venta) y contador de billetes bajo «las
+// comisiones las paga el fabricante» (el pago). Receta: captions/work/como-funciona/
+// armar_saber.py. La v4 (28 sep, «su aplicación personalizada») queda sin uso;
+// la v3 era la v4 sin sonidos; la -v2 es un corte descartado.
 // Es el corte del CHAT: termina en Gano Excel, sin pregunta —la hace Queswa en el
 // pie—; el que comparten los socios cierra con «toque el enlace» y vive en el
-// Dashboard. La -v2 de Blob es un corte descartado (frase vieja): no se usa.
-// Si se vuelve a cortar, se sube con otro nombre: Meta y los teléfonos guardan
-// copia de la URL.
-export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v4.mp4'
+// Dashboard. Si se vuelve a cortar, se sube con otro nombre: Meta y los teléfonos
+// guardan copia de la URL.
+export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v5.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

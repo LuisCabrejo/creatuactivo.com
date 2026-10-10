@@ -295,6 +295,19 @@ export default function PitchDeckPage() {
   const [slide, setSlide] = useState(1);
   const [beat, setBeat] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  // MODO VERTICAL PARA MEET (Director, 10 oct 2026 — portado de la servilleta
+  // vieja). Un monitor horizontal no puede ir a pantalla completa en vertical,
+  // así que se SIMULA: un iframe de esta misma página a tamaño de celular
+  // (412×732 lógicos, que dispara el diseño de teléfono), escalado para llenar la
+  // pantalla, centrado en negro y en pantalla completa nativa. `isKiosk` = esta
+  // instancia corre DENTRO del iframe (?kiosk=1): sin guía, sin botones de modo,
+  // sin reportar avance (lo reporta la página de afuera).
+  const [isKiosk, setIsKiosk] = useState(false);
+  const [verticalMode, setVerticalMode] = useState(false);
+  const [vScale, setVScale] = useState(1);
+  const vOverlayRef = useRef<HTMLDivElement | null>(null);
+  const vIframeRef = useRef<HTMLIFrameElement | null>(null);
+  const [refSocio, setRefSocio] = useState<string | null>(null);
   // El visor no es solo del portafolio: cada categoría se abre en grande desde su
   // miniatura. En la tira caben cuatro y ahí no se lee nada; el producto se mira.
   const [visor, setVisor] = useState<{ src: string; alt: string } | null>(null);
@@ -325,6 +338,7 @@ export default function PitchDeckPage() {
     // catálogo ya lo lee así). Esa persona ve a su socio, no al equipo.
     if (!ref) { try { ref = localStorage.getItem('constructor_ref'); } catch { /* sin almacenamiento */ } }
     if (!ref) { setSinSocio(true); return; }
+    setRefSocio(ref);
     fetch(`/api/constructor/${encodeURIComponent(ref)}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => { if (d?.nombre) setSocio({ nombre: d.nombre, whatsapp: d.whatsapp ?? null }); else setSinSocio(true); })
@@ -345,6 +359,7 @@ export default function PitchDeckPage() {
   const reportarAvance = useCallback((datos: { pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean }) => {
     const fingerprint = (window as any).FrameworkIAA?.fingerprint;
     if (!fingerprint) return;
+    if (new URLSearchParams(window.location.search).get('kiosk') === '1') return;
     colaAvance.current = colaAvance.current.then(() => fetch('/api/track/presentacion', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -495,12 +510,49 @@ export default function PitchDeckPage() {
     return () => document.removeEventListener('fullscreenchange', onFs);
   }, []);
 
+  // ¿Esta instancia es el iframe del modo vertical? La clase va en <html> porque
+  // la guía es hermana del deck, no hija, y también tiene que ocultarse.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('kiosk') !== '1') return;
+    setIsKiosk(true);
+    document.documentElement.classList.add('kiosk');
+    return () => document.documentElement.classList.remove('kiosk');
+  }, []);
+
+  // El marco de 412×732 escala para llenar la pantalla sin deformarse.
+  useEffect(() => {
+    if (!verticalMode) return;
+    const W = 412, H = 732;
+    const calc = () => setVScale(Math.min(window.innerHeight / H, window.innerWidth / W));
+    calc();
+    window.addEventListener('resize', calc);
+    return () => window.removeEventListener('resize', calc);
+  }, [verticalMode]);
+
+  // El modo vertical es también pantalla completa NATIVA del marco; salir de ella
+  // (Esc del navegador) cierra el modo, y cerrar con ✕ sale de los dos. Los
+  // videos de afuera se pausan: el que se presenta es el de adentro.
+  useEffect(() => {
+    if (!verticalMode) return;
+    deckRef.current?.querySelectorAll('video').forEach((v) => v.pause());
+    vOverlayRef.current?.requestFullscreen?.().catch(() => {});
+    const onFs = () => { if (!document.fullscreenElement) setVerticalMode(false); };
+    const onEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') setVerticalMode(false); };
+    document.addEventListener('fullscreenchange', onFs);
+    window.addEventListener('keydown', onEsc);
+    return () => {
+      document.removeEventListener('fullscreenchange', onFs);
+      window.removeEventListener('keydown', onEsc);
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
+  }, [verticalMode]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
       if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
       if (visor && e.key === 'Escape') { setVisor(null); return; }
-      if (leyendoGuia) return;
+      if (leyendoGuia || verticalMode) return;
       if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
       else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
       else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
@@ -508,7 +560,7 @@ export default function PitchDeckPage() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia]);
+  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode]);
 
   // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
   // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
@@ -597,6 +649,31 @@ export default function PitchDeckPage() {
         }
         .pd-fs:hover { color: var(--pd-gold); border-color: rgba(197,160,89,0.45); }
         .pd-fs-corto { display: none; }
+        .pd-vertical { display: flex; align-items: center; padding: 6px 9px; }
+        /* Dentro del kiosco no hay pantalla completa propia: la pone el marco. */
+        .kiosk .pd-fs-principal { display: none; }
+        /* El aviso de cookies lo muestra la página de afuera (mismo origen, misma
+           decisión guardada); dentro del marco solo taparía la diapositiva. */
+        .kiosk [data-cookie-banner] { display: none !important; }
+        /* En el marco de 732px de alto alguna pantalla se pasa por poco: se puede
+           desplazar, pero sin la barra dorada a la vista de Meet. */
+        .kiosk, .kiosk * { scrollbar-width: none; }
+        .kiosk ::-webkit-scrollbar { display: none; }
+        /* Modo vertical: marco portrait centrado en negro, encima de todo. */
+        .pd-vertical-overlay {
+          position: fixed; inset: 0; z-index: 10000; background: #000;
+          display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .pd-vertical-marco { flex: none; transform-origin: center center; }
+        .pd-vertical-marco iframe { width: 100%; height: 100%; border: 0; display: block; background: #0F1115; }
+        .pd-vertical-salir {
+          position: fixed; top: 16px; right: 16px; z-index: 10001;
+          width: 44px; height: 44px; cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(8,9,12,0.8); border: 1px solid rgba(197,160,89,0.5);
+          color: var(--color-brand, #C5A059); font-size: 20px; line-height: 1;
+        }
+        .pd-vertical-salir:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.85); }
         .pd-counter {
           position: absolute; bottom: 14px; right: clamp(16px, 4vw, 40px);
           font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
@@ -1046,6 +1123,7 @@ export default function PitchDeckPage() {
           .pd-brand { display: none; }
           .pd-remate .marca { display: block; }
           .pd-fs-largo { display: none; }
+          .pd-vertical { display: none; }
           .pd-fs-corto { display: inline; }
         }
 
@@ -1231,9 +1309,24 @@ export default function PitchDeckPage() {
                 />
               ))}
             </div>
+            {!isKiosk && (
+              <button
+                type="button"
+                className="pd-fs pd-vertical"
+                onClick={() => setVerticalMode(true)}
+                title="Modo vertical (para Meet)"
+                aria-label="Modo vertical, para presentar en Meet"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="7" y="2.5" width="10" height="19" rx="2" />
+                  <line x1="10.5" y1="18.5" x2="13.5" y2="18.5" />
+                </svg>
+              </button>
+            )}
             <button
               type="button"
-              className="pd-fs"
+              className="pd-fs pd-fs-principal"
               onClick={toggleFullscreen}
               aria-label={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
             >
@@ -1962,6 +2055,31 @@ export default function PitchDeckPage() {
           alcanzan el clic que avanza ni el swipe, y Google la lee sin interacción.
           Lleva el único h1 de la página. En pantalla completa se oculta. */}
       <GuiaPlanServilleta />
+
+      {/* MODO VERTICAL — la presentación en un marco de celular, para Meet. Abre
+          en la pantalla donde va el socio y con su ?ref; el teclado pasa al marco
+          apenas carga. */}
+      {verticalMode && !isKiosk && (
+        <div className="pd-vertical-overlay" ref={vOverlayRef}>
+          <div className="pd-vertical-marco" style={{ width: 412, height: 732, transform: `scale(${vScale})` }}>
+            <iframe
+              ref={vIframeRef}
+              src={`/servilleta?kiosk=1&pantalla=${slide}${refSocio ? `&ref=${encodeURIComponent(refSocio)}` : ''}`}
+              title="Presentación en modo vertical"
+              onLoad={() => vIframeRef.current?.contentWindow?.focus()}
+            />
+          </div>
+          <button
+            type="button"
+            className="pd-vertical-salir"
+            onClick={() => setVerticalMode(false)}
+            aria-label="Salir del modo vertical"
+            title="Salir (Esc)"
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </>
   );
 }

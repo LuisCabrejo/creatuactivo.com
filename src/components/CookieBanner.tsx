@@ -59,6 +59,7 @@ export default function CookieBanner() {
   return (
     <div
       ref={bannerRef}
+      data-cookie-banner
       className="fixed bottom-0 left-0 right-0 z-50 shadow-lg"
       style={{
         background: 'rgba(22, 24, 29, 0.97)',

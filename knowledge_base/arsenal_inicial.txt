@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.71** (11 oct 2026) — **`FREQ_41`, nueva: «¿qué es lo primero que tengo que hacer?» se responde con el destino, no con el enlace.** Texto del Director. El cierre lleva a `WHY_APP_01` (el Centro de Mando), cuyo índice suma esa oferta literal en línea aparte: sin ella, el «sí» caía en `NIVELES_04`. Criterio en el `[Concepto Nuclear]` de `FREQ_41`; mediciones en el CHANGELOG.
+**Versión actual: v6.72** (11 oct 2026) — **`FREQ_42`, nueva: «¿cómo me dan el enlace?» responde lo literal en una línea y lo de fondo en el resto: quien lo abre ya no llega en cero.** Texto aprobado por el Director, con su dato de campo (de cero a diez, la persona llega en siete u ocho). Cierra hacia `EAM_01`. Criterio y la medición contra `FREQ_37` en su `[Concepto Nuclear]`.
+
+**v6.71** (11 oct 2026) — **`FREQ_41`, nueva: «¿qué es lo primero que tengo que hacer?» se responde con el destino, no con el enlace.** Texto del Director. El cierre lleva a `WHY_APP_01` (el Centro de Mando), cuyo índice suma esa oferta literal en línea aparte: sin ella, el «sí» caía en `NIVELES_04`. Criterio en el `[Concepto Nuclear]` de `FREQ_41`; mediciones en el CHANGELOG.
 
 **v6.70** (10 oct 2026) — **`FREQ_40`, nueva: «¿esto es multinivel?» se responde con un «sí».** La pregunta caía en `FREQ_13` (legalidad), que respondía «es legal» y nombraba la pirámide a quien no la traía; «¿es de esas redes de mercadeo?» caía en `NET_01`, escrita para quien ya hizo mercadeo en red. `FREQ_13` deja «es multinivel o MLM» de su índice y sigue respondiendo la legalidad. Puerta fija y criterio en `route.ts` y en el `[Concepto Nuclear]` de `FREQ_40`; historia en el CHANGELOG.
-
-**v6.69** (9 oct 2026) — **El tercer elemento es SABER QUÉ HACER, y la aplicación es el ENVASE de los tres** (Director; investigación → `docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md`). Cambian `WHY_02` 🔒 (el punto 3 del candado), `WHY_05` 🔒 (la lista de los tres) y la nota de `WHY_APP_01`. Los elementos quedan como funciones —fabricar · atender · saber qué hacer— y la aplicación sube de rango: es donde llegan los tres ensamblados (el nombre vive en `WHY_APP_02` y en el clímax de la Presentación). Misma forma en el video «Cómo funciona», la Home, la Presentación y `respuestas-maestras.ts` (Camino A, contrato de prefijo). Los índices y los títulos no cambian.
 
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
@@ -841,6 +841,22 @@ Con los datos del tamaño de sus metas le trazo una ruta sencilla, hecha a su me
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le cuento cómo le marco la ruta?
+
+---
+
+### **FREQ_42: "¿Cómo me dan el enlace?"**
+**[Índice]:** Dónde lo consigo, cómo me lo entregan, dónde saco el link para compartir.
+**[Concepto Nuclear]:** La pregunta literal se responde en una línea (se crea el día que se vincula, lleva su nombre, está en queswa.app); la de fondo es qué pasa cuando alguien lo abre, y esa es la que vende. Observación de campo del Director (11 oct 2026, doce años leyendo prospectos): primero algo despierta la emoción y enseguida tiene que venir algo que lo valide, o nace la desconfianza; y la ventaja que él vive es que no le toca llevar a nadie de cero a diez: los encuentra en siete u ocho, entendiendo que tendrán ayuda, que se modernizó el modelo y que tendrán herramientas. Por eso: la emoción es *lo valioso es lo que pasa cuando alguien lo abre*; la validación es plastilina que se comprueba al leer — *como estoy haciendo ahora con usted* —; el resultado es su dato, con número, que el Director aprobó dejar. ⚠️ Entre las preguntas de ejemplo NO va «si es legal»: le siembra la duda a quien no la traía. ⚠️ Nada que le reste peso a la parte del socio («la parte fácil»): *ya no tiene que llevar a nadie de cero a diez* alivia sin minimizar. ⚠️ Verificado el 11 oct 2026: el enlace nace en el mismo paso que la cuenta (el comando de activación del canal crea los dos y lo envía por WhatsApp; si faltara, el canal lo asigna al vuelo) y los 26 socios activos lo tienen; en queswa.app está en el Inicio para copiar. ⚠️ El índice NO dice «abrir»: `FREQ_37` es dueña de *«si con abrir mi enlace ya queda conmigo»* y, medido, cualquier índice con «abre mi enlace» se la quitaba — esa persona pregunta cuándo queda suyo el cliente, no por el enlace. Aun así el margen es corto (0.583 contra 0.568): si alguna vez se voltea, el arreglo es una puerta fija para `FREQ_37`, no alargar este índice. Cierra hacia `EAM_01`. Texto aprobado por el Director el 11 oct 2026.
+
+<verbatim_lock>
+Su enlace se crea el día que se vincula, lleva su nombre y lo tiene siempre a mano en queswa.app, listo para copiar.
+
+Lo valioso es lo que pasa cuando alguien lo abre: me escribe a la hora que pueda, me pregunta lo que quiera, y yo le respondo todo con calma, como estoy haciendo ahora con usted. Y a usted le aviso quién llegó y qué preguntó.
+
+Así, usted ya no tiene que llevar a nadie de cero a diez. Cuando habla con esa persona, normalmente ya va en siete u ocho: entendió que va a tener ayuda, que modernizamos el modelo y que tendrá herramientas que le hacen el trabajo sencillo.
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le cuento qué haría usted en el día a día?
 
 ---
 

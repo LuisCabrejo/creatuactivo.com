@@ -516,6 +516,15 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.72 — `FREQ_42`: «¿cómo me dan el enlace?» y lo que pasa cuando alguien lo abre (11 oct 2026)
+
+La tercera respuesta de la auditoría del video «Cómo funciona». La primera propuesta cerraba con *«Quien lo abre llega a conversar conmigo, y yo le aviso a usted»*, y el Director la marcó como difícil de digerir: *«como cuando David Vélez vendía la idea de abandonar la fila al banco por una aplicación, es algo que se debe explicar con plastilina»*. Aportó su observación de campo: con un prospecto, primero algo despierta la emoción y enseguida tiene que venir algo que la valide; y la ventaja que él vive es que ya no lleva a nadie de cero a diez, porque los encuentra en siete u ocho. Aprobó la versión con el número.
+
+- **FREQ_42** 🔒 — lo literal en una línea (se crea el día que se vincula, lleva su nombre, está en queswa.app); la emoción (*lo valioso es lo que pasa cuando alguien lo abre*); la validación que se comprueba al leer (*como estoy haciendo ahora con usted*); y el resultado con su dato de campo. Fuera, a propósito: «si es legal» entre las preguntas de ejemplo, y cualquier frase que le reste peso a la parte del socio.
+- **El índice no dice «abrir».** `FREQ_37` es dueña de *«si con abrir mi enlace ya queda conmigo»*, y en el laboratorio las cuatro primeras redacciones se la quitaban (0.593–0.615 contra 0.583). La elegida gana 7/7 paráfrasis propias y deja a `FREQ_37` primera en sus cinco preguntas, con un margen corto en esa (0.583 contra 0.568). Si alguna vez se voltea, el arreglo es una puerta fija para `FREQ_37`, no alargar este índice.
+- **Verificado antes de publicar** que el texto es cierto: el enlace nace en el mismo paso que la cuenta (el comando de activación del canal crea los dos), los 26 socios activos lo tienen, y queswa.app lo muestra para copiar.
+- **En producción:** «¿Cómo me dan mi enlace?» → `FREQ_42` (`candado_dictado`); «Sí» → `EAM_01`. Las preguntas de `FREQ_37` siguen allá, la del margen corto como material redactado por el modelo («abrir el enlace no es suficiente: lo que vincula es el registro con su código»).
+
 ### v6.71 — `FREQ_41`: «¿qué es lo primero que tengo que hacer?» se responde con el destino (11 oct 2026)
 
 Nace de la auditoría del video «Cómo funciona». La primera propuesta del agente respondía con el destino y enseguida con *«el primer paso es compartir su enlace con las personas que tiene en mente»*. El Director la rechazó: *«quisiera que Queswa dijera algo más inspirador antes de decirle que vamos a empezar a saludar prospectos, que es precisamente el mayor temor de las personas»*. Escribió el núcleo (dónde está y a dónde quiere llegar, primeras metas, una ruta a su medida) y aprobó la versión pulida con un ajuste suyo (*«Con los datos del tamaño de sus metas»*).

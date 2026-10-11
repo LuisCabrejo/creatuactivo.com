@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.70** (10 oct 2026) — **`FREQ_40`, nueva: «¿esto es multinivel?» se responde con un «sí».** La pregunta caía en `FREQ_13` (legalidad), que respondía «es legal» y nombraba la pirámide a quien no la traía; «¿es de esas redes de mercadeo?» caía en `NET_01`, escrita para quien ya hizo mercadeo en red. `FREQ_13` deja «es multinivel o MLM» de su índice y sigue respondiendo la legalidad. Puerta fija y criterio en `route.ts` y en el `[Concepto Nuclear]` de `FREQ_40`; historia en el CHANGELOG.
+**Versión actual: v6.71** (11 oct 2026) — **`FREQ_41`, nueva: «¿qué es lo primero que tengo que hacer?» se responde con el destino, no con el enlace.** Texto del Director. El cierre lleva a `WHY_APP_01` (el Centro de Mando), cuyo índice suma esa oferta literal en línea aparte: sin ella, el «sí» caía en `NIVELES_04`. Criterio en el `[Concepto Nuclear]` de `FREQ_41`; mediciones en el CHANGELOG.
+
+**v6.70** (10 oct 2026) — **`FREQ_40`, nueva: «¿esto es multinivel?» se responde con un «sí».** La pregunta caía en `FREQ_13` (legalidad), que respondía «es legal» y nombraba la pirámide a quien no la traía; «¿es de esas redes de mercadeo?» caía en `NET_01`, escrita para quien ya hizo mercadeo en red. `FREQ_13` deja «es multinivel o MLM» de su índice y sigue respondiendo la legalidad. Puerta fija y criterio en `route.ts` y en el `[Concepto Nuclear]` de `FREQ_40`; historia en el CHANGELOG.
 
 **v6.69** (9 oct 2026) — **El tercer elemento es SABER QUÉ HACER, y la aplicación es el ENVASE de los tres** (Director; investigación → `docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md`). Cambian `WHY_02` 🔒 (el punto 3 del candado), `WHY_05` 🔒 (la lista de los tres) y la nota de `WHY_APP_01`. Los elementos quedan como funciones —fabricar · atender · saber qué hacer— y la aplicación sube de rango: es donde llegan los tres ensamblados (el nombre vive en `WHY_APP_02` y en el clímax de la Presentación). Misma forma en el video «Cómo funciona», la Home, la Presentación y `respuestas-maestras.ts` (Camino A, contrato de prefijo). Los índices y los títulos no cambian.
-
-**v6.68** (9 oct 2026) — **La segunda frase del credo cambia en `WHY_01` 🔒, `WHY_05` 🔒 y `CRED_01`:** *«Creemos que el trabajo de cada persona debería convertirse en un activo.»* Le responde a la primera frase —el trabajo que hoy se va en el ciclo— y le da sentido al nombre de la marca. Es la misma frase de la Home y de la apertura del canal (Director, 9 oct 2026). Los índices y los títulos no cambian.
 
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
@@ -71,7 +71,8 @@ Las comisiones las paga el fabricante: **Gano Excel**, con 30 años en más de 6
 
 ### **WHY_APP_01: "¿Qué es la aplicación personalizada? / ¿Cómo me guía?"**
 **[Índice]:** Qué es la aplicación personalizada, qué trae, qué veo yo ahí adentro. Lo de Waze, cómo me marca la ruta, cómo me guía la aplicación. Qué recibo en la aplicación.
-**[Concepto Nuclear]:** Quien pregunta esto oyó «en una sola aplicación» o «saber qué hacer» en `WHY_02` o en el video «Cómo funciona», o «Queswa.app» en la Presentación, y quiere saber qué RECIBE. Se responde con el Centro de Mando en MECANISMO —me dice a dónde quiere llegar, le voy marcando la ruta, le redacto, le aviso—, nunca en resultado: *«lo lleva a donde quiere estar»* es voz de coach (vetada en el pitch deck, 24 sep 2026) y la silueta de la promesa de ingreso. ⚠️ Cada frase es verificable hoy en queswa.app: las referencias se escriben en Ajustes de Cuenta y Queswa guía con ellas; los mensajes se redactan en el chat; el aviso de llegada es el push del Centro de Mando; *«en qué va cada persona»* es el estado del prospecto — se dice del acompañamiento, no promete conversión. ⚠️ Sin cifras y sin inventario de funciones: tres verbos bastan (marcar la ruta · redactar · avisar). Cierra hacia `EAM_01`, que responde qué hace la persona. Nace con el guion del video a 60 s (Director, 27 sep 2026) — es la respuesta que el video estrena.
+¿Le cuento cómo le marco la ruta?
+**[Concepto Nuclear]:** ⚠️ La segunda línea del índice es la oferta con que cierra `FREQ_41`, literal y aparte (11 oct 2026): el «sí» busca con esa pregunta, y sin ella ganaba `NIVELES_04` (0.545); con ella gana este fragmento (0.589). Quien pregunta esto oyó «en una sola aplicación» o «saber qué hacer» en `WHY_02` o en el video «Cómo funciona», o «Queswa.app» en la Presentación, y quiere saber qué RECIBE. Se responde con el Centro de Mando en MECANISMO —me dice a dónde quiere llegar, le voy marcando la ruta, le redacto, le aviso—, nunca en resultado: *«lo lleva a donde quiere estar»* es voz de coach (vetada en el pitch deck, 24 sep 2026) y la silueta de la promesa de ingreso. ⚠️ Cada frase es verificable hoy en queswa.app: las referencias se escriben en Ajustes de Cuenta y Queswa guía con ellas; los mensajes se redactan en el chat; el aviso de llegada es el push del Centro de Mando; *«en qué va cada persona»* es el estado del prospecto — se dice del acompañamiento, no promete conversión. ⚠️ Sin cifras y sin inventario de funciones: tres verbos bastan (marcar la ruta · redactar · avisar). Cierra hacia `EAM_01`, que responde qué hace la persona. Nace con el guion del video a 60 s (Director, 27 sep 2026) — es la respuesta que el video estrena.
 
 <verbatim_lock>
 Es su Centro de Mando, y es donde yo trabajo para usted.
@@ -824,6 +825,22 @@ En CreaTuActivo hacemos la parte de tecnología: modernizamos el modelo para que
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro la estrategia con la que se construye, paso a paso?
+
+---
+
+### **FREQ_41: "¿Qué es lo primero que tengo que hacer? / ¿Cuál es el primer paso?"**
+**[Índice]:** Lo primero que hago apenas me vinculo, por dónde arranco una vez adentro, qué viene primero.
+**[Concepto Nuclear]:** Quien pregunta qué es lo primero mide si sería capaz, y lo que más teme oír es que el primer paso sea salir a hablarles a sus conocidos — el motivo n.º 1 del estigma (AARP: 39 % de quienes se van). Por eso lo primero NO es el enlace: es el destino, el modo Waze (de dónde sale, a dónde va y su razón), y la respuesta inspira antes de repartir tareas (Director, 11 oct 2026: «algo más inspirador antes de decirle que vamos a empezar a saludar prospectos»). Texto del Director sobre la propuesta del agente. ⚠️ Las metas son cifras de GASTO que la persona fija —sus gastos básicos, luego la vida que quiere—, las mismas del formulario «Su destino»; nunca lo que el negocio le pagará. «Le trazo una ruta», nunca «lo llevo»: llevarlo es prometer el resultado. ⚠️ «Al ritmo que usted decida» y no el tiempo que pueda dedicar: nombrar el tiempo planta «esto son más horas». «Un activo» y no «capital real»: el credo desde el 9 oct, y en un primer contacto «capital» suena a inversión. ⚠️ El cierre lleva a `WHY_APP_01` (el Centro de Mando, cuyo índice trae la oferta literal) y solo de ahí a `EAM_01`: compartir llega tercero, después del para qué. «¿Qué tengo que hacer?» y «¿qué hago en el día a día?» siguen siendo de `EAM_01` (puerta fija). Medido el índice contra el corpus real: 7/7 paráfrasis en el puesto 1, sin quitarle una consulta a `EAM_01`, `FREQ_03`, `ACTIVACION_01` ni `WHY_APP_01`.
+
+<verbatim_lock>
+Lo primero que haremos, apenas se vincule, es ver dónde está hoy y a dónde quiere llegar, para que su esfuerzo se convierta en un activo.
+
+Con eso fijamos sus metas. La primera, un ingreso que cubra sus gastos básicos. La siguiente, la vida que quiere, con su razón para ir por ella.
+
+Con los datos del tamaño de sus metas le trazo una ruta sencilla, hecha a su medida y al ritmo que usted decida. Como en Waze: usted maneja, y yo le voy diciendo el paso que sigue.
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le cuento cómo le marco la ruta?
 
 ---
 

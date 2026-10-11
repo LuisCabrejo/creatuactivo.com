@@ -24,12 +24,15 @@
  * Body: { fingerprint, pantalla?, completa?, whatsapp?, en_vivo? }
  */
 import { NextRequest, NextResponse } from 'next/server'
+import { esPeticionLocal } from '@/lib/entorno-local'
 import { createClient } from '@supabase/supabase-js'
 import { nombrePais } from '@/lib/paises'
 
 export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
+  // Localhost no escribe en la base de producción ni avisa a nadie (11 oct 2026, ver entorno-local.ts).
+  if (esPeticionLocal(request)) return NextResponse.json({ ok: true, skipped: 'local' })
   try {
     const { fingerprint, pantalla, completa, whatsapp, en_vivo } = await request.json()
     if (!fingerprint || typeof fingerprint !== 'string') {

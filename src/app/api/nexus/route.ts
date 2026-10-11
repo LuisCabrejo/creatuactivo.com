@@ -17,6 +17,7 @@
 // COMPLIANCE: Ley 1581/2012 Art. 9 + Conversational AI Best Practices (Drift, Intercom, Nielsen Norman Group)
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { esPeticionLocal } from '@/lib/entorno-local';
 import Anthropic from '@anthropic-ai/sdk';
 import { AnthropicStream, StreamingTextResponse } from 'ai';
 import {
@@ -4472,7 +4473,15 @@ export async function POST(req: Request) {
     });
 
   try {
-    const { messages: _messagesEntrada, sessionId, fingerprint, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos } = await req.json();
+    const { messages: _messagesEntrada, sessionId, fingerprint: _fingerprintEntrada, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos } = await req.json();
+    // ⛔ El chat de la web en localhost no escribe fichas (Director, 11 oct 2026):
+    // sin huella el motor responde igual —así llega parte del tráfico web real—
+    // pero no crea ni actualiza el prospecto, y el Dashboard no anuncia una prueba
+    // como visitante. WhatsApp (`wa_…`) queda fuera: el ensayo del webhook
+    // (repetir-por-webhook.mts) corre en local y necesita sus filas. Ver entorno-local.ts.
+    const fingerprint = (_fingerprintEntrada && !String(_fingerprintEntrada).startsWith('wa_') && esPeticionLocal(req)
+      ? undefined
+      : _fingerprintEntrada) as typeof _fingerprintEntrada;
     // El chat web devuelve el marcador `[[video:…]]` de los videos que ya mostró; se
     // expande con lo que dice la voz —la misma forma de la fila de WhatsApp—, así el
     // modelo sabe lo que la persona vio, la bitácora lo da por mostrado y el «sí» se

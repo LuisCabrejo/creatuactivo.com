@@ -19,6 +19,19 @@
     const SUPABASE_URL = window.TRACKING_CONFIG?.SUPABASE_URL || 'https://cvadzbmdypnbrbnkznpb.supabase.co';
     const SUPABASE_ANON_KEY = window.TRACKING_CONFIG?.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2YWR6Ym1keXBuYnJibmt6bnBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4OTI3MzIsImV4cCI6MjA3MTQ2ODczMn0.H_FJnsHnkcafwvWdX7AA6zNsUTr32qiR3g4dwK2oYGo';
 
+    // ⛔ Localhost no escribe en la base de producción (Director, 11 oct 2026:
+    // «que las visitas desde localhost no generen avisos»). La copia de
+    // desarrollo usa la misma base que creatuactivo.com, así que cada prueba era
+    // un prospecto nuevo y un aviso al socio. En local se calcula la huella y la
+    // página queda «lista» igual, pero no se llama a Supabase. Para probar el
+    // seguimiento a propósito: localStorage.setItem('tracking_local', '1').
+    // Misma regla en el servidor: src/lib/entorno-local.ts.
+    const ES_LOCAL = /^(localhost|127\.|0\.0\.0\.0$|\[::1\]$|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)|\.local(host)?$/i.test(location.hostname);
+    let TRACKING_LOCAL = false;
+    try { TRACKING_LOCAL = localStorage.getItem('tracking_local') === '1'; } catch (e) {}
+    const SIN_ESCRITURA = ES_LOCAL && !TRACKING_LOCAL;
+    if (SIN_ESCRITURA) console.log('🧪 Tracking en localhost: sin escrituras en Supabase (tracking_local=1 para activarlas)');
+
     // Generar fingerprint único del navegador
     async function generateFingerprint() {
         const canvas = document.createElement('canvas');
@@ -143,6 +156,15 @@
                 currentUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + `ref=${constructorRef}`;
             }
 
+            if (SIN_ESCRITURA) {
+                window.FrameworkIAA.fingerprint = fingerprint;
+                window.FrameworkIAA.constructorRef = constructorRef;
+                window.FrameworkIAA.ready = true;
+                window.FrameworkIAA.error = null;
+                window.dispatchEvent(new CustomEvent('nexusTrackingReady', { detail: window.FrameworkIAA }));
+                return;
+            }
+
             console.log('📡 Llamando a identify_prospect RPC...');
 
             // Llamar a Supabase RPC
@@ -246,6 +268,7 @@
 
     // Función para actualizar datos del prospecto (MEJORADA CON DEBUG)
     window.updateProspectData = async function(data) {
+        if (SIN_ESCRITURA) return true;
         try {
             const fingerprint = window.FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint');
 
@@ -313,7 +336,7 @@
     window.addEventListener('beforeunload', () => {
         timeSpent = Math.floor((Date.now() - startTime) / 1000);
 
-        if (window.FrameworkIAA?.fingerprint) {
+        if (window.FrameworkIAA?.fingerprint && !SIN_ESCRITURA) {
             const payload = {
                 p_fingerprint_id: window.FrameworkIAA.fingerprint,
                 p_data: {

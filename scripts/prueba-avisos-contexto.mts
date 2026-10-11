@@ -68,6 +68,13 @@ es(s3.tipos.join(',') === 'distribuidor,paises,paquete', 'al final: distribuidor
 es(s3.paises.join(',') === 'Canadá,Chile,Brasil', 'los tres países, sin Colombia');
 es(leerSenales(['hola', 'cómo funciona'], {}).tipos.length === 0, 'una conversación corriente no avisa');
 es(!leerSenales(['ya tuve código de Gano hace años'], {}).tipos.includes('distribuidor'), '«ya tuve código» es NET_02, no un distribuidor activo');
+// Adazuni Maldonado (San Diego, 10 oct 2026): dos videos y dos escenarios en el
+// simulador en 16 minutos, y al socio solo le llegó el aviso de llegada.
+const adazuni = ['Hola Queswa, vengo del enlace de luis-cabrejo', 'Cómo entra el dinero', 'Sí', 'Si', 'Sí',
+  'Acabo de usar el simulador de renta: tarifa ESP-1 Inicial — 15%, con 10 clientes en cada centro de negocio.'];
+es(leerSenales(adazuni, {}).tipos.join(',') === 'simulador', 'Adazuni: usar el simulador es avanzar');
+es(!leerSenales(['quiero ver el simulador', 'cuánto se gana'], {}).tipos.includes('simulador'), 'pedir o nombrar el simulador no es haberlo usado');
+es(textoDestacado(destinatarioDe(null), 'Adazuni Maldonado', '16195814694', ['· Armó en el simulador una renta con el ESP-1.']).includes('está avanzando:'), 'el título dice «está avanzando»');
 
 console.log('\n── 4. La promesa del modelo ──');
 for (const p of [

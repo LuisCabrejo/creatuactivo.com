@@ -314,9 +314,21 @@ export default function PitchDeckPage() {
 
   // Simuladores
   // ⚠️ MONEDA: COP por defecto (Director, 26 sep 2026) — en Colombia se muestra solo
-  // pesos. El USD queda a un toque para quien presenta fuera del país, y cada cifra
-  // sale en UNA moneda, nunca las dos a la vez.
-  const [moneda, setMoneda] = useState<'COP' | 'USD'>('COP');
+  // pesos, y cada cifra sale en UNA moneda, nunca las dos a la vez. Fuera de
+  // Colombia arranca en dólares (Director, 11 oct 2026: «para quien está afuera
+  // es mejor dólar»): el país lo da /api/pais, y si no llega se queda en pesos.
+  // El botón sigue a un toque, y lo que la persona elija no se lo pisa nadie.
+  const [moneda, setMonedaEstado] = useState<'COP' | 'USD'>('COP');
+  const monedaElegida = useRef(false);
+  const setMoneda = (m: 'COP' | 'USD') => { monedaElegida.current = true; setMonedaEstado(m); };
+  useEffect(() => {
+    fetch('/api/pais')
+      .then((r) => r.json())
+      .then(({ pais }: { pais: string | null }) => {
+        if (pais && pais !== 'CO' && !monedaElegida.current) setMonedaEstado('USD');
+      })
+      .catch(() => {});
+  }, []);
   const [gen5Paquetes, setGen5Paquetes] = useState(2);
   const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP1');
   const [nivel12, setNivel12] = useState(12);

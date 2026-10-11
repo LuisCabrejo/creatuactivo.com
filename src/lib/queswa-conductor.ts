@@ -128,8 +128,14 @@ export function paisDeTelefono(phone: string): PaisConductor {
   return phone.startsWith('57') ? 'CO' : phone.startsWith('1') ? 'US' : 'XX';
 }
 
-/** El país por el código ISO que detecta el motor (web: `x-vercel-ip-country`). */
+/**
+ * El país por el código ISO que detecta el motor (web: `x-vercel-ip-country`).
+ * Sin código, Colombia: «sin país, pesos» (Director, 23 sep 2026) — desde que
+ * fuera de Colombia todo va en dólares (11 oct 2026), un 'XX' por falta de dato
+ * le cambiaría la moneda a quien está aquí.
+ */
 export function paisDeCodigo(codigo?: string | null): PaisConductor {
+  if (!codigo) return 'CO';
   return codigo === 'CO' ? 'CO' : codigo === 'US' ? 'US' : 'XX';
 }
 
@@ -283,13 +289,15 @@ export async function slugDelSocio(
  * por su mecanismo, nunca «segunda».
  */
 export function textoBonoPaquetes(pais: PaisConductor): string {
-  const precio = (usd: string, cop: string) => (pais === 'CO' ? cop : pais === 'US' ? usd : `${usd} (${cop})`);
+  // Fuera de Colombia, dólares (Director, 11 oct 2026). Sin país, pesos: el 'XX' de
+  // `paisDeTelefono` es un país conocido que no es Colombia ni EE. UU.
+  const precio = (usd: string, cop: string) => (pais === 'CO' ? cop : usd);
   return [
     'Hay tres paquetes empresariales, cada uno con su inventario de productos:',
     '',
     `• *ESP-1 Inicial*: 7 productos · ${precio('$200 USD', '$900.000 COP')}`,
     `• *ESP-2 Empresarial*: 18 productos · ${precio('$500 USD', '$2.250.000 COP')}`,
-    `• *ESP-3 Visionario*: 35 productos · ${precio('$1.000 USD', '$4.500.000 COP')}`,
+    `• *ESP-3 Visionario*: 35 productos · ${precio('$1,000 USD', '$4.500.000 COP')}`,
     '',
     `Si usted compra uno de ellos como su inversión inicial, califica para cobrar el bono por la compra de paquetes empresariales en su sistema. Por ejemplo: por cada Visionario que se compre en su primera generación, ${precio('$150 USD', '$675.000 COP')}; y el bono sigue en las cuatro generaciones siguientes.`,
     '',
@@ -301,7 +309,7 @@ export function textoBonoPaquetes(pais: PaisConductor): string {
 
 /** El precio del Kit de Inicio en la moneda del país (el candado trae el marcador). */
 export function precioKit(pais: PaisConductor): string {
-  return pais === 'CO' ? '$443.600 COP' : pais === 'US' ? '$98 USD' : '$98 USD ($443.600 COP)';
+  return pais === 'CO' ? '$443.600 COP' : '$98 USD';
 }
 
 /**

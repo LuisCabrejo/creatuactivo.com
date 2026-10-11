@@ -150,6 +150,7 @@ import {
   detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb, pushAlDashboard,
 } from '@/lib/wa-avisos-contexto';
 import { nombrePais, paisDeContactoWA } from '@/lib/paises';
+import { gestoAfirma, preguntaFinalSiNo, ESPERA_GESTO_S, VIGENCIA_PREGUNTA_H } from '@/lib/wa-gestos';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
   slugDelSocio, textoDeCandado, paisDeTelefono, preguntaPorModoWaze, atenderModoWaze,
@@ -249,6 +250,61 @@ async function yaProcesado(wamid: string, identidad?: unknown): Promise<boolean>
 }
 
 /**
+ * Deja anotado el gesto —reacción o sticker— en la guarda de reenvíos, con el
+ * emoji y el mensaje al que responde. Hasta el 11 oct 2026 no se guardaba nada, y
+ * la auditoría no podía saber qué había mandado Adazuni al irse.
+ */
+async function anotarGesto(wamid: string | undefined, gesto: { tipo: string; emoji: string; a: string | null }): Promise<void> {
+  if (!wamid) return;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const s = getSupabase() as any;
+    const { data } = await s.from('wa_mensajes_procesados').select('identidad').eq('wamid', wamid).maybeSingle();
+    await s.from('wa_mensajes_procesados').update({ identidad: { ...(data?.identidad ?? {}), gesto } }).eq('wamid', wamid);
+  } catch (err) {
+    console.warn('⚠️ [WA Webhook] No se pudo anotar el gesto:', err);
+  }
+}
+
+/**
+ * ¿A qué pregunta responde este gesto? (Director, 11 oct 2026 — ver wa-gestos.ts.)
+ * Espera `ESPERA_GESTO_S`. Si la persona escribió algo después de la última
+ * pregunta de Queswa —antes del gesto o en la espera—, el gesto acompaña lo que
+ * escribió y no se toma aparte. Si no, devuelve esa pregunta cuando es de sí o
+ * no y ya existía al llegar el gesto. Ante cualquier duda, null.
+ */
+async function gestoResponde(phone: string, wamid: string | undefined): Promise<string | null> {
+  const llegada = Date.now();
+  await new Promise((r) => setTimeout(r, ESPERA_GESTO_S * 1000));
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const s = getSupabase() as any;
+    const { data: filas } = await s.from('nexus_conversations').select('messages, created_at')
+      .eq('fingerprint_id', `wa_${phone}`).order('created_at', { ascending: false }).limit(1);
+    const fila = filas?.[0];
+    if (!fila) return null;
+    const enviada = new Date(fila.created_at).getTime();
+    if (enviada > llegada || llegada - enviada > VIGENCIA_PREGUNTA_H * 3600_000) return null;
+
+    // ¿Escribió algo después de esa pregunta —antes del gesto o en la espera—?
+    // Entonces ya respondió con palabras, y el gesto las acompaña.
+    const { data: entrantes } = await s.from('wa_mensajes_procesados').select('wamid, identidad')
+      .gt('creado_at', new Date(enviada).toISOString());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const escribio = (entrantes ?? []).some((r: any) => r.wamid !== wamid && !r.identidad?.gesto
+      && [r.identidad?.from, r.identidad?.wa_id, r.identidad?.user_id, r.identidad?.msg_user_id].includes(phone));
+    if (escribio) return null;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ultima = (Array.isArray(fila.messages) ? [...fila.messages] : []).reverse().find((m: any) => m?.role === 'assistant')?.content;
+    return preguntaFinalSiNo(typeof ultima === 'string' ? ultima : null);
+  } catch (err) {
+    console.warn('⚠️ [WA Webhook] No se pudo leer a qué responde el gesto:', err);
+    return null;
+  }
+}
+
+/**
  * Puerta del canal. Su único trabajo es contestarle a Meta **de inmediato** y
  * mandar el mensaje a procesar por detrás.
  *
@@ -266,6 +322,21 @@ async function yaProcesado(wamid: string, identidad?: unknown): Promise<boolean>
  * `maxDuration` de la función. Lo que cambia es que el reloj ya no lo mira Meta.
  * Por eso el techo se subió a 90 s en la misma corrección.
  */
+/**
+ * El simulador en la moneda de quien escribe (Director, 11 oct 2026: «para quien
+ * está afuera es mejor dólar»). Colombia recibe la tarjeta en pesos; cualquier
+ * otro país, su gemela en dólares (`simulador-de-ingresos-usd.flow.json`, que se
+ * genera desde la de pesos con `scripts/generar-flow-simulador-usd.mjs`). Adazuni
+ * Maldonado (San Diego, 10 oct) vio «≈ $378.000 COP al mes» en la tarjeta y
+ * «$84 USD al mes» en el texto que le siguió. Si la gemela no está definida, sale
+ * la de pesos: el simulador nunca se pierde por una variable de entorno.
+ */
+function flowSimuladorPara(phone: string): string | undefined {
+  const pesos = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
+  const dolares = process.env.WHATSAPP_FLOW_SIMULADOR_USD_ID?.trim();
+  return paisDeTelefono(phone) === 'CO' ? pesos : (dolares || pesos);
+}
+
 export async function POST(request: Request) {
   const ok = () => new Response('OK', { status: 200 });
 
@@ -439,7 +510,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // del turno previo de esta instancia — la de otra persona.
     _bitacoraDelTurno = null;
     _ofertaRenovada = null;
-    if (wamid) await marcarLeidoYEscribiendo(wamid);
+    // Un gesto no se marca leído ni pone «escribiendo…» todavía: puede quedar sin
+    // respuesta, y un «escribiendo…» que no termina en nada se nota.
+    const _esGesto = message.type === 'reaction' || message.type === 'sticker';
+    if (wamid && !_esGesto) await marcarLeidoYEscribiendo(wamid);
 
     // ─── Entrada: texto o nota de voz ─────────────────────────────────────────
     // En LATAM el audio es la forma natural de explicar algo con matices; antes
@@ -614,17 +688,31 @@ async function procesarEntrante(body: any): Promise<void> {
     // no recibía absolutamente nada — el peor mensaje posible en el canal donde
     // todo el mundo responde al instante.
     //
-    // Las reacciones y los stickers SÍ siguen mudos, y a propósito: son gestos de
-    // asentimiento, no consultas. Contestarle "no puedo ver imágenes" a un pulgar
-    // arriba convierte un cierre cordial en un malentendido.
+    // Las reacciones y los stickers nunca reciben el acuse: contestarle "no puedo
+    // ver imágenes" a un pulgar arriba convierte un cierre cordial en un
+    // malentendido. Pero un gesto sobre una pregunta de sí o no ES la respuesta
+    // (Director, 11 oct 2026): entra como un «Sí» escrito y lo atiende el mismo
+    // nodo. Cifuentes y Adazuni se fueron con un gesto sin respuesta. Reglas y
+    // casos en src/lib/wa-gestos.ts.
     if (!messageText) {
       const tipo = message.type as string | undefined;
 
       if (tipo === 'reaction' || tipo === 'sticker') {
-        console.log(`👍 [WA Webhook] ${phoneNumber} envió un gesto (${tipo}) — sin respuesta, a propósito`);
-        return;
+        const reaccion = message.reaction as { emoji?: string; message_id?: string } | undefined;
+        const emoji = tipo === 'reaction' ? (reaccion?.emoji ?? '') : '';
+        await anotarGesto(wamid, { tipo, emoji, a: reaccion?.message_id ?? null });
+        const pregunta = gestoAfirma(tipo, emoji) ? await gestoResponde(phoneNumber, wamid) : null;
+        if (!pregunta) {
+          console.log(`👍 [WA Webhook] ${phoneNumber} envió un gesto (${tipo} ${emoji}) — sin respuesta`);
+          return;
+        }
+        console.log(`👍 [WA Webhook] ${phoneNumber} respondió con un gesto (${tipo} ${emoji}) a «${pregunta}» — entra como «Sí»`);
+        messageText = 'Sí';
+        if (wamid) await marcarLeidoYEscribiendo(wamid);
       }
-
+    }
+    if (!messageText) {
+      const tipo = message.type as string | undefined;
       const acuse = ACUSE_NO_PROCESABLE[tipo ?? ''] ?? ACUSE_NO_PROCESABLE.default;
       await sendWhatsAppMessage(phoneNumber, acuse, { wamid, citar: true });
       // Registrado desde el 5 oct 2026 (ver la nota de voz, arriba): sin fila,
@@ -1991,7 +2079,7 @@ async function procesarEntrante(body: any): Promise<void> {
           ));
         }
         // Que ya es distribuidor de Gano Excel también es noticia para el socio
-        // o el equipo: el aviso de «vale la pena» lo lee de la ficha recién marcada.
+        // o el equipo: el aviso «está avanzando» lo lee de la ficha recién marcada.
         if (nodoDistribuidor.marcarFicha?.distribuidor_otro_equipo === true) {
           waitUntil(revisarDestacado(supabase, {
             dest: destinatarioDe(patrocinador ?? await resolverSocioDelProspecto(supabase, existingProspect?.constructor_id)),
@@ -2362,6 +2450,19 @@ async function procesarEntrante(body: any): Promise<void> {
       await persistirTurnoDictado(supabase, waFingerprint, messageText, respuestaSimulador, '2.3 resultado del simulador');
       if ('tipo' in escenarioSimulador && escenarioSimulador.tipo === 'niveles') await marcarHiloDoceNiveles();
       await marcarTemperatura('caliente');
+      // Armar un escenario es avanzar (Director, 11 oct 2026): el socio —o el
+      // equipo— recibe «⭐ … está avanzando». Este bloque cierra el turno antes
+      // del 4.5, así que el aviso se revisa aquí.
+      if (!socioQueEscribe) {
+        waitUntil(revisarDestacado(supabase, {
+          dest: destinatarioDe(socio),
+          fingerprint: waFingerprint,
+          nombre: contactName,
+          contacto: phoneNumber,
+          historial,
+          mensaje: messageText ?? '',
+        }));
+      }
       console.log(`🧮 [WA Webhook] Escenario del simulador respondido dictado para ${phoneNumber}`);
       return;
       }
@@ -2375,7 +2476,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // decide y dicta para los dos canales. Aquí solo se ENTREGA: el texto por
     // Meta y, si el nodo trae simulador, la tarjeta del Flow. Un Flow completado
     // queda sellado en WhatsApp, por eso el reenvío manda una tarjeta nueva.
-    const flowSimuladorId = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
+    const flowSimuladorId = flowSimuladorPara(phoneNumber);
     {
       const nodo = await atenderHiloNiveles({
         canal:               'whatsapp',
@@ -3266,7 +3367,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // ⚠️ Al socio no se le manda la tarjeta (13 sep 2026): el simulador es parte
       // de la secuencia de venta, y Miguel, socio, terminó la noche del 12 sep en
       // la composición del ESP-3 con «¿Seguimos con la activación?».
-      const flowSimulador = pageContext === 'whatsapp_socio' ? undefined : process.env.WHATSAPP_FLOW_SIMULADOR_ID;
+      const flowSimulador = pageContext === 'whatsapp_socio' ? undefined : flowSimuladorPara(phoneNumber);
 
       // ⚠️ El silencio deja de ser silencioso (9 ago 2026). Si la env falta, el
       // `if (flowSimulador && …)` no hacía NADA y no decía nada: el ejemplo de
@@ -3400,7 +3501,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
       // (el de niveles, al 10%). El simulador de renta queda solo por pull.
     }
 
-    // ─── 4.5 ¿La conversación ya dice que vale la pena? (8 oct 2026) ──────────
+    // ─── 4.5 ¿La persona está avanzando? (8 oct 2026; título del 11 oct) ──────
     // Ya es distribuidor, nombra otro país o eligió paquete: el socio —o el
     // equipo— recibe el resumen. La respuesta ya salió; esto no la demora.
     if (!socioQueEscribe && queswaReply) {
@@ -3556,7 +3657,9 @@ async function preguntarAlTerminarElVideo(
     try {
       const { data } = await supabase.from('wa_mensajes_procesados').select('identidad').gt('creado_at', desde.toISOString());
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return (data ?? []).some((r: any) => [r.identidad?.from, r.identidad?.wa_id, r.identidad?.user_id, r.identidad?.msg_user_id].includes(phone));
+      // Un gesto durante el video (un ❤️ al video) no es seguir: hasta el 11 oct
+      // 2026 cancelaba la pregunta del final y la persona se quedaba sin nada.
+      return (data ?? []).some((r: any) => !r.identidad?.gesto && [r.identidad?.from, r.identidad?.wa_id, r.identidad?.user_id, r.identidad?.msg_user_id].includes(phone));
     } catch { return false; }
   };
   const esperar = (s: number) => new Promise((r) => setTimeout(r, Math.max(0, s) * 1000));

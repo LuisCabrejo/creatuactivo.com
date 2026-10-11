@@ -4078,13 +4078,13 @@ function tablaPaqueteDictada(codigo: string, tablaMarkdown: string, country: str
   const META: Record<string, { nombre: string; usd: string; cop: string; mix: string }> = {
     'ESP-1': { nombre: 'ESP-1 Inicial',     usd: '$200 USD',   cop: '$900.000 COP',   mix: 'Lo seleccionamos así para que su negocio arranque con las bebidas que más se piden.' },
     'ESP-2': { nombre: 'ESP-2 Empresarial', usd: '$500 USD',   cop: '$2.250.000 COP', mix: 'Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas y cuidado personal.' },
-    'ESP-3': { nombre: 'ESP-3 Visionario',  usd: '$1.000 USD', cop: '$4.500.000 COP', mix: 'Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal.' },
+    'ESP-3': { nombre: 'ESP-3 Visionario',  usd: '$1,000 USD', cop: '$4.500.000 COP', mix: 'Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal.' },
   };
   const m = META[codigo];
   if (!m) return null;
   const filas = tablaMarkdown.split('\n').filter((l) => l.trim().startsWith('|'));
   if (filas.length < 3) return null;
-  const precio = country === 'CO' ? m.cop : country === 'US' ? m.usd : `${m.usd} (${m.cop})`;
+  const precio = country === 'CO' ? m.cop : m.usd;
   // ⛔ No cierra con la activación (Director, 13 sep 2026): quien llega aquí pidió
   // VER qué trae el paquete — Luz, la noche del 12 sep, a las 22:19, y no volvió
   // a escribir—. Sugerirle la activación a quien solo quiso mirar es un error. La
@@ -4114,7 +4114,7 @@ function gen5PrimerPaqueteDictado(codigo: string, country: string | null | undef
   };
   const t = T[codigo];
   if (!t) return null;
-  const monto = country === 'CO' ? t.cop : country === 'US' ? t.usd : `${t.usd} (${t.cop})`;
+  const monto = country === 'CO' ? t.cop : t.usd;
   return `El GEN5 se cuenta por paquetes: un *paquete ${t.nombre}* comprado en su primera generación le genera un bono de *${monto}*. Lo captura completo si su propio paquete es igual o mayor — su paquete es el techo de lo que cobra.
 
 Se liquida por ciclos semanales, cada viernes.
@@ -4230,9 +4230,9 @@ function getCorsHeaders(origin: string | null): Record<string, string> {
 //      (a nivel país ~95%+ confiable, incluso en redes móviles de operador).
 // WhatsApp: la IP sería la del webhook, no la del usuario → se deriva el país
 //           del prefijo telefónico (fingerprint `wa_{phone}`).
-// Regla de cotización: precio de paquetes/productos → moneda local;
-//                      comisiones/ingresos → USD + COP (la tasa fija $4,500
-//                      demuestra la ventaja de cobrar en moneda fuerte).
+// Regla de cotización (Director, 11 oct 2026): Colombia en pesos; cualquier
+//                      otro país en dólares, sin los pesos al lado. Los precios
+//                      de PRODUCTO siguen en pesos: no hay lista oficial en dólares.
 // La IP es el DEFAULT, no la verdad: si el usuario indica otro país de
 // registro (caso diáspora), ese manda — Queswa confirma, no asume.
 const PHONE_PREFIX_COUNTRY: Record<string, string> = {
@@ -4284,20 +4284,23 @@ function detectVisitorCountry(req: Request, tenantId: string, fingerprint?: stri
 }
 
 // Línea de precio de un paquete según el país (tablas Estado 2 + pin).
-// CO → COP solo · US → USD limpio · resto/desconocido → USD (COP).
+// CO → COP solo · cualquier otro país → USD limpio (Director, 11 oct 2026: «para
+// quien está afuera es mejor dólar»; antes el resto salía «USD (COP)», y a un
+// mexicano o a un ecuatoriano los pesos colombianos no le dicen nada). Sin país
+// detectado el motor ya devuelve 'CO' (`detectVisitorCountry`), así que esto no
+// le cambia la moneda a nadie que esté en Colombia.
 // El Kit de Inicio es la cuarta forma de empezar (Director, 6 oct 2026). Los pesos
 // van con punto de miles, como en todo el arsenal (antes «$900K» y «$4.5M»).
 function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3' | 'KIT', country: string): string {
   const usd: Record<string, string> = { KIT: '$98 USD', 'ESP-1': '$200 USD', 'ESP-2': '$500 USD', 'ESP-3': '$1,000 USD' };
   const cop: Record<string, string> = { KIT: '$443.600 COP', 'ESP-1': '$900.000 COP', 'ESP-2': '$2.250.000 COP', 'ESP-3': '$4.500.000 COP' };
   if (country === 'CO') return cop[esp];
-  if (country === 'US') return usd[esp];
-  return `${usd[esp]} (~${cop[esp]})`;
+  return usd[esp];
 }
 
 // Pin de precios de paquetes adaptado al país del visitante.
-// CO → COP solo (quita la fricción de la conversión USD). US → USD limpio.
-// Resto/desconocido → USD + COP (default seguro; ajustar si el usuario da su país).
+// CO → COP solo (quita la fricción de la conversión USD). Cualquier otro país →
+// USD limpio (Director, 11 oct 2026), con la nota de la oficina local si no es EE. UU.
 /**
  * ⚠️ ESTE PIN ES FUENTE DE DATOS, NO PLANTILLA (10 ago 2026).
  *
@@ -4328,22 +4331,13 @@ function getPaquetesPricingPin(country: string): string {
 • Kit de Inicio (la entrada menor, solo si viene al caso) = $443.600 COP
 🇨🇴 COTIZA EN COP (moneda local). NO muestres el equivalente en USD al lado del precio del paquete — obliga al usuario a una conversión mental que crea fricción ("el dólar no está a 4,500"). El USD solo aparece si el usuario lo pide o reclama por la tasa → en ese caso usa la respuesta de FREQ_27. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
   }
-  if (country === 'US') {
-    return `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
+  const otroPais = country !== 'US' && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
+  return `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
 • ESP-1 Inicial = ${usd.e1}
 • ESP-2 Empresarial = ${usd.e2}
 • ESP-3 Visionario = ${usd.e3}
 • Kit de Inicio (la entrada menor, solo si viene al caso) = $98 USD
-🇺🇸 COTIZA EN USD limpio. NO muestres COP (irrelevante para el visitante). NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
-  }
-  // Default / desconocido / otros países sin lista local cargada
-  const otroPais = country && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
-  return `💰 PAQUETES — PRECIOS OFICIALES 2026 (BLINDADO ANTI-ALUCINACIÓN):
-• ESP-1 Inicial = ${usd.e1} (${cop.e1})
-• ESP-2 Empresarial = ${usd.e2} (${cop.e2})
-• ESP-3 Visionario = ${usd.e3} (${cop.e3})
-• Kit de Inicio (la entrada menor, solo si viene al caso) = $98 USD ($443.600 COP)
-🌎 Cotiza en USD (moneda de referencia internacional) con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica su país de registro, ajusta a su moneda local. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
+🌎 COTIZA EN USD limpio. NO muestres COP (fuera de Colombia los pesos no le dicen nada al visitante).${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica que se registra en Colombia, cotiza en COP. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
 }
 
 /**
@@ -4370,17 +4364,10 @@ function getPinComisionGEN5(country: string): string {
 • [GEN2_5] = ${cop.g25}
 🇨🇴 Cotiza SOLO en COP. El equivalente en dólares al lado obliga a una conversión mental que crea fricción.`;
   }
-  if (country === 'US') {
-    return `💵 COMISIÓN GEN5 — reemplaza los marcadores del contexto:
+  return `💵 COMISIÓN GEN5 — reemplaza los marcadores del contexto:
 • [GEN1] = ${usd.g1}
 • [GEN2_5] = ${usd.g25}
-🇺🇸 Cotiza en USD limpio. El COP es irrelevante para este visitante.`;
-  }
-  const otroPais = country && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
-  return `💵 COMISIÓN GEN5 — reemplaza los marcadores del contexto:
-• [GEN1] = ${usd.g1} (${cop.g1})
-• [GEN2_5] = ${usd.g25} (${cop.g25})
-🌎 Cotiza en USD con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}.` : ''}`;
+🌎 Cotiza en USD limpio: fuera de Colombia los pesos no le dicen nada al visitante.`;
 }
 
 /**
@@ -4430,15 +4417,10 @@ function getPinKitInicio(country: string): string {
 • [PRECIO_KIT] = ${cop}
 🇨🇴 Cotiza SOLO en COP. El equivalente en dólares al lado obliga a una conversión mental que crea fricción.`;
   }
-  if (country === 'US') {
-    return `🎒 KIT DE INICIO — reemplaza el marcador del contexto:
-• [PRECIO_KIT] = ${usd}
-🇺🇸 Cotiza en USD limpio. El COP es irrelevante para este visitante.`;
-  }
-  const otroPais = country && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
+  const otroPais = country !== 'US' && COUNTRY_NAMES[country] ? COUNTRY_NAMES[country] : '';
   return `🎒 KIT DE INICIO — reemplaza el marcador del contexto:
-• [PRECIO_KIT] = ${usd} (${cop})
-🌎 Cotiza en USD con el COP entre paréntesis.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''}`;
+• [PRECIO_KIT] = ${usd}
+🌎 Cotiza en USD limpio: fuera de Colombia los pesos no le dicen nada al visitante.${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''}`;
 }
 
 export async function OPTIONS(req: Request) {
@@ -6904,11 +6886,9 @@ INSTRUCCIONES — TONO LUJO CLÍNICO HUMANO:
 - Abre con una palabra cálida y profesional. VARÍA entre: "Claro", "Por supuesto", "Entiendo", "Excelente", "Comprendo", "OK", "De acuerdo". NUNCA empieces siempre con "Con gusto".
 ${visitorCountry === 'CO'
   ? `- Indica el precio en COP (moneda local). NO muestres el equivalente en USD al lado — crea fricción de conversión. El USD solo si el usuario lo pide o reclama por la tasa (ver FREQ_27).`
-  : visitorCountry === 'US'
-  ? `- Indica el precio en USD limpio (no muestres COP, irrelevante para el visitante).`
-  : `- Indica precio en USD con COP entre paréntesis ($1 USD = $4.500 COP — tasa fija Gano Excel, NO tasa de mercado). Si el usuario indica su país de registro, ajusta a su moneda local.`}
+  : `- Indica el precio en USD limpio (fuera de Colombia no muestres COP). Si el usuario indica que se registra en Colombia, cotiza en COP.`}
 - Estructura sugerida:
-  1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : visitorCountry === 'US' ? 'en USD' : 'USD ($X COP entre paréntesis)'} + frase de transición ("le activa inmediatamente este inventario:")
+  1. Apertura cálida + precio ${visitorCountry === 'CO' ? 'en COP' : 'en USD'} + frase de transición ("le activa inmediatamente este inventario:")
   2. Tabla de composición (EXACTAMENTE como aparece arriba, sin inventar).
   3. Cierre explicativo del mix: "Lo seleccionamos así para que su negocio arranque con un mix completo: bebidas enriquecidas, suplementos premium y cuidado personal."
   4. Pregunta de seguimiento conversacional: "¿Le cuento en qué se diferencian estos productos entre ellos?" (quien pidió ver el paquete quiso MIRAR; la activación se ofrece solo cuando la persona la nombra — Director, 13 sep 2026)

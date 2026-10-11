@@ -9,7 +9,8 @@
  *   2. npx tsx scripts/repetir-por-webhook.mts [--base http://localhost:3055] [--log <archivo del servidor>] [--hasta 29]
  *      Con `--mensajes "Hola Queswa | ¿Qué estrategia tienen?"` manda esas frases
  *      (separadas por «|») en lugar de la conversación del Director. Un toque de
- *      botón se escribe «[id:Título]»: `[apertura_sistema:Cómo funciona]`.
+ *      botón se escribe «[id:Título]»: `[apertura_sistema:Cómo funciona]`, y una
+ *      reacción «[reaccion:👍]» (11 oct 2026: un gesto a una pregunta de sí o no es un «Sí»).
  *
  * Por qué existe (24 sep 2026): las pruebas del motor no ven el webhook —los
  * botones, las fotos, el simulador, la pareja, la radicación viven allá—, y la
@@ -37,12 +38,14 @@ const TEL = '573009990024';
 const HUELLA = `wa_${TEL}`;
 const s = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
-type Entrada = { texto?: string; boton?: { id: string; title: string }; flow?: Record<string, string> };
+type Entrada = { texto?: string; boton?: { id: string; title: string }; flow?: Record<string, string>; reaccion?: string };
 const { filas } = JSON.parse(fs.readFileSync(new URL('./fixtures/prueba-director-24sep.json', import.meta.url), 'utf8')) as { filas: { messages: { role: string; content: string }[] }[] };
 // Frases propias en lugar de la conversación grabada (8 oct 2026).
 const MENSAJES = arg('--mensajes', '');
 // Un toque de botón va como «[id:Título]» (9 oct 2026): «[apertura_sistema:Cómo funciona]».
 const entradaDe = (t: string): Entrada => {
+  const r = t.match(/^\[reaccion:(.*)\]$/);
+  if (r) return { reaccion: r[1] };
   const b = t.match(/^\[([a-z_]+):(.+)\]$/);
   return b ? { boton: { id: b[1], title: b[2] } } : { texto: t };
 };
@@ -73,6 +76,7 @@ function payload(e: Entrada, wamid: string) {
   if (e.texto) Object.assign(msg, { type: 'text', text: { body: e.texto } });
   if (e.boton) Object.assign(msg, { type: 'interactive', interactive: { type: 'button_reply', button_reply: e.boton } });
   if (e.flow) Object.assign(msg, { type: 'interactive', interactive: { type: 'nfm_reply', nfm_reply: { response_json: JSON.stringify(e.flow), body: 'Sent', name: 'flow' } } });
+  if (e.reaccion !== undefined) Object.assign(msg, { type: 'reaction', reaction: { message_id: 'wamid.ensayo.salida', emoji: e.reaccion } });
   return {
     object: 'whatsapp_business_account',
     entry: [{ id: 'ensayo', changes: [{ field: 'messages', value: {
@@ -128,7 +132,7 @@ for (let i = DESDE - 1; i < Math.min(HASTA, entradas.length); i++) {
   const fila = (await filasDeHuella()).at(-1);
   const meta = (fila?.metadata ?? {}) as Record<string, unknown>;
   escribir(`\n══ ${i + 1} · ${(ms / 1000).toFixed(1)} s · ${meta.search_method ?? meta.nodo ?? '—'}${meta.envoltura ? ` · envoltura ${JSON.stringify(meta.envoltura)}` : ''}${meta.supervisor ? ` · supervisor ${JSON.stringify(meta.supervisor)}` : ''}${meta.oferta_cambiada ? ` · oferta ${meta.oferta_cambiada}` : ''}`);
-  escribir(`[PERSONA] ${e.texto ?? e.boton?.title ?? JSON.stringify(e.flow)}`);
+  escribir(`[PERSONA] ${e.texto ?? e.boton?.title ?? (e.reaccion !== undefined ? `(reacción ${e.reaccion || 'retirada'})` : JSON.stringify(e.flow))}`);
   if (envios.length) {
     for (const x of envios) {
       const cuerpo = (x.text ?? x.caption ?? x.bodyText ?? '') as string;

@@ -21,6 +21,17 @@
  * Uso:
  *   node scripts/actualizar-flow-simulador.mjs --dry   # valida, no sube
  *   node scripts/actualizar-flow-simulador.mjs         # sube y republica
+ *
+ * El simulador en DÓLARES (11 oct 2026, para quien escribe desde fuera de
+ * Colombia) es otro Flow con su propio id, `WHATSAPP_FLOW_SIMULADOR_USD_ID`. Su
+ * JSON se genera desde el de pesos —nunca se edita a mano—:
+ *   node scripts/generar-flow-simulador-usd.mjs
+ *   node scripts/actualizar-flow-simulador.mjs --usd --crear   # la primera vez: lo crea e imprime el id
+ *   node scripts/actualizar-flow-simulador.mjs --usd           # las siguientes
+ * Después de crearlo, el id va a Vercel como WHATSAPP_FLOW_SIMULADOR_USD_ID.
+ * ⚠️ Un Flow que la persona ya abrió se queda guardado en su teléfono: cambiar el
+ * contenido de uno publicado no le llega a quien ya lo vio. Contenido nuevo
+ * para todos = id nuevo.
  */
 
 import fs from 'fs';
@@ -29,11 +40,20 @@ dotenv.config({ path: '.env.local' });
 
 const GRAPH   = 'https://graph.facebook.com/v21.0';
 const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
-const FLOW_ID = process.env.WHATSAPP_FLOW_SIMULADOR_ID;
-const RUTA    = 'docs/handoff/queswa/flows/simulador-de-ingresos.flow.json';
+const USD     = process.argv.includes('--usd');
+const CREAR   = process.argv.includes('--crear');
+const VAR_ID  = USD ? 'WHATSAPP_FLOW_SIMULADOR_USD_ID' : 'WHATSAPP_FLOW_SIMULADOR_ID';
+let   FLOW_ID = process.env[VAR_ID]?.trim();
+const RUTA    = USD
+  ? 'docs/handoff/queswa/flows/simulador-de-ingresos-usd.flow.json'
+  : 'docs/handoff/queswa/flows/simulador-de-ingresos.flow.json';
 
-if (!TOKEN || !FLOW_ID) {
-  console.error('❌ Faltan WHATSAPP_SYSTEM_TOKEN o WHATSAPP_FLOW_SIMULADOR_ID');
+if (!TOKEN || (!FLOW_ID && !CREAR)) {
+  console.error(`❌ Faltan WHATSAPP_SYSTEM_TOKEN o ${VAR_ID}${USD ? ' (la primera vez: --usd --crear)' : ''}`);
+  process.exit(1);
+}
+if (CREAR && FLOW_ID) {
+  console.error(`❌ ${VAR_ID} ya está definida (${FLOW_ID}): no se crea otro. Quite --crear para actualizarlo.`);
   process.exit(1);
 }
 
@@ -69,6 +89,24 @@ console.log(`✅ JSON válido · ${flow.screens.length} pantallas · descripcion
 if (process.argv.includes('--dry')) {
   console.log('🟡 --dry: no se subió nada.');
   process.exit(0);
+}
+
+// ─── 0) Crear el Flow (solo con --crear) ─────────────────────────────────────
+if (CREAR) {
+  const WABA = process.env.WHATSAPP_WABA_ID;
+  if (!WABA) { console.error('❌ Falta WHATSAPP_WABA_ID para crear el Flow'); process.exit(1); }
+  const rCrear = await fetch(`${GRAPH}/${WABA}/flows`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: USD ? 'Simulador de ingresos (USD)' : 'Simulador de ingresos', categories: ['OTHER'] }),
+  });
+  const jCrear = await rCrear.json();
+  if (!rCrear.ok || !jCrear.id) {
+    console.error('❌ Meta no creó el Flow:', JSON.stringify(jCrear.error || jCrear, null, 2));
+    process.exit(1);
+  }
+  FLOW_ID = jCrear.id;
+  console.log(`✅ Flow creado: ${FLOW_ID} — defínalo en Vercel y en .env.local como ${VAR_ID}`);
 }
 
 // ─── 1) Subir los assets (esto devuelve el Flow a DRAFT) ─────────────────────

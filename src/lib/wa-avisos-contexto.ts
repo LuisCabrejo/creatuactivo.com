@@ -15,8 +15,12 @@
  * Cuatro avisos, aprobados por el Director el 8 oct 2026:
  *   1. LLEGADA    — primer mensaje: nombre, país, por dónde llegó, qué escribió.
  *   2. REGRESO    — vuelve a escribir después de seis horas o más.
- *   3. DESTACADO  — la conversación dice algo que vale la pena: ya es distribuidor,
- *                   nombra otro país, eligió paquete. Lo resume Haiku.
+ *   3. DESTACADO  — «está avanzando»: ya es distribuidor, nombra otro país, eligió
+ *                   paquete o armó un escenario en el simulador. Lo resume Haiku.
+ *                   (El título decía «vale la pena» y al Director no le decía nada:
+ *                   «está avanzando», 11 oct 2026. El simulador entró ese día:
+ *                   Adazuni Maldonado lo usó dos veces en 16 minutos y al socio
+ *                   solo le llegó el aviso de llegada.)
  *   4. PROMESA    — el modelo le escribió a la persona «le aviso al equipo»: el
  *                   aviso sale de verdad. A Aldo se lo prometió tres veces.
  *
@@ -340,7 +344,10 @@ export async function avisarSiRegresa(
 /** «Ya soy distribuidor», «tengo mi código»: distinto de NET_02, que es pasado. */
 export const RE_DISTRIBUIDOR_ACTIVO = /\b(ya\s+)?soy\s+(distribuidor|distribuidora|socio|socia)\b|\btengo\s+(mi|un|el)\s+c[oó]digo\b|\bestoy\s+(activ[oa]\s+)?en\s+gano\b|\bsoy\s+de\s+gano\b|\btrabajo\s+con\s+gano\b/i;
 
-export type TipoSenal = 'distribuidor' | 'paises' | 'paquete';
+export type TipoSenal = 'distribuidor' | 'paises' | 'paquete' | 'simulador';
+
+/** El reporte que el webhook redacta al completar el Flow del simulador. */
+const RE_USO_SIMULADOR = /^\s*Acabo de usar el simulador/im;
 
 export interface Senales {
   tipos: TipoSenal[];
@@ -361,6 +368,7 @@ export function leerSenales(textosDeLaPersona: string[], di: Record<string, any>
   if (paises.length) tipos.push('paises');
   const paquete = typeof di?.package === 'string' && di.package ? di.package : undefined;
   if (paquete) tipos.push('paquete');
+  if (RE_USO_SIMULADOR.test(todo)) tipos.push('simulador');
   return { tipos, paises, paquete, otroEquipoGano: di?.distribuidor_otro_equipo === true };
 }
 
@@ -369,6 +377,7 @@ function vinetasDeRespaldo(s: Senales): string[] {
   if (s.tipos.includes('distribuidor')) v.push(s.otroEquipoGano ? '· Ya es distribuidor de Gano Excel, con otro equipo.' : '· Dice que ya es distribuidor.');
   if (s.paises.length) v.push(`· Le interesa ${s.paises.join(', ').replace(/, ([^,]*)$/, ' y $1')}.`);
   if (s.paquete) v.push(`· Eligió el ${s.paquete}.`);
+  if (s.tipos.includes('simulador')) v.push('· Armó su propio escenario en el simulador.');
   return v;
 }
 
@@ -388,6 +397,7 @@ async function resumirConHaiku(historial: Turno[]): Promise<string[] | null> {
         'Lee esta conversación entre una persona y Queswa, la asistente de CreaTuActivo (un negocio de distribución de los productos de Gano Excel).\n\n'
         + 'Escribe de 2 a 4 viñetas para el dueño del negocio con lo que LA PERSONA dijo de sí misma o eligió: de dónde es, a qué se dedica, si ya es distribuidor de Gano Excel, qué países le interesan, qué paquete eligió, qué pidió.\n\n'
         + 'Reglas: solo hechos que la persona dijo o eligió; nada de lo que Queswa le explicó; nada inventado; sin adjetivos ni recomendaciones. '
+        + 'Un mensaje que empieza «Acabo de usar el simulador» es un escenario que armó para VER cifras, no un paquete elegido: escríbalo como «Armó en el simulador…». '
         + 'Cada viñeta empieza con «· » y con un verbo («Ya es distribuidor…», «Le interesa…», «Pidió…»), sin «él» ni «ella», y tiene menos de 90 caracteres. '
         + 'Responde solo las viñetas.\n\n'
         + hilo,
@@ -405,7 +415,7 @@ async function resumirConHaiku(historial: Turno[]): Promise<string[] | null> {
 export function textoDestacado(dest: Destinatario, nombre: string | null | undefined, contacto: string, vinetas: string[]): string {
   const saludo = dest.nombreCorto ? `${dest.nombreCorto}, ` : '';
   return [
-    `⭐ ${saludo}${quien(nombre, contacto)} vale la pena:`,
+    `⭐ ${saludo}${quien(nombre, contacto)} está avanzando:`,
     vinetas.join('\n'),
     `Le conviene escribirle usted. ${lineaContacto(contacto)}`,
   ].join('\n\n');
@@ -450,9 +460,9 @@ export async function revisarDestacado(
 
     const vinetas = (await resumirConHaiku([...historial, { role: 'user', content: mensaje }])) ?? vinetasDeRespaldo(senales);
     await entregar(supabase, dest, {
-      push: { titulo: `⭐ ${quien(nombre, contacto, false)} vale la pena`, cuerpo: vinetas.map((v) => v.replace(/^·\s*/, '')).join(' · ') },
+      push: { titulo: `⭐ ${quien(nombre, contacto, false)} está avanzando`, cuerpo: vinetas.map((v) => v.replace(/^·\s*/, '')).join(' · ') },
       texto: textoDestacado(dest, nombre, contacto, vinetas),
-      correo: { asunto: `[Queswa] ${quien(nombre, contacto, false)} vale la pena` },
+      correo: { asunto: `[Queswa] ${quien(nombre, contacto, false)} está avanzando` },
     }, `destacado (${nuevas.join(', ')})`);
   } catch (err) {
     console.error('⚠️ [Avisos] Destacado:', err);

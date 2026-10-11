@@ -122,13 +122,14 @@ const usd = (n: number) => {
 
 /**
  * La cifra en la moneda del país (2 oct 2026), con la regla de `textoBonoPaquetes`:
- * Colombia en pesos, Estados Unidos en dólares, otro país en dólares con los pesos
- * al lado. Yellitza Rosario (+1, Miami) vio el Kit y los paquetes en dólares y el
+ * Colombia en pesos y cualquier otro país en dólares (Director, 11 oct 2026; antes
+ * el resto llevaba los pesos al lado). Yellitza Rosario (+1, Miami) vio el Kit y los paquetes en dólares y el
  * resultado del simulador en pesos, en el mismo hilo. Sin país, pesos (Director,
- * 23 sep 2026). ⚠️ La tarjeta del Flow sigue en pesos: es JSON fijo en Meta.
+ * 23 sep 2026). La tarjeta del Flow tiene su gemela en dólares
+ * (`simulador-de-ingresos-usd.flow.json`), y el webhook manda la del país.
  */
 const dinero = (n: number, pais?: PaisConductor) =>
-  pais === 'US' ? usd(n) : pais === 'XX' ? `${usd(n)} (${cop(n)})` : cop(n);
+  pais === 'US' || pais === 'XX' ? usd(n) : cop(n);
 
 /** "ESP-2 Empresarial — 16%" → { nombre: 'ESP-2 Empresarial', pct: 16 } */
 function leerTarifa(tarifa: string): { nombre: string; pct: number } | null {
@@ -293,11 +294,14 @@ export function respuestaGen5(e: EscenarioGen5, opciones: OpcionesCierre = {}): 
     // «qué productos trae» además de «qué trae».
     : `¿Le detallo exactamente qué productos trae el paquete ${corto(p.etiqueta)}?`;
 
+  // «Su bono por esas N compras suma…» (Director, 11 oct 2026): «la suma de esas
+  // compras es $50» se leía como que las cinco compras valían $50, cuando cinco
+  // ESP-1 valen $1,000; los $50 son el bono de la persona (Adazuni, 10 oct).
   // Tras el simulador la cifra va pegada a su origen —las compras— y la cadencia
   // en una sola línea, la del Director (3 sep 2026). Se descartó «ese escenario
   // proyecta un retorno»: «retorno» convierte una comisión en rendimiento sobre
   // lo invertido, y «para materializar esos números» promete que ocurren.
-  return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, la suma de esas ${compras} compras es *${dinero(total, opciones.pais)}*.
+  return `Con *${paquetes} ${p.etiqueta}* ${comprados} en cada una de las cinco generaciones, su bono por esas ${compras} compras suma *${dinero(total, opciones.pais)}*.
 
 Esa comisión le entra a medida que se compran los paquetes.
 

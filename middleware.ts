@@ -2,6 +2,13 @@
  * middleware.ts — Capa de Enrutamiento Multi-Tenant (FASE C)
  * Queswa Ecosystem — Arquitectura IA Multi-Dominio
  *
+ * ⛔ ESTE ARCHIVO NO CORRE, y no hay que «arreglarlo» (verificado el 11 oct 2026).
+ * Con el código en src/, Next.js solo lee `src/middleware.ts`. Si se moviera allá
+ * tal cual, rompería WhatsApp: sobrescribe `x-tenant-id` según el dominio, y el
+ * webhook llama al motor desde creatuactivo.com mandando `x-tenant-id: whatsapp`.
+ * El motor resuelve el tenant por su cuenta y el widget de ganocafe manda su
+ * cabecera. Se conserva como referencia del mapa de dominios.
+ *
  * Responsabilidad: interceptar cada petición a las APIs de Queswa,
  * identificar el dominio de origen y propagar la identidad del tenant
  * como headers hacia el handler (x-tenant-id, x-tenant-role).

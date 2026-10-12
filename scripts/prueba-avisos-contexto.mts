@@ -14,7 +14,7 @@ process.env.WA_DRY_RUN = '1';
 const {
   destinatarioDe, quien, lineaContacto, origenDeLlegada, haceCuanto, leerSenales,
   detectarPromesaDeAviso, extraerHuellaWeb, limpiarHuellaWeb, textoLlegada, textoRegreso,
-  textoDestacado, textoPromesa, avisarLlegada,
+  textoDestacado, textoPromesa, avisarLlegada, extraerCookieWeb, limpiarCookieWeb,
 } = await import('../src/lib/wa-avisos-contexto.ts');
 const { paisDeContactoWA, paisesNombrados } = await import('../src/lib/paises.ts');
 
@@ -75,6 +75,13 @@ const adazuni = ['Hola Queswa, vengo del enlace de luis-cabrejo', 'Cómo entra e
 es(leerSenales(adazuni, {}).tipos.join(',') === 'simulador', 'Adazuni: usar el simulador es avanzar');
 es(!leerSenales(['quiero ver el simulador', 'cuánto se gana'], {}).tipos.includes('simulador'), 'pedir o nombrar el simulador no es haberlo usado');
 es(textoDestacado(destinatarioDe(null), 'Adazuni Maldonado', '16195814694', ['· Armó en el simulador una renta con el ESP-1.']).includes('está avanzando:'), 'el título dice «está avanzando»');
+
+// El código del navegador que pone el enlace que lleva a Queswa (11 oct 2026, caso Edilberto).
+const conCodigo = 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de los 12 niveles. c:k3j9x2a1q';
+es(extraerCookieWeb(conCodigo) === 'ck_k3j9x2a1q', 'el código c: es la cookie del navegador');
+es(limpiarCookieWeb(conCodigo) === 'Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de los 12 niveles.', 'el código se retira antes de que Queswa lea');
+es(extraerCookieWeb('mi correo es abc:defghij@x.com') === null, '«c:» dentro de una palabra no es código');
+es(extraerCookieWeb('Hola Queswa, quiero saber cómo funciona w:6251d9d3') === null, 'el código del orbe (w:) no se confunde');
 
 console.log('\n── 4. La promesa del modelo ──');
 for (const p of [

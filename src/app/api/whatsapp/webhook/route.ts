@@ -147,7 +147,7 @@ import {
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
   destinatarioDe, origenDeLlegada, avisarLlegada, avisarSiRegresa, revisarDestacado, avisarTresVideos, TEMAS_TRES_VIDEOS,
-  detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb, pushAlDashboard,
+  detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb, extraerCookieWeb, limpiarCookieWeb, atarCookieWeb, pushAlDashboard,
 } from '@/lib/wa-avisos-contexto';
 import { nombrePais, paisDeContactoWA } from '@/lib/paises';
 import { gestoAfirma, preguntaFinalSiNo, ESPERA_GESTO_S, VIGENCIA_PREGUNTA_H } from '@/lib/wa-gestos';
@@ -789,6 +789,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // la ficha web a esta (ver `atarHuellaWeb`, 8 oct 2026).
     const _huellaWeb = extraerHuellaWeb(messageText);
     if (_huellaWeb && messageText) messageText = limpiarHuellaWeb(messageText);
+    // Y el del enlace que lleva a Queswa (`c:k3j9x2a1q`, la cookie de un año que el
+    // middleware dejó en el navegador al saltar a WhatsApp — 11 oct 2026).
+    const _cookieWeb = extraerCookieWeb(messageText);
+    if (_cookieWeb && messageText) messageText = limpiarCookieWeb(messageText);
     const _paisCodigo = paisDeContactoWA(phoneNumber);
 
     if (esPrimerContacto) {
@@ -877,6 +881,9 @@ async function procesarEntrante(body: any): Promise<void> {
         p_data: { pais: nombrePais(_paisCodigo) ?? _paisCodigo, pais_codigo: _paisCodigo },
         p_constructor_id: undefined,
       }).then(() => {}, () => {}));
+    }
+    if (_cookieWeb) {
+      waitUntil(atarCookieWeb(supabase, { cookie: _cookieWeb, fingerprintWA: waFingerprint, nombre: contactName, contacto: phoneNumber }));
     }
     if (_huellaWeb) {
       waitUntil(atarHuellaWeb(supabase, { prefijo: _huellaWeb, fingerprintWA: waFingerprint, nombre: contactName, contacto: phoneNumber }));

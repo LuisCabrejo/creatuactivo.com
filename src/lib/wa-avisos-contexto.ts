@@ -594,16 +594,68 @@ export async function atarHuellaWeb(
       .limit(2);
     // Dos huellas con el mismo comienzo: no se adivina.
     if (!data || data.length !== 1) return;
-    const web = data[0];
-    const datosWeb: Record<string, unknown> = { whatsapp_fingerprint: args.fingerprintWA };
-    const n = nombreDe(args.nombre);
-    if (n && !nombreDe(web.device_info?.name)) datosWeb.name = n;
-    const codigo = paisDeContactoWA(args.contacto);
-    if (codigo && !web.device_info?.pais) { datosWeb.pais = nombrePais(codigo); datosWeb.pais_codigo = codigo; }
-    await marcarFicha(supabase, web.fingerprint_id, datosWeb);
-    await marcarFicha(supabase, args.fingerprintWA, { web_fingerprint: web.fingerprint_id });
-    console.log(`🔗 [Avisos] Ficha web ${web.fingerprint_id.slice(0, 12)}… atada a ${args.fingerprintWA}`);
+    await atarFichaWeb(supabase, data[0], args);
   } catch (err) {
     console.error('⚠️ [Avisos] No se pudo atar la ficha web:', err);
+  }
+}
+
+/** La ficha web recibe el nombre, el país y su WhatsApp; la de WhatsApp, su ficha web. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function atarFichaWeb(supabase: Supa, web: { fingerprint_id: string; device_info: any }, args: { fingerprintWA: string; nombre?: string | null; contacto: string }): Promise<void> {
+  // Nombre y atado van en UNA escritura: el Dashboard no avisa una ficha que se
+  // acaba de atar a WhatsApp (`whatsapp_fingerprint` nuevo), y así no le llega al
+  // socio un «🙋 Se identificó» que nadie hizo.
+  const datosWeb: Record<string, unknown> = { whatsapp_fingerprint: args.fingerprintWA };
+  const n = nombreDe(args.nombre);
+  if (n && !nombreDe(web.device_info?.name)) datosWeb.name = n;
+  const codigo = paisDeContactoWA(args.contacto);
+  if (codigo && !web.device_info?.pais) { datosWeb.pais = nombrePais(codigo); datosWeb.pais_codigo = codigo; }
+  await marcarFicha(supabase, web.fingerprint_id, datosWeb);
+  await marcarFicha(supabase, args.fingerprintWA, { web_fingerprint: web.fingerprint_id });
+  console.log(`🔗 [Avisos] Ficha web ${web.fingerprint_id.slice(0, 12)}… atada a ${args.fingerprintWA}`);
+}
+
+// ─── El navegador del enlace que lleva a Queswa (11 oct 2026) ────────────────
+//
+// Los enlaces /{slug}/queswa, /estrategia, /como-funciona… saltan a WhatsApp sin
+// mostrar página. En ese salto el middleware deja en el navegador la cookie de un
+// año que ya usa tracking.js (`nexus_prospect_id`) y pega su código al mensaje,
+// como el orbe pega la huella: «… Ya vi el video de los 12 niveles. c:k3j9x2a1q».
+// Así, cuando ese navegador vuelve —aunque sea al año—, identify_prospect lo
+// encuentra por la cookie y la visita llega con el nombre. Caso Edilberto
+// Afanador: entró el 28 sep por /luis-cabrejo/estrategia, volvió el 10 oct a la
+// presentación, y el aviso dijo «Un visitante». La cookie y no la huella, porque
+// la huella se repite entre dos teléfonos iguales y la cookie es una por navegador.
+
+export function extraerCookieWeb(texto: string | undefined): string | null {
+  const m = (texto ?? '').match(/(?:^|\s)c:([a-z0-9]{6,12})(?![a-z0-9])/i);
+  return m ? `ck_${m[1].toLowerCase()}` : null;
+}
+
+export function limpiarCookieWeb(texto: string): string {
+  const limpio = texto.replace(/\s*(?:^|\s)c:[a-z0-9]{6,12}(?![a-z0-9])\s*/gi, ' ').replace(/\s{2,}/g, ' ').trim();
+  return limpio.length ? limpio : texto;
+}
+
+export async function atarCookieWeb(
+  supabase: Supa,
+  args: { cookie: string; fingerprintWA: string; nombre?: string | null; contacto: string },
+): Promise<void> {
+  try {
+    // La ficha de WhatsApp guarda la cookie: la PRÓXIMA visita de ese navegador
+    // la encuentra desde identify_prospect.
+    await marcarFicha(supabase, args.fingerprintWA, { web_cookie: args.cookie });
+    // Si ese navegador ya había visitado el sitio, su ficha ya tiene la cookie: se ata ya.
+    const { data } = await supabase
+      .from('prospects')
+      .select('fingerprint_id, device_info')
+      .eq('cookie_id', args.cookie)
+      .not('fingerprint_id', 'like', 'wa_%')
+      .limit(2);
+    if (!data || data.length !== 1) return;
+    await atarFichaWeb(supabase, data[0], args);
+  } catch (err) {
+    console.error('⚠️ [Avisos] No se pudo atar la cookie web:', err);
   }
 }

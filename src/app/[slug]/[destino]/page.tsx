@@ -218,7 +218,13 @@ export default async function DestinoRoute({
           : destino === 'que-debo-hacer-yo'
             ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de qué debo hacer yo.`
             : `Hola Queswa, vengo del enlace de ${slug}`
-    const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto)}`
+    // El código del navegador al final (`c:k3j9x2a1q`, 11 oct 2026): el middleware
+    // le dejó la cookie de un año en este salto, y el webhook la ata a su WhatsApp
+    // y retira el código antes de leer el mensaje — como el `w:` del orbe. A los
+    // robots de vista previa no se les pone.
+    const visitante = headers().get('x-cta-visitante')
+    const codigo = !esScraperDePreview() && visitante && /^ck_[a-z0-9]{6,12}$/.test(visitante) ? ` c:${visitante.slice(3)}` : ''
+    const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto + codigo)}`
 
     // 🔴 A los robots de vista previa NO se les redirige (28 ago 2026). Un
     // scraper que recibe el 307 lo sigue hasta wa.me y arma la tarjeta con lo

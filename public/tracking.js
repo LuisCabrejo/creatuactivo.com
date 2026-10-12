@@ -198,6 +198,17 @@
             if (data && data.length > 0) {
                 const prospectInfo = data[0];
 
+                // El nombre de quien vuelve (11 oct 2026): si este navegador ya le
+                // escribió a Queswa desde un enlace, identify_prospect lo reconoce por
+                // la cookie y devuelve su primer nombre. Queda donde el chat de la web
+                // lo lee para saludar («Hola, Edilberto»); un nombre que la persona
+                // escribió antes en el chat no se pisa.
+                try {
+                    if (prospectInfo.nombre && !localStorage.getItem('nexus_prospect_name')) {
+                        localStorage.setItem('nexus_prospect_name', prospectInfo.nombre);
+                    }
+                } catch (e) {}
+
                 // Actualizar FrameworkIAA existente (no reemplazar, para preservar referencias)
                 window.FrameworkIAA.fingerprint = fingerprint;
                 window.FrameworkIAA.constructorRef = constructorRef;

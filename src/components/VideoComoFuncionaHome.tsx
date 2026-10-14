@@ -24,8 +24,33 @@ import { useState } from 'react'
 import { Play } from 'lucide-react'
 import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels'
 import { marcarVioComoFunciona } from '@/lib/orbe-config'
+import { conversaPorWhatsApp, dispositivoDelNavegador } from '@/lib/dispositivo'
 
-export default function VideoComoFuncionaHome() {
+/**
+ * En el COMPUTADOR, al terminar el video se abre el chat de Queswa con el cursor
+ * listo (13 oct 2026, Director: el diseño con que empezó la Home). Solo si el video
+ * sigue a la vista: a quien ya bajó a leer no se le abre nada encima.
+ * En el celular no: ahí Queswa vive en WhatsApp, y saltar de app sin que la
+ * persona toque nada sería un secuestro (y el navegador lo bloquearía).
+ */
+function abrirQueswaAlTerminar(video: HTMLVideoElement) {
+  if (conversaPorWhatsApp(dispositivoDelNavegador())) return
+  const r = video.getBoundingClientRect()
+  const aLaVista = r.bottom > 0 && r.top < window.innerHeight
+  if (!aLaVista) return
+  window.dispatchEvent(new CustomEvent('open-queswa', { detail: { origen: 'video', enfocar: true } }))
+}
+
+/**
+ * También va en la última pantalla de /servilleta (13 oct 2026), y allá necesita
+ * dos cosas que la Home no: avanzar a la siguiente diapositiva cuando el video
+ * termina (`alTerminar`) y no precargar la portada, porque esa pantalla no es la
+ * primera que se ve (`prioridad={false}`). Sin props, se comporta como siempre.
+ */
+export default function VideoComoFuncionaHome({
+  alTerminar,
+  prioridad = true,
+}: { alTerminar?: () => void; prioridad?: boolean } = {}) {
   const [reproduciendo, setReproduciendo] = useState(false)
 
   return (
@@ -53,6 +78,9 @@ export default function VideoComoFuncionaHome() {
             const v = e.currentTarget
             if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona()
           }}
+          // En /servilleta el final avanza la diapositiva; en la Home, en el
+          // computador, abre el chat (13 oct 2026). Nunca las dos.
+          onEnded={(e) => (alTerminar ? alTerminar() : abrirQueswaAlTerminar(e.currentTarget))}
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         />
       ) : (
@@ -78,7 +106,7 @@ export default function VideoComoFuncionaHome() {
             src="/images/home/como-funciona-portada.jpg"
             alt=""
             fill
-            priority
+            priority={prioridad}
             sizes="(max-width: 1023px) 90vw, 360px"
             style={{ objectFit: 'cover' }}
           />

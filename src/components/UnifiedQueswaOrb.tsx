@@ -28,7 +28,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import NEXUSWidget from './nexus/NEXUSWidget'
 import { REEL_NICHOS } from '@/lib/reels'
-import { usaOrbeVerde } from '@/lib/orbe-config'
+import { usaOrbeVerde, registrarApertura, tomarAperturaPendiente, marcarChatWebMontado, type DetalleApertura } from '@/lib/orbe-config'
 
 // ─── Paleta Quiet Luxury ──────────────────────────────────────────────────────
 const C = {
@@ -275,7 +275,20 @@ export default function UnifiedQueswaOrb() {
 
   // ─── Eventos globales (open-queswa, close-queswa, toggle-queswa) ─────────────
   useEffect(() => {
-    const handleOpen   = () => { setIsOpen(true) }
+    const handleOpen   = (e: Event) => {
+      setIsOpen(true)
+      // Atendido: `abrirConversacionQueswa` no cae a WhatsApp (13 oct 2026).
+      e.preventDefault()
+      const d = (e as CustomEvent<DetalleApertura | undefined>).detail
+      // El enlace del socio y el final del video llegan con el cursor listo.
+      if (d?.enfocar) {
+        setTimeout(() => {
+          (document.getElementById('queswa-chat-input') as HTMLTextAreaElement | null)?.focus({ preventScroll: true })
+        }, 80)
+      }
+      // El enlace ya quedó anotado en el servidor al redirigir.
+      if (d?.origen !== 'enlace') registrarApertura('web', d?.origen ?? 'boton')
+    }
     const handleToggle = () => setIsOpen(p => !p)
     window.addEventListener('open-queswa',   handleOpen)
     window.addEventListener('toggle-queswa', handleToggle)
@@ -317,6 +330,21 @@ export default function UnifiedQueswaOrb() {
     streamRef.current?.getTracks().forEach(t => t.stop())
     audioRef.current?.pause()
   }, [pathname])
+
+  // La apertura que llegó antes que este orbe (13 oct 2026): el enlace del socio
+  // abierto en un computador, o un botón tocado en el primer segundo. Va DESPUÉS
+  // del cierre por navegación de arriba, y en un setTimeout, para que ese cierre
+  // —que también corre al montar— no la deshaga. Se TOMA dentro del setTimeout:
+  // tomada antes, el doble montaje de React en desarrollo la gastaba en el
+  // montaje que se cancela.
+  useEffect(() => {
+    marcarChatWebMontado(true)
+    const t = setTimeout(() => {
+      const pendiente = tomarAperturaPendiente()
+      if (pendiente) window.dispatchEvent(new CustomEvent('open-queswa', { detail: pendiente }))
+    }, 0)
+    return () => { clearTimeout(t); marcarChatWebMontado(false) }
+  }, [])
 
   // Ocultar orbe cuando el menú mobile está abierto
   useEffect(() => {
@@ -516,8 +544,9 @@ export default function UnifiedQueswaOrb() {
   const handleOrbClick = useCallback(() => {
     setHasInteracted(true)
     setShowTooltip(false)
+    if (!isOpen) registrarApertura('web', 'orbe')
     setIsOpen(prev => !prev)
-  }, [])
+  }, [isOpen])
 
   // ─── Derivar apariencia visual del orbe ──────────────────────────────────────
   const isRecording  = voiceState === 'recording'

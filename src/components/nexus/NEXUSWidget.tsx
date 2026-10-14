@@ -16,6 +16,22 @@ import remarkGfm from 'remark-gfm';
 import { useNEXUSChat } from './useNEXUSChat';
 import { useSlidingViewport } from './useSlidingViewport';
 import { QUESWA_QUICK_REPLIES, QUESWA_PRODUCTS_QUICK_REPLIES, QUESWA_CTA_LABEL } from '@/lib/queswa-greeting';
+import { vioVideo, type VideoVisto } from '@/lib/orbe-config';
+
+// El video que responde cada botón de inicio (Camino A del motor). Quien ya vio
+// ese video no lo vuelve a ver ofrecido — la apertura de WhatsApp hace lo mismo
+// (`opcionesTrasReel` en wa-apertura.ts). 13 oct 2026.
+const VIDEO_DEL_BOTON: Record<string, VideoVisto> = {
+  [QUESWA_QUICK_REPLIES[0]]: 'como-funciona',
+  [QUESWA_QUICK_REPLIES[1]]: 'como-entra-el-dinero',
+  [QUESWA_QUICK_REPLIES[2]]: 'que-debo-hacer-yo',
+};
+
+// El botón del hero de la Home («Pregúntele a Queswa cómo entra el dinero»). En
+// WhatsApp precarga «¿Cómo entra el dinero?»; en la web hace la pregunta del botón
+// de inicio que responde el mismo video, con su texto exacto para que la atienda
+// el Camino A sin pasar por el modelo.
+const PREGUNTA_DINERO_WEB = QUESWA_QUICK_REPLIES[1];
 // Los videos que Queswa entrega en la conversación (8 oct 2026): el motor manda
 // el marcador [[video:…]] y aquí se pinta el reproductor. Ver queswa-videos.ts.
 import { partirVideos, quitarMarcadoresVideo, type TrozoVideo } from '@/lib/queswa-videos';
@@ -348,6 +364,20 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
     handleSendMessage(inputMessage);
   };
 
+  // Un botón de la página que abre el chat CON una pregunta (13 oct 2026): en el
+  // computador el hero de la Home ya no salta a WhatsApp, así que la pregunta se
+  // hace aquí. Ref para no enviar con un historial viejo.
+  const enviarRef = useRef(handleSendMessage);
+  enviarRef.current = handleSendMessage;
+  useEffect(() => {
+    const alAbrir = (e: Event) => {
+      if ((e as CustomEvent<{ pregunta?: string }>).detail?.pregunta !== 'dinero') return;
+      setTimeout(() => enviarRef.current(PREGUNTA_DINERO_WEB), 120);
+    };
+    window.addEventListener('open-queswa', alAbrir);
+    return () => window.removeEventListener('open-queswa', alAbrir);
+  }, []);
+
   // ── Micrófono: gesto dual toque / mantener (walkie-talkie) ─────────────────
   // Toque corto  → graba y deja que el VAD cierre solo (auto-stop por silencio).
   // Mantener      → graba mientras se sostiene; al soltar, envía.
@@ -608,7 +638,9 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                     En /productos Queswa es asesor de salud y bienestar → chips de salud, sin CTA de negocio. */}
                 {(() => {
                 const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/productos');
-                const activeQuickReplies = isProductsPage ? QUESWA_PRODUCTS_QUICK_REPLIES : QUESWA_QUICK_REPLIES;
+                const activeQuickReplies = isProductsPage
+                  ? QUESWA_PRODUCTS_QUICK_REPLIES
+                  : QUESWA_QUICK_REPLIES.filter((label) => !(VIDEO_DEL_BOTON[label] && vioVideo(VIDEO_DEL_BOTON[label])));
                 return (
                 <div className="w-full mt-4 mb-4 flex flex-col gap-2">
                   {activeQuickReplies.map((label) => (

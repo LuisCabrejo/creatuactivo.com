@@ -17,7 +17,19 @@
  * WhatsApp. Ese día esta constante deja de ser fija y pasa a resolverse por el plan
  * del socio dueño del `ref` — por eso la decisión ya vive aquí y no repartida por
  * los componentes.
+ *
+ * ⭐ POR DISPOSITIVO (13 oct 2026, Director, caso Wilson Romero): en el COMPUTADOR
+ * Queswa conversa en creatuactivo.com —el orbe abre el chat web, y el enlace del
+ * socio aterriza en la Home con el chat abierto ([slug]/[destino]/page.tsx)—; en el
+ * CELULAR y la TABLETA todo sigue en WhatsApp. Wilson tocó el enlace del video desde
+ * un computador de escritorio, el navegador intentó abrir WhatsApp y lo leyó como un
+ * error; en una semana, solo 3 de 19 aperturas del enlace terminaron en mensaje.
+ * Quién es computador lo decide `src/lib/dispositivo.ts`, igual en el servidor y aquí.
+ * Cada apertura queda en `page_visits` con su dispositivo (`registrarApertura`, y el
+ * enlace en el servidor): `node scripts/medir-aperturas-enlace.mjs`.
  */
+
+import { conversaPorWhatsApp, dispositivoDelNavegador } from '@/lib/dispositivo'
 
 export type ModoOrbe = 'whatsapp' | 'queswa'
 
@@ -73,7 +85,61 @@ export function usaOrbeVerde(pathname: string): boolean {
 export function usaChatWeb(pathname: string): boolean {
   if (ORBE_MODO === 'queswa') return true
   if (RUTAS_ORBE_QUESWA_WEB.some((r) => pathname === r || pathname.startsWith(`${r}/`))) return true
-  return refConChatWeb(pathname)
+  if (refConChatWeb(pathname)) return true
+  // En el computador, siempre el chat web (13 oct 2026, ver la cabecera).
+  return !conversaPorWhatsApp(dispositivoDelNavegador())
+}
+
+// ─── La apertura que llega antes que el orbe (13 oct 2026) ──────────────────
+// DeferredOrb monta el orbe con la primera interacción o a los 3 s. Un botón
+// tocado antes —o el enlace del socio, que llega pidiendo el chat abierto— no
+// tendría quién lo oyera: DeferredOrb la guarda aquí, monta el orbe en el acto, y
+// el chat web la toma al montar y se abre.
+export interface DetalleApertura {
+  pregunta?: OpcionesApertura['pregunta']
+  contexto?: ContextoOrbe
+  /** Quién la pidió: lo que se anota en `page_visits.origen`. */
+  origen?: OrigenApertura
+  /** Dejar el cursor en la caja de texto (el enlace y el final del video). */
+  enfocar?: boolean
+  source?: string
+}
+
+let aperturaPendiente: DetalleApertura | null = null
+
+export function guardarAperturaPendiente(detalle: DetalleApertura): void {
+  aperturaPendiente = detalle
+}
+
+export function tomarAperturaPendiente(): DetalleApertura | null {
+  const d = aperturaPendiente
+  aperturaPendiente = null
+  return d
+}
+
+// ¿Ya está montado el chat web? Entre que DeferredOrb decide montarlo y que el
+// módulo termina de cargar (Framer Motion, 114KB) hay un hueco: un `open-queswa`
+// en ese hueco no tendría quién lo oyera. Mientras esto sea falso, DeferredOrb
+// lo guarda como pendiente.
+let chatWebMontado = false
+export function marcarChatWebMontado(montado: boolean): void { chatWebMontado = montado }
+export function hayChatWebMontado(): boolean { return chatWebMontado }
+
+// ─── Cada apertura de Queswa, con su dispositivo (13 oct 2026) ──────────────
+// Una fila en `page_visits` por cada vez que alguien abre la conversación desde
+// el sitio. El dispositivo, el sistema y la cookie del navegador los pone el
+// servidor (`/api/track/apertura`); aquí solo va lo que el navegador sabe. Con
+// `sendBeacon`, la petición sale aunque el salto a WhatsApp cierre la página.
+// El enlace del socio NO pasa por aquí: lo registra su propia página al redirigir.
+export type OrigenApertura = 'enlace' | 'orbe' | 'boton' | 'video'
+
+export function registrarApertura(destino: 'whatsapp' | 'web', origen: OrigenApertura): void {
+  try {
+    const cuerpo = JSON.stringify({ destino, origen, ruta: window.location.pathname, ref: leerRefSocio() })
+    const blob = new Blob([cuerpo], { type: 'application/json' })
+    if (navigator.sendBeacon?.('/api/track/apertura', blob)) return
+    fetch('/api/track/apertura', { method: 'POST', body: cuerpo, headers: { 'Content-Type': 'application/json' }, keepalive: true }).catch(() => {})
+  } catch { /* medir no puede costar una conversación */ }
 }
 
 /** El WABA de Queswa (+57 321 519 3909). No es el personal de Luis ni el orgánico. */
@@ -137,6 +203,27 @@ export function marcarVioComoFunciona(): void {
 
 export function vioVideoComoFunciona(): boolean {
   try { return !!localStorage.getItem(LS_VIO_COMO_FUNCIONA) } catch { return false }
+}
+
+// Los otros videos que el socio comparte (13 oct 2026). Quien llega a la web en el
+// computador por el enlace de un video ya lo vio: el chat no le vuelve a ofrecer
+// ese botón, como no se lo ofrece la apertura de WhatsApp (`opcionesTrasReel`
+// en wa-apertura.ts).
+export type VideoVisto = 'como-funciona' | 'como-entra-el-dinero' | 'que-debo-hacer-yo' | 'estrategia'
+const LS_VIDEOS_VISTOS = 'cta_videos_vistos'
+
+export function marcarVideoVisto(id: VideoVisto): void {
+  if (id === 'como-funciona') return marcarVioComoFunciona()
+  try {
+    const vistos = new Set(JSON.parse(localStorage.getItem(LS_VIDEOS_VISTOS) || '[]') as string[])
+    vistos.add(id)
+    localStorage.setItem(LS_VIDEOS_VISTOS, JSON.stringify([...vistos]))
+  } catch { /* sin almacenamiento */ }
+}
+
+export function vioVideo(id: VideoVisto): boolean {
+  if (id === 'como-funciona') return vioVideoComoFunciona()
+  try { return (JSON.parse(localStorage.getItem(LS_VIDEOS_VISTOS) || '[]') as string[]).includes(id) } catch { return false }
 }
 
 export function enlaceQueswaWhatsApp(
@@ -226,9 +313,14 @@ export function abrirConversacionQueswa(
     : `whatsapp://send?phone=${QUESWA_WABA}`
 
   const momentoDelSalto = Date.now()
-  const esTelefono = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+  const esTelefono = conversaPorWhatsApp(dispositivoDelNavegador())
 
   if (!esTelefono) {
+    // En el computador Queswa conversa en la web (13 oct 2026). El evento lo
+    // atiende el chat web —o DeferredOrb, si aún no lo montó— y lo marca como
+    // atendido; solo si nadie lo atiende se cae a wa.me, como antes.
+    const evento = new CustomEvent('open-queswa', { cancelable: true, detail: { contexto, pregunta: opciones.pregunta, origen: 'boton' } })
+    if (!window.dispatchEvent(evento)) return
     window.open(enlaceWeb, '_blank', 'noopener,noreferrer')
     if (!retomando) vigilarElRegreso(momentoDelSalto)
     return

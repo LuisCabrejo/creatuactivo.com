@@ -12,6 +12,8 @@ import { headers } from 'next/headers'
 import { REEL_NICHOS, REEL_ASSETS, REEL_COPY, REEL_POSTER_OG, REEL_POSTER_OVERRIDE, type ReelNicho } from '@/lib/reels'
 import ReelPage from '@/components/ReelPage'
 import { OG_PRESENTACION } from '@/app/servilleta/og'
+import { conversaPorWhatsApp, dispositivoDe, esRobot, sistemaDe } from '@/lib/dispositivo'
+import { esHostLocal } from '@/lib/entorno-local'
 
 // La presentación 1-a-1, que desde el 10 oct 2026 vive en /servilleta (la
 // presentación ÚNICA). Todos sus nombres cortos —los vigentes y los que ya
@@ -198,7 +200,7 @@ export default async function DestinoRoute({
   // /{slug}/estrategia (28 sep 2026) es el del reel «Los 12 Niveles»: avisa que ya
   // vio ese video (vieneDelVideoDoceNiveles) y Queswa le ofrece el simulador.
   if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia' || destino === 'como-entra-el-dinero' || destino === 'que-debo-hacer-yo') {
-    await resolverSlug(slug, destino)
+    const socio = await resolverSlug(slug, destino)
 
     // ⚠️ Sin emoji, y medido (19 ago 2026). La redirección entrega el carácter
     // bien —`%F0%9F%AA%A2` para 🪢, verificado en la cabecera Location—, pero lo
@@ -242,23 +244,49 @@ export default async function DestinoRoute({
       )
     }
 
-    // 📈 Cada apertura queda registrada antes de saltar a WhatsApp (6 oct 2026,
-    // caso Felipe): quien abre el enlace y no toca «Enviar» no le llega a Queswa
-    // y era invisible. Va en `page_visits` (tabla existente sin otro uso):
-    // mentor_ref_id = slug, page_entry = /{slug}/{destino}. Los robots de vista
-    // previa ya salieron arriba. Si falla, se redirige igual: medir no puede
-    // costar una persona. Comparar con `node scripts/medir-aperturas-enlace.mjs`.
-    try {
-      await supabase.from('page_visits').insert({
-        session_id: crypto.randomUUID(),
-        mentor_ref_id: slug,
-        page_entry: `/${slug}/${destino}`,
-      })
-    } catch (e) {
-      console.warn('⚠️ [Enlace Queswa] No se registró la apertura:', e)
+    // 💻 En el COMPUTADOR el enlace no salta a WhatsApp: aterriza en la Home con
+    // el chat de Queswa abierto (13 oct 2026, Director, caso Wilson Romero: desde
+    // un computador de escritorio el navegador intentó abrir WhatsApp y él lo leyó
+    // como un error). `abrir=queswa` lo abre DeferredOrb; `vio=` le dice al chat
+    // qué video ya vio, para no volver a ofrecérselo. En el celular y la tableta,
+    // WhatsApp como siempre. La regla vive en src/lib/dispositivo.ts.
+    const cabeceras = headers()
+    const agente = cabeceras.get('user-agent')
+    const dispositivo = dispositivoDe(agente, cabeceras.get('sec-ch-ua-mobile'))
+    const enLaWeb = !conversaPorWhatsApp(dispositivo)
+    const vio = destino === 'queswa' || destino === 'acceso' ? '' : `&vio=${destino}`
+    const enlaceWeb = `/?ref=${encodeURIComponent(socio.constructor_id)}&abrir=queswa${vio}`
+
+    // 📈 Cada apertura queda registrada antes de redirigir (6 oct 2026, caso
+    // Felipe): quien abre el enlace y no toca «Enviar» no le llega a Queswa y era
+    // invisible. Va en `page_visits`: mentor_ref_id = slug, page_entry =
+    // /{slug}/{destino}, y desde el 13 oct el dispositivo, a dónde llevó y la
+    // cookie del navegador (`visitante`), que la une a la ficha web
+    // (prospects.cookie_id) y a la de WhatsApp (device_info.web_cookie). Los
+    // robots no se cuentan, ni las pruebas en localhost (entorno-local.ts). Si
+    // falla, se redirige igual: medir no puede costar una persona. Comparar con
+    // `node scripts/medir-aperturas-enlace.mjs`.
+    const local = esHostLocal((cabeceras.get('host') || '').split(':')[0]) && process.env.PERMITIR_TRACKING_LOCAL !== '1'
+    if (!esRobot(agente) && !local) {
+      try {
+        // supabase-js no lanza: el error vuelve en la respuesta.
+        const { error } = await supabase.from('page_visits').insert({
+          session_id: crypto.randomUUID(),
+          mentor_ref_id: slug,
+          page_entry: `/${slug}/${destino}`,
+          dispositivo,
+          sistema: sistemaDe(agente),
+          destino: enLaWeb ? 'web' : 'whatsapp',
+          origen: 'enlace',
+          visitante: visitante && /^ck_[a-z0-9]{6,12}$/.test(visitante) ? visitante : null,
+        })
+        if (error) console.warn('⚠️ [Enlace Queswa] No se registró la apertura:', error.message)
+      } catch (e) {
+        console.warn('⚠️ [Enlace Queswa] No se registró la apertura:', e)
+      }
     }
 
-    redirect(waUrl)
+    redirect(enLaWeb ? enlaceWeb : waUrl)
   }
 
   // ── Caso redirect (comportamiento original) ────────────────────

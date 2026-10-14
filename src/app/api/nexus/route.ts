@@ -451,10 +451,21 @@ async function captureProspectData(
   // que «ama de casa» o «de Bogotá» (28 sep 2026 — el video del día 22 invita a escribir
   // justo así). Por eso también se mira la PRIMERA palabra, contra la misma lista más
   // los oficios y enlaces que le faltaban.
+  //
+  // ⚠️ Y una PREGUNTA o un PEDIDO no es un nombre (14 oct 2026). El patrón de
+  // «Nombre + precio» lleva la bandera /i, así que «Lista de precios» —el botón
+  // de la apertura de productos en la web— guardaba «Lista de» como nombre, y la
+  // base ya tenía «cuál es el», «Dame la lista de», «Cómo»… Una captura que
+  // empieza con una palabra de pregunta o de pedido, o que termina en un
+  // artículo o una preposición, no es el nombre de nadie.
   const primeraPalabraNoEsNombre = (captura: string) => {
-    const primera = captura.split(/\s+/)[0];
+    const palabras = captura.split(/\s+/);
+    const primera = palabras[0];
+    const ultima = palabras[palabras.length - 1];
     return nameBlacklist.test(primera) ||
-      /^(de|del|un|una|muy|ama|mam[aá]|madre|agricultor|agricultora|campesino|campesina|desempleado|desempleada|funcionario|funcionaria)$/i.test(primera);
+      /^(de|del|un|una|muy|ama|mam[aá]|madre|agricultor|agricultora|campesino|campesina|desempleado|desempleada|funcionario|funcionaria)$/i.test(primera) ||
+      /^(qu[eé]|cu[aá]l(es)?|c[oó]mo|cu[aá]nt[oa]s?|d[oó]nde|cu[aá]ndo|por|porque|lista|tabla|ver|verlo|da+me|mu[eé]streme|env[ií]eme|m[aá]ndeme|precio|precios|info|informaci[oó]n|portafolio|cat[aá]logo)$/i.test(primera) ||
+      (palabras.length > 1 && /^(de|del|el|la|los|las|y|o|en|por|para|con|a)$/i.test(ultima));
   };
 
   for (const pattern of namePatterns) {

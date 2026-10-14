@@ -12,7 +12,7 @@
 // 🎯 SIMPLIFICADO - Sin lógica de scroll (movida al componente)
 'use client';
 import { useState, useCallback, useEffect } from 'react';
-import { getInitialGreeting as getCanonicalGreeting, getReelGreeting } from '@/lib/queswa-greeting';
+import { getInitialGreeting as getCanonicalGreeting, getReelGreeting, getProductsGreeting } from '@/lib/queswa-greeting';
 import { REEL_NICHOS } from '@/lib/reels';
 
 interface Message {
@@ -39,15 +39,14 @@ const getInitialGreeting = (): Message => {
   const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/productos');
   const rawSavedName = typeof window !== 'undefined' ? localStorage.getItem('nexus_prospect_name') : null;
   const savedName = isValidName(rawSavedName) ? rawSavedName : null;
-  const greeting = savedName ? `Hola, ${savedName}` : 'Hola';
 
+  // La apertura de productos del canal de WhatsApp (14 oct 2026, Director):
+  // ver getProductsGreeting en queswa-greeting.ts.
   if (isProductsPage) {
     return {
       id: 'initial-greeting-products',
       role: 'assistant',
-      content: `${greeting}. Soy su asesor de salud y bienestar.
-
-Le ayudo a entender cómo el Ganoderma y los productos Gano Excel pueden cuidar su bienestar, respaldados por más de 2.000 estudios científicos. ¿Qué le gustaría saber?`,
+      content: getProductsGreeting(),
       timestamp: new Date(),
       isStreaming: false
     };

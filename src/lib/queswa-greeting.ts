@@ -124,22 +124,35 @@ export const QUESWA_QUICK_REPLIES = [
 ] as const;
 
 /**
- * Chips de la página de catálogo (/productos).
+ * La apertura de la página de catálogo (/productos) — la MISMA del canal de
+ * WhatsApp (`construirAperturaProductos` en wa-apertura.ts, aprobada el 9 sep),
+ * con la línea de identidad de la web. Aprobada por el Director el 14 oct 2026,
+ * cuando el catálogo pasó a abrir el chat web también en el celular.
  *
- * En esa página Queswa actúa como ASESOR DE SALUD Y BIENESTAR — el backend
- * cambia a ese modo vía `pageContext === 'catalogo_productos'`
- * (route.ts `getPageContextInstructions()`). Por eso los chips NO pueden ser
- * las 4 preguntas de negocio: deben ofrecer preguntas de salud/bienestar.
+ * Reemplaza al saludo de «asesor de salud y bienestar… respaldados por más de
+ * 2.000 estudios científicos» y a sus tres botones (beneficios, estudios,
+ * seguridad): citaba ciencia —lo que el filtro de salud no deja decir en una
+ * respuesta, y este texto no pasa por él— e invitaba preguntas que el filtro
+ * después desvía.
  *
- * Comportamiento configurado originalmente (commit 00295d1, nov 2025) que se
- * perdió al centralizar los chips en `QUESWA_QUICK_REPLIES`. Restaurado en
- * registro de usted. NO entran a Camino A ni al mapa de expansión: van por RAG
- * normal → clasifican como `catalogo_productos`.
+ * ⚠️ Si cambia la apertura de productos del canal, cambia esta.
+ */
+export function getProductsGreeting(): string {
+  return `Le doy la bienvenida.\n\n${IDENTIDAD}\n\nAquí puede preguntar lo que quiera de los productos: qué lleva cada uno, cómo se prepara, en qué presentación viene y cuánto cuesta. La línea es de Gano Excel, con extracto propio de Ganoderma y registro sanitario en cada producto.\n\n¿Le muestro el portafolio completo?`;
+}
+
+/**
+ * Los dos botones de la apertura de productos — los mismos de WhatsApp
+ * (`APERTURA_PRODUCTOS_OPCIONES`). En la web los atiende el motor por sus
+ * puertas compartidas: «Ver el portafolio» → la imagen del portafolio con su pie
+ * (conductor, 2.25a, dictado sin modelo); «Lista de precios» → las cuatro tablas
+ * del catálogo con candado (bypass de precios). En la web la persona ya está en
+ * la página del catálogo, así que se le dan los precios en el chat en vez del
+ * enlace que manda WhatsApp.
  */
 export const QUESWA_PRODUCTS_QUICK_REPLIES = [
-  '¿Qué beneficios tienen los productos Gano Excel?',
-  '¿Qué estudios científicos respaldan los beneficios?',
-  '¿Es seguro consumir Ganoderma diariamente?',
+  'Ver el portafolio',
+  'Lista de precios',
 ] as const;
 
 /**

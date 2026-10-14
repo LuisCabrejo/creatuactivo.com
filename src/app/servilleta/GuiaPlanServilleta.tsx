@@ -34,6 +34,12 @@
  *
  * Se oculta en pantalla completa y en el modo kiosco (el iframe del modo vertical):
  * ahí la página es solo el deck que se presenta.
+ *
+ * SE ALCANZA DESDE LA ÚLTIMA PANTALLA (13 oct 2026, Director): en la portada,
+ * deslizar hacia arriba mostraba este texto y la persona creía que la
+ * presentación era esto. La página no baja hasta la pantalla 10 (`guiaAbierta`
+ * en page.tsx). La sección sigue en el HTML desde el principio: es lo que lee
+ * Google. El id lo usa la señal de la última pantalla.
  */
 
 'use client';
@@ -101,7 +107,7 @@ const CSS = `
 
 export default function GuiaPlanServilleta() {
   return (
-    <section className="guia-servilleta" aria-labelledby="guia-servilleta-titulo">
+    <section id="guia-plan-servilleta" className="guia-servilleta" aria-labelledby="guia-servilleta-titulo">
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="guia-wrap">
         <h1 id="guia-servilleta-titulo">
@@ -277,12 +283,11 @@ export default function GuiaPlanServilleta() {
           <p>En más de 60. El catálogo y los precios cambian de un país a otro.</p>
 
           <h3>¿Puedo preguntar algo que no esté aquí?</h3>
-          <p>Sí. Queswa responde a cualquier hora por WhatsApp.</p>
-          {/* Abre WhatsApp directo, sin el evento `open-queswa`. En /servilleta ese
-              evento abre el chat WEB a propósito (RUTAS_ORBE_QUESWA_WEB): el botón
-              «PREGÚNTALE ALGO EN VIVO» es la demo que el socio hace delante del
-              prospecto, sin sacarlo de la presentación. Quien llega a esta sección
-              lee solo, desde Google, y va al canal principal: WhatsApp. */}
+          <p>Sí. Queswa responde a cualquier hora.</p>
+          {/* abrirConversacionQueswa decide por el dispositivo (13 oct 2026, en
+              orbe-config.ts): en el CELULAR abre WhatsApp, el canal principal; en
+              el COMPUTADOR abre el chat web aquí mismo, y solo cae a wa.me si
+              nadie lo atiende. Hasta ese día abría WhatsApp siempre. */}
           <button
             type="button"
             className="cta-base cta-primary guia-cta"

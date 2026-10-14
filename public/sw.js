@@ -25,7 +25,9 @@
 // Bump 1.4.7 (10 oct 2026): la presentación única pasa a /servilleta; se retiran
 // /presentacion y /12-niveles, y los clips cambian de nombre — quien tenía el deck
 // viejo guardado no debe seguir viéndolo.
-const CACHE_VERSION = '1.4.7';
+// Bump 1.4.8 (13 oct 2026): /servilleta no baja hasta el cierre y la pantalla 10
+// estrena el video «Cómo funciona» antes del siguiente paso.
+const CACHE_VERSION = '1.4.8';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

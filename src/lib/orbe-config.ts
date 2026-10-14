@@ -60,6 +60,10 @@ export const RUTAS_ORBE_QUESWA_WEB = ['/servilleta'] as const
  * por localStorage": por URL es predecible y no mezcla orbes según el
  * historial de cada quien. /sistema/productos/{ref} llega aquí por el 301.
  */
+//
+// ⭐ Desde el 13 oct 2026 TODA página de productos usa el chat web, en todos los
+// dispositivos (`esPaginaDeProductos`, abajo). Esta lista ya solo decide el COLOR:
+// el orbe verde de ganocafe (`usaOrbeVerde`).
 export const REFS_ORBE_QUESWA_WEB = ['ganocafe-online-1716'] as const
 
 /** El ref de la página de productos actual, o null si esta URL no es una. */
@@ -82,10 +86,21 @@ export function usaOrbeVerde(pathname: string): boolean {
   return refConChatWeb(pathname)
 }
 
+/**
+ * ¿Es la página del catálogo? `/productos` y `/productos/{ref}` (la de cada socio;
+ * `/{slug}/productos` y `/sistema/productos/{ref}` llegan aquí redirigidos).
+ */
+export function esPaginaDeProductos(pathname: string): boolean {
+  return /^\/productos(\/[^/]+)?\/?$/.test(pathname)
+}
+
 export function usaChatWeb(pathname: string): boolean {
   if (ORBE_MODO === 'queswa') return true
   if (RUTAS_ORBE_QUESWA_WEB.some((r) => pathname === r || pathname.startsWith(`${r}/`))) return true
-  if (refConChatWeb(pathname)) return true
+  // El catálogo conversa en la web en TODOS los dispositivos, también en el
+  // celular (Director, 13 oct 2026). Generaliza la excepción que nació para
+  // ganocafe el 9 sep (REFS_ORBE_QUESWA_WEB), que ahora solo decide el verde.
+  if (esPaginaDeProductos(pathname)) return true
   // En el computador, siempre el chat web (13 oct 2026, ver la cabecera).
   return !conversaPorWhatsApp(dispositivoDelNavegador())
 }

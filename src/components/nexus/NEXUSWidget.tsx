@@ -369,10 +369,20 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
   // hace aquí. Ref para no enviar con un historial viejo.
   const enviarRef = useRef(handleSendMessage);
   enviarRef.current = handleSendMessage;
+  // El de la página de productos («Pregúntele a Queswa cómo funciona», que pide la
+  // conversación de negocio, `contexto: 'general'`) hace la pregunta del botón de
+  // inicio que responde con el video «Cómo funciona» (13 oct 2026: el catálogo
+  // conversa en la web también en el celular).
   useEffect(() => {
     const alAbrir = (e: Event) => {
-      if ((e as CustomEvent<{ pregunta?: string }>).detail?.pregunta !== 'dinero') return;
-      setTimeout(() => enviarRef.current(PREGUNTA_DINERO_WEB), 120);
+      const detalle = (e as CustomEvent<{ pregunta?: string; contexto?: string }>).detail;
+      const pregunta = detalle?.pregunta === 'dinero'
+        ? PREGUNTA_DINERO_WEB
+        : detalle?.contexto === 'general' && window.location.pathname.startsWith('/productos')
+          ? QUESWA_QUICK_REPLIES[0]
+          : null;
+      if (!pregunta) return;
+      setTimeout(() => enviarRef.current(pregunta), 120);
     };
     window.addEventListener('open-queswa', alAbrir);
     return () => window.removeEventListener('open-queswa', alAbrir);

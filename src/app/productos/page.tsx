@@ -1375,7 +1375,7 @@ export default function CatalogoEstrategico() {
             Café, bebidas y suplementos premium de bienestar, con <span style={{ color: C.bioEmerald }}>Ganoderma</span>. El café y las bebidas se disuelven por completo en el agua: no se queda nada en el fondo de la taza. Los fabrica y los despacha Gano Excel, con 30 años y presencia en más de 60 países.
           </p>
 
-          {/* CTA al asesor de salud y bienestar — abre Queswa (modo asesor vía pageContext catalogo_productos) */}
+          {/* CTA a Queswa — abre el chat en modo asesora de producto (pageContext catalogo_productos) */}
           <div className="flex flex-col items-center gap-3 mb-8">
             <button
               type="button"

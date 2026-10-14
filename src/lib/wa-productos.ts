@@ -715,9 +715,48 @@ export function preguntoCualLinea(ultimoMensajeBot: string): boolean {
   return /cu[aá]l l[ií]nea le muestro/i.test(ultimoMensajeBot);
 }
 
-/** "sí", "dale", "muéstremelas": una aceptación corta y nada más. */
+const RE_CABEZA_ACEPTACION = /^(claro que s[ií]+|s[ií]+,? por favor|s[ií]+|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(l[ao]s)?|quiero|a ver|ver)(?![a-záéíóúñ])/i;
+const RE_INTERROGATIVO = /(?<![a-záéíóúñ])(pero|c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|por qu[eé])(?![a-záéíóúñ])/i;
+// Un pedido nuevo detrás del «sí»: «Sí, quiero empezar con el ESP-3» decide
+// otra cosa. «Sí quiero» y «quiero verlo» siguen siendo aceptaciones.
+const RE_PEDIDO_NUEVO = /(?<![a-záéíóúñ])(quisiera|necesito|empezar|empiezo|iniciar|inicio|comprar|pedir|pido|inscrib\w*|vincul\w*|precios?|cuesta)(?![a-záéíóúñ])|(?<![a-záéíóúñ])quiero\s+(?!(verl?[oa]?s?|eso)(?![a-záéíóúñ]))\S/i;
+
+/**
+ * "sí", "dale", "muéstremelas": una aceptación corta y nada más.
+ *
+ * ⚠️ Hasta el 14 oct 2026 miraba solo el arranque. Tras «¿Le muestro el
+ * portafolio completo?» —la apertura de productos—, «Quiero algo para bajar de
+ * peso» y «Sí, ¿y cuánto cuesta el Cordygold?» recibían la imagen sola, que
+ * cierra el turno, y la pregunta se perdía. Mismo criterio que `esAceptacion`
+ * (wa-pedido.ts): lo que se le cuelga al «sí» se tolera («sí por favor», «dale
+ * gracias», «Si mi diamante»), una pregunta o un pedido nuevo no. «Quiero»,
+ * «muéstreme» y «ver» piden algo: aceptan solos o con lo que se ofreció
+ * («quiero verlo», «Ver el portafolio»).
+ */
 export function esAceptacionCorta(texto: string): boolean {
-  return /^(s[ií]|claro|dale|listo|ok|bueno|por supuesto|de una|h[aá]gale|mu[eé]str[ea]me(l[ao]s)?|quiero|s[ií],? por favor|a ver|ver)(?![a-záéíóúñ])/i.test(texto.trim());
+  const t = (texto || '').trim();
+  const cabeza = RE_CABEZA_ACEPTACION.exec(t);
+  if (!cabeza) return false;
+  if (/[?¿]/.test(t)) return false;
+  const resto = t.slice(cabeza[0].length).replace(/^[\s,.!]+/, '');
+  if (RE_INTERROGATIVO.test(resto) || RE_PEDIDO_NUEVO.test(resto)) return false;
+  if (/^(quiero|mu[eé]str|ver|a ver)/i.test(cabeza[1]) && resto
+    && !/^(verl[oa]s?|ver|eso|es[ae]s?|s[ií]|pues|por favor|el portafolio|la imagen|las im[aá]genes)(?![a-záéíóúñ])/i.test(resto)) return false;
+  return t.split(/\s+/).length <= 6;
+}
+
+/**
+ * El «sí» que trae una PREGUNTA detrás («Sí, ¿y cuánto cuesta el Cordygold?»):
+ * acepta la oferta y pregunta otra cosa. Solo las cabezas que no piden nada
+ * —«quiero», «muéstreme» y «ver» quedan fuera—, y un pedido nuevo sin pregunta
+ * («Sí, quiero empezar con el ESP-3») tampoco cuenta: eso es del motor.
+ */
+export function esSiConPregunta(texto: string): boolean {
+  const t = (texto || '').trim();
+  const cabeza = /^(claro que s[ií]+|s[ií]+|claro|dale|ok|listo|de una|por supuesto)(?![a-záéíóúñ])/i.exec(t);
+  if (!cabeza) return false;
+  const resto = t.slice(cabeza[0].length);
+  return /[?¿]/.test(t) || RE_INTERROGATIVO.test(resto);
 }
 
 export function urlImagenFamilia(f: FamiliaWA, base = 'https://creatuactivo.com'): string {

@@ -16,6 +16,7 @@ import {
   vieneDeProductos, preguntaTrasOrbeProductos, construirAperturaProductos, aperturaRetornoProductos,
   APERTURA_PRODUCTOS_OPCIONES,
 } from '../src/lib/wa-apertura.ts';
+import { readFileSync } from 'node:fs';
 import { atenderFoto, atenderPidePieza, detectarPidePieza, detectarPidePiezaPublico, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ } from '../src/lib/queswa-conductor.ts';
 import { familiaOfrecida, pideImagen, detectarFamilia } from '../src/lib/wa-productos.ts';
 import { detectarClaimSaludEnSalida } from '../src/lib/wa-guardarrail-salud.ts';
@@ -46,6 +47,16 @@ for (const oferta of [APERTURA, aperturaRetornoProductos('Liliana'), TEXTO_NO_PI
   es(!!foto && /portafolio/i.test(foto.url) && foto.cierraTurno, '«Sí» → imagen del portafolio, turno cerrado');
 }
 es(familiaOfrecida('¿Le muestro el catálogo completo con precios?') === null, 'la oferta del catálogo NO es el portafolio');
+// 14 oct 2026: la aceptación tiene que venir sola. Con una pregunta o un pedido
+// nuevo detrás, la imagen sola tapaba lo que la persona preguntó.
+for (const t of ['Si mi diamante', 'quiero verlo', 'Ver el portafolio', 'claro que sí'])
+  es(atenderFoto(t, [{ role: 'assistant', content: APERTURA }])?.cierraTurno === true, `«${t}» acepta el portafolio`);
+for (const t of ['Quiero algo para bajar de peso', 'Quiero saber el precio del Cordygold', 'bueno, qué lleva el café'])
+  es(!atenderFoto(t, [{ role: 'assistant', content: APERTURA }]), `«${t}» no es un «sí»: responde el motor`);
+{
+  const f = atenderFoto('Sí, ¿y cuánto cuesta el Cordygold?', [{ role: 'assistant', content: APERTURA }]);
+  es(!!f && /portafolio/i.test(f.url) && !f.cierraTurno, '«Sí, ¿y cuánto cuesta…?» → la imagen sale y el motor responde la pregunta');
+}
 
 console.log('\n── 4. Las piezas publicitarias ──');
 for (const t of [
@@ -94,9 +105,16 @@ for (const t of ['cómo es eso, dame contexto', 'dame más información del nego
   es(!pideImagen(t), `NO pide imagen: «${t}»`);
 es(detectarFamilia('dame un aimgane de todos los productos') === 'portafolio', 'y la familia sigue siendo el portafolio');
 // MFernanda: un síntoma NO es una pregunta de paquete.
-const RE_FREQ30 = /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))(?![\s\S]*(producto|caf[eé]|c[aá]psula|bebida|suplemento|jab[oó]n|champ[uú]|organismo|limpieza|tomar|consumir|para (la|el|mi) (salud|piel|cabello|energ)|cansad|cansancio|agotad|fatiga|sin energ[ií]a|desanimad|d[ou]erm|dormir|sue[ñn]o|insomni|estr[eé]s|estresad|me siento|me duele))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i;
+// La regex se lee de route.ts (14 oct 2026): la copia que vivía aquí se había
+// quedado atrás y probaba una puerta que ya no existía.
+const _lineaFreq30 = readFileSync(new URL('../src/app/api/nexus/route.ts', import.meta.url), 'utf8')
+  .split('\n').find((l) => l.includes('cuando: /^(?![\\s\\S]*(si fuera'))!;
+const RE_FREQ30: RegExp = (0, eval)(_lineaFreq30.trim().replace(/^cuando:\s*/, '').replace(/,\s*$/, ''));
 for (const t of ['Me siento cansada cual me recomienda', 'Me siento cansada cual producto me recomienda consumir', 'no duermo bien, cuál me recomienda'])
   es(!RE_FREQ30.test(t), `un síntoma NO abre la puerta de paquetes: «${t.slice(0,46)}»`);
+// 14 oct 2026, página de productos: lo que se busca es de producto aunque no nombre ninguno.
+for (const t of ['¿Cuál me recomienda para tener más energía?', '¿qué me recomienda para bajar de peso?', '¿Qué me recomienda de sabor suave?'])
+  es(!RE_FREQ30.test(t), `lo que se busca de un producto NO abre la puerta de paquetes: «${t}»`);
 for (const t of ['cuál paquete me recomienda', 'Con cuál paquetes me recomiendas iniciar', 'con cuál empiezo', 'cuál me conviene'])
   es(RE_FREQ30.test(t), `y la pregunta de paquete SÍ la abre: «${t}»`);
 

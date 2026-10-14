@@ -234,7 +234,7 @@ const sendMessage = useCallback(async (content: string) => {
     // 🎯 CONTEXTO DE PÁGINA: ajusta el comportamiento de Queswa según la ruta
     const pagePath = typeof window !== 'undefined' ? window.location.pathname : '';
     const pageContext = pagePath.includes('/productos')
-      ? 'catalogo_productos'       // Modo asesor de salud/bienestar
+      ? 'catalogo_productos'       // Modo asesora de producto, el mismo de WhatsApp (14 oct 2026)
       : pagePath.includes('/12-niveles')   // retirado el 10 oct 2026 (redirige a /servilleta?pantalla=9); se conserva por si una pestaña vieja sigue abierta
       ? '12_niveles'               // Deck Los 12 Niveles (simulador 2×2)
       : 'default';                 // Modo asesor de negocio

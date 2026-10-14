@@ -2998,7 +2998,8 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     const pageContext = saludCompuesta
       ? `whatsapp_salud_${saludCompuesta.familia}_${saludCompuesta.declara ? 'declara' : 'pregunta'}${saludCompuesta.paquete ? `_${saludCompuesta.paquete.toLowerCase().replace('-', '')}` : ''}${saludCompuesta.otraVez ? '_otravez' : ''}`
       : fotoEnviada
-      ? 'whatsapp_foto_enviada'
+      // Desde la página de productos la foto no apaga el modo asesora (14 oct 2026).
+      ? (_modoCatalogo ? 'whatsapp_foto_enviada_catalogo' : 'whatsapp_foto_enviada')
       // ⚠️ El socio va ANTES que el primer contacto (14 sep 2026). Un distribuidor
       // que escribe por primera vez con una pregunta no tiene ficha, y con el orden
       // anterior el motor lo atendía como prospecto en primer contacto: Adriana

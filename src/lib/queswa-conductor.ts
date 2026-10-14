@@ -51,7 +51,7 @@ import { pideEnlaceCatalogo, mensajeEnlaceCatalogo } from '@/lib/wa-onboarding';
 import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
   esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
-  esAceptacionCorta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto, PRODUCTOS_WA,
+  esAceptacionCorta, esSiConPregunta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto, PRODUCTOS_WA,
 } from '@/lib/wa-productos';
 import { textoCubrirCompra } from '@/lib/wa-simulador';
 import { yaLoRecibio, residenciaDeclarada, lugarExterior } from '@/lib/queswa-bitacora';
@@ -620,13 +620,18 @@ export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | 
   // conversación, la que nombraba el último turno del bot.
   const lineaDelHilo = !familiaAceptada && pideImagen(mensaje) && /\b(la|esa|esta|de\s+la)\s+l[ií]nea\b/i.test(mensaje)
     && !detectarProducto(mensaje) && !detectarFamilia(mensaje) ? familiaDelTexto(ultimoBot) : null;
-  const familia = (familiaAceptada && (esAceptacionCorta(mensaje) || aceptaConOtrasPalabras)) ? familiaAceptada
+  // «Sí, ¿y cuánto cuesta el Cordygold?» acepta la oferta Y pregunta otra cosa
+  // (14 oct 2026): la imagen sale, sin cerrar el turno, y el motor responde lo
+  // demás sabiendo que ya salió. Antes la imagen tapaba la pregunta; sin esto, el
+  // modelo componía un resumen del portafolio con categorías que no existen.
+  const aceptaYPregunta = !!familiaAceptada && esSiConPregunta(mensaje) && !aceptaConOtrasPalabras;
+  const familia = (familiaAceptada && (esAceptacionCorta(mensaje) || aceptaConOtrasPalabras || aceptaYPregunta)) ? familiaAceptada
     : (lineaElegida && lineaElegida !== 'portafolio') ? lineaElegida
     : lineaDelHilo ? lineaDelHilo
     : (pideImagen(mensaje) && !detectarProducto(mensaje)) ? detectarFamilia(mensaje)
     : null;
   if (familia) {
-    const vieneDeOferta = familia === familiaAceptada || preguntoCualLinea(ultimoBot);
+    const vieneDeOferta = (familia === familiaAceptada && !aceptaYPregunta) || preguntoCualLinea(ultimoBot);
     const soloFoto = vieneDeOferta || esSoloPedidoDeImagen(mensaje);
     return {
       nodo: `2.25a foto de la línea ${familia}`,

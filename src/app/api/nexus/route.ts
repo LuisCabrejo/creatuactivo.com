@@ -2725,7 +2725,10 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // Un SÍNTOMA no nombra producto, así que el filtro de arriba no lo veía;
       // ahora también excluye el estado de la persona (cansancio, sueño, estrés)
       // y la fórmula «me siento». Quien cuenta cómo se siente no pide paquete.
-      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))(?![\s\S]*(producto|caf[eé]|c[aá]psula|bebida|suplemento|jab[oó]n|champ[uú]|organismo|limpieza|tomar|consumir|para (la|el|mi) (salud|piel|cabello|energ)|cansad|cansancio|agotad|fatiga|sin energ[ií]a|desanimad|d[ou]erm|dormir|sue[ñn]o|insomni|estr[eé]s|estresad|me siento|me duele))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
+      // 14 oct 2026: «¿Cuál me recomienda para tener más energía?» —en la página
+      // de productos— abría la puerta: lo que se busca (energía, peso, sabor) es
+      // de producto, aunque no nombre ninguno.
+      cuando: /^(?![\s\S]*(si fuera|usted cu[aá]l|el mejor|insisto))(?![\s\S]*(producto|caf[eé]|c[aá]psula|bebida|suplemento|jab[oó]n|champ[uú]|organismo|limpieza|tomar|consumir|para (la|el|mi) (salud|piel|cabello|energ)|cansad|cansancio|agotad|fatiga|sin energ[ií]a|desanimad|d[ou]erm|dormir|sue[ñn]o|insomni|estr[eé]s|estresad|me siento|me duele|energ[ií]a|vitalidad|bajar de peso|adelgaz|digesti|defensas|concentra|memoria|entren|gimnasio|sabor|chocolate|cacao|ganoderma))[\s\S]*((recomiend|recomend|aconsej|sugier|sugerir)[a-z]*[^.?]{0,30}(paquete|esp|cu[aá]l)|(paquetes?|esp-?\d?)[^.?]{0,30}me\s+(recomiend|recomend|aconsej|sugier)|(qu[eé]|cu[aá]l)\s+(paquetes?\s+)?me\s+(recomiend|recomend|aconsej|conviene|sugier)|con\s+cu[aá]l\s+(empiezo|arranco|inicio|empezar|arrancar|iniciar|me conviene|deber[ií]a)|cu[aá]l\s+(paquete\s+)?(me\s+)?conviene)/i,
     },
     {
       // Prueba del Director, 22 ago: "me interesa iniciar, ¿hay una opción menor
@@ -5095,7 +5098,11 @@ ${summaryParts.join('\n')}
       return new StreamingTextResponse(buildVerbatimStream(texto), { headers: getCorsHeaders(origin) });
     };
 
-    if (canalWeb && typeof latestUserMessage === 'string') {
+    // Una pregunta de salud no la atiende un nodo dictado (14 oct 2026): en el
+    // webhook el nodo de salud corre antes que todos los del conductor y corta el
+    // turno; aquí se compone, así que un nodo podía taparla —«Quiero algo para
+    // bajar de peso», tras la oferta del portafolio, recibió la imagen sola.
+    if (canalWeb && typeof latestUserMessage === 'string' && !_saludCompuestaWeb) {
       const _resolverSlug = async () => slugDelSocio(getSupabaseClient(), _socioCodigo || constructorId || null);
       // 2.49 — quien pide un guion, un video o una diapositiva recibe las
       // imágenes aprobadas, no una pieza (Director, 9 sep 2026).
@@ -5121,7 +5128,7 @@ ${summaryParts.join('\n')}
       if (_foto) {
         if (_foto.cierraTurno) return _entregarDictado({ nodo: _foto.nodo, texto: fotoParaWeb(_foto) });
         _fotoWebPrefijo = fotoParaWeb(_foto);
-        pageContext = 'whatsapp_foto_enviada';
+        pageContext = pageContext === 'catalogo_productos' ? 'whatsapp_foto_enviada_catalogo' : 'whatsapp_foto_enviada';
         console.log(`📷 [Conductor web] ${_foto.nodo} antepuesta — el motor responde lo demás`);
       }
 
@@ -5768,22 +5775,29 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // Habla de lo que el producto ES —qué lleva, cómo se prepara, presentación,
       // precio, registro— y de lo sensorial y el ritual; el negocio aparece solo
       // si la persona lo pregunta. Los guardarraíles de salud siguen corriendo.
-      if (pageContext === 'whatsapp_catalogo' || pageContext === 'whatsapp_catalogo_primer_contacto') {
-        const primerContacto = pageContext === 'whatsapp_catalogo_primer_contacto';
-        return `
-🛒 MODO ASESORA DE PRODUCTO — llegó desde la página de productos
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${primerContacto
-  ? 'Escribe por primera vez y su primer mensaje ya trae la pregunta. No recibió la bienvenida: désela en UNA línea —quién es usted y a quién asiste— y siga derecho a responder lo que preguntó. Sin adivinar el género («Hola», «Un gusto», nunca «Bienvenida» o «Bienvenido» a quien no conoce).'
-  : 'Esta persona ya conversaba con usted; el hilo sigue, el tema ahora son los productos.'}
-⛔ Si pide un producto PARA un propósito —limpiar, desintoxicar, bajar, mejorar
-   algo del cuerpo—, no vincule ningún producto a ese propósito: diga qué es
-   cada producto y déjele a ella la elección. Y nada de anunciar su propia
-   honestidad («quiero ser precisa», «le hablo con franqueza»): se dice el hecho.
+      //
+      // Desde el 14 oct 2026 la página de productos de la WEB (`catalogo_productos`)
+      // usa este mismo modo (Director). Su instrucción propia pedía ser «asesor de
+      // salud» y «enfocarse en beneficios para la salud» —justo lo que el filtro
+      // de salud descarta—, así que la persona recibía el texto de reemplazo en vez
+      // de su respuesta. La web es el respaldo del canal: responde igual.
+      const catalogoWeb = pageContext === 'catalogo_productos';
+      // Las reglas van aparte porque también acompañan a la foto ya enviada desde
+      // la página de productos (`whatsapp_foto_enviada_catalogo`, 14 oct 2026):
+      // sin ellas, el turno que sigue a la imagen perdía el modo y el modelo
+      // volvió a componer con el marco del consumo diario.
+      // 14 oct 2026: ni una frase de las que se quieren evitar se cita aquí —el
+      // modelo las copiaba— y el arranque se pide en positivo: en la web abría
+      // anunciando cómo iba a responder en vez de responder.
+      const reglasAsesoraDeProducto = `⛔ Si pide un producto PARA un propósito —limpiar, desintoxicar, bajar, mejorar
+   algo del cuerpo, tener energía—, no vincule ningún producto a ese propósito y
+   no explique por qué: pase derecho a lo que hay —lo que más se toma en la
+   mañana, lo que no lleva café, lo que va en cápsula— y la elección queda en ella.
 
-✅ Responda sobre el producto por lo que ES: qué lleva, cómo se prepara, en qué
-   presentación viene, cuánto cuesta y con qué registro. Lo sensorial y el ritual
-   —el sabor, el momento del día, la rutina— es el terreno del deseo.
+✅ La primera frase ya es del producto, sin preámbulo sobre cómo va a responder:
+   qué lleva, cómo se prepara, en qué presentación viene, cuánto cuesta y con qué
+   registro. Lo sensorial y el ritual —el sabor, el momento del día, la rutina—
+   es el terreno del deseo.
 ✅ Cierre proponiendo un paso sobre el producto: la imagen de la línea o del
    portafolio, la ficha de uno en particular, o el catálogo con precios.
 ⛔ No introduzca el negocio, los paquetes, las comisiones ni el sistema de
@@ -5791,6 +5805,17 @@ ${primerContacto
 ⛔ Sobre lo que una persona sentirá o conseguirá, entregue el hecho y siga; la
    conclusión la saca ella. Ninguna condición de salud, ningún órgano, ningún
    estudio.`;
+      if (catalogoWeb || pageContext === 'whatsapp_catalogo' || pageContext === 'whatsapp_catalogo_primer_contacto') {
+        const primerContacto = pageContext === 'whatsapp_catalogo_primer_contacto';
+        return `
+🛒 MODO ASESORA DE PRODUCTO — llegó desde la página de productos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${primerContacto
+  ? 'Escribe por primera vez y su primer mensaje ya trae la pregunta. No recibió la bienvenida: désela en UNA línea —quién es usted y a quién asiste— y siga derecho a responder lo que preguntó. Sin adivinar el género («Hola», «Un gusto», nunca «Bienvenida» o «Bienvenido» a quien no conoce).'
+  : catalogoWeb
+  ? 'Está en la página de productos y el chat ya le dio la bienvenida: no se presente de nuevo, responda lo que preguntó.'
+  : 'Esta persona ya conversaba con usted; el hilo sigue, el tema ahora son los productos.'}
+${reglasAsesoraDeProducto}`;
       }
 
       if (pageContext === 'whatsapp_primer_contacto') {
@@ -5835,7 +5860,10 @@ explicar el modelo completo antes de contestar: eso llega si lo piden.`;
         if (nodo === 'hora')          return microPromptEscalera('hora');
       }
 
-      if (pageContext === 'whatsapp_foto_enviada') {
+      if (pageContext === 'whatsapp_foto_enviada' || pageContext === 'whatsapp_foto_enviada_catalogo') {
+        const desdeCatalogo = pageContext === 'whatsapp_foto_enviada_catalogo'
+          ? `\n\n🛒 Y llegó desde la página de productos: siguen las reglas de la asesora de producto.\n${reglasAsesoraDeProducto}`
+          : '';
         return `
 📷 LA FOTO YA SE ENVIÓ EN ESTE TURNO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -5845,7 +5873,7 @@ precios en el pie. NUNCA diga que no puede enviar imágenes ni la derivemos al
 socio o al catálogo para verlas.
 
 Responda lo OTRO que preguntó en su mensaje, y cierre sobre ESE mismo producto
-o esa misma línea — no sobre otro.`;
+o esa misma línea — no sobre otro.${desdeCatalogo}`;
       }
 
       // ── SALUD COMPUESTA (etapa 3, 29 ago 2026) ─────────────────────────────
@@ -6067,29 +6095,6 @@ ${ESQUELETO_REDACCION_SOCIO}
 `;
       }
 
-      if (pageContext === 'catalogo_productos') {
-        return `
-🌿 MODO ASESOR DE SALUD Y BIENESTAR (Página de Productos)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ INSTRUCCIÓN CRÍTICA: En esta página SOLO hablas de SALUD y BIENESTAR.
-
-✅ LO QUE DEBES HACER:
-• Enfocarte en beneficios para la salud del Ganoderma
-• Explicar cómo los productos pueden mejorar su bienestar
-• Responder sobre ingredientes, uso y beneficios
-• Ayudar a elegir productos según sus necesidades de salud
-• Dar información de precios cuando pregunten
-
-❌ LO QUE NUNCA DEBES HACER EN ESTA PÁGINA:
-• NUNCA mencionar "oportunidad de negocio"
-• NUNCA hablar de "construir un activo" o "ingresos pasivos"
-• NUNCA mencionar "ser distribuidor" o "unirse al equipo"
-• NUNCA hablar de comisiones, redes o multinivel
-• NUNCA sugerir que pueden ganar dinero con los productos
-
-🎯 TU ROL: Eres un asesor de salud amable que ayuda a encontrar productos para mejorar el bienestar.
-`;
-      }
       if (pageContext === '12_niveles') {
         return `
 📊 CONTEXTO DE PÁGINA — DECK "LOS 12 NIVELES" (/12-niveles)

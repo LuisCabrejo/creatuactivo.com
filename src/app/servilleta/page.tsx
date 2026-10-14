@@ -55,7 +55,10 @@
  *                      lo da el socio en vivo, y las analogías (Nequi, Uber) las
  *                      toma de la pantalla 2 según su público.
  *  5 LA PROPUESTA    · beat 0: una empresa de distribución moderna a su nombre,
- *    Y CÓMO FUNCIONA   «se requieren tres elementos»; luego el orden de WHY_02:
+ *    Y CÓMO FUNCIONA   «se requieren tres elementos» y el botón VERLO EN VIDEO
+ *                      (13 oct 2026): el socio elige si rueda el video «Cómo
+ *                      funciona» —al terminar salta a la 6 y la 10 ya no lo
+ *                      repite— o explica él los beats. Luego el orden de WHY_02:
  *                      las tres piezas (el fabricante SIN nombre; la 3ª es SABER
  *                      QUÉ HACER desde el 9 oct 2026), la oscilación, el remate
  *                      en UNA diapositiva (10 oct 2026): el teléfono con la UNIÓN
@@ -77,7 +80,8 @@
  *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
  *                      final.
  * 10 EL SIGUIENTE    · beat 0 (13 oct 2026): el video «Cómo funciona», el mismo
- *    PASO              de WhatsApp y la Home, como repaso antes de cerrar. Beat 1:
+ *    PASO              de WhatsApp y la Home, como repaso antes de cerrar (se salta
+ *                      si ya se vio en la 5: `vioVideoEnVivo`). Beat 1:
  *                      la segunda mitad del credo, la lista de espera y la
  *                      conversación con el socio del ?ref (nombre y WhatsApp).
  *
@@ -116,6 +120,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
 import VideoComoFuncionaHome from '@/components/VideoComoFuncionaHome';
+import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels';
+import { marcarVioComoFunciona } from '@/lib/orbe-config';
 
 const TOTAL_SLIDES = 10;
 /** Pantallas que se reportan a la ficha: un tercio, dos tercios y la última. */
@@ -505,13 +511,21 @@ export default function PitchDeckPage() {
   // setSlide dentro del updater de setBeat: un updater debe ser puro, React lo
   // ejecuta dos veces en desarrollo y el efecto colateral se pierde — con esa
   // versión el deck no pasaba de la primera pantalla (bug real, 23 sep 2026).
+  // ¿El video «Cómo funciona» ya se vio en la pantalla 5? (13 oct 2026). Entonces
+  // la pantalla 10 entra directo al siguiente paso: su beat 0 es ese mismo video
+  // como repaso, y en la misma reunión no se pasa dos veces. Va en un ref y no en
+  // estado para que avanzar/irA no cambien de identidad (el efecto de ?pantalla
+  // depende de irA y volvería a saltar).
+  const vioVideoEnVivo = useRef(false);
+  const beatDeEntrada = (n: number) => (n === TOTAL_SLIDES && vioVideoEnVivo.current ? 1 : 0);
+
   const avanzar = useCallback(() => {
     if (beat < beatsOf(slide) - 1) { setBeat(beat + 1); return; }
-    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(0); }
+    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(beatDeEntrada(slide + 1)); }
   }, [slide, beat]);
 
   const retroceder = useCallback(() => {
-    if (beat > 0) { setBeat(beat - 1); return; }
+    if (beat > beatDeEntrada(slide)) { setBeat(beat - 1); return; }
     if (slide > 1) {
       const destino = slide - 1;
       setSlide(destino);
@@ -523,8 +537,26 @@ export default function PitchDeckPage() {
 
   const irA = useCallback((n: number) => {
     setSlide(n);
-    setBeat(0);
+    setBeat(beatDeEntrada(n));
   }, []);
+
+  // EL VIDEO EN «LA PROPUESTA» (Director, 13 oct 2026): «el distribuidor podrá
+  // escoger si rueda el video o si él hace la explicación de los tres elementos».
+  // Son dos caminos por la pantalla 5: el socio narra los beats, o toca el botón
+  // y el video los cuenta. Por eso, al terminar, el deck salta a la pantalla 6: el
+  // video ya dijo lo de los beats 1 a 6 (las tres piezas, la aplicación, la
+  // propiedad), y repetirlos sería contarlo dos veces. Si se cierra antes, se
+  // queda en la propuesta y el socio sigue por su cuenta.
+  // ⚠️ El video nombra a Gano Excel y dice que cada recompra deja un porcentaje,
+  // que el deck guarda para la 7 y la 9. Es decisión del socio: en vivo él sabe a
+  // quién tiene enfrente. Va en ventana, no en la diapositiva, para que el beat
+  // siga igual para quien explica.
+  const [videoPropuesta, setVideoPropuesta] = useState(false);
+  const alTerminarVideoPropuesta = () => {
+    vioVideoEnVivo.current = true;
+    setVideoPropuesta(false);
+    irA(6);
+  };
 
   // ── Los videos del deck (10 oct 2026) ──────────────────────────────────────
   // Cada <video> declara su beat en data-beat="pantalla-beat". Solo el activo
@@ -627,6 +659,9 @@ export default function PitchDeckPage() {
       const t = e.target as HTMLElement | null;
       if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
       if (visor && e.key === 'Escape') { setVisor(null); return; }
+      // Con el video de la propuesta abierto, el teclado no mueve el deck: Esc lo
+      // cierra y la barra espaciadora queda para el reproductor.
+      if (videoPropuesta) { if (e.key === 'Escape') setVideoPropuesta(false); return; }
       if (leyendoGuia || verticalMode) return;
       if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
       else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
@@ -635,7 +670,7 @@ export default function PitchDeckPage() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode]);
+  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode, videoPropuesta]);
 
   // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
   // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
@@ -661,6 +696,9 @@ export default function PitchDeckPage() {
 
   const evaluarSwipe = (endX: number, endY: number) => {
     if (swipeIgnore.current) { swipeIgnore.current = false; return; }
+    // La ventana del video vive dentro del deck: un gesto sobre ella no pasa
+    // diapositivas por debajo.
+    if (videoPropuesta) return;
     const dx = touchStartX.current - endX;
     const dy = touchStartY.current - endY;
     // Guard de eje: un scroll vertical que derive en X no debe navegar.
@@ -1145,6 +1183,13 @@ export default function PitchDeckPage() {
         .pd-modal img { width: 100%; height: auto; max-height: 88vh; object-fit: contain; display: block; }
         .pd-close { position: absolute; top: -40px; right: 0; background: transparent;
           border: none; color: var(--pd-muted); font-size: 1.7rem; cursor: pointer; line-height: 1; }
+        /* El video de la propuesta: vertical, acotado por la altura de la pantalla
+           (en un proyector manda la altura; en el teléfono, el ancho). */
+        .pd-modal--video { width: min(92vw, calc((100dvh - 110px) * 0.5625)); max-height: none; }
+        .pd-modal--video video { width: 100%; aspect-ratio: 9 / 16; display: block;
+          background: #0F1115; border: 1px solid rgba(255,255,255,0.1); }
+        /* El botón de la propuesta, centrado bajo «Se requieren tres elementos». */
+        .pd-remate .pd-ver-video { display: inline-block; margin-top: 1.4rem; }
 
         /* ── Móvil ───────────────────────────────────────────────────────── */
         @media (max-width: 860px) {
@@ -1551,6 +1596,15 @@ export default function PitchDeckPage() {
                 a su nombre, similar a Uber, Rappi o Nequi.
               </p>
               <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>Se requieren tres elementos:</p>
+              {/* El socio elige: toca aquí y el video los explica, o hace clic en
+                  cualquier otra parte y los explica él (ver videoPropuesta). */}
+              <button
+                type="button"
+                className="pd-demo pd-ver-video"
+                onClick={(e) => { e.stopPropagation(); setVideoPropuesta(true); }}
+              >
+                VERLO EN VIDEO →
+              </button>
             </div>
           </div>
 
@@ -2175,6 +2229,45 @@ export default function PitchDeckPage() {
           {slide} / {TOTAL_SLIDES}
         </div>
 
+
+        {/* ── Ventana del video de la propuesta ──────────────────────── */}
+        {/* El <video> se monta con el toque del socio, así suena: el navegador
+            deja arrancar con voz lo que la persona acaba de pedir (el mismo
+            patrón del video de la Home). */}
+        {videoPropuesta && (
+          <div
+            className="pd-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Video: cómo funciona"
+            onClick={() => setVideoPropuesta(false)}
+          >
+            <div className="pd-modal pd-modal--video" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="pd-close"
+                onClick={() => setVideoPropuesta(false)}
+                aria-label="Cerrar el video"
+              >
+                ×
+              </button>
+              <video
+                src={VIDEO_COMO_FUNCIONA_WA}
+                autoPlay
+                controls
+                playsInline
+                onTimeUpdate={(e) => {
+                  const v = e.currentTarget;
+                  if (v.duration && v.currentTime / v.duration >= 0.8) {
+                    vioVideoEnVivo.current = true;
+                    marcarVioComoFunciona();
+                  }
+                }}
+                onEnded={alTerminarVideoPropuesta}
+              />
+            </div>
+          </div>
+        )}
 
         {/* ── Modal del portafolio ────────────────────────────────────── */}
         {visor && (

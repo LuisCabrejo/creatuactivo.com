@@ -7,46 +7,80 @@
  *
  * La huella la pone tracking.js, y la ficha nace unos instantes después de cargar
  * (la llamada va diferida): por eso se espera la huella y se reintenta mientras
- * la ruta responda «sin ficha».
+ * la ruta responda «sin ficha». ⚠️ Mientras tanto, tracking.js deja en
+ * FrameworkIAA una huella PROVISIONAL (`pending_…`) en un navegador nuevo: esa no
+ * tiene ficha nunca, así que se espera la real (13 oct 2026; antes la marca
+ * fallaba la primera vez en cualquier navegador recién estrenado).
+ *
+ * &destino=presentacion (13 oct 2026) — el botón «Abrir» de la Presentación en
+ * queswa.app (Centro de Expansión → Enlaces) pasa por aquí: marca el dispositivo
+ * y sigue a la presentación con el ?ref del socio, para que la estudie sin que la
+ * campanita le avise de sí mismo. Se sigue SIEMPRE, salga como salga la marca: lo
+ * que el socio quiere es estudiar. `location.replace` saca la firma del historial,
+ * y la barra de direcciones queda con el enlace normal (si lo copia y lo comparte,
+ * no silencia a nadie). Lista cerrada: un destino libre volvería esta página un
+ * redirector abierto.
  */
 import { useEffect, useState } from 'react';
 
 type Estado = 'cargando' | 'listo' | 'invalido' | 'fallo';
 
+const DESTINOS: Record<string, (constructorId: string) => string> = {
+  presentacion: (c) => `/servilleta?ref=${encodeURIComponent(c)}`,
+};
+/** Con destino, a los 10 s se sigue aunque la marca no haya terminado. */
+const TOPE_DESTINO_MS = 10_000;
+
 export default function MiDispositivoPage() {
   const [estado, setEstado] = useState<Estado>('cargando');
+  const [conDestino, setConDestino] = useState(false);
 
   useEffect(() => {
     let cancelado = false;
     const esperar = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    const url = new URL(window.location.href);
+    const c = url.searchParams.get('c');
+    const f = url.searchParams.get('f');
+    const clave = url.searchParams.get('destino');
+    const aDestino = clave && Object.prototype.hasOwnProperty.call(DESTINOS, clave) ? DESTINOS[clave] : null;
+    const destino = aDestino && c ? aDestino(c.trim().toLowerCase()) : null;
+    if (destino) setConDestino(true);
+    let siguio = false;
+    const seguir = () => {
+      if (!destino || siguio || cancelado) return false;
+      siguio = true;
+      window.location.replace(destino);
+      return true;
+    };
+    const terminar = (e: Estado) => { if (!cancelado && !seguir()) setEstado(e); };
+    const tope = destino ? setTimeout(seguir, TOPE_DESTINO_MS) : null;
+
     (async () => {
-      const url = new URL(window.location.href);
-      const c = url.searchParams.get('c');
-      const f = url.searchParams.get('f');
-      if (!c || !f) { setEstado('invalido'); return; }
+      if (!c || !f) { terminar('invalido'); return; }
 
       let fingerprint: string | undefined;
-      for (let i = 0; i < 40 && !fingerprint; i++) {
-        fingerprint = (window as any).FrameworkIAA?.fingerprint;
-        if (!fingerprint) await esperar(250);
+      for (let i = 0; i < 40 && !fingerprint && !cancelado; i++) {
+        const huella = (window as unknown as { FrameworkIAA?: { fingerprint?: unknown } }).FrameworkIAA?.fingerprint;
+        if (typeof huella === 'string' && huella && !huella.startsWith('pending_')) fingerprint = huella;
+        else await esperar(250);
       }
-      if (!fingerprint) { if (!cancelado) setEstado('fallo'); return; }
+      if (!fingerprint) { terminar('fallo'); return; }
 
-      for (let intento = 0; intento < 6; intento++) {
+      for (let intento = 0; intento < 6 && !cancelado; intento++) {
         try {
           const r = await fetch('/api/dispositivo-socio', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ fingerprint, c, f }),
           });
-          if (r.ok) { if (!cancelado) setEstado('listo'); return; }
-          if (r.status === 403 || r.status === 400) { if (!cancelado) setEstado('invalido'); return; }
+          if (r.ok) { terminar('listo'); return; }
+          if (r.status === 403 || r.status === 400) { terminar('invalido'); return; }
         } catch { /* se reintenta */ }
         await esperar(1500);
       }
-      if (!cancelado) setEstado('fallo');
+      terminar('fallo');
     })();
-    return () => { cancelado = true; };
+    return () => { cancelado = true; if (tope) clearTimeout(tope); };
   }, []);
 
   const textos: Record<Estado, { titulo: string; cuerpo: string[] }> = {
@@ -67,7 +101,7 @@ export default function MiDispositivoPage() {
       cuerpo: ['Recargue la página en un momento.'],
     },
   };
-  const t = textos[estado];
+  const t = conDestino && estado === 'cargando' ? { titulo: 'Abriendo su presentación…', cuerpo: [] } : textos[estado];
 
   return (
     <div

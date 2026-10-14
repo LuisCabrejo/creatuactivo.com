@@ -12,28 +12,32 @@
  * tiene ficha nunca, así que se espera la real (13 oct 2026; antes la marca
  * fallaba la primera vez en cualquier navegador recién estrenado).
  *
- * &destino=presentacion (13 oct 2026) — el botón «Abrir» de la Presentación en
- * queswa.app (Centro de Expansión → Enlaces) pasa por aquí: marca el dispositivo
- * y sigue a la presentación con el ?ref del socio, para que la estudie sin que la
+ * &destino= (13 oct 2026) — el botón «Abrir» de Centro de Expansión → Enlaces en
+ * queswa.app pasa por aquí: marca el dispositivo y sigue a la página con el ?ref
+ * del socio (la presentación, el catálogo o la Home), para que la mire sin que la
  * campanita le avise de sí mismo. Se sigue SIEMPRE, salga como salga la marca: lo
- * que el socio quiere es estudiar. `location.replace` saca la firma del historial,
- * y la barra de direcciones queda con el enlace normal (si lo copia y lo comparte,
- * no silencia a nadie). Lista cerrada: un destino libre volvería esta página un
- * redirector abierto.
+ * que el socio quiere es ver la página. `location.replace` saca la firma del
+ * historial, y la barra de direcciones queda con el enlace normal (si lo copia y
+ * lo comparte, no silencia a nadie). Lista cerrada: un destino libre volvería esta
+ * página un redirector abierto. Las rutas son las mismas del DESTINO_MAP de
+ * [slug]/[destino]; un destino nuevo se agrega aquí ANTES que en el Dashboard
+ * (`ArsenalItem.abrir` en queswa.app, src/lib/arsenal.ts).
  */
 import { useEffect, useState } from 'react';
 
 type Estado = 'cargando' | 'listo' | 'invalido' | 'fallo';
 
-const DESTINOS: Record<string, (constructorId: string) => string> = {
-  presentacion: (c) => `/servilleta?ref=${encodeURIComponent(c)}`,
+const DESTINOS: Record<string, { ruta: (constructorId: string) => string; titulo: string }> = {
+  presentacion: { ruta: (c) => `/servilleta?ref=${encodeURIComponent(c)}`, titulo: 'Abriendo su presentación…' },
+  productos: { ruta: (c) => `/productos/${encodeURIComponent(c)}`, titulo: 'Abriendo su catálogo…' },
+  home: { ruta: (c) => `/?ref=${encodeURIComponent(c)}`, titulo: 'Abriendo CreaTuActivo.com…' },
 };
 /** Con destino, a los 10 s se sigue aunque la marca no haya terminado. */
 const TOPE_DESTINO_MS = 10_000;
 
 export default function MiDispositivoPage() {
   const [estado, setEstado] = useState<Estado>('cargando');
-  const [conDestino, setConDestino] = useState(false);
+  const [tituloDestino, setTituloDestino] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelado = false;
@@ -43,8 +47,8 @@ export default function MiDispositivoPage() {
     const f = url.searchParams.get('f');
     const clave = url.searchParams.get('destino');
     const aDestino = clave && Object.prototype.hasOwnProperty.call(DESTINOS, clave) ? DESTINOS[clave] : null;
-    const destino = aDestino && c ? aDestino(c.trim().toLowerCase()) : null;
-    if (destino) setConDestino(true);
+    const destino = aDestino && c ? aDestino.ruta(c.trim().toLowerCase()) : null;
+    if (destino && aDestino) setTituloDestino(aDestino.titulo);
     let siguio = false;
     const seguir = () => {
       if (!destino || siguio || cancelado) return false;
@@ -101,7 +105,7 @@ export default function MiDispositivoPage() {
       cuerpo: ['Recargue la página en un momento.'],
     },
   };
-  const t = conDestino && estado === 'cargando' ? { titulo: 'Abriendo su presentación…', cuerpo: [] } : textos[estado];
+  const t = tituloDestino && estado === 'cargando' ? { titulo: tituloDestino, cuerpo: [] } : textos[estado];
 
   return (
     <div

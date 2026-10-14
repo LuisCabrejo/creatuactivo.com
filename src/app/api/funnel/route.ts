@@ -34,7 +34,9 @@ async function notifyConstructor(constructorId: string, title: string, body: str
  * avisó en las últimas 24 h. La marca vive en la ficha del prospecto
  * (`device_info.catalogo_avisado_at`), así que vale entre instancias. Sin huella
  * no hay forma de no repetir: no se avisa (la página espera la huella antes de
- * mandar el evento).
+ * mandar el evento). Tampoco cuando la ficha es del socio (13 oct 2026): el botón
+ * «Abrir» del Dashboard le abre su propio catálogo con el dispositivo marcado, y
+ * este aviso sale de aquí, no del webhook del Dashboard que ya calla esas fichas.
  */
 async function avisoCatalogoPermitido(fingerprint: unknown): Promise<boolean> {
   if (typeof fingerprint !== 'string' || !fingerprint) return false
@@ -46,6 +48,7 @@ async function avisoCatalogoPermitido(fingerprint: unknown): Promise<boolean> {
       .maybeSingle()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const di = ((fila as any)?.device_info ?? {}) as Record<string, unknown>
+    if (di.dispositivo_del_socio === true || di.es_socio === true) return false
     const ultimo = typeof di.catalogo_avisado_at === 'string' ? Date.parse(di.catalogo_avisado_at) : NaN
     if (!Number.isNaN(ultimo) && Date.now() - ultimo < 24 * 60 * 60 * 1000) return false
     if (fila) {

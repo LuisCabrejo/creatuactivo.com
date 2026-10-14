@@ -57,8 +57,10 @@
  *  5 LA PROPUESTA    · beat 0: una empresa de distribución moderna a su nombre,
  *    Y CÓMO FUNCIONA   «se requieren tres elementos» y el botón VERLO EN VIDEO
  *                      (13 oct 2026): el socio elige si rueda el video «Cómo
- *                      funciona» —al terminar salta a la 6 y la 10 ya no lo
- *                      repite— o explica él los beats. Luego el orden de WHY_02:
+ *                      funciona» —al terminar salta a la 6— o explica él los
+ *                      beats. Es el ÚNICO lugar del deck con ese video (el repaso
+ *                      en la 10 se retiró el 14 oct 2026, Director). Luego el
+ *                      orden de WHY_02:
  *                      las tres piezas (el fabricante SIN nombre; la 3ª es SABER
  *                      QUÉ HACER desde el 9 oct 2026), la oscilación, el remate
  *                      en UNA diapositiva (10 oct 2026): el teléfono con la UNIÓN
@@ -79,11 +81,8 @@
  *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
  *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
  *                      final.
- * 10 EL SIGUIENTE    · beat 0 (13 oct 2026): el video «Cómo funciona», el mismo
- *    PASO              de WhatsApp y la Home, como repaso antes de cerrar (se salta
- *                      si ya se vio en la 5: `vioVideoEnVivo`). Beat 1:
- *                      la segunda mitad del credo, la lista de espera y la
- *                      conversación con el socio del ?ref (nombre y WhatsApp).
+ * 10 EL SIGUIENTE    · la segunda mitad del credo, la lista de espera y la
+ *    PASO              conversación con el socio del ?ref (nombre y WhatsApp).
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
  * ----------------------------------
@@ -119,7 +118,6 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
-import VideoComoFuncionaHome from '@/components/VideoComoFuncionaHome';
 import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 
@@ -132,7 +130,7 @@ const HITOS_PRESENTACION = [4, 7, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 7, 6: 2, 9: 2, 10: 2 };
+const BEATS: Record<number, number> = { 5: 7, 6: 2, 9: 2 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
@@ -465,10 +463,8 @@ export default function PitchDeckPage() {
   // el gesto natural en un teléfono es deslizar hacia arriba, y eso sacaba el deck
   // de la vista y mostraba la guía: la persona creía que la presentación era ese
   // texto (le pasó al propio Director, que sabe que el deck se pasa de lado). Por
-  // eso la página no baja hasta el cierre de la pantalla 10 (su último beat, el
-  // del WhatsApp), cuando ya se sabe que el deck es lateral; ahí la guía queda
-  // debajo, con su señal (.pd-a-la-guia). En el beat del video sigue cerrada: un
-  // gesto vertical mientras suena no debe llevarse la pantalla.
+  // eso la página no baja hasta la pantalla 10, cuando ya se sabe que el deck es
+  // lateral; ahí la guía queda debajo, con su señal (.pd-a-la-guia).
   // ⚠️ La guía NO se quita del HTML ni se oculta: Google la lee con un viewport
   // tan alto como la página, y es lo que la posiciona. Solo se bloquea el
   // desplazamiento (html:has(.pd-root[data-guia="cerrada"]) en el CSS).
@@ -478,7 +474,7 @@ export default function PitchDeckPage() {
   // posición que el navegador restaura al recargar, el tabulador que enfoca el
   // botón de la guía—, la persona vino a leer: la guía queda abierta.
   const [guiaPorEnlace, setGuiaPorEnlace] = useState(false);
-  const guiaAbierta = (slide === TOTAL_SLIDES && beat === beatsOf(TOTAL_SLIDES) - 1) || guiaPorEnlace;
+  const guiaAbierta = slide === TOTAL_SLIDES || guiaPorEnlace;
   const guiaBloqueada = useRef(true);
   useEffect(() => {
     if (guiaAbierta) { guiaBloqueada.current = false; return; }
@@ -511,21 +507,13 @@ export default function PitchDeckPage() {
   // setSlide dentro del updater de setBeat: un updater debe ser puro, React lo
   // ejecuta dos veces en desarrollo y el efecto colateral se pierde — con esa
   // versión el deck no pasaba de la primera pantalla (bug real, 23 sep 2026).
-  // ¿El video «Cómo funciona» ya se vio en la pantalla 5? (13 oct 2026). Entonces
-  // la pantalla 10 entra directo al siguiente paso: su beat 0 es ese mismo video
-  // como repaso, y en la misma reunión no se pasa dos veces. Va en un ref y no en
-  // estado para que avanzar/irA no cambien de identidad (el efecto de ?pantalla
-  // depende de irA y volvería a saltar).
-  const vioVideoEnVivo = useRef(false);
-  const beatDeEntrada = (n: number) => (n === TOTAL_SLIDES && vioVideoEnVivo.current ? 1 : 0);
-
   const avanzar = useCallback(() => {
     if (beat < beatsOf(slide) - 1) { setBeat(beat + 1); return; }
-    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(beatDeEntrada(slide + 1)); }
+    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(0); }
   }, [slide, beat]);
 
   const retroceder = useCallback(() => {
-    if (beat > beatDeEntrada(slide)) { setBeat(beat - 1); return; }
+    if (beat > 0) { setBeat(beat - 1); return; }
     if (slide > 1) {
       const destino = slide - 1;
       setSlide(destino);
@@ -537,7 +525,7 @@ export default function PitchDeckPage() {
 
   const irA = useCallback((n: number) => {
     setSlide(n);
-    setBeat(beatDeEntrada(n));
+    setBeat(0);
   }, []);
 
   // EL VIDEO EN «LA PROPUESTA» (Director, 13 oct 2026): «el distribuidor podrá
@@ -553,7 +541,6 @@ export default function PitchDeckPage() {
   // siga igual para quien explica.
   const [videoPropuesta, setVideoPropuesta] = useState(false);
   const alTerminarVideoPropuesta = () => {
-    vioVideoEnVivo.current = true;
     setVideoPropuesta(false);
     irA(6);
   };
@@ -576,25 +563,6 @@ export default function PitchDeckPage() {
       }
     });
   }, [slide, beat]);
-
-  // EL VIDEO DEL REPASO (pantalla 10, beat 0). Lleva voz, así que NO entra al
-  // efecto de arriba: no arranca solo (el navegador lo bloquearía con sonido, y en
-  // vivo lo arranca el socio cuando quiere) y no tiene data-beat. Al salir de su
-  // beat se pausa; al terminar, el deck pasa solo al siguiente paso — la espera
-  // con la pantalla quieta después de un video es la que el Director llamó
-  // «mortal» en WhatsApp (9 oct 2026).
-  const posicion = useRef({ slide, beat });
-  posicion.current = { slide, beat };
-  useEffect(() => {
-    if (slide === TOTAL_SLIDES && beat === 0) return;
-    deckRef.current?.querySelectorAll<HTMLVideoElement>('.pd-resumen video').forEach((v) => v.pause());
-  }, [slide, beat]);
-  const alTerminarResumen = useCallback(() => {
-    window.setTimeout(() => {
-      const { slide: s, beat: b } = posicion.current;
-      if (s === TOTAL_SLIDES && b === 0) setBeat(1);
-    }, 1200);
-  }, []);
 
   // Enlace a una pantalla (2 oct 2026): `?pantalla=9` abre en la de los números.
   // Queswa se lo da al socio que quiere estudiar Los 12 Niveles y mover el
@@ -1163,18 +1131,6 @@ export default function PitchDeckPage() {
         }
         .pd-final .pd-bisagra { margin: 1.8rem 0 0; text-wrap: balance; }
         .pd-final .pd-p { text-wrap: pretty; }
-        /* El repaso: el video manda, acotado por la altura real de la pantalla
-           para que en un proyector de 720 o en un teléfono chico quepa entero. */
-        .pd-resumen { margin: auto; width: 100%; }
-        .pd-resumen .pd-eyebrow { margin-bottom: 1.1rem; }
-        .pd-resumen-video {
-          width: min(360px, 84vw, calc((100vh - 190px) * 0.5625));
-          width: min(360px, 84vw, calc((100dvh - 190px) * 0.5625));
-          margin: 0 auto;
-        }
-        /* En ángulo recto, como toda figura del deck (el componente de la Home
-           trae el radio del sitio en línea, de ahí el !important). */
-        .pd-resumen-video > div { border-radius: 0 !important; }
 
         /* ── Modal catálogo ──────────────────────────────────────────────── */
         .pd-overlay { position: fixed; inset: 0; background: rgba(5,6,8,0.94); z-index: 200;
@@ -2108,120 +2064,96 @@ export default function PitchDeckPage() {
         {/* La segunda mitad del credo cierra el deck: el cuerpo ya mostró cómo el
             esfuerzo se vuelve capital (el cliente a su nombre que vuelve a pedir).
             La conversación es con el socio del ?ref, para cuando el deck se envía. */}
-        <section className={`pd-slide pd-final ${slide === 10 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          {/* Beat 0: EL VIDEO «CÓMO FUNCIONA» COMO REPASO (Director, 13 oct 2026:
-              «aplicar el video de cómo funciona en la presentación, el punto más
-              asertivo»). Va aquí y no en la pantalla 5 por las reglas del propio
-              deck: el video nombra a Gano Excel y dice que cada recompra deja un
-              porcentaje, y el deck guarda a Gano para la pantalla 7 y el dinero
-              para la 9. Después de la 9 ya no adelanta nada. En la 5 habría
-              contado dos veces seguidas lo que el socio está narrando, y le habría
-              quitado el clímax. Aquí repasa en un minuto antes del cierre, y es la
-              pieza que la persona puede volver a ver o mostrarle a su pareja.
-              El mismo corte de WhatsApp y de la Home (VIDEO_COMO_FUNCIONA_WA). */}
-          <div className={`pd-beat ${slide === 10 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-resumen">
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>En un minuto</p>
-              {/* no-advance: tocar el video pausa o muestra los controles, no pasa
-                  de diapositiva. El swipe sigue avanzando, como en todo el deck. */}
-              <div className="pd-resumen-video no-advance">
-                <VideoComoFuncionaHome alTerminar={alTerminarResumen} prioridad={false} />
-              </div>
-            </div>
-          </div>
-
-          {/* Beat 1: el siguiente paso. */}
-          <div className={`pd-beat ${slide === 10 && beat === 1 ? 'on' : ''}`}>
-            <div className="pd-wrap">
-              <p className="pd-eyebrow">En qué creemos</p>
-              <p className="pd-final-credo">
-                Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
-                en capital real.
-              </p>
-              <p className="pd-p">
-                Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
-                vez. Por eso el acceso va por lista de espera.
-              </p>
-              <p className="pd-bisagra">
-                El siguiente paso es una conversación
-                {nombreVisible && (
-                  <>
-                    {' con '}
-                    {editandoNombre ? (
-                      <input
-                        className="pd-nombre-input"
-                        autoFocus
-                        value={nombreEscrito}
-                        maxLength={24}
-                        placeholder="Nombre"
-                        aria-label="Escriba el nombre de la persona"
-                        style={{ width: `${Math.max(6, nombreEscrito.length + 1)}ch` }}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) => setNombreEscrito(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') confirmarNombre(nombreEscrito);
-                          if (e.key === 'Escape') confirmarNombre('');
-                        }}
-                        onBlur={() => confirmarNombre(nombreEscrito)}
-                      />
-                    ) : (
-                      <button
-                        type="button"
-                        className="pd-nombre"
-                        title="Toque para escribir el nombre de la persona"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setNombreEscrito('');
-                          setEditandoNombre(true);
-                        }}
-                      >
-                        {nombreVisible}
-                      </button>
-                    )}
-                  </>
-                )}
-                {!nombreVisible && sinSocio && ' con el equipo'}
-                .
-              </p>
-              {!waSocio && sinSocio && (
-                <a
-                  className="pd-demo pd-socio"
-                  href={waEquipo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
-                >
-                  ESCRIBIRLE AL EQUIPO POR WHATSAPP →
-                </a>
+        <section className={`pd-slide pd-final ${slide === 10 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">En qué creemos</p>
+            <p className="pd-final-credo">
+              Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
+              en capital real.
+            </p>
+            <p className="pd-p">
+              Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
+              vez. Por eso el acceso va por lista de espera.
+            </p>
+            <p className="pd-bisagra">
+              El siguiente paso es una conversación
+              {nombreVisible && (
+                <>
+                  {' con '}
+                  {editandoNombre ? (
+                    <input
+                      className="pd-nombre-input"
+                      autoFocus
+                      value={nombreEscrito}
+                      maxLength={24}
+                      placeholder="Nombre"
+                      aria-label="Escriba el nombre de la persona"
+                      style={{ width: `${Math.max(6, nombreEscrito.length + 1)}ch` }}
+                      onClick={(e) => e.stopPropagation()}
+                      onChange={(e) => setNombreEscrito(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') confirmarNombre(nombreEscrito);
+                        if (e.key === 'Escape') confirmarNombre('');
+                      }}
+                      onBlur={() => confirmarNombre(nombreEscrito)}
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      className="pd-nombre"
+                      title="Toque para escribir el nombre de la persona"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setNombreEscrito('');
+                        setEditandoNombre(true);
+                      }}
+                    >
+                      {nombreVisible}
+                    </button>
+                  )}
+                </>
               )}
-              {waSocio && (nombreDemo ? (
-                <span className="pd-demo pd-socio" aria-hidden="true">
-                  ESCRIBIRLE A {nombreDemo.toUpperCase()} POR WHATSAPP →
-                </span>
-              ) : (
-                <a
-                  className="pd-demo pd-socio"
-                  href={waSocio}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
-                >
-                  ESCRIBIRLE A {primerNombre!.toUpperCase()} POR WHATSAPP →
-                </a>
-              ))}
-              <div className="pd-credo-rule" />
-              <p className="pd-kicker">CreaTuActivo.com</p>
-              {/* La señal de la guía, al pie de la última pantalla: aquí ya se sabe
-                  que el deck se pasa de lado. Dentro del contenido y no pegada al
-                  borde, porque ahí la tapa el aviso de cookies. Es un enlace, así que
-                  tocarla no avanza. En pantalla completa y en el kiosco no aparece. */}
-              {slide === TOTAL_SLIDES && beat === 1 && !isKiosk && (
-                <a className="pd-a-la-guia" href="#guia-plan-servilleta" onClick={irALaGuia}>
-                  LA PRESENTACIÓN, EN TEXTO
-                  <span className="flecha" aria-hidden="true">↓</span>
-                </a>
-              )}
-            </div>
+              {!nombreVisible && sinSocio && ' con el equipo'}
+              .
+            </p>
+            {!waSocio && sinSocio && (
+              <a
+                className="pd-demo pd-socio"
+                href={waEquipo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
+              >
+                ESCRIBIRLE AL EQUIPO POR WHATSAPP →
+              </a>
+            )}
+            {waSocio && (nombreDemo ? (
+              <span className="pd-demo pd-socio" aria-hidden="true">
+                ESCRIBIRLE A {nombreDemo.toUpperCase()} POR WHATSAPP →
+              </span>
+            ) : (
+              <a
+                className="pd-demo pd-socio"
+                href={waSocio}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
+              >
+                ESCRIBIRLE A {primerNombre!.toUpperCase()} POR WHATSAPP →
+              </a>
+            ))}
+            <div className="pd-credo-rule" />
+            <p className="pd-kicker">CreaTuActivo.com</p>
+            {/* La señal de la guía, al pie de la última pantalla: aquí ya se sabe
+                que el deck se pasa de lado. Dentro del contenido y no pegada al
+                borde, porque ahí la tapa el aviso de cookies. Es un enlace, así que
+                tocarla no avanza. En pantalla completa y en el kiosco no aparece. */}
+            {slide === TOTAL_SLIDES && !isKiosk && (
+              <a className="pd-a-la-guia" href="#guia-plan-servilleta" onClick={irALaGuia}>
+                LA PRESENTACIÓN, EN TEXTO
+                <span className="flecha" aria-hidden="true">↓</span>
+              </a>
+            )}
           </div>
         </section>
 
@@ -2258,10 +2190,7 @@ export default function PitchDeckPage() {
                 playsInline
                 onTimeUpdate={(e) => {
                   const v = e.currentTarget;
-                  if (v.duration && v.currentTime / v.duration >= 0.8) {
-                    vioVideoEnVivo.current = true;
-                    marcarVioComoFunciona();
-                  }
+                  if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona();
                 }}
                 onEnded={alTerminarVideoPropuesta}
               />

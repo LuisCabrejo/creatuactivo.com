@@ -28,7 +28,8 @@
 // Bump 1.4.8 (13 oct 2026): /servilleta no baja hasta el cierre y la pantalla 10
 // estrena el video «Cómo funciona» antes del siguiente paso.
 // Bump 1.4.9 (13 oct 2026): botón «VERLO EN VIDEO» en la propuesta de /servilleta.
-const CACHE_VERSION = '1.4.9';
+// Bump 1.4.10 (14 oct 2026): se retira el repaso en video de la pantalla 10.
+const CACHE_VERSION = '1.4.10';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

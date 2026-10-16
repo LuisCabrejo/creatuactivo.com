@@ -3478,6 +3478,19 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
           fragments = fragments.filter((f) => !/_FREQ_34$/.test(f.category));
           console.log('🏢 [Directorio] FREQ_34 retirado del contexto — solo para socios');
         }
+        // Y al revés, la entrega del CLIENTE (FREQ_36) no viaja en MODO SOCIO
+        // (15 oct 2026): dice que la entrega la coordina «la persona que le
+        // compartió el enlace», y Edilberto Afanador, socio desde la víspera, lo
+        // recibió dos veces sobre sí mismo. En WhatsApp al prospecto se lo dicta
+        // el webhook; con el socio llegaba al modelo y salía tal cual. Medido con
+        // su hilo real, 8 muestras: 7/8 en producción y 6/8 en local con el
+        // fragmento; 0/8 sin él, y la pregunta por el pedido de una clienta suya
+        // sigue saliendo con su enlace de productos. Una línea en el bloque del
+        // MODO SOCIO, sin retirar el fragmento, no movió nada (6/8).
+        if (_esSocio && fragments.some((f) => /_FREQ_36$/.test(f.category))) {
+          fragments = fragments.filter((f) => !/_FREQ_36$/.test(f.category));
+          console.log('📦 [Entrega] FREQ_36 retirado del contexto — es la entrega del cliente');
+        }
 
         // ── Lo que este hilo ya sirvió sale de los candidatos ─────────────
         // El anillo de María (21 sep 2026) y el porqué de hacerlo AQUÍ y no en

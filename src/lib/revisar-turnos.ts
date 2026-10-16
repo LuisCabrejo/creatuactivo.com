@@ -176,6 +176,22 @@ export function detectoresDeterministas(
     marcas.push('efecto digestivo');
   }
 
+  // Promete un dato para después (15 oct 2026): «el chocolate… ese dato se lo
+  // confirmo en el siguiente turno, porque no lo tengo en este momento». Deja ver
+  // la mecánica y promete algo que ningún turno cumple: el siguiente lo escribe
+  // la persona. Edilberto no volvió a preguntar y el chocolate quedó sin precio.
+  if (/(se lo|le) (confirmo|cuento|paso|averiguo) (en el (siguiente|pr[oó]ximo) (turno|mensaje)|m[aá]s tarde|en un momento)|(siguiente|pr[oó]ximo) turno|no lo tengo (en este momento|a la mano|aqu[ií])/i.test(t)) {
+    marcas.push('promete un dato para después');
+  }
+
+  // Al socio como si fuera cliente (15 oct 2026): a Edilberto, socio desde el día
+  // anterior, «la entrega la coordina con la persona que le compartió el enlace»
+  // y «ese material lo maneja quien le compartió el enlace, Edilberto». Él ES
+  // quien comparte el enlace.
+  if (opts.esSocio && /(quien|la persona que|el socio que) le comparti[oó] (el|su) enlace|quien le (pas[oó]|mand[oó]) el enlace/i.test(t)) {
+    marcas.push('trata al socio como cliente');
+  }
+
   if (!t.trim()) marcas.push('respuesta vacía');
 
   return marcas;

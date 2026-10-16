@@ -62,8 +62,20 @@ for (const r of data) (porHuella[r.fingerprint_id ?? 'null'] ||= []).push(r);
 const { data: socios } = await s.from('prospects').select('fingerprint_id')
   .in('fingerprint_id', Object.keys(porHuella)).eq('device_info->>es_socio', 'true');
 const esSocio = new Set((socios || []).map((p) => p.fingerprint_id));
+// Quien de verdad le escribió al número es persona aunque no salude (15 oct 2026):
+// Gerardo Velásquez volvió a los seis días con «Cuánto es la inversión minima»
+// y el volcado lo dejó fuera por no abrir con «hola». El webhook anota cada
+// entrante en `wa_mensajes_procesados`; es el mismo criterio del revisor diario
+// (src/lib/revisar-turnos.ts → huellasDePersonas).
+const conEntrante = new Set();
+for (let de = 0; ; de += 1000) {
+  const { data: ent } = await s.from('wa_mensajes_procesados').select('identidad').gt('creado_at', desde).range(de, de + 999);
+  for (const f of ent || []) for (const v of [f.identidad?.from, f.identidad?.wa_id, f.identidad?.user_id]) if (v) conEntrante.add(`wa_${String(v).replace(/^\+/, '')}`);
+  if ((ent || []).length < 1000) break;
+}
 if (!todo) {
   for (const [fp, filas] of Object.entries(porHuella)) {
+    if (conEntrante.has(fp) && !RE_ARNES.test(fp)) continue;
     const primero = (filas[0].messages || []).find((m) => m.role === 'user')?.content;
     if (!huellaDePersona(fp) || (fp !== 'null' && !esSocio.has(fp) && !fp.startsWith('dash_') && !abreComoPersona(primero))) delete porHuella[fp];
   }

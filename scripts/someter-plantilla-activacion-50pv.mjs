@@ -18,10 +18,10 @@
  * (hay que cambiar de nombre). La v1 cayó justo ahí; ver la nota junto a NOMBRE.
  *
  * Variables (en este orden, las manda el Dashboard):
- *   {{1}} primer nombre · {{2}} PV vigentes (v3; la v2 llevaba además faltan y cajas)
+ *   {{1}} primer nombre · {{2}} PV vigentes · {{3}} PV que faltan · {{4}} cajas en palabras
  *
- * Después de aprobada COMO UTILITY: WA_PLANTILLA_ACTIVACION=activacion_50pv_v3 en Vercel del
- * DASHBOARD, y verificar la categoría contra la API (--estado), no en el Manager.
+ * Después de aprobada: WA_PLANTILLA_ACTIVACION=aviso_corte_50pv_v1 en Vercel del DASHBOARD,
+ * y verificar el estado contra la API (--estado), no en el Manager.
  *
  * Uso:
  *   node scripts/someter-plantilla-activacion-50pv.mjs --dry    # muestra sin enviar
@@ -53,22 +53,36 @@ const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // cantidad a comprar. Si Meta también la pasa a MARKETING, los avisos quedan solo por push.
 // 🔴 RESULTADO (15 sep 2026): APPROVED · MARKETING (previous_category UTILITY). No usar.
 // Tres intentos: Meta lee cualquier aviso de umbral antes del corte como comercial → solo push.
-const NOMBRE  = 'activacion_50pv_v3';
+// Las tres se borraron de la cuenta después (nombres reservados).
+//
+// 🟢 aviso_corte_50pv_v1 (Director, 16 oct 2026): se somete COMO MARKETING, sin
+// buscar UTILITY. El push solo no movía a nadie en 0 PV: Milton y Brahyam lo
+// recibieron cada fin de semana desde el 19 sep (11 avisos) y siguieron en 0.
+// Lo que se temía de MARKETING se midió con lunes_socio (MARKETING, ~60 envíos):
+// Meta frenó 3 por el tope (#131049), dos a un número de EE. UU.; cada descarte
+// queda en wa_envios_fallidos. Sale VIERNES a todo el que esté en rojo y DOMINGO a
+// quien siga en rojo (el sábado, solo push). Texto «A» aprobado por el Director.
+// Variables: {{1}} primer nombre · {{2}} PV vigentes · {{3}} PV que faltan · {{4}} «4 cajas» / «1 caja».
+const NOMBRE  = 'aviso_corte_50pv_v1';
 
 const PLANTILLA = {
   name: NOMBRE,
   language: 'es',
-  category: 'UTILITY',
+  category: 'MARKETING',
   components: [
     {
       type: 'BODY',
       // ⚠️ Meta no admite una variable al principio ni al final del cuerpo
       // (rechazo del 15 sep 2026: "No se permite incluir parámetros al principio
       // ni al final"). Por eso «Hola, {{1}}.» y el cierre en texto fijo.
-      // ⚠️ Sin imperativos comerciales («compre», «pague», «comparta»): son los que
-      // hacen que Meta reclasifique a MARKETING.
-      text: 'Hola, {{1}}. Alerta de su cuenta en Gano: al día de hoy tiene {{2}} PV vigentes y el mínimo para calificar en el corte del domingo a medianoche es de 50 PV. Cualquier duda, aquí estoy.',
-      example: { body_text: [['Nidia', '15']] },
+      text: 'Hola, {{1}}. Hoy tiene {{2}} PV vigentes en Gano Excel y le faltan {{3}} PV ({{4}}) para los 50 del corte del domingo a medianoche. Compre y pague antes del corte para no perder el volumen acumulado.',
+      example: { body_text: [['Milton', '0', '50', '4 cajas']] },
+    },
+    {
+      // El mismo destino del push: Proyección muestra el estado y el botón
+      // «Cargar la compra». Compras directo no sirve a quien no conectó Gano.
+      type: 'BUTTONS',
+      buttons: [{ type: 'URL', text: 'Ver mi estado', url: 'https://queswa.app/herramientas/proyeccion-patrimonial' }],
     },
   ],
 };
@@ -93,7 +107,7 @@ if (args.includes('--estado')) {
   const lista = await estado();
   for (const t of lista) {
     const icono = t.status === 'APPROVED' ? '✅' : t.status === 'REJECTED' ? '❌' : '⏳';
-    const alerta = t.category !== 'UTILITY' ? `  ⚠️ Meta la clasificó ${t.category}: NO usarla para el aviso (cuota promocional); someter con nombre nuevo` : '';
+    const alerta = t.category !== PLANTILLA.category ? `  ⚠️ Meta la clasificó ${t.category} (se sometió ${PLANTILLA.category})` : '';
     console.log(`${icono} ${t.name} (${t.language}) — ${t.status} · ${t.category}${t.previous_category ? ` (sometida ${t.previous_category})` : ''}${t.rejected_reason && t.rejected_reason !== 'NONE' ? ` · motivo: ${t.rejected_reason}` : ''}${alerta}`);
   }
   if (!lista.length) console.log('No existe todavía. Corra el script sin --estado para someterla.');
@@ -128,5 +142,5 @@ if (!r.ok) {
   process.exit(1);
 }
 console.log(`✅ Sometida: id ${j.id} · estado ${j.status} · categoría ${j.category}`);
-if (j.category && j.category !== 'UTILITY') console.log('⚠️ Meta ya la marcó como', j.category, '— no usarla para el aviso.');
+if (j.category && j.category !== PLANTILLA.category) console.log('⚠️ Meta la marcó como', j.category, `(se sometió ${PLANTILLA.category}).`);
 console.log('Consulte la aprobación con --estado.');

@@ -1097,10 +1097,14 @@ async function procesarEntrante(body: any): Promise<void> {
       // entera: quedaba en `expansion`, sin `user_id`, o sea contado como venta
       // pendiente. Es el mismo error de puerta que el del saludo, un piso más
       // abajo. `convertirProspectoEnSocio` relee la ficha cuando no se le pasa.
-      if (!existingProspect?.device_info?.es_socio) {
-        const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
-        if (convertido) socioDesde = new Date().toISOString();
-      }
+      // ⚠️ También corre si ya era socio (15 oct 2026): la limpieza de lo que le
+      // quedó de prospecto («limpiado: le habían repuesto la temperatura») vive
+      // en esa función, y con la puerta en `!es_socio` nunca le llegaba a nadie
+      // — Edilberto Afanador siguió «caliente» como socio. Sin nada que limpiar,
+      // devuelve `false` sin tocar la base. El hilo solo se corta al convertir.
+      const yaEraSocio = !!existingProspect?.device_info?.es_socio;
+      const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
+      if (convertido && !yaEraSocio) socioDesde = new Date().toISOString();
     }
 
     // ─── 1.386 Vuelve a escribir después de una pausa (8 oct 2026) ────────────
@@ -2401,7 +2405,10 @@ async function procesarEntrante(body: any): Promise<void> {
     // prospecto del 20 sep volvió al día siguiente a preguntar cuánto cuesta una
     // caja y siguió «frío, interés 0» — al socio nunca le llegó. Esas preguntas
     // van al motor, no al conductor, así que aquí se marcan antes de atenderlas.
-    if (!socioQueEscribe && /cu[aá]nto\s+(vale|cuesta|sale)|\bprecio\b|c[oó]mo\s+(se pide|lo pido|se compra|lo compro|compro|pedir|comprar)|d[oó]nde\s+(lo|la|los)?\s*(compro|consigo|pido)/i.test(messageText)) {
+    // Y la inversión es el precio del negocio (15 oct 2026): Gerardo Velásquez
+    // volvió a los seis días con «Cuánto es la inversión minima», pidió ver el
+    // ESP-1 y su ficha siguió «frío, interés 0» en el Radar de Jeisson.
+    if (!socioQueEscribe && /cu[aá]nto\s+(vale|cuesta|sale)|\bprecio\b|c[oó]mo\s+(se pide|lo pido|se compra|lo compro|compro|pedir|comprar)|d[oó]nde\s+(lo|la|los)?\s*(compro|consigo|pido)|inversi[oó]n\s+(m[ií]nima|inicial|para (empezar|iniciar|arrancar|entrar))|cu[aá]nto\s+(es|son|seria|ser[ií]a)\s+(la\s+)?inversi[oó]n|cu[aá]nto\s+(hay que|tengo que|toca|debo|se debe)\s+invertir|cu[aá]nto\s+(vale|cuesta|es)\s+(el\s+)?(kit|paquete)/i.test(messageText)) {
       await marcarTemperatura('tibio');
     }
     // Llegar al TERCER botón de la apertura —«Qué debo hacer yo»— también es
@@ -3126,6 +3133,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // Red del cierre del socio (2 oct 2026): si el modelo copió la oferta del
     // simulador —cerrado para él—, sale la de su Semana en Gano.
     if (socioQueEscribe) queswaReply = sinSimuladorParaSocio(queswaReply);
+    // Ver lo que trae un paquete es evaluar uno en concreto (15 oct 2026): la
+    // tabla la dicta el motor (`pin_composicion_dictado`), no el conductor, así
+    // que ningún nodo de aquí arriba la marcaba. Pesa como el simulador.
+    if (/le activa inmediatamente este inventario/i.test(queswaReply)) await marcarTemperatura('caliente');
     console.log(`💬 [WA Webhook] Queswa responde (${pageContext}, motor ${msMotor} ms): "${queswaReply.slice(0, 80)}..."`);
 
     // ─── 3.5 Guardrail de salida ──────────────────────────────────────────────

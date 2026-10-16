@@ -360,7 +360,10 @@ export async function convertirProspectoEnSocio(
   // ESP-3, arquetipo «emprendedor» e hilo de 12 Niveles: la guarda del scoring
   // solo cuidaba `momento_optimo` e `interest_level`, y todo lo demás que el
   // motor le captura a un prospecto se le seguía escribiendo al socio.
-  const CAMPOS_DE_PROSPECTO = ['momento_optimo', 'interest_level', 'hilo_12_niveles', 'package', 'archetype', 'objections'] as const;
+  // `temperatura_por_avance` (15 oct 2026): la marca que pone el webhook cuando el
+  // prospecto avanza tampoco estaba, y Edilberto Afanador siguió «caliente» como
+  // socio. Su ficha se limpia en el próximo mensaje que escriba.
+  const CAMPOS_DE_PROSPECTO = ['momento_optimo', 'interest_level', 'hilo_12_niveles', 'package', 'archetype', 'objections', 'temperatura_por_avance'] as const;
   const tieneTemperatura = CAMPOS_DE_PROSPECTO.some((k) => previo[k] != null);
   if (previo.es_socio && !tieneTemperatura) return false;
   const resto: Record<string, any> = { ...previo };

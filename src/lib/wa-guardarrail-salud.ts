@@ -101,6 +101,22 @@ export const RE_SALUD_COMUN: RegExp[] = [
   /antiinflamator|desinflam|\bmedicinal|propiedades curativas/,
   /estoy en tratamiento|tomo (medicament|pastilla|remedio)|anticoagulante|metformina|losartan|ibuprofeno|acetaminofen|omeprazol|me diagnosticaron/,
   /buen[oa] para (la |el |los |las )?(circulacion|corazon|higado|colon|vista|rinones|huesos|prostata)/,
+  // El sistema u órgano como destino del producto, dicho con «sirve» y no solo
+  // con «bueno para» (15 oct 2026): Adriana, socia, pidió en el Centro de Mando
+  // «productos… que sirvan para el sistema circulatorio». Es la misma declaración
+  // de órgano que ya se ataja con «salud digestiva» (24 sep). El sistema INMUNE
+  // sigue fuera a propósito, como en la salida.
+  // Backtest: 2.482 mensajes reales de 60 días, ningún falso positivo.
+  /sistema (circulatorio|cardiovascular|nervioso|respiratorio|urinario|renal|endocrino|hormonal|linfatico|oseo)|salud (cardiovascular|cardiaca|del corazon|renal|hepatica|circulatoria|respiratoria|sexual)|(buen[oa]s?|sirv[ae]n?|sirve|recomienda|ayud[ae]n?) para (mejorar |la |el |los |las )*(circulacion|corazon|higado|colon|vista|rinones|pulmones|huesos|prostata|tiroides)\b/,
+  // Desintoxicar: la SALIDA ya bloquea «desintoxicación» y «efecto detox», y la
+  // entrada no (15 oct 2026, «¿Qué me sirve para desintoxicar el cuerpo?»): el
+  // modelo alcanzaba a componer. Mismo hueco que tuvo «adelgaza» (24 ago).
+  /desintoxi|\bdetox|limpi(ar|eza) (el |del |de )?(organismo|cuerpo|colon|higado|sangre|intestino)|depura(r|cion)? (el |del |la )?(organismo|cuerpo|sangre|higado)/,
+  // Pedir testimonios de salud (15 oct 2026). «Cero testimonios de salud» es
+  // regla del handoff (§ reglas, punto 4), y en venta directa el testimonio es el
+  // vector número uno. Edilberto, socio, preguntó «¿Hay videos de testimonios de
+  // salud?» y Queswa le respondió que el equipo los comparte.
+  /testimonios? (de |sobre |con )?(salud|sanacion|curacion|enfermedad|enfermos|pacientes|personas (que|con) (se )?(curaron|sanaron|enferm))/,
   /enfermedad|estoy enferm|esta enferm|me enferme/,
 ];
 
@@ -493,7 +509,9 @@ export function familiaSalud(clasificacion: { nivel: 'grave' | 'comun' | 'eviden
   if (clasificacion.nivel === 'grave') return 'grave';
   if (clasificacion.nivel === 'evidencia') return 'evidencia';
   const t = clasificacion.termino;
-  if (/peso|adelga|obesidad|sobrepeso|grasa|barriga/.test(t)) return 'peso';
+  // Desintoxicar va con peso: es un objetivo, no una condición, y su núcleo
+  // («nutrición para el día a día») es el que le responde.
+  if (/peso|adelga|obesidad|sobrepeso|grasa|barriga|desintoxi|detox|limpi|depura/.test(t)) return 'peso';
   if (/diabet|glucosa|insulina|glucemia|azucar/.test(t)) return 'azucar';
   if (/tratamiento|tomo |anticoagulante|metformina|losartan|ibuprofeno|acetaminofen|omeprazol|diagnosticaron/.test(t)) return 'tratamiento';
   return 'comun';

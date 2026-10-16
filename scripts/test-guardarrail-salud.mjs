@@ -111,6 +111,12 @@ const ENTRADA_COMUN = [
   'algo para el insomnio, no puedo dormir',
   'tomo metformina, ¿lo puedo combinar?',
   '¿el hongo ese es medicinal?',
+  // Las tres que pasaron el 14 y 15 oct 2026 (auditoría de experiencia).
+  'Puede regalar una imagen de productos de gano excel que sirvan para el sistema circulatorio',
+  '¿cuál sirve para la circulación?',
+  '¿Qué me sirve para desintoxicar el cuerpo?',
+  '¿tienen algo detox?',
+  'Hay videos de testimonios de salud?',
   // Tipeos con el pulgar
   'tengo diabetis',
   'para la artitis sirve?',
@@ -150,6 +156,10 @@ const ENTRADA_NEGATIVOS = [
   '¿qué es el Ganoderma?',
   '¿cómo se prepara?',
   'quiero algo para sentirme mejor en el día a día',
+  // La forma real del 14 oct 2026: bienestar genérico, se responde.
+  'Los productos de Gano Excel sirven para mejorar la salud ?',
+  '¿tienen videos de testimonios del negocio?',
+  'quiero depurar mi lista de contactos',
 ];
 
 // Los seis claims documentados en el handoff §2 (resumidos, texto del modelo)

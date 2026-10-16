@@ -100,6 +100,7 @@ export function esPersonaReal(fp: string | null): boolean {
 export type Turno = {
   id?: string;
   fingerprint_id: string | null;
+  session_id?: string | null;
   created_at: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   messages: any;
@@ -281,7 +282,7 @@ export async function revisarTurnos(opciones: {
   let filas: Turno[] = [];
   for (let desdeFila = 0; ; desdeFila += 1000) {
     const { data, error } = await s.from('nexus_conversations')
-      .select('id, fingerprint_id, created_at, messages, metadata')
+      .select('id, fingerprint_id, session_id, created_at, messages, metadata')
       .gt('created_at', desde).order('created_at').range(desdeFila, desdeFila + 999);
     if (error) throw error;
     filas = filas.concat(data as Turno[]);
@@ -291,9 +292,16 @@ export async function revisarTurnos(opciones: {
   // Las de WhatsApp se confirman contra los entrantes del webhook; el resto
   // (Centro de Mando, web) no pasa por ahí y entra por su prefijo.
   const conEntrante = await huellasDePersonas(s, desde);
-  const personas = filas.filter((t) => conEntrante.has(t.fingerprint_id ?? '') || esPersonaReal(t.fingerprint_id));
+  // Lo que el motor ya sabe que es prueba (`x-queswa-origen: prueba` → `metadata.origen`)
+  // no es una persona, aunque no traiga huella (16 oct 2026): en localhost el motor
+  // guarda la huella web como null, y las A/B de la noche del 15 llegaron a la
+  // revisión como un visitante de la web. Las 66 marcas de ese correo eran pruebas.
+  const personas = filas.filter((t) => t.metadata?.origen !== 'prueba'
+    && (conEntrante.has(t.fingerprint_id ?? '') || esPersonaReal(t.fingerprint_id)));
+  // Sin huella, cada sesión es su propio hilo: juntarlas en uno solo hacía que el
+  // fragmento que vio un visitante contara como «ya servido» para el siguiente.
   const hilos: Record<string, Turno[]> = {};
-  for (const t of personas) (hilos[t.fingerprint_id ?? 'null'] ||= []).push(t);
+  for (const t of personas) (hilos[t.fingerprint_id ?? `null:${t.session_id ?? t.id ?? ''}`] ||= []).push(t);
 
   // Los hilos de socios: ficha con `es_socio`, y todo lo del Centro de Mando.
   const socios = new Set<string>(Object.keys(hilos).filter((fp) => fp.startsWith('dash_')));

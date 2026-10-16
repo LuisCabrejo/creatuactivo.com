@@ -55,7 +55,10 @@ if (error) throw error;
 
 const bogota = (iso) => new Date(iso).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour12: false }).replace(',', '');
 const porHuella = {};
-for (const r of data) (porHuella[r.fingerprint_id ?? 'null'] ||= []).push(r);
+// Lo que el motor marcó como prueba (`metadata.origen`) no es una persona aunque no
+// traiga huella (16 oct 2026): en localhost la huella web se guarda null, y 68 turnos
+// de una A/B salieron en el volcado como un visitante de la web. Con --todo, sí salen.
+for (const r of data) if (todo || r.metadata?.origen !== 'prueba') (porHuella[r.fingerprint_id ?? 'null'] ||= []).push(r);
 // El SOCIO no saluda: abre con la tarea («ayúdame con redactar…»). El filtro del
 // saludo dejó fuera las 20 vueltas de Patricia Reyes del 15 sep 2026 —justo el
 // tráfico del distribuidor que la auditoría §8 pide mirar—. Se reconoce por su ficha.

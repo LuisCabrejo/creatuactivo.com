@@ -146,7 +146,7 @@ import {
 } from '@/lib/wa-guardarrail-negocio';
 import { detectarPreguntaDeDosSalidas, podarPreguntaDeDosSalidas } from '@/lib/guardarrail-pregunta';
 import {
-  destinatarioDe, origenDeLlegada, avisarLlegada, avisarSiRegresa, revisarDestacado, avisarTresVideos, TEMAS_TRES_VIDEOS,
+  destinatarioDe, origenDeLlegada, avisarLlegada, avisarIlegible, avisarSiRegresa, revisarDestacado, avisarTresVideos, TEMAS_TRES_VIDEOS,
   detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb, extraerCookieWeb, limpiarCookieWeb, atarCookieWeb, pushAlDashboard,
 } from '@/lib/wa-avisos-contexto';
 import { nombrePais, paisDeContactoWA } from '@/lib/paises';
@@ -719,6 +719,11 @@ async function procesarEntrante(body: any): Promise<void> {
       // quien solo manda una foto no aparece en ninguna auditoría.
       await persistirTurnoDictado(getSupabase(), `wa_${phoneNumber}`, `[${tipo ?? 'mensaje'} sin texto]`, acuse, `acuse: ${tipo ?? 'sin tipo'}`);
       console.log(`📎 [WA Webhook] ${phoneNumber} envió "${tipo}" — acusado sin procesar`);
+      // Y alguien se entera (16 oct 2026): sin texto no se crea ficha, y sin
+      // ficha nadie recibía aviso. Ubicación y contacto no cuentan: esos se leen.
+      if (wamid && tipo !== 'location' && tipo !== 'contacts') {
+        waitUntil(avisarIlegibleSiAbre(getSupabase(), { wamid, contacto: phoneNumber, nombre: contactName }));
+      }
       return;
     }
 
@@ -4122,6 +4127,39 @@ async function corregirTurnoEnvenenado(
   );
 }
 
+
+/**
+ * El mensaje que Queswa no pudo leer, ¿abre la conversación? (16 oct 2026)
+ *
+ * Avisa al socio de la ficha —o al equipo si no hay ficha o no tiene socio—
+ * solo si este mensaje es el PRIMER entrante del número en seis horas: el primer
+ * contacto, o la vuelta tras una pausa (el mismo umbral del aviso de regreso).
+ * Así, tres mensajes ilegibles seguidos dan un solo aviso —el número del Reino
+ * Unido mandó tres en 32 segundos el 5 sep— y una foto a mitad de conversación
+ * no avisa. Al socio que se escribe a sí mismo no se le avisa nada.
+ * Nunca lanza: corre en segundo plano, después del acuse.
+ */
+async function avisarIlegibleSiAbre(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  a: { wamid: string; contacto: string; nombre?: string },
+): Promise<void> {
+  try {
+    const desde = new Date(Date.now() - 6 * 3600e3).toISOString();
+    const { data: primero } = await supabase.from('wa_mensajes_procesados').select('wamid')
+      .or(`identidad->>from.eq."${a.contacto}",identidad->>user_id.eq."${a.contacto}"`)
+      .gt('creado_at', desde).order('creado_at', { ascending: true }).limit(1);
+    if (primero?.[0]?.wamid !== a.wamid) return;
+    if (await identificarSocio(supabase, a.contacto)) return;
+    const { data: ficha } = await supabase.from('prospects').select('constructor_id, device_info')
+      .eq('fingerprint_id', `wa_${a.contacto}`).maybeSingle();
+    if (ficha?.device_info?.es_socio) return;
+    const socio = await resolverSocioDelProspecto(supabase, ficha?.constructor_id);
+    await avisarIlegible(supabase, { dest: destinatarioDe(socio), nombre: a.nombre, contacto: a.contacto });
+  } catch (err) {
+    console.error('⚠️ [WA Webhook] Aviso del mensaje ilegible:', err);
+  }
+}
 
 /**
  * El socio de un prospecto que ya está en la base.

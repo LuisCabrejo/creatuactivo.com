@@ -260,6 +260,42 @@ export async function avisarLlegada(
   }
 }
 
+// ─── 1b. Llegada que no se pudo leer (16 oct 2026) ──────────────────────────
+// Un número del Reino Unido escribió cinco veces el 5 sep y una el 15 oct, en
+// formatos que Queswa no lee, y nadie se enteró: el acuse salía, pero sin texto
+// no se crea ficha, y sin ficha no hay aviso. Texto aprobado por el Director el
+// 16 oct 2026. Lo decide el webhook (`avisarIlegibleSiAbre`): solo cuando ese
+// mensaje abre la conversación —primero del número en seis horas—.
+
+export function textoIlegible(dest: Destinatario, nombre: string | null | undefined, contacto: string): string {
+  const pais = paisQueSeDice(contacto);
+  const n = nombreDe(nombre);
+  const saludo = dest.nombreCorto ? `${dest.nombreCorto}, ` : '';
+  const sujeto = n ? `*${n}*` : saludo ? 'una persona' : 'Una persona';
+  return `${saludo}${sujeto} le escribió a Queswa${pais ? ` desde *${pais}*` : ''}, pero su mensaje llegó en un formato que no se puede leer. `
+    + `Queswa le pidió que lo escribiera en texto. ${lineaContacto(contacto, true)}`;
+}
+
+export async function avisarIlegible(
+  supabase: Supa,
+  args: { dest: Destinatario; nombre?: string | null; contacto: string },
+): Promise<void> {
+  try {
+    const { dest, nombre, contacto } = args;
+    await entregar(supabase, dest, {
+      // Sin ficha no hay aviso del Dashboard: el push va siempre, al socio o al equipo.
+      push: {
+        titulo: `👋 ${quien(nombre, contacto, false)} le escribió a Queswa`,
+        cuerpo: 'Su mensaje llegó en un formato que no se puede leer. Queswa le pidió que lo escribiera en texto.',
+      },
+      texto: textoIlegible(dest, nombre, contacto),
+      correo: { asunto: `Mensaje que Queswa no pudo leer: ${quien(nombre, contacto, false)}` },
+    }, 'ilegible');
+  } catch (err) {
+    console.error('⚠️ [Avisos] Ilegible:', err);
+  }
+}
+
 // ─── 2. Regreso ──────────────────────────────────────────────────────────────
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

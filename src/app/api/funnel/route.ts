@@ -13,6 +13,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { render } from '@react-email/render';
 import { Email1Backstory } from '@/emails/soap-opera';
+import { esPeticionLocal } from '@/lib/entorno-local';
 
 const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://queswa.app'
 
@@ -112,8 +113,14 @@ export async function POST(request: NextRequest) {
 
     // ── Notificaciones push al constructor ───────────────────────────────────
     const constructorRef: string | null = data.constructor_ref || null
+    // Localhost no avisa a nadie (Director, 11 oct 2026; ver entorno-local.ts).
+    // Esta ruta se había quedado sin el corte: las pruebas del catálogo del 13 y
+    // 14 oct le pusieron al Director cinco pares de «Un prospecto está viendo su
+    // catálogo» — en desarrollo React monta la página dos veces, las dos llamadas
+    // leen la ficha antes de que la otra la marque, y salen dos avisos.
+    const avisaAlSocio = !esPeticionLocal(request)
 
-    if (data.step === 'vio_pagina_gracias' && constructorRef) {
+    if (data.step === 'vio_pagina_gracias' && constructorRef && avisaAlSocio) {
       notifyConstructor(
         constructorRef,
         `👀 Su prospecto está en la página de confirmación`,
@@ -124,7 +131,7 @@ export async function POST(request: NextRequest) {
     // El aviso del catálogo sale UNA vez por visitante y día (22 sep 2026): la
     // página lo mandaba en cada carga y, junto con el «Nuevo visitante» del
     // Dashboard, un solo teléfono le puso 16 avisos al Director en 12 minutos.
-    if (data.step === 'vio_catalogo' && constructorRef) {
+    if (data.step === 'vio_catalogo' && constructorRef && avisaAlSocio) {
       if (await avisoCatalogoPermitido(data.fingerprint)) {
         notifyConstructor(
           constructorRef,
@@ -136,7 +143,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    if (data.step === 'vio_calculadora' && constructorRef) {
+    if (data.step === 'vio_calculadora' && constructorRef && avisaAlSocio) {
       notifyConstructor(
         constructorRef,
         `🧮 Su prospecto está usando la Calculadora`,
@@ -144,7 +151,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (data.step === 'calculator_completed' && constructorRef) {
+    if (data.step === 'calculator_completed' && constructorRef && avisaAlSocio) {
       const nombre = data.name?.split(' ')[0] || 'Un prospecto'
       notifyConstructor(
         constructorRef,

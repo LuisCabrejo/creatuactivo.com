@@ -618,7 +618,8 @@ Blog (SEO) → /blog/* → Home
 
 **Las tres trampas:**
 
-- ⚠️ **`DESTINO_MAP` (cuesta horas):** un destino que no esté en el mapa —ni en `REEL_NICHOS`— **cae al fallback `redirect(/{slug})`, que es la mini-landing, sin 404**. Síntoma: *"el enlace `/{slug}/X` lleva a la mini-landing"*. Al añadir un enlace amigable en el Dashboard (`src/lib/arsenal.ts`), agregue SIEMPRE su destino en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx).
+- ⚠️ **`DESTINO_MAP` (cuesta horas):** un destino que no esté en el mapa —ni en `REEL_NICHOS`— **cae al fallback `/?ref={constructor_id}`, la Home, sin 404** (la mini-landing `/{slug}` se eliminó el 8 jul 2026). Síntoma: *"el enlace `/{slug}/X` lleva a la Home"*. Al añadir un enlace amigable en el Dashboard (`src/lib/arsenal.ts`), agregue SIEMPRE su destino en [src/app/[slug]/[destino]/page.tsx](src/app/[slug]/[destino]/page.tsx).
+- ⚠️ **`/{slug}` solo, sin destino, también va a la Home con el `ref`** (16 oct 2026, [src/app/[slug]/page.tsx](src/app/[slug]/page.tsx)): acepta slug, `constructor_id` y seudónimo anterior; lo demás cae a la 404 propia ([src/app/not-found.tsx](src/app/not-found.tsx)), que **no lleva orbe** (`<SinOrbe />`). Hasta ese día el enlace recortado del socio daba la 404 en inglés de Next.js. ⚠️ En Next 14 una página que llama a `notFound()` llega con el cuerpo vacío (`<html id="__next_error__">`) y la 404 se dibuja en el navegador; la persona la ve igual, y el título de la pestaña lo corrige `TituloEnCliente`.
 - ⚠️ **OG por página:** la página destino debe declarar su **propio `openGraph.url`**. Si solo define `title`/`description`, hereda el del root layout y al compartir en Meta la publicación enlaza a la raíz aunque el enlace pegado sea correcto. Tras corregir, forzar re-scrape en el Sharing Debugger.
 - ⚠️ **Un solo `<h1>` por página**, vía [IndustrialHeader](src/components/IndustrialHeader.tsx). Bug recurrente.
 

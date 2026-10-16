@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-import { usaChatWeb, guardarAperturaPendiente, hayChatWebMontado, marcarVideoVisto, type DetalleApertura, type VideoVisto } from '@/lib/orbe-config';
+import { usaChatWeb, guardarAperturaPendiente, hayChatWebMontado, marcarVideoVisto, suscribirOrbeRetirado, estaOrbeRetirado, type DetalleApertura, type VideoVisto } from '@/lib/orbe-config';
 
 const UnifiedQueswaOrb = dynamic(
   () => import('@/components/UnifiedQueswaOrb'),
@@ -40,6 +40,8 @@ const VIDEOS_DEL_ENLACE: readonly VideoVisto[] = ['como-funciona', 'como-entra-e
 export default function DeferredOrb() {
   const [ready, setReady] = useState(false);
   const pathname = usePathname();
+  // La página 404 retira el orbe (<SinOrbe />, 16 oct 2026).
+  const retirado = useSyncExternalStore(suscribirOrbeRetirado, estaOrbeRetirado, () => false);
 
   useEffect(() => {
     // La llegada desde el enlace del socio, en el computador.
@@ -96,6 +98,6 @@ export default function DeferredOrb() {
     };
   }, [ready]);
 
-  if (!ready) return null;
+  if (!ready || retirado) return null;
   return usaChatWeb(pathname) ? <UnifiedQueswaOrb /> : <WhatsAppOrb />;
 }

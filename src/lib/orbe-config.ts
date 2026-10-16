@@ -132,6 +132,28 @@ export function tomarAperturaPendiente(): DetalleApertura | null {
   return d
 }
 
+// ─── Páginas sin orbe (16 oct 2026) ─────────────────────────────────────────
+// El orbe vive en el layout raíz, así que aparece también en la página 404. Esa
+// página monta <SinOrbe /> y DeferredOrb lo lee con useSyncExternalStore: la
+// marca se pone en un efecto, después de que DeferredOrb ya pintó, y la
+// suscripción es la que lo vuelve a pintar —también al salir de la 404.
+let orbeRetirado = false
+const oyentesOrbeRetirado = new Set<() => void>()
+
+export function marcarOrbeRetirado(retirado: boolean): void {
+  orbeRetirado = retirado
+  oyentesOrbeRetirado.forEach((oyente) => oyente())
+}
+
+export function suscribirOrbeRetirado(oyente: () => void): () => void {
+  oyentesOrbeRetirado.add(oyente)
+  return () => { oyentesOrbeRetirado.delete(oyente) }
+}
+
+export function estaOrbeRetirado(): boolean {
+  return orbeRetirado
+}
+
 // ¿Ya está montado el chat web? Entre que DeferredOrb decide montarlo y que el
 // módulo termina de cargar (Framer Motion, 114KB) hay un hueco: un `open-queswa`
 // en ese hueco no tendría quién lo oyera. Mientras esto sea falso, DeferredOrb

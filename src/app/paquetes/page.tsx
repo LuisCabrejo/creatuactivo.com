@@ -81,7 +81,7 @@ interface Paquete {
 }
 
 const COMUNES = [
-  'Acceso a CreaTuActivo.com y a Queswa',
+  'Acceso a CreaTuActivo.com y a Queswa, sin costo',
   'Su código de socio, permanente y heredable',
 ];
 
@@ -105,7 +105,7 @@ const PAQUETES: Paquete[] = [
     precioUSD: '200',
     perfil: 'Para tomar ritmo',
     color: '#B38B59',
-    features: ['7 productos premium de bienestar', '1 mes de plan tecnológico incluido', ...COMUNES],
+    features: ['7 productos premium de bienestar', ...COMUNES],
     wa: 'paquete ESP-1 Inicial ($900.000 COP)',
     cta: 'Activar ESP-1 →',
   },
@@ -116,7 +116,7 @@ const PAQUETES: Paquete[] = [
     precioUSD: '500',
     perfil: 'Para ir en serio',
     color: '#94A3B8',
-    features: ['18 productos premium de bienestar', '2 meses de plan tecnológico incluidos', ...COMUNES],
+    features: ['18 productos premium de bienestar', ...COMUNES],
     wa: 'paquete ESP-2 Empresarial ($2.250.000 COP)',
     cta: 'Activar ESP-2 →',
   },
@@ -130,7 +130,6 @@ const PAQUETES: Paquete[] = [
     destacado: true,
     features: [
       '35 productos — la línea completa, con suplementos',
-      '3 meses de plan tecnológico incluidos',
       'Acompañamiento VIP del equipo',
       ...COMUNES,
     ],
@@ -542,7 +541,7 @@ function Faq() {
         <div>
           <FaqItem
             q="¿Qué cubre exactamente mi capital inicial?"
-            a="Su capital se convierte en inventario físico: café, bebidas y suplementos premium con Ganoderma, que Gano Excel fabrica y despacha. Los paquetes empresariales incluyen además el plan tecnológico por 1, 2 o 3 meses según el nivel."
+            a="Su capital se convierte en inventario físico: café, bebidas y suplementos premium con Ganoderma, que Gano Excel fabrica y despacha. La tecnología no se paga: CreaTuActivo.com y Queswa vienen con su sistema, con cualquiera de las cuatro formas de empezar."
           />
           <FaqItem
             q="¿Cuál es la diferencia entre el Kit de Inicio y un paquete empresarial?"
@@ -558,7 +557,7 @@ function Faq() {
           />
           <FaqItem
             q="¿Hay costos que no estén declarados aquí?"
-            a="No. Su capital inicial, su compra mensual de producto y, terminado el periodo incluido, la cuota del plan tecnológico que elija. Eso es todo."
+            a="No. Lo que usted paga es su capital inicial y su compra mensual de producto, eso es todo. La tecnología no tiene costo."
           />
         </div>
       </div>

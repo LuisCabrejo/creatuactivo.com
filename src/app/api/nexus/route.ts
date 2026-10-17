@@ -78,6 +78,7 @@ import {
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
 import { mencionaElReto } from '@/lib/puerta-reto';
+import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
 import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
@@ -2575,6 +2576,18 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       titulo: 'El reto de los 90 días — RETO_01',
       porque: 'pregunta por el reto de los 90 días',
       cuando: { test: mencionaElReto },
+    },
+    {
+      // 16 oct 2026: la tecnología no tiene costo (Director). «¿Cuánto cuesta
+      // Queswa?» no llegaba nunca a buscar —el detector de precios se la llevaba
+      // a las tablas del catálogo— y el modelo compuso «queda incluido en el
+      // paquete». FREQ_43 es corta y con candado: se dicta sin modelo. La llave y
+      // sus exclusiones → src/lib/puerta-costo-tecnologia.ts
+      fragmento: 'arsenal_inicial_FREQ_43',
+      titulo: 'La tecnología no tiene costo — FREQ_43',
+      porque: 'pregunta si la tecnología tiene costo',
+      cuando: { test: preguntaPorCostoDeTecnologia },
+      dictar: true,
     },
     {
       // Prueba del Director, 24 sep 2026: «actualmente estoy en Inglaterra,
@@ -5417,7 +5430,9 @@ ${summaryParts.join('\n')}
      * separa las dos por su objeto, no por el verbo.
      */
     const objetoDeNegocio = /empezar|empiezo|iniciar|inicio|arrancar|entrar|vincular|afiliar|paquete|negocio|inversi[oó]n/i.test(lastUserMessageForPrices);
-    const pideListaPreciosEarly = !objetoDeNegocio && /^precios?$|lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa|cu[aá]nto.*cuesta|cu[aá]nto.*vale|cu[aá]nto.*son|cu[aá]nto.*cobran|qu[eé].*precio|precios.*cat[aá]logo|ver.*precios?|mostrar.*precios?/i.test(lastUserMessageForPrices);
+    // «¿Cuánto cuesta Queswa?» tampoco es la lista de precios: la atiende la
+    // puerta de FREQ_43 (16 oct 2026).
+    const pideListaPreciosEarly = !objetoDeNegocio && !preguntaPorCostoDeTecnologia(latestUserMessage) && /^precios?$|lista.*precio|todos.*los.*precio|precios.*producto|catálogo.*precio|dame.*los.*precio|cuáles.*son.*los.*precio|22.*producto|lista.*completa|cu[aá]nto.*cuesta|cu[aá]nto.*vale|cu[aá]nto.*son|cu[aá]nto.*cobran|qu[eé].*precio|precios.*cat[aá]logo|ver.*precios?|mostrar.*precios?/i.test(lastUserMessageForPrices);
     console.log(`🚨 DETECCIÓN PRECIOS: pideListaPreciosEarly=${pideListaPreciosEarly}, msg="${lastUserMessageForPrices.substring(0, 50)}"`);
 
     // CONSULTA HÍBRIDA ESCALABLE — solo para queries complejas y fuera del flujo de cierre

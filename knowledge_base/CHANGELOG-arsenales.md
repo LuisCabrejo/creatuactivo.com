@@ -402,6 +402,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.25 — `INV_02`: la tecnología viene sin costo (16 oct 2026)
+
+*«creatuactivo.com y queswa.app vienen incluidos con cualquiera de los cuatro»* → *«…vienen con cualquiera de los cuatro, sin costo»*. «Incluidos» dejaba creer que la tecnología hace parte del precio del paquete (decisión del Director, misma sesión que `FREQ_43`). Desplegado con el orden sin ventana (renombrar a `_old`, fragmentar, clonar, borrar).
+
 ### v6.24 — `INV_03` deja de ser un atractor (27 sep 2026)
 
 Su índice decía *«qué me llega cuando compro»* y con eso ganaba las preguntas de la entrega, del inventario en casa y hasta *«quién paga el envío»* — todas de `FREQ_33`. Acotado al paquete (*qué incluye cada paquete además del producto, la diferencia entre el Kit y los ESP*). Cuerpo intacto; su canónica sigue en el puesto 1 (0.669). Ver arsenal_inicial v6.55 para la matriz completa.
@@ -515,6 +519,18 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 **Arquitectura.** Parent + fragmentos solo en `dashboard` (`desplegar-arsenal-ciencia-socio.mjs`); bloque `canal:dashboard` en el prompt maestro (desplegado `--solo dashboard`); el arsenal como cuarto bucket en el `route.ts` del Dashboard (otro repo, traspasado a su agente). El `.txt` va sin `[Concepto Nuclear]`: el Dashboard sirve el padre entero.
 
 ## arsenal_inicial
+
+### v6.75 — `FREQ_43`: la tecnología no tiene costo (16 oct 2026)
+
+Decisión del Director: la tecnología no se cobra, y no está en sus planes cobrarla en los próximos meses. Una conversación del 15 oct con alguien que creía que sí se cobraba lo mostró: el sitio decía lo contrario (`/paquetes` prometía meses de «plan tecnológico» incluidos y, después, una cuota; `/planes` listaba dos planes pagos). Esas dos páginas se corrigieron el mismo día; en el arsenal faltaba la respuesta.
+
+**No existía ningún fragmento que la diera.** El 11 jul una persona real preguntó *«¿Qué valor cuesta adquirir la membresía de Queswa?»* y el modelo compuso. Medido antes del cambio: *«cuánto cuesta queswa»* traía `COMP_GEN5_04` y `LUV_02`; *«me toca pagar algo por la plataforma»*, el candado de `WHY_04`.
+
+`FREQ_43` es corta y con candado: *No tiene costo* y lo que se paga es producto, en presente. Nunca *para siempre* (sería una promesa) ni *incluida en el paquete* (deja creer que hace parte del precio). Cierra hacia `FREQ_03`.
+
+**Medido con paráfrasis** (`medir-recuperacion-voyage.mjs`, tenant whatsapp): 7 de 8 en el puesto 1 (0.497 a 0.612); *«y la app cuánto vale»* queda segunda a 0.002 de `WHY_APP_02`. Los vecinos conservan las suyas: `FREQ_09` (pagar todos los meses, cuota de mantenimiento), `FREQ_03` (cuánto cuesta empezar), `WHY_APP_02` (una sola aplicación, cómo entro), `NIVELES_06` (el Kit), `BEB_03` (el café), `FREQ_01` (qué es Queswa). La oferta *«¿Le muestro las cuatro formas de empezar?»* lleva a `FREQ_03` (0.698).
+
+**Y una puerta, porque el vector no bastaba.** *«¿Cuánto cuesta Queswa?»* nunca llegaba a buscar: `pideListaPreciosEarly` atrapa todo *cuánto cuesta…* y servía las tablas de precios del catálogo; el modelo compuso *«queda incluido en el paquete»*. Hoy `preguntaPorCostoDeTecnologia` ([src/lib/puerta-costo-tecnologia.ts](../src/lib/puerta-costo-tecnologia.ts)) abre `FREQ_43` dictada en `PUERTAS_INICIAL` y el detector de precios le cede el paso. Tolera typos (en `prueba-typos.mts`, 0 deformaciones rotas) y no se abre con *cuenta*, *Costa Rica*, *«Hola Queswa, ¿cuánto cuesta el Cordygold?»*, el envío ni las preguntas por paquete o producto. Comprobado en el motor local, en WhatsApp y en la web, y el «sí» posterior entrega las cuatro formas de empezar.
 
 ### v6.74 — `FREQ_40`: el «sí» con Uber y Rappi; la tecnología primero y Gano Excel al final (16 oct 2026)
 

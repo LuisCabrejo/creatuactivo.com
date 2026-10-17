@@ -131,6 +131,10 @@ const nextConfig = {
       // La página de Brasil decía «Lançamento Oficial 2025» y «Gano Excel Oficial»: un
       // distribuidor no puede presentarse como la página oficial de la marca, y el
       // contenido estaba vencido. Si Brasil se vuelve mercado, se escribe una nueva.
+      // /planes listaba planes pagos de la tecnología. La tecnología no tiene costo
+      // (Director, 16 oct 2026): la página se retiró y la dirección lleva a los paquetes.
+      { source: '/planes', destination: '/paquetes', permanent: true },
+      { source: '/planes/:path*', destination: '/paquetes', permanent: true },
       { source: '/paises/brasil', destination: '/', permanent: true },
       { source: '/paises/brasil/:path*', destination: '/', permanent: true },
 

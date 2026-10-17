@@ -12,11 +12,11 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.74** (16 oct 2026) — **`FREQ_40`: el «sí» se dice con Uber y Rappi. La tecnología va en la primera frase y Gano Excel al final, como fabricante y operador del modelo.** Texto aprobado por el Director. Cambia solo el candado; índice, título y pregunta de seguimiento son los mismos, así que la recuperación no se mueve. Criterio en el `[Concepto Nuclear]` de `FREQ_40`; medición en `CHANGELOG-arsenales.md`.
+**Versión actual: v6.75** (16 oct 2026) — **`FREQ_43`, nueva: la tecnología no tiene costo. Lo que se paga es producto.** Texto aprobado por el Director, con candado. Cierra hacia `FREQ_03`. Criterio en su `[Concepto Nuclear]`.
+
+**v6.74** (16 oct 2026) — **`FREQ_40`: el «sí» se dice con Uber y Rappi. La tecnología va en la primera frase y Gano Excel al final, como fabricante y operador del modelo.** Texto aprobado por el Director. Cambia solo el candado; índice, título y pregunta de seguimiento son los mismos, así que la recuperación no se mueve. Criterio en el `[Concepto Nuclear]` de `FREQ_40`; medición en `CHANGELOG-arsenales.md`.
 
 **v6.73** (16 oct 2026) — **`FREQ_03`: el índice dice «invertir». «¿Cuánto hay que invertir para arrancar?» recibía el candado de `FREQ_04` (cuándo se recupera la inversión) y nunca el precio.** Solo cambia el índice; el texto de la respuesta es el mismo. Medición en `CHANGELOG-arsenales.md`.
-
-**v6.72** (11 oct 2026) — **`FREQ_42`, nueva: «¿cómo me dan el enlace?» responde lo literal en una línea y lo de fondo en el resto: quien lo abre ya no llega en cero.** Texto aprobado por el Director, con su dato de campo (de cero a diez, la persona llega en siete u ocho). Cierra hacia `EAM_01`. Criterio y la medición contra `FREQ_37` en su `[Concepto Nuclear]`.
 
 **Historial completo** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md), que **no se indexa**. Aquí quedan solo la versión actual y las dos previas: esta cabecera había acumulado veinticinco entradas que citaban entrecomillada cada frase retirada —*la gente*, *registrado*, *profesionales de la salud*, *normalmente Colombia*—, y ese es justo el vocabulario que el próximo agente que lea el archivo puede tomar por vigente.
 
@@ -856,6 +856,20 @@ Así, usted ya no tiene que llevar a nadie de cero a diez. Cuando habla con esa 
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le cuento qué haría usted en el día a día?
+
+---
+
+### **FREQ_43: "¿La tecnología tiene algún costo? / ¿Cuánto cuesta Queswa?"**
+**[Índice]:** Hay que pagar algo por la tecnología, cuánto vale la aplicación, la app se paga aparte, me cobran por la plataforma, la membresía de Queswa.
+**[Concepto Nuclear]:** **La tecnología no tiene costo** (Director, 16 oct 2026): no se cobra, y no está en sus planes cobrarla en los próximos meses. Se dice en presente y como hecho. Nunca *para siempre*: eso es una promesa que amarraría al Director. Y nunca *incluida en el paquete*, que deja creer que hace parte del precio. Lo que se paga es producto: el paquete y la compra mensual de 50 PV. Nace de dos casos: una persona real (11 jul 2026) preguntó por «la membresía de Queswa» y el modelo compuso la respuesta porque ningún fragmento la tenía; y el Director habló (15 oct) con alguien que creía que la tecnología se cobraba, por lo que decían `/paquetes` y la página de planes. El cierre lleva a `FREQ_03`, medido en 0.698.
+
+<verbatim_lock>
+No tiene costo. CreaTuActivo.com, queswa.app y yo venimos con su sistema de distribución desde el primer día, con cualquiera de las cuatro formas de empezar.
+
+Lo que usted paga es producto: el paquete con el que arranca y su compra mensual de 50 PV, que le llega a la casa.
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
 
 ---
 

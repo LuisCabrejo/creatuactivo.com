@@ -1,12 +1,10 @@
 # Arsenal Conversacional: Los 12 Niveles — la versión vigente está en «Versión actual», abajo
 
-**Versión actual: v6.24** (27 sep 2026) — **`INV_03` deja de ser un atractor: su índice se acota al paquete.** *«Qué me llega cuando compro»* le ganaba las preguntas de la entrega y del inventario en casa, que son de `FREQ_33` (arsenal_inicial v6.55, auditoría del guion del video). Cuerpo sin tocar; conserva su pregunta canónica en el puesto 1. Sin más cambios.
+**Versión actual: v6.25** (16 oct 2026) — **`INV_02` dice que la tecnología viene sin costo.** «Incluidos» dejaba creer que hacía parte del precio del paquete (Director). Sin más cambios.
+
+**v6.24** (27 sep 2026) — **`INV_03` deja de ser un atractor: su índice se acota al paquete.** *«Qué me llega cuando compro»* le ganaba las preguntas de la entrega y del inventario en casa, que son de `FREQ_33` (arsenal_inicial v6.55, auditoría del guion del video). Cuerpo sin tocar; conserva su pregunta canónica en el puesto 1. Sin más cambios.
 
 **v6.23** (26 sep 2026) — **`NIVELES_01` 🔒 dice sobre qué corre el 10 %: el volumen comisionable (GCV).** Referido a lo que se vende, el porcentaje se calcula sobre la venta bruta, y el plan no paga eso (Director). Mismas frases que el video de Los 12 Niveles. Sin más cambios.
-
-**v6.22** (24 sep 2026) — **`NIVELES_06` dice el precio del Kit.** Cerraba sin cifra, y en la prueba del Director el modelo repitió ese cierre al listar los paquetes, aunque el precio se conoce. Ahora lleva el marcador `[PRECIO_KIT]`, que el pin llena en pesos o en dólares según el país. Sin más cambios.
-
-**v6.21** (22 sep 2026) — **`NIVELES_06` nombra lo que trae el Kit.** Cuatro cajas de Ganocafé 3 en 1 y el material de inicio, My Gano Plan, y nada más. El dato vivía solo en el system prompt (salió en la v5.6 por la puerta «hecho → arsenal») y en producción el modelo había compuesto un Kit de siete productos con precio redondeado. Sin más cambios.
 
 **Historial anterior** → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md) (aquí solo la versión actual y las dos previas).
 
@@ -243,7 +241,7 @@ Hay 4 opciones de inversión. Todas le dan acceso completo al sistema:
 - **ESP-2** → 16% de Regalía de Equipo, con el Bono GEN5 activo.
 - **ESP-3** → 17% —la tarifa más alta— y el GEN5 completo, con el sistema surtido de una vez (35 productos).
 
-creatuactivo.com y queswa.app vienen incluidos con cualquiera de los cuatro.
+creatuactivo.com y queswa.app vienen con cualquiera de los cuatro, sin costo.
 
 **Pregunta de seguimiento:** ¿Le muestro cuánto vale cada uno?
 

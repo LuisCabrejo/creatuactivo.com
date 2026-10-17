@@ -31,7 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Fecha de última modificación (actualizar cuando hagas cambios importantes)
   // 1 oct 2026: títulos y descripciones nuevos en todas las páginas del sitemap.
-  const lastModified = new Date('2026-10-01');
+  // 16 oct 2026: /paquetes deja de hablar de un plan tecnológico con cuota.
+  const lastModified = new Date('2026-10-16');
 
   return [
     // ========================================

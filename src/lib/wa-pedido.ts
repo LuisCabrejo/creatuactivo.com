@@ -271,13 +271,16 @@ export function noEntendiProductos(segundaVez = false): string {
 export const RE_NO_ENTENDI = /No logré identificar el producto/i;
 
 function lineaTexto(l: LineaPedido): string {
-  const pres = l.producto.presentacion ? ` (${l.producto.presentacion})` : '';
+  // «Luvoco Medio · 15 cápsulas» ya trae la presentación en el nombre: con la de la
+  // tabla quedaba «Luvoco Medio · 15 cápsulas (caja de cápsulas)».
+  const pres = l.producto.presentacion && !l.producto.nombre.includes('·') ? ` (${l.producto.presentacion})` : '';
   return `*${l.cantidad} × ${l.producto.nombre}*${pres} · ${cop(l.producto.precioCOP * l.cantidad)}`;
 }
 
-/** Resumen corto para la plantilla al socio (sin saltos de línea: Meta los rechaza). */
+/** Resumen corto para la plantilla al socio (sin saltos de línea: Meta los rechaza).
+ *  Separado por comas: con « · » chocaba con «Luvoco Medio · 15 cápsulas». */
 export function resumenLineas(lineas: LineaPedido[]): string {
-  return lineas.map((l) => `${l.cantidad} × ${l.producto.nombre}`).join(' · ');
+  return lineas.map((l) => `${l.cantidad} × ${l.producto.nombre}`).join(', ');
 }
 
 /**
@@ -494,6 +497,18 @@ export function respuestaOptin(acepta: boolean): string {
 
 const WHATSAPP_EQUIPO = () => process.env.WHATSAPP_EQUIPO || '573206805737';
 
+/**
+ * ¿Es el mismo teléfono? Compara los últimos diez dígitos (con o sin +57).
+ * Un aviso al socio o al equipo nunca va al número que hizo el pedido: el 17 oct
+ * 2026 el Director probó la compra desde el +57 320 680 5737, que también es el
+ * del equipo, y en el mismo chat le llegó «Hola equipo. Efraín Reyes… le hizo un
+ * pedido». Un comprador real no lo vería, pero un socio que se compra a sí mismo, sí.
+ */
+export function mismoNumero(a?: string | null, b?: string | null): boolean {
+  const d = (x?: string | null) => String(x ?? '').replace(/\D/g, '').slice(-10);
+  return d(a).length === 10 && d(a) === d(b);
+}
+
 /** Número corto del pedido: cinco cifras que el comprador y el socio se dicen. */
 function nuevoCodigo(): string {
   const n = new Uint32Array(1);
@@ -598,7 +613,7 @@ export async function avisarPedido(
     ]);
   };
 
-  if (socio?.whatsapp) {
+  if (socio?.whatsapp && !mismoNumero(socio.whatsapp, whatsapp)) {
     try {
       const r = await avisar(socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio');
       console.log(`📨 [Pedido WA] Aviso al socio ${socio.nombre}: ${r.ok ? 'enviado' : r.error}`);
@@ -606,6 +621,7 @@ export async function avisarPedido(
       console.error('❌ [Pedido WA] No se pudo avisar al socio:', err);
     }
   }
+  if (mismoNumero(WHATSAPP_EQUIPO(), whatsapp) || mismoNumero(WHATSAPP_EQUIPO(), socio?.whatsapp)) return;
   try {
     const r = await avisar(WHATSAPP_EQUIPO(), 'equipo', socio ? ` (atiende ${socio.nombre})` : ' — SIN SOCIO');
     console.log(`📨 [Pedido WA] Aviso al equipo: ${r.ok ? 'enviado' : r.error}`);
@@ -638,7 +654,7 @@ export async function avisarPidePersona(
   if (socio?.whatsapp) destinos.push([socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio']);
   destinos.push([WHATSAPP_EQUIPO(), 'equipo']);
   let algunoOk = false;
-  for (const [to, saludo] of destinos) {
+  for (const [to, saludo] of destinos.filter(([to]) => !mismoNumero(to, whatsapp))) {
     try {
       const r = await sendTemplate(to, 'pre_afiliacion_nueva', 'es', [saludo, quien, que, 'contactar por WhatsApp']);
       algunoOk = algunoOk || r.ok;
@@ -675,7 +691,7 @@ export async function avisarPedidoAbierto(
   if (socio?.whatsapp) destinos.push([socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio']);
   destinos.push([WHATSAPP_EQUIPO(), 'equipo']);
   let algunoOk = false;
-  for (const [to, saludo] of destinos) {
+  for (const [to, saludo] of destinos.filter(([to]) => !mismoNumero(to, whatsapp))) {
     try {
       const como = saludo === 'equipo' && socio?.nombre ? `escribirle para tomar el pedido (atiende ${socio.nombre})`
         : saludo === 'equipo' ? 'escribirle para tomar el pedido — SIN SOCIO'

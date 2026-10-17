@@ -20,7 +20,7 @@ import { createRequire } from 'node:module'
 import { productData, mensajePedido } from '../src/app/productos/catalogo-datos.ts'
 import {
   detectarIntencionCompra, extraerLineasPedido, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO,
-  confirmarPedido, RE_PEDIDO_CARGADO, cuandoEscribe, firmaPedido,
+  confirmarPedido, RE_PEDIDO_CARGADO, cuandoEscribe, firmaPedido, mismoNumero, resumenLineas,
 } from '../src/lib/wa-pedido.ts'
 // wa-onboarding.ts por require: tsx lo compila como CommonJS y el lexer de Node se
 // detiene en la «ñ» de `notificarDueño`, así que los exports que vienen después no
@@ -98,6 +98,14 @@ if (cuandoEscribe(new Date('2026-10-18T00:00:00Z')) !== 'mañana') falla('7:00 p
 if (/cat[aá]logo|¿/.test(conf)) falla('la confirmación volvió a llevar el catálogo o una pregunta')
 const f1 = await firmaPedido('48213'), f2 = await firmaPedido('48213')
 if (f1 !== f2 || !/^[A-Za-z0-9_-]{10}$/.test(f1) || f1 === await firmaPedido('48214')) falla(`firma del enlace inestable o débil: ${f1}`)
+
+// 6. El aviso nunca va al número que pidió; el resumen no se enreda con «·»
+if (!mismoNumero('573206805737', '+57 320 680 5737') || !mismoNumero('+573203415438', '3203415438')) falla('mismoNumero no reconoce el mismo teléfono con otro formato')
+if (mismoNumero('573206805737', '573203415438') || mismoNumero('', '')) falla('mismoNumero confunde teléfonos distintos o vacíos')
+const luvoco = extraerLineasPedido(mensajePedido([{ id: 'ganocafe-3-en-1', cantidad: 1 }, { id: 'luvoco-medio', cantidad: 1 }, { id: 'luvoco-fuerte', cantidad: 2 }], socio))
+const resumen = resumenLineas(luvoco)
+if (resumen !== '1 × Ganocafé 3 en 1, 1 × Luvoco Medio · 15 cápsulas, 2 × Luvoco Fuerte · 15 cápsulas') falla(`resumen para el socio: «${resumen}»`)
+if (/cápsulas\* \(caja de cápsulas\)/.test(confirmarPedido(luvoco, socioWA, 'Juan', '11111', mediodia))) falla('la Luvoco repite la presentación en la confirmación')
 
 console.log(`\n${msgTodo.split('\n').slice(0, 6).join('\n')}\n…\n`)
 console.log(conf + '\n')

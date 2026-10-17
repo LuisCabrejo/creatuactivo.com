@@ -516,6 +516,27 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.73 — `FREQ_03`: el precio de entrada se pregunta con «invertir» (16 oct 2026)
+
+La auditoría del video del día 39 lo cazó. *«¿Cuánto hay que invertir para arrancar?»* recibía el candado de `FREQ_04`, que responde cuándo se recupera la inversión, y la persona nunca oía el precio. En WhatsApp esa pregunta solo sube la temperatura en el webhook y sigue al motor, y el cierre lo maneja el canal (`closingState` 0), así que la señal de catálogo del motor no la ataja.
+
+El índice de `FREQ_03` decía *cuesta* y *vale*, nunca *invertir*, y el encabezado de `FREQ_04` dice *inversión* dos veces. Solo cambia el índice (lo que se embebe junto con la pregunta del encabezado); el texto de la respuesta es el mismo.
+
+**Medido contra el corpus vivo de WhatsApp** (`~/Downloads/reels-equipo/1015/work/queswa/sim-indice.mjs`), reemplazando solo el vector de `FREQ_03`. Se probaron tres redacciones y quedó la tercera:
+
+| Pregunta | Antes | Ahora |
+|---|---|---|
+| «invertir para arrancar» | `FREQ_04` 0.506 sobre `FREQ_03` | `FREQ_03` 0.514 sobre `FREQ_04` 0.506 |
+| «invertir para empezar» | — | `FREQ_03` 0.529 sobre 0.507 |
+| «inversión para iniciar» | — | `FREQ_03` 0.508 sobre 0.467 |
+| «cuánta plata hay que meter para entrar» | — | `FREQ_03` primero (0.509) |
+| «cuánto cuesta empezar» | `FREQ_03` 0.679 | `FREQ_03` 0.691 |
+
+- `INV_01` («la inversión mínima», que lleva al Kit) sigue primero en las de *invertir*, y está bien: también responde el precio.
+- `FREQ_04` conserva sus cuatro preguntas de retorno, sin cambio.
+- *«¿De cuánto es la inversión?»* a secas sigue cayendo en `FREQ_04` (0.421): queda para una puerta si vuelve a aparecer.
+- ⚠️ El margen sobre `FREQ_04` es corto (0.008) en *arrancar*, y en producción la consulta se reescribe antes de buscar. Lo que decide es la auditoría después del despliegue, no el laboratorio.
+
 ### v6.72 — `FREQ_42`: «¿cómo me dan el enlace?» y lo que pasa cuando alguien lo abre (11 oct 2026)
 
 La tercera respuesta de la auditoría del video «Cómo funciona». La primera propuesta cerraba con *«Quien lo abre llega a conversar conmigo, y yo le aviso a usted»*, y el Director la marcó como difícil de digerir: *«como cuando David Vélez vendía la idea de abandonar la fila al banco por una aplicación, es algo que se debe explicar con plastilina»*. Aportó su observación de campo: con un prospecto, primero algo despierta la emoción y enseguida tiene que venir algo que la valide; y la ventaja que él vive es que ya no lleva a nadie de cero a diez, porque los encuentra en siete u ocho. Aprobó la versión con el número.

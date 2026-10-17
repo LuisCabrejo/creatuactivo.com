@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.72** (11 oct 2026) — **`FREQ_42`, nueva: «¿cómo me dan el enlace?» responde lo literal en una línea y lo de fondo en el resto: quien lo abre ya no llega en cero.** Texto aprobado por el Director, con su dato de campo (de cero a diez, la persona llega en siete u ocho). Cierra hacia `EAM_01`. Criterio y la medición contra `FREQ_37` en su `[Concepto Nuclear]`.
+**Versión actual: v6.73** (16 oct 2026) — **`FREQ_03`: el índice dice «invertir». «¿Cuánto hay que invertir para arrancar?» recibía el candado de `FREQ_04` (cuándo se recupera la inversión) y nunca el precio.** Solo cambia el índice; el texto de la respuesta es el mismo. Medición en `CHANGELOG-arsenales.md`.
+
+**v6.72** (11 oct 2026) — **`FREQ_42`, nueva: «¿cómo me dan el enlace?» responde lo literal en una línea y lo de fondo en el resto: quien lo abre ya no llega en cero.** Texto aprobado por el Director, con su dato de campo (de cero a diez, la persona llega en siete u ocho). Cierra hacia `EAM_01`. Criterio y la medición contra `FREQ_37` en su `[Concepto Nuclear]`.
 
 **v6.71** (11 oct 2026) — **`FREQ_41`, nueva: «¿qué es lo primero que tengo que hacer?» se responde con el destino, no con el enlace.** Texto del Director. El cierre lleva a `WHY_APP_01` (el Centro de Mando), cuyo índice suma esa oferta literal en línea aparte: sin ella, el «sí» caía en `NIVELES_04`. Criterio en el `[Concepto Nuclear]` de `FREQ_41`; mediciones en el CHANGELOG.
 
@@ -311,7 +313,7 @@ Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com.
 ---
 
 ### **FREQ_03: "¿Cómo se inicia? / Quiero empezar / ¿Cuánto cuesta empezar? / ¿Cuánto vale entrar? / Me interesa, ¿qué hago? / ¿Cuál es el proceso para empezar? / ¿Cómo me uno?"**
-**[Índice]:** Cuánto cuesta empezar, cuánto vale entrar, cuál es el proceso, cómo me uno. Las cuatro formas de empezar con su precio. ¿Le muestro las cuatro formas de empezar?
+**[Índice]:** Cuánto hay que invertir para empezar, de cuánto es la inversión para entrar, cuánto cuesta arrancar, cuánto vale entrar, cuánta plata se necesita para iniciar, cuál es el proceso, cómo me uno. El precio de entrada: las cuatro formas de empezar con su precio. ¿Le muestro las cuatro formas de empezar?
 **[Concepto Nuclear]:** Quien pregunta cómo se inicia ya decidió, y se le trata como a quien mira una propiedad y pregunta dónde firma: a nadie le gusta que le vendan, pero comprar sí gusta. Tabla escaneable de las cuatro formas de empezar con su precio, y un paso claro. **Desde el 6 oct 2026 son cuatro (Director):** el Visionario primero, como anclaje, y el *Kit de Inicio* al final y **sin porcentaje** —mostrar la diferencia de ganancia hace que la persona aplace; lo que se quiere es que empiece, y la tarifa se mejora después—. `[PRECIO_KIT]` lo llena `getPinKitInicio()`. La nomenclatura del plan va literal —*Binario 17%*, *Bono GEN5*—, porque el porcentaje corre sobre el GCV y traducirlo a lenguaje llano hace calcularlo sobre la facturación. La línea de datos de cada nivel ya los diferencia. `[PRECIO]` lo llena `getPaquetesPricingPin()` en la moneda del visitante — es el único hueco del arsenal, y es a propósito: una cifra que depende del país no cabe dentro de un texto que se entrega carácter por carácter.
 
 <verbatim_lock>

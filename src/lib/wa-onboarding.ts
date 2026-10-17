@@ -236,9 +236,11 @@ export function pideEnlaceCatalogo(texto: string): boolean {
   return medio && objeto;
 }
 
-/** URL del catálogo con el ref del socio; sin socio, el catálogo general. */
+/** URL del catálogo con el slug del socio; sin socio, el catálogo general.
+ *  Directo a /productos/{slug} desde el 17 oct 2026: es la dirección que la
+ *  persona ve, y se ahorra el salto por /{slug}/productos. */
 export function enlaceCatalogo(slug?: string | null): string {
-  return slug ? `${SITIO}/${slug}/productos` : `${SITIO}/productos`;
+  return slug ? `${SITIO}/productos/${slug}` : `${SITIO}/productos`;
 }
 
 /**

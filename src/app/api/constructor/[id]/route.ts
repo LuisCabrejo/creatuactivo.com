@@ -1,88 +1,62 @@
 /**
- * Copyright © 2025 CreaTuActivo.com
+ * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
- * Este software es propiedad privada y confidencial de CreaTuActivo.com.
- * Prohibida su reproducción, distribución o uso sin autorización escrita.
+ * GET /api/constructor/{id} — quién atiende un enlace del catálogo.
  *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * Acepta el constructor_id («luis-cabrejo-1288») o el slug («luis-cabrejo»). Desde
+ * el 17 oct 2026 devuelve también el slug y la foto: el catálogo B2C muestra al
+ * socio con su cara («Le atiende Luis Cabrejo») y pone el slug —legible— al final
+ * del pedido que viaja a WhatsApp, en vez del código interno.
+ *
+ * Usa la llave de servidor: nunca se expone en el navegador.
  */
 
 import { NextRequest, NextResponse } from 'next/server'
 
-/**
- * API Endpoint: /api/constructor/[id]
- * Obtiene datos públicos de un constructor por su constructor_id
- * Usa SERVICE_ROLE_KEY para bypasear RLS
- */
+const RE_REF = /^[a-z0-9-]{2,80}$/i
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const ref = (params.id || '').toLowerCase()
+  if (!RE_REF.test(ref)) return NextResponse.json({ error: 'Referencia inválida' }, { status: 400 })
+
+  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!SUPABASE_URL || !SERVICE_KEY) {
+    console.error('❌ [API Constructor] Faltan variables de entorno')
+    return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
+  }
+  const headers = { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` }
+  const leer = async (ruta: string) => {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/${ruta}`, { headers, cache: 'no-store' })
+    return r.ok ? ((await r.json()) as any[]) : null
+  }
+
   try {
-    const constructorId = params.id
+    // El enlace puede traer el slug: se traduce al constructor_id.
+    let slugFila = (await leer(`constructor_slugs?slug=eq.${encodeURIComponent(ref)}&select=slug,constructor_id,display_name,foto_url`))?.[0]
+    const constructorId: string = slugFila?.constructor_id ?? ref
 
-    console.log('🔍 [API Constructor] Buscando:', constructorId)
-
-    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-    if (!SUPABASE_URL || !SERVICE_KEY) {
-      console.error('❌ [API Constructor] Faltan variables de entorno')
-      return NextResponse.json(
-        { error: 'Server configuration error' },
-        { status: 500 }
-      )
+    const usuario = (await leer(`private_users?constructor_id=eq.${encodeURIComponent(constructorId)}&select=name,whatsapp`))?.[0]
+    if (!usuario) {
+      return NextResponse.json({ error: 'Constructor not found' }, { status: 404 })
+    }
+    if (!slugFila) {
+      slugFila = (await leer(`constructor_slugs?constructor_id=eq.${encodeURIComponent(constructorId)}&select=slug,display_name,foto_url`))?.[0]
     }
 
-    // Consultar Supabase con SERVICE_ROLE_KEY (bypasea RLS)
-    const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/private_users?constructor_id=eq.${encodeURIComponent(constructorId)}&select=name,whatsapp`,
-      {
-        headers: {
-          'apikey': SERVICE_KEY,
-          'Authorization': `Bearer ${SERVICE_KEY}`
-        }
-      }
-    )
-
-    if (!response.ok) {
-      console.error('❌ [API Constructor] Error en Supabase:', response.status)
-      return NextResponse.json(
-        { error: 'Database error' },
-        { status: 500 }
-      )
-    }
-
-    const data = await response.json()
-
-    if (!data || data.length === 0) {
-      console.log('ℹ️ [API Constructor] No encontrado:', constructorId)
-      return NextResponse.json(
-        { error: 'Constructor not found' },
-        { status: 404 }
-      )
-    }
-
-    const constructor = data[0]
-    console.log('✅ [API Constructor] Encontrado:', constructor.name)
-
-    // Solo lo que las páginas MUESTRAN: el nombre y el WhatsApp del socio.
-    // ⚠️ El correo salía aquí hasta el 1 oct 2026 y ninguna página lo usaba. El
-    // constructor_id va en cada enlace que el socio comparte (?ref=, /productos/…),
-    // así que quien recibía un enlace podía sacar el correo de ese socio. Esta
-    // ruta lee con la llave de servidor: devuelve lo mínimo, nunca más.
     return NextResponse.json({
-      nombre: constructor.name,
-      whatsapp: constructor.whatsapp,
+      nombre: usuario.name,
+      whatsapp: usuario.whatsapp,
+      constructorId,
+      slug: slugFila?.slug ?? null,
+      foto: slugFila?.foto_url ?? null,
     })
-
   } catch (error) {
     console.error('❌ [API Constructor] Error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

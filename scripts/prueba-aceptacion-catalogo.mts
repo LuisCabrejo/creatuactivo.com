@@ -46,7 +46,7 @@ const historialBetsabe = [
   { role: 'assistant', content: 'Con gusto, Betsabe.\n\nEl café es una de las presentaciones; lo que se distribuye es **Ganoderma**, con extracto propio.\n\nViene en bebidas, en suplementos y en cuidado personal —22 productos en cuatro líneas—, y hasta en un sistema barista italiano de 15 bares con cápsulas propias.\n\nLa diferencia está en la extracción: más de 200 nutrientes en un producto premium que su cliente incorpora a su rutina.\n\nAhí está la lógica del negocio: el cliente que nota la diferencia no vuelve al genérico. Vuelve a pedir el mes siguiente, y esa compra ya no le cuesta trabajo a usted.\n\n¿Le muestro el catálogo completo con precios?' },
 ];
 const r = await atenderEnlaceCatalogo('Si mi diamante', historialBetsabe, async () => 'luis-cabrejo');
-if (r?.texto?.includes('creatuactivo.com/luis-cabrejo/productos')) ok(`"Si mi diamante" → ${r.nodo}`);
+if (r?.texto?.includes('creatuactivo.com/productos/luis-cabrejo')) ok(`"Si mi diamante" → ${r.nodo}`);
 else mal(`"Si mi diamante" no recibió el enlace: ${JSON.stringify(r)}`);
 
 // Y el «sí» con pregunta encima, sobre el mismo hilo, NO se lo queda el nodo.

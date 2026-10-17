@@ -293,6 +293,11 @@ export default async function DestinoRoute({
   // 1. Resolver constructor_id desde el slug
   const record = await resolverSlug(slug, destino)
 
+  // El catálogo va al slug (17 oct 2026, Director: cada catálogo lleva el slug de
+  // su distribuidor). /productos/{slug} lo resuelve en el servidor y publica el
+  // código del socio para tracking.js; ver src/app/productos/[ref]/page.tsx.
+  if (destino === 'productos') redirect(`/productos/${slug}`)
+
   // 2. Resolver destino → ruta real
   const resolver = DESTINO_MAP[destino]
   if (!resolver) {

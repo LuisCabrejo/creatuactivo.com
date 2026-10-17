@@ -33,7 +33,9 @@ import { dispositivoDe, esRobot, sistemaDe } from '@/lib/dispositivo'
 export const runtime = 'edge'
 
 const DESTINOS = new Set(['whatsapp', 'web'])
-const ORIGENES = new Set(['orbe', 'boton', 'video'])
+// 'catalogo' = alguien abrió el catálogo; 'pedido' = tocó «Enviar pedido por WhatsApp»
+// (17 oct 2026: hasta entonces no se sabía cuántos carritos se armaban ni cuántos salían).
+const ORIGENES = new Set(['orbe', 'boton', 'video', 'catalogo', 'pedido'])
 const RE_VISITANTE = /^ck_[a-z0-9]{6,12}$/
 const RE_REF = /^[a-z0-9-]{2,80}$/i
 

@@ -260,9 +260,12 @@ export default function UnifiedQueswaOrb() {
   // ─── Ocultar el orbe mientras rueda el video del plan (/video-plan-servilleta) ──
   // HomeManifestoVideo dispara hide/show-queswa-orb; así el orbe no interfiere con
   // el video y reaparece al terminar. Queswa sigue accesible por el CTA de la página.
+  // El catálogo usa los mismos eventos (17 oct 2026): mientras la ficha o el pedido
+  // están abiertos, el orbe y su globo tapaban el precio y el botón de enviar.
   const [orbHiddenForVideo, setOrbHiddenForVideo] = useState(false)
+  const ocultableConEvento = pathname === '/video-plan-servilleta' || isProductsPage
   useEffect(() => {
-    if (pathname !== '/video-plan-servilleta') return
+    if (!ocultableConEvento) return
     const hide = () => setOrbHiddenForVideo(true)
     const show = () => setOrbHiddenForVideo(false)
     window.addEventListener('hide-queswa-orb', hide)
@@ -271,7 +274,7 @@ export default function UnifiedQueswaOrb() {
       window.removeEventListener('hide-queswa-orb', hide)
       window.removeEventListener('show-queswa-orb', show)
     }
-  }, [pathname])
+  }, [ocultableConEvento])
 
   // ─── Eventos globales (open-queswa, close-queswa, toggle-queswa) ─────────────
   useEffect(() => {
@@ -633,7 +636,7 @@ export default function UnifiedQueswaOrb() {
   // el componente monta para servir el widget; al cerrar vuelve a desaparecer.
   if (isDeck && !visibleInServilleta && !isOpen) return null
   // Ocultar el orbe mientras rueda el video del plan (reaparece al terminar)
-  if (pathname === '/video-plan-servilleta' && orbHiddenForVideo && !isOpen) return null
+  if (ocultableConEvento && orbHiddenForVideo && !isOpen) return null
   // Ocultar mientras el menú mobile está abierto
   if (isMenuOpen) return null
 
@@ -649,7 +652,7 @@ export default function UnifiedQueswaOrb() {
             transition={{ duration: 0.3 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px + var(--alto-aviso-cookies, 0px))',
+              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px + var(--alto-aviso-cookies, 0px) + var(--alto-barra-tienda, 0px))',
               right: '1rem',
               zIndex: 199,
               background: 'rgba(8,9,12,0.96)',
@@ -681,7 +684,7 @@ export default function UnifiedQueswaOrb() {
             transition={{ duration: 0.2 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 68px + var(--alto-aviso-cookies, 0px))',
+              bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 68px + var(--alto-aviso-cookies, 0px) + var(--alto-barra-tienda, 0px))',
               right: '1rem',
               zIndex: 201,
               pointerEvents: 'none',
@@ -740,7 +743,7 @@ export default function UnifiedQueswaOrb() {
           position: 'fixed',
           bottom: isOpen
             ? 'calc(5rem + env(safe-area-inset-bottom, 24px))'
-            : 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + var(--alto-aviso-cookies, 0px))',
+            : 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + var(--alto-aviso-cookies, 0px) + var(--alto-barra-tienda, 0px))',
           right: '1rem',
           zIndex: 200,
           width: 56,

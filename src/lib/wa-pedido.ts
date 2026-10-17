@@ -92,8 +92,9 @@ export function detectarIntencionCompra(texto: string): boolean {
 
 /** El bot está a la espera de los productos del pedido. */
 export const RE_PIDIO_PRODUCTOS = /qu[eé] productos va a llevar|enseguida le cargo su compra|no logr[eé] identificar|cu[aá]l prefiere\?$/i;
-/** El pedido ya quedó cargado en esta conversación. */
-export const RE_PEDIDO_CARGADO = /qued[oó] cargado su pedido|su pedido qued[oó] cargado/i;
+/** El pedido ya quedó cargado en esta conversación. Reconoce la confirmación
+ *  vigente («Su pedido N.º 48213 quedó registrado», 17 oct 2026) y la anterior. */
+export const RE_PEDIDO_CARGADO = /qued[oó] cargado su pedido|su pedido (N\.º \d+ )?qued[oó] (cargado|registrado)/i;
 
 export function pedidoAbierto(ultimoBot: string): boolean {
   return RE_PIDIO_PRODUCTOS.test(ultimoBot);
@@ -228,11 +229,15 @@ export function pedirProductos(nombre?: string, nota?: string): string {
  * trae utilizable.
  */
 export function pedirNombrePedido(nombreSocio?: string): string {
-  const quien = nombreSocio || 'quien le va a entregar';
-  return `Con mucho gusto. ¿A nombre de quién dejo el pedido? Así ${quien} sabe con quién se va a comunicar.`;
+  // Queswa se presenta (17 oct 2026, aprobado por el Director): quien llega del
+  // catálogo no sabe quién le contesta, y el 79 % pide una señal de legitimidad
+  // antes de seguir (Meta/Kantar 2025).
+  const quien = nombreSocio ? `Soy Queswa, la asistente de ${nombreSocio}.` : 'Soy Queswa, del equipo de creatuactivo.com.';
+  return `Con gusto le tomo el pedido. ${quien} ¿A nombre de quién lo dejo?`;
 }
 
-export const RE_PIDIO_NOMBRE_PEDIDO = /¿A nombre de qui[eé]n dejo el pedido\?/i;
+/** Reconoce la pregunta vigente y la anterior («¿A nombre de quién dejo el pedido?»). */
+export const RE_PIDIO_NOMBRE_PEDIDO = /¿A nombre de qui[eé]n (lo )?dejo( el pedido)?\?/i;
 
 /**
  * El mensaje leído como nombre: «Milena», «a nombre de Juan Pérez», «soy
@@ -275,34 +280,51 @@ export function resumenLineas(lineas: LineaPedido[]): string {
   return lineas.map((l) => `${l.cantidad} × ${l.producto.nombre}`).join(' · ');
 }
 
+/**
+ * «Hoy» o «mañana»: lo que se le promete al comprador sobre cuándo le escribe el
+ * socio (Director, 17 oct 2026: «le escribe hoy»). Un pedido de las 10 de la
+ * noche no se contesta hoy, así que desde las 7 p. m. de Bogotá se dice mañana.
+ */
+export function cuandoEscribe(ahora = new Date()): 'hoy' | 'mañana' {
+  const hora = Number(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Bogota', hour: 'numeric', hourCycle: 'h23' }).format(ahora));
+  return hora >= 19 ? 'mañana' : 'hoy';
+}
+
+/**
+ * La confirmación del pedido (17 oct 2026, aprobada por el Director). Lo que
+ * cambió frente a la anterior y por qué:
+ * - Decía «se comunica con usted por este mismo medio», y no era cierto: el socio
+ *   escribe desde SU WhatsApp. Ahora dice cuándo («hoy») y por dónde.
+ * - Lleva número de pedido: es lo que el socio cita en su primer mensaje, y así el
+ *   comprador sabe que quien le escribe es quien tiene su pedido.
+ * - Sale el enlace al catálogo (la persona acaba de salir de ahí) y la pregunta del
+ *   final: la confirmación es el mensaje más leído y no compite consigo mismo.
+ * No se da el número del socio (Director): quien compra por el catálogo lo recibió
+ * del propio socio, desde su WhatsApp, y ya lo tiene.
+ */
 export function confirmarPedido(
   lineas: LineaPedido[],
   socio: SocioPedido | null,
   nombre?: string,
+  codigo?: string | null,
+  ahora = new Date(),
 ): string {
-  const quien = socio?.nombre || 'El equipo de creatuactivo.com';
-  const encabezado = nombre ? `Con mucho gusto, ${nombre}. Ya quedó cargado su pedido:` : 'Con mucho gusto. Ya quedó cargado su pedido:';
+  const primer = nombreCorto(nombre);
+  const encabezado = `${primer ? `Listo, ${primer}.` : 'Listo.'} Su pedido${codigo ? ` N.º ${codigo}` : ''} quedó registrado:`;
   const cuerpo = lineas.map(lineaTexto).join('\n');
-  const total = lineas.length > 1 ? `\nTotal: *${cop(totalPedido(lineas))}*` : '';
+  const total = lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '';
+  const cuando = cuandoEscribe(ahora);
+  const quien = socio?.nombre || 'Alguien del equipo de creatuactivo.com';
+  const quienCorto = socio?.nombre?.split(/\s+/)[0] || 'el equipo';
 
   return [
     encabezado,
     '',
     cuerpo + total,
     '',
-    // Quien lo atiende se NOMBRA (Director, 3 sep 2026): el patrocinador, o alguien
-    // del equipo de creatuactivo.com para ayudarle a finiquitar. «El equipo … él
-    // se comunica» salía sin patrocinador y no concordaba.
-    socio?.nombre
-      ? `${quien} ya lo tiene en sus manos y se comunica con usted por este mismo medio para acordar el pago y la entrega como mejor le quede.`
-      : 'Alguien del equipo de creatuactivo.com ya lo tiene en sus manos y se comunica con usted por este mismo medio para ayudarle a finiquitar el pago y la entrega.',
+    `${quien} le escribe ${cuando} por WhatsApp para acordar el pago y la entrega.`,
     '',
-    `Mientras tanto, aquí tiene el catálogo completo por si quiere conocer el resto de la línea: ${enlaceCatalogo(socio?.slug)}. Si algo le llama la atención, escríbame por aquí y lo vemos juntos.`,
-    '',
-    // Una pregunta que PROPONE, no que encuesta (Director, 3 sep 2026): «¿hay algo
-    // más?» le entrega a la persona la carga de buscar el tema. RUTINA_01 tiene
-    // destino escrito y aplica a lo que acaba de pedir.
-    '¿Le muestro cómo se toman a lo largo de un día?',
+    `Si están en la misma ciudad suele entregarse en persona; si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro. Si el envío tiene costo, ${quienCorto} se lo confirma antes de que usted pague.`,
   ].join('\n');
 }
 
@@ -472,6 +494,27 @@ export function respuestaOptin(acepta: boolean): string {
 
 const WHATSAPP_EQUIPO = () => process.env.WHATSAPP_EQUIPO || '573206805737';
 
+/** Número corto del pedido: cinco cifras que el comprador y el socio se dicen. */
+function nuevoCodigo(): string {
+  const n = new Uint32Array(1);
+  crypto.getRandomValues(n);
+  return String(10000 + (n[0] % 90000));
+}
+
+/**
+ * La firma del enlace /pedido/{codigo}-{firma}: el enlace abre el chat con el
+ * comprador, así que cinco cifras solas permitirían adivinar teléfonos ajenos.
+ * Web Crypto y no `node:crypto`: este módulo también lo carga el motor (Edge).
+ */
+export async function firmaPedido(codigo: string): Promise<string> {
+  const llave = new TextEncoder().encode(process.env.WA_BRIDGE_SECRET?.trim() || 'sin-llave');
+  const clave = await crypto.subtle.importKey('raw', llave, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const firma = new Uint8Array(await crypto.subtle.sign('HMAC', clave, new TextEncoder().encode(`pedido:${codigo}`)));
+  let b64 = '';
+  for (const b of firma) b64 += String.fromCharCode(b);
+  return btoa(b64).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '').slice(0, 10);
+}
+
 export async function registrarPedido(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,
@@ -482,61 +525,89 @@ export async function registrarPedido(
     lineas: LineaPedido[]
     socio: SocioPedido | null
   },
-): Promise<string | null> {
-  try {
-    const { data, error } = await supabase
-      .from('wa_pedidos')
-      .insert({
-        fingerprint_id: datos.fingerprint,
-        whatsapp:       datos.whatsapp,
-        nombre:         datos.nombre ?? null,
-        lineas:         datos.lineas.map((l) => ({
-          slug: l.producto.slug, nombre: l.producto.nombre, cantidad: l.cantidad, precio_cop: l.producto.precioCOP,
-        })),
-        total_cop:      totalPedido(datos.lineas),
-        constructor_id: datos.socio?.constructorId ?? null,
-        socio:          datos.socio?.nombre ?? null,
-        estado:         'pendiente',
-      })
-      .select('id')
-      .single();
-    if (error) throw error;
-    return (data?.id as string) ?? null;
-  } catch (err) {
-    console.error('❌ [Pedido WA] No se pudo registrar el pedido:', err);
-    return null;
+): Promise<{ id: string; codigo: string } | null> {
+  // Dos intentos por si el código sale repetido (índice único `wa_pedidos_codigo_key`).
+  for (let intento = 0; intento < 3; intento++) {
+    const codigo = nuevoCodigo();
+    try {
+      const { data, error } = await supabase
+        .from('wa_pedidos')
+        .insert({
+          fingerprint_id: datos.fingerprint,
+          whatsapp:       datos.whatsapp,
+          nombre:         datos.nombre ?? null,
+          lineas:         datos.lineas.map((l) => ({
+            slug: l.producto.slug, nombre: l.producto.nombre, cantidad: l.cantidad, precio_cop: l.producto.precioCOP,
+          })),
+          total_cop:      totalPedido(datos.lineas),
+          constructor_id: datos.socio?.constructorId ?? null,
+          socio:          datos.socio?.nombre ?? null,
+          estado:         'pendiente',
+          codigo,
+        })
+        .select('id, codigo')
+        .single();
+      if (error) {
+        if (error.code === '23505') continue; // código repetido: se sortea otro
+        throw error;
+      }
+      return { id: data.id as string, codigo: data.codigo as string };
+    } catch (err) {
+      console.error('❌ [Pedido WA] No se pudo registrar el pedido:', err);
+      return null;
+    }
   }
+  return null;
 }
 
 /**
- * Aviso al socio y al equipo con la plantilla `pre_afiliacion_nueva` (UTILITY,
- * aprobada — el socio casi siempre está fuera de la ventana de 24 h). Sus cuatro
- * campos: a quién se saluda · quién · qué · dónde/cómo. Sin saltos de línea.
+ * Aviso al socio y al equipo de que hay un pedido.
+ *
+ * Desde el 17 oct 2026 va con su propia plantilla, `pedido_cliente_v1` (UTILITY):
+ * «Hola {{1}}. {{2}} le hizo un pedido por su catálogo: {{3}}. Total de productos:
+ * {{4}}. Escríbale hoy para acordar el pago y la entrega.» + [Escribirle], que abre
+ * /pedido/{codigo}-{firma} y de ahí el chat con el comprador con el primer mensaje
+ * escrito. Hasta ese día salía con `pre_afiliacion_nueva`, que decía «dejó lista su
+ * pre-afiliación con el paquete 1 × Ganocafé…» y mandaba a buscar los datos a un
+ * Centro de Mando que no muestra pedidos. Si la plantilla nueva todavía no está
+ * aprobada (o Meta la rechaza), se cae a la anterior: un aviso torpe es mejor que
+ * ninguno. Sin saltos de línea en las variables: Meta los rechaza.
  */
+export const PLANTILLA_PEDIDO_SOCIO = 'pedido_cliente_v1';
+
 export async function avisarPedido(
   lineas: LineaPedido[],
   whatsapp: string,
   nombre: string | undefined,
   socio: SocioPedido | null,
+  codigo?: string | null,
 ): Promise<void> {
-  const quien = `${nombre || 'Sin nombre'} (${whatsapp}) · PEDIDO`;
+  const quien = `${nombre || 'Sin nombre'} (${whatsapp})`;
   const que   = resumenLineas(lineas).slice(0, 200);
-  const como  = `Total ${cop(totalPedido(lineas))} — coordinar pago y entrega`;
+  const total = cop(totalPedido(lineas));
+  const boton = codigo ? `${codigo}-${await firmaPedido(codigo)}` : undefined;
+
+  const avisar = async (to: string, saludo: string, notaEquipo = '') => {
+    if (boton) {
+      const r = await sendTemplate(to, PLANTILLA_PEDIDO_SOCIO, 'es', [saludo, quien, que, `${total}${notaEquipo}`], boton);
+      if (r.ok) return r;
+      console.warn(`⚠️ [Pedido WA] ${PLANTILLA_PEDIDO_SOCIO} no salió (${r.error}) — se usa pre_afiliacion_nueva`);
+    }
+    return sendTemplate(to, 'pre_afiliacion_nueva', 'es', [
+      saludo, `${quien} · PEDIDO${codigo ? ` N.º ${codigo}` : ''}`, que, `Total ${total} — coordinar pago y entrega${notaEquipo}`,
+    ]);
+  };
 
   if (socio?.whatsapp) {
     try {
-      const r = await sendTemplate(socio.whatsapp, 'pre_afiliacion_nueva', 'es', [
-        socio.nombre?.split(/\s+/)[0] || 'Socio', quien, que, como,
-      ]);
+      const r = await avisar(socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio');
       console.log(`📨 [Pedido WA] Aviso al socio ${socio.nombre}: ${r.ok ? 'enviado' : r.error}`);
     } catch (err) {
       console.error('❌ [Pedido WA] No se pudo avisar al socio:', err);
     }
   }
   try {
-    const r = await sendTemplate(WHATSAPP_EQUIPO(), 'pre_afiliacion_nueva', 'es', [
-      'equipo', quien, que, socio ? `${como} (atiende ${socio.nombre})` : `${como} — SIN SOCIO`,
-    ]);
+    const r = await avisar(WHATSAPP_EQUIPO(), 'equipo', socio ? ` (atiende ${socio.nombre})` : ' — SIN SOCIO');
     console.log(`📨 [Pedido WA] Aviso al equipo: ${r.ok ? 'enviado' : r.error}`);
   } catch (err) {
     console.error('❌ [Pedido WA] No se pudo avisar al equipo:', err);

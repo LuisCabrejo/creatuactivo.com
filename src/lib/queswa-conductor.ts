@@ -45,6 +45,7 @@ import {
   detectarPreguntaCharla, respuestaCharla,
   detectarPreguntaEnvio, respuestaEnvio,
   detectarPreguntaOficina, detectarCiudad, respuestaOficinaProspecto, RE_OFICINA_YA_EXPLICADA, diceDondeVive,
+  detectarIntencionCompra, extraerLineasPedido,
   type SocioPedido,
 } from '@/lib/wa-pedido';
 import { pideEnlaceCatalogo, mensajeEnlaceCatalogo } from '@/lib/wa-onboarding';
@@ -346,6 +347,9 @@ export async function atenderEnlaceCatalogo(
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
   const aceptaCatalogo = RE_OFERTA_CATALOGO.test(ultimoBot.trim()) && esAceptacion(mensaje);
   if (!pideEnlaceCatalogo(mensaje) && !aceptaCatalogo) return null;
+  // Quien ya está pidiendo («quiero pedir 2 cajas del 3 en 1 que vi en el catálogo»)
+  // no necesita el enlace: el pedido lo atiende el nodo 2.45 (17 oct 2026).
+  if (!aceptaCatalogo && detectarIntencionCompra(mensaje) && extraerLineasPedido(mensaje).length > 0) return null;
   const slug = await resolverSlug();
   return { nodo: `2.24 enlace al catálogo (${slug ?? 'sin socio'})`, texto: mensajeEnlaceCatalogo(slug) };
 }

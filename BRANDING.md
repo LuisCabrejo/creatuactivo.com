@@ -119,7 +119,9 @@ Clases canónicas en [globals.css](src/app/globals.css). **Nunca** fondo dorado 
 - **`.cta-secondary`**: transparente + borde titanio + texto titanio.
 - **`.cta-ghost`**: sin borde, solo texto titanio; hover → dorado.
 
-**Sub-marcas con identidad propia** (Clinical Luxury bioEmerald `#50C878`, WhatsApp `#25D366`): patrón = fondo con tinte 7-14% del acento + borde 1.5-2px + texto del acento. Sin clip-path biselado.
+**Sub-marcas con identidad propia** (WhatsApp `#25D366`): patrón = fondo con tinte 7-14% del acento + borde 1.5-2px + texto del acento. Sin clip-path biselado.
+
+**El catálogo (`/productos`) es la excepción declarada: «vitrina cálida»** (Director, 17 oct 2026 — reemplaza a «Clinical Luxury», cuyo teal #0F2E2F resultó ser el mismo de AG1). Es una tienda para el cliente del socio, y 11 de 14 marcas comparables de café y bienestar venden sobre crema; las cajas de Gano, casi todas oscuras, se perdían sobre carbón. Crema `#F7F2EA`, fondo de producto `#EFE6D8`, texto espresso `#2B211A`, dorado `#C5A059` solo de relleno con texto oscuro (`#7A5C24` si va como texto), botones en píldora `#2B211A` con texto crema, tarjetas de 14 px. **Sin verde.** La marca madre se conserva en el marco: menú, franja de Queswa y cierre en carbón con dorado. Tokens `--t-*` en [src/app/productos/page.tsx](src/app/productos/page.tsx); investigación → [CATALOGO_B2C_INVESTIGACION_OCT2026.md](docs/investigaciones/resultados/CATALOGO_B2C_INVESTIGACION_OCT2026.md).
 
 ---
 

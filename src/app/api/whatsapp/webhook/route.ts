@@ -2605,10 +2605,10 @@ async function procesarEntrante(body: any): Promise<void> {
       const lineasP = lineasPendientesDelHilo(historial);
       if (lineasP.length > 0) {
         const nombreDado = leerNombrePedido(messageText) ?? _nombrePedido;
-        const id = await registrarPedido(supabase, {
+        const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: nombreDado, lineas: lineasP, socio: _socioPedido,
         });
-        await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido);
+        await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido, registro?.codigo);
         if (nombreDado && nombreDado !== _nombrePedido) {
           try {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -2619,10 +2619,10 @@ async function procesarEntrante(body: any): Promise<void> {
             });
           } catch { /* best-effort */ }
         }
-        const texto = confirmarPedido(lineasP, _socioPedido, nombreDado);
+        const texto = confirmarPedido(lineasP, _socioPedido, nombreDado, registro?.codigo);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido cargado con nombre');
-        console.log(`🛒 [WA Webhook] Pedido cargado con nombre (${id ?? 'sin registro'}) — turno cerrado sin motor`);
+        console.log(`🛒 [WA Webhook] Pedido cargado con nombre (${registro?.codigo ?? 'sin registro'}) — turno cerrado sin motor`);
         return;
       }
     }
@@ -2675,14 +2675,14 @@ async function procesarEntrante(body: any): Promise<void> {
           console.log('🛒 [WA Webhook] Pedido con productos — falta el nombre, se pide');
           return;
         }
-        const id = await registrarPedido(supabase, {
+        const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: _nombrePedido, lineas, socio: _socioPedido,
         });
-        await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido);
-        const texto = confirmarPedido(lineas, _socioPedido, _nombrePedido);
+        await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido, registro?.codigo);
+        const texto = confirmarPedido(lineas, _socioPedido, _nombrePedido, registro?.codigo);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido cargado');
-        console.log(`🛒 [WA Webhook] Pedido cargado (${id ?? 'sin registro'}) — ${lineas.length} línea(s) — turno cerrado sin motor`);
+        console.log(`🛒 [WA Webhook] Pedido cargado (${registro?.codigo ?? 'sin registro'}) — ${lineas.length} línea(s) — turno cerrado sin motor`);
         return;
       }
 
@@ -2817,8 +2817,8 @@ async function procesarEntrante(body: any): Promise<void> {
     // inventó una cuarta categoría llamada "Nutrición" y cerró con dos preguntas
     // (prueba del Director, 21 ago).
     //
-    // El enlace es el amigable del socio: `/{slug}/productos` redirige a
-    // `/productos/{constructor_id}` y atribuye por el path.
+    // El enlace lleva el slug del socio: `/productos/{slug}` (17 oct 2026). La
+    // página resuelve el slug en el servidor y atribuye la visita.
     //
     // ⚠️ Esto NO contradice la decisión de no sacar a la persona del canal: esa
     // página lleva el orbe de Queswa, así que la conversación continúa allá.
@@ -2827,7 +2827,7 @@ async function procesarEntrante(body: any): Promise<void> {
     if (_pideCatalogo && socio?.constructorId) {
       const slug = await slugDelSocio(supabase, socio.constructorId);
       const url = slug
-        ? `https://creatuactivo.com/${slug}/productos`
+        ? `https://creatuactivo.com/productos/${slug}`
         : `https://creatuactivo.com/productos/${encodeURIComponent(socio.constructorId)}`;
       const texto = `Con gusto. Aquí está el catálogo completo, con fotos, presentaciones y precios:
 

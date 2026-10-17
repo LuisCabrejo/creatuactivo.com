@@ -2,3000 +2,773 @@
  * Copyright © 2026 CreaTuActivo.com
  * Todos los derechos reservados.
  *
- * CATÁLOGO GANO EXCEL — base visual «Clinical Luxury» v1.0 (feb 2026)
+ * CATÁLOGO — la tienda del distribuidor para SUS clientes (B2C).
  *
- * El inicio de la página se reescribió el 8 oct 2026 (Director, auditoría de la Home):
- * era de febrero y de junio, y la limpieza de salud del 22 ago revisó las fichas pero
- * no llegó aquí. Salieron «cuida su salud» (promesa de mejora de salud: la prohíben las
- * políticas de Gano Excel para afiliados, 2023 §49.B), «más de 200 nutrientes que su
- * cuerpo aprovecha» (cifra sin fuente + absorción), «Catálogo Oficial» (un distribuidor
- * no se presenta como la página oficial de la marca — mismo motivo que retiró
- * /paises/brasil), «Nutrición Celular» y «Bio-Inteligente» (mecanismo celular y jerga),
- * «Cada Día» (el marco de consumo diario) y «Cuéntele cómo se siente» (invitaba a
- * narrar síntomas). Lo que queda es lo que se puede decir sin trámite: composición, lo
- * sensorial y lo institucional (docs/investigaciones/resultados/SALUD_CLAIMS_SINTESIS_SEP2026.md §5).
- * Estética: Pharma-Teal + Bio-Emerald (Lab/Clinical spectrum)
- * Geometría: Hard Surface (ZERO border-radius)
+ * Rehecho el 17 oct 2026 (Director: «es una herramienta de nuestros distribuidores
+ * para sus clientes, B2C, pero en este momento parece B2B»). Lo que había, medido
+ * en un celular de 390 px: el primer producto aparecía a 4.361 px —cinco pantallas
+ * de «ciencia» y «sistemas de bienestar» antes de ver algo que comprar—, una
+ * tarjeta por pantalla (26.000 px de página), el botón «ESPECIFICACIONES» en
+ * mayúscula mono, el carrito con el encabezado tapado por el menú y los precios
+ * con coma o con punto según el idioma del navegador. Y en 60 días, cero pedidos
+ * salidos del carrito.
  *
- * Color Transition: Amber (construcción) → Emerald (quirófano/biolab)
- * Justificación científica: Ver "Estética Clinical Luxury para E-commerce Oscuro.md"
+ * Lo que es ahora, en el orden en que se compra:
+ *   1. Quién le atiende (el socio, con su nombre) y qué hay aquí, en una pantalla.
+ *   2. Las líneas fijas arriba y la vitrina en dos columnas: foto, nombre,
+ *      presentación, precio y «Agregar», que se vuelve − 1 + al tocarlo.
+ *   3. Una barra abajo con lo que lleva y el total, siempre a la vista.
+ *   4. La ficha y el pedido como hojas que suben, sin salir de la página.
+ *   5. Después de la vitrina, lo que no vende pero da confianza: cómo sigue el
+ *      pedido, el Ganoderma, las preguntas y el puente al negocio.
  *
- * Para consultas de licenciamiento: legal@creatuactivo.com
+ * El pedido se termina por WhatsApp con Queswa (src/lib/wa-pedido.ts). El texto
+ * pre-escrito NO dice «catálogo»: el nodo 2.24 del conductor contesta con el
+ * enlace del catálogo a cualquier mensaje con esa palabra. Las cantidades van
+ * con «x» ASCII: `cantidadJunto` no lee «×».
+ *
+ * Los datos de los 22 productos viven en ./catalogo-datos.ts.
  */
 
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
-import { ShoppingCart, X, Heart, Sparkles, Waves, Trophy, Send, Bot, Star, Zap, TrendingUp, Gift, Download, Coffee, Pill, Target, MessageCircle, Users, Rocket, Handshake } from 'lucide-react'
-import StrategicNavigation from '@/components/StrategicNavigation'
-import { IndustrialHeader } from '@/components/IndustrialHeader'
 import Link from 'next/link'
+import { Plus, Minus, X, ShoppingBag, MessageCircle, ChevronRight, Truck, Store, Factory, Download } from 'lucide-react'
+import StrategicNavigation from '@/components/StrategicNavigation'
+import { productData, LINEAS, MAS_PEDIDO, PREGUNTAS, imagenVitrina, pesos, mensajePedido, type Product, type LineaCarrito } from './catalogo-datos'
 
-// ═══════════════════════════════════════════════════════════════════════════
-// CLINICAL LUXURY - Bio-Lab Spectrum (sub-marca del vertical e-commerce de salud)
-// ═══════════════════════════════════════════════════════════════════════════
-// Fondos + textos heredan del sistema Lujo Silencioso (coherencia ecosistema).
-// Los acentos cromáticos (emerald + teal + whatsapp) se preservan: son
-// decisión arquitectónica del vertical Clinical, no del funnel financiero.
-const C = {
-  bioEmerald: '#50C878',                          // Acento Clinical (verde lab)
-  pharmaTeal: '#0F2E2F',                          // Fondo card Clinical
-  whatsappLux: '#25D366',                         // CTA WhatsApp
-  obsidian: 'var(--color-bg-primary)',            // #0F1115 — del sistema
-  gunmetal: 'var(--color-bg-elevated)',           // #15171C — del sistema
-  textMain: 'var(--color-text-body)',             // #C8C7C2
-  textMuted: 'var(--color-text-muted)',           // #878681
-  textDim: 'rgba(255,255,255,0.4)',
+// ─── Tipos ───────────────────────────────────────────────────────────────────
+
+type Linea = LineaCarrito
+
+export interface Socio {
+  nombre: string          // «Luis Cabrejo»: nombre y primer apellido
+  primerNombre: string    // «Luis»
+  foto?: string | null
+  slug?: string | null
+  constructorId?: string | null
 }
 
-// Interfaces mejoradas con campos estratégicos
-// Los 22 productos, reescritos el 9 sep 2026 con el Director: composición
-// verificada contra ganoexcel.com.co (nunca contra el sitio de EE. UU., que
-// formula distinto), nombres y precios del back office, y la voz de las fichas
-// del catálogo de Queswa. `presentacion` y `categoria` (la del fabricante) se
-// muestran; `llevaGanoderma` condiciona el bloque del extracto en la ficha;
-// `ritual` reemplaza a los puntos de conversación del socio, que se le
-// mostraban al prospecto.
-interface Product {
-  name: string
-  price: number
-  image: string
-  invima: string
-  presentacion: string
-  categoria: string
-  llevaGanoderma: boolean
-  goals: string[]
-  shortDescription: string
-  taglineEstrategico: string
-  usage: string
-  ingredients: string[]
-  benefits: string[]
-  perfilIdeal: string
-  momentoConsumo: string
-  ritual: string[]
-  combinacionSugerida?: string[]
-  sistemaRecomendado?: string
-  downloadUrl?: string
+const WHATSAPP_QUESWA = '573215193909'
+
+// Las dos fichas de la máquina que ya tenía el catálogo (Director, 17 oct 2026: se mantienen).
+const DESCARGAS_LUVOCO = [
+  { texto: 'Ficha de producto', href: 'https://drive.google.com/file/d/13C_CQyXnmeNPqzrsm34GNCIysE-T4p2k/view?usp=drive_link' },
+  { texto: 'Especificaciones técnicas', href: 'https://drive.google.com/file/d/12EsTVv_HPTa6xEj505H_Z8XQssYHfSoi/view?usp=drive_link' },
+]
+const CLAVE_CARRITO = 'carrito_catalogo'
+
+// ─── Utilidades ──────────────────────────────────────────────────────────────
+
+function nombreVisible(nombre: string): Pick<Socio, 'nombre' | 'primerNombre'> {
+  const partes = nombre.trim().split(/\s+/)
+  return { nombre: partes.slice(0, 2).join(' '), primerNombre: partes[0] }
 }
 
-interface ProductData {
-  [key: string]: Product
+function registrarApertura(origen: 'catalogo' | 'pedido', destino: 'web' | 'whatsapp', ref?: string | null) {
+  try {
+    const cuerpo = JSON.stringify({ origen, destino, ruta: window.location.pathname, ref: ref || undefined })
+    if (navigator.sendBeacon) navigator.sendBeacon('/api/track/apertura', new Blob([cuerpo], { type: 'application/json' }))
+    else fetch('/api/track/apertura', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: cuerpo, keepalive: true }).catch(() => {})
+  } catch { /* medir no puede costar una venta */ }
 }
 
-interface CartItem {
-  id: string
-  name: string
-  price: number
-  quantity: number
-  image: string
-}
+// ─── Página ──────────────────────────────────────────────────────────────────
 
-interface DistributorProfile {
-  nombre: string
-  whatsapp: string
-  email: string
-  ciudad: string
-  pais: string
-}
+export default function CatalogoTienda({ socioInicial = null }: { socioInicial?: Socio | null } = {}) {
+  const [socio, setSocio] = useState<Socio | null>(socioInicial)
+  const [carrito, setCarrito] = useState<Linea[]>([])
+  const [ficha, setFicha] = useState<string | null>(null)
+  const [pedidoAbierto, setPedidoAbierto] = useState(false)
+  const [enviado, setEnviado] = useState(false)
+  const [lineaActiva, setLineaActiva] = useState(LINEAS[0].id)
+  const cargado = useRef(false)
 
-interface SistemaBienestar {
-  nombre: string
-  descripcion: string
-  productos: string[]
-  icono: JSX.Element
-  color: string
-}
-
-// Sistemas de Bienestar Estratégicos
-const sistemasDebienestar: { [key: string]: SistemaBienestar } = {
-  'energia-enfoque': {
-    nombre: 'Para Tener Más Energía',
-    descripcion: 'Empiece el día con energía y manténgase activo sin el bajón del café normal',
-    productos: ['ganocafe-3-en-1', 'ganocafe-clasico', 'capsulas-excellium'],
-    icono: <Zap className="h-6 w-6" />,
-    color: 'from-yellow-500 to-orange-500'
-  },
-  'familiar-nutricion': {
-    nombre: 'Para Toda la Familia',
-    descripcion: 'Bebidas y productos que cuidan a grandes y chicos por igual',
-    productos: ['ganorico-shoko-rico', 'espirulina-gano-creal', 'pasta-dientes-gano-fresh', 'ganorico-latte-rico'],
-    icono: <Users className="h-6 w-6" />,
-    color: 'from-green-500 to-emerald-500'
-  },
-  'rendimiento-avanzado': {
-    nombre: 'Para Mantenerse Activo',
-    descripcion: 'Ideal si camina, hace ejercicio o simplemente desea sentirse con más vitalidad',
-    productos: ['capsulas-cordygold', 'capsulas-ganoderma', 'espirulina-gano-creal'],
-    icono: <Target className="h-6 w-6" />,
-    color: 'from-red-500 to-pink-500'
-  },
-  'belleza-holistica': {
-    nombre: 'Para Su Piel y Belleza',
-    descripcion: 'Cuide su piel desde adentro con colágeno, y por fuera con jabones naturales',
-    productos: ['bebida-colageno-reskine', 'jabon-gano', 'jabon-transparente-gano', 'exfoliante-piel-brillo'],
-    icono: <Sparkles className="h-6 w-6" />,
-    color: 'from-purple-500 to-pink-500'
-  },
-  'experiencia-premium': {
-    nombre: 'Experiencia Barista Premium Luvoco',
-    descripcion: 'La élite del café con nuestra tecnología de extracción propia de 15 bares',
-    productos: ['maquina-luvoco', 'luvoco-suave', 'luvoco-medio', 'luvoco-fuerte'],
-    icono: <Coffee className="h-6 w-6" />,
-    color: 'from-slate-700 to-slate-900'
-  }
-}
-
-// Datos de productos completos con campos estratégicos
-const productData: ProductData = {
-  'ganocafe-3-en-1': {
-    name: 'Ganocafé 3 en 1',
-    price: 110900,
-    image: '/productos/bebidas/ganocafe-3-en-1-gano-excel-min.png',
-    invima: 'RSA-0011698-2021',
-    presentacion: 'Caja de 20 sobres',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Energía', 'Ritual de mañana'],
-    shortDescription: 'Café premium con crema y azúcar, los tres en un sobre, con el extracto de Ganoderma adentro.',
-    taglineEstrategico: 'El café de la mañana, con algo más adentro',
-    usage: 'Un sobre en 150 ml de agua caliente. Revuelva y listo.',
-    ingredients: ['Café instantáneo', 'Crema no láctea', 'Azúcar', 'Betaglucanos de Ganoderma lucidum', 'Contiene derivados de la leche'],
-    benefits: ['Café premium con crema y azúcar en un solo sobre', 'Energía estable, sin nerviosismo y sin el bajón de media mañana', 'Sabor suave y aroma intenso', 'Uno cada mañana: la caja alcanza para veinte', 'El producto más vendido de la línea'],
-    perfilIdeal: 'Quien ya toma café todas las mañanas y quiere que ese café haga algo más',
-    momentoConsumo: 'A primera hora, como su café de siempre',
-    ritual: ['Prepárelo como el café de siempre: un sobre, agua caliente, y a la mesa', 'Si lo prefiere más suave, use 180 ml de agua', 'Va bien acompañado de una cápsula con el almuerzo'],
-    combinacionSugerida: ['capsulas-excellium', 'pasta-dientes-gano-fresh'],
-    sistemaRecomendado: 'energia-enfoque',
-  },
-  'ganocafe-clasico': {
-    name: 'Ganocafé Clásico',
-    price: 110900,
-    image: '/productos/bebidas/gano-cafe-clasico-gano-excel-min.png',
-    invima: '',
-    presentacion: 'Caja de 30 sobres',
-    categoria: 'Suplemento dietario',
-    llevaGanoderma: true,
-    goals: ['Energía', 'Sin azúcar'],
-    shortDescription: 'Café negro soluble, sin crema y sin azúcar, con el extracto de Ganoderma adentro.',
-    taglineEstrategico: 'Para quien toma el tinto negro y no lo negocia',
-    usage: 'Un sobre de 4,5 g en 150 ml de agua caliente.',
-    ingredients: ['Café instantáneo', 'Extracto de Ganoderma lucidum'],
-    benefits: ['Café negro puro: sin crema y sin azúcar', 'Cuerpo, aroma y el amargo justo de una buena cafetería', 'Energía estable, sin nerviosismo y sin el bajón de media mañana', 'Treinta sobres: un mes completo', 'Sin azúcar añadida'],
-    perfilIdeal: 'Quien toma el café negro, o cuida el azúcar en lo que consume',
-    momentoConsumo: 'Mañana y después del almuerzo',
-    ritual: ['Un sobre por taza; para un café más cargado, 120 ml de agua', 'Se puede tomar frío: prepárelo y sírvalo con hielo', 'Es el café de quien no quiere azúcar en la taza'],
-    combinacionSugerida: ['capsulas-ganoderma'],
-    sistemaRecomendado: 'energia-enfoque',
-  },
-  'ganorico-latte-rico': {
-    name: 'Ganorico Latte Rico',
-    price: 119900,
-    image: '/productos/bebidas/latte-rico-gano-excel-min.png',
-    invima: 'NSA-0010760-2021',
-    presentacion: 'Caja de 20 sobres',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Cremoso', 'Pausa'],
-    shortDescription: 'El café de la pausa: cremoso y con espuma, armado en la taza con agua caliente.',
-    taglineEstrategico: 'La textura de cafetería, en su cocina',
-    usage: 'Un sobre de 25 g en 180 ml de agua caliente. Revuelva hasta que espume.',
-    ingredients: ['Crema de café no láctea', 'Café instantáneo', 'Grasa vegetal', 'Leche en polvo y leche desnatada en polvo', 'Betaglucanos de Ganoderma lucidum', 'Contiene derivados de la leche'],
-    benefits: ['Cremoso y con espuma, como un latte de cafetería', 'Sabor redondo que no empalaga', 'Se prepara solo con agua caliente', 'Veinte sobres, veinte pausas', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien prefiere el café suave y cremoso al café negro',
-    momentoConsumo: 'Media mañana o media tarde',
-    ritual: ['Revuelva fuerte al final: ahí sale la espuma', 'Para un latte helado, prepárelo con la mitad del agua y complete con hielo', 'Combina con el Mocha Rico para alternar según el día'],
-    combinacionSugerida: ['ganorico-mocha-rico', 'bebida-colageno-reskine'],
-    sistemaRecomendado: 'familiar-nutricion',
-  },
-  'ganorico-mocha-rico': {
-    name: 'Ganorico Mocha Rico',
-    price: 119900,
-    image: '/productos/bebidas/mocha-rico-gano-excel-min.png',
-    invima: 'NSA-0010760-2021',
-    presentacion: 'Caja de 20 sobres',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Café y chocolate', 'Tarde'],
-    shortDescription: 'Café y chocolate en el mismo sobre, para la hora de la tarde en que uno quiere algo dulce.',
-    taglineEstrategico: 'El cacao le quita el filo al café; el café le quita el empalago al chocolate',
-    usage: 'Un sobre de 25 g en 180 ml de agua caliente.',
-    ingredients: ['Crema de moca no láctea', 'Café instantáneo', 'Cacao en polvo', 'Crema espumosa', 'Leche desnatada en polvo', 'Sabor natural a vainilla', 'Extracto de malta de cebada', 'Betaglucanos de Ganoderma lucidum', 'Contiene derivados de la leche', 'Contiene gluten (malta de cebada)'],
-    benefits: ['Café y chocolate equilibrados en una sola taza', 'Un toque de vainilla al final', 'Espuma ligera al revolver', 'Veinte sobres por caja', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien quiere algo dulce por la tarde sin pensarlo mucho',
-    momentoConsumo: 'La tarde',
-    ritual: ['Con leche caliente en vez de agua queda más cremoso', 'Es el que suelen preferir quienes no toman el café negro', 'Alterne con el Latte Rico: uno para la mañana, otro para la tarde'],
-    combinacionSugerida: ['ganorico-shoko-rico', 'espirulina-gano-creal'],
-    sistemaRecomendado: 'familiar-nutricion',
-  },
-  'ganorico-shoko-rico': {
-    name: 'Ganorico Shoko Rico',
-    price: 124900,
-    image: '/productos/bebidas/shoko-rico-gano-excel-min.png',
-    invima: 'NSA-0010766-2021',
-    presentacion: 'Caja de 20 sobres',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Familia', 'Sin café'],
-    shortDescription: 'El chocolate caliente de la casa: el que se prepara en la noche y el que piden los niños.',
-    taglineEstrategico: 'No lleva café, así que no altera a nadie',
-    usage: 'Un sobre de 25 g en 180 ml de agua o de leche caliente.',
-    ingredients: ['Chocolate en polvo', 'Extracto de Ganoderma lucidum'],
-    benefits: ['Chocolate caliente, sin café', 'Se prepara en agua o en leche, según la casa', 'Para toda la familia', 'Veinte sobres por caja', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Familias con niños, y quien no toma café',
-    momentoConsumo: 'La noche, o la tarde fría',
-    ritual: ['En leche queda más espeso; en agua, más ligero', 'Es la bebida de los niños de la casa en la noche', 'El Schokolade es su versión para adultos: más cacao, menos dulce'],
-    combinacionSugerida: ['espirulina-gano-creal', 'pasta-dientes-gano-fresh'],
-    sistemaRecomendado: 'familiar-nutricion',
-  },
-  'espirulina-gano-creal': {
-    name: 'Gano C\'Real Spirulina',
-    price: 119900,
-    image: '/productos/bebidas/ganocereal-spirulina-min.png',
-    invima: 'PSA-0004956-2024',
-    presentacion: 'Caja de 15 sobres',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Desayuno', 'Sin café'],
-    shortDescription: 'Un cereal instantáneo con espirulina y extracto de Ganoderma: el desayuno que se prepara en un minuto.',
-    taglineEstrategico: 'El desayuno de quien sale temprano',
-    usage: 'Un sobre en 180 ml de agua o leche caliente. Revuelva y listo.',
-    ingredients: ['Cereal', 'Espirulina', 'Extracto de Ganoderma lucidum', 'Crema no láctea', 'Contiene derivados de la leche'],
-    benefits: ['Desayuno instantáneo, listo en un minuto', 'Con espirulina, el alga rica en proteína, hierro y vitamina B12', 'Sabor suave, entre cereal y bebida caliente', 'Quince sobres por caja', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien sale temprano y no desayuna, y quien no toma café',
-    momentoConsumo: 'El desayuno',
-    ritual: ['Con leche queda más espeso, como una papilla; con agua, como bebida', 'Es la opción de desayuno de quien no toma café', 'Va bien con una fruta al lado'],
-    combinacionSugerida: ['ganocafe-3-en-1', 'capsulas-cordygold'],
-    sistemaRecomendado: 'rendimiento-avanzado',
-  },
-  'bebida-oleaf-gano-rooibos': {
-    name: 'Oleaf Gano Rooibos',
-    price: 119900,
-    image: '/productos/bebidas/te-rooibos-gano-excel-min.png',
-    invima: 'SD2017-0004109',
-    presentacion: 'Caja de 20 sobres',
-    categoria: 'Suplemento dietario',
-    llevaGanoderma: true,
-    goals: ['Sin cafeína', 'Noche'],
-    shortDescription: 'La única infusión de la línea: rooibos de Sudáfrica con el extracto de Ganoderma, sin cafeína.',
-    taglineEstrategico: 'La taza de la noche, la que no quita el sueño',
-    usage: 'Un sobre en 180 ml de agua caliente. Deje reposar tres minutos.',
-    ingredients: ['Rooibos de Sudáfrica', 'Extracto de Ganoderma lucidum'],
-    benefits: ['Sin cafeína: el rooibos es una planta que no la tiene', 'Con los antioxidantes propios del rooibos', 'Sabor suave y ligeramente dulce', 'Se toma caliente o frío', 'Veinte sobres por caja', 'La opción de la línea para quien no toma café'],
-    perfilIdeal: 'Quien no toma café, o quiere una taza caliente al final del día',
-    momentoConsumo: 'La tarde y la noche',
-    ritual: ['Frío con hielo y una rodaja de limón es otra bebida', 'Es el que se toma después de la comida', 'Combina con las Cápsulas de Ganoderma para quien no toma café'],
-    combinacionSugerida: ['capsulas-ganoderma', 'jabon-gano'],
-    sistemaRecomendado: 'belleza-holistica',
-  },
-  'gano-schokoladde': {
-    name: 'Gano Schokolade',
-    price: 124900,
-    image: '/productos/bebidas/gano-schokolade-gano-excel-min.png',
-    invima: 'NSA-0013117-2022',
-    presentacion: 'Caja de 20 sobres',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Cacao intenso', 'Adultos'],
-    shortDescription: 'El chocolate del adulto: cacao intenso, del que se toma despacio, con el extracto de Ganoderma adentro.',
-    taglineEstrategico: 'Más profundo y menos dulce que el Shoko Rico',
-    usage: 'Un sobre en 180 ml de agua caliente.',
-    ingredients: ['Cacao', 'Azúcar refinada', 'Crema no láctea', 'Leche descremada en polvo', 'Extracto de Ganoderma lucidum', 'Contiene derivados de la leche'],
-    benefits: ['Cacao intenso, menos dulce', 'El chocolate que uno se toma solo, al final del día', 'Se prepara solo con agua caliente', 'Veinte sobres por caja', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Conocedores del chocolate que lo prefieren intenso',
-    momentoConsumo: 'El final del día',
-    ritual: ['Tómelo despacio: está hecho para eso', 'En leche caliente queda más cremoso', 'Para los niños, el Shoko Rico; este es el de los adultos'],
-    combinacionSugerida: ['luvoco', 'bebida-colageno-reskine'],
-    sistemaRecomendado: 'experiencia-premium',
-  },
-  'bebida-colageno-reskine': {
-    name: 'Reskine Colágeno',
-    price: 216900,
-    image: '/productos/bebidas/gano-plus-reskine-collagen-drink-gano-excel-min.png',
-    invima: 'RSA-0025739-2023',
-    presentacion: 'Caja de 10 sachets',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Colágeno', 'Frutos rojos'],
-    shortDescription: 'Colágeno de pescado en una bebida de frutos rojos, con los betaglucanos del Ganoderma.',
-    taglineEstrategico: 'La única forma de tomar colágeno en la que uno espera el momento',
-    usage: 'Un sachet en 200 ml de agua fría. Agite y listo.',
-    ingredients: ['Colágeno de pescado', 'Betaglucanos de Ganoderma lucidum', 'Quinua líquida', 'Concentrado de jugo de manzana', 'Extracto de goji', 'Jugo de aloe vera', 'Espinaca en polvo', 'Sabor a fresa, frambuesa y arándano', 'Contiene pescado'],
-    benefits: ['Colágeno que se toma con ganas: sabe a frutos rojos', 'No es un polvo sin sabor que toca pasar rápido', 'Con quinua, manzana, goji, aloe y espinaca', 'Diez sachets por caja', 'Con los betaglucanos del Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien quiere tomar colágeno y no le gusta el que se vende sin sabor',
-    momentoConsumo: 'La mañana, o después de entrenar',
-    ritual: ['Bien frío es donde mejor sabe', 'Un sachet al día; la caja rinde diez días', 'Va bien con el jabón transparente en la rutina de la cara'],
-    combinacionSugerida: ['bebida-colageno-reskine', 'exfoliante-piel-brillo'],
-    sistemaRecomendado: 'belleza-holistica',
-  },
-  'capsulas-ganoderma': {
-    name: 'Cápsulas de Ganoderma',
-    price: 272500,
-    image: '/productos/suplementos/capsulas-de-ganoderma-gano-excel-min.png',
-    invima: '',
-    presentacion: 'Frasco de 90 cápsulas',
-    categoria: 'Suplemento dietario',
-    llevaGanoderma: true,
-    goals: ['Extracto puro', 'Tres meses'],
-    shortDescription: 'El extracto de Ganoderma en su forma más directa: 275 mg por cápsula, sin café de por medio.',
-    taglineEstrategico: 'El mismo hongo de toda la línea, en su forma más directa',
-    usage: 'Una cápsula al día, con agua, preferiblemente con una comida.',
-    ingredients: ['Extracto de Ganoderma lucidum, 275 mg por cápsula', 'Cápsula'],
-    benefits: ['275 mg de extracto de Ganoderma por cápsula', 'Una al día: el frasco rinde tres meses', 'Apoya el funcionamiento normal de las defensas, como parte de la rutina', 'Para quien ya toma el café y quiere sumar algo más', 'El extracto que lleva toda la línea, sin nada más'],
-    perfilIdeal: 'Quien quiere el Ganoderma solo, sin café ni bebida',
-    momentoConsumo: 'Con el almuerzo',
-    ritual: ['Una cápsula con una comida, a la misma hora cada día', 'Combina con el café de la mañana o con el Rooibos de la noche', 'El frasco dura tres meses: es la compra que menos se repite'],
-    combinacionSugerida: ['capsulas-excellium', 'capsulas-cordygold'],
-    sistemaRecomendado: 'rendimiento-avanzado',
-  },
-  'capsulas-excellium': {
-    name: 'Cápsulas Excellium',
-    price: 272500,
-    image: '/productos/suplementos/capsulas-de-excellium-gano-excel-min.png',
-    invima: '',
-    presentacion: 'Frasco de 90 cápsulas',
-    categoria: 'Suplemento dietario',
-    llevaGanoderma: true,
-    goals: ['Enfoque', 'Tres meses'],
-    shortDescription: 'Cápsulas con 275 mg de extracto de Ganoderma, las que suele buscar quien tiene el día lleno de decisiones.',
-    taglineEstrategico: 'Para llegar despierto a la tarde',
-    usage: 'Una cápsula al día, con agua, con el desayuno o el almuerzo.',
-    ingredients: ['Extracto de Ganoderma lucidum, 275 mg por cápsula', 'Cápsula'],
-    benefits: ['275 mg de extracto de Ganoderma por cápsula', 'Una al día: el frasco rinde tres meses', 'Enfoque y claridad mental para el día largo', 'Va bien acompañada del café de la mañana', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien tiene el día lleno de decisiones y quiere llegar despierto a la tarde',
-    momentoConsumo: 'La mañana',
-    ritual: ['Con el desayuno, para que acompañe la jornada', 'Alterne con las Cápsulas de Ganoderma si quiere probar las dos', 'Una al día es la medida; no hace falta más'],
-    combinacionSugerida: ['ganocafe-clasico', 'capsulas-ganoderma'],
-    sistemaRecomendado: 'energia-enfoque',
-  },
-  'capsulas-cordygold': {
-    name: 'Cápsulas Cordygold',
-    price: 336900,
-    image: '/productos/suplementos/capsulas-de-cordy-gold-gano-excel-min.png',
-    invima: 'SD2017-0004056',
-    presentacion: 'Frasco de 90 cápsulas',
-    categoria: 'Suplemento dietario',
-    llevaGanoderma: false,
-    goals: ['Cordyceps', 'Rendimiento'],
-    shortDescription: 'El único de la línea que no gira alrededor del Ganoderma: Cordyceps sinensis, 500 mg por cápsula.',
-    taglineEstrategico: 'La concentración más alta de todo el portafolio',
-    usage: 'Una cápsula al día, con agua, preferiblemente en la mañana.',
-    ingredients: ['Extracto de Cordyceps sinensis, 500 mg por cápsula', 'Cápsula'],
-    benefits: ['500 mg de Cordyceps sinensis por cápsula', 'El hongo que se asocia con el aguante y el rendimiento físico', 'Una al día: el frasco rinde tres meses', 'Para quien entrena o tiene jornadas largas de pie', 'Distinto al Ganoderma: es sumar otra cosa, no más de lo mismo'],
-    perfilIdeal: 'Quien entrena, quien pasa el día de pie, o quien ya toma el café y quiere sumar algo distinto',
-    momentoConsumo: 'La mañana, antes de la jornada o del entrenamiento',
-    ritual: ['En la mañana, con el desayuno', 'Los días de entrenamiento, una hora antes', 'Combina con el Ganocafé Clásico para quien no quiere azúcar'],
-    combinacionSugerida: ['espirulina-gano-creal', 'capsulas-ganoderma'],
-    sistemaRecomendado: 'rendimiento-avanzado',
-  },
-  'pasta-dientes-gano-fresh': {
-    name: 'Gano Fresh · Pasta dental',
-    price: 73900,
-    image: '/productos/cuidado-personal/gano-fresh-gano-excel-min.png',
-    invima: 'NSOC58855-14CO',
-    presentacion: 'Tubo de 150 g',
-    categoria: 'Cosmético',
-    llevaGanoderma: true,
-    goals: ['Sin flúor', 'Familia'],
-    shortDescription: 'Pasta dental con extracto de Ganoderma y menta, sin flúor: la que buscan las familias que revisan etiquetas.',
-    taglineEstrategico: 'Hasta en el cepillo de dientes',
-    usage: 'Cepillado normal, dos o tres veces al día.',
-    ingredients: ['Sorbitol', 'Agua', 'Menta', 'Extracto de Ganoderma lucidum'],
-    benefits: ['Sin flúor', 'Frescura de menta que dura', 'Con el extracto de Ganoderma de toda la línea', 'Para toda la familia', 'Tubo de 150 g'],
-    perfilIdeal: 'Familias que prefieren una pasta sin flúor',
-    momentoConsumo: 'Mañana y noche',
-    ritual: ['La misma rutina de siempre, con otro producto en la mano', 'Combina con el Jabón Gano en el baño', 'Un tubo dura alrededor de un mes en una familia'],
-    combinacionSugerida: ['jabon-gano', 'ganocafe-3-en-1'],
-    sistemaRecomendado: 'familiar-nutricion',
-  },
-  'jabon-gano': {
-    name: 'Jabón Gano',
-    price: 73900,
-    image: '/productos/cuidado-personal/gano-jabon-gano-excel-min.png',
-    invima: 'NSOC99970-20CO',
-    presentacion: 'Dos barras de 100 g',
-    categoria: 'Cosmético',
-    llevaGanoderma: true,
-    goals: ['Piel', 'Leche de cabra'],
-    shortDescription: 'Jabón con leche de cabra y extracto de Ganoderma: la piel queda suave, no tirante.',
-    taglineEstrategico: 'Limpia sin castigar',
-    usage: 'Uso diario, en cuerpo y manos. Enjuague con agua tibia.',
-    ingredients: ['Leche de cabra', 'Extracto de Ganoderma lucidum', 'Base de jabón'],
-    benefits: ['Con leche de cabra', 'La piel queda suave en vez de tirante', 'El que suele preferir quien tiene la piel delicada', 'Para toda la familia', 'Dos barras de 100 g'],
-    perfilIdeal: 'Quien tiene la piel delicada y busca un jabón que no reseque',
-    momentoConsumo: 'La ducha diaria',
-    ritual: ['Es el jabón de cuerpo; el Transparente es el de la cara', 'Guárdelo seco entre usos para que rinda más', 'Combina con el exfoliante dos veces por semana'],
-    combinacionSugerida: ['jabon-transparente-gano', 'exfoliante-piel-brillo'],
-    sistemaRecomendado: 'belleza-holistica',
-  },
-  'jabon-transparente-gano': {
-    name: 'Jabón Transparente Gano',
-    price: 78500,
-    image: '/productos/cuidado-personal/jabon-transparent-soap-gano-excel-min.png',
-    invima: 'NSOC09915-21CO',
-    presentacion: 'Barra de 100 g',
-    categoria: 'Cosmético',
-    llevaGanoderma: true,
-    goals: ['Rostro', 'Papaya y aloe'],
-    shortDescription: 'El jabón de la cara: papaya y aloe vera con el extracto de Ganoderma, para limpiar sin sentir la piel áspera.',
-    taglineEstrategico: 'El del final del día',
-    usage: 'Sobre el rostro húmedo, con movimientos suaves. Enjuague con agua tibia.',
-    ingredients: ['Agua', 'Extracto de papaya', 'Extracto de hoja de aloe vera', 'Extracto de Ganoderma lucidum'],
-    benefits: ['Para el rostro', 'Con papaya y aloe vera', 'Limpia el maquillaje y el polvo de la calle sin dejar la piel áspera', 'Barra transparente de 100 g', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien quiere un jabón suave para la cara, mañana y noche',
-    momentoConsumo: 'Mañana y noche',
-    ritual: ['Con agua tibia, nunca caliente', 'Después, el Reskine por dentro completa la rutina de la piel', 'El Jabón Gano es el del cuerpo; este, el de la cara'],
-    combinacionSugerida: ['exfoliante-piel-brillo', 'bebida-colageno-reskine'],
-    sistemaRecomendado: 'belleza-holistica',
-  },
-  'champu-piel-brillo': {
-    name: 'Champú Piel&Brillo',
-    price: 73900,
-    image: '/productos/cuidado-personal/shampoo-p&b-gano-excel-min.png',
-    invima: 'NSOC07407-21CO',
-    presentacion: 'Frasco de 250 ml',
-    categoria: 'Cosmético',
-    llevaGanoderma: true,
-    goals: ['Cabello', 'Brillo'],
-    shortDescription: 'Champú con aloe y extracto de Ganoderma para el cabello que perdió el brillo.',
-    taglineEstrategico: 'El champú limpia; el acondicionador cierra',
-    usage: 'Sobre el cabello mojado, masajee y enjuague. Siga con el acondicionador.',
-    ingredients: ['Agua', 'Extracto de hoja de aloe', 'Extracto de Ganoderma lucidum'],
-    benefits: ['Limpia suave, sin dejar el cabello áspero', 'Con aloe', 'Pensado para usarse con el acondicionador de la línea', 'Frasco de 250 ml', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien tiene el cabello opaco y quiere que vuelva a brillar',
-    momentoConsumo: 'La ducha',
-    ritual: ['Champú y acondicionador juntos: ahí es donde se nota', 'Dos lavadas si el cabello está muy cargado', 'El frasco rinde alrededor de un mes'],
-    combinacionSugerida: ['champu-piel-brillo', 'exfoliante-piel-brillo'],
-    sistemaRecomendado: 'belleza-holistica',
-  },
-  'acondicionador-piel-brillo': {
-    name: 'Acondicionador Piel&Brillo',
-    price: 73900,
-    image: '/productos/cuidado-personal/acondicionador-p&b-gano-excel-min.png',
-    invima: 'NSOC07389-21CO',
-    presentacion: 'Frasco de 250 ml',
-    categoria: 'Cosmético',
-    llevaGanoderma: true,
-    goals: ['Cabello', 'Suavidad'],
-    shortDescription: 'La segunda mitad del par: el champú limpia y este cierra, para que el pelo se desenrede solo.',
-    taglineEstrategico: 'Donde el brillo se queda en vez de irse con el agua',
-    usage: 'Después del champú, de medios a puntas. Deje un minuto y enjuague.',
-    ingredients: ['Agua', 'Fragancia', 'Propilparabeno', 'Extracto de Ganoderma lucidum'],
-    benefits: ['El cabello se desenreda solo al salir de la ducha', 'Suave y manejable', 'Con el champú de la línea es donde se nota', 'Frasco de 250 ml', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien usa el champú Piel&Brillo y quiere cerrar la rutina',
-    momentoConsumo: 'La ducha, después del champú',
-    ritual: ['De medios a puntas, no en la raíz', 'Un minuto antes de enjuagar', 'Rinde igual que el champú: se compran juntos'],
-    combinacionSugerida: ['champu-piel-brillo', 'bebida-colageno-reskine'],
-    sistemaRecomendado: 'belleza-holistica',
-  },
-  'exfoliante-piel-brillo': {
-    name: 'Exfoliante Corporal Piel&Brillo',
-    price: 73900,
-    image: '/productos/cuidado-personal/exfoliante-p&b-gano-excel-min.png',
-    invima: 'NSOC96487-19CO',
-    presentacion: 'Envase de 200 g',
-    categoria: 'Cosmético',
-    llevaGanoderma: true,
-    goals: ['Piel', 'Semanal'],
-    shortDescription: 'Partículas suaves y extracto de Ganoderma para retirar lo que la ducha diaria no se lleva.',
-    taglineEstrategico: 'La diferencia se siente el mismo día, al pasar la mano',
-    usage: 'Dos o tres veces por semana, sobre la piel húmeda, con movimientos circulares. Enjuague.',
-    ingredients: ['Agua', 'Sílice hidratada', 'Extracto de Ganoderma lucidum'],
-    benefits: ['Partículas suaves que no raspan', 'Dos o tres veces por semana es la medida', 'La piel queda lisa al tacto', 'Envase de 200 g', 'Con el extracto de Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien quiere la piel lisa y no tiene tiempo para tratamientos largos',
-    momentoConsumo: 'Dos o tres duchas por semana',
-    ritual: ['Después, el Jabón Gano deja la piel suave', 'No lo use todos los días: dos o tres veces por semana basta', 'Antes de una ocasión especial, la noche anterior'],
-    combinacionSugerida: ['jabon-gano', 'luvoco'],
-    sistemaRecomendado: 'belleza-holistica',
-  },
-  'maquina-luvoco': {
-    name: 'Máquina Luvoco',
-    price: 1026000,
-    image: '/productos/luvoco/luvoco55-1-1024x1024.png',
-    invima: '',
-    presentacion: 'Máquina de espresso para cápsulas Luvoco',
-    categoria: 'Electrodoméstico',
-    llevaGanoderma: false,
-    goals: ['Espresso', 'Se compra una vez'],
-    shortDescription: 'La máquina italiana de 15 bares que hace el espresso de la casa, con las cápsulas propias de Luvoco.',
-    taglineEstrategico: 'La máquina se compra una vez; las cápsulas son las que se repiten',
-    usage: 'Cápsula adentro, botón, y el espresso sale en segundos. Solo con cápsulas Luvoco.',
-    ingredients: ['Máquina de espresso', 'Bomba de 15 bares', 'Compatible únicamente con cápsulas Luvoco', 'Garantía de 12 meses'],
-    benefits: ['Espresso a presión, con el cuerpo de una cafetería', 'Con solo presionar un botón', '15 bares de presión', 'Garantía de 12 meses', 'Diseñada para las tres cápsulas Luvoco: Suave, Medio y Fuerte'],
-    perfilIdeal: 'Quien quiere el espresso en casa y ya sabe qué café le gusta',
-    momentoConsumo: 'Cada vez que quiera un espresso',
-    ritual: ['Empiece por la cápsula Medio: es la que la mayoría deja en la cocina', 'Descalcifique la máquina una vez al mes', 'Las cápsulas no sirven en otras máquinas, ni otras cápsulas en esta'],
-    combinacionSugerida: ['luvoco-suave', 'luvoco-medio', 'luvoco-fuerte'],
-    sistemaRecomendado: 'experiencia-premium',
-    downloadUrl: '/catalogo/docs/maquina-de-luvoco-digital-gano-excel.pdf',
-  },
-  'luvoco-suave': {
-    name: 'Luvoco Suave · 15 cápsulas',
-    price: 110900,
-    image: '/productos/luvoco/luvoco-suave-gano-excel-min.png',
-    invima: 'NSA-0012966-2022',
-    presentacion: 'Caja de 15 cápsulas de 8 g',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Tueste claro', 'Acidez viva'],
-    shortDescription: 'Tueste claro: sabor a grano tostado, acidez pronunciada y el mayor contenido de cafeína de las tres.',
-    taglineEstrategico: 'La que uno pone cuando llega visita',
-    usage: 'Una cápsula por espresso, en la máquina Luvoco.',
-    ingredients: ['Café molido y tostado (tueste claro, 180 a 205 °C)', 'Betaglucanos de Ganoderma lucidum'],
-    benefits: ['Tueste claro: conserva el sabor original del grano', 'Acidez viva y aroma limpio', 'De las tres, la de mayor cafeína', 'Quince cápsulas de 8 g', 'Con los betaglucanos del Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien toma el café sin que le pese, y quien lo prefiere más cargado de cafeína',
-    momentoConsumo: 'La mañana',
-    ritual: ['Es la que le gusta a casi todo el mundo: la de las visitas', 'Con un poco de leche espumada queda un cortado', 'Pruebe las tres antes de decidir cuál se queda en la cocina'],
-    combinacionSugerida: ['luvoco-medio', 'ganorico-latte-rico'],
-    sistemaRecomendado: 'experiencia-premium',
-  },
-  'luvoco-medio': {
-    name: 'Luvoco Medio · 15 cápsulas',
-    price: 110900,
-    image: '/productos/luvoco/luvoco-medio-gano-excel-min.png',
-    invima: 'NSA-0012956-2022',
-    presentacion: 'Caja de 15 cápsulas de 8 g',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Equilibrado', 'El del diario'],
-    shortDescription: 'Tueste medio: sabor, aroma y acidez equilibrados, con menos cafeína que el Suave.',
-    taglineEstrategico: 'Ni tan ligero que se pierda, ni tan intenso que canse',
-    usage: 'Una cápsula por espresso, en la máquina Luvoco.',
-    ingredients: ['Café molido y tostado (tueste medio, 210 a 220 °C)', 'Betaglucanos de Ganoderma lucidum'],
-    benefits: ['Sabor, aroma y acidez en equilibrio', 'Menos cafeína que el tueste claro', 'La que la mayoría deja en la cocina cuando ya probó las tres', 'Quince cápsulas de 8 g', 'Con los betaglucanos del Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien toma varios espressos al día y quiere uno que no canse',
-    momentoConsumo: 'Todo el día',
-    ritual: ['El del diario: mañana y después del almuerzo', 'Solo o con un chorrito de leche', 'Si el Suave le resulta ácido, esta es la suya'],
-    combinacionSugerida: ['luvoco-fuerte', 'capsulas-excellium'],
-    sistemaRecomendado: 'experiencia-premium',
-  },
-  'luvoco-fuerte': {
-    name: 'Luvoco Fuerte · 15 cápsulas',
-    price: 110900,
-    image: '/productos/luvoco/luvoco-fuerte-gano-excel-min.png',
-    invima: 'NSA-0012958-2022',
-    presentacion: 'Caja de 15 cápsulas de 8 g',
-    categoria: 'Alimento',
-    llevaGanoderma: true,
-    goals: ['Tueste alto', 'Menos cafeína'],
-    shortDescription: 'Tueste alto: cuerpo denso, amargo redondo y ahumado, y la menor cafeína de las tres.',
-    taglineEstrategico: 'Para quien lleva años tomando café y ya sabe lo que quiere',
-    usage: 'Una cápsula por espresso, en la máquina Luvoco.',
-    ingredients: ['Café molido y tostado (tueste alto, 240 a 250 °C)', 'Betaglucanos de Ganoderma lucidum'],
-    benefits: ['Cuerpo denso y amargo redondo', 'Notas ahumadas del tueste alto', 'De las tres, la de menor cafeína', 'Quince cápsulas de 8 g', 'Con los betaglucanos del Ganoderma de toda la línea'],
-    perfilIdeal: 'Quien busca el espresso intenso, y quien quiere menos cafeína sin renunciar al cuerpo',
-    momentoConsumo: 'La mañana exigente, y después del almuerzo',
-    ritual: ['Corto y sin azúcar es como mejor se aprecia', 'La menos cargada de cafeína, aunque sea la más intensa de sabor', 'Es la del espresso de después del almuerzo'],
-    combinacionSugerida: ['capsulas-cordygold', 'ganocafe-clasico'],
-    sistemaRecomendado: 'experiencia-premium',
-  },
-}
-
-export default function CatalogoEstrategico() {
-  // Estados
-  const [cart, setCart] = useState<CartItem[]>([])
-  const [cartOpen, setCartOpen] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [distributor, setDistributor] = useState<DistributorProfile | null>(null)
-  const [showTopSelling, setShowTopSelling] = useState(false)
-  const [selectedSystem, setSelectedSystem] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'beneficios' | 'ciencia' | 'constructor'>('beneficios')
-
-  // Productos destacados y más vendidos
-  const featuredProducts = ['bebida-colageno-reskine', 'maquina-luvoco', 'ganocafe-3-en-1', 'capsulas-excellium']
-  const topSellingProducts = ['ganocafe-3-en-1', 'maquina-luvoco', 'bebida-colageno-reskine', 'pasta-dientes-gano-fresh', 'capsulas-ganoderma']
-
-  // Función para buscar distribuidor en Supabase
-  const buscarDistribuidor = async (constructorRef: string | null): Promise<DistributorProfile | null> => {
-    // Default para tráfico orgánico (sin referido)
-    const defaultDistributor: DistributorProfile = {
-      nombre: 'Luis Cabrejo',
-      whatsapp: '+573215193909',
-      email: 'info@creatuactivo.com',
-      ciudad: 'Colombia',
-      pais: 'Colombia'
-    }
-
-    // Si no hay constructor_ref, retornar default (tráfico orgánico)
-    if (!constructorRef) {
-      console.log('🔵 [Productos] Tráfico orgánico - usando distribuidor default:', defaultDistributor.nombre)
-      return defaultDistributor
-    }
-
-    try {
-      // Buscar constructor via API endpoint (usa SERVICE_KEY en servidor)
-      console.log('🔍 [Productos] Buscando constructor:', constructorRef)
-
-      const response = await fetch(`/api/constructor/${constructorRef}`)
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          console.log('ℹ️ [Productos] Constructor no encontrado en DB, usando default')
-        } else {
-          console.warn('⚠️ [Productos] Error buscando constructor, usando default')
-        }
-        return defaultDistributor
-      }
-
-      const data = await response.json()
-
-      if (data && data.nombre) {
-        console.log('✅ [Productos] Constructor encontrado:', data.nombre)
-
-        return {
-          nombre: data.nombre,
-          whatsapp: data.whatsapp || defaultDistributor.whatsapp,
-          email: data.email || defaultDistributor.email,
-          ciudad: 'Colombia',
-          pais: 'Colombia'
-        }
-      } else {
-        console.log('ℹ️ [Productos] Respuesta inválida, usando default')
-        return defaultDistributor
-      }
-    } catch (error) {
-      console.error('❌ [Productos] Error consultando distribuidor:', error)
-      return defaultDistributor
-    }
-  }
-
-  // Cargar distribuidor y carrito al montar
+  // ── El socio. En /productos/{slug} llega resuelto desde el servidor ([ref]/page.tsx);
+  // en /productos, del que trajo a esta persona la última vez (tracking.js lo guarda).
   useEffect(() => {
-    // Leer constructor_ref desde localStorage (guardado por tracking.js)
-    const constructorRef = localStorage.getItem('constructor_ref')
-    console.log('🎯 [Productos] Constructor ref desde localStorage:', constructorRef)
-
-    // Tracking: prospecto vio el catálogo de productos.
-    // ⚠️ Se espera a que tracking.js tenga la huella (22 sep 2026): sin ella el
-    // aviso al socio no se puede acotar a una vez por visitante y le llegaba uno
-    // por cada recarga. `iaa_fingerprint` nunca existió; la clave es
-    // `nexus_fingerprint`, la que escribe tracking.js.
-    const leerHuella = (): string | null => {
-      try {
-        return (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') || null
-      } catch { return null }
+    let ref: string | null = socioInicial?.constructorId ?? null
+    if (ref) {
+      try { localStorage.setItem('constructor_ref', ref) } catch { /* sin almacenamiento */ }
+    } else {
+      try { ref = localStorage.getItem('constructor_ref') } catch { /* sin almacenamiento */ }
+      if (ref) {
+        fetch(`/api/constructor/${encodeURIComponent(ref)}`)
+          .then((r) => (r.ok ? r.json() : null))
+          .then((d) => {
+            if (!d?.nombre) return
+            setSocio({ ...nombreVisible(d.nombre), foto: d.foto ?? null, slug: d.slug ?? null, constructorId: d.constructorId ?? ref })
+          })
+          .catch(() => {})
+      }
     }
-    const avisarCatalogo = (fingerprint: string | null) => {
+    registrarApertura('catalogo', 'web', ref)
+    if (!ref) return
+    // Aviso al socio de que alguien mira su catálogo (una vez por visitante y día, ver /api/funnel)
+    const avisar = () => {
+      let huella: string | null = null
+      try { huella = (window as any).FrameworkIAA?.fingerprint || localStorage.getItem('nexus_fingerprint') } catch { /* nada */ }
       fetch('/api/funnel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          source: 'catalogo-productos',
-          step: 'vio_catalogo',
-          fingerprint,
-          constructor_ref: constructorRef,
-        }),
-      }).catch(() => {/* silencioso — no bloqueante */})
+        body: JSON.stringify({ source: 'catalogo-productos', step: 'vio_catalogo', fingerprint: huella, constructor_ref: ref }),
+      }).catch(() => {})
     }
-    const huellaInicial = leerHuella()
-    if (huellaInicial) {
-      avisarCatalogo(huellaInicial)
-    } else {
-      let avisado = false
-      const alEstarLista = () => { if (avisado) return; avisado = true; avisarCatalogo(leerHuella()) }
-      window.addEventListener('nexusTrackingReady', alEstarLista, { once: true })
-      // Si tracking.js no llega a identificar (bloqueado, sin red), se avisa igual a los 5 s.
-      setTimeout(alEstarLista, 5000)
-    }
+    let avisado = false
+    const unaVez = () => { if (!avisado) { avisado = true; avisar() } }
+    window.addEventListener('nexusTrackingReady', unaVez, { once: true })
+    const t = setTimeout(unaVez, 5000)
+    return () => { clearTimeout(t); window.removeEventListener('nexusTrackingReady', unaVez) }
+  }, [socioInicial?.constructorId])
 
-    buscarDistribuidor(constructorRef).then(profile => {
-      setDistributor(profile || {
-        nombre: 'Luis Cabrejo',
-        whatsapp: '+573215193909',
-        email: 'info@creatuactivo.com',
-        ciudad: 'Colombia',
-        pais: 'Colombia'
-      })
-    })
-
-    // Pre-cargar productos desde URL param ?carrito=id1,id2 (Generador de Protocolos)
-    const urlParams = new URLSearchParams(window.location.search)
-    const carritoParam = urlParams.get('carrito')
-    if (carritoParam) {
-      const productIds = carritoParam.split(',').filter(id => productData[id])
-      if (productIds.length > 0) {
-        const urlCartItems: CartItem[] = productIds.map(id => ({
-          id,
-          name: productData[id].name,
-          price: productData[id].price,
-          quantity: 1,
-          image: productData[id].image,
-        }))
-        setCart(urlCartItems)
-        setCartOpen(true)
-      }
+  // ── El carrito: ?carrito=a,b (enlaces armados) o lo que la persona dejó la última vez
+  useEffect(() => {
+    const url = new URLSearchParams(window.location.search).get('carrito')
+    if (url) {
+      const ids = url.split(',').filter((id) => productData[id])
+      if (ids.length) { setCarrito(ids.map((id) => ({ id, cantidad: 1 }))); setPedidoAbierto(true) }
     } else {
-      const savedCart = localStorage.getItem('cart')
-      if (savedCart) {
-        try {
-          const parsed = JSON.parse(savedCart)
-          // Filtrar ítems cuyo producto ya no existe en el catálogo (evita carrito roto)
-          if (Array.isArray(parsed)) {
-            setCart(parsed.filter((item: CartItem) => item && productData[item.id]))
-          }
-        } catch {
-          localStorage.removeItem('cart')
+      try {
+        const guardado = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || localStorage.getItem('cart') || '[]')
+        if (Array.isArray(guardado)) {
+          setCarrito(guardado
+            .map((x: any) => ({ id: x?.id, cantidad: Number(x?.cantidad ?? x?.quantity) || 0 }))
+            .filter((l: Linea) => productData[l.id] && l.cantidad > 0))
         }
-      }
+      } catch { /* carrito ilegible: se empieza vacío */ }
     }
+    cargado.current = true
   }, [])
 
-  // Guardar carrito en localStorage
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart])
+    if (!cargado.current) return
+    try { localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito)); localStorage.removeItem('cart') } catch { /* nada */ }
+  }, [carrito])
 
-  // Ocultar NEXUS cuando el carrito está abierto
-  useEffect(() => {
-    const nexusButton = document.querySelector('[data-nexus-button]') as HTMLElement
-    if (nexusButton) {
-      if (cartOpen) {
-        nexusButton.style.display = 'none'
-      } else {
-        nexusButton.style.display = 'flex'
-      }
-    }
-  }, [cartOpen])
+  const cantidadDe = useCallback((id: string) => carrito.find((l) => l.id === id)?.cantidad ?? 0, [carrito])
 
-  // Funciones del carrito
-  const addToCart = (productId: string) => {
-    const product = productData[productId]
-    if (!product) return
-
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === productId)
-      if (existingItem) {
-        return prevCart.map(item =>
-          item.id === productId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      } else {
-        return [...prevCart, {
-          id: productId,
-          name: product.name,
-          price: product.price,
-          quantity: 1,
-          image: product.image
-        }]
-      }
+  const fijar = useCallback((id: string, cantidad: number) => {
+    setEnviado(false)
+    setCarrito((c) => {
+      if (cantidad <= 0) return c.filter((l) => l.id !== id)
+      if (c.some((l) => l.id === id)) return c.map((l) => (l.id === id ? { ...l, cantidad: Math.min(cantidad, 50) } : l))
+      return [...c, { id, cantidad }]
     })
+  }, [])
+
+  const unidades = carrito.reduce((s, l) => s + l.cantidad, 0)
+  const total = carrito.reduce((s, l) => s + productData[l.id].price * l.cantidad, 0)
+  const hayHoja = Boolean(ficha) || pedidoAbierto
+
+  // ── La barra de abajo sube el orbe de Queswa para no taparlo (UnifiedQueswaOrb lee la variable)
+  useEffect(() => {
+    const raiz = document.documentElement
+    raiz.style.setProperty('--alto-barra-tienda', unidades > 0 && !hayHoja ? '72px' : '0px')
+    window.dispatchEvent(new CustomEvent(hayHoja ? 'hide-queswa-orb' : 'show-queswa-orb'))
+    document.body.style.overflow = hayHoja ? 'hidden' : ''
+    return () => { raiz.style.setProperty('--alto-barra-tienda', '0px'); document.body.style.overflow = '' }
+  }, [unidades, hayHoja])
+
+  // ── La línea que se está viendo se marca arriba
+  useEffect(() => {
+    const secciones = LINEAS.map((l) => document.getElementById(`linea-${l.id}`)).filter(Boolean) as HTMLElement[]
+    const obs = new IntersectionObserver((entradas) => {
+      const visible = entradas.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
+      if (visible) setLineaActiva(visible.target.id.replace('linea-', ''))
+    }, { rootMargin: '-140px 0px -55% 0px' })
+    secciones.forEach((s) => obs.observe(s))
+    return () => obs.disconnect()
+  }, [])
+
+  const irALinea = (id: string) => {
+    document.getElementById(`linea-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const removeFromCart = (productId: string) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== productId))
+  const enviarPedido = () => {
+    registrarApertura('pedido', 'whatsapp', socio?.constructorId)
+    setEnviado(true)
+    window.open(`https://wa.me/${WHATSAPP_QUESWA}?text=${encodeURIComponent(mensajePedido(carrito, socio))}`, '_blank', 'noopener')
   }
 
-  const updateQuantity = (productId: string, newQuantity: number) => {
-    if (newQuantity === 0) {
-      removeFromCart(productId)
-      return
-    }
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.id === productId
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    )
-  }
-
-  // El pedido va al chat de QUESWA (el WABA), no al número personal del socio:
-  // quien venía conversando por WhatsApp continúa en el MISMO hilo, y el
-  // webhook carga el pedido y le avisa al socio con su plantilla
-  // (src/lib/wa-pedido.ts). El texto va en el formato que ese webhook sabe
-  // leer («Quiero pedir: 2 x …»), sin precios — los pone el canal con su
-  // tabla, así un precio viejo cacheado en esta página no viaja en el mensaje.
-  // «vengo del enlace de {ref}» atribuye al socio a quien llega sin historial.
-  const generateWhatsAppMessage = () => {
-    if (cart.length === 0) return ""
-    const ref = typeof window !== 'undefined' ? localStorage.getItem('constructor_ref') : null
-    const lineas = cart.map(item => `${item.quantity} x ${item.name}`).join(', ')
-    const saludo = ref ? `Hola Queswa, vengo del enlace de ${ref}.` : 'Hola Queswa.'
-    return encodeURIComponent(`${saludo} Quiero pedir: ${lineas}.`)
-  }
-
-  const handleOverlayClick = (e: React.MouseEvent, closeFunction: () => void) => {
-    if (e.target === e.currentTarget) {
-      closeFunction()
-    }
-  }
-
-  // Filtrar productos por sistema
-  const getProductsBySystem = (systemId: string) => {
-    const system = sistemasDebienestar[systemId]
-    if (!system) return []
-    return system.productos.map(id => ({ id, ...productData[id] }))
-  }
-
-  // Organizar productos por categorías tradicionales
-  const bebidas = Object.entries(productData).filter(([id]) =>
-    ['ganocafe-3-en-1', 'ganocafe-clasico', 'ganorico-latte-rico', 'ganorico-mocha-rico', 'ganorico-shoko-rico', 'espirulina-gano-creal', 'bebida-oleaf-gano-rooibos', 'gano-schokoladde', 'bebida-colageno-reskine'].includes(id)
-  )
-
-  const suplementos = Object.entries(productData).filter(([id]) =>
-    ['capsulas-ganoderma', 'capsulas-excellium', 'capsulas-cordygold'].includes(id)
-  )
-
-  const cuidadoPersonal = Object.entries(productData).filter(([id]) =>
-    ['pasta-dientes-gano-fresh', 'jabon-gano', 'jabon-transparente-gano', 'champu-piel-brillo', 'acondicionador-piel-brillo', 'exfoliante-piel-brillo'].includes(id)
-  )
-
-  const luvoco = Object.entries(productData).filter(([id]) =>
-    ['maquina-luvoco', 'luvoco-suave', 'luvoco-medio', 'luvoco-fuerte'].includes(id)
-  )
+  const productoFicha = ficha ? productData[ficha] : null
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{__html: `
-        /* CTA Clinical (Lujo Silencioso adaptado al vertical e-commerce):
-           tinte 7% del bioEmerald + borde + texto verde lab.
-           Sin clip-path biselado (anti-investigación). */
-        .clinical-btn {
-          background: ${C.bioEmerald}14;
-          color: ${C.bioEmerald};
-          border: 1.5px solid ${C.bioEmerald};
-          transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-        }
-        .clinical-btn:hover {
-          background: ${C.bioEmerald}26;
-          border-color: ${C.bioEmerald};
-        }
-        .titanium-btn:hover {
-          border-color: #ffffff !important;
-          color: #ffffff !important;
-        }
-        /* WhatsApp hybrid: mantiene su identidad (verde WhatsApp + carbón obsidian)
-           porque es un brand-button, pero sin clip-path biselado. */
-        .whatsapp-hybrid {
-          background: ${C.obsidian};
-          color: ${C.whatsappLux};
-          border: 2px solid ${C.whatsappLux}66;
-          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-        }
-        .whatsapp-hybrid:hover {
-          background: ${C.whatsappLux};
-          color: #000;
-          border-color: ${C.whatsappLux};
-        }
-      `}} />
+    <div className="tienda">
+      <style dangerouslySetInnerHTML={{ __html: ESTILOS }} />
+      <StrategicNavigation />
 
-      <div className="min-h-screen" style={{ background: C.obsidian }}>
-        <StrategicNavigation />
-
-        {/* ═══════════════════════════════════════════════════════════════
-            INDUSTRIAL HEADER - Clinical Biolab
-            ═══════════════════════════════════════════════════════════════ */}
-        <IndustrialHeader
-          title="CATÁLOGO GANO EXCEL"
-          subtitle="Café, bebidas, suplementos y cuidado personal con Ganoderma, con su precio en pesos"
-          refCode="CATALOGO_2026"
-          imageSrc="/images/servilleta/producto-cafe-wide.webp"
-          imageAlt="Taza de café servida sobre una encimera oscura"
-          imageTone="warm"
-        />
-
-        {/* Botón carrito flotante - Hard Surface + Bio-Emerald */}
-        <button
-          onClick={() => setCartOpen(true)}
-          aria-label="Abrir carrito de compras con productos seleccionados"
-          style={{
-            position: 'fixed',
-            top: '6rem',
-            right: '1rem',
-            zIndex: 40,
-            background: C.bioEmerald,
-            color: C.obsidian,
-            padding: '0.75rem',
-            boxShadow: '0 4px 16px rgba(80, 200, 120, 0.3)',
-          }}
-          className="transition-all hover:scale-110"
-        >
-          <ShoppingCart className="h-6 w-6" />
-          {cart.length > 0 && (
-            <span
-              style={{
-                position: 'absolute',
-                top: '-0.5rem',
-                right: '-0.5rem',
-                background: C.bioEmerald,
-                color: C.obsidian,
-                fontSize: '0.75rem',
-                width: '1.5rem',
-                height: '1.5rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-              }}
-            >
-              {cart.reduce((sum, item) => sum + item.quantity, 0)}
-            </span>
-          )}
-        </button>
-
-      {/* Modal Los Más Vendidos - Clinical Luxury */}
-      {showTopSelling && (
-        <div
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={(e) => handleOverlayClick(e, () => setShowTopSelling(false))}
-        >
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '80rem',
-              background: 'var(--color-bg-surface)',
-              border: '1px solid #3f3f46',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-              maxHeight: '90vh',
-              overflowY: 'auto',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '1.5rem',
-                borderBottom: '1px solid #3f3f46',
-              }}
-            >
-              <div className="flex items-center space-x-3">
-                <div
-                  style={{
-                    width: '3rem',
-                    height: '3rem',
-                    background: 'transparent',
-                    border: '1px solid #52525b',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Trophy className="h-6 w-6" style={{ color: '#E5C279' }} />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-serif font-bold" style={{ color: C.textMain }}>Productos Más Vendidos</h2>
-                  <p style={{ color: C.textMuted }}>Los favoritos de nuestra comunidad</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setShowTopSelling(false)}
-                aria-label="Cerrar ventana de productos más vendidos"
-                style={{
-                  padding: '0.5rem',
-                  color: C.textMuted,
-                  background: C.obsidian,
-                }}
-                className="transition-colors hover:scale-110"
-              >
-                <X className="h-6 w-6" />
-              </button>
+      {/* ── 1. Quién le atiende ─────────────────────────────────────────── */}
+      <header className="tienda-cabecera">
+        <div className="tienda-ancho">
+          <p className="tienda-ceja">Catálogo 2026 · Precios en pesos</p>
+          <h1 className="tienda-titulo">Catálogo Gano Excel</h1>
+          <p className="tienda-bajada">Café, bebidas, cápsulas y cuidado personal. Elija aquí y termine su pedido por WhatsApp.</p>
+          <div className="tienda-socio">
+            <div className="tienda-socio-foto" aria-hidden="true">
+              {socio?.foto
+                // eslint-disable-next-line @next/next/no-img-element -- la foto vive en Supabase Storage, fuera de images.remotePatterns
+                ? <img src={socio.foto} alt="" width={44} height={44} />
+                : <Store className="h-5 w-5" />}
             </div>
-
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {topSellingProducts.map((productId, index) => {
-                  const product = productData[productId]
-                  return (
-                    <div
-                      key={productId}
-                      style={{
-                        position: 'relative',
-                        overflow: 'hidden',
-                        border: '1px solid #3f3f46',
-                              background: C.obsidian,
-                      }}
-                      className="group transition-all duration-300"
-                    >
-                      <div
-                        style={{
-                          position: 'absolute',
-                          top: '1rem',
-                          left: '1rem',
-                          background: '#E5C279',
-                          color: '#000',
-                          padding: '0.25rem 0.75rem',
-                          fontSize: '0.875rem',
-                          fontWeight: 'bold',
-                          zIndex: 10,
-                        }}
-                      >
-                        Top #{index + 1}
-                      </div>
-
-                      <div className="p-6">
-                        <div className="relative mb-6">
-                          <div
-                            style={{
-                              background: C.obsidian,
-                              padding: '1rem',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              height: '320px',
-                            }}
-                          >
-                            <Image
-                              src={product.image}
-                              alt={`${product.name} - ${product.taglineEstrategico}`}
-                              width={522}
-                              height={348}
-                              className="object-contain max-h-[18rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
-                            />
-                          </div>
-                          <div
-                            style={{
-                              position: 'absolute',
-                              top: '1rem',
-                              right: '1rem',
-                              background: 'transparent',
-                              color: '#E5C279',
-                              padding: '0.5rem 1rem',
-                              fontSize: '1.25rem',
-                              fontWeight: 'bold',
-                              fontFamily: "var(--font-mono)",
-                            }}
-                          >
-                            ${product.price.toLocaleString()}
-                          </div>
-                        </div>
-
-                        <h3 className="text-lg font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
-                        <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
-                        <p className="text-sm mb-6 leading-relaxed line-clamp-2" style={{ color: C.textMuted }}>{product.shortDescription}</p>
-
-                        <div className="flex flex-wrap gap-2 mb-6">
-                          {product.goals.map((goal) => (
-                            <span
-                              key={goal}
-                              style={{
-                                background: 'transparent',
-                                border: '1px solid #3f3f46',
-                                padding: '0.25rem 0.75rem',
-                                fontSize: '0.75rem',
-                                color: '#71717a',
-                                fontWeight: 500,
-                              }}
-                            >
-                              {goal}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="flex space-x-3">
-                          <button
-                            onClick={() => {
-                              setSelectedProduct(product)
-                              setShowTopSelling(false)
-                            }}
-                            style={{
-                              flex: 1,
-                              background: 'transparent',
-                              border: '1px solid #52525b',
-                              color: '#a1a1aa',
-                              padding: '0.75rem 1rem',
-                              fontSize: '0.75rem',
-                              fontWeight: 500,
-                              letterSpacing: '0.15em',
-                              textTransform: 'uppercase',
-                              fontFamily: "var(--font-mono)",
-                            }}
-                            className="titanium-btn transition-all"
-                          >
-                            ESPECIFICACIONES
-                          </button>
-                          <button
-                            onClick={() => {
-                              addToCart(productId)
-                              setShowTopSelling(false)
-                            }}
-                            style={{
-                              flex: 1,
-                              background: '#60ABAE',
-                              color: '#000',
-                              padding: '0.75rem 1rem',
-                              fontSize: '0.875rem',
-                              fontWeight: 600,
-                            }}
-                            className="transition-all hover:scale-105 hover:brightness-110"
-                          >
-                            Añadir
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
+            <div>
+              <p className="tienda-socio-nombre">{socio ? `Le atiende ${socio.nombre}` : 'Le atiende el equipo de CreaTuActivo'}</p>
+              <p className="tienda-socio-rol">Distribuidor independiente · Gano Excel fabrica y despacha</p>
             </div>
           </div>
         </div>
-      )}
+      </header>
 
-      {/* Panel del carrito - Clinical Luxury */}
-      {cartOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
-          onClick={(e) => handleOverlayClick(e, () => setCartOpen(false))}
-        >
-          {/* Clinical Cart Panel */}
-          <div
-            style={{
-              position: 'absolute',
-              right: 0,
-              top: 0,
-              height: '100%',
-              width: '24rem',
-              background: `rgba(15, 46, 47, 0.98)`,
-              backdropFilter: 'blur(16px)',
-              borderLeft: `1px solid ${C.bioEmerald}30`,
-              boxShadow: '-4px 0 24px rgba(0,0,0,0.5)',
-            }}
-          >
-            <div className="flex flex-col h-full">
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '1.5rem',
-                  borderBottom: `1px solid ${C.bioEmerald}30`,
-                }}
-              >
-                <h2 className="text-xl font-bold" style={{ color: C.textMain }}>Su Sistema de Bienestar</h2>
-                <button
-                  onClick={() => setCartOpen(false)}
-                  aria-label="Cerrar carrito de compras"
-                  style={{
-                    padding: '0.5rem',
-                    color: C.textMuted,
-                    background: C.obsidian,
-                  }}
-                  className="transition-colors hover:scale-110"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-
-              <div className="flex-1 overflow-y-auto p-6">
-                {cart.length === 0 ? (
-                  <div className="text-center py-12">
-                    <ShoppingCart className="h-16 w-16 mx-auto mb-4" style={{ color: C.textDim }} />
-                    <p style={{ color: C.textMuted }}>Su sistema está vacío</p>
-                    <p className="text-sm mt-2" style={{ color: C.textDim }}>Comienza agregando productos estrella</p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {cart.map((item) => (
-                      <div
-                        key={item.id}
-                        style={{
-                          background: C.gunmetal,
-                          border: `1px solid ${C.bioEmerald}20`,
-                          padding: '1rem',
-                        }}
-                      >
-                        <div className="flex items-center space-x-4">
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            width={64}
-                            height={64}
-                            style={{
-                              width: '4rem',
-                              height: '4rem',
-                              objectFit: 'contain',
-                              background: 'rgba(255,255,255,0.05)',
-                              padding: '0.25rem',
-                            }}
-                          />
-                          <div className="flex-1">
-                            <h3 className="font-medium text-sm" style={{ color: C.textMain }}>{item.name}</h3>
-                            <p className="text-sm" style={{ color: C.bioEmerald }}>${item.price.toLocaleString()}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between mt-4">
-                          <div className="flex items-center space-x-2">
-                            <button
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              aria-label="Disminuir cantidad"
-                              style={{
-                                width: '2rem',
-                                height: '2rem',
-                                background: C.obsidian,
-                                border: '1px solid #3f3f46',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: C.textMuted,
-                              }}
-                              className="transition-colors hover:scale-110"
-                            >
-                              -
-                            </button>
-                            <span className="w-8 text-center font-medium" style={{ color: C.textMain }}>{item.quantity}</span>
-                            <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              aria-label="Aumentar cantidad"
-                              style={{
-                                width: '2rem',
-                                height: '2rem',
-                                background: C.obsidian,
-                                border: '1px solid #3f3f46',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: C.textMuted,
-                              }}
-                              className="transition-colors hover:scale-110"
-                            >
-                              +
-                            </button>
-                          </div>
-                          <button
-                            onClick={() => removeFromCart(item.id)}
-                            aria-label="Eliminar producto del carrito"
-                            className="text-[#F43F5E] hover:text-[#FB7185] transition-colors"
-                          >
-                            <X className="h-5 w-5" />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {cart.length > 0 && (
-                <div
-                  style={{
-                    borderTop: `1px solid ${C.bioEmerald}30`,
-                    padding: '1.5rem',
-                  }}
-                  className="space-y-4"
-                >
-                  <div className="space-y-2" style={{ color: C.textMain }}>
-                    <div className="flex justify-between">
-                      <span style={{ color: C.textMuted }}>Envío:</span>
-                      <span className="font-medium" style={{ color: C.textMuted }}>Por definir según ciudad y volumen</span>
-                    </div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        fontWeight: 'bold',
-                        fontSize: '1.125rem',
-                        borderTop: `1px solid ${C.bioEmerald}30`,
-                        paddingTop: '0.5rem',
-                      }}
-                    >
-                      <span>Total productos:</span>
-                      <span style={{ color: C.bioEmerald }}>${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString('es-CO')}</span>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      background: `${C.bioEmerald}15`,
-                      border: '1px solid #3f3f46',
-                      padding: '0.75rem',
-                    }}
-                  >
-                    <p className="text-xs font-medium mb-1" style={{ color: C.bioEmerald }}>Siguiente Paso:</p>
-                    <p className="text-sm" style={{ color: C.textMain }}>Confirme su pedido; el costo de envío lo coordina con su asesor según su ciudad y el volumen.</p>
-                  </div>
-
-                  <a
-                    href={`https://wa.me/573215193909?text=${generateWhatsAppMessage()}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="whatsapp-hybrid"
-                    style={{
-                      width: '100%',
-                      padding: '0.75rem',
-                      fontWeight: 600,
-                      textAlign: 'center',
-                      display: 'block',
-                      letterSpacing: '0.05em',
-                      fontFamily: "var(--font-sans)",
-                      fontSize: '1rem',
-                    }}
-                  >
-                    FINALIZAR POR WHATSAPP
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Contenido principal */}
-      <div className="container mx-auto px-4 py-8">
-
-        {/* Header estratégico - Clinical Luxury */}
-        <div className="text-center mb-12 pt-8">
-          <div
-            style={{
-              display: 'inline-block',
-              background: `${C.bioEmerald}15`,
-              border: '1px solid #3f3f46',
-              padding: '0.5rem 1.5rem',
-              marginBottom: '1.5rem',
-            }}
-          >
-            <span
-              style={{
-                color: C.bioEmerald,
-                fontWeight: 500,
-                fontSize: '0.875rem',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                fontFamily: "var(--font-mono)",
-              }}
+      {/* ── 2. Las líneas, fijas arriba ──────────────────────────────────── */}
+      <nav className="tienda-lineas" aria-label="Líneas del catálogo">
+        <div className="tienda-ancho tienda-lineas-fila">
+          {LINEAS.map((l) => (
+            <button
+              key={l.id}
+              type="button"
+              onClick={() => irALinea(l.id)}
+              className={`tienda-chip${lineaActiva === l.id ? ' activa' : ''}`}
+              aria-current={lineaActiva === l.id ? 'true' : undefined}
             >
-              22 productos · cuatro líneas
-            </span>
+              {l.nombre}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {/* ── La vitrina ───────────────────────────────────────────────────── */}
+      <main className="tienda-ancho tienda-vitrina">
+        {LINEAS.map((l) => (
+          <section key={l.id} id={`linea-${l.id}`} className="tienda-seccion" aria-labelledby={`titulo-${l.id}`}>
+            <div className="tienda-seccion-cabeza">
+              <h2 id={`titulo-${l.id}`}>{l.nombre}</h2>
+              <span>{l.ids.length} productos</span>
+            </div>
+            <div className="tienda-grilla">
+              {l.ids.map((id) => (
+                <Tarjeta key={id} id={id} p={productData[id]} cantidad={cantidadDe(id)} fijar={fijar} abrir={() => setFicha(id)} />
+              ))}
+            </div>
+          </section>
+        ))}
+
+        {/* ── Ayuda para elegir ─────────────────────────────────────────── */}
+        <aside className="tienda-ayuda tienda-oscuro">
+          <div>
+            <p className="tienda-ayuda-titulo">¿No sabe cuál elegir?</p>
+            <p className="tienda-ayuda-texto">Cuéntele a Queswa qué le gusta tomar —café, té o chocolate— y le ayuda a escoger.</p>
           </div>
+          <button type="button" className="tienda-boton-oro" onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}>
+            <MessageCircle className="h-4 w-4" /> Preguntarle a Queswa
+          </button>
+        </aside>
 
-          {/* Un escalón menos que antes (8 oct 2026): eran tres palabras y ahora es una
-              frase completa; a 6xl ocupaba todo el ancho y pesaba más que el titular. */}
-          <h2
-            className="text-3xl md:text-5xl font-serif font-bold mb-4 mx-auto text-balance"
-            style={{ color: C.textMain, maxWidth: '20em' }}
-          >
-            Lo prueba, nota la diferencia y <span style={{ color: C.bioEmerald }}>vuelve a pedir el mismo</span>.
-          </h2>
+        {/* ── Cómo sigue su pedido ──────────────────────────────────────── */}
+        <section className="tienda-pasos" aria-labelledby="titulo-pasos">
+          <h2 id="titulo-pasos">Cómo funciona su pedido</h2>
+          <ol>
+            <li><span>1</span><div><strong>Arme su pedido aquí</strong><p>Elija los productos y las cantidades. Todavía no paga nada.</p></div></li>
+            <li><span>2</span><div><strong>Envíelo por WhatsApp</strong><p>Le llega a Queswa con todo listo, y queda a su nombre.</p></div></li>
+            <li><span>3</span><div><strong>{socio ? socio.nombre : 'Su distribuidor'} le escribe</strong><p>Acuerdan el pago y la entrega: en persona si están en la misma ciudad, o se lo despacha Gano Excel.</p></div></li>
+          </ol>
+        </section>
 
-          <p
-            className="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed"
-            style={{ color: C.textMuted }}
-          >
-            Café, bebidas y suplementos premium de bienestar, con <span style={{ color: C.bioEmerald }}>Ganoderma</span>. El café y las bebidas se disuelven por completo en el agua: no se queda nada en el fondo de la taza. Los fabrica y los despacha Gano Excel, con 30 años y presencia en más de 60 países.
+        {/* ── El Ganoderma de Gano Excel ────────────────────────────────── */}
+        <section className="tienda-historia" aria-labelledby="titulo-historia">
+          <h2 id="titulo-historia">Lo que tienen en común</h2>
+          <p>
+            El fundador de Gano Excel, un micólogo malasio que estudia el Ganoderma desde 1983, reunió en un solo híbrido
+            las seis variedades de mayor valor del Reishi y desarrolló un proceso propio para extraerlo. Ese extracto está
+            en toda la línea: las bebidas, las cápsulas y el cuidado personal. En el café y las bebidas se disuelve por
+            completo: no queda nada en el fondo de la taza.
           </p>
+          <p className="tienda-historia-pie"><Factory className="h-4 w-4" /> Gano Excel: 30 años y presencia en más de 60 países.</p>
+        </section>
 
-          {/* CTA a Queswa — abre el chat en modo asesora de producto (pageContext catalogo_productos) */}
-          <div className="flex flex-col items-center gap-3 mb-8">
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
-              className="cta-base cta-primary"
-              style={{ padding: '1rem 2rem', fontSize: '1rem' }}
-            >
-              <Bot className="h-5 w-5" />
-              <span>Pregúntele a Queswa, su asesor de bienestar →</span>
+        {/* ── Preguntas ─────────────────────────────────────────────────── */}
+        <section className="tienda-preguntas" aria-labelledby="titulo-preguntas">
+          <h2 id="titulo-preguntas">Preguntas frecuentes</h2>
+          {PREGUNTAS.map((q) => (
+            <details key={q.p}>
+              <summary>{q.p}</summary>
+              <p>{q.r}</p>
+            </details>
+          ))}
+        </section>
+
+      </main>
+
+      {/* ── El puente al negocio (8 oct 2026, Director) — en la banda carbón de la marca madre ── */}
+      <section className="tienda-puente">
+        <div className="tienda-ancho">
+          <p className="tienda-puente-titulo">Estos mismos productos pueden ser su negocio.</p>
+          <p>Usted puede tener su propio sistema de distribución: comparte un enlace, Queswa conversa con quien llega y usted recibe. Las cuatro formas de empezar, con su precio, se las muestra Queswa.</p>
+          <div className="tienda-puente-botones">
+            <button type="button" className="tienda-enlace" onClick={() => window.dispatchEvent(new CustomEvent('open-queswa', { detail: { contexto: 'general' } }))}>
+              Pregúntele a Queswa cómo funciona <ChevronRight className="h-4 w-4" />
             </button>
-            <p className="text-sm max-w-md" style={{ color: C.textMuted }}>
-              ¿No sabe cuál elegir? Cuéntele qué le gusta tomar —café, té o chocolate— y le ayuda a escoger, sin compromiso.
-            </p>
+            <Link href="/servilleta" className="tienda-enlace">Ver la presentación <ChevronRight className="h-4 w-4" /></Link>
           </div>
-
-          {distributor && (
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                background: `rgba(15, 46, 47, 0.70)`,
-                border: `1px solid ${C.bioEmerald}30`,
-                padding: '0.75rem 1.5rem',
-                marginBottom: '2rem',
-              }}
-            >
-              {/* 8 oct 2026: decía «Especialista en bienestar», que le atribuye al socio un
-                  saber profesional de salud. «Distribuidor independiente» es la figura de la
-                  Ley 1700 y dice quién es — y quién no: no es la página oficial de la marca. */}
-              <Handshake className="h-4 w-4 mr-2" style={{ color: C.bioEmerald }} />
-              <span style={{ color: C.textMuted }}>
-                Distribuidor independiente: <span className="font-bold" style={{ color: C.bioEmerald }}>{distributor.nombre}</span>
-              </span>
-            </div>
-          )}
         </div>
+      </section>
 
-{/* Nueva Sección: La Ventaja Competitiva - Clinical Luxury */}
-{/* 8 oct 2026: «la composición se afirma; la absorción no» (catalogo_productos.txt,
-    26 ago y 13 sep). Salen «Nutrición que su cuerpo realmente aprovecha», «su cuerpo
-    necesita poder absorberlos», «200+ nutrientes en cada producto» (la categoría
-    nutricional está regulada, y la máquina no lleva extracto) y «100% fácil de
-    absorber». Todo lo que queda está en CIENCIA_01 y CIENCIA_02. */}
-<section className="mb-16">
-  <div className="text-center mb-12">
-    <div
-      style={{
-        display: 'inline-block',
-        background: `${C.bioEmerald}15`,
-        border: `1px solid ${C.bioEmerald}40`,
-        padding: '0.5rem 1.5rem',
-        marginBottom: '1.5rem',
-      }}
-    >
-      <span
-        style={{
-          color: C.bioEmerald,
-          fontWeight: 500,
-          fontSize: '0.875rem',
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          fontFamily: "var(--font-mono)",
-        }}
-      >
-        Lo Mejor del Ganoderma
-      </span>
+      {/* ── 3. La barra del pedido ───────────────────────────────────────── */}
+      {unidades > 0 && !hayHoja && (
+        <div className="tienda-barra" role="region" aria-label="Su pedido">
+          <div className="tienda-ancho tienda-barra-fila">
+            <div>
+              <p className="tienda-barra-cuenta">{unidades} {unidades === 1 ? 'producto' : 'productos'}</p>
+              <p className="tienda-barra-total">{pesos(total)}</p>
+            </div>
+            <button type="button" className="tienda-boton" onClick={() => setPedidoAbierto(true)}>
+              <ShoppingBag className="h-4 w-4" /> Ver mi pedido
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── 4a. La ficha ─────────────────────────────────────────────────── */}
+      {productoFicha && ficha && (
+        <Hoja titulo={productoFicha.name} cerrar={() => setFicha(null)}>
+          <Ficha
+            id={ficha}
+            p={productoFicha}
+            atiende={socio?.primerNombre ?? null}
+            cantidad={cantidadDe(ficha)}
+            fijar={fijar}
+            abrirOtro={(id) => setFicha(id)}
+            cantidadDe={cantidadDe}
+          />
+        </Hoja>
+      )}
+
+      {/* ── 4b. El pedido ────────────────────────────────────────────────── */}
+      {pedidoAbierto && (
+        <Hoja titulo="Su pedido" cerrar={() => setPedidoAbierto(false)}>
+          <Pedido
+            carrito={carrito}
+            total={total}
+            socio={socio}
+            fijar={fijar}
+            enviado={enviado}
+            enviar={enviarPedido}
+            seguirComprando={() => setPedidoAbierto(false)}
+          />
+        </Hoja>
+      )}
     </div>
+  )
+}
 
-    <h2
-      className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight mx-auto text-balance"
-      style={{ color: C.textMain, maxWidth: '20em' }}
-    >
-      No basta con tener el ingrediente: <span style={{ color: C.bioEmerald }}>importa en qué forma llega a la taza</span>.
-    </h2>
+// ─── Tarjeta de la vitrina ───────────────────────────────────────────────────
 
-    <p className="text-lg max-w-4xl mx-auto" style={{ color: C.textMuted }}>
-      El fundador de Gano Excel, un micólogo malasio que estudia este hongo desde 1983, reunió en un solo híbrido las seis variedades de mayor valor del Reishi y desarrolló un proceso propio para extraerlo. Ese extracto está en toda la línea: las bebidas, las cápsulas y el cuidado personal.
-    </p>
-  </div>
-
-          {/* Estadísticas de impacto - Pharma Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-5xl mx-auto">
-            <div
-              style={{
-                background: 'var(--color-bg-surface)',
-                border: `1px solid ${C.bioEmerald}30`,
-                borderTop: `3px solid ${C.bioEmerald}`,
-                padding: '2rem',
-                textAlign: 'center',
-              }}
-              className="group hover:scale-105 transition-all"
-            >
-              <div
-                className="text-5xl font-serif font-bold mb-2 lining-nums"
-                style={{ color: C.bioEmerald }}
-              >
-                200+
-              </div>
-              <div className="font-semibold" style={{ color: C.textMain }}>Variantes de triterpenos</div>
-              <div className="text-sm mt-2" style={{ color: C.textDim }}>Identificadas en el Ganoderma</div>
-            </div>
-
-            <div
-              style={{
-                background: 'var(--color-bg-surface)',
-                border: `1px solid ${C.bioEmerald}30`,
-                borderTop: `3px solid ${C.bioEmerald}`,
-                padding: '2rem',
-                textAlign: 'center',
-              }}
-              className="group hover:scale-105 transition-all"
-            >
-              <div
-                className="text-5xl font-serif font-bold mb-2 lining-nums"
-                style={{ color: C.bioEmerald }}
-              >
-                100%
-              </div>
-              <div className="font-semibold" style={{ color: C.textMain }}>Hidrosoluble</div>
-              <div className="text-sm mt-2" style={{ color: C.textDim }}>Se disuelve sin dejar residuo</div>
-            </div>
-
-            <div
-              style={{
-                background: 'var(--color-bg-surface)',
-                border: `1px solid ${C.bioEmerald}30`,
-                borderTop: `3px solid ${C.bioEmerald}`,
-                padding: '2rem',
-                textAlign: 'center',
-              }}
-              className="group hover:scale-105 transition-all"
-            >
-              <div
-                className="text-5xl font-serif font-bold mb-2 lining-nums"
-                style={{ color: C.bioEmerald }}
-              >
-                6
-              </div>
-              <div className="font-semibold" style={{ color: C.textMain }}>Variedades de Ganoderma</div>
-              <div className="text-sm mt-2" style={{ color: C.textDim }}>En un solo híbrido</div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <button
-              onClick={() => setShowTopSelling(true)}
-              className="clinical-btn inline-flex items-center gap-3"
-              style={{
-                padding: '0.875rem 2rem',
-                fontWeight: 600,
-                fontSize: '1rem',
-                fontFamily: "var(--font-sans)",
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-              }}
-            >
-              <Trophy className="h-5 w-5" />
-              Ver Productos Más Vendidos
-            </button>
-          </div>
-        </section>
-
-        {/* Nueva Sección: Sistemas de Bienestar - Clinical Luxury */}
-        <section className="mb-16">
-          <div className="text-center mb-12">
-            <div
-              style={{
-                display: 'inline-block',
-                background: `${C.bioEmerald}15`,
-                border: '1px solid #3f3f46',
-                padding: '0.5rem 1.5rem',
-                marginBottom: '1.5rem',
-              }}
-            >
-              <span
-                style={{
-                  color: C.bioEmerald,
-                  fontWeight: 500,
-                  fontSize: '0.875rem',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                Encuentra lo que Necesitas
-              </span>
-            </div>
-            <h2
-              className="text-3xl md:text-4xl font-serif font-bold mb-6"
-              style={{ color: C.textMain }}
-            >
-              Productos para Cada Momento de Su Vida
-            </h2>
-            <p className="text-lg max-w-3xl mx-auto" style={{ color: C.textMuted }}>
-              Hemos organizado nuestros productos según lo que busca: más energía, cuidar a su familia, verse mejor o disfrutar un buen café.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {Object.entries(sistemasDebienestar).map(([key, system]) => (
-              <div
-                key={key}
-                onClick={() => setSelectedSystem(key)}
-                style={{
-                  background: 'var(--color-bg-surface)',
-                  border: '1px solid #3f3f46',
-                  padding: '1.5rem',
-                  cursor: 'pointer',
-                }}
-                className="group transition-all hover:scale-105"
-              >
-                <div
-                  style={{
-                    width: '4rem',
-                    height: '4rem',
-                    background: `${C.bioEmerald}15`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 1rem',
-                    color: C.bioEmerald,
-                  }}
-                  className="group-hover:scale-110 transition-all"
-                >
-                  {system.icono}
-                </div>
-                <h3
-                  className="text-lg font-bold mb-2 text-center"
-                  style={{ color: C.textMain }}
-                >
-                  {system.nombre}
-                </h3>
-                <p
-                  className="text-sm text-center mb-4"
-                  style={{ color: C.textMuted }}
-                >
-                  {system.descripcion}
-                </p>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  <span
-                    style={{
-                      fontSize: '0.75rem',
-                      background: C.obsidian,
-                      border: '1px solid #3f3f46',
-                      padding: '0.25rem 0.75rem',
-                      color: C.bioEmerald,
-                    }}
-                  >
-                    {system.productos.length} productos
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Productos por categorías tradicionales - Clinical Luxury */}
-        <section id="bebidas" className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Bebidas Saludables</h2>
-            <div
-              style={{
-                height: '1px',
-                flex: 1,
-                background: `linear-gradient(to right, ${C.bioEmerald}80, transparent)`,
-                marginLeft: '2rem',
-              }}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {bebidas.map(([id, product]) => (
-              <div
-                key={id}
-                style={{
-                  background: 'var(--color-bg-surface)',
-                  border: '1px solid #3f3f46',
-                  overflow: 'hidden',
-                }}
-                className="group transition-all duration-300 hover:border-zinc-600"
-              >
-                <div className="p-6">
-                  <div className="relative mb-6">
-                    <div
-                      style={{
-                        background: C.obsidian,
-                        padding: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '400px',
-                      }}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={`${product.name} - ${product.shortDescription}`}
-                        width={522}
-                        height={348}
-                        className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
-                      />
-                    </div>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '1rem',
-                        right: '1rem',
-                        background: 'transparent',
-                        color: '#E5C279',
-                        padding: '0.5rem 1rem',
-                        fontSize: '1.25rem',
-                        fontWeight: 'bold',
-                        fontFamily: "var(--font-mono)",
-                      }}
-                    >
-                      ${product.price.toLocaleString()}
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
-                  {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
-                  )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion}{product.invima ? ` · INVIMA ${product.invima}` : ''}</p>
-                  <p className="text-sm mb-6 leading-relaxed line-clamp-3" style={{ color: C.textMuted }}>{product.shortDescription}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {product.goals.map((goal) => (
-                      <span
-                        key={goal}
-                        style={{
-                          background: 'transparent',
-                          border: '1px solid #3f3f46',
-                          padding: '0.25rem 0.75rem',
-                          fontSize: '0.75rem',
-                          color: '#71717a',
-                          fontWeight: 500,
-                        }}
-                      >
-                        {goal}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex space-x-3">
-                    <button
-                      onClick={() => setSelectedProduct(product)}
-                      style={{
-                        flex: 1,
-                        background: 'transparent',
-                        border: '1px solid #52525b',
-                        color: '#a1a1aa',
-                        padding: '0.75rem 1rem',
-                        fontSize: '0.75rem',
-                        fontWeight: 500,
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                        fontFamily: "var(--font-mono)",
-                      }}
-                      className="titanium-btn transition-all"
-                    >
-                      ESPECIFICACIONES
-                    </button>
-                    <button
-                      onClick={() => addToCart(id)}
-                      style={{
-                        flex: 1,
-                        background: '#60ABAE',
-                        color: '#000',
-                        padding: '0.75rem 1rem',
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                      className="transition-all hover:scale-105 hover:brightness-110"
-                    >
-                      <Gift className="h-4 w-4 mr-2" />
-                      Agregar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Sección Luvoco Premium - Clinical Luxury */}
-        <section id="luvoco" className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Experiencia Luvoco Premium</h2>
-            <div
-              style={{
-                height: '1px',
-                flex: 1,
-                background: 'linear-gradient(to right, #E5C27980, transparent)',
-                marginLeft: '2rem',
-              }}
-            />
-          </div>
-
-          {/* Banner Luvoco - Alquimia del Café */}
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '300px',
-              marginBottom: '3rem',
-              overflow: 'hidden',
-              border: '1px solid #3f3f46',
-              borderTop: '3px solid #E5C279',
-            }}
-          >
-            <Image
-              src="/productos/header-cafe.jpg"
-              alt="Experiencia Barista Luvoco - Alquimia del Café"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-              priority={false}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to right, rgba(11,12,12,0.85), rgba(11,12,12,0.3))',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '2rem 3rem',
-              }}
-            >
-              <div>
-                <h3
-                  style={{
-                    color: '#E5C279',
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    fontFamily: "var(--font-mono)",
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  Love of Coffee
-                </h3>
-                <p
-                  style={{
-                    color: C.textMain,
-                    fontSize: '2rem',
-                    fontWeight: 700,
-                    fontFamily: "var(--font-sans)",
-                    letterSpacing: '0.05em',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  ALQUIMIA DEL CAFÉ
-                </p>
-                <p
-                  style={{
-                    color: C.textMuted,
-                    fontSize: '1rem',
-                    maxWidth: '500px',
-                  }}
-                >
-                  Tecnología de extracción de 15 bares. Experiencia barista premium en su hogar.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mb-12">
-            <div
-              style={{
-                display: 'inline-block',
-                background: 'rgba(229, 194, 121, 0.08)',
-                border: '1px solid rgba(229, 194, 121, 0.3)',
-                padding: '0.5rem 1.5rem',
-                marginBottom: '1.5rem',
-              }}
-            >
-              <span
-                style={{
-                  color: '#E5C279',
-                  fontWeight: 500,
-                  fontSize: '0.875rem',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                Love of Coffee - Sistema Premium
-              </span>
-            </div>
-            <p className="text-lg max-w-3xl mx-auto" style={{ color: C.textMuted }}>
-              Sistema de cápsulas con tecnología de 15 bares. El ancla perfecta para clientes de alto valor
-              que garantiza compra recurrente y construye su activo mes a mes.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8">
-            {luvoco.map(([id, product]) => (
-              <div
-                key={id}
-                style={{
-                  background: 'var(--color-bg-surface)',
-                  border: '1px solid #3f3f46',
-                  overflow: 'hidden',
-                }}
-                className="group transition-all duration-300"
-              >
-                <div className="p-6">
-                  <div className="relative mb-6">
-                    <div
-                      style={{
-                        background: C.obsidian,
-                        padding: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '400px',
-                      }}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={`${product.name} - ${product.shortDescription}`}
-                        width={522}
-                        height={348}
-                        className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
-                      />
-                    </div>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '1rem',
-                        right: '1rem',
-                        background: 'transparent',
-                        color: '#E5C279',
-                        padding: '0.5rem 1rem',
-                        fontSize: '1.25rem',
-                        fontWeight: 'bold',
-                        fontFamily: "var(--font-mono)",
-                      }}
-                    >
-                      ${product.price.toLocaleString()}
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
-                  {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
-                  )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion} · {product.categoria}</p>
-                  <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {product.goals.map((goal) => (
-                      <span
-                        key={goal}
-                        style={{
-                          background: 'transparent',
-                          border: '1px solid #3f3f46',
-                          padding: '0.25rem 0.75rem',
-                          fontSize: '0.75rem',
-                          color: '#71717a',
-                          fontWeight: 500,
-                        }}
-                      >
-                        {goal}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-col space-y-3">
-                    <div className="flex space-x-3">
-                      <button
-                        onClick={() => setSelectedProduct(product)}
-                        style={{
-                          flex: 1,
-                          background: 'transparent',
-                          border: '1px solid #52525b',
-                          color: '#a1a1aa',
-                          padding: '0.75rem 1rem',
-                          fontSize: '0.75rem',
-                          fontWeight: 500,
-                          letterSpacing: '0.15em',
-                          textTransform: 'uppercase',
-                          fontFamily: "var(--font-mono)",
-                        }}
-                        className="titanium-btn transition-all"
-                      >
-                        ESPECIFICACIONES
-                      </button>
-                      <button
-                        onClick={() => addToCart(id)}
-                        style={{
-                          flex: 1,
-                          background: '#E5C279',
-                          color: '#000',
-                          padding: '0.75rem 1rem',
-                          fontSize: '0.875rem',
-                          fontWeight: 600,
-                        }}
-                        className="transition-all hover:scale-105 hover:brightness-110"
-                      >
-                        Agregar Premium
-                      </button>
-                    </div>
-
-                    {product.downloadUrl && id === 'maquina-luvoco' && (
-                      <div className="flex flex-col space-y-2">
-                        <a
-                          href="https://drive.google.com/file/d/13C_CQyXnmeNPqzrsm34GNCIysE-T4p2k/view?usp=drive_link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '100%',
-                            background: C.gunmetal,
-                            border: '1px solid rgba(229, 194, 121, 0.4)',
-                            color: '#E5C279',
-                            padding: '0.75rem 1rem',
-                            fontSize: '0.875rem',
-                            fontWeight: 500,
-                          }}
-                          className="transition-all hover:scale-105 hover:brightness-110"
-                        >
-                          <Download className="h-4 w-4 mr-2" />
-                          Descargar Ficha de Producto
-                        </a>
-                        <a
-                          href="https://drive.google.com/file/d/12EsTVv_HPTa6xEj505H_Z8XQssYHfSoi/view?usp=drive_link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '100%',
-                            background: C.gunmetal,
-                            border: '1px solid rgba(229, 194, 121, 0.4)',
-                            color: '#E5C279',
-                            padding: '0.75rem 1rem',
-                            fontSize: '0.875rem',
-                            fontWeight: 500,
-                          }}
-                          className="transition-all hover:scale-105 hover:brightness-110"
-                        >
-                          <Download className="h-4 w-4 mr-2" />
-                          Descargar Especificaciones Técnicas
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Suplementos - Clinical Luxury */}
-        <section id="suplementos" className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Suplementos Naturales</h2>
-            <div
-              style={{
-                height: '1px',
-                flex: 1,
-                background: `linear-gradient(to right, ${C.bioEmerald}80, transparent)`,
-                marginLeft: '2rem',
-              }}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {suplementos.map(([id, product]) => (
-              <div
-                key={id}
-                style={{
-                  background: 'var(--color-bg-surface)',
-                  border: '1px solid #3f3f46',
-                  overflow: 'hidden',
-                }}
-                className="group transition-all duration-300"
-              >
-                <div className="p-6">
-                  <div className="relative mb-6">
-                    <div
-                      style={{
-                        background: C.obsidian,
-                        padding: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '400px',
-                      }}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={`${product.name} - ${product.shortDescription}`}
-                        width={522}
-                        height={348}
-                        className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
-                      />
-                    </div>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '1rem',
-                        right: '1rem',
-                        background: 'transparent',
-                        color: '#E5C279',
-                        padding: '0.5rem 1rem',
-                        fontSize: '1.25rem',
-                        fontWeight: 'bold',
-                        fontFamily: "var(--font-mono)",
-                      }}
-                    >
-                      ${product.price.toLocaleString()}
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
-                  {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
-                  )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion}{product.invima ? ` · INVIMA ${product.invima}` : ''}</p>
-                  <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {product.goals.map((goal) => (
-                      <span
-                        key={goal}
-                        style={{
-                          background: 'transparent',
-                          border: '1px solid #3f3f46',
-                          padding: '0.25rem 0.75rem',
-                          fontSize: '0.75rem',
-                          color: '#71717a',
-                          fontWeight: 500,
-                        }}
-                      >
-                        {goal}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex space-x-3">
-                    <button
-                      onClick={() => setSelectedProduct(product)}
-                      style={{
-                        flex: 1,
-                        background: 'transparent',
-                        border: '1px solid #52525b',
-                        color: '#a1a1aa',
-                        padding: '0.75rem 1rem',
-                        fontSize: '0.75rem',
-                        fontWeight: 500,
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                        fontFamily: "var(--font-mono)",
-                      }}
-                      className="titanium-btn transition-all"
-                    >
-                      ESPECIFICACIONES
-                    </button>
-                    <button
-                      onClick={() => addToCart(id)}
-                      style={{
-                        flex: 1,
-                        background: '#60ABAE',
-                        color: '#000',
-                        padding: '0.75rem 1rem',
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                      className="transition-all hover:scale-105 hover:brightness-110"
-                    >
-                      <Gift className="h-4 w-4 mr-2" />
-                      Agregar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Cuidado Personal - Clinical Luxury */}
-        <section id="cuidado-personal" className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold" style={{ color: C.textMain }}>Cuidado Personal</h2>
-            <div
-              style={{
-                height: '1px',
-                flex: 1,
-                background: `linear-gradient(to right, ${C.bioEmerald}80, transparent)`,
-                marginLeft: '2rem',
-              }}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {cuidadoPersonal.map(([id, product]) => (
-              <div
-                key={id}
-                style={{
-                  background: 'var(--color-bg-surface)',
-                  border: '1px solid #3f3f46',
-                  overflow: 'hidden',
-                }}
-                className="group transition-all duration-300"
-              >
-                <div className="p-6">
-                  <div className="relative mb-6">
-                    <div
-                      style={{
-                        background: C.obsidian,
-                        padding: '1rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '400px',
-                      }}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={`${product.name} - ${product.shortDescription}`}
-                        width={522}
-                        height={348}
-                        className="object-contain max-h-[22rem] drop-shadow-lg transition-transform group-hover:scale-105 duration-300"
-                      />
-                    </div>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '1rem',
-                        right: '1rem',
-                        background: 'transparent',
-                        color: '#E5C279',
-                        padding: '0.5rem 1rem',
-                        fontSize: '1.25rem',
-                        fontWeight: 'bold',
-                        fontFamily: "var(--font-mono)",
-                      }}
-                    >
-                      ${product.price.toLocaleString()}
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-bold mb-2" style={{ color: C.textMain }}>{product.name}</h3>
-                  {product.taglineEstrategico && (
-                    <p className="text-sm font-medium mb-3 italic" style={{ color: '#90A4AE' }}>"{product.taglineEstrategico}"</p>
-                  )}
-                  <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>{product.presentacion}{product.invima ? ` · INVIMA ${product.invima}` : ''}</p>
-                  <p className="text-sm mb-6 leading-relaxed" style={{ color: C.textMuted }}>{product.shortDescription}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {product.goals.map((goal) => (
-                      <span
-                        key={goal}
-                        style={{
-                          background: 'transparent',
-                          border: '1px solid #3f3f46',
-                          padding: '0.25rem 0.75rem',
-                          fontSize: '0.75rem',
-                          color: '#71717a',
-                          fontWeight: 500,
-                        }}
-                      >
-                        {goal}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex space-x-3">
-                    <button
-                      onClick={() => setSelectedProduct(product)}
-                      style={{
-                        flex: 1,
-                        background: 'transparent',
-                        border: '1px solid #52525b',
-                        color: '#a1a1aa',
-                        padding: '0.75rem 1rem',
-                        fontSize: '0.75rem',
-                        fontWeight: 500,
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                        fontFamily: "var(--font-mono)",
-                      }}
-                      className="titanium-btn transition-all"
-                    >
-                      ESPECIFICACIONES
-                    </button>
-                    <button
-                      onClick={() => addToCart(id)}
-                      style={{
-                        flex: 1,
-                        background: '#60ABAE',
-                        color: '#000',
-                        padding: '0.75rem 1rem',
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                      className="transition-all hover:scale-105 hover:brightness-110"
-                    >
-                      <Gift className="h-4 w-4 mr-2" />
-                      Agregar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Sección CTA Final — el puente al negocio (8 oct 2026, Director) */}
-        {/* Mostraba los tres paquetes con precio en dólares, nombres retirados
-            («Constructor», «Bono Tecnológico», «Plan Rascacielos») y un mensaje de
-            WhatsApp con «empresa digital». Chocaba con cuatro reglas: a Colombia se le
-            muestra solo en pesos, las formas de empezar son cuatro (el Kit al final),
-            «empresa digital» está retirado, y un precio escrito aquí envejece — el que da
-            Queswa lo calcula el sistema por país. Queda el puente: qué es y a quién
-            preguntarle. El botón abre la conversación GENERAL, no la de productos
-            (`contexto` en el evento, ver WhatsAppOrb). El párrafo va en «usted» de
-            punta a punta: la primera versión abría en «quien los distribuye» y
-            cerraba en «usted recibe», y no se sabía de quién se hablaba. */}
-        <section className="mb-16 mt-20">
-          <div className="bg-[#16181D] border border-[#E5C279]/20  p-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[color:var(--color-text-primary)] mb-6">
-              Estos mismos productos pueden ser su negocio.
-            </h2>
-            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto mb-8">
-              Usted puede tener su propio sistema de distribución: comparte un enlace, Queswa conversa con quien llega y usted recibe. Las cuatro formas de empezar, con su precio, se las muestra Queswa.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('open-queswa', { detail: { contexto: 'general' } }))}
-                className="cta-base cta-primary"
-                style={{ padding: '1rem 2rem', fontSize: '1rem' }}
-              >
-                <MessageCircle className="h-5 w-5" />
-                Pregúntele a Queswa cómo funciona
-              </button>
-
-              <Link
-                href="/servilleta"
-                className="cta-base cta-secondary"
-                style={{ padding: '1rem 2rem', fontSize: '1rem' }}
-              >
-                Ver la presentación
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Sección FAQ - Quiet Luxury */}
-        <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-[color:var(--color-text-primary)]">
-              Preguntas Frecuentes sobre <span className="text-[color:var(--color-brand)]">Gano Café</span>
-            </h2>
-            <p className="text-[#A3A3A3] text-lg max-w-3xl mx-auto">
-              Descubra todo sobre el Gano Café 3 en 1, beneficios del Ganoderma Lucidum y cómo tomarlo correctamente
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-6">
-            {/* Pregunta 1 */}
-            <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
-              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
-                  ¿Para qué sirve el Gano Café?
-                </h3>
-                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
-                <p className="mb-4">
-                  El <strong>Gano Café</strong> es un café enriquecido con <strong>Ganoderma Lucidum</strong> (Reishi), un hongo medicinal con más de 2,000 años de uso en la medicina tradicional china. El Gano Café sirve para:
-                </p>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li><strong>Aumentar energía natural</strong>: Sin los efectos nerviosos del café común</li>
-                  <li><strong>Fortalecer el sistema inmunológico</strong>: Gracias a los betaglucanos del Ganoderma</li>
-                  <li><strong>Reducir estrés y fatiga</strong>: Propiedades adaptógenas que equilibran el cuerpo</li>
-                  <li><strong>Mejorar concentración</strong>: Combinación de cafeína natural y nutrientes del hongo</li>
-                  <li><strong>Apoyar la digestión</strong>: Con más de 200 fitonutrientes bioactivos</li>
-                </ul>
-                <p className="mt-4 text-[color:var(--color-brand)] font-medium">
-                  💡 A diferencia del café tradicional, el Gano Café transforma su ritual diario en una inversión de salud.
-                </p>
-              </div>
-            </details>
-
-            {/* Pregunta 2 */}
-            <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
-              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
-                  ¿Cuáles son los beneficios del Gano Café 3 en 1?
-                </h3>
-                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
-                <p className="mb-4">
-                  El <strong>Gano Café 3 en 1</strong> (café + crema + azúcar) de Gano Excel ofrece beneficios respaldados por el <strong>extracto natural de Ganoderma Lucidum</strong> que su cuerpo absorbe fácilmente:
-                </p>
-                <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">🛡️ Sistema Inmunológico</h4>
-                    <p className="text-sm">Fortalece defensas naturales con betaglucanos</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">⚡ Energía Sostenida</h4>
-                    <p className="text-sm">Vitalidad sin nerviosismo ni caídas de energía</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">🧘 Reducción de Estrés</h4>
-                    <p className="text-sm">Ayuda a manejar el estrés del día a día</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <h4 className="font-bold text-[color:var(--color-brand)] mb-2">🎯 Concentración</h4>
-                    <p className="text-sm">Mejora claridad mental y enfoque</p>
-                  </div>
-                </div>
-              </div>
-            </details>
-
-            {/* Pregunta 3 */}
-            <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
-              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
-                  ¿Cuál es el precio del Gano Café en Colombia 2026?
-                </h3>
-                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
-                <p className="mb-4">
-                  Los <strong>precios oficiales de Gano Excel en Colombia</strong> para 2026 son:
-                </p>
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center justify-between bg-[#0B0C0C] p-4  border border-[#E5C279]/30">
-                    <div>
-                      <p className="font-bold text-[color:var(--color-text-primary)]">Gano Café 3 en 1</p>
-                      <p className="text-sm text-[#A3A3A3]">Caja con 20 sobres x 21g</p>
-                    </div>
-                    <p className="text-2xl font-bold text-[color:var(--color-brand)]">$110.900 COP</p>
-                  </div>
-                  <div className="flex items-center justify-between bg-[#0B0C0C] p-4  border border-[#E5C279]/20">
-                    <div>
-                      <p className="font-bold text-[color:var(--color-text-primary)]">Gano Café Clásico (Negro)</p>
-                      <p className="text-sm text-[#A3A3A3]">Caja con 30 sobres x 4.5g</p>
-                    </div>
-                    <p className="text-2xl font-bold text-[color:var(--color-brand)]">$110.900 COP</p>
-                  </div>
-                </div>
-                <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
-                  <p className="font-bold text-[color:var(--color-brand)] mb-2">💰 Precios de Distribuidor Mayorista</p>
-                  <p className="text-sm text-[#A3A3A3]">
-                    Como <strong>dueño de su sistema de distribución con CreaTuActivo</strong>, accede a precios mayoristas con descuento de hasta 35% sobre precio público.
-                    <Link href="/" className="text-[color:var(--color-brand)] hover:text-[#F59E0B] font-medium ml-1 underline">Conozca CreaTuActivo →</Link>
-                  </p>
-                </div>
-                <p className="text-sm text-[#A3A3A3] mt-4">
-                  📦 <strong>Tarifas preferenciales de envío</strong>: Hasta 15 productos paga solo el envío mínimo. Fletes variables según ciudad y volumen.
-                </p>
-              </div>
-            </details>
-
-            {/* Pregunta 4 */}
-            <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
-              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
-                  ¿Cómo se toma el Gano Café 3 en 1?
-                </h3>
-                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
-                <p className="mb-4">
-                  La forma correcta de preparar el <strong>Gano Café 3 en 1</strong> es:
-                </p>
-                <ol className="list-decimal pl-6 space-y-3 mb-4">
-                  <li><strong>Vierta 1 sobre (21g)</strong> en su taza favorita</li>
-                  <li><strong>Agregue 150ml de agua caliente</strong> (no hirviendo, aprox. 80-85°C)</li>
-                  <li><strong>Revuelva bien</strong> hasta disolver completamente</li>
-                  <li><strong>Disfrute inmediatamente</strong> para aprovechar todos los nutrientes</li>
-                </ol>
-                <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4  mb-4">
-                  <p className="font-bold text-[color:var(--color-brand)] mb-2">✅ Recomendaciones de Consumo</p>
-                  <ul className="text-sm text-[#A3A3A3] space-y-1">
-                    <li>• <strong>Mejor momento</strong>: Por la mañana o media tarde</li>
-                    <li>• <strong>Frecuencia ideal</strong>: 1-2 tazas al día</li>
-                    <li>• <strong>Antes o después de comidas</strong>: Ambos funcionan bien</li>
-                    <li>• <strong>Puede tomarse frío</strong>: Prepare con agua fría y hielo en verano</li>
-                  </ul>
-                </div>
-                <div className="bg-[#0B0C0C] border border-red-500/30 p-4 ">
-                  <p className="font-bold text-[#C6A76B] mb-2">⚠️ Contraindicaciones</p>
-                  <p className="text-sm text-[#A3A3A3]">
-                    No recomendado para mujeres embarazadas o en lactancia. Si toma anticoagulantes o tiene condiciones médicas especiales, consulte a su médico antes de consumir.
-                  </p>
-                </div>
-              </div>
-            </details>
-
-            {/* Pregunta 5 */}
-            <details className="group bg-[#16181D]  border border-[#E5C279]/20 hover:border-[#E5C279]/40 transition-all overflow-hidden">
-              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[color:var(--color-text-primary)] pr-4">
-                  ¿El Gano Café está disponible en toda Latinoamérica?
-                </h3>
-                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
-                <p className="mb-4">
-                  Sí, <strong>Gano Excel</strong> distribuye sus productos, incluyendo el Gano Café, en <strong>16 países de América</strong>:
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-                  <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[color:var(--color-text-primary)]">🇨🇴 Colombia</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[color:var(--color-text-primary)]">🇲🇽 México</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[color:var(--color-text-primary)]">🇵🇪 Perú</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[color:var(--color-text-primary)]">🇪🇨 Ecuador</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[color:var(--color-text-primary)]">🇨🇱 Chile</p>
-                  </div>
-                  <div className="bg-[#0B0C0C] p-3  text-center border border-[#E5C279]/30">
-                    <p className="font-medium text-[color:var(--color-text-primary)]">🇦🇷 Argentina</p>
-                  </div>
-                </div>
-                <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-4 ">
-                  <p className="font-bold text-[color:var(--color-brand)] mb-2">🤖 Consulta con Queswa IA</p>
-                  <p className="text-sm text-[#A3A3A3] mb-3">
-                    Nuestro asistente de IA conversacional puede ayudarle a encontrar distribuidores en su país,
-                    calcular envíos internacionales y recomendarle los productos ideales para su perfil.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
-                    className="cta-base cta-secondary"
-                    style={{ fontSize: '0.875rem' }}
-                  >
-                    <Bot className="h-4 w-4" />
-                    <span>Hablar con su asesor de bienestar →</span>
-                  </button>
-                </div>
-              </div>
-            </details>
-
-            {/* Pregunta 6 - Bonus - Quiet Luxury */}
-            <details className="group bg-[#16181D]  border-2 border-[#E5C279]/40 hover:border-[#E5C279]/70 transition-all overflow-hidden">
-              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="text-xl font-bold text-[color:var(--color-brand)] pr-4">
-                  🚀 ¿Cómo puedo comprar Gano Café y otros productos al mayorista?
-                </h3>
-                <span className="text-[color:var(--color-brand)] text-2xl font-bold group-open:rotate-45 transition-transform">+</span>
-              </summary>
-              <div className="px-6 pb-6 text-[#A3A3A3] leading-relaxed">
-                <p className="mb-4">
-                  Con <strong className="text-[color:var(--color-brand)]">CreaTuActivo</strong>, no solo compra productos premium al <strong className="text-[color:var(--color-text-primary)]">precio de distribuidor mayorista</strong>
-                  (35% de descuento), también accede a un <strong className="text-[color:var(--color-text-primary)]">ecosistema completo</strong>:
-                </p>
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">1</div>
-                    <div>
-                      <p className="font-bold text-[color:var(--color-text-primary)]">Aplicación CreaTuActivo + Queswa IA</p>
-                      <p className="text-sm text-[#A3A3A3]">Sistema automatizado para que su sistema de distribución trabaje 24/7</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">2</div>
-                    <div>
-                      <p className="font-bold text-[color:var(--color-text-primary)]">Mentoría Personalizada 1:150</p>
-                      <p className="text-sm text-[#A3A3A3]">Como dueño de su sistema de distribución, recibe mentoría directa y construye su red de clientes y socios</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-[#C5A059]  flex items-center justify-center text-[#0F1115] font-bold flex-shrink-0">3</div>
-                    <div>
-                      <p className="font-bold text-[color:var(--color-text-primary)]">Ingresos Recurrentes</p>
-                      <p className="text-sm text-[#A3A3A3]">Gana ingresos por sus ventas y por las de su organización</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-[#0B0C0C] border border-[#E5C279]/30 p-6 ">
-                  <p className="text-xl font-bold text-[color:var(--color-brand)] mb-2">🎯 Solo 150 Cupos Disponibles</p>
-                  <p className="mb-4 text-[#A3A3A3]">Acceso por tiempo limitado</p>
-                  <a
-                    href="/"
-                    className="cta-base cta-primary"
-                    style={{ padding: '0.875rem 2rem', fontSize: '0.95rem' }}
-                  >
-                    Sea dueño de su comercio electrónico →
-                  </a>
-                </div>
-              </div>
-            </details>
-          </div>
-
-          {/* CTA Final después del FAQ - Quiet Luxury */}
-          <div className="mt-12 text-center bg-[#16181D] border border-[#E5C279]/30  p-8">
-            <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4 text-[color:var(--color-text-primary)]">
-              ¿Listo para probar el <span className="text-[color:var(--color-brand)]">Gano Café</span>?
-            </h3>
-            <p className="text-lg mb-6 text-[#A3A3A3]">
-              Hable con <strong className="text-[color:var(--color-brand)]">Queswa</strong>, su asesor de bienestar, y descubra qué productos son ideales para usted
-            </p>
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new CustomEvent('open-queswa'))}
-              className="cta-base cta-primary"
-              style={{ padding: '1rem 2rem', fontSize: '1rem' }}
-            >
-              <Bot className="h-5 w-5" />
-              <span>Hablar con su asesor de bienestar →</span>
-            </button>
-          </div>
-        </section>
+function Tarjeta({ id, p, cantidad, fijar, abrir }: {
+  id: string; p: Product; cantidad: number; fijar: (id: string, n: number) => void; abrir: () => void
+}) {
+  return (
+    <article className="tienda-tarjeta">
+      <button type="button" className="tienda-foto" onClick={abrir} aria-label={`Ver ${p.name}`}>
+        {id === MAS_PEDIDO && <span className="tienda-sello">El más pedido</span>}
+        <Image src={imagenVitrina(id)} alt={p.name} fill sizes="(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 240px" />
+      </button>
+      <div className="tienda-tarjeta-texto">
+        <button type="button" className="tienda-nombre" onClick={abrir}>{p.name}</button>
+        <p className="tienda-presentacion">{p.presentacion}</p>
+        <p className="tienda-precio">{pesos(p.price)}</p>
       </div>
+      <Cantidad id={id} nombre={p.name} cantidad={cantidad} fijar={fijar} />
+    </article>
+  )
+}
 
-      {/* Modal de Sistema de Bienestar Seleccionado */}
-      {selectedSystem && (
-        <div
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={(e) => handleOverlayClick(e, () => setSelectedSystem(null))}
-        >
-          <div className="w-full max-w-5xl bg-[#18181b]/95 backdrop-blur-xl border border-[#3f3f46]  shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b border-[#3f3f46]">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-transparent border border-[#52525b] flex items-center justify-center text-[#a1a1aa]">
-                  {sistemasDebienestar[selectedSystem].icono}
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-[color:var(--color-text-primary)]">{sistemasDebienestar[selectedSystem].nombre}</h2>
-                  <p className="text-[#A3A3A3]">{sistemasDebienestar[selectedSystem].descripcion}</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedSystem(null)}
-                aria-label="Cerrar detalle del sistema de bienestar"
-                className="p-2 text-[#A3A3A3] hover:text-[color:var(--color-text-primary)] transition-colors  hover:bg-[#0B0C0C]"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
+function Cantidad({ id, nombre, cantidad, fijar, grande = false }: {
+  id: string; nombre: string; cantidad: number; fijar: (id: string, n: number) => void; grande?: boolean
+}) {
+  if (cantidad === 0) {
+    return (
+      <button type="button" className={`tienda-boton tienda-agregar${grande ? ' grande' : ''}`} onClick={() => fijar(id, 1)}>
+        <Plus className="h-4 w-4" /> Agregar
+      </button>
+    )
+  }
+  return (
+    <div className={`tienda-cantidad${grande ? ' grande' : ''}`} role="group" aria-label={`Cantidad de ${nombre}`}>
+      <button type="button" onClick={() => fijar(id, cantidad - 1)} aria-label={cantidad === 1 ? `Quitar ${nombre}` : 'Uno menos'}>
+        {cantidad === 1 ? <X className="h-4 w-4" /> : <Minus className="h-4 w-4" />}
+      </button>
+      <span aria-live="polite">{cantidad}</span>
+      <button type="button" onClick={() => fijar(id, cantidad + 1)} aria-label="Uno más"><Plus className="h-4 w-4" /></button>
+    </div>
+  )
+}
 
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {getProductsBySystem(selectedSystem).map((product) => (
-                  <div key={product.id} className="bg-[#18181b]  p-4 border border-[#3f3f46]">
-                    <div className="flex items-start space-x-4">
-                      <Image
-                        src={product.image}
-                        alt={`${product.name} - Carrito`}
-                        width={96}
-                        height={96}
-                        className="w-24 h-24 object-contain  bg-[#0A0A0E] p-2"
-                      />
-                      <div className="flex-1">
-                        <h3 className="font-bold text-[color:var(--color-text-primary)] mb-1">{product.name}</h3>
-                        <p className="text-[#90A4AE] text-xs italic mb-2">"{product.taglineEstrategico}"</p>
-                        <p className="text-[#A3A3A3] text-sm mb-3">{product.shortDescription}</p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-lg font-bold text-[color:var(--color-brand)]">${product.price.toLocaleString()}</span>
-                          <button
-                            onClick={() => {
-                              addToCart(product.id)
-                              setSelectedSystem(null)
-                            }}
-                            style={{ background: '#60ABAE', color: '#000' }}
-                            className="px-4 py-2 text-sm font-medium hover:brightness-110 transition-all"
-                          >
-                            Agregar
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+// ─── Hoja (sube desde abajo en el celular; ventana centrada en el computador) ─
 
-              <div className="mt-8 text-center">
-                <button
-                  onClick={() => {
-                    // Agregar todos los productos del sistema al carrito
-                    sistemasDebienestar[selectedSystem].productos.forEach(id => addToCart(id))
-                    setSelectedSystem(null)
-                  }}
-                  style={{ background: '#60ABAE', color: '#000' }}
-                  className="px-8 py-4 font-bold text-lg shadow-xl hover:brightness-110 transition-all"
-                >
-                  Agregar Sistema Completo al Carrito
-                </button>
-              </div>
-            </div>
-          </div>
+function Hoja({ titulo, cerrar, children }: { titulo: string; cerrar: () => void; children: React.ReactNode }) {
+  useEffect(() => {
+    const tecla = (e: KeyboardEvent) => { if (e.key === 'Escape') cerrar() }
+    window.addEventListener('keydown', tecla)
+    return () => window.removeEventListener('keydown', tecla)
+  }, [cerrar])
+  return (
+    <div className="tienda-velo" onClick={(e) => { if (e.target === e.currentTarget) cerrar() }}>
+      <div className="tienda-hoja" role="dialog" aria-modal="true" aria-label={titulo}>
+        <div className="tienda-hoja-cabeza">
+          <span className="tienda-hoja-asa" aria-hidden="true" />
+          <p>{titulo}</p>
+          <button type="button" onClick={cerrar} aria-label="Cerrar"><X className="h-5 w-5" /></button>
         </div>
-      )}
+        {children}
+      </div>
+    </div>
+  )
+}
 
-      {/* Modal de producto mejorado con tabs */}
-      {selectedProduct && (
-        <div
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={(e) => handleOverlayClick(e, () => setSelectedProduct(null))}
-        >
-          <div
-            style={{
-              background: 'var(--color-bg-surface)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid #3f3f46',
-              padding: '1.5rem',
-              maxWidth: '80rem',
-              width: '100%',
-              maxHeight: '90vh',
-              overflowY: 'auto',
-            }}
-          >
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h2 className="text-2xl font-bold" style={{ color: C.textMain }}>{selectedProduct.name}</h2>
-                <p className="font-medium italic mt-1" style={{ color: C.bioEmerald }}>"{selectedProduct.taglineEstrategico}"</p>
-              </div>
-              <button
-                onClick={() => setSelectedProduct(null)}
-                aria-label="Cerrar detalle del producto"
-                style={{
-                  padding: '0.5rem',
-                  color: C.textMuted,
-                  background: C.obsidian,
-                }}
-                className="transition-colors hover:scale-110"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
+// ─── Ficha del producto ──────────────────────────────────────────────────────
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <div
-                  style={{
-                    background: C.obsidian,
-                    padding: '1.5rem',
-                    marginBottom: '1.5rem',
-                  }}
-                >
-                  <Image
-                    src={selectedProduct.image}
-                    alt={selectedProduct.name}
-                    width={600}
-                    height={400}
-                    className="w-full h-[400px] object-contain"
-                  />
-                </div>
-                <div className="text-center">
-                  <span className="text-3xl font-bold" style={{ color: C.bioEmerald }}>${selectedProduct.price.toLocaleString()}</span>
-                  <p className="text-sm mt-1" style={{ color: C.textMuted }}>{selectedProduct.presentacion} · {selectedProduct.categoria}</p>
-                </div>
-              </div>
+function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe }: {
+  id: string; p: Product; atiende: string | null; cantidad: number; fijar: (id: string, n: number) => void
+  abrirOtro: (id: string) => void; cantidadDe: (id: string) => number
+}) {
+  const cuerpo = useRef<HTMLDivElement>(null)
+  useEffect(() => { cuerpo.current?.scrollTo({ top: 0 }) }, [id])
+  return (
+    <>
+      <div className="tienda-hoja-cuerpo" ref={cuerpo}>
+        <div className="tienda-ficha">
+          <div className="tienda-ficha-foto">
+            <Image src={imagenVitrina(id)} alt={p.name} fill sizes="(max-width: 768px) 90vw, 360px" priority />
+          </div>
+          <div className="tienda-ficha-datos">
+            <p className="tienda-ficha-lema">{p.taglineEstrategico}</p>
+            <p className="tienda-ficha-precio">{pesos(p.price)}</p>
+            <p className="tienda-presentacion">{p.presentacion}{p.invima ? ` · Registro ${p.invima}` : ''}</p>
+            <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> Entrega en persona o por Servientrega, normalmente de un día para otro. El envío lo acuerda con {atiende ?? 'su distribuidor'}.</p>
+            <p className="tienda-ficha-desc">{p.shortDescription}</p>
 
-              <div className="space-y-6">
-                {/* Tabs de navegación */}
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: '0.5rem',
-                    borderBottom: `1px solid ${C.bioEmerald}30`,
-                  }}
-                >
-                  <button
-                    onClick={() => setActiveTab('beneficios')}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      fontWeight: 500,
-                      color: activeTab === 'beneficios' ? C.bioEmerald : C.textMuted,
-                      borderBottom: activeTab === 'beneficios' ? `2px solid ${C.bioEmerald}` : 'none',
-                    }}
-                    className="transition-all"
-                  >
-                    Lo que es
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('ciencia')}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      fontWeight: 500,
-                      color: activeTab === 'ciencia' ? C.bioEmerald : C.textMuted,
-                      borderBottom: activeTab === 'ciencia' ? `2px solid ${C.bioEmerald}` : 'none',
-                    }}
-                    className="transition-all"
-                  >
-                    Qué lleva
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('constructor')}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      fontWeight: 500,
-                      color: activeTab === 'constructor' ? C.bioEmerald : C.textMuted,
-                      borderBottom: activeTab === 'constructor' ? `2px solid ${C.bioEmerald}` : 'none',
-                    }}
-                    className="transition-all"
-                  >
-                    Cómo se usa
-                  </button>
-                </div>
+            <h3>Cómo se prepara</h3>
+            <p>{p.usage}</p>
 
-                {/* Contenido de tabs */}
-                <div>
-                  {activeTab === 'beneficios' && (
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Beneficios Clave</h3>
-                        <ul className="space-y-2">
-                          {selectedProduct.benefits.map((benefit, index) => (
-                            <li key={index} className="flex items-start">
-                              <span className="mr-2" style={{ color: C.bioEmerald }}>✓</span>
-                              <span style={{ color: C.textMuted }}>{benefit}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+            {p.ritual?.length > 0 && (
+              <>
+                <h3>Para sacarle el gusto</h3>
+                <ul>{p.ritual.map((r) => <li key={r}>{r}</li>)}</ul>
+              </>
+            )}
 
-                      <div>
-                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Perfil Ideal</h3>
-                        <p
-                          style={{
-                            color: C.textMuted,
-                            background: C.obsidian,
-                            padding: '0.75rem',
-                          }}
-                        >
-                          {selectedProduct.perfilIdeal}
-                        </p>
-                      </div>
+            <h3>Qué lleva</h3>
+            <p>{p.ingredients.join(' · ')}</p>
 
-                      <div>
-                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Momento de Consumo</h3>
-                        <p style={{ color: C.textMuted }}>{selectedProduct.momentoConsumo}</p>
-                      </div>
-                    </div>
-                  )}
+            {/* El bloque del extracto va solo en los productos que lo llevan (9 sep 2026),
+                plegado: es para quien quiere saber más, no lo que decide la compra. */}
+            {p.llevaGanoderma && (
+              <details className="tienda-ficha-mas">
+                <summary>Sobre el extracto de Ganoderma</summary>
+                <p>
+                  Lleva el extracto de Ganoderma lucidum de Gano Excel: un híbrido de las seis variedades del hongo,
+                  los seis colores del Reishi, extraído con un proceso propio de la empresa. Es 100% hidrosoluble:
+                  se disuelve por completo, sin dejar residuo. En el hongo hay dos familias de compuestos, los
+                  polisacáridos, entre ellos los betaglucanos, y los triterpenos, con más de doscientas variantes
+                  identificadas. Es el hongo más estudiado, con tradición milenaria en Asia, y como parte de la
+                  rutina apoya el funcionamiento normal de las defensas.
+                </p>
+              </details>
+            )}
 
-                  {activeTab === 'ciencia' && (
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Qué lleva</h3>
-                        <p className="text-sm mb-3" style={{ color: C.textDim, fontFamily: "var(--font-mono)" }}>
-                          {selectedProduct.presentacion} · {selectedProduct.categoria}{selectedProduct.invima ? ` · Registro INVIMA ${selectedProduct.invima}` : ''}
-                        </p>
-                        <ul className="space-y-1">
-                          {selectedProduct.ingredients.map((ingredient, index) => (
-                            <li key={index} className="flex items-start">
-                              <span className="mr-2" style={{ color: C.bioEmerald }}>•</span>
-                              <span style={{ color: C.textMuted }}>{ingredient}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div
-                        style={{
-                          background: C.obsidian,
-                          padding: '1rem',
-                          border: '1px solid #3f3f46',
-                        }}
-                      >
-                        {/* El bloque del extracto va solo en los productos que lo llevan:
-                            antes salía igual en el Cordygold (Cordyceps) y en la máquina
-                            Luvoco, y reclamaba exclusividad sobre la tecnología (9 sep 2026). */}
-                        {selectedProduct.llevaGanoderma ? (
-                          <>
-                            <h4 className="font-bold mb-2" style={{ color: C.bioEmerald }}>El extracto de Ganoderma de Gano Excel</h4>
-                            <p className="text-sm" style={{ color: C.textMuted }}>
-                              Lleva el extracto de Ganoderma lucidum de Gano Excel: un híbrido de las seis variedades del hongo,
-                              los seis colores del Reishi, extraído con un proceso propio de la empresa. Es 100% hidrosoluble:
-                              se disuelve por completo, sin dejar residuo. En el hongo hay dos familias de compuestos, los
-                              polisacáridos, entre ellos los betaglucanos, y los triterpenos, con más de doscientas variantes
-                              identificadas. Es el hongo más estudiado, con tradición milenaria en Asia, y como parte de la
-                              rutina apoya el funcionamiento normal de las defensas.
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <h4 className="font-bold mb-2" style={{ color: C.bioEmerald }}>Sin extracto de Ganoderma</h4>
-                            <p className="text-sm" style={{ color: C.textMuted }}>
-                              {selectedProduct.categoria.startsWith('Dispositivo')
-                                ? 'Es la máquina: el Ganoderma va en las cápsulas Luvoco, que son las que se preparan en ella.'
-                                : 'Este es el único producto de la línea que no gira alrededor del Ganoderma: su ingrediente es el Cordyceps sinensis, con la concentración más alta del portafolio.'}
-                            </p>
-                          </>
-                        )}
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-bold mb-3" style={{ color: C.textMain }}>Modo de Uso</h3>
-                        <p
-                          style={{
-                            color: C.textMuted,
-                            background: C.obsidian,
-                            padding: '0.75rem',
-                          }}
-                        >
-                          {selectedProduct.usage}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'constructor' && (
-                    <div className="space-y-4">
-                      <div
-                        style={{
-                          background: C.obsidian,
-                          padding: '1rem',
-                          border: '1px solid #3f3f46',
-                        }}
-                      >
-                        <h4 className="font-bold mb-3" style={{ color: C.bioEmerald }}>Cómo se usa</h4>
-                        <ul className="space-y-2">
-                          {selectedProduct.ritual.map((punto, index) => (
-                            <li key={index} className="flex items-start">
-                              <span className="mr-2" style={{ color: C.bioEmerald }}>•</span>
-                              <span className="text-sm" style={{ color: C.textMuted }}>{punto}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {selectedProduct.combinacionSugerida && (
-                        <div>
-                          <h3 className="text-lg font-bold text-[color:var(--color-text-primary)] mb-3">Combina bien con</h3>
-                          <p className="text-[#A3A3A3] text-sm mb-3">Los que suelen ir juntos en la misma rutina:</p>
-                          <div className="flex flex-wrap gap-2">
-                            {selectedProduct.combinacionSugerida.map((productoId) => (
-                              <span key={productoId} className="bg-[#C5A059]/20 text-[#C5A059] px-3 py-1  text-sm">
-                                {productData[productoId]?.name || productoId}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="bg-[#0B0C0C] p-4  border border-[#E5C279]/30">
-                        <h4 className="font-bold text-[color:var(--color-brand)] mb-2">Para quién es</h4>
-                        <p className="text-[#A3A3A3] text-sm">
-                          {selectedProduct.perfilIdeal}. {selectedProduct.momentoConsumo}.
-                        </p>
-                      </div>
-
-                      {selectedProduct.sistemaRecomendado && (
-                        <div>
-                          <h3 className="text-lg font-bold text-[color:var(--color-text-primary)] mb-3">Sistema Recomendado</h3>
-                          <button
-                            onClick={() => {
-                              setSelectedProduct(null)
-                              setSelectedSystem(selectedProduct.sistemaRecomendado!)
-                            }}
-                            className="w-full bg-[#0B0C0C] border border-[#E5C279]/40 p-4  hover:border-[#E5C279]/70 transition-all text-left"
-                          >
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <p className="font-semibold text-[color:var(--color-brand)]">
-                                  {sistemasDebienestar[selectedProduct.sistemaRecomendado].nombre}
-                                </p>
-                                <p className="text-[#A3A3A3] text-sm">
-                                  {sistemasDebienestar[selectedProduct.sistemaRecomendado].descripcion}
-                                </p>
-                              </div>
-                              <Rocket className="h-6 w-6 text-[color:var(--color-brand)]" />
-                            </div>
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                <div className="pt-4 space-y-3">
-                  <button
-                    onClick={() => {
-                      const productId = Object.entries(productData).find(([_, product]) => product === selectedProduct)?.[0]
-                      if (productId) addToCart(productId)
-                      setSelectedProduct(null)
-                    }}
-                    className="cta-base cta-primary w-full"
-                    style={{ padding: '1rem 2rem', fontSize: '0.95rem' }}
-                  >
-                    Agregar al Sistema de Bienestar
-                  </button>
-
-                  {selectedProduct.downloadUrl && (
-                    <a
-                      href={selectedProduct.downloadUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cta-base cta-secondary w-full"
-                      style={{ padding: '0.875rem 2rem', fontSize: '0.95rem' }}
-                    >
-                      <Download className="h-5 w-5 mr-2" />
-                      Descargar Guía del Producto (PDF)
+            {id === 'maquina-luvoco' && (
+              <>
+                <h3>Documentos de la máquina</h3>
+                <div className="tienda-descargas">
+                  {DESCARGAS_LUVOCO.map((d) => (
+                    <a key={d.href} href={d.href} target="_blank" rel="noopener noreferrer" className="tienda-boton-sec">
+                      <Download className="h-4 w-4" /> {d.texto}
                     </a>
-                  )}
+                  ))}
                 </div>
-              </div>
-            </div>
+              </>
+            )}
+
+            {p.combinacionSugerida && p.combinacionSugerida.length > 0 && (
+              <>
+                <h3>Combina bien con</h3>
+                <div className="tienda-combina">
+                  {p.combinacionSugerida.filter((c) => productData[c]).map((c) => (
+                    <div key={c} className="tienda-combina-item">
+                      <button type="button" className="tienda-combina-foto" onClick={() => abrirOtro(c)} aria-label={`Ver ${productData[c].name}`}>
+                        <Image src={imagenVitrina(c)} alt="" fill sizes="64px" />
+                      </button>
+                      <div>
+                        <button type="button" className="tienda-nombre" onClick={() => abrirOtro(c)}>{productData[c].name}</button>
+                        <p className="tienda-precio-chico">{pesos(productData[c].price)}</p>
+                      </div>
+                      {cantidadDe(c) === 0
+                        ? <button type="button" className="tienda-mas" onClick={() => fijar(c, 1)} aria-label={`Agregar ${productData[c].name}`}><Plus className="h-4 w-4" /></button>
+                        : <span className="tienda-ya">✓ {cantidadDe(c)}</span>}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
-      )}
+      </div>
+      <div className="tienda-hoja-pie">
+        <Cantidad id={id} nombre={p.name} cantidad={cantidad} fijar={fijar} grande />
+        {cantidad > 0 && <p className="tienda-hoja-pie-nota">{cantidad} en su pedido · {pesos(p.price * cantidad)}</p>}
       </div>
     </>
   )
 }
+
+// ─── El pedido ───────────────────────────────────────────────────────────────
+
+function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando }: {
+  carrito: Linea[]; total: number; socio: Socio | null; fijar: (id: string, n: number) => void
+  enviado: boolean; enviar: () => void; seguirComprando: () => void
+}) {
+  const quien = socio?.nombre ?? 'Su distribuidor'
+  if (carrito.length === 0) {
+    return (
+      <div className="tienda-hoja-cuerpo tienda-vacio">
+        <ShoppingBag className="h-10 w-10" />
+        <p>Su pedido está vacío.</p>
+        <button type="button" className="tienda-boton" onClick={seguirComprando}>Ver los productos</button>
+      </div>
+    )
+  }
+  return (
+    <>
+      <div className="tienda-hoja-cuerpo">
+        <ul className="tienda-pedido-lista">
+          {carrito.map((l) => {
+            const p = productData[l.id]
+            return (
+              <li key={l.id}>
+                <div className="tienda-pedido-foto"><Image src={imagenVitrina(l.id)} alt="" fill sizes="64px" /></div>
+                <div className="tienda-pedido-texto">
+                  <p className="tienda-pedido-nombre">{p.name}</p>
+                  <p className="tienda-presentacion">{p.presentacion}</p>
+                  <p className="tienda-precio-chico">{pesos(p.price * l.cantidad)}</p>
+                </div>
+                <Cantidad id={l.id} nombre={p.name} cantidad={l.cantidad} fijar={fijar} />
+              </li>
+            )
+          })}
+        </ul>
+
+        <div className="tienda-pedido-suma">
+          <div><span>Envío</span><span>Lo acuerda con {socio?.primerNombre ?? 'su distribuidor'}</span></div>
+          <div className="total"><span>Total de productos</span><span>{pesos(total)}</span></div>
+        </div>
+
+        <div className="tienda-pedido-sigue">
+          <Truck className="h-5 w-5" />
+          <p>Se abre WhatsApp con su pedido escrito; al enviarlo le llega a Queswa, la asistente de {socio ? socio.primerNombre : 'su distribuidor'}. <strong>{quien} le escribe</strong> para acordar el pago y la entrega. Todavía no paga nada.</p>
+        </div>
+      </div>
+
+      <div className="tienda-hoja-pie">
+        {enviado ? (
+          <div className="tienda-enviado">
+            <p><strong>Falta un paso:</strong> en WhatsApp, toque <strong>Enviar</strong> para que le llegue el pedido.</p>
+            <button type="button" className="tienda-boton-sec" onClick={enviar}>Abrir WhatsApp de nuevo</button>
+          </div>
+        ) : (
+          <button type="button" className="tienda-boton tienda-enviar" onClick={enviar}>
+            <IconoWhatsApp /> Enviar pedido por WhatsApp
+          </button>
+        )}
+        <button type="button" className="tienda-enlace" onClick={seguirComprando}>Seguir comprando</button>
+      </div>
+    </>
+  )
+}
+
+function IconoWhatsApp() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+      <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.57.94.95-3.48-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.36 9.36 0 0 1 2.76 6.67c0 5.2-4.23 9.42-9.42 9.42m8.02-17.44A11.27 11.27 0 0 0 12.05.75C5.8.75.7 5.84.7 12.1c0 2 .52 3.95 1.52 5.67L.6 23.25l5.6-1.47a11.3 11.3 0 0 0 5.84 1.57h.01c6.25 0 11.35-5.09 11.35-11.35 0-3.03-1.18-5.88-3.33-8.02" />
+    </svg>
+  )
+}
+
+// ─── Estilos ─────────────────────────────────────────────────────────────────
+// Paleta de la tienda en variables (--t-*): la marca madre es carbón y oro; la
+// vitrina es cálida y clara para que las cajas —casi todas oscuras— se vean.
+
+const ESTILOS = `
+.tienda {
+  --t-fondo: #F7F2EA;
+  --t-superficie: #FFFDF9;
+  --t-vitrina: #EFE6D8;
+  --t-tinta: #2B211A;
+  --t-tinta-2: #6B5A4C;
+  --t-tinta-3: #8A7A6C;
+  --t-linea: #E6DCCD;
+  --t-oro: #C5A059;
+  --t-oro-texto: #7A5C24;
+  --t-accion: #2B211A;
+  --t-accion-texto: #F7F2EA;
+  --t-marco: #0F1115;
+  --t-radio: 14px;
+  background: var(--t-fondo);
+  color: var(--t-tinta);
+  min-height: 100vh;
+  font-family: var(--font-sans);
+}
+.tienda h1, .tienda h2, .tienda h3 { color: var(--t-tinta); }
+.tienda-ancho { max-width: 72rem; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 768px) { .tienda-ancho { padding: 0 24px; } }
+
+.tienda-cabecera { padding: 28px 0 20px; }
+.tienda-ceja { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--t-oro-texto); font-weight: 600; margin: 0 0 6px; }
+.tienda-titulo { font-variant-numeric: lining-nums; font-family: var(--font-serif); font-size: 30px; line-height: 1.15; font-weight: 700; margin: 0 0 8px; color: var(--t-tinta); }
+@media (min-width: 768px) { .tienda-titulo { font-size: 42px; } .tienda-cabecera { padding: 44px 0 28px; } }
+.tienda-bajada { font-size: 15px; line-height: 1.5; color: var(--t-tinta-2); margin: 0 0 18px; max-width: 34em; }
+.tienda-socio { display: flex; align-items: center; gap: 12px; background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: var(--t-radio); padding: 10px 14px; max-width: 26rem; }
+.tienda-socio-foto { width: 44px; height: 44px; border-radius: 999px; overflow: hidden; background: var(--t-vitrina); color: var(--t-oro-texto); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tienda-socio-foto img { width: 44px; height: 44px; object-fit: cover; }
+.tienda-socio-nombre { margin: 0; font-weight: 600; font-size: 15px; }
+.tienda-socio-rol { margin: 2px 0 0; font-size: 12.5px; color: var(--t-tinta-3); }
+
+.tienda-lineas { position: sticky; top: 4rem; z-index: 40; background: rgba(247,242,234,.96); border-bottom: 1px solid var(--t-linea); backdrop-filter: saturate(1.2) blur(8px); }
+@media (min-width: 768px) { .tienda-lineas { top: 5rem; } }
+.tienda-lineas-fila { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.tienda-lineas-fila::-webkit-scrollbar { display: none; }
+.tienda-chip { flex-shrink: 0; border: 1px solid var(--t-linea); background: var(--t-superficie); color: var(--t-tinta-2); border-radius: 999px; padding: 8px 14px; font-size: 14px; font-weight: 500; min-height: 40px; }
+.tienda-chip.activa { background: var(--t-accion); border-color: var(--t-accion); color: var(--t-accion-texto); }
+
+.tienda-vitrina { padding-top: 8px; padding-bottom: 48px; }
+.tienda-seccion { padding-top: 20px; scroll-margin-top: 8.5rem; }
+@media (min-width: 768px) { .tienda-seccion { scroll-margin-top: 9.5rem; } }
+.tienda-seccion-cabeza { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }
+.tienda-seccion-cabeza h2 { font-family: var(--font-serif); font-size: 22px; margin: 0; color: var(--t-tinta); }
+.tienda-seccion-cabeza span { font-size: 13px; color: var(--t-tinta-3); }
+
+.tienda-grilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 768px) { .tienda-grilla { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+@media (min-width: 1100px) { .tienda-grilla { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; } }
+
+.tienda-tarjeta { background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: var(--t-radio); padding: 8px; display: flex; flex-direction: column; gap: 8px; }
+.tienda-foto { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1; background: var(--t-vitrina); border-radius: 8px; overflow: hidden; }
+.tienda-foto img { object-fit: contain; padding: 14%; filter: drop-shadow(0 8px 10px rgba(30,26,23,.18)); transition: transform .3s ease; }
+@media (hover: hover) { .tienda-tarjeta:hover .tienda-foto img { transform: scale(1.04); } }
+.tienda-sello { position: absolute; top: 8px; left: 8px; z-index: 1; background: var(--t-oro); color: var(--t-tinta); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; }
+.tienda-tarjeta-texto { padding: 0 4px; display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.tienda-nombre { font-variant-numeric: lining-nums; text-align: left; font-family: var(--font-serif); font-weight: 700; font-size: 15.5px; line-height: 1.25; color: var(--t-tinta); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; background: none; padding: 0; }
+.tienda-presentacion { font-size: 12.5px; color: var(--t-tinta-2); margin: 0; }
+.tienda-precio { font-size: 16px; font-weight: 700; margin: 4px 0 0; font-variant-numeric: tabular-nums; color: var(--t-tinta); }
+.tienda-precio-chico { font-size: 14px; font-weight: 600; margin: 2px 0 0; font-variant-numeric: tabular-nums; }
+
+.tienda-boton { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--t-accion); color: var(--t-accion-texto); border-radius: 999px; min-height: 44px; padding: 0 18px; font-weight: 600; font-size: 15px; border: 0; transition: opacity .2s ease, transform .1s ease; }
+.tienda-boton:active { transform: scale(.98); }
+.tienda-boton:hover { opacity: .92; }
+.tienda-agregar { width: 100%; font-size: 14px; }
+.tienda-agregar.grande { font-size: 16px; min-height: 52px; }
+.tienda-boton-sec { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid var(--t-tinta); color: var(--t-tinta); background: transparent; border-radius: 999px; min-height: 44px; padding: 0 16px; font-weight: 600; font-size: 14px; }
+.tienda-enlace { display: inline-flex; align-items: center; gap: 4px; color: var(--t-oro-texto); font-weight: 600; font-size: 14px; background: none; border: 0; padding: 8px 0; text-decoration: underline; text-underline-offset: 3px; }
+
+.tienda-cantidad { display: flex; align-items: center; justify-content: space-between; border: 1.5px solid var(--t-accion); border-radius: 999px; min-height: 44px; overflow: hidden; }
+.tienda-cantidad button { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--t-tinta); background: none; }
+.tienda-cantidad span { font-weight: 700; font-variant-numeric: tabular-nums; }
+.tienda-cantidad.grande { min-height: 52px; min-width: 160px; }
+.tienda-cantidad.grande button { height: 52px; width: 52px; }
+
+.tienda-ayuda { margin-top: 32px; background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: var(--t-radio); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+@media (min-width: 768px) { .tienda-ayuda { flex-direction: row; align-items: center; justify-content: space-between; } }
+.tienda-ayuda-titulo { margin: 0; font-weight: 700; font-size: 16px; }
+.tienda-ayuda-texto { margin: 4px 0 0; font-size: 14px; color: var(--t-tinta-2); }
+
+.tienda-pasos, .tienda-historia, .tienda-preguntas { margin-top: 40px; }
+.tienda-pasos h2, .tienda-historia h2, .tienda-preguntas h2 { font-family: var(--font-serif); font-size: 22px; margin: 0 0 14px; }
+.tienda-pasos ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+@media (min-width: 768px) { .tienda-pasos ol { grid-template-columns: repeat(3, 1fr); } }
+.tienda-pasos li { display: flex; gap: 12px; background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: var(--t-radio); padding: 14px; }
+.tienda-pasos li > span { width: 28px; height: 28px; border-radius: 999px; background: var(--t-vitrina); color: var(--t-oro-texto); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+.tienda-pasos strong { font-size: 15px; }
+.tienda-pasos p { margin: 4px 0 0; font-size: 14px; color: var(--t-tinta-2); line-height: 1.45; }
+.tienda-historia p { font-size: 15px; line-height: 1.6; color: var(--t-tinta-2); max-width: 44em; margin: 0; }
+.tienda-historia-pie svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--t-oro-texto); }
+.tienda-historia-pie { display: flex; align-items: center; gap: 8px; margin-top: 12px !important; font-size: 14px !important; color: var(--t-tinta-3) !important; }
+.tienda-preguntas details { background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: var(--t-radio); margin-bottom: 8px; }
+.tienda-preguntas summary { cursor: pointer; padding: 14px 16px; font-weight: 600; font-size: 15px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.tienda-preguntas summary::after { content: '+'; color: var(--t-oro-texto); font-weight: 700; }
+.tienda-preguntas details[open] summary::after { content: '–'; }
+.tienda-preguntas details p { margin: 0; padding: 0 16px 16px; font-size: 14.5px; line-height: 1.55; color: var(--t-tinta-2); }
+.tienda-puente { background: var(--t-marco); color: #E5E5E5; padding: 40px 0 140px; border-top: 1px solid rgba(197,160,89,.2); }
+.tienda-puente-titulo { font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin: 0 0 8px; color: #FFFFFF; }
+.tienda-puente p { font-size: 14.5px; line-height: 1.55; color: #A9A49C; max-width: 40em; }
+.tienda-puente .tienda-enlace { color: var(--t-oro); }
+.tienda-oscuro { background: var(--t-marco) !important; border-color: rgba(197,160,89,.25) !important; color: #E5E5E5; }
+.tienda-oscuro .tienda-ayuda-texto { color: #A9A49C; }
+.tienda-boton-oro { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid var(--t-oro); color: var(--t-oro); background: rgba(197,160,89,.08); border-radius: 999px; min-height: 44px; padding: 0 18px; font-weight: 600; font-size: 14px; }
+.tienda-ficha-entrega { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px !important; line-height: 1.45; color: var(--t-tinta-2); background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: 10px; padding: 10px 12px; margin: 12px 0 0; }
+.tienda-ficha-entrega svg { flex-shrink: 0; margin-top: 2px; color: var(--t-oro-texto); }
+
+.tienda-puente-botones { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+
+.tienda-barra { position: fixed; left: 0; right: 0; bottom: var(--alto-aviso-cookies, 0px); z-index: 45; background: var(--t-superficie); border-top: 1px solid var(--t-linea); box-shadow: 0 -8px 24px rgba(30,26,23,.08); padding-bottom: env(safe-area-inset-bottom, 0px); animation: tienda-sube .25s ease; }
+.tienda-barra-fila { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 72px; }
+.tienda-barra-cuenta { margin: 0; font-size: 13px; color: var(--t-tinta-3); }
+.tienda-barra-total { margin: 0; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+@keyframes tienda-sube { from { transform: translateY(100%); } to { transform: none; } }
+
+.tienda-velo { position: fixed; inset: 0; z-index: 90; background: rgba(20,17,15,.45); display: flex; align-items: flex-end; justify-content: center; animation: tienda-aparece .2s ease; }
+@media (min-width: 768px) { .tienda-velo { align-items: center; padding: 24px; } }
+@keyframes tienda-aparece { from { opacity: 0; } to { opacity: 1; } }
+.tienda-hoja { background: var(--t-fondo); color: var(--t-tinta); width: 100%; max-height: 92dvh; border-radius: 18px 18px 0 0; display: flex; flex-direction: column; overflow: hidden; animation: tienda-sube .28s cubic-bezier(.2,.8,.2,1); }
+@media (min-width: 768px) { .tienda-hoja { max-width: 760px; border-radius: 18px; max-height: 88vh; } }
+.tienda-hoja-cabeza { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 14px 12px 10px 18px; border-bottom: 1px solid var(--t-linea); background: var(--t-superficie); }
+.tienda-hoja-cabeza p { margin: 0; font-weight: 700; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 8px; }
+.tienda-hoja-cabeza button { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: var(--t-tinta); background: var(--t-fondo); flex-shrink: 0; }
+.tienda-hoja-asa { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 40px; height: 4px; border-radius: 4px; background: var(--t-linea); }
+@media (min-width: 768px) { .tienda-hoja-asa { display: none; } }
+.tienda-hoja-cuerpo { overflow-y: auto; padding: 16px 18px; flex: 1; overscroll-behavior: contain; }
+.tienda-hoja-pie { border-top: 1px solid var(--t-linea); background: var(--t-superficie); padding: 12px 18px calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+.tienda-hoja-pie .tienda-cantidad.grande { align-self: stretch; }
+.tienda-hoja-pie-nota { margin: 0; text-align: center; font-size: 13px; color: var(--t-tinta-3); }
+.tienda-hoja-pie .tienda-enlace { align-self: center; }
+
+.tienda-ficha { display: grid; gap: 16px; }
+@media (min-width: 768px) { .tienda-ficha { grid-template-columns: 300px 1fr; gap: 24px; } }
+.tienda-ficha-foto { position: relative; aspect-ratio: 1 / 1; background: var(--t-vitrina); border-radius: var(--t-radio); overflow: hidden; }
+.tienda-ficha-foto img { object-fit: contain; padding: 10%; filter: drop-shadow(0 10px 14px rgba(30,26,23,.2)); }
+@media (max-width: 767px) { .tienda-ficha-foto { aspect-ratio: 4 / 3; } }
+.tienda-ficha-lema { font-family: var(--font-serif); font-style: italic; font-size: 17px; line-height: 1.35; margin: 0 0 8px; color: var(--t-tinta-2); }
+.tienda-ficha-datos .tienda-ficha-precio { color: var(--t-tinta); font-size: 26px; font-weight: 700; margin: 0; font-variant-numeric: tabular-nums; }
+.tienda-ficha-desc { font-size: 15px; line-height: 1.55; margin: 12px 0 0; }
+.tienda-ficha-datos h3 { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--t-oro-texto); margin: 20px 0 6px; font-weight: 700; }
+.tienda-ficha-datos p, .tienda-ficha-datos li { font-size: 14.5px; line-height: 1.55; color: var(--t-tinta-2); }
+.tienda-ficha-datos ul { margin: 0; padding-left: 18px; list-style: disc; }
+.tienda-ficha-datos li::marker { color: var(--t-oro); }
+.tienda-ficha-mas { margin-top: 18px; border-top: 1px solid var(--t-linea); padding-top: 10px; }
+.tienda-ficha-mas summary { cursor: pointer; font-weight: 600; font-size: 14.5px; color: var(--t-tinta); padding: 6px 0; }
+.tienda-ficha-mas p { margin: 6px 0 0; }
+.tienda-descargas { display: flex; flex-wrap: wrap; gap: 8px; }
+.tienda-combina { display: grid; gap: 8px; }
+.tienda-combina-item { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 12px; background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: 10px; padding: 8px; }
+.tienda-combina-foto { position: relative; width: 56px; height: 56px; background: var(--t-vitrina); border-radius: 8px; overflow: hidden; }
+.tienda-combina-foto img { object-fit: contain; padding: 8px; }
+.tienda-mas { width: 40px; height: 40px; border-radius: 999px; background: var(--t-accion); color: var(--t-accion-texto); display: flex; align-items: center; justify-content: center; }
+.tienda-ya { font-size: 13px; font-weight: 600; color: var(--t-oro-texto); padding: 0 6px; }
+
+.tienda-vacio { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 40px 18px; color: var(--t-tinta-3); }
+.tienda-pedido-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.tienda-pedido-lista li { display: grid; grid-template-columns: 64px 1fr; gap: 10px 12px; background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: var(--t-radio); padding: 10px; }
+.tienda-pedido-lista li .tienda-cantidad { grid-column: 2; max-width: 150px; }
+.tienda-pedido-foto { position: relative; width: 64px; height: 64px; background: var(--t-vitrina); border-radius: 8px; overflow: hidden; grid-row: span 2; }
+.tienda-pedido-foto img { object-fit: contain; padding: 8px; }
+.tienda-pedido-nombre { margin: 0; font-weight: 600; font-size: 14.5px; }
+.tienda-pedido-suma { margin-top: 16px; display: grid; gap: 8px; font-size: 14.5px; }
+.tienda-pedido-suma > div { display: flex; justify-content: space-between; gap: 12px; color: var(--t-tinta-2); }
+.tienda-pedido-suma > div span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.tienda-pedido-suma .total { border-top: 1px solid var(--t-linea); padding-top: 10px; color: var(--t-tinta); font-weight: 700; font-size: 17px; }
+.tienda-pedido-sigue svg { flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px; }
+.tienda-pedido-sigue { margin-top: 16px; display: flex; gap: 12px; align-items: flex-start; background: var(--t-vitrina); border-radius: var(--t-radio); padding: 14px; color: var(--t-oro-texto); }
+.tienda-pedido-sigue p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--t-tinta-2); }
+.tienda-pedido-sigue strong { color: var(--t-tinta); }
+.tienda-enviar { width: 100%; min-height: 52px; font-size: 16px; }
+.tienda-enviado { display: grid; gap: 8px; }
+.tienda-enviado p { margin: 0; font-size: 14.5px; line-height: 1.45; background: #FFF6E0; border: 1px solid #EAD7A8; border-radius: 10px; padding: 12px; }
+`

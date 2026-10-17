@@ -9,6 +9,7 @@
  */
 
 import type { Metadata } from 'next'
+import { productData, LINEAS, PREGUNTAS, imagenVitrina } from './catalogo-datos'
 
 // URL base del sitio - AJUSTA ESTO A TU DOMINIO REAL
 const siteUrl = 'https://creatuactivo.com'
@@ -61,114 +62,64 @@ export const metadata: Metadata = {
   },
 }
 
+/**
+ * Datos estructurados del catálogo (17 oct 2026).
+ *
+ * Antes: un solo Product (el 3 en 1) con «beneficios para el sistema inmunológico,
+ * energía y concentración», un FAQPage con «hongo medicinal», «fortalecer el sistema
+ * inmunológico», «reducir estrés», «35% de descuento» y un «envío gratis desde
+ * $150.000» que no existe, y una Organization descrita con léxico retirado. Era lo
+ * que Google leía de esta página aunque el texto visible ya se hubiera limpiado.
+ *
+ * Ahora: la lista de los 22 productos con su precio (ItemList de Product/Offer) y
+ * las mismas preguntas que se ven en la página (PREGUNTAS de catalogo-datos.ts).
+ */
 export default function ProductosLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // Schema.org JSON-LD para Product y FAQPage
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Gano Café 3 en 1",
-    "description": "Café premium enriquecido con extracto 100% hidrosoluble de Ganoderma Lucidum (Reishi). Mezcla perfecta de café, crema y azúcar con beneficios para el sistema inmunológico, energía y concentración.",
-    "brand": {
-      "@type": "Brand",
-      "name": "Gano Excel"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": `${siteUrl}/productos`,
-      "priceCurrency": "COP",
-      "price": "110900",
-      "priceValidUntil": "2026-12-31",
-      "availability": "https://schema.org/InStock",
-      "seller": {
-        "@type": "Organization",
-        "name": "CreaTuActivo.com"
+  const listaSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Catálogo Gano Excel',
+    itemListElement: LINEAS.flatMap((l) => l.ids).map((id, i) => {
+      const p = productData[id]
+      return {
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Product',
+          name: p.name,
+          description: p.shortDescription,
+          image: `${siteUrl}${imagenVitrina(id)}`,
+          brand: { '@type': 'Brand', name: 'Gano Excel' },
+          offers: {
+            '@type': 'Offer',
+            url: `${siteUrl}/productos`,
+            priceCurrency: 'COP',
+            price: String(p.price),
+            availability: 'https://schema.org/InStock',
+          },
+        },
       }
-    },
-    "image": `${siteUrl}/productos/bebidas/ganocafe-3-en-1-gano-excel-min.png`,
-    "sku": "GANOCAFE-3EN1-20"
+    }),
   }
 
   const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "¿Para qué sirve el Gano Café?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "El Gano Café es un café enriquecido con Ganoderma Lucidum (Reishi), un hongo medicinal con más de 2,000 años de uso en la medicina tradicional china. Sirve para: aumentar energía natural sin efectos nerviosos, fortalecer el sistema inmunológico gracias a los betaglucanos, reducir estrés y fatiga con propiedades adaptógenas, mejorar concentración combinando cafeína natural y nutrientes del hongo, y apoyar la digestión con más de 200 fitonutrientes bioactivos."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Cuáles son los beneficios del Gano Café 3 en 1?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "El Gano Café 3 en 1 de Gano Excel ofrece beneficios respaldados por el extracto 100% hidrosoluble de Ganoderma Lucidum con una fórmula exclusiva: fortalece el sistema inmunológico con betaglucanos, aporta energía sostenida sin nerviosismo y mejora la concentración y claridad mental."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Cuál es el precio del Gano Café en Colombia 2026?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Los precios oficiales de Gano Excel en Colombia para 2026 son: Gano Café 3 en 1 (caja con 20 sobres x 21g): $110.900 COP. Gano Café Clásico Negro (caja con 30 sobres x 4.5g): $110.900 COP. Como Fundador CreaTuActivo, accedes a precios mayoristas con descuento de hasta 35% sobre precio público. Envío gratis a toda Colombia en compras superiores a $150.000 COP."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Cómo se toma el Gano Café 3 en 1?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Para preparar el Gano Café 3 en 1 correctamente: 1) Vierte 1 sobre (21g) en su taza favorita, 2) Agrega 150ml de agua caliente (no hirviendo, aprox. 80-85°C), 3) Revuelve bien hasta disolver completamente, 4) Disfruta inmediatamente para aprovechar todos los nutrientes. Mejor momento: por la mañana o media tarde. Frecuencia ideal: 1-2 tazas al día. Puede tomarse frío con agua fría y hielo en verano."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿El Gano Café está disponible en toda Latinoamérica?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sí, Gano Excel distribuye sus productos, incluyendo el Gano Café, en 16 países de América: Colombia, México, Perú, Ecuador, Chile, Argentina, Guatemala, Honduras, El Salvador, Costa Rica, Panamá, Venezuela y Bolivia. Nuestro asistente NEXUS IA conversacional puede ayudarle a encontrar distribuidores en su país, calcular envíos internacionales y recomendar productos ideales para su perfil."
-        }
-      }
-    ]
-  }
-
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "CreaTuActivo.com",
-    "alternateName": "CreaTuActivo",
-    "url": siteUrl,
-    "logo": `${siteUrl}/web-app-manifest-512x512.png`,
-    "description": "Plataforma de emprendimiento digital que combina productos premium Gano Excel con la aplicación CreaTuActivo y asesoría IA conversacional (NEXUS) para construir activos empresariales escalables.",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "Sales",
-      "availableLanguage": ["Spanish"]
-    }
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: PREGUNTAS.map((q) => ({
+      '@type': 'Question',
+      name: q.p,
+      acceptedAnswer: { '@type': 'Answer', text: q.r },
+    })),
   }
 
   return (
     <>
-      {/* Schema.org JSON-LD para SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listaSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       {children}
     </>
   )

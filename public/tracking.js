@@ -83,9 +83,18 @@
     function getConstructorRef() {
         let ref = null;
 
+        // Opción 0: la página lo declara (17 oct 2026). /productos/{slug} lleva el
+        // slug en la dirección, que no tiene forma de constructor_id; el servidor ya
+        // lo resolvió y lo publica en <meta name="constructor-ref">.
+        try {
+            const meta = document.querySelector('meta[name="constructor-ref"]');
+            const declarado = meta && meta.getAttribute('content');
+            if (declarado && /^[a-z0-9-]{2,80}$/.test(declarado)) ref = declarado;
+        } catch (e) {}
+
         // Opción 1: Leer de query param (retrocompatibilidad)
         const urlParams = new URLSearchParams(window.location.search);
-        ref = urlParams.get('ref');
+        if (!ref) ref = urlParams.get('ref');
 
         // Opción 2: Leer desde el path (NUEVO formato limpio)
         // Ejemplo: /fundadores/luiscabrejo-4871288 → luiscabrejo-4871288

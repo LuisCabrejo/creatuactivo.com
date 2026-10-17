@@ -48,13 +48,6 @@ Si preguntan por la salud de Luis: tuvo un quebranto de salud y hoy está bien. 
 es todo lo que se cuenta.
 
 Los dos videos más recientes:
-- Viernes 25, día 19 — «honor a la pausa». Viendo con su hijo Justin la película
-  Coyote versus Acme, Luis rescata que el Coyote no sigue tropezando con la misma
-  piedra: se detiene, analiza y descubre que la culpa era de las herramientas. Así
-  trabaja él: fija un objetivo y la jornada para llegar; si después de tres o cuatro
-  intentos no hay luz verde, hace una pausa y redirecciona. Contó que las dos
-  primeras semanas del reto fueron de mucho redireccionar y que en la tercera por
-  fin ve luz verde.
 - Lunes 28, día 22 — «¡ahora sí!». La luz verde que Luis mencionó el viernes son
   los primeros socios que dijeron que sí: Carlos, ingeniero en Ibagué; Andrés,
   agricultor en Granada, Meta; los hermanos Marlon y Mónica, que han trabajado en
@@ -62,6 +55,14 @@ Los dos videos más recientes:
   Fómeque. Todos coincidieron en «¡ahora sí!». Luis lo explicó así: una empresa de
   distribución moderna hoy se monta en queswa.app, y buena parte en WhatsApp. De
   ellos solo se sabe lo que dice el video.
+- Jueves 15 de octubre, día 39 — «el gigante». Luis volvió a grabar después de varios
+  días. Contó que el terremoto del 1 de septiembre afectó su casa y que, durante un
+  tiempo, las dificultades lo hicieron verse como víctima; hoy se ve como el rey David
+  frente a un gigante que tenía que vencer, y ya no está cansado: está con furia. El
+  sistema no depende de un lugar y siguió funcionando; el reto sigue. Grabó en Girardot,
+  donde la noche anterior lo invitaron a hablar con un grupo de personas. Anunció que en
+  el próximo video muestra Los 12 Niveles, la estrategia que están lanzando; todavía no
+  la ha explicado en un video. Del terremoto no se cuenta más que esto.
 
 Luis da charlas y acepta invitaciones a empresas y eventos. Quien pregunte por eso
 —dónde, cuándo, si lo pueden invitar, cuánto cobra— lo atiende el sistema y avisa

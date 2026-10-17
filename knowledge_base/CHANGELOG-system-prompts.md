@@ -6,6 +6,25 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.18 — El día 39, «el gigante», entra; sale el día 19 (16 oct 2026)
+
+La nota del video del día 39 reemplaza la del día 19 («honor a la pausa») en «Los dos videos más recientes»; queda el 22. Contenido: Luis vuelve a grabar después de varios días; el terremoto del 1 de septiembre afectó su casa; se vio como víctima y hoy se ve como el rey David frente al gigante, «está con furia»; el sistema no depende de un lugar y siguió funcionando; grabó en Girardot, donde lo invitaron a hablar; anuncia Los 12 Niveles para el próximo video y todavía no los ha explicado. Cierra con *«Del terremoto no se cuenta más que esto»*, en la forma de la regla de la salud. Aprobado por el Director el 16 oct, con los dos datos que no están en el video (la casa y el sistema).
+
+**Por qué.** La auditoría del día 39 (`auditar-guion-queswa.mjs`, 15 oct) dio ❌ en el terremoto: Queswa no sabía que existió, y respondía *«no tengo información»*, lo volvía **metáfora** con una anécdota del día 19, o afirmaba que *«el lunes pasado publicó el día 22»*.
+
+**Medido antes de proponer** (A/B con el prompt vivo y el material que recuperó cada pregunta en la auditoría, `claude-sonnet-4-6` a 0.65, 8 muestras por variante; arnés en `~/Downloads/reels-equipo/1015/work/queswa/`). *«¿Qué pasó con el terremoto, afectó el negocio?»*: 8/8 fallas → 0/8, y cuenta lo del video 8/8. Las preguntas de control (*«¿cómo es el negocio de ustedes?»*, *«cómo me aplicaría a mí»*) no nombran el terremoto en ninguna variante (0/16). Se probaron cinco redacciones:
+- Sin la frase del sistema, el modelo **adornaba** el negocio (*«los pedidos se siguen despachando»*, *«los socios están activos»*: 5/8).
+- Con lo de la casa y el sistema en un párrafo aparte, con la forma exacta de la regla de la salud (*«Eso es todo lo que se cuenta»*), **dejaba de contar el video** (0/24) y adornaba más (23/24).
+- La elegida cuenta el video 19/24, adorna 1/24 y le atribuye al video la frase del sistema 3/24, que es un hecho cierto.
+
+**Lo que la auditoría marcó y no se tocó.**
+- *«¿Hacen reuniones presenciales?»* recibe `FREQ_35` (*nada a lo que usted tenga que asistir*), calibrada así a propósito el 25 ago por la restricción de Meta.
+- *«Luis acepta invitaciones a empresas y eventos»* es regla del prompt (falso positivo del juez).
+- La fecha de arranque del reto (7 sep) es cierta (falso positivo).
+- *«Lo que Luis explicó…»* sobre Los 12 Niveles salió una vez en producción y 0/16 en el arnés; la nota dice ahora que todavía no los explicó.
+
+**Presupuesto:** WhatsApp 19.040 · web 19.456 · Dashboard 15.514 (la nota va en `canal:web whatsapp`).
+
 ## v5.17 — El tercer elemento es «saber qué hacer» (9 oct 2026)
 
 Una frase en el bloque del video «Cómo funciona»: la descripción de lo que dice la voz cambia *«y su aplicación personalizada: como en Waze…»* → *«y saber qué hacer: como en Waze…»*. Acompaña a `WHY_02` v6.69 (el candado es la voz del video) y al corte v5 del video en Blob: los tres elementos quedaron como funciones —fabricar · atender · saber qué hacer— y la aplicación es el envase de los tres (Director, 9 oct 2026; investigación `ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md`). Sin reglas nuevas.

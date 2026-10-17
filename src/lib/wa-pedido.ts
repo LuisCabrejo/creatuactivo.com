@@ -29,7 +29,8 @@
  */
 
 import { PRODUCTOS_WA, detectarProducto, productoDelHilo, type ProductoWA } from '@/lib/wa-productos';
-import { sendTemplate } from '@/lib/wa-channel';
+import { sendTemplate, sendCtaUrl, sendText } from '@/lib/wa-channel';
+import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 import { avisarPorCorreo } from '@/lib/wa-radicacion';
 import { enlaceCatalogo } from '@/lib/wa-onboarding';
 import { normalizarDuro } from '@/lib/texto-normalizar';
@@ -576,19 +577,93 @@ export async function registrarPedido(
 }
 
 /**
- * Aviso al socio y al equipo de que hay un pedido.
+ * Aviso al socio y al equipo de que hay un pedido (17 oct 2026, Director).
  *
- * Desde el 17 oct 2026 va con su propia plantilla, `pedido_cliente_v1` (UTILITY):
- * «Hola {{1}}. {{2}} le hizo un pedido por su catálogo: {{3}}. Total de productos:
- * {{4}}. Escríbale hoy para acordar el pago y la entrega.» + [Escribirle], que abre
- * /pedido/{codigo}-{firma} y de ahí el chat con el comprador con el primer mensaje
- * escrito. Hasta ese día salía con `pre_afiliacion_nueva`, que decía «dejó lista su
- * pre-afiliación con el paquete 1 × Ganocafé…» y mandaba a buscar los datos a un
- * Centro de Mando que no muestra pedidos. Si la plantilla nueva todavía no está
- * aprobada (o Meta la rechaza), se cae a la anterior: un aviso torpe es mejor que
- * ninguno. Sin saltos de línea en las variables: Meta los rechaza.
+ * Meta no deja saltos de línea dentro de las variables de una plantilla, así que
+ * la lista de productos llegaba pegada en un renglón («totalmente desordenado»).
+ * Por eso son dos piezas:
+ *   1. `pedido_cliente_v2` (UTILITY): el aviso corto, con los saltos de línea en
+ *      el texto fijo —número de pedido, cliente, cuántos productos y total— y dos
+ *      botones: [Ver el pedido] (respuesta rápida, `pedido_ver:{codigo}`) y
+ *      [Escribirle] (/pedido/{codigo}-{firma}).
+ *   2. Al tocar [Ver el pedido] se abre la ventana de 24 h y Queswa responde el
+ *      detalle con viñetas (`detallePedidoSocio`, nodo 1.37 del webhook).
+ * Si quien recibe el aviso ya le escribió a Queswa en las últimas 24 h, no hace
+ * falta plantilla: le llega de una vez el aviso con las viñetas y [Escribirle].
+ * Si la v2 no sale, cae a la v1 (renglón único) y luego a `pre_afiliacion_nueva`:
+ * un aviso torpe es mejor que ninguno.
  */
-export const PLANTILLA_PEDIDO_SOCIO = 'pedido_cliente_v1';
+export const PLANTILLA_PEDIDO_SOCIO = 'pedido_cliente_v2';
+const PLANTILLA_PEDIDO_SOCIO_V1 = 'pedido_cliente_v1';
+export const PAYLOAD_VER_PEDIDO = 'pedido_ver:';
+
+const pesosCortos = (n: number) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+/** «+57 320 680 5737» para un celular colombiano; «+1 …» con los dígitos para otro país. */
+export function telefonoLegible(whatsapp: string): string {
+  if (esBsuid(whatsapp)) return 'sin número visible';
+  const d = String(whatsapp).replace(/\D/g, '');
+  const m = /^57(\d{3})(\d{3})(\d{4})$/.exec(d);
+  return m ? `+57 ${m[1]} ${m[2]} ${m[3]}` : `+${d}`;
+}
+
+/** El pedido como lo guarda `wa_pedidos`, para armar el detalle sin volver a leer el texto. */
+export interface PedidoGuardado {
+  codigo: string
+  nombre?: string | null
+  whatsapp: string
+  lineas: { nombre: string; cantidad: number; precio_cop: number }[]
+  total_cop: number
+}
+
+function vinetas(p: PedidoGuardado): string {
+  return p.lineas.map((l) => `• ${l.cantidad} × ${l.nombre} · ${pesosCortos(l.precio_cop * l.cantidad)}`).join('\n');
+}
+
+/** Lo que responde [Ver el pedido] (texto aprobado por el Director, 17 oct 2026). */
+export function detallePedidoSocio(p: PedidoGuardado): string {
+  return [
+    `*Pedido N.º ${p.codigo}${p.nombre ? ` · ${p.nombre}` : ''}*`,
+    '',
+    vinetas(p),
+    '',
+    `Total de productos: *${cop(Number(p.total_cop))}*`,
+  ].join('\n');
+}
+
+/** El aviso entero en texto libre, para quien está dentro de la ventana: la plantilla con las viñetas adentro. */
+export function avisoPedidoEnTexto(p: PedidoGuardado, notaEquipo = ''): string {
+  return [
+    `*Nuevo pedido N.º ${p.codigo} de su catálogo*`,
+    '',
+    `Cliente: ${p.nombre || 'Sin nombre'}, ${telefonoLegible(p.whatsapp)}${notaEquipo}`,
+    '',
+    vinetas(p),
+    '',
+    `Total de productos: *${cop(Number(p.total_cop))}*`,
+    '',
+    'Escríbale hoy para acordar el pago y la entrega.',
+  ].join('\n');
+}
+
+function pedidoDesdeLineas(lineas: LineaPedido[], whatsapp: string, nombre: string | undefined, codigo: string): PedidoGuardado {
+  return {
+    codigo,
+    nombre: nombre ?? null,
+    whatsapp,
+    lineas: lineas.map((l) => ({ nombre: l.producto.nombre, cantidad: l.cantidad, precio_cop: l.producto.precioCOP })),
+    total_cop: totalPedido(lineas),
+  };
+}
+
+/** Texto con botón [Escribirle]; si el texto no cabe en un mensaje con botón (1.024), van por separado. */
+async function enviarConBotonEscribirle(to: string, texto: string, codigo: string) {
+  const url = `https://creatuactivo.com/pedido/${codigo}-${await firmaPedido(codigo)}`;
+  if (texto.length <= 1000) return sendCtaUrl(to, texto, 'Escribirle', url);
+  const r = await sendText(to, texto);
+  if (!r.ok) return r;
+  return sendCtaUrl(to, 'Para escribirle al cliente con el pedido ya citado:', 'Escribirle', url);
+}
 
 export async function avisarPedido(
   lineas: LineaPedido[],
@@ -596,17 +671,38 @@ export async function avisarPedido(
   nombre: string | undefined,
   socio: SocioPedido | null,
   codigo?: string | null,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase?: any,
 ): Promise<void> {
   const quien = `${nombre || 'Sin nombre'} (${whatsapp})`;
   const que   = resumenLineas(lineas).slice(0, 200);
   const total = cop(totalPedido(lineas));
+  const unidades = lineas.reduce((n, l) => n + l.cantidad, 0);
+  const pedido = codigo ? pedidoDesdeLineas(lineas, whatsapp, nombre, codigo) : null;
   const boton = codigo ? `${codigo}-${await firmaPedido(codigo)}` : undefined;
 
   const avisar = async (to: string, saludo: string, notaEquipo = '') => {
-    if (boton) {
-      const r = await sendTemplate(to, PLANTILLA_PEDIDO_SOCIO, 'es', [saludo, quien, que, `${total}${notaEquipo}`], boton);
-      if (r.ok) return r;
-      console.warn(`⚠️ [Pedido WA] ${PLANTILLA_PEDIDO_SOCIO} no salió (${r.error}) — se usa pre_afiliacion_nueva`);
+    if (pedido && codigo && boton) {
+      // Dentro de la ventana de 24 h: el aviso entero, con viñetas, sin plantilla.
+      const digitos = String(to).replace(/\D/g, '');
+      if (supabase && await enVentanaPorTelefono(supabase, digitos).catch(() => false)) {
+        const r = await enviarConBotonEscribirle(to, avisoPedidoEnTexto(pedido, notaEquipo), codigo);
+        if (r.ok) return r;
+      }
+      const r2 = await sendTemplate(to, PLANTILLA_PEDIDO_SOCIO, 'es', [
+        codigo,
+        `${nombre || 'Sin nombre'}, ${telefonoLegible(whatsapp)}${notaEquipo}`,
+        `${unidades} ${unidades === 1 ? 'producto' : 'productos'}`,
+        total,
+      ], undefined, [
+        { tipo: 'quick_reply', payload: `${PAYLOAD_VER_PEDIDO}${codigo}` },
+        { tipo: 'url', param: boton },
+      ]);
+      if (r2.ok) return r2;
+      console.warn(`⚠️ [Pedido WA] ${PLANTILLA_PEDIDO_SOCIO} no salió (${r2.error}) — se usa ${PLANTILLA_PEDIDO_SOCIO_V1}`);
+      const r1 = await sendTemplate(to, PLANTILLA_PEDIDO_SOCIO_V1, 'es', [saludo, quien, que, `${total}${notaEquipo}`], boton);
+      if (r1.ok) return r1;
+      console.warn(`⚠️ [Pedido WA] ${PLANTILLA_PEDIDO_SOCIO_V1} no salió (${r1.error}) — se usa pre_afiliacion_nueva`);
     }
     return sendTemplate(to, 'pre_afiliacion_nueva', 'es', [
       saludo, `${quien} · PEDIDO${codigo ? ` N.º ${codigo}` : ''}`, que, `Total ${total} — coordinar pago y entrega${notaEquipo}`,
@@ -623,11 +719,49 @@ export async function avisarPedido(
   }
   if (mismoNumero(WHATSAPP_EQUIPO(), whatsapp) || mismoNumero(WHATSAPP_EQUIPO(), socio?.whatsapp)) return;
   try {
-    const r = await avisar(WHATSAPP_EQUIPO(), 'equipo', socio ? ` (atiende ${socio.nombre})` : ' — SIN SOCIO');
+    const r = await avisar(WHATSAPP_EQUIPO(), 'equipo', socio ? ` (atiende ${socio.nombre})` : ' (sin socio)');
     console.log(`📨 [Pedido WA] Aviso al equipo: ${r.ok ? 'enviado' : r.error}`);
   } catch (err) {
     console.error('❌ [Pedido WA] No se pudo avisar al equipo:', err);
   }
+}
+
+/** ¿Tocó [Ver el pedido]? Por el identificador oculto del botón, o por su texto si Meta no lo trajo. */
+export function esBotonVerPedido(opcion?: string, texto?: string): boolean {
+  return Boolean(opcion?.startsWith(PAYLOAD_VER_PEDIDO)) || /^ver el pedido$/i.test((texto ?? '').trim());
+}
+
+/**
+ * [Ver el pedido] (nodo 1.37 del webhook): el detalle con viñetas y [Escribirle].
+ * Solo para quien recibió el aviso —el socio del pedido o el equipo—: el
+ * detalle trae el teléfono del cliente. Devuelve el texto enviado, o null si
+ * quien toca no tiene que ver con ese pedido (el turno sigue su camino).
+ */
+export async function atenderVerPedido(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  telefono: string,
+  opcion?: string,
+): Promise<string | null> {
+  const codigo = opcion?.startsWith(PAYLOAD_VER_PEDIDO) ? opcion.slice(PAYLOAD_VER_PEDIDO.length) : null;
+  const esEquipo = mismoNumero(telefono, WHATSAPP_EQUIPO());
+  let consulta = supabase.from('wa_pedidos').select('codigo, nombre, whatsapp, lineas, total_cop, constructor_id');
+  consulta = codigo ? consulta.eq('codigo', codigo) : consulta.order('creado_at', { ascending: false }).limit(20);
+  const { data } = await consulta;
+  const filas = (Array.isArray(data) ? data : data ? [data] : []).filter((f: { codigo?: string }) => f?.codigo);
+  for (const fila of filas) {
+    let suyo = esEquipo;
+    if (!suyo && fila.constructor_id) {
+      const { data: u } = await supabase.from('private_users').select('whatsapp').eq('constructor_id', fila.constructor_id).maybeSingle();
+      suyo = mismoNumero(u?.whatsapp, telefono);
+    }
+    if (!suyo) continue;
+    const texto = detallePedidoSocio(fila as PedidoGuardado);
+    const r = await enviarConBotonEscribirle(telefono, texto, fila.codigo);
+    if (!r.ok) console.warn(`⚠️ [Pedido WA] El detalle del pedido ${fila.codigo} no salió: ${r.error}`);
+    return texto;
+  }
+  return null;
 }
 
 /** Alguien pidió hablar con una persona: el socio se entera de verdad. */

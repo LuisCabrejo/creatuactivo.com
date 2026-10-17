@@ -21,6 +21,7 @@ import { productData, mensajePedido } from '../src/app/productos/catalogo-datos.
 import {
   detectarIntencionCompra, extraerLineasPedido, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO,
   confirmarPedido, RE_PEDIDO_CARGADO, cuandoEscribe, firmaPedido, mismoNumero, resumenLineas,
+  detallePedidoSocio, avisoPedidoEnTexto, telefonoLegible, esBotonVerPedido, PAYLOAD_VER_PEDIDO,
 } from '../src/lib/wa-pedido.ts'
 // wa-onboarding.ts por require: tsx lo compila como CommonJS y el lexer de Node se
 // detiene en la «ñ» de `notificarDueño`, así que los exports que vienen después no
@@ -106,6 +107,22 @@ const luvoco = extraerLineasPedido(mensajePedido([{ id: 'ganocafe-3-en-1', canti
 const resumen = resumenLineas(luvoco)
 if (resumen !== '1 × Ganocafé 3 en 1, 1 × Luvoco Medio · 15 cápsulas, 2 × Luvoco Fuerte · 15 cápsulas') falla(`resumen para el socio: «${resumen}»`)
 if (/cápsulas\* \(caja de cápsulas\)/.test(confirmarPedido(luvoco, socioWA, 'Juan', '11111', mediodia))) falla('la Luvoco repite la presentación en la confirmación')
+
+// 7. El aviso al socio en viñetas (v2, 17 oct 2026)
+const guardado = {
+  codigo: '47004', nombre: 'Efraín Reyes', whatsapp: '573206805737', total_cop: 563500,
+  lineas: [
+    { nombre: 'Ganocafé 3 en 1', cantidad: 1, precio_cop: 110900 },
+    { nombre: 'Luvoco Medio · 15 cápsulas', cantidad: 2, precio_cop: 110900 },
+  ],
+}
+const detalle = detallePedidoSocio(guardado)
+const esperado = '*Pedido N.º 47004 · Efraín Reyes*\n\n• 1 × Ganocafé 3 en 1 · $110.900\n• 2 × Luvoco Medio · 15 cápsulas · $221.800\n\nTotal de productos: *$563.500 COP*'
+if (detalle !== esperado) falla(`detalle para el socio:\n${detalle}`)
+const aviso = avisoPedidoEnTexto(guardado, ' (atiende Luis Cabrejo)')
+if (!aviso.startsWith('*Nuevo pedido N.º 47004 de su catálogo*\n\nCliente: Efraín Reyes, +57 320 680 5737 (atiende Luis Cabrejo)\n\n• 1 × Ganocafé 3 en 1') || !aviso.endsWith('Escríbale hoy para acordar el pago y la entrega.')) falla(`aviso en texto:\n${aviso}`)
+if (telefonoLegible('573206805737') !== '+57 320 680 5737' || telefonoLegible('CO.1497020585516131') !== 'sin número visible' || telefonoLegible('13055550100') !== '+13055550100') falla('telefonoLegible')
+if (!esBotonVerPedido(`${PAYLOAD_VER_PEDIDO}47004`, 'Ver el pedido') || !esBotonVerPedido(undefined, 'Ver el pedido') || esBotonVerPedido(undefined, 'quiero ver el pedido de café')) falla('esBotonVerPedido')
 
 console.log(`\n${msgTodo.split('\n').slice(0, 6).join('\n')}\n…\n`)
 console.log(conf + '\n')

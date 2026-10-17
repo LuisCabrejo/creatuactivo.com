@@ -19,8 +19,13 @@
  * sin una palabra de beneficio (ver por qué en someter-plantilla-acceso-dashboard.mjs:
  * una sola frase de beneficio basta para que Meta la mueva a MARKETING).
  *
- * Mientras no esté aprobada, avisarPedido() cae a `pre_afiliacion_nueva`: no hay
- * que cambiar código al aprobarse.
+ * v2 (17 oct 2026, Director: «llegó totalmente desordenado, los productos
+ * deberían venir en viñetas»). Meta no deja saltos de línea DENTRO de una
+ * variable, así que la v1 metía la lista entera en un renglón. La v2 lleva los
+ * saltos en el texto fijo, no lleva la lista, y suma [Ver el pedido]: ese toque
+ * abre la ventana de 24 h y Queswa responde el detalle con viñetas (nodo 1.37).
+ * La v1 sigue aprobada como respaldo: avisarPedido() cae a ella, y después a
+ * `pre_afiliacion_nueva`, si la v2 no sale. No hay que cambiar código al aprobarse.
  *
  * Uso:
  *   node scripts/someter-plantilla-pedido-socio.mjs --dry     # muestra sin enviar
@@ -35,7 +40,7 @@ const GRAPH   = 'https://graph.facebook.com/v21.0';
 const WABA_ID = process.env.WHATSAPP_WABA_ID;
 const TOKEN   = process.env.WHATSAPP_SYSTEM_TOKEN;
 // El mismo nombre que PLANTILLA_PEDIDO_SOCIO en src/lib/wa-pedido.ts.
-const NOMBRE  = 'pedido_cliente_v1';
+const NOMBRE  = 'pedido_cliente_v2';
 
 const PLANTILLA = {
   name: NOMBRE,
@@ -44,12 +49,13 @@ const PLANTILLA = {
   components: [
     {
       type: 'BODY',
-      text: 'Hola {{1}}. {{2}} le hizo un pedido por su catálogo: {{3}}. Total de productos: {{4}}. Escríbale hoy para acordar el pago y la entrega.',
-      example: { body_text: [['Luis', 'Juan Rulfo (573001234567)', '2 × Ganocafé 3 en 1 · 1 × Ganorico Latte Rico', '$341.700 COP']] },
+      text: '*Nuevo pedido N.º {{1}} de su catálogo*\n\nCliente: {{2}}\n{{3}} · Total: {{4}}\n\nEscríbale hoy para acordar el pago y la entrega.',
+      example: { body_text: [['47004', 'Efraín Reyes, +57 320 680 5737', '5 productos', '$563.500 COP']] },
     },
     {
       type: 'BUTTONS',
       buttons: [
+        { type: 'QUICK_REPLY', text: 'Ver el pedido' },
         {
           type: 'URL',
           text: 'Escribirle',
@@ -86,7 +92,7 @@ const ej = PLANTILLA.components[0].example.body_text[0];
 console.log('\n📋 Plantilla a someter\n' + '─'.repeat(60));
 console.log(PLANTILLA.components[0].text.replace(/\{\{(\d)\}\}/g, (_, n) => ej[Number(n) - 1]));
 console.log('─'.repeat(60));
-console.log(`[ ${PLANTILLA.components[1].buttons[0].text} ] → ${PLANTILLA.components[1].buttons[0].url}`);
+console.log(PLANTILLA.components[1].buttons.map((b) => `[ ${b.text} ]${b.url ? ` → ${b.url}` : ''}`).join('  '));
 console.log(`\nnombre: ${NOMBRE} · categoría: ${PLANTILLA.category} · idioma: ${PLANTILLA.language}\n`);
 
 if (args.includes('--dry')) {

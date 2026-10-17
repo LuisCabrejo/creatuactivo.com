@@ -676,7 +676,11 @@ export async function sendInteractiveList(
  */
 export type BotonPlantilla =
   | { tipo: 'quick_reply'; payload: string }
-  | { tipo: 'flow'; token: string; data?: Record<string, string> };
+  | { tipo: 'flow'; token: string; data?: Record<string, string> }
+  // Botón de URL con sufijo dinámico en cualquier posición (17 oct 2026): en
+  // `pedido_cliente_v2` va segundo, después de una respuesta rápida. El
+  // `buttonUrlParam` de siempre lo pone en la posición 0.
+  | { tipo: 'url'; param: string };
 
 export async function sendTemplate(
   to: string,
@@ -712,7 +716,9 @@ export async function sendTemplate(
   (botones ?? []).forEach((b, i) => {
     componentList.push(b.tipo === 'quick_reply'
       ? { type: 'button', sub_type: 'quick_reply', index: String(i), parameters: [{ type: 'payload', payload: b.payload }] }
-      : { type: 'button', sub_type: 'flow', index: String(i), parameters: [{ type: 'action', action: { flow_token: b.token, ...(b.data && { flow_action_data: b.data }) } }] });
+      : b.tipo === 'url'
+        ? { type: 'button', sub_type: 'url', index: String(i), parameters: [{ type: 'text', text: b.param }] }
+        : { type: 'button', sub_type: 'flow', index: String(i), parameters: [{ type: 'action', action: { flow_token: b.token, ...(b.data && { flow_action_data: b.data }) } }] });
   });
   const components = componentList.length > 0 ? componentList : undefined;
 

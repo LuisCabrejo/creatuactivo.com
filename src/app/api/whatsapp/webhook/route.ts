@@ -82,6 +82,7 @@ import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
   noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido, avisarPedidoAbierto,
+  esBotonVerPedido, atenderVerPedido,
   detectarPreguntaOficina, detectarCiudad,
   esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE, RE_NO_ENTENDI,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
@@ -1041,6 +1042,21 @@ async function procesarEntrante(body: any): Promise<void> {
     // ⚠️ Al socio no se le anota paquete ni ciudad: no está eligiendo (13 sep 2026).
     if (!existingProspect?.device_info?.es_socio) {
       await capturarContextoDelMensaje(supabase, waFingerprint, messageText, patrocinador?.userId ?? existingProspect?.constructor_id ?? null);
+    }
+
+    // ─── 1.37 [Ver el pedido] del aviso de un pedido (17 oct 2026) ────────────
+    // El aviso al socio (`pedido_cliente_v2`) no puede traer la lista con viñetas:
+    // Meta no deja saltos de línea en las variables. Tocar [Ver el pedido] abre la
+    // ventana de 24 h y aquí se le responde el detalle con [Escribirle]. Va antes
+    // de 1.38 porque el equipo también recibe el aviso y su número no es de socio.
+    // Si quien toca no tiene que ver con el pedido, el turno sigue su camino.
+    if (messageText && esBotonVerPedido(opcionElegida, messageText)) {
+      const detalle = await atenderVerPedido(supabase, phoneNumber, opcionElegida);
+      if (detalle) {
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, detalle, '1.37 pedido: el detalle para el socio');
+        console.log(`🧭 [WA Webhook] 1.37 ${phoneNumber} pidió ver el pedido (${opcionElegida ?? 'sin payload'})`);
+        return;
+      }
     }
 
     // ─── 1.38 ¿Es el dueño de un canal, y no un prospecto? ────────────────────
@@ -2608,7 +2624,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: nombreDado, lineas: lineasP, socio: _socioPedido,
         });
-        await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido, registro?.codigo);
+        await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido, registro?.codigo, supabase);
         if (nombreDado && nombreDado !== _nombrePedido) {
           try {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -2678,7 +2694,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: _nombrePedido, lineas, socio: _socioPedido,
         });
-        await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido, registro?.codigo);
+        await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido, registro?.codigo, supabase);
         const texto = confirmarPedido(lineas, _socioPedido, _nombrePedido, registro?.codigo);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido cargado');

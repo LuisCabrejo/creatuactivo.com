@@ -79,3 +79,15 @@ scripts/dankoe-video/modelos/*.task
 scripts/gsc-credentials.json
 scripts/gsc-token.json
 data/gsc/
+
+# Herramientas locales (18 oct 2026): capturas y registros del navegador de
+# pruebas, y scripts desechables de una sesión.
+.playwright-mcp/
+scripts/_tmp*
+
+# Capturas (18 oct 2026): todo lo de public/ se publica en creatuactivo.com, y
+# una captura suele traer teléfonos, nombres o tokens. Las nuevas NO entran por
+# defecto; una que deba publicarse —sin datos de personas ni tokens— se agrega
+# a mano con `git add -f`. Las ya rastreadas siguen rastreadas: este patrón no
+# las saca del repositorio ni del sitio.
+public/contexto/capturas/

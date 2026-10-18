@@ -416,3 +416,20 @@ export function leerRefSocio(): string | null {
     return null
   }
 }
+
+// ─── El globo del orbe se puede cerrar ──────────────────────────────────────
+// Director, 17 oct 2026: primero el catálogo, el mismo día todo el sitio y los dos
+// orbes (el del chat en el navegador y el de WhatsApp). Quien cierra el globo no lo
+// vuelve a ver en esa visita, aunque recargue o cambie de página, y la marca es una
+// sola para los dos orbes. Es una comodidad del visitante: va en sessionStorage y
+// nunca rompe la página. Los globos propios de la Home y de los reels
+// (HomeManifestoVideo, ReelVideo) traen su equis desde antes.
+const GLOBO_CERRADO = 'queswa_globo_cerrado'
+
+export function globoCerradoEnSesion(): boolean {
+  try { return sessionStorage.getItem(GLOBO_CERRADO) === '1' } catch { return false }
+}
+
+export function marcarGloboCerrado(): void {
+  try { sessionStorage.setItem(GLOBO_CERRADO, '1') } catch { /* sin almacenamiento: se cierra igual */ }
+}

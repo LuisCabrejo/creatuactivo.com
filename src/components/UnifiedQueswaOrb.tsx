@@ -28,7 +28,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import NEXUSWidget from './nexus/NEXUSWidget'
 import { REEL_NICHOS } from '@/lib/reels'
-import { usaOrbeVerde, registrarApertura, tomarAperturaPendiente, marcarChatWebMontado, type DetalleApertura } from '@/lib/orbe-config'
+import { usaOrbeVerde, registrarApertura, tomarAperturaPendiente, marcarChatWebMontado, globoCerradoEnSesion, marcarGloboCerrado, type DetalleApertura } from '@/lib/orbe-config'
 
 // ─── Paleta Quiet Luxury ──────────────────────────────────────────────────────
 const C = {
@@ -235,6 +235,7 @@ export default function UnifiedQueswaOrb() {
   // En reels NO se dispara: el reel muestra su propia burbuja al terminar/scrollear.
   useEffect(() => {
     if (hasInteracted || isOpen || suppressTooltip) return
+    if (globoCerradoEnSesion()) return
     const show = setTimeout(() => {
       if (hasInteracted || isOpen) return
       setShowTooltip(true)
@@ -242,6 +243,12 @@ export default function UnifiedQueswaOrb() {
     }, 2000)
     return () => clearTimeout(show)
   }, [hasInteracted, isOpen, suppressTooltip])
+
+  const cerrarGlobo = () => {
+    setShowTooltip(false)
+    setHasInteracted(true)
+    marcarGloboCerrado()
+  }
 
   // ─── Visibilidad en /servilleta (solo card-1 slide-2) ───────────────────────
   const [visibleInServilleta, setVisibleInServilleta] = useState(false)
@@ -655,20 +662,52 @@ export default function UnifiedQueswaOrb() {
               bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 16px) + 64px + var(--alto-aviso-cookies, 0px) + var(--alto-barra-tienda, 0px))',
               right: '1rem',
               zIndex: 199,
-              background: 'rgba(8,9,12,0.96)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: `1px solid ${accAlpha(0.55)}`,
-              boxShadow: `0 0 12px ${accAlpha(0.15)}, 0 4px 16px rgba(0,0,0,0.6)`,
+              // En el catálogo el globo va en un café grisáceo más claro que el de los
+              // botones «Agregar» (#2B211A): si tuviera su mismo negro, se leería como
+              // un botón más de la tienda y competiría con ellos (Director, 17 oct 2026).
+              background: isProductsPage ? '#5E5249' : 'rgba(8,9,12,0.96)',
+              backdropFilter: isProductsPage ? undefined : 'blur(20px)',
+              WebkitBackdropFilter: isProductsPage ? undefined : 'blur(20px)',
+              border: `1px solid ${accAlpha(isProductsPage ? 0.35 : 0.55)}`,
+              boxShadow: isProductsPage
+                ? '0 4px 14px rgba(43,33,26,0.16)'
+                : `0 0 12px ${accAlpha(0.15)}, 0 4px 16px rgba(0,0,0,0.6)`,
               borderRadius: 6,
-              padding: '10px 16px',
-              maxWidth: 220,
+              padding: '6px 4px 6px 14px',
+              maxWidth: isProductsPage ? 260 : 240,
               pointerEvents: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2,
             }}
           >
-            <p style={{ fontSize: 13, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
+            <p style={{ fontSize: 13, color: isProductsPage ? '#FBF7F1' : '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
               {tooltipText}
             </p>
+            <button
+              type="button"
+              onClick={cerrarGlobo}
+              aria-label="Cerrar mensaje"
+              style={{
+                pointerEvents: 'auto',
+                flexShrink: 0,
+                width: 36,
+                height: 36,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'none',
+                border: 0,
+                padding: 0,
+                color: isProductsPage ? 'rgba(251,247,241,0.72)' : 'rgba(255,255,255,0.6)',
+                cursor: 'pointer',
+                borderRadius: 999,
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

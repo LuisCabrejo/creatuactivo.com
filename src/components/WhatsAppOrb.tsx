@@ -25,7 +25,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { abrirConversacionQueswa, leerRefSocio, yaConversoPorWhatsApp, vioVideoComoFunciona, registrarApertura, type ContextoOrbe, type OpcionesApertura, type OrigenApertura } from '@/lib/orbe-config'
+import { abrirConversacionQueswa, leerRefSocio, yaConversoPorWhatsApp, vioVideoComoFunciona, registrarApertura, globoCerradoEnSesion, marcarGloboCerrado, type ContextoOrbe, type OpcionesApertura, type OrigenApertura } from '@/lib/orbe-config'
 import { REEL_NICHOS } from '@/lib/reels'
 
 const VERDE = '#25D366'
@@ -131,11 +131,18 @@ export default function WhatsAppOrb() {
   }, [])
 
   useEffect(() => {
-    if (hasInteracted || suppressTooltip) return
+    // Si ya lo cerró en esta visita —en este orbe o en el del navegador—, no vuelve.
+    if (hasInteracted || suppressTooltip || globoCerradoEnSesion()) return
     const t = setTimeout(() => setShowTooltip(true), 9000)
     const t2 = setTimeout(() => setShowTooltip(false), 22000)
     return () => { clearTimeout(t); clearTimeout(t2) }
   }, [hasInteracted, suppressTooltip, pathname])
+
+  const cerrarGlobo = () => {
+    setShowTooltip(false)
+    setHasInteracted(true)
+    marcarGloboCerrado()
+  }
 
   if (isMenuOpen) return null
 
@@ -154,15 +161,43 @@ export default function WhatsAppOrb() {
             border: `1px solid ${VERDE}8C`,
             boxShadow: '0 0 12px rgba(37,211,102,0.15), 0 4px 16px rgba(0,0,0,0.6)',
             borderRadius: 6,
-            padding: '10px 16px',
-            maxWidth: 220,
+            padding: '6px 4px 6px 14px',
+            maxWidth: 240,
+            // El globo deja pasar los toques; solo la equis los recibe.
             pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 2,
             animation: 'waTooltipIn 0.3s ease-out',
           }}
         >
           <p style={{ fontSize: 13, color: '#FFFFFF', margin: 0, lineHeight: 1.5, fontFamily: 'monospace', fontWeight: 600 }}>
             {tooltipText}
           </p>
+          <button
+            type="button"
+            onClick={cerrarGlobo}
+            aria-label="Cerrar mensaje"
+            style={{
+              pointerEvents: 'auto',
+              flexShrink: 0,
+              width: 36,
+              height: 36,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'none',
+              border: 0,
+              padding: 0,
+              color: 'rgba(255,255,255,0.6)',
+              cursor: 'pointer',
+              borderRadius: 999,
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       )}
 

@@ -186,11 +186,12 @@ export async function POST(request: NextRequest) {
  * 17 oct 2026 este aviso salió con `pre_afiliacion_nueva`, la plantilla genérica
  * de respaldo de los demás avisos, y el Director leyó en su WhatsApp un mensaje
  * que hablaba de una pre-afiliación por una compra: un aviso de compra tiene que
- * hablar de una compra. La plantilla propia (`pedido_pagado_gano_v1`) se somete
- * cuando el Director apruebe el texto; mientras tanto, `PLANTILLA_PEDIDO_GANO`
- * queda vacía y el envío fuera de ventana se omite. Nunca tumba la respuesta al cliente.
+ * hablar de una compra. La plantilla propia `pedido_pagado_gano_v1` (UTILITY,
+ * aprobada el 18 oct 2026; scripts/someter-plantilla-pedido-gano.mjs) va fuera de
+ * la ventana; sin `WA_PLANTILLA_PEDIDO_GANO` en Vercel ese envío se omite y queda
+ * solo el push. Nunca tumba la respuesta al cliente.
  */
-// Nombre de la plantilla UTILITY del pedido pagado a Gano, cuando exista (ver arriba).
+// Nombre de la plantilla UTILITY del pedido pagado a Gano (ver arriba).
 const PLANTILLA_PEDIDO_GANO = process.env.WA_PLANTILLA_PEDIDO_GANO?.trim() || ''
 async function avisarAlSocio(socio: SocioRef, cliente: Cliente, lineas: LineaPedido[], orden: string, pago: 'pse' | 'efectivo', codigo: string | null, total: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

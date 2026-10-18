@@ -21,7 +21,7 @@ const DASHBOARD_URL = process.env.DASHBOARD_URL || 'https://queswa.app'
 const PAGE_VIEW_STEPS = ['vio_pagina_gracias', 'vio_catalogo', 'vio_calculadora', 'vio_bridge_auditoria']
 
 // Notifica al constructor en el dashboard (fire-and-forget)
-async function notifyConstructor(constructorId: string, title: string, body: string, url = '/inteligencia/primer-iniciar') {
+async function notifyConstructor(constructorId: string, title: string, body: string, url = '/centro-de-expansion') { // 18 oct 2026: /inteligencia/primer-iniciar ya no existe en queswa.app (404 al tocar el aviso)
   fetch(`${DASHBOARD_URL}/api/push/send`, {
     method: 'POST',
     // 10 oct 2026: /api/push/send del Dashboard exige llave (estaba público).
@@ -39,8 +39,16 @@ async function notifyConstructor(constructorId: string, title: string, body: str
  * «Abrir» del Dashboard le abre su propio catálogo con el dispositivo marcado, y
  * este aviso sale de aquí, no del webhook del Dashboard que ya calla esas fichas.
  */
-async function avisoCatalogoPermitido(fingerprint: unknown): Promise<boolean> {
-  if (typeof fingerprint !== 'string' || !fingerprint) return false
+// Desde el 18 oct 2026 este es el ÚNICO aviso de una visita al catálogo (el
+// Dashboard dejó de mandar «Avance…/Nuevo visitante… su Catálogo»), así que
+// lleva el nombre cuando ese navegador ya está atado a su conversación de WhatsApp.
+function nombreDeFicha(di: Record<string, unknown>): string | null {
+  const n = typeof di.name === 'string' ? di.name.trim() : ''
+  return /\p{L}/u.test(n) && !/^constructor$/i.test(n) ? n : null
+}
+
+async function avisoCatalogoPermitido(fingerprint: unknown): Promise<{ avisar: boolean; nombre: string | null }> {
+  if (typeof fingerprint !== 'string' || !fingerprint) return { avisar: false, nombre: null }
   try {
     const { data: fila } = await getSupabaseClient()
       .from('prospects')
@@ -49,9 +57,9 @@ async function avisoCatalogoPermitido(fingerprint: unknown): Promise<boolean> {
       .maybeSingle()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const di = ((fila as any)?.device_info ?? {}) as Record<string, unknown>
-    if (di.dispositivo_del_socio === true || di.es_socio === true) return false
+    if (di.dispositivo_del_socio === true || di.es_socio === true) return { avisar: false, nombre: null }
     const ultimo = typeof di.catalogo_avisado_at === 'string' ? Date.parse(di.catalogo_avisado_at) : NaN
-    if (!Number.isNaN(ultimo) && Date.now() - ultimo < 24 * 60 * 60 * 1000) return false
+    if (!Number.isNaN(ultimo) && Date.now() - ultimo < 24 * 60 * 60 * 1000) return { avisar: false, nombre: null }
     if (fila) {
       await (getSupabaseClient().rpc as any)('update_prospect_data', {
         p_fingerprint_id: fingerprint,
@@ -60,10 +68,10 @@ async function avisoCatalogoPermitido(fingerprint: unknown): Promise<boolean> {
         p_constructor_id: (fila as any).constructor_id ?? null,
       })
     }
-    return true
+    return { avisar: true, nombre: nombreDeFicha(di) }
   } catch (e) {
     console.warn('⚠️ [FUNNEL] No se pudo comprobar el aviso del catálogo:', e)
-    return true
+    return { avisar: true, nombre: null }
   }
 }
 
@@ -132,11 +140,12 @@ export async function POST(request: NextRequest) {
     // página lo mandaba en cada carga y, junto con el «Nuevo visitante» del
     // Dashboard, un solo teléfono le puso 16 avisos al Director en 12 minutos.
     if (data.step === 'vio_catalogo' && constructorRef && avisaAlSocio) {
-      if (await avisoCatalogoPermitido(data.fingerprint)) {
+      const aviso = await avisoCatalogoPermitido(data.fingerprint)
+      if (aviso.avisar) {
         notifyConstructor(
           constructorRef,
-          `🛍️ Un prospecto está viendo su catálogo`,
-          `Alguien está revisando los productos de Gano Excel en su enlace.`
+          aviso.nombre ? `🛍️ ${aviso.nombre} está viendo su catálogo` : `🛍️ Un prospecto está viendo su catálogo`,
+          aviso.nombre ? `Está revisando los productos de Gano Excel en su enlace.` : `Alguien está revisando los productos de Gano Excel en su enlace.`
         )
       } else {
         console.log('🔕 [FUNNEL] vio_catalogo ya avisado hoy para', data.fingerprint)

@@ -74,9 +74,23 @@ function nombreVisible(nombre: string): Pick<Socio, 'nombre' | 'primerNombre'> {
   return { nombre: partes.slice(0, 2).join(' '), primerNombre: partes[0] }
 }
 
-function registrarApertura(origen: 'catalogo' | 'pedido', destino: 'web' | 'whatsapp', ref?: string | null) {
+/** La cookie de un año que deja el middleware (`nexus_prospect_id`, `ck_…`). */
+function cookieVisitante(): string | null {
   try {
-    const cuerpo = JSON.stringify({ origen, destino, ruta: window.location.pathname, ref: ref || undefined })
+    const m = document.cookie.match(/(?:^|;\s*)nexus_prospect_id=(ck_[a-z0-9]{6,12})(?:;|$)/)
+    return m ? m[1] : null
+  } catch { return null }
+}
+
+/** `detalle` (18 oct 2026): lo que llevaba el pedido, para el aviso al socio si no se envía. */
+function registrarApertura(
+  origen: 'catalogo' | 'pedido',
+  destino: 'web' | 'whatsapp',
+  ref?: string | null,
+  detalle?: { productos: number; unidades: number; total: number },
+) {
+  try {
+    const cuerpo = JSON.stringify({ origen, destino, ruta: window.location.pathname, ref: ref || undefined, detalle })
     if (navigator.sendBeacon) navigator.sendBeacon('/api/track/apertura', new Blob([cuerpo], { type: 'application/json' }))
     else fetch('/api/track/apertura', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: cuerpo, keepalive: true }).catch(() => {})
   } catch { /* medir no puede costar una venta */ }
@@ -225,9 +239,9 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
   }
 
   const enviarPedido = () => {
-    registrarApertura('pedido', 'whatsapp', socio?.constructorId)
+    registrarApertura('pedido', 'whatsapp', socio?.constructorId, { productos: carrito.length, unidades, total })
     setEnviado(true)
-    window.open(`https://wa.me/${WHATSAPP_QUESWA}?text=${encodeURIComponent(mensajePedido(carrito, socio))}`, '_blank', 'noopener')
+    window.open(`https://wa.me/${WHATSAPP_QUESWA}?text=${encodeURIComponent(mensajePedido(carrito, socio, cookieVisitante()))}`, '_blank', 'noopener')
   }
 
   const productoFicha = ficha ? productData[ficha] : null

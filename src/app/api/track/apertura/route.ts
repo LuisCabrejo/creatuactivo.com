@@ -55,8 +55,16 @@ export async function POST(request: NextRequest) {
     const cookie = request.cookies.get('nexus_prospect_id')?.value
     const visitante = cookie && RE_VISITANTE.test(cookie) ? cookie : null
 
+    // Lo que llevaba el pedido (18 oct 2026): el aviso «Armó un pedido y no lo
+    // envió» del Centro de Mando lo nombra. Solo números, acotados.
+    const d = cuerpo?.detalle
+    const numero = (v: unknown, max: number) => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? Math.round(v) : null)
+    const detalle = origen === 'pedido' && d && typeof d === 'object'
+      ? { productos: numero(d.productos, 50), unidades: numero(d.unidades, 500), total: numero(d.total, 100_000_000) }
+      : null
+
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
-    const { error } = await supabase.from('page_visits').insert({
+    const fila = {
       session_id: crypto.randomUUID(),
       mentor_ref_id: ref,
       page_entry: ruta,
@@ -65,7 +73,10 @@ export async function POST(request: NextRequest) {
       destino,
       origen,
       visitante,
-    })
+    }
+    let { error } = await supabase.from('page_visits').insert(detalle ? { ...fila, detalle } : fila)
+    // Sin la columna `detalle` (Dashboard scripts/33), se guarda la apertura igual.
+    if (error && detalle && /detalle/.test(error.message)) ({ error } = await supabase.from('page_visits').insert(fila))
     if (error) console.warn('⚠️ [Apertura Queswa] No se registró:', error.message)
     return NextResponse.json({ ok: !error })
   } catch (e) {

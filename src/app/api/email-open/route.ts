@@ -54,7 +54,7 @@ async function notifyConstructor(constructorId: string, title: string, body: str
         type: 'new_prospect',
         title,
         body,
-        url: '/inteligencia/primer-iniciar',
+        url: '/centro-de-expansion', // 18 oct 2026: la ruta vieja da 404 en queswa.app
       }),
     })
   } catch {

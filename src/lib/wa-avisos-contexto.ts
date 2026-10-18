@@ -670,7 +670,9 @@ export function extraerCookieWeb(texto: string | undefined): string | null {
 }
 
 export function limpiarCookieWeb(texto: string): string {
-  const limpio = texto.replace(/\s*(?:^|\s)c:[a-z0-9]{6,12}(?![a-z0-9])\s*/gi, ' ').replace(/\s{2,}/g, ' ').trim();
+  // Solo se juntan los espacios, no los saltos de línea: el pedido del catálogo
+  // trae el código al final y sus líneas tienen que llegar enteras (18 oct 2026).
+  const limpio = texto.replace(/\s*(?:^|\s)c:[a-z0-9]{6,12}(?![a-z0-9])\s*/gi, ' ').replace(/[ \t]{2,}/g, ' ').trim();
   return limpio.length ? limpio : texto;
 }
 

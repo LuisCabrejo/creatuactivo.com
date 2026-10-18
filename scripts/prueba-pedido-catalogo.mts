@@ -28,6 +28,7 @@ import {
 // se ven como import con nombre (ver asignar-slugs-por-defecto.mts).
 const require = createRequire(import.meta.url)
 const { pideEnlaceCatalogo } = require('../src/lib/wa-onboarding.ts')
+const { extraerCookieWeb, limpiarCookieWeb } = require('../src/lib/wa-avisos-contexto.ts')
 
 let fallas = 0
 const falla = (m: string) => { fallas++; console.log(`  ❌ ${m}`) }
@@ -107,6 +108,15 @@ const luvoco = extraerLineasPedido(mensajePedido([{ id: 'ganocafe-3-en-1', canti
 const resumen = resumenLineas(luvoco)
 if (resumen !== '1 × Ganocafé 3 en 1, 1 × Luvoco Medio · 15 cápsulas, 2 × Luvoco Fuerte · 15 cápsulas') falla(`resumen para el socio: «${resumen}»`)
 if (/cápsulas\* \(caja de cápsulas\)/.test(confirmarPedido(luvoco, socioWA, 'Juan', '11111', mediodia))) falla('la Luvoco repite la presentación en la confirmación')
+
+// 6b. El código del navegador viaja al final y no estorba (18 oct 2026)
+const conCodigo = mensajePedido([{ id: 'ganocafe-3-en-1', cantidad: 2 }, { id: 'luvoco-medio', cantidad: 1 }], socio, 'ck_soja5xzus')
+if (!conCodigo.endsWith(' c:soja5xzus')) falla(`el pedido no lleva el código del navegador al final: «${conCodigo.slice(-40)}»`)
+if (extraerCookieWeb(conCodigo) !== 'ck_soja5xzus') falla('el webhook no reconoce el código del navegador en el pedido')
+const sinCodigo = limpiarCookieWeb(conCodigo)
+if (sinCodigo !== mensajePedido([{ id: 'ganocafe-3-en-1', cantidad: 2 }, { id: 'luvoco-medio', cantidad: 1 }], socio)) falla(`el pedido sin el código no queda igual al de siempre: «${sinCodigo}»`)
+if (resumenLineas(extraerLineasPedido(sinCodigo)) !== '2 × Ganocafé 3 en 1, 1 × Luvoco Medio · 15 cápsulas') falla('las líneas del pedido cambian con el código')
+if (mensajePedido([{ id: 'ganocafe-3-en-1', cantidad: 1 }], socio, 'cualquier-cosa').includes(' c:')) falla('un código que no es de la cookie entra al mensaje')
 
 // 7. El aviso al socio en viñetas (v2, 17 oct 2026)
 const guardado = {

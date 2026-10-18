@@ -552,14 +552,23 @@ export interface LineaCarrito { id: string; cantidad: number }
  * La referencia del socio va al final y legible (el slug); el webhook la
  * encuentra en cualquier posición (`resolverPatrocinador`).
  */
+/**
+ * `visitante` (18 oct 2026): la cookie del navegador (`ck_…`) va al final como
+ * ` c:…`, igual que en el enlace de Queswa ([slug]/[destino]/page.tsx). El webhook
+ * la retira antes de leer el pedido (limpiarCookieWeb) y la ata a la ficha de
+ * WhatsApp; así el Centro de Mando sabe que ese navegador sí envió, y avisa al
+ * socio cuando alguien tocó «Enviar pedido por WhatsApp» y no lo envió.
+ */
 export function mensajePedido(
   lineas: LineaCarrito[],
   socio: { nombre: string; slug?: string | null; constructorId?: string | null } | null,
+  visitante?: string | null,
 ): string {
   const filas = lineas.filter((l) => productData[l.id]).map((l) => `${l.cantidad} x ${productData[l.id].name}`).join('\n')
   const ref = socio?.slug || socio?.constructorId
   const atiende = socio ? `\n\nMe atiende ${socio.nombre}${ref ? ` (${ref})` : ''}.` : ''
-  return `Hola, quiero pedir:\n\n${filas}${atiende}`
+  const codigo = visitante && /^ck_[a-z0-9]{6,12}$/.test(visitante) ? ` c:${visitante.slice(3)}` : ''
+  return `Hola, quiero pedir:\n\n${filas}${atiende}${codigo}`
 }
 
 // ─── Preguntas (BORRADOR — pendiente del Director) ───────────────────────────

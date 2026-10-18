@@ -83,6 +83,8 @@ import {
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
   noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido, avisarPedidoAbierto,
   esBotonVerPedido, atenderVerPedido,
+  socioTienePagoGano, confirmarPedidoConFormaDePago, ofrecerFormaDePago, botonPagoElegido,
+  RE_PREGUNTO_FORMA_PAGO, codigoDelPedidoEnTexto, leerFormaDePagoEscrita, atenderFormaDePago,
   detectarPreguntaOficina, detectarCiudad,
   esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE, RE_NO_ENTENDI,
   optinYaOfrecido, esCierreDeConversacion, ofrecerOptin, leerRespuestaOptin, respuestaOptin, RE_OFRECIO_OPTIN,
@@ -1056,6 +1058,22 @@ async function procesarEntrante(body: any): Promise<void> {
         await persistirTurnoDictado(supabase, waFingerprint, messageText, detalle, '1.37 pedido: el detalle para el socio');
         console.log(`🧭 [WA Webhook] 1.37 ${phoneNumber} pidió ver el pedido (${opcionElegida ?? 'sin payload'})`);
         return;
+      }
+    }
+
+    // ─── 1.37b [Pagar a Gano Excel] / [Pagar con {socio}] (17 oct 2026) ─────
+    // La confirmación del pedido pregunta «¿Cómo prefiere pagarlo?» con dos botones
+    // (src/lib/wa-pedido.ts). Solo atiende a quien hizo ese pedido; si el payload
+    // no es de un pedido suyo, el turno sigue su camino.
+    {
+      const _eleccionPago = botonPagoElegido(opcionElegida);
+      if (_eleccionPago) {
+        const r = await atenderFormaDePago(supabase, phoneNumber, _eleccionPago);
+        if (r) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText || '', r.texto, r.nodo);
+          console.log(`🧭 [WA Webhook] 1.37b ${phoneNumber} eligió pagar ${_eleccionPago.via === 'gano' ? 'a Gano Excel' : 'con el socio'} (pedido ${_eleccionPago.codigo})`);
+          return;
+        }
       }
     }
 
@@ -2613,6 +2631,25 @@ async function procesarEntrante(body: any): Promise<void> {
     // contestó «no logré identificar el producto»).
     const _preguntaSede = !socioQueEscribe && detectarPreguntaOficina(messageText);
 
+    // El cliente respondió con TEXTO a «¿Cómo prefiere pagarlo?» (sin tocar un
+    // botón, 17 oct 2026). «A Gano», «por PSE», «1» → el enlace para pagar a Gano;
+    // «con Luis», «2» → el socio. Otra cosa (una pregunta): el socio se entera
+    // igual —como siempre se enteró— y el turno sigue al motor con el pedido abierto.
+    if (!socioQueEscribe && RE_PREGUNTO_FORMA_PAGO.test(_ultimoBotPedido) && !botonPagoElegido(opcionElegida)) {
+      const codigoP = codigoDelPedidoEnTexto(_ultimoBotPedido);
+      const via = leerFormaDePagoEscrita(messageText);
+      if (codigoP && via) {
+        const r = await atenderFormaDePago(supabase, phoneNumber, { via, codigo: codigoP });
+        if (r) {
+          await persistirTurnoDictado(supabase, waFingerprint, messageText, r.texto, r.nodo);
+          console.log(`🛒 [WA Webhook] ${phoneNumber} escribió cómo paga (${via}) — pedido ${codigoP}`);
+          return;
+        }
+      } else if (codigoP) {
+        await atenderFormaDePago(supabase, phoneNumber, { via: 'socio', codigo: codigoP, silencioso: true });
+      }
+    }
+
     // El turno del NOMBRE: el bot lo pidió («¿A nombre de quién dejo el
     // pedido?») y este mensaje lo trae. El pedido pendiente se relee del hilo.
     // Si el nombre no se deja leer, el pedido sale igual: el dato nunca es
@@ -2624,7 +2661,10 @@ async function procesarEntrante(body: any): Promise<void> {
         const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: nombreDado, lineas: lineasP, socio: _socioPedido,
         });
-        await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido, registro?.codigo, supabase);
+        // Si el socio tiene activo el pago directo a Gano, el cliente elige cómo pagar
+        // y el aviso al socio espera a esa elección (17 oct 2026).
+        const _eligePago = Boolean(registro?.codigo) && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
+        if (!_eligePago) await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido, registro?.codigo, supabase);
         if (nombreDado && nombreDado !== _nombrePedido) {
           try {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -2635,9 +2675,12 @@ async function procesarEntrante(body: any): Promise<void> {
             });
           } catch { /* best-effort */ }
         }
-        const texto = confirmarPedido(lineasP, _socioPedido, nombreDado, registro?.codigo);
-        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido cargado con nombre');
+        const texto = _eligePago
+          ? confirmarPedidoConFormaDePago(lineasP, nombreDado, registro?.codigo)
+          : confirmarPedido(lineasP, _socioPedido, nombreDado, registro?.codigo);
+        if (_eligePago) await ofrecerFormaDePago(phoneNumber, texto, registro!.codigo, _socioPedido?.nombre);
+        else await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, _eligePago ? '2.45 pedido cargado con nombre: elige cómo pagar' : '2.45 pedido cargado con nombre');
         console.log(`🛒 [WA Webhook] Pedido cargado con nombre (${registro?.codigo ?? 'sin registro'}) — turno cerrado sin motor`);
         return;
       }
@@ -2694,10 +2737,14 @@ async function procesarEntrante(body: any): Promise<void> {
         const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: _nombrePedido, lineas, socio: _socioPedido,
         });
-        await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido, registro?.codigo, supabase);
-        const texto = confirmarPedido(lineas, _socioPedido, _nombrePedido, registro?.codigo);
-        await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido cargado');
+        const _eligePago = Boolean(registro?.codigo) && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
+        if (!_eligePago) await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido, registro?.codigo, supabase);
+        const texto = _eligePago
+          ? confirmarPedidoConFormaDePago(lineas, _nombrePedido, registro?.codigo)
+          : confirmarPedido(lineas, _socioPedido, _nombrePedido, registro?.codigo);
+        if (_eligePago) await ofrecerFormaDePago(phoneNumber, texto, registro!.codigo, _socioPedido?.nombre);
+        else await sendWhatsAppMessage(phoneNumber, texto, { wamid });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, _eligePago ? '2.45 pedido cargado: elige cómo pagar' : '2.45 pedido cargado');
         console.log(`🛒 [WA Webhook] Pedido cargado (${registro?.codigo ?? 'sin registro'}) — ${lineas.length} línea(s) — turno cerrado sin motor`);
         return;
       }

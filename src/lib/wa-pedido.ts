@@ -29,7 +29,7 @@
  */
 
 import { PRODUCTOS_WA, detectarProducto, productoDelHilo, type ProductoWA } from '@/lib/wa-productos';
-import { sendTemplate, sendCtaUrl, sendText } from '@/lib/wa-channel';
+import { sendTemplate, sendCtaUrl, sendText, sendReplyButtons } from '@/lib/wa-channel';
 import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 import { avisarPorCorreo } from '@/lib/wa-radicacion';
 import { enlaceCatalogo } from '@/lib/wa-onboarding';
@@ -914,4 +914,174 @@ export function seguimientoSalud(ultimoBot: string, texto: string): string | nul
   }
 
   return null;
+}
+
+
+// ─── ¿Cómo prefiere pagarlo? — pagar a Gano Excel o con el socio (17 oct 2026) ──
+//
+// Decisión del Director: quien arma un pedido elige, en igualdad, entre pagar
+// DIRECTO a Gano Excel (la orden se crea en la cuenta del distribuidor, a nombre y
+// dirección del cliente; paga por PSE o consigna en efectivo; Gano despacha) o
+// pagar con su distribuidor (el flujo de siempre: el socio le escribe). La primera
+// solo existe si el socio tiene su contraseña de Gano guardada en queswa.app.
+//
+// La confirmación del pedido termina en la pregunta y trae dos botones. Lo que
+// pasa después vive en `atenderFormaDePago`: con Gano, un botón al catálogo con
+// el pedido ya puesto (/productos/{slug}?pedido={codigo}-{firma}&pagar=1), donde
+// escribe la dirección y paga; con el socio, el aviso al socio y el texto de
+// siempre. El aviso al socio NO sale hasta que el cliente elige: si eligió Gano,
+// el aviso lo manda queswa.app cuando la orden existe, y decirle antes «escríbale
+// hoy para acordar el pago» lo pondría a coordinar un pago que no es suyo.
+
+export const PAYLOAD_PAGO_GANO = 'pedido_pago_gano:';
+export const PAYLOAD_PAGO_SOCIO = 'pedido_pago_socio:';
+export const PREGUNTA_FORMA_PAGO = '¿Cómo prefiere pagarlo?';
+export const RE_PREGUNTO_FORMA_PAGO = /¿Cómo prefiere pagarlo\?\s*$/;
+
+/** ¿El socio tiene su contraseña de Gano guardada en queswa.app? Sin eso no hay pedido directo. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function socioTienePagoGano(supabase: any, constructorId?: string | null): Promise<boolean> {
+  if (!constructorId) return false;
+  try {
+    const { data } = await supabase.from('gano_credentials').select('constructor_id').eq('constructor_id', constructorId).maybeSingle();
+    return Boolean(data);
+  } catch {
+    return false;
+  }
+}
+
+/** La confirmación que cierra en la pregunta (el cuerpo del mensaje con botones). */
+export function confirmarPedidoConFormaDePago(lineas: LineaPedido[], nombre?: string, codigo?: string | null): string {
+  const primer = nombreCorto(nombre);
+  const total = lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '';
+  return [
+    `${primer ? `Listo, ${primer}.` : 'Listo.'} Su pedido${codigo ? ` N.º ${codigo}` : ''} quedó registrado:`,
+    '',
+    lineas.map(lineaTexto).join('\n') + total,
+    '',
+    PREGUNTA_FORMA_PAGO,
+  ].join('\n');
+}
+
+/** «Pagar con Luis» (hasta 20 caracteres, el tope de Meta) o «Con mi distribuidor». */
+export function tituloBotonSocio(nombreSocio?: string): string {
+  const primer = nombreSocio?.trim().split(/\s+/)[0];
+  const t = primer ? `Pagar con ${primer}` : 'Con mi distribuidor';
+  return t.length <= 20 ? t : 'Con mi distribuidor';
+}
+
+export function botonesFormaDePago(codigo: string, nombreSocio?: string): { id: string; title: string }[] {
+  return [
+    { id: `${PAYLOAD_PAGO_GANO}${codigo}`, title: 'Pagar a Gano Excel' },
+    { id: `${PAYLOAD_PAGO_SOCIO}${codigo}`, title: tituloBotonSocio(nombreSocio) },
+  ];
+}
+
+/** La confirmación con los dos botones; si Meta no deja botones, el texto con las dos opciones numeradas. */
+export async function ofrecerFormaDePago(to: string, texto: string, codigo: string, nombreSocio?: string) {
+  const r = await sendReplyButtons(to, texto, botonesFormaDePago(codigo, nombreSocio));
+  if (r.ok) return r;
+  console.warn(`⚠️ [Pedido WA] Los botones de pago no salieron (${r.error}); va en texto.`);
+  return sendText(to, `${texto}\n\n1. Pagar a Gano Excel\n2. ${tituloBotonSocio(nombreSocio)}`);
+}
+
+export interface EleccionPago { via: 'gano' | 'socio'; codigo: string; silencioso?: boolean }
+
+/** ¿Tocó uno de los dos botones? Trae la vía y el número de pedido del identificador oculto. */
+export function botonPagoElegido(opcion?: string): EleccionPago | null {
+  if (!opcion) return null;
+  if (opcion.startsWith(PAYLOAD_PAGO_GANO)) return { via: 'gano', codigo: opcion.slice(PAYLOAD_PAGO_GANO.length) };
+  if (opcion.startsWith(PAYLOAD_PAGO_SOCIO)) return { via: 'socio', codigo: opcion.slice(PAYLOAD_PAGO_SOCIO.length) };
+  return null;
+}
+
+/** El número del pedido que el bot escribió («Su pedido N.º 47004 quedó registrado»). */
+export function codigoDelPedidoEnTexto(texto: string): string | null {
+  const m = /pedido N\.?º?\s*(\d{5})/i.exec(texto || '');
+  return m ? m[1] : null;
+}
+
+/** Respondió con texto, no con el botón: «a Gano», «por PSE», «con Luis», «1», «2»… */
+export function leerFormaDePagoEscrita(texto: string): 'gano' | 'socio' | null {
+  const t = norm(texto);
+  if (!t) return null;
+  if (/(^|\s)(gano|pse|banco|en linea|online|directo|directa|consign\w*|efecty|transferencia|1|uno|primera|primero)(\s|$)/.test(t)) return 'gano';
+  if (/(^|\s)(distribuidor|distribuidora|asesor|asesora|socio|socia|whatsapp|2|dos|segunda|segundo)(\s|$)/.test(t) || /(^|\s)con (el|la|mi|usted|ella|[a-z]+)(\s|$)/.test(t)) return 'socio';
+  return null;
+}
+
+/** El socio de un pedido guardado (wa_pedidos.constructor_id es el constructor_id, no el UUID). */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function socioDelPedido(supabase: any, constructorId?: string | null): Promise<SocioPedido | null> {
+  if (!constructorId) return null;
+  try {
+    const { data } = await supabase.from('private_users').select('name, whatsapp').eq('constructor_id', constructorId).maybeSingle();
+    if (!data) return null;
+    const { data: s } = await supabase.from('constructor_slugs').select('slug').eq('constructor_id', constructorId).maybeSingle();
+    return { nombre: String(data.name || '').trim().split(/\s+/).slice(0, 2).join(' '), whatsapp: data.whatsapp ?? undefined, constructorId, slug: s?.slug ?? null };
+  } catch {
+    return null;
+  }
+}
+
+/** El catálogo del socio con el pedido ya puesto y la hoja de pago abierta. */
+export async function enlacePagoGano(socio: SocioPedido | null, codigo: string): Promise<string> {
+  const ref = socio?.slug || socio?.constructorId || '';
+  return `https://creatuactivo.com/productos/${encodeURIComponent(ref)}?pedido=${codigo}-${await firmaPedido(codigo)}&pagar=1`;
+}
+
+export function textoPagoGano(nombre?: string): string {
+  const primer = nombreCorto(nombre);
+  return [
+    `${primer ? `${primer}, p` : 'P'}erfecto. Paga directo a Gano Excel y Gano Excel se lo despacha a su dirección.`,
+    '',
+    'En el enlace escribe la dirección de entrega, ve el costo del envío y paga por PSE desde su banco o consigna en efectivo. El pago por PSE vale 20 minutos: tenga su banco a la mano.',
+  ].join('\n');
+}
+
+export function textoPagoSocio(socio: SocioPedido | null, ahora = new Date()): string {
+  const quien = socio?.nombre || 'Alguien del equipo de creatuactivo.com';
+  const quienCorto = socio?.nombre?.split(/\s+/)[0] || 'el equipo';
+  return [
+    `Listo. ${quien} le escribe ${cuandoEscribe(ahora)} por WhatsApp para acordar el pago y la entrega.`,
+    '',
+    `Si están en la misma ciudad suele entregarse en persona; si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro. Si el envío tiene costo, ${quienCorto} se lo confirma antes de que usted pague.`,
+  ].join('\n');
+}
+
+/**
+ * Lo que sigue a la elección. Solo atiende a quien hizo el pedido (el número del
+ * pedido coincide con el de quien escribe). Devuelve el texto que recibió la
+ * persona (para el historial) y el nodo, o null si el pedido no es suyo.
+ *   · gano  → botón «Pagar a Gano Excel» al catálogo; estado `eligio_gano`.
+ *   · socio → aviso al socio (una sola vez) + «Luis le escribe hoy…»; estado `pago_socio`.
+ *             Con `silencioso`, solo el aviso: el turno sigue al motor.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function atenderFormaDePago(supabase: any, telefono: string, eleccion: EleccionPago): Promise<{ texto: string; nodo: string } | null> {
+  const { data: p } = await supabase.from('wa_pedidos').select('codigo, nombre, whatsapp, lineas, total_cop, constructor_id, estado').eq('codigo', eleccion.codigo).maybeSingle();
+  if (!p || !mismoNumero(p.whatsapp, telefono)) return null;
+  const socio = await socioDelPedido(supabase, p.constructor_id);
+  const lineas: LineaPedido[] = (Array.isArray(p.lineas) ? p.lineas : [])
+    .map((l: { slug?: string; cantidad?: number }) => ({ producto: PRODUCTOS_WA.find((x) => x.slug === l.slug), cantidad: Number(l.cantidad) || 1 }))
+    .filter((l: { producto?: ProductoWA }): l is LineaPedido => Boolean(l.producto));
+
+  if (eleccion.via === 'gano') {
+    const texto = textoPagoGano(p.nombre ?? undefined);
+    const url = await enlacePagoGano(socio, p.codigo);
+    if (!eleccion.silencioso) {
+      const r = await sendCtaUrl(telefono, texto, 'Pagar a Gano Excel', url);
+      if (!r.ok) await sendText(telefono, `${texto}\n\n${url}`);
+    }
+    await supabase.from('wa_pedidos').update({ estado: 'eligio_gano' }).eq('codigo', p.codigo);
+    return { texto: `${texto}\n\n[Pagar a Gano Excel] ${url}`, nodo: '2.45 pedido: paga a Gano Excel' };
+  }
+
+  if (p.estado !== 'pago_socio') {
+    await avisarPedido(lineas, p.whatsapp, p.nombre ?? undefined, socio, p.codigo, supabase);
+    await supabase.from('wa_pedidos').update({ estado: 'pago_socio' }).eq('codigo', p.codigo);
+  }
+  const texto = textoPagoSocio(socio);
+  if (!eleccion.silencioso) await sendText(telefono, texto);
+  return { texto, nodo: '2.45 pedido: paga con el socio' };
 }

@@ -269,7 +269,10 @@ export default function UnifiedQueswaOrb() {
   // el video y reaparece al terminar. Queswa sigue accesible por el CTA de la página.
   // El catálogo usa los mismos eventos (17 oct 2026): mientras la ficha o el pedido
   // están abiertos, el orbe y su globo tapaban el precio y el botón de enviar.
-  const [orbHiddenForVideo, setOrbHiddenForVideo] = useState(false)
+  // El orbe se monta tarde (dynamic, sin SSR): si la página abrió una hoja antes
+  // de que este listener existiera —el catálogo con ?carrito= o ?pedido=—, el
+  // evento ya pasó. La página deja la bandera y aquí se lee al nacer (17 oct 2026).
+  const [orbHiddenForVideo, setOrbHiddenForVideo] = useState<boolean>(() => typeof window !== 'undefined' && (window as unknown as { __queswaOrbOculto?: boolean }).__queswaOrbOculto === true)
   const ocultableConEvento = pathname === '/video-plan-servilleta' || isProductsPage
   useEffect(() => {
     if (!ocultableConEvento) return

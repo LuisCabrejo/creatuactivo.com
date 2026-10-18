@@ -23,6 +23,7 @@
 import { permanentRedirect } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import CatalogoTienda, { type Socio } from '../page'
+import { tienePagoGano } from '@/lib/socio-ref'
 
 export const dynamic = 'force-dynamic'
 
@@ -48,9 +49,9 @@ async function resolver(refCrudo: string): Promise<Resuelto | null> {
   return { slug: fila.slug, constructorId: fila.constructor_id, nombre: usuario.name, foto: fila.foto_url }
 }
 
-function aSocio(r: Resuelto): Socio {
+function aSocio(r: Resuelto, pagoGano = false): Socio {
   const partes = r.nombre.trim().split(/\s+/)
-  return { nombre: partes.slice(0, 2).join(' '), primerNombre: partes[0], foto: r.foto, slug: r.slug, constructorId: r.constructorId }
+  return { nombre: partes.slice(0, 2).join(' '), primerNombre: partes[0], foto: r.foto, slug: r.slug, constructorId: r.constructorId, pagoGano }
 }
 
 export default async function CatalogoDelSocio({
@@ -65,7 +66,9 @@ export default async function CatalogoDelSocio({
     const carrito = typeof searchParams?.carrito === 'string' ? `?carrito=${encodeURIComponent(searchParams.carrito)}` : ''
     permanentRedirect(`/productos/${r.slug}${carrito}`)
   }
-  return <CatalogoTienda socioInicial={r ? aSocio(r) : null} />
+  // «Pagar a Gano Excel» (17 oct 2026): solo si el socio tiene su contraseña de Gano guardada.
+  const pagoGano = r ? await tienePagoGano(r.constructorId) : false
+  return <CatalogoTienda socioInicial={r ? aSocio(r, pagoGano) : null} />
 }
 
 export async function generateMetadata({ params }: { params: { ref: string } }) {
@@ -73,8 +76,8 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
   const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}`
   const titulo = 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma'
   const descripcion = r
-    ? `Los 22 productos de Gano Excel con su precio en pesos. Le atiende ${aSocio(r).nombre}; el pedido se termina por WhatsApp.`
-    : 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. El pedido se termina por WhatsApp.'
+    ? `Los 22 productos de Gano Excel con su precio en pesos. Le atiende ${aSocio(r).nombre}: paga directo a Gano Excel o con ${aSocio(r).primerNombre} por WhatsApp.`
+    : 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Paga directo a Gano Excel o con su distribuidor por WhatsApp.'
   return {
     title: titulo,
     description: descripcion,

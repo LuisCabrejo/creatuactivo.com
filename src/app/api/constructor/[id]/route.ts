@@ -48,12 +48,17 @@ export async function GET(
       slugFila = (await leer(`constructor_slugs?constructor_id=eq.${encodeURIComponent(constructorId)}&select=slug,display_name,foto_url`))?.[0]
     }
 
+    // Desde el 17 oct 2026 el catálogo ofrece «Pagar a Gano Excel» solo si el socio
+    // tiene su contraseña de Gano guardada en queswa.app (ver src/lib/socio-ref.ts).
+    const pagoGano = ((await leer(`gano_credentials?constructor_id=eq.${encodeURIComponent(constructorId)}&select=constructor_id`)) ?? []).length > 0
+
     return NextResponse.json({
       nombre: usuario.name,
       whatsapp: usuario.whatsapp,
       constructorId,
       slug: slugFila?.slug ?? null,
       foto: slugFila?.foto_url ?? null,
+      pagoGano,
     })
   } catch (error) {
     console.error('❌ [API Constructor] Error:', error)

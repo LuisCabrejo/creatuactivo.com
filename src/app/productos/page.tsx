@@ -35,9 +35,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Plus, Minus, X, ShoppingBag, MessageCircle, ChevronRight, Truck, Store, Factory, Download } from 'lucide-react'
+import { Plus, Minus, X, ShoppingBag, MessageCircle, ChevronRight, Truck, Store, Factory, Download, Landmark } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import { productData, LINEAS, MAS_PEDIDO, PREGUNTAS, imagenVitrina, pesos, mensajePedido, type Product, type LineaCarrito } from './catalogo-datos'
+// «Pagar a Gano Excel» (17 oct 2026): la hoja de pago directo y el carrito con cantidades en la URL.
+import PagoGano, { ESTILOS_PAGO } from './PagoGano'
+import { leerCarritoDeUrl } from '@/lib/gano-inventario'
 
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 
@@ -49,6 +52,8 @@ export interface Socio {
   foto?: string | null
   slug?: string | null
   constructorId?: string | null
+  /** Sus clientes pueden pagar directo a Gano Excel (tiene su contraseña de Gano guardada en queswa.app). */
+  pagoGano?: boolean
 }
 
 const WHATSAPP_QUESWA = '573215193909'
@@ -59,6 +64,8 @@ const DESCARGAS_LUVOCO = [
   { texto: 'Especificaciones técnicas', href: 'https://drive.google.com/file/d/12EsTVv_HPTa6xEj505H_Z8XQssYHfSoi/view?usp=drive_link' },
 ]
 const CLAVE_CARRITO = 'carrito_catalogo'
+// El estado inicial, por referencia: no se guarda nunca (ver el efecto que persiste).
+const CARRITO_INICIAL: LineaCarrito[] = []
 
 // ─── Utilidades ──────────────────────────────────────────────────────────────
 
@@ -79,10 +86,15 @@ function registrarApertura(origen: 'catalogo' | 'pedido', destino: 'web' | 'what
 
 export default function CatalogoTienda({ socioInicial = null }: { socioInicial?: Socio | null } = {}) {
   const [socio, setSocio] = useState<Socio | null>(socioInicial)
-  const [carrito, setCarrito] = useState<Linea[]>([])
+  const [carrito, setCarrito] = useState<Linea[]>(CARRITO_INICIAL)
   const [ficha, setFicha] = useState<string | null>(null)
   const [pedidoAbierto, setPedidoAbierto] = useState(false)
   const [enviado, setEnviado] = useState(false)
+  // La hoja del pedido tiene dos pasos: la lista, y «Pagar a Gano Excel» (17 oct 2026).
+  const [pasoPedido, setPasoPedido] = useState<'lista' | 'gano'>('lista')
+  // El pedido que Queswa tomó por WhatsApp (?pedido=codigo-firma) y los datos que ya dio.
+  const [pedidoClave, setPedidoClave] = useState<string | null>(null)
+  const [prefill, setPrefill] = useState<{ nombre?: string; telefono?: string } | null>(null)
   const [lineaActiva, setLineaActiva] = useState(LINEAS[0].id)
   const cargado = useRef(false)
 
@@ -99,7 +111,7 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
           .then((r) => (r.ok ? r.json() : null))
           .then((d) => {
             if (!d?.nombre) return
-            setSocio({ ...nombreVisible(d.nombre), foto: d.foto ?? null, slug: d.slug ?? null, constructorId: d.constructorId ?? ref })
+            setSocio({ ...nombreVisible(d.nombre), foto: d.foto ?? null, slug: d.slug ?? null, constructorId: d.constructorId ?? ref, pagoGano: Boolean(d.pagoGano) })
           })
           .catch(() => {})
       }
@@ -123,12 +135,30 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
     return () => { clearTimeout(t); window.removeEventListener('nexusTrackingReady', unaVez) }
   }, [socioInicial?.constructorId])
 
-  // ── El carrito: ?carrito=a,b (enlaces armados) o lo que la persona dejó la última vez
+  // ── El carrito: ?pedido=codigo-firma (el que Queswa tomó por WhatsApp), ?carrito=a,b:2
+  // (enlaces armados; «id:cantidad» desde el 17 oct 2026) o lo que la persona dejó la última vez.
+  // ?pagar=1 abre la hoja de pago directo a Gano Excel.
   useEffect(() => {
-    const url = new URLSearchParams(window.location.search).get('carrito')
-    if (url) {
-      const ids = url.split(',').filter((id) => productData[id])
-      if (ids.length) { setCarrito(ids.map((id) => ({ id, cantidad: 1 }))); setPedidoAbierto(true) }
+    const params = new URLSearchParams(window.location.search)
+    const url = params.get('carrito')
+    const clave = params.get('pedido')
+    const abrirPago = params.get('pagar') === '1'
+    if (clave) {
+      fetch(`/api/pedido-cliente?pedido=${encodeURIComponent(clave)}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          const lineas = Array.isArray(d?.lineas) ? (d.lineas as Linea[]).filter((l) => productData[l.id] && l.cantidad > 0) : []
+          if (!lineas.length) return
+          setCarrito(lineas)
+          setPedidoClave(clave)
+          setPrefill({ nombre: d.nombre || undefined, telefono: d.telefono || undefined })
+          setPedidoAbierto(true)
+          if (abrirPago) setPasoPedido('gano')
+        })
+        .catch(() => {})
+    } else if (url) {
+      const lineas = leerCarritoDeUrl(url).filter((l) => productData[l.id])
+      if (lineas.length) { setCarrito(lineas); setPedidoAbierto(true); if (abrirPago) setPasoPedido('gano') }
     } else {
       try {
         const guardado = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || localStorage.getItem('cart') || '[]')
@@ -144,6 +174,12 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
 
   useEffect(() => {
     if (!cargado.current) return
+    // El estado inicial no se guarda: en desarrollo (StrictMode repite los efectos)
+    // este efecto corría con el carrito vacío ANTES de que el de arriba restaurara el
+    // guardado, lo pisaba con «[]», y la segunda pasada restauraba la nada. El
+    // Director lo vio el 17 oct 2026 al salir y volver (mismo defecto que tuvo la
+    // Cancelación de Código el 28 sep). En producción solo se notaba a veces.
+    if (carrito === CARRITO_INICIAL) return
     try { localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito)); localStorage.removeItem('cart') } catch { /* nada */ }
   }, [carrito])
 
@@ -166,6 +202,8 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
   useEffect(() => {
     const raiz = document.documentElement
     raiz.style.setProperty('--alto-barra-tienda', unidades > 0 && !hayHoja ? '72px' : '0px')
+    // La bandera es para el orbe que todavía no se montó (ver UnifiedQueswaOrb.tsx).
+    ;(window as unknown as { __queswaOrbOculto?: boolean }).__queswaOrbOculto = hayHoja
     window.dispatchEvent(new CustomEvent(hayHoja ? 'hide-queswa-orb' : 'show-queswa-orb'))
     document.body.style.overflow = hayHoja ? 'hidden' : ''
     return () => { raiz.style.setProperty('--alto-barra-tienda', '0px'); document.body.style.overflow = '' }
@@ -196,7 +234,7 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
 
   return (
     <div className="tienda">
-      <style dangerouslySetInnerHTML={{ __html: ESTILOS }} />
+      <style dangerouslySetInnerHTML={{ __html: ESTILOS + ESTILOS_PAGO }} />
       <StrategicNavigation />
 
       {/* ── 1. Quién le atiende ─────────────────────────────────────────── */}
@@ -204,7 +242,7 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
         <div className="tienda-ancho">
           <p className="tienda-ceja">Catálogo 2026 · Precios en pesos</p>
           <h1 className="tienda-titulo">Catálogo Gano Excel</h1>
-          <p className="tienda-bajada">Café, bebidas, cápsulas y cuidado personal. Elija aquí y termine su pedido por WhatsApp.</p>
+          <p className="tienda-bajada">{socio?.pagoGano ? `Café, bebidas, cápsulas y cuidado personal. Elija aquí y pague directo a Gano Excel, o con ${socio.primerNombre} por WhatsApp.` : 'Café, bebidas, cápsulas y cuidado personal. Elija aquí y termine su pedido por WhatsApp.'}</p>
           <div className="tienda-socio">
             <div className="tienda-socio-foto" aria-hidden="true">
               {socio?.foto
@@ -269,8 +307,17 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
           <h2 id="titulo-pasos">Cómo funciona su pedido</h2>
           <ol>
             <li><span>1</span><div><strong>Arme su pedido aquí</strong><p>Elija los productos y las cantidades. Todavía no paga nada.</p></div></li>
-            <li><span>2</span><div><strong>Envíelo por WhatsApp</strong><p>Le llega a Queswa con todo listo, y queda a su nombre.</p></div></li>
-            <li><span>3</span><div><strong>{socio ? socio.nombre : 'Su distribuidor'} le escribe</strong><p>Acuerdan el pago y la entrega: en persona si están en la misma ciudad, o se lo despacha Gano Excel.</p></div></li>
+            {socio?.pagoGano ? (
+              <>
+                <li><span>2</span><div><strong>Elija cómo pagar</strong><p>Directo a Gano Excel, por PSE o en efectivo, con envío a su dirección. O con {socio.nombre}, que le escribe por WhatsApp y acuerdan el pago y la entrega.</p></div></li>
+                <li><span>3</span><div><strong>Recibe su pedido</strong><p>Gano Excel lo despacha por Servientrega, normalmente de un día para otro; o en persona, si así lo acordó con {socio.primerNombre}.</p></div></li>
+              </>
+            ) : (
+              <>
+                <li><span>2</span><div><strong>Envíelo por WhatsApp</strong><p>Le llega a Queswa con todo listo, y queda a su nombre.</p></div></li>
+                <li><span>3</span><div><strong>{socio ? socio.nombre : 'Su distribuidor'} le escribe</strong><p>Acuerdan el pago y la entrega: en persona si están en la misma ciudad, o se lo despacha Gano Excel.</p></div></li>
+              </>
+            )}
           </ol>
         </section>
 
@@ -345,16 +392,33 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
 
       {/* ── 4b. El pedido ────────────────────────────────────────────────── */}
       {pedidoAbierto && (
-        <Hoja titulo="Su pedido" cerrar={() => setPedidoAbierto(false)}>
-          <Pedido
-            carrito={carrito}
-            total={total}
-            socio={socio}
-            fijar={fijar}
-            enviado={enviado}
-            enviar={enviarPedido}
-            seguirComprando={() => setPedidoAbierto(false)}
-          />
+        <Hoja
+          titulo={pasoPedido === 'gano' && socio?.pagoGano ? 'Pagar a Gano Excel' : 'Su pedido'}
+          cerrar={() => { setPedidoAbierto(false); setPasoPedido('lista') }}
+        >
+          {pasoPedido === 'gano' && socio?.pagoGano ? (
+            <PagoGano
+              carrito={carrito}
+              socio={socio}
+              subtotal={total}
+              prefill={prefill}
+              pedidoClave={pedidoClave}
+              alPagar={() => { registrarApertura('pedido', 'web', socio.constructorId); setCarrito([]); setPedidoClave(null) }}
+              volver={() => setPasoPedido('lista')}
+            />
+          ) : (
+            <Pedido
+              carrito={carrito}
+              total={total}
+              socio={socio}
+              fijar={fijar}
+              enviado={enviado}
+              enviar={enviarPedido}
+              seguirComprando={() => setPedidoAbierto(false)}
+              pagoGano={Boolean(socio?.pagoGano)}
+              pagarGano={() => setPasoPedido('gano')}
+            />
+          )}
         </Hoja>
       )}
     </div>
@@ -523,9 +587,10 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe }: {
 
 // ─── El pedido ───────────────────────────────────────────────────────────────
 
-function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando }: {
+function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando, pagoGano, pagarGano }: {
   carrito: Linea[]; total: number; socio: Socio | null; fijar: (id: string, n: number) => void
   enviado: boolean; enviar: () => void; seguirComprando: () => void
+  pagoGano: boolean; pagarGano: () => void
 }) {
   const quien = socio?.nombre ?? 'Su distribuidor'
   if (carrito.length === 0) {
@@ -558,14 +623,34 @@ function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando
         </ul>
 
         <div className="tienda-pedido-suma">
-          <div><span>Envío</span><span>Lo acuerda con {socio?.primerNombre ?? 'su distribuidor'}</span></div>
+          <div><span>Envío</span><span>{pagoGano ? 'Lo calcula Gano Excel según su ciudad' : `Lo acuerda con ${socio?.primerNombre ?? 'su distribuidor'}`}</span></div>
           <div className="total"><span>Total de productos</span><span>{pesos(total)}</span></div>
         </div>
 
-        <div className="tienda-pedido-sigue">
-          <Truck className="h-5 w-5" />
-          <p>Se abre WhatsApp con su pedido escrito; al enviarlo le llega a Queswa, la asistente de {socio ? socio.primerNombre : 'su distribuidor'}. <strong>{quien} le escribe</strong> para acordar el pago y la entrega. Todavía no paga nada.</p>
-        </div>
+        {pagoGano ? (
+          // Las dos opciones, en igualdad (Director, 17 oct 2026): pagar directo a Gano
+          // Excel o pagar con su distribuidor. Ninguna es «la otra».
+          <>
+            <p className="tienda-pago-eleccion-titulo">¿Cómo prefiere pagar?</p>
+            <div className="tienda-pago-eleccion">
+              <button type="button" className="tienda-opcion" onClick={pagarGano}>
+                <Landmark className="h-6 w-6" />
+                <span><strong>Pagar a Gano Excel</strong><small>Por PSE desde su banco o en efectivo. Gano Excel lo despacha a su dirección.</small></span>
+                <ChevronRight className="h-5 w-5 tienda-opcion-flecha" />
+              </button>
+              <button type="button" className="tienda-opcion whatsapp" onClick={enviar}>
+                <IconoWhatsApp />
+                <span><strong>Pagar con {socio?.primerNombre ?? 'su distribuidor'}</strong><small>Le escribe por WhatsApp y acuerdan el pago y la entrega. Todavía no paga nada.</small></span>
+                <ChevronRight className="h-5 w-5 tienda-opcion-flecha" />
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="tienda-pedido-sigue">
+            <Truck className="h-5 w-5" />
+            <p>Se abre WhatsApp con su pedido escrito; al enviarlo le llega a Queswa, la asistente de {socio ? socio.primerNombre : 'su distribuidor'}. <strong>{quien} le escribe</strong> para acordar el pago y la entrega. Todavía no paga nada.</p>
+          </div>
+        )}
       </div>
 
       <div className="tienda-hoja-pie">
@@ -574,11 +659,11 @@ function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando
             <p><strong>Falta un paso:</strong> en WhatsApp, toque <strong>Enviar</strong> para que le llegue el pedido.</p>
             <button type="button" className="tienda-boton-sec" onClick={enviar}>Abrir WhatsApp de nuevo</button>
           </div>
-        ) : (
+        ) : !pagoGano ? (
           <button type="button" className="tienda-boton tienda-enviar" onClick={enviar}>
             <IconoWhatsApp /> Enviar pedido por WhatsApp
           </button>
-        )}
+        ) : null}
         <button type="button" className="tienda-enlace" onClick={seguirComprando}>Seguir comprando</button>
       </div>
     </>

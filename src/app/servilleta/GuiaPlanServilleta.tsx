@@ -4,8 +4,8 @@
  * La explicación en texto de /servilleta (8 oct 2026, Director). Reescrita el
  * 10 oct 2026 para la presentación ÚNICA (la columna de /presentacion, mudada
  * aquí): de «las cuatro pantallas» a lo que cuentan las diez, con el encuadre de
- * los tres elementos de WHY_02 v6.69 (fabricante · tecnología que atiende ·
- * saber qué hacer, en una sola aplicación).
+ * los tres elementos de WHY_02 (desde v6.76, 18 oct 2026: fabricante · máquina de
+ * ventas · herramienta para multiplicar, en una sola aplicación).
  *
  * POR QUÉ EXISTE. Hasta este día Google sabía de qué trataba /servilleta solo por
  * sus metadatos: el cuerpo tenía unas 260 palabras, no decía «servilleta» ni una
@@ -174,8 +174,9 @@ export default function GuiaPlanServilleta() {
             a toda hora.
           </li>
           <li>
-            <strong>Saber qué hacer:</strong> como en Waze, usted le dice a Queswa a dónde quiere
-            llegar, y ella le va marcando la ruta, paso a paso.
+            <strong>Una herramienta para multiplicar:</strong> Queswa acompaña a cada distribuidor
+            de su sistema, a usted y a quien inicie con usted, y como en Waze le va marcando la
+            ruta, paso a paso.
           </li>
         </ul>
         <p>

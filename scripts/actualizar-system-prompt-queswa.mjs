@@ -39,7 +39,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.18_dia39_el_gigante';
+const VERSION_LABEL = 'v5.19_maquina_de_ventas_y_herramienta';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 export const CANALES = {

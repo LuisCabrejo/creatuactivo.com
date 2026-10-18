@@ -794,38 +794,41 @@ export default function HomePage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Bot} tone="data" />
               <div>
+                {/* «Una máquina de ventas» (Director, 18 oct 2026): el mismo nombre del
+                    segundo elemento en WHY_02 v6.76, la Presentación y el video. El
+                    sello conserva a Queswa en línea: es quien atiende. */}
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Queswa
+                  Una máquina de ventas
                 </p>
-                <QueswaOnline label="Inteligencia artificial · en línea" compacto />
+                <QueswaOnline label="Queswa · en línea" compacto />
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
-              Conversa por WhatsApp con cada persona interesada, le resuelve las dudas y
-              madura su decisión de avanzar, a toda hora. Usted no le repite lo mismo a
-              cada uno.
+              Usted envía a quien quiera. Ahí conoce los productos y los compra, o ve cómo
+              participar; Queswa atiende a cada uno y madura su decisión, a toda hora.
             </p>
           </div>
 
-          {/* El tercer elemento: SABER QUÉ HACER (Director, 9 oct 2026 — antes «su
-              aplicación personalizada»; la aplicación es ahora el envase de los
-              tres). Es la función que ataca el «¿seré capaz?», la palanca más
-              fuerte de la intención de emprender (meta-análisis TPB 2025). ⚠️ Waze
-              va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ · «lo lleva
-              a donde quiere estar» ⛔ (voz de coach). */}
+          {/* El tercer elemento: UNA HERRAMIENTA PARA MULTIPLICAR (Director, 18 oct
+              2026 — antes «saber qué hacer», y antes «su aplicación personalizada»).
+              Fabricar · vender · multiplicar; «saber qué hacer» queda como el
+              mecanismo («le marca la ruta»). «Herramienta» y no «aplicación»: la
+              aplicación es el envase de los tres. ⚠️ Waze va en MECANISMO, nunca en
+              resultado: «le marca la ruta» ✅ · «lo lleva a donde quiere estar» ⛔
+              (voz de coach). ⛔ Sin dinero junto a «quien inicie con usted». */}
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Route} />
               <div>
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Saber qué hacer
+                  Una herramienta para multiplicar
                 </p>
                 <p style={etiquetaMono}>Le marca la ruta</p>
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
-              Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando
-              la ruta. Usted no arranca solo ni adivinando el siguiente paso.
+              Acompaña a cada distribuidor de su sistema, a usted y a quien inicie con
+              usted, y como en Waze le va marcando la ruta, paso a paso.
             </p>
           </div>
         </div>
@@ -1002,7 +1005,7 @@ export default function HomePage() {
             }}
           >
             Y ya está. Eso es todo el negocio: un producto que las personas vuelven a
-            pedir, una tecnología que atiende por usted, y cada cliente a su nombre.
+            pedir, una máquina de ventas que atiende por usted, y cada cliente a su nombre.
           </p>
 
           <H2 center>Al final, el activo es suyo.</H2>

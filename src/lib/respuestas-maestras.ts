@@ -39,6 +39,9 @@
 
 /**
  * Texto Master WHY_02 — Chip 1 ("¿Y esto cómo funciona, exactamente?").
+ * Ajuste 18 oct 2026 — EL 2 ES UNA MÁQUINA DE VENTAS Y EL 3 UNA HERRAMIENTA PARA
+ *   MULTIPLICAR (Director, probado en la Presentación). Fabricar · vender · multiplicar;
+ *   la ruta de Waze queda como mecanismo del 3. Sincronizado con arsenal_inicial v6.76.
  * Ajuste 27 sep 2026 — EL TERCER ELEMENTO ES SU APLICACIÓN PERSONALIZADA (texto del
  *   Director, sesión del guion del video a 60 s). Los tres elementos responden qué
  *   RECIBE la persona; las dos acciones responden qué HACE y viven en EAM_01 (WHY_01 solo nombra los 3 elementos, v6.59).
@@ -157,9 +160,9 @@ const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe en una sola aplica
 
 1. **Un fabricante**, que empaca y despacha cada pedido hasta la casa del cliente.
 
-2. **Tecnología:** esta conversación es una muestra. Yo atiendo, las 24 horas, a quien llega por su enlace.
+2. **Una máquina de ventas:** esta conversación es una muestra. Usted envía a quien quiera, y aquí conoce los productos y los compra, o ve cómo participar. Yo atiendo a cada uno, las 24 horas.
 
-3. **Saber qué hacer:** como en Waze, usted me dice a dónde quiere llegar, y yo le voy marcando la ruta.
+3. **Una herramienta para multiplicar:** acompaño a cada distribuidor de su sistema, a usted y a quien inicie con usted, y como en Waze le voy marcando la ruta, paso a paso.
 
 La diferencia es la propiedad: cada cliente que llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje.
 

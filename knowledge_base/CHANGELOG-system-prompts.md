@@ -6,6 +6,12 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.19 — El video «Cómo funciona» nombra la máquina de ventas y la herramienta para multiplicar (18 oct 2026)
+
+Solo cambia la descripción del video «Cómo funciona», que el modelo usa cuando alguien dice «vi el video»: el segundo elemento es *una máquina de ventas* (usted envía a quien quiera y Queswa lo atiende las 24 horas) y el tercero *una herramienta para multiplicar* (acompaña a cada distribuidor y le marca la ruta, como en Waze). Es lo que dice la voz del video v6 y lo mismo de `WHY_02` v6.76 y de la Presentación. Decisión del Director; criterio en el `[Concepto Nuclear]` de `WHY_02`.
+
+---
+
 ## v5.18 — El día 39, «el gigante», entra; sale el día 19 (16 oct 2026)
 
 La nota del video del día 39 reemplaza la del día 19 («honor a la pausa») en «Los dos videos más recientes»; queda el 22. Contenido: Luis vuelve a grabar después de varios días; el terremoto del 1 de septiembre afectó su casa; se vio como víctima y hoy se ve como el rey David frente al gigante, «está con furia»; el sistema no depende de un lugar y siguió funcionando; grabó en Girardot, donde lo invitaron a hablar; anuncia Los 12 Niveles para el próximo video y todavía no los ha explicado. Cierra con *«Del terremoto no se cuenta más que esto»*, en la forma de la regla de la salud. Aprobado por el Director el 16 oct, con los dos datos que no están en el video (la casa y el sistema).

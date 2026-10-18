@@ -524,34 +524,38 @@ export default function PruebaPage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Bot} tone="data" />
               <div>
+                {/* «Una máquina de ventas» (Director, 18 oct 2026): el mismo nombre del
+                    segundo elemento en WHY_02 v6.76, la Presentación y el video. El
+                    sello conserva a Queswa en línea: es quien atiende. */}
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Queswa
+                  Una máquina de ventas
                 </p>
-                <QueswaOnline label="Inteligencia artificial · en línea" compacto />
+                <QueswaOnline label="Queswa · en línea" compacto />
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
-              Conversa por WhatsApp con cada persona interesada, le resuelve las dudas y
-              madura su decisión de avanzar, a toda hora. Usted no le repite lo mismo a
-              cada uno.
+              Usted envía a quien quiera. Ahí conoce los productos y los compra, o ve cómo
+              participar; Queswa atiende a cada uno y madura su decisión, a toda hora.
             </p>
           </div>
 
-          {/* ⚠️ Waze va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ ·
-              «lo lleva a donde quiere estar» ⛔. Espejo de WHY_APP_01. */}
+          {/* El tercer elemento desde el 18 oct 2026: UNA HERRAMIENTA PARA
+              MULTIPLICAR (antes «saber qué hacer», que queda como mecanismo). Espejo
+              de la Home y de WHY_02 v6.76. ⚠️ Waze va en MECANISMO, nunca en
+              resultado: «le marca la ruta» ✅ · «lo lleva a donde quiere estar» ⛔. */}
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Route} />
               <div>
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Saber qué hacer
+                  Una herramienta para multiplicar
                 </p>
                 <p style={etiquetaMono}>Le marca la ruta</p>
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
-              Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando
-              la ruta. Usted no arranca solo ni adivinando el siguiente paso.
+              Acompaña a cada distribuidor de su sistema, a usted y a quien inicie con
+              usted, y como en Waze le va marcando la ruta, paso a paso.
             </p>
           </div>
         </div>
@@ -725,7 +729,7 @@ export default function PruebaPage() {
             }}
           >
             Y ya está. Eso es todo el negocio: un producto que las personas vuelven a
-            pedir, una tecnología que atiende por usted, y cada cliente a su nombre.
+            pedir, una máquina de ventas que atiende por usted, y cada cliente a su nombre.
           </p>
 
           <H2 center>Al final, el activo es suyo.</H2>

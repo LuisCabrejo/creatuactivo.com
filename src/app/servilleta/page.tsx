@@ -67,13 +67,13 @@
  *                      beats. Es el ÚNICO lugar del deck con ese video (el repaso
  *                      en la última se retiró el 14 oct 2026, Director). Luego:
  *                      beats 1-3, las tres piezas (el fabricante SIN nombre; la
- *                      2ª es UNA MÁQUINA DE VENTAS desde el 18 oct 2026, con dos
- *                      botones: la demo de Queswa y queswa.app «por dentro»; la
- *                      3ª es SABER QUÉ HACER desde el 9 oct 2026) · beat 4, la
- *                      multiplicación («Solo se multiplica lo que es sencillo»,
- *                      mudada aquí el 18 oct 2026: el socio ya la contó en el
- *                      modo Waze del tercer elemento y esta pantalla la aterriza
- *                      antes de que los tres se unan) · beat 5, las tres quietas
+ *                      2ª es UNA MÁQUINA DE VENTAS, con dos botones: la demo de
+ *                      Queswa y queswa.app «por dentro»; la 3ª es UNA
+ *                      HERRAMIENTA PARA MULTIPLICAR, con el clip de la
+ *                      multiplicación — las dos desde el 18 oct 2026, canon en
+ *                      WHY_02 v6.76 y en el video v6) · beat 4, el remate en
+ *                      texto: «Solo se multiplica lo que es sencillo» y las dos
+ *                      acciones en una línea · beat 5, las tres quietas
  *                      · beat 6, la unión EN UNA diapositiva: el clip v5 funde los
  *                      cubos EN GRANDE, enciende el cubo y la cámara se aleja
  *                      hasta el celular; «Queswa.app» entra cuando el celular ya
@@ -162,7 +162,7 @@ const beatsOf = (slide: number) => BEATS[slide] ?? 1;
  *  y cubre la carga (preload none). Ritmo movimiento/quietud deliberado: piezas
  *  en video; el credo, las cifras y el teléfono del remate QUIETOS — un
  *  manifiesto y un número no deben moverse. */
-const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: string }[] = [
+const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: string; quieta?: string }[] = [
   {
     label: 'UN FABRICANTE',
     img: '/images/servilleta/colapso-fabrica.webp',
@@ -178,11 +178,11 @@ const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: 
     // ventas» es el nombre de marca de los cursos de Hotmart («dispara tus ventas
     // en 7 días»), el carril de los gurús de internet. Por eso el nombre se paga
     // en la misma frase con el MECANISMO (Queswa atiende y madura la decisión),
-    // como en la regla del 19 ago. EN PRUEBA en el deck antes de migrar el canon
-    // (WHY_02 🔒, el video, la Home, el Dashboard siguen con «tecnología que
-    // atiende»), igual que se probó «empresa de distribución moderna» en los
-    // 1-a-1 antes de decidir. Queswa ya reconoce el término por una PUERTA directa
-    // a WHY_02 (src/lib/puerta-maquina-ventas.ts): en el índice diluía.
+    // como en la regla del 19 ago. Nació aquí en prueba y el mismo día el Director
+    // lo hizo canon en todas partes: WHY_02 🔒 v6.76, el video «Cómo funciona» v6,
+    // la Home, la guía y el Dashboard. Queswa reconoce el término también por una
+    // PUERTA directa a WHY_02 (src/lib/puerta-maquina-ventas.ts): en el índice
+    // diluía.
     label: 'UNA MÁQUINA DE VENTAS',
     img: '/images/servilleta/colapso-conversacion.webp',
     video: '/videos/presentacion/pieza-atiende.mp4',
@@ -192,25 +192,28 @@ const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: 
     // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.
   },
   {
-    // EL TERCER ELEMENTO ES SABER QUÉ HACER (Director, 9 oct 2026 — reemplaza a
-    // «su aplicación personalizada» del 27 sep). Los tres elementos son FUNCIONES
-    // (fabricar · atender · saber qué hacer) y la aplicación subió de rango: es el
-    // ENVASE de los tres, revelado en el remate (Queswa.app). Resuelve la
-    // circularidad app-contiene-app que el Director sintió presentando en vivo, y
-    // la evidencia la respalda: el control percibido («¿seré capaz?») es el
-    // predictor nº 1 de la intención de emprender (β=0,39, meta-análisis TPB 2025)
-    // → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md.
-    // Las dos acciones siguen SIN listarse aquí (las cuenta Queswa — EAM_01).
-    // ⚠️ Waze va en MECANISMO, nunca en resultado: «le marca la ruta» ✅ ·
-    // «lo lleva a donde quiere estar» ⛔ (voz de coach, vetada el 24 sep).
-    // El render es un PIN DE MAPA con pasos de ruta — la imagen de Waze literal.
-    // Va como copia con nombre propio (colapso-aplicacion.webp) para que el deck
-    // no dependa del asset «metodo», que es de /servilleta (quieta).
-    label: 'SABER QUÉ HACER',
-    img: '/images/servilleta/colapso-aplicacion.webp',
-    video: '/videos/presentacion/pieza-ruta.mp4',
-    sub: 'Como en Waze: usted le dice a dónde quiere llegar, y Queswa le va marcando la ruta, paso a paso.',
-    extra: 'Conoce sus metas, le redacta lo que va a enviar y le avisa cuando alguien queda listo.',
+    // UNA HERRAMIENTA PARA MULTIPLICAR (Director, 18 oct 2026 — reemplaza a «saber
+    // qué hacer» del 9 oct). Los tres elementos siguen siendo FUNCIONES, ahora las
+    // de cualquier empresa: fabricar · vender · multiplicar; y la multiplicación,
+    // que es lo más difícil, deja de ir suelta después de los tres. En vivo el
+    // socio ya lo decía así, con queswa.app abierta: Queswa en modo Waze, sus
+    // equipos capacitándose. «Saber qué hacer» NO se pierde: es el mecanismo
+    // («le va marcando la ruta, paso a paso»), y el «¿seré capaz?» que atacaba la
+    // etiqueta vieja lo responde ahora la demostración (lo que se ve convence más
+    // que lo que se dice). ⚠️ «Herramienta», nunca «aplicación»: la unión dice
+    // que los tres llegan EN una sola aplicación, y un tercer elemento llamado
+    // aplicación devolvería la circularidad del 9 oct (auditado con el Director).
+    // ⛔ Sin dinero aquí: plata junto a «quien inicie con usted» es la silueta de
+    // pirámide. El clip es la multiplicación (c-distribuir del video «Cómo
+    // funciona»: réplicas idénticas, cada uno con su celular, nunca top-down); la
+    // línea dorada de antes («Conoce sus metas…») salió: el socio lo muestra.
+    // `quieta` es el cuadro del segundo 4 (ya hay varios distribuidores) para la
+    // pantalla de las tres quietas; el poster es el primer cuadro del clip.
+    label: 'UNA HERRAMIENTA PARA MULTIPLICAR',
+    img: '/videos/presentacion/multiplicacion-poster.webp',
+    video: '/videos/presentacion/multiplicacion.mp4',
+    sub: 'Acompaña a cada distribuidor de su sistema, a usted y a quien inicie con usted, y como en Waze le va marcando la ruta, paso a paso.',
+    quieta: '/videos/presentacion/multiplicacion-quieta.webp',
   },
 ];
 
@@ -970,17 +973,6 @@ export default function PitchDeckPage() {
         /* La pieza en video: el loop ya es cuadrado, cover lo deja exacto; el
            fondo carbón cubre el instante antes del poster. */
         video.pd-figura { object-fit: cover; display: block; background: #0F1115; }
-        /* El clip de la multiplicación (remate de «Qué hace usted»): acotado por
-           la altura para que el golpe y las dos líneas del cierre siempre quepan. */
-        .pd-multiplica {
-          display: block; width: min(320px, 58vw, calc(100vh - 490px));
-          aspect-ratio: 1 / 1; object-fit: cover; margin: 0 auto 0.6rem;
-          background: #0F1115; border: 1px solid rgba(255,255,255,0.08);
-        }
-        /* Con su eyebrow (18 oct 2026) el beat de la multiplicacion gana 45 px de
-           alto: el clip cede 30 px en 720p y el titular pierde margen arriba, para
-           que la ultima linea no quede pegada al borde del proyector. */
-        .pd-remate .pd-multiplica + .grande { margin-top: 1.2rem; }
         .pd-pieza-label {
           font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
           font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
@@ -1723,30 +1715,15 @@ export default function PitchDeckPage() {
             </div>
           ))}
 
-          {/* Beat 4: LA MULTIPLICACIÓN (mudada desde «Qué hace usted» el 18 oct
-              2026, Director): el socio ya la contó en voz en el tercer elemento
-              —Queswa en modo Waze forma los equipos y él ve cuándo se capacitan—
-              y esta pantalla aterriza eso antes de que los tres se unan. Es uno de
-              sus caballos de Troya (10 oct): al empresario, multiplicar es lo más
-              difícil de cualquier empresa; al networker, sin jefes ni horarios
-              triunfa el que multiplica. El clip lo MUESTRA: la figura usa el
-              celular y aparecen los demás, cada uno con el suyo, todos del mismo
-              tamaño (c-distribuir del video «Cómo funciona»; réplicas idénticas,
-              nunca top-down). La segunda línea nombra las dos acciones en una
-              sola frase: desde este día no hay pantalla que las liste. */}
+          {/* Beat 4: EL REMATE DE LA MULTIPLICACIÓN, en texto (18 oct 2026). Es uno
+              de los caballos de Troya del Director (10 oct): al empresario,
+              multiplicar es lo más difícil de cualquier empresa; al networker, sin
+              jefes ni horarios triunfa el que multiplica. El clip se mudó al
+              tercer elemento, que desde ese día ES la herramienta para multiplicar;
+              aquí queda el porqué —lo sencillo— y la línea que nombra las dos
+              acciones, la única del deck desde que salió «Qué hace usted». */}
           <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
             <div className="pd-remate">
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La multiplicación</p>
-              <video
-                className="pd-multiplica"
-                data-beat="5-4"
-                src="/videos/presentacion/multiplicacion.mp4"
-                poster="/videos/presentacion/multiplicacion-poster.webp"
-                muted
-                loop
-                playsInline
-                preload="none"
-              />
               <p className="grande">Solo se multiplica lo que es sencillo.</p>
               <p className="pd-p pd-cierre-linea">
                 Quien inicia con usted recibe los mismos tres elementos y hace exactamente lo
@@ -1765,13 +1742,13 @@ export default function PitchDeckPage() {
               <div className="pd-tres">
                 {PIEZAS.map((p) => (
                   <div className="col" key={p.label}>
-                    <div className="pd-figura" style={{ backgroundImage: `url(${p.img})` }} />
+                    <div className="pd-figura" style={{ backgroundImage: `url(${p.quieta ?? p.img})` }} />
                     <p className="cap">{p.label}</p>
                   </div>
                 ))}
               </div>
               <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
-                Un fabricante… una máquina de ventas… saber qué hacer…
+                Un fabricante… una máquina de ventas… una herramienta para multiplicar…
               </p>
             </div>
           </div>

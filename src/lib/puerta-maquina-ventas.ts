@@ -4,13 +4,13 @@
  *
  * La puerta de «la máquina de ventas» (18 oct 2026).
  *
- * Desde ese día la Presentación llama así al segundo elemento (Director, tras
- * presentarla en vivo: la gente llega «en seis u ocho»). Es un nombre EN PRUEBA
- * en el deck: el candado de `WHY_02`, el video «Cómo funciona», la Home y el
- * Dashboard siguen diciendo «una tecnología que atiende», y por eso quien sale
- * de la reunión y le pregunta a Queswa «¿qué es la máquina de ventas?» no tenía
- * dónde caer: el vector lo mandaba a `WHY_PROD_01` (el producto) o a
- * `COMP_VENTA_01` (la venta al detal), medido con `medir-recuperacion-voyage`.
+ * Desde ese día el segundo elemento se llama así en todas partes (Director, tras
+ * presentarla en vivo: la gente llega «en seis u ocho»): la Presentación, el
+ * candado de `WHY_02` v6.76, el video «Cómo funciona» v6, la Home y el Dashboard.
+ * El candado lo dice en su CUERPO, pero el cuerpo no se vectoriza: quien sale de
+ * la reunión y le pregunta a Queswa «¿qué es la máquina de ventas?» caía en
+ * `WHY_PROD_01` (el producto) o en `COMP_VENTA_01` (la venta al detal), medido
+ * con `medir-recuperacion-voyage`.
  *
  * Es PUERTA (`PUERTAS_INICIAL` en route.ts) y no una línea en el índice de
  * `WHY_02` porque el índice se probó primero y DILUYE: con la frase añadida,

@@ -520,6 +520,17 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.76 — `WHY_02` 🔒 y `WHY_05` 🔒: «una máquina de ventas» y «una herramienta para multiplicar» (18 oct 2026)
+
+Decisión del Director tras presentar la Presentación en vivo con esos nombres: el segundo elemento es **una máquina de ventas** y el tercero **una herramienta para multiplicar**. Los tres quedan como las funciones de cualquier empresa —fabricar · vender · multiplicar— y la multiplicación, que es lo más difícil, deja de ir suelta después de los tres.
+
+- **El 2** se paga con el mecanismo en la misma frase: *usted envía a quien quiera, y aquí conoce los productos y los compra, o ve cómo participar. Yo atiendo a cada uno, las 24 horas.* Es concreto y verificable desde el 17 oct (el catálogo es una tienda), pero «máquina de ventas» es también el nombre de marca de los cursos de Hotmart: sin el mecanismo, sería promesa de gurú.
+- **El 3** conserva *saber qué hacer* como mecanismo: *acompaño a cada distribuidor de su sistema, a usted y a quien inicie con usted, y como en Waze le voy marcando la ruta, paso a paso.* El «¿seré capaz?» que atacaba la etiqueta vieja lo responde ahora la demostración en vivo de queswa.app.
+- **«Herramienta», no «aplicación»** (auditado con el Director el mismo día): la primera línea dice que los tres llegan *en una sola aplicación*, y un tercer elemento llamado aplicación devolvía la circularidad del 9 oct.
+- Sin dinero en el 3: plata junto a «quien inicie con usted» es la silueta de pirámide.
+
+Cambian solo los dos candados; índices y títulos son los mismos, así que la recuperación no se mueve. Contrato de prefijo con `MASTER_WHY_02` verificado (1.065 caracteres). La voz del video «Cómo funciona» v6 dice lo mismo.
+
 ### Medido y NO tocado — «la máquina de ventas» no va en el índice de `WHY_02` (18 oct 2026)
 
 Desde ese día la Presentación llama «una máquina de ventas» al segundo elemento (Director, en prueba). Quien le pregunte a Queswa por ella caía en `WHY_PROD_01` (0,496) o en `COMP_VENTA_01` (0,510); `WHY_02` quedaba tercero o cuarto. Se probó sumarle al índice *«Qué es la máquina de ventas que me mostraron, cómo funciona esa máquina de ventas»*: ganaba las tres preguntas de la máquina (0,572 · 0,589 · 0,627) **pero perdía dos de las suyas** en `medir-40-produccion` — *«pero bueno y esto en qué consiste, cómo es que funciona»* bajó de 0,543 a 0,503 (gana PERFIL_02 con 0,523) y *«no entiendo bien de qué se trata el negocio»* de 0,597 a 0,550 (gana FREQ_21 con 0,589). La versión corta (*«Qué es la máquina de ventas.»*) también perdía (0,516 · 0,567). Es la regla de siempre: alargar el índice diluye. Se desplegó, se midió, y **se revirtió el mismo día**: el fragmento quedó con su índice original en los tres tenants. El término entra por una **puerta directa** a `WHY_02` (`src/lib/puerta-maquina-ventas.ts`, en `PUERTAS_INICIAL`, dictada), con su caso en `prueba-typos.mts`.

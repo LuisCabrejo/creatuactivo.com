@@ -50,6 +50,31 @@ export interface PagoGanoProps {
 type Paso = 'datos' | 'cotizando' | 'cotizado' | 'pagando' | 'flete' | 'pse' | 'efectivo' | 'fallo'
 
 const RE_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+// Lo que falta se dice en el campo y en una línea junto al botón (18 oct 2026: el
+// botón apagado sin explicación dejaba al cliente tocándolo sin que pasara nada).
+type CampoDatos = 'nombre' | 'telefono' | 'departamento' | 'municipio' | 'linea1'
+type CampoPago = 'banco' | 'cedula' | 'correo'
+const CAMPOS_DATOS: CampoDatos[] = ['nombre', 'telefono', 'departamento', 'municipio', 'linea1']
+const CAMPOS_PAGO: CampoPago[] = ['banco', 'cedula', 'correo']
+const AYUDA: Record<CampoDatos | CampoPago, string> = {
+  nombre: 'Escriba el nombre y el apellido de quien recibe.',
+  telefono: 'Escriba el celular: 10 cifras, empieza por 3.',
+  departamento: 'Elija el departamento.',
+  municipio: 'Escriba el municipio.',
+  linea1: 'Escriba la dirección con su número, como en el ejemplo.',
+  banco: 'Elija su banco.',
+  cedula: 'Escriba el número de documento, solo las cifras.',
+  correo: 'Revise el correo: ahí le llega el comprobante.',
+}
+const NOMBRE_CAMPO: Record<CampoDatos | CampoPago, string> = {
+  nombre: 'el nombre', telefono: 'el celular', departamento: 'el departamento', municipio: 'el municipio', linea1: 'la dirección',
+  banco: 'el banco', cedula: 'el número de documento', correo: 'el correo',
+}
+function enLista(xs: string[]): string {
+  if (xs.length <= 1) return xs[0] ?? ''
+  return `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`
+}
 // Los bancos más usados primero; el resto en orden alfabético (la lista viene de PayU).
 const BANCOS_PRIMERO = ['1007', '1507', '1051', '1551', '1001', '1023', '1013', '1809']
 // Lista fija mientras no haya respuesta de Gano: la misma que tiene queswa.app.
@@ -79,7 +104,8 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   const [paso, setPaso] = useState<Paso>('datos')
   const [nombre, setNombre] = useState(prefill?.nombre ?? guardado.nombre ?? '')
   const [telefono, setTelefono] = useState(prefill?.telefono ?? guardado.telefono ?? '')
-  const [departamento, setDepartamento] = useState(guardado.departamento ?? '')
+  // Un departamento guardado que ya no tiene envío (o de una versión vieja) no se restaura: el selector mostraría «Elija» con otro valor por dentro.
+  const [departamento, setDepartamento] = useState(DEPARTAMENTOS_CON_ENVIO.some((d) => d.code === guardado.departamento) ? guardado.departamento ?? '' : '')
   const [municipio, setMunicipio] = useState(guardado.municipio ?? '')
   const [linea1, setLinea1] = useState(guardado.linea1 ?? '')
   const [linea2, setLinea2] = useState(guardado.linea2 ?? '')
@@ -95,6 +121,9 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   const [resultado, setResultado] = useState<Resultado | null>(null)
   const [fleteNuevo, setFleteNuevo] = useState<FleteNuevo | null>(null)
   const [aviso, setAviso] = useState<string | null>(null)
+  // Al tocar el botón con datos incompletos se marcan los campos que faltan (antes el botón quedaba apagado sin decir por qué).
+  const [revisarDatos, setRevisarDatos] = useState(false)
+  const [revisarPago, setRevisarPago] = useState(false)
 
   useEffect(() => { if (prefill?.nombre && !nombre) setNombre(prefill.nombre); if (prefill?.telefono && !telefono) setTelefono(prefill.telefono) }, [prefill, nombre, telefono])
   // Cada cambio queda en el aparato; al pagar se borra.
@@ -110,8 +139,22 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   const flete = fleteNuevo?.flete ?? cotizacion?.flete ?? 0
   const total = subtotal + flete
 
-  const datosListos = nombre.trim().length >= 3 && /^3\d{9}$/.test(tel10) && departamento && municipio.trim().length >= 2 && linea1.trim().length >= 5
-  const pagoListo = pago !== 'pse' || (banco && /^\d{5,12}$/.test(cedula.replace(/\D/g, '')) && RE_CORREO.test(correo.trim()))
+  const faltaDatos: Record<CampoDatos, boolean> = {
+    nombre: nombre.trim().length < 3,
+    telefono: !/^3\d{9}$/.test(tel10),
+    departamento: !departamento,
+    municipio: municipio.trim().length < 2,
+    linea1: linea1.trim().length < 5,
+  }
+  const datosListos = !CAMPOS_DATOS.some((c) => faltaDatos[c])
+  const faltaPago: Record<CampoPago, boolean> = {
+    banco: pago === 'pse' && !banco,
+    cedula: pago === 'pse' && !/^\d{5,12}$/.test(cedula.replace(/\D/g, '')),
+    correo: pago === 'pse' && !RE_CORREO.test(correo.trim()),
+  }
+  const pagoListo = !CAMPOS_PAGO.some((c) => faltaPago[c])
+  const marcaDatos = (c: CampoDatos) => revisarDatos && faltaDatos[c]
+  const marcaPago = (c: CampoPago) => revisarPago && faltaPago[c]
 
   const bancosOrdenados = useMemo(() => {
     const primero = BANCOS_PRIMERO.map((c) => bancos.find((b) => b.code === c)).filter(Boolean) as Banco[]
@@ -141,6 +184,28 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
       const abort = e instanceof DOMException && e.name === 'AbortError'
       return { status: 0, json: { error: abort ? 'Gano Excel tardó demasiado en responder. Vuelva a intentar en un momento.' : 'No hay conexión. Revise su internet y vuelva a intentar.' } }
     } finally { clearTimeout(t) }
+  }
+
+  function intentarCotizar() {
+    if (!datosListos) {
+      setRevisarDatos(true)
+      const primero = CAMPOS_DATOS.find((c) => faltaDatos[c])
+      if (primero) document.getElementById(`pg-${primero}`)?.focus()
+      return
+    }
+    setRevisarDatos(false)
+    void cotizar()
+  }
+
+  function intentarPagar(fleteMostrado: number) {
+    if (!pagoListo) {
+      setRevisarPago(true)
+      const primero = CAMPOS_PAGO.find((c) => faltaPago[c])
+      if (primero) document.getElementById(`pg-${primero}`)?.focus()
+      return
+    }
+    setRevisarPago(false)
+    void pagar(fleteMostrado)
   }
 
   async function cotizar() {
@@ -293,10 +358,11 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
             <div className="tienda-pago-campos">
               <label className="tienda-campo">
                 <span>Su banco</span>
-                <select value={banco} onChange={(e) => setBanco(e.target.value)} disabled={pagando} autoComplete="off">
+                <select id="pg-banco" value={banco} onChange={(e) => setBanco(e.target.value)} disabled={pagando} autoComplete="off" aria-invalid={marcaPago('banco') || undefined} aria-describedby={marcaPago('banco') ? 'pg-banco-falta' : undefined}>
                   <option value="">Elija su banco</option>
                   {bancosOrdenados.map((b) => <option key={b.code} value={b.code}>{b.name}</option>)}
                 </select>
+                {marcaPago('banco') && <small id="pg-banco-falta" className="tienda-campo-falta">{AYUDA.banco}</small>}
               </label>
               <div className="tienda-campo-fila">
                 <label className="tienda-campo tienda-campo-corto">
@@ -307,22 +373,26 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
                 </label>
                 <label className="tienda-campo">
                   <span>Número de documento</span>
-                  <input type="text" inputMode="numeric" value={cedula} onChange={(e) => setCedula(e.target.value)} placeholder="El del titular de la cuenta" disabled={pagando} autoComplete="off" />
+                  <input id="pg-cedula" type="text" inputMode="numeric" value={cedula} onChange={(e) => setCedula(e.target.value)} placeholder="El del titular de la cuenta" disabled={pagando} autoComplete="off" aria-invalid={marcaPago('cedula') || undefined} aria-describedby={marcaPago('cedula') ? 'pg-cedula-falta' : undefined} />
+                  {marcaPago('cedula') && <small id="pg-cedula-falta" className="tienda-campo-falta">{AYUDA.cedula}</small>}
                 </label>
               </div>
               <label className="tienda-campo">
                 <span>Correo</span>
-                <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="Ahí le llega el comprobante del pago" disabled={pagando} autoComplete="email" />
+                <input id="pg-correo" type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="Ahí le llega el comprobante del pago" disabled={pagando} autoComplete="email" aria-invalid={marcaPago('correo') || undefined} aria-describedby={marcaPago('correo') ? 'pg-correo-falta' : undefined} />
+                {marcaPago('correo') && <small id="pg-correo-falta" className="tienda-campo-falta">{AYUDA.correo}</small>}
               </label>
             </div>
           )}
           {error && <p className="tienda-pago-aviso"><AlertTriangle className="h-4 w-4" /> {error}</p>}
         </div>
         <div className="tienda-hoja-pie">
-          <button type="button" className="tienda-boton tienda-enviar" onClick={() => pagar(cotizacion.flete)} disabled={pagando || !pagoListo}>
+          <button type="button" className="tienda-boton tienda-enviar" onClick={() => intentarPagar(cotizacion.flete)} disabled={pagando}>
             {pagando ? 'Creando su orden en Gano Excel…' : pago === 'pse' ? `Pagar ${pesos(total)} por PSE` : `Generar la orden por ${pesos(total)}`}
           </button>
-          <p className="tienda-hoja-pie-nota">{pagando ? 'Unos 15 segundos.' : pago === 'pse' ? 'Lo lleva a la página de su banco.' : 'Después consigna con el número de orden.'}</p>
+          {revisarPago && !pagoListo
+            ? <p className="tienda-hoja-pie-nota falta" role="alert">Para seguir falta {enLista(CAMPOS_PAGO.filter((c) => faltaPago[c]).map((c) => NOMBRE_CAMPO[c]))}.</p>
+            : <p className="tienda-hoja-pie-nota">{pagando ? 'Unos 15 segundos.' : pago === 'pse' ? 'Lo lleva a la página de su banco.' : 'Después consigna con el número de orden.'}</p>}
         </div>
       </>
     )
@@ -341,23 +411,27 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
         <div className="tienda-pago-campos">
           <label className="tienda-campo">
             <span>Nombre completo de quien recibe</span>
-            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} autoComplete="name" disabled={cotizando} />
+            <input id="pg-nombre" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} autoComplete="name" disabled={cotizando} aria-invalid={marcaDatos('nombre') || undefined} aria-describedby={marcaDatos('nombre') ? 'pg-nombre-falta' : undefined} />
+            {marcaDatos('nombre') && <small id="pg-nombre-falta" className="tienda-campo-falta">{AYUDA.nombre}</small>}
           </label>
           <label className="tienda-campo">
             <span>Celular</span>
-            <input type="tel" inputMode="tel" value={telefono} onChange={(e) => setTelefono(e.target.value)} placeholder="300 123 4567" autoComplete="tel" disabled={cotizando} />
+            <input id="pg-telefono" type="tel" inputMode="tel" value={telefono} onChange={(e) => setTelefono(e.target.value)} placeholder="300 123 4567" autoComplete="tel" disabled={cotizando} aria-invalid={marcaDatos('telefono') || undefined} aria-describedby={marcaDatos('telefono') ? 'pg-telefono-falta' : undefined} />
+            {marcaDatos('telefono') && <small id="pg-telefono-falta" className="tienda-campo-falta">{AYUDA.telefono}</small>}
           </label>
           <div className="tienda-campo-fila">
             <label className="tienda-campo">
               <span>Departamento</span>
-              <select value={departamento} onChange={(e) => { setDepartamento(e.target.value); setCandidatos([]) }} disabled={cotizando}>
+              <select id="pg-departamento" value={departamento} onChange={(e) => { setDepartamento(e.target.value); setCandidatos([]) }} disabled={cotizando} aria-invalid={marcaDatos('departamento') || undefined} aria-describedby={marcaDatos('departamento') ? 'pg-departamento-falta' : undefined}>
                 <option value="">Elija</option>
                 {DEPARTAMENTOS_CON_ENVIO.map((d) => <option key={d.code} value={d.code}>{d.name}</option>)}
               </select>
+              {marcaDatos('departamento') && <small id="pg-departamento-falta" className="tienda-campo-falta">{AYUDA.departamento}</small>}
             </label>
             <label className="tienda-campo">
               <span>Municipio</span>
-              <input type="text" value={municipio} onChange={(e) => { setMunicipio(e.target.value); setCandidatos([]) }} autoComplete="address-level2" disabled={cotizando} />
+              <input id="pg-municipio" type="text" value={municipio} onChange={(e) => { setMunicipio(e.target.value); setCandidatos([]) }} autoComplete="address-level2" disabled={cotizando} aria-invalid={marcaDatos('municipio') || undefined} aria-describedby={marcaDatos('municipio') ? 'pg-municipio-falta' : undefined} />
+              {marcaDatos('municipio') && <small id="pg-municipio-falta" className="tienda-campo-falta">{AYUDA.municipio}</small>}
             </label>
           </div>
           {candidatos.length > 0 && (
@@ -368,7 +442,8 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
           )}
           <label className="tienda-campo">
             <span>Dirección</span>
-            <input type="text" value={linea1} onChange={(e) => setLinea1(e.target.value)} placeholder="Calle 10 # 20-30" autoComplete="street-address" disabled={cotizando} />
+            <input id="pg-linea1" type="text" value={linea1} onChange={(e) => setLinea1(e.target.value)} placeholder="Calle 10 # 20-30" autoComplete="street-address" disabled={cotizando} aria-invalid={marcaDatos('linea1') || undefined} aria-describedby={marcaDatos('linea1') ? 'pg-linea1-falta' : undefined} />
+            {marcaDatos('linea1') && <small id="pg-linea1-falta" className="tienda-campo-falta">{AYUDA.linea1}</small>}
           </label>
           <label className="tienda-campo">
             <span>Barrio, apartamento o referencia <em>(opcional)</em></span>
@@ -378,10 +453,12 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
         {error && <p className="tienda-pago-aviso"><AlertTriangle className="h-4 w-4" /> {error}</p>}
       </div>
       <div className="tienda-hoja-pie">
-        <button type="button" className="tienda-boton tienda-enviar" onClick={cotizar} disabled={cotizando || !datosListos}>
+        <button type="button" className="tienda-boton tienda-enviar" onClick={intentarCotizar} disabled={cotizando}>
           {cotizando ? 'Consultando el envío con Gano Excel…' : 'Ver el total con el envío'}
         </button>
-        <p className="tienda-hoja-pie-nota">{cotizando ? 'Hasta 15 segundos.' : `Productos: ${pesos(subtotal)} · el envío lo dice Gano Excel. Todavía no paga nada.`}</p>
+        {revisarDatos && !datosListos
+          ? <p className="tienda-hoja-pie-nota falta" role="alert">Para seguir falta {enLista(CAMPOS_DATOS.filter((c) => faltaDatos[c]).map((c) => NOMBRE_CAMPO[c]))}.</p>
+          : <p className="tienda-hoja-pie-nota">{cotizando ? 'Hasta 15 segundos.' : `Productos: ${pesos(subtotal)} · el envío lo dice Gano Excel. Todavía no paga nada.`}</p>}
       </div>
     </>
   )
@@ -398,6 +475,9 @@ export const ESTILOS_PAGO = `
 .tienda-campo input, .tienda-campo select { font: inherit; font-size: 16px; color: var(--t-tinta); background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: 10px; min-height: 46px; padding: 0 12px; width: 100%; }
 .tienda-campo input:focus, .tienda-campo select:focus { outline: 2px solid var(--t-oro); outline-offset: 1px; border-color: var(--t-oro); }
 .tienda-campo input:disabled, .tienda-campo select:disabled { opacity: .6; }
+.tienda-campo input[aria-invalid="true"], .tienda-campo select[aria-invalid="true"] { border-color: #B4472D; }
+.tienda-campo-falta { font-size: 13px; font-weight: 500; line-height: 1.35; color: #A3361F; }
+.tienda-hoja-pie-nota.falta { color: #A3361F; font-weight: 500; }
 .tienda-campo-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .tienda-campo-fila .tienda-campo-corto { max-width: 110px; }
 .tienda-pago-candidatos { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; color: var(--t-tinta-2); }

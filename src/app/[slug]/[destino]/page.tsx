@@ -43,8 +43,8 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'video-plan':            (id) => `/video-plan-servilleta?ref=${id}`,
   // El deck de /12-niveles se retiró el 10 oct 2026: la presentación única abre
   // en la pantalla de los números (la 9: los 12 niveles y el simulador).
-  'reto':          (id) => `/servilleta?ref=${id}&pantalla=9`,
-  '12-niveles':    (id) => `/servilleta?ref=${id}&pantalla=9`,
+  'reto':          (id) => `/servilleta?ref=${id}&pantalla=8`,
+  '12-niveles':    (id) => `/servilleta?ref=${id}&pantalla=8`,
   // Activación inmediata → página de paquetes (mismo destino que el botón de la servilleta)
   'activacion':    (id) => `/paquetes?ref=${id}`,
   // La presentación 1-a-1. ⚠️ Sin estas filas, el enlace caía al fallback y el
@@ -306,7 +306,7 @@ export default async function DestinoRoute({
   }
 
   // La pantalla de la presentación viaja con el enlace (2 oct 2026): Queswa le da
-  // al socio `/{slug}/presentacion?pantalla=9`, la de los números, para estudiarla.
+  // al socio `/{slug}/presentacion?pantalla=8`, la de los números (era la 9 hasta el 18 oct 2026), para estudiarla.
   const pantalla = esPresentacion(destino) && typeof searchParams?.pantalla === 'string'
     && /^\d{1,2}$/.test(searchParams.pantalla) ? searchParams.pantalla : null
   const base = resolver(record.constructor_id)

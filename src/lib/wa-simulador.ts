@@ -411,7 +411,7 @@ export function respuestaNivelesSocio(paquete: PaqueteEsp): string {
 //
 // Director, tras probarlo: pidió la estrategia y le llegó el texto; mejor el video.
 // Y quien quiere estudiarla pide detalles: la tabla de los doce niveles y el enlace
-// a la pantalla de los números de su presentación (`?pantalla=9`), donde mueve el
+// a la pantalla de los números de su presentación (`?pantalla=8` desde el 18 oct 2026; antes la 9), donde mueve el
 // porcentaje él mismo.
 // ⚠️ El detalle fue cuatro pasos + tabla de cinco filas + la tarifa del paquete +
 // el potencial matemático, y el Director lo probó el 5 oct 2026: «demasiada carga

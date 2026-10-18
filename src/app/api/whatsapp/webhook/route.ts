@@ -2040,7 +2040,7 @@ async function procesarEntrante(body: any): Promise<void> {
       }
       if (pasoNiveles === 'detalle') {
         const paqueteSocio = await paqueteDelSocio(supabase, socioQueEscribe.constructorId);
-        const texto = detalleNivelesSocio(paqueteSocio, paisDeTelefono(phoneNumber), enlacePresentacion(socioQueEscribe.slug, 9));
+        const texto = detalleNivelesSocio(paqueteSocio, paisDeTelefono(phoneNumber), enlacePresentacion(socioQueEscribe.slug, 8));
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.223 Los 12 Niveles en detalle (socio)');
         console.log(`📊 [WA Webhook] 2.223 detalle de Los 12 Niveles al socio /${socioQueEscribe.slug} (${paqueteSocio ?? 'sin paquete → Kit'})`);

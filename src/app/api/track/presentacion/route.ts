@@ -19,7 +19,7 @@
  *                                  y el Dashboard deja de avisar por esa ficha
  *
  * ⚠️ Cada escritura dispara el webhook de Supabase: la página escribe solo en
- * hitos (pantallas 4, 7 y la última), al tocar el botón y al usar la demo.
+ * hitos (pantallas 4, 6 y la última), al tocar el botón y al usar la demo.
  *
  * Body: { fingerprint, pantalla?, completa?, whatsapp?, en_vivo? }
  */

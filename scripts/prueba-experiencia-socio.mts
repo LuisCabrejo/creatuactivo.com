@@ -329,7 +329,7 @@ es((detalle.match(/^\*Nivel \d+\*/gm) || []).length === 12 && (detalle.match(/di
    && (detalle.match(/Total:/g) || []).length === 1,
    '«distribuidores» va completo solo en el nivel 1 y «Total:» solo en el nivel 2; después «Dist.» y la cifra sola');
 es(!/tarifa es del|cuatro pasos|potencial matem|canal izquierdo/.test(detalle), 'sin la tarifa del paquete, sin los pasos y sin el potencial matemático');
-es(detalle.trimEnd().endsWith(enlace9) && enlace9.endsWith('/miguel-barahona/presentacion?pantalla=9'), 'termina en la pantalla 9 de su presentación');
+es(detalle.trimEnd().endsWith(enlace9) && enlace9.endsWith('/miguel-barahona/presentacion?pantalla=8'), 'termina en la pantalla 8 de su presentación (la de los números desde el 18 oct 2026)');
 es(!/tarifa es del/.test(detalleNivelesSocio(null, 'CO', enlace9)) && !/tarifa es del/.test(detalleNivelesSocio('KIT', 'CO', enlace9)),
    'sin paquete, o con el Kit, no hay línea de vigencia');
 es(pasoNivelesSocio('sí', '…\n\n¿Se la explico en detalle, nivel por nivel y con la tarifa de su paquete?', true) === 'detalle',

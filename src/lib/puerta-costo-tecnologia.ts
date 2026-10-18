@@ -53,8 +53,9 @@ function distancia(a: string, b: string): number {
   return m[a.length][b.length];
 }
 
-/** ¿La palabra es una de las claves, o una clave con un tropiezo? */
-function parecida(palabra: string, claves: string[], tolerancia = 1): boolean {
+/** ¿La palabra es una de las claves, o una clave con un tropiezo? (La usa
+ *  también `puerta-maquina-ventas.ts`.) */
+export function parecida(palabra: string, claves: string[], tolerancia = 1): boolean {
   return claves.some((c) => palabra === c || (palabra.length >= 4 && distancia(palabra, c) <= tolerancia));
 }
 

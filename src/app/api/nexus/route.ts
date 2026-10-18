@@ -79,6 +79,7 @@ import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
 import { mencionaElReto } from '@/lib/puerta-reto';
 import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
+import { preguntaPorLaMaquinaDeVentas } from '@/lib/puerta-maquina-ventas';
 import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
@@ -2587,6 +2588,19 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       titulo: 'La tecnología no tiene costo — FREQ_43',
       porque: 'pregunta si la tecnología tiene costo',
       cuando: { test: preguntaPorCostoDeTecnologia },
+      dictar: true,
+    },
+    {
+      // 18 oct 2026: «la máquina de ventas» es el nombre del segundo elemento en
+      // la Presentación (en prueba; el canon sigue siendo «una tecnología que
+      // atiende»). Quien sale de la reunión y pregunta por ella caía en el
+      // producto o en la venta al detal; y meterla en el índice de WHY_02 lo
+      // diluía (perdía dos consultas suyas del benchmark). La llave y el porqué
+      // → src/lib/puerta-maquina-ventas.ts
+      fragmento: 'arsenal_inicial_WHY_02',
+      titulo: 'Cómo funciona el negocio — WHY_02',
+      porque: 'pregunta por la máquina de ventas de la Presentación',
+      cuando: { test: preguntaPorLaMaquinaDeVentas },
       dictar: true,
     },
     {

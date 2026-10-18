@@ -520,6 +520,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### Medido y NO tocado — «la máquina de ventas» no va en el índice de `WHY_02` (18 oct 2026)
+
+Desde ese día la Presentación llama «una máquina de ventas» al segundo elemento (Director, en prueba). Quien le pregunte a Queswa por ella caía en `WHY_PROD_01` (0,496) o en `COMP_VENTA_01` (0,510); `WHY_02` quedaba tercero o cuarto. Se probó sumarle al índice *«Qué es la máquina de ventas que me mostraron, cómo funciona esa máquina de ventas»*: ganaba las tres preguntas de la máquina (0,572 · 0,589 · 0,627) **pero perdía dos de las suyas** en `medir-40-produccion` — *«pero bueno y esto en qué consiste, cómo es que funciona»* bajó de 0,543 a 0,503 (gana PERFIL_02 con 0,523) y *«no entiendo bien de qué se trata el negocio»* de 0,597 a 0,550 (gana FREQ_21 con 0,589). La versión corta (*«Qué es la máquina de ventas.»*) también perdía (0,516 · 0,567). Es la regla de siempre: alargar el índice diluye. Se desplegó, se midió, y **se revirtió el mismo día**: el fragmento quedó con su índice original en los tres tenants. El término entra por una **puerta directa** a `WHY_02` (`src/lib/puerta-maquina-ventas.ts`, en `PUERTAS_INICIAL`, dictada), con su caso en `prueba-typos.mts`.
+
 ### v6.75 — `FREQ_43`: la tecnología no tiene costo (16 oct 2026)
 
 Decisión del Director: la tecnología no se cobra, y no está en sus planes cobrarla en los próximos meses. Una conversación del 15 oct con alguien que creía que sí se cobraba lo mostró: el sitio decía lo contrario (`/paquetes` prometía meses de «plan tecnológico» incluidos y, después, una cuota; `/planes` listaba dos planes pagos). Esas dos páginas se corrigieron el mismo día; en el arsenal faltaba la respuesta.

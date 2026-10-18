@@ -79,14 +79,14 @@ const nextConfig = {
 
       // 10 oct 2026 — LA PRESENTACIÓN ÚNICA vive en /servilleta (Director). El deck
       // de /12-niveles se retiró: sus enlaces (y los slugs legacy del reto) abren la
-      // presentación en la pantalla de los números (pantalla 9, la de los 12
+      // presentación en la pantalla de los números (pantalla 8 desde el 18 oct 2026, la de los 12
       // niveles y el simulador). La query entrante (?ref del socio) se suma sola.
-      { source: '/12-niveles', destination: '/servilleta?pantalla=9', permanent: true },
-      { source: '/12-niveles/:ref', destination: '/servilleta?ref=:ref&pantalla=9', permanent: true },
-      { source: '/reto-12-dias', destination: '/servilleta?pantalla=9', permanent: true },
-      { source: '/reto-12-dias/:ref', destination: '/servilleta?ref=:ref&pantalla=9', permanent: true },
-      { source: '/reto-12-niveles', destination: '/servilleta?pantalla=9', permanent: true },
-      { source: '/reto-12-niveles/:ref', destination: '/servilleta?ref=:ref&pantalla=9', permanent: true },
+      { source: '/12-niveles', destination: '/servilleta?pantalla=8', permanent: true },
+      { source: '/12-niveles/:ref', destination: '/servilleta?ref=:ref&pantalla=8', permanent: true },
+      { source: '/reto-12-dias', destination: '/servilleta?pantalla=8', permanent: true },
+      { source: '/reto-12-dias/:ref', destination: '/servilleta?ref=:ref&pantalla=8', permanent: true },
+      { source: '/reto-12-niveles', destination: '/servilleta?pantalla=8', permanent: true },
+      { source: '/reto-12-niveles/:ref', destination: '/servilleta?ref=:ref&pantalla=8', permanent: true },
 
       // Páginas antiguas eliminadas → Home
       {

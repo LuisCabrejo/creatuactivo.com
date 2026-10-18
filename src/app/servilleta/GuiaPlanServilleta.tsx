@@ -37,7 +37,7 @@
  *
  * SE ALCANZA DESDE LA ÚLTIMA PANTALLA (13 oct 2026, Director): en la portada,
  * deslizar hacia arriba mostraba este texto y la persona creía que la
- * presentación era esto. La página no baja hasta la pantalla 10 (`guiaAbierta`
+ * presentación era esto. La página no baja hasta la última pantalla (`guiaAbierta`
  * en page.tsx). La sección sigue en el HTML desde el principio: es lo que lee
  * Google. El id lo usa la señal de la última pantalla.
  */
@@ -48,7 +48,7 @@ import { abrirConversacionQueswa, leerRefSocio } from '@/lib/orbe-config';
 
 // Se cambia SOLO cuando la página cambia de verdad. Poner la fecha al día sin
 // cambios reales es, para Google, una señal de contenido hecho para buscadores.
-const ACTUALIZADA = { iso: '2026-10-10', texto: 'octubre de 2026' };
+const ACTUALIZADA = { iso: '2026-10-18', texto: 'octubre de 2026' };
 
 const FORMAS_DE_EMPEZAR = [
   { nombre: 'ESP-3 Visionario', detalle: '35 productos · Binario 17 % por 6 meses · Bono GEN5 activo' },
@@ -128,7 +128,7 @@ export default function GuiaPlanServilleta() {
           para su presentación de negocio.
         </p>
         <p>
-          Esta versión lo cuenta en las diez pantallas de arriba, de la idea que la mueve a los
+          Esta versión lo cuenta en las nueve pantallas de arriba, de la idea que la mueve a los
           números, y trae dos simuladores para hacer las cuentas.
         </p>
 
@@ -155,7 +155,7 @@ export default function GuiaPlanServilleta() {
           sectores: la industria del network marketing y el sector laboral.
         </p>
 
-        <h3>3. Los tres elementos</h3>
+        <h3>3. La solución: los tres elementos</h3>
         <p>
           Montar una empresa de distribución moderna requiere tres elementos, y aquí cada uno tiene
           quien lo haga:
@@ -166,9 +166,12 @@ export default function GuiaPlanServilleta() {
             casa del cliente.
           </li>
           <li>
-            <strong>Una tecnología que atiende:</strong> Queswa, la inteligencia artificial de
-            CreaTuActivo, conversa con cada interesado, le resuelve las dudas y madura su decisión de
-            avanzar, a toda hora.
+            {/* El mismo nombre que la diapositiva (18 oct 2026): quien vio el deck y
+                lee aquí encuentra los tres elementos con los mismos nombres. */}
+            <strong>Una máquina de ventas:</strong> usted envía a quien quiera; ahí conoce los
+            productos y los compra, o ve cómo participar. Queswa, la inteligencia artificial de
+            CreaTuActivo, atiende a cada uno, le resuelve las dudas y madura su decisión de avanzar,
+            a toda hora.
           </li>
           <li>
             <strong>Saber qué hacer:</strong> como en Waze, usted le dice a Queswa a dónde quiere
@@ -180,12 +183,15 @@ export default function GuiaPlanServilleta() {
           empresa queda a su nombre.
         </p>
 
+        {/* Desde el 18 oct 2026 el deck no tiene pantalla de «qué hace usted»
+            (en vivo las dos acciones se muestran); aquí se siguen diciendo, porque
+            quien lee desde Google no tiene al socio enfrente. */}
         <h3>4. Qué hace usted</h3>
         <p>
           Su día a día se resume en dos acciones: compartir su enlace con quien quiera y recibir a quien
           llega con interés. Entre las dos está Queswa, que conversa con cada persona y le avisa cuando
-          alguien está listo. Solo se multiplica lo que es sencillo: quien inicia con usted hace
-          exactamente lo mismo, con las mismas dos acciones.
+          alguien está listo. Solo se multiplica lo que es sencillo: quien inicia con usted recibe los
+          mismos tres elementos y hace exactamente lo mismo.
         </p>
 
         <h3>5. El producto</h3>

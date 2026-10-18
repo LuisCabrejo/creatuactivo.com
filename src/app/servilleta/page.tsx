@@ -8,7 +8,7 @@
  * se mudó a esta URL porque es la que tiene el SEO de «plan servilleta». El deck
  * viejo de la servilleta (4 pantallas) y /12-niveles se retiraron (viven en git);
  * /presentacion, /pitch-deck, /presentacion-empresarial y /12-niveles redirigen
- * aquí conservando el ?ref (y /12-niveles abre en ?pantalla=9). Debajo del deck
+ * aquí conservando el ?ref (y /12-niveles abre en ?pantalla=8). Debajo del deck
  * va la guía en texto (GuiaPlanServilleta.tsx) con el ÚNICO h1 de la página.
  *
  * SE PRESENTA EN VIVO (Director, 30 sep 2026): el socio conduce el deck delante
@@ -19,7 +19,7 @@
  * distribuidor buscando una herramienta (reports/Plan servilleta top 3
  * Google.md), así que la presentación que se usa y la que se encuentra son la
  * misma. TODO apunta aquí, incluido el simulador que Queswa ofrece en la web
- * (textoSimuladorWeb → ?pantalla=9). Pendiente: Fase 3, el video-herramienta del
+ * (textoSimuladorWeb → ?pantalla=8). Pendiente: Fase 3, el video-herramienta del
  * socio (doble destino: WhatsApp y el carrusel de YouTube de «plan servilleta»).
  *
  * LA PÁGINA TIENE DOS PISOS: el deck ocupa la primera pantalla (100dvh) y debajo
@@ -50,39 +50,54 @@
  *                      hoy: el contexto lo da el socio en vivo, y una pieza no
  *                      concede (memoria feedback_pieza_no_concede).
  *  4 EL DOLOR,       · tres cifras verificadas en fuente primaria (el ingreso que
- *    EN CIFRAS         no alcanza · la informalidad · la pensión que no llega). El
- *                      beat de «dos caminos» se eliminó el 9 oct 2026: ese contexto
- *                      lo da el socio en vivo, y las analogías (Nequi, Uber) las
- *                      toma de la pantalla 2 según su público.
- *  5 LA PROPUESTA    · beat 0: una empresa de distribución moderna a su nombre,
+ *    EN CIFRAS         no alcanza · la informalidad · la pensión que no llega) y,
+ *                      debajo, la frase en la que la gente asiente: «Hoy, la
+ *                      mayoría de las personas siente que tiene que hacer algo»
+ *                      (Director, 18 oct 2026: estaba en gris pequeño encima de
+ *                      la propuesta; es de la familia del ciclo y de la bicicleta
+ *                      estática, y va destacada al final de las cifras). El beat
+ *                      de «dos caminos» se eliminó el 9 oct 2026: ese contexto lo
+ *                      da el socio en vivo.
+ *  5 LA SOLUCIÓN     · beat 0: una empresa de distribución moderna a su nombre,
  *    Y CÓMO FUNCIONA   «se requieren tres elementos» y el botón VERLO EN VIDEO
  *                      (13 oct 2026): el socio elige si rueda el video «Cómo
  *                      funciona» —al terminar salta a la 6— o explica él los
  *                      beats. Es el ÚNICO lugar del deck con ese video (el repaso
- *                      en la 10 se retiró el 14 oct 2026, Director). Luego el
- *                      orden de WHY_02:
- *                      las tres piezas (el fabricante SIN nombre; la 3ª es SABER
- *                      QUÉ HACER desde el 9 oct 2026), la oscilación, el remate
- *                      en UNA diapositiva (10 oct 2026): el teléfono con la UNIÓN
- *                      de los tres adentro (telefono-union-v4.mp4, 60 s, el cubo
- *                      encendido latiendo) y «Queswa.app», que entra solo cuando
- *                      el cubo ya se encendió — la secuencia de Jobs sin clic;
- *                      cierra la propiedad.
+ *                      en la última se retiró el 14 oct 2026, Director). Luego:
+ *                      beats 1-3, las tres piezas (el fabricante SIN nombre; la
+ *                      2ª es UNA MÁQUINA DE VENTAS desde el 18 oct 2026, con dos
+ *                      botones: la demo de Queswa y queswa.app «por dentro»; la
+ *                      3ª es SABER QUÉ HACER desde el 9 oct 2026) · beat 4, la
+ *                      multiplicación («Solo se multiplica lo que es sencillo»,
+ *                      mudada aquí el 18 oct 2026: el socio ya la contó en el
+ *                      modo Waze del tercer elemento y esta pantalla la aterriza
+ *                      antes de que los tres se unan) · beat 5, las tres quietas
+ *                      · beat 6, la unión EN UNA diapositiva: el clip v5 funde los
+ *                      cubos EN GRANDE, enciende el cubo y la cámara se aleja
+ *                      hasta el celular; «Queswa.app» entra cuando el celular ya
+ *                      está a la vista — la secuencia de Jobs sin clic · beat 7,
+ *                      la propiedad.
  *                      → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
- *  6 QUÉ HACE USTED  · Compartir · Recibir con Queswa en medio (EAM_01);
- *                      beat 2: solo se multiplica lo que es sencillo.
- *  7 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
+ *  6 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
  *                      por primera vez, como quien lo fabrica.
- *  8 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
- *  9 CÓMO SE GANA    · beat 1, lo principal: lo que deja la recompra + los 12
+ *  7 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
+ *  8 CÓMO SE GANA    · beat 1, lo principal: lo que deja la recompra + los 12
  *                      niveles desde el Kit. Beat 2: el bono por paquetes
  *                      empresariales (Director, 30 sep 2026: quien inicia muchas
  *                      veces necesita ganar pronto, y la industria lo tiene; no
  *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
  *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
  *                      final.
- * 10 EL SIGUIENTE    · la segunda mitad del credo, la lista de espera y la
+ *  9 EL SIGUIENTE    · la segunda mitad del credo, la lista de espera y la
  *    PASO              conversación con el socio del ?ref (nombre y WhatsApp).
+ *
+ *  ⛔ «QUÉ HACE USTED» (las dos acciones, EAM_01) SALIÓ DEL DECK el 18 oct 2026
+ *     (Director, tras presentarlo): en vivo las dos acciones se MUESTRAN —el
+ *     socio comparte su enlace delante de la persona y recibe el aviso en
+ *     queswa.app— y la pantalla se sentía redundante. Sobreviven en una línea
+ *     de la multiplicación («comparte su enlace y recibe a quien llega»), en la
+ *     guía de abajo (Google) y en Queswa (EAM_01). Era una recomendación del
+ *     30 sep que nunca se confirmó. No la reponga.
  *
  * REGLAS QUE ROMPEN ALGO SI SE TOCAN
  * ----------------------------------
@@ -121,16 +136,16 @@ import GuiaPlanServilleta from './GuiaPlanServilleta';
 import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 
-const TOTAL_SLIDES = 10;
+const TOTAL_SLIDES = 9;
 /** Pantallas que se reportan a la ficha: un tercio, dos tercios y la última. */
-const HITOS_PRESENTACION = [4, 7, TOTAL_SLIDES];
+const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
 /** WhatsApp Business del equipo (+57 320 680 5737): el mismo número orgánico de
  *  los reels (`WHATSAPP_ORGANICO_DEFAULT` en [slug]/[destino]). Para quien llega
  *  a la presentación sin el enlace de un socio. */
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 7, 6: 2, 9: 2 };
+const BEATS: Record<number, number> = { 5: 8, 8: 2 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
@@ -154,10 +169,22 @@ const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: 
     sub: 'Fabrica, empaca y despacha cada pedido hasta la casa de su cliente.',
   },
   {
-    label: 'UNA TECNOLOGÍA QUE ATIENDE',
+    // UNA MÁQUINA DE VENTAS (Director, 18 oct 2026, tras presentarla en vivo así):
+    // la imagen que pinta de una vez lo que el prospecto teme hacer él —vender—
+    // y que desde el 17 oct es verificable (el catálogo es una tienda donde el
+    // cliente compra y paga a Gano Excel). El riesgo es el registro: «máquina de
+    // ventas» es el nombre de marca de los cursos de Hotmart («dispara tus ventas
+    // en 7 días»), el carril de los gurús de internet. Por eso el nombre se paga
+    // en la misma frase con el MECANISMO (Queswa atiende y madura la decisión),
+    // como en la regla del 19 ago. EN PRUEBA en el deck antes de migrar el canon
+    // (WHY_02 🔒, el video, la Home, el Dashboard siguen con «tecnología que
+    // atiende»), igual que se probó «empresa de distribución moderna» en los
+    // 1-a-1 antes de decidir. Queswa ya reconoce el término por una PUERTA directa
+    // a WHY_02 (src/lib/puerta-maquina-ventas.ts): en el índice diluía.
+    label: 'UNA MÁQUINA DE VENTAS',
     img: '/images/servilleta/colapso-conversacion.webp',
     video: '/videos/presentacion/pieza-atiende.mp4',
-    sub: 'Queswa conversa con cada interesado, le resuelve las dudas y madura su decisión de avanzar. A toda hora.',
+    sub: 'Usted envía a quien quiera. Ahí conoce los productos y los compra, o ve cómo participar; Queswa atiende a cada uno y madura su decisión, a toda hora.',
     // La segunda cara (metas · redacta · avisa) vivió aquí como `extra` del 24 al
     // 27 sep 2026; se mudó a la pieza 3, que ES esa cara con nombre propio. Esta
     // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.
@@ -463,7 +490,7 @@ export default function PitchDeckPage() {
   // el gesto natural en un teléfono es deslizar hacia arriba, y eso sacaba el deck
   // de la vista y mostraba la guía: la persona creía que la presentación era ese
   // texto (le pasó al propio Director, que sabe que el deck se pasa de lado). Por
-  // eso la página no baja hasta la pantalla 10, cuando ya se sabe que el deck es
+  // eso la página no baja hasta la última pantalla, cuando ya se sabe que el deck es
   // lateral; ahí la guía queda debajo, con su señal (.pd-a-la-guia).
   // ⚠️ La guía NO se quita del HTML ni se oculta: Google la lee con un viewport
   // tan alto como la página, y es lo que la posiciona. Solo se bloquea el
@@ -531,18 +558,33 @@ export default function PitchDeckPage() {
   // EL VIDEO EN «LA PROPUESTA» (Director, 13 oct 2026): «el distribuidor podrá
   // escoger si rueda el video o si él hace la explicación de los tres elementos».
   // Son dos caminos por la pantalla 5: el socio narra los beats, o toca el botón
-  // y el video los cuenta. Por eso, al terminar, el deck salta a la pantalla 6: el
-  // video ya dijo lo de los beats 1 a 6 (las tres piezas, la aplicación, la
-  // propiedad), y repetirlos sería contarlo dos veces. Si se cierra antes, se
+  // y el video los cuenta. Por eso, al terminar, el deck salta a la pantalla 6 (el
+  // producto): el video ya dijo lo de los beats 1 a 7 (las tres piezas, la
+  // multiplicación, la aplicación, la propiedad), y repetirlos sería contarlo
+  // dos veces. Si se cierra antes, se
   // queda en la propuesta y el socio sigue por su cuenta.
   // ⚠️ El video nombra a Gano Excel y dice que cada recompra deja un porcentaje,
-  // que el deck guarda para la 7 y la 9. Es decisión del socio: en vivo él sabe a
+  // que el deck guarda para la 6 y la 8. Es decisión del socio: en vivo él sabe a
   // quién tiene enfrente. Va en ventana, no en la diapositiva, para que el beat
   // siga igual para quien explica.
   const [videoPropuesta, setVideoPropuesta] = useState(false);
   const alTerminarVideoPropuesta = () => {
     setVideoPropuesta(false);
     irA(6);
+  };
+
+  // SU LADO DE LA MÁQUINA (Director, 18 oct 2026): queswa.app, en Enlaces, en una
+  // ventana del tamaño de un celular sobre el deck. El socio ya tiene la sesión
+  // abierta en su navegador; copia su enlace, lo comparte y el aviso le llega en
+  // esa misma ventana. En el teléfono (o si el navegador no abre ventanas) cae a
+  // pestaña nueva. ⚠️ Nombre fijo de ventana: un segundo toque la reutiliza en vez
+  // de abrir otra.
+  const abrirQueswaAppPorDentro = () => {
+    window.open(
+      'https://queswa.app/centro-de-expansion?tab=enlaces',
+      'queswa-app-por-dentro',
+      'popup=yes,width=412,height=780,noopener',
+    );
   };
 
   // ── Los videos del deck (10 oct 2026) ──────────────────────────────────────
@@ -564,7 +606,8 @@ export default function PitchDeckPage() {
     });
   }, [slide, beat]);
 
-  // Enlace a una pantalla (2 oct 2026): `?pantalla=9` abre en la de los números.
+  // Enlace a una pantalla (2 oct 2026): `?pantalla=8` abre en la de los números
+  // (fue la 9 hasta el 18 oct 2026, cuando salió «Qué hace usted»).
   // Queswa se lo da al socio que quiere estudiar Los 12 Niveles y mover el
   // porcentaje él mismo; sin el parámetro se entra por la portada, como siempre.
   useEffect(() => {
@@ -891,10 +934,14 @@ export default function PitchDeckPage() {
         /* El clip de la multiplicación (remate de «Qué hace usted»): acotado por
            la altura para que el golpe y las dos líneas del cierre siempre quepan. */
         .pd-multiplica {
-          display: block; width: min(320px, 58vw, calc(100vh - 460px));
+          display: block; width: min(320px, 58vw, calc(100vh - 490px));
           aspect-ratio: 1 / 1; object-fit: cover; margin: 0 auto 0.6rem;
           background: #0F1115; border: 1px solid rgba(255,255,255,0.08);
         }
+        /* Con su eyebrow (18 oct 2026) el beat de la multiplicacion gana 45 px de
+           alto: el clip cede 30 px en 720p y el titular pierde margen arriba, para
+           que la ultima linea no quede pegada al borde del proyector. */
+        .pd-remate .pd-multiplica + .grande { margin-top: 1.2rem; }
         .pd-pieza-label {
           font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
           font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
@@ -906,6 +953,9 @@ export default function PitchDeckPage() {
           letter-spacing: 0.2em; padding: 13px 22px; cursor: pointer; transition: all 0.25s;
         }
         .pd-demo:hover { background: var(--pd-gold); color: #0F1115; }
+        /* Los dos botones de la máquina (18 oct 2026): el frente y su lado. */
+        .pd-demos { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+        .pd-demos .pd-demo { margin-top: 1.6rem; }
 
         .pd-tres { display: grid; grid-template-columns: repeat(3, 1fr);
           gap: clamp(12px, 3vw, 36px); max-width: 940px; margin: 0 auto; width: 100%; }
@@ -948,15 +998,17 @@ export default function PitchDeckPage() {
         .pd-remate p.pd-nombre-app {
           font-size: clamp(2.3rem, 6.2vw, 4.6rem); margin: 0.3rem 0 0;
         }
-        /* EL TEXTO LLEGA CUANDO EL CUBO YA SE ENCENDIÓ — la secuencia de Jobs
-           (primero el aparato, después la palabra) sin pedirle un clic al
-           socio. Tiempos atados al clip: trío ~1 s → fusión → el cubo armado a
-           2,48 s → la luz llega a plena ~3,6 s. Si cambia la receta del clip,
-           se mueven estos tres retrasos. */
+        /* EL TEXTO LLEGA CUANDO EL CELULAR YA ESTA A LA VISTA — la secuencia de
+           Jobs (primero el aparato, después la palabra) sin pedirle un clic al
+           socio. Tiempos atados al clip v5: trío ~1 s → fusión (2,48 s) → el
+           cubo se enciende y late en grande (hasta 5,1 s) → la cámara se aleja
+           hasta el celular (6,3 s). «En una sola aplicación» entra mientras el
+           celular aparece; el nombre, cuando ya está quieto. Si cambia la
+           receta del clip, se mueven estos tres retrasos. */
         .pd-beat.on .pd-union-texto > * { animation: pdEntra 0.6s ease-out both; }
-        .pd-beat.on .pd-union-texto > :nth-child(1) { animation-delay: 3.0s; }
-        .pd-beat.on .pd-union-texto > :nth-child(2) { animation-delay: 3.9s; }
-        .pd-beat.on .pd-union-texto > :nth-child(3) { animation-delay: 4.4s; }
+        .pd-beat.on .pd-union-texto > :nth-child(1) { animation-delay: 5.4s; }
+        .pd-beat.on .pd-union-texto > :nth-child(2) { animation-delay: 6.5s; }
+        .pd-beat.on .pd-union-texto > :nth-child(3) { animation-delay: 7.0s; }
         @media (max-width: 860px) {
           .pd-union-cuerpo { grid-template-columns: 1fr; gap: 1rem; margin-top: 0.8rem; }
           .pd-union-texto { text-align: center; }
@@ -1532,20 +1584,23 @@ export default function PitchDeckPage() {
                 </div>
               ))}
             </div>
+            {/* La frase del asentimiento (Director, 18 oct 2026): cierra las tres
+                cifras como el ciclo cierra el credo. Visible con las cifras, al
+                tamaño de la pregunta del cierre, no en gris pequeño. */}
+            <p className="pd-bisagra">Hoy, la mayoría de las personas siente que tiene que hacer algo.</p>
           </div>
         </section>
 
-        {/* ── 5 · LAS TRES PIEZAS (oscilación) ────────────────────────── */}
+        {/* ── 5 · LA SOLUCIÓN Y CÓMO FUNCIONA ─────────────────────────── */}
         <section className={`pd-slide ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          {/* Beat 0: la propuesta, en palabras del Director (30 sep 2026). «Le vamos
-              a dar» pasó a «le damos»: se afirma, no se anuncia. La primera línea es
-              la frase aprobada del 26 sep, que se quedó sin pantalla. */}
+          {/* Beat 0: la solución, en palabras del Director (30 sep 2026). «Le vamos
+              a dar» pasó a «le damos»: se afirma, no se anuncia. Se llama «La
+              solución» desde el 18 oct 2026 (Director: así lo dice en vivo, y
+              cierra el arco que abren las cifras); la frase de «hacer algo» que
+              abría este beat se mudó a la pantalla 4, y aquí se abre directo. */}
           <div className={`pd-beat ${slide === 5 && beat === 0 ? 'on' : ''}`}>
             <div className="pd-remate">
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La propuesta</p>
-              <p className="pd-preparacion">
-                Hoy, la mayoría de las personas siente que tiene que hacer algo.
-              </p>
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La solución</p>
               <p className="pd-propuesta">
                 Le damos la oportunidad de montar una{' '}
                 <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>{' '}
@@ -1594,24 +1649,78 @@ export default function PitchDeckPage() {
                       una empresa grande detrás—, nunca como alegato: nadie escoge al
                       niño impopular porque le muestren el boletín de notas. */}
                   {i === 1 && (
-                    <button
-                      type="button"
-                      className="pd-demo"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.dispatchEvent(new CustomEvent('open-queswa'));
-                      }}
-                    >
-                      PREGÚNTELE ALGO AHORA →
-                    </button>
+                    <div className="pd-demos">
+                      {/* El FRENTE de la máquina: lo que ve quien usted envía. */}
+                      <button
+                        type="button"
+                        className="pd-demo"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.dispatchEvent(new CustomEvent('open-queswa'));
+                        }}
+                      >
+                        PREGÚNTELE ALGO AHORA →
+                      </button>
+                      {/* SU LADO de la máquina (Director, 18 oct 2026): queswa.app
+                          en una ventana del tamaño de un celular sobre el deck,
+                          abierta en Enlaces. El socio copia su enlace, lo comparte
+                          con quien tiene enfrente y el aviso le llega ahí mismo
+                          —«esto les parece magia»—, y la ventana sigue abierta para
+                          el tercer elemento (los equipos capacitándose). Hasta ese
+                          día tenía que salir del deck a buscar la aplicación.
+                          ⚠️ El rótulo no dice «Queswa.app»: ese nombre es el remate
+                          del beat de la unión. ⚠️ En el teléfono abre pestaña nueva. */}
+                      <button
+                        type="button"
+                        className="pd-demo"
+                        onClick={(e) => { e.stopPropagation(); abrirQueswaAppPorDentro(); }}
+                      >
+                        VERLA POR DENTRO →
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
             </div>
           ))}
 
-          {/* Beat 3: las tres oscilando */}
+          {/* Beat 4: LA MULTIPLICACIÓN (mudada desde «Qué hace usted» el 18 oct
+              2026, Director): el socio ya la contó en voz en el tercer elemento
+              —Queswa en modo Waze forma los equipos y él ve cuándo se capacitan—
+              y esta pantalla aterriza eso antes de que los tres se unan. Es uno de
+              sus caballos de Troya (10 oct): al empresario, multiplicar es lo más
+              difícil de cualquier empresa; al networker, sin jefes ni horarios
+              triunfa el que multiplica. El clip lo MUESTRA: la figura usa el
+              celular y aparecen los demás, cada uno con el suyo, todos del mismo
+              tamaño (c-distribuir del video «Cómo funciona»; réplicas idénticas,
+              nunca top-down). La segunda línea nombra las dos acciones en una
+              sola frase: desde este día no hay pantalla que las liste. */}
           <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La multiplicación</p>
+              <video
+                className="pd-multiplica"
+                data-beat="5-4"
+                src="/videos/presentacion/multiplicacion.mp4"
+                poster="/videos/presentacion/multiplicacion-poster.webp"
+                muted
+                loop
+                playsInline
+                preload="none"
+              />
+              <p className="grande">Solo se multiplica lo que es sencillo.</p>
+              <p className="pd-p pd-cierre-linea">
+                Quien inicia con usted recibe los mismos tres elementos y hace exactamente lo
+                mismo: comparte su enlace y recibe a quien llega.
+              </p>
+              <p className="pd-p pd-cierre-linea">
+                De ahí salen la multiplicación de su negocio y el aumento de su facturación.
+              </p>
+            </div>
+          </div>
+
+          {/* Beat 5: las tres quietas, antes de unirse */}
+          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ textAlign: 'center' }}>
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
               <div className="pd-tres">
@@ -1623,12 +1732,12 @@ export default function PitchDeckPage() {
                 ))}
               </div>
               <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
-                Un fabricante… una tecnología que atiende… saber qué hacer…
+                Un fabricante… una máquina de ventas… saber qué hacer…
               </p>
             </div>
           </div>
 
-          {/* Beat 5: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
+          {/* Beat 6: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
               10 oct 2026, tras presentarla en vivo: «mejor que el clip y el
               texto estén en una sola»). Del 10 oct quedaron dos beats —primero
               el aparato, un clic, después la palabra—, pero el clic de más caía
@@ -1648,16 +1757,24 @@ export default function PitchDeckPage() {
               0 — y la aplicación que la contiene, canon de WHY_02); lo NUEVO de
               último: Queswa.app, que completa el patrón de la pantalla 2 (los
               cinco pares resuelven en una app; el clímax, en la nuestra).
-              → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
-          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
+              → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
+              v5 DEL CLIP (18 oct 2026, Director: «lo verdaderamente grandioso
+              sería que los tres elementos se fusionaran»): la fusión de los cubos
+              pasa EN GRANDE, el cubo se enciende y late una vez, y la cámara se
+              aleja —zoom honesto, sin morph— hasta mostrar que vive dentro del
+              celular; después late ahí hasta los 60 s. No se generó con IA: tres
+              objetos que se vuelven un celular es un cambio de forma, y esos salen
+              caóticos (22 sep). Receta: armar_telefono_union_v5.py. El celular
+              queda a la vista a ~6,3 s: los retrasos del texto van detrás. */}
+          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
             <div className="pd-remate pd-union">
               <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
               <div className="pd-union-cuerpo">
                 <video
                   className="pd-telefono"
-                  data-beat="5-5"
-                  src="/videos/presentacion/telefono-union-v4.mp4"
-                  poster="/videos/presentacion/telefono-union-v4-poster.webp"
+                  data-beat="5-6"
+                  src="/videos/presentacion/telefono-union-v5.mp4"
+                  poster="/videos/presentacion/telefono-union-v5-poster.webp"
                   muted
                   loop
                   playsInline
@@ -1676,14 +1793,14 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beat 6: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+          {/* Beat 7: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
               nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
               2026): el enlace se presenta en la pantalla siguiente (Compartir) y
               aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
               eco del golpe recién revelado. ⛔ No volver a «el mercado que se va
               creando»: en Colombia «el mercado» a secas es el de la casa, y la
               permanencia se dice del CLIENTE, nunca en abstracto. */}
-          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 5 && beat === 7 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
               <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>
@@ -1691,88 +1808,8 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 6 · QUÉ HACE USTED ──────────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          <div className={`pd-beat ${slide === 6 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
-              <p className="pd-eyebrow">Qué hace usted</p>
-              <h2 className="pd-h2">Su día a día se resume en dos acciones.</h2>
-              {/* EAM_01, con Queswa dibujada ENTRE las dos acciones. EL FLUJO SE VE
-                  (Director, 10 oct 2026: «que sea evidente: dos pasos y Queswa en
-                  la mitad»): flechas doradas entre las tres columnas, entrada
-                  ESCALONADA al activarse el beat (Compartir → flecha → Queswa →
-                  flecha → Recibir: el orden se ve suceder) y el centro VIVO — el
-                  clip de Queswa atendiendo, el mismo de la pieza 2, porque es la
-                  misma entidad haciendo el mismo trabajo. Las dos acciones quedan
-                  quietas a propósito: lo que se mueve es quien trabaja. */}
-              <div className="pd-acciones">
-                <div className="pd-accion">
-                  <span className="k">01</span>
-                  <p className="t">Compartir</p>
-                  <p className="d">Usted pasa un enlace a quien quiera.</p>
-                </div>
-                <div className="pd-flecha" aria-hidden="true" />
-                <div className="pd-accion pd-accion--queswa">
-                  <video
-                    className="img"
-                    data-beat="6-0"
-                    src="/videos/presentacion/pieza-atiende.mp4"
-                    poster="/images/servilleta/colapso-conversacion.webp"
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                  />
-                  <p className="d">
-                    Entre las dos está Queswa: conversa con cada persona que llega, resuelve
-                    sus dudas y madura su decisión de avanzar. Cuando alguien está listo, le
-                    avisa.
-                  </p>
-                </div>
-                <div className="pd-flecha" aria-hidden="true" />
-                <div className="pd-accion">
-                  <span className="k">02</span>
-                  <p className="t">Recibir</p>
-                  <p className="d">Usted saluda a quien llega con interés.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={`pd-beat ${slide === 6 && beat === 1 ? 'on' : ''}`}>
-            {/* EL CABALLO DE TROYA DE LA MULTIPLICACIÓN (Director, 10 oct 2026):
-                esta pantalla es donde el empresario y el networker reconocen SU
-                problema — multiplicar es lo más difícil de cualquier empresa, y en
-                esta industria más (sin jefes ni horarios, el que triunfa es el que
-                multiplica). El clip lo MUESTRA en vez de decirlo: la figura usa el
-                celular y aparecen los demás, cada uno con el suyo, todos del mismo
-                tamaño — c-distribuir del video «Cómo funciona», ya aprobado; la
-                semántica anti-pirámide de la servilleta (réplicas idénticas, nunca
-                top-down). Poster = primer cuadro (el celular solo), para no
-                regalar el remate antes de que el clip lo cuente. */}
-            <div className="pd-remate">
-              <video
-                className="pd-multiplica"
-                data-beat="6-1"
-                src="/videos/presentacion/multiplicacion.mp4"
-                poster="/videos/presentacion/multiplicacion-poster.webp"
-                muted
-                loop
-                playsInline
-                preload="none"
-              />
-              <p className="grande">Solo se multiplica lo que es sencillo.</p>
-              <p className="pd-p pd-cierre-linea">
-                Quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones.
-              </p>
-              <p className="pd-p pd-cierre-linea">
-                De ahí salen la multiplicación de su negocio y el aumento de su facturación.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 7 · EL PRODUCTO ─────────────────────────────────────────── */}
-        <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+        {/* ── 6 · EL PRODUCTO ─────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-foto" style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)' }} />
           <div className="pd-wrap">
             <div className="pd-producto">
@@ -1862,21 +1899,21 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 8 · LA PREGUNTA ─────────────────────────────────────────── */}
+        {/* ── 7 · LA PREGUNTA ─────────────────────────────────────────── */}
         {/* Sola, justo antes del dinero (caso Marlon, 26 sep 2026): con los detalles
             el prospecto se oscurece, y lo que lo devuelve es una pregunta que él
             contesta. Las cifras ya se dieron con el problema, en la 2. */}
-        <section className={`pd-slide ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap pd-pregunta">
             <p className="pd-bisagra">¿Y usted, qué plan tiene para salir del ciclo?</p>
           </div>
         </section>
 
-        {/* ── 9 · CÓMO SE GANA ────────────────────────────────────────── */}
-        <section className={`pd-slide pd-numeros ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+        {/* ── 8 · CÓMO SE GANA ────────────────────────────────────────── */}
+        <section className={`pd-slide pd-numeros ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
           {/* Beat 0 — LO PRINCIPAL: el ingreso que se repite, con los 12 niveles
               desde el Kit. */}
-          <div className={`pd-beat ${slide === 9 && beat === 0 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 8 && beat === 0 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ maxWidth: 1040 }}>
               <div className="pd-numeros-top">
                 <p className="pd-eyebrow">Cómo se gana</p>
@@ -1990,7 +2027,7 @@ export default function PitchDeckPage() {
               inicio—, NUNCA por su velocidad («rápido», «inmediato»): esa palabra la
               pone el socio en vivo con su propia historia, que tampoco va a la
               pantalla. Se cuentan PAQUETES COMPRADOS, nunca personas. */}
-          <div className={`pd-beat ${slide === 9 && beat === 1 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 8 && beat === 1 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ maxWidth: 1040 }}>
               <div className="pd-numeros-top">
                 <p className="pd-eyebrow">Cómo se gana</p>
@@ -2060,11 +2097,11 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 10 · EL SIGUIENTE PASO ──────────────────────────────────── */}
+        {/* ── 9 · EL SIGUIENTE PASO ──────────────────────────────────── */}
         {/* La segunda mitad del credo cierra el deck: el cuerpo ya mostró cómo el
             esfuerzo se vuelve capital (el cliente a su nombre que vuelve a pedir).
             La conversación es con el socio del ?ref, para cuando el deck se envía. */}
-        <section className={`pd-slide pd-final ${slide === 10 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-final ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">En qué creemos</p>
             <p className="pd-final-credo">

@@ -321,7 +321,7 @@ export function precioKit(pais: PaisConductor): string {
  * orbe de Queswa, así que la conversación sigue allá.
  */
 export function textoSimuladorWeb(sim: SimuladorDictado): string {
-  return `${sim.cuerpo}\n\n[Abrir el simulador](https://creatuactivo.com/servilleta?pantalla=9)`;
+  return `${sim.cuerpo}\n\n[Abrir el simulador](https://creatuactivo.com/servilleta?pantalla=8)`;
 }
 
 // ─── Los nodos ────────────────────────────────────────────────────────────────

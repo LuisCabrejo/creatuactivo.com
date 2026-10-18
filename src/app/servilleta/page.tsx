@@ -26,6 +26,8 @@
  * va la guía. Al presentar, la guía no existe (en pantalla completa se oculta) y
  * mientras alguien la lee el deck no escucha el teclado ni reproduce videos.
  * La página no baja hasta la última pantalla (13 oct 2026): ver `guiaAbierta`.
+ * Desde el 18 oct 2026 el dedo no la abre ni si el navegador deja pasar el gesto:
+ * el desplazamiento de la persona se devuelve al deck (`huboGesto`).
  *
  * COLUMNA NUEVA (30 sep 2026). La del 23 sep se construyó pantalla por pantalla y
  * tenía disonancias: revelaba la solución tres veces antes del clímax, contaba el
@@ -503,6 +505,11 @@ export default function PitchDeckPage() {
   const [guiaPorEnlace, setGuiaPorEnlace] = useState(false);
   const guiaAbierta = slide === TOTAL_SLIDES || guiaPorEnlace;
   const guiaBloqueada = useRef(true);
+  // ¿La persona ya tocó la pantalla, giró la rueda o usó el teclado? Un
+  // desplazamiento que llega DESPUÉS de un gesto es suyo; uno que llega antes lo
+  // hizo el navegador (el enlace de Google con #:~:text=, la posición que
+  // restaura al recargar).
+  const huboGesto = useRef(false);
   useEffect(() => {
     if (guiaAbierta) { guiaBloqueada.current = false; return; }
     // Volvió a una pantalla anterior con la página a medio bajar: sube al deck.
@@ -510,12 +517,44 @@ export default function PitchDeckPage() {
     guiaBloqueada.current = true;
   }, [guiaAbierta]);
   useEffect(() => {
+    // LA GUÍA NO SE ABRE CON EL DEDO (Director, 18 oct 2026: «las personas en la
+    // primera diapositiva tienden a hacer scroll hacia abajo, perdiéndose la
+    // presentación»). Hasta este día, CUALQUIER desplazamiento con la guía
+    // bloqueada la abría para siempre: si un navegador dejaba pasar el gesto
+    // (sin soporte de :has, un WebView viejo), el dedo en la portada era justo
+    // lo que el bloqueo existe para impedir. Ahora el desplazamiento de la
+    // persona se devuelve al deck, y solo el del navegador abre la guía.
+    // ⚠️ No se fija el body con position: fixed: el documento quedaría del alto
+    // de la pantalla y Google, que renderiza con una ventana tan alta como la
+    // página, dejaría de ver la guía entera.
+    const marcar = () => { huboGesto.current = true; };
+    const opciones: AddEventListenerOptions = { passive: true, capture: true };
+    const gestos = ['touchstart', 'wheel', 'keydown', 'pointerdown'] as const;
+    gestos.forEach((g) => window.addEventListener(g, marcar, opciones));
     const revisar = () => {
-      if (guiaBloqueada.current && window.scrollY > 40) setGuiaPorEnlace(true);
+      if (!guiaBloqueada.current || window.scrollY <= 0) return;
+      // El de la persona vuelve entero, sin umbral: 39 px corridos ya le cortan
+      // el HUD. El del navegador abre la guía solo pasados 40 px.
+      if (huboGesto.current) window.scrollTo(0, 0);
+      else if (window.scrollY > 40) setGuiaPorEnlace(true);
     };
     revisar();
     window.addEventListener('scroll', revisar, { passive: true });
-    return () => window.removeEventListener('scroll', revisar);
+    // El tabulador que llega a la guía (un enlace, el botón de Queswa): vino a
+    // leer. Se desbloquea en el acto, antes del desplazamiento que provoca el
+    // foco, para que ese desplazamiento no se devuelva al deck.
+    const guia = document.getElementById('guia-plan-servilleta');
+    const alEnfocar = () => {
+      if (!guiaBloqueada.current) return;
+      guiaBloqueada.current = false;
+      setGuiaPorEnlace(true);
+    };
+    guia?.addEventListener('focusin', alEnfocar);
+    return () => {
+      gestos.forEach((g) => window.removeEventListener(g, marcar, opciones));
+      window.removeEventListener('scroll', revisar);
+      guia?.removeEventListener('focusin', alEnfocar);
+    };
   }, []);
   const irALaGuia = (e: React.MouseEvent) => {
     e.preventDefault();

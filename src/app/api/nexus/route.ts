@@ -5753,7 +5753,7 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
     // conversationSummary se inyecta en sessionInstructions (Bloque 3, no cacheable)
 
     // 🎯 BLOQUE 1 - CACHEABLE: Arsenal/Catálogo Context
-    // Al socio, el material llega con el cierre de su Semana en Gano en vez
+    // Al socio, el material llega con el cierre de su Centro de Mando en vez
     // de la oferta del simulador del canal, que está cerrado para él (2 oct 2026).
     const arsenalContext = pageContext === 'whatsapp_socio' ? sinSimuladorParaSocio(context) : context; // Ya contiene el contenido del arsenal o catálogo
     // ⚡ OPTIMIZADO v14.8: Eliminado topQueriesFAQ (~4,400 chars) - contenido ya está en arsenales

@@ -79,8 +79,11 @@ const PLANTILLA = {
       example: { body_text: [['Milton', '0', '50', '4 cajas']] },
     },
     {
-      // El mismo destino del push: Proyección muestra el estado y el botón
+      // El mismo destino del push: Semana en Gano muestra el estado y el botón
       // «Cargar la compra». Compras directo no sirve a quien no conectó Gano.
+      // Esta es la URL con que se aprobó: la página se mudó a
+      // /herramientas/semana-en-gano el 19 oct 2026 y esta redirige allá (vercel.json
+      // del Dashboard). Una plantilla aprobada no se edita, así que la ruta vieja no se borra.
       type: 'BUTTONS',
       buttons: [{ type: 'URL', text: 'Ver mi estado', url: 'https://queswa.app/herramientas/proyeccion-patrimonial' }],
     },

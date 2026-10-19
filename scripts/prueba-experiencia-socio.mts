@@ -265,7 +265,8 @@ es(!SEMANA_EN_SALUDO_SOCIO || (sNuevo.includes(SEMANA_EN_SALUDO_SOCIO.puente) &&
 // empresariales 3». El modelo la compuso mal, el guardarraíl la bloqueó dos veces
 // con reemplazos de prospecto, y después le ofreció el simulador —cerrado para él—
 // y se lo negó. Hoy: la tabla la calcula el sistema, el reemplazo es de socio y el
-// cierre lleva a su Proyección Patrimonial; todo cierra en «¿Le mando el acceso?».
+// cierre lleva a su Centro de Mando (desde el 19 oct 2026 sin nombrar «Semana en
+// Gano», que ya no trae simulador); todo cierra en «¿Le mando el acceso?».
 console.log('\n── 10. Las cifras del socio ──');
 const { paqueteParaNivelesSocio, respuestaNivelesSocio } =
   require('../src/lib/wa-simulador.ts') as typeof import('../src/lib/wa-simulador.ts');
@@ -286,16 +287,22 @@ es(/17%\*? durante los primeros seis meses/.test(conEsp3) && /base del 10%, que 
    'con el ESP-3: la tarifa con su vigencia, sin tabla al 17%');
 es(/dos meses/.test(respuestaNivelesSocio('ESP-1')) && /cuatro meses/.test(respuestaNivelesSocio('ESP-2')), 'cada paquete con su vigencia');
 es(!negocio.detectarPromesaDeIngreso(conEsp3), 'el guardarraíl no la bloquea, ni el saneamiento la cambia al turno siguiente');
-es(botInvitoAlDashboard(conEsp3), 'cierra en el acceso a su Proyección Patrimonial');
+es(botInvitoAlDashboard(conEsp3), 'cierra en el acceso a su Centro de Mando');
+es([conEsp3, negocio.CORRECTIVA_SOCIO, negocio.CORRECTIVA_SOCIO_BIS, CIERRE_SOCIO_PROYECCION].every((t) => !/Semana en Gano|Proyecci[oó]n Patrimonial/.test(t)),
+   'ninguno de los cierres del socio manda a una página a calcular (19 oct 2026)');
 const h = (c: string) => [{ role: 'assistant', content: c }];
 es(negocio.correctivaSegunHilo(h('x'), { socio: true }) === negocio.CORRECTIVA_SOCIO
    && negocio.correctivaSegunHilo(h(negocio.CORRECTIVA_SOCIO), { socio: true }) === negocio.CORRECTIVA_SOCIO_BIS,
    'el reemplazo por cifras es de socio, y cambia si insiste');
+const CORRECTIVA_DEL_6_OCT = 'Para que esa cifra le salga exacta —es la que usted le va a dar a otros—, en su Centro de Mando la calcula ' +
+  '«Semana en Gano», con la tarifa de cada paquete y con sus datos de Gano. ¿Le mando el acceso?';
+es(negocio.correctivaSegunHilo(h(CORRECTIVA_DEL_6_OCT), { socio: true }) === negocio.CORRECTIVA_SOCIO_BIS,
+   'una conversación en curso con el texto anterior sigue contando como «ya se dio»');
 es(botInvitoAlDashboard(negocio.CORRECTIVA_SOCIO) && botInvitoAlDashboard(negocio.CORRECTIVA_SOCIO_BIS), 'los dos reemplazos del socio cierran en el acceso');
 es(negocio.correctivaSegunHilo(h('x')) === negocio.RESPUESTA_CORRECTIVA, 'al prospecto le sigue llegando el suyo');
 const conOferta = sinSimuladorParaSocio(`Material de NIVELES_01.\n\n**Pregunta de seguimiento:** ${OFERTA_SIMULADOR_NIVELES}`);
 es(!conOferta.includes(OFERTA_SIMULADOR_NIVELES) && conOferta.endsWith(CIERRE_SOCIO_PROYECCION),
-   'al socio no se le ofrece el simulador: le llega el cierre de su Proyección Patrimonial');
+   'al socio no se le ofrece el simulador: le llega el cierre de su Centro de Mando');
 
 // ── 11. La estrategia para el socio: el video y el detalle (2 oct 2026) ──
 // El Director la pidió y le llegó el texto compuesto, con un cierre inventado.
@@ -315,7 +322,7 @@ es(pasoNivelesSocio('Si', `…\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`, true) === 'det
 es(['hasta cuándo va el plan de 12 niveles', 'cuál es la inversión para los 12 niveles', 'quiero 12 nuevos clientes']
      .every((m) => pasoNivelesSocio(m, '', false) === null),
    'las preguntas con respuesta propia en el arsenal siguen su camino');
-const enlace9 = enlacePresentacion('miguel-barahona', 9);
+const enlace9 = enlacePresentacion('miguel-barahona', 8);   // el webhook pasa la 8 desde el 18 oct 2026
 const detalle = detalleNivelesSocio('ESP-3', 'CO', enlace9);
 // 5 oct 2026, Director: «demasiada carga cognitiva». Doce filas, llegan → total;
 // «distribuidores» completo solo en el nivel 1 y «Total:» solo en el nivel 2; sin los cuatro pasos, sin la tarifa

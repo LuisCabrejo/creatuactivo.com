@@ -493,13 +493,14 @@ export const OFERTA_SIMULADOR_NIVELES = '¿Quiere verlo en el simulador, con la 
  * Al SOCIO no se le ofrece el simulador del canal (2 oct 2026): la tarjeta está
  * cerrada para él desde el 12 sep, así que la oferta que trae NIVELES_01 era
  * prometer en un turno y negar en el siguiente —Miguel Barahona, 1 oct—. Su cifra
- * la calcula «Semana en Gano» (antes Proyección Patrimonial) del Centro de Mando, con su tarifa del back
- * office, y el «sí» lo atiende el nodo 2.22 del webhook por el cierre «¿Le mando el
+ * se la calcula Queswa en el Centro de Mando, con su tarifa del back office (desde
+ * el 19 oct 2026 «Semana en Gano» ya no trae simulador y el texto dejó de nombrarla),
+ * y el «sí» lo atiende el nodo 2.22 del webhook por el cierre «¿Le mando el
  * acceso?». Se cambia en el material que ve el modelo (motor) y, de red, en la
  * respuesta (webhook). Copy aprobado por el Director el 2 oct 2026.
  */
 export const CIERRE_SOCIO_PROYECCION =
-  'En su Centro de Mando, «Semana en Gano» lo calcula con la tarifa de cada paquete y con sus datos de Gano. ¿Le mando el acceso?';
+  'En su Centro de Mando se lo calculo con la tarifa de cada paquete y con sus datos de Gano. ¿Le mando el acceso?';
 
 /**
  * El socio que pide la estrategia recibe el VIDEO (Director, 2 oct 2026: «me acaba

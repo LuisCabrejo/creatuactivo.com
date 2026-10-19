@@ -2007,8 +2007,8 @@ async function procesarEntrante(body: any): Promise<void> {
         return;
       }
       // 2.221 Los 12 Niveles con su paquete (2 oct 2026, Miguel Barahona,
-      // Visionario): la tarifa del paquete con su vigencia —vence— y su caso en la
-      // Semana en Gano (antes Proyección Patrimonial). El modelo la componía mal. Ver wa-simulador.ts.
+      // Visionario): la tarifa del paquete con su vigencia —vence— y su caso en su
+      // Centro de Mando, donde Queswa se lo calcula. El modelo la componía mal. Ver wa-simulador.ts.
       const paqueteNiveles = paqueteParaNivelesSocio(messageText, _ultimoBotSocio);
       if (paqueteNiveles) {
         const texto = respuestaNivelesSocio(paqueteNiveles);
@@ -3199,7 +3199,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     const msMotor = Date.now() - tMotor;
     queswaReply = queswaReply.trim();
     // Red del cierre del socio (2 oct 2026): si el modelo copió la oferta del
-    // simulador —cerrado para él—, sale la de su Semana en Gano.
+    // simulador —cerrado para él—, sale la de su Centro de Mando.
     if (socioQueEscribe) queswaReply = sinSimuladorParaSocio(queswaReply);
     // Ver lo que trae un paquete es evaluar uno en concreto (15 oct 2026): la
     // tabla la dicta el motor (`pin_composicion_dictado`), no el conductor, así

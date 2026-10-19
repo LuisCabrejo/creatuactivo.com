@@ -6,6 +6,20 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.20 — El día 43, «¿dónde está hoy el dinero?», entra; sale el día 22 (19 oct 2026)
+
+La nota del video del día 43 reemplaza la del día 22 en «Los dos videos más recientes»; queda el 39, que va primero por ser el más viejo. Contenido: colombianos que modernizaron negocios de siempre (Nubank, Rappi, Platzi, Habi, Bold); CreaTuActivo hace lo mismo en el network marketing y en el sector laboral y responde *«¿a qué horas y con qué plata?»* con los tres elementos; el fin de semana se sumaron socios, entre ellos una madre y su hijo; esta semana empieza un trabajo enfocado en Bogotá y la Sabana, y **aplica igual en cualquier ciudad**. La nota del día 22 no se pierde: pasa al arsenal como `RETO_D22` (v6.77), con el mismo texto.
+
+**Y se corrige la nota del día 39.** Decía que Los 12 Niveles *«todavía no los ha explicado en un video»*: falso. El Director publicó el video de la estrategia el mismo jueves 15, enseguida del día 39. Ahora: *«Ese mismo día publicó el video de Los 12 Niveles»*.
+
+**Por qué.** La auditoría del guion del día 43 (`auditar-guion-queswa.mjs`, sobre el texto como se grabó, con el prompt v5.19) dio ❌ en tres ideas: *«vi el video de los 43 días»* caía en `EAM_01`; *«el reto que está haciendo el señor»* recibía el video del día 39 como si fuera el último; y *«vivo en Soacha, ¿aplica?»* recibía el candado `ADV_OBJ_02` (escalar un negocio que ya funciona). Las dos primeras las arregla la nota; la tercera, su última frase. Lo que marcó y no se tocó: *«¿con cuánta plata se arranca?»* → `FREQ_03` 🔒, que lleva el Binario y el GEN5 de cada paquete por diseño (falso positivo del juez).
+
+Texto propuesto en el chat y aprobado por el Director el 19 oct (*«prepara a Queswa para las preguntas que pueden hacer las personas»*). Baterías de salud, negocio y clasificador (65/65) en verde antes de desplegar.
+
+**Presupuesto:** WhatsApp 19.068 · web 19.484 · Dashboard 15.514 (la nota va en `canal:web whatsapp`). Las tres filas verificadas.
+
+---
+
 ## v5.19 — El video «Cómo funciona» nombra la máquina de ventas y la herramienta para multiplicar (18 oct 2026)
 
 Solo cambia la descripción del video «Cómo funciona», que el modelo usa cuando alguien dice «vi el video»: el segundo elemento es *una máquina de ventas* (usted envía a quien quiera y Queswa lo atiende las 24 horas) y el tercero *una herramienta para multiplicar* (acompaña a cada distribuidor y le marca la ruta, como en Waze). Es lo que dice la voz del video v6 y lo mismo de `WHY_02` v6.76 y de la Presentación. Decisión del Director; criterio en el `[Concepto Nuclear]` de `WHY_02`.

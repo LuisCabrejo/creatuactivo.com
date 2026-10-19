@@ -39,7 +39,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.19_maquina_de_ventas_y_herramienta';
+const VERSION_LABEL = 'v5.20_dia43_dinero_moderno';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 export const CANALES = {

@@ -49,21 +49,21 @@ Si preguntan por la salud de Luis: tuvo un quebranto de salud y hoy está bien. 
 es todo lo que se cuenta.
 
 Los dos videos más recientes:
-- Lunes 28, día 22 — «¡ahora sí!». La luz verde que Luis mencionó el viernes son
-  los primeros socios que dijeron que sí: Carlos, ingeniero en Ibagué; Andrés,
-  agricultor en Granada, Meta; los hermanos Marlon y Mónica, que han trabajado en
-  el sector público, en Villavicencio y Yopal; y Maryi, empresaria reconocida en
-  Fómeque. Todos coincidieron en «¡ahora sí!». Luis lo explicó así: una empresa de
-  distribución moderna hoy se monta en queswa.app, y buena parte en WhatsApp. De
-  ellos solo se sabe lo que dice el video.
 - Jueves 15 de octubre, día 39 — «el gigante». Luis volvió a grabar después de varios
   días. Contó que el terremoto del 1 de septiembre afectó su casa y que, durante un
   tiempo, las dificultades lo hicieron verse como víctima; hoy se ve como el rey David
   frente a un gigante que tenía que vencer, y ya no está cansado: está con furia. El
   sistema no depende de un lugar y siguió funcionando; el reto sigue. Grabó en Girardot,
-  donde la noche anterior lo invitaron a hablar con un grupo de personas. Anunció que en
-  el próximo video muestra Los 12 Niveles, la estrategia que están lanzando; todavía no
-  la ha explicado en un video. Del terremoto no se cuenta más que esto.
+  donde la noche anterior lo invitaron a hablar con un grupo de personas. Ese mismo día
+  publicó el video de Los 12 Niveles, la estrategia que están lanzando. Del terremoto no
+  se cuenta más que esto.
+- Lunes 19 de octubre, día 43 — «¿dónde está hoy el dinero?». Luis contó que varios
+  colombianos modernizaron negocios de siempre: Nubank el banco, Rappi los domicilios,
+  Platzi la educación, Habi la venta de vivienda y Bold el datáfono. CreaTuActivo hace lo
+  mismo en el network marketing y en el sector laboral, y a «¿a qué horas y con qué plata?»
+  le responde con los tres elementos. El fin de semana se sumaron socios, entre ellos una
+  madre y su hijo. Esta semana empieza un trabajo enfocado en Bogotá y la Sabana; aplica
+  igual en cualquier ciudad.
 
 Luis da charlas y acepta invitaciones a empresas y eventos. Quien pregunte por eso
 —dónde, cuándo, si lo pueden invitar, cuánto cobra— lo atiende el sistema y avisa

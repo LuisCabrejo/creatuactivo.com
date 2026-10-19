@@ -5,7 +5,9 @@
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (2) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + METH (1) = 16 respuestas.
-**Versión actual: v14.8** (8 oct 2026) — **`ADV_SIST_02` va con candado.** Mismo motivo que `ADV_OBJ_02` en la v14.5: medido con el modelo real, la meta salía parafraseada. Ahora la meta y la apuesta salen literales, con los clientes VIP y los distribuidores nombrados, y el modelo escribe solo lo que va alrededor.
+**Versión actual: v14.9** (19 oct 2026) — **`ADV_OBJ_02`: título e índice sin «¿para qué quiero esto?»**, que lo volvía imán de preguntas ajenas (*«¿entonces no tengo que vender nada?»*). Medido contra el corpus real: suelta esa consulta (1.º → 4.º) y conserva sus cuatro; `FREQ_10` no pierde ninguna y recupera *«¿para qué esto si ya tengo mi local?»*, que está en su título. Candado y cuerpo sin tocar. Y `ADV_VAL_03` ofrece *las cuatro formas de empezar* (decía *tres*: la oferta tiene que calzar literal con el índice de `FREQ_03`, que es su destino).
+
+**v14.8** (8 oct 2026) — **`ADV_SIST_02` va con candado.** Mismo motivo que `ADV_OBJ_02` en la v14.5: medido con el modelo real, la meta salía parafraseada. Ahora la meta y la apuesta salen literales, con los clientes VIP y los distribuidores nombrados, y el modelo escribe solo lo que va alrededor.
 
 **v14.7** (8 oct 2026) — **`ADV_SIST_02` dice quiénes son los cuatro millones:** clientes VIP con los productos y distribuidores con su propio sistema de distribución moderna, la misma frase de luiscabrejo.com/vision (Director).
 
@@ -37,9 +39,9 @@ Lo que para usted parece "demasiado bueno" es, simplemente, lo que pasa cuando a
 
 ---
 
-### ADV_OBJ_02: "Ya tengo un negocio exitoso, ¿para qué quiero esto?"
-**[Índice]:** Ya tengo un negocio que funciona y me va bien, para qué quiero esto. Soy empresario, tengo mi empresa, tengo mi local. Crecer me pide más operación, más inventario y más nómina.
-**[Concepto Nuclear]:** **v14.4 (23 sep 2026) — el eje pasa de DIVERSIFICAR a ESCALAR** (Director). La versión anterior argumentaba que depender de una sola fuente es el riesgo, y cerraba con la imagen del dueño del edificio. Le hablaba a un miedo que el empresario no siempre tiene. El techo sí lo está viviendo: su negocio funciona y no puede crecerlo sin crecer la operación. ⚠️ **Nunca comparar de lado**: el Director lo vivió antes de Gano Excel — le presentaban algo parecido a lo que ya hacía y pensaba *«para vender, vendo lo mío»*. ⚠️ **El techo tiene DOS causas y las dos se responden**: la logística la quita Gano Excel, las horas las quita la tecnología. Nombrar solo al fabricante deja la impresión de que lo grandioso es Gano Excel. La exclusividad se reclama sobre creatuactivo.com y queswa.app, con nombre, nunca sobre «la inteligencia artificial» (falso y fanfarrón). El alivio va ANTES del reparto del trabajo, y las presencias sustituyen a las ausencias: se nombra quién SÍ hace cada cosa. Narrativa: sujeto concreto en cada frase, una idea por frase — ver [[feedback_pronombres_trabalenguas]].
+### ADV_OBJ_02: "Ya tengo un negocio que me va bien, ¿para qué otro?"
+**[Índice]:** Ya tengo un negocio que funciona y me va bien. Soy empresario, tengo mi empresa, mi local, mi tienda, mi restaurante. Crecer me pide más operación, más inventario y más nómina.
+**[Concepto Nuclear]:** ⚠️ **Título e índice sin «¿para qué quiero esto?»** (v14.9, 19 oct 2026, medido): esa frase es tan genérica que el candado ganaba *«¿entonces yo no tengo que vender nada?»* —y, por la reescritura con el hilo, *«vivo en Soacha, ¿aplica?»*— y se entregaba solo, hablándole de nómina e inventario a quien no tiene negocio. ⚠️ **Y sin «propio negocio» en el título**: con esa frase le robaba a `FREQ_10` *«¿por qué no montar un negocio propio?»*, que pregunta quien NO tiene negocio. **v14.4 (23 sep 2026) — el eje pasa de DIVERSIFICAR a ESCALAR** (Director). La versión anterior argumentaba que depender de una sola fuente es el riesgo, y cerraba con la imagen del dueño del edificio. Le hablaba a un miedo que el empresario no siempre tiene. El techo sí lo está viviendo: su negocio funciona y no puede crecerlo sin crecer la operación. ⚠️ **Nunca comparar de lado**: el Director lo vivió antes de Gano Excel — le presentaban algo parecido a lo que ya hacía y pensaba *«para vender, vendo lo mío»*. ⚠️ **El techo tiene DOS causas y las dos se responden**: la logística la quita Gano Excel, las horas las quita la tecnología. Nombrar solo al fabricante deja la impresión de que lo grandioso es Gano Excel. La exclusividad se reclama sobre creatuactivo.com y queswa.app, con nombre, nunca sobre «la inteligencia artificial» (falso y fanfarrón). El alivio va ANTES del reparto del trabajo, y las presencias sustituyen a las ausencias: se nombra quién SÍ hace cada cosa. Narrativa: sujeto concreto en cada frase, una idea por frase — ver [[feedback_pronombres_trabalenguas]].
 
 <verbatim_lock>
 Usted ya logró lo más difícil: que su negocio funcione.
@@ -142,7 +144,7 @@ Elegir el nivel ESP-3 es pura cuenta.
 
 Por el mismo volumen de consumo, la empresa paga distinto según su nivel de arranque. Si compra el ESP-1 Inicial, su ganancia puede ser de hasta el 15% del volumen comisionable (GCV). Si compra el ESP-3 Visionario, asegura el margen máximo —hasta el **17%** del volumen comisionable (GCV)— desde su primer mes.
 
-**Pregunta de cierre:** ¿Le muestro las tres formas de empezar?
+**Pregunta de cierre:** ¿Le muestro las cuatro formas de empezar?
 
 ---
 

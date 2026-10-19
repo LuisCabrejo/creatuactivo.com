@@ -12,7 +12,7 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.76** (18 oct 2026) — **`WHY_02` 🔒 y `WHY_05` 🔒: el segundo elemento es «una máquina de ventas» y el tercero «una herramienta para multiplicar».** Texto aprobado por el Director, el mismo de la Presentación y del video «Cómo funciona» v6. Cambian solo los candados; índices y títulos son los mismos, así que la recuperación no se mueve. Criterio en el `[Concepto Nuclear]` de `WHY_02`.
+**Versión actual: v6.77** (19 oct 2026) — **Nacen los archivos de los videos del reto: `RETO_D22` (sale del prompt hoy) y `RETO_D15` y `RETO_D19`** (salieron antes sin archivarse; el día 16 no se archiva: su índice atraía cualquier «vi su video de hoy»), con la nota aprobada de cada uno como cuerpo. Es la rutina del reto: en el prompt viven solo los dos últimos videos. Criterio en su `[Concepto Nuclear]`. Y `EAM_02` ofrece *las cuatro formas de empezar* (decía *tres*).
 
 **v6.75** (16 oct 2026) — **`FREQ_43`, nueva: la tecnología no tiene costo. Lo que se paga es producto.** Texto aprobado por el Director, con candado. Cierra hacia `FREQ_03`. Criterio en su `[Concepto Nuclear]`.
 
@@ -1101,7 +1101,7 @@ Lo que sí quiero que sepa es cómo trabajamos. En esta etapa el equipo de creat
 
 Así que tómelo con calma. Cuando quiera, empezamos por esa conversación.
 
-**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
+**Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
 
 ---
 
@@ -1234,6 +1234,36 @@ Con gusto. Son las tres condiciones que Luis Cabrejo se puso para el reto de los
 
 **Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
 
+
+### **RETO_D22: "¿Quiénes son los que dijeron «¡ahora sí!»?"**
+**[Índice]:** Los que dijeron «¡ahora sí!»: Carlos, el ingeniero de Ibagué; Andrés, el agricultor de Granada, Meta; los hermanos Marlon y Mónica, de Villavicencio y Yopal; Maryi, la empresaria de Fómeque. Los primeros en decir que sí.
+**[Concepto Nuclear]:** Archivo del video del día 22 (lunes 28 sep 2026), que salió de «Los dos videos más recientes» del prompt cuando entró el día 43 (v5.20, 19 oct 2026), como manda la rutina del reto: en el prompt solo viven los dos últimos videos y los anteriores pasan aquí, donde solo cuestan cuando alguien pregunta por ellos. El cuerpo es la nota aprobada del prompt (v5.13), sin cambios. Solo el nombre de pila, a propósito (Director): con oficio y ciudad se reconocen igual, y el nombre completo los vuelve identificables. De Marlon no se dice que está sin empleo. «De ellos solo se sabe lo que dice el video» cierra la puerta a inventarles historia. ⚠️ **Ni el título ni el índice dicen «socios»** (medido el 19 oct): con la palabra, el fragmento salía 2.º en «cómo me hago socio» y 3.º en «quiero ser socio, qué hago», y el motor sirve los tres primeros. ⚠️ **Ni «video» ni «reto» tampoco**: con *«El video del día 22 del reto»* al frente del índice salía 1.º en cualquier *«vi el video…»* —*«vi su video de hoy»* 0.562, *«vi el video de Nubank y Rappi»*—, y quien vio el video del día le recibía el del 22. Va anclado al *«¡ahora sí!»* y a cada persona con su oficio y su ciudad; que fue el video del día 22 lo dice el cuerpo, que no se vectoriza.
+
+En el video del día 22 del reto (lunes 28 de septiembre), «¡ahora sí!», Luis contó que la luz verde que había mencionado son los primeros socios que dijeron que sí: Carlos, ingeniero en Ibagué; Andrés, agricultor en Granada, Meta; los hermanos Marlon y Mónica, que han trabajado en el sector público, en Villavicencio y Yopal; y Maryi, empresaria reconocida en Fómeque. Todos coincidieron en «¡ahora sí!».
+
+Luis lo explicó así: una empresa de distribución moderna hoy se monta en queswa.app, y buena parte en WhatsApp. De ellos solo se sabe lo que dice el video.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D15: "La jornada, no el destino: dos o tres acciones cada día"**
+**[Índice]:** Pensar en la jornada y no en el destino: lo que hay que hacer cada día, no la meta. Escoger dos o tres acciones y cumplirlas todos los días, aunque se avance poco.
+**[Concepto Nuclear]:** Archivo de un video del reto que salió de «Los dos videos más recientes» del prompt sin archivarse (los días 15 y 19 salieron antes de que la rutina se cumpliera; se archivaron el 19 oct 2026, v6.77). El cuerpo es la nota aprobada del prompt, sin cambios de fondo. ⚠️ El índice no dice «video» ni «reto»: con esas palabras al frente, `RETO_D22` salía 1.º en cualquier «vi el video…» y quien vio el video del día recibía uno viejo. Va anclado a lo que la persona recuerda de la anécdota, con un título de sustantivos concretos: con *«¿Qué es lo de…?»* el título sonaba a conversación y atraía *«vi su video de hoy»*.
+
+En el video del día 15 del reto (lunes 21 de septiembre), «la jornada», Luis contó que había avanzado poco la semana anterior y citó a David Vélez, fundador de Nubank: hizo su empresa pensando en la jornada —lo que hay que hacer cada día— y no en el destino.
+
+La enseñanza: se escogen dos o tres acciones y se cumplen todos los días.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D19: "El Coyote, el Correcaminos y el honor a la pausa"**
+**[Índice]:** La película Coyote versus Acme: el Coyote deja de tropezar con la misma piedra, se detiene y descubre que la culpa era de las herramientas. Si después de tres o cuatro intentos no hay luz verde, se hace una pausa y se redirecciona.
+**[Concepto Nuclear]:** Archivo de un video del reto que salió de «Los dos videos más recientes» del prompt sin archivarse (los días 15 y 19 salieron antes de que la rutina se cumpliera; se archivaron el 19 oct 2026, v6.77). El cuerpo es la nota aprobada del prompt, sin cambios de fondo. ⚠️ El índice no dice «video» ni «reto»: con esas palabras al frente, `RETO_D22` salía 1.º en cualquier «vi el video…» y quien vio el video del día recibía uno viejo. Va anclado a lo que la persona recuerda de la anécdota, con un título de sustantivos concretos: con *«¿Qué es lo de…?»* el título sonaba a conversación y atraía *«vi su video de hoy»*.
+
+En el video del día 19 del reto (viernes 25 de septiembre), «honor a la pausa», Luis contó que, viendo con su hijo Justin la película Coyote versus Acme, rescata que el Coyote no sigue tropezando con la misma piedra: se detiene, analiza y descubre que la culpa era de las herramientas.
+
+Así trabaja él: fija un objetivo y la jornada para llegar; si después de tres o cuatro intentos no hay luz verde, hace una pausa y redirecciona. Contó que las dos primeras semanas del reto fueron de mucho redireccionar y que en la tercera por fin vio luz verde.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
 ---
 
 **FIN DEL ARSENAL INICIAL**

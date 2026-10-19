@@ -1,7 +1,9 @@
 # Arsenal de Compensacion: Infraestructura de Ingresos — la versión vigente está en «Version», abajo
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construcción de Ingresos Recurrentes
-**Versión actual: v8.13** (2 oct 2026) — **El GEN5 y el Binario dejan de comparar paquetes, y la vigencia del porcentaje se dice como hecho** (Director). COMP_GEN5_08 y COMP_BIN_02 cerraban con una tabla de diferencias entre paquetes, la construcción que la familia GEN5 retiró el 26 ago; en la prueba del Director en el Dashboard el modelo la convirtió en un empujón al paquete grande. COMP_GEN5_08 deja además las marcas de tiempo pegadas a la comisión, y COMP_BIN_02 dice cuánto rige el porcentaje de arranque y qué aplica después. Cifras, %, GCV, PV/CV y nombres del plan intactos. Detalle en el CHANGELOG.
+**Versión actual: v8.14** (19 oct 2026) — **`COMP_MONEDA_01`, `COMP_GEN5_05` y `COMP_BIN_02` ofrecen *las cuatro formas de empezar***, no tres: son cuatro desde el 6 oct (Director) y la oferta tiene que calzar literal con el índice de `FREQ_03`, su destino; con una aceptación pelada, la búsqueda usa la última pregunta del bot. Cifras sin tocar.
+
+**v8.13** (2 oct 2026) — **El GEN5 y el Binario dejan de comparar paquetes, y la vigencia del porcentaje se dice como hecho** (Director). COMP_GEN5_08 y COMP_BIN_02 cerraban con una tabla de diferencias entre paquetes, la construcción que la familia GEN5 retiró el 26 ago; en la prueba del Director en el Dashboard el modelo la convirtió en un empujón al paquete grande. COMP_GEN5_08 deja además las marcas de tiempo pegadas a la comisión, y COMP_BIN_02 dice cuánto rige el porcentaje de arranque y qué aplica después. Cifras, %, GCV, PV/CV y nombres del plan intactos. Detalle en el CHANGELOG.
 
 **v8.12** (23 sep 2026) — **Cuatro preguntas de cierre dejan de mandar el «sí» a otra parte.** Medido: la que ofrecía el Binario entregaba la tabla con cifras y no el concepto, contra lo que manda la propia cabecera de ese fragmento; la que decía *un ejemplo con números* vivía en cuatro fragmentos con tres destinos posibles, así que el destino lo elegía el azar del vector; y la que ofrecía cobrar no distinguía entre las dos vías. Ahora cada una nombra adónde va y se midió contra el corpus real antes de escribirse. Cifras, %, GCV, PV/CV y nombres del plan intactos.
 
@@ -61,7 +63,7 @@ Gano Excel está en más de 60 países, así que el plan se valora en dólares p
 
 Su sistema se valora en dólares y sus comisiones le llegan en pesos, a esa tasa fija. La conversión la asume Gano Excel.
 
-**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
+**Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
 
 ---
 
@@ -191,7 +193,7 @@ Veamos qué deja su primera generación cuando se compran dos ESP-3:
 
 Los mismos dos paquetes comprados dejan una comisión distinta según el nivel con el que usted abrió su sistema — el suyo marca el techo.
 
-**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
+**Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
 
 ---
 
@@ -572,7 +574,7 @@ Por eso no depende de que usted esté encima — lo que mueve la comisión es el
 
 El porcentaje de arranque lo fija el paquete con que se abre el sistema de distribución, y rige el tiempo que indica la tabla; después el sistema aplica el más alto entre la base del 10%, su rango y las promociones de Gano.
 
-**Pregunta de seguimiento:** ¿Le muestro las tres formas de empezar?
+**Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
 
 ---
 

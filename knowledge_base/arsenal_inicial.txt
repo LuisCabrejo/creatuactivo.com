@@ -12,7 +12,9 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.77** (19 oct 2026) — **Nacen los archivos de los videos del reto: `RETO_D22` (sale del prompt hoy) y `RETO_D15` y `RETO_D19`** (salieron antes sin archivarse; el día 16 no se archiva: su índice atraía cualquier «vi su video de hoy»), con la nota aprobada de cada uno como cuerpo. Es la rutina del reto: en el prompt viven solo los dos últimos videos. Criterio en su `[Concepto Nuclear]`. Y `EAM_02` ofrece *las cuatro formas de empezar* (decía *tres*).
+**Versión actual: v6.78** (19 oct 2026) — **Nace `EAM_03`: *«¿Me toca salir a vender?»*** tiene destino propio, con candado. Antes caía en candados que contestaban otra pregunta. Texto aprobado por el Director; criterio y medición en su `[Concepto Nuclear]`.
+
+**v6.77** (19 oct 2026) — **Nacen los archivos de los videos del reto: `RETO_D22` (sale del prompt hoy) y `RETO_D15` y `RETO_D19`** (salieron antes sin archivarse; el día 16 no se archiva: su índice atraía cualquier «vi su video de hoy»), con la nota aprobada de cada uno como cuerpo. Es la rutina del reto: en el prompt viven solo los dos últimos videos. Criterio en su `[Concepto Nuclear]`. Y `EAM_02` ofrece *las cuatro formas de empezar* (decía *tres*).
 
 **v6.75** (16 oct 2026) — **`FREQ_43`, nueva: la tecnología no tiene costo. Lo que se paga es producto.** Texto aprobado por el Director, con candado. Cierra hacia `FREQ_03`. Criterio en su `[Concepto Nuclear]`.
 
@@ -1102,6 +1104,20 @@ Lo que sí quiero que sepa es cómo trabajamos. En esta etapa el equipo de creat
 Así que tómelo con calma. Cuando quiera, empezamos por esa conversación.
 
 **Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
+
+### **EAM_03: "¿Me toca salir a vender?"**
+**[Índice]:** Entonces yo no tengo que vender nada, me toca salir a vender o andar ofreciendo los productos. No sé vender, no me gusta vender.
+**[Concepto Nuclear]:** Nace de la auditoría del video del día 43 (19 oct 2026): *«¿entonces yo no tengo que vender nada?»* no tenía destino propio. Caía en el candado `ADV_OBJ_02` (escalar un negocio con nómina e inventario, a quien no tiene negocio) y, al soltarlo, en `CLIENTE_VIP_01` 🔒, que arranca con *«Claro que sí, y es la puerta más sencilla»*: le contestaba a otra pregunta. `EAM_01` no la alcanzaba con una cláusula en el índice (puesto 16): una puerta nueva se abre con un fragmento corto. Son las dos acciones del Método Comprobado —compartir arriba, recibir al final— y en medio quién hace el trabajo, en positivo: lo que Queswa SÍ hace, nunca *«usted no explica»* (retirado el 29 jun) ni cómo se hace en otros equipos. ⚠️ *«Saludar a quien ya tiene interés»*, no *«a quien llega»*: el Director marcó el 19 oct que *llegar* carga la silueta de *meter gente*. Índice medido en laboratorio contra el corpus real: gana sus seis consultas en el puesto 1 (*«me toca salir a vender»* 0.700) y no le quita ninguna a `FREQ_21`, `EAM_01`, `FREQ_42`, `WHY_02` ni `OBJ_01`. Texto aprobado por el Director el 19 oct.
+
+<verbatim_lock>
+Lo que le toca a usted es compartir: le envía su enlace a quien quiera.
+
+Del otro lado estoy yo. A cada persona le muestro los productos, le resuelvo las dudas y la atiendo hasta que compra, a cualquier hora. Gano Excel empaca el pedido y lo despacha hasta su casa.
+
+Y cuando alguien quiere tener su propio sistema de distribución, le aviso a usted para que lo reciba. Ese momento es suyo: saludar a quien ya tiene interés.
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le muestro los productos?
 
 ---
 

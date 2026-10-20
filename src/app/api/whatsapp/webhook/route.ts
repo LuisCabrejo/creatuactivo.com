@@ -78,6 +78,8 @@ import {
 } from '@/lib/wa-lista-socio';
 import { aFormatoWhatsApp, partirParaWhatsApp, partesConBorradorAparte } from '@/lib/wa-formato';
 import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esReporteDelSimulador, paqueteParaNivelesSocio, respuestaNivelesSocio, pasoNivelesSocio, detalleNivelesSocio } from '@/lib/wa-simulador';
+import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
+import { respuestaPlataParaElSocio } from '@/lib/wa-plata-socio';
 import {
   detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
@@ -2096,6 +2098,19 @@ async function procesarEntrante(body: any): Promise<void> {
         await sendWhatsAppMessage(phoneNumber, texto);
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.22 invitación al Centro de Mando');
         console.log(`🏛️ [WA Webhook] 2.22 el socio /${socioQueEscribe.slug} pide ${motivo} — invitado al Centro de Mando${_yaInvitado ? ' (insiste)' : ''}`);
+        return;
+      }
+      // ─── 2.227 «¿Con cuánta plata se arranca?», al socio (20 oct 2026) ─────
+      // Se lo preguntan los suyos desde el video del día 43. Recibe lo que ÉL
+      // puede responder, en burbuja aparte para copiarlo, con las cifras de su
+      // país; antes el modelo le reenviaba la tabla del prospecto. Va después de
+      // la invitación al Centro de Mando: el mensaje para un negocio es de allá.
+      // Texto aprobado y su porqué → wa-plata-socio.ts.
+      if (preguntaPorPlataParaEmpezar(messageText)) {
+        const texto = respuestaPlataParaElSocio(paisDeTelefono(phoneNumber));
+        await sendWhatsAppMessage(phoneNumber, texto, { wamid, borradorAparte: true });
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.227 con cuánta plata se arranca (socio)');
+        console.log(`💵 [WA Webhook] 2.227 el socio /${socioQueEscribe.slug} preguntó con cuánta plata se arranca`);
         return;
       }
     }

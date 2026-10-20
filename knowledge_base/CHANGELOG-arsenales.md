@@ -527,7 +527,7 @@ El video del día 43 preguntó *«¿a qué horas y con qué plata?»* y respondi
 - **La primera línea del candado, aprobada por el Director:** *«El fabricante despacha cada pedido y la tecnología no tiene costo, así que su dinero no se va en montar una empresa: se convierte en producto, el portafolio premium de bienestar de Gano Excel que usted recibe. Son cuatro formas de empezar:»*. Antes decía *«Son cuatro formas de empezar, y en las cuatro lo que paga se convierte en producto…»*. Va *dinero* y no *plata*, porque el texto se lee en dieciséis países (Director). Sirve igual para *«¿cómo me uno?»* y *«quiero empezar»*, que también llegan aquí.
 - **La compra mensual no se nombra** (Director, 20 oct 2026): en este modelo se da por sentada.
 - **La puerta** vive en `src/lib/puerta-plata-para-empezar.ts`. La llave es dinero (o un *cuánto*) más arranque, tolerante a typos (`prueba-typos.mts`, tope 0), y se aparta si preguntan por ganancia, tiempo o personas. `preguntaSoloPorPrecio` la cuenta como pregunta de precio.
-- **El texto para el distribuidor** (*«¿qué le respondo a quien me pregunta con cuánta plata se arranca?»*) también lo aprobó el Director hoy, pero lo maneja el agente del Dashboard: se le entregó con el texto literal.
+- **El texto para el distribuidor** (*«¿qué le respondo a quien me pregunta con cuánta plata se arranca?»*) también lo aprobó el Director hoy. En WhatsApp lo dicta el webhook al socio (nodo 2.227, `src/lib/wa-plata-socio.ts`), en burbuja aparte para copiar y con las cifras de su país; antes el modelo le reenviaba la tabla del prospecto. En el Dashboard lo maneja su agente, que recibió el texto literal.
 
 ### v6.78 — Nace `EAM_03`: «¿Me toca salir a vender?» tiene destino propio (19 oct 2026)
 

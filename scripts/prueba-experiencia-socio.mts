@@ -410,5 +410,29 @@ es(!rt.detectoresDeterministas(turnoRedaccion, null, servidos, { esSocio: true }
    && rt.detectoresDeterministas(turnoRedaccion, null, servidos).includes('sirve un fragmento ya servido en el hilo'),
    'el detector de fragmento repetido calla con el socio que redacta y sigue con el prospecto');
 
+// ── 14. «¿Con cuánta plata se arranca?», al socio (20 oct 2026) ──
+console.log('\n── 14. «¿Con cuánta plata se arranca?», al socio (nodo 2.227) ──');
+const { preguntaPorPlataParaEmpezar } = require('../src/lib/puerta-plata-para-empezar.ts') as typeof import('../src/lib/puerta-plata-para-empezar.ts');
+const { respuestaPlataParaElSocio } = require('../src/lib/wa-plata-socio.ts') as typeof import('../src/lib/wa-plata-socio.ts');
+const { partesConBorradorAparte } = require('../src/lib/wa-formato.ts') as typeof import('../src/lib/wa-formato.ts');
+es(preguntaPorPlataParaEmpezar('Me preguntaron con cuánta plata se arranca, ¿qué le digo?')
+   && preguntaPorPlataParaEmpezar('con cuanta plata se arranca')
+   && !preguntaPorPlataParaEmpezar('cuánto se gana con el ESP-3'),
+   'la pregunta del socio abre el nodo; la de ganancia no');
+const plataCO = respuestaPlataParaElSocio('CO');
+const plataUS = respuestaPlataParaElSocio('US');
+es(plataCO.includes('$4.500.000 COP') && plataCO.includes('$443.600 COP') && !plataCO.includes('USD')
+   && plataUS.includes('$1,000 USD') && plataUS.includes('$98 USD') && !plataUS.includes('COP'),
+   'las cifras van en la moneda de su país: Colombia en pesos, otro país en dólares');
+const partesPlata = partesConBorradorAparte(plataCO);
+es(!!partesPlata && partesPlata.length === 2 && partesPlata[1].startsWith('El paquete más completo')
+   && partesPlata[1].endsWith('las cuatro formas de empezar?'),
+   'lo que va a copiar sale en burbuja propia, sin la frase de entrada');
+es(!/plata|50 ?PV|mensual/i.test(partesPlata?.[1] ?? 'plata'),
+   'dice «dinero» y no nombra la compra mensual (Director, 20 oct 2026)');
+es(!negocio.detectarPromesaDeIngreso(plataCO) && !negocio.detectarModeloInventado(plataCO)
+   && !negocio.mezclaPrecioYComision(negocio.normalizarNegocio(plataCO)),
+   'pasa los guardarraíles de negocio');
+
 console.log(`\n${fallos ? `❌ ${fallos} fallo(s)` : '✅ Experiencia del socio en verde'}`);
 process.exit(fallos ? 1 : 0);

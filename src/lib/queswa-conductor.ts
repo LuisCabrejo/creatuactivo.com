@@ -313,6 +313,11 @@ export function precioKit(pais: PaisConductor): string {
   return pais === 'CO' ? '$443.600 COP' : '$98 USD';
 }
 
+/** El precio del ESP-3 Visionario en la moneda del país. */
+export function precioVisionario(pais: PaisConductor): string {
+  return pais === 'CO' ? '$4.500.000 COP' : '$1,000 USD';
+}
+
 /**
  * En la web el simulador no es una tarjeta sino un enlace a la presentación,
  * que lo trae en su pantalla de los números (la 9: los 12 niveles con la renta

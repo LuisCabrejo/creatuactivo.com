@@ -32,6 +32,9 @@ const CABECERAS    = { 'Content-Type': 'application/json', 'x-tenant-id': TENANT
 const BASE    = arg('--base', 'https://creatuactivo.com');
 const DETALLE = process.argv.includes('--detalle');
 const SOLO    = arg('--solo', null);
+// --json salida.json guarda cada respuesta, para comparar dos corridas lado a lado.
+const SALIDA_JSON = arg('--json', null);
+const registro = [];
 
 // Léxico retirado que NUNCA debe salir, sin importar la pregunta.
 const VETADO_GLOBAL = [
@@ -157,6 +160,7 @@ for (let i = 0; i < casos.length; i++) {
   const { texto, ms, error } = await preguntar(caso, i);
   tiempos.push(ms);
   const fallos = error ? [error] : evaluar(caso, texto);
+  registro.push({ i: i + 1, q: caso.q, texto, ms, fallos });
   if (fallos.length === 0) { ok++; console.log(`✅ ${String(i + 1).padStart(2)} ${(ms / 1000).toFixed(1)}s  ${caso.q}`); }
   else {
     console.log(`❌ ${String(i + 1).padStart(2)} ${(ms / 1000).toFixed(1)}s  ${caso.q}`);
@@ -176,4 +180,5 @@ if (problemas.length && !DETALLE) {
   console.log(`\nPara ver el texto completo de los ${problemas.length} con observaciones: --detalle\n`);
   for (const p of problemas) console.log(`· ${p.i}. ${p.q}\n   ${p.texto.slice(0, 300).replace(/\n/g, ' ⏎ ')}\n`);
 }
+if (SALIDA_JSON) { (await import('node:fs')).writeFileSync(SALIDA_JSON, JSON.stringify(registro, null, 2)); console.log(`💾 ${registro.length} respuestas en ${SALIDA_JSON}`); }
 process.exit(problemas.length ? 1 : 0);

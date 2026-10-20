@@ -434,6 +434,22 @@ Ver [.env.example](../../.env.example) para la lista completa con instrucciones 
 - NUNCA plantar objeciones ("vender", "convencer", "perseguir") donde el héroe no las mencionó.
 - Referencias geográficas pan-americanas — no Colombia-only.
 
+### El modelo de la respuesta: Sonnet 4.6, medido contra Sonnet 5.5 (19 oct 2026)
+
+El motor responde con `claude-sonnet-4-6`. El 19 oct 2026, en la auditoría de consumo, se midió `claude-sonnet-5-5` con `prueba-40-preguntas` (tenant whatsapp, local, clave de pruebas, 26 llamadas al modelo por corrida). **Producción no cambió**: la decisión de la voz es del Director.
+
+| | Sonnet 4.6 | Sonnet 5.5 (`between_tools`, esfuerzo `low`) |
+|---|---|---|
+| Batería | 38/42 | 38/42 |
+| Costo por llamada (medido) | $0,0111 | $0,0093 (−16 %) |
+| Latencia mediana · p95 | 8,4 s · 16,4 s | 5,3 s · 16,7 s |
+| Salida media | 186 tokens · 595 caracteres | 267 tokens · 644 caracteres |
+
+- **El tokenizador nuevo cuenta ~30 % más tokens para el mismo español** (`count_tokens`: el prompt de WhatsApp más un historial pasa de 6.902 a 8.967). Por eso el precio un tercio más bajo de Sonnet 5.5 rinde ~13 % en entrada y salida; la lectura de caché sí baja ~57 % (0,05× la entrada). En el motor, que paga sobre todo entrada sin caché, el neto es −16 %; en el Dashboard, donde el 62 % del costo es lectura de caché, se estima −40 %.
+- **Lo que hay que resolver antes de cambiar:** en la #30 («¿El café sirve para adelgazar?») Sonnet 5.5 negó con «no como un producto para bajar de peso», y el guardarraíl de salud de salida se dispara con esas palabras; 4.6 dijo «no está formulado como producto para adelgazar» (y agregó «menos necesidad de picar entre comidas», que también merece revisión). Las #31 (registro sanitario → lista de productos) y #39 (países de Gano → «no lo tengo confirmado») fallan con los dos modelos: son de enrutamiento o de datos, no del modelo.
+- **Lo que rompe al cambiar:** Sonnet 5.5 responde 400 a un `temperature` distinto del de fábrica (el motor manda 0,65) y piensa por defecto con el pensamiento contado dentro de `max_tokens` (aquí 600-1.500): se manda `thinking: { type: 'between_tools' }` con `output_config: { effort }` (esfuerzo `high` o menor). El respaldo a Haiku del tercer intento no acepta `between_tools`: lleva sus propios parámetros. El SDK de este repo (0.60) no tipa esos campos.
+- **Receta para repetir la medición:** en `callAnthropic` de `route.ts`, el modelo y esos parámetros por variable de entorno; `QUESWA_MODELO_RESPUESTA=claude-sonnet-5-5 npx next dev -p 3055`, luego `npx tsx scripts/prueba-40-preguntas.mjs --base http://localhost:3055 --tenant whatsapp --json salida.json`, y la misma corrida con 4.6. Cuesta ~$1 por corrida, de la clave de pruebas.
+
 ### Arquitectura FSM — Backend como Dictador Absoluto (rediseñado Opción B, 22 May 2026)
 
 Principio: el LLM es un **procesador semántico**, no un tomador de decisiones de flujo. El backend (`route.ts`) detecta el estado y controla todos los textos verbatim. Patrón: Graph Prompting (Salesforce Agentforce / Intercom Fin / HubSpot Breeze).

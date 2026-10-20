@@ -80,6 +80,7 @@ import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
 import { mencionaElReto } from '@/lib/puerta-reto';
 import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
 import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
+import { preguntaPorTiempoDeResultados } from '@/lib/puerta-tiempo-resultados';
 import { preguntaPorLaMaquinaDeVentas } from '@/lib/puerta-maquina-ventas';
 import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
@@ -2601,6 +2602,17 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       titulo: 'Las cuatro formas de empezar — FREQ_03',
       porque: 'pregunta con cuánta plata se arranca',
       cuando: { test: preguntaPorPlataParaEmpezar },
+    },
+    {
+      // 20 oct 2026: «¿cuánto se demoró en ver resultados haciéndolo después del
+      // trabajo?» (auditoría del día 44) perdía contra la ficha de producto FAQ_02
+      // por 0.017 y el modelo respondía con energía y descanso: una pregunta de
+      // negocio terminaba en afirmaciones de salud. La llave y sus exclusiones →
+      // src/lib/puerta-tiempo-resultados.ts
+      fragmento: 'arsenal_inicial_FREQ_04',
+      titulo: 'Cuándo se ve el primer ingreso — FREQ_04',
+      porque: 'pregunta en cuánto tiempo se ven resultados del negocio',
+      cuando: { test: preguntaPorTiempoDeResultados },
     },
     {
       // 18 oct 2026: «la máquina de ventas» es el nombre del segundo elemento en

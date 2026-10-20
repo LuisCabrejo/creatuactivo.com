@@ -28,6 +28,7 @@ import { pideLaEstrategia, detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { preguntaPorCostoDeTecnologia } from '../src/lib/puerta-costo-tecnologia.ts';
 import { preguntaPorPlataParaEmpezar } from '../src/lib/puerta-plata-para-empezar.ts';
+import { preguntaPorTiempoDeResultados } from '../src/lib/puerta-tiempo-resultados.ts';
 import { preguntaPorLaMaquinaDeVentas } from '../src/lib/puerta-maquina-ventas.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
 import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
@@ -86,6 +87,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'preguntaPorCostoDeTecnologia · tecnología', fn: preguntaPorCostoDeTecnologia, frase: 'la tecnología tiene costo', llaves: ['tecnología', 'costo'], tope: 0 },
   { nombre: 'preguntaPorPlataParaEmpezar', fn: preguntaPorPlataParaEmpezar, frase: 'con cuánta plata se arranca', llaves: ['plata', 'arranca'], tope: 0,
     nota: '20 oct 2026: «¿con qué plata?», del video del día 43, abre FREQ_03' },
+  { nombre: 'preguntaPorTiempoDeResultados', fn: preguntaPorTiempoDeResultados, frase: 'en cuánto tiempo se ven resultados en el negocio', llaves: ['tiempo', 'resultados', 'negocio'], tope: 9,
+    nota: '20 oct 2026: la pregunta de negocio no cae en la ficha de producto FAQ_02 (salud)' },
   { nombre: 'preguntaPorLaMaquinaDeVentas', fn: preguntaPorLaMaquinaDeVentas, frase: 'qué es la máquina de ventas', llaves: ['máquina', 'ventas'], tope: 0 },
   { nombre: 'detectarPidePersona · reunión', fn: detectarPidePersona, frase: 'quiero una reunión para saber cómo iniciar', llaves: ['reunión', 'quiero'], tope: 1,
     nota: 'pedir una reunión es pedir una persona — el video del día 15 dice que Luis se reúne con interesados (21 sep 2026)' },

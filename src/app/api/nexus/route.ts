@@ -2812,7 +2812,14 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       fragmento: 'arsenal_avanzado_ADV_OBJ_02',
       titulo: 'Ya tengo un negocio — ADV_OBJ_02',
       porque: 'ya tiene negocio propio o se declara empresario',
-      cuando: /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(comerciante|empresari[oa])\b/i,
+      // ⚠️ Preguntar si ESTO es un negocio propio no es tener uno (20 oct 2026):
+      // el video del día 44 dice «aquí no hay jefes», y «¿o sea es como un
+      // negocio propio?» recibía el candado del empresario, que da por hecho un
+      // negocio que funciona. Sin la puerta la gana FREQ_10 (0.600), que explica
+      // la diferencia con un negocio tradicional.
+      cuando: { test: (t: string) =>
+        /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(comerciante|empresari[oa])\b/i.test(t)
+        && !(/\b(es|ser[ií]a|sea|vendr[ií]a\s+a\s+ser)\s+(como\s+)?(un|mi|su)\s+(propio\s+)?(negocio|empresa)\b/i.test(t) && !/\b(tengo|manejo|mont[eé])\b/i.test(t)) },
       // Se entrega literal con envoltura (24 sep 2026): ver `queswa-envoltura.ts`.
       dictar: true,
     },

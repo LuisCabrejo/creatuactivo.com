@@ -12,7 +12,7 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.78** (19 oct 2026) — **Nace `EAM_03`: *«¿Me toca salir a vender?»*** tiene destino propio, con candado. Antes caía en candados que contestaban otra pregunta. Texto aprobado por el Director; criterio y medición en su `[Concepto Nuclear]`.
+**Versión actual: v6.79** (20 oct 2026) — **`FREQ_03` 🔒 abre con dónde va el dinero**: el fabricante y la tecnología ya están puestos, así que lo que se paga se convierte en producto. Es la respuesta a *«¿con qué plata?»*, que el video del día 43 preguntó en voz alta y que desde hoy abre una puerta propia. Texto aprobado por el Director.
 
 **v6.77** (19 oct 2026) — **Nacen los archivos de los videos del reto: `RETO_D22` (sale del prompt hoy) y `RETO_D15` y `RETO_D19`** (salieron antes sin archivarse; el día 16 no se archiva: su índice atraía cualquier «vi su video de hoy»), con la nota aprobada de cada uno como cuerpo. Es la rutina del reto: en el prompt viven solo los dos últimos videos. Criterio en su `[Concepto Nuclear]`. Y `EAM_02` ofrece *las cuatro formas de empezar* (decía *tres*).
 
@@ -316,7 +316,7 @@ Cómo aplicaría en su caso lo ve directo con el equipo de creatuactivo.com.
 **[Concepto Nuclear]:** Quien pregunta cómo se inicia ya decidió, y se le trata como a quien mira una propiedad y pregunta dónde firma: a nadie le gusta que le vendan, pero comprar sí gusta. Tabla escaneable de las cuatro formas de empezar con su precio, y un paso claro. **Desde el 6 oct 2026 son cuatro (Director):** el Visionario primero, como anclaje, y el *Kit de Inicio* al final y **sin porcentaje** —mostrar la diferencia de ganancia hace que la persona aplace; lo que se quiere es que empiece, y la tarifa se mejora después—. `[PRECIO_KIT]` lo llena `getPinKitInicio()`. La nomenclatura del plan va literal —*Binario 17%*, *Bono GEN5*—, porque el porcentaje corre sobre el GCV y traducirlo a lenguaje llano hace calcularlo sobre la facturación. La línea de datos de cada nivel ya los diferencia. `[PRECIO]` lo llena `getPaquetesPricingPin()` en la moneda del visitante — es el único hueco del arsenal, y es a propósito: una cifra que depende del país no cabe dentro de un texto que se entrega carácter por carácter.
 
 <verbatim_lock>
-Son cuatro formas de empezar, y en las cuatro lo que paga se convierte en producto: el portafolio premium de bienestar de Gano Excel que usted recibe.
+El fabricante despacha cada pedido y la tecnología no tiene costo, así que su dinero no se va en montar una empresa: se convierte en producto, el portafolio premium de bienestar de Gano Excel que usted recibe. Son cuatro formas de empezar:
 
 **ESP-3 — Visionario** · [PRECIO]
 > 35 productos · Binario 17% por 6 meses · Bono GEN5 activo

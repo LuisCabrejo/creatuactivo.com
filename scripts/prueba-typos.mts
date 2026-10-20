@@ -27,6 +27,7 @@ import { pideImagen, detectarProducto, detectarFamilia } from '../src/lib/wa-pro
 import { pideLaEstrategia, detectarPidePieza, declaraPerfil, RE_PREGUNTA_EMPRESA_GANO, RE_PREGUNTA_ES_MULTINIVEL, RE_COMPARA_CON_MULTINIVEL, siFueraDeLugar, RE_OBJECION_PRESUPUESTO, RE_YA_SE_INSCRIBIO, preguntaCuantoCubreLaCompra, preguntaPorModoWaze, RE_TENGO_CODIGO, RE_ACTIVO_EN_GANO, RE_CAMBIO_DE_EQUIPO } from '../src/lib/queswa-conductor.ts';
 import { mencionaElReto } from '../src/lib/puerta-reto.ts';
 import { preguntaPorCostoDeTecnologia } from '../src/lib/puerta-costo-tecnologia.ts';
+import { preguntaPorPlataParaEmpezar } from '../src/lib/puerta-plata-para-empezar.ts';
 import { preguntaPorLaMaquinaDeVentas } from '../src/lib/puerta-maquina-ventas.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
 import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
@@ -83,6 +84,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'mencionaElReto',          fn: mencionaElReto,        frase: 'cómo va el reto de Luis', llaves: ['reto'], tope: 0 },
   { nombre: 'preguntaPorCostoDeTecnologia', fn: preguntaPorCostoDeTecnologia, frase: 'cuánto cuesta queswa', llaves: ['cuesta', 'queswa'], tope: 0 },
   { nombre: 'preguntaPorCostoDeTecnologia · tecnología', fn: preguntaPorCostoDeTecnologia, frase: 'la tecnología tiene costo', llaves: ['tecnología', 'costo'], tope: 0 },
+  { nombre: 'preguntaPorPlataParaEmpezar', fn: preguntaPorPlataParaEmpezar, frase: 'con cuánta plata se arranca', llaves: ['plata', 'arranca'], tope: 0,
+    nota: '20 oct 2026: «¿con qué plata?», del video del día 43, abre FREQ_03' },
   { nombre: 'preguntaPorLaMaquinaDeVentas', fn: preguntaPorLaMaquinaDeVentas, frase: 'qué es la máquina de ventas', llaves: ['máquina', 'ventas'], tope: 0 },
   { nombre: 'detectarPidePersona · reunión', fn: detectarPidePersona, frase: 'quiero una reunión para saber cómo iniciar', llaves: ['reunión', 'quiero'], tope: 1,
     nota: 'pedir una reunión es pedir una persona — el video del día 15 dice que Luis se reúne con interesados (21 sep 2026)' },

@@ -79,6 +79,7 @@ import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
 import { mencionaElReto } from '@/lib/puerta-reto';
 import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
+import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
 import { preguntaPorLaMaquinaDeVentas } from '@/lib/puerta-maquina-ventas';
 import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
@@ -2589,6 +2590,17 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       porque: 'pregunta si la tecnología tiene costo',
       cuando: { test: preguntaPorCostoDeTecnologia },
       dictar: true,
+    },
+    {
+      // 20 oct 2026: el video del día 43 preguntó «¿con qué plata?», y «con
+      // cuánta plata se arranca» llegaba a FREQ_03 solo si el vector acertaba.
+      // Va antes de las de la diáspora, que se apartan ante una pregunta de
+      // precio: la cifra la pone el pin por país. La llave y sus exclusiones →
+      // src/lib/puerta-plata-para-empezar.ts
+      fragmento: 'arsenal_inicial_FREQ_03',
+      titulo: 'Las cuatro formas de empezar — FREQ_03',
+      porque: 'pregunta con cuánta plata se arranca',
+      cuando: { test: preguntaPorPlataParaEmpezar },
     },
     {
       // 18 oct 2026: «la máquina de ventas» es el nombre del segundo elemento en
@@ -6550,7 +6562,8 @@ STOP. Sin preguntas de seguimiento adicionales. Sin cálculos. Sin pasos adicion
       const m = latestUserMessage || '';
       const pidePrecio = /cu[aá]nto\s+(cuesta|vale|sale)|qu[eé]\s+(precio|valor|inversi[oó]n)|precio\s+de\s+(los\s+)?paquete|cu[aá]nto\s+(hay\s+que|se\s+necesita|tengo\s+que)\s+(invertir|pagar|poner)/i.test(m);
       const pideGanancia = /cu[aá]nto\s+(se\s+)?(gana|gano|paga|genera|cobra)|comisi[oó]n|ganancia|rendimiento|retorno|recupero|gen[\s.-]?5|binario|utilidad/i.test(m);
-      return pidePrecio && !pideGanancia;
+      // «¿Con cuánta plata se arranca?» también pregunta un precio (20 oct 2026).
+      return (pidePrecio || preguntaPorPlataParaEmpezar(m)) && !pideGanancia;
     })();
 
     // "¿cada cuánto pagan?" pregunta por el CALENDARIO, no por cifras. Sin esta

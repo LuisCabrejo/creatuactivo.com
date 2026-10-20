@@ -520,6 +520,15 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.79 — `FREQ_03` 🔒 abre con dónde va el dinero, y «¿con qué plata?» tiene puerta (20 oct 2026)
+
+El video del día 43 preguntó *«¿a qué horas y con qué plata?»* y respondió *«su plata no se va a montar una empresa»*. La auditoría del guion marcó *«¿Con cuánta plata se arranca?»* con ❌: llegaba a `FREQ_03` solo porque el vector acertó (`fragment_vector_search`), sin puerta, y `preguntaSoloPorPrecio` no la reconocía. El juez también objetó la línea *«Binario 17 % por 6 meses · Bono GEN5 activo»* de cada nivel, pero esa línea es el diseño aprobado el 6 oct y se queda.
+
+- **La primera línea del candado, aprobada por el Director:** *«El fabricante despacha cada pedido y la tecnología no tiene costo, así que su dinero no se va en montar una empresa: se convierte en producto, el portafolio premium de bienestar de Gano Excel que usted recibe. Son cuatro formas de empezar:»*. Antes decía *«Son cuatro formas de empezar, y en las cuatro lo que paga se convierte en producto…»*. Va *dinero* y no *plata*, porque el texto se lee en dieciséis países (Director). Sirve igual para *«¿cómo me uno?»* y *«quiero empezar»*, que también llegan aquí.
+- **La compra mensual no se nombra** (Director, 20 oct 2026): en este modelo se da por sentada.
+- **La puerta** vive en `src/lib/puerta-plata-para-empezar.ts`. La llave es dinero (o un *cuánto*) más arranque, tolerante a typos (`prueba-typos.mts`, tope 0), y se aparta si preguntan por ganancia, tiempo o personas. `preguntaSoloPorPrecio` la cuenta como pregunta de precio.
+- **El texto para el distribuidor** (*«¿qué le respondo a quien me pregunta con cuánta plata se arranca?»*) también lo aprobó el Director hoy, pero lo maneja el agente del Dashboard: se le entregó con el texto literal.
+
 ### v6.78 — Nace `EAM_03`: «¿Me toca salir a vender?» tiene destino propio (19 oct 2026)
 
 *«¿Entonces yo no tengo que vender nada?»* (auditoría del video del día 43) no tenía casa: caía en `ADV_OBJ_02` 🔒 y, después de la v14.9 del avanzado, en `CLIENTE_VIP_01` 🔒, que arranca con *«Claro que sí, y es la puerta más sencilla»*. Ninguno contestaba esa pregunta, y `EAM_01` no la alcanzaba con una cláusula en el índice (puesto 16). Fragmento corto nuevo, con candado y texto aprobado por el Director: compartir arriba, recibir al final, y en medio lo que hacen Queswa y Gano Excel, en positivo. *«Saludar a quien ya tiene interés»* en lugar de *«a quien llega»* (Director, 19 oct: *llegar* carga la silueta de *meter gente*). Cierra hacia `WHY_PROD_01`.

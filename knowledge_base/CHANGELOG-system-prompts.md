@@ -6,6 +6,10 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.21 — Las formas de empezar son cuatro también en el prompt (20 oct 2026)
+
+La línea de los paquetes seguía como antes del 6 oct: *«Los paquetes de inicio son tres… El Kit de Inicio es la opción menor y aparece cuando la persona pide algo más económico»*. Contradecía `FREQ_03` y la decisión del Director (cuatro formas: el Visionario primero como anclaje, el Kit al final y sin porcentaje), y era lo que el modelo leía cuando respondía sin el candado, que es lo normal en el Dashboard. Ahora dice las cuatro, en ese orden. Va 29 caracteres más corta: la web queda en 19.455.
+
 ## v5.20 — El día 43, «¿dónde está hoy el dinero?», entra; sale el día 22 (19 oct 2026)
 
 La nota del video del día 43 reemplaza la del día 22 en «Los dos videos más recientes»; queda el 39, que va primero por ser el más viejo. Contenido: colombianos que modernizaron negocios de siempre (Nubank, Rappi, Platzi, Habi, Bold); CreaTuActivo hace lo mismo en el network marketing y en el sector laboral y responde *«¿a qué horas y con qué plata?»* con los tres elementos; el fin de semana se sumaron socios, entre ellos una madre y su hijo; esta semana empieza un trabajo enfocado en Bogotá y la Sabana, y **aplica igual en cualquier ciudad**. La nota del día 22 no se pierde: pasa al arsenal como `RETO_D22` (v6.77), con el mismo texto.

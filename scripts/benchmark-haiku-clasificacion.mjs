@@ -20,7 +20,8 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 dotenv.config({ path: join(dirname(__filename), '..', '.env.local') });
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+// Gasta de la clave de pruebas si existe (auditoría de consumo, 19 oct 2026).
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY_PRUEBAS || process.env.ANTHROPIC_API_KEY });
 
 // ============================================================================
 // 50 QUERIES REPRESENTATIVAS — calibradas contra casos reales de QA

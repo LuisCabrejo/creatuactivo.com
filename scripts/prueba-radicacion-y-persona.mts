@@ -20,6 +20,9 @@
  */
 import fs from 'node:fs';
 import { config } from 'dotenv'; config({ path: '.env.local' });
+// Las librerías crean su cliente al primer uso con ANTHROPIC_API_KEY: este script gasta
+// de la clave de pruebas si existe (auditoría de consumo, 19 oct 2026).
+process.env.ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY_PRUEBAS || process.env.ANTHROPIC_API_KEY;
 import { gestionarCierre, RE_VOLICION, OFERTA_RADICAR_MODELO, pedirDatos } from '../src/lib/wa-radicacion.ts';
 import { botOfrecioPersona } from '../src/lib/queswa-conductor.ts';
 import { esAceptacion, respuestaPersona } from '../src/lib/wa-pedido.ts';

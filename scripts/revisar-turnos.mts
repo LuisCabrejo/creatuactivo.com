@@ -14,6 +14,9 @@
  * Lo mismo lo corre solo `/api/cron/revisar-turnos` una vez al día.
  */
 import { config } from 'dotenv'; config({ path: '.env.local' });
+// Las librerías crean su cliente al primer uso con ANTHROPIC_API_KEY: este script gasta
+// de la clave de pruebas si existe (auditoría de consumo, 19 oct 2026).
+process.env.ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY_PRUEBAS || process.env.ANTHROPIC_API_KEY;
 import { createClient } from '@supabase/supabase-js';
 import { revisarTurnos } from '../src/lib/revisar-turnos.ts';
 

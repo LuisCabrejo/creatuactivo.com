@@ -39,6 +39,7 @@ async function testNEXUSCache() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-queswa-origen': 'prueba',
         },
         body: JSON.stringify({
           messages: [

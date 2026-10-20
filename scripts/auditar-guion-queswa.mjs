@@ -54,7 +54,9 @@ const BASE = opcion('--base', 'https://creatuactivo.com');
 const TENANT = opcion('--tenant', 'whatsapp');
 const SALIDA_JSON = opcion('--json', null);
 const DETALLE = args.includes('--detalle');
-const MODELO = 'claude-opus-5';
+// Opus 5.5 desde el 19 oct 2026 (auditoría de consumo): $4/$20 contra los $5/$25 de
+// Opus 5, y esfuerzo `medium` explícito, que es su valor por defecto (Opus 5 corría en high).
+const MODELO = 'claude-opus-5-5';
 
 // Un registro del día (.md) trae el guion bajo «## Guion…»; un .txt es el guion entero.
 function extraerGuion(texto) {
@@ -67,13 +69,14 @@ if (guion.length < 40) { console.error('❌ No encontré el guion en el archivo.
 // El juez gasta de la clave de pruebas si existe (ver src/lib/consumo-anthropic.ts).
 const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY_PRUEBAS || process.env.ANTHROPIC_API_KEY });
 
-// Salida estructurada con una herramienta estricta. No se fuerza tool_choice: Claude Opus 5 piensa
-// por defecto, así que va en auto con la instrucción de llamarla, y se reintenta una vez.
+// Salida estructurada con una herramienta estricta. No se fuerza tool_choice: Claude Opus 5.5 piensa
+// siempre y rechaza el tool_choice forzado, así que va en auto con la instrucción de llamarla, y se reintenta una vez.
 async function pedirHerramienta(system, user, herramienta) {
   for (let intento = 1; intento <= 2; intento++) {
     const r = await claude.beta.messages.create({
       model: MODELO,
       max_tokens: 16000,
+      output_config: { effort: 'medium' },
       betas: ['server-side-fallback-2026-07-01'],
       fallbacks: 'default',
       system,

@@ -44,7 +44,7 @@ Lista completa, con sus advertencias → [COMANDOS.md](docs/claude/COMANDOS.md).
 | Auditar el tráfico real | `node scripts/auditar-conversaciones.mjs --dias 10` | Un «sí» con `fragment_vector_search` es un nodo que no disparó |
 | Medir la recuperación de un fragmento | `node scripts/medir-recuperacion-voyage.mjs "<consulta>"` | Con paráfrasis coloquiales, nunca con el disparador literal (es circular) |
 | Auditar frases vetadas | `node scripts/auditar-frases-vetadas.mjs --detalle` | Estado sano: 0 cabeceras |
-| Gasto en Anthropic | `node scripts/consumo-anthropic.mjs [--dias 7]` | Separa personas de pruebas |
+| Gasto en Anthropic | `node scripts/consumo-anthropic.mjs [--dias 7]` | Separa personas de pruebas; el Dashboard entra desde el 19 oct 2026. No ve los scripts que llaman a Anthropic directo |
 | ¿La clave de Anthropic sigue viva? | `npx tsx scripts/probar-vigilante-motor.mts` | `GET /api/nexus` dice «healthy» sin tocar la clave: no sirve para esto |
 | Categoría real de las plantillas del WABA | `node scripts/auditar-plantillas-whatsapp.mjs` | Meta recategoriza por su cuenta y no avisa |
 | Aperturas del enlace de Queswa, por dispositivo | `node scripts/medir-aperturas-enlace.mjs [--dias 7]` | Cruza `page_visits` con los primeros mensajes |
@@ -78,6 +78,7 @@ Una línea por regla; el porqué y el caso de cada una → [REGLAS_CRITICAS.md](
 - ⚠️ **En este motor la FSM de cierre (estados 2/3/4 y el correo de handoff) solo corre fuera de `canalDictado`**: la web y WhatsApp cierran por [wa-radicacion.ts](src/lib/wa-radicacion.ts). Donde sigue viva vale: validar el nombre antes del Estado 4, sincronizar los regex si cambia `getCierreEstado4()` y no volver a extraer `package` de las respuestas del modelo.
 - ❌ **No se re-implementa el prompt caching**: ya está (`grep -n cache_control`); el hit rate se mide con `consumo-anthropic.mjs`.
 - ⛔ **Todo script que llame al motor manda `x-queswa-origen: prueba`**; si existe `ANTHROPIC_API_KEY_PRUEBAS`, gasta de esa clave. Cuatro de cada cinco llamadas eran pruebas, y salían de la clave que atiende a la gente.
+- ⛔ **Toda prueba lleva presupuesto**: antes de correr dice cuánto va a costar, empieza con 3 muestras por variante, llama a Anthropic con `ANTHROPIC_API_KEY_PRUEBAS || ANTHROPIC_API_KEY`, y lo que no espera respuesta va por la Batch API (la mitad). Del 13 al 19 oct 2026 las pruebas triplicaron la factura (~1.250 llamadas), casi todas desde scripts desechables con la clave principal, que comparten marketing, el Dashboard y luiscabrejo.com.
 - ⚠️ **No cite números de línea de `route.ts`** (~7.900 líneas): `grep -n` sobre el identificador.
 
 ### El arsenal

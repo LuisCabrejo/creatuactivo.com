@@ -21,23 +21,29 @@
  * en su propia clave.
  *
  * Las filas anteriores al 26 sep no traen tokens: se cuentan como «sin medir».
+ * El Dashboard (huella `dash_`) guarda su consumo con el mismo contrato desde el
+ * 19 oct 2026 (src/lib/consumo-anthropic.ts de ese repo); antes no dejaba nada.
  */
 import dotenv from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
 
 dotenv.config({ path: '.env.local', quiet: true });
 
-// Dólares por millón de tokens, precios de lista de Anthropic al 26 sep 2026.
-// La caché de 5 minutos cobra la escritura a 1,25× y la lectura a 0,1× de la entrada.
+// Dólares por millón de tokens, precios de lista de Anthropic al 19 oct 2026
+// (platform.claude.com/docs/en/about-claude/pricing). La escritura de la caché de
+// 5 minutos cuesta 1,25× la entrada; la LECTURA ya no es 0,1× en todos: Opus 5.5 y
+// Sonnet 5.5 cobran 0,05×, Fable 5.1 0,025×. Se busca por prefijo, en este orden.
 const PRECIOS = [
-  { prefijo: 'claude-sonnet-4-6', entrada: 3, salida: 15 },
-  { prefijo: 'claude-sonnet-5', entrada: 2, salida: 10 },
-  { prefijo: 'claude-haiku-4-5', entrada: 1, salida: 5 },
-  { prefijo: 'claude-opus-5-5', entrada: 4, salida: 20 },
-  { prefijo: 'claude-opus-5', entrada: 5, salida: 25 },
+  { prefijo: 'claude-sonnet-5-5', entrada: 2, salida: 10, lectura: 0.10 },
+  { prefijo: 'claude-sonnet-5', entrada: 2, salida: 10, lectura: 0.20 },
+  { prefijo: 'claude-sonnet-4-6', entrada: 3, salida: 15, lectura: 0.30 },
+  { prefijo: 'claude-haiku-5-5', entrada: 0.10, salida: 0.50, lectura: 0.01 },
+  { prefijo: 'claude-haiku-4-5', entrada: 1, salida: 5, lectura: 0.10 },
+  { prefijo: 'claude-opus-5-5', entrada: 4, salida: 20, lectura: 0.20 },
+  { prefijo: 'claude-opus-5', entrada: 5, salida: 25, lectura: 0.50 },
+  { prefijo: 'claude-fable-5-1', entrada: 10, salida: 50, lectura: 0.25 },
 ];
 const ESCRITURA = 1.25;
-const LECTURA = 0.1;
 
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i >= 0 ? process.argv[i + 1] : d; };
 const dias = Number(arg('--dias', 7));
@@ -61,7 +67,7 @@ function dolares(c) {
   if (!p) { desconocidos.add(c.modelo || '(vacío)'); return 0; }
   return (c.entrada * p.entrada
     + c.cache_escritura * p.entrada * ESCRITURA
-    + c.cache_lectura * p.entrada * LECTURA
+    + c.cache_lectura * p.lectura
     + c.salida * p.salida) / 1e6;
 }
 

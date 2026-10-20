@@ -12,7 +12,7 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.79** (20 oct 2026) — **`FREQ_03` 🔒 abre con dónde va el dinero**: el fabricante y la tecnología ya están puestos, así que lo que se paga se convierte en producto. Es la respuesta a *«¿con qué plata?»*, que el video del día 43 preguntó en voz alta y que desde hoy abre una puerta propia. Texto aprobado por el Director.
+**Versión actual: v6.80** (20 oct 2026) — **Nace `RETO_D39`, «el gigante»**: el video del día 39 sale del prompt (entra el 44) y queda aquí con su nota aprobada. Es la rutina del reto: en el prompt viven solo los dos últimos videos.
 
 **v6.77** (19 oct 2026) — **Nacen los archivos de los videos del reto: `RETO_D22` (sale del prompt hoy) y `RETO_D15` y `RETO_D19`** (salieron antes sin archivarse; el día 16 no se archiva: su índice atraía cualquier «vi su video de hoy»), con la nota aprobada de cada uno como cuerpo. Es la rutina del reto: en el prompt viven solo los dos últimos videos. Criterio en su `[Concepto Nuclear]`. Y `EAM_02` ofrece *las cuatro formas de empezar* (decía *tres*).
 
@@ -1278,6 +1278,18 @@ La enseñanza: se escogen dos o tres acciones y se cumplen todos los días.
 En el video del día 19 del reto (viernes 25 de septiembre), «honor a la pausa», Luis contó que, viendo con su hijo Justin la película Coyote versus Acme, rescata que el Coyote no sigue tropezando con la misma piedra: se detiene, analiza y descubre que la culpa era de las herramientas.
 
 Así trabaja él: fija un objetivo y la jornada para llegar; si después de tres o cuatro intentos no hay luz verde, hace una pausa y redirecciona. Contó que las dos primeras semanas del reto fueron de mucho redireccionar y que en la tercera por fin vio luz verde.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+---
+
+### **RETO_D39: "El gigante, el rey David y la furia"**
+**[Índice]:** Lo del gigante que tenía que vencer y el rey David; ya no está cansado, está con furia. Lo del terremoto y su casa, cuando se vio como víctima. Lo de Girardot, donde lo invitaron a hablar con un grupo de personas.
+**[Concepto Nuclear]:** Archivo del video del día 39 (jueves 15 oct 2026), que salió de «Los dos videos más recientes» del prompt cuando entró el día 44 (v5.22, 20 oct 2026), como manda la rutina del reto. El cuerpo es la nota aprobada del prompt, con la corrección del 19 oct (Los 12 Niveles se publicaron ese mismo día), sin cambios de fondo. Del terremoto solo se cuenta lo que dice la nota (Director). ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`.
+
+En el video del día 39 del reto (jueves 15 de octubre), «el gigante», Luis volvió a grabar después de varios días. Contó que el terremoto del 1 de septiembre afectó su casa y que, durante un tiempo, las dificultades lo hicieron verse como víctima; hoy se ve como el rey David frente a un gigante que tenía que vencer, y ya no está cansado: está con furia.
+
+El sistema no depende de un lugar y siguió funcionando; el reto sigue. Grabó en Girardot, donde la noche anterior lo invitaron a hablar con un grupo de personas. Ese mismo día publicó el video de Los 12 Niveles, la estrategia que están lanzando. Del terremoto no se cuenta más que esto.
 
 **Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
 ---

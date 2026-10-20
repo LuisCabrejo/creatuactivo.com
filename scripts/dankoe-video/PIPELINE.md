@@ -179,7 +179,8 @@ aparte y tomas que se descartan**, el corte se arma primero:
 # 1 · corte curado: sincronía, niveles, tomas buenas, frontera de cuadro  (+ verificación)
 captions/.venv/bin/python armar-curado.py corte-diaN.json --salida curado.mov
 # 2 · retoque facial ANTES del color (dientes + piel; conserva el audio)
-captions/.venv/bin/python blanquear_dientes.py curado.mov retocado.mov
+#     el reto arranca en --fuerza 0.35 (Director, 20 oct 2026): el 0.85 por defecto le quedó fuerte
+captions/.venv/bin/python blanquear_dientes.py curado.mov retocado.mov --fuerza 0.35 --piel 0.45
 # 3 · color, subtítulos, atmósfera, marca de agua, música y outro
 captions/.venv/bin/python pildora.py retocado.mov --lut --guion texto.txt --sin-recorte --sin-compuerta --outro
 #     reel hablado casi sin pausas: añadir --musica-lufs -22 --musica-vol 1.20 (día 9; con el default la música no se oye)

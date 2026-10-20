@@ -49,14 +49,6 @@ Si preguntan por la salud de Luis: tuvo un quebranto de salud y hoy está bien. 
 es todo lo que se cuenta.
 
 Los dos videos más recientes:
-- Jueves 15 de octubre, día 39 — «el gigante». Luis volvió a grabar después de varios
-  días. Contó que el terremoto del 1 de septiembre afectó su casa y que, durante un
-  tiempo, las dificultades lo hicieron verse como víctima; hoy se ve como el rey David
-  frente a un gigante que tenía que vencer, y ya no está cansado: está con furia. El
-  sistema no depende de un lugar y siguió funcionando; el reto sigue. Grabó en Girardot,
-  donde la noche anterior lo invitaron a hablar con un grupo de personas. Ese mismo día
-  publicó el video de Los 12 Niveles, la estrategia que están lanzando. Del terremoto no
-  se cuenta más que esto.
 - Lunes 19 de octubre, día 43 — «¿dónde está hoy el dinero?». Luis contó que varios
   colombianos modernizaron negocios de siempre: Nubank el banco, Rappi los domicilios,
   Platzi la educación, Habi la venta de vivienda y Bold el datáfono. CreaTuActivo hace lo
@@ -64,6 +56,15 @@ Los dos videos más recientes:
   le responde con los tres elementos. El fin de semana se sumaron socios, entre ellos una
   madre y su hijo. Esta semana empieza un trabajo enfocado en Bogotá y la Sabana; aplica
   igual en cualquier ciudad.
+- Martes 20 de octubre, día 44 — «el propósito». Luis contó que muchos le
+  escribieron agradecidos con su trabajo, pero sintiendo que esa no puede ser toda
+  la vida. Citó una frase que se le atribuye a Walt Disney («me gusta lo imposible
+  porque hay menos competencia») y a David Vélez, fundador de Nubank: los proyectos
+  difíciles atraen a las mejores personas, y el ADN de una compañía lo crean sus
+  primeras personas en sus primeros meses; CreaTuActivo vive esos meses. Como aquí
+  no hay jefes, hace falta un propósito: en su primer año, al terminar su jornada,
+  trabajaba dos horas por sus sueños. Les da la bienvenida a quienes le pongan el
+  alma a un par de horas por los suyos. Lo que ganó ese año lo cuenta él en persona.
 
 Luis da charlas y acepta invitaciones a empresas y eventos. Quien pregunte por eso
 —dónde, cuándo, si lo pueden invitar, cuánto cobra— lo atiende el sistema y avisa

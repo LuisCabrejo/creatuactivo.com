@@ -520,6 +520,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.80 — Nace `RETO_D39`, «el gigante» (20 oct 2026)
+
+El video del día 39 sale de «Los dos videos más recientes» del prompt cuando entra el 44 (v5.22), como manda la rutina del reto, y queda aquí como fragmento. El cuerpo es la nota aprobada del prompt, con la corrección del 19 oct (Los 12 Niveles se publicaron ese mismo día). El índice se ancla a lo que la persona recuerda —el gigante y el rey David, la furia, el terremoto y su casa, Girardot— y no dice «video» ni «reto», por la misma razón que `RETO_D19`. Del terremoto solo se cuenta lo que dice la nota (Director).
+
 ### v6.79 — `FREQ_03` 🔒 abre con dónde va el dinero, y «¿con qué plata?» tiene puerta (20 oct 2026)
 
 El video del día 43 preguntó *«¿a qué horas y con qué plata?»* y respondió *«su plata no se va a montar una empresa»*. La auditoría del guion marcó *«¿Con cuánta plata se arranca?»* con ❌: llegaba a `FREQ_03` solo porque el vector acertó (`fragment_vector_search`), sin puerta, y `preguntaSoloPorPrecio` no la reconocía. El juez también objetó la línea *«Binario 17 % por 6 meses · Bono GEN5 activo»* de cada nivel, pero esa línea es el diseño aprobado el 6 oct y se queda.

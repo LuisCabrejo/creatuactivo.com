@@ -6,6 +6,16 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.22 — El día 44, «el propósito», entra; sale el día 39 (20 oct 2026)
+
+La nota del video del día 44 reemplaza la del día 39 en «Los dos videos más recientes»; queda el 43, que va primero por ser el más viejo. El 39 pasa al arsenal como `RETO_D39` (v6.80) con su nota aprobada. Texto aprobado por el Director, ajustado a lo que se dijo en cámara. La auditoría del guion (`auditar-guion-queswa.mjs`) marcó tres ideas que solo la nota cierra:
+
+- **«Lo de las dos horas después del trabajo»**: Queswa negaba que hiciera falta una segunda jornada, y el video cuenta justamente esas dos horas.
+- **«¿Qué ventaja tiene entrar ahora?»**: sin la cita de Vélez, hablaba de posiciones en la estructura. La nota dice el ADN de las primeras personas, sin número: con *«diez o quince»* la auditoría generó *«¿ya están completos los 15?»*, que choca con el núcleo que no se numera en público.
+- **«¿Cuánto empezó a ganar Luis?» / «¿le funcionó?»**: sacaba el techo de $103 millones y se inventaba que el primer año estaba en el reto. La nota cierra con *«Lo que ganó ese año lo cuenta él en persona»*.
+
+La frase de Walt Disney va como *«una frase que se le atribuye»*: circula atribuida a él sin fuente primaria conocida, y Queswa no debe afirmarla con más certeza que el video. Web 19.559 caracteres (sale una nota de 634 y entra una de 738).
+
 ## v5.21 — Las formas de empezar son cuatro también en el prompt (20 oct 2026)
 
 La línea de los paquetes seguía como antes del 6 oct: *«Los paquetes de inicio son tres… El Kit de Inicio es la opción menor y aparece cuando la persona pide algo más económico»*. Contradecía `FREQ_03` y la decisión del Director (cuatro formas: el Visionario primero como anclaje, el Kit al final y sin porcentaje), y era lo que el modelo leía cuando respondía sin el candado, que es lo normal en el Dashboard. Ahora dice las cuatro, en ese orden. Va 29 caracteres más corta: la web queda en 19.455.

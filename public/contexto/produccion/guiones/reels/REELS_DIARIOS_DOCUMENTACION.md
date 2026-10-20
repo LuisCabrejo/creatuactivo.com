@@ -12,6 +12,13 @@ estructura de ingresos recurrentes con Queswa.
   y las decisiones que lo dejaron así. Este documento es la **bitácora** (el hilo, las notas de
   producción, las semillas sin producir); ese directorio es el **texto citable**.
 
+> ⭐ **Producción del próximo video (Director, 20 oct 2026): el blanqueamiento dental arranca en
+> `--fuerza 0.35`** (`blanquear_dientes.py … --fuerza 0.35 --piel 0.45`), no en el 0.85 por
+> defecto del script. El día 44 salió con 0.85 y se rehízo en 0.55; el 0.35 es el punto de partida
+> que pidió para lo que sigue. Se anota en el registro de cada día con qué fuerza salió.
+> Desde el día 39 los registros de cada video viven en `~/Downloads/reels-equipo/MMDD/registro-diaNN.md`,
+> con copia en Drive (`videos/reto-90/recetas/MMDD/`).
+
 > Nota de léxico: a partir del Día 3 el copy migró al registro accesible
 > (*ingreso recurrente · estructura de ingresos*). El Día 1 aún dice "Estructura
 > Patrimonial" — se conserva verbatim porque ya se emitió.

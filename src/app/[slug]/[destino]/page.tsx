@@ -86,7 +86,7 @@ function esScraperDePreview(): boolean {
 // mensaje escrito y creyó que había un error: esperaba la pantalla de un agente.
 // La promesa de la empresa pasa a la descripción.
 const OG_QUESWA = {
-  title: 'Hable con Queswa por WhatsApp',
+  title: 'Hable con Queswa',
   description: 'Le explica y le responde a cualquier hora cómo usted puede tener a su nombre una empresa de distribución moderna.',
   image: 'https://creatuactivo.com/og/queswa?v=20260930',
   alt: OG_PRESENTACION.alt,
@@ -220,13 +220,11 @@ export default async function DestinoRoute({
           : destino === 'que-debo-hacer-yo'
             ? `Hola Queswa, vengo del enlace de ${slug}. Ya vi el video de qué debo hacer yo.`
             : `Hola Queswa, vengo del enlace de ${slug}`
-    // El código del navegador al final (`c:k3j9x2a1q`, 11 oct 2026): el middleware
-    // le dejó la cookie de un año en este salto, y el webhook la ata a su WhatsApp
-    // y retira el código antes de leer el mensaje — como el `w:` del orbe. A los
-    // robots de vista previa no se les pone.
+    // 🛑 Sin el código del navegador al final (` c:k3j9x2a1q`, del 11 al 20 oct
+    // 2026): en la casilla de WhatsApp se veía como un enlace sospechoso y la
+    // persona no enviaba (Director, 20 oct). La cookie sigue en `page_visits`.
     const visitante = headers().get('x-cta-visitante')
-    const codigo = !esScraperDePreview() && visitante && /^ck_[a-z0-9]{6,12}$/.test(visitante) ? ` c:${visitante.slice(3)}` : ''
-    const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto + codigo)}`
+    const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto)}`
 
     // 🔴 A los robots de vista previa NO se les redirige (28 ago 2026). Un
     // scraper que recibe el 307 lo sigue hasta wa.me y arma la tarjeta con lo
@@ -248,8 +246,8 @@ export default async function DestinoRoute({
     // el chat de Queswa abierto (13 oct 2026, Director, caso Wilson Romero: desde
     // un computador de escritorio el navegador intentó abrir WhatsApp y él lo leyó
     // como un error). `abrir=queswa` lo abre DeferredOrb; `vio=` le dice al chat
-    // qué video ya vio, para no volver a ofrecérselo. En el celular y la tableta,
-    // WhatsApp como siempre. La regla vive en src/lib/dispositivo.ts.
+    // qué video ya vio, para no volver a ofrecérselo. Desde el 20 oct 2026 el
+    // celular y la tableta también (Director). La regla vive en src/lib/dispositivo.ts.
     const cabeceras = headers()
     const agente = cabeceras.get('user-agent')
     const dispositivo = dispositivoDe(agente, cabeceras.get('sec-ch-ua-mobile'))

@@ -458,8 +458,11 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
 
   return (
     // display:none oculta el widget sin desmontarlo — el historial de mensajes sobrevive al cerrar
+    // z-[60] (20 oct 2026): el aviso de cookies (z-50, más abajo en la página) tapaba
+    // la casilla para escribir en el celular. Con el chat abierto queda debajo; al
+    // cerrarlo vuelve a verse.
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center md:items-center md:p-4 md:bg-black/20 md:backdrop-blur-sm"
+      className="fixed inset-0 z-[60] flex items-start justify-center md:items-center md:p-4 md:bg-black/20 md:backdrop-blur-sm"
       style={{ display: isOpen ? undefined : 'none' }}
     >
       <div

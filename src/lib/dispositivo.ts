@@ -14,6 +14,10 @@
  * teléfono, en cambio, WhatsApp es un toque y nos da su número desde el primer
  * mensaje.
  *
+ * 🛑 Desde el 20 oct 2026 el celular y la tableta también conversan en la web
+ * (ver `conversaPorWhatsApp`). Los comentarios que digan «en el celular,
+ * WhatsApp» describen lo que había antes.
+ *
  * ⚠️ Solo por el agente de usuario (y la pista `Sec-CH-UA-Mobile` de Chrome),
  * igual en los dos lados, para que el servidor y el navegador decidan lo mismo.
  * Por eso el iPad con Safari moderno —que se anuncia como Mac— cuenta como
@@ -54,9 +58,18 @@ export function sistemaDe(agente: string | null | undefined): string {
   return 'otro';
 }
 
-/** El celular y la tableta conversan con Queswa en WhatsApp; el computador, en la web. */
-export function conversaPorWhatsApp(d: Dispositivo): boolean {
-  return d !== 'computador';
+/**
+ * 🛑 Desde el 20 oct 2026 Queswa conversa en la web en TODOS los dispositivos
+ * (Director). De 20 personas que tocaron el enlace de Queswa ese día en el
+ * celular, 12 no tocaron Enviar en WhatsApp: llegaban a un chat vacío con el
+ * mensaje escrito en la casilla y un código al final («c:qutufvia84») que se
+ * ve sospechoso. Conversión antes que medición: el chat web abre con Queswa ya
+ * hablando. Se pierde el número que WhatsApp daba desde el primer mensaje.
+ * Para volver a WhatsApp en el celular: `return d !== 'computador'`.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function conversaPorWhatsApp(_d: Dispositivo): boolean {
+  return false;
 }
 
 /**

@@ -395,14 +395,13 @@ export function abrirConversacionQueswa(
  * el sitio llega al Dashboard con su nombre y su país (8 oct 2026, caso Aldo
  * Moller: su computador vio la presentación como «un visitante»). Sin huella,
  * el texto sale igual.
+ *
+ * 🛑 Apagado el 20 oct 2026 (Director): un código al final del mensaje se ve
+ * sospechoso y la persona no envía. Desde ese día Queswa conversa en la web en
+ * todos los dispositivos y este camino a WhatsApp queda solo de respaldo.
  */
 function conHuellaWeb(texto: string): string {
-  try {
-    const huella = (window as unknown as { FrameworkIAA?: { fingerprint?: string } }).FrameworkIAA?.fingerprint
-    return huella && /^[0-9a-f]{8}/i.test(huella) ? `${texto} w:${huella.slice(0, 8).toLowerCase()}` : texto
-  } catch {
-    return texto
-  }
+  return texto
 }
 
 /** Lee la atribución del socio en el cliente: ?ref= de la URL, luego localStorage. */

@@ -90,6 +90,8 @@ import { videoQuePide, type VideoIntencion } from '@/lib/queswa-videos-intencion
 import { VIDEOS_QUESWA, videoDeUrl, videoDeCandado, separarVozYPie, textoWebDelVideo, filaDelVideo, type VideoQueswa } from '@/lib/queswa-videos';
 import { expandirVideosDelHistorial, videoDeMaestra, atenderVideoPorIntencion } from '@/lib/queswa-videos-web';
 import { detectarIntencionCompra } from '@/lib/wa-pedido';
+import { promocionesVigentes, bloquePromocionesParaPrompt } from '@/lib/promociones-gano';
+import { PRODUCTOS_WA as PRODUCTOS_PRECIO } from '@/lib/wa-productos';
 import { contarTokens, consumoDe, esPeticionDePrueba, clienteParaPruebas, type Consumo } from '@/lib/consumo-anthropic';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
 // Ola 4 (25 May) lo había desactivado en favor del handoff 100% WhatsApp. Ahora
@@ -7361,8 +7363,21 @@ La persona ya es distribuidora activa de Gano Excel con otro equipo, y ese equip
 • Cierre sin pregunta: los siguientes pasos los propone la persona.
 </distribuidor_de_otro_equipo>` : '';
 
+// ── Las promociones de Gano Excel (22 oct 2026) ──────────────────────────────
+// Gano publica combos con su propio código (el primero, 80094) y Queswa no los
+// conocía: el Director le pidió la promoción y le respondió que no tenía acceso.
+// Van solo cuando se habla de ellas —en el mensaje o en la última respuesta—
+// para no sumar texto a cada turno. Vigentes = las que Gano tiene hoy en su
+// catálogo (src/lib/promociones-gano.ts).
+const _hablaDePromocion = /promo|oferta|combo|80094/i.test(String(latestUserMessage ?? ''))
+  || /promoci[oó]n/i.test(String([...(messages as any[])].reverse().find((m) => m?.role === 'assistant')?.content ?? ''));
+const _instruccionPromociones = _hablaDePromocion
+  ? (bloquePromocionesParaPrompt(await promocionesVigentes(), (pr) =>
+      pr.contenido.reduce((suma, c) => suma + (PRODUCTOS_PRECIO.find((x) => x.slug === c.slug)?.precioCOP ?? 0) * c.cantidad, 0)) ?? '')
+  : '';
+
 const sessionInstructions = `
-${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}${_instruccionHiloDoceNiveles}${_instruccionDiaspora}${_instruccionDistribuidorOtroEquipo}
+${getMicroPromptApertura()}${messageCount > 1 ? `📍 ${getMessageContext()}` : ''}${_instruccionHiloDoceNiveles}${_instruccionDiaspora}${_instruccionDistribuidorOtroEquipo}${_instruccionPromociones ? `\n${_instruccionPromociones}` : ''}
 ${visitorCountry ? `🌎 UBICACIÓN DEL VISITANTE (estimada por IP/teléfono, best-effort): ${COUNTRY_NAMES[visitorCountry] || visitorCountry}. Aplica la regla de cotización en su moneda local. Si el usuario menciona que vive o se registrará en otro país (caso diáspora), ESE país define su moneda y sus reglas de registro — confírmalo, no asumas por la ubicación detectada.` : ''}
 ${marchaInteres ? `🌉 PUENTE SUAVE (Marcha 2 — interés sin decisión): el usuario mostró interés en un paquete o preguntó por el proceso, pero NO declaró que quiere iniciar. (1) Responde con SUSTANCIA lo que preguntó —contenido del paquete, cómo se gana con él, los pasos— usando el contexto del arsenal. (2) CIERRA con un puente suave, sin pedir datos ni asumir compra: "Cuando quiera dar el paso, coordinamos su activación. Si prefiere, seguimos viendo lo que necesite." PROHIBIDO pedir nombre o WhatsApp en este turno. PROHIBIDO decir "lo registramos". Espera una señal clara de intención antes de avanzar al registro.` : ''}
 ${getPageContextInstructions()}
@@ -7464,7 +7479,7 @@ conectarlo con el socio que lo invitó. Cualquiera de las tres salidas es correc
     // ⚡ FASE 2 — HAIKU ROUTER: Usar clasificación anticipada (ya calculada antes del vector search)
     // FIX: Si isClosingFlowEarly=true, SIEMPRE usar Sonnet — el FSM (getMicroPromptCierre)
     // solo existe en el path Sonnet (Bloque 3 sessionInstructions). Haiku no lo recibe nunca.
-    const isSimpleQuery = (isClosingFlowEarly || marchaInteres) ? false : isSimpleQueryEarly;
+    const isSimpleQuery = (isClosingFlowEarly || marchaInteres || Boolean(_instruccionPromociones)) ? false : isSimpleQueryEarly;
 
     // ⚡ HAIKU PROMPT: misma personalidad Queswa, condensada para velocidad
     // Incluye conversationSummary para que recuerde usuarios previos

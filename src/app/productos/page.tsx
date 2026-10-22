@@ -109,8 +109,19 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
   // El pedido que Queswa tomó por WhatsApp (?pedido=codigo-firma) y los datos que ya dio.
   const [pedidoClave, setPedidoClave] = useState<string | null>(null)
   const [prefill, setPrefill] = useState<{ nombre?: string; telefono?: string } | null>(null)
-  const [lineaActiva, setLineaActiva] = useState(LINEAS[0].id)
+  const [lineaActiva, setLineaActiva] = useState(LINEAS.find((l) => l.id !== 'promocion')!.id)
   const cargado = useRef(false)
+  // Las promociones de Gano que siguen en su catálogo (22 oct 2026). Hasta saberlo,
+  // la línea «Promoción» no se pinta: una que Gano ya quitó no se puede comprar.
+  const [promosVigentes, setPromosVigentes] = useState<number[]>([])
+  useEffect(() => {
+    fetch('/api/promociones-gano').then((r) => (r.ok ? r.json() : null)).then((d) => {
+      if (Array.isArray(d?.vigentes)) setPromosVigentes(d.vigentes.map(Number))
+    }).catch(() => {})
+  }, [])
+  const lineas = useMemo(() => LINEAS
+    .map((l) => ({ ...l, ids: l.ids.filter((id) => !productData[id].promocion || promosVigentes.includes(productData[id].promocion!.inventoryId)) }))
+    .filter((l) => l.ids.length > 0), [promosVigentes])
 
   // ── El socio. En /productos/{slug} llega resuelto desde el servidor ([ref]/page.tsx);
   // en /productos, del que trajo a esta persona la última vez (tracking.js lo guarda).
@@ -201,6 +212,9 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
 
   const fijar = useCallback((id: string, cantidad: number) => {
     setEnviado(false)
+    // Una promoción de Gano va con su tope por pedido (la 80094: una).
+    const tope = productData[id]?.promocion?.limite
+    if (tope) cantidad = Math.min(cantidad, tope)
     setCarrito((c) => {
       if (cantidad <= 0) return c.filter((l) => l.id !== id)
       if (c.some((l) => l.id === id)) return c.map((l) => (l.id === id ? { ...l, cantidad: Math.min(cantidad, 50) } : l))
@@ -225,14 +239,14 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
 
   // ── La línea que se está viendo se marca arriba
   useEffect(() => {
-    const secciones = LINEAS.map((l) => document.getElementById(`linea-${l.id}`)).filter(Boolean) as HTMLElement[]
+    const secciones = lineas.map((l) => document.getElementById(`linea-${l.id}`)).filter(Boolean) as HTMLElement[]
     const obs = new IntersectionObserver((entradas) => {
       const visible = entradas.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
       if (visible) setLineaActiva(visible.target.id.replace('linea-', ''))
     }, { rootMargin: '-140px 0px -55% 0px' })
     secciones.forEach((s) => obs.observe(s))
     return () => obs.disconnect()
-  }, [])
+  }, [lineas])
 
   const irALinea = (id: string) => {
     document.getElementById(`linea-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -275,7 +289,7 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
       {/* ── 2. Las líneas, fijas arriba ──────────────────────────────────── */}
       <nav className="tienda-lineas" aria-label="Líneas del catálogo">
         <div className="tienda-ancho tienda-lineas-fila">
-          {LINEAS.map((l) => (
+          {lineas.map((l) => (
             <button
               key={l.id}
               type="button"
@@ -291,11 +305,11 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
 
       {/* ── La vitrina ───────────────────────────────────────────────────── */}
       <main className="tienda-ancho tienda-vitrina">
-        {LINEAS.map((l) => (
+        {lineas.map((l) => (
           <section key={l.id} id={`linea-${l.id}`} className="tienda-seccion" aria-labelledby={`titulo-${l.id}`}>
             <div className="tienda-seccion-cabeza">
               <h2 id={`titulo-${l.id}`}>{l.nombre}</h2>
-              <span>{l.ids.length} productos</span>
+              <span>{l.id === 'promocion' ? `${l.ids.length} ${l.ids.length === 1 ? 'promoción' : 'promociones'} de Gano Excel` : `${l.ids.length} productos`}</span>
             </div>
             <div className="tienda-grilla">
               {l.ids.map((id) => (
@@ -448,6 +462,7 @@ function Tarjeta({ id, p, cantidad, fijar, abrir }: {
     <article className="tienda-tarjeta">
       <button type="button" className="tienda-foto" onClick={abrir} aria-label={`Ver ${p.name}`}>
         {id === MAS_PEDIDO && <span className="tienda-sello">El más pedido</span>}
+        {p.promocion && <span className="tienda-sello">Promoción</span>}
         <Image src={imagenVitrina(id)} alt={p.name} fill sizes="(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 240px" />
       </button>
       <div className="tienda-tarjeta-texto">
@@ -455,13 +470,13 @@ function Tarjeta({ id, p, cantidad, fijar, abrir }: {
         <p className="tienda-presentacion">{p.presentacion}</p>
         <p className="tienda-precio">{pesos(p.price)}</p>
       </div>
-      <Cantidad id={id} nombre={p.name} cantidad={cantidad} fijar={fijar} />
+      <Cantidad id={id} nombre={p.name} cantidad={cantidad} fijar={fijar} max={p.promocion?.limite} />
     </article>
   )
 }
 
-function Cantidad({ id, nombre, cantidad, fijar, grande = false }: {
-  id: string; nombre: string; cantidad: number; fijar: (id: string, n: number) => void; grande?: boolean
+function Cantidad({ id, nombre, cantidad, fijar, grande = false, max }: {
+  id: string; nombre: string; cantidad: number; fijar: (id: string, n: number) => void; grande?: boolean; max?: number
 }) {
   if (cantidad === 0) {
     return (
@@ -476,7 +491,7 @@ function Cantidad({ id, nombre, cantidad, fijar, grande = false }: {
         {cantidad === 1 ? <X className="h-4 w-4" /> : <Minus className="h-4 w-4" />}
       </button>
       <span aria-live="polite">{cantidad}</span>
-      <button type="button" onClick={() => fijar(id, cantidad + 1)} aria-label="Uno más"><Plus className="h-4 w-4" /></button>
+      <button type="button" onClick={() => fijar(id, cantidad + 1)} aria-label="Uno más" disabled={max != null && cantidad >= max}><Plus className="h-4 w-4" /></button>
     </div>
   )
 }
@@ -525,8 +540,32 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe }: {
             <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> Entrega en persona o por Servientrega, normalmente de un día para otro. El envío lo acuerda con {atiende ?? 'su distribuidor'}.</p>
             <p className="tienda-ficha-desc">{p.shortDescription}</p>
 
-            <h3>Cómo se prepara</h3>
-            <p>{p.usage}</p>
+            {p.promocion && (
+              <>
+                <h3>Qué trae</h3>
+                <div className="tienda-combina">
+                  {p.promocion.contenido.filter((c) => productData[c.id]).map((c) => (
+                    <div key={c.id} className="tienda-combina-item">
+                      <button type="button" className="tienda-combina-foto" onClick={() => abrirOtro(c.id)} aria-label={`Ver ${productData[c.id].name}`}>
+                        <Image src={imagenVitrina(c.id)} alt="" fill sizes="64px" />
+                      </button>
+                      <div>
+                        <button type="button" className="tienda-nombre" onClick={() => abrirOtro(c.id)}>{c.cantidad} × {productData[c.id].name}</button>
+                        <p className="tienda-precio-chico">{productData[c.id].presentacion}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p>Gano Excel deja {p.promocion.limite === 1 ? 'una' : p.promocion.limite} por pedido.</p>
+              </>
+            )}
+
+            {p.usage && (
+              <>
+                <h3>Cómo se prepara</h3>
+                <p>{p.usage}</p>
+              </>
+            )}
 
             {p.ritual?.length > 0 && (
               <>
@@ -535,8 +574,12 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe }: {
               </>
             )}
 
-            <h3>Qué lleva</h3>
-            <p>{p.ingredients.join(' · ')}</p>
+            {p.ingredients.length > 0 && (
+              <>
+                <h3>Qué lleva</h3>
+                <p>{p.ingredients.join(' · ')}</p>
+              </>
+            )}
 
             {/* El bloque del extracto va solo en los productos que lo llevan (9 sep 2026),
                 plegado: es para quien quiere saber más, no lo que decide la compra. */}
@@ -592,7 +635,7 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe }: {
         </div>
       </div>
       <div className="tienda-hoja-pie">
-        <Cantidad id={id} nombre={p.name} cantidad={cantidad} fijar={fijar} grande />
+        <Cantidad id={id} nombre={p.name} cantidad={cantidad} fijar={fijar} grande max={p.promocion?.limite} />
         {cantidad > 0 && <p className="tienda-hoja-pie-nota">{cantidad} en su pedido · {pesos(p.price * cantidad)}</p>}
       </div>
     </>
@@ -770,6 +813,7 @@ const ESTILOS = `
 
 .tienda-cantidad { display: flex; align-items: center; justify-content: space-between; border: 1.5px solid var(--t-accion); border-radius: 999px; min-height: 44px; overflow: hidden; }
 .tienda-cantidad button { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--t-tinta); background: none; }
+.tienda-cantidad button:disabled { opacity: .3; cursor: not-allowed; }
 .tienda-cantidad span { font-weight: 700; font-variant-numeric: tabular-nums; }
 .tienda-cantidad.grande { min-height: 52px; min-width: 160px; }
 .tienda-cantidad.grande button { height: 52px; width: 52px; }

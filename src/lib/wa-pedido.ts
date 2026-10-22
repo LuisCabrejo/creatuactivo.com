@@ -37,7 +37,19 @@ import { normalizarDuro } from '@/lib/texto-normalizar';
 import { pushAlDashboard, quien as quienConPais } from '@/lib/wa-avisos-contexto';
 import { esBsuid } from '@/lib/paises';
 
-export interface LineaPedido { producto: ProductoWA; cantidad: number }
+/** `recortada`: pidió más promociones de las que Gano deja en un pedido (22 oct 2026). */
+export interface LineaPedido { producto: ProductoWA; cantidad: number; recortada?: boolean }
+
+/** Una promoción de Gano va con su tope por pedido (la 80094: una). */
+function conTope(producto: ProductoWA, pedida: number): LineaPedido {
+  const tope = producto.promocion?.limite
+  return tope && pedida > tope ? { producto, cantidad: tope, recortada: true } : { producto, cantidad: pedida }
+}
+
+/** La línea que explica el recorte, al pie de la lista. */
+function notaTope(lineas: LineaPedido[]): string {
+  return lineas.some((l) => l.recortada) ? '\nLa promoción va una por pedido: así la tiene Gano Excel.' : ''
+}
 
 export interface SocioPedido {
   nombre?: string
@@ -151,7 +163,7 @@ export function extraerLineasPedido(texto: string): LineaPedido[] {
 
   return especificos
     .sort((a, b) => a.pos - b.pos)
-    .map(({ p, pos, largo }) => ({ producto: p, cantidad: cantidadJunto(t, pos, largo) }));
+    .map(({ p, pos, largo }) => conTope(p, cantidadJunto(t, pos, largo)));
 }
 
 /**
@@ -172,7 +184,7 @@ export function lineasDelPedido(
   const t = norm(texto);
   const m = t.match(/\b(\d+|un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b/);
   const cantidad = m ? (NUMEROS[m[1]] ?? Math.max(1, Math.min(50, parseInt(m[1], 10)))) : 1;
-  return [{ producto: delHilo, cantidad }];
+  return [conTope(delHilo, cantidad)];
 }
 
 export function totalPedido(lineas: LineaPedido[]): number {
@@ -316,7 +328,7 @@ export function confirmarPedido(
   const primer = nombreCorto(nombre);
   const encabezado = `${primer ? `Listo, ${primer}.` : 'Listo.'} Su pedido${codigo ? ` N.º ${codigo}` : ''} quedó registrado:`;
   const cuerpo = lineas.map(lineaTexto).join('\n');
-  const total = lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '';
+  const total = (lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '') + notaTope(lineas);
   const cuando = cuandoEscribe(ahora);
   const quien = socio?.nombre || 'Alguien del equipo de creatuactivo.com';
   const quienCorto = socio?.nombre?.split(/\s+/)[0] || 'el equipo';
@@ -953,7 +965,7 @@ export async function socioTienePagoGano(supabase: any, constructorId?: string |
 /** La confirmación que cierra en la pregunta (el cuerpo del mensaje con botones). */
 export function confirmarPedidoConFormaDePago(lineas: LineaPedido[], nombre?: string, codigo?: string | null): string {
   const primer = nombreCorto(nombre);
-  const total = lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '';
+  const total = (lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '') + notaTope(lineas);
   return [
     `${primer ? `Listo, ${primer}.` : 'Listo.'} Su pedido${codigo ? ` N.º ${codigo}` : ''} quedó registrado:`,
     '',

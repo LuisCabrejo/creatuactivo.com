@@ -27,6 +27,7 @@
  */
 
 import { normalizarDuro } from '@/lib/texto-normalizar';
+import { PROMOCIONES_GANO, contenidoLegible, unidadesDe } from '@/lib/promociones-gano';
 
 export interface ProductoWA {
   slug: string
@@ -40,6 +41,8 @@ export interface ProductoWA {
   imagen: string
   /** Cómo lo nombra la gente en el chat, sin tildes y en minúscula. */
   alias: string[]
+  /** Solo las promociones de Gano (22 oct 2026): cuántas deja Gano por pedido. */
+  promocion?: { inventoryId: number; limite: number }
 }
 
 export const PRODUCTOS_WA: ProductoWA[] = [
@@ -251,7 +254,20 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     invima: 'NSA-0012958-2022',
     imagen: '/productos/luvoco/luvoco-fuerte-gano-excel-min.png',
     alias: ['luvoco fuerte', 'capsula fuerte', 'capsulas fuerte'],
-  },];
+  },
+  // Las promociones de Gano (22 oct 2026), desde su registro: se piden y se
+  // fotografían como un producto más. Sin registro INVIMA propio (es un combo).
+  ...PROMOCIONES_GANO.map((pr): ProductoWA => ({
+    slug: pr.slug,
+    nombre: `${pr.nombre} (código ${pr.inventoryId})`,
+    precioCOP: pr.precioCOP,
+    presentacion: `${unidadesDe(pr)} productos: ${contenidoLegible(pr)}`,
+    invima: '',
+    imagen: pr.imagenWA,
+    alias: ['promocion de productos', 'promociones', 'promocion', 'promo', String(pr.inventoryId)],
+    promocion: { inventoryId: pr.inventoryId, limite: pr.limitePorPedido },
+  })),
+];
 
 /** Sin tildes, minúsculas y sin puntuación: como llega un mensaje de WhatsApp. */
 function normalizar(t: string): string {
@@ -426,6 +442,8 @@ export function detectarProducto(texto: string): ProductoWA | null {
   if (encontrados.size === 0) {
     const palabras = t.split(' ').filter((w) => w.length >= 6);
     for (const p of PRODUCTOS_WA) {
+      // Las promociones solo por coincidencia exacta: «proporción» queda a dos letras de «promoción».
+      if (p.promocion) continue;
       const largas = [normalizar(p.nombre), ...p.alias.map(normalizar)]
         .filter((k) => k.length >= 6 && !k.includes(' '));
       if (largas.some((k) => palabras.some((w) => Math.abs(w.length - k.length) <= 2 && distancia(w, k) <= 2))) encontrados.add(p);
@@ -766,7 +784,7 @@ export function urlImagenFamilia(f: FamiliaWA, base = 'https://creatuactivo.com'
 /** Los productos que componen la familia, en el orden del catálogo. */
 export function productosDeFamilia(f: FamiliaWA): ProductoWA[] {
   const cat = FAMILIAS_WA[f].categoria;
-  return cat ? PRODUCTOS_WA.filter((p) => p.imagen.includes(`/${cat}/`)) : PRODUCTOS_WA;
+  return cat ? PRODUCTOS_WA.filter((p) => p.imagen.includes(`/${cat}/`)) : PRODUCTOS_WA.filter((p) => !p.promocion);
 }
 
 /**
@@ -779,7 +797,7 @@ export function pieDeFotoFamilia(f: FamiliaWA, seguimiento?: string): string {
   const pregunta = seguimiento ? `\n\n${seguimiento}` : '';
   if (f === 'portafolio') {
     const n = (c: string) => PRODUCTOS_WA.filter((p) => p.imagen.includes(`/${c}/`)).length;
-    return `*${def.titulo}* · ${PRODUCTOS_WA.length} productos\n`
+    return `*${def.titulo}* · ${PRODUCTOS_WA.filter((p) => !p.promocion).length} productos\n`
       + `Bebidas (${n('bebidas')}) · Luvoco (${n('luvoco')}) · Suplementos (${n('suplementos')}) · Cuidado personal (${n('cuidado-personal')})`
       + pregunta;
   }

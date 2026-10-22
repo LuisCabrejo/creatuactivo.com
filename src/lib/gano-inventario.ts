@@ -12,7 +12,11 @@
  *
  * Fuera de la tabla, a propósito: los paquetes ESP (897/898/899) y el Business
  * Kit (267). Eso es afiliación, no una compra, y el Dashboard también los rechaza.
+ *
+ * Las promociones de Gano (22 oct 2026) entran desde su registro (promociones-gano.ts).
  */
+
+import { PROMOCIONES_GANO } from '@/lib/promociones-gano'
 
 export const INVENTARIO_GANO: Record<string, number> = {
   'ganocafe-3-en-1': 501,
@@ -37,6 +41,7 @@ export const INVENTARIO_GANO: Record<string, number> = {
   'luvoco-suave': 816,
   'luvoco-medio': 817,
   'luvoco-fuerte': 818,
+  ...Object.fromEntries(PROMOCIONES_GANO.map((p) => [p.slug, p.inventoryId])),
 }
 
 export interface ItemGano { inventoryId: number; quantity: number }

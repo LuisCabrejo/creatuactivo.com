@@ -48,7 +48,10 @@ for (const id of ids) {
     if (pideEnlaceCatalogo(msg)) falla(`${id} ×${cantidad}: lo atendería el enlace del catálogo`)
     if (lineas.length !== 1) { falla(`${id} ×${cantidad}: ${lineas.length} líneas (${lineas.map((l) => l.producto.slug).join(', ')})`); continue }
     if (lineas[0].producto.slug !== id) falla(`${id} ×${cantidad}: leyó ${lineas[0].producto.slug}`)
-    if (lineas[0].cantidad !== cantidad) falla(`${id} ×${cantidad}: leyó cantidad ${lineas[0].cantidad}`)
+    // Una promoción de Gano va con su tope por pedido (22 oct 2026)
+    const esperada = Math.min(cantidad, productData[id].promocion?.limite ?? cantidad)
+    if (lineas[0].cantidad !== esperada) falla(`${id} ×${cantidad}: leyó cantidad ${lineas[0].cantidad}`)
+    if (esperada < cantidad && !lineas[0].recortada) falla(`${id} ×${cantidad}: recortó sin marcarlo`)
   }
 }
 
@@ -59,7 +62,7 @@ const leidas = extraerLineasPedido(msgTodo)
 for (const l of todo) {
   const hallada = leidas.find((x) => x.producto.slug === l.id)
   if (!hallada) falla(`carrito completo: falta ${l.id}`)
-  else if (hallada.cantidad !== l.cantidad) falla(`carrito completo: ${l.id} con cantidad ${hallada.cantidad}, era ${l.cantidad}`)
+  else if (hallada.cantidad !== Math.min(l.cantidad, productData[l.id].promocion?.limite ?? l.cantidad)) falla(`carrito completo: ${l.id} con cantidad ${hallada.cantidad}, era ${l.cantidad}`)
 }
 if (leidas.length !== todo.length) falla(`carrito completo: ${leidas.length} líneas leídas de ${todo.length}`)
 

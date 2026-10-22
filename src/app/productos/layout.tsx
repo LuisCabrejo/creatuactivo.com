@@ -83,7 +83,8 @@ export default function ProductosLayout({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Catálogo Gano Excel',
-    itemListElement: LINEAS.flatMap((l) => l.ids).map((id, i) => {
+    // Sin las promociones de Gano: son temporales y no van en los datos para buscadores.
+    itemListElement: LINEAS.flatMap((l) => l.ids).filter((id) => !productData[id].promocion).map((id, i) => {
       const p = productData[id]
       return {
         '@type': 'ListItem',

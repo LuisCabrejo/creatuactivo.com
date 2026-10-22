@@ -13,6 +13,8 @@
  * que es la tabla con la que el canal confirma el pedido.
  */
 
+import { PROMOCIONES_GANO, unidadesDe } from '@/lib/promociones-gano'
+
 // Interfaces mejoradas con campos estratégicos
 // Los 22 productos, reescritos el 9 sep 2026 con el Director: composición
 // verificada contra ganoexcel.com.co (nunca contra el sitio de EE. UU., que
@@ -41,6 +43,8 @@ export interface Product {
   combinacionSugerida?: string[]
   sistemaRecomendado?: string
   downloadUrl?: string
+  /** Solo en las promociones de Gano (22 oct 2026): qué trae y cuántas por pedido. */
+  promocion?: { inventoryId: number; contenido: { id: string; cantidad: number }[]; limite: number }
 }
 
 export const productData: Record<string, Product> = {
@@ -494,7 +498,35 @@ export const productData: Record<string, Product> = {
  * 3 en 1 es el más pedido), Luvoco, las cápsulas y el cuidado personal. El
  * colágeno y el cereal van con las bebidas porque se toman en taza o en vaso.
  */
+// ─── Las promociones de Gano (22 oct 2026) ───────────────────────────────────
+// Entran desde su registro (src/lib/promociones-gano.ts) como un producto más,
+// con la ficha propia: qué trae en vez de cómo se prepara. La página solo las
+// muestra mientras Gano las tenga en su catálogo (/api/promociones-gano).
+for (const pr of PROMOCIONES_GANO) {
+  const porSeparado = pr.contenido.reduce((s, c) => s + (productData[c.slug]?.price ?? 0) * c.cantidad, 0)
+  productData[pr.slug] = {
+    name: pr.nombre,
+    price: pr.precioCOP,
+    image: pr.imagen,
+    invima: '',
+    presentacion: `${unidadesDe(pr)} productos`,
+    categoria: 'Promoción',
+    llevaGanoderma: false,
+    goals: [],
+    shortDescription: `La promoción de Gano Excel: ${unidadesDe(pr)} productos en un solo pedido. Comprados por separado suman ${pesos(porSeparado)}.`,
+    taglineEstrategico: 'Promoción de Gano Excel',
+    usage: '',
+    ingredients: [],
+    benefits: [],
+    perfilIdeal: '',
+    momentoConsumo: '',
+    ritual: [],
+    promocion: { inventoryId: pr.inventoryId, contenido: pr.contenido.map((c) => ({ id: c.slug, cantidad: c.cantidad })), limite: pr.limitePorPedido },
+  }
+}
+
 export const LINEAS: { id: string; nombre: string; ids: string[] }[] = [
+  { id: 'promocion', nombre: 'Promoción', ids: PROMOCIONES_GANO.map((p) => p.slug) },
   {
     id: 'cafe',
     nombre: 'Café y bebidas',
@@ -525,6 +557,7 @@ export const LINEAS: { id: string; nombre: string; ids: string[] }[] = [
  */
 export function imagenVitrina(id: string): string {
   if (id === 'maquina-luvoco') return '/productos/luvoco/luvoco55-1-1024x1024.png'
+  if (productData[id]?.promocion) return productData[id].image
   return `/productos/_set/limpios/${id}.png`
 }
 
@@ -564,7 +597,11 @@ export function mensajePedido(
   socio: { nombre: string; slug?: string | null; constructorId?: string | null } | null,
   visitante?: string | null,
 ): string {
-  const filas = lineas.filter((l) => productData[l.id]).map((l) => `${l.cantidad} x ${productData[l.id].name}`).join('\n')
+  // La promoción lleva su código: así la reconoce el canal (alias «80094» en wa-productos).
+  const filas = lineas.filter((l) => productData[l.id]).map((l) => {
+    const p = productData[l.id]
+    return `${l.cantidad} x ${p.name}${p.promocion ? ` (código ${p.promocion.inventoryId})` : ''}`
+  }).join('\n')
   const ref = socio?.slug || socio?.constructorId
   const atiende = socio ? `\n\nMe atiende ${socio.nombre}${ref ? ` (${ref})` : ''}.` : ''
   const codigo = visitante && /^ck_[a-z0-9]{6,12}$/.test(visitante) ? ` c:${visitante.slice(3)}` : ''

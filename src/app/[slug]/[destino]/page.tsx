@@ -294,14 +294,15 @@ export default async function DestinoRoute({
     // 2026, Director). Android e iOS solo abren WhatsApp desde un https://wa.me
     // cuando la persona lo toca; después de este redirect, o dentro del navegador
     // de otra app, se quedaban en la página web de wa.me, que ofrece descargar
-    // WhatsApp. Android: `intent://` desde el mismo redirect (conserva el toque),
-    // con wa.me como respaldo si la app no está. iOS: la página mínima abre
+    // WhatsApp. Android: `intent://` desde /abrir-whatsapp (el redirect encadenado
+    // conserva el toque; ahí está por qué no sale de aquí), con wa.me de respaldo
+    // si la app no está. iOS: la página mínima abre
     // `whatsapp://` (Safari pregunta «¿Abrir en WhatsApp?»); si no hay app, queda
     // el enlace a wa.me con el texto ya aprobado de la tarjeta.
     const telefono = waUrl.slice('https://wa.me/'.length).split('?')[0]
     const sistema = sistemaDe(agente)
     if (sistema === 'Android') {
-      redirect(`intent://send/?phone=${telefono}&text=${encodeURIComponent(texto)}#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url=${encodeURIComponent(waUrl)};end`)
+      redirect(`/abrir-whatsapp?text=${encodeURIComponent(texto)}`)
     }
     if (sistema === 'iOS') {
       const app = `whatsapp://send?phone=${telefono}&text=${encodeURIComponent(texto)}`

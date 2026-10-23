@@ -14,9 +14,17 @@
  * teléfono, en cambio, WhatsApp es un toque y nos da su número desde el primer
  * mensaje.
  *
- * 🛑 Desde el 20 oct 2026 el celular y la tableta también conversan en la web
- * (ver `conversaPorWhatsApp`). Los comentarios que digan «en el celular,
- * WhatsApp» describen lo que había antes.
+ * 🛑 Del 20 al 23 oct 2026 el celular y la tableta también conversaron en la
+ * web (Director, 20 oct: de 20 personas que tocaron el enlace ese día en el
+ * celular, 12 no tocaron Enviar en WhatsApp; el sospechoso era el código
+ * « c:…» al final del mensaje). Medido el 23 oct con
+ * `node scripts/medir-aperturas-enlace.mjs --dias 7`, el enlace del socio desde
+ * el celular convirtió peor en la web: a WhatsApp, 13 de 32 navegadores
+ * conversaron (41 %); al chat web, 4 de 24 (17 %), y cinco de las seis
+ * conversaciones web no pasaron de dos mensajes. Decisión del Director, 23 oct:
+ * WhatsApp otra vez en el celular y la tableta, SIN el código. El código era el
+ * sospechoso, no WhatsApp; lo que se prueba ahora es WhatsApp sin código, y se
+ * mide el 30 oct contra esas dos líneas base (ver `conversaPorWhatsApp`).
  *
  * ⚠️ Solo por el agente de usuario (y la pista `Sec-CH-UA-Mobile` de Chrome),
  * igual en los dos lados, para que el servidor y el navegador decidan lo mismo.
@@ -59,17 +67,26 @@ export function sistemaDe(agente: string | null | undefined): string {
 }
 
 /**
- * 🛑 Desde el 20 oct 2026 Queswa conversa en la web en TODOS los dispositivos
- * (Director). De 20 personas que tocaron el enlace de Queswa ese día en el
- * celular, 12 no tocaron Enviar en WhatsApp: llegaban a un chat vacío con el
- * mensaje escrito en la casilla y un código al final («c:qutufvia84») que se
- * ve sospechoso. Conversión antes que medición: el chat web abre con Queswa ya
- * hablando. Se pierde el número que WhatsApp daba desde el primer mensaje.
- * Para volver a WhatsApp en el celular: `return d !== 'computador'`.
+ * El celular y la tableta conversan con Queswa en WhatsApp; el computador, en la web.
+ *
+ * 🛑 La historia de esta línea, para que nadie la «arregle» sin medir:
+ *   · 13 oct 2026: `d !== 'computador'` (caso Wilson Romero, ver la cabecera).
+ *   · 20 oct: `false` para todos. De 20 personas que tocaron el enlace ese día en
+ *     el celular, 12 no tocaron Enviar en WhatsApp: llegaban a un chat vacío con
+ *     el mensaje escrito y un código al final («c:qutufvia84») que se veía
+ *     sospechoso. Se quitó el código Y se mandó a todos al chat web, a la vez.
+ *   · 23 oct: medido con `medir-aperturas-enlace.mjs --dias 7`, el enlace del
+ *     socio desde el celular conversó 41 % en WhatsApp (13 de 32 navegadores,
+ *     hasta el 20 oct) y 17 % en la web (4 de 24, del 21 al 23; cinco de las seis
+ *     conversaciones web se quedaron en dos mensajes). Vuelve WhatsApp, y el
+ *     código sigue fuera: la variable que se prueba es WhatsApp sin código.
+ *     En producción desde el 23 oct 2026 (hora de Bogotá en el commit).
+ *     Se mide el 30 oct contra las dos líneas base de arriba.
+ * Sin código, el webhook no ata la ficha de WhatsApp al navegador: la tabla por
+ * dispositivo del script no sirve para WhatsApp; se compara con la primera.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function conversaPorWhatsApp(_d: Dispositivo): boolean {
-  return false;
+export function conversaPorWhatsApp(d: Dispositivo): boolean {
+  return d !== 'computador';
 }
 
 /**

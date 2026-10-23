@@ -23,6 +23,21 @@
  *
  *   node scripts/medir-aperturas-enlace.mjs [--dias 7]
  *
+ * 🛑 SIN CÓDIGO EN EL MENSAJE (desde el 20 oct 2026): el mensaje que abre WhatsApp
+ * ya no lleva la cookie del navegador (` c:…`, el enlace) ni la huella del orbe
+ * (` w:…`), así que el webhook no ata la ficha de WhatsApp al navegador. La
+ * SEGUNDA tabla, que sigue cada navegador por device_info.web_cookie y
+ * web_fingerprint, va a mostrar WhatsApp cerca de 0 % aunque la gente escriba:
+ * no es un dato, es la ausencia del código. La comparación válida es la PRIMERA
+ * tabla: aperturas contra «escribieron», por socio y por día.
+ *
+ * Qué pasó y contra qué se compara (dispositivo.ts tiene la historia):
+ *   · hasta el 20 oct, el celular iba a WhatsApp con código: 13 de 32 navegadores
+ *     del enlace del socio conversaron (41 %);
+ *   · del 21 al 23 oct, todos al chat web: 4 de 24 (17 %);
+ *   · desde el 23 oct, el celular y la tableta vuelven a WhatsApp, sin código.
+ *     El 30 oct se mide la semana con `--dias 7` contra esas dos líneas base.
+ *
  * ⚠️ Una apertura no es una persona: quien toca dos veces cuenta dos (por eso la
  * segunda tabla cuenta también navegadores). Y el primer mensaje puede llegar
  * horas después, o al día siguiente. Sin cookie (navegador que las bloquea) la
@@ -71,8 +86,10 @@ for (const [k, f] of orden) {
   console.log(`${k.padEnd(42)} abrieron ${String(f.aperturas).padStart(3)} · escribieron ${String(f.escribieron.size).padStart(3)}${web}`);
 }
 const aWhatsApp = A - W;
-console.log(`\nTotal: ${A} aperturas (${aWhatsApp} a WhatsApp, ${W} al chat web en computador) · ${E} escribieron por WhatsApp${aWhatsApp ? ` · ${Math.round((E / aWhatsApp) * 100)}% de las que fueron a WhatsApp` : ''}`);
-console.log('(Las aperturas se registran desde el 6 oct 2026, y el dispositivo desde el 13 oct.)');
+console.log(`\nTotal: ${A} aperturas (${aWhatsApp} a WhatsApp, ${W} al chat web) · ${E} escribieron por WhatsApp${aWhatsApp ? ` · ${Math.round((E / aWhatsApp) * 100)}% de las que fueron a WhatsApp` : ''}`);
+console.log('(Las aperturas se registran desde el 6 oct 2026, y el dispositivo desde el 13 oct. Del 21 al 23 oct todos los');
+console.log('dispositivos fueron al chat web; desde el 23 oct el celular y la tableta vuelven a WhatsApp, sin código.)');
+console.log('⭐ Esta tabla es la que se compara: sin código en el mensaje, la de abajo no puede seguir a WhatsApp.');
 
 // ── 2. Por dispositivo: cada navegador, hasta su conversación ───────────────
 const conDato = (visitas ?? []).filter((v) => v.dispositivo);
@@ -141,3 +158,7 @@ for (const [k, g] of [...grupos.entries()].sort(([a], [b]) => a.localeCompare(b)
 }
 console.log('\nConversaron = navegadores que, después de abrir, tienen conversación: en la web, una fila suya en');
 console.log('nexus_conversations; en WhatsApp, una ficha atada a su cookie o a su huella.');
+console.log('\n🛑 Desde el 20 oct 2026 el mensaje a WhatsApp no lleva el código del navegador (c:) ni la huella del');
+console.log('orbe (w:), y el webhook no ata la ficha de WhatsApp al navegador: en las filas con destino whatsapp,');
+console.log('«Conversaron» queda cerca de 0 aunque la gente escriba. Compare con la PRIMERA tabla (aperturas contra');
+console.log('«escribieron», por socio y por día); esta solo sirve para las filas con destino web.');

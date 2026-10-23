@@ -222,7 +222,10 @@ export default async function DestinoRoute({
             : `Hola Queswa, vengo del enlace de ${slug}`
     // 🛑 Sin el código del navegador al final (` c:k3j9x2a1q`, del 11 al 20 oct
     // 2026): en la casilla de WhatsApp se veía como un enlace sospechoso y la
-    // persona no enviaba (Director, 20 oct). La cookie sigue en `page_visits`.
+    // persona no enviaba (Director, 20 oct). Sigue fuera desde el 23 oct, cuando
+    // el celular volvió a WhatsApp: lo que se prueba es WhatsApp sin código. Sin
+    // él, el webhook no ata la ficha de WhatsApp a este navegador (web_cookie);
+    // la cookie sigue en `page_visits`, para contar la apertura.
     const visitante = headers().get('x-cta-visitante')
     const waUrl = `https://wa.me/573215193909?text=${encodeURIComponent(texto)}`
 
@@ -246,8 +249,9 @@ export default async function DestinoRoute({
     // el chat de Queswa abierto (13 oct 2026, Director, caso Wilson Romero: desde
     // un computador de escritorio el navegador intentó abrir WhatsApp y él lo leyó
     // como un error). `abrir=queswa` lo abre DeferredOrb; `vio=` le dice al chat
-    // qué video ya vio, para no volver a ofrecérselo. Desde el 20 oct 2026 el
-    // celular y la tableta también (Director). La regla vive en src/lib/dispositivo.ts.
+    // qué video ya vio, para no volver a ofrecérselo. En el celular y la tableta,
+    // WhatsApp: del 20 al 23 oct 2026 también fueron a la web y convirtieron peor
+    // (17 % contra 41 %). La regla y su historia viven en src/lib/dispositivo.ts.
     const cabeceras = headers()
     const agente = cabeceras.get('user-agent')
     const dispositivo = dispositivoDe(agente, cabeceras.get('sec-ch-ua-mobile'))

@@ -27,6 +27,8 @@
  * Quién es computador lo decide `src/lib/dispositivo.ts`, igual en el servidor y aquí.
  * Cada apertura queda en `page_visits` con su dispositivo (`registrarApertura`, y el
  * enlace en el servidor): `node scripts/medir-aperturas-enlace.mjs`.
+ * Del 20 al 23 oct 2026 todos los dispositivos fueron al chat web y el celular
+ * convirtió peor; volvió por dispositivo, sin código en el mensaje (dispositivo.ts).
  */
 
 import { conversaPorWhatsApp, dispositivoDelNavegador } from '@/lib/dispositivo'
@@ -397,8 +399,10 @@ export function abrirConversacionQueswa(
  * el texto sale igual.
  *
  * 🛑 Apagado el 20 oct 2026 (Director): un código al final del mensaje se ve
- * sospechoso y la persona no envía. Desde ese día Queswa conversa en la web en
- * todos los dispositivos y este camino a WhatsApp queda solo de respaldo.
+ * sospechoso y la persona no envía. Sigue apagado desde el 23 oct, cuando el
+ * celular y la tableta volvieron a WhatsApp: la variable que se prueba es
+ * WhatsApp sin código (ver src/lib/dispositivo.ts). Mientras esté apagado, la
+ * ficha de WhatsApp de quien llega por el orbe no se ata a la de su navegador.
  */
 function conHuellaWeb(texto: string): string {
   return texto

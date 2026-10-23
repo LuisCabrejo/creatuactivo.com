@@ -288,32 +288,15 @@ export default async function DestinoRoute({
       }
     }
 
-    if (enLaWeb) redirect(enlaceWeb)
-
-    // 📱 En el celular se salta a la APP con su esquema nativo, no a wa.me (23 oct
-    // 2026, Director). Android e iOS solo abren WhatsApp desde un https://wa.me
-    // cuando la persona lo toca; después de este redirect, o dentro del navegador
-    // de otra app, se quedaban en la página web de wa.me, que ofrece descargar
-    // WhatsApp. Android: `intent://` desde /abrir-whatsapp (el redirect encadenado
-    // conserva el toque; ahí está por qué no sale de aquí), con wa.me de respaldo
-    // si la app no está. iOS: la página mínima abre
-    // `whatsapp://` (Safari pregunta «¿Abrir en WhatsApp?»); si no hay app, queda
-    // el enlace a wa.me con el texto ya aprobado de la tarjeta.
-    const telefono = waUrl.slice('https://wa.me/'.length).split('?')[0]
-    const sistema = sistemaDe(agente)
-    if (sistema === 'Android') {
-      redirect(`/abrir-whatsapp?text=${encodeURIComponent(texto)}`)
-    }
-    if (sistema === 'iOS') {
-      const app = `whatsapp://send?phone=${telefono}&text=${encodeURIComponent(texto)}`
-      return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
-          <a href={waUrl} style={{ color: '#C5A059' }}>{OG_QUESWA.title}</a>
-          <script dangerouslySetInnerHTML={{ __html: `location.href=${JSON.stringify(app)}` }} />
-        </div>
-      )
-    }
-    redirect(waUrl)
+    // 📱 En el celular y la tableta, el redirect directo a https://wa.me, como
+    // funcionó hasta el 20 oct 2026: tocado desde WhatsApp, su propio navegador
+    // reconoce wa.me y abre el chat sin salir de la app. El 23 oct (18:20 y 18:31)
+    // se cambió por un salto a `intent://` en Android y una página con
+    // `whatsapp://` en iOS; dentro del navegador de WhatsApp ninguno de los dos
+    // abría el chat y la persona veía la oferta de abrirlo en el navegador. El
+    // Director pidió esa misma noche volver al wa.me directo. No vuelva a poner
+    // esquemas nativos aquí sin probarlos tocando el enlace desde WhatsApp.
+    redirect(enLaWeb ? enlaceWeb : waUrl)
   }
 
   // ── Caso redirect (comportamiento original) ────────────────────

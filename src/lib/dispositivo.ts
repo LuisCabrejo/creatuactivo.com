@@ -80,7 +80,7 @@ export function sistemaDe(agente: string | null | undefined): string {
  *     hasta el 20 oct) y 17 % en la web (4 de 24, del 21 al 23; cinco de las seis
  *     conversaciones web se quedaron en dos mensajes). Vuelve WhatsApp, y el
  *     código sigue fuera: la variable que se prueba es WhatsApp sin código.
- *     En producción desde el 23 oct 2026 (hora de Bogotá en el commit).
+ *     En producción desde el 23 oct 2026, 5:02 p. m. de Bogotá (commit 9d069ec).
  *     Se mide el 30 oct contra las dos líneas base de arriba.
  * Sin código, el webhook no ata la ficha de WhatsApp al navegador: la tabla por
  * dispositivo del script no sirve para WhatsApp; se compara con la primera.

@@ -288,7 +288,31 @@ export default async function DestinoRoute({
       }
     }
 
-    redirect(enLaWeb ? enlaceWeb : waUrl)
+    if (enLaWeb) redirect(enlaceWeb)
+
+    // 📱 En el celular se salta a la APP con su esquema nativo, no a wa.me (23 oct
+    // 2026, Director). Android e iOS solo abren WhatsApp desde un https://wa.me
+    // cuando la persona lo toca; después de este redirect, o dentro del navegador
+    // de otra app, se quedaban en la página web de wa.me, que ofrece descargar
+    // WhatsApp. Android: `intent://` desde el mismo redirect (conserva el toque),
+    // con wa.me como respaldo si la app no está. iOS: la página mínima abre
+    // `whatsapp://` (Safari pregunta «¿Abrir en WhatsApp?»); si no hay app, queda
+    // el enlace a wa.me con el texto ya aprobado de la tarjeta.
+    const telefono = waUrl.slice('https://wa.me/'.length).split('?')[0]
+    const sistema = sistemaDe(agente)
+    if (sistema === 'Android') {
+      redirect(`intent://send/?phone=${telefono}&text=${encodeURIComponent(texto)}#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url=${encodeURIComponent(waUrl)};end`)
+    }
+    if (sistema === 'iOS') {
+      const app = `whatsapp://send?phone=${telefono}&text=${encodeURIComponent(texto)}`
+      return (
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0F1115', color: '#E5E5E5', fontFamily: 'sans-serif' }}>
+          <a href={waUrl} style={{ color: '#C5A059' }}>{OG_QUESWA.title}</a>
+          <script dangerouslySetInnerHTML={{ __html: `location.href=${JSON.stringify(app)}` }} />
+        </div>
+      )
+    }
+    redirect(waUrl)
   }
 
   // ── Caso redirect (comportamiento original) ────────────────────

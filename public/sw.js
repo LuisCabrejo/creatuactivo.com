@@ -2,19 +2,35 @@
  * CreaTuActivo.com - Service Worker v1.1.0
  *
  * Estrategia Híbrida para Next.js App Router:
- * - Cache-first para navegación (HTML)
- * - Cache-first para assets estáticos (JS, CSS, imágenes)
+ * - Network-first para navegación (HTML) y para los payloads RSC (?_rsc=): la red
+ *   decide; la copia guardada sirve SOLO sin conexión (v1.5.0, 24 oct 2026)
+ * - Cache-first para assets estáticos (JS, CSS, imágenes): llevan hash en el nombre
  * - Network-first para datos dinámicos
- * - Auto-cache HTML cuando se detecta navegación cliente (?_rsc= para App Router)
+ * - Auto-cache HTML cuando se detecta navegación cliente (?_rsc= para App Router),
+ *   para que la página abra sin conexión
+ *
+ * 🛑 v1.5.0 (24 oct 2026, Director, caso /productos/luis-cabrejo-1288): la
+ * navegación ERA cache-first con refresco en segundo plano. Quien ya había visitado
+ * una página recibía al instante la copia guardada —el HTML del despliegue
+ * anterior, que apunta a archivos JS que ya no existen—: la página se pintaba y no
+ * cobraba vida (se veía como una captura), Next detectaba los archivos perdidos y
+ * recargaba todo. Tres pantallas antes del catálogo, y en cada despliegue (ocho del
+ * 17 al 24 oct). Además guardaba respuestas ya redirigidas (el 308 del enlace
+ * viejo), que Chrome no acepta servir en una navegación. Ahora la red va primero
+ * y nunca se guarda una respuesta redirigida. Las páginas no se «bumpean» más:
+ * el CACHE_VERSION sigue sirviendo para limpiar lo guardado cuando cambia la
+ * estrategia o se retira una ruta.
  *
  * FIX v1.1.0: Soporte para App Router RSC navigation (?_rsc= params)
  * Basado en Dashboard SW v1.0.9 (2025-12-17)
  */
 
-// ⚠️ Subir esta versión en todo despliegue que cambie algo que el visitante
-// recurrente deba ver de inmediato. La navegación es cache-first con refresco en
-// segundo plano: sin el bump, quien ya visitó el sitio ve la versión vieja en su
-// primera visita y la nueva solo en la segunda. Bump 1.4.0 (21 ago 2026): el orbe
+// ⚠️ Hasta la 1.4.13 había que subir esta versión en todo despliegue que cambiara
+// algo que el visitante recurrente debiera ver de inmediato, porque la navegación
+// era cache-first con refresco en segundo plano: sin el bump, quien ya visitó el
+// sitio veía la versión vieja en su primera visita y la nueva solo en la segunda.
+// Desde la 1.5.0 la red va primero y eso ya no hace falta; el bump queda para
+// limpiar lo guardado cuando se retira una ruta. Bump 1.4.0 (21 ago 2026): el orbe
 // flotante pasó a ser el de WhatsApp. Bump 1.4.1 (1 oct 2026): el menú nuevo
 // (Presentación · Productos · Tecnología · Nosotros) — salió en tres despliegues
 // sin bump, y un navegador que ya conocía el sitio siguió viendo el viejo.
@@ -29,7 +45,8 @@
 // estrena el video «Cómo funciona» antes del siguiente paso.
 // Bump 1.4.9 (13 oct 2026): botón «VERLO EN VIDEO» en la propuesta de /servilleta.
 // Bump 1.4.10 (14 oct 2026): se retira el repaso en video de la pantalla 10.
-const CACHE_VERSION = '1.4.13';
+// Bump 1.5.0 (24 oct 2026): la navegación pasa a network-first (ver la cabecera).
+const CACHE_VERSION = '1.5.0';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache
@@ -134,7 +151,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // NAVEGACIÓN (HTML) → Cache-first
+  // NAVEGACIÓN (HTML) → Network-first; la copia guardada, solo sin conexión
   if (request.mode === 'navigate') {
     event.respondWith(handleNavigation(request));
     return;
@@ -167,37 +184,27 @@ self.addEventListener('fetch', (event) => {
 // ============================================================================
 
 /**
- * Cache-first para navegación (páginas HTML)
+ * Network-first para navegación (páginas HTML). La copia guardada sirve solo si
+ * la red falla (sin conexión). Nunca se guarda una respuesta redirigida: Chrome
+ * no la acepta en una navegación y la persona vería un error de red.
  */
 async function handleNavigation(request) {
+  const cache = await caches.open(CACHE_NAME);
   try {
-    const cache = await caches.open(CACHE_NAME);
-    const cachedResponse = await cache.match(request);
-
-    if (cachedResponse) {
-      console.warn('📦 [SW] Cache-first HIT:', request.url);
-      // Actualizar cache en background (stale-while-revalidate)
-      fetchAndCache(request, cache);
-      return cachedResponse;
-    }
-
-    // No hay cache, ir a red
-    console.warn('🌐 [SW] Cache-first MISS, fetching:', request.url);
     const networkResponse = await fetch(request);
 
-    if (networkResponse.ok) {
+    if (networkResponse.ok && !networkResponse.redirected) {
       cache.put(request, networkResponse.clone());
-      console.warn('✅ [SW] Página cacheada:', request.url);
     }
 
     return networkResponse;
 
   } catch (error) {
-    console.warn('❌ [SW] Error en navegación:', error.message);
+    console.warn('❌ [SW] Sin red en navegación, buscando copia:', request.url, error.message);
 
-    // Intentar servir desde cache una última vez
-    const cachedResponse = await caches.match(request);
+    const cachedResponse = await cache.match(request);
     if (cachedResponse) {
+      console.warn('📦 [SW] Copia sin conexión:', request.url);
       return cachedResponse;
     }
 
@@ -206,35 +213,28 @@ async function handleNavigation(request) {
 }
 
 /**
- * Manejar requests RSC de App Router (?_rsc= params)
- * Auto-cachea el HTML correspondiente para que funcione offline
+ * Manejar requests RSC de App Router (?_rsc= params): network-first.
+ * Auto-cachea el HTML correspondiente para que funcione offline.
  */
 async function handleRSCRequest(request, url) {
+  const cache = await caches.open(CACHE_NAME);
   try {
-    const cache = await caches.open(CACHE_NAME);
-    const cachedResponse = await cache.match(request);
-
-    if (cachedResponse) {
-      console.warn('📦 [SW] RSC cache HIT:', url.pathname);
-      return cachedResponse;
-    }
-
     const networkResponse = await fetch(request);
 
-    if (networkResponse.ok) {
+    if (networkResponse.ok && !networkResponse.redirected) {
       cache.put(request, networkResponse.clone());
-      console.warn('✅ [SW] RSC cacheado:', url.pathname);
 
-      // AUTO-CACHE: También cachear el HTML de la página (sin params)
+      // AUTO-CACHE: También cachear el HTML de la página (sin params), para abrirla sin conexión
       cacheHTMLForRSC(url);
     }
 
     return networkResponse;
 
   } catch (error) {
-    console.warn('❌ [SW] Error en RSC:', error.message);
-    const cachedResponse = await caches.match(request);
+    console.warn('❌ [SW] Sin red en RSC, buscando copia:', url.pathname, error.message);
+    const cachedResponse = await cache.match(request);
     if (cachedResponse) {
+      console.warn('📦 [SW] RSC sin conexión:', url.pathname);
       return cachedResponse;
     }
     // Para RSC, no mostrar offline fallback, dejar que falle
@@ -402,7 +402,7 @@ function cacheHTMLForRSC(url) {
         console.warn('📡 [SW] Descargando HTML:', htmlUrl);
         return fetch(htmlRequest)
           .then(response => {
-            if (response.ok) {
+            if (response.ok && !response.redirected) {
               const responseToCache = response.clone();
               return caches.open(CACHE_NAME)
                 .then(cache => cache.put(htmlRequest, responseToCache))
@@ -463,7 +463,7 @@ function cacheHTMLForNextData(nextDataUrl) {
         console.warn('📡 [SW] Descargando HTML:', htmlUrl);
         return fetch(htmlRequest)
           .then(response => {
-            if (response.ok) {
+            if (response.ok && !response.redirected) {
               const responseToCache = response.clone();
               return caches.open(CACHE_NAME)
                 .then(cache => cache.put(htmlRequest, responseToCache))

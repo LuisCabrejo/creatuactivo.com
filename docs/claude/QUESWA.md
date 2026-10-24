@@ -288,9 +288,10 @@ window.reidentifyProspect()         // Force re-identification
 **Location**: [public/sw.js](../../public/sw.js) (la versión vive en `CACHE_VERSION`)
 
 Hybrid caching strategy for Next.js App Router:
-- **Cache-first**: HTML navigation, static assets (JS, CSS, images)
+- **Network-first**: HTML navigation y payloads RSC (`?_rsc=`) desde la v1.5.0 (24 oct 2026). La copia guardada sirve solo sin conexión, y nunca se guarda una respuesta redirigida. ⛔ No volver a cache-first para páginas: con él, quien ya había visitado una página recibía el HTML del despliegue anterior —apuntando a JS que ya no existía—, la veía como una captura, y Next recargaba todo (caso del catálogo, 24 oct 2026; ver la cabecera de `sw.js`). Ya no hace falta subir `CACHE_VERSION` en cada despliegue de contenido.
+- **Cache-first**: static assets (JS, CSS, images), que llevan hash en el nombre
 - **Network-first**: Dynamic data, APIs
-- **Auto-cache**: Client-side navigation via RSC (`?_rsc=` params)
+- **Auto-cache**: el HTML de cada navegación RSC, para abrirla sin conexión
 - **Bypass**: `/api/`, `/auth/`, `tracking.js`, external services, `/empresa-digital`, `/negocio-digital` (URLs legacy → Home 301; van siempre a red para que el redirect funcione). ⚠️ `public/sw.js` aún lista `/mapa-de-salida` y `/reto-5-dias` (sus redirects se retiraron jul 2026 → hoy 404; se pueden quitar del bypass)
 
 **Registered in**: [src/app/layout.tsx](../../src/app/layout.tsx) via inline script

@@ -27,6 +27,10 @@
  *    WhatsApp, y tocado por la persona abre la app sin preguntar. Sin la app,
  *    wa.me ofrece instalarla.
  *
+ * El mensaje pre-llenado («Hola Queswa, vengo del enlace de…») NO se muestra en
+ * la página (Director, 24 oct 2026): la persona lo ve ya escrito al abrir
+ * WhatsApp. La página dice una sola cosa: que la conversación es en WhatsApp.
+ *
  * Nada se dispara solo al cargar: un salto automático es justo lo que Chrome
  * bloquea o convierte en pregunta. El orbe se retira (<SinOrbe />): la página
  * tiene una sola salida y el orbe del celular abriría WhatsApp con otro texto.
@@ -95,20 +99,6 @@ export default function AbrirQueswaEnWhatsApp({ telefono, texto, sistema, titulo
         <h1 className="mb-4 font-serif text-3xl text-white md:text-4xl">{titulo}</h1>
         <p className="mb-8 text-base leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
           {descripcion}
-        </p>
-
-        {/* El mensaje que va a salir, para que nadie crea que hubo un error al ver
-            un texto ya escrito en WhatsApp (caso Felipe, 6 oct 2026). */}
-        <p
-          className="mx-auto mb-8 inline-block px-5 py-3 text-left text-sm leading-relaxed"
-          style={{
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 'var(--radius-action)',
-            color: 'var(--color-text-body)',
-          }}
-        >
-          {texto}
         </p>
 
         <a href={href} className="cta-base cta-primary w-full" style={{ padding: '1.1rem 2rem', fontSize: '0.95rem' }}>

@@ -14,6 +14,7 @@ import ReelPage from '@/components/ReelPage'
 import { OG_PRESENTACION } from '@/app/servilleta/og'
 import { conversaPorWhatsApp, dispositivoDe, esRobot, sistemaDe } from '@/lib/dispositivo'
 import { esHostLocal } from '@/lib/entorno-local'
+import AbrirQueswaEnWhatsApp from '@/components/AbrirQueswaEnWhatsApp'
 
 // La presentación 1-a-1, que desde el 10 oct 2026 vive en /servilleta (la
 // presentación ÚNICA). Todos sus nombres cortos —los vigentes y los que ya
@@ -288,15 +289,30 @@ export default async function DestinoRoute({
       }
     }
 
-    // 📱 En el celular y la tableta, el redirect directo a https://wa.me, como
-    // funcionó hasta el 20 oct 2026: tocado desde WhatsApp, su propio navegador
-    // reconoce wa.me y abre el chat sin salir de la app. El 23 oct (18:20 y 18:31)
-    // se cambió por un salto a `intent://` en Android y una página con
-    // `whatsapp://` en iOS; dentro del navegador de WhatsApp ninguno de los dos
-    // abría el chat y la persona veía la oferta de abrirlo en el navegador. El
-    // Director pidió esa misma noche volver al wa.me directo. No vuelva a poner
-    // esquemas nativos aquí sin probarlos tocando el enlace desde WhatsApp.
-    redirect(enLaWeb ? enlaceWeb : waUrl)
+    if (enLaWeb) redirect(enlaceWeb)
+
+    // 📱 En el celular y la tableta NO se redirige: se sirve el puente con un solo
+    // botón, «Abrir Queswa en WhatsApp» (Director, 24 oct 2026). Hasta el 23 oct
+    // el 307 a wa.me dejaba a la persona en la página de api.whatsapp.com
+    // («Abrir aplicación» · «Descárgala ahora») con el cuadro de Chrome «¿Quieres
+    // continuar a WhatsApp?» encima; los esquemas nativos desde la redirección
+    // (23 oct, 18:20 y 18:31) chocaban con lo mismo. De un navegador solo se sale
+    // a otra app con un toque de la persona: el porqué completo y los esquemas por
+    // sistema viven en src/components/AbrirQueswaEnWhatsApp.tsx. No vuelva a poner
+    // aquí una redirección a wa.me ni un salto automático a la app.
+    return (
+      <AbrirQueswaEnWhatsApp
+        telefono={waUrl.slice('https://wa.me/'.length).split('?')[0]}
+        texto={texto}
+        sistema={sistemaDe(agente)}
+        titulo={OG_QUESWA.title}
+        descripcion={OG_QUESWA.description}
+        // Misma imagen que la tarjeta, por su ruta relativa: next/image no exige
+        // remotePatterns para el propio origen, y en localhost también carga.
+        imagen={OG_QUESWA.image.replace(/^https:\/\/creatuactivo\.com/, '')}
+        imagenAlt={OG_QUESWA.alt}
+      />
+    )
   }
 
   // ── Caso redirect (comportamiento original) ────────────────────

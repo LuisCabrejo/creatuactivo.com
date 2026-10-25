@@ -442,8 +442,17 @@ function normalizarPuerta(texto: string): string {
 export const RE_PIDE_REUNION =
   /(q[ui]{1,3}e?r[oa]|quisiera|me gustaria|necesit[oa]|podemos|podriamos|agend\w*|program\w*|cuadr\w*|separ\w*|pedir|solicit\w*|tener)\b[^.?!\n]{0,25}?(reu?n?i?on|cita|video ?lamada|una lamada)|reunirme con|reunirnos|nos (podemos |podriamos )?reunir|cuando (nos )?(podemos |puede ser (la )?)?(reunion|reunimos|vernos)/;
 
+// Rechazar a la IA es pedir una persona (17 oct 2026): Jhoan escribió «Sin IA» y
+// recibió la lista de los 22 productos; después «No me gusta la IA» y recibió
+// WHY_01. Ningún aviso salió. Sobre el texto normalizado (sin tildes ni letras
+// repetidas). «Sin IA» cuenta solo como mensaje entero: «¿funciona sin IA?» es
+// una pregunta por el negocio y la responde el motor.
+export const RE_RECHAZA_IA =
+  /^[\s¡!.]*(y\s+)?sin\s+(la\s+|una\s+)?(ia|i\.a\.?|inteligencia artificial|robots?|bots?|maquinas?)[\s!.]*$|no me [a-z]{3,9}\s+(hablar\s+con\s+|escribirle\s+a\s+)?(la\s+|las\s+|una\s+|un\s+|los\s+)?(ia|i\.a\.?|inteligencia artificial|robots?|bots?|maquinas?)(?![a-z])|no quiero\s+(hablar|chatear|conversar|escribir\w*)\s+(con|a)\s+(la\s+|una\s+|un\s+)?(ia|i\.a\.?|inteligencia artificial|robots?|bots?|maquinas?)(?![a-z])|(prefiero|quiero)\s+(una persona|un humano|alguien de verdad|alguien real)/;
+
 export function detectarPidePersona(texto: string): boolean {
-  return RE_PIDE_PERSONA.test(texto) || RE_PIDE_REUNION.test(normalizarPuerta(texto));
+  const t = normalizarPuerta(texto);
+  return RE_PIDE_PERSONA.test(texto) || RE_PIDE_REUNION.test(t) || RE_RECHAZA_IA.test(t);
 }
 
 // Las CHARLAS de Luis (Director, 21 sep 2026, opción a): el video del día 15 dice

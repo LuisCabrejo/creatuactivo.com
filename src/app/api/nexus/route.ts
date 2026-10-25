@@ -4921,7 +4921,12 @@ export async function POST(req: Request) {
       const prospectRaw = prospectResult.data as { id: string; device_info: Record<string, unknown> } | null;
       if (prospectRaw && prospectRaw.device_info) {
         prospectId = prospectRaw.id;
-        existingProspectData = prospectRaw.device_info;
+        existingProspectData = { ...prospectRaw.device_info };
+        // «Constructor» es el relleno del webhook cuando WhatsApp no manda nombre
+        // (`contactName`), no el nombre de nadie. Con él en la ficha, el modelo le
+        // decía «Listo, Constructor» a la persona (17 y 24 oct 2026), la daba por
+        // conocida y no le capturaba el nombre real cuando lo decía.
+        if (/^\s*constructor\s*$/i.test(String(existingProspectData.name ?? ''))) delete existingProspectData.name;
         console.log('📊 [NEXUS] Datos existentes del prospecto:', {
           tiene_nombre: !!existingProspectData.name,
           tiene_email: !!existingProspectData.email,

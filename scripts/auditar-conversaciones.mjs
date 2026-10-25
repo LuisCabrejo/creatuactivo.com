@@ -12,7 +12,7 @@
  *
  * Por defecto solo salen las HUELLAS REALES: una persona llega por el enlace
  * del socio («Hola Queswa, vengo del enlace de …») o saludando, desde un número
- * de cualquier país (`wa_57…`, `wa_1…`), un BSUID `wa_CO.…` o una huella web nula. El socio se reconoce por
+ * de cualquier país (`wa_57…`, `wa_1…`), un BSUID `wa_CO.…` o la huella del navegador en la web (nula en localhost). El socio se reconoce por
  * su ficha (abre con la tarea, no saludando) y el chat del Centro de Mando llega
  * como `dash_{constructor_id}` (queswa.app lo guarda desde el 16 sep 2026). Los arneses arrancan
  * con la pregunta de prueba directamente (wa_5730…, wa_5731… de 4 turnos,
@@ -41,7 +41,13 @@ const RE_ARNES = /conv|probe|_p_|q23|wa_e3_|^wa_5730\d{9,}|sede_probe|deploy/;
 // Cualquier país, no solo Colombia: Yellitza Rosario (+1 786, 30 sep 2026) quedó
 // fuera del volcado porque el patrón exigía `57` + 10 dígitos, y con ella toda la
 // diáspora de EE. UU. Los arneses siguen fuera por RE_ARNES y por cómo abren.
-const huellaDePersona = (fp) => !fp || fp === 'null' || fp.startsWith('dash_') || (!RE_ARNES.test(fp) && /^wa_(\d{10,15}|[A-Z]{2}\.\d+)$/.test(fp));
+// La web de producción guarda la huella del navegador (64 hexadecimales); solo
+// localhost la deja nula. Sin esta línea el volcado del 24 oct 2026 dejó fuera a
+// 9 visitantes y 24 turnos, justo la ventana del 21 al 23 oct en que todos los
+// dispositivos fueron al chat web. La persona web abre tocando un botón, no
+// saludando, así que no pasa por `abreComoPersona`; las pruebas salen por `origen`.
+const huellaWeb = (fp) => /^[0-9a-f]{64}$/.test(fp || '');
+const huellaDePersona = (fp) => !fp || fp === 'null' || fp.startsWith('dash_') || huellaWeb(fp) || (!RE_ARNES.test(fp) && /^wa_(\d{10,15}|[A-Z]{2}\.\d+)$/.test(fp));
 // «Bna noche» dejó fuera del volcado al socio Victor Armando (12 sep 2026): la gente abrevia.
 // Y quien abre con una nota de voz que no se entendió, o con una foto o un archivo
 // (5 oct 2026): el webhook persiste el acuse con un marcador entre corchetes.
@@ -80,14 +86,27 @@ if (!todo) {
   for (const [fp, filas] of Object.entries(porHuella)) {
     if (conEntrante.has(fp) && !RE_ARNES.test(fp)) continue;
     const primero = (filas[0].messages || []).find((m) => m.role === 'user')?.content;
-    if (!huellaDePersona(fp) || (fp !== 'null' && !esSocio.has(fp) && !fp.startsWith('dash_') && !abreComoPersona(primero))) delete porHuella[fp];
+    if (!huellaDePersona(fp) || (fp !== 'null' && !esSocio.has(fp) && !fp.startsWith('dash_') && !huellaWeb(fp) && !abreComoPersona(primero))) delete porHuella[fp];
   }
+}
+
+// En la web el primer mensaje no dice de quién es el enlace: se lee de la ficha.
+const enlaceWeb = {};
+{
+  const web = Object.keys(porHuella).filter(huellaWeb);
+  const { data: fichas } = web.length
+    ? await s.from('prospects').select('fingerprint_id,constructor_id').in('fingerprint_id', web)
+    : { data: [] };
+  const ids = [...new Set((fichas || []).map((f) => f.constructor_id).filter(Boolean))];
+  const { data: socs } = ids.length ? await s.from('private_users').select('id,name').in('id', ids) : { data: [] };
+  const nombre = Object.fromEntries((socs || []).map((u) => [u.id, u.name]));
+  for (const f of fichas || []) if (nombre[f.constructor_id]) enlaceWeb[f.fingerprint_id] = nombre[f.constructor_id];
 }
 
 let txt = '', tsv = 'canal\thuella\tfecha_bogota\tturno\tmensaje\tsearch_method\tfragmentos\n';
 for (const [fp, filas] of Object.entries(porHuella).sort((a, b) => a[1][0].created_at.localeCompare(b[1][0].created_at))) {
   const canal = fp.startsWith('wa_') ? 'WA' : fp.startsWith('dash_') ? 'DASHBOARD' : 'WEB';
-  txt += `\n\n==================== ${canal} ${fp}${esSocio.has(fp) || canal === 'DASHBOARD' ? ' · SOCIO' : ''} · ${filas.length} turnos · ${bogota(filas[0].created_at)} → ${bogota(filas.at(-1).created_at)} ====================\n`;
+  txt += `\n\n==================== ${canal} ${fp}${esSocio.has(fp) || canal === 'DASHBOARD' ? ' · SOCIO' : ''}${enlaceWeb[fp] ? ` · enlace de ${enlaceWeb[fp]}` : ''} · ${filas.length} turnos · ${bogota(filas[0].created_at)} → ${bogota(filas.at(-1).created_at)} ====================\n`;
   filas.forEach((r, i) => {
     const sm = r.metadata?.search_method || '-';
     const docs = (r.metadata?.documents_used || []).map((d) => String(d).replace(/^.*\//, '')).join(',');

@@ -38,7 +38,7 @@
  * necesita saber por dónde entrega, es que la decisión está mal partida.
  */
 
-import { pedirDatos, CLAVES_CANAL, type ClaveRadicacion, type DatosRadicacion } from '@/lib/wa-radicacion';
+import { pedirDatos, CLAVES_CANAL, RE_VOLICION, type ClaveRadicacion, type DatosRadicacion } from '@/lib/wa-radicacion';
 import {
   seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO, RE_OFERTA_FOTO_PRODUCTO,
   detectarPidePersona, respuestaPersona, avisarPidePersona,
@@ -161,15 +161,26 @@ export function banderasDelHilo(mensaje: string, historial: Turno[]) {
   // apertura. Misma semántica que `esAceptacion`, a propósito: si las dos se
   // separan otra vez, el «sí» vale distinto según por dónde entre.
   const _cabeza = /^(claro que s[ií]+|s[ií]+,? por favor|s[ií]+ claro|s[ií]+|claro|dale|listo|ok(ay)?|bueno|por supuesto|obvio|de una|h[aá]gale|h[aá]galo|h[aá]g[aá]mosl[eo]|mu[eé]str[ea]me(l[oa]s?)?|quiero|genial|perfecto|de acuerdo|vamos|excelente)(?![a-záéíóúñ])/i.exec(mensaje.trim());
+  const ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe|arrancamos con su vinculaci[oó]n|seguimos con la activaci[oó]n|arrancamos con la activaci[oó]n/i.test(ultimoBot);
+  // ⚠️ «Quiero empezar» no es un «sí»: es la volición, y la atiende el cierre
+  // (`gestionarCierre`), que corre DESPUÉS del conductor. Con «quiero» como cabeza,
+  // Adry Escobar (23 oct 2026, 17:22) dijo «Quiero empezar» con la tarjeta del
+  // simulador como último turno y recibió «Aquí lo tiene de nuevo» y el simulador
+  // otra vez; la radicación nunca se abrió. Solo cuenta como «sí» cuando lo que
+  // se ofreció es justo vincularse (2.36 pide los mismos datos).
+  const declaraVolicion = RE_VOLICION.test(mensaje);
   const aceptaSola = !!_cabeza
     && !/[?¿]/.test(mensaje)
-    && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(mensaje.trim().slice(_cabeza[0].length));
+    && !/(?<![a-záéíóúñ])(c[oó]mo|cu[aá]nto|cu[aá]l(es)?|qu[eé]|d[oó]nde|cu[aá]ndo|pero)(?![a-záéíóúñ])/i.test(mensaje.trim().slice(_cabeza[0].length))
+    && !(declaraVolicion && !ofrecioVinculacion);
+  // La pregunta con que cerró el bot: la oferta que un «sí» acepta es la última,
+  // no cualquier cosa que el cuerpo haya nombrado.
+  const cierreBot = ultimoBot.trim().split('\n').map((l) => l.trim()).filter(Boolean).reverse().find((l) => /\?[\s*_"')]*$/.test(l)) ?? '';
   // «¿Seguimos con el simulador?» + «sí» debe reenviar la tarjeta — la forma
   // estricta («escenario en el simulador») dejó pasar la paráfrasis del
   // modelo y el turno cayó al motor, que improvisó una pregunta de
   // calificación (prueba de Edilberto, 2 sep, 1:42 p.m.).
   const aceptaSimulador = /simulador/i.test(ultimoBot) && aceptaSola;
-  const ofrecioVinculacion = /c[oó]mo se vincula|c[oó]mo me vinculo|c[oó]mo se inscribe|arrancamos con su vinculaci[oó]n|seguimos con la activaci[oó]n|arrancamos con la activaci[oó]n/i.test(ultimoBot);
   const ofrecioTablaNiveles = /nivel por nivel|tabla[^?]{0,60}niveles|proyecci[oó]n[^?]{0,40}nivel/i.test(ultimoBot);
   // ⚠️ La forma tiene que ser la PREGUNTA de cierre de la tabla («¿le muestro
   // las ganancias por la compra de paquetes empresariales…?»), no las palabras
@@ -181,7 +192,7 @@ export function banderasDelHilo(mensaje: string, historial: Turno[]) {
   // ninguna aceptación dictada se lo queda: el reenvío de la tarjeta manda
   // (batería del 2 sep — el «listo» se comió la petición explícita).
   const pideSimulador = /simulad/i.test(mensaje);
-  return { ultimoBot, aceptaSola, aceptaSimulador, ofrecioVinculacion, ofrecioTablaNiveles, ofrecioSegundaForma, pideSimulador };
+  return { ultimoBot, cierreBot, aceptaSola, aceptaSimulador, ofrecioVinculacion, ofrecioTablaNiveles, ofrecioSegundaForma, pideSimulador };
 }
 
 // ─── Textos que se leen de la base ────────────────────────────────────────────
@@ -388,6 +399,12 @@ export function pideLaEstrategia(mensaje: string): boolean {
     && !RE_ESTRATEGIA_DE_OTRA_COSA.test(m) && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(m);
 }
 
+/** El turno del bot que nombra la estrategia, en la oferta escrita o en la del modelo. */
+const RE_NOMBRA_ESTRATEGIA = /12 niveles|estrategia de los 12|estrategia con la que se construye/i;
+
+/** Una pregunta de cierre que ofrece otra cosa: las formas de empezar, los paquetes, el catálogo… */
+const RE_CIERRE_OFRECE_OTRO_DESTINO = /cuatro (formas|opciones)|formas de (empezar|arrancar|iniciar)|paquetes?|cat[aá]logo|productos?|precios?|con cu[aá]l|qu[eé] trae|simulador|tabla|video/i;
+
 /**
  * 2.34 → 2.44 — El hilo de Los 12 Niveles y el simulador.
  *
@@ -431,7 +448,13 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
     // prometer LO QUE DE VERDAD LLEGA: el destino habla de la estrategia, no de
     // cifras (disonancia detectada por el Director en la prueba). Sin este
     // patrón el «sí» caía al buscador vectorial: el fallo del caso Betsabe.
-    && /12 niveles|estrategia de los 12|estrategia con la que se construye/i.test(b.ultimoBot)
+    // ⚠️ Si la pregunta de cierre ofrece OTRO destino, el «sí» es de ese destino
+    // aunque el cuerpo nombre Los 12 Niveles (24 oct 2026): el modelo cerró con
+    // «…y con cualquiera de ellas la estrategia de los 12 Niveles corre. ¿Le muestro
+    // las cuatro opciones…?», la persona dijo «Bueno», y le volvió el video de la
+    // estrategia que había visto ocho minutos antes en vez de las cuatro formas.
+    && (RE_NOMBRA_ESTRATEGIA.test(b.cierreBot)
+      || (RE_NOMBRA_ESTRATEGIA.test(b.ultimoBot) && !RE_CIERRE_OFRECE_OTRO_DESTINO.test(b.cierreBot)))
     && !b.ofrecioTablaNiveles && !b.ofrecioVinculacion && !b.ofrecioSegundaForma
     && !/simulador/i.test(b.ultimoBot);
   // La pregunta con palabras propias, si no la vio ya: quien la recibió y vuelve
@@ -794,8 +817,11 @@ export const RE_OBJECION_PRESUPUESTO =
 // Se dictó «¿Con cuál arranca?» sin haber mostrado ningún paquete, y la persona
 // tuvo que corregirnos. Ofrecer VER los paquetes tiene un solo destino: la tabla.
 // Lo usa la puerta de FREQ_03 en route.ts, que se evalúa sobre la oferta anclada.
+// Y «las cuatro opciones» a secas (24 oct 2026): «¿Le muestro las cuatro opciones
+// para que elija la que le resulte cómoda hoy?», también del modelo; el número
+// es lo que la ata a las formas de empezar, y las de pago quedan fuera.
 export const RE_OFERTA_VER_PAQUETES =
-  /(muestro|presento|ense[ñn]o|comparto|paso|detallo)\s+(los|las)\s+(tres\s+|3\s+|cuatro\s+|4\s+)?(paquetes|formas\s+de\s+(empezar|iniciar|arrancar|entrar)|opciones\s+(de|para)\s+(empezar|iniciar|arrancar))/i;
+  /(muestro|presento|ense[ñn]o|comparto|paso|detallo)\s+(los|las)\s+(tres\s+|3\s+|cuatro\s+|4\s+)?(paquetes|formas\s+de\s+(empezar|iniciar|arrancar|entrar)|opciones\s+(de|para)\s+(empezar|iniciar|arrancar))|(muestro|presento|ense[ñn]o|comparto|paso|detallo)\s+las\s+(tres|3|cuatro|4)\s+opciones(?!\s+de\s+pago)/i;
 
 // ── 2.50 Cuánto hay que mover para que la comisión cubra la compra (30 sep 2026) ─
 // Yesid Triana: «¿Cuánto necesita de ingresos una persona para consumir semanal

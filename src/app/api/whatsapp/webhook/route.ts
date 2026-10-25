@@ -119,7 +119,7 @@ import {
   esSoloAgradecimiento, cortesiaDeSocio,
   detectarAccesoInventado, TEXTO_ACCESO_ENVIADO,
 } from '@/lib/wa-onboarding';
-import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado, gestoAfirmativoComoSi, nombrePropio } from '@/lib/texto-normalizar';
+import { normalizarParaSlug, normalizarLetrasDecorativas, corregirSiTecleado, gestoAfirmativoComoSi, afirmacionComoSi, nombrePropio } from '@/lib/texto-normalizar';
 import {
   detectarDistribuidorQuiereActivarse, botPidioDatosDistribuidor, extraerDatosDistribuidor, PIDE_DATOS_DISTRIBUIDOR,
   textoFaltanDatos, textoSolicitudEnviada, TEXTO_SOLICITUD_NO_ENVIADA, solicitarActivacionDistribuidor, detectarPideAcceso,
@@ -657,8 +657,9 @@ async function procesarEntrante(body: any): Promise<void> {
         messageText = plano;
       }
       // «Di» suelto es un «sí» con la tecla de al lado (ver `corregirSiTecleado`).
-      // Y un 👍 / 👌 / ✅ solo también (ver `gestoAfirmativoComoSi`).
-      const si = gestoAfirmativoComoSi(corregirSiTecleado(messageText));
+      // Y un 👍 / 👌 / ✅ solo también (ver `gestoAfirmativoComoSi`), y «Sip» o
+      // «Detállame» (ver `afirmacionComoSi`).
+      const si = afirmacionComoSi(gestoAfirmativoComoSi(corregirSiTecleado(messageText)));
       if (si !== messageText) {
         console.log(`🔤 [WA Webhook] ${phoneNumber} escribió "${messageText.trim()}" — se lee como «Sí»`);
         messageText = si;

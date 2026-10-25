@@ -40,6 +40,7 @@ const require = createRequire(import.meta.url);
 const { pideEnlaceCatalogo, detectarPideFuncionDashboard, esSoloAgradecimiento } = require('../src/lib/wa-onboarding.ts') as typeof import('../src/lib/wa-onboarding.ts');
 import { esAceptacion, detectarPidePersona, detectarPreguntaCharla, detectarIntencionCompra } from '../src/lib/wa-pedido.ts';
 import { RE_ACEPTACION_PELADA } from '../src/lib/wa-radicacion.ts';
+import { afirmacionComoSi } from '../src/lib/texto-normalizar.ts';
 import { esSoloSaludo, vieneDelVideoComoFunciona, vieneDelVideoDoceNiveles, videoDeReelVisto, niegaHaberVistoVideo } from '../src/lib/wa-apertura.ts';
 
 // El patrón de la gerente del hogar vive en `patrones_inicial` de route.ts (el
@@ -140,6 +141,11 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'activo en Gano con otro equipo (2.51a)', fn: (t) => RE_ACTIVO_EN_GANO.test(t), frase: 'estoy en gano con otro equipo', llaves: ['estoy', 'gano', 'equipo'], tope: 0 },
   { nombre: 'cambiarse de equipo (2.51c)', fn: (t) => RE_CAMBIO_DE_EQUIPO.test(t), frase: 'me puedo pasar a su equipo', llaves: ['puedo', 'pasar', 'equipo'], tope: 0,
     nota: 'si no dispara, el modelo compone la regla de traslado' },
+  { nombre: 'detectarPidePersona · rechaza la IA', fn: detectarPidePersona, frase: 'no me gusta la inteligencia artificial', llaves: ['gusta', 'inteligencia', 'artificial'], tope: 4,
+    nota: 'Jhoan, 17 oct 2026: «Sin IA» y «No me gusta la IA» recibieron productos y WHY_01, sin aviso a nadie; los 4 son la frase escrita entera, la gente escribe «IA»' },
+  { nombre: 'el «sí» de otra forma · detállame', fn: (t) => esAceptacion(afirmacionComoSi(t)), frase: 'detállame', llaves: ['detállame'], tope: 1,
+    nota: 'Adry, 23 oct 2026: «Detallame» a «¿Le detallo… el Visionario?» recibió «Es el mismo cálculo»' },
+  { nombre: 'el «sí» de otra forma · muéstremelas', fn: (t) => esAceptacion(afirmacionComoSi(t)), frase: 'muéstremelas', llaves: ['muéstremelas'], tope: 1 },
 ];
 
 let peor = 0, mejor = 0, base = 0, rotos = 0;

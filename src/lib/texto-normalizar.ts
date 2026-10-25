@@ -183,3 +183,23 @@ export function gestoAfirmativoComoSi(texto: string): string {
   const gesto = /^\s*(?:(?:\u{1F44D}|\u{1F44C}|\u{1F64C}|✅|✔|☑)[\u{1F3FB}-\u{1F3FF}️]*\s*)+[.!]*\s*$/u;
   return gesto.test(texto) ? 'Sí' : texto;
 }
+
+/**
+ * El «sí» dicho de otra forma: «Sip», «Simón», o el verbo de la oferta devuelto
+ * («¿Le detallo…?» → «Detállame»).
+ *
+ * Tres turnos reales que no encontraron su nodo: Yina dijo «Sip» dos veces a
+ * «¿Le muestro la estrategia…?» y nunca recibió el video (17 oct 2026); Adry
+ * respondió «Detallame» a «¿Le detallo exactamente qué productos trae el paquete
+ * Visionario?» y recibió «Es el mismo cálculo que le mostré» (23 oct). Igual que
+ * `corregirSiTecleado`: se corrige a la entrada, una vez, y solo cuando el
+ * mensaje ENTERO es eso —con «por favor» o «pues» detrás si quiere—;
+ * «Muéstreme el catálogo» trae su objeto y pasa intacto.
+ */
+export function afirmacionComoSi(texto: string): string {
+  if (!texto) return texto;
+  // Con el pulgar: «detllame», «dettállame», «muétremelas», «muééstremelas».
+  const verbo = 'de?t+[aá]?l+[ae]|mu[eé]+s?tr[ae]|cu[eé]nt[ae]|expl[ií]c[ae]|expl[ií]qu[e]|env[ií][ae]|m[aá]nd[ae]|p[aá]s[ae]';
+  const afirma = new RegExp(`^\\s*(?:s[ií]+p[ieo]?|sim[oó]n|(?:${verbo})(?:me|nos)(?:l[oa]s?)?)(?:,?\\s+(?:por favor|porfa|pues|ya))?\\s*[.!]*\\s*$`, 'i');
+  return afirma.test(texto) ? 'Sí' : texto;
+}

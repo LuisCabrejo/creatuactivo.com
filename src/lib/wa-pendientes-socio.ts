@@ -40,15 +40,17 @@ export const NODO_PENDIENTES = 'ruta_pendientes';
 export type Pendiente = 'destino' | 'gano' | 'foto' | 'notificaciones';
 
 export async function pendientesDelSocio(supabase: Supa, constructorId: string): Promise<Pendiente[]> {
-  const [destino, { count: gano }, { data: u }, { count: push }] = await Promise.all([
+  const [destino, { data: gano }, { data: u }, { count: push }] = await Promise.all([
     destinoDelSocio(supabase, constructorId),
-    supabase.from('gano_credentials').select('constructor_id', { count: 'exact', head: true }).eq('constructor_id', constructorId),
+    // La cached_data trae la marca que pone queswa.app cuando Gano ya no acepta la
+    // contraseña guardada (25 oct 2026, `credencialesRechazadas`): esa no cuenta como lista.
+    supabase.from('gano_credentials').select('cached_data').eq('constructor_id', constructorId).maybeSingle(),
     supabase.from('private_users').select('profile_photo_url').eq('constructor_id', constructorId).maybeSingle(),
     supabase.from('push_subscriptions').select('id', { count: 'exact', head: true }).eq('constructor_id', constructorId).eq('is_active', true),
   ]);
   const p: Pendiente[] = [];
   if (!destino) p.push('destino');
-  if (!gano) p.push('gano');
+  if (!gano || gano.cached_data?.credencialesRechazadas) p.push('gano');
   if (!String(u?.profile_photo_url ?? '').trim()) p.push('foto');
   if (!push) p.push('notificaciones');
   return p;

@@ -2,8 +2,8 @@
  * Copyright © 2026 CreaTuActivo.com
  *
  * Compone la tarjeta que sale al compartir el catálogo (25 oct 2026): una escena
- * de estilo de vida con la caja REAL del Ganocafé 3 en 1 de pie sobre la mesa y
- * el titular de la tienda. 1200×630, JPG.
+ * de estilo de vida con la caja REAL del Ganocafé 3 en 1 de pie sobre la mesa.
+ * 1200×630, JPG.
  *
  * POR QUÉ LA ESCENA Y LA CAJA VAN POR SEPARADO: la escena la generó Gemini SIN
  * ninguna caja (`public/productos/_set/escena-cafe-ventana.jpg`), y la caja es la
@@ -23,12 +23,11 @@
  * como la de la taza. Sin la sombra de contacto la caja flota.
  *
  * EL CENTRO RESISTE EL RECORTE CUADRADO: WhatsApp a veces muestra la vista previa
- * recortada a un cuadrado del centro (x 285–915). La taza y la caja caben ahí; el
- * titular queda entero a la derecha, fuera del recorte, en vez de partido.
+ * recortada a un cuadrado del centro (x 285–915). La taza y la caja caben ahí.
  *
- * EL TITULAR ES EL H1 DE LA TIENDA: «Catálogo Gano Excel» en Playfair 700 y la
- * tinta de /productos (#2B211A), renderizado con satori, el mismo motor de las
- * tarjetas next/og. (Pango, el de sharp, no toma la fuente aunque se le pase.)
+ * SIN TEXTO (Director, 25 oct 2026): la v1 llevaba el titular de la tienda,
+ * «Catálogo Gano Excel», y ensuciaba la imagen. El título y la descripción ya
+ * viajan debajo de ella en la vista previa.
  *
  * ⚠️ La tarjeta no lleva precio ni promesa de salud, por la misma razón que las
  * fotos de producto (ver componer-imagenes-producto.mjs).
@@ -40,7 +39,6 @@
  * node scripts/componer-tarjeta-catalogo.mjs
  */
 import sharp from 'sharp';
-import { ImageResponse } from 'next/dist/compiled/@vercel/og/index.node.js';
 import { readFileSync, statSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -50,9 +48,10 @@ const SET = join(RAIZ, 'public/productos/_set');
 const W = 1200, H = 630;
 
 // La caja: centro, línea de la mesa donde apoya y alto del frente. A 375 de alto
-// el frente mide lo mismo que la taza y, con el costado, la supera (Director).
-const CAJA_CX = 780, CAJA_BASE = 442, CAJA_ALTO = 375;
-const TITULAR = { left: 928, top: 72, ancho: 250, alto: 120, tam: 44 };
+// el frente medía lo mismo que la taza; el Director la pidió un 15 % más grande
+// (431). Para que la tapa no se salga por arriba, apoya un poco más adelante
+// en la mesa, sin tocar el plato.
+const CAJA_CX = 800, CAJA_BASE = 476, CAJA_ALTO = 431;
 
 const transparente = { r: 0, g: 0, b: 0, alpha: 0 };
 
@@ -73,10 +72,19 @@ const escena = await sharp(escenaAncha)
 // Menos contraste y saturación que la foto de estudio, y medio punto de
 // desenfoque por la profundidad de campo de la escena. Después, la luz: un
 // degradado cálido, más claro del lado de la ventana.
-const frente0 = await sharp(join(SET, 'limpios/ganocafe-3-en-1.png'))
+const estudio = await sharp(join(SET, 'limpios/ganocafe-3-en-1.png'))
   .trim().resize({ height: CAJA_ALTO })
-  .modulate({ saturation: 0.86, brightness: 0.97 }).linear(0.86, 18).blur(0.6).png().toBuffer();
-const { width: pw, height: ph } = await sharp(frente0).metadata();
+  .modulate({ saturation: 0.86, brightness: 0.97 }).linear(0.86, 18).blur(0.6)
+  .ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+const { width: pw, height: ph } = estudio.info;
+// El borde se come 1 px: el recorte trae restos claros del fondo de estudio, y
+// en la base se veían como una línea blanca entre la caja y la mesa.
+const rgba = Buffer.from(estudio.data);
+for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+  const a = (yy, xx) => (yy < 0 || yy >= ph || xx < 0 || xx >= pw) ? 0 : estudio.data[(yy * pw + xx) * 4 + 3];
+  rgba[(y * pw + x) * 4 + 3] = Math.min(a(y, x), a(y - 1, x), a(y + 1, x), a(y, x - 1), a(y, x + 1));
+}
+const frente0 = await sharp(rgba, { raw: { width: pw, height: ph, channels: 4 } }).png().toBuffer();
 const luz = Buffer.from(
   `<svg width="${pw}" height="${ph}" xmlns="http://www.w3.org/2000/svg"><defs>`
   + '<linearGradient id="l" x1="0" y1="0" x2="1" y2="0.25">'
@@ -103,40 +111,57 @@ const costado = await sharp(join(SET, 'costado-ganocafe-3-en-1.jpg'))
 // El filo de la tapa, donde le pega la luz
 const filo = Buffer.from(`<svg width="${pw}" height="2" xmlns="http://www.w3.org/2000/svg"><rect width="${pw}" height="1" y="0.5" fill="#FFF1D6" fill-opacity="0.5"/></svg>`);
 
-// ── 4. Las sombras: la proyectada (hacia adelante a la derecha) y la de contacto ──
-const dx = Math.round(ph * 0.55), dy = Math.round(ph * 0.34);
-const sombraProyectada = await sharp(Buffer.from(
-  `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">`
-  + `<polygon points="${x0 - L},${CAJA_BASE - T} ${x1},${CAJA_BASE} ${x1 + dx},${CAJA_BASE + dy} ${x0 + dx},${CAJA_BASE + dy}" fill="#3A2412" fill-opacity="0.5"/>`
-  + '</svg>')).blur(14).png().toBuffer();
-const sombraContacto = await sharp(Buffer.from(
-  `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">`
-  + `<ellipse cx="${CAJA_CX - L / 2 + 4}" cy="${CAJA_BASE - 2}" rx="${(pw + L) * 0.56}" ry="11" fill="#1E120A" fill-opacity="0.75"/>`
-  + '</svg>')).blur(4).png().toBuffer();
+// ── 4. Las sombras, medidas sobre las reales de la escena ──
+// La mesa al sol es (236,178,100); la sombra de la taza la deja en (148,100,59),
+// ~60 %, y el contacto del plato es casi negro (34,7,2). La sombra de la taza
+// cae hacia adelante a la derecha con pendiente 0,73, es larga (se sale por el
+// borde de abajo) y es nítida junto al plato y más suave lejos. La de la caja se
+// arma igual, en tres capas que se MULTIPLICAN sobre la mesa —así la veta de la
+// madera sigue viéndose a través— y se juntan con `darken`:
+//   · contacto: la huella de la caja, casi negra, apenas desenfocada;
+//   · oclusión: un halo corto alrededor de la base, donde no llega el rebote;
+//   · proyectada: la huella arrastrada en la dirección de la luz, que se aclara
+//     con la distancia; nítida en su primer tramo y difusa en el resto.
+// Sin la línea de contacto la caja flota, aunque tenga sombra proyectada.
+const B = CAJA_BASE;
+const huella = [[x0, B], [x1, B], [x1 - L, B - T], [x0 - L, B - T]];
+const LARGO = ph * 1.4, DIR = [1 / Math.hypot(1, 0.73), 0.73 / Math.hypot(1, 0.73)];
+const D = [DIR[0] * LARGO, DIR[1] * LARGO];
 
-// ── 5. El titular ──
-const linea = (texto) => ({ type: 'div', props: { style: { display: 'flex' }, children: texto } });
-const titular = Buffer.from(await new ImageResponse(
-  { type: 'div', props: {
-    style: { width: '100%', height: '100%', display: 'flex', flexDirection: 'column', fontFamily: 'Playfair Display', fontWeight: 700, fontSize: TITULAR.tam, lineHeight: 1.08, color: '#2B211A' },
-    children: [linea('Catálogo'), linea('Gano Excel')],
-  } },
-  {
-    width: TITULAR.ancho, height: TITULAR.alto,
-    fonts: [{ name: 'Playfair Display', data: readFileSync(join(RAIZ, 'public/fonts/PlayfairDisplay-Bold.ttf')), weight: 700, style: 'normal' }],
-  },
-).arrayBuffer());
+/** Envolvente convexa (cadena monótona): la silueta de la huella y su proyección. */
+function envolvente(puntos) {
+  const p = [...puntos].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cruz = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const media = (lista) => lista.reduce((h, q) => { while (h.length >= 2 && cruz(h[h.length - 2], h[h.length - 1], q) <= 0) h.pop(); h.push(q); return h; }, []);
+  const abajo = media(p), arriba = media([...p].reverse());
+  return [...abajo.slice(0, -1), ...arriba.slice(0, -1)];
+}
+const pts = (lista) => lista.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+const arrastre = (k) => envolvente([...huella, ...huella.map(([x, y]) => [x + D[0] * k, y + D[1] * k])]);
+const capa = (cuerpo, desenfoque) => sharp(Buffer.from(
+  `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg"><defs>`
+  + `<linearGradient id="g" gradientUnits="userSpaceOnUse" x1="${CAJA_CX}" y1="${B}" x2="${CAJA_CX + D[0]}" y2="${B + D[1]}">`
+  + '<stop offset="0%" stop-color="rgb(158,140,147)"/><stop offset="100%" stop-color="rgb(222,212,214)"/></linearGradient></defs>'
+  + `<rect width="${W}" height="${H}" fill="#fff"/>${cuerpo}</svg>`)).blur(desenfoque).png().toBuffer();
+
+const capas = await Promise.all([
+  capa(`<polygon points="${pts(arrastre(0.35))}" fill="url(#g)"/>`, 3),
+  capa(`<polygon points="${pts(arrastre(1))}" fill="url(#g)"/>`, 14),
+  capa(`<polygon points="${pts(huella)}" fill="rgb(168,146,138)" stroke="rgb(168,146,138)" stroke-width="18" stroke-linejoin="round"/>`, 6),
+  capa(`<polygon points="${pts(huella)}" fill="rgb(58,32,20)" stroke="rgb(58,32,20)" stroke-width="4" stroke-linejoin="round"/>`, 1.2),
+]);
+const sombras = await sharp({ create: { width: W, height: H, channels: 3, background: '#fff' } })
+  .composite(capas.map((input) => ({ input, blend: 'darken' })))
+  .png().toBuffer();
 
 const salida = join(RAIZ, 'public/productos', nombreTarjeta());
 await sharp(escena)
   .composite([
-    { input: sombraProyectada, left: 0, top: 0 },
-    { input: sombraContacto, left: 0, top: 0 },
+    { input: sombras, blend: 'multiply' },
     { input: costado, left: x0 - L, top: yTop - T },
     { input: tapa, left: x0 - L, top: yTop - T },
     { input: frente, left: x0, top: yTop },
     { input: filo, left: x0, top: yTop },
-    { input: titular, left: TITULAR.left, top: TITULAR.top },
   ])
   .jpeg({ quality: 86, mozjpeg: true })
   .toFile(salida);

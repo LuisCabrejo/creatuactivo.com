@@ -18,17 +18,22 @@
  *      cuenta del distribuidor y vuelve a comprobar el flete: si Gano cobrara más
  *      que lo mostrado, no finaliza y pide confirmar el total nuevo.
  *
- * El pedido va a nombre y dirección del cliente y lo despacha Gano Excel. Sin
- * tarjeta ni recoger en oficina. Los datos del formulario se quedan en el aparato.
+ * Dos formas de recibir (25 oct 2026, Director: «es clave»): Gano Excel lo despacha
+ * a la dirección del cliente, o el cliente lo recoge en una oficina de Gano Excel.
+ * La orden es de la cuenta del distribuidor, así que en la oficina solo se la
+ * entregan a un tercero autorizado: quien recoge escribe su nombre y su documento
+ * (puede ser el cliente o alguien de su confianza). En oficina no hay envío y el
+ * total sale sin consultar a Gano. Sin tarjeta. Los datos del formulario se quedan
+ * en el aparato.
  */
 
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { Truck, Landmark, Banknote, ChevronLeft, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react'
+import { Truck, Building2, Landmark, Banknote, ChevronLeft, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react'
 import type { Socio } from './page'
 import { productData, pesos } from './catalogo-datos'
-import { DEPARTAMENTOS_CON_ENVIO } from '@/lib/gano-inventario'
+import { DEPARTAMENTOS_CON_ENVIO, OFICINAS_GANO, oficinaGano, direccionOficina } from '@/lib/gano-inventario'
 
 interface Linea { id: string; cantidad: number }
 interface Banco { code: string; name: string }
@@ -53,24 +58,30 @@ const RE_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 // Lo que falta se dice en el campo y en una línea junto al botón (18 oct 2026: el
 // botón apagado sin explicación dejaba al cliente tocándolo sin que pasara nada).
-type CampoDatos = 'nombre' | 'telefono' | 'departamento' | 'municipio' | 'linea1'
+type CampoDatos = 'nombre' | 'telefono' | 'departamento' | 'municipio' | 'linea1' | 'oficina' | 'docRecoge'
 type CampoPago = 'banco' | 'cedula' | 'correo'
-const CAMPOS_DATOS: CampoDatos[] = ['nombre', 'telefono', 'departamento', 'municipio', 'linea1']
+const CAMPOS_ENVIO: CampoDatos[] = ['nombre', 'telefono', 'departamento', 'municipio', 'linea1']
+const CAMPOS_OFICINA: CampoDatos[] = ['oficina', 'nombre', 'docRecoge', 'telefono']
 const CAMPOS_PAGO: CampoPago[] = ['banco', 'cedula', 'correo']
 const AYUDA: Record<CampoDatos | CampoPago, string> = {
-  nombre: 'Escriba el nombre y el apellido de quien recibe.',
+  nombre: 'Escriba el nombre y el apellido.',
   telefono: 'Escriba el celular: 10 cifras, empieza por 3.',
   departamento: 'Elija el departamento.',
   municipio: 'Escriba el municipio.',
   linea1: 'Escriba la dirección con su número, como en el ejemplo.',
+  oficina: 'Elija la oficina donde va a recoger.',
+  docRecoge: 'Escriba el número de documento: en la oficina se lo piden.',
   banco: 'Elija su banco.',
   cedula: 'Escriba el número de documento, solo las cifras.',
   correo: 'Revise el correo: ahí le llega el comprobante.',
 }
 const NOMBRE_CAMPO: Record<CampoDatos | CampoPago, string> = {
   nombre: 'el nombre', telefono: 'el celular', departamento: 'el departamento', municipio: 'el municipio', linea1: 'la dirección',
+  oficina: 'la oficina', docRecoge: 'el documento de quien recoge',
   banco: 'el banco', cedula: 'el número de documento', correo: 'el correo',
 }
+// El pasaporte lleva letras; los demás documentos, solo cifras (igual que valida queswa.app).
+const limpiarDoc = (tipo: string, valor: string) => valor.toUpperCase().replace(tipo === 'PP' ? /[^A-Z0-9]/g : /\D/g, '')
 function enLista(xs: string[]): string {
   if (xs.length <= 1) return xs[0] ?? ''
   return `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`
@@ -91,7 +102,7 @@ const BANCOS_FIJOS: Banco[] = [
 // mirar algo, volvió y el formulario estaba vacío). Solo en este navegador, como el
 // carrito; se borran al pagar.
 const CLAVE_DATOS = 'pago_gano_datos'
-interface DatosGuardados { nombre?: string; telefono?: string; departamento?: string; municipio?: string; linea1?: string; linea2?: string; tipoDoc?: string; cedula?: string; correo?: string; banco?: string; pago?: 'pse' | 'efectivo' }
+interface DatosGuardados { nombre?: string; telefono?: string; recibe?: 'envio' | 'oficina'; oficina?: number; tipoDocRecoge?: string; docRecoge?: string; departamento?: string; municipio?: string; linea1?: string; linea2?: string; tipoDoc?: string; cedula?: string; correo?: string; banco?: string; pago?: 'pse' | 'efectivo' }
 function leerDatos(): DatosGuardados {
   try { const d = JSON.parse(localStorage.getItem(CLAVE_DATOS) || '{}'); return d && typeof d === 'object' ? d : {} } catch { return {} }
 }
@@ -104,6 +115,10 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   const [paso, setPaso] = useState<Paso>('datos')
   const [nombre, setNombre] = useState(prefill?.nombre ?? guardado.nombre ?? '')
   const [telefono, setTelefono] = useState(prefill?.telefono ?? guardado.telefono ?? '')
+  const [recibe, setRecibe] = useState<'envio' | 'oficina'>(guardado.recibe === 'oficina' ? 'oficina' : 'envio')
+  const [oficina, setOficina] = useState<number | null>(oficinaGano(guardado.oficina)?.id ?? null)
+  const [tipoDocRecoge, setTipoDocRecoge] = useState(guardado.tipoDocRecoge ?? 'CC')
+  const [docRecoge, setDocRecoge] = useState(guardado.docRecoge ?? '')
   // Un departamento guardado que ya no tiene envío (o de una versión vieja) no se restaura: el selector mostraría «Elija» con otro valor por dentro.
   const [departamento, setDepartamento] = useState(DEPARTAMENTOS_CON_ENVIO.some((d) => d.code === guardado.departamento) ? guardado.departamento ?? '' : '')
   const [municipio, setMunicipio] = useState(guardado.municipio ?? '')
@@ -128,8 +143,8 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   useEffect(() => { if (prefill?.nombre && !nombre) setNombre(prefill.nombre); if (prefill?.telefono && !telefono) setTelefono(prefill.telefono) }, [prefill, nombre, telefono])
   // Cada cambio queda en el aparato; al pagar se borra.
   useEffect(() => {
-    try { localStorage.setItem(CLAVE_DATOS, JSON.stringify({ nombre, telefono, departamento, municipio, linea1, linea2, tipoDoc, cedula, correo, banco, pago })) } catch { /* sin almacenamiento */ }
-  }, [nombre, telefono, departamento, municipio, linea1, linea2, tipoDoc, cedula, correo, banco, pago])
+    try { localStorage.setItem(CLAVE_DATOS, JSON.stringify({ nombre, telefono, recibe, oficina, tipoDocRecoge, docRecoge, departamento, municipio, linea1, linea2, tipoDoc, cedula, correo, banco, pago })) } catch { /* sin almacenamiento */ }
+  }, [nombre, telefono, recibe, oficina, tipoDocRecoge, docRecoge, departamento, municipio, linea1, linea2, tipoDoc, cedula, correo, banco, pago])
 
   const ref = socio.slug ?? socio.constructorId ?? ''
   const primerNombre = socio.primerNombre
@@ -139,14 +154,20 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   const flete = fleteNuevo?.flete ?? cotizacion?.flete ?? 0
   const total = subtotal + flete
 
+  const enOficina = recibe === 'oficina'
+  const sede = oficinaGano(oficina)
+  const docRecogeLimpio = limpiarDoc(tipoDocRecoge, docRecoge)
   const faltaDatos: Record<CampoDatos, boolean> = {
     nombre: nombre.trim().length < 3,
     telefono: !/^3\d{9}$/.test(tel10),
     departamento: !departamento,
     municipio: municipio.trim().length < 2,
     linea1: linea1.trim().length < 5,
+    oficina: !sede,
+    docRecoge: !/^[A-Z0-9]{5,15}$/.test(docRecogeLimpio),
   }
-  const datosListos = !CAMPOS_DATOS.some((c) => faltaDatos[c])
+  const camposDatos = enOficina ? CAMPOS_OFICINA : CAMPOS_ENVIO
+  const datosListos = !camposDatos.some((c) => faltaDatos[c])
   const faltaPago: Record<CampoPago, boolean> = {
     banco: pago === 'pse' && !banco,
     cedula: pago === 'pse' && !/^\d{5,12}$/.test(cedula.replace(/\D/g, '')),
@@ -173,7 +194,9 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
           ref, accion,
           ...(pedidoClave ? { pedido: pedidoClave } : { carrito }),
           cliente: { nombre: nombre.trim(), telefono: tel10, tipoDoc, cedula: cedula.replace(/\D/g, ''), email: correo.trim() },
-          direccion: { departamento, municipio: municipio.trim(), linea1: linea1.trim(), linea2: linea2.trim() },
+          ...(enOficina
+            ? { reclamacion: 'oficina', oficina: sede?.id, tercero: { nombre: nombre.trim(), tipoDoc: tipoDocRecoge, numeroDoc: docRecogeLimpio } }
+            : { reclamacion: 'envio', direccion: { departamento, municipio: municipio.trim(), linea1: linea1.trim(), linea2: linea2.trim() } }),
           ...(accion === 'pagar' ? { pago, banco: pago === 'pse' ? banco : undefined, fleteMostrado } : {}),
           fingerprint: huella(),
         }),
@@ -189,7 +212,7 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   function intentarCotizar() {
     if (!datosListos) {
       setRevisarDatos(true)
-      const primero = CAMPOS_DATOS.find((c) => faltaDatos[c])
+      const primero = camposDatos.find((c) => faltaDatos[c])
       if (primero) document.getElementById(`pg-${primero}`)?.focus()
       return
     }
@@ -215,6 +238,8 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
       const b = Array.isArray(json.bancos) && (json.bancos as Banco[]).length >= 5 ? (json.bancos as Banco[]) : BANCOS_FIJOS
       setBancos(b)
       setCotizacion({ subtotal: Number(json.subtotal), flete: Number(json.flete), total: Number(json.total), bancos: b, fuente: json.fuente === 'guardado' ? 'guardado' : 'gano', ciudad: (json.envio as { ciudad?: string } | null)?.ciudad })
+      // Lo más común es que pague quien recoge: su documento ya está escrito.
+      if (enOficina && !cedula) { setCedula(docRecogeLimpio); setTipoDoc(tipoDocRecoge) }
       setPaso('cotizado')
       return
     }
@@ -267,7 +292,9 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
         <a className="tienda-boton tienda-enviar" href={resultado.payUrl ?? '#'}>
           <Landmark className="h-5 w-5" /> Ir a mi banco y pagar <ExternalLink className="h-4 w-4" />
         </a>
-        <p className="tienda-pago-parrafo">Tiene 20 minutos para terminar el pago. Cuando el banco lo apruebe, Gano Excel despacha a su dirección, normalmente de un día para otro.</p>
+        {enOficina && sede
+          ? <p className="tienda-pago-parrafo">Tiene 20 minutos para terminar el pago. Cuando el banco lo apruebe, el pedido queda para recoger en la oficina de Gano Excel de <strong>{sede.nombre}</strong>, {direccionOficina(sede)}. Se lo entregan a <strong>{nombre.trim()}</strong> con su documento y el número de orden.</p>
+          : <p className="tienda-pago-parrafo">Tiene 20 minutos para terminar el pago. Cuando el banco lo apruebe, Gano Excel despacha a su dirección, normalmente de un día para otro.</p>}
         <p className="tienda-pago-nota">Si el banco no abrió o se pasó el tiempo, vuelva a esta página y genere el pago de nuevo.</p>
       </div>
     )
@@ -289,7 +316,9 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
         <ul className="tienda-pago-convenios">
           {(resultado.convenios ?? []).map((c) => <li key={c.entidad}><span>{c.entidad}</span><strong>{c.convenio}</strong></li>)}
         </ul>
-        <p className="tienda-pago-parrafo">Gano Excel despacha a su dirección cuando registra el pago, normalmente de un día para otro. Consigne hoy o mañana: la orden queda esperando su pago.</p>
+        {enOficina && sede
+          ? <p className="tienda-pago-parrafo">Cuando Gano Excel registre el pago, el pedido queda para recoger en la oficina de Gano Excel de <strong>{sede.nombre}</strong>, {direccionOficina(sede)}. Se lo entregan a <strong>{nombre.trim()}</strong> con su documento y el número de orden. Consigne hoy o mañana: la orden queda esperando su pago.</p>
+          : <p className="tienda-pago-parrafo">Gano Excel despacha a su dirección cuando registra el pago, normalmente de un día para otro. Consigne hoy o mañana: la orden queda esperando su pago.</p>}
         <p className="tienda-pago-nota">{primerNombre} recibió el aviso de su pedido. Guarde una foto de esta pantalla.</p>
       </div>
     )
@@ -333,13 +362,17 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
     return (
       <>
         <div className="tienda-hoja-cuerpo tienda-pago">
-          <button type="button" className="tienda-enlace tienda-pago-volver" onClick={() => setPaso('datos')} disabled={pagando}><ChevronLeft className="h-4 w-4" /> Cambiar la dirección</button>
+          <button type="button" className="tienda-enlace tienda-pago-volver" onClick={() => setPaso('datos')} disabled={pagando}><ChevronLeft className="h-4 w-4" /> {enOficina ? 'Cambiar la oficina' : 'Cambiar la dirección'}</button>
           <div className="tienda-pedido-suma tienda-pago-suma">
             {lineas.map((l) => <div key={l.id}><span>{l.cantidad} × {productData[l.id].name}</span><span>{pesos(productData[l.id].price * l.cantidad)}</span></div>)}
-            <div><span>Envío a {municipio.trim()}, por Gano Excel</span><span>{pesos(cotizacion.flete)}</span></div>
+            {enOficina
+              ? <div><span>Recoge en la oficina de {sede?.nombre}</span><span>Sin envío</span></div>
+              : <div><span>Envío a {municipio.trim()}, por Gano Excel</span><span>{pesos(cotizacion.flete)}</span></div>}
             <div className="total"><span>Total</span><span>{pesos(total)}</span></div>
           </div>
-          <p className="tienda-pago-parrafo">Llega a nombre de <strong>{nombre.trim()}</strong>, {linea1.trim()}{linea2.trim() ? `, ${linea2.trim()}` : ''}, {municipio.trim()}.</p>
+          {enOficina && sede
+            ? <p className="tienda-pago-parrafo">Lo recoge <strong>{nombre.trim()}</strong> ({tipoDocRecoge} {docRecogeLimpio}) en la oficina de Gano Excel de {sede.nombre}: {direccionOficina(sede)}.</p>
+            : <p className="tienda-pago-parrafo">Llega a nombre de <strong>{nombre.trim()}</strong>, {linea1.trim()}{linea2.trim() ? `, ${linea2.trim()}` : ''}, {municipio.trim()}.</p>}
 
           <p className="tienda-pago-rotulo">¿Cómo paga?</p>
           <div className="tienda-pago-opciones" role="radiogroup" aria-label="Forma de pago">
@@ -404,10 +437,66 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
     <>
       <div className="tienda-hoja-cuerpo tienda-pago">
         <button type="button" className="tienda-enlace tienda-pago-volver" onClick={volver} disabled={cotizando}><ChevronLeft className="h-4 w-4" /> Volver al pedido</button>
-        <div className="tienda-pedido-sigue">
-          <Truck className="h-5 w-5" />
-          <p>El pedido se crea en Gano Excel con el código de {primerNombre}, a nombre suyo, y <strong>Gano Excel lo despacha a su dirección</strong> por Servientrega. El envío depende de la ciudad: lo consultamos con Gano antes de que pague.</p>
+        <p className="tienda-pago-rotulo">¿Cómo lo recibe?</p>
+        <div className="tienda-pago-opciones" role="radiogroup" aria-label="Cómo recibe el pedido">
+          <label className={`tienda-pago-opcion${!enOficina ? ' activa' : ''}`}>
+            <input type="radio" name="recibe" value="envio" checked={!enOficina} onChange={() => { setRecibe('envio'); setError(null) }} disabled={cotizando} />
+            <Truck className="h-5 w-5" />
+            <span><strong>Envío a su dirección</strong><small>Gano Excel lo despacha por Servientrega. El envío depende de la ciudad.</small></span>
+          </label>
+          <label className={`tienda-pago-opcion${enOficina ? ' activa' : ''}`}>
+            <input type="radio" name="recibe" value="oficina" checked={enOficina} onChange={() => { setRecibe('oficina'); setError(null); setCandidatos([]) }} disabled={cotizando} />
+            <Building2 className="h-5 w-5" />
+            <span><strong>Recoger en una oficina de Gano Excel</strong><small>Sin costo de envío. Lo recoge usted o alguien de su confianza.</small></span>
+          </label>
         </div>
+        {enOficina ? (
+          <div className="tienda-pedido-sigue">
+            <Building2 className="h-5 w-5" />
+            <p>El pedido se crea en Gano Excel con el código de {primerNombre}. En la oficina se lo entregan a la persona que usted escriba aquí, con su documento: <strong>puede ser usted o alguien de su confianza</strong>.</p>
+          </div>
+        ) : (
+          <div className="tienda-pedido-sigue">
+            <Truck className="h-5 w-5" />
+            <p>El pedido se crea en Gano Excel con el código de {primerNombre}, a nombre suyo, y <strong>Gano Excel lo despacha a su dirección</strong> por Servientrega. El envío depende de la ciudad: lo consultamos con Gano antes de que pague.</p>
+          </div>
+        )}
+        {enOficina ? (
+        <div className="tienda-pago-campos">
+          <label className="tienda-campo">
+            <span>Oficina de Gano Excel</span>
+            <select id="pg-oficina" value={sede?.id ?? ''} onChange={(e) => setOficina(e.target.value ? Number(e.target.value) : null)} disabled={cotizando} aria-invalid={marcaDatos('oficina') || undefined} aria-describedby={marcaDatos('oficina') ? 'pg-oficina-falta' : undefined}>
+              <option value="">Elija la oficina</option>
+              {OFICINAS_GANO.map((o) => <option key={o.id} value={o.id}>{o.nombre}</option>)}
+            </select>
+            {sede && <small className="tienda-campo-nota">{direccionOficina(sede)}</small>}
+            {marcaDatos('oficina') && <small id="pg-oficina-falta" className="tienda-campo-falta">{AYUDA.oficina}</small>}
+          </label>
+          <label className="tienda-campo">
+            <span>Nombre completo de quien recoge</span>
+            <input id="pg-nombre" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} autoComplete="name" disabled={cotizando} aria-invalid={marcaDatos('nombre') || undefined} aria-describedby={marcaDatos('nombre') ? 'pg-nombre-falta' : undefined} />
+            {marcaDatos('nombre') && <small id="pg-nombre-falta" className="tienda-campo-falta">{AYUDA.nombre}</small>}
+          </label>
+          <div className="tienda-campo-fila">
+            <label className="tienda-campo tienda-campo-corto">
+              <span>Documento</span>
+              <select value={tipoDocRecoge} onChange={(e) => setTipoDocRecoge(e.target.value)} disabled={cotizando}>
+                <option value="CC">CC</option><option value="CE">CE</option><option value="PP">PP</option>
+              </select>
+            </label>
+            <label className="tienda-campo">
+              <span>Número de documento</span>
+              <input id="pg-docRecoge" type="text" inputMode={tipoDocRecoge === 'PP' ? 'text' : 'numeric'} value={docRecoge} onChange={(e) => setDocRecoge(e.target.value)} placeholder="Se lo piden en la oficina" autoComplete="off" disabled={cotizando} aria-invalid={marcaDatos('docRecoge') || undefined} aria-describedby={marcaDatos('docRecoge') ? 'pg-docRecoge-falta' : undefined} />
+              {marcaDatos('docRecoge') && <small id="pg-docRecoge-falta" className="tienda-campo-falta">{AYUDA.docRecoge}</small>}
+            </label>
+          </div>
+          <label className="tienda-campo">
+            <span>Celular</span>
+            <input id="pg-telefono" type="tel" inputMode="tel" value={telefono} onChange={(e) => setTelefono(e.target.value)} placeholder="300 123 4567" autoComplete="tel" disabled={cotizando} aria-invalid={marcaDatos('telefono') || undefined} aria-describedby={marcaDatos('telefono') ? 'pg-telefono-falta' : undefined} />
+            {marcaDatos('telefono') && <small id="pg-telefono-falta" className="tienda-campo-falta">{AYUDA.telefono}</small>}
+          </label>
+        </div>
+        ) : (
         <div className="tienda-pago-campos">
           <label className="tienda-campo">
             <span>Nombre completo de quien recibe</span>
@@ -450,15 +539,18 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
             <input type="text" value={linea2} onChange={(e) => setLinea2(e.target.value)} disabled={cotizando} />
           </label>
         </div>
+        )}
         {error && <p className="tienda-pago-aviso"><AlertTriangle className="h-4 w-4" /> {error}</p>}
       </div>
       <div className="tienda-hoja-pie">
         <button type="button" className="tienda-boton tienda-enviar" onClick={intentarCotizar} disabled={cotizando}>
-          {cotizando ? 'Consultando el envío con Gano Excel…' : 'Ver el total con el envío'}
+          {enOficina
+            ? (cotizando ? 'Preparando su pedido…' : 'Ver el total')
+            : (cotizando ? 'Consultando el envío con Gano Excel…' : 'Ver el total con el envío')}
         </button>
         {revisarDatos && !datosListos
-          ? <p className="tienda-hoja-pie-nota falta" role="alert">Para seguir falta {enLista(CAMPOS_DATOS.filter((c) => faltaDatos[c]).map((c) => NOMBRE_CAMPO[c]))}.</p>
-          : <p className="tienda-hoja-pie-nota">{cotizando ? 'Hasta 15 segundos.' : `Productos: ${pesos(subtotal)} · el envío lo dice Gano Excel. Todavía no paga nada.`}</p>}
+          ? <p className="tienda-hoja-pie-nota falta" role="alert">Para seguir falta {enLista(camposDatos.filter((c) => faltaDatos[c]).map((c) => NOMBRE_CAMPO[c]))}.</p>
+          : <p className="tienda-hoja-pie-nota">{cotizando ? (enOficina ? 'Un momento.' : 'Hasta 15 segundos.') : enOficina ? `Productos: ${pesos(subtotal)} · sin costo de envío. Todavía no paga nada.` : `Productos: ${pesos(subtotal)} · el envío lo dice Gano Excel. Todavía no paga nada.`}</p>}
       </div>
     </>
   )
@@ -477,6 +569,7 @@ export const ESTILOS_PAGO = `
 .tienda-campo input:disabled, .tienda-campo select:disabled { opacity: .6; }
 .tienda-campo input[aria-invalid="true"], .tienda-campo select[aria-invalid="true"] { border-color: #B4472D; }
 .tienda-campo-falta { font-size: 13px; font-weight: 500; line-height: 1.35; color: #A3361F; }
+.tienda-campo-nota { font-size: 13px; line-height: 1.4; color: var(--t-tinta-3); }
 .tienda-hoja-pie-nota.falta { color: #A3361F; font-weight: 500; }
 .tienda-campo-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .tienda-campo-fila .tienda-campo-corto { max-width: 110px; }

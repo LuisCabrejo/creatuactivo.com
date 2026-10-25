@@ -9,7 +9,9 @@
  * con su distribuidor (el flujo de WhatsApp de siempre) o pagar a Gano Excel. Esto
  * es lo segundo: queswa.app crea la orden en la cuenta del distribuidor, con envío
  * a nombre y dirección del cliente, y el cliente paga por PSE (enlace al banco) o
- * en efectivo (consigna con el número de orden). Funciona por defecto para todo
+ * en efectivo (consigna con el número de orden). O recoge en una oficina de Gano
+ * Excel (25 oct 2026): como la orden es de la cuenta del socio, quien recoge va
+ * como tercero autorizado, con su documento. Funciona por defecto para todo
  * socio que tenga su contraseña de Gano guardada en queswa.app; sin ella, el
  * catálogo solo ofrece pagar con el socio.
  *
@@ -17,7 +19,7 @@
  *   GET  ?pedido=codigo-firma           → { lineas, nombre, telefono, ref }: el pedido
  *                                         que Queswa tomó por WhatsApp, para abrir el
  *                                         catálogo con el carrito ya puesto.
- *   POST { ref, accion: 'cotizar'|'pagar', carrito | pedido, cliente, direccion, pago?, banco? }
+ *   POST { ref, accion: 'cotizar'|'pagar', carrito | pedido, cliente, direccion | (reclamacion: 'oficina', oficina, tercero), pago?, banco? }
  *        → pasa al Dashboard (POST /api/gano/pedido-cliente, llave del puente) y
  *          devuelve su respuesta tal cual. Con `pagar`, registra el pedido en
  *          wa_pedidos (si vino de la web) y le avisa al socio por WhatsApp.
@@ -28,7 +30,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { resolverRef, tienePagoGano, nombreVisible, type SocioRef } from '@/lib/socio-ref'
-import { lineasAItemsGano } from '@/lib/gano-inventario'
+import { lineasAItemsGano, oficinaGano } from '@/lib/gano-inventario'
 import { firmaPedido, registrarPedido, resumenLineas, telefonoLegible, mismoNumero, type LineaPedido } from '@/lib/wa-pedido'
 import { PRODUCTOS_WA } from '@/lib/wa-productos'
 import { sendTemplate, sendText } from '@/lib/wa-channel'
@@ -52,6 +54,11 @@ interface Body {
   pedido?: string            // «codigo-firma», cuando el pedido lo tomó Queswa por WhatsApp
   cliente?: Cliente
   direccion?: Direccion
+  /** 'oficina': recoge en una oficina de Gano (sin dirección); por defecto, envío. */
+  reclamacion?: 'envio' | 'oficina'
+  oficina?: number
+  /** Quien recoge en la oficina, con su documento. */
+  tercero?: { nombre?: string; tipoDoc?: string; numeroDoc?: string }
   pago?: 'pse' | 'efectivo'
   banco?: string
   /** El envío que la hoja le mostró al cliente (tarifa de gano-inventario.ts). */
@@ -153,7 +160,8 @@ export async function POST(request: NextRequest) {
       headers: { 'Content-Type': 'application/json', 'x-wa-bridge-secret': secreto },
       body: JSON.stringify({
         constructorId: socio.constructorId, accion, items, cliente,
-        direccion: body.direccion, pago: body.pago, banco: body.banco, fleteMostrado: body.fleteMostrado,
+        direccion: body.direccion, reclamacion: body.reclamacion === 'oficina' ? 'oficina' : 'envio', oficina: body.oficina, tercero: body.tercero,
+        pago: body.pago, banco: body.banco, fleteMostrado: body.fleteMostrado,
         pedidoCodigo: codigo, origen: pedidoWa ? 'whatsapp' : 'web',
       }),
       signal: ctl.signal,
@@ -174,7 +182,9 @@ export async function POST(request: NextRequest) {
       // El pedido de la web que no llegó a Gano no se queda como «pendiente» de nadie.
       await sb.from('wa_pedidos').update({ estado: 'fallido_gano' }).eq('id', pedidoWebId)
     }
-    if (ok) await avisarAlSocio(socio, cliente, lineasPedido, String(json.orderNumber ?? ''), body.pago === 'pse' ? 'pse' : 'efectivo', codigo, `$${Math.round(Number(json.total) || 0).toLocaleString('es-CO')} COP`, sb)
+    const oficina = body.reclamacion === 'oficina' ? oficinaGano(Number(body.oficina)) : null
+    const recoge = oficina ? { oficina: oficina.nombre, nombre: String(body.tercero?.nombre || cliente.nombre || '').trim() } : null
+    if (ok) await avisarAlSocio(socio, cliente, lineasPedido, String(json.orderNumber ?? ''), body.pago === 'pse' ? 'pse' : 'efectivo', codigo, `$${Math.round(Number(json.total) || 0).toLocaleString('es-CO')} COP`, sb, recoge)
   }
   return NextResponse.json(json, { status })
 }
@@ -195,15 +205,20 @@ export async function POST(request: NextRequest) {
 const PLANTILLA_PEDIDO_GANO = process.env.WA_PLANTILLA_PEDIDO_GANO?.trim() || ''
 async function avisarAlSocio(socio: SocioRef, cliente: Cliente, lineas: LineaPedido[], orden: string, pago: 'pse' | 'efectivo', codigo: string | null, total: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sb: any): Promise<void> {
+  sb: any,
+  /** Si recoge en una oficina de Gano: cuál y quién. */
+  recoge: { oficina: string; nombre: string } | null = null): Promise<void> {
   if (!socio.whatsapp) return
   const telCliente = cliente.telefono ? `57${cliente.telefono}` : ''
   if (telCliente && mismoNumero(socio.whatsapp, telCliente)) return
   const nombre = cliente.nombre || 'Sin nombre'
   const que = resumenLineas(lineas).slice(0, 200)
+  const entrega = recoge
+    ? `${recoge.nombre && recoge.nombre !== nombre ? `Lo recoge ${recoge.nombre}` : 'Lo recoge'} en la oficina de Gano Excel de ${recoge.oficina}`
+    : null
   const como = pago === 'pse'
-    ? `paga por PSE directo a Gano Excel (orden #${orden}). Gano lo despacha a su dirección; usted no tiene que hacer nada.`
-    : `consigna a Gano Excel en efectivo con la orden #${orden}. Gano lo despacha cuando registre el pago; usted no tiene que hacer nada.`
+    ? `paga por PSE directo a Gano Excel (orden #${orden}). ${entrega ? `${entrega} cuando el banco apruebe el pago` : 'Gano lo despacha a su dirección'}; usted no tiene que hacer nada.`
+    : `consigna a Gano Excel en efectivo con la orden #${orden}. ${entrega ? `${entrega} cuando Gano registre el pago` : 'Gano lo despacha cuando registre el pago'}; usted no tiene que hacer nada.`
   try {
     const digitos = String(socio.whatsapp).replace(/\D/g, '')
     if (await enVentanaPorTelefono(sb, digitos).catch(() => false)) {
@@ -226,7 +241,7 @@ async function avisarAlSocio(socio: SocioRef, cliente: Cliente, lineas: LineaPed
     const r = await sendTemplate(socio.whatsapp, PLANTILLA_PEDIDO_GANO, 'es', [
       codigo || orden,
       `${nombre}${telCliente ? `, ${telefonoLegible(telCliente)}` : ''}`,
-      `${que} · ${pago === 'pse' ? 'paga por PSE' : 'consigna en efectivo'}`,
+      `${que} · ${pago === 'pse' ? 'paga por PSE' : 'consigna en efectivo'}${recoge ? ` · recoge en la oficina de ${recoge.oficina}` : ''}`,
       total,
     ])
     console.log(`📨 [Pedido cliente] Aviso al socio ${socio.nombre} (${PLANTILLA_PEDIDO_GANO}): ${r.ok ? 'enviado' : r.error}`)

@@ -337,8 +337,8 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
             <li><span>1</span><div><strong>Arme su pedido aquí</strong><p>Elija los productos y las cantidades. Todavía no paga nada.</p></div></li>
             {socio?.pagoGano ? (
               <>
-                <li><span>2</span><div><strong>Elija cómo pagar</strong><p>Directo a Gano Excel, por PSE o en efectivo, con envío a su dirección. O con {socio.nombre}, que le escribe por WhatsApp y acuerdan el pago y la entrega.</p></div></li>
-                <li><span>3</span><div><strong>Recibe su pedido</strong><p>Gano Excel lo despacha por Servientrega, normalmente de un día para otro; o en persona, si así lo acordó con {socio.primerNombre}.</p></div></li>
+                <li><span>2</span><div><strong>Elija cómo pagar</strong><p>Directo a Gano Excel, por PSE o en efectivo, con envío a su dirección o para recoger en una oficina de Gano Excel. O con {socio.nombre}, que le escribe por WhatsApp y acuerdan el pago y la entrega.</p></div></li>
+                <li><span>3</span><div><strong>Recibe su pedido</strong><p>Gano Excel lo despacha por Servientrega, normalmente de un día para otro, o lo recoge en una de sus oficinas, usted o alguien de su confianza. O en persona, si así lo acordó con {socio.primerNombre}.</p></div></li>
               </>
             ) : (
               <>
@@ -680,7 +680,7 @@ function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando
         </ul>
 
         <div className="tienda-pedido-suma">
-          <div><span>Envío</span><span>{pagoGano ? 'Lo calcula Gano Excel según su ciudad' : `Lo acuerda con ${socio?.primerNombre ?? 'su distribuidor'}`}</span></div>
+          <div><span>Envío</span><span>{pagoGano ? 'Según su ciudad, o sin costo en oficina' : `Lo acuerda con ${socio?.primerNombre ?? 'su distribuidor'}`}</span></div>
           <div className="total"><span>Total de productos</span><span>{pesos(total)}</span></div>
         </div>
 
@@ -692,7 +692,7 @@ function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando
             <div className="tienda-pago-eleccion">
               <button type="button" className="tienda-opcion" onClick={pagarGano}>
                 <Landmark className="h-6 w-6" />
-                <span><strong>Pagar a Gano Excel</strong><small>Por PSE desde su banco o en efectivo. Gano Excel lo despacha a su dirección.</small></span>
+                <span><strong>Pagar a Gano Excel</strong><small>Por PSE desde su banco o en efectivo. Gano Excel lo despacha a su dirección, o lo recoge en una de sus oficinas.</small></span>
                 <ChevronRight className="h-5 w-5 tienda-opcion-flecha" />
               </button>
               <button type="button" className="tienda-opcion whatsapp" onClick={enviar}>

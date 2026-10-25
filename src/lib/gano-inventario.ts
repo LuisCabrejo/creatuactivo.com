@@ -109,3 +109,24 @@ export function carritoAUrl(lineas: { id: string; cantidad: number }[]): string 
 // Lo que sí es fijo: a estos departamentos Gano no despacha (no están en su lista).
 export const SIN_ENVIO_GANO = new Set(['AMA', 'GUA', 'GUV', 'SAP', 'VAU', 'VID'])
 export const DEPARTAMENTOS_CON_ENVIO = DEPARTAMENTOS.filter((d) => !SIN_ENVIO_GANO.has(d.code))
+
+/**
+ * Las oficinas de Gano Excel donde el cliente puede recoger (25 oct 2026). Copia de
+ * OFICINAS de gano-checkout-catalogos.ts del Dashboard: el `id` es el WarehouseID de
+ * Gano y el Dashboard lo valida contra su lista. Las mismas nueve de FREQ_34.
+ */
+export interface OficinaGano { id: number; nombre: string; direccion: string; barrio: string }
+export const OFICINAS_GANO: OficinaGano[] = [
+  { id: 18, nombre: 'Barranquilla',               direccion: 'Carrera 43 # 79-136',          barrio: 'Porvenir' },
+  { id: 1,  nombre: 'Bogotá D.C. (Cedritos)',     direccion: 'Autopista Norte # 134A-06',    barrio: 'El Contador' },
+  { id: 13, nombre: 'Bogotá D.C. (Santa Isabel)', direccion: 'Carrera 30 # 1-20',            barrio: 'Santa Isabel' },
+  { id: 4,  nombre: 'Bucaramanga',                direccion: 'Calle 51 # 31-98',             barrio: 'Cabecera del Llano' },
+  { id: 3,  nombre: 'Cali',                       direccion: 'Carrera 42 # 5B-65',           barrio: 'Tequendama' },
+  { id: 14, nombre: 'Cúcuta',                     direccion: 'Avenida 0 # 13-167',           barrio: 'Caobos' },
+  { id: 7,  nombre: 'Medellín',                   direccion: 'Carrera 43F # 17-489',         barrio: 'El Poblado' },
+  { id: 16, nombre: 'Pereira',                    direccion: 'Carrera 15 # 10-32, local 2',  barrio: '' },
+  { id: 22, nombre: 'Villavicencio',              direccion: 'Avenida 40 # 20-37',           barrio: '7 de Agosto' },
+]
+export const oficinaGano = (id?: number | null) => OFICINAS_GANO.find((o) => o.id === id) ?? null
+/** «Carrera 43 # 79-136, barrio Porvenir». */
+export const direccionOficina = (o: OficinaGano) => (o.barrio ? `${o.direccion}, barrio ${o.barrio}` : o.direccion)

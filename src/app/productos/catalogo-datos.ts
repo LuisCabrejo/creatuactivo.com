@@ -630,7 +630,7 @@ export const PREGUNTAS: { p: string; r: string }[] = [
   },
   {
     p: '¿Cómo pago y cómo me llega el pedido?',
-    r: 'Arme su pedido aquí y elija cómo pagar. Puede pagar directo a Gano Excel, por PSE desde su banco o en efectivo, y Gano Excel lo despacha a su dirección por Servientrega, normalmente de un día para otro. O puede pagar con su distribuidor: le escribe por WhatsApp y acuerdan el pago y la entrega, en persona si están en la misma ciudad.',
+    r: 'Arme su pedido aquí y elija cómo pagar. Puede pagar directo a Gano Excel, por PSE desde su banco o en efectivo, y Gano Excel lo despacha a su dirección por Servientrega, normalmente de un día para otro; o lo recoge sin costo de envío en una oficina de Gano Excel, usted o la persona que autorice con su documento. O puede pagar con su distribuidor: le escribe por WhatsApp y acuerdan el pago y la entrega, en persona si están en la misma ciudad.',
   },
   {
     p: '¿Quién fabrica estos productos?',

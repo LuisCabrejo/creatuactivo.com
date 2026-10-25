@@ -10,6 +10,7 @@
 
 import type { Metadata } from 'next'
 import { productData, LINEAS, PREGUNTAS, imagenVitrina } from './catalogo-datos'
+import { TARJETA_CATALOGO } from './og'
 
 // URL base del sitio - AJUSTA ESTO A TU DOMINIO REAL
 const siteUrl = 'https://creatuactivo.com'
@@ -29,13 +30,13 @@ export const metadata: Metadata = {
     description: 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Queswa le ayuda a elegir y el pedido se hace por WhatsApp.',
     url: `${siteUrl}/productos`,
     siteName: 'CreaTuActivo',
-    // Imagen OG: la genera el archivo colocado src/app/productos/opengraph-image.tsx
-    // (convención file-based de Next.js, 1200×630). No declarar images aquí para no sobrescribirlo.
+    // La tarjeta de estilo de vida (25 oct 2026), un JPG fijo: ver og.ts.
+    images: [TARJETA_CATALOGO],
     locale: 'es_CO',
     type: 'website',
   },
 
-  // Twitter Card — usa la misma opengraph-image.tsx colocada
+  // Twitter Card — sin images propias, toma la de openGraph
   twitter: {
     card: 'summary_large_image',
     title: 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma',

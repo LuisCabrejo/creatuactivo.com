@@ -24,6 +24,7 @@ import { cache } from 'react'
 import { permanentRedirect } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import CatalogoTienda, { type Socio } from '../page'
+import { TARJETA_CATALOGO } from '../og'
 import { tienePagoGano } from '@/lib/socio-ref'
 
 export const dynamic = 'force-dynamic'
@@ -111,10 +112,10 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
     // sin canonical competían entre sí como contenido duplicado (1 oct 2026).
     alternates: { canonical: 'https://creatuactivo.com/productos' },
     // La imagen se declara: al definir su propio openGraph, la página deja de heredar
-    // la de /productos (opengraph-image.tsx) y la tarjeta salía sin imagen.
+    // la de /productos y la tarjeta salía sin imagen. Es la misma (og.ts).
     openGraph: {
       title: titulo, description: descripcion, url, siteName: 'CreaTuActivo', locale: 'es_CO', type: 'website',
-      images: [{ url: 'https://creatuactivo.com/productos/opengraph-image', width: 1200, height: 630, alt: 'Catálogo Gano Excel: café, bebidas, suplementos y cuidado personal con Ganoderma' }],
+      images: [TARJETA_CATALOGO],
     },
     twitter: { card: 'summary_large_image', title: titulo, description: descripcion },
     // tracking.js lee el dueño de la visita de aquí (ver la cabecera).

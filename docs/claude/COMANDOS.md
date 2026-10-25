@@ -45,6 +45,7 @@
 | Auditar el tráfico REAL del canal (personas, no arneses) | `node scripts/auditar-conversaciones.mjs --dias 10` — vuelca hilos y preguntas a `docs/respaldos/auditoria-<fecha>/`; un «sí» de la persona con `fragment_vector_search` es un nodo que no disparó. Dinámica → [AUDITORIA_TRAFICO_ORGANICO_SEP2026.md](../../docs/handoff/queswa/AUDITORIA_TRAFICO_ORGANICO_SEP2026.md) |
 | El «sí» al catálogo con apelativo (caso Betsabe) | `npx tsx scripts/prueba-aceptacion-catalogo.mts` (exit 1 si falla) |
 | Recomponer las fotos de producto | `node scripts/componer-imagenes-producto.mjs` (22 imágenes 1080×1080) · `node scripts/componer-imagenes-categoria.mjs` (4 de categoría + `portafolio.jpg`, misma placa) |
+| Recomponer la tarjeta al compartir el catálogo | `node scripts/componer-tarjeta-catalogo.mjs` (1200×630, escena + la caja real del 3 en 1). El nombre sale de `src/app/productos/og.ts`: si la imagen cambia, súbale ahí la versión antes de correrlo |
 | Re-fragmentar arsenal tras editar (genérico) | Patrón purgar + `node scripts/fragmentar-arsenales-voyage.mjs` (ver [Updating Queswa Knowledge](./QUESWA.md#updating-queswa-knowledge)) |
 | Benchmark Haiku clasificación (Fase 0 — Tool Calling research) | `node scripts/benchmark-haiku-clasificacion.mjs` |
 | POC Tool Calling con Sonnet 4.6 (Fase 0) | `node scripts/poc-tool-calling.mjs` |

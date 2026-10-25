@@ -293,7 +293,7 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
           <Landmark className="h-5 w-5" /> Ir a mi banco y pagar <ExternalLink className="h-4 w-4" />
         </a>
         {enOficina && sede
-          ? <p className="tienda-pago-parrafo">Tiene 20 minutos para terminar el pago. Cuando el banco lo apruebe, el pedido queda para recoger en la oficina de Gano Excel de <strong>{sede.nombre}</strong>, {direccionOficina(sede)}. Se lo entregan a <strong>{nombre.trim()}</strong> con su documento y el número de orden.</p>
+          ? <p className="tienda-pago-parrafo">Tiene 20 minutos para terminar el pago. Cuando el banco lo apruebe, el pedido queda para recoger en la oficina de Gano Excel de <strong>{sede.nombre}</strong>, {direccionOficina(sede)}. <strong>{nombre.trim()}</strong> lo recoge con su documento de identidad.</p>
           : <p className="tienda-pago-parrafo">Tiene 20 minutos para terminar el pago. Cuando el banco lo apruebe, Gano Excel despacha a su dirección, normalmente de un día para otro.</p>}
         <p className="tienda-pago-nota">Si el banco no abrió o se pasó el tiempo, vuelva a esta página y genere el pago de nuevo.</p>
       </div>
@@ -317,7 +317,7 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
           {(resultado.convenios ?? []).map((c) => <li key={c.entidad}><span>{c.entidad}</span><strong>{c.convenio}</strong></li>)}
         </ul>
         {enOficina && sede
-          ? <p className="tienda-pago-parrafo">Cuando Gano Excel registre el pago, el pedido queda para recoger en la oficina de Gano Excel de <strong>{sede.nombre}</strong>, {direccionOficina(sede)}. Se lo entregan a <strong>{nombre.trim()}</strong> con su documento y el número de orden. Consigne hoy o mañana: la orden queda esperando su pago.</p>
+          ? <p className="tienda-pago-parrafo">Cuando Gano Excel registre el pago, el pedido queda para recoger en la oficina de Gano Excel de <strong>{sede.nombre}</strong>, {direccionOficina(sede)}. <strong>{nombre.trim()}</strong> lo recoge con su documento de identidad. Consigne hoy o mañana: la orden queda esperando su pago.</p>
           : <p className="tienda-pago-parrafo">Gano Excel despacha a su dirección cuando registra el pago, normalmente de un día para otro. Consigne hoy o mañana: la orden queda esperando su pago.</p>}
         <p className="tienda-pago-nota">{primerNombre} recibió el aviso de su pedido. Guarde una foto de esta pantalla.</p>
       </div>

@@ -67,7 +67,7 @@ const AYUDA: Record<CampoDatos | CampoPago, string> = {
   nombre: 'Escriba el nombre y el apellido.',
   telefono: 'Escriba el celular: 10 cifras, empieza por 3.',
   departamento: 'Elija el departamento.',
-  municipio: 'Escriba el municipio.',
+  municipio: 'Elija el municipio.',
   linea1: 'Escriba la dirección con su número, como en el ejemplo.',
   oficina: 'Elija la oficina donde va a recoger.',
   docRecoge: 'Escriba el número de documento: en la oficina se lo piden.',
@@ -82,6 +82,7 @@ const NOMBRE_CAMPO: Record<CampoDatos | CampoPago, string> = {
 }
 // El pasaporte lleva letras; los demás documentos, solo cifras (igual que valida queswa.app).
 const limpiarDoc = (tipo: string, valor: string) => valor.toUpperCase().replace(tipo === 'PP' ? /[^A-Z0-9]/g : /\D/g, '')
+const sinTildes = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim().toLowerCase()
 function enLista(xs: string[]): string {
   if (xs.length <= 1) return xs[0] ?? ''
   return `${xs.slice(0, -1).join(', ')} y ${xs[xs.length - 1]}`
@@ -122,6 +123,12 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   // Un departamento guardado que ya no tiene envío (o de una versión vieja) no se restaura: el selector mostraría «Elija» con otro valor por dentro.
   const [departamento, setDepartamento] = useState(DEPARTAMENTOS_CON_ENVIO.some((d) => d.code === guardado.departamento) ? guardado.departamento ?? '' : '')
   const [municipio, setMunicipio] = useState(guardado.municipio ?? '')
+  // Los municipios de cada departamento, como los ofrece el checkout de Gano (25 oct
+  // 2026, Director: elegirlos de la lista, como en el back office). Se cargan aparte
+  // al abrir la hoja (17 KB) para que el catálogo no los pague. Si no cargan, el
+  // campo vuelve a ser de escribir y queswa.app lo valida contra Gano, como antes.
+  const [listas, setListas] = useState<typeof import('@/lib/gano-municipios') | null>(null)
+  const [sinLista, setSinLista] = useState(false)
   const [linea1, setLinea1] = useState(guardado.linea1 ?? '')
   const [linea2, setLinea2] = useState(guardado.linea2 ?? '')
   const [candidatos, setCandidatos] = useState<string[]>([])
@@ -145,6 +152,24 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   useEffect(() => {
     try { localStorage.setItem(CLAVE_DATOS, JSON.stringify({ nombre, telefono, recibe, oficina, tipoDocRecoge, docRecoge, departamento, municipio, linea1, linea2, tipoDoc, cedula, correo, banco, pago })) } catch { /* sin almacenamiento */ }
   }, [nombre, telefono, recibe, oficina, tipoDocRecoge, docRecoge, departamento, municipio, linea1, linea2, tipoDoc, cedula, correo, banco, pago])
+  useEffect(() => {
+    let vivo = true
+    import('@/lib/gano-municipios').then((m) => { if (vivo) setListas(m) }).catch(() => { if (vivo) setSinLista(true) })
+    return () => { vivo = false }
+  }, [])
+  const opcionesMunicipio = listas && departamento ? listas.MUNICIPIOS_GANO[departamento] ?? [] : []
+  const etiqueta = (m: string) => (listas ? listas.etiquetaMunicipio(m) : m)
+  // Un municipio guardado que no es el nombre exacto de Gano (escrito a mano en la
+  // versión anterior) se cambia por el de la lista, o se borra; si el departamento
+  // tiene uno solo (Bogotá), queda puesto.
+  useEffect(() => {
+    if (!listas || !departamento) return
+    const lista = listas.MUNICIPIOS_GANO[departamento] ?? []
+    if (lista.length === 1) { if (municipio !== lista[0]) setMunicipio(lista[0]); return }
+    if (!municipio || lista.includes(municipio)) return
+    const q = sinTildes(municipio)
+    setMunicipio(lista.find((m) => sinTildes(m) === q || sinTildes(listas.etiquetaMunicipio(m)) === q) ?? '')
+  }, [listas, departamento, municipio])
 
   const ref = socio.slug ?? socio.constructorId ?? ''
   const primerNombre = socio.primerNombre
@@ -161,7 +186,7 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
     nombre: nombre.trim().length < 3,
     telefono: !/^3\d{9}$/.test(tel10),
     departamento: !departamento,
-    municipio: municipio.trim().length < 2,
+    municipio: sinLista ? municipio.trim().length < 2 : !opcionesMunicipio.includes(municipio),
     linea1: linea1.trim().length < 5,
     oficina: !sede,
     docRecoge: !/^[A-Z0-9]{5,15}$/.test(docRecogeLimpio),
@@ -341,7 +366,7 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
           <p className="tienda-pago-aviso"><AlertTriangle className="h-4 w-4" /> {fleteNuevo.mensaje}</p>
           <div className="tienda-pedido-suma tienda-pago-suma">
             {lineas.map((l) => <div key={l.id}><span>{l.cantidad} × {productData[l.id].name}</span><span>{pesos(productData[l.id].price * l.cantidad)}</span></div>)}
-            <div><span>Envío a {municipio.trim()}, según Gano Excel</span><span>{pesos(fleteNuevo.flete)}</span></div>
+            <div><span>Envío a {etiqueta(municipio.trim())}, según Gano Excel</span><span>{pesos(fleteNuevo.flete)}</span></div>
             <div className="total"><span>Total</span><span>{pesos(fleteNuevo.total)}</span></div>
           </div>
           <p className="tienda-pago-parrafo">Todavía no se ha cobrado nada. Si está de acuerdo, siga con el pago; si no, vuelva y cambie el pedido.</p>
@@ -367,12 +392,12 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
             {lineas.map((l) => <div key={l.id}><span>{l.cantidad} × {productData[l.id].name}</span><span>{pesos(productData[l.id].price * l.cantidad)}</span></div>)}
             {enOficina
               ? <div><span>Recoge en la oficina de {sede?.nombre}</span><span>Sin envío</span></div>
-              : <div><span>Envío a {municipio.trim()}, por Gano Excel</span><span>{pesos(cotizacion.flete)}</span></div>}
+              : <div><span>Envío a {etiqueta(municipio.trim())}, por Gano Excel</span><span>{pesos(cotizacion.flete)}</span></div>}
             <div className="total"><span>Total</span><span>{pesos(total)}</span></div>
           </div>
           {enOficina && sede
             ? <p className="tienda-pago-parrafo">Lo recoge <strong>{nombre.trim()}</strong> ({tipoDocRecoge} {docRecogeLimpio}) en la oficina de Gano Excel de {sede.nombre}: {direccionOficina(sede)}.</p>
-            : <p className="tienda-pago-parrafo">Llega a nombre de <strong>{nombre.trim()}</strong>, {linea1.trim()}{linea2.trim() ? `, ${linea2.trim()}` : ''}, {municipio.trim()}.</p>}
+            : <p className="tienda-pago-parrafo">Llega a nombre de <strong>{nombre.trim()}</strong>, {linea1.trim()}{linea2.trim() ? `, ${linea2.trim()}` : ''}, {etiqueta(municipio.trim())}.</p>}
 
           <p className="tienda-pago-rotulo">¿Cómo paga?</p>
           <div className="tienda-pago-opciones" role="radiogroup" aria-label="Forma de pago">
@@ -508,25 +533,30 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
             <input id="pg-telefono" type="tel" inputMode="tel" value={telefono} onChange={(e) => setTelefono(e.target.value)} placeholder="300 123 4567" autoComplete="tel" disabled={cotizando} aria-invalid={marcaDatos('telefono') || undefined} aria-describedby={marcaDatos('telefono') ? 'pg-telefono-falta' : undefined} />
             {marcaDatos('telefono') && <small id="pg-telefono-falta" className="tienda-campo-falta">{AYUDA.telefono}</small>}
           </label>
-          <div className="tienda-campo-fila">
-            <label className="tienda-campo">
-              <span>Departamento</span>
-              <select id="pg-departamento" value={departamento} onChange={(e) => { setDepartamento(e.target.value); setCandidatos([]) }} disabled={cotizando} aria-invalid={marcaDatos('departamento') || undefined} aria-describedby={marcaDatos('departamento') ? 'pg-departamento-falta' : undefined}>
-                <option value="">Elija</option>
-                {DEPARTAMENTOS_CON_ENVIO.map((d) => <option key={d.code} value={d.code}>{d.name}</option>)}
-              </select>
-              {marcaDatos('departamento') && <small id="pg-departamento-falta" className="tienda-campo-falta">{AYUDA.departamento}</small>}
-            </label>
-            <label className="tienda-campo">
-              <span>Municipio</span>
+          <label className="tienda-campo">
+            <span>Departamento</span>
+            <select id="pg-departamento" value={departamento} onChange={(e) => { setDepartamento(e.target.value); setMunicipio(''); setCandidatos([]) }} disabled={cotizando} aria-invalid={marcaDatos('departamento') || undefined} aria-describedby={marcaDatos('departamento') ? 'pg-departamento-falta' : undefined}>
+              <option value="">Elija el departamento</option>
+              {DEPARTAMENTOS_CON_ENVIO.map((d) => <option key={d.code} value={d.code}>{d.name}</option>)}
+            </select>
+            {marcaDatos('departamento') && <small id="pg-departamento-falta" className="tienda-campo-falta">{AYUDA.departamento}</small>}
+          </label>
+          <label className="tienda-campo">
+            <span>Municipio</span>
+            {sinLista ? (
               <input id="pg-municipio" type="text" value={municipio} onChange={(e) => { setMunicipio(e.target.value); setCandidatos([]) }} autoComplete="address-level2" disabled={cotizando} aria-invalid={marcaDatos('municipio') || undefined} aria-describedby={marcaDatos('municipio') ? 'pg-municipio-falta' : undefined} />
-              {marcaDatos('municipio') && <small id="pg-municipio-falta" className="tienda-campo-falta">{AYUDA.municipio}</small>}
-            </label>
-          </div>
+            ) : (
+              <select id="pg-municipio" value={opcionesMunicipio.includes(municipio) ? municipio : ''} onChange={(e) => { setMunicipio(e.target.value); setCandidatos([]) }} disabled={cotizando || !departamento || !listas} aria-invalid={marcaDatos('municipio') || undefined} aria-describedby={marcaDatos('municipio') ? 'pg-municipio-falta' : undefined}>
+                <option value="">{!departamento ? 'Primero elija el departamento' : !listas ? 'Cargando los municipios…' : 'Elija el municipio'}</option>
+                {opcionesMunicipio.map((m) => <option key={m} value={m}>{etiqueta(m)}</option>)}
+              </select>
+            )}
+            {marcaDatos('municipio') && <small id="pg-municipio-falta" className="tienda-campo-falta">{sinLista ? 'Escriba el municipio.' : AYUDA.municipio}</small>}
+          </label>
           {candidatos.length > 0 && (
             <div className="tienda-pago-candidatos">
               <span>¿Es alguno de estos?</span>
-              {candidatos.map((c) => <button key={c} type="button" className="tienda-chip" onClick={() => { setMunicipio(c); setCandidatos([]); setError(null) }}>{c}</button>)}
+              {candidatos.map((c) => <button key={c} type="button" className="tienda-chip" onClick={() => { setMunicipio(c); setCandidatos([]); setError(null) }}>{etiqueta(c)}</button>)}
             </div>
           )}
           <label className="tienda-campo">

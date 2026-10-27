@@ -91,3 +91,6 @@ scripts/_tmp*
 # a mano con `git add -f`. Las ya rastreadas siguen rastreadas: este patrón no
 # las saca del repositorio ni del sitio.
 public/contexto/capturas/
+
+# Páginas de estudio privadas: viven en el bucket privado «estudio» de Supabase (scripts/subir-estudio.mjs). El repositorio es público.
+docs/investigaciones/referentes/

@@ -31,8 +31,10 @@ const nextConfig = {
         ],
       },
       // Páginas HTML estáticas — cache CDN 24h, stale 7 días
+      // ⛔ /estudio queda fuera: es privada con clave, y una copia en la CDN se le
+      // serviría abierta a cualquiera. Su ruta manda «private, no-store».
       {
-        source: '/((?!api|_next/static|_next/image|favicon|sw\\.js).*)',
+        source: '/((?!api|estudio|_next/static|_next/image|favicon|sw\\.js).*)',
         headers: [
           { key: 'Cache-Control', value: 'public, s-maxage=86400, stale-while-revalidate=604800' },
         ],

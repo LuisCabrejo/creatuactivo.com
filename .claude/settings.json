@@ -271,7 +271,9 @@
       "Bash(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 public/videos/servilleta/metodo.mp4)",
       "Bash(ffmpeg -i public/videos/servilleta/metodo.mp4 -af \"astats=metadata=1:reset=1,ametadata=print:key=lavfi.astats.Overall.RMS_level:file=-\" -f null -)",
       "Bash(awk '-F[= ]' '{print $3, $NF}')",
-      "Bash(awk '{ if \\($2 > -35\\) print $1, $2 }')"
+      "Bash(awk '{ if \\($2 > -35\\) print $1, $2 }')",
+      "Bash(python3 h2t.py resolucion_minsaludps_0684_2012.htm)",
+      "Bash(sed -n '/RESOLUCIÓN 684/,$p' r684.txt)"
     ],
     "additionalDirectories": [
       "/Users/luiscabrejo/Downloads/reel-doc",

@@ -397,6 +397,166 @@ Sígame y acompáñeme en las historias. Y si quiere ver el sistema funcionando 
 
 ---
 
+## Reto de 90 días · semana 7 (19 al 25 de octubre de 2026)
+
+*Desde el 26 oct 2026 (Director), el guion de cada día del reto, tal como se grabó, se copia aquí: el prompt de Queswa no carga los guiones. El registro completo de cada video (corte, producción, auditoría) sigue en `~/Downloads/reels-equipo/MMDD/`, con copia en Drive (`videos/reto-90/recetas/MMDD/`). La numeración va por calendario: el día 1 fue el lunes 7 sep. Los días 1 a 42 no están en esta bitácora; los que tienen registro están en [`aprobados/`](aprobados/) (días 0 a 9, 15 y 22) y en Drive.*
+
+*Esta semana se publicó todos los días menos el viernes 23 (día 47) y el domingo 25 (día 49).*
+
+### Día 43 · Lunes 19 de octubre — «¿Dónde está hoy el dinero?»
+
+*Lunes = creencia: las empresas que el video nombra no inventaron una industria, modernizaron una que siempre estuvo frente a nuestros ojos (Nubank, Rappi, Platzi, Habi, Bold). Primer video largo del reto (Director: «llegó la hora de ir a otro nivel»): muro de 3:04.9, otra versión de 2:59.5 a 1.03× para el tope de Reels, y cuatro historias. Registro: `1019/registro-dia43.md`. ⚠️ «va a su primer inventario» se improvisó al grabar, y el registro lo dejó marcado para el Director: choca con que el fabricante despacha cada pedido a la casa del cliente.*
+
+¿Dónde está hoy el dinero? ¿Dónde están los negocios modernos?
+
+Fíjese en lo que han hecho varios colombianos con negocios que siempre estuvieron frente a nuestros ojos.
+
+Toda la vida hicimos fila en el banco. David Vélez, un colombiano, fundó Nubank, un banco que vive en el celular. Hoy tiene casi 140 millones de clientes, y acaba de llegar a Estados Unidos.
+
+Los domicilios existen desde siempre. Simón Borrero tuvo la visión de convertirlos en Rappi, y hoy Rappi está valorada en más de 5.000 millones de dólares.
+
+Freddy Vega hizo lo mismo con la educación y creó Platzi.
+
+Vender una casa era poner un letrero en la ventana y esperar. Sebastián Noguera creó Habi, y Habi llegó a valer más de mil millones de dólares.
+
+Y el datáfono, que antes era una cosa del supermercado, Bold lo puso en la tienda del barrio.
+
+Ninguno inventó una industria. Cada uno tomó una que ya existía y la modernizó.
+
+Y nosotros vemos una oportunidad enorme en dos sectores.
+
+Uno, el network marketing. Es un modelo que funciona, pero que se ganó fama de difícil de desarrollar. Hoy eso cambió: se maneja desde una aplicación, y buena parte desde WhatsApp.
+
+Y dos, el sector laboral. La mayoría de las personas en Latinoamérica vive mes a mes en el ciclo de trabajar, pagar cuentas y repetir. Uno siente que por más que se esfuerce, las deudas y los compromisos siempre le llevan la delantera. Y le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
+
+Ante esto, la gente siente que tiene que hacer algo, pero surge un problema: ¿a qué horas y con qué plata?
+
+Déjeme decirle algo: para resolver eso construimos CreaTuActivo, y es lo que vengo documentando desde hace 43 días.
+
+¿A qué hora? Con una máquina de ventas: usted le envía un enlace a quien quiera, ahí la persona conoce los productos y compra, y Queswa la atiende a cualquier hora, mientras usted trabaja.
+
+¿Con qué plata? Lo pesado ya está hecho. Un fabricante empaca y despacha cada pedido hasta la casa del cliente, en toda América. Y la tecnología no tiene costo, así que su plata no se va a montar una empresa: va a su primer inventario.
+
+Y para crecer, una herramienta para multiplicar, que le va marcando la ruta, paso a paso, como Waze.
+
+Y les cuento: la acogida ha sido enorme. Este fin de semana fue de charlas, una tras de otra. Y en todas pasó lo mismo: personas que decidieron iniciar. Ayer domingo, una madre y su hijo decidieron hacerlo juntos, en modo furia. Y hoy hay socios en el Tolima, en el Meta, en Casanare y Cundinamarca.
+
+Estamos empezando a ayudar a personas de toda Colombia a crear su propia empresa de distribución con el celular. Nos hemos sentado con personas del campo, con el emprendedor que trabaja día a día por sacar adelante a su familia y siente que el camino no es fácil. Y es muy lindo ver cómo se les enciende el corazón cuando entienden que su trabajo, por fin, puede convertirse en un activo.
+
+Esta semana empezamos un trabajo enfocado en Bogotá y la Sabana.
+
+Si usted está en alguno de estos lugares y está buscando una solución, si le está pidiendo al cielo una oportunidad, si le preocupa el futuro, con toda confianza, escríbale a Queswa aquí en el enlace y descubra cómo esta herramienta le puede servir a usted.
+
+### Día 44 · Martes 20 de octubre — «El propósito»
+
+*Martes = pregunta real: lo que la gente le escribió el día anterior, agradecida con su trabajo pero sintiendo que esa no puede ser toda la vida. Fuente: la charla de David Vélez en Endeavor Colombia. La frase de Walt Disney es de atribución popular, sin fuente primaria. Muro de 1:57.4 y dos historias. Registro: `1020/registro-dia44.md`.*
+
+Ayer me escribieron muchas personas, la mayoría con contextos similares: agradecidos con su trabajo, pero planteándose que esa no puede ser toda la vida.
+
+La mayoría ve el futuro con preocupación, con deseos de sacar adelante a su familia y con la inquietud de hacer algo, pero sin saber qué hacer.
+
+Somos conscientes del dolor del latino, pero también de su capacidad de trabajo. El latino no es una persona que se arrugue por trabajar.
+
+Pero aquí viene algo importante: desarrollar un proyecto de vida requiere un propósito claro. Y el mejor camino no siempre es el más fácil. Y eso no es malo.
+
+Walt Disney decía: «Me gusta lo imposible porque hay menos competencia».
+
+También David Vélez, el fundador de Nubank, dice que los proyectos difíciles son más fáciles que los proyectos fáciles. Porque lo difícil atrae a las mejores personas. El mejor talento no quiere hacer cosas fáciles.
+
+Y dice algo más: que el ADN de una compañía lo crean sus primeras personas, en sus primeros meses de vida. Nosotros estamos viviendo esos meses.
+
+En mis presentaciones siempre digo que aquí tenemos un problema: no hay jefes. Y cuando no hay jefes, uno se puede tomar las cosas a la ligera. La solución es enamorarse de un propósito, convertir mi vida en un proyecto.
+
+Les cuento: en mi primer año trabajaba de seis de la mañana a nueve de la noche. Cuando terminaba la jornada de mi trabajo, me decía: «Luis, tú trabajaste y te esforzaste por lo que te da para sobrevivir. Ahora vamos a trabajar dos horas por tus sueños y los de tu familia, por la tranquilidad financiera, por los viajes, por ayudar a otras personas que, al igual que tú, le están pidiendo al cielo una oportunidad».
+
+Ese era mi combustible. Le ponía la mejor actitud a mi trabajo diario, pero luego a mi proyecto le ponía el alma. Ese propósito me inspiraba a hacer el mejor trabajo de mi vida.
+
+Por eso le damos una bienvenida a personas así: las que, después de un día largo, le ponen el alma a trabajar un par de horas por sus sueños. Si usted es una de ellas, escríbale a Queswa aquí en el enlace.
+
+### Día 45 · Miércoles 21 de octubre — «El primer e-commerce»
+
+*Sin registro de producción: quedan el texto aprobado y el grabado (`1021/texto-dia45.txt` y `texto-dia45-grabado.txt`, con copia en Drive, `recetas/1021/`). Entrega: `reto-dia45.mp4`, 1:42.6. Al grabar, «Jeff Bezos no se hizo rico vendiendo libros: hizo su riqueza creando su propio sistema de ventas» salió como «Jeff Bezos empezó vendiendo libros, pero lo que construyó fue su propio sistema de ventas». El título es de esta bitácora.*
+
+Cuando empezamos a construir todo esto, lo hicimos con una intención, hacer que la experiencia para cada uno de nuestros clientes y distribuidores fuera excepcional. Hoy quien inicia su propia empresa de distribución, encuentra todo listo, pero no siempre fue así.
+
+Cuando creamos nuestro primer e-commerce, yo quería crear algo de categoría mundial, tipo Amazon. Hablé con dos personas referentes del mundo digital, y su opinión fue que lo que yo quería hacer era imposible, que eso requería una agencia y muchos profesionales.
+
+Personalmente no creo en los imposibles, creo que las cosas pueden ser difíciles, y eso no es malo. Es más, es muy bueno, porque la dificultad crea la oportunidad.
+
+Y finalmente pudimos crear nuestro primer e-commerce, ganocafe.online. Esa experiencia nos permitió crear un mercado de clientes, que compren los productos en toda América.
+
+Pero luego nos planteamos algo un poco más complejo. ¿Cómo podemos escalar esto y multiplicarlo? Y hacer que cada persona que llegue encuentre todo listo, que pueda tener de manera inmediata su propio e-commerce, su propia máquina de ventas y que a la vez pueda escalar.
+
+Jeff Bezos empezó vendiendo libros, pero lo que construyó fue su propio sistema de ventas, y le puso por nombre Amazon.
+
+Eso hoy ya es una realidad. Nuestros distribuidores encuentran listos los tres elementos que les permiten desplegar su propio negocio en toda América. Un fabricante, una máquina de ventas y una herramienta para multiplicar. Y la tecnología no tiene costo.
+
+Si quiere ver cómo sería para usted, escríbale a Queswa aquí en el enlace.
+
+### Día 46 · Jueves 22 de octubre — «Yina»
+
+*Dos videos unidos: Luis presenta a Yina desde la oficina, y entra el primer video de documentación de ella, grabado con su celular en el campo. En los subtítulos de CapCut de Yina se corrigieron «QUESO» → «QUESWA», «GINA» → «YINA» y «DÍA. UNO.» → «DÍA UNO.». Muro de 1:18.8; historias de 44.6 s (Luis) y 32.4 s (Yina). Registro: `1022/registro-dia46.md`.*
+
+**Luis:**
+
+Bueno, como pueden ver, estoy muy contento, feliz. Después de más de dos meses de haber vivido un terremoto acá en Pereira, que sacudió nuestras vidas, que sacudió nuestro hogar, que mantuvo nuestro hogar separado por varios meses. Bueno, hoy mi esposa ha regresado aquí con nosotros. Mi hija está en camino a encontrarse con nosotros.
+
+Pero bueno, hoy no les quiero hablar de mí, hoy les quiero presentar a una amiga que acaba de arrancar a construir su propia empresa de distribución en toda América, y me encanta porque es la historia de muchos colombianos que desean superarse, que tienen situaciones adversas, pero que se sobreponen con su actitud y sus ganas. Pero bueno, no les voy a anticipar nada, escúchenla a ella.
+
+**Yina:**
+
+¿Puede una mujer, madre de tres hijos, que se levanta a las tres de la mañana a cumplir con su labor en las palmeras, de lunes a sábado, construir una empresa de distribución que venda en varios países de América solo con su celular? Hoy es mi día uno. Me llamo Yina. Voy a contar cómo lo hago. Si usted quiere saber cómo podría hacerlo, en mi enlace está Queswa, una inteligencia artificial que le explica cómo sería para usted. Gracias.
+
+### Día 47 · Viernes 23 de octubre — no se publicó video
+
+*(Director.) La carpeta `1023` guarda solo la transcripción de la charla de Vélez.*
+
+### Día 48 · Sábado 24 de octubre — «No llegué solo»
+
+*Festivo en el Eje Cafetero. Grabado con el celular; una sola historia de 37.8 s. El texto es del Director (el trabajo fue solo gramática y puntuación) y va sin la cifra de ingreso de la reunión con Yellitza Rosario. Registro: [`aprobados/2026-10-24-reto-90-dia-48-no-llegue-solo.md`](aprobados/2026-10-24-reto-90-dia-48-no-llegue-solo.md).*
+
+Hoy estamos de fiesta en el Eje Cafetero, pero a primera hora tuve una reunión con una empresaria visionaria: Yellitza Rosario.
+
+Ella fue la persona que me sembró una visión y me ayudó a pensar en grande. No llegué solo a donde estoy. Estaba rodeado de personas mejores que yo, y en gran medida, de mujeres.
+
+Hoy les compartiré detalles del detrás de cámaras de construir una maquinaria de distribución en toda América. Y aunque mi ética de trabajo es el trabajo duro, no todo es trabajo. Hoy voy a compartir con muchos colegas, con mi esposa y con mi hija, en este día de fiesta.
+
+### Día 49 · Domingo 25 de octubre — no se publicó video
+
+*(Director.)*
+
+## Reto de 90 días · semana 8 (26 de octubre al 1 de noviembre de 2026)
+
+### Día 50 · Lunes 26 de octubre — «Martha y la empresa moderna»
+
+*Aprobado por el Director el 26 oct; montado y pendiente de publicar. Tres versiones: la completa (2:44, con el precio), la de pauta (2:29, sin el párrafo del precio, para el muro de Facebook que se impulsa) y cuatro historias. Martha es un nombre ficticio. Registro: [`aprobados/2026-10-26-reto-90-dia-50-martha-y-la-empresa-moderna.md`](aprobados/2026-10-26-reto-90-dia-50-martha-y-la-empresa-moderna.md).*
+
+Día 50 de mi propósito de ayudar a personas a tener su propia empresa de distribución moderna en América.
+
+¿Y por qué una empresa de este tipo? Obvio, por las ventajas que ofrece: no requiere infraestructura, porque vive en internet, y no requiere empleados, porque funciona con procesos automatizados e inteligencia artificial. Esto permite disminuir los costos de una forma absurda.
+
+Muy distinto es emprender de la forma tradicional. Les contaré una historia que es la radiografía de la mayoría de los emprendedores. La protagonista es Martha.
+
+Con mucho esfuerzo y la mejor actitud, inició su propia empresa de distribución de productos alimenticios. Tiene cinco productos, el principal es la granola. En palabras de ella, para sacar su producto al mercado tiene que hacer ochenta mil cosas: lidiar con proveedores, con la materia prima, el empaquetado, el despacho, el registro del producto. Y si quiere darle algo de modernidad a su negocio, necesitaría una aplicación con inteligencia artificial que atienda a sus clientes, y otra para tener el control de su negocio y hacer sus cuentas, su administración.
+
+Ahora compárenlo con una empresa donde estos tres elementos ya están resueltos.
+
+Uno. Un fabricante: las ochenta mil cosas se las delega a él, y además empaca, despacha y recauda el dinero en todo el continente.
+
+Dos. Una máquina de ventas: usted comparte su enlace, y Queswa, una inteligencia artificial, atiende a sus clientes a cualquier hora.
+
+Tres. Una herramienta para multiplicar, que le permite tener el control de su negocio y le marca la ruta, paso a paso.
+
+¿Cuánto requiere para empezar una empresa de este calibre? Pensará que mil millones de pesos. ¿Cien millones? ¿Diez millones? No: la puede empezar incluso con menos de 500.000 pesos. Y esa plata no se va a montar la empresa: se convierte en producto.
+
+Hasta aquí, usted ya tendría su propio negocio, que se parece mucho a un autoempleo. Lo mejor es que este negocio lo puede multiplicar, y esta parte me encanta, porque lo más difícil en cualquier negocio es multiplicarlo. Usted conoce a alguien que vende hamburguesas, pero no tiene una cadena de hamburguesas. Alguien que tiene un hotel, no una cadena de hoteles. En Pereira nació Frisby con un solo local; hoy tiene más de 250. Lo más difícil siempre es multiplicar, y eso es lo que convierte un negocio en una empresa.
+
+Aquí es muy sencillo, porque las herramientas para multiplicar su negocio están al alcance de un clic, y cada nuevo distribuidor de su organización recibe los mismos tres elementos y hace exactamente lo mismo.
+
+Así puede construir su propia empresa de distribución de productos de bienestar premium en toda América. Si quiere conocerla por dentro, saber cómo funciona, cómo entra el dinero, qué tendría que hacer usted, dé clic en el enlace y pregúntele a Queswa.
+
+---
+
 *Próximos días: agregar debajo, conservando el orden cronológico.*
 
 *Ideas en cola (semillas sin producir — registro Naval/Jim Rohn: **encender el corazón**, no confrontar. Filosofía práctica de apoyo: `docs/investigaciones/resultados/Investigación del Sistema Maestro de Naval.md`):*

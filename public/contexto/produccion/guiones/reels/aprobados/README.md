@@ -54,3 +54,7 @@ Salió de los días 6 a 8, donde costó coger el ritmo. **Leer esto antes de pro
 
 **Día 7 (domingo 13 sep): no se publicó video** (Director). Por eso no tiene registro; la numeración
 sigue igual y el martes 15 es el día 9.
+
+**Días 47 (viernes 23 oct) y 49 (domingo 25 oct): no se publicó video** (Director). La semana del 19
+al 25 de octubre, con el guion de cada día como se grabó, está en la bitácora
+([REELS_DIARIOS_DOCUMENTACION.md](../REELS_DIARIOS_DOCUMENTACION.md)).

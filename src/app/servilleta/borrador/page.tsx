@@ -1,0 +1,2349 @@
+'use client';
+
+/**
+ * ⚠️ BORRADOR (28 oct 2026, Director) — /servilleta/borrador. Copia de trabajo de
+ * /servilleta para probar en reuniones reales la definición nueva («Le damos todo
+ * lo que necesita…» + Uber) y el orden de la pantalla 5. NO es la
+ * presentación: sin noindex no se publica (borrador/layout.tsx), no reporta avance
+ * al Dashboard, no lleva la guía SEO y no está enlazada desde ninguna parte.
+ * Cuando el Director la apruebe, sus cambios pasan a ../page.tsx y ESTA CARPETA SE
+ * BORRA (junto con la excepción de `isDeck` en UnifiedQueswaOrb.tsx). Si nadie la
+ * aprobó, también se borra: no se mantiene como segunda presentación.
+ *
+ * Lo que cambia frente a /servilleta (pantalla 5):
+ *  · Beat 0: la definición y el obstáculo con precio («armados por su cuenta, le
+ *    costarían millones»), en lugar de «Le damos la oportunidad… similar a Uber,
+ *    Rappi o Nequi» y «Se requieren tres elementos». SIN el nombre (Director,
+ *    28 oct 2026, opción a): en la voz del socio la definición abre con
+ *    «Queswa.app es…», pero en el deck el nombre sigue siendo la revelación del
+ *    beat de la unión — la secuencia de Jobs que ya probó en vivo.
+ *  · Las tres quietas siguen a la tercera pieza sin desvío (la tríada de Jobs).
+ *  · La propiedad cierra la cadena completa del modelo, con el porcentaje.
+ *  · «Solo se multiplica lo que es sencillo» va al final, después de la propiedad
+ *    (el orden de WHY_02).
+ *  · Pantalla 8: el titular ya no repite el porcentaje que dijo la propiedad.
+ *
+ * Copyright © 2026 CreaTuActivo.com
+ *
+ * /servilleta — LA presentación única de CreaTuActivo (consolidada el 10 oct
+ * 2026, Director). Nació como /presentacion (antes /pitch-deck, 23 sep 2026) y
+ * se mudó a esta URL porque es la que tiene el SEO de «plan servilleta». El deck
+ * viejo de la servilleta (4 pantallas) y /12-niveles se retiraron (viven en git);
+ * /presentacion, /pitch-deck, /presentacion-empresarial y /12-niveles redirigen
+ * aquí conservando el ?ref (y /12-niveles abre en ?pantalla=8). Debajo del deck
+ * va la guía en texto (GuiaPlanServilleta.tsx) con el ÚNICO h1 de la página.
+ *
+ * SE PRESENTA EN VIVO (Director, 30 sep 2026): el socio conduce el deck delante
+ * de la persona y solo DESPUÉS le comparte el enlace, así que puede apoyarse en
+ * su voz.
+ *
+ * CONSOLIDACIÓN (Director, 10 oct 2026): quien busca «plan servilleta» es un
+ * distribuidor buscando una herramienta (reports/Plan servilleta top 3
+ * Google.md), así que la presentación que se usa y la que se encuentra son la
+ * misma. TODO apunta aquí, incluido el simulador que Queswa ofrece en la web
+ * (textoSimuladorWeb → ?pantalla=8). Pendiente: Fase 3, el video-herramienta del
+ * socio (doble destino: WhatsApp y el carrusel de YouTube de «plan servilleta»).
+ *
+ * LA PÁGINA TIENE DOS PISOS: el deck ocupa la primera pantalla (100dvh) y debajo
+ * va la guía. Al presentar, la guía no existe (en pantalla completa se oculta) y
+ * mientras alguien la lee el deck no escucha el teclado ni reproduce videos.
+ * La página no baja hasta la última pantalla (13 oct 2026): ver `guiaAbierta`.
+ * Desde el 18 oct 2026 el dedo no la abre ni si el navegador deja pasar el gesto:
+ * el desplazamiento de la persona se devuelve al deck (`huboGesto`).
+ *
+ * COLUMNA NUEVA (30 sep 2026). La del 23 sep se construyó pantalla por pantalla y
+ * tenía disonancias: revelaba la solución tres veces antes del clímax, contaba el
+ * negocio distinto a WHY_02 y la pantalla del dinero discutía consigo misma. Esa
+ * versión queda navegable en /presentacion/anterior (commit 7e5cc61).
+ *
+ * REGLA: cada pantalla responde UNA pregunta del prospecto, y el titular es la
+ * respuesta. Cada idea se dice una vez.
+ *
+ * Las pantallas 2 a 5 son la columna del Director, probada en sus conversaciones:
+ * modernizar dos sectores. Nombrar «network marketing» dentro de la ola de
+ * modernización resolvió el «ah, es como Herbalife»: el enfoque queda en la
+ * oportunidad. Tiene la forma de la narrativa estratégica de Andy Raskin: un
+ * cambio en el mundo → quién se queda atrás → la tierra prometida → las
+ * herramientas.
+ *
+ *  1 EN QUÉ CREEMOS  · solo la primera mitad del credo (el ciclo).
+ *  2 LA OPORTUNIDAD  · modernizar industrias frente a nuestros ojos: cinco pares
+ *                      (domicilios → Rappi … Adpostal → WhatsApp).
+ *  3 DOS SECTORES    · la industria del network marketing y el sector laboral.
+ *                      ⚠️ SOLO el nombre del sector, sin describir cómo se hace
+ *                      hoy: el contexto lo da el socio en vivo, y una pieza no
+ *                      concede (memoria feedback_pieza_no_concede).
+ *  4 EL DOLOR,       · tres cifras verificadas en fuente primaria (el ingreso que
+ *    EN CIFRAS         no alcanza · la informalidad · la pensión que no llega) y,
+ *                      debajo, la frase en la que la gente asiente: «Hoy, la
+ *                      mayoría de las personas siente que tiene que hacer algo»
+ *                      (Director, 18 oct 2026: estaba en gris pequeño encima de
+ *                      la propuesta; es de la familia del ciclo y de la bicicleta
+ *                      estática, y va destacada al final de las cifras). El beat
+ *                      de «dos caminos» se eliminó el 9 oct 2026: ese contexto lo
+ *                      da el socio en vivo.
+ *  5 LA SOLUCIÓN     · beat 0: una empresa de distribución moderna a su nombre,
+ *    Y CÓMO FUNCIONA   «se requieren tres elementos» y el botón VERLO EN VIDEO
+ *                      (13 oct 2026): el socio elige si rueda el video «Cómo
+ *                      funciona» —al terminar salta a la 6— o explica él los
+ *                      beats. Es el ÚNICO lugar del deck con ese video (el repaso
+ *                      en la última se retiró el 14 oct 2026, Director). Luego:
+ *                      beats 1-3, las tres piezas (el fabricante SIN nombre; la
+ *                      2ª es UNA MÁQUINA DE VENTAS, con dos botones: la demo de
+ *                      Queswa y queswa.app «por dentro»; la 3ª es UNA
+ *                      HERRAMIENTA PARA MULTIPLICAR, con el clip de la
+ *                      multiplicación — las dos desde el 18 oct 2026, canon en
+ *                      WHY_02 v6.76 y en el video v6) · beat 4, el remate en
+ *                      texto: «Solo se multiplica lo que es sencillo» y las dos
+ *                      acciones en una línea · beat 5, las tres quietas
+ *                      · beat 6, la unión EN UNA diapositiva: el clip v5 funde los
+ *                      cubos EN GRANDE, enciende el cubo y la cámara se aleja
+ *                      hasta el celular; «Queswa.app» entra cuando el celular ya
+ *                      está a la vista — la secuencia de Jobs sin clic · beat 7,
+ *                      la propiedad.
+ *                      → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
+ *  6 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
+ *                      por primera vez, como quien lo fabrica.
+ *  7 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
+ *  8 CÓMO SE GANA    · beat 1, lo principal: lo que deja la recompra + los 12
+ *                      niveles desde el Kit. Beat 2: el bono por paquetes
+ *                      empresariales (Director, 30 sep 2026: quien inicia muchas
+ *                      veces necesita ganar pronto, y la industria lo tiene; no
+ *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
+ *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
+ *                      final.
+ *  9 EL SIGUIENTE    · la segunda mitad del credo, la lista de espera y la
+ *    PASO              conversación con el socio del ?ref (nombre y WhatsApp).
+ *
+ *  ⛔ «QUÉ HACE USTED» (las dos acciones, EAM_01) SALIÓ DEL DECK el 18 oct 2026
+ *     (Director, tras presentarlo): en vivo las dos acciones se MUESTRAN —el
+ *     socio comparte su enlace delante de la persona y recibe el aviso en
+ *     queswa.app— y la pantalla se sentía redundante. Sobreviven en una línea
+ *     de la multiplicación («comparte su enlace y recibe a quien llega»), en la
+ *     guía de abajo (Google) y en Queswa (EAM_01). Era una recomendación del
+ *     30 sep que nunca se confirmó. No la reponga.
+ *
+ * REGLAS QUE ROMPEN ALGO SI SE TOCAN
+ * ----------------------------------
+ *  · El botón «PREGÚNTELE ALGO AHORA» (pieza 2 de la pantalla 5) convierte la
+ *    tecnología en experiencia. Por eso /presentacion está en RUTAS_ORBE_QUESWA_WEB
+ *    (orbe-config.ts) y en `isDeck` de UnifiedQueswaOrb: mandar esa demo a
+ *    WhatsApp la rompe, porque saca al prospecto de la reunión.
+ *  · «Network marketing» va SOLO como nombre del sector (pantalla 3). Cómo se hace
+ *    hoy lo cuenta el socio en vivo: una pieza no concede, y describirlo aquí sería
+ *    un juicio sin voz sobre el método de otros.
+ *  · El bono por paquetes se nombra por lo que lo mueve (la compra de un paquete) y
+ *    por su función (financia el crecimiento al inicio), NUNCA por su velocidad. Se
+ *    cuentan paquetes comprados, nunca personas.
+ *  · Sin socio (visita orgánica o ?ref que no se encuentra), la conversación es con
+ *    el equipo, por el WhatsApp Business (Director, 1 oct 2026).
+ *  · La presentación reporta hasta dónde llegó cada persona en tres hitos, si llegó
+ *    al final y si tocó el WhatsApp (/api/track/presentacion → avisos del Dashboard).
+ *  · La última pantalla nombra al socio del ?ref y trae su WhatsApp. El socio toca
+ *    su nombre y escribe el del prospecto: la prueba en vivo de la personalización
+ *    de Queswa.app, la aplicación que el remate nombra. «En su caso, esta pantalla
+ *    dirá el suyo» es frase de
+ *    la voz del socio: no va escrita.
+ *  · Moneda: pesos con PUNTO de miles, dólares con COMA. Por eso los locales van
+ *    explícitos ('es-CO' / 'en-US') y no un toLocaleString() pelado, que depende
+ *    del navegador de quien presenta.
+ *  · En el deck NO conviven precio de entrada y comisión: eso es promesa de
+ *    ingreso. Aquí solo hay comisiones; los precios viven en /paquetes.
+ *  · Swipe: solo los <input> (sliders y el nombre) exoneran el gesto. No añadir
+ *    paneles ni botones a esa lista: bloquea el swipe-back de la última pantalla.
+ *  · Nada de acentos graves en los comentarios del CSS: cierran la plantilla de JS
+ *    que lo envuelve (rompió el build el 28 sep 2026).
+ */
+
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels';
+import { marcarVioComoFunciona } from '@/lib/orbe-config';
+
+const TOTAL_SLIDES = 9;
+/** Pantallas que se reportan a la ficha: un tercio, dos tercios y la última. */
+const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
+/** WhatsApp Business del equipo (+57 320 680 5737): el mismo número orgánico de
+ *  los reels (`WHATSAPP_ORGANICO_DEFAULT` en [slug]/[destino]). Para quien llega
+ *  a la presentación sin el enlace de un socio. */
+const WHATSAPP_EQUIPO = '573206805737';
+
+/** Beats internos por pantalla. */
+const BEATS: Record<number, number> = { 5: 8, 8: 2 };
+const beatsOf = (slide: number) => BEATS[slide] ?? 1;
+
+/** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
+ *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola».
+ *  EN VIDEO desde el 10 oct 2026 (Fase 1 de la consolidación con la servilleta,
+ *  aprobada por el Director): el movimiento sostiene la mirada mientras el socio
+ *  narra — es para lo que la servilleta fue diseñada, y sus b-rolls son el mismo
+ *  universo del que salieron estas imágenes. Los loops son recortes CUADRADOS
+ *  propios del deck (public/videos/presentacion/, desde los clips de
+ *  public/videos/servilleta/ sin su cubo de portada), MUDOS a propósito: en vivo
+ *  la banda sonora es el socio. La imagen queda como poster — se ve al instante
+ *  y cubre la carga (preload none). Ritmo movimiento/quietud deliberado: piezas
+ *  en video; el credo, las cifras y el teléfono del remate QUIETOS — un
+ *  manifiesto y un número no deben moverse. */
+const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: string; quieta?: string }[] = [
+  {
+    label: 'UN FABRICANTE',
+    img: '/images/servilleta/colapso-fabrica.webp',
+    video: '/videos/presentacion/pieza-fabricante.mp4',
+    // Sin nombre, como en WHY_02: Gano se nombra en el producto y al final, como quien paga.
+    sub: 'Fabrica, empaca y despacha cada pedido hasta la casa de su cliente.',
+  },
+  {
+    // UNA MÁQUINA DE VENTAS (Director, 18 oct 2026, tras presentarla en vivo así):
+    // la imagen que pinta de una vez lo que el prospecto teme hacer él —vender—
+    // y que desde el 17 oct es verificable (el catálogo es una tienda donde el
+    // cliente compra y paga a Gano Excel). El riesgo es el registro: «máquina de
+    // ventas» es el nombre de marca de los cursos de Hotmart («dispara tus ventas
+    // en 7 días»), el carril de los gurús de internet. Por eso el nombre se paga
+    // en la misma frase con el MECANISMO (Queswa atiende y madura la decisión),
+    // como en la regla del 19 ago. Nació aquí en prueba y el mismo día el Director
+    // lo hizo canon en todas partes: WHY_02 🔒 v6.76, el video «Cómo funciona» v6,
+    // la Home, la guía y el Dashboard. Queswa reconoce el término también por una
+    // PUERTA directa a WHY_02 (src/lib/puerta-maquina-ventas.ts): en el índice
+    // diluía.
+    label: 'UNA MÁQUINA DE VENTAS',
+    img: '/images/servilleta/colapso-conversacion.webp',
+    video: '/videos/presentacion/pieza-atiende.mp4',
+    sub: 'Usted envía a quien quiera. Ahí conoce los productos y los compra, o ve cómo participar; Queswa atiende a cada uno y madura su decisión, a toda hora.',
+    // La segunda cara (metas · redacta · avisa) vivió aquí como `extra` del 24 al
+    // 27 sep 2026; se mudó a la pieza 3, que ES esa cara con nombre propio. Esta
+    // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.
+  },
+  {
+    // UNA HERRAMIENTA PARA MULTIPLICAR (Director, 18 oct 2026 — reemplaza a «saber
+    // qué hacer» del 9 oct). Los tres elementos siguen siendo FUNCIONES, ahora las
+    // de cualquier empresa: fabricar · vender · multiplicar; y la multiplicación,
+    // que es lo más difícil, deja de ir suelta después de los tres. En vivo el
+    // socio ya lo decía así, con queswa.app abierta: Queswa en modo Waze, sus
+    // equipos capacitándose. «Saber qué hacer» NO se pierde: es el mecanismo
+    // («le va marcando la ruta, paso a paso»), y el «¿seré capaz?» que atacaba la
+    // etiqueta vieja lo responde ahora la demostración (lo que se ve convence más
+    // que lo que se dice). ⚠️ «Herramienta», nunca «aplicación»: la unión dice
+    // que los tres llegan EN una sola aplicación, y un tercer elemento llamado
+    // aplicación devolvería la circularidad del 9 oct (auditado con el Director).
+    // ⛔ Sin dinero aquí: plata junto a «quien inicie con usted» es la silueta de
+    // pirámide. El clip es la multiplicación (c-distribuir del video «Cómo
+    // funciona»: réplicas idénticas, cada uno con su celular, nunca top-down); la
+    // línea dorada de antes («Conoce sus metas…») salió: el socio lo muestra.
+    // `quieta` es el cuadro del segundo 4 (ya hay varios distribuidores) para la
+    // pantalla de las tres quietas; el poster es el primer cuadro del clip.
+    label: 'UNA HERRAMIENTA PARA MULTIPLICAR',
+    img: '/videos/presentacion/multiplicacion-poster.webp',
+    video: '/videos/presentacion/multiplicacion.mp4',
+    sub: 'Acompaña a cada distribuidor de su sistema, a usted y a quien inicie con usted, y como en Waze le va marcando la ruta, paso a paso.',
+    quieta: '/videos/presentacion/multiplicacion-quieta.webp',
+  },
+];
+
+/** La ola de modernización (Director, 30 sep 2026): lo que antes era una
+ *  industria a la antigua, hoy es una aplicación. */
+const PARES_MODERNIZACION: [string, string][] = [
+  ['Domicilios', 'Rappi'],
+  ['Taxis', 'Uber'],
+  ['La fila del banco', 'Nequi'],
+  ['Comprar DVDs', 'Netflix'],
+  ['Adpostal', 'WhatsApp'],
+];
+
+const CATEGORIAS = [
+  { label: 'BEBIDAS', img: '/productos/compuestas/categoria-bebidas.jpg' },
+  { label: 'SUPLEMENTOS', img: '/productos/compuestas/categoria-suplementos.jpg' },
+  { label: 'CUIDADO PERSONAL', img: '/productos/compuestas/categoria-cuidado-personal.jpg' },
+  { label: 'LUVOCO', img: '/productos/compuestas/categoria-luvoco.jpg' },
+];
+
+/** Proyección 2×2 sobre 12 niveles — misma tabla que NIVELES_02 del arsenal
+ *  (v6.8: 10% del CV emparejado, cada distribuidor consumiendo 56 CV al mes).
+ *  `people` = distribuidores NUEVOS en ese nivel. Copiada de /12-niveles: si allá
+ *  cambia, aquí también. */
+const PROYECCION_12: { level: number; people: number; income: number }[] = [
+  { level: 1, people: 2, income: 25200 },
+  { level: 2, people: 4, income: 75600 },
+  { level: 3, people: 8, income: 176400 },
+  { level: 4, people: 16, income: 378000 },
+  { level: 5, people: 32, income: 781200 },
+  { level: 6, people: 64, income: 1587600 },
+  { level: 7, people: 128, income: 3200400 },
+  { level: 8, people: 256, income: 6426000 },
+  { level: 9, people: 512, income: 12877200 },
+  { level: 10, people: 1024, income: 25779600 },
+  { level: 11, people: 2048, income: 51584400 },
+  { level: 12, people: 4096, income: 103194000 },
+];
+
+/** El porcentaje del Binario según la forma de iniciar (COMP_BIN_02 del arsenal de
+ *  compensación). ⚠️ Solo el 10% del Kit es permanente: el 15, 16 y 17% rigen 2, 4
+ *  y 6 meses, y después el sistema aplica el más alto entre el 10% base y el del
+ *  rango. Por eso la pantalla lo dice cada vez que se elige uno de los tres — sin
+ *  esa línea, el nivel 12 al 17% sería una cifra que el plan no paga. */
+const TARIFAS_12 = [
+  { pct: 10, nombre: 'Kit', paquete: 'Kit de Inicio', meses: 0 },
+  { pct: 15, nombre: 'Inicial', paquete: 'paquete Inicial', meses: 2 },
+  { pct: 16, nombre: 'Empresarial', paquete: 'paquete Empresarial', meses: 4 },
+  { pct: 17, nombre: 'Visionario', paquete: 'paquete Visionario', meses: 6 },
+] as const;
+
+/** Las cifras del dolor (las dos primeras aprobadas por el Director el 26 sep 2026;
+ *  la de informalidad, el 9 oct 2026). Cuentan una sola historia: el ingreso de hoy
+ *  no alcanza → así se trabaja hoy → así termina. Cada una se verificó en su fuente
+ *  primaria; si se cambia una, se vuelve a la fuente — no a un artículo que la cite.
+ *  · DANE, Empleo informal y seguridad social (GEIH): proporción de ocupación
+ *    informal 54,6 % para el total nacional, trimestre móvil may–jul 2026 (un año
+ *    antes: 55,0 %). ⚠️ El dato ROTA cada mes: al tocar esta pantalla, re-verificar
+ *    el trimestre vigente y actualizar cifra + rótulo de fuente juntos.
+ *    https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-informal-y-seguridad-social
+ *  · DANE, Encuesta Nacional de Calidad de Vida 2025 (anexo, cuadro 35): el 31,3 %
+ *    de los hogares dice que su ingreso «no alcanza para cubrir los gastos mínimos»
+ *    y el 61,0 % que «alcanza para cubrir los gastos mínimos»; solo el 7,7 % que
+ *    «cubre más». Se usa la SUMA (92,3 %) a propósito: el «no alcanza» solo viene
+ *    bajando desde 2022, mientras que el «cubre más» lleva entre 7 y 8 % desde 2019.
+ *    https://www.dane.gov.co/files/operaciones/ECV/anex-ECV-2025.xlsx
+ *  · Colpensiones + U. Javeriana, primer estudio de Silver Economy en Colombia
+ *    (presentado jul. 2022, datos 2021): de 7,1 millones de personas en edad de
+ *    retiro (hombres 62+, mujeres 57+), 1,6 millones reciben alguna pensión —
+ *    cobertura del 23 %. «3 de cada 4» sin pensión es la versión CONSERVADORA
+ *    (el real es 77 %): solo puede sorprender hacia arriba. Reemplazó el 27 sep
+ *    2026 (Director) a la cifra del GEM de «buenas oportunidades» (60 %): la
+ *    pensión es el destino del ciclo y cierra mejor el arco hoy → final → los
+ *    demás ya se mueven.
+ *    https://www.larepublica.co/finanzas/cobertura-pensional-es-de-apenas-23-segun-estudio-de-colpensiones-y-unijaveriana-3398629
+ *  ⛔ Descartadas: la del GEM (TEA 23,6 %, «casi 1 de cada 4 montando un negocio»)
+ *  la descartó el Director el 9 oct 2026 — «casi uno de cada cuatro» produce
+ *  disonancia aritmética en vivo («¿cómo así, casi uno?»), y prefirió un porcentaje
+ *  exacto y de dolor puro (la informalidad); el «9 de cada 10 quieren emprender /
+ *  63 % sin recursos» es un estudio de Amway (2021) — la fuente confirma la
+ *  categoría que no se nombra —; la «intención emprendedora» del GEM es
+ *  inconsistente; y la carga financiera del Banco de la República (31 %, feb. 2026)
+ *  cubre solo a los hogares con créditos. */
+const CIFRAS_PROBLEMA = [
+  {
+    n: '9 de cada 10',
+    texto: 'hogares colombianos dicen que su ingreso no alcanza, o que alcanza solo para lo mínimo.',
+    fuente: 'DANE · Encuesta de Calidad de Vida 2025',
+  },
+  {
+    n: '54,6 %',
+    texto: 'de las personas que trabajan en Colombia lo hacen en la informalidad.',
+    fuente: 'DANE · GEIH, may–jul 2026',
+  },
+  {
+    n: '3 de cada 4',
+    texto: 'colombianos en edad de pensionarse no reciben una pensión.',
+    fuente: 'Colpensiones · U. Javeriana, 2022',
+  },
+];
+
+/** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
+const TRM = 4500;
+/** Bono GEN5 por paquete, generación por generación (USD) — COMP_GEN5_04 del arsenal
+ *  de compensación. Cada paquete que se compra deja bono en su generación y en las
+ *  cuatro de arriba, y el paquete propio es el techo: el ejemplo supone el mismo
+ *  paquete arriba y abajo. La quinta va con su valor completo (100 PV en el mes),
+ *  igual que el simulador de WhatsApp (GEN5_POR_PAQUETE en wa-simulador.ts). */
+const GEN5_POR_GENERACION: Record<'ESP1' | 'ESP2' | 'ESP3', number[]> = {
+  ESP1: [25, 5, 5, 5, 10],
+  ESP2: [75, 10, 10, 10, 20],
+  ESP3: [150, 20, 20, 20, 40],
+};
+
+const enUSD = (n: number) => n.toLocaleString('en-US');
+const enCOP = (n: number) => n.toLocaleString('es-CO');
+
+export default function PitchDeckPage() {
+  const [slide, setSlide] = useState(1);
+  const [beat, setBeat] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  // MODO VERTICAL PARA MEET (Director, 10 oct 2026 — portado de la servilleta
+  // vieja). Un monitor horizontal no puede ir a pantalla completa en vertical,
+  // así que se SIMULA: un iframe de esta misma página a tamaño de celular
+  // (412×732 lógicos, que dispara el diseño de teléfono), escalado para llenar la
+  // pantalla, centrado en negro y en pantalla completa nativa. `isKiosk` = esta
+  // instancia corre DENTRO del iframe (?kiosk=1): sin guía, sin botones de modo,
+  // sin reportar avance (lo reporta la página de afuera).
+  const [isKiosk, setIsKiosk] = useState(false);
+  const [verticalMode, setVerticalMode] = useState(false);
+  const [vScale, setVScale] = useState(1);
+  const vOverlayRef = useRef<HTMLDivElement | null>(null);
+  const vIframeRef = useRef<HTMLIFrameElement | null>(null);
+  const [refSocio, setRefSocio] = useState<string | null>(null);
+  // El visor no es solo del portafolio: cada categoría se abre en grande desde su
+  // miniatura. En la tira caben cuatro y ahí no se lee nada; el producto se mira.
+  const [visor, setVisor] = useState<{ src: string; alt: string } | null>(null);
+
+  // Simuladores
+  // ⚠️ MONEDA: COP por defecto (Director, 26 sep 2026) — en Colombia se muestra solo
+  // pesos, y cada cifra sale en UNA moneda, nunca las dos a la vez. Fuera de
+  // Colombia arranca en dólares (Director, 11 oct 2026: «para quien está afuera
+  // es mejor dólar»): el país lo da /api/pais, y si no llega se queda en pesos.
+  // El botón sigue a un toque, y lo que la persona elija no se lo pisa nadie.
+  const [moneda, setMonedaEstado] = useState<'COP' | 'USD'>('COP');
+  const monedaElegida = useRef(false);
+  const setMoneda = (m: 'COP' | 'USD') => { monedaElegida.current = true; setMonedaEstado(m); };
+  useEffect(() => {
+    fetch('/api/pais')
+      .then((r) => r.json())
+      .then(({ pais }: { pais: string | null }) => {
+        if (pais && pais !== 'CO' && !monedaElegida.current) setMonedaEstado('USD');
+      })
+      .catch(() => {});
+  }, []);
+  const [gen5Paquetes, setGen5Paquetes] = useState(2);
+  const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP1');
+  const [nivel12, setNivel12] = useState(12);
+  const [tarifa12, setTarifa12] = useState(0); // índice en TARIFAS_12: el Kit, al 10%
+
+  // El socio del ?ref: la última pantalla lo nombra y abre su WhatsApp. Sin ref,
+  // o si la consulta falla, la pantalla queda genérica.
+  const [socio, setSocio] = useState<{ nombre: string; whatsapp: string | null } | null>(null);
+  // Sin socio —visita orgánica, o un ?ref que no se encuentra— la conversación es
+  // con el equipo, por el WhatsApp Business (Director, 1 oct 2026). Hasta ese día
+  // la pantalla quedaba sin botón y quien la abría solo no tenía a quién escribir.
+  // Se espera a la consulta: con ?ref, el equipo no asoma mientras carga el socio.
+  const [sinSocio, setSinSocio] = useState(false);
+  useEffect(() => {
+    let ref: string | null = null;
+    try { ref = new URL(window.location.href).searchParams.get('ref'); } catch { /* sin ref */ }
+    // Desde el menú se llega sin ?ref (1 oct 2026): quien entró antes por el enlace
+    // de un socio lo trae guardado (tracking.js lo deja en `constructor_ref`, y el
+    // catálogo ya lo lee así). Esa persona ve a su socio, no al equipo.
+    if (!ref) { try { ref = localStorage.getItem('constructor_ref'); } catch { /* sin almacenamiento */ } }
+    if (!ref) { setSinSocio(true); return; }
+    setRefSocio(ref);
+    fetch(`/api/constructor/${encodeURIComponent(ref)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (d?.nombre) setSocio({ nombre: d.nombre, whatsapp: d.whatsapp ?? null }); else setSinSocio(true); })
+      .catch(() => setSinSocio(true));
+  }, []);
+  const waEquipo = `https://wa.me/${WHATSAPP_EQUIPO}?text=${encodeURIComponent('Hola, acabo de ver la presentación de CreaTuActivo.')}`;
+
+  // ── Hasta dónde llegó (1 oct 2026) ─────────────────────────────────────────
+  // De quien abría la presentación solo se sabía la página: no si pasó de la
+  // primera pantalla ni si llegó al botón del final. Se guarda la pantalla más
+  // lejana, si llegó al final y si tocó el WhatsApp (/api/track/presentacion).
+  // ⚠️ Cada escritura dispara un webhook: solo en hitos, nunca en cada pantalla.
+  // ⚠️ En FILA, una después de otra: la ruta lee la ficha y escribe encima, así
+  // que dos peticiones cruzadas se pisan. Probado en producción el 1 oct 2026:
+  // pasando rápido, la de la pantalla 7 llegó después de la de la 10 y la ficha
+  // quedó «completa» en la pantalla 7.
+  const colaAvance = useRef<Promise<unknown>>(Promise.resolve());
+  const reportarAvance = useCallback((datos: { pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean }) => {
+    // BORRADOR: no reporta. Cada ensayo le avisaría al socio «su Presentación».
+    if (window.location.pathname.startsWith('/servilleta/borrador')) return;
+    const fingerprint = (window as any).FrameworkIAA?.fingerprint;
+    if (!fingerprint) return;
+    if (new URLSearchParams(window.location.search).get('kiosk') === '1') return;
+    colaAvance.current = colaAvance.current.then(() => fetch('/api/track/presentacion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fingerprint, ...datos }),
+      keepalive: true,
+    })).catch(() => {});
+  }, []);
+  const primerNombre = socio?.nombre?.trim().split(/\s+/)[0] ?? null;
+  const waSocio = socio?.whatsapp && primerNombre
+    ? `https://wa.me/${socio.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${primerNombre}, acabo de ver la presentación de CreaTuActivo.`)}`
+    : null;
+
+  // EL NOMBRE DEL PROSPECTO, EN VIVO (Director, 30 sep 2026). El socio presenta a
+  // su nombre y, en la última pantalla, toca su nombre y escribe el de la persona
+  // que tiene enfrente: «en su caso, esta pantalla dirá el suyo». Es la prueba en
+  // vivo de la personalización de Queswa.app. Solo cambia lo que se VE: el
+  // botón queda sin enlace mientras se muestra otro nombre, porque abriría el
+  // WhatsApp del socio con el nombre del prospecto. Al salir de la pantalla vuelve
+  // el nombre del socio.
+  const [nombreDemo, setNombreDemo] = useState<string | null>(null);
+  const [editandoNombre, setEditandoNombre] = useState(false);
+  const [nombreEscrito, setNombreEscrito] = useState('');
+  const nombreVisible = nombreDemo ?? primerNombre;
+  useEffect(() => {
+    if (slide !== TOTAL_SLIDES) { setNombreDemo(null); setEditandoNombre(false); }
+  }, [slide]);
+  // Quien escribe un nombre en la demo es el socio presentando: esa ficha deja de
+  // generarle avisos (`dispositivo_del_socio`), o cada reunión le sonaría a él.
+  const demoReportada = useRef(false);
+  const confirmarNombre = (valor: string) => {
+    const v = valor.trim();
+    const otro = !!v && v.toLowerCase() !== (primerNombre ?? '').toLowerCase();
+    setNombreDemo(otro ? v : null);
+    setEditandoNombre(false);
+    if (otro && !demoReportada.current) { demoReportada.current = true; reportarAvance({ en_vivo: true }); }
+  };
+
+  // Los hitos: un tercio, dos tercios y el final. Un salto (teclado, retroceso)
+  // reporta el hito más alto que alcanzó, una sola vez cada uno.
+  const hitosReportados = useRef(new Set<number>());
+  useEffect(() => {
+    const hito = [...HITOS_PRESENTACION].reverse().find((h) => slide >= h);
+    if (!hito || hitosReportados.current.has(hito)) return;
+    hitosReportados.current.add(hito);
+    reportarAvance({ pantalla: slide, completa: slide === TOTAL_SLIDES || undefined });
+  }, [slide, reportarAvance]);
+
+  const gen5Por = GEN5_POR_GENERACION[gen5Nivel];
+  const ingresoGen5COP = gen5Paquetes * gen5Por.reduce((a, b) => a + b, 0) * TRM;
+  const tarifa = TARIFAS_12[tarifa12];
+  const monto = (cop: number) => moneda === 'COP'
+    ? <>${enCOP(cop)}<span className="u"> COP</span></>
+    : <>${enUSD(Math.round(cop / TRM))}<span className="u"> USD</span></>;
+  const montoCorto = (cop: number) =>
+    moneda === 'COP' ? `$${enCOP(cop)}` : `$${enUSD(Math.round(cop / TRM))}`;
+
+  // Bola de nieve: el thumb crece con el nivel (la metáfora, literal).
+  const thumbNivel = Math.round(20 + ((nivel12 - 1) / 11) * 30);
+
+  // ¿La persona bajó a leer la guía? Con el deck casi fuera de vista, el teclado
+  // deja de pasar diapositivas (las flechas y la barra espaciadora vuelven a
+  // desplazar la página) y los videos se pausan.
+  const deckRef = useRef<HTMLDivElement | null>(null);
+  const [leyendoGuia, setLeyendoGuia] = useState(false);
+  useEffect(() => {
+    const deck = deckRef.current;
+    if (!deck || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setLeyendoGuia(entry.intersectionRatio < 0.25),
+      { threshold: [0, 0.25, 0.5] }
+    );
+    observer.observe(deck);
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!leyendoGuia) return;
+    deckRef.current?.querySelectorAll('video').forEach((v) => v.pause());
+  }, [leyendoGuia]);
+
+  // LA GUÍA SE ABRE EN LA ÚLTIMA PANTALLA (Director, 13 oct 2026). En la portada,
+  // el gesto natural en un teléfono es deslizar hacia arriba, y eso sacaba el deck
+  // de la vista y mostraba la guía: la persona creía que la presentación era ese
+  // texto (le pasó al propio Director, que sabe que el deck se pasa de lado). Por
+  // eso la página no baja hasta la última pantalla, cuando ya se sabe que el deck es
+  // lateral; ahí la guía queda debajo, con su señal (.pd-a-la-guia).
+  // ⚠️ La guía NO se quita del HTML ni se oculta: Google la lee con un viewport
+  // tan alto como la página, y es lo que la posiciona. Solo se bloquea el
+  // desplazamiento (html:has(.pd-root[data-guia="cerrada"]) en el CSS).
+  // También cierra el otro escape: en las pantallas que se desplazan por dentro
+  // (el producto, los números), el final del desplazamiento seguía hacia la página.
+  // Si la página llega YA desplazada —un enlace de Google con #:~:text=, la
+  // posición que el navegador restaura al recargar, el tabulador que enfoca el
+  // botón de la guía—, la persona vino a leer: la guía queda abierta.
+  const [guiaPorEnlace, setGuiaPorEnlace] = useState(false);
+  const guiaAbierta = slide === TOTAL_SLIDES || guiaPorEnlace;
+  const guiaBloqueada = useRef(true);
+  // ¿La persona ya tocó la pantalla, giró la rueda o usó el teclado? Un
+  // desplazamiento que llega DESPUÉS de un gesto es suyo; uno que llega antes lo
+  // hizo el navegador (el enlace de Google con #:~:text=, la posición que
+  // restaura al recargar).
+  const huboGesto = useRef(false);
+  useEffect(() => {
+    if (guiaAbierta) { guiaBloqueada.current = false; return; }
+    // Volvió a una pantalla anterior con la página a medio bajar: sube al deck.
+    if (!guiaBloqueada.current) window.scrollTo(0, 0);
+    guiaBloqueada.current = true;
+  }, [guiaAbierta]);
+  useEffect(() => {
+    // LA GUÍA NO SE ABRE CON EL DEDO (Director, 18 oct 2026: «las personas en la
+    // primera diapositiva tienden a hacer scroll hacia abajo, perdiéndose la
+    // presentación»). Hasta este día, CUALQUIER desplazamiento con la guía
+    // bloqueada la abría para siempre: si un navegador dejaba pasar el gesto
+    // (sin soporte de :has, un WebView viejo), el dedo en la portada era justo
+    // lo que el bloqueo existe para impedir. Ahora el desplazamiento de la
+    // persona se devuelve al deck, y solo el del navegador abre la guía.
+    // ⚠️ No se fija el body con position: fixed: el documento quedaría del alto
+    // de la pantalla y Google, que renderiza con una ventana tan alta como la
+    // página, dejaría de ver la guía entera.
+    const marcar = () => { huboGesto.current = true; };
+    const opciones: AddEventListenerOptions = { passive: true, capture: true };
+    const gestos = ['touchstart', 'wheel', 'keydown', 'pointerdown'] as const;
+    gestos.forEach((g) => window.addEventListener(g, marcar, opciones));
+    const revisar = () => {
+      if (!guiaBloqueada.current || window.scrollY <= 0) return;
+      // El de la persona vuelve entero, sin umbral: 39 px corridos ya le cortan
+      // el HUD. El del navegador abre la guía solo pasados 40 px.
+      if (huboGesto.current) window.scrollTo(0, 0);
+      else if (window.scrollY > 40) setGuiaPorEnlace(true);
+    };
+    revisar();
+    window.addEventListener('scroll', revisar, { passive: true });
+    // El tabulador que llega a la guía (un enlace, el botón de Queswa): vino a
+    // leer. Se desbloquea en el acto, antes del desplazamiento que provoca el
+    // foco, para que ese desplazamiento no se devuelva al deck.
+    const guia = document.getElementById('guia-plan-servilleta');
+    const alEnfocar = () => {
+      if (!guiaBloqueada.current) return;
+      guiaBloqueada.current = false;
+      setGuiaPorEnlace(true);
+    };
+    guia?.addEventListener('focusin', alEnfocar);
+    return () => {
+      gestos.forEach((g) => window.removeEventListener(g, marcar, opciones));
+      window.removeEventListener('scroll', revisar);
+      guia?.removeEventListener('focusin', alEnfocar);
+    };
+  }, []);
+  const irALaGuia = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById('guia-plan-servilleta')
+      ?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  };
+
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchLastX = useRef(0);
+  const touchLastY = useRef(0);
+  const swipeIgnore = useRef(false);
+
+  // ⚠️ Las dos transiciones se calculan con los valores actuales y NO anidando un
+  // setSlide dentro del updater de setBeat: un updater debe ser puro, React lo
+  // ejecuta dos veces en desarrollo y el efecto colateral se pierde — con esa
+  // versión el deck no pasaba de la primera pantalla (bug real, 23 sep 2026).
+  const avanzar = useCallback(() => {
+    if (beat < beatsOf(slide) - 1) { setBeat(beat + 1); return; }
+    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(0); }
+  }, [slide, beat]);
+
+  const retroceder = useCallback(() => {
+    if (beat > 0) { setBeat(beat - 1); return; }
+    if (slide > 1) {
+      const destino = slide - 1;
+      setSlide(destino);
+      // El retroceso aterriza en el ÚLTIMO beat de la pantalla destino: quien
+      // vuelve quiere ver de nuevo el remate, no empezar esa pantalla otra vez.
+      setBeat(beatsOf(destino) - 1);
+    }
+  }, [slide, beat]);
+
+  const irA = useCallback((n: number) => {
+    setSlide(n);
+    setBeat(0);
+  }, []);
+
+  // EL VIDEO EN «LA PROPUESTA» (Director, 13 oct 2026): «el distribuidor podrá
+  // escoger si rueda el video o si él hace la explicación de los tres elementos».
+  // Son dos caminos por la pantalla 5: el socio narra los beats, o toca el botón
+  // y el video los cuenta. Por eso, al terminar, el deck salta a la pantalla 6 (el
+  // producto): el video ya dijo lo de los beats 1 a 7 (las tres piezas, la
+  // multiplicación, la aplicación, la propiedad), y repetirlos sería contarlo
+  // dos veces. Si se cierra antes, se
+  // queda en la propuesta y el socio sigue por su cuenta.
+  // ⚠️ El video nombra a Gano Excel y dice que cada recompra deja un porcentaje,
+  // que el deck guarda para la 6 y la 8. Es decisión del socio: en vivo él sabe a
+  // quién tiene enfrente. Va en ventana, no en la diapositiva, para que el beat
+  // siga igual para quien explica.
+  const [videoPropuesta, setVideoPropuesta] = useState(false);
+  const alTerminarVideoPropuesta = () => {
+    setVideoPropuesta(false);
+    irA(6);
+  };
+
+  // SU LADO DE LA MÁQUINA (Director, 18 oct 2026): queswa.app, en Enlaces, en una
+  // ventana del tamaño de un celular sobre el deck. El socio ya tiene la sesión
+  // abierta en su navegador; copia su enlace, lo comparte y el aviso le llega en
+  // esa misma ventana. En el teléfono (o si el navegador no abre ventanas) cae a
+  // pestaña nueva. ⚠️ Nombre fijo de ventana: un segundo toque la reutiliza en vez
+  // de abrir otra.
+  const abrirQueswaAppPorDentro = () => {
+    window.open(
+      'https://queswa.app/centro-de-expansion?tab=enlaces',
+      'queswa-app-por-dentro',
+      'popup=yes,width=412,height=780,noopener',
+    );
+  };
+
+  // ── Los videos del deck (10 oct 2026) ──────────────────────────────────────
+  // Cada <video> declara su beat en data-beat="pantalla-beat". Solo el activo
+  // reproduce; el abandonado se pausa y rebobina — el control central de media
+  // de la servilleta, adaptado. Con movimiento reducido del sistema, el video no
+  // arranca y queda el poster.
+  useEffect(() => {
+    const reduce = typeof window !== 'undefined'
+      && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const activo = `${slide}-${beat}`;
+    document.querySelectorAll<HTMLVideoElement>('video[data-beat]').forEach((v) => {
+      if (v.dataset.beat === activo && !reduce) {
+        v.play().catch(() => { /* autoplay bloqueado: queda el poster */ });
+      } else {
+        v.pause();
+        try { v.currentTime = 0; } catch { /* sin metadata todavía */ }
+      }
+    });
+  }, [slide, beat]);
+
+  // Enlace a una pantalla (2 oct 2026): `?pantalla=8` abre en la de los números
+  // (fue la 9 hasta el 18 oct 2026, cuando salió «Qué hace usted»).
+  // Queswa se lo da al socio que quiere estudiar Los 12 Niveles y mover el
+  // porcentaje él mismo; sin el parámetro se entra por la portada, como siempre.
+  useEffect(() => {
+    try {
+      const p = Number(new URL(window.location.href).searchParams.get('pantalla'));
+      if (Number.isInteger(p) && p >= 1 && p <= TOTAL_SLIDES) irA(p);
+    } catch { /* sin parámetro */ }
+  }, [irA]);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
+    else document.exitFullscreen?.().catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const onFs = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFs);
+    return () => document.removeEventListener('fullscreenchange', onFs);
+  }, []);
+
+  // ¿Esta instancia es el iframe del modo vertical? La clase va en <html> porque
+  // la guía es hermana del deck, no hija, y también tiene que ocultarse.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('kiosk') !== '1') return;
+    setIsKiosk(true);
+    document.documentElement.classList.add('kiosk');
+    return () => document.documentElement.classList.remove('kiosk');
+  }, []);
+
+  // El marco de 412×732 escala para llenar la pantalla sin deformarse.
+  useEffect(() => {
+    if (!verticalMode) return;
+    const W = 412, H = 732;
+    const calc = () => setVScale(Math.min(window.innerHeight / H, window.innerWidth / W));
+    calc();
+    window.addEventListener('resize', calc);
+    return () => window.removeEventListener('resize', calc);
+  }, [verticalMode]);
+
+  // El modo vertical es también pantalla completa NATIVA del marco; salir de ella
+  // (Esc del navegador) cierra el modo, y cerrar con ✕ sale de los dos. Los
+  // videos de afuera se pausan: el que se presenta es el de adentro.
+  useEffect(() => {
+    if (!verticalMode) return;
+    deckRef.current?.querySelectorAll('video').forEach((v) => v.pause());
+    vOverlayRef.current?.requestFullscreen?.().catch(() => {});
+    const onFs = () => { if (!document.fullscreenElement) setVerticalMode(false); };
+    const onEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') setVerticalMode(false); };
+    document.addEventListener('fullscreenchange', onFs);
+    window.addEventListener('keydown', onEsc);
+    return () => {
+      document.removeEventListener('fullscreenchange', onFs);
+      window.removeEventListener('keydown', onEsc);
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
+  }, [verticalMode]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
+      if (visor && e.key === 'Escape') { setVisor(null); return; }
+      // Con el video de la propuesta abierto, el teclado no mueve el deck: Esc lo
+      // cierra y la barra espaciadora queda para el reproductor.
+      if (videoPropuesta) { if (e.key === 'Escape') setVideoPropuesta(false); return; }
+      if (leyendoGuia || verticalMode) return;
+      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
+      else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
+      else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+      else if (e.key === 'Home') irA(1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode, videoPropuesta]);
+
+  // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
+  // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
+  const onClickSlide = (e: React.MouseEvent) => {
+    const t = e.target as HTMLElement;
+    if (t.closest('button, a, input, label, .panel, .no-advance')) return;
+    avanzar();
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+    // SOLO los <input>: arrastrar el thumb de un slider es horizontal legítimo.
+    swipeIgnore.current = !!(e.target as HTMLElement).closest('input');
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchLastX.current = e.touches[0].clientX;
+    touchLastY.current = e.touches[0].clientY;
+  };
+
+  const evaluarSwipe = (endX: number, endY: number) => {
+    if (swipeIgnore.current) { swipeIgnore.current = false; return; }
+    // La ventana del video vive dentro del deck: un gesto sobre ella no pasa
+    // diapositivas por debajo.
+    if (videoPropuesta) return;
+    const dx = touchStartX.current - endX;
+    const dy = touchStartY.current - endY;
+    // Guard de eje: un scroll vertical que derive en X no debe navegar.
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx > 0) avanzar(); else retroceder();
+    }
+  };
+
+  const nivelSel = PROYECCION_12[nivel12 - 1];
+  const totalDistribuidores = Math.pow(2, nivelSel.level + 1) - 2;
+
+  return (
+    <>
+      {/* El CSS va por dangerouslySetInnerHTML y NO como hijo de <style> (30 sep 2026):
+         como hijo, React lo escapa en el servidor (' → &#x27;, > → &gt;) y dentro de
+         <style> el navegador no decodifica entidades, así que el CSS llegaba roto
+         y la hidratación fallaba en toda la página. */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .pd-root {
+          --pd-gold: var(--color-brand, #C5A059);
+          --pd-data: var(--color-data, #22D3EE);
+          --pd-bg: var(--color-bg-primary, #0F1115);
+          --pd-elev: var(--color-bg-elevated, #15171C);
+          --pd-text: var(--color-text-primary, #E0DFDB);
+          --pd-muted: var(--color-text-muted, #878681);
+          /* Primer piso de la página (10 oct 2026): antes era una capa fija; ahora
+             ocupa la primera pantalla y debajo va la guía (GuiaPlanServilleta). */
+          position: relative; width: 100%; height: 100vh; height: 100dvh;
+          background: var(--pd-bg);
+          color: var(--pd-text);
+          font-family: var(--font-sans);
+          overflow: hidden;
+          touch-action: pan-y;
+        }
+        .pd-root * { box-sizing: border-box; }
+
+        /* ── HUD ─────────────────────────────────────────────────────────── */
+        .pd-hud {
+          position: absolute; top: 0; left: 0; right: 0; height: 56px;
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 0 clamp(16px, 4vw, 40px);
+          z-index: 40; pointer-events: none;
+        }
+        .pd-brand {
+          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.28em;
+          color: var(--pd-muted); text-transform: uppercase;
+        }
+        .pd-hud-right { display: flex; align-items: center; gap: 14px; pointer-events: auto; }
+        .pd-dots { display: flex; gap: 7px; }
+        .pd-dot {
+          width: 7px; height: 7px; border-radius: 50%; padding: 0;
+          border: 1px solid rgba(255,255,255,0.22); background: transparent;
+          cursor: pointer; transition: all 0.25s;
+        }
+        .pd-dot.done { border-color: rgba(197,160,89,0.45); background: rgba(197,160,89,0.28); }
+        .pd-dot.active { border-color: var(--pd-gold); background: var(--pd-gold); transform: scale(1.35); }
+        .pd-fs {
+          background: transparent; border: 1px solid rgba(255,255,255,0.14);
+          color: var(--pd-muted); font-family: var(--font-mono); font-size: 0.6rem;
+          letter-spacing: 0.18em; padding: 7px 11px; cursor: pointer; transition: all 0.25s;
+        }
+        .pd-fs:hover { color: var(--pd-gold); border-color: rgba(197,160,89,0.45); }
+        .pd-fs-corto { display: none; }
+        .pd-vertical { display: flex; align-items: center; padding: 6px 9px; }
+        /* Dentro del kiosco no hay pantalla completa propia: la pone el marco. */
+        .kiosk .pd-fs-principal { display: none; }
+        /* El aviso de cookies lo muestra la página de afuera (mismo origen, misma
+           decisión guardada); dentro del marco solo taparía la diapositiva. */
+        .kiosk [data-cookie-banner] { display: none !important; }
+        /* En el marco de 732px de alto alguna pantalla se pasa por poco: se puede
+           desplazar, pero sin la barra dorada a la vista de Meet. */
+        .kiosk, .kiosk * { scrollbar-width: none; }
+        .kiosk ::-webkit-scrollbar { display: none; }
+        /* Modo vertical: marco portrait centrado en negro, encima de todo. */
+        .pd-vertical-overlay {
+          position: fixed; inset: 0; z-index: 10000; background: #000;
+          display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .pd-vertical-marco { flex: none; transform-origin: center center; }
+        .pd-vertical-marco iframe { width: 100%; height: 100%; border: 0; display: block; background: #0F1115; }
+        .pd-vertical-salir {
+          position: fixed; top: 16px; right: 16px; z-index: 10001;
+          width: 44px; height: 44px; cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(8,9,12,0.8); border: 1px solid rgba(197,160,89,0.5);
+          color: var(--color-brand, #C5A059); font-size: 20px; line-height: 1;
+        }
+        .pd-vertical-salir:hover { background: rgba(197,160,89,0.16); border-color: rgba(197,160,89,0.85); }
+        .pd-counter {
+          position: absolute; bottom: 14px; right: clamp(16px, 4vw, 40px);
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+          color: #3d4048; z-index: 40;
+        }
+
+        /* La guía se abre en la última pantalla (13 oct 2026): antes, la página no
+           baja. Va desde el primer HTML, sin esperar a React, para que el primer
+           gesto en la portada tampoco la descubra. Ver guiaAbierta en el código.
+           ⚠️ SOLO en html, nunca en body: el body del sitio mide la pantalla
+           (h-full), y con overflow hidden se vuelve su propio contenedor — un
+           enlace directo a la guía la desplazaba dentro del body, fuera del alcance
+           de la ventana, y la persona quedaba viendo la guía sin poder bajar. */
+        html:has(.pd-root[data-guia="cerrada"]) { overflow: hidden; }
+
+        /* La señal: discreta, por debajo del botón de WhatsApp en peso. */
+        .pd-a-la-guia {
+          display: inline-flex; align-items: center; gap: 8px;
+          margin-top: 2.2rem; padding: 6px 0; white-space: nowrap;
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+          color: var(--pd-muted); text-decoration: none;
+          animation: pdGuiaEntra 0.6s ease 0.8s both;
+          transition: color 0.25s;
+        }
+        .pd-a-la-guia:hover { color: var(--pd-gold); }
+        .pd-a-la-guia .flecha { display: inline-block; font-size: 0.8rem; animation: pdGuiaFlecha 2.4s ease-in-out 1.4s infinite; }
+        :fullscreen .pd-a-la-guia { display: none; }
+        @keyframes pdGuiaEntra { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pdGuiaFlecha { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(3px); } }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-a-la-guia, .pd-a-la-guia .flecha { animation: none; }
+        }
+
+        /* ── Pantallas ───────────────────────────────────────────────────── */
+        /* margin:auto en el hijo centra cuando sobra espacio y NO recorta por
+           arriba cuando falta — con justify-content: center, el contenido alto se
+           salía de la pantalla por el borde superior y quedaba inalcanzable. */
+        .pd-slide {
+          position: absolute; inset: 0;
+          display: flex; flex-direction: column;
+          padding: 74px clamp(20px, 6vw, 80px) 56px;
+          opacity: 0; visibility: hidden; pointer-events: none;
+          transition: opacity 0.5s ease;
+          overflow-y: auto; cursor: pointer;
+        }
+        .pd-slide.on { opacity: 1; visibility: visible; pointer-events: auto; }
+        .pd-wrap { width: 100%; max-width: 980px; margin: auto; }
+
+        .pd-eyebrow {
+          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.32em;
+          color: var(--pd-data); text-transform: uppercase; margin: 0 0 1.6rem;
+        }
+        .pd-h2 {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          letter-spacing: 0.02em; line-height: 1.08;
+          font-size: clamp(1.7rem, 4.6vw, 3.1rem); margin: 0 0 1.5rem;
+          color: #FFFFFF;
+        }
+        .pd-p {
+          font-size: clamp(1rem, 2.1vw, 1.32rem); line-height: 1.62;
+          color: var(--color-text-body, #C8C7C2); margin: 0 0 1.1rem; max-width: 46ch;
+        }
+        /* Viñetas del deck (Director, 28 sep 2026): mismo cuerpo que .pd-p, marcador
+           dorado sobrio. Nacieron para despiezar «Por qué ahora». */
+        .pd-vinetas {
+          list-style: none; margin: 0 0 1.1rem; padding: 0; max-width: 46ch;
+        }
+        .pd-vinetas li {
+          font-size: clamp(1rem, 2.1vw, 1.32rem); line-height: 1.62;
+          color: var(--color-text-body, #C8C7C2);
+          position: relative; padding-left: 1.15rem;
+        }
+        .pd-vinetas li::before {
+          content: '·'; position: absolute; left: 0;
+          color: var(--pd-gold); font-weight: 700;
+        }
+        .pd-gold { color: var(--pd-gold); }
+        /* La bisagra: la línea más grande de la pantalla después del titular.
+           Es el giro del deck entero, así que pesa como tal. */
+        .pd-bisagra {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.5rem, 3.8vw, 2.5rem); line-height: 1.1; letter-spacing: 0.01em;
+          color: var(--pd-gold); margin: 2rem 0 1.2rem;
+        }
+        .pd-kicker {
+          font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
+          color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
+        }
+
+        /* ── 1 · El credo ────────────────────────────────────────────────── */
+        /* Playfair se pide por su variable propia. Hasta el 8 oct 2026 era
+           obligatorio: --font-serif se declara en :root y --font-playfair vivía en
+           el <body>, así que el token llegaba vacío y el titular caía a Inter. Hoy
+           las variables de next/font están en <html> y var(--font-serif) también
+           sirve; esto se deja como está porque funciona igual. */
+        .pd-credo .pd-credo-titulo, .pd-credo .pd-credo-linea {
+          font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
+          font-size: clamp(1.55rem, 4.2vw, 3rem); line-height: 1.3;
+          margin: 0 0 1.4rem; color: #FFFFFF; max-width: 22ch;
+        }
+        .pd-credo .segunda { color: var(--pd-gold); max-width: 26ch; }
+        .pd-credo-rule {
+          width: 56px; height: 1px; background: var(--pd-gold); margin: 2.4rem 0 1.2rem;
+        }
+
+        /* ── 5 · La propuesta y la oscilación ───────────────────────────────────────────── */
+        .pd-beat { position: absolute; inset: 0; display: flex; flex-direction: column;
+          padding: 74px clamp(20px, 6vw, 80px) 56px; overflow-y: auto;
+          opacity: 0; visibility: hidden; transition: opacity 0.45s ease; }
+        .pd-beat > * { margin-block: auto; }
+        .pd-beat.on { opacity: 1; visibility: visible; }
+        /* LA PIEZA ES LA PROTAGONISTA (Director, 10 oct 2026: «los clips se ven más
+           pequeños que en la servilleta»). El deck se presenta en Mac, proyector y
+           teléfono, así que la figura se dimensiona POR ALTURA DE PANTALLA, no solo
+           por columna: en un proyector 16:9 el ancho sobra y la altura manda.
+           Respaldo: diapositiva = afirmación en una línea + evidencia VISUAL
+           dominante (assertion-evidence, Garner & Alley 2013); el socio narra el
+           resto — el mismo principio name-only de la servilleta. */
+        .pd-pieza { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 5vw, 64px);
+          align-items: center; max-width: 1160px; margin: 0 auto; width: 100%; }
+        .pd-pieza .pd-figura { width: min(100%, calc(100vh - 230px)); justify-self: center; }
+        /* ⚠️ El ancho va EXPLÍCITO. Sin él, como .pd-pieza lleva align-items:center,
+           el ítem de la rejilla no se estira, su alto queda en 0 y aspect-ratio le
+           deja 2px de ancho: en el teléfono las tres piezas no se veían (bug real,
+           24 sep 2026). En escritorio no aparecía porque la columna daba el ancho. */
+        .pd-figura {
+          width: 100%;
+          aspect-ratio: 1 / 1; background-size: cover; background-position: center;
+          border: 1px solid rgba(255,255,255,0.08);
+        }
+        /* La pieza en video: el loop ya es cuadrado, cover lo deja exacto; el
+           fondo carbón cubre el instante antes del poster. */
+        video.pd-figura { object-fit: cover; display: block; background: #0F1115; }
+        .pd-pieza-label {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
+          margin: 0 0 1.1rem;
+        }
+        .pd-demo {
+          margin-top: 1.6rem; background: transparent; border: 1px solid var(--pd-gold);
+          color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
+          letter-spacing: 0.2em; padding: 13px 22px; cursor: pointer; transition: all 0.25s;
+        }
+        .pd-demo:hover { background: var(--pd-gold); color: #0F1115; }
+        /* Los dos botones de la máquina (18 oct 2026): el frente y su lado. */
+        .pd-demos { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+        .pd-demos .pd-demo { margin-top: 1.6rem; }
+
+        .pd-tres { display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: clamp(12px, 3vw, 36px); max-width: 940px; margin: 0 auto; width: 100%; }
+        .pd-tres .pd-figura { animation: pdPulso 3.6s infinite; opacity: 0.32; }
+        .pd-tres .col:nth-child(1) .pd-figura { animation-delay: 0s; }
+        .pd-tres .col:nth-child(2) .pd-figura { animation-delay: 1.2s; }
+        .pd-tres .col:nth-child(3) .pd-figura { animation-delay: 2.4s; }
+        @keyframes pdPulso { 0%, 24% { opacity: 1; } 34%, 100% { opacity: 0.3; } }
+        .pd-tres .cap {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
+          color: var(--pd-muted); text-transform: uppercase; text-align: center;
+          margin-top: 0.9rem; min-height: 2.4em;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-tres .pd-figura { animation: none; opacity: 1; }
+        }
+        /* ⚠️ margin:auto en los cuatro lados y NO 0 auto: el cero pisaba el
+           margin-block:auto con el que .pd-beat centra a su hijo, y este beat era el
+           único que se quedaba pegado arriba con media pantalla vacía debajo. */
+        .pd-remate { text-align: center; max-width: 760px; margin: auto; }
+
+        /* EL CLÍMAX EN UNA DIAPOSITIVA (10 oct 2026): el teléfono con la UNIÓN
+           adentro y, al lado, el paso y el nombre. En pantalla ancha van lado a
+           lado (en 16:9 apilados no caben); en el teléfono, apilados. El
+           teléfono lo acota la altura real de la pantalla. */
+        .pd-remate.pd-union { max-width: 1060px; }
+        .pd-union-cuerpo {
+          display: grid; grid-template-columns: auto minmax(0, 1fr);
+          gap: clamp(28px, 5vw, 72px); align-items: center; margin-top: 1.4rem;
+        }
+        .pd-union-texto { text-align: left; }
+        .pd-union-texto p.grande--paso { margin-top: 0; }
+        .pd-telefono {
+          display: block; width: min(300px, 30vw, calc((100vh - 230px) * 0.52));
+          aspect-ratio: 720 / 1360; object-fit: cover;
+          margin: 0 auto; background: #0F1115;
+          border: 1px solid rgba(197,160,89,0.55);
+          box-shadow: 0 0 70px rgba(197,160,89,0.10);
+        }
+        .pd-remate p.pd-nombre-app {
+          font-size: clamp(2.3rem, 6.2vw, 4.6rem); margin: 0.3rem 0 0;
+        }
+        /* EL TEXTO LLEGA CUANDO EL CELULAR YA ESTA A LA VISTA — la secuencia de
+           Jobs (primero el aparato, después la palabra) sin pedirle un clic al
+           socio. Tiempos atados al clip v5: trío ~1 s → fusión (2,48 s) → el
+           cubo se enciende y late en grande (hasta 5,1 s) → la cámara se aleja
+           hasta el celular (6,3 s). «En una sola aplicación» entra mientras el
+           celular aparece; el nombre, cuando ya está quieto. Si cambia la
+           receta del clip, se mueven estos tres retrasos. */
+        .pd-beat.on .pd-union-texto > * { animation: pdEntra 0.6s ease-out both; }
+        .pd-beat.on .pd-union-texto > :nth-child(1) { animation-delay: 5.4s; }
+        .pd-beat.on .pd-union-texto > :nth-child(2) { animation-delay: 6.5s; }
+        .pd-beat.on .pd-union-texto > :nth-child(3) { animation-delay: 7.0s; }
+        @media (max-width: 860px) {
+          .pd-union-cuerpo { grid-template-columns: 1fr; gap: 1rem; margin-top: 0.8rem; }
+          .pd-union-texto { text-align: center; }
+          /* Apilado, el teléfono deja sitio al texto de abajo (~260px). */
+          .pd-telefono { width: min(52vw, calc((100vh - 430px) * 0.52)); }
+        }
+        /* El golpe del remate en blanco y un punto menor: el oro y el tamaño
+           completo son del NOMBRE, que es lo nuevo y cae de último. */
+        .pd-remate p.grande--paso {
+          color: #FFFFFF; font-size: clamp(1.15rem, 3vw, 1.9rem);
+          margin: 2rem 0 0.6rem;
+        }
+        .pd-remate .grande {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
+          color: var(--pd-gold); margin: 2rem 0 1.5rem;
+        }
+        .pd-remate .pd-preparacion {
+          font-size: clamp(0.95rem, 1.9vw, 1.12rem); line-height: 1.5;
+          color: var(--pd-muted); margin: 0 0 1.8rem;
+        }
+        .pd-remate .pd-cierre-linea {
+          margin: 0 auto 0.5rem; text-align: center; max-width: 42ch; text-wrap: balance;
+        }
+        .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
+        /* La marca del remate se OCULTA en escritorio: el HUD ya la lleva arriba a
+           la izquierda y salía dos veces en la misma pantalla. En el teléfono el HUD
+           la esconde, así que allá esta es la única y sí se muestra. */
+        .pd-remate .marca {
+          display: none;
+          font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.3em;
+          color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
+        }
+
+        /* ── 7 · Producto ────────────────────────────────────────────────── */
+        .pd-foto {
+          position: absolute; inset: 0; background-size: cover; background-position: center;
+          opacity: 0.3;
+        }
+        .pd-producto { display: grid; grid-template-columns: 1.05fr 0.95fr;
+          gap: clamp(24px, 5vw, 56px); align-items: center; position: relative; z-index: 2; }
+        .pd-ficha { border: 1px solid rgba(255,255,255,0.1); background: rgba(15,17,21,0.82);
+          padding: 1.4rem 1.5rem; }
+        .pd-ficha .titulo {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.24em;
+          color: var(--pd-gold); text-transform: uppercase; padding-bottom: 0.9rem;
+          border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.9rem;
+        }
+        .pd-fila { display: flex; justify-content: space-between; align-items: baseline;
+          padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .pd-fila .k { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.16em;
+          color: var(--pd-muted); text-transform: uppercase; }
+        .pd-fila .v { font-family: var(--font-mono); font-size: 1.05rem; color: var(--pd-text); }
+        .pd-ficha .pie { font-size: 0.78rem; color: var(--pd-muted); line-height: 1.55; margin: 0.9rem 0 0; }
+        .pd-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 1.6rem; }
+        .pd-cats-lead { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
+          color: var(--pd-muted); text-transform: uppercase; margin: 1.6rem 0 0; }
+        .pd-cats-lead + .pd-cats { margin-top: 0.7rem; }
+        .pd-cat { position: relative; aspect-ratio: 1 / 1; background-size: cover;
+          background-position: center; border: 1px solid rgba(255,255,255,0.08);
+          padding: 0; cursor: zoom-in; transition: border-color 0.25s, transform 0.25s;
+          display: block; width: 100%; }
+        .pd-cat:hover { border-color: rgba(197,160,89,0.55); transform: translateY(-2px); }
+        .pd-cat span {
+          position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 4px;
+          background: linear-gradient(transparent, rgba(15,17,21,0.92));
+          font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em;
+          text-align: center; color: var(--pd-text); text-transform: uppercase;
+        }
+        .pd-link {
+          margin-top: 1.4rem; background: transparent; border: none; padding: 0;
+          color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
+          letter-spacing: 0.18em; cursor: pointer; border-bottom: 1px solid rgba(197,160,89,0.4);
+        }
+        .pd-link:hover { border-bottom-color: var(--pd-gold); }
+
+        /* ── 4 · El dolor, en cifras ────────────────────────────────────── */
+        .pd-cifras-lista { display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: clamp(16px, 3vw, 32px); margin-top: 0.4rem; }
+        .pd-cifra { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 1.1rem; }
+        .pd-cifra .n { font-family: var(--font-sans); font-weight: 700; color: #FFFFFF;
+          font-size: clamp(1.5rem, 3.2vw, 2.3rem); line-height: 1.1; margin: 0 0 0.6rem; }
+        .pd-cifra .t { font-size: clamp(0.95rem, 1.6vw, 1.08rem); line-height: 1.5;
+          color: var(--color-text-body, #C8C7C2); margin: 0 0 0.8rem; }
+        /* La pregunta del cierre: en computador partía en «…SALIR DEL / CICLO?» y
+           dejaba huérfana la palabra que la amarra al credo. */
+        .pd-cifras .pd-bisagra { text-wrap: balance; }
+        .pd-cifra .f { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
+          color: var(--pd-muted); text-transform: uppercase; margin: 0; }
+
+        /* ── 9 · Cómo se gana ─────────────────────────────────────────────────── */
+        .pd-paneles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 32px); }
+        .panel { border: 1px solid rgba(255,255,255,0.1); background: var(--pd-elev);
+          padding: 1.4rem 1.4rem 1.6rem; cursor: default; }
+        .panel h3 {
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+          color: var(--pd-muted); text-transform: uppercase; text-align: center;
+          margin: 0 0 1.2rem;
+        }
+        .pd-numeros-top { display: flex; justify-content: space-between; align-items: center;
+          gap: 1rem; margin-bottom: 1.1rem; }
+        .pd-numeros-top .pd-eyebrow { margin: 0; }
+        .pd-moneda { display: flex; gap: 1px; background: rgba(255,255,255,0.08); }
+        .pd-moneda button { background: var(--pd-bg); border: none; color: var(--pd-muted);
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.14em;
+          padding: 6px 11px; cursor: pointer; }
+        .pd-moneda button.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-numeros .pd-h2 { font-size: clamp(1.25rem, 2.6vw, 1.9rem); margin-bottom: 0.5rem; }
+        .pd-numeros-lead { margin-bottom: 1.5rem; }
+        .pd-gens { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+          background: rgba(255,255,255,0.08); margin: 1rem 0 1.1rem; }
+        .pd-gen { background: var(--pd-bg); padding: 7px 2px; text-align: center; }
+        .pd-gen .k { display: block; font-family: var(--font-mono); font-size: 0.5rem;
+          letter-spacing: 0.12em; color: var(--pd-muted); text-transform: uppercase; }
+        .pd-gen .v { display: block; font-family: var(--font-mono); font-size: 0.6rem;
+          color: var(--pd-text); margin-top: 3px; white-space: nowrap; }
+        .pd-pkg b { display: block; font-weight: 400; margin-top: 3px; font-size: 0.62rem; }
+        /* LA FORMA NO CAMBIA AL ELEGIR PORCENTAJE (Director, 26 sep 2026). La línea
+           de vigencia existía solo con el 15, 16 y 17%: al pasar del Kit a otro, el
+           panel crecía, la fila de paneles con él, y se reacomodaba la pantalla
+           entera. Ahora las cuatro variantes ocupan la MISMA celda de una rejilla y
+           solo se ve la elegida: la celda mide lo que la más larga, siempre. */
+        .pd-tarifa-notas .pd-vigencias { display: grid; margin-top: 0.6rem; }
+        .pd-tarifa-notas .pd-vigencias > p { grid-area: 1 / 1; visibility: hidden; }
+        .pd-tarifa-notas .pd-vigencias > p.on { visibility: visible; }
+        .pd-nota { text-align: center; font-size: 0.72rem; color: var(--pd-muted); margin: 1.4rem 0 0; }
+        .pd-display { font-family: var(--font-mono); font-size: clamp(1.6rem, 4.6vw, 2.5rem);
+          color: var(--pd-gold); text-align: center; letter-spacing: -0.02em; line-height: 1.1; }
+        .pd-display .u { font-size: 0.42em; color: var(--pd-muted); letter-spacing: 0.1em; }
+        .pd-sub { font-family: var(--font-mono); font-size: 0.72rem; color: var(--pd-muted);
+          text-align: center; margin: 0.4rem 0 1.3rem; }
+        .pd-pkgs { display: flex; gap: 1px; background: rgba(255,255,255,0.08); margin-bottom: 1.1rem; }
+        .pd-pkg { flex: 1; background: var(--pd-bg); border: none; color: var(--pd-muted);
+          font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+          padding: 9px 4px; cursor: pointer; text-transform: uppercase; }
+        .pd-pkg.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
+        .pd-label { display: block; font-family: var(--font-mono); font-size: 0.58rem;
+          letter-spacing: 0.14em; color: var(--pd-muted); text-transform: uppercase;
+          margin-bottom: 0.7rem; }
+        .pd-label b { color: var(--pd-gold); font-weight: 400; margin-left: 6px; }
+        /* El margen inferior deja pasar el thumb grande del último nivel (50px):
+           con 1rem, la bola se montaba encima del texto de abajo. */
+        .pd-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 2px;
+          background: rgba(255,255,255,0.14); outline: none; margin: 0.9rem 0 2.6rem; }
+        .pd-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+          width: var(--thumb, 22px); height: var(--thumb, 22px); border-radius: 50%;
+          background: var(--pd-gold); cursor: pointer; }
+        .pd-slider::-moz-range-thumb { width: var(--thumb, 22px); height: var(--thumb, 22px);
+          border-radius: 50%; background: var(--pd-gold); border: none; cursor: pointer; }
+        .pd-insight { font-size: 0.78rem; line-height: 1.55; color: var(--pd-muted); margin: 0; }
+        /* Los 12 niveles son CÍRCULOS, como en el deck de /12-niveles donde nacieron
+           (Director, 2 oct 2026): van sincronizados con el deslizador, y a medida que
+           se avanza se ve en qué nivel va y cuántos quedaron atrás. */
+        .pd-niveles { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 1.1rem; }
+        .pd-nivel { width: 28px; height: 28px; border-radius: 50%; padding: 0;
+          display: flex; align-items: center; justify-content: center;
+          border: 1px solid rgba(255,255,255,0.14);
+          background: transparent; color: var(--pd-muted); font-family: var(--font-mono);
+          font-size: 0.6rem; cursor: pointer; transition: all 0.2s; }
+        .pd-nivel.done { border-color: rgba(197,160,89,0.4); color: var(--pd-gold);
+          background: rgba(197,160,89,0.06); }
+        .pd-nivel.active { border-color: var(--pd-gold); background: var(--pd-gold); color: #0F1115;
+          box-shadow: 0 0 12px rgba(197,160,89,0.45); }
+
+        /* ── 10 · El siguiente paso ───────────────────────────────────────── */
+        /* El credo con la misma letra de la pantalla 1: se tiene que VER que el deck
+           cierra donde abrió. Ver el aviso de Playfair en «1 · El credo». */
+        .pd-final-credo {
+          font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
+          font-size: clamp(1.4rem, 3.4vw, 2.5rem); line-height: 1.3;
+          margin: 0 0 1.4rem; color: #FFFFFF; max-width: 26ch;
+        }
+        .pd-final .pd-bisagra { margin: 1.8rem 0 0; text-wrap: balance; }
+        .pd-final .pd-p { text-wrap: pretty; }
+
+        /* ── Modal catálogo ──────────────────────────────────────────────── */
+        .pd-overlay { position: fixed; inset: 0; background: rgba(5,6,8,0.94); z-index: 200;
+          display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .pd-modal { position: relative; max-width: min(92vw, 900px); max-height: 88vh; }
+        .pd-modal img { width: 100%; height: auto; max-height: 88vh; object-fit: contain; display: block; }
+        .pd-close { position: absolute; top: -40px; right: 0; background: transparent;
+          border: none; color: var(--pd-muted); font-size: 1.7rem; cursor: pointer; line-height: 1; }
+        /* El video de la propuesta: vertical, acotado por la altura de la pantalla
+           (en un proyector manda la altura; en el teléfono, el ancho). */
+        .pd-modal--video { width: min(92vw, calc((100dvh - 110px) * 0.5625)); max-height: none; }
+        .pd-modal--video video { width: 100%; aspect-ratio: 9 / 16; display: block;
+          background: #0F1115; border: 1px solid rgba(255,255,255,0.1); }
+        /* El botón de la propuesta, centrado bajo «Se requieren tres elementos». */
+        .pd-remate .pd-ver-video { display: inline-block; margin-top: 1.4rem; }
+
+        /* ── Móvil ───────────────────────────────────────────────────────── */
+        @media (max-width: 860px) {
+          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
+          /* La pieza manda en el teléfono: es lo único que se mira mientras el
+             socio narra. Subida de 64vw a 80vw el 10 oct 2026 (Director: se veía
+             más pequeña que en la servilleta, donde el clip llena la card). */
+          .pd-pieza .pd-figura { width: min(80vw, 400px); margin: 0 auto; }
+          .pd-tres { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+          .pd-tres .cap { font-size: 0.48rem; letter-spacing: 0.1em; }
+          /* Dos por dos, no cuatro en fila: a 83px no se distingue un producto de
+             otro, y esta es la pantalla donde el producto se mira. Cada una abre
+             en grande al tocarla. */
+          .pd-cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+          .pd-slide { padding: 68px 20px 48px; }
+          .pd-beat { padding: 68px 20px 48px; }
+
+          /* LOS NÚMEROS CABEN ENTEROS EN EL TELÉFONO (24 sep 2026). Desbordaban
+             114px y el segundo simulador quedaba debajo del borde: quien presenta
+             no se entera de que hay algo más abajo, y el prospecto tampoco. Se
+             aprieta lo que no es la cifra; la cifra no se toca. */
+          .pd-numeros .panel { padding: 1rem 1.1rem 1.2rem; }
+          .pd-numeros .panel h3 { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-pkgs,
+          .pd-numeros .pd-niveles { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-sub { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-slider { margin: 0.7rem 0 1.9rem; }
+          .pd-numeros .pd-insight { font-size: 0.74rem; }
+          .pd-numeros { padding-bottom: 28px; }
+          .pd-cifras-lista { grid-template-columns: 1fr; gap: 1rem; }
+          .pd-cifra { padding-top: 0.8rem; }
+          .pd-cifra .n { margin-bottom: 0.35rem; }
+          .pd-cifra .t { margin-bottom: 0.45rem; }
+          /* LOS 12 CÍRCULOS VUELVEN AL TELÉFONO (Director, 2 oct 2026). El 26 sep se
+             ocultaron para que la pantalla cupiera —el deslizador elige el mismo nivel
+             y su rótulo lo dice—, pero lo que hace creíble el crecimiento es ver en
+             qué nivel va, y el rótulo solo no lo muestra. Van en UNA fila de doce que
+             se reparte el ancho: medido el 2 oct, en 375×667 sobraban 89 px y la fila
+             ocupa unos 36; en 390×844 sobraban 182. */
+          .pd-numeros .pd-niveles { display: grid; grid-template-columns: repeat(12, 1fr);
+            gap: 3px; margin-bottom: 0.8rem; }
+          .pd-numeros .pd-nivel { width: 100%; height: auto; aspect-ratio: 1; max-width: 26px;
+            justify-self: center; font-size: 0.55rem; }
+          .pd-numeros-top { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-h2 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+          .pd-numeros-lead { font-size: 0.9rem; margin-bottom: 0.9rem; }
+          .pd-numeros .pd-nota { margin-top: 0.8rem; }
+          .pd-final-credo { font-size: clamp(1.2rem, 5.2vw, 1.8rem); }
+          /* En el teléfono el panel de paquetes se queda con su título y su rótulo,
+             que ya dicen qué cuenta. Y cuando se elige un porcentaje temporal, su
+             vigencia REEMPLAZA a la línea general en vez de sumarse: es la línea que
+             no puede quedar debajo del borde. */
+          .pd-numeros .panel--gen5 .pd-insight { display: none; }
+          .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 1.2rem; }
+          /* En el teléfono la línea general y las tres de vigencia comparten UNA
+             celda: la vigencia la reemplaza, y la celda mide lo que la más larga. */
+          .pd-numeros .pd-tarifa-notas { display: grid; }
+          .pd-numeros .pd-tarifa-notas > * { grid-area: 1 / 1; }
+          .pd-numeros .pd-tarifa-notas .pd-vigencias { margin-top: 0; }
+          .pd-numeros .pd-tarifa-notas.temporal .pd-tarifa-general { visibility: hidden; }
+          /* La tira de las cinco generaciones sumó ~45px (26 sep 2026): se recuperan
+             en márgenes y en el conteo de distribuidores, que cabe en una línea. */
+          .pd-numeros .panel h3 { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-gens { margin: 0.7rem 0 0.8rem; }
+          .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 0.8rem; }
+          .pd-numeros .pd-sub { font-size: 0.64rem; margin-bottom: 0.8rem; }
+          .pd-numeros-top { margin-bottom: 0.5rem; }
+          .pd-numeros-lead { margin-bottom: 0.6rem; }
+          .pd-numeros .pd-nota { margin-top: 0.5rem; }
+          .pd-numeros .panel { padding-bottom: 0.9rem; }
+
+          /* ANCLAJE DE DESPLAZAMIENTO — el patrón de la servilleta para las
+             pantallas que no caben en un teléfono. En «el producto» no caben a la
+             vez la historia (título, párrafo, las cuatro líneas, el portafolio) y
+             la ficha del Ganoderma: son 985px contra 728 útiles. Sin anclaje la
+             ficha queda debajo del borde y quien presenta ni se entera de que está.
+             Con él, un deslizamiento la trae entera.
+             ⚠️ proximity y NO mandatory: en la servilleta el obligatorio peleaba
+             con el gesto horizontal. El guard de eje del swipe (|dx| > |dy| * 1.2)
+             ya impide que bajar cambie de pantalla. */
+          /* ⚠️ scroll-padding-top = el margen superior de la pantalla (26 sep 2026).
+             Sin él, el anclaje alineaba la primera columna con el borde de arriba:
+             la pantalla se desplazaba justo esos 68px al abrir y el rótulo
+             quedaba debajo de la barra de puntos. */
+          .pd-slide { scroll-snap-type: y proximity; scroll-padding-top: 68px; }
+          .pd-producto > * { scroll-snap-align: start; }
+          .pd-numeros .panel { scroll-snap-align: start; }
+          /* En un teléfono la marca y los puntos se montaban encima del botón.
+             La marca ya está en la pantalla 1 y en el remate: aquí sobra. */
+          .pd-brand { display: none; }
+          .pd-remate .marca { display: block; }
+          .pd-fs-largo { display: none; }
+          .pd-vertical { display: none; }
+          .pd-fs-corto { display: inline; }
+        }
+
+        /* PANTALLAS CORTAS (teléfonos de 640px de alto, y cualquiera en apaisado).
+           No es un ancho distinto: es un ALTO distinto, y por eso va por max-height
+           y no por max-width. Se aprieta el aire — titulares y cuerpo bajan un
+           punto; las cifras no se tocan.
+           El caso que lo obligó: la pantalla 4 se pasaba 77px en un teléfono de
+           640, y es la única del deck que NO puede pedir desplazamiento — si la ley
+           (solo se multiplica lo que es sencillo) queda debajo del borde, el giro
+           del deck se pierde. */
+        @media (max-height: 700px) {
+          .pd-slide, .pd-beat { padding-top: 60px; padding-bottom: 34px; }
+          .pd-slide { scroll-padding-top: 60px; }
+          .pd-eyebrow { margin-bottom: 1rem; }
+          .pd-h2 { font-size: clamp(1.4rem, 5.6vw, 2rem); margin-bottom: 1rem; }
+          .pd-p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.8rem; }
+          .pd-vinetas { margin-bottom: 0.8rem; }
+          .pd-vinetas li { font-size: 0.95rem; line-height: 1.5; }
+          .pd-bisagra { font-size: clamp(1.3rem, 6vw, 1.9rem); margin: 1.2rem 0 0.8rem; }
+          .pd-credo .pd-credo-titulo, .pd-credo .pd-credo-linea { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
+          .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
+          .pd-pieza-label { font-size: clamp(1.15rem, 5.2vw, 1.9rem); margin-bottom: 0.8rem; }
+          /* ⚠️ Esta regla aplicaba min(48vw, 230px) a CUALQUIER pantalla de ≤700px
+             de alto — incluido un proyector a 1280×720, donde la pieza quedaba
+             diminuta. Era la causa de «los clips se ven pequeños» (Director,
+             10 oct 2026). Ahora manda la altura real: en 720p la pieza queda en
+             ~470px y en un teléfono acostado la acota el otro media query. */
+          .pd-pieza .pd-figura { width: min(42vw, calc(100vh - 250px)); }
+          .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
+          .pd-telefono { width: min(30vw, calc((100vh - 200px) * 0.52)); }
+        }
+
+        /* TELÉFONO GIRADO. Ancho de sobra y altura mínima: exactamente lo contrario
+           de lo que asume el bloque de móvil, que apila todo en una columna porque
+           supone un teléfono vertical. Aquí apilar es el error — se vuelve a dos
+           columnas y las figuras se achican, que es como se recupera el alto.
+           Pasa de verdad: el socio gira el teléfono para mostrar los números. */
+        @media (max-height: 560px) and (min-width: 600px) {
+          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
+          .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+          .pd-pieza .pd-figura { width: min(34vw, calc(100vh - 150px)); }
+          .pd-slide, .pd-beat { padding-top: 56px; padding-bottom: 26px; }
+          /* El credo son dos bloques largos y en 390px de alto no caben: se leen a
+             dos columnas, que además es la forma natural de una anáfora. */
+          .pd-credo .pd-wrap { display: grid; grid-template-columns: 1fr 1fr;
+            gap: 0 2.2rem; align-items: start; max-width: 1100px; }
+          .pd-credo .pd-eyebrow,
+          .pd-credo .pd-credo-rule,
+          .pd-credo .pd-kicker { grid-column: 1 / -1; }
+          .pd-credo .pd-credo-titulo, .pd-credo .pd-credo-linea { font-size: clamp(1.05rem, 2.4vw, 1.6rem);
+            margin-bottom: 0; max-width: none; }
+          .pd-credo-rule { margin: 1.1rem 0 0.7rem; }
+        }
+
+        /* ═══ Columna del 30 sep 2026 ══════════════════════════════════════ */
+        .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.9rem, 5vw, 3.7rem); max-width: 20ch; }
+        .pd-p--grande { font-size: clamp(1.15rem, 2.6vw, 1.6rem); max-width: 40ch; }
+        .pd-cifras-lista--tres { gap: clamp(20px, 4vw, 48px); }
+        .pd-cifras-lista--tres .pd-cifra .n { font-size: clamp(1.9rem, 4.6vw, 3.4rem); }
+        .pd-cifras-lista--tres .pd-cifra .t { font-size: clamp(1rem, 1.8vw, 1.22rem); }
+        /* El flujo de las dos acciones (10 oct 2026): tarjetas separadas con
+           flechas doradas entre ellas — el orden se lee solo — y entrada
+           escalonada cuando el beat se activa. */
+        .pd-acciones {
+          display: grid; grid-template-columns: 1fr auto 1.25fr auto 1fr;
+          gap: clamp(10px, 1.6vw, 18px); align-items: stretch;
+          margin-top: 1.2rem;
+        }
+        .pd-accion { background: var(--pd-bg); padding: 1.7rem 1.5rem;
+          border: 1px solid rgba(255,255,255,0.08);
+          display: flex; flex-direction: column; justify-content: center; }
+        /* El glifo va en ::before y cambia a ↓ en columna — NO con rotate:
+           la animacion de entrada anima transform y lo pisaria (fill both). */
+        .pd-flecha {
+          display: flex; align-items: center; justify-content: center;
+          color: var(--pd-gold); font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+          font-weight: 700;
+        }
+        .pd-flecha::before { content: '→'; }
+        @keyframes pdEntra {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: none; }
+        }
+        .pd-beat.on .pd-acciones > * { animation: pdEntra 0.45s ease-out both; }
+        .pd-beat.on .pd-acciones > :nth-child(1) { animation-delay: 0.1s; }
+        .pd-beat.on .pd-acciones > :nth-child(2) { animation-delay: 0.5s; }
+        .pd-beat.on .pd-acciones > :nth-child(3) { animation-delay: 0.75s; }
+        .pd-beat.on .pd-acciones > :nth-child(4) { animation-delay: 1.3s; }
+        .pd-beat.on .pd-acciones > :nth-child(5) { animation-delay: 1.55s; }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-beat.on .pd-acciones > *,
+          .pd-beat.on .pd-union-texto > * { animation: none; }
+        }
+        .pd-accion .k { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.26em;
+          color: var(--pd-data); }
+        .pd-accion .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.3rem, 3vw, 2rem); color: #FFFFFF; margin: 0.5rem 0 0.7rem; }
+        .pd-accion .d { font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55;
+          color: var(--color-text-body, #C8C7C2); margin: 0; }
+        .pd-accion--queswa { background: var(--pd-elev); align-items: center; text-align: center; }
+        .pd-accion--queswa .img { width: clamp(96px, 15vh, 150px); aspect-ratio: 1 / 1;
+          background-size: cover; background-position: center; object-fit: cover;
+          display: block; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 1rem; }
+        .pd-accion--queswa .d { font-size: clamp(0.9rem, 1.5vw, 1rem); color: var(--pd-muted); }
+        .pd-pregunta { text-align: center; max-width: 920px; }
+        .pd-pregunta .pd-bisagra { font-size: clamp(1.9rem, 5.2vw, 3.6rem); margin: 0; text-wrap: balance; }
+        .pd-paneles--uno { grid-template-columns: minmax(0, 560px); justify-content: center; }
+        .pd-credenciales { text-align: center; font-family: var(--font-mono); font-size: 0.6rem;
+          letter-spacing: 0.2em; color: var(--pd-muted); text-transform: uppercase; margin: 0.5rem 0 0; }
+        .pd-socio { display: inline-block; text-decoration: none; margin-top: 1.8rem; }
+        .pd-nombre {
+          font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
+          background: none; border: none; padding: 0; cursor: text;
+          border-bottom: 2px dotted rgba(197,160,89,0.45);
+        }
+        .pd-nombre-input {
+          font: inherit; letter-spacing: inherit; text-transform: uppercase;
+          color: var(--pd-gold); background: transparent; border: none; outline: none;
+          border-bottom: 2px solid var(--pd-gold); padding: 0; min-width: 4ch;
+        }
+        .pd-nombre-input::placeholder { color: rgba(197,160,89,0.35); }
+        @media (max-width: 860px) {
+          .pd-cifras-lista--tres { grid-template-columns: 1fr; gap: 1.2rem; }
+          .pd-acciones { grid-template-columns: 1fr; gap: 8px; }
+          .pd-accion { padding: 1rem 1.1rem; }
+          /* En columna el flujo baja. */
+          .pd-flecha { font-size: 1.2rem; line-height: 1; }
+          .pd-flecha::before { content: '↓'; }
+          .pd-accion--queswa .img { width: 76px; margin-bottom: 0.6rem; }
+        }
+
+        /* ═══ Oportunidad, dos sectores y propuesta (30 sep 2026) ═══════════ */
+        .pd-h2--media { font-size: clamp(1.45rem, 3.6vw, 2.5rem); max-width: 30ch; }
+        .pd-pares { list-style: none; padding: 0; margin: 2rem 0 0; max-width: 720px;
+          border-top: 1px solid rgba(255,255,255,0.1); }
+        .pd-pares li { display: grid; grid-template-columns: minmax(0, 15rem) 2.6rem 1fr; align-items: baseline;
+          padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .pd-pares .de { font-size: clamp(1.05rem, 2.4vw, 1.5rem); color: var(--pd-muted); white-space: nowrap; }
+        .pd-pares .fl { color: var(--pd-gold); text-align: center; font-size: clamp(1rem, 2.2vw, 1.4rem); }
+        .pd-pares .a { font-weight: 700; font-size: clamp(1.15rem, 2.8vw, 1.8rem); color: #FFFFFF; }
+        .pd-sectores { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 2rem;
+          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
+        .pd-sector { background: var(--pd-bg); padding: clamp(1.4rem, 3vw, 2.4rem); }
+        .pd-sector .k { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.26em;
+          color: var(--pd-data); }
+        .pd-sector .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.35rem, 3.2vw, 2.3rem); line-height: 1.12; color: #FFFFFF;
+          margin: 0.7rem 0 0; }
+        .pd-propuesta { font-family: var(--font-sans); font-weight: 700;
+          font-size: clamp(1.35rem, 3.4vw, 2.3rem); line-height: 1.25; color: #FFFFFF;
+          margin: 0 auto; max-width: 28ch; text-wrap: balance; }
+        .pd-remate .pd-bisagra { text-align: center; }
+        @media (max-width: 860px) {
+          .pd-sectores { grid-template-columns: 1fr; }
+          .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
+          /* Las cuatro palabras van sin corte; en el teléfono la letra baja para que
+             quepan en el ancho y no abran un desplazamiento lateral. */
+          .pd-propuesta { font-size: min(1.2rem, 5.1vw); }
+        }
+      ` }} />
+
+      <div
+        className="pd-root"
+        ref={deckRef}
+        data-guia={guiaAbierta ? 'abierta' : 'cerrada'}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={(e) => evaluarSwipe(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}
+        onTouchCancel={() => evaluarSwipe(touchLastX.current, touchLastY.current)}
+      >
+        {/* ── HUD ─────────────────────────────────────────────────────── */}
+        <div className="pd-hud">
+          <span className="pd-brand">CreaTuActivo.com</span>
+          <div className="pd-hud-right">
+            <div className="pd-dots">
+              {Array.from({ length: TOTAL_SLIDES }, (_, i) => i + 1).map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  className={`pd-dot ${n === slide ? 'active' : ''} ${n < slide ? 'done' : ''}`}
+                  onClick={() => irA(n)}
+                  aria-label={`Ir a la pantalla ${n}`}
+                />
+              ))}
+            </div>
+            {!isKiosk && (
+              <button
+                type="button"
+                className="pd-fs pd-vertical"
+                onClick={() => setVerticalMode(true)}
+                title="Modo vertical (para Meet)"
+                aria-label="Modo vertical, para presentar en Meet"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="7" y="2.5" width="10" height="19" rx="2" />
+                  <line x1="10.5" y1="18.5" x2="13.5" y2="18.5" />
+                </svg>
+              </button>
+            )}
+            <button
+              type="button"
+              className="pd-fs pd-fs-principal"
+              onClick={toggleFullscreen}
+              aria-label={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
+            >
+              <span className="pd-fs-largo">{isFullscreen ? 'SALIR' : 'PANTALLA COMPLETA'}</span>
+              <span className="pd-fs-corto">{isFullscreen ? '✕' : '⛶'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── 1 · EN QUÉ CREEMOS (primera mitad) ─────────────────────── */}
+        <section className={`pd-slide pd-credo pd-credo--solo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">En qué creemos</p>
+            {/* h2 y no h1: el único h1 de la página es el de la guía de abajo
+                (GuiaPlanServilleta.tsx) — dos h1 rompen SEO y accesibilidad. */}
+            <h2 className="pd-credo-titulo">
+              Creemos que nadie debería entregar su vida entera al ciclo de trabajar,
+              pagar cuentas y repetir.
+            </h2>
+            <div className="pd-credo-rule" />
+            <p className="pd-kicker">CreaTuActivo · Presentación</p>
+          </div>
+        </section>
+
+        {/* ── 2 · LA OPORTUNIDAD ──────────────────────────────────────── */}
+        {/* Palabras del Director (30 sep 2026). Los pares van como lista: la lista
+            es la imagen, y el patrón se entiende sin explicarlo. */}
+        <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">La oportunidad</p>
+            <h2 className="pd-h2 pd-h2--media">
+              Hay una oportunidad enorme en modernizar industrias que están frente a
+              nuestros ojos.
+            </h2>
+            <ul className="pd-pares">
+              {PARES_MODERNIZACION.map(([de, a]) => (
+                <li key={a}>
+                  <span className="de">{de}</span>
+                  <span className="fl">→</span>
+                  <span className="a">{a}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ── 3 · DOS SECTORES ────────────────────────────────────────── */}
+        {/* «Network marketing» va ESCRITO (Director, 30 sep 2026): dentro de la ola
+            de modernización se lee como oportunidad, y resolvió el «ah, es como
+            Herbalife». ⚠️ Solo el nombre: cómo se hace hoy lo cuenta el socio en
+            vivo. Describirlo aquí sería un juicio sin voz sobre el método de otros. */}
+        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">Dónde la vemos</p>
+            <h2 className="pd-h2 pd-h2--media">Nosotros vemos esa oportunidad en dos sectores:</h2>
+            <div className="pd-sectores">
+              <div className="pd-sector">
+                <span className="k">01</span>
+                <p className="t">La industria del network marketing</p>
+              </div>
+              <div className="pd-sector">
+                <span className="k">02</span>
+                <p className="t">El sector laboral</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 4 · EL DOLOR, EN CIFRAS ─────────────────────────────────── */}
+        {/* El beat de «dos caminos para ganar» se ELIMINÓ el 9 oct 2026 (Director):
+            la pantalla 3 ya aplica la regla — el contexto lo da el socio en vivo, y
+            una pieza no concede. Las analogías (la fila del banco → Nequi, el taxi →
+            Uber) tampoco se escriben: la paleta del orador es la pantalla 2, y él
+            aplica la que le sirva a su público. El ciclo ya abrió el deck (credo).
+            El remate de los veinte lo cubre la cifra del DANE: 9 de cada 10 incluye
+            al que gana bien (solo el 7,7 % dice que le sobra). */}
+        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap pd-cifras" style={{ maxWidth: 940 }}>
+            {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
+            <p className="pd-eyebrow">El dolor, en cifras</p>
+            <div className="pd-cifras-lista pd-cifras-lista--tres">
+              {CIFRAS_PROBLEMA.map((c) => (
+                <div className="pd-cifra" key={c.n}>
+                  <p className="n">{c.n}</p>
+                  <p className="t">{c.texto}</p>
+                  <p className="f">{c.fuente}</p>
+                </div>
+              ))}
+            </div>
+            {/* La frase del asentimiento (Director, 18 oct 2026): cierra las tres
+                cifras como el ciclo cierra el credo. Visible con las cifras, al
+                tamaño de la pregunta del cierre, no en gris pequeño. */}
+            <p className="pd-bisagra">Hoy, la mayoría de las personas siente que tiene que hacer algo.</p>
+          </div>
+        </section>
+
+        {/* ── 5 · LA SOLUCIÓN Y CÓMO FUNCIONA ─────────────────────────── */}
+        <section className={`pd-slide ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+          {/* Beat 0: la solución, en palabras del Director (30 sep 2026). «Le vamos
+              a dar» pasó a «le damos»: se afirma, no se anuncia. Se llama «La
+              solución» desde el 18 oct 2026 (Director: así lo dice en vivo, y
+              cierra el arco que abren las cifras); la frase de «hacer algo» que
+              abría este beat se mudó a la pantalla 4, y aquí se abre directo. */}
+          <div className={`pd-beat ${slide === 5 && beat === 0 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La solución</p>
+              {/* BORRADOR (28 oct 2026): la definición del Director, sin el nombre
+                  de la aplicación (opción a: Queswa.app sigue siendo la revelación
+                  de la unión). Uber va UNA vez y con lo que se traslada —sin ser
+                  dueño de los carros—; las tres marcas sueltas obligaban a la
+                  persona a adivinar la relación, y la ola ya la contó la pantalla 2.
+                  La analogía pone a SU empresa en el lugar de Uber: si fuera
+                  Queswa, el prospecto quedaría de conductor. */}
+              <p className="pd-propuesta">
+                Le damos todo lo que necesita para tener su propia{' '}
+                <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>,
+                desde el celular.
+              </p>
+              <p className="pd-p" style={{ margin: '1.2rem auto 0', textAlign: 'center' }}>
+                Así como Uber mueve el transporte sin ser dueño de los carros, su empresa
+                vende sin ser dueña de la fábrica.
+              </p>
+              {/* El obstáculo con precio, en lugar de «Se requieren tres elementos»:
+                  un requisito es una lista que aprender; un obstáculo es algo que la
+                  persona ya siente. Lo cobra la frase de la unión («No son tres
+                  elementos que usted tenga que conseguir»). Corta a propósito: en
+                  mayúsculas y a este tamaño, la frase entera de la definición
+                  («armados por su cuenta…») competía con el titular; esa va en la
+                  voz del socio. */}
+              <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>
+                Tres elementos que le costarían millones:
+              </p>
+              {/* El socio elige: toca aquí y el video los explica, o hace clic en
+                  cualquier otra parte y los explica él (ver videoPropuesta). */}
+              <button
+                type="button"
+                className="pd-demo pd-ver-video"
+                onClick={(e) => { e.stopPropagation(); setVideoPropuesta(true); }}
+              >
+                VERLO EN VIDEO →
+              </button>
+            </div>
+          </div>
+
+          {/* Beats 1-3: cada pieza a solas y grande */}
+          {[0, 1, 2].map((i) => (
+            <div key={i} className={`pd-beat ${slide === 5 && beat === i + 1 ? 'on' : ''}`}>
+              <div className="pd-pieza">
+                {/* La pieza VIVE (10 oct 2026): loop cuadrado, mudo, con la imagen
+                    de siempre como poster. El efecto de media de abajo reproduce
+                    solo el beat activo y rebobina al salir — el patrón de la
+                    servilleta. El tap sobre el video sigue AVANZANDO, como en todo
+                    el deck: la pausa por tap de la servilleta existe para clips
+                    con audio y narrativa propia; un loop mudo no la necesita. */}
+                <video
+                  className="pd-figura"
+                  data-beat={`5-${i + 1}`}
+                  src={PIEZAS[i].video}
+                  poster={PIEZAS[i].img}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                />
+                <div>
+                  <p className="pd-eyebrow">Cómo funciona · {i + 1} de 3</p>
+                  <p className="pd-pieza-label">{PIEZAS[i].label}</p>
+                  <p className="pd-p">{PIEZAS[i].sub}</p>
+                  {PIEZAS[i].extra && <p className="pd-p pd-gold">{PIEZAS[i].extra}</p>}
+                  {/* Los hechos verificables viven aquí y no en la pantalla 4 (Director,
+                      24 sep 2026): es la pieza que los reclama. Van como ESTATUS —hay
+                      una empresa grande detrás—, nunca como alegato: nadie escoge al
+                      niño impopular porque le muestren el boletín de notas. */}
+                  {i === 1 && (
+                    <div className="pd-demos">
+                      {/* El FRENTE de la máquina: lo que ve quien usted envía. */}
+                      <button
+                        type="button"
+                        className="pd-demo"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.dispatchEvent(new CustomEvent('open-queswa'));
+                        }}
+                      >
+                        PREGÚNTELE ALGO AHORA →
+                      </button>
+                      {/* SU LADO de la máquina (Director, 18 oct 2026): queswa.app
+                          en una ventana del tamaño de un celular sobre el deck,
+                          abierta en Enlaces. El socio copia su enlace, lo comparte
+                          con quien tiene enfrente y el aviso le llega ahí mismo
+                          —«esto les parece magia»—, y la ventana sigue abierta para
+                          el tercer elemento (los equipos capacitándose). Hasta ese
+                          día tenía que salir del deck a buscar la aplicación.
+                          ⚠️ El rótulo no dice «Queswa.app»: ese nombre es el remate
+                          del beat de la unión. ⚠️ En el teléfono abre pestaña nueva. */}
+                      <button
+                        type="button"
+                        className="pd-demo"
+                        onClick={(e) => { e.stopPropagation(); abrirQueswaAppPorDentro(); }}
+                      >
+                        VERLA POR DENTRO →
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Beat 4: las tres quietas, antes de unirse. BORRADOR: sigue directo a
+              la tercera pieza — la tríada de Jobs sin desvío (el remate de la
+              multiplicación pasó al beat 7). */}
+          <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ textAlign: 'center' }}>
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
+              <div className="pd-tres">
+                {PIEZAS.map((p) => (
+                  <div className="col" key={p.label}>
+                    <div className="pd-figura" style={{ backgroundImage: `url(${p.quieta ?? p.img})` }} />
+                    <p className="cap">{p.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
+                Un fabricante… una máquina de ventas… una herramienta para multiplicar…
+              </p>
+            </div>
+          </div>
+
+          {/* Beat 6: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
+              10 oct 2026, tras presentarla en vivo: «mejor que el clip y el
+              texto estén en una sola»). Del 10 oct quedaron dos beats —primero
+              el aparato, un clic, después la palabra—, pero el clic de más caía
+              justo en el clímax, donde el socio más habla, y desde la v4 el cubo
+              queda quieto: ya no compite con el nombre, lo ilumina. La
+              secuencia de Jobs se conserva SIN clic: el texto entra cuando el
+              cubo ya se encendió (~3,8 s, sincronizado con el clip; ver
+              .pd-union en el CSS). En pantalla ancha, teléfono y texto van lado
+              a lado — en 16:9 apilados no caben —; en el teléfono, apilados.
+              El visual: el celular con la fusión de los tres elementos ADENTRO
+              (los tres cubos con sus íconos · la fábrica · la conversación · la
+              lista de pasos · volcándose en UNO) y el cubo que enciende su luz
+              interior y late, 60 s sin rearmarse. Receta reproducible:
+              captions/work/como-funciona/armar_telefono_union.py. ⚠️ El ORBE no
+              aparece (representa a la persona; aquí el protagonista es la
+              unión). El texto: lo dado primero (su empresa — la prometió el beat
+              0 — y la aplicación que la contiene, canon de WHY_02); lo NUEVO de
+              último: Queswa.app, que completa el patrón de la pantalla 2 (los
+              cinco pares resuelven en una app; el clímax, en la nuestra).
+              → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
+              v5 DEL CLIP (18 oct 2026, Director: «lo verdaderamente grandioso
+              sería que los tres elementos se fusionaran»): la fusión de los cubos
+              pasa EN GRANDE, el cubo se enciende y late una vez, y la cámara se
+              aleja —zoom honesto, sin morph— hasta mostrar que vive dentro del
+              celular; después late ahí hasta los 60 s. No se generó con IA: tres
+              objetos que se vuelven un celular es un cambio de forma, y esos salen
+              caóticos (22 sep). Receta: armar_telefono_union_v5.py. El celular
+              queda a la vista a ~6,3 s: los retrasos del texto van detrás. */}
+          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
+            <div className="pd-remate pd-union">
+              <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
+              <div className="pd-union-cuerpo">
+                <video
+                  className="pd-telefono"
+                  data-beat="5-5"
+                  src="/videos/presentacion/telefono-union-v5.mp4"
+                  poster="/videos/presentacion/telefono-union-v5-poster.webp"
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                />
+                <div className="pd-union-texto">
+                  <p className="grande grande--paso">
+                    Su empresa llega armada,<br />en una sola aplicación:
+                  </p>
+                  <p className="grande pd-nombre-app">
+                    Queswa.app
+                  </p>
+                  <p className="marca">CreaTuActivo.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Beat 7: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+              nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
+              2026): el enlace se presenta en la pantalla siguiente (Compartir) y
+              aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
+              eco del golpe recién revelado. ⛔ No volver a «el mercado que se va
+              creando»: en Colombia «el mercado» a secas es el de la casa, y la
+              permanencia se dice del CLIENTE, nunca en abstracto. */}
+          {/* BORRADOR: la propiedad cierra la cadena del modelo en el mismo beat,
+              como WHY_02 — queda a su nombre → por eso cada recompra le deja un
+              porcentaje. Sin cifra: la cifra es de la pantalla 8. */}
+          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
+              <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>
+              <p className="pd-p pd-cierre-linea pd-gold">
+                Cada vez que vuelve a comprar, a usted le queda un porcentaje.
+              </p>
+            </div>
+          </div>
+
+          {/* Beat 7: EL REMATE DE LA MULTIPLICACIÓN, en texto (18 oct 2026). Es uno
+              de los caballos de Troya del Director (10 oct): al empresario,
+              multiplicar es lo más difícil de cualquier empresa; al networker, sin
+              jefes ni horarios triunfa el que multiplica. BORRADOR: va después de
+              la propiedad, el orden de WHY_02 (quien quiere distribuir hace lo
+              mismo que usted), y ya no parte la tríada antes de la unión. */}
+          <div className={`pd-beat ${slide === 5 && beat === 7 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="grande">Solo se multiplica lo que es sencillo.</p>
+              <p className="pd-p pd-cierre-linea">
+                Quien inicia con usted recibe los mismos tres elementos y hace exactamente lo
+                mismo: comparte su enlace y recibe a quien llega.
+              </p>
+              <p className="pd-p pd-cierre-linea">
+                De ahí salen la multiplicación de su negocio y el aumento de su facturación.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 6 · EL PRODUCTO ─────────────────────────────────────────── */}
+        <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-foto" style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)' }} />
+          <div className="pd-wrap">
+            <div className="pd-producto">
+              <div>
+                <p className="pd-eyebrow">El producto</p>
+                {/* LA TAZA ES LA PUERTA DE ENTRADA, NO EL CAFÉ DE SIEMPRE (Director, 26 sep
+                    2026). Decía «Un hábito que no cambia» y «El café de siempre»: el marco
+                    del consumo diario, vetado porque pone el producto en el estante del
+                    supermercado. Ahora el café es la entrada a la línea (PROD_01 del
+                    catálogo), y el «todo» anuncia que detrás viene más: la pantalla no
+                    reduce el negocio a vender café.
+                    ⛔ Salió la ciencia usada para vender —«el hongo más estudiado del
+                    planeta, con más de 2.000 estudios»—: el 3 en 1 está registrado como
+                    ALIMENTO, y la ciencia al servicio de la venta deja de ser información y
+                    pasa a ser publicidad (NUCLEO_EVIDENCIA, wa-guardarrail-salud.ts).
+                    Lo sensorial es de BEB_07; «no se queda nada en el fondo de la taza» es
+                    del Director, y habla de la composición, no de la absorción. */}
+                <h2 className="pd-h2">Todo empieza con una taza premium.</h2>
+                <p className="pd-p">
+                  Café de cuerpo, aroma y el amargo justo de una buena cafetería, con el
+                  extracto de Ganoderma que Gano Excel cultiva y extrae por su cuenta. Se
+                  disuelve por completo: no se queda nada en el fondo de la taza.
+                </p>
+                {/* LA RECOMPRA POR RESULTADO, verbatim de PROD_01 (aprobado 24 sep 2026).
+                    Prepara la pantalla 8: aquí se dice por qué el cliente vuelve; allá, por
+                    qué esa recompra le deja un porcentaje. El dinero NO entra aquí.
+                    ⚠️ «Incorpora a su rutina» es la fórmula aprobada; lo vetado es el
+                    producto como algo que ya se consume. Y nunca «vuelve porque se le
+                    acaba»: vuelve porque nota la diferencia. */}
+                <p className="pd-p pd-gold">
+                  Su cliente lo incorpora a su rutina, nota la diferencia y vuelve a pedirlo
+                  el mes siguiente.
+                </p>
+                <p className="pd-cats-lead">El mismo extracto va en toda la línea</p>
+                <div className="pd-cats">
+                  {CATEGORIAS.map((c) => (
+                    <button
+                      type="button"
+                      className="pd-cat"
+                      key={c.label}
+                      style={{ backgroundImage: `url(${c.img})` }}
+                      aria-label={`Ver la línea ${c.label} en grande`}
+                      onClick={(e) => { e.stopPropagation(); setVisor({ src: c.img, alt: `Línea ${c.label}` }); }}
+                    >
+                      <span>{c.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="pd-link"
+                  onClick={(e) => { e.stopPropagation(); setVisor({ src: '/productos/productos.webp', alt: 'Portafolio de productos Gano Excel' }); }}
+                >
+                  VER TODO EL PORTAFOLIO →
+                </button>
+              </div>
+
+              <div className="pd-ficha panel">
+                {/* OFICIO, NO CIENCIA (Director, 26 sep 2026). Salieron «Estudios
+                    publicados 2.000+», «Compuestos bioactivos 200+» y «pionero mundial»
+                    (superlativo sin fuente). Quedan datos de CÓMO SE HACE —el híbrido, el
+                    cultivo propio, los años de proceso—, nunca de lo que hace en el cuerpo.
+                    El doctor queda como el origen del producto, no como autoridad
+                    científica. Fuente: la respuesta del catálogo sobre el Ganoderma.
+                    ⚠️ «lucidum» con minúscula: es nombre de especie (el CSS lo pone en
+                    mayúsculas igual). */}
+                <div className="titulo">Ganoderma lucidum</div>
+                <div className="pd-fila">
+                  <span className="k">Variedades en el híbrido</span>
+                  <span className="v">6</span>
+                </div>
+                <div className="pd-fila">
+                  <span className="k">Cultivo y extracción</span>
+                  <span className="v">Propios</span>
+                </div>
+                <div className="pd-fila">
+                  <span className="k">Años de proceso</span>
+                  <span className="v">Más de 30</span>
+                </div>
+                <p className="pie">
+                  Los seis colores del Reishi en un solo híbrido, obra del{' '}
+                  <strong>Dr. Leow Soon Seng</strong>, micólogo malasio que estudia este
+                  hongo desde 1983.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 7 · LA PREGUNTA ─────────────────────────────────────────── */}
+        {/* Sola, justo antes del dinero (caso Marlon, 26 sep 2026): con los detalles
+            el prospecto se oscurece, y lo que lo devuelve es una pregunta que él
+            contesta. Las cifras ya se dieron con el problema, en la 2. */}
+        <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap pd-pregunta">
+            <p className="pd-bisagra">¿Y usted, qué plan tiene para salir del ciclo?</p>
+          </div>
+        </section>
+
+        {/* ── 8 · CÓMO SE GANA ────────────────────────────────────────── */}
+        <section className={`pd-slide pd-numeros ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+          {/* Beat 0 — LO PRINCIPAL: el ingreso que se repite, con los 12 niveles
+              desde el Kit. */}
+          <div className={`pd-beat ${slide === 8 && beat === 0 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+              <div className="pd-numeros-top">
+                <p className="pd-eyebrow">Cómo se gana</p>
+                <div className="pd-moneda" role="group" aria-label="Moneda">
+                  {(['COP', 'USD'] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      className={moneda === m ? 'active' : ''}
+                      onClick={() => setMoneda(m)}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {/* El titular dice lo que el panel muestra: consumo que se repite, de
+                  clientes y de distribuidores. La propiedad ya se dijo en la 5. */}
+              {/* BORRADOR: el porcentaje ya lo dijo la propiedad (pantalla 5), así
+                  que el titular pasa a ser lo nuevo —la proyección— y los
+                  distribuidores, que la 5 no nombró, quedan en la línea de abajo. */}
+              <h2 className="pd-h2">
+                Así se ve si su sistema crece de a dos.
+              </h2>
+              <p className="pd-p pd-numeros-lead">
+                Suma lo que vuelven a pedir sus clientes y sus distribuidores, empezando por
+                el Kit de Inicio.
+              </p>
+              <div className="pd-paneles pd-paneles--uno">
+                {/* Panel B — los 12 niveles (2×2), de /12-niveles.
+                    SE QUEDA EN EL DECK (Director, 26 sep 2026): quien oye esto no es un
+                    inversionista acostumbrado al largo plazo, y trae tres creencias —que
+                    esto es para ganar en 50 años, que hay que quemar los barcos, y que
+                    para ganar de verdad hay que iniciar con el paquete grande—. Este
+                    simulador desarma las tres.
+                    EL PORCENTAJE SE ELIGE, y arranca en el 10% del Kit: la cifra por
+                    defecto es la de la forma más pequeña de iniciar, que es justo la
+                    tercera creencia desarmada. El 15, 16 y 17% son temporales, y la línea
+                    de abajo lo dice cada vez que se elige uno (ver TARIFAS_12). */}
+                <div className="panel">
+                  <h3>Los 12 niveles (2×2)</h3>
+                  <div className="pd-niveles">
+                    {PROYECCION_12.map((n) => (
+                      <button
+                        key={n.level}
+                        type="button"
+                        className={`pd-nivel ${n.level === nivel12 ? 'active' : ''} ${n.level < nivel12 ? 'done' : ''}`}
+                        onClick={() => setNivel12(n.level)}
+                        aria-label={`Nivel ${n.level}`}
+                      >
+                        {n.level}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
+                  <div className="pd-sub">
+                    {enCOP(nivelSel.people)} distribuidores nuevos · {enCOP(totalDistribuidores)} en
+                    total
+                  </div>
+
+                  <div className="pd-pkgs">
+                    {TARIFAS_12.map((t, i) => (
+                      <button
+                        key={t.pct}
+                        type="button"
+                        className={`pd-pkg ${tarifa12 === i ? 'active' : ''}`}
+                        onClick={() => setTarifa12(i)}
+                      >
+                        {t.nombre}<b>{t.pct}%</b>
+                      </button>
+                    ))}
+                  </div>
+
+                  <label className="pd-label">
+                    Recorra los 12 niveles<b>Nivel {nivel12}</b>
+                  </label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={12}
+                    value={nivel12}
+                    onChange={(e) => setNivel12(parseInt(e.target.value))}
+                    className="pd-slider"
+                    style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
+                  />
+                  <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
+                    <p className="pd-insight pd-tarifa-general">
+                      Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
+                      {tarifa.pct}% del volumen comisionable (GCV) de su sistema.
+                    </p>
+                    <div className="pd-vigencias">
+                      {TARIFAS_12.map((t, i) => (
+                        <p
+                          key={t.pct}
+                          className={`pd-insight ${tarifa12 === i && t.meses > 0 ? 'on' : ''}`}
+                          aria-hidden={tarifa12 !== i || t.meses === 0}
+                        >
+                          {t.meses > 0 &&
+                            `Con el ${t.paquete}, el ${t.pct}% rige los primeros ${t.meses} meses; después aplica el más alto entre el 10% base y el de su rango.`}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Beat 1 — EL BONO POR PAQUETES (Director, 30 sep 2026). Va DESPUÉS de lo
+              principal: quien inicia muchas veces necesita ganar pronto, y un deck que
+              no lo muestra parece haberlo olvidado. ⚠️ Se nombra por lo que lo mueve
+              —la compra de un paquete— y por su función —financia el crecimiento al
+              inicio—, NUNCA por su velocidad («rápido», «inmediato»): esa palabra la
+              pone el socio en vivo con su propia historia, que tampoco va a la
+              pantalla. Se cuentan PAQUETES COMPRADOS, nunca personas. */}
+          <div className={`pd-beat ${slide === 8 && beat === 1 ? 'on' : ''}`}>
+            <div className="pd-wrap" style={{ maxWidth: 1040 }}>
+              <div className="pd-numeros-top">
+                <p className="pd-eyebrow">Cómo se gana</p>
+                <div className="pd-moneda" role="group" aria-label="Moneda">
+                  {(['COP', 'USD'] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      className={moneda === m ? 'active' : ''}
+                      onClick={() => setMoneda(m)}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <h2 className="pd-h2">
+                Y cada paquete empresarial que se compra en su sistema le deja un bono.
+              </h2>
+              <p className="pd-p pd-numeros-lead">
+                Hasta la quinta generación. Es lo que financia el crecimiento al inicio.
+              </p>
+              <div className="pd-paneles pd-paneles--uno">
+                <div className="panel panel--gen5">
+                  <h3>Ingreso por paquetes</h3>
+                  <div className="pd-display">{monto(ingresoGen5COP)}</div>
+                  <div className="pd-gens">
+                    {gen5Por.map((usd, i) => (
+                      <div key={i} className="pd-gen">
+                        <span className="k">Gen {i + 1}</span>
+                        <span className="v">{montoCorto(gen5Paquetes * usd * TRM)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="pd-pkgs">
+                    {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
+                      <button
+                        key={p}
+                        type="button"
+                        className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
+                        onClick={() => setGen5Nivel(p)}
+                      >
+                        {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
+                      </button>
+                    ))}
+                  </div>
+                  <label className="pd-label">
+                    Paquetes comprados en cada generación<b>{gen5Paquetes}</b>
+                  </label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={10}
+                    value={gen5Paquetes}
+                    onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
+                    className="pd-slider"
+                  />
+                </div>
+              </div>
+              {/* Gano al final, como quien paga (WHY_02), con sus credenciales como
+                  estatus y no como alegato. */}
+              <p className="pd-nota">
+                Las comisiones las paga el fabricante, Gano Excel, cada semana, los viernes.
+              </p>
+              <p className="pd-credenciales">30 años · Más de 60 países · Nueve sedes en Colombia</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 9 · EL SIGUIENTE PASO ──────────────────────────────────── */}
+        {/* La segunda mitad del credo cierra el deck: el cuerpo ya mostró cómo el
+            esfuerzo se vuelve capital (el cliente a su nombre que vuelve a pedir).
+            La conversación es con el socio del ?ref, para cuando el deck se envía. */}
+        <section className={`pd-slide pd-final ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">En qué creemos</p>
+            <p className="pd-final-credo">
+              Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
+              en capital real.
+            </p>
+            <p className="pd-p">
+              Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
+              vez. Por eso el acceso va por lista de espera.
+            </p>
+            <p className="pd-bisagra">
+              El siguiente paso es una conversación
+              {nombreVisible && (
+                <>
+                  {' con '}
+                  {editandoNombre ? (
+                    <input
+                      className="pd-nombre-input"
+                      autoFocus
+                      value={nombreEscrito}
+                      maxLength={24}
+                      placeholder="Nombre"
+                      aria-label="Escriba el nombre de la persona"
+                      style={{ width: `${Math.max(6, nombreEscrito.length + 1)}ch` }}
+                      onClick={(e) => e.stopPropagation()}
+                      onChange={(e) => setNombreEscrito(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') confirmarNombre(nombreEscrito);
+                        if (e.key === 'Escape') confirmarNombre('');
+                      }}
+                      onBlur={() => confirmarNombre(nombreEscrito)}
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      className="pd-nombre"
+                      title="Toque para escribir el nombre de la persona"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setNombreEscrito('');
+                        setEditandoNombre(true);
+                      }}
+                    >
+                      {nombreVisible}
+                    </button>
+                  )}
+                </>
+              )}
+              {!nombreVisible && sinSocio && ' con el equipo'}
+              .
+            </p>
+            {!waSocio && sinSocio && (
+              <a
+                className="pd-demo pd-socio"
+                href={waEquipo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
+              >
+                ESCRIBIRLE AL EQUIPO POR WHATSAPP →
+              </a>
+            )}
+            {waSocio && (nombreDemo ? (
+              <span className="pd-demo pd-socio" aria-hidden="true">
+                ESCRIBIRLE A {nombreDemo.toUpperCase()} POR WHATSAPP →
+              </span>
+            ) : (
+              <a
+                className="pd-demo pd-socio"
+                href={waSocio}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.stopPropagation(); reportarAvance({ whatsapp: true }); }}
+              >
+                ESCRIBIRLE A {primerNombre!.toUpperCase()} POR WHATSAPP →
+              </a>
+            ))}
+            <div className="pd-credo-rule" />
+            <p className="pd-kicker">CreaTuActivo.com</p>
+            {/* BORRADOR: sin la señal de la guía; la guía SEO vive solo en /servilleta. */}
+          </div>
+        </section>
+
+        <div className="pd-counter">
+          {slide} / {TOTAL_SLIDES}
+        </div>
+
+
+        {/* ── Ventana del video de la propuesta ──────────────────────── */}
+        {/* El <video> se monta con el toque del socio, así suena: el navegador
+            deja arrancar con voz lo que la persona acaba de pedir (el mismo
+            patrón del video de la Home). */}
+        {videoPropuesta && (
+          <div
+            className="pd-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Video: cómo funciona"
+            onClick={() => setVideoPropuesta(false)}
+          >
+            <div className="pd-modal pd-modal--video" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="pd-close"
+                onClick={() => setVideoPropuesta(false)}
+                aria-label="Cerrar el video"
+              >
+                ×
+              </button>
+              <video
+                src={VIDEO_COMO_FUNCIONA_WA}
+                autoPlay
+                controls
+                playsInline
+                onTimeUpdate={(e) => {
+                  const v = e.currentTarget;
+                  if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona();
+                }}
+                onEnded={alTerminarVideoPropuesta}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* ── Modal del portafolio ────────────────────────────────────── */}
+        {visor && (
+          <div
+            className="pd-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label={visor.alt}
+            onClick={() => setVisor(null)}
+          >
+            <div className="pd-modal" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="pd-close"
+                onClick={() => setVisor(null)}
+                aria-label="Cerrar"
+              >
+                ×
+              </button>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={visor.src} alt={visor.alt} />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* MODO VERTICAL — la presentación en un marco de celular, para Meet. Abre
+          en la pantalla donde va el socio y con su ?ref; el teclado pasa al marco
+          apenas carga. */}
+      {verticalMode && !isKiosk && (
+        <div className="pd-vertical-overlay" ref={vOverlayRef}>
+          <div className="pd-vertical-marco" style={{ width: 412, height: 732, transform: `scale(${vScale})` }}>
+            <iframe
+              ref={vIframeRef}
+              src={`/servilleta/borrador?kiosk=1&pantalla=${slide}${refSocio ? `&ref=${encodeURIComponent(refSocio)}` : ''}`}
+              title="Presentación en modo vertical"
+              onLoad={() => vIframeRef.current?.contentWindow?.focus()}
+            />
+          </div>
+          <button
+            type="button"
+            className="pd-vertical-salir"
+            onClick={() => setVerticalMode(false)}
+            aria-label="Salir del modo vertical"
+            title="Salir (Esc)"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+    </>
+  );
+}

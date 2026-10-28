@@ -648,7 +648,7 @@ const NEXUSWidget: React.FC<NEXUSWidgetProps> = ({ isOpen, onClose, voiceState =
                 )}
 
                 {/* Quick Reply Chips — preguntas según contexto de página (canónico desde @/lib/queswa-greeting).
-                    En /productos Queswa es asesora de producto → los dos botones de la apertura de productos, sin CTA de negocio. */}
+                    En /productos Queswa es asesora de producto → los botones de la apertura de productos, con «Cómo es el negocio» como puerta al modelo (28 oct 2026). */}
                 {(() => {
                 const isProductsPage = typeof window !== 'undefined' && window.location.pathname.includes('/productos');
                 const activeQuickReplies = isProductsPage

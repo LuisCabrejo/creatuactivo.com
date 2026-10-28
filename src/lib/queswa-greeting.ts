@@ -142,17 +142,24 @@ export function getProductsGreeting(): string {
 }
 
 /**
- * Los dos botones de la apertura de productos — los mismos de WhatsApp
- * (`APERTURA_PRODUCTOS_OPCIONES`). En la web los atiende el motor por sus
+ * Los botones de la apertura de productos. Los dos primeros son los mismos de
+ * WhatsApp (`APERTURA_PRODUCTOS_OPCIONES`). En la web los atiende el motor por sus
  * puertas compartidas: «Ver el portafolio» → la imagen del portafolio con su pie
  * (conductor, 2.25a, dictado sin modelo); «Lista de precios» → las cuatro tablas
  * del catálogo con candado (bypass de precios). En la web la persona ya está en
  * la página del catálogo, así que se le dan los precios en el chat en vez del
  * enlace que manda WhatsApp.
+ *
+ * «Cómo es el negocio» (Director, 28 oct 2026) es solo de la web, A PROPÓSITO: el
+ * catálogo conversa en el chat web en todos los dispositivos desde el 13 oct, y la
+ * apertura de productos de WhatsApp ya casi no se dispara. Lo responde WHY_02
+ * por Camino A (respuestas-maestras.ts) y apaga el modo asesora (route.ts,
+ * `hablaDeNegocio`). No se «sincroniza» con WhatsApp.
  */
 export const QUESWA_PRODUCTS_QUICK_REPLIES = [
   'Ver el portafolio',
   'Lista de precios',
+  'Cómo es el negocio',
 ] as const;
 
 /**

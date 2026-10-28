@@ -348,6 +348,19 @@ export function preguntaTrasOrbeProductos(texto: string): string {
   return (texto || '').slice(m.index + m[0].length).replace(/^[\s.,;:!¡]+/, '').trim();
 }
 
+/**
+ * ¿La persona del catálogo pregunta por el negocio? Apaga el modo asesora del
+ * chat web de /productos (28 oct 2026), como `RE_HABLA_DE_NEGOCIO` lo apaga en el
+ * webhook. Es la misma lista, más una excepción: «registro sanitario» es una
+ * pregunta del producto, y el saludo del catálogo lo nombra.
+ */
+const RE_HABLA_DE_NEGOCIO_CATALOGO =
+  /negocio|ganar|\bgana(n|s)?\b|ganancia|comisi[oó]n|paquete|invertir|inversi[oó]n|sistema de distribuci[oó]n|niveles|\bplan\b|c[oó]mo funciona|dinero|plata|ingreso|socio|vincul|afili|registr|c[oó]mo (empiezo|inicio|arranco)|distribuidor/i;
+
+export function hablaDeNegocio(texto: string): boolean {
+  return RE_HABLA_DE_NEGOCIO_CATALOGO.test((texto || '').replace(/registros? sanitarios?|registro invima/gi, ''));
+}
+
 export const APERTURA_PRODUCTOS_OPCIONES: WAButton[] = [
   { id: 'productos_portafolio', title: 'Ver el portafolio' },
   { id: 'productos_precios',    title: 'Lista de precios' },

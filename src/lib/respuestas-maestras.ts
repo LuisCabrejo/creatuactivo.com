@@ -347,6 +347,8 @@ const RE_INVERSION_MARKETING =
  */
 const RESPUESTAS_MAESTRAS_CHIP: Record<string, string> = {
   '¿y esto cómo funciona, exactamente?': MASTER_WHY_02,
+  // El tercer botón del chat del catálogo (28 oct 2026, queswa-greeting.ts).
+  'cómo es el negocio': MASTER_WHY_02,
   '¿cómo lo haría yo? ¿qué hago en el día a día?': MASTER_EAM_01,
   // El botón del dinero de WhatsApp, escrito con su texto corto. La web lo
   // ofrece como «¿De dónde sale el dinero?», que ya resuelve por la expresión

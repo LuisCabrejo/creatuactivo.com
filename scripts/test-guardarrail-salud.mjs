@@ -191,6 +191,13 @@ const SALIDA_POSITIVOS = [
   // Ciencia como credencial sin cita (borrador a una socia, 15 sep 2026)
   'lleva extracto de Ganoderma — un hongo que llevan décadas estudiando por lo que le hace al cuerpo',
   'es el hongo más investigado del planeta, con más de 40 años de investigación detrás',
+  // La función de lo que se toma, dicha con «para» (respuesta compuesta al «sí» a
+  // «¿Le cuento en qué se diferencian estos productos entre ellos?», 25 oct 2026)
+  'El Reskine Colágeno y las cápsulas Cordygold son la línea de nutrición concentrada: colágeno para la piel y el tejido conectivo, y Cordyceps para el rendimiento físico.',
+  'Todos llevan extracto de Ganoderma, un hongo que se usa en la nutrición funcional.',
+  'Las cápsulas Cordygold y el Reskine Colágeno van dirigidos a quien busca vitalidad y cuidado de la piel desde adentro.',
+  'colágeno hidrolizado con ganoderma, pensada para la piel y las articulaciones',
+  'un suplemento con cordyceps y ganoderma, pensado para el rendimiento físico',
 ];
 
 // Respuestas BUENAS del canal (prueba real del 14 ago) — no pueden bloquearse
@@ -213,6 +220,13 @@ const SALIDA_NEGATIVOS_LITERALES = [
   'Es un producto rico en antioxidantes que apoya el sistema inmune, dentro de una rutina de bienestar.',
   'Los adaptógenos del Ganoderma acompañan su mañana: energía estable y claridad mental, sin los picos de ansiedad del café común.',
   'Las cápsulas son una forma conveniente de incorporar los nutrientes del Ganoderma a su rutina diaria.',
+  // Lo aprobado alrededor de los patrones del 25 oct 2026: «se asocia», la
+  // etiqueta entre paréntesis, las articulaciones y los cosméticos.
+  'El Cordyceps es el hongo que se asocia con el rendimiento físico y el aguante. Por eso este es el que suele buscar quien entrena.',
+  'Cápsulas concentradas: Ganoderma (apoyo inmune), Excellium (el micelio del hongo), Cordygold (rendimiento físico).',
+  'Reskine Colágeno · Colágeno para las articulaciones',
+  'El champú y el acondicionador Piel&Brillo llevan Ganoderma, para el cabello de toda la familia; el exfoliante, para la piel.',
+  'La línea de bebidas funcionales de Gano Excel cuenta con 9 productos.',
 ];
 
 // ─── Cero fuego amigo: candados del corpus + textos dictados ─────────────────

@@ -1,11 +1,11 @@
 # Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
 **Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
 
-**Versión actual: v7.13** (25 sep 2026) — **`BEB_02` sale del estómago.** El Ganocafé 3 en 1 se presentaba con un villano del café común que incluía el estómago y un remate que prometía su ausencia; el modelo lo generalizó a toda la línea y salió así en 28 respuestas en 30 días, una de ellas a una socia como ángulo de venta. Ahora el villano y su ausencia se dicen solo en vocabulario de energía, y sale también el mecanismo sobre la cafeína. Texto propuesto en el chat y aprobado por el Director; el mecanismo salió después, por la investigación del 25 sep 2026 (norma colombiana, Meta y ciencia). Índice sin tocar.
+**Versión actual: v7.14** (28 oct 2026) — **El catálogo guía con hábitos.** Nacen `HAB_01` (las cuatro pautas de base) y `HAB_02` (antes de entrenar y el pre-entreno), y `FAQ_01` nombra las precauciones concretas. Las ofertas de cierre van literales en los índices de `BEB_02` y `BEB_07`. Texto aprobado por el Director en el chat.
+
+**v7.13** (25 sep 2026) — **`BEB_02` sale del estómago.** El Ganocafé 3 en 1 se presentaba con un villano del café común que incluía el estómago y un remate que prometía su ausencia; el modelo lo generalizó a toda la línea y salió así en 28 respuestas en 30 días, una de ellas a una socia como ángulo de venta. Ahora el villano y su ausencia se dicen solo en vocabulario de energía, y sale también el mecanismo sobre la cafeína. Texto propuesto en el chat y aprobado por el Director; el mecanismo salió después, por la investigación del 25 sep 2026 (norma colombiana, Meta y ciencia). Índice sin tocar.
 
 **v7.12** (24 sep 2026) — **`PROD_01` deja el marco del café que ya se toma.** Vendía el café como el que la persona ya toma todos los días, el marco que pone el producto en el estante del supermercado justo antes del precio. Ahora es la puerta de entrada a la línea: una taza premium que el cliente incorpora a su rutina, y la recompra por resultado, con el mismo cierre que `WHY_PROD_01`. Texto aprobado por el Director en el chat. Índice sin tocar.
-
-**v7.11** (13 sep 2026) — **Auditoría con el Director: la línea roja de salud dentro de los candados, y el texto interno fuera de ellos.** Las columnas *Beneficio* de BEB_01, SUP_01 y PERS_01 dejan de decir *claridad mental*, *anti-inflamatorio*, *renovación celular*, *reduce caída* y *sin culpas*; CIENCIA_04 y CIENCIA_01 pierden la absorción garantizada y el secreto industrial; BEB_05 y FAQ_01 dejan la medicina y los siglos; BEB_03 pierde un 13 a 1 al revés y sin fuente; PROD_OVERVIEW pierde el párrafo de estrategia interna que servía al prospecto; *ecosistema* → *Gano Excel*. Precios intactos.
 
 **[Concepto Nuclear del archivo]:** Ganoderma Lucidum con extracción propia, más de 30 años de proceso y más de 200 compuestos. ⛔ **Decía *"Biodisponibilidad 100%"*** — retirado el 26 ago 2026: **la composición se afirma; la absorción no.** Esta cabecera no se sirve, pero es lo primero que lee quien vaya a editar.
 
@@ -199,7 +199,7 @@ La línea de bebidas funcionales de Gano Excel cuenta con **9 productos** — to
 ---
 
 ### BEB_02: "¿Para qué sirve el Ganocafé 3 en 1? / ¿Qué tiene de especial ese café?"
-**[Índice]:** Para qué sirve el Ganocafé 3en1, qué beneficios tiene el café 3 en 1, cuánto cuesta.
+**[Índice]:** Para qué sirve el Ganocafé 3en1, qué beneficios tiene el café 3 en 1, cuánto cuesta. ¿Le muestro lo que más se toma en la mañana?
 **[Concepto Nuclear]:** El villano es **la energía prestada**: el café común la entrega a las siete y la cobra a las once, y los intereses son los nervios de punta y el bajón. Marco financiero — el registro sube tomando prestado el léxico de las finanzas, no el del gremio. ⚠️ **Lo nuestro se dice solo en vocabulario de energía** (energía pareja, sin el bajón): un síntoma que pertenece a un órgano no entra ni como ausencia, porque al lado del villano se lee como beneficio de salud, y en Colombia esa categoría la aprueba el INVIMA por ingrediente —el Ganoderma no tiene ninguna para digestión—. Tampoco un mecanismo sobre la cafeína: ningún estudio en personas lo sostiene y el fabricante ya no lo publica (investigación del 25 sep 2026). ⚠️ **El cuarto ingrediente** es el remate: el nombre promete tres (café, crema no láctea, azúcar) y el valor está en el que no cabe en el nombre. ⚠️ NO comparar el precio con "el café de la esquina" — en Colombia hay tinto de $1.000 y el dato se lee como mentira.
 
 Con gusto. El café común no le da energía: se la presta. Y a media mañana se la cobra con intereses: los nervios de punta y el bajón.
@@ -276,7 +276,7 @@ Es la única forma de tomar colágeno en la que uno espera con ganas el momento 
 ---
 
 ### BEB_07: "¿Para qué sirve el Ganocafé Clásico? / ¿Qué es el Ganocafé Classic? / háblame del café negro / el clásico / el tinto de ustedes / café puro con ganoderma"
-**[Índice]:** Para qué sirve el Ganocafé Clásico, el café negro, el tinto, el Classic, cuánto cuesta.
+**[Índice]:** Para qué sirve el Ganocafé Clásico, el café negro, el tinto, el Classic, cuánto cuesta. ¿Le muestro el café negro de la línea?
 **[Concepto Nuclear]:** El purista NO quiere que le mejoren el café: quiere el suyo, y que nadie le meta crema ni azúcar. El argumento es la FIDELIDAD al tinto, no la mejora. ⚠️ Se diferencia del 3 en 1 nombrando lo que cada uno es, sin decir que uno sea mejor. ⚠️ La caja de 30 rinde un mes — dato objetivo, y el único lugar donde comparar con su hermano es legítimo porque los dos son nuestros.
 
 Con gusto. El Clásico es para quien toma el tinto negro y no lo negocia: café soluble puro, sin crema y sin azúcar, con el extracto de Ganoderma adentro.
@@ -614,7 +614,7 @@ Sí, y de hecho está pensado para eso: es una bebida, no un tratamiento. Se tom
 
 En Gano Excel el Ganoderma lleva treinta años de producción propia, con registro sanitario vigente en cada país.
 
-Y lo sensato de siempre: si usted está en tratamiento médico o tiene alguna condición, coméntelo con su médico antes — igual que con cualquier alimento o suplemento nuevo.
+Y lo sensato de siempre: si toma anticoagulantes o medicamentos para la presión o el azúcar, si tiene una cirugía cerca o está embarazada o lactando, coméntelo antes con su médico, como con cualquier suplemento nuevo. Que algo sea natural no lo vuelve compatible con todo.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se toman a lo largo de un día?
 
@@ -649,6 +649,35 @@ Un día con la línea se ve así:
 Una caja de 20 sobres alcanza para veinte mañanas. Son los mismos momentos que ya tiene, con otro producto en la mano.
 
 **Pregunta de seguimiento:** ¿Le muestro el catálogo completo, con las cuatro líneas y sus precios?
+
+---
+
+### HAB_01: "¿Qué hábitos me recomienda? / ¿Cómo tengo más energía en el día?"
+**[Índice]:** Qué hábitos me recomienda, cómo tener más energía en el día, qué hago para sentirme mejor, una rutina saludable.
+**[Concepto Nuclear]:** Nace el 28 oct 2026 (Director): en el catálogo Queswa es asesora de bienestar, y quien pregunta qué hacer para sentirse mejor recibe primero la base y después el producto, que acompaña y no reemplaza. Las cuatro pautas son las de mayor respaldo: OMS 2020 (150-300 min/semana de actividad moderada y fuerza dos días), AASM y NSF (7-9 h de sueño), EFSA 2010 (agua) y la umbrella review del BMJ 2024 sobre ultraprocesados. Fuentes completas en la investigación del 28 oct 2026 (docs/investigaciones/resultados/BIENESTAR_HABITOS_Y_MITOS_OCT2026.md). ⚠️ Las fuentes se quedan aquí: citarlas en la respuesta es ciencia citada, y el filtro de salida descarta el turno. ⚠️ Ninguna pauta va atada a un producto ni a una condición. ⚠️ Cierra en BEB_02, que lleva esta oferta literal en su índice.
+
+Lo que más pesa en cómo se siente uno en el día son cuatro cosas, y ninguna viene en un frasco:
+
+- **Moverse**: entre dos horas y media y cinco horas a la semana de actividad moderada (caminar rápido cuenta) y dos días de fuerza.
+- **Dormir** de siete a nueve horas.
+- **Agua** a lo largo del día, y más si entrena o hace calor.
+- **Comida que se cocina** más que comida de paquete.
+
+Sobre esa base, un buen producto acompaña el día.
+
+**Pregunta de seguimiento:** ¿Le muestro lo que más se toma en la mañana?
+
+---
+
+### HAB_02: "¿Qué tomo antes de entrenar? / ¿Qué opina del pre-entreno?"
+**[Índice]:** Qué tomo antes de entrenar, qué opina del pre-entreno, un pre entreno natural, algo para el gimnasio.
+**[Concepto Nuclear]:** Nace el 28 oct 2026 (Director). Lo que funciona antes de entrenar es comida, sueño, agua y, si se quiere, cafeína moderada (ISSN 2021). Las cifras de los pre-entrenos: en los 100 más vendidos, 254 mg de cafeína por porción en promedio y el 58 % con mezclas que no declaran cantidades (Jagim 2019); la FDA declaró ilegales la DMAA, la DMHA y la BMPEA; un café colado de 8 oz trae unos 95 mg. Las palpitaciones, el dolor en el pecho y el mareo tras un estimulante son señal de urgencias. ⚠️ El Ganocafé se ofrece como café, no como pre-entreno: ninguna cifra de su cafeína tiene fuente confiable (circulan 8,4, 10 y 80 mg por sobre), así que no se compara en miligramos. ⚠️ Nada de rendimiento atado a un producto. ⚠️ Se habla de la categoría y de la etiqueta, nunca de una marca. ⚠️ Cierra en BEB_07, que lleva esta oferta literal en su índice.
+
+Antes de entrenar, lo que funciona es sencillo: comer algo una o dos horas antes, haber dormido bien y llegar hidratado. Si quiere el empujón, una taza de café le da la cafeína en una dosis moderada.
+
+Con los pre-entrenos vale la pena leer la etiqueta. Muchos traen más de 250 mg de cafeína por porción, más que dos tazas de café colado juntas, y mezclas que no dicen cuánto lleva cada ingrediente. Algunos ingredientes que se vendían así hoy están prohibidos. Si después de tomar uno siente palpitaciones, dolor en el pecho o mareo, eso es para urgencias.
+
+**Pregunta de seguimiento:** ¿Le muestro el café negro de la línea?
 
 ---
 

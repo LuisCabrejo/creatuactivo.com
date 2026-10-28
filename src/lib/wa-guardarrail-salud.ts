@@ -207,6 +207,29 @@ export const RE_CLAIM_SALIDA: RegExp[] = [
   /(mejor|fortalec|estimul|proteg|regener|regul|restaur|optimiz)[a-z]*[^.]{0,30}\b(circulacion|cardiovascular|corazon|rinones|pulmones|respiratori|higado|cerebr|memoria|oxigenacion|celulas|prostata|tiroides|funcion sexual|libido)/,
   /(apoya|favorece|promueve|contribuye a|ayuda a)[^.]{0,35}\b(la salud|el funcionamiento|la funcion|el desarrollo)\b[^.]{0,30}\b(cerebr|corazon|circulator|cardiovascular|respiratori|digestiv|nervios|renal|rinones|higado|pulmon|huesos|sexual)/,
   /tonico para el cerebro|oxigenacion celular|regeneracion celular|desintoxicacion (natural|del organismo)|efecto detox/,
+  // Un producto que se TOMA, con la parte del cuerpo para la que sería
+  // («colágeno para la piel y el tejido conectivo, y Cordyceps para el
+  // rendimiento físico», respuesta que el modelo compuso el 25 oct 2026 al «sí» a
+  // «¿Le cuento en qué se diferencian estos productos entre ellos?»). Los patrones
+  // de órgano piden un verbo de mejora, y aquí no hay verbo: la función la pone el
+  // «para». ⚠️ Lo aprobado sigue verde: «el hongo que se ASOCIA con el rendimiento
+  // físico» (SUP_03), «Cordygold (rendimiento físico)» (PROD_OVERVIEW) y «colágeno
+  // para las ARTICULACIONES» (BEB_01, la única con declaración del INVIMA); el
+  // jabón y el champú «para la piel/el cabello» son cosméticos y quedan fuera,
+  // por eso la lista nombra solo lo que se toma (el Ganoderma, sin piel ni cabello).
+  // Backtest (25 oct 2026, 1.923 respuestas reales de 45 días y 592 fragmentos de
+  // los tres tenants): 4 respuestas, las cuatro compuestas por el modelo («pensada
+  // para la piel y las articulaciones», «pensado para el rendimiento físico»), y 0
+  // fragmentos de whatsapp y la web. En el Dashboard solo toca el título de CS_02
+  // («¿el cordyceps sirve para el rendimiento?»), que es la pregunta del socio.
+  /(colageno|reskine|cordyceps|cordygold|espirulina|spirulina|excellium)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  /(ganoderma|capsulas)[^.\n]{0,30}\bpara (el |la |los |las |su |sus )?(huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  // La anatomía y la «nutrición funcional»: describen lo que el producto le hace
+  // al cuerpo sin nombrar órgano ni enfermedad. «Bebidas funcionales» (el nombre
+  // de la línea en PROD_OVERVIEW y BEB_01) no entra: es categoría, no función.
+  // Backtest: 1 respuesta cada una (la del 25 oct y «cuidado de la piel desde
+  // adentro», del mismo día) y 0 fragmentos.
+  /tejido conectivo|nutricion funcional|(piel|cabello|unas)[^.\n]{0,25}desde (a)?dentro/,
   // Plazos y resultados clínicos prometidos
   /(resultados?|mejoria|mejoras?|cambios?|efectos?) (visibles |notables )?(en|a los|a las) \d+ (dias|semanas|meses)/,
   // La ciencia como credencial SIN cita y el efecto en el cuerpo sin nombrarlo:
@@ -400,12 +423,20 @@ export function contieneNucleoSalud(textoAsistente: string, nucleo: string): boo
 }
 
 /** Peso: la pregunta más natural del país. Un producto real, por sus hechos. */
+// Peso: después del marco van los hábitos, no un producto (Director, 28 oct 2026).
+// El Ganocafé que iba aquí quedaba pegado al objetivo de peso, que es la
+// insinuación del art. 5.3; y quien pregunta por su peso recibía una venta en vez
+// de una guía. Sin posesivo delante de médico: no dijo que fuera para ella.
+export const HABITOS_PESO =
+  'Lo que se sostiene en el tiempo son los hábitos: moverse la mayoría de los días, con dos de ' +
+  'fuerza; dormir de siete a nueve horas; y más comida que se cocina que comida de paquete. Para un ' +
+  'plan a la medida, un médico o un nutricionista.';
+
 export const RECHAZO_SALUD_PESO =
-  'Comprendo su objetivo, y me alegra que esté buscando opciones para cuidar su bienestar.\n\n' +
+  'Comprendo su objetivo.\n\n' +
   NUCLEO_PESO + '\n\n' +
-  'Dicho esto, el compañero ideal para cualquier rutina saludable es el Ganocafé Clásico: un café ' +
-  'negro premium, sin azúcar ni crema, que le da energía pareja desde temprano.\n\n' +
-  '¿Le cuento cómo integrarlo en su rutina?';
+  HABITOS_PESO + '\n\n' +
+  '¿Le muestro el catálogo completo para que vea las presentaciones?';
 
 /** Azúcar (diabetes, glucosa, insulina): el hecho de composición —sin azúcar— dicho con orgullo. */
 export const RECHAZO_SALUD_AZUCAR =

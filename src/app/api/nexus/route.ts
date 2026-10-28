@@ -30,7 +30,7 @@ import {
   microPromptNoPrimero, microPromptPuertaAbierta,
 } from '@/lib/wa-ambivalencia';
 import { getRespuestaMaestra, buildVerbatimStream } from '@/lib/respuestas-maestras';
-import { sinSimuladorParaSocio } from '@/lib/wa-apertura';
+import { sinSimuladorParaSocio, hablaDeNegocio } from '@/lib/wa-apertura';
 import {
   detectarEmergencia, clasificarPreguntaSalud, esRechazoSalud,
   rechazoSaludPorFamilia, saludSeCompone, nucleoSalud, detectarClaimSaludEnSalida,
@@ -70,7 +70,7 @@ import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib
  */
 const SUPERVISOR_ANTES_DE_ENVIAR = false;
 import {
-  NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, NUCLEO_EVIDENCIA, NUCLEO_REINCIDE,
+  NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, NUCLEO_EVIDENCIA, NUCLEO_REINCIDE, HABITOS_PESO,
   CIERRE_SALUD, CIERRE_EVIDENCIA, CIERRE_REINCIDE,
   RECHAZO_SALUD_EVIDENCIA, RECHAZO_SALUD_COMUN_PREGUNTA,
   contieneNucleoSalud, declaraCondicion, pideEvidencia,
@@ -4597,6 +4597,16 @@ export async function POST(req: Request) {
 
     const latestUserMessage = messages[messages.length - 1].content;
 
+    // El catálogo deja de ser asesora en cuanto la persona pregunta por el negocio
+    // —el botón «Cómo es el negocio», el puente del final de la página o con sus
+    // palabras— y no vuelve en ese hilo (28 oct 2026): desde ahí los cierres
+    // siguen el negocio, como en WhatsApp.
+    if (pageContext === 'catalogo_productos'
+      && messages.some((m: { role: string; content: unknown }) => m.role === 'user' && typeof m.content === 'string' && hablaDeNegocio(m.content))) {
+      pageContext = 'default';
+      console.log('🛒 [NEXUS] Preguntó por el negocio desde el catálogo — el modo asesora se apaga');
+    }
+
     // ════════════════════════════════════════════════════════════════════════════
     // 🛡️ GUARDARRAÍL DE SALUD — LADO DE ENTRADA
     // ════════════════════════════════════════════════════════════════════════════
@@ -5869,10 +5879,13 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
       // 14 oct 2026: ni una frase de las que se quieren evitar se cita aquí —el
       // modelo las copiaba— y el arranque se pide en positivo: en la web abría
       // anunciando cómo iba a responder en vez de responder.
-      const reglasAsesoraDeProducto = `⛔ Si pide un producto PARA un propósito —limpiar, desintoxicar, bajar, mejorar
-   algo del cuerpo, tener energía—, no vincule ningún producto a ese propósito y
-   no explique por qué: pase derecho a lo que hay —lo que más se toma en la
-   mañana, lo que no lleva café, lo que va en cápsula— y la elección queda en ella.
+      // 28 oct 2026 (Director): ante un propósito, primero el hábito y después lo
+      // que hay. Los hábitos viven en HAB_01 y HAB_02 de catalogo_productos.
+      const reglasAsesoraDeProducto = `⛔ Si pide un producto PARA un propósito —tener energía, entrenar, dormir,
+   sentirse mejor—, primero va el hábito que más pesa en ese propósito, en una o
+   dos líneas; después, lo que hay —lo que más se toma en la mañana, lo que no
+   lleva café, lo que va en cápsula—, sin atar ningún producto al propósito. La
+   elección queda en ella.
 
 ✅ La primera frase ya es del producto, sin preámbulo sobre cómo va a responder:
    qué lleva, cómo se prepara, en qué presentación viene, cuánto cuesta y con qué
@@ -5983,9 +5996,9 @@ o esa misma línea — no sobre otro.${desdeCatalogo}`;
         // Grave: NINGÚN producto concreto en este turno — ofrecerlo justo
         // después de esa pregunta es la insinuación que prohíbe el art. 5.3 de
         // la Res. 3096. Lo que se ofrece es lo verificable de la línea entera.
-        const oferta = fam === 'peso'
-          ? 'el *Ganocafé Clásico*: café negro premium, sin azúcar ni crema, que le da energía pareja desde temprano'
-          : fam === 'azucar'
+        // Peso: los hábitos, literales, en vez de un producto (Director, 28 oct
+        // 2026). Ver HABITOS_PESO.
+        const oferta = fam === 'azucar'
           ? 'el *Ganocafé Clásico* (café negro premium sin azúcar ni crema) y las *Cápsulas de Ganoderma* (el extracto puro, sin nada más)'
           : fam === 'grave'
           ? 'lo que hay detrás de cada producto —qué lleva, cómo se extrae el Ganoderma, en qué presentación viene y con qué registro—. ⛔ En este turno NO escriba el nombre de ningún producto (ni Ganocafé, ni Rooibos, ni cápsulas, ni como ejemplo): hable de «cada producto» y «la línea»'
@@ -6058,8 +6071,12 @@ Escriba exactamente tres párrafos y una pregunta, en este orden:
 ${nucleo}
 </verbatim_lock>
 
-3. UN PÁRRAFO DE DOS O TRES FRASES que abra con «${fam === 'grave' || fam === 'evidencia' ? 'Lo que sí' : 'Dicho esto,'}» y ofrezca ${oferta}.
-   ${fam === 'grave' || fam === 'evidencia' ? 'Diga qué es lo verificable y que se lo da con exactitud.' : 'Diga lo que el producto ES: composición, preparación, presentación.'}
+${fam === 'peso' ? `3. ESTE PÁRRAFO, palabra por palabra, sin cambiar ni agregar nada. En este turno
+   no nombre ningún producto:
+<verbatim_lock>
+${HABITOS_PESO}
+</verbatim_lock>` : `3. UN PÁRRAFO DE DOS O TRES FRASES que abra con «${fam === 'grave' || fam === 'evidencia' ? 'Lo que sí' : 'Dicho esto,'}» y ofrezca ${oferta}.
+   ${fam === 'grave' || fam === 'evidencia' ? 'Diga qué es lo verificable y que se lo da con exactitud.' : 'Diga lo que el producto ES: composición, preparación, presentación.'}`}
 
 4. ${fam === 'grave' ? `Cierre con ${cierre}.` : `Cierre exactamente con: ${cierre}`}
 

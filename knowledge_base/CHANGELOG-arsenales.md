@@ -2370,6 +2370,17 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.14 — El catálogo guía con hábitos (28 oct 2026)
+
+El Director quiso que en el catálogo Queswa fuera de verdad asesora de bienestar: que a quien busca sentirse mejor le dé primero la base (hábitos, deporte) y después el producto, y que sepa desmentir con respeto mitos como el del pre-entreno. La investigación del mismo día está en [BIENESTAR_HABITOS_Y_MITOS_OCT2026.md](../docs/investigaciones/resultados/BIENESTAR_HABITOS_Y_MITOS_OCT2026.md).
+
+- **HAB_01** — las cuatro pautas de mayor respaldo: moverse (OMS), dormir de siete a nueve horas, agua y comida que se cocina. Cierra en `BEB_02`.
+- **HAB_02** — antes de entrenar: comida, sueño, agua y, si se quiere, una taza de café; y los pre-entrenos por su etiqueta (más de 250 mg de cafeína por porción, mezclas sin cantidades, ingredientes hoy prohibidos), con la señal de urgencias. Cierra en `BEB_07`. El Ganocafé se ofrece como café, no como pre-entreno, porque su cafeína no tiene cifra con fuente.
+- **FAQ_01** — el «coméntelo con su médico» genérico pasa a nombrar las precauciones concretas: anticoagulantes, medicamentos para la presión o el azúcar, cirugía cercana, embarazo y lactancia.
+- **BEB_02** y **BEB_07** — llevan en su índice, literal, la oferta con que cierran HAB_01 y HAB_02.
+
+Quedan fuera del arsenal a propósito los mitos de detox, quemadores, tés adelgazantes, ayunos y «el reishi cura»: el filtro de entrada los desvía antes de llegar al modelo. La respuesta de peso de ese filtro cambió con esta versión (`HABITOS_PESO` en `wa-guardarrail-salud.ts`): después del marco van los hábitos, no el Ganocafé.
+
 ### v7.13 — `BEB_02` sale del estómago (25 sep 2026)
 
 `BEB_02` (Ganocafé 3 en 1) pintaba el café común con «los nervios alterados y el estómago resentido a media mañana» y remataba con «amortigua la cafeína… Sin nervios, sin acidez, sin factura». La acidez es un síntoma del estómago: dicha como ausencia, al lado de ese villano, se lee como beneficio digestivo. El modelo lo generalizó a toda la línea («la energía pareja y sin acidez la tiene en los dos») y salió así en 28 respuestas en 30 días; el 24 sep el Dashboard se lo dio a una socia como ángulo para presentarlo a deportistas.

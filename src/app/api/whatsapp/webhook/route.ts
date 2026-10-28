@@ -806,9 +806,16 @@ async function procesarEntrante(body: any): Promise<void> {
     if (_cookieWeb && messageText) messageText = limpiarCookieWeb(messageText);
     const _paisCodigo = paisDeContactoWA(phoneNumber);
 
+    // Un socio que escribe por primera vez tocando el enlace de otro (o el suyo)
+    // no queda con ese patrocinador: ver la regla del prospecto existente, abajo.
+    // Se consulta solo en el primer mensaje que trae enlace, y el resultado se
+    // reutiliza en el 1.38 (`socioQueEscribe`) para no repetir la consulta.
+    let _socioDelPrimerContacto: Awaited<ReturnType<typeof identificarSocio>> | undefined;
+    if (esPrimerContacto && patrocinador) _socioDelPrimerContacto = await identificarSocio(supabase, phoneNumber);
     if (esPrimerContacto) {
       // Primer mensaje — crear prospect con atribución completa
       const source = isCTWA ? 'whatsapp_ctwa' : 'whatsapp_inbound';
+      const _atribuir = _socioDelPrimerContacto ? null : patrocinador;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error: insertError } = await (supabase as any)
         .from('prospects')
@@ -823,16 +830,16 @@ async function procesarEntrante(body: any): Promise<void> {
           // línea antes de "simplificar" el valor.
           stage: 'expansion',
           source,
-          ...(patrocinador && { constructor_id: patrocinador.userId }),
+          ...(_atribuir && { constructor_id: _atribuir.userId }),
           device_info: {
             channel: 'whatsapp',
             phone: phoneNumber,
             name: contactName,
             // El país, dicho: el Dashboard lo pone en sus avisos (8 oct 2026).
             ...(_paisCodigo && { pais: nombrePais(_paisCodigo) ?? _paisCodigo, pais_codigo: _paisCodigo }),
-            ...(patrocinador && {
-              invited_by:          patrocinador.constructorId,
-              patrocinador_nombre: patrocinador.nombre,
+            ...(_atribuir && {
+              invited_by:          _atribuir.constructorId,
+              patrocinador_nombre: _atribuir.nombre,
             }),
             // Quién le pasó el enlace. NO cambia la atribución —esa es del socio—
             // pero permite saludarla nombrándolo y avisarle a él cuando conversen.
@@ -872,7 +879,12 @@ async function procesarEntrante(body: any): Promise<void> {
       }
       // Si llegó sin dueño y ahora escribe con el código de un socio, se atribuye.
       // NUNCA se reasigna un prospecto que ya tiene patrocinador.
-      if (patrocinador && !existingProspect.constructor_id) {
+      // ⚠️ Y una ficha de SOCIO no recibe patrocinador por tocar un enlace (25 oct
+      // 2026): la del Director (`wa_573203415438`, es_socio, sin dueño porque es la
+      // raíz) tocó el de Yina Prieto el 23 oct a las 6:33 p. m. para verlo, el nodo
+      // «socio: tocó un enlace de canal» le contestó como a socio, y la ficha quedó
+      // con Yina como dueña. Quien toca el enlace de otro socio lo está mirando.
+      if (patrocinador && !existingProspect.constructor_id && existingProspect.device_info?.es_socio !== true) {
         patch.constructor_id = patrocinador.userId;
         console.log(`🔗 [WA Webhook] Prospect existente atribuido a ${patrocinador.constructorId}`);
       }
@@ -1090,7 +1102,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // asistente de sí mismo, para después explicarle el negocio que ya compró.
     // La detección es determinística —su teléfono está en `constructor_slugs`—,
     // así que no hay margen de error ni costo de modelo.
-    let socioQueEscribe = await identificarSocio(supabase, phoneNumber);
+    let socioQueEscribe = _socioDelPrimerContacto !== undefined ? _socioDelPrimerContacto : await identificarSocio(supabase, phoneNumber);
 
     // ─── 1.385 El vínculo por token: el socio al que no se le ve el teléfono ──
     // Meta esconde el número de quien usa nombre de usuario tras un BSUID, y por

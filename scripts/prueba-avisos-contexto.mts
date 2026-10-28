@@ -15,6 +15,7 @@ const {
   destinatarioDe, quien, lineaContacto, origenDeLlegada, haceCuanto, leerSenales,
   detectarPromesaDeAviso, extraerHuellaWeb, limpiarHuellaWeb, textoLlegada, textoRegreso,
   textoDestacado, textoPromesa, avisarLlegada, extraerCookieWeb, limpiarCookieWeb,
+  textoTresVideos, invitacionAEscribirle, esTelefonoDelEquipo, avisarSiRegresa, avisarTresVideos, revisarDestacado,
 } = await import('../src/lib/wa-avisos-contexto.ts');
 const { paisDeContactoWA, paisesNombrados } = await import('../src/lib/paises.ts');
 
@@ -125,6 +126,39 @@ es(promesa.startsWith('📌 Le dije a'), 'la promesa al equipo empieza con mayú
 console.log('\n── 7. La entrega en ensayo no sale a ningún lado ──');
 await avisarLlegada(null, { dest: equipo, nombre: 'Aldo Moller', contacto: ALDO, origen: 'desde creatuactivo.com, sin enlace de socio', primerMensaje: 'Hola Queswa, quiero saber cómo funciona' });
 es(true, 'avisarLlegada en ensayo termina sin red');
+
+console.log('\n── 8. Sin número no se le pide al socio que escriba (25 oct 2026) ──');
+// Tres de los siete prospectos de Yina Prieto (23–25 oct) escribían con nombre de
+// usuario: «Le conviene escribirle usted» le pedía lo que no podía hacer.
+const BSUID = 'CO.1631409005118401';
+const yina = destinatarioDe({ constructorId: 'yina-paola-prieto-morales-7729', nombre: 'Yina Paola Prieto Morales', whatsapp: '573232344867' });
+for (const [nombre, t] of [
+  ['tres videos', textoTresVideos(yina, 'Adry Escobar', BSUID)],
+  ['destacado', textoDestacado(yina, 'Adry Escobar', BSUID, ['· Armó en el simulador una renta con el Kit.'])],
+] as const) {
+  es(!/Le conviene escribirle usted/.test(t), `${nombre}, sin número: no le pide escribirle`);
+  es(/nombre de usuario/.test(t), `${nombre}, sin número: dice por qué no hay teléfono`);
+}
+es(/^Le conviene escribirle usted\. Su número es 3143242387\.$/m.test(textoTresVideos(yina, 'Yensy Garzón', '573143242387')), 'con número, la invitación y el número siguen');
+es(invitacionAEscribirle(BSUID) === '' && invitacionAEscribirle('573143242387') !== '', 'invitacionAEscribirle: vacía sin número');
+
+console.log('\n── 9. El teléfono del equipo no genera avisos (25 oct 2026) ──');
+// El 320 («Crea Tu Activo») probó los enlaces: a Liliana le llegó «🔁 Crea Tu
+// Activo volvió a escribirle a Queswa» y al Director «🎬 … ya vio los tres videos».
+for (const c of ['573206805737', '+57 320 680 5737', 'wa_573206805737', '573215193909']) es(esTelefonoDelEquipo(c), `«${c}» es del equipo`);
+for (const c of ['573203415438', '573143242387', BSUID, 'CA.951546381359010', '', null]) es(!esTelefonoDelEquipo(c as string), `«${c}» no es del equipo`);
+const salidas: string[] = [];
+const logOriginal = console.log;
+console.log = (...a: unknown[]) => { salidas.push(a.map(String).join(' ')); };
+const sinBase = null;
+try {
+  await avisarLlegada(sinBase, { dest: yina, nombre: 'Crea Tu Activo', contacto: '573206805737', origen: 'por su enlace', primerMensaje: 'Hola Queswa, vengo del enlace de yina-prieto' });
+  await avisarSiRegresa(sinBase, { destino: async () => yina, fingerprint: 'wa_573206805737', nombre: 'Crea Tu Activo', contacto: '573206805737', mensaje: 'Hola', inicioTurno: new Date().toISOString() });
+  await avisarTresVideos(sinBase, { dest: yina, fingerprint: 'wa_573206805737', nombre: 'Crea Tu Activo', contacto: '573206805737' });
+  await revisarDestacado(sinBase, { dest: yina, fingerprint: 'wa_573206805737', nombre: 'Crea Tu Activo', contacto: '573206805737', historial: [{ role: 'user', content: 'hola' }], mensaje: 'Acabo de usar el simulador de renta' });
+} finally { console.log = logOriginal; }
+es(salidas.filter((l) => /🔕/.test(l)).length === 4, `los cuatro avisos se callan para el 320 (${salidas.filter((l) => /🔕/.test(l)).length} de 4)`);
+es(!salidas.some((l) => /WA_DRY_RUN\] (aviso|push)/.test(l)), 'y ninguno llega a la entrega');
 
 console.log(fallos ? `\n❌ ${fallos} fallo(s)` : '\n✅ Todo en verde');
 process.exit(fallos ? 1 : 0);

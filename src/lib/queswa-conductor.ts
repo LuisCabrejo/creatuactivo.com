@@ -260,6 +260,52 @@ export async function textoDeCandado(supabase: any, tenant: string, categoria: s
 }
 
 /**
+ * El fragmento del catálogo que responde «¿Le cuento en qué se diferencian…?»
+ * (nodo 2.37). La oferta sola no basta para las dos del pie de foto («entre
+ * ellas», «los tres»): se exige que el turno anterior nombre esa línea, para no
+ * atender una pregunta igual que el modelo haya escrito sobre otra cosa.
+ */
+export function categoriaDeLasDiferencias(cierreBot: string, ultimoBot: string): string | null {
+  const c = cierreBot || '';
+  if (/en qu[eé] se diferencian estos productos entre ellos/i.test(c)) return 'catalogo_productos_PROD_OVERVIEW';
+  if (/en qu[eé] se diferencian estas bebidas/i.test(c)) return 'catalogo_productos_BEB_01';
+  if (/en qu[eé] se diferencian entre ellas/i.test(c) && /ganocaf[eé]/i.test(ultimoBot) && /schokolade|rooibos|reskine|spirulina/i.test(ultimoBot)) return 'catalogo_productos_BEB_01';
+  if (/en qu[eé] se diferencian los tres/i.test(c) && /cordygold/i.test(ultimoBot) && /excellium/i.test(ultimoBot)) return 'catalogo_productos_SUP_01';
+  return null;
+}
+
+/**
+ * Cuerpo y pregunta de un candado del catálogo. A diferencia de `leerCandado`,
+ * tolera el candado sin cerrar: en PROD_OVERVIEW la `---` del final quedó
+ * DENTRO del candado y el fragmentador cortó ahí, así que el fragmento llega con
+ * `<verbatim_lock>` y sin `</verbatim_lock>`, con la pregunta de seguimiento
+ * adentro. El cuerpo termina donde empieza esa pregunta.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function candadoDeCatalogo(supabase: any, tenant: string, categoria: string): Promise<string | null> {
+  const { data } = await supabase
+    .from('nexus_documents').select('content')
+    .eq('tenant_id', tenant).eq('category', categoria)
+    .maybeSingle();
+  return candadoDeContenido(data?.content ?? '');
+}
+
+/** La parte pura de `candadoDeCatalogo`, para el arnés. */
+export function candadoDeContenido(content: string): string | null {
+  const ini = content.indexOf('<verbatim_lock>');
+  if (ini < 0) return null;
+  let cuerpo = content.slice(ini + '<verbatim_lock>'.length);
+  const fin = cuerpo.indexOf('</verbatim_lock>');
+  if (fin >= 0) cuerpo = cuerpo.slice(0, fin);
+  const iPregunta = cuerpo.search(/\*\*Pregunta de seguimiento:\*\*/);
+  if (iPregunta >= 0) cuerpo = cuerpo.slice(0, iPregunta);
+  cuerpo = cuerpo.replace(/\n\s*-{3,}\s*$/, '').trim();
+  if (cuerpo.length < 40) return null;
+  const cierre = content.match(/\*\*Pregunta de seguimiento:\*\*\s*([^\n]+)/)?.[1]?.trim();
+  return cierre ? `${cuerpo}\n\n${cierre}` : cuerpo;
+}
+
+/**
  * El slug amigable del socio, por su `constructor_id` o por el propio slug —
  * la web manda uno u otro según lo que traiga el `ref`.
  */
@@ -399,8 +445,19 @@ export function pideLaEstrategia(mensaje: string): boolean {
     && !RE_ESTRATEGIA_DE_OTRA_COSA.test(m) && !/cu[aá]nto|gan[ao]|precio|vale|cuesta|tabla|inscrib|vincul/i.test(m);
 }
 
-/** El turno del bot que nombra la estrategia, en la oferta escrita o en la del modelo. */
-const RE_NOMBRA_ESTRATEGIA = /12 niveles|estrategia de los 12|estrategia con la que se construye/i;
+/**
+ * El turno del bot que nombra la estrategia, en la oferta escrita o en la del modelo.
+ *
+ * «¿Le muestro cómo crece ese porcentaje sin que le toque conseguir a todos los
+ * clientes usted?» (el cierre de WHY_04, tras el video «Cómo entra el dinero»)
+ * también: promete lo que NIVELES_01 responde, y la bitácora ya la cuenta como
+ * oferta de la estrategia (`OFERTA_A_TEMA`). Hasta el 25 oct 2026 su «sí» iba al
+ * motor, que dictaba el APALANCAMIENTO —el primer párrafo de NIVELES_01 y una
+ * línea, sin una cifra— y volvía a ofrecer la estrategia: Yensy Garzón (23 oct,
+ * 6:24 p. m.) dijo «Sí», recibió dos frases y otra pregunta, y no volvió. Ahora
+ * recibe el video de Los 12 Niveles, que abre con ese mismo párrafo.
+ */
+const RE_NOMBRA_ESTRATEGIA = /12 niveles|estrategia de los 12|estrategia con la que se construye|c[oó]mo crece ese porcentaje/i;
 
 /** Una pregunta de cierre que ofrece otra cosa: las formas de empezar, los paquetes, el catálogo… */
 const RE_CIERRE_OFRECE_OTRO_DESTINO = /cuatro (formas|opciones)|formas de (empezar|arrancar|iniciar)|paquetes?|cat[aá]logo|productos?|precios?|con cu[aá]l|qu[eé] trae|simulador|tabla|video/i;
@@ -577,6 +634,35 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
       simulador: { pantalla, cuerpo, primeraVez },
       persistir: `${cuerpo} [Simulador ${primeraVez ? 'enviado' : 'reenviado'}]`,
     };
+  }
+
+  // ── 2.37 El «sí» a «¿Le cuento en qué se diferencian…?» va al catálogo ────
+  // La tabla del paquete (`tablaPaqueteDictada`, route.ts) y el pie de la foto de
+  // las bebidas y de los suplementos cierran ofreciendo las diferencias, y ningún
+  // fragmento tenía esa oferta: el «sí» buscaba con ella, el vector traía
+  // cualquier cosa (ADV_VAL_03, el porqué del ESP-3) y el modelo componía la
+  // diferencia de su cuenta. El 25 oct 2026 escribió «colágeno para la piel y el
+  // tejido conectivo, y Cordyceps para el rendimiento físico» y «se acaba el
+  // producto y vuelve a pedir» (wa_573114033587, 8:09 a. m.), y esa misma noche
+  // «cuidado de la piel desde adentro» a otra persona. La intención del Director
+  // (13 sep 2026) era que lo atendiera el catálogo: aquí se le entrega el texto
+  // aprobado de la línea, sin modelo. Solo en Colombia: las tablas van en pesos,
+  // y fuera de Colombia el precio va en dólares; allá sigue el motor.
+  if (!vieneDelSimulador && b.aceptaSola && !b.pideSimulador && ctx.pais === 'CO') {
+    const categoria = categoriaDeLasDiferencias(b.cierreBot, b.ultimoBot);
+    if (categoria) {
+      try {
+        const texto = await candadoDeCatalogo(ctx.supabase, ctx.tenant, categoria);
+        const plano = (t: string) => t.replace(/[*_>|#]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+        const apertura = texto ? plano(texto).slice(0, 70) : '';
+        const yaLoVio = !!apertura && historial.some((m) => m.role === 'assistant' && plano(m.content).includes(apertura));
+        if (texto && !yaLoVio) {
+          return { nodo: `2.37 ${categoria.replace('catalogo_productos_', '')} (sí a «en qué se diferencian…»)`, texto };
+        }
+      } catch (err) {
+        console.warn(`⚠️ [Conductor] No se pudo dictar ${categoria} — sigue al motor:`, err);
+      }
+    }
   }
 
   // ── 2.44 El «sí» tras las respuestas de salud — dictado ────────────────────

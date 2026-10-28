@@ -55,6 +55,29 @@ const WHATSAPP_EQUIPO = () => process.env.WHATSAPP_EQUIPO || '573206805737';
 const enEnsayo = () => process.env.WA_DRY_RUN === '1';
 
 const HORAS_PARA_REGRESO = 6;
+
+/**
+ * Los números del propio equipo: el 320 (WhatsApp Business del Director, la
+ * bandeja de los avisos) y el 321 (el de Queswa). Cuando el equipo prueba un
+ * enlace, no es un prospecto: el 23 y el 25 oct 2026 el 320 («Crea Tu Activo»)
+ * probó los enlaces y a Liliana le llegó «🔁 Crea Tu Activo volvió a escribirle
+ * a Queswa», y al Director «🎬 Crea Tu Activo ya vio los tres videos». Misma
+ * lista que el Dashboard (`TELEFONOS_DEL_EQUIPO`, src/lib/prospectos-reales.ts).
+ */
+export const TELEFONOS_DEL_EQUIPO = ['573206805737', '573215193909'];
+
+export function esTelefonoDelEquipo(contacto: string | null | undefined): boolean {
+  const digitos = String(contacto ?? '').replace(/^wa_/, '').replace(/\D/g, '');
+  if (!digitos || esBsuid(String(contacto ?? '').replace(/^wa_/, ''))) return false;
+  return TELEFONOS_DEL_EQUIPO.includes(digitos) || digitos === WHATSAPP_EQUIPO().replace(/\D/g, '');
+}
+
+/** El aviso que no sale porque quien escribe es el equipo. Siempre en el log. */
+function callarSiEsElEquipo(contacto: string, etiqueta: string): boolean {
+  if (!esTelefonoDelEquipo(contacto)) return false;
+  console.log(`🔕 [Avisos] «${etiqueta}» no sale: ${contacto} es un número del equipo`);
+  return true;
+}
 const MINUTOS_ENTRE_DESTACADOS = 10;
 const MAX_DESTACADOS = 3;
 
@@ -105,6 +128,16 @@ export function quien(nombre: string | null | undefined, contacto: string, conAs
   const pais = paisQueSeDice(contacto);
   const base = n ? (conAsteriscos ? `*${n}*` : n) : 'Una persona';
   return pais ? `${base} (${pais})` : base;
+}
+
+/**
+ * «Le conviene escribirle usted.», solo cuando hay a qué número escribirle: quien
+ * escribe con nombre de usuario de WhatsApp no deja ver su teléfono, y el socio
+ * no tiene cómo. Tres de los siete prospectos de Yina Prieto del 23 al 25 oct
+ * 2026 escribían así, y el aviso le pedía lo que no podía hacer.
+ */
+export function invitacionAEscribirle(contacto: string): string {
+  return esBsuid(contacto) ? '' : 'Le conviene escribirle usted. ';
 }
 
 /** El teléfono que se le puede marcar, o por qué no lo hay. */
@@ -248,6 +281,7 @@ export async function avisarLlegada(
 ): Promise<void> {
   try {
     const { dest, nombre, contacto, origen, primerMensaje } = args;
+    if (callarSiEsElEquipo(contacto, 'llegada')) return;
     await entregar(supabase, dest, {
       // Con socio, el Dashboard ya avisa la ficha nueva: el push sería doble.
       push: dest.esEquipo
@@ -282,6 +316,7 @@ export async function avisarIlegible(
 ): Promise<void> {
   try {
     const { dest, nombre, contacto } = args;
+    if (callarSiEsElEquipo(contacto, 'ilegible')) return;
     await entregar(supabase, dest, {
       // Sin ficha no hay aviso del Dashboard: el push va siempre, al socio o al equipo.
       push: {
@@ -355,6 +390,7 @@ export async function avisarSiRegresa(
 ): Promise<void> {
   try {
     const { fingerprint, nombre, contacto, mensaje, deviceInfo, inicioTurno } = args;
+    if (callarSiEsElEquipo(contacto, 'regreso')) return;
     const anterior = await mensajeAnteriorDePersona(supabase, fingerprint, inicioTurno);
     if (!anterior) return;
     const horas = (Date.now() - new Date(anterior).getTime()) / 36e5;
@@ -453,7 +489,7 @@ export function textoDestacado(dest: Destinatario, nombre: string | null | undef
   return [
     `⭐ ${saludo}${quien(nombre, contacto)} está avanzando:`,
     vinetas.join('\n'),
-    `Le conviene escribirle usted. ${lineaContacto(contacto)}`,
+    `${invitacionAEscribirle(contacto)}${lineaContacto(contacto)}`,
   ].join('\n\n');
 }
 
@@ -470,6 +506,7 @@ export async function revisarDestacado(
 ): Promise<void> {
   try {
     const { dest, fingerprint, nombre, contacto, historial, mensaje } = args;
+    if (callarSiEsElEquipo(contacto, 'destacado')) return;
     const textosPersona = [...historial.filter((m) => m.role === 'user').map((m) => m.content), mensaje];
     if (textosPersona.length < 2) return;
 
@@ -514,7 +551,7 @@ export function textoTresVideos(dest: Destinatario, nombre: string | null | unde
   const saludo = dest.nombreCorto ? `${dest.nombreCorto}, ` : '';
   return [
     `🎬 ${saludo}${quien(nombre, contacto)} ya vio los tres videos: cómo funciona, cómo entra el dinero y qué haría en el día a día.`,
-    `Le conviene escribirle usted. ${lineaContacto(contacto)}`,
+    `${invitacionAEscribirle(contacto)}${lineaContacto(contacto)}`,
   ].join('\n\n');
 }
 
@@ -533,13 +570,14 @@ export async function avisarTresVideos(
 ): Promise<void> {
   try {
     const { dest, fingerprint, nombre, contacto } = args;
+    if (callarSiEsElEquipo(contacto, 'tres videos')) return;
     const { data: ficha } = await supabase.from('prospects').select('device_info').eq('fingerprint_id', fingerprint).maybeSingle();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const di: Record<string, any> = ficha?.device_info ?? {};
     if (di.es_socio === true || di.aviso_tres_videos_en) return;
     await marcarFicha(supabase, fingerprint, { aviso_tres_videos_en: new Date().toISOString() });
     await entregar(supabase, dest, {
-      push: { titulo: `🎬 ${quien(nombre, contacto, false)} ya vio los tres videos`, cuerpo: 'Cómo funciona, cómo entra el dinero y qué haría en el día a día. Le conviene escribirle usted.' },
+      push: { titulo: `🎬 ${quien(nombre, contacto, false)} ya vio los tres videos`, cuerpo: `Cómo funciona, cómo entra el dinero y qué haría en el día a día.${invitacionAEscribirle(contacto) ? ' Le conviene escribirle usted.' : ''}` },
       texto: textoTresVideos(dest, nombre, contacto),
     }, 'tres videos');
   } catch (err) {
@@ -582,6 +620,7 @@ export async function avisarPromesa(
 ): Promise<void> {
   try {
     const { dest, fingerprint, nombre, contacto, pidio, promesa, deviceInfo } = args;
+    if (callarSiEsElEquipo(contacto, 'promesa')) return;
     // Aldo recibió la promesa en cuatro turnos seguidos: un aviso basta.
     const ultimo = deviceInfo?.aviso_promesa_en as string | undefined;
     if (ultimo && (Date.now() - new Date(ultimo).getTime()) / 36e5 < HORAS_PARA_REGRESO) return;

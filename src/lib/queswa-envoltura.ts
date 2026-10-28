@@ -115,10 +115,27 @@ export function quitarElogioInicial(texto: string): string {
   return texto;
 }
 
+/**
+ * ¿El texto aprobado ya abre con su propia entrada? «Con gusto, y le va a gustar
+ * lo corto que es» (ACTIVACION_01), «Claro que sí.» (COMP_BIN_01), «Totalmente.»
+ * (FREQ_08), «Así es.», «Vamos al punto,»… Entonces la apertura sobra, diga lo
+ * que diga: Adry Escobar escribió «Como puedo empezar» (23 oct 2026, 5:12 p. m.)
+ * y recibió «Claro, con mucho gusto le explico cómo empezar.» seguido de «Con
+ * gusto, y le va a gustar lo corto que es.»; en la web, el mismo día, «Eso es lo
+ * que sigue, y es más sencillo de lo que parece.» encima de la misma entrada. El
+ * modelo tenía la orden de dejarla vacía ante una pregunta que el texto responde
+ * de frente, y no la cumplió: aquí lo decide el código.
+ */
+export function nucleoTraeSuEntrada(nucleo: string): boolean {
+  return /^\s*[*_]*(con (mucho )?gusto|claro( que s[ií])?|por supuesto|perfecto|listo|excelente|totalmente|as[ií] es|de acuerdo|vamos al punto)(?![a-záéíóúñ])/i
+    .test(nucleo || '');
+}
+
 function validarApertura(apertura: unknown, nucleo: string): string {
   if (typeof apertura !== 'string') return '';
   const a = apertura.trim().replace(/^["«]|["»]$/g, '');
   if (!a || a.length > 220 || a.includes('?') || /\n/.test(a)) return '';
+  if (nucleoTraeSuEntrada(nucleo)) return '';
   // La apertura comenta lo que la persona DIJO, nunca su pregunta: «Buena
   // pregunta» y «tiene razón en hacérsela» son el tic que el Director marcó, y
   // en la primera prueba de este módulo (24 sep 2026) volvió con otras palabras.

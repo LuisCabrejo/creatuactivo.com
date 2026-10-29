@@ -20,6 +20,14 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // Meta es 16 MB). Lo manda el botón «Cómo funciona» de la apertura, tras la línea
 // «Con gusto. Funciona así:», con la pregunta de cierre de WHY_02 como pie: la voz
 // dice casi palabra por palabra ese texto.
+// v7 (29 oct 2026, Director): el arranque es la definición de la Presentación —
+// «Así como Uber mueve el transporte sin ser dueño de los carros, hoy su empresa de
+// distribución moderna vende sin ser dueña de la fábrica. Funciona así: usted recibe
+// en una sola aplicación los tres elementos que, armados por su cuenta, le costarían
+// millones.» (antes «Hoy todos quieren vender por internet… la infraestructura…» y
+// «…que eliminan la fricción de montarla»). Espejo de WHY_02 v6.82; el resto de la
+// voz y el montaje son los del v6. 62,8 s, 8,8 MB. Receta: armar_v7.py. La v6 queda
+// sin uso.
 // v6 (18 oct 2026, Director): «Dos: una máquina de ventas. Usted envía a quien
 // quiera, y Queswa lo atiende las veinticuatro horas.» y «Tres: una herramienta para
 // multiplicar. Acompaña a cada distribuidor, y como en Waze, le va marcando la ruta,
@@ -38,7 +46,7 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // pie—; el que comparten los socios cierra con «toque el enlace» y vive en el
 // Dashboard. Si se vuelve a cortar, se sube con otro nombre: Meta y los teléfonos
 // guardan copia de la URL.
-export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v6.mp4'
+export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v7.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

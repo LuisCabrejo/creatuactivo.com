@@ -1803,7 +1803,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // porque el candado no trae ninguna. «Qué debo hacer yo» desde el 28 sep 2026:
     // la voz es EAM_01 y el pie, su pregunta de cierre (los productos).
     const VIDEOS_APERTURA: Record<string, { url: string; intro: string; titulo: string; seg: number }> = {
-      apertura_sistema: { url: VIDEO_COMO_FUNCIONA_WA, intro: 'Con gusto. Funciona así:', titulo: 'Cómo funciona', seg: 60 },
+      apertura_sistema: { url: VIDEO_COMO_FUNCIONA_WA, intro: 'Con gusto. Funciona así:', titulo: 'Cómo funciona', seg: 63 },
       apertura_dinero:  { url: VIDEO_COMO_ENTRA_EL_DINERO_WA, intro: 'Con gusto. Se lo muestro en menos de un minuto:', titulo: 'Cómo entra el dinero', seg: 50 },
       apertura_rol:     { url: VIDEO_QUE_DEBO_HACER_YO_WA, intro: 'Con gusto. Se lo muestro:', titulo: 'Qué debo hacer yo', seg: 42 },
     };

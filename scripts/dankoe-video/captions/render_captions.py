@@ -48,7 +48,9 @@ def apply_display_map(words, dmap):
                     "start": words[i]["start"],
                     "end": last["end"],
                     "score": words[i].get("score", 0),
-                    "brk": ends(last["text"]),  # conserva fin-de-frase aunque el texto cambie
+                    # conserva fin-de-frase aunque el texto cambie; "brk": true fuerza
+                    # el corte de página después del grupo (Cómo funciona v7)
+                    "brk": c.get("brk", ends(last["text"])),
                 })
                 i += len(seq); matched = True; break
         if matched:

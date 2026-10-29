@@ -6,6 +6,12 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.24 — El resumen del video «Cómo funciona» dice lo que dice el v7 (29 oct 2026)
+
+El video «Cómo funciona» v7 (Blob `queswa/como-funciona-v7.mp4`) abre con la definición aprobada para la Presentación: *«Así como Uber mueve el transporte sin ser dueño de los carros, hoy su empresa de distribución moderna vende sin ser dueña de la fábrica. Funciona así: usted recibe en una sola aplicación los tres elementos que, armados por su cuenta, le costarían millones.»* El prompt resume lo que dice el video para que el modelo sepa qué vio quien dice «vi el video»; ese resumen decía *eliminan la fricción de montar…* y no nombraba a Uber. La lista de los tres elementos se acortó con las palabras de la misma definición, para pagar la línea de Uber: la web subió solo 37 caracteres.
+
+Web 19.870 caracteres · WhatsApp 19.454 · Dashboard 16.110.
+
 ## v5.23 — Acompañar, no calificar; «¿para qué sirve?» con la vida del producto (28 oct 2026)
 
 Auditoría de tono de las respuestas de salud y de producto (108 respuestas reales desde el 29 ago, más una batería de 26 preguntas de prospecto y 12 de socio contra el motor). Tres cambios, aprobados por el Director en el chat:

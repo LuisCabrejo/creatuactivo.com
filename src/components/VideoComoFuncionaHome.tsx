@@ -5,7 +5,7 @@
  * El video «Cómo funciona» en el hero de la Home (Director, 1 oct 2026).
  *
  * Es el mismo corte que Queswa manda en WhatsApp al tocar «Cómo funciona»
- * (VIDEO_COMO_FUNCIONA_WA, 60 s, 720×1280): la web y el canal cuentan lo mismo,
+ * (VIDEO_COMO_FUNCIONA_WA, 63 s, 720×1280): la web y el canal cuentan lo mismo,
  * con la misma voz. Responde la pregunta del 70 % —¿cómo funciona?— y trae los
  * subtítulos quemados, así que se entiende aun sin sonido.
  *

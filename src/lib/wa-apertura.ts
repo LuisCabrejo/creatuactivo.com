@@ -443,7 +443,7 @@ export function aperturaRetornoTrasVideo(nombreProspecto?: string): string {
 export function notaVideoComoFuncionaVisto(): string {
   const why02 = getRespuestaBoton('apertura_sistema') ?? '';
   const loQueDice = why02.split('\n').filter((l) => !l.trim().endsWith('?')).join('\n').trim();
-  return `[La persona llegó por el enlace del reel: antes de escribir vio el video «Cómo funciona», 60 s. Lo que dice la voz:]\n\n${loQueDice}`;
+  return `[La persona llegó por el enlace del reel: antes de escribir vio el video «Cómo funciona», 63 s. Lo que dice la voz:]\n\n${loQueDice}`;
 }
 
 // ─── Llega desde la Home con la pregunta del botón (1 oct 2026) ─────────────

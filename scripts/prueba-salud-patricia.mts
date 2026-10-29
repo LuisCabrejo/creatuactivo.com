@@ -79,7 +79,7 @@ const r2 = rechazoSaludPorFamilia(c2!, false, T2);
 const nucleo2 = nucleoSalud(r2.familia, r2.declara);
 es(hiloTrasT1.some((m) => contieneNucleoSalud(m.content, nucleo2)), 'T2: el núcleo ya estaba dicho (texto fijo viejo) → reincidencia');
 es(hiloTrasT1Compuesto.some((m) => contieneNucleoSalud(m.content, nucleo2)), 'T2: el núcleo ya estaba dicho (turno compuesto) → reincidencia');
-es(NUCLEO_REINCIDE === 'Ahí aplica lo mismo que le acabo de decir, y no se lo repito.', 'T2: el núcleo de reincidencia es la referencia, no la repetición');
+es(/ahí vale lo mismo que le conté hace un momento/.test(NUCLEO_REINCIDE) && !/no se lo repito/.test(NUCLEO_REINCIDE), 'T2: el núcleo de reincidencia es la referencia, no la repetición');
 const r4 = rechazoSaludPorFamilia(c4!, false, T4);
 const nucleo4 = nucleoSalud(r4.familia, r4.declara);
 es(nucleo4 === NUCLEO_EVIDENCIA, 'T4: núcleo de evidencia');

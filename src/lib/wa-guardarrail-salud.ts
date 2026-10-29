@@ -222,7 +222,12 @@ export const RE_CLAIM_SALIDA: RegExp[] = [
   // para la piel y las articulaciones», «pensado para el rendimiento físico»), y 0
   // fragmentos de whatsapp y la web. En el Dashboard solo toca el título de CS_02
   // («¿el cordyceps sirve para el rendimiento?»), que es la pregunta del socio.
-  /(colageno|reskine|cordyceps|cordygold|espirulina|spirulina|excellium)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  // ⚠️ 28 oct 2026 (Director): el colágeno PARA LA PIEL sí va —tiene declaración
+  // aprobada por el INVIMA (función de barrera de la piel), igual que las
+  // articulaciones—, así que la piel sale de la lista del colágeno y se queda en
+  // la de los demás. Cabello, uñas y huesos siguen fuera para todos.
+  /(colageno|reskine)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  /(cordyceps|cordygold|espirulina|spirulina|excellium)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
   /(ganoderma|capsulas)[^.\n]{0,30}\bpara (el |la |los |las |su |sus )?(huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
   // La anatomía y la «nutrición funcional»: describen lo que el producto le hace
   // al cuerpo sin nombrar órgano ni enfermedad. «Bebidas funcionales» (el nombre
@@ -230,6 +235,13 @@ export const RE_CLAIM_SALIDA: RegExp[] = [
   // Backtest: 1 respuesta cada una (la del 25 oct y «cuidado de la piel desde
   // adentro», del mismo día) y 0 fragmentos.
   /tejido conectivo|nutricion funcional|(piel|cabello|unas)[^.\n]{0,25}desde (a)?dentro/,
+  // El colágeno con lo que NO tiene aprobado (auditoría de tono, 28 oct 2026):
+  // la piel y las articulaciones sí tienen declaración del INVIMA y pasan
+  // (Director); arrugas, firmeza, elasticidad, rejuvenecer, cabello y uñas no.
+  // «Trabajan desde adentro hacia afuera» y «la piel es uno de los tejidos que
+  // más responde» —lo que el modelo componía solo— caen en el patrón de abajo.
+  /(colageno|reskine)[^.\n]{0,80}\b(arrugas|firmeza|elasticidad|rejuvenec\w*|cabello|unas)\b|\b(arrugas|firmeza|elasticidad|rejuvenec\w*)\b[^.\n]{0,60}(colageno|reskine)/,
+  /desde (a)?dentro hacia afuera|\bla piel\b[^.\n]{0,40}\b(responde|se renueva|se regenera|agradece)/,
   // Plazos y resultados clínicos prometidos
   /(resultados?|mejoria|mejoras?|cambios?|efectos?) (visibles |notables )?(en|a los|a las) \d+ (dias|semanas|meses)/,
   // La ciencia como credencial SIN cita y el efecto en el cuerpo sin nombrarlo:
@@ -338,15 +350,25 @@ export type FamiliaSalud = 'peso' | 'azucar' | 'tratamiento' | 'grave' | 'comun'
 // Estas constantes arman los textos fijos Y viajan en la instrucción al modelo,
 // así que no se pueden desincronizar.
 
+// ⚠️ Reescritos el 28 oct 2026 (Director, auditoría de tono): el contenido legal
+// es el mismo —la categoría ante el INVIMA, «no está indicado», el médico—, pero
+// sin el «Para orientarle con exactitud:» de arranque, que es la misma
+// declaración de virtud que se retiró el 29 ago con «le hablo con franqueza»
+// (salió en 26 de 108 respuestas). Y la categoría se dice de lo que se toma —las
+// bebidas y las cápsulas—, no de «la línea» entera, que incluye cosméticos.
+// Los textos anteriores siguen en NUCLEOS_ANTERIORES para reconocerlos en los
+// hilos viejos.
 export const NUCLEO_PESO =
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como tratamientos médicos, así que lo que encontrará aquí es ' +
+  'Las bebidas y las cápsulas de la línea están registradas ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, no como tratamientos médicos, así que lo que encontrará aquí es ' +
   'nutrición para el día a día.';
 
+// «el médico que lleva el caso», no «su médico» ni «su condición»: quien declara
+// puede estar hablando de su mamá.
 export const NUCLEO_DECLARA =
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la ' +
-  'palabra es su médico, que es quien conoce su caso.';
+  'Las bebidas y las cápsulas de la línea están registradas ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, no como medicamentos, así que en ese tema la palabra la tiene el médico ' +
+  'que lleva el caso, que lo conoce de cerca.';
 
 // ⚠️ «terreno médico», no «terreno de su médico» (Director, 30 ago 2026): nueve
 // de cada diez personas que preguntan esto están midiendo el MERCADO, no su
@@ -354,26 +376,51 @@ export const NUCLEO_DECLARA =
 // mencionaron — la misma falla que el acuse de confianza, en pequeño. Y para
 // quien sí pregunta por lo suyo, la forma neutra sirve igual.
 export const NUCLEO_PREGUNTA =
-  'Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y ' +
-  'suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición ' +
-  'de salud, que es terreno médico.';
+  'Las bebidas y las cápsulas de la línea están registradas ante el INVIMA como alimentos y ' +
+  'suplementos dietarios, no como medicamentos. Por eso ninguna está indicada para una condición ' +
+  'de salud: ese terreno es del médico, y es bueno que así sea.';
 
 // Quien pide la ciencia. Lo que se congela es el porqué, dicho como hecho y no
 // como disculpa: la categoría del producto es un dato estructural, y usar la
 // ciencia para vender la vuelve publicidad. La frase de apertura («uno de los
 // hongos más estudiados del mundo») está en la lista verde del fabricante y NO
 // vincula nada; vive en el texto de respaldo y en la instrucción al modelo, que
-// puede abrir con ella.
+// abre con ella. ⚠️ 28 oct 2026: era «Lo que yo no hago es traer esa literatura…
+// y ahí la norma es clara» (15 de 108 respuestas): un sermón que dejaba entender
+// que la persona quería usar la ciencia para vender. Ahora el porqué es respeto
+// por la ciencia y por la persona.
 export const NUCLEO_EVIDENCIA =
-  'Lo que yo no hago es traer esa literatura a esta conversación como respaldo de un producto que ' +
-  'ante el INVIMA es un alimento: en el momento en que la ciencia se usa para vender, deja de ser ' +
-  'información y pasa a ser publicidad, y ahí la norma es clara.';
+  'Precisamente porque la tomo en serio, no la uso para venderle: las bebidas y las cápsulas están ' +
+  'registradas ante el INVIMA como alimentos y suplementos dietarios, y un estudio convertido en ' +
+  'argumento de venta se vuelve una promesa que la etiqueta no hace.';
 
 // La segunda pregunta de salud del mismo hilo. Repetir el núcleo palabra por
 // palabra es lo que suena a máquina (Patricia recibió dos veces el mismo texto,
 // letra por letra, 8 sep 2026). El marco legal ya está dicho dos turnos atrás y
 // sigue en el hilo; lo que se congela ahora es la referencia a él.
-export const NUCLEO_REINCIDE = 'Ahí aplica lo mismo que le acabo de decir, y no se lo repito.';
+// ⚠️ 28 oct 2026: era «Ahí aplica lo mismo que le acabo de decir, y no se lo
+// repito», la frase más dura del sistema, y le llegó cuatro veces a quien
+// preguntaba por los efectos de la quimioterapia. Quien insiste no está
+// fastidiando: le importa.
+export const NUCLEO_REINCIDE =
+  'Entiendo que esto le importa mucho, y por eso no quiero dejarle una idea equivocada: ahí vale lo ' +
+  'mismo que le conté hace un momento.';
+
+/** Las versiones anteriores de cada núcleo: siguen en los hilos de la base y cuentan como dichas. */
+const NUCLEOS_ANTERIORES = new Map<string, string[]>([
+  [NUCLEO_PESO, ['Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y suplementos dietarios, y no como tratamientos médicos, así que lo que encontrará aquí es nutrición para el día a día.']],
+  [NUCLEO_DECLARA, ['Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y suplementos dietarios, y no como medicamentos, así que sobre su condición quien tiene la palabra es su médico, que es quien conoce su caso.']],
+  [NUCLEO_PREGUNTA, ['Para orientarle con exactitud: nuestra línea está catalogada ante el INVIMA como alimentos y suplementos dietarios, y no como medicamentos, así que ninguno está indicado para una condición de salud, que es terreno médico.']],
+  [NUCLEO_EVIDENCIA, ['Lo que yo no hago es traer esa literatura a esta conversación como respaldo de un producto que ante el INVIMA es un alimento: en el momento en que la ciencia se usa para vender, deja de ser información y pasa a ser publicidad, y ahí la norma es clara.']],
+]);
+
+const NUCLEO_REINCIDE_ANTERIOR = 'Ahí aplica lo mismo que le acabo de decir, y no se lo repito.';
+
+/** ¿Este turno del asistente abrió con la referencia de reincidencia (la de hoy o la anterior)? */
+export function abreConNucleoReincide(textoAsistente: string): boolean {
+  const t = (textoAsistente || '').trim();
+  return t.startsWith(NUCLEO_REINCIDE) || t.startsWith(NUCLEO_REINCIDE_ANTERIOR);
+}
 
 /** El núcleo que corresponde. Solo la emergencia queda fuera de la composición. */
 export function nucleoSalud(familia: FamiliaSalud, declara: boolean): string {
@@ -400,8 +447,17 @@ export function saludSeCompone(familia: FamiliaSalud): boolean {
     || familia === 'grave' || familia === 'evidencia';
 }
 
-/** El cierre único de las respuestas de salud compuestas. */
-export const CIERRE_SALUD = '¿Le muestro el catálogo completo para que vea las presentaciones?';
+/**
+ * El cierre de las respuestas de salud compuestas. ⚠️ 28 oct 2026: era «¿Le
+ * muestro el catálogo completo para que vea las presentaciones?» (22 de 108
+ * respuestas): después de una pregunta por la tiroides se leía como «igual
+ * cómpreme algo». Ahora ofrece lo que le sirve a la persona —qué lleva cada uno—
+ * y sigue siendo una oferta del catálogo, así que el «sí» va al nodo del enlace
+ * con la referencia del socio (RE_OFERTA_CATALOGO en wa-pedido.ts) y no al
+ * modelo. El peso conserva el texto anterior (Director, 28 oct).
+ */
+export const CIERRE_SALUD = '¿Le paso el catálogo, para que vea qué lleva cada uno?';
+export const CIERRE_PESO = '¿Le muestro el catálogo completo para que vea las presentaciones?';
 /** El cierre de quien pidió la ciencia: lo verificable, empezando por el extracto solo. */
 export const CIERRE_EVIDENCIA = '¿Le paso la ficha de las Cápsulas de Ganoderma, que es el extracto sin nada más?';
 /** El cierre de la segunda pregunta de salud del hilo. */
@@ -419,7 +475,7 @@ export function nucleoClave(nucleo: string): string {
 }
 export function contieneNucleoSalud(textoAsistente: string, nucleo: string): boolean {
   const plano = (textoAsistente || '').replace(/\s+/g, ' ').toLowerCase();
-  return plano.includes(nucleoClave(nucleo));
+  return [nucleo, ...(NUCLEOS_ANTERIORES.get(nucleo) ?? [])].some((n) => plano.includes(nucleoClave(n)));
 }
 
 /** Peso: la pregunta más natural del país. Un producto real, por sus hechos. */
@@ -433,29 +489,29 @@ export const HABITOS_PESO =
   'plan a la medida, un médico o un nutricionista.';
 
 export const RECHAZO_SALUD_PESO =
-  'Comprendo su objetivo.\n\n' +
+  'Le cuento cómo lo vemos aquí.\n\n' +
   NUCLEO_PESO + '\n\n' +
   HABITOS_PESO + '\n\n' +
-  '¿Le muestro el catálogo completo para que vea las presentaciones?';
+  CIERRE_PESO;
 
 /** Azúcar (diabetes, glucosa, insulina): el hecho de composición —sin azúcar— dicho con orgullo. */
 export const RECHAZO_SALUD_AZUCAR =
-  'Comprendo su consulta, y hace muy bien en cuidar esos detalles de su alimentación.\n\n' +
+  'Gracias por contármelo, y qué bien que esté pendiente de lo que toma.\n\n' +
   NUCLEO_DECLARA + '\n\n' +
-  'Dicho esto, usted tiene a mano dos opciones que Gano Excel fabrica desde hace treinta años, ' +
+  'Lo que sí tiene a mano son dos opciones que Gano Excel fabrica desde hace treinta años, ' +
   'cada una con su registro sanitario. Si cuida el azúcar en lo que consume, el Ganocafé Clásico ' +
   'le da café negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el ' +
   'extracto puro, sin nada más.\n\n' +
-  '¿Le muestro el catálogo completo para que vea las presentaciones?';
+  CIERRE_SALUD;
 
 /** Molestia o condición común: la categoría del producto es la que responde, con orgullo. */
 export const RECHAZO_SALUD_ESTANDAR =
-  'Comprendo su consulta, y le agradezco la confianza de contármelo.\n\n' +
+  'Gracias por la confianza de contármelo.\n\n' +
   NUCLEO_DECLARA + '\n\n' +
-  'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
+  'Lo que sí tiene a mano es una línea que Gano Excel fabrica desde hace treinta años, con ' +
   'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
-  'pensadas para acompañar su día con energía y bienestar.\n\n' +
-  '¿Le muestro el catálogo completo para que vea las presentaciones?';
+  'pensadas para acompañar el día con energía y bienestar.\n\n' +
+  CIERRE_SALUD;
 
 /** Tratamiento en curso: la última palabra la tiene su médico, y la composición se le da. */
 export const RECHAZO_SALUD_TRATAMIENTO =
@@ -478,8 +534,8 @@ export const RECHAZO_SALUD_GRAVE =
 // de cualquier familia: la referencia a lo ya dicho se dice una vez; a la
 // tercera pregunta de salud seguida, esto, y la puerta al equipo.
 export const RECHAZO_SALUD_CORTO =
-  'Le entiendo. En temas de salud esa parte es terreno médico, y sobre el producto usted puede ' +
-  'preguntarme lo que quiera: qué lleva, cómo se prepara y cuánto cuesta. ' +
+  'Le entiendo, y me gustaría poder decirle más. En lo de salud la palabra la tiene el médico; en ' +
+  'todo lo demás del producto —qué lleva, cómo se prepara, cuánto cuesta— aquí estoy. ' +
   '¿Le sirve que lo comunique con alguien del equipo?';
 
 /**
@@ -502,26 +558,24 @@ export function declaraCondicion(texto: string): boolean {
 // condición», que le atribuye a la persona algo que no dijo.
 
 export const RECHAZO_SALUD_AZUCAR_PREGUNTA =
-  'Buena pregunta, y de las que más nos hacen.\n\n' +
+  'Es de lo que más nos preguntan, y le cuento cómo es.\n\n' +
   NUCLEO_PREGUNTA + '\n\n' +
-  'Dicho esto, si lo que busca es cuidar el azúcar en lo que consume, el Ganocafé Clásico es café ' +
+  'Si lo que busca es cuidar el azúcar en lo que consume, el Ganocafé Clásico es café ' +
   'negro premium sin azúcar ni crema, y las Cápsulas de Ganoderma le entregan el extracto puro, ' +
   'sin nada más.\n\n' +
-  '¿Le muestro el catálogo completo para que vea las presentaciones?';
+  CIERRE_SALUD;
 
 export const RECHAZO_SALUD_COMUN_PREGUNTA =
-  'Buena pregunta.\n\n' +
+  'Le cuento cómo es.\n\n' +
   NUCLEO_PREGUNTA + '\n\n' +
-  'Dicho esto, usted tiene a mano una línea que Gano Excel fabrica desde hace treinta años, con ' +
+  'Lo que sí tiene a mano es una línea que Gano Excel fabrica desde hace treinta años, con ' +
   'registro sanitario en cada producto: el café, las bebidas y las cápsulas de Ganoderma, ' +
-  'pensadas para acompañar su día con energía y bienestar.\n\n' +
-  '¿Le muestro el catálogo completo para que vea las presentaciones?';
+  'pensadas para acompañar el día con energía y bienestar.\n\n' +
+  CIERRE_SALUD;
 
 export const RECHAZO_SALUD_GRAVE_PREGUNTA =
   'Le respondo con cuidado, porque el tema lo merece.\n\n' +
-  'Nuestra línea está catalogada ante el INVIMA como alimentos y suplementos dietarios, y no como ' +
-  'medicamentos, así que ninguno está indicado para una condición de salud, que es terreno ' +
-  'médico.\n\n' +
+  NUCLEO_PREGUNTA + '\n\n' +
   'Cuando quiera conocer los productos por lo que son, aquí me encuentra con mucho gusto.';
 
 /**
@@ -590,10 +644,10 @@ export function rechazoSaludPorFamilia(
  */
 export const RECHAZO_SALUD_SOCIO =
   'Esa pregunta le va a llegar seguido, así que le dejo la línea con claridad.\n\n' +
-  'Nuestra línea está registrada ante el INVIMA como alimentos y suplementos dietarios, no como ' +
-  'medicamentos. Eso fija lo que se puede decir: nada de enfermedades, tratamientos ni resultados ' +
-  'de salud. La norma mira lo que quedó escrito, y lo escribe usted.\n\n' +
-  'Lo que sí está de su lado, y es bastante: es el hongo más estudiado que existe, Gano Excel lleva ' +
+  'Las bebidas y las cápsulas están registradas ante el INVIMA como alimentos y suplementos ' +
+  'dietarios, no como medicamentos. Eso fija lo que se puede decir: nada de enfermedades, ' +
+  'tratamientos ni resultados de salud, y así se cuida usted y cuida a su cliente.\n\n' +
+  'Lo que sí está de su lado, y es bastante: es uno de los hongos más estudiados del mundo, Gano Excel lleva ' +
   'treinta años fabricándolo, cada producto tiene su registro sanitario, y la gente lo incorpora a ' +
   'su rutina por energía y bienestar.\n\n' +
   'Y cuando alguien le cuente una condición concreta, hay una sola respuesta que les sirve a los ' +
@@ -608,15 +662,25 @@ export const RECHAZO_SALUD_SOCIO =
  * concreta para responderle a esa persona.
  */
 export const RECHAZO_SALUD_SOCIO_OTRA_VEZ =
-  'La línea es la misma de hace un momento, y ahí no hay matices.\n\n' +
-  'Si quiere, dígame con qué palabras se lo preguntaron y le armo la respuesta que sí puede dar.';
+  'Ahí vale lo mismo que le conté hace un momento.\n\n' +
+  'Si me dice con qué palabras se lo preguntaron, le armo la respuesta que sí puede dar.';
 
 // Prefijos distintivos de los textos de arriba. Sirven para (a) detectar
 // reincidencia en el historial y endurecer al rechazo corto, y (b) que el
 // saneamiento del historial reconozca sus propias correcciones.
 const PREFIJOS_RECHAZO = [
   'Esa pregunta le va a llegar seguido',
+  'Ahí vale lo mismo que le conté hace un momento',
+  'Le cuento cómo lo vemos aquí',
+  'Gracias por contármelo, y qué bien que esté pendiente',
+  'Gracias por la confianza de contármelo',
+  'Es de lo que más nos preguntan, y le cuento cómo es',
+  'Le cuento cómo es.\n',
+  'Le entiendo, y me gustaría poder decirle más',
+  'Le entiendo. En temas de salud esa parte es terreno médico',
+  // Prefijos anteriores al 28 oct 2026 (auditoría de tono).
   'La línea es la misma de hace un momento',
+  'Comprendo su objetivo',
   'Comprendo su objetivo, y me alegra que esté buscando opciones',
   'Comprendo su consulta, y hace muy bien en cuidar esos detalles',
   'Buena pregunta, y de las que más nos hacen',
@@ -649,7 +713,11 @@ export function esRechazoSalud(texto: string): boolean {
  */
 export function esRechazoSaludComun(texto: string): boolean {
   const t = (texto || '').trim();
-  return t.startsWith('Comprendo su consulta, y le agradezco la confianza de contármelo')
+  return t.startsWith('Gracias por la confianza de contármelo')
+    || t.startsWith('Le cuento cómo es.\n')
+    || t.startsWith('Le entiendo, y me gustaría poder decirle más')
+    || t.startsWith('Le entiendo. En temas de salud esa parte es terreno médico')
+    || t.startsWith('Comprendo su consulta, y le agradezco la confianza de contármelo')
     || t.startsWith('Buena pregunta.\n')
     || t.startsWith('Le agradezco que me lo cuente. Los productos de Gano Excel')
     || t.startsWith('Le entiendo, y ojalá pudiera decirle más')

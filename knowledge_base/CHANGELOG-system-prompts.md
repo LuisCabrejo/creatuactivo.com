@@ -6,6 +6,16 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.23 — Acompañar, no calificar; «¿para qué sirve?» con la vida del producto (28 oct 2026)
+
+Auditoría de tono de las respuestas de salud y de producto (108 respuestas reales desde el 29 ago, más una batería de 26 preguntas de prospecto y 12 de socio contra el motor). Tres cambios, aprobados por el Director en el chat:
+
+- **La narrativa recomendaba las muletillas.** El paso 2 listaba «Para orientarle con exactitud» y «Dicho esto» como bisagras: salían en 26 y en decenas de respuestas, y la primera es la misma declaración de virtud que se retiró el 29 ago con «le hablo con franqueza». Ahora: «Le cuento» · «Por eso» · «Lo que sí»… Y el paso 1 dice que reconocer es acompañar, no calificar: 57 de 108 respuestas abrían con «Buena pregunta» o «se nota que…», y en el Centro de Mando 9 de 12.
+- **«¿Para qué sirve X?» se responde con lo propio de X** —su momento, su sabor, para quién es—. «Apoya el funcionamiento normal de las defensas» vale para todos (Director). El modelo le pegaba a cada producto (latte, mocha, chocolate, Excellium) el mismo párrafo de beneficios del Ganoderma y aclaraciones médicas que nadie pidió («su terreno es el bienestar, no el tratamiento médico» a quien preguntó por el mocha).
+- **Con el socio, la ciencia cuando la pide.** A «¿para qué sirve el cereal?» le llegaba el metaanálisis de la espirulina y la presión arterial; a «¿para qué sirve el té?», la revisión del rooibos. Ahora se le da primero cómo contárselo a su cliente y la evidencia se ofrece en la pregunta de cierre; lo que no se dice cabe en una frase, sin citar decretos.
+
+Web 19.833 caracteres · WhatsApp 19.417 · Dashboard 16.110.
+
 ## v5.22 — El día 44, «el propósito», entra; sale el día 39 (20 oct 2026)
 
 La nota del video del día 44 reemplaza la del día 39 en «Los dos videos más recientes»; queda el 43, que va primero por ser el más viejo. El 39 pasa al arsenal como `RETO_D39` (v6.80) con su nota aprobada. Texto aprobado por el Director, ajustado a lo que se dijo en cámara. La auditoría del guion (`auditar-guion-queswa.mjs`) marcó tres ideas que solo la nota cierra:

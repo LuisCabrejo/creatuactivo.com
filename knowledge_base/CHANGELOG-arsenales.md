@@ -508,6 +508,12 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_ciencia_socio (solo tenant `dashboard`)
 
+### v1.1 — CS_08 le habla como colega; nace CS_09 (28 oct 2026)
+
+`CS_06` suma la declaración aprobada de la piel junto a las de las articulaciones (Director). `CS_04` deja dicho qué hay sobre el rooibos y el descanso —laboratorio sobre el cortisol y que no tiene cafeína; un ensayo en personas sobre el sueño no se encontró publicado— y que el socio puede decir que favorece el descanso, sin cifras ni condiciones.
+
+`CS_08` se dicta entero cuando el socio nombra una enfermedad, y sonaba a manual: «Le va a pasar, y la respuesta es una sola, en dos partes… No se repite el nombre… no se cita un estudio… no se pregunta… el carril de la etiqueta». Ahora le da la frase para su cliente y la de «a un amigo le sirvió», y nada más; las reglas viven en `CS_00`. `CS_09` responde «¿para qué sirven los productos?» como se le cuenta a un cliente —la taza, la constancia, las defensas dichas tal cual, los momentos del día— y ofrece la ciencia al final. Texto aprobado por el Director en el chat. En el Dashboard, la condición escrita sola («Hipertensión») ya no recibe `CS_08`: primero se le pregunta para quién es (`salud-socio.ts`).
+
 ### v1.0 — Nace el arsenal de ciencia para el socio (13 sep 2026)
 
 **Por qué.** Antes de la aplicación ante Meta, el catálogo traía «ciencia» (*2.000+ estudios en PubMed*, *Fuente: PubMed (2023)*, y claims de enfermedad como *alivia hiperglucemia*) que se retiró el 17 ago 2026. Los distribuidores la usaban como guía. El Director (13 sep) pidió que el canal conserve sus guardarraíles y que **Queswa en el Dashboard —privado, no indexado— sí pueda hablar de la evidencia y citar PubMed**. Auditado: la ciencia vieja no estaba en Supabase y no era citable (sin identificadores); se construyó de nuevo con referencias verificadas contra la API de PubMed.
@@ -2369,6 +2375,17 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 ---
 
 ## catalogo_productos
+
+### v7.15 — «¿Para qué sirve?» con la vida del producto, no con la ficha ni con la ley (28 oct 2026)
+
+Batería de 26 preguntas de prospecto contra el motor (la auditoría de tono del Director). Lo que salió y lo que cambió:
+
+- **«¿Para qué sirven los productos?» se iba al negocio** («ningún modelo funciona si el producto no rota»): recuperaba `PROD_01`. `CIENCIA_03` entra a esa pregunta por su índice y abre con la experiencia —«le cuento cómo se vive»— en vez de con el límite («no del tratamiento médico») que nadie preguntó. Las cuatro líneas se cuentan por momentos del día.
+- **El colágeno dice sus dos declaraciones aprobadas** (Director: está aprobado y documentado, `docs/investigaciones/resultados/INVIMA_PROCLAMAS_APROBADAS_SEPFSD.md`): junto con una dieta saludable, ayuda a mantener la función de barrera de la piel; con dieta balanceada y actividad física, contribuye a una adecuada salud articular. Van en `BEB_01`, `BEB_06`, el nuevo `BEB_06B` («¿sirve para la piel?» → sí, con la declaración) y su propia fila de `FAQ_03` (sale de la de «piel y cabello»: el cabello no está aprobado). El filtro de salida deja pasar colágeno + piel y sigue atajando arrugas, firmeza, elasticidad, rejuvenecer, cabello, uñas y «desde adentro hacia afuera», que es lo que el modelo componía solo.
+- **El té y el cereal sonaban a folleto** (viñetas de «¿Por qué elegirlo?», «la opción perfecta», «rica en hierro, vitamina B12» —declaración de contenido de nutrientes—). `BEB_04`: los beneficios son **los del rooibos** —sin cafeína, sus antioxidantes, favorece el descanso— y el Ganoderma se nombra como ingrediente (Director). `BEB_05`: la bebida de las mañanas de afán, sin presentarla como reemplazo de comida.
+- **«Apoya el funcionamiento normal de las defensas» vale para todos los productos** (Director): sale el «nada de defensas» de `SUP_03`.
+- **«El chocolate» y «el jabón» tienen dos productos cada uno**: el primero recuperaba solo el Schokolade y el segundo la tabla entera de cuidado personal. `BEB_10` y `PERS_03` son la puerta y nombran al hermano en una frase.
+- **«¿Cuál me recomienda para el cansancio?» recibía los paquetes** (`FREQ_30`, con candado, a 0,43). `HAB_01` suma el cansancio al índice y el clasificador de `route.ts` lo manda al catálogo.
 
 ### v7.14 — El catálogo guía con hábitos (28 oct 2026)
 

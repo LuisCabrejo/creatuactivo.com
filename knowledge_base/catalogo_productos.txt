@@ -1,7 +1,9 @@
 # Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
 **Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
 
-**Versión actual: v7.14** (28 oct 2026) — **El catálogo guía con hábitos.** Nacen `HAB_01` (las cuatro pautas de base) y `HAB_02` (antes de entrenar y el pre-entreno), y `FAQ_01` nombra las precauciones concretas. Las ofertas de cierre van literales en los índices de `BEB_02` y `BEB_07`. Texto aprobado por el Director en el chat.
+**Versión actual: v7.15** (28 oct 2026, noche) — **«¿Para qué sirve?» se responde con la vida del producto, no con la ficha ni con la ley.** Auditoría de tono con 26 preguntas de prospecto contra el motor: `CIENCIA_03` abre con la experiencia (antes abría con «no del tratamiento médico») y es la puerta de «para qué sirven los productos», que se iba al negocio; `BEB_04` (té) y `BEB_05` (cereal) dejan el formato de folleto, y los beneficios del té son los del rooibos —sin cafeína, antioxidantes, favorece el descanso— (Director); el colágeno dice sus dos declaraciones aprobadas por el INVIMA, la piel y las articulaciones, con sus condiciones (Director: está aprobado y documentado), y nace `BEB_06B` para «¿sirve para la piel?»; «apoya el funcionamiento normal de las defensas» vale para todos los productos (Director); `BEB_10` y `PERS_03` atienden «el chocolate» y «el jabón», que tienen dos productos cada uno; `HAB_01` recibe el cansancio, que caía en los paquetes. Texto aprobado por el Director en el chat.
+
+**v7.14** (28 oct 2026) — **El catálogo guía con hábitos.** Nacen `HAB_01` (las cuatro pautas de base) y `HAB_02` (antes de entrenar y el pre-entreno), y `FAQ_01` nombra las precauciones concretas. Las ofertas de cierre van literales en los índices de `BEB_02` y `BEB_07`. Texto aprobado por el Director en el chat.
 
 **v7.13** (25 sep 2026) — **`BEB_02` sale del estómago.** El Ganocafé 3 en 1 se presentaba con un villano del café común que incluía el estómago y un remate que prometía su ausencia; el modelo lo generalizó a toda la línea y salió así en 28 respuestas en 30 días, una de ellas a una socia como ángulo de venta. Ahora el villano y su ausencia se dicen solo en vocabulario de energía, y sale también el mecanismo sobre la cafeína. Texto propuesto en el chat y aprobado por el Director; el mecanismo salió después, por la investigación del 25 sep 2026 (norma colombiana, Meta y ciencia). Índice sin tocar.
 
@@ -102,14 +104,14 @@ Y ese es el criterio de Gano Excel: no aislar una molécula y multiplicarla, sin
 ---
 
 ### CIENCIA_03: "¿Qué beneficios tiene? / ¿Qué se siente al tomarlo?"
-**[Índice]:** Qué beneficios tiene, qué se siente al tomarlo, para qué sirve, qué cambios se notan.
-**[Concepto Nuclear]:** El eje es **el tiempo**, y ahí está la división de trabajo con BEB_02: aquella responde qué pasa en la taza; esta, qué pasa con la rutina. ⚠️ **No prometer efecto inmediato completo** — el propio catálogo dice que se acumula, y prometer inmediatez decepciona a quien ya compró. El remate convierte esa lentitud en la razón de compra ("la diferencia entre un empujón y un hábito"; retirado en v7.10 — la palabra *hábito* arrastra el marco de consumo diario). ⚠️ **v7.10 (Director, 3 sep 2026):** el tercer párrafo nombra LAS CUATRO LÍNEAS —de la propuesta de Gemini se tomó solo eso; se descartaron «operan», «sin sugestionarse», «reemplaza sus productos diarios», «digestión ligera» (declaración de órgano) y «un hábito que ya tiene»—, porque en la prueba el modelo se quedó solo en el Ganocafé e inventó un producto. El cierre va a `RUTINA_01`, con destino escrito. ⚠️ La única función que se nombra es **"apoya el funcionamiento normal de sus defensas"**, que es la formulación que los reguladores aceptan literalmente. Cero estudios, cero revistas, cero biomarcadores. ⚠️ La pregunta de cierre **NO pide un objetivo de salud** ("¿qué quiere priorizar?"): eso es pedirle a la persona que declare una condición.
+**[Índice]:** Para qué sirven los productos, qué beneficios tienen, para qué son los productos de Gano Excel, qué se siente al tomarlos, qué cambios se notan.
+**[Concepto Nuclear]:** El eje es **el tiempo**, y ahí está la división de trabajo con BEB_02: aquella responde qué pasa en la taza; esta, qué pasa con la rutina. ⚠️ **No prometer efecto inmediato completo** — el propio catálogo dice que se acumula, y prometer inmediatez decepciona a quien ya compró. El remate convierte esa lentitud en la razón de compra ("la diferencia entre un empujón y un hábito"; retirado en v7.10 — la palabra *hábito* arrastra el marco de consumo diario). ⚠️ **v7.10 (Director, 3 sep 2026):** el tercer párrafo nombra LAS CUATRO LÍNEAS —de la propuesta de Gemini se tomó solo eso; se descartaron «operan», «sin sugestionarse», «reemplaza sus productos diarios», «digestión ligera» (declaración de órgano) y «un hábito que ya tiene»—, porque en la prueba el modelo se quedó solo en el Ganocafé e inventó un producto. El cierre va a `RUTINA_01`, con destino escrito. ⚠️ La única función que se nombra es **"apoya el funcionamiento normal de sus defensas"**, que es la formulación que los reguladores aceptan literalmente. Cero estudios, cero revistas, cero biomarcadores. ⚠️ La pregunta de cierre **NO pide un objetivo de salud** ("¿qué quiere priorizar?"): eso es pedirle a la persona que declare una condición. ⚠️ **v7.15 (Director, 28 oct 2026):** abre con la experiencia —«le cuento cómo se vive»— y no con el límite («no del tratamiento médico»), que nadie había preguntado; las cuatro líneas se cuentan por momentos del día para que la persona se imagine usándolas. «Para qué sirven los productos» entra al índice: en la auditoría esa pregunta recuperó `PROD_01` y la respuesta se fue al negocio («ningún modelo funciona si el producto no rota»).
 
-Los productos de Gano Excel están en el terreno del bienestar, no del tratamiento médico: lo que se nota es lo que el Ganoderma hace como parte de la rutina.
+Le cuento cómo se vive, que es la mejor forma de entenderlo. Todo empieza en la taza: el Ganoderma va dentro de un café premium, y lo primero que se nota es una energía pareja, sin nervios y sin el bajón de media mañana. Eso, desde el primer día.
 
-Lo primero es energía pareja, sin el bajón de media mañana, desde el primer día. Con la rutina, quienes lo toman describen un descanso más profundo y el cuerpo respondiendo mejor a los días exigentes. Y de fondo, apoya el funcionamiento normal de las defensas.
+Lo demás llega con la constancia. Quienes los toman a diario suelen contar, a las pocas semanas, que descansan mejor y que los días exigentes se llevan distinto. Y de fondo, el Ganoderma apoya el funcionamiento normal de las defensas.
 
-El mismo extracto va en cuatro líneas: bebidas como el café y el chocolate, suplementos en cápsulas, cuidado personal como la crema dental y el jabón, y el espresso Luvoco.
+Por eso la línea acompaña el día entero: el café o el chocolate de la mañana, el espresso Luvoco para quien lo quiere de máquina, las cápsulas para quien prefiere el hongo solo, el rooibos sin cafeína para la noche, y hasta la crema dental y el jabón.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se toman a lo largo de un día?
 ---
@@ -176,7 +178,7 @@ El portafolio de Gano Excel se estructura en **cuatro categorías** de consumo, 
 
 ### BEB_01: "¿Cuáles son sus bebidas? / ¿Cuáles son los cafés disponibles? / ¿Qué bebidas tienen?"
 **[Índice]:** Cuáles son las bebidas, cuáles son los cafés disponibles, qué bebidas tienen, la lista de bebidas con precios.
-**[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **Los únicos productos de bebidas son los 9 de esta tabla**, con estos nombres exactos: el té es Oleaf Gano Rooibos, el chocolate es Gano Schokolade y el café puro es Ganocafé Clásico. **v7.11 (13 sep 2026):** columna Beneficio sin claims fuera de la línea roja: *Claridad mental* → *Café negro puro* · *Satisface sin culpas* → *Café y chocolate* · *Piel, cabello, articulaciones* → *Colágeno para las articulaciones* (solo articulaciones tiene declaración INVIMA). *«del ecosistema»* → *«de Gano Excel»*.
+**[Concepto Nuclear]:** Lista oficial de bebidas funcionales con extracto propietario de Ganoderma lucidum. **Los únicos productos de bebidas son los 9 de esta tabla**, con estos nombres exactos: el té es Oleaf Gano Rooibos, el chocolate es Gano Schokolade y el café puro es Ganocafé Clásico. **v7.11 (13 sep 2026):** columna Beneficio sin claims fuera de la línea roja: *Claridad mental* → *Café negro puro* · *Satisface sin culpas* → *Café y chocolate* · *Piel, cabello, articulaciones* → *Colágeno para las articulaciones*. **v7.15 (Director, 28 oct 2026):** → *Colágeno para la piel y las articulaciones*: las dos tienen declaración aprobada por el INVIMA (función de barrera de la piel; salud articular). El cabello no. *«del ecosistema»* → *«de Gano Excel»*.
 
 <verbatim_lock>
 La línea de bebidas funcionales de Gano Excel cuenta con **9 productos** — todos contienen extracto propietario de Ganoderma lucidum de Gano Excel:
@@ -191,7 +193,7 @@ La línea de bebidas funcionales de Gano Excel cuenta con **9 productos** — to
 | **Gano C'Real Spirulina** | $119.900 | 15 sobres | Desayuno inteligente |
 | **Oleaf Gano Rooibos** | $119.900 | 20 sobres | Sin cafeína, antioxidantes |
 | **Gano Schokolade** | $124.900 | 20 sobres | Chocolate premium |
-| **Reskine Colágeno** | $216.900 | 10 sachets | Colágeno para las articulaciones |
+| **Reskine Colágeno** | $216.900 | 10 sachets | Colágeno para la piel y las articulaciones |
 
 </verbatim_lock>
 
@@ -227,50 +229,55 @@ Por eso la energía entra pareja y no se siente el bajón de la tarde. Quien es 
 ---
 
 ### BEB_04: "¿Tienen algún té? / háblame del té / ¿qué es el Rooibos? / té con Ganoderma / bebida sin cafeína"
-**[Índice]:** Tienen té, qué es el Rooibos, té con Ganoderma, una bebida sin cafeína.
-**[Concepto Nuclear]:** Oleaf Gano Rooibos — el único té de la línea. Sin cafeína. Ideal para quienes no toman café.
+**[Índice]:** Para qué sirve el té, tienen té, qué es el Rooibos, el té sirve para dormir, el té ayuda a descansar, té con Ganoderma, una bebida sin cafeína, algo para tomar de noche.
+**[Concepto Nuclear]:** Oleaf Gano Rooibos — el único té de la línea. El argumento es **el momento**: la taza de la noche. ⚠️ **v7.15 (Director, 28 oct 2026):** los beneficios del té son **los del rooibos**, no los del Ganoderma: no tiene cafeína, trae sus propios antioxidantes y favorece el descanso. El Ganoderma se nombra como ingrediente. Salió el formato de folleto (*«la opción perfecta para quien quiere los beneficios del Ganoderma»*, viñetas de *¿Por qué elegirlo?*). ⚠️ «Favorece el descanso» va en el registro de la etiqueta y se apoya en lo verificable —que no tiene cafeína—; sin cifras, sin plazos y sin nombrar una condición del sueño. La evidencia (CS_04) es de laboratorio sobre el cortisol y no hay un ensayo en personas sobre el sueño confirmado: no se cita.
 
-El **Oleaf Gano Rooibos** es la única infusión de la línea GanoCafé, y la opción perfecta para quien quiere los beneficios del Ganoderma sin cafeína.
+Con gusto. El Oleaf Gano Rooibos es la taza de la noche. El rooibos es una planta sudafricana que no tiene cafeína, trae sus propios antioxidantes y favorece el descanso, por eso tanta gente lo deja para cerrar el día.
 
-El Rooibos es una planta sudafricana con antioxidantes propios. Combinado con el extracto propietario de Ganoderma lucidum de Gano Excel, el resultado es una bebida funcional de sabor suave que puede tomarse en cualquier momento del día, incluso en la noche.
+El sabor es suave, un poco dulce de por sí, y lleva además el extracto de Ganoderma de toda la línea. Es también la opción de quien no toma café, y apoya el funcionamiento normal de las defensas.
 
-**¿Por qué elegirlo?**
-- Sin cafeína: ideal para la noche o para quien es sensible a la cafeína
-- Antioxidantes de dos fuentes: Rooibos + Ganoderma lucidum
-- Sabor suave y natural — fácil de integrar en cualquier rutina
-
-**Presentación:** 20 sobres · Precio: $119.900 COP
+La caja trae 20 sobres y cuesta $119.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
 
 ### BEB_05: "¿Tienen cereal? / háblame del Gano C'Real / ¿qué es la spirulina? / Gano cereal / bebida con spirulina"
-**[Índice]:** Tienen cereal, qué es el Gano C'Real, la bebida con spirulina, el cereal de ustedes.
-**[Concepto Nuclear]:** Gano C'Real Spirulina — el "cereal" funcional de la línea. Spirulina + Ganoderma. El desayuno inteligente. **v7.11 (13 sep 2026):** *«el adaptógeno milenario»* → *«el extracto de Ganoderma»*: el prompt prohíbe situar el producto en la medicina o en los siglos de uso.
+**[Índice]:** Para qué sirve el cereal, tienen cereal, qué es el Gano C'Real, la bebida con spirulina, el cereal de ustedes, el cereal reemplaza el desayuno.
+**[Concepto Nuclear]:** Gano C'Real Spirulina — la bebida de desayuno de la línea. Spirulina + Ganoderma. El argumento es **la mañana de afán**: algo con cuerpo cuando no hay tiempo de sentarse. **v7.11 (13 sep 2026):** *«el adaptógeno milenario»* → *«el extracto de Ganoderma»*: el prompt prohíbe situar el producto en la medicina o en los siglos de uso. ⚠️ **v7.15 (28 oct 2026):** salió *«rica en hierro, vitamina B12»*: «rico en» es una declaración de contenido de nutrientes, regulada y atada a la tabla nutricional; la spirulina se nombra por lo que es, un alga con proteína. Salió el formato de folleto. ⚠️ No se presenta como reemplazo de comida: es una bebida de desayuno, y la base sigue siendo comer (HAB_01). ⚠️ La evidencia de la spirulina es en dosis de gramos y sobre marcadores de enfermedad (CS_03): nada de eso llega aquí.
 
-El **Gano C'Real Spirulina** (pronunciado "Gano-Cereal") es una bebida instantánea de desayuno que combina:
-- **Spirulina:** alga con alta densidad proteica, rica en hierro, vitamina B12 y clorofila
-- **Ganoderma Lucidum:** el extracto de Ganoderma de Gano Excel
+Con gusto. El Gano C'Real es la bebida de las mañanas de afán: un sobre de cereal instantáneo con spirulina —un alga con proteína— y el extracto de Ganoderma, que se prepara en un minuto y deja algo con cuerpo cuando no hay tiempo de sentarse.
 
-**¿Para quién es ideal?**
-Personas activas, deportistas o quienes quieren un desayuno funcional sin recurrir a cápsulas o suplementos adicionales.
+Lo suele elegir quien entrena temprano o sale corriendo de la casa y no quiere arrancar el día con el estómago vacío. Acompañado de algo de comer, mejor todavía.
 
-**Presentación:** 15 sobres · Precio: $119.900 COP
+La caja trae 15 sobres y cuesta $119.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 ---
 
 ### BEB_06: "¿Qué es el Reskine? / ¿Cuánto cuesta el Reskine? / ¿Para qué sirve el Reskine Colágeno? / precio del colágeno / bebida de colágeno"
 **[Índice]:** Qué es el Reskine, para qué sirve el colágeno, cuánto cuesta la bebida de colágeno.
-**[Concepto Nuclear]:** El villano del colágeno **no es la duda, es el abandono**: nadie lo deja porque no crea en él, lo deja porque sabe feo. Por eso el eje es la bebida — el que uno se toma es el que sirve. ⚠️ **La composición se transcribe de la ficha oficial del fabricante** (ganoexcel.com.co/producto/colageno) y de ninguna otra fuente: una versión anterior de este catálogo listaba ingredientes que la fuente oficial no respalda (auditoría 17 ago 2026). ⚠️ El producto está registrado en la categoría **Alimentos**, no como suplemento dietario: las declaraciones aprobadas para colágeno por la Sala Especializada de Suplementos Dietarios del INVIMA **no se citan aquí** hasta verificar que apliquen a esa categoría. ⚠️ La lista de ingredientes es una **lista de presencias** y vende sola: goji, aloe, espinaca y quinua suman valor sin que haya que prometer nada.
+**[Concepto Nuclear]:** El villano del colágeno **no es la duda, es el abandono**: nadie lo deja porque no crea en él, lo deja porque sabe feo. Por eso el eje es la bebida — el que uno se toma es el que sirve. ⚠️ **La composición se transcribe de la ficha oficial del fabricante** (ganoexcel.com.co/producto/colageno) y de ninguna otra fuente: una versión anterior de este catálogo listaba ingredientes que la fuente oficial no respalda (auditoría 17 ago 2026). ⚠️ **v7.15 (Director, 28 oct 2026):** las dos declaraciones aprobadas por el INVIMA para el colágeno **sí se dicen**, con sus condiciones adentro (docs/investigaciones/resultados/INVIMA_PROCLAMAS_APROBADAS_SEPFSD.md): *junto con una dieta saludable, ayuda a mantener la función de barrera de la piel* · *junto con una dieta balanceada y actividad física, contribuye a una adecuada salud articular*. Lo que no está aprobado sigue fuera: arrugas, rejuvenecer, firmeza, cabello y uñas. ⚠️ La lista de ingredientes es una **lista de presencias** y vende sola: goji, aloe, espinaca y quinua suman valor sin que haya que prometer nada.
 
 Con gusto. Casi todos los colágenos del mercado son un polvo sin sabor que toca pasar rápido con agua. El Reskine es una bebida de frutos rojos — y esa diferencia decide si usted sigue tomándolo en tres meses o lo deja en el gabinete.
 
 Tampoco es colágeno con saborizante. Lleva colágeno de pescado y los betaglucanos del Ganoderma de Gano Excel, y sobre eso monta quinua líquida, concentrado de jugo de manzana, extracto de goji, aloe vera y espinaca. La fresa, la frambuesa y el arándano son el sabor.
 
-Es la única forma de tomar colágeno en la que uno espera con ganas el momento de tomarlo.
+Junto con una dieta saludable, el colágeno ayuda a mantener la función de barrera de la piel; y con una dieta balanceada y actividad física, contribuye a una adecuada salud articular. Es la única forma de tomarlo en la que uno espera con ganas el momento.
 
 **Presentación:** 10 sobres · **Precio: $216.900 COP**
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
+---
+
+### BEB_06B: "¿El colágeno sirve para la piel? / ¿el Reskine es para la piel? / ¿el colágeno quita las arrugas? / colágeno para el cabello y las uñas"
+**[Índice]:** El colágeno sirve para la piel, el Reskine es para la piel, el colágeno quita las arrugas, colágeno para el cabello y las uñas, el colágeno rejuvenece.
+**[Concepto Nuclear]:** Nace el 28 oct 2026 (auditoría de tono). La respuesta es **sí, con la declaración aprobada** por el INVIMA y su condición adentro (Director: está aprobado y documentado; docs/investigaciones/resultados/INVIMA_PROCLAMAS_APROBADAS_SEPFSD.md). Lo que el modelo componía solo —*«trabajan desde adentro hacia afuera»*, *«la piel es uno de los tejidos que más responde»*— no es esa declaración y el filtro lo sigue atajando. ⚠️ Fuera: arrugas, rejuvenecer, firmeza, cabello y uñas, que no están aprobados. ⚠️ Sin sermón.
+
+Sí. Junto con una dieta saludable, el colágeno ayuda a mantener la función de barrera de la piel, y con actividad física contribuye a una adecuada salud articular: es lo que tiene aprobado ante el INVIMA.
+
+El Reskine lo trae en una bebida de frutos rojos —fresa, frambuesa y arándano— con colágeno de pescado, los betaglucanos del Ganoderma, quinua, goji, aloe vera y espinaca. Casi todos los colágenos son un polvo sin sabor; este se espera con ganas, y por eso la gente lo sigue tomando, que es lo que cuenta con el colágeno.
+
+La caja trae 10 sobres y cuesta $216.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
 ---
@@ -318,12 +325,12 @@ Un sobre de 25 gramos en 180 ml de agua caliente. La caja trae 20 y cuesta $119.
 ---
 
 ### BEB_10: "¿Qué es el Shoko Rico? / háblame del chocolate / el de los niños / choko rico / chocolate caliente"
-**[Índice]:** Qué es el Shoko Rico, el chocolate caliente, el que les gusta a los niños, cuánto cuesta.
-**[Concepto Nuclear]:** Es el producto de la CASA: el que se toma en familia y el que los niños piden. Sin café — dato importante, porque es lo primero que pregunta una madre. ⚠️ Nada sobre desarrollo, huesos ni crecimiento: la ficha del catálogo web lo dice y es una declaración prohibida.
+**[Índice]:** Para qué sirve el chocolate, qué es el Shoko Rico, el chocolate caliente, el que les gusta a los niños, lo pueden tomar los niños, cuánto cuesta.
+**[Concepto Nuclear]:** Es el producto de la CASA: el que se toma en familia y el que los niños piden. Sin café — dato importante, porque es lo primero que pregunta una madre. ⚠️ Nada sobre desarrollo, huesos ni crecimiento: la ficha del catálogo web lo dice y es una declaración prohibida. ⚠️ **v7.15 (28 oct 2026):** «¿para qué sirve el chocolate?» —hay dos— recuperaba solo el Schokolade y le pegaba los beneficios del Ganoderma. Este fragmento es la puerta y nombra al hermano adulto en una frase.
 
 Con gusto. El Shoko Rico es el chocolate caliente de la casa — el que se prepara en la noche y el que piden los niños. No lleva café, así que no altera a nadie.
 
-Se arma en agua o en leche, según cómo lo tome su familia, y adentro va el mismo extracto de Ganoderma de toda la línea.
+Se arma en agua o en leche, según cómo lo tome su familia, y adentro va el mismo extracto de Ganoderma de toda la línea. Para el adulto que lo prefiere más intenso y menos dulce, está el Schokolade.
 
 Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $124.900 COP.
 
@@ -481,12 +488,12 @@ Cuesta $73.900 COP.
 ---
 
 ### PERS_03: "¿Qué es el Jabón Gano? / el jabón / jabón de ganoderma / jabón de leche de cabra / cuánto cuesta el jabón"
-**[Índice]:** Qué es el Jabón Gano, el jabón de leche de cabra, cuánto cuesta el jabón.
-**[Concepto Nuclear]:** El argumento es SENSORIAL y se comprueba el primer día: la piel sin tirantez. La leche de cabra es el ingrediente que la gente reconoce y valora. ⚠️ El vocabulario correcto es el del TIPO de piel —delicada, sensible— y el de la sensación al usarlo.
+**[Índice]:** Para qué sirve el jabón, qué es el Jabón Gano, el jabón de leche de cabra, cuánto cuesta el jabón.
+**[Concepto Nuclear]:** El argumento es SENSORIAL y se comprueba el primer día: la piel sin tirantez. La leche de cabra es el ingrediente que la gente reconoce y valora. ⚠️ El vocabulario correcto es el del TIPO de piel —delicada, sensible— y el de la sensación al usarlo. ⚠️ **v7.15 (28 oct 2026):** «¿para qué sirve el jabón?» recuperaba la tabla entera de cuidado personal. Este es la puerta y nombra al Transparente en una frase.
 
 Con gusto. El Jabón Gano es artesanal, con leche de cabra y extracto de Ganoderma, y la diferencia se nota al primer uso: la piel queda suave en vez de con esa tirantez que dejan los jabones que resecan.
 
-Es el que suele preferir quien tiene la piel delicada, porque limpia sin castigar.
+Es el que suele preferir quien tiene la piel delicada, porque limpia sin castigar. Y para la cara está el Transparente, con papaya y aloe.
 
 Cuesta $73.900 COP.
 
@@ -568,11 +575,11 @@ Viene en frasco de 90 cápsulas, una al día, y cuesta $336.900 COP.
 
 ### SUP_03: "¿Qué son las Cápsulas de Ganoderma? / ¿Para qué sirven las cápsulas de ganoderma? / ganoderma en cápsulas / el ganoderma puro / cuánto cuestan las cápsulas de ganoderma"
 **[Índice]:** Qué son las cápsulas de Ganoderma, para qué sirven, el ganoderma en cápsulas, cuánto cuesta.
-**[Concepto Nuclear]:** Es el Ganoderma SIN el café de por medio — la razón de compra es la vía, no un efecto. Dos públicos: quien ya toma el café y quiere sumar, y quien no toma café. ⚠️ **Una cápsula al día** (confirmado por el Director, 20 ago 2026): la ficha del catálogo web decía dos y con eso el frasco duraría mes y medio, no tres. ⚠️ Nada de defensas, células ni circulación — los beneficios del catálogo web cruzan la línea.
+**[Concepto Nuclear]:** Es el Ganoderma SIN el café de por medio — la razón de compra es la vía, no un efecto. Dos públicos: quien ya toma el café y quiere sumar, y quien no toma café. ⚠️ **Una cápsula al día** (confirmado por el Director, 20 ago 2026): la ficha del catálogo web decía dos y con eso el frasco duraría mes y medio, no tres. ⚠️ Nada de células ni circulación — los beneficios del catálogo web cruzan la línea. «Apoya el funcionamiento normal de las defensas» sí va, como en todos los productos (Director, 28 oct 2026).
 
 Con gusto. Las Cápsulas de Ganoderma son el extracto concentrado, sin café de por medio: el mismo hongo que lleva toda la línea, en su forma más directa.
 
-Es lo que suele buscar quien ya toma el café y quiere sumar algo más, y también quien no toma café pero quiere el Ganoderma igual.
+Es lo que suele buscar quien ya toma el café y quiere sumar algo más, y también quien no toma café pero quiere el Ganoderma igual. Como toda la línea, apoya el funcionamiento normal de las defensas.
 
 Frasco de 90 cápsulas, una al día —tres meses— y cuesta $272.500 COP.
 
@@ -653,7 +660,7 @@ Una caja de 20 sobres alcanza para veinte mañanas. Son los mismos momentos que 
 ---
 
 ### HAB_01: "¿Qué hábitos me recomienda? / ¿Cómo tengo más energía en el día?"
-**[Índice]:** Qué hábitos me recomienda, cómo tener más energía en el día, qué hago para sentirme mejor, una rutina saludable.
+**[Índice]:** Qué hábitos me recomienda, cómo tener más energía en el día, qué me recomienda para el cansancio, me siento cansado, qué hago para sentirme mejor, una rutina saludable.
 **[Concepto Nuclear]:** Nace el 28 oct 2026 (Director): en el catálogo Queswa es asesora de bienestar, y quien pregunta qué hacer para sentirse mejor recibe primero la base y después el producto, que acompaña y no reemplaza. Las cuatro pautas son las de mayor respaldo: OMS 2020 (150-300 min/semana de actividad moderada y fuerza dos días), AASM y NSF (7-9 h de sueño), EFSA 2010 (agua) y la umbrella review del BMJ 2024 sobre ultraprocesados. Fuentes completas en la investigación del 28 oct 2026 (docs/investigaciones/resultados/BIENESTAR_HABITOS_Y_MITOS_OCT2026.md). ⚠️ Las fuentes se quedan aquí: citarlas en la respuesta es ciencia citada, y el filtro de salida descarta el turno. ⚠️ Ninguna pauta va atada a un producto ni a una condición. ⚠️ Cierra en BEB_02, que lleva esta oferta literal en su índice.
 
 Lo que más pesa en cómo se siente uno en el día son cuatro cosas, y ninguna viene en un frasco:
@@ -683,7 +690,7 @@ Con los pre-entrenos vale la pena leer la etiqueta. Muchos traen más de 250 mg 
 
 ### FAQ_03: "¿Puedo combinar productos?"
 **[Índice]:** Puedo combinar productos, se pueden tomar juntos, hay problema si mezclo.
-**[Concepto Nuclear]:** Efecto sinérgico. Combinar potencia resultados.
+**[Concepto Nuclear]:** Las combinaciones se arman por momento y por gusto, no por efecto. ⛔ **v7.15 (28 oct 2026):** decía *«Efecto sinérgico. Combinar potencia resultados»* y la tabla traía la fila *«Piel y cabello: Reskine Colágeno + Piel&Brillo»*: el colágeno tiene declaración aprobada para la piel y las articulaciones, no para el cabello, así que va en su propia fila (Director, 28 oct 2026).
 
 Claro, y es lo más común: la mayoría arma su propia combinación con lo que ya consume.
 
@@ -692,7 +699,8 @@ Claro, y es lo más común: la mayoría arma su propia combinación con lo que y
 | Energía y enfoque | Ganocafé 3 en 1 + Excellium |
 | Rendimiento físico | Ganocafé Clásico + Cordygold |
 | Algo para toda la casa | Shoko Rico + Jabón Gano |
-| Piel y cabello | Reskine Colágeno + Piel&Brillo |
+| La piel y las articulaciones | Reskine Colágeno |
+| El cuidado del cabello | champú + acondicionador Piel&Brillo |
 
 **Pregunta de seguimiento:** ¿Le muestro el catálogo completo con precios?
 

@@ -196,12 +196,20 @@ const SALIDA_POSITIVOS = [
   'El Reskine Colágeno y las cápsulas Cordygold son la línea de nutrición concentrada: colágeno para la piel y el tejido conectivo, y Cordyceps para el rendimiento físico.',
   'Todos llevan extracto de Ganoderma, un hongo que se usa en la nutrición funcional.',
   'Las cápsulas Cordygold y el Reskine Colágeno van dirigidos a quien busca vitalidad y cuidado de la piel desde adentro.',
-  'colágeno hidrolizado con ganoderma, pensada para la piel y las articulaciones',
   'un suplemento con cordyceps y ganoderma, pensado para el rendimiento físico',
+  // Lo que el colágeno NO tiene aprobado (28 oct 2026)
+  'El Reskine Colágeno le ayuda a reducir las arrugas y a recuperar la firmeza.',
+  'El colágeno para el cabello y las uñas es lo que más se pide.',
+  'Ingredientes que trabajan desde adentro hacia afuera.',
 ];
 
 // Respuestas BUENAS del canal (prueba real del 14 ago) — no pueden bloquearse
 const SALIDA_NEGATIVOS_LITERALES = [
+  // El colágeno para la piel y las articulaciones tiene declaración aprobada por
+  // el INVIMA (Director, 28 oct 2026): pasa.
+  'colágeno hidrolizado con ganoderma, pensada para la piel y las articulaciones',
+  'Junto con una dieta saludable, el colágeno ayuda a mantener la función de barrera de la piel; y con una dieta balanceada y actividad física, contribuye a una adecuada salud articular.',
+  'El rooibos es una planta sudafricana que no tiene cafeína, trae sus propios antioxidantes y favorece el descanso.',
   // ⚠️ «el equilibrio del cuerpo» NO se bloquea: vive en dos fragmentos
   // aprobados junto a «apoyan el sistema inmune», que es vocabulario verde. El
   // elemento riesgoso de la frase de Gemini era «preventivo», no «equilibrio».

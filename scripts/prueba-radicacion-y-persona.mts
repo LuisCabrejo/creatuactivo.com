@@ -60,7 +60,7 @@ es(!/Para radicar su vinculación necesito (cuatro|cinco) datos/.test(prompt), '
 console.log('\n── 2. Salud: la segunda reincidencia y el texto corto ──');
 es(!/su m[eé]dico|su tratamiento|su caso/i.test(RECHAZO_SALUD_CORTO), 'el texto corto no le atribuye nada a la persona');
 es(RECHAZO_SALUD_CORTO.trim().endsWith('?'), 'el texto corto cierra con la puerta al equipo');
-es(NUCLEO_REINCIDE.startsWith('Ahí aplica lo mismo'), 'la referencia a lo dicho sigue siendo el núcleo de la primera reincidencia');
+es(/ahí vale lo mismo que le conté/.test(NUCLEO_REINCIDE), 'la referencia a lo dicho sigue siendo el núcleo de la primera reincidencia');
 
 console.log('\n── 3. El «ok» a la oferta de conectar con el equipo ──');
 es(botOfrecioPersona(RECHAZO_SALUD_CORTO), 'el texto corto ofrece una persona');

@@ -137,6 +137,7 @@ import {
   RECHAZO_SALUD_SOCIO,
   RECHAZO_SALUD_SOCIO_OTRA_VEZ,
   NUCLEO_REINCIDE,
+  abreConNucleoReincide,
   rechazoSaludPorFamilia,
   esRechazoSaludComun,
   saludSeCompone,
@@ -4068,7 +4069,7 @@ async function estadoSaludPrevio(
     const ultimoBot = Array.isArray(ultimaFila?.messages)
       ? [...ultimaFila.messages].reverse().find((m: { role?: string }) => m?.role === 'assistant')?.content ?? ''
       : '';
-    const reincidioYa = typeof ultimoBot === 'string' && ultimoBot.trim().startsWith(NUCLEO_REINCIDE);
+    const reincidioYa = typeof ultimoBot === 'string' && abreConNucleoReincide(ultimoBot);
     return { nucleoDicho, reincidioYa };
   } catch (err) {
     console.error('⚠️ [WA Guardrail Salud] Error consultando el núcleo previo:', err);

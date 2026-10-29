@@ -1,6 +1,6 @@
 # Arsenal de Ciencia para el Socio — solo Dashboard (queswa.app)
 
-**Versión actual: v1.0** (13 sep 2026). Para quien ya es distribuidor y se prepara para lo que le van a preguntar. Vive **únicamente en el tenant `dashboard`**: el Dashboard es privado y no se indexa; el canal de WhatsApp y la web conservan sus guardarraíles. Historial y doctrina → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Despliegue: `node scripts/desplegar-arsenal-ciencia-socio.mjs`.
+**Versión actual: v1.1** (28 oct 2026) — CS_06 suma la declaración aprobada de la piel; CS_04 deja dicho qué hay sobre el descanso y qué puede decir el socio (Director). CS_08 deja de sonar a manual: le habla al socio como colega (antes: «Le va a pasar, y la respuesta es una sola, en dos partes… No se repite… no se cita… no se pregunta»). Nace CS_09: «¿para qué sirven los productos?» contado como se le dice a un cliente, con la ciencia ofrecida al final y no impuesta. Texto aprobado por el Director en el chat. **v1.0** (13 sep 2026). Para quien ya es distribuidor y se prepara para lo que le van a preguntar. Vive **únicamente en el tenant `dashboard`**: el Dashboard es privado y no se indexa; el canal de WhatsApp y la web conservan sus guardarraíles. Historial y doctrina → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Despliegue: `node scripts/desplegar-arsenal-ciencia-socio.mjs`.
 
 Cada respuesta tiene tres niveles: qué es y qué contiene · qué dice la evidencia en personas, con su identificador (PMID) y su calibre, incluido lo que no cambió · **lo que el socio sí puede decirle a su cliente**, en el registro de la etiqueta.
 
@@ -85,9 +85,11 @@ Aquí la respuesta honesta es que la evidencia en personas es escasa.
 
 La revisión sistemática más reciente sobre rooibos en humanos (Beverages, 2024; doi 10.3390/beverages10040113) encontró ocho estudios con 175 participantes en total, con resultados mixtos, y concluye que no alcanza para sostener beneficios definidos. Lo que se dice de la aspalatina, su flavonoide principal, viene sobre todo de estudios en animales y en células.
 
+Sobre el descanso, lo que hay es esto: estudios de laboratorio en los que el rooibos redujo la producción de cortisol, la hormona del estrés, en células de la glándula suprarrenal, y el hecho más firme de todos, que no tiene cafeína. Un ensayo en personas que mida el sueño no lo he encontrado publicado; si alguien le cita uno, pídale la referencia.
+
 Lo que sí es un hecho: es una infusión sin cafeína, con antioxidantes propios, y en el Oleaf va combinada con el extracto de Ganoderma.
 
-**Lo que usted puede decirle a su cliente:** sin cafeína, para cualquier hora, incluso de noche; antioxidantes de dos fuentes; sabor suave. Nada más, porque no hay más.
+**Lo que usted puede decirle a su cliente:** que el rooibos no tiene cafeína, trae sus propios antioxidantes y favorece el descanso, por eso es la taza de la noche; sabor suave; y, como toda la línea, apoya el funcionamiento normal de las defensas. Sin cifras ni plazos, y sin nombrar un problema de sueño.
 
 **Pregunta de seguimiento:** ¿Le muestro qué se sabe del micelio del Excellium?
 
@@ -107,15 +109,17 @@ La evidencia humana que le mostré del Ganoderma se hizo con extractos del cuerp
 ---
 
 ### CS_06: "¿Qué puedo decir del colágeno? / declaración aprobada del Reskine / ¿el colágeno tiene respaldo de INVIMA?"
-**[Índice]:** Qué puedo decir del colágeno, declaración de salud aprobada por INVIMA para el colágeno, qué respaldo tiene el Reskine, si puedo hablar de articulaciones.
+**[Índice]:** Qué puedo decir del colágeno, declaración de salud aprobada por INVIMA para el colágeno, qué respaldo tiene el Reskine, si puedo hablar de la piel y de las articulaciones.
 
 El colágeno es el único ingrediente de la línea con declaraciones de salud aprobadas por INVIMA, y se citan con sus condiciones, porque las condiciones son parte de la declaración.
 
 Del Acta 10 de 2017 de la Sala Especializada de Alimentos: *«El consumo regular de colágeno, junto con una dieta balanceada y actividad física, puede contribuir a una adecuada salud articular»*, y *«El colágeno hidrolizado, junto con una dieta balanceada y actividad física, ayuda a mantener el buen funcionamiento de las articulaciones, permitiendo el movimiento»*.
 
-Ese es el carril blindado: lo puede decir tal cual, con el *junto con una dieta balanceada y actividad física* adentro. Lo que se sale de ahí —piel, arrugas, dolor, artritis— no está aprobado y no se dice.
+Y para la piel, de la misma lista de declaraciones aprobadas: *«El consumo regular de péptidos de colágeno hidrolizado junto con una dieta saludable ayuda a mantener la función de barrera de la piel»*.
 
-**Lo que usted puede decirle a su cliente:** la declaración aprobada, tal cual, y lo sensorial del Reskine: una bebida de frutos rojos que uno espera con ganas.
+Ese es el carril blindado: las dos se dicen tal cual, con su condición adentro. Lo que se sale de ahí —arrugas, rejuvenecer, firmeza, cabello, uñas, dolor, artritis— no está aprobado.
+
+**Lo que usted puede decirle a su cliente:** que el colágeno, junto con una dieta saludable, ayuda a mantener la función de barrera de la piel, y que con actividad física contribuye a una adecuada salud articular; y lo sensorial del Reskine: una bebida de frutos rojos que uno espera con ganas.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se lee el calibre de un estudio?
 
@@ -143,12 +147,23 @@ Por eso «hay más de dos mil estudios sobre el Ganoderma» no es un argumento: 
 ### CS_08: "Un cliente me pregunta si sirve para una enfermedad / me preguntan por la diabetes, la presión o el cáncer / ¿qué respondo cuando me hablan de una condición?"
 **[Índice]:** Un cliente me pregunta si sirve para una enfermedad, qué respondo cuando me hablan de diabetes, presión, cáncer o una condición, cómo contesto sin perder al cliente, me dicen que a un amigo le sirvió.
 
-Le va a pasar, y la respuesta es una sola, en dos partes.
+Esa pregunta llega seguido, y tiene una respuesta que cuida a su cliente y lo cuida a usted.
 
-Primero, con calidez: *«Eso lo ve con su médico, que es quien conoce su caso»*. Segundo, lo que sí hay: *«Lo que yo le ofrezco está registrado como suplemento dietario, no como tratamiento, así que lo que va a encontrar aquí es nutrición y bienestar para el día a día: energía, antioxidantes, un ritual que se disfruta»*.
+Puede decirle algo así: *«Eso lo ve con su médico, que es quien conoce su caso. Lo que yo le ofrezco está registrado como suplemento dietario, no como tratamiento: es nutrición y bienestar para el día a día —energía, antioxidantes, un ritual que se disfruta—.»*
 
-No se repite el nombre de la enfermedad, no se cita un estudio para ese caso y no se pregunta por síntomas. Si la persona insiste con *«pero a un amigo le sirvió»*, se le concede la experiencia sin adoptarla: *«Cada persona es distinta, y por eso ese punto es de su médico»*.
-
-Lo que usted ha leído aquí conmigo es para que entienda lo que vende. La conversación con su cliente se queda en el carril de la etiqueta, y ese carril vende bien: la gente compra el café porque le gusta y le sienta, no por un estudio.
+Y si le dicen *«pero a un amigo le sirvió»*: *«Qué bueno por él. Cada persona es distinta, y por eso esa parte es de su médico.»*
 
 **Pregunta de seguimiento:** ¿Le muestro qué puede decir de cada producto, uno por uno?
+
+---
+
+### CS_09: "¿Para qué sirven los productos? / ¿Qué le digo a un cliente que pregunta para qué sirven? / ¿Cómo explico los beneficios?"
+**[Índice]:** Para qué sirven los productos, qué le digo a un cliente que pregunta para qué sirven, cómo explico los beneficios de la línea, cómo cuento lo que hace el Ganoderma sin prometer.
+
+Es la pregunta que más le van a hacer, así que vale tenerla a mano en palabras sencillas.
+
+Lo que su cliente nota primero está en la taza: energía pareja, sin nervios y sin el bajón de media mañana. Con la constancia, quienes los toman a diario cuentan que descansan mejor y que los días pesados se llevan distinto; y de fondo, el Ganoderma apoya el funcionamiento normal de las defensas. Esa última es la única función que se nombra, y va tal cual.
+
+Cuéntelo por momentos del día: el café o el chocolate en la mañana, las cápsulas para quien quiere el hongo solo, el rooibos sin cafeína para la noche, el colágeno de frutos rojos y el cuidado personal. Cuando la persona se imagina usándolos, es cuando vuelve a pedir.
+
+**Pregunta de seguimiento:** ¿Le muestro qué dice la ciencia del Ganoderma, para que usted lo entienda a fondo?

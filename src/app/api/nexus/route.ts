@@ -71,7 +71,7 @@ import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib
 const SUPERVISOR_ANTES_DE_ENVIAR = false;
 import {
   NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, NUCLEO_EVIDENCIA, NUCLEO_REINCIDE, HABITOS_PESO,
-  CIERRE_SALUD, CIERRE_EVIDENCIA, CIERRE_REINCIDE,
+  CIERRE_SALUD, CIERRE_PESO, CIERRE_EVIDENCIA, CIERRE_REINCIDE, abreConNucleoReincide,
   RECHAZO_SALUD_EVIDENCIA, RECHAZO_SALUD_COMUN_PREGUNTA,
   contieneNucleoSalud, declaraCondicion, pideEvidencia,
 } from '@/lib/wa-guardarrail-salud';
@@ -1607,6 +1607,11 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
     // un producto, así que se decide aquí y no en el vector.
     /(me siento|estoy|ando|me encuentro|amanec[ií])[^.?]{0,25}(cansad|agotad|sin energ[ií]a|fatigad|decaíd|decaid|estresad|sin [aá]nimo|sin fuerzas)[\s\S]{0,60}(recomiend|recomend|aconsej|sugier|qu[eé] (tomo|tomar|me sirve|puedo tomar)|qu[eé] producto)/i,
     /(recomiend|recomend|aconsej|sugier)[^.?]{0,40}(porque|ya que|es que)?[\s\S]{0,25}(me siento|estoy|ando)[^.?]{0,20}(cansad|agotad|sin energ[ií]a|fatigad|estresad)/i,
+    // El estado nombrado como sustantivo, sin «me siento» (auditoría, 28 oct
+    // 2026): «¿Cuál me recomienda para el cansancio?» no abría ninguna puerta, el
+    // vector no encontraba nada de cansancio en el catálogo y ganaba FREQ_30 —la
+    // de los paquetes, con candado— con 0,43: «Con el que le resulte cómodo hoy».
+    /(recomiend|recomend|aconsej|sugier|qu[eé] (tomo|tomar|me sirve|producto))[^?]{0,40}(cansancio|cansad|agotamiento|fatiga|sin energ[ií]a|m[aá]s energ[ií]a|el estr[eé]s|para (dormir|el sue[ñn]o|descansar))/i,
 
     // ===== CÁPSULAS CORDYGOLD (PROBLEMA ESPECÍFICO) =====
     /(?:dame el precio|cuánto cuesta|precio|cuesta|valor|vale|cuánto vale).*(?:cordy gold|cordygold|cordy|gano cordyceps)/i,
@@ -4657,7 +4662,7 @@ export async function POST(req: Request) {
         // Tercera pregunta de salud seguida (espejo del webhook, 9 sep 2026): la
         // referencia a lo dicho no se repite; texto corto con la puerta al equipo.
         const _ultimoBotWeb = [..._mensajesPrevios].reverse().find((m) => m.role === 'assistant')?.content ?? '';
-        if (canalWeb && _ultimoBotWeb.trim().startsWith(NUCLEO_REINCIDE)) {
+        if (canalWeb && abreConNucleoReincide(_ultimoBotWeb)) {
           console.warn(`🛡️ [Salud/entrada·web] «${_salud.termino}» — segunda reincidencia seguida, texto corto`);
           return new StreamingTextResponse(buildVerbatimStream(RECHAZO_SALUD_CORTO), { headers: getCorsHeaders(origin) });
         }
@@ -6009,13 +6014,20 @@ o esa misma línea — no sobre otro.${desdeCatalogo}`;
         // clínico, «ayudarme» o preguntar por una condición NO significan que
         // esté enferma: puede estar midiendo el mercado, preparándose para lo que
         // le van a preguntar, o preguntando por alguien (Director, 8 sep 2026).
-        const acuse = declara
-          ? 'Contó algo suyo: reconozca esa confianza.'
+        // ⚠️ 28 oct 2026 (auditoría de tono): la frase de acuse ACOMPAÑA, no
+        // califica. 57 de 108 respuestas abrían con «Buena pregunta» o «se nota
+        // que…», y la instrucción de grave pedía «reconozca CÓMO preguntó (con
+        // precisión, con criterio)»: a quien preguntaba por el cáncer de colon le
+        // llegó «Pregunta hecha con precisión — se nota que llegó con criterio, no
+        // con curiosidad vaga». Calificar la pregunta es lo que hace un profesor.
+        const noCalifica = ' ⛔ Nunca califique la pregunta ni a la persona: nada de «Buena pregunta», «Qué bueno que pregunte», «se nota que…», «habla bien de usted», «con criterio», «con precisión», «Pregunta hecha con…».';
+        const acuse = (declara
+          ? 'Contó algo suyo o de alguien querido: reconozca lo que eso pesa, con calidez y sin nombrar la enfermedad (por ejemplo «Lamento que su mamá esté pasando por esto» o «Gracias por la confianza de contármelo»).'
           : fam === 'grave'
-          ? 'Preguntó por una condición y no contó nada suyo: reconozca CÓMO preguntó (con precisión, con criterio), nunca lo que supone de ella —ni siquiera «se nota que ya investigó»—. Nada de «su condición», «lo que está pasando», «su médico», «su tratamiento», «su caso» ni «le deseo lo mejor»: todo eso le atribuye una enfermedad que no declaró.'
+          ? 'Preguntó por una condición y no contó nada suyo: una frase serena que diga que le va a responder con cuidado (por ejemplo «Con un tema así, le respondo con todo el cuidado»), sin suponer nada de ella. Nada de «su condición», «lo que está pasando», «su médico», «su tratamiento», «su caso» ni «le deseo lo mejor»: todo eso le atribuye una enfermedad que no declaró.'
           : fam === 'evidencia'
           ? 'Pidió la ciencia: trátela como alguien que quiere la respuesta exacta. Abra EXACTAMENTE con esta frase y nada más en el primer párrafo: «El Ganoderma es uno de los hongos más estudiados del mundo, y esa literatura es pública.» ⛔ No le agregue nada a esa frase: ni «quien quiera puede ir a…», ni el nombre de PubMed ni de ningún repositorio, revista o estudio — mandarla a buscar la ciencia dentro de esta conversación es la forma exacta que sanciona la norma, y el filtro de salida descarta el turno entero si aparece. Nunca cite, resuma ni enlace un estudio. ⛔ Y nada de «su médico», «su tratamiento» ni «su caso»: no dijo que fuera para ella; si hace falta, «el médico tratante» o «la conversación que quiera tener».'
-          : 'Preguntó por el producto y no contó nada de su salud: reconozca la pregunta. Hablarle de «su condición» o agradecerle una confidencia le atribuye algo que no dijo.';
+          : 'Preguntó por el producto y no contó nada de su salud: entre conversando, como quien le cuenta algo a un conocido (por ejemplo «Le cuento cómo es» o «Es de lo que más nos preguntan»). Hablarle de «su condición» o agradecerle una confidencia le atribuye algo que no dijo.') + noCalifica;
         // Este turno va sin arsenal recuperado, así que la lista de productos va
         // aquí: sin ella el modelo la compone de memoria — el 30 ago inventó
         // «jugo de frutas» y un «café sin cafeína» que no existen.
@@ -6026,6 +6038,7 @@ o esa misma línea — no sobre otro.${desdeCatalogo}`;
         const cierre = otraVez ? CIERRE_REINCIDE
           : fam === 'evidencia' ? CIERRE_EVIDENCIA
           : fam === 'grave' ? 'UNA sola pregunta corta que proponga empezar por eso (por ejemplo: «¿Empezamos por ahí?»), sin nombrar producto'
+          : fam === 'peso' ? CIERRE_PESO
           : CIERRE_SALUD;
 
         if (otraVez) {
@@ -6063,8 +6076,8 @@ Escriba exactamente tres párrafos y una pregunta, en este orden:
 
 1. UN ACUSE de una sola frase, escrito para ESTA persona y lo que ESTE mensaje
    dice. ${acuse}${paquete ? `\n   ⚠️ En este mismo mensaje eligió el *${paquete}*: reconózcalo en esa frase, con naturalidad, antes de responder lo demás.` : ''}
-   Si en este hilo ya abrió con «Comprendo», «Buena pregunta» o «Le respondo
-   con cuidado», no vuelva a abrir así: lo dado no se repite.
+   Si en este hilo ya abrió con una frase de acuse, no repita la misma: lo
+   dado no se repite.
 
 2. ESTE PÁRRAFO, palabra por palabra, sin cambiar ni agregar nada:
 <verbatim_lock>
@@ -6075,7 +6088,7 @@ ${fam === 'peso' ? `3. ESTE PÁRRAFO, palabra por palabra, sin cambiar ni agrega
    no nombre ningún producto:
 <verbatim_lock>
 ${HABITOS_PESO}
-</verbatim_lock>` : `3. UN PÁRRAFO DE DOS O TRES FRASES que abra con «${fam === 'grave' || fam === 'evidencia' ? 'Lo que sí' : 'Dicho esto,'}» y ofrezca ${oferta}.
+</verbatim_lock>` : `3. UN PÁRRAFO DE DOS O TRES FRASES que abra con «Lo que sí» y ofrezca ${oferta}.
    ${fam === 'grave' || fam === 'evidencia' ? 'Diga qué es lo verificable y que se lo da con exactitud.' : 'Diga lo que el producto ES: composición, preparación, presentación.'}`}
 
 4. ${fam === 'grave' ? `Cierre con ${cierre}.` : `Cierre exactamente con: ${cierre}`}

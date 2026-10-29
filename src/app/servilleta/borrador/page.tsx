@@ -2,8 +2,8 @@
 
 /**
  * ⚠️ BORRADOR (28 oct 2026, Director) — /servilleta/borrador. Copia de trabajo de
- * /servilleta para probar en reuniones reales la definición nueva («Le damos todo
- * lo que necesita…» + Uber) y el orden de la pantalla 5. NO es la
+ * /servilleta para probar en reuniones reales la solución con su obstáculo y el
+ * orden de la pantalla 5. NO es la
  * presentación: sin noindex no se publica (borrador/layout.tsx), no reporta avance
  * al Dashboard, no lleva la guía SEO y no está enlazada desde ninguna parte.
  * Cuando el Director la apruebe, sus cambios pasan a ../page.tsx y ESTA CARPETA SE
@@ -11,12 +11,12 @@
  * aprobó, también se borra: no se mantiene como segunda presentación.
  *
  * Lo que cambia frente a /servilleta (pantalla 5):
- *  · Beat 0: la definición y el obstáculo con precio («armados por su cuenta, le
- *    costarían millones»), en lugar de «Le damos la oportunidad… similar a Uber,
- *    Rappi o Nequi» y «Se requieren tres elementos». SIN el nombre (Director,
- *    28 oct 2026, opción a): en la voz del socio la definición abre con
- *    «Queswa.app es…», pero en el deck el nombre sigue siendo la revelación del
- *    beat de la unión — la secuencia de Jobs que ya probó en vivo.
+ *  · Beat 0 (Director, 28 oct 2026): solo «Una empresa de distribución moderna a
+ *    su nombre.» y el obstáculo con precio, «Tres elementos que le costarían
+ *    millones:», en lugar de «Le damos la oportunidad… similar a Uber, Rappi o
+ *    Nequi» y «Se requieren tres elementos». La definición completa («Queswa.app
+ *    es todo lo que necesita…» + Uber) va en la voz del socio; en el deck,
+ *    Queswa.app sigue siendo la revelación del beat de la unión (opción a).
  *  · Las tres quietas siguen a la tercera pieza sin desvío (la tríada de Jobs).
  *  · La propiedad cierra la cadena completa del modelo, con el porcentaje.
  *  · «Solo se multiplica lo que es sencillo» va al final, después de la propiedad
@@ -1655,29 +1655,23 @@ export default function PitchDeckPage() {
           <div className={`pd-beat ${slide === 5 && beat === 0 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La solución</p>
-              {/* BORRADOR (28 oct 2026): la definición del Director, sin el nombre
-                  de la aplicación (opción a: Queswa.app sigue siendo la revelación
-                  de la unión). Uber va UNA vez y con lo que se traslada —sin ser
-                  dueño de los carros—; las tres marcas sueltas obligaban a la
-                  persona a adivinar la relación, y la ola ya la contó la pantalla 2.
-                  La analogía pone a SU empresa en el lugar de Uber: si fuera
-                  Queswa, el prospecto quedaría de conductor. */}
+              {/* BORRADOR (Director, 28 oct 2026): la pantalla lleva SOLO la
+                  solución y el obstáculo. La definición completa —«todo lo que
+                  necesita… desde el celular» y la analogía de Uber (su empresa vende
+                  sin ser dueña de la fábrica, como Uber sin carros)— va en la voz del
+                  socio. Sin «similar a Uber, Rappi o Nequi»: la ola ya la contó la
+                  pantalla 2. «Moderna» lo pagan las tres piezas y el celular de la
+                  unión. */}
               <p className="pd-propuesta">
-                Le damos todo lo que necesita para tener su propia{' '}
-                <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>,
-                desde el celular.
-              </p>
-              <p className="pd-p" style={{ margin: '1.2rem auto 0', textAlign: 'center' }}>
-                Así como Uber mueve el transporte sin ser dueño de los carros, su empresa
-                vende sin ser dueña de la fábrica.
+                Una{' '}
+                <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>{' '}
+                a su nombre.
               </p>
               {/* El obstáculo con precio, en lugar de «Se requieren tres elementos»:
                   un requisito es una lista que aprender; un obstáculo es algo que la
                   persona ya siente. Lo cobra la frase de la unión («No son tres
-                  elementos que usted tenga que conseguir»). Corta a propósito: en
-                  mayúsculas y a este tamaño, la frase entera de la definición
-                  («armados por su cuenta…») competía con el titular; esa va en la
-                  voz del socio. */}
+                  elementos que usted tenga que conseguir»). Corta a propósito: «armados
+                  por su cuenta…» va en la voz del socio. */}
               <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>
                 Tres elementos que le costarían millones:
               </p>

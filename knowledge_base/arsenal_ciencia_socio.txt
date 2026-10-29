@@ -1,6 +1,6 @@
 # Arsenal de Ciencia para el Socio — solo Dashboard (queswa.app)
 
-**Versión actual: v1.2** (29 oct 2026) — CS_04 cuenta con nombre y fecha lo que hay del rooibos: el ensayo de los lípidos en 40 adultos, el trabajo de Stellenbosch sobre el cortisol (células y ratas; en personas cambió la proporción, no el cortisol en sangre) y el ensayo australiano que mide el sueño, terminado y sin resultados publicados. CS_09 recibe «¿para qué sirve el Ganoderma?», que se iba a la clase de ciencia de CS_01. **v1.1** (28 oct 2026) — CS_06 suma la declaración aprobada de la piel; CS_04 deja dicho qué hay sobre el descanso y qué puede decir el socio (Director). CS_08 deja de sonar a manual: le habla al socio como colega (antes: «Le va a pasar, y la respuesta es una sola, en dos partes… No se repite… no se cita… no se pregunta»). Nace CS_09: «¿para qué sirven los productos?» contado como se le dice a un cliente, con la ciencia ofrecida al final y no impuesta. Texto aprobado por el Director en el chat. **v1.0** (13 sep 2026). Para quien ya es distribuidor y se prepara para lo que le van a preguntar. Vive **únicamente en el tenant `dashboard`**: el Dashboard es privado y no se indexa; el canal de WhatsApp y la web conservan sus guardarraíles. Historial y doctrina → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Despliegue: `node scripts/desplegar-arsenal-ciencia-socio.mjs`.
+**Versión actual: v1.3** (29 oct 2026) — CS_00 y CS_01 dicen la función con la frase aprobada para toda la línea, «apoya el funcionamiento normal de las defensas» (antes «apoya el sistema inmune») (Director). **v1.2** (29 oct 2026) — CS_04 cuenta con nombre y fecha lo que hay del rooibos: el ensayo de los lípidos en 40 adultos, el trabajo de Stellenbosch sobre el cortisol (células y ratas; en personas cambió la proporción, no el cortisol en sangre) y el ensayo australiano que mide el sueño, terminado y sin resultados publicados. CS_09 recibe «¿para qué sirve el Ganoderma?», que se iba a la clase de ciencia de CS_01. **v1.1** (28 oct 2026) — CS_06 suma la declaración aprobada de la piel; CS_04 deja dicho qué hay sobre el descanso y qué puede decir el socio (Director). CS_08 deja de sonar a manual: le habla al socio como colega (antes: «Le va a pasar, y la respuesta es una sola, en dos partes… No se repite… no se cita… no se pregunta»). Nace CS_09: «¿para qué sirven los productos?» contado como se le dice a un cliente, con la ciencia ofrecida al final y no impuesta. Texto aprobado por el Director en el chat. **v1.0** (13 sep 2026). Para quien ya es distribuidor y se prepara para lo que le van a preguntar. Vive **únicamente en el tenant `dashboard`**: el Dashboard es privado y no se indexa; el canal de WhatsApp y la web conservan sus guardarraíles. Historial y doctrina → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Despliegue: `node scripts/desplegar-arsenal-ciencia-socio.mjs`.
 
 Cada respuesta tiene tres niveles: qué es y qué contiene · qué dice la evidencia en personas, con su identificador (PMID) y su calibre, incluido lo que no cambió · **lo que el socio sí puede decirle a su cliente**, en el registro de la etiqueta.
 
@@ -15,7 +15,7 @@ Con usted, aquí, hablo de la ciencia como es: qué se ha medido en personas, en
 
 Con su cliente, lo que usted diga es publicidad. En Colombia, el Decreto 3249 de 2006 prohíbe atribuirle a un suplemento cualquier efecto preventivo o terapéutico, y exige que la publicidad la apruebe INVIMA. En Estados Unidos, la FTC responsabiliza a la empresa por lo que afirman sus distribuidores, incluso en una conversación uno a uno. Un estudio que yo le muestre no autoriza una frase a su cliente: la autoriza la etiqueta.
 
-Lo que sí puede decir, y con respaldo: *apoya*, *contribuye*, *favorece*. Energía, vitalidad, antioxidante, «apoya el sistema inmune». El ritual y lo sensorial.
+Lo que sí puede decir, y con respaldo: *apoya*, *contribuye*, *favorece*. Energía, vitalidad, antioxidante, «apoya el funcionamiento normal de las defensas». El ritual y lo sensorial.
 
 Lo que no se dice, con estudio o sin él: una enfermedad por su nombre; *cura*, *trata*, *previene*, *alivia*; cifras y plazos; adelgazar; y preguntar por la salud de la persona para venderle.
 
@@ -38,7 +38,7 @@ Sí, y le doy los tres que más pesan, con su calibre.
 
 Lo de los triterpenos y la inflamación, que es lo que más circula en redes, es casi todo en laboratorio y en animales, y el metaanálisis en personas no lo confirmó.
 
-**Lo que usted puede decirle a su cliente:** que el Ganoderma aporta betaglucanos y antioxidantes, y que apoya el sistema inmune. Nada de presión, azúcar, colesterol ni inflamación: ahí la evidencia en personas dice que no, y la ley dice que no se afirma.
+**Lo que usted puede decirle a su cliente:** que el Ganoderma aporta betaglucanos y antioxidantes, y que apoya el funcionamiento normal de las defensas. Nada de presión, azúcar, colesterol ni inflamación: ahí la evidencia en personas dice que no, y la ley dice que no se afirma.
 
 **Pregunta de seguimiento:** ¿Le muestro cómo se lee el calibre de un estudio?
 

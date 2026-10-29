@@ -512,6 +512,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_ciencia_socio (solo tenant `dashboard`)
 
+### v1.3 — Las defensas con la frase aprobada (29 oct 2026)
+
+`CS_00` (lo que sí puede decir) y `CS_01` (lo que usted puede decirle a su cliente) decían «apoya el sistema inmune», y `CS_09` y la ficha del catálogo dicen «apoya el funcionamiento normal de las defensas», la frase que el Director aprobó para todos los productos (28 oct). En la auditoría del 29 oct el socio recibía las dos en la misma respuesta. Ahora es una sola (Director).
+
 ### v1.2 — El rooibos con nombre y fecha; «¿para qué sirve el Ganoderma?» va a CS_09 (29 oct 2026)
 
 `CS_04` deja de decir «estudios de laboratorio» en general y nombra lo que hay: el ensayo de Marnewick (Journal of Ethnopharmacology, 2011; PMID 20833235: 40 adultos, seis tazas al día por seis semanas; bajaron el LDL, los triglicéridos y la oxidación de las grasas, sin cambio en la capacidad antioxidante del plasma); el trabajo de Stellenbosch sobre el cortisol (Mol Nutr Food Res, 2014; doi 10.1002/mnfr.201300463: células y ratas; en personas cambió la proporción cortisol/cortisona, no el cortisol en sangre; financiado en parte por el consejo del rooibos, como señaló Africa Check); y el ensayo REAL de la Universidad de Canberra (60 adultos con ansiedad, extracto verde, sueño medido con actigrafía; solo el protocolo publicado, julio de 2026, financiado por ADM). Búsqueda del 29 oct 2026: ningún ensayo en personas con resultados sobre el sueño. Lo que el socio puede decir no cambia (decisión del Director del 28 oct).

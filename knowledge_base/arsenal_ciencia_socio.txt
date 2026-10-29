@@ -1,6 +1,6 @@
 # Arsenal de Ciencia para el Socio — solo Dashboard (queswa.app)
 
-**Versión actual: v1.1** (28 oct 2026) — CS_06 suma la declaración aprobada de la piel; CS_04 deja dicho qué hay sobre el descanso y qué puede decir el socio (Director). CS_08 deja de sonar a manual: le habla al socio como colega (antes: «Le va a pasar, y la respuesta es una sola, en dos partes… No se repite… no se cita… no se pregunta»). Nace CS_09: «¿para qué sirven los productos?» contado como se le dice a un cliente, con la ciencia ofrecida al final y no impuesta. Texto aprobado por el Director en el chat. **v1.0** (13 sep 2026). Para quien ya es distribuidor y se prepara para lo que le van a preguntar. Vive **únicamente en el tenant `dashboard`**: el Dashboard es privado y no se indexa; el canal de WhatsApp y la web conservan sus guardarraíles. Historial y doctrina → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Despliegue: `node scripts/desplegar-arsenal-ciencia-socio.mjs`.
+**Versión actual: v1.2** (29 oct 2026) — CS_04 cuenta con nombre y fecha lo que hay del rooibos: el ensayo de los lípidos en 40 adultos, el trabajo de Stellenbosch sobre el cortisol (células y ratas; en personas cambió la proporción, no el cortisol en sangre) y el ensayo australiano que mide el sueño, terminado y sin resultados publicados. CS_09 recibe «¿para qué sirve el Ganoderma?», que se iba a la clase de ciencia de CS_01. **v1.1** (28 oct 2026) — CS_06 suma la declaración aprobada de la piel; CS_04 deja dicho qué hay sobre el descanso y qué puede decir el socio (Director). CS_08 deja de sonar a manual: le habla al socio como colega (antes: «Le va a pasar, y la respuesta es una sola, en dos partes… No se repite… no se cita… no se pregunta»). Nace CS_09: «¿para qué sirven los productos?» contado como se le dice a un cliente, con la ciencia ofrecida al final y no impuesta. Texto aprobado por el Director en el chat. **v1.0** (13 sep 2026). Para quien ya es distribuidor y se prepara para lo que le van a preguntar. Vive **únicamente en el tenant `dashboard`**: el Dashboard es privado y no se indexa; el canal de WhatsApp y la web conservan sus guardarraíles. Historial y doctrina → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md). Despliegue: `node scripts/desplegar-arsenal-ciencia-socio.mjs`.
 
 Cada respuesta tiene tres niveles: qué es y qué contiene · qué dice la evidencia en personas, con su identificador (PMID) y su calibre, incluido lo que no cambió · **lo que el socio sí puede decirle a su cliente**, en el registro de la etiqueta.
 
@@ -81,13 +81,13 @@ Dos cosas para ubicar eso. Las dosis de los estudios son de gramos de espirulina
 ### CS_04: "¿Qué evidencia tiene el rooibos? / estudios del té rooibos / ¿el Oleaf tiene respaldo científico?"
 **[Índice]:** Qué evidencia tiene el rooibos, estudios del té rooibos en personas, si el Oleaf Gano Rooibos tiene respaldo científico, qué se sabe de la aspalatina.
 
-Aquí la respuesta honesta es que la evidencia en personas es escasa.
+Aquí la respuesta honesta es que la evidencia en personas es escasa, y vale saber con nombre qué hay.
 
-La revisión sistemática más reciente sobre rooibos en humanos (Beverages, 2024; doi 10.3390/beverages10040113) encontró ocho estudios con 175 participantes en total, con resultados mixtos, y concluye que no alcanza para sostener beneficios definidos. Lo que se dice de la aspalatina, su flavonoide principal, viene sobre todo de estudios en animales y en células.
+**En personas.** La revisión sistemática más reciente (Beverages, 2024; doi 10.3390/beverages10040113) encontró ocho estudios con 175 participantes en total, con resultados mixtos, y concluye que no alcanza para sostener beneficios definidos. El más citado es sudafricano: 40 adultos con riesgo cardiovascular tomaron seis tazas al día durante seis semanas, y les bajaron el colesterol LDL, los triglicéridos y los marcadores de oxidación de las grasas; la capacidad antioxidante total de la sangre no cambió (Journal of Ethnopharmacology, 2011; PMID 20833235). Es un estudio pequeño, y nadie lo ha repetido a mayor escala.
 
-Sobre el descanso, lo que hay es esto: estudios de laboratorio en los que el rooibos redujo la producción de cortisol, la hormona del estrés, en células de la glándula suprarrenal, y el hecho más firme de todos, que no tiene cafeína. Un ensayo en personas que mida el sueño no lo he encontrado publicado; si alguien le cita uno, pídale la referencia.
+**Sobre el estrés y el descanso.** Lo que hay viene de la Universidad de Stellenbosch (Molecular Nutrition & Food Research, 2014; doi 10.1002/mnfr.201300463): en células de la glándula suprarrenal y en ratas, el rooibos bajó la producción de cortisol, la hormona del estrés. En las muestras de personas del mismo trabajo cambió la proporción entre el cortisol y la cortisona, no el cortisol en sangre, y parte de esa investigación la financió el consejo de productores de rooibos. Un ensayo en personas que mida el sueño todavía no tiene resultados: en la Universidad de Canberra, en Australia, terminó uno con extracto de rooibos verde en 60 adultos con ansiedad leve a moderada, que mide el sueño con pulsera; por ahora solo está publicado el protocolo (Exploratory Research and Hypothesis in Medicine, julio de 2026; doi 10.14218/ERHM.2025.00088), y lo financia el fabricante del extracto. Si alguien le cita otro estudio sobre el sueño, pídale la referencia.
 
-Lo que sí es un hecho: es una infusión sin cafeína, con antioxidantes propios, y en el Oleaf va combinada con el extracto de Ganoderma.
+**Lo firme:** es una infusión sin cafeína, con antioxidantes propios —la aspalatina es el principal—, y en el Oleaf va combinada con el extracto de Ganoderma. Que no tenga cafeína es lo que la hace la taza de la noche.
 
 **Lo que usted puede decirle a su cliente:** que el rooibos no tiene cafeína, trae sus propios antioxidantes y favorece el descanso, por eso es la taza de la noche; sabor suave; y, como toda la línea, apoya el funcionamiento normal de las defensas. Sin cifras ni plazos, y sin nombrar un problema de sueño.
 
@@ -157,8 +157,8 @@ Y si le dicen *«pero a un amigo le sirvió»*: *«Qué bueno por él. Cada pers
 
 ---
 
-### CS_09: "¿Para qué sirven los productos? / ¿Qué le digo a un cliente que pregunta para qué sirven? / ¿Cómo explico los beneficios?"
-**[Índice]:** Para qué sirven los productos, qué le digo a un cliente que pregunta para qué sirven, cómo explico los beneficios de la línea, cómo cuento lo que hace el Ganoderma sin prometer.
+### CS_09: "¿Para qué sirven los productos? / ¿Para qué sirve el Ganoderma? / ¿Qué le digo a un cliente que pregunta para qué sirven?"
+**[Índice]:** Para qué sirven los productos, para qué sirve el Ganoderma lucidum, qué hace el Ganoderma en el día a día, qué beneficios tiene el Ganoderma, qué le digo a un cliente que pregunta para qué sirven, cómo explico los beneficios de la línea, cómo cuento lo que hace el Ganoderma sin prometer.
 
 Es la pregunta que más le van a hacer, así que vale tenerla a mano en palabras sencillas.
 

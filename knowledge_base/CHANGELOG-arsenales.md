@@ -402,6 +402,10 @@ Es decir: hay **dos** problemas opuestos, y el ejemplo numérico resuelve el seg
 
 ## arsenal_12_niveles
 
+### v6.26 — `INV_00` sin «Buena pregunta» (29 oct 2026)
+
+*«Buena pregunta, y de buen criterio: en cualquier negocio la primera decisión es con cuánto se empieza.»* → *«Cuidar con cuánto se empieza es lo correcto: en cualquier negocio es la primera decisión.»* El prompt prohíbe calificar la pregunta y, desde el 28 oct, `quitarElogioInicial` (creatuactivo.com y el Dashboard) quita del envío la primera frase que empiece con «Buena pregunta». En este fragmento esa frase traía también la validación que pide el Concepto Nuclear, así que la red la borraba con el elogio. Texto aprobado por el Director en el chat. Con la red, la respuesta arrancaba en seco con «Lo estándar son los tres paquetes».
+
 ### v6.25 — `INV_02`: la tecnología viene sin costo (16 oct 2026)
 
 *«creatuactivo.com y queswa.app vienen incluidos con cualquiera de los cuatro»* → *«…vienen con cualquiera de los cuatro, sin costo»*. «Incluidos» dejaba creer que la tecnología hace parte del precio del paquete (decisión del Director, misma sesión que `FREQ_43`). Desplegado con el orden sin ventana (renombrar a `_old`, fragmentar, clonar, borrar).
@@ -508,6 +512,12 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_ciencia_socio (solo tenant `dashboard`)
 
+### v1.2 — El rooibos con nombre y fecha; «¿para qué sirve el Ganoderma?» va a CS_09 (29 oct 2026)
+
+`CS_04` deja de decir «estudios de laboratorio» en general y nombra lo que hay: el ensayo de Marnewick (Journal of Ethnopharmacology, 2011; PMID 20833235: 40 adultos, seis tazas al día por seis semanas; bajaron el LDL, los triglicéridos y la oxidación de las grasas, sin cambio en la capacidad antioxidante del plasma); el trabajo de Stellenbosch sobre el cortisol (Mol Nutr Food Res, 2014; doi 10.1002/mnfr.201300463: células y ratas; en personas cambió la proporción cortisol/cortisona, no el cortisol en sangre; financiado en parte por el consejo del rooibos, como señaló Africa Check); y el ensayo REAL de la Universidad de Canberra (60 adultos con ansiedad, extracto verde, sueño medido con actigrafía; solo el protocolo publicado, julio de 2026, financiado por ADM). Búsqueda del 29 oct 2026: ningún ensayo en personas con resultados sobre el sueño. Lo que el socio puede decir no cambia (decisión del Director del 28 oct).
+
+`CS_09` suma «¿para qué sirve el Ganoderma?» al título y al índice. Medido contra los fragmentos del tenant antes de desplegar: para «¿para qué sirve el Ganoderma?», «…lucidum?» y «qué beneficios tiene el ganoderma» pasa al primer puesto (antes 4.º, 5.º y 3.º, detrás de CS_01, CIENCIA_02 y SUP_03); «qué dice la ciencia del ganoderma» y «hay estudios en humanos» siguen en CS_01.
+
 ### v1.1 — CS_08 le habla como colega; nace CS_09 (28 oct 2026)
 
 `CS_06` suma la declaración aprobada de la piel junto a las de las articulaciones (Director). `CS_04` deja dicho qué hay sobre el rooibos y el descanso —laboratorio sobre el cortisol y que no tiene cafeína; un ensayo en personas sobre el sueño no se encontró publicado— y que el socio puede decir que favorece el descanso, sin cifras ni condiciones.
@@ -525,6 +535,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 **Arquitectura.** Parent + fragmentos solo en `dashboard` (`desplegar-arsenal-ciencia-socio.mjs`); bloque `canal:dashboard` en el prompt maestro (desplegado `--solo dashboard`); el arsenal como cuarto bucket en el `route.ts` del Dashboard (otro repo, traspasado a su agente). El `.txt` va sin `[Concepto Nuclear]`: el Dashboard sirve el padre entero.
 
 ## arsenal_inicial
+
+### v6.81 — `VS_01` sin «Buena pregunta» (29 oct 2026)
+
+*«Buena pregunta, porque son modelos que sí funcionan. La diferencia está en qué queda a su nombre.»* → *«Son modelos que sí funcionan, y la diferencia está en qué queda a su nombre.»* El prompt prohíbe calificar la pregunta y, desde el 28 oct, `quitarElogioInicial` (creatuactivo.com y el Dashboard) quita del envío la primera frase que empiece con «Buena pregunta». En este fragmento esa frase traía también la validación que pide el Concepto Nuclear, así que la red la borraba con el elogio. Texto aprobado por el Director en el chat. Con la red, la respuesta perdía «son modelos que sí funcionan».
 
 ### v6.80 — Nace `RETO_D39`, «el gigante» (20 oct 2026)
 

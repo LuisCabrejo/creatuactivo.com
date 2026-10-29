@@ -762,11 +762,12 @@ export default function HomePage() {
             hacer. La aplicación subió de rango: es el ENVASE de los tres («en una
             sola aplicación», la línea de WHY_02), no un elemento. Los tres responden
             qué RECIBE la persona; qué HACE sigue siendo Compartir · Recibir, en su
-            propia sección más abajo. Arranque calcado de WHY_02.
+            propia sección más abajo. Arranque calcado de WHY_02 (v6.82, 29 oct 2026: el obstáculo con precio).
             → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
         <Body mt>
-          Eso fue lo que cambió: hoy es una empresa de distribución moderna. Usted recibe
-          en una sola aplicación los tres elementos que eliminan la fricción de montarla.
+          Eso fue lo que cambió: hoy es una empresa de distribución moderna. Necesita tres
+          elementos que, armados por su cuenta, le costarían millones, y usted los recibe en
+          una sola aplicación.
         </Body>
 
         {/* Tres elementos, tres columnas (8 oct 2026): con `auto-fit, minmax(280px)` en

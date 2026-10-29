@@ -1755,7 +1755,7 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beat 6: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
+          {/* Beat 5: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
               10 oct 2026, tras presentarla en vivo: «mejor que el clip y el
               texto estén en una sola»). Del 10 oct quedaron dos beats —primero
               el aparato, un clic, después la palabra—, pero el clic de más caía

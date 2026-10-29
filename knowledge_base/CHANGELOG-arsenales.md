@@ -540,6 +540,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_inicial
 
+### v6.82 — `WHY_02` abre con el obstáculo con precio (29 oct 2026)
+
+*«Funciona así: usted recibe en una sola aplicación los tres elementos que eliminan la fricción de montar una empresa de distribución moderna.»* → *«Funciona así: una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le costarían millones. Usted los recibe en una sola aplicación.»* Sale de la definición aprobada el 28 oct para la Presentación (pantalla 5: «Tres elementos que le costarían millones:»): *fricción* era vocabulario de startups y no pasaba el test de la abuela, y un requisito es una lista que aprender, mientras que un obstáculo con precio es algo que la persona ya siente. En el texto la línea conserva el referente —«una empresa de distribución moderna» va primero, y lo nuevo, «en una sola aplicación», de último (Director, 29 oct): sin él, «los tres elementos» quedaba sin decir de qué, y *moderna* desaparecía de la conversación. El video v7 abre con la analogía de Uber, que aquí no va: es de la voz del socio y del video. Propagado a `MASTER_WHY_02` (contrato de prefijo verificado), a la firma `como_funciona` de la bitácora (la vieja se conserva), a la Home, a `/prueba` y a la sección 3 de la guía de `/servilleta`. Desplegado sin ventana (`_old`) en los tres tenants; salud, negocio, clasificador (65/65) y bitácora en verde.
+
 ### v6.81 — `VS_01` sin «Buena pregunta» (29 oct 2026)
 
 *«Buena pregunta, porque son modelos que sí funcionan. La diferencia está en qué queda a su nombre.»* → *«Son modelos que sí funcionan, y la diferencia está en qué queda a su nombre.»* El prompt prohíbe calificar la pregunta y, desde el 28 oct, `quitarElogioInicial` (creatuactivo.com y el Dashboard) quita del envío la primera frase que empiece con «Buena pregunta». En este fragmento esa frase traía también la validación que pide el Concepto Nuclear, así que la red la borraba con el elogio. Texto aprobado por el Director en el chat. Con la red, la respuesta perdía «son modelos que sí funcionan».

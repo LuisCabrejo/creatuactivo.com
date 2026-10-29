@@ -79,7 +79,9 @@ export const TEMAS: TemaBitacora[] = [
     // moderno» de la v6.48) se conservan: el historial de quien las recibió
     // antes sigue en sus últimas 40 filas. La nueva (v6.52, 27 sep 2026) es el
     // arranque de la fricción; cubre también el video, cuya fila guarda ese texto.
-    firma: /tres elementos (de un negocio moderno|que eliminan la fricci[oó]n)|l[oó]gica de una franquicia|Vender hamburguesas lo puede hacer cualquiera/i,
+    // La de v6.82 (29 oct 2026) es el obstáculo con precio: «tres elementos que,
+    // armados por su cuenta, le costarían millones».
+    firma: /tres elementos (de un negocio moderno|que eliminan la fricci[oó]n)|le costar[ií]an millones|l[oó]gica de una franquicia|Vender hamburguesas lo puede hacer cualquiera/i,
     fragmentos: ['arsenal_inicial_WHY_02'],
   },
   {

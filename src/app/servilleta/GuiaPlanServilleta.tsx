@@ -157,8 +157,8 @@ export default function GuiaPlanServilleta() {
 
         <h3>3. La solución: los tres elementos</h3>
         <p>
-          Montar una empresa de distribución moderna requiere tres elementos, y aquí cada uno tiene
-          quien lo haga:
+          Una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le
+          costarían millones. Aquí cada uno tiene quien lo haga:
         </p>
         <ul>
           <li>

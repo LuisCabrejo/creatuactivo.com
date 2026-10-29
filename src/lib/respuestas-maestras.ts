@@ -156,7 +156,7 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Funciona así: usted recibe en una sola aplicación los tres elementos que eliminan la fricción de montar una empresa de distribución moderna.
+const MASTER_WHY_02 = `Con gusto. Funciona así: una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le costarían millones. Usted los recibe en una sola aplicación.
 
 1. **Un fabricante**, que empaca y despacha cada pedido hasta la casa del cliente.
 

@@ -60,8 +60,10 @@
  *                      estática, y va destacada al final de las cifras). El beat
  *                      de «dos caminos» se eliminó el 9 oct 2026: ese contexto lo
  *                      da el socio en vivo.
- *  5 LA SOLUCIÓN     · beat 0: una empresa de distribución moderna a su nombre,
- *    Y CÓMO FUNCIONA   «se requieren tres elementos» y el botón VERLO EN VIDEO
+ *  5 LA SOLUCIÓN     · beat 0: «Una empresa de distribución moderna a su
+ *    Y CÓMO FUNCIONA   nombre.» y el obstáculo con precio, «Tres elementos que le
+ *                      costarían millones:» (28 oct 2026; la definición completa
+ *                      con Uber va en la voz del socio), y el botón VERLO EN VIDEO
  *                      (13 oct 2026): el socio elige si rueda el video «Cómo
  *                      funciona» —al terminar salta a la 6— o explica él los
  *                      beats. Es el ÚNICO lugar del deck con ese video (el repaso
@@ -71,14 +73,18 @@
  *                      Queswa y queswa.app «por dentro»; la 3ª es UNA
  *                      HERRAMIENTA PARA MULTIPLICAR, con el clip de la
  *                      multiplicación — las dos desde el 18 oct 2026, canon en
- *                      WHY_02 v6.76 y en el video v6) · beat 4, el remate en
- *                      texto: «Solo se multiplica lo que es sencillo» y las dos
- *                      acciones en una línea · beat 5, las tres quietas
- *                      · beat 6, la unión EN UNA diapositiva: el clip v5 funde los
- *                      cubos EN GRANDE, enciende el cubo y la cámara se aleja
- *                      hasta el celular; «Queswa.app» entra cuando el celular ya
- *                      está a la vista — la secuencia de Jobs sin clic · beat 7,
- *                      la propiedad.
+ *                      WHY_02 v6.76 y en el video v6) · beat 4, las tres
+ *                      quietas, directo tras la tercera pieza (la tríada de Jobs
+ *                      sin desvío) · beat 5, la unión EN UNA diapositiva: el clip
+ *                      v5 funde los cubos EN GRANDE, enciende el cubo y la cámara
+ *                      se aleja hasta el celular; «Queswa.app» entra cuando el
+ *                      celular ya está a la vista — la secuencia de Jobs sin clic
+ *                      · beat 6, la propiedad con su porcentaje: la cadena del
+ *                      modelo completa, como WHY_02.
+ *                      ⛔ «Solo se multiplica lo que es sencillo» (el remate de
+ *                      la multiplicación, 18 oct) SALIÓ el 28 oct 2026, Director;
+ *                      con él salió la única línea que nombraba las dos acciones,
+ *                      que se muestran en vivo.
  *                      → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
  *  6 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
  *                      por primera vez, como quien lo fabrica.
@@ -147,7 +153,7 @@ const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 8, 8: 2 };
+const BEATS: Record<number, number> = { 5: 7, 8: 2 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
@@ -601,8 +607,8 @@ export default function PitchDeckPage() {
   // escoger si rueda el video o si él hace la explicación de los tres elementos».
   // Son dos caminos por la pantalla 5: el socio narra los beats, o toca el botón
   // y el video los cuenta. Por eso, al terminar, el deck salta a la pantalla 6 (el
-  // producto): el video ya dijo lo de los beats 1 a 7 (las tres piezas, la
-  // multiplicación, la aplicación, la propiedad), y repetirlos sería contarlo
+  // producto): el video ya dijo lo de los beats 1 a 6 (las tres piezas, la
+  // aplicación, la propiedad y la multiplicación), y repetirlos sería contarlo
   // dos veces. Si se cierra antes, se
   // queda en la propuesta y el socio sigue por su cuenta.
   // ⚠️ El video nombra a Gano Excel y dice que cada recompra deja un porcentaje,
@@ -1062,7 +1068,7 @@ export default function PitchDeckPage() {
           color: var(--pd-muted); margin: 0 0 1.8rem;
         }
         .pd-remate .pd-cierre-linea {
-          margin: 0 auto 0.5rem; text-align: center; max-width: 42ch;
+          margin: 0 auto 0.5rem; text-align: center; max-width: 42ch; text-wrap: balance;
         }
         .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
         /* La marca del remate se OCULTA en escritorio: el HUD ya la lleva arriba a
@@ -1227,7 +1233,7 @@ export default function PitchDeckPage() {
         .pd-modal--video { width: min(92vw, calc((100dvh - 110px) * 0.5625)); max-height: none; }
         .pd-modal--video video { width: 100%; aspect-ratio: 9 / 16; display: block;
           background: #0F1115; border: 1px solid rgba(255,255,255,0.1); }
-        /* El botón de la propuesta, centrado bajo «Se requieren tres elementos». */
+        /* El botón de la propuesta, centrado bajo «Tres elementos que le costarían millones». */
         .pd-remate .pd-ver-video { display: inline-block; margin-top: 1.4rem; }
 
         /* ── Móvil ───────────────────────────────────────────────────────── */
@@ -1632,12 +1638,26 @@ export default function PitchDeckPage() {
           <div className={`pd-beat ${slide === 5 && beat === 0 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La solución</p>
+              {/* (Director, 28 oct 2026, probado en /servilleta/borrador): la pantalla lleva SOLO la
+                  solución y el obstáculo. La definición completa —«todo lo que
+                  necesita… desde el celular» y la analogía de Uber (su empresa vende
+                  sin ser dueña de la fábrica, como Uber sin carros)— va en la voz del
+                  socio. Sin «similar a Uber, Rappi o Nequi»: la ola ya la contó la
+                  pantalla 2. «Moderna» lo pagan las tres piezas y el celular de la
+                  unión. */}
               <p className="pd-propuesta">
-                Le damos la oportunidad de montar una{' '}
+                Una{' '}
                 <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>{' '}
-                a su nombre, similar a Uber, Rappi o Nequi.
+                a su nombre.
               </p>
-              <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>Se requieren tres elementos:</p>
+              {/* El obstáculo con precio, en lugar de «Se requieren tres elementos»:
+                  un requisito es una lista que aprender; un obstáculo es algo que la
+                  persona ya siente. Lo cobra la frase de la unión («No son tres
+                  elementos que usted tenga que conseguir»). Corta a propósito: «armados
+                  por su cuenta…» va en la voz del socio. */}
+              <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>
+                Tres elementos que le costarían millones:
+              </p>
               {/* El socio elige: toca aquí y el video los explica, o hace clic en
                   cualquier otra parte y los explica él (ver videoPropuesta). */}
               <button
@@ -1715,28 +1735,10 @@ export default function PitchDeckPage() {
             </div>
           ))}
 
-          {/* Beat 4: EL REMATE DE LA MULTIPLICACIÓN, en texto (18 oct 2026). Es uno
-              de los caballos de Troya del Director (10 oct): al empresario,
-              multiplicar es lo más difícil de cualquier empresa; al networker, sin
-              jefes ni horarios triunfa el que multiplica. El clip se mudó al
-              tercer elemento, que desde ese día ES la herramienta para multiplicar;
-              aquí queda el porqué —lo sencillo— y la línea que nombra las dos
-              acciones, la única del deck desde que salió «Qué hace usted». */}
+          {/* Beat 4: las tres quietas, antes de unirse. Desde el 28 oct 2026 sigue directo a
+              la tercera pieza — la tríada de Jobs sin desvío (el remate de la
+              multiplicación salió). */}
           <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="grande">Solo se multiplica lo que es sencillo.</p>
-              <p className="pd-p pd-cierre-linea">
-                Quien inicia con usted recibe los mismos tres elementos y hace exactamente lo
-                mismo: comparte su enlace y recibe a quien llega.
-              </p>
-              <p className="pd-p pd-cierre-linea">
-                De ahí salen la multiplicación de su negocio y el aumento de su facturación.
-              </p>
-            </div>
-          </div>
-
-          {/* Beat 5: las tres quietas, antes de unirse */}
-          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ textAlign: 'center' }}>
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
               <div className="pd-tres">
@@ -1782,13 +1784,13 @@ export default function PitchDeckPage() {
               objetos que se vuelven un celular es un cambio de forma, y esos salen
               caóticos (22 sep). Receta: armar_telefono_union_v5.py. El celular
               queda a la vista a ~6,3 s: los retrasos del texto van detrás. */}
-          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
             <div className="pd-remate pd-union">
               <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
               <div className="pd-union-cuerpo">
                 <video
                   className="pd-telefono"
-                  data-beat="5-6"
+                  data-beat="5-5"
                   src="/videos/presentacion/telefono-union-v5.mp4"
                   poster="/videos/presentacion/telefono-union-v5-poster.webp"
                   muted
@@ -1809,19 +1811,31 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beat 7: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+          {/* Beat 6 (el último): la propiedad. Es el «ajá» de WHY_02, y explica el «a su
               nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
               2026): el enlace se presenta en la pantalla siguiente (Compartir) y
               aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
               eco del golpe recién revelado. ⛔ No volver a «el mercado que se va
               creando»: en Colombia «el mercado» a secas es el de la casa, y la
               permanencia se dice del CLIENTE, nunca en abstracto. */}
-          <div className={`pd-beat ${slide === 5 && beat === 7 ? 'on' : ''}`}>
+          {/* Desde el 28 oct 2026 la propiedad cierra la cadena del modelo en el mismo beat,
+              como WHY_02 — queda a su nombre → por eso cada recompra le deja un
+              porcentaje. Sin cifra: la cifra es de la pantalla 8. */}
+          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
               <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>
+              <p className="pd-p pd-cierre-linea pd-gold">
+                Cada vez que vuelve a comprar, a usted le queda un porcentaje.
+              </p>
             </div>
           </div>
+
+          {/* «Solo se multiplica lo que es sencillo» (el remate de la
+              multiplicación, 18 oct 2026) SALIÓ (Director, 28 oct 2026). La
+              multiplicación la dicen la tercera pieza («a usted y a quien inicie
+              con usted») y la pantalla 8 (los distribuidores); las dos acciones
+              se muestran en vivo, al compartir el enlace delante de la persona. */}
         </section>
 
         {/* ── 6 · EL PRODUCTO ─────────────────────────────────────────── */}
@@ -1948,12 +1962,15 @@ export default function PitchDeckPage() {
               </div>
               {/* El titular dice lo que el panel muestra: consumo que se repite, de
                   clientes y de distribuidores. La propiedad ya se dijo en la 5. */}
+              {/* 28 oct 2026: el porcentaje ya lo dijo la propiedad (pantalla 5), así
+                  que el titular pasa a ser lo nuevo —la proyección— y los
+                  distribuidores, que la 5 no nombró, quedan en la línea de abajo. */}
               <h2 className="pd-h2">
-                Cada vez que sus clientes y sus distribuidores vuelven a pedir, a usted le
-                queda un porcentaje.
+                Así se ve si su sistema crece de a dos.
               </h2>
               <p className="pd-p pd-numeros-lead">
-                Así se ve si su sistema crece de a dos, empezando por el Kit de Inicio.
+                Suma lo que vuelven a pedir sus clientes y sus distribuidores, empezando por
+                el Kit de Inicio.
               </p>
               <div className="pd-paneles pd-paneles--uno">
                 {/* Panel B — los 12 niveles (2×2), de /12-niveles.

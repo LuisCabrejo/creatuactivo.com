@@ -512,6 +512,10 @@ Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_ciencia_socio (solo tenant `dashboard`)
 
+### v1.4 — CS_01: las defensas primero (29 oct 2026)
+
+El Director leyó la respuesta de «¿qué dice la ciencia del Ganoderma?» y dijo que «casi pareciera que tratamos nuestro producto como un placebo». CS_01 abría con el metaanálisis por lo que NO encontró (índice de masa corporal, creatinina y una lista larga de «no encontró efecto»), le daba párrafo propio al ensayo nulo de diabetes, y cerraba con «ahí la evidencia en personas dice que no», que exagera: un estudio sin efecto no prueba que no lo haya. Ahora abre con lo que más se ha medido en personas, que es lo que el socio le dice a su cliente: el ensayo en adultos sanos (PMID 36766186) y la revisión Cochrane CD007731 (2016; cinco ensayos aleatorizados; sumado al tratamiento, subieron CD3, CD4 y CD8, cuatro de cinco reportaron mejor calidad de vida, buena tolerancia), con la reseña de Sohretoglu y Huang (2018; PMID 29141563) que trajo el Director. Lo de pacientes va marcado como formación del socio, nunca para un cliente. El metaanálisis queda como panorama. Texto aprobado por el Director.
+
 ### v1.3 — Las defensas con la frase aprobada (29 oct 2026)
 
 `CS_00` (lo que sí puede decir) y `CS_01` (lo que usted puede decirle a su cliente) decían «apoya el sistema inmune», y `CS_09` y la ficha del catálogo dicen «apoya el funcionamiento normal de las defensas», la frase que el Director aprobó para todos los productos (28 oct). En la auditoría del 29 oct el socio recibía las dos en la misma respuesta. Ahora es una sola (Director).

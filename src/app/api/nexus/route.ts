@@ -2965,6 +2965,20 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       cuando: /^(?![\s\S]*(salud|enferm|foto|imagen))[\s\S]*(excell?ium|exelium)[\s\S]{0,60}(c[aá]psulas de ganoderma|ganoderma puro|las de ganoderma)|(c[aá]psulas de ganoderma|ganoderma puro)[\s\S]{0,60}(excell?ium|exelium)/i,
     },
     {
+      // «¿Por qué no hacer dropshipping?» (auditoría, 29 oct 2026): VS_01 no tiene
+      // candado y el modelo la componía con «En dropshipping usted paga…» o «sea
+      // dropshipping, Amazon…», que `detectarModeloInventado` lee como propuesta:
+      // 4 de 4 respuestas de prueba (web y WhatsApp) terminaban en la correctiva
+      // genérica en vez de la comparación. VS_01 tal cual pasa el filtro (todo
+      // contraste: «Comparado con el dropshipping»), así que se dicta. Quien
+      // pregunta si PUEDE vender por esos canales es otra pregunta y sigue al vector.
+      fragmento: 'arsenal_inicial_VS_01',
+      titulo: 'Dropshipping, Amazon FBA o e-commerce — VS_01',
+      porque: 'compara con el dropshipping, Amazon FBA o vender por internet',
+      cuando: /^(?![\s\S]*(salud|enferm|foto|imagen|\bpuedo (vender|hacer|montar|usar)|se puede (vender|hacer)|permit))[\s\S]*(drop ?shipp?ing|amazon fba|\bfba\b|(por qu[eé] no|en qu[eé] se diferencia|diferencia|mejor que|\bvs\.?\b|versus|en vez de|comparad|distint)[^?]{0,60}(e-?commerce|tienda (en l[ií]nea|virtual|online|propia)|vend\w* por internet|venta por internet|amazon|mercado ?libre)|(e-?commerce|vend\w* por internet|tienda (en l[ií]nea|virtual|online))[^?]{0,40}(diferencia|mejor|por mi cuenta))/i,
+      dictar: true,
+    },
+    {
       // Prueba del Director, 21 ago: "¿para qué sirven los productos?" y "¿dónde
       // puedo ver todos los productos?" recuperaban WHY_PROD_01 —con candado— y
       // el modelo componía igual: inventó una taxonomía de tres familias, llamó

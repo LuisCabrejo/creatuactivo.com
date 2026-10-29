@@ -322,7 +322,15 @@ export default async function DestinoRoute({
   // El catálogo va al slug (17 oct 2026, Director: cada catálogo lleva el slug de
   // su distribuidor). /productos/{slug} lo resuelve en el servidor y publica el
   // código del socio para tracking.js; ver src/app/productos/[ref]/page.tsx.
-  if (destino === 'productos') redirect(`/productos/${slug}`)
+  // La consulta viaja (29 oct 2026): sin ella, ?carrito= y ?producto= se perdían en el camino.
+  if (destino === 'productos') {
+    const consulta = new URLSearchParams()
+    for (const [k, v] of Object.entries(searchParams ?? {})) if (typeof v === 'string') consulta.set(k, v)
+    const producto = consulta.get('producto')
+    consulta.delete('producto')
+    const resto = consulta.toString()
+    redirect(`/productos/${slug}${producto && /^[a-z0-9-]{2,60}$/.test(producto) ? `/${producto}` : ''}${resto ? `?${resto}` : ''}`)
+  }
 
   // 2. Resolver destino → ruta real
   const resolver = DESTINO_MAP[destino]

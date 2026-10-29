@@ -35,7 +35,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Plus, Minus, X, ShoppingBag, MessageCircle, ChevronRight, Truck, Store, Factory, Download, Landmark } from 'lucide-react'
+import { Plus, Minus, X, ShoppingBag, MessageCircle, ChevronRight, Truck, Store, Factory, Download, Landmark, Share2, Check } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
 import { productData, LINEAS, MAS_PEDIDO, PREGUNTAS, imagenVitrina, pesos, mensajePedido, type Product, type LineaCarrito } from './catalogo-datos'
 // «Pagar a Gano Excel» (17 oct 2026): la hoja de pago directo y el carrito con cantidades en la URL.
@@ -82,6 +82,32 @@ function cookieVisitante(): string | null {
   } catch { return null }
 }
 
+/**
+ * Comparte el enlace de un producto (29 oct 2026). En el celular abre el menú del
+ * teléfono (WhatsApp, Facebook, Instagram…); en el computador lo copia. Devuelve
+ * true si lo copió, para mostrar «Enlace copiado».
+ */
+async function compartirEnlace(url: string, nombre: string): Promise<boolean> {
+  const tactil = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches
+  if (tactil && navigator.share) {
+    try { await navigator.share({ title: nombre, text: nombre, url }); return false }
+    catch (e) { if ((e as Error)?.name === 'AbortError') return false }
+  }
+  try { await navigator.clipboard.writeText(url); return true } catch { /* sin permiso: el método viejo */ }
+  try {
+    const area = document.createElement('textarea')
+    area.value = url
+    area.setAttribute('readonly', '')
+    area.style.position = 'fixed'
+    area.style.opacity = '0'
+    document.body.appendChild(area)
+    area.select()
+    const ok = document.execCommand('copy')
+    document.body.removeChild(area)
+    return ok
+  } catch { return false }
+}
+
 /** `detalle` (18 oct 2026): lo que llevaba el pedido, para el aviso al socio si no se envía. */
 function registrarApertura(
   origen: 'catalogo' | 'pedido',
@@ -98,10 +124,11 @@ function registrarApertura(
 
 // ─── Página ──────────────────────────────────────────────────────────────────
 
-export default function CatalogoTienda({ socioInicial = null }: { socioInicial?: Socio | null } = {}) {
+/** `fichaInicial` (29 oct 2026): el enlace directo a un producto, /productos/{slug}/{producto}. */
+export default function CatalogoTienda({ socioInicial = null, fichaInicial = null }: { socioInicial?: Socio | null; fichaInicial?: string | null } = {}) {
   const [socio, setSocio] = useState<Socio | null>(socioInicial)
   const [carrito, setCarrito] = useState<Linea[]>(CARRITO_INICIAL)
-  const [ficha, setFicha] = useState<string | null>(null)
+  const [ficha, setFicha] = useState<string | null>(fichaInicial)
   const [pedidoAbierto, setPedidoAbierto] = useState(false)
   const [enviado, setEnviado] = useState(false)
   // La hoja del pedido tiene dos pasos: la lista, y «Pagar a Gano Excel» (17 oct 2026).
@@ -168,6 +195,9 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
     const url = params.get('carrito')
     const clave = params.get('pedido')
     const abrirPago = params.get('pagar') === '1'
+    // ?producto= es el enlace directo cuando no hay socio (ver `enlaceDe`).
+    const producto = params.get('producto')
+    if (producto && productData[producto] && !productData[producto].promocion) setFicha(producto)
     if (clave) {
       fetch(`/api/pedido-cliente?pedido=${encodeURIComponent(clave)}`)
         .then((r) => (r.ok ? r.json() : null))
@@ -256,6 +286,23 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
     registrarApertura('pedido', 'whatsapp', socio?.constructorId, { productos: carrito.length, unidades, total })
     setEnviado(true)
     window.open(`https://wa.me/${WHATSAPP_QUESWA}?text=${encodeURIComponent(mensajePedido(carrito, socio, cookieVisitante()))}`, '_blank', 'noopener')
+  }
+
+  // ── La dirección sigue a la ficha (29 oct 2026): con la ficha abierta dice
+  // /productos/{slug}/{producto}, y quien copia la barra copia el producto. Solo en
+  // el catálogo de un socio resuelto en el servidor: en /productos pelado no se toca.
+  useEffect(() => {
+    const slug = socio?.slug
+    if (!slug || !window.location.pathname.startsWith(`/productos/${slug}`)) return
+    const ruta = ficha && !productData[ficha]?.promocion ? `/productos/${slug}/${ficha}` : `/productos/${slug}`
+    if (window.location.pathname !== ruta) window.history.replaceState(null, '', ruta + window.location.search)
+  }, [ficha, socio?.slug])
+
+  /** El enlace directo de un producto, con el socio que atiende. Las promociones no tienen. */
+  const enlaceDe = (id: string): string | null => {
+    if (productData[id]?.promocion) return null
+    const ref = socio?.slug || socio?.constructorId
+    return ref ? `${window.location.origin}/productos/${ref}/${id}` : `${window.location.origin}/productos?producto=${id}`
   }
 
   const productoFicha = ficha ? productData[ficha] : null
@@ -414,6 +461,7 @@ export default function CatalogoTienda({ socioInicial = null }: { socioInicial?:
             fijar={fijar}
             abrirOtro={(id) => setFicha(id)}
             cantidadDe={cantidadDe}
+            enlace={() => enlaceDe(ficha)}
           />
         </Hoja>
       )}
@@ -520,12 +568,13 @@ function Hoja({ titulo, cerrar, children }: { titulo: string; cerrar: () => void
 
 // ─── Ficha del producto ──────────────────────────────────────────────────────
 
-function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe }: {
+function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace }: {
   id: string; p: Product; atiende: string | null; cantidad: number; fijar: (id: string, n: number) => void
-  abrirOtro: (id: string) => void; cantidadDe: (id: string) => number
+  abrirOtro: (id: string) => void; cantidadDe: (id: string) => number; enlace: () => string | null
 }) {
   const cuerpo = useRef<HTMLDivElement>(null)
-  useEffect(() => { cuerpo.current?.scrollTo({ top: 0 }) }, [id])
+  const [copiado, setCopiado] = useState(false)
+  useEffect(() => { cuerpo.current?.scrollTo({ top: 0 }); setCopiado(false) }, [id])
   return (
     <>
       <div className="tienda-hoja-cuerpo" ref={cuerpo}>
@@ -537,6 +586,14 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe }: {
             <p className="tienda-ficha-lema">{p.taglineEstrategico}</p>
             <p className="tienda-ficha-precio">{pesos(p.price)}</p>
             <p className="tienda-presentacion">{p.presentacion}{p.invima ? ` · Registro ${p.invima}` : ''}</p>
+            {!p.promocion && (
+              <button type="button" className="tienda-boton-sec tienda-compartir" onClick={async () => {
+                const url = enlace()
+                if (url && await compartirEnlace(url, p.name)) { setCopiado(true); setTimeout(() => setCopiado(false), 2500) }
+              }}>
+                {copiado ? <><Check className="h-4 w-4" /> Enlace copiado</> : <><Share2 className="h-4 w-4" /> Compartir</>}
+              </button>
+            )}
             <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> Entrega en persona o por Servientrega, normalmente de un día para otro. El envío lo acuerda con {atiende ?? 'su distribuidor'}.</p>
             <p className="tienda-ficha-desc">{p.shortDescription}</p>
 
@@ -889,6 +946,7 @@ const ESTILOS = `
 .tienda-ficha-mas summary { cursor: pointer; font-weight: 600; font-size: 14.5px; color: var(--t-tinta); padding: 6px 0; }
 .tienda-ficha-mas p { margin: 6px 0 0; }
 .tienda-descargas { display: flex; flex-wrap: wrap; gap: 8px; }
+.tienda-compartir { min-height: 40px; margin: 10px 0 2px; }
 .tienda-combina { display: grid; gap: 8px; }
 .tienda-combina-item { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 12px; background: var(--t-superficie); border: 1px solid var(--t-linea); border-radius: 10px; padding: 8px; }
 .tienda-combina-foto { position: relative; width: 56px; height: 56px; background: var(--t-vitrina); border-radius: 8px; overflow: hidden; }

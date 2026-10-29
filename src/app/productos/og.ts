@@ -26,3 +26,24 @@ export const TARJETA_CATALOGO = {
   // El texto alternativo describe la IMAGEN, no repite el título.
   alt: 'Una taza de café con leche junto a la caja de Ganocafé 3 en 1, en una mesa con luz de mañana',
 } as const
+
+/**
+ * La tarjeta de UN producto (29 oct 2026), para el enlace directo
+ * /productos/{slug}/{producto}: la foto real del producto sobre el crema de la
+ * tienda, centrada (resiste el recorte cuadrado de WhatsApp) y sin texto ni
+ * precio, igual que la del catálogo. Las compone
+ * scripts/componer-tarjetas-producto.mjs, que lee de aquí la versión.
+ *
+ * ⚠️ Si cambian, se sube la versión (-v2…) antes de componerlas: mismo motivo
+ * que la del catálogo.
+ */
+export const VERSION_TARJETAS_PRODUCTO = 'v1'
+
+export function tarjetaProducto(id: string, nombre: string) {
+  return {
+    url: `https://creatuactivo.com/productos/tarjetas/${id}-${VERSION_TARJETAS_PRODUCTO}.jpg`,
+    width: 1200,
+    height: 630,
+    alt: `${nombre}, la foto del producto`,
+  }
+}

@@ -2406,6 +2406,10 @@ Capitalización Inmediata (GEN5) / Renta Vitalicia (Binario). "Su organización"
 
 ## catalogo_productos
 
+### v7.16 — Las defensas con la frase aprobada en CIENCIA_01, CIENCIA_02 y la tabla de suplementos (Director, 29 oct 2026)
+
+El 28 oct el Director aprobó «apoya el funcionamiento normal de las defensas» para todos los productos que se toman, pero tres textos del catálogo seguían diciendo «sistema inmune», y el Centro de Mando le entregaba al socio las dos frases en la misma respuesta (auditoría del 29 oct). Cambian `CIENCIA_01`, `CIENCIA_02` (y su Concepto Nuclear) y la fila de las Cápsulas Ganoderma en la tabla de suplementos. «Y el equilibrio del cuerpo» sale a propósito: no es una frase aprobada.
+
 ### v7.15 — «¿Para qué sirve?» con la vida del producto, no con la ficha ni con la ley (28 oct 2026)
 
 Batería de 26 preguntas de prospecto contra el motor (la auditoría de tono del Director). Lo que salió y lo que cambió:

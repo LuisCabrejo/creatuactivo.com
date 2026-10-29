@@ -6,6 +6,13 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.25 — Al socio se le responde a él; lo que no cambió no va primero (29 oct 2026)
+
+Solo el bloque del Dashboard. Tres instrucciones de la v5.23 iban contra lo que el Director pidió el 29 oct:
+- «Si pregunta para qué sirve un producto… dele primero cómo contárselo a su cliente»: con «¿para qué sirve el Ganoderma lucidum?» la respuesta abría con «lo que su cliente va a notar primero está en la taza». «El distribuidor está preguntando, debemos responderle, no hablarle como si fuera un vendedor.» Ahora: dígale qué es, qué hace y qué lo distingue; cómo contárselo a un cliente, cuando lo pide.
+- «Un resultado nulo se cuenta igual que uno positivo»: el modelo escribió «ese resultado nulo es tan importante como el positivo», y el Director sintió que tratábamos el producto «como un placebo». Ahora: primero lo que se encontró; lo que no cambió, en una frase.
+- La línea para el cliente decía «apoya el sistema inmune»; ahora la frase aprobada, «apoya el funcionamiento normal de las defensas».
+
 ## v5.24 — El resumen del video «Cómo funciona» dice lo que dice el v7 (29 oct 2026)
 
 El video «Cómo funciona» v7 (Blob `queswa/como-funciona-v7.mp4`) abre con la definición aprobada para la Presentación: *«Así como Uber mueve el transporte sin ser dueño de los carros, hoy su empresa de distribución moderna vende sin ser dueña de la fábrica. Funciona así: usted recibe en una sola aplicación los tres elementos que, armados por su cuenta, le costarían millones.»* El prompt resume lo que dice el video para que el modelo sepa qué vio quien dice «vi el video»; ese resumen decía *eliminan la fricción de montar…* y no nombraba a Uber. La lista de los tres elementos se acortó con las palabras de la misma definición, para pagar la línea de Uber: la web subió solo 37 caracteres.

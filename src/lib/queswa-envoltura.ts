@@ -83,7 +83,7 @@ export function sinElogioSiNoPregunto(nucleo: string, mensajePersona: string): s
 // hacerse», «Qué bueno que pregunte», «Pregunta hecha con criterio», «Buena
 // elección de producto para preguntar»—. «Buena elección» sola NO: es como se
 // reconoce a quien acaba de escoger un paquete, y eso debe quedar.
-const RE_ELOGIO_INICIAL = /^\s*(?:(?:muy\s+)?(?:buena|excelente|gran)\s+(?:pregunta|elecci[oó]n\s+(?:de\s+producto\s+)?para\s+preguntar)|me\s+gusta\s+(?:esa\s+pregunta|que\s+pregunte)|qu[eé]\s+buena\s+pregunta|qu[eé]\s+(?:bien|bueno)\s+que\s+(?:lo\s+|me\s+lo\s+)?pregunte|(?:esa|esta)\s+es\s+(?:exactamente\s+|justo\s+|justamente\s+)?(?:una|la)\s+pregunta|pregunta\s+(?:hecha\s+)?con\s+(?:criterio|precisi[oó]n))/i;
+const RE_ELOGIO_INICIAL = /^\s*(?:(?:muy\s+)?(?:buena|excelente|gran)\s+(?:pregunta|elecci[oó]n\s+(?:de\s+producto\s+)?para\s+preguntar)|me\s+gusta\s+(?:esa\s+pregunta|que\s+pregunte)|qu[eé]\s+buena\s+pregunta|qu[eé]\s+(?:bien|bueno)\s+que\s+(?:lo\s+|me\s+lo\s+)?pregunte|(?:esa|esta)\s+es\s+(?:exactamente\s+|justo\s+|justamente\s+)?(?:una|la)\s+pregunta|pregunta\s+(?:hecha\s+)?con\s+(?:criterio|precisi[oó]n)|(?:es\s+)?una\s+pregunta\s+(?:de\s+fondo|importante|clave|interesante|v[aá]lida|necesaria|muy\s+(?:buena|importante|v[aá]lida)))/i;
 
 /**
  * Quita el elogio con que el modelo abre una respuesta que redactó él mismo

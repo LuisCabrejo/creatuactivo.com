@@ -1969,8 +1969,7 @@ export default function PitchDeckPage() {
                 Así se ve si su sistema crece de a dos.
               </h2>
               <p className="pd-p pd-numeros-lead">
-                Suma lo que vuelven a pedir sus clientes y sus distribuidores, empezando por
-                el Kit de Inicio.
+                Suma lo que vuelven a pedir sus clientes y sus distribuidores.
               </p>
               <div className="pd-paneles pd-paneles--uno">
                 {/* Panel B — los 12 niveles (2×2), de /12-niveles.

@@ -18,9 +18,9 @@
  *    es todo lo que necesita…» + Uber) va en la voz del socio; en el deck,
  *    Queswa.app sigue siendo la revelación del beat de la unión (opción a).
  *  · Las tres quietas siguen a la tercera pieza sin desvío (la tríada de Jobs).
- *  · La propiedad cierra la cadena completa del modelo, con el porcentaje.
- *  · «Solo se multiplica lo que es sencillo» va al final, después de la propiedad
- *    (el orden de WHY_02).
+ *  · La propiedad cierra la cadena completa del modelo, con el porcentaje, y
+ *    cierra la pantalla.
+ *  · «Solo se multiplica lo que es sencillo» salió (Director, 28 oct 2026).
  *  · Pantalla 8: el titular ya no repite el porcentaje que dijo la propiedad.
  *
  * Copyright © 2026 CreaTuActivo.com
@@ -168,7 +168,7 @@ const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 8, 8: 2 };
+const BEATS: Record<number, number> = { 5: 7, 8: 2 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
@@ -1754,7 +1754,7 @@ export default function PitchDeckPage() {
 
           {/* Beat 4: las tres quietas, antes de unirse. BORRADOR: sigue directo a
               la tercera pieza — la tríada de Jobs sin desvío (el remate de la
-              multiplicación pasó al beat 7). */}
+              multiplicación salió). */}
           <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ textAlign: 'center' }}>
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
@@ -1828,7 +1828,7 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beat 7: la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+          {/* Beat 6 (el último): la propiedad. Es el «ajá» de WHY_02, y explica el «a su
               nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
               2026): el enlace se presenta en la pantalla siguiente (Compartir) y
               aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
@@ -1848,24 +1848,11 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beat 7: EL REMATE DE LA MULTIPLICACIÓN, en texto (18 oct 2026). Es uno
-              de los caballos de Troya del Director (10 oct): al empresario,
-              multiplicar es lo más difícil de cualquier empresa; al networker, sin
-              jefes ni horarios triunfa el que multiplica. BORRADOR: va después de
-              la propiedad, el orden de WHY_02 (quien quiere distribuir hace lo
-              mismo que usted), y ya no parte la tríada antes de la unión. */}
-          <div className={`pd-beat ${slide === 5 && beat === 7 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="grande">Solo se multiplica lo que es sencillo.</p>
-              <p className="pd-p pd-cierre-linea">
-                Quien inicia con usted recibe los mismos tres elementos y hace exactamente lo
-                mismo: comparte su enlace y recibe a quien llega.
-              </p>
-              <p className="pd-p pd-cierre-linea">
-                De ahí salen la multiplicación de su negocio y el aumento de su facturación.
-              </p>
-            </div>
-          </div>
+          {/* BORRADOR: «Solo se multiplica lo que es sencillo» (el remate de la
+              multiplicación, 18 oct 2026) SALIÓ (Director, 28 oct 2026). La
+              multiplicación la dicen la tercera pieza («a usted y a quien inicie
+              con usted») y la pantalla 8 (los distribuidores); las dos acciones
+              se muestran en vivo, al compartir el enlace delante de la persona. */}
         </section>
 
         {/* ── 6 · EL PRODUCTO ─────────────────────────────────────────── */}

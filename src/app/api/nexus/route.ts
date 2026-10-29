@@ -2922,6 +2922,49 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       cuando: /descuento[^.?]{0,30}(vip|cliente|le dan|recibe)|cliente\s+(vip|preferencial)[^.?]{0,30}(descuento|ahorr|precio)|cu[aá]nto\s+ahorra|qu[eé]\s+descuento/i,
     },
     {
+      // «¿Para qué sirven los productos?» es una pregunta de BENEFICIO, no de
+      // negocio (Director, 28 oct 2026): recibía WHY_PROD_01 dictado —«Vamos al
+      // punto, porque ningún modelo funciona si el producto no rota»— y se iba a
+      // la recompra. Va a CIENCIA_03, la respuesta aprobada que lo cuenta por la
+      // experiencia y los momentos del día. Va ANTES de WHY_PROD_01. La salud la
+      // ataja antes el guardarraíl de entrada.
+      fragmento: 'catalogo_productos_CIENCIA_03',
+      titulo: 'Para qué sirven los productos — CIENCIA_03',
+      porque: 'pregunta para qué sirven los productos',
+      cuando: /^(?![\s\S]*(paquete|esp-?\s?[123]|kit|negocio|ganar|salud|enferm))[\s\S]*((para qu[eé] (sirven|son( buenos)?)|qu[eé] beneficios? (tienen|traen|dan))[^.?]{0,25}(los |sus |estos |todos los )?productos|beneficios de (los |sus )?productos)/i,
+      dictar: true,
+    },
+    {
+      // «El jabón» y «el chocolate» tienen dos productos cada uno (auditoría, 28
+      // oct 2026): «¿para qué sirve el jabón?» recuperaba la tabla entera de
+      // cuidado personal (con candado, sale sola) y «¿para qué sirve el
+      // chocolate?» solo el Schokolade. PERS_03 y BEB_10 son la puerta y nombran
+      // al hermano en una frase. Quien nombra uno en particular (transparente,
+      // schokolade, shoko) sigue al vector.
+      fragmento: 'catalogo_productos_PERS_03',
+      titulo: 'El jabón — PERS_03',
+      porque: 'pregunta por «el jabón» sin decir cuál',
+      cuando: /^(?![\s\S]*(transparente|papaya|cara|facial|salud|enferm|foto|imagen))[\s\S]*(para qu[eé] sirve|qu[eé] (tal|hace)|c[oó]mo es|h[aá]bleme de|qu[eé] tiene)[^.?]{0,12}\bel jab[oó]n\b/i,
+      dictar: true,
+    },
+    {
+      fragmento: 'catalogo_productos_BEB_10',
+      titulo: 'El chocolate — BEB_10',
+      porque: 'pregunta por «el chocolate» sin decir cuál',
+      cuando: /^(?![\s\S]*(schokolade|schokoladde|shoko|suizo|mocha|moka|salud|enferm|foto|imagen))[\s\S]*(para qu[eé] sirve|qu[eé] (tal|hace)|c[oó]mo es|h[aá]bleme de|qu[eé] tiene)[^.?]{0,12}\bel chocolate\b/i,
+      dictar: true,
+    },
+    {
+      // «¿Cuál es mejor, el Excellium o las cápsulas de Ganoderma?» recuperaba la
+      // tabla de suplementos (con candado) y no comparaba. SUP_04 trae la
+      // diferencia —micelio joven frente al cuerpo maduro—; el modelo compone con
+      // ella, sin dictado.
+      fragmento: 'catalogo_productos_SUP_04',
+      titulo: 'Excellium frente a las cápsulas de Ganoderma — SUP_04',
+      porque: 'compara el Excellium con las cápsulas de Ganoderma',
+      cuando: /^(?![\s\S]*(salud|enferm|foto|imagen))[\s\S]*(excell?ium|exelium)[\s\S]{0,60}(c[aá]psulas de ganoderma|ganoderma puro|las de ganoderma)|(c[aá]psulas de ganoderma|ganoderma puro)[\s\S]{0,60}(excell?ium|exelium)/i,
+    },
+    {
       // Prueba del Director, 21 ago: "¿para qué sirven los productos?" y "¿dónde
       // puedo ver todos los productos?" recuperaban WHY_PROD_01 —con candado— y
       // el modelo componía igual: inventó una taxonomía de tres familias, llamó
@@ -2938,7 +2981,7 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // la lista de un PAQUETE: tres líneas, el C'Real y el Reskine donde no van,
       // sin Luvoco ni Excellium. Se suman las formas con «productos» adelante;
       // lo que trae un paquete sigue yendo a su tabla.
-      cuando: /^(?![\s\S]*(paquete|esp-?\s?[123]|kit|trae|incluye|viene))[\s\S]*((para qu[eé] sirven|qu[eé] son|cu[aá]les son|d[oó]nde (puedo )?ve[or]|mu[eé]streme|qu[eé] venden)[^.?]{0,25}(los |sus |todos los )?productos|qu[eé] es lo que venden|h[aá]bleme de los productos|qu[eé] productos\s+(son|venden|manejan|tienen|ofrecen|hay)|cu[aá]les\s+productos|productos\s+(que\s+)?(venden|manejan|ofrecen))/i,
+      cuando: /^(?![\s\S]*(paquete|esp-?\s?[123]|kit|trae|incluye|viene))[\s\S]*((qu[eé] son|cu[aá]les son|d[oó]nde (puedo )?ve[or]|mu[eé]streme|qu[eé] venden)[^.?]{0,25}(los |sus |todos los )?productos|qu[eé] es lo que venden|h[aá]bleme de los productos|qu[eé] productos\s+(son|venden|manejan|tienen|ofrecen|hay)|cu[aá]les\s+productos|productos\s+(que\s+)?(venden|manejan|ofrecen))/i,
       // Se entrega literal con envoltura (24 sep 2026): ver `queswa-envoltura.ts`.
       dictar: true,
     },
@@ -4232,10 +4275,20 @@ function paqueteDelEventoGen5(mensaje: string): string | null {
  * Cuerpo del <verbatim_lock> + la pregunta de seguimiento del fragmento. Solo
  * para puertas marcadas `dictar` — las que no tienen placeholders que llene un pin.
  */
-function extraerCandadoDictado(content: string): string | null {
-  const lock = content.match(/<verbatim_lock>([\s\S]*?)<\/verbatim_lock>/i)?.[1]?.trim();
-  if (!lock || lock.length < 40) return null;
+function extraerCandadoDictado(content: string, cuerpoSinCandado = false): string | null {
   const q = content.match(/\*\*Pregunta de seguimiento:\*\*\s*([^\n]+)/)?.[1]?.trim();
+  let lock = content.match(/<verbatim_lock>([\s\S]*?)<\/verbatim_lock>/i)?.[1]?.trim();
+  // Una puerta dictada a un fragmento SIN candado (28 oct 2026): se entrega el
+  // cuerpo —sin el título «###» ni la pregunta—. CIENCIA_03 no puede llevar
+  // candado: lo recupera también «¿qué beneficios tiene el Latte?», y con
+  // candado iría solo, dictado, en vez de la ficha del Latte. Pero cuando la
+  // puerta lo elige («¿para qué sirven los productos?») es la respuesta entera,
+  // y como material el modelo la parafraseó y le agregó «lleva siglos en la
+  // medicina asiática».
+  if (!lock && cuerpoSinCandado) {
+    lock = content.replace(/^\s*###[^\n]*\n+/, '').split(/\*\*Pregunta de seguimiento:\*\*/)[0].trim();
+  }
+  if (!lock || lock.length < 40) return null;
   return q ? `${lock}\n\n${q}` : lock;
 }
 
@@ -7115,7 +7168,7 @@ ${visitorCountry === 'CO'
       // palabra «crece», y la persona recibía «Usted ya logró lo más difícil:
       // que su negocio funcione» en vez del ejemplo que aceptó.
       if (canalDictado && !_pinDictaEjemplo && (_esPuertaDictada || _esCandadoSolitario)) {
-        const _cuerpo = extraerCandadoDictado(_doc0.content || '');
+        const _cuerpo = extraerCandadoDictado(_doc0.content || '', _esPuertaDictada);
         const _conMarcadores = !!_cuerpo && /\[[A-ZÁÉÍÓÚÑ0-9_ \-]{3,}\]|\{[^}]+\}/.test(_cuerpo);
         // ── Un candado dictado NO se repite dos turnos seguidos ───────────────
         // Oswaldo Romero recibió `FREQ_30` palabra por palabra CUATRO veces

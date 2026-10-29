@@ -77,7 +77,13 @@ export function sinElogioSiNoPregunto(nucleo: string, mensajePersona: string): s
 }
 
 /** Una respuesta que abre opinando sobre la pregunta. */
-const RE_ELOGIO_INICIAL = /^\s*(?:(?:muy\s+)?(?:buena|excelente|gran)\s+pregunta|me\s+gusta\s+(?:esa\s+pregunta|que\s+pregunte)|qu[eé]\s+buena\s+pregunta)/i;
+// 28 oct 2026 (auditoría de tono): las variantes con que el modelo siguió
+// calificando la pregunta cuando ya no podía decir «Buena pregunta» —«Esa es
+// exactamente la pregunta correcta», «Esa es una pregunta que vale la pena
+// hacerse», «Qué bueno que pregunte», «Pregunta hecha con criterio», «Buena
+// elección de producto para preguntar»—. «Buena elección» sola NO: es como se
+// reconoce a quien acaba de escoger un paquete, y eso debe quedar.
+const RE_ELOGIO_INICIAL = /^\s*(?:(?:muy\s+)?(?:buena|excelente|gran)\s+(?:pregunta|elecci[oó]n\s+(?:de\s+producto\s+)?para\s+preguntar)|me\s+gusta\s+(?:esa\s+pregunta|que\s+pregunte)|qu[eé]\s+buena\s+pregunta|qu[eé]\s+(?:bien|bueno)\s+que\s+(?:lo\s+|me\s+lo\s+)?pregunte|(?:esa|esta)\s+es\s+(?:exactamente\s+|justo\s+|justamente\s+)?(?:una|la)\s+pregunta|pregunta\s+(?:hecha\s+)?con\s+(?:criterio|precisi[oó]n))/i;
 
 /**
  * Quita el elogio con que el modelo abre una respuesta que redactó él mismo

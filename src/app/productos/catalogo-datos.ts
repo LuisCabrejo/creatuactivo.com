@@ -329,7 +329,7 @@ export const productData: Record<string, Product> = {
     sistemaRecomendado: 'belleza-holistica',
   },
   'jabon-transparente-gano': {
-    name: 'Jabón Transparente Gano',
+    name: 'Jabón Transparente Soap',
     price: 78500,
     image: '/productos/cuidado-personal/jabon-transparent-soap-gano-excel-min.png',
     invima: 'NSOC09915-21CO',

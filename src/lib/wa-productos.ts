@@ -184,7 +184,7 @@ export const PRODUCTOS_WA: ProductoWA[] = [
   },
   {
     slug: 'jabon-transparente-gano',
-    nombre: 'Jabón Transparente Gano',
+    nombre: 'Jabón Transparente Soap',
     precioCOP: 78500,
     presentacion: '',
     invima: 'NSOC09915-21CO',

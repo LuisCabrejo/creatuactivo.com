@@ -7006,7 +7006,7 @@ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
 | Cápsulas Cordygold | 1 |
 | Jabón Gano (paquete de 2) | 1 |
 | Gano Fresh · Pasta de Dientes | 1 |
-| Jabón Transparente Gano | 1 |
+| Jabón Transparente Soap | 1 |
 | Champú Piel&Brillo | 1 |
 | Acondicionador Piel&Brillo | 1 |
 | Exfoliante Corporal Piel&Brillo | 1 |

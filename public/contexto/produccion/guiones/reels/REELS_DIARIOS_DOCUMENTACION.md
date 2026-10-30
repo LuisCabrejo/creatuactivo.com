@@ -555,6 +555,18 @@ Aquí es muy sencillo, porque las herramientas para multiplicar su negocio está
 
 Así puede construir su propia empresa de distribución de productos de bienestar premium en toda América. Si quiere conocerla por dentro, saber cómo funciona, cómo entra el dinero, qué tendría que hacer usted, dé clic en el enlace y pregúntele a Queswa.
 
+### Día 51 · Martes 27 de octubre — «Lo que aprendí de David Vélez»
+
+*Sin registro de producción: queda el texto grabado (`1027/texto-dia51-grabado.txt`). Entrega: `1027/entrega/reto-dia51.mp4`, 1:03.3. El título es de esta bitácora. Los días 52 a 54 (28 al 30 oct) no tienen carpeta en `reels-equipo/`.*
+
+Una de las cosas que más disfruto de este camino es aprender de quienes ya lo hicieron. Uno de mis referentes es David Vélez, un colombiano que fundó Nubank, uno de los bancos digitales más grandes del mundo. De él he aprendido muchas cosas, y hoy les comparto las que para mí han sido claves.
+
+La primera: enfocarse en la jornada, no en el destino. Esto es importante por dos razones. Si trabajo en las acciones que apalancan los resultados, los resultados llegan por inercia. Y además me permite disfrutar la jornada: si espero tener mercado en todos los países de América para sentirme satisfecho, puede ser frustrante. En cambio, terminar el día cansado, sabiendo que hice las cosas que tenía que hacer, me llena de satisfacción.
+
+La segunda: tener claro lo importante. Esto me llevó a establecer mis prioridades. Después de Dios, lo más importante para mí es la salud, mi esposa Liliana Moreno y nuestro hogar, y nuestro proyecto de trascender en la vida de millones de personas en América.
+
+Si quiere conocer cómo funciona esta empresa de distribución moderna, dé clic en el enlace y pregúntele a Queswa.
+
 ---
 
 *Próximos días: agregar debajo, conservando el orden cronológico.*

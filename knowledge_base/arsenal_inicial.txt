@@ -12,7 +12,7 @@
 - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
 - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
 
-**Versión actual: v6.82** (29 oct 2026) — **`WHY_02` abre con el obstáculo con precio**: «una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le costarían millones. Usted los recibe en una sola aplicación» (antes «los tres elementos que eliminan la fricción de montar…»), la misma línea de la Presentación y del video v7. **v6.81** (29 oct 2026) — **`VS_01` abre validando sin calificar la pregunta**: «Son modelos que sí funcionan, y la diferencia está en qué queda a su nombre» (antes «Buena pregunta, porque…»; la red que quita el elogio se llevaba la validación). **v6.80** (20 oct 2026) — **Nace `RETO_D39`, «el gigante»**: el video del día 39 sale del prompt (entra el 44) y queda aquí con su nota aprobada. Es la rutina del reto: en el prompt viven solo los dos últimos videos.
+**Versión actual: v6.83** (30 oct 2026) — **Los videos del reto salen del prompt y viven solo aquí**: nacen `RETO_D43`, `D44`, `D45`, `D46`, `D50` y `D51` (el 48 no se archiva). «Su video de hoy» lo resuelve el código con `RETO_MAS_RECIENTE`. **v6.82** (29 oct 2026) — **`WHY_02` abre con el obstáculo con precio**: «una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le costarían millones. Usted los recibe en una sola aplicación» (antes «los tres elementos que eliminan la fricción de montar…»), la misma línea de la Presentación y del video v7. **v6.81** (29 oct 2026) — **`VS_01` abre validando sin calificar la pregunta**: «Son modelos que sí funcionan, y la diferencia está en qué queda a su nombre» (antes «Buena pregunta, porque…»; la red que quita el elogio se llevaba la validación). **v6.80** (20 oct 2026) — **Nace `RETO_D39`, «el gigante»**: el video del día 39 sale del prompt (entra el 44) y queda aquí con su nota aprobada. Es la rutina del reto: en el prompt viven solo los dos últimos videos.
 
 **v6.77** (19 oct 2026) — **Nacen los archivos de los videos del reto: `RETO_D22` (sale del prompt hoy) y `RETO_D15` y `RETO_D19`** (salieron antes sin archivarse; el día 16 no se archiva: su índice atraía cualquier «vi su video de hoy»), con la nota aprobada de cada uno como cuerpo. Es la rutina del reto: en el prompt viven solo los dos últimos videos. Criterio en su `[Concepto Nuclear]`. Y `EAM_02` ofrece *las cuatro formas de empezar* (decía *tres*).
 
@@ -1290,6 +1290,62 @@ Así trabaja él: fija un objetivo y la jornada para llegar; si después de tres
 En el video del día 39 del reto (jueves 15 de octubre), «el gigante», Luis volvió a grabar después de varios días. Contó que el terremoto del 1 de septiembre afectó su casa y que, durante un tiempo, las dificultades lo hicieron verse como víctima; hoy se ve como el rey David frente a un gigante que tenía que vencer, y ya no está cansado: está con furia.
 
 El sistema no depende de un lugar y siguió funcionando; el reto sigue. Grabó en Girardot, donde la noche anterior lo invitaron a hablar con un grupo de personas. Ese mismo día publicó el video de Los 12 Niveles, la estrategia que están lanzando. Del terremoto no se cuenta más que esto.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D43: "Nubank, Rappi, Platzi, Habi y Bold: dónde está hoy el dinero"**
+**[Índice]:** Colombianos que modernizaron negocios de siempre: Nubank el banco, Rappi los domicilios, Platzi la educación, Habi la venta de vivienda y Bold el datáfono. ¿A qué horas y con qué plata? Una madre y su hijo que empezaron juntos.
+**[Concepto Nuclear]:** Archivo del video del día 43 (lunes 19 oct 2026). Salió del prompt el 30 oct 2026 junto con el día 44, cuando el bloque «Los dos videos más recientes» se retiró por decisión del Director del 26 oct («en el prompt no pueden quedar los guiones, les agregaría peso»): desde entonces cada video del reto vive solo aquí, y el guion como se grabó, en `REELS_DIARIOS_DOCUMENTACION.md`. El cuerpo es la nota aprobada del prompt (v5.20), con «esta semana empieza» pasado a «esa semana empezó». ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`: va anclado a lo que la persona recuerda.
+
+En el video del día 43 del reto (lunes 19 de octubre), «¿dónde está hoy el dinero?», Luis contó que varios colombianos modernizaron negocios de siempre: Nubank el banco, Rappi los domicilios, Platzi la educación, Habi la venta de vivienda y Bold el datáfono. CreaTuActivo hace lo mismo en el network marketing y en el sector laboral, y a «¿a qué horas y con qué plata?» le responde con los tres elementos.
+
+El fin de semana anterior se sumaron socios, entre ellos una madre y su hijo. Esa semana empezó un trabajo enfocado en Bogotá y la Sabana; aplica igual en cualquier ciudad.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D44: "El propósito: Walt Disney, David Vélez y dos horas por los sueños"**
+**[Índice]:** Lo del propósito: agradecidos con su trabajo, pero esa no puede ser toda la vida. «Me gusta lo imposible porque hay menos competencia». Los proyectos difíciles atraen a las mejores personas. Dos horas al día por sus sueños, después de la jornada.
+**[Concepto Nuclear]:** Archivo del video del día 44 (martes 20 oct 2026), que salió del prompt el 30 oct 2026 con el día 43 (ver `RETO_D43`). El cuerpo es la nota aprobada del prompt (v5.22), sin cambios. La frase de Walt Disney es de atribución popular, y así se dice. Lo que ganó ese año lo cuenta Luis en persona: la cifra no va. ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`: va anclado a lo que la persona recuerda.
+
+En el video del día 44 del reto (martes 20 de octubre), «el propósito», Luis contó que muchos le escribieron agradecidos con su trabajo, pero sintiendo que esa no puede ser toda la vida. Citó una frase que se le atribuye a Walt Disney («me gusta lo imposible porque hay menos competencia») y a David Vélez, fundador de Nubank: los proyectos difíciles atraen a las mejores personas, y el ADN de una compañía lo crean sus primeras personas en sus primeros meses; CreaTuActivo vive esos meses.
+
+Como aquí no hay jefes, hace falta un propósito: en su primer año, al terminar su jornada, trabajaba dos horas por sus sueños. Les da la bienvenida a quienes le pongan el alma a un par de horas por los suyos. Lo que ganó ese año lo cuenta él en persona.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D45: "El primer e-commerce: ganocafe.online y Jeff Bezos"**
+**[Índice]:** Lo del primer e-commerce, ganocafe.online: dos referentes del mundo digital le dijeron que era imposible sin una agencia. Jeff Bezos empezó vendiendo libros y lo que construyó fue su propio sistema de ventas.
+**[Concepto Nuclear]:** Archivo del video del día 45 (miércoles 21 oct 2026), aprobado por el Director el 30 oct 2026. Fuente: el texto grabado (`recetas/1021/texto-dia45-grabado.txt`); al grabar, la frase de Bezos salió como «empezó vendiendo libros, pero lo que construyó fue su propio sistema de ventas», y así va. ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`: va anclado a lo que la persona recuerda.
+
+En el video del día 45 del reto (miércoles 21 de octubre), Luis contó que cuando quiso crear un e-commerce de categoría mundial, dos referentes del mundo digital le dijeron que era imposible sin una agencia y muchos profesionales. Él no cree en los imposibles: lo difícil crea la oportunidad. Así nació ganocafe.online, con clientes en toda América.
+
+Después vino lo más complejo: que cada persona que llega encuentre todo listo y lo pueda multiplicar, como Jeff Bezos, que empezó vendiendo libros y lo que construyó fue su propio sistema de ventas. Hoy cada distribuidor recibe los tres elementos: un fabricante, una máquina de ventas y una herramienta para multiplicar.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D46: "Yina, madre de tres hijos, en las palmeras"**
+**[Índice]:** Yina, madre de tres hijos, que se levanta a las tres de la mañana a trabajar en las palmeras, de lunes a sábado, y empezó su empresa de distribución con su celular. Su día uno.
+**[Concepto Nuclear]:** Archivo del video del día 46 (jueves 22 oct 2026), aprobado por el Director el 30 oct 2026. Solo el nombre de pila, como en `RETO_D22`. La apertura de Luis (el regreso de su esposa después del terremoto) no va: del terremoto no se cuenta más que lo de `RETO_D39`. «De ella solo se sabe lo que dice el video» cierra la puerta a inventarle historia. ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`: va anclado a lo que la persona recuerda.
+
+En el video del día 46 del reto (jueves 22 de octubre), Luis presentó a Yina, una amiga que acaba de empezar su propia empresa de distribución. Ella misma lo cuenta: es madre de tres hijos, se levanta a las tres de la mañana a cumplir con su labor en las palmeras, de lunes a sábado, y va a documentar cómo construye su empresa con su celular. Ese fue su día uno. De ella solo se sabe lo que dice el video.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D50: "Martha, la granola y las ochenta mil cosas"**
+**[Índice]:** Martha y su granola: para sacar su producto al mercado tiene que hacer ochenta mil cosas. Frisby nació en Pereira con un solo local y hoy tiene más de 250: lo más difícil de un negocio es multiplicarlo.
+**[Concepto Nuclear]:** Archivo del video del día 50 (lunes 26 oct 2026), aprobado por el Director el 30 oct 2026. Martha es un nombre ficticio (registro del día 50), y eso no se le dice al prospecto. Va SIN el precio del video («menos de 500.000 pesos»): el modelo no escribe una cifra que el backend conoce, y quien pregunte cuánto cuesta recibe el pin. ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`: va anclado a lo que la persona recuerda.
+
+En el video del día 50 del reto (lunes 26 de octubre), Luis contó la historia de Martha, una emprendedora con cinco productos —el principal es la granola— que para sacarlos al mercado tiene que hacer «ochenta mil cosas»: proveedores, materia prima, empaque, despacho, registro. La comparó con una empresa donde los tres elementos ya están resueltos: un fabricante que empaca, despacha y recauda en todo el continente; una máquina de ventas, donde usted comparte su enlace y Queswa atiende a sus clientes a cualquier hora; y una herramienta para multiplicar, que le marca la ruta.
+
+Y lo más difícil de cualquier negocio es multiplicarlo: Frisby nació en Pereira con un solo local y hoy tiene más de 250. Aquí, cada distribuidor nuevo recibe los mismos tres elementos y hace exactamente lo mismo.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+
+### **RETO_D51: "Lo que aprendió de David Vélez: tener claro lo importante"**
+**[Índice]:** Lo que aprendió de David Vélez: tener claro lo importante. Sus prioridades: después de Dios, la salud, su esposa Liliana y su hogar, y trascender en la vida de millones de personas.
+**[Concepto Nuclear]:** Archivo del video del día 51 (martes 27 oct 2026), aprobado por el Director el 30 oct 2026. El índice NO dice «jornada» a propósito: `RETO_D15` ya se ancla a «la jornada, no el destino», y los dos citan a Vélez. Tampoco «Nubank» (medido el 30 oct): con «el fundador de Nubank», «lo que dijo de Nubank y Rappi» le salía primero a este y no a `RETO_D43`. Solo el nombre de pila de su esposa. Es el video más reciente del reto mientras `RETO_MAS_RECIENTE` (src/lib/puerta-reto.ts) apunte aquí. ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`: va anclado a lo que la persona recuerda.
+
+En el video del día 51 del reto (martes 27 de octubre), Luis compartió dos cosas que ha aprendido de David Vélez, el colombiano que fundó Nubank. La primera, enfocarse en la jornada y no en el destino: si trabaja en las acciones que apalancan los resultados, los resultados llegan por inercia, y terminar el día sabiendo que hizo lo que tenía que hacer lo llena de satisfacción. La segunda, tener claro lo importante: después de Dios, la salud, su esposa Liliana y su hogar, y el proyecto de trascender en la vida de millones de personas en América.
 
 **Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
 ---

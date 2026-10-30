@@ -22,6 +22,17 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.83: los videos del reto viven solo aquí (30 oct 2026)
+
+Nacen `RETO_D43`, `RETO_D44`, `RETO_D45`, `RETO_D46`, `RETO_D50` y `RETO_D51`, aprobados por el Director el 30 oct. Los dos primeros son las notas del prompt (v5.20 y v5.22), que sale ese día (prompt v5.26); los otros cuatro, textos nuevos desde el guion grabado. El día 48 («No llegué solo») no se archiva: nada que un prospecto pregunte, y nombra a una persona.
+
+- Sin precio en `RETO_D50` (el video dice «menos de 500.000 pesos»): la cifra la pone el pin.
+- Sin el terremoto en `RETO_D46`: del terremoto solo se cuenta lo de `RETO_D39`.
+- `RETO_D51` sin «jornada» (es de `RETO_D15`) ni «Nubank» en el índice: con «el fundador de Nubank», *«lo que dijo de Nubank y Rappi»* le salía a él (0.488) antes que a `RETO_D43` (0.468). Sin la palabra, `D43` 0.468 y `D51` fuera del top 3.
+- Medido con paráfrasis (`medir-recuperacion-voyage.mjs`): cada uno sale primero en las suyas —*«lo de walt disney»*, *«lo de las dos horas después del trabajo»*, *«lo de amazon y los libros»*, *«la muchacha de los 3 hijos que madruga»*, *«lo de frisby»*, *«lo de las prioridades, Dios y la familia»*—. En once consultas de control (*cómo funciona el negocio*, *cuánto cuesta empezar*, *quiero ser socio*…) ninguno entra al top 3, salvo *«vi el video»* pelado, donde todo puntúa ~0,42 y `RETO_D51` sale 2.º detrás de `LUV_02`.
+
+---
+
 ## arsenal_compensacion
 
 ### v8.13 — El GEN5 y el Binario dejan de comparar paquetes, y la vigencia del porcentaje se dice como hecho (2 oct 2026)

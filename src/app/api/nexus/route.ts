@@ -77,7 +77,7 @@ import {
 } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
-import { mencionaElReto } from '@/lib/puerta-reto';
+import { mencionaElReto, preguntaPorElVideoReciente, RETO_MAS_RECIENTE } from '@/lib/puerta-reto';
 import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
 import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
 import { preguntaPorTiempoDeResultados } from '@/lib/puerta-tiempo-resultados';
@@ -2576,6 +2576,16 @@ function clasificarDocumentoHibrido(userMessage: string): string | null {
 const RE_PREGUNTA_POR_QUE = /por\s*qu[eé]\s+(uno\s+)?(deber[ií]a|debo|habr[ií]a\s+de|tendr[ií]a\s+que|har[ií]a|me\s+meter[ií]a|entrar[ií]a|hacer\s+esto|desarrollar\s+este)|qu[eé]\s+gano\s+yo|para\s+qu[eé]\s+me\s+sirve|por\s*qu[eé]\s+(esto|este\s+negocio)\b|qu[eé]\s+me\s+aporta/i;
 
 const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp, 'test'>; porque: string; dictar?: boolean }[] = [
+    {
+      // 30 oct 2026: «vi su video de hoy» / «su último video». Los videos del reto
+      // salieron del prompt (Director, 26 oct) y viven solo en el arsenal; cuál es
+      // el más reciente lo dice RETO_MAS_RECIENTE. Va antes que RETO_01: «el video
+      // de hoy del reto» pide el video, no el reto. → src/lib/puerta-reto.ts
+      fragmento: RETO_MAS_RECIENTE.fragmento,
+      titulo: 'El video más reciente del reto',
+      porque: 'pregunta por el video más reciente del reto',
+      cuando: { test: (t: string) => preguntaPorElVideoReciente(t) },
+    },
     {
       // 14 sep 2026: el reto de los 90 días que Luis documenta en sus historias.
       // «¿cuáles son las tres condiciones del reto?» caía en compensación por el

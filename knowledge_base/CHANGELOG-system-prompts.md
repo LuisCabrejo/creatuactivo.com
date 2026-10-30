@@ -6,6 +6,14 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.26 — Los videos del reto salen del prompt (30 oct 2026)
+
+Decisión del Director del 26 oct: *«en el prompt no pueden quedar los guiones, les agregaría peso»*. Sale el bloque «Los dos videos más recientes» (días 43 y 44, 1.330 caracteres); los dos pasan al arsenal como `RETO_D43` y `RETO_D44` (v6.83), con los días 45, 46, 50 y 51. Quien dice *«vi su video de hoy»* o *«su último video»* lo recibe por una puerta de código (`RETO_MAS_RECIENTE`, src/lib/puerta-reto.ts), no por el prompt: el bloque llevaba diez días diciendo que el del día era el 44.
+
+Queda una línea en el párrafo del reto: *«Lo que Luis gana, o ganó en sus comienzos, lo cuenta él en persona»*. La traía la nota del día 44 (v5.22, por «¿cuánto empezó a ganar Luis?»), y sin el bloque esa pregunta va a compensación (medido el 30 oct: `COMP_GEN5_05` primero, `RETO_D44` fuera del top 3).
+
+Web 18.604 caracteres · WhatsApp 18.188 · Dashboard 15.928.
+
 ## v5.25 — Al socio se le responde a él; lo que no cambió no va primero (29 oct 2026)
 
 Solo el bloque del Dashboard. Tres instrucciones de la v5.23 iban contra lo que el Director pidió el 29 oct:

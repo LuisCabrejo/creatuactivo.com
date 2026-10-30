@@ -41,3 +41,44 @@ export const RE_RETO_NO = /(?:r[eé]t+o|rteo)\s+(de\s+)?(los\s+)?(12|doce|5|cinc
 export function mencionaElReto(texto: string): boolean {
   return RE_RETO.test(texto) && !RE_RETO_NO.test(texto);
 }
+
+/**
+ * El video más reciente del reto (30 oct 2026). Hasta ese día, el prompt cargaba
+ * «Los dos videos más recientes» y el modelo resolvía «vi su video de hoy» con
+ * ellos; el Director los sacó el 26 oct («en el prompt no pueden quedar los
+ * guiones, les agregaría peso») y cada video vive solo en el arsenal (`RETO_DNN`).
+ * Sin el bloque, el modelo no sabe cuál es el del día: lo dice este puntero, y
+ * la puerta lo sirve directo (`PUERTAS_INICIAL`, antes que `RETO_01`).
+ *
+ * ⛔ Con cada video nuevo del reto: su fragmento `RETO_DNN` al arsenal y este
+ * puntero a él, con la fecha en que se publicó. Nada más, y nada en el prompt.
+ *
+ * «Su último video» se sirve siempre. «El video de hoy» o «el de ayer» solo si el
+ * puntero tiene dos días o menos: con uno más viejo, la persona habla de otro
+ * video (el que le compartió su socio, la presentación) y servirle el del reto
+ * sería contestarle otra cosa; sigue la búsqueda normal.
+ *
+ * Tolera el dedo torpe en «último» y «video» (últmo · útlimo · vido · vdieo),
+ * medido en `scripts/prueba-typos.mts`.
+ *
+ * Los videos con nombre propio no entran: «el último video de los 12 niveles» o
+ * «el video de cómo funciona» tienen su respuesta y su puerta.
+ */
+export const RETO_MAS_RECIENTE = { fragmento: 'arsenal_inicial_RETO_D51', fecha: '2026-10-27' };
+
+export const RE_VIDEO_ULTIMO = /(?<![a-záéíóúñ])(?:[uú](?:l+t+|t+l+)[ií]?mo|m[aá]s\s+reciente|nuevo)\s+(?:v+[ií]d+(?:eo|io|e|o)|vdi?eo)(?![a-záéíóúñ])/i;
+
+export const RE_VIDEO_DE_HOY = /(?<![a-záéíóúñ])(?:v+[ií]d+(?:eo|io|e|o)|vdi?eo)\s+(?:del\s+r[eé]t+o\s+)?(?:(?:de|del)\s+)?(?:(?:que\s+)?(?:subi[oó]|public[oó]|mont[oó]|sac[oó])\s+)?(?:hoy|ayer|esta\s+ma[ñn]ana|anoche)(?![a-záéíóúñ])/i;
+
+export const RE_VIDEO_CON_NOMBRE = /c[oó]mo\s+funciona|c[oó]mo\s+entra|(12|doce)\s+niveles|servilleta|presentaci[oó]n|qu[eé]\s+debo\s+hacer|estrategia/i;
+
+const diaBogota = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
+
+/** ¿Pregunta por el video más reciente del reto? (`hoy` se pasa en las pruebas). */
+export function preguntaPorElVideoReciente(texto: string, hoy: Date = new Date()): boolean {
+  if (RE_VIDEO_CON_NOMBRE.test(texto)) return false;
+  if (RE_VIDEO_ULTIMO.test(texto)) return true;
+  if (!RE_VIDEO_DE_HOY.test(texto)) return false;
+  const dias = (Date.parse(diaBogota(hoy)) - Date.parse(RETO_MAS_RECIENTE.fecha)) / 86_400_000;
+  return dias >= 0 && dias <= 2;
+}

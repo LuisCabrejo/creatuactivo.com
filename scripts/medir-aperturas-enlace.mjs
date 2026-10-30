@@ -66,27 +66,33 @@ const filas = new Map();
 const clave = (d, slug) => `${d} · ${slug}`;
 for (const v of visitas ?? []) {
   if (!RE_ENLACE.test(v.page_entry)) continue;
-  const k = clave(dia(v.timestamp), v.mentor_ref_id); const f = filas.get(k) ?? { aperturas: 0, web: 0, escribieron: new Set() };
-  f.aperturas++; if (v.destino === 'web') f.web++; filas.set(k, f);
+  const k = clave(dia(v.timestamp), v.mentor_ref_id); const f = filas.get(k) ?? { aperturas: 0, web: 0, tocaron: 0, escribieron: new Set() };
+  // El toque de «Abrir Queswa en WhatsApp» en el puente (origen 'puente', desde el 30 oct 2026)
+  // lleva la ruta de su apertura: es su propia cifra, no otra apertura.
+  if (v.origen === 'puente') f.tocaron++;
+  else { f.aperturas++; if (v.destino === 'web') f.web++; }
+  filas.set(k, f);
 }
 for (const c of conv ?? []) {
   for (const m of c.messages ?? []) {
     const r = m.role === 'user' && String(m.content ?? '').match(/vengo del enlace de ([a-z0-9-]+)/i);
     if (!r) continue;
-    const k = clave(dia(c.created_at), r[1].toLowerCase()); const f = filas.get(k) ?? { aperturas: 0, web: 0, escribieron: new Set() };
+    const k = clave(dia(c.created_at), r[1].toLowerCase()); const f = filas.get(k) ?? { aperturas: 0, web: 0, tocaron: 0, escribieron: new Set() };
     f.escribieron.add(c.fingerprint_id); filas.set(k, f);
   }
 }
 const orden = [...filas.entries()].sort(([a], [b]) => a.localeCompare(b));
-let A = 0, E = 0, W = 0;
+let A = 0, E = 0, W = 0, T = 0;
 console.log(`Aperturas del enlace vs personas que escribieron por WhatsApp — últimos ${dias} días\n`);
 for (const [k, f] of orden) {
-  A += f.aperturas; E += f.escribieron.size; W += f.web;
+  A += f.aperturas; E += f.escribieron.size; W += f.web; T += f.tocaron;
   const web = f.web ? ` · ${f.web} al chat web` : '';
-  console.log(`${k.padEnd(42)} abrieron ${String(f.aperturas).padStart(3)} · escribieron ${String(f.escribieron.size).padStart(3)}${web}`);
+  const toque = f.tocaron ? ` · ${f.tocaron} tocaron el botón` : '';
+  console.log(`${k.padEnd(42)} abrieron ${String(f.aperturas).padStart(3)} · escribieron ${String(f.escribieron.size).padStart(3)}${web}${toque}`);
 }
 const aWhatsApp = A - W;
 console.log(`\nTotal: ${A} aperturas (${aWhatsApp} a WhatsApp, ${W} al chat web) · ${E} escribieron por WhatsApp${aWhatsApp ? ` · ${Math.round((E / aWhatsApp) * 100)}% de las que fueron a WhatsApp` : ''}`);
+if (T) console.log(`Tocaron «Abrir Queswa en WhatsApp» en el puente: ${T} (el toque se registra desde el 30 oct 2026)`);
 console.log('(Las aperturas se registran desde el 6 oct 2026, y el dispositivo desde el 13 oct. Del 21 al 23 oct todos los');
 console.log('dispositivos fueron al chat web; desde el 23 oct el celular y la tableta vuelven a WhatsApp, sin código.)');
 console.log('⭐ Esta tabla es la que se compara: sin código en el mensaje, la de abajo no puede seguir a WhatsApp.');

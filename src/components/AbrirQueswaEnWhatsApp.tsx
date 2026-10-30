@@ -31,6 +31,9 @@
  * la página (Director, 24 oct 2026): la persona lo ve ya escrito al abrir
  * WhatsApp. La página dice una sola cosa: que la conversación es en WhatsApp.
  *
+ * Cada toque del botón queda en `page_visits` con origen 'puente' (30 oct 2026,
+ * BotonAbrirWhatsApp.tsx): separa a quien no tocó de quien tocó y no envió.
+ *
  * Nada se dispara solo al cargar: un salto automático es justo lo que Chrome
  * bloquea o convierte en pregunta. El orbe se retira (<SinOrbe />): la página
  * tiene una sola salida y el orbe del celular abriría WhatsApp con otro texto.
@@ -41,6 +44,7 @@
 
 import Image from 'next/image'
 import SinOrbe from '@/components/SinOrbe'
+import BotonAbrirWhatsApp from '@/components/BotonAbrirWhatsApp'
 
 type Props = {
   /** El número de Queswa, solo dígitos (573215193909). */
@@ -55,6 +59,9 @@ type Props = {
   /** La imagen de la tarjeta (la misma que ve en WhatsApp al pegar el enlace). */
   imagen: string
   imagenAlt: string
+  /** El slug y la ruta de la apertura: el toque del botón se registra con ellos. */
+  slug: string
+  ruta: string
 }
 
 export function enlaceParaAbrirWhatsApp(telefono: string, texto: string, sistema: string): string {
@@ -66,7 +73,7 @@ export function enlaceParaAbrirWhatsApp(telefono: string, texto: string, sistema
   return waMe
 }
 
-export default function AbrirQueswaEnWhatsApp({ telefono, texto, sistema, titulo, descripcion, imagen, imagenAlt }: Props) {
+export default function AbrirQueswaEnWhatsApp({ telefono, texto, sistema, titulo, descripcion, imagen, imagenAlt, slug, ruta }: Props) {
   const href = enlaceParaAbrirWhatsApp(telefono, texto, sistema)
 
   return (
@@ -101,9 +108,7 @@ export default function AbrirQueswaEnWhatsApp({ telefono, texto, sistema, titulo
           {descripcion}
         </p>
 
-        <a href={href} className="cta-base cta-primary w-full" style={{ padding: '1.1rem 2rem', fontSize: '0.95rem' }}>
-          Abrir Queswa en WhatsApp
-        </a>
+        <BotonAbrirWhatsApp href={href} slug={slug} ruta={ruta} />
       </div>
     </div>
   )

@@ -10,8 +10,9 @@
  * celular. Para saber si la decisión funciona, cada apertura queda en
  * `page_visits` con su dispositivo, a dónde llevó y la cookie del navegador:
  *
- *   origen      'orbe' | 'boton' | 'video'   (el enlace del socio lo registra su
- *               propia página al redirigir: [slug]/[destino]/page.tsx, 'enlace')
+ *   origen      'orbe' | 'boton' | 'video' | 'catalogo' | 'pedido' | 'puente' (el
+ *               toque del botón del puente, 30 oct 2026). La apertura del enlace del
+ *               socio la registra su propia página: [slug]/[destino]/page.tsx, 'enlace'
  *   destino     'whatsapp' | 'web'
  *   dispositivo 'celular' | 'tableta' | 'computador'   — lo decide el SERVIDOR con
  *               la misma regla que el navegador (src/lib/dispositivo.ts)
@@ -35,7 +36,8 @@ export const runtime = 'edge'
 const DESTINOS = new Set(['whatsapp', 'web'])
 // 'catalogo' = alguien abrió el catálogo; 'pedido' = tocó «Enviar pedido por WhatsApp»
 // (17 oct 2026: hasta entonces no se sabía cuántos carritos se armaban ni cuántos salían).
-const ORIGENES = new Set(['orbe', 'boton', 'video', 'catalogo', 'pedido'])
+// 'puente' = tocó «Abrir Queswa en WhatsApp» en el puente del enlace del socio (30 oct 2026).
+const ORIGENES = new Set(['orbe', 'boton', 'video', 'catalogo', 'pedido', 'puente'])
 const RE_VISITANTE = /^ck_[a-z0-9]{6,12}$/
 const RE_REF = /^[a-z0-9-]{2,80}$/i
 

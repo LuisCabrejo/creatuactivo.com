@@ -311,6 +311,8 @@ export default async function DestinoRoute({
         // remotePatterns para el propio origen, y en localhost también carga.
         imagen={OG_QUESWA.image.replace(/^https:\/\/creatuactivo\.com/, '')}
         imagenAlt={OG_QUESWA.alt}
+        slug={slug}
+        ruta={`/${slug}/${destino}`}
       />
     )
   }

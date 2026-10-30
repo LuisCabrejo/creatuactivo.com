@@ -168,8 +168,8 @@ export default function GuiaPlanServilleta() {
           <li>
             {/* El mismo nombre que la diapositiva (18 oct 2026): quien vio el deck y
                 lee aquí encuentra los tres elementos con los mismos nombres. */}
-            <strong>Una máquina de ventas:</strong> usted envía a quien quiera; ahí conoce los
-            productos y los compra, o ve cómo participar. Queswa, la inteligencia artificial de
+            <strong>Una máquina de ventas:</strong> usted envía a quien quiera; quien llega
+            conoce los productos y los compra, o ve cómo participar. Queswa, la inteligencia artificial de
             CreaTuActivo, atiende a cada uno, le resuelve las dudas y madura su decisión de avanzar,
             a toda hora.
           </li>

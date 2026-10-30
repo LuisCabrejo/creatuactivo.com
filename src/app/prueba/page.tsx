@@ -535,8 +535,8 @@ export default function PruebaPage() {
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
-              Usted envía a quien quiera. Ahí conoce los productos y los compra, o ve cómo
-              participar; Queswa atiende a cada uno y madura su decisión, a toda hora.
+              Usted envía a quien quiera. Quien llega conoce los productos y los compra, o ve
+              cómo participar; Queswa atiende a cada uno y madura su decisión, a toda hora.
             </p>
           </div>
 

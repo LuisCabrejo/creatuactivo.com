@@ -194,7 +194,7 @@ const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: 
     label: 'UNA MÁQUINA DE VENTAS',
     img: '/images/servilleta/colapso-conversacion.webp',
     video: '/videos/presentacion/pieza-atiende.mp4',
-    sub: 'Usted envía a quien quiera. Ahí conoce los productos y los compra, o ve cómo participar; Queswa atiende a cada uno y madura su decisión, a toda hora.',
+    sub: 'Usted envía a quien quiera. Quien llega conoce los productos y los compra, o ve cómo participar; Queswa atiende a cada uno y madura su decisión, a toda hora.',
     // La segunda cara (metas · redacta · avisa) vivió aquí como `extra` del 24 al
     // 27 sep 2026; se mudó a la pieza 3, que ES esa cara con nombre propio. Esta
     // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.

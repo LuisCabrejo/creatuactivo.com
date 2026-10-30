@@ -55,10 +55,13 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // garantizado» y la voz de Andres Felipe. Cierra con «el siguiente paso es una
 // conversación con quien le compartió este video». Lo rueda el botón de la
 // pantalla 1 de /servilleta; el Dashboard comparte el mismo archivo. Receta:
-// scripts/dankoe-video/captions/work/plan-servilleta/ (capturar.mjs + armar.py;
-// sale como plan-servilleta-v1.mp4 y se subió como -v2, el nombre del corte que
-// aprobó el Director). Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v2.mp4'
+// scripts/dankoe-video/captions/work/plan-servilleta/ (capturar.mjs + armar.py).
+// v3 (30 oct 2026, Director): la máquina de ventas dice «Quien llega conoce los
+// productos y los compra» en la voz y en pantalla; con «ahí conoce» se entendía que
+// el socio compraba. La -v2 queda sin uso. El corte de YouTube (horizontal, con el
+// cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
+// Un corte nuevo se sube con otro nombre.
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v3.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

@@ -46,7 +46,9 @@
 // Bump 1.4.9 (13 oct 2026): botón «VERLO EN VIDEO» en la propuesta de /servilleta.
 // Bump 1.4.10 (14 oct 2026): se retira el repaso en video de la pantalla 10.
 // Bump 1.5.0 (24 oct 2026): la navegación pasa a network-first (ver la cabecera).
-const CACHE_VERSION = '1.5.0';
+// Bump 1.5.1 (30 oct 2026): /servilleta estrena la presentación en video en la
+// pantalla 1 y retira el «Cómo funciona» de la 5.
+const CACHE_VERSION = '1.5.1';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

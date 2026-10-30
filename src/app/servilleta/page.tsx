@@ -44,7 +44,10 @@
  * cambio en el mundo → quién se queda atrás → la tierra prometida → las
  * herramientas.
  *
- *  1 EN QUÉ CREEMOS  · solo la primera mitad del credo (el ciclo).
+ *  1 EN QUÉ CREEMOS  · solo la primera mitad del credo (el ciclo), y el botón VER
+ *                      LA PRESENTACIÓN EN VIDEO (30 oct 2026, Director): el deck
+ *                      entero en voz —al terminar salta a la 9— o lo presenta el
+ *                      socio. Es el ÚNICO video en ventana del deck.
  *  2 LA OPORTUNIDAD  · modernizar industrias frente a nuestros ojos: cinco pares
  *                      (domicilios → Rappi … Adpostal → WhatsApp).
  *  3 DOS SECTORES    · la industria del network marketing y el sector laboral.
@@ -63,11 +66,10 @@
  *  5 LA SOLUCIÓN     · beat 0: «Una empresa de distribución moderna a su
  *    Y CÓMO FUNCIONA   nombre.» y el obstáculo con precio, «Tres elementos que le
  *                      costarían millones:» (28 oct 2026; la definición completa
- *                      con Uber va en la voz del socio), y el botón VERLO EN VIDEO
- *                      (13 oct 2026): el socio elige si rueda el video «Cómo
- *                      funciona» —al terminar salta a la 6— o explica él los
- *                      beats. Es el ÚNICO lugar del deck con ese video (el repaso
- *                      en la última se retiró el 14 oct 2026, Director). Luego:
+ *                      con Uber va en la voz del socio), con aire entre las dos
+ *                      frases. El botón del video «Cómo funciona» (13-30 oct 2026)
+ *                      SALIÓ: el video de la presentación entera vive en la 1.
+ *                      Luego:
  *                      beats 1-3, las tres piezas (el fabricante SIN nombre; la
  *                      2ª es UNA MÁQUINA DE VENTAS, con dos botones: la demo de
  *                      Queswa y queswa.app «por dentro»; la 3ª es UNA
@@ -141,7 +143,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
-import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels';
+import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 
 const TOTAL_SLIDES = 9;
@@ -603,22 +605,19 @@ export default function PitchDeckPage() {
     setBeat(0);
   }, []);
 
-  // EL VIDEO EN «LA PROPUESTA» (Director, 13 oct 2026): «el distribuidor podrá
-  // escoger si rueda el video o si él hace la explicación de los tres elementos».
-  // Son dos caminos por la pantalla 5: el socio narra los beats, o toca el botón
-  // y el video los cuenta. Por eso, al terminar, el deck salta a la pantalla 6 (el
-  // producto): el video ya dijo lo de los beats 1 a 6 (las tres piezas, la
-  // aplicación, la propiedad y la multiplicación), y repetirlos sería contarlo
-  // dos veces. Si se cierra antes, se
-  // queda en la propuesta y el socio sigue por su cuenta.
-  // ⚠️ El video nombra a Gano Excel y dice que cada recompra deja un porcentaje,
-  // que el deck guarda para la 6 y la 8. Es decisión del socio: en vivo él sabe a
-  // quién tiene enfrente. Va en ventana, no en la diapositiva, para que el beat
-  // siga igual para quien explica.
-  const [videoPropuesta, setVideoPropuesta] = useState(false);
-  const alTerminarVideoPropuesta = () => {
-    setVideoPropuesta(false);
-    irA(6);
+  // LA PRESENTACIÓN EN VIDEO (Director, 30 oct 2026): el botón de la pantalla 1
+  // rueda el deck entero en voz (VIDEO_PLAN_SERVILLETA, 3 min). El socio elige si
+  // lo rueda o si presenta él, igual que con el «Cómo funciona» que vivió en la
+  // pantalla 5 del 13 al 30 oct 2026 y salió de ahí. Al terminar, el deck salta a
+  // la 9: el video cierra con «el siguiente paso es una conversación con quien le
+  // compartió este video», y la 9 pone el nombre y el WhatsApp de ese socio. Si se
+  // cierra antes, se queda en la 1. Va en ventana, no en la diapositiva, para que
+  // la pantalla siga igual para quien presenta. Visto al 80 %, Queswa no le vuelve
+  // a ofrecer el «Cómo funciona»: el video ya lo contó.
+  const [videoPresentacion, setVideoPresentacion] = useState(false);
+  const alTerminarVideoPresentacion = () => {
+    setVideoPresentacion(false);
+    irA(TOTAL_SLIDES);
   };
 
   // SU LADO DE LA MÁQUINA (Director, 18 oct 2026): queswa.app, en Enlaces, en una
@@ -718,9 +717,9 @@ export default function PitchDeckPage() {
       const t = e.target as HTMLElement | null;
       if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
       if (visor && e.key === 'Escape') { setVisor(null); return; }
-      // Con el video de la propuesta abierto, el teclado no mueve el deck: Esc lo
+      // Con el video de la presentación abierto, el teclado no mueve el deck: Esc lo
       // cierra y la barra espaciadora queda para el reproductor.
-      if (videoPropuesta) { if (e.key === 'Escape') setVideoPropuesta(false); return; }
+      if (videoPresentacion) { if (e.key === 'Escape') setVideoPresentacion(false); return; }
       if (leyendoGuia || verticalMode) return;
       if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
       else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
@@ -729,7 +728,7 @@ export default function PitchDeckPage() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode, videoPropuesta]);
+  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode, videoPresentacion]);
 
   // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
   // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
@@ -757,7 +756,7 @@ export default function PitchDeckPage() {
     if (swipeIgnore.current) { swipeIgnore.current = false; return; }
     // La ventana del video vive dentro del deck: un gesto sobre ella no pasa
     // diapositivas por debajo.
-    if (videoPropuesta) return;
+    if (videoPresentacion) return;
     const dx = touchStartX.current - endX;
     const dy = touchStartY.current - endY;
     // Guard de eje: un scroll vertical que derive en X no debe navegar.
@@ -1233,8 +1232,8 @@ export default function PitchDeckPage() {
         .pd-modal--video { width: min(92vw, calc((100dvh - 110px) * 0.5625)); max-height: none; }
         .pd-modal--video video { width: 100%; aspect-ratio: 9 / 16; display: block;
           background: #0F1115; border: 1px solid rgba(255,255,255,0.1); }
-        /* El botón de la propuesta, centrado bajo «Tres elementos que le costarían millones». */
-        .pd-remate .pd-ver-video { display: inline-block; margin-top: 1.4rem; }
+        /* El botón de la presentación en video, bajo el kicker del credo. */
+        .pd-credo .pd-ver-video { display: inline-block; margin-top: 2.2rem; }
 
         /* ── Móvil ───────────────────────────────────────────────────────── */
         @media (max-width: 860px) {
@@ -1553,6 +1552,15 @@ export default function PitchDeckPage() {
             </h2>
             <div className="pd-credo-rule" />
             <p className="pd-kicker">CreaTuActivo · Presentación</p>
+            {/* La presentación entera en video (Director, 30 oct 2026): el socio
+                elige si la rueda o si la presenta él (ver videoPresentacion). */}
+            <button
+              type="button"
+              className="pd-demo pd-ver-video"
+              onClick={(e) => { e.stopPropagation(); setVideoPresentacion(true); }}
+            >
+              VER LA PRESENTACIÓN EN VIDEO →
+            </button>
           </div>
         </section>
 
@@ -1655,18 +1663,12 @@ export default function PitchDeckPage() {
                   persona ya siente. Lo cobra la frase de la unión («No son tres
                   elementos que usted tenga que conseguir»). Corta a propósito: «armados
                   por su cuenta…» va en la voz del socio. */}
-              <p className="pd-bisagra" style={{ marginTop: '1.6rem' }}>
+              {/* El aire entre la solución y el obstáculo (Director, 30 oct 2026), en
+                  lugar del botón del video «Cómo funciona», que se mudó a la pantalla 1
+                  como la presentación entera. */}
+              <p className="pd-bisagra" style={{ marginTop: '3.4rem' }}>
                 Tres elementos que le costarían millones:
               </p>
-              {/* El socio elige: toca aquí y el video los explica, o hace clic en
-                  cualquier otra parte y los explica él (ver videoPropuesta). */}
-              <button
-                type="button"
-                className="pd-demo pd-ver-video"
-                onClick={(e) => { e.stopPropagation(); setVideoPropuesta(true); }}
-              >
-                VERLO EN VIDEO →
-              </button>
             </div>
           </div>
 
@@ -2136,9 +2138,10 @@ export default function PitchDeckPage() {
         <section className={`pd-slide pd-final ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">En qué creemos</p>
+            {/* La frase de identidad vigente (Director, 30 oct 2026, la misma del video
+                de la presentación): «un activo», no «capital real». */}
             <p className="pd-final-credo">
-              Creemos que el esfuerzo de la gente que sabe trabajar debería convertirse
-              en capital real.
+              Creemos que el trabajo de cada persona debería convertirse en un activo.
             </p>
             <p className="pd-p">
               Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
@@ -2231,29 +2234,29 @@ export default function PitchDeckPage() {
         </div>
 
 
-        {/* ── Ventana del video de la propuesta ──────────────────────── */}
+        {/* ── Ventana de la presentación en video ────────────────────── */}
         {/* El <video> se monta con el toque del socio, así suena: el navegador
             deja arrancar con voz lo que la persona acaba de pedir (el mismo
             patrón del video de la Home). */}
-        {videoPropuesta && (
+        {videoPresentacion && (
           <div
             className="pd-overlay"
             role="dialog"
             aria-modal="true"
-            aria-label="Video: cómo funciona"
-            onClick={() => setVideoPropuesta(false)}
+            aria-label="Video: la presentación"
+            onClick={() => setVideoPresentacion(false)}
           >
             <div className="pd-modal pd-modal--video" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
                 className="pd-close"
-                onClick={() => setVideoPropuesta(false)}
+                onClick={() => setVideoPresentacion(false)}
                 aria-label="Cerrar el video"
               >
                 ×
               </button>
               <video
-                src={VIDEO_COMO_FUNCIONA_WA}
+                src={VIDEO_PLAN_SERVILLETA}
                 autoPlay
                 controls
                 playsInline
@@ -2261,7 +2264,7 @@ export default function PitchDeckPage() {
                   const v = e.currentTarget;
                   if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona();
                 }}
-                onEnded={alTerminarVideoPropuesta}
+                onEnded={alTerminarVideoPresentacion}
               />
             </div>
           </div>

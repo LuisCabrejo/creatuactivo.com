@@ -12,6 +12,10 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_socio (solo tenant `dashboard`)
 
+### v1.2 — `WAZE_01`: dos cosas, y la contraseña para la experiencia completa (31 oct 2026)
+
+El Director, al revisar el guion de la guía en video: «Su destino» pide dos cosas —de dónde inicia y a dónde va—, no tres. «Por dónde va» sobraba como tercer dato del viaje. La contraseña de Gano queda como lo que completa la experiencia, con su para qué en una línea (ver cómo avanza su sistema y cargarle la compra), porque el índice responde «por qué me pide mi contraseña de Gano». Se suma el acompañamiento: «lo acompaño en todo el camino y le indico el próximo paso». Texto aprobado por el Director.
+
 ### v1.1 — `WAZE_01`: «de dónde inicia», no «de dónde sale» (31 oct 2026)
 
 Corrección del Director al revisar la guía en video del modo Waze: en Colombia «de dónde sale» no se entiende como «de dónde inicia», que es lo que se quiere decir. Cambia en el texto y en el índice (*«De dónde inicio, a dónde voy y por dónde voy»*); lo demás de la pieza queda igual. El mismo cambio, el mismo día, en queswa.app: la tarjeta «Su destino» de Ajustes de Cuenta, la guía en video, su descripción en Ayuda y la instrucción del modo Waze en `dashboard-ai`. La plantilla de los lunes ya decía «de dónde parte» y no se toca.

@@ -12,6 +12,10 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ## arsenal_socio (solo tenant `dashboard`)
 
+### v1.1 — `WAZE_01`: «de dónde inicia», no «de dónde sale» (31 oct 2026)
+
+Corrección del Director al revisar la guía en video del modo Waze: en Colombia «de dónde sale» no se entiende como «de dónde inicia», que es lo que se quiere decir. Cambia en el texto y en el índice (*«De dónde inicio, a dónde voy y por dónde voy»*); lo demás de la pieza queda igual. El mismo cambio, el mismo día, en queswa.app: la tarjeta «Su destino» de Ajustes de Cuenta, la guía en video, su descripción en Ayuda y la instrucción del modo Waze en `dashboard-ai`. La plantilla de los lunes ya decía «de dónde parte» y no se toca.
+
 ### v1.0 — Nace con `WAZE_01`: qué es el modo Waze (5 oct 2026)
 
 El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidores, y la Queswa del Dashboard no sabía qué responder cuando le preguntaban qué era. El Director quiso la explicación en el arsenal, pero **solo para el distribuidor**: al prospecto lo mismo ya se le cuenta, como lo que recibiría, en `WHY_APP_01` (que él ratificó como correcto para prospectos). Si las dos versiones vivieran en `arsenal_inicial` competirían por la palabra «Waze», y a un prospecto le podría llegar la contraseña de Gano y sus Ajustes de Cuenta. Por eso es el **segundo arsenal que no se clona** a los tres tenants, tras `arsenal_ciencia_socio`.

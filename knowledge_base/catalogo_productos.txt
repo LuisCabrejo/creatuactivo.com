@@ -302,7 +302,7 @@ Con gusto. El Latte Rico es el de la pausa: café con leche y esa espuma que uno
 
 Lo que sorprende a quien lo prueba es lo cremoso — lleva leche en polvo, así que el sabor queda redondo y no empalaga. Y adentro va el mismo extracto de Ganoderma de toda la línea.
 
-Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $119.900 COP.
+Un sobre de 15 gramos en 180 ml. La caja trae 20 y cuesta $119.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro los otros dos de la línea Ganorico?
 
@@ -316,7 +316,7 @@ Con gusto. El Mocha Rico es café y chocolate en el mismo sobre — para esa hor
 
 El cacao le quita el filo al café y el café le quita el empalago al chocolate. Adentro va el mismo extracto de Ganoderma de toda la línea.
 
-Un sobre de 25 gramos en 180 ml de agua caliente. La caja trae 20 y cuesta $119.900 COP.
+Un sobre de 18 gramos en 180 ml de agua caliente. La caja trae 20 y cuesta $119.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro los otros dos de la línea Ganorico?
 
@@ -330,7 +330,7 @@ Con gusto. El Shoko Rico es el chocolate caliente de la casa — el que se prepa
 
 Se arma en agua o en leche, según cómo lo tome su familia, y adentro va el mismo extracto de Ganoderma de toda la línea. Para el adulto que lo prefiere más intenso y menos dulce, está el Schokolade.
 
-Un sobre de 25 gramos en 180 ml. La caja trae 20 y cuesta $124.900 COP.
+Un sobre de 23 gramos en 180 ml. La caja trae 20 y cuesta $124.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
 
@@ -441,7 +441,7 @@ La categoría de **Suplementos Avanzados** tiene **3 productos** — concentrado
 |----------|------------|----------|---------|
 | **Cápsulas Ganoderma** | $272.500 | 90 caps (3 meses) | Apoya el funcionamiento normal de las defensas |
 | **Cápsulas Excellium** | $272.500 | 90 caps (3 meses) | Para llegar despierto a la tarde |
-| **Cápsulas Cordygold** | $336.900 | 90 caps (3 meses) | Rendimiento físico |
+| **Cápsulas Cordygold** | $336.900 | 60 caps (2 meses) | Rendimiento físico |
 
 Dosis estándar: 1 cápsula diaria. Combinables con cualquier bebida funcional de la línea.
 </verbatim_lock>
@@ -565,7 +565,7 @@ Con gusto. El CordyGold es el único de la línea que no gira alrededor del Gano
 
 El Cordyceps es el hongo que se asocia con el rendimiento físico y el aguante. Por eso este es el que suele buscar quien entrena, quien tiene jornadas largas de pie, o quien ya toma el café y quiere sumar algo distinto en vez de más de lo mismo.
 
-Viene en frasco de 90 cápsulas, una al día, y cuesta $336.900 COP.
+Viene en frasco de 60 cápsulas, una al día, y cuesta $336.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro los otros dos suplementos de la línea?
 
@@ -605,7 +605,7 @@ Frasco de 90 cápsulas, una al día, y cuesta $272.500 COP.
 
 Con gusto. Las bebidas vienen en cajas de sobres individuales: la mayoría trae 20 —uno cada mañana, veinte mañanas—, el Ganocafé Clásico trae 30, el Gano C'Real 15 y el Reskine 10.
 
-Los suplementos vienen en frascos de 90 cápsulas, una al día: le rinden tres meses.
+Las cápsulas se toman una al día: el frasco de Ganoderma o de Excellium trae 90 y le rinde tres meses; el de Cordygold trae 60 y le rinde dos.
 
 **Pregunta de seguimiento:** ¿Le muestro los precios de la línea?
 
@@ -647,7 +647,7 @@ Un día con la línea se ve así:
 
 *Mañana*: un sobre de Ganocafé 3 en 1 en agua caliente, y ese es el café del día. Quien no toma café tiene el Schokolade o el Shoko Rico, que también van para los niños.
 
-*Con el almuerzo*: una cápsula, de Ganoderma, Excellium o Cordygold según lo que busque. El frasco de 90 dura tres meses.
+*Con el almuerzo*: una cápsula, de Ganoderma, Excellium o Cordygold según lo que busque. El frasco de Ganoderma o de Excellium dura tres meses; el de Cordygold, dos.
 
 *Noche*: el Rooibos, que no tiene cafeína. Y en el baño, la crema dental Gano Fresh y el jabón, con el mismo extracto.
 

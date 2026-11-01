@@ -568,6 +568,15 @@ function Hoja({ titulo, cerrar, children }: { titulo: string; cerrar: () => void
 
 // ─── Ficha del producto ──────────────────────────────────────────────────────
 
+/** Los títulos de la ficha según lo que es el producto: un champú no «se prepara». */
+function titulosFicha(id: string, p: Product): { uso: string; ritual: string } {
+  if (p.categoria === 'Cosmético') return { uso: 'Cómo se usa', ritual: 'En la rutina' }
+  if (id.startsWith('capsulas-')) return { uso: 'Cómo se toma', ritual: 'En el día' }
+  if (id === 'bebida-colageno-reskine') return { uso: 'Cómo se toma', ritual: 'Para sacarle el gusto' }
+  if (id === 'maquina-luvoco') return { uso: 'Cómo funciona', ritual: 'Para sacarle el gusto' }
+  return { uso: 'Cómo se prepara', ritual: 'Para sacarle el gusto' }
+}
+
 function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace }: {
   id: string; p: Product; atiende: string | null; cantidad: number; fijar: (id: string, n: number) => void
   abrirOtro: (id: string) => void; cantidadDe: (id: string) => number; enlace: () => string | null
@@ -596,6 +605,11 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace 
             )}
             <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> Entrega en persona o por Servientrega, normalmente de un día para otro. El envío lo acuerda con {atiende ?? 'su distribuidor'}.</p>
             <p className="tienda-ficha-desc">{p.shortDescription}</p>
+            {p.benefits.length > 0 && (
+              <ul className="tienda-ficha-beneficios">
+                {p.benefits.slice(0, 3).map((b) => <li key={b}><Check className="h-4 w-4" aria-hidden="true" />{b}</li>)}
+              </ul>
+            )}
 
             {p.promocion && (
               <>
@@ -619,14 +633,14 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace 
 
             {p.usage && (
               <>
-                <h3>Cómo se prepara</h3>
+                <h3>{titulosFicha(id, p).uso}</h3>
                 <p>{p.usage}</p>
               </>
             )}
 
             {p.ritual?.length > 0 && (
               <>
-                <h3>Para sacarle el gusto</h3>
+                <h3>{titulosFicha(id, p).ritual}</h3>
                 <ul>{p.ritual.map((r) => <li key={r}>{r}</li>)}</ul>
               </>
             )}
@@ -648,8 +662,8 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace 
                   los seis colores del Reishi, extraído con un proceso propio de la empresa. Es 100% hidrosoluble:
                   se disuelve por completo, sin dejar residuo. En el hongo hay dos familias de compuestos, los
                   polisacáridos, entre ellos los betaglucanos, y los triterpenos, con más de doscientas variantes
-                  identificadas. Es el hongo más estudiado, con tradición milenaria en Asia, y como parte de la
-                  rutina apoya el funcionamiento normal de las defensas.
+                  identificadas. Es el hongo más estudiado, con tradición milenaria en Asia
+                  {p.categoria === 'Cosmético' ? '.' : ', y como parte de la rutina apoya el funcionamiento normal de las defensas.'}
                 </p>
               </details>
             )}
@@ -942,6 +956,9 @@ const ESTILOS = `
 .tienda-ficha-datos p, .tienda-ficha-datos li { font-size: 14.5px; line-height: 1.55; color: var(--t-tinta-2); }
 .tienda-ficha-datos ul { margin: 0; padding-left: 18px; list-style: disc; }
 .tienda-ficha-datos li::marker { color: var(--t-oro); }
+.tienda-ficha-datos ul.tienda-ficha-beneficios { list-style: none; padding-left: 0; margin: 12px 0 0; display: grid; gap: 6px; }
+.tienda-ficha-beneficios li { display: flex; gap: 8px; align-items: flex-start; color: var(--t-tinta); }
+.tienda-ficha-beneficios svg { flex: none; margin-top: 3px; color: var(--t-oro); }
 .tienda-ficha-mas { margin-top: 18px; border-top: 1px solid var(--t-linea); padding-top: 10px; }
 .tienda-ficha-mas summary { cursor: pointer; font-weight: 600; font-size: 14.5px; color: var(--t-tinta); padding: 6px 0; }
 .tienda-ficha-mas p { margin: 6px 0 0; }

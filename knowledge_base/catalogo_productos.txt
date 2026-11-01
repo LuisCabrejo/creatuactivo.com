@@ -463,9 +463,9 @@ La categoría de **Cuidado Personal** tiene **6 productos** — toda la línea c
 | **Gano Fresh** (pasta dental) | $73.900 | 150g | Sin flúor, encías saludables |
 | **Jabón Gano** | $73.900 | 2 barras 100g | Hidratación, piel suave |
 | **Jabón Transparente** | $78.500 | 1 barra 100g | Pieles sensibles |
-| **Shampoo Piel&Brillo** | $73.900 | 250ml | Brillo y limpieza suave |
-| **Acondicionador Piel&Brillo** | $73.900 | 250ml | Hidratación profunda |
-| **Exfoliante Piel&Brillo** | $73.900 | 200g | Piel suave al tacto |
+| **Shampoo Piel&Brillo** | $73.900 | 300ml | Brillo y limpieza suave |
+| **Acondicionador Piel&Brillo** | $73.900 | 300ml | Hidratación profunda |
+| **Exfoliante Piel&Brillo** | $73.900 | 300ml | Piel suave al tacto |
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Sobre cuál quiere que le cuente?

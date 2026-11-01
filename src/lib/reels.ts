@@ -58,10 +58,12 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // scripts/dankoe-video/captions/work/plan-servilleta/ (capturar.mjs + armar.py).
 // v3 (30 oct 2026, Director): la máquina de ventas dice «Quien llega conoce los
 // productos y los compra» en la voz y en pantalla; con «ahí conoce» se entendía que
-// el socio compraba. La -v2 queda sin uso. El corte de YouTube (horizontal, con el
+// el socio compraba. La -v2 queda sin uso. v4 (1 nov 2026, Director, caso Daniela): el
+// cierre deja la lista de espera y dice «desde el día en que abre su sistema», como la
+// pantalla 9; la -v3 queda sin uso. El corte de YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v3.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v4.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

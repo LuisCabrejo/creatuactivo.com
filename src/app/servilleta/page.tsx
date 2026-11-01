@@ -98,8 +98,16 @@
  *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
  *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
  *                      final.
- *  9 EL SIGUIENTE    · la segunda mitad del credo, la lista de espera y la
- *    PASO              conversación con el socio del ?ref (nombre y WhatsApp).
+ *  9 EL SIGUIENTE    · la segunda mitad del credo, el acompañamiento «desde el
+ *    PASO              día en que abre su sistema» y la conversación con el
+ *                      socio del ?ref (nombre y WhatsApp). En el 1-a-1, el socio
+ *                      toca el nombre y escribe el de la persona: ve cómo termina
+ *                      SU presentación cuando la comparta.
+ *                      ⛔ La lista de espera SALIÓ el 1 nov 2026 (Director, caso
+ *                      Daniela): en una reunión para decidir, la fila le da
+ *                      permiso para aplazar, y se contradice cuando el socio
+ *                      puede iniciarla ese mismo día. «Abre su sistema» le deja
+ *                      el verbo de lo propio en lugar de «entrar».
  *
  *  ⛔ «QUÉ HACE USTED» (las dos acciones, EAM_01) SALIÓ DEL DECK el 18 oct 2026
  *     (Director, tras presentarlo): en vivo las dos acciones se MUESTRAN —el
@@ -2144,8 +2152,7 @@ export default function PitchDeckPage() {
               Creemos que el trabajo de cada persona debería convertirse en un activo.
             </p>
             <p className="pd-p">
-              Acompañamos a cada socio nuevo uno a uno, y eso no alcanza para todos a la
-              vez. Por eso el acceso va por lista de espera.
+              Acompañamos a cada socio nuevo uno a uno, desde el día en que abre su sistema.
             </p>
             <p className="pd-bisagra">
               El siguiente paso es una conversación

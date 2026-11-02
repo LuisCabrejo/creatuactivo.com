@@ -69,11 +69,14 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // usted tenga que estar encima»); la -v6 queda sin uso. v8 (2 nov 2026, fase 1 de la auditoría
 // visual, la misma voz): la pantalla 8 son el cubo que se duplica y las barras de los 12 niveles,
 // Uber entra en dos líneas, lo ya dicho se atenúa, la 4 trae sus cifras en íconos y las
-// pantallas quietas se mueven despacio; la -v7 queda sin uso. El corte de
+// pantallas quietas se mueven despacio; la -v7 queda sin uso. v9 (mismo día, Director: «es
+// genial»): en la propiedad la compra dibuja un ciclo dorado, cada vuelta deja caer un % sobre usted
+// y el ciclo sigue cuando usted se atenúa («aunque usted no esté presente»); la -v8 queda sin uso.
+// El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v8.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v9.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

@@ -101,9 +101,10 @@
  *                      simulador (BEAT_DEL_ENLACE). Beat 2: el bono por paquetes
  *                      empresariales (Director, 30 sep 2026: quien inicia muchas
  *                      veces necesita ganar pronto, y la industria lo tiene; no
- *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
- *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
- *                      final.
+ *                      puede parecer olvidado). Se nombra por lo que lo mueve —la
+ *                      compra de un paquete—, nunca por su velocidad ni por una
+ *                      etapa: se paga igual al que inicia y al que lleva décadas
+ *                      (Director, 2 nov 2026). Gano paga, al final.
  *  9 EL SIGUIENTE    · la segunda mitad del credo, el acompañamiento «desde el
  *    PASO              día en que empieza a construir su activo» y la
  *                      conversación con el socio del ?ref (nombre y WhatsApp).
@@ -139,8 +140,9 @@
  *  · «Network marketing» va SOLO como nombre del sector (pantalla 3). Cómo se hace
  *    hoy lo cuenta el socio en vivo: una pieza no concede, y describirlo aquí sería
  *    un juicio sin voz sobre el método de otros.
- *  · El bono por paquetes se nombra por lo que lo mueve (la compra de un paquete) y
- *    por su función (financia el crecimiento al inicio), NUNCA por su velocidad. Se
+ *  · El bono por paquetes se nombra por lo que lo mueve (la compra de un paquete),
+ *    NUNCA por su velocidad ni por una etapa («financia el crecimiento al inicio» se
+ *    retiró el 2 nov 2026: se paga igual al que inicia y al que lleva décadas). Se
  *    cuentan paquetes comprados, nunca personas.
  *  · Sin socio (visita orgánica o ?ref que no se encuentra), la conversación es con
  *    el equipo, por el WhatsApp Business (Director, 1 oct 2026).
@@ -2150,10 +2152,12 @@ export default function PitchDeckPage() {
           {/* Beat 2 — EL BONO POR PAQUETES (Director, 30 sep 2026). Va DESPUÉS de lo
               principal: quien inicia muchas veces necesita ganar pronto, y un deck que
               no lo muestra parece haberlo olvidado. ⚠️ Se nombra por lo que lo mueve
-              —la compra de un paquete— y por su función —financia el crecimiento al
-              inicio—, NUNCA por su velocidad («rápido», «inmediato»): esa palabra la
-              pone el socio en vivo con su propia historia, que tampoco va a la
-              pantalla. Se cuentan PAQUETES COMPRADOS, nunca personas. */}
+              —la compra de un paquete—, NUNCA por su velocidad («rápido», «inmediato»)
+              ni por una etapa: «es lo que financia el crecimiento al inicio» se retiró
+              el 2 nov 2026 (Director), porque el bono se paga igual al que inicia y al
+              que lleva décadas. La velocidad la pone el socio en vivo con su propia
+              historia, que tampoco va a la pantalla. Se cuentan PAQUETES COMPRADOS,
+              nunca personas. */}
           <div className={`pd-beat ${slide === 8 && beat === 2 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ maxWidth: 1040 }}>
               <div className="pd-numeros-top">
@@ -2175,7 +2179,7 @@ export default function PitchDeckPage() {
                 Y cada paquete empresarial que se compra en su sistema le deja un bono.
               </h2>
               <p className="pd-p pd-numeros-lead">
-                Hasta la quinta generación. Es lo que financia el crecimiento al inicio.
+                Hasta la quinta generación.
               </p>
               <div className="pd-paneles pd-paneles--uno">
                 <div className="panel panel--gen5">

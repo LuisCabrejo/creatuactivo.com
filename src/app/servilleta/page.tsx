@@ -406,6 +406,23 @@ export default function PitchDeckPage() {
       .catch(() => {});
   }, []);
   const [gen5Paquetes, setGen5Paquetes] = useState(2);
+  // PARA EXPLICAR EN VIVO (Director, 2 nov 2026): tocar una generación la enciende
+  // (y apaga las otras); tocar el total enciende la suma de arriba abajo; las
+  // teclas 1 a 5 encienden la generación y la 0 la suma. Las flechas ya cambian
+  // de pantalla, por eso los números.
+  const [gen5Activa, setGen5Activa] = useState<number | null>(null);
+  const [gen5Sumando, setGen5Sumando] = useState(false);
+  const gen5SumaTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const encenderSumaGen5 = useCallback(() => {
+    setGen5Activa(null);
+    if (gen5SumaTimer.current) clearTimeout(gen5SumaTimer.current);
+    setGen5Sumando(false);
+    // Un cuadro después, para que la animación arranque de cero si ya corría.
+    requestAnimationFrame(() => {
+      setGen5Sumando(true);
+      gen5SumaTimer.current = setTimeout(() => setGen5Sumando(false), 1500);
+    });
+  }, []);
   const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP1');
   const [nivel12, setNivel12] = useState(12);
   const [tarifa12, setTarifa12] = useState(0); // índice en TARIFAS_12: el Kit, al 10%
@@ -752,6 +769,13 @@ export default function PitchDeckPage() {
       // cierra y la barra espaciadora queda para el reproductor.
       if (videoPresentacion) { if (e.key === 'Escape') setVideoPresentacion(false); return; }
       if (leyendoGuia || verticalMode) return;
+      // En la tabla del Bono GEN5, los números encienden una generación (1-5) o la suma (0).
+      if (slide === 8 && beat === 2 && /^[0-5]$/.test(e.key)) {
+        e.preventDefault();
+        if (e.key === '0') encenderSumaGen5();
+        else setGen5Activa((g) => (g === Number(e.key) - 1 ? null : Number(e.key) - 1));
+        return;
+      }
       if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); avanzar(); }
       else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); retroceder(); }
       else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
@@ -759,7 +783,7 @@ export default function PitchDeckPage() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode, videoPresentacion]);
+  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode, videoPresentacion, slide, beat, encenderSumaGen5]);
 
   // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
   // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
@@ -1219,6 +1243,33 @@ export default function PitchDeckPage() {
         .pd-gen5-fila .op { color: var(--pd-muted); font-size: 0.72rem; white-space: nowrap; }
         .pd-gen5-fila .st { color: var(--pd-text); font-size: clamp(1rem, 2.2vw, 1.45rem);
           white-space: nowrap; text-align: right; }
+        /* ENCENDER PARA EXPLICAR (Director, 2 nov 2026): la fila tocada toma borde
+           y cifra en oro y las otras bajan; el total, al tocarlo, enciende las cinco
+           de arriba abajo y después a sí mismo: la suma se ve sumar. */
+        .pd-gen5-fila[role="button"] { cursor: pointer; outline: none;
+          transition: opacity 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; }
+        .pd-gen5-fila[role="button"]:focus-visible { box-shadow: inset 0 0 0 1px rgba(197,160,89,0.5); }
+        .pd-gen5-fila.on { background: rgba(197,160,89,0.10); box-shadow: inset 3px 0 0 var(--pd-gold); }
+        .pd-gen5-fila.on .st { color: var(--pd-gold); }
+        .pd-gen5-fila.on .g, .pd-gen5-fila.on .op { color: var(--pd-text); }
+        .pd-gen5-fila.off { opacity: 0.38; }
+        .pd-gen5-filas.sumando .pd-gen5-fila { animation: pd-gen5-luz 0.55s ease both; }
+        .pd-gen5-filas.sumando .pd-gen5-fila:nth-child(1) { animation-delay: 0s; }
+        .pd-gen5-filas.sumando .pd-gen5-fila:nth-child(2) { animation-delay: 0.13s; }
+        .pd-gen5-filas.sumando .pd-gen5-fila:nth-child(3) { animation-delay: 0.26s; }
+        .pd-gen5-filas.sumando .pd-gen5-fila:nth-child(4) { animation-delay: 0.39s; }
+        .pd-gen5-filas.sumando .pd-gen5-fila:nth-child(5) { animation-delay: 0.52s; }
+        .pd-gen5-filas.sumando .pd-gen5-fila--total { animation: pd-gen5-luz-total 0.7s ease both; animation-delay: 0.72s; }
+        @keyframes pd-gen5-luz {
+          0% { background: var(--pd-bg); box-shadow: none; }
+          45% { background: rgba(197,160,89,0.22); box-shadow: inset 3px 0 0 var(--pd-gold); }
+          100% { background: var(--pd-bg); box-shadow: none; }
+        }
+        @keyframes pd-gen5-luz-total {
+          0% { background: var(--pd-bg); }
+          50% { background: rgba(197,160,89,0.26); }
+          100% { background: var(--pd-bg); }
+        }
         .pd-gen5-fila--total { grid-template-columns: 1fr auto; border-top: 1px solid rgba(197,160,89,0.45);
           padding: 10px 18px; }
         .pd-gen5-fila--total .g { color: var(--pd-text); }
@@ -2222,9 +2273,18 @@ export default function PitchDeckPage() {
                 <div className="panel panel--gen5">
                   {/* El bono por su nombre del plan, como la pantalla del Flow. */}
                   <h3>Bono GEN5 · Paquetes comprados</h3>
-                  <div className="pd-gen5-filas">
+                  <div className={`pd-gen5-filas ${gen5Sumando ? 'sumando' : ''}`}>
                     {gen5Por.map((usd, i) => (
-                      <div key={i} className="pd-gen5-fila">
+                      <div
+                        key={i}
+                        className={`pd-gen5-fila ${gen5Activa === i ? 'on' : ''} ${gen5Activa !== null && gen5Activa !== i ? 'off' : ''}`}
+                        role="button"
+                        tabIndex={0}
+                        aria-pressed={gen5Activa === i}
+                        aria-label={`Generación ${i + 1}`}
+                        onClick={() => setGen5Activa(gen5Activa === i ? null : i)}
+                        onKeyDown={(e) => { if (e.key === 'Enter') setGen5Activa(gen5Activa === i ? null : i); }}
+                      >
                         <span className="g">
                           <span className="pd-gen5-largo">Generación</span>
                           <span className="pd-gen5-corto">Gen</span> {i + 1} · {gen5Paquetes}{' '}
@@ -2237,7 +2297,14 @@ export default function PitchDeckPage() {
                     {/* «Su bono por esas N compras» (Director, 11 oct 2026): la cifra va
                         pegada a su origen, para que no se lea como lo que valen los
                         paquetes. Cierra la columna como una suma. */}
-                    <div className="pd-gen5-fila pd-gen5-fila--total">
+                    <div
+                      className="pd-gen5-fila pd-gen5-fila--total"
+                      role="button"
+                      tabIndex={0}
+                      aria-label="Encender la suma"
+                      onClick={encenderSumaGen5}
+                      onKeyDown={(e) => { if (e.key === 'Enter') encenderSumaGen5(); }}
+                    >
                       <span className="g">Su bono por esas {gen5Paquetes * 5} compras</span>
                       <span className="st">{monto(ingresoGen5COP)}</span>
                     </div>

@@ -268,7 +268,7 @@ export default function GuiaPlanServilleta() {
         <h2>Si usted ya es distribuidor: cómo presentar el plan servilleta</h2>
         <p>
           Esta presentación está hecha para una conversación uno a uno. Avanza con un clic, con las
-          flechas del teclado o deslizando el dedo, y la tecla F la pone en pantalla completa.
+          flechas del teclado o deslizando el dedo, y la tecla F la pone en pantalla completa. En la tabla del Bono GEN5, tocar una generación la resalta y tocar el total enciende la suma; desde el teclado, las teclas 1 a 5 resaltan la generación y la 0 enciende la suma.
           Algunas pantallas avanzan por partes, una idea por clic; el resto lo pone quien presenta.
           Si la comparte con su enlace, la última pantalla muestra su nombre y su WhatsApp.
         </p>

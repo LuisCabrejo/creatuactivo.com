@@ -74,12 +74,16 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // y el ciclo sigue cuando usted se atenúa («aunque usted no esté presente»); la -v8 queda sin uso.
 // v10 (mismo día): en la pantalla 2 un trazo dorado lleva cada industria a lo que la modernizó
 // (domicilios → Rappi, taxis → Uber, la fila del banco → Nequi), solo los tres que dice la voz;
-// la -v9 queda sin uso.
+// la -v9 queda sin uso. v11 (mismo día, Director): cuatro finales de frase que quedaban
+// suspendidos (Nequi, informalidad, ruta, empresariales) se regrabaron con contexto y ahora
+// caen; «Queswa» se dice Késwa; en la pantalla 8 las personas son la figura humana y el cubo
+// (su empresa) es lo que viaja; «cómo se gana» trae el ciclo de la propiedad y un paquete que
+// fluye con «paquetes empresariales»; la -v10 queda sin uso.
 // El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v10.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v11.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

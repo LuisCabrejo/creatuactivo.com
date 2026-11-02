@@ -72,11 +72,14 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // pantallas quietas se mueven despacio; la -v7 queda sin uso. v9 (mismo día, Director: «es
 // genial»): en la propiedad la compra dibuja un ciclo dorado, cada vuelta deja caer un % sobre usted
 // y el ciclo sigue cuando usted se atenúa («aunque usted no esté presente»); la -v8 queda sin uso.
+// v10 (mismo día): en la pantalla 2 un trazo dorado lleva cada industria a lo que la modernizó
+// (domicilios → Rappi, taxis → Uber, la fila del banco → Nequi), solo los tres que dice la voz;
+// la -v9 queda sin uso.
 // El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v9.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v10.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

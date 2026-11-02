@@ -108,12 +108,16 @@ async function compartirEnlace(url: string, nombre: string): Promise<boolean> {
   } catch { return false }
 }
 
-/** `detalle` (18 oct 2026): lo que llevaba el pedido, para el aviso al socio si no se envía. */
+/**
+ * `detalle` (18 oct 2026): lo que llevaba el pedido, para el aviso al socio si no se
+ * envía. Desde el 2 nov 2026 también las líneas (id y cantidad): con ellas
+ * `scripts/medir-catalogo.mjs` sabe qué se arma en el carrito y qué llega a Queswa.
+ */
 function registrarApertura(
   origen: 'catalogo' | 'pedido',
   destino: 'web' | 'whatsapp',
   ref?: string | null,
-  detalle?: { productos: number; unidades: number; total: number },
+  detalle?: { productos: number; unidades: number; total: number; lineas: { id: string; cantidad: number }[] },
 ) {
   try {
     const cuerpo = JSON.stringify({ origen, destino, ruta: window.location.pathname, ref: ref || undefined, detalle })
@@ -282,8 +286,11 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
     document.getElementById(`linea-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  /** Lo que lleva el carrito, para la medición (`page_visits.detalle`). */
+  const detallePedido = () => ({ productos: carrito.length, unidades, total, lineas: carrito.map(({ id, cantidad }) => ({ id, cantidad })) })
+
   const enviarPedido = () => {
-    registrarApertura('pedido', 'whatsapp', socio?.constructorId, { productos: carrito.length, unidades, total })
+    registrarApertura('pedido', 'whatsapp', socio?.constructorId, detallePedido())
     setEnviado(true)
     window.open(`https://wa.me/${WHATSAPP_QUESWA}?text=${encodeURIComponent(mensajePedido(carrito, socio, cookieVisitante()))}`, '_blank', 'noopener')
   }
@@ -479,7 +486,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
               subtotal={total}
               prefill={prefill}
               pedidoClave={pedidoClave}
-              alPagar={() => { registrarApertura('pedido', 'web', socio.constructorId); setCarrito([]); setPedidoClave(null) }}
+              alPagar={() => { registrarApertura('pedido', 'web', socio.constructorId, detallePedido()); setCarrito([]); setPedidoClave(null) }}
               volver={() => setPasoPedido('lista')}
             />
           ) : (

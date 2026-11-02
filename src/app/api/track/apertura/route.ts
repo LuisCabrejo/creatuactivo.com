@@ -58,11 +58,20 @@ export async function POST(request: NextRequest) {
     const visitante = cookie && RE_VISITANTE.test(cookie) ? cookie : null
 
     // Lo que llevaba el pedido (18 oct 2026): el aviso «Armó un pedido y no lo
-    // envió» del Centro de Mando lo nombra. Solo números, acotados.
+    // envió» del Centro de Mando lo nombra. Solo números, acotados. Y las líneas
+    // (2 nov 2026): id y cantidad de cada producto, para `medir-catalogo.mjs`.
     const d = cuerpo?.detalle
     const numero = (v: unknown, max: number) => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? Math.round(v) : null)
+    const lineas = Array.isArray(d?.lineas)
+      ? d.lineas.slice(0, 50)
+          .map((l: unknown) => {
+            const o = l as { id?: unknown; cantidad?: unknown }
+            return typeof o?.id === 'string' && /^[a-z0-9-]{2,60}$/.test(o.id) ? { id: o.id, cantidad: numero(o.cantidad, 500) ?? 1 } : null
+          })
+          .filter(Boolean)
+      : null
     const detalle = origen === 'pedido' && d && typeof d === 'object'
-      ? { productos: numero(d.productos, 50), unidades: numero(d.unidades, 500), total: numero(d.total, 100_000_000) }
+      ? { productos: numero(d.productos, 50), unidades: numero(d.unidades, 500), total: numero(d.total, 100_000_000), ...(lineas?.length ? { lineas } : {}) }
       : null
 
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)

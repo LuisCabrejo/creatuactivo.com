@@ -331,21 +331,33 @@ const TARIFAS_12 = [
  *  categoría que no se nombra —; la «intención emprendedora» del GEM es
  *  inconsistente; y la carga financiera del Banco de la República (31 %, feb. 2026)
  *  cubre solo a los hogares con créditos. */
-const CIFRAS_PROBLEMA = [
+/*  Cada cifra lleva su proporción en imagen (2 nov 2026): diez casas con nueve
+ *  encendidas, la barra que pasa la marca de la mitad (la voz del video dice «más de
+ *  la mitad»; la pantalla, el porcentaje exacto que eligió el Director) y cuatro
+ *  personas con tres encendidas. Con íconos se entiende y se recuerda más la
+ *  proporción, sobre todo quien tiene poca costumbre de leer cifras (revisión de
+ *  García-Retamero y Cokely, 2013). Encendido en blanco, no en oro: el oro es el premio. */
+const CIFRAS_PROBLEMA: {
+  n: string; texto: string; fuente: string;
+  icono: { tipo: 'casa' | 'persona'; de: number; en: number } | { tipo: 'barra'; pct: number };
+}[] = [
   {
     n: '9 de cada 10',
     texto: 'hogares colombianos dicen que su ingreso no alcanza, o que alcanza solo para lo mínimo.',
     fuente: 'DANE · Encuesta de Calidad de Vida 2025',
+    icono: { tipo: 'casa', de: 10, en: 9 },
   },
   {
     n: '54,6 %',
     texto: 'de las personas que trabajan en Colombia lo hacen en la informalidad.',
     fuente: 'DANE · GEIH, may–jul 2026',
+    icono: { tipo: 'barra', pct: 54.6 },
   },
   {
     n: '3 de cada 4',
     texto: 'colombianos en edad de pensionarse no reciben una pensión.',
     fuente: 'Colpensiones · U. Javeriana, 2022',
+    icono: { tipo: 'persona', de: 4, en: 3 },
   },
 ];
 
@@ -1191,6 +1203,44 @@ export default function PitchDeckPage() {
         .pd-cifras .pd-bisagra { text-wrap: balance; }
         .pd-cifra .f { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
           color: var(--pd-muted); text-transform: uppercase; margin: 0; }
+        /* La proporción en imagen: lo encendido es lo que la cifra cuenta. */
+        .pd-cifra-iconos { display: flex; gap: 5px; margin: 0 0 0.75rem; }
+        .pd-cifra-iconos svg { width: 21px; height: 21px; fill: rgba(255,255,255,0.13); flex: none; }
+        .pd-cifra-iconos svg.on { fill: #E5E5E5; }
+        .pd-slide.on .pd-cifra-iconos svg.on {
+          animation: pdIcono 0.35s ease-out both; animation-delay: calc(0.5s + var(--k) * 0.07s); }
+        @keyframes pdIcono { from { fill: rgba(255,255,255,0.13); } to { fill: #E5E5E5; } }
+        .pd-cifra-barra { position: relative; height: 12px; margin: 0.45rem 0 1.05rem;
+          background: rgba(255,255,255,0.13); }
+        .pd-cifra-barra span { position: absolute; left: 0; top: 0; bottom: 0; background: #E5E5E5; }
+        .pd-slide.on .pd-cifra-barra span { animation: pdBarra 0.9s 0.5s cubic-bezier(.2,.7,.2,1) both; }
+        @keyframes pdBarra { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        .pd-cifra-barra span { transform-origin: left center; }
+        /* La marca de la mitad: el corte oscuro sobre la barra y «½» debajo. */
+        .pd-cifra-barra i { position: absolute; left: 50%; top: -4px; bottom: -4px; width: 2px;
+          margin-left: -1px; background: var(--pd-bg); }
+        .pd-cifra-barra i::after { content: '½'; position: absolute; top: calc(100% + 2px); left: 50%;
+          transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.6rem;
+          color: var(--pd-muted); }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-slide.on .pd-cifra-iconos svg.on, .pd-slide.on .pd-cifra-barra span { animation: none; }
+        }
+        /* En el teléfono la proporción va en la línea de la cifra: debajo, las tres
+           no cabían en la pantalla. Los íconos se encogen con el ancho que queda. */
+        @media (max-width: 860px) {
+          .pd-cifra { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px;
+            align-items: center; }
+          .pd-cifra .t, .pd-cifra .f { grid-column: 1 / -1; }
+          .pd-cifra-iconos { margin: 0 0 0.35rem; gap: 3px; }
+          .pd-cifra-iconos svg { width: auto; height: auto; flex: 1 1 0; max-width: 17px; aspect-ratio: 1; }
+          /* Las diez casas no caben al lado de «9 de cada 10» (quedaban de 10 px): van debajo. */
+          .pd-cifra-iconos--diez { grid-column: 1 / -1; gap: 5px; margin: 0.1rem 0 0.45rem; }
+          .pd-cifra-iconos--diez svg { flex: none; width: 21px; height: 21px; max-width: none; }
+          /* Y su fila se paga con aire: sin esto, a 375×667 la pantalla pasaba de largo. */
+          .pd-cifras .pd-cifras-lista--tres { gap: 0.75rem; }
+          .pd-cifras .pd-bisagra { margin-top: 0.6rem; }
+          .pd-cifra-barra { margin: 0 0 0.85rem; }
+        }
 
         /* ── 9 · Cómo se gana ─────────────────────────────────────────────────── */
         .pd-paneles { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 32px); }
@@ -1770,6 +1820,27 @@ export default function PitchDeckPage() {
               {CIFRAS_PROBLEMA.map((c) => (
                 <div className="pd-cifra" key={c.n}>
                   <p className="n">{c.n}</p>
+                  {c.icono.tipo === 'barra' ? (
+                    <div className="pd-cifra-barra" aria-hidden="true">
+                      <span style={{ width: `${c.icono.pct}%` }} />
+                      <i />
+                    </div>
+                  ) : (
+                    <div className={`pd-cifra-iconos ${c.icono.de >= 10 ? 'pd-cifra-iconos--diez' : ''}`} aria-hidden="true">
+                      {Array.from({ length: c.icono.de }, (_, k) => (
+                        <svg
+                          key={k}
+                          viewBox="0 0 24 24"
+                          className={k < (c.icono as { en: number }).en ? 'on' : ''}
+                          style={{ ['--k' as string]: k } as React.CSSProperties}
+                        >
+                          {c.icono.tipo === 'casa'
+                            ? <path d="M2.5 11.2 12 3l9.5 8.2V21h-6.2v-5.6H8.7V21H2.5z" />
+                            : <><circle cx="12" cy="6.8" r="4.3" /><path d="M3.2 22c0-5.2 3.9-8.6 8.8-8.6s8.8 3.4 8.8 8.6z" /></>}
+                        </svg>
+                      ))}
+                    </div>
+                  )}
                   <p className="t">{c.texto}</p>
                   <p className="f">{c.fuente}</p>
                 </div>

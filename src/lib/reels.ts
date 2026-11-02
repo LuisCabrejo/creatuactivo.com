@@ -66,11 +66,14 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // queda sin uso. v6 (mismo día): la 7 pregunta por el plan «para construir un activo» y la 8
 // abre con «Se gana con lo que se compra en su sistema…»; la -v5 queda sin uso. v7
 // (mismo día): «Eso es un activo: sigue produciendo aunque usted no esté presente» (antes, «sin que
-// usted tenga que estar encima»); la -v6 queda sin uso. El corte de
+// usted tenga que estar encima»); la -v6 queda sin uso. v8 (2 nov 2026, fase 1 de la auditoría
+// visual, la misma voz): la pantalla 8 son el cubo que se duplica y las barras de los 12 niveles,
+// Uber entra en dos líneas, lo ya dicho se atenúa, la 4 trae sus cifras en íconos y las
+// pantallas quietas se mueven despacio; la -v7 queda sin uso. El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v7.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v8.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

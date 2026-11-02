@@ -30,6 +30,7 @@ import { preguntaPorCostoDeTecnologia } from '../src/lib/puerta-costo-tecnologia
 import { preguntaPorPlataParaEmpezar } from '../src/lib/puerta-plata-para-empezar.ts';
 import { preguntaPorTiempoDeResultados } from '../src/lib/puerta-tiempo-resultados.ts';
 import { preguntaPorLaMaquinaDeVentas } from '../src/lib/puerta-maquina-ventas.ts';
+import { preguntaPorQueConUstedes } from '../src/lib/puerta-otro-equipo.ts';
 import { paqueteParaNivelesSocio, pasoNivelesSocio } from '../src/lib/wa-simulador.ts';
 import { detectarPideAcceso, detectarDistribuidorQuiereActivarse } from '../src/lib/wa-activacion-distribuidor.ts';
 // ⚠️ `wa-onboarding` se importa con require: tsx lo compila como CommonJS y el
@@ -93,6 +94,8 @@ const CASOS: { nombre: string; fn: (t: string) => unknown; frase: string; llaves
   { nombre: 'preguntaPorTiempoDeResultados', fn: preguntaPorTiempoDeResultados, frase: 'en cuánto tiempo se ven resultados en el negocio', llaves: ['tiempo', 'resultados', 'negocio'], tope: 9,
     nota: '20 oct 2026: la pregunta de negocio no cae en la ficha de producto FAQ_02 (salud)' },
   { nombre: 'preguntaPorLaMaquinaDeVentas', fn: preguntaPorLaMaquinaDeVentas, frase: 'qué es la máquina de ventas', llaves: ['máquina', 'ventas'], tope: 0 },
+  { nombre: 'preguntaPorQueConUstedes', fn: preguntaPorQueConUstedes, frase: 'por qué con ustedes y no con otro equipo de gano', llaves: ['ustedes', 'otro', 'equipo'], tope: 0,
+    nota: '2 nov 2026: abre FREQ_14 aunque nombre a Gano Excel, y el nodo 2.51 se le aparta' },
   { nombre: 'detectarPidePersona · reunión', fn: detectarPidePersona, frase: 'quiero una reunión para saber cómo iniciar', llaves: ['reunión', 'quiero'], tope: 1,
     nota: 'pedir una reunión es pedir una persona — el video del día 15 dice que Luis se reúne con interesados (21 sep 2026)' },
   { nombre: 'detectarPreguntaCharla',   fn: detectarPreguntaCharla, frase: 'dónde da esas charlas', llaves: ['charlas', 'dónde'], tope: 0,

@@ -49,6 +49,7 @@ import {
   type SocioPedido,
 } from '@/lib/wa-pedido';
 import { pideEnlaceCatalogo, mensajeEnlaceCatalogo, enlaceCatalogo } from '@/lib/wa-onboarding';
+import { preguntaPorQueConUstedes } from '@/lib/puerta-otro-equipo';
 import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
   esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
@@ -1162,6 +1163,12 @@ export async function atenderDistribuidorActivo(ctx: ContextoDistribuidor): Prom
 
   // Ya se le respondió como distribuidor: no se repite la bienvenida.
   if (ctx.yaMarcado || ctx.historial.some((t) => t.role === 'assistant' && t.content.includes('ya conoce Gano Excel por dentro'))) return null;
+
+  // «¿Por qué con ustedes y no con otro equipo de Gano Excel?» es una comparación,
+  // no alguien que ya está activo (2 nov 2026): `RE_ACTIVO_EN_GANO` toma cualquier
+  // «otro equipo de Gano», y esa pregunta recibía la bienvenida del distribuidor y
+  // quedaba marcada en la ficha. La responde FREQ_14, por su puerta en el motor.
+  if (preguntaPorQueConUstedes(m)) return null;
 
   // 2.51a — activo en Gano Excel, dicho con la compañía.
   if (RE_ACTIVO_EN_GANO.test(m)) return { nodo: '2.51a distribuidor activo de Gano Excel', texto: TEXTO_DISTRIBUIDOR_GANO, marcarFicha: marcar };

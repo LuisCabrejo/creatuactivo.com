@@ -82,6 +82,7 @@ import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
 import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
 import { preguntaPorTiempoDeResultados } from '@/lib/puerta-tiempo-resultados';
 import { preguntaPorLaMaquinaDeVentas } from '@/lib/puerta-maquina-ventas';
+import { preguntaPorQueConUstedes } from '@/lib/puerta-otro-equipo';
 import { detectarProducto } from '@/lib/wa-productos';
 import { esReporteDelSimulador } from '@/lib/wa-simulador';
 import { ejecutarWarmHandoff } from '@/lib/handoff-sumario';
@@ -2665,6 +2666,18 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       titulo: 'Desde fuera del país natal — DIASPORA_01',
       porque: 'dice que vive fuera y pregunta si puede hacerlo',
       cuando: { test: (t: string) => !!residenciaDeclarada([t]) && /puedo|podr[ií]a|c[oó]mo|funciona|desarroll|hacer|particip|inici|empez|trabaj|negocio|sirve/i.test(t) && !/cu[aá]nto\s+(cuesta|vale)|precio/i.test(t) },
+    },
+    {
+      // 2 nov 2026: «¿por qué con ustedes y no con otro equipo de Gano Excel?».
+      // FREQ_14 gana en el vector cuando se pregunta a secas, pero al nombrar a
+      // Gano Excel la búsqueda se iba a CIENCIA_04/05 y el modelo compuso sin
+      // material («infraestructura», «convencer»). Va antes de WHY_05, porque
+      // «¿por qué debería ir con ustedes y no con otro equipo?» también dice «por
+      // qué debería». La llave y sus exclusiones → src/lib/puerta-otro-equipo.ts
+      fragmento: 'arsenal_inicial_FREQ_14',
+      titulo: 'Por qué con nosotros y no con otro equipo — FREQ_14',
+      porque: 'compara con otro equipo de Gano Excel',
+      cuando: { test: preguntaPorQueConUstedes },
     },
     {
       // 24 ago: «¿por qué uno debería desarrollar este negocio?» recuperaba

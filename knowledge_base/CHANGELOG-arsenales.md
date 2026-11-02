@@ -30,6 +30,26 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.85: el activo en las dos preguntas clave (1 nov 2026)
+
+Aprobado por el Director el mismo día que la Home y la Presentación pasaron a abrir con el activo (caso Daniela: la persona se llevó a casa «entrar al negocio»; lo que se retiene es la idea central, y el nombre de la marca ya dice «activo»).
+
+- **`WHY_01` 🔒** — *«Por eso hicimos sencillo lo que antes era complicado: tener su propia empresa de distribución»* → *«…crear su propio activo, una empresa de distribución que no depende de su presencia»*. A «¿qué es CreaTuActivo?» se responde con el nombre, definido en la misma frase.
+- **`WHY_02` 🔒** (doble fuente con `MASTER_WHY_02`) — el párrafo de la propiedad cierra con *«Eso es un activo: sigue produciendo aunque usted no esté presente.»*, detrás de su causa (la recompra). El arranque y la pregunta de cierre no cambian.
+- **«Presencia», no «estar encima»** (investigación del mismo día): «estar encima» se entiende en todo el español (DLE: *vigilar con atención*), pero es el verbo de quien vigila — el dolor del empresario—; el empleado trae el tiempo (*«No tengo tiempo para otra cosa»*, 29 conversaciones; *«¿cuánto tiempo al día hay que meterle?»*) y para él *estar encima* es lo que le hace su jefe. «Encima» queda solo en `FREQ_10` y `ADV_OBJ_02`, que les hablan a empresarios.
+
+## arsenal_inicial — v6.84: `WHY_PROD_01` entrega el catálogo en el mismo turno (30 oct 2026)
+
+Aprobado por el Director tras auditar la conversación de Juanma en WhatsApp (29 oct). Dijo «sí» a *«¿Le muestro los productos que mueven todo esto?»* y recibió el candado, que describía las cuatro líneas y cerraba con *«¿Le muestro el catálogo completo con precios?»*: tenía que decir «sí» otra vez para ver lo que ya había aceptado ver. No lo dijo. Fue además el único bloque largo de texto después de tres videos.
+
+- **El candado abre con «Son 22 productos en cuatro líneas»**. Sale la línea de postura de la v6.46: escrita para quien pregunta con recelo si esto es vender café, después de una oferta del propio Queswa sonaba a que la persona se estaba yendo por las ramas, y su verbo final no pasa la prueba de la abuela. Sin ella, la primera línea sigue respondiendo la pregunta.
+- **El backend pega el catálogo debajo del candado** (`catalogoBajoProductos` en el conductor, usado en `route.ts`): la línea del nodo 2.24 y el enlace con el ref del socio (en WhatsApp, `invited_by` de la ficha; en la web, el ref). En la página del catálogo no se pega.
+- **La pregunta de seguimiento pasa a *«¿Le muestro las cuatro formas de empezar?»***, la siguiente del `RECORRIDO` de la bitácora después del catálogo, con destino escrito en `FREQ_03`. Índice y título, intactos: la recuperación no se mueve.
+- No es un precipicio: en los 45 días previos, 17 de 21 personas siguieron conversando después de este candado. Se corrige porque pedir dos veces lo mismo es fricción, no por el caso suelto.
+- Baterías en verde: salud, negocio (42 candados), clasificador 65/65, typos (106 = línea base), bitácora, productos, tráfico 25 oct y gestos.
+
+---
+
 ## arsenal_inicial — v6.83: los videos del reto viven solo aquí (30 oct 2026)
 
 Nacen `RETO_D43`, `RETO_D44`, `RETO_D45`, `RETO_D46`, `RETO_D50` y `RETO_D51`, aprobados por el Director el 30 oct. Los dos primeros son las notas del prompt (v5.20 y v5.22), que sale ese día (prompt v5.26); los otros cuatro, textos nuevos desde el guion grabado. El día 48 («No llegué solo») no se archiva: nada que un prospecto pregunte, y nombra a una persona.

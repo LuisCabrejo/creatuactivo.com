@@ -49,7 +49,7 @@ import {
   slugDelSocio, textoSimuladorWeb, paisDeCodigo, candadoYaDicho, sinLoYaServido, fragmentosServidos, declaraPerfil,
   RE_PREGUNTA_EMPRESA_GANO, RE_OBJECION_PRESUPUESTO, RE_OFERTA_VER_PAQUETES, RE_YA_SE_INSCRIBIO,
   RE_PREGUNTA_ES_MULTINIVEL, RE_COMPARA_CON_MULTINIVEL, siFueraDeLugar,
-  atenderModoWaze,
+  atenderModoWaze, catalogoBajoProductos,
   type RespuestaConductor,
 } from '@/lib/queswa-conductor';
 import { pushAlDashboard } from '@/lib/wa-avisos-contexto';
@@ -7287,6 +7287,14 @@ ${visitorCountry === 'CO'
           if (_idFrag === 'arsenal_inicial_WHY_PROD_01'
             && RE_PREGUNTA_EMPRESA_GANO.test(String(latestUserMessage ?? ''))) {
             _nucleo = `Gano Excel es el fabricante: 30 años de operación y presencia en más de 60 países.\n\n${_nucleo}`;
+          }
+          // ── El catálogo, en el mismo turno (Director, 30 oct 2026) ──────────
+          // Ver `catalogoBajoProductos` en el conductor. En WhatsApp el socio
+          // llega en la ficha (`invited_by`); en la web, por el ref. En la
+          // página del catálogo no se pega: la persona ya está en él.
+          if (_idFrag === 'arsenal_inicial_WHY_PROD_01' && pageContext !== 'catalogo_productos') {
+            const _refCatalogo = _socioCodigo || constructorId || (mergedProspectData as any)?.invited_by || null;
+            _nucleo = `${_nucleo}\n\n${catalogoBajoProductos(await slugDelSocio(getSupabaseClient(), _refCatalogo))}`;
           }
           // Sin historia que leer, sale el texto aprobado con su pregunta; pero el
           // elogio a una pregunta que no se hizo se quita igual.

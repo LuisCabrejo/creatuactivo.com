@@ -48,7 +48,7 @@ import {
   detectarIntencionCompra, extraerLineasPedido,
   type SocioPedido,
 } from '@/lib/wa-pedido';
-import { pideEnlaceCatalogo, mensajeEnlaceCatalogo } from '@/lib/wa-onboarding';
+import { pideEnlaceCatalogo, mensajeEnlaceCatalogo, enlaceCatalogo } from '@/lib/wa-onboarding';
 import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
   esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
@@ -414,6 +414,20 @@ export async function atenderEnlaceCatalogo(
   if (!aceptaCatalogo && detectarIntencionCompra(mensaje) && extraerLineasPedido(mensaje).length > 0) return null;
   const slug = await resolverSlug();
   return { nodo: `2.24 enlace al catálogo (${slug ?? 'sin socio'})`, texto: mensajeEnlaceCatalogo(slug) };
+}
+
+/**
+ * El catálogo, debajo de WHY_PROD_01 (Director, 30 oct 2026).
+ *
+ * El candado describe las cuatro líneas y cerraba pidiendo permiso para mostrar
+ * el catálogo: quien acababa de decir «sí» a «¿Le muestro los productos que
+ * mueven todo esto?» tenía que decir «sí» otra vez para verlos (Juanma, 29 oct,
+ * no lo dijo). El motor pega esto debajo del candado, en la web y en WhatsApp,
+ * y la pregunta de cierre del arsenal avanza a la siguiente del recorrido. La
+ * línea es la del nodo 2.24, y el enlace lleva el ref del socio como allá.
+ */
+export function catalogoBajoProductos(slug: string | null): string {
+  return `Aquí está el catálogo completo, con fotos, presentaciones y precios:\n\n${enlaceCatalogo(slug)}`;
 }
 
 // ── La estrategia, pedida con palabras propias (8 oct 2026, Director) ─────────

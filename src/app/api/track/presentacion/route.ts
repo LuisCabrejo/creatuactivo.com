@@ -17,11 +17,14 @@
  *   dispositivo_del_socio  bool    escribió un nombre en la demo de la última
  *                                  pantalla: es el socio presentando en vivo,
  *                                  y el Dashboard deja de avisar por esa ficha
+ *   presentacion_video     {v, seg, dur}  la versión del video de la pantalla 1 y el
+ *                                  segundo más lejano que vio (2 nov 2026). Sin aviso:
+ *                                  lo lee scripts/medir-video-presentacion.mjs
  *
  * ⚠️ Cada escritura dispara el webhook de Supabase: la página escribe solo en
  * hitos (pantallas 4, 6 y la última), al tocar el botón y al usar la demo.
  *
- * Body: { fingerprint, pantalla?, completa?, whatsapp?, en_vivo? }
+ * Body: { fingerprint, pantalla?, completa?, whatsapp?, en_vivo?, video? }
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { esPeticionLocal } from '@/lib/entorno-local'
@@ -34,7 +37,7 @@ export async function POST(request: NextRequest) {
   // Localhost no escribe en la base de producción ni avisa a nadie (11 oct 2026, ver entorno-local.ts).
   if (esPeticionLocal(request)) return NextResponse.json({ ok: true, skipped: 'local' })
   try {
-    const { fingerprint, pantalla, completa, whatsapp, en_vivo } = await request.json()
+    const { fingerprint, pantalla, completa, whatsapp, en_vivo, video } = await request.json()
     if (!fingerprint || typeof fingerprint !== 'string') {
       return NextResponse.json({ error: 'Missing fingerprint' }, { status: 400 })
     }
@@ -55,6 +58,16 @@ export async function POST(request: NextRequest) {
     if (completa === true && di.presentacion_completa !== true) data.presentacion_completa = true
     if (whatsapp === true && di.presentacion_whatsapp !== true) data.presentacion_whatsapp = true
     if (en_vivo === true && di.dispositivo_del_socio !== true) data.dispositivo_del_socio = true
+    // Hasta dónde vio la presentación en video (2 nov 2026), sin retroceder dentro de la
+    // misma versión; una versión nueva empieza de cero. No avisa: es para medir retención.
+    if (video && typeof video.v === 'string' && /^v\d{1,3}$/.test(video.v)
+        && Number.isInteger(video.seg) && video.seg >= 0 && video.seg <= 3600
+        && Number.isInteger(video.dur) && video.dur > 0 && video.dur <= 3600) {
+      const previo = di.presentacion_video as { v?: string; seg?: number } | undefined
+      if (!previo || previo.v !== video.v || video.seg > (previo.seg ?? -1)) {
+        data.presentacion_video = { v: video.v, seg: Math.min(video.seg, video.dur), dur: video.dur }
+      }
+    }
     // El país de la conexión, una vez (8 oct 2026): el Dashboard lo pone en el
     // aviso. Solo acompaña a un hito: por sí solo no justifica una escritura.
     const codigoPais = request.headers.get('x-vercel-ip-country')?.toUpperCase()

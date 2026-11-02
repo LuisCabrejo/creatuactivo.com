@@ -473,7 +473,10 @@ export default function PitchDeckPage() {
   // pasando rápido, la de la pantalla 7 llegó después de la de la 10 y la ficha
   // quedó «completa» en la pantalla 7.
   const colaAvance = useRef<Promise<unknown>>(Promise.resolve());
-  const reportarAvance = useCallback((datos: { pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean }) => {
+  const reportarAvance = useCallback((datos: {
+    pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean;
+    video?: { v: string; seg: number; dur: number };
+  }) => {
     const fingerprint = (window as any).FrameworkIAA?.fingerprint;
     if (!fingerprint) return;
     if (new URLSearchParams(window.location.search).get('kiosk') === '1') return;
@@ -676,6 +679,24 @@ export default function PitchDeckPage() {
     setVideoPresentacion(false);
     irA(TOTAL_SLIDES);
   };
+  // HASTA DÓNDE SE VE EL VIDEO (2 nov 2026, fase 2 de la auditoría visual): el segundo
+  // más lejano y la versión, para comparar la retención de una versión con la de la
+  // siguiente. Se reporta al empezar, al cruzar el 25, 50, 75 y 95 %, al cerrar y al
+  // salir de la página; la ruta guarda el máximo, y el campo no dispara avisos.
+  const videoVisto = useRef({ seg: 0, dur: 0, enviado: -1, cuartos: 0 });
+  const versionVideo = VIDEO_PLAN_SERVILLETA.match(/-(v\d+)\.mp4$/)?.[1] ?? 'v0';
+  const enviarVideoVisto = useCallback(() => {
+    const r = videoVisto.current;
+    if (!r.dur || r.seg <= r.enviado) return;
+    r.enviado = r.seg;
+    reportarAvance({ video: { v: versionVideo, seg: r.seg, dur: Math.round(r.dur) } });
+  }, [reportarAvance, versionVideo]);
+  useEffect(() => {
+    if (!videoPresentacion) return;
+    videoVisto.current = { seg: 0, dur: 0, enviado: -1, cuartos: 0 };
+    window.addEventListener('pagehide', enviarVideoVisto);
+    return () => { window.removeEventListener('pagehide', enviarVideoVisto); enviarVideoVisto(); };
+  }, [videoPresentacion, enviarVideoVisto]);
 
   // SU LADO DE LA MÁQUINA (Director, 18 oct 2026): queswa.app, en Enlaces, en una
   // ventana del tamaño de un celular sobre el deck. El socio ya tiene la sesión
@@ -2553,6 +2574,13 @@ export default function PitchDeckPage() {
                 onTimeUpdate={(e) => {
                   const v = e.currentTarget;
                   if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona();
+                  if (!v.duration) return;
+                  const r = videoVisto.current;
+                  r.dur = v.duration;
+                  r.seg = Math.max(r.seg, Math.floor(v.currentTime));
+                  // El primer reporte (seg 0) cuenta quién lo empezó; después, cada cuarto.
+                  const cuartos = [0, 0.25, 0.5, 0.75, 0.95].filter((c) => v.currentTime / v.duration >= c).length;
+                  if (cuartos > r.cuartos) { r.cuartos = cuartos; enviarVideoVisto(); }
                 }}
                 onEnded={alTerminarVideoPresentacion}
               />

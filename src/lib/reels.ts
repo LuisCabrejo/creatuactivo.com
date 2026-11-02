@@ -91,7 +91,10 @@ export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.verce
 // que salen del celular, las dos formas de venta, el anillo del cliente, el orbe
 // que se posa en un cubo mientras siguen las entregas, y fábrica y banco que
 // destellan juntos en la quinta baldosa (cada viernes).
-export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v1.mp4'
+// v2 (2 nov 2026, Director): «Esa repetición es la que vuelve su sistema un activo: produce
+// aunque usted no esté presente» (antes, «sin que usted tenga que estar encima»), como
+// WHY_04; la -v1 queda sin uso. Receta: captions/work/como-entra-el-dinero/armar_v5.py.
+export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v2.mp4'
 
 // «Qué debo hacer yo» para el canal (42 s, 720×1280, 6,4 MB; 28 sep 2026). La voz es
 // EAM_01 palabra por palabra, sin los emojis ni la pregunta de cierre, que va como

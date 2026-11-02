@@ -330,8 +330,8 @@ export default function PruebaPage() {
                 maxWidth: '15em',
               }}
             >
-              Sea dueño de un sistema de distribución que no depende de que usted esté
-              encima.
+              Cree su propio activo: un sistema de distribución que no depende de que
+              usted esté encima.
             </h1>
 
             <p

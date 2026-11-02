@@ -146,14 +146,14 @@ export const metadata: Metadata = {
     locale: 'es_CO',
     alternateLocale: ['pt_BR'],
     url: baseUrl,
-    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
+    title: 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima',
     description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
+    title: 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima',
     description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
     creator: '@creatuactivo',
   },

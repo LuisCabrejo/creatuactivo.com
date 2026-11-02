@@ -1,6 +1,21 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * Homepage v18.2 — «El activo, arriba» (1 nov 2026) · aprobada por el Director en el chat
+ *
+ * El H1 abre con el activo: «Cree su propio activo: un sistema de distribución que no
+ * depende de que usted esté encima.» Revierte a propósito la decisión de la v16.1 (el
+ * activo solo como remate). Lo que la persona retiene es la idea central, no la
+ * categoría: en 2.510 mensajes reales desde el 1 sep nadie repitió «empresa» ni
+ * «sistema de distribución», y la palabra «activo» la refuerza el propio nombre de la
+ * marca. Va DEFINIDO en la misma línea, nunca suelto (la investigación de junio: suelto
+ * evoca la casa o el carro). El remate del final («el activo es suyo») cierra ahora
+ * lo que el H1 abrió. Con el H1 cambian la tarjeta OG y /prueba; el <title> no (ver
+ * `metadata`), hasta medir en Search Console.
+ * · «De dónde sale el dinero» nombra el activo pegado a su causa: «Eso es un activo:
+ *   el ingreso deja de depender de su presencia…».
+ * · Sale «y puede dejárselo a los suyos» del cierre: la herencia vive solo en FREQ_05.
+ *
  * Homepage v18.1 (8 oct 2026, mismo día) · aprobada por el Director en el chat
  *
  * Dos líneas de texto: la recompra en la forma de WHY_02 (el cliente compra, usted
@@ -279,13 +294,13 @@ export const metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com',
-    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
+    title: 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima',
     description:
       'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sea dueño de un sistema de distribución que no depende de que usted esté encima',
+    title: 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima',
     description:
       'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
   },
@@ -568,8 +583,8 @@ export default function HomePage() {
                 maxWidth: '15em',
               }}
             >
-              Sea dueño de un sistema de distribución que no depende de que usted esté
-              encima.
+              Cree su propio activo: un sistema de distribución que no depende de que
+              usted esté encima.
             </h1>
 
             <p
@@ -705,8 +720,8 @@ export default function HomePage() {
           Y lo que casi nadie ve a la primera: <Strong>cada cliente que llega por su
           enlace queda a su nombre</Strong>. El que nota la diferencia no vuelve al
           producto genérico: vuelve a pedir el mismo, y cada vez que lo pide, a usted le
-          queda un porcentaje. Ahí es donde el ingreso deja de depender de su presencia y
-          empieza a depender de cuántos clientes ya están consumiendo.
+          queda un porcentaje. Eso es un activo: el ingreso deja de depender de su presencia
+          y empieza a depender de cuántos clientes ya están consumiendo.
         </Body>
 
         {/* La ecuación: producto + fábrica = porcentaje. Proceso en titanio, resultado
@@ -1020,9 +1035,8 @@ export default function HomePage() {
             }}
           >
             Su sistema de distribución le deja un activo a su nombre: sigue produciendo
-            aunque usted no esté presente, porque sus clientes siguen pidiendo — y puede
-            dejárselo a los suyos. Imagínese un viernes en que entra algo que no le debe
-            nada a nadie. Empieza con una conversación — y esa conversación la atiende
+            aunque usted no esté presente, porque sus clientes siguen pidiendo.
+            Imagínese un viernes en que entra algo que no le debe nada a nadie. Empieza con una conversación — y esa conversación la atiende
             Queswa ahora mismo.
           </p>
           <QueswaCTAButton className="cta-base cta-primary">Hablar con Queswa</QueswaCTAButton>

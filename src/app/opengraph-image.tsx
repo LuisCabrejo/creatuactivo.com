@@ -15,16 +15,17 @@
  *  (3) Un mismo socio comparte la Home y el enlace de Queswa: dos tarjetas con la
  *      misma estructura son una sola identidad.
  *
- * El ORO carga la cláusula, no el nombre del activo: en miniatura el ojo cae
- * primero en la línea dorada, y la novedad es la cualidad. Las dos líneas tienen
- * 39 caracteres cada una — bloque parejo a 50px.
+ * 1 nov 2026 — el titular abre con el activo (Director): «Cree su propio activo:»
+ * va en ORO, porque en miniatura el ojo cae primero en la línea dorada y lo que
+ * tiene que quedar es la idea central, que además es el nombre de la marca. Hasta
+ * ese día el oro cargaba la cláusula de la cualidad.
  */
 
 import { ImageResponse } from 'next/og'
 import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
-export const alt = 'Sea dueño de un sistema de distribución que no depende de que usted esté encima'
+export const alt = 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima'
 export const size = {
   width: 1200,
   height: 630,
@@ -106,8 +107,9 @@ export default async function Image() {
             fontFamily: 'Inter',
           }}
         >
-          <span style={{ display: 'flex' }}>Sea dueño de un sistema de distribución</span>
-          <span style={{ display: 'flex', color: '#C5A059' }}>que no depende de que usted esté encima</span>
+          <span style={{ display: 'flex', color: '#C5A059' }}>Cree su propio activo:</span>
+          <span style={{ display: 'flex' }}>un sistema de distribución</span>
+          <span style={{ display: 'flex' }}>que no depende de que usted esté encima</span>
         </div>
       </div>
     ),

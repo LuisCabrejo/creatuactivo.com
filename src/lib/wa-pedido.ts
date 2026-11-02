@@ -205,6 +205,25 @@ export function lineasPendientesDelHilo(historial: { role: string; content: stri
   return [];
 }
 
+/**
+ * El socio que atiende el pedido del catálogo: la línea «Me atiende Jaime Enrique
+ * (jaime-cardenas).» que `mensajePedido` pone en el mensaje. Se lee del mensaje
+ * que trajo los productos —el de este turno o, si el bot pidió el nombre, el del
+ * hilo— y devuelve su ref (slug o código), o null si ese pedido no vino del
+ * catálogo. Un pedido hecho en la tienda de un socio es de ese socio aunque la
+ * ficha del número ya tenga otro dueño (2 nov 2026, prueba del Director desde
+ * un número atribuido a Luis: el pedido del catálogo de Jaime salió «con Luis»).
+ */
+export function refSocioDelPedidoEnHilo(historial: { role: string; content: string }[], mensajeActual = ''): string | null {
+  const mensajes = [...historial.filter((m) => m.role === 'user').map((m) => m.content), mensajeActual];
+  for (let i = mensajes.length - 1; i >= 0; i--) {
+    if (extraerLineasPedido(mensajes[i]).length === 0) continue;
+    const m = /(?:^|\n)me atiende [^\n(]*\(([a-z0-9]+(?:-[a-z0-9]+)+)\)/i.exec(mensajes[i]);
+    return m ? m[1].toLowerCase() : null;
+  }
+  return null;
+}
+
 // ─── Copy ────────────────────────────────────────────────────────────────────
 
 /** «Gano Café» / «Ganocafé» / «el café» a secas: es una familia, no un producto. */

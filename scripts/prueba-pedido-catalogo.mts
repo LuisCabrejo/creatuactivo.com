@@ -21,7 +21,7 @@ import { productData, mensajePedido } from '../src/app/productos/catalogo-datos.
 import {
   detectarIntencionCompra, extraerLineasPedido, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO,
   confirmarPedido, RE_PEDIDO_CARGADO, cuandoEscribe, firmaPedido, mismoNumero, resumenLineas,
-  detallePedidoSocio, avisoPedidoEnTexto, telefonoLegible, esBotonVerPedido, PAYLOAD_VER_PEDIDO,
+  detallePedidoSocio, avisoPedidoEnTexto, telefonoLegible, esBotonVerPedido, PAYLOAD_VER_PEDIDO, refSocioDelPedidoEnHilo,
 } from '../src/lib/wa-pedido.ts'
 // wa-onboarding.ts por require: tsx lo compila como CommonJS y el lexer de Node se
 // detiene en la «ñ» de `notificarDueño`, así que los exports que vienen después no
@@ -120,6 +120,16 @@ const sinCodigo = limpiarCookieWeb(conCodigo)
 if (sinCodigo !== mensajePedido([{ id: 'ganocafe-3-en-1', cantidad: 2 }, { id: 'luvoco-medio', cantidad: 1 }], socio)) falla(`el pedido sin el código no queda igual al de siempre: «${sinCodigo}»`)
 if (resumenLineas(extraerLineasPedido(sinCodigo)) !== '2 × Ganocafé 3 en 1, 1 × Luvoco Medio · 15 cápsulas') falla('las líneas del pedido cambian con el código')
 if (mensajePedido([{ id: 'ganocafe-3-en-1', cantidad: 1 }], socio, 'cualquier-cosa').includes(' c:')) falla('un código que no es de la cookie entra al mensaje')
+
+// 6c. El pedido es del socio del catálogo, aunque la ficha del número tenga otro
+// dueño (2 nov 2026): en el turno del nombre el ref se relee del mensaje del hilo
+// que trajo los productos; un pedido escrito a mano no trae ref.
+const jaime = { nombre: 'Jaime Enrique', slug: 'jaime-cardenas', constructorId: 'jaime-enrique-cardenas-pena-2035' }
+const pedidoJaime = mensajePedido([{ id: 'ganocafe-3-en-1', cantidad: 4 }, { id: 'ganorico-latte', cantidad: 1 }].filter((l) => productData[l.id]), jaime, 'ck_soja5xzus')
+if (refSocioDelPedidoEnHilo([], pedidoJaime) !== 'jaime-cardenas') falla('el ref del socio no se lee del pedido del catálogo')
+if (refSocioDelPedidoEnHilo([{ role: 'user', content: pedidoJaime }, { role: 'assistant', content: pedirNombrePedido('Jaime Enrique') }], 'Luis Cabrejo') !== 'jaime-cardenas') falla('en el turno del nombre el pedido pierde al socio del catálogo')
+if (refSocioDelPedidoEnHilo([{ role: 'user', content: pedidoJaime }], 'quiero 2 x Ganocafé Clásico') !== null) falla('un pedido escrito a mano hereda el ref del anterior')
+if (refSocioDelPedidoEnHilo([], 'Hola, vengo del enlace de luis-cabrejo (luis-cabrejo)') !== null) falla('un mensaje sin productos da un ref')
 
 // 7. El aviso al socio en viñetas (v2, 17 oct 2026)
 const guardado = {

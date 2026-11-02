@@ -81,7 +81,7 @@ import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esRe
 import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
 import { respuestaPlataParaElSocio } from '@/lib/wa-plata-socio';
 import {
-  detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo,
+  detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo, refSocioDelPedidoEnHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
   noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido, avisarPedidoAbierto,
   esBotonVerPedido, atenderVerPedido,
@@ -2634,9 +2634,21 @@ async function procesarEntrante(body: any): Promise<void> {
     const _nombrePedido = nombreCorto(contactName);
     // Nombre y primer apellido, como en la radicación: «Luis Cabrejo», no la
     // cédula completa («Luis Cabrejo Parra» sonaba a documento, prueba del 29 ago).
-    const _socioPedido = socio
-      ? { nombre: socio.nombre?.split(/\s+/).slice(0, 2).join(' '), whatsapp: socio.whatsapp, constructorId: socio.constructorId,
-          slug: await slugDelSocio(supabase, socio.constructorId) }
+    // El pedido del catálogo nombra a su socio («Me atiende Jaime Enrique
+    // (jaime-cardenas).»), y ese socio es quien lo atiende aunque la ficha del
+    // número tenga otro dueño: en el turno del nombre el mensaje ya no trae el
+    // código, y hasta el 2 nov 2026 el socio salía de la ficha (prueba del
+    // Director desde un número atribuido a Luis: el pedido hecho en la tienda de
+    // Jaime quedó «con Luis»). La atribución de la ficha no cambia por esto.
+    const _refCatalogo = refSocioDelPedidoEnHilo(historial, messageText);
+    const _socioDelCatalogo = _refCatalogo ? await resolverPatrocinador(supabase, _refCatalogo) : null;
+    if (_socioDelCatalogo && _socioDelCatalogo.constructorId !== socio?.constructorId) {
+      console.log(`🛒 [WA Webhook] El pedido es del catálogo de ${_socioDelCatalogo.constructorId} (la ficha es de ${socio?.constructorId ?? 'nadie'})`);
+    }
+    const _socioQueAtiende = _socioDelCatalogo ?? socio;
+    const _socioPedido = _socioQueAtiende
+      ? { nombre: _socioQueAtiende.nombre?.split(/\s+/).slice(0, 2).join(' '), whatsapp: _socioQueAtiende.whatsapp, constructorId: _socioQueAtiende.constructorId,
+          slug: await slugDelSocio(supabase, _socioQueAtiende.constructorId) }
       : null;
     // El «sí» a «¿Le abro el pedido con el que queda su código activo?» (cierre
     // de la respuesta de sede) entra al pedido pidiendo los productos.

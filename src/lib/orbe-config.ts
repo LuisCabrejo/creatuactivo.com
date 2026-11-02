@@ -68,9 +68,9 @@ export const RUTAS_ORBE_QUESWA_WEB = ['/servilleta'] as const
 // el orbe verde de ganocafe (`usaOrbeVerde`).
 export const REFS_ORBE_QUESWA_WEB = ['ganocafe-online-1716'] as const
 
-/** El ref de la página de productos actual, o null si esta URL no es una. */
+/** El ref de la página de productos actual (con o sin producto abierto), o null si esta URL no es una. */
 export function refDePaginaProductos(pathname: string): string | null {
-  const m = pathname.match(/^\/productos\/([^/?#]+)\/?$/)
+  const m = pathname.match(/^\/productos\/([^/?#]+)(?:\/[^/?#]+)?\/?$/)
   if (m) { try { return decodeURIComponent(m[1]) } catch { return m[1] } }
   if ((pathname === '/productos' || pathname === '/productos/') && typeof window !== 'undefined') {
     try { return new URL(window.location.href).searchParams.get('ref') } catch { return null }
@@ -89,11 +89,15 @@ export function usaOrbeVerde(pathname: string): boolean {
 }
 
 /**
- * ¿Es la página del catálogo? `/productos` y `/productos/{ref}` (la de cada socio;
- * `/{slug}/productos` y `/sistema/productos/{ref}` llegan aquí redirigidos).
+ * ¿Es la página del catálogo? `/productos`, `/productos/{ref}` (la de cada socio;
+ * `/{slug}/productos` y `/sistema/productos/{ref}` llegan aquí redirigidos) y
+ * `/productos/{ref}/{producto}`, el enlace directo a un producto (29 oct 2026):
+ * con la ficha abierta la dirección cambia a esa ruta, y hasta el 2 nov el orbe
+ * del celular se cambiaba al de WhatsApp en ese momento (Director, prueba con
+ * una persona: en el catálogo va solo el orbe de Queswa).
  */
 export function esPaginaDeProductos(pathname: string): boolean {
-  return /^\/productos(\/[^/]+)?\/?$/.test(pathname)
+  return /^\/productos(\/[^/]+){0,2}\/?$/.test(pathname)
 }
 
 export function usaChatWeb(pathname: string): boolean {

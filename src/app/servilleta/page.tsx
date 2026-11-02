@@ -353,7 +353,9 @@ const TRM = 4500;
  *  de compensación. Cada paquete que se compra deja bono en su generación y en las
  *  cuatro de arriba, y el paquete propio es el techo: el ejemplo supone el mismo
  *  paquete arriba y abajo. La quinta va con su valor completo (100 PV en el mes),
- *  igual que el simulador de WhatsApp (GEN5_POR_PAQUETE en wa-simulador.ts). */
+ *  igual que el simulador de WhatsApp (GEN5_POR_PAQUETE en wa-simulador.ts). El panel
+ *  la muestra como la tabla del Flow —valor × paquetes = subtotal por generación— y
+ *  cierra con el total atado a sus compras (Director, 1 nov 2026). */
 const GEN5_POR_GENERACION: Record<'ESP1' | 'ESP2' | 'ESP3', number[]> = {
   ESP1: [25, 5, 5, 5, 10],
   ESP2: [75, 10, 10, 10, 20],
@@ -1183,13 +1185,26 @@ export default function PitchDeckPage() {
         .pd-moneda button.active { background: rgba(197,160,89,0.12); color: var(--pd-gold); }
         .pd-numeros .pd-h2 { font-size: clamp(1.25rem, 2.6vw, 1.9rem); margin-bottom: 0.5rem; }
         .pd-numeros-lead { margin-bottom: 1.5rem; }
-        .pd-gens { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
-          background: rgba(255,255,255,0.08); margin: 1rem 0 1.1rem; }
-        .pd-gen { background: var(--pd-bg); padding: 7px 2px; text-align: center; }
-        .pd-gen .k { display: block; font-family: var(--font-mono); font-size: 0.5rem;
-          letter-spacing: 0.12em; color: var(--pd-muted); text-transform: uppercase; }
-        .pd-gen .v { display: block; font-family: var(--font-mono); font-size: 0.6rem;
-          color: var(--pd-text); margin-top: 3px; white-space: nowrap; }
+        /* LA TABLA DEL FLOW (Director, 1 nov 2026). Hasta ese día el panel traía cinco
+           casillas con el subtotal de cada generación y la cifra total encima: no se
+           veía ni el valor por paquete ni cuántas compras producían el total, y una
+           cifra suelta se lee como el precio de los paquetes (Adazuni, 10 oct). Ahora
+           cada generación es una fila con su operación —valor × paquetes = subtotal—,
+           como en el simulador de WhatsApp, y el total cierra atado a sus compras. */
+        .pd-gen5-filas { display: grid; gap: 1px; background: rgba(255,255,255,0.08);
+          margin: 0 0 1.1rem; }
+        .pd-gen5-fila { display: grid; grid-template-columns: 1fr auto auto; gap: 0 14px;
+          align-items: baseline; background: var(--pd-bg); padding: 8px 12px;
+          font-family: var(--font-mono); font-size: 0.62rem; }
+        .pd-gen5-fila .g { color: var(--pd-muted); font-size: 0.55rem; letter-spacing: 0.08em;
+          text-transform: uppercase; }
+        .pd-gen5-fila .g .pd-gen5-corto { display: none; }
+        .pd-gen5-fila .op { color: var(--pd-muted); white-space: nowrap; }
+        .pd-gen5-fila .st { color: var(--pd-text); white-space: nowrap; text-align: right;
+          min-width: 8ch; }
+        .pd-gen5-total { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
+          color: var(--pd-muted); text-transform: uppercase; text-align: center; margin: 0 0 0.4rem; }
+        .pd-numeros .panel--gen5 .pd-display { margin-bottom: 1.2rem; }
         .pd-pkg b { display: block; font-weight: 400; margin-top: 3px; font-size: 0.62rem; }
         /* LA FORMA NO CAMBIA AL ELEGIR PORCENTAJE (Director, 26 sep 2026). La línea
            de vigencia existía solo con el 15, 16 y 17%: al pasar del Kit a otro, el
@@ -1326,7 +1341,19 @@ export default function PitchDeckPage() {
           /* La tira de las cinco generaciones sumó ~45px (26 sep 2026): se recuperan
              en márgenes y en el conteo de distribuidores, que cabe en una línea. */
           .pd-numeros .panel h3 { margin-bottom: 0.7rem; }
-          .pd-numeros .pd-gens { margin: 0.7rem 0 0.8rem; }
+          /* LAS CINCO FILAS CABEN EN EL TELÉFONO (1 nov 2026): una línea por generación,
+             con «Gen 1» en vez de «Generación 1» —a 375 px, «Generación 5 · 5 paquetes»,
+             «$3.375.000 × 5» y «$3.375.000» juntos no caben en los 280 px de la fila—.
+             Medido en 375×667: el panel con dos líneas por fila terminaba 22 px debajo
+             del borde, y el deslizador quedaba fuera. */
+          .pd-numeros .pd-gen5-filas { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-gen5-fila { gap: 0 8px; padding: 5px 8px; font-size: 0.58rem; }
+          .pd-numeros .pd-gen5-fila .g { font-size: 0.5rem; letter-spacing: 0.05em; }
+          .pd-numeros .pd-gen5-fila .g .pd-gen5-largo { display: none; }
+          .pd-numeros .pd-gen5-fila .g .pd-gen5-corto { display: inline; }
+          .pd-numeros .pd-gen5-fila .st { min-width: 0; }
+          .pd-numeros .pd-gen5-total { margin-bottom: 0.2rem; }
+          .pd-numeros .panel--gen5 .pd-display { font-size: 1.45rem; margin-bottom: 0.8rem; }
           .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 0.8rem; }
           .pd-numeros .pd-sub { font-size: 0.64rem; margin-bottom: 0.8rem; }
           .pd-numeros-top { margin-bottom: 0.5rem; }
@@ -2152,16 +2179,25 @@ export default function PitchDeckPage() {
               </p>
               <div className="pd-paneles pd-paneles--uno">
                 <div className="panel panel--gen5">
-                  <h3>Ingreso por paquetes</h3>
-                  <div className="pd-display">{monto(ingresoGen5COP)}</div>
-                  <div className="pd-gens">
+                  {/* El bono por su nombre del plan, como la pantalla del Flow. */}
+                  <h3>Bono GEN5 · Paquetes comprados</h3>
+                  <div className="pd-gen5-filas">
                     {gen5Por.map((usd, i) => (
-                      <div key={i} className="pd-gen">
-                        <span className="k">Gen {i + 1}</span>
-                        <span className="v">{montoCorto(gen5Paquetes * usd * TRM)}</span>
+                      <div key={i} className="pd-gen5-fila">
+                        <span className="g">
+                          <span className="pd-gen5-largo">Generación</span>
+                          <span className="pd-gen5-corto">Gen</span> {i + 1} · {gen5Paquetes}{' '}
+                          {gen5Paquetes === 1 ? 'paquete' : 'paquetes'}
+                        </span>
+                        <span className="op">{montoCorto(usd * TRM)} × {gen5Paquetes}</span>
+                        <span className="st">{montoCorto(gen5Paquetes * usd * TRM)}</span>
                       </div>
                     ))}
                   </div>
+                  {/* «Su bono por esas N compras» (Director, 11 oct 2026): la cifra va pegada
+                      a su origen, para que no se lea como lo que valen los paquetes. */}
+                  <p className="pd-gen5-total">Su bono por esas {gen5Paquetes * 5} compras</p>
+                  <div className="pd-display">{monto(ingresoGen5COP)}</div>
                   <div className="pd-pkgs">
                     {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
                       <button
@@ -2177,10 +2213,12 @@ export default function PitchDeckPage() {
                   <label className="pd-label">
                     Paquetes comprados en cada generación<b>{gen5Paquetes}</b>
                   </label>
+                  {/* Tope 5, como el simulador de WhatsApp (1 · 3 · 5). Con 10 Visionarios
+                      por generación la pantalla mostraba 50 compras y $11.250.000. */}
                   <input
                     type="range"
                     min={1}
-                    max={10}
+                    max={5}
                     value={gen5Paquetes}
                     onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
                     className="pd-slider"

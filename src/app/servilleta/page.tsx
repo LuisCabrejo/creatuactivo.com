@@ -1193,20 +1193,37 @@ export default function PitchDeckPage() {
            cifra suelta se lee como el precio de los paquetes (Adazuni, 10 oct). Ahora
            cada generación es una fila con su operación —valor × paquetes = subtotal—,
            como en el simulador de WhatsApp, y el total cierra atado a sus compras. */
-        .pd-gen5-filas { display: grid; gap: 1px; background: rgba(255,255,255,0.08);
-          margin: 0 0 1.1rem; }
-        .pd-gen5-fila { display: grid; grid-template-columns: 1fr auto auto; gap: 0 14px;
-          align-items: baseline; background: var(--pd-bg); padding: 8px 12px;
-          font-family: var(--font-mono); font-size: 0.62rem; }
-        .pd-gen5-fila .g { color: var(--pd-muted); font-size: 0.55rem; letter-spacing: 0.08em;
+        /* LOS NÚMEROS MANDAN (Director, 2 nov 2026): el panel se ensancha, el subtotal
+           de cada generación es la cifra grande de su fila, el total cierra la columna
+           como una suma —alineado a la derecha, bajo una regla— y los controles
+           (paquete y cantidad) bajan a una sola línea compacta. */
+        .pd-paneles--gen5 { grid-template-columns: minmax(0, 840px); }
+        .pd-gen5-filas { display: grid; gap: 1px; background: rgba(255,255,255,0.08); }
+        /* Alturas medidas para 1280×720 (proyector) y 375×667: la pantalla entera, con
+           la nota de Gano, tiene que quedar sobre el borde. */
+        .pd-gen5-fila { display: grid; grid-template-columns: 1fr auto minmax(11ch, auto);
+          gap: 0 20px; align-items: baseline; background: var(--pd-bg); padding: 11px 18px;
+          font-family: var(--font-mono); line-height: 1.15; }
+        .pd-numeros .panel--gen5 { padding: 1.1rem 1.3rem 1.2rem; }
+        .pd-numeros .panel--gen5 h3 { margin-bottom: 0.9rem; }
+        .pd-gen5-fila .g { color: var(--pd-muted); font-size: 0.6rem; letter-spacing: 0.1em;
           text-transform: uppercase; }
         .pd-gen5-fila .g .pd-gen5-corto { display: none; }
-        .pd-gen5-fila .op { color: var(--pd-muted); white-space: nowrap; }
-        .pd-gen5-fila .st { color: var(--pd-text); white-space: nowrap; text-align: right;
-          min-width: 8ch; }
-        .pd-gen5-total { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
-          color: var(--pd-muted); text-transform: uppercase; text-align: center; margin: 0 0 0.4rem; }
-        .pd-numeros .panel--gen5 .pd-display { margin-bottom: 1.2rem; }
+        .pd-gen5-fila .op { color: var(--pd-muted); font-size: 0.72rem; white-space: nowrap; }
+        .pd-gen5-fila .st { color: var(--pd-text); font-size: clamp(1rem, 2.2vw, 1.45rem);
+          white-space: nowrap; text-align: right; }
+        .pd-gen5-fila--total { grid-template-columns: 1fr auto; border-top: 1px solid rgba(197,160,89,0.45);
+          padding: 10px 18px; }
+        .pd-gen5-fila--total .g { color: var(--pd-text); }
+        .pd-gen5-fila--total .st { color: var(--pd-gold); font-size: clamp(1.5rem, 3vw, 2rem); }
+        .pd-gen5-fila--total .st .u { font-size: 0.42em; color: var(--pd-muted); letter-spacing: 0.1em; }
+        .pd-gen5-controles { display: flex; justify-content: space-between; align-items: center;
+          gap: 1.5rem; margin-top: 0.8rem; }
+        .pd-gen5-controles .pd-pkgs { margin: 0; flex: none; }
+        .pd-gen5-controles .pd-pkg { flex: none; padding: 5px 10px; font-size: 0.5rem; }
+        .pd-gen5-cantidad { flex: 1; max-width: 380px; }
+        .pd-gen5-cantidad .pd-label { margin-bottom: 0.2rem; }
+        .pd-gen5-cantidad .pd-slider { margin: 0.4rem 0 0; }
         .pd-pkg b { display: block; font-weight: 400; margin-top: 3px; font-size: 0.62rem; }
         /* LA FORMA NO CAMBIA AL ELEGIR PORCENTAJE (Director, 26 sep 2026). La línea
            de vigencia existía solo con el 15, 16 y 17%: al pasar del Kit a otro, el
@@ -1348,14 +1365,25 @@ export default function PitchDeckPage() {
              «$3.375.000 × 5» y «$3.375.000» juntos no caben en los 280 px de la fila—.
              Medido en 375×667: el panel con dos líneas por fila terminaba 22 px debajo
              del borde, y el deslizador quedaba fuera. */
-          .pd-numeros .pd-gen5-filas { margin-bottom: 0.7rem; }
-          .pd-numeros .pd-gen5-fila { gap: 0 8px; padding: 5px 8px; font-size: 0.58rem; }
-          .pd-numeros .pd-gen5-fila .g { font-size: 0.5rem; letter-spacing: 0.05em; }
+          .pd-numeros .pd-gen5-fila { grid-template-columns: auto 1fr auto; gap: 0 8px; padding: 7px 10px; }
+          .pd-numeros .pd-gen5-fila .g { font-size: 0.5rem; letter-spacing: 0.05em; white-space: nowrap; }
+          .pd-numeros .pd-gen5-fila .op { text-align: right; }
+          .pd-numeros .pd-gen5-fila--total { grid-template-columns: 1fr auto; }
+          .pd-numeros .pd-gen5-fila--total .g { white-space: normal; max-width: 19ch; line-height: 1.25; }
           .pd-numeros .pd-gen5-fila .g .pd-gen5-largo { display: none; }
           .pd-numeros .pd-gen5-fila .g .pd-gen5-corto { display: inline; }
-          .pd-numeros .pd-gen5-fila .st { min-width: 0; }
-          .pd-numeros .pd-gen5-total { margin-bottom: 0.2rem; }
-          .pd-numeros .panel--gen5 .pd-display { font-size: 1.45rem; margin-bottom: 0.8rem; }
+          .pd-numeros .pd-gen5-fila .op { font-size: 0.58rem; }
+          .pd-numeros .pd-gen5-fila .st { font-size: 0.9rem; }
+          .pd-numeros .pd-gen5-fila--total { padding: 7px 10px; }
+          .pd-numeros .pd-gen5-fila--total .st { font-size: 1.4rem; }
+          .pd-numeros .panel--gen5 { padding: 0.9rem 1rem 1rem; }
+          .pd-numeros .panel--gen5 h3 { margin-bottom: 0.7rem; }
+          .pd-numeros .pd-gen5-controles { flex-direction: column; align-items: stretch; gap: 0.6rem;
+            margin-top: 0.8rem; }
+          .pd-numeros .pd-gen5-controles .pd-pkgs { display: flex; }
+          .pd-numeros .pd-gen5-controles .pd-pkg { flex: 1; padding: 5px 4px; }
+          .pd-numeros .pd-gen5-cantidad { max-width: none; }
+          .pd-numeros .pd-gen5-cantidad .pd-slider { margin: 0.3rem 0 0.6rem; }
           .pd-numeros .panel--gen5 .pd-slider { margin-bottom: 0.8rem; }
           .pd-numeros .pd-sub { font-size: 0.64rem; margin-bottom: 0.8rem; }
           .pd-numeros-top { margin-bottom: 0.5rem; }
@@ -2178,10 +2206,10 @@ export default function PitchDeckPage() {
               <h2 className="pd-h2">
                 Y cada paquete empresarial que se compra en su sistema le deja un bono.
               </h2>
-              <p className="pd-p pd-numeros-lead">
-                Hasta la quinta generación.
-              </p>
-              <div className="pd-paneles pd-paneles--uno">
+              {/* Sin línea de apoyo (Director, 2 nov 2026): «hasta la quinta generación»
+                  ya lo muestran las cinco filas, y lo dice quien presenta. El espacio
+                  se lo quedan las filas. */}
+              <div className="pd-paneles pd-paneles--gen5">
                 <div className="panel panel--gen5">
                   {/* El bono por su nombre del plan, como la pantalla del Flow. */}
                   <h3>Bono GEN5 · Paquetes comprados</h3>
@@ -2197,11 +2225,15 @@ export default function PitchDeckPage() {
                         <span className="st">{montoCorto(gen5Paquetes * usd * TRM)}</span>
                       </div>
                     ))}
+                    {/* «Su bono por esas N compras» (Director, 11 oct 2026): la cifra va
+                        pegada a su origen, para que no se lea como lo que valen los
+                        paquetes. Cierra la columna como una suma. */}
+                    <div className="pd-gen5-fila pd-gen5-fila--total">
+                      <span className="g">Su bono por esas {gen5Paquetes * 5} compras</span>
+                      <span className="st">{monto(ingresoGen5COP)}</span>
+                    </div>
                   </div>
-                  {/* «Su bono por esas N compras» (Director, 11 oct 2026): la cifra va pegada
-                      a su origen, para que no se lea como lo que valen los paquetes. */}
-                  <p className="pd-gen5-total">Su bono por esas {gen5Paquetes * 5} compras</p>
-                  <div className="pd-display">{monto(ingresoGen5COP)}</div>
+                  <div className="pd-gen5-controles">
                   <div className="pd-pkgs">
                     {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
                       <button
@@ -2214,19 +2246,22 @@ export default function PitchDeckPage() {
                       </button>
                     ))}
                   </div>
-                  <label className="pd-label">
-                    Paquetes comprados en cada generación<b>{gen5Paquetes}</b>
-                  </label>
-                  {/* Tope 5, como el simulador de WhatsApp (1 · 3 · 5). Con 10 Visionarios
-                      por generación la pantalla mostraba 50 compras y $11.250.000. */}
-                  <input
-                    type="range"
-                    min={1}
-                    max={5}
-                    value={gen5Paquetes}
-                    onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
-                    className="pd-slider"
-                  />
+                  <div className="pd-gen5-cantidad">
+                    <label className="pd-label">
+                      Paquetes en cada generación<b>{gen5Paquetes}</b>
+                    </label>
+                    {/* Tope 5, como el simulador de WhatsApp (1 · 3 · 5). Con 10 Visionarios
+                        por generación la pantalla mostraba 50 compras y $11.250.000. */}
+                    <input
+                      type="range"
+                      min={1}
+                      max={5}
+                      value={gen5Paquetes}
+                      onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
+                      className="pd-slider"
+                    />
+                  </div>
+                  </div>
                 </div>
               </div>
               {/* Gano al final, como quien paga (WHY_02), con sus credenciales como

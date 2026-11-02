@@ -20,7 +20,7 @@
 
 import { permanentRedirect, redirect } from 'next/navigation'
 import CatalogoTienda from '../../page'
-import { productData, pesos } from '../../catalogo-datos'
+import { productData } from '../../catalogo-datos'
 import { tarjetaProducto } from '../../og'
 import { resolver, aSocio } from '../../socio'
 
@@ -47,7 +47,9 @@ export async function generateMetadata({ params }: { params: { ref: string; prod
   const r = await resolver(params.ref)
   const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}/${id}`
   const titulo = `${p.name} · Catálogo Gano Excel`
-  const descripcion = `${p.shortDescription} ${pesos(p.price)} · ${p.presentacion}.${r ? ` Le atiende ${aSocio(r).nombre}.` : ''}`
+  // Sin precio en la vista previa (Director, 2 nov 2026): el enlace se comparte para que la
+  // persona conozca el producto; el precio lo ve al abrir la ficha.
+  const descripcion = `${p.shortDescription} ${p.presentacion}.${r ? ` Le atiende ${aSocio(r).nombre}.` : ''}`
   return {
     title: titulo,
     description: descripcion,

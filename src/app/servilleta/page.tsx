@@ -63,8 +63,9 @@
  *                      estática, y va destacada al final de las cifras). El beat
  *                      de «dos caminos» se eliminó el 9 oct 2026: ese contexto lo
  *                      da el socio en vivo.
- *  5 LA SOLUCIÓN     · beat 0: «Una empresa de distribución moderna a su
- *    Y CÓMO FUNCIONA   nombre.» y el obstáculo con precio, «Tres elementos que le
+ *  5 LA SOLUCIÓN     · beat 0: «Un activo: una empresa de distribución moderna a su
+ *    Y CÓMO FUNCIONA   nombre.» —«Un activo» lo más grande y el único oro (2 nov
+ *                      2026)— y el obstáculo con precio, en gris, «Tres elementos que le
  *                      costarían millones:» (28 oct 2026; la definición completa
  *                      con Uber va en la voz del socio), con aire entre las dos
  *                      frases. El botón del video «Cómo funciona» (13-30 oct 2026)
@@ -1697,12 +1698,22 @@ export default function PitchDeckPage() {
           font-size: clamp(1.35rem, 3.4vw, 2.3rem); line-height: 1.25; color: #FFFFFF;
           margin: 0 auto; max-width: 28ch; text-wrap: balance; }
         .pd-remate .pd-bisagra { text-align: center; }
+        /* La solución (2 nov 2026): el activo encabeza y es el único oro de la pantalla. */
+        .pd-activo-titular { display: block; color: var(--pd-gold); font-weight: 800;
+          font-size: clamp(2.8rem, 7vw, 5.4rem); line-height: 1; letter-spacing: -0.015em;
+          margin-bottom: 0.25em; }
+        .pd-obstaculo { font-family: var(--font-sans); font-weight: 600; text-align: center;
+          font-size: clamp(1.02rem, 1.9vw, 1.4rem); line-height: 1.35;
+          color: var(--color-text-body, #C8C7C2); margin: 3.4rem auto 0; max-width: 32ch; }
         @media (max-width: 860px) {
           .pd-sectores { grid-template-columns: 1fr; }
           .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
           /* Las cuatro palabras van sin corte; en el teléfono la letra baja para que
              quepan en el ancho y no abran un desplazamiento lateral. */
           .pd-propuesta { font-size: min(1.2rem, 5.1vw); }
+          /* Con 5,1vw las cuatro palabras sin corte pasaban 1-4 px del borde en teléfonos
+             de 375 px o menos (medido el 2 nov 2026). */
+          .pd-propuesta--solucion { font-size: min(1.2rem, 4.6vw); }
         }
       ` }} />
 
@@ -1895,8 +1906,13 @@ export default function PitchDeckPage() {
                   persona se lleva, y la empresa de distribución moderna es el vehículo
                   que la concreta — la misma forma del H1 de la Home. El oro va en el
                   activo; la definición llega en el beat 6, pegada a su causa. */}
-              <p className="pd-propuesta">
-                <span className="pd-gold">Un activo:</span>{' '}
+              {/* La jerarquía dice lo mismo que el orden (2 nov 2026, Director: «hazlo»):
+                  «Un activo:» es lo más grande de la pantalla y el único oro; hasta ese
+                  día el obstáculo, en mayúsculas doradas, pesaba más que la tesis. Se
+                  recuerda lo que se aísla, y dos dorados se anulan. Sigue siendo UNA
+                  frase: el activo nunca va suelto, la definición queda pegada debajo. */}
+              <p className="pd-propuesta pd-propuesta--solucion">
+                <span className="pd-activo-titular">Un activo:</span>{' '}
                 una&nbsp;empresa&nbsp;de&nbsp;distribución&nbsp;moderna a su nombre.
               </p>
               {/* El obstáculo con precio, en lugar de «Se requieren tres elementos»:
@@ -1907,9 +1923,9 @@ export default function PitchDeckPage() {
               {/* El aire entre la solución y el obstáculo (Director, 30 oct 2026), en
                   lugar del botón del video «Cómo funciona», que se mudó a la pantalla 1
                   como la presentación entera. */}
-              <p className="pd-bisagra" style={{ marginTop: '3.4rem' }}>
-                Tres elementos que le costarían millones:
-              </p>
+              {/* El obstáculo es bisagra hacia las tres piezas, no la tesis: gris claro,
+                  sin mayúsculas y por debajo de la definición (2 nov 2026). */}
+              <p className="pd-obstaculo">Tres elementos que le costarían millones:</p>
             </div>
           </div>
 

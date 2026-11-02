@@ -205,8 +205,9 @@ export default function GuiaPlanServilleta() {
 
         <h3>6. Los números</h3>
         <p>
-          La pantalla de los números muestra las dos formas de ganar con las que se comienza, cada una
-          con su simulador. Aquí abajo va cada una con su nombre en el plan.
+          Se gana con lo que se compra en su sistema: el producto que sus clientes y distribuidores
+          vuelven a pedir, y los paquetes empresariales. La pantalla de los números muestra cada uno con
+          su simulador, y aquí abajo va cada uno con su nombre en el plan.
         </p>
 
         <h2>Cómo se gana en el plan de compensación de Gano Excel</h2>

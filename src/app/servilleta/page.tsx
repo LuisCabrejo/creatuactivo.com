@@ -90,9 +90,15 @@
  *                      → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
  *  6 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
  *                      por primera vez, como quien lo fabrica.
- *  7 LA PREGUNTA     · «¿Y usted, qué plan tiene…?» sola (caso Marlon).
- *  8 CÓMO SE GANA    · beat 1, lo principal: lo que deja la recompra + los 12
- *                      niveles desde el Kit. Beat 2: el bono por paquetes
+ *  7 LA PREGUNTA     · «¿Y usted, qué plan tiene para construir un activo?» sola
+ *                      (caso Marlon; «para salir del ciclo» hasta el 1 nov 2026).
+ *  8 CÓMO SE GANA    · beat 0 (1 nov 2026), la respuesta corta del Director: «Se
+ *                      gana con lo que se compra en su sistema: el producto que
+ *                      sus clientes y distribuidores vuelven a pedir, y los
+ *                      paquetes empresariales.» Beat 1, lo principal: «Así se ve
+ *                      su activo si crece de a dos.», los 12 niveles desde el Kit
+ *                      y la línea del ejemplo. `?pantalla=8` abre aquí, en el
+ *                      simulador (BEAT_DEL_ENLACE). Beat 2: el bono por paquetes
  *                      empresariales (Director, 30 sep 2026: quien inicia muchas
  *                      veces necesita ganar pronto, y la industria lo tiene; no
  *                      puede parecer olvidado). Se dice su FUNCIÓN —financia el
@@ -170,8 +176,11 @@ const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 7, 8: 2 };
+const BEATS: Record<number, number> = { 5: 7, 8: 3 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
+/** El beat donde abre `?pantalla=N`: la 8 abre en el simulador (beat 1), no en la
+ *  respuesta corta, porque ese enlace es «Abrir el simulador» (Queswa y el webhook). */
+const BEAT_DEL_ENLACE: Record<number, number> = { 8: 1 };
 
 /** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
  *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola».
@@ -675,7 +684,10 @@ export default function PitchDeckPage() {
   useEffect(() => {
     try {
       const p = Number(new URL(window.location.href).searchParams.get('pantalla'));
-      if (Number.isInteger(p) && p >= 1 && p <= TOTAL_SLIDES) irA(p);
+      if (Number.isInteger(p) && p >= 1 && p <= TOTAL_SLIDES) {
+        irA(p);
+        if (BEAT_DEL_ENLACE[p]) setBeat(BEAT_DEL_ENLACE[p]);
+      }
     } catch { /* sin parámetro */ }
   }, [irA]);
 
@@ -1964,15 +1976,35 @@ export default function PitchDeckPage() {
             contesta. Las cifras ya se dieron con el problema, en la 2. */}
         <section className={`pd-slide ${slide === 7 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap pd-pregunta">
-            <p className="pd-bisagra">¿Y usted, qué plan tiene para salir del ciclo?</p>
+            {/* «Para construir un activo» desde el 1 nov 2026 (Director): la persona
+                ya dijo por qué le serviría uno, y la pregunta le muestra que no tiene
+                cómo; la 8 le entrega el plan. Hasta ese día, «para salir del ciclo». */}
+            <p className="pd-bisagra">¿Y usted, qué plan tiene para construir un activo?</p>
           </div>
         </section>
 
         {/* ── 8 · CÓMO SE GANA ────────────────────────────────────────── */}
         <section className={`pd-slide pd-numeros ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
-          {/* Beat 0 — LO PRINCIPAL: el ingreso que se repite, con los 12 niveles
-              desde el Kit. */}
+          {/* Beat 0 — LA RESPUESTA CORTA (Director, 1 nov 2026): el rótulo pregunta
+              «Cómo se gana» y el titular responde, en sus palabras, nombrando cada
+              fuente por lo que la mueve y en el orden en que llegan los dos beats
+              siguientes. ⛔ Nunca «dos formas de ganar»: el plan tiene doce. */}
           <div className={`pd-beat ${slide === 8 && beat === 0 ? 'on' : ''}`}>
+            <div className="pd-remate">
+              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo se gana</p>
+              <p className="pd-propuesta">Se gana con lo que se compra en su sistema:</p>
+              <div style={{ marginTop: '1.4rem' }}>
+                <p className="pd-p pd-cierre-linea pd-gold">
+                  el producto que sus clientes y distribuidores vuelven a pedir,
+                </p>
+                <p className="pd-p pd-cierre-linea pd-gold">y los paquetes empresariales.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Beat 1 — LO PRINCIPAL: el ingreso que se repite, con los 12 niveles
+              desde el Kit. */}
+          <div className={`pd-beat ${slide === 8 && beat === 1 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ maxWidth: 1040 }}>
               <div className="pd-numeros-top">
                 <p className="pd-eyebrow">Cómo se gana</p>
@@ -1995,7 +2027,7 @@ export default function PitchDeckPage() {
                   que el titular pasa a ser lo nuevo —la proyección— y los
                   distribuidores, que la 5 no nombró, quedan en la línea de abajo. */}
               <h2 className="pd-h2">
-                Así se ve si su sistema crece de a dos.
+                Así se ve su activo si crece de a dos.
               </h2>
               <p className="pd-p pd-numeros-lead">
                 Suma lo que vuelven a pedir sus clientes y sus distribuidores.
@@ -2078,17 +2110,22 @@ export default function PitchDeckPage() {
                   </div>
                 </div>
               </div>
+              {/* Con «su activo» en el titular, la cifra va marcada como ejemplo
+                  (1 nov 2026): hasta ese día la línea solo existía en el video. */}
+              <p className="pd-nota">
+                Ejemplo del cálculo del plan, no un ingreso esperado ni garantizado.
+              </p>
             </div>
           </div>
 
-          {/* Beat 1 — EL BONO POR PAQUETES (Director, 30 sep 2026). Va DESPUÉS de lo
+          {/* Beat 2 — EL BONO POR PAQUETES (Director, 30 sep 2026). Va DESPUÉS de lo
               principal: quien inicia muchas veces necesita ganar pronto, y un deck que
               no lo muestra parece haberlo olvidado. ⚠️ Se nombra por lo que lo mueve
               —la compra de un paquete— y por su función —financia el crecimiento al
               inicio—, NUNCA por su velocidad («rápido», «inmediato»): esa palabra la
               pone el socio en vivo con su propia historia, que tampoco va a la
               pantalla. Se cuentan PAQUETES COMPRADOS, nunca personas. */}
-          <div className={`pd-beat ${slide === 8 && beat === 1 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 8 && beat === 2 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ maxWidth: 1040 }}>
               <div className="pd-numeros-top">
                 <p className="pd-eyebrow">Cómo se gana</p>

@@ -1,7 +1,7 @@
 # Arsenal de Compensacion: Infraestructura de Ingresos — la versión vigente está en «Version», abajo
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construcción de Ingresos Recurrentes
-**Versión actual: v8.14** (19 oct 2026) — **`COMP_MONEDA_01`, `COMP_GEN5_05` y `COMP_BIN_02` ofrecen *las cuatro formas de empezar***, no tres: son cuatro desde el 6 oct (Director) y la oferta tiene que calzar literal con el índice de `FREQ_03`, su destino; con una aceptación pelada, la búsqueda usa la última pregunta del bot. Cifras sin tocar.
+**Versión actual: v8.15** (2 nov 2026) — **`COMP_BIN_01` dice «no depende de su presencia»** en vez de «no depende de que usted esté encima»: el Binario se le explica a cualquiera, y «estar encima» es el dolor del empresario. **v8.14** (19 oct 2026) — **`COMP_MONEDA_01`, `COMP_GEN5_05` y `COMP_BIN_02` ofrecen *las cuatro formas de empezar***, no tres: son cuatro desde el 6 oct (Director) y la oferta tiene que calzar literal con el índice de `FREQ_03`, su destino; con una aceptación pelada, la búsqueda usa la última pregunta del bot. Cifras sin tocar.
 
 **v8.13** (2 oct 2026) — **El GEN5 y el Binario dejan de comparar paquetes, y la vigencia del porcentaje se dice como hecho** (Director). COMP_GEN5_08 y COMP_BIN_02 cerraban con una tabla de diferencias entre paquetes, la construcción que la familia GEN5 retiró el 26 ago; en la prueba del Director en el Dashboard el modelo la convirtió en un empujón al paquete grande. COMP_GEN5_08 deja además las marcas de tiempo pegadas a la comisión, y COMP_BIN_02 dice cuánto rige el porcentaje de arranque y qué aplica después. Cifras, %, GCV, PV/CV y nombres del plan intactos. Detalle en el CHANGELOG.
 
@@ -552,7 +552,7 @@ Se liquida semana a semana, y sale de las compras que se repiten dentro de su re
 
 Y crece por acumulación: cada vez que alguien vuelve a pedir, ese consumo se suma al que ya venía moviéndose. No se arranca de nuevo cada mes.
 
-Por eso no depende de que usted esté encima — lo que mueve la comisión es el producto que sale.
+Por eso no depende de su presencia: lo que mueve la comisión es el producto que sale.
 </verbatim_lock>
 
 **Pregunta de seguimiento:** ¿Le muestro cuánto deja el Binario cuando su sistema crece?

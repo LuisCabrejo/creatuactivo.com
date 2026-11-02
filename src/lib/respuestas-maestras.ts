@@ -227,7 +227,7 @@ const MASTER_DINERO_01 = `El dinero sale de una sola fuente: el producto que se 
 
 Se vende de dos formas: **al detal**, a quien solo quiere consumirlo, y en **paquetes empresariales**, a quien arranca su propio sistema. De cada venta a usted le queda un porcentaje.
 
-Y no es una sola vez: cada cliente queda a su nombre, y el que nota la diferencia vuelve a pedir. Esa repetición es la que vuelve su sistema un activo: produce sin que usted tenga que estar encima.
+Y no es una sola vez: cada cliente queda a su nombre, y el que nota la diferencia vuelve a pedir. Esa repetición es la que vuelve su sistema un activo: produce aunque usted no esté presente.
 
 Quien le consigna es **Gano Excel**, y lo hace en **su cuenta bancaria cada viernes**. Producto que sale de una fábrica y llega a una dirección; plata que sale de una empresa de 30 años y llega a su banco.
 

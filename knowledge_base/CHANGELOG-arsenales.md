@@ -30,13 +30,21 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial v6.86 y arsenal_compensacion v8.15: sale la lista de espera; «presencia» en vez de «estar encima» (2 nov 2026)
+
+Aprobado por el Director. Auditoría previa: la lista de espera solo vivía en `EAM_02` y `FREQ_14` (ni el prompt, ni el código, ni el Dashboard, ni la apertura); ninguna persona la preguntó nunca en las conversaciones. Rastro que no se toca: el video del reto del día 4 la anunció en público.
+
+- **`EAM_02`** («¿por qué ahora?») — sale la fila (*«no alcanza para todos a la vez… lista de espera… tómelo con calma»*), que en una conversación para decidir daba permiso para aplazar (caso Daniela). Responde con la acumulación del activo: *«Los clientes de hoy se suman a los de mañana, y nada de eso se reinicia. Por eso la fecha la pone usted: el día en que empieza a construirlo.»* El permiso (*nadie lo va a apurar*) se queda al principio.
+- **`FREQ_14`** («¿por qué con ustedes?») — sale la fila; se queda *«la elección va en las dos direcciones»*. *Quien se una* → *quien inicie con nosotros* («unirse» tiene la silueta de «entrar»). ⏳ El Director pidió sumar aquí creatuactivo.com y queswa.app como lo que nos diferencia de cualquier otra forma de iniciar con Gano Excel, y la experiencia de clientes y distribuidores: propuesta en el chat.
+- **Barrido de «encima»** con la regla del nicho: `WHY_03` (empleado), `WHY_04` 🔒 (con `MASTER_DINERO_01` y el video «Cómo entra el dinero»), `WHY_05` 🔒 y `COMP_BIN_01` pasan a *aunque usted no esté presente* / *no depende de su presencia*. Se quedan `PERFIL_02` 🔒 y `ADV_OBJ_02` (empresario/independiente), `RETO_01` (lo que dijo el video del reto) y el índice de `arsenal_avanzado` (palabras de la persona). Las demás apariciones eran «por encima de».
+
 ## arsenal_inicial — v6.85: el activo en las dos preguntas clave (1 nov 2026)
 
 Aprobado por el Director el mismo día que la Home y la Presentación pasaron a abrir con el activo (caso Daniela: la persona se llevó a casa «entrar al negocio»; lo que se retiene es la idea central, y el nombre de la marca ya dice «activo»).
 
 - **`WHY_01` 🔒** — *«Por eso hicimos sencillo lo que antes era complicado: tener su propia empresa de distribución»* → *«…crear su propio activo, una empresa de distribución que no depende de su presencia»*. A «¿qué es CreaTuActivo?» se responde con el nombre, definido en la misma frase.
 - **`WHY_02` 🔒** (doble fuente con `MASTER_WHY_02`) — el párrafo de la propiedad cierra con *«Eso es un activo: sigue produciendo aunque usted no esté presente.»*, detrás de su causa (la recompra). El arranque y la pregunta de cierre no cambian.
-- **«Presencia», no «estar encima»** (investigación del mismo día): «estar encima» se entiende en todo el español (DLE: *vigilar con atención*), pero es el verbo de quien vigila — el dolor del empresario—; el empleado trae el tiempo (*«No tengo tiempo para otra cosa»*, 29 conversaciones; *«¿cuánto tiempo al día hay que meterle?»*) y para él *estar encima* es lo que le hace su jefe. «Encima» queda solo en `FREQ_10` y `ADV_OBJ_02`, que les hablan a empresarios.
+- **«Presencia», no «estar encima»** (investigación del mismo día): «estar encima» se entiende en todo el español (DLE: *vigilar con atención*), pero es el verbo de quien vigila — el dolor del empresario—; el empleado trae el tiempo (*«No tengo tiempo para otra cosa»*, 29 conversaciones; *«¿cuánto tiempo al día hay que meterle?»*) y para él *estar encima* es lo que le hace su jefe. «Encima» queda solo en `PERFIL_02` y `ADV_OBJ_02`, que les hablan a empresarios o independientes (corregido en la v6.86: `FREQ_10` nunca lo tuvo).
 
 ## arsenal_inicial — v6.84: `WHY_PROD_01` entrega el catálogo en el mismo turno (30 oct 2026)
 

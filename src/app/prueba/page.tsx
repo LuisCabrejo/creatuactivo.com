@@ -330,8 +330,8 @@ export default function PruebaPage() {
                 maxWidth: '15em',
               }}
             >
-              Cree su propio activo: un sistema de distribución que no depende de que
-              usted esté encima.
+              Cree su propio activo: un sistema de distribución que no depende de su
+              presencia.
             </h1>
 
             <p

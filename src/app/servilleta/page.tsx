@@ -119,7 +119,7 @@
  *
  *  EL ACTIVO, EN TRES MOMENTOS (Director, 1 nov 2026): la solución abre con «Un
  *  activo:» (beat 0 de la 5), la propiedad lo define pegado a su causa («Eso es un
- *  activo: sigue produciendo sin que usted tenga que estar encima», beat 6) y la 9
+ *  activo: sigue produciendo aunque usted no esté presente», beat 6) y la 9
  *  cierra con él. Es el hilo que el Director abre en vivo con Buenavista.
  *
  *  ⛔ «QUÉ HACE USTED» (las dos acciones, EAM_01) SALIÓ DEL DECK el 18 oct 2026
@@ -1864,10 +1864,12 @@ export default function PitchDeckPage() {
               </p>
               {/* La definición del activo, DESPUÉS de su causa (Director, 1 nov 2026):
                   la recompra es lo que la separa de «ingreso pasivo» y de Kiyosaki.
-                  «Sin que usted tenga que estar encima» es la forma que el guardarraíl
-                  de negocio aprueba. */}
+                  «Aunque usted no esté presente» y no «sin que usted tenga que estar
+                  encima» (Director, 1 nov 2026): «estar encima» es el dolor del
+                  empresario; el empleado teme otra jornada, y «presente» cubre a los
+                  dos. Es la frase del cierre de la Home. */}
               <p className="pd-p pd-cierre-linea pd-activo-linea">
-                Eso es un activo: sigue produciendo sin que usted tenga que estar encima.
+                Eso es un activo: sigue produciendo aunque usted no esté presente.
               </p>
             </div>
           </div>

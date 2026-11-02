@@ -25,7 +25,7 @@ import { ImageResponse } from 'next/og'
 import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
-export const alt = 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima'
+export const alt = 'Cree su propio activo: un sistema de distribución que no depende de su presencia'
 export const size = {
   width: 1200,
   height: 630,
@@ -109,7 +109,7 @@ export default async function Image() {
         >
           <span style={{ display: 'flex', color: '#C5A059' }}>Cree su propio activo:</span>
           <span style={{ display: 'flex' }}>un sistema de distribución</span>
-          <span style={{ display: 'flex' }}>que no depende de que usted esté encima</span>
+          <span style={{ display: 'flex' }}>que no depende de su presencia</span>
         </div>
       </div>
     ),

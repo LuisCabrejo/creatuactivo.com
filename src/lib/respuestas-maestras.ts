@@ -164,7 +164,7 @@ const MASTER_WHY_02 = `Con gusto. Funciona así: una empresa de distribución mo
 
 3. **Una herramienta para multiplicar:** acompaño a cada distribuidor de su sistema, a usted y a quien inicie con usted, y como en Waze le voy marcando la ruta, paso a paso.
 
-La diferencia es la propiedad: cada cliente que llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje.
+La diferencia es la propiedad: cada cliente que llega por su enlace queda a su nombre. Por eso, cada vez que vuelve a comprar, a usted le queda un porcentaje. Eso es un activo: sigue produciendo aunque usted no esté presente.
 
 Y quien se interese en distribuir recibe estas mismas herramientas y hace lo mismo que usted. Así se arma, a su nombre, todo un sistema de distribución: clientes comprando en América y distribuidores creciendo.
 

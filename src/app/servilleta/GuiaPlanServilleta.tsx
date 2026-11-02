@@ -182,7 +182,7 @@ export default function GuiaPlanServilleta() {
         <p>
           Los tres llegan armados en una sola aplicación, Queswa.app. Y cada cliente que llega a su
           empresa queda a su nombre. Cada vez que vuelve a comprar, a usted le queda un porcentaje.
-          Eso es un activo: sigue produciendo sin que usted tenga que estar encima.
+          Eso es un activo: sigue produciendo aunque usted no esté presente.
         </p>
 
         {/* Desde el 18 oct 2026 el deck no tiene pantalla de «qué hace usted»

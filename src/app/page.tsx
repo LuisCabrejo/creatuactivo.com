@@ -1,6 +1,17 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
+ * Homepage v18.3 — «Presencia, no encima» (1 nov 2026, mismo día) · aprobada por el Director
+ *
+ * El H1 pasa a «…que no depende de su presencia.» «Estar encima» se entiende en todo el
+ * español (DLE: vigilar con atención), pero es el verbo de quien vigila: el dolor del
+ * empresario. El empleado trae el tiempo («No tengo tiempo para otra cosa», «¿cuánto
+ * tiempo al día hay que meterle?») y para él «estar encima» es lo que le hace su jefe.
+ * «Presencia» cubre a los dos, y es la palabra del cuerpo («deja de depender de su
+ * presencia») y del cierre («aunque usted no esté presente»): un solo término en la
+ * página. ⚠️ La nota de la v17, abajo, sigue siendo historia válida: la forma «funciona sin
+ * que usted…» está bloqueada por la batería de negocio; «no depende de su presencia» pasa.
+ *
  * Homepage v18.2 — «El activo, arriba» (1 nov 2026) · aprobada por el Director en el chat
  *
  * El H1 abre con el activo: «Cree su propio activo: un sistema de distribución que no
@@ -256,7 +267,7 @@ export const dynamic = 'force-static'
 
 export const metadata = {
   // ⚠️ El <title> NO sincroniza con el H1 a propósito (10 sep 2026). El H1 lleva la
-  // cláusula de la cualidad —«que no depende de que usted esté encima»— y con ella el
+  // cláusula de la cualidad —«que no depende de su presencia»— y con ella el
   // título se iría a 94 caracteres: Google trunca cerca de 60, y esa cláusula no es lo
   // que nadie busca. Aquí se conserva la frase BUSCABLE; la tarjeta OG sí lleva el H1
   // entero, porque ahí se lee completa y es la que ve quien abre el enlace de un socio.
@@ -294,13 +305,13 @@ export const metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com',
-    title: 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima',
+    title: 'Cree su propio activo: un sistema de distribución que no depende de su presencia',
     description:
       'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cree su propio activo: un sistema de distribución que no depende de que usted esté encima',
+    title: 'Cree su propio activo: un sistema de distribución que no depende de su presencia',
     description:
       'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
   },
@@ -583,8 +594,8 @@ export default function HomePage() {
                 maxWidth: '15em',
               }}
             >
-              Cree su propio activo: un sistema de distribución que no depende de que
-              usted esté encima.
+              Cree su propio activo: un sistema de distribución que no depende de su
+              presencia.
             </h1>
 
             <p

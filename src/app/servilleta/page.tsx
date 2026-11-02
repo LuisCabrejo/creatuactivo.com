@@ -99,15 +99,22 @@
  *                      crecimiento al inicio—, nunca su velocidad. Gano paga, al
  *                      final.
  *  9 EL SIGUIENTE    · la segunda mitad del credo, el acompañamiento «desde el
- *    PASO              día en que abre su sistema» y la conversación con el
- *                      socio del ?ref (nombre y WhatsApp). En el 1-a-1, el socio
- *                      toca el nombre y escribe el de la persona: ve cómo termina
- *                      SU presentación cuando la comparta.
+ *    PASO              día en que empieza a construir su activo» y la
+ *                      conversación con el socio del ?ref (nombre y WhatsApp).
+ *                      En el 1-a-1, el socio toca el nombre y escribe el de la
+ *                      persona: ve cómo termina SU presentación cuando la comparta.
  *                      ⛔ La lista de espera SALIÓ el 1 nov 2026 (Director, caso
  *                      Daniela): en una reunión para decidir, la fila le da
  *                      permiso para aplazar, y se contradice cuando el socio
- *                      puede iniciarla ese mismo día. «Abre su sistema» le deja
- *                      el verbo de lo propio en lugar de «entrar».
+ *                      puede iniciarla ese mismo día. La línea repite la pregunta
+ *                      de cierre del socio («¿Cómo se siente para empezar a
+ *                      construir su propio activo?»): el verbo de lo propio en
+ *                      lugar de «entrar».
+ *
+ *  EL ACTIVO, EN TRES MOMENTOS (Director, 1 nov 2026): la solución abre con «Un
+ *  activo:» (beat 0 de la 5), la propiedad lo define pegado a su causa («Eso es un
+ *  activo: sigue produciendo sin que usted tenga que estar encima», beat 6) y la 9
+ *  cierra con él. Es el hilo que el Director abre en vivo con Buenavista.
  *
  *  ⛔ «QUÉ HACE USTED» (las dos acciones, EAM_01) SALIÓ DEL DECK el 18 oct 2026
  *     (Director, tras presentarlo): en vivo las dos acciones se MUESTRAN —el
@@ -1078,6 +1085,8 @@ export default function PitchDeckPage() {
           margin: 0 auto 0.5rem; text-align: center; max-width: 42ch; text-wrap: balance;
         }
         .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
+        /* La definición del activo es otra idea, no la segunda mitad del porcentaje. */
+        .pd-remate .pd-activo-linea { margin-top: 1.4rem; }
         /* La marca del remate se OCULTA en escritorio: el HUD ya la lleva arriba a
            la izquierda y salía dos veces en la misma pantalla. En el teléfono el HUD
            la esconde, así que allá esta es la única y sí se muestra. */
@@ -1661,10 +1670,13 @@ export default function PitchDeckPage() {
                   socio. Sin «similar a Uber, Rappi o Nequi»: la ola ya la contó la
                   pantalla 2. «Moderna» lo pagan las tres piezas y el celular de la
                   unión. */}
+              {/* «Un activo» primero (Director, 1 nov 2026): es la idea central que la
+                  persona se lleva, y la empresa de distribución moderna es el vehículo
+                  que la concreta — la misma forma del H1 de la Home. El oro va en el
+                  activo; la definición llega en el beat 6, pegada a su causa. */}
               <p className="pd-propuesta">
-                Una{' '}
-                <span className="pd-gold">empresa&nbsp;de&nbsp;distribución&nbsp;moderna</span>{' '}
-                a su nombre.
+                <span className="pd-gold">Un activo:</span>{' '}
+                una&nbsp;empresa&nbsp;de&nbsp;distribución&nbsp;moderna a su nombre.
               </p>
               {/* El obstáculo con precio, en lugar de «Se requieren tres elementos»:
                   un requisito es una lista que aprender; un obstáculo es algo que la
@@ -1837,6 +1849,13 @@ export default function PitchDeckPage() {
               <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>
               <p className="pd-p pd-cierre-linea pd-gold">
                 Cada vez que vuelve a comprar, a usted le queda un porcentaje.
+              </p>
+              {/* La definición del activo, DESPUÉS de su causa (Director, 1 nov 2026):
+                  la recompra es lo que la separa de «ingreso pasivo» y de Kiyosaki.
+                  «Sin que usted tenga que estar encima» es la forma que el guardarraíl
+                  de negocio aprueba. */}
+              <p className="pd-p pd-cierre-linea pd-activo-linea">
+                Eso es un activo: sigue produciendo sin que usted tenga que estar encima.
               </p>
             </div>
           </div>
@@ -2152,7 +2171,8 @@ export default function PitchDeckPage() {
               Creemos que el trabajo de cada persona debería convertirse en un activo.
             </p>
             <p className="pd-p">
-              Acompañamos a cada socio nuevo uno a uno, desde el día en que abre su sistema.
+              Acompañamos a cada socio nuevo uno a uno, desde el día en que empieza a construir
+              su activo.
             </p>
             <p className="pd-bisagra">
               El siguiente paso es una conversación

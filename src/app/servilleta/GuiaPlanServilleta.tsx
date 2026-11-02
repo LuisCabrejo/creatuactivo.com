@@ -48,7 +48,7 @@ import { abrirConversacionQueswa, leerRefSocio } from '@/lib/orbe-config';
 
 // Se cambia SOLO cuando la página cambia de verdad. Poner la fecha al día sin
 // cambios reales es, para Google, una señal de contenido hecho para buscadores.
-const ACTUALIZADA = { iso: '2026-10-18', texto: 'octubre de 2026' };
+const ACTUALIZADA = { iso: '2026-11-01', texto: 'noviembre de 2026' };
 
 const FORMAS_DE_EMPEZAR = [
   { nombre: 'ESP-3 Visionario', detalle: '35 productos · Binario 17 % por 6 meses · Bono GEN5 activo' },
@@ -181,7 +181,8 @@ export default function GuiaPlanServilleta() {
         </ul>
         <p>
           Los tres llegan armados en una sola aplicación, Queswa.app. Y cada cliente que llega a su
-          empresa queda a su nombre.
+          empresa queda a su nombre. Cada vez que vuelve a comprar, a usted le queda un porcentaje.
+          Eso es un activo: sigue produciendo sin que usted tenga que estar encima.
         </p>
 
         {/* Desde el 18 oct 2026 el deck no tiene pantalla de «qué hace usted»

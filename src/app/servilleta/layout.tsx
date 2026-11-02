@@ -22,7 +22,7 @@ const jsonLd = {
       name: TITULO,
       description: DESCRIPCION,
       inLanguage: 'es',
-      dateModified: '2026-10-10',
+      dateModified: '2026-11-01',
       publisher: { '@id': 'https://creatuactivo.com/#organization' },
       about: { '@type': 'Organization', name: 'Gano Excel' },
       breadcrumb: { '@id': `${URL_PAGINA}#breadcrumb` },

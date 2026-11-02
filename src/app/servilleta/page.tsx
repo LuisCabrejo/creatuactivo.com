@@ -1198,11 +1198,18 @@ export default function PitchDeckPage() {
            como una suma —alineado a la derecha, bajo una regla— y los controles
            (paquete y cantidad) bajan a una sola línea compacta. */
         .pd-paneles--gen5 { grid-template-columns: minmax(0, 840px); }
+        /* EL BEAT USA EL ALTO ENTERO (Director, 2 nov 2026): sube hasta debajo del
+           HUD y baja casi al borde, para que las filas respiren y el título no
+           quede pegado a la tabla. */
+        .pd-beat--gen5 { padding-top: 58px; padding-bottom: 34px; }
+        .pd-numeros .pd-h2--gen5 { margin-bottom: 1.4rem; }
+        .pd-beat--gen5 .pd-numeros-top { margin-bottom: 0.8rem; }
+        .pd-beat--gen5 .pd-nota { margin-top: 1rem; }
         .pd-gen5-filas { display: grid; gap: 1px; background: rgba(255,255,255,0.08); }
         /* Alturas medidas para 1280×720 (proyector) y 375×667: la pantalla entera, con
            la nota de Gano, tiene que quedar sobre el borde. */
         .pd-gen5-fila { display: grid; grid-template-columns: 1fr auto minmax(11ch, auto);
-          gap: 0 20px; align-items: baseline; background: var(--pd-bg); padding: 11px 18px;
+          gap: 0 20px; align-items: baseline; background: var(--pd-bg); padding: 13px 18px;
           font-family: var(--font-mono); line-height: 1.15; }
         .pd-numeros .panel--gen5 { padding: 1.1rem 1.3rem 1.2rem; }
         .pd-numeros .panel--gen5 h3 { margin-bottom: 0.9rem; }
@@ -1365,7 +1372,9 @@ export default function PitchDeckPage() {
              «$3.375.000 × 5» y «$3.375.000» juntos no caben en los 280 px de la fila—.
              Medido en 375×667: el panel con dos líneas por fila terminaba 22 px debajo
              del borde, y el deslizador quedaba fuera. */
-          .pd-numeros .pd-gen5-fila { grid-template-columns: auto 1fr auto; gap: 0 8px; padding: 7px 10px; }
+          .pd-beat--gen5 { padding-top: 56px; padding-bottom: 30px; }
+          .pd-numeros .pd-h2--gen5 { margin-bottom: 0.9rem; }
+          .pd-numeros .pd-gen5-fila { grid-template-columns: auto 1fr auto; gap: 0 8px; padding: 8px 10px; }
           .pd-numeros .pd-gen5-fila .g { font-size: 0.5rem; letter-spacing: 0.05em; white-space: nowrap; }
           .pd-numeros .pd-gen5-fila .op { text-align: right; }
           .pd-numeros .pd-gen5-fila--total { grid-template-columns: 1fr auto; }
@@ -2186,7 +2195,7 @@ export default function PitchDeckPage() {
               que lleva décadas. La velocidad la pone el socio en vivo con su propia
               historia, que tampoco va a la pantalla. Se cuentan PAQUETES COMPRADOS,
               nunca personas. */}
-          <div className={`pd-beat ${slide === 8 && beat === 2 ? 'on' : ''}`}>
+          <div className={`pd-beat pd-beat--gen5 ${slide === 8 && beat === 2 ? 'on' : ''}`}>
             <div className="pd-wrap" style={{ maxWidth: 1040 }}>
               <div className="pd-numeros-top">
                 <p className="pd-eyebrow">Cómo se gana</p>
@@ -2203,7 +2212,7 @@ export default function PitchDeckPage() {
                   ))}
                 </div>
               </div>
-              <h2 className="pd-h2">
+              <h2 className="pd-h2 pd-h2--gen5">
                 Y cada paquete empresarial que se compra en su sistema le deja un bono.
               </h2>
               {/* Sin línea de apoyo (Director, 2 nov 2026): «hasta la quinta generación»

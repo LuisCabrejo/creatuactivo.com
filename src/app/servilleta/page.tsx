@@ -72,10 +72,10 @@
  *                      SALIÓ: el video de la presentación entera vive en la 1.
  *                      Luego:
  *                      beats 1-3, las tres piezas (el fabricante SIN nombre; la
- *                      2ª es UNA MÁQUINA DE VENTAS, con dos botones: la demo de
- *                      Queswa y queswa.app «por dentro»; la 3ª es UNA
- *                      HERRAMIENTA PARA MULTIPLICAR, con el clip de la
- *                      multiplicación — las dos desde el 18 oct 2026, canon en
+ *                      2ª es UNA MÁQUINA DE VENTAS, con un botón, la demo de
+ *                      Queswa; la 3ª es UNA HERRAMIENTA PARA MULTIPLICAR, con
+ *                      el clip de la multiplicación y queswa.app «por dentro»
+ *                      (el botón se mudó de la 2ª el 2 nov 2026) — las dos desde el 18 oct 2026, canon en
  *                      WHY_02 v6.76 y en el video v6) · beat 4, las tres
  *                      quietas, directo tras la tercera pieza (la tríada de Jobs
  *                      sin desvío) · beat 5, la unión EN UNA diapositiva: el clip
@@ -167,6 +167,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
+import CicloPropiedad from './CicloPropiedad';
 import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 
@@ -699,15 +700,16 @@ export default function PitchDeckPage() {
     return () => { window.removeEventListener('pagehide', enviarVideoVisto); enviarVideoVisto(); };
   }, [videoPresentacion, enviarVideoVisto]);
 
-  // SU LADO DE LA MÁQUINA (Director, 18 oct 2026): queswa.app, en Enlaces, en una
-  // ventana del tamaño de un celular sobre el deck. El socio ya tiene la sesión
-  // abierta en su navegador; copia su enlace, lo comparte y el aviso le llega en
-  // esa misma ventana. En el teléfono (o si el navegador no abre ventanas) cae a
-  // pestaña nueva. ⚠️ Nombre fijo de ventana: un segundo toque la reutiliza en vez
-  // de abrir otra.
+  // LA HERRAMIENTA POR DENTRO (Director, 18 oct 2026): queswa.app en una ventana del
+  // tamaño de un celular sobre el deck. Desde el 2 nov 2026 el botón vive en la pieza
+  // de la herramienta y abre la portada, donde Queswa acompaña al socio y le marca la
+  // ruta; hasta ese día vivía en la máquina de ventas y abría en Enlaces, que sigue a
+  // un toque en la barra de abajo. El socio ya tiene la sesión abierta en su
+  // navegador. En el teléfono (o si el navegador no abre ventanas) cae a pestaña
+  // nueva. ⚠️ Nombre fijo de ventana: un segundo toque la reutiliza en vez de abrir otra.
   const abrirQueswaAppPorDentro = () => {
     window.open(
-      'https://queswa.app/centro-de-expansion?tab=enlaces',
+      'https://queswa.app/',
       'queswa-app-por-dentro',
       'popup=yes,width=412,height=780,noopener',
     );
@@ -1161,6 +1163,30 @@ export default function PitchDeckPage() {
         .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
         /* La definición del activo es otra idea, no la segunda mitad del porcentaje. */
         .pd-remate .pd-activo-linea { margin-top: 1.4rem; }
+        /* Con el ciclo dibujado (2 nov 2026): en el teléfono el ciclo va debajo del texto;
+           en el computador, a su derecha. */
+        .pd-remate.pd-con-ciclo { max-width: 1120px; display: grid; justify-items: center; gap: 1.4rem; }
+        .pd-con-ciclo-texto { text-align: center; }
+        .pd-con-ciclo-texto .pd-eyebrow { text-align: center; }
+        .pd-ciclo { display: block; width: min(360px, 88vw); height: auto; overflow: visible; }
+        .pd-remate p.grande.pd-grande-blanco { color: #FFFFFF; margin-top: 0; }
+        .pd-remate .pd-linea-fuerte { font-size: clamp(1.08rem, 2.2vw, 1.5rem); font-weight: 600; line-height: 1.4; }
+        .pd-remate .pd-activo-linea.pd-linea-fuerte { color: #FFFFFF; }
+        /* En el computador y en el teléfono girado, dos columnas: apilado, el ciclo
+           quedaba debajo del borde. */
+        @media (min-width: 861px), (max-height: 560px) and (min-width: 600px) {
+          .pd-remate.pd-con-ciclo { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: 3rem; }
+          .pd-con-ciclo-texto, .pd-con-ciclo-texto .pd-eyebrow { text-align: left; }
+          .pd-con-ciclo-texto .pd-cierre-linea, .pd-con-ciclo-texto .pd-propuesta { margin-left: 0; text-align: left; }
+          .pd-con-ciclo .grande.pd-grande-blanco { font-size: clamp(1.4rem, 3.3vw, 2.6rem); margin-bottom: 1.2rem; }
+          .pd-ciclo { width: min(480px, 100%); }
+        }
+        @media (max-height: 560px) and (min-width: 600px) {
+          .pd-remate.pd-con-ciclo { gap: 1.6rem; }
+          .pd-con-ciclo .pd-eyebrow { margin-bottom: 0.8rem; }
+          .pd-remate .pd-linea-fuerte { font-size: 1rem; }
+          .pd-ciclo { width: min(330px, calc((100vh - 90px) * 1.56)); }
+        }
         /* La marca del remate se OCULTA en escritorio: el HUD ya la lleva arriba a
            la izquierda y salía dos veces en la misma pantalla. En el teléfono el HUD
            la esconde, así que allá esta es la única y sí se muestra. */
@@ -1686,6 +1712,34 @@ export default function PitchDeckPage() {
         .pd-pares .de { font-size: clamp(1.05rem, 2.4vw, 1.5rem); color: var(--pd-muted); white-space: nowrap; }
         .pd-pares .fl { color: var(--pd-gold); text-align: center; font-size: clamp(1rem, 2.2vw, 1.4rem); }
         .pd-pares .a { font-weight: 700; font-size: clamp(1.15rem, 2.8vw, 1.8rem); color: #FFFFFF; }
+        /* El trazo (2 nov 2026): una línea dorada desde el final de lo viejo hasta lo nuevo.
+           La flecha de texto queda para el lector de pantalla y se dibuja con CSS. El estado
+           sin animación es el cuadro final. */
+        .pd-pares .de, .pd-pares .fl { line-height: 1.3; font-size: clamp(1.05rem, 2.4vw, 1.5rem); }
+        .pd-pares .de { display: flex; align-items: center; color: color-mix(in srgb, var(--pd-muted) 62%, transparent); }
+        .pd-pares .de::after { content: ''; flex: 1; min-width: 0.6rem; height: 1.5px; margin-left: 0.7rem;
+          background: var(--pd-gold); transform-origin: left center; }
+        .pd-pares .fl { position: relative; color: transparent; }
+        .pd-pares .fl::before { content: ''; position: absolute; left: 0; right: 10px; top: 50%; height: 1.5px;
+          margin-top: -0.75px; background: var(--pd-gold); transform-origin: left center; }
+        .pd-pares .fl::after { content: ''; position: absolute; right: 7px; top: 50%; width: 7px; height: 7px;
+          border-top: 1.5px solid var(--pd-gold); border-right: 1.5px solid var(--pd-gold);
+          transform: translateY(-50%) rotate(45deg); }
+        @keyframes pdTrazo { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @keyframes pdPunta { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pdApaga { from { color: var(--pd-muted); } to { color: color-mix(in srgb, var(--pd-muted) 62%, transparent); } }
+        @keyframes pdNace { 0% { opacity: 0; color: var(--pd-gold); } 30% { opacity: 1; color: var(--pd-gold); } 100% { opacity: 1; color: #FFFFFF; } }
+        .pd-slide.on .pd-pares li { --d: calc(0.35s + var(--k, 0) * 0.5s); }
+        .pd-slide.on .pd-pares .de::after { animation: pdTrazo 0.45s cubic-bezier(.2,.7,.3,1) var(--d) both; }
+        .pd-slide.on .pd-pares .fl::before { animation: pdTrazo 0.2s linear calc(var(--d) + 0.45s) both; }
+        .pd-slide.on .pd-pares .fl::after { animation: pdPunta 0.12s linear calc(var(--d) + 0.6s) both; }
+        .pd-slide.on .pd-pares .de { animation: pdApaga 0.5s ease calc(var(--d) + 0.3s) both; }
+        .pd-slide.on .pd-pares .a { animation: pdNace 1.4s ease calc(var(--d) + 0.62s) both; }
+        @media (prefers-reduced-motion: reduce) {
+          .pd-slide.on .pd-pares .de, .pd-slide.on .pd-pares .a,
+          .pd-slide.on .pd-pares .de::after, .pd-slide.on .pd-pares .fl::before,
+          .pd-slide.on .pd-pares .fl::after { animation: none; }
+        }
         .pd-sectores { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 2rem;
           background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
         .pd-sector { background: var(--pd-bg); padding: clamp(1.4rem, 3vw, 2.4rem); }
@@ -1803,8 +1857,13 @@ export default function PitchDeckPage() {
               nuestros ojos.
             </h2>
             <ul className="pd-pares">
-              {PARES_MODERNIZACION.map(([de, a]) => (
-                <li key={a}>
+              {/* El trazo (2 nov 2026, Director: «si»), como en el video v10: al entrar, un
+                  trazo dorado lleva cada industria a lo que la modernizó, lo viejo se apaga
+                  y lo nuevo nace en oro y asienta en blanco, una fila tras otra. Es solo
+                  CSS: sin animación (movimiento reducido o la captura del video) queda el
+                  cuadro final. */}
+              {PARES_MODERNIZACION.map(([de, a], k) => (
+                <li key={a} style={{ '--k': k } as React.CSSProperties}>
                   <span className="de">{de}</span>
                   <span className="fl">→</span>
                   <span className="a">{a}</span>
@@ -1958,6 +2017,10 @@ export default function PitchDeckPage() {
                       24 sep 2026): es la pieza que los reclama. Van como ESTATUS —hay
                       una empresa grande detrás—, nunca como alegato: nadie escoge al
                       niño impopular porque le muestren el boletín de notas. */}
+                  {/* Un botón por pieza (Director, 2 nov 2026): la máquina de ventas lleva
+                      solo el frente, lo que ve quien usted envía; la herramienta lleva
+                      su lado, queswa.app por dentro. Hasta ese día los dos vivían en la
+                      máquina de ventas. */}
                   {i === 1 && (
                     <div className="pd-demos">
                       {/* El FRENTE de la máquina: lo que ve quien usted envía. */}
@@ -1971,15 +2034,15 @@ export default function PitchDeckPage() {
                       >
                         PREGÚNTELE ALGO AHORA →
                       </button>
-                      {/* SU LADO de la máquina (Director, 18 oct 2026): queswa.app
-                          en una ventana del tamaño de un celular sobre el deck,
-                          abierta en Enlaces. El socio copia su enlace, lo comparte
-                          con quien tiene enfrente y el aviso le llega ahí mismo
-                          —«esto les parece magia»—, y la ventana sigue abierta para
-                          el tercer elemento (los equipos capacitándose). Hasta ese
-                          día tenía que salir del deck a buscar la aplicación.
-                          ⚠️ El rótulo no dice «Queswa.app»: ese nombre es el remate
-                          del beat de la unión. ⚠️ En el teléfono abre pestaña nueva. */}
+                    </div>
+                  )}
+                  {i === 2 && (
+                    <div className="pd-demos">
+                      {/* LA HERRAMIENTA POR DENTRO (Director, 18 oct 2026; en esta pieza
+                          desde el 2 nov 2026): queswa.app en una ventana del tamaño de un
+                          celular sobre el deck. ⚠️ El rótulo no dice «Queswa.app»: ese
+                          nombre es el remate del beat de la unión. ⚠️ En el teléfono abre
+                          pestaña nueva. */}
                       <button
                         type="button"
                         className="pd-demo"
@@ -2080,11 +2143,16 @@ export default function PitchDeckPage() {
           {/* Desde el 28 oct 2026 la propiedad cierra la cadena del modelo en el mismo beat,
               como WHY_02 — queda a su nombre → por eso cada recompra le deja un
               porcentaje. Sin cifra: la cifra es de la pantalla 8. */}
+          {/* El ciclo dibujado y la jerarquía (2 nov 2026, Director: «si»): el mismo dibujo del
+              video v9, y un solo oro, el del porcentaje, porque el oro es el premio. El titular
+              va en blanco; «Eso es un activo» sube a blanco y al tamaño del porcentaje: hasta
+              ese día era la línea más débil de la pantalla, en gris pequeño. */}
           <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La diferencia</p>
-              <p className="grande">Cada cliente que llega a su empresa queda a su nombre.</p>
-              <p className="pd-p pd-cierre-linea pd-gold">
+            <div className="pd-remate pd-con-ciclo">
+              <div className="pd-con-ciclo-texto">
+              <p className="pd-eyebrow">La diferencia</p>
+              <p className="grande pd-grande-blanco">Cada cliente que llega a su empresa queda a su nombre.</p>
+              <p className="pd-p pd-cierre-linea pd-gold pd-linea-fuerte">
                 Cada vez que vuelve a comprar, a usted le queda un porcentaje.
               </p>
               {/* La definición del activo, DESPUÉS de su causa (Director, 1 nov 2026):
@@ -2093,9 +2161,11 @@ export default function PitchDeckPage() {
                   encima» (Director, 1 nov 2026): «estar encima» es el dolor del
                   empresario; el empleado teme otra jornada, y «presente» cubre a los
                   dos. Es la frase del cierre de la Home. */}
-              <p className="pd-p pd-cierre-linea pd-activo-linea">
+              <p className="pd-p pd-cierre-linea pd-activo-linea pd-linea-fuerte">
                 Eso es un activo: sigue produciendo aunque usted no esté presente.
               </p>
+              </div>
+              <CicloPropiedad modo="propiedad" activo={slide === 5 && beat === 6} />
             </div>
           </div>
 
@@ -2217,8 +2287,12 @@ export default function PitchDeckPage() {
               fuente por lo que la mueve y en el orden en que llegan los dos beats
               siguientes. ⛔ Nunca «dos formas de ganar»: el plan tiene doce. */}
           <div className={`pd-beat ${slide === 8 && beat === 0 ? 'on' : ''}`}>
-            <div className="pd-remate">
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo se gana</p>
+            {/* El ciclo con el paquete (2 nov 2026, Director: «si»), como en el video v11: el
+                producto que vuelven a pedir es el ciclo de la propiedad, que la persona ya vio,
+                y el paquete es una caja que entra a su empresa por su propio camino. */}
+            <div className="pd-remate pd-con-ciclo">
+              <div className="pd-con-ciclo-texto">
+              <p className="pd-eyebrow">Cómo se gana</p>
               <p className="pd-propuesta">Se gana con lo que se compra en su sistema:</p>
               <div style={{ marginTop: '1.4rem' }}>
                 <p className="pd-p pd-cierre-linea pd-gold">
@@ -2226,6 +2300,8 @@ export default function PitchDeckPage() {
                 </p>
                 <p className="pd-p pd-cierre-linea pd-gold">y los paquetes empresariales.</p>
               </div>
+              </div>
+              <CicloPropiedad modo="gana" activo={slide === 8 && beat === 0} />
             </div>
           </div>
 

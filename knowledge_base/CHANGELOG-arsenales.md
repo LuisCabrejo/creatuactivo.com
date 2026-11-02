@@ -30,6 +30,16 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_compensacion v8.16 y arsenal_avanzado v14.10: el GEN5 ya no «financia el inicio» (2 nov 2026)
+
+Al auditar la pantalla «Cómo se gana» de `/servilleta`, el Director corrigió la línea *«Es lo que financia el crecimiento al inicio»*: el Bono GEN5 se paga igual a quien inicia y a quien lleva décadas; no es un bono de etapa. La misma idea vivía en el arsenal desde que la familia GEN5 se reescribió el 9 ago (*«la función sí se conserva: es la plata que financia el crecimiento en la etapa temprana»*), y sale de todas partes:
+
+- **`COMP_GEN5_08`**: *«…le entra como comisión, y es la que financia el crecimiento temprano»* → *«…le entra como comisión»*. Y el párrafo que lo contrastaba con el Binario por etapas → *«El GEN5 le entra con cada paquete que se compra; el Binario, con el consumo que se repite. Las dos corren en paralelo»*.
+- **`ADV_VAL_01`** (arsenal_avanzado): *«…y su función es financiar el crecimiento en la etapa temprana»* → *«…hasta la quinta generación»*.
+- La nomenclatura canónica interna y la nota para Queswa del arsenal de compensación pierden la coletilla *«la plata que financia el crecimiento»*.
+
+El bono sigue nombrado por lo que lo mueve —la compra de un paquete— y por su alcance —cinco generaciones—, nunca por su velocidad, su duración ni una etapa. Cifras, porcentajes y nombres del plan intactos. Desplegado en los tres tenants actualizando el cuerpo de los dos fragmentos en sitio (el índice no cambia, así que el vector tampoco). El deck y el simulador del Dashboard se corrigieron el mismo día (marketing `65a3974`, Dashboard `be20bff`).
+
 ## arsenal_inicial v6.86 y arsenal_compensacion v8.15: sale la lista de espera; «presencia» en vez de «estar encima» (2 nov 2026)
 
 Aprobado por el Director. Auditoría previa: la lista de espera solo vivía en `EAM_02` y `FREQ_14` (ni el prompt, ni el código, ni el Dashboard, ni la apertura); ninguna persona la preguntó nunca en las conversaciones. Rastro que no se toca: el video del reto del día 4 la anunció en público.

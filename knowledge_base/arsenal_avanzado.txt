@@ -5,7 +5,9 @@
 **Propósito:** Arsenal para Queswa - Exclusivo para Mecánica Financiera, Detalles Técnicos, Cierre y El Método Comprobado.
 **Enfoque:** Claridad como lujo (test Beto). Diagnóstico primero. Léxico accesible — sin jerga de consultoría.
 **Categorías:** ADV_OBJ (2) + ADV_TECH (3) + ADV_VAL (5) + ADV_SIST (3) + ADV_ESC (2) + METH (1) = 16 respuestas.
-**Versión actual: v14.9** (19 oct 2026) — **`ADV_OBJ_02`: título e índice sin «¿para qué quiero esto?»**, que lo volvía imán de preguntas ajenas (*«¿entonces no tengo que vender nada?»*). Medido contra el corpus real: suelta esa consulta (1.º → 4.º) y conserva sus cuatro; `FREQ_10` no pierde ninguna y recupera *«¿para qué esto si ya tengo mi local?»*, que está en su título. Candado y cuerpo sin tocar. Y `ADV_VAL_03` ofrece *las cuatro formas de empezar* (decía *tres*: la oferta tiene que calzar literal con el índice de `FREQ_03`, que es su destino).
+**Versión actual: v14.10** (2 nov 2026) — **`ADV_VAL_01` nombra el GEN5 por lo que lo mueve y por su alcance** (Director): el bono se paga igual al que inicia y al que lleva décadas, así que la coletilla de etapa sale y queda «hasta la quinta generación». Cifras sin tocar.
+
+**v14.9** (19 oct 2026) — **`ADV_OBJ_02`: título e índice sin «¿para qué quiero esto?»**, que lo volvía imán de preguntas ajenas (*«¿entonces no tengo que vender nada?»*). Medido contra el corpus real: suelta esa consulta (1.º → 4.º) y conserva sus cuatro; `FREQ_10` no pierde ninguna y recupera *«¿para qué esto si ya tengo mi local?»*, que está en su título. Candado y cuerpo sin tocar. Y `ADV_VAL_03` ofrece *las cuatro formas de empezar* (decía *tres*: la oferta tiene que calzar literal con el índice de `FREQ_03`, que es su destino).
 
 **v14.8** (8 oct 2026) — **`ADV_SIST_02` va con candado.** Mismo motivo que `ADV_OBJ_02` en la v14.5: medido con el modelo real, la meta salía parafraseada. Ahora la meta y la apuesta salen literales, con los clientes VIP y los distribuidores nombrados, y el modelo escribe solo lo que va alrededor.
 
@@ -111,7 +113,7 @@ Usted tiene cuatro apoyos, y se cubren entre sí.
 **[Índice]:** Me hablaron del ingreso inmediato y quiero los números: qué es, cuánto paga, cómo se calcula el Bono GEN5 por paquete.
 **[Concepto Nuclear]:** *Ingreso inmediato* es el nombre viejo del **Bono GEN5**, y la vía se nombra por lo que la mueve: **la compra de paquetes empresariales en su sistema**. Lo único que se afirma es *cada vez que ocurre una compra*. Y se cuenta en COMPRAS, nunca en personas que entran.
 
-Eso que le nombraron como ingreso inmediato es el **Bono GEN5**: una comisión por cada paquete empresarial que se compra en su sistema, y su función es financiar el crecimiento en la etapa temprana.
+Eso que le nombraron como ingreso inmediato es el **Bono GEN5**: una comisión por cada paquete empresarial que se compra en su sistema, hasta la quinta generación.
 
 Con el nivel ESP-3 (Visionario), las cuentas son así:
 

@@ -84,11 +84,15 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // v13 (3 nov 2026, Director: «hazlo»): la herramienta «es para usted: cada día le dice qué hacer»
 // (sin Waze), y después de «Queswa.app» va «Su día»: compartir y recibir, con Queswa entre las dos,
 // en pantallas de queswa.app; la -v12 queda sin uso.
+// v14 (3 nov 2026, Director: «aprobado»): «Su día» es una escena con dos teléfonos y una sola
+// historia: usted toca su enlace y lo pega en WhatsApp, Ana María conversa con Queswa y pide
+// hablar con una persona, y a usted le llega el aviso; la voz va en ese orden. Pantallas de la
+// socia de ejemplo de las guías, sin datos reales; la -v13 queda sin uso.
 // El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v13.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v14.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

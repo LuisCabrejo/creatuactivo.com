@@ -168,6 +168,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
 import CicloPropiedad from './CicloPropiedad';
+import SuDia from './SuDia';
 import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 
@@ -180,7 +181,7 @@ const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 7, 8: 3 };
+const BEATS: Record<number, number> = { 5: 10, 8: 3 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 /** El beat donde abre `?pantalla=N`: la 8 abre en el simulador (beat 1), no en la
  *  respuesta corta, porque ese enlace es «Abrir el simulador» (Queswa y el webhook). */
@@ -1171,6 +1172,31 @@ export default function PitchDeckPage() {
         .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
         /* La definición del activo es otra idea, no la segunda mitad del porcentaje. */
         .pd-remate .pd-activo-linea { margin-top: 1.4rem; }
+        /* Su día (3 nov 2026): la escena llena el alto que dejan el titular y los rótulos. */
+        .pd-beat > .pd-dia { margin-block: 0; }
+        .pd-dia { width: 100%; height: 100%; margin-inline: auto;
+          display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .pd-dia .pd-eyebrow { margin-bottom: 0.5rem; }
+        .pd-dia-titulo { font-family: var(--font-playfair), Georgia, serif; color: #FFFFFF;
+          font-size: clamp(1.3rem, 3.2vw, 2.3rem); line-height: 1.15; margin: 0; }
+        .pd-dia-pasos { display: flex; align-items: center; justify-content: center; gap: 0.9rem;
+          margin: 0.9rem 0 0.5rem; font-family: var(--font-mono); font-size: clamp(0.62rem, 1.2vw, 0.85rem);
+          letter-spacing: 0.2em; text-transform: uppercase; color: var(--pd-muted); white-space: nowrap; }
+        .pd-dia-pasos span { opacity: 0.45; transition: opacity 0.3s ease, color 0.3s ease; }
+        .pd-dia-pasos span.on { opacity: 1; color: #FFFFFF; }
+        .pd-dia-pasos span.q.on { color: var(--pd-data); }
+        .pd-dia-pasos i { width: 1.4rem; height: 1px; background: rgba(255,255,255,0.2); }
+        .pd-dia-caja { position: relative; flex: 1; min-height: 0; width: 100%; }
+        @media (max-width: 420px) {
+          .pd-dia-pasos { gap: 0.55rem; letter-spacing: 0.14em; }
+          .pd-dia-pasos i { width: 0.6rem; }
+        }
+        /* En el teléfono girado, la escena se queda con el alto: la etiqueta repite el titular. */
+        @media (max-height: 560px) {
+          .pd-dia .pd-eyebrow { display: none; }
+          .pd-dia-titulo { font-size: 1.2rem; }
+          .pd-dia-pasos { margin: 0.5rem 0 0.3rem; }
+        }
         /* Con el ciclo dibujado (2 nov 2026): en el teléfono el ciclo va debajo del texto;
            en el computador, a su derecha. */
         .pd-remate.pd-con-ciclo { max-width: 1120px; display: grid; justify-items: center; gap: 1.4rem; }
@@ -2141,7 +2167,30 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beat 6 (el último): la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+          {/* Beats 6 a 8: SU DÍA (Director, 3 nov 2026: «aprueba los textos»). Casi todas las
+              presentaciones son online, y «VERLA POR DENTRO» abre una ventana que no se ve al
+              compartir: sin este paso, el deck en una llamada nunca mostraba lo que hace el
+              socio. Es la escena del video v14, después de «Queswa.app» como allá, sin voz y en
+              tres tramos, uno por clic: Compartir · Queswa · Recibir. Los tres rótulos se ven
+              desde el primero y se enciende el del tramo: el socio sabe dónde va. Un solo beat
+              para los tres, así la escena no se rearma entre clics. ⚠️ Va después de la unión
+              y no después de la tercera pieza: ahí rompería la tríada de Jobs (beat 4). */}
+          <div className={`pd-beat ${slide === 5 && beat >= 6 && beat <= 8 ? 'on' : ''}`}>
+            <div className="pd-dia">
+              <p className="pd-eyebrow">Su día</p>
+              <p className="pd-dia-titulo">Su día se resume en dos acciones.</p>
+              <p className="pd-dia-pasos">
+                <span className={slide === 5 && beat === 6 ? 'on' : ''}>01 · Compartir</span>
+                <i aria-hidden="true" />
+                <span className={`q ${slide === 5 && beat === 7 ? 'on' : ''}`}>Queswa</span>
+                <i aria-hidden="true" />
+                <span className={slide === 5 && beat === 8 ? 'on' : ''}>02 · Recibir</span>
+              </p>
+              <SuDia paso={slide === 5 && beat >= 6 && beat <= 8 ? beat - 5 : 0} />
+            </div>
+          </div>
+
+          {/* Beat 9 (el último): la propiedad. Es el «ajá» de WHY_02, y explica el «a su
               nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
               2026): el enlace se presenta en la pantalla siguiente (Compartir) y
               aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
@@ -2155,7 +2204,7 @@ export default function PitchDeckPage() {
               video v9, y un solo oro, el del porcentaje, porque el oro es el premio. El titular
               va en blanco; «Eso es un activo» sube a blanco y al tamaño del porcentaje: hasta
               ese día era la línea más débil de la pantalla, en gris pequeño. */}
-          <div className={`pd-beat ${slide === 5 && beat === 6 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 5 && beat === 9 ? 'on' : ''}`}>
             <div className="pd-remate pd-con-ciclo">
               <div className="pd-con-ciclo-texto">
               <p className="pd-eyebrow">La diferencia</p>
@@ -2173,7 +2222,7 @@ export default function PitchDeckPage() {
                 Eso es un activo: sigue produciendo aunque usted no esté presente.
               </p>
               </div>
-              <CicloPropiedad modo="propiedad" activo={slide === 5 && beat === 6} />
+              <CicloPropiedad modo="propiedad" activo={slide === 5 && beat === 9} />
             </div>
           </div>
 

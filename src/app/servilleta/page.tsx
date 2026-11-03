@@ -245,10 +245,18 @@ const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: 
     // línea dorada de antes («Conoce sus metas…») salió: el socio lo muestra.
     // `quieta` es el cuadro del segundo 4 (ya hay varios distribuidores) para la
     // pantalla de las tres quietas; el poster es el primer cuadro del clip.
+    // LA QUE VE USTED (Director, 3 nov 2026, tras la investigación): la máquina de ventas
+    // es lo que ve su cliente y la herramienta lo que ve usted — las dos caras de Uber,
+    // sin nombrar al conductor (en la solución usted es Uber, el dueño). Tres verbos de
+    // su día y no el inventario (reels, flyers, guiones…): a quien se pregunta «¿seré
+    // capaz?» una lista de funciones le pesa como complejidad. «Le dice qué hacer»
+    // recoge el «saber qué hacer» del 9 oct. Waze salió de la presentación: Uber ya
+    // carga la analogía, y dos en 25 segundos se estorban (en WHY_02 sigue, sola).
+    // La multiplicación queda como consecuencia: quien inicia recibe la misma.
     label: 'UNA HERRAMIENTA PARA MULTIPLICAR',
     img: '/videos/presentacion/multiplicacion-poster.webp',
     video: '/videos/presentacion/multiplicacion.mp4',
-    sub: 'Acompaña a cada distribuidor de su sistema, a usted y a quien inicie con usted, y como en Waze le va marcando la ruta, paso a paso.',
+    sub: 'La que usted lleva en su celular: le dice qué hacer cada día, le da lo que va a compartir y le avisa quién llegó. Quien inicie con usted recibe la misma.',
     quieta: '/videos/presentacion/multiplicacion-quieta.webp',
   },
 ];

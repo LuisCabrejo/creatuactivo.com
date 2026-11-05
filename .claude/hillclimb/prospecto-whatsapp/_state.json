@@ -1,0 +1,46 @@
+{
+  "flow": "prospecto-whatsapp",
+  "metrics": [
+    {
+      "id": "aprueba",
+      "label": "Aprueba",
+      "kind": "binary"
+    },
+    {
+      "id": "criterio",
+      "label": "Criterio",
+      "kind": "float",
+      "scale": 1
+    },
+    {
+      "id": "lineas_rojas",
+      "label": "Líneas rojas",
+      "kind": "binary"
+    },
+    {
+      "id": "repeticiones",
+      "label": "Repeticiones",
+      "kind": "float",
+      "scale": 5,
+      "better": "lower"
+    }
+  ],
+  "perf_fields": [
+    {
+      "id": "latency_s",
+      "label": "Segundos",
+      "unit": "s"
+    },
+    {
+      "id": "turnos_con_modelo",
+      "label": "Turnos IA"
+    }
+  ],
+  "harness_paths": [
+    "scripts/eval-queswa/casos-prospecto.json",
+    "scripts/eval-queswa/lineas-rojas.mjs",
+    "scripts/eval-queswa/juez.mjs",
+    "scripts/eval-queswa/calificar.mjs"
+  ],
+  "harness_sha": "9738f750b9fc94211b0ac685868c4029a36a192cf8ccfe114726e583c34ebc96"
+}

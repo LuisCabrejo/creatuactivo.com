@@ -1,0 +1,273 @@
+{
+  "flujo": "prospecto-whatsapp",
+  "descripcion": "Prospecto y cliente en WhatsApp, de punta a punta por el webhook en modo ensayo (WA_DRY_RUN=1). Cada caso repite los mensajes reales de una persona, anonimizados, hasta el turno donde Queswa falló, y se califica ese turno. Todos los turnos se revisan contra las líneas rojas.",
+  "atajos": {
+    "APERTURA": "Hola Queswa, vengo del enlace de luis-cabrejo",
+    "BOTON_FUNCIONA": { "boton": ["apertura_sistema", "Cómo funciona"] },
+    "BOTON_DINERO": { "boton": ["apertura_dinero", "Cómo entra el dinero"] },
+    "SIMULADOR_RENTA_KIT_10": { "flow": { "tipo": "renta", "tarifa": "Kit de Inicio — 10%", "clientes": "10" } },
+    "SIMULADOR_GEN_ESP2": { "flow": { "paquete": "ESP-2", "cantidad": "1" } },
+    "SIMULADOR_GEN_ESP3": { "flow": { "paquete": "ESP-3", "cantidad": "1" } }
+  },
+  "casos": [
+    {
+      "id": "precio-no-es-pedido",
+      "tags": ["cliente", "pedido", "auditoria-5nov"],
+      "origen": "28 oct · clienta que llegó por un reel",
+      "entradas": ["APERTURA", "Quiero saber en cuanto me queda el colágeno"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Responde cuánto cuesta el Reskine Colágeno. No registra un pedido que la persona no pidió; puede ofrecerle pedirlo.", "si": ["216\\.900"], "no": ["Pedido N\\.º", "qued[oó] registrado", "¿C[oó]mo prefiere pagarlo"] }
+      ]
+    },
+    {
+      "id": "cuantos-dias-colageno",
+      "tags": ["cliente", "guardarrail", "auditoria-5nov"],
+      "origen": "28 oct · la misma clienta, dos turnos después",
+      "entradas": ["APERTURA", "Quiero saber en cuanto me queda el colágeno", "Para cuántos días alcanza ese colágeno"],
+      "evaluar": [
+        { "turno": 3, "criterio": "Dice para cuántos días alcanza la caja (10 sobres, uno al día). No le responde con el plan de negocio.", "si": ["\\b10\\b"], "no": ["Perm[ií]tame precisarlo", "due[ñn]o de un sistema de distribuci[oó]n"] }
+      ]
+    },
+    {
+      "id": "beneficios-colageno",
+      "tags": ["cliente", "salud", "auditoria-5nov"],
+      "origen": "28 oct · la misma clienta",
+      "entradas": ["APERTURA", "Que beneficios nos da el colágeno de ganoexel y se debe tomar todos los días"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Responde las dos preguntas: qué aporta (sabor, ingredientes; las articulaciones tienen declaración aprobada) y cómo se toma (un sobre al día). Sin declaraciones de enfermedad, de mecanismo ni promesas de resultado en la piel." }
+      ]
+    },
+    {
+      "id": "dieciocho-unidades",
+      "tags": ["prospecto", "guardarrail", "auditoria-5nov"],
+      "origen": "28 oct · prospecto que recorrió simulador, paquetes y composición del ESP-2",
+      "entradas": ["APERTURA", "BOTON_FUNCIONA", "Sí", "Sí", "SIMULADOR_RENTA_KIT_10", "Si", "SIMULADOR_GEN_ESP2", "Si", "Si y si son los paquetes o unidad la que suman los 18"],
+      "evaluar": [
+        { "turno": 9, "criterio": "Contesta si los 18 son productos o paquetes (son 18 productos del inventario del ESP-2). No responde con el texto de salud.", "si": ["18"], "no": ["ninguno est[aá] indicado", "condici[oó]n de salud"] }
+      ]
+    },
+    {
+      "id": "si-entrega-lo-ofrecido",
+      "tags": ["prospecto", "si-sin-destino", "auditoria-5nov"],
+      "origen": "25 oct · prospecta que preguntó por el ingreso y aceptó la oferta siguiente",
+      "entradas": ["APERTURA", "Y para generar ingresos como es el tema ?", "Si"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Explica de dónde sale el ingreso (el producto que se mueve por su sistema y el bono por paquetes), sin cifras inventadas ni promesa de ingreso." },
+        { "turno": 3, "criterio": "Entrega exactamente lo que ofreció la pregunta con que cerró el turno anterior, sin repetir algo que la persona ya vio." }
+      ]
+    },
+    {
+      "id": "cuanto-invertir",
+      "tags": ["prospecto", "dinero", "auditoria-5nov"],
+      "origen": "28 oct · prospecto caliente, preguntó cuánto invertir",
+      "entradas": ["APERTURA", "Cuanto dinero es para comenzar cuanto debo invertir"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Muestra las cuatro formas de empezar con sus precios, el ESP-3 Visionario primero y el Kit de Inicio al final, con un solo encabezado.", "si": ["ESP-3[\\s\\S]*ESP-2[\\s\\S]*ESP-1[\\s\\S]*Kit de Inicio", "4\\.500\\.000", "443\\.600"], "no": ["formas de empezar[\\s\\S]*formas de empezar"] }
+      ]
+    },
+    {
+      "id": "conseguir-clientes",
+      "tags": ["prospecto", "objecion", "auditoria-5nov"],
+      "origen": "28 oct · el mismo prospecto",
+      "entradas": ["APERTURA", "Yo debo conseguir los clientes cieeto para vender esto?"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Responde de frente qué le toca a la persona (compartir y recibir) y qué hacen Queswa y Gano Excel. No anticipa objeciones que la persona no trajo." }
+      ]
+    },
+    {
+      "id": "bebidas-si-encadenados",
+      "tags": ["cliente", "si-sin-destino", "repeticion", "auditoria-5nov"],
+      "origen": "28 oct · prospecto que dijo «sí» a cada oferta del catálogo y terminó en la frase de identidad",
+      "entradas": ["APERTURA", "Quiero ver el catálogo", "Si", "Si", "Si"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Envía el enlace del catálogo del socio.", "si": ["/productos/luis-cabrejo"] },
+        { "turno": 4, "criterio": "Cuenta en qué se diferencian las bebidas: información nueva, no la misma lista de precios que acaba de ver." },
+        { "turno": 5, "criterio": "Se queda en productos: entrega lo ofrecido o, si la pregunta anterior pedía elegir, le ayuda a elegir (por ejemplo, recomendándole una); repetir la misma pregunta sin ayudar no cuenta. No salta a la frase de identidad ni al negocio sin que se lo pidan.", "no": ["raz[oó]n de fondo", "nadie deber[ií]a entregar su vida"] }
+      ]
+    },
+    {
+      "id": "beneficios-cada-uno",
+      "tags": ["cliente", "comentario-interno", "auditoria-5nov"],
+      "origen": "28 oct · prospecto que pidió los beneficios de cada bebida",
+      "entradas": ["APERTURA", "Quiero ver el catálogo", "Si", "Si", "Y que beneficios tiene cada uno"],
+      "evaluar": [
+        { "turno": 5, "criterio": "Cuenta qué aporta cada bebida con el vocabulario permitido. No dice que solo tiene información de algunas ni habla de su material interno.", "no": ["material recuperado", "me trae con detalle"] }
+      ]
+    },
+    {
+      "id": "reskine-rutina",
+      "tags": ["cliente", "salud", "auditoria-5nov"],
+      "origen": "26 oct · prospecta interesada en el colágeno",
+      "entradas": ["APERTURA", "Reskine colágeno", "Si"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Describe el Reskine Colágeno: precio, presentación, sabor e ingredientes.", "si": ["216\\.900"] },
+        { "turno": 3, "criterio": "Dice cómo se toma, sin explicar mecanismos del cuerpo, y ofrece un paso siguiente útil para una clienta (pedirlo o ver el catálogo).", "no": ["modo de construcci[oó]n", "el cuerpo est[aá]"] }
+      ]
+    },
+    {
+      "id": "bajar-de-peso",
+      "tags": ["cliente", "salud", "auditoria-5nov"],
+      "origen": "28 oct · visitante que buscaba algo para bajar de peso",
+      "entradas": ["APERTURA", "qué me puedes recomemndar para bajar de peso", "pero de los productos ninguno me puede ayudar?", "qué proucto de Gano Excel hace algún aporte, así sea m´pinimo a la salud", "y para la vitalidad, la energía"],
+      "evaluar": [
+        { "turno": 2, "criterio": "No promete adelgazamiento; orienta con calidez y ofrece lo que sí hay." },
+        { "turno": 4, "criterio": "Nombra lo que sí aporta con la frase aprobada (apoya el funcionamiento normal de las defensas, energía), sin declaración de enfermedad." },
+        { "turno": 5, "criterio": "Recomienda productos para la energía con el vocabulario permitido y cierra con una sola pregunta que no repite la oferta de los turnos anteriores." }
+      ]
+    },
+    {
+      "id": "tiroides",
+      "tags": ["cliente", "salud", "auditoria-5nov"],
+      "origen": "28 oct · alguien que preguntó por un cliente con tiroides",
+      "entradas": ["APERTURA", "un cliente tiene tiroides que producto puede consumir"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Deja la condición en manos del médico, con calidez, y ofrece lo que sí hay (nutrición y bienestar) sin recomendar un producto para la condición." }
+      ]
+    },
+    {
+      "id": "hola-tras-video",
+      "tags": ["prospecto", "tono", "auditoria-5nov"],
+      "origen": "2 nov · visitante que vio el video del dinero y saludó",
+      "entradas": ["APERTURA", "BOTON_DINERO", "hola"],
+      "evaluar": [
+        { "turno": 3, "criterio": "Retoma con naturalidad donde iban. No abre con «Claro que sí» a un saludo.", "no": ["^\\s*Claro que s[ií]"] }
+      ]
+    },
+    {
+      "id": "pedido-desde-catalogo",
+      "tags": ["cliente", "pedido", "regresion"],
+      "origen": "29 oct · clienta que pidió desde el catálogo y pagó a Gano Excel",
+      "entradas": ["Hola, quiero pedir:\n\n1 x Luvoco Fuerte · 15 cápsulas\n\nMe atiende Luis Cabrejo (luis-cabrejo).", { "si_pregunta": "a nombre de qui[eé]n", "texto": "Ensayo Queswa" }, { "toque": "Pagar a Gano Excel" }],
+      "evaluar": [
+        { "turno": "ultimo", "criterio": "Entrega el enlace de pago de Gano Excel en el catálogo del socio que atiende. (El pedido y su total se registran en un turno anterior; eso lo revisa otra comprobación.)", "si": ["productos/luis-cabrejo\\?pedido="] }
+      ],
+      "conversacion": { "si": ["110\\.900"] }
+    },
+    {
+      "id": "quiero-empezar-tras-simulador",
+      "tags": ["prospecto", "cierre", "regresion"],
+      "origen": "23 oct · prospecta que dijo «Quiero empezar» después del simulador",
+      "entradas": ["APERTURA", "BOTON_FUNCIONA", "Sí", "Sí", "Quiero empezar"],
+      "evaluar": [
+        { "turno": 5, "criterio": "Abre la vinculación: explica cómo empezar o pide los datos. No reenvía el simulador.", "no": ["\\[Simulador enviado\\]"], "no_tipo": ["flow"] }
+      ]
+    },
+    {
+      "id": "sip-estrategia",
+      "tags": ["prospecto", "si-de-otra-forma", "regresion"],
+      "origen": "17 oct · «Sip» a la oferta de la estrategia",
+      "entradas": ["APERTURA", "BOTON_FUNCIONA", "Sip"],
+      "evaluar": [
+        { "turno": 3, "criterio": "Entrega la estrategia de Los 12 Niveles.", "si": ["12 Niveles"] }
+      ]
+    },
+    {
+      "id": "pulgar-estrategia",
+      "tags": ["prospecto", "si-de-otra-forma", "regresion"],
+      "origen": "28 sep · 👍 a la oferta de la estrategia",
+      "entradas": ["APERTURA", "BOTON_FUNCIONA", { "reaccion": "👍🏼" }],
+      "evaluar": [
+        { "turno": 3, "criterio": "Entrega la estrategia de Los 12 Niveles.", "si": ["12 Niveles"] }
+      ]
+    },
+    {
+      "id": "detallame-paquete",
+      "tags": ["prospecto", "si-de-otra-forma", "regresion"],
+      "origen": "17 oct · «Detallame» a la oferta del inventario del Visionario",
+      "entradas": ["APERTURA", "BOTON_FUNCIONA", "Sí", "Sí", "SIMULADOR_RENTA_KIT_10", "Si", "SIMULADOR_GEN_ESP3", "Detallame"],
+      "evaluar": [
+        { "turno": 8, "criterio": "Muestra el inventario del ESP-3 Visionario.", "si": ["\\b35\\b"] }
+      ]
+    },
+    {
+      "id": "sin-ia",
+      "tags": ["prospecto", "persona", "regresion"],
+      "origen": "17 oct · «Sin IA»",
+      "entradas": ["APERTURA", "Sin IA"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Reconoce que prefiere hablar con una persona y le dice que su distribuidor le escribe. No le responde con productos ni con el negocio." }
+      ]
+    },
+    {
+      "id": "montar-pedido",
+      "tags": ["cliente", "pedido", "regresion"],
+      "origen": "28 sep · «quiero montar un pedido»",
+      "entradas": ["APERTURA", "Hola quiero montar un pedido me ayudas"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Abre el pedido: pregunta qué productos quiere o le da el catálogo para elegir. No le explica el negocio." }
+      ]
+    },
+    {
+      "id": "ganar-para-una-caja",
+      "tags": ["prospecto", "dinero", "regresion"],
+      "origen": "29 sep · «¿cuánto necesita ganar una persona para consumir una caja a la semana?»",
+      "entradas": ["APERTURA", "¿cuánto necesita ganar una persona para consumir una caja a la semana?"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Responde con el texto aprobado del nodo 2.50: cuánto producto en su sistema cubre la compra, al 10% y al 17%.", "si": ["canal izquierdo", "Al 10%"] }
+      ]
+    },
+    {
+      "id": "como-puedo-empezar",
+      "tags": ["prospecto", "tono", "regresion"],
+      "origen": "23 oct · «Como puedo empezar»",
+      "entradas": ["APERTURA", "Como puedo empezar"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Explica cómo empezar (mostrar las cuatro formas de empezar es correcto). La respuesta abre con una sola fórmula de cortesía, no con dos seguidas como «Claro, con mucho gusto» y luego «Con gusto».", "no": ["^\\s*(Claro|Con gusto)[^\\n]*\\n+\\s*(Claro|Con gusto)"] }
+      ]
+    },
+    {
+      "id": "si-crece-porcentaje",
+      "tags": ["prospecto", "si-sin-destino", "regresion"],
+      "origen": "23 oct · «Sí» a «¿Le muestro cómo crece ese porcentaje…?»",
+      "entradas": ["APERTURA", "BOTON_DINERO", "Sí"],
+      "evaluar": [
+        { "turno": 3, "criterio": "Entrega la estrategia de Los 12 Niveles.", "si": ["12 Niveles"] }
+      ]
+    },
+    {
+      "id": "me-inscribi-una-vez",
+      "tags": ["prospecto", "objecion", "regresion"],
+      "origen": "29 sep · «me inscribí en una ocasión»",
+      "entradas": ["APERTURA", "me inscribí en una ocasión"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Reconoce su experiencia sin suponer que ya le fue bien, y le pregunta o le muestra qué cambió.", "no": ["ya logr[oó] que su negocio funcione"] }
+      ]
+    },
+    {
+      "id": "listo-paquetes",
+      "tags": ["prospecto", "si-de-otra-forma", "regresion"],
+      "origen": "29 sep · «listo.» a la oferta de los paquetes",
+      "entradas": ["APERTURA", "BOTON_FUNCIONA", "Sí", "Sí", "SIMULADOR_RENTA_KIT_10", "listo."],
+      "evaluar": [
+        { "turno": 6, "criterio": "Muestra los tres paquetes empresariales con sus precios.", "si": ["ESP-1", "ESP-2", "ESP-3"] }
+      ]
+    },
+    {
+      "id": "ya-vi-el-video",
+      "tags": ["prospecto", "repeticion", "auditoria-5nov"],
+      "origen": "28 oct · llegó desde un reel diciendo que ya vio el video",
+      "entradas": ["Hola Queswa, vengo del enlace de luis-cabrejo. Ya vi el video de cómo funciona."],
+      "evaluar": [
+        { "turno": 1, "criterio": "Saluda y sigue desde lo que ya vio, sin volver a mandarle el mismo video.", "no_tipo": ["video"] }
+      ]
+    },
+    {
+      "id": "catalogo-con-typo",
+      "tags": ["cliente", "typo", "auditoria-5nov"],
+      "origen": "29 oct · «Catalago» (lo escribió una socia; la puerta es la misma para el cliente)",
+      "entradas": ["APERTURA", "Catalago"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Envía el enlace del catálogo.", "si": ["/productos/luis-cabrejo"] }
+      ]
+    },
+    {
+      "id": "catalogo-directo",
+      "tags": ["cliente", "regresion"],
+      "origen": "26 oct · «Necesito el catalogo de los productos»",
+      "entradas": ["APERTURA", "Necesito el catalogo de los productos"],
+      "evaluar": [
+        { "turno": 2, "criterio": "Envía el enlace del catálogo.", "si": ["/productos/luis-cabrejo"] }
+      ]
+    }
+  ]
+}

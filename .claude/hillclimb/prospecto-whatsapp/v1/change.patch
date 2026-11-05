@@ -1,0 +1,111 @@
+diff --git a/src/app/api/whatsapp/webhook/route.ts b/src/app/api/whatsapp/webhook/route.ts
+index ee4a93b..3587430 100644
+--- a/src/app/api/whatsapp/webhook/route.ts
++++ b/src/app/api/whatsapp/webhook/route.ts
+@@ -114,7 +114,7 @@ import {
+   // apertura de productos la usaba sin importarla, y como marketing construye
+   // con ignoreBuildErrors el error no frenó nada — el turno se caía al ejecutarse
+   // y el prospecto se quedaba sin respuesta. Lo destapó el compilador el 14 sep.
+-  mensajeEnlaceCatalogo,
++  mensajeEnlaceCatalogo, mencionaCatalogo,
+   OFERTA_REDACTAR, detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, enviarAccesoDashboard, ACCESO_NO_ENVIADO,
+   esSoloAgradecimiento, cortesiaDeSocio,
+   detectarAccesoInventado, TEXTO_ACCESO_ENVIADO,
+@@ -822,6 +822,12 @@ async function procesarEntrante(body: any): Promise<void> {
+         .from('prospects')
+         .insert({
+           fingerprint_id: waFingerprint,
++          // En modo ensayo la ficha nace marcada como local: el webhook del
++          // Dashboard (`esEntornoDePrueba`) descarta las fichas con `first_url` en
++          // localhost. Sin esto, la evaluación del 5 nov 2026 le mandó a Luis
++          // ~50 avisos reales de «Andrea llegó a su enlace»: WA_DRY_RUN frena los
++          // envíos a Meta, no el trigger de la base. En producción no existe.
++          ...(process.env.WA_DRY_RUN === '1' && { first_url: 'http://localhost/ensayo-whatsapp' }),
+           // ⚠️ 'awareness' NO existe: `prospects_stage_check` solo acepta
+           // 'expansion' y 'activar'. Con 'awareness' el INSERT fallaba con 23514
+           // y, como abajo solo se registra el error sin abortar, el prospecto
+@@ -2926,7 +2932,7 @@ async function procesarEntrante(body: any): Promise<void> {
+     //
+     // ⚠️ Esto NO contradice la decisión de no sacar a la persona del canal: esa
+     // página lleva el orbe de Queswa, así que la conversación continúa allá.
+-    const _pideCatalogo = /(cat[aá]logo)|d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}productos|ver (todos )?los productos/i.test(messageText)
++    const _pideCatalogo = (mencionaCatalogo(messageText) || /d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}productos|ver (todos )?los productos/i.test(messageText))
+       && !/paquete|esp[\s-]?[123]/i.test(messageText);
+     if (_pideCatalogo && socio?.constructorId) {
+       const slug = await slugDelSocio(supabase, socio.constructorId);
+diff --git a/src/lib/wa-onboarding.ts b/src/lib/wa-onboarding.ts
+index 433c01e..56a556e 100644
+--- a/src/lib/wa-onboarding.ts
++++ b/src/lib/wa-onboarding.ts
+@@ -223,6 +223,33 @@ export function enlaceDeCanal(slug: string): string {
+  * el slug — acertó, pero por suerte: ni el prompt ni el motor se lo dan, y con
+  * otro slug habría caído en la mini-landing. Lo determinístico lo emite el backend.
+  */
++/** Distancia de edición con transposición (Damerau, alineación óptima). */
++function distanciaEdicion(a: string, b: string): number {
++  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
++  for (let j = 1; j <= b.length; j++) d[0][j] = j;
++  for (let i = 1; i <= a.length; i++) {
++    for (let j = 1; j <= b.length; j++) {
++      const c = a[i - 1] === b[j - 1] ? 0 : 1;
++      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + c);
++      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
++    }
++  }
++  return d[a.length][b.length];
++}
++
++/**
++ * ¿Nombra el catálogo, como lo escribe la gente? Cualquier palabra a dos
++ * ediciones o menos de «catalogo», sin tildes: «Catalago» (Sidney, 29 oct 2026:
++ * recibió el discurso de los productos en vez del enlace; la evaluación del
++ * 5 nov lo reprodujo 3 de 3), «catlogo», «ctaálogo», «cattálogo». Una lista de
++ * variantes nunca alcanza; la distancia sí. Una sola función para el prospecto
++ * (aquí) y para el socio (webhook).
++ */
++export function mencionaCatalogo(texto: string): boolean {
++  const palabras = texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().match(/[a-zñ]+/g) ?? [];
++  return palabras.some((p) => p.length >= 6 && p.length <= 11 && p[0] === 'c' && distanciaEdicion(p.replace(/s$/, ''), 'catalogo') <= 2);
++}
++
+ export function pideEnlaceCatalogo(texto: string): boolean {
+   const t = texto.toLowerCase();
+   // "Catálogo" a secas ya es la página: quien dice catálogo quiere mirarlo
+@@ -230,7 +257,7 @@ export function pideEnlaceCatalogo(texto: string): boolean {
+   // del socio, no una foto (decisión del Director, 22 ago 2026). La foto de
+   // una línea o del portafolio se pide con "muéstreme / foto de las bebidas /
+   // de todos los productos", y esa va por wa-productos.ts.
+-  if (/cat[aá]logo/.test(t)) return true;
++  if (mencionaCatalogo(t)) return true;
+   const medio  = /enlace|link|url|p[aá]gina|sitio|web\b|creatuactivo/.test(t);
+   const objeto = /producto/.test(t);
+   return medio && objeto;
+diff --git a/src/lib/wa-pedido.ts b/src/lib/wa-pedido.ts
+index e182995..ed6803e 100644
+--- a/src/lib/wa-pedido.ts
++++ b/src/lib/wa-pedido.ts
+@@ -90,6 +90,11 @@ const RE_VERBO_COMPRA =
+ const RE_COMPRA_DIRECTA =
+   /\b(solo|s[oó]lo|nada m[aá]s)\s+quiero\b|quiero\s+(una|un|dos|tres|cuatro|cinco|\d+)\s+(caja|frasco|tarro|unidad|sobre)|me\s+(manda|env[ií]a|vende|lleva|trae)\s+(una|un|dos|tres|cuatro|\d+)|\b(v[eé]ndame|mand[ae]me|env[ií]eme)\b|(hacer|hago|montar|monto|armar|armo|poner|pongo)(me)?\s+(el\s+|un\s+|mi\s+|otro\s+)?pedido|c[oó]mo\s+(pido|pedido|compro)|d[oó]nde\s+(pido|compro)|quiero\s+(comprar|pedir|encargar)|me interesa comprar|comprar\s+(una|un)\s+(caja|frasco|tarro)/i;
+ 
++const RE_PREGUNTA_NO_COMPRA =
++  /(?<![a-záéíóúñ])(en\s+)?cu[aá]nto\s+(vale|valen|cuesta|cuestan|sale|salen|est[aá]|me\s+(queda|sale|cuesta|vale))(?![a-záéíóúñ])|qu[eé]\s+precio|(?<![a-záéíóúñ])el\s+precio|(quiero|quisiera|me\s+gustar[ií]a|deseo)\s+(saber|conocer|preguntar|informaci[oó]n|info)(?![a-záéíóúñ])/i;
++const RE_COMPRA_EXPLICITA =
++  /(?<![a-záéíóúñ])(comprar|pedir|encargar|llevar|me\s+lo\s+llevo|v[eé]ndame|m[aá]ndeme|m[aá]ndame|env[ií]eme)(?![a-záéíóúñ])/i;
++
+ /**
+  * ¿Quiere comprar PRODUCTO? Un verbo de compra sin vocabulario de paquete, o un
+  * producto nombrado junto a un «quiero». Preguntar solo el precio no es comprar:
+@@ -98,7 +103,11 @@ const RE_COMPRA_DIRECTA =
+ export function detectarIntencionCompra(texto: string): boolean {
+   const t = texto.trim();
+   if (!t || RE_PAQUETE.test(t)) return false;
+-  if (/cu[aá]nto\s+(vale|cuesta|sale)/i.test(t) && !/quiero|comprar|pedir|llevar/i.test(t)) return false;
++  // Preguntar el precio o pedir información no es comprar, aunque diga «quiero»:
++  // «Quiero saber en cuanto me queda el colágeno» registraba un pedido (28 oct
++  // 2026; la evaluación del 5 nov lo reprodujo 3 de 3). Solo un verbo de compra
++  // explícito la vuelve pedido: «¿cuánto vale? quiero comprar dos».
++  if (RE_PREGUNTA_NO_COMPRA.test(t) && !RE_COMPRA_EXPLICITA.test(t)) return false;
+   if (RE_VERBO_COMPRA.test(t) || RE_COMPRA_DIRECTA.test(t)) return true;
+   return detectarProducto(t) !== null && /\b(quiero|quisiera|me llevo|me interesa|deme|d[eé]me|mande)\b/i.test(t);
+ }

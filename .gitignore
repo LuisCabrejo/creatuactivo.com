@@ -94,3 +94,15 @@ public/contexto/capturas/
 
 # Páginas de estudio privadas: viven en el bucket privado «estudio» de Supabase (scripts/subir-estudio.mjs). El repositorio es público.
 docs/investigaciones/referentes/
+
+# Evaluación de Queswa (.claude/hillclimb): se versionan casos, ejecutor y
+# resultados; no las transcripciones (conversaciones reales anonimizadas), ni lo
+# derivado, ni las corridas descartadas.
+.claude/hillclimb/**/traces/
+.claude/hillclimb/**/ref/
+.claude/hillclimb/**/report.html
+.claude/hillclimb/**/state.json
+.claude/hillclimb/**/trajectory/
+.claude/hillclimb/**/progress.txt
+.claude/hillclimb/*/piloto-*/
+.claude/hillclimb/*/corrida1-*/

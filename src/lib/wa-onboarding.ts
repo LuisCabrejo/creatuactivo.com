@@ -223,6 +223,33 @@ export function enlaceDeCanal(slug: string): string {
  * el slug — acertó, pero por suerte: ni el prompt ni el motor se lo dan, y con
  * otro slug habría caído en la mini-landing. Lo determinístico lo emite el backend.
  */
+/** Distancia de edición con transposición (Damerau, alineación óptima). */
+function distanciaEdicion(a: string, b: string): number {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const c = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + c);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+    }
+  }
+  return d[a.length][b.length];
+}
+
+/**
+ * ¿Nombra el catálogo, como lo escribe la gente? Cualquier palabra a dos
+ * ediciones o menos de «catalogo», sin tildes: «Catalago» (Sidney, 29 oct 2026:
+ * recibió el discurso de los productos en vez del enlace; la evaluación del
+ * 5 nov lo reprodujo 3 de 3), «catlogo», «ctaálogo», «cattálogo». Una lista de
+ * variantes nunca alcanza; la distancia sí. Una sola función para el prospecto
+ * (aquí) y para el socio (webhook).
+ */
+export function mencionaCatalogo(texto: string): boolean {
+  const palabras = texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().match(/[a-zñ]+/g) ?? [];
+  return palabras.some((p) => p.length >= 6 && p.length <= 11 && p[0] === 'c' && distanciaEdicion(p.replace(/s$/, ''), 'catalogo') <= 2);
+}
+
 export function pideEnlaceCatalogo(texto: string): boolean {
   const t = texto.toLowerCase();
   // "Catálogo" a secas ya es la página: quien dice catálogo quiere mirarlo
@@ -230,7 +257,7 @@ export function pideEnlaceCatalogo(texto: string): boolean {
   // del socio, no una foto (decisión del Director, 22 ago 2026). La foto de
   // una línea o del portafolio se pide con "muéstreme / foto de las bebidas /
   // de todos los productos", y esa va por wa-productos.ts.
-  if (/cat[aá]logo/.test(t)) return true;
+  if (mencionaCatalogo(t)) return true;
   const medio  = /enlace|link|url|p[aá]gina|sitio|web\b|creatuactivo/.test(t);
   const objeto = /producto/.test(t);
   return medio && objeto;

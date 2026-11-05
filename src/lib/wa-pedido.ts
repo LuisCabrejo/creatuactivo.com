@@ -90,6 +90,11 @@ const RE_VERBO_COMPRA =
 const RE_COMPRA_DIRECTA =
   /\b(solo|s[oó]lo|nada m[aá]s)\s+quiero\b|quiero\s+(una|un|dos|tres|cuatro|cinco|\d+)\s+(caja|frasco|tarro|unidad|sobre)|me\s+(manda|env[ií]a|vende|lleva|trae)\s+(una|un|dos|tres|cuatro|\d+)|\b(v[eé]ndame|mand[ae]me|env[ií]eme)\b|(hacer|hago|montar|monto|armar|armo|poner|pongo)(me)?\s+(el\s+|un\s+|mi\s+|otro\s+)?pedido|c[oó]mo\s+(pido|pedido|compro)|d[oó]nde\s+(pido|compro)|quiero\s+(comprar|pedir|encargar)|me interesa comprar|comprar\s+(una|un)\s+(caja|frasco|tarro)/i;
 
+const RE_PREGUNTA_NO_COMPRA =
+  /(?<![a-záéíóúñ])(en\s+)?cu[aá]nto\s+(vale|valen|cuesta|cuestan|sale|salen|est[aá]|me\s+(queda|sale|cuesta|vale))(?![a-záéíóúñ])|qu[eé]\s+precio|(?<![a-záéíóúñ])el\s+precio|(quiero|quisiera|me\s+gustar[ií]a|deseo)\s+(saber|conocer|preguntar|informaci[oó]n|info)(?![a-záéíóúñ])/i;
+const RE_COMPRA_EXPLICITA =
+  /(?<![a-záéíóúñ])(comprar|pedir|encargar|llevar|me\s+lo\s+llevo|v[eé]ndame|m[aá]ndeme|m[aá]ndame|env[ií]eme)(?![a-záéíóúñ])/i;
+
 /**
  * ¿Quiere comprar PRODUCTO? Un verbo de compra sin vocabulario de paquete, o un
  * producto nombrado junto a un «quiero». Preguntar solo el precio no es comprar:
@@ -98,7 +103,11 @@ const RE_COMPRA_DIRECTA =
 export function detectarIntencionCompra(texto: string): boolean {
   const t = texto.trim();
   if (!t || RE_PAQUETE.test(t)) return false;
-  if (/cu[aá]nto\s+(vale|cuesta|sale)/i.test(t) && !/quiero|comprar|pedir|llevar/i.test(t)) return false;
+  // Preguntar el precio o pedir información no es comprar, aunque diga «quiero»:
+  // «Quiero saber en cuanto me queda el colágeno» registraba un pedido (28 oct
+  // 2026; la evaluación del 5 nov lo reprodujo 3 de 3). Solo un verbo de compra
+  // explícito la vuelve pedido: «¿cuánto vale? quiero comprar dos».
+  if (RE_PREGUNTA_NO_COMPRA.test(t) && !RE_COMPRA_EXPLICITA.test(t)) return false;
   if (RE_VERBO_COMPRA.test(t) || RE_COMPRA_DIRECTA.test(t)) return true;
   return detectarProducto(t) !== null && /\b(quiero|quisiera|me llevo|me interesa|deme|d[eé]me|mande)\b/i.test(t);
 }

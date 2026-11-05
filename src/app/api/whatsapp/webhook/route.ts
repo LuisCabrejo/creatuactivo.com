@@ -114,7 +114,7 @@ import {
   // apertura de productos la usaba sin importarla, y como marketing construye
   // con ignoreBuildErrors el error no frenó nada — el turno se caía al ejecutarse
   // y el prospecto se quedaba sin respuesta. Lo destapó el compilador el 14 sep.
-  mensajeEnlaceCatalogo,
+  mensajeEnlaceCatalogo, mencionaCatalogo,
   OFERTA_REDACTAR, detectarPideFuncionDashboard, invitacionAlDashboard, botInvitoAlDashboard, enviarAccesoDashboard, ACCESO_NO_ENVIADO,
   esSoloAgradecimiento, cortesiaDeSocio,
   detectarAccesoInventado, TEXTO_ACCESO_ENVIADO,
@@ -822,6 +822,12 @@ async function procesarEntrante(body: any): Promise<void> {
         .from('prospects')
         .insert({
           fingerprint_id: waFingerprint,
+          // En modo ensayo la ficha nace marcada como local: el webhook del
+          // Dashboard (`esEntornoDePrueba`) descarta las fichas con `first_url` en
+          // localhost. Sin esto, la evaluación del 5 nov 2026 le mandó a Luis
+          // ~50 avisos reales de «Andrea llegó a su enlace»: WA_DRY_RUN frena los
+          // envíos a Meta, no el trigger de la base. En producción no existe.
+          ...(process.env.WA_DRY_RUN === '1' && { first_url: 'http://localhost/ensayo-whatsapp' }),
           // ⚠️ 'awareness' NO existe: `prospects_stage_check` solo acepta
           // 'expansion' y 'activar'. Con 'awareness' el INSERT fallaba con 23514
           // y, como abajo solo se registra el error sin abortar, el prospecto
@@ -2926,7 +2932,7 @@ async function procesarEntrante(body: any): Promise<void> {
     //
     // ⚠️ Esto NO contradice la decisión de no sacar a la persona del canal: esa
     // página lleva el orbe de Queswa, así que la conversación continúa allá.
-    const _pideCatalogo = /(cat[aá]logo)|d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}productos|ver (todos )?los productos/i.test(messageText)
+    const _pideCatalogo = (mencionaCatalogo(messageText) || /d[oó]nde[^.?]{0,25}(ver|veo|encuentro|consulto|miro)[^.?]{0,25}productos|ver (todos )?los productos/i.test(messageText))
       && !/paquete|esp[\s-]?[123]/i.test(messageText);
     if (_pideCatalogo && socio?.constructorId) {
       const slug = await slugDelSocio(supabase, socio.constructorId);

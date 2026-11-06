@@ -1,11 +1,12 @@
 # Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
 **Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
 
-**Versión actual: v7.16** (29 oct 2026) — **Las defensas con la frase aprobada.** `CIENCIA_01`, `CIENCIA_02` y la fila de las Cápsulas Ganoderma en la tabla de suplementos dicen «apoya el funcionamiento normal de las defensas», la frase del Director para todos los productos que se toman (Director, 29 oct 2026).
+**Versión actual: v7.17** (5 nov 2026) — **Las ofertas del catálogo llegan a su destino.** Nace `BEB_DIF_01` (en qué se diferencian las bebidas, por momento del día), destino del pie de la foto y de la tabla del ESP-1; `BEB_06` y `BEB_06B` cierran con «¿Le muestro cómo se toma a lo largo del día?», y `RUTINA_01` nombra el Reskine. Texto aprobado por el Director en el chat.
+
+**v7.16** (29 oct 2026) — **Las defensas con la frase aprobada.** `CIENCIA_01`, `CIENCIA_02` y la fila de las Cápsulas Ganoderma en la tabla de suplementos dicen «apoya el funcionamiento normal de las defensas», la frase del Director para todos los productos que se toman (Director, 29 oct 2026).
 
 **v7.15** (28 oct 2026, noche) — **«¿Para qué sirve?» se responde con la vida del producto, no con la ficha ni con la ley.** Auditoría de tono con 26 preguntas de prospecto contra el motor: `CIENCIA_03` abre con la experiencia (antes abría con «no del tratamiento médico») y es la puerta de «para qué sirven los productos», que se iba al negocio; `BEB_04` (té) y `BEB_05` (cereal) dejan el formato de folleto, y los beneficios del té son los del rooibos —sin cafeína, antioxidantes, favorece el descanso— (Director); el colágeno dice sus dos declaraciones aprobadas por el INVIMA, la piel y las articulaciones, con sus condiciones (Director: está aprobado y documentado), y nace `BEB_06B` para «¿sirve para la piel?»; «apoya el funcionamiento normal de las defensas» vale para todos los productos (Director); `BEB_10` y `PERS_03` atienden «el chocolate» y «el jabón», que tienen dos productos cada uno; `HAB_01` recibe el cansancio, que caía en los paquetes. Texto aprobado por el Director en el chat.
 
-**v7.14** (28 oct 2026) — **El catálogo guía con hábitos.** Nacen `HAB_01` (las cuatro pautas de base) y `HAB_02` (antes de entrenar y el pre-entreno), y `FAQ_01` nombra las precauciones concretas. Las ofertas de cierre van literales en los índices de `BEB_02` y `BEB_07`. Texto aprobado por el Director en el chat.
 
 **[Concepto Nuclear del archivo]:** Ganoderma Lucidum con extracción propia, más de 30 años de proceso y más de 200 compuestos. ⛔ **Decía *"Biodisponibilidad 100%"*** — retirado el 26 ago 2026: **la composición se afirma; la absorción no.** Esta cabecera no se sirve, pero es lo primero que lee quien vaya a editar.
 
@@ -264,7 +265,7 @@ Junto con una dieta saludable, el colágeno ayuda a mantener la función de barr
 
 **Presentación:** 10 sobres · **Precio: $216.900 COP**
 
-**Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
+**Pregunta de seguimiento:** ¿Le muestro cómo se toma a lo largo del día?
 ---
 
 ### BEB_06B: "¿El colágeno sirve para la piel? / ¿el Reskine es para la piel? / ¿el colágeno quita las arrugas? / colágeno para el cabello y las uñas"
@@ -277,7 +278,7 @@ El Reskine lo trae en una bebida de frutos rojos —fresa, frambuesa y arándano
 
 La caja trae 10 sobres y cuesta $216.900 COP.
 
-**Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
+**Pregunta de seguimiento:** ¿Le muestro cómo se toma a lo largo del día?
 ---
 
 ### BEB_07: "¿Para qué sirve el Ganocafé Clásico? / ¿Qué es el Ganocafé Classic? / háblame del café negro / el clásico / el tinto de ustedes / café puro con ganoderma"
@@ -347,6 +348,30 @@ Es más profundo y menos dulce que el Shoko Rico — el que uno se toma solo, al
 Un sobre en agua caliente. La caja trae 20 y cuesta $124.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
+
+---
+
+### BEB_DIF_01: "¿En qué se diferencian las bebidas?"
+**[Índice]:** ¿Le cuento en qué se diferencian entre ellas? ¿Le cuento en qué se diferencian estas bebidas? En qué se diferencian las bebidas, cuál es la diferencia entre los cafés, cuál bebida escojo.
+**[Concepto Nuclear]:** Nace el 5 nov 2026 (Director), en la evaluación del canal: el pie de la foto de las bebidas y la tabla del ESP-1 ofrecen «en qué se diferencian», y el «sí» recibía `BEB_01`, la misma lista de precios que la persona acababa de ver. Lo dicta el conductor (nodo 2.37). Se diferencian por el MOMENTO del día, que es como la persona se imagina usándolas; cada dato sale de la ficha del catálogo web (`productos/catalogo-datos.ts`). ⚠️ Sin precios: ya los vio. ⚠️ Sin beneficios de salud: el chocolate va por el momento y el sabor, y lo que se diga del descanso es solo del Rooibos en su fragmento. ⚠️ Cierra en `BEB_02`, que existe: una sola salida, y el «sí» siguiente no vuelve a preguntar «¿sobre cuál?».
+
+<verbatim_lock>
+Se diferencian por el momento del día:
+
+*Al empezar el día*: el Ganocafé 3 en 1, como su café de siempre, y el Ganocafé Clásico, café negro puro.
+
+*A media mañana o en la tarde*: el Latte Rico, que hace espuma, y el Mocha Rico, café con chocolate.
+
+*En el desayuno*: el Gano C'Real Spirulina, en agua o en leche.
+
+*En la mañana o al final del día*: el chocolate, para grandes y chicos. El Shoko Rico es el de los niños, y el Schokolade, el del adulto, con más cacao y menos dulce.
+
+*En la tarde o en la noche*: el Rooibos, que no tiene cafeína.
+
+*Y aparte*: el Reskine Colágeno, directo del sachet, en la mañana o después de entrenar.
+</verbatim_lock>
+
+**Pregunta de seguimiento:** ¿Le cuento qué tiene de especial el Ganocafé 3 en 1?
 
 ---
 
@@ -641,11 +666,13 @@ No es un estimulante que entra y sale — se va acomodando. Por eso la constanci
 
 ### RUTINA_01: "¿Cómo se toman a lo largo de un día? / ¿A qué hora se toma cada uno?"
 **[Índice]:** ¿Le muestro cómo se toman a lo largo de un día? Cómo se toman los productos, a qué hora va cada uno, cómo se prepara el sobre, cuántas cápsulas al día, cómo es un día con los productos, cómo los incorporo a mi rutina, si los pueden tomar los niños.
-**[Concepto Nuclear]:** Es el destino de la oferta con que cierran CIENCIA_03, FAQ_01 y FAQ_02 (v7.10). Quien acepta «cómo se toman a lo largo de un día» ya recibió los beneficios y **no quiere oírlos otra vez**: quiere verse un día —en qué momentos, qué producto, cómo se prepara, cuántos, para quién—. Es un HORARIO, no un argumento (intenciones de implementación: «cuando pase X, hago Y» multiplica el seguimiento frente a la intención abstracta; el producto se ancla a un momento que ya existe). ⚠️ Cero beneficios aquí. ⚠️ Solo hechos de las fichas: sobre en agua caliente; caja de 20; frasco de 90 cápsulas = tres meses, una al día; Rooibos sin cafeína; Shoko Rico para toda la familia. ⚠️ No nombrar productos que no están en los 22 (el modelo inventó *Ganocelium* el 3 sep). ⚠️ La oferta anterior decía «día a día», que es patrón del clasificador hacia EAM_01: la nueva no lo dice, y va literal en este índice. ⚠️ «Cuánto dura una caja» es de FAQ_05 y no se indexa aquí.
+**[Concepto Nuclear]:** Es el destino de la oferta con que cierran CIENCIA_03, FAQ_01 y FAQ_02 (v7.10). Quien acepta «cómo se toman a lo largo de un día» ya recibió los beneficios y **no quiere oírlos otra vez**: quiere verse un día —en qué momentos, qué producto, cómo se prepara, cuántos, para quién—. Es un HORARIO, no un argumento (intenciones de implementación: «cuando pase X, hago Y» multiplica el seguimiento frente a la intención abstracta; el producto se ancla a un momento que ya existe). ⚠️ Cero beneficios aquí. ⚠️ Solo hechos de las fichas: sobre en agua caliente; caja de 20; frasco de 90 cápsulas = tres meses, una al día; Rooibos sin cafeína; Shoko Rico para toda la familia. ⚠️ No nombrar productos que no están en los 22 (el modelo inventó *Ganocelium* el 3 sep). ⚠️ La oferta anterior decía «día a día», que es patrón del clasificador hacia EAM_01: la nueva no lo dice, y va literal en este índice. ⚠️ «Cuánto dura una caja» es de FAQ_05 y no se indexa aquí. ⚠️ **v7.17 (Director, 5 nov 2026):** también es el destino de `BEB_06` y `BEB_06B`, que cierran con «¿Le muestro cómo se toma a lo largo del día?» y nombra el Reskine con los hechos del catálogo web. Medido con Voyage: esa oferta recupera RUTINA_01 a 0.682 contra 0.598 de EAM_01; la anterior («cómo se integra en la rutina») recuperaba EAM_01 primero —la rutina sin producto se parece al día del negocio— y el «sí» al colágeno recibía el video de las dos acciones. El índice no se tocó: sumarle la oferta lo diluía. El chocolate va en la mañana y al final del día, para grandes y chicos (Director, 5 nov 2026).
 
 Un día con la línea se ve así:
 
 *Mañana*: un sobre de Ganocafé 3 en 1 en agua caliente, y ese es el café del día. Quien no toma café tiene el Schokolade o el Shoko Rico, que también van para los niños.
+
+*Mañana o después de entrenar*: el Reskine Colágeno, directo del sachet, sin agua ni vaso; bien frío sabe mejor. Uno al día: la caja rinde diez días.
 
 *Con el almuerzo*: una cápsula, de Ganoderma, Excellium o Cordygold según lo que busque. El frasco de Ganoderma o de Excellium dura tres meses; el de Cordygold, dos.
 

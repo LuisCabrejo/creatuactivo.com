@@ -64,7 +64,7 @@ export function mencionaElReto(texto: string): boolean {
  * Los videos con nombre propio no entran: «el último video de los 12 niveles» o
  * «el video de cómo funciona» tienen su respuesta y su puerta.
  */
-export const RETO_MAS_RECIENTE = { fragmento: 'arsenal_inicial_RETO_D51', fecha: '2026-10-27' };
+export const RETO_MAS_RECIENTE = { fragmento: 'arsenal_inicial_RETO_D58', fecha: '2026-11-03' };
 
 export const RE_VIDEO_ULTIMO = /(?<![a-záéíóúñ])(?:[uú](?:l+t+|t+l+)[ií]?mo|m[aá]s\s+reciente|nuevo)\s+(?:v+[ií]d+(?:eo|io|e|o)|vdi?eo)(?![a-záéíóúñ])/i;
 

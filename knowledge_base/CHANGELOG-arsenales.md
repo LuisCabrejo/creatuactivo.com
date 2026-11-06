@@ -30,6 +30,29 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## catalogo_productos v7.17 y arsenal_inicial v6.89: las ofertas llegan a su destino (Director, 5 nov 2026)
+
+La evaluación del canal (`scripts/eval-queswa/`) mostró tres ofertas aprobadas que el «sí» no llevaba a donde prometían. Medido con Voyage sobre el tenant `whatsapp`, sin desplegar, antes de proponerlo.
+
+- **`BEB_06` y `BEB_06B`** cerraban con «¿Le muestro cómo se integra en la rutina?», que recuperaba `EAM_01` 🔒 (0.495) por encima de su destino: la rutina sin producto se parece al día del negocio, y el «sí» al colágeno recibía el video de las dos acciones. Ahora cierran con «¿Le muestro cómo se toma a lo largo del día?» → `RUTINA_01` 0.682 contra 0.598. El índice de `RUTINA_01` no se tocó: sumarle la oferta lo diluía.
+- **`RUTINA_01`** nombra el Reskine con los hechos del catálogo web: *mañana o después de entrenar, directo del sachet, bien frío; uno al día, la caja rinde diez días*.
+- **Nace `BEB_DIF_01`**: en qué se diferencian las bebidas, por momento del día y sin precios. Es el destino del pie de la foto de las bebidas y de la tabla del ESP-1 (nodo 2.37 del conductor), que antes entregaban `BEB_01`, la misma lista que la persona acababa de ver. Cierra en `BEB_02`. El chocolate va *en la mañana o al final del día, para grandes y chicos* (Director): lo del descanso es solo del Rooibos.
+- **`EAM_03`**: su índice abre con *«Los clientes los tengo que conseguir yo para vender»*. La pregunta real la ganaba `FREQ_21` (0.618 contra 0.572); ahora `EAM_03` 0.653, sin quitarle consultas a `FREQ_21`.
+
+---
+
+## arsenal_inicial — v6.88: `RETO_D58`, «en qué estuvo equivocado, y los dos aciertos» (3 nov 2026)
+
+El archivo del video del día 58 (martes 3 nov), aprobado por el Director el 3 nov, con el texto escrito desde el guion grabado. `RETO_MAS_RECIENTE` (src/lib/puerta-reto.ts) pasa del día 51 al 58.
+
+- Las cifras van con su fuente, como en la Presentación: DANE ECV 2025 (nueve de cada diez hogares), DANE GEIH may–jul 2026 (54,6 % de informalidad), Colpensiones y U. Javeriana 2022 (tres de cada cuatro sin pensión).
+- El activo va definido y con su causa en el cuerpo: cada cliente que llega por su enlace queda a su nombre, y cada vez que vuelve a comprar, a usted le queda un porcentaje.
+- El índice no dice «con qué plata» ni «a qué horas» (es de `RETO_D43`) ni «qué es un activo» (es de `WHY_01`).
+- Medido ya desplegado (`medir-recuperacion-voyage.mjs`, tenant `whatsapp`): sale primero en *«en qué dijo Luis que estaba equivocado»* (0.471), *«la casa y el carro no son un activo?»* (0.524) y *«lo de la recta final del año»* (0.510); 2.º en *«de dónde sale eso de 9 de cada 10 hogares»* (0.404, detrás de `RETO_D50`); 3.º en *«cuántos trabajan en la informalidad»*; fuera del top 6 en *«cuántos no tienen pensión»* y *«cómo la tecnología baja la barrera para empezar»* (`RETO_D43`, `FREQ_43`). No le quita nada a los dueños: *«qué es un activo»* sigue en `WHY_01` (0.555), *«con qué plata y a qué horas»* en `WHY_04` y `RETO_D43`, y *«cómo funciona el negocio»* y *«cuánto cuesta empezar»* no lo traen al top 6.
+- ⚠️ La medición previa al despliegue daba más (5 de 7 primero) porque el arnés embebió el título con el prefijo `RETO_D58:`, que el fragmentador no pone. Para medir un índice sin desplegar, el texto es `título\n\níndice`, sin el código.
+
+---
+
 ## arsenal_compensacion v8.16 y arsenal_avanzado v14.10: el GEN5 ya no «financia el inicio» (2 nov 2026)
 
 Al auditar la pantalla «Cómo se gana» de `/servilleta`, el Director corrigió la línea *«Es lo que financia el crecimiento al inicio»*: el Bono GEN5 se paga igual a quien inicia y a quien lleva décadas; no es un bono de etapa. La misma idea vivía en el arsenal desde que la familia GEN5 se reescribió el 9 ago (*«la función sí se conserva: es la plata que financia el crecimiento en la etapa temprana»*), y sale de todas partes:

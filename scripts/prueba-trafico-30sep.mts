@@ -97,9 +97,24 @@ const EMULADAS: Record<string, (t: string) => boolean> = {
 const puertas = bloque.split(/\n\s*fragmento:\s*'/).slice(1).map((trozo) => {
   const fragmento = trozo.slice(0, trozo.indexOf("'"));
   const lit = trozo.match(/\n\s*cuando:\s*\/(.+)\/([gimsuy]*),\s*\n/);
-  const test = EMULADAS[fragmento] ?? (lit ? ((t: string) => new RegExp(lit[1], lit[2]).test(t)) : null);
+  // La forma `cuando: { test: (t: string) => … }` (ADV_OBJ_02 desde el 20 oct
+  // 2026) también se lee de la fuente. Sin esto, la puerta era invisible para
+  // el arnés y el caso del empresario salía «(ninguna)» aunque en el motor abría.
+  // Solo las autocontenidas (regex literales sobre `t`): las que llaman funciones
+  // del motor no se pueden evaluar aquí, y se nombran abajo en vez de callarse.
+  const fn = lit ? null : trozo.match(/\n\s*cuando:\s*\{\s*test:\s*\(t(?::\s*string)?\)\s*=>\s*([\s\S]+?),?\s*\},\s*\n/);
+  let deFuncion: ((t: string) => boolean) | null = null;
+  if (fn && !/\b[A-Za-z_]\w*\s*\(/.test(fn[1].replace(/\/(?:[^/\\\n]|\\.)+\/[gimsuy]*/g, '').replace(/\.test\(/g, ''))) {
+    try { deFuncion = new Function('t', `return (${fn[1]});`) as (t: string) => boolean; } catch { deFuncion = null; }
+  }
+  const test = EMULADAS[fragmento]
+    ?? (lit ? ((t: string) => new RegExp(lit[1], lit[2]).test(t)) : null)
+    ?? deFuncion;
   return { fragmento, test };
 });
+const sinLeer = puertas.filter((p) => !p.test).map((p) => p.fragmento);
+if (sinLeer.length) console.log(`  (no se pueden evaluar fuera del motor: ${sinLeer.join(', ')})`);
+revisar('la puerta del empresario se lee de la fuente', puertas.some((p) => p.fragmento === 'arsenal_avanzado_ADV_OBJ_02' && p.test));
 revisar('las dos puertas tocadas siguen en la tabla', ['arsenal_inicial_NET_02', 'arsenal_inicial_FREQ_03'].every((f) => puertas.some((p) => p.fragmento === f)));
 const primera = (t: string) => puertas.find((p) => p.test?.(t))?.fragmento ?? '(ninguna)';
 for (const [t, espera] of [

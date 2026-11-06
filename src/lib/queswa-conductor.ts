@@ -269,8 +269,12 @@ export async function textoDeCandado(supabase: any, tenant: string, categoria: s
 export function categoriaDeLasDiferencias(cierreBot: string, ultimoBot: string): string | null {
   const c = cierreBot || '';
   if (/en qu[eé] se diferencian estos productos entre ellos/i.test(c)) return 'catalogo_productos_PROD_OVERVIEW';
-  if (/en qu[eé] se diferencian estas bebidas/i.test(c)) return 'catalogo_productos_BEB_01';
-  if (/en qu[eé] se diferencian entre ellas/i.test(c) && /ganocaf[eé]/i.test(ultimoBot) && /schokolade|rooibos|reskine|spirulina/i.test(ultimoBot)) return 'catalogo_productos_BEB_01';
+  // Las bebidas van a BEB_DIF_01, no a BEB_01 (5 nov 2026): BEB_01 es la lista
+  // con precios que la persona acababa de ver en la foto o en la tabla, y la
+  // evaluación del canal lo marcó como repetición. BEB_DIF_01 las diferencia
+  // por el momento del día.
+  if (/en qu[eé] se diferencian estas bebidas/i.test(c)) return 'catalogo_productos_BEB_DIF_01';
+  if (/en qu[eé] se diferencian entre ellas/i.test(c) && /ganocaf[eé]/i.test(ultimoBot) && /schokolade|rooibos|reskine|spirulina/i.test(ultimoBot)) return 'catalogo_productos_BEB_DIF_01';
   if (/en qu[eé] se diferencian los tres/i.test(c) && /cordygold/i.test(ultimoBot) && /excellium/i.test(ultimoBot)) return 'catalogo_productos_SUP_01';
   return null;
 }

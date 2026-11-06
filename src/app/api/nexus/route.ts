@@ -55,6 +55,8 @@ import {
 import { pushAlDashboard } from '@/lib/wa-avisos-contexto';
 import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
 import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto, quitarElogioInicial } from '@/lib/queswa-envoltura';
+import { parametrosDeRedaccion } from '@/lib/modelo-redaccion';
+import { fichaDeUso, pinProductoDelHilo } from '@/lib/ficha-producto';
 import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
 
 /**
@@ -3144,7 +3146,7 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
     },
   ];
 
-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = [], textosPrevios: readonly string[] = []) {
+async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = [], textosPrevios: readonly string[] = [], consultaParafraseada = false) {
   // El socio recibe el directorio de sedes (FREQ_34) y el prospecto no: la
   // caché no puede mezclar a los dos.
   // ⚠️ Lo ya servido entra en la CLAVE del caché: el resultado filtrado es de
@@ -3173,7 +3175,24 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
     // puerta no disparó, y el modelo compuso con "reclutamiento" adentro. Las
     // palabras de la persona son la llave — la paráfrasis de un modelo no puede
     // costarla.
-    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage) || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
+    //
+    // ⚠️ Pero una puerta DICTADA no se abre con la paráfrasis (5 nov 2026). El
+    // CQR también AGREGA palabras, y las toma de la respuesta anterior de
+    // Queswa: «y para la vitalidad, la energía» salió reescrita como «Productos
+    // Ganoderma para vitalidad y energía del día a día», la puerta de EAM_01
+    // leyó «día a día» y le dictó el video del negocio a alguien que preguntaba
+    // por un producto. Una puerta dictada entrega un texto literal sin que el
+    // modelo vea la pregunta, así que la llave tiene que ser de la persona: su
+    // mensaje, o un ancla determinística (la oferta que aceptó con un «sí», la
+    // intención de video), que no pasan por el CQR. Las no dictadas siguen
+    // leyendo la reescrita: ahí el modelo ve la pregunta y responde.
+    const puerta = PUERTAS_INICIAL.find(p =>
+      (p.cuando.test(userMessage) && !(p.dictar && consultaParafraseada))
+      || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
+    if (!puerta && consultaParafraseada) {
+      const descartada = PUERTAS_INICIAL.find(p => p.dictar && p.cuando.test(userMessage));
+      if (descartada) console.log(`🚪 [Puerta] ${descartada.fragmento} solo la abría la paráfrasis del CQR — no se dicta`);
+    }
     if (puerta) {
       const allFragments = await getArsenalFragments(tenantId);
       const frag = allFragments.find(f => f.category === puerta.fragmento);
@@ -5647,6 +5666,9 @@ ${summaryParts.join('\n')}
     // Aquí la conversación se colapsa en una consulta autónoma ANTES de buscar.
     // Degrada con gracia: si falla, se busca con el mensaje original.
     let consultaRecuperacion = latestUserMessage;
+    let _consultaParafraseada = false;
+    // El «sí» se ancló a una oferta que el modelo compuso: ni puerta ni candado se dictan.
+    let _ofertaCompuesta = false;
 
     // ── Aceptación pelada: se busca con la OFERTA, no con el "sí" (14 ago 2026) ──
     // Determinístico y ANTES del CQR: cuando el mensaje es solo una aceptación,
@@ -5676,6 +5698,34 @@ ${summaryParts.join('\n')}
       if (_preguntas && _preguntas.length && !_anclaMala) {
         consultaRecuperacion = _preguntas[_preguntas.length - 1];
         console.log(`🔁 [Aceptación] Se busca con la oferta del bot: "${consultaRecuperacion.slice(0, 80)}"`);
+        // Una oferta que compuso el modelo busca, pero no DICTA (5 nov 2026,
+        // evaluación del canal, caso reskine-rutina 0/3). BEB_06 cierra con una
+        // oferta del arsenal; el modelo la reescribió como «…en la rutina del
+        // día a día», y ante el «Sí» la puerta de EAM_01 leyó «día a día» y dictó
+        // el video del negocio a quien preguntaba por el colágeno. Es la misma
+        // falla que la paráfrasis del CQR: texto que la persona no escribió
+        // abriendo un dictado. Si la oferta está escrita en algún fragmento, es
+        // copy aprobado y abre lo que abría; si no, se trata como paráfrasis.
+        // Cuenta como compuesta solo si las dos cosas son ciertas: no está literal
+        // en ningún fragmento Y el turno anterior lo redactó el modelo (su
+        // `search_method`). Las ofertas del código —«¿Le detallo exactamente qué
+        // productos trae el paquete Visionario?», las de los videos, las del
+        // conductor— no viven en el arsenal, y en la evaluación del 5 nov la
+        // primera versión de esta regla las tomaba por compuestas. Un turno sin
+        // método es una plantilla: también es del código.
+        const _norm = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[*_]/g, '').replace(/\s+/g, ' ').trim();
+        const _filasPrevias: Array<{ metadata?: Record<string, unknown> | null }> = Array.isArray(conversationsResult?.data) ? conversationsResult.data : [];
+        const _metodoPrevio = String(_filasPrevias[_filasPrevias.length - 1]?.metadata?.search_method ?? '');
+        const _previoDelModelo = /^(fragment_vector_search(_fallback)?|puerta_directa|category_direct|price_table_fragments|none)$/.test(_metodoPrevio);
+        if (_previoDelModelo) {
+          const _oferta = _norm(consultaRecuperacion);
+          const _fragsOferta = await getArsenalFragments(tenantId);
+          if (_fragsOferta.length && !_fragsOferta.some((f) => _norm(f.content || '').includes(_oferta))) {
+            _consultaParafraseada = true;
+            _ofertaCompuesta = true;
+            console.log(`🔁 [Aceptación] La oferta la compuso el modelo (turno anterior: ${_metodoPrevio}) y no está en el arsenal: busca, pero no se dicta`);
+          }
+        }
       } else if (_anclaMala) {
         console.log('🔁 [Aceptación] La oferta anterior tenía dos salidas — no se ancla, lo atiende el modelo');
       }
@@ -5755,6 +5805,8 @@ ${summaryParts.join('\n')}
         cliente: anthropic, registrar: (c) => _consumo.push(c),
       });
       consultaRecuperacion = cqr.consulta;
+      // Las puertas dictadas no se abren con esta paráfrasis: ver consultarArsenalHibrido.
+      _consultaParafraseada = consultaRecuperacion.trim() !== (latestUserMessage || '').trim();
     }
 
     if (!isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly && !_negacionPelada) {
@@ -5787,7 +5839,7 @@ ${summaryParts.join('\n')}
         // así que la expansión de chips sigue funcionando igual.
         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
         console.log('Query híbrido generado:', searchQuery);
-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos, _bitacora?.textosDelBot ?? []);
+        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos, _bitacora?.textosDelBot ?? [], _consultaParafraseada);
         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
       }
     } else {
@@ -6978,7 +7030,8 @@ ${filaGen5}`;
      */
     const getPinProducto = (): string => {
       const prod = detectarProducto(latestUserMessage);
-      if (!prod) return '';
+      // Sin producto en el mensaje, el del hilo: ver `ficha-producto.ts` (5 nov 2026).
+      if (!prod) return pinProductoDelHilo(_ultimoBotMsg);
       const precio = visitorCountry === 'CO' || !visitorCountry
         ? `$${prod.precioCOP.toLocaleString('es-CO')} COP`
         : `$${prod.precioCOP.toLocaleString('es-CO')} COP`;
@@ -6986,7 +7039,7 @@ ${filaGen5}`;
       return `
 💠 DATOS OFICIALES DEL PRODUCTO POR EL QUE PREGUNTAN (úsalos exactos):
 • Nombre correcto: ${prod.nombre}${pres}
-• Precio: ${precio}${prod.invima ? `\n• Registro INVIMA: ${prod.invima}` : ''}
+• Precio: ${precio}${prod.invima ? `\n• Registro INVIMA: ${prod.invima}` : ''}${fichaDeUso(prod) ? `\n• ${fichaDeUso(prod).replace(/\n  /g, '\n• ')}` : ''}
 ⚠️ El precio va SIEMPRE en la respuesta, y el nombre se escribe así, sin
 inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
     };
@@ -7251,7 +7304,12 @@ ${visitorCountry === 'CO'
         // Y un candado que abre con «Sí.» no se le dicta a quien pregunta «¿en qué
         // se diferencia…?»: ver `siFueraDeLugar` en el conductor (FREQ_40, 10 oct 2026).
         const _siFueraDeLugar = !!_cuerpo && siFueraDeLugar(_cuerpo, String(latestUserMessage ?? ''));
-        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || ((_esReparacion || _esObjecionPresupuesto || _siFueraDeLugar) && !_esPuertaDictada))) {
+        // Y un candado que trajo una oferta compuesta por el modelo tampoco (5 nov
+        // 2026): ver `_ofertaCompuesta`. «…en la rutina del día a día» recupera
+        // EAM_01 con candado por delante de RUTINA_01, y sin esto el «sí» al
+        // colágeno recibía el video del negocio por esta vía en vez de la puerta.
+        const _porOfertaCompuesta = _ofertaCompuesta && !_esPuertaDictada;
+        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || _porOfertaCompuesta || ((_esReparacion || _esObjecionPresupuesto || _siFueraDeLugar) && !_esPuertaDictada))) {
           // El candado se queda como MATERIAL, sin la orden de copiarlo literal:
           // así el modelo responde lo que la persona preguntó de verdad, con el
           // fragmento delante. Quitárselo lo dejaría componiendo sin material,
@@ -7266,7 +7324,7 @@ ${visitorCountry === 'CO'
           _doc0.content = (_doc0.content || '').replace(/<\/?verbatim_lock>/gi, '');
           arsenalParaCierre = arsenalParaCierre.replace(/<\/?verbatim_lock>/gi, '');
           _meta0.candado_solitario = false;
-          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : _esObjecionPresupuesto ? 'el mensaje es una objeción de presupuesto' : _siFueraDeLugar ? 'abre con «Sí» y la pregunta no es de sí o no' : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
+          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : _porOfertaCompuesta ? 'lo trajo una oferta que compuso el modelo' : _esObjecionPresupuesto ? 'el mensaje es una objeción de presupuesto' : _siFueraDeLugar ? 'abre con «Sí» y la pregunta no es de sí o no' : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
         } else if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
           const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
           const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';
@@ -7640,8 +7698,13 @@ ESTADO: ${getMessageContext()}`;
       try {
         // En intento 2 (último), degradar a Haiku para evitar otro overload en Sonnet
         const useHaiku = isSimpleQuery || attempt >= 2;
+        // Sonnet 4.6 salvo en una comparación de modelos de la evaluación: ver
+        // `modelo-redaccion.ts`. Trae `model`, `max_tokens` y temperature o effort.
+        const _redaccion = useHaiku
+          ? { model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, temperature: 0.65 }
+          : parametrosDeRedaccion(_esPrueba, maxTokens);
         return await anthropic.messages.create({
-      model: useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-6',
+      ...(_redaccion as { model: string; max_tokens: number }),
       system: isSimpleQuery
         // Haiku: prompt corto ~300 chars, TTFT ~0.6s, sin overhead de cache
         ? HAIKU_SYSTEM_PROMPT
@@ -7667,8 +7730,8 @@ ESTADO: ${getMessageContext()}`;
             }
           ],
       stream: true,
-      max_tokens: maxTokens,
-      temperature: 0.65,            // Haiku y Sonnet no aceptan temperature + top_p juntos
+      // max_tokens y temperature (o effort, en la generación 5) vienen en _redaccion.
+      // Haiku y Sonnet no aceptan temperature + top_p juntos.
       messages: recentMessages,
         });
       } catch (err: any) {

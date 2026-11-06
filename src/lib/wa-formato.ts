@@ -47,14 +47,18 @@ function tablaABloques(filas: string[]): string {
   if (datos.length < 2) return filas.map((f) => celdas(f).join(' · ')).join('\n');
 
   const [cabecera, ...cuerpo] = datos;
+  const sinNegrita = (t: string) => (t ?? '').replace(/\*\*/g, '').replace(/^\*|\*$/g, '').trim();
 
   // Dos columnas = ficha, no matriz: "Precio: $272.500", línea por línea. El
   // formato de bloques aquí producía "Detalle *Precio*" con la etiqueta genérica
   // de la cabecera como título — ruido puro en el teléfono.
+  // La etiqueta pierde su propia negrita antes de envolverla (5 nov 2026): la
+  // fila «| **Total** | **18** |» de la composición del ESP-2 llegaba como
+  // «• **Total*:* *18*», con los asteriscos a la vista.
   if (cabecera.length === 2) {
     return cuerpo
       .filter((fila) => fila[0] || fila[1])
-      .map((fila) => `• *${fila[0]}:* ${fila[1] ?? ''}`.trim())
+      .map((fila) => `• *${sinNegrita(fila[0])}:* ${fila[1] ?? ''}`.trim())
       .join('\n');
   }
 
@@ -65,7 +69,6 @@ function tablaABloques(filas: string[]): string {
   // 1**» en el teléfono — el rótulo delante y la negrita de la celda metida
   // dentro de la del título.
   const cabeceraGenerica = /^(detalle|campo|concepto|dato|item|ítem|descripci[oó]n|producto|paquete|nombre)?$/i.test(cabecera[0] ?? '');
-  const sinNegrita = (t: string) => (t ?? '').replace(/\*\*/g, '').replace(/^\*|\*$/g, '').trim();
 
   return cuerpo
     .map((fila) => {

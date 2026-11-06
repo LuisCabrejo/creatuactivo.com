@@ -458,6 +458,17 @@ export function saludSeCompone(familia: FamiliaSalud): boolean {
  */
 export const CIERRE_SALUD = '¿Le paso el catálogo, para que vea qué lleva cada uno?';
 export const CIERRE_PESO = '¿Le muestro el catálogo completo para que vea las presentaciones?';
+/**
+ * El cierre en el chat del catálogo WEB (Director, 6 nov 2026): ahí la persona ya
+ * tiene el portafolio y los precios delante, y ofrecérselos suena a que nadie
+ * miró dónde está. Reemplaza a CIERRE_SALUD y a CIERRE_PESO solo en ese chat.
+ */
+export const CIERRE_SALUD_CATALOGO_WEB = '¿Le cuento qué lleva alguno en particular?';
+
+/** El texto de salud con el cierre del catálogo web en lugar del que trae. */
+export function conCierreDelCatalogoWeb(texto: string): string {
+  return texto.replace(CIERRE_SALUD, CIERRE_SALUD_CATALOGO_WEB).replace(CIERRE_PESO, CIERRE_SALUD_CATALOGO_WEB);
+}
 /** El cierre de quien pidió la ciencia: lo verificable, empezando por el extracto solo. */
 export const CIERRE_EVIDENCIA = '¿Le paso la ficha de las Cápsulas de Ganoderma, que es el extracto sin nada más?';
 /** El cierre de la segunda pregunta de salud del hilo. */

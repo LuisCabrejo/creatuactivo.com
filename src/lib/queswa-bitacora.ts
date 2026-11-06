@@ -207,21 +207,30 @@ export const RECORRIDO_CATALOGO: { tema: string; oferta: string }[] = [
   { tema: 'catalogo', oferta: '¿Le muestro el catálogo completo con precios?' },
 ];
 
-export type Recorrido = 'negocio' | 'catalogo';
+/**
+ * `catalogo_web`: el chat del catálogo en la web, donde la persona ya tiene el
+ * portafolio y los precios en la página (Director, 6 nov 2026). No sugiere
+ * ningún paso: cierra sobre el producto del que hablan.
+ */
+export type Recorrido = 'negocio' | 'catalogo' | 'catalogo_web';
 
 const TEMAS_DEL_CATALOGO = new Set(RECORRIDO_CATALOGO.map((p) => p.tema));
 
 /** Una oferta del negocio que no está en `OFERTA_A_TEMA` (la compuso el modelo). */
 const RE_OFERTA_DE_NEGOCIO = /negocio|ganar|ganancia|ingreso|comisi[oó]n|paquete|formas de empezar|sistema de distribuci[oó]n|distribuidor|vincul|la estrategia|d[ií]a a d[ií]a/i;
 
-const pasosDe = (recorrido: Recorrido | undefined) => (recorrido === 'catalogo' ? RECORRIDO_CATALOGO : RECORRIDO);
+/** Lo que la página del catálogo ya muestra: el portafolio y los precios. */
+const RE_OFERTA_DE_LA_PAGINA = /portafolio|cat[aá]logo|lista de precios|(todos )?los precios de (todo|la l[ií]nea completa|las cuatro)|las cuatro l[ií]neas/i;
+
+const pasosDe = (recorrido: Recorrido | undefined) =>
+  recorrido === 'catalogo' ? RECORRIDO_CATALOGO : recorrido === 'catalogo_web' ? [] : RECORRIDO;
 
 /** De qué tema es una pregunta de cierre. Null si no se reconoce. */
 const OFERTA_A_TEMA: [RegExp, string][] = [
   [/portafolio/i, 'productos'],
   [/d[ií]a a d[ií]a|qu[eé] (hace|har[ií]a) usted/i, 'dia_a_dia'],
   [/los productos que mueven|le (muestro|cuento) (cu[aá]les son )?los productos\b|para qu[eé] sirven los productos/i, 'productos'],
-  [/cat[aá]logo/i, 'catalogo'],
+  [/cat[aá]logo|lista de precios/i, 'catalogo'],
   // «¿Le muestro cómo crece ese porcentaje sin que le toque conseguir a todos
   // los clientes usted?» (el cierre de WHY_04) promete lo mismo que Los 12
   // Niveles, que abre respondiendo esa duda. Su «sí» lleva al ejemplo de renta,
@@ -410,7 +419,7 @@ export function construirBitacora(
   else if (RE_PAREJA.test(todo)) deSi.push('lo va a consultar con su pareja');
   if (typeof ficha?.package === 'string' && ficha.package) deSi.push(`mostró interés en el paquete ${ficha.package}`);
   if (radicando) deSi.push('ya empezó a dar los datos de la vinculación');
-  if (recorrido === 'catalogo') deSi.push('llegó por la página de productos: lo que busca son los productos');
+  if (recorrido !== 'negocio') deSi.push('llegó por la página de productos: lo que busca son los productos');
 
   const max = opciones.maxMensajes ?? 30;
   const escritos = mensajesPersona.slice(-max)
@@ -467,9 +476,11 @@ export function reemplazoDeOfertaVista(texto: string, bitacora: Pick<Bitacora, '
   // En el catálogo, una oferta del negocio se cambia por el siguiente paso de
   // producto, aunque la persona no la haya visto: allá el negocio llega solo si
   // ella lo nombra (6 nov 2026).
-  if (bitacora.recorrido === 'catalogo') {
+  if (bitacora.recorrido === 'catalogo' || bitacora.recorrido === 'catalogo_web') {
     const esDelNegocio = tema ? !TEMAS_DEL_CATALOGO.has(tema) : RE_OFERTA_DE_NEGOCIO.test(pregunta);
     if (esDelNegocio) return siguiente;
+    // En la web el portafolio y los precios están en la página: esa pregunta se quita.
+    if (bitacora.recorrido === 'catalogo_web' && RE_OFERTA_DE_LA_PAGINA.test(pregunta)) return '';
   }
   if (!tema || !vistos.has(tema)) return null;
   return bitacora.siguientePaso === null ? '' : siguiente;

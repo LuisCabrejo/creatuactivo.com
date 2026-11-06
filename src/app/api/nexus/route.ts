@@ -74,6 +74,7 @@ const SUPERVISOR_ANTES_DE_ENVIAR = false;
 import {
   NUCLEO_PESO, NUCLEO_DECLARA, NUCLEO_PREGUNTA, NUCLEO_EVIDENCIA, NUCLEO_REINCIDE, HABITOS_PESO,
   CIERRE_SALUD, CIERRE_PESO, CIERRE_EVIDENCIA, CIERRE_REINCIDE, abreConNucleoReincide,
+  CIERRE_SALUD_CATALOGO_WEB, conCierreDelCatalogoWeb,
   RECHAZO_SALUD_EVIDENCIA, RECHAZO_SALUD_COMUN_PREGUNTA,
   contieneNucleoSalud, declaraCondicion, pideEvidencia,
 } from '@/lib/wa-guardarrail-salud';
@@ -4730,6 +4731,10 @@ export async function POST(req: Request) {
       || pageContext === 'whatsapp_catalogo'
       || pageContext === 'whatsapp_catalogo_primer_contacto'
       || pageContext === 'whatsapp_foto_enviada_catalogo';
+    // El chat del catálogo WEB tiene el portafolio y los precios en la página: ahí
+    // no se ofrecen (Director, 6 nov 2026). En WhatsApp sí, porque no la ve.
+    const _catalogoWeb = pageContext === 'catalogo_productos';
+    const _recorrido = _catalogoWeb ? 'catalogo_web' as const : _enCatalogo ? 'catalogo' as const : 'negocio' as const;
 
     // ════════════════════════════════════════════════════════════════════════════
     // 🛡️ GUARDARRAÍL DE SALUD — LADO DE ENTRADA
@@ -4792,7 +4797,8 @@ export async function POST(req: Request) {
           // del núcleo legal, que va literal y se verifica a la salida (ver
           // guardarraíl de salida de la web). Desde el 8 sep incluye a `grave` y
           // a la reincidencia, cuyo núcleo es la referencia a lo ya dicho.
-          const { familia, texto: _rechazo, declara } = rechazoSaludPorFamilia(_salud, _reincide, latestUserMessage);
+          const { familia, texto: _rechazoBase, declara } = rechazoSaludPorFamilia(_salud, _reincide, latestUserMessage);
+          const _rechazo = _catalogoWeb ? conCierreDelCatalogoWeb(_rechazoBase) : _rechazoBase;
           if (saludSeCompone(familia)) {
             _saludCompuestaWeb = { familia, declara, respaldo: _rechazo, nucleo: _reincide ? NUCLEO_REINCIDE : nucleoSalud(familia, declara) };
             pageContext = `whatsapp_salud_${familia}_${declara ? 'declara' : 'pregunta'}${_reincide ? '_otravez' : ''}`;
@@ -4840,7 +4846,7 @@ export async function POST(req: Request) {
       const vistos = new Set([...(bitacora?.temasMostrados ?? []), ..._temasVistosEnElHilo()]);
       const r = renovarOfertaVista(pieOriginal ? `${voz}\n\n${pieOriginal}` : voz, {
         temasMostrados: vistos, siguientePaso: bitacora ? bitacora.siguientePaso : 'sin bitácora',
-        recorrido: _enCatalogo ? 'catalogo' : 'negocio',
+        recorrido: _recorrido,
       });
       if (r.cambio) console.log(`🔁 [Video web] Oferta vista: ${r.cambio}`);
       const pie = separarVozYPie(r.texto, '').pie;
@@ -5117,7 +5123,7 @@ Esos datos ya los dio: se usan, no se vuelven a pedir.
 ` : '';
           _bitacora = construirBitacora(conversations, existingProspectData, {
             paisDeOrigen: COUNTRY_NAMES[visitorCountry] ?? 'Colombia',
-            recorrido: _enCatalogo ? 'catalogo' : 'negocio',
+            recorrido: _recorrido,
           });
           conversationSummary = `\n\n---\n${userDataSection}\n${_bitacora.texto}\n\n---\n`;
           console.log(`🧠 [Bitácora] ${conversations.length} turnos · mostrado: ${[..._bitacora.temasMostrados].join(', ') || '—'} · residencia: ${_bitacora.residencia?.pais ?? '—'} · siguiente: ${_bitacora.siguientePaso ?? '—'} (${_bitacora.texto.length} chars)`);
@@ -6050,8 +6056,12 @@ ${mergedProspectData.phone ? `- WhatsApp: ${mergedProspectData.phone}` : ''}
    qué lleva, cómo se prepara, en qué presentación viene, cuánto cuesta y con qué
    registro. Lo sensorial y el ritual —el sabor, el momento del día, la rutina—
    es el terreno del deseo.
-✅ Cierre proponiendo un paso sobre el producto: la imagen de la línea o del
-   portafolio, la ficha de uno en particular, o el catálogo con precios.
+${catalogoWeb
+  ? `✅ Cierre proponiendo un paso sobre el producto del que hablan: qué lleva,
+   cómo se prepara o en qué momento del día se toma. La persona ya tiene el
+   portafolio y los precios en la página que está mirando.`
+  : `✅ Cierre proponiendo un paso sobre el producto: la imagen de la línea o del
+   portafolio, la ficha de uno en particular, o el catálogo con precios.`}
 ⛔ No introduzca el negocio, los paquetes, las comisiones ni el sistema de
    distribución: si la persona los pregunta, respóndalos con naturalidad y siga.
 ⛔ Sobre lo que una persona sentirá o conseguirá, entregue el hecho y siga; la
@@ -6192,6 +6202,7 @@ o esa misma línea — no sobre otro.${desdeCatalogo}`;
         const cierre = otraVez ? CIERRE_REINCIDE
           : fam === 'evidencia' ? CIERRE_EVIDENCIA
           : fam === 'grave' ? 'UNA sola pregunta corta que proponga empezar por eso (por ejemplo: «¿Empezamos por ahí?»), sin nombrar producto'
+          : _catalogoWeb ? CIERRE_SALUD_CATALOGO_WEB
           : fam === 'peso' ? CIERRE_PESO
           : CIERRE_SALUD;
 

@@ -125,6 +125,18 @@ console.log('\n── En el catálogo, el negocio solo si la persona lo nombra �
   const r2 = renovarOfertaVista(`${salud}\n\n¿Quiere saber cómo puede ganar con estos productos?`, cat);
   ok(!!r2.cambio && !/ganar/.test(r2.texto), 'también la que compone el modelo con otras palabras');
   ok(!renovarOfertaVista(`${salud}\n\n¿Le cuento cómo funciona el negocio?`, neg).cambio, 'fuera del catálogo no se toca');
+
+  // En la web la persona tiene el portafolio y los precios en la página (6 nov 2026).
+  const web = construirBitacora(filasCat, null, { recorrido: 'catalogo_web' });
+  ok(web.siguientePaso === null, 'en el catálogo web no se sugiere ningún paso');
+  const r3 = renovarOfertaVista(`${salud}\n\n¿Le paso el catálogo, para que vea qué lleva cada uno?`, web);
+  ok(!!r3.cambio && !/\?\s*$/.test(r3.texto), 'en la web se quita la oferta del catálogo');
+  const r4 = renovarOfertaVista(`${salud}\n\n¿Le muestro el portafolio completo?`, web);
+  ok(!!r4.cambio && !/portafolio/.test(r4.texto), 'y la del portafolio');
+  const r5 = renovarOfertaVista(`${salud}\n\n¿Le cuento cómo funciona el negocio?`, web);
+  ok(!!r5.cambio && !/negocio/.test(r5.texto), 'y la del negocio');
+  ok(!renovarOfertaVista(`${salud}\n\n¿Le muestro las otras bebidas de la línea?`, web).cambio, 'la oferta dentro de una línea se queda');
+  ok(!renovarOfertaVista(`${salud}\n\n¿Le paso el catálogo, para que vea qué lleva cada uno?`, cat).cambio, 'en WhatsApp el catálogo se sigue ofreciendo');
 }
 
 console.log(fallas ? `\n❌ ${fallas} falla(s)` : '\n✅ Todo en orden');

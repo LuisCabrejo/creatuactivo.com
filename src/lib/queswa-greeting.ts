@@ -135,20 +135,25 @@ export const QUESWA_QUICK_REPLIES = [
  * respuesta, y este texto no pasa por él— e invitaba preguntas que el filtro
  * después desvía.
  *
- * ⚠️ Si cambia la apertura de productos del canal, cambia esta.
+ * 6 nov 2026 (Director): cierra con la invitación de la página («Cuéntele a
+ * Queswa qué le gusta tomar…») y ya no con «¿Le muestro el portafolio
+ * completo?»: aquí la persona tiene el portafolio delante. Por eso deja de ser
+ * igual a la de WhatsApp, donde la persona no ve la página.
  */
 export function getProductsGreeting(): string {
-  return `Le doy la bienvenida.\n\n${IDENTIDAD}\n\nAquí puede preguntar lo que quiera de los productos: qué lleva cada uno, cómo se prepara, en qué presentación viene y cuánto cuesta. La línea es de Gano Excel, con extracto propio de Ganoderma y registro sanitario en cada producto.\n\n¿Le muestro el portafolio completo?`;
+  return `Le doy la bienvenida.\n\n${IDENTIDAD}\n\nAquí puede preguntar lo que quiera de los productos: qué lleva cada uno, cómo se prepara, en qué presentación viene y cuánto cuesta. La línea es de Gano Excel, con extracto propio de Ganoderma y registro sanitario en cada producto.\n\nCuénteme qué le gusta tomar y le ayudo a escoger.`;
 }
 
 /**
- * Los botones de la apertura de productos. Los dos primeros son los mismos de
- * WhatsApp (`APERTURA_PRODUCTOS_OPCIONES`). En la web los atiende el motor por sus
- * puertas compartidas: «Ver el portafolio» → la imagen del portafolio con su pie
- * (conductor, 2.25a, dictado sin modelo); «Lista de precios» → las cuatro tablas
- * del catálogo con candado (bypass de precios). En la web la persona ya está en
- * la página del catálogo, así que se le dan los precios en el chat en vez del
- * enlace que manda WhatsApp.
+ * Los botones del chat del catálogo web (Director, 6 nov 2026). Llevan a lo que la
+ * página no resuelve sola —escoger—, y no a lo que ya muestra: «Ver el portafolio»
+ * y «Lista de precios» salieron, porque la persona los tiene delante. Destinos:
+ * «Lo que más se toma en la mañana» → BEB_02, que lleva esa oferta literal en su
+ * índice; «Opciones sin café» → PROD_03 (chocolate, rooibos y el cereal). Los
+ * dos se expanden en `QUESWA_QUICK_REPLIES_EXPANSION`: medido con Voyage, «Lo que
+ * más se toma en la mañana» solo ganaba por 0,011 al Rooibos, y «Algo sin
+ * cafeína» caía en BEB_03 (cuánta cafeína tiene el Ganocafé). WhatsApp conserva sus dos
+ * botones (`APERTURA_PRODUCTOS_OPCIONES`): allá la persona no ve la página.
  *
  * «Cómo es el negocio» (Director, 28 oct 2026) es solo de la web, A PROPÓSITO: el
  * catálogo conversa en el chat web en todos los dispositivos desde el 13 oct, y la
@@ -157,8 +162,8 @@ export function getProductsGreeting(): string {
  * `hablaDeNegocio`). No se «sincroniza» con WhatsApp.
  */
 export const QUESWA_PRODUCTS_QUICK_REPLIES = [
-  'Ver el portafolio',
-  'Lista de precios',
+  'Lo que más se toma en la mañana',
+  'Opciones sin café',
   'Cómo es el negocio',
 ] as const;
 
@@ -201,6 +206,12 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
     'qué tengo que hacer cuál es mi rol metodología método comprobado día a día comandos',
   '¿de dónde sale el dinero?':
     'de dónde sale el dinero quién paga cómo entra el ingreso producto que se vende',
+  // Los botones del chat del catálogo web (6 nov 2026). Medido con Voyage:
+  // BEB_02 0,710 contra 0,626; PROD_03 0,646 contra 0,532.
+  'lo que más se toma en la mañana':
+    'Para qué sirve el Ganocafé 3en1, lo que más se toma en la mañana',
+  'opciones sin café':
+    'Y los que no toman café, hay opciones sin café',
   // Se conservan los de los chips retirados: la persona puede escribir esas
   // preguntas aunque ya no se le ofrezcan, y la expansión les sigue sirviendo.
   '¿cuáles son los productos y para qué sirven?':

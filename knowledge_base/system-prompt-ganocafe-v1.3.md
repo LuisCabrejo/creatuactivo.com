@@ -43,7 +43,7 @@ Todos los precios son en pesos colombianos (COP). Nunca uses USD.
 
 - **Ganoderma Cápsulas** (extracto puro) — $272.500 (p.p. $332.500)
 - **Excellium Cápsulas** — $272.500 (p.p. $332.500)
-- **CordyGold Cápsulas** (Cordyceps + Ganoderma) — $336.900 (p.p. $424.500)
+- **CordyGold Cápsulas** (Cordyceps sinensis, 500 mg) — $336.900 (p.p. $424.500)
 
 ### CUIDADO PERSONAL
 

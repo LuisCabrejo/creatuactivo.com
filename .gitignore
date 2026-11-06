@@ -106,3 +106,14 @@ docs/investigaciones/referentes/
 .claude/hillclimb/**/progress.txt
 .claude/hillclimb/*/piloto-*/
 .claude/hillclimb/*/corrida1-*/
+
+# Respaldos de conversaciones reales (5 nov 2026): traen teléfonos y mensajes de
+# prospectos y socios. Se quedan en el disco; los que ya estaban en git siguen ahí.
+docs/respaldos/
+# Restos de análisis de audio en la raíz: los .wav pasan de 100 MB y GitHub los rechaza.
+/*.wav
+/*.npy
+# Modelos y renders del montaje de video (se descargan o se regeneran).
+scripts/dankoe-video/modelos/*.tflite
+scripts/dankoe-video/**/out/**/*.mp4
+scripts/dankoe-video/**/out/**/*.log

@@ -20,11 +20,16 @@
  *   presentacion_video     {v, seg, dur}  la versión del video de la pantalla 1 y el
  *                                  segundo más lejano que vio (2 nov 2026). Sin aviso:
  *                                  lo lee scripts/medir-video-presentacion.mjs
+ *   presentacion_paso      {pantalla, beat}  el paso más lejano, beat incluido (6 nov
+ *                                  2026). Sin aviso: los hitos no ven dentro de la
+ *                                  pantalla 5 (10 beats) ni de la 8 (3). Lo lee
+ *                                  scripts/medir-avance-presentacion.mjs
  *
  * ⚠️ Cada escritura dispara el webhook de Supabase: la página escribe solo en
- * hitos (pantallas 4, 6 y la última), al tocar el botón y al usar la demo.
+ * hitos (pantallas 4, 6 y la última), al tocar el botón, al usar la demo y, con
+ * el paso más lejano, cuando la persona sale de la página o cambia de app.
  *
- * Body: { fingerprint, pantalla?, completa?, whatsapp?, en_vivo?, video? }
+ * Body: { fingerprint, pantalla?, completa?, whatsapp?, en_vivo?, video?, paso? }
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { esPeticionLocal } from '@/lib/entorno-local'
@@ -37,7 +42,7 @@ export async function POST(request: NextRequest) {
   // Localhost no escribe en la base de producción ni avisa a nadie (11 oct 2026, ver entorno-local.ts).
   if (esPeticionLocal(request)) return NextResponse.json({ ok: true, skipped: 'local' })
   try {
-    const { fingerprint, pantalla, completa, whatsapp, en_vivo, video } = await request.json()
+    const { fingerprint, pantalla, completa, whatsapp, en_vivo, video, paso } = await request.json()
     if (!fingerprint || typeof fingerprint !== 'string') {
       return NextResponse.json({ error: 'Missing fingerprint' }, { status: 400 })
     }
@@ -66,6 +71,16 @@ export async function POST(request: NextRequest) {
       const previo = di.presentacion_video as { v?: string; seg?: number } | undefined
       if (!previo || previo.v !== video.v || video.seg > (previo.seg ?? -1)) {
         data.presentacion_video = { v: video.v, seg: Math.min(video.seg, video.dur), dur: video.dur }
+      }
+    }
+    // El paso más lejano (6 nov 2026), sin retroceder: una pantalla posterior gana
+    // siempre, y en la misma pantalla gana el beat mayor. No avisa: es para medir.
+    if (paso && Number.isInteger(paso.pantalla) && paso.pantalla >= 1 && paso.pantalla <= 30
+        && Number.isInteger(paso.beat) && paso.beat >= 0 && paso.beat <= 30) {
+      const previo = di.presentacion_paso as { pantalla?: number; beat?: number } | undefined
+      const pp = previo?.pantalla ?? 0, pb = previo?.beat ?? -1
+      if (paso.pantalla > pp || (paso.pantalla === pp && paso.beat > pb)) {
+        data.presentacion_paso = { pantalla: paso.pantalla, beat: paso.beat }
       }
     }
     // El país de la conexión, una vez (8 oct 2026): el Dashboard lo pone en el

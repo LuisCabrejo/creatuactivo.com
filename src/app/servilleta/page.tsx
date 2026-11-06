@@ -171,6 +171,7 @@ import CicloPropiedad from './CicloPropiedad';
 import SuDia from './SuDia';
 import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
+import { dispositivoDe } from '@/lib/dispositivo';
 
 const TOTAL_SLIDES = 9;
 /** Pantallas que se reportan a la ficha: un tercio, dos tercios y la última. */
@@ -486,7 +487,7 @@ export default function PitchDeckPage() {
   const colaAvance = useRef<Promise<unknown>>(Promise.resolve());
   const reportarAvance = useCallback((datos: {
     pantalla?: number; completa?: boolean; whatsapp?: boolean; en_vivo?: boolean;
-    video?: { v: string; seg: number; dur: number };
+    video?: { v: string; seg: number; dur: number }; paso?: { pantalla: number; beat: number };
   }) => {
     const fingerprint = (window as any).FrameworkIAA?.fingerprint;
     if (!fingerprint) return;
@@ -530,12 +531,43 @@ export default function PitchDeckPage() {
 
   // Los hitos: un tercio, dos tercios y el final. Un salto (teclado, retroceso)
   // reporta el hito más alto que alcanzó, una sola vez cada uno.
+  // EL PASO MÁS LEJANO, BEAT INCLUIDO (6 nov 2026): los hitos no ven dentro de la
+  // pantalla 5 (10 beats) ni de la 8 (3), y entre los hitos 4 y 6 era donde se iba
+  // la gente. Viaja con cada hito y, si avanzó desde el último envío, al salir de la
+  // página o cambiar de app (en el teléfono `pagehide` no siempre llega). Una o dos
+  // escrituras más por visita, y el campo no dispara avisos en el Dashboard.
+  // Lo lee scripts/medir-avance-presentacion.mjs.
+  const pasoMax = useRef({ pantalla: 0, beat: 0 });
+  const pasoEnviado = useRef({ pantalla: 0, beat: -1 });
+  const pasoDespues = (a: { pantalla: number; beat: number }, b: { pantalla: number; beat: number }) =>
+    a.pantalla > b.pantalla || (a.pantalla === b.pantalla && a.beat > b.beat);
+  useEffect(() => {
+    const p = { pantalla: slide, beat };
+    if (pasoDespues(p, pasoMax.current)) pasoMax.current = p;
+  }, [slide, beat]);
+  const enviarPaso = useCallback(() => {
+    if (!pasoMax.current.pantalla || !pasoDespues(pasoMax.current, pasoEnviado.current)) return;
+    pasoEnviado.current = { ...pasoMax.current };
+    reportarAvance({ paso: pasoEnviado.current });
+  }, [reportarAvance]);
+  useEffect(() => {
+    const alOcultar = () => { if (document.visibilityState === 'hidden') enviarPaso(); };
+    window.addEventListener('pagehide', enviarPaso);
+    document.addEventListener('visibilitychange', alOcultar);
+    return () => {
+      window.removeEventListener('pagehide', enviarPaso);
+      document.removeEventListener('visibilitychange', alOcultar);
+    };
+  }, [enviarPaso]);
+
   const hitosReportados = useRef(new Set<number>());
   useEffect(() => {
     const hito = [...HITOS_PRESENTACION].reverse().find((h) => slide >= h);
     if (!hito || hitosReportados.current.has(hito)) return;
     hitosReportados.current.add(hito);
-    reportarAvance({ pantalla: slide, completa: slide === TOTAL_SLIDES || undefined });
+    const paso = pasoDespues(pasoMax.current, pasoEnviado.current) ? { ...pasoMax.current } : undefined;
+    if (paso) pasoEnviado.current = paso;
+    reportarAvance({ pantalla: slide, completa: slide === TOTAL_SLIDES || undefined, paso });
   }, [slide, reportarAvance]);
 
   const gen5Por = GEN5_POR_GENERACION[gen5Nivel];
@@ -686,6 +718,21 @@ export default function PitchDeckPage() {
   // la pantalla siga igual para quien presenta. Visto al 80 %, Queswa no le vuelve
   // a ofrecer el «Cómo funciona»: el video ya lo contó.
   const [videoPresentacion, setVideoPresentacion] = useState(false);
+  // EL VIDEO COMO ACCIÓN PRINCIPAL PARA QUIEN LA VE SOLO (6 nov 2026, Director): el
+  // deck se apoya en la voz del socio (la 3 solo nombra los sectores, la definición
+  // con Uber va hablada, «Su día» va sin voz), pero quien la ve en su teléfono con el
+  // enlace de un socio casi siempre la ve sin él: en los 60 días hasta el 5 nov, unas
+  // 22 fichas pasaron el deck, y en los últimos 30 solo 2 empezaron el video. Con
+  // socio, en el celular y la tableta el botón crece y es lo que se ve primero. En el computador no
+  // cambia: ahí presenta el socio, por Meet o en el modo vertical (kiosco), que va
+  // en computador. El texto del botón es el mismo. Se mide comparando cuántos
+  // empiezan el video antes y después del 6 nov (medir-video-presentacion.mjs).
+  const [videoPrincipal, setVideoPrincipal] = useState(false);
+  useEffect(() => {
+    if (!refSocio || isKiosk) { setVideoPrincipal(false); return; }
+    const nav = navigator as Navigator & { userAgentData?: { mobile?: boolean } };
+    setVideoPrincipal(dispositivoDe(nav.userAgent, nav.userAgentData?.mobile) !== 'computador');
+  }, [refSocio, isKiosk]);
   const alTerminarVideoPresentacion = () => {
     setVideoPresentacion(false);
     irA(TOTAL_SLIDES);
@@ -1487,6 +1534,14 @@ export default function PitchDeckPage() {
           background: #0F1115; border: 1px solid rgba(255,255,255,0.1); }
         /* El botón de la presentación en video, bajo el kicker del credo. */
         .pd-credo .pd-ver-video { display: inline-block; margin-top: 2.2rem; }
+        /* Para quien la ve solo en el teléfono (6 nov 2026): el mismo botón, a lo ancho,
+           más grande y con un velo dorado. Borde y texto en oro, nunca fondo sólido con
+           texto invertido (BRANDING: un primario no se invierte). */
+        .pd-credo .pd-ver-video--principal {
+          display: block; width: 100%; max-width: 420px; margin-top: 2.6rem;
+          font-size: min(0.8rem, 3.4vw); letter-spacing: 0.14em; padding: 18px 16px;
+          background: rgba(197,160,89,0.12); white-space: nowrap;
+        }
 
         /* ── Móvil ───────────────────────────────────────────────────────── */
         @media (max-width: 860px) {
@@ -1872,7 +1927,7 @@ export default function PitchDeckPage() {
                 elige si la rueda o si la presenta él (ver videoPresentacion). */}
             <button
               type="button"
-              className="pd-demo pd-ver-video"
+              className={`pd-demo pd-ver-video ${videoPrincipal ? 'pd-ver-video--principal' : ''}`}
               onClick={(e) => { e.stopPropagation(); setVideoPresentacion(true); }}
             >
               VER LA PRESENTACIÓN EN VIDEO →
@@ -2451,9 +2506,19 @@ export default function PitchDeckPage() {
                     style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
                   />
                   <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
+                    {/* Sin jerga (6 nov 2026, Director): decía «Cada nivel duplica su
+                        sistema (2×2). Regalía mensual proyectada: el 10% del volumen
+                        comisionable (GCV) de su sistema», tres términos técnicos en una
+                        línea. Lo conocido primero y el nombre del plan al final. ⚠️ El
+                        porcentaje es sobre lo EMPAREJADO, no sobre todo lo que se compra:
+                        decir «el 10 % de lo que se compra» duplicaría la cifra en la cabeza
+                        de quien lee. La mecánica, con las palabras de la guía y de
+                        COMP_BIN_11. «Cada mes» porque la proyección es mensual (56 CV por
+                        distribuidor al mes); Gano paga semanal, y eso lo dice la 8.2. */}
                     <p className="pd-insight pd-tarifa-general">
-                      Cada nivel duplica su sistema (2×2). Regalía mensual proyectada: el{' '}
-                      {tarifa.pct}% del volumen comisionable (GCV) de su sistema.
+                      Cada nivel duplica su sistema. Lo que se compra en su canal izquierdo se
+                      empareja con lo de su canal derecho, y cada mes a usted le queda el{' '}
+                      {tarifa.pct}&nbsp;% de lo emparejado: la Regalía de Equipo.
                     </p>
                     <div className="pd-vigencias">
                       {TARIFAS_12.map((t, i) => (

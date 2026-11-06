@@ -567,6 +567,42 @@ La segunda: tener claro lo importante. Esto me llevó a establecer mis prioridad
 
 Si quiere conocer cómo funciona esta empresa de distribución moderna, dé clic en el enlace y pregúntele a Queswa.
 
+## Reto de 90 días · semana 9 (2 al 8 de noviembre de 2026)
+
+### Día 58 · Martes 3 de noviembre — «En qué estaba equivocado»
+
+*Aprobado por el Director el 3 nov, con los insertos al estilo del video de la Presentación. Entrega: `reels-equipo/1103/entrega/reto-dia58.mp4`, 2:18.8. El texto es como se grabó (el subtítulo lleva lo que se oye). Registro: [`aprobados/2026-11-03-reto-90-dia-58-en-que-estaba-equivocado.md`](aprobados/2026-11-03-reto-90-dia-58-en-que-estaba-equivocado.md). Los días 52 a 57 no están en esta bitácora.*
+
+Durante estos casi dos meses he estado, en la mayoría de las cosas, equivocado.
+
+Día 58 de mi propósito de ayudar a personas a construir su propio activo.
+
+Cuando empecé a contar cómo una persona, en medio del caos, podía empezar a construir un activo, el primer desafío que encontré fue precisamente el relacionado con la palabra activo.
+
+Para la mayoría de los latinos, un activo son sus bienes, su casa, incluso su carro. Pero un activo tiene que ver con algo mayor. Entonces, ¿qué es un activo, en palabras simples? Es algo que le genera dinero sin que usted tenga que estar presente.
+
+Así que no estamos hablando de algo simple, como de repente ganarme un dinero, unas comisiones o un ingreso adicional.
+
+Estamos hablando de algo que puede impactar de manera demasiado positiva la vida de una familia.
+
+El momento en que lo iniciamos no era perfecto. Nuestra plataforma funcionaba, pero estaba muy lejos de estar como está hoy. Y en la mayoría de los conceptos yo estaba equivocado, salvo en dos, que considero los más importantes.
+
+El primero: hoy la mayoría de las personas en Latinoamérica viven desafíos enormes. Nueve de cada diez hogares colombianos dicen que su ingreso no les alcanza, o que les alcanza apenas para pasar a ras. Más de la mitad de las personas que trabajan lo hacen en la informalidad, y tres de cada cuatro personas en edad de pensionarse no reciben una pensión.
+
+Por eso hoy la mayoría se plantea que tiene que hacer algo, pero se encuentra con una barrera de entrada: ¿con qué plata, y a qué horas, si siempre estamos ocupados? ¿Qué hacer?
+
+El segundo: la tecnología y los medios son hoy la forma más sencilla de reducir esa barrera y apalancarse para construir un activo.
+
+Así que entramos en la recta final de nuestro reto, y también en la recta final del año: un 2026 que va corriendo a toda velocidad, pero aún estamos a tiempo de cerrarlo con broche de oro.
+
+Actualmente ya le estamos ayudando a varias familias, de distintos lugares de Colombia y fuera de Colombia, a empezar a construir su propio activo.
+
+Y al igual que en una prueba atlética, los metros finales son donde más ganas hay que meterle.
+
+Así que en estos últimos 32 días esperamos seguir llevando nuestra plataforma a más familias y a más países de América.
+
+Si quiere saber cómo funciona y cómo construir su propio activo, dé clic en el enlace y pregúntele a Queswa.
+
 ---
 
 *Próximos días: agregar debajo, conservando el orden cronológico.*

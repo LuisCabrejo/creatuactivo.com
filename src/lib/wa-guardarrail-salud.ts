@@ -230,8 +230,9 @@ export const RE_CLAIM_SALIDA: RegExp[] = [
   // ⚠️ 6 nov 2026 (Director): el Cordygold «para el rendimiento físico» SÍ va —es la
   // etiqueta ratificada, aunque la página de Gano Colombia solo diga «bienestar»—, así
   // que «rendimiento» sale de su lista y «cápsulas Cordygold» sale de la de las
-  // cápsulas. «Aguante» y «resistencia» siguen fuera: no se ratificaron.
-  /(cordyceps|cordygold)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  // cápsulas. Ese mismo día se ratificó también la «resistencia» (con energía
+  // natural y adaptógeno, catálogo v7.19); el «aguante» sigue fuera.
+  /(cordyceps|cordygold)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|aguante|musculo|digestion|sueno|dormir)/,
   /(espirulina|spirulina|excellium)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
   /(ganoderma|capsulas(?! (de )?cordy))[^.\n]{0,30}\bpara (el |la |los |las |su |sus )?(huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
   // La anatomía y la «nutrición funcional»: describen lo que el producto le hace

@@ -30,6 +30,15 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## catalogo_productos v7.19: el CordyGold con sus declaraciones (Director, 6 nov 2026)
+
+El Director auditó el CordyGold contra las dos páginas de Gano Excel. La colombiana (ganoexcel.com.co) solo dice «bienestar» y declara Cordyceps sinensis, 500 mg; la de Estados Unidos es otro producto (Body Cordyceps: *militaris*, 450 mg, 60 cápsulas) y anuncia energía natural, apoyo a la resistencia, equilibrio inmunológico y adaptógeno. El Director aplicó esas cuatro al CordyGold colombiano, con la frase aprobada de las defensas en lugar de «equilibrio inmunológico» (que suena a regular el sistema inmune).
+
+- **`SUP_02`**: *«El Cordyceps es un hongo adaptógeno, que se asocia con la energía natural, el rendimiento físico y la resistencia, y apoya el funcionamiento normal de las defensas.»* Sale *«el único de la línea que no gira alrededor del Ganoderma»*: el CordyGold no lleva Ganoderma, y no hace falta decirlo. Sale también *«el aguante»*, que no se ratificó.
+- El filtro de salud deja pasar «resistencia» junto al Cordyceps; «aguante» sigue bloqueado.
+
+---
+
 ## catalogo_productos v7.18: quien no toma café tiene su respuesta de cliente (Director, 6 nov 2026)
 
 Liliana revisó el chat del catálogo web y el Director aprobó sus comentarios: el botón «Opciones sin café» llevaba a `PROD_03`, escrita para el vendedor (el mercado que no toma café, «cosas que se acaban en cualquier casa y se vuelven a comprar»), y que además nombraba tres bebidas cuando el catálogo tiene cuatro.

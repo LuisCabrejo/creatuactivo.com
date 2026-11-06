@@ -227,8 +227,13 @@ export const RE_CLAIM_SALIDA: RegExp[] = [
   // articulaciones—, así que la piel sale de la lista del colágeno y se queda en
   // la de los demás. Cabello, uñas y huesos siguen fuera para todos.
   /(colageno|reskine)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
-  /(cordyceps|cordygold|espirulina|spirulina|excellium)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
-  /(ganoderma|capsulas)[^.\n]{0,30}\bpara (el |la |los |las |su |sus )?(huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  // ⚠️ 6 nov 2026 (Director): el Cordygold «para el rendimiento físico» SÍ va —es la
+  // etiqueta ratificada, aunque la página de Gano Colombia solo diga «bienestar»—, así
+  // que «rendimiento» sale de su lista y «cápsulas Cordygold» sale de la de las
+  // cápsulas. «Aguante» y «resistencia» siguen fuera: no se ratificaron.
+  /(cordyceps|cordygold)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  /(espirulina|spirulina|excellium)[^.\n]{0,45}\bpara (el |la |los |las |su |sus )?(piel|cabello|pelo|unas|huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
+  /(ganoderma|capsulas(?! (de )?cordy))[^.\n]{0,30}\bpara (el |la |los |las |su |sus )?(huesos|tejido|rendimiento|aguante|resistencia|musculo|digestion|sueno|dormir)/,
   // La anatomía y la «nutrición funcional»: describen lo que el producto le hace
   // al cuerpo sin nombrar órgano ni enfermedad. «Bebidas funcionales» (el nombre
   // de la línea en PROD_OVERVIEW y BEB_01) no entra: es categoría, no función.

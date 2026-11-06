@@ -197,6 +197,10 @@ const SALIDA_POSITIVOS = [
   'Todos llevan extracto de Ganoderma, un hongo que se usa en la nutrición funcional.',
   'Las cápsulas Cordygold y el Reskine Colágeno van dirigidos a quien busca vitalidad y cuidado de la piel desde adentro.',
   'un suplemento con cordyceps y ganoderma, pensado para el rendimiento físico',
+  // Del Cordygold se ratificó «rendimiento físico», no el aguante ni la resistencia;
+  // y la espirulina no tiene etiqueta de rendimiento (6 nov 2026)
+  'El Cordygold es para el aguante y la resistencia en el entrenamiento.',
+  'La espirulina, para el rendimiento físico de quien entrena.',
   // Lo que el colágeno NO tiene aprobado (28 oct 2026)
   'El Reskine Colágeno le ayuda a reducir las arrugas y a recuperar la firmeza.',
   'El colágeno para el cabello y las uñas es lo que más se pide.',
@@ -232,6 +236,9 @@ const SALIDA_NEGATIVOS_LITERALES = [
   // etiqueta entre paréntesis, las articulaciones y los cosméticos.
   'El Cordyceps es el hongo que se asocia con el rendimiento físico y el aguante. Por eso este es el que suele buscar quien entrena.',
   'Cápsulas concentradas: Ganoderma (apoyo inmune), Excellium (el micelio del hongo), Cordygold (rendimiento físico).',
+  // La etiqueta ratificada del Cordygold, dicha con «para» (Director, 6 nov 2026)
+  'El CordyGold, para el rendimiento físico: 500 mg de Cordyceps sinensis por cápsula.',
+  'Las cápsulas Cordygold, para el rendimiento físico.',
   'Reskine Colágeno · Colágeno para las articulaciones',
   'El champú y el acondicionador Piel&Brillo llevan Ganoderma, para el cabello de toda la familia; el exfoliante, para la piel.',
   'La línea de bebidas funcionales de Gano Excel cuenta con 9 productos.',

@@ -2668,9 +2668,13 @@ export default function PitchDeckPage() {
             <p className="pd-final-credo">
               Creemos que el trabajo de cada persona debería convertirse en un activo.
             </p>
+            {/* «En 16 países de América» (Director, 6 nov 2026): el único hecho propio de
+                CreaTuActivo en el deck, como estatus y no como alegato, en la misma forma
+                de /nosotros y /paquetes. Va al frente, como marco; el acompañamiento sigue
+                al final, donde cae el acento. Las credenciales de Gano quedan en la 8. */}
             <p className="pd-p">
-              Acompañamos a cada socio nuevo uno a uno, desde el día en que empieza a construir
-              su activo.
+              En 16 países de América, acompañamos a cada socio nuevo uno a uno, desde el día
+              en que empieza a construir su activo.
             </p>
             <p className="pd-bisagra">
               El siguiente paso es una conversación

@@ -170,13 +170,13 @@ export default function UnifiedQueswaOrb() {
   const suppressTooltip = isReelRoute || pathname === '/' || pathname === '/video-plan-servilleta'
 
   // Catálogo (/productos): Queswa asesora sobre el producto, no sobre el
-  // negocio → el tooltip del orbe se enfoca en asesoría.
+  // negocio → el tooltip del orbe nombra los productos (6 nov 2026).
   // Fuera del catálogo (jul 2026): se retira "¿Construimos su empresa digital?" —
   // el término es un vacío semántico que el visitante rellena con lo que le suena.
   // Invitación concreta y de cero compromiso en su lugar (ver guion servilleta v6.5).
   const isProductsPage = pathname.includes('/productos')
   const tooltipText = isProductsPage
-    ? 'Pregúntele a su asesor de bienestar'
+    ? 'Pregúntele a Queswa por los productos'
     : '¿Le muestro cómo funciona?'
 
   // Chat state

@@ -124,7 +124,7 @@ export const TEMAS: TemaBitacora[] = [
   {
     id: 'productos',
     nombre: 'los productos: las cuatro líneas y el Ganoderma',
-    firma: /22 productos en cuatro l[ií]neas|Portafolio Gano Excel\*? · 22 productos/i,
+    firma: /22 productos en cuatro l[ií]neas|Portafolio Gano Excel\*{0,2} · 22 productos/i,
     fragmentos: ['arsenal_inicial_WHY_PROD_01'],
   },
   {
@@ -194,8 +194,31 @@ export const RECORRIDO: { tema: string; oferta: string }[] = [
   { tema: 'paquetes', oferta: '¿Le muestro las cuatro formas de empezar?' },
 ];
 
+/**
+ * El recorrido de quien llegó por la página de productos (6 nov 2026, Director,
+ * por el comentario de Liliana). Ahí la persona busca productos, y el negocio
+ * aparece solo si ella lo nombra: hasta hoy la bitácora le proponía al modelo
+ * «¿Le cuento cómo funciona el negocio?» como el paso natural, y el modelo cerró
+ * con eso una pregunta por la migraña. Las dos ofertas tienen destino: el
+ * portafolio lo manda la foto (wa-productos.ts) y el catálogo, las tablas.
+ */
+export const RECORRIDO_CATALOGO: { tema: string; oferta: string }[] = [
+  { tema: 'productos', oferta: '¿Le muestro el portafolio completo?' },
+  { tema: 'catalogo', oferta: '¿Le muestro el catálogo completo con precios?' },
+];
+
+export type Recorrido = 'negocio' | 'catalogo';
+
+const TEMAS_DEL_CATALOGO = new Set(RECORRIDO_CATALOGO.map((p) => p.tema));
+
+/** Una oferta del negocio que no está en `OFERTA_A_TEMA` (la compuso el modelo). */
+const RE_OFERTA_DE_NEGOCIO = /negocio|ganar|ganancia|ingreso|comisi[oó]n|paquete|formas de empezar|sistema de distribuci[oó]n|distribuidor|vincul|la estrategia|d[ií]a a d[ií]a/i;
+
+const pasosDe = (recorrido: Recorrido | undefined) => (recorrido === 'catalogo' ? RECORRIDO_CATALOGO : RECORRIDO);
+
 /** De qué tema es una pregunta de cierre. Null si no se reconoce. */
 const OFERTA_A_TEMA: [RegExp, string][] = [
+  [/portafolio/i, 'productos'],
   [/d[ií]a a d[ií]a|qu[eé] (hace|har[ií]a) usted/i, 'dia_a_dia'],
   [/los productos que mueven|le (muestro|cuento) (cu[aá]les son )?los productos\b|para qu[eé] sirven los productos/i, 'productos'],
   [/cat[aá]logo/i, 'catalogo'],
@@ -316,6 +339,8 @@ export interface Bitacora {
   residencia: { pais: string; cita: string } | null;
   /** Lo que ya recibió, en texto: sirve para no volver a dictarlo. */
   textosDelBot: string[];
+  /** Qué recorrido sigue: el del negocio, o el del catálogo (solo productos). */
+  recorrido?: Recorrido;
 }
 
 const recortar = (t: string, n: number) => {
@@ -332,8 +357,9 @@ const recortar = (t: string, n: number) => {
 export function construirBitacora(
   filas: FilaBitacora[],
   ficha: Record<string, unknown> | null = null,
-  opciones: { paisDeOrigen?: string; maxMensajes?: number } = {},
+  opciones: { paisDeOrigen?: string; maxMensajes?: number; recorrido?: Recorrido } = {},
 ): Bitacora {
+  const recorrido: Recorrido = opciones.recorrido ?? 'negocio';
   const mensajesPersona: { turno: number; texto: string }[] = [];
   const textosDelBot: string[] = [];
   const primerTurnoDeTema = new Map<string, number>();
@@ -364,11 +390,11 @@ export function construirBitacora(
 
   const temasMostrados = new Set(primerTurnoDeTema.keys());
   const residencia = residenciaDeclarada(mensajesPersona.map((m) => m.texto), opciones.paisDeOrigen);
-  const siguiente = RECORRIDO.find((p) => !temasMostrados.has(p.tema)) ?? null;
+  const siguiente = pasosDe(recorrido).find((p) => !temasMostrados.has(p.tema)) ?? null;
   const radicando = temasMostrados.has('radicacion');
 
   if (!mensajesPersona.length) {
-    return { texto: '', temasMostrados, siguientePaso: null, residencia, textosDelBot };
+    return { texto: '', temasMostrados, siguientePaso: null, residencia, textosDelBot, recorrido };
   }
 
   // Lo que ha dicho de sí — hechos, con sus palabras cuando importan.
@@ -384,6 +410,7 @@ export function construirBitacora(
   else if (RE_PAREJA.test(todo)) deSi.push('lo va a consultar con su pareja');
   if (typeof ficha?.package === 'string' && ficha.package) deSi.push(`mostró interés en el paquete ${ficha.package}`);
   if (radicando) deSi.push('ya empezó a dar los datos de la vinculación');
+  if (recorrido === 'catalogo') deSi.push('llegó por la página de productos: lo que busca son los productos');
 
   const max = opciones.maxMensajes ?? 30;
   const escritos = mensajesPersona.slice(-max)
@@ -414,6 +441,7 @@ Cómo usarla:
     siguientePaso: radicando ? null : siguiente?.oferta ?? null,
     residencia,
     textosDelBot,
+    recorrido,
   };
 }
 
@@ -426,7 +454,7 @@ Cómo usarla:
  * delante, y si aun así ofrece lo visto, el código lo cambia en vez de dejar
  * que la persona lo reciba otra vez.
  */
-export function reemplazoDeOfertaVista(texto: string, bitacora: Pick<Bitacora, 'temasMostrados' | 'siguientePaso'>): string | null {
+export function reemplazoDeOfertaVista(texto: string, bitacora: Pick<Bitacora, 'temasMostrados' | 'siguientePaso' | 'recorrido'>): string | null {
   const pregunta = preguntaDeCierre(texto);
   if (!pregunta) return null;
   // Lo ya mostrado incluye lo que ESTE texto entrega: la bitácora se arma antes
@@ -434,8 +462,16 @@ export function reemplazoDeOfertaVista(texto: string, bitacora: Pick<Bitacora, '
   // muestro qué haría usted en el día a día?» — el tema que estaba entregando.
   const vistos = new Set([...bitacora.temasMostrados, ...temasDelTexto(texto)]);
   const tema = temaDeOferta(pregunta);
+  const pasos = pasosDe(bitacora.recorrido);
+  const siguiente = pasos.find((p) => !vistos.has(p.tema))?.oferta ?? '';
+  // En el catálogo, una oferta del negocio se cambia por el siguiente paso de
+  // producto, aunque la persona no la haya visto: allá el negocio llega solo si
+  // ella lo nombra (6 nov 2026).
+  if (bitacora.recorrido === 'catalogo') {
+    const esDelNegocio = tema ? !TEMAS_DEL_CATALOGO.has(tema) : RE_OFERTA_DE_NEGOCIO.test(pregunta);
+    if (esDelNegocio) return siguiente;
+  }
   if (!tema || !vistos.has(tema)) return null;
-  const siguiente = RECORRIDO.find((p) => !vistos.has(p.tema))?.oferta ?? '';
   return bitacora.siguientePaso === null ? '' : siguiente;
 }
 
@@ -445,7 +481,7 @@ export function temasDelTexto(texto: string): Set<string> {
 }
 
 /** Aplica `reemplazoDeOfertaVista`: cambia la pregunta, o la quita. */
-export function renovarOfertaVista(texto: string, bitacora: Pick<Bitacora, 'temasMostrados' | 'siguientePaso'>): { texto: string; cambio: string | null } {
+export function renovarOfertaVista(texto: string, bitacora: Pick<Bitacora, 'temasMostrados' | 'siguientePaso' | 'recorrido'>): { texto: string; cambio: string | null } {
   const reemplazo = reemplazoDeOfertaVista(texto, bitacora);
   if (reemplazo === null) return { texto, cambio: null };
   const pregunta = preguntaDeCierre(texto)!;

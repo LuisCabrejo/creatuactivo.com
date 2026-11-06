@@ -1790,7 +1790,17 @@ async function procesarEntrante(body: any): Promise<void> {
     // La bitácora del canal (24 sep 2026): con ella, los textos que dicta el
     // webhook tampoco cierran ofreciendo lo que la persona ya vio. Ver
     // `sendWhatsAppMessage`. Al socio no: su conversación es otra.
-    _bitacoraDelTurno = socioQueEscribe ? null : construirBitacora(_filasCrono, existingProspect?.device_info ?? null);
+    // El modo catálogo dura tres horas desde que la persona llegó por /productos,
+    // y se apaga en cuanto pregunta por el negocio: ahí vuelve a lo que traía. Se
+    // calcula aquí porque la bitácora lo necesita: en el catálogo su recorrido es
+    // de productos, y el negocio solo llega si la persona lo nombra (6 nov 2026).
+    const _desdeCatalogo = existingProspect?.device_info?.modo_catalogo_desde as string | undefined;
+    const _hablaDeNegocio = RE_HABLA_DE_NEGOCIO.test(messageText);
+    const _modoCatalogo = !socioQueEscribe && !_hablaDeNegocio
+      && (_vieneDeProductos || (!!_desdeCatalogo && Date.now() - Date.parse(_desdeCatalogo) < 3 * 3600e3));
+    _bitacoraDelTurno = socioQueEscribe ? null : construirBitacora(_filasCrono, existingProspect?.device_info ?? null, {
+      recorrido: _modoCatalogo ? 'catalogo' : 'negocio',
+    });
 
     const dictada = opcionElegida ? getRespuestaBoton(opcionElegida) : null;
 
@@ -3099,12 +3109,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // no hay que convencerlo de nada ni explicarle el modelo, hay que ayudarle a
     // trabajar el suyo. Sin esta señal el motor responde con argumentos de venta a
     // quien ya compró.
-    // El modo asesora dura tres horas desde que la persona llegó por /productos,
-    // y se apaga en cuanto pregunta por el negocio: ahí vuelve a lo que traía.
-    const _desdeCatalogo = existingProspect?.device_info?.modo_catalogo_desde as string | undefined;
-    const _hablaDeNegocio = RE_HABLA_DE_NEGOCIO.test(messageText);
-    const _modoCatalogo = !socioQueEscribe && !_hablaDeNegocio
-      && (_vieneDeProductos || (!!_desdeCatalogo && Date.now() - Date.parse(_desdeCatalogo) < 3 * 3600e3));
+    // El modo catálogo (`_modoCatalogo`) se calculó junto a la bitácora.
     if (_desdeCatalogo && _hablaDeNegocio) {
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -3210,11 +3215,13 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
           sessionId:   waFingerprint,
           fingerprint: waFingerprint,
           pageContext,
+          // El pageContext de salud tapa el del catálogo; esto no (6 nov 2026).
+          modoCatalogo: _modoCatalogo,
           // En modo socio el motor conoce el enlace: sin esto, si el socio lo
           // pedía, el modelo decía que «lo tiene desde su saludo» y no lo daba.
-          // Y conoce los DOS (2 oct 2026): el mensaje de producto promete un asesor
-          // de bienestar, y con un solo enlace el modelo le daba al cliente el del
-          // negocio (María Fernanda, para Brenda y Flor).
+          // Y conoce los DOS (2 oct 2026): el mensaje de producto le promete al
+          // cliente una asistente para los productos, y con un solo enlace el
+          // modelo le daba el del negocio (María Fernanda, para Brenda y Flor).
           ...(socioQueEscribe ? {
             socioEnlace:          enlaceDeCanal(socioQueEscribe.slug),
             socioEnlaceProductos: enlaceCatalogo(socioQueEscribe.slug),
@@ -3962,7 +3969,7 @@ async function capturarContextoDelMensaje(
  * llegó por /productos: ahí Queswa vuelve a la conversación que traía.
  */
 const RE_HABLA_DE_NEGOCIO =
-  /negocio|ganar|\bgana(n|s)?\b|ganancia|comisi[oó]n|paquete|invertir|inversi[oó]n|sistema de distribuci[oó]n|niveles|\bplan\b|c[oó]mo funciona|dinero|plata|ingreso|socio|vincul|afili|registr|c[oó]mo (empiezo|inicio|arranco)|distribuidor/i;
+  /negocio|ganar|\bgana(n|s)?\b|ganancia|comisi[oó]n|paquete|invertir|inversi[oó]n|sistema de distribuci[oó]n|niveles|\bplan\b|funciona,? exactamente|(hacer|generar|producir|entra|entrar|sale)\s+(el\s+|la\s+)?(dinero|plata)|(dinero|plata)\s+extra|ingreso|socio|vincul|afili|registr|c[oó]mo (empiezo|inicio|arranco)|distribuidor/i;
 
 /**
  * Si el último turno de esta huella fue hace menos de `ventanaMin` minutos,

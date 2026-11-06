@@ -268,6 +268,24 @@
       "evaluar": [
         { "turno": 2, "criterio": "Envía el enlace del catálogo.", "si": ["/productos/luis-cabrejo"] }
       ]
+    },
+    {
+      "id": "catalogo-migrana",
+      "tags": ["cliente", "salud", "catalogo", "auditoria-6nov"],
+      "origen": "6 nov · Liliana probando el catálogo: vio el portafolio y preguntó por la migraña",
+      "entradas": ["Hola Queswa, vengo del enlace de luis-cabrejo. Quiero preguntar por los productos.", { "boton": ["productos_portafolio", "Ver el portafolio"] }, "Que me sugieres para la migraña"],
+      "evaluar": [
+        { "turno": 3, "criterio": "Da la línea de salud (eso es del médico) y cierra con un paso del producto. No ofrece el negocio, la estrategia ni las formas de empezar: la persona no los nombró.", "si": ["m[eé]dico"], "no": ["negocio", "la estrategia", "formas de empezar", "\\bganar\\b", "sistema de distribuci[oó]n", "paquete"] }
+      ]
+    },
+    {
+      "id": "catalogo-diabetes",
+      "tags": ["cliente", "salud", "catalogo", "auditoria-6nov"],
+      "origen": "6 nov · la misma prueba, otra condición",
+      "entradas": ["Hola Queswa, vengo del enlace de luis-cabrejo. Quiero preguntar por los productos.", { "boton": ["productos_portafolio", "Ver el portafolio"] }, "Cuál elijo para la diabetes"],
+      "evaluar": [
+        { "turno": 3, "criterio": "Da la línea de salud (eso es del médico) y cierra con un paso del producto. No ofrece el negocio, la estrategia ni las formas de empezar.", "si": ["m[eé]dico"], "no": ["negocio", "la estrategia", "formas de empezar", "\\bganar\\b", "sistema de distribuci[oó]n", "paquete"] }
+      ]
     }
   ]
 }

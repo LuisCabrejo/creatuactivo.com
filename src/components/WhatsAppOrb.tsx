@@ -50,8 +50,11 @@ export default function WhatsAppOrb() {
   const [retomando, setRetomando] = useState(false)
   const abriendo = useRef(false)
 
-  // Catálogo: Queswa entra como asesor de bienestar, no de negocio — el texto
-  // pre-llenado lo dice para que el canal enrute al arsenal correcto de entrada.
+  // Catálogo: Queswa entra como la asistente de los productos, no del negocio —
+  // el texto pre-llenado lo dice para que el canal enrute al arsenal correcto de
+  // entrada. «Asesor de bienestar» se retiró el 6 nov 2026 (Director, por el
+  // comentario de Liliana): prometía un consejo de salud que Queswa no da, e
+  // invitaba justo las preguntas que el filtro de salud tiene que desviar.
   const isProductsPage = pathname.includes('/productos')
   const contexto: ContextoOrbe = isProductsPage ? 'productos' : 'general'
 
@@ -66,12 +69,12 @@ export default function WhatsAppOrb() {
   const tooltipText = retomando
     ? 'Retome su conversación'
     : isProductsPage
-      ? 'Pregúntele a su asesor de bienestar'
+      ? 'Pregúntele a Queswa por los productos'
       : '¿Le muestro cómo funciona?'
 
   // `contextoForzado`: un botón puede pedir otra conversación que la de su página
   // (8 oct 2026: «Pregúntele a Queswa cómo funciona» vive en /productos y abre la
-  // general, no la del asesor de bienestar). Sin él, manda la ruta.
+  // general, no la de los productos). Sin él, manda la ruta.
   const abrirWhatsApp = (pregunta?: OpcionesApertura['pregunta'], contextoForzado?: ContextoOrbe, origen: OrigenApertura = 'boton') => {
     // Guard de doble disparo: el clic en el orbe también emite `open-queswa` para
     // los oyentes de la página, y ese evento vuelve aquí.

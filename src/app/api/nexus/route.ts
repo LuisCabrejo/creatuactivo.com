@@ -4674,7 +4674,7 @@ export async function POST(req: Request) {
     });
 
   try {
-    const { messages: _messagesEntrada, sessionId, fingerprint: _fingerprintEntrada, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos } = await req.json();
+    const { messages: _messagesEntrada, sessionId, fingerprint: _fingerprintEntrada, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos, modoCatalogo: modoCatalogoEntrada } = await req.json();
     // ⛔ El chat de la web en localhost no escribe fichas (Director, 11 oct 2026):
     // sin huella el motor responde igual —así llega parte del tráfico web real—
     // pero no crea ni actualiza el prospecto, y el Dashboard no anuncia una prueba
@@ -4718,8 +4718,18 @@ export async function POST(req: Request) {
     if (pageContext === 'catalogo_productos'
       && messages.some((m: { role: string; content: unknown }) => m.role === 'user' && typeof m.content === 'string' && hablaDeNegocio(m.content))) {
       pageContext = 'default';
-      console.log('🛒 [NEXUS] Preguntó por el negocio desde el catálogo — el modo asesora se apaga');
+      console.log('🛒 [NEXUS] Preguntó por el negocio desde el catálogo — el modo catálogo se apaga');
     }
+    // ¿La persona está en el catálogo? Se fija aquí, antes de que la salud
+    // compuesta reasigne `pageContext`: en ese turno se perdía, y la bitácora le
+    // propuso el negocio a quien preguntó por la migraña (6 nov 2026). WhatsApp lo
+    // manda aparte (`modoCatalogo`) por la misma razón: allá la salud también
+    // cambia el pageContext.
+    const _enCatalogo = !!modoCatalogoEntrada
+      || pageContext === 'catalogo_productos'
+      || pageContext === 'whatsapp_catalogo'
+      || pageContext === 'whatsapp_catalogo_primer_contacto'
+      || pageContext === 'whatsapp_foto_enviada_catalogo';
 
     // ════════════════════════════════════════════════════════════════════════════
     // 🛡️ GUARDARRAÍL DE SALUD — LADO DE ENTRADA
@@ -4830,6 +4840,7 @@ export async function POST(req: Request) {
       const vistos = new Set([...(bitacora?.temasMostrados ?? []), ..._temasVistosEnElHilo()]);
       const r = renovarOfertaVista(pieOriginal ? `${voz}\n\n${pieOriginal}` : voz, {
         temasMostrados: vistos, siguientePaso: bitacora ? bitacora.siguientePaso : 'sin bitácora',
+        recorrido: _enCatalogo ? 'catalogo' : 'negocio',
       });
       if (r.cambio) console.log(`🔁 [Video web] Oferta vista: ${r.cambio}`);
       const pie = separarVozYPie(r.texto, '').pie;
@@ -4910,7 +4921,7 @@ export async function POST(req: Request) {
     if (respuestaMaestra) {
       // En la web, «Cómo funciona», «Cómo entra el dinero» y «Qué debo hacer yo» son
       // un video, como en WhatsApp (8 oct 2026). No en la página de productos, donde
-      // Queswa es asesora de bienestar.
+      // Queswa atiende los productos.
       const _idVideoMaestra = canalWeb && pageContext !== 'catalogo_productos' ? videoDeMaestra(respuestaMaestra) : null;
       if (_idVideoMaestra) {
         const _v = VIDEOS_QUESWA[_idVideoMaestra];
@@ -5106,6 +5117,7 @@ Esos datos ya los dio: se usan, no se vuelven a pedir.
 ` : '';
           _bitacora = construirBitacora(conversations, existingProspectData, {
             paisDeOrigen: COUNTRY_NAMES[visitorCountry] ?? 'Colombia',
+            recorrido: _enCatalogo ? 'catalogo' : 'negocio',
           });
           conversationSummary = `\n\n---\n${userDataSection}\n${_bitacora.texto}\n\n---\n`;
           console.log(`🧠 [Bitácora] ${conversations.length} turnos · mostrado: ${[..._bitacora.temasMostrados].join(', ') || '—'} · residencia: ${_bitacora.residencia?.pais ?? '—'} · siguiente: ${_bitacora.siguientePaso ?? '—'} (${_bitacora.texto.length} chars)`);

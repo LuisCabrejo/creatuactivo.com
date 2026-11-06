@@ -106,5 +106,26 @@ console.log('\n── Un texto aprobado que ya recibió, en cualquier turno ─�
   ok(!yaLoRecibio(antesDe(2).textosDelBot, whyDos), 'antes del turno 2 todavía no lo había recibido');
 }
 
+// La prueba de Liliana en el catálogo (6 nov 2026): vio el portafolio, preguntó
+// por la migraña y la respuesta cerró ofreciendo el negocio.
+console.log('\n── En el catálogo, el negocio solo si la persona lo nombra ──');
+{
+  const filasCat: FilaBitacora[] = [{ messages: [
+    { role: 'user', content: 'Ver el portafolio' },
+    { role: 'assistant', content: '![Portafolio Gano Excel](x)\n\n**Portafolio Gano Excel** · 22 productos\nBebidas (9) · Luvoco (4)\n\n¿Cuál línea le muestro de cerca?' },
+  ] }];
+  const cat = construirBitacora(filasCat, null, { recorrido: 'catalogo' });
+  const neg = construirBitacora(filasCat, null);
+  const salud = 'Es de lo que más nos preguntan.\n\nLas bebidas y las cápsulas de la línea están registradas ante el INVIMA como alimentos y suplementos dietarios, no como medicamentos.';
+  ok(cat.temasMostrados.has('productos'), 'el portafolio con su título en negrita cuenta como visto');
+  ok(cat.siguientePaso === '¿Le muestro el catálogo completo con precios?', `el siguiente paso del catálogo es de producto («${cat.siguientePaso}»)`);
+  ok(/negocio/.test(neg.siguientePaso ?? ''), 'fuera del catálogo el recorrido sigue siendo el del negocio');
+  const r1 = renovarOfertaVista(`${salud}\n\n¿Le cuento cómo funciona el negocio?`, cat);
+  ok(!!r1.cambio && !/negocio/.test(r1.texto), `la oferta del negocio se cambia (${r1.cambio})`);
+  const r2 = renovarOfertaVista(`${salud}\n\n¿Quiere saber cómo puede ganar con estos productos?`, cat);
+  ok(!!r2.cambio && !/ganar/.test(r2.texto), 'también la que compone el modelo con otras palabras');
+  ok(!renovarOfertaVista(`${salud}\n\n¿Le cuento cómo funciona el negocio?`, neg).cambio, 'fuera del catálogo no se toca');
+}
+
 console.log(fallas ? `\n❌ ${fallas} falla(s)` : '\n✅ Todo en orden');
 process.exit(fallas ? 1 : 0);

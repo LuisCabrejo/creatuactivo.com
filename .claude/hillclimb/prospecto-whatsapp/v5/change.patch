@@ -1,0 +1,315 @@
+diff --git a/knowledge_base/arsenal_inicial.txt b/knowledge_base/arsenal_inicial.txt
+index 886d3be..05f8370 100644
+--- a/knowledge_base/arsenal_inicial.txt
++++ b/knowledge_base/arsenal_inicial.txt
+@@ -12,7 +12,7 @@
+ - **Cifras fuera del párrafo emocional.** El dato junto a la historia resta emoción en vez de sumarla (efecto de la víctima identificable). Los números viven en el simulador y en compensación.
+ - **Autopersuasión** (marcos moderados — "meses" no "días"; escenarios que el lector completa) · **test Beto** (si un profesional sin MBA no lo entiende, está prohibido; claridad = lujo) · concepto nuclear modelo Waze.
+ 
+-**Versión actual: v6.87** (2 nov 2026) — **`FREQ_14` dice la diferencia con los dos productos con nombre**: *«Ninguna otra forma de iniciar con Gano Excel le entrega las dos»* (creatuactivo.com y queswa.app) y la experiencia excepcional del cliente y del distribuidor, con sus hechos. **v6.86** (2 nov 2026) — **Sale la lista de espera y «presencia» reemplaza a «estar encima» en las respuestas generales**: `EAM_02` responde «¿por qué ahora?» con la acumulación del activo (*«la fecha la pone usted: el día en que empieza a construirlo»*); `WHY_03`, `WHY_04` 🔒 (con `MASTER_DINERO_01` y el video «Cómo entra el dinero») y `WHY_05` 🔒 dicen *aunque usted no esté presente* / *no depende de su presencia*. «Encima» queda en `PERFIL_02` y `ADV_OBJ_02`, que les hablan a empresarios. **v6.85** (1 nov 2026) — **El activo en las dos preguntas clave**: `WHY_01` responde con el nombre (*crear su propio activo, una empresa de distribución que no depende de su presencia*) y `WHY_02` cierra la propiedad con *«Eso es un activo: sigue produciendo aunque usted no esté presente.»* (sincronizado en `respuestas-maestras.ts`). **v6.84** (30 oct 2026) — **`WHY_PROD_01` entrega el catálogo en el mismo turno**: el candado abre con «Son 22 productos en cuatro líneas», el backend pone debajo el enlace al catálogo y la pregunta de cierre pasa a «¿Le muestro las cuatro formas de empezar?». **v6.83** (30 oct 2026) — **Los videos del reto salen del prompt y viven solo aquí**: nacen `RETO_D43`, `D44`, `D45`, `D46`, `D50` y `D51` (el 48 no se archiva). «Su video de hoy» lo resuelve el código con `RETO_MAS_RECIENTE`. **v6.82** (29 oct 2026) — **`WHY_02` abre con el obstáculo con precio**: «una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le costarían millones. Usted los recibe en una sola aplicación» (antes «los tres elementos que eliminan la fricción de montar…»), la misma línea de la Presentación y del video v7. **v6.81** (29 oct 2026) — **`VS_01` abre validando sin calificar la pregunta**: «Son modelos que sí funcionan, y la diferencia está en qué queda a su nombre» (antes «Buena pregunta, porque…»; la red que quita el elogio se llevaba la validación).
++**Versión actual: v6.89** (5 nov 2026) — **`EAM_03` responde «¿los clientes los tengo que conseguir yo?»**: la frase entra al frente de su índice. **v6.88** (3 nov 2026) — **Nace `RETO_D58`**, el archivo del video del día 58 («en qué estuvo equivocado, y los dos aciertos»), con las cifras y su fuente; `RETO_MAS_RECIENTE` apunta aquí. **v6.87** (2 nov 2026) —**`FREQ_14` dice la diferencia con los dos productos con nombre**: *«Ninguna otra forma de iniciar con Gano Excel le entrega las dos»* (creatuactivo.com y queswa.app) y la experiencia excepcional del cliente y del distribuidor, con sus hechos. **v6.86** (2 nov 2026) — **Sale la lista de espera y «presencia» reemplaza a «estar encima» en las respuestas generales**: `EAM_02` responde «¿por qué ahora?» con la acumulación del activo (*«la fecha la pone usted: el día en que empieza a construirlo»*); `WHY_03`, `WHY_04` 🔒 (con `MASTER_DINERO_01` y el video «Cómo entra el dinero») y `WHY_05` 🔒 dicen *aunque usted no esté presente* / *no depende de su presencia*. «Encima» queda en `PERFIL_02` y `ADV_OBJ_02`, que les hablan a empresarios. **v6.85** (1 nov 2026) — **El activo en las dos preguntas clave**: `WHY_01` responde con el nombre (*crear su propio activo, una empresa de distribución que no depende de su presencia*) y `WHY_02` cierra la propiedad con *«Eso es un activo: sigue produciendo aunque usted no esté presente.»* (sincronizado en `respuestas-maestras.ts`). **v6.84** (30 oct 2026) — **`WHY_PROD_01` entrega el catálogo en el mismo turno**: el candado abre con «Son 22 productos en cuatro líneas», el backend pone debajo el enlace al catálogo y la pregunta de cierre pasa a «¿Le muestro las cuatro formas de empezar?». **v6.83** (30 oct 2026) — **Los videos del reto salen del prompt y viven solo aquí**: nacen `RETO_D43`, `D44`, `D45`, `D46`, `D50` y `D51` (el 48 no se archiva). «Su video de hoy» lo resuelve el código con `RETO_MAS_RECIENTE`. **v6.82** (29 oct 2026) — **`WHY_02` abre con el obstáculo con precio**: «una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le costarían millones. Usted los recibe en una sola aplicación» (antes «los tres elementos que eliminan la fricción de montar…»), la misma línea de la Presentación y del video v7. **v6.81** (29 oct 2026) — **`VS_01` abre validando sin calificar la pregunta**: «Son modelos que sí funcionan, y la diferencia está en qué queda a su nombre» (antes «Buena pregunta, porque…»; la red que quita el elogio se llevaba la validación).
+ 
+ **v6.77** (19 oct 2026) — **Nacen los archivos de los videos del reto: `RETO_D22` (sale del prompt hoy) y `RETO_D15` y `RETO_D19`** (salieron antes sin archivarse; el día 16 no se archiva: su índice atraía cualquier «vi su video de hoy»), con la nota aprobada de cada uno como cuerpo. Es la rutina del reto: en el prompt viven solo los dos últimos videos. Criterio en su `[Concepto Nuclear]`. Y `EAM_02` ofrece *las cuatro formas de empezar* (decía *tres*).
+ 
+@@ -1104,8 +1104,8 @@ Por eso la fecha la pone usted: el día en que empieza a construirlo. Cuando qui
+ **Pregunta de seguimiento:** ¿Le muestro las cuatro formas de empezar?
+ 
+ ### **EAM_03: "¿Me toca salir a vender?"**
+-**[Índice]:** Entonces yo no tengo que vender nada, me toca salir a vender o andar ofreciendo los productos. No sé vender, no me gusta vender.
+-**[Concepto Nuclear]:** Nace de la auditoría del video del día 43 (19 oct 2026): *«¿entonces yo no tengo que vender nada?»* no tenía destino propio. Caía en el candado `ADV_OBJ_02` (escalar un negocio con nómina e inventario, a quien no tiene negocio) y, al soltarlo, en `CLIENTE_VIP_01` 🔒, que arranca con *«Claro que sí, y es la puerta más sencilla»*: le contestaba a otra pregunta. `EAM_01` no la alcanzaba con una cláusula en el índice (puesto 16): una puerta nueva se abre con un fragmento corto. Son las dos acciones del Método Comprobado —compartir arriba, recibir al final— y en medio quién hace el trabajo, en positivo: lo que Queswa SÍ hace, nunca *«usted no explica»* (retirado el 29 jun) ni cómo se hace en otros equipos. ⚠️ *«Saludar a quien ya tiene interés»*, no *«a quien llega»*: el Director marcó el 19 oct que *llegar* carga la silueta de *meter gente*. Índice medido en laboratorio contra el corpus real: gana sus seis consultas en el puesto 1 (*«me toca salir a vender»* 0.700) y no le quita ninguna a `FREQ_21`, `EAM_01`, `FREQ_42`, `WHY_02` ni `OBJ_01`. Texto aprobado por el Director el 19 oct.
++**[Índice]:** Los clientes los tengo que conseguir yo para vender. Entonces yo no tengo que vender nada, me toca salir a vender o andar ofreciendo los productos. No sé vender, no me gusta vender.
++**[Concepto Nuclear]:** Nace de la auditoría del video del día 43 (19 oct 2026): *«¿entonces yo no tengo que vender nada?»* no tenía destino propio. Caía en el candado `ADV_OBJ_02` (escalar un negocio con nómina e inventario, a quien no tiene negocio) y, al soltarlo, en `CLIENTE_VIP_01` 🔒, que arranca con *«Claro que sí, y es la puerta más sencilla»*: le contestaba a otra pregunta. `EAM_01` no la alcanzaba con una cláusula en el índice (puesto 16): una puerta nueva se abre con un fragmento corto. Son las dos acciones del Método Comprobado —compartir arriba, recibir al final— y en medio quién hace el trabajo, en positivo: lo que Queswa SÍ hace, nunca *«usted no explica»* (retirado el 29 jun) ni cómo se hace en otros equipos. ⚠️ *«Saludar a quien ya tiene interés»*, no *«a quien llega»*: el Director marcó el 19 oct que *llegar* carga la silueta de *meter gente*. Índice medido en laboratorio contra el corpus real: gana sus seis consultas en el puesto 1 (*«me toca salir a vender»* 0.700) y no le quita ninguna a `FREQ_21`, `EAM_01`, `FREQ_42`, `WHY_02` ni `OBJ_01`. Texto aprobado por el Director el 19 oct. ⚠️ **v6.89 (5 nov 2026):** el índice abre con *«los clientes los tengo que conseguir yo»*: en la evaluación del canal, «Yo debo conseguir los clientes cierto para vender esto?» lo ganaba `FREQ_21` (0.618 contra 0.572) y el modelo componía sin nombrar a Gano Excel. Con la frase al frente gana 0.653, y `FREQ_21` conserva las suyas (*«¿Puedo ganar solo con clientes?»* 0.702 contra 0.535).
+ 
+ <verbatim_lock>
+ Lo que le toca a usted es compartir: le envía su enlace a quien quiera.
+@@ -1345,6 +1345,18 @@ Y lo más difícil de cualquier negocio es multiplicarlo: Frisby nació en Perei
+ 
+ En el video del día 51 del reto (martes 27 de octubre), Luis compartió dos cosas que ha aprendido de David Vélez, el colombiano que fundó Nubank. La primera, enfocarse en la jornada y no en el destino: si trabaja en las acciones que apalancan los resultados, los resultados llegan por inercia, y terminar el día sabiendo que hizo lo que tenía que hacer lo llena de satisfacción. La segunda, tener claro lo importante: después de Dios, la salud, su esposa Liliana y su hogar, y el proyecto de trascender en la vida de millones de personas en América.
+ 
++**Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
++
++### **RETO_D58: "En qué estuvo equivocado estos casi dos meses, y los dos aciertos"**
++**[Índice]:** En qué estuvo equivocado, salvo en dos cosas. Un activo no son solo sus bienes, su casa o su carro. El ingreso de nueve de cada diez hogares no alcanza; la informalidad y la pensión. La tecnología y los medios reducen la barrera de entrada. La recta final del año.
++**[Concepto Nuclear]:** Archivo del video del día 58 (martes 3 nov 2026), aprobado por el Director el 3 nov 2026. El índice NO dice «con qué plata» ni «a qué horas»: esa pregunta es de `RETO_D43`. Tampoco «qué es un activo»: es de `WHY_01` (medido el 3 nov: con «qué es un activo» `WHY_01` sale en 0.555 y este queda #9). La definición del activo va con su causa en el cuerpo, el cliente que vuelve a comprar. Las cifras llevan su fuente, como en la Presentación. Es el video más reciente del reto mientras `RETO_MAS_RECIENTE` (src/lib/puerta-reto.ts) apunte aquí. ⚠️ El índice no dice «video» ni «reto», por la misma razón que `RETO_D19`: va anclado a lo que la persona recuerda.
++
++En el video del día 58 del reto (martes 3 de noviembre), Luis contó que en estos casi dos meses estuvo equivocado en la mayoría de las cosas, salvo en dos. El primer desafío fue la palabra *activo*: para la mayoría de los latinos son sus bienes, su casa o su carro, pero en palabras simples un activo es algo que le genera dinero sin que usted tenga que estar presente. En creatuactivo.com ese activo es una empresa de distribución moderna: cada cliente que llega por su enlace queda a su nombre, y cada vez que vuelve a comprar, a usted le queda un porcentaje.
++
++El primer acierto: hoy la mayoría de las personas en Latinoamérica vive desafíos enormes. Nueve de cada diez hogares colombianos dicen que su ingreso no les alcanza, o que les alcanza apenas (DANE, Encuesta de Calidad de Vida 2025). Más de la mitad de las personas que trabajan lo hacen en la informalidad (54,6 %, DANE, GEIH, mayo a julio de 2026), y tres de cada cuatro en edad de pensionarse no reciben una pensión (Colpensiones y Universidad Javeriana, 2022). El segundo acierto: la tecnología y los medios son hoy la forma más sencilla de reducir la barrera de entrada para construir un activo.
++
++Ya hay familias de distintos lugares de Colombia y de fuera de Colombia empezando a construir el suyo. En los últimos 32 días del reto, el propósito es llevar la plataforma a más familias y a más países de América.
++
+ **Pregunta de seguimiento:** ¿Le cuento cómo funciona el negocio?
+ ---
+ 
+diff --git a/knowledge_base/catalogo_productos.txt b/knowledge_base/catalogo_productos.txt
+index 5550963..0d8e37e 100644
+--- a/knowledge_base/catalogo_productos.txt
++++ b/knowledge_base/catalogo_productos.txt
+@@ -1,11 +1,12 @@
+ # Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
+ **Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
+ 
+-**Versión actual: v7.16** (29 oct 2026) — **Las defensas con la frase aprobada.** `CIENCIA_01`, `CIENCIA_02` y la fila de las Cápsulas Ganoderma en la tabla de suplementos dicen «apoya el funcionamiento normal de las defensas», la frase del Director para todos los productos que se toman (Director, 29 oct 2026).
++**Versión actual: v7.17** (5 nov 2026) — **Las ofertas del catálogo llegan a su destino.** Nace `BEB_DIF_01` (en qué se diferencian las bebidas, por momento del día), destino del pie de la foto y de la tabla del ESP-1; `BEB_06` y `BEB_06B` cierran con «¿Le muestro cómo se toma a lo largo del día?», y `RUTINA_01` nombra el Reskine. Texto aprobado por el Director en el chat.
++
++**v7.16** (29 oct 2026) — **Las defensas con la frase aprobada.** `CIENCIA_01`, `CIENCIA_02` y la fila de las Cápsulas Ganoderma en la tabla de suplementos dicen «apoya el funcionamiento normal de las defensas», la frase del Director para todos los productos que se toman (Director, 29 oct 2026).
+ 
+ **v7.15** (28 oct 2026, noche) — **«¿Para qué sirve?» se responde con la vida del producto, no con la ficha ni con la ley.** Auditoría de tono con 26 preguntas de prospecto contra el motor: `CIENCIA_03` abre con la experiencia (antes abría con «no del tratamiento médico») y es la puerta de «para qué sirven los productos», que se iba al negocio; `BEB_04` (té) y `BEB_05` (cereal) dejan el formato de folleto, y los beneficios del té son los del rooibos —sin cafeína, antioxidantes, favorece el descanso— (Director); el colágeno dice sus dos declaraciones aprobadas por el INVIMA, la piel y las articulaciones, con sus condiciones (Director: está aprobado y documentado), y nace `BEB_06B` para «¿sirve para la piel?»; «apoya el funcionamiento normal de las defensas» vale para todos los productos (Director); `BEB_10` y `PERS_03` atienden «el chocolate» y «el jabón», que tienen dos productos cada uno; `HAB_01` recibe el cansancio, que caía en los paquetes. Texto aprobado por el Director en el chat.
+ 
+-**v7.14** (28 oct 2026) — **El catálogo guía con hábitos.** Nacen `HAB_01` (las cuatro pautas de base) y `HAB_02` (antes de entrenar y el pre-entreno), y `FAQ_01` nombra las precauciones concretas. Las ofertas de cierre van literales en los índices de `BEB_02` y `BEB_07`. Texto aprobado por el Director en el chat.
+ 
+ **[Concepto Nuclear del archivo]:** Ganoderma Lucidum con extracción propia, más de 30 años de proceso y más de 200 compuestos. ⛔ **Decía *"Biodisponibilidad 100%"*** — retirado el 26 ago 2026: **la composición se afirma; la absorción no.** Esta cabecera no se sirve, pero es lo primero que lee quien vaya a editar.
+ 
+@@ -264,7 +265,7 @@ Junto con una dieta saludable, el colágeno ayuda a mantener la función de barr
+ 
+ **Presentación:** 10 sobres · **Precio: $216.900 COP**
+ 
+-**Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
++**Pregunta de seguimiento:** ¿Le muestro cómo se toma a lo largo del día?
+ ---
+ 
+ ### BEB_06B: "¿El colágeno sirve para la piel? / ¿el Reskine es para la piel? / ¿el colágeno quita las arrugas? / colágeno para el cabello y las uñas"
+@@ -277,7 +278,7 @@ El Reskine lo trae en una bebida de frutos rojos —fresa, frambuesa y arándano
+ 
+ La caja trae 10 sobres y cuesta $216.900 COP.
+ 
+-**Pregunta de seguimiento:** ¿Le muestro cómo se integra en la rutina?
++**Pregunta de seguimiento:** ¿Le muestro cómo se toma a lo largo del día?
+ ---
+ 
+ ### BEB_07: "¿Para qué sirve el Ganocafé Clásico? / ¿Qué es el Ganocafé Classic? / háblame del café negro / el clásico / el tinto de ustedes / café puro con ganoderma"
+@@ -350,6 +351,30 @@ Un sobre en agua caliente. La caja trae 20 y cuesta $124.900 COP.
+ 
+ ---
+ 
++### BEB_DIF_01: "¿En qué se diferencian las bebidas?"
++**[Índice]:** ¿Le cuento en qué se diferencian entre ellas? ¿Le cuento en qué se diferencian estas bebidas? En qué se diferencian las bebidas, cuál es la diferencia entre los cafés, cuál bebida escojo.
++**[Concepto Nuclear]:** Nace el 5 nov 2026 (Director), en la evaluación del canal: el pie de la foto de las bebidas y la tabla del ESP-1 ofrecen «en qué se diferencian», y el «sí» recibía `BEB_01`, la misma lista de precios que la persona acababa de ver. Lo dicta el conductor (nodo 2.37). Se diferencian por el MOMENTO del día, que es como la persona se imagina usándolas; cada dato sale de la ficha del catálogo web (`productos/catalogo-datos.ts`). ⚠️ Sin precios: ya los vio. ⚠️ Sin beneficios de salud: el chocolate va por el momento y el sabor, y lo que se diga del descanso es solo del Rooibos en su fragmento. ⚠️ Cierra en `BEB_02`, que existe: una sola salida, y el «sí» siguiente no vuelve a preguntar «¿sobre cuál?».
++
++<verbatim_lock>
++Se diferencian por el momento del día:
++
++*Al empezar el día*: el Ganocafé 3 en 1, como su café de siempre, y el Ganocafé Clásico, café negro puro.
++
++*A media mañana o en la tarde*: el Latte Rico, que hace espuma, y el Mocha Rico, café con chocolate.
++
++*En el desayuno*: el Gano C'Real Spirulina, en agua o en leche.
++
++*En la mañana o al final del día*: el chocolate, para grandes y chicos. El Shoko Rico es el de los niños, y el Schokolade, el del adulto, con más cacao y menos dulce.
++
++*En la tarde o en la noche*: el Rooibos, que no tiene cafeína.
++
++*Y aparte*: el Reskine Colágeno, directo del sachet, en la mañana o después de entrenar.
++</verbatim_lock>
++
++**Pregunta de seguimiento:** ¿Le cuento qué tiene de especial el Ganocafé 3 en 1?
++
++---
++
+ **[Sección interna — no es contenido servido]:** CATEGORÍA 2: LÍNEA LUVOCO
+ 
+ ### LUV_00: "¿Qué tiene de especial el café Luvoco? / beneficios del café luvoco / el café luvoco / háblame del luvoco / por qué luvoco / qué tal es el luvoco / cómo es el café de la máquina"
+@@ -641,12 +666,14 @@ No es un estimulante que entra y sale — se va acomodando. Por eso la constanci
+ 
+ ### RUTINA_01: "¿Cómo se toman a lo largo de un día? / ¿A qué hora se toma cada uno?"
+ **[Índice]:** ¿Le muestro cómo se toman a lo largo de un día? Cómo se toman los productos, a qué hora va cada uno, cómo se prepara el sobre, cuántas cápsulas al día, cómo es un día con los productos, cómo los incorporo a mi rutina, si los pueden tomar los niños.
+-**[Concepto Nuclear]:** Es el destino de la oferta con que cierran CIENCIA_03, FAQ_01 y FAQ_02 (v7.10). Quien acepta «cómo se toman a lo largo de un día» ya recibió los beneficios y **no quiere oírlos otra vez**: quiere verse un día —en qué momentos, qué producto, cómo se prepara, cuántos, para quién—. Es un HORARIO, no un argumento (intenciones de implementación: «cuando pase X, hago Y» multiplica el seguimiento frente a la intención abstracta; el producto se ancla a un momento que ya existe). ⚠️ Cero beneficios aquí. ⚠️ Solo hechos de las fichas: sobre en agua caliente; caja de 20; frasco de 90 cápsulas = tres meses, una al día; Rooibos sin cafeína; Shoko Rico para toda la familia. ⚠️ No nombrar productos que no están en los 22 (el modelo inventó *Ganocelium* el 3 sep). ⚠️ La oferta anterior decía «día a día», que es patrón del clasificador hacia EAM_01: la nueva no lo dice, y va literal en este índice. ⚠️ «Cuánto dura una caja» es de FAQ_05 y no se indexa aquí.
++**[Concepto Nuclear]:** Es el destino de la oferta con que cierran CIENCIA_03, FAQ_01 y FAQ_02 (v7.10). Quien acepta «cómo se toman a lo largo de un día» ya recibió los beneficios y **no quiere oírlos otra vez**: quiere verse un día —en qué momentos, qué producto, cómo se prepara, cuántos, para quién—. Es un HORARIO, no un argumento (intenciones de implementación: «cuando pase X, hago Y» multiplica el seguimiento frente a la intención abstracta; el producto se ancla a un momento que ya existe). ⚠️ Cero beneficios aquí. ⚠️ Solo hechos de las fichas: sobre en agua caliente; caja de 20; frasco de 90 cápsulas = tres meses, una al día; Rooibos sin cafeína; Shoko Rico para toda la familia. ⚠️ No nombrar productos que no están en los 22 (el modelo inventó *Ganocelium* el 3 sep). ⚠️ La oferta anterior decía «día a día», que es patrón del clasificador hacia EAM_01: la nueva no lo dice, y va literal en este índice. ⚠️ «Cuánto dura una caja» es de FAQ_05 y no se indexa aquí. ⚠️ **v7.17 (Director, 5 nov 2026):** también es el destino de `BEB_06` y `BEB_06B`, que cierran con «¿Le muestro cómo se toma a lo largo del día?» y nombra el Reskine con los hechos del catálogo web. Medido con Voyage: esa oferta recupera RUTINA_01 a 0.682 contra 0.598 de EAM_01; la anterior («cómo se integra en la rutina») recuperaba EAM_01 primero —la rutina sin producto se parece al día del negocio— y el «sí» al colágeno recibía el video de las dos acciones. El índice no se tocó: sumarle la oferta lo diluía. El chocolate va en la mañana y al final del día, para grandes y chicos (Director, 5 nov 2026).
+ 
+ Un día con la línea se ve así:
+ 
+ *Mañana*: un sobre de Ganocafé 3 en 1 en agua caliente, y ese es el café del día. Quien no toma café tiene el Schokolade o el Shoko Rico, que también van para los niños.
+ 
++*Mañana o después de entrenar*: el Reskine Colágeno, directo del sachet, sin agua ni vaso; bien frío sabe mejor. Uno al día: la caja rinde diez días.
++
+ *Con el almuerzo*: una cápsula, de Ganoderma, Excellium o Cordygold según lo que busque. El frasco de Ganoderma o de Excellium dura tres meses; el de Cordygold, dos.
+ 
+ *Noche*: el Rooibos, que no tiene cafeína. Y en el baño, la crema dental Gano Fresh y el jabón, con el mismo extracto.
+diff --git a/src/app/api/nexus/route.ts b/src/app/api/nexus/route.ts
+index 4821f5c..fc56cab 100644
+--- a/src/app/api/nexus/route.ts
++++ b/src/app/api/nexus/route.ts
+@@ -55,6 +55,8 @@ import {
+ import { pushAlDashboard } from '@/lib/wa-avisos-contexto';
+ import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
+ import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto, quitarElogioInicial } from '@/lib/queswa-envoltura';
++import { parametrosDeRedaccion } from '@/lib/modelo-redaccion';
++import { fichaDeUso, pinProductoDelHilo } from '@/lib/ficha-producto';
+ import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
+ 
+ /**
+@@ -3144,7 +3146,7 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
+     },
+   ];
+ 
+-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = [], textosPrevios: readonly string[] = []) {
++async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = [], textosPrevios: readonly string[] = [], consultaParafraseada = false) {
+   // El socio recibe el directorio de sedes (FREQ_34) y el prospecto no: la
+   // caché no puede mezclar a los dos.
+   // ⚠️ Lo ya servido entra en la CLAVE del caché: el resultado filtrado es de
+@@ -3173,7 +3175,24 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
+     // puerta no disparó, y el modelo compuso con "reclutamiento" adentro. Las
+     // palabras de la persona son la llave — la paráfrasis de un modelo no puede
+     // costarla.
+-    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage) || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
++    //
++    // ⚠️ Pero una puerta DICTADA no se abre con la paráfrasis (5 nov 2026). El
++    // CQR también AGREGA palabras, y las toma de la respuesta anterior de
++    // Queswa: «y para la vitalidad, la energía» salió reescrita como «Productos
++    // Ganoderma para vitalidad y energía del día a día», la puerta de EAM_01
++    // leyó «día a día» y le dictó el video del negocio a alguien que preguntaba
++    // por un producto. Una puerta dictada entrega un texto literal sin que el
++    // modelo vea la pregunta, así que la llave tiene que ser de la persona: su
++    // mensaje, o un ancla determinística (la oferta que aceptó con un «sí», la
++    // intención de video), que no pasan por el CQR. Las no dictadas siguen
++    // leyendo la reescrita: ahí el modelo ve la pregunta y responde.
++    const puerta = PUERTAS_INICIAL.find(p =>
++      (p.cuando.test(userMessage) && !(p.dictar && consultaParafraseada))
++      || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
++    if (!puerta && consultaParafraseada) {
++      const descartada = PUERTAS_INICIAL.find(p => p.dictar && p.cuando.test(userMessage));
++      if (descartada) console.log(`🚪 [Puerta] ${descartada.fragmento} solo la abría la paráfrasis del CQR — no se dicta`);
++    }
+     if (puerta) {
+       const allFragments = await getArsenalFragments(tenantId);
+       const frag = allFragments.find(f => f.category === puerta.fragmento);
+@@ -5647,6 +5666,9 @@ ${summaryParts.join('\n')}
+     // Aquí la conversación se colapsa en una consulta autónoma ANTES de buscar.
+     // Degrada con gracia: si falla, se busca con el mensaje original.
+     let consultaRecuperacion = latestUserMessage;
++    let _consultaParafraseada = false;
++    // El «sí» se ancló a una oferta que el modelo compuso: ni puerta ni candado se dictan.
++    let _ofertaCompuesta = false;
+ 
+     // ── Aceptación pelada: se busca con la OFERTA, no con el "sí" (14 ago 2026) ──
+     // Determinístico y ANTES del CQR: cuando el mensaje es solo una aceptación,
+@@ -5676,6 +5698,24 @@ ${summaryParts.join('\n')}
+       if (_preguntas && _preguntas.length && !_anclaMala) {
+         consultaRecuperacion = _preguntas[_preguntas.length - 1];
+         console.log(`🔁 [Aceptación] Se busca con la oferta del bot: "${consultaRecuperacion.slice(0, 80)}"`);
++        // Una oferta que compuso el modelo busca, pero no DICTA (5 nov 2026,
++        // evaluación del canal, caso reskine-rutina 0/3). BEB_06 cierra con una
++        // oferta del arsenal; el modelo la reescribió como «…en la rutina del
++        // día a día», y ante el «Sí» la puerta de EAM_01 leyó «día a día» y dictó
++        // el video del negocio a quien preguntaba por el colágeno. Es la misma
++        // falla que la paráfrasis del CQR: texto que la persona no escribió
++        // abriendo un dictado. Si la oferta está escrita en algún fragmento, es
++        // copy aprobado y abre lo que abría; si no, se trata como paráfrasis.
++        // Medido el 5 nov: ninguna oferta del bot que vive en el código abre hoy
++        // una puerta dictada.
++        const _norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[*_]/g, '').replace(/\s+/g, ' ').trim();
++        const _oferta = _norm(consultaRecuperacion);
++        const _fragsOferta = await getArsenalFragments(tenantId);
++        if (_fragsOferta.length && !_fragsOferta.some((f) => _norm(f.content || '').includes(_oferta))) {
++          _consultaParafraseada = true;
++          _ofertaCompuesta = true;
++          console.log('🔁 [Aceptación] La oferta no está escrita en el arsenal (la compuso el modelo): busca, pero no se dicta');
++        }
+       } else if (_anclaMala) {
+         console.log('🔁 [Aceptación] La oferta anterior tenía dos salidas — no se ancla, lo atiende el modelo');
+       }
+@@ -5755,6 +5795,8 @@ ${summaryParts.join('\n')}
+         cliente: anthropic, registrar: (c) => _consumo.push(c),
+       });
+       consultaRecuperacion = cqr.consulta;
++      // Las puertas dictadas no se abren con esta paráfrasis: ver consultarArsenalHibrido.
++      _consultaParafraseada = consultaRecuperacion.trim() !== (latestUserMessage || '').trim();
+     }
+ 
+     if (!isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly && !_negacionPelada) {
+@@ -5787,7 +5829,7 @@ ${summaryParts.join('\n')}
+         // así que la expansión de chips sigue funcionando igual.
+         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
+         console.log('Query híbrido generado:', searchQuery);
+-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos, _bitacora?.textosDelBot ?? []);
++        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos, _bitacora?.textosDelBot ?? [], _consultaParafraseada);
+         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
+       }
+     } else {
+@@ -6978,7 +7020,8 @@ ${filaGen5}`;
+      */
+     const getPinProducto = (): string => {
+       const prod = detectarProducto(latestUserMessage);
+-      if (!prod) return '';
++      // Sin producto en el mensaje, el del hilo: ver `ficha-producto.ts` (5 nov 2026).
++      if (!prod) return pinProductoDelHilo(_ultimoBotMsg);
+       const precio = visitorCountry === 'CO' || !visitorCountry
+         ? `$${prod.precioCOP.toLocaleString('es-CO')} COP`
+         : `$${prod.precioCOP.toLocaleString('es-CO')} COP`;
+@@ -6986,7 +7029,7 @@ ${filaGen5}`;
+       return `
+ 💠 DATOS OFICIALES DEL PRODUCTO POR EL QUE PREGUNTAN (úsalos exactos):
+ • Nombre correcto: ${prod.nombre}${pres}
+-• Precio: ${precio}${prod.invima ? `\n• Registro INVIMA: ${prod.invima}` : ''}
++• Precio: ${precio}${prod.invima ? `\n• Registro INVIMA: ${prod.invima}` : ''}${fichaDeUso(prod) ? `\n• ${fichaDeUso(prod).replace(/\n  /g, '\n• ')}` : ''}
+ ⚠️ El precio va SIEMPRE en la respuesta, y el nombre se escribe así, sin
+ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
+     };
+@@ -7251,7 +7294,12 @@ ${visitorCountry === 'CO'
+         // Y un candado que abre con «Sí.» no se le dicta a quien pregunta «¿en qué
+         // se diferencia…?»: ver `siFueraDeLugar` en el conductor (FREQ_40, 10 oct 2026).
+         const _siFueraDeLugar = !!_cuerpo && siFueraDeLugar(_cuerpo, String(latestUserMessage ?? ''));
+-        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || ((_esReparacion || _esObjecionPresupuesto || _siFueraDeLugar) && !_esPuertaDictada))) {
++        // Y un candado que trajo una oferta compuesta por el modelo tampoco (5 nov
++        // 2026): ver `_ofertaCompuesta`. «…en la rutina del día a día» recupera
++        // EAM_01 con candado por delante de RUTINA_01, y sin esto el «sí» al
++        // colágeno recibía el video del negocio por esta vía en vez de la puerta.
++        const _porOfertaCompuesta = _ofertaCompuesta && !_esPuertaDictada;
++        if (_cuerpo && (_yaLoDijo || _tablaManda || _candadoEmpatado || _porOfertaCompuesta || ((_esReparacion || _esObjecionPresupuesto || _siFueraDeLugar) && !_esPuertaDictada))) {
+           // El candado se queda como MATERIAL, sin la orden de copiarlo literal:
+           // así el modelo responde lo que la persona preguntó de verdad, con el
+           // fragmento delante. Quitárselo lo dejaría componiendo sin material,
+@@ -7266,7 +7314,7 @@ ${visitorCountry === 'CO'
+           _doc0.content = (_doc0.content || '').replace(/<\/?verbatim_lock>/gi, '');
+           arsenalParaCierre = arsenalParaCierre.replace(/<\/?verbatim_lock>/gi, '');
+           _meta0.candado_solitario = false;
+-          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : _esObjecionPresupuesto ? 'el mensaje es una objeción de presupuesto' : _siFueraDeLugar ? 'abre con «Sí» y la pregunta no es de sí o no' : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
++          console.log(`🔁 [Candado] ${_meta0.fragment_categories?.[0] ?? _doc0.id} ${_yaLoDijo ? 'la persona ya lo recibió' : _tablaManda ? 'cede ante la tabla del Estado 2' : _candadoEmpatado ? `ganó empatado (margen ${(_meta0.margen as number).toFixed(3)})` : _porOfertaCompuesta ? 'lo trajo una oferta que compuso el modelo' : _esObjecionPresupuesto ? 'el mensaje es una objeción de presupuesto' : _siFueraDeLugar ? 'abre con «Sí» y la pregunta no es de sí o no' : 'el mensaje es una queja o una corrección'} — lo redacta el modelo`);
+         } else if (_cuerpo && (_esPuertaDictada || !_conMarcadores)) {
+           const _idFrag = _meta0.fragment_categories?.[0] ?? _doc0.id;
+           const _metodo = _esPuertaDictada ? 'puerta_dictada' : 'candado_dictado';
+@@ -7640,8 +7688,13 @@ ESTADO: ${getMessageContext()}`;
+       try {
+         // En intento 2 (último), degradar a Haiku para evitar otro overload en Sonnet
+         const useHaiku = isSimpleQuery || attempt >= 2;
++        // Sonnet 4.6 salvo en una comparación de modelos de la evaluación: ver
++        // `modelo-redaccion.ts`. Trae `model`, `max_tokens` y temperature o effort.
++        const _redaccion = useHaiku
++          ? { model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, temperature: 0.65 }
++          : parametrosDeRedaccion(_esPrueba, maxTokens);
+         return await anthropic.messages.create({
+-      model: useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-6',
++      ...(_redaccion as { model: string; max_tokens: number }),
+       system: isSimpleQuery
+         // Haiku: prompt corto ~300 chars, TTFT ~0.6s, sin overhead de cache
+         ? HAIKU_SYSTEM_PROMPT
+@@ -7667,8 +7720,8 @@ ESTADO: ${getMessageContext()}`;
+             }
+           ],
+       stream: true,
+-      max_tokens: maxTokens,
+-      temperature: 0.65,            // Haiku y Sonnet no aceptan temperature + top_p juntos
++      // max_tokens y temperature (o effort, en la generación 5) vienen en _redaccion.
++      // Haiku y Sonnet no aceptan temperature + top_p juntos.
+       messages: recentMessages,
+         });
+       } catch (err: any) {
+diff --git a/src/lib/queswa-conductor.ts b/src/lib/queswa-conductor.ts
+index adf7dd9..4aa5e99 100644
+--- a/src/lib/queswa-conductor.ts
++++ b/src/lib/queswa-conductor.ts
+@@ -269,8 +269,12 @@ export async function textoDeCandado(supabase: any, tenant: string, categoria: s
+ export function categoriaDeLasDiferencias(cierreBot: string, ultimoBot: string): string | null {
+   const c = cierreBot || '';
+   if (/en qu[eé] se diferencian estos productos entre ellos/i.test(c)) return 'catalogo_productos_PROD_OVERVIEW';
+-  if (/en qu[eé] se diferencian estas bebidas/i.test(c)) return 'catalogo_productos_BEB_01';
+-  if (/en qu[eé] se diferencian entre ellas/i.test(c) && /ganocaf[eé]/i.test(ultimoBot) && /schokolade|rooibos|reskine|spirulina/i.test(ultimoBot)) return 'catalogo_productos_BEB_01';
++  // Las bebidas van a BEB_DIF_01, no a BEB_01 (5 nov 2026): BEB_01 es la lista
++  // con precios que la persona acababa de ver en la foto o en la tabla, y la
++  // evaluación del canal lo marcó como repetición. BEB_DIF_01 las diferencia
++  // por el momento del día.
++  if (/en qu[eé] se diferencian estas bebidas/i.test(c)) return 'catalogo_productos_BEB_DIF_01';
++  if (/en qu[eé] se diferencian entre ellas/i.test(c) && /ganocaf[eé]/i.test(ultimoBot) && /schokolade|rooibos|reskine|spirulina/i.test(ultimoBot)) return 'catalogo_productos_BEB_DIF_01';
+   if (/en qu[eé] se diferencian los tres/i.test(c) && /cordygold/i.test(ultimoBot) && /excellium/i.test(ultimoBot)) return 'catalogo_productos_SUP_01';
+   return null;
+ }

@@ -1,0 +1,227 @@
+diff --git a/src/app/api/nexus/route.ts b/src/app/api/nexus/route.ts
+index 4821f5c..a4125ea 100644
+--- a/src/app/api/nexus/route.ts
++++ b/src/app/api/nexus/route.ts
+@@ -55,6 +55,8 @@ import {
+ import { pushAlDashboard } from '@/lib/wa-avisos-contexto';
+ import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
+ import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto, quitarElogioInicial } from '@/lib/queswa-envoltura';
++import { parametrosDeRedaccion } from '@/lib/modelo-redaccion';
++import { fichaDeUso, pinProductoDelHilo } from '@/lib/ficha-producto';
+ import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
+ 
+ /**
+@@ -3144,7 +3146,7 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
+     },
+   ];
+ 
+-async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = [], textosPrevios: readonly string[] = []) {
++async function consultarArsenalHibrido(query: string, userMessage: string, maxResults = 1, tenantId = 'creatuactivo_marketing', mensajeCrudo = '', pageContext = '', yaServidos: readonly string[] = [], textosPrevios: readonly string[] = [], consultaParafraseada = false) {
+   // El socio recibe el directorio de sedes (FREQ_34) y el prospecto no: la
+   // caché no puede mezclar a los dos.
+   // ⚠️ Lo ya servido entra en la CLAVE del caché: el resultado filtrado es de
+@@ -3173,7 +3175,24 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
+     // puerta no disparó, y el modelo compuso con "reclutamiento" adentro. Las
+     // palabras de la persona son la llave — la paráfrasis de un modelo no puede
+     // costarla.
+-    const puerta = PUERTAS_INICIAL.find(p => p.cuando.test(userMessage) || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
++    //
++    // ⚠️ Pero una puerta DICTADA no se abre con la paráfrasis (5 nov 2026). El
++    // CQR también AGREGA palabras, y las toma de la respuesta anterior de
++    // Queswa: «y para la vitalidad, la energía» salió reescrita como «Productos
++    // Ganoderma para vitalidad y energía del día a día», la puerta de EAM_01
++    // leyó «día a día» y le dictó el video del negocio a alguien que preguntaba
++    // por un producto. Una puerta dictada entrega un texto literal sin que el
++    // modelo vea la pregunta, así que la llave tiene que ser de la persona: su
++    // mensaje, o un ancla determinística (la oferta que aceptó con un «sí», la
++    // intención de video), que no pasan por el CQR. Las no dictadas siguen
++    // leyendo la reescrita: ahí el modelo ve la pregunta y responde.
++    const puerta = PUERTAS_INICIAL.find(p =>
++      (p.cuando.test(userMessage) && !(p.dictar && consultaParafraseada))
++      || (mensajeCrudo && p.cuando.test(mensajeCrudo)));
++    if (!puerta && consultaParafraseada) {
++      const descartada = PUERTAS_INICIAL.find(p => p.dictar && p.cuando.test(userMessage));
++      if (descartada) console.log(`🚪 [Puerta] ${descartada.fragmento} solo la abría la paráfrasis del CQR — no se dicta`);
++    }
+     if (puerta) {
+       const allFragments = await getArsenalFragments(tenantId);
+       const frag = allFragments.find(f => f.category === puerta.fragmento);
+@@ -5647,6 +5666,7 @@ ${summaryParts.join('\n')}
+     // Aquí la conversación se colapsa en una consulta autónoma ANTES de buscar.
+     // Degrada con gracia: si falla, se busca con el mensaje original.
+     let consultaRecuperacion = latestUserMessage;
++    let _consultaParafraseada = false;
+ 
+     // ── Aceptación pelada: se busca con la OFERTA, no con el "sí" (14 ago 2026) ──
+     // Determinístico y ANTES del CQR: cuando el mensaje es solo una aceptación,
+@@ -5755,6 +5775,8 @@ ${summaryParts.join('\n')}
+         cliente: anthropic, registrar: (c) => _consumo.push(c),
+       });
+       consultaRecuperacion = cqr.consulta;
++      // Las puertas dictadas no se abren con esta paráfrasis: ver consultarArsenalHibrido.
++      _consultaParafraseada = consultaRecuperacion.trim() !== (latestUserMessage || '').trim();
+     }
+ 
+     if (!isPreciosQuery && !isSimpleQueryEarly && !isClosingFlowEarly && !_negacionPelada) {
+@@ -5787,7 +5809,7 @@ ${summaryParts.join('\n')}
+         // así que la expansión de chips sigue funcionando igual.
+         const searchQuery = interpretQueryHibrido(consultaRecuperacion);
+         console.log('Query híbrido generado:', searchQuery);
+-        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos, _bitacora?.textosDelBot ?? []);
++        relevantDocuments = await consultarArsenalHibrido(searchQuery, consultaRecuperacion, 1, tenantId, latestUserMessage, pageContext ?? '', yaServidos, _bitacora?.textosDelBot ?? [], _consultaParafraseada);
+         console.log(`Arsenal híbrido: ${relevantDocuments.length} documentos encontrados`);
+       }
+     } else {
+@@ -6978,7 +7000,8 @@ ${filaGen5}`;
+      */
+     const getPinProducto = (): string => {
+       const prod = detectarProducto(latestUserMessage);
+-      if (!prod) return '';
++      // Sin producto en el mensaje, el del hilo: ver `ficha-producto.ts` (5 nov 2026).
++      if (!prod) return pinProductoDelHilo(_ultimoBotMsg);
+       const precio = visitorCountry === 'CO' || !visitorCountry
+         ? `$${prod.precioCOP.toLocaleString('es-CO')} COP`
+         : `$${prod.precioCOP.toLocaleString('es-CO')} COP`;
+@@ -6986,7 +7009,7 @@ ${filaGen5}`;
+       return `
+ 💠 DATOS OFICIALES DEL PRODUCTO POR EL QUE PREGUNTAN (úsalos exactos):
+ • Nombre correcto: ${prod.nombre}${pres}
+-• Precio: ${precio}${prod.invima ? `\n• Registro INVIMA: ${prod.invima}` : ''}
++• Precio: ${precio}${prod.invima ? `\n• Registro INVIMA: ${prod.invima}` : ''}${fichaDeUso(prod) ? `\n• ${fichaDeUso(prod).replace(/\n  /g, '\n• ')}` : ''}
+ ⚠️ El precio va SIEMPRE en la respuesta, y el nombre se escribe así, sin
+ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
+     };
+@@ -7640,8 +7663,13 @@ ESTADO: ${getMessageContext()}`;
+       try {
+         // En intento 2 (último), degradar a Haiku para evitar otro overload en Sonnet
+         const useHaiku = isSimpleQuery || attempt >= 2;
++        // Sonnet 4.6 salvo en una comparación de modelos de la evaluación: ver
++        // `modelo-redaccion.ts`. Trae `model`, `max_tokens` y temperature o effort.
++        const _redaccion = useHaiku
++          ? { model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, temperature: 0.65 }
++          : parametrosDeRedaccion(_esPrueba, maxTokens);
+         return await anthropic.messages.create({
+-      model: useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-6',
++      ...(_redaccion as { model: string; max_tokens: number }),
+       system: isSimpleQuery
+         // Haiku: prompt corto ~300 chars, TTFT ~0.6s, sin overhead de cache
+         ? HAIKU_SYSTEM_PROMPT
+@@ -7667,8 +7695,8 @@ ESTADO: ${getMessageContext()}`;
+             }
+           ],
+       stream: true,
+-      max_tokens: maxTokens,
+-      temperature: 0.65,            // Haiku y Sonnet no aceptan temperature + top_p juntos
++      // max_tokens y temperature (o effort, en la generación 5) vienen en _redaccion.
++      // Haiku y Sonnet no aceptan temperature + top_p juntos.
+       messages: recentMessages,
+         });
+       } catch (err: any) {
+diff --git a/src/lib/wa-formato.ts b/src/lib/wa-formato.ts
+index 393b1b2..c17d833 100644
+--- a/src/lib/wa-formato.ts
++++ b/src/lib/wa-formato.ts
+@@ -47,14 +47,18 @@ function tablaABloques(filas: string[]): string {
+   if (datos.length < 2) return filas.map((f) => celdas(f).join(' · ')).join('\n');
+ 
+   const [cabecera, ...cuerpo] = datos;
++  const sinNegrita = (t: string) => (t ?? '').replace(/\*\*/g, '').replace(/^\*|\*$/g, '').trim();
+ 
+   // Dos columnas = ficha, no matriz: "Precio: $272.500", línea por línea. El
+   // formato de bloques aquí producía "Detalle *Precio*" con la etiqueta genérica
+   // de la cabecera como título — ruido puro en el teléfono.
++  // La etiqueta pierde su propia negrita antes de envolverla (5 nov 2026): la
++  // fila «| **Total** | **18** |» de la composición del ESP-2 llegaba como
++  // «• **Total*:* *18*», con los asteriscos a la vista.
+   if (cabecera.length === 2) {
+     return cuerpo
+       .filter((fila) => fila[0] || fila[1])
+-      .map((fila) => `• *${fila[0]}:* ${fila[1] ?? ''}`.trim())
++      .map((fila) => `• *${sinNegrita(fila[0])}:* ${fila[1] ?? ''}`.trim())
+       .join('\n');
+   }
+ 
+@@ -65,7 +69,6 @@ function tablaABloques(filas: string[]): string {
+   // 1**» en el teléfono — el rótulo delante y la negrita de la celda metida
+   // dentro de la del título.
+   const cabeceraGenerica = /^(detalle|campo|concepto|dato|item|ítem|descripci[oó]n|producto|paquete|nombre)?$/i.test(cabecera[0] ?? '');
+-  const sinNegrita = (t: string) => (t ?? '').replace(/\*\*/g, '').replace(/^\*|\*$/g, '').trim();
+ 
+   return cuerpo
+     .map((fila) => {
+diff --git a/src/lib/ficha-producto.ts b/src/lib/ficha-producto.ts
+new file mode 100644
+index 0000000..bf2ef05
+--- /dev/null
++++ b/src/lib/ficha-producto.ts
+@@ -0,0 +1,70 @@
++// Lo que el catálogo web ya dice de cada producto —cómo se toma, en qué momento,
++// el ritual y lo que se nota—, puesto como DATO en el turno del motor.
++//
++// Por qué (5 nov 2026, evaluación del canal): BEB_06 cierra con «¿Le muestro cómo
++// se integra en la rutina?», y RUTINA_01, que es el destino, no nombra el
++// Reskine. Ante el «sí», Sonnet 4.6 inventó «el agua fría preserva el
++// colágeno», y Sonnet 5.5 y Opus 5.5 dijeron «no tengo la forma de
++// preparación». El dato estaba en `productos/catalogo-datos.ts` («Directo del
++// sachet, sin agua ni vaso»): el modelo no lo veía. Lo mismo con «¿y qué
++// beneficios tiene cada uno?» después de la lista de bebidas.
++//
++// Los textos son los del catálogo público (aprobado en v7.15), así que no hay
++// copy nuevo aquí: solo se le pasan al modelo. La conversación la decide el
++// modelo; los datos, el código.
++import { productData } from '@/app/productos/catalogo-datos';
++import { detectarProducto, type ProductoWA } from '@/lib/wa-productos';
++
++/** Las líneas de uso de un producto, o '' si el catálogo web no lo tiene. */
++export function fichaDeUso(p: ProductoWA, completa = true): string {
++  const d = productData[p.slug];
++  if (!d) return '';
++  const lineas = [
++    d.usage && `Cómo se toma o se usa: ${d.usage}`,
++    completa && d.momentoConsumo && `Momento del día: ${d.momentoConsumo}`,
++    completa && d.ritual?.length && `Ritual: ${d.ritual.join('; ')}`,
++    d.benefits?.length && `Lo que se nota: ${d.benefits.join('; ')}`,
++  ].filter(Boolean) as string[];
++  return lineas.join('\n  ');
++}
++
++/**
++ * Los productos que nombra un mensaje del bot, uno por línea: las listas y las
++ * tablas llevan un producto por renglón, y `detectarProducto` devuelve null
++ * cuando una frase nombra dos.
++ */
++export function productosNombrados(texto: string, tope = 10): ProductoWA[] {
++  const vistos = new Map<string, ProductoWA>();
++  for (const linea of (texto || '').split('\n')) {
++    const p = detectarProducto(linea);
++    if (p && !p.promocion && !vistos.has(p.slug)) vistos.set(p.slug, p);
++    if (vistos.size >= tope) break;
++  }
++  return [...vistos.values()];
++}
++
++/**
++ * El dato de uso del producto del que viene la conversación, cuando la persona
++ * no lo nombra en su mensaje («Sí», «¿y cómo se toma?», «¿y cada uno?»). Lee
++ * solo la última respuesta de Queswa: más atrás, el tema ya pudo cambiar.
++ * Devuelve '' si esa respuesta no nombra productos.
++ */
++export function pinProductoDelHilo(ultimoBot: string): string {
++  const prods = productosNombrados(ultimoBot);
++  if (prods.length === 0) return '';
++  if (prods.length === 1) {
++    const ficha = fichaDeUso(prods[0]);
++    if (!ficha) return '';
++    return `
++💠 DATOS DEL PRODUCTO DEL QUE VIENEN HABLANDO (del catálogo; úselos si la pregunta es sobre él):
++• ${prods[0].nombre}
++  ${ficha}`;
++  }
++  const filas = prods
++    .map((p) => { const f = fichaDeUso(p, false); return f ? `• ${p.nombre}\n  ${f}` : ''; })
++    .filter(Boolean);
++  if (filas.length < 2) return '';
++  return `
++💠 DATOS DE LOS PRODUCTOS DE SU ÚLTIMA RESPUESTA (del catálogo; úselos si preguntan por ellos):
++${filas.join('\n')}`;
++}

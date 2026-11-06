@@ -1,0 +1,75 @@
+diff --git a/src/app/api/nexus/route.ts b/src/app/api/nexus/route.ts
+index 4821f5c..eae6c92 100644
+--- a/src/app/api/nexus/route.ts
++++ b/src/app/api/nexus/route.ts
+@@ -55,6 +55,7 @@ import {
+ import { pushAlDashboard } from '@/lib/wa-avisos-contexto';
+ import { construirBitacora, renovarOfertaVista, yaLoRecibio, residenciaDeclarada, lugarExterior, temasDelTexto, type Bitacora } from '@/lib/queswa-bitacora';
+ import { envolverTextoAprobado, armarTurno, sinElogioSiNoPregunto, quitarElogioInicial } from '@/lib/queswa-envoltura';
++import { parametrosDeRedaccion } from '@/lib/modelo-redaccion';
+ import { revisarBorrador, notaDeRevision, type VeredictoSupervisor } from '@/lib/queswa-supervisor';
+ 
+ /**
+@@ -7640,8 +7641,13 @@ ESTADO: ${getMessageContext()}`;
+       try {
+         // En intento 2 (último), degradar a Haiku para evitar otro overload en Sonnet
+         const useHaiku = isSimpleQuery || attempt >= 2;
++        // Sonnet 4.6 salvo en una comparación de modelos de la evaluación: ver
++        // `modelo-redaccion.ts`. Trae `model`, `max_tokens` y temperature o effort.
++        const _redaccion = useHaiku
++          ? { model: 'claude-haiku-4-5-20251001', max_tokens: maxTokens, temperature: 0.65 }
++          : parametrosDeRedaccion(_esPrueba, maxTokens);
+         return await anthropic.messages.create({
+-      model: useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-sonnet-4-6',
++      ...(_redaccion as { model: string; max_tokens: number }),
+       system: isSimpleQuery
+         // Haiku: prompt corto ~300 chars, TTFT ~0.6s, sin overhead de cache
+         ? HAIKU_SYSTEM_PROMPT
+@@ -7667,8 +7673,8 @@ ESTADO: ${getMessageContext()}`;
+             }
+           ],
+       stream: true,
+-      max_tokens: maxTokens,
+-      temperature: 0.65,            // Haiku y Sonnet no aceptan temperature + top_p juntos
++      // max_tokens y temperature (o effort, en la generación 5) vienen en _redaccion.
++      // Haiku y Sonnet no aceptan temperature + top_p juntos.
+       messages: recentMessages,
+         });
+       } catch (err: any) {
+diff --git a/src/lib/modelo-redaccion.ts b/src/lib/modelo-redaccion.ts
+new file mode 100644
+index 0000000..6107414
+--- /dev/null
++++ b/src/lib/modelo-redaccion.ts
+@@ -0,0 +1,31 @@
++// El modelo que redacta la respuesta del motor, y los parámetros que ese modelo
++// acepta.
++//
++// En producción redacta Sonnet 4.6. Para comparar modelos con la evaluación
++// (`scripts/eval-queswa/`, 5 nov 2026), el servidor de ensayo arranca con
++// QUESWA_MODELO_PRUEBA (y, si se quiere, QUESWA_ESFUERZO_PRUEBA). La variable
++// solo vale en una petición con la cabecera `x-queswa-origen: prueba`: si
++// alguien la deja puesta en Vercel, la gente sigue recibiendo Sonnet 4.6.
++//
++// Los modelos de la generación 5 cambian la petición:
++// - `temperature` es un 400: el control es `output_config.effort`.
++// - El razonamiento no se apaga del todo (en Opus 5.5, nunca), y cuenta dentro
++//   de `max_tokens`. Con los topes del motor (600-1.500) se cortaría la
++//   respuesta, así que se le da margen.
++// - El stream trae bloques `thinking` además del texto. `AnthropicStream` (ai v2)
++//   solo lee `delta.text`, así que no se cuelan en lo que recibe la persona.
++export const MODELO_REDACCION = 'claude-sonnet-4-6';
++
++const MARGEN_RAZONAMIENTO = 4000;
++
++export function parametrosDeRedaccion(esPrueba: boolean, maxTokens: number): Record<string, unknown> {
++  const modelo = (esPrueba && process.env.QUESWA_MODELO_PRUEBA?.trim()) || MODELO_REDACCION;
++  if (!/^claude-(sonnet|opus|haiku)-5/.test(modelo)) {
++    return { model: modelo, max_tokens: maxTokens, temperature: 0.65 };
++  }
++  return {
++    model: modelo,
++    max_tokens: maxTokens + MARGEN_RAZONAMIENTO,
++    output_config: { effort: process.env.QUESWA_ESFUERZO_PRUEBA?.trim() || 'low' },
++  };
++}

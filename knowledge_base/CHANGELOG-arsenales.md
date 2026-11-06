@@ -30,6 +30,16 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## catalogo_productos v7.18: quien no toma café tiene su respuesta de cliente (Director, 6 nov 2026)
+
+Liliana revisó el chat del catálogo web y el Director aprobó sus comentarios: el botón «Opciones sin café» llevaba a `PROD_03`, escrita para el vendedor (el mercado que no toma café, «cosas que se acaban en cualquier casa y se vuelven a comprar»), y que además nombraba tres bebidas cuando el catálogo tiene cuatro.
+
+- **Nace `BEB_SIN_CAFE_01`**: Shoko Rico, Schokolade, Rooibos y C'Real, cada una con la línea de su ficha en `catalogo-datos.ts`, sin precios (los pone el pin). Cierra en `RUTINA_01`.
+- **Medido con Voyage contra los rivales reales del tenant `whatsapp`, sin desplegar:** gana 4 de 5 paráfrasis de cliente y deja las 3 de vendedor en `PROD_03` (*«si a alguien no le gusta el café qué le ofrezco»* 0,775 contra 0,709). Cinco variantes de título e índice; la palanca fue el título en primera persona (*«Yo no tomo café: ¿qué bebidas tienen?»*). El botón entra expandido con ese título: 0,815 contra 0,699.
+- `PROD_03` no cambia.
+
+---
+
 ## catalogo_productos v7.17 y arsenal_inicial v6.89: las ofertas llegan a su destino (Director, 5 nov 2026)
 
 La evaluación del canal (`scripts/eval-queswa/`) mostró tres ofertas aprobadas que el «sí» no llevaba a donde prometían. Medido con Voyage sobre el tenant `whatsapp`, sin desplegar, antes de proponerlo.

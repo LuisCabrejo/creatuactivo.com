@@ -42,5 +42,5 @@
     "scripts/eval-queswa/juez.mjs",
     "scripts/eval-queswa/calificar.mjs"
   ],
-  "harness_sha": "94351295b24a1f1930c0f45da4a85bd404c56f6cacfe67a23755d2b411732f09"
+  "harness_sha": "54a5248a82d4815618cec25f65ae2e0736130c23dfcdd06eeca08dc45f24cfb1"
 }

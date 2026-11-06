@@ -149,7 +149,7 @@ export function getProductsGreeting(): string {
  * página no resuelve sola —escoger—, y no a lo que ya muestra: «Ver el portafolio»
  * y «Lista de precios» salieron, porque la persona los tiene delante. Destinos:
  * «Lo que más se toma en la mañana» → BEB_02, que lleva esa oferta literal en su
- * índice; «Opciones sin café» → PROD_03 (chocolate, rooibos y el cereal). Los
+ * índice; «Opciones sin café» → BEB_SIN_CAFE_01 (las cuatro bebidas sin café). Los
  * dos se expanden en `QUESWA_QUICK_REPLIES_EXPANSION`: medido con Voyage, «Lo que
  * más se toma en la mañana» solo ganaba por 0,011 al Rooibos, y «Algo sin
  * cafeína» caía en BEB_03 (cuánta cafeína tiene el Ganocafé). WhatsApp conserva sus dos
@@ -207,11 +207,12 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
   '¿de dónde sale el dinero?':
     'de dónde sale el dinero quién paga cómo entra el ingreso producto que se vende',
   // Los botones del chat del catálogo web (6 nov 2026). Medido con Voyage:
-  // BEB_02 0,710 contra 0,626; PROD_03 0,646 contra 0,532.
+  // BEB_02 0,710 contra 0,626; BEB_SIN_CAFE_01 0,815 contra 0,699 (PROD_03, la
+  // respuesta del vendedor).
   'lo que más se toma en la mañana':
     'Para qué sirve el Ganocafé 3en1, lo que más se toma en la mañana',
   'opciones sin café':
-    'Y los que no toman café, hay opciones sin café',
+    'Yo no tomo café: ¿qué bebidas tienen?',
   // Se conservan los de los chips retirados: la persona puede escribir esas
   // preguntas aunque ya no se le ofrezcan, y la expansión les sigue sirviendo.
   '¿cuáles son los productos y para qué sirven?':

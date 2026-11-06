@@ -159,7 +159,9 @@ export const PRODUCTOS_WA: ProductoWA[] = [
     slug: 'capsulas-cordygold',
     nombre: 'Cápsulas Cordygold',
     precioCOP: 336900,
-    presentacion: 'frasco de 90 cápsulas',
+    // 60, no 90: el dato de la caja (1 nov 2026, commit 97c2c6b); aquí quedó viejo
+    // y el pin le ganaba al arsenal (6 nov 2026).
+    presentacion: 'frasco de 60 cápsulas',
     invima: 'SD2017-0004056',
     imagen: '/productos/suplementos/capsulas-de-cordy-gold-gano-excel-min.png',
     alias: ['cordygold', 'cordy gold', 'cordigold', 'cordyceps', 'cortigol'],

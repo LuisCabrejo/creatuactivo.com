@@ -1,11 +1,12 @@
 # Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
 **Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
 
-**Versión actual: v7.17** (5 nov 2026) — **Las ofertas del catálogo llegan a su destino.** Nace `BEB_DIF_01` (en qué se diferencian las bebidas, por momento del día), destino del pie de la foto y de la tabla del ESP-1; `BEB_06` y `BEB_06B` cierran con «¿Le muestro cómo se toma a lo largo del día?», y `RUTINA_01` nombra el Reskine. Texto aprobado por el Director en el chat.
+**Versión actual: v7.18** (6 nov 2026) — **Quien no toma café tiene su respuesta de cliente.** Nace `BEB_SIN_CAFE_01`: las cuatro bebidas sin café (Shoko Rico, Schokolade, Rooibos y C'Real), destino del botón «Opciones sin café» del chat del catálogo web; `PROD_03` queda como la respuesta del vendedor (Director, 6 nov 2026).
+
+**v7.17** (5 nov 2026) — **Las ofertas del catálogo llegan a su destino.** Nace `BEB_DIF_01` (en qué se diferencian las bebidas, por momento del día), destino del pie de la foto y de la tabla del ESP-1; `BEB_06` y `BEB_06B` cierran con «¿Le muestro cómo se toma a lo largo del día?», y `RUTINA_01` nombra el Reskine. Texto aprobado por el Director en el chat.
 
 **v7.16** (29 oct 2026) — **Las defensas con la frase aprobada.** `CIENCIA_01`, `CIENCIA_02` y la fila de las Cápsulas Ganoderma en la tabla de suplementos dicen «apoya el funcionamiento normal de las defensas», la frase del Director para todos los productos que se toman (Director, 29 oct 2026).
 
-**v7.15** (28 oct 2026, noche) — **«¿Para qué sirve?» se responde con la vida del producto, no con la ficha ni con la ley.** Auditoría de tono con 26 preguntas de prospecto contra el motor: `CIENCIA_03` abre con la experiencia (antes abría con «no del tratamiento médico») y es la puerta de «para qué sirven los productos», que se iba al negocio; `BEB_04` (té) y `BEB_05` (cereal) dejan el formato de folleto, y los beneficios del té son los del rooibos —sin cafeína, antioxidantes, favorece el descanso— (Director); el colágeno dice sus dos declaraciones aprobadas por el INVIMA, la piel y las articulaciones, con sus condiciones (Director: está aprobado y documentado), y nace `BEB_06B` para «¿sirve para la piel?»; «apoya el funcionamiento normal de las defensas» vale para todos los productos (Director); `BEB_10` y `PERS_03` atienden «el chocolate» y «el jabón», que tienen dos productos cada uno; `HAB_01` recibe el cansancio, que caía en los paquetes. Texto aprobado por el Director en el chat.
 
 
 **[Concepto Nuclear del archivo]:** Ganoderma Lucidum con extracción propia, más de 30 años de proceso y más de 200 compuestos. ⛔ **Decía *"Biodisponibilidad 100%"*** — retirado el 26 ago 2026: **la composición se afirma; la absorción no.** Esta cabecera no se sirve, pero es lo primero que lee quien vaya a editar.
@@ -251,6 +252,23 @@ Lo suele elegir quien entrena temprano o sale corriendo de la casa y no quiere a
 La caja trae 15 sobres y cuesta $119.900 COP.
 
 **Pregunta de seguimiento:** ¿Le muestro las otras bebidas de la línea?
+---
+
+### BEB_SIN_CAFE_01: "Yo no tomo café: ¿qué bebidas tienen?"
+**[Índice]:** Opciones sin café, yo no tomo café, no me gusta el café, qué tienen que no sea café.
+**[Concepto Nuclear]:** Nace el 6 nov 2026 (Director, por el comentario de Liliana): es la respuesta de quien COMPRA y no toma café, destino del botón «Opciones sin café» del chat del catálogo web. `PROD_03` sigue siendo la del vendedor (el mercado que no toma café). Son las cuatro bebidas sin café del catálogo —PROD_03 nombraba tres—, cada una con la línea de su ficha en `catalogo-datos.ts`. ⚠️ Sin precios: los pone el pin. ⚠️ El Shoko Rico y el Schokolade llevan cacao: «sin café», no «sin cafeína»; el único sin cafeína es el Rooibos. ⚠️ Cierra en RUTINA_01, que lleva esta oferta literal en su índice y nombra las opciones sin café. ⚠️ Medido con Voyage contra los rivales reales (6 nov): gana 4 de 5 paráfrasis de cliente y deja las 3 de vendedor en PROD_03; el botón entra expandido («Yo no tomo café: ¿qué bebidas tienen?», 0,815 contra 0,699).
+
+Para quien no toma café hay cuatro bebidas:
+
+- **Ganorico Shoko Rico**: el chocolate caliente de la casa, el que piden los niños en la noche.
+- **Gano Schokolade**: el chocolate del adulto, con más cacao y menos dulce, para tomarse despacio.
+- **Oleaf Gano Rooibos**: una infusión de rooibos de Sudáfrica, la única de la línea sin cafeína.
+- **Gano C'Real Spirulina**: un cereal instantáneo para el desayuno de quien sale temprano.
+
+Las cuatro llevan el extracto de Ganoderma.
+
+**Pregunta de seguimiento:** ¿Le muestro cómo se toman a lo largo de un día?
+
 ---
 
 ### BEB_06: "¿Qué es el Reskine? / ¿Cuánto cuesta el Reskine? / ¿Para qué sirve el Reskine Colágeno? / precio del colágeno / bebida de colágeno"

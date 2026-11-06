@@ -3932,9 +3932,9 @@ function interpretQueryHibrido(userMessage: string): string {
   // 🔧 NUEVO: MAPEO ESPECÍFICO DE PRODUCTOS INDIVIDUALES
   const mapeos_productos_especificos: Record<string, string> = {
     // Productos específicos con nombres exactos para evitar confusiones
-    'cordy gold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 90 cápsulas Cordyceps Sinensis',
-    'cordygold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 90 cápsulas Cordyceps Sinensis',
-    'cápsulas cordy gold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 90 cápsulas Cordyceps Sinensis',
+    'cordy gold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 60 cápsulas Cordyceps Sinensis',
+    'cordygold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 60 cápsulas Cordyceps Sinensis',
+    'cápsulas cordy gold': 'CÁPSULAS CORDYGOLD precio $336.900 COP presentación 60 cápsulas Cordyceps Sinensis',
 
     'cápsulas ganoderma lucidum': 'CÁPSULAS GANODERMA precio $272.500 COP presentación 90 cápsulas extracto puro Ganoderma',
     'ganoderma lucidum': 'CÁPSULAS GANODERMA precio $272.500 COP presentación 90 cápsulas extracto puro Ganoderma',

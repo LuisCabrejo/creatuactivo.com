@@ -327,19 +327,19 @@ const CIFRAS_PROBLEMA: {
 }[] = [
   {
     n: '9 de cada 10',
-    texto: 'hogares colombianos dicen que su ingreso no alcanza, o que alcanza solo para lo mínimo.',
+    texto: 'Hogares a los que no les sobra al final del mes',
     fuente: 'DANE · Encuesta de Calidad de Vida 2025',
     icono: { tipo: 'casa', de: 10, en: 9 },
   },
   {
     n: '54,6 %',
-    texto: 'de las personas que trabajan en Colombia lo hacen en la informalidad.',
+    texto: 'Trabajadores en la informalidad',
     fuente: 'DANE · GEIH, may–jul 2026',
     icono: { tipo: 'barra', pct: 54.6 },
   },
   {
     n: '3 de cada 4',
-    texto: 'colombianos en edad de pensionarse no reciben una pensión.',
+    texto: 'Adultos mayores sin pensión',
     fuente: 'Colpensiones · U. Javeriana, 2022',
     icono: { tipo: 'persona', de: 4, en: 3 },
   },
@@ -1688,45 +1688,41 @@ export default function PitchDeckPage() {
         /* El contraste de la pantalla 1 (7 nov 2026): HOY apagada, LO QUE CREEMOS
            encendida, con el oro que el credo ya usaba para su segunda mitad. Con las
            tarjetas, el credo baja un punto para que todo quepa en un teléfono. */
-        .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.6rem, 3.9vw, 3rem); max-width: 26ch; margin-bottom: 1.6rem; }
+        .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.5rem, 3.4vw, 2.6rem); max-width: 28ch; margin-bottom: 2rem; }
         .pd-contraste {
           display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: clamp(12px, 2vw, 22px); max-width: 900px; margin: 0 0 1.6rem;
         }
         .pd-contraste .pd-tarjeta { padding: clamp(16px, 2vw, 24px); }
-        .pd-contraste ul { list-style: none; margin: 0; padding: 0; }
-        .pd-contraste li {
-          position: relative; padding-left: 1rem; margin: 0 0 0.5rem;
-          font-size: clamp(0.95rem, 1.5vw, 1.12rem); line-height: 1.45;
-        }
-        .pd-contraste li:last-child { margin-bottom: 0; }
-        .pd-contraste li::before { content: '·'; position: absolute; left: 0; font-weight: 700; }
+        .pd-contraste .pd-tarjeta-titulo { font-size: clamp(1.05rem, 1.7vw, 1.3rem); }
         .pd-contraste-hoy { background: rgba(255,255,255,0.02); }
-        .pd-contraste-hoy li { color: var(--pd-muted); }
+        .pd-contraste-hoy .pd-tarjeta-titulo { color: #B9B8B3; }
+        .pd-contraste-hoy .pd-tarjeta-sub { color: var(--pd-muted); }
         .pd-contraste-creemos { background: #15171C; border-color: rgba(197,160,89,0.35); }
-        .pd-contraste-creemos .pd-tarjeta-rotulo, .pd-contraste-creemos li::before { color: var(--pd-gold); }
-        .pd-contraste-creemos li { color: #FFFFFF; }
+        .pd-contraste-creemos .pd-tarjeta-rotulo { color: var(--pd-gold); }
         .pd-slide.on .pd-contraste > * { animation: pdEntra 0.6s ease-out both; }
         .pd-slide.on .pd-contraste > :nth-child(1) { animation-delay: 0.35s; }
         .pd-slide.on .pd-contraste > :nth-child(2) { animation-delay: 1.1s; }
         @media (prefers-reduced-motion: reduce) { .pd-slide.on .pd-contraste > * { animation: none; } }
-        .pd-credo .pd-contraste ~ .pd-kicker { margin-top: 0; }
-        .pd-credo .pd-contraste ~ .pd-ver-video { margin-top: 1.2rem; }
-        .pd-credo .pd-contraste ~ .pd-ver-video--principal { margin-top: 1.4rem; }
+        .pd-credo .pd-contraste ~ .pd-ver-video { margin-top: 0.4rem; }
+        .pd-credo .pd-contraste ~ .pd-ver-video--principal { margin-top: 0.6rem; }
         @media (max-width: 860px) and (min-height: 561px) {
-          .pd-contraste { grid-template-columns: 1fr; gap: 10px; margin-bottom: 1.1rem; }
+          .pd-contraste { grid-template-columns: 1fr; gap: 10px; margin-bottom: 1.4rem; }
           .pd-contraste .pd-tarjeta { padding: 12px 14px; border-radius: 12px; }
           .pd-contraste .pd-tarjeta-rotulo { margin-bottom: 0.45rem; }
-          .pd-contraste li { font-size: 0.92rem; margin-bottom: 0.3rem; }
+          .pd-contraste .pd-tarjeta-titulo { font-size: 1.02rem; }
           .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.3rem, 5.6vw, 1.9rem); margin-bottom: 1.1rem; }
         }
         @media (max-height: 560px) and (min-width: 600px) {
           .pd-credo .pd-contraste { grid-column: 1 / -1; margin: 0.8rem 0; }
-          .pd-contraste li { font-size: 0.85rem; }
+          .pd-contraste .pd-tarjeta-sub { font-size: 0.85rem; }
         }
         .pd-p--grande { font-size: clamp(1.15rem, 2.6vw, 1.6rem); max-width: 40ch; }
         .pd-cifras-lista--tres { gap: clamp(20px, 4vw, 48px); }
-        .pd-cifras-lista--tres .pd-cifra .n { font-size: clamp(1.9rem, 4.6vw, 3.4rem); }
+        /* Sin partir la cifra (7 nov 2026): «9 de cada 10» se partía en dos líneas en el
+           computador; el tope baja y la cifra va en una sola línea. */
+        .pd-cifras-lista--tres .pd-cifra .n { font-size: clamp(1.9rem, 3.2vw, 2.6rem); white-space: nowrap; }
+        .pd-cifras .pd-bisagra { margin-top: clamp(1.6rem, 4vh, 2.4rem); }
         .pd-cifras-lista--tres .pd-cifra .t { font-size: clamp(1rem, 1.8vw, 1.22rem); }
         /* El flujo de las dos acciones (10 oct 2026): tarjetas separadas con
            flechas doradas entre ellas — el orden se lee solo — y entrada
@@ -1937,22 +1933,22 @@ export default function PitchDeckPage() {
                 sin su presencia»): es la pantalla 5, y aquí revelaría la solución antes del
                 clímax, la disonancia que corrigió la columna del 30 sep. */}
             <div className="pd-contraste">
+              {/* Título corto y una línea (Director, 7 nov 2026: el estilo de los ejemplos
+                  es más limpio). «Al día siguiente de que le entra la plata» lo dice el
+                  socio; el título se queda con la idea. */}
               <div className="pd-tarjeta pd-contraste-hoy">
                 <p className="pd-tarjeta-rotulo">Hoy</p>
-                <ul>
-                  <li>Al día siguiente de que le entra la plata, ese dinero ya tiene dueño.</li>
-                  <li>Y el remedio de siempre: trabajar más horas.</li>
-                </ul>
+                <p className="pd-tarjeta-titulo">Su dinero ya tiene dueño</p>
+                <p className="pd-tarjeta-sub">Y el remedio de siempre: trabajar más horas.</p>
               </div>
               <div className="pd-tarjeta pd-contraste-creemos">
                 <p className="pd-tarjeta-rotulo">Lo que creemos</p>
-                <ul>
-                  <li>Construir sin quemar los barcos.</li>
-                  <li>Que el trabajo de cada persona se convierta en un activo.</li>
-                </ul>
+                <p className="pd-tarjeta-titulo">Construir sin quemar los barcos</p>
+                <p className="pd-tarjeta-sub">Que el trabajo de cada persona se convierta en un activo.</p>
               </div>
             </div>
-            <p className="pd-kicker">CreaTuActivo · Presentación</p>
+            {/* El rótulo «CreaTuActivo · Presentación» salió de aquí (7 nov 2026): con las
+                tarjetas apiñaba la pantalla, y la marca ya va en el HUD. */}
             {/* La presentación entera en video (Director, 30 oct 2026): el socio
                 elige si la rueda o si la presenta él (ver videoPresentacion). */}
             <button
@@ -1977,7 +1973,7 @@ export default function PitchDeckPage() {
             El remate de los veinte lo cubre la cifra del DANE: 9 de cada 10 incluye
             al que gana bien (solo el 7,7 % dice que le sobra). */}
         <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
-          <div className="pd-wrap pd-cifras" style={{ maxWidth: 940 }}>
+          <div className="pd-wrap pd-cifras" style={{ maxWidth: 1040 }}>
             {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
             <p className="pd-eyebrow">El dolor, en cifras</p>
             <div className="pd-cifras-lista pd-cifras-lista--tres">
@@ -2024,8 +2020,9 @@ export default function PitchDeckPage() {
           <div className="pd-wrap">
             <p className="pd-eyebrow">La oportunidad</p>
             <h2 className="pd-h2 pd-h2--media">
-              Hay una oportunidad enorme en modernizar industrias que están frente a
-              nuestros ojos.
+              {/* Corto (Director, 7 nov 2026): decía «Hay una oportunidad enorme en
+                  modernizar industrias…»; «oportunidad» ya la dice el rótulo. */}
+              Modernizar industrias que están frente a nuestros ojos.
             </h2>
             <ul className="pd-pares">
               {/* El trazo (2 nov 2026, Director: «si»), como en el video v10: al entrar, un
@@ -2052,7 +2049,9 @@ export default function PitchDeckPage() {
         <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">Dónde la vemos</p>
-            <h2 className="pd-h2 pd-h2--media">Nosotros vemos esa oportunidad en dos sectores:</h2>
+            {/* «Dos sectores por modernizar» (Director, 7 nov 2026, del ejercicio de Musk); decía
+                «Nosotros vemos esa oportunidad en dos sectores:». */}
+            <h2 className="pd-h2 pd-h2--media">Dos sectores por modernizar</h2>
             <div className="pd-sectores">
               <div className="pd-sector">
                 <span className="k">01</span>

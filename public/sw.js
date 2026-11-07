@@ -53,7 +53,8 @@
 // Bump 1.5.3 (6 nov 2026): la pantalla 9 de /servilleta dice «En 16 países de América».
 // Bump 1.5.4 (7 nov 2026): la pantalla 5 de /servilleta pasa de 10 beats a 4 (tarjetas).
 // Bump 1.5.5 (7 nov 2026): /servilleta, el contraste en la 1 y el dolor antes de la oportunidad.
-const CACHE_VERSION = '1.5.5';
+// Bump 1.5.6 (7 nov 2026): /servilleta, textos cortos en las pantallas 1 a 4.
+const CACHE_VERSION = '1.5.6';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

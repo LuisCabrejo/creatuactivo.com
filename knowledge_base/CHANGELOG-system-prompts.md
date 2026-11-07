@@ -6,6 +6,12 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.27 — El ejemplo del registro sanitario: alimento o suplemento dietario (6 nov 2026)
+
+El ejemplo de la regla «Cierre la frase en lo que sí hay» decía «está catalogado como suplemento dietario, y no como tratamiento». Un ejemplo del prompt se copia, y aplicado al Ganocafé 3 en 1 es falso: está registrado como alimento (RSA-0011698-2021, datos abiertos del INVIMA). Ahora dice «catalogado como alimento o suplemento dietario», como los textos dictados del guardarraíl de salud.
+
+Web 18.615 caracteres · WhatsApp 18.199 · Dashboard 15.939.
+
 ## v5.26 — Los videos del reto salen del prompt (30 oct 2026)
 
 Decisión del Director del 26 oct: *«en el prompt no pueden quedar los guiones, les agregaría peso»*. Sale el bloque «Los dos videos más recientes» (días 43 y 44, 1.330 caracteres); los dos pasan al arsenal como `RETO_D43` y `RETO_D44` (v6.83), con los días 45, 46, 50 y 51. Quien dice *«vi su video de hoy»* o *«su último video»* lo recibe por una puerta de código (`RETO_MAS_RECIENTE`, src/lib/puerta-reto.ts), no por el prompt: el bloque llevaba diez días diciendo que el del día era el 44.

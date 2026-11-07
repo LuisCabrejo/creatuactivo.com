@@ -30,6 +30,19 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## catalogo_productos v7.20: el registro sanitario, por producto y verificado (Director, 6 nov 2026)
+
+La referencia interna del descargo final decía que el Ganocafé 3 en 1, el Ganocafé Clásico y las Cápsulas de Ganoderma estaban registrados como suplemento dietario (SD), y el descargo decía que «cada producto Gano Excel tiene su propio registro» y que «las bebidas y suplementos» eran alimento o SD. Contrastado el 6 nov 2026 con los datos abiertos del INVIMA (datos.gov.co, conjunto `ui32-p9f2`, titular Gano Excel):
+
+- **Ganocafé 3 en 1**: alimento, RSA-0011698-2021 (vigente hasta el 12 sep 2030, «mezcla en polvo para preparar bebida instantánea con café y betaglucanos de Ganoderma lucidum»). No es suplemento dietario.
+- **Ganocafé Clásico**: sin registro confirmado. NSA-0013061-2022 («mezcla de café instantáneo con B-glucanos de Ganoderma lucidum», alimento) es probablemente el suyo, pero no está confirmado; `wa-productos.ts` lo deja vacío.
+- **Cápsulas de Ganoderma y Excellium**: no aparecen con un registro vigente en los datos abiertos.
+- **Suplemento dietario vigente**: solo el Cordygold (SD2017-0004056) y el Oleaf Gano Rooibos (SD2017-0004109). SD2021-0004591 («premezcla de café con cacao y extracto de Ganoderma») está vigente y no se ha identificado con un producto del catálogo.
+
+Cambia el descargo (la categoría depende del producto; las bebidas, alimento o SD según cuál sea; los de cuidado personal, cosmético) y su referencia interna, que ahora lista por categoría solo lo confirmado y dice que del Clásico, el Ganoderma y el Excellium no se afirma categoría ni número. Ninguno de los dos bloques es un fragmento: ningún fragmento servido cambió (49 en los tres tenants, idénticos al `.txt`). Se subió solo el documento padre.
+
+---
+
 ## catalogo_productos v7.19: el CordyGold con sus declaraciones (Director, 6 nov 2026)
 
 El Director auditó el CordyGold contra las dos páginas de Gano Excel. La colombiana (ganoexcel.com.co) solo dice «bienestar» y declara Cordyceps sinensis, 500 mg; la de Estados Unidos es otro producto (Body Cordyceps: *militaris*, 450 mg, 60 cápsulas) y anuncia energía natural, apoyo a la resistencia, equilibrio inmunológico y adaptógeno. El Director aplicó esas cuatro al CordyGold colombiano, con la frase aprobada de las defensas en lugar de «equilibrio inmunológico» (que suena a regular el sistema inmune).
@@ -610,6 +623,10 @@ Auditoría general con el Director tras la prueba del canal. Las decisiones del 
 Cifras del plan, PV/CV y nombres de producto intactos.
 
 ## arsenal_ciencia_socio (solo tenant `dashboard`)
+
+### v1.6 — CS_00 y CS_08: alimento o suplemento dietario (6 nov 2026)
+
+Las dos le daban al socio una línea para su cliente que decía que el producto «está registrado como suplemento dietario». Es falso para el producto que más se vende: el Ganocafé 3 en 1 es alimento (RSA-0011698-2021, datos abiertos del INVIMA), y solo el Cordygold y el Rooibos tienen SD vigente. Ahora dicen «alimento o suplemento dietario», la forma que no le asigna a ningún producto una categoría que no tiene. Mismo índice: la recuperación no cambia. Desplegado con `desplegar-arsenal-ciencia-socio.mjs` (11 fragmentos en `dashboard`).
 
 ### v1.5 — Nace CS_10: «¿para qué sirve el Ganoderma lucidum?» (29 oct 2026)
 

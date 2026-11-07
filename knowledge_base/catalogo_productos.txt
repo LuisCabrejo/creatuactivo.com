@@ -1,11 +1,12 @@
 # Catálogo oficial de productos Gano Excel — la versión vigente está en «Versión actual», abajo
 **Precios verificados 2026.** Historial → [CHANGELOG-arsenales.md](CHANGELOG-arsenales.md); aquí solo la versión actual y las dos previas.
 
-**Versión actual: v7.19** (6 nov 2026) — **El CordyGold con sus declaraciones.** `SUP_02`: hongo adaptógeno que se asocia con la energía natural, el rendimiento físico y la resistencia, y apoya el funcionamiento normal de las defensas (Director, 6 nov 2026); sin mencionar el Ganoderma, que no lleva.
+**Versión actual: v7.20** (6 nov 2026) — **El registro sanitario, por producto y verificado.** El descargo final y su referencia interna dicen la categoría que confirman los datos abiertos del INVIMA: el Ganocafé 3 en 1 es alimento; del Clásico y de las cápsulas de Ganoderma y Excellium no se afirma categoría (Director, 6 nov 2026). Ningún fragmento servido cambia.
+
+**v7.19** (6 nov 2026) — **El CordyGold con sus declaraciones.** `SUP_02`: hongo adaptógeno que se asocia con la energía natural, el rendimiento físico y la resistencia, y apoya el funcionamiento normal de las defensas (Director, 6 nov 2026); sin mencionar el Ganoderma, que no lleva.
 
 **v7.18** (6 nov 2026) — **Quien no toma café tiene su respuesta de cliente.** Nace `BEB_SIN_CAFE_01`: las cuatro bebidas sin café (Shoko Rico, Schokolade, Rooibos y C'Real), destino del botón «Opciones sin café» del chat del catálogo web; `PROD_03` queda como la respuesta del vendedor (Director, 6 nov 2026).
 
-**v7.17** (5 nov 2026) — **Las ofertas del catálogo llegan a su destino.** Nace `BEB_DIF_01` (en qué se diferencian las bebidas, por momento del día), destino del pie de la foto y de la tabla del ESP-1; `BEB_06` y `BEB_06B` cierran con «¿Le muestro cómo se toma a lo largo del día?», y `RUTINA_01` nombra el Reskine. Texto aprobado por el Director en el chat.
 
 
 
@@ -786,6 +787,6 @@ Claro, y es lo más común: la mayoría arma su propia combinación con lo que y
 ---
 
 **DISCLAIMER:**
-Cada producto Gano Excel tiene su propio registro ante el INVIMA, y la categoría depende del producto: las bebidas y suplementos están registrados como alimento o como suplemento dietario, y los de cuidado personal como cosmético. **Ninguno es un medicamento**, y no pretenden diagnosticar, tratar, curar ni prevenir enfermedades.
+La categoría del registro ante el INVIMA depende del producto: las bebidas están registradas como alimento o como suplemento dietario, según cuál sea, y los de cuidado personal como cosmético. **Ninguno es un medicamento**, y no pretenden diagnosticar, tratar, curar ni prevenir enfermedades.
 
-⚠️ **CORREGIDO el 26 ago 2026.** Este disclaimer decía *"los productos Gano Excel son alimentos funcionales"* —los 22, incluidos el champú, los dos jabones, el acondicionador, el exfoliante y la pasta de dientes—, y la tabla de certificaciones decía *"Registros SD vigentes"*, presentándolos todos como suplemento dietario. **Las dos afirmaciones eran globales y falsas, en direcciones opuestas.** Los registros reales (en `src/lib/wa-productos.ts`, que es la fuente que Queswa dicta por producto) son de tres tipos: **SD** para el Ganocafé 3 en 1, el Ganocafé Clásico y las Cápsulas de Ganoderma · **NSA** para las otras doce bebidas y cápsulas · **NSOC/NSO** para los seis de cuidado personal. La máquina Luvoco es dispositivo con certificado CE. ⚠️ **La categoría NO se afirma en bloque nunca más:** se dice por producto, o se dice que depende del producto.
+**[Referencia interna — no es contenido servido]:** La categoría se dice por producto, o se dice que depende del producto; nunca en bloque. La fuente que Queswa dicta por producto es `src/lib/wa-productos.ts` (campo `invima`), contrastada con los datos abiertos del INVIMA (datos.gov.co, conjunto `ui32-p9f2`). **Alimento** (NSA, RSA o PSA): el Ganocafé 3 en 1 (RSA-0011698-2021), los tres Ganorico, el Gano Schokolade, el Gano C'Real Spirulina, el Reskine Colágeno y las tres cápsulas Luvoco. **Suplemento dietario** (SD): el Oleaf Gano Rooibos y el Cordygold. **Cosmético** (NSOC): los seis de cuidado personal. El Ganocafé Clásico y las cápsulas de Ganoderma y Excellium no tienen un registro confirmado en los datos abiertos: de ellos no se afirma categoría ni número. La máquina Luvoco es dispositivo con certificado CE.

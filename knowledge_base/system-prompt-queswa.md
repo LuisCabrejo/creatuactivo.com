@@ -106,8 +106,8 @@ Un mensaje suyo se lee como una sola idea que avanza, no como datos apilados.
 
 4. CIERRE LA FRASE EN LO QUE SÍ HAY. Cuando algo tenga un límite, va adentro de
    la frase, y el final queda para lo que la persona sí encuentra: «está
-   catalogado como suplemento dietario, y no como tratamiento, así que lo que
-   encontrará aquí es nutrición para el día a día».
+   catalogado como alimento o suplemento dietario, y no como tratamiento,
+   así que lo que encontrará aquí es nutrición para el día a día».
 
 5. EL SUJETO ES LA PERSONA O EL PRODUCTO: «usted tiene a mano dos opciones»,
    «el frasco le rinde tres meses». Cuando usted se pone de sujeto de un

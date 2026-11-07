@@ -1860,6 +1860,60 @@ export default function PitchDeckPage() {
              de 375 px o menos (medido el 2 nov 2026). */
           .pd-propuesta--solucion { font-size: min(1.2rem, 4.6vw); }
         }
+        /* EN EL TELÉFONO, ARRIBA Y CON AIRE (Director, 7 nov 2026), pantallas 1 a 5. Centrado,
+           el contenido quedaba en medio con un cuarto de pantalla vacío arriba y otro
+           abajo. Ahora arranca debajo de los puntos y el alto que sobra se reparte entre
+           los bloques, en vh: en un teléfono alto respira más, en uno bajo se aprieta. */
+        @media (max-width: 860px) and (min-height: 600px) and (orientation: portrait) {
+          .pd-slide.pd-movil-arriba { padding-top: 76px; padding-bottom: 28px; }
+          .pd-movil-arriba > .pd-wrap { margin: 0 auto auto; }
+          .pd-movil-arriba .pd-beat { padding-top: 76px; padding-bottom: 28px; }
+          .pd-movil-arriba .pd-beat > * { margin-top: 0; margin-bottom: auto; }
+          .pd-movil-arriba .pd-eyebrow { margin-bottom: clamp(1.1rem, 3.6vh, 2.2rem); }
+          .pd-movil-arriba .pd-credo-titulo,
+          .pd-movil-arriba .pd-h2,
+          .pd-movil-arriba .pd-tarjetas-titulo { margin-bottom: clamp(1.6rem, 6.5vh, 3.8rem); }
+          /* 1 · el contraste */
+          .pd-movil-arriba.pd-credo--solo .pd-credo-titulo { font-size: clamp(1.45rem, 6.4vw, 2.1rem); line-height: 1.28; }
+          .pd-movil-arriba .pd-contraste { gap: clamp(12px, 2.6vh, 24px); margin-bottom: clamp(1.8rem, 6.5vh, 3.8rem); }
+          .pd-movil-arriba .pd-contraste .pd-tarjeta { padding: clamp(16px, 3vh, 28px) 18px; }
+          .pd-movil-arriba .pd-contraste .pd-tarjeta-rotulo { margin-bottom: clamp(0.5rem, 1.4vh, 0.9rem); }
+          .pd-movil-arriba .pd-contraste .pd-tarjeta-titulo { font-size: 1.1rem; margin-bottom: 0.4rem; }
+          .pd-movil-arriba .pd-contraste .pd-tarjeta-sub { font-size: 0.98rem; }
+          /* 2 · las cifras */
+          .pd-movil-arriba .pd-cifras .pd-cifras-lista--tres { gap: clamp(1.1rem, 5vh, 2.8rem); }
+          .pd-movil-arriba .pd-cifras .pd-cifra { padding-top: clamp(0.9rem, 2.4vh, 1.4rem); }
+          .pd-movil-arriba .pd-cifras .pd-bisagra { margin-top: clamp(1.8rem, 7vh, 4rem); }
+          /* 3 · los pares */
+          .pd-movil-arriba .pd-pares { margin-top: clamp(1.2rem, 3vh, 2rem); }
+          .pd-movil-arriba .pd-pares li { padding: clamp(0.8rem, 3.6vh, 1.7rem) 0; }
+          .pd-movil-arriba .pd-pares .de, .pd-movil-arriba .pd-pares .fl { font-size: 1.12rem; }
+          .pd-movil-arriba .pd-pares .a { font-size: 1.3rem; }
+          /* 4 · los sectores */
+          .pd-movil-arriba .pd-sectores { margin-top: clamp(1.2rem, 3vh, 2rem); }
+          .pd-movil-arriba .pd-sector { padding: clamp(1.6rem, 8vh, 4.4rem) 1.5rem; }
+          .pd-movil-arriba .pd-sector .t { font-size: 1.55rem; }
+          /* 5 · la solución y las tarjetas */
+          .pd-movil-arriba .pd-activo-titular { margin-top: clamp(0.5rem, 9vh, 5rem); }
+          .pd-movil-arriba .pd-obstaculo { margin-top: clamp(3rem, 24vh, 13rem); }
+          .pd-movil-arriba .pd-tarjetas { gap: clamp(12px, 2.8vh, 24px); }
+          .pd-movil-arriba .pd-tarjetas .pd-tarjeta { padding: clamp(16px, 3vh, 26px) 16px; }
+          .pd-movil-arriba .pd-flujo { --hueco: clamp(28px, 7.5vh, 64px); }
+          .pd-movil-arriba .pd-flujo .pd-tarjeta { padding: clamp(16px, 3vh, 26px) 16px; }
+          .pd-movil-arriba .pd-con-ciclo { gap: clamp(1.4rem, 5vh, 3rem); }
+          .pd-movil-arriba .pd-con-ciclo .pd-grande-blanco { margin-bottom: clamp(1rem, 4vh, 2.4rem); }
+        }
+        /* Teléfonos bajos (≤ 760 px de alto): el mismo reparto, un punto más apretado. */
+        @media (max-width: 860px) and (min-height: 600px) and (max-height: 760px) and (orientation: portrait) {
+          .pd-movil-arriba.pd-credo--solo .pd-credo-titulo { font-size: clamp(1.3rem, 5.8vw, 1.8rem); }
+          .pd-movil-arriba .pd-credo-titulo,
+          .pd-movil-arriba .pd-h2,
+          .pd-movil-arriba .pd-tarjetas-titulo { margin-bottom: clamp(1.4rem, 4.5vh, 3rem); }
+          .pd-movil-arriba .pd-contraste .pd-tarjeta { padding: 14px 16px; }
+          .pd-movil-arriba .pd-contraste { margin-bottom: clamp(1.4rem, 4.5vh, 3rem); }
+          .pd-movil-arriba .pd-cifras .pd-cifras-lista--tres { gap: clamp(1rem, 3.4vh, 2rem); }
+          .pd-movil-arriba .pd-cifras .pd-bisagra { margin-top: clamp(1.4rem, 4.5vh, 3rem); }
+        }
       ` }} />
 
       <div
@@ -1914,7 +1968,7 @@ export default function PitchDeckPage() {
         </div>
 
         {/* ── 1 · EN QUÉ CREEMOS (primera mitad) ─────────────────────── */}
-        <section className={`pd-slide pd-credo pd-credo--solo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-movil-arriba pd-credo pd-credo--solo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">En qué creemos</p>
             {/* h2 y no h1: el único h1 de la página es el de la guía de abajo
@@ -1972,7 +2026,7 @@ export default function PitchDeckPage() {
             aplica la que le sirva a su público. El ciclo ya abrió el deck (credo).
             El remate de los veinte lo cubre la cifra del DANE: 9 de cada 10 incluye
             al que gana bien (solo el 7,7 % dice que le sobra). */}
-        <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-movil-arriba ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap pd-cifras" style={{ maxWidth: 1040 }}>
             {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
             <p className="pd-eyebrow">El dolor, en cifras</p>
@@ -2016,7 +2070,7 @@ export default function PitchDeckPage() {
         {/* ── 3 · LA OPORTUNIDAD ──────────────────────────────────────── */}
         {/* Palabras del Director (30 sep 2026). Los pares van como lista: la lista
             es la imagen, y el patrón se entiende sin explicarlo. */}
-        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-movil-arriba ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">La oportunidad</p>
             <h2 className="pd-h2 pd-h2--media">
@@ -2046,7 +2100,7 @@ export default function PitchDeckPage() {
             de modernización se lee como oportunidad, y resolvió el «ah, es como
             Herbalife». ⚠️ Solo el nombre: cómo se hace hoy lo cuenta el socio en
             vivo. Describirlo aquí sería un juicio sin voz sobre el método de otros. */}
-        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-movil-arriba ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">Dónde la vemos</p>
             {/* «Dos sectores por modernizar» (Director, 7 nov 2026, del ejercicio de Musk); decía
@@ -2066,7 +2120,7 @@ export default function PitchDeckPage() {
         </section>
 
         {/* ── 5 · LA SOLUCIÓN Y CÓMO FUNCIONA ─────────────────────────── */}
-        <section className={`pd-slide ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+        <section className={`pd-slide pd-movil-arriba ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
           {/* Beat 0: la solución, en palabras del Director (30 sep 2026). «Le vamos
               a dar» pasó a «le damos»: se afirma, no se anuncia. Se llama «La
               solución» desde el 18 oct 2026 (Director: así lo dice en vivo, y

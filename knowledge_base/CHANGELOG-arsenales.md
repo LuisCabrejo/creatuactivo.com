@@ -85,6 +85,15 @@ El archivo del video del día 58 (martes 3 nov), aprobado por el Director el 3 n
 
 ---
 
+## arsenal_compensacion v8.17: el precio público sugerido es el oficial y se da (6 nov 2026)
+
+El Director le pidió a la Queswa del Dashboard el valor consolidado de los productos del ESP-3, y ella respondió dos veces que «Gano no publica precio individual de cada ítem del paquete». Recuperó `COMP_PAQ_04`, que traía solo cantidades, y no volvió a buscar los precios. Decisión del Director: el precio público sugerido es el oficial y se da a quien lo pregunte.
+
+- **`COMP_PAQ_04`**: la tabla trae, por unidad, el precio de distribuidor (catálogo de Gano, 6 nov) y el público sugerido, con los dos totales: **$4.106.100** a precio de distribuidor y **$5.404.500** a precio público. Las dos diferencias con los $4.500.000 del paquete van escritas en pesos (+$393.900 y −$904.500): en la prueba, sin ellas, el modelo dijo que el paquete daba más producto del que se paga y que quedaba «casi un millón cuatrocientos mil» por debajo del precio público.
+- **`COMP_VENTA_01`**: el precio público del Ganocafé 3 en 1 decía $140.000 y la ganancia $29.100. Ahora dice $147.900 y $37.000, como `CLIENTE_VIP_01`.
+- **`COMP_VENTA_02`** (nuevo, en los tres tenants): la lista oficial de los 21 productos con las dos columnas. Los precios públicos son los de la lista de ganocafe.online, que el Director confirmó vigentes ese día. Medido con voyage-3-lite contra el tenant `dashboard`: gana en primer puesto con «precio sugerido de venta» (0.572 frente a 0.470 de `COMP_VENTA_01`), «precio de lista de los productos» y «precio al público del colágeno». Cuando la pregunta nombra un producto («Excellium al público», «Cordygold»), gana la ficha de ese producto y este fragmento queda tercero o más abajo.
+- El prompt de Queswa (v5.28) cambia la regla que decía «no hay precio público oficial».
+
 ## arsenal_compensacion v8.16 y arsenal_avanzado v14.10: el GEN5 ya no «financia el inicio» (2 nov 2026)
 
 Al auditar la pantalla «Cómo se gana» de `/servilleta`, el Director corrigió la línea *«Es lo que financia el crecimiento al inicio»*: el Bono GEN5 se paga igual a quien inicia y a quien lleva décadas; no es un bono de etapa. La misma idea vivía en el arsenal desde que la familia GEN5 se reescribió el 9 ago (*«la función sí se conserva: es la plata que financia el crecimiento en la etapa temprana»*), y sale de todas partes:

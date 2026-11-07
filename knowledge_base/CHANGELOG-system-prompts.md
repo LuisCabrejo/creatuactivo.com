@@ -6,6 +6,12 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.28 — El precio público sugerido es el oficial y se da (6 nov 2026)
+
+La regla decía «Nunca invente un porcentaje de margen: no hay precio público oficial… el precio de venta lo pone usted». Decisión del Director: a quien pregunte el precio sugerido se le da el oficial. Ahora dice que el precio público sugerido es el oficial de Gano, que está en el arsenal producto por producto (`COMP_VENTA_02` y la tabla de `COMP_PAQ_04`, arsenal_compensacion v8.17) y que se da en pesos junto al de distribuidor. La diferencia se dice en pesos, nunca como porcentaje de margen.
+
+Web 18.670 caracteres · WhatsApp 18.254 · Dashboard 15.994.
+
 ## v5.27 — El ejemplo del registro sanitario: alimento o suplemento dietario (6 nov 2026)
 
 El ejemplo de la regla «Cierre la frase en lo que sí hay» decía «está catalogado como suplemento dietario, y no como tratamiento». Un ejemplo del prompt se copia, y aplicado al Ganocafé 3 en 1 es falso: está registrado como alimento (RSA-0011698-2021, datos abiertos del INVIMA). Ahora dice «catalogado como alimento o suplemento dietario», como los textos dictados del guardarraíl de salud.

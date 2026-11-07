@@ -1,7 +1,7 @@
 # Arsenal de Compensacion: Infraestructura de Ingresos — la versión vigente está en «Version», abajo
 **Proposito:** Fuente unica de verdad para el Plan de Pagos de Gano Excel.
 **Enfoque:** Registro accesible (Beto) / Usted — Construcción de Ingresos Recurrentes
-**Versión actual: v8.16** (2 nov 2026) — **El GEN5 se nombra solo por lo que lo mueve y por su alcance** (Director): el bono se paga igual al que inicia y al que lleva décadas, así que `COMP_GEN5_08` y la nomenclatura interna quedan sin coletilla de etapa. Cifras sin tocar. **v8.15** (2 nov 2026) — **`COMP_BIN_01` dice «no depende de su presencia»** en vez de «no depende de que usted esté encima»: el Binario se le explica a cualquiera, y «estar encima» es el dolor del empresario. **v8.14** (19 oct 2026) — **`COMP_MONEDA_01`, `COMP_GEN5_05` y `COMP_BIN_02` ofrecen *las cuatro formas de empezar***, no tres: son cuatro desde el 6 oct (Director) y la oferta tiene que calzar literal con el índice de `FREQ_03`, su destino; con una aceptación pelada, la búsqueda usa la última pregunta del bot. Cifras sin tocar.
+**Versión actual: v8.17** (6 nov 2026) — **El precio público sugerido es el oficial y se da** (Director): `COMP_PAQ_04` trae el precio de distribuidor y el público de cada producto del ESP-3 con los dos totales ($4.106.100 y $5.404.500); `COMP_VENTA_01` corrige el público del Ganocafé 3 en 1 ($140.000 → $147.900); y `COMP_VENTA_02`, nuevo, trae la lista oficial de los 21 productos. Cifras del plan sin tocar. **v8.16** (2 nov 2026) — **El GEN5 se nombra solo por lo que lo mueve y por su alcance** (Director): el bono se paga igual al que inicia y al que lleva décadas, así que `COMP_GEN5_08` y la nomenclatura interna quedan sin coletilla de etapa. Cifras sin tocar. **v8.15** (2 nov 2026) — **`COMP_BIN_01` dice «no depende de su presencia»** en vez de «no depende de que usted esté encima»: el Binario se le explica a cualquiera, y «estar encima» es el dolor del empresario. **v8.14** (19 oct 2026) — **`COMP_MONEDA_01`, `COMP_GEN5_05` y `COMP_BIN_02` ofrecen *las cuatro formas de empezar***, no tres: son cuatro desde el 6 oct (Director) y la oferta tiene que calzar literal con el índice de `FREQ_03`, su destino; con una aceptación pelada, la búsqueda usa la última pregunta del bot. Cifras sin tocar.
 
 **v8.13** (2 oct 2026) — **El GEN5 y el Binario dejan de comparar paquetes, y la vigencia del porcentaje se dice como hecho** (Director). COMP_GEN5_08 y COMP_BIN_02 cerraban con una tabla de diferencias entre paquetes, la construcción que la familia GEN5 retiró el 26 ago; en la prueba del Director en el Dashboard el modelo la convirtió en un empujón al paquete grande. COMP_GEN5_08 deja además las marcas de tiempo pegadas a la comisión, y COMP_BIN_02 dice cuánto rige el porcentaje de arranque y qué aplica después. Cifras, %, GCV, PV/CV y nombres del plan intactos. Detalle en el CHANGELOG.
 
@@ -879,25 +879,27 @@ El ESP-2 sube el techo del GEN5 respecto al ESP-1 y llega con más inventario.
 
 **[Concepto Nuclear]:** 35 productos incluyendo suplementos premium. Maximo retorno. **v8.11 (13 sep 2026):** el bloque *«IMPORTANTE — Duración… NUNCA digas "X meses de GEN5"»* salió del cuerpo (nombraba la frase a evitar) y queda una línea en positivo. Regla: Binario alto 6/4/2 meses según paquete, luego base 10% si no recompra; GEN5 sin término mientras el código esté activo.
 
-**Contenido ESP-3 ($1,000 USD / $4.500.000 COP) — vigente desde 25 marzo 2026:**
-| Producto | Cantidad |
-|----------|----------|
-| Ganocafé 3 en 1 | 9 |
-| Ganocafé Classic | 8 |
-| Ganorico Shoko Rico | 4 |
-| Ganorico Mocha Rico | 3 |
-| Oleaf Gano Rooibos | 1 |
-| Gano C'Real Spirulina | 1 |
-| Ganorico Latte Rico | 1 |
-| Reskine Colágeno | 1 |
-| Cordygold Cápsulas | 1 |
-| Jabón Gano (2 por paquete) | 1 |
-| Gano Fresh (pasta dental) | 1 |
-| Jabón Transparente | 1 |
-| Shampoo Piel&Brillo | 1 |
-| Acondicionador Piel&Brillo | 1 |
-| Exfoliante Piel&Brillo | 1 |
-| **Total** | **35** |
+**Contenido ESP-3 ($1,000 USD / $4.500.000 COP) — vigente desde 25 marzo 2026. Precios de Gano Colombia al 6 nov 2026, por unidad:**
+| Producto | Cant. | Distribuidor | Público sugerido |
+|----------|-------|--------------|------------------|
+| Ganocafé 3 en 1 | 9 | $110.900 | $147.900 |
+| Ganocafé Classic | 8 | $110.900 | $147.900 |
+| Ganorico Shoko Rico | 4 | $124.900 | $166.500 |
+| Ganorico Mocha Rico | 3 | $119.900 | $156.900 |
+| Oleaf Gano Rooibos | 1 | $119.900 | $156.900 |
+| Gano C'Real Spirulina | 1 | $119.900 | $156.900 |
+| Ganorico Latte Rico | 1 | $119.900 | $156.900 |
+| Reskine Colágeno | 1 | $216.900 | $276.900 |
+| Cordygold Cápsulas | 1 | $336.900 | $424.500 |
+| Jabón Gano (2 por paquete) | 1 | $73.900 | $96.900 |
+| Gano Fresh (pasta dental) | 1 | $73.900 | $96.900 |
+| Jabón Transparente | 1 | $78.500 | $96.900 |
+| Shampoo Piel&Brillo | 1 | $73.900 | $96.900 |
+| Acondicionador Piel&Brillo | 1 | $73.900 | $96.900 |
+| Exfoliante Piel&Brillo | 1 | $73.900 | $96.900 |
+| **Total** | **35** | **$4.106.100** | **$5.404.500** |
+
+Comprados uno por uno, los mismos 35 productos suman $4.106.100 a precio de distribuidor y $5.404.500 a precio público sugerido. El ESP-3 cuesta $4.500.000: $393.900 más que esos productos a precio de distribuidor y $904.500 menos que a precio público sugerido.
 
 El ESP-3 tiene el techo más alto del GEN5 y abre con el Binario al 17% durante seis meses; pasado ese tiempo vuelve a la base si no se recompra. El GEN5 queda activo desde el primer día, sin término.
 
@@ -998,10 +1000,60 @@ Si ya hace su recompra de 50 PV al mes, el Auto Envío le suma un producto sin c
 | Concepto | Valor |
 |----------|-------|
 | Su costo | $110.900 |
-| Precio público | $140.000 |
-| Su ganancia | $29.100 |
+| Precio público sugerido | $147.900 |
+| Su ganancia | $37.000 |
 
 En la práctica casi nadie sale a vender: lo que ocurre es que hay conocidos que consumen los productos de forma habitual y se registran como Clientes VIP para comprarlos a su precio. Eso no es venta al detal — es consumo que pasa por su sistema.
+
+**Pregunta de seguimiento:** ¿Le cuento cómo funciona el Cliente VIP?
+
+---
+
+### COMP_VENTA_02: "¿Cuál es el precio público sugerido? / ¿A cuánto se vende cada producto al público?"
+**[Índice]:** Precio público sugerido de cada producto, a cuánto se vende al público, precio de venta sugerido, a cuánto lo vendo, precio de lista oficial, precio al detal del café, del chocolate, del colágeno, de las cápsulas y del jabón.
+
+**[Concepto Nuclear]:** Decisión del Director (6 nov 2026): a quien pregunte el precio sugerido se le da el precio público oficial, producto por producto. Distribuidor = catálogo de Gano (`gano_catalogo`, 6 nov 2026); público = la lista oficial que también usa ganocafe.online, confirmada vigente por el Director ese día. Si Gano cambia un precio, se cambia aquí y en la tabla de COMP_PAQ_04. La diferencia se dice en pesos, nunca como porcentaje de margen.
+
+Precios de Gano Colombia al 6 nov 2026, por unidad. El público sugerido es el precio oficial de venta; el de distribuidor es el que paga quien tiene código.
+
+**Bebidas**
+| Producto | Distribuidor | Público sugerido |
+|----------|--------------|------------------|
+| Ganocafé 3 en 1 | $110.900 | $147.900 |
+| Ganocafé Clásico | $110.900 | $147.900 |
+| Ganorico Latte Rico | $119.900 | $156.900 |
+| Ganorico Mocha Rico | $119.900 | $156.900 |
+| Ganorico Shoko Rico | $124.900 | $166.500 |
+| Gano Schokolade | $124.900 | $166.500 |
+| Oleaf Gano Rooibos | $119.900 | $156.900 |
+| Gano C'Real Spirulina | $119.900 | $156.900 |
+| Reskine Colágeno | $216.900 | $276.900 |
+
+**Suplementos**
+| Producto | Distribuidor | Público sugerido |
+|----------|--------------|------------------|
+| Ganoderma Cápsulas | $272.500 | $332.500 |
+| Excellium Cápsulas | $272.500 | $332.500 |
+| Cordygold Cápsulas | $336.900 | $424.500 |
+
+**Cuidado personal**
+| Producto | Distribuidor | Público sugerido |
+|----------|--------------|------------------|
+| Jabón Gano | $73.900 | $96.900 |
+| Jabón Transparente | $78.500 | $96.900 |
+| Gano Fresh (pasta dental) | $73.900 | $96.900 |
+| Shampoo Piel&Brillo | $73.900 | $96.900 |
+| Acondicionador Piel&Brillo | $73.900 | $96.900 |
+| Exfoliante Piel&Brillo | $73.900 | $96.900 |
+
+**Luvoco**
+| Producto | Distribuidor | Público sugerido |
+|----------|--------------|------------------|
+| Luvoco Suave (15 cápsulas) | $110.900 | $147.900 |
+| Luvoco Medio (15 cápsulas) | $110.900 | $147.900 |
+| Luvoco Fuerte (15 cápsulas) | $110.900 | $147.900 |
+
+La diferencia entre las dos columnas es lo que le queda a quien compra a precio de distribuidor y vende al precio público sugerido.
 
 **Pregunta de seguimiento:** ¿Le cuento cómo funciona el Cliente VIP?
 

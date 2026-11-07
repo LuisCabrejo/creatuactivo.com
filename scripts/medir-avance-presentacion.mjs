@@ -5,7 +5,7 @@
  * ¿En qué paso de la presentación se va la gente? (6 nov 2026)
  *
  * Los hitos de /servilleta (pantallas 4, 6 y 9) no ven dentro de la pantalla 5, que
- * tiene diez beats, ni de la 8, que tiene tres, y entre los hitos 4 y 6 era donde se
+ * tenía diez beats (cuatro desde el 7 nov 2026), ni de la 8, que tiene tres, y entre los hitos 4 y 6 era donde se
  * iba la gente (5 de 22 en los 60 días anteriores). Desde el 6 nov 2026 la página
  * guarda el paso más lejano, beat incluido (`device_info.presentacion_paso`, por
  * /api/track/presentacion). Este script cuenta en qué paso se quedó cada persona.
@@ -27,22 +27,17 @@ const dias = i > -1 ? Number(process.argv[i + 1]) : 30;
 const desde = new Date(Date.now() - dias * 864e5).toISOString();
 const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-// Los pasos del deck, en orden (BEATS en src/app/servilleta/page.tsx, 6 nov 2026).
+// Los pasos del deck, en orden (BEATS en src/app/servilleta/page.tsx). Desde el 7 nov 2026 la
+// pantalla 5 tiene 4 beats y no 10: un 5.4 a 5.9 es del 6 nov y sale «fuera del mapa».
 const PASOS = [
   [1, 0, '1 · en qué creemos'],
   [2, 0, '2 · la oportunidad'],
   [3, 0, '3 · dos sectores'],
   [4, 0, '4 · el dolor, en cifras'],
   [5, 0, '5.0 · la solución'],
-  [5, 1, '5.1 · un fabricante'],
-  [5, 2, '5.2 · una máquina de ventas'],
-  [5, 3, '5.3 · una herramienta'],
-  [5, 4, '5.4 · las tres quietas'],
-  [5, 5, '5.5 · la unión (Queswa.app)'],
-  [5, 6, '5.6 · su día: compartir'],
-  [5, 7, '5.7 · su día: Queswa'],
-  [5, 8, '5.8 · su día: recibir'],
-  [5, 9, '5.9 · la diferencia (propiedad)'],
+  [5, 1, '5.1 · tres elementos en Queswa.app'],
+  [5, 2, '5.2 · las dos acciones'],
+  [5, 3, '5.3 · la diferencia (propiedad)'],
   [6, 0, '6 · el producto'],
   [7, 0, '7 · la pregunta'],
   [8, 0, '8.0 · cómo se gana'],

@@ -51,7 +51,8 @@
 // Bump 1.5.2 (6 nov 2026): /servilleta mide el paso más lejano, el video es la acción
 // principal en el teléfono con socio, y la línea del Binario de la 8 va sin jerga.
 // Bump 1.5.3 (6 nov 2026): la pantalla 9 de /servilleta dice «En 16 países de América».
-const CACHE_VERSION = '1.5.3';
+// Bump 1.5.4 (7 nov 2026): la pantalla 5 de /servilleta pasa de 10 beats a 4 (tarjetas).
+const CACHE_VERSION = '1.5.4';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

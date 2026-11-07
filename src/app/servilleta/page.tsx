@@ -70,24 +70,17 @@
  *                      con Uber va en la voz del socio), con aire entre las dos
  *                      frases. El botón del video «Cómo funciona» (13-30 oct 2026)
  *                      SALIÓ: el video de la presentación entera vive en la 1.
- *                      Luego:
- *                      beats 1-3, las tres piezas (el fabricante SIN nombre; la
- *                      2ª es UNA MÁQUINA DE VENTAS, con un botón, la demo de
- *                      Queswa; la 3ª es UNA HERRAMIENTA PARA MULTIPLICAR, con
- *                      el clip de la multiplicación y queswa.app «por dentro»
- *                      (el botón se mudó de la 2ª el 2 nov 2026) — las dos desde el 18 oct 2026, canon en
- *                      WHY_02 v6.76 y en el video v6) · beat 4, las tres
- *                      quietas, directo tras la tercera pieza (la tríada de Jobs
- *                      sin desvío) · beat 5, la unión EN UNA diapositiva: el clip
- *                      v5 funde los cubos EN GRANDE, enciende el cubo y la cámara
- *                      se aleja hasta el celular; «Queswa.app» entra cuando el
- *                      celular ya está a la vista — la secuencia de Jobs sin clic
- *                      · beat 6, la propiedad con su porcentaje: la cadena del
- *                      modelo completa, como WHY_02.
- *                      ⛔ «Solo se multiplica lo que es sencillo» (el remate de
- *                      la multiplicación, 18 oct) SALIÓ el 28 oct 2026, Director;
- *                      con él salió la única línea que nombraba las dos acciones,
- *                      que se muestran en vivo.
+ *                      Desde el 7 nov 2026 (Director: «una idea en una sola imagen
+ *                      es mucho más sencillo y potente») son 4 beats y no 10:
+ *                      beat 1, «Tres elementos en Queswa.app», las tres tarjetas
+ *                      con la unión en el titular (antes: cada pieza a solas, las
+ *                      tres quietas y la unión con el clip del celular, cinco
+ *                      beats) · beat 2, «Experiencia sin fricción en dos pasos», tres
+ *                      tarjetas Compartir · Queswa · Recibir con una luz que
+ *                      recorre el flujo (antes: la escena de los dos teléfonos,
+ *                      tres toques) · beat 3, la propiedad con su porcentaje: la
+ *                      cadena del modelo completa, como WHY_02. Ver ELEMENTOS y
+ *                      ACCIONES.
  *                      → ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
  *  6 EL PRODUCTO     · la del deck del 23 sep, sin cambios. Gano se nombra aquí
  *                      por primera vez, como quien lo fabrica.
@@ -168,7 +161,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
 import CicloPropiedad from './CicloPropiedad';
-import SuDia from './SuDia';
 import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 import { dispositivoDe } from '@/lib/dispositivo';
@@ -182,86 +174,57 @@ const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
 const WHATSAPP_EQUIPO = '573206805737';
 
 /** Beats internos por pantalla. */
-const BEATS: Record<number, number> = { 5: 10, 8: 3 };
+const BEATS: Record<number, number> = { 5: 4, 8: 3 };
 const beatsOf = (slide: number) => BEATS[slide] ?? 1;
 /** El beat donde abre `?pantalla=N`: la 8 abre en el simulador (beat 1), no en la
  *  respuesta corta, porque ese enlace es «Abrir el simulador» (Queswa y el webhook). */
 const BEAT_DEL_ENLACE: Record<number, number> = { 8: 1 };
 
-/** Las tres piezas. Mismo lenguaje 3D (objeto gris, fondo negro, piso blanco):
- *  que se vean hechas del mismo material es lo que vuelve creíble «es una sola».
- *  EN VIDEO desde el 10 oct 2026 (Fase 1 de la consolidación con la servilleta,
- *  aprobada por el Director): el movimiento sostiene la mirada mientras el socio
- *  narra — es para lo que la servilleta fue diseñada, y sus b-rolls son el mismo
- *  universo del que salieron estas imágenes. Los loops son recortes CUADRADOS
- *  propios del deck (public/videos/presentacion/, desde los clips de
- *  public/videos/servilleta/ sin su cubo de portada), MUDOS a propósito: en vivo
- *  la banda sonora es el socio. La imagen queda como poster — se ve al instante
- *  y cubre la carga (preload none). Ritmo movimiento/quietud deliberado: piezas
- *  en video; el credo, las cifras y el teléfono del remate QUIETOS — un
- *  manifiesto y un número no deben moverse. */
-const PIEZAS: { label: string; img: string; video: string; sub: string; extra?: string; quieta?: string }[] = [
-  {
-    label: 'UN FABRICANTE',
-    img: '/images/servilleta/colapso-fabrica.webp',
-    video: '/videos/presentacion/pieza-fabricante.mp4',
-    // Sin nombre, como en WHY_02: Gano se nombra en el producto y al final, como quien paga.
-    sub: 'Fabrica, empaca y despacha cada pedido hasta la casa de su cliente.',
-  },
-  {
-    // UNA MÁQUINA DE VENTAS (Director, 18 oct 2026, tras presentarla en vivo así):
-    // la imagen que pinta de una vez lo que el prospecto teme hacer él —vender—
-    // y que desde el 17 oct es verificable (el catálogo es una tienda donde el
-    // cliente compra y paga a Gano Excel). El riesgo es el registro: «máquina de
-    // ventas» es el nombre de marca de los cursos de Hotmart («dispara tus ventas
-    // en 7 días»), el carril de los gurús de internet. Por eso el nombre se paga
-    // en la misma frase con el MECANISMO (Queswa atiende y madura la decisión),
-    // como en la regla del 19 ago. Nació aquí en prueba y el mismo día el Director
-    // lo hizo canon en todas partes: WHY_02 🔒 v6.76, el video «Cómo funciona» v6,
-    // la Home, la guía y el Dashboard. Queswa reconoce el término también por una
-    // PUERTA directa a WHY_02 (src/lib/puerta-maquina-ventas.ts): en el índice
-    // diluía.
-    label: 'UNA MÁQUINA DE VENTAS',
-    img: '/images/servilleta/colapso-conversacion.webp',
-    video: '/videos/presentacion/pieza-atiende.mp4',
-    sub: 'Usted envía a quien quiera. Quien llega conoce los productos y los compra, o ve cómo participar; Queswa atiende a cada uno y madura su decisión, a toda hora.',
-    // La segunda cara (metas · redacta · avisa) vivió aquí como `extra` del 24 al
-    // 27 sep 2026; se mudó a la pieza 3, que ES esa cara con nombre propio. Esta
-    // pieza queda solo de cara al prospecto — no repetirle el contenido a la 3.
-  },
-  {
-    // UNA HERRAMIENTA PARA MULTIPLICAR (Director, 18 oct 2026 — reemplaza a «saber
-    // qué hacer» del 9 oct). Los tres elementos siguen siendo FUNCIONES, ahora las
-    // de cualquier empresa: fabricar · vender · multiplicar; y la multiplicación,
-    // que es lo más difícil, deja de ir suelta después de los tres. En vivo el
-    // socio ya lo decía así, con queswa.app abierta: Queswa en modo Waze, sus
-    // equipos capacitándose. «Saber qué hacer» NO se pierde: es el mecanismo
-    // («le va marcando la ruta, paso a paso»), y el «¿seré capaz?» que atacaba la
-    // etiqueta vieja lo responde ahora la demostración (lo que se ve convence más
-    // que lo que se dice). ⚠️ «Herramienta», nunca «aplicación»: la unión dice
-    // que los tres llegan EN una sola aplicación, y un tercer elemento llamado
-    // aplicación devolvería la circularidad del 9 oct (auditado con el Director).
-    // ⛔ Sin dinero aquí: plata junto a «quien inicie con usted» es la silueta de
-    // pirámide. El clip es la multiplicación (c-distribuir del video «Cómo
-    // funciona»: réplicas idénticas, cada uno con su celular, nunca top-down); la
-    // línea dorada de antes («Conoce sus metas…») salió: el socio lo muestra.
-    // `quieta` es el cuadro del segundo 4 (ya hay varios distribuidores) para la
-    // pantalla de las tres quietas; el poster es el primer cuadro del clip.
-    // LA QUE VE USTED (Director, 3 nov 2026, tras la investigación): la máquina de ventas
-    // es lo que ve su cliente y la herramienta lo que ve usted — las dos caras de Uber,
-    // sin nombrar al conductor (en la solución usted es Uber, el dueño). Tres verbos de
-    // su día y no el inventario (reels, flyers, guiones…): a quien se pregunta «¿seré
-    // capaz?» una lista de funciones le pesa como complejidad. «Le dice qué hacer»
-    // recoge el «saber qué hacer» del 9 oct. Waze salió de la presentación: Uber ya
-    // carga la analogía, y dos en 25 segundos se estorban (en WHY_02 sigue, sola).
-    // La multiplicación queda como consecuencia: quien inicia recibe la misma.
-    label: 'UNA HERRAMIENTA PARA MULTIPLICAR',
-    img: '/videos/presentacion/multiplicacion-poster.webp',
-    video: '/videos/presentacion/multiplicacion.mp4',
-    sub: 'La que usted lleva en su celular: le dice qué hacer cada día, le da lo que va a compartir y le avisa quién llegó. Quien inicie con usted recibe la misma.',
-    quieta: '/videos/presentacion/multiplicacion-quieta.webp',
-  },
+/** Los tres elementos, en UNA diapositiva con su unión (Director, 7 nov 2026: «una idea
+ *  en una sola imagen es mucho más sencillo y potente»). Hasta ese día eran cinco beats
+ *  —cada pieza a solas con su loop, las tres quietas y la unión con el clip del
+ *  celular—, y la pantalla 5 tenía 10 toques: entre los hitos 4 y 6 era donde más se iba
+ *  la gente que la veía sola. Sencillo en la explicación, como lo que se vende: lo
+ *  complejo da cortisol; lo sencillo, la sensación de «yo puedo».
+ *  Los NOMBRES son el canon de todas partes (WHY_02, el video, Queswa). Los subtítulos
+ *  los eligió el Director entre dos ejercicios de primeros principios (Musk y Vélez):
+ *  cortos, que pinten y le den al socio de qué hablar. ⚠️ «Máquina de ventas» va aquí
+ *  sin su mecanismo en la misma frase, por decisión del Director para esta tarjeta: el
+ *  mecanismo lo dice la diapositiva siguiente (usted envía, Queswa conversa, usted
+ *  recibe). Fuera de la presentación la regla sigue igual. */
+const ELEMENTOS: { label: string; sub: string; icono: 'fabrica' | 'conversa' | 'celular'; boton?: 'queswa' | 'app' }[] = [
+  { label: 'Un fabricante', sub: 'Respaldo operativo directo al cliente y al distribuidor.', icono: 'fabrica' },
+  // El FRENTE de la máquina: lo que ve quien usted envía (el chat se abre en la misma
+  // página, así que en Meet sí se ve).
+  { label: 'Una máquina de ventas', sub: 'Atención empática a toda hora.', icono: 'conversa', boton: 'queswa' },
+  // queswa.app por dentro, en una ventana del tamaño de un celular (en el teléfono, pestaña nueva).
+  { label: 'Una herramienta para multiplicar', sub: 'Ruta diaria idéntica para todos.', icono: 'celular', boton: 'app' },
 ];
+
+/** Las dos acciones (Director, 7 nov 2026; título y textos suyos, tomados del ejercicio
+ *  de Vélez: «Experiencia sin fricción en dos pasos»), en tarjetas en lugar de la escena animada
+ *  de los dos teléfonos (3-6 nov 2026, tres toques): quien entiende que son dos pasos
+ *  siente que puede, y le da curiosidad de verlo en la app. La del centro es el trabajo
+ *  que no hace usted, en el cian de «Queswa en línea»; una luz recorre el flujo. */
+const ACCIONES: { rotulo: string; titulo: string; sub: string; queswa?: boolean }[] = [
+  { rotulo: '01 · Compartir', titulo: 'Invitación natural', sub: 'Envía un enlace por WhatsApp.' },
+  { rotulo: 'Queswa', titulo: 'Queswa conversa', sub: 'Resuelve dudas sin presión ni guiones robóticos.', queswa: true },
+  { rotulo: '02 · Recibir', titulo: 'Notificación en su celular', sub: 'Recibe a la persona informada y con interés.' },
+];
+
+/** Los íconos de las tarjetas, dibujados aquí (trazo de 1,5, como el resto del deck). */
+function IconoElemento({ cual }: { cual: 'fabrica' | 'conversa' | 'celular' }) {
+  const comun = { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
+  if (cual === 'fabrica') return (
+    <svg {...comun}><path d="M3 21V10l5 3V10l5 3V10l5 3V5h3v16Z" /><path d="M7 17h2M12 17h2M17 17h1" /></svg>
+  );
+  if (cual === 'conversa') return (
+    <svg {...comun}><path d="M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" /><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-4-3h-3" /></svg>
+  );
+  return (
+    <svg {...comun}><rect x="6" y="2" width="12" height="20" rx="2.5" /><path d="M10.5 18.5h3" /></svg>
+  );
+}
 
 /** La ola de modernización (Director, 30 sep 2026): lo que antes era una
  *  industria a la antigua, hoy es una aplicación. */
@@ -1103,115 +1066,161 @@ export default function PitchDeckPage() {
           opacity: 0; visibility: hidden; transition: opacity 0.45s ease; }
         .pd-beat > * { margin-block: auto; }
         .pd-beat.on { opacity: 1; visibility: visible; }
-        /* LA PIEZA ES LA PROTAGONISTA (Director, 10 oct 2026: «los clips se ven más
-           pequeños que en la servilleta»). El deck se presenta en Mac, proyector y
-           teléfono, así que la figura se dimensiona POR ALTURA DE PANTALLA, no solo
-           por columna: en un proyector 16:9 el ancho sobra y la altura manda.
-           Respaldo: diapositiva = afirmación en una línea + evidencia VISUAL
-           dominante (assertion-evidence, Garner & Alley 2013); el socio narra el
-           resto — el mismo principio name-only de la servilleta. */
-        .pd-pieza { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 5vw, 64px);
-          align-items: center; max-width: 1160px; margin: 0 auto; width: 100%; }
-        .pd-pieza .pd-figura { width: min(100%, calc(100vh - 230px)); justify-self: center; }
-        /* ⚠️ El ancho va EXPLÍCITO. Sin él, como .pd-pieza lleva align-items:center,
-           el ítem de la rejilla no se estira, su alto queda en 0 y aspect-ratio le
-           deja 2px de ancho: en el teléfono las tres piezas no se veían (bug real,
-           24 sep 2026). En escritorio no aparecía porque la columna daba el ancho. */
-        .pd-figura {
-          width: 100%;
-          aspect-ratio: 1 / 1; background-size: cover; background-position: center;
-          border: 1px solid rgba(255,255,255,0.08);
-        }
-        /* La pieza en video: el loop ya es cuadrado, cover lo deja exacto; el
-           fondo carbón cubre el instante antes del poster. */
-        video.pd-figura { object-fit: cover; display: block; background: #0F1115; }
-        .pd-pieza-label {
-          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
-          font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.1; color: #FFFFFF;
-          margin: 0 0 1.1rem;
-        }
         .pd-demo {
           margin-top: 1.6rem; background: transparent; border: 1px solid var(--pd-gold);
           color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
           letter-spacing: 0.2em; padding: 13px 22px; cursor: pointer; transition: all 0.25s;
         }
         .pd-demo:hover { background: var(--pd-gold); color: #0F1115; }
-        /* Los dos botones de la máquina (18 oct 2026): el frente y su lado. */
-        .pd-demos { display: flex; flex-wrap: wrap; gap: 10px 14px; }
-        .pd-demos .pd-demo { margin-top: 1.6rem; }
 
-        .pd-tres { display: grid; grid-template-columns: repeat(3, 1fr);
-          gap: clamp(12px, 3vw, 36px); max-width: 940px; margin: 0 auto; width: 100%; }
-        .pd-tres .pd-figura { animation: pdPulso 3.6s infinite; opacity: 0.32; }
-        .pd-tres .col:nth-child(1) .pd-figura { animation-delay: 0s; }
-        .pd-tres .col:nth-child(2) .pd-figura { animation-delay: 1.2s; }
-        .pd-tres .col:nth-child(3) .pd-figura { animation-delay: 2.4s; }
-        @keyframes pdPulso { 0%, 24% { opacity: 1; } 34%, 100% { opacity: 0.3; } }
-        .pd-tres .cap {
-          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
-          color: var(--pd-muted); text-transform: uppercase; text-align: center;
-          margin-top: 0.9rem; min-height: 2.4em;
+        /* ── 5 · Las tarjetas (Director, 7 nov 2026) ─────────────────────────
+           Los tres elementos en Queswa.app y las dos acciones: una idea por
+           diapositiva, título corto y tarjetas con título y subtítulo cortos. El
+           borde es el vidrio neutro de la marca; el oro, solo en hover. */
+        .pd-tarjetas-wrap { width: 100%; max-width: 1080px; margin: auto; text-align: center; }
+        .pd-tarjetas-wrap .pd-eyebrow { text-align: center; margin-bottom: 1rem; }
+        .pd-tarjetas-titulo {
+          font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.45rem, 3.8vw, 2.7rem); line-height: 1.1; letter-spacing: 0.01em;
+          color: #FFFFFF; margin: 0 auto clamp(1.6rem, 5vh, 3rem); text-wrap: balance;
+        }
+        .pd-tarjetas, .pd-flujo {
+          display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: left;
+        }
+        .pd-tarjetas { gap: clamp(12px, 2vw, 24px); }
+        .pd-tarjeta {
+          display: flex; flex-direction: column; flex: 1;
+          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 14px; padding: clamp(18px, 2.4vw, 30px);
+          transition: border-color 0.3s ease;
+        }
+        .pd-tarjeta:hover { border-color: rgba(197,160,89,0.45); }
+        .pd-tarjeta-icono { display: block; color: var(--color-titanium, #94A3B8); margin-bottom: 1.1rem; }
+        .pd-tarjeta--queswa-icono .pd-tarjeta-icono { color: var(--pd-data); }
+        .pd-tarjeta-rotulo {
+          font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.24em;
+          text-transform: uppercase; color: var(--color-titanium, #94A3B8); margin: 0 0 0.9rem;
+        }
+        .pd-tarjeta-titulo {
+          font-family: var(--font-sans); font-weight: 700; color: #FFFFFF;
+          font-size: clamp(1.05rem, 1.9vw, 1.45rem); line-height: 1.2; margin: 0 0 0.55rem;
+        }
+        .pd-tarjeta-sub {
+          color: var(--color-text-body, #C8C7C2); font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+          line-height: 1.5; margin: 0;
+        }
+        .pd-demo.pd-demo--tarjeta {
+          margin-top: auto; align-self: flex-start; padding: 10px 14px;
+          font-size: 0.6rem; letter-spacing: 0.16em;
+        }
+        .pd-tarjeta-sub:has(+ .pd-demo--tarjeta) { padding-bottom: 1.3rem; }
+        /* Entran una tras otra: el ritmo de tres, sin pedirle un toque a nadie. */
+        .pd-beat.on .pd-tarjetas > *, .pd-beat.on .pd-flujo > * { animation: pdEntra 0.6s ease-out both; }
+        .pd-beat.on .pd-tarjetas > :nth-child(1), .pd-beat.on .pd-flujo > :nth-child(1) { animation-delay: 0.15s; }
+        .pd-beat.on .pd-tarjetas > :nth-child(2), .pd-beat.on .pd-flujo > :nth-child(2) { animation-delay: 0.85s; }
+        .pd-beat.on .pd-tarjetas > :nth-child(3), .pd-beat.on .pd-flujo > :nth-child(3) { animation-delay: 1.55s; }
+
+        /* Las dos acciones. La del centro es el trabajo que no hace usted: carbón
+           elevado y el cian de «Queswa en línea». Una luz recorre el flujo
+           (Compartir → Queswa → Recibir); cuando llega al centro, el halo late, y
+           cuando llega a Recibir, el borde se enciende en oro: ahí está el premio. */
+        .pd-flujo { --hueco: clamp(30px, 4vw, 56px); gap: var(--hueco); }
+        .pd-flujo-paso { position: relative; display: flex; }
+        .pd-tarjeta--queswa {
+          background: #15171C; border-color: rgba(34,211,238,0.4);
+          box-shadow: 0 0 34px rgba(34,211,238,0.08);
+        }
+        .pd-tarjeta--queswa .pd-tarjeta-rotulo { color: var(--pd-data); }
+        .pd-luz {
+          position: absolute; top: 50%; left: calc(-1 * var(--hueco)); width: var(--hueco);
+          height: 1px; background: rgba(197,160,89,0.35);
+        }
+        .pd-luz::before {
+          content: ''; position: absolute; right: 1px; top: -3px; width: 7px; height: 7px;
+          border-top: 1px solid rgba(197,160,89,0.6); border-right: 1px solid rgba(197,160,89,0.6);
+          transform: rotate(45deg);
+        }
+        .pd-luz::after {
+          content: ''; position: absolute; top: -3px; left: 0; width: 7px; height: 7px;
+          border-radius: 50%; background: #F1E3BE; opacity: 0;
+          box-shadow: 0 0 10px 3px rgba(197,160,89,0.7);
+        }
+        .pd-beat.on .pd-luz--1::after { animation: pdLuz1 6s 2.4s infinite; }
+        .pd-beat.on .pd-luz--2::after { animation: pdLuz2 6s 2.4s infinite; }
+        .pd-beat.on .pd-tarjeta--queswa { animation: pdHalo 6s 2.4s infinite; }
+        .pd-beat.on .pd-flujo-paso:nth-child(3) .pd-tarjeta { animation: pdLlega 6s 2.4s infinite; }
+        @keyframes pdLuz1 {
+          0% { left: 0; opacity: 0; } 3% { opacity: 1; }
+          15% { left: calc(100% - 7px); opacity: 1; } 18%, 100% { left: calc(100% - 7px); opacity: 0; }
+        }
+        @keyframes pdLuz2 {
+          0%, 38% { left: 0; opacity: 0; } 41% { opacity: 1; }
+          53% { left: calc(100% - 7px); opacity: 1; } 56%, 100% { left: calc(100% - 7px); opacity: 0; }
+        }
+        @keyframes pdHalo {
+          0%, 15% { box-shadow: 0 0 34px rgba(34,211,238,0.08); border-color: rgba(34,211,238,0.4); }
+          23% { box-shadow: 0 0 60px rgba(34,211,238,0.28); border-color: rgba(34,211,238,0.85); }
+          40%, 100% { box-shadow: 0 0 34px rgba(34,211,238,0.08); border-color: rgba(34,211,238,0.4); }
+        }
+        @keyframes pdLlega {
+          0%, 53% { border-color: rgba(255,255,255,0.1); }
+          60% { border-color: rgba(197,160,89,0.75); }
+          80%, 100% { border-color: rgba(255,255,255,0.1); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .pd-tres .pd-figura { animation: none; opacity: 1; }
+          .pd-beat.on .pd-tarjetas > *, .pd-beat.on .pd-flujo > *,
+          .pd-beat.on .pd-luz::after, .pd-beat.on .pd-tarjeta--queswa,
+          .pd-beat.on .pd-flujo-paso:nth-child(3) .pd-tarjeta { animation: none; }
         }
+        /* En el teléfono, una debajo de otra; en el flujo, la luz baja. */
+        @media (max-width: 860px) and (min-height: 561px) {
+          .pd-tarjetas, .pd-flujo { grid-template-columns: 1fr; }
+          .pd-tarjetas { gap: 10px; }
+          .pd-flujo { --hueco: 26px; }
+          .pd-tarjeta { padding: 14px 16px; border-radius: 12px; }
+          .pd-tarjetas .pd-tarjeta {
+            display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: start;
+          }
+          .pd-tarjetas .pd-tarjeta-icono { grid-row: span 2; margin: 2px 0 0; }
+          .pd-tarjetas .pd-demo--tarjeta { grid-column: 2; margin-top: 0.7rem; }
+          .pd-tarjeta-sub:has(+ .pd-demo--tarjeta) { padding-bottom: 0; }
+          .pd-tarjeta-rotulo { margin-bottom: 0.4rem; }
+          .pd-tarjeta-titulo { font-size: 1.05rem; margin-bottom: 0.3rem; }
+          .pd-tarjeta-sub { font-size: 0.92rem; }
+          .pd-tarjetas-titulo { font-size: clamp(1.3rem, 6vw, 1.8rem); margin-bottom: 1.2rem; }
+          .pd-luz { top: calc(-1 * var(--hueco)); left: 50%; width: 1px; height: var(--hueco); }
+          .pd-luz::before { right: auto; left: -3px; top: auto; bottom: 1px; transform: rotate(135deg); }
+          .pd-luz::after { left: -3px; top: 0; }
+          .pd-beat.on .pd-luz--1::after { animation-name: pdLuzV1; }
+          .pd-beat.on .pd-luz--2::after { animation-name: pdLuzV2; }
+        }
+        @keyframes pdLuzV1 {
+          0% { top: 0; opacity: 0; } 3% { opacity: 1; }
+          15% { top: calc(100% - 7px); opacity: 1; } 18%, 100% { top: calc(100% - 7px); opacity: 0; }
+        }
+        @keyframes pdLuzV2 {
+          0%, 38% { top: 0; opacity: 0; } 41% { opacity: 1; }
+          53% { top: calc(100% - 7px); opacity: 1; } 56%, 100% { top: calc(100% - 7px); opacity: 0; }
+        }
+        /* Teléfono girado: las tres a lo ancho, más compactas. */
+        @media (max-height: 560px) {
+          .pd-tarjetas-wrap .pd-eyebrow { display: none; }
+          .pd-tarjetas-titulo { font-size: 1.25rem; margin-bottom: 0.9rem; }
+          .pd-tarjeta { padding: 12px 14px; }
+          .pd-tarjeta-icono { margin-bottom: 0.5rem; }
+          .pd-tarjeta-titulo { font-size: 0.98rem; }
+          .pd-tarjeta-sub { font-size: 0.85rem; }
+        }
+
         /* ⚠️ margin:auto en los cuatro lados y NO 0 auto: el cero pisaba el
            margin-block:auto con el que .pd-beat centra a su hijo, y este beat era el
            único que se quedaba pegado arriba con media pantalla vacía debajo. */
         .pd-remate { text-align: center; max-width: 760px; margin: auto; }
 
-        /* EL CLÍMAX EN UNA DIAPOSITIVA (10 oct 2026): el teléfono con la UNIÓN
-           adentro y, al lado, el paso y el nombre. En pantalla ancha van lado a
-           lado (en 16:9 apilados no caben); en el teléfono, apilados. El
-           teléfono lo acota la altura real de la pantalla. */
-        .pd-remate.pd-union { max-width: 1060px; }
-        .pd-union-cuerpo {
-          display: grid; grid-template-columns: auto minmax(0, 1fr);
-          gap: clamp(28px, 5vw, 72px); align-items: center; margin-top: 1.4rem;
-        }
-        .pd-union-texto { text-align: left; }
-        .pd-union-texto p.grande--paso { margin-top: 0; }
-        .pd-telefono {
-          display: block; width: min(300px, 30vw, calc((100vh - 230px) * 0.52));
-          aspect-ratio: 720 / 1360; object-fit: cover;
-          margin: 0 auto; background: #0F1115;
-          border: 1px solid rgba(197,160,89,0.55);
-          box-shadow: 0 0 70px rgba(197,160,89,0.10);
-        }
-        .pd-remate p.pd-nombre-app {
-          font-size: clamp(2.3rem, 6.2vw, 4.6rem); margin: 0.3rem 0 0;
-        }
-        /* EL TEXTO LLEGA CUANDO EL CELULAR YA ESTA A LA VISTA — la secuencia de
-           Jobs (primero el aparato, después la palabra) sin pedirle un clic al
-           socio. Tiempos atados al clip v5: trío ~1 s → fusión (2,48 s) → el
-           cubo se enciende y late en grande (hasta 5,1 s) → la cámara se aleja
-           hasta el celular (6,3 s). «En una sola aplicación» entra mientras el
-           celular aparece; el nombre, cuando ya está quieto. Si cambia la
-           receta del clip, se mueven estos tres retrasos. */
-        .pd-beat.on .pd-union-texto > * { animation: pdEntra 0.6s ease-out both; }
-        .pd-beat.on .pd-union-texto > :nth-child(1) { animation-delay: 5.4s; }
-        .pd-beat.on .pd-union-texto > :nth-child(2) { animation-delay: 6.5s; }
-        .pd-beat.on .pd-union-texto > :nth-child(3) { animation-delay: 7.0s; }
-        @media (max-width: 860px) {
-          .pd-union-cuerpo { grid-template-columns: 1fr; gap: 1rem; margin-top: 0.8rem; }
-          .pd-union-texto { text-align: center; }
-          /* Apilado, el teléfono deja sitio al texto de abajo (~260px). */
-          .pd-telefono { width: min(52vw, calc((100vh - 430px) * 0.52)); }
-        }
-        /* El golpe del remate en blanco y un punto menor: el oro y el tamaño
-           completo son del NOMBRE, que es lo nuevo y cae de último. */
-        .pd-remate p.grande--paso {
-          color: #FFFFFF; font-size: clamp(1.15rem, 3vw, 1.9rem);
-          margin: 2rem 0 0.6rem;
-        }
         .pd-remate .grande {
           font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
           font-size: clamp(1.6rem, 4.6vw, 3.1rem); line-height: 1.1;
           color: var(--pd-gold); margin: 2rem 0 1.5rem;
-        }
-        .pd-remate .pd-preparacion {
-          font-size: clamp(0.95rem, 1.9vw, 1.12rem); line-height: 1.5;
-          color: var(--pd-muted); margin: 0 0 1.8rem;
         }
         .pd-remate .pd-cierre-linea {
           margin: 0 auto 0.5rem; text-align: center; max-width: 42ch; text-wrap: balance;
@@ -1219,31 +1228,6 @@ export default function PitchDeckPage() {
         .pd-remate .pd-cierre-linea:last-of-type { margin-bottom: 0; }
         /* La definición del activo es otra idea, no la segunda mitad del porcentaje. */
         .pd-remate .pd-activo-linea { margin-top: 1.4rem; }
-        /* Su día (3 nov 2026): la escena llena el alto que dejan el titular y los rótulos. */
-        .pd-beat > .pd-dia { margin-block: 0; }
-        .pd-dia { width: 100%; height: 100%; margin-inline: auto;
-          display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .pd-dia .pd-eyebrow { margin-bottom: 0.5rem; }
-        .pd-dia-titulo { font-family: var(--font-playfair), Georgia, serif; color: #FFFFFF;
-          font-size: clamp(1.3rem, 3.2vw, 2.3rem); line-height: 1.15; margin: 0; }
-        .pd-dia-pasos { display: flex; align-items: center; justify-content: center; gap: 0.9rem;
-          margin: 0.9rem 0 0.5rem; font-family: var(--font-mono); font-size: clamp(0.62rem, 1.2vw, 0.85rem);
-          letter-spacing: 0.2em; text-transform: uppercase; color: var(--pd-muted); white-space: nowrap; }
-        .pd-dia-pasos span { opacity: 0.45; transition: opacity 0.3s ease, color 0.3s ease; }
-        .pd-dia-pasos span.on { opacity: 1; color: #FFFFFF; }
-        .pd-dia-pasos span.q.on { color: var(--pd-data); }
-        .pd-dia-pasos i { width: 1.4rem; height: 1px; background: rgba(255,255,255,0.2); }
-        .pd-dia-caja { position: relative; flex: 1; min-height: 0; width: 100%; }
-        @media (max-width: 420px) {
-          .pd-dia-pasos { gap: 0.55rem; letter-spacing: 0.14em; }
-          .pd-dia-pasos i { width: 0.6rem; }
-        }
-        /* En el teléfono girado, la escena se queda con el alto: la etiqueta repite el titular. */
-        @media (max-height: 560px) {
-          .pd-dia .pd-eyebrow { display: none; }
-          .pd-dia-titulo { font-size: 1.2rem; }
-          .pd-dia-pasos { margin: 0.5rem 0 0.3rem; }
-        }
         /* Con el ciclo dibujado (2 nov 2026): en el teléfono el ciclo va debajo del texto;
            en el computador, a su derecha. */
         .pd-remate.pd-con-ciclo { max-width: 1120px; display: grid; justify-items: center; gap: 1.4rem; }
@@ -1268,15 +1252,6 @@ export default function PitchDeckPage() {
           .pd-remate .pd-linea-fuerte { font-size: 1rem; }
           .pd-ciclo { width: min(330px, calc((100vh - 90px) * 1.56)); }
         }
-        /* La marca del remate se OCULTA en escritorio: el HUD ya la lleva arriba a
-           la izquierda y salía dos veces en la misma pantalla. En el teléfono el HUD
-           la esconde, así que allá esta es la única y sí se muestra. */
-        .pd-remate .marca {
-          display: none;
-          font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.3em;
-          color: var(--pd-muted); text-transform: uppercase; margin-top: 2rem;
-        }
-
         /* ── 7 · Producto ────────────────────────────────────────────────── */
         .pd-foto {
           position: absolute; inset: 0; background-size: cover; background-position: center;
@@ -1545,13 +1520,7 @@ export default function PitchDeckPage() {
 
         /* ── Móvil ───────────────────────────────────────────────────────── */
         @media (max-width: 860px) {
-          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
-          /* La pieza manda en el teléfono: es lo único que se mira mientras el
-             socio narra. Subida de 64vw a 80vw el 10 oct 2026 (Director: se veía
-             más pequeña que en la servilleta, donde el clip llena la card). */
-          .pd-pieza .pd-figura { width: min(80vw, 400px); margin: 0 auto; }
-          .pd-tres { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-          .pd-tres .cap { font-size: 0.48rem; letter-spacing: 0.1em; }
+          .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
           /* Dos por dos, no cuatro en fila: a 83px no se distingue un producto de
              otro, y esta es la pantalla donde el producto se mira. Cada una abre
              en grande al tocarla. */
@@ -1657,7 +1626,6 @@ export default function PitchDeckPage() {
           /* En un teléfono la marca y los puntos se montaban encima del botón.
              La marca ya está en la pantalla 1 y en el remate: aquí sobra. */
           .pd-brand { display: none; }
-          .pd-remate .marca { display: block; }
           .pd-fs-largo { display: none; }
           .pd-vertical { display: none; }
           .pd-fs-corto { display: inline; }
@@ -1682,15 +1650,7 @@ export default function PitchDeckPage() {
           .pd-bisagra { font-size: clamp(1.3rem, 6vw, 1.9rem); margin: 1.2rem 0 0.8rem; }
           .pd-credo .pd-credo-titulo, .pd-credo .pd-credo-linea { font-size: clamp(1.3rem, 5.4vw, 2rem); margin-bottom: 1rem; }
           .pd-credo-rule { margin: 1.4rem 0 0.9rem; }
-          .pd-pieza-label { font-size: clamp(1.15rem, 5.2vw, 1.9rem); margin-bottom: 0.8rem; }
-          /* ⚠️ Esta regla aplicaba min(48vw, 230px) a CUALQUIER pantalla de ≤700px
-             de alto — incluido un proyector a 1280×720, donde la pieza quedaba
-             diminuta. Era la causa de «los clips se ven pequeños» (Director,
-             10 oct 2026). Ahora manda la altura real: en 720p la pieza queda en
-             ~470px y en un teléfono acostado la acota el otro media query. */
-          .pd-pieza .pd-figura { width: min(42vw, calc(100vh - 250px)); }
           .pd-remate .grande { font-size: clamp(1.4rem, 6vw, 2.2rem); margin: 0.8rem 0 1.1rem; }
-          .pd-telefono { width: min(30vw, calc((100vh - 200px) * 0.52)); }
         }
 
         /* TELÉFONO GIRADO. Ancho de sobra y altura mínima: exactamente lo contrario
@@ -1699,9 +1659,8 @@ export default function PitchDeckPage() {
            columnas y las figuras se achican, que es como se recupera el alto.
            Pasa de verdad: el socio gira el teléfono para mostrar los números. */
         @media (max-height: 560px) and (min-width: 600px) {
-          .pd-pieza, .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
+          .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
           .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-          .pd-pieza .pd-figura { width: min(34vw, calc(100vh - 150px)); }
           .pd-slide, .pd-beat { padding-top: 56px; padding-bottom: 26px; }
           /* El credo son dos bloques largos y en 390px de alto no caben: se leen a
              dos columnas, que además es la forma natural de una anáfora. */
@@ -1751,8 +1710,7 @@ export default function PitchDeckPage() {
         .pd-beat.on .pd-acciones > :nth-child(4) { animation-delay: 1.3s; }
         .pd-beat.on .pd-acciones > :nth-child(5) { animation-delay: 1.55s; }
         @media (prefers-reduced-motion: reduce) {
-          .pd-beat.on .pd-acciones > *,
-          .pd-beat.on .pd-union-texto > * { animation: none; }
+          .pd-beat.on .pd-acciones > * { animation: none; }
         }
         .pd-accion .k { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.26em;
           color: var(--pd-data); }
@@ -2077,45 +2035,26 @@ export default function PitchDeckPage() {
             </div>
           </div>
 
-          {/* Beats 1-3: cada pieza a solas y grande */}
-          {[0, 1, 2].map((i) => (
-            <div key={i} className={`pd-beat ${slide === 5 && beat === i + 1 ? 'on' : ''}`}>
-              <div className="pd-pieza">
-                {/* La pieza VIVE (10 oct 2026): loop cuadrado, mudo, con la imagen
-                    de siempre como poster. El efecto de media de abajo reproduce
-                    solo el beat activo y rebobina al salir — el patrón de la
-                    servilleta. El tap sobre el video sigue AVANZANDO, como en todo
-                    el deck: la pausa por tap de la servilleta existe para clips
-                    con audio y narrativa propia; un loop mudo no la necesita. */}
-                <video
-                  className="pd-figura"
-                  data-beat={`5-${i + 1}`}
-                  src={PIEZAS[i].video}
-                  poster={PIEZAS[i].img}
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                />
-                <div>
-                  <p className="pd-eyebrow">Cómo funciona · {i + 1} de 3</p>
-                  <p className="pd-pieza-label">{PIEZAS[i].label}</p>
-                  <p className="pd-p">{PIEZAS[i].sub}</p>
-                  {PIEZAS[i].extra && <p className="pd-p pd-gold">{PIEZAS[i].extra}</p>}
-                  {/* Los hechos verificables viven aquí y no en la pantalla 4 (Director,
-                      24 sep 2026): es la pieza que los reclama. Van como ESTATUS —hay
-                      una empresa grande detrás—, nunca como alegato: nadie escoge al
-                      niño impopular porque le muestren el boletín de notas. */}
-                  {/* Un botón por pieza (Director, 2 nov 2026): la máquina de ventas lleva
-                      solo el frente, lo que ve quien usted envía; la herramienta lleva
-                      su lado, queswa.app por dentro. Hasta ese día los dos vivían en la
-                      máquina de ventas. */}
-                  {i === 1 && (
-                    <div className="pd-demos">
-                      {/* El FRENTE de la máquina: lo que ve quien usted envía. */}
+          {/* Beat 1: LOS TRES ELEMENTOS EN QUESWA.APP, en una sola diapositiva (Director,
+              7 nov 2026; ver ELEMENTOS). El titular es la unión: los tres, en una sola
+              aplicación. Las tarjetas entran una tras otra, así que el ritmo de tres
+              se conserva sin pedirle un toque a nadie. */}
+          <div className={`pd-beat ${slide === 5 && beat === 1 ? 'on' : ''}`}>
+            <div className="pd-tarjetas-wrap">
+              <p className="pd-eyebrow">Cómo funciona</p>
+              <p className="pd-tarjetas-titulo">
+                Tres elementos en <span className="pd-gold">Queswa.app</span>
+              </p>
+              <div className="pd-tarjetas">
+                {ELEMENTOS.map((el) => (
+                  <div key={el.label} className={`pd-tarjeta ${el.icono === 'conversa' ? 'pd-tarjeta--queswa-icono' : ''}`}>
+                    <span className="pd-tarjeta-icono"><IconoElemento cual={el.icono} /></span>
+                    <p className="pd-tarjeta-titulo">{el.label}</p>
+                    <p className="pd-tarjeta-sub">{el.sub}</p>
+                    {el.boton === 'queswa' && (
                       <button
                         type="button"
-                        className="pd-demo"
+                        className="pd-demo pd-demo--tarjeta"
                         onClick={(e) => {
                           e.stopPropagation();
                           window.dispatchEvent(new CustomEvent('open-queswa'));
@@ -2123,129 +2062,45 @@ export default function PitchDeckPage() {
                       >
                         PREGÚNTELE ALGO AHORA →
                       </button>
-                    </div>
-                  )}
-                  {i === 2 && (
-                    <div className="pd-demos">
-                      {/* LA HERRAMIENTA POR DENTRO (Director, 18 oct 2026; en esta pieza
-                          desde el 2 nov 2026): queswa.app en una ventana del tamaño de un
-                          celular sobre el deck. ⚠️ El rótulo no dice «Queswa.app»: ese
-                          nombre es el remate del beat de la unión. ⚠️ En el teléfono abre
-                          pestaña nueva. */}
+                    )}
+                    {el.boton === 'app' && (
                       <button
                         type="button"
-                        className="pd-demo"
+                        className="pd-demo pd-demo--tarjeta"
                         onClick={(e) => { e.stopPropagation(); abrirQueswaAppPorDentro(); }}
                       >
                         VERLA POR DENTRO →
                       </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-
-          {/* Beat 4: las tres quietas, antes de unirse. Desde el 28 oct 2026 sigue directo a
-              la tercera pieza — la tríada de Jobs sin desvío (el remate de la
-              multiplicación salió). */}
-          <div className={`pd-beat ${slide === 5 && beat === 4 ? 'on' : ''}`}>
-            <div className="pd-wrap" style={{ textAlign: 'center' }}>
-              <p className="pd-eyebrow" style={{ textAlign: 'center' }}>Cómo funciona</p>
-              <div className="pd-tres">
-                {PIEZAS.map((p) => (
-                  <div className="col" key={p.label}>
-                    <div className="pd-figura" style={{ backgroundImage: `url(${p.quieta ?? p.img})` }} />
-                    <p className="cap">{p.label}</p>
+                    )}
                   </div>
                 ))}
               </div>
-              <p className="pd-p" style={{ margin: '2rem auto 0', textAlign: 'center' }}>
-                Un fabricante… una máquina de ventas… una herramienta para multiplicar…
-              </p>
             </div>
           </div>
 
-          {/* Beat 5: LA UNIÓN Y SU NOMBRE, EN UNA SOLA DIAPOSITIVA (Director,
-              10 oct 2026, tras presentarla en vivo: «mejor que el clip y el
-              texto estén en una sola»). Del 10 oct quedaron dos beats —primero
-              el aparato, un clic, después la palabra—, pero el clic de más caía
-              justo en el clímax, donde el socio más habla, y desde la v4 el cubo
-              queda quieto: ya no compite con el nombre, lo ilumina. La
-              secuencia de Jobs se conserva SIN clic: el texto entra cuando el
-              cubo ya se encendió (~3,8 s, sincronizado con el clip; ver
-              .pd-union en el CSS). En pantalla ancha, teléfono y texto van lado
-              a lado — en 16:9 apilados no caben —; en el teléfono, apilados.
-              El visual: el celular con la fusión de los tres elementos ADENTRO
-              (los tres cubos con sus íconos · la fábrica · la conversación · la
-              lista de pasos · volcándose en UNO) y el cubo que enciende su luz
-              interior y late, 60 s sin rearmarse. Receta reproducible:
-              captions/work/como-funciona/armar_telefono_union.py. ⚠️ El ORBE no
-              aparece (representa a la persona; aquí el protagonista es la
-              unión). El texto: lo dado primero (su empresa — la prometió el beat
-              0 — y la aplicación que la contiene, canon de WHY_02); lo NUEVO de
-              último: Queswa.app, que completa el patrón de la pantalla 2 (los
-              cinco pares resuelven en una app; el clímax, en la nuestra).
-              → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md
-              v5 DEL CLIP (18 oct 2026, Director: «lo verdaderamente grandioso
-              sería que los tres elementos se fusionaran»): la fusión de los cubos
-              pasa EN GRANDE, el cubo se enciende y late una vez, y la cámara se
-              aleja —zoom honesto, sin morph— hasta mostrar que vive dentro del
-              celular; después late ahí hasta los 60 s. No se generó con IA: tres
-              objetos que se vuelven un celular es un cambio de forma, y esos salen
-              caóticos (22 sep). Receta: armar_telefono_union_v5.py. El celular
-              queda a la vista a ~6,3 s: los retrasos del texto van detrás. */}
-          <div className={`pd-beat ${slide === 5 && beat === 5 ? 'on' : ''}`}>
-            <div className="pd-remate pd-union">
-              <p className="pd-preparacion">No son tres elementos que usted tenga que conseguir.</p>
-              <div className="pd-union-cuerpo">
-                <video
-                  className="pd-telefono"
-                  data-beat="5-5"
-                  src="/videos/presentacion/telefono-union-v5.mp4"
-                  poster="/videos/presentacion/telefono-union-v5-poster.webp"
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                />
-                <div className="pd-union-texto">
-                  <p className="grande grande--paso">
-                    Su empresa llega armada,<br />en una sola aplicación:
-                  </p>
-                  <p className="grande pd-nombre-app">
-                    Queswa.app
-                  </p>
-                  <p className="marca">CreaTuActivo.com</p>
-                </div>
+          {/* Beat 2: LAS DOS ACCIONES (Director, 7 nov 2026; ver ACCIONES): Compartir y
+              Recibir, y entre las dos, quién hace el trabajo. El título es del Director
+              («Experiencia sin fricción en dos pasos»), elegido sobre «Su día se resume
+              en dos acciones», la frase del video. */}
+          <div className={`pd-beat ${slide === 5 && beat === 2 ? 'on' : ''}`}>
+            <div className="pd-tarjetas-wrap">
+              <p className="pd-tarjetas-titulo">Experiencia sin fricción en dos pasos</p>
+              <div className="pd-flujo">
+                {ACCIONES.map((ac, i) => (
+                  <div key={ac.rotulo} className="pd-flujo-paso">
+                    {i > 0 && <span className={`pd-luz pd-luz--${i}`} aria-hidden="true" />}
+                    <div className={`pd-tarjeta ${ac.queswa ? 'pd-tarjeta--queswa' : ''}`}>
+                      <p className="pd-tarjeta-rotulo">{ac.rotulo}</p>
+                      <p className="pd-tarjeta-titulo">{ac.titulo}</p>
+                      <p className="pd-tarjeta-sub">{ac.sub}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Beats 6 a 8: SU DÍA (Director, 3 nov 2026: «aprueba los textos»). Casi todas las
-              presentaciones son online, y «VERLA POR DENTRO» abre una ventana que no se ve al
-              compartir: sin este paso, el deck en una llamada nunca mostraba lo que hace el
-              socio. Es la escena del video v14, después de «Queswa.app» como allá, sin voz y en
-              tres tramos, uno por clic: Compartir · Queswa · Recibir. Los tres rótulos se ven
-              desde el primero y se enciende el del tramo: el socio sabe dónde va. Un solo beat
-              para los tres, así la escena no se rearma entre clics. ⚠️ Va después de la unión
-              y no después de la tercera pieza: ahí rompería la tríada de Jobs (beat 4). */}
-          <div className={`pd-beat ${slide === 5 && beat >= 6 && beat <= 8 ? 'on' : ''}`}>
-            <div className="pd-dia">
-              <p className="pd-eyebrow">Su día</p>
-              <p className="pd-dia-titulo">Su día se resume en dos acciones.</p>
-              <p className="pd-dia-pasos">
-                <span className={slide === 5 && beat === 6 ? 'on' : ''}>01 · Compartir</span>
-                <i aria-hidden="true" />
-                <span className={`q ${slide === 5 && beat === 7 ? 'on' : ''}`}>Queswa</span>
-                <i aria-hidden="true" />
-                <span className={slide === 5 && beat === 8 ? 'on' : ''}>02 · Recibir</span>
-              </p>
-              <SuDia paso={slide === 5 && beat >= 6 && beat <= 8 ? beat - 5 : 0} />
-            </div>
-          </div>
-
-          {/* Beat 9 (el último): la propiedad. Es el «ajá» de WHY_02, y explica el «a su
+          {/* Beat 3 (el último): la propiedad. Es el «ajá» de WHY_02, y explica el «a su
               nombre» de la propuesta. ⚠️ Sin «por su enlace» (Director, 9 oct
               2026): el enlace se presenta en la pantalla siguiente (Compartir) y
               aquí nombraba algo que el prospecto aún no conoce. «Su empresa» hace
@@ -2259,7 +2114,7 @@ export default function PitchDeckPage() {
               video v9, y un solo oro, el del porcentaje, porque el oro es el premio. El titular
               va en blanco; «Eso es un activo» sube a blanco y al tamaño del porcentaje: hasta
               ese día era la línea más débil de la pantalla, en gris pequeño. */}
-          <div className={`pd-beat ${slide === 5 && beat === 9 ? 'on' : ''}`}>
+          <div className={`pd-beat ${slide === 5 && beat === 3 ? 'on' : ''}`}>
             <div className="pd-remate pd-con-ciclo">
               <div className="pd-con-ciclo-texto">
               <p className="pd-eyebrow">La diferencia</p>
@@ -2277,7 +2132,7 @@ export default function PitchDeckPage() {
                 Eso es un activo: sigue produciendo aunque usted no esté presente.
               </p>
               </div>
-              <CicloPropiedad modo="propiedad" activo={slide === 5 && beat === 9} />
+              <CicloPropiedad modo="propiedad" activo={slide === 5 && beat === 3} />
             </div>
           </div>
 

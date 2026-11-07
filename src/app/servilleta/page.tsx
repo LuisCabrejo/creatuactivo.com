@@ -552,7 +552,6 @@ export default function PitchDeckPage() {
     moneda === 'COP' ? `$${enCOP(cop)}` : `$${enUSD(Math.round(cop / TRM))}`;
 
   // Bola de nieve: el thumb crece con el nivel (la metáfora, literal).
-  const thumbNivel = Math.round(20 + ((nivel12 - 1) / 11) * 30);
 
   // ¿La persona bajó a leer la guía? Con el deck casi fuera de vista, el teclado
   // deja de pasar diapositivas (las flechas y la barra espaciadora vuelven a
@@ -1769,10 +1768,16 @@ export default function PitchDeckPage() {
         .pd-accion--queswa .d { font-size: clamp(0.9rem, 1.5vw, 1rem); color: var(--pd-muted); }
         .pd-pregunta { text-align: center; max-width: 920px; }
         .pd-pregunta .pd-bisagra { font-size: clamp(1.9rem, 5.2vw, 3.6rem); margin: 0; text-wrap: balance; }
-        .pd-paneles--uno { grid-template-columns: minmax(0, 560px); justify-content: center; }
+        .pd-paneles--uno { grid-template-columns: minmax(0, 720px); justify-content: center; }
+        /* Sin la barra (7 nov 2026): el panel es más ancho, la cifra más grande y las
+           formas de iniciar se separan de la línea de abajo. */
+        .pd-paneles--uno .pd-display { font-size: clamp(1.9rem, 5vw, 3.4rem); }
+        .pd-paneles--uno .pd-pkgs { margin-bottom: 1.4rem; }
         .pd-credenciales { text-align: center; font-family: var(--font-mono); font-size: 0.6rem;
           letter-spacing: 0.2em; color: var(--pd-muted); text-transform: uppercase; margin: 0.5rem 0 0; }
         .pd-socio { display: inline-block; text-decoration: none; margin-top: 1.8rem; }
+        /* Sin la línea ni la marca (7 nov 2026), la señal de la guía va en su propia línea. */
+        .pd-final .pd-a-la-guia { display: flex; width: fit-content; margin-top: 3rem; }
         .pd-nombre {
           font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
           background: none; border: none; padding: 0; cursor: text;
@@ -1902,6 +1907,17 @@ export default function PitchDeckPage() {
           .pd-movil-arriba .pd-flujo .pd-tarjeta { padding: clamp(16px, 3vh, 26px) 16px; }
           .pd-movil-arriba .pd-con-ciclo { gap: clamp(1.4rem, 5vh, 3rem); }
           .pd-movil-arriba .pd-con-ciclo .pd-grande-blanco { margin-bottom: clamp(1rem, 4vh, 2.4rem); }
+        }
+        /* 8 · cómo se gana y 9 · el siguiente paso, en el teléfono (7 nov 2026): arriba
+           también, pero el titular de los números va pegado a su línea. */
+        @media (max-width: 860px) and (min-height: 600px) and (orientation: portrait) {
+          .pd-movil-arriba .pd-h2 { text-wrap: balance; }
+          .pd-movil-arriba.pd-numeros .pd-h2 { margin-bottom: 0.6rem; }
+          .pd-movil-arriba.pd-numeros .pd-h2--gen5 { margin-bottom: clamp(1rem, 3.5vh, 2rem); }
+          .pd-movil-arriba.pd-numeros .pd-numeros-lead { margin-bottom: clamp(1rem, 3.5vh, 2rem); }
+          .pd-movil-arriba.pd-final .pd-final-credo { margin-bottom: clamp(1.2rem, 4vh, 2.4rem); }
+          .pd-movil-arriba.pd-final .pd-bisagra { margin-top: clamp(1.6rem, 6vh, 3.4rem); }
+          .pd-movil-arriba.pd-final .pd-a-la-guia { margin-top: clamp(2rem, 9vh, 5rem); }
         }
         /* Teléfonos bajos (≤ 760 px de alto): el mismo reparto, un punto más apretado. */
         @media (max-width: 860px) and (min-height: 600px) and (max-height: 760px) and (orientation: portrait) {
@@ -2376,7 +2392,7 @@ export default function PitchDeckPage() {
         </section>
 
         {/* ── 8 · CÓMO SE GANA ────────────────────────────────────────── */}
-        <section className={`pd-slide pd-numeros ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
+        <section className={`pd-slide pd-movil-arriba pd-numeros ${slide === 8 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
           {/* Beat 0 — LA RESPUESTA CORTA (Director, 1 nov 2026): el rótulo pregunta
               «Cómo se gana» y el titular responde, en sus palabras, nombrando cada
               fuente por lo que la mueve y en el orden en que llegan los dos beats
@@ -2442,7 +2458,8 @@ export default function PitchDeckPage() {
                     tercera creencia desarmada. El 15, 16 y 17% son temporales, y la línea
                     de abajo lo dice cada vez que se elige uno (ver TARIFAS_12). */}
                 <div className="panel">
-                  <h3>Los 12 niveles (2×2)</h3>
+                  {/* Sin «(2×2)» (Director, 7 nov 2026): era jerga; el titular ya dice «de a dos». */}
+                  <h3>Los 12 niveles</h3>
                   <div className="pd-niveles">
                     {PROYECCION_12.map((n) => (
                       <button
@@ -2476,18 +2493,8 @@ export default function PitchDeckPage() {
                     ))}
                   </div>
 
-                  <label className="pd-label">
-                    Recorra los 12 niveles<b>Nivel {nivel12}</b>
-                  </label>
-                  <input
-                    type="range"
-                    min={1}
-                    max={12}
-                    value={nivel12}
-                    onChange={(e) => setNivel12(parseInt(e.target.value))}
-                    className="pd-slider"
-                    style={{ ['--thumb' as string]: `${thumbNivel}px` } as React.CSSProperties}
-                  />
+                  {/* La barra «Recorra los 12 niveles» salió (Director, 7 nov 2026): eran dos
+                      controles para lo mismo. Quedan los 12 círculos. */}
                   <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
                     {/* Sin jerga (6 nov 2026, Director): decía «Cada nivel duplica su
                         sistema (2×2). Regalía mensual proyectada: el 10% del volumen
@@ -2498,10 +2505,13 @@ export default function PitchDeckPage() {
                         de quien lee. La mecánica, con las palabras de la guía y de
                         COMP_BIN_11. «Cada mes» porque la proyección es mensual (56 CV por
                         distribuidor al mes); Gano paga semanal, y eso lo dice la 8.2. */}
+                    {/* Corta (Director, 7 nov 2026): decía «Cada nivel duplica su sistema. Lo que
+                        se compra en su canal izquierdo se empareja con lo de su canal derecho, y
+                        cada mes a usted le queda el X % de lo emparejado: la Regalía de Equipo.»
+                        La duplicación ya la dice el titular («si crece de a dos»). */}
                     <p className="pd-insight pd-tarifa-general">
-                      Cada nivel duplica su sistema. Lo que se compra en su canal izquierdo se
-                      empareja con lo de su canal derecho, y cada mes a usted le queda el{' '}
-                      {tarifa.pct}&nbsp;% de lo emparejado: la Regalía de Equipo.
+                      Cada mes le queda el {tarifa.pct}&nbsp;% de lo que se empareja entre sus dos
+                      canales: la Regalía de Equipo.
                     </p>
                     <div className="pd-vigencias">
                       {TARIFAS_12.map((t, i) => (
@@ -2552,9 +2562,9 @@ export default function PitchDeckPage() {
                   ))}
                 </div>
               </div>
-              <h2 className="pd-h2 pd-h2--gen5">
-                Y cada paquete empresarial que se compra en su sistema le deja un bono.
-              </h2>
+              {/* Corto (Director, 7 nov 2026): decía «Y cada paquete empresarial que se compra
+                  en su sistema le deja un bono.» La tabla ya dice «paquetes comprados». */}
+              <h2 className="pd-h2 pd-h2--gen5">Un bono por cada paquete empresarial</h2>
               {/* Sin línea de apoyo (Director, 2 nov 2026): «hasta la quinta generación»
                   ya lo muestran las cinco filas, y lo dice quien presenta. El espacio
                   se lo quedan las filas. */}
@@ -2643,7 +2653,7 @@ export default function PitchDeckPage() {
         {/* La segunda mitad del credo cierra el deck: el cuerpo ya mostró cómo el
             esfuerzo se vuelve capital (el cliente a su nombre que vuelve a pedir).
             La conversación es con el socio del ?ref, para cuando el deck se envía. */}
-        <section className={`pd-slide pd-final ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-movil-arriba pd-final ${slide === 9 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">En qué creemos</p>
             {/* La frase de identidad vigente (Director, 30 oct 2026, la misma del video
@@ -2726,8 +2736,8 @@ export default function PitchDeckPage() {
                 ESCRIBIRLE A {primerNombre!.toUpperCase()} POR WHATSAPP →
               </a>
             ))}
-            <div className="pd-credo-rule" />
-            <p className="pd-kicker">CreaTuActivo.com</p>
+            {/* La línea y «CreaTuActivo.com» salieron (Director, 7 nov 2026): la marca va
+                arriba, y el cierre tiene una sola salida, el WhatsApp. */}
             {/* La señal de la guía, al pie de la última pantalla: aquí ya se sabe
                 que el deck se pasa de lado. Dentro del contenido y no pegada al
                 borde, porque ahí la tapa el aviso de cookies. Es un enlace, así que

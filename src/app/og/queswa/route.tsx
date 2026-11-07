@@ -7,7 +7,8 @@
  * /estrategia, /como-entra-el-dinero, /que-debo-hacer-yo).
  *
  * 30 sep 2026 — LA MISMA IMAGEN DE LA PRESENTACIÓN (Director): los pares de la
- * modernización (domicilios → Rappi, taxis → Uber, la fila del banco → Nequi),
+ * modernización (desde el 7 nov 2026: taxis → Uber, alquilar películas → Netflix,
+ * llamar al exterior → WhatsApp),
  * con el rótulo «CreaTuActivo · Queswa». Para quien todavía no sabe nada, marcas
  * que ya usa se entienden mejor que una promesa en abstracto, y es lo que al
  * Director le funciona en campo. Vive en src/lib/og-modernizacion.tsx.

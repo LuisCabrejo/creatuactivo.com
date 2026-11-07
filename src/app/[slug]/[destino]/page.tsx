@@ -89,7 +89,7 @@ function esScraperDePreview(): boolean {
 const OG_QUESWA = {
   title: 'Hable con Queswa',
   description: 'Le explica y le responde a cualquier hora cómo usted puede tener a su nombre una empresa de distribución moderna.',
-  image: 'https://creatuactivo.com/og/queswa?v=20260930',
+  image: 'https://creatuactivo.com/og/queswa?v=20261107',
   alt: OG_PRESENTACION.alt,
   // El <title> de la página (solo lo ven los robots: a la persona se le redirige).
   // Sin «| CreaTuActivo»: el layout raíz lo agrega con su template.

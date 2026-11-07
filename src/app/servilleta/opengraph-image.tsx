@@ -20,7 +20,7 @@
 import { tarjetaModernizacion } from '@/lib/og-modernizacion'
 
 export const runtime = 'edge'
-export const alt = 'Domicilios a Rappi, taxis a Uber, la fila del banco a Nequi | CreaTuActivo'
+export const alt = 'Taxis a Uber, alquilar películas a Netflix, llamar al exterior a WhatsApp | CreaTuActivo'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

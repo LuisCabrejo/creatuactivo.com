@@ -25,7 +25,7 @@ export const OG_PRESENTACION = {
     'Los dos sectores donde vemos la oportunidad, y los tres elementos que se requieren para montar la suya.',
   // La genera opengraph-image.tsx; la ruta sirve el PNG con o sin el hash que
   // Next le añade como query.
-  image: 'https://creatuactivo.com/servilleta/opengraph-image',
+  image: 'https://creatuactivo.com/servilleta/opengraph-image?v=20261107',
   // El texto alternativo describe la IMAGEN, no repite el título.
-  alt: 'Domicilios a Rappi, taxis a Uber, la fila del banco a Nequi | CreaTuActivo',
+  alt: 'Taxis a Uber, alquilar películas a Netflix, llamar al exterior a WhatsApp | CreaTuActivo',
 } as const

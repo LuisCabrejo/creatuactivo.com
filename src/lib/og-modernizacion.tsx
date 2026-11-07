@@ -6,6 +6,10 @@
  *  · /servilleta             → «CreaTuActivo · Plan servilleta» (la presentación única desde el 10 oct 2026)
  *  · /{slug}/queswa (/og/queswa) y los enlaces de los videos → «CreaTuActivo · Queswa»
  *
+ * 7 nov 2026 (Director): los pares universales del video v15 y del deck (Taxis →
+ * Uber · Alquilar películas → Netflix · Llamar al exterior → WhatsApp) y la frase
+ * con que cierra esa pantalla. Rappi y Nequi no se reconocían fuera de Colombia.
+ *
  * Por qué los pares: son marcas que la persona ya usa, el patrón se entiende sin
  * explicarlo, y es lo que al Director le funciona en el 1-a-1 (resolvió el «ah,
  * es como Herbalife»). ⚠️ «Network marketing» NO va en una tarjeta: viaja sin la
@@ -24,9 +28,9 @@ import { fuentesInter } from '@/lib/og-fuentes'
 export const TAMANO_OG = { width: 1200, height: 630 }
 
 const PARES: [string, string][] = [
-  ['Domicilios', 'Rappi'],
   ['Taxis', 'Uber'],
-  ['La fila del banco', 'Nequi'],
+  ['Alquilar películas', 'Netflix'],
+  ['Llamar al exterior', 'WhatsApp'],
 ]
 
 export async function tarjetaModernizacion(
@@ -114,7 +118,7 @@ export async function tarjetaModernizacion(
             maxWidth: 960,
           }}
         >
-          Hay una oportunidad enorme en modernizar industrias que están frente a nuestros ojos.
+          La industria siguió; lo que cambió fue la forma.
         </div>
 
         <div

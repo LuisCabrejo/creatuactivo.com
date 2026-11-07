@@ -88,11 +88,16 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // historia: usted toca su enlace y lo pega en WhatsApp, Ana María conversa con Queswa y pide
 // hablar con una persona, y a usted le llega el aviso; la voz va en ese orden. Pantallas de la
 // socia de ejemplo de las guías, sin datos reales; la -v13 queda sin uso.
+// v15 (7 nov 2026, Director: «aprobado»): sigue a la presentación nueva (el credo con sus dos
+// tarjetas y la bicicleta, el dolor en cifras de segundo, pares universales, la 5 en tarjetas con
+// «dueña del sistema, no de las piezas», el flujo con su campana, tres paquetes en «cómo se gana»).
+// La voz es una toma continua por pantalla, encadenada: las tomas sueltas sonaban pegadas.
+// La -v14 queda sin uso.
 // El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v14.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v15.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

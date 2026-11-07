@@ -28,12 +28,13 @@ const desde = new Date(Date.now() - dias * 864e5).toISOString();
 const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 // Los pasos del deck, en orden (BEATS en src/app/servilleta/page.tsx). Desde el 7 nov 2026 la
-// pantalla 5 tiene 4 beats y no 10: un 5.4 a 5.9 es del 6 nov y sale «fuera del mapa».
+// pantalla 5 tiene 4 beats y no 10 (un 5.4 a 5.9 es del 6 nov y sale «fuera del mapa»), y
+// las pantallas 2 a 4 van en otro orden: el dolor, la oportunidad, los dos sectores.
 const PASOS = [
   [1, 0, '1 · en qué creemos'],
-  [2, 0, '2 · la oportunidad'],
-  [3, 0, '3 · dos sectores'],
-  [4, 0, '4 · el dolor, en cifras'],
+  [2, 0, '2 · el dolor, en cifras'],
+  [3, 0, '3 · la oportunidad'],
+  [4, 0, '4 · dos sectores'],
   [5, 0, '5.0 · la solución'],
   [5, 1, '5.1 · tres elementos en Queswa.app'],
   [5, 2, '5.2 · las dos acciones'],

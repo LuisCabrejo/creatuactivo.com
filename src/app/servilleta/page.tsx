@@ -44,25 +44,34 @@
  * cambio en el mundo → quién se queda atrás → la tierra prometida → las
  * herramientas.
  *
- *  1 EN QUÉ CREEMOS  · solo la primera mitad del credo (el ciclo), y el botón VER
- *                      LA PRESENTACIÓN EN VIDEO (30 oct 2026, Director): el deck
+ *  1 EN QUÉ CREEMOS  · la primera mitad del credo (el ciclo) de titular y, desde el
+ *                      7 nov 2026 (Director, del ejercicio de Vélez «Del estrés
+ *                      crónico al activo familiar»), dos tarjetas: HOY (el dinero
+ *                      que ya tiene dueño · el remedio de trabajar más horas) y LO
+ *                      QUE CREEMOS (construir sin quemar los barcos · que el
+ *                      trabajo se convierta en un activo). Sin el mecanismo del
+ *                      activo: eso es la pantalla 5. Y el botón VER LA
+ *                      PRESENTACIÓN EN VIDEO (30 oct 2026, Director): el deck
  *                      entero en voz —al terminar salta a la 9— o lo presenta el
  *                      socio. Es el ÚNICO video en ventana del deck.
- *  2 LA OPORTUNIDAD  · modernizar industrias frente a nuestros ojos: cinco pares
+ *  2 EL DOLOR,       · (la 4 hasta el 7 nov 2026, Director: primero el dolor,
+ *    EN CIFRAS         después la oportunidad, y entonces la solución). Tres
+ *                      cifras verificadas en fuente primaria (el ingreso que
+ *                      no alcanza · la informalidad · la pensión que no llega) y,
+ *                      debajo, la frase en la que la gente asiente: «Hoy, la
+ *                      mayoría de las personas siente que tiene que hacer algo»
+ *                      (Director, 18 oct 2026). El beat de «dos caminos» se
+ *                      eliminó el 9 oct 2026: ese contexto lo da el socio en vivo.
+ *  3 LA OPORTUNIDAD  · modernizar industrias frente a nuestros ojos: cinco pares
  *                      (domicilios → Rappi … Adpostal → WhatsApp).
- *  3 DOS SECTORES    · la industria del network marketing y el sector laboral.
+ *  4 DOS SECTORES    · la industria del network marketing y el sector laboral.
  *                      ⚠️ SOLO el nombre del sector, sin describir cómo se hace
  *                      hoy: el contexto lo da el socio en vivo, y una pieza no
  *                      concede (memoria feedback_pieza_no_concede).
- *  4 EL DOLOR,       · tres cifras verificadas en fuente primaria (el ingreso que
- *    EN CIFRAS         no alcanza · la informalidad · la pensión que no llega) y,
- *                      debajo, la frase en la que la gente asiente: «Hoy, la
- *                      mayoría de las personas siente que tiene que hacer algo»
- *                      (Director, 18 oct 2026: estaba en gris pequeño encima de
- *                      la propuesta; es de la familia del ciclo y de la bicicleta
- *                      estática, y va destacada al final de las cifras). El beat
- *                      de «dos caminos» se eliminó el 9 oct 2026: ese contexto lo
- *                      da el socio en vivo.
+ *                      ⚠️ Se intercambiaron pantallas, no se fundieron: de la 5 a
+ *                      la 9 los números no se mueven (`?pantalla=8` vive en
+ *                      Queswa, el webhook, /paquetes, los enlaces del socio y el
+ *                      Dashboard).
  *  5 LA SOLUCIÓN     · beat 0: «Un activo: una empresa de distribución moderna a su
  *    Y CÓMO FUNCIONA   nombre.» —«Un activo» lo más grande y el único oro (2 nov
  *                      2026)— y el obstáculo con precio, en gris, «Tres elementos que le
@@ -131,7 +140,7 @@
  *    tecnología en experiencia. Por eso /presentacion está en RUTAS_ORBE_QUESWA_WEB
  *    (orbe-config.ts) y en `isDeck` de UnifiedQueswaOrb: mandar esa demo a
  *    WhatsApp la rompe, porque saca al prospecto de la reunión.
- *  · «Network marketing» va SOLO como nombre del sector (pantalla 3). Cómo se hace
+ *  · «Network marketing» va SOLO como nombre del sector (pantalla 4). Cómo se hace
  *    hoy lo cuenta el socio en vivo: una pieza no concede, y describirlo aquí sería
  *    un juicio sin voz sobre el método de otros.
  *  · El bono por paquetes se nombra por lo que lo mueve (la compra de un paquete),
@@ -1294,7 +1303,7 @@ export default function PitchDeckPage() {
         }
         .pd-link:hover { border-bottom-color: var(--pd-gold); }
 
-        /* ── 4 · El dolor, en cifras ────────────────────────────────────── */
+        /* ── 2 · El dolor, en cifras ────────────────────────────────────── */
         .pd-cifras-lista { display: grid; grid-template-columns: repeat(3, 1fr);
           gap: clamp(16px, 3vw, 32px); margin-top: 0.4rem; }
         .pd-cifra { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 1.1rem; }
@@ -1676,6 +1685,45 @@ export default function PitchDeckPage() {
 
         /* ═══ Columna del 30 sep 2026 ══════════════════════════════════════ */
         .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.9rem, 5vw, 3.7rem); max-width: 20ch; }
+        /* El contraste de la pantalla 1 (7 nov 2026): HOY apagada, LO QUE CREEMOS
+           encendida, con el oro que el credo ya usaba para su segunda mitad. Con las
+           tarjetas, el credo baja un punto para que todo quepa en un teléfono. */
+        .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.6rem, 3.9vw, 3rem); max-width: 26ch; margin-bottom: 1.6rem; }
+        .pd-contraste {
+          display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: clamp(12px, 2vw, 22px); max-width: 900px; margin: 0 0 1.6rem;
+        }
+        .pd-contraste .pd-tarjeta { padding: clamp(16px, 2vw, 24px); }
+        .pd-contraste ul { list-style: none; margin: 0; padding: 0; }
+        .pd-contraste li {
+          position: relative; padding-left: 1rem; margin: 0 0 0.5rem;
+          font-size: clamp(0.95rem, 1.5vw, 1.12rem); line-height: 1.45;
+        }
+        .pd-contraste li:last-child { margin-bottom: 0; }
+        .pd-contraste li::before { content: '·'; position: absolute; left: 0; font-weight: 700; }
+        .pd-contraste-hoy { background: rgba(255,255,255,0.02); }
+        .pd-contraste-hoy li { color: var(--pd-muted); }
+        .pd-contraste-creemos { background: #15171C; border-color: rgba(197,160,89,0.35); }
+        .pd-contraste-creemos .pd-tarjeta-rotulo, .pd-contraste-creemos li::before { color: var(--pd-gold); }
+        .pd-contraste-creemos li { color: #FFFFFF; }
+        .pd-slide.on .pd-contraste > * { animation: pdEntra 0.6s ease-out both; }
+        .pd-slide.on .pd-contraste > :nth-child(1) { animation-delay: 0.35s; }
+        .pd-slide.on .pd-contraste > :nth-child(2) { animation-delay: 1.1s; }
+        @media (prefers-reduced-motion: reduce) { .pd-slide.on .pd-contraste > * { animation: none; } }
+        .pd-credo .pd-contraste ~ .pd-kicker { margin-top: 0; }
+        .pd-credo .pd-contraste ~ .pd-ver-video { margin-top: 1.2rem; }
+        .pd-credo .pd-contraste ~ .pd-ver-video--principal { margin-top: 1.4rem; }
+        @media (max-width: 860px) and (min-height: 561px) {
+          .pd-contraste { grid-template-columns: 1fr; gap: 10px; margin-bottom: 1.1rem; }
+          .pd-contraste .pd-tarjeta { padding: 12px 14px; border-radius: 12px; }
+          .pd-contraste .pd-tarjeta-rotulo { margin-bottom: 0.45rem; }
+          .pd-contraste li { font-size: 0.92rem; margin-bottom: 0.3rem; }
+          .pd-credo--solo .pd-credo-titulo { font-size: clamp(1.3rem, 5.6vw, 1.9rem); margin-bottom: 1.1rem; }
+        }
+        @media (max-height: 560px) and (min-width: 600px) {
+          .pd-credo .pd-contraste { grid-column: 1 / -1; margin: 0.8rem 0; }
+          .pd-contraste li { font-size: 0.85rem; }
+        }
         .pd-p--grande { font-size: clamp(1.15rem, 2.6vw, 1.6rem); max-width: 40ch; }
         .pd-cifras-lista--tres { gap: clamp(20px, 4vw, 48px); }
         .pd-cifras-lista--tres .pd-cifra .n { font-size: clamp(1.9rem, 4.6vw, 3.4rem); }
@@ -1879,7 +1927,31 @@ export default function PitchDeckPage() {
               Creemos que nadie debería entregar su vida entera al ciclo de trabajar,
               pagar cuentas y repetir.
             </h2>
-            <div className="pd-credo-rule" />
+            {/* El contraste (Director, 7 nov 2026, del ejercicio de Vélez «Del estrés crónico
+                al activo familiar»). HOY narra el villano con las dos piezas de STORY_03 que
+                el credo no dice —la tercera, «al que gana dos y al que gana más de veinte»,
+                la cubre la cifra del DANE de la pantalla siguiente— y el falso remedio
+                (Musk), que es la bicicleta estática. LO QUE CREEMOS trae «construir sin quemar
+                los barcos», una de las tres creencias que desarma el simulador, y la segunda
+                mitad del credo, que vuelve en la 9. ⛔ Sin el mecanismo del activo («produce
+                sin su presencia»): es la pantalla 5, y aquí revelaría la solución antes del
+                clímax, la disonancia que corrigió la columna del 30 sep. */}
+            <div className="pd-contraste">
+              <div className="pd-tarjeta pd-contraste-hoy">
+                <p className="pd-tarjeta-rotulo">Hoy</p>
+                <ul>
+                  <li>Al día siguiente de que le entra la plata, ese dinero ya tiene dueño.</li>
+                  <li>Y el remedio de siempre: trabajar más horas.</li>
+                </ul>
+              </div>
+              <div className="pd-tarjeta pd-contraste-creemos">
+                <p className="pd-tarjeta-rotulo">Lo que creemos</p>
+                <ul>
+                  <li>Construir sin quemar los barcos.</li>
+                  <li>Que el trabajo de cada persona se convierta en un activo.</li>
+                </ul>
+              </div>
+            </div>
             <p className="pd-kicker">CreaTuActivo · Presentación</p>
             {/* La presentación entera en video (Director, 30 oct 2026): el socio
                 elige si la rueda o si la presenta él (ver videoPresentacion). */}
@@ -1893,64 +1965,18 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
-        {/* ── 2 · LA OPORTUNIDAD ──────────────────────────────────────── */}
-        {/* Palabras del Director (30 sep 2026). Los pares van como lista: la lista
-            es la imagen, y el patrón se entiende sin explicarlo. */}
-        <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
-          <div className="pd-wrap">
-            <p className="pd-eyebrow">La oportunidad</p>
-            <h2 className="pd-h2 pd-h2--media">
-              Hay una oportunidad enorme en modernizar industrias que están frente a
-              nuestros ojos.
-            </h2>
-            <ul className="pd-pares">
-              {/* El trazo (2 nov 2026, Director: «si»), como en el video v10: al entrar, un
-                  trazo dorado lleva cada industria a lo que la modernizó, lo viejo se apaga
-                  y lo nuevo nace en oro y asienta en blanco, una fila tras otra. Es solo
-                  CSS: sin animación (movimiento reducido o la captura del video) queda el
-                  cuadro final. */}
-              {PARES_MODERNIZACION.map(([de, a], k) => (
-                <li key={a} style={{ '--k': k } as React.CSSProperties}>
-                  <span className="de">{de}</span>
-                  <span className="fl">→</span>
-                  <span className="a">{a}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* ── 3 · DOS SECTORES ────────────────────────────────────────── */}
-        {/* «Network marketing» va ESCRITO (Director, 30 sep 2026): dentro de la ola
-            de modernización se lee como oportunidad, y resolvió el «ah, es como
-            Herbalife». ⚠️ Solo el nombre: cómo se hace hoy lo cuenta el socio en
-            vivo. Describirlo aquí sería un juicio sin voz sobre el método de otros. */}
-        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
-          <div className="pd-wrap">
-            <p className="pd-eyebrow">Dónde la vemos</p>
-            <h2 className="pd-h2 pd-h2--media">Nosotros vemos esa oportunidad en dos sectores:</h2>
-            <div className="pd-sectores">
-              <div className="pd-sector">
-                <span className="k">01</span>
-                <p className="t">La industria del network marketing</p>
-              </div>
-              <div className="pd-sector">
-                <span className="k">02</span>
-                <p className="t">El sector laboral</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 4 · EL DOLOR, EN CIFRAS ─────────────────────────────────── */}
+        {/* ── 2 · EL DOLOR, EN CIFRAS ─────────────────────────────────── */}
+        {/* Va justo después del credo desde el 7 nov 2026 (Director): primero el dolor
+            en cifras, después la oportunidad y los dos sectores, y entonces la
+            solución. Hasta ese día era la 4, pegada a la solución. */}
         {/* El beat de «dos caminos para ganar» se ELIMINÓ el 9 oct 2026 (Director):
-            la pantalla 3 ya aplica la regla — el contexto lo da el socio en vivo, y
+            la pantalla de los dos sectores ya aplica la regla — el contexto lo da el socio en vivo, y
             una pieza no concede. Las analogías (la fila del banco → Nequi, el taxi →
-            Uber) tampoco se escriben: la paleta del orador es la pantalla 2, y él
+            Uber) tampoco se escriben: la paleta del orador es la pantalla de la oportunidad, y él
             aplica la que le sirva a su público. El ciclo ya abrió el deck (credo).
             El remate de los veinte lo cubre la cifra del DANE: 9 de cada 10 incluye
             al que gana bien (solo el 7,7 % dice que le sobra). */}
-        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide ${slide === 2 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap pd-cifras" style={{ maxWidth: 940 }}>
             {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
             <p className="pd-eyebrow">El dolor, en cifras</p>
@@ -1991,13 +2017,62 @@ export default function PitchDeckPage() {
           </div>
         </section>
 
+        {/* ── 3 · LA OPORTUNIDAD ──────────────────────────────────────── */}
+        {/* Palabras del Director (30 sep 2026). Los pares van como lista: la lista
+            es la imagen, y el patrón se entiende sin explicarlo. */}
+        <section className={`pd-slide ${slide === 3 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">La oportunidad</p>
+            <h2 className="pd-h2 pd-h2--media">
+              Hay una oportunidad enorme en modernizar industrias que están frente a
+              nuestros ojos.
+            </h2>
+            <ul className="pd-pares">
+              {/* El trazo (2 nov 2026, Director: «si»), como en el video v10: al entrar, un
+                  trazo dorado lleva cada industria a lo que la modernizó, lo viejo se apaga
+                  y lo nuevo nace en oro y asienta en blanco, una fila tras otra. Es solo
+                  CSS: sin animación (movimiento reducido o la captura del video) queda el
+                  cuadro final. */}
+              {PARES_MODERNIZACION.map(([de, a], k) => (
+                <li key={a} style={{ '--k': k } as React.CSSProperties}>
+                  <span className="de">{de}</span>
+                  <span className="fl">→</span>
+                  <span className="a">{a}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ── 4 · DOS SECTORES ────────────────────────────────────────── */}
+        {/* «Network marketing» va ESCRITO (Director, 30 sep 2026): dentro de la ola
+            de modernización se lee como oportunidad, y resolvió el «ah, es como
+            Herbalife». ⚠️ Solo el nombre: cómo se hace hoy lo cuenta el socio en
+            vivo. Describirlo aquí sería un juicio sin voz sobre el método de otros. */}
+        <section className={`pd-slide ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
+          <div className="pd-wrap">
+            <p className="pd-eyebrow">Dónde la vemos</p>
+            <h2 className="pd-h2 pd-h2--media">Nosotros vemos esa oportunidad en dos sectores:</h2>
+            <div className="pd-sectores">
+              <div className="pd-sector">
+                <span className="k">01</span>
+                <p className="t">La industria del network marketing</p>
+              </div>
+              <div className="pd-sector">
+                <span className="k">02</span>
+                <p className="t">El sector laboral</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── 5 · LA SOLUCIÓN Y CÓMO FUNCIONA ─────────────────────────── */}
         <section className={`pd-slide ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
           {/* Beat 0: la solución, en palabras del Director (30 sep 2026). «Le vamos
               a dar» pasó a «le damos»: se afirma, no se anuncia. Se llama «La
               solución» desde el 18 oct 2026 (Director: así lo dice en vivo, y
               cierra el arco que abren las cifras); la frase de «hacer algo» que
-              abría este beat se mudó a la pantalla 4, y aquí se abre directo. */}
+              abría este beat se mudó a la del dolor (hoy la 2), y aquí se abre directo. */}
           <div className={`pd-beat ${slide === 5 && beat === 0 ? 'on' : ''}`}>
             <div className="pd-remate">
               <p className="pd-eyebrow" style={{ textAlign: 'center' }}>La solución</p>
@@ -2006,7 +2081,7 @@ export default function PitchDeckPage() {
                   necesita… desde el celular» y la analogía de Uber (su empresa vende
                   sin ser dueña de la fábrica, como Uber sin carros)— va en la voz del
                   socio. Sin «similar a Uber, Rappi o Nequi»: la ola ya la contó la
-                  pantalla 2. «Moderna» lo pagan las tres piezas y el celular de la
+                  pantalla 3. «Moderna» lo pagan las tres piezas y el celular de la
                   unión. */}
               {/* «Un activo» primero (Director, 1 nov 2026): es la idea central que la
                   persona se lleva, y la empresa de distribución moderna es el vehículo

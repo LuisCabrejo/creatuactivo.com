@@ -56,7 +56,8 @@
 // Bump 1.5.6 (7 nov 2026): /servilleta, textos cortos en las pantallas 1 a 4.
 // Bump 1.5.7 (7 nov 2026): /servilleta, en el teléfono las pantallas 1 a 5 arriba y con aire.
 // Bump 1.5.8 (7 nov 2026): /servilleta, las pantallas 8 y 9 más limpias.
-const CACHE_VERSION = '1.5.8';
+// Bump 1.5.9 (7 nov 2026): /servilleta, la bicicleta, «dueña del sistema», la 8.0 y los pares universales.
+const CACHE_VERSION = '1.5.9';
 const CACHE_NAME = `creatuactivo-marketing-v${CACHE_VERSION}`;
 
 // Assets críticos que SIEMPRE deben estar en cache

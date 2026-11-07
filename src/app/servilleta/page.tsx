@@ -47,7 +47,7 @@
  *  1 EN QUÉ CREEMOS  · la primera mitad del credo (el ciclo) de titular y, desde el
  *                      7 nov 2026 (Director, del ejercicio de Vélez «Del estrés
  *                      crónico al activo familiar»), dos tarjetas: HOY (el dinero
- *                      que ya tiene dueño · el remedio de trabajar más horas) y LO
+ *                      que ya tiene dueño · trabajar más es la bicicleta estática) y LO
  *                      QUE CREEMOS (construir sin quemar los barcos · que el
  *                      trabajo se convierta en un activo). Sin el mecanismo del
  *                      activo: eso es la pantalla 5. Y el botón VER LA
@@ -63,7 +63,8 @@
  *                      (Director, 18 oct 2026). El beat de «dos caminos» se
  *                      eliminó el 9 oct 2026: ese contexto lo da el socio en vivo.
  *  3 LA OPORTUNIDAD  · modernizar industrias frente a nuestros ojos: cinco pares
- *                      (domicilios → Rappi … Adpostal → WhatsApp).
+ *                      universales desde el 7 nov 2026 (taxis → Uber … ir a la
+ *                      tienda → Amazon).
  *  4 DOS SECTORES    · la industria del network marketing y el sector laboral.
  *                      ⚠️ SOLO el nombre del sector, sin describir cómo se hace
  *                      hoy: el contexto lo da el socio en vivo, y una pieza no
@@ -96,9 +97,9 @@
  *  7 LA PREGUNTA     · «¿Y usted, qué plan tiene para construir un activo?» sola
  *                      (caso Marlon; «para salir del ciclo» hasta el 1 nov 2026).
  *  8 CÓMO SE GANA    · beat 0 (1 nov 2026), la respuesta corta del Director: «Se
- *                      gana con lo que se compra en su sistema: el producto que
- *                      sus clientes y distribuidores vuelven a pedir, y los
- *                      paquetes empresariales.» Beat 1, lo principal: «Así se ve
+ *                      gana por las compras que hacen sus clientes y
+ *                      distribuidores: de producto y de paquetes
+ *                      empresariales.» (7 nov 2026) Beat 1, lo principal: «Así se ve
  *                      su activo si crece de a dos.», los 12 niveles desde el Kit
  *                      y la línea del ejemplo. `?pantalla=8` abre aquí, en el
  *                      simulador (BEAT_DEL_ENLACE). Beat 2: el bono por paquetes
@@ -237,12 +238,17 @@ function IconoElemento({ cual }: { cual: 'fabrica' | 'conversa' | 'celular' }) {
 
 /** La ola de modernización (Director, 30 sep 2026): lo que antes era una
  *  industria a la antigua, hoy es una aplicación. */
+// Universales (Director, 7 nov 2026): presentando en vivo a mexicanos y a latinos en
+// Estados Unidos, Rappi, Nequi y Adpostal no se reconocían. Los tres primeros son los
+// que dice la voz del video. Hasta ese día: Domicilios → Rappi, Taxis → Uber, La fila
+// del banco → Nequi, Comprar DVDs → Netflix, Adpostal → WhatsApp. ⚠️ La columna de la
+// izquierda no parte línea: rótulos de 18 caracteres como máximo.
 const PARES_MODERNIZACION: [string, string][] = [
-  ['Domicilios', 'Rappi'],
   ['Taxis', 'Uber'],
-  ['La fila del banco', 'Nequi'],
-  ['Comprar DVDs', 'Netflix'],
-  ['Adpostal', 'WhatsApp'],
+  ['Alquilar películas', 'Netflix'],
+  ['Llamar al exterior', 'WhatsApp'],
+  ['Hoteles', 'Airbnb'],
+  ['Ir a la tienda', 'Amazon'],
 ];
 
 const CATEGORIAS = [
@@ -2009,7 +2015,10 @@ export default function PitchDeckPage() {
               <div className="pd-tarjeta pd-contraste-hoy">
                 <p className="pd-tarjeta-rotulo">Hoy</p>
                 <p className="pd-tarjeta-titulo">Su dinero ya tiene dueño</p>
-                <p className="pd-tarjeta-sub">Y el remedio de siempre: trabajar más horas.</p>
+                {/* «Trabajar más», sin «horas» (Director, 7 nov 2026): así lo dice el latino;
+                    las horas son del registro norteamericano. La bicicleta le da al remedio
+                    su contexto: sin ella, «el remedio de siempre» suena a que lo quieren timar. */}
+                <p className="pd-tarjeta-sub">Trabajar más es pedalear más rápido en una bicicleta estática.</p>
               </div>
               <div className="pd-tarjeta pd-contraste-creemos">
                 <p className="pd-tarjeta-rotulo">Lo que creemos</p>
@@ -2175,7 +2184,13 @@ export default function PitchDeckPage() {
                   como la presentación entera. */}
               {/* El obstáculo es bisagra hacia las tres piezas, no la tesis: gris claro,
                   sin mayúsculas y por debajo de la definición (2 nov 2026). */}
-              <p className="pd-obstaculo">Tres elementos que le costarían millones:</p>
+              {/* «Dueña del sistema, no de las piezas» (Director, 7 nov 2026): en dos
+                  presentaciones, independientes concluyeron que con Gano Excel «le iban a
+                  trabajar a otro». La línea invierte la dirección antes de los tres
+                  elementos; la unión la cobra con «los tres trabajan para usted». Hasta ese
+                  día, «Tres elementos que le costarían millones:» (los millones van en la
+                  voz, con lo que se paga tradicionalmente: fábrica, vendedores, tecnología). */}
+              <p className="pd-obstaculo">Una empresa moderna es dueña del sistema, no de las piezas.</p>
             </div>
           </div>
 
@@ -2404,12 +2419,13 @@ export default function PitchDeckPage() {
             <div className="pd-remate pd-con-ciclo">
               <div className="pd-con-ciclo-texto">
               <p className="pd-eyebrow">Cómo se gana</p>
-              <p className="pd-propuesta">Se gana con lo que se compra en su sistema:</p>
+              {/* Las dos compras, por su nombre (Director, 7 nov 2026): «lo que se compra en su
+                  sistema» no dejaba claro que se gana por el producto y por los paquetes.
+                  ⛔ Sin «sistema de consumo»: un sistema no consume ni compra. */}
+              <p className="pd-propuesta">Se gana por las compras que hacen sus clientes y distribuidores:</p>
               <div style={{ marginTop: '1.4rem' }}>
-                <p className="pd-p pd-cierre-linea pd-gold">
-                  el producto que sus clientes y distribuidores vuelven a pedir,
-                </p>
-                <p className="pd-p pd-cierre-linea pd-gold">y los paquetes empresariales.</p>
+                <p className="pd-p pd-cierre-linea pd-gold">de producto</p>
+                <p className="pd-p pd-cierre-linea pd-gold">y de paquetes empresariales.</p>
               </div>
               </div>
               <CicloPropiedad modo="gana" activo={slide === 8 && beat === 0} />

@@ -150,8 +150,8 @@ export default function GuiaPlanServilleta() {
 
         <h3>2. La oportunidad</h3>
         <p>
-          Muchas industrias se modernizaron frente a nuestros ojos: los domicilios pasaron a Rappi,
-          los taxis a Uber y la fila del banco a Nequi. La presentación ve esa misma oportunidad en dos
+          Muchas industrias se modernizaron frente a nuestros ojos: los taxis pasaron a Uber,
+          alquilar películas a Netflix y las llamadas al exterior a WhatsApp. La presentación ve esa misma oportunidad en dos
           sectores: la industria del network marketing y el sector laboral.
         </p>
 
@@ -205,8 +205,8 @@ export default function GuiaPlanServilleta() {
 
         <h3>6. Los números</h3>
         <p>
-          Se gana con lo que se compra en su sistema: el producto que sus clientes y distribuidores
-          vuelven a pedir, y los paquetes empresariales. La pantalla de los números muestra cada uno con
+          Se gana por las compras que hacen sus clientes y distribuidores: de producto y de
+          paquetes empresariales. La pantalla de los números muestra cada uno con
           su simulador, y aquí abajo va cada uno con su nombre en el plan.
         </p>
 

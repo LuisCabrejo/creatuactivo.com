@@ -7948,8 +7948,13 @@ ESTADO: ${getMessageContext()}`;
       // La red debajo del criterio del modelo: con la bitácora delante casi
       // nunca pasa, y si pasa, la persona no lo recibe otra vez.
       let _ofertaCambiada: string | null = null;
-      if (_bitacora) {
-        const _r = renovarOfertaVista(_borrador, _bitacora);
+      // En el catálogo la red corre también en el primer turno, sin historial
+      // (6 nov 2026): el botón «Qué es el Ganoderma» llega justo después del
+      // saludo y CIENCIA_01 cerraba ofreciendo los productos que la persona
+      // tiene delante. Esta bitácora vacía no entra al prompt; solo sirve aquí.
+      const _bitacoraDeCierre = _bitacora ?? (_recorrido !== 'negocio' ? construirBitacora([], null, { recorrido: _recorrido }) : null);
+      if (_bitacoraDeCierre) {
+        const _r = renovarOfertaVista(_borrador, _bitacoraDeCierre);
         if (_r.cambio) {
           console.log(`🔁 [Oferta vista] ${_r.cambio}`);
           _borrador = _r.texto;

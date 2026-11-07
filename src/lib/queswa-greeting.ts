@@ -146,12 +146,16 @@ export function getProductsGreeting(): string {
 
 /**
  * Los botones del chat del catálogo web (Director, 6 nov 2026). Llevan a lo que la
- * página no resuelve sola —escoger—, y no a lo que ya muestra: «Ver el portafolio»
+ * página no resuelve sola, y no a lo que ya muestra: «Ver el portafolio»
  * y «Lista de precios» salieron, porque la persona los tiene delante. Destinos:
- * «Lo que más se toma en la mañana» → BEB_02, que lleva esa oferta literal en su
- * índice; «Opciones sin café» → BEB_SIN_CAFE_01 (las cuatro bebidas sin café). Los
- * dos se expanden en `QUESWA_QUICK_REPLIES_EXPANSION`: medido con Voyage, «Lo que
- * más se toma en la mañana» solo ganaba por 0,011 al Rooibos, y «Algo sin
+ * «Qué es el Ganoderma» → CIENCIA_01 (el hongo que va en toda la línea; Director,
+ * 6 nov 2026). Se llama así, y no «beneficios del Ganoderma», a propósito: un botón
+ * enseña qué se le puede preguntar a Queswa, y «beneficios» la vuelve asesora de
+ * salud (la misma razón por la que salió «asesor de bienestar»). Reemplazó a «Lo
+ * que más se toma en la mañana» (→ BEB_02), cuya expansión se conserva.
+ * «Opciones sin café» → BEB_SIN_CAFE_01 (las cuatro bebidas sin café). Los
+ * dos se expanden en `QUESWA_QUICK_REPLIES_EXPANSION`: medido con Voyage, «Qué es
+ * el Ganoderma» a secas caía en el catálogo completo y en CIENCIA_02, y «Algo sin
  * cafeína» caía en BEB_03 (cuánta cafeína tiene el Ganocafé). WhatsApp conserva sus dos
  * botones (`APERTURA_PRODUCTOS_OPCIONES`): allá la persona no ve la página.
  *
@@ -162,7 +166,7 @@ export function getProductsGreeting(): string {
  * `hablaDeNegocio`). No se «sincroniza» con WhatsApp.
  */
 export const QUESWA_PRODUCTS_QUICK_REPLIES = [
-  'Lo que más se toma en la mañana',
+  'Qué es el Ganoderma',
   'Opciones sin café',
   'Cómo es el negocio',
 ] as const;
@@ -209,6 +213,10 @@ export const QUESWA_QUICK_REPLIES_EXPANSION: Record<string, string> = {
   // Los botones del chat del catálogo web (6 nov 2026). Medido con Voyage:
   // BEB_02 0,710 contra 0,626; BEB_SIN_CAFE_01 0,815 contra 0,699 (PROD_03, la
   // respuesta del vendedor).
+  // «Qué es el Ganoderma» (6 nov 2026): CIENCIA_01 0,588 contra 0,480 (el
+  // catálogo completo). El de la mañana salió de los botones; su expansión se queda.
+  'qué es el ganoderma':
+    'Qué es el Ganoderma Lucidum, qué es ese hongo, cuáles son sus beneficios',
   'lo que más se toma en la mañana':
     'Para qué sirve el Ganocafé 3en1, lo que más se toma en la mañana',
   'opciones sin café':

@@ -18,6 +18,7 @@ import {
   type FilaBitacora,
 } from '../src/lib/queswa-bitacora';
 import { getRespuestaMaestra } from '../src/lib/respuestas-maestras';
+import { QUESWA_PRODUCTS_QUICK_REPLIES, QUESWA_QUICK_REPLIES_EXPANSION } from '../src/lib/queswa-greeting';
 
 const { filas, ficha } = JSON.parse(fs.readFileSync(new URL('./fixtures/prueba-director-24sep.json', import.meta.url), 'utf8')) as {
   filas: FilaBitacora[]; ficha: Record<string, unknown>;
@@ -137,6 +138,17 @@ console.log('\n── En el catálogo, el negocio solo si la persona lo nombra �
   ok(!!r5.cambio && !/negocio/.test(r5.texto), 'y la del negocio');
   ok(!renovarOfertaVista(`${salud}\n\n¿Le muestro las otras bebidas de la línea?`, web).cambio, 'la oferta dentro de una línea se queda');
   ok(!renovarOfertaVista(`${salud}\n\n¿Le paso el catálogo, para que vea qué lleva cada uno?`, cat).cambio, 'en WhatsApp el catálogo se sigue ofreciendo');
+
+  // El botón «Qué es el Ganoderma» (6 nov 2026) lleva a CIENCIA_01, que cierra
+  // ofreciendo los productos que lo llevan: en la web la persona los tiene delante.
+  const ganoderma = 'Con gusto. El Ganoderma lucidum es un hongo reconocido por sus compuestos bioactivos, que apoyan el funcionamiento normal de las defensas.';
+  const r6 = renovarOfertaVista(`${ganoderma}\n\n¿Le muestro los productos que la llevan?`, web);
+  ok(!!r6.cambio && !/\?\s*$/.test(r6.texto), 'en la web se quita «¿Le muestro los productos que la llevan?»');
+  ok(!renovarOfertaVista(`${ganoderma}\n\n¿Le muestro los productos que la llevan?`, construirBitacora([], null, { recorrido: 'catalogo' })).cambio,
+    'en WhatsApp esa oferta se queda');
+  ok(QUESWA_PRODUCTS_QUICK_REPLIES[0] === 'Qué es el Ganoderma' && !!QUESWA_QUICK_REPLIES_EXPANSION['qué es el ganoderma'],
+    'el botón «Qué es el Ganoderma» existe y tiene su expansión');
+  ok(!QUESWA_PRODUCTS_QUICK_REPLIES.some((b) => /beneficio/i.test(b)), 'ningún botón del catálogo dice «beneficios»');
 }
 
 console.log(fallas ? `\n❌ ${fallas} falla(s)` : '\n✅ Todo en orden');

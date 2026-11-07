@@ -220,7 +220,7 @@ const TEMAS_DEL_CATALOGO = new Set(RECORRIDO_CATALOGO.map((p) => p.tema));
 const RE_OFERTA_DE_NEGOCIO = /negocio|ganar|ganancia|ingreso|comisi[oó]n|paquete|formas de empezar|sistema de distribuci[oó]n|distribuidor|vincul|la estrategia|d[ií]a a d[ií]a/i;
 
 /** Lo que la página del catálogo ya muestra: el portafolio y los precios. */
-const RE_OFERTA_DE_LA_PAGINA = /portafolio|cat[aá]logo|lista de precios|(todos )?los precios de (todo|la l[ií]nea completa|las cuatro)|las cuatro l[ií]neas/i;
+const RE_OFERTA_DE_LA_PAGINA = /portafolio|cat[aá]logo|lista de precios|(todos )?los precios de (todo|la l[ií]nea completa|las cuatro)|las cuatro l[ií]neas|los productos que (la|lo) llevan/i;
 
 const pasosDe = (recorrido: Recorrido | undefined) =>
   recorrido === 'catalogo' ? RECORRIDO_CATALOGO : recorrido === 'catalogo_web' ? [] : RECORRIDO;

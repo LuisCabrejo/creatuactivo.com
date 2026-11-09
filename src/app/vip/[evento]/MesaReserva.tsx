@@ -2,7 +2,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * La mesa redonda de /mesa/{evento}: se elige la hora, después la silla, y se deja
+ * La mesa redonda de /vip/{evento}: se elige la hora, después la silla, y se deja
  * nombre y WhatsApp. Arriba de la mesa, la silla de Luis (fija, con su nombre); las
  * otras cuatro, libres o reservadas. Las sillas tomadas se refrescan cada 20 s y al
  * volver a la pestaña; si dos personas tocan la misma, la ruta le responde 409 a la

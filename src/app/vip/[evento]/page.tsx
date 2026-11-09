@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * /mesa/{evento} — la reserva de silla para una mesa privada presencial (9 nov 2026).
+ * /vip/{evento} — la reserva de silla para una mesa privada presencial (9 nov 2026).
  * Cada hora es una mesa redonda: la silla de Luis y cuatro para reservar. El enlace
  * llega en el texto del mensaje que acompaña al flyer. Mesas en src/lib/mesas.ts,
  * reservas en `reservas_mesa` vía /api/mesa. noindex: es una invitación, no una página
@@ -27,11 +27,11 @@ export function generateMetadata({ params }: { params: { evento: string } }): Me
     title: titulo,
     description: descripcion,
     robots: { index: false, follow: false },
-    alternates: { canonical: `https://creatuactivo.com/mesa/${params.evento}` },
+    alternates: { canonical: `https://creatuactivo.com/vip/${params.evento}` },
     openGraph: {
       title: titulo,
       description: descripcion,
-      url: `https://creatuactivo.com/mesa/${params.evento}`,
+      url: `https://creatuactivo.com/vip/${params.evento}`,
     },
   };
 }

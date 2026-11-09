@@ -45,6 +45,12 @@ const nextConfig = {
   // ✅ Redirects permanentes (301)
   async redirects() {
     return [
+      // La reserva de las mesas privadas pasó de /mesa a /vip (Director, 9 nov 2026).
+      {
+        source: '/mesa/:evento',
+        destination: '/vip/:evento',
+        permanent: true,
+      },
       // ⛔ Funnel reto / diagnóstico / mapa-de-salida ELIMINADO (jul 2026): meses de pruebas con
       // cero conversión. Páginas /empresa-digital, /confirmacion, /diagnostico borradas del repo.
       // Funnel vigente: reel → Queswa → 1-a-1. Cualquier URL vieja del funnel → Home.

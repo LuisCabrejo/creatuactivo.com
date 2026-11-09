@@ -1,7 +1,7 @@
 /**
  * Copyright © 2026 CreaTuActivo.com
  *
- * Las mesas privadas presenciales (/mesa/{evento}): cada hora es una mesa redonda con
+ * Las mesas privadas presenciales (/vip/{evento}): cada hora es una mesa redonda con
  * la silla de Luis y cuatro sillas para reservar. La primera, en la oficina de Gano
  * Excel de Villavicencio, el martes 10 de noviembre de 2026.
  *

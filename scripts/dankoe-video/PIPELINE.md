@@ -382,6 +382,12 @@ agua y atmósfera → música → `loudnorm` a −14 LUFS. `--lut` aplica el D-L
 aplica **aunque el archivo diga que no es de la Osmo**: la app de DJI reenvuelve y le deja la firma
 del teléfono; la prueba es aplicar el LUT y medir la saturación, no leer el metadato.
 
+⚠️ **Con un cielo grande detrás, `--sin-halo`** (8 nov 2026, balcón a contraluz): la halation toma los altos
+por encima de 0.70, los desenfoca y los mezcla en screen; con el cielo ocupando un tercio del cuadro esa nube de luz
+se mete en el pelo y lava los negros de toda la toma. Con `--sin-halo` quedan la viñeta y el grano. Y si la toma
+necesita calentarse, la temperatura no va global: calentar solo fuera del cielo con `maskedmerge` por luminancia
+(cadena en `~/Downloads/reels-equipo/1108/work/cadena-ads.sh`), porque el 4400 K global vuelve el cielo crema.
+
 ⚠️ **Con ruido de fondo, el subtítulo hay que dárselo escrito: `--guion <texto.txt>`.** Se salta a
 whisper y la alineación forzada solo resuelve tiempos, así que en pantalla salen las palabras del
 guion y no las que el modelo creyó oír. El día 4 se grabó en un centro comercial y whisper escribió

@@ -603,6 +603,25 @@ Así que en estos últimos 32 días esperamos seguir llevando nuestra plataforma
 
 Si quiere saber cómo funciona y cómo construir su propio activo, dé clic en el enlace y pregúntele a Queswa.
 
+
+## Reto de 90 días · semana 10 (9 al 15 de noviembre de 2026)
+
+### Día 64 · Lunes 9 de noviembre — «La barrera de entrada»
+
+*Aprobado por el Director el 8 nov. Es el mismo montaje del anuncio de Meta Ads de esa semana (v2: negros más firmes, sin halo, la toma subida con banda negra abajo), con el rótulo «LUNES · DÍA 64» en los primeros 3.8 s. Entrega: `reels-equipo/1108/entrega/reto-dia64.mp4`, 53.2 s. Registro: [`aprobados/2026-11-09-reto-90-dia-64-la-barrera-de-entrada.md`](aprobados/2026-11-09-reto-90-dia-64-la-barrera-de-entrada.md). Los días 59 a 63 no están en esta bitácora.*
+
+*El texto es el del subtítulo. Al grabar no dijo «más» en «la forma más sencilla» ni «con» en «con más de 30 años»; el Director pidió que el subtítulo los lleve igual (8 nov, ya había anochecido para regrabar).*
+
+Nueve de cada diez hogares colombianos dicen que su ingreso no les alcanza, o que les alcanza apenas para pasar a ras.
+
+Más de la mitad de las personas que trabajan lo hacen en la informalidad, y tres de cada cuatro personas en edad de pensionarse no reciben una pensión.
+
+Por eso hoy la mayoría se plantea que tiene que hacer algo, pero se encuentra con una barrera de entrada: ¿con qué plata, y a qué horas, si siempre estamos ocupados?
+
+La tecnología es hoy la forma más sencilla de reducir esa barrera y construir su propio activo: una empresa de distribución moderna que no depende de su presencia. Los productos los fabrica y los despacha Gano Excel, con más de 30 años en más de 60 países.
+
+Ya le estamos ayudando a varias familias, en Colombia y fuera del país, a empezar a construir el suyo. Si quiere saber cómo funciona, toque el botón y pregúntele a Queswa.
+
 ---
 
 *Próximos días: agregar debajo, conservando el orden cronológico.*

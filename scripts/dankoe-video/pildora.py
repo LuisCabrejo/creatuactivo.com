@@ -4,7 +4,7 @@
     captions/.venv/bin/python pildora.py <entrada.mp4> [--lut] [--sin-musica] [--outro]
                                          [--guion <texto.txt>]
                                          [--sin-recorte] [--sin-compuerta]
-                                         [--musica-lufs -26] [--musica-vol 0.85]
+                                         [--musica-lufs -26] [--musica-vol 0.85] [--sin-halo]
 
 Hace sola lo que en el video Top se decide a mano: recorta silencios, arma el
 montaje, alinea subtítulos, pone marca de agua y atmósfera, y normaliza a -14 LUFS.
@@ -66,6 +66,10 @@ def main():
     mus_lufs = float(sys.argv[sys.argv.index("--musica-lufs")+1]) if "--musica-lufs" in sys.argv else -26.0
     mus_vol  = float(sys.argv[sys.argv.index("--musica-vol")+1])  if "--musica-vol"  in sys.argv else 0.85
     sin_duck = "--sin-duck" in sys.argv
+    # --sin-halo: sin halation. El halo (altos > 0.70 desenfocados y mezclados en screen) asume un fondo
+    # oscuro; con un cielo grande detrás (8 nov 2026, balcón a contraluz) la nube de luz se mete en el
+    # pelo y lava los negros de toda la toma. Viñeta y grano se mantienen.
+    sin_halo = "--sin-halo" in sys.argv
     guion_ext = None
     if "--guion" in sys.argv:
         i = sys.argv.index("--guion")
@@ -186,7 +190,7 @@ def main():
     sh("ffmpeg","-y","-v","error","-i",f"{W}/cuerpo.mp4","-framerate","24","-i",f"{W}/frames/f%05d.png",
        "-i",WM,"-filter_complex",
        "[0:v]format=gbrp,split[b][h];[h]curves=all='0/0 0.70/0 1/1',gblur=sigma=18[g];"
-       "[b][g]blend=all_mode=screen:all_opacity=0.16,vignette=angle=PI/6:x0=w/2:y0=h*0.42,"
+       f"[b][g]blend=all_mode=screen:all_opacity={0.0 if sin_halo else 0.16},vignette=angle=PI/6:x0=w/2:y0=h*0.42,"
        "noise=alls=6:allf=t+u,format=yuv420p[atm];[atm][1:v]overlay=0:0:shortest=1[s];"
        "[2:v]scale=330:-1,colorchannelmixer=aa=0.22[wm];[s][wm]overlay=W-w-38:H-h-46[v]",
        "-map","[v]","-map","0:a","-c:v","libx264","-preset","medium","-crf","18",

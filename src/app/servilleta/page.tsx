@@ -1813,7 +1813,15 @@ export default function PitchDeckPage() {
           .pd-brand { display: none; }
           .pd-fs-largo { display: none; }
           .pd-vertical { display: none; }
-          .pd-fs-corto { display: inline; }
+          .pd-fs-corto { display: inline-flex; }
+          /* PANTALLA COMPLETA EN LA ESQUINA (Director, 9 nov 2026): sin la marca, los
+             puntos y el botón quedaban juntos a la izquierda y el botón era un
+             cuadrito difícil de tocar. Ahora los puntos a la izquierda y el botón en
+             la esquina superior derecha, de 44 px, el mínimo cómodo para un dedo. */
+          .pd-hud-right { flex: 1; justify-content: space-between; }
+          .pd-fs-principal { width: 44px; height: 44px; padding: 0; display: inline-flex;
+            align-items: center; justify-content: center; color: var(--pd-text);
+            border-color: rgba(255,255,255,0.22); }
         }
 
         /* PANTALLAS CORTAS (teléfonos de 640px de alto, y cualquiera en apaisado).
@@ -2027,7 +2035,7 @@ export default function PitchDeckPage() {
           margin-bottom: 0.25em; }
         .pd-obstaculo { font-family: var(--font-sans); font-weight: 600; text-align: center;
           font-size: clamp(1.02rem, 1.9vw, 1.4rem); line-height: 1.35;
-          color: var(--pd-gold); margin: 1.6rem auto 0; max-width: 32ch; }
+          color: var(--pd-gold); margin: 60px auto 0; max-width: 32ch; }
         @media (max-width: 860px) {
           .pd-sectores { grid-template-columns: 1fr; }
           .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
@@ -2072,10 +2080,13 @@ export default function PitchDeckPage() {
           .pd-movil-arriba .pd-sector { padding: clamp(1.6rem, 8vh, 4.4rem) 1.5rem; }
           .pd-movil-arriba .pd-sector .t { font-size: 1.55rem; }
           /* 5 · la solución y las tarjetas */
-          .pd-movil-arriba .pd-activo-titular { margin-top: clamp(0.5rem, 9vh, 5rem); }
-          /* Pegada a la definición (Director, 9 nov 2026): con 24vh se leía como otra
+          /* Más abajo (Director, 9 nov 2026): con poco texto, la tesis quedaba en el
+             tercio de arriba. El rótulo sigue arriba, como en las otras pantallas;
+             lo que baja es la frase, hasta cerca del centro óptico. */
+          .pd-movil-arriba .pd-activo-titular { margin-top: clamp(2rem, 18vh, 9.5rem); }
+          /* 60 px de la definición (Director, 9 nov 2026): con 24vh se leía como otra
              pantalla, no como la línea que sigue. */
-          .pd-movil-arriba .pd-obstaculo { margin-top: clamp(1.2rem, 4vh, 2.2rem); }
+          .pd-movil-arriba .pd-obstaculo { margin-top: 60px; }
           .pd-movil-arriba .pd-tarjetas { gap: clamp(12px, 2.8vh, 24px); }
           .pd-movil-arriba .pd-tarjetas .pd-tarjeta { padding: clamp(16px, 3vh, 26px) 16px; }
           .pd-movil-arriba .pd-flujo { --hueco: clamp(28px, 7.5vh, 64px); }
@@ -2153,7 +2164,17 @@ export default function PitchDeckPage() {
               aria-label={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
             >
               <span className="pd-fs-largo">{isFullscreen ? 'SALIR' : 'PANTALLA COMPLETA'}</span>
-              <span className="pd-fs-corto">{isFullscreen ? '✕' : '⛶'}</span>
+              <span className="pd-fs-corto" aria-hidden="true">
+                {isFullscreen ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" />
+                  </svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+                  </svg>
+                )}
+              </span>
             </button>
           </div>
         </div>

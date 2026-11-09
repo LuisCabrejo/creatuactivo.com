@@ -8,7 +8,7 @@
  * volver a la pestaña; si dos personas tocan la misma, la ruta le responde 409 a la
  * segunda y aquí se recarga la mesa.
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Mesa } from '@/lib/mesas';
 import { enlaceCalendario, horaCerrada, horaTexto } from '@/lib/mesas';
 
@@ -54,6 +54,8 @@ export default function MesaReserva({ evento, mesa }: { evento: string; mesa: Me
   const [error, setError] = useState<string | null>(null);
   const [reserva, setReserva] = useState<Reserva | null>(null);
   const [ahora, setAhora] = useState(() => new Date());
+  const formRef = useRef<HTMLFormElement>(null);
+  const nombreRef = useRef<HTMLInputElement>(null);
 
   const cargar = useCallback(async () => {
     try {
@@ -95,6 +97,18 @@ export default function MesaReserva({ evento, mesa }: { evento: string; mesa: Me
   useEffect(() => {
     if (horario && silla && ocupadas?.[horario]?.includes(silla)) setSilla(null);
   }, [ocupadas, horario, silla]);
+
+  // Al tocar una silla, la página baja hasta el nombre y el WhatsApp (Director, 9 nov
+  // 2026): en el celular el formulario queda debajo de la mesa, fuera de la pantalla.
+  useEffect(() => {
+    if (!silla) return;
+    const t = setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (!nombre) nombreRef.current?.focus({ preventScroll: true });
+    }, 60);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [silla]);
 
   const tomadas = useMemo(() => new Set(horario ? ocupadas?.[horario] ?? [] : []), [ocupadas, horario]);
 
@@ -317,13 +331,14 @@ export default function MesaReserva({ evento, mesa }: { evento: string; mesa: Me
 
       {/* Los datos */}
       {horario && silla && (
-        <form onSubmit={reservar} style={{ marginTop: '1.75rem', display: 'grid', gap: 14 }}>
+        <form ref={formRef} onSubmit={reservar} style={{ marginTop: '1.75rem', display: 'grid', gap: 14 }}>
           <p style={{ margin: 0, textAlign: 'center', color: '#FFFFFF', fontSize: '1.05rem' }}>
             {horaTexto(horario)} · silla {silla}
           </p>
           <label style={{ display: 'grid', gap: 6 }}>
             <span style={etiqueta}>Su nombre</span>
             <input
+              ref={nombreRef}
               style={campo}
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}

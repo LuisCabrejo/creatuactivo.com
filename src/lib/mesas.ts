@@ -22,6 +22,8 @@ export interface Mesa {
   /** HH:MM, 24 horas. */
   horarios: string[];
   sillas: number;
+  /** constructor_id de quien presenta: a él le llega el push de cada reserva. */
+  anfitrion: string;
 }
 
 export const MESAS: Record<string, Mesa> = {
@@ -35,6 +37,7 @@ export const MESAS: Record<string, Mesa> = {
     mapa: 'https://www.google.com/maps/search/?api=1&query=Gano+Excel+Avenida+40+%2320-37+Villavicencio',
     horarios: ['10:00', '11:00', '14:00', '15:00', '16:00', '17:00'],
     sillas: 4,
+    anfitrion: 'luis-cabrejo-1288',
   },
 };
 

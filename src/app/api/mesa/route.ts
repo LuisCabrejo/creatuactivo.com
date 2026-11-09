@@ -8,12 +8,14 @@
  * POST { evento, horario, silla, nombre, whatsapp } → reserva. La unicidad de la tabla
  *   (evento, horario, silla) reparte la silla: si otra persona la tomó un instante
  *   antes, 409. Un mismo WhatsApp reserva hasta dos sillas por evento (él y quien lo
- *   acompañe). Cada reserva le llega a Luis por correo.
+ *   acompañe). Cada reserva le llega a Luis como push en queswa.app (al tocarlo abre el
+ *   panel, /vip/{evento}/panel) y por correo.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { MESAS, horaCerrada, horaTexto, normalizarWhatsapp } from '@/lib/mesas';
+import { clavePanel } from '@/lib/mesas-panel';
 
 export const dynamic = 'force-dynamic';
 
@@ -112,7 +114,39 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No se pudo reservar. Intente de nuevo.' }, { status: 500 });
     }
 
-    // Aviso a Luis (no bloquea la reserva)
+    // Push a la app de quien presenta (queswa.app), con las sillas que quedan a esa hora
+    // y el panel al tocarlo. No bloquea la reserva.
+    try {
+      const { count: tomadas } = await getSupabase()
+        .from('reservas_mesa')
+        .select('id', { count: 'exact', head: true })
+        .eq('evento', mesa.id)
+        .eq('horario', horario);
+      const libres = Math.max(0, mesa.sillas - (tomadas ?? 0));
+      const clave = clavePanel(mesa.id);
+      const dashboard = process.env.DASHBOARD_URL || 'https://queswa.app';
+      const secreto = process.env.WA_BRIDGE_SECRET?.trim();
+      await fetch(`${dashboard}/api/push/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...(secreto ? { 'x-push-secret': secreto } : {}) },
+        body: JSON.stringify({
+          constructorId: mesa.anfitrion,
+          type: 'new_prospect',
+          title: `Mesa VIP · ${horaTexto(horario)}`,
+          body: `${nombre} reservó la silla ${silla}. ${
+            libres === 0 ? 'La mesa quedó completa.' : libres === 1 ? 'Queda 1 silla libre.' : `Quedan ${libres} sillas libres.`
+          }`,
+          url: clave
+            ? `https://creatuactivo.com/vip/${body.evento}/panel?clave=${clave}`
+            : `https://creatuactivo.com/vip/${body.evento}`,
+        }),
+        signal: AbortSignal.timeout(6000),
+      });
+    } catch (e) {
+      console.error('⚠️ [MESA] push:', e);
+    }
+
+    // Aviso a Luis por correo (no bloquea la reserva)
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({

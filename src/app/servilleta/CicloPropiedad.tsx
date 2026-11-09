@@ -18,6 +18,12 @@
  *     a su nombre; la compra recorre el ciclo y cada vuelta deja caer un % sobre usted.
  *     Tras la segunda vuelta usted se atenúa y el ciclo sigue: «aunque usted no esté
  *     presente».
+ *     Desde el 9 nov 2026 (Director: «crecimiento por acumulación»), después llegan un
+ *     segundo y un tercer cliente con su propio ciclo, al lado del primero y nunca debajo
+ *     (no es una pirámide), y cada % que cae deja una ficha junto a usted que no se borra:
+ *     los clientes de hoy se suman a los de mañana. `onEtapa` le avisa a la pantalla en qué
+ *     punto va el dibujo (0 a su nombre · 1 el porcentaje · 2 usted ausente · 3 la
+ *     acumulación; 4 = todo a la vez, con movimiento reducido) para encender sus números.
  *   modo «gana» (pantalla 8, «Cómo se gana»): el mismo ciclo para el producto que vuelven
  *     a pedir, y cada tanto una caja entra a su empresa por su propio camino y también
  *     deja su %.
@@ -41,17 +47,44 @@ const SUBE = VUELTA / 2;
 const CAE = 0.55;
 const VIAJE = 1.3;
 
+// La acumulación (solo en «propiedad»): el segundo y el tercer cliente, y las fichas.
+const ACUMULA = 11.8;
+const OTROS = [
+  { p: [275, 22], h: 20, aparece: 12.6, arranque: 13.6 },
+  { p: [275, 168], h: 20, aparece: 16.0, arranque: 17.6 },
+];
+const FICHAS = 24;
+type Pt = [number, number];
+const bez = (a: Pt, q: Pt, b: Pt, s: number): Pt => [
+  (1 - s) * (1 - s) * a[0] + 2 * (1 - s) * s * q[0] + s * s * b[0],
+  (1 - s) * (1 - s) * a[1] + 2 * (1 - s) * s * q[1] + s * s * b[1],
+];
+/** El ciclo de otro cliente: ida por arriba (cliente → su empresa) y vuelta por abajo. */
+function cicloDe(E: Pt, c: { p: number[]; h: number }) {
+  const C: Pt = [c.p[0], c.p[1]];
+  const dx = E[0] - C[0], dy = E[1] - C[1], L = Math.hypot(dx, dy);
+  const n: Pt = [-dy / L, dx / L];
+  const m: Pt = [(E[0] + C[0]) / 2, (E[1] + C[1]) / 2];
+  const qa: Pt = [m[0] + n[0] * c.h * 2, m[1] + n[1] * c.h * 2];
+  const qb: Pt = [m[0] - n[0] * c.h * 2, m[1] - n[1] * c.h * 2];
+  return { C, qa, qb, d: `M${C[0]} ${C[1]} Q${qa[0].toFixed(1)} ${qa[1].toFixed(1)} ${E[0]} ${E[1]} Q${qb[0].toFixed(1)} ${qb[1].toFixed(1)} ${C[0]} ${C[1]}` };
+}
+
 function figura(x: number, y: number, e: number) {
   return `<g transform="translate(${x} ${y}) scale(${e})"><circle cx="12" cy="6.8" r="4.3"/><path d="M3.2 22c0-5.2 3.9-8.6 8.8-8.6s8.8 3.4 8.8 8.6z"/></g>`;
 }
 
-export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | 'gana'; activo: boolean }) {
+export default function CicloPropiedad({ modo, activo, onEtapa }: { modo: 'propiedad' | 'gana'; activo: boolean; onEtapa?: (etapa: number) => void }) {
   const svgRef = useRef<SVGSVGElement>(null);
+  const avisar = useRef(onEtapa);
+  avisar.current = onEtapa;
   const gana = modo === 'gana';
   const CX = gana ? 215 : 180;
   const CY = 95;
   const RX = gana ? 90 : 105;
   const RY = 58;
+  const E: Pt = [CX - RX, CY];
+  const otros = gana ? [] : OTROS.map((c) => ({ ...c, ...cicloDe(E, c) }));
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -71,6 +104,14 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
     const caja = q<SVGGElement>('[data-p="caja"]');
     const rotCaja = q<SVGTextElement>('[data-p="rot-caja"]');
     const pcts = [...svg.querySelectorAll<SVGTextElement>('[data-p="pct"]')];
+    const fichas = [...svg.querySelectorAll<SVGCircleElement>('[data-p="ficha"]')];
+    const piezas = otros.map((c, i) => {
+      const trazo = q<SVGPathElement>(`[data-p="ciclo-${i}"]`);
+      const largoO = trazo.getTotalLength();
+      trazo.style.strokeDasharray = `${largoO} ${largoO}`;
+      return { ...c, trazo, largoO, fig: q<SVGGElement>(`[data-p="cliente-${i}"]`), rot: q<SVGTextElement>(`[data-p="rot-cliente-${i}"]`), punto: q<SVGCircleElement>(`[data-p="compra-${i}"]`) };
+    });
+    let etapa = -2;
 
     const largo = ciclo.getTotalLength();
     ciclo.style.strokeDasharray = `${largo} ${largo}`;
@@ -94,6 +135,10 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
     };
 
     const pintar = (t: number) => {
+      if (!gana) {
+        const e = t < T.llega ? -1 : t < T.arranque ? 0 : t < T.ausente ? 1 : t < ACUMULA ? 2 : 3;
+        if (e !== etapa) { etapa = e; avisar.current?.(e); }
+      }
       const vCliente = cl((t - T.cliente) / 0.4);
       cliente.style.opacity = rotCliente.style.opacity = String(vCliente);
       const vEmpresa = cl((t - T.empresa) / 0.4);
@@ -136,8 +181,27 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
         camino.setAttribute('opacity', oCamino.toFixed(3));
         rotCaja.style.opacity = oRot.toFixed(3);
       }
+      // Los otros clientes: aparecen, dibujan su ciclo y cada vuelta llega a su empresa.
+      for (const c of piezas) {
+        const v = cl((t - c.aparece) / 0.4);
+        c.fig.style.opacity = v.toFixed(3);
+        c.rot.style.opacity = (v * 0.8).toFixed(3);
+        const dentro = t >= c.arranque;
+        const ph = dentro ? (t - c.arranque) / VUELTA : 0;
+        c.trazo.style.strokeDashoffset = String(c.largoO * (1 - Math.min(1, ph)));
+        c.trazo.style.opacity = dentro ? '0.75' : '0';
+        const s = (ph % 1) * 2;
+        const [px, py] = s < 1 ? bez(c.C, c.qa, E, s) : bez(E, c.qb, c.C, s - 1);
+        c.punto.setAttribute('cx', px.toFixed(1));
+        c.punto.setAttribute('cy', py.toFixed(1));
+        c.punto.style.opacity = dentro ? '1' : '0';
+        for (let k = 0; ; k++) { const e = c.arranque + SUBE + k * VUELTA; if (e > t) break; llegadas.push(e); }
+      }
       llegadas.sort((a, b) => a - b);
-      const activas = llegadas.map((e) => (t - e) / CAE).filter((u) => u >= 0 && u <= 1.6).slice(-2);
+      // Cada % que ya cayó deja su ficha junto a usted, y no se borra.
+      const sumadas = llegadas.filter((e) => t - e >= CAE).length;
+      fichas.forEach((f, k) => { f.style.opacity = k < sumadas ? (k === sumadas - 1 ? '1' : '0.85') : '0'; });
+      const activas = llegadas.map((e) => (t - e) / CAE).filter((u) => u >= 0 && u <= 1.6).slice(-pcts.length);
       pcts.forEach((p, i) => {
         const u = activas[i];
         if (u === undefined || u > 1.4) { p.style.opacity = '0'; return; }
@@ -150,13 +214,19 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
       const oro = `rgb(${Math.round(lerp(229, 197, brillo))},${Math.round(lerp(229, 160, brillo))},${Math.round(lerp(229, 89, brillo))})`;
       usted.style.fill = brillo > 0 ? oro : '#FFFFFF';
       figUsted.setAttribute('fill', brillo > 0 ? oro : '#E5E5E5');
+      // Ausente, usted se ve atenuado; cuando le cae el %, se enciende un instante.
+      if (brillo > 0 && !gana) {
+        const o = Math.max(Number(vUsted), brillo).toFixed(3);
+        usted.style.opacity = figUsted.style.opacity = o;
+      }
     };
 
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (reduce) {
       // Un cuadro quieto: el ciclo completo, usted presente y un % a medio caer.
-      pintar(gana ? T.arranque + VUELTA * 0.9 + VIAJE + CAE * 0.6 : T.arranque + SUBE + VUELTA + CAE * 0.6);
-      if (!gana) { usted.style.opacity = figUsted.style.opacity = '1'; }
+      // En «propiedad», el cuadro de la acumulación: los tres ciclos y las fichas sumadas.
+      pintar(gana ? T.arranque + VUELTA * 0.9 + VIAJE + CAE * 0.6 : 21);
+      if (!gana) { usted.style.opacity = figUsted.style.opacity = '1'; avisar.current?.(4); }
       return;
     }
     let raf = 0;
@@ -164,6 +234,7 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
     const paso = (ahora: number) => { pintar((ahora - t0) / 1000); raf = requestAnimationFrame(paso); };
     raf = requestAnimationFrame(paso);
     return () => cancelAnimationFrame(raf);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `otros` se deriva de gana, CX y RX
   }, [activo, gana, CX, RX]);
 
   const MONO: CSSProperties = { fontFamily: 'var(--font-mono)', fontSize: 9, letterSpacing: 2.2, textTransform: 'uppercase' };
@@ -182,7 +253,7 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
       role="img"
       aria-label={gana
         ? 'La compra del cliente recorre un ciclo con su empresa y un paquete entra a su empresa; cada vuelta y cada paquete le dejan a usted un porcentaje.'
-        : 'El cliente llega a su empresa y queda a su nombre; cada vez que vuelve a comprar, a usted le queda un porcentaje, aunque usted no esté presente.'}
+        : 'El cliente llega a su empresa y queda a su nombre; cada vez que vuelve a comprar, a usted le queda un porcentaje, aunque usted no esté presente. Después llegan otros clientes con su propio ciclo, y los porcentajes se van sumando junto a usted.'}
     >
       <path data-p="ciclo" d={d} fill="none" stroke={ORO} strokeWidth={1.6} strokeLinecap="round" style={oculto} />
       {!gana && <line data-p="flecha" x1={CX + RX - 22} y1={CY} x2={CX - RX + 34} y2={CY} stroke={ORO} strokeWidth={1.4} style={oculto} />}
@@ -201,6 +272,17 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
       <text data-p="usted" x={CX - RX} y={A - 14} textAnchor="middle"
         style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, letterSpacing: 0.4, textTransform: 'uppercase', fill: '#FFFFFF', opacity: 0 }}>Usted</text>
       <circle data-p="compra" r={4.2} fill={ORO} style={oculto} />
+      {otros.map((c, i) => (
+        <g key={i}>
+          <path data-p={`ciclo-${i}`} d={c.d} fill="none" stroke={ORO} strokeWidth={1.3} strokeLinecap="round" style={oculto} />
+          <g data-p={`cliente-${i}`} fill="#E5E5E5" style={oculto} dangerouslySetInnerHTML={{ __html: figura(c.p[0] - 12, c.p[1] - 14, 0.95) }} />
+          <text data-p={`rot-cliente-${i}`} x={c.p[0] + 15} y={c.p[1] + 4} style={{ ...MONO, fill: 'var(--pd-muted)', opacity: 0 }}>Cliente</text>
+          <circle data-p={`compra-${i}`} r={3.6} fill={ORO} style={oculto} />
+        </g>
+      ))}
+      {!gana && Array.from({ length: FICHAS }, (_, k) => (
+        <circle key={k} data-p="ficha" cx={CX - RX + 28 + (k % 12) * 9} cy={A - 46 + Math.floor(k / 12) * 10} r={3} fill={ORO} style={oculto} />
+      ))}
       {gana && (
         <g data-p="caja" opacity={0}>
           <g transform="translate(-13 -12)">
@@ -212,7 +294,7 @@ export default function CicloPropiedad({ modo, activo }: { modo: 'propiedad' | '
         </g>
       )}
       {gana && <text data-p="rot-caja" x={22} y={CY + 72} textAnchor="middle" style={{ ...MONO, fill: 'var(--pd-muted)', opacity: 0 }}>Paquete</text>}
-      {[0, 1].map((i) => (
+      {(gana ? [0, 1] : [0, 1, 2, 3]).map((i) => (
         <text key={i} data-p="pct" x={0} y={0} textAnchor="middle"
           style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 700, fill: ORO, opacity: 0 }}>%</text>
       ))}

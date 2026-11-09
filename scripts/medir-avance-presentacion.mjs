@@ -29,12 +29,13 @@ const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 
 // Los pasos del deck, en orden (BEATS en src/app/servilleta/page.tsx). Desde el 7 nov 2026 la
 // pantalla 5 tiene 4 beats y no 10 (un 5.4 a 5.9 es del 6 nov y sale «fuera del mapa»), y
-// las pantallas 2 a 4 van en otro orden: el dolor, la oportunidad, los dos sectores.
+// las pantallas 2 a 4 van en otro orden: el dolor, la oportunidad, los dos sectores. Desde el
+// 9 nov 2026 la 4 (dos sectores) sale del recorrido sin renumerar: un 4.0 es anterior y sale
+// «fuera del mapa».
 const PASOS = [
   [1, 0, '1 · en qué creemos'],
   [2, 0, '2 · el dolor, en cifras'],
   [3, 0, '3 · la oportunidad'],
-  [4, 0, '4 · dos sectores'],
   [5, 0, '5.0 · la solución'],
   [5, 1, '5.1 · tres elementos en Queswa.app'],
   [5, 2, '5.2 · las dos acciones'],

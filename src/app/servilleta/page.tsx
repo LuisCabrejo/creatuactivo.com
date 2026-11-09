@@ -176,6 +176,14 @@ import { marcarVioComoFunciona } from '@/lib/orbe-config';
 import { dispositivoDe } from '@/lib/dispositivo';
 
 const TOTAL_SLIDES = 9;
+/** El recorrido (9 nov 2026, Director): «Dos sectores por modernizar» (la 4) salió;
+ *  la oportunidad cierra con «Ahora le toca a la forma de hacer empresa». ⚠️ Los
+ *  números NO se corren: `?pantalla=8` vive en Queswa, el webhook, /paquetes, los
+ *  enlaces del socio y el Dashboard, y la medición del avance guarda estos números.
+ *  La navegación salta la 4; el contador y los puntos cuentan las que quedan. */
+const PANTALLAS = [1, 2, 3, 5, 6, 7, 8, 9];
+const siguienteDe = (n: number) => PANTALLAS[PANTALLAS.indexOf(n) + 1];
+const anteriorDe = (n: number) => PANTALLAS[PANTALLAS.indexOf(n) - 1];
 /** Pantallas que se reportan a la ficha: un tercio, dos tercios y la última. */
 const HITOS_PRESENTACION = [4, 6, TOTAL_SLIDES];
 /** WhatsApp Business del equipo (+57 320 680 5737): el mismo número orgánico de
@@ -217,9 +225,17 @@ const ELEMENTOS: { label: string; sub: string; icono: 'fabrica' | 'conversa' | '
  *  siente que puede, y le da curiosidad de verlo en la app. La del centro es el trabajo
  *  que no hace usted, en el cian de «Queswa en línea»; una luz recorre el flujo. */
 const ACCIONES: { rotulo: string; titulo: string; sub: string; queswa?: boolean }[] = [
-  { rotulo: '01 · Compartir', titulo: 'Invitación natural', sub: 'Envía un enlace por WhatsApp.' },
-  { rotulo: 'Queswa', titulo: 'Queswa conversa', sub: 'Resuelve dudas sin presión ni guiones robóticos.', queswa: true },
-  { rotulo: '02 · Recibir', titulo: 'Notificación en su celular', sub: 'Recibe a la persona informada y con interés.' },
+  // Textos cortos (9 nov 2026, Director, del ejercicio de Gemini).
+  { rotulo: '01 · Compartir', titulo: 'Invitación natural', sub: 'Envía un enlace personal.' },
+  { rotulo: 'Queswa', titulo: 'Queswa conversa', sub: 'Resuelve dudas sin presión.', queswa: true },
+  { rotulo: '02 · Recibir', titulo: 'Notificación en su celular', sub: 'Saluda al interesado informado.' },
+];
+
+/** «La diferencia» en tres puntos (9 nov 2026, Director). El 02 va en oro: es el dinero. */
+const PUNTOS_DIFERENCIA: { t: string; s: string; oro?: boolean }[] = [
+  { t: 'Cada cliente queda a su nombre', s: 'El cliente que llega por su enlace queda registrado en su empresa.' },
+  { t: 'Un porcentaje en cada recompra', s: 'Cada vez que vuelve a comprar, a usted le queda un porcentaje.', oro: true },
+  { t: 'Eso es un activo', s: 'Sigue produciendo aunque usted no esté presente.' },
 ];
 
 /** Los íconos de las tarjetas, dibujados aquí (trazo de 1,5, como el resto del deck). */
@@ -251,11 +267,59 @@ const PARES_MODERNIZACION: [string, string][] = [
   ['Ir a la tienda', 'Amazon'],
 ];
 
-const CATEGORIAS = [
-  { label: 'BEBIDAS', img: '/productos/compuestas/categoria-bebidas.jpg' },
-  { label: 'SUPLEMENTOS', img: '/productos/compuestas/categoria-suplementos.jpg' },
-  { label: 'CUIDADO PERSONAL', img: '/productos/compuestas/categoria-cuidado-personal.jpg' },
-  { label: 'LUVOCO', img: '/productos/compuestas/categoria-luvoco.jpg' },
+/** LAS CUATRO LÍNEAS, CADA UNA CON SU FICHA (Director, 9 nov 2026: «quitémosle
+ *  densidad… que al dar clic en cada categoría se explique la imagen»). La pantalla
+ *  queda con la taza, la recompra y los cuatro botones; lo que hace valiosa a cada
+ *  línea se abre con el botón «Ver las cuatro líneas» (sin miniaturas en la pantalla,
+ *  por decisión del Director el mismo día). Orden y conteos de PROD_OVERVIEW.
+ *  ⚠️ Cada texto sale del catálogo aprobado: BEB_01/BEB_07, LUV_00, SUP_01-04 y
+ *  PERS_01/PROD_03. El oficio del Ganoderma (seis variedades, hidrosoluble, 1983) va
+ *  en la pantalla misma, no aquí: no se repite.
+ *  ⛔ Salió «El mismo extracto va en toda la línea»: el Cordygold no lleva Ganoderma.
+ *  Por eso su fila nombra el Cordyceps, y nunca se dice «con» ni «sin» Ganoderma. */
+const CATEGORIAS: {
+  label: string; img: string; n: number; titulo: string; texto: string;
+  rasgos: [string, string][];
+}[] = [
+  {
+    label: 'BEBIDAS', img: '/productos/compuestas/categoria-bebidas.jpg', n: 9,
+    titulo: 'La taza de cada momento',
+    texto: 'Café de cuerpo, aroma y el amargo justo de una buena cafetería, con el extracto de Ganoderma de Gano Excel.',
+    rasgos: [
+      ['Cuatro cafés', 'Clásico, 3 en 1, Latte y Mocha'],
+      ['Sin café', 'Dos chocolates, té rooibos y un cereal con spirulina'],
+      ['Colágeno', 'Reskine, para la piel y las articulaciones'],
+    ],
+  },
+  {
+    label: 'LUVOCO', img: '/productos/compuestas/categoria-luvoco.jpg', n: 4,
+    titulo: 'El espresso de la casa',
+    texto: 'Una máquina italiana de 15 bares y cápsulas propias de café infundido con los betaglucanos del Ganoderma. A presión, el aroma se concentra y la taza tiene el cuerpo de una cafetería.',
+    rasgos: [
+      ['Tres intensidades', 'Suave, medio y fuerte, por paladar'],
+      ['La máquina, una vez', 'Las cápsulas son las que se repiten'],
+    ],
+  },
+  {
+    label: 'SUPLEMENTOS', img: '/productos/compuestas/categoria-suplementos.jpg', n: 3,
+    titulo: 'Concentrados en cápsula',
+    texto: 'Una cápsula al día, sin café de por medio. Para quien quiere el hongo solo, o sumarlo al café de la mañana.',
+    rasgos: [
+      ['Ganoderma', 'El extracto concentrado, apoyo inmune'],
+      ['Excellium', 'El micelio joven del hongo, para el enfoque'],
+      ['Cordygold', 'Cordyceps: energía natural y rendimiento físico'],
+    ],
+  },
+  {
+    label: 'CUIDADO PERSONAL', img: '/productos/compuestas/categoria-cuidado-personal.jpg', n: 6,
+    titulo: 'Para quien no toma café',
+    texto: 'La línea entra a la casa por el baño: pasta dental, dos jabones, champú, acondicionador y exfoliante, con el extracto de Ganoderma.',
+    rasgos: [
+      ['Gano Fresh', 'Pasta dental sin flúor'],
+      ['Jabón Transparente', 'Para pieles sensibles'],
+      ['Piel&Brillo', 'Champú, acondicionador y exfoliante'],
+    ],
+  },
 ];
 
 /** Proyección 2×2 sobre 12 niveles — misma tabla que NIVELES_02 del arsenal
@@ -366,6 +430,13 @@ const GEN5_POR_GENERACION: Record<'ESP1' | 'ESP2' | 'ESP3', number[]> = {
   ESP3: [150, 20, 20, 20, 40],
 };
 
+/** Las columnas de la tabla del bono: el Visionario primero, como anclaje. */
+const PAQUETES_GEN5: { k: 'ESP1' | 'ESP2' | 'ESP3'; nombre: string }[] = [
+  { k: 'ESP3', nombre: 'Visionario' },
+  { k: 'ESP2', nombre: 'Empresarial' },
+  { k: 'ESP1', nombre: 'Inicial' },
+];
+
 const enUSD = (n: number) => n.toLocaleString('en-US');
 const enCOP = (n: number) => n.toLocaleString('es-CO');
 
@@ -386,9 +457,10 @@ export default function PitchDeckPage() {
   const vOverlayRef = useRef<HTMLDivElement | null>(null);
   const vIframeRef = useRef<HTMLIFrameElement | null>(null);
   const [refSocio, setRefSocio] = useState<string | null>(null);
-  // El visor no es solo del portafolio: cada categoría se abre en grande desde su
-  // miniatura. En la tira caben cuatro y ahí no se lee nada; el producto se mira.
-  const [visor, setVisor] = useState<{ src: string; alt: string } | null>(null);
+  // La ficha de una línea del producto (índice en CATEGORIAS), o null si está cerrada.
+  // En la tira caben cuatro miniaturas y ahí no se lee nada: cada una abre su imagen
+  // en grande con lo que hace valiosa a esa línea.
+  const [linea, setLinea] = useState<number | null>(null);
 
   // Simuladores
   // ⚠️ MONEDA: COP por defecto (Director, 26 sep 2026) — en Colombia se muestra solo
@@ -407,7 +479,6 @@ export default function PitchDeckPage() {
       })
       .catch(() => {});
   }, []);
-  const [gen5Paquetes, setGen5Paquetes] = useState(2);
   // PARA EXPLICAR EN VIVO (Director, 2 nov 2026): tocar una generación la enciende
   // (y apaga las otras); tocar el total enciende la suma de arriba abajo; las
   // teclas 1 a 5 encienden la generación y la 0 la suma. Las flechas ya cambian
@@ -425,7 +496,6 @@ export default function PitchDeckPage() {
       gen5SumaTimer.current = setTimeout(() => setGen5Sumando(false), 1500);
     });
   }, []);
-  const [gen5Nivel, setGen5Nivel] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP1');
   const [nivel12, setNivel12] = useState(12);
   const [tarifa12, setTarifa12] = useState(0); // índice en TARIFAS_12: el Kit, al 10%
 
@@ -548,8 +618,6 @@ export default function PitchDeckPage() {
     reportarAvance({ pantalla: slide, completa: slide === TOTAL_SLIDES || undefined, paso });
   }, [slide, reportarAvance]);
 
-  const gen5Por = GEN5_POR_GENERACION[gen5Nivel];
-  const ingresoGen5COP = gen5Paquetes * gen5Por.reduce((a, b) => a + b, 0) * TRM;
   const tarifa = TARIFAS_12[tarifa12];
   const monto = (cop: number) => moneda === 'COP'
     ? <>${enCOP(cop)}<span className="u"> COP</span></>
@@ -666,13 +734,14 @@ export default function PitchDeckPage() {
   // versión el deck no pasaba de la primera pantalla (bug real, 23 sep 2026).
   const avanzar = useCallback(() => {
     if (beat < beatsOf(slide) - 1) { setBeat(beat + 1); return; }
-    if (slide < TOTAL_SLIDES) { setSlide(slide + 1); setBeat(0); }
+    const sig = siguienteDe(slide);
+    if (sig) { setSlide(sig); setBeat(0); }
   }, [slide, beat]);
 
   const retroceder = useCallback(() => {
     if (beat > 0) { setBeat(beat - 1); return; }
-    if (slide > 1) {
-      const destino = slide - 1;
+    const destino = anteriorDe(slide);
+    if (destino) {
       setSlide(destino);
       // El retroceso aterriza en el ÚLTIMO beat de la pantalla destino: quien
       // vuelve quiere ver de nuevo el remate, no empezar esa pantalla otra vez.
@@ -695,6 +764,8 @@ export default function PitchDeckPage() {
   // la pantalla siga igual para quien presenta. Visto al 80 %, Queswa no le vuelve
   // a ofrecer el «Cómo funciona»: el video ya lo contó.
   const [videoPresentacion, setVideoPresentacion] = useState(false);
+  // En qué punto va el ciclo de «La diferencia» (CicloPropiedad lo avisa): enciende sus números.
+  const [etapaDif, setEtapaDif] = useState(-1);
   // EL VIDEO COMO ACCIÓN PRINCIPAL PARA QUIEN LA VE SOLO (6 nov 2026, Director): el
   // deck se apoya en la voz del socio (la 3 solo nombra los sectores, la definición
   // con Uber va hablada, «Su día» va sin voz), pero quien la ve en su teléfono con el
@@ -775,6 +846,8 @@ export default function PitchDeckPage() {
     try {
       const p = Number(new URL(window.location.href).searchParams.get('pantalla'));
       if (Number.isInteger(p) && p >= 1 && p <= TOTAL_SLIDES) {
+        // Un enlace viejo a la 4 («Dos sectores», retirada) abre en la oportunidad.
+        if (p === 4) { irA(3); return; }
         irA(p);
         if (BEAT_DEL_ENLACE[p]) setBeat(BEAT_DEL_ENLACE[p]);
       }
@@ -833,7 +906,14 @@ export default function PitchDeckPage() {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
       if (t && /^(INPUT|TEXTAREA)$/.test(t.tagName)) return;
-      if (visor && e.key === 'Escape') { setVisor(null); return; }
+      // Con la ficha de una línea abierta, las flechas pasan a la línea vecina y Esc
+      // la cierra: el deck no se mueve por debajo.
+      if (linea !== null) {
+        if (e.key === 'Escape') setLinea(null);
+        else if (e.key === 'ArrowRight') setLinea((linea + 1) % CATEGORIAS.length);
+        else if (e.key === 'ArrowLeft') setLinea((linea + CATEGORIAS.length - 1) % CATEGORIAS.length);
+        return;
+      }
       // Con el video de la presentación abierto, el teclado no mueve el deck: Esc lo
       // cierra y la barra espaciadora queda para el reproductor.
       if (videoPresentacion) { if (e.key === 'Escape') setVideoPresentacion(false); return; }
@@ -852,7 +932,7 @@ export default function PitchDeckPage() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [avanzar, retroceder, toggleFullscreen, irA, visor, leyendoGuia, verticalMode, videoPresentacion, slide, beat, encenderSumaGen5]);
+  }, [avanzar, retroceder, toggleFullscreen, irA, linea, leyendoGuia, verticalMode, videoPresentacion, slide, beat, encenderSumaGen5]);
 
   // El clic avanza, salvo sobre controles. La lista es amplia a propósito: un
   // clic dentro del simulador que cambiara de pantalla sería un caos en vivo.
@@ -1251,12 +1331,42 @@ export default function PitchDeckPage() {
         .pd-remate p.grande.pd-grande-blanco { color: #FFFFFF; margin-top: 0; }
         .pd-remate .pd-linea-fuerte { font-size: clamp(1.08rem, 2.2vw, 1.5rem); font-weight: 600; line-height: 1.4; }
         .pd-remate .pd-activo-linea.pd-linea-fuerte { color: #FFFFFF; }
+        /* Los 12 niveles en barras a escala (9 nov 2026). */
+        .pd-barras { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(3px, 0.8vw, 8px);
+          height: clamp(96px, 17vh, 160px); margin: 0.4rem 0 1.1rem; }
+        .pd-barra { display: grid; grid-template-rows: 1fr auto; gap: 6px; height: 100%; padding: 0;
+          background: none; border: 0; cursor: pointer; }
+        .pd-barra .c { position: relative; border-bottom: 1px solid rgba(255,255,255,0.14); }
+        .pd-barra .b { position: absolute; left: 0; right: 0; bottom: 0; min-height: 2px; border-radius: 2px 2px 0 0;
+          background: rgba(255,255,255,0.12); transition: background 0.3s ease; }
+        .pd-barra.done .b { background: rgba(148,163,184,0.6); }
+        .pd-barra.active .b { background: var(--pd-gold); }
+        .pd-barra .l { font-family: var(--font-mono); font-size: 0.66rem; color: var(--pd-muted); text-align: center; }
+        .pd-barra.active .l { color: var(--pd-gold); }
+        .pd-barra:focus-visible { outline: 1px solid var(--pd-gold); outline-offset: 3px; }
+        /* «La diferencia» (9 nov 2026): tres puntos numerados que se encienden con el ciclo. */
+        .pd-dif-puntos { list-style: none; padding: 0; margin: 0 auto; max-width: 34rem; text-align: left;
+          display: flex; flex-direction: column; gap: 0.85rem; }
+        .pd-dif { display: grid; grid-template-columns: auto 1fr; column-gap: 0.9rem; align-items: baseline;
+          opacity: 0.18; transition: opacity 0.5s ease; }
+        .pd-dif .n { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; color: var(--pd-muted); }
+        .pd-dif .t { font-family: var(--font-sans); font-weight: 700; font-size: clamp(1rem, 1.9vw, 1.3rem); color: #FFFFFF; line-height: 1.25; }
+        .pd-dif .s { grid-column: 2; font-size: clamp(0.85rem, 1.4vw, 1rem); color: var(--pd-muted); line-height: 1.4; }
+        .pd-dif.oro .t { color: var(--pd-gold); }
+        .pd-dif.on { opacity: 1; }
+        .pd-dif.on .n { color: var(--pd-gold); }
+        .pd-dif.antes { opacity: 0.35; }
+        .pd-dif-suma { margin: 1.1rem auto 0; max-width: 34rem; text-align: left; padding-top: 0.9rem;
+          border-top: 1px solid rgba(255,255,255,0.1); font-family: var(--font-sans); font-weight: 700;
+          font-size: clamp(1rem, 1.9vw, 1.3rem); color: #FFFFFF; opacity: 0.18; transition: opacity 0.6s ease; }
+        .pd-dif-suma.on { opacity: 1; }
         /* En el computador y en el teléfono girado, dos columnas: apilado, el ciclo
            quedaba debajo del borde. */
         @media (min-width: 861px), (max-height: 560px) and (min-width: 600px) {
           .pd-remate.pd-con-ciclo { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: 3rem; }
           .pd-con-ciclo-texto, .pd-con-ciclo-texto .pd-eyebrow { text-align: left; }
           .pd-con-ciclo-texto .pd-cierre-linea, .pd-con-ciclo-texto .pd-propuesta { margin-left: 0; text-align: left; }
+          .pd-con-ciclo-texto .pd-dif-puntos, .pd-con-ciclo-texto .pd-dif-suma { margin-left: 0; }
           .pd-con-ciclo .grande.pd-grande-blanco { font-size: clamp(1.4rem, 3.3vw, 2.6rem); margin-bottom: 1.2rem; }
           .pd-ciclo { width: min(480px, 100%); }
         }
@@ -1266,47 +1376,68 @@ export default function PitchDeckPage() {
           .pd-remate .pd-linea-fuerte { font-size: 1rem; }
           .pd-ciclo { width: min(330px, calc((100vh - 90px) * 1.56)); }
         }
-        /* ── 7 · Producto ────────────────────────────────────────────────── */
+        /* ── 6 · Producto ────────────────────────────────────────────────── */
         .pd-foto {
           position: absolute; inset: 0; background-size: cover; background-position: center;
           opacity: 0.3;
         }
-        .pd-producto { display: grid; grid-template-columns: 1.05fr 0.95fr;
-          gap: clamp(24px, 5vw, 56px); align-items: center; position: relative; z-index: 2; }
-        .pd-ficha { border: 1px solid rgba(255,255,255,0.1); background: rgba(15,17,21,0.82);
-          padding: 1.4rem 1.5rem; }
-        .pd-ficha .titulo {
-          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.24em;
-          color: var(--pd-gold); text-transform: uppercase; padding-bottom: 0.9rem;
-          border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.9rem;
+        /* La taza a la vista (9 nov 2026): la foto entera a la derecha y un velo de
+           carbón que solo cubre el lado del texto. */
+        .pd-foto--cafe {
+          opacity: 1; background-image: url(/images/servilleta/producto-cafe-wide.webp);
+          background-position: 72% center;
         }
-        .pd-fila { display: flex; justify-content: space-between; align-items: baseline;
-          padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .pd-fila .k { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.16em;
-          color: var(--pd-muted); text-transform: uppercase; }
-        .pd-fila .v { font-family: var(--font-mono); font-size: 1.05rem; color: var(--pd-text); }
-        .pd-ficha .pie { font-size: 0.78rem; color: var(--pd-muted); line-height: 1.55; margin: 0.9rem 0 0; }
-        .pd-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 1.6rem; }
-        .pd-cats-lead { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
-          color: var(--pd-muted); text-transform: uppercase; margin: 1.6rem 0 0; }
-        .pd-cats-lead + .pd-cats { margin-top: 0.7rem; }
-        .pd-cat { position: relative; aspect-ratio: 1 / 1; background-size: cover;
-          background-position: center; border: 1px solid rgba(255,255,255,0.08);
-          padding: 0; cursor: zoom-in; transition: border-color 0.25s, transform 0.25s;
-          display: block; width: 100%; }
-        .pd-cat:hover { border-color: rgba(197,160,89,0.55); transform: translateY(-2px); }
-        .pd-cat span {
-          position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 4px;
-          background: linear-gradient(transparent, rgba(15,17,21,0.92));
-          font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em;
-          text-align: center; color: var(--pd-text); text-transform: uppercase;
+        .pd-foto--cafe::after {
+          content: ''; position: absolute; inset: 0;
+          background: linear-gradient(90deg, rgba(15,17,21,0.97) 0%, rgba(15,17,21,0.9) 34%,
+            rgba(15,17,21,0.35) 62%, rgba(15,17,21,0.1) 100%);
         }
-        .pd-link {
-          margin-top: 1.4rem; background: transparent; border: none; padding: 0;
-          color: var(--pd-gold); font-family: var(--font-mono); font-size: 0.68rem;
-          letter-spacing: 0.18em; cursor: pointer; border-bottom: 1px solid rgba(197,160,89,0.4);
-        }
-        .pd-link:hover { border-bottom-color: var(--pd-gold); }
+        .pd-producto { display: grid; grid-template-columns: minmax(0, 520px);
+          position: relative; z-index: 2; }
+        /* El Ganoderma en tres hechos: la cifra grande y su porqué debajo. */
+        .pd-gano { margin-top: 2.2rem; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1.3rem; }
+        .pd-gano-titulo { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+          color: var(--pd-data); text-transform: uppercase; margin: 0 0 1.2rem; }
+        .pd-gano-datos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: clamp(14px, 2.4vw, 28px); }
+        .pd-gano-dato .n { font-family: var(--font-sans); font-weight: 700; color: #FFFFFF;
+          font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1; margin: 0 0 0.55rem; }
+        .pd-gano-dato .t { font-size: 0.86rem; line-height: 1.45;
+          color: var(--color-text-body, #C8C7C2); margin: 0; }
+        .pd-gano-colores { display: flex; gap: 5px; margin-top: 0.7rem; }
+        .pd-gano-colores i { width: 11px; height: 11px; border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.25); }
+        .pd-producto .pd-demo { margin-top: 2rem; }
+
+        /* La ficha de cada línea: la imagen y lo que la hace valiosa. */
+        .pd-modal.pd-linea { width: min(94vw, 1040px); max-width: none; max-height: 90vh;
+          overflow-y: auto; background: var(--pd-elev); border: 1px solid rgba(255,255,255,0.1);
+          padding: 20px 28px 28px; }
+        .pd-linea .pd-close { top: 10px; right: 16px; }
+        .pd-linea-tabs { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 40px 20px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .pd-linea-tabs button { background: transparent; border: none; cursor: pointer;
+          padding: 8px 0 10px; margin-bottom: -1px; border-bottom: 1px solid transparent;
+          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em;
+          color: var(--pd-muted); transition: color 0.2s, border-color 0.2s; }
+        .pd-linea-tabs button:hover { color: var(--pd-text); }
+        .pd-linea-tabs button.on { color: var(--pd-gold); border-bottom-color: var(--pd-gold); }
+        .pd-linea-cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          gap: clamp(20px, 3.5vw, 40px); align-items: center; animation: pdLineaIn 0.35s ease both; }
+        @keyframes pdLineaIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+        .pd-modal .pd-linea-cuerpo img { width: 100%; height: auto; max-height: 68vh;
+          aspect-ratio: 1 / 1; object-fit: cover; }
+        .pd-linea-n { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.24em;
+          color: var(--pd-data); text-transform: uppercase; margin: 0 0 0.8rem; }
+        .pd-linea-titulo { font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
+          font-size: clamp(1.5rem, 2.8vw, 2.2rem); line-height: 1.2; color: #FFFFFF; margin: 0 0 1rem; }
+        .pd-linea-texto { font-size: clamp(0.95rem, 1.4vw, 1.08rem); line-height: 1.6;
+          color: var(--color-text-body, #C8C7C2); margin: 0 0 1.3rem; }
+        .pd-linea-rasgos { list-style: none; margin: 0; padding: 0; }
+        .pd-linea-rasgos li { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+          gap: 14px; padding: 0.7rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
+        .pd-linea-rasgos .k { font-weight: 600; color: #FFFFFF; font-size: 0.95rem; }
+        .pd-linea-rasgos .v { color: var(--pd-text); font-size: 0.95rem; line-height: 1.45; }
 
         /* ── 2 · El dolor, en cifras ────────────────────────────────────── */
         .pd-cifras-lista { display: grid; grid-template-columns: repeat(3, 1fr);
@@ -1400,7 +1531,7 @@ export default function PitchDeckPage() {
         .pd-gen5-filas { display: grid; gap: 1px; background: rgba(255,255,255,0.08); }
         /* Alturas medidas para 1280×720 (proyector) y 375×667: la pantalla entera, con
            la nota de Gano, tiene que quedar sobre el borde. */
-        .pd-gen5-fila { display: grid; grid-template-columns: 1fr auto minmax(11ch, auto);
+        .pd-gen5-fila { display: grid; grid-template-columns: minmax(0, 1.15fr) repeat(3, minmax(0, 1fr));
           gap: 0 20px; align-items: baseline; background: var(--pd-bg); padding: 13px 18px;
           font-family: var(--font-mono); line-height: 1.15; }
         .pd-numeros .panel--gen5 { padding: 1.1rem 1.3rem 1.2rem; }
@@ -1409,7 +1540,7 @@ export default function PitchDeckPage() {
           text-transform: uppercase; }
         .pd-gen5-fila .g .pd-gen5-corto { display: none; }
         .pd-gen5-fila .op { color: var(--pd-muted); font-size: 0.72rem; white-space: nowrap; }
-        .pd-gen5-fila .st { color: var(--pd-text); font-size: clamp(1rem, 2.2vw, 1.45rem);
+        .pd-gen5-fila .st { color: var(--pd-text); font-size: clamp(0.82rem, 1.9vw, 1.3rem);
           white-space: nowrap; text-align: right; }
         /* ENCENDER PARA EXPLICAR (Director, 2 nov 2026): la fila tocada toma borde
            y cifra en oro y las otras bajan; el total, al tocarlo, enciende las cinco
@@ -1438,10 +1569,13 @@ export default function PitchDeckPage() {
           50% { background: rgba(197,160,89,0.26); }
           100% { background: var(--pd-bg); }
         }
-        .pd-gen5-fila--total { grid-template-columns: 1fr auto; border-top: 1px solid rgba(197,160,89,0.45);
-          padding: 10px 18px; }
+        .pd-gen5-fila--total { border-top: 1px solid rgba(197,160,89,0.45); padding: 10px 18px; }
+        .pd-gen5-fila--cab { padding: 8px 18px; }
+        .pd-gen5-fila--cab .v { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+          color: var(--pd-muted); text-align: right; }
+        .pd-gen5-fila--cab .v.oro { color: var(--pd-gold); }
         .pd-gen5-fila--total .g { color: var(--pd-text); }
-        .pd-gen5-fila--total .st { color: var(--pd-gold); font-size: clamp(1.5rem, 3vw, 2rem); }
+        .pd-gen5-fila--total .st { color: var(--pd-gold); font-size: clamp(1rem, 2.4vw, 1.6rem); }
         .pd-gen5-fila--total .st .u { font-size: 0.42em; color: var(--pd-muted); letter-spacing: 0.1em; }
         .pd-gen5-controles { display: flex; justify-content: space-between; align-items: center;
           gap: 1.5rem; margin-top: 0.8rem; }
@@ -1535,10 +1669,20 @@ export default function PitchDeckPage() {
         /* ── Móvil ───────────────────────────────────────────────────────── */
         @media (max-width: 860px) {
           .pd-producto, .pd-paneles { grid-template-columns: 1fr; }
-          /* Dos por dos, no cuatro en fila: a 83px no se distingue un producto de
-             otro, y esta es la pantalla donde el producto se mira. Cada una abre
-             en grande al tocarla. */
-          .pd-cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+          .pd-gano-dato .t { font-size: 0.78rem; }
+          /* En el teléfono, la toma vertical: la taza queda abajo y el velo baja
+             de arriba, donde va el texto. */
+          .pd-foto--cafe { background-image: url(/images/servilleta/producto-cafe.webp);
+            background-position: center bottom; }
+          .pd-foto--cafe::after { background: linear-gradient(180deg, rgba(15,17,21,0.94) 0%,
+            rgba(15,17,21,0.82) 55%, rgba(15,17,21,0.45) 100%); }
+          .pd-modal.pd-linea { padding: 14px 16px 20px; max-height: 92dvh; }
+          .pd-linea-tabs { gap: 4px 16px; margin-bottom: 14px; }
+          .pd-linea-tabs button { font-size: 0.55rem; letter-spacing: 0.12em; }
+          .pd-linea-cuerpo { grid-template-columns: 1fr; gap: 16px; }
+          .pd-modal .pd-linea-cuerpo img { max-height: 34dvh; width: auto; max-width: 100%; margin: 0 auto; }
+          .pd-linea-titulo { font-size: 1.4rem; margin-bottom: 0.7rem; }
+          .pd-linea-rasgos li { grid-template-columns: 1fr; gap: 2px; padding: 0.55rem 0; }
           .pd-slide { padding: 68px 20px 48px; }
           .pd-beat { padding: 68px 20px 48px; }
 
@@ -1674,7 +1818,6 @@ export default function PitchDeckPage() {
            Pasa de verdad: el socio gira el teléfono para mostrar los números. */
         @media (max-height: 560px) and (min-width: 600px) {
           .pd-producto, .pd-paneles { grid-template-columns: 1fr 1fr; }
-          .pd-cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
           .pd-slide, .pd-beat { padding-top: 56px; padding-bottom: 26px; }
           /* El credo son dos bloques largos y en 390px de alto no caben: se leen a
              dos columnas, que además es la forma natural de una anáfora. */
@@ -1840,16 +1983,13 @@ export default function PitchDeckPage() {
         @media (prefers-reduced-motion: reduce) {
           .pd-slide.on .pd-pares .de, .pd-slide.on .pd-pares .a,
           .pd-slide.on .pd-pares .de::after, .pd-slide.on .pd-pares .fl::before,
-          .pd-slide.on .pd-pares .fl::after { animation: none; }
+          .pd-slide.on .pd-pares .fl::after, .pd-slide.on .pd-forma { animation: none; }
         }
-        .pd-sectores { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 2rem;
-          background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
-        .pd-sector { background: var(--pd-bg); padding: clamp(1.4rem, 3vw, 2.4rem); }
-        .pd-sector .k { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.26em;
-          color: var(--pd-data); }
-        .pd-sector .t { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
-          font-size: clamp(1.35rem, 3.2vw, 2.3rem); line-height: 1.12; color: #FFFFFF;
-          margin: 0.7rem 0 0; }
+        /* El remate de la oportunidad (9 nov 2026): entra después del quinto par. */
+        .pd-forma { font-family: var(--font-sans); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(1.2rem, 2.9vw, 1.9rem); line-height: 1.15; color: #FFFFFF;
+          margin: 1.8rem 0 0; max-width: 720px; text-wrap: balance; }
+        .pd-slide.on .pd-forma { animation: pdNace 1.4s ease calc(0.35s + 5 * 0.5s + 0.5s) both; }
         .pd-propuesta { font-family: var(--font-sans); font-weight: 700;
           font-size: clamp(1.35rem, 3.4vw, 2.3rem); line-height: 1.25; color: #FFFFFF;
           margin: 0 auto; max-width: 28ch; text-wrap: balance; }
@@ -1952,13 +2092,13 @@ export default function PitchDeckPage() {
           <span className="pd-brand">CreaTuActivo.com</span>
           <div className="pd-hud-right">
             <div className="pd-dots">
-              {Array.from({ length: TOTAL_SLIDES }, (_, i) => i + 1).map((n) => (
+              {PANTALLAS.map((n) => (
                 <button
                   key={n}
                   type="button"
                   className={`pd-dot ${n === slide ? 'active' : ''} ${n < slide ? 'done' : ''}`}
                   onClick={() => irA(n)}
-                  aria-label={`Ir a la pantalla ${n}`}
+                  aria-label={`Ir a la pantalla ${PANTALLAS.indexOf(n) + 1}`}
                 />
               ))}
             </div>
@@ -2117,32 +2257,18 @@ export default function PitchDeckPage() {
                 </li>
               ))}
             </ul>
+            {/* El remate (9 nov 2026, Director): «no me siento dentro de la industria del
+                network marketing; me siento haciendo empresa». Reemplaza a la pantalla
+                «Dos sectores por modernizar». Entra después del último par, con el mismo
+                nacimiento en oro que asienta en blanco. */}
+            <p className="pd-forma">Ahora le toca a la forma de hacer empresa.</p>
           </div>
         </section>
 
-        {/* ── 4 · DOS SECTORES ────────────────────────────────────────── */}
-        {/* «Network marketing» va ESCRITO (Director, 30 sep 2026): dentro de la ola
-            de modernización se lee como oportunidad, y resolvió el «ah, es como
-            Herbalife». ⚠️ Solo el nombre: cómo se hace hoy lo cuenta el socio en
-            vivo. Describirlo aquí sería un juicio sin voz sobre el método de otros. */}
-        <section className={`pd-slide pd-movil-arriba ${slide === 4 ? 'on' : ''}`} onClick={onClickSlide}>
-          <div className="pd-wrap">
-            <p className="pd-eyebrow">Dónde la vemos</p>
-            {/* «Dos sectores por modernizar» (Director, 7 nov 2026, del ejercicio de Musk); decía
-                «Nosotros vemos esa oportunidad en dos sectores:». */}
-            <h2 className="pd-h2 pd-h2--media">Dos sectores por modernizar</h2>
-            <div className="pd-sectores">
-              <div className="pd-sector">
-                <span className="k">01</span>
-                <p className="t">La industria del network marketing</p>
-              </div>
-              <div className="pd-sector">
-                <span className="k">02</span>
-                <p className="t">El sector laboral</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ── 4 · DOS SECTORES: retirada el 9 nov 2026 (Director). Decía «la industria
+            del network marketing» y «el sector laboral»; la oportunidad cierra ahora con
+            «Ahora le toca a la forma de hacer empresa». El número 4 queda sin pantalla
+            a propósito: ver PANTALLAS. Su versión vive en git (antes de este cambio). */}
 
         {/* ── 5 · LA SOLUCIÓN Y CÓMO FUNCIONA ─────────────────────────── */}
         <section className={`pd-slide pd-movil-arriba ${slide === 5 ? 'on' : ''}`} onClick={onClickSlide} style={{ padding: 0 }}>
@@ -2277,21 +2403,26 @@ export default function PitchDeckPage() {
             <div className="pd-remate pd-con-ciclo">
               <div className="pd-con-ciclo-texto">
               <p className="pd-eyebrow">La diferencia</p>
-              <p className="grande pd-grande-blanco">Cada cliente que llega a su empresa queda a su nombre.</p>
-              <p className="pd-p pd-cierre-linea pd-gold pd-linea-fuerte">
-                Cada vez que vuelve a comprar, a usted le queda un porcentaje.
-              </p>
-              {/* La definición del activo, DESPUÉS de su causa (Director, 1 nov 2026):
-                  la recompra es lo que la separa de «ingreso pasivo» y de Kiyosaki.
-                  «Aunque usted no esté presente» y no «sin que usted tenga que estar
-                  encima» (Director, 1 nov 2026): «estar encima» es el dolor del
-                  empresario; el empleado teme otra jornada, y «presente» cubre a los
-                  dos. Es la frase del cierre de la Home. */}
-              <p className="pd-p pd-cierre-linea pd-activo-linea pd-linea-fuerte">
-                Eso es un activo: sigue produciendo aunque usted no esté presente.
-              </p>
+              {/* «Crecimiento por acumulación» (9 nov 2026, Director): la frase que era el
+                  titular («cada cliente que llega a su empresa queda a su nombre») pasó al
+                  punto 01. Los tres puntos, numerados como los propuso Gemini, se encienden
+                  con el dibujo; lo ya dicho baja al 35 %. La definición del activo va
+                  DESPUÉS de su causa (Director, 1 nov 2026), y «aunque usted no esté
+                  presente», no «sin estar encima»: «presente» cubre al empleado y al
+                  empresario. */}
+              <p className="grande pd-grande-blanco">Crecimiento por acumulación</p>
+              <ol className="pd-dif-puntos">
+                {PUNTOS_DIFERENCIA.map((p, i) => (
+                  <li key={p.t} className={`pd-dif ${p.oro ? 'oro' : ''} ${etapaDif === i || etapaDif === 4 ? 'on' : ''} ${etapaDif > i && etapaDif !== 4 ? 'antes' : ''}`}>
+                    <span className="n">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="t">{p.t}</span>
+                    <span className="s">{p.s}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className={`pd-dif-suma ${etapaDif >= 3 ? 'on' : ''}`}>Los clientes de hoy se suman a los de mañana.</p>
               </div>
-              <CicloPropiedad modo="propiedad" activo={slide === 5 && beat === 3} />
+              <CicloPropiedad modo="propiedad" activo={slide === 5 && beat === 3} onEtapa={setEtapaDif} />
             </div>
           </div>
 
@@ -2304,7 +2435,10 @@ export default function PitchDeckPage() {
 
         {/* ── 6 · EL PRODUCTO ─────────────────────────────────────────── */}
         <section className={`pd-slide ${slide === 6 ? 'on' : ''}`} onClick={onClickSlide}>
-          <div className="pd-foto" style={{ backgroundImage: 'url(/images/servilleta/producto-cafe.webp)' }} />
+          {/* LA TAZA A LA VISTA (Director, 9 nov 2026): la foto era un fondo al 30 %
+              detrás de dos columnas de texto. Ahora es la imagen de la pantalla, con un
+              velo de carbón solo del lado del texto. */}
+          <div className="pd-foto pd-foto--cafe" />
           <div className="pd-wrap">
             <div className="pd-producto">
               <div>
@@ -2312,82 +2446,52 @@ export default function PitchDeckPage() {
                 {/* LA TAZA ES LA PUERTA DE ENTRADA, NO EL CAFÉ DE SIEMPRE (Director, 26 sep
                     2026). Decía «Un hábito que no cambia» y «El café de siempre»: el marco
                     del consumo diario, vetado porque pone el producto en el estante del
-                    supermercado. Ahora el café es la entrada a la línea (PROD_01 del
-                    catálogo), y el «todo» anuncia que detrás viene más: la pantalla no
-                    reduce el negocio a vender café.
-                    ⛔ Salió la ciencia usada para vender —«el hongo más estudiado del
-                    planeta, con más de 2.000 estudios»—: el 3 en 1 está registrado como
-                    ALIMENTO, y la ciencia al servicio de la venta deja de ser información y
-                    pasa a ser publicidad (NUCLEO_EVIDENCIA, wa-guardarrail-salud.ts).
-                    Lo sensorial es de BEB_07; «no se queda nada en el fondo de la taza» es
-                    del Director, y habla de la composición, no de la absorción. */}
+                    supermercado. El «todo» anuncia que detrás viene más.
+                    ⛔ Sin ciencia usada para vender (NUCLEO_EVIDENCIA): el 3 en 1 está
+                    registrado como ALIMENTO. Lo sensorial (BEB_07) vive en la ficha de
+                    Bebidas desde el 9 nov 2026. */}
                 <h2 className="pd-h2">Todo empieza con una taza premium.</h2>
-                <p className="pd-p">
-                  Café de cuerpo, aroma y el amargo justo de una buena cafetería, con el
-                  extracto de Ganoderma que Gano Excel cultiva y extrae por su cuenta. Se
-                  disuelve por completo: no se queda nada en el fondo de la taza.
-                </p>
                 {/* LA RECOMPRA POR RESULTADO, verbatim de PROD_01 (aprobado 24 sep 2026).
-                    Prepara la pantalla 8: aquí se dice por qué el cliente vuelve; allá, por
-                    qué esa recompra le deja un porcentaje. El dinero NO entra aquí.
-                    ⚠️ «Incorpora a su rutina» es la fórmula aprobada; lo vetado es el
-                    producto como algo que ya se consume. Y nunca «vuelve porque se le
-                    acaba»: vuelve porque nota la diferencia. */}
+                    Prepara la pantalla 8. ⚠️ Nunca «vuelve porque se le acaba»: vuelve
+                    porque nota la diferencia. */}
                 <p className="pd-p pd-gold">
                   Su cliente lo incorpora a su rutina, nota la diferencia y vuelve a pedirlo
                   el mes siguiente.
                 </p>
-                <p className="pd-cats-lead">El mismo extracto va en toda la línea</p>
-                <div className="pd-cats">
-                  {CATEGORIAS.map((c) => (
-                    <button
-                      type="button"
-                      className="pd-cat"
-                      key={c.label}
-                      style={{ backgroundImage: `url(${c.img})` }}
-                      aria-label={`Ver la línea ${c.label} en grande`}
-                      onClick={(e) => { e.stopPropagation(); setVisor({ src: c.img, alt: `Línea ${c.label}` }); }}
-                    >
-                      <span>{c.label}</span>
-                    </button>
-                  ))}
+                {/* EL GANODERMA EN TRES HECHOS (Director, 9 nov 2026: «darle realce a…
+                    las seis variedades, etc., hidrosoluble»). Oficio, no ciencia (26 sep):
+                    cómo se hace, nunca lo que hace en el cuerpo. De CIENCIA_01/04/05.
+                    ⛔ La composición se afirma; la absorción no: «se disuelve por completo»
+                    sí, «se absorbe» nunca. Los seis puntos son los seis colores del Reishi. */}
+                <div className="pd-gano">
+                  <p className="pd-gano-titulo">Ganoderma lucidum · cultivo y extracción propios</p>
+                  <div className="pd-gano-datos">
+                    <div className="pd-gano-dato">
+                      <p className="n">6</p>
+                      <p className="t">variedades del Reishi en un solo híbrido</p>
+                      <span className="pd-gano-colores" aria-hidden="true">
+                        {['#B3262E', '#6B3A86', '#3F7D4E', '#E8E4DA', '#D9A925', '#22232A'].map((c) => (
+                          <i key={c} style={{ background: c }} />
+                        ))}
+                      </span>
+                    </div>
+                    <div className="pd-gano-dato">
+                      <p className="n">100 %</p>
+                      <p className="t">hidrosoluble: se disuelve por completo en la taza</p>
+                    </div>
+                    <div className="pd-gano-dato">
+                      <p className="n">1983</p>
+                      <p className="t">desde entonces lo estudia el Dr. Leow Soon Seng, su fundador</p>
+                    </div>
+                  </div>
                 </div>
                 <button
                   type="button"
-                  className="pd-link"
-                  onClick={(e) => { e.stopPropagation(); setVisor({ src: '/productos/productos.webp', alt: 'Portafolio de productos Gano Excel' }); }}
+                  className="pd-demo"
+                  onClick={(e) => { e.stopPropagation(); setLinea(0); }}
                 >
-                  VER TODO EL PORTAFOLIO →
+                  VER LAS CUATRO LÍNEAS →
                 </button>
-              </div>
-
-              <div className="pd-ficha panel">
-                {/* OFICIO, NO CIENCIA (Director, 26 sep 2026). Salieron «Estudios
-                    publicados 2.000+», «Compuestos bioactivos 200+» y «pionero mundial»
-                    (superlativo sin fuente). Quedan datos de CÓMO SE HACE —el híbrido, el
-                    cultivo propio, los años de proceso—, nunca de lo que hace en el cuerpo.
-                    El doctor queda como el origen del producto, no como autoridad
-                    científica. Fuente: la respuesta del catálogo sobre el Ganoderma.
-                    ⚠️ «lucidum» con minúscula: es nombre de especie (el CSS lo pone en
-                    mayúsculas igual). */}
-                <div className="titulo">Ganoderma lucidum</div>
-                <div className="pd-fila">
-                  <span className="k">Variedades en el híbrido</span>
-                  <span className="v">6</span>
-                </div>
-                <div className="pd-fila">
-                  <span className="k">Cultivo y extracción</span>
-                  <span className="v">Propios</span>
-                </div>
-                <div className="pd-fila">
-                  <span className="k">Años de proceso</span>
-                  <span className="v">Más de 30</span>
-                </div>
-                <p className="pie">
-                  Los seis colores del Reishi en un solo híbrido, obra del{' '}
-                  <strong>Dr. Leow Soon Seng</strong>, micólogo malasio que estudia este
-                  hongo desde 1983.
-                </p>
               </div>
             </div>
           </div>
@@ -2476,16 +2580,24 @@ export default function PitchDeckPage() {
                 <div className="panel">
                   {/* Sin «(2×2)» (Director, 7 nov 2026): era jerga; el titular ya dice «de a dos». */}
                   <h3>Los 12 niveles</h3>
-                  <div className="pd-niveles">
+                  {/* BARRAS A ESCALA REAL (9 nov 2026, Director: «las barras se ven
+                      corporativas, empresariales; nos alejan de los círculos»). Cada nivel
+                      es una barra del alto de su regalía: se ve sin decirlo que el 12, solo,
+                      es más grande que los once anteriores juntos. Se tocan igual que los
+                      círculos que reemplazan. */}
+                  <div className="pd-barras" role="group" aria-label="Los 12 niveles">
                     {PROYECCION_12.map((n) => (
                       <button
                         key={n.level}
                         type="button"
-                        className={`pd-nivel ${n.level === nivel12 ? 'active' : ''} ${n.level < nivel12 ? 'done' : ''}`}
+                        className={`pd-barra ${n.level === nivel12 ? 'active' : ''} ${n.level < nivel12 ? 'done' : ''}`}
                         onClick={() => setNivel12(n.level)}
                         aria-label={`Nivel ${n.level}`}
                       >
-                        {n.level}
+                        <span className="c">
+                          <span className="b" style={{ height: `${(n.income / PROYECCION_12[PROYECCION_12.length - 1].income) * 100}%` }} />
+                        </span>
+                        <span className="l">{n.level}</span>
                       </button>
                     ))}
                   </div>
@@ -2510,7 +2622,7 @@ export default function PitchDeckPage() {
                   </div>
 
                   {/* La barra «Recorra los 12 niveles» salió (Director, 7 nov 2026): eran dos
-                      controles para lo mismo. Quedan los 12 círculos. */}
+                      controles para lo mismo. Quedan las 12 barras. */}
                   <div className={`pd-tarifa-notas ${tarifa.meses > 0 ? 'temporal' : ''}`}>
                     {/* Sin jerga (6 nov 2026, Director): decía «Cada nivel duplica su
                         sistema (2×2). Regalía mensual proyectada: el 10% del volumen
@@ -2588,8 +2700,20 @@ export default function PitchDeckPage() {
                 <div className="panel panel--gen5">
                   {/* El bono por su nombre del plan, como la pantalla del Flow. */}
                   <h3>Bono GEN5 · Paquetes comprados</h3>
+                  {/* LA TABLA LIMPIA (9 nov 2026, Director: «más comprensible que la que
+                      tenemos, que se ve saturada»). Las tres formas de iniciar lado a lado,
+                      el Visionario primero como anclaje, y UN paquete en cada generación:
+                      sin multiplicar ni controles. Salieron el selector de paquete y la barra
+                      de cantidad. La fila del total se queda (Director, 11 oct y 9 nov 2026):
+                      la cifra va pegada a su origen, las compras, para que no se lea como lo
+                      que valen los paquetes. Tocar una fila la enciende; tocar el total
+                      enciende la suma. */}
                   <div className={`pd-gen5-filas ${gen5Sumando ? 'sumando' : ''}`}>
-                    {gen5Por.map((usd, i) => (
+                    <div className="pd-gen5-fila pd-gen5-fila--cab" aria-hidden="true">
+                      <span className="g">Un paquete en cada generación</span>
+                      {PAQUETES_GEN5.map((p) => <span key={p.k} className={`v ${p.k === 'ESP3' ? 'oro' : ''}`}>{p.nombre}</span>)}
+                    </div>
+                    {[0, 1, 2, 3, 4].map((i) => (
                       <div
                         key={i}
                         className={`pd-gen5-fila ${gen5Activa === i ? 'on' : ''} ${gen5Activa !== null && gen5Activa !== i ? 'off' : ''}`}
@@ -2602,16 +2726,11 @@ export default function PitchDeckPage() {
                       >
                         <span className="g">
                           <span className="pd-gen5-largo">Generación</span>
-                          <span className="pd-gen5-corto">Gen</span> {i + 1} · {gen5Paquetes}{' '}
-                          {gen5Paquetes === 1 ? 'paquete' : 'paquetes'}
+                          <span className="pd-gen5-corto">Gen</span> {i + 1}
                         </span>
-                        <span className="op">{montoCorto(usd * TRM)} × {gen5Paquetes}</span>
-                        <span className="st">{montoCorto(gen5Paquetes * usd * TRM)}</span>
+                        {PAQUETES_GEN5.map((p) => <span key={p.k} className="st">{montoCorto(GEN5_POR_GENERACION[p.k][i] * TRM)}</span>)}
                       </div>
                     ))}
-                    {/* «Su bono por esas N compras» (Director, 11 oct 2026): la cifra va
-                        pegada a su origen, para que no se lea como lo que valen los
-                        paquetes. Cierra la columna como una suma. */}
                     <div
                       className="pd-gen5-fila pd-gen5-fila--total"
                       role="button"
@@ -2620,38 +2739,11 @@ export default function PitchDeckPage() {
                       onClick={encenderSumaGen5}
                       onKeyDown={(e) => { if (e.key === 'Enter') encenderSumaGen5(); }}
                     >
-                      <span className="g">Su bono por esas {gen5Paquetes * 5} compras</span>
-                      <span className="st">{monto(ingresoGen5COP)}</span>
+                      <span className="g">Su bono por esas 5 compras</span>
+                      {PAQUETES_GEN5.map((p) => (
+                        <span key={p.k} className="st">{montoCorto(GEN5_POR_GENERACION[p.k].reduce((a, b) => a + b, 0) * TRM)}</span>
+                      ))}
                     </div>
-                  </div>
-                  <div className="pd-gen5-controles">
-                  <div className="pd-pkgs">
-                    {(['ESP1', 'ESP2', 'ESP3'] as const).map((p) => (
-                      <button
-                        key={p}
-                        type="button"
-                        className={`pd-pkg ${gen5Nivel === p ? 'active' : ''}`}
-                        onClick={() => setGen5Nivel(p)}
-                      >
-                        {p === 'ESP1' ? 'Inicial' : p === 'ESP2' ? 'Empresarial' : 'Visionario'}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="pd-gen5-cantidad">
-                    <label className="pd-label">
-                      Paquetes en cada generación<b>{gen5Paquetes}</b>
-                    </label>
-                    {/* Tope 5, como el simulador de WhatsApp (1 · 3 · 5). Con 10 Visionarios
-                        por generación la pantalla mostraba 50 compras y $11.250.000. */}
-                    <input
-                      type="range"
-                      min={1}
-                      max={5}
-                      value={gen5Paquetes}
-                      onChange={(e) => setGen5Paquetes(parseInt(e.target.value))}
-                      className="pd-slider"
-                    />
-                  </div>
                   </div>
                 </div>
               </div>
@@ -2677,13 +2769,12 @@ export default function PitchDeckPage() {
             <p className="pd-final-credo">
               Creemos que el trabajo de cada persona debería convertirse en un activo.
             </p>
-            {/* «En 16 países de América» (Director, 6 nov 2026): el único hecho propio de
-                CreaTuActivo en el deck, como estatus y no como alegato, en la misma forma
-                de /nosotros y /paquetes. Va al frente, como marco; el acompañamiento sigue
-                al final, donde cae el acento. Las credenciales de Gano quedan en la 8. */}
+            {/* Menos texto (9 nov 2026, Director: prefirió el cierre de la prueba). Salió
+                «En 16 países de América,» que abría la línea (Director, 6 nov 2026); el
+                hecho sigue en /nosotros y /paquetes. Las credenciales de Gano quedan en la 8. */}
             <p className="pd-p">
-              En 16 países de América, acompañamos a cada socio nuevo uno a uno, desde el día
-              en que empieza a construir su activo.
+              Acompañamos a cada socio nuevo uno a uno, desde el día en que empieza a
+              construir su activo.
             </p>
             <p className="pd-bisagra">
               El siguiente paso es una conversación
@@ -2768,7 +2859,7 @@ export default function PitchDeckPage() {
         </section>
 
         <div className="pd-counter">
-          {slide} / {TOTAL_SLIDES}
+          {PANTALLAS.indexOf(slide) + 1} / {PANTALLAS.length}
         </div>
 
 
@@ -2815,26 +2906,53 @@ export default function PitchDeckPage() {
           </div>
         )}
 
-        {/* ── Modal del portafolio ────────────────────────────────────── */}
-        {visor && (
+        {/* ── La ficha de cada línea del producto ─────────────────────── */}
+        {/* La imagen y, al lado, lo que hace valiosa a la línea. Las pestañas pasan
+            de una línea a otra sin cerrar: quien presenta recorre las cuatro. */}
+        {linea !== null && (
           <div
             className="pd-overlay"
             role="dialog"
             aria-modal="true"
-            aria-label={visor.alt}
-            onClick={() => setVisor(null)}
+            aria-label={`Línea ${CATEGORIAS[linea].label}`}
+            onClick={() => setLinea(null)}
           >
-            <div className="pd-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="pd-modal pd-linea" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
                 className="pd-close"
-                onClick={() => setVisor(null)}
+                onClick={() => setLinea(null)}
                 aria-label="Cerrar"
               >
                 ×
               </button>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={visor.src} alt={visor.alt} />
+              <div className="pd-linea-tabs">
+                {CATEGORIAS.map((c, i) => (
+                  <button
+                    type="button"
+                    key={c.label}
+                    className={i === linea ? 'on' : ''}
+                    aria-pressed={i === linea}
+                    onClick={() => setLinea(i)}
+                  >
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+              <div className="pd-linea-cuerpo" key={linea}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={CATEGORIAS[linea].img} alt={`Línea ${CATEGORIAS[linea].label}`} />
+                <div>
+                  <p className="pd-linea-n">{CATEGORIAS[linea].n} productos</p>
+                  <p className="pd-linea-titulo">{CATEGORIAS[linea].titulo}</p>
+                  <p className="pd-linea-texto">{CATEGORIAS[linea].texto}</p>
+                  <ul className="pd-linea-rasgos">
+                    {CATEGORIAS[linea].rasgos.map(([k, v]) => (
+                      <li key={k}><span className="k">{k}</span><span className="v">{v}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         )}

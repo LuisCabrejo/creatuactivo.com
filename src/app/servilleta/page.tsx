@@ -1953,7 +1953,7 @@ export default function PitchDeckPage() {
           letter-spacing: 0.2em; color: var(--pd-muted); text-transform: uppercase; margin: 0.5rem 0 0; }
         .pd-socio { display: inline-block; text-decoration: none; margin-top: 1.8rem; }
         /* Sin la línea ni la marca (7 nov 2026), la señal de la guía va en su propia línea. */
-        .pd-final .pd-a-la-guia { display: flex; width: fit-content; margin-top: 3rem; }
+        .pd-final .pd-a-la-guia { display: flex; width: fit-content; margin: 2rem auto 0; flex: none; }
         .pd-nombre {
           font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit;
           background: none; border: none; padding: 0; cursor: text;
@@ -2027,7 +2027,7 @@ export default function PitchDeckPage() {
           margin-bottom: 0.25em; }
         .pd-obstaculo { font-family: var(--font-sans); font-weight: 600; text-align: center;
           font-size: clamp(1.02rem, 1.9vw, 1.4rem); line-height: 1.35;
-          color: var(--color-text-body, #C8C7C2); margin: 1.6rem auto 0; max-width: 32ch; }
+          color: var(--pd-gold); margin: 1.6rem auto 0; max-width: 32ch; }
         @media (max-width: 860px) {
           .pd-sectores { grid-template-columns: 1fr; }
           .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
@@ -2092,7 +2092,7 @@ export default function PitchDeckPage() {
           .pd-movil-arriba.pd-numeros .pd-numeros-lead { margin-bottom: clamp(1rem, 3.5vh, 2rem); }
           .pd-movil-arriba.pd-final .pd-final-credo { margin-bottom: clamp(1.2rem, 4vh, 2.4rem); }
           .pd-movil-arriba.pd-final .pd-bisagra { margin-top: clamp(1.6rem, 6vh, 3.4rem); }
-          .pd-movil-arriba.pd-final .pd-a-la-guia { margin-top: clamp(2rem, 9vh, 5rem); }
+          .pd-movil-arriba.pd-final .pd-a-la-guia { margin-top: 2rem; }
         }
         /* Teléfonos bajos (≤ 760 px de alto): el mismo reparto, un punto más apretado. */
         @media (max-width: 860px) and (min-height: 600px) and (max-height: 760px) and (orientation: portrait) {
@@ -2337,8 +2337,9 @@ export default function PitchDeckPage() {
               {/* El aire entre la solución y el obstáculo (Director, 30 oct 2026), en
                   lugar del botón del video «Cómo funciona», que se mudó a la pantalla 1
                   como la presentación entera. */}
-              {/* El obstáculo es bisagra hacia las tres piezas, no la tesis: gris claro,
-                  sin mayúsculas y por debajo de la definición (2 nov 2026). */}
+              {/* El obstáculo es bisagra hacia las tres piezas, no la tesis: sin
+                  mayúsculas y por debajo de la definición (2 nov 2026). En oro desde el
+                  9 nov 2026 (Director); hasta ese día, gris claro. */}
               {/* «Dueña del sistema, no de las piezas» (Director, 7 nov 2026): en dos
                   presentaciones, independientes concluyeron que con Gano Excel «le iban a
                   trabajar a otro». La línea invierte la dirección antes de los tres
@@ -2902,17 +2903,19 @@ export default function PitchDeckPage() {
             ))}
             {/* La línea y «CreaTuActivo.com» salieron (Director, 7 nov 2026): la marca va
                 arriba, y el cierre tiene una sola salida, el WhatsApp. */}
-            {/* La señal de la guía, al pie de la última pantalla: aquí ya se sabe
-                que el deck se pasa de lado. Dentro del contenido y no pegada al
-                borde, porque ahí la tapa el aviso de cookies. Es un enlace, así que
-                tocarla no avanza. En pantalla completa y en el kiosco no aparece. */}
-            {slide === TOTAL_SLIDES && !isKiosk && (
-              <a className="pd-a-la-guia" href="#guia-plan-servilleta" onClick={irALaGuia}>
-                LA PRESENTACIÓN, EN TEXTO
-                <span className="flecha" aria-hidden="true">↓</span>
-              </a>
-            )}
           </div>
+          {/* La señal de la guía, en la parte inferior de la última pantalla (Director,
+              9 nov 2026; hasta ese día iba dentro del contenido, bajo el WhatsApp, para
+              que no la tapara el aviso de cookies). Va fuera de .pd-wrap: el margen
+              automático del contenido la empuja al pie sin posición absoluta, así que
+              en un teléfono bajo no se monta sobre el botón. Es un enlace: tocarla no
+              avanza. En pantalla completa y en el kiosco no aparece. */}
+          {slide === TOTAL_SLIDES && !isKiosk && (
+            <a className="pd-a-la-guia" href="#guia-plan-servilleta" onClick={irALaGuia}>
+              LA PRESENTACIÓN, EN TEXTO
+              <span className="flecha" aria-hidden="true">↓</span>
+            </a>
+          )}
         </section>
 
         <div className="pd-counter">

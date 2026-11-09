@@ -9,12 +9,17 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { unstable_noStore as noStore } from 'next/cache';
 import SinOrbe from '@/components/SinOrbe';
 import { MESAS, horaCerrada, horaTexto } from '@/lib/mesas';
 import { claveValida } from '@/lib/mesas-panel';
 import Refrescar from './Refrescar';
 
 export const dynamic = 'force-dynamic';
+// Sin esto, Next guardaba la consulta de supabase-js en su caché de datos y el panel
+// se quedaba con la foto de la primera visita (9 nov 2026).
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Panel de la mesa',
@@ -47,7 +52,10 @@ export default async function PanelMesa({
   const mesa = MESAS[params.evento];
   if (!mesa || !claveValida(mesa.id, searchParams.clave)) notFound();
 
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  noStore();
+  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+    global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) },
+  });
   const { data, error } = await supabase
     .from('reservas_mesa')
     .select('horario, silla, nombre, whatsapp, created_at')

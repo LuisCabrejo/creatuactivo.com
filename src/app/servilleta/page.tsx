@@ -224,11 +224,12 @@ const ELEMENTOS: { label: string; sub: string; icono: 'fabrica' | 'conversa' | '
  *  de los dos teléfonos (3-6 nov 2026, tres toques): quien entiende que son dos pasos
  *  siente que puede, y le da curiosidad de verlo en la app. La del centro es el trabajo
  *  que no hace usted, en el cian de «Queswa en línea»; una luz recorre el flujo. */
-const ACCIONES: { rotulo: string; titulo: string; sub: string; queswa?: boolean }[] = [
+const ACCIONES: { rotulo: string; titulo: string; sub: string; queswa?: boolean; campana?: boolean }[] = [
   // Textos cortos (9 nov 2026, Director, del ejercicio de Gemini).
   { rotulo: '01 · Compartir', titulo: 'Invitación natural', sub: 'Envía un enlace personal.' },
   { rotulo: 'Queswa', titulo: 'Queswa conversa', sub: 'Resuelve dudas sin presión.', queswa: true },
-  { rotulo: '02 · Recibir', titulo: 'Notificación en su celular', sub: 'Saluda al interesado informado.' },
+  // La campana con su «1» (Director, 9 nov 2026): la notificación se ve, no se lee.
+  { rotulo: '02 · Recibir', titulo: 'Notificación en su celular', sub: 'Saluda al interesado informado.', campana: true },
 ];
 
 /** «La diferencia» en tres puntos (9 nov 2026, Director). El 02 va en oro: es el dinero. */
@@ -484,6 +485,8 @@ export default function PitchDeckPage() {
   // teclas 1 a 5 encienden la generación y la 0 la suma. Las flechas ya cambian
   // de pantalla, por eso los números.
   const [gen5Activa, setGen5Activa] = useState<number | null>(null);
+  // En el teléfono la tabla muestra un paquete a la vez, el Visionario de entrada.
+  const [gen5Paq, setGen5Paq] = useState<'ESP1' | 'ESP2' | 'ESP3'>('ESP3');
   const [gen5Sumando, setGen5Sumando] = useState(false);
   const gen5SumaTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const encenderSumaGen5 = useCallback(() => {
@@ -1256,6 +1259,23 @@ export default function PitchDeckPage() {
           23% { box-shadow: 0 0 60px rgba(34,211,238,0.28); border-color: rgba(34,211,238,0.85); }
           40%, 100% { box-shadow: 0 0 34px rgba(34,211,238,0.08); border-color: rgba(34,211,238,0.4); }
         }
+        /* La campana de Recibir: suena cuando la luz llega y su «1» aparece la primera
+           vez y se queda. Rojo de alerta del sistema: es el globo de una notificación. */
+        .pd-flujo-paso .pd-tarjeta { position: relative; }
+        .pd-campana { position: absolute; top: 14px; right: 16px; color: var(--pd-gold); line-height: 0; }
+        .pd-campana svg { transform-origin: 50% 8%; }
+        .pd-campana-n { position: absolute; top: -6px; right: -8px; min-width: 18px; height: 18px;
+          padding: 0 5px; border-radius: 9px; background: #F43F5E; color: #FFFFFF;
+          font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; line-height: 18px;
+          text-align: center; box-shadow: 0 0 0 2px var(--pd-bg); }
+        .pd-beat.on .pd-campana svg { animation: pdTimbre 6s 2.4s infinite; }
+        .pd-beat.on .pd-campana-n { animation: pdGlobo 0.45s 5.8s both; }
+        @keyframes pdTimbre {
+          0%, 56% { transform: rotate(0); } 59% { transform: rotate(16deg); }
+          62% { transform: rotate(-14deg); } 65% { transform: rotate(9deg); }
+          68% { transform: rotate(-5deg); } 71%, 100% { transform: rotate(0); }
+        }
+        @keyframes pdGlobo { 0% { transform: scale(0); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
         @keyframes pdLlega {
           0%, 53% { border-color: rgba(255,255,255,0.1); }
           60% { border-color: rgba(197,160,89,0.75); }
@@ -1264,7 +1284,8 @@ export default function PitchDeckPage() {
         @media (prefers-reduced-motion: reduce) {
           .pd-beat.on .pd-tarjetas > *, .pd-beat.on .pd-flujo > *,
           .pd-beat.on .pd-luz::after, .pd-beat.on .pd-tarjeta--queswa,
-          .pd-beat.on .pd-flujo-paso:nth-child(3) .pd-tarjeta { animation: none; }
+          .pd-beat.on .pd-flujo-paso:nth-child(3) .pd-tarjeta,
+          .pd-beat.on .pd-campana svg, .pd-beat.on .pd-campana-n { animation: none; }
         }
         /* En el teléfono, una debajo de otra; en el flujo, la luz baja. */
         @media (max-width: 860px) and (min-height: 561px) {
@@ -1331,7 +1352,7 @@ export default function PitchDeckPage() {
         .pd-remate p.grande.pd-grande-blanco { color: #FFFFFF; margin-top: 0; }
         .pd-remate .pd-linea-fuerte { font-size: clamp(1.08rem, 2.2vw, 1.5rem); font-weight: 600; line-height: 1.4; }
         .pd-remate .pd-activo-linea.pd-linea-fuerte { color: #FFFFFF; }
-        /* Los 12 niveles en barras a escala (9 nov 2026). */
+        /* Los 12 niveles en barras (9 nov 2026); el alto, en el JSX. */
         .pd-barras { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(3px, 0.8vw, 8px);
           height: clamp(96px, 17vh, 160px); margin: 0.4rem 0 1.1rem; }
         .pd-barra { display: grid; grid-template-rows: 1fr auto; gap: 6px; height: 100%; padding: 0;
@@ -1571,6 +1592,12 @@ export default function PitchDeckPage() {
         }
         .pd-gen5-fila--total { border-top: 1px solid rgba(197,160,89,0.45); padding: 10px 18px; }
         .pd-gen5-fila--cab { padding: 8px 18px; }
+        .pd-pkgs.pd-gen5-paqs { display: none; }
+        @media (max-width: 860px) {
+          .pd-pkgs.pd-gen5-paqs { display: flex; margin-bottom: 0.8rem; }
+          .pd-gen5-paqs .pd-pkg { flex: 1; }
+          .pd-gen5-fila--cab, .pd-gen5-fila .st:not(.sel) { display: none; }
+        }
         .pd-gen5-fila--cab .v { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
           color: var(--pd-muted); text-align: right; }
         .pd-gen5-fila--cab .v.oro { color: var(--pd-gold); }
@@ -1739,15 +1766,15 @@ export default function PitchDeckPage() {
              del borde, y el deslizador quedaba fuera. */
           .pd-beat--gen5 { padding-top: 56px; padding-bottom: 30px; }
           .pd-numeros .pd-h2--gen5 { margin-bottom: 0.9rem; }
-          .pd-numeros .pd-gen5-fila { grid-template-columns: auto 1fr auto; gap: 0 8px; padding: 8px 10px; }
-          .pd-numeros .pd-gen5-fila .g { font-size: 0.5rem; letter-spacing: 0.05em; white-space: nowrap; }
+          /* Desde el 9 nov 2026 va una sola columna (el paquete elegido), así que
+             «Generación» vuelve entero y la fila tiene aire. */
+          .pd-numeros .pd-gen5-fila { grid-template-columns: minmax(0, 1fr) auto; gap: 0 8px; padding: 11px 12px; }
+          .pd-numeros .pd-gen5-fila .g { font-size: 0.62rem; letter-spacing: 0.1em; white-space: nowrap; }
           .pd-numeros .pd-gen5-fila .op { text-align: right; }
           .pd-numeros .pd-gen5-fila--total { grid-template-columns: 1fr auto; }
           .pd-numeros .pd-gen5-fila--total .g { white-space: normal; max-width: 19ch; line-height: 1.25; }
-          .pd-numeros .pd-gen5-fila .g .pd-gen5-largo { display: none; }
-          .pd-numeros .pd-gen5-fila .g .pd-gen5-corto { display: inline; }
           .pd-numeros .pd-gen5-fila .op { font-size: 0.58rem; }
-          .pd-numeros .pd-gen5-fila .st { font-size: 0.9rem; }
+          .pd-numeros .pd-gen5-fila .st { font-size: 1.05rem; }
           .pd-numeros .pd-gen5-fila--total { padding: 7px 10px; }
           .pd-numeros .pd-gen5-fila--total .st { font-size: 1.4rem; }
           .pd-numeros .panel--gen5 { padding: 0.9rem 1rem 1rem; }
@@ -2000,7 +2027,7 @@ export default function PitchDeckPage() {
           margin-bottom: 0.25em; }
         .pd-obstaculo { font-family: var(--font-sans); font-weight: 600; text-align: center;
           font-size: clamp(1.02rem, 1.9vw, 1.4rem); line-height: 1.35;
-          color: var(--color-text-body, #C8C7C2); margin: 3.4rem auto 0; max-width: 32ch; }
+          color: var(--color-text-body, #C8C7C2); margin: 1.6rem auto 0; max-width: 32ch; }
         @media (max-width: 860px) {
           .pd-sectores { grid-template-columns: 1fr; }
           .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
@@ -2046,7 +2073,9 @@ export default function PitchDeckPage() {
           .pd-movil-arriba .pd-sector .t { font-size: 1.55rem; }
           /* 5 · la solución y las tarjetas */
           .pd-movil-arriba .pd-activo-titular { margin-top: clamp(0.5rem, 9vh, 5rem); }
-          .pd-movil-arriba .pd-obstaculo { margin-top: clamp(3rem, 24vh, 13rem); }
+          /* Pegada a la definición (Director, 9 nov 2026): con 24vh se leía como otra
+             pantalla, no como la línea que sigue. */
+          .pd-movil-arriba .pd-obstaculo { margin-top: clamp(1.2rem, 4vh, 2.2rem); }
           .pd-movil-arriba .pd-tarjetas { gap: clamp(12px, 2.8vh, 24px); }
           .pd-movil-arriba .pd-tarjetas .pd-tarjeta { padding: clamp(16px, 3vh, 26px) 16px; }
           .pd-movil-arriba .pd-flujo { --hueco: clamp(28px, 7.5vh, 64px); }
@@ -2375,6 +2404,15 @@ export default function PitchDeckPage() {
                   <div key={ac.rotulo} className="pd-flujo-paso">
                     {i > 0 && <span className={`pd-luz pd-luz--${i}`} aria-hidden="true" />}
                     <div className={`pd-tarjeta ${ac.queswa ? 'pd-tarjeta--queswa' : ''}`}>
+                      {ac.campana && (
+                        <span className="pd-campana" aria-label="Una notificación nueva">
+                          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                          </svg>
+                          <span className="pd-campana-n">1</span>
+                        </span>
+                      )}
                       <p className="pd-tarjeta-rotulo">{ac.rotulo}</p>
                       <p className="pd-tarjeta-titulo">{ac.titulo}</p>
                       <p className="pd-tarjeta-sub">{ac.sub}</p>
@@ -2580,11 +2618,13 @@ export default function PitchDeckPage() {
                 <div className="panel">
                   {/* Sin «(2×2)» (Director, 7 nov 2026): era jerga; el titular ya dice «de a dos». */}
                   <h3>Los 12 niveles</h3>
-                  {/* BARRAS A ESCALA REAL (9 nov 2026, Director: «las barras se ven
-                      corporativas, empresariales; nos alejan de los círculos»). Cada nivel
-                      es una barra del alto de su regalía: se ve sin decirlo que el 12, solo,
-                      es más grande que los once anteriores juntos. Se tocan igual que los
-                      círculos que reemplazan. */}
+                  {/* BARRAS (9 nov 2026, Director: «las barras se ven corporativas,
+                      empresariales; nos alejan de los círculos»). Se tocan igual que los
+                      círculos que reemplazan. ⚠️ NO van a escala real (Director, el mismo
+                      día): a escala, del nivel 1 al 6 no se veía nada, y parecía que ahí
+                      no pasaba nada. El alto es la regalía elevada a 0,35: cada nivel crece
+                      a la vista y la curva sigue subiendo hacia el 12. La cifra exacta la
+                      dice el número grande. */}
                   <div className="pd-barras" role="group" aria-label="Los 12 niveles">
                     {PROYECCION_12.map((n) => (
                       <button
@@ -2595,7 +2635,7 @@ export default function PitchDeckPage() {
                         aria-label={`Nivel ${n.level}`}
                       >
                         <span className="c">
-                          <span className="b" style={{ height: `${(n.income / PROYECCION_12[PROYECCION_12.length - 1].income) * 100}%` }} />
+                          <span className="b" style={{ height: `${(Math.pow(n.income / PROYECCION_12[PROYECCION_12.length - 1].income, 0.35) * 100).toFixed(2)}%` }} />
                         </span>
                         <span className="l">{n.level}</span>
                       </button>
@@ -2708,6 +2748,23 @@ export default function PitchDeckPage() {
                       la cifra va pegada a su origen, las compras, para que no se lea como lo
                       que valen los paquetes. Tocar una fila la enciende; tocar el total
                       enciende la suma. */}
+                  {/* EN EL TELÉFONO, UN PAQUETE A LA VEZ (Director, 9 nov 2026: «un paquete
+                      en cada generación… me había tomado tiempo entenderlo, es fricción»).
+                      Sale la cabecera y queda una columna, la del Visionario de entrada;
+                      Empresarial e Inicial se tocan. En el computador, las tres. */}
+                  <div className="pd-pkgs pd-gen5-paqs" role="group" aria-label="Paquete">
+                    {PAQUETES_GEN5.map((p) => (
+                      <button
+                        key={p.k}
+                        type="button"
+                        className={`pd-pkg ${gen5Paq === p.k ? 'active' : ''}`}
+                        aria-pressed={gen5Paq === p.k}
+                        onClick={() => setGen5Paq(p.k)}
+                      >
+                        {p.nombre}
+                      </button>
+                    ))}
+                  </div>
                   <div className={`pd-gen5-filas ${gen5Sumando ? 'sumando' : ''}`}>
                     <div className="pd-gen5-fila pd-gen5-fila--cab" aria-hidden="true">
                       <span className="g">Un paquete en cada generación</span>
@@ -2728,7 +2785,7 @@ export default function PitchDeckPage() {
                           <span className="pd-gen5-largo">Generación</span>
                           <span className="pd-gen5-corto">Gen</span> {i + 1}
                         </span>
-                        {PAQUETES_GEN5.map((p) => <span key={p.k} className="st">{montoCorto(GEN5_POR_GENERACION[p.k][i] * TRM)}</span>)}
+                        {PAQUETES_GEN5.map((p) => <span key={p.k} className={`st ${gen5Paq === p.k ? 'sel' : ''}`}>{montoCorto(GEN5_POR_GENERACION[p.k][i] * TRM)}</span>)}
                       </div>
                     ))}
                     <div
@@ -2741,7 +2798,7 @@ export default function PitchDeckPage() {
                     >
                       <span className="g">Su bono por esas 5 compras</span>
                       {PAQUETES_GEN5.map((p) => (
-                        <span key={p.k} className="st">{montoCorto(GEN5_POR_GENERACION[p.k].reduce((a, b) => a + b, 0) * TRM)}</span>
+                        <span key={p.k} className={`st ${gen5Paq === p.k ? 'sel' : ''}`}>{montoCorto(GEN5_POR_GENERACION[p.k].reduce((a, b) => a + b, 0) * TRM)}</span>
                       ))}
                     </div>
                   </div>

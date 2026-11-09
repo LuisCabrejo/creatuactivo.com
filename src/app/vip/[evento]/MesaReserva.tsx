@@ -368,7 +368,7 @@ export default function MesaReserva({ evento, mesa }: { evento: string; mesa: Me
         </form>
       )}
 
-      <p style={{ marginTop: '3rem', textAlign: 'center', ...etiqueta, letterSpacing: '0.2em' }}>
+      <p style={{ ...etiqueta, margin: '4.5rem 0 0', textAlign: 'center', letterSpacing: '0.2em' }}>
         <a href="/" style={{ color: TITANIO, textDecoration: 'none' }}>
           CreaTuActivo.com
         </a>

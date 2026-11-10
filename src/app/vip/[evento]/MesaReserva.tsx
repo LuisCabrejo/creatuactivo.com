@@ -4,7 +4,7 @@
  *
  * La mesa redonda de /vip/{evento}: se elige la hora, después la silla, y se deja
  * nombre y WhatsApp. Arriba de la mesa, la silla de Luis (fija, con su nombre); las
- * otras cuatro, libres o reservadas. Las sillas tomadas se refrescan cada 20 s y al
+ * otras cuatro, libres o reservadas con el primer nombre de quien la tomó. Las sillas tomadas se refrescan cada 20 s y al
  * volver a la pestaña; si dos personas tocan la misma, la ruta le responde 409 a la
  * segunda y aquí se recarga la mesa.
  */
@@ -20,6 +20,7 @@ const ELEVADO = '#15171C';
 const BORDE = 'rgba(255,255,255,0.1)';
 
 type Ocupadas = Record<string, number[]>;
+type Nombres = Record<string, Record<number, string>>;
 type Reserva = { horario: string; silla: number; nombre: string };
 
 const etiqueta: React.CSSProperties = {
@@ -45,6 +46,7 @@ const campo: React.CSSProperties = {
 
 export default function MesaReserva({ evento, mesa }: { evento: string; mesa: Mesa }) {
   const [ocupadas, setOcupadas] = useState<Ocupadas | null>(null);
+  const [nombres, setNombres] = useState<Nombres>({});
   const [errorCarga, setErrorCarga] = useState(false);
   const [horario, setHorario] = useState<string | null>(null);
   const [silla, setSilla] = useState<number | null>(null);
@@ -63,6 +65,7 @@ export default function MesaReserva({ evento, mesa }: { evento: string; mesa: Me
       if (!r.ok) throw new Error(String(r.status));
       const j = await r.json();
       setOcupadas(j.ocupadas);
+      setNombres(j.nombres || {});
       setErrorCarga(false);
     } catch {
       setErrorCarga(true);
@@ -303,6 +306,7 @@ export default function MesaReserva({ evento, mesa }: { evento: string; mesa: Me
           <MesaRedonda
             hora={horaTexto(horario)}
             tomadas={tomadas}
+            nombres={nombres[horario] || {}}
             elegida={silla}
             onElegir={(n) => {
               setSilla(n);
@@ -393,12 +397,15 @@ function Leyenda({ color, borde, texto }: { color: string; borde: string; texto:
 function MesaRedonda({
   hora,
   tomadas,
+  nombres = {},
   elegida,
   onElegir,
   soloLectura = false,
 }: {
   hora: string;
   tomadas: Set<number>;
+  /** Primer nombre de quien reservó cada silla. */
+  nombres?: Record<number, string>;
   elegida: number | null;
   onElegir?: (n: number) => void;
   soloLectura?: boolean;
@@ -451,12 +458,16 @@ function MesaRedonda({
         const trazo = suya ? ORO : tomada ? '#2A2D33' : TITANIO;
         const figura = suya ? '#0F1115' : tomada ? '#4B5058' : TITANIO;
         const tocable = !soloLectura && !tomada && !!onElegir;
+        const quien = tomada ? nombres[n] : undefined;
+        const rotulo = quien
+          ? (quien.length > 12 ? `${quien.slice(0, 11)}…` : quien).toLocaleUpperCase('es')
+          : 'RESERVADA';
         return (
           <g
             key={n}
             role={tocable ? 'button' : undefined}
             tabIndex={tocable ? 0 : undefined}
-            aria-label={tomada ? `Silla ${n}, reservada` : `Silla ${n}${suya ? ', su silla' : ', libre'}`}
+            aria-label={tomada ? `Silla ${n}, reservada${quien ? ` por ${quien}` : ''}` : `Silla ${n}${suya ? ', su silla' : ', libre'}`}
             aria-pressed={tocable ? suya : undefined}
             onClick={tocable ? () => onElegir!(n) : undefined}
             onKeyDown={
@@ -482,7 +493,7 @@ function MesaRedonda({
               fill={suya ? ORO : TITANIO}
               style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.12em' }}
             >
-              {tomada ? 'RESERVADA' : suya ? 'SU SILLA' : `SILLA ${n}`}
+              {tomada ? rotulo : suya ? 'SU SILLA' : `SILLA ${n}`}
             </text>
           </g>
         );

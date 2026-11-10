@@ -3,8 +3,9 @@
  *
  * /api/mesa — las sillas de una mesa privada (ver src/lib/mesas.ts).
  *
- * GET ?evento=villavicencio → { ocupadas: { "10:00": [1, 3], … } }. Solo números de
- *   silla: ni nombres ni teléfonos salen a la página.
+ * GET ?evento=villavicencio → { ocupadas: { "10:00": [1, 3], … }, nombres: { "10:00":
+ *   { "1": "Ana" }, … } }. Del nombre sale solo el primero (Director, 10 nov 2026: cada
+ *   silla reservada lleva el primer nombre); ni apellidos ni teléfonos salen a la página.
  * POST { evento, horario, silla, nombre, whatsapp } → reserva. La unicidad de la tabla
  *   (evento, horario, silla) reparte la silla: si otra persona la tomó un instante
  *   antes, 409. Un mismo WhatsApp reserva hasta dos sillas por evento (él y quien lo
@@ -33,6 +34,12 @@ function getSupabase() {
   return supabaseClient;
 }
 
+/** «ana maría pérez» → «Ana»: solo el primer nombre, con mayúscula inicial. */
+function primerNombre(nombre: string): string {
+  const p = (nombre || '').trim().split(/\s+/)[0] || '';
+  return p.charAt(0).toLocaleUpperCase('es') + p.slice(1).toLocaleLowerCase('es');
+}
+
 const escapar = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 
@@ -43,7 +50,7 @@ export async function GET(request: NextRequest) {
 
   const { data, error } = await getSupabase()
     .from('reservas_mesa')
-    .select('horario, silla')
+    .select('horario, silla, nombre')
     .eq('evento', mesa.id);
   if (error) {
     console.error('❌ [MESA] GET:', error.message);
@@ -51,11 +58,14 @@ export async function GET(request: NextRequest) {
   }
 
   const ocupadas: Record<string, number[]> = Object.fromEntries(mesa.horarios.map((h) => [h, []]));
-  for (const fila of (data || []) as { horario: string; silla: number }[]) {
-    ocupadas[fila.horario]?.push(fila.silla);
+  const nombres: Record<string, Record<number, string>> = Object.fromEntries(mesa.horarios.map((h) => [h, {}]));
+  for (const fila of (data || []) as { horario: string; silla: number; nombre: string }[]) {
+    if (!ocupadas[fila.horario]) continue;
+    ocupadas[fila.horario].push(fila.silla);
+    nombres[fila.horario][fila.silla] = primerNombre(fila.nombre);
   }
   return NextResponse.json(
-    { ocupadas },
+    { ocupadas, nombres },
     { headers: { 'Cache-Control': 'no-store' } }
   );
 }

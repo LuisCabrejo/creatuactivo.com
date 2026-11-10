@@ -388,6 +388,8 @@ se mete en el pelo y lava los negros de toda la toma. Con `--sin-halo` quedan la
 necesita calentarse, la temperatura no va global: calentar solo fuera del cielo con `maskedmerge` por luminancia
 (cadena en `~/Downloads/reels-equipo/1108/work/cadena-ads.sh`), porque el 4400 K global vuelve el cielo crema.
 
+⚠️ **Fuera del Mac (sesión de nube, 10 nov 2026, día 65).** Faltan cuatro cosas que no están en git: `motion/out/outro.mp4`, `captions/work/_assets/watermark.png`, `modelos/face_landmarker.task` y Montserrat Black en `~/Library/Fonts` (y en `/Users/luiscabrejo/Library/Fonts`, ruta fija en `rotulo_dia.py`). Se reconstruyen con `motion/assets/` (emblema + `creatuactivo_text.png` + `finale_boom.wav`), el modelo oficial de mediapipe y `@expo-google-fonts/montserrat` de npm; el venv con `uv` sobre Python 3.12. ⛔ **Y verifique la cola de la mezcla:** con el ffmpeg de Linux, el `loudnorm` metido en el mismo filtro que el `asplit` del paso 7 **cortó la mezcla en 30.27 s de 33.1**, y la última frase salió muda sin error. Se arregla haciendo primero el `loudnorm` de la voz a un wav y después el sidechain. Se detecta transcribiendo el final de la entrega.
+
 ⚠️ **Con ruido de fondo, el subtítulo hay que dárselo escrito: `--guion <texto.txt>`.** Se salta a
 whisper y la alineación forzada solo resuelve tiempos, así que en pantalla salen las palabras del
 guion y no las que el modelo creyó oír. El día 4 se grabó en un centro comercial y whisper escribió

@@ -622,6 +622,18 @@ La tecnología es hoy la forma más sencilla de reducir esa barrera y construir 
 
 Ya le estamos ayudando a varias familias, en Colombia y fuera del país, a empezar a construir el suyo. Si quiere saber cómo funciona, toque el botón y pregúntele a Queswa.
 
+### Día 65 · Martes 10 de noviembre — «Villavicencio»
+
+*Pendiente de aprobación del Director. Grabado sin guion, en selfie con el Redmi Note 14 Pro, en la oficina de Gano Excel en Villavicencio, con dos amigos al fondo. Montado en una sesión de nube: `pildora.py` sin LUT (Rec.709 de teléfono), `--sin-halo` (pared y techo blancos), música −22 LUFS × 1.20, retoque 0.35/0.45, rótulo «MARTES · DÍA 65» y outro corto. 40.9 s crudos → 33.0 s de cuerpo → 34.5 s de entrega, −14.2 LUFS. Entrega: `reto-dia65-historia.mp4`. ⚠️ El outro y la marca de agua se reconstruyeron con `motion/assets/` porque los canónicos viven solo en el Mac.*
+
+*El texto es el del subtítulo. Tres pasajes los resolvió el alineador forzado, comparando la puntuación de cada variante: «a **encender** su corazón» (−1, contra −10 de «descender a su», que oyó Whisper); «como a veces **lo veo**, esta vida es muy dura» (−44.9, la mejor de seis), y «**Les sigo contando**» (−59.9, contra −75.3 de «ya les estoy contando»).*
+
+Bueno, estoy por aquí muy contento, en la oficina que tenemos en Gano Excel Villavicencio, con dos amigos, compartiendo, poder ayudar a las personas a encender su corazón, a que empiecen a soñar con un mejor futuro.
+
+No solamente soñar, sino darles herramientas que hagan que sea posible la construcción de un activo, algo tan importante.
+
+Y qué bueno poder hacerlo con amigos, mientras tomamos cafecito, la pasamos bien. Genial, genial, como a veces lo veo, esta vida es muy dura. Tomando cafecito, disfrutando, pasándola bien. Les sigo contando la experiencia acá en Los Llanos.
+
 ---
 
 *Próximos días: agregar debajo, conservando el orden cronológico.*

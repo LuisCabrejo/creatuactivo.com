@@ -469,6 +469,10 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
             abrirOtro={(id) => setFicha(id)}
             cantidadDe={cantidadDe}
             enlace={() => enlaceDe(ficha)}
+            unidades={unidades}
+            pagoGano={Boolean(socio?.pagoGano)}
+            pagarAhora={() => { setFicha(null); setPasoPedido('lista'); setPedidoAbierto(true) }}
+            seguirComprando={() => setFicha(null)}
           />
         </Hoja>
       )}
@@ -584,9 +588,17 @@ function titulosFicha(id: string, p: Product): { uso: string; ritual: string } {
   return { uso: 'Cómo se prepara', ritual: 'Para sacarle el gusto' }
 }
 
-function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace }: {
+/**
+ * `pagarAhora` y `seguirComprando` (11 nov 2026, Director): quien llega por el enlace
+ * directo de un producto aterriza con la ficha abierta, y con la ficha abierta la
+ * barra del pedido se esconde. Agregaba el producto y no tenía por dónde pagar.
+ * «Pagar ahora» abre el pedido, donde elige cómo pagar (Gano Excel o el socio);
+ * sin pago a Gano, el botón dice lo que pasa: se termina el pedido por WhatsApp.
+ */
+function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace, unidades, pagoGano, pagarAhora, seguirComprando }: {
   id: string; p: Product; atiende: string | null; cantidad: number; fijar: (id: string, n: number) => void
   abrirOtro: (id: string) => void; cantidadDe: (id: string) => number; enlace: () => string | null
+  unidades: number; pagoGano: boolean; pagarAhora: () => void; seguirComprando: () => void
 }) {
   const cuerpo = useRef<HTMLDivElement>(null)
   const [copiado, setCopiado] = useState(false)
@@ -715,6 +727,14 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace 
       <div className="tienda-hoja-pie">
         <Cantidad id={id} nombre={p.name} cantidad={cantidad} fijar={fijar} grande max={p.promocion?.limite} />
         {cantidad > 0 && <p className="tienda-hoja-pie-nota">{cantidad} en su pedido · {pesos(p.price * cantidad)}</p>}
+        {unidades > 0 && (
+          <>
+            <button type="button" className="tienda-boton tienda-enviar" onClick={pagarAhora}>
+              <ShoppingBag className="h-4 w-4" /> {pagoGano ? 'Pagar ahora' : 'Terminar mi pedido'}
+            </button>
+            <button type="button" className="tienda-enlace" onClick={seguirComprando}>Seguir comprando</button>
+          </>
+        )}
       </div>
     </>
   )

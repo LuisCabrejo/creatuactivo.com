@@ -10,6 +10,15 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ---
 
+## arsenal_inicial — v6.90: `RETO_D65`, Villavicencio (11 nov 2026)
+
+El archivo del video del día 65 (martes 10 nov), aprobado por el Director el 11 nov. Se grabó sin guion, en la oficina de Gano Excel en Villavicencio. `RETO_MAS_RECIENTE` (src/lib/puerta-reto.ts) pasa del día 58 al 65; el 64 no tiene archivo.
+
+- El cuerpo define el activo con su causa (el cliente que vuelve a comprar), porque en el video la palabra va suelta.
+- ⏳ Recuperación sin medir: se escribió en una sesión de nube sin claves de Supabase ni de Voyage. Medir ya desplegado con *«lo de Villavicencio»*, *«encender el corazón»* y *«el video con los amigos tomando café»*.
+
+---
+
 ## arsenal_socio (solo tenant `dashboard`)
 
 ### v1.2 — `WAZE_01`: dos cosas, y la contraseña para la experiencia completa (31 oct 2026)

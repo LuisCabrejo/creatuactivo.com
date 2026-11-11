@@ -624,7 +624,7 @@ Ya le estamos ayudando a varias familias, en Colombia y fuera del país, a empez
 
 ### Día 65 · Martes 10 de noviembre — «Villavicencio»
 
-*Pendiente de aprobación del Director. Grabado sin guion, en selfie con el Redmi Note 14 Pro, en la oficina de Gano Excel en Villavicencio, con dos amigos al fondo. Montado en una sesión de nube: `pildora.py` sin LUT (Rec.709 de teléfono), `--sin-halo` (pared y techo blancos), música −22 LUFS × 1.20, retoque 0.35/0.45, rótulo «MARTES · DÍA 65» y outro corto. 40.9 s crudos → 33.0 s de cuerpo → 34.5 s de entrega, −14.2 LUFS. Entrega: `reto-dia65-historia.mp4`. ⚠️ El outro y la marca de agua se reconstruyeron con `motion/assets/` porque los canónicos viven solo en el Mac.*
+*Aprobado por el Director el 11 nov y publicado. Archivo para Queswa: `RETO_D65` (arsenal inicial v6.90). Grabado sin guion, en selfie con el Redmi Note 14 Pro, en la oficina de Gano Excel en Villavicencio, con dos amigos al fondo. Montado en una sesión de nube: `pildora.py` sin LUT (Rec.709 de teléfono), `--sin-halo` (pared y techo blancos), música −22 LUFS × 1.20, retoque 0.35/0.45, rótulo «MARTES · DÍA 65» y outro corto. 40.9 s crudos → 33.0 s de cuerpo → 34.5 s de entrega, −14.2 LUFS. Entrega: `reto-dia65-historia.mp4`. ⚠️ El outro y la marca de agua se reconstruyeron con `motion/assets/` porque los canónicos viven solo en el Mac.*
 
 *El texto es el del subtítulo. Tres pasajes los resolvió el alineador forzado, comparando la puntuación de cada variante: «a **encender** su corazón» (−1, contra −10 de «descender a su», que oyó Whisper); «como a veces **lo veo**, esta vida es muy dura» (−44.9, la mejor de seis), y «**Les sigo contando**» (−59.9, contra −75.3 de «ya les estoy contando»).*
 

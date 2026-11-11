@@ -790,6 +790,35 @@ export function productosDeFamilia(f: FamiliaWA): ProductoWA[] {
 }
 
 /**
+ * El enlace del socio que acompaña la imagen (11 nov 2026, Director): «las
+ * imágenes deben siempre llevar el enlace correspondiente». Cuando un socio pide
+ * una foto es para reenviarla, y una imagen reenviada sin enlace deja al cliente
+ * sin por dónde comprar —y al socio sin la venta a su nombre—. WhatsApp reenvía
+ * el pie junto con la foto, así que el enlace viaja con ella.
+ *
+ * Un producto enlaza a su ficha dentro del catálogo del socio
+ * (`/productos/{slug}/{producto}`); una línea, el portafolio o una promoción de
+ * Gano (caduca: el enlace sobreviviría a la promoción) enlazan al catálogo.
+ */
+export function enlaceDeLaFoto(slugSocio: string, p?: ProductoWA | null, base = 'https://creatuactivo.com'): string {
+  const catalogo = `${base}/productos/${slugSocio}`;
+  return p && !p.promocion ? `${catalogo}/${p.slug}` : catalogo;
+}
+
+/**
+ * El pie para el SOCIO: identificación, precio y su enlace, sin la pregunta de
+ * seguimiento. La pregunta es de la conversación con Queswa; reenviada a un
+ * cliente, «¿Le cuento qué trae y cómo se toma?» le hablaría a quien no la hizo.
+ * El enlace va justo debajo del nombre, antes de la lista, para que no quede
+ * detrás de «Leer más».
+ */
+export function pieDeFotoSocio(slugSocio: string, foto: { producto: ProductoWA } | { familia: FamiliaWA }): string {
+  if ('producto' in foto) return `${pieDeFoto(foto.producto)}\n${enlaceDeLaFoto(slugSocio, foto.producto)}`;
+  const [cabeza, ...resto] = pieDeFotoFamilia(foto.familia).split('\n');
+  return [cabeza, enlaceDeLaFoto(slugSocio), ...resto].join('\n');
+}
+
+/**
  * Pie de la foto de familia: la lista con precio, que es lo que la imagen no
  * lleva a propósito. Para el portafolio no caben 22 renglones detrás de "Leer
  * más": va el conteo por línea, y la pregunta invita a acercar una.

@@ -54,6 +54,7 @@ import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
   esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
   esAceptacionCorta, esSiConPregunta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto, PRODUCTOS_WA,
+  pieDeFotoSocio,
 } from '@/lib/wa-productos';
 import { textoCubrirCompra } from '@/lib/wa-simulador';
 import { yaLoRecibio, residenciaDeclarada, lugarExterior } from '@/lib/queswa-bitacora';
@@ -734,8 +735,12 @@ export interface FotoDictada {
  * turno se cierra con la pregunta dictada dentro del pie (enviada aparte
  * llegaba ANTES que la imagen); si además pregunta algo, el canal sigue al
  * motor con `pageContext: 'whatsapp_foto_enviada'`.
+ *
+ * `slugSocio`: quien pide es un SOCIO (11 nov 2026). La pide para reenviarla, así
+ * que el pie lleva su enlace y no la pregunta de seguimiento →
+ * `pieDeFotoSocio()` en wa-productos.ts.
  */
-export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | null {
+export function atenderFoto(mensaje: string, historial: Turno[], slugSocio?: string | null): FotoDictada | null {
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
 
   // 2.25a — la línea va ANTES que el producto: «las cápsulas» en plural es la
@@ -773,7 +778,9 @@ export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | 
     return {
       nodo: `2.25a foto de la línea ${familia}`,
       url: urlImagenFamilia(familia),
-      pie: pieDeFotoFamilia(familia, soloFoto ? FAMILIAS_WA[familia].seguimiento : undefined),
+      pie: slugSocio
+        ? pieDeFotoSocio(slugSocio, { familia })
+        : pieDeFotoFamilia(familia, soloFoto ? FAMILIAS_WA[familia].seguimiento : undefined),
       nombre: FAMILIAS_WA[familia].titulo,
       cierraTurno: soloFoto,
     };
@@ -802,7 +809,7 @@ export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | 
   return {
     nodo: `2.25b foto de ${producto.slug}`,
     url: urlImagen(producto),
-    pie: pieDeFoto(producto, seguimiento),
+    pie: slugSocio ? pieDeFotoSocio(slugSocio, { producto }) : pieDeFoto(producto, seguimiento),
     nombre: producto.nombre,
     cierraTurno: soloFoto,
   };

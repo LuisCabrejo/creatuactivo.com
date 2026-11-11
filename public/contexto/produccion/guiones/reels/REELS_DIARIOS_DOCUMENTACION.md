@@ -634,6 +634,18 @@ No solamente soñar, sino darles herramientas que hagan que sea posible la const
 
 Y qué bueno poder hacerlo con amigos, mientras tomamos cafecito, la pasamos bien. Genial, genial, como a veces lo veo, esta vida es muy dura. Tomando cafecito, disfrutando, pasándola bien. Les sigo contando la experiencia acá en Los Llanos.
 
+### Día 66 · Miércoles 11 de noviembre — «Gigantes que están ahí para hacernos ganar»
+
+*Pendiente de aprobación del Director. Grabado sin guion, en selfie con el Redmi, en una cocina en Villavicencio, con la camiseta de Gano Excel Colombia. La cámara frontal guardó la imagen en espejo y se volteó (`hflip`) para que el logo se lea. Mismo montaje que el día 65: 61.2 s crudos → 41.8 s de cuerpo → 43.3 s de entrega, −13.7 LUFS. Entrega: `reto-dia66-historia.mp4`.*
+
+*El texto es el del subtítulo. Whisper puso un «Gracias.» al final que no existe: de 58 a 61 s el audio está en el piso de ruido. Es la alucinación clásica de Whisper sobre silencio, y con ella en el guion el alineador forzaba una isla de ruido al final. En «¿Quiere tener una victoria? Tiene que…» el alineador favorece la forma de usted (−19.7 contra −23.7 de «quieres/tienes»): la s final, si la hay, no se oye.*
+
+Bueno, por aquí tomándonos nuestro primer café de la mañana. Ayer fue un día grandioso. La acogida que ha tenido nuestra solución ha sido grandiosa. Muy agradecido con Dios.
+
+Sin embargo, agradecido también por todo el contexto, porque de ayer se puede decir que, wow, qué día tan espectacular. Pero también han pasado cosas que en un momento se veían como obstáculos, que eran difíciles, pero ahora, viendo todo desde el contexto, en ocasiones tenemos que enfrentar gigantes, situaciones difíciles, pero no están ahí para hacernos caer, están ahí para hacernos ganar.
+
+¿Quiere tener una victoria? Tiene que solucionar un problema, tiene que arreglar algo, superarlo, encontrar una solución. Así que hoy vamos por un grandioso día.
+
 ---
 
 *Próximos días: agregar debajo, conservando el orden cronológico.*

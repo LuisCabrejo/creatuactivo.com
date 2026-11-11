@@ -98,11 +98,12 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // v17 (7 nov 2026, Director: «aprobado»): cada vez que la compra llega a su empresa cae un % sobre
 // usted y suena la registradora (solo el «ching»): cuatro en «la diferencia» y tres en «cómo se gana»,
 // donde cada paquete llega con una vuelta del ciclo. La -v16 queda sin uso.
+// v18 (11 nov 2026, Director): sigue al deck del 9 nov 2026 (ver docs/SERVILLETA.md). La -v17 queda sin uso.
 // El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v17.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v18.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

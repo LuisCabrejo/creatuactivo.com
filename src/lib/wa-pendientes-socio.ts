@@ -76,7 +76,7 @@ export function cuerpoPendientes(nombre: string, p: Pendiente[]): string {
 
 const LO_QUE_ABRE: Record<Pendiente, string> = {
   destino: '🏁 *Su destino:* le marco la ruta hacia la vida que quiere.',
-  gano: '🛰️ *Su contraseña de Gano:* veo cómo avanza su sistema y le cargo la compra cuando la necesite, sin entrar al back office.',
+  gano: '🛰️ *Su contraseña de Gano:* quien abre su enlace paga directo a Gano Excel desde su catálogo, y yo veo cómo avanza su sistema y le cargo la compra cuando la necesite.',
   // La línea del iPhone (9 oct 2026): Angy y Miguel tocaron [Ver qué me abre],
   // solo les faltaban las notificaciones y no las activaron. En iPhone el botón
   // abre el navegador, y ahí no se pueden activar: solo desde la app instalada.

@@ -981,6 +981,18 @@ export const TEXTO_NO_PIEZAS =
   'Lo que sí le mando ahora mismo es la imagen del portafolio, o la de cualquier línea o producto, tal cual la usa el equipo. ' +
   '¿Le mando la del portafolio?';
 
+/**
+ * La negativa, al SOCIO (11 nov 2026). La misma primera frase —el «ya se lo dije»
+ * de abajo compara el comienzo—, y lo que cambia es lo que se le ofrece: la
+ * imagen va con su enlace, y el flyer de bienestar, con el enlace impreso, ya lo
+ * genera él en queswa.app.
+ */
+export const TEXTO_NO_PIEZAS_SOCIO =
+  'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +
+  'Lo que sí le mando ahora mismo es la imagen del portafolio, o la de cualquier línea o producto, con su enlace para que quien la reciba pueda pedir. ' +
+  'Las piezas de bienestar, con su enlace impreso, las genera en queswa.app, en Compartir. ' +
+  '¿Le mando la del portafolio?';
+
 export function detectarPidePieza(texto: string): boolean {
   if (!RE_PIDE_PIEZA.test(texto || '')) return false;
   // ⚠️ «Presentación» tiene dos sentidos y solo uno es una pieza. Cuando el
@@ -1017,10 +1029,10 @@ export function detectarPidePiezaPublico(texto: string): boolean {
   return RE_PIDE_PIEZA_PUBLICO.test(texto || '');
 }
 
-export function atenderPidePieza(mensaje: string, ultimoBot = ''): RespuestaConductor | null {
+export function atenderPidePieza(mensaje: string, ultimoBot = '', socio = false): RespuestaConductor | null {
   if (detectarPidePieza(mensaje) || detectarPidePiezaPublico(mensaje)) {
     const yaDijoQueNo = ultimoBot.startsWith(TEXTO_NO_PIEZAS.slice(0, 40));
-    return { nodo: '2.49 pide una pieza publicitaria', texto: yaDijoQueNo ? TEXTO_NO_PIEZAS_OTRA_VEZ : TEXTO_NO_PIEZAS };
+    return { nodo: '2.49 pide una pieza publicitaria', texto: yaDijoQueNo ? TEXTO_NO_PIEZAS_OTRA_VEZ : socio ? TEXTO_NO_PIEZAS_SOCIO : TEXTO_NO_PIEZAS };
   }
   // La repregunta sin verbo, justo después de la negativa.
   if (ultimoBot.startsWith(TEXTO_NO_PIEZAS.slice(0, 40)) && RE_NOMBRA_PIEZA.test(mensaje || '')) {

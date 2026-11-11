@@ -813,9 +813,9 @@ export function enlaceDeLaFoto(slugSocio: string, p?: ProductoWA | null, base = 
  * detrás de «Leer más».
  */
 export function pieDeFotoSocio(slugSocio: string, foto: { producto: ProductoWA } | { familia: FamiliaWA }): string {
-  if ('producto' in foto) return `${pieDeFoto(foto.producto)}\n${enlaceDeLaFoto(slugSocio, foto.producto)}`;
+  if ('producto' in foto) return `${pieDeFoto(foto.producto)}\nPídalo aquí: ${enlaceDeLaFoto(slugSocio, foto.producto)}`;
   const [cabeza, ...resto] = pieDeFotoFamilia(foto.familia).split('\n');
-  return [cabeza, enlaceDeLaFoto(slugSocio), ...resto].join('\n');
+  return [cabeza, `Catálogo y pedidos: ${enlaceDeLaFoto(slugSocio)}`, ...resto].join('\n');
 }
 
 /**

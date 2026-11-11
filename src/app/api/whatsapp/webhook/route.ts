@@ -2321,7 +2321,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // 9 sep 2026); ofrece las imágenes aprobadas. El «sí» va por 2.25a.
     {
       const _ultimoBotPieza = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
-      const nodoPieza = atenderPidePieza(messageText, _ultimoBotPieza);
+      const nodoPieza = atenderPidePieza(messageText, _ultimoBotPieza, !!socioQueEscribe);
       if (nodoPieza?.texto) {
         await pisoDeEscritura();
         const enviado = await sendText(phoneNumber, nodoPieza.texto);

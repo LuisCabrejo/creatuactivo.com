@@ -17,7 +17,7 @@ import {
   APERTURA_PRODUCTOS_OPCIONES,
 } from '../src/lib/wa-apertura.ts';
 import { readFileSync } from 'node:fs';
-import { atenderFoto, atenderPidePieza, detectarPidePieza, detectarPidePiezaPublico, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ } from '../src/lib/queswa-conductor.ts';
+import { atenderFoto, atenderPidePieza, detectarPidePieza, detectarPidePiezaPublico, TEXTO_NO_PIEZAS, TEXTO_NO_PIEZAS_OTRA_VEZ, TEXTO_NO_PIEZAS_SOCIO } from '../src/lib/queswa-conductor.ts';
 import { familiaOfrecida, pideImagen, detectarFamilia } from '../src/lib/wa-productos.ts';
 import { detectarClaimSaludEnSalida } from '../src/lib/wa-guardarrail-salud.ts';
 
@@ -105,6 +105,25 @@ for (const t of ['cómo es eso, dame contexto', 'dame más información del nego
   es(!pideImagen(t), `NO pide imagen: «${t}»`);
 es(detectarFamilia('dame un aimgane de todos los productos') === 'portafolio', 'y la familia sigue siendo el portafolio');
 // MFernanda: un síntoma NO es una pregunta de paquete.
+console.log('\n── 3b. La foto que pide el SOCIO lleva su enlace (11 nov 2026) ──');
+{
+  const SLUG = 'luis-cabrejo';
+  const prod = atenderFoto('dame la foto del ganocafé 3 en 1', [], SLUG);
+  es(!!prod && prod.pie.endsWith(`\nPídalo aquí: https://creatuactivo.com/productos/${SLUG}/ganocafe-3-en-1`), 'un producto → la ficha en el catálogo del socio');
+  es(!!prod && !/\?/.test(prod.pie), 'sin la pregunta de seguimiento: el pie es para reenviar');
+  const fam = atenderFoto('Sí', [{ role: 'assistant', content: TEXTO_NO_PIEZAS }], SLUG);
+  es(!!fam && /portafolio/i.test(fam.url) && fam.pie.split('\n')[1] === `Catálogo y pedidos: https://creatuactivo.com/productos/${SLUG}`, 'el portafolio tras la negativa de piezas → el catálogo del socio, debajo del nombre');
+  const linea = atenderFoto('mándeme la imagen de las bebidas', [], SLUG);
+  es(!!linea && linea.pie.split('\n')[1] === `Catálogo y pedidos: https://creatuactivo.com/productos/${SLUG}`, 'una línea → el catálogo del socio, antes de la lista');
+  const prospecto = atenderFoto('dame la foto del ganocafé 3 en 1', []);
+  es(!!prospecto && !prospecto.pie.includes('/productos/') && /\?/.test(prospecto.pie), 'al prospecto, el pie de siempre');
+  const neg = atenderPidePieza('hazme un flyer del ganocafé', '', true)?.texto ?? '';
+  es(neg === TEXTO_NO_PIEZAS_SOCIO && neg.startsWith(TEXTO_NO_PIEZAS.slice(0, 40)), 'al socio, la negativa con el enlace y queswa.app');
+  es(familiaOfrecida(TEXTO_NO_PIEZAS_SOCIO) === 'portafolio' && !detectarClaimSaludEnSalida(TEXTO_NO_PIEZAS_SOCIO), 'su «sí» sigue siendo el portafolio, y pasa el filtro de salud');
+  es(atenderPidePieza('armeme el guión', TEXTO_NO_PIEZAS_SOCIO, true)?.texto === TEXTO_NO_PIEZAS_OTRA_VEZ, 'insistir tras la negativa del socio → segunda negativa');
+  console.log(`   pie del socio:\n${prod?.pie}`);
+}
+
 // La regex se lee de route.ts (14 oct 2026): la copia que vivía aquí se había
 // quedado atrás y probaba una puerta que ya no existía.
 const _lineaFreq30 = readFileSync(new URL('../src/app/api/nexus/route.ts', import.meta.url), 'utf8')

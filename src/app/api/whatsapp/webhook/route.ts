@@ -94,7 +94,7 @@ import {
   RE_OFERTA_PEDIDO_SEDE, esAceptacion,
 } from '@/lib/wa-pedido';
 import { pideImagen, detectarProducto, detectarFamilia, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA,
-  detectarNegativaDeImagen, urlImagen, pieDeFoto } from '@/lib/wa-productos';
+  detectarNegativaDeImagen, urlImagen, pieDeFoto, pieDeFotoSocio } from '@/lib/wa-productos';
 import {
   slugLibre,
   normalizarWhatsApp,
@@ -2321,7 +2321,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // 9 sep 2026); ofrece las imágenes aprobadas. El «sí» va por 2.25a.
     {
       const _ultimoBotPieza = [...historial].reverse().find((m) => m.role === 'assistant')?.content ?? '';
-      const nodoPieza = atenderPidePieza(messageText, _ultimoBotPieza);
+      const nodoPieza = atenderPidePieza(messageText, _ultimoBotPieza, !!socioQueEscribe);
       if (nodoPieza?.texto) {
         await pisoDeEscritura();
         const enviado = await sendText(phoneNumber, nodoPieza.texto);
@@ -2396,7 +2396,8 @@ async function procesarEntrante(body: any): Promise<void> {
     // 2.25a (la línea o el portafolio) y 2.25b (un producto) viven en el
     // conductor desde el 5 sep 2026: decide y arma el pie; aquí solo se envía.
     {
-      const foto = atenderFoto(messageText, historial);
+      // Al socio, la foto le llega con su enlace: la pide para reenviarla.
+      const foto = atenderFoto(messageText, historial, socioQueEscribe?.slug ?? null);
       if (foto) {
         await pisoDeEscritura();
         const enviada = await sendImage(phoneNumber, foto.url, foto.pie);
@@ -3394,7 +3395,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
         console.error(`🖼️ [WA Red] El borrador niega una imagen que existe («${niega}») — ${phoneNumber}`);
         if (prod || fam) {
           const url = prod ? urlImagen(prod) : urlImagenFamilia(fam!);
-          const pie = prod ? pieDeFoto(prod) : pieDeFotoFamilia(fam!, FAMILIAS_WA[fam!].seguimiento);
+          const slugSocio = socioQueEscribe?.slug ?? null;
+          const pie = slugSocio
+            ? pieDeFotoSocio(slugSocio, prod ? { producto: prod } : { familia: fam! })
+            : prod ? pieDeFoto(prod) : pieDeFotoFamilia(fam!, FAMILIAS_WA[fam!].seguimiento);
           const enviada = await sendImage(phoneNumber, url, pie);
           if (enviada.ok) {
             await corregirTurnoEnvenenado(supabase, waFingerprint, queswaReply, pie, `negó la imagen: ${niega}`);

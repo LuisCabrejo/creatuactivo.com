@@ -54,6 +54,7 @@ import {
   pideImagen, detectarProducto, cafeGenericoAFoto, productoDelHilo, pieDeFoto, urlImagen,
   esSoloPedidoDeImagen, seguimientoFoto, detectarFamilia, familiaOfrecida, preguntoCualLinea,
   esAceptacionCorta, esSiConPregunta, urlImagenFamilia, pieDeFotoFamilia, FAMILIAS_WA, familiaDelTexto, PRODUCTOS_WA,
+  pieDeFotoSocio,
 } from '@/lib/wa-productos';
 import { textoCubrirCompra } from '@/lib/wa-simulador';
 import { yaLoRecibio, residenciaDeclarada, lugarExterior } from '@/lib/queswa-bitacora';
@@ -734,8 +735,12 @@ export interface FotoDictada {
  * turno se cierra con la pregunta dictada dentro del pie (enviada aparte
  * llegaba ANTES que la imagen); si además pregunta algo, el canal sigue al
  * motor con `pageContext: 'whatsapp_foto_enviada'`.
+ *
+ * `slugSocio`: quien pide es un SOCIO (11 nov 2026). La pide para reenviarla, así
+ * que el pie lleva su enlace y no la pregunta de seguimiento →
+ * `pieDeFotoSocio()` en wa-productos.ts.
  */
-export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | null {
+export function atenderFoto(mensaje: string, historial: Turno[], slugSocio?: string | null): FotoDictada | null {
   const ultimoBot = [...historial].reverse().find((m) => m.role === 'assistant')?.content || '';
 
   // 2.25a — la línea va ANTES que el producto: «las cápsulas» en plural es la
@@ -773,7 +778,9 @@ export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | 
     return {
       nodo: `2.25a foto de la línea ${familia}`,
       url: urlImagenFamilia(familia),
-      pie: pieDeFotoFamilia(familia, soloFoto ? FAMILIAS_WA[familia].seguimiento : undefined),
+      pie: slugSocio
+        ? pieDeFotoSocio(slugSocio, { familia })
+        : pieDeFotoFamilia(familia, soloFoto ? FAMILIAS_WA[familia].seguimiento : undefined),
       nombre: FAMILIAS_WA[familia].titulo,
       cierraTurno: soloFoto,
     };
@@ -802,7 +809,7 @@ export function atenderFoto(mensaje: string, historial: Turno[]): FotoDictada | 
   return {
     nodo: `2.25b foto de ${producto.slug}`,
     url: urlImagen(producto),
-    pie: pieDeFoto(producto, seguimiento),
+    pie: slugSocio ? pieDeFotoSocio(slugSocio, { producto }) : pieDeFoto(producto, seguimiento),
     nombre: producto.nombre,
     cierraTurno: soloFoto,
   };
@@ -974,6 +981,18 @@ export const TEXTO_NO_PIEZAS =
   'Lo que sí le mando ahora mismo es la imagen del portafolio, o la de cualquier línea o producto, tal cual la usa el equipo. ' +
   '¿Le mando la del portafolio?';
 
+/**
+ * La negativa, al SOCIO (11 nov 2026). La misma primera frase —el «ya se lo dije»
+ * de abajo compara el comienzo—, y lo que cambia es lo que se le ofrece: la
+ * imagen va con su enlace, y el flyer de bienestar, con el enlace impreso, ya lo
+ * genera él en queswa.app.
+ */
+export const TEXTO_NO_PIEZAS_SOCIO =
+  'Eso no lo hago por aquí: una pieza para publicar sobre los productos tiene reglas propias, y las que existen ya están hechas y aprobadas. ' +
+  'Lo que sí le mando ahora mismo es la imagen del portafolio, o la de cualquier línea o producto, con su enlace para que quien la reciba pueda pedir. ' +
+  'Las piezas de bienestar, con su enlace impreso, las genera en queswa.app, en Compartir. ' +
+  '¿Le mando la del portafolio?';
+
 export function detectarPidePieza(texto: string): boolean {
   if (!RE_PIDE_PIEZA.test(texto || '')) return false;
   // ⚠️ «Presentación» tiene dos sentidos y solo uno es una pieza. Cuando el
@@ -1010,10 +1029,10 @@ export function detectarPidePiezaPublico(texto: string): boolean {
   return RE_PIDE_PIEZA_PUBLICO.test(texto || '');
 }
 
-export function atenderPidePieza(mensaje: string, ultimoBot = ''): RespuestaConductor | null {
+export function atenderPidePieza(mensaje: string, ultimoBot = '', socio = false): RespuestaConductor | null {
   if (detectarPidePieza(mensaje) || detectarPidePiezaPublico(mensaje)) {
     const yaDijoQueNo = ultimoBot.startsWith(TEXTO_NO_PIEZAS.slice(0, 40));
-    return { nodo: '2.49 pide una pieza publicitaria', texto: yaDijoQueNo ? TEXTO_NO_PIEZAS_OTRA_VEZ : TEXTO_NO_PIEZAS };
+    return { nodo: '2.49 pide una pieza publicitaria', texto: yaDijoQueNo ? TEXTO_NO_PIEZAS_OTRA_VEZ : socio ? TEXTO_NO_PIEZAS_SOCIO : TEXTO_NO_PIEZAS };
   }
   // La repregunta sin verbo, justo después de la negativa.
   if (ultimoBot.startsWith(TEXTO_NO_PIEZAS.slice(0, 40)) && RE_NOMBRA_PIEZA.test(mensaje || '')) {

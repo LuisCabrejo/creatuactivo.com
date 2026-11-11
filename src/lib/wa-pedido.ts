@@ -31,6 +31,7 @@
 import { PRODUCTOS_WA, detectarProducto, productoDelHilo, type ProductoWA } from '@/lib/wa-productos';
 import { sendTemplate, sendCtaUrl, sendText, sendReplyButtons } from '@/lib/wa-channel';
 import { enVentanaPorTelefono } from '@/lib/wa-ventana';
+import { enlaceAjustes } from '@/lib/wa-destino-socio';
 import { avisarPorCorreo } from '@/lib/wa-radicacion';
 import { enlaceCatalogo } from '@/lib/wa-onboarding';
 import { normalizarDuro } from '@/lib/texto-normalizar';
@@ -762,6 +763,7 @@ export async function avisarPedido(
     try {
       const r = await avisar(socio.whatsapp, socio.nombre?.split(/\s+/)[0] || 'Socio');
       console.log(`📨 [Pedido WA] Aviso al socio ${socio.nombre}: ${r.ok ? 'enviado' : r.error}`);
+      if (r.ok && supabase) await invitarPagoDirecto(supabase, socio);
     } catch (err) {
       console.error('❌ [Pedido WA] No se pudo avisar al socio:', err);
     }
@@ -772,6 +774,32 @@ export async function avisarPedido(
     console.log(`📨 [Pedido WA] Aviso al equipo: ${r.ok ? 'enviado' : r.error}`);
   } catch (err) {
     console.error('❌ [Pedido WA] No se pudo avisar al equipo:', err);
+  }
+}
+
+/**
+ * La invitación a activar el pago directo (11 nov 2026, Director). El socio comparte
+ * el enlace de un producto en sus historias; sin su contraseña de Gano guardada,
+ * quien lo abre no puede pagar en la página y el pedido le llega a él para cobrarlo
+ * a mano. Debajo del aviso del pedido va el botón a sus Ajustes, en la sección de
+ * Gano. Solo dentro de la ventana de 24 h: fuera haría falta una plantilla, y no
+ * se somete una para esto. Nunca al equipo ni al cliente.
+ */
+export const TEXTO_INVITAR_PAGO_DIRECTO =
+  'Este cliente no pudo pagar en línea: para que quien abre su enlace pague directo a Gano Excel, por PSE o en efectivo, guarde su contraseña de Gano. Toma un minuto.';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function invitarPagoDirecto(supabase: any, socio: SocioPedido): Promise<void> {
+  try {
+    if (!socio.whatsapp || !socio.constructorId) return;
+    if (await socioTienePagoGano(supabase, socio.constructorId)) return;
+    if (!(await enVentanaPorTelefono(supabase, String(socio.whatsapp).replace(/\D/g, '')).catch(() => false))) return;
+    const url = await enlaceAjustes(socio.constructorId, 'ajustes-gano');
+    if (!url) return;
+    const r = await sendCtaUrl(socio.whatsapp, TEXTO_INVITAR_PAGO_DIRECTO, 'Activar pago directo', url);
+    console.log(`📨 [Pedido WA] Invitación al pago directo a ${socio.nombre}: ${r.ok ? 'enviada' : r.error}`);
+  } catch (err) {
+    console.warn('⚠️ [Pedido WA] No salió la invitación al pago directo:', err);
   }
 }
 

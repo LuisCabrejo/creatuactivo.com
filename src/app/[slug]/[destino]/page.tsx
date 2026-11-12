@@ -15,12 +15,27 @@ import { OG_PRESENTACION } from '@/app/servilleta/og'
 import { conversaPorWhatsApp, dispositivoDe, esRobot, sistemaDe } from '@/lib/dispositivo'
 import { esHostLocal } from '@/lib/entorno-local'
 import AbrirQueswaEnWhatsApp from '@/components/AbrirQueswaEnWhatsApp'
+import VideoComoFuncionaPage from '@/components/VideoComoFuncionaPage'
+
+// El video «Cómo funciona», directo desde un enlace (12 nov 2026, Director): una
+// página con el video y nada más, para el pie de una publicación. «funciona» es
+// el nombre corto, para escribirlo a mano donde el enlace no se puede tocar.
+// ⚠️ No confundir con «como-funciona», que no muestra el video: abre a Queswa
+// diciendo que la persona ya lo vio.
+const DESTINOS_VER_COMO_FUNCIONA = ['ver-como-funciona', 'funciona']
+const esVerComoFunciona = (destino: string) => DESTINOS_VER_COMO_FUNCIONA.includes(destino)
+const OG_VER_COMO_FUNCIONA = {
+  title: 'Cómo funciona',
+  description: OG_PRESENTACION.description,
+  image: 'https://creatuactivo.com/videos/queswa/como-funciona-poster.jpg',
+}
 
 // La presentación 1-a-1, que desde el 10 oct 2026 vive en /servilleta (la
 // presentación ÚNICA). Todos sus nombres cortos —los vigentes y los que ya
 // circulan— comparten la tarjeta del prospecto (OG_PRESENTACION, con la url del
 // slug) y el `?pantalla=`. «12-niveles» y «reto» abren en la pantalla 9.
-const DESTINOS_PRESENTACION = ['presentacion', 'pitch-deck', 'deck', 'servilleta', '12-niveles', 'reto']
+// «video» (12 nov 2026) abre la presentación con su video ya en ventana.
+const DESTINOS_PRESENTACION = ['presentacion', 'pitch-deck', 'deck', 'servilleta', '12-niveles', 'reto', 'video']
 const esPresentacion = (destino: string) => DESTINOS_PRESENTACION.includes(destino)
 
 const supabase = createClient(
@@ -60,6 +75,11 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'presentacion':  (id) => `/servilleta?ref=${id}`,
   'pitch-deck':    (id) => `/servilleta?ref=${id}`,
   'deck':          (id) => `/servilleta?ref=${id}`,
+  // El video de la presentación, directo (12 nov 2026, Director): para el pie de
+  // una publicación que dice «le dejo un video de cuatro minutos». Abre /servilleta
+  // con la ventana del video encima; la persona toca una vez y rueda con voz.
+  // ⚠️ No es «video-plan»: ese es el enlace viejo, al video de seis minutos.
+  'video':         (id) => `/servilleta?ref=${id}&video=1`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {
@@ -180,6 +200,12 @@ export default async function DestinoRoute({
         }}
       />
     )
+  }
+
+  // ── Caso video «Cómo funciona»: RENDER de la página con el video ──
+  if (esVerComoFunciona(destino)) {
+    const socio = await resolverSlug(slug, destino)
+    return <VideoComoFuncionaPage slug={slug} socio={socio} />
   }
 
   // ── Caso Queswa: enlace amigable → WhatsApp con Queswa (redirect externo) ──
@@ -399,6 +425,26 @@ export async function generateMetadata({
     }
   }
 
+  // El video «Cómo funciona»: su tarjeta es la portada del video, con la url del slug.
+  if (esVerComoFunciona(destino)) {
+    const url = `https://creatuactivo.com/${slug}/ver-como-funciona`
+    return {
+      title: OG_VER_COMO_FUNCIONA.title, // el layout raíz agrega « | CreaTuActivo»
+      description: OG_VER_COMO_FUNCIONA.description,
+      robots: { index: false },
+      alternates: { canonical: url },
+      openGraph: {
+        type: 'video.other',
+        locale: 'es_CO',
+        title: OG_VER_COMO_FUNCIONA.title,
+        description: OG_VER_COMO_FUNCIONA.description,
+        url,
+        siteName: 'CreaTuActivo.com',
+        images: [{ url: OG_VER_COMO_FUNCIONA.image, width: 720, height: 1280, alt: OG_VER_COMO_FUNCIONA.title }],
+      },
+    }
+  }
+
   // Tarjeta propia para el enlace de Queswa. La imagen vive en /og/queswa
   // (route handler propio: ver el porqué en ese archivo).
   if (destino === 'queswa' || destino === 'acceso' || destino === 'como-funciona' || destino === 'estrategia' || destino === 'como-entra-el-dinero' || destino === 'que-debo-hacer-yo') {
@@ -426,7 +472,8 @@ export async function generateMetadata({
   // es lo que Facebook publica. Ver el porqué en el componente, arriba. Un enlace
   // viejo (/{slug}/pitch-deck) publica ya la url con el nombre vigente.
   if (esPresentacion(destino)) {
-    const url = `https://creatuactivo.com/${slug}/presentacion`
+    // «video» publica su propia url: quien toca la publicación debe llegar al video.
+    const url = `https://creatuactivo.com/${slug}/${destino === 'video' ? 'video' : 'presentacion'}`
     return {
       title: 'Presentación', // el layout raíz agrega « | CreaTuActivo» (template)
       description: OG_PRESENTACION.description,

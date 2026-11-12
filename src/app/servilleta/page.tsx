@@ -788,6 +788,31 @@ export default function PitchDeckPage() {
     setVideoPresentacion(false);
     irA(TOTAL_SLIDES);
   };
+  // EL VIDEO DIRECTO DESDE UN ENLACE (12 nov 2026, Director): `?video=1` —y el
+  // enlace corto `/{slug}/video`— abre esta misma ventana al cargar, para quien
+  // llega de una publicación a «ver el video». El navegador no deja arrancar con
+  // voz un video que la persona no ha tocado, así que la ventana espera con un
+  // solo botón encima; si el navegador sí lo deja arrancar (computador con
+  // permiso), el botón se quita solo. Es la misma ventana del botón de la
+  // pantalla 1: la medición y el salto a la última pantalla no cambian.
+  const [videoEsperaToque, setVideoEsperaToque] = useState(false);
+  const videoPresentacionRef = useRef<HTMLVideoElement | null>(null);
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    if (q.get('video') !== '1' || q.get('kiosk') === '1') return;
+    setVideoEsperaToque(true);
+    setVideoPresentacion(true);
+  }, []);
+  useEffect(() => {
+    if (videoPresentacion && videoEsperaToque) {
+      videoPresentacionRef.current?.play().catch(() => { /* espera el toque */ });
+    }
+  }, [videoPresentacion, videoEsperaToque]);
+  // Al cerrar la ventana, el botón de la pantalla 1 vuelve a arrancar con voz.
+  useEffect(() => {
+    if (!videoPresentacion) return;
+    return () => setVideoEsperaToque(false);
+  }, [videoPresentacion]);
   // HASTA DÓNDE SE VE EL VIDEO (2 nov 2026, fase 2 de la auditoría visual): el segundo
   // más lejano y la versión, para comparar la retención de una versión con la de la
   // siguiente. Se reporta al empezar, al cruzar el 25, 50, 75 y 95 %, al cerrar y al
@@ -1682,6 +1707,17 @@ export default function PitchDeckPage() {
         .pd-modal--video { width: min(92vw, calc((100dvh - 110px) * 0.5625)); max-height: none; }
         .pd-modal--video video { width: 100%; aspect-ratio: 9 / 16; display: block;
           background: #0F1115; border: 1px solid rgba(255,255,255,0.1); }
+        /* Quien llega por el enlace directo (?video=1) ve un solo botón sobre la
+           ventana: el navegador no arranca con voz sin un toque. */
+        .pd-video-toque { position: absolute; inset: 0; z-index: 2; display: flex;
+          flex-direction: column; align-items: center; justify-content: center; gap: 0.7rem;
+          background: rgba(15,17,21,0.72); border: none; cursor: pointer;
+          color: var(--color-brand); font-family: var(--font-mono);
+          font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase; }
+        .pd-video-toque-icono { display: flex; align-items: center; justify-content: center;
+          width: 84px; height: 84px; border-radius: 50%; border: 1px solid var(--color-brand);
+          font-size: 1.8rem; padding-left: 6px; }
+        .pd-video-toque-sub { color: var(--pd-muted); font-size: 0.7rem; letter-spacing: 0.2em; }
         /* El botón de la presentación en video, bajo el kicker del credo. */
         .pd-credo .pd-ver-video { display: inline-block; margin-top: 2.2rem; }
         /* Para quien la ve solo en el teléfono (6 nov 2026): el mismo botón, a lo ancho,
@@ -2965,11 +3001,25 @@ export default function PitchDeckPage() {
               >
                 ×
               </button>
+              {videoEsperaToque && (
+                <button
+                  type="button"
+                  className="pd-video-toque"
+                  onClick={() => { videoPresentacionRef.current?.play().catch(() => { /* queda el botón */ }); }}
+                >
+                  <span className="pd-video-toque-icono" aria-hidden="true">▶</span>
+                  VER EL VIDEO
+                  <span className="pd-video-toque-sub">4 minutos</span>
+                </button>
+              )}
               <video
+                ref={videoPresentacionRef}
                 src={VIDEO_PLAN_SERVILLETA}
-                autoPlay
-                controls
+                autoPlay={!videoEsperaToque}
+                preload="metadata"
+                controls={!videoEsperaToque}
                 playsInline
+                onPlay={() => setVideoEsperaToque(false)}
                 onTimeUpdate={(e) => {
                   const v = e.currentTarget;
                   if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona();

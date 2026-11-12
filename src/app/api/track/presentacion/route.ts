@@ -17,7 +17,7 @@
  *   dispositivo_del_socio  bool    escribió un nombre en la demo de la última
  *                                  pantalla: es el socio presentando en vivo,
  *                                  y el Dashboard deja de avisar por esa ficha
- *   presentacion_video     {v, seg, dur}  la versión del video de la pantalla 1 y el
+ *   presentacion_video     {v, seg, dur, enlace?}  la versión del video de la pantalla 1 y el
  *                                  segundo más lejano que vio (2 nov 2026). Sin aviso:
  *                                  lo lee scripts/medir-video-presentacion.mjs
  *   presentacion_paso      {pantalla, beat}  el paso más lejano, beat incluido (6 nov
@@ -68,9 +68,14 @@ export async function POST(request: NextRequest) {
     if (video && typeof video.v === 'string' && /^v\d{1,3}$/.test(video.v)
         && Number.isInteger(video.seg) && video.seg >= 0 && video.seg <= 3600
         && Number.isInteger(video.dur) && video.dur > 0 && video.dur <= 3600) {
-      const previo = di.presentacion_video as { v?: string; seg?: number } | undefined
-      if (!previo || previo.v !== video.v || video.seg > (previo.seg ?? -1)) {
-        data.presentacion_video = { v: video.v, seg: Math.min(video.seg, video.dur), dur: video.dur }
+      const previo = di.presentacion_video as { v?: string; seg?: number; enlace?: boolean } | undefined
+      // `enlace` (12 nov 2026): la persona llegó al video por el enlace directo
+      // (/{slug}/video → ?video=1), no por el botón de la pantalla 1. Una vez
+      // marcado se conserva dentro de la misma versión.
+      const enlace = video.enlace === true || (previo?.v === video.v && previo?.enlace === true)
+      if (!previo || previo.v !== video.v || video.seg > (previo.seg ?? -1) || (enlace && previo?.enlace !== true)) {
+        const seg = previo?.v === video.v ? Math.max(video.seg, previo?.seg ?? 0) : video.seg
+        data.presentacion_video = { v: video.v, seg: Math.min(seg, video.dur), dur: video.dur, ...(enlace ? { enlace: true } : {}) }
       }
     }
     // El paso más lejano (6 nov 2026), sin retroceder: una pantalla posterior gana

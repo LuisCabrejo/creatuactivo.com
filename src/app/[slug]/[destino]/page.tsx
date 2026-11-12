@@ -367,6 +367,37 @@ export default async function DestinoRoute({
     redirect(`/?ref=${record.constructor_id}`)
   }
 
+  // 📈 Cada apertura de /{slug}/video queda registrada (12 nov 2026, Director): es
+  // el enlace que va en el pie de una publicación, y sin esto su tráfico se
+  // confundía con el de la presentación. Misma fila que la del enlace de Queswa
+  // —slug, ruta, dispositivo, cookie del navegador—, con destino 'web'. Los
+  // robots de vista previa y de rastreo no se cuentan, ni las pruebas en
+  // localhost. Si falla, se redirige igual: medir no puede costar una persona.
+  // Se lee con `node scripts/medir-enlace-video.mjs`.
+  if (destino === 'video') {
+    const cabeceras = headers()
+    const agente = cabeceras.get('user-agent')
+    const local = esHostLocal((cabeceras.get('host') || '').split(':')[0]) && process.env.PERMITIR_TRACKING_LOCAL !== '1'
+    if (!esRobot(agente) && !esScraperDePreview() && !local) {
+      const visitante = cabeceras.get('x-cta-visitante')
+      try {
+        const { error } = await supabase.from('page_visits').insert({
+          session_id: crypto.randomUUID(),
+          mentor_ref_id: slug,
+          page_entry: `/${slug}/video`,
+          dispositivo: dispositivoDe(agente, cabeceras.get('sec-ch-ua-mobile')),
+          sistema: sistemaDe(agente),
+          destino: 'web',
+          origen: 'enlace',
+          visitante: visitante && /^ck_[a-z0-9]{6,12}$/.test(visitante) ? visitante : null,
+        })
+        if (error) console.warn('⚠️ [Enlace video] No se registró la apertura:', error.message)
+      } catch (e) {
+        console.warn('⚠️ [Enlace video] No se registró la apertura:', e)
+      }
+    }
+  }
+
   // La pantalla de la presentación viaja con el enlace (2 oct 2026): Queswa le da
   // al socio `/{slug}/presentacion?pantalla=8`, la de los números (era la 9 hasta el 18 oct 2026), para estudiarla.
   const pantalla = esPresentacion(destino) && typeof searchParams?.pantalla === 'string'

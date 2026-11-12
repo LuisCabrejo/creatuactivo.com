@@ -56,7 +56,9 @@ Medidos con la transcripción palabra por palabra; antes de cortar se afinan con
 
 ## El enlace
 
-El video de cuatro minutos es la presentación en video (`VIDEO_PLAN_SERVILLETA`, 3:55), la que rueda en la pantalla 1 de `/servilleta`. Para este video se creó el enlace directo **`creatuactivo.com/{slug}/video`** (12 nov 2026): abre la presentación con la ventana del video encima y un solo botón, «Ver el video · 4 minutos». Mientras ese cambio no esté en `main`, sirve `creatuactivo.com/{slug}/presentacion`, donde el botón del video es lo primero que se ve en el celular. ⚠️ `/{slug}/video-plan` no sirve (lleva al video anterior, de seis minutos), ni `/{slug}/como-funciona` (abre WhatsApp diciendo que la persona ya vio un video que no ha visto).
+El Director pidió que el enlace lleve al video **«Cómo funciona»** (1:03), no a la presentación. Para eso se creó, el 12 nov 2026, **`creatuactivo.com/{slug}/funciona`** (nombre largo: `/{slug}/ver-como-funciona`): una página con el video y nada más, y debajo «Hablar con Queswa». ⚠️ El guion dice *«un video de cuatro minutos»* y este dura un minuto: si se quiere que coincida, el de cuatro minutos es la presentación en video, en `creatuactivo.com/{slug}/video` (creado el mismo día). Los dos enlaces existen solo desde que ese cambio llega a `main`.
+
+No sirven para esto `/{slug}/como-funciona` (no muestra el video: abre a Queswa diciendo que la persona ya lo vio) ni `/{slug}/video-plan` (el video anterior, de seis minutos).
 
 ## Lo que Queswa tiene que poder responder
 

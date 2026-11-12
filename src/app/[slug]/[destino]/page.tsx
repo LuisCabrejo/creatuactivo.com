@@ -20,7 +20,8 @@ import AbrirQueswaEnWhatsApp from '@/components/AbrirQueswaEnWhatsApp'
 // presentación ÚNICA). Todos sus nombres cortos —los vigentes y los que ya
 // circulan— comparten la tarjeta del prospecto (OG_PRESENTACION, con la url del
 // slug) y el `?pantalla=`. «12-niveles» y «reto» abren en la pantalla 9.
-const DESTINOS_PRESENTACION = ['presentacion', 'pitch-deck', 'deck', 'servilleta', '12-niveles', 'reto']
+// «video» (12 nov 2026) abre la presentación con su video ya en ventana.
+const DESTINOS_PRESENTACION = ['presentacion', 'pitch-deck', 'deck', 'servilleta', '12-niveles', 'reto', 'video']
 const esPresentacion = (destino: string) => DESTINOS_PRESENTACION.includes(destino)
 
 const supabase = createClient(
@@ -60,6 +61,11 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   'presentacion':  (id) => `/servilleta?ref=${id}`,
   'pitch-deck':    (id) => `/servilleta?ref=${id}`,
   'deck':          (id) => `/servilleta?ref=${id}`,
+  // El video de la presentación, directo (12 nov 2026, Director): para el pie de
+  // una publicación que dice «le dejo un video de cuatro minutos». Abre /servilleta
+  // con la ventana del video encima; la persona toca una vez y rueda con voz.
+  // ⚠️ No es «video-plan»: ese es el enlace viejo, al video de seis minutos.
+  'video':         (id) => `/servilleta?ref=${id}&video=1`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {

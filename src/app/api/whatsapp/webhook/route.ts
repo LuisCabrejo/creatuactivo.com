@@ -156,6 +156,7 @@ import {
   detectarPromesaDeAviso, avisarPromesa, extraerHuellaWeb, limpiarHuellaWeb, atarHuellaWeb, extraerCookieWeb, limpiarCookieWeb, atarCookieWeb, pushAlDashboard,
 } from '@/lib/wa-avisos-contexto';
 import { nombrePais, paisDeContactoWA } from '@/lib/paises';
+import { promocionesVigentesIds } from '@/lib/promociones-gano';
 import { gestoAfirma, preguntaFinalSiNo, ESPERA_GESTO_S, VIGENCIA_PREGUNTA_H } from '@/lib/wa-gestos';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
@@ -409,6 +410,9 @@ function bsuidDelWamid(wamid?: string): string | undefined {
 
 async function procesarEntrante(body: any): Promise<void> {
   try {
+    // La vigencia de las promociones de Gano, antes de leer el mensaje (13 nov 2026):
+    // el detector y el lector de pedidos la consultan sin esperar. Nunca lanza; 5 min de caché.
+    await promocionesVigentesIds();
 
     const value    = body?.entry?.[0]?.changes?.[0]?.value;
     const messages = value?.messages;

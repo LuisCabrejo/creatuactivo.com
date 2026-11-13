@@ -27,7 +27,7 @@
  */
 
 import { normalizarDuro } from '@/lib/texto-normalizar';
-import { PROMOCIONES_GANO, contenidoLegible, unidadesDe } from '@/lib/promociones-gano';
+import { PROMOCIONES_GANO, contenidoLegible, unidadesDe, promocionVigenteAhora } from '@/lib/promociones-gano';
 
 export interface ProductoWA {
   slug: string
@@ -406,6 +406,9 @@ export function pideImagen(texto: string): boolean {
  * pregunta de categoría, y ahí la respuesta correcta es la tabla, no una foto
  * arbitraria de las dos.
  */
+/** Una promoción que Gano ya quitó de su catálogo no se reconoce ni se pide (13 nov 2026). */
+export const promocionCaducada = (p: ProductoWA): boolean => Boolean(p.promocion) && !promocionVigenteAhora(p.promocion!.inventoryId);
+
 export function detectarProducto(texto: string): ProductoWA | null {
   const t = normalizar(texto);
   const encontrados = new Set<ProductoWA>();
@@ -422,6 +425,7 @@ export function detectarProducto(texto: string): ProductoWA | null {
   // necesita, porque lo específico es la CLAVE, no el nombre del producto.
   const claveQueCoincidio = new Map<ProductoWA, string>();
   for (const p of PRODUCTOS_WA) {
+    if (promocionCaducada(p)) continue;
     const claves = [normalizar(p.nombre), ...p.alias.map(normalizar)];
     // La más larga de las que coinciden: "luvoco fuerte" le gana a "luvoco".
     const coincide = claves.filter((k) => k.length >= 4 && coincideConFrontera(t, k)).sort((a, b) => b.length - a.length)[0];

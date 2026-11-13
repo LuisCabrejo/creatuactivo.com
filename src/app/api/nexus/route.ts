@@ -94,7 +94,7 @@ import { videoQuePide, type VideoIntencion } from '@/lib/queswa-videos-intencion
 import { VIDEOS_QUESWA, videoDeUrl, videoDeCandado, separarVozYPie, textoWebDelVideo, filaDelVideo, type VideoQueswa } from '@/lib/queswa-videos';
 import { expandirVideosDelHistorial, videoDeMaestra, atenderVideoPorIntencion } from '@/lib/queswa-videos-web';
 import { detectarIntencionCompra } from '@/lib/wa-pedido';
-import { promocionesVigentes, bloquePromocionesParaPrompt } from '@/lib/promociones-gano';
+import { promocionesVigentes, promocionesVigentesIds, bloquePromocionesParaPrompt } from '@/lib/promociones-gano';
 import { PRODUCTOS_WA as PRODUCTOS_PRECIO } from '@/lib/wa-productos';
 import { contarTokens, consumoDe, esPeticionDePrueba, clienteParaPruebas, type Consumo } from '@/lib/consumo-anthropic';
 // ↑ Re-activado 19 jun 2026 (decisión Director Cabrejo: tener AMBAS notificaciones).
@@ -4650,6 +4650,9 @@ export async function POST(req: Request) {
   // guardarraíles de salida— lo hace ahora también para la web. Las puertas leen
   // `canalDictado`, no el tenant. `ecommerce` y `marca_personal` siguen aparte.
   const canalDictado = tenantId === 'whatsapp' || tenantId === 'creatuactivo_marketing';
+  // La vigencia de las promociones de Gano, antes de leer el mensaje (13 nov 2026):
+  // el detector de productos y el lector de pedidos la consultan sin esperar.
+  if (canalDictado) await promocionesVigentesIds();
   // Lo que en WhatsApp hace el webhook antes de llamar aquí (salud de entrada,
   // radicación, filtros de salida), en la web lo hace este mismo handler.
   const canalWeb = tenantId === 'creatuactivo_marketing';

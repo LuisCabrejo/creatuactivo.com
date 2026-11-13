@@ -28,7 +28,7 @@
  *   —atienden a quien ya tiene código— y la puerta: su código lo abre el socio.
  */
 
-import { PRODUCTOS_WA, detectarProducto, productoDelHilo, type ProductoWA } from '@/lib/wa-productos';
+import { PRODUCTOS_WA, detectarProducto, productoDelHilo, promocionCaducada, type ProductoWA } from '@/lib/wa-productos';
 import { sendTemplate, sendCtaUrl, sendText, sendReplyButtons } from '@/lib/wa-channel';
 import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 import { enlaceAjustes } from '@/lib/wa-destino-socio';
@@ -155,6 +155,7 @@ export function extraerLineasPedido(texto: string): LineaPedido[] {
   const hallados: { p: ProductoWA; pos: number; largo: number }[] = [];
 
   for (const p of PRODUCTOS_WA) {
+    if (promocionCaducada(p)) continue; // Gano ya la quitó: no se toma el pedido
     const claves = [norm(p.nombre), ...p.alias.map(norm)].filter((k) => k.length >= 4);
     let mejor: { pos: number; largo: number } | null = null;
     for (const k of claves) {

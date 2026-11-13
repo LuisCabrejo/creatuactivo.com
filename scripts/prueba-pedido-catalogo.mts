@@ -17,6 +17,8 @@
  */
 
 import { createRequire } from 'node:module'
+import { PROMOCIONES_GANO, fijarPromocionesVigentes } from '../src/lib/promociones-gano.ts'
+import { detectarProducto } from '../src/lib/wa-productos.ts'
 import { productData, mensajePedido } from '../src/app/productos/catalogo-datos.ts'
 import {
   detectarIntencionCompra, extraerLineasPedido, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO,
@@ -32,6 +34,18 @@ const { extraerCookieWeb, limpiarCookieWeb } = require('../src/lib/wa-avisos-con
 
 let fallas = 0
 const falla = (m: string) => { fallas++; console.log(`  ❌ ${m}`) }
+
+// 0. Una promoción que Gano ya quitó no se reconoce ni se pide (13 nov 2026).
+//    Sin vigencia leída, ninguna está vigente; el resto del arnés corre con todas.
+fijarPromocionesVigentes([])
+for (const pr of PROMOCIONES_GANO) {
+  for (const msg of ['quiero pedir la promoción', 'quiero la promo', `quiero pedir el ${pr.inventoryId}`, mensajePedido([{ id: pr.slug, cantidad: 1 }], { nombre: 'Luis Cabrejo', slug: 'luis-cabrejo', constructorId: 'luis-cabrejo-1288' })]) {
+    if (extraerLineasPedido(msg).some((l) => l.producto.promocion)) falla(`promoción caducada: «${msg.slice(0, 40)}» tomó el pedido`)
+    if (detectarProducto(msg)?.promocion) falla(`promoción caducada: «${msg.slice(0, 40)}» la detectó`)
+  }
+}
+fijarPromocionesVigentes(PROMOCIONES_GANO.map((p) => p.inventoryId))
+if (!extraerLineasPedido('quiero pedir la promoción').some((l) => l.producto.promocion)) falla('promoción vigente: no tomó el pedido')
 
 // El candidato de patrocinador, igual que resolverPatrocinador (webhook/route.ts)
 const candidatos = (t: string) => t.toLowerCase().match(/[a-záéíóúñ]+(?:-[a-záéíóúñ]+)+(?:-\d{4})?/g) ?? []

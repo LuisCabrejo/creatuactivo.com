@@ -87,7 +87,11 @@ const pesos = (n: number) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3}
  * del catálogo (lo calcula quien llama, que tiene la tabla de precios).
  */
 export function bloquePromocionesParaPrompt(vigentes: PromocionGano[], porSeparado: (p: PromocionGano) => number | null): string | null {
-  if (!vigentes.length) return null
+  // Sin ninguna vigente también se dice (13 nov 2026): Gano retiró la 80094 y, sin
+  // este dato, el modelo componía la respuesta a «¿tienen promociones?» por su cuenta.
+  if (!vigentes.length) return `<promociones_gano_vigentes>
+Gano Excel Colombia no tiene hoy ninguna promoción en su catálogo. Si preguntan por promociones, ofertas o combos, dígalo así y siga con los productos y sus precios de siempre. No invente una promoción, un descuento ni una fecha en que vuelva.
+</promociones_gano_vigentes>`
   const lineas = vigentes.map((p) => {
     const sep = porSeparado(p)
     return `• Código ${p.inventoryId} · ${p.nombre}. Trae ${contenidoLegible(p)}: ${unidadesDe(p)} productos.
@@ -105,6 +109,22 @@ Gano no publica hasta cuándo va: no lo invente. Nombre los productos y el preci
 
 // ── Vigencia (solo servidor) ──────────────────────────────────────────────────
 let cache: { at: number; ids: number[] } | null = null
+
+// La última vigencia leída, para quien no puede esperar una consulta (13 nov 2026):
+// el detector de productos y el lector de pedidos de WhatsApp son síncronos, y
+// tomaban el pedido de una promoción que Gano ya había quitado (la 80094). Hasta
+// que el catálogo de Gano se lea en este proceso, ninguna promoción se da por
+// vigente —igual que la vitrina, que no pinta la línea «Promoción» hasta saberlo—.
+// El webhook y el motor la refrescan al empezar cada turno (`promocionesVigentesIds`).
+let vigentesAhora = new Set<number>()
+export function promocionVigenteAhora(inventoryId: number): boolean {
+  return vigentesAhora.has(inventoryId)
+}
+/** Para las pruebas sin red: fija la vigencia a mano. */
+export function fijarPromocionesVigentes(ids: number[]): void {
+  vigentesAhora = new Set(ids)
+  cache = { at: Date.now(), ids }
+}
 const TTL_MS = 5 * 60 * 1000
 
 /** Los códigos de las promociones registradas que están hoy en el catálogo de Gano. Nunca lanza. */
@@ -116,12 +136,14 @@ export async function promocionesVigentesIds(): Promise<number[]> {
     if (!key || !url) return []
     const r = await fetch(`${url}/rest/v1/gano_catalogo?id=eq.colombia&select=productos`, {
       headers: { apikey: key, Authorization: `Bearer ${key}` }, cache: 'no-store',
+      signal: AbortSignal.timeout(3000),
     })
     if (!r.ok) throw new Error(`HTTP ${r.status}`)
     const filas = (await r.json()) as { productos?: { inventoryId?: number }[] }[]
     const enCatalogo = new Set((filas[0]?.productos ?? []).map((p) => Number(p.inventoryId)))
     const ids = PROMOCIONES_GANO.filter((p) => enCatalogo.has(p.inventoryId)).map((p) => p.inventoryId)
     cache = { at: Date.now(), ids }
+    vigentesAhora = new Set(ids)
     return ids
   } catch (e) {
     console.warn('⚠️ [Promociones] No se pudo leer el catálogo de Gano:', e instanceof Error ? e.message : e)

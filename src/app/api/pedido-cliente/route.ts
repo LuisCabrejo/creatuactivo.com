@@ -32,7 +32,8 @@ import { createClient } from '@supabase/supabase-js'
 import { resolverRef, tienePagoGano, nombreVisible, type SocioRef } from '@/lib/socio-ref'
 import { lineasAItemsGano, oficinaGano } from '@/lib/gano-inventario'
 import { firmaPedido, registrarPedido, resumenLineas, telefonoLegible, mismoNumero, type LineaPedido } from '@/lib/wa-pedido'
-import { PRODUCTOS_WA } from '@/lib/wa-productos'
+import { PRODUCTOS_WA, promocionCaducada } from '@/lib/wa-productos'
+import { promocionesVigentesIds } from '@/lib/promociones-gano'
 import { sendTemplate, sendText } from '@/lib/wa-channel'
 import { enVentanaPorTelefono } from '@/lib/wa-ventana'
 
@@ -113,6 +114,13 @@ export async function POST(request: NextRequest) {
   const { items, desconocidos } = lineasAItemsGano(lineasCrudas)
   if (desconocidos.length) return NextResponse.json({ success: false, motivo: 'producto_desconocido', error: `No reconocemos ${desconocidos.join(', ')}.` }, { status: 400 })
   if (!items.length) return NextResponse.json({ success: false, motivo: 'carrito_vacio', error: 'El pedido está vacío.' }, { status: 400 })
+  // Una promoción que Gano ya quitó no llega al Dashboard (13 nov 2026): un enlace
+  // viejo con la 80094 en el carrito seguía de largo hasta el intento de cargarla.
+  await promocionesVigentesIds()
+  const caducada = lineasCrudas
+    .map((l) => PRODUCTOS_WA.find((p) => p.slug === (('slug' in l ? l.slug : l.id) || '')))
+    .find((p) => p && promocionCaducada(p))
+  if (caducada) return NextResponse.json({ success: false, motivo: 'promocion_caducada', error: 'Esa promoción ya no está en el catálogo de Gano Excel. Quítela del pedido y vuelva a intentar.' }, { status: 409 })
 
   // ── El socio ──
   const socio: SocioRef | null = await resolverRef(body.ref || pedidoWa?.constructor_id || '')

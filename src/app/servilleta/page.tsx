@@ -785,8 +785,20 @@ export default function PitchDeckPage() {
     setVideoPrincipal(dispositivoDe(nav.userAgent, nav.userAgentData?.mobile) !== 'computador');
   }, [refSocio, isKiosk]);
   const alTerminarVideoPresentacion = () => {
+    // Se lee antes de cerrar: al cerrarse la ventana la marca se limpia.
+    const porEnlace = videoPorEnlace.current;
     setVideoPresentacion(false);
     irA(TOTAL_SLIDES);
+    // QUIEN LLEGÓ POR EL ENLACE DIRECTO TERMINA EN QUESWA (13 nov 2026, Director):
+    // viene de una publicación, casi siempre sin haber hablado con el socio, y el
+    // paso que sigue en el funnel es la conversación con Queswa. El chat se abre
+    // con el cursor listo, sobre la última pantalla, que conserva el nombre y el
+    // WhatsApp del socio para cuando lo cierre. En /servilleta el chat es el web en
+    // todos los dispositivos (DeferredOrb), así que no hay salto a otra app. Con el
+    // botón de la pantalla 1 no se abre: ahí suele presentar el socio en vivo.
+    if (porEnlace) {
+      setTimeout(() => window.dispatchEvent(new CustomEvent('open-queswa', { detail: { origen: 'video', enfocar: true } })), 350);
+    }
   };
   // EL VIDEO DIRECTO DESDE UN ENLACE (12 nov 2026, Director): `?video=1` —y el
   // enlace corto `/{slug}/video`— abre esta misma ventana al cargar, para quien

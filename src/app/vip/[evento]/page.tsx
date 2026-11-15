@@ -26,7 +26,7 @@ export function generateMetadata({ params }: { params: { evento: string } }): Me
   if (!mesa) return {};
   if (enLinea(mesa)) {
     const t = 'Taller privado · Dos socios nuevos';
-    const d = `${mesa.fechaTexto}, 9:00 a 11:00 a. m., en línea con Luis Cabrejo. Su plan para sumarlos, en dos horas. Cupos limitados.`;
+    const d = `${mesa.fechaTexto}, 8:00 a 10:00 a. m., en línea con Luis Cabrejo. Su plan para sumarlos, en dos horas. Cupos limitados.`;
     return {
       title: t,
       description: d,

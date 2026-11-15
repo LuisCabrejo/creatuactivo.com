@@ -13,7 +13,7 @@
  */
 
 const ENLACES: Record<string, string> = {
-  'taller-dos-socios-2026-11-16': '',
+  'taller-dos-socios-2026-11-16': 'https://meet.google.com/fgz-qdxk-mhr',
 };
 
 export function enlaceReunion(eventoId: string): string | null {

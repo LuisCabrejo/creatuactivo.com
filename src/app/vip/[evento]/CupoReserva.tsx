@@ -210,7 +210,7 @@ export default function CupoReserva({
               </a>
             ) : (
               <p style={{ margin: 0, color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                El enlace para entrar le llega por WhatsApp antes de las 9:00 a. m.
+                El enlace para entrar le llega por WhatsApp antes de las 8:00 a. m.
               </p>
             )}
           </div>

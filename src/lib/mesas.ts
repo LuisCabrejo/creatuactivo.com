@@ -68,7 +68,7 @@ export const MESAS: Record<string, Mesa> = {
     lugar: 'En línea · el enlace le llega al reservar',
     direccion: '',
     mapa: '',
-    horarios: ['09:00'],
+    horarios: ['08:00'],
     sillas: 30,
     cupoInvitados: 20,
     anfitrion: 'luis-cabrejo-1288',

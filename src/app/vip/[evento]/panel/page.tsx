@@ -11,7 +11,7 @@ import type { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { unstable_noStore as noStore } from 'next/cache';
 import SinOrbe from '@/components/SinOrbe';
-import { MESAS, horaCerrada, horaTexto } from '@/lib/mesas';
+import { MESAS, enLinea, horaCerrada, horaTexto } from '@/lib/mesas';
 import { claveValida } from '@/lib/mesas-panel';
 import Refrescar from './Refrescar';
 
@@ -72,7 +72,7 @@ export default async function PanelMesa({
       <SinOrbe />
       <Refrescar cada={30_000} />
       <section style={{ maxWidth: 560, margin: '0 auto', padding: '40px 16px 64px' }}>
-        <p style={{ ...etiqueta, color: '#22D3EE' }}>Mesa VIP · {mesa.ciudad}</p>
+        <p style={{ ...etiqueta, color: '#22D3EE' }}>{enLinea(mesa) ? 'Taller · en línea' : `Mesa VIP · ${mesa.ciudad}`}</p>
         <p style={{ margin: '0.5rem 0 0', fontSize: '1.05rem', color: '#FFFFFF' }}>
           {mesa.fechaTexto} · {mesa.lugar}
         </p>
@@ -90,7 +90,7 @@ export default async function PanelMesa({
           }}
         >
           <span style={{ fontSize: '2.5rem', fontWeight: 500, color: ORO, lineHeight: 1 }}>{filas.length}</span>
-          <span style={{ fontSize: '1.05rem', color: '#FFFFFF' }}>de {total} sillas reservadas</span>
+          <span style={{ fontSize: '1.05rem', color: '#FFFFFF' }}>de {total} {enLinea(mesa) ? 'puestos' : 'sillas'} reservados</span>
         </div>
         <p style={{ ...etiqueta, marginTop: 10, letterSpacing: '0.1em', textTransform: 'none' }}>
           Actualizado a las {hora}. Se refresca solo.
@@ -115,7 +115,7 @@ export default async function PanelMesa({
                     const r = deEsta.find((f) => f.silla === n);
                     return (
                       <li key={n} style={{ display: 'flex', gap: 12, alignItems: 'baseline', fontSize: '0.98rem' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: TITANIO, minWidth: 56 }}>Silla {n}</span>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: TITANIO, minWidth: 56 }}>{enLinea(mesa) ? 'Puesto' : 'Silla'} {n}</span>
                         {r ? (
                           <span style={{ color: '#FFFFFF' }}>
                             {r.nombre} ·{' '}

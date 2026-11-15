@@ -71,7 +71,7 @@ const CONTENIDO: Record<Tipo, { titulo: string; puntos: string[] }> = {
 
 const CAMARA = 'Es una mesa de trabajo, no una transmisión: se entra con la cámara encendida.';
 
-type Reserva = { tipo: Tipo; nombre: string; reunion: string | null; sugerirFoto: boolean };
+type Reserva = { tipo: Tipo; nombre: string; reunion: string | null; sugerirFoto: boolean; whatsapp: string };
 
 export default function CupoReserva({
   evento,
@@ -95,6 +95,7 @@ export default function CupoReserva({
   const [error, setError] = useState<string | null>(null);
   const [reserva, setReserva] = useState<Reserva | null>(null);
   const [ahora, setAhora] = useState(() => new Date());
+  const [copiado, setCopiado] = useState(false);
 
   const cargar = useCallback(async () => {
     try {
@@ -159,6 +160,7 @@ export default function CupoReserva({
         nombre: nombre.trim().split(/\s+/)[0],
         reunion: j.reunion || null,
         sugerirFoto: !!j.sugerirFoto,
+        whatsapp: soloDigitosWa(whatsapp),
       });
       cargar();
     } catch {
@@ -200,19 +202,58 @@ export default function CupoReserva({
           <p style={{ margin: '0.25rem 0 0', color: 'var(--color-text-body)' }}>En línea · con Luis Cabrejo</p>
           <p style={{ margin: '1rem 0 0', color: ORO, lineHeight: 1.55 }}>Entre con la cámara encendida.</p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: '1.5rem' }}>
+          {/* El enlace, escrito y a la vista (15 nov 2026): se mostraba solo como botón y,
+              al cerrar esta pantalla, la persona se quedaba sin él. «Enviármelo a mi
+              WhatsApp» abre el chat de la persona consigo misma con el enlace escrito. */}
+          {reserva.reunion ? (
+            <div style={{ marginTop: '1.5rem', padding: '1rem', border: `1px solid ${BORDE}`, borderRadius: 10, background: '#0F1115' }}>
+              <p style={etiqueta}>Su enlace para entrar</p>
+              <a
+                href={reserva.reunion}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'block', margin: '0.5rem 0 0', fontFamily: 'var(--font-mono)', fontSize: '1rem', color: ORO, wordBreak: 'break-all' }}
+              >
+                {reserva.reunion.replace(/^https:\/\//, '')}
+              </a>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: '0.9rem' }}>
+                <button
+                  type="button"
+                  className="cta-secondary"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(reserva.reunion!);
+                      setCopiado(true);
+                      setTimeout(() => setCopiado(false), 2500);
+                    } catch {
+                      /* sin portapapeles: el enlace queda escrito arriba */
+                    }
+                  }}
+                >
+                  {copiado ? 'Copiado ✓' : 'Copiar enlace'}
+                </button>
+                <a
+                  className="cta-secondary"
+                  href={`https://wa.me/${reserva.whatsapp}?text=${encodeURIComponent(
+                    `${mesa.tituloCalendario ?? 'Taller'}\n${cuando}\nEntrar con la cámara encendida: ${reserva.reunion}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Enviármelo a mi WhatsApp
+                </a>
+              </div>
+            </div>
+          ) : (
+            <p style={{ margin: '1.5rem 0 0', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
+              Le compartimos el enlace para entrar antes de las {horaTexto(horario)}.
+            </p>
+          )}
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: '1rem' }}>
             <a className="cta-primary" href={enlaceCalendario(mesa, horario, reserva.reunion)} target="_blank" rel="noopener noreferrer">
               Guardar en mi calendario
             </a>
-            {reserva.reunion ? (
-              <a className="cta-secondary" href={reserva.reunion} target="_blank" rel="noopener noreferrer">
-                Enlace para entrar al taller
-              </a>
-            ) : (
-              <p style={{ margin: 0, color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                El enlace para entrar le llega por WhatsApp antes de las 8:00 a. m.
-              </p>
-            )}
           </div>
 
           {reserva.sugerirFoto && (
@@ -400,10 +441,12 @@ export default function CupoReserva({
               placeholder="300 123 4567"
               required
             />
-            {/* El permiso para escribirle por WhatsApp (Meta lo exige explícito): la
-                plantilla confirmacion_evento_v1 lleva la confirmación y el enlace. */}
+            {/* ⚠️ No prometer aquí un envío por WhatsApp hasta que exista (15 nov 2026: la
+                línea «Le enviamos… por WhatsApp» salió sin envío detrás y una inscrita esperó
+                un mensaje que no llegó). Cuando la plantilla confirmacion_evento_v1 se envíe
+                de verdad, vuelve esa línea: es además el permiso que Meta exige. */}
             <span style={{ fontSize: '0.85rem', color: 'var(--color-text-body)' }}>
-              Le enviamos la confirmación y el enlace por WhatsApp.
+              Al reservar le mostramos el enlace para entrar.
             </span>
           </label>
           {tipo === 'invitado' && !invitadoPor && (
@@ -472,3 +515,9 @@ function finDe(hhmm: string, minutos: number): string {
 }
 
 const primerNombre = (n: string) => n.trim().split(/\s+/)[0] || n;
+
+/** El WhatsApp para wa.me: solo dígitos; un celular colombiano de 10 dígitos recibe el 57. */
+function soloDigitosWa(crudo: string): string {
+  const d = (crudo || '').replace(/\D/g, '');
+  return /^3\d{9}$/.test(d) ? `57${d}` : d;
+}

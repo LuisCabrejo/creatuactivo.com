@@ -34,6 +34,12 @@ export interface Mesa {
   /** HH:MM, 24 horas. */
   horarios: string[];
   sillas: number;
+  /**
+   * En línea: cupo aparte para invitados (prospectos que llegan por el enlace de un
+   * socio, /{slug}/taller). Ocupan los puestos PRIMER_PUESTO_INVITADO en adelante,
+   * para que no le quiten puesto al equipo. Sin el campo, no hay invitados.
+   */
+  cupoInvitados?: number;
   /** constructor_id de quien presenta: a él le llega el push de cada reserva. */
   anfitrion: string;
 }
@@ -64,11 +70,16 @@ export const MESAS: Record<string, Mesa> = {
     mapa: '',
     horarios: ['09:00'],
     sillas: 30,
+    cupoInvitados: 20,
     anfitrion: 'luis-cabrejo-1288',
   },
 };
 
 export const enLinea = (mesa: Mesa) => mesa.modalidad === 'en_linea';
+
+/** Los invitados se numeran desde aquí: 101, 102… (los distribuidores, 1 a `sillas`). */
+export const PRIMER_PUESTO_INVITADO = 101;
+export const esPuestoInvitado = (puesto: number) => puesto >= PRIMER_PUESTO_INVITADO;
 
 /** «14:00» → «2:00 p. m.» */
 export function horaTexto(hhmm: string): string {

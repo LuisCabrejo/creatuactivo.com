@@ -9,6 +9,7 @@
  * Una convocatoria en línea (Mesa.modalidad) usa CupoReserva: cupo en vez de mesa.
  */
 import { notFound } from 'next/navigation';
+import { createClient } from '@supabase/supabase-js';
 import type { Metadata } from 'next';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
 import { MESAS, enLinea } from '@/lib/mesas';
@@ -25,7 +26,7 @@ export function generateMetadata({ params }: { params: { evento: string } }): Me
   if (!mesa) return {};
   if (enLinea(mesa)) {
     const t = 'Taller privado · Dos socios nuevos';
-    const d = `${mesa.fechaTexto}, 9:00 a 11:00 a. m., en línea con Luis Cabrejo. Del regional a su plan. Cupos limitados.`;
+    const d = `${mesa.fechaTexto}, 9:00 a 11:00 a. m., en línea con Luis Cabrejo. Su plan para sumarlos, en dos horas. Cupos limitados.`;
     return {
       title: t,
       description: d,
@@ -49,11 +50,37 @@ export function generateMetadata({ params }: { params: { evento: string } }): Me
   };
 }
 
-export default function MesaPage({ params }: { params: { evento: string } }) {
+/**
+ * El socio cuyo enlace trajo al invitado (/{slug}/taller → ?ref=constructor_id). Solo
+ * el nombre, para «Invitado por …»; la ruta lo vuelve a validar al reservar.
+ */
+async function socioDelEnlace(ref: string | undefined): Promise<{ ref: string; nombre: string } | null> {
+  const id = (ref || '').trim();
+  if (!id || id.length > 80 || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
+  try {
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+      global: { fetch: (url, init) => fetch(url, { ...init, cache: 'no-store' }) },
+    });
+    const { data } = await supabase.from('private_users').select('constructor_id, name').eq('constructor_id', id).maybeSingle();
+    const fila = data as { constructor_id: string; name: string | null } | null;
+    return fila?.name ? { ref: fila.constructor_id, nombre: fila.name.trim() } : null;
+  } catch {
+    return null;
+  }
+}
+
+export default async function MesaPage({
+  params,
+  searchParams,
+}: {
+  params: { evento: string };
+  searchParams: { ref?: string };
+}) {
   const mesa = MESAS[params.evento];
   if (!mesa) notFound();
 
   if (enLinea(mesa)) {
+    const invitadoPor = mesa.cupoInvitados ? await socioDelEnlace(searchParams.ref) : null;
     return (
       <main style={{ minHeight: '100vh', background: 'var(--color-bg-primary)' }}>
         <SinOrbe />
@@ -66,9 +93,9 @@ export default function MesaPage({ params }: { params: { evento: string } }) {
               nuevos
             </>
           }
-          subtitle="Del regional a su plan, en dos horas."
+          subtitle="Su plan para sumarlos, en dos horas."
         />
-        <CupoReserva evento={params.evento} mesa={mesa} />
+        <CupoReserva evento={params.evento} mesa={mesa} invitadoPor={invitadoPor} />
       </main>
     );
   }

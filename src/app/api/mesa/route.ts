@@ -10,6 +10,11 @@
  *   puesto libre y, si otra persona lo tomó un instante antes, prueba el siguiente. La
  *   respuesta trae el enlace de la reunión (src/lib/mesas-reunion.ts), que no está en
  *   la página. Un WhatsApp reserva un solo puesto: si ya reservó, se le devuelve el suyo.
+ *   Invitados (body.tipo 'invitado', cupo aparte desde el puesto 101): `ref` es el
+ *   constructor_id del socio cuyo enlace usó (se valida contra private_users) o, sin
+ *   enlace, `invitadoPor` es el nombre que escribió. Al socio que invitó le llega un
+ *   push para su seguimiento. Al distribuidor que no tiene foto en queswa.app se le
+ *   responde `sugerirFoto: true` (se cruza su WhatsApp con private_users).
  * POST { evento, horario, silla, nombre, whatsapp } → reserva. La unicidad de la tabla
  *   (evento, horario, silla) reparte la silla: si otra persona la tomó un instante
  *   antes, 409. Un mismo WhatsApp reserva hasta dos sillas por evento (él y quien lo
@@ -19,7 +24,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { MESAS, enLinea, horaCerrada, horaTexto, normalizarWhatsapp } from '@/lib/mesas';
+import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto, normalizarWhatsapp } from '@/lib/mesas';
 import type { Mesa } from '@/lib/mesas';
 import { clavePanel } from '@/lib/mesas-panel';
 import { enlaceReunion } from '@/lib/mesas-reunion';
@@ -80,7 +85,15 @@ export async function GET(request: NextRequest) {
  * Reserva en línea: primer puesto libre, con reintento si otra persona lo tomó en el
  * mismo instante. Devuelve el puesto, o null si el cupo se llenó.
  */
-async function reservarPuesto(mesa: Mesa, horario: string, nombre: string, whatsapp: string): Promise<number | null> {
+async function reservarPuesto(
+  mesa: Mesa,
+  horario: string,
+  nombre: string,
+  whatsapp: string,
+  invitadoDe: string | null
+): Promise<number | null> {
+  const desde = invitadoDe ? PRIMER_PUESTO_INVITADO : 1;
+  const cupo = invitadoDe ? mesa.cupoInvitados ?? 0 : mesa.sillas;
   for (let intento = 0; intento < 6; intento++) {
     const { data, error } = await getSupabase()
       .from('reservas_mesa')
@@ -89,12 +102,12 @@ async function reservarPuesto(mesa: Mesa, horario: string, nombre: string, whats
       .eq('horario', horario);
     if (error) throw new Error(error.message);
     const tomadas = new Set(((data || []) as { silla: number }[]).map((f) => f.silla));
-    const libre = Array.from({ length: mesa.sillas }, (_, i) => i + 1).find((n) => !tomadas.has(n));
+    const libre = Array.from({ length: cupo }, (_, i) => desde + i).find((n) => !tomadas.has(n));
     if (!libre) return null;
     const { error: e2 } = await getSupabase()
       .from('reservas_mesa')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .insert({ evento: mesa.id, horario, silla: libre, nombre, whatsapp } as any);
+      .insert({ evento: mesa.id, horario, silla: libre, nombre, whatsapp, invitado_de: invitadoDe } as any);
     if (!e2) return libre;
     if (e2.code !== '23505') throw new Error(e2.message);
   }
@@ -133,6 +146,27 @@ export async function POST(request: NextRequest) {
 
     if (enLinea(mesa)) {
       const reunion = enlaceReunion(mesa.id);
+      const invitado = body?.tipo === 'invitado' && (mesa.cupoInvitados ?? 0) > 0;
+
+      // Quién invitó: el socio del enlace (validado) o el nombre que escribió.
+      let invitadoDe: string | null = null;
+      let socioQueInvito: { constructor_id: string; name: string | null } | null = null;
+      if (invitado) {
+        const ref = String(body?.ref || '').trim().slice(0, 80);
+        if (ref) {
+          const { data } = await getSupabase()
+            .from('private_users')
+            .select('constructor_id, name')
+            .eq('constructor_id', ref)
+            .maybeSingle();
+          socioQueInvito = (data as { constructor_id: string; name: string | null } | null) ?? null;
+        }
+        const escrito = String(body?.invitadoPor || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+        if (socioQueInvito) invitadoDe = socioQueInvito.constructor_id;
+        else if (escrito.length >= 2) invitadoDe = `texto:${escrito}`;
+        else return NextResponse.json({ error: 'Escriba quién lo invitó.' }, { status: 400 });
+      }
+
       // Quien ya reservó con ese WhatsApp recibe su mismo puesto (abrió el enlace dos veces).
       const { data: previa } = await getSupabase()
         .from('reservas_mesa')
@@ -141,25 +175,58 @@ export async function POST(request: NextRequest) {
         .eq('whatsapp', whatsapp)
         .limit(1);
       const yaTenia = (previa as { silla: number }[] | null)?.[0]?.silla;
-      if (yaTenia) return NextResponse.json({ ok: true, puesto: yaTenia, reunion, repetida: true });
 
-      const puesto = await reservarPuesto(mesa, horario, nombre, whatsapp);
-      if (!puesto) {
-        return NextResponse.json({ error: 'Los cupos se completaron.', lleno: true }, { status: 409 });
+      // El distribuidor sin foto en queswa.app: se le sugiere ponerla.
+      let sugerirFoto = false;
+      if (!invitado) {
+        const { data: socio } = await getSupabase()
+          .from('private_users')
+          .select('profile_photo_url')
+          .in('whatsapp', [`+${whatsapp}`, whatsapp])
+          .limit(1);
+        const fila = (socio as { profile_photo_url: string | null }[] | null)?.[0];
+        sugerirFoto = !!fila && !(fila.profile_photo_url || '').trim();
       }
-      const { count: tomadas } = await getSupabase()
+
+      if (yaTenia) return NextResponse.json({ ok: true, puesto: yaTenia, reunion, repetida: true, sugerirFoto });
+
+      const puesto = await reservarPuesto(mesa, horario, nombre, whatsapp, invitadoDe);
+      if (!puesto) {
+        return NextResponse.json(
+          { error: invitado ? 'Los cupos para invitados se completaron.' : 'Los cupos se completaron.', lleno: true },
+          { status: 409 }
+        );
+      }
+
+      const { data: todas } = await getSupabase()
         .from('reservas_mesa')
-        .select('id', { count: 'exact', head: true })
+        .select('silla')
         .eq('evento', mesa.id);
-      const libres = Math.max(0, mesa.sillas - (tomadas ?? 0));
+      const puestos = ((todas || []) as { silla: number }[]).map((f) => f.silla);
+      const deInvitados = puestos.filter((n) => n >= PRIMER_PUESTO_INVITADO).length;
+      const deEquipo = puestos.length - deInvitados;
+      const quien = socioQueInvito?.name || (invitadoDe?.startsWith('texto:') ? invitadoDe.slice(6) : null);
+
       await avisar(mesa, String(body.evento), horario, nombre, whatsapp, {
-        titulo: `Taller · ${tomadas ?? '?'} de ${mesa.sillas}`,
-        cuerpo: `${nombre} reservó su puesto. ${
-          libres === 0 ? 'Los cupos quedaron completos.' : libres === 1 ? 'Queda 1 cupo.' : `Quedan ${libres} cupos.`
-        }`,
-        asunto: `Taller · puesto ${puesto}: ${nombre}`,
+        titulo: `Taller · ${deEquipo}/${mesa.sillas} equipo · ${deInvitados}/${mesa.cupoInvitados ?? 0} invitados`,
+        cuerpo: invitado
+          ? `${nombre} reservó como invitado${quien ? ` de ${quien}` : ''}.`
+          : `${nombre} reservó su puesto.`,
+        asunto: invitado
+          ? `Taller · invitado: ${nombre}${quien ? ` (de ${quien})` : ''}`
+          : `Taller · puesto ${puesto}: ${nombre}`,
       });
-      return NextResponse.json({ ok: true, puesto, reunion });
+
+      // Al socio que invitó, para su seguimiento (si no es el mismo anfitrión).
+      if (socioQueInvito && socioQueInvito.constructor_id !== mesa.anfitrion) {
+        await empujar(socioQueInvito.constructor_id, {
+          title: 'Su invitado reservó su puesto',
+          body: `${nombre} va al taller de mañana a las ${horaTexto(horario)}. Escríbale para acompañarlo.`,
+          url: `https://wa.me/${whatsapp}`,
+        });
+      }
+
+      return NextResponse.json({ ok: true, puesto, reunion, sugerirFoto });
     }
 
     const { count } = await getSupabase()
@@ -222,27 +289,14 @@ async function avisar(
   whatsapp: string,
   texto: { titulo: string; cuerpo: string; asunto: string }
 ) {
-  try {
-    const llave = clavePanel(mesa.id);
-    const dashboard = process.env.DASHBOARD_URL || 'https://queswa.app';
-    const secreto = process.env.WA_BRIDGE_SECRET?.trim();
-    await fetch(`${dashboard}/api/push/send`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...(secreto ? { 'x-push-secret': secreto } : {}) },
-      body: JSON.stringify({
-        constructorId: mesa.anfitrion,
-        type: 'new_prospect',
-        title: texto.titulo,
-        body: texto.cuerpo,
-        url: llave
-          ? `https://creatuactivo.com/vip/${clave}/panel?clave=${llave}`
-          : `https://creatuactivo.com/vip/${clave}`,
-      }),
-      signal: AbortSignal.timeout(6000),
-    });
-  } catch (e) {
-    console.error('⚠️ [MESA] push:', e);
-  }
+  const llave = clavePanel(mesa.id);
+  await empujar(mesa.anfitrion, {
+    title: texto.titulo,
+    body: texto.cuerpo,
+    url: llave
+      ? `https://creatuactivo.com/vip/${clave}/panel?clave=${llave}`
+      : `https://creatuactivo.com/vip/${clave}`,
+  });
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
@@ -260,5 +314,21 @@ async function avisar(
     });
   } catch (e) {
     console.error('⚠️ [MESA] aviso:', e);
+  }
+}
+
+/** Un push a la app de un socio (queswa.app). No lanza: un aviso caído no tumba la reserva. */
+async function empujar(constructorId: string, aviso: { title: string; body: string; url: string }) {
+  try {
+    const dashboard = process.env.DASHBOARD_URL || 'https://queswa.app';
+    const secreto = process.env.WA_BRIDGE_SECRET?.trim();
+    await fetch(`${dashboard}/api/push/send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(secreto ? { 'x-push-secret': secreto } : {}) },
+      body: JSON.stringify({ constructorId, type: 'new_prospect', ...aviso }),
+      signal: AbortSignal.timeout(6000),
+    });
+  } catch (e) {
+    console.error('⚠️ [MESA] push:', e);
   }
 }

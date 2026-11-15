@@ -1,6 +1,99 @@
 # Estrategia comercial B2B: la tecnología de Queswa para otras empresas
 
-**Fecha:** 15 nov 2026 · **Rol de quien escribe:** CEO del proyecto · **Estado:** propuesta para decisión del Director (nada de esto toca producción)
+**Fecha:** 15 nov 2026 · **Rol de quien escribe:** CEO del proyecto · **Estado:** v2, con las decisiones del Director del 15 nov (§0). Nada de esto toca producción
+
+---
+
+## 0. Versión 2: decisiones del Director (15 nov 2026) y lo que cambian
+
+> Esta sección **manda sobre** §1, §7.1, §7.2, §10.1 y §12, que quedan como historia de la primera versión.
+
+### 0.1 Las tres propuestas recibidas
+
+| Propuesta | Decisión del Director | Lectura del CEO |
+|---|---|---|
+| **Línea de patrocinio en Gano Excel** (aliada en EE. UU., red de más de 10.000 posibles interesados) | **Sí, se explora** | De acuerdo. No es una licencia de marca blanca: es una **red aliada que entra a CreaTuActivo** con nuestra marca, nuestro léxico y nuestro sistema. Por eso las condiciones de §10.1 (sin marca, sin arsenal) se invierten: aquí lo que se quiere es que adopte todo, sin cambiarlo |
+| Pareja de diamantes de Amway | Solo con cifras de millones de dólares | De acuerdo. Además del dinero, sería otra empresa, otro catálogo y otro cumplimiento: un producto nuevo, no una venta |
+| Líder de Canadá (otra organización) | Solo desde USD 150.000 | De acuerdo, con un matiz: esos USD 150.000 serían solo la **implementación**. Encima va la mensualidad, y solo cuando exista el motor de producto separado (§9). Respuesta sugerida a los dos: «ahora no; cuando abramos, usted es de los primeros». Su interés sirve como prueba de que hay demanda |
+
+### 0.2 Red aliada (la línea de patrocinio)
+
+**Lo que se gana (y es mucho):**
+- **Aval con peso propio**: «ella cree en esto» abre puertas con gente de Gano Excel y de la industria que no escucharía a un desconocido.
+- **Su paso de «Luis, eso no funciona» a «esto es muy bueno» es el relato más fuerte que tenemos**: el escéptico que se convence. Solo funciona si es verdad, así que **antes de hablar de precio, ella vive el sistema completo**: primero como prospecto (Queswa desde un número +1) y después como socia (queswa.app con su propio enlace). Que el aval salga de su experiencia, no de la amistad.
+- **Ingreso recurrente en dólares**, a una escala que la vertical B2B tardaría un año en alcanzar.
+
+**El riesgo que el Director nombró: que los diamantes quieran cambiar las cosas.** La solución no es decidir quién tiene razón. Es definir **cómo se decide**, y que sea igual para el Director:
+
+1. **Modelo Apple: el producto no se personaliza por red.** No existe «la versión del equipo de X». Nadie le cambia el sistema operativo a su iPhone; cada uno personaliza lo suyo: su enlace, su foto, su lista, su mensaje de invitación dentro de lo permitido.
+2. **Un solo interlocutor**: ella. Los diamantes proponen a través de ella, no directamente al Director ni al equipo.
+3. **La evidencia decide, no el rango.** Una propuesta de cambio (a la presentación, a un texto, a un flujo) se prueba con tráfico real y se adopta si convierte mejor. Es el mismo orden de decisión que ya rige el proyecto, aplicado también a ellos. Así nadie se sesga: si un diamante tiene razón, los datos se lo darán, y el sistema mejora para todos.
+4. **Escrito en el contrato**: el control editorial (presentación, arsenal, Queswa, léxico) es exclusivo de CreaTuActivo. Ningún material propio con la marca sin aprobación. Esto también los protege a ellos: en EE. UU. la FTC sanciona las promesas de ingreso, y nuestros guardarraíles ya las bloquean.
+
+**Estructura de precio: las dos opciones propuestas**
+
+| | Opción 1: cada socio paga licencia + mensualidad | Opción 2: la aliada paga la licencia, cada socio paga mensualidad |
+|---|---|---|
+| Caja inicial | Lenta: depende de cuántos se animen | **Inmediata**: un solo pago grande |
+| Fricción para el socio | Alta: el cobro inicial frena justo lo que queremos, que entren muchos | Baja: solo un pago mensual |
+| Compromiso de la aliada | Bajo: no arriesga nada | **Alto**: invirtió, así que empuja |
+
+**Recomendación: la Opción 2, con un mínimo garantizado.**
+
+| Componente | Propuesta | Qué incluye |
+|---|---|---|
+| **Licencia de red aliada** (la paga la aliada, una vez) | **USD 20.000** | Puesta en marcha de su red, sesión de lanzamiento con ella y sus líderes, capacitación en el léxico, **panel de líder** (ver la actividad de su organización: quién comparte, quién recibe, qué prospectos están maduros) |
+| **Mensualidad por socio** (la paga cada socio) | **USD 39/mes** (en Colombia, el equivalente en pesos) | Su enlace, Queswa atendiendo a sus prospectos en WhatsApp y web, avisos, su app |
+| **Mínimo garantizado** (desde el mes 3) | 100 socios facturados | Si se suscriben menos, la aliada cubre la diferencia. Así el aval se mantiene activo y no queda solo en una foto |
+
+**Sin comisión para la aliada sobre las suscripciones**: pagarle a una línea de patrocinio por cada socio suscrito monta un segundo plan de compensación encima del de Gano. Eso es un riesgo con las políticas de Gano y con la FTC, y además ensucia la relación.
+
+**Proyección (los 10.000 son posibles interesados, no suscriptores):**
+
+| Adopción | Socios | Ingreso mensual | Año 1 (12 meses + licencia) |
+|---|---|---|---|
+| 2 % | 200 | USD 7.800 | USD 113.600 |
+| 5 % | 500 | USD 19.500 | USD 254.000 |
+| 10 % | 1.000 | USD 39.000 | USD 488.000 |
+
+Costo estimado por socio: USD 3-8/mes en IA y mensajes (≈ 20 conversaciones al mes), es decir, un margen bruto del 80-90 %. Se mide con el primer grupo.
+
+**Antes de proponer cifras, hay que verificar:**
+1. **Qué pagan hoy los socios del equipo del Director.** Si los suyos tienen el sistema incluido y la red aliada paga, eso protege la propuesta del equipo: estar con CreaTuActivo tiene un valor que no se compra. Si los suyos también pagan, el precio de la red aliada no puede ser menor.
+2. **En qué países está su red** y cuántos compran activamente. Queswa ya atiende EE. UU. (dólares, vinculación sin documentos con patrocinador), pero los mensajes de MARKETING de Meta no llegan a números +1. Para socios en EE. UU., los avisos van por el push de queswa.app.
+3. **La política de Gano Excel sobre el cruce de líneas.** Usar su aval para llegar a «personas que hicieron Gano Excel» puede chocar con las reglas de cambio de patrocinador. Hay que leer la política vigente antes de diseñar ese mensaje.
+4. **Si queswa.app (el otro repositorio) soporta socios fuera de la línea del Director**, con su panel de líder. Eso se revisa en ese repositorio.
+5. **Capacidad**: 500 socios nuevos significan soporte. El ingreso de cada socio a la app tiene que ser autoservicio antes del lanzamiento.
+
+### 0.3 Vertical B2B: empresa aparte y precio «Apple»
+
+**Decisión del Director:** se aplica el branding del cliente y lo nuestro es solo un «Construido por [marca]». Se crea otra empresa. **El CEO está de acuerdo**: una SAS en Colombia, separada de CreaTuActivo, para que el estigma de la industria no viaje a una inmobiliaria y para aislar contratos, datos y riesgo. El nombre queda pendiente.
+
+**Precio «Apple»:** pocas opciones, precio alto, sin descuentos, todo incluido y una experiencia impecable.
+
+| | Antes (v1) | Ahora (v2) |
+|---|---|---|
+| Planes | 3 planes + menú de adicionales | **2 opciones**: Sede y Grupo |
+| Precio | Competir en el hueco del mercado | **Por encima de la competencia, justificado por la entrega** |
+| Conversaciones | Bloques visibles de 500 | **Todo incluido** con uso razonable; el cliente nunca cuenta mensajes |
+| Piloto | 50 % de descuento en la implementación | **Sin descuento.** A cambio, **garantía de salida a 60 días** (la política de devolución de Apple, no la rebaja) |
+| Primeros clientes | — | **Programa de 3 clientes fundadores**: precio congelado 24 meses a cambio de un caso de éxito público. Escasez, no rebaja |
+
+| Opción | Puesta en marcha (única) | Mensualidad | Incluye |
+|---|---|---|---|
+| **Sede** | COP 15.000.000 | **COP 3.500.000** (≈ USD 875) | Hasta 10 vendedores, WhatsApp oficial con el número del cliente, web, enlaces por vendedor, app del vendedor, panel gerencial, informe mensual de resultados presentado en persona |
+| **Grupo** | Desde COP 35.000.000 | **Desde COP 9.000.000** | Varias sedes o proyectos, integraciones a la medida, reunión trimestral con la gerencia |
+
+Los mensajes de Meta van siempre al costo y aparte.
+
+**La condición del precio Apple:** el precio solo se sostiene si cada contacto con el cliente lo justifica: una demo impecable con datos de su propio negocio, una propuesta de una página, una puesta en marcha en la fecha prometida y un informe mensual que hable de ventas, no de mensajes. Un precio premium con una entrega improvisada destruye la marca antes del tercer cliente.
+
+### 0.4 Prioridad nueva
+
+1. **Red aliada** (semanas 1-4): ella vive el sistema → verificaciones de §0.2 → propuesta formal → contrato.
+2. **Constituir la empresa B2B y nombrarla** (en paralelo).
+3. **Vertical B2B** (semanas 4-12): 3 clientes fundadores con los contactos comerciales del Director.
+4. Amway y Canadá: en espera, con la respuesta sugerida.
 
 > Las cifras de mercado salen de páginas públicas de proveedores y agregadores (nov 2026). Son referencias para fijar precio, no tarifas verificadas: antes de una negociación se confirman en la fuente. Conversión de referencia: USD 1 ≈ COP 4.000 (redondeo para lectura; las cotizaciones se emiten en COP).
 

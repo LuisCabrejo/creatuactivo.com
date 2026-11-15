@@ -400,6 +400,11 @@ export default function CupoReserva({
               placeholder="300 123 4567"
               required
             />
+            {/* El permiso para escribirle por WhatsApp (Meta lo exige explícito): la
+                plantilla confirmacion_evento_v1 lleva la confirmación y el enlace. */}
+            <span style={{ fontSize: '0.85rem', color: 'var(--color-text-body)' }}>
+              Le enviamos la confirmación y el enlace por WhatsApp.
+            </span>
           </label>
           {tipo === 'invitado' && !invitadoPor && (
             <label style={{ display: 'grid', gap: 6 }}>

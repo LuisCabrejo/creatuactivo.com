@@ -26,6 +26,10 @@
  * sospechoso, no WhatsApp; lo que se prueba ahora es WhatsApp sin código, y se
  * mide el 30 oct contra esas dos líneas base (ver `conversaPorWhatsApp`).
  *
+ * Desde el 15 nov 2026 (Director) el Dashboard ofrece además un wa.me directo
+ * para historias, estados y chats, que no pasa por aquí ni por el puente del
+ * celular: el porqué y su contrato de texto, en docs/claude/WEB_Y_OPERACION.md.
+ *
  * ⚠️ Solo por el agente de usuario (y la pista `Sec-CH-UA-Mobile` de Chrome),
  * igual en los dos lados, para que el servidor y el navegador decidan lo mismo.
  * Por eso el iPad con Safari moderno —que se anuncia como Mac— cuenta como

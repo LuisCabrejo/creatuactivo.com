@@ -24,7 +24,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto, normalizarWhatsapp } from '@/lib/mesas';
+import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto, nombreValido, normalizarWhatsapp } from '@/lib/mesas';
 import type { Mesa } from '@/lib/mesas';
 import { clavePanel } from '@/lib/mesas-panel';
 import { enlaceReunion } from '@/lib/mesas-reunion';
@@ -107,7 +107,7 @@ async function reservarPuesto(
     const { error: e2 } = await getSupabase()
       .from('reservas_mesa')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .insert({ evento: mesa.id, horario, silla: libre, nombre, whatsapp, invitado_de: invitadoDe } as any);
+      .insert({ evento: mesa.id, horario, silla: libre, nombre, whatsapp, invitado_de: invitadoDe, camara_aceptada_at: new Date().toISOString() } as any);
     if (!e2) return libre;
     if (e2.code !== '23505') throw new Error(e2.message);
   }
@@ -131,8 +131,13 @@ export async function POST(request: NextRequest) {
     if (!enLinea(mesa) && (!Number.isInteger(silla) || silla < 1 || silla > mesa.sillas)) {
       return NextResponse.json({ error: 'Esa silla no existe.' }, { status: 400 });
     }
-    if (nombre.length < 2) {
-      return NextResponse.json({ error: 'Escriba su nombre.' }, { status: 400 });
+    if (!nombreValido(nombre)) {
+      return NextResponse.json({ error: 'Escriba su nombre (con letras, sin números).' }, { status: 400 });
+    }
+    // En línea, la cámara encendida es condición de entrada (Director, 15 nov 2026):
+    // la página la pide con una casilla y aquí se exige y se guarda.
+    if (enLinea(mesa) && body?.camara !== true) {
+      return NextResponse.json({ error: 'Confirme que entra con la cámara encendida.' }, { status: 400 });
     }
     if (!whatsapp) {
       return NextResponse.json({ error: 'Revise su número de WhatsApp.' }, { status: 400 });

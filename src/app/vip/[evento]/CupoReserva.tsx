@@ -18,7 +18,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import type { Mesa } from '@/lib/mesas';
-import { PRIMER_PUESTO_INVITADO, enlaceCalendario, horaCerrada, horaTexto } from '@/lib/mesas';
+import { PRIMER_PUESTO_INVITADO, enlaceCalendario, horaCerrada, horaTexto, nombreValido } from '@/lib/mesas';
 
 const ORO = '#C5A059';
 const TITANIO = '#94A3B8';
@@ -130,6 +130,10 @@ export default function CupoReserva({
 
   async function reservar(e: React.FormEvent) {
     e.preventDefault();
+    if (!nombreValido(nombre)) {
+      setError('Escriba su nombre (con letras, sin números).');
+      return;
+    }
     if (!camara) {
       setError('Confirme que entra con la cámara encendida.');
       return;
@@ -146,6 +150,7 @@ export default function CupoReserva({
           nombre,
           whatsapp,
           tipo,
+          camara,
           ...(tipo === 'invitado' ? { ref: invitadoPor?.ref, invitadoPor: quienInvito } : {}),
         }),
       });

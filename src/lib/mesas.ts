@@ -99,6 +99,16 @@ export function horaCerrada(mesa: Mesa, hhmm: string, ahora = new Date()): boole
   return ahora.getTime() >= inicioDe(mesa, hhmm).getTime() + gracia;
 }
 
+/**
+ * ¿Es un nombre? Al menos dos letras y ningún número (15 nov 2026: una persona
+ * escribió su teléfono en el campo del nombre y el registro pasó). Lo usan la
+ * página y la ruta, para que las dos digan lo mismo.
+ */
+export function nombreValido(nombre: string): boolean {
+  const n = (nombre || '').trim();
+  return (n.match(/\p{L}/gu) || []).length >= 2 && !/\d/.test(n);
+}
+
 /** Deja solo dígitos; un celular colombiano de 10 dígitos recibe el 57. */
 export function normalizarWhatsapp(crudo: string): string | null {
   const d = (crudo || '').replace(/\D/g, '');

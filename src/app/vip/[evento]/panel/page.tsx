@@ -14,6 +14,8 @@ import SinOrbe from '@/components/SinOrbe';
 import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto } from '@/lib/mesas';
 import { claveValida } from '@/lib/mesas-panel';
 import Refrescar from './Refrescar';
+import AccionesWhatsApp from './AccionesWhatsApp';
+import { CONVOCATORIAS_WA } from '@/lib/wa-plantillas-convocatoria';
 
 export const dynamic = 'force-dynamic';
 // Sin esto, Next guardaba la consulta de supabase-js en su caché de datos y el panel
@@ -108,6 +110,10 @@ export default async function PanelMesa({
           Actualizado a las {hora}. Se refresca solo.
         </p>
         {error && <p style={{ color: '#F43F5E' }}>No se pudieron leer las reservas: {error.message}</p>}
+
+        {CONVOCATORIAS_WA[mesa.id] && searchParams.clave && (
+          <AccionesWhatsApp evento={params.evento} clave={searchParams.clave} />
+        )}
 
         {enLinea(mesa) && (
           <div style={{ display: 'grid', gap: 14, marginTop: '1.75rem' }}>

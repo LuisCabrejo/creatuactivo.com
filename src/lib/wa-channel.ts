@@ -37,6 +37,8 @@ export interface WATemplate {
   /** Nº de variables {{n}} del BODY — derivado, para pedirlas en la UI. */
   bodyVariables: number
   bodyText?: string
+  /** Formato del HEADER (IMAGE, TEXT, VIDEO…), si la plantilla tiene encabezado. */
+  headerFormat?: string
 }
 
 /** Identidad del número emisor (para mostrar el activo real en la consola). */
@@ -689,8 +691,10 @@ export async function sendTemplate(
   parameters: string[] = [],
   buttonUrlParam?: string,
   botones?: BotonPlantilla[],
+  /** URL pública de la imagen del encabezado, para plantillas con HEADER IMAGE (15 nov 2026). */
+  imagenEncabezado?: string,
 ): Promise<WAResult> {
-  if (enEnsayo()) return ensayo('plantilla', { to, templateName, parameters, buttonUrlParam: buttonUrlParam ?? null, botones: botones ?? null });
+  if (enEnsayo()) return ensayo('plantilla', { to, templateName, parameters, buttonUrlParam: buttonUrlParam ?? null, botones: botones ?? null, imagenEncabezado: imagenEncabezado ?? null });
   const creds = credentials();
   if ('error' in creds) {
     console.error(creds.error);
@@ -699,6 +703,9 @@ export async function sendTemplate(
 
   // Sin variables, Meta rechaza un `components` vacío — se omite del payload.
   const componentList: Record<string, unknown>[] = [];
+  if (imagenEncabezado) {
+    componentList.push({ type: 'header', parameters: [{ type: 'image', image: { link: imagenEncabezado } }] });
+  }
   if (parameters.length > 0) {
     componentList.push({
       type: 'body',
@@ -791,7 +798,7 @@ export async function listTemplates(): Promise<{ templates: WATemplate[]; error?
       status: string
       language: string
       category?: string
-      components?: { type: string; text?: string }[]
+      components?: { type: string; text?: string; format?: string }[]
     }) => {
       const body = t.components?.find((c) => c.type === 'BODY');
       const bodyText = body?.text;
@@ -806,6 +813,7 @@ export async function listTemplates(): Promise<{ templates: WATemplate[]; error?
         category: t.category,
         bodyVariables: found.size,
         bodyText,
+        headerFormat: t.components?.find((c) => c.type === 'HEADER')?.format,
       };
     });
 
@@ -816,6 +824,73 @@ export async function listTemplates(): Promise<{ templates: WATemplate[]; error?
     const msg = err instanceof Error ? err.message : String(err);
     console.error('❌ [WA] listTemplates error:', msg);
     return { templates: [], error: msg };
+  }
+}
+
+// ─── Gestión: crear plantillas (whatsapp_business_management) ─────────────────
+
+/**
+ * Somete una plantilla a Meta (15 nov 2026: para hacerlo desde el panel de una
+ * convocatoria, sin la Mac). Devuelve el id, el estado y la categoría con que
+ * entró: Meta puede aprobarla ya movida de categoría (ver WABA_REFERENCIA.md).
+ */
+export async function createTemplate(
+  plantilla: Record<string, unknown>,
+): Promise<{ ok: boolean; id?: string; status?: string; category?: string; error?: string }> {
+  const creds = credentials();
+  if ('error' in creds) return { ok: false, error: creds.error };
+  if (!creds.wabaId) return { ok: false, error: '[WA] Falta WHATSAPP_WABA_ID' };
+  try {
+    const r = await fetch(`${GRAPH}/${creds.wabaId}/message_templates`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${creds.systemToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(plantilla),
+    });
+    const data = await r.json();
+    if (!r.ok) return { ok: false, error: metaError(r.status, data) };
+    return { ok: true, id: data?.id, status: data?.status, category: data?.category };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
+/**
+ * Sube la imagen de muestra que Meta exige para crear una plantilla con HEADER
+ * IMAGE (Resumable Upload API) y devuelve el `header_handle`. El id de la app sale
+ * del mismo token (`GET /app`): no hace falta otra variable de entorno.
+ */
+export async function subirMuestraPlantilla(
+  urlImagen: string,
+): Promise<{ handle?: string; error?: string }> {
+  const creds = credentials();
+  if ('error' in creds) return { error: creds.error };
+  try {
+    const img = await fetch(urlImagen);
+    if (!img.ok) return { error: `No se pudo leer la imagen (${img.status})` };
+    const tipo = img.headers.get('content-type') || 'image/png';
+    const bytes = await img.arrayBuffer();
+
+    const app = await fetch(`${GRAPH}/app`, { headers: { Authorization: `Bearer ${creds.systemToken}` } });
+    const appData = await app.json();
+    if (!app.ok || !appData?.id) return { error: `No se pudo leer la app del token: ${metaError(app.status, appData)}` };
+
+    const sesion = await fetch(
+      `${GRAPH}/${appData.id}/uploads?file_length=${bytes.byteLength}&file_type=${encodeURIComponent(tipo)}`,
+      { method: 'POST', headers: { Authorization: `Bearer ${creds.systemToken}` } },
+    );
+    const sesionData = await sesion.json();
+    if (!sesion.ok || !sesionData?.id) return { error: `No se abrió la subida: ${metaError(sesion.status, sesionData)}` };
+
+    const subida = await fetch(`${GRAPH}/${sesionData.id}`, {
+      method: 'POST',
+      headers: { Authorization: `OAuth ${creds.systemToken}`, file_offset: '0' },
+      body: bytes,
+    });
+    const subidaData = await subida.json();
+    if (!subida.ok || !subidaData?.h) return { error: `No se subió la imagen: ${metaError(subida.status, subidaData)}` };
+    return { handle: subidaData.h };
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : String(err) };
   }
 }
 

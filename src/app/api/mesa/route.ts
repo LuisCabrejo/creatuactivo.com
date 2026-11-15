@@ -6,6 +6,15 @@
  * GET ?evento=villavicencio → { ocupadas: { "10:00": [1, 3], … }, nombres: { "10:00":
  *   { "1": "Ana" }, … } }. Del nombre sale solo el primero (Director, 10 nov 2026: cada
  *   silla reservada lleva el primer nombre); ni apellidos ni teléfonos salen a la página.
+ * En línea (Mesa.modalidad 'en_linea'): el POST no trae silla; el servidor toma el primer
+ *   puesto libre y, si otra persona lo tomó un instante antes, prueba el siguiente. La
+ *   respuesta trae el enlace de la reunión (src/lib/mesas-reunion.ts), que no está en
+ *   la página. Un WhatsApp reserva un solo puesto: si ya reservó, se le devuelve el suyo.
+ *   Invitados (body.tipo 'invitado', cupo aparte desde el puesto 101): `ref` es el
+ *   constructor_id del socio cuyo enlace usó (se valida contra private_users) o, sin
+ *   enlace, `invitadoPor` es el nombre que escribió. Al socio que invitó le llega un
+ *   push para su seguimiento. Al distribuidor que no tiene foto en queswa.app se le
+ *   responde `sugerirFoto: true` (se cruza su WhatsApp con private_users).
  * POST { evento, horario, silla, nombre, whatsapp } → reserva. La unicidad de la tabla
  *   (evento, horario, silla) reparte la silla: si otra persona la tomó un instante
  *   antes, 409. Un mismo WhatsApp reserva hasta dos sillas por evento (él y quien lo
@@ -15,8 +24,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { MESAS, horaCerrada, horaTexto, normalizarWhatsapp } from '@/lib/mesas';
+import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto, normalizarWhatsapp } from '@/lib/mesas';
+import type { Mesa } from '@/lib/mesas';
 import { clavePanel } from '@/lib/mesas-panel';
+import { enlaceReunion } from '@/lib/mesas-reunion';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,6 +81,39 @@ export async function GET(request: NextRequest) {
   );
 }
 
+/**
+ * Reserva en línea: primer puesto libre, con reintento si otra persona lo tomó en el
+ * mismo instante. Devuelve el puesto, o null si el cupo se llenó.
+ */
+async function reservarPuesto(
+  mesa: Mesa,
+  horario: string,
+  nombre: string,
+  whatsapp: string,
+  invitadoDe: string | null
+): Promise<number | null> {
+  const desde = invitadoDe ? PRIMER_PUESTO_INVITADO : 1;
+  const cupo = invitadoDe ? mesa.cupoInvitados ?? 0 : mesa.sillas;
+  for (let intento = 0; intento < 6; intento++) {
+    const { data, error } = await getSupabase()
+      .from('reservas_mesa')
+      .select('silla')
+      .eq('evento', mesa.id)
+      .eq('horario', horario);
+    if (error) throw new Error(error.message);
+    const tomadas = new Set(((data || []) as { silla: number }[]).map((f) => f.silla));
+    const libre = Array.from({ length: cupo }, (_, i) => desde + i).find((n) => !tomadas.has(n));
+    if (!libre) return null;
+    const { error: e2 } = await getSupabase()
+      .from('reservas_mesa')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .insert({ evento: mesa.id, horario, silla: libre, nombre, whatsapp, invitado_de: invitadoDe } as any);
+    if (!e2) return libre;
+    if (e2.code !== '23505') throw new Error(e2.message);
+  }
+  throw new Error('Demasiadas reservas al mismo tiempo');
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -84,7 +128,7 @@ export async function POST(request: NextRequest) {
     if (!mesa.horarios.includes(horario)) {
       return NextResponse.json({ error: 'Esa hora no existe.' }, { status: 400 });
     }
-    if (!Number.isInteger(silla) || silla < 1 || silla > mesa.sillas) {
+    if (!enLinea(mesa) && (!Number.isInteger(silla) || silla < 1 || silla > mesa.sillas)) {
       return NextResponse.json({ error: 'Esa silla no existe.' }, { status: 400 });
     }
     if (nombre.length < 2) {
@@ -94,7 +138,95 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Revise su número de WhatsApp.' }, { status: 400 });
     }
     if (horaCerrada(mesa, horario)) {
-      return NextResponse.json({ error: 'Esa mesa ya empezó. Elija otra hora.' }, { status: 409 });
+      return NextResponse.json(
+        { error: enLinea(mesa) ? 'Las inscripciones ya se cerraron.' : 'Esa mesa ya empezó. Elija otra hora.' },
+        { status: 409 }
+      );
+    }
+
+    if (enLinea(mesa)) {
+      const reunion = enlaceReunion(mesa.id);
+      const invitado = body?.tipo === 'invitado' && (mesa.cupoInvitados ?? 0) > 0;
+
+      // Quién invitó: el socio del enlace (validado) o el nombre que escribió.
+      let invitadoDe: string | null = null;
+      let socioQueInvito: { constructor_id: string; name: string | null } | null = null;
+      if (invitado) {
+        const ref = String(body?.ref || '').trim().slice(0, 80);
+        if (ref) {
+          const { data } = await getSupabase()
+            .from('private_users')
+            .select('constructor_id, name')
+            .eq('constructor_id', ref)
+            .maybeSingle();
+          socioQueInvito = (data as { constructor_id: string; name: string | null } | null) ?? null;
+        }
+        const escrito = String(body?.invitadoPor || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+        if (socioQueInvito) invitadoDe = socioQueInvito.constructor_id;
+        else if (escrito.length >= 2) invitadoDe = `texto:${escrito}`;
+        else return NextResponse.json({ error: 'Escriba quién lo invitó.' }, { status: 400 });
+      }
+
+      // Quien ya reservó con ese WhatsApp recibe su mismo puesto (abrió el enlace dos veces).
+      const { data: previa } = await getSupabase()
+        .from('reservas_mesa')
+        .select('silla')
+        .eq('evento', mesa.id)
+        .eq('whatsapp', whatsapp)
+        .limit(1);
+      const yaTenia = (previa as { silla: number }[] | null)?.[0]?.silla;
+
+      // El distribuidor sin foto en queswa.app: se le sugiere ponerla.
+      let sugerirFoto = false;
+      if (!invitado) {
+        const { data: socio } = await getSupabase()
+          .from('private_users')
+          .select('profile_photo_url')
+          .in('whatsapp', [`+${whatsapp}`, whatsapp])
+          .limit(1);
+        const fila = (socio as { profile_photo_url: string | null }[] | null)?.[0];
+        sugerirFoto = !!fila && !(fila.profile_photo_url || '').trim();
+      }
+
+      if (yaTenia) return NextResponse.json({ ok: true, puesto: yaTenia, reunion, repetida: true, sugerirFoto });
+
+      const puesto = await reservarPuesto(mesa, horario, nombre, whatsapp, invitadoDe);
+      if (!puesto) {
+        return NextResponse.json(
+          { error: invitado ? 'Los cupos para invitados se completaron.' : 'Los cupos se completaron.', lleno: true },
+          { status: 409 }
+        );
+      }
+
+      const { data: todas } = await getSupabase()
+        .from('reservas_mesa')
+        .select('silla')
+        .eq('evento', mesa.id);
+      const puestos = ((todas || []) as { silla: number }[]).map((f) => f.silla);
+      const deInvitados = puestos.filter((n) => n >= PRIMER_PUESTO_INVITADO).length;
+      const deEquipo = puestos.length - deInvitados;
+      const quien = socioQueInvito?.name || (invitadoDe?.startsWith('texto:') ? invitadoDe.slice(6) : null);
+
+      await avisar(mesa, String(body.evento), horario, nombre, whatsapp, {
+        titulo: `Taller · ${deEquipo}/${mesa.sillas} equipo · ${deInvitados}/${mesa.cupoInvitados ?? 0} invitados`,
+        cuerpo: invitado
+          ? `${nombre} reservó como invitado${quien ? ` de ${quien}` : ''}.`
+          : `${nombre} reservó su puesto.`,
+        asunto: invitado
+          ? `Taller · invitado: ${nombre}${quien ? ` (de ${quien})` : ''}`
+          : `Taller · puesto ${puesto}: ${nombre}`,
+      });
+
+      // Al socio que invitó, para su seguimiento (si no es el mismo anfitrión).
+      if (socioQueInvito && socioQueInvito.constructor_id !== mesa.anfitrion) {
+        await empujar(socioQueInvito.constructor_id, {
+          title: 'Su invitado reservó su puesto',
+          body: `${nombre} va al taller de mañana a las ${horaTexto(horario)}. Escríbale para acompañarlo.`,
+          url: `https://wa.me/${whatsapp}`,
+        });
+      }
+
+      return NextResponse.json({ ok: true, puesto, reunion, sugerirFoto });
     }
 
     const { count } = await getSupabase()
@@ -124,60 +256,79 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No se pudo reservar. Intente de nuevo.' }, { status: 500 });
     }
 
-    // Push a la app de quien presenta (queswa.app), con las sillas que quedan a esa hora
-    // y el panel al tocarlo. No bloquea la reserva.
-    try {
-      const { count: tomadas } = await getSupabase()
-        .from('reservas_mesa')
-        .select('id', { count: 'exact', head: true })
-        .eq('evento', mesa.id)
-        .eq('horario', horario);
-      const libres = Math.max(0, mesa.sillas - (tomadas ?? 0));
-      const clave = clavePanel(mesa.id);
-      const dashboard = process.env.DASHBOARD_URL || 'https://queswa.app';
-      const secreto = process.env.WA_BRIDGE_SECRET?.trim();
-      await fetch(`${dashboard}/api/push/send`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(secreto ? { 'x-push-secret': secreto } : {}) },
-        body: JSON.stringify({
-          constructorId: mesa.anfitrion,
-          type: 'new_prospect',
-          title: `Mesa VIP · ${horaTexto(horario)}`,
-          body: `${nombre} reservó la silla ${silla}. ${
-            libres === 0 ? 'La mesa quedó completa.' : libres === 1 ? 'Queda 1 silla libre.' : `Quedan ${libres} sillas libres.`
-          }`,
-          url: clave
-            ? `https://creatuactivo.com/vip/${body.evento}/panel?clave=${clave}`
-            : `https://creatuactivo.com/vip/${body.evento}`,
-        }),
-        signal: AbortSignal.timeout(6000),
-      });
-    } catch (e) {
-      console.error('⚠️ [MESA] push:', e);
-    }
-
-    // Aviso a Luis por correo (no bloquea la reserva)
-    try {
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
-        from: 'CreaTuActivo Notificaciones <hola@creatuactivo.com>',
-        to: [AVISO_EMAIL],
-        subject: `Mesa ${mesa.ciudad} · ${horaTexto(horario)} · silla ${silla}: ${nombre}`,
-        html: `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#222;line-height:1.6;">
-          <p style="margin:0 0 8px;"><strong>Nueva reserva de silla</strong></p>
-          <p style="margin:0;">${escapar(mesa.fechaTexto)} · ${escapar(horaTexto(horario))} · silla ${silla}<br/>
-          Nombre: <strong>${escapar(nombre)}</strong><br/>
-          WhatsApp: <a href="https://wa.me/${whatsapp}">+${whatsapp}</a><br/>
-          Lugar: ${escapar(mesa.lugar)}, ${escapar(mesa.ciudad)}</p>
-        </div>`,
-      });
-    } catch (e) {
-      console.error('⚠️ [MESA] aviso:', e);
-    }
+    const { count: tomadas } = await getSupabase()
+      .from('reservas_mesa')
+      .select('id', { count: 'exact', head: true })
+      .eq('evento', mesa.id)
+      .eq('horario', horario);
+    const libres = Math.max(0, mesa.sillas - (tomadas ?? 0));
+    await avisar(mesa, String(body.evento), horario, nombre, whatsapp, {
+      titulo: `Mesa VIP · ${horaTexto(horario)}`,
+      cuerpo: `${nombre} reservó la silla ${silla}. ${
+        libres === 0 ? 'La mesa quedó completa.' : libres === 1 ? 'Queda 1 silla libre.' : `Quedan ${libres} sillas libres.`
+      }`,
+      asunto: `Mesa ${mesa.ciudad} · ${horaTexto(horario)} · silla ${silla}: ${nombre}`,
+    });
 
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error('❌ [MESA]', e);
     return NextResponse.json({ error: 'No se pudo reservar. Intente de nuevo.' }, { status: 500 });
+  }
+}
+
+/**
+ * Push a la app de quien presenta (queswa.app), con el panel al tocarlo, y correo.
+ * Ninguno de los dos bloquea la reserva.
+ */
+async function avisar(
+  mesa: Mesa,
+  clave: string,
+  horario: string,
+  nombre: string,
+  whatsapp: string,
+  texto: { titulo: string; cuerpo: string; asunto: string }
+) {
+  const llave = clavePanel(mesa.id);
+  await empujar(mesa.anfitrion, {
+    title: texto.titulo,
+    body: texto.cuerpo,
+    url: llave
+      ? `https://creatuactivo.com/vip/${clave}/panel?clave=${llave}`
+      : `https://creatuactivo.com/vip/${clave}`,
+  });
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: 'CreaTuActivo Notificaciones <hola@creatuactivo.com>',
+      to: [AVISO_EMAIL],
+      subject: texto.asunto,
+      html: `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#222;line-height:1.6;">
+        <p style="margin:0 0 8px;"><strong>Nueva reserva</strong></p>
+        <p style="margin:0;">${escapar(mesa.fechaTexto)} · ${escapar(horaTexto(horario))}<br/>
+        Nombre: <strong>${escapar(nombre)}</strong><br/>
+        WhatsApp: <a href="https://wa.me/${whatsapp}">+${whatsapp}</a><br/>
+        Lugar: ${escapar(mesa.lugar)}${mesa.direccion ? `, ${escapar(mesa.ciudad)}` : ''}</p>
+      </div>`,
+    });
+  } catch (e) {
+    console.error('⚠️ [MESA] aviso:', e);
+  }
+}
+
+/** Un push a la app de un socio (queswa.app). No lanza: un aviso caído no tumba la reserva. */
+async function empujar(constructorId: string, aviso: { title: string; body: string; url: string }) {
+  try {
+    const dashboard = process.env.DASHBOARD_URL || 'https://queswa.app';
+    const secreto = process.env.WA_BRIDGE_SECRET?.trim();
+    await fetch(`${dashboard}/api/push/send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(secreto ? { 'x-push-secret': secreto } : {}) },
+      body: JSON.stringify({ constructorId, type: 'new_prospect', ...aviso }),
+      signal: AbortSignal.timeout(6000),
+    });
+  } catch (e) {
+    console.error('⚠️ [MESA] push:', e);
   }
 }

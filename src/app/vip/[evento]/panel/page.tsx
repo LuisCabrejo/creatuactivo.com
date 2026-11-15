@@ -11,7 +11,7 @@ import type { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { unstable_noStore as noStore } from 'next/cache';
 import SinOrbe from '@/components/SinOrbe';
-import { MESAS, horaCerrada, horaTexto } from '@/lib/mesas';
+import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto } from '@/lib/mesas';
 import { claveValida } from '@/lib/mesas-panel';
 import Refrescar from './Refrescar';
 
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-type Fila = { horario: string; silla: number; nombre: string; whatsapp: string; created_at: string };
+type Fila = { horario: string; silla: number; nombre: string; whatsapp: string; created_at: string; invitado_de: string | null };
 
 const ORO = '#C5A059';
 const TITANIO = '#94A3B8';
@@ -58,12 +58,24 @@ export default async function PanelMesa({
   });
   const { data, error } = await supabase
     .from('reservas_mesa')
-    .select('horario, silla, nombre, whatsapp, created_at')
+    .select('horario, silla, nombre, whatsapp, created_at, invitado_de')
     .eq('evento', mesa.id)
     .order('created_at', { ascending: true });
   const filas = (data || []) as Fila[];
 
-  const total = mesa.horarios.length * mesa.sillas;
+  const total = mesa.horarios.length * mesa.sillas + (enLinea(mesa) ? mesa.cupoInvitados ?? 0 : 0);
+
+  // En línea: el nombre del socio que invitó a cada invitado.
+  const refs = Array.from(new Set(filas.map((f) => f.invitado_de).filter((r): r is string => !!r && !r.startsWith('texto:'))));
+  const nombreSocio = new Map<string, string>();
+  if (refs.length) {
+    const { data: socios } = await supabase.from('private_users').select('constructor_id, name').in('constructor_id', refs);
+    for (const u of (socios || []) as { constructor_id: string; name: string | null }[]) {
+      if (u.name) nombreSocio.set(u.constructor_id, u.name);
+    }
+  }
+  const quienInvito = (r: string | null) =>
+    !r ? '' : r.startsWith('texto:') ? `${r.slice(6)} (escrito)` : nombreSocio.get(r) || r;
   const ahora = new Date();
   const hora = new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', hour: 'numeric', minute: '2-digit' }).format(ahora);
 
@@ -72,7 +84,7 @@ export default async function PanelMesa({
       <SinOrbe />
       <Refrescar cada={30_000} />
       <section style={{ maxWidth: 560, margin: '0 auto', padding: '40px 16px 64px' }}>
-        <p style={{ ...etiqueta, color: '#22D3EE' }}>Mesa VIP · {mesa.ciudad}</p>
+        <p style={{ ...etiqueta, color: '#22D3EE' }}>{enLinea(mesa) ? 'Taller · en línea' : `Mesa VIP · ${mesa.ciudad}`}</p>
         <p style={{ margin: '0.5rem 0 0', fontSize: '1.05rem', color: '#FFFFFF' }}>
           {mesa.fechaTexto} · {mesa.lugar}
         </p>
@@ -90,14 +102,46 @@ export default async function PanelMesa({
           }}
         >
           <span style={{ fontSize: '2.5rem', fontWeight: 500, color: ORO, lineHeight: 1 }}>{filas.length}</span>
-          <span style={{ fontSize: '1.05rem', color: '#FFFFFF' }}>de {total} sillas reservadas</span>
+          <span style={{ fontSize: '1.05rem', color: '#FFFFFF' }}>de {total} {enLinea(mesa) ? 'puestos' : 'sillas'} reservados</span>
         </div>
         <p style={{ ...etiqueta, marginTop: 10, letterSpacing: '0.1em', textTransform: 'none' }}>
           Actualizado a las {hora}. Se refresca solo.
         </p>
         {error && <p style={{ color: '#F43F5E' }}>No se pudieron leer las reservas: {error.message}</p>}
 
-        <div style={{ display: 'grid', gap: 14, marginTop: '1.75rem' }}>
+        {enLinea(mesa) && (
+          <div style={{ display: 'grid', gap: 14, marginTop: '1.75rem' }}>
+            {[
+              { titulo: 'Equipo', cupo: mesa.sillas, lista: filas.filter((f) => f.silla < PRIMER_PUESTO_INVITADO) },
+              { titulo: 'Invitados', cupo: mesa.cupoInvitados ?? 0, lista: filas.filter((f) => f.silla >= PRIMER_PUESTO_INVITADO) },
+            ].map((g) => (
+              <div key={g.titulo} style={{ background: ELEVADO, border: `1px solid ${BORDE}`, borderRadius: 12, padding: '1.1rem 1.25rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 500, color: '#FFFFFF' }}>{g.titulo}</h2>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: g.lista.length >= g.cupo ? ORO : TITANIO }}>
+                    {g.lista.length} de {g.cupo}
+                  </span>
+                </div>
+                <ol style={{ margin: '0.75rem 0 0', paddingLeft: 22, display: 'grid', gap: 8 }}>
+                  {g.lista.map((r) => (
+                    <li key={`${r.silla}`} style={{ fontSize: '0.98rem', color: '#FFFFFF' }}>
+                      {r.nombre} ·{' '}
+                      <a href={`https://wa.me/${r.whatsapp}`} target="_blank" rel="noopener noreferrer" style={{ color: ORO }}>
+                        +{r.whatsapp}
+                      </a>
+                      {r.invitado_de && (
+                        <span style={{ display: 'block', fontSize: '0.85rem', color: TITANIO }}>Invitado de {quienInvito(r.invitado_de)}</span>
+                      )}
+                    </li>
+                  ))}
+                  {!g.lista.length && <li style={{ color: '#5B616B', listStyle: 'none', marginLeft: -22 }}>Nadie todavía</li>}
+                </ol>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div style={{ display: enLinea(mesa) ? 'none' : 'grid', gap: 14, marginTop: '1.75rem' }}>
           {mesa.horarios.map((h) => {
             const deEsta = filas.filter((f) => f.horario === h);
             const cerrada = horaCerrada(mesa, h, ahora);
@@ -115,7 +159,7 @@ export default async function PanelMesa({
                     const r = deEsta.find((f) => f.silla === n);
                     return (
                       <li key={n} style={{ display: 'flex', gap: 12, alignItems: 'baseline', fontSize: '0.98rem' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: TITANIO, minWidth: 56 }}>Silla {n}</span>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: TITANIO, minWidth: 56 }}>{enLinea(mesa) ? 'Puesto' : 'Silla'} {n}</span>
                         {r ? (
                           <span style={{ color: '#FFFFFF' }}>
                             {r.nombre} ·{' '}

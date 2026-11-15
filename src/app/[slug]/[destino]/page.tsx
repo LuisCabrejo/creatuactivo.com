@@ -80,6 +80,9 @@ const DESTINO_MAP: Record<string, (constructorId: string) => string> = {
   // con la ventana del video encima; la persona toca una vez y rueda con voz.
   // ⚠️ No es «video-plan»: ese es el enlace viejo, al video de seis minutos.
   'video':         (id) => `/servilleta?ref=${id}&video=1`,
+  // El taller en línea del 16 nov 2026 (Director): el invitado que llega por el
+  // enlace del socio queda registrado a nombre de él, para su seguimiento.
+  'taller':        (id) => `/vip/taller?ref=${id}`,
 }
 
 function isReelNicho(destino: string): destino is ReelNicho {

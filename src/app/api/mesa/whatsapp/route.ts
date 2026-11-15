@@ -21,7 +21,7 @@
  *   Con dry: true no envía nada: devuelve a quiénes les llegaría.
  *
  * Cada envío queda en `convocatoria_envios` (evento, plantilla, whatsapp): nadie
- * recibe dos veces. Solo se envía una plantilla APROBADA.
+ * recibe dos veces. Una fila con estado «excluido» saca a esa persona de la lista. Solo se envía una plantilla APROBADA.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
@@ -70,7 +70,9 @@ async function yaEnviados(eventoId: string, plantilla: string): Promise<Set<stri
     .select('whatsapp')
     .eq('evento', eventoId)
     .eq('plantilla', plantilla)
-    .eq('estado', 'enviado');
+    // «excluido»: alguien que el Director sacó a mano de la lista (15 nov 2026:
+    // la cuenta «Ganocafé Online», que es del negocio y no de una persona).
+    .in('estado', ['enviado', 'excluido']);
   return new Set(((data || []) as { whatsapp: string }[]).map((f) => f.whatsapp));
 }
 

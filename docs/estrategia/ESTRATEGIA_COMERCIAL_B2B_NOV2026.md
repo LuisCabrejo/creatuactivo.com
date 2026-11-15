@@ -65,6 +65,22 @@ Costo estimado por socio: USD 3-8/mes en IA y mensajes (≈ 20 conversaciones al
 4. **Si queswa.app (el otro repositorio) soporta socios fuera de la línea del Director**, con su panel de líder. Eso se revisa en ese repositorio.
 5. **Capacidad**: 500 socios nuevos significan soporte. El ingreso de cada socio a la app tiene que ser autoservicio antes del lanzamiento.
 
+**Respuestas del Director (15 nov) a las verificaciones:**
+
+| # | Respuesta | Lo que implica |
+|---|---|---|
+| 1 | Los socios del equipo del Director usan el sistema **gratis** | Se confirma el diferencial: estar en el equipo incluye el sistema, y la red aliada paga. Los socios del equipo **siguen gratis** aunque estén dentro de la organización de la aliada |
+| 2 | La red de la aliada está en **los 16 países** de CreaTuActivo | Encaja con lo que Queswa ya atiende: dólares fuera de Colombia, pesos en Colombia. En EE. UU., Canadá y Puerto Rico (+1), los avisos van por el push de queswa.app, no por plantillas de marketing |
+| 3 | Quien deja de comprar **6 meses** se puede trasladar de línea | El mensaje a «quienes hicieron Gano Excel» es viable con esa condición. **Hueco:** el arsenal no tiene un fragmento para quien ya fue distribuidor («ya estuve en Gano»); se escribe antes de usar el aval con ese público |
+| 4 | El sistema está construido para el equipo del Director; para la aliada es **tomarlo desde más arriba** | Ver abajo |
+
+**«Desde más arriba» cambia el diseño, y alinea los incentivos:**
+
+- **La genealogía se invierte.** La aliada es línea de patrocinio del Director, así que el equipo del Director está **dentro** de su organización. El sistema necesita jerarquía de organizaciones: aliada → sus líneas → el equipo del Director (con sus reglas propias: gratis, sus fundadores) → sus socios. Es trabajo de base de datos y de queswa.app (el otro repositorio), no de copy.
+- **La propiedad no se invierte.** En Gano Excel ella está arriba; en la plataforma, el dueño del producto es el Director. Ella es cliente con un panel de líder, no copropietaria. Esto va en el contrato, y es lo que resuelve de raíz el riesgo de los diamantes.
+- **Los incentivos ya están alineados.** Todo el que entre por el equipo del Director también suma volumen a la organización de la aliada, porque está debajo de ella. Su aval le conviene aunque la persona no entre por una de sus otras líneas. Ese argumento se usa en la conversación con ella.
+- **La licencia financia exactamente esto.** Los USD 20.000 pagan la jerarquía de organizaciones y el panel de líder de varios niveles: el trabajo que hace falta para «tomarlo desde más arriba».
+
 ### 0.3 Vertical B2B: empresa aparte y precio «Apple»
 
 **Decisión del Director:** se aplica el branding del cliente y lo nuestro es solo un «Construido por [marca]». Se crea otra empresa. **El CEO está de acuerdo**: una SAS en Colombia, separada de CreaTuActivo, para que el estigma de la industria no viaje a una inmobiliaria y para aislar contratos, datos y riesgo. El nombre queda pendiente.

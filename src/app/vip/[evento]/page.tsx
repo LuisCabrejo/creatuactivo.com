@@ -7,15 +7,18 @@
  * reservas en `reservas_mesa` vía /api/mesa. noindex: es una invitación, no una página
  * del sitio. Sin orbe (<SinOrbe />): la página tiene un solo trabajo, y la burbuja tapaba la mesa.
  * Una convocatoria en línea (Mesa.modalidad) usa CupoReserva: cupo en vez de mesa.
+ * Una por distribuidor usa MesaDistribuidor: cada hora es la mesa de un distribuidor
+ * que sienta a sus prospectos (presentación empresarial, 18 nov 2026).
  */
 import { notFound } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import type { Metadata } from 'next';
 import { IndustrialHeader } from '@/components/IndustrialHeader';
-import { MESAS, enLinea } from '@/lib/mesas';
+import { MESAS, enLinea, porDistribuidor } from '@/lib/mesas';
 import SinOrbe from '@/components/SinOrbe';
 import MesaReserva from './MesaReserva';
 import CupoReserva from './CupoReserva';
+import MesaDistribuidor from './MesaDistribuidor';
 
 export function generateStaticParams() {
   return Object.keys(MESAS).map((evento) => ({ evento }));
@@ -27,6 +30,17 @@ export function generateMetadata({ params }: { params: { evento: string } }): Me
   if (enLinea(mesa)) {
     const t = 'Taller privado · Dos socios nuevos';
     const d = `${mesa.fechaTexto}, 8:00 a 10:00 a. m., en línea con Luis Cabrejo. Su plan para sumarlos, en dos horas. Cupos limitados.`;
+    return {
+      title: t,
+      description: d,
+      robots: { index: false, follow: false },
+      alternates: { canonical: `https://creatuactivo.com/vip/${params.evento}` },
+      openGraph: { title: t, description: d, url: `https://creatuactivo.com/vip/${params.evento}` },
+    };
+  }
+  if (porDistribuidor(mesa)) {
+    const t = `Presentación empresarial · ${mesa.ciudad}`;
+    const d = `${mesa.fechaTexto}, ${mesa.lugar}, con Luis Cabrejo. Elija la hora de su mesa y siente a sus prospectos.`;
     return {
       title: t,
       description: d,
@@ -96,6 +110,26 @@ export default async function MesaPage({
           subtitle="Su plan para sumarlos, en dos horas."
         />
         <CupoReserva evento={params.evento} mesa={mesa} invitadoPor={invitadoPor} />
+      </main>
+    );
+  }
+
+  if (porDistribuidor(mesa)) {
+    return (
+      <main style={{ minHeight: '100vh', background: 'var(--color-bg-primary)' }}>
+        <SinOrbe />
+        <IndustrialHeader
+          variant="editorial"
+          refCode={`PRESENTACIÓN EMPRESARIAL · ${mesa.ciudad.toUpperCase()}`}
+          title={
+            <>
+              <span style={{ color: '#FFFFFF' }}>Siente a sus </span>
+              prospectos
+            </>
+          }
+          subtitle="Una hora, una mesa, y sus dos primeros distribuidores."
+        />
+        <MesaDistribuidor evento={params.evento} mesa={mesa} />
       </main>
     );
   }

@@ -85,6 +85,30 @@
 6. **Preguntar el precio de `ascua.com`**: está registrado, pero puede estar en venta.
 7. Con el nombre decidido: constituir la SAS y registrar la marca en Colombia antes de mostrar la propuesta a ningún cliente.
 
+## 6. Evaluación de variantes con ortografía alterada (pedido del Director, 16 nov)
+
+Candidatos propuestos: *Modernizzar*, *Modernixar*, *Innovaxión*, *Iatecnoligia*.
+
+| Nombre | .com | Veredicto |
+|---|---|---|
+| Modernizzar | libre | ❌ Suena idéntico a «modernizar» |
+| Modernixar | libre | ❌ Idem; la «x» se lee «ks» o «j» según el país |
+| Innovaxión | ocupado | ❌ Ocupado, y la tilde no existe en dominios |
+| Iatecnoligia | libre | ❌ Se lee como un error de digitación de «tecnología» |
+
+**Por qué no funcionan, aunque el .com esté libre:**
+
+1. **Marca: lo descriptivo no se registra, y cambiar letras no lo cura.** La Decisión 486 de la Comunidad Andina (art. 135) niega el registro a los signos genéricos o descriptivos. La SIC compara por cómo **suena** el signo, no solo por cómo se escribe: «Modernizzar» suena a «modernizar», que describe el servicio. Lo previsible es una marca débil o negada, imposible de defender contra un competidor que use la palabra real.
+2. **Falla la prueba del teléfono.** Quien oye «modernizar» escribe «modernizar». La persona llega al dominio de otro, y Google corrige la búsqueda hacia la palabra real.
+3. **Contradice el precio «Apple».** Una letra doblada o una «x» de relleno se percibe como un recurso de emprendimiento pequeño, no como una firma. El cliente que paga COP 3,5 millones al mes desconfía de un nombre que parece un error.
+4. **«Moderno» ya está gastado como bandera.** La investigación interna del 25 sep 2026 ([la_palabra_moderno.md](../investigaciones/resultados/notas-naming-sep2026/la_palabra_moderno.md)) encontró que la palabra compra **atención, no agrado**, que suena «neutra y un poco institucional» (modernización del siglo XX), y que la industria de la venta directa ya se presenta como «moderna» o «digital»: no diferencia.
+5. **«IA» en el nombre envejece.** Pasará como el «e-» y el «.com» del año 2000: en tres años todo software tendrá IA, y el nombre dirá «antiguo».
+6. **Une lo que se decidió separar.** «Moderna» es léxico central de CreaTuActivo («una empresa de distribución moderna»). Usarlo en la empresa B2B ata las dos marcas que el Director decidió separar.
+
+**Lo que sí funciona de esa idea:** los nombres derivados que crean un **sonido nuevo**, como Rappi (de «rápido») o Nequi. Rappi no suena a «rápido»: lo evoca. Se probaron derivados de *moderno* e *innovar* que crearan sonido nuevo (Moderra, Modenza, Modernia, Innovra, Novaro, Nuvona y otros): **todos con .com ocupado**. El territorio está saturado, precisamente porque es la primera idea de todos.
+
+**Conclusión:** se mantiene la recomendación de §5 (Ascua). Si el Director quiere que el nombre diga «modernizar», el lugar es el **lema**, no la marca: *«Ascua. Su fuerza comercial, modernizada.»*
+
 ## Fuentes
 
 - Verificación de dominios: [RDAP Verisign](https://rdap.verisign.com/com/v1/domain/ascua.com) · [Bootstrap RDAP de IANA](https://data.iana.org/rdap/dns.json) (el .co no publica RDAP)

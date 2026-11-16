@@ -109,9 +109,32 @@ Candidatos propuestos: *Modernizzar*, *Modernixar*, *Innovaxión*, *Iatecnoligia
 
 **Conclusión:** se mantiene la recomendación de §5 (Ascua). Si el Director quiere que el nombre diga «modernizar», el lugar es el **lema**, no la marca: *«Ascua. Su fuerza comercial, modernizada.»*
 
+## 7. Vicacha (dominio del Director, 16 nov)
+
+**El activo:** `vicacha.com` es del Director (registrado el 13 ene 2026 en Name.com; **vence el 13 ene 2027**: renovar ya, por varios años). Un .com corto y propio es la señal premium que ningún otro finalista tiene: Ascua quedaría en `ascuahq.com`.
+
+| Criterio | Evaluación |
+|---|---|
+| **Origen** | Variante de *vizcacha* / *viscacha*, del quechua *wisk'acha*: un roedor de los Andes, pariente de la chinchilla. Raíz andina, como Queswa, sin nombrar a CreaTuActivo |
+| **La historia** | La vizcacha de montaña vive en colonias y, cuando percibe peligro, **emite un silbido agudo que alerta a toda la colonia**, y hasta a otras especies (ficha de clasificación de especies del Ministerio del Medio Ambiente de Chile). El agente es eso: el que está atento mientras los demás duermen y avisa cuando llega alguien. Hay que contarla: el nombre no la dice solo, a diferencia de Ascua |
+| **Registrabilidad** | Fuerte. Es arbitrario para software (un animal no describe el servicio) y la grafía *Vicacha* no figura en los diccionarios. No se encontró ninguna empresa, marca ni app con ese nombre. Falta la SIC |
+| **Distinto de los cambios de letra de §6** | Allí «Modernizzar» suena igual a una palabra que describe el servicio. Aquí, con el seseo latinoamericano, *vicacha* («vi-CA-cha») suena distinto de *vizcacha* («vis-CA-cha»): es una palabra nueva que evoca, como Rappi |
+| **Pronunciación** | Fácil en español y en inglés («vi-KAH-cha») |
+| **Precio «Apple»** | Un animal funciona como marca premium (Jaguar, Puma) si la identidad visual es sobria. El riesgo es que un roedor se lea tierno o de marca infantil: lo resuelve el diseño, no el nombre |
+| **Prueba del teléfono** | El riesgo real: la b/v del español («Bicacha») y la tentación de corregir a «Vizcacha». Se mide con 5 personas. Mitigación barata: comprar `bicacha.com` y `vizcacha.co` si están libres, y redirigirlos |
+| **Connotación regional** | En Argentina y Uruguay, **el Viejo Vizcacha** de *Martín Fierro* es el símbolo del consejero astuto y sin ética («viveza criolla»). No pesa en Colombia, México ni Centroamérica, pero hay que saberlo antes de entrar al Cono Sur |
+
+**Veredicto del CEO:** Vicacha **sube al primer lugar, empatado con Ascua**, y el desempate lo deciden dos pruebas:
+
+- Si **Vicacha pasa la prueba del teléfono** (4 de 5 lo escriben bien) **y la SIC no muestra antecedentes**, se elige Vicacha: un .com propio, una marca distintiva y una raíz andina valen más que el significado directo de Ascua.
+- Si falla cualquiera de las dos, Ascua.
+
+**Cómo se arma la marca con Vicacha:** el nombre pone la identidad y el lema pone la tesis. *«Vicacha. Ningún cliente se enfría.»* La historia del silbido va en el «Quiénes somos», no en la portada.
+
 ## Fuentes
 
 - Verificación de dominios: [RDAP Verisign](https://rdap.verisign.com/com/v1/domain/ascua.com) · [Bootstrap RDAP de IANA](https://data.iana.org/rdap/dns.json) (el .co no publica RDAP)
 - Chaskiq: [GitHub](https://github.com/michelson/chaskiq) · [Toolradar](https://toolradar.com/tools/chaskiq) · [AlternativeTo](https://alternativeto.net/software/chaskiq/about)
 - Empresas de IA de ventas en la región (para descartar choques): [El Tiempo, Dapta](https://www.eltiempo.com/economia/empresas/asi-es-como-dapta-la-empresa-de-ia-colombiana-que-esta-transformando-las-ventas-en-mas-de-30-000-companias-3464687) · [Forbes, B2Chat](https://forbes.co/2026/05/11/negocios/b2chat-ia-conversacional-pyme-latinoamerica/) · [Vambe](https://ecosistemastartup.com/vambe-startup-ia-que-triplica-conversiones-en-ventas/) · [YaVendió](https://ecosistemastartup.com/?p=95761)
 - Willay (uso, sin glosa): [Minedu Perú](https://repositorio.minedu.gob.pe/handle/20.500.12799/4925) · [Currículo Chile](https://www.curriculumnacional.cl/614/articles-316118_recurso_pdf.pdf)
+- Vicacha: [RDAP de vicacha.com](https://rdap.verisign.com/com/v1/domain/vicacha.com) · [Merriam-Webster, viscacha (del quechua *wisk'acha*)](https://merriam-webster.com/dictionary/viscacha) · [Ficha de *Lagidium viscacia*, Ministerio del Medio Ambiente de Chile](https://clasificacionespecies.mma.gob.cl/wp-content/uploads/2019/10/Lagidium_viscacia_14RCE_FINAL.pdf) · [Discover Wildlife](https://www.discoverwildlife.com/animal-facts/mammals/viscachas) · [La Nación, «La vuelta del Viejo Vizcacha»](https://www.lanacion.com.ar/opinion/la-vuelta-del-viejo-vizcachaperspectivas-nid2408497)

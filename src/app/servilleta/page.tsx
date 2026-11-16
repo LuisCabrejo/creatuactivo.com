@@ -171,6 +171,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
 import CicloPropiedad from './CicloPropiedad';
+import ImagenAmpliable from './ImagenAmpliable';
 import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 import { dispositivoDe } from '@/lib/dispositivo';
@@ -1006,6 +1007,8 @@ export default function PitchDeckPage() {
     // La ventana del video vive dentro del deck: un gesto sobre ella no pasa
     // diapositivas por debajo.
     if (videoPresentacion) return;
+    // Tampoco la ficha de una línea: se cierra con ×, no pasando la pantalla.
+    if (linea !== null) return;
     const dx = touchStartX.current - endX;
     const dy = touchStartY.current - endY;
     // Guard de eje: un scroll vertical que derive en X no debe navegar.
@@ -1488,8 +1491,15 @@ export default function PitchDeckPage() {
         .pd-linea-cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
           gap: clamp(20px, 3.5vw, 40px); align-items: center; animation: pdLineaIn 0.35s ease both; }
         @keyframes pdLineaIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-        .pd-modal .pd-linea-cuerpo img { width: 100%; height: auto; max-height: 68vh;
-          aspect-ratio: 1 / 1; object-fit: cover; }
+        /* La imagen se amplía con los dedos (ImagenAmpliable.tsx): el marco recorta
+           y no deja pasar el gesto al navegador, que aquí no puede hacer zoom. */
+        .pd-linea-cuerpo .pd-zoom { width: 100%; max-height: 68vh; aspect-ratio: 1 / 1;
+          overflow: hidden; touch-action: none; cursor: zoom-in; user-select: none;
+          -webkit-user-select: none; -webkit-touch-callout: none; }
+        .pd-linea-cuerpo .pd-zoom.ampliada { cursor: grab; }
+        .pd-modal .pd-linea-cuerpo .pd-zoom img { width: 100%; height: 100%; max-height: none;
+          object-fit: cover; transform-origin: center; will-change: transform;
+          pointer-events: none; }
         .pd-linea-n { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.24em;
           color: var(--pd-data); text-transform: uppercase; margin: 0 0 0.8rem; }
         .pd-linea-titulo { font-family: var(--font-playfair), Georgia, serif; font-weight: 400;
@@ -1760,7 +1770,7 @@ export default function PitchDeckPage() {
           .pd-linea-tabs { gap: 4px 16px; margin-bottom: 14px; }
           .pd-linea-tabs button { font-size: 0.55rem; letter-spacing: 0.12em; }
           .pd-linea-cuerpo { grid-template-columns: 1fr; gap: 16px; }
-          .pd-modal .pd-linea-cuerpo img { max-height: 34dvh; width: auto; max-width: 100%; margin: 0 auto; }
+          .pd-linea-cuerpo .pd-zoom { height: 34dvh; max-height: none; width: auto; max-width: 100%; margin: 0 auto; }
           .pd-linea-titulo { font-size: 1.4rem; margin-bottom: 0.7rem; }
           .pd-linea-rasgos li { grid-template-columns: 1fr; gap: 2px; padding: 0.55rem 0; }
           .pd-slide { padding: 68px 20px 48px; }
@@ -3088,8 +3098,7 @@ export default function PitchDeckPage() {
                 ))}
               </div>
               <div className="pd-linea-cuerpo" key={linea}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={CATEGORIAS[linea].img} alt={`Línea ${CATEGORIAS[linea].label}`} />
+                <ImagenAmpliable src={CATEGORIAS[linea].img} alt={`Línea ${CATEGORIAS[linea].label}`} />
                 <div>
                   <p className="pd-linea-n">{CATEGORIAS[linea].n} productos</p>
                   <p className="pd-linea-titulo">{CATEGORIAS[linea].titulo}</p>

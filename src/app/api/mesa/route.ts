@@ -23,11 +23,27 @@
  *   antes, 409. Un mismo WhatsApp reserva hasta dos sillas por evento (él y quien lo
  *   acompañe). Cada reserva le llega a Luis como push en queswa.app (al tocarlo abre el
  *   panel, /vip/{evento}/panel) y por correo.
+ * Por distribuidor (Mesa.modalidad 'por_distribuidor', 18 nov 2026): POST { evento,
+ *   horario, nombre, whatsapp, prospectos: string[] } → el distribuidor toma la hora
+ *   entera (silla 1) y sienta a sus prospectos (sillas 2…). Si otro distribuidor tomó
+ *   esa hora un instante antes, 409. El GET solo publica el primer nombre del
+ *   distribuidor de cada hora: los nombres de los prospectos no salen a la página.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto, nombreValido, normalizarWhatsapp } from '@/lib/mesas';
+import {
+  MESAS,
+  PRIMER_PUESTO_INVITADO,
+  HORAS_POR_DISTRIBUIDOR,
+  SILLA_DISTRIBUIDOR,
+  enLinea,
+  horaCerrada,
+  horaTexto,
+  nombreValido,
+  normalizarWhatsapp,
+  porDistribuidor,
+} from '@/lib/mesas';
 import type { Mesa } from '@/lib/mesas';
 import { clavePanel } from '@/lib/mesas-panel';
 import { enlaceReunion } from '@/lib/mesas-reunion';
@@ -78,6 +94,7 @@ export async function GET(request: NextRequest) {
   for (const fila of (data || []) as { horario: string; silla: number; nombre: string }[]) {
     if (!ocupadas[fila.horario]) continue;
     ocupadas[fila.horario].push(fila.silla);
+    if (porDistribuidor(mesa) && fila.silla !== SILLA_DISTRIBUIDOR) continue;
     nombres[fila.horario][fila.silla] = primerNombre(fila.nombre);
   }
   return NextResponse.json(
@@ -133,7 +150,7 @@ export async function POST(request: NextRequest) {
     if (!mesa.horarios.includes(horario)) {
       return NextResponse.json({ error: 'Esa hora no existe.' }, { status: 400 });
     }
-    if (!enLinea(mesa) && (!Number.isInteger(silla) || silla < 1 || silla > mesa.sillas)) {
+    if (!enLinea(mesa) && !porDistribuidor(mesa) && (!Number.isInteger(silla) || silla < 1 || silla > mesa.sillas)) {
       return NextResponse.json({ error: 'Esa silla no existe.' }, { status: 400 });
     }
     if (!nombreValido(nombre)) {
@@ -152,6 +169,10 @@ export async function POST(request: NextRequest) {
         { error: enLinea(mesa) ? 'Las inscripciones ya se cerraron.' : 'Esa mesa ya empezó. Elija otra hora.' },
         { status: 409 }
       );
+    }
+
+    if (porDistribuidor(mesa)) {
+      return reservarMesaDistribuidor(mesa, String(body.evento), horario, nombre, whatsapp, body?.prospectos);
     }
 
     if (enLinea(mesa)) {
@@ -299,6 +320,101 @@ export async function POST(request: NextRequest) {
     console.error('❌ [MESA]', e);
     return NextResponse.json({ error: 'No se pudo reservar. Intente de nuevo.' }, { status: 500 });
   }
+}
+
+/**
+ * Por distribuidor: la hora entera para él (silla 1) y sus prospectos en las sillas
+ * 2…. Primero la silla 1, que es la que reparte la hora (unicidad de la tabla); si
+ * los prospectos no se pueden guardar, se suelta la hora para no dejarla tomada a medias.
+ */
+async function reservarMesaDistribuidor(
+  mesa: Mesa,
+  clave: string,
+  horario: string,
+  nombre: string,
+  whatsapp: string,
+  crudos: unknown
+) {
+  const max = mesa.sillas - 1;
+  const prospectos = (Array.isArray(crudos) ? crudos : [])
+    .map((p) => String(p || '').trim().replace(/\s+/g, ' ').slice(0, 80))
+    .filter(Boolean);
+  if (!prospectos.length) {
+    return NextResponse.json({ error: 'Escriba el nombre de al menos un prospecto.' }, { status: 400 });
+  }
+  if (prospectos.length > max) {
+    return NextResponse.json({ error: `En la mesa caben ${max} prospectos.` }, { status: 400 });
+  }
+  if (!prospectos.every(nombreValido)) {
+    return NextResponse.json({ error: 'Revise los nombres de sus prospectos (con letras, sin números).' }, { status: 400 });
+  }
+
+  const { data: suyas } = await getSupabase()
+    .from('reservas_mesa')
+    .select('horario')
+    .eq('evento', mesa.id)
+    .eq('whatsapp', whatsapp)
+    .eq('silla', SILLA_DISTRIBUIDOR);
+  const horasSuyas = ((suyas || []) as { horario: string }[]).map((f) => f.horario);
+  if (horasSuyas.includes(horario)) {
+    return NextResponse.json({ error: 'Esa hora ya es suya.' }, { status: 409 });
+  }
+  if (horasSuyas.length >= HORAS_POR_DISTRIBUIDOR) {
+    return NextResponse.json(
+      { error: `Ese número ya tiene ${HORAS_POR_DISTRIBUIDOR} horas reservadas. Deje las otras para el resto del equipo.` },
+      { status: 409 }
+    );
+  }
+
+  const { error } = await getSupabase()
+    .from('reservas_mesa')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .insert({ evento: mesa.id, horario, silla: SILLA_DISTRIBUIDOR, nombre, whatsapp } as any);
+  if (error) {
+    if (error.code === '23505') {
+      return NextResponse.json(
+        { error: 'Otro distribuidor acaba de tomar esa hora. Elija otra.', tomada: true },
+        { status: 409 }
+      );
+    }
+    console.error('❌ [MESA] POST distribuidor:', error.message);
+    return NextResponse.json({ error: 'No se pudo reservar. Intente de nuevo.' }, { status: 500 });
+  }
+
+  const { error: e2 } = await getSupabase()
+    .from('reservas_mesa')
+    .insert(
+      prospectos.map((p, i) => ({
+        evento: mesa.id,
+        horario,
+        silla: SILLA_DISTRIBUIDOR + 1 + i,
+        nombre: p,
+        whatsapp,
+        invitado_de: `texto:${nombre}`,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      })) as any
+    );
+  if (e2) {
+    console.error('❌ [MESA] POST prospectos:', e2.message);
+    await getSupabase().from('reservas_mesa').delete().eq('evento', mesa.id).eq('horario', horario);
+    return NextResponse.json({ error: 'No se pudo reservar. Intente de nuevo.' }, { status: 500 });
+  }
+
+  const { data: todas } = await getSupabase()
+    .from('reservas_mesa')
+    .select('horario')
+    .eq('evento', mesa.id)
+    .eq('silla', SILLA_DISTRIBUIDOR);
+  const libres = mesa.horarios.length - (todas || []).length;
+  await avisar(mesa, clave, horario, nombre, whatsapp, {
+    titulo: `Presentación · ${horaTexto(horario)}`,
+    cuerpo: `${nombre} sienta a ${prospectos.join(', ')}. ${
+      libres <= 0 ? 'Ya no quedan horas libres.' : libres === 1 ? 'Queda 1 hora libre.' : `Quedan ${libres} horas libres.`
+    }`,
+    asunto: `Presentación ${mesa.ciudad} · ${horaTexto(horario)}: ${nombre} con ${prospectos.length} prospecto${prospectos.length === 1 ? '' : 's'}`,
+  });
+
+  return NextResponse.json({ ok: true });
 }
 
 /**

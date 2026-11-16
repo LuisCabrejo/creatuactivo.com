@@ -11,7 +11,7 @@ import type { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { unstable_noStore as noStore } from 'next/cache';
 import SinOrbe from '@/components/SinOrbe';
-import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto } from '@/lib/mesas';
+import { MESAS, PRIMER_PUESTO_INVITADO, SILLA_DISTRIBUIDOR, enLinea, horaCerrada, horaTexto, porDistribuidor } from '@/lib/mesas';
 import { claveValida } from '@/lib/mesas-panel';
 import Refrescar from './Refrescar';
 import AccionesWhatsApp from './AccionesWhatsApp';
@@ -86,7 +86,9 @@ export default async function PanelMesa({
       <SinOrbe />
       <Refrescar cada={30_000} />
       <section style={{ maxWidth: 560, margin: '0 auto', padding: '40px 16px 64px' }}>
-        <p style={{ ...etiqueta, color: '#22D3EE' }}>{enLinea(mesa) ? 'Taller · en línea' : `Mesa VIP · ${mesa.ciudad}`}</p>
+        <p style={{ ...etiqueta, color: '#22D3EE' }}>
+          {enLinea(mesa) ? 'Taller · en línea' : porDistribuidor(mesa) ? `Presentación · ${mesa.ciudad}` : `Mesa VIP · ${mesa.ciudad}`}
+        </p>
         <p style={{ margin: '0.5rem 0 0', fontSize: '1.05rem', color: '#FFFFFF' }}>
           {mesa.fechaTexto} · {mesa.lugar}
         </p>
@@ -103,8 +105,21 @@ export default async function PanelMesa({
             gap: 10,
           }}
         >
-          <span style={{ fontSize: '2.5rem', fontWeight: 500, color: ORO, lineHeight: 1 }}>{filas.length}</span>
-          <span style={{ fontSize: '1.05rem', color: '#FFFFFF' }}>de {total} {enLinea(mesa) ? 'puestos' : 'sillas'} reservados</span>
+          {porDistribuidor(mesa) ? (
+            <>
+              <span style={{ fontSize: '2.5rem', fontWeight: 500, color: ORO, lineHeight: 1 }}>
+                {filas.filter((f) => f.silla === SILLA_DISTRIBUIDOR).length}
+              </span>
+              <span style={{ fontSize: '1.05rem', color: '#FFFFFF' }}>
+                de {mesa.horarios.length} mesas · {filas.filter((f) => f.silla !== SILLA_DISTRIBUIDOR).length} prospectos
+              </span>
+            </>
+          ) : (
+            <>
+              <span style={{ fontSize: '2.5rem', fontWeight: 500, color: ORO, lineHeight: 1 }}>{filas.length}</span>
+              <span style={{ fontSize: '1.05rem', color: '#FFFFFF' }}>de {total} {enLinea(mesa) ? 'puestos' : 'sillas'} reservados</span>
+            </>
+          )}
         </div>
         <p style={{ ...etiqueta, marginTop: 10, letterSpacing: '0.1em', textTransform: 'none' }}>
           Actualizado a las {hora}. Se refresca solo.
@@ -165,8 +180,16 @@ export default async function PanelMesa({
                     const r = deEsta.find((f) => f.silla === n);
                     return (
                       <li key={n} style={{ display: 'flex', gap: 12, alignItems: 'baseline', fontSize: '0.98rem' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: TITANIO, minWidth: 56 }}>{enLinea(mesa) ? 'Puesto' : 'Silla'} {n}</span>
-                        {r ? (
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: TITANIO, minWidth: 56 }}>
+                          {porDistribuidor(mesa)
+                            ? n === SILLA_DISTRIBUIDOR
+                              ? 'Distrib.'
+                              : `Prosp. ${n - SILLA_DISTRIBUIDOR}`
+                            : `${enLinea(mesa) ? 'Puesto' : 'Silla'} ${n}`}
+                        </span>
+                        {r && porDistribuidor(mesa) && n !== SILLA_DISTRIBUIDOR ? (
+                          <span style={{ color: '#FFFFFF' }}>{r.nombre}</span>
+                        ) : r ? (
                           <span style={{ color: '#FFFFFF' }}>
                             {r.nombre} ·{' '}
                             <a href={`https://wa.me/${r.whatsapp}`} target="_blank" rel="noopener noreferrer" style={{ color: ORO }}>

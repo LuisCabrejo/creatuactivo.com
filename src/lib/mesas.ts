@@ -10,6 +10,13 @@
  *   (este archivo llega al navegador): vive en src/lib/mesas-reunion.ts, solo de
  *   servidor, y se entrega después de reservar.
  *
+ * - por_distribuidor: presentación empresarial presencial (Villavicencio, 18 nov
+ *   2026). Cada hora es la mesa de UN distribuidor: él reserva la hora completa y
+ *   sienta ahí a sus prospectos (hasta `sillas - 1`), con Luis presentando. En la
+ *   tabla, la silla 1 es el distribuidor y las 2… son sus prospectos (con el
+ *   WhatsApp del distribuidor: del prospecto no se guarda teléfono). La unicidad
+ *   (evento, horario, silla) hace que la hora sea de uno solo.
+ *
  * Una convocatoria nueva se agrega aquí: la página, la ruta y la tabla
  * `reservas_mesa` la toman sin más cambios.
  */
@@ -18,7 +25,7 @@ export interface Mesa {
   /** Lo que se guarda en `reservas_mesa.evento`. */
   id: string;
   /** Sin el campo, presencial. */
-  modalidad?: 'presencial' | 'en_linea';
+  modalidad?: 'presencial' | 'en_linea' | 'por_distribuidor';
   /** Minutos que dura cada hora, para el calendario. Sin el campo, 60. */
   duracionMin?: number;
   /** Título del evento en el calendario. Sin el campo, el de la mesa presencial. */
@@ -73,9 +80,30 @@ export const MESAS: Record<string, Mesa> = {
     cupoInvitados: 20,
     anfitrion: 'luis-cabrejo-1288',
   },
+  'villavicencio-18': {
+    id: 'presentacion-villavicencio-2026-11-18',
+    modalidad: 'por_distribuidor',
+    tituloCalendario: 'Presentación empresarial · Villavicencio',
+    fecha: '2026-11-18',
+    fechaTexto: 'Miércoles 18 de noviembre',
+    ciudad: 'Villavicencio',
+    lugar: 'Oficina de Gano Excel',
+    direccion: 'Avenida 40 # 20-37, 7 de Agosto',
+    mapa: 'https://www.google.com/maps/search/?api=1&query=Gano+Excel+Avenida+40+%2320-37+Villavicencio',
+    horarios: ['10:00', '11:00', '14:00', '15:00', '16:00', '17:00'],
+    // El distribuidor y tres prospectos; la silla de Luis va aparte.
+    sillas: 4,
+    anfitrion: 'luis-cabrejo-1288',
+  },
 };
 
 export const enLinea = (mesa: Mesa) => mesa.modalidad === 'en_linea';
+export const porDistribuidor = (mesa: Mesa) => mesa.modalidad === 'por_distribuidor';
+
+/** Por distribuidor: la silla 1 es la suya; de la 2 en adelante, sus prospectos. */
+export const SILLA_DISTRIBUIDOR = 1;
+/** Cuántas horas puede reservar un mismo distribuidor (por WhatsApp). */
+export const HORAS_POR_DISTRIBUIDOR = 2;
 
 /** Los invitados se numeran desde aquí: 101, 102… (los distribuidores, 1 a `sillas`). */
 export const PRIMER_PUESTO_INVITADO = 101;

@@ -19,8 +19,16 @@ type Plantilla = { estado: string; categoria: string | null; conImagen: boolean 
 type Estado = {
   confirmacion: Plantilla;
   invitacion: Plantilla;
+  recordatorio: Plantilla;
+  ultimaLlamada: Plantilla;
   errorMeta: string | null;
-  pendientes: { invitacion: number; invitacionAMano: number; confirmacion: number };
+  pendientes: {
+    invitacion: number;
+    invitacionAMano: number;
+    confirmacion: number;
+    recordatorioInscritos: number;
+    recordatorioNoInscritos: number;
+  };
 };
 type Persona = { nombre: string; whatsapp: string };
 type Accion = 'invitar' | 'confirmar';
@@ -72,7 +80,16 @@ export default function AccionesWhatsApp({ evento, clave }: { evento: string; cl
       !x ? '' : x.yaExiste ? `${n}: ya existía.` : x.ok
         ? `${n}: sometida${x.category ? ` (${x.category})` : ''}${x.conImagen === false ? ' · SIN imagen: ' + (x.errorImagen || '') : ''}.`
         : `${n}: error — ${x.error}`;
-    setMensaje([linea('Confirmación', j.confirmacion), linea('Invitación', j.invitacion)].filter(Boolean).join('\n'));
+    setMensaje(
+      [
+        linea('Confirmación', j.confirmacion),
+        linea('Invitación', j.invitacion),
+        linea('Recordatorio', j.recordatorio),
+        linea('Última llamada', j.ultimaLlamada),
+      ]
+        .filter(Boolean)
+        .join('\n')
+    );
     setOcupado(null);
     cargar();
   }
@@ -120,7 +137,25 @@ export default function AccionesWhatsApp({ evento, clave }: { evento: string; cl
     </p>
   );
 
-  const faltaAlguna = estado && (!estado.confirmacion || !estado.invitacion);
+  const faltaAlguna = estado && (!estado.confirmacion || !estado.invitacion || !estado.recordatorio || !estado.ultimaLlamada);
+
+  async function recordar() {
+    if (!estado) return;
+    const n = estado.pendientes.recordatorioInscritos + (estado.ultimaLlamada?.estado === 'APPROVED' ? estado.pendientes.recordatorioNoInscritos : 0);
+    if (!window.confirm(`¿Enviar ya el recordatorio a ${n} ${n === 1 ? 'persona' : 'personas'}? Sale solo a las 7:15 a. m.; esto lo adelanta.`)) return;
+    setOcupado('recordar');
+    setMensaje(null);
+    const { ok, j } = await post({ accion: 'recordar' });
+    setMensaje(
+      ok
+        ? `Recordatorio: ${j.inscritos} inscritos · ${j.noInscritos} no inscritos.` +
+            (j.respaldo ? '\n(Con la confirmación: el recordatorio aún no está aprobado.)' : '') +
+            ((j.fallos || []).length ? `\nFallaron ${j.fallos.length}:\n` + j.fallos.map((f: { nombre: string; error: string }) => `· ${f.nombre}: ${f.error}`).join('\n') : '')
+        : j.error || 'No se pudo enviar.'
+    );
+    setOcupado(null);
+    cargar();
+  }
   const aprobada = (p: Plantilla) => p?.estado === 'APPROVED';
 
   return (
@@ -138,6 +173,8 @@ export default function AccionesWhatsApp({ evento, clave }: { evento: string; cl
         <>
           {fila('Invitación', estado.invitacion)}
           {fila('Confirmación', estado.confirmacion)}
+          {fila('Recordatorio', estado.recordatorio)}
+          {fila('Última llamada', estado.ultimaLlamada)}
           {estado.errorMeta && <p style={{ color: '#F43F5E', fontSize: '0.85rem' }}>{estado.errorMeta}</p>}
 
           {faltaAlguna && (
@@ -153,6 +190,11 @@ export default function AccionesWhatsApp({ evento, clave }: { evento: string; cl
             </button>
             <button type="button" disabled={!!ocupado} onClick={() => verLista('confirmar')} style={boton}>
               Confirmación con enlace a inscritos · faltan {estado.pendientes.confirmacion}
+            </button>
+            <button type="button" disabled={!!ocupado} onClick={recordar} style={boton}>
+              {ocupado === 'recordar'
+                ? 'Enviando…'
+                : `Recordatorio (sale solo 45 min antes) · inscritos ${estado.pendientes.recordatorioInscritos} · no inscritos ${estado.pendientes.recordatorioNoInscritos}`}
             </button>
           </div>
         </>

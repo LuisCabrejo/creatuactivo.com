@@ -71,7 +71,7 @@ const CONTENIDO: Record<Tipo, { titulo: string; puntos: string[] }> = {
 
 const CAMARA = 'Es una mesa de trabajo, no una transmisión: se entra con la cámara encendida.';
 
-type Reserva = { tipo: Tipo; nombre: string; reunion: string | null; sugerirFoto: boolean; whatsapp: string };
+type Reserva = { tipo: Tipo; nombre: string; reunion: string | null; sugerirFoto: boolean; whatsappEnviado: boolean };
 
 export default function CupoReserva({
   evento,
@@ -165,7 +165,7 @@ export default function CupoReserva({
         nombre: nombre.trim().split(/\s+/)[0],
         reunion: j.reunion || null,
         sugerirFoto: !!j.sugerirFoto,
-        whatsapp: soloDigitosWa(whatsapp),
+        whatsappEnviado: !!j.whatsappEnviado,
       });
       cargar();
     } catch {
@@ -208,8 +208,8 @@ export default function CupoReserva({
           <p style={{ margin: '1rem 0 0', color: ORO, lineHeight: 1.55 }}>Entre con la cámara encendida.</p>
 
           {/* El enlace, escrito y a la vista (15 nov 2026): se mostraba solo como botón y,
-              al cerrar esta pantalla, la persona se quedaba sin él. «Enviármelo a mi
-              WhatsApp» abre el chat de la persona consigo misma con el enlace escrito. */}
+              al cerrar esta pantalla, la persona se quedaba sin él. Desde el 16 nov Queswa
+              además se lo envía por WhatsApp al reservar (/api/mesa → whatsappEnviado). */}
           {reserva.reunion ? (
             <div style={{ marginTop: '1.5rem', padding: '1rem', border: `1px solid ${BORDE}`, borderRadius: 10, background: '#0F1115' }}>
               <p style={etiqueta}>Su enlace para entrar</p>
@@ -221,33 +221,27 @@ export default function CupoReserva({
               >
                 {reserva.reunion.replace(/^https:\/\//, '')}
               </a>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: '0.9rem' }}>
-                <button
-                  type="button"
-                  className="cta-secondary"
-                  onClick={async () => {
-                    try {
-                      await navigator.clipboard.writeText(reserva.reunion!);
-                      setCopiado(true);
-                      setTimeout(() => setCopiado(false), 2500);
-                    } catch {
-                      /* sin portapapeles: el enlace queda escrito arriba */
-                    }
-                  }}
-                >
-                  {copiado ? 'Copiado ✓' : 'Copiar enlace'}
-                </button>
-                <a
-                  className="cta-secondary"
-                  href={`https://wa.me/${reserva.whatsapp}?text=${encodeURIComponent(
-                    `${mesa.tituloCalendario ?? 'Taller'}\n${cuando}\nEntrar con la cámara encendida: ${reserva.reunion}`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Enviármelo a mi WhatsApp
-                </a>
-              </div>
+              <button
+                type="button"
+                className="cta-secondary"
+                style={{ width: '100%', marginTop: '0.9rem' }}
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(reserva.reunion!);
+                    setCopiado(true);
+                    setTimeout(() => setCopiado(false), 2500);
+                  } catch {
+                    /* sin portapapeles: el enlace queda escrito arriba */
+                  }
+                }}
+              >
+                {copiado ? 'Copiado ✓' : 'Copiar enlace'}
+              </button>
+              <p style={{ margin: '0.75rem 0 0', fontSize: '0.9rem', color: 'var(--color-text-body)', lineHeight: 1.5 }}>
+                {reserva.whatsappEnviado
+                  ? 'También se lo enviamos a su WhatsApp.'
+                  : 'Guárdelo: copie el enlace o guarde el taller en su calendario.'}
+              </p>
             </div>
           ) : (
             <p style={{ margin: '1.5rem 0 0', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
@@ -446,12 +440,12 @@ export default function CupoReserva({
               placeholder="300 123 4567"
               required
             />
-            {/* ⚠️ No prometer aquí un envío por WhatsApp hasta que exista (15 nov 2026: la
-                línea «Le enviamos… por WhatsApp» salió sin envío detrás y una inscrita esperó
-                un mensaje que no llegó). Cuando la plantilla confirmacion_evento_v1 se envíe
-                de verdad, vuelve esa línea: es además el permiso que Meta exige. */}
+            {/* El permiso para escribirle por WhatsApp (Meta lo exige explícito). Es cierto
+                desde el 16 nov 2026: /api/mesa envía la confirmación al reservar. El 15 nov
+                esta línea salió sin envío detrás y una inscrita esperó un mensaje que no
+                llegó: si el envío automático se apaga, esta línea se apaga con él. */}
             <span style={{ fontSize: '0.85rem', color: 'var(--color-text-body)' }}>
-              Al reservar le mostramos el enlace para entrar.
+              Le enviamos la confirmación y el enlace por WhatsApp.
             </span>
           </label>
           {tipo === 'invitado' && !invitadoPor && (
@@ -520,9 +514,3 @@ function finDe(hhmm: string, minutos: number): string {
 }
 
 const primerNombre = (n: string) => n.trim().split(/\s+/)[0] || n;
-
-/** El WhatsApp para wa.me: solo dígitos; un celular colombiano de 10 dígitos recibe el 57. */
-function soloDigitosWa(crudo: string): string {
-  const d = (crudo || '').replace(/\D/g, '');
-  return /^3\d{9}$/.test(d) ? `57${d}` : d;
-}

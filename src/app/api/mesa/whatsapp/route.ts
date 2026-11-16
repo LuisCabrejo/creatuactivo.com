@@ -28,6 +28,7 @@ import { createClient } from '@supabase/supabase-js';
 import { MESAS } from '@/lib/mesas';
 import { claveValida } from '@/lib/mesas-panel';
 import { createTemplate, listTemplates, sendTemplate, subirMuestraPlantilla } from '@/lib/wa-channel';
+import { registrarEnvio } from '@/lib/convocatoria-envios';
 import {
   CONVOCATORIAS_WA,
   PLANTILLA_CONFIRMACION,
@@ -119,20 +120,8 @@ async function destinosConfirmacion(eventoId: string) {
 }
 
 async function registrar(eventoId: string, plantilla: string, d: Destino, r: { ok: boolean; messageId?: string; error?: string }) {
-  await db()
-    .from('convocatoria_envios')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .upsert({
-      evento: eventoId,
-      plantilla,
-      whatsapp: d.whatsapp,
-      nombre: d.nombre,
-      constructor_id: d.constructor_id,
-      estado: r.ok ? 'enviado' : 'fallo',
-      error: r.ok ? null : (r.error || '').slice(0, 500),
-      message_id: r.messageId ?? null,
-      enviado_at: new Date().toISOString(),
-    } as any);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await registrarEnvio(db() as any, eventoId, plantilla, d, r);
 }
 
 const resumen = (t: { status: string; category?: string; headerFormat?: string } | null) =>

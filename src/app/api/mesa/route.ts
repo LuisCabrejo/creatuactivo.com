@@ -10,6 +10,9 @@
  *   puesto libre y, si otra persona lo tomó un instante antes, prueba el siguiente. La
  *   respuesta trae el enlace de la reunión (src/lib/mesas-reunion.ts), que no está en
  *   la página. Un WhatsApp reserva un solo puesto: si ya reservó, se le devuelve el suyo.
+ *   Al reservar, Queswa le envía por WhatsApp la confirmación con el enlace
+ *   (plantilla confirmacion_evento_v1, src/lib/convocatoria-envios.ts); la
+ *   respuesta dice si salió (`whatsappEnviado`). La reserva no depende de eso.
  *   Invitados (body.tipo 'invitado', cupo aparte desde el puesto 101): `ref` es el
  *   constructor_id del socio cuyo enlace usó (se valida contra private_users) o, sin
  *   enlace, `invitadoPor` es el nombre que escribió. Al socio que invitó le llega un
@@ -28,6 +31,8 @@ import { MESAS, PRIMER_PUESTO_INVITADO, enLinea, horaCerrada, horaTexto, nombreV
 import type { Mesa } from '@/lib/mesas';
 import { clavePanel } from '@/lib/mesas-panel';
 import { enlaceReunion } from '@/lib/mesas-reunion';
+import { enviarConfirmacion, yaRecibio } from '@/lib/convocatoria-envios';
+import { PLANTILLA_CONFIRMACION } from '@/lib/wa-plantillas-convocatoria';
 
 export const dynamic = 'force-dynamic';
 
@@ -193,7 +198,20 @@ export async function POST(request: NextRequest) {
         sugerirFoto = !!fila && !(fila.profile_photo_url || '').trim();
       }
 
-      if (yaTenia) return NextResponse.json({ ok: true, puesto: yaTenia, reunion, repetida: true, sugerirFoto });
+      // La confirmación por WhatsApp sale sola al reservar (Director, 16 nov 2026). Quien
+      // vuelve a reservar con su número y aún no la tiene, también la recibe.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const db = getSupabase() as any;
+      const confirmar = async () => {
+        if (await yaRecibio(db, mesa.id, PLANTILLA_CONFIRMACION, whatsapp)) return true;
+        const r = await enviarConfirmacion(db, mesa.id, { whatsapp, nombre, constructor_id: null });
+        return !!r?.ok;
+      };
+
+      if (yaTenia) {
+        const whatsappEnviado = await confirmar();
+        return NextResponse.json({ ok: true, puesto: yaTenia, reunion, repetida: true, sugerirFoto, whatsappEnviado });
+      }
 
       const puesto = await reservarPuesto(mesa, horario, nombre, whatsapp, invitadoDe);
       if (!puesto) {
@@ -231,7 +249,8 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      return NextResponse.json({ ok: true, puesto, reunion, sugerirFoto });
+      const whatsappEnviado = await confirmar();
+      return NextResponse.json({ ok: true, puesto, reunion, sugerirFoto, whatsappEnviado });
     }
 
     const { count } = await getSupabase()

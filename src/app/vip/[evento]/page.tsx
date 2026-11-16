@@ -46,7 +46,13 @@ export function generateMetadata({ params }: { params: { evento: string } }): Me
       description: d,
       robots: { index: false, follow: false },
       alternates: { canonical: `https://creatuactivo.com/vip/${params.evento}` },
-      openGraph: { title: t, description: d, url: `https://creatuactivo.com/vip/${params.evento}` },
+      openGraph: {
+        title: t,
+        description: d,
+        url: `https://creatuactivo.com/vip/${params.evento}`,
+        // El flyer de la convocatoria, para que el enlace compartido se vea como la invitación.
+        images: [{ url: 'https://creatuactivo.com/images/eventos/flyer-villavicencio-20261118.png', width: 1080, height: 1350 }],
+      },
     };
   }
   const titulo = `Mesa privada · ${mesa.ciudad}`;

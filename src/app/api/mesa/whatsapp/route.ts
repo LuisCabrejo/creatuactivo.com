@@ -18,6 +18,8 @@
  *               Los +1 no reciben MARKETING: se listan para enviarlos a mano.
  *   'confirmar' la confirmación con el enlace de Meet a cada inscrito que no la
  *               haya recibido.
+ *   'recordar'  el recordatorio de 45 minutos antes, a mano (lo mismo que hace el
+ *               cron /api/cron/recordatorio-convocatoria a su hora).
  *   Con dry: true no envía nada: devuelve a quiénes les llegaría.
  *
  * Cada envío queda en `convocatoria_envios` (evento, plantilla, whatsapp): nadie
@@ -28,13 +30,17 @@ import { createClient } from '@supabase/supabase-js';
 import { MESAS } from '@/lib/mesas';
 import { claveValida } from '@/lib/mesas-panel';
 import { createTemplate, listTemplates, sendTemplate, subirMuestraPlantilla } from '@/lib/wa-channel';
-import { registrarEnvio } from '@/lib/convocatoria-envios';
+import { enviarRecordatorio, planRecordatorio, registrarEnvio } from '@/lib/convocatoria-envios';
 import {
   CONVOCATORIAS_WA,
   PLANTILLA_CONFIRMACION,
   PLANTILLA_INVITACION,
+  PLANTILLA_RECORDATORIO,
+  PLANTILLA_ULTIMA_LLAMADA,
   plantillaConfirmacion,
   plantillaInvitacion,
+  plantillaRecordatorio,
+  plantillaUltimaLlamada,
   primerNombreWa,
 } from '@/lib/wa-plantillas-convocatoria';
 
@@ -62,7 +68,14 @@ function autorizar(evento: string | null, clave: string | null) {
 async function plantillas() {
   const { templates, error } = await listTemplates();
   const de = (n: string) => templates.find((t) => t.name === n) ?? null;
-  return { confirmacion: de(PLANTILLA_CONFIRMACION), invitacion: de(PLANTILLA_INVITACION), error };
+  return {
+    confirmacion: de(PLANTILLA_CONFIRMACION),
+    invitacion: de(PLANTILLA_INVITACION),
+    recordatorio: de(PLANTILLA_RECORDATORIO),
+    ultimaLlamada: de(PLANTILLA_ULTIMA_LLAMADA),
+    todas: templates,
+    error,
+  };
 }
 
 async function yaEnviados(eventoId: string, plantilla: string): Promise<Set<string>> {
@@ -134,12 +147,22 @@ export async function GET(request: NextRequest) {
   const p = await plantillas();
   const inv = await destinosInvitacion(ok.mesa.id, ok.mesa.anfitrion);
   const conf = await destinosConfirmacion(ok.mesa.id);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rec = await planRecordatorio(db() as any, ok.mesa.id, ok.mesa.anfitrion, p.todas);
   return NextResponse.json(
     {
       confirmacion: resumen(p.confirmacion),
       invitacion: resumen(p.invitacion),
+      recordatorio: resumen(p.recordatorio),
+      ultimaLlamada: resumen(p.ultimaLlamada),
       errorMeta: p.error ?? null,
-      pendientes: { invitacion: inv.enviar.length, invitacionAMano: inv.aMano.length, confirmacion: conf.enviar.length },
+      pendientes: {
+        invitacion: inv.enviar.length,
+        invitacionAMano: inv.aMano.length,
+        confirmacion: conf.enviar.length,
+        recordatorioInscritos: rec.inscritos.length,
+        recordatorioNoInscritos: rec.noInscritos.length,
+      },
     },
     { headers: { 'Cache-Control': 'no-store' } }
   );
@@ -168,7 +191,29 @@ export async function POST(request: NextRequest) {
       const r = await createTemplate(plantillaInvitacion(muestra.handle));
       resultados.invitacion = { ...r, conImagen: !!muestra.handle, errorImagen: muestra.error ?? null };
     }
+    if (p.recordatorio) resultados.recordatorio = { yaExiste: true, ...resumen(p.recordatorio) };
+    else resultados.recordatorio = await createTemplate(plantillaRecordatorio());
+    if (p.ultimaLlamada) resultados.ultimaLlamada = { yaExiste: true, ...resumen(p.ultimaLlamada) };
+    else resultados.ultimaLlamada = await createTemplate(plantillaUltimaLlamada());
     return NextResponse.json(resultados);
+  }
+
+  if (body.accion === 'recordar') {
+    const p = await plantillas();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const plan = await planRecordatorio(db() as any, mesa.id, mesa.anfitrion, p.todas);
+    if (body.dry) {
+      return NextResponse.json({
+        dry: true,
+        recordatorioAprobado: plan.recordatorioAprobado,
+        ultimaLlamadaAprobada: plan.ultimaLlamadaAprobada,
+        inscritos: plan.inscritos.map((d) => ({ nombre: d.nombre, whatsapp: d.whatsapp })),
+        noInscritos: plan.noInscritos.map((d) => ({ nombre: d.nombre, whatsapp: d.whatsapp })),
+        aMano: plan.aMano.map((d) => ({ nombre: d.nombre, whatsapp: d.whatsapp })),
+      });
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return NextResponse.json(await enviarRecordatorio(db() as any, mesa.id, plan));
   }
 
   if (body.accion === 'invitar' || body.accion === 'confirmar') {

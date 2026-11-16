@@ -21,6 +21,10 @@
 
 export const PLANTILLA_CONFIRMACION = 'confirmacion_evento_v1';
 export const PLANTILLA_INVITACION = 'invitacion_taller_v1';
+/** 45 minutos antes, a los inscritos (UTILITY). Aprobado por el Director, 16 nov 2026. */
+export const PLANTILLA_RECORDATORIO = 'recordatorio_evento_v1';
+/** 45 minutos antes, a los distribuidores que no se inscribieron (MARKETING). Aprobado, 16 nov 2026. */
+export const PLANTILLA_ULTIMA_LLAMADA = 'ultima_llamada_taller_v1';
 
 /** Lo que cada convocatoria pone en sus plantillas. La llave es Mesa.id. */
 export interface DatosConvocatoriaWa {
@@ -28,6 +32,8 @@ export interface DatosConvocatoriaWa {
   eventoTexto: string;
   /** {{3}} de la confirmación: «lunes 16 de noviembre a las 8:00 a. m.». */
   cuandoTexto: string;
+  /** {{2}} del recordatorio: «8:00 a. m.». */
+  horaTexto: string;
   /** El código de la reunión de Meet (va como sufijo del botón). */
   codigoMeet: string;
   /** El flyer, en una URL pública (encabezado de la invitación). */
@@ -40,6 +46,7 @@ export const CONVOCATORIAS_WA: Record<string, DatosConvocatoriaWa> = {
   'taller-dos-socios-2026-11-16': {
     eventoTexto: 'el taller en línea',
     cuandoTexto: 'lunes 16 de noviembre a las 8:00 a. m.',
+    horaTexto: '8:00 a. m.',
     codigoMeet: 'fgz-qdxk-mhr',
     flyer: 'https://creatuactivo.com/images/eventos/flyer-taller-dos-socios-20261116.png',
     claveVip: 'taller',
@@ -87,6 +94,55 @@ export function plantillaInvitacion(handle?: string): Record<string, unknown> {
           'Hola, {{1}}. El lunes 16 de noviembre, de 8:00 a 10:00 a. m., tenemos un taller privado en línea: ' +
           'su plan para sumar dos socios nuevos, con una clínica en vivo. ' +
           'Los cupos son limitados y se entra con cámara encendida.',
+        example: { body_text: [['Julieth']] },
+      },
+      {
+        type: 'BUTTONS',
+        buttons: [{ type: 'URL', text: 'Reservar mi puesto', url: 'https://creatuactivo.com/vip/taller' }],
+      },
+    ],
+  };
+}
+
+/** El recordatorio a los inscritos. La hora va en medio de la frase (al final, «a. m..»). */
+export function plantillaRecordatorio(): Record<string, unknown> {
+  return {
+    name: PLANTILLA_RECORDATORIO,
+    language: 'es',
+    category: 'UTILITY',
+    components: [
+      {
+        type: 'BODY',
+        text: 'Hola, {{1}}. En 45 minutos, a las {{2}}, empieza {{3}}. Entre con la cámara encendida.',
+        example: { body_text: [['Julieth', '8:00 a. m.', 'el taller en línea']] },
+      },
+      {
+        type: 'BUTTONS',
+        buttons: [
+          {
+            type: 'URL',
+            text: 'Entrar a la reunión',
+            url: 'https://meet.google.com/{{1}}',
+            example: ['https://meet.google.com/fgz-qdxk-mhr'],
+          },
+        ],
+      },
+    ],
+  };
+}
+
+/** La última llamada a quien no se inscribió: reservar, no entrar (aún no tiene puesto). */
+export function plantillaUltimaLlamada(): Record<string, unknown> {
+  return {
+    name: PLANTILLA_ULTIMA_LLAMADA,
+    language: 'es',
+    category: 'MARKETING',
+    components: [
+      {
+        type: 'BODY',
+        text:
+          'Hola, {{1}}. En 45 minutos, a las 8:00 a. m., empieza el taller privado en línea: ' +
+          'su plan para sumar dos socios nuevos. Aún puede reservar su puesto; se entra con cámara encendida.',
         example: { body_text: [['Julieth']] },
       },
       {

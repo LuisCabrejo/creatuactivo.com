@@ -209,6 +209,19 @@ export function enSilencioBogota(ahora: Date): boolean {
 }
 export function esLunesBogota(ahora: Date): boolean { return bogota(ahora).getUTCDay() === 1; }
 
+/**
+ * Lunes en que el mensaje no sale, con su razón (Director). El cron lo omite;
+ * `?forzar=1` lo envía igual. Fecha en Bogotá, AAAA-MM-DD.
+ */
+export const LUNES_SIN_MENSAJE: Record<string, string> = {
+  '2026-11-16': 'Taller en línea «Dos socios nuevos» a las 8:00 a. m.: ese día el mensaje es el del taller.',
+};
+
+/** Si hoy (en Bogotá) es un lunes sin mensaje, la razón; si no, null. */
+export function lunesSinMensaje(ahora: Date): string | null {
+  return LUNES_SIN_MENSAJE[bogota(ahora).toISOString().slice(0, 10)] ?? null;
+}
+
 /** Semana ISO en Bogotá: `2026-W38`. Un envío por socio y semana. */
 export function semanaISO(ahora: Date): string {
   const d = bogota(ahora);

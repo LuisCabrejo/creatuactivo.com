@@ -10,12 +10,14 @@
  *
  *   GET /api/cron/wa-lunes-socio            → envía (solo lunes, fuera de silencio)
  *   GET /api/cron/wa-lunes-socio?dry=1      → dice a quién le tocaría, sin enviar
- *   GET /api/cron/wa-lunes-socio?forzar=1   → envía aunque no sea lunes
+ *   GET /api/cron/wa-lunes-socio?forzar=1   → envía aunque no sea lunes (o sea un lunes sin mensaje)
+ *
+ * Los lunes en que no sale (un taller, un festivo especial) van en LUNES_SIN_MENSAJE.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { decidir, enviarLunes, enSilencioBogota, esLunesBogota } from '@/lib/wa-lunes-socio';
+import { decidir, enviarLunes, enSilencioBogota, esLunesBogota, lunesSinMensaje } from '@/lib/wa-lunes-socio';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -40,6 +42,11 @@ export async function GET(request: NextRequest) {
   }
   if (!forzar && !esLunesBogota(ahora)) {
     return NextResponse.json({ ok: true, omitido: 'no es lunes en Bogotá' });
+  }
+  const pausa = lunesSinMensaje(ahora);
+  if (pausa && !forzar) {
+    console.log(`⏸️ [CRON lunes socio] Lunes sin mensaje: ${pausa}`);
+    return NextResponse.json({ ok: true, omitido: 'lunes sin mensaje', razon: pausa });
   }
   if (enSilencioBogota(ahora)) {
     console.log('🌙 [CRON lunes socio] Horas de silencio en Bogotá. No se envía.');

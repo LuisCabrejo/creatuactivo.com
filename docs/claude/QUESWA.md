@@ -495,7 +495,7 @@ Principio: el LLM es un **procesador semántico**, no un tomador de decisiones d
 
 **Validación de nombre (Fix Bug 1+2, 22 May 2026):** Antes de disparar Estado 4, el FSM valida con `extractNameFromHandoffReply()` que el usuario efectivamente respondió con un nombre. Si la respuesta del usuario es una pregunta nueva o pide pausar, NO se dispara Estado 4 — el sistema responde libremente y el package permanece guardado para que el próximo turno (cuando el usuario dé el nombre) sí dispare el handoff.
 
-**Tratamiento**: Siempre `Usted` — nunca tuteo. Auditado en todos los micro-prompts.
+**Tratamiento**: Siempre `Usted` — nunca tuteo. Auditado en todos los micro-prompts. Única excepción (Director, 16 nov 2026): en el Dashboard, al socio que le habla de tú a Queswa se le responde de tú. Lo decide el código de ese repo (`tratoDelSocio` en `src/lib/trato-socio.ts`) y llega al modelo como «TRATO CON ESTE SOCIO»; el prospecto y el modo socio de WhatsApp siguen de usted. Porqué y medición → CHANGELOG-system-prompts v5.29.
 
 ### Lead Scoring v3.0
 

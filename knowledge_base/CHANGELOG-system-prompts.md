@@ -6,6 +6,16 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.29 — En el Dashboard, el trato lo pone el socio (16 nov 2026)
+
+Varios distribuidores le dijeron al Director que preferían que Queswa les hablara de tú cuando ellos le hablan de tú. Medido antes de decidir (450 turnos del Dashboard, 21 socios, 60 días): 3 escriben solo de tú, 5 solo de usted, 6 mezclan y 7 no dejan marca; quien más lo usa después del Director (107 turnos) escribe siempre de usted. Por eso no es «tú para los socios» sino espejo: de usted por defecto, de tú a quien le habla de tú.
+
+La línea «Siempre de usted» de `<channel_formatting>` quedó solo para web y WhatsApp. El Dashboard recibe otra: el trato lo fija el sistema en «TRATO CON ESTE SOCIO», y sin esa línea, de usted. El trato lo decide el código del Dashboard (`src/lib/trato-socio.ts` de ese repo, `tratoDelSocio`) y no el modelo, porque con los socios que mezclan el modelo cambiaría de trato de un turno a otro; corrido sobre la historia real de los 21 socios, tres pasan a tú y ninguno vuelve atrás. El esqueleto de redacción (PASO 3) dice ahora que al socio se le habla en su trato, no «siempre de usted»; dentro del borrador sigue mandando el trato del destinatario.
+
+Lo que sigue de usted: el prospecto (web y WhatsApp), el modo socio de WhatsApp, y en el Dashboard las respuestas dictadas sin modelo.
+
+Web 18.670 caracteres · WhatsApp 18.254 (sin cambio) · Dashboard 16.137.
+
 ## v5.28 — El precio público sugerido es el oficial y se da (6 nov 2026)
 
 La regla decía «Nunca invente un porcentaje de margen: no hay precio público oficial… el precio de venta lo pone usted». Decisión del Director: a quien pregunte el precio sugerido se le da el oficial. Ahora dice que el precio público sugerido es el oficial de Gano, que está en el arsenal producto por producto (`COMP_VENTA_02` y la tabla de `COMP_PAQ_04`, arsenal_compensacion v8.17) y que se da en pesos junto al de distribuidor. La diferencia se dice en pesos, nunca como porcentaje de margen.

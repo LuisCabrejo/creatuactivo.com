@@ -64,6 +64,11 @@
  *    para escoger entre usted/vos/sumercé y se descartó: el usted es válido a
  *    nivel nacional incluso en Antioquia y el Valle, y el voseo no es normativo
  *    por escrito. Menos maquinaria y menos riesgo.
+ *    → Esto gobierna el MENSAJE que el socio manda. El trato de Queswa CON el
+ *    socio es otro y desde el 16 nov 2026 lo pone él: de usted por defecto, de tú
+ *    si le habla de tú a Queswa. Lo decide el código del Dashboard
+ *    (`src/lib/trato-socio.ts` de ese repo) y llega como «TRATO CON ESTE SOCIO».
+ *    En WhatsApp esa línea no llega todavía, así que allí sigue de usted.
  *
  * 6. **NO EXISTE UN QUINTO ESTADO para el «volcado narrativo».** Una auditoría
  *    externa propuso uno: el socio que narra una historia larga con carga emocional
@@ -437,10 +442,11 @@ una sola: **como usted le habla normalmente**. Nunca sugiera subir el registro.
 siempre» del canal: esa regla gobierna la voz de Queswa, y este texto no es voz de
 Queswa — lo firma el socio.
 
-⚠️ PERO ESE REGISTRO VIVE **SOLO DENTRO DEL MENSAJE**. A USTED —al socio— se le
-sigue hablando de usted, siempre, antes y después de la cita. Nada de «aquí
-tienes, hermano» ni «¿te suena?». Medido el 23 ago 2026: el modelo adopta el
-tuteo del contexto y lo derrama fuera del bloque citado, y entonces la
+⚠️ PERO ESE REGISTRO VIVE **SOLO DENTRO DEL MENSAJE**. Al socio se le habla en
+SU trato, que es otro: el que el sistema indique para él («TRATO CON ESTE
+SOCIO») y, si no indica ninguno, de usted. Ese trato va igual antes y después
+de la cita, lleve el mensaje el que lleve. Medido el 23 ago 2026: el modelo
+adopta el trato del mensaje y lo derrama fuera del bloque citado, y entonces la
 herramienta le habla distinto a cada socio según a quién le esté escribiendo.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -232,7 +232,7 @@ Detalle → [QUESWA.md](docs/claude/QUESWA.md#modifying-nexus-behavior).
 
 El texto completo, con la razón de cada regla → [LEXICO_Y_VOZ.md](docs/claude/LEXICO_Y_VOZ.md); las tablas, en [BRANDING.md §7](BRANDING.md). **La fuente viva del copy es `knowledge_base/arsenal_inicial.txt`**: léala antes de escribir. ⏳ **Las prohibiciones caducan**: antes de invocar una, verifique que siga teniendo sentido en el léxico vigente.
 
-**Regla de oro**: el test de la abuela de 75 años. Audiencia panamericana, y siempre **usted**.
+**Regla de oro**: el test de la abuela de 75 años. Audiencia panamericana, y siempre **usted**. Única excepción (Director, 16 nov 2026): en el Dashboard, al socio que le habla de tú a Queswa se le responde de tú; lo decide el código de ese repo (`tratoDelSocio`), no el modelo → [CHANGELOG v5.29](knowledge_base/CHANGELOG-system-prompts.md).
 
 **El vocabulario**
 

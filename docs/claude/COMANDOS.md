@@ -57,7 +57,7 @@
 | NEXUS health check | `curl http://localhost:3000/api/nexus` |
 | Verify arsenal in Supabase | `node scripts/verificar-arsenal-supabase.mjs` |
 
-**Multi-tenant prompt names**: `nexus_main` (creatuactivo.com) · `marca_personal_v1.0` (luiscabrejo.com) · `ganocafe_main` (ganocafe.online) · `queswa_dashboard` (queswa.app — tenant `dashboard`, mismo archivo fuente que la web y WhatsApp) · `queswa_whatsapp` (WABA WhatsApp — tenant: `whatsapp`)
+**Multi-tenant prompt names**: `nexus_main` (creatuactivo.com) · `luiscabrejo_main` (luiscabrejo.com; así se llama la fila en `system_prompts`, verificado el 17 nov 2026) · `ganocafe_main` (ganocafe.online) · `queswa_dashboard` (queswa.app — tenant `dashboard`, mismo archivo fuente que la web y WhatsApp) · `queswa_whatsapp` (WABA WhatsApp — tenant: `whatsapp`)
 
 ## Development Commands
 

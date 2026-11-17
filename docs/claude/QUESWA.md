@@ -35,12 +35,12 @@ De esa sencillez salen **la multiplicación del negocio y el aumento de la factu
 | Proyecto | Rol de Queswa | System Prompt | Estado |
 |----------|---------------|---------------|--------|
 | `creatuactivo.com` | Filtrar prospectos para funnel Fundadores | `nexus_main` | Activo |
-| `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `marca_personal_v1.0` | Activo (Mar 2026) |
+| `luiscabrejo.com` | Marca personal — posicionar a Luis, redirigir a creatuactivo.com | `luiscabrejo_main` | Activo (Mar 2026) |
 | `queswa.app` | Chief of Staff del Director Ejecutivo — CRM + pipeline + mensajes | `queswa_dashboard` (tenant `dashboard`, mismo archivo fuente) | Activo (Mar 2026) |
 | `ganocafe.online` | Soporte de producto + venta directa e-commerce | `ganocafe_main` | Activo (Mar 2026) |
 | **WABA WhatsApp** | Responde prospectos inbound desde anuncios Meta + orgánico | `queswa_whatsapp` — consultar la versión viva (ver abajo) | Activo — negocio **verificado** y WABA **APPROVED** |
 
-**Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `marca_personal_v1.0` — prompts independientes desde Mar 2026.
+**Regla crítica multi-proyecto**: Un cambio en `system_prompts.nexus_main` afecta SOLO `creatuactivo.com` (caché 5 min). `luiscabrejo.com` usa `luiscabrejo_main` — prompts independientes desde Mar 2026.
 
 **En `luiscabrejo.com`**: tenant hardcodeado como `marca_personal` en `route.ts` (sin middleware — repo siempre es ese tenant). La ruta `/api/claude-chat/route.ts` es legacy sin uso.
 
@@ -89,7 +89,7 @@ Webhook `/api/whatsapp/webhook` (Node, 90 s) → adaptador de canal: extrae núm
 
 
 **Key Files**:
-- [src/app/api/nexus/route.ts](../../src/app/api/nexus/route.ts) - Motor principal (~7.900 líneas: localice con `grep -n` sobre el identificador, nunca por número de línea)
+- [src/app/api/nexus/route.ts](../../src/app/api/nexus/route.ts) - Motor principal (más de 8.000 líneas: localice con `grep -n` sobre el identificador, nunca por número de línea)
 - [src/app/api/nexus/producer/route.ts](../../src/app/api/nexus/producer/route.ts) - Productor de la cola asíncrona. ⚠️ Hoy **nadie lo llama**: el chat web (`useNEXUSChat.ts`) y el webhook van directo a `/api/nexus`
 - [src/app/api/nexus/tts/route.ts](../../src/app/api/nexus/tts/route.ts) - TTS endpoint (ElevenLabs → OpenAI fallback, Edge, 30s)
 - [src/app/api/voice-command/route.ts](../../src/app/api/voice-command/route.ts) - Voice pipeline: Whisper → Claude Haiku → ElevenLabs (Node, 60s)
@@ -253,6 +253,7 @@ Fundamento (investigación corporativa Salesforce/Intercom/HubSpot): el traspaso
 /api/cron/vigilar-motor        → */15 * * * * (clave de Anthropic viva; correo al cambiar de estado)
 /api/cron/revisar-turnos       → 0 13 * * *   (8:00 Bogotá — detectores sobre los turnos de 24 h; correo solo si hay algo nuevo)
 /api/cron/wa-pendientes-socio  → 0 14 * * 4   (jueves 9:00 Bogotá — los pendientes del socio en modo Waze)
+/api/cron/recordatorio-convocatoria → */15 * * * * (16 nov 2026 — recordatorio por WhatsApp de una convocatoria de /vip; solo actúa de 35 a 55 min antes; lógica en src/lib/convocatoria-envios.ts)
 ```
 
 **Important**: Cron routes require `CRON_SECRET` env var for authorization.
@@ -405,7 +406,7 @@ Ver [.env.example](../../.env.example) para la lista completa con instrucciones 
 | Dominio | Prompt name | Script de actualización |
 |---------|-------------|------------------------|
 | `creatuactivo.com` + WABA + `queswa.app` | `nexus_main` · `queswa_whatsapp` · `queswa_dashboard` | `actualizar-system-prompt-queswa.mjs` — un solo archivo fuente (`system-prompt-queswa.md`), tres filas. Verificar siempre con `leer-system-prompt.mjs` |
-| `luiscabrejo.com` | `marca_personal_v1.0` | `actualizar-system-prompt-marca-personal-v1.mjs` |
+| `luiscabrejo.com` | `luiscabrejo_main` | `actualizar-system-prompt-marca-personal-v1.mjs` |
 | `ganocafe.online` | `ganocafe_main` | `actualizar-system-prompt-ganocafe-v1.3.mjs` (latest: **v1.5_ganocafe_alias_coloquiales**) — ⚠️ tiene catálogo de precios hardcodeado: sincronizar con `arsenal_ganocafe.txt` al cambiar precios |
 
 3. Clear cache (restart dev server or wait 5 minutes)

@@ -603,10 +603,18 @@ export function detectarPromesaDeAviso(texto: string): string | null {
   return oraciones.find((o) => RE_PROMESA_DE_AVISO.test(o)) ?? citar(texto, 200);
 }
 
-export function textoPromesa(dest: Destinatario, nombre: string | null | undefined, contacto: string, pidio: string, promesa: string): string {
+/**
+ * `socioSlug`: quien recibió la promesa es un SOCIO, no un prospecto (16 nov 2026).
+ * Edwin Fabian Peña no pudo entrar al taller, pidió hablar con Luis y después
+ * cómo salirse de Queswa; el modelo le escribió dos veces «le aviso al equipo» y
+ * no salió nada, porque este aviso no corría en modo socio. El aviso dice que es
+ * socio, porque al equipo le cambia la urgencia.
+ */
+export function textoPromesa(dest: Destinatario, nombre: string | null | undefined, contacto: string, pidio: string, promesa: string, socioSlug?: string | null): string {
   const saludo = dest.nombreCorto ? `${dest.nombreCorto}, ` : '';
+  const aQuien = socioSlug ? `al socio ${quien(nombre, contacto)} (/${socioSlug})` : `a ${quien(nombre, contacto)}`;
   return [
-    `📌 ${saludo}${saludo ? 'le' : 'Le'} dije a ${quien(nombre, contacto)} que el equipo le escribe.`,
+    `📌 ${saludo}${saludo ? 'le' : 'Le'} dije ${aQuien} que el equipo le escribe.`,
     `Lo que pidió: «${citar(pidio)}»`,
     `Lo que le dije: «${citar(promesa, 200)}»`,
     lineaContacto(contacto),
@@ -616,19 +624,19 @@ export function textoPromesa(dest: Destinatario, nombre: string | null | undefin
 export async function avisarPromesa(
   supabase: Supa,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  args: { dest: Destinatario; fingerprint: string; nombre?: string | null; contacto: string; pidio: string; promesa: string; deviceInfo?: Record<string, any> | null },
+  args: { dest: Destinatario; fingerprint: string; nombre?: string | null; contacto: string; pidio: string; promesa: string; deviceInfo?: Record<string, any> | null; socioSlug?: string | null },
 ): Promise<void> {
   try {
-    const { dest, fingerprint, nombre, contacto, pidio, promesa, deviceInfo } = args;
+    const { dest, fingerprint, nombre, contacto, pidio, promesa, deviceInfo, socioSlug } = args;
     if (callarSiEsElEquipo(contacto, 'promesa')) return;
     // Aldo recibió la promesa en cuatro turnos seguidos: un aviso basta.
     const ultimo = deviceInfo?.aviso_promesa_en as string | undefined;
     if (ultimo && (Date.now() - new Date(ultimo).getTime()) / 36e5 < HORAS_PARA_REGRESO) return;
     await marcarFicha(supabase, fingerprint, { aviso_promesa_en: new Date().toISOString() });
     await entregar(supabase, dest, {
-      push: { titulo: `📌 ${quien(nombre, contacto, false)} espera que el equipo le escriba`, cuerpo: `Pidió: «${citar(pidio, 140)}»` },
-      texto: textoPromesa(dest, nombre, contacto, pidio, promesa),
-      correo: { asunto: `[Queswa] ${quien(nombre, contacto, false)} espera que el equipo le escriba` },
+      push: { titulo: `📌 ${socioSlug ? 'El socio ' : ''}${quien(nombre, contacto, false)} espera que el equipo le escriba`, cuerpo: `Pidió: «${citar(pidio, 140)}»` },
+      texto: textoPromesa(dest, nombre, contacto, pidio, promesa, socioSlug),
+      correo: { asunto: `[Queswa] ${socioSlug ? 'Socio: ' : ''}${quien(nombre, contacto, false)} espera que el equipo le escriba` },
     }, 'promesa');
   } catch (err) {
     console.error('⚠️ [Avisos] Promesa:', err);

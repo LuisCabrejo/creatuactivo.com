@@ -3441,7 +3441,14 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     // incluyo Chile y Brasil en el mismo aviso» y «le transmito al equipo», y no
     // salió nada: el modelo no tiene cómo avisar. El texto se deja —con esto es
     // verdad— y el aviso sale, con lo que pidió y lo que se le dijo.
-    if (!socioQueEscribe) {
+    //
+    // También en modo socio (16 nov 2026): Edwin Fabian Peña no pudo entrar al
+    // taller, pidió hablar con Luis y después cómo salirse de Queswa; el modelo le
+    // prometió dos veces «le aviso al equipo» y no salió nada, porque este bloque
+    // corría solo con `!socioQueEscribe`. Al socio no lo atiende el dueño de su
+    // ficha sino el EQUIPO, y si el socio que escribe es el equipo, se calla.
+    const _destPromesa = socioQueEscribe ? destinatarioDe(null) : destinatarioDe(socio);
+    if (!socioQueEscribe || socioQueEscribe.constructorId !== _destPromesa.constructorId) {
       const promesa = detectarPromesaDeAviso(queswaReply);
       if (promesa) {
         const _suyos = [...historial.filter((m) => m.role === 'user').map((m) => m.content), messageText ?? ''].filter(Boolean);
@@ -3451,9 +3458,10 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
           : (messageText ?? '');
         console.warn(`📌 [WA Red] El borrador promete un aviso («${promesa.slice(0, 80)}») — sale de verdad · ${phoneNumber}`);
         waitUntil(avisarPromesa(supabase, {
-          dest: destinatarioDe(socio),
+          dest: _destPromesa,
+          socioSlug: socioQueEscribe?.slug ?? null,
           fingerprint: waFingerprint,
-          nombre: contactName,
+          nombre: socioQueEscribe?.nombreCompleto ?? socioQueEscribe?.nombre ?? contactName,
           contacto: phoneNumber,
           pidio,
           promesa,

@@ -122,6 +122,13 @@ for (const [nombre, t] of [['llegada', llegada], ['regreso', regreso], ['destaca
 es(llegada.includes('acaba de escribirme desde *Canadá*'), 'la llegada dice de dónde escribe');
 es(regreso.startsWith('🔁 Patricia, '), 'el regreso le habla a la socia por su nombre');
 es(promesa.startsWith('📌 Le dije a'), 'la promesa al equipo empieza con mayúscula');
+// Edwin Fabian Peña (16 nov 2026): socio, no pudo entrar al taller y el modelo le
+// prometió dos veces un aviso que no salió. Ahora sale al equipo y dice que es socio.
+const promesaSocio = textoPromesa(equipo, 'Edwin Fabian Peña Hidalgo', '573229378641', 'Necesito que me comunique con Luis Cabrejo → Si por favor', 'Listo, Edwin. Le aviso al equipo ahora mismo que usted necesita contactar a Luis Cabrejo.', 'edwin-pena');
+console.log(`\n· promesa de socio:\n${promesaSocio}`);
+es(promesaSocio.startsWith('📌 Le dije al socio *Edwin Fabian Peña Hidalgo* (/edwin-pena)'), 'la promesa a un socio dice que es socio y su enlace');
+es(detectarPromesaDeAviso('Listo, Edwin. Le aviso al equipo ahora mismo que usted necesita contactar a Luis Cabrejo, y ellos le coordinan la comunicación.') !== null, 'detecta la promesa que recibió Edwin');
+es(detectarPromesaDeAviso('Entiendo, Edwin. Le aviso al equipo que usted quiere salir, y ellos le indican el paso a paso.') !== null, 'detecta la promesa de la baja');
 
 console.log('\n── 7. La entrega en ensayo no sale a ningún lado ──');
 await avisarLlegada(null, { dest: equipo, nombre: 'Aldo Moller', contacto: ALDO, origen: 'desde creatuactivo.com, sin enlace de socio', primerMensaje: 'Hola Queswa, quiero saber cómo funciona' });

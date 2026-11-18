@@ -218,6 +218,10 @@ def main():
     wo=wave.open(f"{W}/voz_ok.wav","wb"); wo.setnchannels(1); wo.setsampwidth(2); wo.setframerate(sr)
     wo.writeframes(o.tobytes()); wo.close()
 
+    _m = subprocess.run(["ffmpeg","-i",f"{W}/voz_ok.wav","-af","loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json",
+                         "-f","null","-"], capture_output=True, text=True).stderr
+    ganancia_voz = -16.0 - float(json.loads(_m[_m.rfind("{"):_m.rfind("}")+1])["input_i"])
+
     if con_musica and not os.path.exists(MUS):
         print(f"⚠️ SIN MÚSICA: no existe {MUS}")
     if con_musica and os.path.exists(MUS):
@@ -233,11 +237,21 @@ def main():
            ("[1:a]aformat=fltp:48000:stereo,loudnorm=I=-16:TP=-1.5:LRA=11[v];"
             "[2:a]aformat=fltp:48000:stereo[d];[v][d]amix=inputs=2:duration=first:normalize=0,"
             "loudnorm=I=-14:TP=-1.5:LRA=11[a]") if sin_duck else
-           ("[1:a]aformat=fltp:48000:stereo,loudnorm=I=-16:TP=-1.5:LRA=11,asplit[v][sc];"
+           # ⚠️ Ganancia FIJA en la voz, no `loudnorm`, antes del asplit (18 nov 2026, día 73).
+           # loudnorm dinámico suelta sus últimos ~3 s de golpe al cerrar, y para entonces el
+           # sidechain y `amix duration=first` ya terminaron: la mezcla salió con 82.1 s de audio
+           # contra 84.9 de video y se comió «le dejo el enlace para escribirle por WhatsApp».
+           # El loudnorm final sobre la mezcla sí se queda (ahí no hay rama paralela).
+           (f"[1:a]aformat=fltp:48000:stereo,volume={ganancia_voz:.2f}dB,"
+            "alimiter=limit=0.84:level=disabled,asplit[v][sc];"
             "[2:a]aformat=fltp:48000:stereo[c];[c][sc]sidechaincompress=threshold=0.03:ratio=12:"
             "attack=15:release=350:makeup=1[d];[v][d]amix=inputs=2:duration=first:normalize=0,"
             "loudnorm=I=-14:TP=-1.5:LRA=11[a]"),
            "-map","0:v","-map","[a]","-c:v","copy","-c:a","aac","-b:a","192k",f"{W}/mix.mp4")
+        _da = float(sh("ffprobe","-v","error","-select_streams","a:0","-show_entries","stream=duration",
+                       "-of","csv=p=0",f"{W}/mix.mp4").stdout.strip() or 0)
+        if dur - _da > 0.2:
+            print(f"⚠️ LA MEZCLA SALIÓ CORTA: {_da:.2f}s de audio contra {dur:.2f}s de video — se pierde el final")
     else:
         sh("ffmpeg","-y","-v","error","-i",f"{W}/vid.mp4","-i",f"{W}/voz_ok.wav","-filter_complex",
            "[1:a]aformat=fltp:48000:stereo,loudnorm=I=-14:TP=-1.5:LRA=11[a]",

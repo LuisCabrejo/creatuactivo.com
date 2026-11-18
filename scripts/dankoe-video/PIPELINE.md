@@ -362,6 +362,10 @@ descartado y por qué: [`~/Downloads/reels-equipo/0910/corte-dia4.json`].
    con varios segmentos el error se SUMA. Medido: seis islas dejaron el video **222 ms** por delante
    del audio, y en pantalla eso son los labios fuera de sincronía.
 
+⚠️ **En sala silenciosa, el clip va con `"rnnoise": false`** (18 nov 2026, día 73). Con el piso en −73 dB, RNNoise no tiene ruido que quitar y le bajó **11 dB** a una frase dicha suave, contra 4–6 dB al resto: el Director no la oyó. Antes de armar, compare el nivel de cada frase en el original y en el limpio. Si el piso de la toma está por debajo de −65 dB, no se limpia.
+
+⚠️ **`pildora.py` revisa que la mezcla no salga corta** (mismo día). El `loudnorm` dinámico de la voz, puesto antes del `asplit` del sidechain, soltaba sus últimos ~3 s al cerrar, cuando `amix` ya había terminado. La v1 del día 73 perdió «le dejo el enlace para escribirle por WhatsApp» sin un solo aviso. Hoy la voz entra con ganancia fija y el script avisa si el audio dura menos que el video. **Antes de entregar, compare la duración del audio con la del video (`ffprobe`), no solo la sonoridad global**: −14 LUFS no delata 3 s de silencio al final.
+
 **Y verifica antes de que usted publique.** Al terminar avisa de tres cosas: una frase que suene más
 de 6 dB por debajo de las demás, un corte que deje menos de 0.25 s tras la última palabra (se oye
 truncada), y video y audio de distinto largo. Si marca algo, se corrige antes de entregar.

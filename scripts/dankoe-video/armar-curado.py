@@ -172,10 +172,15 @@ def main():
     for nombre, c in corte["clips"].items():
         wav = os.path.join(raiz, c["audio"])
         if wav not in pistas:
-            base = os.path.join(trabajo, "limpio-" + os.path.splitext(os.path.basename(wav))[0] + ".wav")
+            # `"rnnoise": false` en el clip: sala silenciosa, sin limpiador (18 nov 2026, día 73).
+            # Con el piso en −73 dB RNNoise no tiene ruido que quitar y le bajó 11 dB a una frase
+            # dicha suave («No hablo de querer tirar la toalla») contra 4–6 dB al resto: el
+            # Director no la oyó. Úselo cuando el piso de la toma esté por debajo de −65 dB.
+            con_rnn = c.get("rnnoise", True)
+            base = os.path.join(trabajo, ("limpio-" if con_rnn else "crudo-") + os.path.splitext(os.path.basename(wav))[0] + ".wav")
             if not os.path.exists(base):
                 sh("ffmpeg","-y","-v","error","-i",wav,"-af",
-                   f"highpass=f=80,arnndn=m={RNN}","-ac","1","-ar","48000", base+".tmp.wav")
+                   f"highpass=f=80,arnndn=m={RNN}" if con_rnn else "highpass=f=80","-ac","1","-ar","48000", base+".tmp.wav")
                 # ⚠️ GANANCIA FIJA + limitador, no `loudnorm linear=true` (15 sep 2026, día 9).
                 # Con el micrófono grabado bajo (−42 LUFS) llevarlo a −16 pide +26 dB; el pico
                 # rebasa TP, y loudnorm ABANDONA el modo lineal en silencio y pasa al dinámico,

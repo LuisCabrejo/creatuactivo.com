@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **Fecha** | Miércoles 18 de noviembre de 2026 · semana 11 |
-| **Estado** | Grabado por el Director (toma `oficina-cedritos.mp4`). Montaje v2 (18 nov), pendiente de su visto bueno. La v1 se rechazó: «No hablo de querer tirar la toalla» no se oía y el final perdía desde «algo propio» |
-| **Formato** | Vertical 9:16, hablado a cámara, 1080×1920. Toma de 137,0 s; entrega de 88,1 s (cuerpo 84,9 s + outro 3,1 s), −14,5 LUFS. Va como reel o en dos tarjetas de historia |
+| **Estado** | Grabado por el Director (toma `oficina-cedritos.mp4`). Montaje v3 (18 nov), pendiente de su visto bueno. v1: no se oía «No hablo de querer tirar la toalla» y el final se cortaba desde «algo propio». v2: corregido, pero con dos pausas muy apretadas |
+| **Formato** | Vertical 9:16, hablado a cámara, 1080×1920. Toma de 137,0 s; entrega de 90,0 s (cuerpo 86,8 s + outro 3,1 s), −14,4 LUFS, por debajo del techo de 90 s. Va como reel o en dos tarjetas de historia |
 | **Toma** | `oficina-cedritos.mp4` (Drive del Director), grabada en la oficina de Cedritos, Bogotá. 120 fps, Rec.709 |
 | **Enlace** | ⏳ Por confirmar con el Director. El video cierra con «Aquí abajo le dejo el enlace para escribirle por WhatsApp», el mismo cierre del día 69 (`creatuactivo.com/{slug}/queswa`) |
 
@@ -48,6 +48,8 @@ Y si ha pensado en construir algo propio, hable con Queswa. Aquí abajo le dejo 
 | Pausas | Montaje por islas: apertura en piso+18, cierre en piso+8 (piso −73 dB, sala silenciosa); islas unidas a menos de 0,40 s; pausas internas de 0,38 s o más, recortadas a 0,16 s. 29 segmentos |
 
 **La v1 falló en dos tramos que el Director no oyó** (18 nov): (a) RNNoise le bajó 11 dB a «No hablo de querer tirar la toalla», contra 4–6 dB al resto. En una sala con el piso en −73 dB no hay ruido que quitar, y el clip va ahora con `"rnnoise": false`. (b) La mezcla de `pildora.py` salió con 82,1 s de audio contra 84,9 s de video y se comió «le dejo el enlace para escribirle por WhatsApp». El `loudnorm` dinámico de la voz, puesto antes del sidechain, suelta su cola al cerrar, cuando la mezcla ya terminó. Las dos cosas quedaron corregidas en el código. En la v2, inicio y final quedan en −12 dB, como el resto, y se transcriben completos.
+
+**v3, tres pausas (Director, 18 nov: «muy apretados… un espacio de tiempo sería genial»), +0,6 s cada una, dentro de los 2 s que quedaban:** (1) *«…desanimado?» → «No hablo…»*: la toma solo tiene 0,4 s de silencio ahí, así que ese tramo va en cámara lenta 1,75× (`"lento"` en el `corte.json`; la toma es de 120 fps y se ve fluida, sin corte). La primera toma de la pregunta se descartó otra vez porque vacila después de «¿Qué…». (2) *«…no tiene bache.» → «A mí me pasa…»*: se alargó el corte dentro del silencio real (59,14–60,52). (3) *«…lo que lo quería detener.» → «Así que la próxima vez…»*, el giro a la conclusión, propuesto por el agente: 0,6 s del silencio antes de la última toma.
 
 Comprobación: el curado se transcribió completo por tramos y están todas las frases. En sala silenciosa, el verificador de `armar-curado.py` dio avisos de cola y de «segmento sin voz» que la transcripción desmintió (lo mismo que el día 8). Sin LUT: la toma viene en Rec.709, y el LUT saturaba el rojo del pendón y oscurecía la cara. Retoque de dientes 0.35 y piel 0.45 (2.036 de 2.036 cuadros). Rótulo «MIÉRCOLES · DÍA 73» en los primeros 3,8 s. Entrega en `entregas/reto-90/reto-dia73.mp4` (48 MB) y `reto-dia73-liviano.mp4` (9,6 MB, 720p).
 

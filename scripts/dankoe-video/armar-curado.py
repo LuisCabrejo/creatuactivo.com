@@ -217,10 +217,21 @@ def main():
         if color:
             color = color.replace("LUT", f"lut3d={os.path.join(BASE,'luts/dji-osmo-pocket3-dlogm-to-709.cube')}")
             color += ","
-        fg.append(f"[{idx[c['_video']]}:v:0]trim={a:.6f}:{b:.6f},setpts=PTS-STARTPTS,{color}"
+        # `"lento": f` estira un SILENCIO f veces (18 nov 2026, día 73): una pausa que el Director
+        # pide más larga donde la toma no tiene silencio de sobra. Con la toma a 120 fps, 2.5× sigue
+        # siendo fluido y evita el corte de meter un tramo ajeno. ⛔ Solo sobre silencio: la voz
+        # estirada se oye.
+        f = float(s.get("lento", 1.0))
+        vel = f",setpts=PTS*{f:.4f}" if f != 1.0 else ""
+        tempo = ""
+        if f != 1.0:
+            r = 1.0/f; partes = []
+            while r < 0.5: partes.append("atempo=0.5"); r /= 0.5
+            partes.append(f"atempo={r:.4f}"); tempo = "," + ",".join(partes)
+        fg.append(f"[{idx[c['_video']]}:v:0]trim={a:.6f}:{b:.6f},setpts=PTS-STARTPTS{vel},{color}"
                   f"scale=1080:1920:flags=lanczos,setsar=1[v{n}];")
-        fg.append(f"[{idx[c['_pista']]}:a:0]atrim={a:.6f}:{b:.6f},asetpts=PTS-STARTPTS[a{n}];")
-        linea.append((t, t+b-a, s.get("nota",""))); t += b-a
+        fg.append(f"[{idx[c['_pista']]}:a:0]atrim={a:.6f}:{b:.6f},asetpts=PTS-STARTPTS{tempo}[a{n}];")
+        linea.append((t, t+(b-a)*f, s.get("nota",""))); t += (b-a)*f
     fg.append("".join(f"[v{n}][a{n}]" for n in range(len(corte["segmentos"])))
               + f"concat=n={len(corte['segmentos'])}:v=1:a=1[vout][aout]")
     guion_fg = os.path.join(trabajo,"fg.txt"); open(guion_fg,"w").write("\n".join(fg))

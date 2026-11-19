@@ -1,0 +1,159 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:RM;src:url(roboto-mono-latin-500-normal.woff2)}
+html,body{margin:0;background:transparent;width:1080px;height:1920px;overflow:hidden}
+svg{display:block}
+.mono{font-family:RM,monospace;font-size:26px;letter-spacing:5px;text-transform:uppercase;fill:#94A3B8}
+.tit{font-family:Inter,sans-serif;font-weight:700;font-size:62px;fill:#FFFFFF;letter-spacing:.5px}
+.ust{font-family:Inter,sans-serif;font-weight:700;font-size:30px;letter-spacing:1.5px;fill:#FFFFFF}
+</style></head><body>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <radialGradient id="fondo" cx="50%" cy="38%" r="65%"><stop offset="0" stop-color="#16191F"/><stop offset="1" stop-color="#0F1115"/></radialGradient>
+    <filter id="brillo" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10" result="b"/><feFlood flood-color="#C5A059" flood-opacity=".75"/><feComposite in2="b" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <symbol id="i-fabrica" viewBox="0 0 24 24"><path d="M3 21V10l5 3V10l5 3V10l5 3V5h3v16Z"/><path d="M7 17h2M12 17h2M17 17h1"/></symbol>
+    <symbol id="i-conversa" viewBox="0 0 24 24"><path d="M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-4-3h-3"/></symbol>
+    <symbol id="i-celular" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="i-caja" viewBox="0 0 24 24"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5Z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></symbol>
+    <symbol id="fig" viewBox="0 0 24 24"><circle cx="12" cy="6.8" r="4.3"/><path d="M3.2 22c0-5.2 3.9-8.6 8.8-8.6s8.8 3.4 8.8 8.6z"/></symbol>
+    <g id="cubo"><polygon points="6,11 46,6 46,95 6,89" fill="#E7D6B7"/><polygon points="46,6 95,11 95,88 46,95" fill="#F7E5C6"/></g>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#fondo)"/>
+  <text id="t1" class="tit" x="540" y="300" text-anchor="middle">La empresa normal</text>
+  <text id="t2" class="tit" x="540" y="300" text-anchor="middle">La empresa moderna</text>
+  <g id="lineasA" stroke="#475569" stroke-width="2.5" fill="none"></g>
+  <g id="puntos"></g>
+  <g id="lineasB" fill="none"></g>
+  <g id="cubos"></g>
+  <text id="rotCubo" class="mono" x="540" y="905" text-anchor="middle">Su empresa</text>
+  <text id="rotMulti" class="mono" x="540" y="905" text-anchor="middle" style="fill:#C5A059">Se multiplica</text>
+  <g id="tarjetas"></g>
+  <g id="clientes"></g>
+  <g id="usted"><use href="#fig" width="24" height="24" fill="#E5E5E5"/></g>
+  <text id="rotUsted" class="ust" text-anchor="middle">USTED</text>
+</svg>
+<script>
+const NS='http://www.w3.org/2000/svg';
+const cl=u=>Math.max(0,Math.min(1,u)), sale=u=>1-Math.pow(1-cl(u),3);
+const suave=u=>{u=cl(u);return u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2};
+const lerp=(a,b,u)=>a+(b-a)*u;
+const $=id=>document.getElementById(id);
+const el=(tag,at,par)=>{const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);par&&par.appendChild(e);return e};
+// Tiempos del cuerpo del video (alineación forzada de la píldora); t0 = inicio del inserto.
+const T0=26.25;
+const W={normal:26.36,todo:27.32,fabrica:28.62,atiende:29.08,despacha:29.56,mil:30.10,cosas:30.84,
+ moderna:31.24,delega:32.46,afabrica:33.38,aatiende:34.36,personas:35.20,herramienta:37.18,escalar:38.68,multiplicar:39.40,fin:40.35};
+// Tarjetas: posición en la empresa normal (A) y en la moderna (B).
+const TJ=[
+ {id:'fab',ic:'i-fabrica',a:[200,600],b:[180,760],ra:'Fabrica',rb:'Alguien fabrica',in:W.fabrica,mv:W.afabrica},
+ {id:'ate',ic:'i-conversa',a:[540,600],b:[900,760],ra:'Atiende',rb:'Alguien atiende',in:W.atiende,mv:W.aatiende,cian:1},
+ {id:'des',ic:'i-caja',a:[880,600],b:[180,760],ra:'Despacha',rb:'',in:W.despacha,mv:W.afabrica},
+];
+const TAM=190;
+for(const c of TJ){
+  const g=el('g',{},$('tarjetas'));
+  c.card=el('rect',{x:-TAM/2,y:-TAM/2,width:TAM,height:TAM,rx:26,fill:'#15171C',stroke:'rgba(255,255,255,0.1)','stroke-width':2},g);
+  c.icon=el('use',{href:'#'+c.ic,x:-48,y:-48,width:96,height:96,fill:'none',stroke:'#94A3B8','stroke-width':1.5,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+  c.rA=el('text',{class:'mono','text-anchor':'middle',y:TAM/2+50},g); c.rA.textContent=c.ra;
+  c.rB=el('text',{class:'mono','text-anchor':'middle',y:TAM/2+50},g); c.rB.textContent=c.rb;
+  c.g=g;
+  c.linA=el('line',{},$('lineasA'));
+}
+// La tarjeta de la herramienta (solo en la moderna).
+const HER={b:[540,1075]};
+{const g=el('g',{},$('tarjetas'));
+ el('rect',{x:-TAM/2,y:-TAM/2,width:TAM,height:TAM,rx:26,fill:'#15171C',stroke:'rgba(255,255,255,0.1)','stroke-width':2},g);
+ HER.icon=el('use',{href:'#i-celular',x:-48,y:-48,width:96,height:96,fill:'none',stroke:'#94A3B8','stroke-width':1.5,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+ const r=el('text',{class:'mono','text-anchor':'middle',y:TAM/2+50},g); r.textContent='Herramienta digital';
+ HER.g=g; g.setAttribute('transform',`translate(${HER.b[0]} ${HER.b[1]})`);}
+// Las líneas de la moderna: fábrica → empresa (oro), Queswa → empresa (cian), herramienta → empresa.
+const LB=[
+ {x1:275,y1:760,x2:445,y2:760,col:'#C5A059',t:W.afabrica+0.35},
+ {x1:805,y1:760,x2:635,y2:760,col:'#22D3EE',t:W.aatiende+0.35},
+ {x1:540,y1:980,x2:540,y2:870,col:'#94A3B8',t:W.herramienta+0.3},
+];
+for(const l of LB){l.e=el('line',{x1:l.x1,y1:l.y1,x2:l.x2,y2:l.y2,stroke:l.col,'stroke-width':2.5,'stroke-dasharray':'6 9'},$('lineasB'));
+ l.p=el('circle',{r:7,fill:l.col},$('lineasB'));}
+// Las personas que atiende Queswa.
+const CLI=[[850,1000],[900,1010],[950,1000]].map(([x,y])=>el('use',{href:'#fig',x:x-20,y:y-20,width:40,height:40,fill:'#E5E5E5'},$('clientes')));
+// «Mil cosas»: tareas que llegan de los bordes y se pegan alrededor de usted.
+const UA=[540,1000], UB=[540,470];
+const PUN=[]; {let s=7;const r=()=>(s=(s*9301+49297)%233280)/233280;
+ for(let k=0;k<70;k++){const a=r()*Math.PI*2, d=150+r()*110, ang=r()*Math.PI*2;
+  PUN.push({o:[540+Math.cos(ang)*900,1000+Math.sin(ang)*900],f:[UA[0]+Math.cos(a)*d,UA[1]+Math.sin(a)*d*0.8],t:W.mil-0.1+k*0.012+r()*0.15,
+   e:el('circle',{r:5+r()*3,fill:'#94A3B8'},$('puntos'))});}}
+// Los cubos: 1 → 2 → 4.
+const CUB=[0,1,2,3].map(()=>{const g=el('g',{},$('cubos'));el('use',{href:'#cubo'},g);return g});
+
+function pintar(tl){
+  const t=T0+tl;
+  const vA=cl((t-T0)/0.25)*(1-cl((t-W.moderna)/0.35));
+  const vB=cl((t-W.moderna)/0.35);
+  const salida=1-cl((t-(W.fin-0.25))/0.25);
+  document.body.style.opacity=1;
+  $('s').style.opacity=salida.toFixed(3);
+  $('t1').style.opacity=vA; $('t2').style.opacity=vB;
+  // Usted: grande y cargado en la normal; suelta el peso y sube, pequeño, sobre su empresa.
+  const del=suave((t-W.delega)/0.9);
+  const ux=lerp(UA[0],UB[0],del), uy=lerp(UA[1],UB[1],del), us=lerp(150,84,del);
+  let temb=0; if(t>W.mil&&t<W.delega) temb=Math.sin(t*55)*lerp(0,4,cl((t-W.mil)/0.8));
+  const vU=cl((t-W.normal)/0.4);
+  $('usted').setAttribute('transform',`translate(${(ux-us/2+temb).toFixed(1)} ${(uy-us/2).toFixed(1)}) scale(${us/24})`);
+  $('usted').style.opacity=vU;
+  $('rotUsted').setAttribute('x',ux); $('rotUsted').setAttribute('y',(uy+us/2+lerp(44,36,del)).toFixed(1));
+  $('rotUsted').style.fontSize=lerp(34,26,del)+'px'; $('rotUsted').style.opacity=vU;
+  // Las tarjetas.
+  for(const c of TJ){
+    const v=cl((t-c.in)/0.35);
+    const m=suave((t-W.delega)/0.8);
+    const x=lerp(c.a[0],c.b[0],m), y=lerp(c.a[1],c.b[1],m);
+    const pop=lerp(0.85,1,sale((t-c.in)/0.35));
+    c.g.setAttribute('transform',`translate(${x} ${y}) scale(${pop})`);
+    const luz=cl((t-c.mv)/0.35);
+    let o=v*lerp(1,lerp(0.3,1,luz),m); if(c.id==='des') o=v*(1-cl((t-W.delega)/0.45));
+    c.g.style.opacity=o;
+    c.rA.style.opacity=1-cl((t-W.delega)/0.3); c.rB.style.opacity=luz;
+    if(c.cian){const k=cl((t-c.mv)/0.4); c.icon.setAttribute('stroke',k>0.5?'#22D3EE':'#94A3B8');
+      c.card.setAttribute('stroke',k>0.5?'rgba(34,211,238,0.35)':'rgba(255,255,255,0.1)');}
+    // Línea de la tarea a usted (solo en la normal).
+    const la=v*(1-cl((t-W.delega)/0.35));
+    c.linA.setAttribute('x1',c.a[0]);c.linA.setAttribute('y1',c.a[1]+TAM/2+70);
+    c.linA.setAttribute('x2',lerp(c.a[0],ux,0.82));c.linA.setAttribute('y2',lerp(c.a[1]+TAM/2+70,uy-us/2-10,0.82));
+    c.linA.style.opacity=la*0.9;
+  }
+  // Mil cosas.
+  for(const p of PUN){const u=sale((t-p.t)/0.45);const fuera=cl((t-W.delega)/0.4);
+    p.e.setAttribute('cx',lerp(p.o[0],p.f[0],u)+temb);p.e.setAttribute('cy',lerp(p.o[1],p.f[1],u));
+    p.e.style.opacity=(t>=p.t?0.85:0)*(1-fuera);}
+  // Su empresa, al centro de la moderna.
+  const vC=cl((t-W.delega-0.3)/0.5);
+  const n=t>=W.multiplicar?4:t>=W.escalar?2:1;
+  const ESC=[[1.8],[1.25,1.25],[0.95,0.95,0.95,0.95]][n===1?0:n===2?1:2][0];
+  const pos=n===1?[[540,760]]:n===2?[[470,760],[610,760]]:[[475,700],[605,700],[475,820],[605,820]];
+  const tCambio=n===4?W.multiplicar:n===2?W.escalar:0, pp=sale((t-tCambio)/0.45);
+  CUB.forEach((g,i)=>{
+    if(i>=n){g.style.opacity=0;return;}
+    const p=pos[i], sc=ESC*(i>0&&n>1?lerp(0.6,1,pp):1);
+    g.setAttribute('transform',`translate(${p[0]-50.5*sc} ${p[1]-50.5*sc}) scale(${sc})`);
+    g.style.opacity=vC*(i>0&&n>1? (n===4&&i<2?1:pp) :1);
+    g.setAttribute('filter',n>1?'url(#brillo)':'');
+  });
+  const pos2=n===4; $('rotCubo').setAttribute('y',pos2?925:905);$('rotMulti').setAttribute('y',925);
+  $('rotCubo').style.opacity=vC*(1-cl((t-W.multiplicar)/0.35));
+  $('rotMulti').style.opacity=cl((t-W.multiplicar)/0.35);
+  // Las líneas hacia su empresa y lo que corre por ellas.
+  for(const l of LB){const v=cl((t-l.t)/0.35);l.e.style.opacity=v*0.9;
+    const ph=((t-l.t)/1.3)%1, u=suave(ph);
+    l.p.setAttribute('cx',lerp(l.x1,l.x2,u));l.p.setAttribute('cy',lerp(l.y1,l.y2,u));
+    l.p.style.opacity=t>=l.t+0.2?Math.sin(Math.PI*ph):0;}
+  // La herramienta.
+  const vH=cl((t-W.herramienta)/0.35);
+  HER.g.style.opacity=vH;
+  HER.icon.setAttribute('stroke',t>=W.escalar?'#C5A059':'#94A3B8');
+  // Las personas que atiende.
+  CLI.forEach((c,i)=>{c.style.opacity=cl((t-W.personas-i*0.15)/0.3);});
+}
+window.pintar=pintar; window.DUR=W.fin-T0;
+pintar(0);
+</script></body></html>

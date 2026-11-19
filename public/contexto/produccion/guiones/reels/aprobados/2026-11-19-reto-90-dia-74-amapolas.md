@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Fecha** | Jueves 19 de noviembre de 2026 · semana 11 |
-| **Estado** | Grabado por el Director (toma `amapolas.mp4`). Montaje v1 (19 nov), pendiente de su visto bueno |
+| **Estado** | Grabado por el Director (toma `amapolas.mp4`). Montaje v2 (19 nov), con las gráficas de la empresa normal y la moderna, pendiente de su visto bueno |
 | **Formato** | Vertical 9:16, selfi con el teléfono, 1080×1920. Toma de 51,6 s; entrega de 48,2 s (cuerpo 45,0 s + outro 3,1 s), −14,5 LUFS. Cabe en una sola tarjeta de historia (60 s) |
 | **Toma** | `amapolas.mp4` (Drive del Director), grabada en la pastelería Amapolas, Villavicencio. Teléfono, 30 fps, Rec.709, con metadato de rotación |
 | **Enlace** | ⏳ Por confirmar con el Director. El video cierra con «pregúntenle aquí a Queswa»: el mismo enlace de los días 69 y 73 (`creatuactivo.com/{slug}/queswa`) |
@@ -48,7 +48,16 @@ La toma de la mesa (19,75–26,95) va entera. La v1 interna la había partido y 
 
 **El montaje se quedaba sin memoria** (16 GB): seis `trim` sobre la misma entrada rotada encolan cuadros crudos. Se resolvió rotando primero la toma a 1080×1920 (`amapolas-v.mp4`, CRF 14). El verificador avisa de «Amapolas truncada» con 0,07 s de cola, pero es falso: la energía cierra la palabra en 17,3 s y el corte va hasta 17,85.
 
-Comprobación: el curado se transcribió completo por tramos y están todas las frases. Sin LUT (es teléfono, Rec.709). Retoque de dientes 0.35 y piel 0.45; la boca se trató en el 87 % de los cuadros, porque el resto es la mesa. Rótulo «JUEVES · DÍA 74» en los primeros 3,8 s. Entrega en `entregas/reto-90/reto-dia74.mp4` y `reto-dia74-liviano.mp4` (720p).
+Comprobación: el curado se transcribió completo por tramos y están todas las frases. Sin LUT (es teléfono, Rec.709). Retoque de dientes 0.35 y piel 0.45; la boca se trató en el 87 % de los cuadros, porque el resto es la mesa. Rótulo «JUEVES · DÍA 74» en los primeros 3,8 s. Entrega en `entregas/reto-90/reto-dia74.mp4` y `reto-dia74-liviano.mp4` (720p), 22 y 4,6 MB.
+
+## v2: las gráficas en el estilo de la Presentación (Director, 19 nov: «mismo estilo de gráficas»)
+
+De 26,25 a 40,35 s del cuerpo, el video pasa a una escena dibujada a pantalla completa; la voz sigue y los subtítulos van encima. Vuelve a la cara en «Eso es todo». El vocabulario es el del deck: `CicloPropiedad.tsx` y los íconos de los tres elementos de la pantalla 5. La figura humana es una persona, el cubo crema es «Su empresa», el cian es Queswa y el único oro es la multiplicación. Cada cosa entra con la palabra que la nombra (alineación forzada de la píldora):
+
+1. **La empresa normal:** «Usted» al centro. Con «fabrica», «atiende» y «despacha» entra cada tarea en su tarjeta, conectada a usted, y con «mil cosas» le llueven puntos encima y la figura tiembla.
+2. **La empresa moderna:** con «delega», usted suelta el peso y sube, pequeño, sobre su empresa (el cubo). La caja de despachar se funde en la fábrica (Gano fabrica y despacha). «Alguien fabrica» enciende la fábrica, con una línea de oro hacia la empresa. «Alguien atiende a las personas» enciende la conversación en cian, con tres personas. «Herramienta digital» trae el celular, y con «escalar» y «multiplicar» su empresa pasa de 1 a 2 y de 2 a 4 cubos, en oro: «Se multiplica».
+
+Los rótulos repiten las palabras de la voz («La empresa moderna», sin «de distribución», porque así se dice). Fuente y receta en `scripts/dankoe-video/graficas/`.
 
 ## Lo que Queswa tiene que poder responder
 

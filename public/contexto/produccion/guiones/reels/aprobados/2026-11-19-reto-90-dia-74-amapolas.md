@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Fecha** | Jueves 19 de noviembre de 2026 · semana 11 |
-| **Estado** | Grabado por el Director (toma `amapolas.mp4`). Montaje v2 (19 nov), con las gráficas de la empresa normal y la moderna, pendiente de su visto bueno |
+| **Estado** | Grabado por el Director (toma `amapolas.mp4`). Montaje v2 (19 nov), con las gráficas de la empresa normal y la moderna. **Publicado** por el Director el 19 nov |
 | **Formato** | Vertical 9:16, selfi con el teléfono, 1080×1920. Toma de 51,6 s; entrega de 48,2 s (cuerpo 45,0 s + outro 3,1 s), −14,5 LUFS. Cabe en una sola tarjeta de historia (60 s) |
 | **Toma** | `amapolas.mp4` (Drive del Director), grabada en la pastelería Amapolas, Villavicencio. Teléfono, 30 fps, Rec.709, con metadato de rotación |
 | **Enlace** | ⏳ Por confirmar con el Director. El video cierra con «pregúntenle aquí a Queswa»: el mismo enlace de los días 69 y 73 (`creatuactivo.com/{slug}/queswa`) |

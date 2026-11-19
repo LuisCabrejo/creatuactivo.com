@@ -15,6 +15,23 @@
 | **Horario** | Lun-vie 8-6, sáb 8-4, dom 9-12 según su sitio; **Waze muestra otro**. Las direcciones también difieren entre fuentes |
 | **Equipo** | Tiene al menos una analista corporativa (LinkedIn): no es un local de una persona |
 
+### 1.1 Auditoría de los dos sitios (19 nov 2026, vía el índice del buscador; la sesión no tiene acceso directo)
+
+| | `bateriascampeonvillavicencio.com` | `bateriascampeon.co` |
+|---|---|---|
+| **Qué parece** | La tienda de Villavicencio («Baterías Campeón de Llano»), barrio El Porvenir | Una página comercial de cobertura más amplia: «instalación a domicilio gratis… en Bogotá, Neiva, Villavicencio» y pago contra entrega |
+| **Plataforma** | Rutas `/product/N` y `/taxonomy/term/N`: típicas de Drupal (inferencia, sin confirmar) | Rutas `?page_id=18`: WordPress |
+| **Catálogo** | Fichas por referencia (VARTA BLUE 35V4850, CAMPEON 27R1150, MAC 42ST-750M) y marcas (Varta, MAC, Coexito, Campeón), con precio: Campeón 27R1150 a COP 375.000; Varta entre COP 353.000 y 533.000 | Sin catálogo visible; todo lleva a un botón de WhatsApp: «PREGUNTA POR LA BATERÍA PARA TU CARRO» |
+| **Antigüedad** | El buscador fecha las fichas hace ~904 días (mayo de 2024): **precios probablemente vencidos** | Similar |
+| **Contacto** | Dos celulares y dos direcciones; un fijo (8) 665 3312 en la página de domicilio | Botón de WhatsApp |
+| **Buscador por vehículo** | **No hay.** El catálogo está organizado por referencia de batería, que el cliente no conoce | No hay |
+
+**Hallazgos:**
+1. **El catálogo le habla al vendedor, no al cliente.** Nadie sabe que su carro usa una «35V4850». El cliente sabe «Chevrolet Spark 2015». Todo el sitio obliga a escribir por WhatsApp para traducir una cosa a la otra, y esa traducción hoy la hace una persona, en horario.
+2. **Precios públicos de hace dos años.** Un cliente que llega con un precio de 2024 y recibe otro por WhatsApp desconfía. Y es publicidad: el Estatuto del Consumidor obliga a respetar el precio anunciado.
+3. **Dos sitios que dicen cosas distintas**, y uno promete cobertura en Bogotá y Neiva. **Hay que preguntar al dueño si los dos son suyos** o si `bateriascampeon.co` es de otra empresa con la misma marca (por ejemplo, el fabricante de «Campeón Máxima» o un distribuidor nacional). Eso cambia quién es el cliente.
+4. **Lo bueno:** el catálogo con referencias y precios ya existe. Es la mitad de la tabla de datos del agente; falta la otra mitad, la compatibilidad vehículo → referencia.
+
 **Lo que eso revela:** la información pública es inconsistente (horarios, direcciones, dos sitios). Para un negocio cuya venta es **urgente**, eso cuesta clientes: quien busca «baterías a domicilio Villavicencio» con el carro varado elige al primero que contesta con certeza.
 
 ## 2. Por qué este negocio encaja (y en qué se diferencia del concesionario)

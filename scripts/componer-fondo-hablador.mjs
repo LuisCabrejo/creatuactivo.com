@@ -32,21 +32,21 @@ const W = mm(106), H = mm(156);
 const FONDO = { r: 0x06, g: 0x09, b: 0x0A };
 
 // La foto en coordenadas de la pieza recortada: 100 mm de ancho (179 de alto),
-// borde izquierdo en -6 mm y superior en -57 mm. Con eso el vapor sube detrás del
-// título, el borde de la taza queda bajo la bajada (48 mm) y su base cerca de los
-// 88 mm, con aire antes del QR. Con el sangrado, todo corre 3 mm.
+// borde izquierdo en -6 mm y superior en -52,5 mm. Con eso el vapor sube detrás
+// del título y la taza queda a la misma distancia de la bajada que del QR (Director,
+// 20 nov 2026: con -57 mm quedaba pegada a la bajada). Con el sangrado, todo corre 3 mm.
 const ANCHO_FOTO = mm(100);
 const IZQ = mm(-6 + 3);
-const ARRIBA = mm(-57 + 3);
+const ARRIBA = mm(-52.5 + 3);
 
 const foto = sharp(FOTO).resize({ width: ANCHO_FOTO });
 const { data, info } = await foto.ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 
-// Funde los bordes: abajo, del 76 % al 90 % del alto; a los lados, del 4 % al 20 %
+// Funde los bordes: abajo, del 80 % al 94 % del alto (después de la base de la taza); a los lados, del 4 % al 20 %
 // y del 80 % al 96 % del ancho. Curva suave (smoothstep) para que no se vea el corte.
 const suave = (a, b, v) => { const t = Math.min(1, Math.max(0, (v - a) / (b - a))); return t * t * (3 - 2 * t); };
 for (let y = 0; y < info.height; y++) {
-  const fy = 1 - suave(0.76, 0.90, y / info.height);
+  const fy = 1 - suave(0.80, 0.94, y / info.height);
   for (let x = 0; x < info.width; x++) {
     const u = x / info.width;
     const fx = suave(0.04, 0.20, u) * (1 - suave(0.80, 0.96, u));

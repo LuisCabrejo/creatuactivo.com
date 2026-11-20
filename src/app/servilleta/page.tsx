@@ -360,10 +360,11 @@ const TARIFAS_12 = [
  *  no alcanza → así se trabaja hoy → así termina. Cada una se verificó en su fuente
  *  primaria; si se cambia una, se vuelve a la fuente — no a un artículo que la cite.
  *  · DANE, Empleo informal y seguridad social (GEIH): proporción de ocupación
- *    informal 54,6 % para el total nacional, trimestre móvil may–jul 2026 (un año
- *    antes: 55,0 %). ⚠️ El dato ROTA cada mes: al tocar esta pantalla, re-verificar
- *    el trimestre vigente y actualizar cifra + rótulo de fuente juntos.
- *    https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-informal-y-seguridad-social
+ *    informal 54,5 % para el total nacional, trimestre móvil jul–sep 2026 (boletín del
+ *    13 nov 2026; un año antes: 55,0 %). Hasta el 20 nov 2026 decía 54,6 % (may–jul).
+ *    ⚠️ El dato ROTA cada mes: al tocar esta pantalla, re-verificar el trimestre
+ *    vigente y actualizar cifra + rótulo de fuente juntos (aquí y en GuiaPlanServilleta).
+ *    https://www.dane.gov.co/files/operaciones/GEIH/bol-GEIHEISS-jul-sep2026.pdf
  *  · DANE, Encuesta Nacional de Calidad de Vida 2025 (anexo, cuadro 35): el 31,3 %
  *    de los hogares dice que su ingreso «no alcanza para cubrir los gastos mínimos»
  *    y el 61,0 % que «alcanza para cubrir los gastos mínimos»; solo el 7,7 % que
@@ -404,10 +405,10 @@ const CIFRAS_PROBLEMA: {
     icono: { tipo: 'casa', de: 10, en: 9 },
   },
   {
-    n: '54,6 %',
+    n: '54,5 %',
     texto: 'Trabajadores en la informalidad',
-    fuente: 'DANE · GEIH, may–jul 2026',
-    icono: { tipo: 'barra', pct: 54.6 },
+    fuente: 'DANE · GEIH, jul–sep 2026',
+    icono: { tipo: 'barra', pct: 54.5 },
   },
   {
     n: '3 de cada 4',

@@ -48,7 +48,7 @@ import { abrirConversacionQueswa, leerRefSocio } from '@/lib/orbe-config';
 
 // Se cambia SOLO cuando la página cambia de verdad. Poner la fecha al día sin
 // cambios reales es, para Google, una señal de contenido hecho para buscadores.
-const ACTUALIZADA = { iso: '2026-11-01', texto: 'noviembre de 2026' };
+const ACTUALIZADA = { iso: '2026-11-20', texto: 'noviembre de 2026' };
 
 const FORMAS_DE_EMPEZAR = [
   { nombre: 'ESP-3 Visionario', detalle: '35 productos · Binario 17 % por 6 meses · Bono GEN5 activo' },
@@ -142,8 +142,8 @@ export default function GuiaPlanServilleta() {
         </p>
         <p>
           La presentación lo pone en cifras: 9 de cada 10 hogares colombianos dicen que su ingreso no
-          alcanza o alcanza solo para lo mínimo (DANE, Encuesta de Calidad de Vida 2025); el 54,6 % de
-          las personas que trabajan lo hacen en la informalidad (DANE, mayo a julio de 2026), y 3 de
+          alcanza o alcanza solo para lo mínimo (DANE, Encuesta de Calidad de Vida 2025); el 54,5 % de
+          las personas que trabajan lo hacen en la informalidad (DANE, julio a septiembre de 2026), y 3 de
           cada 4 colombianos en edad de pensionarse no reciben una pensión (Colpensiones y Universidad
           Javeriana, 2022).
         </p>

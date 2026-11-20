@@ -48,6 +48,7 @@ Lista completa, con sus advertencias → [COMANDOS.md](docs/claude/COMANDOS.md).
 | ¿La clave de Anthropic sigue viva? | `npx tsx scripts/probar-vigilante-motor.mts` | `GET /api/nexus` dice «healthy» sin tocar la clave: no sirve para esto |
 | Categoría real de las plantillas del WABA | `node scripts/auditar-plantillas-whatsapp.mjs` | Meta recategoriza por su cuenta y no avisa |
 | Tráfico del enlace directo al video (`/{slug}/video`) | `node scripts/medir-enlace-video.mjs [--dias 7]` | Aperturas por socio y por día, y cuántos empezaron el video llegando por el enlace |
+| Escaneos del hablador de mostrador (`/hablador/{slug}`) | `node scripts/medir-hablador.mjs [--dias 7]` | El QR lleva a `/{slug}/hablador`, que cuenta y abre el catálogo → [WEB_Y_OPERACION.md](docs/claude/WEB_Y_OPERACION.md) |
 | Aperturas del enlace de Queswa, por dispositivo | `node scripts/medir-aperturas-enlace.mjs [--dias 7]` | Cruza `page_visits` con los primeros mensajes |
 | Desplegar un fragmento del arsenal | La receta → [QUESWA.md](docs/claude/QUESWA.md#updating-queswa-knowledge) | Sin purgar no pasa nada; sin clonar a **los dos** tenants derivados, WhatsApp y el Dashboard quedan viejos |
 | Lo que vive solo en el Dashboard | `npx tsx scripts/desplegar-redaccion-socio.mts` · `node scripts/desplegar-arsenal-ciencia-socio.mjs` · `node scripts/desplegar-arsenal-socio.mjs` | El esqueleto de redacción, cada vez que se toque `wa-redaccion-socio.ts` |

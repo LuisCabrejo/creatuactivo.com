@@ -354,6 +354,37 @@ export default async function DestinoRoute({
   // su distribuidor). /productos/{slug} lo resuelve en el servidor y publica el
   // código del socio para tracking.js; ver src/app/productos/[ref]/page.tsx.
   // La consulta viaja (29 oct 2026): sin ella, ?carrito= y ?producto= se perdían en el camino.
+  //
+  // 🪧 /{slug}/hablador (20 nov 2026, Director): el QR impreso del hablador que el
+  // socio pone en el mostrador de SU negocio (la pieza vive en /hablador/{slug}).
+  // Abre el mismo catálogo, pero cada escaneo queda en `page_visits` con origen
+  // 'qr': sin esto, un hablador que vende no se distinguía de cualquier otro
+  // enlace al catálogo. Si el registro falla, se redirige igual.
+  if (destino === 'hablador') {
+    const cabeceras = headers()
+    const agente = cabeceras.get('user-agent')
+    const local = esHostLocal((cabeceras.get('host') || '').split(':')[0]) && process.env.PERMITIR_TRACKING_LOCAL !== '1'
+    if (!esRobot(agente) && !esScraperDePreview() && !local) {
+      const visitante = cabeceras.get('x-cta-visitante')
+      try {
+        const { error } = await supabase.from('page_visits').insert({
+          session_id: crypto.randomUUID(),
+          mentor_ref_id: slug,
+          page_entry: `/${slug}/hablador`,
+          dispositivo: dispositivoDe(agente, cabeceras.get('sec-ch-ua-mobile')),
+          sistema: sistemaDe(agente),
+          destino: 'web',
+          origen: 'qr',
+          visitante: visitante && /^ck_[a-z0-9]{6,12}$/.test(visitante) ? visitante : null,
+        })
+        if (error) console.warn('⚠️ [Hablador] No se registró el escaneo:', error.message)
+      } catch (e) {
+        console.warn('⚠️ [Hablador] No se registró el escaneo:', e)
+      }
+    }
+    redirect(`/productos/${slug}`)
+  }
+
   if (destino === 'productos') {
     const consulta = new URLSearchParams()
     for (const [k, v] of Object.entries(searchParams ?? {})) if (typeof v === 'string') consulta.set(k, v)

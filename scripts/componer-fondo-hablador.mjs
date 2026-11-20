@@ -32,11 +32,13 @@ const W = mm(106), H = mm(156);
 const FONDO = { r: 0x06, g: 0x09, b: 0x0A };
 
 // La foto en coordenadas de la pieza recortada: 100 mm de ancho (179 de alto),
-// borde izquierdo en -6 mm y superior en -52,5 mm. Con eso el vapor sube detrás
+// borde izquierdo en +0,2 mm y superior en -52,5 mm. Con eso el vapor sube detrás
 // del título y la taza queda a la misma distancia de la bajada que del QR (Director,
-// 20 nov 2026: con -57 mm quedaba pegada a la bajada). Con el sangrado, todo corre 3 mm.
+// 20 nov 2026: con -57 mm quedaba pegada a la bajada). En x, el CUERPO de la taza
+// (sin el asa) queda centrado en 50 mm, el eje del QR (Director, mismo día): con -6
+// mm su centro caía en 43,8. Con el sangrado, todo corre 3 mm.
 const ANCHO_FOTO = mm(100);
-const IZQ = mm(-6 + 3);
+const IZQ = mm(0.2 + 3);
 const ARRIBA = mm(-52.5 + 3);
 
 const foto = sharp(FOTO).resize({ width: ANCHO_FOTO });

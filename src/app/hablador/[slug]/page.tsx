@@ -37,12 +37,15 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-// El café al frente: es lo que se toma en un mostrador. Alto y angosto a los
-// lados, el ancho en el centro.
+// Las cuatro líneas a la vista (Director, 20 nov 2026): el café al frente, las
+// cápsulas, la pasta y el champú. Cada foto lleva su alto en mm porque las formas
+// no se parecen: la caja de Gano Fresh es casi cuatro veces más ancha que alta, y
+// a la misma altura que las otras ocuparía media pieza.
 const FOTOS = [
-  { src: '/productos/_set/limpios/ganocafe-3-en-1.png', alt: 'Ganocafé 3 en 1' },
-  { src: '/productos/_set/limpios/ganorico-latte-rico.png', alt: 'Ganorico Latte Rico' },
-  { src: '/productos/_set/limpios/luvoco-medio.png', alt: 'Luvoco Medio' },
+  { src: '/productos/_set/limpios/ganocafe-3-en-1.png', alt: 'Ganocafé 3 en 1', alto: 25 },
+  { src: '/productos/_set/limpios/capsulas-ganoderma.png', alt: 'Cápsulas de Ganoderma', alto: 18 },
+  { src: '/productos/_set/limpios/pasta-dientes-gano-fresh.png', alt: 'Gano Fresh', alto: 9.5 },
+  { src: '/productos/_set/limpios/champu-piel-brillo.png', alt: 'Champú Piel&Brillo', alto: 23 },
 ]
 
 const PASOS = ['Escanee', 'Pregunte', 'Pida por WhatsApp']
@@ -94,7 +97,7 @@ export default async function Hablador({
           <div className="hab-fotos">
             {FOTOS.map((f) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={f.src} src={f.src} alt={f.alt} />
+              <img key={f.src} src={f.src} alt={f.alt} style={{ height: `${f.alto}mm` }} />
             ))}
           </div>
 
@@ -153,13 +156,13 @@ function estilos(ancho: number, alto: number, sangre: number) {
 
 .hab-fotos {
   margin-top: 4mm; height: 24mm; width: 100%;
-  display: flex; align-items: flex-end; justify-content: center; gap: 2.5mm;
+  display: flex; align-items: flex-end; justify-content: center; gap: 3mm;
 }
-.hab-fotos img { height: 100%; width: auto; max-width: 40mm; object-fit: contain; filter: drop-shadow(0 1.2mm 1.2mm rgba(43,33,26,.22)); }
-.hab-fotos img:nth-child(2) { height: 18.5mm; }
+.hab-fotos img { width: auto; max-width: 40mm; object-fit: contain; filter: drop-shadow(0 1.2mm 1.2mm rgba(43,33,26,.22)); }
 
 .hab-qr-tarjeta {
   margin-top: 4.5mm; background: var(--h-superficie); border: .3mm solid var(--h-linea);
+  display: flex; flex-direction: column; align-items: center;
   border-radius: 3.5mm; padding: 4mm 4mm 2.6mm;
 }
 .hab-qr { width: 38mm; height: 38mm; }

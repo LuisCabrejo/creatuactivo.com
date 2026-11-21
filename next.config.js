@@ -3,6 +3,14 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // El PDF del hablador (src/app/hablador/[slug]/pdf/route.ts) lee su fondo CMYK y sus
+  // fuentes del disco: se incluyen explícitamente en la función, por si el rastreo de
+  // Vercel no sigue el readFile.
+  experimental: {
+    outputFileTracingIncludes: {
+      '/hablador/[slug]/pdf': ['./src/app/hablador/*/pdf/*.ttf', './src/app/hablador/*/pdf/*.jpg'],
+    },
+  },
   images: {
     remotePatterns: [
       {

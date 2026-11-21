@@ -12,7 +12,8 @@
  * `?variante=ganocafe` pone una caja de Ganocafé 3 en 1 junto a la taza (21 nov 2026), y
  * `?variante=ganocafe-grande`, la misma escena más grande, con el QR a la derecha de la
  * caja y encima de la taza y la bajada «Bebidas enriquecidas, suplementos y cuidado
- * personal.» (Director, 21 nov 2026).
+ * personal.» (Director, 21 nov 2026). Esa es la aprobada: sale por defecto y es la única con
+ * PDF de imprenta, /hablador/{slug}/pdf (src/lib/hablador-pdf.ts). El copy vive en ./pieza.ts.
  *
  * ⚠️ Lo que decidió el Director, y por qué:
  *   · VENDE PRODUCTOS, no el modelo de negocio: quien lo lee es el cliente del
@@ -39,6 +40,7 @@ import QRCode from 'qrcode'
 import { resolver } from '@/app/productos/socio'
 import SinOrbe from '@/components/SinOrbe'
 import BotonImprimir from './BotonImprimir'
+import { CEJA, TITULO, BAJADA, PASOS } from './pieza'
 
 export const dynamic = 'force-dynamic'
 
@@ -46,9 +48,6 @@ export const metadata: Metadata = {
   title: 'Hablador de mostrador',
   robots: { index: false, follow: false },
 }
-
-// Los tres pasos aprobados, en una sola línea discreta bajo el QR.
-const PASOS = 'Escanee · Pregunte · Pida por WhatsApp'
 
 // Las piezas. Los fondos los compone scripts/componer-fondo-hablador.mjs; la escena de
 // Ganocafé tiene el negro puro y la taza sola, el carbón de su foto.
@@ -64,9 +63,12 @@ const VARIANTES: Record<string, { fondo: string; color: string; clase: string; b
   // El QR sale del eje y la escena crece a 88 mm (Director, 21 nov 2026).
   'ganocafe-grande': {
     fondo: '/images/hablador/fondo-cafe-ganocafe-grande-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral',
-    bajada: 'Bebidas enriquecidas, suplementos y cuidado personal.',
+    bajada: BAJADA,
   },
 }
+// La pieza aprobada (Director, 21 nov 2026): la que sale sin `?variante=` y la única
+// que tiene PDF de imprenta (/hablador/{slug}/pdf). Las otras dos quedan para comparar.
+const POR_DEFECTO = 'ganocafe-grande'
 
 export default async function Hablador({
   params,
@@ -78,12 +80,12 @@ export default async function Hablador({
   const r = await resolver(params.slug)
   if (!r?.slug) notFound()
   const sangrado = searchParams?.sangrado === '1'
-  const variante = VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : 'taza'
+  const variante = VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
   const v = VARIANTES[variante]
   if (r.slug !== params.slug) {
     const consulta = new URLSearchParams()
     if (sangrado) consulta.set('sangrado', '1')
-    if (variante !== 'taza') consulta.set('variante', variante)
+    if (variante !== POR_DEFECTO) consulta.set('variante', variante)
     const resto = consulta.toString()
     permanentRedirect(`/hablador/${r.slug}${resto ? `?${resto}` : ''}`)
   }
@@ -109,18 +111,30 @@ export default async function Hablador({
       <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, v.fondo, v.color) }} />
 
       <div className="hab-controles">
-        <BotonImprimir />
-        <p>
-          10 × 15 cm{sangrado ? ' con 3 mm de sangrado' : ''}. En la ventana de impresión elija «Guardar como PDF»,
-          márgenes «Ninguno» y active «Gráficos de fondo».
-        </p>
+        {variante === POR_DEFECTO ? (
+          <>
+            <a className="cta-primary" href={`/hablador/${r.slug}/pdf?descargar=1`}>Descargar el PDF para la imprenta</a>
+            <p>
+              10 × 15 cm con 3 mm de sangrado, en CMYK y en alta resolución: se le envía a la
+              imprenta tal cual.
+            </p>
+          </>
+        ) : (
+          <>
+            <BotonImprimir />
+            <p>
+              10 × 15 cm{sangrado ? ' con 3 mm de sangrado' : ''}. En la ventana de impresión elija «Guardar como PDF»,
+              márgenes «Ninguno» y active «Gráficos de fondo».
+            </p>
+          </>
+        )}
       </div>
 
       <section className={`hab-pieza ${v.clase}`} aria-label="Hablador">
         <div className="hab-contenido">
           <div className="hab-arriba">
-            <p className="hab-ceja">Catálogo Gano Excel</p>
-            <p className="hab-titulo">Un café para tomarse con calma.</p>
+            <p className="hab-ceja">{CEJA}</p>
+            <p className="hab-titulo">{TITULO}</p>
             <p className="hab-bajada">{v.bajada}</p>
           </div>
 

@@ -33,7 +33,8 @@
  * node scripts/componer-fondo-hablador.mjs
  */
 import sharp from 'sharp';
-import { mkdirSync } from 'fs';
+import { mkdirSync, existsSync } from 'fs';
+import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -138,4 +139,22 @@ for (const [archivo, fondo, capas] of [
     .withMetadata({ density: 300 })
     .toFile(salida);
   console.log(`✅ ${salida.replace(RAIZ + '/', '')} · ${W} × ${H} px (106 × 156 mm a 300 ppp)`);
+}
+
+// ── El fondo del PDF de imprenta (/hablador/{slug}/pdf), en CMYK ───────────────
+// Lo convierte scripts/hablador-fondo-cmyk.py (lcms, intención perceptual) con el perfil
+// ISO Coated v2 300 % (FOGRA39, papel estucado). El perfil (ECI, de libre distribución)
+// no va en el repo: viene en el paquete icc-profiles de Ubuntu
+// (`apt-get download icc-profiles && dpkg-deb -x icc-profiles_*.deb x`) o en eci.org.
+// ⛔ Sin el perfil no se genera: un CMYK sin perfil deja el negro con amarillo.
+const ICC = process.env.ICC_CMYK || '/usr/share/color/icc/ISOcoated_v2_300_eci.icc';
+if (existsSync(ICC)) {
+  execFileSync('python3', [
+    join(RAIZ, 'scripts/hablador-fondo-cmyk.py'),
+    join(DESTINO, 'fondo-cafe-ganocafe-grande-v1.jpg'),
+    join(RAIZ, 'src/app/hablador/[slug]/pdf/fondo-ganocafe-grande-cmyk-v1.jpg'),
+    ICC,
+  ], { stdio: 'inherit' });
+} else {
+  console.warn(`⚠️ Sin el perfil CMYK en ${ICC} (ICC_CMYK=…): el fondo del PDF no se regeneró.`);
 }

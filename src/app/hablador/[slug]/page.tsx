@@ -9,7 +9,10 @@
  * El QR abre /{slug}/hablador, que cuenta el escaneo y lleva al catálogo
  * (src/app/[slug]/[destino]/page.tsx). Se imprime desde el navegador o se guarda
  * en PDF; `?sangrado=1` agrega los 3 mm de sangrado que pide la imprenta, y
- * `?variante=ganocafe` pone una caja de Ganocafé 3 en 1 junto a la taza (21 nov 2026).
+ * `?variante=ganocafe` pone una caja de Ganocafé 3 en 1 junto a la taza (21 nov 2026), y
+ * `?variante=ganocafe-grande`, la misma escena más grande, con el QR a la derecha de la
+ * caja y encima de la taza y la bajada «Bebidas enriquecidas, suplementos y cuidado
+ * personal.» (Director, 21 nov 2026).
  *
  * ⚠️ Lo que decidió el Director, y por qué:
  *   · VENDE PRODUCTOS, no el modelo de negocio: quien lo lee es el cliente del
@@ -47,6 +50,24 @@ export const metadata: Metadata = {
 // Los tres pasos aprobados, en una sola línea discreta bajo el QR.
 const PASOS = 'Escanee · Pregunte · Pida por WhatsApp'
 
+// Las piezas. Los fondos los compone scripts/componer-fondo-hablador.mjs; la escena de
+// Ganocafé tiene el negro puro y la taza sola, el carbón de su foto.
+const VARIANTES: Record<string, { fondo: string; color: string; clase: string; bajada: string }> = {
+  taza: {
+    fondo: '/images/hablador/fondo-cafe-v1.jpg', color: '#06090A', clase: '',
+    bajada: '22 productos: café, bebidas y cuidado personal.',
+  },
+  ganocafe: {
+    fondo: '/images/hablador/fondo-cafe-ganocafe-v3.jpg', color: '#000000', clase: 'hab-pieza--escena',
+    bajada: '22 productos: café, bebidas y cuidado personal.',
+  },
+  // El QR sale del eje y la escena crece a 88 mm (Director, 21 nov 2026).
+  'ganocafe-grande': {
+    fondo: '/images/hablador/fondo-cafe-ganocafe-grande-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral',
+    bajada: 'Bebidas enriquecidas, suplementos y cuidado personal.',
+  },
+}
+
 export default async function Hablador({
   params,
   searchParams,
@@ -57,18 +78,15 @@ export default async function Hablador({
   const r = await resolver(params.slug)
   if (!r?.slug) notFound()
   const sangrado = searchParams?.sangrado === '1'
-  const conGanocafe = searchParams?.variante === 'ganocafe'
+  const variante = VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : 'taza'
+  const v = VARIANTES[variante]
   if (r.slug !== params.slug) {
     const consulta = new URLSearchParams()
     if (sangrado) consulta.set('sangrado', '1')
-    if (conGanocafe) consulta.set('variante', 'ganocafe')
+    if (variante !== 'taza') consulta.set('variante', variante)
     const resto = consulta.toString()
     permanentRedirect(`/hablador/${r.slug}${resto ? `?${resto}` : ''}`)
   }
-  // Los fondos los compone scripts/componer-fondo-hablador.mjs.
-  const fondo = conGanocafe ? '/images/hablador/fondo-cafe-ganocafe-v3.jpg' : '/images/hablador/fondo-cafe-v1.jpg'
-  // La escena de Ganocafé tiene el negro puro; la taza sola, el carbón de su foto.
-  const colorFondo = conGanocafe ? '#000000' : '#06090A'
 
   const enlace = `creatuactivo.com/${r.slug}/hablador`
   // El margen blanco del QR lo pone su recuadro (2,6 mm, más de 3 módulos), no la librería.
@@ -88,7 +106,7 @@ export default async function Hablador({
       <SinOrbe />
       {/* Sin escapar: como hijo de texto, React convierte el «>» del CSS en &gt; y el
           servidor y el navegador dejan de coincidir (error de hidratación). */}
-      <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, fondo, colorFondo) }} />
+      <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, v.fondo, v.color) }} />
 
       <div className="hab-controles">
         <BotonImprimir />
@@ -98,12 +116,12 @@ export default async function Hablador({
         </p>
       </div>
 
-      <section className={`hab-pieza${conGanocafe ? ' hab-pieza--escena' : ''}`} aria-label="Hablador">
+      <section className={`hab-pieza ${v.clase}`} aria-label="Hablador">
         <div className="hab-contenido">
           <div className="hab-arriba">
             <p className="hab-ceja">Catálogo Gano Excel</p>
             <p className="hab-titulo">Un café para tomarse con calma.</p>
-            <p className="hab-bajada">22 productos: café, bebidas y cuidado personal.</p>
+            <p className="hab-bajada">{v.bajada}</p>
           </div>
 
           <div className="hab-abajo">
@@ -144,6 +162,10 @@ function estilos(ancho: number, alto: number, sangre: number, fondo: string, col
   text-align: center;
 }
 .hab-pieza--escena .hab-contenido { padding-top: 10mm; }  /* la escena necesita 3 mm más: ver componer-fondo-hablador.mjs */
+/* QR lateral: en el hueco entre la tapa de la caja (51 mm) y el asa (87 mm), con el
+   borde de arriba a la altura del frente de la caja; debajo asoma el vapor. */
+.hab-pieza--qr-lateral .hab-contenido { position: relative; padding-bottom: 6mm; }
+.hab-pieza--qr-lateral .hab-qr { position: absolute; left: 54.5mm; top: 50.4mm; width: 25mm; height: 25mm; padding: 2.5mm; }
 .hab-arriba, .hab-abajo { display: flex; flex-direction: column; align-items: center; }
 .hab-ceja { margin: 0; font-size: 8pt; font-weight: 600; letter-spacing: .01em; color: var(--h-oro); }
 .hab-titulo {

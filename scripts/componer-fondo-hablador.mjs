@@ -18,6 +18,8 @@
  *   · fondo-cafe-v1.jpg            — la taza sola (la pieza por defecto).
  *   · fondo-cafe-ganocafe-v3.jpg   — la escena de la caja de Ganocafé 3 en 1 con una
  *     taza (public/images/hablador/escena-ganocafe-v1.jpg). /hablador/{slug}?variante=ganocafe
+ *   · fondo-cafe-ganocafe-grande-v1.jpg — la misma escena a 88 mm, con el QR a la
+ *     derecha de la caja y encima de la taza. ?variante=ganocafe-grande
  *
  * ⚠️ POR QUÉ LA ESCENA Y NO UN MONTAJE (auditoría del 21 nov 2026). La v1 y la v2
  * pegaban la foto de catálogo de la caja junto a la taza de la Presentación: dos
@@ -93,9 +95,15 @@ const ESCENA = join(RAIZ, 'public/images/hablador/escena-ganocafe-v1.jpg');
 // mesa se apaga, los objetos no. ⚠️ Sin ella, la elipse apagaba la tapa y el logo GE.
 const OBJETOS = join(RAIZ, 'public/images/hablador/escena-ganocafe-v1-objetos.png');
 const ESCENA_ANCHO = 63, ESCENA_ARRIBA = 16.3, ESCENA_IZQ = 50 - 0.531 * ESCENA_ANCHO;
+// La opción grande (Director, 21 nov 2026: «aumentar el tamaño de la caja y la taza y
+// que el QR quede a la derecha de la caja, encima de la taza»). Sin el QR debajo, la
+// escena crece a 88 mm (131 de alto): la caja va de 13 a 51 mm en x y arranca a 47 en
+// y; la boca de la taza queda a 89 y su base a 126. El hueco para el QR va de 51 a
+// 87 mm en x, entre la tapa de la caja y la boca de la taza (la página lo pone ahí).
+const GRANDE = { ancho: 88, arriba: 9.6, izq: 50 - 0.531 * 88 };
 
-async function escenaGanocafe() {
-  const { data: e, info: ie } = await sharp(ESCENA).resize({ width: mm(ESCENA_ANCHO) }).ensureAlpha().raw()
+async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, izq = ESCENA_IZQ } = {}) {
+  const { data: e, info: ie } = await sharp(ESCENA).resize({ width: mm(ancho) }).ensureAlpha().raw()
     .toBuffer({ resolveWithObject: true });
   const obj = await sharp(OBJETOS).resize({ width: ie.width, height: ie.height, fit: 'fill' })
     .blur(mm(0.8)).extractChannel(0).raw().toBuffer();
@@ -113,7 +121,7 @@ async function escenaGanocafe() {
   }
   return {
     input: await sharp(e, { raw: { width: ie.width, height: ie.height, channels: 4 } }).png().toBuffer(),
-    left: mm(ESCENA_IZQ + 3), top: mm(ESCENA_ARRIBA + 3),
+    left: mm(izq + 3), top: mm(arriba + 3),
   };
 }
 
@@ -121,6 +129,7 @@ mkdirSync(DESTINO, { recursive: true });
 for (const [archivo, fondo, capas] of [
   ['fondo-cafe-v1.jpg', FONDO, [{ input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) }]],
   ['fondo-cafe-ganocafe-v3.jpg', { r: 0, g: 0, b: 0 }, [await escenaGanocafe()]],
+  ['fondo-cafe-ganocafe-grande-v1.jpg', { r: 0, g: 0, b: 0 }, [await escenaGanocafe(GRANDE)]],
 ]) {
   const salida = join(DESTINO, archivo);
   await sharp({ create: { width: W, height: H, channels: 3, background: fondo } })

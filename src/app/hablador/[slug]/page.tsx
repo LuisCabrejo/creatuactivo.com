@@ -17,8 +17,9 @@
  *     con Queswa en el catálogo. Una sola acción: escanear.
  *   · SIN PRECIO: un precio impreso caduca y no se puede retirar del mostrador.
  *   · SIN DECLARACIÓN DE SALUD: el café se vende por lo sensorial y el ritual.
- *   · LAS FOTOS SON LAS REALES (public/productos/_set/limpios), nunca generadas por
- *     IA. Nano Banana sirve para fondos y montajes, nunca para el producto ni el QR.
+ *   · LA ETIQUETA ES LA REAL (public/productos/_set/limpios), nunca la que dibuja una
+ *     IA. La escena de `?variante=ganocafe` se generó con Nano Banana y lleva encima
+ *     la etiqueta real (scripts/hablador-reetiquetar-caja.py); el QR, nunca con IA.
  *   · ESTILO APPLE (Director, 20 nov 2026: el bodegón de siete productos «se ve muy
  *     mal como flyer»): UN solo protagonista —la taza humeante de la Presentación,
  *     foto real y sin marca—, mucho aire, el título grande en Inter apretado y la
@@ -65,7 +66,9 @@ export default async function Hablador({
     permanentRedirect(`/hablador/${r.slug}${resto ? `?${resto}` : ''}`)
   }
   // Los fondos los compone scripts/componer-fondo-hablador.mjs.
-  const fondo = conGanocafe ? '/images/hablador/fondo-cafe-ganocafe-v2.jpg' : '/images/hablador/fondo-cafe-v1.jpg'
+  const fondo = conGanocafe ? '/images/hablador/fondo-cafe-ganocafe-v3.jpg' : '/images/hablador/fondo-cafe-v1.jpg'
+  // La escena de Ganocafé tiene el negro puro; la taza sola, el carbón de su foto.
+  const colorFondo = conGanocafe ? '#000000' : '#06090A'
 
   const enlace = `creatuactivo.com/${r.slug}/hablador`
   // El margen blanco del QR lo pone su recuadro (2,6 mm, más de 3 módulos), no la librería.
@@ -85,7 +88,7 @@ export default async function Hablador({
       <SinOrbe />
       {/* Sin escapar: como hijo de texto, React convierte el «>» del CSS en &gt; y el
           servidor y el navegador dejan de coincidir (error de hidratación). */}
-      <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, fondo) }} />
+      <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, fondo, colorFondo) }} />
 
       <div className="hab-controles">
         <BotonImprimir />
@@ -114,7 +117,7 @@ export default async function Hablador({
   )
 }
 
-function estilos(ancho: number, alto: number, sangre: number, fondo: string) {
+function estilos(ancho: number, alto: number, sangre: number, fondo: string, colorFondo: string) {
   return `
 .hab-escritorio {
   min-height: 100vh; background: #2A2D33; padding: 24px 16px 48px;
@@ -125,7 +128,7 @@ function estilos(ancho: number, alto: number, sangre: number, fondo: string) {
 .hab-controles p { font-size: 13px; line-height: 1.5; color: #94A3B8; margin: 10px 0 0; }
 
 .hab-pieza {
-  --h-fondo: #06090A; --h-titulo: #F5F5F7; --h-texto-2: #A1A1A6; --h-texto-3: #6E6E73; --h-oro: #C5A059;
+  --h-fondo: ${colorFondo}; --h-titulo: #F5F5F7; --h-texto-2: #A1A1A6; --h-texto-3: #6E6E73; --h-oro: #C5A059;
   width: ${ancho}mm; height: ${alto}mm; padding: ${sangre}mm; box-sizing: border-box;
   /* La taza humeante de la Presentación, compuesta con su sangrado por
      scripts/componer-fondo-hablador.mjs (106 × 156 mm): centrada, la pieza sin
@@ -155,7 +158,7 @@ function estilos(ancho: number, alto: number, sangre: number, fondo: string) {
 
 @page { size: ${ancho}mm ${alto}mm; margin: 0; }
 @media print {
-  html, body { background: #06090A !important; margin: 0 !important; padding: 0 !important; }
+  html, body { background: ${colorFondo} !important; margin: 0 !important; padding: 0 !important; }
   body * { visibility: hidden !important; }
   .hab-pieza, .hab-pieza * { visibility: visible !important; }
   .hab-escritorio { padding: 0; background: none; min-height: 0; }

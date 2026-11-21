@@ -16,18 +16,17 @@
  *
  * Dos fondos (21 nov 2026, Director):
  *   · fondo-cafe-v1.jpg            — la taza sola (la pieza por defecto).
- *   · fondo-cafe-ganocafe-v2.jpg   — la taza y una caja de Ganocafé 3 en 1 (foto real,
- *     public/productos/_set/limpios). /hablador/{slug}?variante=ganocafe
+ *   · fondo-cafe-ganocafe-v3.jpg   — la escena de la caja de Ganocafé 3 en 1 con una
+ *     taza (public/images/hablador/escena-ganocafe-v1.jpg). /hablador/{slug}?variante=ganocafe
  *
- * ⚠️ LA PROPORCIÓN (auditoría del 21 nov 2026). La v1 ponía la caja DELANTE de la
- * taza con 37 mm de alto: a la escala de la taza (cuerpo de 31,7 mm = 8,2 cm de
- * una taza estándar de 11 oz, 3,87 mm por cm) eso es una caja de 9,6 cm, la mitad
- * de la real, y delante debía verse aún MÁS grande. Se leía como una miniatura.
- * La caja real mide unos 18 × 9,4 cm de frente (ESTIMADO: la foto da 0,524 de
- * ancho/alto; confirmar con la caja en la mano y ajustar CAJA_REAL_CM). A escala
- * real y delante taparía a la protagonista, así que va DETRÁS: más lejos se ve más
- * pequeña (factor de profundidad), su base queda más arriba que la de la taza, la
- * taza le tapa el borde derecho y un desenfoque leve la empuja al fondo.
+ * ⚠️ POR QUÉ LA ESCENA Y NO UN MONTAJE (auditoría del 21 nov 2026). La v1 y la v2
+ * pegaban la foto de catálogo de la caja junto a la taza de la Presentación: dos
+ * cámaras distintas (la taza vista desde arriba, la caja escaneada de frente) y dos
+ * luces. Ninguna escala lo arregla: se leía como una miniatura o como un recorte. La
+ * escena es UNA cámara y UNA luz (generada con Nano Banana por el Director), con la
+ * caja más grande que la taza, como es en la realidad, y con la ETIQUETA REAL puesta
+ * encima por scripts/hablador-reetiquetar-caja.py. La tapa y el costado siguen
+ * siendo los de la IA.
  *
  * node scripts/componer-fondo-hablador.mjs
  */
@@ -39,7 +38,6 @@ import { dirname, join } from 'path';
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FOTO = join(RAIZ, 'public/images/servilleta/producto-cafe.webp');
 const DESTINO = join(RAIZ, 'public/images/hablador');
-const CAJA = join(RAIZ, 'public/productos/_set/limpios/ganocafe-3-en-1.png');
 
 const PX = 300 / 25.4;                       // px por mm a 300 ppp
 const mm = (v) => Math.round(v * PX);
@@ -80,92 +78,49 @@ const visible = await sharp(data, { raw: { width: info.width, height: info.heigh
   .png()
   .toBuffer();
 
-// ── La caja de Ganocafé 3 en 1, en coordenadas de la pieza recortada ─────────
-// La taza: borde a 53 mm, base a 94 mm, cuerpo de 34,4 a 66,1 mm en x.
-const MM_POR_CM = 31.7 / 8.2;  // el cuerpo de la taza contra una taza estándar de 11 oz
-const CAJA_REAL_CM = 18;       // alto real estimado de la caja (ver la cabecera)
-const PROFUNDIDAD = 0.62;      // detrás de la taza: a esta escala la caja cabe bajo la bajada
-const CAJA_ALTO = CAJA_REAL_CM * MM_POR_CM * PROFUNDIDAD;   // ≈ 43 mm
-const CAJA_BASE = 89.5;    // mm: más arriba que la base de la taza (94) = más lejos
-const CAJA_DERECHA = 36.5; // mm: la taza le tapa solo el canto; el nombre del logo queda a la vista
-const LUZ = 0.55;          // más lejos de la luz que la taza
-const DESENFOQUE = 0.25;   // mm: la profundidad de campo de la foto
+// ── La escena de Ganocafé, en coordenadas de la pieza recortada ──────────────
+// Medida sobre la escena (1696 × 2528): la boca de la taza está centrada en el
+// 64,9 % del ancho, la tapa de la caja empieza en el 28,5 % del alto y la base de la
+// taza en el 88,4 %. A 63 mm de ancho (93,9 de alto) y con top 17,2 mm: la caja
+// arranca a 44 mm (bajo la bajada), la base de la taza cae a 100 mm (antes del QR) y
+// la taza queda en el eje del QR, a 50 mm. La foto tiene el negro puro: la pieza
+// también, y se funden los bordes donde termina la mesa.
+const ESCENA = join(RAIZ, 'public/images/hablador/escena-ganocafe-v1.jpg');
+// La caja y la taza en blanco (la guarda scripts/hablador-reetiquetar-caja.py): la
+// mesa se apaga, los objetos no. ⚠️ Sin ella, la elipse apagaba la tapa y el logo GE.
+const OBJETOS = join(RAIZ, 'public/images/hablador/escena-ganocafe-v1-objetos.png');
+const ESCENA_ANCHO = 63, ESCENA_ARRIBA = 17.2, ESCENA_IZQ = 50 - 0.649 * ESCENA_ANCHO;
 
-async function capasDeLaCaja() {
-  const alto = mm(CAJA_ALTO);
-  const base = sharp(CAJA).resize({ height: alto }).blur(mm(DESENFOQUE));
-  const { data: c, info: ic } = await base.ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  // La luz viene de arriba a la derecha, como en la taza: el lado izquierdo y la
-  // parte de abajo se apagan un poco más.
-  for (let y = 0; y < ic.height; y++) {
-    for (let x = 0; x < ic.width; x++) {
-      const k = LUZ * (0.78 + 0.22 * (x / ic.width)) * (1 - 0.18 * (y / ic.height));
-      const i = (y * ic.width + x) * 4;
-      c[i] = Math.round(c[i] * k); c[i + 1] = Math.round(c[i + 1] * k); c[i + 2] = Math.round(c[i + 2] * k);
+async function escenaGanocafe() {
+  const { data: e, info: ie } = await sharp(ESCENA).resize({ width: mm(ESCENA_ANCHO) }).ensureAlpha().raw()
+    .toBuffer({ resolveWithObject: true });
+  const obj = await sharp(OBJETOS).resize({ width: ie.width, height: ie.height, fit: 'fill' })
+    .blur(mm(0.8)).extractChannel(0).raw().toBuffer();
+  // La mesa se apaga en una elipse centrada en los dos objetos, como la caída de una
+  // luz puntual: con un fundido rectangular se veía el borde de la foto.
+  for (let y = 0; y < ie.height; y++) {
+    const v = y / ie.height;
+    for (let x = 0; x < ie.width; x++) {
+      const u = x / ie.width;
+      const d = Math.hypot((u - 0.53) / 0.50, (v - 0.70) / 0.27);
+      const borde = suave(0, 0.05, u) * (1 - suave(0.95, 1, u)) * (1 - suave(0.93, 0.99, v));
+      const mesa = 1 - suave(0.80, 1.05, d);
+      e[(y * ie.width + x) * 4 + 3] = Math.round(255 * borde * Math.max(mesa, obj[y * ie.width + x] / 255));
     }
   }
-  const caja = await sharp(c, { raw: { width: ic.width, height: ic.height, channels: 4 } }).png().toBuffer();
-
-  // El reflejo en la mesa: la caja al revés, tenue y desvanecido en 6 mm.
-  const altoReflejo = Math.min(ic.height, mm(6));
-  const r = Buffer.from(c);
-  const reflejo = Buffer.alloc(ic.width * altoReflejo * 4);
-  for (let y = 0; y < altoReflejo; y++) {
-    const src = ic.height - 1 - y;
-    const a = 0.10 * (1 - suave(0, 1, y / altoReflejo));
-    for (let x = 0; x < ic.width; x++) {
-      const i = (src * ic.width + x) * 4, o = (y * ic.width + x) * 4;
-      reflejo[o] = r[i]; reflejo[o + 1] = r[i + 1]; reflejo[o + 2] = r[i + 2];
-      reflejo[o + 3] = Math.round(r[i + 3] * a);
-    }
-  }
-  const reflejoPng = await sharp(reflejo, { raw: { width: ic.width, height: altoReflejo, channels: 4 } }).png().toBuffer();
-
-  // La sombra de contacto: una elipse negra difusa bajo la base.
-  const sw = ic.width + mm(6), sh = mm(5);
-  const sombra = await sharp(Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${sw}" height="${sh}"><ellipse cx="${sw / 2}" cy="${sh / 2}" rx="${sw / 2 - mm(1.5)}" ry="${sh / 4}" fill="black" fill-opacity="0.6"/></svg>`
-  )).blur(mm(0.8)).png().toBuffer();
-
-  const izq = mm(CAJA_DERECHA + 3) - ic.width;        // +3 mm de sangrado
-  const arriba = mm(CAJA_BASE + 3) - ic.height;
-  return [
-    { input: sombra, left: izq - mm(3), top: arriba + ic.height - Math.round(sh / 2) },
-    { input: reflejoPng, left: izq, top: arriba + ic.height },
-    { input: caja, left: izq, top: arriba },
-  ];
-}
-
-// La taza recortada de la foto ya compuesta, para ponerla ENCIMA de la caja: en
-// cada fila del cuerpo (53 a 94 mm) todo lo que queda a la derecha de su borde
-// izquierdo —el primer píxel más claro que el fondo— es taza. Basta el borde
-// izquierdo porque la caja solo se cruza por ese lado; 3 px de fundido.
-async function tazaRecortada(base) {
-  const { data: d, info: i } = await sharp(base).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  const y0 = mm(53 + 3), y1 = mm(94.5 + 3), xa = mm(28 + 3), xb = mm(CAJA_DERECHA + 3) + 4;
-  for (let p = 3; p < d.length; p += 4) d[p] = 0;
-  for (let y = y0; y <= y1; y++) {
-    let borde = -1;
-    for (let x = xa; x < mm(52 + 3); x++) {
-      const o = (y * i.width + x) * 4;
-      if (0.299 * d[o] + 0.587 * d[o + 1] + 0.114 * d[o + 2] > 22) { borde = x; break; }
-    }
-    if (borde < 0) continue;
-    for (let x = borde; x <= xb; x++) d[(y * i.width + x) * 4 + 3] = Math.round(255 * suave(borde - 1, borde + 3, x));
-  }
-  return sharp(d, { raw: { width: i.width, height: i.height, channels: 4 } }).png().toBuffer();
+  return {
+    input: await sharp(e, { raw: { width: ie.width, height: ie.height, channels: 4 } }).png().toBuffer(),
+    left: mm(ESCENA_IZQ + 3), top: mm(ESCENA_ARRIBA + 3),
+  };
 }
 
 mkdirSync(DESTINO, { recursive: true });
-const lienzo = () => sharp({ create: { width: W, height: H, channels: 3, background: FONDO } });
-const taza = { input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) };
-const soloTaza = await lienzo().composite([taza]).png().toBuffer();
-for (const [archivo, capas] of [
-  ['fondo-cafe-v1.jpg', [taza]],
-  ['fondo-cafe-ganocafe-v2.jpg', [taza, ...(await capasDeLaCaja()), { input: await tazaRecortada(soloTaza), left: 0, top: 0 }]],
+for (const [archivo, fondo, capas] of [
+  ['fondo-cafe-v1.jpg', FONDO, [{ input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) }]],
+  ['fondo-cafe-ganocafe-v3.jpg', { r: 0, g: 0, b: 0 }, [await escenaGanocafe()]],
 ]) {
   const salida = join(DESTINO, archivo);
-  await lienzo()
+  await sharp({ create: { width: W, height: H, channels: 3, background: fondo } })
     .composite(capas)
     .jpeg({ quality: 90, chromaSubsampling: '4:4:4' })
     .withMetadata({ density: 300 })

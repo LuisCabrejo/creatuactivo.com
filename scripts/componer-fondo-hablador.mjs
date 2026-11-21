@@ -79,17 +79,20 @@ const visible = await sharp(data, { raw: { width: info.width, height: info.heigh
   .toBuffer();
 
 // ── La escena de Ganocafé, en coordenadas de la pieza recortada ──────────────
-// Medida sobre la escena (1696 × 2528): la boca de la taza está centrada en el
-// 64,9 % del ancho, la tapa de la caja empieza en el 28,5 % del alto y la base de la
-// taza en el 88,4 %. A 63 mm de ancho (93,9 de alto) y con top 17,2 mm: la caja
-// arranca a 44 mm (bajo la bajada), la base de la taza cae a 100 mm (antes del QR) y
-// la taza queda en el eje del QR, a 50 mm. La foto tiene el negro puro: la pieza
-// también, y se funden los bordes donde termina la mesa.
+// Medida sobre la escena (1696 × 2528): el grupo —caja con su costado y taza con su
+// asa— va del 10,8 % al 95,5 % del ancho (centro en el 53,1 %), la tapa de la caja
+// empieza en el 28,5 % del alto y la base de la taza en el 88,4 %. A 63 mm de ancho
+// (93,9 de alto) y con top 16,3 mm: la caja arranca a 43 mm y la base de la taza cae
+// a 99 mm, con unos 4 mm de aire contra el texto y contra el QR.
+// ⚠️ Se centra el GRUPO en el eje, no la taza (Director, 21 nov 2026: «la veo
+// desubicada»): con la taza en el eje, el conjunto quedaba 7,4 mm a la izquierda y
+// 31 mm de negro vacío a la derecha. Con dos objetos, el centro es el del conjunto.
+// La foto tiene el negro puro: la pieza también, y la mesa se apaga en elipse.
 const ESCENA = join(RAIZ, 'public/images/hablador/escena-ganocafe-v1.jpg');
 // La caja y la taza en blanco (la guarda scripts/hablador-reetiquetar-caja.py): la
 // mesa se apaga, los objetos no. ⚠️ Sin ella, la elipse apagaba la tapa y el logo GE.
 const OBJETOS = join(RAIZ, 'public/images/hablador/escena-ganocafe-v1-objetos.png');
-const ESCENA_ANCHO = 63, ESCENA_ARRIBA = 17.2, ESCENA_IZQ = 50 - 0.649 * ESCENA_ANCHO;
+const ESCENA_ANCHO = 63, ESCENA_ARRIBA = 16.3, ESCENA_IZQ = 50 - 0.531 * ESCENA_ANCHO;
 
 async function escenaGanocafe() {
   const { data: e, info: ie } = await sharp(ESCENA).resize({ width: mm(ESCENA_ANCHO) }).ensureAlpha().raw()

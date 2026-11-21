@@ -73,6 +73,28 @@ taza = np.where((m == 1) | (m == 3), 255, 0).astype(np.uint8)
 contornos, _ = cv2.findContours(taza, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 silueta = np.zeros_like(taza)
 cv2.drawContours(silueta, [max(contornos, key=cv2.contourArea)], -1, 255, -1)
+# GrabCut se lleva mesa a la derecha, bajo el asa, hasta el borde de su rectángulo
+# (21 nov: un corte vertical en la mesa del hablador). Se recorta la silueta al borde
+# real de la taza: el último píxel beige de cada fila, y bajo el asa, el del cuerpo.
+B, G, R = (gen[..., i].astype(int) for i in range(3))
+beige = (R > 105) & (G > 85) & (B > 60) & ((R - B) < 85)
+filas = np.nonzero(silueta.any(axis=1))[0]
+x0, x1 = rect_taza[0], rect_taza[0] + rect_taza[2]
+borde = np.array([(np.nonzero(beige[y, x0:x1])[0].max() + x0) if beige[y, x0:x1].any() else x0 for y in filas])
+borde = np.array([np.median(borde[max(0, i - 4):i + 5]) for i in range(len(borde))])
+# Lo más saliente del asa, buscado en los dos tercios de arriba: abajo, un brillo de
+# la mesa puede ser más «saliente» que el asa (21 nov: x 1665 en la fila 2200).
+pico = int(np.argmax(borde[: int(len(borde) * 0.65)]))
+# Después de su punto más saliente, el borde de la taza solo retrocede (el asa baja
+# hacia el cuerpo y la base se cierra): el mínimo acumulado. Lo beige que reaparece
+# más afuera es brillo de la mesa. ⚠️ Probado y descartado: «el primer mínimo» (un
+# diente del borde lo cortaba en el asa) y medir el cuerpo en la boca (es una elipse).
+tope_fila = borde.copy()
+for i in range(pico + 1, len(borde)):
+    tope_fila[i] = min(tope_fila[i - 1], borde[i])
+for i, y in enumerate(filas):
+    tope = int(tope_fila[i]) + 6
+    silueta[y, tope:] = 0
 taza = cv2.GaussianBlur(cv2.dilate(silueta, np.ones((5, 5), np.uint8)).astype(np.float32) / 255, (0, 0), 1.5)
 
 a = cv2.GaussianBlur(np.clip(cara * (1 - taza), 0, 1), (0, 0), 1.0)[..., None]

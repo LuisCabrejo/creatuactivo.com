@@ -98,7 +98,7 @@ export default async function Hablador({
         </p>
       </div>
 
-      <section className="hab-pieza" aria-label="Hablador">
+      <section className={`hab-pieza${conGanocafe ? ' hab-pieza--escena' : ''}`} aria-label="Hablador">
         <div className="hab-contenido">
           <div className="hab-arriba">
             <p className="hab-ceja">Catálogo Gano Excel</p>
@@ -143,6 +143,7 @@ function estilos(ancho: number, alto: number, sangre: number, fondo: string, col
   display: flex; flex-direction: column; align-items: center; justify-content: space-between;
   text-align: center;
 }
+.hab-pieza--escena .hab-contenido { padding-top: 10mm; }  /* la escena necesita 3 mm más: ver componer-fondo-hablador.mjs */
 .hab-arriba, .hab-abajo { display: flex; flex-direction: column; align-items: center; }
 .hab-ceja { margin: 0; font-size: 8pt; font-weight: 600; letter-spacing: .01em; color: var(--h-oro); }
 .hab-titulo {

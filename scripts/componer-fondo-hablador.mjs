@@ -14,6 +14,14 @@
  * ⛔ Si cambia, lleva nombre nuevo (-v2…) y se actualiza en la página: el service
  * worker sirve los estáticos cache-first.
  *
+ * Dos fondos (21 nov 2026, Director):
+ *   · fondo-cafe-v1.jpg            — la taza sola (la pieza por defecto).
+ *   · fondo-cafe-ganocafe-v1.jpg   — la taza y una caja de Ganocafé 3 en 1 (foto real,
+ *     public/productos/_set/limpios), a la izquierda y un poco más adelante: su base
+ *     cae más abajo que la de la taza y la monta apenas, que es lo que da la
+ *     profundidad. Se oscurece para igualar la luz baja de la foto, y lleva sombra
+ *     de contacto y un reflejo tenue en la mesa, como la taza. /hablador/{slug}?variante=ganocafe
+ *
  * node scripts/componer-fondo-hablador.mjs
  */
 import sharp from 'sharp';
@@ -24,7 +32,7 @@ import { dirname, join } from 'path';
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FOTO = join(RAIZ, 'public/images/servilleta/producto-cafe.webp');
 const DESTINO = join(RAIZ, 'public/images/hablador');
-const SALIDA = join(DESTINO, 'fondo-cafe-v1.jpg');
+const CAJA = join(RAIZ, 'public/productos/_set/limpios/ganocafe-3-en-1.png');
 
 const PX = 300 / 25.4;                       // px por mm a 300 ppp
 const mm = (v) => Math.round(v * PX);
@@ -65,11 +73,69 @@ const visible = await sharp(data, { raw: { width: info.width, height: info.heigh
   .png()
   .toBuffer();
 
-mkdirSync(DESTINO, { recursive: true });
-await sharp({ create: { width: W, height: H, channels: 3, background: FONDO } })
-  .composite([{ input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) }])
-  .jpeg({ quality: 90, chromaSubsampling: '4:4:4' })
-  .withMetadata({ density: 300 })
-  .toFile(SALIDA);
+// ── La caja de Ganocafé 3 en 1, en coordenadas de la pieza recortada ─────────
+// La taza: borde a 53 mm, base a 94 mm, cuerpo de 34,4 a 66,1 mm en x.
+const CAJA_ALTO = 37;      // mm: un poco menos que la taza, para que ella siga mandando
+const CAJA_BASE = 96.5;    // mm: más abajo que la taza = más cerca de quien mira
+const CAJA_DERECHA = 37;   // mm: monta 2,6 mm sobre el cuerpo de la taza
+const LUZ = 0.62;          // la foto de la caja está iluminada de estudio; la escena, no
 
-console.log(`✅ ${SALIDA.replace(RAIZ + '/', '')} · ${W} × ${H} px (106 × 156 mm a 300 ppp)`);
+async function capasDeLaCaja() {
+  const alto = mm(CAJA_ALTO);
+  const base = sharp(CAJA).resize({ height: alto });
+  const { data: c, info: ic } = await base.ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  // La luz viene de arriba a la derecha, como en la taza: el lado izquierdo y la
+  // parte de abajo se apagan un poco más.
+  for (let y = 0; y < ic.height; y++) {
+    for (let x = 0; x < ic.width; x++) {
+      const k = LUZ * (0.78 + 0.22 * (x / ic.width)) * (1 - 0.18 * (y / ic.height));
+      const i = (y * ic.width + x) * 4;
+      c[i] = Math.round(c[i] * k); c[i + 1] = Math.round(c[i + 1] * k); c[i + 2] = Math.round(c[i + 2] * k);
+    }
+  }
+  const caja = await sharp(c, { raw: { width: ic.width, height: ic.height, channels: 4 } }).png().toBuffer();
+
+  // El reflejo en la mesa: la caja al revés, tenue y desvanecido en 6 mm.
+  const altoReflejo = Math.min(ic.height, mm(6));
+  const r = Buffer.from(c);
+  const reflejo = Buffer.alloc(ic.width * altoReflejo * 4);
+  for (let y = 0; y < altoReflejo; y++) {
+    const src = ic.height - 1 - y;
+    const a = 0.16 * (1 - suave(0, 1, y / altoReflejo));
+    for (let x = 0; x < ic.width; x++) {
+      const i = (src * ic.width + x) * 4, o = (y * ic.width + x) * 4;
+      reflejo[o] = r[i]; reflejo[o + 1] = r[i + 1]; reflejo[o + 2] = r[i + 2];
+      reflejo[o + 3] = Math.round(r[i + 3] * a);
+    }
+  }
+  const reflejoPng = await sharp(reflejo, { raw: { width: ic.width, height: altoReflejo, channels: 4 } }).png().toBuffer();
+
+  // La sombra de contacto: una elipse negra difusa bajo la base.
+  const sw = ic.width + mm(6), sh = mm(5);
+  const sombra = await sharp(Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${sw}" height="${sh}"><ellipse cx="${sw / 2}" cy="${sh / 2}" rx="${sw / 2 - mm(1.5)}" ry="${sh / 4}" fill="black" fill-opacity="0.75"/></svg>`
+  )).blur(mm(0.8)).png().toBuffer();
+
+  const izq = mm(CAJA_DERECHA + 3) - ic.width;        // +3 mm de sangrado
+  const arriba = mm(CAJA_BASE + 3) - ic.height;
+  return [
+    { input: sombra, left: izq - mm(3), top: arriba + ic.height - Math.round(sh / 2) },
+    { input: reflejoPng, left: izq, top: arriba + ic.height },
+    { input: caja, left: izq, top: arriba },
+  ];
+}
+
+mkdirSync(DESTINO, { recursive: true });
+const taza = { input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) };
+for (const [archivo, capas] of [
+  ['fondo-cafe-v1.jpg', [taza]],
+  ['fondo-cafe-ganocafe-v1.jpg', [taza, ...(await capasDeLaCaja())]],
+]) {
+  const salida = join(DESTINO, archivo);
+  await sharp({ create: { width: W, height: H, channels: 3, background: FONDO } })
+    .composite(capas)
+    .jpeg({ quality: 90, chromaSubsampling: '4:4:4' })
+    .withMetadata({ density: 300 })
+    .toFile(salida);
+  console.log(`✅ ${salida.replace(RAIZ + '/', '')} · ${W} × ${H} px (106 × 156 mm a 300 ppp)`);
+}

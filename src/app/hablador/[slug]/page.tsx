@@ -8,7 +8,8 @@
  * negocio ES el socio, y el QR lleva su slug para que cada pedido quede a su nombre.
  * El QR abre /{slug}/hablador, que cuenta el escaneo y lleva al catálogo
  * (src/app/[slug]/[destino]/page.tsx). Se imprime desde el navegador o se guarda
- * en PDF; `?sangrado=1` agrega los 3 mm de sangrado que pide la imprenta.
+ * en PDF; `?sangrado=1` agrega los 3 mm de sangrado que pide la imprenta, y
+ * `?variante=ganocafe` pone una caja de Ganocafé 3 en 1 junto a la taza (21 nov 2026).
  *
  * ⚠️ Lo que decidió el Director, y por qué:
  *   · VENDE PRODUCTOS, no el modelo de negocio: quien lo lee es el cliente del
@@ -55,7 +56,16 @@ export default async function Hablador({
   const r = await resolver(params.slug)
   if (!r?.slug) notFound()
   const sangrado = searchParams?.sangrado === '1'
-  if (r.slug !== params.slug) permanentRedirect(`/hablador/${r.slug}${sangrado ? '?sangrado=1' : ''}`)
+  const conGanocafe = searchParams?.variante === 'ganocafe'
+  if (r.slug !== params.slug) {
+    const consulta = new URLSearchParams()
+    if (sangrado) consulta.set('sangrado', '1')
+    if (conGanocafe) consulta.set('variante', 'ganocafe')
+    const resto = consulta.toString()
+    permanentRedirect(`/hablador/${r.slug}${resto ? `?${resto}` : ''}`)
+  }
+  // Los fondos los compone scripts/componer-fondo-hablador.mjs.
+  const fondo = conGanocafe ? '/images/hablador/fondo-cafe-ganocafe-v1.jpg' : '/images/hablador/fondo-cafe-v1.jpg'
 
   const enlace = `creatuactivo.com/${r.slug}/hablador`
   // El margen blanco del QR lo pone su recuadro (2,6 mm, más de 3 módulos), no la librería.
@@ -75,7 +85,7 @@ export default async function Hablador({
       <SinOrbe />
       {/* Sin escapar: como hijo de texto, React convierte el «>» del CSS en &gt; y el
           servidor y el navegador dejan de coincidir (error de hidratación). */}
-      <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre) }} />
+      <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, fondo) }} />
 
       <div className="hab-controles">
         <BotonImprimir />
@@ -104,7 +114,7 @@ export default async function Hablador({
   )
 }
 
-function estilos(ancho: number, alto: number, sangre: number) {
+function estilos(ancho: number, alto: number, sangre: number, fondo: string) {
   return `
 .hab-escritorio {
   min-height: 100vh; background: #2A2D33; padding: 24px 16px 48px;
@@ -121,7 +131,7 @@ function estilos(ancho: number, alto: number, sangre: number) {
      scripts/componer-fondo-hablador.mjs (106 × 156 mm): centrada, la pieza sin
      sangrado la recorta sola. Es imagen y no máscara CSS porque el PDF de
      impresión dejaba una franja donde terminaba la foto. */
-  background: var(--h-fondo) url(/images/hablador/fondo-cafe-v1.jpg) center / 106mm 156mm no-repeat;
+  background: var(--h-fondo) url(${fondo}) center / 106mm 156mm no-repeat;
   box-shadow: 0 12px 40px rgba(0,0,0,.45);
   -webkit-print-color-adjust: exact; print-color-adjust: exact;
 }

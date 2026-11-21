@@ -65,7 +65,7 @@ export default async function Hablador({
     permanentRedirect(`/hablador/${r.slug}${resto ? `?${resto}` : ''}`)
   }
   // Los fondos los compone scripts/componer-fondo-hablador.mjs.
-  const fondo = conGanocafe ? '/images/hablador/fondo-cafe-ganocafe-v1.jpg' : '/images/hablador/fondo-cafe-v1.jpg'
+  const fondo = conGanocafe ? '/images/hablador/fondo-cafe-ganocafe-v2.jpg' : '/images/hablador/fondo-cafe-v1.jpg'
 
   const enlace = `creatuactivo.com/${r.slug}/hablador`
   // El margen blanco del QR lo pone su recuadro (2,6 mm, más de 3 módulos), no la librería.

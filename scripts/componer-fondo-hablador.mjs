@@ -16,11 +16,18 @@
  *
  * Dos fondos (21 nov 2026, Director):
  *   · fondo-cafe-v1.jpg            — la taza sola (la pieza por defecto).
- *   · fondo-cafe-ganocafe-v1.jpg   — la taza y una caja de Ganocafé 3 en 1 (foto real,
- *     public/productos/_set/limpios), a la izquierda y un poco más adelante: su base
- *     cae más abajo que la de la taza y la monta apenas, que es lo que da la
- *     profundidad. Se oscurece para igualar la luz baja de la foto, y lleva sombra
- *     de contacto y un reflejo tenue en la mesa, como la taza. /hablador/{slug}?variante=ganocafe
+ *   · fondo-cafe-ganocafe-v2.jpg   — la taza y una caja de Ganocafé 3 en 1 (foto real,
+ *     public/productos/_set/limpios). /hablador/{slug}?variante=ganocafe
+ *
+ * ⚠️ LA PROPORCIÓN (auditoría del 21 nov 2026). La v1 ponía la caja DELANTE de la
+ * taza con 37 mm de alto: a la escala de la taza (cuerpo de 31,7 mm = 8,2 cm de
+ * una taza estándar de 11 oz, 3,87 mm por cm) eso es una caja de 9,6 cm, la mitad
+ * de la real, y delante debía verse aún MÁS grande. Se leía como una miniatura.
+ * La caja real mide unos 18 × 9,4 cm de frente (ESTIMADO: la foto da 0,524 de
+ * ancho/alto; confirmar con la caja en la mano y ajustar CAJA_REAL_CM). A escala
+ * real y delante taparía a la protagonista, así que va DETRÁS: más lejos se ve más
+ * pequeña (factor de profundidad), su base queda más arriba que la de la taza, la
+ * taza le tapa el borde derecho y un desenfoque leve la empuja al fondo.
  *
  * node scripts/componer-fondo-hablador.mjs
  */
@@ -75,14 +82,18 @@ const visible = await sharp(data, { raw: { width: info.width, height: info.heigh
 
 // ── La caja de Ganocafé 3 en 1, en coordenadas de la pieza recortada ─────────
 // La taza: borde a 53 mm, base a 94 mm, cuerpo de 34,4 a 66,1 mm en x.
-const CAJA_ALTO = 37;      // mm: un poco menos que la taza, para que ella siga mandando
-const CAJA_BASE = 96.5;    // mm: más abajo que la taza = más cerca de quien mira
-const CAJA_DERECHA = 37;   // mm: monta 2,6 mm sobre el cuerpo de la taza
-const LUZ = 0.62;          // la foto de la caja está iluminada de estudio; la escena, no
+const MM_POR_CM = 31.7 / 8.2;  // el cuerpo de la taza contra una taza estándar de 11 oz
+const CAJA_REAL_CM = 18;       // alto real estimado de la caja (ver la cabecera)
+const PROFUNDIDAD = 0.62;      // detrás de la taza: a esta escala la caja cabe bajo la bajada
+const CAJA_ALTO = CAJA_REAL_CM * MM_POR_CM * PROFUNDIDAD;   // ≈ 43 mm
+const CAJA_BASE = 89.5;    // mm: más arriba que la base de la taza (94) = más lejos
+const CAJA_DERECHA = 36.5; // mm: la taza le tapa solo el canto; el nombre del logo queda a la vista
+const LUZ = 0.55;          // más lejos de la luz que la taza
+const DESENFOQUE = 0.25;   // mm: la profundidad de campo de la foto
 
 async function capasDeLaCaja() {
   const alto = mm(CAJA_ALTO);
-  const base = sharp(CAJA).resize({ height: alto });
+  const base = sharp(CAJA).resize({ height: alto }).blur(mm(DESENFOQUE));
   const { data: c, info: ic } = await base.ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   // La luz viene de arriba a la derecha, como en la taza: el lado izquierdo y la
   // parte de abajo se apagan un poco más.
@@ -101,7 +112,7 @@ async function capasDeLaCaja() {
   const reflejo = Buffer.alloc(ic.width * altoReflejo * 4);
   for (let y = 0; y < altoReflejo; y++) {
     const src = ic.height - 1 - y;
-    const a = 0.16 * (1 - suave(0, 1, y / altoReflejo));
+    const a = 0.10 * (1 - suave(0, 1, y / altoReflejo));
     for (let x = 0; x < ic.width; x++) {
       const i = (src * ic.width + x) * 4, o = (y * ic.width + x) * 4;
       reflejo[o] = r[i]; reflejo[o + 1] = r[i + 1]; reflejo[o + 2] = r[i + 2];
@@ -113,7 +124,7 @@ async function capasDeLaCaja() {
   // La sombra de contacto: una elipse negra difusa bajo la base.
   const sw = ic.width + mm(6), sh = mm(5);
   const sombra = await sharp(Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${sw}" height="${sh}"><ellipse cx="${sw / 2}" cy="${sh / 2}" rx="${sw / 2 - mm(1.5)}" ry="${sh / 4}" fill="black" fill-opacity="0.75"/></svg>`
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${sw}" height="${sh}"><ellipse cx="${sw / 2}" cy="${sh / 2}" rx="${sw / 2 - mm(1.5)}" ry="${sh / 4}" fill="black" fill-opacity="0.6"/></svg>`
   )).blur(mm(0.8)).png().toBuffer();
 
   const izq = mm(CAJA_DERECHA + 3) - ic.width;        // +3 mm de sangrado
@@ -125,14 +136,36 @@ async function capasDeLaCaja() {
   ];
 }
 
+// La taza recortada de la foto ya compuesta, para ponerla ENCIMA de la caja: en
+// cada fila del cuerpo (53 a 94 mm) todo lo que queda a la derecha de su borde
+// izquierdo —el primer píxel más claro que el fondo— es taza. Basta el borde
+// izquierdo porque la caja solo se cruza por ese lado; 3 px de fundido.
+async function tazaRecortada(base) {
+  const { data: d, info: i } = await sharp(base).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const y0 = mm(53 + 3), y1 = mm(94.5 + 3), xa = mm(28 + 3), xb = mm(CAJA_DERECHA + 3) + 4;
+  for (let p = 3; p < d.length; p += 4) d[p] = 0;
+  for (let y = y0; y <= y1; y++) {
+    let borde = -1;
+    for (let x = xa; x < mm(52 + 3); x++) {
+      const o = (y * i.width + x) * 4;
+      if (0.299 * d[o] + 0.587 * d[o + 1] + 0.114 * d[o + 2] > 22) { borde = x; break; }
+    }
+    if (borde < 0) continue;
+    for (let x = borde; x <= xb; x++) d[(y * i.width + x) * 4 + 3] = Math.round(255 * suave(borde - 1, borde + 3, x));
+  }
+  return sharp(d, { raw: { width: i.width, height: i.height, channels: 4 } }).png().toBuffer();
+}
+
 mkdirSync(DESTINO, { recursive: true });
+const lienzo = () => sharp({ create: { width: W, height: H, channels: 3, background: FONDO } });
 const taza = { input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) };
+const soloTaza = await lienzo().composite([taza]).png().toBuffer();
 for (const [archivo, capas] of [
   ['fondo-cafe-v1.jpg', [taza]],
-  ['fondo-cafe-ganocafe-v1.jpg', [taza, ...(await capasDeLaCaja())]],
+  ['fondo-cafe-ganocafe-v2.jpg', [taza, ...(await capasDeLaCaja()), { input: await tazaRecortada(soloTaza), left: 0, top: 0 }]],
 ]) {
   const salida = join(DESTINO, archivo);
-  await sharp({ create: { width: W, height: H, channels: 3, background: FONDO } })
+  await lienzo()
     .composite(capas)
     .jpeg({ quality: 90, chromaSubsampling: '4:4:4' })
     .withMetadata({ density: 300 })

@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **Fecha** | Domingo 22 de noviembre de 2026 · semana 11 |
-| **Estado** | Guion escrito con el Director (22 nov) y grabado. Montaje v1 (22 nov), pendiente de su visto bueno |
-| **Formato** | Vertical 9:16, selfi con el teléfono, 1080×1920. Toma principal de 166 s, con repeticiones; entrega de 90,9 s (cuerpo 87,7 s + outro 3,1 s), −15,1 LUFS. Va también en dos clips para Facebook e Instagram: 0–37,7 s y 37,7 s–final (53,2 s) |
+| **Estado** | Guion escrito con el Director (22 nov) y grabado. Montaje v2 (22 nov), sin RNNoise, pendiente de su visto bueno |
+| **Formato** | Vertical 9:16, selfi con el teléfono, 1080×1920. Toma principal de 166 s, con repeticiones; entrega de 90,9 s (cuerpo 87,7 s + outro 3,1 s), −13,9 LUFS. Va también en dos clips para Facebook e Instagram: 0–37,7 s y 37,7 s–final (53,2 s) |
 | **Tomas** | Tres del Drive del Director, en el restaurante El Ranchero, Armenia: la principal (`queswa-video-2026-11-22-1012`), el café (`queswa-video-2026-11-22-1007`, 32 s, sin voz) y el restaurante (`VID_20261122_101355`, 12 s, sin voz) |
 | **Enlace** | ⏳ Por confirmar con el Director. Cierra con «escríbale a Queswa y haga su solicitud» |
 
@@ -56,7 +56,7 @@ Eso sí, para empezar es indispensable tener al menos una de tres condiciones. U
 | 37,4–40,2 | El café: revolviendo | Pausa antes del recuerdo de la pandemia |
 | 59,4–64,1 | El café: vertiendo el sobre | Ilustra «productos de bienestar premium, en 16 países» |
 
-**Memoria.** `armar-curado` con diez cortes sobre la misma toma de 166 s se quedó sin memoria. Se resolvió partiendo la toma en ocho piezas de video, con el audio del archivo entero desplazado (`desfase` = −inicio de la pieza), así que la ganancia es una sola. El verificador no corre sobre piezas sin audio; el curado se transcribió completo y están todas las frases. Ruido bajo (piso ≈ −41 dB): RNNoise por defecto. Retoque de dientes 0.35 y piel 0.45 (boca en el 100 % de los cuadros). Rótulo «DOMINGO · DÍA 77» en los primeros 3,8 s.
+**Memoria.** `armar-curado` con diez cortes sobre la misma toma de 166 s se quedó sin memoria. Se resolvió partiendo la toma en ocho piezas de video, con el audio del archivo entero desplazado (`desfase` = −inicio de la pieza), así que la ganancia es una sola. El verificador no corre sobre piezas sin audio; el curado se transcribió completo y están todas las frases. **Sin RNNoise** (`"rnnoise": false` en cada pieza). En la v1 iba por defecto y el Director dijo que sonaba «como un walkie-talkie». La toma principal la grabó la app del teleprompter de Queswa: audio del navegador, mono AAC de 128 k, que ya trae su propia supresión de ruido. RNNoise encima le quitaba 6 dB a la voz (−21,9 frente a −15,8 LUFS). Regla: **toma grabada desde la app de Queswa, sin RNNoise**, igual que la sala silenciosa del día 73. Retoque de dientes 0.35 y piel 0.45 (boca en el 100 % de los cuadros). Rótulo «DOMINGO · DÍA 77» en los primeros 3,8 s.
 
 Entrega en `entregas/reto-90/`: `reto-dia77.mp4` (40 MB), `reto-dia77-liviano.mp4` (720p, 8,9 MB), `reto-dia77-clip1.mp4` (37,7 s) y `reto-dia77-clip2.mp4` (53,2 s, con el outro).
 

@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Fecha** | Domingo 22 de noviembre de 2026 · semana 11 |
-| **Estado** | Guion escrito con el Director (22 nov) y grabado. Montaje v3 (22 nov), con gráficas en el estilo del deck y sin RNNoise, pendiente de su visto bueno |
+| **Estado** | Guion escrito con el Director (22 nov) y grabado. Montaje v3 (22 nov), con gráficas en el estilo del deck y sin RNNoise. **Publicado** (22 nov), tal como quedó la v3 |
 | **Formato** | Vertical 9:16, selfi con el teléfono, 1080×1920. Toma principal de 166 s, con repeticiones; entrega de 90,9 s (cuerpo 87,7 s + outro 3,1 s), −13,9 LUFS. Va también en dos clips para Facebook e Instagram: 0–37,7 s y 37,7 s–final (53,2 s) |
 | **Tomas** | Tres del Drive del Director, en el restaurante El Ranchero, Armenia: la principal (`queswa-video-2026-11-22-1012`), el café (`queswa-video-2026-11-22-1007`, 32 s, sin voz) y el restaurante (`VID_20261122_101355`, 12 s, sin voz) |
 | **Enlace** | ⏳ Por confirmar con el Director. Cierra con «escríbale a Queswa y haga su solicitud» |
@@ -31,7 +31,7 @@ Eso sí, para empezar es indispensable tener al menos una de tres condiciones. U
 3. **El subtítulo lleva lo que se oye** (regla 7), con estas decisiones:
    - *«si voy a montar un negocio»*: el guion decía «si hoy montara»; dos transcripciones oyen «si voy a montar».
    - *«tres condiciones»* y *«deseo de un cambio de vida»*: así lo dijo; el guion decía «tres cosas» y «en su vida».
-   - *«Ya vamos en la recta final»*: whisper oye «Llevamos», que no tiene sentido en la frase; con el yeísmo suenan casi igual.
+   - *«Ya vamos en la recta final»*: whisper oye «Llevamos», que no tiene sentido en la frase; con el yeísmo suenan casi igual. El Director confirmó «Ya vamos».
    - Rappi, Nubank y Queswa van bien escritos; whisper oía «Raffi», «New One» y «Queso».
 4. **Cumplimiento.** No hay cifras de ingreso ni plazos. «16 países de América» es el dato verificable; «toda América» va solo dentro del recuerdo de la pandemia. El sobre de café se ve sin declaración de salud.
 

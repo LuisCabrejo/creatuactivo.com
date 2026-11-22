@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Fecha** | Domingo 22 de noviembre de 2026 · semana 11 |
-| **Estado** | Guion escrito con el Director (22 nov) y grabado. Montaje v2 (22 nov), sin RNNoise, pendiente de su visto bueno |
+| **Estado** | Guion escrito con el Director (22 nov) y grabado. Montaje v3 (22 nov), con gráficas en el estilo del deck y sin RNNoise, pendiente de su visto bueno |
 | **Formato** | Vertical 9:16, selfi con el teléfono, 1080×1920. Toma principal de 166 s, con repeticiones; entrega de 90,9 s (cuerpo 87,7 s + outro 3,1 s), −13,9 LUFS. Va también en dos clips para Facebook e Instagram: 0–37,7 s y 37,7 s–final (53,2 s) |
 | **Tomas** | Tres del Drive del Director, en el restaurante El Ranchero, Armenia: la principal (`queswa-video-2026-11-22-1012`), el café (`queswa-video-2026-11-22-1007`, 32 s, sin voz) y el restaurante (`VID_20261122_101355`, 12 s, sin voz) |
 | **Enlace** | ⏳ Por confirmar con el Director. Cierra con «escríbale a Queswa y haga su solicitud» |
@@ -48,13 +48,18 @@ Eso sí, para empezar es indispensable tener al menos una de tres condiciones. U
 | 121,45–131,95 | Eso sí · condiciones uno y dos |
 | 152,15–161,75 | «Y tres…» hasta el final: última toma |
 
-**Tomas de apoyo** (tiempos del cuerpo; la voz sigue la principal):
+**Tomas de apoyo y gráficas** (v3; tiempos del cuerpo; la voz sigue la principal). Director, 22 nov: el restaurante cuando dice dónde está, y gráficas «como las de la Presentación» en el negocio que conocemos, en «no lo montaría físico», en «En CreaTuActivo recibe…» y en las tres condiciones.
 
-| Tiempo | Toma | Qué hace ahí |
+| Tiempo | Qué va | Qué hace ahí |
 |---|---|---|
-| 24,0–37,2 | El restaurante, al 108 % de su duración | Ilustra «el local, la cocina, las mesas, la gente trabajando… tres cuadras» |
+| 13,1–24,2 | El restaurante, entero, al 110 % | «Les muestro dónde estoy: El Ranchero…» hasta «no es fácil» |
+| 24,2–37,25 | Gráfica: el negocio que conocemos | Entran el local, la cocina, las mesas y la gente, cada uno con su palabra; con «¿hasta dónde llega?», un barrio: tres cuadras de radio y otro restaurante al lado |
 | 37,4–40,2 | El café: revolviendo | Pausa antes del recuerdo de la pandemia |
-| 59,4–64,1 | El café: vertiendo el sobre | Ilustra «productos de bienestar premium, en 16 países» |
+| 42,2–53,85 | Gráfica: en internet | El local físico se tacha; el celular, toda Colombia y toda América; sin local, sin abrir y cerrar, vendiendo 24 horas |
+| 56,3–67,55 | Gráfica: lo que recibe | La infraestructura arma su negocio, con usted encima («a su nombre»); el cliente compra y cada vuelta deja un % sobre usted (el ciclo de `CicloPropiedad.tsx`: de ahí sale el dinero); 16 países; «en paralelo»: lo que hace hoy y su negocio digital, lado a lado |
+| 68,3–85,0 | Gráfica: las tres condiciones | «Al menos una de tres»; cada condición entra con su número, Rappi y Nubank como texto. Con «si tiene al menos una» se encienden por turno. Vuelve a la cara en «escríbale a Queswa» |
+
+La toma del sobre de café (v1 y v2, en «productos de bienestar premium») sale: ahí va la gráfica. Los tres elementos no se desglosan, ni en voz ni en gráfica. Fuente en `scripts/dankoe-video/graficas/dia77-*.html`.
 
 **Memoria.** `armar-curado` con diez cortes sobre la misma toma de 166 s se quedó sin memoria. Se resolvió partiendo la toma en ocho piezas de video, con el audio del archivo entero desplazado (`desfase` = −inicio de la pieza), así que la ganancia es una sola. El verificador no corre sobre piezas sin audio; el curado se transcribió completo y están todas las frases. **Sin RNNoise** (`"rnnoise": false` en cada pieza). En la v1 iba por defecto y el Director dijo que sonaba «como un walkie-talkie». La toma principal la grabó la app del teleprompter de Queswa: audio del navegador, mono AAC de 128 k, que ya trae su propia supresión de ruido. RNNoise encima le quitaba 6 dB a la voz (−21,9 frente a −15,8 LUFS). Regla: **toma grabada desde la app de Queswa, sin RNNoise**, igual que la sala silenciosa del día 73. Retoque de dientes 0.35 y piel 0.45 (boca en el 100 % de los cuadros). Rótulo «DOMINGO · DÍA 77» en los primeros 3,8 s.
 

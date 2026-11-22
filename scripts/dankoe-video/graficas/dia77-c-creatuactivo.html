@@ -1,0 +1,89 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><script src="comun.js"></script></head><body>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+// Día 77 · «En CreaTuActivo, usted recibe toda la infraestructura para tener, a su nombre, su
+// propio negocio digital de productos de bienestar premium, en 16 países de América. Y lo puede
+// empezar en paralelo, sin dejar lo que hace hoy».
+// El ciclo de la propiedad del deck (CicloPropiedad.tsx): el cliente compra, la compra llega a
+// su negocio y cada vuelta deja caer un % sobre usted. De ahí sale el dinero.
+const T0 = 56.3, FIN = 67.55;
+const W = { infra: 57.84, nombre: 59.04, digital: 59.96, productos: 61.28, paises: 62.76, paralelo: 65.1, sindejar: 66.42 };
+const svg = $('s'); montarDefs(svg);
+const t1 = txt('Usted recibe', { class: 'tit', x: 540, y: 250, 'text-anchor': 'middle' }, svg);
+const t2 = txt('En paralelo', { class: 'tit', x: 540, y: 250, 'text-anchor': 'middle' }, svg);
+const escena = el('g', {}, svg);
+// La infraestructura: el marco que se dibuja alrededor de su negocio.
+const NEG = [640, 790];
+const marco = el('rect', { x: NEG[0] - 230, y: NEG[1] - 250, width: 460, height: 470, rx: 30, fill: 'rgba(21,23,28,0.6)', stroke: TIT, 'stroke-width': 2.5 }, escena);
+const LM = 2 * (460 + 470); marco.style.strokeDasharray = `${LM} ${LM}`;
+const rotInfra = txt('Infraestructura', { class: 'mono', x: NEG[0], y: NEG[1] - 270, 'text-anchor': 'middle' }, escena);
+const cubo = el('g', {}, escena); el('use', { href: '#cubo' }, cubo);
+const rotNombre = txt('A su nombre', { class: 'mono', x: NEG[0], y: NEG[1] + 140, 'text-anchor': 'middle' }, escena);
+const rotDigital = txt('Su negocio digital', { class: 'mono', x: NEG[0], y: NEG[1] + 140, 'text-anchor': 'middle' }, escena);
+const usted = el('use', { href: '#fig', width: 24, height: 24, fill: '#E5E5E5' }, escena);
+// El cliente y su ciclo de compra.
+const CLI = [190, 790];
+const ciclo = el('path', { d: `M${CLI[0] + 40} ${NEG[1]} Q${(CLI[0] + NEG[0]) / 2} ${NEG[1] - 150} ${NEG[0] - 90} ${NEG[1]} Q${(CLI[0] + NEG[0]) / 2} ${NEG[1] + 150} ${CLI[0] + 40} ${NEG[1]}`, fill: 'none', stroke: TENUE, 'stroke-width': 2.5, 'stroke-dasharray': '6 9' }, escena);
+const cliente = el('use', { href: '#fig', x: CLI[0] - 40, y: CLI[1] - 40, width: 80, height: 80, fill: '#E5E5E5' }, escena);
+const rotCli = txt('Cliente', { class: 'mono', x: CLI[0], y: CLI[1] + 85, 'text-anchor': 'middle' }, escena);
+const compra = el('circle', { r: 9, fill: TIT }, escena);
+const PCT = [0, 1, 2, 3].map(() => txt('%', { x: NEG[0], y: NEG[1], 'text-anchor': 'middle', style: `font-family:Inter;font-weight:700;font-size:44px;fill:${ORO}` }, escena));
+// 16 países: un arco de puntos encima.
+const PAISES = Array.from({ length: 16 }, (_, i) => {
+  const a = Math.PI * (1.15 + i * 0.70 / 15), x = 540 + Math.cos(a) * 470, y = 860 + Math.sin(a) * 470 * 1.02;
+  return el('circle', { cx: x, cy: y, r: 9, fill: TIT }, escena);
+});
+const rotPaises = txt('16 países de América', { class: 'mono', x: 540, y: 1180, 'text-anchor': 'middle' }, escena);
+// En paralelo: dos carriles.
+const carriles = el('g', {}, svg);
+const CAR = [
+  { ic: 'maletin', r: 'Lo que hace hoy', y: 640 },
+  { ic: null, r: 'Su negocio digital', y: 960 },
+].map(c => {
+  const g = el('g', {}, carriles);
+  el('line', { x1: 290, y1: c.y, x2: 960, y2: c.y, stroke: TENUE, 'stroke-width': 2.5, 'stroke-dasharray': '6 9' }, g);
+  if (c.ic) { const tj = tarjeta(g, c.ic, 170); pon(tj.g, 190, c.y); }
+  else { el('rect', { x: 105, y: c.y - 85, width: 170, height: 170, rx: 26, fill: '#15171C', stroke: 'rgba(255,255,255,0.1)', 'stroke-width': 2 }, g); el('use', { href: '#cubo', transform: `translate(${190 - 45} ${c.y - 45}) scale(0.9)` }, g); }
+  txt(c.r, { class: 'mono', x: 320, y: c.y - 40 }, g);
+  const p = el('circle', { r: 10, fill: c.ic ? TIT : ORO, cy: c.y }, g);
+  return { ...c, g, p };
+});
+
+const VUELTA = 1.5, ARR = W.productos + 0.2;
+function pintar(tl) {
+  const t = T0 + tl;
+  fundido(t, T0, FIN);
+  relevo(t1, t2, t, W.paralelo + 0.1);
+  const sal = cl((t - W.paralelo) / 0.4); escena.style.opacity = 1 - sal;
+  marco.style.strokeDashoffset = LM * (1 - suave((t - W.infra + 0.2) / 0.9));
+  marco.style.opacity = cl((t - W.infra + 0.2) / 0.2);
+  rotInfra.style.opacity = cl((t - W.infra) / 0.4);
+  const vC = cl((t - W.infra - 0.4) / 0.4), sc = 1.6 * lerp(0.8, 1, sale((t - W.infra - 0.4) / 0.4));
+  cubo.setAttribute('transform', `translate(${NEG[0] - 50.5 * sc} ${NEG[1] - 50.5 * sc}) scale(${sc})`); cubo.style.opacity = vC;
+  const vU = cl((t - W.nombre) / 0.35), us = 70;
+  usted.setAttribute('transform', `translate(${NEG[0] - us / 2} ${NEG[1] - 108 - us - lerp(-14, 0, sale((t - W.nombre) / 0.4))}) scale(${us / 24})`);
+  usted.style.opacity = vU;
+  rotNombre.style.opacity = cl((t - W.nombre) / 0.3) * (1 - cl((t - W.digital) / 0.3));
+  rotDigital.style.opacity = cl((t - W.digital - 0.1) / 0.3);
+  // El cliente compra; cada llegada deja un % que sube a usted.
+  const vCl = cl((t - W.productos) / 0.35);
+  cliente.style.opacity = vCl; rotCli.style.opacity = vCl * 0.9; ciclo.style.opacity = vCl * 0.9;
+  if (t >= ARR) {
+    const L = ciclo.getTotalLength(), ph = ((t - ARR) / VUELTA) % 1, P = ciclo.getPointAtLength(L * ph);
+    compra.setAttribute('cx', P.x); compra.setAttribute('cy', P.y); compra.style.opacity = 1;
+  } else compra.style.opacity = 0;
+  PCT.forEach((p, k) => {
+    const e = ARR + VUELTA * 0.5 + k * VUELTA, u = (t - e) / 1.0;
+    p.style.opacity = u < 0 || u > 1 ? 0 : Math.sin(Math.PI * u);
+    p.setAttribute('x', NEG[0] - 60 + 25 * Math.sin(u * 3)); p.setAttribute('y', NEG[1] - 10 - 160 * sale(u));
+  });
+  PAISES.forEach((p, i) => { p.style.opacity = cl((t - W.paises - i * 0.06) / 0.25); });
+  rotPaises.style.opacity = cl((t - W.paises - 0.3) / 0.3);
+  // En paralelo.
+  const vP = cl((t - W.paralelo - 0.25) / 0.4);
+  carriles.style.opacity = vP;
+  for (const c of CAR) c.p.setAttribute('cx', lerp(300, 950, ((t - W.paralelo) / 2.4) % 1));
+}
+window.pintar = pintar; window.DUR = FIN - T0; pintar(0);
+</script></body></html>

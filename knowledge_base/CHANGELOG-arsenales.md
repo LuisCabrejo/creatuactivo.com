@@ -30,6 +30,18 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.92: segunda y tercera auditoría del día 77 (23 nov 2026)
+
+Lo aprobó el Director el 23 nov.
+
+- Nace `LOCAL_01`, dictado por puerta: «No. No necesita local ni guardar productos…». Antes la palabra «productos» abría `WHY_PROD_01` y la persona recibía el catálogo. Ni el título ni el índice dicen «local»: con esa palabra, «ya tengo mi local» lo ponía primero (0.646) por encima de `FREQ_10`. Sin ella gana `FREQ_10` (0.586).
+- Nace `POCA_GENTE_01`, dictado por puerta mientras el 77 sea el más reciente: «Sí puede. Basta con una de las tres condiciones…». Estuvo un rato dentro de `RETO_D77`, pero el modelo le atribuyó la frase a Luis, que en el video no la dice. ⚠️ Gana en el vector «no conozco mucha gente, ¿puedo empezar?» (0.696) también sin la puerta, así que seguirá respondiendo después del 77.
+- «Lo que dijo de Rappi y Nubank» va a `RETO_D77` mientras sea el más reciente (antes `RETO_D43`).
+- Medido en producción: «lo de las tres condiciones que dijo en el video» → `RETO_D77`, con las tres correctas. La poca gente → `POCA_GENTE_01`. El local → `LOCAL_01`. 90 fragmentos en cada tenant.
+- Queda abierta: «yo no sé nada de tecnología, ¿igual puedo?» la recibe dictada `FREQ_43` (la tecnología no tiene costo) y no hay fragmento que la responda.
+
+---
+
 ## arsenal_inicial — v6.91: lo que la auditoría del día 77 encontró (23 nov 2026)
 
 La primera auditoría del día 77 dio 5 ideas en ❌. Los textos los aprobó el Director el 23 nov.

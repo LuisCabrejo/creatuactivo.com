@@ -92,7 +92,9 @@ export function preguntaPorElVideoReciente(texto: string, hoy: Date = new Date()
  * grande. Si la persona nombra el reto, o dice que Luis se las puso, sigue
  * siendo `RETO_01`.
  */
-export const RE_TRES_CONDICIONES = /(?<![a-záéíóúñ])(tres|3)\s+condiciones(?![a-záéíóúñ])/i;
+// También sin el número (segunda auditoría, 23 nov): «Luis dijo que le escribiera
+// para lo de las condiciones esas» se llevó las del reto.
+export const RE_TRES_CONDICIONES = /(?<![a-záéíóúñ])(tres|3)\s+condiciones(?![a-záéíóúñ])|(?<![a-záéíóúñ])condiciones\s+(esas|que\s+(dijo|mencion|nombr|puso\s+en\s+el\s+v)|de\s+luis|del\s+v[ií]deo)|(?<![a-záéíóúñ])lo\s+de\s+las\s+condiciones/i;
 
 export const RE_CONDICIONES_DEL_RETO = /se\s+(las\s+)?(puso|propuso|impuso)|condiciones\s+(del|para\s+el|de\s+su)\s+(?:r[eé]t+o|rteo)/i;
 

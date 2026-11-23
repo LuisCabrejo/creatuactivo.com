@@ -20,7 +20,7 @@ ffmpeg -i retocado-sin-graf.mov -i grafica.mov \
 
 `captura.js` usa el Playwright instalado (`require('playwright')`).
 
-- **Día 74 («Amapolas»):** la empresa normal (usted hace todo: fabrica, atiende, despacha, mil cosas) se convierte en la empresa moderna (alguien fabrica, alguien atiende, una herramienta digital, y su empresa se multiplica de 1 a 2 y de 2 a 4).
+- **Día 74 («Amapola»):** la empresa normal (usted hace todo: fabrica, atiende, despacha, mil cosas) se convierte en la empresa moderna (alguien fabrica, alguien atiende, una herramienta digital, y su empresa se multiplica de 1 a 2 y de 2 a 4).
 
 ⚠️ **Los cuadros sueltos se empaquetan antes en un `.mov` con alfa** (`qtrle`). Montados directo como secuencia de PNG dentro de un `filter_complex` con varias entradas, ffmpeg los leyó a 25 fps aunque llevaran `-framerate 24000/1001`: la escena del día 77 terminaba medio segundo antes, cortada en seco.
 

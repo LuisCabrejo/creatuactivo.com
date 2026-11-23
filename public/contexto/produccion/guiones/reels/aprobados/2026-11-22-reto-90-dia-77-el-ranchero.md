@@ -67,4 +67,4 @@ Entrega en `entregas/reto-90/`: `reto-dia77.mp4` (40 MB), `reto-dia77-liviano.mp
 
 ## Lo que Queswa tiene que poder responder
 
-«Quiero hacer mi solicitud», «¿cuáles son las tres condiciones?», «no conozco mucha gente, ¿puedo?». ⚠️ Hoy no hay fragmento que hable de condiciones ni de solicitud. ⏳ Falta proponer `RETO_D77` al Director antes de publicar, y correr la auditoría con `scripts/auditar-guion-queswa.mjs`.
+«Quiero hacer mi solicitud», «¿cuáles son las tres condiciones?», «no conozco mucha gente, ¿puedo?». Fragmento `RETO_D77` aprobado por el Director el 23 nov (arsenal_inicial v6.90), con `RETO_MAS_RECIENTE` apuntando a él. ⚠️ Riesgo por medir: «las tres condiciones» también es el título de `RETO_01` (las condiciones del reto, otras); «¿cuáles son las tres condiciones para empezar?» debe ir a `RETO_D77` y «las condiciones del reto» a `RETO_01`. ⏳ Despliegue, medición y auditoría desde la Mac del Director.

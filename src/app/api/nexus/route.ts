@@ -2604,9 +2604,18 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // mucha gente, ¿puedo?» van al 77 mientras sea el video más reciente; se
       // apagan solas cuando RETO_MAS_RECIENTE cambia. → src/lib/puerta-reto.ts
       fragmento: 'arsenal_inicial_RETO_D77',
-      titulo: 'Rappi, Nubank y la poca gente — RETO_D77',
-      porque: 'Rappi y Nubank, o no conoce mucha gente (día 77)',
-      cuando: { test: (t: string) => preguntaPorRappiNubankDel77(t) || noConoceMuchaGenteDel77(t) },
+      titulo: 'Rappi y Nubank — RETO_D77',
+      porque: 'pregunta por Rappi y Nubank (día 77)',
+      cuando: { test: (t: string) => preguntaPorRappiNubankDel77(t) },
+    },
+    {
+      // La poca gente va aparte (tercera auditoría, 23 nov): dentro de RETO_D77
+      // el modelo le atribuía la frase a Luis. Texto aprobado, dictado.
+      fragmento: 'arsenal_inicial_POCA_GENTE_01',
+      titulo: 'No conozco mucha gente — POCA_GENTE_01',
+      porque: 'no conoce mucha gente y pregunta si puede (día 77)',
+      cuando: { test: (t: string) => noConoceMuchaGenteDel77(t) },
+      dictar: true,
     },
     {
       // 23 nov 2026: el cierre del día 77, «haga su solicitud». ADV_ESC_02 se la

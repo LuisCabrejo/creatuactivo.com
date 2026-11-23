@@ -80,7 +80,7 @@ import {
 } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
-import { mencionaElReto, preguntaPorElVideoReciente, RETO_MAS_RECIENTE } from '@/lib/puerta-reto';
+import { mencionaElReto, preguntaPorElVideoReciente, preguntaPorLasTresCondiciones, quiereHacerLaSolicitud, RETO_MAS_RECIENTE } from '@/lib/puerta-reto';
 import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
 import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
 import { preguntaPorTiempoDeResultados } from '@/lib/puerta-tiempo-resultados';
@@ -2591,6 +2591,36 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       cuando: { test: (t: string) => preguntaPorElVideoReciente(t) },
     },
     {
+      // 23 nov 2026: auditoría del día 77. «Vengo por lo de las tres condiciones
+      // que dijo Luis» recuperaba RETO_01 y RETO_D77 juntos, y el modelo dio las
+      // del reto. Sin «reto» en el mensaje son las del video. Va antes que RETO_01.
+      fragmento: 'arsenal_inicial_RETO_D77',
+      titulo: 'Las tres condiciones para empezar — RETO_D77',
+      porque: 'pregunta por las tres condiciones para empezar (día 77)',
+      cuando: { test: (t: string) => preguntaPorLasTresCondiciones(t) },
+    },
+    {
+      // 23 nov 2026: el cierre del día 77, «haga su solicitud». ADV_ESC_02 se la
+      // llevaba y saltaba a los paquetes. Texto aprobado por el Director, dictado.
+      fragmento: 'arsenal_inicial_SOLICITUD_01',
+      titulo: 'Quiero hacer mi solicitud — SOLICITUD_01',
+      porque: 'quiere hacer su solicitud',
+      cuando: { test: (t: string) => quiereHacerLaSolicitud(t) },
+      dictar: true,
+    },
+    {
+      // 23 nov 2026: «cuántas horas toca dedicarle» se la llevaba EAM_01 por
+      // candado y nunca decía nada del tiempo. FREQ_15 dice, sin cifra, que no
+      // hay un número fijo de horas (Director, 23 nov).
+      fragmento: 'arsenal_inicial_FREQ_15',
+      titulo: 'Sin dejar el empleo, y el tiempo — FREQ_15',
+      porque: 'pregunta cuánto tiempo le pide',
+      cuando: { test: (t: string) =>
+        (/\bcu[aá]nt[ao]s?\s+(horas|tiempo)\b[^.?]{0,40}\b(dedic|toca|hay\s+que|necesit|requier|pide|lleva|al\s+d[ií]a|diari|a\s+la\s+semana)/i.test(t)
+          || /\bsolo\s+tengo\s+(las\s+noches|los\s+fines|un\s+rato|unas\s+horas|ratos)/i.test(t))
+        && !/ganar|recuper|resultado|lleg|env[ií]o|tarda|demora|pedido|pag(an|o)\b/i.test(t) },
+    },
+    {
       // 14 sep 2026: el reto de los 90 días que Luis documenta en sus historias.
       // «¿cuáles son las tres condiciones del reto?» caía en compensación por el
       // `/reto/i` heredado del Reto de los 12 días, y el modelo negaba que el reto
@@ -2663,6 +2693,15 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       titulo: 'Registro, pagos y envíos desde el exterior — DIASPORA_03',
       porque: 'envío, registro o cobro nombrando un país de fuera',
       cuando: { test: (t: string) => !!lugarExterior(t) && /env[ií]|llega|mand[ae]n|despach|registr|document|papeles|pag(o|an|ar)\b|cobr|cuenta\s+banc/i.test(t) && !/cu[aá]nto\s+(cuesta|vale)|precio/i.test(t) },
+    },
+    {
+      // 23 nov 2026: «¿cuáles son los 16 países?» iba a DIASPORA_01, que no tenía
+      // la lista, y el modelo inventó una con Venezuela y Argentina. La lista
+      // vive en FREQ_29. Va antes que DIASPORA_01.
+      fragmento: 'arsenal_inicial_FREQ_29',
+      titulo: 'En qué países — FREQ_29',
+      porque: 'pregunta cuáles son los países',
+      cuando: { test: (t: string) => /cu[aá]les\s+son\s+(los|esos|las)\s+(16\s+|diecis[eé]is\s+)?pa[ií]ses|en\s+qu[eé]\s+pa[ií]ses|qu[eé]\s+pa[ií]ses\s+(son|est[aá]n|hay|opera|tiene|incluye)/i.test(t) && !/cu[aá]nto\s+(cuesta|vale)|precio/i.test(t) },
     },
     {
       fragmento: 'arsenal_inicial_DIASPORA_01',
@@ -2864,7 +2903,12 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       // la diferencia con un negocio tradicional.
       cuando: { test: (t: string) =>
         /\b(mi|un)\s+(negocio|empresa|emprendimiento)\s+(propio|propia)\b|\bnegocio\s+propio\b|\bya\s+tengo\s+(mi|un)\s+(negocio|empresa|local|emprendimiento)\b|\btengo\s+mi\s+(negocio|empresa|local)\b|\bsoy\s+(comerciante|empresari[oa])\b/i.test(t)
-        && !(/\b(es|ser[ií]a|sea|vendr[ií]a\s+a\s+ser)\s+(como\s+)?(un|mi|su)\s+(propio\s+)?(negocio|empresa)\b/i.test(t) && !/\b(tengo|manejo|mont[eé])\b/i.test(t)) },
+        && !(/\b(es|ser[ií]a|sea|vendr[ií]a\s+a\s+ser)\s+(como\s+)?(un|mi|su)\s+(propio\s+)?(negocio|empresa)\b/i.test(t) && !/\b(tengo|manejo|mont[eé])\b/i.test(t))
+        // ⚠️ QUERER tener un negocio propio no es tenerlo (23 nov 2026, auditoría
+        // del día 77): «lo de tener el negocio propio, ¿cómo funciona?» recibía
+        // «Usted ya logró que su negocio funcione». Se hace a un lado salvo que
+        // la persona diga que ya lo tiene o lo maneja.
+        && !(/\b(tener|montar|crear|armar|hacer|empezar|iniciar|abrir)\s+(el|un|su|mi)?\s*(propio\s+)?negocio(\s+propio)?\b/i.test(t) && !/\b(ya\s+tengo|tengo\s+mi|tengo\s+un|manejo|mi\s+negocio\s+(va|me\s+va|funciona))\b/i.test(t)) },
       // Se entrega literal con envoltura (24 sep 2026): ver `queswa-envoltura.ts`.
       dictar: true,
     },
@@ -3208,7 +3252,13 @@ async function consultarArsenalHibrido(query: string, userMessage: string, maxRe
           source: '/knowledge_base/arsenal_inicial.txt',
           search_method: 'puerta_directa'
         }];
-        searchCache.set(cacheKey, { data: result, timestamp: Date.now() });
+        // ⚠️ El resultado de una puerta NO va al caché (23 nov 2026). La clave
+        // del caché es la consulta reescrita, y la puerta la abre el mensaje de
+        // la persona: «hola cuánto cuesta lo del negocio» quedó reescrita igual
+        // que «lo de tener el negocio propio», heredó del caché la puerta de
+        // ADV_OBJ_02 y recibió dictado el texto del empresario sin que su
+        // mensaje la abriera. La puerta se evalúa antes del caché, así que
+        // guardarla no ahorra nada.
         return result;
       }
       console.warn(`⚠️ [Puerta] ${puerta.fragmento} no está en los fragmentos — se sigue con búsqueda normal`);

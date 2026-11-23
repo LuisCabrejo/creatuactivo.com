@@ -82,3 +82,35 @@ export function preguntaPorElVideoReciente(texto: string, hoy: Date = new Date()
   const dias = (Date.parse(diaBogota(hoy)) - Date.parse(RETO_MAS_RECIENTE.fecha)) / 86_400_000;
   return dias >= 0 && dias <= 2;
 }
+
+/**
+ * Las tres condiciones para empezar del día 77 (23 nov 2026). La auditoría del
+ * video mandó «vengo por lo de las tres condiciones que dijo Luis» a `RETO_01`,
+ * cuyas tres condiciones son las del reto (bajo capital, sin estar encima,
+ * ingresos reales), y el modelo las dio como si fueran las del video. Las del
+ * día 77 son otras: contactos, deseo de un cambio de vida, ganas de hacer algo
+ * grande. Si la persona nombra el reto, o dice que Luis se las puso, sigue
+ * siendo `RETO_01`.
+ */
+export const RE_TRES_CONDICIONES = /(?<![a-záéíóúñ])(tres|3)\s+condiciones(?![a-záéíóúñ])/i;
+
+export const RE_CONDICIONES_DEL_RETO = /se\s+(las\s+)?(puso|propuso|impuso)|condiciones\s+(del|para\s+el|de\s+su)\s+(?:r[eé]t+o|rteo)/i;
+
+export function preguntaPorLasTresCondiciones(texto: string): boolean {
+  return RE_TRES_CONDICIONES.test(texto) && !mencionaElReto(texto) && !RE_CONDICIONES_DEL_RETO.test(texto);
+}
+
+/**
+ * «Haga su solicitud» (cierre del día 77, 23 nov 2026). La auditoría mandó «quiero
+ * hacer la solicitud» a `ADV_ESC_02`, que salta a los cuatro paquetes; el
+ * Director aprobó que antes se pregunte cuál de las tres condiciones tiene
+ * (`SOLICITUD_01`). Una solicitud de pedido, cancelación, devolución o garantía
+ * no es esta.
+ */
+export const RE_SOLICITUD = /(?<![a-záéíóúñ])(hacer|haga|hago|hacemos|enviar|mandar|llenar|radicar|presentar)\s+(la|mi|una|su)\s+solicitud(?![a-záéíóúñ])|(?<![a-záéíóúñ])quiero\s+(la|mi)\s+solicitud|c[oó]mo\s+(hago|se\s+hace|es)\s+(la|mi|una)\s+solicitud|(d[oó]nde|qu[eé])\s+(hago|tengo\s+que\s+hacer)[^.?]{0,20}solicitud/i;
+
+export const RE_SOLICITUD_NO = /pedido|cancelaci|devoluci|reembols|garant[ií]a|cambio\s+de\s+(patrocinador|direcci)|retiro|c[oó]digo/i;
+
+export function quiereHacerLaSolicitud(texto: string): boolean {
+  return RE_SOLICITUD.test(texto) && !RE_SOLICITUD_NO.test(texto);
+}

@@ -80,7 +80,7 @@ import {
 } from '@/lib/wa-guardarrail-salud';
 import { respuestaCiclo } from '@/lib/ciclos-gano';
 import { mencionaPaqueteComoEleccion } from '@/lib/captura-paquete';
-import { mencionaElReto, preguntaPorElVideoReciente, preguntaPorLasTresCondiciones, quiereHacerLaSolicitud, RETO_MAS_RECIENTE } from '@/lib/puerta-reto';
+import { mencionaElReto, noConoceMuchaGenteDel77, preguntaPorElVideoReciente, preguntaPorLasTresCondiciones, preguntaPorRappiNubankDel77, quiereHacerLaSolicitud, RETO_MAS_RECIENTE } from '@/lib/puerta-reto';
 import { preguntaPorCostoDeTecnologia } from '@/lib/puerta-costo-tecnologia';
 import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
 import { preguntaPorTiempoDeResultados } from '@/lib/puerta-tiempo-resultados';
@@ -2600,6 +2600,15 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       cuando: { test: (t: string) => preguntaPorLasTresCondiciones(t) },
     },
     {
+      // 23 nov 2026, segunda auditoría del día 77: Rappi y Nubank y «no conozco
+      // mucha gente, ¿puedo?» van al 77 mientras sea el video más reciente; se
+      // apagan solas cuando RETO_MAS_RECIENTE cambia. → src/lib/puerta-reto.ts
+      fragmento: 'arsenal_inicial_RETO_D77',
+      titulo: 'Rappi, Nubank y la poca gente — RETO_D77',
+      porque: 'Rappi y Nubank, o no conoce mucha gente (día 77)',
+      cuando: { test: (t: string) => preguntaPorRappiNubankDel77(t) || noConoceMuchaGenteDel77(t) },
+    },
+    {
       // 23 nov 2026: el cierre del día 77, «haga su solicitud». ADV_ESC_02 se la
       // llevaba y saltaba a los paquetes. Texto aprobado por el Director, dictado.
       fragmento: 'arsenal_inicial_SOLICITUD_01',
@@ -2619,6 +2628,20 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
         (/\bcu[aá]nt[ao]s?\s+(horas|tiempo)\b[^.?]{0,40}\b(dedic|toca|hay\s+que|necesit|requier|pide|lleva|al\s+d[ií]a|diari|a\s+la\s+semana)/i.test(t)
           || /\bsolo\s+tengo\s+(las\s+noches|los\s+fines|un\s+rato|unas\s+horas|ratos)/i.test(t))
         && !/ganar|recuper|resultado|lleg|env[ií]o|tarda|demora|pedido|pag(an|o)\b/i.test(t) },
+    },
+    {
+      // 23 nov 2026, segunda auditoría del día 77: «¿entonces no necesito local
+      // ni tener los productos en mi casa?» abría la puerta de WHY_PROD_01 por la
+      // palabra «productos» y recibía el catálogo dictado. Va antes que esa.
+      // Quien ya tiene su local es de FREQ_10 / ADV_OBJ_02.
+      fragmento: 'arsenal_inicial_LOCAL_01',
+      titulo: 'Sin local ni productos en la casa — LOCAL_01',
+      porque: 'pregunta si necesita local o guardar productos',
+      cuando: { test: (t: string) =>
+        (/\b(necesito|necesita|toca|tengo\s+que|hay\s+que|debo|requiere|pide)\b[^.?]{0,30}\b(local|bodega|inventario|stock)\b/i.test(t)
+          || /\b(tener|guardar|almacenar|mantener)\s+(los\s+|el\s+)?(productos?|mercanc[ií]a)\s+en\s+(mi|la)\s+casa/i.test(t))
+        && !/\bya\s+tengo\b|\bmi\s+(local|negocio|inventario)\b|\btengo\s+(un|mi)\s+local\b/i.test(t) },
+      dictar: true,
     },
     {
       // 14 sep 2026: el reto de los 90 días que Luis documenta en sus historias.

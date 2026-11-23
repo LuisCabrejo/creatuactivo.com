@@ -116,3 +116,28 @@ export const RE_SOLICITUD_NO = /pedido|cancelaci|devoluci|reembols|garant[ií]a|
 export function quiereHacerLaSolicitud(texto: string): boolean {
   return RE_SOLICITUD.test(texto) && !RE_SOLICITUD_NO.test(texto);
 }
+
+/**
+ * Mientras el día 77 sea el video más reciente (segunda auditoría, 23 nov 2026).
+ * «Lo que dijo de Rappi y Nubank» se lo llevaba `RETO_D43`, donde son el ejemplo
+ * del negocio sin activos propios; en el 77 son el ejemplo de la tercera
+ * condición. Y «no conozco mucha gente, ¿puedo?» caía en `PERFIL_01`, que nunca
+ * decía que sí. Las dos se apagan solas cuando `RETO_MAS_RECIENTE` deja el 77:
+ * de ahí en adelante vuelve el vector.
+ */
+const EL_77_ES_EL_MAS_RECIENTE = () => RETO_MAS_RECIENTE.fragmento === 'arsenal_inicial_RETO_D77';
+
+export const RE_RAPPI_NUBANK = /(?<![a-záéíóúñ])(rappi|nubank|nu\s+bank|sim[oó]n\s+borrero|david\s+v[eé]lez)(?![a-záéíóúñ])/i;
+
+export function preguntaPorRappiNubankDel77(texto: string): boolean {
+  return EL_77_ES_EL_MAS_RECIENTE() && RE_RAPPI_NUBANK.test(texto);
+}
+
+export const RE_POCA_GENTE = /(?<![a-záéíóúñ])(no\s+conozco\s+(mucha|tanta|a\s+mucha|casi)\s+gente|conozco\s+(poca|muy\s+poca)\s+gente|no\s+conozco\s+a\s+nadie|(no\s+tengo|tengo\s+pocos|casi\s+no\s+tengo)\s+(muchos\s+)?contactos|no\s+tengo\s+a\s+qui[eé]n)/i;
+
+export const RE_PUEDO_ENTRAR = /\b(puedo|podr[ií]a|me\s+aceptan|me\s+reciben|sirvo|aplico|igual|entrar|empezar|iniciar|arrancar)\b/i;
+
+export function noConoceMuchaGenteDel77(texto: string): boolean {
+  return EL_77_ES_EL_MAS_RECIENTE() && RE_POCA_GENTE.test(texto) && RE_PUEDO_ENTRAR.test(texto)
+    && !/otro\s+pa[ií]s|all[aá]\b|exterior|vender\s+en/i.test(texto);
+}

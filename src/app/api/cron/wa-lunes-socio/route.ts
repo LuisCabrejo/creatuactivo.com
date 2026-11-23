@@ -20,7 +20,10 @@ import { createClient } from '@supabase/supabase-js';
 import { decidir, enviarLunes, enSilencioBogota, esLunesBogota, lunesSinMensaje } from '@/lib/wa-lunes-socio';
 
 export const runtime = 'nodejs';
-export const maxDuration = 60;
+// 300 s, no 60 (23 nov 2026): con 60 Vercel cortó el envío en el socio 17 de la
+// lista alfabética (504 «Task timed out after 60 seconds»); de la J en adelante
+// nadie lo recibió. Cada socio cuesta ~3,5 s (sus consultas + el envío a Meta).
+export const maxDuration = 300;
 
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');

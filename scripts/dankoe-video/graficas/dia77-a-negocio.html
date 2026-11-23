@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><script src="comun.js"></script></head><body>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+// Día 77 · «Esto es lo que hasta hoy conocemos como un negocio … otro restaurante».
+// Primero lo que tiene (local, cocina, mesas, gente) y después hasta dónde llega: tres cuadras.
+const T0 = 24.2, FIN = 37.25;
+const W = { local: 26.40, cocina: 27.04, mesas: 27.96, gente: 29.38, llega: 31.68, tres: 33.38, otro: 36.36 };
+const svg = $('s'); montarDefs(svg);
+const t1 = txt('Un negocio', { class: 'tit', x: 540, y: 300, 'text-anchor': 'middle' }, svg);
+const t2 = txt('¿Hasta dónde llega?', { class: 'tit', x: 540, y: 300, 'text-anchor': 'middle' }, svg);
+// El barrio: manzanas de 75 px y calles de 20 (una cuadra = 95 px).
+const barrio = el('g', { stroke: '#2A2F38', 'stroke-width': 2, fill: 'none' }, svg);
+for (let i = -1; i < 12; i++) for (let j = 0; j < 9; j++)
+  el('rect', { x: i * 95 - 10, y: 405 + j * 95, width: 75, height: 75, rx: 6 }, barrio);
+const radios = el('g', {}, svg);
+const C1 = [395, 832], C2 = [870, 832], R = 285;
+const circ1 = el('circle', { cx: C1[0], cy: C1[1], r: 0, fill: 'rgba(148,163,184,0.06)', stroke: TIT, 'stroke-width': 2.5, 'stroke-dasharray': '6 9' }, radios);
+const circ2 = el('circle', { cx: C2[0], cy: C2[1], r: R, fill: 'rgba(148,163,184,0.04)', stroke: TENUE, 'stroke-width': 2.5, 'stroke-dasharray': '6 9' }, radios);
+// La regla de tres cuadras, del local hacia la izquierda.
+const regla = el('g', {}, radios);
+el('line', { x1: C1[0], y1: C1[1], x2: C1[0] - R, y2: C1[1], stroke: TIT, 'stroke-width': 2.5 }, regla);
+for (let k = 1; k <= 3; k++) el('line', { x1: C1[0] - k * 95, y1: C1[1] - 12, x2: C1[0] - k * 95, y2: C1[1] + 12, stroke: TIT, 'stroke-width': 2.5 }, regla);
+const rotTres = txt('3 cuadras', { class: 'mono', x: C1[0], y: C1[1] - R - 26, 'text-anchor': 'middle' }, radios);
+const rotOtro = txt('Otro restaurante', { class: 'mono', x: C2[0] - 40, y: C2[1] + 150, 'text-anchor': 'middle' }, radios);
+// Lo que tiene un negocio: cuatro tarjetas.
+const TJ = [
+  { ic: 'local', r: 'El local', p: [330, 610], t: W.local },
+  { ic: 'cocina', r: 'La cocina', p: [750, 610], t: W.cocina },
+  { ic: 'mesas', r: 'Las mesas', p: [330, 990], t: W.mesas },
+  { ic: 'gente', r: 'La gente trabajando', p: [750, 990], t: W.gente },
+].map(c => ({ ...c, ...tarjeta(svg, c.ic, 230, c.r) }));
+// Los dos locales, como pines sobre el barrio.
+const pin1 = tarjeta(svg, 'local', 120), pin2 = tarjeta(svg, 'local', 120);
+
+function pintar(tl) {
+  const t = T0 + tl;
+  fundido(t, T0, FIN);
+  relevo(t1, t2, t, W.llega - 0.2);
+  const junta = suave((t - (W.llega - 0.3)) / 0.7);
+  for (const c of TJ) {
+    const v = cl((t - c.t) / 0.35), pop = lerp(0.85, 1, sale((t - c.t) / 0.35));
+    pon(c.g, lerp(c.p[0], C1[0], junta), lerp(c.p[1], C1[1], junta), pop * lerp(1, 0.4, junta), v * (1 - junta));
+  }
+  const vB = cl((t - W.llega + 0.1) / 0.5);
+  barrio.style.opacity = vB;
+  pon(pin1.g, C1[0], C1[1], lerp(0.8, 1, sale((t - W.llega + 0.1) / 0.5)), vB);
+  const r = R * sale((t - (W.tres - 0.5)) / 1.0);
+  circ1.setAttribute('r', r.toFixed(1)); circ1.style.opacity = r > 2 ? 1 : 0;
+  regla.style.opacity = cl((t - W.tres) / 0.3);
+  rotTres.style.opacity = cl((t - W.tres) / 0.3);
+  const v2 = cl((t - W.otro + 0.3) / 0.4);
+  pon(pin2.g, C2[0], C2[1], lerp(0.8, 1, sale((t - W.otro + 0.3) / 0.4)), v2);
+  circ2.style.opacity = cl((t - W.otro) / 0.4); rotOtro.style.opacity = cl((t - W.otro) / 0.4);
+}
+window.pintar = pintar; window.DUR = FIN - T0; pintar(0);
+</script></body></html>

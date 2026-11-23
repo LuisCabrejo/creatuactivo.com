@@ -30,6 +30,17 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.90: `RETO_D74` y `RETO_D77` (23 nov 2026)
+
+Los archivos de los videos del día 74 («Amapola», jueves 19 nov) y del día 77 («El Ranchero», domingo 22 nov), aprobados por el Director el 23 nov, con el texto escrito desde el guion grabado. `RETO_MAS_RECIENTE` (src/lib/puerta-reto.ts) pasa del día 58 al 77. Los días 59 a 73 no se archivaron con esta entrada.
+
+- `RETO_D74`: el índice se ancla a «¿es que usted no trabaja o qué?» y a la pastelería; no dice «fabricante» ni «máquina de ventas», que es la pregunta de `WHY_02`. El cuerpo dice «empresa de distribución moderna», aunque en el video sale «la empresa moderna».
+- `RETO_D77`: «negocio digital» va en el cuerpo por decisión del Director solo para este video. El índice no dice Rappi ni Nubank (`RETO_D43`) ni «en paralelo». Sin Gano Excel y sin el desglose de los tres elementos, como el video.
+- Desplegado el 23 nov (los dos en los tres tenants, con vector, sin duplicados). Con el título del lugar, *«cuáles son las tres condiciones para empezar»* se la llevaba `RETO_01` (0.539; las condiciones del reto, que son otras) y `RETO_D77` no salía en el top 3. El título y el índice pasaron a abrir con «las tres condiciones para empezar» (laboratorio: 0.597). No le quita *«las condiciones del reto»* a `RETO_01` ni *«qué necesito para empezar»* / *«quiero empezar, qué necesito»* a `ADV_ESC_02`, `FREQ_03` y `FREQ_41`.
+- Medido en `whatsapp`, ya desplegado: `RETO_D77` sale primero en *«el video del restaurante en Armenia»* (0.627), *«lo de las tres cuadras del restaurante»* (0.563) y *«montar el negocio en internet sin local»* (0.595). `RETO_D74` sale primero en *«usted no trabaja o qué»* (0.574), *«cómo así que delegar»* (0.586) y *«el de la pastelería en Villavicencio»* (0.612). *«Lo que dijo de Rappi y Nubank»* sigue en `RETO_D43`; *«cómo funciona el negocio»* en `WHY_02` y *«cuánto cuesta empezar»* en `FREQ_03`. *«No conozco mucha gente, ¿puedo?»* va a `FREQ_03`/`FREQ_41`/`PERFIL_01`, no a este.
+
+---
+
 ## catalogo_productos v7.20: el registro sanitario, por producto y verificado (Director, 6 nov 2026)
 
 La referencia interna del descargo final decía que el Ganocafé 3 en 1, el Ganocafé Clásico y las Cápsulas de Ganoderma estaban registrados como suplemento dietario (SD), y el descargo decía que «cada producto Gano Excel tiene su propio registro» y que «las bebidas y suplementos» eran alimento o SD. Contrastado el 6 nov 2026 con los datos abiertos del INVIMA (datos.gov.co, conjunto `ui32-p9f2`, titular Gano Excel):

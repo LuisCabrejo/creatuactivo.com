@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><script src="comun.js"></script></head><body>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+// Día 77 · «… no lo montaría físico. Lo montaría en internet, y podría vender en toda Colombia,
+// y hasta en toda América. Sin local y sin abrir y cerrar todos los días, vendiendo las 24 horas».
+const T0 = 42.2, FIN = 53.85;
+const W = { fisico: 43.52, internet: 44.6, colombia: 47.02, america: 48.14, sinlocal: 49.18, abrir: 50.24, h24: 52.10 };
+const svg = $('s'); montarDefs(svg);
+const t1 = txt('Un negocio físico', { class: 'tit', x: 540, y: 290, 'text-anchor': 'middle' }, svg);
+const t2 = txt('En internet', { class: 'tit', x: 540, y: 290, 'text-anchor': 'middle' }, svg);
+const C = [540, 760];
+// El local físico, que se tacha.
+const local = tarjeta(svg, 'local', 260);
+const tacha = el('line', { x1: -150, y1: 150, x2: 150, y2: -150, stroke: TIT, 'stroke-width': 4, 'stroke-linecap': 'round' }, local.g);
+const LT = Math.hypot(300, 300); tacha.style.strokeDasharray = `${LT} ${LT}`;
+// La red: Colombia cerca, América alrededor.
+const red = el('g', {}, svg);
+const anillo = (n, r, ph) => Array.from({ length: n }, (_, i) => {
+  const a = ph + i * 2 * Math.PI / n, x = C[0] + Math.cos(a) * r, y = C[1] + Math.sin(a) * r * 0.92;
+  const l = el('line', { x1: C[0], y1: C[1], x2: x, y2: y, stroke: TENUE, 'stroke-width': 1.5 }, red);
+  const d = el('use', { href: '#fig', x: x - 16, y: y - 16, width: 32, height: 32, fill: '#E5E5E5' }, red);
+  return { l, d, i };
+});
+const A1 = anillo(10, 230, 0.3), A2 = anillo(20, 400, 0.1);
+const rotCol = txt('Toda Colombia', { class: 'mono', x: 540, y: 1230, 'text-anchor': 'middle' }, svg);
+const rotAme = txt('Toda América', { class: 'mono', x: 540, y: 1230, 'text-anchor': 'middle' }, svg);
+const cel = tarjeta(svg, 'celular', 200);
+// Lo que no hace falta: tres filas.
+const FILAS = [
+  { ic: 'local', s: 'Sin local', t: W.sinlocal + 0.3, y: 820, x: true },
+  { ic: 'puerta', s: 'Sin abrir y cerrar', t: W.abrir, y: 1000, x: true },
+  { ic: 'reloj', s: 'Vendiendo 24 horas', t: W.h24, y: 1180 },
+].map(f => {
+  const g = el('g', {}, svg);
+  el('rect', { x: -390, y: -70, width: 780, height: 140, rx: 26, fill: '#15171C', stroke: 'rgba(255,255,255,0.1)', 'stroke-width': 2 }, g);
+  el('use', { href: '#i-' + f.ic, x: -350, y: -40, width: 80, height: 80, fill: 'none', stroke: TIT, 'stroke-width': 1.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+  if (f.x) el('line', { x1: -352, y1: 36, x2: -268, y2: -36, stroke: TIT, 'stroke-width': 3, 'stroke-linecap': 'round' }, g);
+  txt(f.s, { class: 'fila', x: -230, y: 16 }, g);
+  let arco = null;
+  if (!f.x) arco = el('circle', { cx: -310, cy: 0, r: 52, fill: 'none', stroke: CIAN, 'stroke-width': 3, transform: 'rotate(-90 -310 0)' }, g);
+  return { ...f, g, arco };
+});
+const LA = 2 * Math.PI * 52;
+
+function pintar(tl) {
+  const t = T0 + tl;
+  fundido(t, T0, FIN);
+  relevo(t1, t2, t, W.internet);
+  // El local: entra, se tacha y se va.
+  const fuera = cl((t - W.internet) / 0.4);
+  pon(local.g, C[0], lerp(C[1], C[1] - 60, fuera), lerp(0.9, 1, sale((t - T0) / 0.4)), cl((t - T0 - 0.1) / 0.3) * lerp(1, 0.4, cl((t - W.fisico) / 0.4)) * (1 - fuera));
+  tacha.style.strokeDashoffset = LT * (1 - sale((t - W.fisico) / 0.4));
+  // El celular y la red; al llegar las filas, todo sube y se encoge.
+  const sube = suave((t - (W.sinlocal - 0.45)) / 0.65);
+  const cy = lerp(C[1], 520, sube), es = lerp(1, 0.55, sube);
+  pon(cel.g, C[0], cy, lerp(0.85, 1, sale((t - W.internet - 0.2) / 0.4)) * es, cl((t - W.internet - 0.2) / 0.35));
+  red.setAttribute('transform', `translate(${C[0]} ${cy}) scale(${es}) translate(${-C[0]} ${-C[1]})`);
+  red.style.opacity = 1 - sube * 0.75;
+  for (const [A, t0] of [[A1, W.colombia - 0.15], [A2, W.america - 0.1]])
+    for (const p of A) { const v = cl((t - t0 - p.i * 0.025) / 0.3); p.d.style.opacity = v; p.l.style.opacity = v * 0.8; }
+  rotCol.style.opacity = cl((t - W.colombia) / 0.3) * (1 - cl((t - W.america) / 0.3));
+  rotAme.style.opacity = cl((t - W.america) / 0.3) * (1 - sube);
+  for (const f of FILAS) {
+    const v = cl((t - f.t + 0.15) / 0.35);
+    pon(f.g, 540, f.y + lerp(30, 0, sale((t - f.t + 0.15) / 0.35)), 1, v);
+    if (f.arco) { f.arco.style.strokeDasharray = `${LA} ${LA}`; f.arco.style.strokeDashoffset = LA * (1 - suave((t - f.t) / 1.4)); }
+  }
+}
+window.pintar = pintar; window.DUR = FIN - T0; pintar(0);
+</script></body></html>

@@ -30,6 +30,15 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.93: el miedo a la tecnología (23 nov 2026)
+
+Lo aprobó el Director el 23 nov, junto con dejar `POCA_GENTE_01` como regla general (su índice no cambia) y dar por buenas las dos marcas del juez sobre `RETO_01` y la solicitud.
+
+- Nace `TECNOLOGIA_01`, dictado por puerta antes que `FREQ_43`: «Sí puede. Lo que le toca es compartir un enlace por WhatsApp y saludar a quien llega con interés. Lo técnico lo hago yo.». La puerta toma «no sé (nada) de tecnología», «no soy bueno con el celular», «me enredo con el celular» y se aparta si el mensaje pregunta un costo.
+- Vector en `whatsapp`: «yo no sé nada de tecnología, ¿igual puedo?» → `TECNOLOGIA_01` (0.769) por encima de `FREQ_43` (0.592). «¿La tecnología tiene costo?» sigue en `FREQ_43` (0.605). 91 fragmentos en cada tenant.
+
+---
+
 ## arsenal_inicial — v6.92: segunda y tercera auditoría del día 77 (23 nov 2026)
 
 Lo aprobó el Director el 23 nov.
@@ -38,7 +47,7 @@ Lo aprobó el Director el 23 nov.
 - Nace `POCA_GENTE_01`, dictado por puerta mientras el 77 sea el más reciente: «Sí puede. Basta con una de las tres condiciones…». Estuvo un rato dentro de `RETO_D77`, pero el modelo le atribuyó la frase a Luis, que en el video no la dice. ⚠️ Gana en el vector «no conozco mucha gente, ¿puedo empezar?» (0.696) también sin la puerta, así que seguirá respondiendo después del 77.
 - «Lo que dijo de Rappi y Nubank» va a `RETO_D77` mientras sea el más reciente (antes `RETO_D43`).
 - Medido en producción: «lo de las tres condiciones que dijo en el video» → `RETO_D77`, con las tres correctas. La poca gente → `POCA_GENTE_01`. El local → `LOCAL_01`. 90 fragmentos en cada tenant.
-- Queda abierta: «yo no sé nada de tecnología, ¿igual puedo?» la recibe dictada `FREQ_43` (la tecnología no tiene costo) y no hay fragmento que la responda.
+- Quedó abierta: «yo no sé nada de tecnología, ¿igual puedo?» la recibía dictada `FREQ_43`. Se cerró en v6.93.
 
 ---
 

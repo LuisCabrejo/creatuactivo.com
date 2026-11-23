@@ -2664,6 +2664,21 @@ const PUERTAS_INICIAL: { fragmento: string; titulo: string; cuando: Pick<RegExp,
       cuando: { test: mencionaElReto },
     },
     {
+      // 23 nov 2026, cuarta auditoría del día 77: «no sé nada de tecnología,
+      // ¿igual puedo?» se lo llevaba FREQ_43 por candado (lo que cuesta la
+      // tecnología) y nunca decía sí. Texto aprobado por el Director, dictado.
+      // Lo que cuesta sigue siendo de FREQ_43.
+      fragmento: 'arsenal_inicial_TECNOLOGIA_01',
+      titulo: 'No sé de tecnología — TECNOLOGIA_01',
+      porque: 'teme no saber de tecnología',
+      cuando: { test: (t: string) =>
+        (/\bno\s+(s[eé]|entiendo|manejo|domino|conozco)\s+(nada\s+|mucho\s+|casi\s+nada\s+|bien\s+)?(de\s+)?(la\s+|las\s+|los\s+|el\s+)?(tecnolog[ií]a|computador|computadora|celular|redes|internet|aplicaciones|apps?)\b/i.test(t)
+          || /\b(no\s+soy|soy)\s+(muy\s+)?(buen[oa]|mal[oa]|torpe|negad[oa])\s+(con|para)\s+(la\s+|el\s+|los\s+|las\s+)?(tecnolog[ií]a|celular|computador|computadora|redes|internet|aplicaciones)/i.test(t)
+          || /\b(me\s+cuesta|me\s+enredo\s+con|le\s+tengo\s+miedo\s+a)\s+(la\s+|el\s+)?(tecnolog[ií]a|celular|computador)/i.test(t))
+        && !/cu[aá]nto\s+(cuesta|vale)|precio|costo|pag(ar|o)\b/i.test(t) },
+      dictar: true,
+    },
+    {
       // 16 oct 2026: la tecnología no tiene costo (Director). «¿Cuánto cuesta
       // Queswa?» no llegaba nunca a buscar —el detector de precios se la llevaba
       // a las tablas del catálogo— y el modelo compuso «queda incluido en el

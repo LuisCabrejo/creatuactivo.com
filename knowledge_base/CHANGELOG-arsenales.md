@@ -30,6 +30,19 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.91: lo que la auditoría del día 77 encontró (23 nov 2026)
+
+La primera auditoría del día 77 dio 5 ideas en ❌. Los textos los aprobó el Director el 23 nov.
+
+- Nace `SOLICITUD_01` («quiero hacer mi solicitud»), dictado por puerta (`quiereHacerLaSolicitud`, src/lib/puerta-reto.ts): primero se pregunta cuál de las tres condiciones tiene. Antes se lo llevaba `ADV_ESC_02` y saltaba a los paquetes.
+- `FREQ_15`: «No hay un número fijo de horas…». Tiene puerta para «cuántas horas toca dedicarle» y «solo tengo las noches», que antes se llevaba `EAM_01` por candado.
+- `DIASPORA_01` lleva la lista de los 16 países, y «cuáles son los países» va a `FREQ_29`. El modelo había inventado una lista con Venezuela y Argentina.
+- Código (route.ts): una puerta lleva «tres condiciones» (o «lo de las condiciones esas») a `RETO_D77` cuando el mensaje no nombra el reto. `ADV_OBJ_02` ya no toma «tener el negocio propio» como si la persona lo tuviera. El resultado de una puerta ya no va al caché de búsqueda: con la clave de la consulta reescrita, «cuánto cuesta lo del negocio» heredó dictado el texto del empresario.
+- Desplegado: 88 fragmentos en cada tenant. Vector en `whatsapp`: `SOLICITUD_01` gana solo «quiero hacer mi solicitud» (0.660). «Qué necesito para empezar» sigue en `FREQ_41`, «quiero empezar, qué necesito» en `ADV_ESC_02` y «cuánto cuesta empezar» en `FREQ_03`.
+- Segunda auditoría, contra producción: la solicitud y el tiempo pasan. Quedan abiertas, para el Director: «no necesito local ni tener los productos en mi casa» (cae en `WHY_PROD_01` dictado), «lo que dijo de Rappi y Nubank» (`RETO_D43` lo explica como el modelo sin activos, y en el día 77 es la tercera condición) y «no conozco mucha gente, ¿puedo?» (`PERFIL_01`, que no dice que basta una condición). Las dos ❌ de `RETO_01` (fecha de inicio y condiciones del reto) son del juez: esos datos están en el arsenal y el video no los dice.
+
+---
+
 ## arsenal_inicial — v6.90: `RETO_D74` y `RETO_D77` (23 nov 2026)
 
 Los archivos de los videos del día 74 («Amapola», jueves 19 nov) y del día 77 («El Ranchero», domingo 22 nov), aprobados por el Director el 23 nov, con el texto escrito desde el guion grabado. `RETO_MAS_RECIENTE` (src/lib/puerta-reto.ts) pasa del día 58 al 77. Los días 59 a 73 no se archivaron con esta entrada.

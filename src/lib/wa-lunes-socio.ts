@@ -43,7 +43,7 @@
  * ⚠️ Un socio que falla NUNCA aborta el lote.
  */
 
-import { sendTemplate, sendReplyButtons, normalizePhone, type WAButton, type BotonPlantilla, type WAResult } from '@/lib/wa-channel';
+import { sendTemplate, sendText, sendReplyButtons, normalizePhone, type WAButton, type BotonPlantilla, type WAResult } from '@/lib/wa-channel';
 import {
   destinoDelSocio, datosFormulario, tokenFormulario, formatoPesos, razonParaPlantilla, enviarFormularioDestino,
   type DestinoSocio,
@@ -74,6 +74,30 @@ import { ultimoMensajeDePersona, dentroDeVentana } from '@/lib/wa-ventana';
 // v8: las mismas de v7, con el botón atado al formulario `destino_socio_v2`.
 export const PLANTILLA_LUNES_SOCIO = 'lunes_socio_v8';
 export const PLANTILLA_LUNES_RUTA = 'lunes_socio_v8_ruta';
+
+/**
+ * v9 (22 nov 2026, Director: «de acuerdo con los textos») — la semana de «cada uno
+ * por sus 2»: UNA plantilla para todos, sin botón. Es la meta del taller «Dos socios
+ * nuevos» (16 nov → 14 dic) y, desde hoy, vale también reactivar a alguien del
+ * equipo que tiene código y nunca arrancó (caso real: César Caicedo, de María
+ * Eugenia Fonseca). Sin el avance: «lleva 0 de 2» un lunes se lee como reproche.
+ *
+ * ⚠️ Mientras `PLANTILLA_SEMANA` tenga valor, va primero; si Meta la rechaza en el
+ * envío (aún sin aprobar, error inmediato), sale el mensaje de la semana anterior
+ * (v8, modo Waze) para que nadie quede sin lunes. `null` vuelve al modo Waze.
+ * Texto igual al de scripts/someter-plantilla-lunes-socio.mjs (CUERPO_LUNES_V9).
+ */
+export const PLANTILLA_SEMANA: string | null = 'lunes_socio_v9';
+
+export function cuerpoLunesSemana(nombre: string): string {
+  return (
+    `Hola ${nombre} 👋, iniciamos semana, y esta semana cada uno va por sus 2.\n\n` +
+    '🎯 Sus dos socios nuevos, con fecha: 14 de diciembre.\n\n' +
+    '🔄 Y también vale reactivar: esa persona de su equipo que tiene su código desde hace tiempo y nunca arrancó. Cuando vuelve a hacer su compra de 50 PV, cuenta como uno de sus dos.\n\n' +
+    '✍️ Dígame a quién tiene en mente y le redacto el mensaje con su voz.\n\n' +
+    '💬 Soy todo oídos.'
+  );
+}
 
 /** Lo que devuelve cada botón de respuesta (payload de la plantilla e id del interactivo). Los atiende el nodo 1.39 del webhook. */
 export const BOTON_LUNES = {
@@ -190,7 +214,11 @@ export function recordatorioLunes(que: string, nombre?: string | null): { texto:
  * antes del saludo, y el saludo cierra con la oferta de redactar, que es la
  * misma de [Arranquemos].
  */
-export const SEMANA_EN_SALUDO_SOCIO: { puente: string; oferta: string } | null = null;
+export const SEMANA_EN_SALUDO_SOCIO: { puente: string; oferta: string } | null = {
+  // v9 (22 nov 2026): la semana de «cada uno por sus 2».
+  puente: 'Esta semana cada uno va por sus 2: sus dos socios nuevos, con fecha 14 de diciembre. Y también vale reactivar a esa persona de su equipo que tiene su código y nunca arrancó.',
+  oferta: '¿A quién tiene en mente? Le redacto el mensaje con su voz.',
+};
 
 /** Cuentas de sistema que viven en private_users con WhatsApp pero no son personas. */
 const CORREOS_EXCLUIDOS = new Set(['admin@ganocafe.online', 'sistema@creatuactivo.com']);
@@ -363,20 +391,32 @@ export async function enviarLunesA(
   opts: { variante?: 'gancho'; forzarPlantilla?: boolean } = {},
 ): Promise<ResultadoEnvio> {
   const semana = semanaISO(ahora);
-  const destino = opts.variante === 'gancho' ? null : await destinoDelSocio(supabase, d.constructorId);
-  const m = mensajeLunes(d, destino);
-  const texto = m.texto;
   const ultimo = ultimoMensajeSocio === undefined ? await ultimoMensajeDelSocio(supabase, d) : ultimoMensajeSocio;
   const enVentana = opts.forzarPlantilla ? false : dentroDeVentana(ultimo, ahora);
   let via: ResultadoEnvio['via'] = enVentana ? 'texto' : 'plantilla';
-  // Dentro de la ventana va el mismo texto con su botón, sin costo.
-  let res = enVentana
-    ? await m.enVentana()
-    : await sendTemplate(d.telefono, m.plantilla, 'es', m.parametros, undefined, m.botones);
-  // Si el texto libre falló en la llamada (no por ventana: eso no falla ahí), la plantilla es el respaldo.
-  if (!res.ok && enVentana) {
-    res = await sendTemplate(d.telefono, m.plantilla, 'es', m.parametros, undefined, m.botones);
-    via = 'plantilla';
+  let texto = cuerpoLunesSemana(d.primerNombre);
+  let res: WAResult;
+  // La línea de la semana (v9): texto libre dentro de la ventana, plantilla fuera.
+  // Si la plantilla aún no está aprobada, Meta lo dice en la misma llamada y sale
+  // el mensaje de la semana anterior.
+  const intentoSemana = PLANTILLA_SEMANA && opts.variante !== 'gancho'
+    ? (enVentana ? await sendText(d.telefono, texto) : await sendTemplate(d.telefono, PLANTILLA_SEMANA, 'es', [d.primerNombre]))
+    : null;
+  if (intentoSemana?.ok) {
+    res = intentoSemana;
+  } else {
+    if (intentoSemana) console.warn(`⚠️ [Lunes socio] ${PLANTILLA_SEMANA} no salió para ${d.constructorId} (${intentoSemana.error}); va el de la semana anterior`);
+    const destino = opts.variante === 'gancho' ? null : await destinoDelSocio(supabase, d.constructorId);
+    const m = mensajeLunes(d, destino);
+    texto = m.texto;
+    // Dentro de la ventana va el mismo texto con su botón, sin costo.
+    res = enVentana
+      ? await m.enVentana()
+      : await sendTemplate(d.telefono, m.plantilla, 'es', m.parametros, undefined, m.botones);
+    if (!res.ok && enVentana) {
+      res = await sendTemplate(d.telefono, m.plantilla, 'es', m.parametros, undefined, m.botones);
+      via = 'plantilla';
+    }
   }
   if (!res.ok) via = null;
   try {

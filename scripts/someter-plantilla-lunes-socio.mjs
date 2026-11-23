@@ -98,29 +98,32 @@ export const CUERPO_LUNES_RUTA =
 const formulario = (text) => ({ type: 'FLOW', text, flow_id: FLOW_DESTINO_ID, navigate_screen: 'DESTINO', flow_action: 'navigate' });
 const respuesta = (text) => ({ type: 'QUICK_REPLY', text });
 
+// v9 (22 nov 2026, Director: «de acuerdo con los textos»): UNA plantilla para todos,
+// sin botón — la semana de «cada uno por sus 2» (la meta del taller del 16 nov, con
+// fecha 14 dic) y, desde hoy, también vale reactivar a alguien del equipo que tiene
+// código y nunca arrancó (caso César Caicedo, de María Eugenia Fonseca). Sin el
+// avance («lleva 0 de 2»): dicho un lunes se lee como reproche. Las v8 (modo Waze)
+// quedan aprobadas en Meta como respaldo; se borran después del envío.
+export const CUERPO_LUNES_V9 =
+  'Hola {{1}} 👋, iniciamos semana, y esta semana cada uno va por sus 2.\n\n' +
+  '🎯 Sus dos socios nuevos, con fecha: 14 de diciembre.\n\n' +
+  '🔄 Y también vale reactivar: esa persona de su equipo que tiene su código desde hace tiempo y nunca arrancó. Cuando vuelve a hacer su compra de 50 PV, cuenta como uno de sus dos.\n\n' +
+  '✍️ Dígame a quién tiene en mente y le redacto el mensaje con su voz.\n\n' +
+  '💬 Soy todo oídos.';
+
 const PLANTILLAS = [
   {
-    name: 'lunes_socio_v8',
+    name: 'lunes_socio_v9',
     language: 'es',
     category: 'MARKETING',
     components: [
-      { type: 'BODY', text: CUERPO_LUNES_GANCHO, example: { body_text: [['Liliana']] } },
-      { type: 'BUTTONS', buttons: [formulario('Anotarlo ahora'), respuesta('Recuérdemelo a las 2')] },
-    ],
-  },
-  {
-    name: 'lunes_socio_v8_ruta',
-    language: 'es',
-    category: 'MARKETING',
-    components: [
-      { type: 'BODY', text: CUERPO_LUNES_RUTA, example: { body_text: [['Liliana', '$2.500.000', '$5.000.000', 'Tener más tiempo con mi familia']] } },
-      { type: 'BUTTONS', buttons: [formulario('Actualizar destino')] },
+      { type: 'BODY', text: CUERPO_LUNES_V9, example: { body_text: [['Liliana']] } },
     ],
   },
 ];
 
 for (const p of PLANTILLAS) {
-  for (const b of p.components.find(c => c.type === 'BUTTONS').buttons) {
+  for (const b of p.components.find(c => c.type === 'BUTTONS')?.buttons ?? []) {
     if (b.text.length > 20) { console.error(`❌ Botón «${b.text}» pasa de 20 caracteres (límite del botón interactivo).`); process.exit(1); }
   }
 }
@@ -152,7 +155,7 @@ for (const p of PLANTILLAS) {
   const ejemplo = cuerpo.example.body_text[0];
   console.log(`\n📋 ${p.name}\n` + '─'.repeat(70));
   console.log(ejemplo.reduce((t, v, i) => t.replace(`{{${i + 1}}}`, v), cuerpo.text));
-  console.log('Botones: ' + p.components.find(c => c.type === 'BUTTONS').buttons.map(b => `[${b.text}]`).join(' '));
+  console.log('Botones: ' + ((p.components.find(c => c.type === 'BUTTONS')?.buttons ?? []).map(b => `[${b.text}]`).join(' ') || '(ninguno)'));
   console.log('─'.repeat(70) + `\n${p.category} · ${cuerpo.text.length} caracteres`);
 }
 

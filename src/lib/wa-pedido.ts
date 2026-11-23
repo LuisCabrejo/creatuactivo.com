@@ -33,7 +33,7 @@ import { sendTemplate, sendCtaUrl, sendText, sendReplyButtons } from '@/lib/wa-c
 import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 import { enlaceAjustes } from '@/lib/wa-destino-socio';
 import { avisarPorCorreo } from '@/lib/wa-radicacion';
-import { enlaceCatalogo } from '@/lib/wa-onboarding';
+import { enlaceCatalogo, distanciaEdicion } from '@/lib/wa-onboarding';
 import { normalizarDuro } from '@/lib/texto-normalizar';
 import { pushAlDashboard, quien as quienConPais } from '@/lib/wa-avisos-contexto';
 import { esBsuid } from '@/lib/paises';
@@ -456,8 +456,13 @@ export function respuestaOficinaProspecto(
 
 // ─── «Quiero hablar con una persona» ─────────────────────────────────────────
 
+// 22 nov 2026: «Necesito que me comunique con Luis Cabrejo» (Edwin) y «Quiero
+// comunicarme con la persona que publicó esta información» (Leandra, que al día
+// siguiente compró) no entraban: el patrón solo conocía «comuníqueme con». Las dos
+// cayeron al modelo, que escribió «le aviso al equipo» sin aviso, o le dio el slug
+// del socio como si fuera un contacto.
 export const RE_PIDE_PERSONA =
-  /\basesor(a)?\b|hablar con (alguien|una persona|un humano|una humana|un[ao] asesor|luis|el socio|la socia|el distribuidor)|una persona real|que me llame|me pueden? llamar|ll[aá]meme|prefiero hablar con|cont[aá]ct(en)?me|comun[ií]queme con|pasarme con|eres? (un )?(robot|bot|m[aá]quina)/i;
+  /\basesor(a)?\b|hablar con (alguien|una persona|un humano|una humana|un[ao] asesor|luis|el socio|la socia|el distribuidor|la persona|quien|el que|la que|mi patrocinador|el patrocinador|la patrocinadora)|una persona real|que me llame|me pueden? llamar|ll[aá]meme|prefiero hablar con|cont[aá]ct(en)?me|comun[ií](car(me|nos|se)?|qu[eé](me|nos|n|nme)?)\s+con\b|poner(me|nos)? en contacto|ponga(me|nos)? en contacto|contactar(me|nos)? con|(el )?(n[uú]mero|whatsapp|contacto) de (la persona|quien|el socio|la socia|mi patrocinador|el que|la que)|pasarme con|eres? (un )?(robot|bot|m[aá]quina)/i;
 
 // Pedir una REUNIÓN es pedir una persona (Director, 21 sep 2026): hoy el negocio se
 // cierra en reuniones 1-a-1, y el video del día 15 lo dice. Queswa respondía que no
@@ -480,9 +485,21 @@ export const RE_PIDE_REUNION =
 export const RE_RECHAZA_IA =
   /^[\s¡!.]*(y\s+)?sin\s+(la\s+|una\s+)?(ia|i\.a\.?|inteligencia artificial|robots?|bots?|maquinas?)[\s!.]*$|no me [a-z]{3,9}\s+(hablar\s+con\s+|escribirle\s+a\s+)?(la\s+|las\s+|una\s+|un\s+|los\s+)?(ia|i\.a\.?|inteligencia artificial|robots?|bots?|maquinas?)(?![a-z])|no quiero\s+(hablar|chatear|conversar|escribir\w*)\s+(con|a)\s+(la\s+|una\s+|un\s+)?(ia|i\.a\.?|inteligencia artificial|robots?|bots?|maquinas?)(?![a-z])|(prefiero|quiero)\s+(una persona|un humano|alguien de verdad|alguien real)/;
 
+// «comnicarme con», «cmounique con»: la petición de comunicarse, con el dedo torpe.
+// Distancia de edición sobre la palabra que precede a «con». Las formas de
+// «comunico/comunica» quedan fuera: «¿cómo me comunico con mis clientes?» es otra
+// pregunta.
+const FORMAS_COMUNICARSE = ['comunicarme', 'comunicarnos', 'comunicarse', 'comunique', 'comuniqueme', 'comuniquenme'];
+const NO_ES_PETICION = new Set(['comunico', 'comunica', 'comunican', 'comunicamos', 'comunicar', 'comunicacion']);
+function pideComunicarse(t: string): boolean {
+  const palabras = t.match(/[a-zñ]+/g) ?? [];
+  return palabras.some((p, i) => palabras[i + 1] === 'con' && p[0] === 'c' && p.length >= 7 && !NO_ES_PETICION.has(p)
+    && FORMAS_COMUNICARSE.some((f) => distanciaEdicion(p, f) <= 2));
+}
+
 export function detectarPidePersona(texto: string): boolean {
   const t = normalizarPuerta(texto);
-  return RE_PIDE_PERSONA.test(texto) || RE_PIDE_REUNION.test(t) || RE_RECHAZA_IA.test(t);
+  return RE_PIDE_PERSONA.test(texto) || RE_PIDE_REUNION.test(t) || RE_RECHAZA_IA.test(t) || pideComunicarse(t);
 }
 
 // Las CHARLAS de Luis (Director, 21 sep 2026, opción a): el video del día 15 dice

@@ -1221,7 +1221,10 @@ export function botOfrecioPersona(ultimoBot: string): boolean {
   const cierre = (ultimoBot || '').trim().split('\n').filter(Boolean).pop() ?? '';
   return /\?\s*$/.test(cierre)
     // «comuniQue» lleva q: el tallo es comuni[cq].
-    && /(comuni[cq]|conect|pas[aáe]r?l[oa]|aviso?|avis[ae]|contact)[a-záéíóúñ]*\s+(con\s+|a\s+|al\s+)?(alguien|una persona|un asesor|una asesora|(el\s+)?equipo|(el |la )?soci[oa]|[a-záéíóúñ]+,?\s+del equipo)/i.test(cierre);
+    && (/(comuni[cq]|conect|pas[aáe]r?l[oa]|aviso?|avis[ae]|contact)[a-záéíóúñ]*\s+(con\s+|a\s+|al\s+)?(alguien|una persona|un asesor|una asesora|(el\s+)?equipo|(el |la )?soci[oa]|[a-záéíóúñ]+,?\s+del equipo)/i.test(cierre)
+      // 22 nov 2026: «¿Le paso su información de contacto?» y «¿Le digo al equipo
+      // que es por la reunión…?» — el «sí» caía al modelo y no salía aviso.
+      || /le paso (su|el) (informaci[oó]n de )?(contacto|n[uú]mero|whatsapp)|le (digo|comento|cuento|transmito) al equipo/i.test(cierre));
 }
 
 export interface ContextoSocio {

@@ -158,6 +158,7 @@ import {
 import { nombrePais, paisDeContactoWA } from '@/lib/paises';
 import { promocionesVigentesIds } from '@/lib/promociones-gano';
 import { gestoAfirma, preguntaFinalSiNo, ESPERA_GESTO_S, VIGENCIA_PREGUNTA_H } from '@/lib/wa-gestos';
+import { motivoParaCallar, type TurnoReciente } from '@/lib/wa-remitente-automatico';
 import {
   atenderEnlaceCatalogo, atenderHiloNiveles, atenderFoto, atenderSocio, atenderPidePieza, detectarPidePieza, atenderCubrirCompra,
   slugDelSocio, textoDeCandado, paisDeTelefono, preguntaPorModoWaze, atenderModoWaze,
@@ -1170,6 +1171,19 @@ async function procesarEntrante(body: any): Promise<void> {
       const yaEraSocio = !!existingProspect?.device_info?.es_socio;
       const convertido = await convertirProspectoEnSocio(supabase, waFingerprint, socioQueEscribe, existingProspect);
       if (convertido && !yaEraSocio) socioDesde = new Date().toISOString();
+    }
+
+    // ─── 1.3855 Escribe otra máquina: silencio (22 nov 2026) ──────────────────
+    // El bot de un operador telefónico recibió 35 respuestas en 42 minutos. Al
+    // primer mensaje con forma de bot se le contesta; del segundo en adelante, no.
+    // Va antes del aviso de regreso: al socio tampoco le llega «volvió a escribir».
+    // Regla y casos → wa-remitente-automatico.ts.
+    if (!socioQueEscribe && messageText && existingProspect) {
+      const _callar = motivoParaCallar(messageText, await mensajesRecientesDePersona(supabase, waFingerprint));
+      if (_callar) {
+        console.warn(`🤖 [WA Webhook] 1.3855 ${waFingerprint} — no se contesta (${_callar}): «${messageText.slice(0, 60)}»`);
+        return;
+      }
     }
 
     // ─── 1.386 Vuelve a escribir después de una pausa (8 oct 2026) ────────────
@@ -3180,7 +3194,14 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
     const _hiloDeCompra = _enPedido || historial.some((m) => m.role === 'user' && detectarIntencionCompra(m.content));
     if (_contextoGeneral && !socioQueEscribe && !_hiloDeCompra && messageText) {
       const opcionVideo = await videoQuePide(messageText);
-      if (opcionVideo && _bitacoraDelTurno?.temasMostrados.has(TEMA_DE_VIDEO[opcionVideo])) {
+      // Quien vuelve después de seis horas o más y lo pide otra vez lo recibe otra
+      // vez (22 nov 2026): a Brainer, que regresó desde la web con «quiero saber
+      // cómo funciona», el modelo le contestó «ya recorrimos eso juntos». Pedirlo
+      // de nuevo es la señal de que no le quedó; dentro de la misma sesión sigue
+      // al motor, que lo retoma sin repetir.
+      const _ultimaFila = _filasCrono[_filasCrono.length - 1];
+      const _vuelveTrasPausa = !!_ultimaFila?.created_at && Date.now() - new Date(_ultimaFila.created_at).getTime() >= 6 * 3600e3;
+      if (opcionVideo && _bitacoraDelTurno?.temasMostrados.has(TEMA_DE_VIDEO[opcionVideo]) && !_vuelveTrasPausa) {
         console.log(`🎬 [WA Webhook] Pide «${VIDEOS_APERTURA[opcionVideo].titulo}» con sus palabras, pero ya se le mostró — sigue al motor`);
       } else if (opcionVideo) {
         const textoBoton = getRespuestaBoton(opcionVideo) ?? '';
@@ -4010,10 +4031,34 @@ async function ultimaPreguntaReciente(
     const bot = [...(Array.isArray(t.messages) ? t.messages : [])].reverse().find((m) => m?.role === 'assistant')?.content;
     if (typeof bot !== 'string') return null;
     const lineas = bot.split('\n').map((l: string) => l.trim()).filter(Boolean);
-    const pregunta = [...lineas].reverse().find((l) => l.endsWith('?'));
+    // Sin el «Sigo aquí.» de una repetición anterior: quien toca el enlace dos
+    // veces seguidas recibía «Sigo aquí. Sigo aquí. ¿…?» (Leandra, 20 nov 2026).
+    const pregunta = [...lineas].reverse().find((l) => l.endsWith('?'))?.replace(/^(Sigo aquí\.\s*)+/, '');
     return pregunta && pregunta.length <= 220 ? pregunta : null;
   } catch {
     return null;
+  }
+}
+
+/** Los mensajes de la persona en los últimos 30 minutos, para el freno de bots. */
+async function mensajesRecientesDePersona(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  fingerprint: string,
+): Promise<TurnoReciente[]> {
+  try {
+    const { data } = await supabase.from('nexus_conversations')
+      .select('messages, created_at')
+      .eq('fingerprint_id', fingerprint)
+      .gt('created_at', new Date(Date.now() - 30 * 60_000).toISOString())
+      .order('created_at', { ascending: false })
+      .limit(20);
+    return (data ?? []).flatMap((fila: { messages?: { role?: string; content?: unknown }[]; created_at: string }) => {
+      const texto = (Array.isArray(fila.messages) ? fila.messages : []).find((m) => m?.role === 'user')?.content;
+      return typeof texto === 'string' ? [{ texto, at: new Date(fila.created_at).getTime() }] : [];
+    });
+  } catch {
+    return [];
   }
 }
 

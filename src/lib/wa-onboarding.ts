@@ -224,7 +224,7 @@ export function enlaceDeCanal(slug: string): string {
  * otro slug habría caído en la mini-landing. Lo determinístico lo emite el backend.
  */
 /** Distancia de edición con transposición (Damerau, alineación óptima). */
-function distanciaEdicion(a: string, b: string): number {
+export function distanciaEdicion(a: string, b: string): number {
   const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
   for (let j = 1; j <= b.length; j++) d[0][j] = j;
   for (let i = 1; i <= a.length; i++) {

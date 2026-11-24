@@ -80,6 +80,9 @@ export default async function Hablador({
   const r = await resolver(params.slug)
   if (!r?.slug) notFound()
   const sangrado = searchParams?.sangrado === '1'
+  // `?vista=1`: solo la pieza, sin controles ni escritorio, para la vista previa que
+  // queswa.app muestra en Compartir → Habladores (Director, 24 nov 2026).
+  const vista = searchParams?.vista === '1'
   const variante = VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
   const v = VARIANTES[variante]
   if (r.slug !== params.slug) {
@@ -104,13 +107,13 @@ export default async function Hablador({
   const alto = 150 + sangre * 2
 
   return (
-    <main className="hab-escritorio">
+    <main className={vista ? 'hab-escritorio hab-escritorio--vista' : 'hab-escritorio'}>
       <SinOrbe />
       {/* Sin escapar: como hijo de texto, React convierte el «>» del CSS en &gt; y el
           servidor y el navegador dejan de coincidir (error de hidratación). */}
       <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, v.fondo, v.color) }} />
 
-      <div className="hab-controles">
+      {!vista && <div className="hab-controles">
         {variante === POR_DEFECTO ? (
           <>
             <a className="cta-primary" href={`/hablador/${r.slug}/pdf?descargar=1`}>Descargar el PDF para la imprenta</a>
@@ -128,7 +131,7 @@ export default async function Hablador({
             </p>
           </>
         )}
-      </div>
+      </div>}
 
       <section className={`hab-pieza ${v.clase}`} aria-label="Hablador">
         <div className="hab-contenido">
@@ -156,6 +159,13 @@ function estilos(ancho: number, alto: number, sangre: number, fondo: string, col
   display: flex; flex-direction: column; align-items: center; gap: 20px;
   font-family: var(--font-sans);
 }
+/* La vista previa de queswa.app: la pieza sola, arriba a la izquierda. Lo demás del
+   layout (aviso de cookies, orbe) se esconde como al imprimir; es fijo y no ocupa lugar. */
+.hab-escritorio--vista { min-height: 0; padding: 0; background: transparent; display: block; }
+.hab-escritorio--vista .hab-pieza { box-shadow: none; }
+body:has(.hab-escritorio--vista) { background: transparent !important; }
+body:has(.hab-escritorio--vista) * { visibility: hidden !important; }
+body:has(.hab-escritorio--vista) .hab-pieza, body:has(.hab-escritorio--vista) .hab-pieza * { visibility: visible !important; }
 .hab-controles { max-width: 34rem; text-align: center; color: #E5E5E5; }
 .hab-controles p { font-size: 13px; line-height: 1.5; color: #94A3B8; margin: 10px 0 0; }
 

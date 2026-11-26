@@ -25,7 +25,7 @@ import { ImageResponse } from 'next/og'
 import { fuentesInter } from '@/lib/og-fuentes'
 
 export const runtime = 'edge'
-export const alt = 'Cree su propio activo: clientes que vuelven a comprar a su nombre'
+export const alt = 'Cree su propio activo: un sistema de distribución a su nombre, que cabe en su celular'
 export const size = {
   width: 1200,
   height: 630,
@@ -108,8 +108,8 @@ export default async function Image() {
           }}
         >
           <span style={{ display: 'flex', color: '#C5A059' }}>Cree su propio activo:</span>
-          <span style={{ display: 'flex' }}>clientes que vuelven a comprar</span>
-          <span style={{ display: 'flex' }}>a su nombre</span>
+          <span style={{ display: 'flex' }}>un sistema de distribución a su nombre,</span>
+          <span style={{ display: 'flex' }}>que cabe en su celular</span>
         </div>
       </div>
     ),

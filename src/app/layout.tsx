@@ -146,14 +146,14 @@ export const metadata: Metadata = {
     locale: 'es_CO',
     alternateLocale: ['pt_BR'],
     url: baseUrl,
-    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
+    title: 'Cree su propio activo: un sistema de distribución a su nombre, que cabe en su celular',
     description: 'Su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace, Queswa atiende y, cada vez que el cliente vuelve a comprar, le queda un porcentaje.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
+    title: 'Cree su propio activo: un sistema de distribución a su nombre, que cabe en su celular',
     description: 'Su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace, Queswa atiende y, cada vez que el cliente vuelve a comprar, le queda un porcentaje.',
     creator: '@creatuactivo',
   },

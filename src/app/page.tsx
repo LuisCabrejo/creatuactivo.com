@@ -305,13 +305,13 @@ export const metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com',
-    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
+    title: 'Cree su propio activo: un sistema de distribución a su nombre, que cabe en su celular',
     description:
       'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace, y Queswa atiende a quien llega. Cada vez que ese cliente vuelve a comprar, a usted le queda un porcentaje.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
+    title: 'Cree su propio activo: un sistema de distribución a su nombre, que cabe en su celular',
     description:
       'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace, y Queswa atiende a quien llega. Cada vez que ese cliente vuelve a comprar, a usted le queda un porcentaje.',
   },
@@ -600,11 +600,12 @@ export default function HomePage() {
               plata y a qué horas.
             </p>
 
-            {/* El H1 (Director, 26 nov 2026): una sola idea abstracta, «activo», pegada a
-                su causa en la misma línea —el cliente que vuelve a comprar—. «A su
-                nombre» lleva la propiedad. Antes: «Cree su propio activo: un sistema de
-                distribución que no depende de su presencia», tres abstracciones juntas.
-                «Sistema de distribución que cabe en su celular» sigue más abajo, una vez. */}
+            {/* El H1 (Director, 26 nov 2026, tarde): la misma frase de WHY_01. «A su
+                nombre» lleva la propiedad —responde a «le voy a trabajar a otro»— y «que
+                cabe en su celular» paga «moderno» con un hecho, como la Presentación (5.0).
+                La causa del activo, la recompra, la dice la bajada. Ese mismo día, por la
+                mañana, fue «…clientes que vuelven a comprar a su nombre»; antes, «…un
+                sistema de distribución que no depende de su presencia». */}
             <h1
               className="m-0 text-balance md:mx-auto lg:mx-0"
               style={{
@@ -616,7 +617,7 @@ export default function HomePage() {
                 maxWidth: '15em',
               }}
             >
-              Cree su propio activo: clientes que vuelven a comprar a su nombre.
+              Cree su propio activo: un sistema de distribución a su nombre, que cabe en su celular.
             </h1>
 
             <p
@@ -792,9 +793,8 @@ export default function HomePage() {
           complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
           para eso.
         </Body>
-        {/* La línea de la Presentación, 5.0 (Director, 26 nov 2026): «ser dueño de un
-            sistema de distribución que cabe en su celular» + «se apoya en tres que ya
-            existen». El celular paga «moderno» con un hecho; «empresa» no tenía calado. */}
+        {/* La segunda línea de la Presentación, 5.0 (Director, 26 nov 2026): «se apoya en
+            tres que ya existen». El sistema que cabe en su celular ya lo dijo el H1. */}
         {/* EL ENTREGABLE SON TRES ELEMENTOS, dichos como FUNCIONES (Director, 9 oct
             2026 — reemplaza la forma del 27 sep): fabricante · Queswa · saber qué
             hacer. La aplicación subió de rango: es el ENVASE de los tres («en una
@@ -803,9 +803,8 @@ export default function HomePage() {
             propia sección más abajo. Arranque calcado de WHY_02 (v6.82, 29 oct 2026: el obstáculo con precio).
             → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
         <Body mt>
-          Eso fue lo que cambió: hoy usted puede ser dueño de un sistema de distribución que
-          cabe en su celular. No construye las piezas: se apoya en tres que ya existen y que,
-          armadas por su cuenta, le costarían millones.
+          Eso fue lo que cambió: hoy usted no construye las piezas. Se apoya en tres que ya
+          existen y que, armadas por su cuenta, le costarían millones.
         </Body>
 
         {/* Tres elementos, tres columnas (8 oct 2026): con `auto-fit, minmax(280px)` en

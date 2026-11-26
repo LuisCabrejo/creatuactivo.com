@@ -61,7 +61,8 @@ Quien busca «plan servilleta gano excel» es, sobre todo, **un distribuidor que
   - En el simulador, «Base 10 %» en lugar del Kit, que allá no existe.
   - Sin «los viernes» en la nota del pago: el día de allá no está documentado.
   - La guía en texto, con su `<h1>`, sus cifras, 18 productos en tres líneas y tres formas de empezar.
-- **Lo que se queda igual:** el credo de la pantalla 1, los pares de la modernización, la solución, la tabla del GEN5 (la misma del plan global) y la base de los 12 niveles. Allá la compra mínima también es de 50 PV, así que el simulador usa la misma base que Colombia. Las 6 cajas del material del liderazgo no se usan (ver [USA_2026.md](../knowledge_base/paises/USA_2026.md) §7).
+- **Los 12 niveles allá corren con 6 cajas por distribuidor** (Director, 26 nov 2026): 115,20 CV contra los 56 de Colombia (`CV_POR_DISTRIBUIDOR`), y la nota de la pantalla lo dice («con 6 cajas al mes por distribuidor»). Ver [USA_2026.md](../knowledge_base/paises/USA_2026.md) §7.
+- **Lo que se queda igual:** el credo de la pantalla 1, los pares de la modernización, la solución y la tabla del GEN5 (la misma del plan global).
 - **Pendiente:**
   - El video de la presentación no va allá: su voz trae las cifras de Colombia. Por eso `?video=1` no hace nada en esa dirección, y `/{slug}/video` sigue llevando a la de Colombia.
   - Las fichas de las líneas del producto tampoco van: sus imágenes son del catálogo de Colombia (Luvoco y Piel&Brillo no existen allá). Vuelven con fotos reales de las tres líneas de allá.

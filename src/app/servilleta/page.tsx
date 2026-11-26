@@ -330,6 +330,15 @@ const CATEGORIAS: {
  *  (v6.8: 10% del CV emparejado, cada distribuidor consumiendo 56 CV al mes).
  *  `people` = distribuidores NUEVOS en ese nivel. Copiada de /12-niveles: si allá
  *  cambia, aquí también. */
+/** EN ESTADOS UNIDOS, 6 CAJAS POR DISTRIBUIDOR (Director, 26 nov 2026): el ejemplo
+ *  del liderazgo de allá es un autoenvío de 6 cajas = 102 PV, unos 115,20 CV al mes
+ *  (USA_2026.md §7). La tabla de arriba supone 56 CV (Colombia), así que en Estados
+ *  Unidos cada nivel se escala por 115,2 / 56. El supuesto va dicho en la nota de la
+ *  pantalla: con 6 cajas la cifra es el doble de la de la compra mínima (50 PV), y
+ *  en Estados Unidos una proyección con un supuesto que no se dice es lo que mira la
+ *  FTC. Comprobado con su cifra: 10 y 10 al 17 % = $195.84. */
+const CV_POR_DISTRIBUIDOR = { CO: 56, US: 115.2 } as const;
+
 const PROYECCION_12: { level: number; people: number; income: number }[] = [
   { level: 1, people: 2, income: 25200 },
   { level: 2, people: 4, income: 75600 },
@@ -2843,7 +2852,7 @@ export default function PitchDeckPage() {
                     ))}
                   </div>
 
-                  <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
+                  <div className="pd-display">{monto(Math.round(nivelSel.income * (CV_POR_DISTRIBUIDOR[pais] / CV_POR_DISTRIBUIDOR.CO) * tarifa.pct / 10))}</div>
                   <div className="pd-sub">
                     {(enUS ? enUSD : enCOP)(nivelSel.people)} distribuidores nuevos · {(enUS ? enUSD : enCOP)(totalDistribuidores)} en
                     total
@@ -2902,7 +2911,9 @@ export default function PitchDeckPage() {
               {/* Con «su activo» en el titular, la cifra va marcada como ejemplo
                   (1 nov 2026): hasta ese día la línea solo existía en el video. */}
               <p className="pd-nota">
-                Ejemplo del cálculo del plan, no un ingreso esperado ni garantizado.
+                {enUS
+                  ? 'Ejemplo del cálculo del plan con 6 cajas al mes por distribuidor, no un ingreso esperado ni garantizado.'
+                  : 'Ejemplo del cálculo del plan, no un ingreso esperado ni garantizado.'}
               </p>
             </div>
           </div>

@@ -18,6 +18,7 @@
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { esPeticionLocal } from '@/lib/entorno-local';
+import { PRECIO_ESP_US, MIX_ESP_US, COMPOSICIONES_US, type CodigoEsp } from '@/lib/paquetes-usa';
 import Anthropic from '@anthropic-ai/sdk';
 import { AnthropicStream, StreamingTextResponse } from 'ai';
 import {
@@ -4374,16 +4375,20 @@ function tablaPaqueteDictada(codigo: string, tablaMarkdown: string, country: str
   if (!m) return null;
   const filas = tablaMarkdown.split('\n').filter((l) => l.trim().startsWith('|'));
   if (filas.length < 3) return null;
-  const precio = country === 'CO' ? m.cop : m.usd;
+  // Estados Unidos con su lista (26 nov 2026, src/lib/paquetes-usa.ts): su precio y
+  // su mix; allá el ESP-1 también trae cuidado personal, no solo bebidas.
+  const enUS = country === 'US';
+  const precio = country === 'CO' ? m.cop : enUS ? PRECIO_ESP_US[codigo as CodigoEsp] : m.usd;
+  const mix = enUS ? MIX_ESP_US[codigo as CodigoEsp] : m.mix;
   // ⛔ No cierra con la activación (Director, 13 sep 2026): quien llega aquí pidió
   // VER qué trae el paquete — Luz, la noche del 12 sep, a las 22:19, y no volvió
   // a escribir—. Sugerirle la activación a quien solo quiso mirar es un error. La
   // continuación natural de una lista de productos son los productos: la misma
   // pregunta con que cierra el pie de la foto de familia, que el catálogo atiende.
-  const cierre = codigo === 'ESP-1'
+  const cierre = codigo === 'ESP-1' && !enUS
     ? '¿Le cuento en qué se diferencian estas bebidas?'
     : '¿Le cuento en qué se diferencian estos productos entre ellos?';
-  return `Con gusto. El *${m.nombre}* vale *${precio}* y le activa inmediatamente este inventario:\n\n${filas.join('\n')}\n\n${m.mix}\n\n${cierre}`;
+  return `Con gusto. El *${m.nombre}* vale *${precio}* y le activa inmediatamente este inventario:\n\n${filas.join('\n')}\n\n${mix}\n\n${cierre}`;
 }
 
 /**
@@ -4595,6 +4600,9 @@ function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3' | 'KIT', country: s
   const usd: Record<string, string> = { KIT: '$98 USD', 'ESP-1': '$200 USD', 'ESP-2': '$500 USD', 'ESP-3': '$1,000 USD' };
   const cop: Record<string, string> = { KIT: '$443.600 COP', 'ESP-1': '$900.000 COP', 'ESP-2': '$2.250.000 COP', 'ESP-3': '$4.500.000 COP' };
   if (country === 'CO') return cop[esp];
+  // Estados Unidos con su lista (26 nov 2026). El Kit no existe allá: su cifra sigue
+  // la de los demás países hasta que el Director decida la entrada menor de allá.
+  if (country === 'US' && esp !== 'KIT') return PRECIO_ESP_US[esp];
   return usd[esp];
 }
 
@@ -4621,7 +4629,11 @@ function precioPaqueteLinea(esp: 'ESP-1' | 'ESP-2' | 'ESP-3' | 'KIT', country: s
 // el Kit sin cifra, remitiéndolo «al sistema». Si lo nombra, que tenga el dato.
 function getPaquetesPricingPin(country: string): string {
   const cop = { e1: '$900.000 COP', e2: '$2.250.000 COP', e3: '$4.500.000 COP' };
-  const usd = { e1: '$200 USD', e2: '$500 USD', e3: '$1,000 USD' };
+  // Estados Unidos tiene su propia lista (26 nov 2026, src/lib/paquetes-usa.ts); los
+  // demás países, la cifra en dólares de Colombia, porque no hay lista de cada uno.
+  const usd = country === 'US'
+    ? { e1: PRECIO_ESP_US['ESP-1'], e2: PRECIO_ESP_US['ESP-2'], e3: PRECIO_ESP_US['ESP-3'] }
+    : { e1: '$200 USD', e2: '$500 USD', e3: '$1,000 USD' };
 
   if (country === 'CO') {
     return `💰 PAQUETES — PRECIOS OFICIALES 2026 COLOMBIA (BLINDADO ANTI-ALUCINACIÓN):
@@ -7075,9 +7087,9 @@ STOP. Empieza DIRECTO con "Le pongo un ejemplo" — sin preámbulo ni encabezado
         ? `• ESP-3 Visionario: Gen1=$675.000 | Gen2=$90.000 | Gen3=$90.000 | Gen4=$90.000 | Gen5=$180.000 COP
 • ESP-2 Empresarial: Gen1=$337.500 | Gen2=$45.000 | Gen3=$45.000 | Gen4=$45.000 | Gen5=$90.000 COP
 • ESP-1 Inicial: Gen1=$112.500 | Gen2=$22.500 | Gen3=$22.500 | Gen4=$22.500 | Gen5=$45.000 COP`
-        : `• ESP-3 Visionario ($1,000 USD): Gen1=$150 | Gen2=$20 | Gen3=$20 | Gen4=$20 | Gen5=$40
-• ESP-2 Empresarial ($500 USD):  Gen1=$75  | Gen2=$10 | Gen3=$10 | Gen4=$10 | Gen5=$20
-• ESP-1 Inicial ($200 USD):      Gen1=$25  | Gen2=$5  | Gen3=$5  | Gen4=$5  | Gen5=$10`;
+        : `• ESP-3 Visionario (${precioPaqueteLinea('ESP-3', visitorCountry)}): Gen1=$150 | Gen2=$20 | Gen3=$20 | Gen4=$20 | Gen5=$40
+• ESP-2 Empresarial (${precioPaqueteLinea('ESP-2', visitorCountry)}):  Gen1=$75  | Gen2=$10 | Gen3=$10 | Gen4=$10 | Gen5=$20
+• ESP-1 Inicial (${precioPaqueteLinea('ESP-1', visitorCountry)}):      Gen1=$25  | Gen2=$5  | Gen3=$5  | Gen4=$5  | Gen5=$10`;
       return `
 📌 GUARDARRAÍL GEN5 — el ARSENAL recuperado lidera la explicación/ejemplos; esto solo asegura moneda + veracidad de cifras:
 ${visitorCountry === 'CO' ? '🇨🇴 Convierte TODA cifra a COP (×$4.500). NUNCA muestres USD. ' : ''}Concepto simple por defecto: por cada paquete empresarial que se compra en su sistema, una comisión directa liquidada cada viernes. Cifras de referencia (úsalas si el arsenal no las trae; NUNCA inventes otras):
@@ -7171,7 +7183,7 @@ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
       // Los nombres son los del catálogo del canal (`wa-productos.ts`), no los del
       // back office: a un prospecto le salió «Gano Fresh Toothpaste» y
       // «Piel8Brillo Shampoo» (21 sep 2026).
-      const composiciones: Record<string, string> = {
+      const composicionesCO: Record<string, string> = {
         'ESP-1': `**Contenido ESP-1 Inicial ($200 USD / $900.000 COP) — vigente desde 25 marzo 2026:**
 | Producto | Cantidad |
 |---|---|
@@ -7211,6 +7223,10 @@ inventar variantes. Si el material recuperado trae otra cifra, manda esta.`;
 | Exfoliante Corporal Piel&Brillo | 1 |
 | **Total** | **35** |`,
       };
+      // Estados Unidos tiene otro contenido (26 nov 2026): allá no se venden
+      // Ganorico ni Piel&Brillo, y los paquetes traen Tongkat Ali y cápsulas
+      // (src/lib/paquetes-usa.ts, de la lista ESP 2026 de Gano Excel USA).
+      const composiciones: Record<string, string> = visitorCountry === 'US' ? COMPOSICIONES_US : composicionesCO;
 
 
     // ¿Toca mostrar la composición de un paquete, y de cuál? Compartido por el pin

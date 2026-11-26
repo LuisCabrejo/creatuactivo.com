@@ -312,7 +312,7 @@ export default function GuiaPlanServilleta({ pais = 'CO' }: { pais?: PaisServill
           Los dos simuladores de la pantalla de los números aplican las tablas del plan. El primero
           proyecta el Bono Binario nivel por nivel, en la estrategia de los 12 niveles, con el
           porcentaje de la forma de empezar que usted elija. El segundo calcula el Bono GEN5 por los
-          paquetes empresariales que se compran en su sistema. Las cifras son un ejemplo del cálculo
+          paquetes empresariales que se compran en su sistema.{enUS ? ' En Estados Unidos, el primero supone 6 cajas de producto al mes por distribuidor (102 PV).' : ''} Las cifras son un ejemplo del cálculo
           del plan, no un ingreso esperado ni garantizado: lo que cada quien gana depende de las
           compras que de verdad ocurren en su sistema de distribución.
         </p>

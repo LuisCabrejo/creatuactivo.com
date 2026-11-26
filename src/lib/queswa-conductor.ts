@@ -38,6 +38,7 @@
  * necesita saber por dónde entrega, es que la decisión está mal partida.
  */
 
+import { PRECIO_ESP_US, UNIDADES_ESP_US } from '@/lib/paquetes-usa';
 import { pedirDatos, CLAVES_CANAL, RE_VOLICION, type ClaveRadicacion, type DatosRadicacion } from '@/lib/wa-radicacion';
 import {
   seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO, RE_OFERTA_FOTO_PRODUCTO,
@@ -356,12 +357,17 @@ export function textoBonoPaquetes(pais: PaisConductor): string {
   // Fuera de Colombia, dólares (Director, 11 oct 2026). Sin país, pesos: el 'XX' de
   // `paisDeTelefono` es un país conocido que no es Colombia ni EE. UU.
   const precio = (usd: string, cop: string) => (pais === 'CO' ? cop : usd);
+  // Estados Unidos con su lista: otro precio y otro contenido (26 nov 2026,
+  // src/lib/paquetes-usa.ts). Los demás países, la cifra en dólares de Colombia.
+  const enUS = pais === 'US';
+  const linea = (codigo: 'ESP-1' | 'ESP-2' | 'ESP-3', nombre: string, unidadesCO: number, usd: string, cop: string) =>
+    `• *${codigo} ${nombre}*: ${enUS ? UNIDADES_ESP_US[codigo] : unidadesCO} productos · ${enUS ? PRECIO_ESP_US[codigo] : precio(usd, cop)}`;
   return [
     'Hay tres paquetes empresariales, cada uno con su inventario de productos:',
     '',
-    `• *ESP-1 Inicial*: 7 productos · ${precio('$200 USD', '$900.000 COP')}`,
-    `• *ESP-2 Empresarial*: 18 productos · ${precio('$500 USD', '$2.250.000 COP')}`,
-    `• *ESP-3 Visionario*: 35 productos · ${precio('$1,000 USD', '$4.500.000 COP')}`,
+    linea('ESP-1', 'Inicial', 7, '$200 USD', '$900.000 COP'),
+    linea('ESP-2', 'Empresarial', 18, '$500 USD', '$2.250.000 COP'),
+    linea('ESP-3', 'Visionario', 35, '$1,000 USD', '$4.500.000 COP'),
     '',
     `Si usted compra uno de ellos como su inversión inicial, califica para cobrar el bono por la compra de paquetes empresariales en su sistema. Por ejemplo: por cada Visionario que se compre en su primera generación, ${precio('$150 USD', '$675.000 COP')}; y el bono sigue en las cuatro generaciones siguientes.`,
     '',
@@ -378,7 +384,7 @@ export function precioKit(pais: PaisConductor): string {
 
 /** El precio del ESP-3 Visionario en la moneda del país. */
 export function precioVisionario(pais: PaisConductor): string {
-  return pais === 'CO' ? '$4.500.000 COP' : '$1,000 USD';
+  return pais === 'CO' ? '$4.500.000 COP' : pais === 'US' ? PRECIO_ESP_US['ESP-3'] : '$1,000 USD';
 }
 
 /**

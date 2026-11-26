@@ -53,6 +53,12 @@ const nextConfig = {
   // ✅ Redirects permanentes (301)
   async redirects() {
     return [
+      // /prueba (el borrador de la Home para aprobar copy) se eliminó (Director, 26 nov 2026).
+      {
+        source: '/prueba',
+        destination: '/',
+        permanent: true,
+      },
       // La reserva de las mesas privadas pasó de /mesa a /vip (Director, 9 nov 2026).
       {
         source: '/mesa/:evento',

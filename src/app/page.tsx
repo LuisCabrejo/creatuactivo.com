@@ -596,7 +596,7 @@ export default function HomePage() {
                 maxWidth: 560,
               }}
             >
-              La mayoría sabe que tiene que hacer algo con sus finanzas. La duda es con qué
+              La mayoría siente que tiene que hacer algo con sus finanzas. La duda es con qué
               plata y a qué horas.
             </p>
 

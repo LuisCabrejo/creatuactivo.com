@@ -53,6 +53,13 @@ const nextConfig = {
   // ✅ Redirects permanentes (301)
   async redirects() {
     return [
+      // /video-plan-servilleta se eliminó (Director, 26 nov 2026): hablaba de «apalancamiento»,
+      // y el video de la presentación vive en /servilleta (pantalla 1). El ?ref se conserva.
+      {
+        source: '/video-plan-servilleta',
+        destination: '/servilleta',
+        permanent: true,
+      },
       // /prueba (el borrador de la Home para aprobar copy) se eliminó (Director, 26 nov 2026).
       {
         source: '/prueba',

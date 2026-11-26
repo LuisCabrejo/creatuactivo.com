@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     default: 'CreaTuActivo | Sea dueño de su propio sistema de distribución',
     template: '%s | CreaTuActivo'
   },
-  description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
+  description: 'Su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace, Queswa atiende y, cada vez que el cliente vuelve a comprar, le queda un porcentaje.',
 
   // Keywords Estratégicas (SEO Semántico)
   keywords: [
@@ -146,15 +146,15 @@ export const metadata: Metadata = {
     locale: 'es_CO',
     alternateLocale: ['pt_BR'],
     url: baseUrl,
-    title: 'Cree su propio activo: un sistema de distribución que no depende de su presencia',
-    description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
+    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
+    description: 'Su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace, Queswa atiende y, cada vez que el cliente vuelve a comprar, le queda un porcentaje.',
     siteName: 'CreaTuActivo.com',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Cree su propio activo: un sistema de distribución que no depende de su presencia',
-    description: 'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
+    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
+    description: 'Su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace, Queswa atiende y, cada vez que el cliente vuelve a comprar, le queda un porcentaje.',
     creator: '@creatuactivo',
   },
 

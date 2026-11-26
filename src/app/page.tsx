@@ -273,7 +273,7 @@ export const metadata = {
   // entero, porque ahí se lee completa y es la que ve quien abre el enlace de un socio.
   title: 'CreaTuActivo | Sea dueño de su propio sistema de distribución',
   description:
-    'Su propio sistema de distribución de productos premium de bienestar, desde el celular. Usted comparte un enlace, Queswa conversa con quien llega y usted recibe.',
+    'Su propio sistema de distribución de productos premium de bienestar. Usted comparte un enlace, Queswa atiende y, cada vez que el cliente vuelve a comprar, le queda un porcentaje.',
   // Canonical explícito: cada socio comparte /?ref=xyz — sin canonical, Google
   // trata cada variante como URL distinta con contenido duplicado.
   alternates: { canonical: 'https://creatuactivo.com' },
@@ -305,15 +305,15 @@ export const metadata = {
     siteName: 'CreaTuActivo.com',
     locale: 'es_CO',
     url: 'https://creatuactivo.com',
-    title: 'Cree su propio activo: un sistema de distribución que no depende de su presencia',
+    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
     description:
-      'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
+      'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace, y Queswa atiende a quien llega. Cada vez que ese cliente vuelve a comprar, a usted le queda un porcentaje.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cree su propio activo: un sistema de distribución que no depende de su presencia',
+    title: 'Cree su propio activo: clientes que vuelven a comprar a su nombre',
     description:
-      'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde el celular.',
+      'Creemos que el trabajo de cada persona debería convertirse en un activo. Por eso hicimos sencillo lo que antes era complicado: tener su propio sistema de distribución. Usted comparte un enlace, y Queswa atiende a quien llega. Cada vez que ese cliente vuelve a comprar, a usted le queda un porcentaje.',
   },
 }
 
@@ -583,6 +583,28 @@ export default function HomePage() {
       >
         <div className={`${EJE} grid grid-cols-1 gap-y-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center lg:gap-x-16`}>
           <div className="md:text-center lg:text-left">
+            {/* La entrada (Director, 26 nov 2026): la barrera de entrada del reto (días
+                43, 58 y 64), la que en campo hace asentir. Va antes del H1 por «dado
+                primero, nuevo al final»: lo que la persona ya piensa, y después la
+                respuesta. Es <p>, no eyebrow: tiene que leerse como frase entera. */}
+            <p
+              className="m-0 mb-5 text-balance md:mx-auto lg:mx-0"
+              style={{
+                fontSize: 'clamp(1.1rem, 1.8vw, 1.3rem)',
+                lineHeight: 1.5,
+                color: TITANIUM,
+                maxWidth: 560,
+              }}
+            >
+              La mayoría sabe que tiene que hacer algo con sus finanzas. La duda es con qué
+              plata y a qué horas.
+            </p>
+
+            {/* El H1 (Director, 26 nov 2026): una sola idea abstracta, «activo», pegada a
+                su causa en la misma línea —el cliente que vuelve a comprar—. «A su
+                nombre» lleva la propiedad. Antes: «Cree su propio activo: un sistema de
+                distribución que no depende de su presencia», tres abstracciones juntas.
+                «Empresa de distribución moderna» sigue más abajo, una vez en la página. */}
             <h1
               className="m-0 text-balance md:mx-auto lg:mx-0"
               style={{
@@ -594,8 +616,7 @@ export default function HomePage() {
                 maxWidth: '15em',
               }}
             >
-              Cree su propio activo: un sistema de distribución que no depende de su
-              presencia.
+              Cree su propio activo: clientes que vuelven a comprar a su nombre.
             </h1>
 
             <p
@@ -607,8 +628,11 @@ export default function HomePage() {
                 maxWidth: 560,
               }}
             >
-              Usted comparte un enlace. Queswa conversa con quien llega. Usted recibe. Todo desde
-              el celular.
+              {/* En el orden en que pasan las cosas: usted comparte, Queswa atiende, el
+                  cliente vuelve, Gano Excel paga. El porcentaje, en la forma de WHY_02. */}
+              Usted comparte un enlace, y Queswa, nuestra asistente, atiende a quien llega.
+              Cada vez que ese cliente vuelve a comprar, a usted le queda un porcentaje. Gano
+              Excel fabrica, despacha y paga.
             </p>
 
             {/* El video ya explica cómo funciona: el botón pregunta lo que sigue
@@ -620,7 +644,7 @@ export default function HomePage() {
             <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 md:justify-center lg:justify-start">
               <QueswaOnline />
               <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: 0 }}>
-                Nuestra inteligencia artificial. Responde al instante, sin compromiso.{' '}
+                Responde al instante, sin compromiso.{' '}
                 Colombia · Estados Unidos · Latinoamérica.
               </p>
             </div>
@@ -719,21 +743,10 @@ export default function HomePage() {
           por su sistema, a usted le queda un porcentaje, y se lo liquidan en{' '}
           <Strong>su cuenta bancaria cada viernes</Strong>.
         </Body>
-        <Body mt>
-          {/* 25 sep 2026 (auditoría de naming): entra el diferencial dicho como
-              mecanismo — el cliente queda a su nombre — y sale «cuando se le acaba»,
-              el marco del agotamiento que la doctrina de la recompra prohíbe.
-              8 oct 2026: «esa compra también le paga a usted» → «cada vez que lo pide, a
-              usted le queda un porcentaje». Es la forma de WHY_02: el cliente es quien
-              compra; usted, quien recibe — la compra no es la que paga. «Lo pide» y no
-              «vuelve a comprar», para no sumar un tercer «vuelve». El eco con el párrafo
-              de arriba es a propósito: allá la regla, aquí la regla repitiéndose. */}
-          Y lo que casi nadie ve a la primera: <Strong>cada cliente que llega por su
-          enlace queda a su nombre</Strong>. El que nota la diferencia no vuelve al
-          producto genérico: vuelve a pedir el mismo, y cada vez que lo pide, a usted le
-          queda un porcentaje. Eso es un activo: el ingreso deja de depender de su presencia
-          y empieza a depender de cuántos clientes ya están consumiendo.
-        </Body>
+        {/* 26 nov 2026 (Director): salió el párrafo del cliente a su nombre y su
+            recompra. Desde ese día lo dice el H1 y la bajada del hero, y aquí era la
+            tercera vez en la misma idea. «Sigue produciendo aunque usted no esté
+            presente» vive en el cierre. */}
 
         {/* La ecuación: producto + fábrica = porcentaje. Proceso en titanio, resultado
             en dorado (es dinero) con el icono en salvia (transferencia liquidada). */}
@@ -860,6 +873,13 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* La palanca de la estructura (Director, 26 nov 2026): responde «a qué horas»
+            de la entrada del hero. Literal de OBJ_01, ya aprobada. */}
+        <Body mt>
+          Usted no necesita fabricar horas. Necesita apalancarse en una estructura que ya
+          existe.
+        </Body>
+
         {/* Cifras verificables — en titanio claro, no en dorado: son hechos, no premios. */}
         <div
           className="mt-10 grid grid-cols-2 gap-6 pt-8 text-center md:grid-cols-4"
@@ -944,10 +964,17 @@ export default function HomePage() {
             }}
           >
             <p style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-body)', margin: 0 }}>
+              {/* La palanca de la multiplicación, dicha como mecanismo y en COMPRAS, nunca
+                  en personas (Director, 26 nov 2026). Antes nombraba el resultado: «de ahí
+                  salen la multiplicación de su negocio y el aumento de su facturación».
+                  «También le queda», no «de cada una»: el Binario no paga sobre cada compra. */}
               Y como es así de sencillo, quien inicia con usted hace exactamente lo mismo.{' '}
-              <Strong>De ahí salen la multiplicación de su negocio y el aumento de su facturación</Strong>{' '}
-              — con Queswa formando a cada socio nuevo desde el día uno, y con Gano Excel
-              presente en más de 60 países, su sistema no se detiene en la frontera.
+              <Strong>
+                Así a su sistema le llegan compras de clientes que usted nunca tuvo que
+                atender, y de esas compras también le queda un porcentaje.
+              </Strong>{' '}
+              Queswa forma a cada socio nuevo desde el día uno, y con Gano Excel presente en
+              más de 60 países, su sistema no se detiene en la frontera.
             </p>
           </div>
         </div>
@@ -999,7 +1026,13 @@ export default function HomePage() {
       <Section>
         <Eyebrow>Para empezar</Eyebrow>
         <H2>Se puede empezar con poco.</H2>
+        {/* Responde la segunda pregunta de la entrada del hero (26 nov 2026): «a qué
+            horas» lo responden la bajada y «Dos movimientos»; «con qué plata», aquí. */}
         <Body>
+          ¿Con qué plata? La tecnología no tiene costo y la fábrica ya existe: lo que usted
+          pone se va en producto, no en montar una empresa.
+        </Body>
+        <Body mt>
           No hace falta arrancar en grande: la estructura es la misma y crece a la medida de
           lo que usted decida. Hay quienes empiezan solo comprando el producto para su casa,
           a precio de distribuidor. Y hay quienes arrancan de una vez con todo. Las dos

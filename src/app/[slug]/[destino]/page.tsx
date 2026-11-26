@@ -14,8 +14,6 @@ import ReelPage from '@/components/ReelPage'
 import { OG_PRESENTACION } from '@/app/servilleta/og'
 import { conversaPorWhatsApp, dispositivoDe, esRobot, sistemaDe } from '@/lib/dispositivo'
 import { esHostLocal } from '@/lib/entorno-local'
-import { paisDeContactoWA } from '@/lib/paises'
-import { RUTA_SERVILLETA, paisServilletaDeSocio } from '@/lib/servilleta-pais'
 import AbrirQueswaEnWhatsApp from '@/components/AbrirQueswaEnWhatsApp'
 import VideoComoFuncionaPage from '@/components/VideoComoFuncionaPage'
 
@@ -439,22 +437,7 @@ export default async function DestinoRoute({
   // al socio `/{slug}/presentacion?pantalla=8`, la de los números (era la 9 hasta el 18 oct 2026), para estudiarla.
   const pantalla = esPresentacion(destino) && typeof searchParams?.pantalla === 'string'
     && /^\d{1,2}$/.test(searchParams.pantalla) ? searchParams.pantalla : null
-  let base = resolver(record.constructor_id)
-  // EL SOCIO DE ESTADOS UNIDOS ABRE SU VERSIÓN (26 nov 2026): la Presentación tiene
-  // una dirección por país (src/lib/servilleta-pais.ts), y el enlace del socio
-  // elige la del país de su WhatsApp. «video» se queda en la de Colombia: el video
-  // solo existe allá (su voz trae las cifras de Colombia). Si la consulta falla,
-  // va la de Colombia: el botón del país sigue a un toque.
-  if (esPresentacion(destino) && destino !== 'video' && base.startsWith(`${RUTA_SERVILLETA.CO}?`)) {
-    const { data: pu } = await supabase
-      .from('private_users')
-      .select('whatsapp')
-      .eq('constructor_id', record.constructor_id)
-      .maybeSingle()
-    if (paisServilletaDeSocio(paisDeContactoWA(pu?.whatsapp)) === 'US') {
-      base = RUTA_SERVILLETA.US + base.slice(RUTA_SERVILLETA.CO.length)
-    }
-  }
+  const base = resolver(record.constructor_id)
   // Si el destino ya fija una pantalla (12-niveles → 9), la del enlace no se suma.
   const destinoReal = base + (pantalla && !base.includes('pantalla=') ? `&pantalla=${pantalla}` : '')
 

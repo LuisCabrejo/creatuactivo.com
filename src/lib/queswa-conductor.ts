@@ -39,6 +39,8 @@
  */
 
 import { PRECIO_ESP_US, UNIDADES_ESP_US } from '@/lib/paquetes-usa';
+import { candadoEstadosUnidos, ID_NIVELES_01, ID_NIVELES_02 } from '@/lib/doce-niveles-usa';
+import { RUTA_SERVILLETA } from '@/lib/servilleta-pais';
 import { pedirDatos, CLAVES_CANAL, RE_VOLICION, type ClaveRadicacion, type DatosRadicacion } from '@/lib/wa-radicacion';
 import {
   seguimientoSalud, esAceptacion, RE_OFERTA_CATALOGO, RE_OFERTA_FOTO_PRODUCTO,
@@ -394,8 +396,10 @@ export function precioVisionario(pais: PaisConductor): string {
  * UNA presentación, en /servilleta; el deck de /12-niveles se retiró. Lleva el
  * orbe de Queswa, así que la conversación sigue allá.
  */
-export function textoSimuladorWeb(sim: SimuladorDictado): string {
-  return `${sim.cuerpo}\n\n[Abrir el simulador](https://creatuactivo.com/servilleta?pantalla=8)`;
+export function textoSimuladorWeb(sim: SimuladorDictado, pais: PaisConductor = 'CO'): string {
+  // Estados Unidos abre su presentación (26 nov 2026), que calcula con sus cifras.
+  const ruta = pais === 'US' ? RUTA_SERVILLETA.US : RUTA_SERVILLETA.CO;
+  return `${sim.cuerpo}\n\n[Abrir el simulador](https://creatuactivo.com${ruta}?pantalla=8)`;
 }
 
 // ─── Los nodos ────────────────────────────────────────────────────────────────
@@ -546,13 +550,18 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
     && !historial.some((m) => m.role === 'assistant' && /Los 12 Niveles es nuestra estrategia/i.test(m.content));
   if (!vieneDelSimulador && ((nombreMalOido && preguntaQueEs) || aceptaEstrategia || preguntaPorLaEstrategia)) {
     try {
-      const texto = await textoDeCandado(ctx.supabase, ctx.tenant, 'arsenal_12_niveles_NIVELES_01');
+      // Estados Unidos con su texto (26 nov 2026, src/lib/doce-niveles-usa.ts): el
+      // candado de Colombia trae el Kit de cuatro cajas y la regalía en pesos.
+      const enUS = ctx.pais === 'US';
+      const texto = enUS ? candadoEstadosUnidos(ID_NIVELES_01) : await textoDeCandado(ctx.supabase, ctx.tenant, 'arsenal_12_niveles_NIVELES_01');
       if (texto) {
         // Si el hilo ya mostró el ejemplo de renta al 17%, una frase de puente:
         // sin ella la persona ve dos tarifas en la misma conversación y nadie
         // le dice por qué (prueba del Director, 1 sep, 12:16 → 12:17).
         const vieneDel17 = historial.some((m) => m.role === 'assistant' && /17\s?%/.test(m.content));
-        const puente = vieneDel17 ? 'Esta estrategia corre con el Kit, al 10%: la misma regalía, con la tarifa de entrada.\n\n' : '';
+        const puente = !vieneDel17 ? ''
+          : enUS ? 'Esta estrategia corre con el 10% base del Binario: la misma regalía, con la tarifa de entrada.\n\n'
+          : 'Esta estrategia corre con el Kit, al 10%: la misma regalía, con la tarifa de entrada.\n\n';
         // El pin de apalancamiento del motor abre con el MISMO párrafo que
         // NIVELES_01, a propósito (quien llega por la renta lee lo mismo que
         // quien llega por el hilo). Pero cuando la persona pasa por los dos en
@@ -570,7 +579,8 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
           nodo: preguntaPorLaEstrategia ? '2.34 NIVELES_01 (pregunta por la estrategia)' : '2.34 NIVELES_01 (nombre mal oído / sí a la estrategia)',
           texto: puente + cuerpo.replace(/\[PRECIO_KIT\]/g, precioKit(ctx.pais)),
           marcarHiloDoceNiveles: true,
-          video: { url: VIDEO_DOCE_NIVELES_WA, entrada: puente ? puente.trim() : 'Con gusto. Esta es la estrategia:' },
+          // Sin video a Estados Unidos: su voz es la de Colombia (el Kit y los pesos).
+          video: enUS ? undefined : { url: VIDEO_DOCE_NIVELES_WA, entrada: puente ? puente.trim() : 'Con gusto. Esta es la estrategia:' },
         };
       }
     } catch (err) {
@@ -615,12 +625,17 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
   const hiloDoce = historial.some((m) => /12 Niveles/i.test(m.content));
   if (!vieneDelSimulador && b.aceptaSola && !b.pideSimulador && b.ofrecioTablaNiveles && hiloDoce) {
     try {
-      const { cuerpo, cierre } = await leerCandado(ctx.supabase, ctx.tenant, 'arsenal_12_niveles_NIVELES_02');
+      // Estados Unidos con su tabla de 6 cajas (26 nov 2026, src/lib/doce-niveles-usa.ts).
+      // Su simulador: en la web, la presentación de allá; en WhatsApp no va, porque
+      // el Flow calcula con cuatro cajas y daría otra cifra.
+      const enUS = ctx.pais === 'US';
+      const textoUS = enUS ? candadoEstadosUnidos(ID_NIVELES_02) : null;
+      const { cuerpo, cierre } = textoUS ? { cuerpo: textoUS, cierre: null } : await leerCandado(ctx.supabase, ctx.tenant, 'arsenal_12_niveles_NIVELES_02');
       if (cuerpo) {
         return {
           nodo: '2.35 NIVELES_02 (tabla nivel por nivel)',
-          texto: `${cuerpo}\n\n${cierre || '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?'}`,
-          simulador: ctx.simuladorDisponible
+          texto: textoUS ?? `${cuerpo}\n\n${cierre || '¿Le muestro las ganancias por la compra de paquetes empresariales en su sistema?'}`,
+          simulador: ctx.simuladorDisponible && !(enUS && ctx.canal === 'whatsapp')
             ? { pantalla: 'NIVELES', cuerpo: 'Y si quiere verlo nivel por nivel en el simulador: elija el nivel y el resultado sale al instante.', primeraVez: true }
             : undefined,
         };

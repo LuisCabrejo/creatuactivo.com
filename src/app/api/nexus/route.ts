@@ -19,6 +19,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { esPeticionLocal } from '@/lib/entorno-local';
 import { PRECIO_ESP_US, MIX_ESP_US, COMPOSICIONES_US, type CodigoEsp } from '@/lib/paquetes-usa';
+import { candadoEstadosUnidos, PIN_KIT_US } from '@/lib/doce-niveles-usa';
 import Anthropic from '@anthropic-ai/sdk';
 import { AnthropicStream, StreamingTextResponse } from 'ai';
 import {
@@ -4648,7 +4649,7 @@ function getPaquetesPricingPin(country: string): string {
 • ESP-1 Inicial = ${usd.e1}
 • ESP-2 Empresarial = ${usd.e2}
 • ESP-3 Visionario = ${usd.e3}
-• Kit de Inicio (la entrada menor, solo si viene al caso) = $98 USD
+${country === 'US' ? '• En Estados Unidos no hay Kit de Inicio: las formas de empezar son estos tres paquetes. Solo si preguntan por la inversión mínima, hay un kit de material de afiliado de $25 USD, sin producto, que abre el código.' : '• Kit de Inicio (la entrada menor, solo si viene al caso) = $98 USD'}
 🌎 COTIZA EN USD limpio. NO muestres COP (fuera de Colombia los pesos no le dicen nada al visitante).${otroPais ? ` El visitante parece estar en ${otroPais}: la oficina local de Gano Excel maneja el precio en su moneda — ofrécele confirmarlo.` : ''} Si el usuario indica que se registra en Colombia, cotiza en COP. NUNCA uses precios de tu entrenamiento (son datos 2023, incorrectos).\n\n⚠️ SI EL CONTEXTO TRAE UN FRAGMENTO CON CANDADO Y MARCADORES «[PRECIO]»: entregue ESE texto tal cual y reemplace cada «[PRECIO]» por el valor de arriba. NO componga su propia lista de paquetes, NO agregue líneas descriptivas bajo cada nivel, NO agregue comisiones ni proyecciones.`;
 }
 
@@ -4721,6 +4722,8 @@ function esAceptacionSola(texto: string): boolean {
 }
 
 function getPinKitInicio(country: string): string {
+  // En Estados Unidos no hay Kit de Inicio (26 nov 2026, src/lib/doce-niveles-usa.ts).
+  if (country === 'US') return PIN_KIT_US;
   const cop = '$443.600 COP';
   const usd = '$98 USD';
 
@@ -5398,7 +5401,7 @@ ${summaryParts.join('\n')}
 
     const _entregarDictado = async (nodo: RespuestaConductor) => {
       let texto = aFormatoWeb(nodo.texto ?? '');
-      if (nodo.simulador) texto = texto ? `${texto}\n\n${textoSimuladorWeb(nodo.simulador)}` : textoSimuladorWeb(nodo.simulador);
+      if (nodo.simulador) texto = texto ? `${texto}\n\n${textoSimuladorWeb(nodo.simulador, paisDeCodigo(visitorCountry))}` : textoSimuladorWeb(nodo.simulador, paisDeCodigo(visitorCountry));
       if (nodo.marcarHiloDoceNiveles && fingerprint) {
         getSupabaseClient().rpc('update_prospect_data', {
           p_fingerprint_id: fingerprint,
@@ -7397,7 +7400,10 @@ ${visitorCountry === 'CO'
       // palabra «crece», y la persona recibía «Usted ya logró lo más difícil:
       // que su negocio funcione» en vez del ejemplo que aceptó.
       if (canalDictado && !_pinDictaEjemplo && (_esPuertaDictada || _esCandadoSolitario)) {
-        const _cuerpo = extraerCandadoDictado(_doc0.content || '', _esPuertaDictada);
+        // Estados Unidos con su texto (26 nov 2026, src/lib/doce-niveles-usa.ts): los
+        // candados de Los 12 Niveles traen el Kit de cuatro cajas y los pesos dentro.
+        const _cuerpoUS = visitorCountry === 'US' ? candadoEstadosUnidos(String(_meta0.fragment_categories?.[0] ?? _doc0.id)) : null;
+        const _cuerpo = _cuerpoUS ?? extraerCandadoDictado(_doc0.content || '', _esPuertaDictada);
         const _conMarcadores = !!_cuerpo && /\[[A-ZÁÉÍÓÚÑ0-9_ \-]{3,}\]|\{[^}]+\}/.test(_cuerpo);
         // ── Un candado dictado NO se repite dos turnos seguidos ───────────────
         // Oswaldo Romero recibió `FREQ_30` palabra por palabra CUATRO veces

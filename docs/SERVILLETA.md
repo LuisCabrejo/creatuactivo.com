@@ -49,6 +49,25 @@ Quien busca «plan servilleta gano excel» es, sobre todo, **un distribuidor que
 
 - **La solución (5.0) desde el 26 nov 2026 (Director: «aprobado»):** *«Ser dueño de un sistema de distribución que cabe en su celular.»*, con «Ser dueño» lo más grande y el único oro, y debajo, en gris, *«Usted no construye las piezas: se apoya en tres que ya existen.»* Motivo: «empresa» no tenía calado (en 4.832 mensajes reales, «distribución» 27 veces contra 284 de «negocio»; las preguntas eran «¿qué es una empresa digital?» y «¿la empresa va a ser para otros?») y en vivo la gente concluía que «le iban a trabajar a otro». «Activo» ya no abre la pantalla: remata en la 5.3 («Eso es un activo»), pegado a su causa. Se descartaron «ingresos apalancados» (en Colombia apalancarse es endeudarse, «palanca» es rosca, es jerga del gremio y nombra el resultado), «un % de todo» (el Binario paga sobre lo emparejado) y «un negocio propio desde su celular» (la frase más gastada de las ofertas de ingreso). El punto 01 de la diferencia dice «queda registrado en su sistema», y la tarjeta Open Graph (`og.ts`) y la guía en texto llevan el titular nuevo. **En la voz del socio**, en lugar de Uber, la analogía sugerida es Amazon, solo con el hecho: *«En Amazon, seis de cada diez productos que se venden los ponen otros vendedores, y a Amazon le queda un porcentaje de cada venta: es dueño del lugar donde ocurre la venta.»* (Marketplace Pulse, ~61 % en 2025). El mismo día el Director pidió extenderlo a todo: arsenal (v6.94), los dos prompts (v5.30 y marca personal v2.7), la web, `/prueba` y CLAUDE.md. ⏳ Queda la voz del video de la presentación (v18 dice la frase vieja) y, en campo, comprobar en 10 presentaciones si desaparecen «empresa digital» y «le trabajo a otro».
 
+## La versión de Estados Unidos (`/servilleta/estados-unidos`, 26 nov 2026)
+
+**Un solo deck, una dirección por país** (Director, 24-26 nov 2026). Google posiciona direcciones, no botones, y su robot rastrea casi siempre desde IP de Estados Unidos: cambiar el contenido por la IP en una sola dirección le mostraría a Colombia la versión de allá. Cada dirección declara la otra con `hreflang` (`es-CO` · `es-US` · `x-default` a Colombia). Las rutas y la regla viven en [src/lib/servilleta-pais.ts](../src/lib/servilleta-pais.ts); `page.tsx` se reconoce por la dirección (`paisDeRuta(usePathname())`) y [estados-unidos/page.tsx](../src/app/servilleta/estados-unidos/page.tsx) solo pone su SEO y renderiza el mismo deck.
+
+- **El país lo decide la dirección, nunca la IP.** El enlace del socio (`/{slug}/servilleta`, `presentacion`, `deck`, `12-niveles`, `reto`) abre la de Estados Unidos si su WhatsApp es de allá (`paisDeContactoWA`, el código de área separa a Canadá, Puerto Rico y República Dominicana). El botón **CO · EE. UU.** del HUD cambia de dirección conservando el socio y la pantalla; en el kiosco no va.
+- **Lo que cambia allá:**
+  - Pantalla 2: las cifras del latino en Estados Unidos (Pew ×2 y la Reserva Federal; fuente y descartes en `CIFRAS_PROBLEMA_US` y en [DOLOR_LATINO_USA_NOV2026.md](investigaciones/resultados/DOLOR_LATINO_USA_NOV2026.md)).
+  - Las credenciales: «En Estados Unidos desde 2003».
+  - Todo en dólares, sin el botón de pesos.
+  - En el simulador, «Base 10 %» en lugar del Kit, que allá no existe.
+  - Sin «los viernes» en la nota del pago: el día de allá no está documentado.
+  - La guía en texto, con su `<h1>`, sus cifras, 18 productos en tres líneas y tres formas de empezar.
+- **Lo que se queda igual:** el credo de la pantalla 1, los pares de la modernización, la solución, la tabla del GEN5 (la misma del plan global) y la base de los 12 niveles. Allá la compra mínima también es de 50 PV, así que el simulador usa la misma base que Colombia. Las 6 cajas del material del liderazgo no se usan (ver [USA_2026.md](../knowledge_base/paises/USA_2026.md) §7).
+- **Pendiente:**
+  - El video de la presentación no va allá: su voz trae las cifras de Colombia. Por eso `?video=1` no hace nada en esa dirección, y `/{slug}/video` sigue llevando a la de Colombia.
+  - Las fichas de las líneas del producto tampoco van: sus imágenes son del catálogo de Colombia (Luvoco y Piel&Brillo no existen allá). Vuelven con fotos reales de las tres líneas de allá.
+  - La versión en dólares del «al que gana dos millones y al que gana más de veinte» (STORY_03 🔒) la decide el Director.
+- ⚠️ **Si se agrega un país**, va en `PaisServilleta`, en `RUTA_SERVILLETA` y en `IDIOMAS_SERVILLETA`, con sus cifras verificadas en fuente primaria. Nunca se reutilizan las de otro país.
+
 ## Redirecciones y enlaces (todo apunta aquí)
 
 - `next.config.js` (308, conservan `?ref` y `?pantalla`): `/presentacion`, `/presentacion/*`, `/pitch-deck`, `/presentacion-empresarial` → `/servilleta`; `/12-niveles`, `/12-niveles/{ref}` y los slugs del reto → `/servilleta?pantalla=8` (la de los números; fue la 9 hasta el 18 oct 2026); `/presentacion/opengraph-image` → `/servilleta/opengraph-image`.

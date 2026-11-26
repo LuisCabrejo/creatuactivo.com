@@ -45,16 +45,27 @@
 'use client';
 
 import { abrirConversacionQueswa, leerRefSocio } from '@/lib/orbe-config';
+import type { PaisServilleta } from '@/lib/servilleta-pais';
 
 // Se cambia SOLO cuando la página cambia de verdad. Poner la fecha al día sin
 // cambios reales es, para Google, una señal de contenido hecho para buscadores.
 const ACTUALIZADA = { iso: '2026-11-01', texto: 'noviembre de 2026' };
+/** La versión de Estados Unidos (/servilleta/estados-unidos) se publicó el 26 nov 2026. */
+const ACTUALIZADA_US = { iso: '2026-11-26', texto: 'noviembre de 2026' };
 
 const FORMAS_DE_EMPEZAR = [
   { nombre: 'ESP-3 Visionario', detalle: '35 productos · Binario 17 % por 6 meses · Bono GEN5 activo' },
   { nombre: 'ESP-2 Empresarial', detalle: '18 productos · Binario 16 % por 4 meses · Bono GEN5 activo' },
   { nombre: 'ESP-1 Inicial', detalle: '7 productos · Binario 15 % por 2 meses · Bono GEN5 activo' },
   { nombre: 'Kit de Inicio', detalle: '4 cajas de producto · su código y su sistema abiertos desde el primer día' },
+];
+
+/** En Estados Unidos son tres: no hay Kit de Inicio. Las unidades de cada paquete,
+ *  de la lista ESP 2026 de Gano Excel USA (knowledge_base/paises/USA_2026.md §3.1). */
+const FORMAS_DE_EMPEZAR_US = [
+  { nombre: 'ESP-3 Visionario', detalle: '40 productos · Binario 17 % por 6 meses · Bono GEN5 activo' },
+  { nombre: 'ESP-2 Empresarial', detalle: '19 productos · Binario 16 % por 4 meses · Bono GEN5 activo' },
+  { nombre: 'ESP-1 Inicial', detalle: '9 productos · Binario 15 % por 2 meses · Bono GEN5 activo' },
 ];
 
 const CSS = `
@@ -105,18 +116,25 @@ const CSS = `
   .guia-servilleta .guia-cta { margin-top: 28px; }
 `;
 
-export default function GuiaPlanServilleta() {
+export default function GuiaPlanServilleta({ pais = 'CO' }: { pais?: PaisServilleta }) {
+  // ESTADOS UNIDOS (26 nov 2026): la misma guía con lo que cambia allá: las cifras
+  // del dolor del latino, el catálogo, las formas de empezar y el día de pago.
+  const enUS = pais === 'US';
+  const actualizada = enUS ? ACTUALIZADA_US : ACTUALIZADA;
+  const formas = enUS ? FORMAS_DE_EMPEZAR_US : FORMAS_DE_EMPEZAR;
   return (
     <section id="guia-plan-servilleta" className="guia-servilleta" aria-labelledby="guia-servilleta-titulo">
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="guia-wrap">
         <h1 id="guia-servilleta-titulo">
-          Plan servilleta de Gano Excel: la presentación del negocio, paso a paso
+          {enUS
+            ? 'Plan servilleta de Gano Excel en Estados Unidos: la presentación del negocio, paso a paso'
+            : 'Plan servilleta de Gano Excel: la presentación del negocio, paso a paso'}
         </h1>
         <p className="guia-firma">
           Preparada por CreaTuActivo, un equipo de distribuidores independientes de Gano Excel. La
           presentación corporativa la publica Gano Excel en sus propios canales. Actualizada:{' '}
-          <time dateTime={ACTUALIZADA.iso}>{ACTUALIZADA.texto}</time>.
+          <time dateTime={actualizada.iso}>{actualizada.texto}</time>.
         </p>
 
         <h2>Qué es el plan servilleta</h2>
@@ -124,8 +142,8 @@ export default function GuiaPlanServilleta() {
           Plan servilleta es el nombre de la forma más corta de explicar un negocio de distribución:
           en pocos minutos, sobre lo que haya a mano (muchas veces una servilleta), se dibuja quién
           fabrica, cómo llega el producto al cliente y cómo se gana. El formato lo popularizó Don
-          Failla con sus presentaciones en servilleta, y en Colombia Gano Excel usa ese mismo nombre
-          para su presentación de negocio.
+          Failla con sus presentaciones en servilleta
+          {enUS ? '.' : ', y en Colombia Gano Excel usa ese mismo nombre para su presentación de negocio.'}
         </p>
         <p>
           Esta versión lo cuenta en las nueve pantallas de arriba, de la idea que la mueve a los
@@ -135,18 +153,41 @@ export default function GuiaPlanServilleta() {
         <h2>Lo que cuenta la presentación servilleta</h2>
 
         <h3>1. El problema</h3>
-        <p>
-          Usted trabaja el mes entero, pero al día siguiente de que le entra la plata, ese dinero ya
-          tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de trabajar, pagar cuentas y
-          repetir, y le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
-        </p>
-        <p>
-          La presentación lo pone en cifras: 9 de cada 10 hogares colombianos dicen que su ingreso no
-          alcanza o alcanza solo para lo mínimo (DANE, Encuesta de Calidad de Vida 2025); el 54,6 % de
-          las personas que trabajan lo hacen en la informalidad (DANE, mayo a julio de 2026), y 3 de
-          cada 4 colombianos en edad de pensionarse no reciben una pensión (Colpensiones y Universidad
-          Javeriana, 2022).
-        </p>
+        {/* ⚠️ La versión de Estados Unidos va sin «al que gana dos millones y al que gana
+            más de veinte» (STORY_03 🔒, en pesos): su versión en dólares la decide el
+            Director. Las cifras de allá: DOLOR_LATINO_USA_NOV2026.md. */}
+        {enUS ? (
+          <>
+            <p>
+              Usted trabaja el mes entero, pero al día siguiente de que le llega el pago, ese dinero
+              ya tiene dueño: la renta, la tarjeta, las facturas. Es un ciclo de trabajar, pagar
+              cuentas y repetir.
+            </p>
+            <p>
+              La presentación lo pone en cifras: 2 de cada 3 latinos en Estados Unidos no tienen
+              ahorros para cubrir tres meses de gastos (Pew Research Center, Encuesta Nacional de
+              Latinos, 2025); el 30 % de los latinos con trabajo de tiempo completo pasó apuros para
+              pagar la renta en el último año, casi lo mismo que quienes no tienen trabajo (33 %), y 3
+              de cada 4 latinos que aún no se jubilan no ven su ahorro para el retiro por buen camino
+              (Reserva Federal, 2025).
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Usted trabaja el mes entero, pero al día siguiente de que le entra la plata, ese dinero ya
+              tiene dueño: el banco, las cuotas, los recibos. Es un ciclo de trabajar, pagar cuentas y
+              repetir, y le pasa exactamente igual al que gana dos millones y al que gana más de veinte.
+            </p>
+            <p>
+              La presentación lo pone en cifras: 9 de cada 10 hogares colombianos dicen que su ingreso no
+              alcanza o alcanza solo para lo mínimo (DANE, Encuesta de Calidad de Vida 2025); el 54,6 % de
+              las personas que trabajan lo hacen en la informalidad (DANE, mayo a julio de 2026), y 3 de
+              cada 4 colombianos en edad de pensionarse no reciben una pensión (Colpensiones y Universidad
+              Javeriana, 2022).
+            </p>
+          </>
+        )}
 
         <h3>2. La oportunidad</h3>
         <p>
@@ -199,8 +240,10 @@ export default function GuiaPlanServilleta() {
 
         <h3>5. El producto</h3>
         <p>
-          Café, bebidas y suplementos con Ganoderma, y una línea de cuidado personal: 22 productos
-          premium de bienestar en cuatro líneas. El cliente los incorpora a su rutina, nota la
+          {enUS
+            ? 'Café, bebidas y suplementos con Ganoderma, y productos de cuidado personal: en Estados Unidos, 18 productos premium de bienestar en tres líneas.'
+            : 'Café, bebidas y suplementos con Ganoderma, y una línea de cuidado personal: 22 productos premium de bienestar en cuatro líneas.'}{' '}
+          El cliente los incorpora a su rutina, nota la
           diferencia y vuelve a pedir, y esa recompra es la que mueve el negocio.
         </p>
 
@@ -240,21 +283,29 @@ export default function GuiaPlanServilleta() {
           lo fija el menor entre el tope de su propio paquete y lo que genera el paquete que se
           compró.
         </p>
-        <p>Gano Excel liquida cada viernes, por ciclos semanales.</p>
+        <p>{enUS ? 'Gano Excel liquida por ciclos semanales.' : 'Gano Excel liquida cada viernes, por ciclos semanales.'}</p>
 
         <h2>Las formas de empezar</h2>
-        <p>Son cuatro, y en las cuatro lo que se paga se convierte en producto:</p>
+        <p>
+          {enUS
+            ? 'Son tres, y en las tres lo que se paga se convierte en producto:'
+            : 'Son cuatro, y en las cuatro lo que se paga se convierte en producto:'}
+        </p>
         <ul>
-          {FORMAS_DE_EMPEZAR.map((f) => (
+          {formas.map((f) => (
             <li key={f.nombre}>
               <strong>{f.nombre}:</strong> {f.detalle}
             </li>
           ))}
         </ul>
-        <p>
-          Los precios en pesos colombianos están en <a href="/paquetes">la página de paquetes</a>;
-          para otro país, Queswa se los da en su moneda.
-        </p>
+        {enUS ? (
+          <p>Los precios en dólares se los da Queswa, a cualquier hora.</p>
+        ) : (
+          <p>
+            Los precios en pesos colombianos están en <a href="/paquetes">la página de paquetes</a>;
+            para otro país, Queswa se los da en su moneda.
+          </p>
+        )}
 
         <h2>Cómo leer los simuladores</h2>
         <p>
@@ -291,6 +342,15 @@ export default function GuiaPlanServilleta() {
 
           <h3>¿En qué países está Gano Excel?</h3>
           <p>En más de 60. El catálogo y los precios cambian de un país a otro.</p>
+          {enUS && (
+            <>
+              <h3>¿Gano Excel está en Estados Unidos?</h3>
+              <p>
+                Sí, desde 2003, con sede corporativa en el sur de California. El catálogo de allá
+                tiene 18 productos, y la inscripción es para residentes en Estados Unidos.
+              </p>
+            </>
+          )}
 
           <h3>¿Puedo preguntar algo que no esté aquí?</h3>
           <p>Sí. Queswa responde a cualquier hora.</p>

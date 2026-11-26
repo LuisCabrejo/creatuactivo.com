@@ -4,6 +4,7 @@
  */
 
 import { Metadata } from 'next';
+import { IDIOMAS_SERVILLETA } from '@/lib/servilleta-pais';
 
 const URL_PAGINA = 'https://creatuactivo.com/servilleta';
 const TITULO = 'Plan servilleta Gano Excel: presentación 2026';
@@ -93,8 +94,11 @@ export const metadata: Metadata = {
     description: 'La presentación del plan servilleta de Gano Excel, por CreaTuActivo, distribuidores independientes.',
   },
 
+  // La versión de Estados Unidos vive en /servilleta/estados-unidos (26 nov 2026):
+  // cada dirección declara la otra para que Google muestre la de cada país.
   alternates: {
     canonical: '/servilleta',
+    languages: IDIOMAS_SERVILLETA,
   },
 };
 

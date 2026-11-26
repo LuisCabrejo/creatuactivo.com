@@ -169,7 +169,9 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import GuiaPlanServilleta from './GuiaPlanServilleta';
+import { paisDeRuta, RUTA_SERVILLETA } from '@/lib/servilleta-pais';
 import CicloPropiedad from './CicloPropiedad';
 import ImagenAmpliable from './ImagenAmpliable';
 import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
@@ -417,6 +419,58 @@ const CIFRAS_PROBLEMA: {
   },
 ];
 
+/** Las cifras del dolor en ESTADOS UNIDOS (Director, 26 nov 2026), la misma historia
+ *  en tres tiempos para el latino de allá: no hay colchón → trabajar completo no
+ *  basta → el retiro no cierra. Investigación y candidatas descartadas:
+ *  docs/investigaciones/resultados/DOLOR_LATINO_USA_NOV2026.md. Las tres, verificadas
+ *  en la fuente primaria el 24 nov 2026:
+ *  · Pew Research Center, «The state of Latinos' finances» (National Survey of
+ *    Latinos, 6-16 oct 2025, bilingüe, 4.923 adultos): «One-in-three Latinos (33%)
+ *    say they have emergency or rainy-day funds that would cover their expenses for
+ *    three months…» y «30% of full-time workers have had trouble paying their rent
+ *    or mortgage in the last year, as have 33% of unemployed Latinos».
+ *    https://www.pewresearch.org/race-and-ethnicity/2025/11/24/the-state-of-latinos-finances-outlook-experiences-preparedness-for-a-financial-downturn/
+ *  · Federal Reserve, Economic Well-Being of U.S. Households in 2025 (SHED, mayo
+ *    2026), tabla 29: el 24 % de los hispanos no jubilados dice que su ahorro para
+ *    el retiro va por buen camino («Retirement savings on track»).
+ *    https://www.federalreserve.gov/publications/files/2025-report-economic-well-being-us-households-202605.pdf
+ *  ⛔ Lo que NO traslada de Colombia: la informalidad (la participación laboral
+ *  latina allá es mayor que la del promedio), «sin pensión» (casi todo el que
+ *  cotiza recibe Seguro Social) y «dos trabajos» (el BLS lo desmiente: los
+ *  hispanos son el grupo con menos personas en dos empleos). Lo migratorio nunca
+ *  entra a la pantalla. La comparación con el desempleado (30 % contra 33 %) va
+ *  en la voz del socio y en la guía, no en la tarjeta. */
+const CIFRAS_PROBLEMA_US: typeof CIFRAS_PROBLEMA = [
+  {
+    n: '2 de cada 3',
+    texto: 'Latinos sin ahorros para cubrir tres meses de gastos',
+    fuente: 'Pew Research Center · Encuesta Nacional de Latinos, 2025',
+    icono: { tipo: 'persona', de: 3, en: 2 },
+  },
+  {
+    n: '3 de cada 10',
+    texto: 'Latinos con trabajo de tiempo completo que pasaron apuros para pagar la renta',
+    fuente: 'Pew Research Center · 2025',
+    icono: { tipo: 'persona', de: 10, en: 3 },
+  },
+  {
+    n: '3 de cada 4',
+    texto: 'Latinos no jubilados que no ven su ahorro para el retiro por buen camino',
+    fuente: 'Reserva Federal · SHED 2025',
+    icono: { tipo: 'persona', de: 4, en: 3 },
+  },
+];
+
+/** Las credenciales de Gano Excel al pie de los números, por país. Las de Estados
+ *  Unidos salen de la presentación del liderazgo de EE. UU. (mar 2026, con las
+ *  mismas cifras que la de Gano Excel USA): en el país desde 2003, sede corporativa
+ *  en el sur de California (Pomona). «Más de 60 países» se queda igual en los dos:
+ *  ese material dice «más de 70», y la cifra se cambia en todas partes o en ninguna. */
+const CREDENCIALES: Record<'CO' | 'US', string> = {
+  CO: '30 años · Más de 60 países · Nueve sedes en Colombia',
+  US: '30 años · Más de 60 países · En Estados Unidos desde 2003',
+};
+
 /** Tasa fija del fabricante para más de 60 países. No es la TRM del mercado. */
 const TRM = 4500;
 /** Bono GEN5 por paquete, generación por generación (USD) — COMP_GEN5_04 del arsenal
@@ -470,7 +524,11 @@ export default function PitchDeckPage() {
   // Colombia arranca en dólares (Director, 11 oct 2026: «para quien está afuera
   // es mejor dólar»): el país lo da /api/pais, y si no llega se queda en pesos.
   // El botón sigue a un toque, y lo que la persona elija no se lo pisa nadie.
-  const [moneda, setMonedaEstado] = useState<'COP' | 'USD'>('COP');
+  // ESTADOS UNIDOS (26 nov 2026): su versión vive en /servilleta/estados-unidos
+  // (src/lib/servilleta-pais.ts). Allá todo va en dólares y sin el botón de moneda.
+  const pais = paisDeRuta(usePathname());
+  const enUS = pais === 'US';
+  const [moneda, setMonedaEstado] = useState<'COP' | 'USD'>(enUS ? 'USD' : 'COP');
   const monedaElegida = useRef(false);
   const setMoneda = (m: 'COP' | 'USD') => { monedaElegida.current = true; setMonedaEstado(m); };
   useEffect(() => {
@@ -812,7 +870,8 @@ export default function PitchDeckPage() {
   const videoPresentacionRef = useRef<HTMLVideoElement | null>(null);
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    if (q.get('video') !== '1' || q.get('kiosk') === '1') return;
+    // En Estados Unidos no hay video todavía: su voz trae las cifras de Colombia.
+    if (enUS || q.get('video') !== '1' || q.get('kiosk') === '1') return;
     videoPorEnlace.current = true;
     setVideoEsperaToque(true);
     setVideoPresentacion(true);
@@ -1057,6 +1116,15 @@ export default function PitchDeckPage() {
           color: var(--pd-muted); text-transform: uppercase;
         }
         .pd-hud-right { display: flex; align-items: center; gap: 14px; pointer-events: auto; }
+        .pd-hud-left { display: flex; align-items: center; gap: 14px; margin-right: 14px; }
+        .pd-pais { display: flex; gap: 2px; pointer-events: auto; }
+        .pd-pais button {
+          background: transparent; border: 1px solid transparent; border-radius: 4px;
+          color: var(--pd-muted); font-family: var(--font-mono); font-size: 0.58rem;
+          letter-spacing: 0.14em; padding: 3px 6px; cursor: pointer; transition: all 0.2s;
+        }
+        .pd-pais button:hover { color: var(--pd-text); }
+        .pd-pais button.active { border-color: rgba(255,255,255,0.14); color: var(--pd-text); }
         .pd-dots { display: flex; gap: 7px; }
         .pd-dot {
           width: 7px; height: 7px; border-radius: 50%; padding: 0;
@@ -2193,7 +2261,37 @@ export default function PitchDeckPage() {
       >
         {/* ── HUD ─────────────────────────────────────────────────────── */}
         <div className="pd-hud">
-          <span className="pd-brand">CreaTuActivo.com</span>
+          <div className="pd-hud-left">
+            <span className="pd-brand">CreaTuActivo.com</span>
+            {/* EL PAÍS (Director, 24 nov 2026: «un simple botón de cambiar país»). Cada
+                país es su propia dirección (src/lib/servilleta-pais.ts); el botón lleva a
+                la otra con el socio y la pantalla en la que va. En el kiosco no va: ahí
+                manda la página de afuera. */}
+            {!isKiosk && (
+              <div className="pd-pais" role="group" aria-label="País de la presentación">
+                {(['CO', 'US'] as const).map((p) => (
+                  <button
+                    key={p}
+                    type="button"
+                    className={pais === p ? 'active' : ''}
+                    aria-pressed={pais === p}
+                    aria-label={p === 'CO' ? 'Colombia' : 'Estados Unidos'}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (p === pais) return;
+                      const q = new URLSearchParams();
+                      if (refSocio) q.set('ref', refSocio);
+                      if (slide > 1) q.set('pantalla', String(slide));
+                      const qs = q.toString();
+                      window.location.href = `${RUTA_SERVILLETA[p]}${qs ? `?${qs}` : ''}`;
+                    }}
+                  >
+                    {p === 'CO' ? 'CO' : 'EE. UU.'}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <div className="pd-hud-right">
             <div className="pd-dots">
               {PANTALLAS.map((n) => (
@@ -2284,13 +2382,17 @@ export default function PitchDeckPage() {
                 tarjetas apiñaba la pantalla, y la marca ya va en el HUD. */}
             {/* La presentación entera en video (Director, 30 oct 2026): el socio
                 elige si la rueda o si la presenta él (ver videoPresentacion). */}
-            <button
-              type="button"
-              className={`pd-demo pd-ver-video ${videoPrincipal ? 'pd-ver-video--principal' : ''}`}
-              onClick={(e) => { e.stopPropagation(); setVideoPresentacion(true); }}
-            >
-              VER LA PRESENTACIÓN EN VIDEO →
-            </button>
+            {/* En Estados Unidos no va (26 nov 2026): la voz del video dice las cifras
+                de Colombia. Vuelve cuando haya una versión con las de allá. */}
+            {!enUS && (
+              <button
+                type="button"
+                className={`pd-demo pd-ver-video ${videoPrincipal ? 'pd-ver-video--principal' : ''}`}
+                onClick={(e) => { e.stopPropagation(); setVideoPresentacion(true); }}
+              >
+                VER LA PRESENTACIÓN EN VIDEO →
+              </button>
+            )}
           </div>
         </section>
 
@@ -2310,7 +2412,7 @@ export default function PitchDeckPage() {
             {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
             <p className="pd-eyebrow">El dolor, en cifras</p>
             <div className="pd-cifras-lista pd-cifras-lista--tres">
-              {CIFRAS_PROBLEMA.map((c) => (
+              {(enUS ? CIFRAS_PROBLEMA_US : CIFRAS_PROBLEMA).map((c) => (
                 <div className="pd-cifra" key={c.n}>
                   <p className="n">{c.n}</p>
                   {c.icono.tipo === 'barra' ? (
@@ -2615,13 +2717,19 @@ export default function PitchDeckPage() {
                     </div>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="pd-demo"
-                  onClick={(e) => { e.stopPropagation(); setLinea(0); }}
-                >
-                  VER LAS CUATRO LÍNEAS →
-                </button>
+                {/* En Estados Unidos no va todavía (26 nov 2026): las fichas y sus imágenes
+                    son del catálogo de Colombia (Luvoco y Piel&Brillo no existen allá, y
+                    los conteos van impresos en la imagen). Vuelve con las tres líneas de
+                    allá y sus fotos reales (USA_2026.md §2). */}
+                {!enUS && (
+                  <button
+                    type="button"
+                    className="pd-demo"
+                    onClick={(e) => { e.stopPropagation(); setLinea(0); }}
+                  >
+                    VER LAS CUATRO LÍNEAS →
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -2673,7 +2781,8 @@ export default function PitchDeckPage() {
               <div className="pd-numeros-top">
                 <p className="pd-eyebrow">Cómo se gana</p>
                 <div className="pd-moneda" role="group" aria-label="Moneda">
-                  {(['COP', 'USD'] as const).map((m) => (
+                  {/* En Estados Unidos queda solo el rótulo USD: allá no hay pesos. */}
+                  {(enUS ? (['USD'] as const) : (['COP', 'USD'] as const)).map((m) => (
                     <button
                       key={m}
                       type="button"
@@ -2736,7 +2845,7 @@ export default function PitchDeckPage() {
 
                   <div className="pd-display">{monto(Math.round(nivelSel.income * tarifa.pct / 10))}</div>
                   <div className="pd-sub">
-                    {enCOP(nivelSel.people)} distribuidores nuevos · {enCOP(totalDistribuidores)} en
+                    {(enUS ? enUSD : enCOP)(nivelSel.people)} distribuidores nuevos · {(enUS ? enUSD : enCOP)(totalDistribuidores)} en
                     total
                   </div>
 
@@ -2748,7 +2857,9 @@ export default function PitchDeckPage() {
                         className={`pd-pkg ${tarifa12 === i ? 'active' : ''}`}
                         onClick={() => setTarifa12(i)}
                       >
-                        {t.nombre}<b>{t.pct}%</b>
+                        {/* En Estados Unidos no hay Kit de Inicio (USA_2026.md): el 10 %
+                            es la base, la que queda cuando vence el de cada paquete. */}
+                        {enUS && t.meses === 0 ? 'Base' : t.nombre}<b>{t.pct}%</b>
                       </button>
                     ))}
                   </div>
@@ -2810,7 +2921,8 @@ export default function PitchDeckPage() {
               <div className="pd-numeros-top">
                 <p className="pd-eyebrow">Cómo se gana</p>
                 <div className="pd-moneda" role="group" aria-label="Moneda">
-                  {(['COP', 'USD'] as const).map((m) => (
+                  {/* En Estados Unidos queda solo el rótulo USD: allá no hay pesos. */}
+                  {(enUS ? (['USD'] as const) : (['COP', 'USD'] as const)).map((m) => (
                     <button
                       key={m}
                       type="button"
@@ -2898,10 +3010,12 @@ export default function PitchDeckPage() {
               </div>
               {/* Gano al final, como quien paga (WHY_02), con sus credenciales como
                   estatus y no como alegato. */}
+              {/* En Estados Unidos, sin «los viernes»: el día de pago de allá no está
+                  documentado (USA_2026.md); que es semanal, sí. */}
               <p className="pd-nota">
-                Las comisiones las paga el fabricante, Gano Excel, cada semana, los viernes.
+                Las comisiones las paga el fabricante, Gano Excel, cada semana{enUS ? '' : ', los viernes'}.
               </p>
-              <p className="pd-credenciales">30 años · Más de 60 países · Nueve sedes en Colombia</p>
+              <p className="pd-credenciales">{CREDENCIALES[pais]}</p>
             </div>
           </div>
         </section>
@@ -3125,7 +3239,7 @@ export default function PitchDeckPage() {
       {/* LA GUÍA EN TEXTO — segundo piso, fuera del deck a propósito: ahí no la
           alcanzan el clic que avanza ni el swipe, y Google la lee sin interacción.
           Lleva el único h1 de la página. En pantalla completa se oculta. */}
-      <GuiaPlanServilleta />
+      <GuiaPlanServilleta pais={pais} />
 
       {/* MODO VERTICAL — la presentación en un marco de celular, para Meet. Abre
           en la pantalla donde va el socio y con su ?ref; el teclado pasa al marco
@@ -3135,7 +3249,7 @@ export default function PitchDeckPage() {
           <div className="pd-vertical-marco" style={{ width: 412, height: 732, transform: `scale(${vScale})` }}>
             <iframe
               ref={vIframeRef}
-              src={`/servilleta?kiosk=1&pantalla=${slide}${refSocio ? `&ref=${encodeURIComponent(refSocio)}` : ''}`}
+              src={`${RUTA_SERVILLETA[pais]}?kiosk=1&pantalla=${slide}${refSocio ? `&ref=${encodeURIComponent(refSocio)}` : ''}`}
               title="Presentación en modo vertical"
               onLoad={() => vIframeRef.current?.contentWindow?.focus()}
             />

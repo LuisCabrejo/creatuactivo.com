@@ -114,5 +114,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // La versión de Estados Unidos (26 nov 2026), con su hreflang es-US.
+    {
+      url: `${baseUrl}/servilleta/estados-unidos`,
+      lastModified: new Date('2026-11-26'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
   ];
 }

@@ -56,7 +56,7 @@ export function generateMetadata({ params }: { params: { evento: string } }): Me
     };
   }
   const titulo = `Mesa privada · ${mesa.ciudad}`;
-  const descripcion = `${mesa.fechaTexto}, ${mesa.lugar}. Cómo construir su propio activo: una empresa de distribución moderna que no depende de su presencia. Elija su hora y su silla.`;
+  const descripcion = `${mesa.fechaTexto}, ${mesa.lugar}. Cómo construir su propio activo: un sistema de distribución a su nombre, que no depende de su presencia. Elija su hora y su silla.`;
   return {
     title: titulo,
     description: descripcion,
@@ -152,7 +152,7 @@ export default async function MesaPage({
             activo
           </>
         }
-        subtitle="Una empresa de distribución moderna que no depende de su presencia."
+        subtitle="Un sistema de distribución a su nombre, que no depende de su presencia."
       />
       <MesaReserva evento={params.evento} mesa={mesa} />
     </main>

@@ -495,9 +495,9 @@ export default function PruebaPage() {
         </Body>
         {/* «Moderna» va UNA vez en toda la página: ver la nota en src/app/page.tsx. */}
         <Body mt>
-          Eso fue lo que cambió: hoy es una empresa de distribución moderna. Necesita tres
-          elementos que, armados por su cuenta, le costarían millones, y usted los recibe en
-          una sola aplicación.
+          Eso fue lo que cambió: hoy usted puede ser dueño de un sistema de distribución que
+          cabe en su celular. No construye las piezas: se apoya en tres que ya existen y que,
+          armadas por su cuenta, le costarían millones.
         </Body>
 
         {/* Tres elementos, tres columnas (8 oct 2026): con `auto-fit, minmax(280px)` en

@@ -6,6 +6,10 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.30 — Ser dueño de un sistema de distribución (26 nov 2026)
+
+Director: el marco para presentar el negocio en frío deja de ser *una empresa de distribución moderna* y pasa a *ser dueño de un sistema de distribución que cabe en su celular* —y no construye las piezas: se apoya en tres que ya existen—, la línea de la Presentación (5.0). El resumen del video «Cómo funciona» dice «su sistema de distribución vende sin ser dueño de la fábrica». Mismo cambio en el prompt de marca personal (`v2.7_dueno_del_sistema_nov2026`). Tamaños: web 18.654 · WhatsApp 18.238 · Dashboard 16.129.
+
 ## v5.29 — En el Dashboard, el trato lo pone el socio (16 nov 2026)
 
 Varios distribuidores le dijeron al Director que preferían que Queswa les hablara de tú cuando ellos le hablan de tú. Medido antes de decidir (450 turnos del Dashboard, 21 socios, 60 días): 3 escriben solo de tú, 5 solo de usted, 6 mezclan y 7 no dejan marca; quien más lo usa después del Director (107 turnos) escribe siempre de usted. Por eso no es «tú para los socios» sino espejo: de usted por defecto, de tú a quien le habla de tú.

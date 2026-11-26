@@ -30,6 +30,10 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.94: la solución se nombra como en la Presentación (26 nov 2026)
+
+Director: «empresa de distribución moderna» no tenía calado (se confundía con local y empleados, con «empresa digital» o con «trabajarle a otro»). La forma nueva es la de la pantalla 5.0: *ser dueño de un sistema de distribución que cabe en su celular* + *no construye las piezas: se apoya en tres que ya existen*. Cambian los candados de `WHY_01` (*crear su propio activo, un sistema de distribución a su nombre que cabe en su celular*; sale «y lo maneja todo desde el celular», que repetía), `WHY_02` (primera línea; sale «Usted los recibe en una sola aplicación»: el celular es el envase) y `EMPRESA_DIGITAL_01` (*Aquí lo llamamos un sistema de distribución*; *es moderno porque el sistema entero cabe en su celular*), con su espejo en `respuestas-maestras.ts` (prefijo verificado) y la firma de la bitácora (`una? `). `OBJ_01`: «apalancarse» → «apoyarse» (en Colombia apalancarse es endeudarse). `RETO_D22`, `RETO_D58` y `RETO_D74` dicen «sistema de distribución» en el relato (Director). Baterías en verde (salud, negocio 43 candados, clasificador 65/65). Desplegado en los tres tenants con el orden sin ventana (`_old`); 91 fragmentos de `arsenal_inicial` en cada uno.
+
 ## arsenal_inicial — v6.93: el miedo a la tecnología (23 nov 2026)
 
 Lo aprobó el Director el 23 nov, junto con dejar `POCA_GENTE_01` como regla general (su índice no cambia) y dar por buenas las dos marcas del juez sobre `RETO_01` y la solicitud.

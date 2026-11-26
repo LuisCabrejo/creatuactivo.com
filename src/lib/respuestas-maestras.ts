@@ -47,7 +47,7 @@
  *   RECIBE la persona; las dos acciones responden qué HACE y viven en EAM_01 (WHY_01 solo nombra los 3 elementos, v6.59).
  *   El enlace sube al elemento 2 para que la propiedad lo reciba explicado. Waze va
  *   en MECANISMO («le voy marcando la ruta»), nunca «lo lleva» — promesa de ingreso.
- *   Sincronizado carácter por carácter con arsenal_inicial.txt v6.52 (arranque: v6.58, «empresa de distribución moderna»).
+ *   Sincronizado carácter por carácter con arsenal_inicial.txt v6.52 (arranque: v6.94, «usted es dueño de un sistema de distribución que cabe en su celular»).
  * Reescritura 25 sep 2026 — LOS TRES ELEMENTOS Y EL CLIENTE A SU NOMBRE (texto del
  *   Director, pulido en la sesión de naming). La versión de la franquicia daba el «ajá»
  *   con una analogía de dos párrafos y nunca decía de quién es el cliente: «cada vez que
@@ -156,7 +156,7 @@
  * cripto (la misma causa por la que el modelo alucinaba infoproductos).
  * Ver docs/handoff/negocio/HANDOFF_HOOK_Y_LENGUAJE_CONCRETO_JUL2026.md §8.
  */
-const MASTER_WHY_02 = `Con gusto. Funciona así: una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le costarían millones. Usted los recibe en una sola aplicación.
+const MASTER_WHY_02 = `Con gusto. Funciona así: usted es dueño de un sistema de distribución que cabe en su celular. No construye las piezas: se apoya en tres que ya existen y que, armadas por su cuenta, le costarían millones.
 
 1. **Un fabricante**, que empaca y despacha cada pedido hasta la casa del cliente.
 
@@ -294,11 +294,11 @@ const RE_DIA_A_DIA =
  * dirigirlo (celular, sin local ni bodega); lo que se mueve es físico. El candado se AFIRMA,
  * nunca se niega — decir "no es dinero en la nube" invoca el elefante rosado.
  */
-const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos una **empresa de distribución moderna** —o un sistema de distribución, es lo mismo—: un negocio propio con sus beneficios, sin tener que montar la operación física.
+const MASTER_EMPRESA_DIGITAL = `Con gusto. Aquí lo llamamos un **sistema de distribución**: un negocio propio con sus beneficios, sin tener que montar la operación física.
 
 En un negocio tradicional usted paga arriendo, nómina, inventario y transporte. Aquí todo eso lo asume el fabricante: produce cada producto y lo despacha hasta la casa de su cliente.
 
-Y es moderna porque la empresa entera cabe en su celular: yo atiendo a sus clientes a toda hora, y cada cliente queda a su nombre — de cada compra que haga, a usted le queda un porcentaje. Se lo liquida el fabricante, **Gano Excel**, en **su cuenta bancaria cada viernes**.
+Y es moderno porque el sistema entero cabe en su celular: yo atiendo a sus clientes a toda hora, y cada cliente queda a su nombre — de cada compra que haga, a usted le queda un porcentaje. Se lo liquida el fabricante, **Gano Excel**, en **su cuenta bancaria cada viernes**.
 
 ¿Quiere que le muestre con números cómo se vería en su caso?`;
 

@@ -111,7 +111,7 @@ function esScraperDePreview(): boolean {
 // La promesa de la empresa pasa a la descripción.
 const OG_QUESWA = {
   title: 'Hable con Queswa',
-  description: 'Le explica y le responde a cualquier hora cómo usted puede tener a su nombre una empresa de distribución moderna.',
+  description: 'Le explica y le responde a cualquier hora cómo usted puede ser dueño de un sistema de distribución que cabe en su celular.',
   image: 'https://creatuactivo.com/og/queswa?v=20261107',
   alt: OG_PRESENTACION.alt,
   // El <title> de la página (solo lo ven los robots: a la persona se le redirige).

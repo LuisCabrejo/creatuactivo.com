@@ -604,7 +604,7 @@ export default function HomePage() {
                 su causa en la misma línea —el cliente que vuelve a comprar—. «A su
                 nombre» lleva la propiedad. Antes: «Cree su propio activo: un sistema de
                 distribución que no depende de su presencia», tres abstracciones juntas.
-                «Empresa de distribución moderna» sigue más abajo, una vez en la página. */}
+                «Sistema de distribución que cabe en su celular» sigue más abajo, una vez. */}
             <h1
               className="m-0 text-balance md:mx-auto lg:mx-0"
               style={{
@@ -792,10 +792,9 @@ export default function HomePage() {
           complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
           para eso.
         </Body>
-        {/* «Moderna» va UNA vez en toda la página y pagada en la misma frase con los
-            hechos (25 sep 2026, investigación de naming). La forma es una sola,
-            «empresa de distribución moderna» (Director, 28 sep 2026): las cuatro
-            palabras juntas, nunca partidas. */}
+        {/* La línea de la Presentación, 5.0 (Director, 26 nov 2026): «ser dueño de un
+            sistema de distribución que cabe en su celular» + «se apoya en tres que ya
+            existen». El celular paga «moderno» con un hecho; «empresa» no tenía calado. */}
         {/* EL ENTREGABLE SON TRES ELEMENTOS, dichos como FUNCIONES (Director, 9 oct
             2026 — reemplaza la forma del 27 sep): fabricante · Queswa · saber qué
             hacer. La aplicación subió de rango: es el ENVASE de los tres («en una
@@ -804,9 +803,9 @@ export default function HomePage() {
             propia sección más abajo. Arranque calcado de WHY_02 (v6.82, 29 oct 2026: el obstáculo con precio).
             → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
         <Body mt>
-          Eso fue lo que cambió: hoy es una empresa de distribución moderna. Necesita tres
-          elementos que, armados por su cuenta, le costarían millones, y usted los recibe en
-          una sola aplicación.
+          Eso fue lo que cambió: hoy usted puede ser dueño de un sistema de distribución que
+          cabe en su celular. No construye las piezas: se apoya en tres que ya existen y que,
+          armadas por su cuenta, le costarían millones.
         </Body>
 
         {/* Tres elementos, tres columnas (8 oct 2026): con `auto-fit, minmax(280px)` en

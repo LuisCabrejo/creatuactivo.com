@@ -37,7 +37,7 @@ const articles = [
     image: '/images/blog/thumb-blog-problem.jpg',
     label: 'INDUSTRIA',
     cardTitle: '¿Es el network marketing un modelo obsoleto?',
-    excerpt: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy una empresa de distribución moderna, con atención a toda hora.',
+    excerpt: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy un sistema de distribución moderno, con atención a toda hora.',
     category: 'Industria',
     readTime: '6 min',
   },

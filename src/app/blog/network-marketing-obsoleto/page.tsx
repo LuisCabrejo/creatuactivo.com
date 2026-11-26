@@ -18,19 +18,19 @@ import QueswaCTAButton from '@/components/QueswaCTAButton';
 // el artículo mostraba la tarjeta de la Home.
 export const metadata = {
   title: '¿Es el network marketing un modelo obsoleto?',
-  description: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy una empresa de distribución moderna, con atención a toda hora.',
+  description: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy un sistema de distribución moderno, con atención a toda hora.',
   alternates: { canonical: 'https://creatuactivo.com/blog/network-marketing-obsoleto' },
   openGraph: {
     type: 'article',
     url: 'https://creatuactivo.com/blog/network-marketing-obsoleto',
     title: '¿Es el network marketing un modelo obsoleto?',
-    description: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy una empresa de distribución moderna, con atención a toda hora.',
+    description: 'Antes dependía de reuniones en persona y de un tiempo que casi nadie tiene. Así funciona hoy un sistema de distribución moderno, con atención a toda hora.',
     siteName: 'CreaTuActivo',
     locale: 'es_CO',
     // Declarar openGraph aquí corta la imagen heredada de la Home: va explícita.
     images: [{ url: 'https://creatuactivo.com/opengraph-image', width: 1200, height: 630 }],
   },
-  keywords: 'network marketing obsoleto, network marketing hoy, empresa de distribución moderna, sistema de distribución, multinivel 2026',
+  keywords: 'network marketing obsoleto, network marketing hoy, sistema de distribución moderno, sistema de distribución, multinivel 2026',
 };
 
 export default function NetworkMarketingObsoletoPage() {
@@ -120,7 +120,7 @@ export default function NetworkMarketingObsoletoPage() {
                     Cómo funciona hoy
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-6">
-                    Hoy una empresa de distribución moderna se maneja desde el celular: usted
+                    Hoy un sistema de distribución cabe en el celular: usted
                     comparte un enlace, Queswa conversa con quien llega a cualquier hora, y Gano
                     Excel fabrica y despacha cada pedido.
                   </p>

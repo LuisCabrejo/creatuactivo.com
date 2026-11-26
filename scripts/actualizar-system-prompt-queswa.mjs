@@ -39,7 +39,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
 
-const VERSION_LABEL = 'v5.29_trato_lo_pone_el_socio';
+const VERSION_LABEL = 'v5.30_dueno_del_sistema';
 const ARCHIVO = 'system-prompt-queswa.md';
 
 export const CANALES = {

@@ -73,11 +73,11 @@
  *                      la 9 los números no se mueven (`?pantalla=8` vive en
  *                      Queswa, el webhook, /paquetes, los enlaces del socio y el
  *                      Dashboard).
- *  5 LA SOLUCIÓN     · beat 0: «Un activo: una empresa de distribución moderna a su
- *    Y CÓMO FUNCIONA   nombre.» —«Un activo» lo más grande y el único oro (2 nov
- *                      2026)— y el obstáculo con precio, en gris, «Tres elementos que le
- *                      costarían millones:» (28 oct 2026; la definición completa
- *                      con Uber va en la voz del socio), con aire entre las dos
+ *  5 LA SOLUCIÓN     · beat 0: «Ser dueño de un sistema de distribución que cabe en
+ *    Y CÓMO FUNCIONA   su celular.» —«Ser dueño» lo más grande y el único oro— y, en
+ *                      gris, «Usted no construye las piezas: se apoya en tres que ya
+ *                      existen.» (26 nov 2026; hasta ese día, «Un activo: una empresa
+ *                      de distribución moderna a su nombre.»), con aire entre las dos
  *                      frases. El botón del video «Cómo funciona» (13-30 oct 2026)
  *                      SALIÓ: el video de la presentación entera vive en la 1.
  *                      Desde el 7 nov 2026 (Director: «una idea en una sola imagen
@@ -235,7 +235,7 @@ const ACCIONES: { rotulo: string; titulo: string; sub: string; queswa?: boolean;
 
 /** «La diferencia» en tres puntos (9 nov 2026, Director). El 02 va en oro: es el dinero. */
 const PUNTOS_DIFERENCIA: { t: string; s: string; oro?: boolean }[] = [
-  { t: 'Cada cliente queda a su nombre', s: 'El cliente que llega por su enlace queda registrado en su empresa.' },
+  { t: 'Cada cliente queda a su nombre', s: 'El cliente que llega por su enlace queda registrado en su sistema.' },
   { t: 'Un porcentaje en cada recompra', s: 'Cada vez que vuelve a comprar, a usted le queda un porcentaje.', oro: true },
   { t: 'Eso es un activo', s: 'Sigue produciendo aunque usted no esté presente.' },
 ];
@@ -2098,15 +2098,16 @@ export default function PitchDeckPage() {
           margin-bottom: 0.25em; }
         .pd-obstaculo { font-family: var(--font-sans); font-weight: 600; text-align: center;
           font-size: clamp(1.02rem, 1.9vw, 1.4rem); line-height: 1.35;
-          color: var(--pd-gold); margin: 60px auto 0; max-width: 32ch; }
+          color: var(--color-text-body, #C8C7C2); margin: 60px auto 0; max-width: 32ch; }
         @media (max-width: 860px) {
           .pd-sectores { grid-template-columns: 1fr; }
           .pd-pares li { grid-template-columns: minmax(0, 10.5rem) 1.8rem 1fr; padding: 0.7rem 0; }
           /* Las cuatro palabras van sin corte; en el teléfono la letra baja para que
              quepan en el ancho y no abran un desplazamiento lateral. */
           .pd-propuesta { font-size: min(1.2rem, 5.1vw); }
-          /* Con 5,1vw las cuatro palabras sin corte pasaban 1-4 px del borde en teléfonos
-             de 375 px o menos (medido el 2 nov 2026). */
+          /* La solución, a 4,6vw: con 5,1vw «empresa de distribución moderna» sin corte
+             pasaba del borde (2 nov 2026). Desde el 26 nov el titular corta normal; se
+             mantiene el tamaño probado en 375 px. */
           .pd-propuesta--solucion { font-size: min(1.2rem, 4.6vw); }
         }
         /* EN EL TELÉFONO, ARRIBA Y CON AIRE (Director, 7 nov 2026), pantallas 1 a 5. Centrado,
@@ -2400,18 +2401,22 @@ export default function PitchDeckPage() {
                   socio. Sin «similar a Uber, Rappi o Nequi»: la ola ya la contó la
                   pantalla 3. «Moderna» lo pagan las tres piezas y el celular de la
                   unión. */}
-              {/* «Un activo» primero (Director, 1 nov 2026): es la idea central que la
-                  persona se lleva, y la empresa de distribución moderna es el vehículo
-                  que la concreta — la misma forma del H1 de la Home. El oro va en el
-                  activo; la definición llega en el beat 6, pegada a su causa. */}
               {/* La jerarquía dice lo mismo que el orden (2 nov 2026, Director: «hazlo»):
-                  «Un activo:» es lo más grande de la pantalla y el único oro; hasta ese
-                  día el obstáculo, en mayúsculas doradas, pesaba más que la tesis. Se
-                  recuerda lo que se aísla, y dos dorados se anulan. Sigue siendo UNA
-                  frase: el activo nunca va suelto, la definición queda pegada debajo. */}
+                  la palabra clave es lo más grande de la pantalla y el único oro. Se
+                  recuerda lo que se aísla, y dos dorados se anulan. Del 1 al 25 nov 2026
+                  esa palabra fue «Un activo:»; desde el 26, «Ser dueño». */}
+              {/* «Ser dueño» (Director, 26 nov 2026): «empresa» no tenía calado —nadie la
+                  repite y se confundía con local, empleados o «empresa digital»—, y en dos
+                  presentaciones la gente concluyó que «le iban a trabajar a otro». El oro
+                  va en «Ser dueño», que responde a esa duda de frente. «Que cabe en su
+                  celular» paga «moderno» con algo que la persona tiene en la mano y retoma
+                  la modernización de la pantalla 3. «Activo» ya no abre: remata en el beat
+                  3 («Eso es un activo»), pegado a su causa —cada idea se dice una vez—.
+                  Se descartó «ingresos apalancados»: en Colombia apalancarse es endeudarse,
+                  «palanca» es rosca y nombra el resultado, no el mecanismo. */}
               <p className="pd-propuesta pd-propuesta--solucion">
-                <span className="pd-activo-titular">Un activo:</span>{' '}
-                una&nbsp;empresa&nbsp;de&nbsp;distribución&nbsp;moderna a su nombre.
+                <span className="pd-activo-titular">Ser dueño</span>{' '}
+                de un sistema de distribución que cabe en su celular.
               </p>
               {/* El obstáculo con precio, en lugar de «Se requieren tres elementos»:
                   un requisito es una lista que aprender; un obstáculo es algo que la
@@ -2430,7 +2435,9 @@ export default function PitchDeckPage() {
                   elementos; la unión la cobra con «los tres trabajan para usted». Hasta ese
                   día, «Tres elementos que le costarían millones:» (los millones van en la
                   voz, con lo que se paga tradicionalmente: fábrica, vendedores, tecnología). */}
-              <p className="pd-obstaculo">Una empresa moderna es dueña del sistema, no de las piezas.</p>
+              {/* Desde el 26 nov 2026 (Director): la palanca dicha en verbos llanos, sin
+                  «empresa». Vuelve a gris: el único oro es «Ser dueño». */}
+              <p className="pd-obstaculo">Usted no construye las piezas: se apoya en tres que ya existen.</p>
             </div>
           </div>
 

@@ -20,7 +20,7 @@
  * deck, donde el socio pone el contexto.
  */
 export const OG_PRESENTACION = {
-  title: 'Una empresa de distribución moderna, a su nombre',
+  title: 'Ser dueño de un sistema de distribución que cabe en su celular',
   description:
     'Los dos sectores donde vemos la oportunidad, y los tres elementos que se requieren para montar la suya.',
   // La genera opengraph-image.tsx; la ruta sirve el PNG con o sin el hash que

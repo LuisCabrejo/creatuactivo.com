@@ -876,7 +876,7 @@ export default function HomePage() {
         {/* La palanca de la estructura (Director, 26 nov 2026): responde «a qué horas»
             de la entrada del hero. Literal de OBJ_01, ya aprobada. */}
         <Body mt>
-          Usted no necesita fabricar horas. Necesita apalancarse en una estructura que ya
+          Usted no necesita fabricar horas. Necesita apoyarse en una estructura que ya
           existe.
         </Body>
 

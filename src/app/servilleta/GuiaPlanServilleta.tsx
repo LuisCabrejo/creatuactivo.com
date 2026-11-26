@@ -157,8 +157,9 @@ export default function GuiaPlanServilleta() {
 
         <h3>3. La solución: los tres elementos</h3>
         <p>
-          Una empresa de distribución moderna necesita tres elementos que, armados por su cuenta, le
-          costarían millones. Aquí cada uno tiene quien lo haga:
+          La solución es ser dueño de un sistema de distribución que cabe en su celular. Usted no
+          construye las piezas: se apoya en tres que ya existen, y que armadas por su cuenta le
+          costarían millones:
         </p>
         <ul>
           <li>

@@ -45,23 +45,40 @@ const NEGRO_QR = cmyk(0, 0, 0, 1)
 
 export interface InsumosHablador {
   fondoCmyk: ArrayBuffer | Uint8Array   // fondo-ganocafe-grande-cmyk-v1.jpg
+  /** La taza sola, para Estados Unidos (27 nov 2026): fondo-taza-cmyk-v1.jpg. */
+  fondoTazaCmyk: ArrayBuffer | Uint8Array
   interRegular: ArrayBuffer | Uint8Array
   interMedium: ArrayBuffer | Uint8Array
   interSemiBold: ArrayBuffer | Uint8Array
 }
 
-/** El PDF del hablador del socio, con el QR a `https://creatuactivo.com/{slug}/hablador`. */
-export async function crearPdfHablador(slug: string, insumos: InsumosHablador): Promise<Uint8Array> {
+/**
+ * Las dos piezas (27 nov 2026). Colombia: la escena con la caja de Ganocafé 3 en 1 y el
+ * QR a la derecha de la caja. Estados Unidos: la taza sola (la pieza del 20 nov 2026),
+ * porque la caja de la escena es la de Colombia; el QR va abajo, en el eje. Las líneas
+ * de base salen de la página (/hablador/{slug}?pais=us), medidas como las de Colombia.
+ */
+const PIEZAS = {
+  CO: { ceja: 13.31, titulo: [24.20, 33.00], bajada: 39.89, pasos: 138.81, enlace: 143.51, qr: { x: 54.5, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 } },
+  US: { ceja: 16.31, titulo: [27.20, 36.00], bajada: 42.89, pasos: 136.81, enlace: 141.51, qr: { x: 36.5, y: 103.2, lado: 27, margen: 2.6, radio: 2.6 } },
+} as const
+
+/**
+ * El PDF del hablador del socio, con el QR a `https://creatuactivo.com/{slug}/hablador`,
+ * o a `/{slug}/hablador-us` el de Estados Unidos, que abre el catálogo de allá.
+ */
+export async function crearPdfHablador(slug: string, insumos: InsumosHablador, pais: 'CO' | 'US' = 'CO'): Promise<Uint8Array> {
+  const L = PIEZAS[pais]
   const doc = await PDFDocument.create()
   doc.registerFontkit(fontkit)
   const [regular, medium, semibold, fondo] = await Promise.all([
     doc.embedFont(insumos.interRegular, { subset: true }),
     doc.embedFont(insumos.interMedium, { subset: true }),
     doc.embedFont(insumos.interSemiBold, { subset: true }),
-    doc.embedJpg(insumos.fondoCmyk),
+    doc.embedJpg(pais === 'US' ? insumos.fondoTazaCmyk : insumos.fondoCmyk),
   ])
 
-  const enlace = `creatuactivo.com/${slug}/hablador`
+  const enlace = `creatuactivo.com/${slug}/${pais === 'US' ? 'hablador-us' : 'hablador'}`
   doc.setTitle(`Hablador de mostrador · ${slug}`)
   doc.setSubject('10 × 15 cm con 3 mm de sangrado · CMYK (ISO Coated v2 300 %, FOGRA39)')
   doc.setAuthor('CreaTuActivo.com')
@@ -74,16 +91,16 @@ export async function crearPdfHablador(slug: string, insumos: InsumosHablador): 
   page.drawImage(fondo, { x: 0, y: 0, width: ANCHO * PT, height: ALTO * PT })
 
   // Las líneas de base, en mm desde el borde de arriba del corte (medidas en la página).
-  texto(page, CEJA, { font: semibold, size: 8, base: 13.31, color: ORO, tracking: 0.01 })
-  texto(page, TITULO_LINEAS[0], { font: semibold, size: 24, base: 24.20, color: TITULO, tracking: -0.03 })
-  texto(page, TITULO_LINEAS[1], { font: semibold, size: 24, base: 33.00, color: TITULO, tracking: -0.03 })
-  texto(page, BAJADA, { font: regular, size: 8.6, base: 39.89, color: TEXTO_2 })
-  texto(page, PASOS, { font: medium, size: 7.6, base: 138.81, color: TITULO, tracking: 0.005 })
+  texto(page, CEJA, { font: semibold, size: 8, base: L.ceja, color: ORO, tracking: 0.01 })
+  texto(page, TITULO_LINEAS[0], { font: semibold, size: 24, base: L.titulo[0], color: TITULO, tracking: -0.03 })
+  texto(page, TITULO_LINEAS[1], { font: semibold, size: 24, base: L.titulo[1], color: TITULO, tracking: -0.03 })
+  texto(page, BAJADA, { font: regular, size: 8.6, base: L.bajada, color: TEXTO_2 })
+  texto(page, PASOS, { font: medium, size: 7.6, base: L.pasos, color: TITULO, tracking: 0.005 })
   // El enlace cambia con el slug: si uno largo no cabe en los 82 mm, se achica.
   const tamEnlace = Math.min(6, (82 * PT) / regular.widthOfTextAtSize(enlace, 1))
-  texto(page, enlace, { font: regular, size: tamEnlace, base: 143.51, color: TEXTO_3 })
+  texto(page, enlace, { font: regular, size: tamEnlace, base: L.enlace, color: TEXTO_3 })
 
-  qr(page, `https://${enlace}`, { x: 54.5, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 })
+  qr(page, `https://${enlace}`, L.qr)
 
   return doc.save()
 }

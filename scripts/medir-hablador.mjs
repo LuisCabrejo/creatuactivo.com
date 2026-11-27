@@ -31,7 +31,7 @@ const dia = (t) => new Date(t).toLocaleDateString('en-CA', { timeZone: 'America/
 const { data: visitas, error } = await sb
   .from('page_visits')
   .select('mentor_ref_id, page_entry, timestamp, dispositivo, visitante')
-  .like('page_entry', '%/hablador')
+  .like('page_entry', '%/hablador%')
   .gte('timestamp', desde);
 if (error) { console.error(error.message); process.exit(1); }
 
@@ -39,9 +39,10 @@ const filas = new Map();
 const navegadores = new Set();
 let total = 0;
 for (const v of visitas ?? []) {
-  if (!/^\/[^/]+\/hablador$/.test(v.page_entry ?? '')) continue;
+  // `/{slug}/hablador-us`: el de Estados Unidos (27 nov 2026).
+  if (!/^\/[^/]+\/hablador(?:-us)?$/.test(v.page_entry ?? '')) continue;
   total++;
-  const k = `${dia(v.timestamp)} · ${v.mentor_ref_id}`;
+  const k = `${dia(v.timestamp)} · ${v.mentor_ref_id}${v.page_entry.endsWith('-us') ? ' (EE. UU.)' : ''}`;
   const f = filas.get(k) ?? { escaneos: 0, navegadores: new Set(), sinCookie: 0 };
   f.escaneos++;
   if (v.visitante) { f.navegadores.add(v.visitante); navegadores.add(v.visitante); } else f.sinCookie++;

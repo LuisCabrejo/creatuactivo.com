@@ -363,7 +363,9 @@ export default async function DestinoRoute({
   // Abre el mismo catálogo, pero cada escaneo queda en `page_visits` con origen
   // 'qr': sin esto, un hablador que vende no se distinguía de cualquier otro
   // enlace al catálogo. Si el registro falla, se redirige igual.
-  if (destino === 'hablador') {
+  // `hablador-us` (27 nov 2026): el QR del hablador de Estados Unidos. Cuenta igual y
+  // abre el catálogo de allá, aunque el socio esté inscrito en Colombia.
+  if (destino === 'hablador' || destino === 'hablador-us') {
     const cabeceras = headers()
     const agente = cabeceras.get('user-agent')
     const local = esHostLocal((cabeceras.get('host') || '').split(':')[0]) && process.env.PERMITIR_TRACKING_LOCAL !== '1'
@@ -373,7 +375,7 @@ export default async function DestinoRoute({
         const { error } = await supabase.from('page_visits').insert({
           session_id: crypto.randomUUID(),
           mentor_ref_id: slug,
-          page_entry: `/${slug}/hablador`,
+          page_entry: `/${slug}/${destino}`,
           dispositivo: dispositivoDe(agente, cabeceras.get('sec-ch-ua-mobile')),
           sistema: sistemaDe(agente),
           destino: 'web',
@@ -385,7 +387,7 @@ export default async function DestinoRoute({
         console.warn('⚠️ [Hablador] No se registró el escaneo:', e)
       }
     }
-    redirect(`/productos/${slug}`)
+    redirect(`/productos/${slug}${destino === 'hablador-us' ? '?pais=us' : ''}`)
   }
 
   if (destino === 'productos') {

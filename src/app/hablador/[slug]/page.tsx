@@ -83,17 +83,22 @@ export default async function Hablador({
   // `?vista=1`: solo la pieza, sin controles ni escritorio, para la vista previa que
   // queswa.app muestra en Compartir → Habladores (Director, 24 nov 2026).
   const vista = searchParams?.vista === '1'
-  const variante = VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
-  const v = VARIANTES[variante]
+  // ?pais=us: el hablador de Estados Unidos (27 nov 2026). Va con la taza sola —la
+  // pieza del 20 nov 2026—, porque la caja de la escena aprobada es la de Colombia, y
+  // su QR abre /{slug}/hablador-us, que cuenta el escaneo y lleva al catálogo de allá.
+  const esUS = searchParams?.pais === 'us'
+  const variante = esUS ? 'taza' : VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
+  const v = esUS ? { ...VARIANTES.taza, bajada: BAJADA } : VARIANTES[variante]
   if (r.slug !== params.slug) {
     const consulta = new URLSearchParams()
     if (sangrado) consulta.set('sangrado', '1')
-    if (variante !== POR_DEFECTO) consulta.set('variante', variante)
+    if (esUS) consulta.set('pais', 'us')
+    else if (variante !== POR_DEFECTO) consulta.set('variante', variante)
     const resto = consulta.toString()
     permanentRedirect(`/hablador/${r.slug}${resto ? `?${resto}` : ''}`)
   }
 
-  const enlace = `creatuactivo.com/${r.slug}/hablador`
+  const enlace = `creatuactivo.com/${r.slug}/${esUS ? 'hablador-us' : 'hablador'}`
   // El margen blanco del QR lo pone su recuadro (2,6 mm, más de 3 módulos), no la librería.
   const qr = await QRCode.toString(`https://${enlace}`, {
     type: 'svg',
@@ -114,9 +119,9 @@ export default async function Hablador({
       <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, v.fondo, v.color) }} />
 
       {!vista && <div className="hab-controles">
-        {variante === POR_DEFECTO ? (
+        {variante === POR_DEFECTO || esUS ? (
           <>
-            <a className="cta-primary" href={`/hablador/${r.slug}/pdf?descargar=1`}>Descargar el PDF para la imprenta</a>
+            <a className="cta-primary" href={`/hablador/${r.slug}/pdf?descargar=1${esUS ? '&pais=us' : ''}`}>Descargar el PDF para la imprenta</a>
             <p>
               10 × 15 cm con 3 mm de sangrado, en CMYK y en alta resolución: se le envía a la
               imprenta tal cual.

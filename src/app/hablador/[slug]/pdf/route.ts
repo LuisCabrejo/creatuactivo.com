@@ -32,10 +32,11 @@ let insumos: ReturnType<typeof cargar> | null = null
 function cargar() {
   return Promise.all([
     readFile(join(DIR, 'fondo-ganocafe-grande-cmyk-v1.jpg')),
+    readFile(join(DIR, 'fondo-taza-cmyk-v1.jpg')),
     readFile(join(DIR, 'Inter-Regular.ttf')),
     readFile(join(DIR, 'Inter-Medium.ttf')),
     readFile(join(DIR, 'Inter-SemiBold.ttf')),
-  ]).then(([fondoCmyk, interRegular, interMedium, interSemiBold]) => ({ fondoCmyk, interRegular, interMedium, interSemiBold }))
+  ]).then(([fondoCmyk, fondoTazaCmyk, interRegular, interMedium, interSemiBold]) => ({ fondoCmyk, fondoTazaCmyk, interRegular, interMedium, interSemiBold }))
 }
 
 export async function GET(req: Request, { params }: { params: { slug: string } }) {
@@ -50,14 +51,15 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
   insumos ??= cargar()
   let pdf: Uint8Array
   try {
-    pdf = await crearPdfHablador(r.slug, await insumos)
+    // ?pais=us: el de Estados Unidos (27 nov 2026), con su QR al catálogo de allá.
+    pdf = await crearPdfHablador(r.slug, await insumos, url.searchParams.get('pais') === 'us' ? 'US' : 'CO')
   } catch (e) {
     insumos = null
     console.error('❌ [hablador/pdf]', e)
     return new Response('No pudimos armar el PDF. Intente de nuevo.', { status: 500 })
   }
 
-  const archivo = `hablador-${r.slug}.pdf`
+  const archivo = `hablador-${r.slug}${url.searchParams.get('pais') === 'us' ? '-us' : ''}.pdf`
   return new Response(Buffer.from(pdf), {
     headers: {
       'Content-Type': 'application/pdf',

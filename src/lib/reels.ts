@@ -147,7 +147,12 @@ export const VIDEO_DOCE_NIVELES_US_WA = 'https://tydh3stq7cgynabr.public.blob.ve
 // v2 (2 nov 2026, Director): «Esa repetición es la que vuelve su sistema un activo: produce
 // aunque usted no esté presente» (antes, «sin que usted tenga que estar encima»), como
 // WHY_04; la -v1 queda sin uso. Receta: captions/work/como-entra-el-dinero/armar_v5.py.
-export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v2.mp4'
+// v3 (27 nov 2026, Director: «aprobado»): la misma voz, mezcla, subtítulos y cierre de la v2;
+// cambia solo la imagen: en vez de los clips 3D, escenas dibujadas en el estilo de las gráficas
+// del reto y de la Presentación v19 (el producto con tres fotos reales, las dos formas de venta,
+// el ciclo que deja un % por compra, el calendario de los viernes y los dos carriles producto/plata).
+// La -v2 queda sin uso. Receta: captions/work/como-entra-el-dinero/opcion-2/armar_opcion2.py.
+export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v3.mp4'
 
 // «Qué debo hacer yo» para el canal (42 s, 720×1280, 6,4 MB; 28 sep 2026). La voz es
 // EAM_01 palabra por palabra, sin los emojis ni la pregunta de cierre, que va como

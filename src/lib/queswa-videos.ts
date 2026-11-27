@@ -57,7 +57,7 @@ export const VIDEOS_QUESWA: Record<VideoQueswaId, VideoQueswa> = {
   },
   'como-entra-el-dinero': {
     id: 'como-entra-el-dinero', titulo: 'Cómo entra el dinero', duracion: 50,
-    url: VIDEO_COMO_ENTRA_EL_DINERO_WA, poster: '/videos/queswa/como-entra-el-dinero-poster.jpg',
+    url: VIDEO_COMO_ENTRA_EL_DINERO_WA, poster: '/videos/queswa/como-entra-el-dinero-poster-v2.jpg',
     entrada: 'Con gusto. Se lo muestro en menos de un minuto:', candado: 'arsenal_inicial_WHY_04', tema: 'dinero',
   },
   'que-debo-hacer-yo': {

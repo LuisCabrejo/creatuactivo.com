@@ -52,7 +52,7 @@ export interface PagoGanoProps {
   volver: () => void
 }
 
-type Paso = 'datos' | 'cotizando' | 'cotizado' | 'pagando' | 'flete' | 'pse' | 'efectivo' | 'fallo'
+type Paso = 'datos' | 'cotizando' | 'cotizado' | 'pagando' | 'flete' | 'pse' | 'efectivo' | 'fallo' | 'socio'
 
 const RE_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
@@ -140,6 +140,8 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
   const [bancos, setBancos] = useState<Banco[]>(BANCOS_FIJOS)
   const [cotizacion, setCotizacion] = useState<Cotizacion | null>(null)
   const [error, setError] = useState<string | null>(null)
+  // El celular es de un socio (27 nov 2026): su compra va por su aplicación.
+  const [socioApp, setSocioApp] = useState<{ texto: string; enlace: string } | null>(null)
   const [resultado, setResultado] = useState<Resultado | null>(null)
   const [fleteNuevo, setFleteNuevo] = useState<FleteNuevo | null>(null)
   const [aviso, setAviso] = useState<string | null>(null)
@@ -268,6 +270,7 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
       setPaso('cotizado')
       return
     }
+    if (json.motivo === 'es_socio') { setSocioApp({ texto: String(json.error || ''), enlace: String(json.enlace || 'https://queswa.app') }); setPaso('socio'); return }
     setPaso('datos')
     setError(String(json.error || 'No se pudo consultar el envío con Gano Excel. Vuelva a intentar.'))
     if (Array.isArray(json.candidatos)) setCandidatos(json.candidatos as string[])
@@ -285,6 +288,7 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
       setPaso(r.pago === 'pse' && r.payUrl ? 'pse' : 'efectivo')
       return
     }
+    if (json.motivo === 'es_socio') { setSocioApp({ texto: String(json.error || ''), enlace: String(json.enlace || 'https://queswa.app') }); setPaso('socio'); return }
     if (json.motivo === 'flete_distinto' && json.orderNumber) {
       // Gano cobra hoy otro envío: no se finalizó nada; se confirma el total nuevo.
       setFleteNuevo({ orderNumber: String(json.orderNumber), subtotal: Number(json.subtotal), flete: Number(json.flete), total: Number(json.total), mensaje: String(json.error || '') })
@@ -345,6 +349,19 @@ export default function PagoGano({ carrito, socio, subtotal, prefill, pedidoClav
           ? <p className="tienda-pago-parrafo">Cuando Gano Excel registre el pago, el pedido queda para recoger en la oficina de Gano Excel de <strong>{sede.nombre}</strong>, {direccionOficina(sede)}. <strong>{nombre.trim()}</strong> lo recoge con su documento de identidad. Consigne hoy o mañana: la orden queda esperando su pago.</p>
           : <p className="tienda-pago-parrafo">Gano Excel despacha a su dirección cuando registra el pago, normalmente de un día para otro. Consigne hoy o mañana: la orden queda esperando su pago.</p>}
         <p className="tienda-pago-nota">{primerNombre} recibió el aviso de su pedido. Guarde una foto de esta pantalla.</p>
+      </div>
+    )
+  }
+
+  // ── Quien compra es un socio: a su aplicación (27 nov 2026) ─────────────
+  if (paso === 'socio' && socioApp) {
+    return (
+      <div className="tienda-hoja-cuerpo tienda-pago">
+        <p className="tienda-pago-parrafo">{socioApp.texto}</p>
+        <a className="tienda-boton tienda-enviar" href={socioApp.enlace} target="_blank" rel="noopener noreferrer">
+          Abrir mi aplicación <ExternalLink className="h-4 w-4" />
+        </a>
+        <button type="button" className="tienda-boton-sec" onClick={() => { setPaso('datos'); setSocioApp(null) }}>Cambiar el celular</button>
       </div>
     )
   }

@@ -78,6 +78,32 @@ async function pedidoPorClave(clave: string | null | undefined): Promise<FilaPed
 
 const telefono10 = (t: string) => { const d = String(t || '').replace(/\D/g, ''); return d.length === 12 && d.startsWith('57') ? d.slice(2) : d }
 
+/**
+ * ¿El celular es de un socio? (Director, 27 nov 2026). El catálogo y el WhatsApp de
+ * Queswa son para los prospectos y los clientes; el socio compra desde su aplicación
+ * (queswa.app, Cargar Compras), donde la orden queda en su propio código de Gano.
+ * Por el catálogo, la orden se crea en la cuenta del dueño del enlace: si el socio
+ * compra por el catálogo de otro, los PV quedan en el código de ese otro. Se compara
+ * por los últimos 10 dígitos: los números están guardados en formatos distintos.
+ */
+async function socioPorTelefono(tel: string): Promise<{ primerNombre: string } | null> {
+  const diez = String(tel || '').replace(/\D/g, '').slice(-10)
+  if (!/^3\d{9}$/.test(diez)) return null
+  try {
+    const { data } = await supabase().from('private_users').select('name, nombre_preferido, whatsapp').not('whatsapp', 'is', null)
+    const fila = (data ?? []).find((u: { whatsapp: string | null }) => String(u.whatsapp ?? '').replace(/\D/g, '').slice(-10) === diez)
+    if (!fila) return null
+    return { primerNombre: String(fila.nombre_preferido || fila.name || '').trim().split(/\s+/)[0] || '' }
+  } catch (e) {
+    // Si la consulta falla, el pedido sigue: es mejor una compra en el código de otro que ninguna.
+    console.warn('⚠️ [Pedido cliente] no se pudo revisar si el celular es de un socio:', e instanceof Error ? e.message : e)
+    return null
+  }
+}
+
+/** Cargar Compras en la aplicación del socio. */
+const CARGAR_COMPRAS = 'https://queswa.app/herramientas/compras-gano'
+
 export async function GET(request: NextRequest) {
   const url = new URL(request.url)
   const clave = url.searchParams.get('pedido')
@@ -133,6 +159,17 @@ export async function POST(request: NextRequest) {
     nombre: String(body.cliente?.nombre || pedidoWa?.nombre || '').trim(),
     telefono: telefono10(String(body.cliente?.telefono || pedidoWa?.whatsapp || '')),
     tipoDoc: body.cliente?.tipoDoc, cedula: body.cliente?.cedula, email: body.cliente?.email,
+  }
+
+  // El socio compra desde su aplicación, no por el catálogo (27 nov 2026). Va antes de
+  // registrar el pedido y de hablar con Gano: no queda orden en la cuenta de nadie.
+  const esSocio = await socioPorTelefono(cliente.telefono ?? '')
+  if (esSocio) {
+    console.warn(`🛑 [Pedido cliente] El celular es de un socio: se le manda a su aplicación (catálogo de ${socio.constructorId}, ${accion})`)
+    return NextResponse.json({
+      success: false, motivo: 'es_socio', enlace: CARGAR_COMPRAS,
+      error: `${esSocio.primerNombre ? `${esSocio.primerNombre}, usted ya es socio.` : 'Este celular es de un socio.'} Este catálogo es para sus clientes: su compra se hace desde su aplicación, en Cargar Compras. Así queda en su propio código de Gano Excel y suma para sus PV.`,
+    }, { status: 409 })
   }
 
   // Con `pagar` desde la web, el pedido se registra ANTES de ir a Gano (como los de

@@ -64,7 +64,7 @@ Una línea por regla; el porqué y el caso de cada una → [REGLAS_CRITICAS.md](
 ### El prompt y el motor
 
 - ⛔ **Un solo prompt para la web, WhatsApp y el Dashboard**: `knowledge_base/system-prompt-queswa.md`, con lo propio de cada canal entre `<!-- canal:… -->`. Nunca edite una fila de `system_prompts` a mano ni cree un prompt por canal. La web es el respaldo del canal si Meta lo cierra, y un respaldo que responde distinto no es respaldo.
-- ⛔ **Presupuesto: menos de 20.000 caracteres por canal desplegado**, medido con `--dry`, no con el `.md`. El 18 oct 2026 (v5.19) la web quedó a **501** del techo: una regla nueva se paga quitando otra. Lo que no cabe va por una de cuatro puertas: el porqué al CHANGELOG, un hecho al arsenal o a un pin, la doctrina de un hilo a una instrucción de sesión, un texto exacto al backend.
+- ⛔ **Presupuesto: menos de 20.000 caracteres por canal desplegado**, medido con `--dry`, no con el `.md`. El margen de cada canal lo da `--dry` y se consulta antes de proponer una regla: una regla nueva se paga quitando otra. Lo que no cabe va por una de cuatro puertas: el porqué al CHANGELOG, un hecho al arsenal o a un pin, la doctrina de un hilo a una instrucción de sesión, un texto exacto al backend.
 - ⛔ **Un nodo nuevo que aplique a los dos canales se escribe en el conductor** ([queswa-conductor.ts](src/lib/queswa-conductor.ts)), no en el webhook: el conductor decide y dicta sin saber por dónde entrega. En `route.ts` las puertas leen `canalDictado` (`whatsapp` + `creatuactivo_marketing`), no el tenant.
 - ⛔ **La conversación la decide el modelo; los datos, el código.** La bitácora le pasa hechos al modelo, la envoltura saca un candado literal con apertura y cierre del modelo, y el supervisor antes de enviar está **APAGADO** (empeoraba más de lo que arreglaba). Ninguna de las tres piezas se desmonta sin leer su cabecera.
 - ⛔ **`nexus_conversations` y el arsenal se leen con la llave de SERVIDOR** (`getSupabaseAdmin`). Con la anon, la seguridad de filas devuelve cero filas **sin error**: así estuvieron muertos el historial del motor y el nodo 2.34 de la web. Los respaldos que traían el documento padre se retiraron y no se reviven.
@@ -81,7 +81,7 @@ Una línea por regla; el porqué y el caso de cada una → [REGLAS_CRITICAS.md](
 - ❌ **No se re-implementa el prompt caching**: ya está (`grep -n cache_control`); el hit rate se mide con `consumo-anthropic.mjs`.
 - ⛔ **Todo script que llame al motor manda `x-queswa-origen: prueba`**; si existe `ANTHROPIC_API_KEY_PRUEBAS`, gasta de esa clave. Cuatro de cada cinco llamadas eran pruebas, y salían de la clave que atiende a la gente.
 - ⛔ **Toda prueba lleva presupuesto**: antes de correr dice cuánto va a costar, empieza con 3 muestras por variante, llama a Anthropic con `ANTHROPIC_API_KEY_PRUEBAS || ANTHROPIC_API_KEY`, y lo que no espera respuesta va por la Batch API (la mitad). Del 13 al 19 oct 2026 las pruebas triplicaron la factura (~1.250 llamadas), casi todas desde scripts desechables con la clave principal, que comparten marketing, el Dashboard y luiscabrejo.com.
-- ⚠️ **No cite números de línea de `route.ts`** (~7.900 líneas): `grep -n` sobre el identificador.
+- ⚠️ **No cite números de línea de `route.ts`** (más de 8.000 líneas): `grep -n` sobre el identificador.
 
 ### El arsenal
 
@@ -100,7 +100,7 @@ Una línea por regla; el porqué y el caso de cada una → [REGLAS_CRITICAS.md](
 
 - ⛔ **[wa-channel.ts](src/lib/wa-channel.ts) es lo único que habla con graph.facebook.com** y conoce `WHATSAPP_SYSTEM_TOKEN`. El Dashboard opera el canal por el puente `/api/wa/*`, que **deniega** si falta `WA_BRIDGE_SECRET`. La lógica de IA vive en el motor; el webhook adapta y entrega.
 - ⛔ **Quien escribe con nombre de usuario va en `recipient`, nunca en `to`**: un BSUID en `to` responde 200 y Meta lo descarta después (#131026), en silencio. Se diagnostica con `select * from wa_envios_fallidos`.
-- ⚠️ **El webhook responde a Meta antes de trabajar** (`waitUntil`, `maxDuration = 90`); `wa_mensajes_procesados` guarda contra reenvíos y falla hacia procesar.
+- ⚠️ **El webhook responde a Meta antes de trabajar** (`waitUntil`, `maxDuration = 150`); `wa_mensajes_procesados` guarda contra reenvíos y falla hacia procesar.
 - ⚠️ **Ventana de 24 h**: fuera de ella, solo plantilla aprobada, y la ventana se decide ANTES de enviar ([wa-ventana.ts](src/lib/wa-ventana.ts)): fuera, la API acepta el texto con 200 y lo tumba después (131047).
 - ⚠️ **El motor no sabe lo que manda el webhook**: la foto la envía el webhook, y si el borrador del modelo niega poder enviar imágenes, el webhook lo descarta y manda la imagen.
 - ⚠️ **Al socio se le atiende solo como socio**: se le reconoce por su teléfono normalizado (o por su ficha, si escribe con nombre de usuario), antes que al primer contacto y antes del guardarraíl de salud. Si pregunta por salud, recibe la línea, no la derivación. Lo que es del Centro de Mando —el mensaje para un negocio, cargar compras, su lista— se le invita a hacerlo en queswa.app.
@@ -158,7 +158,7 @@ Los tres primeros prompts salen del mismo archivo.
 5. **Pines** de precio, producto, ciclo y cifras; **bitácora** y **envoltura**; Sonnet con prompt caching en tres bloques.
 6. **Guardarraíles de salida** y captura de datos (`captureProspectData()` → RPC `update_prospect_data`).
 
-**El canal**: el [webhook](src/app/api/whatsapp/webhook/route.ts) (Node, 90 s) entrega botones, el Flow del simulador, fotos, la radicación y los avisos al socio. Su lógica vive en `src/lib/wa-*.ts`.
+**El canal**: el [webhook](src/app/api/whatsapp/webhook/route.ts) (Node, 150 s) entrega botones, el Flow del simulador, fotos, la radicación y los avisos al socio. Su lógica vive en `src/lib/wa-*.ts`.
 
 **Arsenales** (en `knowledge_base/`, fragmentados con Voyage): `arsenal_inicial` · `arsenal_avanzado` · `arsenal_compensacion` (cifras del plan intocables) · `arsenal_12_niveles` · `catalogo_productos` (22 productos, cada uno con su respuesta) · `arsenal_marca_personal` · `arsenal_ganocafe`; solo en `dashboard`, `arsenal_ciencia_socio` y `arsenal_socio`. Cinco fragmentos son doble fuente con [respuestas-maestras.ts](src/lib/respuestas-maestras.ts): WHY_02 · WHY_04 · EAM_01 · EMPRESA_DIGITAL_01 · INVERSION_MARKETING_01.
 
@@ -166,7 +166,7 @@ Los tres primeros prompts salen del mismo archivo.
 
 **Tablas clave**: `prospects` · `prospect_data` · `nexus_documents` · `nexus_conversations` · `system_prompts` · `constructor_slugs` · `private_users` (de aquí se lee el WhatsApp del socio) · `pending_activations` · `page_visits` · `wa_mensajes_procesados` · `wa_envios_fallidos`. Todas con RLS.
 
-**Crons** (`vercel.json`, exigen `CRON_SECRET`; hora de Bogotá): secuencia de correos 9:00 · acuerdos cada hora · el mensaje de los lunes al socio (modo Waze) lunes 8:00 · vigilante del motor cada 15 min · revisión de turnos 8:00 · pendientes del socio jueves 9:00.
+**Crons** (`vercel.json`, exigen `CRON_SECRET`; hora de Bogotá): secuencia de correos 9:00 · acuerdos cada hora · el mensaje de los lunes al socio (modo Waze) lunes 8:00 · vigilante del motor cada 15 min · revisión de turnos 8:00 · pendientes del socio jueves 9:00 · recordatorio de una convocatoria en línea de `/vip` (45 min antes) cada 15 min.
 
 **Alias**: `@/` → `src/`.
 

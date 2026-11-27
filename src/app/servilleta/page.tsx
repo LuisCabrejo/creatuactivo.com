@@ -326,6 +326,47 @@ const CATEGORIAS: {
   },
 ];
 
+/** LAS TRES LÍNEAS DE ESTADOS UNIDOS (Director, 26 nov 2026). Las de Colombia sin
+ *  Luvoco, que allá no existe: los 17 productos de la lista 2026 de Gano Excel USA
+ *  (knowledge_base/paises/USA_2026.md §2). Las imágenes se componen con
+ *  `scripts/componer-imagenes-categoria-usa.mjs` sobre las fotos de ganoexcel.us.
+ *  ⛔ Solo hechos de la etiqueta (ingrediente, miligramos, presentación): en Estados
+ *  Unidos manda la FTC, y las declaraciones aprobadas por el INVIMA para Colombia
+ *  no viajan. Por eso las cápsulas dicen lo que traen, no para qué sirven. */
+const CATEGORIAS_US: typeof CATEGORIAS = [
+  {
+    label: 'BEBIDAS', img: '/productos/compuestas/usa/categoria-bebidas-v1.jpg', n: 10,
+    titulo: 'La taza de cada momento',
+    texto: 'Café de cuerpo, aroma y el amargo justo de una buena cafetería, con el extracto de Ganoderma de Gano Excel.',
+    rasgos: [
+      ['Seis cafés', 'Clásico, 3 en 1, Mocha, Tongkat Ali, Latte Light y Mocha Light'],
+      ['Sin café', 'Un chocolate, té rooibos y un cereal'],
+      ['Colágeno', 'Reskine, en sobres para beber'],
+    ],
+  },
+  {
+    label: 'SUPLEMENTOS', img: '/productos/compuestas/usa/categoria-suplementos-v1.jpg', n: 4,
+    titulo: 'Concentrados en cápsula',
+    texto: 'Sin café de por medio. Para quien quiere el hongo solo, o sumarlo al café de la mañana.',
+    rasgos: [
+      ['Spirit', 'Ganoderma, 275 mg por cápsula'],
+      ['Mind', 'Excellium, el micelio del Ganoderma, 425 mg por cápsula'],
+      ['Body', 'Cordyceps, 450 mg por cápsula'],
+      ['Gano Plus', '90 cápsulas vegetales'],
+    ],
+  },
+  {
+    label: 'CUIDADO PERSONAL', img: '/productos/compuestas/usa/categoria-cuidado-personal-v1.jpg', n: 3,
+    titulo: 'Para quien no toma café',
+    texto: 'La línea entra a la casa por el baño: un jabón, una pasta dental y una loción corporal, con el extracto de Ganoderma.',
+    rasgos: [
+      ['Sense', 'Jabón con leche de cabra y vitamina E'],
+      ['Gano Fresh', 'Pasta dental sin flúor'],
+      ['Reishi Touch', 'Loción corporal con karité y jojoba'],
+    ],
+  },
+];
+
 /** Proyección 2×2 sobre 12 niveles — misma tabla que NIVELES_02 del arsenal
  *  (v6.8: 10% del CV emparejado, cada distribuidor consumiendo 56 CV al mes).
  *  `people` = distribuidores NUEVOS en ese nivel. Copiada de /12-niveles: si allá
@@ -537,6 +578,8 @@ export default function PitchDeckPage() {
   // (src/lib/servilleta-pais.ts). Allá todo va en dólares y sin el botón de moneda.
   const pais = paisDeRuta(usePathname());
   const enUS = pais === 'US';
+  // Las líneas del producto: tres en Estados Unidos, cuatro en Colombia.
+  const lineas = enUS ? CATEGORIAS_US : CATEGORIAS;
   const [moneda, setMonedaEstado] = useState<'COP' | 'USD'>(enUS ? 'USD' : 'COP');
   const monedaElegida = useRef(false);
   const setMoneda = (m: 'COP' | 'USD') => { monedaElegida.current = true; setMonedaEstado(m); };
@@ -1024,8 +1067,8 @@ export default function PitchDeckPage() {
       // la cierra: el deck no se mueve por debajo.
       if (linea !== null) {
         if (e.key === 'Escape') setLinea(null);
-        else if (e.key === 'ArrowRight') setLinea((linea + 1) % CATEGORIAS.length);
-        else if (e.key === 'ArrowLeft') setLinea((linea + CATEGORIAS.length - 1) % CATEGORIAS.length);
+        else if (e.key === 'ArrowRight') setLinea((linea + 1) % lineas.length);
+        else if (e.key === 'ArrowLeft') setLinea((linea + lineas.length - 1) % lineas.length);
         return;
       }
       // Con el video de la presentación abierto, el teclado no mueve el deck: Esc lo
@@ -2726,19 +2769,14 @@ export default function PitchDeckPage() {
                     </div>
                   </div>
                 </div>
-                {/* En Estados Unidos no va todavía (26 nov 2026): las fichas y sus imágenes
-                    son del catálogo de Colombia (Luvoco y Piel&Brillo no existen allá, y
-                    los conteos van impresos en la imagen). Vuelve con las tres líneas de
-                    allá y sus fotos reales (USA_2026.md §2). */}
-                {!enUS && (
-                  <button
-                    type="button"
-                    className="pd-demo"
-                    onClick={(e) => { e.stopPropagation(); setLinea(0); }}
-                  >
-                    VER LAS CUATRO LÍNEAS →
-                  </button>
-                )}
+                {/* En Estados Unidos, sus tres líneas con las fotos de allá (CATEGORIAS_US). */}
+                <button
+                  type="button"
+                  className="pd-demo"
+                  onClick={(e) => { e.stopPropagation(); setLinea(0); }}
+                >
+                  {enUS ? 'VER LAS TRES LÍNEAS →' : 'VER LAS CUATRO LÍNEAS →'}
+                </button>
               </div>
             </div>
           </div>
@@ -3204,7 +3242,7 @@ export default function PitchDeckPage() {
             className="pd-overlay"
             role="dialog"
             aria-modal="true"
-            aria-label={`Línea ${CATEGORIAS[linea].label}`}
+            aria-label={`Línea ${lineas[linea].label}`}
             onClick={() => setLinea(null)}
           >
             <div className="pd-modal pd-linea" onClick={(e) => e.stopPropagation()}>
@@ -3217,7 +3255,7 @@ export default function PitchDeckPage() {
                 ×
               </button>
               <div className="pd-linea-tabs">
-                {CATEGORIAS.map((c, i) => (
+                {lineas.map((c, i) => (
                   <button
                     type="button"
                     key={c.label}
@@ -3230,13 +3268,13 @@ export default function PitchDeckPage() {
                 ))}
               </div>
               <div className="pd-linea-cuerpo" key={linea}>
-                <ImagenAmpliable src={CATEGORIAS[linea].img} alt={`Línea ${CATEGORIAS[linea].label}`} />
+                <ImagenAmpliable src={lineas[linea].img} alt={`Línea ${lineas[linea].label}`} />
                 <div>
-                  <p className="pd-linea-n">{CATEGORIAS[linea].n} productos</p>
-                  <p className="pd-linea-titulo">{CATEGORIAS[linea].titulo}</p>
-                  <p className="pd-linea-texto">{CATEGORIAS[linea].texto}</p>
+                  <p className="pd-linea-n">{lineas[linea].n} productos</p>
+                  <p className="pd-linea-titulo">{lineas[linea].titulo}</p>
+                  <p className="pd-linea-texto">{lineas[linea].texto}</p>
                   <ul className="pd-linea-rasgos">
-                    {CATEGORIAS[linea].rasgos.map(([k, v]) => (
+                    {lineas[linea].rasgos.map(([k, v]) => (
                       <li key={k}><span className="k">{k}</span><span className="v">{v}</span></li>
                     ))}
                   </ul>

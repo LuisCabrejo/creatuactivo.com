@@ -241,7 +241,7 @@ export default function GuiaPlanServilleta({ pais = 'CO' }: { pais?: PaisServill
         <h3>5. El producto</h3>
         <p>
           {enUS
-            ? 'Café, bebidas y suplementos con Ganoderma, y productos de cuidado personal: en Estados Unidos, 18 productos premium de bienestar en tres líneas.'
+            ? 'Café, bebidas y suplementos con Ganoderma, y productos de cuidado personal: en Estados Unidos, 17 productos premium de bienestar en tres líneas.'
             : 'Café, bebidas y suplementos con Ganoderma, y una línea de cuidado personal: 22 productos premium de bienestar en cuatro líneas.'}{' '}
           El cliente los incorpora a su rutina, nota la
           diferencia y vuelve a pedir, y esa recompra es la que mueve el negocio.
@@ -347,7 +347,7 @@ export default function GuiaPlanServilleta({ pais = 'CO' }: { pais?: PaisServill
               <h3>¿Gano Excel está en Estados Unidos?</h3>
               <p>
                 Sí, desde 2003, con sede corporativa en el sur de California. El catálogo de allá
-                tiene 18 productos, y la inscripción es para residentes en Estados Unidos.
+                tiene 17 productos, y la inscripción es para residentes en Estados Unidos.
               </p>
             </>
           )}

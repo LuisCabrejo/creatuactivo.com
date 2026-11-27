@@ -59,13 +59,13 @@ Quien busca «plan servilleta gano excel» es, sobre todo, **un distribuidor que
   - Las credenciales: «En Estados Unidos desde 2003».
   - Todo en dólares, sin el botón de pesos.
   - En el simulador, «Base 10 %» en lugar del Kit, que allá no existe.
+  - Las líneas del producto son tres (Bebidas 10 · Suplementos 4 · Cuidado Personal 3), con sus imágenes compuestas de las fotos de ganoexcel.us (`scripts/componer-imagenes-categoria-usa.mjs`, `CATEGORIAS_US`). Sus fichas dicen solo hechos de la etiqueta: en EE. UU. las declaraciones del INVIMA no viajan.
   - Sin «los viernes» en la nota del pago: el día de allá no está documentado.
-  - La guía en texto, con su `<h1>`, sus cifras, 18 productos en tres líneas y tres formas de empezar.
+  - La guía en texto, con su `<h1>`, sus cifras, 17 productos en tres líneas y tres formas de empezar.
 - **Los 12 niveles allá corren con 6 cajas por distribuidor** (Director, 26 nov 2026): 115,20 CV contra los 56 de Colombia (`CV_POR_DISTRIBUIDOR`), y la nota de la pantalla lo dice («con 6 cajas al mes por distribuidor»). Ver [USA_2026.md](../knowledge_base/paises/USA_2026.md) §7.
 - **Lo que se queda igual:** el credo de la pantalla 1, los pares de la modernización, la solución y la tabla del GEN5 (la misma del plan global).
 - **Pendiente:**
   - El video de la presentación no va allá: su voz trae las cifras de Colombia. Por eso `?video=1` no hace nada en esa dirección, y `/{slug}/video` sigue llevando a la de Colombia.
-  - Las fichas de las líneas del producto tampoco van: sus imágenes son del catálogo de Colombia (Luvoco y Piel&Brillo no existen allá). Vuelven con fotos reales de las tres líneas de allá.
   - La versión en dólares del «al que gana dos millones y al que gana más de veinte» (STORY_03 🔒) la decide el Director.
 - ⚠️ **Si se agrega un país**, va en `PaisServilleta`, en `RUTA_SERVILLETA` y en `IDIOMAS_SERVILLETA`, con sus cifras verificadas en fuente primaria. Nunca se reutilizan las de otro país.
 

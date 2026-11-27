@@ -23,7 +23,7 @@
 import { permanentRedirect } from 'next/navigation'
 import CatalogoTienda from '../page'
 import { TARJETA_CATALOGO } from '../og'
-import { resolver, aSocio } from '../socio'
+import { resolver, aSocio, paisDeLaVisita } from '../socio'
 
 export const dynamic = 'force-dynamic'
 
@@ -39,14 +39,17 @@ export default async function CatalogoDelSocio({
     const carrito = typeof searchParams?.carrito === 'string' ? `?carrito=${encodeURIComponent(searchParams.carrito)}` : ''
     permanentRedirect(`/productos/${r.slug}${carrito}`)
   }
-  return <CatalogoTienda socioInicial={r ? aSocio(r) : null} />
+  return <CatalogoTienda socioInicial={r ? aSocio(r) : null} pais={paisDeLaVisita(r, searchParams)} />
 }
 
-export async function generateMetadata({ params }: { params: { ref: string } }) {
+export async function generateMetadata({ params, searchParams }: { params: { ref: string }; searchParams?: Record<string, string | string[] | undefined> }) {
   const r = await resolver(params.ref)
   const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}`
   const titulo = 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma'
-  const descripcion = r
+  const esUS = paisDeLaVisita(r, searchParams) === 'US'
+  const descripcion = esUS
+    ? `Los 17 productos de Gano Excel USA con su precio en dólares.${r ? ` Le atiende ${aSocio(r).nombre}: el pedido se hace con ${aSocio(r).primerNombre} por WhatsApp.` : ' El pedido se hace con su distribuidor por WhatsApp.'}`
+    : r
     ? `Los 22 productos de Gano Excel con su precio en pesos. Le atiende ${aSocio(r).nombre}: paga directo a Gano Excel o con ${aSocio(r).primerNombre} por WhatsApp.`
     : 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Paga directo a Gano Excel o con su distribuidor por WhatsApp.'
   return {
@@ -58,7 +61,7 @@ export async function generateMetadata({ params }: { params: { ref: string } }) 
     // La imagen se declara: al definir su propio openGraph, la página deja de heredar
     // la de /productos y la tarjeta salía sin imagen. Es la misma (og.ts).
     openGraph: {
-      title: titulo, description: descripcion, url, siteName: 'CreaTuActivo', locale: 'es_CO', type: 'website',
+      title: titulo, description: descripcion, url, siteName: 'CreaTuActivo', locale: esUS ? 'es_US' : 'es_CO', type: 'website',
       images: [TARJETA_CATALOGO],
     },
     twitter: { card: 'summary_large_image', title: titulo, description: descripcion },

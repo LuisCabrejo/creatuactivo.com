@@ -37,6 +37,8 @@ function enumerar(partes: string[]): string {
 }
 
 const pesos = (n: number) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+// Un pedido de Estados Unidos va en dólares (`total_usd`, 27 nov 2026): «$99 USD».
+const dolares = (n: number) => '$' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' USD'
 
 export async function GET(_request: NextRequest, { params }: { params: { clave: string } }) {
   const m = RE_CLAVE.exec(params.clave || '')
@@ -48,7 +50,7 @@ export async function GET(_request: NextRequest, { params }: { params: { clave: 
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
   const { data: pedido } = await supabase
     .from('wa_pedidos')
-    .select('id, whatsapp, nombre, lineas, total_cop, socio, socio_abrio_at')
+    .select('id, whatsapp, nombre, lineas, total_cop, total_usd, socio, socio_abrio_at')
     .eq('codigo', codigo)
     .maybeSingle()
   if (!pedido) return pagina('No encontramos ese pedido.', 404)
@@ -69,7 +71,7 @@ export async function GET(_request: NextRequest, { params }: { params: { clave: 
   const productos = enumerar(lineas.map((l: { cantidad?: number; nombre?: string }) => `${l.cantidad ?? 1} ${l.nombre ?? ''}`.trim()))
   const texto = [
     `Hola${primer ? ` ${primer}` : ''}, ${socio ? `soy ${socio}` : 'le escribo del equipo de creatuactivo.com'}.`,
-    `Queswa me pasó su pedido N.º ${codigo}: ${productos}, por ${pesos(Number(pedido.total_cop) || 0)}.`,
+    `Queswa me pasó su pedido N.º ${codigo}: ${productos}, por ${pedido.total_usd != null ? dolares(Number(pedido.total_usd)) : pesos(Number(pedido.total_cop) || 0)}.`,
     '¿En qué ciudad lo recibe?',
   ].join(' ')
 

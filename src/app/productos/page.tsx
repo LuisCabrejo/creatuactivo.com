@@ -32,12 +32,15 @@
 
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Plus, Minus, X, ShoppingBag, MessageCircle, ChevronRight, Truck, Store, Factory, Download, Landmark, Share2, Check } from 'lucide-react'
 import StrategicNavigation from '@/components/StrategicNavigation'
-import { productData, LINEAS, MAS_PEDIDO, PREGUNTAS, imagenVitrina, pesos, mensajePedido, type Product, type LineaCarrito } from './catalogo-datos'
+import { mensajePedido, type Product, type LineaCarrito } from './catalogo-datos'
+// El catálogo de cada país (27 nov 2026): la vitrina es una, el inventario y la moneda cambian.
+import { CATALOGOS, type Catalogo, type PaisCatalogo } from './catalogo'
+import { DESCARGO_FDA } from './catalogo-usa'
 // «Pagar a Gano Excel» (17 oct 2026): la hoja de pago directo y el carrito con cantidades en la URL.
 import PagoGano, { ESTILOS_PAGO } from './PagoGano'
 import { leerCarritoDeUrl } from '@/lib/gano-inventario'
@@ -63,9 +66,17 @@ const DESCARGAS_LUVOCO = [
   { texto: 'Ficha de producto', href: 'https://drive.google.com/file/d/13C_CQyXnmeNPqzrsm34GNCIysE-T4p2k/view?usp=drive_link' },
   { texto: 'Especificaciones técnicas', href: 'https://drive.google.com/file/d/12EsTVv_HPTa6xEj505H_Z8XQssYHfSoi/view?usp=drive_link' },
 ]
-const CLAVE_CARRITO = 'carrito_catalogo'
 // El estado inicial, por referencia: no se guarda nunca (ver el efecto que persiste).
 const CARRITO_INICIAL: LineaCarrito[] = []
+
+/**
+ * El catálogo del país, para la tarjeta, la ficha y el pedido. Cada componente toma
+ * de aquí el inventario (`productData`), la foto (`imagenVitrina`) y la moneda
+ * (`pesos`, que en Estados Unidos escribe dólares): los nombres de siempre, para que
+ * el código de la vitrina siga leyéndose igual.
+ */
+const CatalogoCtx = createContext<Catalogo>(CATALOGOS.CO)
+const useCatalogo = () => useContext(CatalogoCtx)
 
 // ─── Utilidades ──────────────────────────────────────────────────────────────
 
@@ -128,9 +139,18 @@ function registrarApertura(
 
 // ─── Página ──────────────────────────────────────────────────────────────────
 
-/** `fichaInicial` (29 oct 2026): el enlace directo a un producto, /productos/{slug}/{producto}. */
-export default function CatalogoTienda({ socioInicial = null, fichaInicial = null }: { socioInicial?: Socio | null; fichaInicial?: string | null } = {}) {
+/**
+ * `fichaInicial` (29 oct 2026): el enlace directo a un producto, /productos/{slug}/{producto}.
+ * `pais` (27 nov 2026): el de la cuenta del socio, resuelto en el servidor (socio.ts).
+ */
+export default function CatalogoTienda({ socioInicial = null, fichaInicial = null, pais = 'CO' }: { socioInicial?: Socio | null; fichaInicial?: string | null; pais?: PaisCatalogo } = {}) {
+  const cat = CATALOGOS[pais]
+  const { productos: productData, lineas: LINEAS, preguntas: PREGUNTAS, precio: pesos, claveCarrito: CLAVE_CARRITO } = cat
+  const esUS = pais === 'US'
   const [socio, setSocio] = useState<Socio | null>(socioInicial)
+  // «Pagar a Gano Excel» está conectado al back office de Colombia: en Estados Unidos
+  // el pedido se paga con el socio (Director, 27 nov 2026).
+  const pagoGano = Boolean(socio?.pagoGano) && !esUS
   const [carrito, setCarrito] = useState<Linea[]>(CARRITO_INICIAL)
   const [ficha, setFicha] = useState<string | null>(fichaInicial)
   const [pedidoAbierto, setPedidoAbierto] = useState(false)
@@ -152,7 +172,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
   }, [])
   const lineas = useMemo(() => LINEAS
     .map((l) => ({ ...l, ids: l.ids.filter((id) => !productData[id].promocion || promosVigentes.includes(productData[id].promocion!.inventoryId)) }))
-    .filter((l) => l.ids.length > 0), [promosVigentes])
+    .filter((l) => l.ids.length > 0), [promosVigentes, LINEAS, productData])
 
   // ── El socio. En /productos/{slug} llega resuelto desde el servidor ([ref]/page.tsx);
   // en /productos, del que trajo a esta persona la última vez (tracking.js lo guarda).
@@ -229,7 +249,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
       } catch { /* carrito ilegible: se empieza vacío */ }
     }
     cargado.current = true
-  }, [])
+  }, [CLAVE_CARRITO, productData])
 
   useEffect(() => {
     if (!cargado.current) return
@@ -240,7 +260,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
     // Cancelación de Código el 28 sep). En producción solo se notaba a veces.
     if (carrito === CARRITO_INICIAL) return
     try { localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito)); localStorage.removeItem('cart') } catch { /* nada */ }
-  }, [carrito])
+  }, [carrito, CLAVE_CARRITO])
 
   const cantidadDe = useCallback((id: string) => carrito.find((l) => l.id === id)?.cantidad ?? 0, [carrito])
 
@@ -254,7 +274,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
       if (c.some((l) => l.id === id)) return c.map((l) => (l.id === id ? { ...l, cantidad: Math.min(cantidad, 50) } : l))
       return [...c, { id, cantidad }]
     })
-  }, [])
+  }, [productData])
 
   const unidades = carrito.reduce((s, l) => s + l.cantidad, 0)
   const total = carrito.reduce((s, l) => s + productData[l.id].price * l.cantidad, 0)
@@ -292,7 +312,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
   const enviarPedido = () => {
     registrarApertura('pedido', 'whatsapp', socio?.constructorId, detallePedido())
     setEnviado(true)
-    window.open(`https://wa.me/${WHATSAPP_QUESWA}?text=${encodeURIComponent(mensajePedido(carrito, socio, cookieVisitante()))}`, '_blank', 'noopener')
+    window.open(`https://wa.me/${WHATSAPP_QUESWA}?text=${encodeURIComponent(mensajePedido(carrito, socio, cookieVisitante(), productData))}`, '_blank', 'noopener')
   }
 
   // ── La dirección sigue a la ficha (29 oct 2026): con la ficha abierta dice
@@ -303,7 +323,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
     if (!slug || !window.location.pathname.startsWith(`/productos/${slug}`)) return
     const ruta = ficha && !productData[ficha]?.promocion ? `/productos/${slug}/${ficha}` : `/productos/${slug}`
     if (window.location.pathname !== ruta) window.history.replaceState(null, '', ruta + window.location.search)
-  }, [ficha, socio?.slug])
+  }, [ficha, socio?.slug, productData])
 
   /** El enlace directo de un producto, con el socio que atiende. Las promociones no tienen. */
   const enlaceDe = (id: string): string | null => {
@@ -315,6 +335,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
   const productoFicha = ficha ? productData[ficha] : null
 
   return (
+    <CatalogoCtx.Provider value={cat}>
     <div className="tienda">
       <style dangerouslySetInnerHTML={{ __html: ESTILOS + ESTILOS_PAGO }} />
       <StrategicNavigation />
@@ -322,9 +343,9 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
       {/* ── 1. Quién le atiende ─────────────────────────────────────────── */}
       <header className="tienda-cabecera">
         <div className="tienda-ancho">
-          <p className="tienda-ceja">Catálogo 2026 · Precios en pesos</p>
+          <p className="tienda-ceja">Catálogo 2026 · Precios en {esUS ? 'dólares' : 'pesos'}</p>
           <h1 className="tienda-titulo">Catálogo Gano Excel</h1>
-          <p className="tienda-bajada">{socio?.pagoGano ? `Café, bebidas, cápsulas y cuidado personal. Elija aquí y pague directo a Gano Excel, o con ${socio.primerNombre} por WhatsApp.` : 'Café, bebidas, cápsulas y cuidado personal. Elija aquí y termine su pedido por WhatsApp.'}</p>
+          <p className="tienda-bajada">{pagoGano && socio ? `Café, bebidas, cápsulas y cuidado personal. Elija aquí y pague directo a Gano Excel, o con ${socio.primerNombre} por WhatsApp.` : 'Café, bebidas, cápsulas y cuidado personal. Elija aquí y termine su pedido por WhatsApp.'}</p>
           <div className="tienda-socio">
             <div className="tienda-socio-foto" aria-hidden="true">
               {socio?.foto
@@ -389,7 +410,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
           <h2 id="titulo-pasos">Cómo funciona su pedido</h2>
           <ol>
             <li><span>1</span><div><strong>Arme su pedido aquí</strong><p>Elija los productos y las cantidades. Todavía no paga nada.</p></div></li>
-            {socio?.pagoGano ? (
+            {pagoGano && socio ? (
               <>
                 <li><span>2</span><div><strong>Elija cómo pagar</strong><p>Directo a Gano Excel, por PSE o en efectivo, con envío a su dirección o para recoger en una oficina de Gano Excel. O con {socio.nombre}, que le escribe por WhatsApp y acuerdan el pago y la entrega.</p></div></li>
                 <li><span>3</span><div><strong>Recibe su pedido</strong><p>Gano Excel lo despacha por Servientrega, normalmente de un día para otro, o lo recoge en una de sus oficinas, usted o alguien de su confianza. O en persona, si así lo acordó con {socio.primerNombre}.</p></div></li>
@@ -397,7 +418,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
             ) : (
               <>
                 <li><span>2</span><div><strong>Envíelo por WhatsApp</strong><p>Le llega a Queswa con todo listo, y queda a su nombre.</p></div></li>
-                <li><span>3</span><div><strong>{socio ? socio.nombre : 'Su distribuidor'} le escribe</strong><p>Acuerdan el pago y la entrega: en persona si están en la misma ciudad, o se lo despacha Gano Excel.</p></div></li>
+                <li><span>3</span><div><strong>{socio ? socio.nombre : 'Su distribuidor'} le escribe</strong><p>Acuerdan el pago y la entrega: en persona si están en la misma ciudad, o se lo despacha Gano Excel{esUS ? ' por FedEx desde California' : ''}.</p></div></li>
               </>
             )}
           </ol>
@@ -412,7 +433,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
             en toda la línea: las bebidas, las cápsulas y el cuidado personal. En el café y las bebidas se disuelve por
             completo: no queda nada en el fondo de la taza.
           </p>
-          <p className="tienda-historia-pie"><Factory className="h-4 w-4" /> Gano Excel: 30 años y presencia en más de 60 países.</p>
+          <p className="tienda-historia-pie"><Factory className="h-4 w-4" /> Gano Excel: 30 años y presencia en más de 60 países{esUS ? '; en Estados Unidos desde 2003' : ''}.</p>
         </section>
 
         {/* ── Preguntas ─────────────────────────────────────────────────── */}
@@ -432,12 +453,12 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
       <section className="tienda-puente">
         <div className="tienda-ancho">
           <p className="tienda-puente-titulo">Estos mismos productos pueden ser su negocio.</p>
-          <p>Usted puede tener su propio sistema de distribución: comparte un enlace, Queswa conversa con quien llega y usted recibe. Las cuatro formas de empezar, con su precio, se las muestra Queswa.</p>
+          <p>Usted puede tener su propio sistema de distribución: comparte un enlace, Queswa conversa con quien llega y usted recibe. {esUS ? 'Las formas de empezar' : 'Las cuatro formas de empezar'}, con su precio, se las muestra Queswa.</p>
           <div className="tienda-puente-botones">
             <button type="button" className="tienda-enlace" onClick={() => window.dispatchEvent(new CustomEvent('open-queswa', { detail: { contexto: 'general' } }))}>
               Pregúntele a Queswa cómo funciona <ChevronRight className="h-4 w-4" />
             </button>
-            <Link href="/servilleta" className="tienda-enlace">Ver la presentación <ChevronRight className="h-4 w-4" /></Link>
+            <Link href={esUS ? '/servilleta/estados-unidos' : '/servilleta'} className="tienda-enlace">Ver la presentación <ChevronRight className="h-4 w-4" /></Link>
           </div>
         </div>
       </section>
@@ -470,7 +491,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
             cantidadDe={cantidadDe}
             enlace={() => enlaceDe(ficha)}
             unidades={unidades}
-            pagoGano={Boolean(socio?.pagoGano)}
+            pagoGano={pagoGano}
             pagarAhora={() => { setFicha(null); setPasoPedido('lista'); setPedidoAbierto(true) }}
             seguirComprando={() => setFicha(null)}
           />
@@ -480,10 +501,10 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
       {/* ── 4b. El pedido ────────────────────────────────────────────────── */}
       {pedidoAbierto && (
         <Hoja
-          titulo={pasoPedido === 'gano' && socio?.pagoGano ? 'Pagar a Gano Excel' : 'Su pedido'}
+          titulo={pasoPedido === 'gano' && pagoGano ? 'Pagar a Gano Excel' : 'Su pedido'}
           cerrar={() => { setPedidoAbierto(false); setPasoPedido('lista') }}
         >
-          {pasoPedido === 'gano' && socio?.pagoGano ? (
+          {pasoPedido === 'gano' && pagoGano && socio ? (
             <PagoGano
               carrito={carrito}
               socio={socio}
@@ -502,13 +523,14 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
               enviado={enviado}
               enviar={enviarPedido}
               seguirComprando={() => setPedidoAbierto(false)}
-              pagoGano={Boolean(socio?.pagoGano)}
+              pagoGano={pagoGano}
               pagarGano={() => setPasoPedido('gano')}
             />
           )}
         </Hoja>
       )}
     </div>
+    </CatalogoCtx.Provider>
   )
 }
 
@@ -517,6 +539,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
 function Tarjeta({ id, p, cantidad, fijar, abrir }: {
   id: string; p: Product; cantidad: number; fijar: (id: string, n: number) => void; abrir: () => void
 }) {
+  const { masPedido: MAS_PEDIDO, imagen: imagenVitrina, precio: pesos } = useCatalogo()
   return (
     <article className="tienda-tarjeta">
       <button type="button" className="tienda-foto" onClick={abrir} aria-label={`Ver ${p.name}`}>
@@ -582,8 +605,8 @@ function Hoja({ titulo, cerrar, children }: { titulo: string; cerrar: () => void
 /** Los títulos de la ficha según lo que es el producto: un champú no «se prepara». */
 function titulosFicha(id: string, p: Product): { uso: string; ritual: string } {
   if (p.categoria === 'Cosmético') return { uso: 'Cómo se usa', ritual: 'En la rutina' }
-  if (id.startsWith('capsulas-')) return { uso: 'Cómo se toma', ritual: 'En el día' }
-  if (id === 'bebida-colageno-reskine') return { uso: 'Cómo se toma', ritual: 'Para sacarle el gusto' }
+  if (/cápsulas$/.test(p.presentacion)) return { uso: 'Cómo se toma', ritual: 'En el día' }
+  if (id === 'bebida-colageno-reskine' || id === 'reskine') return { uso: 'Cómo se toma', ritual: 'Para sacarle el gusto' }
   if (id === 'maquina-luvoco') return { uso: 'Cómo funciona', ritual: 'Para sacarle el gusto' }
   return { uso: 'Cómo se prepara', ritual: 'Para sacarle el gusto' }
 }
@@ -600,6 +623,7 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace,
   abrirOtro: (id: string) => void; cantidadDe: (id: string) => number; enlace: () => string | null
   unidades: number; pagoGano: boolean; pagarAhora: () => void; seguirComprando: () => void
 }) {
+  const { productos: productData, imagen: imagenVitrina, precio: pesos, pais } = useCatalogo()
   const cuerpo = useRef<HTMLDivElement>(null)
   const [copiado, setCopiado] = useState(false)
   useEffect(() => { cuerpo.current?.scrollTo({ top: 0 }); setCopiado(false) }, [id])
@@ -622,7 +646,7 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace,
                 {copiado ? <><Check className="h-4 w-4" /> Enlace copiado</> : <><Share2 className="h-4 w-4" /> Compartir</>}
               </button>
             )}
-            <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> Entrega en persona o por Servientrega, normalmente de un día para otro. El envío lo acuerda con {atiende ?? 'su distribuidor'}.</p>
+            <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> {pais === 'US' ? 'Entrega en persona, o por FedEx desde California.' : 'Entrega en persona o por Servientrega, normalmente de un día para otro.'} El envío lo acuerda con {atiende ?? 'su distribuidor'}.</p>
             <p className="tienda-ficha-desc">{p.shortDescription}</p>
             {p.benefits.length > 0 && (
               <ul className="tienda-ficha-beneficios">
@@ -682,10 +706,13 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace,
                   se disuelve por completo, sin dejar residuo. En el hongo hay dos familias de compuestos, los
                   polisacáridos, entre ellos los betaglucanos, y los triterpenos, con más de doscientas variantes
                   identificadas. Es el hongo más estudiado, con tradición milenaria en Asia
-                  {p.categoria === 'Cosmético' ? '.' : ', y como parte de la rutina apoya el funcionamiento normal de las defensas.'}
+                  {/* En Estados Unidos sin la declaración de las defensas: allá la juzga la FDA, no el INVIMA. */}
+                  {p.categoria === 'Cosmético' || pais === 'US' ? '.' : ', y como parte de la rutina apoya el funcionamiento normal de las defensas.'}
                 </p>
               </details>
             )}
+
+            {pais === 'US' && p.categoria !== 'Cosmético' && <p className="tienda-ficha-descargo">{DESCARGO_FDA}</p>}
 
             {id === 'maquina-luvoco' && (
               <>
@@ -747,6 +774,7 @@ function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando
   enviado: boolean; enviar: () => void; seguirComprando: () => void
   pagoGano: boolean; pagarGano: () => void
 }) {
+  const { productos: productData, imagen: imagenVitrina, precio: pesos } = useCatalogo()
   const quien = socio?.nombre ?? 'Su distribuidor'
   if (carrito.length === 0) {
     return (
@@ -989,6 +1017,7 @@ const ESTILOS = `
 .tienda-ficha-mas { margin-top: 18px; border-top: 1px solid var(--t-linea); padding-top: 10px; }
 .tienda-ficha-mas summary { cursor: pointer; font-weight: 600; font-size: 14.5px; color: var(--t-tinta); padding: 6px 0; }
 .tienda-ficha-mas p { margin: 6px 0 0; }
+.tienda-ficha-descargo { margin: 18px 0 0 !important; font-size: 12px !important; line-height: 1.45; color: var(--t-tinta-2); }
 .tienda-descargas { display: flex; flex-wrap: wrap; gap: 8px; }
 .tienda-compartir { min-height: 40px; margin: 10px 0 2px; }
 .tienda-combina { display: grid; gap: 8px; }

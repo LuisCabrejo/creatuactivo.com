@@ -20,31 +20,35 @@
 
 import { permanentRedirect, redirect } from 'next/navigation'
 import CatalogoTienda from '../../page'
-import { productData } from '../../catalogo-datos'
-import { tarjetaProducto } from '../../og'
-import { resolver, aSocio } from '../../socio'
+import { CATALOGOS, type PaisCatalogo } from '../../catalogo'
+import { tarjetaProducto, TARJETA_CATALOGO } from '../../og'
+import { resolver, aSocio, paisDeLaVisita } from '../../socio'
 
 export const dynamic = 'force-dynamic'
 
-/** El producto del enlace, si se puede enlazar directo. */
-function productoEnlazable(id: string) {
-  const p = productData[decodeURIComponent(id || '').toLowerCase()]
+type Busqueda = Record<string, string | string[] | undefined>
+
+/** El producto del enlace, si se puede enlazar directo, en el catálogo del país del socio. */
+function productoEnlazable(id: string, pais: PaisCatalogo) {
+  const p = CATALOGOS[pais].productos[decodeURIComponent(id || '').toLowerCase()]
   return p && !p.promocion ? p : null
 }
 
-export default async function ProductoDelSocio({ params }: { params: { ref: string; producto: string } }) {
+export default async function ProductoDelSocio({ params, searchParams }: { params: { ref: string; producto: string }; searchParams?: Busqueda }) {
   const id = decodeURIComponent(params.producto || '').toLowerCase()
-  if (!productoEnlazable(id)) redirect(`/productos/${params.ref}`)
   const r = await resolver(params.ref)
+  const pais = paisDeLaVisita(r, searchParams)
+  if (!productoEnlazable(id, pais)) redirect(`/productos/${params.ref}`)
   if (r?.slug && (r.slug !== params.ref || id !== params.producto)) permanentRedirect(`/productos/${r.slug}/${id}`)
-  return <CatalogoTienda socioInicial={r ? aSocio(r) : null} fichaInicial={id} />
+  return <CatalogoTienda socioInicial={r ? aSocio(r) : null} fichaInicial={id} pais={pais} />
 }
 
-export async function generateMetadata({ params }: { params: { ref: string; producto: string } }) {
+export async function generateMetadata({ params, searchParams }: { params: { ref: string; producto: string }; searchParams?: Busqueda }) {
   const id = decodeURIComponent(params.producto || '').toLowerCase()
-  const p = productoEnlazable(id)
-  if (!p) return {}
   const r = await resolver(params.ref)
+  const pais = paisDeLaVisita(r, searchParams)
+  const p = productoEnlazable(id, pais)
+  if (!p) return {}
   const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}/${id}`
   const titulo = `${p.name} · Catálogo Gano Excel`
   // Sin precio en la vista previa (Director, 2 nov 2026): el enlace se comparte para que la
@@ -56,8 +60,9 @@ export async function generateMetadata({ params }: { params: { ref: string; prod
     // Como el catálogo de cada socio: la versión oficial es /productos.
     alternates: { canonical: 'https://creatuactivo.com/productos' },
     openGraph: {
-      title: p.name, description: descripcion, url, siteName: 'CreaTuActivo', locale: 'es_CO', type: 'website',
-      images: [tarjetaProducto(id, p.name)],
+      title: p.name, description: descripcion, url, siteName: 'CreaTuActivo', locale: pais === 'US' ? 'es_US' : 'es_CO', type: 'website',
+      // Estados Unidos todavía no tiene tarjetas por producto: va la del catálogo.
+      images: [pais === 'US' ? TARJETA_CATALOGO : tarjetaProducto(id, p.name)],
     },
     twitter: { card: 'summary_large_image', title: p.name, description: descripcion },
     other: r ? { 'constructor-ref': r.constructorId } : undefined,

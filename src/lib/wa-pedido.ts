@@ -29,6 +29,7 @@
  */
 
 import { PRODUCTOS_WA, detectarProducto, productoDelHilo, promocionCaducada, type ProductoWA } from '@/lib/wa-productos';
+import { PRODUCTOS_WA_US } from '@/lib/wa-productos-usa';
 import { sendTemplate, sendCtaUrl, sendText, sendReplyButtons } from '@/lib/wa-channel';
 import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 import { enlaceAjustes } from '@/lib/wa-destino-socio';
@@ -64,6 +65,31 @@ function norm(t: string): string {
 }
 
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
+
+// ─── El país del pedido (27 nov 2026) ────────────────────────────────────────
+// El pedido se lee con la tabla del país del socio que lo atiende: el de su
+// inscripción en Gano, que es la cuenta con la que compra y despacha (el webhook
+// lo resuelve). Un pedido de Estados Unidos va en dólares, al precio al por menor
+// del catálogo de allá (wa-productos-usa.ts), y lo despacha FedEx desde California.
+
+export type PaisPedido = 'CO' | 'US';
+
+/** «$33 USD», «$1,020 USD», «$47.50 USD». */
+const usd = (n: number) => {
+  const [entero, dec] = (Math.round(n * 100) / 100).toFixed(2).split('.');
+  return `$${entero.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${dec === '00' ? '' : `.${dec}`} USD`;
+};
+
+const productosDe = (pais: PaisPedido): ProductoWA[] => (pais === 'US' ? PRODUCTOS_WA_US : PRODUCTOS_WA);
+
+/** El precio de un producto en su moneda. */
+const precioDe = (p: ProductoWA): number => p.precioUSD ?? p.precioCOP;
+
+/** ¿El pedido es de Estados Unidos? Lo dicen sus productos. */
+export const esPedidoUS = (lineas: LineaPedido[]): boolean => lineas.some((l) => l.producto.precioUSD != null);
+
+/** El monto escrito en la moneda del pedido. */
+const dinero = (n: number, enDolares: boolean): string => (enDolares ? usd(n) : cop(n));
 
 /** Primer nombre, sin emojis ni adornos («Milena❤️» → «Milena»). */
 export function nombreCorto(nombre?: string | null): string | undefined {
@@ -149,12 +175,12 @@ function cantidadJunto(t: string, pos: number, largo: number): number {
  * («dos de 3 en 1 y una de cápsulas»). Si un nombre contiene a otro
  * («luvoco fuerte» contiene «luvoco»), gana el específico.
  */
-export function extraerLineasPedido(texto: string): LineaPedido[] {
+export function extraerLineasPedido(texto: string, pais: PaisPedido = 'CO'): LineaPedido[] {
   const t = norm(texto);
   if (!t) return [];
   const hallados: { p: ProductoWA; pos: number; largo: number }[] = [];
 
-  for (const p of PRODUCTOS_WA) {
+  for (const p of productosDe(pais)) {
     if (promocionCaducada(p)) continue; // Gano ya la quitó: no se toma el pedido
     const claves = [norm(p.nombre), ...p.alias.map(norm)].filter((k) => k.length >= 4);
     let mejor: { pos: number; largo: number } | null = null;
@@ -184,9 +210,23 @@ export function extraerLineasPedido(texto: string): LineaPedido[] {
 export function lineasDelPedido(
   texto: string,
   historial: { role: string; content: string }[],
+  pais: PaisPedido = 'CO',
 ): LineaPedido[] {
-  const propias = extraerLineasPedido(texto);
+  const propias = extraerLineasPedido(texto, pais);
   if (propias.length > 0) return propias;
+  // Estados Unidos: el producto del hilo es el último que la persona nombró con la
+  // tabla de allá (`productoDelHilo` conoce solo la de Colombia).
+  if (pais === 'US') {
+    const delUsuario = historial.filter((m) => m.role === 'user');
+    for (let i = delUsuario.length - 1; i >= 0; i--) {
+      const [primera] = extraerLineasPedido(delUsuario[i].content, 'US');
+      if (primera) {
+        const m = norm(texto).match(/\b(\d+|un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b/);
+        return [conTope(primera.producto, m ? (NUMEROS[m[1]] ?? Math.max(1, Math.min(50, parseInt(m[1], 10)))) : 1)];
+      }
+    }
+    return [];
+  }
   // Solo lo que dijo la PERSONA. El 29 ago el bot había preguntado «¿el café,
   // el té, los suplementos…?», y «el té» —alias del Rooibos— se tomó como el
   // producto del hilo: a quien pidió «una caja de Gano Café» se le cargó un té.
@@ -199,7 +239,7 @@ export function lineasDelPedido(
 }
 
 export function totalPedido(lineas: LineaPedido[]): number {
-  return lineas.reduce((s, l) => s + l.producto.precioCOP * l.cantidad, 0);
+  return lineas.reduce((s, l) => s + precioDe(l.producto) * l.cantidad, 0);
 }
 
 /**
@@ -207,10 +247,10 @@ export function totalPedido(lineas: LineaPedido[]): number {
  * productos. Lo usa el turno del nombre, que llega un mensaje después de que
  * la persona dijo qué quiere.
  */
-export function lineasPendientesDelHilo(historial: { role: string; content: string }[]): LineaPedido[] {
+export function lineasPendientesDelHilo(historial: { role: string; content: string }[], pais: PaisPedido = 'CO'): LineaPedido[] {
   const delUsuario = historial.filter((m) => m.role === 'user');
   for (let i = delUsuario.length - 1; i >= 0; i--) {
-    const lineas = extraerLineasPedido(delUsuario[i].content);
+    const lineas = extraerLineasPedido(delUsuario[i].content, pais);
     if (lineas.length > 0) return lineas;
   }
   return [];
@@ -228,7 +268,8 @@ export function lineasPendientesDelHilo(historial: { role: string; content: stri
 export function refSocioDelPedidoEnHilo(historial: { role: string; content: string }[], mensajeActual = ''): string | null {
   const mensajes = [...historial.filter((m) => m.role === 'user').map((m) => m.content), mensajeActual];
   for (let i = mensajes.length - 1; i >= 0; i--) {
-    if (extraerLineasPedido(mensajes[i]).length === 0) continue;
+    // Con cualquiera de las dos tablas: el país del pedido sale de este socio.
+    if (extraerLineasPedido(mensajes[i]).length === 0 && extraerLineasPedido(mensajes[i], 'US').length === 0) continue;
     const m = /(?:^|\n)me atiende [^\n(]*\(([a-z0-9]+(?:-[a-z0-9]+)+)\)/i.exec(mensajes[i]);
     return m ? m[1].toLowerCase() : null;
   }
@@ -301,7 +342,12 @@ export function leerNombrePedido(texto: string): string | null {
   return palabras.map((p) => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
 }
 
-export function noEntendiProductos(segundaVez = false): string {
+export function noEntendiProductos(segundaVez = false, pais: PaisPedido = 'CO'): string {
+  if (pais === 'US') {
+    return segundaVez
+      ? 'Ese no lo tenemos con ese nombre. Los de café son el *Gano Café 3-in-1*, el *Classic*, el *Tongkat Ali*, el *Latte Light* y el *Mocha*. ¿Alguno de esos?'
+      : 'No logré identificar el producto. ¿Me dice cuál quiere, tal como aparece en el catálogo? Por ejemplo: Gano Café 3-in-1, Gano Café Classic, Spirit Ganoderma…';
+  }
   // Repetir el mismo texto ante el segundo intento se lee como una pared: la
   // persona ya dijo algo y el sistema le contesta igual (prueba del 31 ago,
   // «El capuchino» recibió la misma frase que el turno anterior).
@@ -317,7 +363,7 @@ function lineaTexto(l: LineaPedido): string {
   // «Luvoco Medio · 15 cápsulas» ya trae la presentación en el nombre: con la de la
   // tabla quedaba «Luvoco Medio · 15 cápsulas (caja de cápsulas)».
   const pres = l.producto.presentacion && !l.producto.nombre.includes('·') ? ` (${l.producto.presentacion})` : '';
-  return `*${l.cantidad} × ${l.producto.nombre}*${pres} · ${cop(l.producto.precioCOP * l.cantidad)}`;
+  return `*${l.cantidad} × ${l.producto.nombre}*${pres} · ${dinero(precioDe(l.producto) * l.cantidad, l.producto.precioUSD != null)}`;
 }
 
 /** Resumen corto para la plantilla al socio (sin saltos de línea: Meta los rechaza).
@@ -358,7 +404,8 @@ export function confirmarPedido(
   const primer = nombreCorto(nombre);
   const encabezado = `${primer ? `Listo, ${primer}.` : 'Listo.'} Su pedido${codigo ? ` N.º ${codigo}` : ''} quedó registrado:`;
   const cuerpo = lineas.map(lineaTexto).join('\n');
-  const total = (lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '') + notaTope(lineas);
+  const us = esPedidoUS(lineas);
+  const total = (lineas.length > 1 ? `\nTotal de productos: *${dinero(totalPedido(lineas), us)}*` : '') + notaTope(lineas);
   const cuando = cuandoEscribe(ahora);
   const quien = socio?.nombre || 'Alguien del equipo de creatuactivo.com';
   const quienCorto = socio?.nombre?.split(/\s+/)[0] || 'el equipo';
@@ -370,7 +417,7 @@ export function confirmarPedido(
     '',
     `${quien} le escribe ${cuando} por WhatsApp para acordar el pago y la entrega.`,
     '',
-    `Si están en la misma ciudad suele entregarse en persona; si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro. Si el envío tiene costo, ${quienCorto} se lo confirma antes de que usted pague.`,
+    `Si están en la misma ciudad suele entregarse en persona; si no, Gano Excel lo despacha ${us ? 'por FedEx desde California' : 'por Servientrega y normalmente llega de un día para otro'}. Si el envío tiene costo, ${quienCorto} se lo confirma antes de que usted pague.`,
   ].join('\n');
 }
 
@@ -383,9 +430,9 @@ export function detectarPreguntaEnvio(texto: string): boolean {
   return RE_PREGUNTA_ENVIO.test(texto);
 }
 
-export function respuestaEnvio(socio: SocioPedido | null, hayPedido = true): string {
+export function respuestaEnvio(socio: SocioPedido | null, hayPedido = true, pais: PaisPedido = 'CO'): string {
   const quien = socio?.nombre || 'el equipo de creatuactivo.com';
-  const cuerpo = `Eso lo acuerda directamente con ${quien} cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro.`;
+  const cuerpo = `Eso lo acuerda directamente con ${quien} cuando se comunique con usted, para que le quede como mejor le convenga: si están en la misma ciudad suele resolverse en persona, y si no, Gano Excel lo despacha ${pais === 'US' ? 'por FedEx desde California' : 'por Servientrega y normalmente llega de un día para otro'}.`;
   // La pregunta de sumar al pedido, solo si HAY pedido (24 sep 2026): el
   // Director preguntó por el envío sin haber pedido nada y le llegó «¿Le sumo
   // algo más al pedido mientras tanto?».
@@ -620,10 +667,12 @@ export async function registrarPedido(
           fingerprint_id: datos.fingerprint,
           whatsapp:       datos.whatsapp,
           nombre:         datos.nombre ?? null,
-          lineas:         datos.lineas.map((l) => ({
-            slug: l.producto.slug, nombre: l.producto.nombre, cantidad: l.cantidad, precio_cop: l.producto.precioCOP,
-          })),
-          total_cop:      totalPedido(datos.lineas),
+          // Un pedido de Estados Unidos guarda dólares en `precio_usd` y `total_usd` (27 nov 2026).
+          lineas:         datos.lineas.map((l) => (l.producto.precioUSD != null
+            ? { slug: l.producto.slug, nombre: l.producto.nombre, cantidad: l.cantidad, precio_usd: l.producto.precioUSD }
+            : { slug: l.producto.slug, nombre: l.producto.nombre, cantidad: l.cantidad, precio_cop: l.producto.precioCOP })),
+          total_cop:      esPedidoUS(datos.lineas) ? null : totalPedido(datos.lineas),
+          total_usd:      esPedidoUS(datos.lineas) ? totalPedido(datos.lineas) : null,
           constructor_id: datos.socio?.constructorId ?? null,
           socio:          datos.socio?.nombre ?? null,
           estado:         'pendiente',
@@ -666,6 +715,8 @@ const PLANTILLA_PEDIDO_SOCIO_V1 = 'pedido_cliente_v1';
 export const PAYLOAD_VER_PEDIDO = 'pedido_ver:';
 
 const pesosCortos = (n: number) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+/** «$66», «$47.50»: el corto de los dólares, con coma de miles. */
+const dolaresCortos = (n: number) => usd(n).replace(/ USD$/, '');
 
 /** «+57 320 680 5737» para un celular colombiano; «+1 …» con los dígitos para otro país. */
 export function telefonoLegible(whatsapp: string): string {
@@ -680,12 +731,20 @@ export interface PedidoGuardado {
   codigo: string
   nombre?: string | null
   whatsapp: string
-  lineas: { nombre: string; cantidad: number; precio_cop: number }[]
-  total_cop: number
+  /** Colombia en `precio_cop` y `total_cop`; Estados Unidos en `precio_usd` y `total_usd`. */
+  lineas: { nombre: string; cantidad: number; precio_cop?: number; precio_usd?: number }[]
+  total_cop?: number | null
+  total_usd?: number | null
+}
+
+function totalGuardado(p: PedidoGuardado): string {
+  return p.total_usd != null ? usd(Number(p.total_usd)) : cop(Number(p.total_cop));
 }
 
 function vinetas(p: PedidoGuardado): string {
-  return p.lineas.map((l) => `• ${l.cantidad} × ${l.nombre} · ${pesosCortos(l.precio_cop * l.cantidad)}`).join('\n');
+  return p.lineas.map((l) => `• ${l.cantidad} × ${l.nombre} · ${l.precio_usd != null
+    ? dolaresCortos(l.precio_usd * l.cantidad)
+    : pesosCortos((l.precio_cop ?? 0) * l.cantidad)}`).join('\n');
 }
 
 /** Lo que responde [Ver el pedido] (texto aprobado por el Director, 17 oct 2026). */
@@ -695,7 +754,7 @@ export function detallePedidoSocio(p: PedidoGuardado): string {
     '',
     vinetas(p),
     '',
-    `Total de productos: *${cop(Number(p.total_cop))}*`,
+    `Total de productos: *${totalGuardado(p)}*`,
   ].join('\n');
 }
 
@@ -708,7 +767,7 @@ export function avisoPedidoEnTexto(p: PedidoGuardado, notaEquipo = ''): string {
     '',
     vinetas(p),
     '',
-    `Total de productos: *${cop(Number(p.total_cop))}*`,
+    `Total de productos: *${totalGuardado(p)}*`,
     '',
     'Escríbale hoy para acordar el pago y la entrega.',
   ].join('\n');
@@ -719,8 +778,11 @@ function pedidoDesdeLineas(lineas: LineaPedido[], whatsapp: string, nombre: stri
     codigo,
     nombre: nombre ?? null,
     whatsapp,
-    lineas: lineas.map((l) => ({ nombre: l.producto.nombre, cantidad: l.cantidad, precio_cop: l.producto.precioCOP })),
-    total_cop: totalPedido(lineas),
+    lineas: lineas.map((l) => (l.producto.precioUSD != null
+      ? { nombre: l.producto.nombre, cantidad: l.cantidad, precio_usd: l.producto.precioUSD }
+      : { nombre: l.producto.nombre, cantidad: l.cantidad, precio_cop: l.producto.precioCOP })),
+    total_cop: esPedidoUS(lineas) ? null : totalPedido(lineas),
+    total_usd: esPedidoUS(lineas) ? totalPedido(lineas) : null,
   };
 }
 
@@ -744,7 +806,7 @@ export async function avisarPedido(
 ): Promise<void> {
   const quien = `${nombre || 'Sin nombre'} (${whatsapp})`;
   const que   = resumenLineas(lineas).slice(0, 200);
-  const total = cop(totalPedido(lineas));
+  const total = dinero(totalPedido(lineas), esPedidoUS(lineas));
   const unidades = lineas.reduce((n, l) => n + l.cantidad, 0);
   const pedido = codigo ? pedidoDesdeLineas(lineas, whatsapp, nombre, codigo) : null;
   const boton = codigo ? `${codigo}-${await firmaPedido(codigo)}` : undefined;
@@ -840,7 +902,7 @@ export async function atenderVerPedido(
 ): Promise<string | null> {
   const codigo = opcion?.startsWith(PAYLOAD_VER_PEDIDO) ? opcion.slice(PAYLOAD_VER_PEDIDO.length) : null;
   const esEquipo = mismoNumero(telefono, WHATSAPP_EQUIPO());
-  let consulta = supabase.from('wa_pedidos').select('codigo, nombre, whatsapp, lineas, total_cop, constructor_id');
+  let consulta = supabase.from('wa_pedidos').select('codigo, nombre, whatsapp, lineas, total_cop, total_usd, constructor_id');
   consulta = codigo ? consulta.eq('codigo', codigo) : consulta.order('creado_at', { ascending: false }).limit(20);
   const { data } = await consulta;
   const filas = (Array.isArray(data) ? data : data ? [data] : []).filter((f: { codigo?: string }) => f?.codigo);
@@ -1048,7 +1110,7 @@ export async function socioTienePagoGano(supabase: any, constructorId?: string |
 /** La confirmación que cierra en la pregunta (el cuerpo del mensaje con botones). */
 export function confirmarPedidoConFormaDePago(lineas: LineaPedido[], nombre?: string, codigo?: string | null): string {
   const primer = nombreCorto(nombre);
-  const total = (lineas.length > 1 ? `\nTotal de productos: *${cop(totalPedido(lineas))}*` : '') + notaTope(lineas);
+  const total = (lineas.length > 1 ? `\nTotal de productos: *${dinero(totalPedido(lineas), esPedidoUS(lineas))}*` : '') + notaTope(lineas);
   return [
     `${primer ? `Listo, ${primer}.` : 'Listo.'} Su pedido${codigo ? ` N.º ${codigo}` : ''} quedó registrado:`,
     '',

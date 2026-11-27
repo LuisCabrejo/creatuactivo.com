@@ -43,6 +43,11 @@ export interface ProductoWA {
   alias: string[]
   /** Solo las promociones de Gano (22 oct 2026): cuántas deja Gano por pedido. */
   promocion?: { inventoryId: number; limite: number }
+  /**
+   * Solo los productos de Estados Unidos (wa-productos-usa.ts, 27 nov 2026): el precio
+   * al por menor en dólares. Con él, el pedido se escribe en dólares y `precioCOP` es 0.
+   */
+  precioUSD?: number
 }
 
 export const PRODUCTOS_WA: ProductoWA[] = [

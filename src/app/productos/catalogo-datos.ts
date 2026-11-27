@@ -596,10 +596,12 @@ export function mensajePedido(
   lineas: LineaCarrito[],
   socio: { nombre: string; slug?: string | null; constructorId?: string | null } | null,
   visitante?: string | null,
+  /** El inventario del país del catálogo (catalogo.ts, 27 nov 2026); por omisión, el de Colombia. */
+  productos: Record<string, Product> = productData,
 ): string {
   // La promoción lleva su código: así la reconoce el canal (alias «80094» en wa-productos).
-  const filas = lineas.filter((l) => productData[l.id]).map((l) => {
-    const p = productData[l.id]
+  const filas = lineas.filter((l) => productos[l.id]).map((l) => {
+    const p = productos[l.id]
     return `${l.cantidad} x ${p.name}${p.promocion ? ` (código ${p.promocion.inventoryId})` : ''}`
   }).join('\n')
   const ref = socio?.slug || socio?.constructorId

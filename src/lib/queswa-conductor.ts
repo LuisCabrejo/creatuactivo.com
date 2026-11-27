@@ -1259,6 +1259,8 @@ export interface ContextoSocio {
   contacto: string;
   /** Ya hay un pedido cargado en el hilo (solo WhatsApp lo lleva). */
   hayPedido: boolean;
+  /** El país del pedido (27 nov 2026): el del socio que lo atiende. Sin él, Colombia. */
+  pais?: 'CO' | 'US';
   socioQueEscribe?: boolean;
   /**
    * El turno anterior fue un pedido de datos de la radicación. Lo que la
@@ -1310,7 +1312,7 @@ export async function atenderSocio(ctx: ContextoSocio): Promise<RespuestaConduct
   const _escritosPersona = [...historial.filter((m) => m.role === 'user').map((m) => m.content), mensaje];
   const _fuera = !!lugarExterior(mensaje) || !!residenciaDeclarada(_escritosPersona);
   if (detectarPreguntaEnvio(mensaje) && !detectarPreguntaOficina(mensaje) && !_fuera) {
-    return { nodo: '2.47 envío', texto: respuestaEnvio(socio, ctx.hayPedido) };
+    return { nodo: '2.47 envío', texto: respuestaEnvio(socio, ctx.hayPedido, ctx.pais ?? 'CO') };
   }
 
   // 2.48 — Las direcciones son información de socio (Director, 27 ago 2026):

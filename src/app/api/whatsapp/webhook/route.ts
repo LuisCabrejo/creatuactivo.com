@@ -2700,6 +2700,11 @@ async function procesarEntrante(body: any): Promise<void> {
       ? { nombre: _socioQueAtiende.nombre?.split(/\s+/).slice(0, 2).join(' '), whatsapp: _socioQueAtiende.whatsapp, constructorId: _socioQueAtiende.constructorId,
           slug: await slugDelSocio(supabase, _socioQueAtiende.constructorId) }
       : null;
+    // El país del pedido (27 nov 2026): el de la inscripción en Gano del socio que lo
+    // atiende, porque es la cuenta con la que compra y despacha; sin socio, el del
+    // teléfono. Un pedido de Estados Unidos se lee con la tabla de allá y va en dólares.
+    const _paisSocioPedido = _socioQueAtiende ? await paisDeCuentaSocio(supabase, _socioQueAtiende.constructorId) : null;
+    const _paisPedido: 'CO' | 'US' = (_paisSocioPedido ?? paisDeTelefono(phoneNumber)) === 'US' ? 'US' : 'CO';
     // El «sí» a «¿Le abro el pedido con el que queda su código activo?» (cierre
     // de la respuesta de sede) entra al pedido pidiendo los productos.
     // …y el «sí» a «¿Le cuento cómo se pide?» —la oferta que improvisa el
@@ -2746,7 +2751,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // Si el nombre no se deja leer, el pedido sale igual: el dato nunca es
     // peaje, y una venta sin nombre vale más que un nombre sin venta.
     if (!socioQueEscribe && RE_PIDIO_NOMBRE_PEDIDO.test(_ultimoBotPedido)) {
-      const lineasP = lineasPendientesDelHilo(historial);
+      const lineasP = lineasPendientesDelHilo(historial, _paisPedido);
       if (lineasP.length > 0) {
         const nombreDado = leerNombrePedido(messageText) ?? _nombrePedido;
         const registro = await registrarPedido(supabase, {
@@ -2754,7 +2759,7 @@ async function procesarEntrante(body: any): Promise<void> {
         });
         // Si el socio tiene activo el pago directo a Gano, el cliente elige cómo pagar
         // y el aviso al socio espera a esa elección (17 oct 2026).
-        const _eligePago = Boolean(registro?.codigo) && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
+        const _eligePago = Boolean(registro?.codigo) && _paisPedido === 'CO' && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
         if (!_eligePago) await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido, registro?.codigo, supabase);
         if (nombreDado && nombreDado !== _nombrePedido) {
           try {
@@ -2779,17 +2784,18 @@ async function procesarEntrante(body: any): Promise<void> {
 
     if (!socioQueEscribe && !_preguntaSede && (_enPedido || detectarIntencionCompra(messageText))) {
       // «¿Cuál prefiere?» → la variante elegida es el pedido entero.
-      const variante = RE_PREGUNTO_CUAL_GANOCAFE.test(_ultimoBotPedido) ? leerVarianteGanocafe(messageText) : null;
+      // El «¿cuál prefiere?» del Ganocafé es de Colombia (3 en 1 o Clásico, en pesos).
+      const variante = _paisPedido === 'CO' && RE_PREGUNTO_CUAL_GANOCAFE.test(_ultimoBotPedido) ? leerVarianteGanocafe(messageText) : null;
       // «Gano Café» a secas es una familia (3 en 1 · Clásico): se pregunta cuál,
       // en vez de adivinar — el 29 ago se cargó un té por adivinar desde el hilo.
-      if (!variante && esGanocafeSinVariante(messageText)) {
+      if (_paisPedido === 'CO' && !variante && esGanocafeSinVariante(messageText)) {
         const texto = preguntarCualGanocafe();
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido: Ganocafé sin variante');
         console.log('🛒 [WA Webhook] Ganocafé sin variante — se pregunta cuál');
         return;
       }
-      const lineas = variante ? [{ producto: variante, cantidad: 1 }] : lineasDelPedido(messageText, historial);
+      const lineas = variante ? [{ producto: variante, cantidad: 1 }] : lineasDelPedido(messageText, historial, _paisPedido);
 
       // El «sí» a la oferta de la sede ABRE el pedido: hay que preguntarle qué
       // quiere, no decirle que no se le entendió (prueba del 31 ago 09:00 —
@@ -2828,7 +2834,7 @@ async function procesarEntrante(body: any): Promise<void> {
         const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: _nombrePedido, lineas, socio: _socioPedido,
         });
-        const _eligePago = Boolean(registro?.codigo) && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
+        const _eligePago = Boolean(registro?.codigo) && _paisPedido === 'CO' && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
         if (!_eligePago) await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido, registro?.codigo, supabase);
         const texto = _eligePago
           ? confirmarPedidoConFormaDePago(lineas, _nombrePedido, registro?.codigo)
@@ -2849,7 +2855,7 @@ async function procesarEntrante(body: any): Promise<void> {
         // fallido de nombrar un producto: recibe la bienvenida del pedido, no
         // un «no logré identificar» (prueba del Director, 31 ago 2026).
         const texto = (_enPedido && !_aceptaPedidoSede)
-          ? noEntendiProductos(RE_NO_ENTENDI.test(_ultimoBotPedido))
+          ? noEntendiProductos(RE_NO_ENTENDI.test(_ultimoBotPedido), _paisPedido)
           : pedirProductos(_nombrePedido, _notaPrecioDistribuidor);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.45 pedido abierto');
@@ -2873,6 +2879,7 @@ async function procesarEntrante(body: any): Promise<void> {
         nombreProspecto: _nombrePedido,
         contacto:        phoneNumber,
         hayPedido:       _hayPedido,
+        pais:            _paisPedido,
         socioQueEscribe: !!socioQueEscribe,
         radicacionAbierta: !!_ultimoBotSocio && pedidosDelBackend.includes(_ultimoBotSocio),
       });

@@ -22,7 +22,7 @@
 
 import { permanentRedirect } from 'next/navigation'
 import CatalogoTienda from '../page'
-import { TARJETA_CATALOGO } from '../og'
+import { tarjetaCatalogo } from '../og'
 import { resolver, aSocio, paisDeLaVisita } from '../socio'
 
 export const dynamic = 'force-dynamic'
@@ -47,9 +47,11 @@ export default async function CatalogoDelSocio({
 
 export async function generateMetadata({ params, searchParams }: { params: { ref: string }; searchParams?: Record<string, string | string[] | undefined> }) {
   const r = await resolver(params.ref)
-  const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}`
   const titulo = 'Catálogo Gano Excel 2026: café, bebidas y suplementos con Ganoderma'
   const esUS = paisDeLaVisita(r, searchParams) === 'US'
+  // El país va en la dirección de la tarjeta: Facebook abre el og:url, y sin él un
+  // catálogo de Estados Unidos compartido por un socio de Colombia abría el de aquí.
+  const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}${typeof searchParams?.pais === 'string' ? `?pais=${esUS ? 'us' : 'co'}` : ''}`
   const descripcion = esUS
     ? `Los 17 productos de Gano Excel USA con su precio en dólares.${r ? ` Le atiende ${aSocio(r).nombre}: el pedido se hace con ${aSocio(r).primerNombre} por WhatsApp.` : ' El pedido se hace con su distribuidor por WhatsApp.'}`
     : r
@@ -65,7 +67,8 @@ export async function generateMetadata({ params, searchParams }: { params: { ref
     // la de /productos y la tarjeta salía sin imagen. Es la misma (og.ts).
     openGraph: {
       title: titulo, description: descripcion, url, siteName: 'CreaTuActivo', locale: esUS ? 'es_US' : 'es_CO', type: 'website',
-      images: [TARJETA_CATALOGO],
+      // Cada país con su tarjeta (27 nov 2026): la de allá lleva la caja del Gano Café 3-in-1.
+      images: [tarjetaCatalogo(esUS ? 'US' : 'CO')],
     },
     twitter: { card: 'summary_large_image', title: titulo, description: descripcion },
     // tracking.js lee el dueño de la visita de aquí (ver la cabecera).

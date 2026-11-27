@@ -28,6 +28,22 @@ export const TARJETA_CATALOGO = {
 } as const
 
 /**
+ * La del catálogo de Estados Unidos (27 nov 2026): la misma escena con la foto del
+ * Gano Café 3-in-1 de allá. La compone scripts/componer-tarjeta-catalogo-usa.mjs.
+ */
+export const TARJETA_CATALOGO_US = {
+  url: 'https://creatuactivo.com/productos/tarjeta-catalogo-us-v1.jpg',
+  width: 1200,
+  height: 630,
+  alt: 'Una taza de café con leche junto a la caja de Gano Café 3-in-1, en una mesa con luz de mañana',
+} as const
+
+/** La tarjeta del catálogo de ese país. */
+export function tarjetaCatalogo(pais: 'CO' | 'US') {
+  return pais === 'US' ? TARJETA_CATALOGO_US : TARJETA_CATALOGO
+}
+
+/**
  * La tarjeta de UN producto (29 oct 2026), para el enlace directo
  * /productos/{slug}/{producto}: la foto real del producto sobre el crema de la
  * tienda, centrada (resiste el recorte cuadrado de WhatsApp) y sin texto ni
@@ -39,9 +55,10 @@ export const TARJETA_CATALOGO = {
  */
 export const VERSION_TARJETAS_PRODUCTO = 'v1'
 
-export function tarjetaProducto(id: string, nombre: string) {
+export function tarjetaProducto(id: string, nombre: string, pais: 'CO' | 'US' = 'CO') {
   return {
-    url: `https://creatuactivo.com/productos/tarjetas/${id}-${VERSION_TARJETAS_PRODUCTO}.jpg`,
+    // Las de Estados Unidos (27 nov 2026), con la foto de allá, en tarjetas/usa/.
+    url: `https://creatuactivo.com/productos/tarjetas/${pais === 'US' ? 'usa/' : ''}${id}-${VERSION_TARJETAS_PRODUCTO}.jpg`,
     width: 1200,
     height: 630,
     alt: `${nombre}, la foto del producto`,

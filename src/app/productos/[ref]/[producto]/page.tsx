@@ -21,7 +21,7 @@
 import { permanentRedirect, redirect } from 'next/navigation'
 import CatalogoTienda from '../../page'
 import { CATALOGOS, type PaisCatalogo } from '../../catalogo'
-import { tarjetaProducto, TARJETA_CATALOGO } from '../../og'
+import { tarjetaProducto } from '../../og'
 import { resolver, aSocio, paisDeLaVisita } from '../../socio'
 
 export const dynamic = 'force-dynamic'
@@ -68,7 +68,7 @@ export async function generateMetadata({ params, searchParams }: { params: { ref
   const pais = paisDeLaFicha(id, r, searchParams)
   const p = productoEnlazable(id, pais)
   if (!p) return {}
-  const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}/${id}`
+  const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}/${id}${typeof searchParams?.pais === 'string' ? `?pais=${pais.toLowerCase()}` : ''}`
   const titulo = `${p.name} · Catálogo Gano Excel`
   // Sin precio en la vista previa (Director, 2 nov 2026): el enlace se comparte para que la
   // persona conozca el producto; el precio lo ve al abrir la ficha.
@@ -80,8 +80,8 @@ export async function generateMetadata({ params, searchParams }: { params: { ref
     alternates: { canonical: 'https://creatuactivo.com/productos' },
     openGraph: {
       title: p.name, description: descripcion, url, siteName: 'CreaTuActivo', locale: pais === 'US' ? 'es_US' : 'es_CO', type: 'website',
-      // Estados Unidos todavía no tiene tarjetas por producto: va la del catálogo.
-      images: [pais === 'US' ? TARJETA_CATALOGO : tarjetaProducto(id, p.name)],
+      // Cada producto con su tarjeta, también los de Estados Unidos (27 nov 2026).
+      images: [tarjetaProducto(id, p.name, pais)],
     },
     twitter: { card: 'summary_large_image', title: p.name, description: descripcion },
     other: r ? { 'constructor-ref': r.constructorId } : undefined,

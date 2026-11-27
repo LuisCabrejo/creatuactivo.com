@@ -39,13 +39,16 @@ function version() {
 }
 
 // Los mismos archivos que usa imagenVitrina() en catalogo-datos.ts.
-const fuentes = readdirSync(LIMPIOS).filter((f) => f.endsWith('.png')).map((f) => [f.replace(/\.png$/, ''), join(LIMPIOS, f)]);
-fuentes.push(['maquina-luvoco', join(RAIZ, 'public/productos/luvoco/luvoco55-1-1024x1024.png')]);
+const fuentes = readdirSync(LIMPIOS).filter((f) => f.endsWith('.png')).map((f) => [f.replace(/\.png$/, ''), join(LIMPIOS, f), DESTINO]);
+fuentes.push(['maquina-luvoco', join(RAIZ, 'public/productos/luvoco/luvoco55-1-1024x1024.png'), DESTINO]);
+// Estados Unidos (27 nov 2026): las fotos de ganoexcel.us del catálogo de allá, en tarjetas/usa/.
+const USA = join(RAIZ, 'public/productos/usa');
+for (const f of readdirSync(USA).filter((f) => f.endsWith('.png'))) fuentes.push([f.replace(/\.png$/, ''), join(USA, f), join(DESTINO, 'usa')]);
 
-mkdirSync(DESTINO, { recursive: true });
 const v = version();
 
-for (const [id, archivo] of fuentes) {
+for (const [id, archivo, destino] of fuentes) {
+  mkdirSync(destino, { recursive: true });
   if (!existsSync(archivo)) throw new Error(`Falta la foto de ${id}: ${archivo}`);
   const producto = await sharp(archivo).trim().resize({ width: ANCHO, height: ALTO, fit: 'inside' }).png().toBuffer();
   const { width: pw, height: ph } = await sharp(producto).metadata();
@@ -58,7 +61,7 @@ for (const [id, archivo] of fuentes) {
      </svg>`,
   )).blur(14).png().toBuffer();
 
-  const salida = join(DESTINO, `${id}-${v}.jpg`);
+  const salida = join(destino, `${id}-${v}.jpg`);
   await sharp({ create: { width: W, height: H, channels: 3, background: FONDO } })
     .composite([
       { input: sombra, left: Math.round(W / 2 - (sw + 80) / 2), top: Math.round(BASE - (sh + 80) / 2) },
@@ -66,6 +69,6 @@ for (const [id, archivo] of fuentes) {
     ])
     .jpeg({ quality: 84, mozjpeg: true })
     .toFile(salida);
-  console.log(`✅ ${id}-${v}.jpg  ${(statSync(salida).size / 1024).toFixed(0)} KB`);
+  console.log(`✅ ${salida.replace(RAIZ + '/', '')}  ${(statSync(salida).size / 1024).toFixed(0)} KB`);
 }
-console.log(`\n${fuentes.length} tarjetas en public/productos/tarjetas/`);
+console.log(`\n${fuentes.length} tarjetas en public/productos/tarjetas/ (las de Estados Unidos, en tarjetas/usa/)`);

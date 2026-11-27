@@ -15,9 +15,9 @@
  * trae controles. El componente anterior (HomeManifestoVideo) arrancaba en
  * silencio y descargaba el video a todo el que entraba.
  *
- * La portada es el cuadro del segundo 13,8: el cubo con la esfera dorada, sin
- * subtítulo encima (public/images/home/como-funciona-portada.jpg). Si el video
- * se vuelve a cortar, se vuelve a sacar la portada del corte nuevo.
+ * La portada es el cuadro de «Tres piezas que ya existen» de la v8 (27 nov 2026),
+ * sin subtítulo encima (public/images/home/como-funciona-portada-v2.jpg). Si el
+ * video se vuelve a cortar, se saca la portada del corte nuevo, con nombre nuevo.
  */
 import VideoHome from '@/components/VideoHome'
 import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels'
@@ -29,7 +29,7 @@ export default function VideoComoFuncionaHome() {
     <VideoHome
       id="como-funciona"
       src={VIDEO_COMO_FUNCIONA_WA}
-      portada="/images/home/como-funciona-portada.jpg"
+      portada="/images/home/como-funciona-portada-v2.jpg"
       rotulo="Cómo funciona · 60 segundos"
       etiqueta="Reproducir el video «Cómo funciona», 60 segundos"
       // La portada NO es decorativa: es el contenido principal del hero y, por su

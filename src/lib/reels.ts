@@ -46,7 +46,13 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // pie—; el que comparten los socios cierra con «toque el enlace» y vive en el
 // Dashboard. Si se vuelve a cortar, se sube con otro nombre: Meta y los teléfonos
 // guardan copia de la URL.
-export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v7.mp4'
+// v8 (27 nov 2026, Director: «aprobado, publica»): guion al léxico del 26-27 nov —«Se trata de ser
+// dueño de un sistema de distribución que cabe en su celular. Usted no construye las piezas: se apoya
+// en tres que ya existen…»— y los tres elementos nuevos: un fabricante · un asistente en línea · saber
+// qué hacer. Sale Uber; entra «Eso es un activo: sigue produciendo aunque usted no esté presente.».
+// Imagen dibujada, como «Cómo entra el dinero» v3. 66,6 s. La v7 queda sin uso.
+// Receta: captions/work/como-funciona/v8/ (voz.py → armar.py).
+export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v8.mp4'
 
 // «Plan servilleta»: la presentación de /servilleta entera en voz (30 oct 2026,
 // Director; 3:03, 720×1280, 7,4 MB). Las nueve pantallas del deck capturadas en

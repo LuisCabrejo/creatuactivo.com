@@ -6,6 +6,10 @@ Extraído del cuerpo de los prompts a partir de v27.1 para reducir overhead de t
 
 ---
 
+## v5.31 — El resumen del video «Cómo funciona» v8 (27 nov 2026)
+
+Director («aprobado, publica»): el video «Cómo funciona» pasa a la v8, y el resumen que el prompt trae del video dice lo que dice la voz nueva: *se trata de ser dueño de un sistema de distribución que cabe en su celular*, las tres piezas que ya existen —un fabricante · un asistente en línea · saber qué hacer— y *eso es un activo*. Sale Uber. ⏳ `WHY_02` 🔒 y la Presentación siguen con *máquina de ventas* y *herramienta para multiplicar* hasta que el Director decida migrarlos. Tamaños: web 18.666 · WhatsApp 18.250 · Dashboard 16.129.
+
 ## v5.30 — Ser dueño de un sistema de distribución (26 nov 2026)
 
 Director: el marco para presentar el negocio en frío deja de ser *una empresa de distribución moderna* y pasa a *ser dueño de un sistema de distribución que cabe en su celular* —y no construye las piezas: se apoya en tres que ya existen—, la línea de la Presentación (5.0). El resumen del video «Cómo funciona» dice «su sistema de distribución vende sin ser dueño de la fábrica». Mismo cambio en el prompt de marca personal (`v2.7_dueno_del_sistema_nov2026`). Tamaños: web 18.654 · WhatsApp 18.238 · Dashboard 16.129.

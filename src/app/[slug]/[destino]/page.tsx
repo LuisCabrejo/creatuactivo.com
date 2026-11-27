@@ -30,7 +30,7 @@ const esVerComoFunciona = (destino: string) => DESTINOS_VER_COMO_FUNCIONA.includ
 const OG_VER_COMO_FUNCIONA = {
   title: 'Cómo funciona',
   description: OG_PRESENTACION.description,
-  image: 'https://creatuactivo.com/videos/queswa/como-funciona-poster.jpg',
+  image: 'https://creatuactivo.com/videos/queswa/como-funciona-poster-v2.jpg',
 }
 
 // La presentación 1-a-1, que desde el 10 oct 2026 vive en /servilleta (la

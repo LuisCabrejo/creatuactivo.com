@@ -126,10 +126,17 @@ const USA = {
 // con la misma cámara y la misma luz que la de Colombia, y la misma maqueta: el QR a
 // la derecha de los productos en el salón, y en el eje en el gimnasio, encima de la
 // mancuerna: los productos van bajos y a lo ancho, y arriba a la izquierda flotaba.
-//   · Salón: el champú y el acondicionador quedan como los dibujó la IA. Probado y
-//     descartado: ponerles la etiqueta real. Sobre un frasco redondo la deja plana, con
-//     costuras y con las letras mezcladas («ACONDICIOOR»), y la que dibujó la IA es la
-//     del frasco (logo, texto y peso neto).
+//   · Salón: la etiqueta del champú y la del acondicionador quedan como las dibujó la
+//     IA. Probado y descartado: ponerles la real. Sobre un frasco redondo la deja plana,
+//     con costuras y con las letras mezcladas («ACONDICIOOR»), y la que dibujó la IA es
+//     la del frasco (logo, texto y peso neto). LAS TAPAS sí son las reales (v2, 27 nov
+//     2026, Director: «las tapas se ven muy mal»): la IA las dibujó abiertas como un
+//     vaso. La tapa de la foto (public/productos/_set/limpios, filas 0-201: la tapa y
+//     45 px de cuerpo que se funden hacia abajo) se escala al ancho del cuerpo de la
+//     escena, su unión se alinea con la de la IA (y = 912), toma la luz de la escena
+//     por columna (el cociente del cuerpo de la escena contra el de la foto, justo
+//     bajo la unión) y lo que era tapa de la IA y queda fuera se rellena de fondo
+//     (cv2.inpaint). Las proporciones coinciden: la tapa mide 0,58 del ancho en las dos.
 //   · Gimnasio: la caja de Ganocafé Classic lleva la etiqueta real (la IA escribió
 //     letras sin sentido en el texto de la caja), con el frasco de Cordygold delante:
 //       python3 scripts/hablador-reetiquetar-caja.py docs/hablador/escena-gimnasio-generada-v1.jpg \
@@ -145,8 +152,8 @@ const USA = {
 // `elipse` es la luz que apaga la mesa: el mármol del salón es claro y tiene que
 // quedar negro antes de «Escanee · Pregunte · Pida por WhatsApp».
 const SALON = {
-  escena: join(RAIZ, 'public/images/hablador/escena-salon-v1.jpg'),
-  objetos: join(RAIZ, 'public/images/hablador/escena-salon-v1-objetos.png'),
+  escena: join(RAIZ, 'public/images/hablador/escena-salon-v2.jpg'),
+  objetos: join(RAIZ, 'public/images/hablador/escena-salon-v2-objetos.png'),
   ancho: 96, arriba: 5.2, izq: -0.9, elipse: { cx: 0.50, cy: 0.62, rx: 0.75, ry: 0.22 },
   // La toalla sale del cuadro por la derecha: se apaga a lo largo, no con la curva de
   // la elipse (que la cortaba en redondo).
@@ -218,7 +225,7 @@ for (const [archivo, fondo, capas] of [
   ['fondo-cafe-ganocafe-v3.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe()]],
   ['fondo-cafe-ganocafe-grande-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(GRANDE)]],
   ['fondo-cafe-ganocafe-usa-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(USA)]],
-  ['fondo-salon-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(SALON)]],
+  ['fondo-salon-v2.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(SALON)]],
   ['fondo-gimnasio-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(GIMNASIO)]],
   ['fondo-naturista-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(NATURISTA)]],
 ]) {
@@ -243,7 +250,7 @@ if (existsSync(ICC)) {
   for (const [rgb, cmyk] of [
     ['fondo-cafe-ganocafe-grande-v1.jpg', 'fondo-ganocafe-grande-cmyk-v1.jpg'],
     ['fondo-cafe-ganocafe-usa-v1.jpg', 'fondo-ganocafe-usa-cmyk-v1.jpg'],
-    ['fondo-salon-v1.jpg', 'fondo-salon-cmyk-v1.jpg'],
+    ['fondo-salon-v2.jpg', 'fondo-salon-cmyk-v2.jpg'],
     ['fondo-gimnasio-v1.jpg', 'fondo-gimnasio-cmyk-v1.jpg'],
     ['fondo-naturista-v1.jpg', 'fondo-naturista-cmyk-v1.jpg'],
   ]) {

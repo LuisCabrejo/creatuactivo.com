@@ -74,7 +74,7 @@ const VARIANTES: Record<string, { fondo: string; color: string; clase: string; b
   // Por negocio (27 nov 2026): el texto sale de NEGOCIOS (pieza.ts). En el gimnasio los
   // productos van bajos y a lo ancho: el QR va en el eje, encima de la mancuerna.
   salon: {
-    fondo: '/images/hablador/fondo-salon-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral',
+    fondo: '/images/hablador/fondo-salon-v2.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral',
     bajada: NEGOCIOS.salon.bajada,
   },
   gimnasio: {

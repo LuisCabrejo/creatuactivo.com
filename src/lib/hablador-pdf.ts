@@ -47,7 +47,7 @@ export interface InsumosHablador {
   fondoCmyk: ArrayBuffer | Uint8Array   // fondo-ganocafe-grande-cmyk-v1.jpg
   /** La escena con la caja de Estados Unidos (27 nov 2026): fondo-ganocafe-usa-cmyk-v1.jpg. */
   fondoUsaCmyk: ArrayBuffer | Uint8Array
-  /** Por negocio (27 nov 2026): fondo-salon-cmyk-v1.jpg y fondo-gimnasio-cmyk-v1.jpg. */
+  /** Por negocio (27 nov 2026): fondo-salon-cmyk-v2.jpg y fondo-gimnasio-cmyk-v1.jpg. */
   fondoSalonCmyk: ArrayBuffer | Uint8Array
   fondoGimnasioCmyk: ArrayBuffer | Uint8Array
   /** Farmacia y tienda naturista (27 nov 2026): fondo-naturista-cmyk-v1.jpg. */

@@ -10,7 +10,7 @@
  *
  * Los insumos viven junto a esta ruta, fuera de public/ (no son para la web):
  *   · fondo-ganocafe-grande-cmyk-v1.jpg, fondo-ganocafe-usa-cmyk-v1.jpg (Estados
- *     Unidos), fondo-salon-cmyk-v1.jpg, fondo-gimnasio-cmyk-v1.jpg y fondo-naturista-cmyk-v1.jpg
+ *     Unidos), fondo-salon-cmyk-v2.jpg, fondo-gimnasio-cmyk-v1.jpg y fondo-naturista-cmyk-v1.jpg
  *     (por negocio) —
  *     los genera scripts/componer-fondo-hablador.mjs.
  *     ⛔ Si cambia, lleva nombre nuevo, como el de la página.
@@ -37,7 +37,7 @@ function cargar() {
   return Promise.all([
     readFile(join(DIR, 'fondo-ganocafe-grande-cmyk-v1.jpg')),
     readFile(join(DIR, 'fondo-ganocafe-usa-cmyk-v1.jpg')),
-    readFile(join(DIR, 'fondo-salon-cmyk-v1.jpg')),
+    readFile(join(DIR, 'fondo-salon-cmyk-v2.jpg')),
     readFile(join(DIR, 'fondo-gimnasio-cmyk-v1.jpg')),
     readFile(join(DIR, 'fondo-naturista-cmyk-v1.jpg')),
     readFile(join(DIR, 'Inter-Regular.ttf')),

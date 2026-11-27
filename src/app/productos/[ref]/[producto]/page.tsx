@@ -34,10 +34,24 @@ function productoEnlazable(id: string, pais: PaisCatalogo) {
   return p && !p.promocion ? p : null
 }
 
+/**
+ * El país de la ficha: el de la visita (?pais o la inscripción del socio), salvo que
+ * el producto exista solo en el otro catálogo y el enlace no diga país (27 nov 2026).
+ * La pieza de bienestar de Estados Unidos imprime el enlace sin ?pais=us para que se
+ * lea; quien lo escribe a mano llega igual al catálogo de allá. Los ids de los dos
+ * catálogos no se repiten.
+ */
+function paisDeLaFicha(id: string, r: Awaited<ReturnType<typeof resolver>>, searchParams?: Busqueda): PaisCatalogo {
+  const visita = paisDeLaVisita(r, searchParams)
+  if (typeof searchParams?.pais === 'string' || productoEnlazable(id, visita)) return visita
+  const otro: PaisCatalogo = visita === 'US' ? 'CO' : 'US'
+  return productoEnlazable(id, otro) ? otro : visita
+}
+
 export default async function ProductoDelSocio({ params, searchParams }: { params: { ref: string; producto: string }; searchParams?: Busqueda }) {
   const id = decodeURIComponent(params.producto || '').toLowerCase()
   const r = await resolver(params.ref)
-  const pais = paisDeLaVisita(r, searchParams)
+  const pais = paisDeLaFicha(id, r, searchParams)
   // Las redirecciones conservan la consulta: sin ella, un enlace con ?pais=us
   // (el que comparte un socio de Colombia para Estados Unidos) caía al de Colombia.
   const consulta = new URLSearchParams()
@@ -51,7 +65,7 @@ export default async function ProductoDelSocio({ params, searchParams }: { param
 export async function generateMetadata({ params, searchParams }: { params: { ref: string; producto: string }; searchParams?: Busqueda }) {
   const id = decodeURIComponent(params.producto || '').toLowerCase()
   const r = await resolver(params.ref)
-  const pais = paisDeLaVisita(r, searchParams)
+  const pais = paisDeLaFicha(id, r, searchParams)
   const p = productoEnlazable(id, pais)
   if (!p) return {}
   const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}/${id}`

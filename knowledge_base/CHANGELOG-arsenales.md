@@ -30,6 +30,10 @@ El mensaje de los lunes del 5 oct presentó el **modo Waze** a los distribuidore
 
 ---
 
+## arsenal_inicial — v6.95: `RETO_D79`, «El tablero del rey» (26 nov 2026)
+
+Archivo del video del día 79 (martes 24 nov), aprobado por el Director. La leyenda del inventor del ajedrez (el doble de muy poquito se ve muy poco), el negocio de lavadoras (un cliente, casi 1.500 en dos años) y ayudar a dos hasta la casilla doce: 8.190 familias. Sin plazo y sin pesos, como el video. Cierra con la oferta literal del índice de `NIVELES_01`. `RETO_MAS_RECIENTE` deja el 77, y con eso se apagan solas las puertas del 77 (`noConoceMuchaGenteDel77`, Rappi y Nubank).
+
 ## arsenal_inicial — v6.94: la solución se nombra como en la Presentación (26 nov 2026)
 
 Director: «empresa de distribución moderna» no tenía calado (se confundía con local y empleados, con «empresa digital» o con «trabajarle a otro»). La forma nueva es la de la pantalla 5.0: *ser dueño de un sistema de distribución que cabe en su celular* + *no construye las piezas: se apoya en tres que ya existen*. Cambian los candados de `WHY_01` (*crear su propio activo, un sistema de distribución a su nombre que cabe en su celular*; sale «y lo maneja todo desde el celular», que repetía), `WHY_02` (primera línea; sale «Usted los recibe en una sola aplicación»: el celular es el envase) y `EMPRESA_DIGITAL_01` (*Aquí lo llamamos un sistema de distribución*; *es moderno porque el sistema entero cabe en su celular*), con su espejo en `respuestas-maestras.ts` (prefijo verificado) y la firma de la bitácora (`una? `). `OBJ_01`: «apalancarse» → «apoyarse» (en Colombia apalancarse es endeudarse). `RETO_D22`, `RETO_D58` y `RETO_D74` dicen «sistema de distribución» en el relato (Director). Baterías en verde (salud, negocio 43 candados, clasificador 65/65). Desplegado en los tres tenants con el orden sin ventana (`_old`); 91 fragmentos de `arsenal_inicial` en cada uno.

@@ -366,6 +366,10 @@ descartado y por qué: [`~/Downloads/reels-equipo/0910/corte-dia4.json`].
 
 ⚠️ **`pildora.py` revisa que la mezcla no salga corta** (mismo día). El `loudnorm` dinámico de la voz, puesto antes del `asplit` del sidechain, soltaba sus últimos ~3 s al cerrar, cuando `amix` ya había terminado. La v1 del día 73 perdió «le dejo el enlace para escribirle por WhatsApp» sin un solo aviso. Hoy la voz entra con ganancia fija y el script avisa si el audio dura menos que el video. **Antes de entregar, compare la duración del audio con la del video (`ffprobe`), no solo la sonoridad global**: −14 LUFS no delata 3 s de silencio al final.
 
+⚠️ **Con un contraluz que se levanta mucho en color, el blanqueamiento va muy por debajo de lo habitual** (24 nov 2026, día 79). El retoque corre antes del color, y una curva que lleva la cara de luma 26 a ~80 multiplica también el aclarado de los dientes: a `--fuerza 0.35` el Director lo vio «exagerado» y quedó en **0.04**. Se juzga sobre el fotograma ya graduado, nunca sobre el retocado en bruto.
+
+⚠️ **El 23 nov 2026 una limpieza de disco borró los binarios más pesados de `captions/.venv`** (`cv2.abi3.so`, mediapipe, onnxruntime, llvmlite) y el Playwright de `graficas/captura.js`, sin tocar los `dist-info`: `pip list` los muestra instalados y fallan al importar («recursion is detected during loading of cv2»). Se reinstalan en su misma versión con `pip install --force-reinstall --no-deps <paquete>==<versión>`. Para las gráficas sirve el Chrome del sistema con `playwright-core` (`chromium.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' })`).
+
 ⭐ **Una pausa más larga donde la toma no tiene silencio de sobra: `"lento": f` en el segmento** (18 nov 2026, día 73). Se declara un segmento que cubra SOLO el silencio entre dos frases y se estira f veces (video `setpts`, audio `atempo`). Con tomas a 120 fps, 1.75× se ve fluido y evita meter un tramo ajeno (dos cortes en menos de un segundo parpadean). ⛔ Nunca sobre voz.
 
 **Y verifica antes de que usted publique.** Al terminar avisa de tres cosas: una frase que suene más

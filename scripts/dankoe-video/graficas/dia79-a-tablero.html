@@ -1,0 +1,49 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><script src="comun.js"></script></head><body>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+// Día 79 («El tablero del rey») · la leyenda: «un grano de trigo en la primera casilla del
+// tablero, dos en la segunda, cuatro en la tercera, y así, el doble en cada casilla … en todo el
+// reino no había trigo suficiente». Las casillas se llenan con su cuenta y, con «no había trigo
+// suficiente», sale el total real de las 64: 18.446.744.073.709.551.615 granos.
+// Tiempos en segundos del cuerpo (alineación forzada del curado). Dos tramos: la leyenda (ini→sale)
+// y, tras volver a la cara en «El rey casi se ofende», el reino (vuelve→fin) con el tablero lleno.
+const W = { ini: 10.6, uno: 12.14, dos: 13.82, cuatro: 15.82, asi: 17.72, doble: 18.32, sale: 19.5, vuelve: 26.3, reino: 27.86, fin: 32.5 };
+const T0 = W.ini, FIN = W.fin;
+const svg = $('s'); montarDefs(svg);
+const L = 100, X0 = 540 - 4 * L, Y0 = 420;
+const tit = txt('El tablero del rey', { class: 'tit', x: 540, y: 330, 'text-anchor': 'middle' }, svg);
+const cas = [];
+for (let i = 0; i < 64; i++) {
+  const f = Math.floor(i / 8), c = i % 8, g = el('g', {}, svg);
+  const oscura = (f + c) % 2 === 1;
+  const r = el('rect', { x: X0 + c * L, y: Y0 + f * L, width: L, height: L, fill: oscura ? '#15171C' : '#1C1F26', stroke: 'rgba(255,255,255,0.06)', 'stroke-width': 1 }, g);
+  const n = i < 63 ? (2n ** BigInt(i)) : 0n;
+  const s = i < 14 ? n.toLocaleString('es-CO') : '';
+  const t = txt(s, { x: X0 + c * L + L / 2, y: Y0 + f * L + L / 2 + 9, 'text-anchor': 'middle', style: `font-family:RM,monospace;font-size:${s.length > 4 ? 20 : 26}px;fill:#E5E5E5` }, g);
+  cas.push({ r, t, base: oscura ? [21,23,28] : [28,31,38] });
+}
+el('rect', { x: X0, y: Y0, width: 8 * L, height: 8 * L, fill: 'none', stroke: 'rgba(255,255,255,0.12)', 'stroke-width': 2, rx: 6 }, svg);
+const tot1 = txt('18.446.744.073.709.551.615', { x: 540, y: Y0 + 8 * L + 80, 'text-anchor': 'middle', style: 'font-family:RM,monospace;font-size:44px;letter-spacing:2px;fill:#FFFFFF' }, svg);
+const tot2 = txt('granos de trigo', { class: 'mono', x: 540, y: Y0 + 8 * L + 128, 'text-anchor': 'middle' }, svg);
+
+// Cuándo se enciende cada casilla: 1, 2 y 3 con su palabra; desde «y así», una cascada.
+const enc = i => i === 0 ? W.uno : i === 1 ? W.dos : i === 2 ? W.cuatro : W.asi + (i - 3) * ((W.doble - W.asi + 1.2) / 61);
+
+function pintar(tl) {
+  const t = T0 + tl;
+  const vis = t < W.sale ? cl((t - T0) / 0.25) * (1 - cl((t - W.sale + 0.25) / 0.25))
+            : cl((t - W.vuelve) / 0.25) * (1 - cl((t - FIN + 0.25) / 0.25));
+  $('s').style.opacity = vis.toFixed(3);
+  cas.forEach((k, i) => {
+    const u = cl((t - enc(i)) / 0.3);
+    const lit = [44, 49, 58], f = k.base.map((b, j) => Math.round(lerp(b, lit[j], u)));
+    k.r.setAttribute('fill', `rgb(${f.join(',')})`);
+    k.r.setAttribute('stroke', u > 0 ? `rgba(148,163,184,${(0.06 + 0.5 * u).toFixed(2)})` : 'rgba(255,255,255,0.06)');
+    k.t.style.opacity = u.toFixed(3);
+  });
+  tot1.style.opacity = cl((t - W.reino) / 0.4);
+  tot2.style.opacity = cl((t - W.reino - 0.2) / 0.4);
+}
+window.CLAVES = [0.4, 1.8, 3.4, 5.4, 7.4, 8.6, 16.0, 17.6, 18.6]; window.pintar = pintar; window.DUR = FIN - T0; pintar(0);
+</script></body></html>

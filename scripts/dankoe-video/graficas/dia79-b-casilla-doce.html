@@ -1,0 +1,48 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><script src="comun.js"></script></head><body>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+<script>
+// Día 79 («El tablero del rey») · «Usted no ayuda a miles. Ayuda a dos personas a empezar su propio
+// negocio, y cada una hace lo mismo. Como en el tablero del rey, al llegar a la casilla doce, al nivel
+// doce, son 8.190 familias con su propio negocio». Doce casillas, de izquierda a derecha y nunca en
+// triángulo; cada una es un negocio (el celular), con su cuenta. El oro, una sola vez: el 8.190.
+const W = { ini: 68.7, dos: 70.66, mismo: 73.04, doce: 76.88, total: 78.58, fin: 81.15 };
+const T0 = W.ini, FIN = W.fin;
+const svg = $('s'); montarDefs(svg);
+const t1 = txt('Usted ayuda a dos', { class: 'tit', x: 540, y: 360, 'text-anchor': 'middle' }, svg);
+const t2 = txt('Cada una hace lo mismo', { class: 'tit', x: 540, y: 360, 'text-anchor': 'middle' }, svg);
+const t3 = txt('Casilla doce', { class: 'tit', x: 540, y: 360, 'text-anchor': 'middle' }, svg);
+// 4 columnas × 3 filas, leídas como texto: izquierda a derecha, arriba abajo.
+const L = 215, X0 = 540 - 2 * L, Y0 = 450;
+const cas = [];
+for (let i = 0; i < 12; i++) {
+  const f = Math.floor(i / 4), c = i % 4, x = X0 + c * L, y = Y0 + f * L, g = el('g', {}, svg);
+  const r = el('rect', { x: x + 8, y: y + 8, width: L - 16, height: L - 16, rx: 22, fill: '#15171C', stroke: 'rgba(255,255,255,0.1)', 'stroke-width': 2 }, g);
+  txt(String(i + 1), { x: x + 30, y: y + 46, style: 'font-family:RM,monospace;font-size:22px;fill:#64748B' }, g);
+  el('use', { href: '#i-celular', x: x + L / 2 - 30, y: y + 52, width: 60, height: 60, fill: 'none', stroke: TIT, 'stroke-width': 1.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+  const n = 2 ** (i + 1);
+  txt(n.toLocaleString('es-CO'), { x: x + L / 2, y: y + L - 38, 'text-anchor': 'middle', style: 'font-family:RM,monospace;font-size:30px;fill:#E5E5E5' }, g);
+  cas.push({ g, r });
+}
+const total = txt('8.190', { x: 540, y: Y0 + 3 * L + 150, 'text-anchor': 'middle', style: 'font-family:Inter,sans-serif;font-weight:700;font-size:128px;fill:#C5A059', filter: 'url(#brillo)' }, svg);
+const sub = txt('familias con su propio negocio', { class: 'mono', x: 540, y: Y0 + 3 * L + 210, 'text-anchor': 'middle' }, svg);
+
+// La 1 entra con «Ayuda a dos»; con «cada una hace lo mismo», la cascada hasta la 11; la 12 con «doce».
+const enc = i => i === 0 ? W.dos : i < 11 ? W.mismo + (i - 1) * ((W.doce - W.mismo - 0.4) / 10) : W.doce;
+
+function pintar(tl) {
+  const t = T0 + tl;
+  fundido(t, T0, FIN);
+  t1.style.opacity = cl((t - T0) / 0.3) * (1 - cl((t - W.mismo) / 0.3));
+  t2.style.opacity = cl((t - W.mismo - 0.15) / 0.3) * (1 - cl((t - W.doce + 0.6) / 0.3));
+  t3.style.opacity = cl((t - W.doce + 0.45) / 0.3);
+  cas.forEach((k, i) => {
+    const u = cl((t - enc(i)) / 0.35);
+    pon(k.g, 0, lerp(20, 0, sale(u)), 1, u);
+  });
+  // «son 8.190 familias»
+  total.style.opacity = cl((t - W.total) / 0.4);
+  sub.style.opacity = cl((t - W.total - 0.25) / 0.4);
+}
+window.pintar = pintar; window.DUR = FIN - T0; pintar(0);
+</script></body></html>

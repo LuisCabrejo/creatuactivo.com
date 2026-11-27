@@ -86,7 +86,7 @@ import {
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
   noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido, avisarPedidoAbierto,
   esBotonVerPedido, atenderVerPedido,
-  socioTienePagoGano, confirmarPedidoConFormaDePago, ofrecerFormaDePago, botonPagoElegido,
+  socioTienePagoGano, confirmarPedidoPagoGano, ofrecerPagoGano, botonPagoElegido,
   RE_PREGUNTO_FORMA_PAGO, codigoDelPedidoEnTexto, leerFormaDePagoEscrita, atenderFormaDePago,
   detectarPreguntaOficina, detectarCiudad,
   esGanocafeSinVariante, preguntarCualGanocafe, leerVarianteGanocafe, RE_PREGUNTO_CUAL_GANOCAFE, RE_NO_ENTENDI,
@@ -1090,9 +1090,10 @@ async function procesarEntrante(body: any): Promise<void> {
     }
 
     // ─── 1.37b [Pagar a Gano Excel] / [Pagar con {socio}] (17 oct 2026) ─────
-    // La confirmación del pedido pregunta «¿Cómo prefiere pagarlo?» con dos botones
-    // (src/lib/wa-pedido.ts). Solo atiende a quien hizo ese pedido; si el payload
-    // no es de un pedido suyo, el turno sigue su camino.
+    // La confirmación del pedido preguntaba «¿Cómo prefiere pagarlo?» con dos botones
+    // (src/lib/wa-pedido.ts). Desde el 27 nov 2026 ya no pregunta —va directo a Gano
+    // Excel—, pero esto sigue contestando los mensajes que ya salieron con los botones.
+    // Solo atiende a quien hizo ese pedido; si el payload no es suyo, el turno sigue.
     {
       const _eleccionPago = botonPagoElegido(opcionElegida);
       if (_eleccionPago) {
@@ -2760,8 +2761,9 @@ async function procesarEntrante(body: any): Promise<void> {
         const registro = await registrarPedido(supabase, {
           fingerprint: waFingerprint, whatsapp: phoneNumber, nombre: nombreDado, lineas: lineasP, socio: _socioPedido,
         });
-        // Si el socio tiene activo el pago directo a Gano, el cliente elige cómo pagar
-        // y el aviso al socio espera a esa elección (17 oct 2026).
+        // Si el socio tiene activo el pago directo a Gano, el pedido se paga a Gano
+        // Excel, sin preguntar (27 nov 2026), y el aviso al socio lo manda queswa.app
+        // cuando la orden existe.
         const _eligePago = Boolean(registro?.codigo) && _paisPedido === 'CO' && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
         if (!_eligePago) await avisarPedido(lineasP, phoneNumber, nombreDado, _socioPedido, registro?.codigo, supabase);
         if (nombreDado && nombreDado !== _nombrePedido) {
@@ -2774,12 +2776,12 @@ async function procesarEntrante(body: any): Promise<void> {
             });
           } catch { /* best-effort */ }
         }
-        const texto = _eligePago
-          ? confirmarPedidoConFormaDePago(lineasP, nombreDado, registro?.codigo)
+        let texto = _eligePago
+          ? confirmarPedidoPagoGano(lineasP, nombreDado, registro?.codigo)
           : confirmarPedido(lineasP, _socioPedido, nombreDado, registro?.codigo);
-        if (_eligePago) await ofrecerFormaDePago(phoneNumber, texto, registro!.codigo, _socioPedido?.nombre);
+        if (_eligePago) texto = await ofrecerPagoGano(supabase, phoneNumber, texto, registro!.codigo, _socioPedido);
         else await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, _eligePago ? '2.45 pedido cargado con nombre: elige cómo pagar' : '2.45 pedido cargado con nombre');
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, _eligePago ? '2.45 pedido cargado con nombre: paga a Gano Excel' : '2.45 pedido cargado con nombre');
         console.log(`🛒 [WA Webhook] Pedido cargado con nombre (${registro?.codigo ?? 'sin registro'}) — turno cerrado sin motor`);
         return;
       }
@@ -2839,12 +2841,12 @@ async function procesarEntrante(body: any): Promise<void> {
         });
         const _eligePago = Boolean(registro?.codigo) && _paisPedido === 'CO' && await socioTienePagoGano(supabase, _socioPedido?.constructorId);
         if (!_eligePago) await avisarPedido(lineas, phoneNumber, _nombrePedido, _socioPedido, registro?.codigo, supabase);
-        const texto = _eligePago
-          ? confirmarPedidoConFormaDePago(lineas, _nombrePedido, registro?.codigo)
+        let texto = _eligePago
+          ? confirmarPedidoPagoGano(lineas, _nombrePedido, registro?.codigo)
           : confirmarPedido(lineas, _socioPedido, _nombrePedido, registro?.codigo);
-        if (_eligePago) await ofrecerFormaDePago(phoneNumber, texto, registro!.codigo, _socioPedido?.nombre);
+        if (_eligePago) texto = await ofrecerPagoGano(supabase, phoneNumber, texto, registro!.codigo, _socioPedido);
         else await sendWhatsAppMessage(phoneNumber, texto, { wamid });
-        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, _eligePago ? '2.45 pedido cargado: elige cómo pagar' : '2.45 pedido cargado');
+        await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, _eligePago ? '2.45 pedido cargado: paga a Gano Excel' : '2.45 pedido cargado');
         console.log(`🛒 [WA Webhook] Pedido cargado (${registro?.codigo ?? 'sin registro'}) — ${lineas.length} línea(s) — turno cerrado sin motor`);
         return;
       }

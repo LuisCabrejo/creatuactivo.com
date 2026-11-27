@@ -628,11 +628,9 @@ export const ESTILOS_PAGO = `
 .tienda-pago-nota { margin: 0; font-size: 13px; color: var(--t-tinta-3); line-height: 1.45; }
 .tienda-pago a.tienda-boton { text-decoration: none; }
 .tienda-pago-eleccion { display: grid; gap: 10px; margin-top: 16px; }
-.tienda-pago-eleccion-titulo { margin: 16px 0 0; font-weight: 700; font-size: 15px; }
 .tienda-opcion { display: flex; gap: 12px; align-items: center; text-align: left; width: 100%; background: var(--t-superficie); border: 1.5px solid var(--t-linea); border-radius: var(--t-radio); padding: 14px; color: var(--t-tinta); cursor: pointer; }
 .tienda-opcion:hover { border-color: var(--t-tinta); }
 .tienda-opcion svg { flex-shrink: 0; color: var(--t-oro-texto); }
-.tienda-opcion.whatsapp svg { color: #25D366; }
 .tienda-opcion span { display: grid; gap: 2px; }
 .tienda-opcion strong { font-size: 15px; }
 .tienda-opcion small { font-size: 13px; color: var(--t-tinta-3); line-height: 1.4; }

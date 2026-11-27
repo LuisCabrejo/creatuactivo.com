@@ -357,7 +357,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
         <div className="tienda-ancho">
           <p className="tienda-ceja">Catálogo 2026 · Precios en {esUS ? 'dólares' : 'pesos'}</p>
           <h1 className="tienda-titulo">Catálogo Gano Excel</h1>
-          <p className="tienda-bajada">{pagoGano && socio ? `Café, bebidas, cápsulas y cuidado personal. Elija aquí y pague directo a Gano Excel, o con ${socio.primerNombre} por WhatsApp.` : 'Café, bebidas, cápsulas y cuidado personal. Elija aquí y termine su pedido por WhatsApp.'}</p>
+          <p className="tienda-bajada">{pagoGano && socio ? 'Café, bebidas, cápsulas y cuidado personal. Elija aquí y pague directo a Gano Excel.' : 'Café, bebidas, cápsulas y cuidado personal. Elija aquí y termine su pedido por WhatsApp.'}</p>
           <div className="tienda-socio">
             <div className="tienda-socio-foto" aria-hidden="true">
               {socio?.foto
@@ -424,8 +424,8 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
             <li><span>1</span><div><strong>Arme su pedido aquí</strong><p>Elija los productos y las cantidades. Todavía no paga nada.</p></div></li>
             {pagoGano && socio ? (
               <>
-                <li><span>2</span><div><strong>Elija cómo pagar</strong><p>Directo a Gano Excel, por PSE o en efectivo, con envío a su dirección o para recoger en una oficina de Gano Excel. O con {socio.nombre}, que le escribe por WhatsApp y acuerdan el pago y la entrega.</p></div></li>
-                <li><span>3</span><div><strong>Recibe su pedido</strong><p>Gano Excel lo despacha por Servientrega, normalmente de un día para otro, o lo recoge en una de sus oficinas, usted o alguien de su confianza. O en persona, si así lo acordó con {socio.primerNombre}.</p></div></li>
+                <li><span>2</span><div><strong>Pague a Gano Excel</strong><p>Por PSE desde su banco o en efectivo, con envío a su dirección o para recoger en una oficina de Gano Excel.</p></div></li>
+                <li><span>3</span><div><strong>Recibe su pedido</strong><p>Gano Excel lo despacha por Servientrega, normalmente de un día para otro, o lo recoge en una de sus oficinas, usted o alguien de su confianza.</p></div></li>
               </>
             ) : (
               <>
@@ -627,7 +627,8 @@ function titulosFicha(id: string, p: Product): { uso: string; ritual: string } {
  * `pagarAhora` y `seguirComprando` (11 nov 2026, Director): quien llega por el enlace
  * directo de un producto aterriza con la ficha abierta, y con la ficha abierta la
  * barra del pedido se esconde. Agregaba el producto y no tenía por dónde pagar.
- * «Pagar ahora» abre el pedido, donde elige cómo pagar (Gano Excel o el socio);
+ * «Pagar ahora» abre el pedido, donde paga a Gano Excel (desde el 27 nov 2026, la
+ * única forma en Colombia cuando el socio tiene el pago a Gano);
  * sin pago a Gano, el botón dice lo que pasa: se termina el pedido por WhatsApp.
  */
 function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace, unidades, pagoGano, pagarAhora, seguirComprando }: {
@@ -658,7 +659,7 @@ function Ficha({ id, p, atiende, cantidad, fijar, abrirOtro, cantidadDe, enlace,
                 {copiado ? <><Check className="h-4 w-4" /> Enlace copiado</> : <><Share2 className="h-4 w-4" /> Compartir</>}
               </button>
             )}
-            <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> {pais === 'US' ? 'Entrega en persona, o por FedEx desde California.' : 'Entrega en persona o por Servientrega, normalmente de un día para otro.'} El envío lo acuerda con {atiende ?? 'su distribuidor'}.</p>
+            <p className="tienda-ficha-entrega"><Truck className="h-4 w-4" /> {pagoGano ? 'Gano Excel lo despacha por Servientrega, normalmente de un día para otro, o lo recoge en una de sus oficinas.' : <>{pais === 'US' ? 'Entrega en persona, o por FedEx desde California.' : 'Entrega en persona o por Servientrega, normalmente de un día para otro.'} El envío lo acuerda con {atiende ?? 'su distribuidor'}.</>}</p>
             <p className="tienda-ficha-desc">{p.shortDescription}</p>
             {p.benefits.length > 0 && (
               <ul className="tienda-ficha-beneficios">
@@ -823,23 +824,16 @@ function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando
         </div>
 
         {pagoGano ? (
-          // Las dos opciones, en igualdad (Director, 17 oct 2026): pagar directo a Gano
-          // Excel o pagar con su distribuidor. Ninguna es «la otra».
-          <>
-            <p className="tienda-pago-eleccion-titulo">¿Cómo prefiere pagar?</p>
-            <div className="tienda-pago-eleccion">
-              <button type="button" className="tienda-opcion" onClick={pagarGano}>
-                <Landmark className="h-6 w-6" />
-                <span><strong>Pagar a Gano Excel</strong><small>Por PSE desde su banco o en efectivo. Gano Excel lo despacha a su dirección, o lo recoge en una de sus oficinas.</small></span>
-                <ChevronRight className="h-5 w-5 tienda-opcion-flecha" />
-              </button>
-              <button type="button" className="tienda-opcion whatsapp" onClick={enviar}>
-                <IconoWhatsApp />
-                <span><strong>Pagar con {socio?.primerNombre ?? 'su distribuidor'}</strong><small>Le escribe por WhatsApp y acuerdan el pago y la entrega. Todavía no paga nada.</small></span>
-                <ChevronRight className="h-5 w-5 tienda-opcion-flecha" />
-              </button>
-            </div>
-          </>
+          // Solo «Pagar a Gano Excel» (Director, 27 nov 2026): «Pagar con su distribuidor»
+          // por WhatsApp salió del catálogo de Colombia. Sin el pago a Gano guardado, el
+          // pedido sigue saliendo por WhatsApp (la rama de abajo): es la única vía que tiene.
+          <div className="tienda-pago-eleccion">
+            <button type="button" className="tienda-opcion" onClick={pagarGano}>
+              <Landmark className="h-6 w-6" />
+              <span><strong>Pagar a Gano Excel</strong><small>Por PSE desde su banco o en efectivo. Gano Excel lo despacha a su dirección, o lo recoge en una de sus oficinas.</small></span>
+              <ChevronRight className="h-5 w-5 tienda-opcion-flecha" />
+            </button>
+          </div>
         ) : (
           <div className="tienda-pedido-sigue">
             <Truck className="h-5 w-5" />

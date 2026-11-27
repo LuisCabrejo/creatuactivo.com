@@ -30,7 +30,7 @@
 
 import { PRODUCTOS_WA, detectarProducto, productoDelHilo, promocionCaducada, type ProductoWA } from '@/lib/wa-productos';
 import { PRODUCTOS_WA_US } from '@/lib/wa-productos-usa';
-import { sendTemplate, sendCtaUrl, sendText, sendReplyButtons } from '@/lib/wa-channel';
+import { sendTemplate, sendCtaUrl, sendText } from '@/lib/wa-channel';
 import { enVentanaPorTelefono } from '@/lib/wa-ventana';
 import { enlaceAjustes } from '@/lib/wa-destino-socio';
 import { avisarPorCorreo } from '@/lib/wa-radicacion';
@@ -1164,14 +1164,6 @@ export function botonesFormaDePago(codigo: string, nombreSocio?: string): { id: 
   ];
 }
 
-/** La confirmación con los dos botones; si Meta no deja botones, el texto con las dos opciones numeradas. */
-export async function ofrecerFormaDePago(to: string, texto: string, codigo: string, nombreSocio?: string) {
-  const r = await sendReplyButtons(to, texto, botonesFormaDePago(codigo, nombreSocio));
-  if (r.ok) return r;
-  console.warn(`⚠️ [Pedido WA] Los botones de pago no salieron (${r.error}); va en texto.`);
-  return sendText(to, `${texto}\n\n1. Pagar a Gano Excel\n2. ${tituloBotonSocio(nombreSocio)}`);
-}
-
 export interface EleccionPago { via: 'gano' | 'socio'; codigo: string; silencioso?: boolean }
 
 /** ¿Tocó uno de los dos botones? Trae la vía y el número de pedido del identificador oculto. */
@@ -1234,6 +1226,47 @@ export function textoPagoSocio(socio: SocioPedido | null, ahora = new Date()): s
     '',
     `Si están en la misma ciudad suele entregarse en persona; si no, Gano Excel lo despacha por Servientrega y normalmente llega de un día para otro. Si el envío tiene costo, ${quienCorto} se lo confirma antes de que usted pague.`,
   ].join('\n');
+}
+
+/**
+ * Solo «Pagar a Gano Excel» (Director, 27 nov 2026): «Pagar con su distribuidor»
+ * salió del pedido de Colombia, en WhatsApp como en el catálogo. Si el socio tiene
+ * el pago a Gano activo, la confirmación ya no pregunta «¿Cómo prefiere pagarlo?»:
+ * trae el botón al catálogo con el pedido puesto, como cuando se elegía Gano. El
+ * aviso al socio lo sigue mandando queswa.app cuando la orden existe. Sin el pago
+ * a Gano, el pedido sigue con el socio (`confirmarPedido`): es la única vía.
+ * Los botones y la pregunta de antes (`botonesFormaDePago`, `atenderFormaDePago`)
+ * se quedan para contestar los mensajes que ya salieron con ellos.
+ */
+export function confirmarPedidoPagoGano(lineas: LineaPedido[], nombre?: string, codigo?: string | null): string {
+  const primer = nombreCorto(nombre);
+  const total = (lineas.length > 1 ? `\nTotal de productos: *${dinero(totalPedido(lineas), esPedidoUS(lineas))}*` : '') + notaTope(lineas);
+  return [
+    `${primer ? `Listo, ${primer}.` : 'Listo.'} Su pedido${codigo ? ` N.º ${codigo}` : ''} quedó registrado:`,
+    '',
+    lineas.map(lineaTexto).join('\n') + total,
+    '',
+    'Lo paga directo a Gano Excel, y Gano Excel se lo despacha a su dirección.',
+    '',
+    'En el enlace escribe la dirección de entrega, ve el costo del envío y paga por PSE desde su banco o consigna en efectivo. El pago por PSE vale 20 minutos: tenga su banco a la mano.',
+  ].join('\n');
+}
+
+/** Manda la confirmación con el botón «Pagar a Gano Excel» y deja el pedido en `eligio_gano`. Devuelve el texto para el historial. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function ofrecerPagoGano(supabase: any, to: string, texto: string, codigo: string, socio: SocioPedido | null): Promise<string> {
+  const url = await enlacePagoGano(socio, codigo);
+  const r = await sendCtaUrl(to, texto, 'Pagar a Gano Excel', url);
+  if (!r.ok) {
+    console.warn(`⚠️ [Pedido WA] El botón de pago no salió (${r.error}); va en texto.`);
+    await sendText(to, `${texto}\n\n${url}`);
+  }
+  try {
+    await supabase.from('wa_pedidos').update({ estado: 'eligio_gano' }).eq('codigo', codigo);
+  } catch (err) {
+    console.error('❌ [Pedido WA] No se marcó el pedido como pago a Gano:', err);
+  }
+  return `${texto}\n\n[Pagar a Gano Excel] ${url}`;
 }
 
 /**

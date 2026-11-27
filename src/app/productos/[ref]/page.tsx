@@ -55,8 +55,8 @@ export async function generateMetadata({ params, searchParams }: { params: { ref
   const descripcion = esUS
     ? `Los 17 productos de Gano Excel USA con su precio en dólares.${r ? ` Le atiende ${aSocio(r).nombre}: el pedido se hace con ${aSocio(r).primerNombre} por WhatsApp.` : ' El pedido se hace con su distribuidor por WhatsApp.'}`
     : r
-    ? `Los 22 productos de Gano Excel con su precio en pesos. Le atiende ${aSocio(r).nombre}: paga directo a Gano Excel o con ${aSocio(r).primerNombre} por WhatsApp.`
-    : 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal. Paga directo a Gano Excel o con su distribuidor por WhatsApp.'
+    ? `Los 22 productos de Gano Excel con su precio en pesos. Le atiende ${aSocio(r).nombre}: ${r.pagoGano ? 'paga directo a Gano Excel.' : `el pedido se hace con ${aSocio(r).primerNombre} por WhatsApp.`}`
+    : 'Los 22 productos de Gano Excel con su precio en pesos: café, bebidas, suplementos y cuidado personal.'
   return {
     title: titulo,
     description: descripcion,

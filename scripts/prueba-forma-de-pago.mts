@@ -4,7 +4,7 @@
  */
 import assert from 'node:assert/strict'
 import {
-  confirmarPedidoConFormaDePago, RE_PREGUNTO_FORMA_PAGO, botonesFormaDePago, botonPagoElegido,
+  confirmarPedidoConFormaDePago, confirmarPedidoPagoGano, RE_PREGUNTO_FORMA_PAGO, botonesFormaDePago, botonPagoElegido,
   codigoDelPedidoEnTexto, leerFormaDePagoEscrita, tituloBotonSocio, enlacePagoGano, textoPagoGano, textoPagoSocio, firmaPedido,
 } from '../src/lib/wa-pedido'
 import { PRODUCTOS_WA } from '../src/lib/wa-productos'
@@ -24,6 +24,13 @@ ok(conf.includes('N.º 47004'), 'lleva el número de pedido')
 ok(RE_PREGUNTO_FORMA_PAGO.test(conf), 'termina en la pregunta')
 ok(codigoDelPedidoEnTexto(conf) === '47004', 'el código se lee del texto')
 ok(!RE_PREGUNTO_FORMA_PAGO.test('¿Le muestro el catálogo?'), 'otra pregunta no dispara')
+
+// Desde el 27 nov 2026 la confirmación va directo a Gano Excel, sin la pregunta ni el socio
+const confGano = confirmarPedidoPagoGano(lineas, 'Milena❤️', '47004')
+ok(confGano.startsWith('Listo, Milena.') && confGano.includes('N.º 47004'), 'directo a Gano: nombre y número')
+ok(!RE_PREGUNTO_FORMA_PAGO.test(confGano), 'directo a Gano: sin la pregunta')
+ok(confGano.includes('directo a Gano Excel') && !/distribuidor|le escribe/i.test(confGano), 'directo a Gano: no ofrece al socio')
+ok(codigoDelPedidoEnTexto(confGano) === '47004', 'directo a Gano: el código se lee del texto')
 
 // Botones: ids con el código, títulos ≤ 20 (tope de Meta)
 const botones = botonesFormaDePago('47004', 'Luis Cabrejo')

@@ -329,7 +329,10 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
   const enlaceDe = (id: string): string | null => {
     if (productData[id]?.promocion) return null
     const ref = socio?.slug || socio?.constructorId
-    return ref ? `${window.location.origin}/productos/${ref}/${id}` : `${window.location.origin}/productos?producto=${id}`
+    // El catálogo de Estados Unidos viaja con su país (27 nov 2026): un socio inscrito en
+    // Colombia lo comparte con ?pais=us, y sin él el enlace abriría el de Colombia.
+    const pais = esUS ? '?pais=us' : ''
+    return ref ? `${window.location.origin}/productos/${ref}/${id}${pais}` : `${window.location.origin}/productos?producto=${id}`
   }
 
   const productoFicha = ficha ? productData[ficha] : null

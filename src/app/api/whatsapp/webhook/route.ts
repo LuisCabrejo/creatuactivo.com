@@ -82,7 +82,7 @@ import { respuestaRenta, respuestaGen5, respuestaRegalia, respuestaNiveles, esRe
 import { preguntaPorPlataParaEmpezar } from '@/lib/puerta-plata-para-empezar';
 import { respuestaPlataParaElSocio } from '@/lib/wa-plata-socio';
 import {
-  detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo, refSocioDelPedidoEnHilo,
+  detectarIntencionCompra, pedidoAbierto, pedidoCargado, lineasDelPedido, lineasPendientesDelHilo, refSocioDelPedidoEnHilo, paisDelCatalogoEnHilo,
   pedirProductos, pedirNombrePedido, RE_PIDIO_NOMBRE_PEDIDO, leerNombrePedido,
   noEntendiProductos, confirmarPedido, registrarPedido, avisarPedido, avisarPedidoAbierto,
   esBotonVerPedido, atenderVerPedido,
@@ -2700,11 +2700,14 @@ async function procesarEntrante(body: any): Promise<void> {
       ? { nombre: _socioQueAtiende.nombre?.split(/\s+/).slice(0, 2).join(' '), whatsapp: _socioQueAtiende.whatsapp, constructorId: _socioQueAtiende.constructorId,
           slug: await slugDelSocio(supabase, _socioQueAtiende.constructorId) }
       : null;
-    // El país del pedido (27 nov 2026): el de la inscripción en Gano del socio que lo
-    // atiende, porque es la cuenta con la que compra y despacha; sin socio, el del
-    // teléfono. Un pedido de Estados Unidos se lee con la tabla de allá y va en dólares.
-    const _paisSocioPedido = _socioQueAtiende ? await paisDeCuentaSocio(supabase, _socioQueAtiende.constructorId) : null;
-    const _paisPedido: 'CO' | 'US' = (_paisSocioPedido ?? paisDeTelefono(phoneNumber)) === 'US' ? 'US' : 'CO';
+    // El país del pedido (27 nov 2026): primero el del CATÁLOGO del que salió (sus
+    // nombres de producto lo dicen: un socio de Colombia puede compartir el de Estados
+    // Unidos y gestionar él la compra, Director); si no, el de la inscripción en Gano
+    // del socio que lo atiende; sin socio, el del teléfono. Un pedido de Estados
+    // Unidos se lee con la tabla de allá y va en dólares.
+    const _paisCatalogo = paisDelCatalogoEnHilo(historial, messageText);
+    const _paisSocioPedido = _paisCatalogo ? null : _socioQueAtiende ? await paisDeCuentaSocio(supabase, _socioQueAtiende.constructorId) : null;
+    const _paisPedido: 'CO' | 'US' = (_paisCatalogo ?? _paisSocioPedido ?? paisDeTelefono(phoneNumber)) === 'US' ? 'US' : 'CO';
     // El «sí» a «¿Le abro el pedido con el que queda su código activo?» (cierre
     // de la respuesta de sede) entra al pedido pidiendo los productos.
     // …y el «sí» a «¿Le cuento cómo se pide?» —la oferta que improvisa el

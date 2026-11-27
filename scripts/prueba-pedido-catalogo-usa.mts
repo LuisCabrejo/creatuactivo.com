@@ -16,9 +16,9 @@ import * as datosMod from '../src/app/productos/catalogo-datos.ts'
 import * as usaMod from '../src/app/productos/catalogo-usa.ts'
 import * as pedidoMod from '../src/lib/wa-pedido.ts'
 
-const { mensajePedido } = ((datosMod as any).default ?? datosMod) as typeof datosMod
+const { mensajePedido, productData } = ((datosMod as any).default ?? datosMod) as typeof datosMod
 const { productDataUS } = ((usaMod as any).default ?? usaMod) as typeof usaMod
-const { extraerLineasPedido, confirmarPedido, refSocioDelPedidoEnHilo, totalPedido, detallePedidoSocio, respuestaEnvio } =
+const { extraerLineasPedido, confirmarPedido, refSocioDelPedidoEnHilo, totalPedido, detallePedidoSocio, respuestaEnvio, paisDelCatalogoEnTexto, paisDelCatalogoEnHilo } =
   ((pedidoMod as any).default ?? pedidoMod) as typeof pedidoMod
 
 let fallas = 0
@@ -75,6 +75,29 @@ if (!respuestaEnvio(null, false).includes('Servientrega')) falla('la respuesta d
 // 7. Con la tabla de Colombia, el mensaje de allá NO se debe leer como pedido de aquí sin decirlo
 const conCO = extraerLineasPedido(mensajePedido([{ id: 'classic', cantidad: 1 }], socio, null, productDataUS))
 console.log(`  (referencia) con la tabla de Colombia, «Gano Café Classic» se lee como: ${conCO.map((l) => l.producto.nombre).join(', ') || 'nada'}`)
+
+// 8. El país sale del catálogo, no de la inscripción del socio (27 nov 2026): Luis está
+//    inscrito en Colombia y comparte el catálogo de Estados Unidos con ?pais=us.
+const luis = { nombre: 'Luis Cabrejo', slug: 'luis-cabrejo', constructorId: 'luis-cabrejo-1288' }
+for (const id of Object.keys(productDataUS)) {
+  const pais = paisDelCatalogoEnTexto(mensajePedido([{ id, cantidad: 1 }], luis, null, productDataUS))
+  // «Gano Schokolade» se llama igual en los dos países: solo, decide el socio.
+  const esperado = id === 'schokolade' ? null : 'US'
+  if (pais !== esperado) falla(`catálogo de EE. UU., ${id}: país ${pais} en vez de ${esperado}`)
+}
+if (paisDelCatalogoEnTexto(mensajePedido([{ id: 'schokolade', cantidad: 1 }, { id: 'classic', cantidad: 2 }], luis, null, productDataUS)) !== 'US') {
+  falla('Schokolade junto a un producto de allá no se reconoce como pedido de EE. UU.')
+}
+for (const id of Object.keys(productData)) {
+  if (productData[id].promocion) continue
+  const pais = paisDelCatalogoEnTexto(mensajePedido([{ id, cantidad: 1 }], luis))
+  if (pais !== null) falla(`catálogo de Colombia, ${id}: se leyó como ${pais}`)
+}
+// El turno del nombre ya no trae los productos: el país sale del hilo.
+const hilo = [{ role: 'user', content: mensajePedido([{ id: 'tongkat-ali', cantidad: 2 }], luis, null, productDataUS) },
+  { role: 'assistant', content: 'Con gusto le tomo el pedido. Soy Queswa, la asistente de Luis Cabrejo. ¿A nombre de quién lo dejo?' }]
+if (paisDelCatalogoEnHilo(hilo, 'Ana Pérez') !== 'US') falla('el turno del nombre perdió el país del catálogo')
+if (paisDelCatalogoEnHilo([], 'quiero dos cajas de café') !== null) falla('un pedido escrito a mano se leyó como de un catálogo')
 
 console.log(fallas ? `\n❌ ${fallas} falla(s)` : '\n✅ El pedido de Estados Unidos llega entero, en dólares y con FedEx')
 process.exit(fallas ? 1 : 0)

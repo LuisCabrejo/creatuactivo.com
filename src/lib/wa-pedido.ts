@@ -276,6 +276,36 @@ export function refSocioDelPedidoEnHilo(historial: { role: string; content: stri
   return null;
 }
 
+/**
+ * El país del CATÁLOGO del que salió el pedido (27 nov 2026, Director). Un socio
+ * inscrito en Colombia puede compartir el catálogo de Estados Unidos
+ * (/productos/{slug}?pais=us) y gestionar él la compra de su cliente allá. El
+ * mensaje del catálogo escribe cada producto con su nombre exacto («1 x Gano Café
+ * Classic»), y los de allá no se llaman como los de aquí («Ganocafé Clásico»): si
+ * todas las líneas son nombres de Estados Unidos y alguna existe solo allá, el
+ * pedido es de Estados Unidos, sea cual sea la inscripción del socio. Si el mensaje
+ * no trae esas líneas (un pedido escrito a mano) o todas son ambiguas («Gano
+ * Schokolade» se llama igual en los dos), devuelve null y decide el socio.
+ */
+const NOMBRES_US = new Set(PRODUCTOS_WA_US.map((p) => norm(p.nombre)));
+const NOMBRES_SOLO_US = new Set([...NOMBRES_US].filter((n) => !PRODUCTOS_WA.some((p) => norm(p.nombre) === n)));
+
+export function paisDelCatalogoEnTexto(texto: string): PaisPedido | null {
+  const nombres = [...texto.matchAll(/^\s*\d+\s*x\s+(.+?)\s*$/gim)].map((m) => norm(m[1]));
+  if (nombres.length === 0) return null;
+  return nombres.every((n) => NOMBRES_US.has(n)) && nombres.some((n) => NOMBRES_SOLO_US.has(n)) ? 'US' : null;
+}
+
+/** Lo mismo sobre el hilo: el último mensaje de la persona con líneas de catálogo (el turno del nombre ya no las trae). */
+export function paisDelCatalogoEnHilo(historial: { role: string; content: string }[], mensajeActual = ''): PaisPedido | null {
+  const mensajes = [...historial.filter((m) => m.role === 'user').map((m) => m.content), mensajeActual];
+  for (let i = mensajes.length - 1; i >= 0; i--) {
+    if (!/^\s*\d+\s*x\s+\S/im.test(mensajes[i])) continue;
+    return paisDelCatalogoEnTexto(mensajes[i]);
+  }
+  return null;
+}
+
 // ─── Copy ────────────────────────────────────────────────────────────────────
 
 /** «Gano Café» / «Ganocafé» / «el café» a secas: es una familia, no un producto. */

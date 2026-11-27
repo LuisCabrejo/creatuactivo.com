@@ -239,6 +239,13 @@ const sendMessage = useCallback(async (content: string) => {
       ? '12_niveles'               // Deck Los 12 Niveles (simulador 2×2)
       : 'default';                 // Modo asesor de negocio
 
+    // 🌎 El país de la página, cuando la página es de Estados Unidos (27 nov 2026): el
+    // catálogo de allá lo marca en <html data-queswa-pais>, y la presentación de allá
+    // va por su dirección. Sin esto, el motor decide por la conexión.
+    const paisPagina = typeof document !== 'undefined'
+      && (document.documentElement.dataset.queswaPais === 'US' || pagePath.startsWith('/servilleta/estados-unidos'))
+      ? 'US' : undefined;
+
     console.log('🔍 [NEXUS] Estado de usuario:', {
       hasSeenGreeting,
       isFirstMessageOfConversation: messages.length === 0,
@@ -260,7 +267,8 @@ const sendMessage = useCallback(async (content: string) => {
         sessionId: sessionId,
         constructorId: constructorId,  // ✅ Pasar constructor_id para tracking
         isReturningUser: hasSeenGreeting,  // 🆕 Enviar si ya vio el saludo completo
-        pageContext: pageContext  // 🎯 Contexto de página para ajustar comportamiento
+        pageContext: pageContext,  // 🎯 Contexto de página para ajustar comportamiento
+        paisPagina,
       }),
       signal: controller.signal
     });

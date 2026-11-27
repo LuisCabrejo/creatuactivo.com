@@ -174,6 +174,15 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
     .map((l) => ({ ...l, ids: l.ids.filter((id) => !productData[id].promocion || promosVigentes.includes(productData[id].promocion!.inventoryId)) }))
     .filter((l) => l.ids.length > 0), [promosVigentes, LINEAS, productData])
 
+  // El país de la página, para el chat (27 nov 2026): Queswa decide el país por la
+  // conexión, y un socio en Colombia que comparte el catálogo de Estados Unidos
+  // recibía la estrategia de Colombia. useNEXUSChat lo lee y lo manda al motor.
+  useEffect(() => {
+    if (pais !== 'US') return
+    document.documentElement.dataset.queswaPais = 'US'
+    return () => { delete document.documentElement.dataset.queswaPais }
+  }, [pais])
+
   // ── El socio. En /productos/{slug} llega resuelto desde el servidor ([ref]/page.tsx);
   // en /productos, del que trajo a esta persona la última vez (tracking.js lo guarda).
   useEffect(() => {

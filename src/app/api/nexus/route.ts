@@ -4790,7 +4790,7 @@ export async function POST(req: Request) {
     });
 
   try {
-    const { messages: _messagesEntrada, sessionId, fingerprint: _fingerprintEntrada, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, socioEnlace, socioEnlaceProductos, modoCatalogo: modoCatalogoEntrada } = await req.json();
+    const { messages: _messagesEntrada, sessionId, fingerprint: _fingerprintEntrada, constructorId, consentGiven, isReturningUser, pageContext: pageContextEntrada, paisPagina, socioEnlace, socioEnlaceProductos, modoCatalogo: modoCatalogoEntrada } = await req.json();
     // ⛔ El chat de la web en localhost no escribe fichas (Director, 11 oct 2026):
     // sin huella el motor responde igual —así llega parte del tráfico web real—
     // pero no crea ni actualiza el prospecto, y el Dashboard no anuncia una prueba
@@ -4811,7 +4811,12 @@ export async function POST(req: Request) {
     let _saludCompuestaWeb: { familia: string; declara: boolean; respaldo: string; nucleo: string } | null = null;
 
     // 🌎 País del visitante (web: IP Vercel Edge · whatsapp: prefijo telefónico)
-    const visitorCountry = detectVisitorCountry(req, tenantId, fingerprint);
+    // En la web, una página de Estados Unidos (su catálogo, su presentación) manda sobre
+    // la IP (27 nov 2026): el país lo decide la dirección. Un socio en Colombia que
+    // comparte el catálogo de allá recibía la estrategia de Colombia, con el Kit en pesos.
+    const visitorCountry = tenantId === 'creatuactivo_marketing' && paisPagina === 'US'
+      ? 'US'
+      : detectVisitorCountry(req, tenantId, fingerprint);
     if (visitorCountry) console.log(`🌎 [Geo] País detectado: ${visitorCountry}`);
 
     // ✅ Validación de mensajes

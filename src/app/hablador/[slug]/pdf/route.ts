@@ -9,7 +9,8 @@
  * y compartirlo.
  *
  * Los insumos viven junto a esta ruta, fuera de public/ (no son para la web):
- *   · fondo-ganocafe-grande-cmyk-v1.jpg — lo genera scripts/componer-fondo-hablador.mjs.
+ *   · fondo-ganocafe-grande-cmyk-v1.jpg y fondo-ganocafe-usa-cmyk-v1.jpg (Estados
+ *     Unidos) — los genera scripts/componer-fondo-hablador.mjs.
  *     ⛔ Si cambia, lleva nombre nuevo, como el de la página.
  *   · Inter-{Regular,Medium,SemiBold}.ttf — Inter 4.0 (OFL), pasada de OTF a TrueType
  *     y recortada al alfabeto latino. ⚠️ En OTF (CFF), el recorte de fontkit deja la
@@ -32,11 +33,11 @@ let insumos: ReturnType<typeof cargar> | null = null
 function cargar() {
   return Promise.all([
     readFile(join(DIR, 'fondo-ganocafe-grande-cmyk-v1.jpg')),
-    readFile(join(DIR, 'fondo-taza-cmyk-v1.jpg')),
+    readFile(join(DIR, 'fondo-ganocafe-usa-cmyk-v1.jpg')),
     readFile(join(DIR, 'Inter-Regular.ttf')),
     readFile(join(DIR, 'Inter-Medium.ttf')),
     readFile(join(DIR, 'Inter-SemiBold.ttf')),
-  ]).then(([fondoCmyk, fondoTazaCmyk, interRegular, interMedium, interSemiBold]) => ({ fondoCmyk, fondoTazaCmyk, interRegular, interMedium, interSemiBold }))
+  ]).then(([fondoCmyk, fondoUsaCmyk, interRegular, interMedium, interSemiBold]) => ({ fondoCmyk, fondoUsaCmyk, interRegular, interMedium, interSemiBold }))
 }
 
 export async function GET(req: Request, { params }: { params: { slug: string } }) {
@@ -51,7 +52,7 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
   insumos ??= cargar()
   let pdf: Uint8Array
   try {
-    // ?pais=us: el de Estados Unidos (27 nov 2026), con su QR al catálogo de allá.
+    // ?pais=us: el de Estados Unidos (27 nov 2026), con la caja de allá y su QR al catálogo de allá.
     pdf = await crearPdfHablador(r.slug, await insumos, url.searchParams.get('pais') === 'us' ? 'US' : 'CO')
   } catch (e) {
     insumos = null

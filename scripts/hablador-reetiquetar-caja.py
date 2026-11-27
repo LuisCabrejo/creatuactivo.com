@@ -23,25 +23,44 @@ Lo que NO corrige: la tapa y el costado de la caja siguen siendo los de la IA (m
 ~1 mm impresos). Requiere opencv-python-headless (no está en package.json).
 
   python3 scripts/hablador-reetiquetar-caja.py <escena.jpg> <salida.jpg> [x y ancho alto de la taza]
+      [--etiqueta <foto>] [--cara x,y x,y x,y x,y]
 
 El rectángulo de la taza (para GrabCut) va en píxeles de la escena; por defecto, el
 de la escena del 21 nov 2026 (1696 × 2528).
+
+--etiqueta y --cara (27 nov 2026, la caja de ESTADOS UNIDOS): de la de allá no hay
+etiqueta plana; la foto oficial de ganoexcel.us muestra la caja en tres cuartos y con
+granos tapando el pie. --cara son las cuatro esquinas, en píxeles de esa foto y en
+orden (arriba-izq, arriba-der, abajo-der, abajo-izq), de la parte del FRENTE que se
+ve: sin el costado y sin los granos. Sin --cara, la cara es toda la imagen (Colombia).
 """
 import sys
 import cv2
 import numpy as np
 
-ETIQUETA = 'public/productos/_set/limpios/ganocafe-3-en-1.png'
-escena_ruta, salida = sys.argv[1], sys.argv[2]
-rect_taza = tuple(int(v) for v in sys.argv[3:7]) if len(sys.argv) >= 7 else (800, 1480, 820, 780)
+args = sys.argv[1:]
+def opcion(nombre, n):
+    if nombre not in args: return None
+    i = args.index(nombre); valor = args[i + 1:i + 1 + n]; del args[i:i + 1 + n]; return valor
+ETIQUETA = (opcion('--etiqueta', 1) or ['public/productos/_set/limpios/ganocafe-3-en-1.png'])[0]
+cara_ref = opcion('--cara', 4)
+escena_ruta, salida = args[0], args[1]
+rect_taza = tuple(int(v) for v in args[2:6]) if len(args) >= 6 else (800, 1480, 820, 780)
 
 gen = cv2.imread(escena_ruta)
 real = cv2.imread(ETIQUETA, cv2.IMREAD_UNCHANGED)
 h, w = gen.shape[:2]
+# Las esquinas de la cara en la foto de la etiqueta: toda la imagen, o las de --cara.
+if cara_ref:
+    esq_ref = np.float32([[float(v) for v in p.split(',')] for p in cara_ref])
+else:
+    esq_ref = np.float32([[0, 0], [real.shape[1], 0], [real.shape[1], real.shape[0]], [0, real.shape[0]]])
+mascara_ref = np.zeros(real.shape[:2], np.uint8)
+cv2.fillConvexPoly(mascara_ref, esq_ref.astype(np.int32), 255)
 
 # 1. La perspectiva: rasgos de la etiqueta real dentro de la caja generada.
 sift = cv2.SIFT_create(8000)
-k1, d1 = sift.detectAndCompute(cv2.cvtColor(real[:, :, :3], cv2.COLOR_BGR2GRAY), None)
+k1, d1 = sift.detectAndCompute(cv2.cvtColor(real[:, :, :3], cv2.COLOR_BGR2GRAY), mascara_ref)
 k2, d2 = sift.detectAndCompute(cv2.cvtColor(gen, cv2.COLOR_BGR2GRAY), None)
 pares = cv2.FlannBasedMatcher(dict(algorithm=1, trees=5), dict(checks=80)).knnMatch(d1, d2, k=2)
 buenos = [a for a, b in pares if a.distance < 0.72 * b.distance]
@@ -58,7 +77,7 @@ if dentro.sum() < 60 or err.mean() > 3:
 genf = gen.astype(np.float32)
 warp = cv2.warpPerspective(real[:, :, :3].astype(np.float32), H, (w, h), flags=cv2.INTER_LANCZOS4)
 warp = cv2.GaussianBlur(warp, (0, 0), 1.7)
-cara = cv2.warpPerspective(np.full(real.shape[:2], 255, np.uint8), H, (w, h))
+cara = cv2.warpPerspective(mascara_ref, H, (w, h))
 cara = cv2.erode(cara, np.ones((5, 5), np.uint8)).astype(np.float32) / 255
 sig = 28
 peso = cv2.GaussianBlur(cara, (0, 0), sig)[..., None] + 1e-4
@@ -103,7 +122,7 @@ print(f'✅ {salida}')
 
 # 4. La máscara de los objetos. La caja: su cara (de la perspectiva) más el costado y
 #    la tapa, que la IA dibujó a la izquierda y arriba (≈ 8 % del ancho de la cara).
-esq = cv2.perspectiveTransform(np.float32([[0, 0], [real.shape[1], 0], [real.shape[1], real.shape[0]], [0, real.shape[0]]]).reshape(-1, 1, 2), H).reshape(-1, 2)
+esq = cv2.perspectiveTransform(esq_ref.reshape(-1, 1, 2), H).reshape(-1, 2)
 ancho_cara = esq[1][0] - esq[0][0]
 costado, tapa = 0.23 * ancho_cara, 0.17 * ancho_cara
 puntos = np.vstack([esq, esq[[0, 3]] - [costado, 0], esq[[0, 1]] - [costado * 0.6, tapa]]).astype(np.int32)

@@ -45,22 +45,23 @@ const NEGRO_QR = cmyk(0, 0, 0, 1)
 
 export interface InsumosHablador {
   fondoCmyk: ArrayBuffer | Uint8Array   // fondo-ganocafe-grande-cmyk-v1.jpg
-  /** La taza sola, para Estados Unidos (27 nov 2026): fondo-taza-cmyk-v1.jpg. */
-  fondoTazaCmyk: ArrayBuffer | Uint8Array
+  /** La escena con la caja de Estados Unidos (27 nov 2026): fondo-ganocafe-usa-cmyk-v1.jpg. */
+  fondoUsaCmyk: ArrayBuffer | Uint8Array
   interRegular: ArrayBuffer | Uint8Array
   interMedium: ArrayBuffer | Uint8Array
   interSemiBold: ArrayBuffer | Uint8Array
 }
 
 /**
- * Las dos piezas (27 nov 2026). Colombia: la escena con la caja de Ganocafé 3 en 1 y el
- * QR a la derecha de la caja. Estados Unidos: la taza sola (la pieza del 20 nov 2026),
- * porque la caja de la escena es la de Colombia; el QR va abajo, en el eje. Las líneas
- * de base salen de la página (/hablador/{slug}?pais=us), medidas como las de Colombia.
+ * Las dos piezas (27 nov 2026), con la misma maqueta: la escena de la caja de Ganocafé
+ * 3 en 1 de cada país y el QR a la derecha de la caja. La caja de Estados Unidos sale
+ * más angosta en su escena, así que su QR va 5,5 mm más a la derecha (60 mm, como
+ * `.hab-pieza--qr-usa` en la página).
  */
+const TEXTO_PIEZA = { ceja: 13.31, titulo: [24.20, 33.00], bajada: 39.89, pasos: 138.81, enlace: 143.51 } as const
 const PIEZAS = {
-  CO: { ceja: 13.31, titulo: [24.20, 33.00], bajada: 39.89, pasos: 138.81, enlace: 143.51, qr: { x: 54.5, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 } },
-  US: { ceja: 16.31, titulo: [27.20, 36.00], bajada: 42.89, pasos: 136.81, enlace: 141.51, qr: { x: 36.5, y: 103.2, lado: 27, margen: 2.6, radio: 2.6 } },
+  CO: { ...TEXTO_PIEZA, qr: { x: 54.5, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 } },
+  US: { ...TEXTO_PIEZA, qr: { x: 60, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 } },
 } as const
 
 /**
@@ -75,7 +76,7 @@ export async function crearPdfHablador(slug: string, insumos: InsumosHablador, p
     doc.embedFont(insumos.interRegular, { subset: true }),
     doc.embedFont(insumos.interMedium, { subset: true }),
     doc.embedFont(insumos.interSemiBold, { subset: true }),
-    doc.embedJpg(pais === 'US' ? insumos.fondoTazaCmyk : insumos.fondoCmyk),
+    doc.embedJpg(pais === 'US' ? insumos.fondoUsaCmyk : insumos.fondoCmyk),
   ])
 
   const enlace = `creatuactivo.com/${slug}/${pais === 'US' ? 'hablador-us' : 'hablador'}`

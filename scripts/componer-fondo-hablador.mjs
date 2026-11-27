@@ -103,10 +103,28 @@ const ESCENA_ANCHO = 63, ESCENA_ARRIBA = 16.3, ESCENA_IZQ = 50 - 0.531 * ESCENA_
 // 87 mm en x, entre la tapa de la caja y la boca de la taza (la página lo pone ahí).
 const GRANDE = { ancho: 88, arriba: 9.6, izq: 50 - 0.531 * 88 };
 
-async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, izq = ESCENA_IZQ } = {}) {
-  const { data: e, info: ie } = await sharp(ESCENA).resize({ width: mm(ancho) }).ensureAlpha().raw()
+// ── Estados Unidos (27 nov 2026): la misma pieza con la caja de allá ─────────
+// Escena generada por el Director con Nano Banana sobre la de Colombia (original en
+// docs/hablador/escena-ganocafe-usa-generada-v1.jpg) y la etiqueta real de la foto
+// oficial de ganoexcel.us encima:
+//   python3 scripts/hablador-reetiquetar-caja.py docs/hablador/escena-ganocafe-usa-generada-v1.jpg \
+//     public/images/hablador/escena-ganocafe-usa-v1.jpg 800 1460 820 830 \
+//     --etiqueta public/productos/usa/3-in-1.png --cara 121,14 380,3 389,348 151,350
+// La caja de allá sale más alta en su foto (tapa en el 17,2 % del alto, contra el
+// 28,5 % de la de Colombia): a 88 mm chocaba con el título. A 75 mm (112 de alto) y
+// top 26,8: la caja va de 16,5 a 56,8 mm en x y arranca a 46 en y, como la de aquí; la
+// boca de la taza queda a 92,5 y su base a 127,4. El QR va a la derecha de la caja,
+// de 60 a 85 mm (la página y el PDF lo ponen ahí).
+const USA = {
+  escena: join(RAIZ, 'public/images/hablador/escena-ganocafe-usa-v1.jpg'),
+  objetos: join(RAIZ, 'public/images/hablador/escena-ganocafe-usa-v1-objetos.png'),
+  ancho: 75, arriba: 26.8, izq: 9,
+};
+
+async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, izq = ESCENA_IZQ, escena = ESCENA, objetos = OBJETOS } = {}) {
+  const { data: e, info: ie } = await sharp(escena).resize({ width: mm(ancho) }).ensureAlpha().raw()
     .toBuffer({ resolveWithObject: true });
-  const obj = await sharp(OBJETOS).resize({ width: ie.width, height: ie.height, fit: 'fill' })
+  const obj = await sharp(objetos).resize({ width: ie.width, height: ie.height, fit: 'fill' })
     .blur(mm(0.8)).extractChannel(0).raw().toBuffer();
   // La mesa se apaga en una elipse centrada en los dos objetos, como la caída de una
   // luz puntual: con un fundido rectangular se veía el borde de la foto.
@@ -126,15 +144,22 @@ async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, iz
   };
 }
 
+// `node scripts/componer-fondo-hablador.mjs usa` compone solo los fondos cuyo nombre
+// contiene «usa»: así un fondo nuevo no reescribe los que ya están publicados.
+const SOLO = process.argv[2];
+const toca = (archivo) => !SOLO || archivo.includes(SOLO);
+
 mkdirSync(DESTINO, { recursive: true });
 for (const [archivo, fondo, capas] of [
-  ['fondo-cafe-v1.jpg', FONDO, [{ input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) }]],
-  ['fondo-cafe-ganocafe-v3.jpg', { r: 0, g: 0, b: 0 }, [await escenaGanocafe()]],
-  ['fondo-cafe-ganocafe-grande-v1.jpg', { r: 0, g: 0, b: 0 }, [await escenaGanocafe(GRANDE)]],
+  ['fondo-cafe-v1.jpg', FONDO, () => [{ input: visible, left: Math.max(0, IZQ), top: Math.max(0, ARRIBA) }]],
+  ['fondo-cafe-ganocafe-v3.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe()]],
+  ['fondo-cafe-ganocafe-grande-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(GRANDE)]],
+  ['fondo-cafe-ganocafe-usa-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(USA)]],
 ]) {
+  if (!toca(archivo)) continue;
   const salida = join(DESTINO, archivo);
   await sharp({ create: { width: W, height: H, channels: 3, background: fondo } })
-    .composite(capas)
+    .composite(await capas())
     .jpeg({ quality: 90, chromaSubsampling: '4:4:4' })
     .withMetadata({ density: 300 })
     .toFile(salida);
@@ -149,12 +174,18 @@ for (const [archivo, fondo, capas] of [
 // ⛔ Sin el perfil no se genera: un CMYK sin perfil deja el negro con amarillo.
 const ICC = process.env.ICC_CMYK || '/usr/share/color/icc/ISOcoated_v2_300_eci.icc';
 if (existsSync(ICC)) {
-  execFileSync('python3', [
-    join(RAIZ, 'scripts/hablador-fondo-cmyk.py'),
-    join(DESTINO, 'fondo-cafe-ganocafe-grande-v1.jpg'),
-    join(RAIZ, 'src/app/hablador/[slug]/pdf/fondo-ganocafe-grande-cmyk-v1.jpg'),
-    ICC,
-  ], { stdio: 'inherit' });
+  for (const [rgb, cmyk] of [
+    ['fondo-cafe-ganocafe-grande-v1.jpg', 'fondo-ganocafe-grande-cmyk-v1.jpg'],
+    ['fondo-cafe-ganocafe-usa-v1.jpg', 'fondo-ganocafe-usa-cmyk-v1.jpg'],
+  ]) {
+    if (!toca(rgb)) continue;
+    execFileSync('python3', [
+      join(RAIZ, 'scripts/hablador-fondo-cmyk.py'),
+      join(DESTINO, rgb),
+      join(RAIZ, 'src/app/hablador/[slug]/pdf', cmyk),
+      ICC,
+    ], { stdio: 'inherit' });
+  }
 } else {
   console.warn(`⚠️ Sin el perfil CMYK en ${ICC} (ICC_CMYK=…): el fondo del PDF no se regeneró.`);
 }

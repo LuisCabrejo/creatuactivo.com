@@ -65,6 +65,12 @@ const VARIANTES: Record<string, { fondo: string; color: string; clase: string; b
     fondo: '/images/hablador/fondo-cafe-ganocafe-grande-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral',
     bajada: BAJADA,
   },
+  // Estados Unidos (27 nov 2026): la misma pieza con la caja de allá. Su escena va a
+  // 75 mm, porque la caja sale más alta en la foto, y el QR, de 60 a 85 mm.
+  'ganocafe-usa': {
+    fondo: '/images/hablador/fondo-cafe-ganocafe-usa-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral hab-pieza--qr-usa',
+    bajada: BAJADA,
+  },
 }
 // La pieza aprobada (Director, 21 nov 2026): la que sale sin `?variante=` y la única
 // que tiene PDF de imprenta (/hablador/{slug}/pdf). Las otras dos quedan para comparar.
@@ -83,12 +89,12 @@ export default async function Hablador({
   // `?vista=1`: solo la pieza, sin controles ni escritorio, para la vista previa que
   // queswa.app muestra en Compartir → Habladores (Director, 24 nov 2026).
   const vista = searchParams?.vista === '1'
-  // ?pais=us: el hablador de Estados Unidos (27 nov 2026). Va con la taza sola —la
-  // pieza del 20 nov 2026—, porque la caja de la escena aprobada es la de Colombia, y
-  // su QR abre /{slug}/hablador-us, que cuenta el escaneo y lleva al catálogo de allá.
+  // ?pais=us: el hablador de Estados Unidos (27 nov 2026), con la caja del Gano Café
+  // 3-in-1 de allá, y su QR abre /{slug}/hablador-us, que cuenta el escaneo y lleva al
+  // catálogo de allá.
   const esUS = searchParams?.pais === 'us'
-  const variante = esUS ? 'taza' : VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
-  const v = esUS ? { ...VARIANTES.taza, bajada: BAJADA } : VARIANTES[variante]
+  const variante = esUS ? 'ganocafe-usa' : VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
+  const v = VARIANTES[variante]
   if (r.slug !== params.slug) {
     const consulta = new URLSearchParams()
     if (sangrado) consulta.set('sangrado', '1')
@@ -195,6 +201,7 @@ body:has(.hab-escritorio--vista) .hab-pieza, body:has(.hab-escritorio--vista) .h
    borde de arriba a la altura del frente de la caja; debajo asoma el vapor. */
 .hab-pieza--qr-lateral .hab-contenido { position: relative; padding-bottom: 6mm; }
 .hab-pieza--qr-lateral .hab-qr { position: absolute; left: 54.5mm; top: 50.4mm; width: 25mm; height: 25mm; padding: 2.5mm; }
+.hab-pieza--qr-usa .hab-qr { left: 60mm; }
 .hab-arriba, .hab-abajo { display: flex; flex-direction: column; align-items: center; }
 .hab-ceja { margin: 0; font-size: 8pt; font-weight: 600; letter-spacing: .01em; color: var(--h-oro); }
 .hab-titulo {

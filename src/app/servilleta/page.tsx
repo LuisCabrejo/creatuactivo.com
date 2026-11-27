@@ -407,6 +407,9 @@ const TARIFAS_12 = [
   { pct: 17, nombre: 'Visionario', paquete: 'paquete Visionario', meses: 6 },
 ] as const;
 
+/** El titular del credo, en palabras para escribirlo a máquina (pantalla 1). */
+const CREDO_PALABRAS = 'Creemos que nadie debería entregar su vida entera al ciclo de trabajar, pagar cuentas y repetir.'.split(' ');
+
 /** Las cifras del dolor (las dos primeras aprobadas por el Director el 26 sep 2026;
  *  la de informalidad, el 9 oct 2026). Cuentan una sola historia: el ingreso de hoy
  *  no alcanza → así se trabaja hoy → así termina. Cada una se verificó en su fuente
@@ -549,6 +552,10 @@ const enCOP = (n: number) => n.toLocaleString('es-CO');
 export default function PitchDeckPage() {
   const [slide, setSlide] = useState(1);
   const [beat, setBeat] = useState(0);
+  // El credo se escribe a máquina solo la primera vez que se ve la pantalla 1 (26 nov 2026):
+  // al volver, el socio ya lo leyó y no tiene que esperarlo.
+  const [credoEscrito, setCredoEscrito] = useState(false);
+  useEffect(() => { if (slide !== 1) setCredoEscrito(true); }, [slide]);
   const [isFullscreen, setIsFullscreen] = useState(false);
   // MODO VERTICAL PARA MEET (Director, 10 oct 2026 — portado de la servilleta
   // vieja). Un monitor horizontal no puede ir a pantalla completa en vertical,
@@ -1318,6 +1325,18 @@ export default function PitchDeckPage() {
           margin: 0 0 1.4rem; color: #FFFFFF; max-width: 22ch;
         }
         .pd-credo .segunda { color: var(--pd-gold); max-width: 26ch; }
+        /* A máquina: cada palabra aparece a su turno y el cursor cian va en la que se escribe. */
+        .pd-tw { position: relative; }
+        .pd-slide.on .pd-tw { animation: pdTw 0.01s both; animation-delay: calc(0.15s + var(--i) * 0.11s); }
+        @keyframes pdTw { from { opacity: 0; } to { opacity: 1; } }
+        .pd-tw::after { content: ''; position: absolute; right: -0.14em; top: 0.12em; bottom: 0.08em;
+          width: 0.07em; background: var(--pd-data, #22D3EE); opacity: 0; }
+        .pd-slide.on .pd-tw::after { animation: pdTwCursor 0.11s linear; animation-delay: calc(0.15s + var(--i) * 0.11s); }
+        .pd-slide.on .pd-tw.fin::after { animation: pdTwParpadeo 0.5s step-end 4; animation-delay: calc(0.15s + var(--i) * 0.11s); }
+        @keyframes pdTwCursor { from, to { opacity: 1; } }
+        @keyframes pdTwParpadeo { 0% { opacity: 1; } 50% { opacity: 0; } }
+        .pd-credo--escrito .pd-tw, .pd-credo--escrito .pd-tw::after { animation: none !important; }
+        @media (prefers-reduced-motion: reduce) { .pd-slide.on .pd-tw, .pd-slide.on .pd-tw::after { animation: none; } }
         .pd-credo-rule {
           width: 56px; height: 1px; background: var(--pd-gold); margin: 2.4rem 0 1.2rem;
         }
@@ -1648,14 +1667,25 @@ export default function PitchDeckPage() {
         /* La proporción en imagen: lo encendido es lo que la cifra cuenta. */
         .pd-cifra-iconos { display: flex; gap: 5px; margin: 0 0 0.75rem; }
         .pd-cifra-iconos svg { width: 21px; height: 21px; fill: rgba(255,255,255,0.13); flex: none; }
-        .pd-cifra-iconos svg.on { fill: #E5E5E5; }
+        /* EN ROJO DE ALERTA (Director, 26 nov 2026, como en el video v19): lo que la cifra
+           cuenta se enciende en el rojo de estado de la paleta, una cifra tras otra, y late
+           una vez. La cifra sigue en blanco: el rojo va solo en la proporción. */
+        .pd-cifra { --d: calc(0.5s + var(--c, 0) * 1.1s); }
+        .pd-cifra-iconos svg.on { fill: #F43F5E; }
         .pd-slide.on .pd-cifra-iconos svg.on {
-          animation: pdIcono 0.35s ease-out both; animation-delay: calc(0.5s + var(--k) * 0.07s); }
-        @keyframes pdIcono { from { fill: rgba(255,255,255,0.13); } to { fill: #E5E5E5; } }
+          animation: pdIcono 0.3s ease-out both, pdLatido 0.7s ease-out both;
+          animation-delay: calc(var(--d) + var(--k) * 0.07s), calc(var(--d) + var(--n) * 0.07s + 0.3s); }
+        @keyframes pdIcono { from { fill: rgba(255,255,255,0.13); } to { fill: #F43F5E; } }
+        @keyframes pdLatido {
+          0%, 100% { transform: scale(1); filter: none; }
+          40% { transform: scale(1.22); filter: drop-shadow(0 0 6px rgba(244,63,94,0.75)); } }
         .pd-cifra-barra { position: relative; height: 12px; margin: 0.45rem 0 1.05rem;
           background: rgba(255,255,255,0.13); }
-        .pd-cifra-barra span { position: absolute; left: 0; top: 0; bottom: 0; background: #E5E5E5; }
-        .pd-slide.on .pd-cifra-barra span { animation: pdBarra 0.9s 0.5s cubic-bezier(.2,.7,.2,1) both; }
+        .pd-cifra-barra span { position: absolute; left: 0; top: 0; bottom: 0; background: #F43F5E; }
+        .pd-slide.on .pd-cifra-barra span {
+          animation: pdBarra 0.9s cubic-bezier(.2,.7,.2,1) both, pdLatidoBarra 0.7s ease-out both;
+          animation-delay: var(--d), calc(var(--d) + 0.9s); }
+        @keyframes pdLatidoBarra { 0%, 100% { box-shadow: none; } 40% { box-shadow: 0 0 12px rgba(244,63,94,0.8); } }
         @keyframes pdBarra { from { transform: scaleX(0); } to { transform: scaleX(1); } }
         .pd-cifra-barra span { transform-origin: left center; }
         /* La marca de la mitad: el corte oscuro sobre la barra y «½» debajo. */
@@ -2394,42 +2424,24 @@ export default function PitchDeckPage() {
         </div>
 
         {/* ── 1 · EN QUÉ CREEMOS (primera mitad) ─────────────────────── */}
-        <section className={`pd-slide pd-movil-arriba pd-credo pd-credo--solo ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
+        <section className={`pd-slide pd-movil-arriba pd-credo pd-credo--solo ${credoEscrito ? 'pd-credo--escrito' : ''} ${slide === 1 ? 'on' : ''}`} onClick={onClickSlide}>
           <div className="pd-wrap">
             <p className="pd-eyebrow">En qué creemos</p>
             {/* h2 y no h1: el único h1 de la página es el de la guía de abajo
                 (GuiaPlanServilleta.tsx) — dos h1 rompen SEO y accesibilidad. */}
+            {/* A máquina (Director, 26 nov 2026, como en el video v19): palabra por palabra,
+                con el cursor cian que va en la palabra que se escribe, en ~2 s. */}
             <h2 className="pd-credo-titulo">
-              Creemos que nadie debería entregar su vida entera al ciclo de trabajar,
-              pagar cuentas y repetir.
+              {CREDO_PALABRAS.map((w, i) => (
+                <span key={i}>
+                  <span className={`pd-tw ${i === CREDO_PALABRAS.length - 1 ? 'fin' : ''}`}
+                    style={{ ['--i' as string]: i } as React.CSSProperties}>{w}</span>{' '}
+                </span>
+              ))}
             </h2>
-            {/* El contraste (Director, 7 nov 2026, del ejercicio de Vélez «Del estrés crónico
-                al activo familiar»). HOY narra el villano con las dos piezas de STORY_03 que
-                el credo no dice —la tercera, «al que gana dos y al que gana más de veinte»,
-                la cubre la cifra del DANE de la pantalla siguiente— y el falso remedio
-                (Musk), que es la bicicleta estática. LO QUE CREEMOS trae «construir sin quemar
-                los barcos», una de las tres creencias que desarma el simulador, y la segunda
-                mitad del credo, que vuelve en la 9. ⛔ Sin el mecanismo del activo («produce
-                sin su presencia»): es la pantalla 5, y aquí revelaría la solución antes del
-                clímax, la disonancia que corrigió la columna del 30 sep. */}
-            <div className="pd-contraste">
-              {/* Título corto y una línea (Director, 7 nov 2026: el estilo de los ejemplos
-                  es más limpio). «Al día siguiente de que le entra la plata» lo dice el
-                  socio; el título se queda con la idea. */}
-              <div className="pd-tarjeta pd-contraste-hoy">
-                <p className="pd-tarjeta-rotulo">Hoy</p>
-                <p className="pd-tarjeta-titulo">Su dinero ya tiene dueño</p>
-                {/* «Trabajar más», sin «horas» (Director, 7 nov 2026): así lo dice el latino;
-                    las horas son del registro norteamericano. La bicicleta le da al remedio
-                    su contexto: sin ella, «el remedio de siempre» suena a que lo quieren timar. */}
-                <p className="pd-tarjeta-sub">Trabajar más es pedalear más rápido en una bicicleta estática.</p>
-              </div>
-              <div className="pd-tarjeta pd-contraste-creemos">
-                <p className="pd-tarjeta-rotulo">Lo que creemos</p>
-                <p className="pd-tarjeta-titulo">Construir sin quemar los barcos</p>
-                <p className="pd-tarjeta-sub">Que el trabajo de cada persona se convierta en un activo.</p>
-              </div>
-            </div>
+            {/* Las tarjetas «Hoy» y «Lo que creemos» salieron el 26 nov 2026 (Director): el dolor
+                se trabaja en la pantalla siguiente, y la pantalla 1 queda con el credo solo.
+                En el video siguen (v19, escena «credo»). Su versión vive en git. */}
             {/* El rótulo «CreaTuActivo · Presentación» salió de aquí (7 nov 2026): con las
                 tarjetas apiñaba la pantalla, y la marca ya va en el HUD. */}
             {/* La presentación entera en video (Director, 30 oct 2026): el socio
@@ -2464,8 +2476,9 @@ export default function PitchDeckPage() {
             {/* Tres cifras, una historia: hoy no alcanza → así se trabaja → así termina. */}
             <p className="pd-eyebrow">El dolor, en cifras</p>
             <div className="pd-cifras-lista pd-cifras-lista--tres">
-              {(enUS ? CIFRAS_PROBLEMA_US : CIFRAS_PROBLEMA).map((c) => (
-                <div className="pd-cifra" key={c.n}>
+              {(enUS ? CIFRAS_PROBLEMA_US : CIFRAS_PROBLEMA).map((c, ci) => (
+                <div className="pd-cifra" key={c.n}
+                  style={{ ['--c' as string]: ci, ['--n' as string]: c.icono.tipo === 'barra' ? 0 : c.icono.en } as React.CSSProperties}>
                   <p className="n">{c.n}</p>
                   {c.icono.tipo === 'barra' ? (
                     <div className="pd-cifra-barra" aria-hidden="true">

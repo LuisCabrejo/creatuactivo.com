@@ -268,7 +268,7 @@ export default function CicloPropiedad({ modo, activo, onEtapa }: { modo: 'propi
       <g data-p="cliente" fill="#E5E5E5" style={oculto} dangerouslySetInnerHTML={{ __html: figura(CX + RX - 13, CY - 15, 1.1) }} />
       <g data-p="fig-usted" fill="#E5E5E5" style={oculto} dangerouslySetInnerHTML={{ __html: figura(CX - RX - 13, A - 64, 1.1) }} />
       <text data-p="rot-cliente" x={CX + RX + 17} y={CY + 4} style={{ ...MONO, fill: 'var(--pd-muted)', opacity: 0 }}>Cliente</text>
-      <text data-p="rot-empresa" x={CX - RX - 13} y={CY - 52} textAnchor="middle" style={{ ...MONO, fill: 'var(--pd-muted)', opacity: 0 }}>Su empresa</text>
+      <text data-p="rot-empresa" x={CX - RX - 13} y={CY - 52} textAnchor="middle" style={{ ...MONO, fill: 'var(--pd-muted)', opacity: 0 }}>Su sistema</text>
       <text data-p="usted" x={CX - RX} y={A - 14} textAnchor="middle"
         style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, letterSpacing: 0.4, textTransform: 'uppercase', fill: '#FFFFFF', opacity: 0 }}>Usted</text>
       <circle data-p="compra" r={4.2} fill={ORO} style={oculto} />

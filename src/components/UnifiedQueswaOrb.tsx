@@ -155,7 +155,9 @@ export default function UnifiedQueswaOrb() {
   // La presentación (orbe oculto salvo el botón de la demo en vivo, en la pantalla
   // 5). Desde el 10 oct 2026 hay UNA, en /servilleta: /presentacion, /12-niveles y
   // /presentacion/anterior se retiraron y redirigen aquí.
-  const isDeck = pathname === '/servilleta'
+  // /servilleta/estados-unidos es el mismo deck (26 nov 2026): sin orbe tampoco.
+  // Las demás /servilleta/* solo redirigen, así que basta el prefijo.
+  const isDeck = pathname === '/servilleta' || pathname.startsWith('/servilleta/')
 
   // Ruta de reel (/{slug}/{nicho}): el reel dispara su propia burbuja contextual
   // al terminar/scrollear (ReelVideo), así que aquí suprimimos el tooltip genérico.

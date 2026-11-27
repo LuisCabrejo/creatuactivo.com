@@ -1,6 +1,6 @@
 {
   "$comment": "Léxico canónico legible por máquina. FUENTE DE VERDAD: BRANDING.md §7 (+ Addendum 8–14 ago) y CLAUDE.md § Léxico y voz. Este archivo es su resumen operativo: lo que un auditor puede buscar con una expresión regular. Lo consume Dashboard/scripts/auditar-lexico.mjs. Cuando el Director retire o adopte un término, se agrega aquí la fila con su fecha — y el Dashboard se entera en la próxima auditoría. Las expresiones son sobre texto que ve una persona (copy y prompts), NUNCA sobre identificadores de código.",
-  "version": "2026-11-02",
+  "version": "2026-11-27",
   "activo_canonico": "sistema de distribución",
   "encabeza": "Desde el 26 nov 2026 (Director): el vehículo se presenta como «ser dueño de un sistema de distribución que cabe en su celular». «Activo» va al frente donde explica el nombre (H1 de la Home, WHY_01) y en la Presentación remata en la 5.3, siempre con su causa. Antes (1-2 nov): su propio activo (Director, 1-2 nov 2026): «activo» va al frente y «empresa de distribución moderna» lo concreta — «su propio activo: una empresa de distribución moderna que no depende de su presencia». «sistema de distribución» sigue siendo el nombre canónico del vehículo.",
   "sinonimos_vivos": [
@@ -41,7 +41,7 @@
     {
       "id": "empresa-digital",
       "regex": "\\b(empresa|negocio) digital\\b",
-      "vigente": "empresa de distribución moderna (la forma ÚNICA para presentar el negocio en frío, Director 28 sep 2026; con el puente a sistema de distribución, que sigue siendo el canónico)",
+      "vigente": "ser dueño de un sistema de distribución que cabe en su celular (el marco en frío desde el 26 nov 2026); el vehículo es el sistema de distribución",
       "desde": "2026-08-03",
       "nota": "Contenedor vacío; el oyente lo rellena con pirámides o cripto. Solo en la Academia y en el prompt hacia el socio, caso por caso con el Director. Director, 27 sep 2026 (auditoría de la voz de los reels): donde un reel viejo dice «empresa digital», la voz nueva dice «empresa de distribución moderna» — «moderna» es más relevante que «digital», va una vez por pieza y pagada en la misma frase con un hecho que se vea.",
       "excepciones": []
@@ -281,7 +281,7 @@
     {
       "id": "negocio-moderno-de-distribucion",
       "regex": "\\bnegocio moderno de distribuci[oó]n\\b",
-      "vigente": "una empresa de distribución moderna",
+      "vigente": "ser dueño de un sistema de distribución que cabe en su celular (el marco en frío desde el 26 nov 2026); el vehículo es el sistema de distribución",
       "desde": "2026-09-28",
       "nota": "Fue el marco de presentación en frío del 25 al 28 sep 2026 (WHY_02, el prompt, la Home y el primer video «Cómo funciona»). El Director fijó una sola forma el 28 sep: «empresa de distribución» ya es sinónimo vivo del sistema —«negocio de distribución» no lo es— y el adjetivo al final lleva el acento. El video ya publicado conserva su voz: un guion emitido no se edita, se sucede.",
       "excepciones": []
@@ -289,7 +289,7 @@
     {
       "id": "empresa-moderna-de-distribucion",
       "regex": "\\bempresa moderna de distribuci[oó]n\\b",
-      "vigente": "una empresa de distribución moderna",
+      "vigente": "ser dueño de un sistema de distribución que cabe en su celular (el marco en frío desde el 26 nov 2026); el vehículo es el sistema de distribución",
       "desde": "2026-09-28",
       "nota": "Fue la respuesta de EMPRESA_DIGITAL_01 y del pitch deck del 25 al 28 sep 2026. Misma palabra, otro orden: se unifica porque el vocabulario de este negocio se duplica y tres formas casi iguales se degradan tres eslabones abajo. Con el adjetivo en medio, la frase termina en «distribución», la palabra más plana, y parte el sinónimo «empresa de distribución».",
       "excepciones": []
@@ -297,7 +297,7 @@
     {
       "id": "modern-shipping",
       "regex": "\\bmodern\\s*-?\\s*shipping\\b",
-      "vigente": "una empresa de distribución moderna",
+      "vigente": "ser dueño de un sistema de distribución que cabe en su celular (el marco en frío desde el 26 nov 2026); el vehículo es el sistema de distribución",
       "desde": "2026-09-25",
       "nota": "Candidato de nombre investigado y DESCARTADO por el Director: el sustantivo nombra la logística de Gano (no lo que el socio posee), está en inglés, el nombre lo ocupan navieras desde 2003, y «la evolución del dropshipping» es comparación de lado. No reabrirlo sin la investigación delante.",
       "excepciones": []
@@ -317,7 +317,7 @@
     {
       "id": "tener-con-que",
       "regex": "\\b(tiene[ns]?|tengo|tenemos|tener|tenga[ns]?|tuvo|tuviera[ns]?)\\s+con\\s+qu[eé](?![a-záéíóúñ])",
-      "vigente": "nombrar lo que falta del NEGOCIO, nunca de la persona: «muy pocos tienen la infraestructura para armar una empresa de distribución moderna»",
+      "vigente": "nombrar lo que falta del NEGOCIO, nunca de la persona: «muy pocos tienen la fábrica y la logística para armar un sistema de distribución»",
       "desde": "2026-09-27",
       "nota": "PROHIBIDO (Director, 27 sep 2026). El contexto que se veta es CONFRONTAR a la persona con que no puede hacer algo: en Colombia, decirle a alguien que «no tiene con qué» es rebajarlo — se oye como que no tiene dinero, ni capacidad, ni valentía. Lo que falta se dice de la OPERACIÓN (infraestructura, fábrica, logística), nunca de quien escucha. La voz del propio prospecto en índices y disparadores («no tengo con qué pagarlo») se exonera: ahí lo dice él de sí mismo, no nosotros de él.",
       "excepciones": [
@@ -331,6 +331,22 @@
       "vigente": "cada vez que vuelve a comprar, a usted le queda un porcentaje",
       "desde": "2026-10-08",
       "nota": "El tercer «su» (su enlace · su nombre · su recompra) se lee como la compra del propio lector, y deja a la recompra como la que paga. El cliente es quien compra; usted, quien recibe (WHY_02)."
+    },
+    {
+      "id": "apalancamiento",
+      "regex": "\\b(apalanc\\w*|palancas?)\\b",
+      "vigente": "no construye las piezas: se apoya en tres que ya existen · la tecnología hace el trabajo pesado",
+      "desde": "2026-11-26",
+      "nota": "Director, 26 nov 2026: en Colombia apalancarse es endeudarse, y la palanca es la rosca. «Ingresos apalancados» se descartó con la Presentación nueva; lo que la palabra quería decir se dice en verbos llanos.",
+      "excepciones": []
+    },
+    {
+      "id": "franqueza",
+      "regex": "\\b(con|de) (total )?(franqueza|sinceridad)\\b|\\b(le voy a|quiero) ser (totalmente )?(honesto|sincero|franco)\\b|\\bpara serle (totalmente )?(honesto|sincero|transparente)\\b",
+      "vigente": "decirlo sin preámbulo; en una instrucción al modelo, «sin rodeos»",
+      "desde": "2026-08-29",
+      "nota": "Director, 29 ago 2026: anunciar la honestidad propia pone al que habla como el honesto y al otro como el que no lo es. En una instrucción al modelo, nombrarla la dicta.",
+      "excepciones": []
     }
   ],
   "$comment_activo": "Desde el 1-2 nov 2026 (Director) «activo» ENCABEZA (Home, WHY_01/02, Presentación, reto) y «empresa de distribución moderna» lo concreta; ver «encabeza». Siguen las condiciones: nunca suelto (definido en la misma frase o detrás de su causa), nunca adjetivo de una persona, y «presencia» en vez de «estar encima». Historia, 12 sep 2026: «Activo» NO es un cuarto sinónimo del sistema: es lo que el sistema produce («su sistema de distribución le permite construir un activo que produce sin que usted tenga que estar encima»). Va siempre pegado a su causa (sus clientes siguen pidiendo) y nunca como adjetivo de una persona (en esta industria «activo» = al día con la compra mensual; del código sí: «su código está activo»).",

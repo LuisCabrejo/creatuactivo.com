@@ -15,7 +15,7 @@ import { OG_PRESENTACION } from '@/app/servilleta/og'
 import { conversaPorWhatsApp, dispositivoDe, esRobot, sistemaDe } from '@/lib/dispositivo'
 import { esHostLocal } from '@/lib/entorno-local'
 import { paisDeContactoWA } from '@/lib/paises'
-import { RUTA_SERVILLETA, paisServilletaDeSocio } from '@/lib/servilleta-pais'
+import { RUTA_SERVILLETA, paisServilletaDeSocio, type PaisServilleta } from '@/lib/servilleta-pais'
 import AbrirQueswaEnWhatsApp from '@/components/AbrirQueswaEnWhatsApp'
 import VideoComoFuncionaPage from '@/components/VideoComoFuncionaPage'
 
@@ -440,18 +440,33 @@ export default async function DestinoRoute({
   const pantalla = esPresentacion(destino) && typeof searchParams?.pantalla === 'string'
     && /^\d{1,2}$/.test(searchParams.pantalla) ? searchParams.pantalla : null
   let base = resolver(record.constructor_id)
-  // EL SOCIO DE ESTADOS UNIDOS ABRE SU VERSIÓN (26 nov 2026): la Presentación tiene
-  // una dirección por país (src/lib/servilleta-pais.ts), y el enlace del socio
-  // elige la del país de su WhatsApp. «video» también, desde el 26 nov 2026: cada
-  // país rueda su propio video. Si la consulta falla, va la de Colombia: el botón
-  // del país sigue a un toque.
+  // CADA PAÍS ABRE SU VERSIÓN (26-27 nov 2026): la Presentación tiene una dirección
+  // por país (src/lib/servilleta-pais.ts). «video» también: cada país rueda su video.
+  // Decide, en este orden (Director, 27 nov 2026):
+  //   1. `?pais=us|co` del enlace: el país para el que el socio compartió ESE
+  //      enlace (lo pone el Dashboard), así un enlace ya enviado no cambia después.
+  //   2. `private_users.mercado`: el país para el que comparte hoy («Comparto
+  //      para», en Centro de Expansión).
+  //   3. `private_users.pais`: dónde está inscrito en Gano.
+  //   4. Sin ninguno de los dos, el país de su WhatsApp (cuentas viejas sin dato).
+  // ⚠️ El celular solo es el último recurso: la única socia con +1 estaba inscrita
+  // en Colombia. Si la consulta falla, va la de Colombia: el botón del país sigue
+  // a un toque. El `pais` del enlace no viaja al destino.
   if (esPresentacion(destino) && base.startsWith(`${RUTA_SERVILLETA.CO}?`)) {
-    const { data: pu } = await supabase
-      .from('private_users')
-      .select('whatsapp')
-      .eq('constructor_id', record.constructor_id)
-      .maybeSingle()
-    if (paisServilletaDeSocio(paisDeContactoWA(pu?.whatsapp)) === 'US') {
+    const pedido = typeof searchParams?.pais === 'string' ? searchParams.pais.trim().toUpperCase() : ''
+    let paisDeck: PaisServilleta
+    if (pedido === 'US' || pedido === 'CO') {
+      paisDeck = pedido
+    } else {
+      const { data: pu } = await supabase
+        .from('private_users')
+        .select('whatsapp, pais, mercado')
+        .eq('constructor_id', record.constructor_id)
+        .maybeSingle()
+      const elegido = (pu?.mercado || pu?.pais || '').toUpperCase()
+      paisDeck = elegido ? (elegido === 'US' ? 'US' : 'CO') : paisServilletaDeSocio(paisDeContactoWA(pu?.whatsapp))
+    }
+    if (paisDeck === 'US') {
       base = RUTA_SERVILLETA.US + base.slice(RUTA_SERVILLETA.CO.length)
     }
   }

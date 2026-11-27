@@ -11,8 +11,10 @@
  *
  * El país lo decide la DIRECCIÓN, nunca la IP: la IP es un punto de partida, no
  * la verdad (doctrina de la diáspora: un colombiano en Miami que se registra por
- * Colombia ve la versión de Colombia). El enlace del socio elige la del país de
- * su WhatsApp ([slug]/[destino]), y el botón del HUD cambia entre las dos.
+ * Colombia ve la versión de Colombia). El enlace del socio elige por el país que
+ * trae (`?pais=`), el que el socio eligió en el Dashboard (`private_users.mercado`)
+ * o su inscripción en Gano (`private_users.pais`), y solo sin ninguno por su
+ * WhatsApp ([slug]/[destino], 27 nov 2026). El botón del HUD cambia entre las dos.
  *
  * Lo que cambia por país vive en el deck y en la guía, junto a la versión de
  * Colombia. Los datos de Estados Unidos salen de knowledge_base/paises/USA_2026.md.

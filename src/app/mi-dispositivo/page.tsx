@@ -29,6 +29,8 @@ type Estado = 'cargando' | 'listo' | 'invalido' | 'fallo';
 
 const DESTINOS: Record<string, { ruta: (constructorId: string) => string; titulo: string }> = {
   presentacion: { ruta: (c) => `/servilleta?ref=${encodeURIComponent(c)}`, titulo: 'Abriendo su presentación…' },
+  // La de Estados Unidos (27 nov 2026): el Dashboard la pide cuando el socio comparte para allá.
+  'presentacion-us': { ruta: (c) => `/servilleta/estados-unidos?ref=${encodeURIComponent(c)}`, titulo: 'Abriendo su presentación…' },
   productos: { ruta: (c) => `/productos/${encodeURIComponent(c)}`, titulo: 'Abriendo su catálogo…' },
   home: { ruta: (c) => `/?ref=${encodeURIComponent(c)}`, titulo: 'Abriendo CreaTuActivo.com…' },
 };

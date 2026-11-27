@@ -262,6 +262,8 @@ import {
 import StrategicNavigation from '@/components/StrategicNavigation'
 import QueswaCTAButton from '@/components/QueswaCTAButton'
 import VideoComoFuncionaHome from '@/components/VideoComoFuncionaHome'
+import VideoHome from '@/components/VideoHome'
+import { VIDEO_COMO_ENTRA_EL_DINERO_WA } from '@/lib/reels'
 
 export const dynamic = 'force-static'
 
@@ -731,6 +733,11 @@ export default function HomePage() {
 
       {/* ═══ DE DÓNDE SALE EL DINERO — orden WHY_02 + ecuación visual ═══ */}
       <Section>
+        {/* 27 nov 2026 (Director): el video «Cómo entra el dinero» va aquí, al lado del
+            texto, como el de «Cómo funciona» en el hero: el mismo corte que Queswa manda
+            en WhatsApp (WHY_04). En el celular va debajo del texto, antes de la ecuación. */}
+        <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center lg:gap-x-16">
+        <div>
         <Eyebrow>De dónde sale el dinero</Eyebrow>
         <H2>Del producto que se vende. De nada más.</H2>
         <Body>
@@ -744,6 +751,17 @@ export default function HomePage() {
           por su sistema, a usted le queda un porcentaje, y se lo liquidan en{' '}
           <Strong>su cuenta bancaria cada viernes</Strong>.
         </Body>
+        </div>
+        <div className="flex justify-center lg:justify-end">
+          <VideoHome
+            id="como-entra-el-dinero"
+            src={VIDEO_COMO_ENTRA_EL_DINERO_WA}
+            portada="/images/home/como-entra-el-dinero-portada.jpg"
+            rotulo="Cómo entra el dinero · 50 segundos"
+            etiqueta="Reproducir el video «Cómo entra el dinero», 50 segundos"
+          />
+        </div>
+        </div>
         {/* 26 nov 2026 (Director): salió el párrafo del cliente a su nombre y su
             recompra. Desde ese día lo dice el H1 y la bajada del hero, y aquí era la
             tercera vez en la misma idea. «Sigue produciendo aunque usted no esté

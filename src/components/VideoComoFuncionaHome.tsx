@@ -19,134 +19,22 @@
  * subtítulo encima (public/images/home/como-funciona-portada.jpg). Si el video
  * se vuelve a cortar, se vuelve a sacar la portada del corte nuevo.
  */
-import Image from 'next/image'
-import { useState } from 'react'
-import { Play } from 'lucide-react'
+import VideoHome from '@/components/VideoHome'
 import { VIDEO_COMO_FUNCIONA_WA } from '@/lib/reels'
-import { marcarVioComoFunciona } from '@/lib/orbe-config'
-import { conversaPorWhatsApp, dispositivoDelNavegador } from '@/lib/dispositivo'
 
-/**
- * En el COMPUTADOR, al terminar el video se abre el chat de Queswa con el cursor
- * listo (13 oct 2026, Director: el diseño con que empezó la Home). Solo si el video
- * sigue a la vista: a quien ya bajó a leer no se le abre nada encima.
- * En el celular no: ahí Queswa vive en WhatsApp, y saltar de app sin que la
- * persona toque nada sería un secuestro (y el navegador lo bloquearía).
- */
-function abrirQueswaAlTerminar(video: HTMLVideoElement) {
-  if (conversaPorWhatsApp(dispositivoDelNavegador())) return
-  const r = video.getBoundingClientRect()
-  const aLaVista = r.bottom > 0 && r.top < window.innerHeight
-  if (!aLaVista) return
-  window.dispatchEvent(new CustomEvent('open-queswa', { detail: { origen: 'video', enfocar: true } }))
-}
-
+// El reproductor es el de VideoHome (27 nov 2026): el mismo que usa «Cómo entra el
+// dinero» más abajo en la Home. Al terminar, en el computador abre el chat de Queswa.
 export default function VideoComoFuncionaHome() {
-  const [reproduciendo, setReproduciendo] = useState(false)
-
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: 360,
-        aspectRatio: '9 / 16',
-        borderRadius: 'var(--radius-container)',
-        overflow: 'hidden',
-        border: '1px solid rgba(255,255,255,0.1)',
-        background: 'var(--color-bg-primary)',
-      }}
-    >
-      {reproduciendo ? (
-        <video
-          src={VIDEO_COMO_FUNCIONA_WA}
-          autoPlay
-          controls
-          playsInline
-          // Al 80 % cuenta como visto (1 oct 2026): el botón del hero y el orbe le
-          // avisan a Queswa con «Ya vi el video de cómo funciona.» y no se lo repite.
-          onTimeUpdate={(e) => {
-            const v = e.currentTarget
-            if (v.duration && v.currentTime / v.duration >= 0.8) marcarVioComoFunciona()
-          }}
-          onEnded={(e) => abrirQueswaAlTerminar(e.currentTarget)}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-        />
-      ) : (
-        <button
-          type="button"
-          onClick={() => setReproduciendo(true)}
-          aria-label="Reproducir el video «Cómo funciona», 60 segundos"
-          className="group"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            padding: 0,
-            border: 'none',
-            background: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          {/* priority: la portada NO es decorativa — es el contenido principal del
-              hero y, por su tamaño, el elemento más grande de la primera pantalla. */}
-          <Image
-            src="/images/home/como-funciona-portada.jpg"
-            alt=""
-            fill
-            priority
-            sizes="(max-width: 1023px) 90vw, 360px"
-            style={{ objectFit: 'cover' }}
-          />
-          <span
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to top, rgba(15,17,21,0.85) 0%, rgba(15,17,21,0) 38%)',
-            }}
-          />
-          <span
-            aria-hidden="true"
-            className="transition-colors duration-200 group-hover:border-[color:var(--color-brand)]"
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 72,
-              height: 72,
-              borderRadius: '50%',
-              border: '1.5px solid rgba(197,160,89,0.7)',
-              background: 'rgba(15,17,21,0.55)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Play size={28} fill="var(--color-brand)" color="var(--color-brand)" style={{ marginLeft: 4 }} />
-          </span>
-          <span
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              // Por encima de la marca de agua «CreaTuActivo.com» del video.
-              bottom: 52,
-              textAlign: 'center',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.72rem',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text-primary)',
-            }}
-          >
-            Cómo funciona · 60 segundos
-          </span>
-        </button>
-      )}
-    </div>
+    <VideoHome
+      id="como-funciona"
+      src={VIDEO_COMO_FUNCIONA_WA}
+      portada="/images/home/como-funciona-portada.jpg"
+      rotulo="Cómo funciona · 60 segundos"
+      etiqueta="Reproducir el video «Cómo funciona», 60 segundos"
+      // La portada NO es decorativa: es el contenido principal del hero y, por su
+      // tamaño, el elemento más grande de la primera pantalla.
+      prioridad
+    />
   )
 }

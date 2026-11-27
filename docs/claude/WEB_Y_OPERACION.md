@@ -108,6 +108,10 @@ Blog (SEO) → /blog/* → Home
 
 **Indexadas (y en el sitemap):** `/`, `/blog/*`, `/tecnologia`, `/productos`, `/paquetes`, `/servilleta` (la presentación única desde el 10 oct 2026; responde «plan servilleta»). **noindex:** `/nosotros`, `/prueba`, `/lexico`. ⚠️ **SEO técnico (auditoría 1 oct 2026):** `robots.txt` **no** bloquea `/_next/` (Google necesita el CSS, el JS y las imágenes optimizadas); cada página indexable declara su `canonical`, y el catálogo de cada socio (`/productos/{id}`) apunta a `/productos`.
 
+### Las promociones de Gano
+
+⭐ **Las promociones de Gano** (22 oct 2026; la primera, 80094 «PROMOCIÓN DE PRODUCTOS», $587.000, 83 PV) viven en [src/lib/promociones-gano.ts](../../src/lib/promociones-gano.ts), espejo del registro del Dashboard: lo que traen sale de la imagen de Gano, porque su catálogo no lo dice. Desde ahí entran al catálogo (línea «Promoción», visible solo mientras Gano la tenga, `/api/promociones-gano`), al pedido por WhatsApp (`PRODUCTOS_WA`, alias «promoción»/«promo»/«80094», nunca por parecido: «proporción» queda a dos letras) y al motor (bloque `promociones_gano_vigentes`, solo cuando se habla de promociones). ⛔ **Una por pedido** (`LimitQuota` del act12): no se ofrece repartirla en varios pedidos, porque no está comprobado si el tope es por cuenta. ⛔ **Los PV de la promoción los fija Gano** (83): el modelo los sumaba producto por producto (108) y le decía al socio que pasaba los 100. Una promoción nueva se registra en los dos repos. La vigencia y lo que Gano no publica → la cabecera de `promociones-gano.ts`.
+
 ### La presentación única — `/servilleta`
 
 ⭐ **UNA sola presentación, en la URL con el SEO de «plan servilleta»** (Director, 10 oct 2026): quien busca «plan servilleta gano excel» es un distribuidor buscando una herramienta, así que la que se usa y la que se encuentra son la misma. Es la columna que nació en `/presentacion` (23 sep 2026), mudada aquí. **Fuente viva completa → [docs/SERVILLETA.md](../../docs/SERVILLETA.md)**; el mapa de pantallas y las reglas viven en la cabecera de [src/app/servilleta/page.tsx](../../src/app/servilleta/page.tsx).

@@ -174,7 +174,7 @@ import GuiaPlanServilleta from './GuiaPlanServilleta';
 import { paisDeRuta, RUTA_SERVILLETA } from '@/lib/servilleta-pais';
 import CicloPropiedad from './CicloPropiedad';
 import ImagenAmpliable from './ImagenAmpliable';
-import { VIDEO_PLAN_SERVILLETA } from '@/lib/reels';
+import { VIDEO_PLAN_SERVILLETA, VIDEO_PLAN_SERVILLETA_US } from '@/lib/reels';
 import { marcarVioComoFunciona } from '@/lib/orbe-config';
 import { dispositivoDe } from '@/lib/dispositivo';
 
@@ -269,6 +269,17 @@ const PARES_MODERNIZACION: [string, string][] = [
   ['Llamar al exterior', 'WhatsApp'],
   ['Hoteles', 'Airbnb'],
   ['Ir a la tienda', 'Amazon'],
+];
+
+/** En ESTADOS UNIDOS (Director, 26 nov 2026): Blockbuster es el nombre que allá todos
+ *  recuerdan, y el centro comercial que pasó a Amazon pesa más que la llamada al exterior. Los
+ *  tres primeros son los que dice la voz del video de allá. */
+const PARES_MODERNIZACION_US: [string, string][] = [
+  ['Taxis', 'Uber'],
+  ['Blockbuster', 'Netflix'],
+  ['Centro comercial', 'Amazon'],
+  ['Hoteles', 'Airbnb'],
+  ['Llamar al exterior', 'WhatsApp'],
 ];
 
 /** LAS CUATRO LÍNEAS, CADA UNA CON SU FICHA (Director, 9 nov 2026: «quitémosle
@@ -929,8 +940,7 @@ export default function PitchDeckPage() {
   const videoPresentacionRef = useRef<HTMLVideoElement | null>(null);
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
-    // En Estados Unidos no hay video todavía: su voz trae las cifras de Colombia.
-    if (enUS || q.get('video') !== '1' || q.get('kiosk') === '1') return;
+    if (q.get('video') !== '1' || q.get('kiosk') === '1') return;
     videoPorEnlace.current = true;
     setVideoEsperaToque(true);
     setVideoPresentacion(true);
@@ -954,7 +964,9 @@ export default function PitchDeckPage() {
   // ¿Llegó por el enlace directo (?video=1)? Viaja con el reporte, para separar su
   // tráfico del botón de la pantalla 1 (medir-enlace-video.mjs).
   const videoPorEnlace = useRef(false);
-  const versionVideo = VIDEO_PLAN_SERVILLETA.match(/-(v\d+)\.mp4$/)?.[1] ?? 'v0';
+  // Cada país rueda su video (26 nov 2026): el de Estados Unidos se mide como `usa-v1`.
+  const videoPlan = enUS ? VIDEO_PLAN_SERVILLETA_US : VIDEO_PLAN_SERVILLETA;
+  const versionVideo = videoPlan.match(/-((?:usa-)?v\d+)\.mp4$/)?.[1] ?? 'v0';
   const enviarVideoVisto = useCallback(() => {
     const r = videoVisto.current;
     if (!r.dur || r.seg <= r.enviado) return;
@@ -2446,17 +2458,14 @@ export default function PitchDeckPage() {
                 tarjetas apiñaba la pantalla, y la marca ya va en el HUD. */}
             {/* La presentación entera en video (Director, 30 oct 2026): el socio
                 elige si la rueda o si la presenta él (ver videoPresentacion). */}
-            {/* En Estados Unidos no va (26 nov 2026): la voz del video dice las cifras
-                de Colombia. Vuelve cuando haya una versión con las de allá. */}
-            {!enUS && (
-              <button
-                type="button"
-                className={`pd-demo pd-ver-video ${videoPrincipal ? 'pd-ver-video--principal' : ''}`}
-                onClick={(e) => { e.stopPropagation(); setVideoPresentacion(true); }}
-              >
-                VER LA PRESENTACIÓN EN VIDEO →
-              </button>
-            )}
+            {/* Estados Unidos rueda su propio video desde el 26 nov 2026 (videoPlan). */}
+            <button
+              type="button"
+              className={`pd-demo pd-ver-video ${videoPrincipal ? 'pd-ver-video--principal' : ''}`}
+              onClick={(e) => { e.stopPropagation(); setVideoPresentacion(true); }}
+            >
+              VER LA PRESENTACIÓN EN VIDEO →
+            </button>
           </div>
         </section>
 
@@ -2530,7 +2539,7 @@ export default function PitchDeckPage() {
                   y lo nuevo nace en oro y asienta en blanco, una fila tras otra. Es solo
                   CSS: sin animación (movimiento reducido o la captura del video) queda el
                   cuadro final. */}
-              {PARES_MODERNIZACION.map(([de, a], k) => (
+              {(enUS ? PARES_MODERNIZACION_US : PARES_MODERNIZACION).map(([de, a], k) => (
                 <li key={a} style={{ '--k': k } as React.CSSProperties}>
                   <span className="de">{de}</span>
                   <span className="fl">→</span>
@@ -3224,7 +3233,7 @@ export default function PitchDeckPage() {
               )}
               <video
                 ref={videoPresentacionRef}
-                src={VIDEO_PLAN_SERVILLETA}
+                src={videoPlan}
                 autoPlay={!videoEsperaToque}
                 preload="metadata"
                 controls={!videoEsperaToque}

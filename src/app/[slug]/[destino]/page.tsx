@@ -442,10 +442,10 @@ export default async function DestinoRoute({
   let base = resolver(record.constructor_id)
   // EL SOCIO DE ESTADOS UNIDOS ABRE SU VERSIÓN (26 nov 2026): la Presentación tiene
   // una dirección por país (src/lib/servilleta-pais.ts), y el enlace del socio
-  // elige la del país de su WhatsApp. «video» se queda en la de Colombia: el video
-  // solo existe allá (su voz trae las cifras de Colombia). Si la consulta falla,
-  // va la de Colombia: el botón del país sigue a un toque.
-  if (esPresentacion(destino) && destino !== 'video' && base.startsWith(`${RUTA_SERVILLETA.CO}?`)) {
+  // elige la del país de su WhatsApp. «video» también, desde el 26 nov 2026: cada
+  // país rueda su propio video. Si la consulta falla, va la de Colombia: el botón
+  // del país sigue a un toque.
+  if (esPresentacion(destino) && base.startsWith(`${RUTA_SERVILLETA.CO}?`)) {
     const { data: pu } = await supabase
       .from('private_users')
       .select('whatsapp')

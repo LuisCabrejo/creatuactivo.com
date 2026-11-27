@@ -192,7 +192,9 @@ export default function GuiaPlanServilleta({ pais = 'CO' }: { pais?: PaisServill
         <h3>2. La oportunidad</h3>
         <p>
           Muchas industrias se modernizaron frente a nuestros ojos: los taxis pasaron a Uber,
-          alquilar películas a Netflix y las llamadas al exterior a WhatsApp. La presentación ve esa misma oportunidad en dos
+          {enUS
+            ? ' Blockbuster a Netflix y el centro comercial a Amazon.'
+            : ' alquilar películas a Netflix y las llamadas al exterior a WhatsApp.'} La presentación ve esa misma oportunidad en dos
           sectores: la industria del network marketing y el sector laboral.
         </p>
 

@@ -109,7 +109,14 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v19.mp4'
+// v20 (26 nov 2026, Director): la v19 idéntica con la música alargada en el compás (musica_larga.py): la pista
+// dura 3:43 y se apagaba desde ~3:15. La -v19 queda sin uso.
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v20.mp4'
+// La de ESTADOS UNIDOS (26 nov 2026, Director: «aprobado»): la misma receta (armar_usa.py) con la voz de
+// Alejandro (mexicano neutro), las cifras de allá (Pew, Reserva Federal), «tres mil / más de diez mil
+// dólares al mes», Blockbuster → Netflix y el centro comercial → Amazon, tres líneas y la regalía en
+// dólares con 6 cajas. 4:07. Se mide como `usa-v1`.
+export const VIDEO_PLAN_SERVILLETA_US = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-usa-v1.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

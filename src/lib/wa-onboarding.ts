@@ -275,8 +275,35 @@ export function enlaceCatalogo(slug?: string | null): string {
  * los números, con el simulador de Los 12 Niveles y el porcentaje que se elige.
  * `/{slug}/presentacion` pasa el `?pantalla=` al redirigir.
  */
-export function enlacePresentacion(slug: string, pantalla?: number): string {
-  return `${SITIO}/${slug}/presentacion${pantalla ? `?pantalla=${pantalla}` : ''}`;
+export function enlacePresentacion(slug: string, pantalla?: number, pais?: string | null): string {
+  const q = [pantalla ? `pantalla=${pantalla}` : '', pais === 'US' ? 'pais=us' : ''].filter(Boolean).join('&');
+  return `${SITIO}/${slug}/presentacion${q ? `?${q}` : ''}`;
+}
+
+/**
+ * El país de la CUENTA del socio (27 nov 2026): el de su inscripción en Gano
+ * (`private_users.pais`, que llena el Dashboard y corrige la administración) y, sin
+ * dato, el que dice el árbol de Gano. Nunca el del teléfono: Susana Sánchez tiene
+ * celular +1 y está inscrita en Colombia. Sin nada, null (el webhook cae al teléfono).
+ */
+export async function paisDeCuentaSocio(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: any,
+  constructorId: string,
+): Promise<'CO' | 'US' | 'XX' | null> {
+  try {
+    const { data: u } = await supabase.from('private_users')
+      .select('pais, gano_excel_id').eq('constructor_id', constructorId).maybeSingle();
+    let pais: string | null = u?.pais ?? null;
+    if (!pais && u?.gano_excel_id) {
+      const { data } = await supabase.rpc('pais_gano_de_codigo', { p_codigo: String(u.gano_excel_id) });
+      pais = typeof data === 'string' ? data : null;
+    }
+    if (!pais) return u ? 'CO' : null;
+    return pais === 'CO' ? 'CO' : pais === 'US' ? 'US' : 'XX';
+  } catch {
+    return null;
+  }
 }
 
 /**

@@ -24,6 +24,7 @@
 import type { PaisConductor } from '@/lib/queswa-conductor';
 import { CIERRE_SOCIO_PROYECCION, CIERRE_VIDEO_NIVELES_SOCIO, CIERRES_VIDEO_NIVELES_SOCIO_ANTERIORES } from '@/lib/wa-apertura';
 import { sinDiacriticos } from '@/lib/texto-normalizar';
+import { NIVELES_02_US } from '@/lib/doce-niveles-usa';
 
 /** Renta recurrente: COP por cliente, por punto de tarifa y POR CAJA al mes. */
 // La caja de Ganocafé aporta 14 CV, y el CV se liquida a la tasa fija: 14 × $45
@@ -454,6 +455,11 @@ export function pasoNivelesSocio(texto: string, ultimoBot: string, acepta: boole
  * nombra (Director, 5 oct 2026), y el 2.221 la responde cuando el socio la pide.
  */
 export function detalleNivelesSocio(_paquete: PaqueteEsp | 'KIT' | null, pais: PaisConductor | undefined, enlacePresentacion: string): string {
+  // Estados Unidos (27 nov 2026): la tabla de allá, con 6 cajas al mes por
+  // distribuidor; la de abajo calcula con las cuatro de Colombia.
+  if (pais === 'US') {
+    return `${NIVELES_02_US}\n\nSi quiere moverlo usted mismo, está en la pantalla de los números de su presentación: ${enlacePresentacion}`;
+  }
   const n = (x: number) => x.toLocaleString('es-CO');
   const filas = Array.from({ length: 12 }, (_, i) => i + 1).map((nivel) => {
     const f = filaNivel(nivel)!;

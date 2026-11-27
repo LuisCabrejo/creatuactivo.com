@@ -104,7 +104,7 @@ import {
   enlaceCatalogo,
   enlacePresentacion,
   paqueteDelSocio,
-  identificarSocio,
+  identificarSocio, paisDeCuentaSocio,
   saludoDeSocio,
   convertirProspectoEnSocio,
   marcarSaludoDeSocio,
@@ -1150,6 +1150,11 @@ async function procesarEntrante(body: any): Promise<void> {
       return;
     }
 
+    // El país de quien escribe (27 nov 2026): el del socio sale de su CUENTA (su
+    // inscripción en Gano), no del teléfono; al prospecto, del teléfono.
+    const paisSocio = socioQueEscribe ? await paisDeCuentaSocio(supabase, socioQueEscribe.constructorId) : null;
+    const paisQueEscribe = paisSocio ?? paisDeTelefono(phoneNumber);
+
     // El hilo del socio empieza el día en que se le reconoció como tal: los turnos
     // anteriores —donde se le vendió el negocio que ya tenía— no vuelven al modelo.
     let socioDesde: string | null = existingProspect?.device_info?.socio_desde ?? null;
@@ -2084,20 +2089,23 @@ async function procesarEntrante(body: any): Promise<void> {
         // Meta no garantiza el orden de dos envíos seguidos: la pausa es obligatoria.
         if (wamid) await marcarLeidoYEscribiendo(wamid);
         await new Promise((res) => setTimeout(res, 800));
-        const envio = await sendVideo(phoneNumber, VIDEO_DOCE_NIVELES_WA, CIERRE_VIDEO_NIVELES_SOCIO);
+        // El socio de Estados Unidos, con el video de allá (27 nov 2026).
+        const usSocio = paisQueEscribe === 'US';
+        const vozSocio = usSocio ? NIVELES_01_US : vozVideoDoceNiveles();
+        const envio = await sendVideo(phoneNumber, usSocio ? VIDEO_DOCE_NIVELES_US_WA : VIDEO_DOCE_NIVELES_WA, CIERRE_VIDEO_NIVELES_SOCIO);
         if (!envio.ok) {
           console.warn(`⚠️ [WA Webhook] 2.222 el video no salió (${envio.error}) — va el texto`);
-          await sendWhatsAppMessage(phoneNumber, `${vozVideoDoceNiveles()}\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`);
+          await sendWhatsAppMessage(phoneNumber, `${vozSocio}\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`);
         }
         await persistirTurnoDictado(supabase, waFingerprint, messageText,
-          `${ENTRADA_VIDEO_NIVELES_SOCIO}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`,
+          `${ENTRADA_VIDEO_NIVELES_SOCIO}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozSocio}\n\n${CIERRE_VIDEO_NIVELES_SOCIO}`,
           '2.222 el video de Los 12 Niveles (socio)');
         console.log(`🎬 [WA Webhook] 2.222 video «Los 12 Niveles» al socio /${socioQueEscribe.slug}`);
         return;
       }
       if (pasoNiveles === 'detalle') {
         const paqueteSocio = await paqueteDelSocio(supabase, socioQueEscribe.constructorId);
-        const texto = detalleNivelesSocio(paqueteSocio, paisDeTelefono(phoneNumber), enlacePresentacion(socioQueEscribe.slug, 8));
+        const texto = detalleNivelesSocio(paqueteSocio, paisQueEscribe, enlacePresentacion(socioQueEscribe.slug, 8, paisQueEscribe));
         await sendWhatsAppMessage(phoneNumber, texto, { wamid });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.223 Los 12 Niveles en detalle (socio)');
         console.log(`📊 [WA Webhook] 2.223 detalle de Los 12 Niveles al socio /${socioQueEscribe.slug} (${paqueteSocio ?? 'sin paquete → Kit'})`);
@@ -2162,7 +2170,7 @@ async function procesarEntrante(body: any): Promise<void> {
       // la invitación al Centro de Mando: el mensaje para un negocio es de allá.
       // Texto aprobado y su porqué → wa-plata-socio.ts.
       if (preguntaPorPlataParaEmpezar(messageText)) {
-        const texto = respuestaPlataParaElSocio(paisDeTelefono(phoneNumber));
+        const texto = respuestaPlataParaElSocio(paisQueEscribe);
         await sendWhatsAppMessage(phoneNumber, texto, { wamid, borradorAparte: true });
         await persistirTurnoDictado(supabase, waFingerprint, messageText, texto, '2.227 con cuánta plata se arranca (socio)');
         console.log(`💵 [WA Webhook] 2.227 el socio /${socioQueEscribe.slug} preguntó con cuánta plata se arranca`);
@@ -2365,7 +2373,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // 17%, con las tablas del simulador. Va antes del pedido (2.45): «cuánto
     // tengo que vender para comprar una caja» no es alguien comprando.
     {
-      const nodoCubrir = atenderCubrirCompra(messageText, paisDeTelefono(phoneNumber), !!socioQueEscribe);
+      const nodoCubrir = atenderCubrirCompra(messageText, paisQueEscribe, !!socioQueEscribe);
       if (nodoCubrir?.texto) {
         await pisoDeEscritura();
         const enviado = await sendText(phoneNumber, nodoCubrir.texto);
@@ -2543,7 +2551,7 @@ async function procesarEntrante(body: any): Promise<void> {
       // repetía "¿le muestro qué trae el Empresarial?" ya atendida).
       const opciones = {
         // La cifra en la moneda de quien escribe (2 oct 2026, Yellitza: +1 con el resultado en pesos).
-        pais: paisDeTelefono(phoneNumber),
+        pais: paisQueEscribe,
         composicionYaOfrecida: historial.some((m) =>
           m.role === 'assistant' && /qu[eé] (productos )?trae el paquete|le activa inmediatamente este inventario/i.test(m.content)),
         // La estrategia ya se mostró: el simulador de renta no la vuelve a ofrecer.
@@ -2606,7 +2614,7 @@ async function procesarEntrante(body: any): Promise<void> {
         canal:               'whatsapp',
         mensaje:             messageText,
         historial,
-        pais:                paisDeTelefono(phoneNumber),
+        pais:                paisQueEscribe,
         socioNombre:         socio?.nombre?.split(/\s+/).slice(0, 2).join(' '),
         hiloDoceNiveles,
         vieneDelSimulador,

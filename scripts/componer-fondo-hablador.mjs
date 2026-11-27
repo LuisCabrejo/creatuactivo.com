@@ -121,7 +121,69 @@ const USA = {
   ancho: 75, arriba: 26.8, izq: 9,
 };
 
-async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, izq = ESCENA_IZQ, escena = ESCENA, objetos = OBJETOS } = {}) {
+// ── Por negocio (27 nov 2026): salón de belleza y gimnasio, en Colombia ──────
+// Escenas generadas por el Director con Nano Banana (originales en docs/hablador/),
+// con la misma cámara y la misma luz que la de Colombia, y la misma maqueta: el QR a
+// la derecha de los productos en el salón, y en el eje en el gimnasio, encima de la
+// mancuerna: los productos van bajos y a lo ancho, y arriba a la izquierda flotaba.
+//   · Salón: el champú y el acondicionador quedan como los dibujó la IA. Probado y
+//     descartado: ponerles la etiqueta real. Sobre un frasco redondo la deja plana, con
+//     costuras y con las letras mezcladas («ACONDICIOOR»), y la que dibujó la IA es la
+//     del frasco (logo, texto y peso neto).
+//   · Gimnasio: la caja de Ganocafé Classic lleva la etiqueta real (la IA escribió
+//     letras sin sentido en el texto de la caja), con el frasco de Cordygold delante:
+//       python3 scripts/hablador-reetiquetar-caja.py docs/hablador/escena-gimnasio-generada-v1.jpg \
+//         public/images/hablador/escena-gimnasio-v1.jpg --sin-taza --desenfoque 0.6 \
+//         --zona 0 1380 880 640 --delante <máscara del frasco, GrabCut en 780 1515 285 610> \
+//         --etiqueta public/productos/_set/limpios/ganocafe-clasico.png
+//     El frasco de Cordygold lleva la banda impresa de su etiqueta real encima (como el
+//     de las cápsulas de la tienda naturista, abajo): arregla la letra pequeña, que la IA
+//     escribió sin sentido. Los frascos del salón no: «ACONDICIONADOR» da la vuelta al
+//     frasco y la foto real no la trae entera; con la banda volvía «ACONDICIO OR».
+// La máscara de objetos de cada una suma las siluetas de los productos y, con GrabCut,
+// la toalla del salón y la taza del gimnasio.
+// `elipse` es la luz que apaga la mesa: el mármol del salón es claro y tiene que
+// quedar negro antes de «Escanee · Pregunte · Pida por WhatsApp».
+const SALON = {
+  escena: join(RAIZ, 'public/images/hablador/escena-salon-v1.jpg'),
+  objetos: join(RAIZ, 'public/images/hablador/escena-salon-v1-objetos.png'),
+  ancho: 96, arriba: 5.2, izq: -0.9, elipse: { cx: 0.50, cy: 0.62, rx: 0.75, ry: 0.22 },
+  // La toalla sale del cuadro por la derecha: se apaga a lo largo, no con la curva de
+  // la elipse (que la cortaba en redondo).
+  derecha: [0.72, 1],
+};
+const GIMNASIO = {
+  escena: join(RAIZ, 'public/images/hablador/escena-gimnasio-v1.jpg'),
+  objetos: join(RAIZ, 'public/images/hablador/escena-gimnasio-v1-objetos.png'),
+  ancho: 90, arriba: 15.4, izq: 5.9, elipse: { cx: 0.50, cy: 0.68, rx: 0.55, ry: 0.25 },
+};
+
+// ── Farmacia y tienda naturista (27 nov 2026): Ganocafé 3 en 1 y Cápsulas de Ganoderma
+// Escena del Director (original en docs/hablador/escena-naturista-generada-v1.jpg), con
+// las DOS etiquetas reales: la de la caja y, por primera vez en un frasco redondo, la
+// de las cápsulas. En el frasco no va la foto completa (la tapa salía doble y el frasco
+// más ancho) sino la banda impresa, sin la tapa, el pie ni los bordes que curvan: el
+// frasco está casi de frente y calza (39 puntos, 1,3 px). Lo que queda detrás del vaso
+// de agua no se pinta: el reflejo de la etiqueta a través del agua es el de la escena.
+//   python3 scripts/hablador-reetiquetar-caja.py docs/hablador/escena-naturista-generada-v1.jpg \
+//     /tmp/caja.jpg --sin-taza --desenfoque 0.6 --zona 600 950 520 1150
+//   python3 scripts/hablador-reetiquetar-caja.py /tmp/caja.jpg public/images/hablador/escena-naturista-v1.jpg \
+//     --sin-taza --sin-costado --desenfoque 0.6 --min-puntos 25 --zona 1150 1250 450 900 \
+//     --etiqueta <capsulas-ganoderma.png recortada a [318:752, 40:420]> \
+//     --delante <el vaso: rectángulo 1330,1715 → 1600,2060>
+// (El Cordygold del gimnasio lleva la banda de su etiqueta del mismo modo, [310:732, 75:355].)
+// La máscara de objetos: la caja (de la primera pasada), el hongo y la tela dibujados a
+// mano (GrabCut se llevaba la mesa del fondo), el frasco con GrabCut y el vaso, que es
+// transparente, como un trapecio. Los productos van abajo y a lo ancho: el QR va arriba
+// a la izquierda, sobre el hongo, donde la escena es negra.
+const NATURISTA = {
+  escena: join(RAIZ, 'public/images/hablador/escena-naturista-v1.jpg'),
+  objetos: join(RAIZ, 'public/images/hablador/escena-naturista-v1-objetos.png'),
+  ancho: 100, arriba: 0, izq: -1, elipse: { cx: 0.50, cy: 0.71, rx: 0.62, ry: 0.24 },
+};
+
+async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, izq = ESCENA_IZQ, escena = ESCENA, objetos = OBJETOS,
+  elipse = { cx: 0.53, cy: 0.70, rx: 0.50, ry: 0.27 }, derecha = [0.95, 1] } = {}) {
   const { data: e, info: ie } = await sharp(escena).resize({ width: mm(ancho) }).ensureAlpha().raw()
     .toBuffer({ resolveWithObject: true });
   const obj = await sharp(objetos).resize({ width: ie.width, height: ie.height, fit: 'fill' })
@@ -132,8 +194,8 @@ async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, iz
     const v = y / ie.height;
     for (let x = 0; x < ie.width; x++) {
       const u = x / ie.width;
-      const d = Math.hypot((u - 0.53) / 0.50, (v - 0.70) / 0.27);
-      const borde = suave(0, 0.05, u) * (1 - suave(0.95, 1, u)) * (1 - suave(0.93, 0.99, v));
+      const d = Math.hypot((u - elipse.cx) / elipse.rx, (v - elipse.cy) / elipse.ry);
+      const borde = suave(0, 0.05, u) * (1 - suave(derecha[0], derecha[1], u)) * (1 - suave(0.93, 0.99, v));
       const mesa = 1 - suave(0.80, 1.05, d);
       e[(y * ie.width + x) * 4 + 3] = Math.round(255 * borde * Math.max(mesa, obj[y * ie.width + x] / 255));
     }
@@ -145,7 +207,8 @@ async function escenaGanocafe({ ancho = ESCENA_ANCHO, arriba = ESCENA_ARRIBA, iz
 }
 
 // `node scripts/componer-fondo-hablador.mjs usa` compone solo los fondos cuyo nombre
-// contiene «usa»: así un fondo nuevo no reescribe los que ya están publicados.
+// contiene «usa» (o «salon», «gimnasio», «naturista»): así un fondo nuevo no reescribe los que ya
+// están publicados.
 const SOLO = process.argv[2];
 const toca = (archivo) => !SOLO || archivo.includes(SOLO);
 
@@ -155,6 +218,9 @@ for (const [archivo, fondo, capas] of [
   ['fondo-cafe-ganocafe-v3.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe()]],
   ['fondo-cafe-ganocafe-grande-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(GRANDE)]],
   ['fondo-cafe-ganocafe-usa-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(USA)]],
+  ['fondo-salon-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(SALON)]],
+  ['fondo-gimnasio-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(GIMNASIO)]],
+  ['fondo-naturista-v1.jpg', { r: 0, g: 0, b: 0 }, async () => [await escenaGanocafe(NATURISTA)]],
 ]) {
   if (!toca(archivo)) continue;
   const salida = join(DESTINO, archivo);
@@ -177,6 +243,9 @@ if (existsSync(ICC)) {
   for (const [rgb, cmyk] of [
     ['fondo-cafe-ganocafe-grande-v1.jpg', 'fondo-ganocafe-grande-cmyk-v1.jpg'],
     ['fondo-cafe-ganocafe-usa-v1.jpg', 'fondo-ganocafe-usa-cmyk-v1.jpg'],
+    ['fondo-salon-v1.jpg', 'fondo-salon-cmyk-v1.jpg'],
+    ['fondo-gimnasio-v1.jpg', 'fondo-gimnasio-cmyk-v1.jpg'],
+    ['fondo-naturista-v1.jpg', 'fondo-naturista-cmyk-v1.jpg'],
   ]) {
     if (!toca(rgb)) continue;
     execFileSync('python3', [

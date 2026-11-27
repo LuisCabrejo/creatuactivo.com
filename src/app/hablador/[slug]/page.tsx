@@ -40,7 +40,7 @@ import QRCode from 'qrcode'
 import { resolver } from '@/app/productos/socio'
 import SinOrbe from '@/components/SinOrbe'
 import BotonImprimir from './BotonImprimir'
-import { CEJA, TITULO, BAJADA, PASOS } from './pieza'
+import { CEJA, BAJADA, PASOS, NEGOCIOS, negocioDe } from './pieza'
 
 export const dynamic = 'force-dynamic'
 
@@ -71,6 +71,22 @@ const VARIANTES: Record<string, { fondo: string; color: string; clase: string; b
     fondo: '/images/hablador/fondo-cafe-ganocafe-usa-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral hab-pieza--qr-usa',
     bajada: BAJADA,
   },
+  // Por negocio (27 nov 2026): el texto sale de NEGOCIOS (pieza.ts). En el gimnasio los
+  // productos van bajos y a lo ancho: el QR va en el eje, encima de la mancuerna.
+  salon: {
+    fondo: '/images/hablador/fondo-salon-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral',
+    bajada: NEGOCIOS.salon.bajada,
+  },
+  gimnasio: {
+    fondo: '/images/hablador/fondo-gimnasio-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral hab-pieza--qr-gimnasio',
+    bajada: NEGOCIOS.gimnasio.bajada,
+  },
+  // Farmacia y tienda naturista: los productos van a lo ancho y el QR, arriba a la
+  // izquierda, sobre el hongo, donde la escena es negra.
+  naturista: {
+    fondo: '/images/hablador/fondo-naturista-v1.jpg', color: '#000000', clase: 'hab-pieza--escena hab-pieza--qr-lateral hab-pieza--qr-naturista',
+    bajada: NEGOCIOS.naturista.bajada,
+  },
 }
 // La pieza aprobada (Director, 21 nov 2026): la que sale sin `?variante=` y la única
 // que tiene PDF de imprenta (/hablador/{slug}/pdf). Las otras dos quedan para comparar.
@@ -93,18 +109,26 @@ export default async function Hablador({
   // 3-in-1 de allá, y su QR abre /{slug}/hablador-us, que cuenta el escaneo y lleva al
   // catálogo de allá.
   const esUS = searchParams?.pais === 'us'
-  const variante = esUS ? 'ganocafe-usa' : VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
+  // ?negocio=salon|gimnasio|naturista (27 nov 2026): el hablador de cada tipo de negocio. Por
+  // ahora solo en Colombia; en Estados Unidos sale el de cafetería.
+  const negocio = esUS ? 'cafeteria' : negocioDe(searchParams?.negocio)
+  const n = NEGOCIOS[negocio]
+  const variante = esUS ? 'ganocafe-usa' : negocio !== 'cafeteria' ? negocio
+    : VARIANTES[String(searchParams?.variante)] ? String(searchParams?.variante) : POR_DEFECTO
   const v = VARIANTES[variante]
+  const conPdf = variante === POR_DEFECTO || variante === 'ganocafe-usa' || negocio !== 'cafeteria'
+  const consultaPdf = esUS ? '&pais=us' : negocio !== 'cafeteria' ? `&negocio=${negocio}` : ''
   if (r.slug !== params.slug) {
     const consulta = new URLSearchParams()
     if (sangrado) consulta.set('sangrado', '1')
     if (esUS) consulta.set('pais', 'us')
+    else if (negocio !== 'cafeteria') consulta.set('negocio', negocio)
     else if (variante !== POR_DEFECTO) consulta.set('variante', variante)
     const resto = consulta.toString()
     permanentRedirect(`/hablador/${r.slug}${resto ? `?${resto}` : ''}`)
   }
 
-  const enlace = `creatuactivo.com/${r.slug}/${esUS ? 'hablador-us' : 'hablador'}`
+  const enlace = `creatuactivo.com/${r.slug}/${esUS ? 'hablador-us' : n.destino}`
   // El margen blanco del QR lo pone su recuadro (2,6 mm, más de 3 módulos), no la librería.
   const qr = await QRCode.toString(`https://${enlace}`, {
     type: 'svg',
@@ -125,9 +149,9 @@ export default async function Hablador({
       <style dangerouslySetInnerHTML={{ __html: estilos(ancho, alto, sangre, v.fondo, v.color) }} />
 
       {!vista && <div className="hab-controles">
-        {variante === POR_DEFECTO || esUS ? (
+        {conPdf ? (
           <>
-            <a className="cta-primary" href={`/hablador/${r.slug}/pdf?descargar=1${esUS ? '&pais=us' : ''}`}>Descargar el PDF para la imprenta</a>
+            <a className="cta-primary" href={`/hablador/${r.slug}/pdf?descargar=1${consultaPdf}`}>Descargar el PDF para la imprenta</a>
             <p>
               10 × 15 cm con 3 mm de sangrado, en CMYK y en alta resolución: se le envía a la
               imprenta tal cual.
@@ -148,7 +172,7 @@ export default async function Hablador({
         <div className="hab-contenido">
           <div className="hab-arriba">
             <p className="hab-ceja">{CEJA}</p>
-            <p className="hab-titulo">{TITULO}</p>
+            <p className="hab-titulo">{n.titulo[0]}<br />{n.titulo[1]}</p>
             <p className="hab-bajada">{v.bajada}</p>
           </div>
 
@@ -202,6 +226,8 @@ body:has(.hab-escritorio--vista) .hab-pieza, body:has(.hab-escritorio--vista) .h
 .hab-pieza--qr-lateral .hab-contenido { position: relative; padding-bottom: 6mm; }
 .hab-pieza--qr-lateral .hab-qr { position: absolute; left: 54.5mm; top: 50.4mm; width: 25mm; height: 25mm; padding: 2.5mm; }
 .hab-pieza--qr-usa .hab-qr { left: 60mm; }
+.hab-pieza--qr-gimnasio .hab-qr { left: 37.5mm; top: 53mm; }
+.hab-pieza--qr-naturista .hab-qr { left: 8mm; top: 54mm; }
 .hab-arriba, .hab-abajo { display: flex; flex-direction: column; align-items: center; }
 .hab-ceja { margin: 0; font-size: 8pt; font-weight: 600; letter-spacing: .01em; color: var(--h-oro); }
 .hab-titulo {

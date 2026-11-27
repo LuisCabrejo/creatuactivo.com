@@ -28,7 +28,7 @@
 import { PDFDocument, cmyk, pushGraphicsState, popGraphicsState, setCharacterSpacing, type PDFFont, type PDFPage, type Color } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
 import QRCode from 'qrcode'
-import { CEJA, TITULO_LINEAS, BAJADA, PASOS } from '@/app/hablador/[slug]/pieza'
+import { CEJA, PASOS, NEGOCIOS, type Negocio } from '@/app/hablador/[slug]/pieza'
 
 const PT = 72 / 25.4                  // puntos por mm
 const SANGRE = 3
@@ -47,6 +47,11 @@ export interface InsumosHablador {
   fondoCmyk: ArrayBuffer | Uint8Array   // fondo-ganocafe-grande-cmyk-v1.jpg
   /** La escena con la caja de Estados Unidos (27 nov 2026): fondo-ganocafe-usa-cmyk-v1.jpg. */
   fondoUsaCmyk: ArrayBuffer | Uint8Array
+  /** Por negocio (27 nov 2026): fondo-salon-cmyk-v1.jpg y fondo-gimnasio-cmyk-v1.jpg. */
+  fondoSalonCmyk: ArrayBuffer | Uint8Array
+  fondoGimnasioCmyk: ArrayBuffer | Uint8Array
+  /** Farmacia y tienda naturista (27 nov 2026): fondo-naturista-cmyk-v1.jpg. */
+  fondoNaturistaCmyk: ArrayBuffer | Uint8Array
   interRegular: ArrayBuffer | Uint8Array
   interMedium: ArrayBuffer | Uint8Array
   interSemiBold: ArrayBuffer | Uint8Array
@@ -59,27 +64,38 @@ export interface InsumosHablador {
  * `.hab-pieza--qr-usa` en la página).
  */
 const TEXTO_PIEZA = { ceja: 13.31, titulo: [24.20, 33.00], bajada: 39.89, pasos: 138.81, enlace: 143.51 } as const
+// Por negocio (27 nov 2026), la misma maqueta: el salón con el QR donde el de Colombia,
+// y el gimnasio en el eje, encima de la mancuerna (`.hab-pieza--qr-gimnasio`).
 const PIEZAS = {
   CO: { ...TEXTO_PIEZA, qr: { x: 54.5, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 } },
   US: { ...TEXTO_PIEZA, qr: { x: 60, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 } },
+  salon: { ...TEXTO_PIEZA, qr: { x: 54.5, y: 50.4, lado: 25, margen: 2.5, radio: 2.6 } },
+  gimnasio: { ...TEXTO_PIEZA, qr: { x: 37.5, y: 53, lado: 25, margen: 2.5, radio: 2.6 } },
+  // Farmacia y tienda naturista: arriba a la izquierda, sobre el hongo (`.hab-pieza--qr-naturista`).
+  naturista: { ...TEXTO_PIEZA, qr: { x: 8, y: 54, lado: 25, margen: 2.5, radio: 2.6 } },
 } as const
 
 /**
  * El PDF del hablador del socio, con el QR a `https://creatuactivo.com/{slug}/hablador`,
  * o a `/{slug}/hablador-us` el de Estados Unidos, que abre el catálogo de allá.
  */
-export async function crearPdfHablador(slug: string, insumos: InsumosHablador, pais: 'CO' | 'US' = 'CO'): Promise<Uint8Array> {
-  const L = PIEZAS[pais]
+export async function crearPdfHablador(slug: string, insumos: InsumosHablador, pais: 'CO' | 'US' = 'CO', negocio: Negocio = 'cafeteria'): Promise<Uint8Array> {
+  // Estados Unidos, por ahora, solo con el de cafetería.
+  if (pais === 'US') negocio = 'cafeteria'
+  const pieza = pais === 'US' ? 'US' : negocio === 'cafeteria' ? 'CO' : negocio
+  const L = PIEZAS[pieza]
+  const N = NEGOCIOS[negocio]
+  const fondos = { CO: insumos.fondoCmyk, US: insumos.fondoUsaCmyk, salon: insumos.fondoSalonCmyk, gimnasio: insumos.fondoGimnasioCmyk, naturista: insumos.fondoNaturistaCmyk }
   const doc = await PDFDocument.create()
   doc.registerFontkit(fontkit)
   const [regular, medium, semibold, fondo] = await Promise.all([
     doc.embedFont(insumos.interRegular, { subset: true }),
     doc.embedFont(insumos.interMedium, { subset: true }),
     doc.embedFont(insumos.interSemiBold, { subset: true }),
-    doc.embedJpg(pais === 'US' ? insumos.fondoUsaCmyk : insumos.fondoCmyk),
+    doc.embedJpg(fondos[pieza]),
   ])
 
-  const enlace = `creatuactivo.com/${slug}/${pais === 'US' ? 'hablador-us' : 'hablador'}`
+  const enlace = `creatuactivo.com/${slug}/${pais === 'US' ? 'hablador-us' : N.destino}`
   doc.setTitle(`Hablador de mostrador · ${slug}`)
   doc.setSubject('10 × 15 cm con 3 mm de sangrado · CMYK (ISO Coated v2 300 %, FOGRA39)')
   doc.setAuthor('CreaTuActivo.com')
@@ -93,9 +109,9 @@ export async function crearPdfHablador(slug: string, insumos: InsumosHablador, p
 
   // Las líneas de base, en mm desde el borde de arriba del corte (medidas en la página).
   texto(page, CEJA, { font: semibold, size: 8, base: L.ceja, color: ORO, tracking: 0.01 })
-  texto(page, TITULO_LINEAS[0], { font: semibold, size: 24, base: L.titulo[0], color: TITULO, tracking: -0.03 })
-  texto(page, TITULO_LINEAS[1], { font: semibold, size: 24, base: L.titulo[1], color: TITULO, tracking: -0.03 })
-  texto(page, BAJADA, { font: regular, size: 8.6, base: L.bajada, color: TEXTO_2 })
+  texto(page, N.titulo[0], { font: semibold, size: 24, base: L.titulo[0], color: TITULO, tracking: -0.03 })
+  texto(page, N.titulo[1], { font: semibold, size: 24, base: L.titulo[1], color: TITULO, tracking: -0.03 })
+  texto(page, N.bajada, { font: regular, size: 8.6, base: L.bajada, color: TEXTO_2 })
   texto(page, PASOS, { font: medium, size: 7.6, base: L.pasos, color: TITULO, tracking: 0.005 })
   // El enlace cambia con el slug: si uno largo no cabe en los 82 mm, se achica.
   const tamEnlace = Math.min(6, (82 * PT) / regular.widthOfTextAtSize(enlace, 1))

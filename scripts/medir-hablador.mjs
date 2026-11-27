@@ -39,10 +39,12 @@ const filas = new Map();
 const navegadores = new Set();
 let total = 0;
 for (const v of visitas ?? []) {
-  // `/{slug}/hablador-us`: el de Estados Unidos (27 nov 2026).
-  if (!/^\/[^/]+\/hablador(?:-us)?$/.test(v.page_entry ?? '')) continue;
+  // `/{slug}/hablador-us`: el de Estados Unidos; `-salon` y `-gimnasio`, los de cada
+  // tipo de negocio (27 nov 2026).
+  const m = /^\/[^/]+\/hablador(?:-(us|salon|gimnasio|naturista))?$/.exec(v.page_entry ?? '');
+  if (!m) continue;
   total++;
-  const k = `${dia(v.timestamp)} · ${v.mentor_ref_id}${v.page_entry.endsWith('-us') ? ' (EE. UU.)' : ''}`;
+  const k = `${dia(v.timestamp)} · ${v.mentor_ref_id}${{ us: ' (EE. UU.)', salon: ' (salón)', gimnasio: ' (gimnasio)', naturista: ' (naturista)' }[m[1]] ?? ''}`;
   const f = filas.get(k) ?? { escaneos: 0, navegadores: new Set(), sinCookie: 0 };
   f.escaneos++;
   if (v.visitante) { f.navegadores.add(v.visitante); navegadores.add(v.visitante); } else f.sinCookie++;

@@ -315,6 +315,17 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
     document.getElementById(`linea-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  // ?linea=cuidado (27 nov 2026): el QR del hablador de un salón de belleza abre el
+  // catálogo en Cuidado personal (NEGOCIOS en src/app/hablador/[slug]/pieza.ts).
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get('linea')
+    if (!id || !lineas.some((l) => l.id === id)) return
+    const t = setTimeout(() => { document.getElementById(`linea-${id}`)?.scrollIntoView({ block: 'start' }); setLineaActiva(id) }, 150)
+    return () => clearTimeout(t)
+    // Solo al llegar: después, la línea la elige quien navega.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   /** Lo que lleva el carrito, para la medición (`page_visits.detalle`). */
   const detallePedido = () => ({ productos: carrito.length, unidades, total, lineas: carrito.map(({ id, cantidad }) => ({ id, cantidad })) })
 

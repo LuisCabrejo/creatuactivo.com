@@ -18,6 +18,7 @@ import { paisDeContactoWA } from '@/lib/paises'
 import { RUTA_SERVILLETA, paisServilletaDeSocio, type PaisServilleta } from '@/lib/servilleta-pais'
 import AbrirQueswaEnWhatsApp from '@/components/AbrirQueswaEnWhatsApp'
 import VideoComoFuncionaPage from '@/components/VideoComoFuncionaPage'
+import { NEGOCIOS, negocioDelDestino } from '@/app/hablador/[slug]/pieza'
 
 // El video «Cómo funciona», directo desde un enlace (12 nov 2026, Director): una
 // página con el video y nada más, para el pie de una publicación. «funciona» es
@@ -365,7 +366,11 @@ export default async function DestinoRoute({
   // enlace al catálogo. Si el registro falla, se redirige igual.
   // `hablador-us` (27 nov 2026): el QR del hablador de Estados Unidos. Cuenta igual y
   // abre el catálogo de allá, aunque el socio esté inscrito en Colombia.
-  if (destino === 'hablador' || destino === 'hablador-us') {
+  // `hablador-salon`, `hablador-gimnasio` y `hablador-naturista` (27 nov 2026): el QR del hablador de cada tipo
+  // de negocio (NEGOCIOS en src/app/hablador/[slug]/pieza.ts). Cuenta aparte y abre el
+  // catálogo en la línea del negocio (el del salón, en Cuidado personal).
+  const negocioQr = negocioDelDestino(destino)
+  if (destino === 'hablador-us' || negocioQr) {
     const cabeceras = headers()
     const agente = cabeceras.get('user-agent')
     const local = esHostLocal((cabeceras.get('host') || '').split(':')[0]) && process.env.PERMITIR_TRACKING_LOCAL !== '1'
@@ -387,7 +392,8 @@ export default async function DestinoRoute({
         console.warn('⚠️ [Hablador] No se registró el escaneo:', e)
       }
     }
-    redirect(`/productos/${slug}${destino === 'hablador-us' ? '?pais=us' : ''}`)
+    const linea = negocioQr ? NEGOCIOS[negocioQr].linea : undefined
+    redirect(`/productos/${slug}${destino === 'hablador-us' ? '?pais=us' : linea ? `?linea=${linea}` : ''}`)
   }
 
   if (destino === 'productos') {

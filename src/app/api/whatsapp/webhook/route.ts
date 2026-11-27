@@ -22,7 +22,8 @@ import {
   sendText, sendReplyButtons, sendFlow, sendTemplate, sendImage, sendVideo,
   marcarLeidoYEscribiendo,
 } from '@/lib/wa-channel';
-import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA, VIDEO_DOCE_NIVELES_WA } from '@/lib/reels';
+import { VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA, VIDEO_DOCE_NIVELES_WA, VIDEO_DOCE_NIVELES_US_WA } from '@/lib/reels';
+import { NIVELES_01_US, CIERRE_NIVELES_01_US } from '@/lib/doce-niveles-usa';
 import { videoQuePide } from '@/lib/queswa-videos-intencion';
 import { transcribirNotaDeVoz } from '@/lib/wa-audio';
 import {
@@ -1668,7 +1669,7 @@ async function procesarEntrante(body: any): Promise<void> {
         return;
       }
       if (_vieneDelVideoNiveles) {
-        const texto = aperturaRetornoTrasVideoNiveles(contactName);
+        const texto = aperturaRetornoTrasVideoNiveles(contactName, paisDeTelefono(phoneNumber));
         await sendWhatsAppMessage(phoneNumber, texto);
         await persistirTurnoDictado(supabase, waFingerprint, messageText,
           `${notaVideoDoceNivelesVisto()}\n\n${texto}`, 'retorno tras el video «Los 12 Niveles»');
@@ -1713,7 +1714,7 @@ async function procesarEntrante(body: any): Promise<void> {
     // mensaje de los lunes.
     if (esPrimerContacto && !socioQueEscribe && !llegaDecidido && !_preguntaDinero && !_traePregunta && !_vieneDeProductos && !detectarIntencionCompra(messageText)) {
       if (_vieneDelVideoNiveles) {
-        const texto = construirAperturaTrasVideoNiveles(patrocinador?.nombre, contactName);
+        const texto = construirAperturaTrasVideoNiveles(patrocinador?.nombre, contactName, paisDeTelefono(phoneNumber));
         await sendWhatsAppMessage(phoneNumber, texto);
         await persistirTurnoDictado(supabase, waFingerprint, messageText,
           `${notaVideoDoceNivelesVisto()}\n\n${texto}`, 'apertura tras el video «Los 12 Niveles»');
@@ -1918,13 +1919,19 @@ async function procesarEntrante(body: any): Promise<void> {
       const reel = reelSinVer(_bitacoraDelTurno.textosDelBot);
       if (reel === 'doce_niveles') {
         const entrada = 'Con gusto. Esta es la estrategia:';
+        // Estados Unidos con su video y su pregunta (27 nov 2026): el simulador del Flow
+        // calcula con cuatro cajas, así que allá se ofrece la tabla nivel por nivel.
+        const enUS = paisDeTelefono(phoneNumber) === 'US';
+        const urlVideo = enUS ? VIDEO_DOCE_NIVELES_US_WA : VIDEO_DOCE_NIVELES_WA;
+        const voz = enUS ? NIVELES_01_US : vozVideoDoceNiveles();
+        const oferta = enUS ? CIERRE_NIVELES_01_US : OFERTA_SIMULADOR_NIVELES;
         await sendWhatsAppMessage(phoneNumber, entrada);
         if (wamid) await marcarLeidoYEscribiendo(wamid);
         await new Promise((r) => setTimeout(r, 800));
-        const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, VIDEO_DOCE_NIVELES_WA, 59, OFERTA_SIMULADOR_NIVELES, 'video Los 12 Niveles', wamid);
-        if (!envio.ok) await sendWhatsAppMessage(phoneNumber, `${vozVideoDoceNiveles()}\n\n${OFERTA_SIMULADOR_NIVELES}`);
+        const envio = await enviarVideoYPreguntarAlFinal(supabase, phoneNumber, waFingerprint, urlVideo, 59, oferta, 'video Los 12 Niveles', wamid);
+        if (!envio.ok) await sendWhatsAppMessage(phoneNumber, `${voz}\n\n${oferta}`);
         await persistirTurnoDictado(supabase, waFingerprint, messageText,
-          `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${vozVideoDoceNiveles()}${envio.ok ? '' : `\n\n${OFERTA_SIMULADOR_NIVELES}`}`,
+          `${entrada}\n\n[Video «Los 12 Niveles», 59 s. Lo que dice la voz:]\n\n${voz}${envio.ok ? '' : `\n\n${oferta}`}`,
           `no había visto el video del reel: doce_niveles${envio.ok ? '' : ' (sin video)'}`);
         console.log(`🎬 [WA Webhook] No había visto el video del reel «Los 12 Niveles» — se le manda`);
         return;

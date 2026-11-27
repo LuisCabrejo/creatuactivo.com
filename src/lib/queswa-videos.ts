@@ -28,9 +28,10 @@
 
 import {
   VIDEO_COMO_FUNCIONA_WA, VIDEO_COMO_ENTRA_EL_DINERO_WA, VIDEO_QUE_DEBO_HACER_YO_WA, VIDEO_DOCE_NIVELES_WA,
+  VIDEO_DOCE_NIVELES_US_WA,
 } from '@/lib/reels';
 
-export type VideoQueswaId = 'como-funciona' | 'como-entra-el-dinero' | 'que-debo-hacer-yo' | 'doce-niveles';
+export type VideoQueswaId = 'como-funciona' | 'como-entra-el-dinero' | 'que-debo-hacer-yo' | 'doce-niveles' | 'doce-niveles-us';
 
 export interface VideoQueswa {
   id: VideoQueswaId;
@@ -67,6 +68,12 @@ export const VIDEOS_QUESWA: Record<VideoQueswaId, VideoQueswa> = {
   'doce-niveles': {
     id: 'doce-niveles', titulo: 'Los 12 Niveles', duracion: 59,
     url: VIDEO_DOCE_NIVELES_WA, poster: '/videos/queswa/doce-niveles-poster.jpg',
+    entrada: 'Con gusto. Esta es la estrategia:', candado: 'arsenal_12_niveles_NIVELES_01', tema: 'estrategia',
+  },
+  // Estados Unidos (27 nov 2026): su voz es NIVELES_01_US (src/lib/doce-niveles-usa.ts).
+  'doce-niveles-us': {
+    id: 'doce-niveles-us', titulo: 'Los 12 Niveles', duracion: 58,
+    url: VIDEO_DOCE_NIVELES_US_WA, poster: '/videos/queswa/doce-niveles-poster.jpg',
     entrada: 'Con gusto. Esta es la estrategia:', candado: 'arsenal_12_niveles_NIVELES_01', tema: 'estrategia',
   },
 };

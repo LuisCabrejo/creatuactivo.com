@@ -130,6 +130,13 @@ export const VIDEO_PLAN_SERVILLETA_US = 'https://tydh3stq7cgynabr.public.blob.ve
 // Sale de scripts/dankoe-video/captions/work/doce-niveles/armar_v2.py.
 export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-v2.mp4'
 
+// «Los 12 Niveles» para ESTADOS UNIDOS (27 nov 2026, Director: «aprobado»). La voz es
+// NIVELES_01_US palabra por palabra (src/lib/doce-niveles-usa.ts: 6 cajas al mes por
+// distribuidor, el 10 % base, más de $47,000 USD, sin Kit), con la voz de Alejandro de
+// la Presentación de allá, y el simulador en dólares. 58 s. Sale de
+// scripts/dankoe-video/captions/work/doce-niveles-usa/armar.py.
+export const VIDEO_DOCE_NIVELES_US_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-usa-v1.mp4'
+
 // «Cómo entra el dinero» para el canal (50 s, 720×1280, 7,7 MB; 27 sep 2026). La voz
 // es WHY_04 palabra por palabra, sin la pregunta de cierre, que va como pie. Lo
 // manda el botón del medio de la apertura (`apertura_dinero`), como el de

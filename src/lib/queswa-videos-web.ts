@@ -27,6 +27,7 @@
 
 import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
 import { vozVideoDoceNiveles } from '@/lib/wa-apertura';
+import { NIVELES_01_US } from '@/lib/doce-niveles-usa';
 import { videoQuePide, type VideoIntencion } from '@/lib/queswa-videos-intencion';
 import type { RespuestaConductor } from '@/lib/queswa-conductor';
 import {
@@ -63,6 +64,7 @@ export function videoDeMaestra(texto: string): VideoQueswaId | null {
 /** Lo que dice la voz de cada video, para expandir el marcador en el historial. */
 export function vozDelVideo(id: VideoQueswaId): string {
   if (id === 'doce-niveles') return vozVideoDoceNiveles();
+  if (id === 'doce-niveles-us') return NIVELES_01_US;
   const texto = textoDelVideo(id);
   return texto ? separarVozYPie(texto, VIDEOS_QUESWA[id].entrada).voz : '';
 }

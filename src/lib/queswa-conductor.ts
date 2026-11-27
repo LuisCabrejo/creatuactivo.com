@@ -61,7 +61,7 @@ import {
 } from '@/lib/wa-productos';
 import { textoCubrirCompra } from '@/lib/wa-simulador';
 import { yaLoRecibio, residenciaDeclarada, lugarExterior } from '@/lib/queswa-bitacora';
-import { VIDEO_DOCE_NIVELES_WA } from '@/lib/reels';
+import { VIDEO_DOCE_NIVELES_WA, VIDEO_DOCE_NIVELES_US_WA } from '@/lib/reels';
 
 export type PaisConductor = 'CO' | 'US' | 'XX';
 export type CanalConductor = 'whatsapp' | 'web';
@@ -579,8 +579,9 @@ export async function atenderHiloNiveles(ctx: ContextoConductor): Promise<Respue
           nodo: preguntaPorLaEstrategia ? '2.34 NIVELES_01 (pregunta por la estrategia)' : '2.34 NIVELES_01 (nombre mal oído / sí a la estrategia)',
           texto: puente + cuerpo.replace(/\[PRECIO_KIT\]/g, precioKit(ctx.pais)),
           marcarHiloDoceNiveles: true,
-          // Sin video a Estados Unidos: su voz es la de Colombia (el Kit y los pesos).
-          video: enUS ? undefined : { url: VIDEO_DOCE_NIVELES_WA, entrada: puente ? puente.trim() : 'Con gusto. Esta es la estrategia:' },
+          // Estados Unidos con su video (27 nov 2026): la voz es NIVELES_01_US, y el
+          // pie, su pregunta (la tabla nivel por nivel, no el simulador del Flow).
+          video: { url: enUS ? VIDEO_DOCE_NIVELES_US_WA : VIDEO_DOCE_NIVELES_WA, entrada: puente ? puente.trim() : 'Con gusto. Esta es la estrategia:' },
         };
       }
     } catch (err) {

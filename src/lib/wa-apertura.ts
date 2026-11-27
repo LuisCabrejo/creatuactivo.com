@@ -41,6 +41,7 @@
 
 import type { WAButton } from '@/lib/wa-channel';
 import { getRespuestaMaestra } from '@/lib/respuestas-maestras';
+import { CIERRE_NIVELES_01_US } from '@/lib/doce-niveles-usa';
 import { aFormatoWhatsApp } from '@/lib/wa-formato';
 import { sinDiacriticos, nombrePropio } from '@/lib/texto-normalizar';
 
@@ -537,7 +538,13 @@ export function sinSimuladorParaSocio(texto: string): string {
   return (texto || '').split(OFERTA_SIMULADOR_NIVELES).join(CIERRE_SOCIO_PROYECCION);
 }
 
-export function construirAperturaTrasVideoNiveles(nombreSocio?: string, nombreProspecto?: string): string {
+/** La pregunta tras el video de Los 12 Niveles: el simulador, salvo en Estados Unidos, donde el
+ *  Flow calcula con cuatro cajas y se ofrece la tabla de allá (doce-niveles-usa.ts, 27 nov 2026). */
+export function ofertaTrasVideoNiveles(pais?: string): string {
+  return pais === 'US' ? CIERRE_NIVELES_01_US : OFERTA_SIMULADOR_NIVELES;
+}
+
+export function construirAperturaTrasVideoNiveles(nombreSocio?: string, nombreProspecto?: string, pais?: string): string {
   const nombre = nombreUtil(nombreProspecto);
   const saludo = nombre ? `Hola, ${nombre}.` : 'Hola.';
   const socio = nombreSocioCorto(nombreSocio);
@@ -549,14 +556,14 @@ export function construirAperturaTrasVideoNiveles(nombreSocio?: string, nombrePr
     '',
     'Como ya vio la estrategia de los 12 Niveles, arrancamos desde ahí. Pregunte lo que quiera, sin ningún afán.',
     '',
-    OFERTA_SIMULADOR_NIVELES,
+    ofertaTrasVideoNiveles(pais),
   ].join('\n');
 }
 
 /** Quien ya había conversado y vuelve por el enlace del video. */
-export function aperturaRetornoTrasVideoNiveles(nombreProspecto?: string): string {
+export function aperturaRetornoTrasVideoNiveles(nombreProspecto?: string, pais?: string): string {
   const nombre = nombreUtil(nombreProspecto);
-  return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. Como ya vio el video de los 12 Niveles, seguimos desde ahí. ${OFERTA_SIMULADOR_NIVELES}`;
+  return `Qué bueno que vuelva${nombre ? `, ${nombre}` : ''}. Como ya vio el video de los 12 Niveles, seguimos desde ahí. ${ofertaTrasVideoNiveles(pais)}`;
 }
 
 /**

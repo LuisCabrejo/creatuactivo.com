@@ -32,6 +32,10 @@ const DESTINOS: Record<string, { ruta: (constructorId: string) => string; titulo
   // La de Estados Unidos (27 nov 2026): el Dashboard la pide cuando el socio comparte para allá.
   'presentacion-us': { ruta: (c) => `/servilleta/estados-unidos?ref=${encodeURIComponent(c)}`, titulo: 'Abriendo su presentación…' },
   productos: { ruta: (c) => `/productos/${encodeURIComponent(c)}`, titulo: 'Abriendo su catálogo…' },
+  // El catálogo de un país (27 nov 2026): el Dashboard lo pide cuando el socio comparte
+  // para un país que no es el de su inscripción en Gano.
+  'productos-us': { ruta: (c) => `/productos/${encodeURIComponent(c)}?pais=us`, titulo: 'Abriendo su catálogo…' },
+  'productos-co': { ruta: (c) => `/productos/${encodeURIComponent(c)}?pais=co`, titulo: 'Abriendo su catálogo…' },
   home: { ruta: (c) => `/?ref=${encodeURIComponent(c)}`, titulo: 'Abriendo CreaTuActivo.com…' },
 };
 /** Con destino, a los 10 s se sigue aunque la marca no haya terminado. */

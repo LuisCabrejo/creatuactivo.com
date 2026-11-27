@@ -38,8 +38,13 @@ export default async function ProductoDelSocio({ params, searchParams }: { param
   const id = decodeURIComponent(params.producto || '').toLowerCase()
   const r = await resolver(params.ref)
   const pais = paisDeLaVisita(r, searchParams)
-  if (!productoEnlazable(id, pais)) redirect(`/productos/${params.ref}`)
-  if (r?.slug && (r.slug !== params.ref || id !== params.producto)) permanentRedirect(`/productos/${r.slug}/${id}`)
+  // Las redirecciones conservan la consulta: sin ella, un enlace con ?pais=us
+  // (el que comparte un socio de Colombia para Estados Unidos) caía al de Colombia.
+  const consulta = new URLSearchParams()
+  for (const [k, v] of Object.entries(searchParams ?? {})) if (typeof v === 'string') consulta.set(k, v)
+  const q = consulta.toString() ? `?${consulta}` : ''
+  if (!productoEnlazable(id, pais)) redirect(`/productos/${params.ref}${q}`)
+  if (r?.slug && (r.slug !== params.ref || id !== params.producto)) permanentRedirect(`/productos/${r.slug}/${id}${q}`)
   return <CatalogoTienda socioInicial={r ? aSocio(r) : null} fichaInicial={id} pais={pais} />
 }
 

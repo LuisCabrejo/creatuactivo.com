@@ -36,8 +36,11 @@ export default async function CatalogoDelSocio({
 }) {
   const r = await resolver(params.ref)
   if (r?.slug && r.slug !== params.ref) {
-    const carrito = typeof searchParams?.carrito === 'string' ? `?carrito=${encodeURIComponent(searchParams.carrito)}` : ''
-    permanentRedirect(`/productos/${r.slug}${carrito}`)
+    // El carrito y el país viajan: sin ?pais, el enlace de un socio de Colombia
+    // que comparte para Estados Unidos caía al catálogo de Colombia.
+    const consulta = new URLSearchParams()
+    for (const k of ['carrito', 'pais']) if (typeof searchParams?.[k] === 'string') consulta.set(k, searchParams[k] as string)
+    permanentRedirect(`/productos/${r.slug}${consulta.toString() ? `?${consulta}` : ''}`)
   }
   return <CatalogoTienda socioInicial={r ? aSocio(r) : null} pais={paisDeLaVisita(r, searchParams)} />
 }

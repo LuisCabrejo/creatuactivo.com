@@ -100,11 +100,16 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // donde cada paquete llega con una vuelta del ciclo. La -v16 queda sin uso.
 // v18 (11 nov 2026, Director: «me gustó, súbelo»): sigue al deck del 9 nov — sin «Dos sectores»,
 // «crecimiento por acumulación» con tres clientes y el Ganoderma en tres datos. La -v17 queda sin uso.
+// v19 (26 nov 2026, Director: «aprobado»): la pantalla 1 dibujada (el credo se escribe con la voz, el
+// ciclo, la plata que se reparte, la bicicleta, el activo al lado) porque con cuatro imágenes quietas hubo
+// quien creyó que el video había terminado; el dolor con los íconos en rojo y su alerta; la solución
+// «ser dueño de un sistema de distribución que cabe en su celular»; «queda registrado en su sistema»; y
+// las cuatro líneas de productos. 3:55. La -v18 queda sin uso.
 // El corte de
 // YouTube (horizontal, con el
 // cierre hacia creatuactivo.com/servilleta) sale de la misma receta y no va a Blob.
 // Un corte nuevo se sube con otro nombre.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v18.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v19.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

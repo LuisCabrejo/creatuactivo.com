@@ -51,7 +51,7 @@ export interface VideoQueswa {
 
 export const VIDEOS_QUESWA: Record<VideoQueswaId, VideoQueswa> = {
   'como-funciona': {
-    id: 'como-funciona', titulo: 'Cómo funciona', duracion: 71,
+    id: 'como-funciona', titulo: 'Cómo funciona', duracion: 72,
     url: VIDEO_COMO_FUNCIONA_WA, poster: '/videos/queswa/como-funciona-poster-v2.jpg',
     entrada: 'Con gusto. Funciona así:', candado: 'arsenal_inicial_WHY_02', tema: 'como_funciona',
   },

@@ -55,7 +55,9 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // v9 (27 nov 2026, Director): la voz abre «Así funciona CreaTuActivo.com: se trata de ser dueño…» (los
 // reels se comparten como historias: el arranque dice de qué trata) y el rótulo de marca «CREATUACTIVO.COM ·
 // CÓMO FUNCIONA» los primeros 3,8 s, como los reels del reto. 71,2 s. La v8 queda sin uso.
-export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v9.mp4'
+// v11 (27 nov 2026, Director): «crea tu activo punto com» en la voz (el subtítulo dice CreaTuActivo.com),
+// «que ya existen, y que armadas por su cuenta…» de corrido, y la marca de agua. 72,4 s. La v9 queda sin uso.
+export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v11.mp4'
 
 // «Plan servilleta»: la presentación de /servilleta entera en voz (30 oct 2026,
 // Director; 3:03, 720×1280, 7,4 MB). Las nueve pantallas del deck capturadas en

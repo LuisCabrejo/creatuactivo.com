@@ -122,13 +122,15 @@ export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.verc
 // dura 3:43 y se apagaba desde ~3:15. La -v19 queda sin uso.
 // v21 (27 nov 2026, Director: «de acuerdo»): los tres elementos nuevos —un fabricante · un asistente en línea ·
 // saber qué hacer— en la voz de la 5.1 y en sus tarjetas (armar_v21.py). 3:50. La -v20 queda sin uso.
-export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v21.mp4'
+export const VIDEO_PLAN_SERVILLETA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-v22.mp4'
 // La de ESTADOS UNIDOS (26 nov 2026, Director: «aprobado»): la misma receta (armar_usa.py) con la voz de
 // Alejandro (mexicano neutro), las cifras de allá (Pew, Reserva Federal), «tres mil / más de diez mil
 // dólares al mes», Blockbuster → Netflix y el centro comercial → Amazon, tres líneas y la regalía en
 // dólares con 6 cajas. 4:07. Se mide como `usa-v1`.
 // usa-v2 (27 nov 2026, Director): los tres elementos nuevos en la 5.1, como la v21 (armar_usa2.py). 4:05.
-export const VIDEO_PLAN_SERVILLETA_US = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-usa-v2.mp4'
+// usa-v3 y v22 (27 nov 2026, Director): la marca de agua CreaTuActivo.com durante todo el cuerpo, como en
+// los reels, abajo a la IZQUIERDA (a la derecha está el contador del deck). con_marca.py.
+export const VIDEO_PLAN_SERVILLETA_US = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/plan-servilleta-usa-v3.mp4'
 
 // «Los 12 Niveles» para el canal (59,5 s, 720×1280, 8,4 MB). La voz es NIVELES_01
 // sin el precio del Kit; en pantalla, el simulador con su advertencia («Potencial

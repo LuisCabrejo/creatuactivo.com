@@ -186,7 +186,11 @@ export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.bl
 // Compartir · Queswa · Recibir, la notificación «Alguien está listo para avanzar», la misma fila para quien
 // inicia con usted y la rejilla plana con las compras hacia la facturación—, el rótulo de marca y la marca
 // de agua; 36 s. Sale de scripts/dankoe-video/captions/work/que-debo-hacer-yo/v2/armar.py. La v1 queda sin uso.
-export const VIDEO_QUE_DEBO_HACER_YO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/que-debo-hacer-yo-v2.mp4'
+// v3 (28 nov 2026, Director): el guion en el orden en que pasa —compartir: usted envía su enlace y Queswa atiende y
+// orienta; recibir: Queswa le avisa y usted la recibe informada y con interés—, en la voz del narrador de
+// «Cómo funciona» y con su escena del asistente. Es el texto de EAM_01 v6.97. 36,9 s. Sale de
+// scripts/dankoe-video/captions/work/que-debo-hacer-yo/v3/ (voz.py → tiempos.py → armar.py). La v2 queda sin uso.
+export const VIDEO_QUE_DEBO_HACER_YO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/que-debo-hacer-yo-v3.mp4'
 
 // Poster único (branded) para el <video> de todos los reels — local en /public,
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.

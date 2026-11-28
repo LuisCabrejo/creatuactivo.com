@@ -61,7 +61,7 @@ export const VIDEOS_QUESWA: Record<VideoQueswaId, VideoQueswa> = {
     entrada: 'Con gusto. Se lo muestro en menos de un minuto:', candado: 'arsenal_inicial_WHY_04', tema: 'dinero',
   },
   'que-debo-hacer-yo': {
-    id: 'que-debo-hacer-yo', titulo: 'Qué debo hacer yo', duracion: 42,
+    id: 'que-debo-hacer-yo', titulo: 'Qué debo hacer yo', duracion: 36,
     url: VIDEO_QUE_DEBO_HACER_YO_WA, poster: '/videos/queswa/que-debo-hacer-yo-poster.jpg',
     entrada: 'Con gusto. Se lo muestro:', candado: 'arsenal_inicial_EAM_01', tema: 'dia_a_dia',
   },

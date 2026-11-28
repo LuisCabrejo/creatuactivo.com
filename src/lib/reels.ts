@@ -142,7 +142,10 @@ export const VIDEO_PLAN_SERVILLETA_US = 'https://tydh3stq7cgynabr.public.blob.ve
 // en vez de repetir la definición del GCV. Por eso la voz ya no es el candado
 // palabra por palabra: lo que se oye está en `notaVideoDoceNivelesVisto()`.
 // Sale de scripts/dankoe-video/captions/work/doce-niveles/armar_v2.py.
-export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-v2.mp4'
+// v3 (27 nov 2026, Director): la misma voz con escenas dibujadas (nada de árbol: la duplicación es un
+// campo de puntos y lo que se mueve son compras), el rótulo de marca y la marca de agua; 59,5 s con la
+// marca al final. Sale de scripts/dankoe-video/captions/work/doce-niveles/v3/armar.py. La v2 queda sin uso.
+export const VIDEO_DOCE_NIVELES_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/doce-niveles-v3.mp4'
 
 // «Los 12 Niveles» para ESTADOS UNIDOS (27 nov 2026, Director: «aprobado»). La voz es
 // NIVELES_01_US palabra por palabra (src/lib/doce-niveles-usa.ts: 6 cajas al mes por
@@ -177,7 +180,11 @@ export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.bl
 // se encienden), recibe (saluda a la que llega), Queswa conversa y, cuando alguien
 // está listo, le llega la notificación. Abre con el boom preferido del Director y la
 // voz entra a 1,9 s, al 90 % de velocidad.
-export const VIDEO_QUE_DEBO_HACER_YO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/que-debo-hacer-yo-v1.mp4'
+// v2 (27 nov 2026, Director): la misma voz (EAM_01) a su velocidad normal, con escenas dibujadas —la fila
+// Compartir · Queswa · Recibir, la notificación «Alguien está listo para avanzar», la misma fila para quien
+// inicia con usted y la rejilla plana con las compras hacia la facturación—, el rótulo de marca y la marca
+// de agua; 36 s. Sale de scripts/dankoe-video/captions/work/que-debo-hacer-yo/v2/armar.py. La v1 queda sin uso.
+export const VIDEO_QUE_DEBO_HACER_YO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/que-debo-hacer-yo-v2.mp4'
 
 // Poster único (branded) para el <video> de todos los reels — local en /public,
 // servido desde el mismo dominio. Reemplaza los posters por-nicho del Blob.

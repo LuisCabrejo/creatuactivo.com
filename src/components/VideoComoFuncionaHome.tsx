@@ -30,8 +30,8 @@ export default function VideoComoFuncionaHome() {
       id="como-funciona"
       src={VIDEO_COMO_FUNCIONA_WA}
       portada="/images/home/como-funciona-portada-v2.jpg"
-      rotulo="Cómo funciona · 60 segundos"
-      etiqueta="Reproducir el video «Cómo funciona», 60 segundos"
+      rotulo="Cómo funciona · 70 segundos"
+      etiqueta="Reproducir el video «Cómo funciona», 70 segundos"
       // La portada NO es decorativa: es el contenido principal del hero y, por su
       // tamaño, el elemento más grande de la primera pantalla.
       prioridad

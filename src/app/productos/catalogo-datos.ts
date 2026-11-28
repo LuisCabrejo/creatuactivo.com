@@ -529,7 +529,7 @@ export const LINEAS: { id: string; nombre: string; ids: string[] }[] = [
   { id: 'promocion', nombre: 'Promoción', ids: PROMOCIONES_GANO.map((p) => p.slug) },
   {
     id: 'cafe',
-    nombre: 'Café y bebidas',
+    nombre: 'Bebidas',
     ids: ['ganocafe-3-en-1', 'ganocafe-clasico', 'ganorico-latte-rico', 'ganorico-mocha-rico', 'ganorico-shoko-rico', 'gano-schokoladde', 'bebida-oleaf-gano-rooibos', 'espirulina-gano-creal', 'bebida-colageno-reskine'],
   },
   {
@@ -539,7 +539,7 @@ export const LINEAS: { id: string; nombre: string; ids: string[] }[] = [
   },
   {
     id: 'capsulas',
-    nombre: 'Cápsulas',
+    nombre: 'Suplementos',
     ids: ['capsulas-ganoderma', 'capsulas-excellium', 'capsulas-cordygold'],
   },
   {

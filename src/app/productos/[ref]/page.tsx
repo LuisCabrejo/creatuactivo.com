@@ -22,7 +22,7 @@
 
 import { permanentRedirect } from 'next/navigation'
 import CatalogoTienda from '../page'
-import { tarjetaCatalogo } from '../og'
+import { tarjetaCatalogo, tarjetaLinea } from '../og'
 import { resolver, aSocio, paisDeLaVisita } from '../socio'
 
 export const dynamic = 'force-dynamic'
@@ -37,9 +37,10 @@ export default async function CatalogoDelSocio({
   const r = await resolver(params.ref)
   if (r?.slug && r.slug !== params.ref) {
     // El carrito y el país viajan: sin ?pais, el enlace de un socio de Colombia
-    // que comparte para Estados Unidos caía al catálogo de Colombia.
+    // que comparte para Estados Unidos caía al catálogo de Colombia. La línea
+    // también (28 nov 2026): sin ella, el flyer de una línea abría el catálogo arriba.
     const consulta = new URLSearchParams()
-    for (const k of ['carrito', 'pais']) if (typeof searchParams?.[k] === 'string') consulta.set(k, searchParams[k] as string)
+    for (const k of ['carrito', 'pais', 'linea']) if (typeof searchParams?.[k] === 'string') consulta.set(k, searchParams[k] as string)
     permanentRedirect(`/productos/${r.slug}${consulta.toString() ? `?${consulta}` : ''}`)
   }
   return <CatalogoTienda socioInicial={r ? aSocio(r) : null} pais={paisDeLaVisita(r, searchParams)} />
@@ -51,7 +52,15 @@ export async function generateMetadata({ params, searchParams }: { params: { ref
   const esUS = paisDeLaVisita(r, searchParams) === 'US'
   // El país va en la dirección de la tarjeta: Facebook abre el og:url, y sin él un
   // catálogo de Estados Unidos compartido por un socio de Colombia abría el de aquí.
-  const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}${typeof searchParams?.pais === 'string' ? `?pais=${esUS ? 'us' : 'co'}` : ''}`
+  // La línea (28 nov 2026): el flyer de una línea comparte /productos/{slug}?linea=…;
+  // la tarjeta lleva la imagen de esa línea y la url la conserva, para que Facebook
+  // también abra el catálogo en ella.
+  const idLinea = typeof searchParams?.linea === 'string' ? searchParams.linea : ''
+  const linea = idLinea ? tarjetaLinea(idLinea, esUS ? 'US' : 'CO') : null
+  const consulta = new URLSearchParams()
+  if (typeof searchParams?.pais === 'string') consulta.set('pais', esUS ? 'us' : 'co')
+  if (linea) consulta.set('linea', idLinea)
+  const url = `https://creatuactivo.com/productos/${r?.slug ?? params.ref}${consulta.toString() ? `?${consulta}` : ''}`
   const descripcion = esUS
     ? `Los 17 productos de Gano Excel USA con su precio en dólares.${r ? ` Le atiende ${aSocio(r).nombre}: el pedido se hace con ${aSocio(r).primerNombre} por WhatsApp.` : ' El pedido se hace con su distribuidor por WhatsApp.'}`
     : r
@@ -68,7 +77,7 @@ export async function generateMetadata({ params, searchParams }: { params: { ref
     openGraph: {
       title: titulo, description: descripcion, url, siteName: 'CreaTuActivo', locale: esUS ? 'es_US' : 'es_CO', type: 'website',
       // Cada país con su tarjeta (27 nov 2026): la de allá lleva la caja del Gano Café 3-in-1.
-      images: [tarjetaCatalogo(esUS ? 'US' : 'CO')],
+      images: [linea ?? tarjetaCatalogo(esUS ? 'US' : 'CO')],
     },
     twitter: { card: 'summary_large_image', title: titulo, description: descripcion },
     // tracking.js lee el dueño de la visita de aquí (ver la cabecera).

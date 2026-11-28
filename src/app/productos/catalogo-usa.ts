@@ -349,10 +349,10 @@ export const productDataUS: Record<string, Product> = {
 export const LINEAS_US: { id: string; nombre: string; ids: string[] }[] = [
   {
     id: 'cafe',
-    nombre: 'Café y bebidas',
+    nombre: 'Bebidas',
     ids: ['3-in-1', 'classic', 'tongkat-ali', 'latte-light', 'mocha', 'mocha-light', 'schokolade', 'rooibos-tea', 'creal', 'reskine'],
   },
-  { id: 'capsulas', nombre: 'Cápsulas', ids: ['ganoderma', 'excellium', 'cordyceps', 'gano-plus'] },
+  { id: 'capsulas', nombre: 'Suplementos', ids: ['ganoderma', 'excellium', 'cordyceps', 'gano-plus'] },
   { id: 'cuidado', nombre: 'Cuidado personal', ids: ['ganosoap', 'toothpaste', 'reishi-touch'] },
 ]
 

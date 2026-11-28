@@ -453,7 +453,7 @@ export default function CatalogoTienda({ socioInicial = null, fichaInicial = nul
           <p>
             El fundador de Gano Excel, un micólogo malasio que estudia el Ganoderma desde 1983, reunió en un solo híbrido
             las seis variedades de mayor valor del Reishi y desarrolló un proceso propio para extraerlo. Ese extracto está
-            en toda la línea: las bebidas, las cápsulas y el cuidado personal. En el café y las bebidas se disuelve por
+            en toda la línea: las bebidas, los suplementos y el cuidado personal. En el café y las bebidas se disuelve por
             completo: no queda nada en el fondo de la taza.
           </p>
           <p className="tienda-historia-pie"><Factory className="h-4 w-4" /> Gano Excel: 30 años y presencia en más de 60 países{esUS ? '; en Estados Unidos desde 2003' : ''}.</p>

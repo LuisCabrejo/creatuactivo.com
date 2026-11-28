@@ -44,6 +44,33 @@ export function tarjetaCatalogo(pais: 'CO' | 'US') {
 }
 
 /**
+ * La tarjeta de UNA línea del catálogo (28 nov 2026), para /productos/{slug}?linea=…:
+ * la imagen de categoría (public/productos/compuestas, la componen
+ * scripts/componer-imagenes-categoria*.mjs), la misma que el socio comparte como
+ * flyer desde queswa.app (Compartir → Flyers). Los ids son los de LINEAS y
+ * LINEAS_US. Una línea que no está aquí deja la tarjeta del catálogo.
+ * ⚠️ Si una imagen cambia, lleva nombre nuevo (-v2…) aquí y en queswa.app.
+ */
+const TARJETAS_LINEA: Record<'CO' | 'US', Record<string, { archivo: string; alt: string }>> = {
+  CO: {
+    cafe: { archivo: 'categoria-bebidas.jpg', alt: 'Las cajas de los cafés y bebidas de Gano Excel' },
+    luvoco: { archivo: 'categoria-luvoco.jpg', alt: 'Las cápsulas Luvoco Suave, Medio y Fuerte junto a su máquina' },
+    capsulas: { archivo: 'categoria-suplementos.jpg', alt: 'Los frascos de cápsulas de Ganoderma, Excellium y Cordygold' },
+    cuidado: { archivo: 'categoria-cuidado-personal.jpg', alt: 'Los productos de cuidado personal de Gano Excel' },
+  },
+  US: {
+    cafe: { archivo: 'usa/categoria-bebidas-v1.jpg', alt: 'Las cajas de los cafés y bebidas de Gano Excel USA' },
+    capsulas: { archivo: 'usa/categoria-suplementos-v1.jpg', alt: 'Los frascos de cápsulas de Gano Excel USA' },
+    cuidado: { archivo: 'usa/categoria-cuidado-personal-v1.jpg', alt: 'Los productos de cuidado personal de Gano Excel USA' },
+  },
+}
+
+export function tarjetaLinea(linea: string, pais: 'CO' | 'US') {
+  const t = Object.prototype.hasOwnProperty.call(TARJETAS_LINEA[pais], linea) ? TARJETAS_LINEA[pais][linea] : null
+  return t ? { url: `https://creatuactivo.com/productos/compuestas/${t.archivo}`, width: 1080, height: 1080, alt: t.alt } : null
+}
+
+/**
  * La tarjeta de UN producto (29 oct 2026), para el enlace directo
  * /productos/{slug}/{producto}: la foto real del producto sobre el crema de la
  * tienda, centrada (resiste el recorte cuadrado de WhatsApp) y sin texto ni

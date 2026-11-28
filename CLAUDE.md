@@ -218,7 +218,7 @@ Guía completa → [BRANDING.md](BRANDING.md). «Quiet Luxury meets Private Equi
 
 Detalle → [QUESWA.md](docs/claude/QUESWA.md#modifying-nexus-behavior).
 
-- ⭐ **Los tres elementos, en TODAS partes** (18 oct 2026): **un fabricante · una máquina de ventas · una herramienta para multiplicar**. *Máquina de ventas* va siempre con su mecanismo en la misma frase (usted envía a quien quiera; quien llega conoce y compra; Queswa atiende). «Herramienta», nunca «aplicación»: la aplicación es el envase de los tres.
+- ⭐ **Los tres elementos, en TODAS partes** (27 nov 2026, video «Cómo funciona» v8): **un fabricante · un asistente en línea · saber qué hacer**. «Asistente», en masculino; atiende, orienta y explica los productos y el negocio, y no se escribe como el lugar donde se compra. Saber qué hacer: cada día, el siguiente paso, como en Waze. «Herramienta», nunca «aplicación»: la aplicación es el envase de los tres. La puerta `puerta-maquina-ventas.ts` se queda, para quien oyó el nombre viejo.
 - **Las acciones del usuario son dos: Compartir y Recibir** (el Método Comprobado). La multiplicación es la consecuencia, nunca un tercer paso. Entre las dos acciones se dice quién hace el trabajo: Queswa conversa y madura la decisión; Gano Excel fabrica y despacha. Entre nosotros, el rol se piensa con *decidir · conectar · ver crecer*, pero al prospecto nunca se le entrega otra lista.
 - **El usuario es el dueño**, y el rol no se nombra como cargo. Lo que construye es **su propio activo**, y el vehículo es **su sistema de distribución**.
 - **Gano Excel**: más de 60 países y 30 años; en Colombia, Ley 1700 de 2013, nueve sedes, ACOVEDI e INVIMA. CreaTuActivo opera en 16 países.

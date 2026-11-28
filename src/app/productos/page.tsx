@@ -848,7 +848,7 @@ function Pedido({ carrito, total, socio, fijar, enviado, enviar, seguirComprando
         ) : (
           <div className="tienda-pedido-sigue">
             <Truck className="h-5 w-5" />
-            <p>Se abre WhatsApp con su pedido escrito; al enviarlo le llega a Queswa, la asistente de {socio ? socio.primerNombre : 'su distribuidor'}. <strong>{quien} le escribe</strong> para acordar el pago y la entrega. Todavía no paga nada.</p>
+            <p>Se abre WhatsApp con su pedido escrito; al enviarlo le llega a Queswa, el asistente de {socio ? socio.primerNombre : 'su distribuidor'}. <strong>{quien} le escribe</strong> para acordar el pago y la entrega. Todavía no paga nada.</p>
           </div>
         )}
       </div>

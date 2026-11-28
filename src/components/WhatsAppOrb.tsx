@@ -50,7 +50,7 @@ export default function WhatsAppOrb() {
   const [retomando, setRetomando] = useState(false)
   const abriendo = useRef(false)
 
-  // Catálogo: Queswa entra como la asistente de los productos, no del negocio —
+  // Catálogo: Queswa entra como el asistente de los productos, no del negocio —
   // el texto pre-llenado lo dice para que el canal enrute al arsenal correcto de
   // entrada. «Asesor de bienestar» se retiró el 6 nov 2026 (Director, por el
   // comentario de Liliana): prometía un consejo de salud que Queswa no da, e

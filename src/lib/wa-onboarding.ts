@@ -525,7 +525,7 @@ export async function identificarSocio(
     // de `constructor_slugs.whatsapp`. Medido el 22 ago 2026: 9 de 10 socios en la
     // primera, 10 de 10 en la segunda. El que faltaba era el del Director, así que
     // su propio número recibía la apertura de PROSPECTO y Queswa se presentaba
-    // ante él como la asistente de él mismo — el fallo que este archivo dice haber
+    // ante él como el asistente de él mismo — el fallo que este archivo dice haber
     // cerrado el 17 ago, vivo por un dato faltante en vez de por un error de código.
     //
     // Se hizo el backfill, pero un dato se vuelve a desalinear; el respaldo no.

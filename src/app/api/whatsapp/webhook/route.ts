@@ -3273,7 +3273,7 @@ Si algo le llama la atención mientras mira, me escribe por aquí — o toca el 
           // En modo socio el motor conoce el enlace: sin esto, si el socio lo
           // pedía, el modelo decía que «lo tiene desde su saludo» y no lo daba.
           // Y conoce los DOS (2 oct 2026): el mensaje de producto le promete al
-          // cliente una asistente para los productos, y con un solo enlace el
+          // cliente un asistente para los productos, y con un solo enlace el
           // modelo le daba el del negocio (María Fernanda, para Brenda y Flor).
           ...(socioQueEscribe ? {
             socioEnlace:          enlaceDeCanal(socioQueEscribe.slug),

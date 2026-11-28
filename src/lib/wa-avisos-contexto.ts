@@ -466,7 +466,7 @@ async function resumirConHaiku(historial: Turno[]): Promise<string[] | null> {
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 300,
       messages: [{ role: 'user', content:
-        'Lee esta conversación entre una persona y Queswa, la asistente de CreaTuActivo (un negocio de distribución de los productos de Gano Excel).\n\n'
+        'Lee esta conversación entre una persona y Queswa, el asistente de CreaTuActivo (un negocio de distribución de los productos de Gano Excel).\n\n'
         + 'Escribe de 2 a 4 viñetas para el dueño del negocio con lo que LA PERSONA dijo de sí misma o eligió: de dónde es, a qué se dedica, si ya es distribuidor de Gano Excel, qué países le interesan, qué paquete eligió, qué pidió.\n\n'
         + 'Reglas: solo hechos que la persona dijo o eligió; nada de lo que Queswa le explicó; nada inventado; sin adjetivos ni recomendaciones. '
         + 'Un mensaje que empieza «Acabo de usar el simulador» es un escenario que armó para VER cifras, no un paquete elegido: escríbalo como «Armó en el simulador…». '

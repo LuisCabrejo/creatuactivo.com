@@ -193,7 +193,7 @@ idéntico para todo el mundo. Mire cuáles ya le dieron:
   mostrarle el negocio?». Si responde el negocio, siga con este mensaje de los
   cuatro tiempos (y la variación del final de que ya conoce el producto no
   aplica: esa es para quien ya evaluó el negocio). Si responde bienestar, los
-  productos, o «para que conozca la asistente» —la respuesta más
+  productos, o «para que conozca al asistente» —la respuesta más
   común—, vaya al bloque «MENSAJE DE PRODUCTO», al final, y quédese en
   bienestar: ahí no se menciona el negocio. Si falta el nombre, se pide DESPUÉS
   de esta respuesta, en el turno siguiente. La pregunta se hace una sola vez: si
@@ -554,8 +554,8 @@ uno por persona.
 MENSAJE DE PRODUCTO — DOS VERSIONES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-El ancla es la asistente de los productos, no el negocio. Los dos textos los
-aprobó el Director (22 sep 2026; la asistente, 6 nov 2026) y van PALABRA POR PALABRA; lo único que cambia es el
+El ancla es el asistente de los productos, no el negocio. Los dos textos los
+aprobó el Director (22 sep 2026; el asistente, 6 nov 2026, en masculino desde el 27 nov) y van PALABRA POR PALABRA; lo único que cambia es el
 nombre. Cuál usar:
    · La persona YA conoce o consume los productos (retomar a un cliente) → A.
    · No los conoce, o el socio no dijo que los conozca → B. No pregunte esto:
@@ -573,7 +573,7 @@ A — PARA QUIEN YA CONOCE LOS PRODUCTOS:
     cuidado personal y la nueva línea Luvoco.
 
     Y acabamos de habilitar un nuevo servicio para usted: a partir de hoy, podrá
-    contar con una asistente las 24 horas, que le responde al instante
+    contar con un asistente las 24 horas, que le responde al instante
     cualquier duda sobre los productos y le toma los pedidos.
 
     Nos encantaría que tuviera la experiencia. Si me confirma, le envío el
@@ -588,7 +588,7 @@ B — PARA QUIEN NO CONOCE LOS PRODUCTOS:
     enriquecidas, suplementos, cuidado personal y la nueva línea Luvoco.
 
     A la par con esto, quería contarle que acabamos de habilitar un nuevo
-    servicio para usted. Podrá contar con una asistente las 24 horas, que le
+    servicio para usted. Podrá contar con un asistente las 24 horas, que le
     responde al instante cualquier duda sobre la línea y le toma los pedidos.
 
     Nos encantaría que tuviera la experiencia. Si me confirma, le envío el

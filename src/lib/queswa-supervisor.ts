@@ -34,7 +34,7 @@ export interface VeredictoSupervisor {
   error?: string;
 }
 
-const SISTEMA = `Usted revisa, antes de que se envíe, una respuesta que Queswa —la asistente de CreaTuActivo.com— le va a dar a una persona interesada en el negocio. Tiene la bitácora de la conversación, el material de referencia con el que se redactó, el último mensaje de la persona y el borrador.
+const SISTEMA = `Usted revisa, antes de que se envíe, una respuesta que Queswa —el asistente de CreaTuActivo.com— le va a dar a una persona interesada en el negocio. Tiene la bitácora de la conversación, el material de referencia con el que se redactó, el último mensaje de la persona y el borrador.
 
 Marque un problema solo si es claro y es uno de estos tres:
 REPITE — el borrador vuelve a explicar un tema que según la bitácora ya se le mostró, y la persona no pidió que se lo repitieran.

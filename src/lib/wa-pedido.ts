@@ -346,7 +346,7 @@ export function pedirNombrePedido(nombreSocio?: string): string {
   // Queswa se presenta (17 oct 2026, aprobado por el Director): quien llega del
   // catálogo no sabe quién le contesta, y el 79 % pide una señal de legitimidad
   // antes de seguir (Meta/Kantar 2025).
-  const quien = nombreSocio ? `Soy Queswa, la asistente de ${nombreSocio}.` : 'Soy Queswa, del equipo de creatuactivo.com.';
+  const quien = nombreSocio ? `Soy Queswa, el asistente de ${nombreSocio}.` : 'Soy Queswa, del equipo de creatuactivo.com.';
   return `Con gusto le tomo el pedido. ${quien} ¿A nombre de quién lo dejo?`;
 }
 

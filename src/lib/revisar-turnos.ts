@@ -198,7 +198,7 @@ export function detectoresDeterministas(
   return marcas;
 }
 
-const PROMPT_JUEZ = `Usted revisa un turno YA ENTREGADO de Queswa, la asistente de CreaTuActivo en WhatsApp. No bloquea nada: solo señala si la respuesta le falló a la persona.
+const PROMPT_JUEZ = `Usted revisa un turno YA ENTREGADO de Queswa, el asistente de CreaTuActivo en WhatsApp. No bloquea nada: solo señala si la respuesta le falló a la persona.
 
 Responda SOLO con JSON: {"ok":true|false,"motivo":"una frase"}
 

@@ -10,6 +10,12 @@ Cada arsenal vive en `knowledge_base/<nombre>.txt`. Deploy:
 
 ---
 
+## arsenal_inicial
+
+### v6.97 — `EAM_01`: la cadena en el orden en que pasa (27 nov 2026)
+
+El Director, al ver el video «Qué debo hacer yo» v2: nombrar las dos acciones y después volver por el medio («Entre las dos estoy yo…») le causaba fricción y no se entendía del todo; el video «Cómo funciona» lo dice claro porque va en orden. El candado pasa a: *Compartir: usted le envía su enlace a quien quiera, y yo atiendo y oriento a esa persona, a cualquier hora. Recibir: cuando esa persona está lista para avanzar, le aviso, y usted la recibe informada y con interés.* La línea de la multiplicación no cambia. Cambia con `MASTER_EAM_01` (contrato de prefijo) y el Dashboard deja de llevar su copia a mano: su FAQ_04 sale del candado, como FAQ_01 del de `WHY_02`.
+
 ## arsenal_socio (solo tenant `dashboard`)
 
 ### v1.2 — `WAZE_01`: dos cosas, y la contraseña para la experiencia completa (31 oct 2026)

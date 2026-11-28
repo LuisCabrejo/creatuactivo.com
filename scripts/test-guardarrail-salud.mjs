@@ -220,7 +220,7 @@ const SALIDA_NEGATIVOS_LITERALES = [
   'Sus compuestos bioactivos apoyan el sistema inmune y el equilibrio del cuerpo.',
   '¿Tienen registro sanitario? Sí, cada producto tiene su número del INVIMA, y se consultan en línea.',
   'El dinero sale de una sola fuente: el producto que se vende por su canal — café, bebidas y suplementos premium con ganoderma. Quien le consigna es Gano Excel, y lo hace en su cuenta bancaria cada viernes.',
-  'Su día a día se resume en dos acciones: Compartir: usted pasa un enlace a quien quiera. Recibir: usted saluda a quien llega con interés.',
+  'Su día a día se resume en dos acciones: Compartir: usted le envía su enlace a quien quiera, y yo atiendo y oriento a esa persona, a cualquier hora. Recibir: cuando esa persona está lista para avanzar, le aviso, y usted la recibe informada y con interés.',
   'el Ganocafé 3 en 1 tiene un precio de $110,900 COP y viene en presentación de 20 sobres. Contiene extracto propietario de Ganoderma lucidum, y su beneficio principal es energía sin nerviosismo.',
   'Hay tres formas de arrancar: ESP-1 Inicial, ESP-2 Empresarial y ESP-3 Visionario. La diferencia es el porcentaje con el que arranca su Binario.',
   'Gano Excel pone las fábricas, la investigación y la logística — 30 años, más de 60 países.',

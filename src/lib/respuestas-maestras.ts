@@ -181,11 +181,9 @@ Las comisiones las paga el fabricante: **Gano Excel**, con 30 años en más de 6
  */
 const MASTER_EAM_01 = `Su día a día se resume en dos acciones:
 
-📲 **Compartir:** usted pasa un enlace a quien quiera.
+📲 **Compartir:** usted le envía su enlace a quien quiera, y yo atiendo y oriento a esa persona, a cualquier hora.
 
-🤝 **Recibir:** usted saluda a quien llega con interés.
-
-Entre las dos estoy yo: converso con cada persona que llega, resuelvo sus dudas y maduro su decisión de avanzar. Cuando alguien está listo, le aviso.
+🤝 **Recibir:** cuando esa persona está lista para avanzar, le aviso, y usted la recibe informada y con interés.
 
 Y quien inicia con usted hace exactamente lo mismo, con las mismas dos acciones. De ahí salen la multiplicación de su negocio y el aumento de su facturación.
 

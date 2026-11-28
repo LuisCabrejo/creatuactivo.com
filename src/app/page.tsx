@@ -633,7 +633,7 @@ export default function HomePage() {
             >
               {/* En el orden en que pasan las cosas: usted comparte, Queswa atiende, el
                   cliente vuelve, Gano Excel paga. El porcentaje, en la forma de WHY_02. */}
-              Usted comparte un enlace, y Queswa, nuestra asistente, atiende a quien llega.
+              Usted comparte un enlace, y Queswa, nuestro asistente, atiende a quien llega.
               Cada vez que ese cliente vuelve a comprar, a usted le queda un porcentaje. Gano
               Excel fabrica, despacha y paga.
             </p>
@@ -807,16 +807,16 @@ export default function HomePage() {
         <Body>
           Vender hamburguesas lo puede hacer cualquiera; ser dueño de un McDonald's, casi
           nadie. Distribuir productos que las personas vuelven a pedir siempre ha sido buen
-          negocio, y lo difícil nunca fue abrirlo: fue multiplicarlo. Lo que lo hacía
+          negocio, y lo difícil nunca fue abrirlo: fue sostenerlo. Lo que lo hacía
           complicado era atender a cada interesado, uno por uno — y nadie tiene la vida
           para eso.
         </Body>
         {/* La segunda línea de la Presentación, 5.0 (Director, 26 nov 2026): «se apoya en
             tres que ya existen». El sistema que cabe en su celular ya lo dijo el H1. */}
-        {/* EL ENTREGABLE SON TRES ELEMENTOS, dichos como FUNCIONES (Director, 9 oct
-            2026 — reemplaza la forma del 27 sep): fabricante · Queswa · saber qué
-            hacer. La aplicación subió de rango: es el ENVASE de los tres («en una
-            sola aplicación», la línea de WHY_02), no un elemento. Los tres responden
+        {/* EL ENTREGABLE SON TRES ELEMENTOS, dichos como FUNCIONES (Director, 27 nov
+            2026, los del video «Cómo funciona» v8): un fabricante · un asistente en
+            línea · saber qué hacer. La aplicación es el ENVASE de los tres, no un
+            elemento. Los tres responden
             qué RECIBE la persona; qué HACE sigue siendo Compartir · Recibir, en su
             propia sección más abajo. Arranque calcado de WHY_02 (v6.82, 29 oct 2026: el obstáculo con precio).
             → docs/investigaciones/resultados/ENCUADRE_CLIMAX_TRES_ELEMENTOS_OCT2026.md */}
@@ -850,41 +850,40 @@ export default function HomePage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Bot} tone="data" />
               <div>
-                {/* «Una máquina de ventas» (Director, 18 oct 2026): el mismo nombre del
-                    segundo elemento en WHY_02 v6.76, la Presentación y el video. El
-                    sello conserva a Queswa en línea: es quien atiende. */}
+                {/* «Un asistente en línea», en masculino (Director, 27 nov 2026), como
+                    en el video v8. Enseña el modelo y explica los productos: no se
+                    escribe como el lugar donde se compra. El sello es Queswa en línea. */}
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Una máquina de ventas
+                  Un asistente en línea
                 </p>
                 <QueswaOnline label="Queswa · en línea" compacto />
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
-              Usted envía a quien quiera. Quien llega conoce los productos y los compra, o ve
-              cómo participar; Queswa atiende a cada uno y madura su decisión, a toda hora.
+              Usted envía a quien quiera. Queswa atiende y orienta a cada interesado a toda
+              hora: le explica los productos, le muestra cómo funciona el negocio y madura su
+              decisión.
             </p>
           </div>
 
-          {/* El tercer elemento: UNA HERRAMIENTA PARA MULTIPLICAR (Director, 18 oct
-              2026 — antes «saber qué hacer», y antes «su aplicación personalizada»).
-              Fabricar · vender · multiplicar; «saber qué hacer» queda como el
-              mecanismo («le marca la ruta»). «Herramienta» y no «aplicación»: la
-              aplicación es el envase de los tres. ⚠️ Waze va en MECANISMO, nunca en
-              resultado: «le marca la ruta» ✅ · «lo lleva a donde quiere estar» ⛔
+          {/* El tercer elemento: SABER QUÉ HACER (Director, 27 nov 2026, como en el
+              video v8). «Herramienta» y no «aplicación»: la aplicación es el envase de
+              los tres. ⚠️ Waze va en MECANISMO, nunca en
+              resultado: «le marca el siguiente paso» ✅ · «lo lleva a donde quiere estar» ⛔
               (voz de coach). ⛔ Sin dinero junto a «quien inicie con usted». */}
           <div style={cardStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.9rem' }}>
               <IconTile icon={Route} />
               <div>
                 <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem' }}>
-                  Una herramienta para multiplicar
+                  Saber qué hacer
                 </p>
-                <p style={etiquetaMono}>Le marca la ruta</p>
+                <p style={etiquetaMono}>El siguiente paso</p>
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '0.98rem', lineHeight: 1.7, color: 'var(--color-text-body)' }}>
-              Acompaña a cada distribuidor de su sistema, a usted y a quien inicie con
-              usted, y como en Waze le va marcando la ruta, paso a paso.
+              Su herramienta le marca cada día el siguiente paso, como en Waze: a usted y
+              a quien inicie con usted.
             </p>
           </div>
         </div>
@@ -1081,7 +1080,7 @@ export default function HomePage() {
             }}
           >
             Y ya está. Eso es todo el negocio: un producto que las personas vuelven a
-            pedir, una máquina de ventas que atiende por usted, y cada cliente a su nombre.
+            pedir, un asistente que atiende por usted, y cada cliente a su nombre.
           </p>
 
           <H2 center>Al final, el activo es suyo.</H2>

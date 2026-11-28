@@ -347,6 +347,32 @@
       "desde": "2026-08-29",
       "nota": "Director, 29 ago 2026: anunciar la honestidad propia pone al que habla como el honesto y al otro como el que no lo es. En una instrucción al modelo, nombrarla la dicta.",
       "excepciones": []
+    },
+    {
+      "id": "maquina-de-ventas",
+      "regex": "\\bm[aá]quinas? (\\w+ ){0,2}de ventas?\\b",
+      "vigente": "un asistente en línea: Queswa atiende y orienta a cada interesado, le explica los productos y cómo funciona el negocio",
+      "desde": "2026-11-27",
+      "nota": "Director, 27 nov 2026 (video «Cómo funciona» v8, WHY_02 v6.96): «ventas» activa el miedo a vender, choca con «resuelve dudas sin presión» y nombra el resultado, no la cosa. El asistente no se escribe como el lugar donde se compra. La puerta `puerta-maquina-ventas.ts` se queda para quien oyó el nombre viejo (sus llaves son código, no copy).",
+      "excepciones": []
+    },
+    {
+      "id": "herramienta-para-multiplicar",
+      "regex": "\\bherramientas? para multiplicar\\b",
+      "vigente": "saber qué hacer: cada día, el siguiente paso, como en Waze",
+      "desde": "2026-11-27",
+      "nota": "Director, 27 nov 2026 (video «Cómo funciona» v8): en Colombia «multiplicar» suena a «multiplicar su dinero». «Herramienta», nunca «aplicación»: la aplicación es el envase de los tres elementos.",
+      "excepciones": []
+    },
+    {
+      "id": "asistente-femenino",
+      "regex": "\\b(nuestra|una|la|su) asistente\\b",
+      "vigente": "Queswa, nuestro asistente · un asistente en línea (en masculino)",
+      "desde": "2026-11-27",
+      "nota": "Director, 27 nov 2026: «asistente», en masculino, como en el video v8 y la Home («Queswa, nuestro asistente»).",
+      "excepciones": [
+        "asistente de (Malasia|ventas de)"
+      ]
     }
   ],
   "$comment_activo": "Desde el 1-2 nov 2026 (Director) «activo» ENCABEZA (Home, WHY_01/02, Presentación, reto) y «empresa de distribución moderna» lo concreta; ver «encabeza». Siguen las condiciones: nunca suelto (definido en la misma frase o detrás de su causa), nunca adjetivo de una persona, y «presencia» en vez de «estar encima». Historia, 12 sep 2026: «Activo» NO es un cuarto sinónimo del sistema: es lo que el sistema produce («su sistema de distribución le permite construir un activo que produce sin que usted tenga que estar encima»). Va siempre pegado a su causa (sus clientes siguen pidiendo) y nunca como adjetivo de una persona (en esta industria «activo» = al día con la compra mensual; del código sí: «su código está activo»).",

@@ -4,8 +4,8 @@
  * La explicación en texto de /servilleta (8 oct 2026, Director). Reescrita el
  * 10 oct 2026 para la presentación ÚNICA (la columna de /presentacion, mudada
  * aquí): de «las cuatro pantallas» a lo que cuentan las diez, con el encuadre de
- * los tres elementos de WHY_02 (desde v6.76, 18 oct 2026: fabricante · máquina de
- * ventas · herramienta para multiplicar, en una sola aplicación).
+ * los tres elementos de WHY_02 (desde el 27 nov 2026: un fabricante · un asistente en
+ * línea · saber qué hacer, en una sola aplicación).
  *
  * POR QUÉ EXISTE. Hasta este día Google sabía de qué trataba /servilleta solo por
  * sus metadatos: el cuerpo tenía unas 260 palabras, no decía «servilleta» ni una
@@ -49,9 +49,9 @@ import type { PaisServilleta } from '@/lib/servilleta-pais';
 
 // Se cambia SOLO cuando la página cambia de verdad. Poner la fecha al día sin
 // cambios reales es, para Google, una señal de contenido hecho para buscadores.
-const ACTUALIZADA = { iso: '2026-11-01', texto: 'noviembre de 2026' };
+const ACTUALIZADA = { iso: '2026-11-27', texto: 'noviembre de 2026' };
 /** La versión de Estados Unidos (/servilleta/estados-unidos) se publicó el 26 nov 2026. */
-const ACTUALIZADA_US = { iso: '2026-11-26', texto: 'noviembre de 2026' };
+const ACTUALIZADA_US = { iso: '2026-11-27', texto: 'noviembre de 2026' };
 
 const FORMAS_DE_EMPEZAR = [
   { nombre: 'ESP-3 Visionario', detalle: '35 productos · Binario 17 % por 6 meses · Bono GEN5 activo' },
@@ -210,21 +210,21 @@ export default function GuiaPlanServilleta({ pais = 'CO' }: { pais?: PaisServill
             casa del cliente.
           </li>
           <li>
-            {/* El mismo nombre que la diapositiva (18 oct 2026): quien vio el deck y
-                lee aquí encuentra los tres elementos con los mismos nombres. */}
-            <strong>Una máquina de ventas:</strong> usted envía a quien quiera; quien llega
-            conoce los productos y los compra, o ve cómo participar. Queswa, la inteligencia artificial de
-            CreaTuActivo, atiende a cada uno, le resuelve las dudas y madura su decisión de avanzar,
-            a toda hora.
+            {/* El mismo nombre que la diapositiva (18 oct 2026; nombres del 27 nov 2026):
+                quien vio el deck y lee aquí encuentra los tres elementos con los mismos
+                nombres. El asistente enseña el modelo y explica los productos. */}
+            <strong>Un asistente en línea:</strong> usted envía su enlace a quien quiera, y Queswa, la
+            inteligencia artificial de CreaTuActivo, atiende y orienta a esa persona a toda hora: le
+            explica los productos y cómo funciona el modelo, resuelve sus dudas y madura su decisión de
+            avanzar.
           </li>
           <li>
-            <strong>Una herramienta para multiplicar:</strong> Queswa acompaña a cada distribuidor
-            de su sistema, a usted y a quien inicie con usted, y como en Waze le va marcando la
-            ruta, paso a paso.
+            <strong>Saber qué hacer:</strong> cada día, Queswa le marca el siguiente paso a usted y a
+            quien inicie con usted, con una ruta idéntica para todos.
           </li>
         </ul>
         <p>
-          Los tres llegan armados en una sola aplicación, Queswa.app. Y cada cliente que llega a su
+          Las tres llegan armadas en una sola aplicación, Queswa.app. Y cada cliente que llega a su
           empresa queda a su nombre. Cada vez que vuelve a comprar, a usted le queda un porcentaje.
           Eso es un activo: sigue produciendo aunque usted no esté presente.
         </p>

@@ -209,17 +209,19 @@ const BEAT_DEL_ENLACE: Record<number, number> = { 8: 1 };
  *  complejo da cortisol; lo sencillo, la sensación de «yo puedo».
  *  Los NOMBRES son el canon de todas partes (WHY_02, el video, Queswa). Los subtítulos
  *  los eligió el Director entre dos ejercicios de primeros principios (Musk y Vélez):
- *  cortos, que pinten y le den al socio de qué hablar. ⚠️ «Máquina de ventas» va aquí
- *  sin su mecanismo en la misma frase, por decisión del Director para esta tarjeta: el
- *  mecanismo lo dice la diapositiva siguiente (usted envía, Queswa conversa, usted
- *  recibe). Fuera de la presentación la regla sigue igual. */
+ *  cortos, que pinten y le den al socio de qué hablar.
+ *  27 nov 2026 (Director): «una máquina de ventas» y «una herramienta para multiplicar»
+ *  pasan a «un asistente en línea» y «saber qué hacer», como en el video «Cómo funciona»
+ *  v8. El asistente enseña el modelo y explica los productos: no se escribe como «ahí
+ *  compra». El mecanismo lo dice la diapositiva siguiente (usted envía, Queswa conversa,
+ *  usted recibe). */
 const ELEMENTOS: { label: string; sub: string; icono: 'fabrica' | 'conversa' | 'celular'; boton?: 'queswa' | 'app' }[] = [
   { label: 'Un fabricante', sub: 'Respaldo operativo directo al cliente y al distribuidor.', icono: 'fabrica' },
-  // El FRENTE de la máquina: lo que ve quien usted envía (el chat se abre en la misma
+  // El asistente: lo que ve quien usted envía (el chat se abre en la misma
   // página, así que en Meet sí se ve).
-  { label: 'Una máquina de ventas', sub: 'Atención empática a toda hora.', icono: 'conversa', boton: 'queswa' },
+  { label: 'Un asistente en línea', sub: 'Atiende y orienta a cada interesado a toda hora.', icono: 'conversa', boton: 'queswa' },
   // queswa.app por dentro, en una ventana del tamaño de un celular (en el teléfono, pestaña nueva).
-  { label: 'Una herramienta para multiplicar', sub: 'Ruta diaria idéntica para todos.', icono: 'celular', boton: 'app' },
+  { label: 'Saber qué hacer', sub: 'Ruta diaria idéntica para todos.', icono: 'celular', boton: 'app' },
 ];
 
 /** Las dos acciones (Director, 7 nov 2026; título y textos suyos, tomados del ejercicio

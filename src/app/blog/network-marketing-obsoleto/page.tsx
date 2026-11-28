@@ -95,7 +95,7 @@ export default function NetworkMarketingObsoletoPage() {
               <div className="prose prose-invert max-w-none">
                 <section className="mb-12">
                   <h2 className="text-2xl font-serif mb-4 text-[#E5E5E5]">
-                    Lo que la gente recuerda
+                    Lo que las personas recuerdan
                   </h2>
                   <p className="text-[#A3A3A3] leading-relaxed mb-4">
                     Cuando alguien oye &quot;network marketing&quot;, casi siempre piensa en

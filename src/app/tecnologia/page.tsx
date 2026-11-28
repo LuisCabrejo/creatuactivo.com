@@ -266,7 +266,7 @@ export default function TecnologiaPage() {
               el modo socio del canal (Queswa reconoce al distribuidor por su teléfono
               y le cambia el trato), la redacción de mensajes para una persona
               (wa-redaccion-socio), el plan completo con los ciclos calculados, y el
-              Centro de Mando con Maestría y la evidencia de cada ingrediente
+              Centro de Mando con Multiplicación y la evidencia de cada ingrediente
               (arsenal_ciencia_socio, tenant dashboard). */}
           <section className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
@@ -315,7 +315,7 @@ export default function TecnologiaPage() {
                   <h3 className="text-lg font-semibold mb-2">Su espacio en queswa.app</h3>
                   <p className="text-sm text-[#A3A3A3]">
                     En queswa.app vive su lista con su pipeline en tiempo real, la formación
-                    de Maestría — liderazgo, comunicación y producto — y la evidencia
+                    de Multiplicación — liderazgo, comunicación y producto — y la evidencia
                     científica de cada ingrediente, con lo que sí puede decirle a su cliente.
                   </p>
                 </div>

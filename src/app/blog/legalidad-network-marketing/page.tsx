@@ -213,7 +213,7 @@ export default function LegalidadNetworkMarketingPage() {
                     <div className="p-4 rounded-xl bg-[#16181D] border border-[#C5A059]/20">
                       <div className="flex items-start gap-3">
                         <span className="text-[#C5A059]">✓</span>
-                        <p className="text-[#E5E5E5]">Productos que la gente compra por lo que son.</p>
+                        <p className="text-[#E5E5E5]">Productos que las personas compran por lo que son.</p>
                       </div>
                     </div>
 

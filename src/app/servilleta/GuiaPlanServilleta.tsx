@@ -224,7 +224,7 @@ export default function GuiaPlanServilleta({ pais = 'CO' }: { pais?: PaisServill
           </li>
         </ul>
         <p>
-          Las tres llegan armadas en una sola aplicación, Queswa.app. Y cada cliente que llega a su
+          Los tres llegan armados en una sola aplicación, Queswa.app. Y cada cliente que llega a su
           empresa queda a su nombre. Cada vez que vuelve a comprar, a usted le queda un porcentaje.
           Eso es un activo: sigue produciendo aunque usted no esté presente.
         </p>

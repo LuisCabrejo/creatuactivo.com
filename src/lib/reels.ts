@@ -52,7 +52,10 @@ export const PLAN_SERVILLETA_POSTER = '/videos/plan-servilleta/poster.webp'
 // qué hacer. Sale Uber; entra «Eso es un activo: sigue produciendo aunque usted no esté presente.».
 // Imagen dibujada, como «Cómo entra el dinero» v3. 66,6 s. La v7 queda sin uso.
 // Receta: captions/work/como-funciona/v8/ (voz.py → armar.py).
-export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v8.mp4'
+// v9 (27 nov 2026, Director): la voz abre «Así funciona CreaTuActivo.com: se trata de ser dueño…» (los
+// reels se comparten como historias: el arranque dice de qué trata) y el rótulo de marca «CREATUACTIVO.COM ·
+// CÓMO FUNCIONA» los primeros 3,8 s, como los reels del reto. 71,2 s. La v8 queda sin uso.
+export const VIDEO_COMO_FUNCIONA_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-funciona-v9.mp4'
 
 // «Plan servilleta»: la presentación de /servilleta entera en voz (30 oct 2026,
 // Director; 3:03, 720×1280, 7,4 MB). Las nueve pantallas del deck capturadas en
@@ -158,7 +161,9 @@ export const VIDEO_DOCE_NIVELES_US_WA = 'https://tydh3stq7cgynabr.public.blob.ve
 // del reto y de la Presentación v19 (el producto con tres fotos reales, las dos formas de venta,
 // el ciclo que deja un % por compra, el calendario de los viernes y los dos carriles producto/plata).
 // La -v2 queda sin uso. Receta: captions/work/como-entra-el-dinero/opcion-2/armar_opcion2.py.
-export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v3.mp4'
+// v4 (27 nov 2026, Director): la v3 con el rótulo de marca de los reels del reto en los primeros 3,8 s
+// («CREATUACTIVO.COM / CÓMO ENTRA EL DINERO»): se comparte como historia. La v3 queda sin uso.
+export const VIDEO_COMO_ENTRA_EL_DINERO_WA = 'https://tydh3stq7cgynabr.public.blob.vercel-storage.com/queswa/como-entra-el-dinero-v4.mp4'
 
 // «Qué debo hacer yo» para el canal (42 s, 720×1280, 6,4 MB; 28 sep 2026). La voz es
 // EAM_01 palabra por palabra, sin los emojis ni la pregunta de cierre, que va como
